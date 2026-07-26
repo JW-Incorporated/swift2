@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 69
+
+## ‘I am in tears’: How Taylor Swift and Travis Kelce’s $2 million wedding donation impacts grieving fa
+
+- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: ‘I am in tears’: How Taylor Swift and Travis Kelce’s $2 million wedding donation impacts grieving families  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTE9SajNxa3V0YUxqYy16Y3RnaU9EN3pZNjlBcFdaM0E1UFR0REVJeXB5aXVVaWVudWw0cDlVRVRRLTl5NjZCRHU3MHYxd2VVZTNWQ0ZKN1lhZjRFSEw4TWxYYUlKRy1pbThnZDB1RXRlTUtGNkV3WlJqenNR?oc=5
+
+## Taylor Swift and Travis Kelce Get Sweet Notes From Fallen 1st Responder Families After $2M Donation 
+
+- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce Get Sweet Notes From Fallen 1st Responder Families After $2M Donation  Us Weekly
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOQ0tvSlUydmJwQjQ1T3U1ay1WZHJuWlMtTU1YSEVQd3pkdHRJLWVkXzJlSUNLcWs1UTJYWHluV0FCcG9QZmExUUtuUEpGcHFDbTZiRnlZcjFwVy1NSFFUcl95ZUpDRzR5M2pEcVNJOHdvUzlGQVpjRUtFT2hIeEZGc2hlMHJOMThycTNDbFJFZ216Z2tBQkQ1UldPVV9aQ2Zia2lBRG9FbDVuUzg?oc=5
+
+## Taylor Swift Secretly Changed Some of Her Songs & Fans Are Convinced This Album Is Next - SheKnows
+
+- first seen: 2026-07-26 22:09 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Secretly Changed Some of Her Songs & Fans Are Convinced This Album Is Next  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiowFBVV95cUxQVzl0djFnLThIY2NMWHBWWmZIT1BwNlRGRjc2LTZYMmQ2dnJVczVOTFRZZFBWbVpnYW9sZU1ETTFoOU9XWkZ0RVlwbXNMLUdXRmkxaEQzNFJBRmFCWGtkVjdxNTlLQ3VWNlUxNUl1WWdETTJqNThqY1NzV1VVTDNnSTRKdEFoUVFyMU9wTnlTLTVjU1dUcExMVDAzRGFUbWNpQU1J?oc=5
+
+## 3 Years Ago Today, Travis Kelce's 'New Heights' Podcast Sparked His Love Story With Taylor Swift - p
+
+- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 3 Years Ago Today, Travis Kelce's 'New Heights' Podcast Sparked His Love Story With Taylor Swift  parade.com
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxPaXNkc1hRZXNRUlFtUEJndEgtMjc2NUFoSHVkTDlyZEVXekRaVFNqVmIzRzl2dGJzb0ZxZGdoLWF0T2o3c19ZdFd1cXJXY2JaUTFxbi1McFd2MWtNMVlvRXY5aG1MMUZjaWFudmM3TVo1Njk5NnlyVzJ6Z2pmN2JuSUJQVWtzVXZuWl94eHo2dFM1NnJDcGFIU3A2VHFJS0dtaWR1a3N6UUhMdm5XcWZ0WDdwTmJKZw?oc=5
+
+## Kylie Kelce Knew Taylor Swift and Travis Kelce Were Dating Before Everyone Sle, and She Never Told a
+
+- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Knew Taylor Swift and Travis Kelce Were Dating Before Everyone Sle, and She Never Told a Soul  Thought Catalog
+- sources:
+  - [unverified] Thought Catalog — https://news.google.com/rss/articles/CBMi6wFBVV95cUxNZ3dkTTNuMGhsVTFObllSTzhTWFNLd0tHRENyOXlqMWwxMzNPMkpNN2YwdEowVmNxSnRneFBQcUxFNkw5cHFKajh5dy15cVdWWk9wV0piNkwwSUtvcWhGaGNTVE1tajkzdGR3WVpQa3B1SkV1ejl1bFRwLXJzTG9rWEoxcTZhZEZEdFZfaFdIVVJ5V2d3YlB3c294S1JobHZxUjNjbVF4XzFmTkhUdkk3YV85aWJPRjl3VVdpUnplZWN0eDR4SnlVZ19KNEVUNGJldjVsQmEySDhPbm50N2VucV9WWWpldGRkdTJB?oc=5
 
 ## WHAT HAPPENED BETWEEN TAYLOR SWIFT AND KELEIGH TELLER?: Everything we've ever heard in one place - d
 
@@ -545,70 +585,3 @@ Stories: 72
 - summary: Here’s How Kylie Kelce Describes Taylor Swift & Travis Kelce’s Wedding  Billboard
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirAFBVV95cUxQNTdQN1BldG52WFBWejlvX004N0twTlo1ZVpWTkpGWW1RQmV0TGwtcER3aktPYjhzSUxtYmRWcmUyNGp0WHJ2SEl2aGhHSjdKTzBqVWR1alNNdXlZQlF3aXhWd1lkdENJaXJ1WmNZZmx4RHBKbHZTeE0xdWVlT1hGUzVqbWFINFJ5RE8yb1d2RjZBOGJNajJmcEpldUFla2F0aHN3czh2RzlPcnJV?oc=5
-
-## Taylor Swift 2027 Eras Tour Calendar Tops Amazon Bestseller List - Kiss 95.1 Charlotte
-
-- first seen: 2026-07-23 18:21 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift 2027 Eras Tour Calendar Tops Amazon Bestseller List  Kiss 95.1 Charlotte
-- sources:
-  - [unverified] Kiss 95.1 Charlotte — https://news.google.com/rss/articles/CBMinAFBVV95cUxNSzVuRUNrLW5MRDFSR29Oam84bnZ2ZGhZbXFlR2FmSk1tZFlUR0NNbVdGMUNRaTZMbzRDNjFZYW9PU1FGcjRVUk5Wd0Y1dHZVU2ZKRWlMRENxbnhnS3BQYXVzU2ViMndIVXBEQnJqQjFGd19sejk5ZEliUWZGN2dENTRuLURURGx4cVFUb0lWRkVTUWhfWXN0NU90X1A?oc=5
-
-## Future Passes Taylor Swift And Drake With A New No. 1 Album - Forbes
-
-- first seen: 2026-07-23 18:21 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Future Passes Taylor Swift And Drake With A New No. 1 Album  Forbes
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMisgFBVV95cUxQYTJBMDVFYl9ET0dieXFWTm5NLTdaSDdFOEFIVmFPMkdnenZ6VVVlWFZNV2stX3FCaUdhV2xCLTlzN184ZElkXzhYYUVuZ0hpV0RMS3hmNmZXRFFaMHBGQUJiQWxWei03TlBYN2MxelZmSzhZbEdONGdaamMtMEY4REFaSXREUWZzUlpYSmFEWkxKeFFTdU1fVE5OYUFfc2prOGdfOFI0TGphZUZqSHk3LUJB?oc=5
-
-## Inside Taylor Swift and Travis Kelce's '30 minute vows' and ‘massive castle' reception - NBC New Yor
-
-- first seen: 2026-07-23 18:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Inside Taylor Swift and Travis Kelce's '30 minute vows' and ‘massive castle' reception  NBC New York
-- sources:
-  - [unverified] NBC New York — https://news.google.com/rss/articles/CBMi3gFBVV95cUxPYlNpX3FiT2I2YWtLdEdSNEhpZFpZR0k3ai1wWFJqRl9vSGdyTmUwSk0zX0JaVFZGdDR2UTZIQTY4cmg0Vl9vdWFQU21EclJ1N2N0R05hNnlwdlVuYVFyQTJoakRMbklOSmxnS2FYejJjbEVBdi1JWllvWjl6bVE2MWo5N2thRWVtT3lheVNOODJ3RGNBdFV2OW0zelhIcVN3TnlVLVBlZTFGb2xBaHZkTXhOMWkxVDgtZEFSWmlQamF3THc3cm5TUE5COHRhTUNyYk5VQmdhRVdYajBDbWfSAeYBQVVfeXFMT1RweS1KSjRHSi1KNVd1TVpmMUQ5Nks2eE5YRE9XVE1qcGJHVWZFZTFFZFhrTjV1Zjk4ZUV5ZkNWVzl0OTFqWnFFUFU0UDd3dG9UNlJ1Vjhxc2h0QmtFdDVucXAtVmFIZDM2eDh2eUZnYVJlM3F0bkZTVFFuRmJYZ2Jnd3hTbHpsUUZSQXlWcXY1NDhPT1pkOTdPdUR2SXlOdU92QWh6akFsZlBvd29IaDFRb2VDZHU3WklSb0VXVWZCV1ozbWRTZUFOVENlWnh2b3dic3J1UkZ4d2hGdXdPNWFYNmVWd1E?oc=5
-
-## Kylie Kelce Shares First Reaction After Attending Taylor Swift & Travis Kelce’s Wedding - Just Jared
-
-- first seen: 2026-07-23 18:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Shares First Reaction After Attending Taylor Swift & Travis Kelce’s Wedding  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMivwFBVV95cUxNZ2NRbG4yZlBQYXd3bVVtN0FkWXJGaWR0Nm5ta2FWTkZRUkU2ZUFSNXZBNlZWR1h5dklHaVMtTDhnT2o3NG1qSTBMdUhZMVFMZFdOT2tGeUpQaWNkWEtnLUN3cE96T25lOG15azNFaTB6R3hfM21FT3I0SDJMRm93MmRmbTNtU0laUi1NWXZTS0ZtQWFjVDZnemYzdUZNajBFY1g2U0E1UkVPSG80c1h5WlN4c1ZRSW1WTjI0bGZGdw?oc=5
-
-## Travis Kelce’s Wedding Band Photos Finally Released as Fans Get 1st Look at His Matching Band with T
-
-- first seen: 2026-07-23 18:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce’s Wedding Band Photos Finally Released as Fans Get 1st Look at His Matching Band with Taylor Swift  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQTGtyMnZULXhJbHB2WURaQlRJVHI2cFlyMXJwMEhUMjk2N0NqRHE4Q0x6NTFmRVlBMFcwLU14STdtUGZxRmZVZW1yVy01TEtYR3NrbnFKTFpyRHFadGk0S0dEUTRUcHRFUTFfOXNNWG5JaUlRblhabXJlMUgyZi1HakxfNFRfNjR4ZEJ6RklBNzJHVDJBdUNJRnN6UnNndks2YWx6eA?oc=5
-
-## Jason Kelce Gets Real About How Life Changed When Taylor Swift Joined the Family - Harper's BAZAAR
-
-- first seen: 2026-07-23 18:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce Gets Real About How Life Changed When Taylor Swift Joined the Family  Harper's BAZAAR
-- sources:
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQWDNKdmpWazRRZ3ZkUXlUc1dELVRPMTNHVEp5bWVkNTJfZzJMNUNWZ1hKQVMxM015U054d2hBUVpXdW40TDY4LS15cThQMm1BTkEyMXNBXy1Odm5sOEhpMGtrOWhYR1phMDFDY20xcG9wMXQ4VjN4TFA5eTRQd09Nd0h1TTVReG53SnZydDJ5cEtXN0M2UmhQRF9jSU1KQlhJUkw3anN5eEptYkV0STk5RmEwS2dYa0diMVdkWm43Z2k?oc=5
-
-## “I Would Pass Out”: Megan Moroney on a Potential Taylor Swift Country Collaboration - Holler Country
-
-- first seen: 2026-07-23 18:21 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: “I Would Pass Out”: Megan Moroney on a Potential Taylor Swift Country Collaboration  Holler Country Music
-- sources:
-  - [unverified] Holler Country Music — https://news.google.com/rss/articles/CBMiowFBVV95cUxOUHZiODlnVzI4X09XTHpEbEZEZjdMWldrcHVkNkN4aElGZk44QW5JVVFoVVdCa0NnNWJHemYxRFRYdWNabnhaRHNiNDBjN1pLRWRKN3pFWmhjQjF6Ry1VV3hRYl9lLUVHMWpzN2ZmajZpbWpNcUIzWE02RUpHMjZnRWNOenpwcnlpOHdxM1VjZUxiNjJra05ZbktaalNrRS1aQ3Nz?oc=5
-
-## Taylor Swift, Travis Kelce give $2M to families of fallen NYC first responders - FireRescue1
-
-- first seen: 2026-07-23 18:21 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift, Travis Kelce give $2M to families of fallen NYC first responders  FireRescue1
-- sources:
-  - [unverified] FireRescue1 — https://news.google.com/rss/articles/CBMitwFBVV95cUxONmkteVVZaW1kVl9JVlZPdXlSZktrbUQ1Ym1RLXh6ajE4alVzM1ZjSDAxZ0Y2VlZiTW5HUFNSMWhxb1I3VG1sMGd3UEhZclpuSEUtVkE1V3laT3lELXFIS192bnRJVHZYZHlja2tOaER2U1pLakwtV1l1by1BU2dNa3I1TkVtUTlYbF9rSFA0VC00aDhQRFRDQWVoZkczcXNLZFNEQlQ5MnVOc2FsLXlLalNxR192MVk?oc=5
-  - [unverified] EMS1 — https://news.google.com/rss/articles/CBMirgFBVV95cUxPdmx4Tm9IekJERE9ybG0tQkJkazFJRUZrdmYwVGFGbFphWFQzRjNOSDhnb05KMnRXQ3NoM051dWdJanB2MC1ISkJTbnFla3NiS1p0aGdYclI4Y3hOX0hrY0lDU3JWQ25XNGtyeXc5LURnZEp1Mzh3a0h3WDFrQzZ4MzVPS3MteXNzT3J2MmZXdk9OM19QWUxmMlRHTUJINDRRSVVIT1JZQlZ6VUxzNlE?oc=5
-  - [unverified] Police1 — https://news.google.com/rss/articles/CBMitAFBVV95cUxObFcwZDNwVHRJSUQ2N09oY0xqRFZSS1VuWUozMjlBaG5XSkdlZkwwWUM0c084TEJWUTVkdkRwaGQwZW5uT3kzWmhndXhSRlBSYmF3RlYxWFZnZ2VjMl9HTzBkWFczQzU1bmlFT1VnbmpmQm5sUTJrX28wTVRvZ0U0NjYxeWh2OHZFQlFxLUdfZ2VsdDQtTnp3NEp4X3VPMUM5NjRPY3lnNnkxWGZFVzNmTmpZVWI?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNMWFJTi1TY3dzWGlGcXppeFJNVzJ0U2pBY2hYTXJURHc5eHJuR1VwVFBNUndkUU1Rd3B1WTVpS3VYYVpCVWFJS3JyU3dpZzJaS3FtSTNDX2tvdzBGRkFfUmlIb0g4R1FTd2lxMDhSVFIwWXljY2VpdDJYMEljWnQ2Y1hqemZmNTFRSXZnSEpJbkQyc3I5WEJDMUg2blNDQU0?oc=5
