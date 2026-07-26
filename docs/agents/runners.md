@@ -83,6 +83,42 @@ miss is a real liability — revisit if one ever ships.
 | Karen — nightly scan | Opus → **Sonnet 5**; run-discipline block | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | 8 × `send_later` PR loops | **disabled** | (one-time triggers) |
 
+### Remaining model downgrades — IDs captured, not yet applied
+
+Apply with the **get → modify → put the WHOLE `job_config`** pattern below.
+
+| Runner | Trigger ID | Target |
+|---|---|---|
+| Audio Curator | `trig_01M99m27mCwrHJfMTdoZ1ff5` | Sonnet 5 |
+| Mood Chat builder | `trig_0138LvXKY7a9VoSbbBqh8UBS` | Sonnet 5 |
+| Laura — a11y walk | `trig_01HkvbC8jCcpc3nGDZyjJwZH` | Sonnet 5 |
+| News Triage | `trig_01QGC2xXbyemwjoV2GoSdwi9` | Haiku 4.5 |
+| Kevin S2 (cloud) | `trig_0131Rueny6ZucFAPpU44UaBC` | Sonnet 5 |
+| Kevin S3 triage (cloud) | `trig_01C4DJqgPj8Cz2ofYD2d3Tvn` | Sonnet 5 |
+| Kevin S3 radar (cloud) | *(not captured)* | Haiku 4.5 — its own prompt already argues for this |
+
+Disabled duplicates (kept as warm spares, delete once the `(cloud)` set is
+proven): `trig_01ETb8v3ZeratggYxH7xbW9V` (S1), `trig_01HRYXMVGvqdGYXW5QAi3dqt`
+(S2), `trig_018iLV6surRu1gAzMeSkc7vE` (S3 triage), `trig_01897hGrq93UFSggSyhsitLX`
+(S3 radar).
+
+### ⚠️ RemoteTrigger API footgun — read before editing any trigger
+
+**`job_config` updates are a FULL REPLACEMENT, not a merge.** Sending
+`{"job_config":{"ccr":{"environment_id":"...","session_context":{"model":"..."}}}}`
+to change only the model **silently destroys the trigger's `events` (its entire
+prompt) and its `sources` (the git repo binding)** — the API returns HTTP 200.
+This happened to the Cross-Link builder during this audit and was restored only
+because its config had been fetched moments earlier.
+
+**Always: `get` the trigger, modify the returned `job_config`, and PUT the whole
+thing back.** Never send a partial `job_config`.
+
+Two smaller gotchas: `environment_id` is required on every `job_config` update
+(a 400 otherwise), and setting `mcp_connections: []` is silently ignored — the
+`Claude_Code_Remote` meta connector (the thing that can arm `send_later`)
+survives. Remove it from the routines UI if prompt text ever proves insufficient.
+
 ### Still to do
 
 - Delete the duplicate Kevin set and consolidate the survivors S1+S2+S3 into ONE
