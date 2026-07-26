@@ -2161,6 +2161,9 @@ export default {
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
         'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
+        // Diss-lineage thread (ledger #1530): her signature "answer-record"
+        // predecessor, itself the anchor of the reputation feud-song thread.
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       year: 2025,
       month: 10,
