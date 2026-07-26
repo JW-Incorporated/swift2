@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Will Travis Kelce’s marriage to Taylor Swift ruin his career? The bold prediction that has sparked f
+
+- first seen: 2026-07-26 10:50 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Will Travis Kelce’s marriage to Taylor Swift ruin his career? The bold prediction that has sparked fans’ fury  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMigAJBVV95cUxOZXh2ZExVU2Q1NEZqYV9hOVdmcnpudlVXcS04dEZqS0tHeHFjZ0ZfNTFJVUppZHdZd0xmcU9kX05fVV9EekRmeUxIWVYyVkhsaUNfZkdoYkJDMFlUSldzeDhvbGNHUGJScjZ2ZHgzMHJPb2FWRjVINVc5OExiVUZpRnhuR2toSUFZbDdOU1l0dVZVMW1HT3dNQ3B0YnpiNXQ1Wm0xTTh5b2luY2RTZDhyZVRqc3pwcFlkNXBkMllfc3RILXVGbzVqU1Ffa1RQRktBTGo1MWJIalhNaUpFMmNNNkVETDhHYjExaEFrQ3ViR2puU3NfUTNSV0JqQWZKd1o00gGAAkFVX3lxTE8xU3htbHB2eXJ0SU42aTVSdkFmb3ZUVUZGOVM4OHJQZ3ZjNlNQMUxrSFlqZnhBWlp1bDJJMGw3UnBPV0N2cVlSYWYtQ2ZxQnFWVGItNG9fblAySTNiN29HVXpsVW9vMHc5RW1QN2lkbkpUNDV6R1dOb09Qa3RqbFlwS0ZLUmxHdEZMVmRmVldWTFZPLWxQZHlNUHJSZ0Qzb3VMYmNUcGVuMzRCdHlEMkp4SkMwcllFUEtGTW52ZC1wTm1wWHRoUlc2N2VsaGJYZFZZV0t0TDJ0MjhSM0tORkJzUGNVN2g2YnZTbngzRC0xMVdfMFZ6WkRZS01fOVM4R1k?oc=5
 
 ## Taylor Swift revealed the awkward moment the Kelce brothers met the royal family at her concert - Ya
 
