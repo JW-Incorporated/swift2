@@ -1315,6 +1315,9 @@ export default {
           'moment:vault-ttpd-show-100-at-anfield-and-the-news-the-tour-will-end',
         'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
+        // Reverse link (ledger #1526): the finale footage IS this concert film;
+        // the film already lists this moment, so close the loop back to it.
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
       ],
       title: 'The Eras Tour takes its final bow in Vancouver',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -1326,7 +1329,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-vancouver-fearless-dec-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'The Dec. 6–8 farewell stand at BC Place drew roughly 60,000 fans a night, with all three shows professionally filmed for a then-unannounced project.\n\nThe final surprise-song slot went out swinging — "Long Live" and a "New Year\'s Day"/"The Manuscript" mashup to close — after "The Tortured Poets Department" itself surfaced on night two and her parents watched a "Never Grow Up"/"The Best Day" pairing on night one. Three days later she posted 17 photos from the finale with a caption borrowed from "All Too Well": "It was rare. I was there. I remember it."',
+          'The Dec. 6–8 farewell stand at BC Place drew roughly 60,000 fans a night. On the final evening, Dec. 8, 2024, Swift closed the show — and the tour — telling the crowd she wanted "to thank every single one of you for being a part of the most thrilling chapter of my entire life to date."\n\nBy the numbers it was the largest concert tour ever staged: 149 shows across 21 months, five continents and 51 cities, drawing 10,168,008 fans and grossing $2,077,618,725 — the first tour in history to cross $2 billion, and by a wide margin the highest-grossing of all time.\n\nEach of the three Vancouver nights carried its own surprise-song pairing. Night one (Dec. 6) mashed "Haunted" into "Wonderland" on guitar and "Never Grow Up" into "The Best Day" — for her parents — at the piano; night two (Dec. 7) brought opener Gracie Abrams out for an "I Love You, I\'m Sorry"/"Last Kiss" guitar duet, then "The Tortured Poets Department" into "Maroon." For the last surprise slot of the entire tour she played "A Place in This World," from her 2006 debut, into "New Romantics" on guitar, then sat at the piano for "Long Live" — altering the lyric to "It was the end of an era, but the start of an age" — flowing into "New Year\'s Day" and "The Manuscript."\n\nAll three shows were professionally filmed. A year later the footage became two Disney+ releases on Dec. 12, 2025: "The End of an Era," a six-episode documentary on the tour\'s inner workings, and "Taylor Swift | The Eras Tour | The Final Show," a concert film of this Vancouver closer carrying "The Tortured Poets Department" set for the first time. Three days after the finale Swift had posted 17 photos with a caption borrowed from "All Too Well": "It was rare. I was there. I remember it."',
         sources: [
           {
             outlet: 'NBC News',
@@ -1335,6 +1338,18 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-eras-tour-ends-message-photos-1235853564/',
+          },
+          {
+            outlet: 'Time',
+            url: 'https://time.com/7199590/taylor-swift-eras-tour-final-numbers/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-surprise-song-performances-the-eras-tour-vancouver-1235197102/',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-eras-tour-documentary-last-show-disney-1236547665/',
           },
         ],
         photos: [
