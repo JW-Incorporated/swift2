@@ -61,6 +61,29 @@ written down; ask instead.
    not a framework). Prefer deterministic code over an LLM for any mechanical,
    repeatable job.
 
+## Never babysit your own PR
+
+**Open the PR and stop.** Do not arm a `send_later`, a self-check-in, a
+Monitor, or any "come back and look at this again" wake-up, and do not
+subscribe to PR activity to wake on it. This applies to every session in this
+repo — scheduled runners, Joey's sessions, Wyatt's sessions, Codex.
+
+**Why:** an audit on 2026-07-25 found these self-armed loops were **~69% of all
+scheduled agent token spend** — ~144 cloud sessions/day whose entire output was
+"still open, still green, re-arm in 1h". PR #1527 ran one hourly from 18:11Z;
+#1528 for 8+ hours. Nothing in any prompt asked for it; the agents armed it
+themselves. See `docs/decisions.md` (2026-07-25) and `docs/agents/runners.md`.
+
+**You don't need it.** `build` gates every merge, `auto-merge-content.yml`
+lands content-only PRs the moment they go green, and `watchdog.yml` alerts if a
+runner goes dark. If a PR fails CI or hits a conflict, the next scheduled run of
+that agent picks it up. If something genuinely needs a human, say so once in the
+PR body or one comment, then exit — never poll for the answer.
+
+This matters doubly on Joey's account: every scheduled runner is deliberately on
+Wyatt's account (`docs/agents/runners.md`) so Joey's weekly limit stays free. A
+monitor armed from a Joey session spends exactly the tokens that split protects.
+
 ## Definition of done
 
 A feature is done only when ALL of these are true:
