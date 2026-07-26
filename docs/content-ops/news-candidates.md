@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
 
 ## Taylor Swift revealed the awkward moment the Kelce brothers met the royal family at her concert - Ya
 
@@ -697,11 +697,3 @@ Stories: 83
 - summary: Shania Twain Visits THE TONIGHT SHOW to Discuss Harry Styles, Taylor Swift & New Album  BroadwayWorld
 - sources:
   - [unverified] BroadwayWorld — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQeXJMVENLQk5udHR2YVBfc0JMSVdUZFE0a3hPbW5sendtVHh1NDVYLVNCU3RBd0V0Qm56UV9wRzQ2aWJMeGhxenF4UWMxX1BzUjV4UUVuZ3lkbkFlQTBybGdKSG01TUJWVWgtcmFkQzM3YURxTXg0U1IyZlZfUGVzM09LRmtlUF83NS1JNVhJWU9QbXEwbF9pVmFLSHkxaVg0UTZNdEVhVmczNFF3dDhFdDA4cTlxTG12Z1BwUVJPS3U4RnI5SVdPV08ybWI4SGpFbVE?oc=5
-
-## Taylor Swift's husband leaves fans saying the same thing over leaked retirement plans - Yahoo Sports
-
-- first seen: 2026-07-23 07:43 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's husband leaves fans saying the same thing over leaked retirement plans  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxPaUxjTDRwalFvSS1CTXNudVZ5M3hxaVhFck1vRUVZYmdrMTd3eUFfQUJ6NllUT01IWk5OYTVjODB0VllGdVBfLUdPcFpXNVU2MlpOQWZna1JZYkxSYVFlRU9XTGprQWxLZHZrNDh6Y1JWdEhIMFRfUDhtbjlXaDh5NmhuQ3FlclNYeUE?oc=5
