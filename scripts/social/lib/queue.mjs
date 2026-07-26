@@ -7,15 +7,20 @@
 export const MAX_POSTS_PER_RUN = 5;
 export const MAX_POSTS_PER_PLATFORM_PER_DAY = 10;
 
-/** True if the queue item has a founder approval recorded and is due. */
+/** True if the queue item is due to post.
+ *
+ * Per-item founder approval was REMOVED 2026-07-25 (Wyatt, CTO) — see
+ * docs/decisions.md. The desk now queues and the poster ships on schedule.
+ * `approvedBy`/`approvedAt` remain optional provenance fields (who/when, when
+ * a human did weigh in) but are no longer a gate. What still constrains
+ * posting: the SOCIAL_FREEZE crisis stop, and the caps above. */
 export function isDue(item, now) {
-  if (!item.approvedBy || !item.approvedAt) return false;
   return new Date(item.scheduledAt).getTime() <= now.getTime();
 }
 
 /**
- * Selects which due, approved queue items to post this run, respecting the
- * per-run cap and each platform's remaining daily budget. `postedToday` is a
+ * Selects which due queue items to post this run, respecting the per-run cap
+ * and each platform's remaining daily budget. `postedToday` is a
  * Map<platform, count> of items already posted today (from social/posted/).
  */
 export function selectDuePosts(items, now, postedToday) {
@@ -44,9 +49,12 @@ export function utcDateOnly(isoOrDate) {
  * wait on your OK in Slack #social" while the queue was empty. No LLM
  * curation pass should ever describe queue contents from what the charter
  * says *should* happen; this is the deterministic fact to copy instead.
+ *
+ * Since approval stopped gating posting (2026-07-25), the useful split is
+ * scheduled-vs-pending, not approved-vs-not. `awaitingApproval` is retained
+ * as an always-0 alias so an un-updated brief prompt can't crash.
  */
-export function summarizeQueueStatus(items) {
-  const awaitingApproval = items.filter((item) => !item.approvedBy || !item.approvedAt).length;
-  const approved = items.length - awaitingApproval;
-  return { total: items.length, awaitingApproval, approved };
+export function summarizeQueueStatus(items, now = new Date()) {
+  const scheduled = items.filter((item) => new Date(item.scheduledAt).getTime() > now.getTime()).length;
+  return { total: items.length, scheduled, due: items.length - scheduled, awaitingApproval: 0 };
 }

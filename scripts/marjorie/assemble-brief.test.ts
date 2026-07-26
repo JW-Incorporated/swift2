@@ -23,7 +23,7 @@ const formBody = [
   'T2 — banked for the daily brief (default)',
 ].join('\n');
 
-const emptyQueueStatus = { total: 0, awaitingApproval: 0, approved: 0 };
+const emptyQueueStatus = { total: 0, scheduled: 0, due: 0, awaitingApproval: 0 };
 const emptyState = { decisions: [], intake: [], alerts: [], openPRs: [], mergedPRs: [], growth: null, queueStatus: emptyQueueStatus };
 
 describe('extractOptions', () => {
@@ -93,9 +93,9 @@ describe('formatGrowthLine', () => {
     expect(line).toBe('- Growth: IG ? · X 340 (+5) · FB 89 · 1 post today · queue: empty (nothing drafted) · site: pending #799');
   });
 
-  it('reports awaiting-approval and approved counts separately — the ground truth a curation pass must copy, not invent', () => {
-    const line = formatGrowthLine(null, { total: 3, awaitingApproval: 2, approved: 1 });
-    expect(line).toContain('queue: 2 awaiting your OK, 1 approved & scheduled');
+  it('reports scheduled and due counts separately — the ground truth a curation pass must copy, not invent', () => {
+    const line = formatGrowthLine(null, { total: 3, scheduled: 2, due: 1, awaitingApproval: 0 });
+    expect(line).toContain('queue: 2 scheduled to post, 1 due now');
   });
 });
 
@@ -139,11 +139,11 @@ describe('fetchQueueStatus', () => {
     expect(fetchQueueStatus(path.join(tmpdir(), 'nonexistent-queue-dir'))).toEqual(emptyQueueStatus);
   });
 
-  it('reads real queue files off disk and counts approval status', () => {
+  it('reads real queue files off disk and splits scheduled from due', () => {
     dir = mkdtempSync(path.join(tmpdir(), 'social-queue-'));
-    writeFileSync(path.join(dir, 'a.json'), JSON.stringify({ platform: 'x', approvedBy: 'joey', approvedAt: '2026-07-17T00:00:00Z' }));
-    writeFileSync(path.join(dir, 'b.json'), JSON.stringify({ platform: 'instagram' }));
-    expect(fetchQueueStatus(dir)).toEqual({ total: 2, awaitingApproval: 1, approved: 1 });
+    writeFileSync(path.join(dir, 'a.json'), JSON.stringify({ platform: 'x', scheduledAt: '2099-01-01T00:00:00Z' }));
+    writeFileSync(path.join(dir, 'b.json'), JSON.stringify({ platform: 'instagram', scheduledAt: '2020-01-01T00:00:00Z' }));
+    expect(fetchQueueStatus(dir)).toEqual({ total: 2, scheduled: 1, due: 1, awaitingApproval: 0 });
   });
 });
 
@@ -214,9 +214,9 @@ describe('buildBrief', () => {
 
   it('reports real queue counts instead of leaving them to be invented', () => {
     const brief = buildBrief(
-      { ...emptyState, queueStatus: { total: 2, awaitingApproval: 2, approved: 0 } },
+      { ...emptyState, queueStatus: { total: 2, scheduled: 2, due: 0, awaitingApproval: 0 } },
       { date: '2026-07-12', now: NOW },
     );
-    expect(brief).toContain('queue: 2 awaiting your OK');
+    expect(brief).toContain('queue: 2 scheduled to post');
   });
 });

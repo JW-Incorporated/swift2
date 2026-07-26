@@ -13,25 +13,136 @@ its owner; the prompt each runner executes is versioned in
 `runner-prompts/` — **the repo file is the source of truth**, and a trigger
 whose inline prompt drifts from its file is a bug.
 
-## Sustainment-mode cadences (2026-07-25, Wyatt — "sustainment, not new-website-building")
+## Token-burn audit + cost mode (2026-07-25, Wyatt — supersedes the sustainment table below)
 
-Focus shifted to **new-content intake + robust ingestion**; existing-content review/enrichment throttled to weekly. These live overrides (applied via the RemoteTrigger API) WIN over the original bootstrap crons in the table below.
+An audit of the LIVE routine list (not this doc) found **97 routines** where
+this registry described ~15, and **~208 cloud sessions/day**:
 
-| Runner | New cadence | Trigger ID | Change |
-|---|---|---|---|
-| Karen — nightly scan | **weekly** `0 9 * * 0` (Sun) | `trig_014HWuRmT2MFveDkPGwVDiQX` | nightly → weekly |
-| Kevin — S1 Karen solver | **weekly** `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` | daily → weekly (tracks Karen) |
-| Nils — daily walk | **weekly** `0 14 * * 0` | `trig_013xb8Stm7m2sB6dqGePKRtr` | daily → weekly |
-| Stylist | **weekly** `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` | daily → weekly |
-| Rumor Desk | **every other day** `47 14 */2 * *` | `trig_01QqbHr7dyttr7qijGKmCn7n` | daily → every-other-day (lifecycle stays timely) |
-| Lex — depth curiosity | **PAUSED** (`enabled:false`) | `trig_01PwaYZ4wK2tuZ1s8m2UTYvy` | paused so the Answerer drains its backlog without new ledgers piling on — also stops the `crosslink-candidate` issue spam (Lex was the source) |
-| Marjorie — 8 PM delta | **DISABLED** | `trig_01G4GsUsphyz9LycqKjDEdi4` | dropped; the 6 AM brief stands alone |
+| Category | Runs/day | Share |
+|---|---:|---:|
+| `send_later` PR self-check-ins | ~144 | **~69%** |
+| Swift2 scheduled runners | ~45 | ~22% |
+| Foray routines (same account, left as-is by Wyatt) | ~19 | ~9% |
 
-**Unchanged** (intake / backlog / cheap-ops): Content Shift (2×/day), the Answerer (every 2h — backlog exception), Kevin S2 + S3×2, Austin, Paul Blart (already weekly), **Growth (Wyatt: leave as-is)**, Marjorie 6 AM brief.
+**The finding: ~7 in 10 cloud sessions were agents re-reading their own
+unchanged PRs.** Eight concurrent hourly loops, one per open PR; PR #1527 ran
+one from 18:11Z hourly, #1528 for 8+ hours, each a full cold-boot session whose
+entire output was "still open, still green, re-arm in 1h". **Nothing in any
+prompt file asked for this** — the agents self-armed it via the
+`Claude_Code_Remote` meta MCP connector. The root cause was *merge latency*, not
+missing monitoring: every open PR was green and clean, waiting on a human.
 
-**Not yet reached:** Laura (a11y) + Photo Enrichment are also due for weekly, but their trigger IDs sit beyond the RemoteTrigger list's 20-item cap (cursor paging is broken through the tool). Photo Enrichment can stay daily meanwhile to finish draining the legacy pictureless backlog (like the Answerer). Grab both IDs from the claude.ai routines UI to finish.
+Fixes applied (see `docs/decisions.md` 2026-07-25 and PR #1539):
 
-**Remaining scope changes (prompt-file PRs, not yet done):** kill self-check-in spawning (Content Shift / Answerer runs still spawn hourly `send_later` monitors), re-point Lex to Mode 2, lean Karen scan (drop the depth/crosslink checkers), narrow Photo Enrichment, register News Triage into this registry, add the `content.under-sourced` checker + weekly source-enrichment pass.
+1. All 8 live check-in loops disabled; every prompt file and the inline trigger
+   prompts for the Answerer and Content Shift now carry a **Run discipline**
+   block — do the work, open the PR, exit.
+2. `.github/workflows/auto-merge-content.yml` lands content-only PRs on green.
+3. Social posts ship without per-item approval (`isDue` no longer checks
+   `approvedBy`/`approvedAt`).
+
+### Drift this audit exposed — treat the LIVE list as truth, not this file
+
+- **A duplicate Kevin fleet.** Two full sets exist: the em-dash originals and a
+  `(cloud)` set from the 2026-07-12 migration that was never deleted. ~8 runs/day
+  where 4 were intended. Worse, **the sustainment throttle hit the wrong copy** —
+  S1 was throttled to weekly on the `(cloud)` one while `Kevin — S1 Karen solver`
+  kept running daily.
+- **Lex was never actually paused.** This file said `enabled:false`; shards 1–19
+  were paused but `Lex depth (sole instance)` was live every 2h — 12 runs/day
+  this registry believed were zero. Now genuinely disabled
+  (`trig_016VTco4fpekZbfs5kB8rNAz`).
+- **Nine runners are unregistered here**: Answerer, Lex, Rumor Desk, Stylist,
+  Cross-Link builder, Audio Curator, Mood Chat builder, Photo Enrichment worker,
+  News Triage. Their prompts live ONLY inline in the trigger — there is no
+  prompt file, so the "repo file is the source of truth" rule silently does not
+  apply to them. That is the gap that let all of the above drift.
+- **Every runner was on `claude-opus-4-8`**, including pure script-and-summarize
+  jobs. This file's "Model: Fable" column was stale everywhere.
+
+### Model tiering (2026-07-25)
+
+| Tier | Runners | Rationale |
+|---|---|---|
+| **Haiku 4.5** | Kevin comment radar, News Triage | Cheap poll / bucketing; the radar is already a lazy `gh` poll |
+| **Sonnet 5** | Karen ✅, Stylist, Photo Enrichment, Audio Curator, Cross-Link, Mood Chat, Laura, Kevin S2/S3 | Deterministic script + summarize, or mechanical field-filling |
+| **Opus** | Content Shift, Answerer, Rumor Desk, Nils, Marjorie brief, Austin, Paul Blart, Growth | Genuine authoring, adjudication, or security judgment |
+
+Deliberately NOT adopted: a "Sonnet drafts, Opus reviews" two-pass on the content
+lane. It doubles session count to guard a failure mode `validate:content` already
+catches. The one place it would earn its cost is Rumor Desk, where a privacy-redline
+miss is a real liability — revisit if one ever ships.
+
+### Applied so far
+
+| Runner | Change | Trigger ID |
+|---|---|---|
+| Answerer (sole instance) | every 2h → **once daily** `50 13 * * *`; run-discipline block added | `trig_01TCMZrg6SXe9Gt1CURY9yyU` |
+| Lex depth (sole instance) | **disabled** (was live despite this file saying otherwise) | `trig_016VTco4fpekZbfs5kB8rNAz` |
+| Content Shift | run-discipline + auto-merge awareness; stop labelling `needs-human-review` for an unreachable Codex | `trig_01REc9iWzjGmKnoocxCACUV1` |
+| Karen — nightly scan | Opus → **Sonnet 5**; run-discipline block | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| 8 × `send_later` PR loops | **disabled** | (one-time triggers) |
+
+### Remaining model downgrades — IDs captured, not yet applied
+
+Apply with the **get → modify → put the WHOLE `job_config`** pattern below.
+
+| Runner | Trigger ID | Target |
+|---|---|---|
+| Audio Curator | `trig_01M99m27mCwrHJfMTdoZ1ff5` | Sonnet 5 |
+| Mood Chat builder | `trig_0138LvXKY7a9VoSbbBqh8UBS` | Sonnet 5 |
+| Laura — a11y walk | `trig_01HkvbC8jCcpc3nGDZyjJwZH` | Sonnet 5 |
+| News Triage | `trig_01QGC2xXbyemwjoV2GoSdwi9` | Haiku 4.5 |
+| Kevin S2 (cloud) | `trig_0131Rueny6ZucFAPpU44UaBC` | Sonnet 5 |
+| Kevin S3 triage (cloud) | `trig_01C4DJqgPj8Cz2ofYD2d3Tvn` | Sonnet 5 |
+| Kevin S3 radar (cloud) | *(not captured)* | Haiku 4.5 — its own prompt already argues for this |
+
+Disabled duplicates (kept as warm spares, delete once the `(cloud)` set is
+proven): `trig_01ETb8v3ZeratggYxH7xbW9V` (S1), `trig_01HRYXMVGvqdGYXW5QAi3dqt`
+(S2), `trig_018iLV6surRu1gAzMeSkc7vE` (S3 triage), `trig_01897hGrq93UFSggSyhsitLX`
+(S3 radar).
+
+### ⚠️ RemoteTrigger API footgun — read before editing any trigger
+
+**`job_config` updates are a FULL REPLACEMENT, not a merge.** Sending
+`{"job_config":{"ccr":{"environment_id":"...","session_context":{"model":"..."}}}}`
+to change only the model **silently destroys the trigger's `events` (its entire
+prompt) and its `sources` (the git repo binding)** — the API returns HTTP 200.
+This happened to the Cross-Link builder during this audit and was restored only
+because its config had been fetched moments earlier.
+
+**Always: `get` the trigger, modify the returned `job_config`, and PUT the whole
+thing back.** Never send a partial `job_config`.
+
+Two smaller gotchas: `environment_id` is required on every `job_config` update
+(a 400 otherwise), and setting `mcp_connections: []` is silently ignored — the
+`Claude_Code_Remote` meta connector (the thing that can arm `send_later`)
+survives. Remove it from the routines UI if prompt text ever proves insufficient.
+
+### Still to do
+
+- Delete the duplicate Kevin set and consolidate the survivors S1+S2+S3 into ONE
+  daily session (one clone, one charter read); radar separately on Haiku.
+- Consolidate Cross-Link / Audio Curator / Mood Chat / Photo Enrichment into one
+  "Vault Filler" on Sonnet with a rotating target — four cold boots for four
+  variants of "fill a missing field".
+- Apply the remaining model downgrades in the table above.
+- Register the nine unregistered runners here, each with a prompt FILE.
+- **Note:** clearing `mcp_connections` via the RemoteTrigger API is silently
+  ignored — the meta connector survives an update that sets it to `[]`. Prompt
+  text is currently the only lever against self-armed check-ins; if they recur,
+  remove the connector from the routines UI instead.
+
+### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
+
+| Runner | Cadence | Trigger ID |
+|---|---|---|
+| Karen — nightly scan | weekly `0 9 * * 0` (Sun) | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
+| Nils — daily walk | weekly `0 14 * * 0` | `trig_013xb8Stm7m2sB6dqGePKRtr` |
+| Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
+| Rumor Desk | every other day `47 14 */2 * *` | `trig_01QqbHr7dyttr7qijGKmCn7n` |
+| Marjorie — 8 PM delta | DISABLED | `trig_01G4GsUsphyz9LycqKjDEdi4` |
 
 ## The split
 

@@ -11,7 +11,7 @@ Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `
 ```json
 {
   "platform": "x",
-  "body": "post text, exactly as approved",
+  "body": "post text, exactly as it will appear",
   "media": ["/social/launch-hero.jpg"],
   "scheduledAt": "2026-07-18T01:00:00Z",
   "approvedBy": "joey",
@@ -22,8 +22,8 @@ Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `
 
 - `platform`: `"x"` or `"instagram"`.
 - `media`: optional for X (not yet supported — omit it), required for Instagram, paths relative to `apps/web/public/social/` (that's where they must be committed — the poster fetches them from the live site, so **the media file's PR must be merged and deployed before `scheduledAt`**, or Instagram's fetch will 404).
-- `approvedBy` + `approvedAt`: only the desk sets these, only after a real founder approval (Slack, brief, or this chat) — never fabricated.
-- The poster ignores anything without both approval fields, no matter how it got into the folder.
+- `scheduledAt`: **this is what ships the post.** Since 2026-07-25 (see `docs/decisions.md`) there is no per-item approval gate — when this timestamp passes, the next poster run sends it, subject only to the caps and `SOCIAL_FREEZE`. Choose it deliberately and never backdate.
+- `approvedBy` + `approvedAt`: **optional provenance only** — a record of who signed off and when, for the cases where a human did. They no longer gate anything; the poster does not check them. (They were a hard gate until 2026-07-25.)
 
 ## The crisis stop
 

@@ -1,0 +1,101 @@
+# auto-merge-content — turns on GitHub's native auto-merge for bot PRs that
+# only touch CONTENT, so they land the moment `build` goes green instead of
+# waiting on a founder.
+#
+# Why this exists (2026-07-25, Wyatt — see docs/decisions.md): content PRs
+# used to sit open for hours awaiting a human merge, and the cloud agents
+# babysat them with hourly self-check-in sessions. Those check-ins were ~69%
+# of ALL scheduled agent token spend — roughly 144 cloud sessions a day whose
+# entire output was "still open, still green, re-arm in 1h". Auto-merge
+# deletes the thing they were waiting for, at zero token cost.
+#
+# The safety model is PATH-BASED, not branch-name-based. A bot can name its
+# branch anything; it cannot make app code look like a seed file. If a PR
+# touches even one file outside ALLOWED_PREFIXES, this job does nothing and
+# the PR waits for a human — that is the fail-safe direction.
+#
+# NOTE: this only ENABLES auto-merge. `protect-main` still requires the
+# `build` check to pass, so a red PR never merges. Two escape hatches: label
+# a PR `hold` (or `cie:escalate`) to stop it, or set the repo variable
+# CONTENT_AUTOMERGE_FREEZE to halt all of it instantly with no PR needed —
+# same pattern as SOCIAL_FREEZE.
+name: auto-merge-content
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, labeled, unlabeled, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: auto-merge-content-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  enable:
+    runs-on: ubuntu-latest
+    # NOTE: no `actions/checkout` anywhere in this job. `pull_request_target`
+    # runs with repo secrets against the BASE ref; checking out PR head code
+    # here would hand those secrets to whatever the PR contains. We only ever
+    # call `gh` against the API, which is the documented-safe usage.
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.base.ref == 'main'
+    steps:
+      - name: Decide and enable
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
+        run: |
+          set -euo pipefail
+
+          if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
+            echo "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge."
+            exit 0
+          fi
+
+          # Files a content run is allowed to touch. Anything else -> human.
+          ALLOWED_PREFIXES='
+          supabase/seed/
+          social/queue/
+          docs/audits/
+          apps/web/lib/longlive/content-vault.generated.ts
+          apps/web/lib/longlive/tracks.generated.ts
+          '
+
+          # Blocking labels: an explicit request for a human look.
+          labels=$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name')
+          for blocker in hold cie:escalate founder-decision; do
+            if grep -qx "$blocker" <<<"$labels"; then
+              echo "PR #$PR carries the '$blocker' label — leaving it for a human."
+              exit 0
+            fi
+          done
+
+          files=$(gh pr view "$PR" --repo "$REPO" --json files --jq '.files[].path')
+          if [ -z "$files" ]; then
+            echo "No files reported for PR #$PR — refusing to auto-merge."
+            exit 0
+          fi
+
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            ok=0
+            while IFS= read -r prefix; do
+              [ -z "$prefix" ] && continue
+              case "$f" in
+                "$prefix"*) ok=1; break ;;
+              esac
+            done <<<"$(echo "$ALLOWED_PREFIXES" | tr -d ' ')"
+            if [ "$ok" -eq 0 ]; then
+              echo "PR #$PR touches non-content path '$f' — leaving it for a human."
+              exit 0
+            fi
+          done <<<"$files"
+
+          echo "PR #$PR is content-only and unlabelled for hold — enabling auto-merge."
+          gh pr merge "$PR" --repo "$REPO" --squash --auto --delete-branch

@@ -14,3 +14,19 @@ Steps:
 5. Append a walk-log comment to the `Laura a11y log` issue (create it if missing, label a11y): pages walked, Lighthouse a11y scores, violations by severity, tickets filed, and the manual-pass backlog count.
 
 Hard limits (charter): read-only — never edit content/code/seeds; tickets and log comments only; never merge; never close tickets; never report "accessible" from an automated pass alone (always name the manual residual); never duplicate an open a11y ticket; max 5 tickets/run. Post a one-line summary.
+
+## Run discipline (added 2026-07-25 — token burn)
+
+**Do your work, open the PR, and EXIT.** Do not arm a self-check-in, a
+`send_later`, a Monitor, or any other "come back and look at this PR again"
+follow-up. Do not subscribe to PR activity and wake on it.
+
+Why: those self-armed check-ins were ~69% of all scheduled agent token spend
+(~144 cloud sessions/day whose entire output was "still open, still green,
+re-arm in 1h"). PR health is already covered without spending a token —
+`build` gates the merge, `auto-merge-content.yml` lands content PRs the moment
+they go green, and `watchdog.yml` alerts if a runner goes dark. If your PR
+fails CI or hits a conflict, the NEXT scheduled run of this runner picks it up.
+
+If something genuinely needs a human, say so once in the PR body or a single
+comment and exit. Never poll for the answer.
