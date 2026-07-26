@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 79
 
 ## Will Travis Kelce’s marriage to Taylor Swift ruin his career? The bold prediction that has sparked f
 
@@ -673,35 +673,3 @@ Stories: 83
   - [unverified] extratv.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNcGdUQkxZZC1JbjJWVldxa1I0bjNKbzJhc2VGZ0J3Tm9WQk5wSlhrMnp3NFNRZzB4ZWF4M2s2eldSbUhpU1pYVDRybzQ0dWM5WEZUWVc1elRKMG9jWHJCMDZielpqazdHTjJFV0M0QW5nMXAtcnIzekFDSWNNOGQ4S0J2elpwZ1AwMUphMGJhaF9haGMyX1NKMVE5Tk1WN0g5?oc=5
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxNOGVMcHdic0RIV0ZWczlsdW5sRHlVdW9UaHFlNnA0Z1BMSS1zdmgyMV95VTF2WG1TOXJ6QjhsaFlzdXJtZEVXQ2hZdXZWdnRaNFEwRE9YYUJvMW5zX0FEbVo2SmdoamVlUlZsam42ZUdLbXdBTGdWSlk1V0k2RERyelF1RXdSOEtBZkdJamJNQTdWOGFvbnJyWndqNUU3VFdTaGpEYkZpd04wWmgzZFYxWHFFVQ?oc=5
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOc25sbWVZcnFPd2Z5Qk5zbFFkb005UTM2MkhHZzkxcjFSc1ZONUw4MVloY0J6NzBZcGdsRTI0OTBpN1dKNVVDYlZPOTFuMDlEQWgxdUhEUkdxc19rOXNESHpNdS10aVpJaE9xbldsa3A0OUVWOU1fYlFDMVhiRnB0OW5GejlpcXBWMFRVUUcteE5WWHJsMktnLVRrSTZVbTRVcVE?oc=5
-
-## Blake Lively Isn’t Getting the Same VIP Treatment Without Taylor Swift — Source - Yahoo
-
-- first seen: 2026-07-23 11:19 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively Isn’t Getting the Same VIP Treatment Without Taylor Swift — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPTDQ1VHpsVE9WWGxCYnlXRGVhQWRXWDVQWjJMQVdaZ2tZaUtXUF8tS3NVaUlTTHdSNFpPZHp5LVhRRlp0SzlRZkljOUNCaXR5Rk5IUzUwTVg4N1NuS05DNElUYzFDVl9YWWpDYUd4aHlXbURFb1VVaHNRU3RWUXhuZ0U3bXNuUXp2T0xfcGdpNVVCT0NCRnhoVm4xYUM?oc=5
-
-## New AI Photo of Taylor Swift & Travis Kelce’s Honeymoon Has Everyone Saying the Same Thing - Yahoo
-
-- first seen: 2026-07-23 11:19 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: New AI Photo of Taylor Swift & Travis Kelce’s Honeymoon Has Everyone Saying the Same Thing  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOSFB3MHczb2I0YmZQVTBpRHpIRkdORjBhOXExVGdWM1pCV3EwZDhoT2pIN3FBUWM1dmxOSE5HU0F4OFExVW5ENVQ2ancwQjljdFhrVE1EWjZXcy1UQVVtaU1QWlJVX3BfQ2NHVHNJd3o4VjBROVRnU0hvWEgyT1V2ejl5eVc4YXVYZ0pibUZ6RS1GMTBxVHpWOEI2RHg0QVk?oc=5
-
-## ‘I Love Everything About Her’: Shania Twain Has Only Good Things to Say About Taylor Swift - Billboa
-
-- first seen: 2026-07-23 11:19 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: ‘I Love Everything About Her’: Shania Twain Has Only Good Things to Say About Taylor Swift  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxPZ2NiOTBOZlVEQ09FY2pneU1SVkVsRnRteXZTNlZnQzlpWmhxYktabEpuS0FVSnNMU21xQmJXUkgtclo1U0hYWWtJZG1CQ2VzQ1VaNHpiWHBoaWVRb19lUXZEUDNDTlE4MjBrS1Q4WHoySF85LVgzcGVFcjNVallEc1J3a1RQWmVPRjl5Q1RyMThCdU1VQ2ZQa0xGSFdHeUc5TXc?oc=5
-
-## Shania Twain Visits THE TONIGHT SHOW to Discuss Harry Styles, Taylor Swift & New Album - BroadwayWor
-
-- first seen: 2026-07-23 11:19 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Shania Twain Visits THE TONIGHT SHOW to Discuss Harry Styles, Taylor Swift & New Album  BroadwayWorld
-- sources:
-  - [unverified] BroadwayWorld — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQeXJMVENLQk5udHR2YVBfc0JMSVdUZFE0a3hPbW5sendtVHh1NDVYLVNCU3RBd0V0Qm56UV9wRzQ2aWJMeGhxenF4UWMxX1BzUjV4UUVuZ3lkbkFlQTBybGdKSG01TUJWVWgtcmFkQzM3YURxTXg0U1IyZlZfUGVzM09LRmtlUF83NS1JNVhJWU9QbXEwbF9pVmFLSHkxaVg0UTZNdEVhVmczNFF3dDhFdDA4cTlxTG12Z1BwUVJPS3U4RnI5SVdPV08ybWI4SGpFbVE?oc=5
