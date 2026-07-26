@@ -7,6 +7,59 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-25 — Cut agent token burn: auto-merge content, autopost social, no self-check-ins
+
+**Decision:** Three linked changes, all approved by Wyatt (CTO) after an audit
+of live cloud-routine spend:
+
+1. **Agents never babysit their own PRs.** No `send_later` / self-check-in /
+   Monitor re-arming. Every runner prompt now says: do the work, open the PR,
+   exit. `docs/agents/runner-prompts/*.md` all carry a "Run discipline" block.
+2. **Content PRs auto-merge on green.** New `.github/workflows/auto-merge-content.yml`
+   enables GitHub-native auto-merge for PRs whose changed files are confined to
+   `supabase/seed/`, `social/queue/`, `docs/audits/`, and the two generated vault
+   files. Path-based, not branch-name-based. Escape hatches: a `hold` /
+   `cie:escalate` / `founder-decision` label, or the `CONTENT_AUTOMERGE_FREEZE`
+   repo variable.
+3. **Social posts ship without per-item approval.** `isDue` in
+   `scripts/social/lib/queue.mjs` no longer requires `approvedBy`/`approvedAt`.
+   Growth charter rails 2 and 3 amended to match.
+
+**Why:** An audit of the routine list found ~208 cloud sessions/day, of which
+**~144 (≈69%) were agents re-reading their own unchanged PRs** — hourly loops
+whose entire output was "still open, still green, re-arm in 1h". PR #1527 ran
+that loop from 18:11Z hourly; #1528 for 8+ hours. Nothing in any prompt file
+asked for this; the agents self-armed it. The root cause was not monitoring —
+it was **merge latency**: all nine open PRs were green and clean, waiting on a
+human. Auto-merge removes the thing they were waiting for at zero token cost,
+and the discipline block stops the behaviour recurring. The social change is the
+same argument applied to the queue: drafts were sitting approved-but-unshipped
+for the same human-availability reason.
+
+**What we are accepting:** content and social copy now reach longlivets.com and
+the real @longlivetscom accounts with no human read. `build` (which runs
+`validate:content`) still gates every merge, `SOCIAL_FREEZE` and
+`CONTENT_AUTOMERGE_FREEZE` are instant no-PR kill switches, and the per-platform
+caps are unchanged. But the mechanical checks do not cover judgment — notably
+Rumor Desk's privacy redlines (security arrangements, health, minors), which are
+prose rules no CI job can enforce. Wyatt was shown this specific exposure and
+chose to include `content/rumor-desk-*` in auto-merge anyway. If a redline
+violation ships, the fix is to add a deterministic checker for it in
+`scripts/content-engine/`, not to restore a human gate that was not being
+exercised in time to help.
+
+**Alternatives considered:** (a) Keep human merge, just widen the check-in
+interval — rejected: still pays a cold-boot cloud session per poll to learn
+nothing, and leaves merge latency, the actual cause, in place. (b) Auto-merge by
+branch-name prefix — rejected: a bot can name a branch anything, so a code change
+on a `content/` branch would sail through; path allowlisting cannot be spoofed
+that way. (c) Exclude Rumor Desk from auto-merge — recommended by Claude,
+explicitly overruled by Wyatt.
+
+**Approved by:** Wyatt (CTO)
+
+---
+
 ## 2026-07-23 — Watchdog alerts weren't reaching anyone; Content Shift had no liveness check at all
 
 **Decision:** Joey asked how to close the gap between "agents are instructed

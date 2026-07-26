@@ -18,3 +18,19 @@ Step 3 — ONLY if NEW is non-empty, NOW load Kevin: read docs/kevin.md (Stream 
 Then append the handled comment IDs to the radar issue's `<!-- seen: ... -->` marker.
 
 Hard invariants (docs/kevin.md): never auto-code a Stream 3 ticket or PR; never merge; never push to main. Kevin surfaces; a human/in-session Claude builds. Post a one-line summary.
+
+## Run discipline (added 2026-07-25 — token burn)
+
+**Do your work, open the PR, and EXIT.** Do not arm a self-check-in, a
+`send_later`, a Monitor, or any other "come back and look at this PR again"
+follow-up. Do not subscribe to PR activity and wake on it.
+
+Why: those self-armed check-ins were ~69% of all scheduled agent token spend
+(~144 cloud sessions/day whose entire output was "still open, still green,
+re-arm in 1h"). PR health is already covered without spending a token —
+`build` gates the merge, `auto-merge-content.yml` lands content PRs the moment
+they go green, and `watchdog.yml` alerts if a runner goes dark. If your PR
+fails CI or hits a conflict, the NEXT scheduled run of this runner picks it up.
+
+If something genuinely needs a human, say so once in the PR body or a single
+comment and exit. Never poll for the answer.

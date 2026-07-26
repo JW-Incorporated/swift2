@@ -13,3 +13,19 @@ Steps:
 4. Image fixes are verify-first per .karenfix/IMAGE-FIX-PROTOCOL.md (HTTP 200 + Content-Type image/* AND download + vision-confirm) — a proposed image swap only goes in the digest if it verifies; never propose an unverified URL.
 
 Hard limits (docs/kevin.md): never merge; never push to main; never close a user ticket without a recorded human accept/reject decision; validate before every commit (`node scripts/validate-content.mjs` = 0 errors + `node --check` on edited files); never touch or run Karen's engine; keep the Karen stream and user stream on separate PRs. Post a one-line summary.
+
+## Run discipline (added 2026-07-25 — token burn)
+
+**Do your work, open the PR, and EXIT.** Do not arm a self-check-in, a
+`send_later`, a Monitor, or any other "come back and look at this PR again"
+follow-up. Do not subscribe to PR activity and wake on it.
+
+Why: those self-armed check-ins were ~69% of all scheduled agent token spend
+(~144 cloud sessions/day whose entire output was "still open, still green,
+re-arm in 1h"). PR health is already covered without spending a token —
+`build` gates the merge, `auto-merge-content.yml` lands content PRs the moment
+they go green, and `watchdog.yml` alerts if a runner goes dark. If your PR
+fails CI or hits a conflict, the NEXT scheduled run of this runner picks it up.
+
+If something genuinely needs a human, say so once in the PR body or a single
+comment and exit. Never poll for the answer.

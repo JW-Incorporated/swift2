@@ -12,3 +12,19 @@ Hard limits (charter): never merge, never push main, never deploy, never touch f
 AMENDMENT (2026-07-12, charter amendments): if both queues are empty, take the topmost launch-gate-labeled engineering item that fits your scope fence before exiting idle; treat claims older than 24h with no branch/PR activity as stale (unclaim with a note); reviews bound at two rounds then Marjorie's tiebreak.
 
 AMENDMENT (2026-07-15, autonomy expansion — decision log entry of that date): an item routed to you by Marjorie or present in Kevin's triage buckets counts as greenlit — never wait for a founder-granted build slot. Founder holds/comments still stop work on an item instantly; the scope fence and all other charter limits are unchanged.
+
+## Run discipline (added 2026-07-25 — token burn)
+
+**Do your work, open the PR, and EXIT.** Do not arm a self-check-in, a
+`send_later`, a Monitor, or any other "come back and look at this PR again"
+follow-up. Do not subscribe to PR activity and wake on it.
+
+Why: those self-armed check-ins were ~69% of all scheduled agent token spend
+(~144 cloud sessions/day whose entire output was "still open, still green,
+re-arm in 1h"). PR health is already covered without spending a token —
+`build` gates the merge, `auto-merge-content.yml` lands content PRs the moment
+they go green, and `watchdog.yml` alerts if a runner goes dark. If your PR
+fails CI or hits a conflict, the NEXT scheduled run of this runner picks it up.
+
+If something genuinely needs a human, say so once in the PR body or a single
+comment and exit. Never poll for the answer.

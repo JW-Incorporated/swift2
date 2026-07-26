@@ -17,3 +17,19 @@ Steps:
 Hard limits (charter): seed/content files only — never app code/scripts/workflows; no fabrication ever; never merge; never close tickets; one checkout; max 2 items/run.
 
 AMENDMENT (2026-07-12, charter amendments): stale-claim expiry 24h as per charter; an all-queues-empty exit while gates DEPTH/WORTHY are red is itself a finding — comment it on the Nils walk log (#502); reviews bound at two rounds then Marjorie's tiebreak.
+
+## Run discipline (added 2026-07-25 — token burn)
+
+**Do your work, open the PR, and EXIT.** Do not arm a self-check-in, a
+`send_later`, a Monitor, or any other "come back and look at this PR again"
+follow-up. Do not subscribe to PR activity and wake on it.
+
+Why: those self-armed check-ins were ~69% of all scheduled agent token spend
+(~144 cloud sessions/day whose entire output was "still open, still green,
+re-arm in 1h"). PR health is already covered without spending a token —
+`build` gates the merge, `auto-merge-content.yml` lands content PRs the moment
+they go green, and `watchdog.yml` alerts if a runner goes dark. If your PR
+fails CI or hits a conflict, the NEXT scheduled run of this runner picks it up.
+
+If something genuinely needs a human, say so once in the PR body or a single
+comment and exit. Never poll for the answer.

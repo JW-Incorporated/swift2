@@ -15,24 +15,24 @@ function item(overrides = {}) {
 }
 
 describe('isDue', () => {
-  it('is false without an approval', () => {
-    expect(isDue(item({ approvedBy: undefined }), now)).toBe(false);
-    expect(isDue(item({ approvedAt: undefined }), now)).toBe(false);
+  // Approval stopped gating posting 2026-07-25 (see docs/decisions.md).
+  it('does not require an approval', () => {
+    expect(isDue(item({ approvedBy: undefined, approvedAt: undefined }), now)).toBe(true);
   });
 
   it('is false when scheduled in the future', () => {
     expect(isDue(item({ scheduledAt: '2026-07-18T00:00:00Z' }), now)).toBe(false);
   });
 
-  it('is true when approved and due', () => {
+  it('is true when due', () => {
     expect(isDue(item(), now)).toBe(true);
   });
 });
 
 describe('selectDuePosts', () => {
-  it('excludes unapproved and not-yet-due items', () => {
+  it('excludes not-yet-due items but keeps unapproved ones', () => {
     const items = [item({ approvedBy: undefined }), item({ scheduledAt: '2099-01-01T00:00:00Z' }), item()];
-    expect(selectDuePosts(items, now, new Map())).toHaveLength(1);
+    expect(selectDuePosts(items, now, new Map())).toHaveLength(2);
   });
 
   it('orders by scheduledAt ascending', () => {
@@ -64,11 +64,11 @@ describe('utcDateOnly', () => {
 
 describe('summarizeQueueStatus', () => {
   it('is all zeros for an empty queue', () => {
-    expect(summarizeQueueStatus([])).toEqual({ total: 0, awaitingApproval: 0, approved: 0 });
+    expect(summarizeQueueStatus([], now)).toEqual({ total: 0, scheduled: 0, due: 0, awaitingApproval: 0 });
   });
 
-  it('splits awaiting-approval from already-approved', () => {
-    const items = [item(), item({ approvedBy: undefined, approvedAt: undefined }), item()];
-    expect(summarizeQueueStatus(items)).toEqual({ total: 3, awaitingApproval: 1, approved: 2 });
+  it('splits still-scheduled from due, regardless of approval', () => {
+    const items = [item(), item({ approvedBy: undefined, approvedAt: undefined }), item({ scheduledAt: '2099-01-01T00:00:00Z' })];
+    expect(summarizeQueueStatus(items, now)).toEqual({ total: 3, scheduled: 1, due: 2, awaitingApproval: 0 });
   });
 });
