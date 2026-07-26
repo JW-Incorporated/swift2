@@ -1,12 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { getEra } from '@/lib/longlive/eras';
 import { RELATIONSHIPS, SINGLE_PERIODS } from '@/lib/longlive/lenses';
-import { durationLabel, mergedTimeline, monthsBetween, type LoveStoryEntry } from '@/lib/longlive/love-story';
+import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, type LoveStoryEntry } from '@/lib/longlive/love-story';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { EntryDetail } from './EntryDetail';
+
+/** WCAG 2.5.8 minimum target size (CSS px) for the desktop band's hit areas (#658). */
+const MIN_HIT_PX = 24;
 
 const TIMELINE_START = new Date('2006-01-01').getTime();
 const TIMELINE_END = new Date('2026-12-31').getTime();
@@ -48,6 +51,32 @@ export function LoveStoryThread() {
   // Let the mobile back-swipe gesture close an expanded entry instead of
   // leaving the app — same pattern as the app's other overlays.
   useBackDismiss(Boolean(activeId), () => setActiveId(null));
+
+  // Hit ranges need the band's pixel width to express 24px in %; the
+  // fallback only matters before first measure / while display:none on mobile.
+  const bandRef = useRef<HTMLDivElement | null>(null);
+  const [bandWidth, setBandWidth] = useState(1024);
+  useEffect(() => {
+    const el = bandRef.current;
+    if (!el) return;
+    const measure = () => {
+      if (el.clientWidth > 0) setBandWidth(el.clientWidth);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const positioned = timeline.map((entry) => {
+    const startPct = pct(toMs(entry.start));
+    const endPct = pct(toMs(entry.end ?? new Date().toISOString()));
+    return { entry, startPct, widthPct: Math.max(endPct - startPct, 0.6) };
+  });
+  const hitRanges = allocateHitRanges(
+    positioned.map((p) => ({ start: p.startPct, end: p.startPct + p.widthPct })),
+    (MIN_HIT_PX / bandWidth) * 100,
+  );
 
   const relCount = RELATIONSHIPS.length;
   const totalRelMonths = RELATIONSHIPS.reduce((acc, r) => acc + monthsBetween(r.start, r.end), 0);
@@ -93,21 +122,21 @@ export function LoveStoryThread() {
           ))}
         </div>
 
-        <div className="relative h-11 overflow-hidden rounded-md" style={{ background: 'var(--era-surface)', border: '1px solid var(--era-line)' }} aria-label="Love life timeline">
-          {timeline.map((entry) => {
+        <div ref={bandRef} className="relative h-11 overflow-hidden rounded-md" style={{ background: 'var(--era-surface)', border: '1px solid var(--era-line)' }} aria-label="Love life timeline">
+          {/* Painted layer — purely visual; interaction lives on the hit
+              layer so sliver segments keep proportional widths while their
+              buttons meet the 24px WCAG 2.5.8 minimum (#658). */}
+          {positioned.map(({ entry, startPct, widthPct }) => {
             const isRel = entry.kind === 'relationship';
             const color = entryColor(entry);
-            const startPct = pct(toMs(entry.start));
-            const endPct = pct(toMs(entry.end ?? new Date().toISOString()));
-            const widthPct = Math.max(endPct - startPct, 0.6);
             const isOngoing = isRel && entry.end === null;
             const active = activeId === entry.id;
 
             return (
-              <button
+              <div
                 key={entry.id}
-                onClick={() => toggle(entry.id)}
-                className={['group absolute top-0 h-full cursor-pointer transition-all duration-200', isOngoing ? 'rounded-l-sm rounded-r-none' : 'rounded-sm'].join(' ')}
+                aria-hidden="true"
+                className={['pointer-events-none absolute top-0 h-full transition-all duration-200', isOngoing ? 'rounded-l-sm rounded-r-none' : 'rounded-sm'].join(' ')}
                 style={{
                   left: `${startPct}%`,
                   width: `${widthPct}%`,
@@ -119,20 +148,35 @@ export function LoveStoryThread() {
                   boxShadow: active ? (isRel ? `0 0 0 2px ${color}55` : '0 0 0 2px var(--era-ink-soft)33') : undefined,
                   zIndex: isRel ? 2 : 1,
                 }}
-                aria-label={isRel ? `${entry.name}, open details` : 'Solo period, open details'}
-                aria-pressed={active}
               >
                 {isRel && widthPct > 6 && (
-                  <span className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 truncate px-1 text-center text-[9px] font-semibold leading-none" style={{ color: '#fff' }}>
+                  <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 truncate px-1 text-center text-[9px] font-semibold leading-none" style={{ color: '#fff' }}>
                     {entry.name.split(' ')[0]}
                   </span>
                 )}
-              </button>
+              </div>
             );
           })}
           {YEAR_MARKERS.map((yr) => (
             <div key={yr} className="pointer-events-none absolute bottom-0 top-0 w-px" style={{ left: `${pct(toMs(`${yr}-01-01`))}%`, background: 'var(--era-line)', opacity: 0.5 }} />
           ))}
+          {/* Hit layer — transparent, non-overlapping, ≥24px-wide buttons
+              tiling the band; clicks near a shared edge go to the nearest
+              segment. Same timeline order, so keyboard focus order matches. */}
+          {positioned.map(({ entry }, i) => {
+            const isRel = entry.kind === 'relationship';
+            const hit = hitRanges[i];
+            return (
+              <button
+                key={entry.id}
+                onClick={() => toggle(entry.id)}
+                className="absolute top-0 h-full cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
+                style={{ left: `${hit.start}%`, width: `${hit.end - hit.start}%`, zIndex: 3, outlineColor: 'var(--era-ink)' }}
+                aria-label={isRel ? `${entry.name}, open details` : 'Solo period, open details'}
+                aria-pressed={activeId === entry.id}
+              />
+            );
+          })}
         </div>
 
         {activeEntry && <EntryDetail entry={activeEntry} timeline={timeline} onClose={() => setActiveId(null)} />}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { durationLabel, mergedTimeline, monthsBetween, previousRelationship, soloLeadIn } from './love-story';
+import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, previousRelationship, soloLeadIn } from './love-story';
 import type { Relationship, SinglePeriod } from './types';
 
 const rels: Relationship[] = [
@@ -36,6 +36,40 @@ describe('previousRelationship', () => {
   it('returns null when nothing preceded the entry', () => {
     const timeline = mergedTimeline(rels, singles);
     expect(previousRelationship(timeline[0], timeline)).toBeNull();
+  });
+});
+
+describe('allocateHitRanges', () => {
+  // Regression for #658: a run of contiguous sliver segments (5–12px painted
+  // at 1280px wide, ~0.5–1% each) must still yield ≥24px (2% of ~1200px) hit
+  // ranges that tile the band without overlapping.
+  const slivers = [0, 16, 16.5, 17.4, 18.2, 19.2, 40, 100];
+  const sliverRun = slivers.slice(0, -1).map((s, i) => ({ start: s, end: slivers[i + 1] }));
+  const MIN = 2;
+
+  it('gives every segment the minimum width, ordered and tiling the domain', () => {
+    const ranges = allocateHitRanges(sliverRun, MIN);
+    expect(ranges[0].start).toBe(0);
+    expect(ranges[ranges.length - 1].end).toBe(100);
+    ranges.forEach((r, i) => {
+      expect(r.end - r.start).toBeGreaterThanOrEqual(MIN - 1e-9);
+      if (i > 0) expect(r.start).toBeCloseTo(ranges[i - 1].end, 9);
+    });
+  });
+
+  it('leaves boundaries between roomy segments at the midpoint of their painted edges', () => {
+    const [a, b] = allocateHitRanges([{ start: 0, end: 30 }, { start: 32, end: 100 }], MIN);
+    expect(a.end).toBe(31);
+    expect(b.start).toBe(31);
+  });
+
+  it('shares the shortfall evenly when the domain cannot fit every minimum', () => {
+    const five = Array.from({ length: 5 }, (_, i) => ({ start: i * 20, end: (i + 1) * 20 }));
+    allocateHitRanges(five, 30, 0, 100).forEach((r) => expect(r.end - r.start).toBeCloseTo(20, 9));
+  });
+
+  it('returns an empty allocation for an empty timeline', () => {
+    expect(allocateHitRanges([], MIN)).toEqual([]);
   });
 });
 

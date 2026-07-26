@@ -40,6 +40,41 @@ export function mergedTimeline(relationships: Relationship[], singles: SinglePer
   return entries.sort((a, b) => toMs(a.start) - toMs(b.start));
 }
 
+export interface HitRange {
+  start: number;
+  end: number;
+}
+
+/**
+ * WCAG 2.5.8 hit-area allocation for the timeline band (#658): painted
+ * segments stay proportional, but each clickable range must be ≥ `minWidth`
+ * (same unit as the domain). Boundaries seed at the midpoint between adjacent
+ * painted edges, then forward+backward passes push them apart until every
+ * range has the minimum — slivers take space from neighbors that can spare
+ * it. Ranges tile [domainStart, domainEnd] in order without overlapping; if
+ * n × minWidth exceeds the domain, the shortfall is shared evenly instead of
+ * letting ranges collapse.
+ */
+export function allocateHitRanges(
+  segments: Array<{ start: number; end: number }>,
+  minWidth: number,
+  domainStart = 0,
+  domainEnd = 100,
+): HitRange[] {
+  const n = segments.length;
+  if (n === 0) return [];
+  const m = Math.min(minWidth, (domainEnd - domainStart) / n);
+  const b: number[] = new Array(n + 1);
+  b[0] = domainStart;
+  b[n] = domainEnd;
+  for (let i = 1; i < n; i++) {
+    b[i] = (segments[i - 1].end + segments[i].start) / 2;
+  }
+  for (let i = 1; i < n; i++) b[i] = Math.max(b[i], b[i - 1] + m);
+  for (let i = n - 1; i >= 1; i--) b[i] = Math.min(b[i], b[i + 1] - m);
+  return segments.map((_, i) => ({ start: b[i], end: b[i + 1] }));
+}
+
 /** The relationship most recently ended before this entry began. */
 export function previousRelationship(entry: LoveStoryEntry, timeline: LoveStoryEntry[]): (Relationship & { kind: 'relationship' }) | null {
   const rels = timeline.filter(
