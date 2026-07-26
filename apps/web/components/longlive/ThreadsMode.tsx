@@ -108,11 +108,18 @@ function ThreadsGallery() {
             >
               <div className="relative aspect-[16/10]">
                 <Image src={t.hero || '/placeholder.svg'} alt="" fill className="object-cover transition duration-500 group-hover:scale-105" />
+                {/* Scrim must stay near-solid for the FULL height of the text
+                    block below (kicker + title + blurb + link ≈ the bottom
+                    half of a 16:10 card), not just its last few percent.
+                    The old ramp was only 30% opaque at 55%, so the blurb sat
+                    on raw photo and was unreadable over light hero images
+                    (Wyatt, 2026-07-26). Text colour alone cannot fix this —
+                    no single ink is legible over an arbitrary photograph. */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      'linear-gradient(to top, var(--era-bg) 8%, color-mix(in srgb, var(--era-bg) 30%, transparent) 55%, transparent)',
+                      'linear-gradient(to top, var(--era-bg) 0%, color-mix(in srgb, var(--era-bg) 90%, transparent) 45%, color-mix(in srgb, var(--era-bg) 55%, transparent) 70%, transparent 92%)',
                   }}
                 />
                 <div className="absolute left-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--era-bg)]">
@@ -126,7 +133,10 @@ function ThreadsGallery() {
                 <h2 className="mt-1.5 font-[family-name:var(--era-font)] text-2xl font-semibold">
                   {t.title}
                 </h2>
-                <p className="mt-1.5 max-w-md text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+                {/* Full-strength ink, not ink-soft: ink-soft is tuned for a
+                    SOLID era surface, and over imagery it drops well under
+                    the 4.5:1 body-text floor (WCAG 1.4.3). */}
+                <p className="mt-1.5 max-w-md text-sm leading-relaxed text-[color:var(--era-ink)]">
                   {t.what}
                 </p>
                 <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--era-ink)]">
@@ -177,11 +187,15 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
       <header className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image src={meta.hero || '/placeholder.svg'} alt="" fill priority className="object-cover opacity-40" />
+          {/* Same fix as the gallery card: the kicker, title and blurb all sit
+              in the TOP half of this hero, where the old ramp was only 45%
+              opaque. Raised so the whole text column has a near-solid base;
+              the hero image still reads as texture at opacity-40. */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 45%, transparent) 0%, var(--era-bg) 92%)',
+                'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 70%, transparent) 0%, color-mix(in srgb, var(--era-bg) 85%, transparent) 40%, var(--era-bg) 90%)',
             }}
           />
         </div>
@@ -210,7 +224,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
           <h1 className="mt-4 font-[family-name:var(--era-font)] text-balance text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
             {meta.title}
           </h1>
-          <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-[color:var(--era-ink-soft)] sm:text-lg">
+          <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-[color:var(--era-ink)] sm:text-lg">
             {meta.what}
           </p>
         </div>
