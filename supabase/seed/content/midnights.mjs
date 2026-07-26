@@ -2942,7 +2942,12 @@ export default {
       day: 5,
       category: 'business',
       significance: 'defining', // a chart feat only she has ever pulled off, then repeated with TLOAS (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12'],
+      // Cross-link (candidate #1536, 2026-07-26): the No. 1 single that led the
+      // all-top-10 week — the "Anti-Hero" dominates page tells that single's story.
+      relatedIds: [
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-midnights-anti-hero-dominates',
+      ],
       title: 'Every spot in the Hot 100 top 10, all at once',
       snippet:
         'The week "Anti-Hero" debuted at No. 1, the other nine Midnights tracks filled out the rest of the top 10 — the first time in Hot 100 history one artist held the entire top 10 in a single week.',
@@ -5076,10 +5081,15 @@ export default {
       // Cross-links (ledger #1355, 2026-07-24): the album it led, the single-day
       // Spotify record it helped set, and the top-ten sweep it anchored.
       // Candidate #1356 (2026-07-25): the self-directed video for the same song.
+      // Cross-link (candidate #1536, 2026-07-26): the bidirectional partner to the
+      // richer, sourced "Every spot in the Hot 100 top 10, all at once" moment.
+      // NOTE: 'every-top-ten-slot-at-once' below is a legacy stub of the SAME feat
+      // (a duplicate flagged for a human, not resolved here).
       relatedIds: [
         'moment:vault-midnights-thirteen-sleepless-nights',
         'moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
         'moment:vault-midnights-every-top-ten-slot-at-once',
+        'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
         'moment:vault-midnights-the-anti-hero-video-and-the-scale-scene-that-got-cut',
       ],
       moment: {
