@@ -116,6 +116,14 @@ Kept deliberately (paused, not obsolete): **Marjorie 8 PM delta** and **Lex dept
 
 ### Remaining model downgrades — IDs captured, not yet applied
 
+### 🔁 The block DECAYS — see [`routine-invariants.md`](routine-invariants.md)
+
+Detaching the connector is **per-routine and point-in-time**. Every NEW routine
+gets `Claude_Code_Remote` by default, so the hole reopens quietly as the fleet
+grows. A weekly **Routine Auditor** now checks the invariants in
+[`routine-invariants.md`](routine-invariants.md) and files a `routine-audit`
+issue on violation. Read that file's checklist before creating any routine.
+
 ### ✅ Structural block ENABLED (2026-07-26) — the meta connector is detached
 
 Self-armed `send_later` monitors are now **structurally impossible** on every
