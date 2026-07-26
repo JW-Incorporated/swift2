@@ -5,15 +5,17 @@
 // checkers (image.host-reputation: "this host is unvetted, eyeball it") roll up
 // into a single tracking issue, so 194 non-defects don't drown the tracker.
 // The engine only PROPOSES — an issue is a fix-it ticket, never a content change.
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
 import { writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { rank, fingerprint } from './finding.mjs';
 import { CONFIG } from '../config.mjs';
+// Shared gh runner: CLI when present, GitHub REST when it isn't. This module
+// used to shell out to `gh` directly, which is why Karen's 2026-07-26 nightly
+// completed a clean 1096-item scan and then threw away all 623 filable
+// findings with `spawn gh ENOENT`. See scripts/lib/gh.mjs and issue #528.
+import { gh } from '../../lib/gh.mjs';
 
-const exec = promisify(execFile);
 const PFX = CONFIG.output.issueLabelPrefix;
 
 // Rollup vs individual is decided by SOURCE, not checker: deterministic P2/P3
@@ -21,10 +23,6 @@ const PFX = CONFIG.output.issueLabelPrefix;
 // claim-risk) and roll up into one tracking issue per checker; agent findings
 // are specific verified judgments (a wrong fact, a collage, an off-era photo)
 // and each files as its own actionable ticket. P0/P1 always file individually.
-
-async function gh(args, opts = {}) {
-  return exec('gh', args, { maxBuffer: 1024 * 1024 * 16, ...opts });
-}
 
 const LABELS = [
   [`${PFX}`, '5319e7', 'Content Integrity Engine finding'],

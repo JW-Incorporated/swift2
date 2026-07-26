@@ -10,7 +10,9 @@
 //
 // Requires an authenticated `gh` CLI. Read-only: never writes to GitHub.
 
-import { execFileSync } from 'node:child_process';
+// Shared gh runner: CLI when present, GitHub REST when it isn't — this script
+// was the original victim of `spawn gh ENOENT` in cloud runners (#528).
+import { gh as ghRun } from '../lib/gh.mjs';
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,8 +24,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 const METRICS_DIR = path.join(ROOT, 'social', 'metrics');
 const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
 
-function gh(args) {
-  return JSON.parse(execFileSync('gh', args, { encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 }));
+async function gh(args) {
+  const { stdout } = await ghRun(args);
+  return JSON.parse(stdout || '[]');
 }
 
 // Reads the two most recent social/metrics/YYYY-MM-DD.json files (written
@@ -99,19 +102,22 @@ export function formatGrowthLine(growth, queueStatus) {
   return `- Growth: ${parts.join(' · ')} · ${postsToday} post${postsToday === 1 ? '' : 's'} today · ${queuePart} · site: pending #799`;
 }
 
-export function fetchState(repo = REPO) {
+export async function fetchState(repo = REPO) {
   const issueFields = 'number,title,body,labels,createdAt,author';
-  return {
-    decisions: gh(['issue', 'list', '--repo', repo, '--label', 'founder-decision',
+  const [decisions, intake, alerts, openPRs, mergedPRs] = await Promise.all([
+    gh(['issue', 'list', '--repo', repo, '--label', 'founder-decision',
       '--state', 'open', '--limit', '100', '--json', issueFields]),
-    intake: gh(['issue', 'list', '--repo', repo, '--label', 'intake',
+    gh(['issue', 'list', '--repo', repo, '--label', 'intake',
       '--state', 'open', '--limit', '100', '--json', issueFields]),
-    alerts: gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert',
+    gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert',
       '--state', 'open', '--limit', '20', '--json', issueFields]),
-    openPRs: gh(['pr', 'list', '--repo', repo, '--state', 'open', '--limit', '50',
+    gh(['pr', 'list', '--repo', repo, '--state', 'open', '--limit', '50',
       '--json', 'number,title,author,isDraft,reviewDecision,createdAt']),
-    mergedPRs: gh(['pr', 'list', '--repo', repo, '--state', 'merged', '--limit', '30',
+    gh(['pr', 'list', '--repo', repo, '--state', 'merged', '--limit', '30',
       '--json', 'number,title,mergedAt']),
+  ]);
+  return {
+    decisions, intake, alerts, openPRs, mergedPRs,
     growth: fetchGrowthSnapshot(),
     queueStatus: fetchQueueStatus(),
   };
