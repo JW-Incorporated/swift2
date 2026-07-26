@@ -128,6 +128,9 @@ export default {
           'moment:vault-ttpd-thank-you-aimee-the-capitalization-does-the-talking',
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-1989-the-full-call-leaks-and-she-was-telling-the-truth',
+        // Diss-lineage thread (ledger #1530): the Showgirl "answer-record" that
+        // reviewers read as her latest entry in this same feud-song tradition.
+        'moment:vault-tloas-actually-romantic-the-diss-track-she-frames-as-a-compliment',
       ],
       moment: {
         context:

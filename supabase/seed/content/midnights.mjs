@@ -2955,11 +2955,19 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the chart dated Nov. 5, 2022, Swift became, in Billboard\'s words, "the first artist to claim the survey\'s entire top 10 in a single frame," surpassing Drake, who\'d held nine of the top 10 in September 2021.\n\nLed by "Anti-Hero" (59.7 million streams) at No. 1, the top 10 ran Lavender Haze, Maroon, Snow on the Beach, Midnight Rain, Bejeweled, Question...?, You\'re on Your Own Kid, Karma, and Vigilante Shit — all from the same album, which also became the first LP ever to land 10 songs in the Hot 100\'s top 10 at once.',
+          'On the chart dated Nov. 5, 2022, Swift became, in Billboard\'s words, "the first artist to claim the survey\'s entire top 10 in a single frame" in the Hot 100\'s 64-year history, passing Drake, who\'d held nine of the top 10 in September 2021. The sweep also passed both Drake and the Beatles — each of whom had managed only the top five, in 2021 and on the chart dated April 4, 1964 — for the most titles ever stacked at the top of the chart in a single week.\n\nAll ten belonged to Midnights, and they were only the crest: all 20 of the album\'s songs (13 from the standard edition, seven from the 3am Edition) charted on the Hot 100 that week. "Anti-Hero" led at No. 1 on 59.7 million U.S. streams — Swift\'s ninth career Hot 100 No. 1 — trailed by "Lavender Haze" (41.4M streams), "Maroon" (37.6M), "Snow on the Beach" feat. Lana Del Rey (37.2M), "Midnight Rain" (36.9M), "Bejeweled" (35.5M), "Question...?" (31M), "You\'re on Your Own, Kid" (34.1M), "Karma" (33M) and "Vigilante Shit" (32.2M). Every one was a fresh, streaming-driven debut before radio had caught up; sales reshuffled the lower rungs ("Question...?" sold 21,400, "Bejeweled" 16,100) but streams set the order.\n\nThe takeover made Midnights the first album ever to hold ten Hot 100 top 10s at once — one better than the nine from Drake\'s Certified Lover Boy in 2021 — and lifted Swift to 40 career top 10s, the most of any woman (past Madonna\'s 38) and behind only Drake\'s 59. It landed the same week Midnights opened at No. 1 on the Billboard 200 with the biggest week for any album in seven years, rewriting the top of the songs and albums charts in one frame. Swift, watching it happen, wrote that she was "in shambles."',
         sources: [
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
+          },
+          {
+            outlet: 'Entertainment Tonight (via AOL)',
+            url: 'https://www.aol.com/taylor-swift-monopolizes-top-10-194834436.html',
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' },
         ],
