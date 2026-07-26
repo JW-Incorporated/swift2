@@ -102,6 +102,11 @@ export const ALLOWLIST = {
   // left me, ivy, tolerate it). Same caveats, same tracked refactor.
   'supabase/seed/tracks/evermore.mjs':
     'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
+  // Same shape — added 2026-07-25 when cross-link candidate #1391 gave the
+  // folklore era its first per-song dossier (cardigan), completing the
+  // cardigan ↔ willow sister-album link. Same caveats, same tracked refactor.
+  'supabase/seed/tracks/folklore.mjs':
+    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
 };
 
 // The only free identifiers a value may reference (safe constants that cannot
