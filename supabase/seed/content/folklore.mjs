@@ -1193,7 +1193,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The song started at home: Joe Alwyn — still hidden behind the William Bowery credit — wrote the piano melody and the first verse, and Swift cut a demo singing both the male and female parts herself before Aaron Dessner shaped the arrangement and Justin Vernon tracked his side from April Base, his Wisconsin studio. The bridge is built as actual counterpoint, two independent melodic lines arguing over each other rather than trading bars — the structural trick everyone covers.\n\nReleased as a single on Aug. 3, 2020, it debuted at No. 6 on the Hot 100, became Bon Iver\'s highest-charting song anywhere, and earned a Grammy nomination for Best Pop Duo/Group Performance. Swift and Vernon still hadn\'t met in person by the time the nomination landed — the whole collaboration, like the album around it, happened over sent files.',
+          'The song started at home: Joe Alwyn — still hidden behind the William Bowery credit — wrote the piano melody and the first verse, and Swift cut a demo singing both the male and female parts herself. Aaron Dessner built a piano template around that demo and sent it to Justin Vernon, who liked it, wrote his own lyrics for his part, and tracked his side from April Base, his Wisconsin studio — the two never in the same room. The bridge is built as actual counterpoint, two independent melodic lines arguing over each other rather than trading bars — the structural trick everyone covers.\n\nReleased as a single on Aug. 3, 2020, it debuted at No. 6 on the Hot 100 — its peak — reached the top five in Australia, Ireland and New Zealand and the top ten in Canada and the U.K., and became Bon Iver\'s highest-charting song anywhere; it is certified Platinum by the RIAA, Platinum in the U.K., and 4× Platinum in Australia. At the 63rd Grammy Awards in March 2021 it was nominated for Best Pop Duo/Group Performance but lost to Lady Gaga and Ariana Grande\'s "Rain on Me." Swift and Vernon still hadn\'t met in person by the time the nomination landed — the whole collaboration, like the album around it, happened over sent files.\n\nThey finally shared a stage on Oct. 26, 2022, when Swift joined Vernon at a Bon Iver show in London for the song\'s live debut; she later played it as a surprise song on the Eras Tour\'s SoFi Stadium run on Aug. 7, 2023. Critics singled the duet out — The New York Times\' Jon Caramanica called it a "lovely, anguished duet," NPR praised its "windswept sonic landscape," and Billboard later ranked it first among Swift\'s collaborations. The partnership didn\'t end there: five months after folklore, Vernon returned for the title track of evermore, a second Swift–Bon Iver duet.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1211,6 +1211,36 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          // Depth ledger #1427 (2026-07-25): Grammy outcome, chart/cert record,
+          // live-debut history, song-specific reception — moving the page off
+          // its Wikipedia-only + album-review lean.
+          {
+            outlet: 'Recording Academy (Grammy.com)',
+            url: 'https://www.grammy.com/news/2021-grammys-complete-winners-nominees-list/',
+            source_title: '2021 GRAMMYs: Complete Winners & Nominees List',
+            publisher: 'Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-exile-top-10-adult-alternative-songs-bon-iver/',
+            source_title: "Taylor Swift Scores Top 10 at a Seventh Different Radio Format With 'Exile'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/songs/taylor-swiftbon-iver-exile/',
+            source_title: 'Exile — Taylor Swift/Bon Iver | Official Charts',
+            publisher: 'Official Charts Company',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
             reliability_score: 4,
           },
         ],
