@@ -2354,17 +2354,21 @@ export default {
       category: 'music',
       // Cross-link (candidate #1105, 2026-07-25): the most recent track five,
       // which defines itself against this grief tradition.
-      relatedIds: ['moment:vault-tloas-eldest-daughter-the-first-track-five-that-ends-somewhere-saf'],
+      relatedIds: [
+        'moment:vault-tloas-eldest-daughter-the-first-track-five-that-ends-somewhere-saf',
+        'moment:vault-ttpd-a-breakup-album-disguised-as-a-double-lp',
+      ],
       title: "So Long, London keeps her 'track five' tradition alive",
       snippet:
-        'Written and produced with Aaron Dessner at Long Pond: "instinctively I was just kind of putting a very vulnerable, personal, honest, emotional song as track five," she said of the pattern — one TTPD\'s own track five upholds.',
+        'Track five — and the album\'s goodbye to the six-year Joe Alwyn relationship, written as the antithesis of Lover\'s giddy "London Boy." It upholds the vulnerable-track-five tradition even as it closes the love that "London Boy" opened.',
       sourceUrl: 'https://www.billboard.com/lists/taylor-swift-track-fives-ranked/',
       thumbnailUrl: null,
       moment: {
         context:
-          'On a 2019 Instagram Live, Swift explained the tradition fans had spotted across her albums: "Track five is kind of a tradition that really started with you guys. Because I didn\'t realize I was doing this, but as I was making albums, I guess, I don\'t know why, but instinctively I was just kind of putting a very vulnerable, personal, honest, emotional song as track five... Because you noticed this, I kind of started to put the songs that were really honest, emotional and vulnerable and personal as track fives."\n\n"So Long, London," written and produced with Aaron Dessner, peaked at No. 5 on the Hot 100 and No. 4 on the Billboard Global 200.',
+          '"So Long, London" is the sound of a six-year love ending. Taylor and Joe Alwyn, together since late 2016, split in the spring of 2023 after more than six and a half years — and this is the song that grieves it: a deliberate mirror of "London Boy," the 2019 Lover track that once celebrated falling for an Englishman in his own city. Critics read the two as opposites — where "London Boy" was giddy, this is the long exhale of leaving.\n\nIt also keeps a tradition alive. On a 2019 Instagram Live, Taylor explained the pattern fans had spotted across her albums: "instinctively I was just kind of putting a very vulnerable, personal, honest, emotional song as track five... the songs that were really honest and emotional and vulnerable and personal." "So Long, London," written and produced with Aaron Dessner at Long Pond, is TTPD\'s track five and holds that line — it peaked at No. 5 on the Hot 100 and No. 4 on the Billboard Global 200.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-track-fives-ranked/' },
+          { outlet: 'E! News', url: 'https://www.eonline.com/news/1399781/untangling-taylor-swifts-heartbreaking-goodbye-to-joe-alwyn-in-so-long-london' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/So_Long,_London' },
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
@@ -2388,6 +2392,10 @@ export default {
       month: 4,
       day: 19,
       category: 'music',
+      relatedIds: [
+        'moment:vault-ttpd-a-breakup-album-disguised-as-a-double-lp',
+        'moment:vault-ttpd-so-long-london-keeps-her-track-five-tradition-alive',
+      ],
       title: "loml flips its own acronym: 'love of my life' becomes 'the loss of my life'",
       snippet:
         'A piano ballad written and produced with Aaron Dessner that spends four minutes setting up "love of my life" before the final lines invert it: "You\'re the loss of my life." "What we thought was for all time, was momentary."',
@@ -2395,8 +2403,11 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Recorded at Long Pond Studios with vocals captured at Electric Lady (New York) and Prime Recording (Nashville), and mixed by Serban Ghenea, "loml" builds as a conventional "love of my life" ballad until its closing lines reveal the title\'s other reading.\n\nCritics singled out the reversal: The A.V. Club and Uproxx both praised the lyrical twist on the phrase, calling the final line a "perfectly simple epitaph."',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Loml' }],
+          'Recorded at Long Pond Studios with vocals captured at Electric Lady (New York) and Prime Recording (Nashville), and mixed by Serban Ghenea, "loml" builds as a conventional "love of my life" ballad until its closing lines reveal the title\'s other reading — one of the album\'s starkest elegies for the six-year Joe Alwyn relationship it mourns.\n\nCritics singled out the reversal: The A.V. Club and Uproxx both praised the lyrical twist on the phrase, calling the final line a "perfectly simple epitaph."',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Loml' },
+          { outlet: 'Yahoo Entertainment', url: 'https://www.yahoo.com/entertainment/every-song-taylor-swift-wrote-025849543.html' },
+        ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
         // Photo pass #762 run 10 (2026-07-18): upgraded 480x360 hqdefault -> 1280x720
@@ -2409,6 +2420,78 @@ export default {
             caption: 'Still from the official "loml" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
             focalPoint: '50% 50%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-07-26 (Content Shift) for experience ticket #1237: TTPD's
+      // emotional spine — the Joe Alwyn breakup the album grieves — was a chart
+      // stat, never a story. Ticket suggested a standalone ~Apr 2023 split item,
+      // but that date falls in the Midnights era window (ends 2024-04-18), so it
+      // is told here, correctly dated to the album drop, as the record that
+      // processes it. Redlines: relationship at the level the principals made
+      // public (Alwyn's own Sunday Times words); no location beyond song titles,
+      // no third-party private life. Matty Healy deliberately not authored — a
+      // private individual, and the ticket makes him an optional, not-required
+      // beat; the Alwyn arc is the gap.
+      slug: 'ttpd-the-breakup-album',
+      significance: 'notable',
+      relatedIds: [
+        'moment:vault-ttpd-so-long-london-keeps-her-track-five-tradition-alive',
+        'moment:vault-ttpd-loml-flips-its-own-acronym-love-of-my-life-becomes-the-loss-',
+      ],
+      year: 2024,
+      month: 4,
+      day: 19,
+      category: 'relationship',
+      title: 'A breakup album disguised as a double LP',
+      snippet:
+        'Six and a half years, almost entirely private — and when it ended in spring 2023, it became her most confessional album. TTPD is the record that turns the Joe Alwyn breakup into literature, from "So Long, London" to "loml."',
+      sourceUrl: 'https://www.nbcnews.com/pop-culture/celebrity/joe-alwyn-taylor-swift-interview-rcna157354',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+      moment: {
+        context:
+          'For six and a half years — from late 2016 to the spring of 2023 — Taylor and British actor Joe Alwyn kept one of pop\'s most private relationships, a romance she guarded so closely it surfaced mostly in a handful of paparazzi sightings and the love songs fans read as his ("Call It What You Want," "London Boy," "Lover"). The breakup was widely reported in April 2023; Alwyn stayed silent on it for more than a year, then told The Sunday Times only that he hoped people could "empathize and understand the difficulties that come with the end of a long, loving, fully committed relationship of over six and a half years."\n\nThe Tortured Poets Department, arriving April 19, 2024, is the record that turned that grief into literature. Its quietest, most wounded songs read as a direct elegy for the relationship — "So Long, London" as the goodbye to Alwyn\'s home city, "loml" folding "love of my life" into "the loss of my life," and "How Did It End?" naming the question outright. Where the era\'s public timeline is a wall of chart records and stadium nights, this is the private arc underneath it: an album that is, at its core, a breakup record disguised as a 31-song double LP.',
+        sources: [
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/celebrity/joe-alwyn-taylor-swift-interview-rcna157354',
+            source_title: 'Joe Alwyn opens up for the first time about breakup with Taylor Swift',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
+            notes: "Alwyn's own Sunday Times words ('long, loving, fully committed... over six and a half years'); April 2023 split; late-2016 start.",
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/joe-alwyn-taylor-swift-breakup-1236039195/',
+            source_title: 'Joe Alwyn Opens Up About Taylor Swift Breakup',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1399781/untangling-taylor-swifts-heartbreaking-goodbye-to-joe-alwyn-in-so-long-london',
+            source_title: "Untangling Taylor Swift's Goodbye to Joe Alwyn in 'So Long, London'",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
+            notes: "'So Long, London' as the album's goodbye to the six-year Alwyn relationship; antithesis of 2019's 'London Boy'.",
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            credit: 'Republic Records (album cover, via Wikipedia)',
+            caption: 'The Tortured Poets Department (2024) — the record that turned the end of the Joe Alwyn years into an album.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
           },
         ],
       },
