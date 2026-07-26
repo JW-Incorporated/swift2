@@ -2151,6 +2151,17 @@ export default {
     },
     {
       slug: 'actually-romantic-one-sided-feud',
+      // Cross-links + sourced craft/chart/reception depth added 2026-07-25
+      // (depth ledgers #1144 / #1515 / #1518 — three duplicate ledgers all on
+      // this one page). Redline note: the Swift-Charli material is kept to the
+      // documented PROFESSIONAL arc and on-record statements; the "overlapping
+      // 1975 chapters" allusion is deliberately left un-spelled-out (private
+      // relationships are a redline and are not what makes this a story).
+      relatedIds: [
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
+      ],
       year: 2025,
       month: 10,
       day: 3,
@@ -2162,7 +2173,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift never names Charli — the reading is critic and fan interpretation, labeled as such, built from the "Boring Barbie" opening line and the two artists\' overlapping 1975 chapters. Her own framing, in the track-by-track commentary, is studiously subject-free: someone has been carrying on a "one-sided adversarial relationship" she didn\'t know about, and the song reframes that obsession as flattery — hate as a form of attention, attention as a form of love.\n\nIt became the album\'s most-argued-about track. Variety published a full timeline of the perceived Swift-Charli history, from tour-opener days through "Sympathy is a knife," treating the song as the latest entry in a documented arc; Rolling Stone ran a commentary questioning whether the biggest pop star on earth punching laterally at a fellow artist was a good look at all. That split — delicious lore versus unnecessary swipe — kept the track in the discourse long after release week, precisely because Swift left the target deniable.',
+          'Track 7 of the album\'s twelve and, at 2:43, one of its briskest, "Actually Romantic" is a Swift / Max Martin / Shellback co-write from the three-person core team that made the whole record — bright, up-tempo pop carrying a barbed lyric, a contrast reviewers kept noting (Pitchfork heard "diet indie rock," the New York Times praised its "cascading verses"). When the album swept the entire top 12 of the Billboard Hot 100 in its debut week, "Actually Romantic" entered at No. 7 — which is also its peak.\n\nSwift never names Charli — the reading is critic and fan interpretation, labeled as such, built from the "Boring Barbie" opening line and the two artists\' overlapping 1975 chapters. Her own framing, in the album\'s track-by-track commentary on Amazon Music, is studiously subject-free: someone has been carrying on a "one-sided adversarial relationship" she didn\'t know about, and the song reframes that obsession as flattery — hate as a form of attention, attention as a form of love. At the theatrical release party she called it "sort of a love letter to someone who hates you," and still didn\'t confirm a subject.\n\nWhat critics point to is a documented professional arc. Charli XCX opened Swift\'s 2018 Reputation Stadium Tour; a year later she told Pitchfork the billing "kind of felt like I was getting up on stage and waving to 5-year-olds." On Brat (2024) came "Sympathy Is a Knife," which Charli said was "about me and my feelings and my anxiety" — declining, when asked, to say whether Swift was in it ("People are gonna think what they want to think"). Swift, for her part, had publicly praised Charli\'s writing in a 2024 profile and was filmed cheering her 2025 Grammys set. "Actually Romantic" — its title read as a nod to Brat\'s "Everything Is Romantic," its sharpest line "wrote me a song saying it makes you sick to see my face" — is the entry critics treat as her reply.\n\nIt became the album\'s most-argued-about track. Variety published a full timeline of the perceived Swift-Charli history, from tour-opener days through "Sympathy Is a Knife," treating the song as the latest entry in a documented arc; Rolling Stone ran a commentary questioning whether the biggest pop star on earth punching laterally at a fellow artist was a good look at all, and Pitchfork, the Guardian and Slate panned the concept while the Times singled out its vocal as the album\'s most inspired. Charli, asked directly in an October 2025 Vanity Fair cover, declined to comment — a non-answer that, like the deniable target itself, kept the track in the discourse long after release week. As of mid-2026 Swift has not performed it live or added to the record since.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2190,6 +2201,52 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Craft/chart/reception depth (ledgers #1144/#1515/#1518, 2026-07-25).
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-the-life-of-a-showgirl-billboard-debut-1236399004/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Sweeps Billboard Hot 100's Entire Top 12",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1423037/who-are-max-martin-shellback-taylor-swifts-album-producers',
+            source_title: "Who Are Max Martin & Shellback, Taylor Swift's Album Producers?",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/charli-xcx-taylor-swift-sympathy-is-a-knife-rcna168189',
+            source_title: 'Charli XCX addresses whether "Sympathy Is a Knife" is about Taylor Swift',
+            publisher: 'Today (NBC)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'People',
+            url: 'https://www.aol.com/articles/charli-xcx-declines-whether-taylor-001018233.html',
+            source_title: 'Charli XCX Declines to Say Whether Taylor Swift\'s "Actually Romantic" Is About Her',
+            publisher: 'People (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'People',
+            url: 'https://www.aol.com/lifestyle/taylor-swift-actually-romantic-lyrics-040600872.html',
+            source_title: 'Taylor Swift Explains the Meaning Behind "Actually Romantic"',
+            publisher: 'People (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Lyric-video id FnEg1RgmqO4 verified via oEmbed against @TaylorSwift.
@@ -2582,7 +2639,7 @@ export default {
       thumbnailUrl: 'https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg',
       moment: {
         context:
-          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Swift\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.',
+          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Swift\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.\n\nThe wordplay was a collaboration: Swift coined "Stevie Knicks" and asked Alana to make it ("She said, \'I want to wear this shirt to the game. Can you make it for me?\'"), the two riffing the rest between them before Alana screen-printed all three. Courtside put Swift in a packed MSG celebrity row — Jerry Seinfeld, Jimmy Fallon, Timothée Chalamet and Ben Stiller among them, with Mariska Hargitay in a matching "Stevie Knicks" tee — though which organization hosted her seats went unreported. It was not her first Knicks game, but it was unusual footing for her: her public sports attendance skews overwhelmingly to the NFL, and this was only her second NBA game of the 2026 postseason, after she sat the Eastern Conference finals alongside Kelce three weeks earlier. Travis, held at minicamp, liked the courtside posts from afar and left camp early on June 11 to meet her at her Songwriters Hall of Fame induction — but never commented publicly on the game or the shirt.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2635,6 +2692,36 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-25',
             reliability_score: 5,
+          },
+          // Depth ledger #1032 Q2-Q5 (2026-07-25): the pun origin (Swift coined
+          // it, per Alana Haim to Vogue), the celebrity-row context, the NBA
+          // rarity, and Travis leaving minicamp early for the SHOF induction.
+          {
+            outlet: 'Vogue',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/alana-haim-reveals-taylor-swift-192713073.html',
+            source_title: "Alana Haim Reveals How She Made Taylor Swift's 'Stevie Knicks' Shirt",
+            publisher: 'Vogue (via Yahoo Entertainment)',
+            source_type: 'interview',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/siladityaray/2026/06/11/billionaire-taylor-swift-among-dozens-of-prominent-celebrities-at-the-knicks-spurs-nba-finals-game-4/',
+            source_title: 'Taylor Swift Among Dozens Of Prominent Celebrities At The Knicks-Spurs NBA Finals Game 4',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/why-travis-kelce-left-kansas-011353853.html',
+            source_title: 'Why Travis Kelce Left Chiefs Minicamp Early to Join Taylor Swift in New York',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Photo pass (#762 run 6, 2026-07-18): both photos hotlinked from the
@@ -7255,9 +7342,81 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-tloas-2", label: "Showgirl released", kind: "album" },
+      // Sourcing + cross-link + consolidation treatment (ledger #1370, 2026-07-25),
+      // mirroring what #1067 (tloas-announce) and #1091 (tloas-debut-chart) received.
+      // This is one of two co-existing "Showgirl released" pages: this stub carries
+      // the unique era-timeline milestone m-tloas-2, while the canonical release-day
+      // page (linked first below) carries the exhaustive depth — so it is deliberately
+      // NOT re-duplicated here. The consolidation question (should m-tloas-2 move to
+      // the canonical page and this stub redirect?) is surfaced for Wyatt in the PR,
+      // not resolved in a content run.
+      relatedIds: [
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
+      ],
       snippet: "The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.",
       moment: {
-        context: "The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.\n\nProduced with Max Martin and Shellback — their first new-album collaboration with her since reputation — it is a victory lap dressed as a cabaret: knowing, warm, and dazzling.",
+        context:
+          'The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.\n\nHer twelfth studio album arrived October 3, 2025 on Republic Records: twelve tracks, roughly forty-one minutes, its only guest Sabrina Carpenter on the closing title track. Swift produced it with Max Martin and Shellback — the first time the three had made a complete album as its sole production team ("We\'ve never actually made an album before where it\'s just the three of us"), and her first full-album reunion with them since reputation (2017); the five records in between were led by Jack Antonoff and Aaron Dessner. She built it in Stockholm on days off during the Eras Tour\'s 2024 European leg, after inviting Max Martin out to a show — "I just feel like we could knock it out of the park if we went back in."\n\nThe rollout leaned on a sprawling physical strategy — dozens of CD, vinyl and cassette variants — behind the midnight digital release. Reviews split hard, from Rolling Stone\'s five stars to the Guardian\'s two, netting a generally-favorable aggregate (Metacritic in the high 60s); critics argued over a bright, victory-lap pop record made by an exhausted headliner. The record-shattering first week — 4.002 million units, the biggest in Luminate history — and the Hot 100 top-12 sweep are told in full on the linked debut and chart pages, where this consolidated milestone points rather than repeating them.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-max-martin-shellback-produce-life-of-showgirl-1235407365/',
+            source_title: "Taylor Swift Reunites With Max Martin and Shellback for 'The Life of a Showgirl'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-made-life-of-showgirl-during-eras-tour-1235407376/',
+            source_title: "Taylor Swift Made 'The Life of a Showgirl' During the Eras Tour",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-life-of-a-showgirl-album-review-1235439733/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl': Album Review",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/music/the-life-of-a-showgirl/taylor-swift',
+            source_title: "The Life of a Showgirl by Taylor Swift Reviews",
+            publisher: 'Metacritic',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-life-of-a-showgirl-number-one-billboard-200/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Debuts at No. 1 With Biggest Week in Luminate History",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
+            source_title: 'The Life of a Showgirl',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
         // wp-content PR image 02 from the album's Mert & Marcus press set
         // (same set as the 01/03 images used on sibling pages) curl-verified
