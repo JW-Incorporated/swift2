@@ -385,6 +385,55 @@ const TRACKS = [
       themes: ['infidelity', 'secret worlds', 'self-erasure'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Illicit_Affairs',
       sources: [wiki('Illicit Affairs', 'Illicit_Affairs', 'song article: composition'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          'folklore’s track ten and one of its most beloved deep cuts: an affair narrated in the second person, curdling from a private high into an indictment. Its bridge — “for you I would ruin myself / a million little times” — is a fan-canonized scream, and on the Eras Tour it became a fixed part of the folklore set rather than a rotating surprise song.',
+        ],
+        meaning: {
+          confirmed: [
+            'Swift wrote and produced it with Jack Antonoff (Joe Alwyn, as William Bowery, was later credited as a co-producer by the Recording Academy after folklore won Album of the Year); at roughly 3:10 it is the shortest track on the album — an acoustic-guitar-driven folk/indie-rock song recorded at Kitty Committee Studio in Los Angeles, vocals engineered by Laura Sisk.',
+            'It reached No. 44 on the Billboard Hot 100 in folklore’s debut week and later charted in Australia (No. 23), Canada (No. 33) and Singapore (No. 16); it is certified 2× Platinum in Australia, Platinum in Brazil and New Zealand, and Gold in the UK.',
+          ],
+          supported: [
+            'Critics singled it out as a writing showcase: Chris Willman (Variety) placed it among his top Swift songs and called it “a whole movie’s worth of insight about cheating,” Jody Rosen (Los Angeles Times) judged its infidelity lyric more sophisticated than her earlier takes on the theme, and Angie Martoccio (Rolling Stone) likened it to Phoebe Bridgers’ “Savior Complex.”',
+            'It is widely read as the adult counterpart to folklore’s teenage love-triangle songs — the affair told from inside the secret, where “august” aches from outside it — though Swift has framed folklore as interlinked characters without footnoting which songs share a story, so the pairing stays an invited reading rather than a confirmed one.',
+          ],
+        },
+        connections: [
+          {
+            relatedId: 'song:august',
+            label: 'august',
+            why: 'folklore’s other affair song — “august” longs from outside the secret while “illicit affairs” anatomizes it from within; the two are routinely paired as the album’s adult-infidelity companions.',
+          },
+        ],
+        live: [
+          {
+            date: '2020-11-25',
+            event: 'folklore: the long pond studio sessions (Disney+)',
+            note: 'Performed in the album’s full track run for the Disney+ film; Rob Sheffield (Rolling Stone) called the Long Pond rendition the “definitive version.”',
+          },
+          {
+            event: 'The Eras Tour (2023–24)',
+            note: 'A fixed part of the folklore set, not a rotating surprise song; Swift delivered a rock-tinged version of the bridge that reviewers called “vocally astounding.”',
+          },
+        ],
+        voices: [
+          {
+            who: 'Chris Willman',
+            context: 'Variety',
+            note: '“A whole movie’s worth of insight about cheating” — ranking it among her best-written songs.',
+          },
+          {
+            who: 'Jill Mapes',
+            context: 'Pitchfork',
+            note: 'Grouped it among the album’s most tender love stories.',
+          },
+        ],
+        sources: [
+          { name: 'Illicit Affairs — Wikipedia', url: 'https://en.wikipedia.org/wiki/Illicit_Affairs' },
+          { name: 'Folklore (Taylor Swift album) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)' },
+        ],
+      },
     },
     {
       slug: 'invisible-string',
