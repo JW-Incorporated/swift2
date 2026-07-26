@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 72
+
+## WHAT HAPPENED BETWEEN TAYLOR SWIFT AND KELEIGH TELLER?: Everything we've ever heard in one place - d
+
+- first seen: 2026-07-26 18:10 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: WHAT HAPPENED BETWEEN TAYLOR SWIFT AND KELEIGH TELLER?: Everything we've ever heard in one place  deuxmoi.world
+- sources:
+  - [unverified] deuxmoi.world — https://news.google.com/rss/articles/CBMijwFBVV95cUxOcWN0ZmtoTEFCSzRacWd6SUtNaWpNcVNVT3JzNnVCbThQSE9XVjFEYk53alFXdGhOeGVaclJxMDE2c3JmM2pnWEpXZVdIY09xel92WVgzRWZYV29ISjNOSTdZbFBfT2JYekdKYzJTdlhSWHFHeWZXWmdoVElTMWk0T0JPU0ZIdmhNdHVFVzlsMA?oc=5
+
+## Taylor Swift's Gown At The 2011 Nashville Symphony Ball Is One Of Her Most Underrated Looks - women.
+
+- first seen: 2026-07-26 18:10 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Gown At The 2011 Nashville Symphony Ball Is One Of Her Most Underrated Looks  women.com
+- sources:
+  - [unverified] women.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxOcHRCQ1RrdTZJbjlSSDl4enVJMmVPVHBzbTZjOWpaanRQQnJnckdwZDFscENmdUpnUkpoVU5VVDN4Mm11ZlQ1ZjA3NFhhSGVIUHp4dWVPYUNKdkRpYlZGanlQQzFOZEJpdl93Q3A5VnJ1MldmaDNZVGFISkc2dDk3dE90WlFyTDZMdWkyak05MjZxRzNPajMzYw?oc=5
+
+## History's Most Expensive Weddings, Ranked (A 2026 Wedding Makes the List) - Mental Floss
+
+- first seen: 2026-07-26 18:10 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: History's Most Expensive Weddings, Ranked (A 2026 Wedding Makes the List)  Mental Floss
+- sources:
+  - [unverified] Mental Floss — https://news.google.com/rss/articles/CBMihgFBVV95cUxNOTRQVGFjMW1GREVrczdWdllzbnZEaVR1d19GdHFnbTF0V05fbWc5SExXN1FIV2owemJtSEZ3Y2M0QWNfZlVuMXR3bW9VY05QUXZ3MFdJMGVwdjVDb2c1MC1vZDJmTVF3TWUzQUwtdk9DOVBiZnpCU0ZrSGJ2eGtNa0IwY1gtQQ?oc=5
+
+## ‘300-Lb Men From The Football Business Crying.’ What Travis Kelce And Taylor Swift’s Vows Were Like 
+
+- first seen: 2026-07-26 18:10 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: ‘300-Lb Men From The Football Business Crying.’ What Travis Kelce And Taylor Swift’s Vows Were Like  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQVEFSUlM1ZlR4UkNRMF9UTG9Fckw3bjdIdWd2NTVDdHRSUnR0LUxjcGtiLWpLdUtuMWZ6RzMwWjBqNHo1MTRSY3dHdi1HUGR1bmpqTXk2VHNvR3NlQ3NGNG1MVDAyWTRNVW5xQnkzTE5xQ0gwWlRHRFdzYkhLUDVyQXkxM2hhTGhETl9KNFE5YUZyZDlta2w2dVZFYnJNcVE?oc=5
 
 ## Will Travis Kelce’s marriage to Taylor Swift ruin his career? The bold prediction that has sparked f
 
@@ -580,96 +612,3 @@ Stories: 79
   - [unverified] EMS1 — https://news.google.com/rss/articles/CBMirgFBVV95cUxPdmx4Tm9IekJERE9ybG0tQkJkazFJRUZrdmYwVGFGbFphWFQzRjNOSDhnb05KMnRXQ3NoM051dWdJanB2MC1ISkJTbnFla3NiS1p0aGdYclI4Y3hOX0hrY0lDU3JWQ25XNGtyeXc5LURnZEp1Mzh3a0h3WDFrQzZ4MzVPS3MteXNzT3J2MmZXdk9OM19QWUxmMlRHTUJINDRRSVVIT1JZQlZ6VUxzNlE?oc=5
   - [unverified] Police1 — https://news.google.com/rss/articles/CBMitAFBVV95cUxObFcwZDNwVHRJSUQ2N09oY0xqRFZSS1VuWUozMjlBaG5XSkdlZkwwWUM0c084TEJWUTVkdkRwaGQwZW5uT3kzWmhndXhSRlBSYmF3RlYxWFZnZ2VjMl9HTzBkWFczQzU1bmlFT1VnbmpmQm5sUTJrX28wTVRvZ0U0NjYxeWh2OHZFQlFxLUdfZ2VsdDQtTnp3NEp4X3VPMUM5NjRPY3lnNnkxWGZFVzNmTmpZVWI?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNMWFJTi1TY3dzWGlGcXppeFJNVzJ0U2pBY2hYTXJURHc5eHJuR1VwVFBNUndkUU1Rd3B1WTVpS3VYYVpCVWFJS3JyU3dpZzJaS3FtSTNDX2tvdzBGRkFfUmlIb0g4R1FTd2lxMDhSVFIwWXljY2VpdDJYMEljWnQ2Y1hqemZmNTFRSXZnSEpJbkQyc3I5WEJDMUg2blNDQU0?oc=5
-
-## Kylie Kelce Details "Absolutely Magical" Taylor Swift, Travis Kelce Wedding - E! News
-
-- first seen: 2026-07-23 15:21 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Kylie Kelce Details "Absolutely Magical" Taylor Swift, Travis Kelce Wedding  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxPM1BnX1U5VU1xdG1wV25OTEdZd0ZvVXZhV2xlbEVaM1ZxOUMyMHZCdUc5NDQ1ZHY5MkVOcDNYSk1lTl9Xdkw2eGJSSlJRVGhFSl9LR0d3b0JCdGdvLWJZbmpING1QRkRwNXB1T0UxU21qV08yem10bXUyUDJSQkM2Rm1wR0wxWlVWQzNmZzFDYTJWLTNyQ2RWaXY3NmlWUQ?oc=5
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMitwFBVV95cUxNdjF1WXk2SUVvdW5XOGozYzlhbXd5eVRUQm0yc0dPZWRyRlZKdWtPeGhqS1JCLTV4bklSSGJpdmN5OGlrbHlfblJ5ZnU4LVVURHMzUDVOQUJPWGd2dVJROGdvbnpFYVhYaTFoTmRINzFtcVFWbjU3Q2xuQVdfclRSTmxtRHNZQ0tmdzFWWTQ3MzkzTXROdzNYa2VTdGN3Ump0aFBDLUZaT21zTm14TUxEUWFBVloyRkk?oc=5
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNZUVwaFBubE8yUGVZdFdOUHFkZnZNd2c4OGptZjJsSnhtS1FOUS15YnVlWG5QY2htVXZqSjdEMzVRYXVOR1I2cWctdHozb3FmeVRGUGY4Xzlhb1VUazl5Z3pMRFoyOEtLUjFCQkp3Z1dhWWtGdFVOMmc4MnNTQVZodUpHUy1HdlhJeUhjS1phTE5RY1lIRkROanFHRHZSLWc0dWlGZkRoZU40NHJmNG9wMG51am1IRnpkYTQ3aXFWME5VbEd5bmMzWlZTZF9uS0VXWVE?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOTUtuR1hwQXFFTk5GZUJ3cU51OE0yLU1wdk1EQnZkV0prdkszVXZjZ25fdXZId0piRkwySFhmLUFkX2NEYXo4MHljdW1uNVlJTUhVdGtXTVg4bkxBc2tVZzl0eXBfbEVmQ2RpQURZZzl0aDZ1d1UyQnFCOF9PcHdFcDVUby1kNEd2NkxRM0RaV2I5X2FKUFBMTFIyMEk3NnR2RjljYmFn?oc=5
-
-## ‘Come to Brasil’ Documentary Showcases the Unique Power of Brazilian Fandoms
-
-- first seen: 2026-07-23 15:21 UTC | category: sighting | importance: 3
-- verification_status: single_source | source_count: 1
-- summary: The short documentary, directed by Lina Abascal, explores the popular internet trend, and is now available to stream on Rolling Stone’s YouTube Channel as well as on Documentary+
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/come-to-brazil-fan-documentary-1235595088/
-
-## Taylor Swift and Travis Kelce's 'high maintenance' family addition tests future parenting skills - Y
-
-- first seen: 2026-07-23 15:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's 'high maintenance' family addition tests future parenting skills  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOelBDX0RzaVpCWFNhMnhKQWJaLVhKaDhLVW9vaUF3c09OVi02ZlhuRVhPRVlZNmFpSHpnenR3a0xwX3VBMWoxOUF2cGZFQjJpclJ2ZWkxeGF6bFl2aVhXczFEdEl2RkE1OUZtZDdQWGtGUXZ1VTduSVlrSmJnUjFGTmNpYVg5RG5vYi1Tc1RORDYxR3VOVFJmMWdLQjNGQWFLNXZZ?oc=5
-
-## Shania Twain explains why she had to decline Taylor Swift’s wedding invite - The Independent
-
-- first seen: 2026-07-23 15:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Shania Twain explains why she had to decline Taylor Swift’s wedding invite  The Independent
-- sources:
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQdmNkSy1SYS0wdENhX05USENBVHZnSkdpbllyd085R1JBUWRlN2hBXzlWZzFlSnVnRnY3eHZGSVZqMDBnZUxzV25OQmtGcFJQYjcwVzFIWVo3S3NUY0lSODJtaUNWUmJRRExkdTdKb2I0U0lVdmhRRFV0aG1wdEJDcXdOS1A2NTZfZ0ZJcVl4UFBPdi0zcUg1Z2xoTWM5ZnQ4V3hQNHVKcG9aX2s?oc=5
-
-## What the Taylor Swift Tax Means for Your Rhode Island Vacation Home - The National Law Review
-
-- first seen: 2026-07-23 15:21 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: What the Taylor Swift Tax Means for Your Rhode Island Vacation Home  The National Law Review
-- sources:
-  - [unverified] The National Law Review — https://news.google.com/rss/articles/CBMilwFBVV95cUxQTFQ5Rk41LVMtSGVGN09WaWJVVWdpMlJJMGk3S3BUZFk5bHhtVkVfMFlwUFIzMm5ibVZ5aEpaZ2tXZ1p6QzZrNkVGcTR5VWw5RFB3WTBqaTBveTNFZ1hPMVljV3BydTlDX25YVUlSWGFXZlBfT082WG5TZXFrbzRZQXAtWWF0cjFQVjFlSnZYWFpOaXlnWGNv0gGcAUFVX3lxTE1rVHU5S2N0UDhfdHJvWWNMTHdYTmpPeUNZUUt3cEV4WjQzS294cWc4MmVPVjF2UFVYcnpPMzJraXJ6bXQ3Mnp5VXRnUjNQQWlzU1NfV3ZXdGRRRWZGbEdNTTZrTS1IVzVzSHBjNDF5NGI2SGdxbFJIMV9RbVNMRzcwdHRpNW9CbUpUR2Z1QkllSkkzVm1oUUliWklaMQ?oc=5
-
-## Producer Addresses Taylor Swift Rumors Tied to Gracie Abrams’ Death Wish - Yahoo
-
-- first seen: 2026-07-23 15:21 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Producer Addresses Taylor Swift Rumors Tied to Gracie Abrams’ Death Wish  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxNZkJ0aXFJZ24yMDlzbnlMUnNNQm96RDY5ZkRVbUh2Ny1NYzV2eFE1eUplTHpjcVdmeVREelRSdDZKOV81dk1BMzc2V05RbEFLMGxpZjFsYUVhUjdtN2o2UkgtazlWZjU5SV9pRGVTYmtjRXdCMWo0cnZ3TnFJYlBNYUhzV0ZYdmk5TVdXX2w0MTF4RXN3QWxOZktHWTh4X3FSdUViYThaQQ?oc=5
-
-## Is R.I.’s ‘Taylor Swift tax’ the beginning of an era, or an error? - The Boston Globe
-
-- first seen: 2026-07-23 15:21 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Is R.I.’s ‘Taylor Swift tax’ the beginning of an era, or an error?  The Boston Globe
-- sources:
-  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMimgFBVV95cUxOSWstUWJRVG54MzNJX25zRmZNTzc5R21rTC1yR0Y3cWFHb1BMcGtMekRqdFVyMVNPMEhSVGYyUDNwb3VJRmdYSzFzNDBpMUYxd2NxRmFxVVdWYW5QODZtSlhMTkJGa1VsdklLdW5jY2lMLUlrSXNITVRRcV9vVy1ROEkyRlVLaTlydFhOd19mTmpmX0N0UzlHTF9B?oc=5
-
-## Kylie Kelce Says Taylor Swift Was Part of Family ‘For Quite Some Time’ Before ‘Intimate’ Wedding - U
-
-- first seen: 2026-07-23 15:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Says Taylor Swift Was Part of Family ‘For Quite Some Time’ Before ‘Intimate’ Wedding  Us Weekly
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipAFBVV95cUxNejVkbTl1dF9IVVg4ZHN5bG5zUVhmVlhLMkxYVlYyWWxFVXNXQklnc2F2TWNkeUtpM0lHYTktT2hwcTZRYUNuUDA5WnV3NXU1RHBqbFRiQzFQQnNEWTZGc0pqNlFQdklmMGdMSXFJT1FkZDVhZGZiWlJKR0ZEZ2ZMai1GLVhNSzRTRmtaVGNVazg0RkxBNGNfREgyM2xrb09tWURqTQ?oc=5
-
-## Kylie Kelce Calls Taylor Swift “Family” As She Reveals New Details About the “Intimate” Wedding - in
-
-- first seen: 2026-07-23 15:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Calls Taylor Swift “Family” As She Reveals New Details About the “Intimate” Wedding  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxOM3ZVckFfeUR4eHExWmJ5dHRiM2owWnhGa0F5MElFRWVxZjhYZTFCa2NZT2NVbVlQM29KZlFoUlFjd1hzcHRDSWpLWUVlMnBITFA0VWNudlphNFVaODJiS1Vra3MyVnlLMGJIRWxDWTY0VVNUUVlDQm80aWUzYThvSWw3TmUzRlQ3RkdWdzBkcGRtTk9IRmczcDhOcy1BdGNSZklCNU9NOA?oc=5
-
-## Aaron Dessner shuts down rumours that Gracie Abrams’ Death Wish is about Taylor Swift - Contactmusic
-
-- first seen: 2026-07-23 15:21 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Aaron Dessner shuts down rumours that Gracie Abrams’ Death Wish is about Taylor Swift  Contactmusic.com
-- sources:
-  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMiywFBVV95cUxNOGU4LXZBUzhHQTY0SXZpV01acFlYOXVBMGFRUG9ZRzZEdXF2SndJa2VIM0NTODNrdTNESnhNdUxtRFZQZWtSZGFpTkxiem5ZRGxYR0FWczJwakstMG11bW4wa2s2djlaVzQ3cVFFM0YxZTh0UmJMb0hMTlBOY0NPQzBpSnREdFVuWHRvYk5XZ3UyUWNEcnMwUFJWYy1pbEdJT0RQMDMxa1luTUpId2pqWnBXRDljUWRvNDJLT0lwZXdNZHVHRUlHVFU5QQ?oc=5
-
-## Kylie Kelce Calls Taylor Swift ‘Family’ After Wedding to Travis Kelce - extratv.com
-
-- first seen: 2026-07-23 15:21 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Kylie Kelce Calls Taylor Swift ‘Family’ After Wedding to Travis Kelce  extratv.com
-- sources:
-  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNcGdUQkxZZC1JbjJWVldxa1I0bjNKbzJhc2VGZ0J3Tm9WQk5wSlhrMnp3NFNRZzB4ZWF4M2s2eldSbUhpU1pYVDRybzQ0dWM5WEZUWVc1elRKMG9jWHJCMDZielpqazdHTjJFV0M0QW5nMXAtcnIzekFDSWNNOGQ4S0J2elpwZ1AwMUphMGJhaF9haGMyX1NKMVE5Tk1WN0g5?oc=5
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxNOGVMcHdic0RIV0ZWczlsdW5sRHlVdW9UaHFlNnA0Z1BMSS1zdmgyMV95VTF2WG1TOXJ6QjhsaFlzdXJtZEVXQ2hZdXZWdnRaNFEwRE9YYUJvMW5zX0FEbVo2SmdoamVlUlZsam42ZUdLbXdBTGdWSlk1V0k2RERyelF1RXdSOEtBZkdJamJNQTdWOGFvbnJyWndqNUU3VFdTaGpEYkZpd04wWmgzZFYxWHFFVQ?oc=5
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOc25sbWVZcnFPd2Z5Qk5zbFFkb005UTM2MkhHZzkxcjFSc1ZONUw4MVloY0J6NzBZcGdsRTI0OTBpN1dKNVVDYlZPOTFuMDlEQWgxdUhEUkdxc19rOXNESHpNdS10aVpJaE9xbldsa3A0OUVWOU1fYlFDMVhiRnB0OW5GejlpcXBWMFRVUUcteE5WWHJsMktnLVRrSTZVbTRVcVE?oc=5
