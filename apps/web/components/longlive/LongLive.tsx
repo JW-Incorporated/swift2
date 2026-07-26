@@ -8,6 +8,7 @@ import { TopBar } from './TopBar';
 import { LandingPage } from './LandingPage';
 import { EraStream } from './EraStream';
 import { ThreadsMode } from './ThreadsMode';
+import { MoodChat } from './MoodChat';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
@@ -22,6 +23,7 @@ function Shell() {
   const { mode, eraId } = useAppState();
   const era = getEra(eraId);
   const inThreads = mode === 'threads';
+  const inMood = mode === 'mood';
   const onLanding = mode === 'landing';
 
   // Keep the document theme-color in sync with the active surface. The
@@ -43,7 +45,7 @@ function Shell() {
     <div className="era-shell font-sans" style={inThreads ? vaultStyle() : eraStyle(era)}>
       {/* The landing page carries its own wordmark + toggle — no TopBar. */}
       {!onLanding && <TopBar />}
-      <main>{onLanding ? <LandingPage /> : inThreads ? <ThreadsMode /> : <EraStream />}</main>
+      <main>{onLanding ? <LandingPage /> : inMood ? <MoodChat /> : inThreads ? <ThreadsMode /> : <EraStream />}</main>
       <SiteFooter />
 
       {/* Overlays */}

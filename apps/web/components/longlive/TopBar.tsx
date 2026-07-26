@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, Compass, Search, Share2, Layers } from 'lucide-react';
+import { ChevronDown, Compass, Search, Share2, Layers, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getEra } from '@/lib/longlive/eras';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
@@ -66,7 +66,9 @@ export function TopBar() {
               )}
             </button>
           ) : (
-            <span className="min-w-0 truncate text-sm font-medium text-ink-soft">The Threads</span>
+            <span className="min-w-0 truncate text-sm font-medium text-ink-soft">
+              {mode === 'mood' ? 'Mood' : 'The Threads'}
+            </span>
           )}
         </div>
 
@@ -106,8 +108,8 @@ export function ModeToggle({
   onChange,
   alwaysShowLabels = false,
 }: {
-  mode: 'era' | 'threads';
-  onChange: (m: 'era' | 'threads') => void;
+  mode: 'era' | 'threads' | 'mood';
+  onChange: (m: 'era' | 'threads' | 'mood') => void;
   /** Landing page (#684): the toggle is the front door's primary control, so
    *  its labels must be visible on every viewport, not just sm+. */
   alwaysShowLabels?: boolean;
@@ -119,13 +121,16 @@ export function ModeToggle({
       aria-label="Navigation mode"
       className={cn(
         'relative flex w-auto items-center rounded-full border border-line bg-surface p-1',
-        alwaysShowLabels ? 'w-[196px]' : 'sm:w-[196px]',
+        alwaysShowLabels ? 'w-[276px]' : 'sm:w-[276px]',
       )}
     >
       <span
         aria-hidden
-        className="absolute inset-y-1 w-[calc(50%-0.25rem)] rounded-full bg-accent transition-transform duration-300 ease-out"
-        style={{ transform: mode === 'era' ? 'translateX(0)' : 'translateX(100%)' }}
+        className="absolute inset-y-1 w-[calc(33.333%-0.1667rem)] rounded-full bg-accent transition-transform duration-300 ease-out"
+        style={{
+          transform:
+            mode === 'era' ? 'translateX(0)' : mode === 'threads' ? 'translateX(100%)' : 'translateX(200%)',
+        }}
       />
       <button
         role="tab"
@@ -155,6 +160,22 @@ export function ModeToggle({
       >
         <Layers className="size-3.5 md:size-4" />
         <span className={labelClass}>Threads</span>
+      </button>
+      <button
+        role="tab"
+        aria-selected={mode === 'mood'}
+        // Same reason as the other two: below `sm` this is icon-only, so the
+        // tab needs an explicit name or a screen reader announces an unlabeled
+        // button (#656, WCAG 4.1.2).
+        aria-label="Mood"
+        onClick={() => onChange('mood')}
+        className={cn(
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition-colors md:text-sm',
+          mode === 'mood' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+        )}
+      >
+        <Sparkles className="size-3.5 md:size-4" />
+        <span className={labelClass}>Mood</span>
       </button>
     </div>
   );

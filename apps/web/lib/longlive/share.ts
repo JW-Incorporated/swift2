@@ -49,13 +49,18 @@ export function momentShareCopy(
  * shifts (#453).
  */
 export function topbarShareTarget(
-  mode: 'landing' | 'era' | 'threads',
+  mode: 'landing' | 'era' | 'threads' | 'mood',
   eraId: EraId,
   lensId: LensId | null,
 ): ShareTarget | null {
   // The landing page renders no TopBar at all (#684); returning null keeps
   // this total over AppMode anyway, so a stray call can't fabricate a target.
   if (mode === 'landing') return null;
+  // Mood chat has no shareable target by design: the only thing that
+  // distinguishes one reader's view from another's is what they typed, and
+  // that is exactly the thing this feature promises never to persist or
+  // transmit. Share stays rendered-but-disabled, same as the thread gallery.
+  if (mode === 'mood') return null;
   if (mode === 'era') return { kind: 'era', eraId };
   if (lensId != null) return { kind: 'lens', lensId };
   return null;
