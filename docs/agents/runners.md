@@ -116,6 +116,46 @@ Kept deliberately (paused, not obsolete): **Marjorie 8 PM delta** and **Lex dept
 
 ### Remaining model downgrades — IDs captured, not yet applied
 
+### ✅ Structural block ENABLED (2026-07-26) — the meta connector is detached
+
+Self-armed `send_later` monitors are now **structurally impossible** on every
+Swift2 runner, not merely forbidden by prompt text. The `Claude_Code_Remote`
+meta MCP connector — the tool a run uses to create a new trigger — has been
+removed from every routine that had it.
+
+**This must be done in the routines UI, not the API.** Open the routine →
+pencil (Edit) → Connectors tab → the `×` on the `Claude_Code_Remote` chip →
+Save. The API silently ignores `mcp_connections: []` (returns 200, keeps the
+connector). The UI's remove button carries `aria-label="Remove Claude_Code_Remote"`
+if you ever need to script it.
+
+Detached from: Answerer, Content Shift, Rumor Desk, Stylist, Cross-Link, Photo
+Enrichment, Audio Curator, Mood Chat, News Triage, Growth, and all four Kevin
+`(cloud)` streams.
+
+Already had no connector (nothing to do): Karen, Laura, Austin, Nils, Paul
+Blart, Marjorie 6 AM brief, Lex sole instance.
+
+**Gmail connectors were deliberately left attached** — Marjorie and the Kevin
+streams use them, and Gmail cannot create triggers.
+
+Defence in depth now: (1) connector detached — cannot call `send_later`;
+(2) `CLAUDE.md` § "Never babysit your own PR" — covers every session in the repo
+including Joey's and Codex's; (3) per-runner prompt blocks; (4) auto-merge
+removes the reason to wait in the first place.
+
+### ⚠️ Marjorie's brief is still on `claude-fable-5` — unresolved
+
+`trig_01KJLFZpKaFV6jDVshMrHG3E`, `updated_at` 2026-07-17, never migrated when
+the rest of the fleet moved to `claude-opus-4-8` on 2026-07-20. The Content
+Shift trigger's own notes say **"the entire scheduled fleet was silently failing
+on claude-fable-5"** — and the four consecutive un-actioned "no Founders' Brief"
+watchdog alerts (#947, #1177, #1203, #1224) are consistent with exactly that.
+
+It has fired successfully recently (2026-07-25T12:05Z), so it is not currently
+broken. Left as-is rather than changed unprompted: the brief is the founders'
+primary channel and a model swap is a behavioural change. **Decide deliberately.**
+
 ### ⚠️ RemoteTrigger API footgun — read before editing any trigger
 
 **`job_config` updates are a FULL REPLACEMENT, not a merge.** Sending
