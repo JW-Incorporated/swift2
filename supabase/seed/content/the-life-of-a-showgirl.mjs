@@ -5652,16 +5652,27 @@ export default {
             focalPoint: '65% 21%',
           },
         ],
-        // Products: none this pass. The Nov. 23 look is now correctly identified
-        // (ledger #1051, 2026-07-25) as Guest in Residence's "Alpine Collegiate
-        // Polo" in Sandstone Combo ($425), Agolde Low Slung Baggy jeans ($248) and
-        // a Sezane belt — not a "color-blocked jacket." The prior Terez 49ers
-        // bomber alternative was removed: it was a wrong-team piece chosen to
-        // match that mischaracterized jacket. No first-party product page was
-        // curl-verifiable this pass (the exact GiR polo is sold out/delisted;
-        // guessed product URLs 404), so no shoppable entry is added rather than
-        // link an unverified page — same discipline as the Versace skip on the
-        // "Showgirl orange" look.
+        // Shop pass (2026-07-26): the Agolde jeans are curl-verified live and
+        // in stock (agolde.com, price matches the $248 sourced above); linked
+        // below. The GiR "Alpine Collegiate Polo" in Sandstone Combo is still
+        // unlinkable -- the exact colorway is delisted from guestinresidence.com
+        // (404), and the only live listing (Shopbop's "Cashmere Alpine
+        // Collegiate Polo") carries just the Midnight Combo colorway, itself
+        // out of stock -- so it stays skipped rather than link a mismatched
+        // colorway as the exact piece (same call as 2026-07-25, ledger #1051).
+        // The Sezane belt could not be verified either way this pass --
+        // sezane.com returns 403 to both curl and the fetch tool (bot
+        // protection), so it's skipped rather than guessed.
+        products: [
+          {
+            brand: 'Agolde',
+            item: 'Low Slung Baggy Jean',
+            retailer: 'agolde.com',
+            url: 'https://agolde.com/products/low-slung-baggy-reset',
+            price: '$248.00',
+            inStock: true,
+          },
+        ],
       },
     },
     {
