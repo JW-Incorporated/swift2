@@ -177,6 +177,14 @@ export function OwnershipTimeline({
                   <span className="text-xs tabular-nums" style={{ color: 'var(--era-ink-soft)' }}>
                     {album.originalYear}
                   </span>
+                  {/* #728: the TV release date must live in the accessibility tree —
+                      the marker div's aria-label was prohibited on a role-less element
+                      and the hover tooltip never reaches keyboard/AT users. */}
+                  {album.reclaimedDate !== null && (
+                    <span className="sr-only">
+                      {album.album} (Taylor&apos;s Version) released {album.reclaimedDate}
+                    </span>
+                  )}
                 </div>
 
                 <div className="relative h-7 flex-1 overflow-hidden rounded" style={{ backgroundColor: 'var(--era-surface)' }}>
@@ -204,7 +212,7 @@ export function OwnershipTimeline({
                     <div
                       className="absolute bottom-0 top-0 z-10 w-0.5"
                       style={{ left: `${reRecordPct}%`, backgroundColor: album.color, boxShadow: `0 0 6px ${album.color}` }}
-                      aria-label={`${album.album} (Taylor's Version) released ${album.reclaimedDate}`}
+                      aria-hidden
                     />
                   )}
 
