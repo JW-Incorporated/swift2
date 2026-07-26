@@ -36,6 +36,25 @@ in git, issues, or CI while burning ~144 sessions/day.
    precisely because their prompts lived only inside the trigger, where the
    "repo file is the source of truth" rule silently did not apply.
 
+## The auditor itself
+
+`Routine Auditor — fleet invariants`, `trig_018V66TnhXVAt8BLt5AZZuUa`, Haiku,
+Sundays 16:11 UTC. It is **deliberately the only routine that still carries
+`Claude_Code_Remote`**, because listing triggers requires it — which makes the
+auditor the one remaining path to spawning a routine. That risk is accepted and
+bounded three ways: its prompt forbids `create`/`update`/`run` outright (list and
+get only), its `allowed_tools` is `Bash, Read, Glob, Grep` (no Write, no Edit,
+no Task), and it is the cheapest model in the fleet.
+
+It reports to a single evolving `Routine Audit` issue (label `routine-audit`) —
+one comment per run, never a new issue per run, because four consecutive
+disconnected watchdog alerts (#947, #1177, #1203, #1224) sat unread for days
+precisely because each run minted a fresh issue.
+
+It is instructed to report loudly on its own failure rather than default to
+all-clear. **A false all-clear here is worse than no audit**, because this is
+the only check that exists for this failure class.
+
 ## Known gap
 
 There is no account- or org-level policy that prevents any of this. Enforcement
