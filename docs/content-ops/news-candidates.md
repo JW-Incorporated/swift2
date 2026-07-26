@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 83
+
+## Taylor Swift revealed the awkward moment the Kelce brothers met the royal family at her concert - Ya
+
+- first seen: 2026-07-26 04:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift revealed the awkward moment the Kelce brothers met the royal family at her concert  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6AFBVV95cUxNQVpsWlhJSk1xZUtnQWl0TTJLZTZITlpLcXlhWE52TmY2WkJhZzRPYVdOcWhYdVpXYkNVNFRZWnhXaXhWTldaQ3JhdGNNdDViM1JWai1lNEp1cDNnaUx4aUJfcldpeWVhVWtKemZFSWFTSnQwdWtFazFFdng0QXhQRjY5X3l1Tk1GcHlrOURLRVkyQWF3Uk1UMGlmcHZVX0NQb1dZYzcxUWpITnF5cUFnNVIyU0oyb25ONHNoQk40TFRBc0dleGhLVmsyaEU5WUFfLS02N3RnTDljN1BDVnpsX1JCajhKN2Nq?oc=5
 
 ## Brad Paisley on Taylor Swift, Travis Kelce donation to The Store - The Tennessean
 
@@ -222,6 +230,16 @@ Stories: 94
 - sources:
   - [unverified] CBS News — https://news.google.com/rss/articles/CBMiggFBVV95cUxQQlBqWXZnc1J3QTBRSFJaZ2lHcThfeHZQNTdhOUJaTk1PeUlqRlIxbC1iUFlqVnh1QzFHR3VvVFNzc0xZVmpPZHlWTzRCZmlETnpfdkpzMWpOMl96SWQyQzdlTDIyNTg3LWh4ZlZqdE52Nl9HUXdmTDlhczBFeWMwU053?oc=5
 
+## George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Go
+
+- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Got Invited  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbjQwVnowVFpvTGVoRVZFUjlHcDJmeGl3eTZiMGRkaUNhQUhleDJCY2M4Z3B6b3lxdE8xdDJETUZ5dTQwZVZoc0xfZUJxX0R4RDlJZ3kyRHBoSVpTRXhVTHVwVU5iMVJZMGpyVWFHQnZvc0NSQzFwTEg4OWlPQlp0b2tHU1dvR1hodGFBcnN4YUhneE5ZZVJPWUp4Szk?oc=5
+  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMifkFVX3lxTE9zQ0Zuc0JNN2FlRTBTY21uTmVvWHN4WkV6OTFoWEFLamJqRHY2Y1R1T0RBaGFoVENTa2pVcjFuaDlTOVVSdVB6TFFnLUZHM3BzMXlXTWw5aW5XMDNHeHd0M19rTFpZUlhBZk0yT2VTSFVvc2VNT2Z0QXpVaXRVZw?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQNWp4aC1NeXV4QXJLSFZpNVdkSVdMckRTUTdmWGtvUDJsTHhWdjZqWDE4djVTSDNrY2JTdVhJVjBGWEhwaEpZNG5yek42WWY5WldzS0lZNUNoRHZVaGJXbXQzOEhxQ0F4MVBVUWxsLXhwV2cyVlluc19welh1OWJnWEc2enQtR3doSWltWThvdk5kMUlDZmF6LVlaSjRha2hSZWFaSTV3?oc=5
+
 ## Kylie Kelce opens up about Taylor Swift, Travis Kelce wedding - USA Today
 
 - first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
@@ -277,15 +295,6 @@ Stories: 94
 - summary: Travis Kelce and Taylor Swift Announcement Shines Light on Heartwarming Act  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxQM3FMZkl0RDBrdDV1WTU1dExseFE4eGJRVXlCMlZ3VVRfVF85c0lDOTh4LVZvODNBRVd4a1JwRWlhRmRhOWpGc0NSazZZNmxhN3hIazNWVFl2Y0JhWF9nY2FKTFdnVTF5eEtHNl84ejBjc3FNUHQ1bTF4VlV3SzdfVmp0c0VQYmlldFFvQ0xrY09FcUVpdG5xeEtNY1NIY1ZsQnhGQkJwUEl4eENH?oc=5
-
-## George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Go
-
-- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Got Invited  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbjQwVnowVFpvTGVoRVZFUjlHcDJmeGl3eTZiMGRkaUNhQUhleDJCY2M4Z3B6b3lxdE8xdDJETUZ5dTQwZVZoc0xfZUJxX0R4RDlJZ3kyRHBoSVpTRXhVTHVwVU5iMVJZMGpyVWFHQnZvc0NSQzFwTEg4OWlPQlp0b2tHU1dvR1hodGFBcnN4YUhneE5ZZVJPWUp4Szk?oc=5
-  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMifkFVX3lxTE9zQ0Zuc0JNN2FlRTBTY21uTmVvWHN4WkV6OTFoWEFLamJqRHY2Y1R1T0RBaGFoVENTa2pVcjFuaDlTOVVSdVB6TFFnLUZHM3BzMXlXTWw5aW5XMDNHeHd0M19rTFpZUlhBZk0yT2VTSFVvc2VNT2Z0QXpVaXRVZw?oc=5
 
 ## Niecy Nash Reveals Taylor Swift and Travis Kelce's Wedding Was 'Top Secret': 'You Had to Zip the Lip
 
@@ -696,101 +705,3 @@ Stories: 94
 - summary: Taylor Swift's husband leaves fans saying the same thing over leaked retirement plans  Yahoo Sports
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxPaUxjTDRwalFvSS1CTXNudVZ5M3hxaVhFck1vRUVZYmdrMTd3eUFfQUJ6NllUT01IWk5OYTVjODB0VllGdVBfLUdPcFpXNVU2MlpOQWZna1JZYkxSYVFlRU9XTGprQWxLZHZrNDh6Y1JWdEhIMFRfUDhtbjlXaDh5NmhuQ3FlclNYeUE?oc=5
-
-## Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth - Yahoo
-
-- first seen: 2026-07-23 04:28 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxQM1JKTVptQktSUFJ0MXduNkhHbW1FTlE0Q3gza1ZqSGljU1hKOHlwcUtCVmRsallvRFVKR2lSTzZGU3V6VG9BbGlMVzA2eVlNbEszV3N0Q1dNUElvdVFaR3lZMVowNlJtR3p1U0pEVTR3cnBrUE5xcGoyREttZTNzZjcybG9ZMnpMRGpBS2h0UkNqRzdseHRIRmhLTQ?oc=5
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMilwFBVV95cUxQLUpZbzFfVGR4R3BrSjI2aW1VV3FtNUJkcm8yU2VXNWFSZVppVXRpaDlFeGhKZlJtYlk4REpEUVJZZ25xVjUyXzU1UGZfRnJhTFJWVmJaQnd2UXRDVUxzbnEtU0ZQTU5LS3k4UkF4RkdYRkZwUndVOUxWNHVWUHRETVEybklpSlhoQU9UdnMyZGRxaVBMUmlv?oc=5
-
-## Jason Kelce Opens Up About Life Since His Brother Got Together with Taylor Swift - InspireMore
-
-- first seen: 2026-07-23 04:28 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce Opens Up About Life Since His Brother Got Together with Taylor Swift  InspireMore
-- sources:
-  - [unverified] InspireMore — https://news.google.com/rss/articles/CBMirgFBVV95cUxOSmVWZEZOVlpXY3k4NXQxSEtxaHJJU1JSdlZ1VmF4cUppVnR0YVJKR0tyRU1hRC1Iam9KbDBSZldhSzhHRC1ibTRPWjliRlVtMmJKczVEa2djNTUwRTdRalU0NE9SMVBFR281WThTUVNiQjRnaW44anJzMjV4U0o0U3NIWU44aXZ0RG5QTjJhVGh5azNvc0luc2lYSVQxWlc2czMxcE9WNWx2SWVjakE?oc=5
-
-## 'Taylor is really hurt': Blake Lively's new inner circle turns heads after missing Taylor Swift and 
-
-- first seen: 2026-07-23 04:28 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: 'Taylor is really hurt': Blake Lively's new inner circle turns heads after missing Taylor Swift and Travi  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMioAJBVV95cUxQYU9VeW51aWNLM2Y2b3BJcVg5a1FXOFEybUhvWTM0di0zNEhyTm5zbEh6cFFiTDc4UDZsMHBUTWJrZWhFcWsxZkY5Q1QxZEhIeG5NZVlzNTJNeXVITWppaXBtbWpMTDhoMDB0WUd6RDU2Y2E4WWhPblBXMXpFdVY3Z3l4YjZtcFp0MGRHOTBoMEx6NTh1SHk5TjZJVnV1anB6bGpZVEZwZERmQU9KOGwzOGhiOUwxc29xSklvZnphTHdwVkc5UDhGRGtXZGlxUm1BeDZVOFMxblhiUFl3N2l3clNpdEVuNWZRd05nbjVsWktmMkpFenk3UERiNGlMVkNfeWs5S2lMWG15RXF3Y3M2Yk5MeVlRc29RaHJkM1lrbErSAaYCQVVfeXFMTlB3NGlJcTB4dFVneEVTNTJGdmpyRFVKQVRLMUgwZ1ZYNmNBUHdYVUNqYmoyTmtFcTNoS2NBd1RxNGJtYlByc01tQmhtall3NjBHbnJqQkNndlowUWxpQ3QteU5DbTlzV3FaZnk4SHd5Nm53WWY3aGlGbnJyUFoxY0QzeE82d085VGJPTFdWOU9VN3JfX0JZLThXTDQ1QmF5S1dmNE90aHRXZHFKUGhQR3htTXh3ZTNNSkJhTWtXQW9tS0NNRHhhSER1dC1KOEZiVk1PZjJfblNBRHdoVHlpdjcwbEsyRTBPZ3gxbU96djRnS1JydDFNM0QxVzV5QWpzcTI4NGpnblVjNE5ZZm0zdXJfY045NHNhdklmb292bzExOFFWSi1n?oc=5
-
-## Gracie Abrams’ Producer Responds to Speculation ‘Death Wish’ Song is About Taylor Swift - IMDb
-
-- first seen: 2026-07-23 04:28 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Gracie Abrams’ Producer Responds to Speculation ‘Death Wish’ Song is About Taylor Swift  IMDb
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE5qYVU0TXNfNTJBdGlKajFYaU9KRGZyMnE1TFk2WGY0U0hwWFFnc1c2YUt6LVo4STc1bWpIb1VfSjdZQzdLdVJpeV9nMmpEZTVWVWxaTWJBckF1Q253cmNLRXJ2ZGI5dw?oc=5
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMivwFBVV95cUxNeEQ5ZHJsbXN3TGpELTBjcVI0ZjZVd2lOc21pOHZib1dlT0JTOG1HaDVOZ2tJWUdiSGNFb3k2ejhhbi1OUE1wWU1BYXNPdFI5LUpTcldUMWQwMy1XUXN3NFdCazdzT0hkVW5QRHU0a202VVRORW4zdWhVNWNzWDBrR1NjTDJ1YnY1QXRaWGRrUHdvam9YaGNkYklLWXBCeDNiSFZRVlE1M3ZZRmQ0dG8wZzVUMXUtOEhBdHp5NlZHNA?oc=5
-
-## Taylor Swift tribute band Reputation set for Garland show - CW33.com
-
-- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift tribute band Reputation set for Garland show  CW33.com
-- sources:
-  - [unverified] CW33.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNLUxaU3FJdUQ0VVdkSmtaNExBczRVZFpscExPeVJPeEtfZmwzVlNBUDlNOEtMQTQ3Wm9QZENJV2NXM2dJdEROX0dkczVNRTZZaTBJRnhXMDVFVnllRWtaWWlScjRTc2FjWWFxSjVPYUQyMEVLR1ZBRk1kSm5mR3RyYTI4d3ByV2t3YmIyclgwZWRmUTR0YkViRFhn0gGfAUFVX3lxTFBVSzdrYlB5QjdORm5ONnVPNlB2ZzFNZENJM0hwM1JpZm5hSWRETjlteTBod2RLNjBvVUNrdExGS19uRm02Z1ZWUkRYWlM3ODg1TWl5SnI0Y0U5NHhidzd2akxMSUZEZEI4MmhEODBvczZiclQ5bGtRdTRXdGJ2VVUtVUU2S2tLbFVSbHpNRk9ENjg3UmhjN1Y4VWRPVXJzOA?oc=5
-
-## Taylor Swift’s biggest Oscar competition might be… Christopher Nolan? - Gold Derby
-
-- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s biggest Oscar competition might be… Christopher Nolan?  Gold Derby
-- sources:
-  - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMiowFBVV95cUxOWWlnelJMbWR4Z0RqSGk2dlFYWkh1bTBnYlY3MVRpeWJOX25vbXVaNXRsZHdwSTFLNzl5RzA4a0ZDS04wNkV4dWo5SXlrX0gwRHZsaUJXU3dTU1ltQWk2QVdPZXlfRDVjSmRSOURJOUpDUXQ0VGtQNXQ4UUNKa2NISDlHckFuUjdXS0Y0b0Zkd3Y0YkpoS0xfRG1WSlBPcmd0SHJn?oc=5
-
-## This Is What Taylor Swift Sounds Like to Non-Swifties - Hits 96 | WDOD-FM
-
-- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: This Is What Taylor Swift Sounds Like to Non-Swifties  Hits 96 | WDOD-FM
-- sources:
-  - [unverified] Hits 96 | WDOD-FM — https://news.google.com/rss/articles/CBMigwFBVV95cUxORkVHOE5FdnV5dDR2UWo5ME1SVTBUdFozdmh4bFBUelJQazZwYU0xRmpnQUItLXBXWmc3NFBVbkhrNVpjX01IbUxjY2FoeUcxYWlGdVlPbmJxeU4tYjZjWU5wM2c3b01MRUVQbWJLMTQ5TWJLczZtbFdXc2diNEdCNndFYw?oc=5
-
-## The “Popcast” hosts on interviewing Taylor Swift, killing the written review, and whether literacy i
-
-- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: The “Popcast” hosts on interviewing Taylor Swift, killing the written review, and whether literacy is over  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNWnpiNW0tem9vQnBPNzY4YUtVX1ZDLVJ1TmpBYy0yeml1UzlRbEp5cXM4cGFXWUYxRzc3QUFVQ3hPbWtteFBVbElobkJId2dIUTAtYk9vR2l5SlNCcUVIQXlfMUt6Wkthbmx3WC1ZOTRSc2hybXNWdTdRc0dlUWFqQzVfS3NHbVI3RWk1NWFsLTFJR3hpdk51NHJBbVlGVE10MGgzekw2eEc?oc=5
-
-## Jason Kelce Reveals How His Life Has Changed Since Travis Kelce Started Dating Taylor Swift - People
-
-- first seen: 2026-07-22 22:14 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce Reveals How His Life Has Changed Since Travis Kelce Started Dating Taylor Swift  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYlF3VHVhN3djTHBCdHI5aHNscGhpMnJCN3FhZVQ5eXQyem5qTWg4ajdwLU1XVDFVeTRFOUdoSHNvd05ycFpZTWtSWXpFMllnM1kwRVhmcVpaNk1lSzRZTU5xVlNueWZXdzZMRjViY2JaR0Y1YU0ydkltSk9pci1MMHFXMG5nMWhpY2pYdVljWmNnWEZhdEdxXzVTV3lNcVh3SFREbkhuOWZrYkE3c3N2OG5VMjM4VzlzWmVr?oc=5
-
-## Travis Kelce Had a Surprise for Taylor Swift on Their Wedding Day - Sports Illustrated
-
-- first seen: 2026-07-22 22:14 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Had a Surprise for Taylor Swift on Their Wedding Day  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQWGhmdHk4TVRENEUyQkJ5Zy1fMG9YNjEteUgtSDRGb2tFaEFqM2Z2SU15RWZIaHVuQjRIcDlCNndKMnNPTjg3UUY0ZWlYRTFKN3lVRG80WGVwRDFIT0tfM0MzTHdjUlE0NnN4YURTNlRVQkZYX3RSN0xTSUc2U21PeTZqZlp6bDJUVzJGSC15SEVDZzUtQzFnNzVMNUx3Y2wxWnV5REc5cmVlMWc?oc=5
-
-## Aaron Dessner Sets the Record Straight on Gracie Abrams’ ‘Death Wish’: It’s ‘Definitely Not’ About T
-
-- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Aaron Dessner Sets the Record Straight on Gracie Abrams’ ‘Death Wish’: It’s ‘Definitely Not’ About Taylor Swift  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxPdUM0VFVES1E0VnI2RGFWcHd4ak1HVllVUUxBYXdRelNMT1FLbmQ5NUJJX3RBUjd2X3ZDMDl1Y29wR3h3VXBRMVZvV3diZzZ2X1ZEeXNIZWhoMU9ZaERjRWlJeDAwaWYzOGUxTUttS0ZDNlhFYlN5Ym5FUTk4T1R5WS1lcW9RMXRRRm95S0t3Nl9GWjNZVGxENGN5eWlXMVZ2ZGxGeERvWkF5eWlTb3FLUlRKUHA?oc=5
-
-## How Travis Kelce’s Wedding Band Nods to Taylor Swift’s Engagement Ring - ELLE
-
-- first seen: 2026-07-22 22:14 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: How Travis Kelce’s Wedding Band Nods to Taylor Swift’s Engagement Ring  ELLE
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMimwFBVV95cUxNUGhsQWFSdFdUb0NKbHBqcHU5bUJtQ2lTQjU4Tkk4MEc3OEtyRUdSRUNENmkyN1RPb1h1QVJlSWFEN0tnT1lfOVlBRE9lazlnNDFUdWZuVWd6U3hVSFdLNVVxeHJyLVhYQ2dYVHQ4SVduaGs1aHhYVGdxQWRZRTBZeEY5Wi1hN1pVMzg2SnIyTm5faXEzaEFpenNpTQ?oc=5
