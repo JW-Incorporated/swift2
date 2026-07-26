@@ -5413,7 +5413,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, attending without being shown on broadcasts. This time the suite window gave her away: fans in the stands filmed her reaction as Harrison Butker\'s overtime kick beat the Colts 23-20, TMZ describing her screaming and jumping, and E! reporting she was seen playfully shaking her father Scott by the shoulders in celebration.\n\nThe game earned the "nail-biter" billing. On CBS, the Chiefs rallied from an 11-point deficit — Patrick Mahomes threw for a season-high 352 yards and Kareem Hunt ran for 104 and a touchdown — and it came down to Butker, who made all five of his field goals for 15 of Kansas City\'s 23 points, forcing overtime with a 25-yarder as regulation expired and winning it with a 27-yard kick. The Colts iced him with a timeout first: "that probably helped me slow the heart rate down," he said afterward. Her celebration was caught only on fan video from the stands, not a network cut — of a piece with a season she spent largely off the broadcast.\n\nThe sighting marked the practical end of the invisible-fan experiment: with the Chiefs\' playoff hopes fading, the remaining home slate was short — the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season — and her appearances got more visible, not less, as the season wound down. The win only nudged Kansas City to 6-5, and the math kept slipping: the Chiefs finished 6-11 and missed the postseason for the first time since 2014 — clinched by a Week 15 loss to the Chargers in which Mahomes tore his ACL — the first missed playoffs of the stretch since Swift started attending. The low-profile run itself became part of the era\'s story: the most-photographed woman in the NFL\'s orbit spending most of a season successfully unphotographed.',
+          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, attending without being shown on broadcasts. This time the suite window gave her away: fans in the stands filmed her reaction as Harrison Butker\'s overtime kick beat the Colts 23-20, TMZ describing her screaming and jumping, and E! reporting she was seen playfully shaking her father Scott by the shoulders in celebration.\n\nThe game earned the "nail-biter" billing. On CBS, the Chiefs rallied from an 11-point deficit — Patrick Mahomes threw for a season-high 352 yards and Kareem Hunt ran for 104 and a touchdown — and it came down to Butker, who made all five of his field goals for 15 of Kansas City\'s 23 points, forcing overtime with a 25-yarder as regulation expired and winning it with a 27-yard kick. The Colts iced him with a timeout first: "that probably helped me slow the heart rate down," he said afterward. Her celebration was caught only on fan video from the stands, not a network cut — of a piece with a season she spent largely off the broadcast.\n\nThe sighting marked the practical end of the invisible-fan experiment: with the Chiefs\' playoff hopes fading, the remaining home slate was short — the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season — and her appearances got more visible, not less, as the season wound down. The win only nudged Kansas City to 6-5, and the math kept slipping: the Chiefs finished 6-11 and missed the postseason for the first time since 2014 — clinched by a Week 15 loss to the Chargers in which Mahomes tore his ACL — the first missed playoffs of the stretch since Swift started attending. The low-profile run itself became part of the era\'s story: the most-photographed woman in the NFL\'s orbit spending most of a season successfully unphotographed.\n\nBy the count, that run was every Arrowhead home game of the fall. She attended all six Chiefs home dates from September through this one — the Eagles (Sept. 14), Ravens (Sept. 28), Lions (Oct. 12), Raiders (Oct. 19), Commanders (Oct. 27) and Colts (Nov. 23) — while skipping every road game, her documented home-only pattern. Three of the six she took in entirely off-broadcast: she slipped behind a rolling partition against the Eagles, went unspotted again at the Ravens game, and here against the Colts wasn\'t found until eagle-eyed fans caught her in the crowd on the final play. The exceptions proved the rule — she was televised laughing beside Caitlin Clark at the Lions game, and surfaced on the Commanders broadcast only after a Kelce touchdown in the third quarter.',
         sources: [
           {
             outlet: 'TMZ',
@@ -5482,6 +5482,49 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-25',
             reliability_score: 2,
+          },
+          // Ledger #1040 Q4 (2026-07-25): the countable home-game tally behind
+          // the "weeks" of low profile — six home games attended, three of them
+          // (Eagles, Ravens, Colts) entirely off-broadcast.
+          {
+            // Sept. 14 Eagles: attended but unspotted, entered behind a rolling partition.
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1421829/taylor-swift-at-travis-kelces-chiefs-eagles-game',
+            source_title: 'Taylor Swift Attends Travis Kelce\'s Chiefs vs. Eagles Game',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // Sept. 28 Ravens: attended, not publicly spotted or shown on the broadcast.
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-chiefs-ravens-nfl-game-2025-rcna233742',
+            source_title: 'Was Taylor Swift at the Chiefs vs. Ravens game?',
+            publisher: 'TODAY / NBCUniversal',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // Oct. 12 Lions (televised, w/ Caitlin Clark) + Oct. 19 Raiders home return.
+            outlet: 'Red94',
+            url: 'https://www.red94.net/news/555210-taylor-swift-attends-chiefs-vs-raiders-home-game-at-arrowhead-after-lions-appearance-with-caitlin-clark/',
+            source_title: 'Taylor Swift attends Chiefs vs. Raiders home game after Lions appearance with Caitlin Clark',
+            publisher: 'Red94',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            // Oct. 27 Commanders: surfaced on the MNF broadcast only after a Kelce TD.
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1424323/taylor-swift-at-kansas-city-chiefs-washington-commanders-game',
+            source_title: 'Taylor Swift at Kansas City Chiefs vs. Washington Commanders Game',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
           },
         ],
         // No agency photo of the Nov. 23 suite moment was hotlinkable (the
@@ -6102,7 +6145,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Times\' list, published April 28, 2026, was assembled from more than 250 music insiders and six of its own critics — unranked, and putting her alongside Bob Dylan, Dolly Parton, Jay-Z, Kendrick Lamar, Missy Elliott, and Bad Bunny — a roster weighted toward elder statespeople (Paul Simon, Stevie Wonder, Bruce Springsteen and Nile Rodgers made it too), on which she, Kendrick and Bad Bunny stand out as the youngest generation named. The accompanying video interview — conducted by Times music reporter Joe Coscarelli and released through the paper\'s Popcast — is the part fans kept: an uninterrupted half-hour where the only subject is the songwriting.\n\nThe takeaways travel well. Country storytelling pulled her in first, but the other early wire was emo — Dashboard Confessional and Fall Out Boy get named checks. Her collaboration rule: "May the best idea win... I don\'t care if it came from you, you or me. If it\'s better, that\'s what goes in the song" — adding "I do kind of like it when people challenge me on something." And on the fandom\'s favorite sport, she pushed back harder than she ever has: "When it gets a little bit weird for me is when people act like it\'s sort of like a paternity test... That dude didn\'t write the song. I did."\n\nOn the songs themselves the half-hour is unusually granular. She walked through the lost-and-rebuilt "All Too Well (10 Minute Version)," reconstructed from her old diaries in what she called her most extensive song restoration; a copy-editor\'s tic on "Our Song" (she changed "talk real low" to "talk real slow" to avoid a word ending on the letter the next one starts with); the head-through-a-wall intensity behind "...Ready For It?" and "Getaway Car"; "Love Story," written at seventeen while furious at her parents; and "Nothing New," written alone in a hotel at twenty-two convinced she was "completely washed up." She traced "Blank Space" and "Anti-Hero" back to the criticism of her that made them possible, and described catching the "Elizabeth Taylor" melody on a car ride straight into her phone\'s voice-memo app — a rare glimpse of the toolkit, voice memos and old diaries, behind the writing.\n\nThe timing made it land as the opening beat of a craft-canonization spring: six weeks later she\'d be the youngest woman ever inducted into the Songwriters Hall of Fame.',
+          'The Times\' list, published April 28, 2026, was assembled from more than 250 music insiders and six of its own critics (Wesley Morris, Jon Caramanica, Joe Coscarelli, Lindsay Zoladz, Jody Rosen and Danyel Smith) — unranked, and putting her alongside Bob Dylan, Dolly Parton, Jay-Z, Kendrick Lamar, Missy Elliott, and Bad Bunny — a roster weighted toward elder statespeople (Paul Simon, Stevie Wonder, Bruce Springsteen and Nile Rodgers made it too), on which she, Kendrick and Bad Bunny stand out as the youngest generation named. The accompanying video interview — conducted by Times music reporter Joe Coscarelli and released through the paper\'s Popcast — is the part fans kept: an uninterrupted half-hour where the only subject is the songwriting.\n\nThe takeaways travel well. Country storytelling pulled her in first, but the other early wire was emo, and here she named names: she praised the "specificity" of Dashboard Confessional\'s "Hands Down" — reading those lyrics, she said, made her think "oh, my God" — and the way Fall Out Boy "switched it" on "Sugar, We\'re Goin Down," quoting the "I\'m just a notch in your bedpost, but you\'re just a line in a song" flip. She traced none of her own songs to that wire, only the craft lesson she took from it. Her collaboration rule: "May the best idea win... I don\'t care if it came from you, you or me. If it\'s better, that\'s what goes in the song" — adding "I do kind of like it when people challenge me on something." And on the fandom\'s favorite sport, she pushed back harder than she ever has: "When it gets a little bit weird for me is when people act like it\'s sort of like a paternity test... That dude didn\'t write the song. I did." Coverage read the line as a general verdict on years of who-is-it-about sleuthing, not a reply to any single album\'s speculation cycle.\n\nOn the songs themselves the half-hour is unusually granular. She walked through the lost-and-rebuilt "All Too Well (10 Minute Version)," reconstructed from her old diaries in what she called her most extensive song restoration; a copy-editor\'s tic on "Our Song" (she changed "talk real low" to "talk real slow" to avoid a word ending on the letter the next one starts with); the head-through-a-wall intensity behind "...Ready For It?" and "Getaway Car"; "Love Story," written at seventeen while furious at her parents; and "Nothing New," written alone in a hotel at twenty-two convinced she was "completely washed up." She traced "Blank Space" and "Anti-Hero" back to the criticism of her that made them possible, and described catching the "Elizabeth Taylor" melody on a car ride straight into her phone\'s voice-memo app — a rare glimpse of the toolkit, voice memos and old diaries, behind the writing.\n\nThe timing made it land as the opening beat of a craft-canonization spring: six weeks later she\'d be the youngest woman ever inducted into the Songwriters Hall of Fame.',
         sources: [
           {
             outlet: 'Billboard',
@@ -6163,6 +6206,29 @@ export default {
             url: 'https://www.yahoo.com/entertainment/music/articles/nyt-ranked-30-greatest-living-165619725.html',
             source_title: "NYT Ranked The '30 Greatest Living American Songwriters' — And The Internet Is Divided",
             publisher: 'Yahoo',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          // Ledger #1044 Q5 (2026-07-25): the specific emo songs she named —
+          // Dashboard Confessional's "Hands Down" and Fall Out Boy's "Sugar,
+          // We're Goin Down" — and that she traced none of her own songs to them.
+          {
+            outlet: 'Loudwire',
+            url: 'https://loudwire.com/taylor-swift-emo-fall-out-boy-dashboard-confessional/',
+            source_title: "Taylor Swift Names the Emo Songs That Shaped Her Songwriting",
+            publisher: 'Loudwire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          // Ledger #1044 Q6 (2026-07-25): the "paternity test" line read as a
+          // general remark on years of fan sleuthing, not aimed at one cycle.
+          {
+            outlet: 'GMA News Online',
+            url: 'https://www.gmanetwork.com/news/showbiz/showbizabroad/985915/taylor-swift-songwriting-fan-theories/story/',
+            source_title: "Taylor Swift on fans' songwriting 'paternity tests'",
+            publisher: 'GMA News Online',
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
             reliability_score: 3,
@@ -6319,7 +6385,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The display opened in late June 2026 on the museum\'s fifth level, in the Legends of Rock exhibit — institutional-canon treatment for an era still in progress, before she is even age-eligible for induction. The case holds the long-beaded gown from the video\'s finale, the mint sequined swimming costume from its synchronized-swim number, and props carried by her dancers, staged against a backdrop image from the shoot.\n\nThe artifacts come from the self-written, self-directed video whose single led the Hot 100 for 10 weeks, her longest-leading No. 1, and which had passed 438 million views by the time the case was installed. The placement is the story: costumes from a nine-month-old music video sharing a floor with rock history\'s permanent wardrobe, the museum treating the Showgirl era as canon while it was still selling out vinyl pressings.',
+          'The display opened in late June 2026 on the museum\'s fifth level, in the Legends of Rock exhibit — institutional-canon treatment for an era still in progress, before she is even age-eligible for induction. The case holds the long-beaded gown from the video\'s finale, the mint sequined swimming costume from its synchronized-swim number, and props carried by her dancers, staged against a backdrop image from the shoot.\n\nThe artifacts come from the self-written, self-directed video whose single led the Hot 100 for 10 weeks, her longest-leading No. 1, and which had passed 438 million views by the time the case was installed (and 450 million within weeks of it). The placement is the story: costumes from a nine-month-old music video sharing a floor with rock history\'s permanent wardrobe, the museum treating the Showgirl era as canon while it was still selling out vinyl pressings.\n\nTwo details the coverage pins down sharpen the picture. The installation is temporary, not a permanent placement: Cleveland.com reported the exhibit is "slated to be up through the end of the year," a defined 2026 run window inside the standing Legends of Rock section. And it is not the museum\'s first Swift artifact — Cleveland.com noted the case "joins a growing collection of Swift memorabilia already displayed" in Cleveland, with earlier items reported to include a cardigan from one of her music videos and a moss-covered piano, so the Rock Hall had been showing her work well before the Ophelia costumes arrived. What the coverage never settled is how the pieces got there: loan, donation, or acquisition is unstated, and no named curator went on record explaining why an era still in progress earned a case.',
         sources: [
           {
             outlet: 'Billboard',
@@ -6338,6 +6404,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Ledger #1049 Q2 + Q4 (2026-07-25): the temporary "through the end of
+          // the year" run window, and that the case joins an existing Swift
+          // collection at the Rock Hall (so it is not her first artifact there).
+          {
+            outlet: 'Cleveland.com (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swifts-fate-ophelia-joins-172729000.html',
+            source_title: "Taylor Swift's 'Fate of Ophelia' costumes join the Rock & Roll Hall of Fame",
+            publisher: 'Cleveland.com / Advance Local',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Image-fix pass (2026-07-10, ticket #340): removed the ABC7
