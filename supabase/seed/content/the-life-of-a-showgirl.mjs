@@ -3468,6 +3468,56 @@ export default {
       },
     },
     {
+      // Authored 2026-07-25 from intake #1524. The wedding-as-event is already
+      // the `msg-wedding` moment (significance: defining) — the intake's "not
+      // yet captured / parent record" framing was wrong and is corrected in the
+      // ledger. What IS new is the Kelce family going on the record welcoming
+      // Taylor; it lands as its own beat here rather than bloating msg-wedding,
+      // whose context is already at the 4000-char DB cap. Two independent
+      // established outlets carry the identical on-record quotes (relationship
+      // two-source bar): TODAY was fetched and verified directly this session.
+      // The adjacent flower-girls/minors detail was deliberately NOT authored
+      // (privacy redline #5); Donna's line is a public remark at a public event.
+      slug: 'showgirl-kelces-welcome-taylor-family',
+      year: 2026,
+      month: 7,
+      day: 23,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
+      ],
+      title: 'The Kelces put it on the record: Taylor is family',
+      snippet:
+        'In the weeks after the July 3 wedding, Travis\'s family spoke up: Kylie Kelce called it "absolutely magical" and said Taylor had "been part of the family now for quite some time," the wedding "only making it official."',
+      sourceUrl: 'https://www.today.com/popculture/news/kylie-kelce-calls-taylor-swift-family-after-travis-kelce-wedding-rcna588869',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'For all the secrecy around the July 3 wedding itself, the warmth around it surfaced in the weeks after — and it came from Travis\'s side of the aisle. On the July 23 episode of her podcast "Not Gonna Lie," Kylie Kelce — married to Travis\'s brother Jason — called the ceremony "absolutely magical" and "intimate, and incredible, and full of love both for each other and for everybody else\'s love for them," and said she was "so happy for them." The line fans seized on reframed the day as a formality more than a threshold: "Taylor\'s been part of the family now for quite some time," Kylie said, the wedding "only making it official."\n\nTravis\'s mother Donna Kelce — bound by the same NDA that had guests like Seth Meyers joking about how little they could say — kept it to a single word when she was caught at the July 4 Macy\'s fireworks show: it was "magical, man." Neither said more about the ceremony\'s particulars. The family\'s public role here was less to reveal the day than to close the loop on the relationship it sealed — a Kelce welcome stated plainly, on the record.',
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/news/kylie-kelce-calls-taylor-swift-family-after-travis-kelce-wedding-rcna588869',
+            source_title: "Kylie Kelce Calls Taylor Swift 'Family' After Wedding to Travis Kelce",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1434258/travis-kelce-taylor-swift-wedding-kylie-kelce-shares-details',
+            source_title: "Kylie Kelce Details 'Absolutely Magical' Taylor Swift, Travis Kelce Wedding",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
       slug: 'showgirl-wedding-bands-first-look',
       year: 2026,
       month: 7,
