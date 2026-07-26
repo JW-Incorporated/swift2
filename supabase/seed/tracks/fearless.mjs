@@ -244,6 +244,65 @@ export default {
         wiki("You're Not Sorry", "You're_Not_Sorry", 'song article: background and CSI remix'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          'Fearless’s darkest ballad and its clearest kiss-off: an apology refused, delivered as a piano ballad that sounds like someone finally hanging up. It gave a 19-year-old Swift one of her first genuinely dramatic vocal performances and — unusually for a non-single — a second life on network television.',
+        ],
+        meaning: {
+          confirmed: [
+            'Written solo by Swift and produced with Nathan Chapman, it debuted and peaked at No. 11 on the Billboard Hot 100 in November 2008 on download strength during Fearless’s release week (also No. 11 in Canada, No. 21 on the Pop 100); it is certified Platinum by the RIAA.',
+            'An electronic remix soundtracked Swift’s acting debut: she guest-starred as murdered teenager Haley Jones in the CSI: Crime Scene Investigation season-nine episode “Turn, Turn, Turn,” which aired March 5, 2009. The remix hit iTunes the same day and pushed the song back onto the Hot 100 at No. 67.',
+            'The re-recording on Fearless (Taylor’s Version) (April 9, 2021) charted at No. 165 on the Billboard Global 200, No. 90 in Canada and No. 11 on the US Bubbling Under Hot 100; reviewers noted a fuller, less-nasal vocal.',
+          ],
+          supported: [
+            'Swift has said the song grew out of a relationship with someone who “came across as Prince Charming” but “had a lot of secrets that he didn’t tell me about.”',
+            'Reception has always split on it: Brittany Spanos (Rolling Stone) credited it as “one of her first truly dramatic vocal deliveries,” while Rob Sheffield (in Blender) called it “drippy” and later critics found it overwrought — the divide that follows a big, unguarded ballad swing.',
+          ],
+        },
+        connections: [
+          {
+            relatedId: 'song:white-horse',
+            label: 'White Horse',
+            why: 'Fearless’s other disillusionment ballad — “White Horse” watches the fairy tale collapse, “You’re Not Sorry” refuses the apology that comes after.',
+          },
+          {
+            relatedId: 'song:dear-john',
+            label: 'Dear John',
+            why: 'The same refused-apology lineage two albums on: “You’re Not Sorry” is the early piano kiss-off that “Dear John” expands into a six-minute indictment.',
+          },
+        ],
+        live: [
+          {
+            date: '2009-04-05',
+            event: '44th Academy of Country Music Awards',
+            note: 'Live debut, introduced with a David Copperfield illusion.',
+          },
+          {
+            event: 'Fearless Tour (2009–10)',
+            note: 'A regular set piece performed at a baby grand piano, medleyed with Justin Timberlake’s “What Goes Around... Comes Around.”',
+          },
+          {
+            event: 'Speak Now World Tour (2011–12)',
+            note: 'Reworked as a mashup with “Back to December” and OneRepublic’s “Apologize.”',
+          },
+          {
+            date: '2023-04-21',
+            event: 'The Eras Tour',
+            note: 'Returned as a surprise song in Houston, and again in Sydney on February 23, 2024.',
+          },
+        ],
+        voices: [
+          {
+            who: 'Brittany Spanos',
+            context: 'Rolling Stone',
+            note: 'Her voice “pierces through the sound of her band for one of her first truly dramatic vocal deliveries.”',
+          },
+        ],
+        sources: [
+          { name: 'You’re Not Sorry — Wikipedia', url: 'https://en.wikipedia.org/wiki/You%27re_Not_Sorry' },
+          { name: '“Turn, Turn, Turn” (CSI episode) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Turn,_Turn,_Turn_(CSI_episode)' },
+        ],
+      },
     },
     {
       slug: 'the-way-i-loved-you',

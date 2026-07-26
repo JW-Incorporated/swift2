@@ -479,10 +479,12 @@ export default {
     meaning: {
       confirmed: [
         "Swift and Ed Sheeran wrote it together on a trampoline in her backyard; Butch Walker produced it, with Swift saying she chose him because he would approach the song from an organic place.",
-        "Released as Red's sixth single in July 2013, it peaked at No. 32 on the Hot 100 and No. 7 in the UK; the June 2013 video cast child doppelgängers of both singers, and the two performed it together on the Red Tour and again on the Eras Tour in 2024."
+        "Released as Red's sixth single (UK July 14, US July 16, 2013), it peaked at No. 32 on the Hot 100, No. 7 in the UK, and No. 28 in both Australia and Canada.",
+        "The Philip Andelman-directed video premiered June 6, 2013: it cast child doppelgängers — Ava Ames as young Taylor and Jack Lewis as young Ed — who meet at school and are revealed at the end to be the singers' own children. The same two actors reunited nine years later for Sheeran's 'The Joker and the Queen' video (2022).",
+        "A Taylor's Version followed on Red (Taylor's Version) (November 2021): Sheeran re-recorded his vocal — teasing the studio session in an August 23, 2021 video — and the re-cut reached No. 59 on the Billboard Global 200, No. 63 on the Hot 100, and No. 51 in Canada."
       ],
       supported: [
-        "Critics split on the duet — some heard one of Red's slighter writing moments, others a pleasant track that shouldn't be overlooked — but its cultural weight ended up biographical: the recorded beginning of the Swift-Sheeran partnership.",
+        "Critics split on the duet: the AP's Mesfin Fekadu singled out the pair's falsetto harmonies and Randall Roberts (Los Angeles Times) called it a 'powerful collaboration,' while Jon Caramanica (New York Times) judged the writing weaker than her past work and NME's Sian Rowe called it 'disappointing.' Its cultural weight ended up biographical: the recorded beginning of the Swift-Sheeran partnership.",
         "The song treats a first meeting as a hinge in time: what matters isn't the romance's outcome but the instant certainty that everything after it will be different."
       ],
       fanTheories: [
@@ -494,6 +496,11 @@ export default {
         relatedId: "song:run",
         label: "Run",
         why: "The other trampoline-era Sheeran co-write, written the first day they met and vaulted for nine years — the same partnership's secret first chapter."
+      },
+      {
+        relatedId: "song:end-game",
+        label: "End Game",
+        why: "The Swift-Sheeran friendship's next studio chapter — a 2017 reputation collaboration (with Future) that turned a one-off Red duet into a recurring partnership."
       },
       {
         relatedId: "song:begin-again",
@@ -514,6 +521,10 @@ export default {
       {
         name: "Billboard: Swift and Sheeran Return to Childhood in Video (2013)",
         url: "https://www.billboard.com/music/music-news/taylor-swift-ed-sheeran-return-to-childhood-in-everything-has-1566117/"
+      },
+      {
+        name: "Variety: Sheeran/Swift 'Joker and the Queen' video reunites 'Everything Has Changed' child actors (2022)",
+        url: "https://variety.com/2022/music/news/ed-sheeran-taylor-swift-video-duet-joker-queen-everything-has-changed-actors-1235178135/"
       },
       {
         name: "Rolling Stone: A Guide to the Subjects of Red's Songs (2012)",
