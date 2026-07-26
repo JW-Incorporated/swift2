@@ -83,24 +83,38 @@ miss is a real liability — revisit if one ever ships.
 | Karen — nightly scan | Opus → **Sonnet 5**; run-discipline block | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | 8 × `send_later` PR loops | **disabled** | (one-time triggers) |
 
+### Where the runs actually go now (2026-07-26)
+
+| Bucket | Runs/day | Share |
+|---|---:|---:|
+| **Foray** (6 classify shards ×3/day + nightly enrich) | **~19** | **~56%** |
+| Swift2 scheduled runners | ~15 | ~44% |
+| `send_later` self-check-ins | 0 | — |
+| **Total** | **~34** | |
+
+Down from ~208/day. **Foray is now the majority of all agent spend** — 6 shards
+on an every-8-hours cron. Wyatt's call to leave it alone stands; flagged here
+because any further meaningful cut is now a Foray decision, not a Swift2 one.
+The Swift2 side is close to its floor: 15/day across 20 runners, most weekly or
+sub-daily, with the only multi-run-per-day items being Content Shift (2, the
+core content engine) and Kevin's comment radar (2).
+
+### Deleted 2026-07-26 (not paused — deleted, Wyatt)
+
+- **~250 dead `send_later` triggers** — expired one-time records from the
+  check-in loops. NOTE: these were already `enabled:false` / `run_once_fired`
+  and cost **zero** tokens; deleting them is hygiene, not savings. The saving
+  came from disabling the 8 *live* loops.
+- **9 Answerer shards** + **19 Lex shards** — superseded by their sole instances.
+- **4 duplicate Kevin runners** (the em-dash set) — byte-identical prompts to the
+  `(cloud)` set, which carries the throttles.
+- **4 completed one-shots** — Shoppable links builder, Rumor tier builder,
+  726-red-dossiers-retry, depth-fleet stand-down.
+
+Kept deliberately (paused, not obsolete): **Marjorie 8 PM delta** and **Lex depth
+(sole instance)** — both are warm spares whose prompts exist nowhere else.
+
 ### Remaining model downgrades — IDs captured, not yet applied
-
-Apply with the **get → modify → put the WHOLE `job_config`** pattern below.
-
-| Runner | Trigger ID | Target |
-|---|---|---|
-| Audio Curator | `trig_01M99m27mCwrHJfMTdoZ1ff5` | Sonnet 5 |
-| Mood Chat builder | `trig_0138LvXKY7a9VoSbbBqh8UBS` | Sonnet 5 |
-| Laura — a11y walk | `trig_01HkvbC8jCcpc3nGDZyjJwZH` | Sonnet 5 |
-| News Triage | `trig_01QGC2xXbyemwjoV2GoSdwi9` | Haiku 4.5 |
-| Kevin S2 (cloud) | `trig_0131Rueny6ZucFAPpU44UaBC` | Sonnet 5 |
-| Kevin S3 triage (cloud) | `trig_01C4DJqgPj8Cz2ofYD2d3Tvn` | Sonnet 5 |
-| Kevin S3 radar (cloud) | *(not captured)* | Haiku 4.5 — its own prompt already argues for this |
-
-Disabled duplicates (kept as warm spares, delete once the `(cloud)` set is
-proven): `trig_01ETb8v3ZeratggYxH7xbW9V` (S1), `trig_01HRYXMVGvqdGYXW5QAi3dqt`
-(S2), `trig_018iLV6surRu1gAzMeSkc7vE` (S3 triage), `trig_01897hGrq93UFSggSyhsitLX`
-(S3 radar).
 
 ### ⚠️ RemoteTrigger API footgun — read before editing any trigger
 
