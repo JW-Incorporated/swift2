@@ -597,6 +597,7 @@ export default {
       month: 10,
       day: 7,
       category: 'sighting',
+      threadIds: ['the-proposal'],
       title: 'Back at Arrowhead for a Monday night win over New Orleans',
       snippet: 'A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints.',
       sourceUrl: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582',
@@ -632,6 +633,7 @@ export default {
       month: 10,
       day: 14,
       category: 'sighting',
+      threadIds: ['the-proposal'],
       title: 'Date night at Yankee Stadium for ALCS Game 1',
       snippet:
         'A bye-week baseball date: she and Travis watched the Yankees take Game 1 of the ALCS from a right-field suite, four nights before the Eras Tour restarted in Miami.',
@@ -1511,6 +1513,7 @@ export default {
       month: 2,
       day: 9,
       category: 'sighting',
+      threadIds: ['the-proposal'],
       title: 'Booed at the Superdome, cheering for a three-peat that fell short',
       snippet: 'Back at her second straight Super Bowl to support Travis — this time drawing boos from a pro-Eagles crowd as Kansas City lost, 40–22.',
       sourceUrl: 'https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/',
@@ -2072,6 +2075,7 @@ export default {
       month: 1,
       day: 18,
       category: 'sighting',
+      threadIds: ['the-proposal'],
       title: 'Back in the family suite for a Chiefs-Texans divisional playoff win',
       snippet:
         'Sat between her parents Scott and Andrea for the Jan. 18 divisional-round game at Arrowhead, with Caitlin Clark — personally invited by Travis — a row back and Ed Kelce also in the suite.',
@@ -2110,6 +2114,7 @@ export default {
       month: 1,
       day: 26,
       category: 'sighting',
+      threadIds: ['the-proposal'],
       title: 'A confetti kiss after the Chiefs punch their Super Bowl ticket',
       snippet:
         'Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.',
@@ -2150,6 +2155,7 @@ export default {
       month: 6,
       day: 28,
       category: 'sighting',
+      threadIds: ['the-proposal'],
       title: 'A pink mini dress for a Saturday-night dinner date',
       snippet:
         'Stepped out for a swanky Saturday-night dinner in New York City in a pink mini dress with gold buttons and beige heels, Travis alongside her in a plain white top and trousers.',
