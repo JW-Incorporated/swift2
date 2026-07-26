@@ -3,7 +3,7 @@
 // that already exist, and assemble-brief.mjs / watchdog.yml query by label —
 // so a fresh repo (or the future org home, see org-transfer plans) must run
 // this once:  node scripts/marjorie/bootstrap-labels.mjs
-import { execFileSync } from 'node:child_process';
+import { gh } from '../lib/gh.mjs';
 
 export const LABELS = [
   ['founder-decision', 'B60205', 'Needs a founder answer — banked into the daily Founders Brief'],
@@ -18,8 +18,8 @@ const invokedDirectly = process.argv[1] && import.meta.url.endsWith(
 if (invokedDirectly) {
   for (const [name, color, description] of LABELS) {
     try {
-      execFileSync('gh', ['label', 'create', name, '--color', color,
-        '--description', description, '--force'], { encoding: 'utf8' });
+      await gh(['label', 'create', name, '--color', color,
+        '--description', description, '--force']);
       console.log(`ok: ${name}`);
     } catch (e) {
       console.error(`FAILED: ${name}: ${e.message}`);
