@@ -25,7 +25,80 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 58
+
+## Travis Kelce's Wedding Band Pays Tribute to Taylor Swift in a Subtle but Sweet Way - instyle.com
+
+- first seen: 2026-07-27 18:44 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce's Wedding Band Pays Tribute to Taylor Swift in a Subtle but Sweet Way  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNa0FvN3p4a1pUQW9hRnF4OHQ3R1FWYjBGbGR3Y1JHaXZjejVzWk82WTgtMU1lc3BDWU1UZkx6Qll5MjV4NFI5SklBR2VFemxCSU1vUnpYRmRzc1NwY0hPWHJMUVYzZVNvZWtla0RVTUNrUl9GbHU3UW5qOGk4dWM3OTMtV0xMb0d5TVBsZzdOYnBQZ2FNRDQ2RjlhWWVtRzRuN0lN?oc=5
+
+## Taylor Swift Using Wedding Buzz To Build Her Billion-Dollar Brand, Insider Claims - Yahoo Lifestyle 
+
+- first seen: 2026-07-27 18:44 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Using Wedding Buzz To Build Her Billion-Dollar Brand, Insider Claims  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTFBBWTd5TUxrZWwtNHpPVWdKVUlTdjc1T2tzaWZ3a2tITHlLREtvUEVVM3NOcnVqd1RTUjhOVUxkYXQxTzJhY3FES0pyZTJtMFJiZVk2elNKeXNPeHA4VVFtVlRyQmlCZHg1Y2NOM201LUdwaEhtV1BBUEVfTVBLQQ?oc=5
+
+## Stephen A. Smith Calls Taylor Swift and Travis Kelce’s Wedding the ‘Greatest’ He’s Ever Seen - Peopl
+
+- first seen: 2026-07-27 18:44 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Stephen A. Smith Calls Taylor Swift and Travis Kelce’s Wedding the ‘Greatest’ He’s Ever Seen  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNbVdfRVAta2pfM0lrSklBcFZPS04tRUNfb3FGRnR0RWtrZF90cDdDT282eFNvSzNWM3F0TC11dDB4dUszeDVlaE1TTDV5VGRzb0xTMXRzSmNNTGZIZzRidXlER3htZmJ3d2hueWhLRGZ3cDNUMXA3TnpjNnpLeUVKX0U1SnE1YUFlYUl0WkUzaGlqTUtLNm9xR0xhaXNMUGNDWWc?oc=5
+
+## Mike Vrabel attended Swift-Kelce wedding with his wife. It was 'a fairy tale' - USA Today
+
+- first seen: 2026-07-27 18:44 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Mike Vrabel attended Swift-Kelce wedding with his wife. It was 'a fairy tale'  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMisAFBVV95cUxOMHExc3AyTDlLQ1pzSDRLZWJwdE9oV1JKdnlwU3k3dTFSUVpicUVVbHNIVUN5UFpBRHR1VDJYWFVON1RKd3FIWHlJUmpjeHVHdTBPTW1KZWxhVUpPNUZGa1NEaDZFTzdya19XYWc3RnJwbUlHbjk2WWNoQ0Jjcmpmd3NIVlpnV3A0VFVaV1NNeEQzVXRoQXk1cmFVekMzc0J0SEQ4QU1ubTd3Yk5wVDVwRQ?oc=5
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOFBMZUhOWTVMaFp2VzV2cGVGWHBqTlVoYTZhRmxCTTlqb1RNZ05TYlRsU2tqcGFuelgxMUlfVWQ5VnlDaXBzZENWZ2d4NFMzQzhZSGphVUhSWkh4elc3YWRKVk55Z2JWYk4yQ1I4REVaWENWLXBoYlZ1SzY3TGlQRHdUbkNicGdO?oc=5
+
+## Inside Taylor Swift and Kylie Kelce’s Friendship Now That They’re Officially Sisters-in-Law - instyl
+
+- first seen: 2026-07-27 18:44 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Inside Taylor Swift and Kylie Kelce’s Friendship Now That They’re Officially Sisters-in-Law  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMid0FVX3lxTFBlMTlkOGhCc0llVzJ1UUx6dWRaUktMWGkxcVBSSEpobEh4WTZ2aG1RZU5McEJoRXFUWGI4MWRGUkhQc3BFMTFhWXdTcVRxeEFaT0lYLWtKY3drMlhhVXNPY29vamVKUU9qNkdIYVF2MDJuNnFDZjVV?oc=5
+
+## Taylor Swift, Justin Bieber, Eminem? Who's up next at the Big House? - The Detroit News
+
+- first seen: 2026-07-27 18:44 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Justin Bieber, Eminem? Who's up next at the Big House?  The Detroit News
+- sources:
+  - [unverified] The Detroit News — https://news.google.com/rss/articles/CBMiigJBVV95cUxNMmlQUk9aWnhqTk5HWGlIRDduMmtXNjJvZUJ2TkJQM19nczUwVjZCbF9RRGFVSlpxeFpGSml2SmdRWlNzZV9tU25yNExKSlBNWmRiRERMdDZQQnNYMmU2NUQ4TFN2dHI2akF0YnR3QmQ4eHV5VDNJeXRuWHEzM180T2UyS3hMeVpaSE42d0FsWHR2YkF4UTdLeEp6SWtXYzc0YjRvdE1saHctQks4OF9BVFphc0lLeWMtYzZYanVjVndDZUF4YmRiR3NDTk1Ud2Y3MEtYaEx5Vy1reFlFbDcyRHlpMDJOcnFCaHlLV3NDNU02aldOM3dmUVlwcDNNanRNZ3dOQUJTWXhYUQ?oc=5
+
+## Producer Aaron Dessner Denies Gracie Abrams Song About Taylor Swift - Kiss 95.1 Charlotte
+
+- first seen: 2026-07-27 18:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Producer Aaron Dessner Denies Gracie Abrams Song About Taylor Swift  Kiss 95.1 Charlotte
+- sources:
+  - [unverified] Kiss 95.1 Charlotte — https://news.google.com/rss/articles/CBMioAFBVV95cUxNVTRTZUtRRU52NXdSSDdWRWpwX1ZCMmJRUUZxMHF3eEdXWm9FUXdMRzBZMjlMNnlVOGNHQzhIRTFfeEQ5X21IWmJwcHZsUE9wME5FNERpd29faW5BdVBhcWh4N2JiZG5tWXRxUS1LbUU0NzNfRGU1S3U0ZlhxRWhBWmRYS3JEUy13djVtY3lsNHF3cW5WZjdyQ3dma1FzSFJV?oc=5
+
+## Jason Kelce Opens Up About A Part Of Taylor Swift's Life That Travis Kelce Is Reportedly 'Struggling
+
+- first seen: 2026-07-27 18:44 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce Opens Up About A Part Of Taylor Swift's Life That Travis Kelce Is Reportedly 'Struggling' With  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbUNvMzNZSGthR2pvMFNad0RTaFFhUFViLTVQQzhOejIxUzBoOUN4VVJPcTU4VWZ1RnZjZDd6NUJLbWo5TlAxd3JlNzZRSGtSN2xiRjdtSE9jd2tZRHJ3UGV3c0tMMkNEU2hlQUNkT2dpbzIzVmJ4RTVsQW5PdjUxbVg2UUk2c1ZkQkp3eThmVnVtMFpiYTduMjdFN1otdk9STDNCTHV0NTVyZw?oc=5
+
+## Kayla Nicole Turns Swiftie Backlash Into ‘Dancing with the Stars’ Season 36 Shot - Complex
+
+- first seen: 2026-07-27 18:44 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Kayla Nicole Turns Swiftie Backlash Into ‘Dancing with the Stars’ Season 36 Shot  Complex
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMisAFBVV95cUxNLXZjc0Mzd0g2OFFzd0hDWV9wVnR6VFYyeEtuQTJzYmUxTGNCbTVJdDBfT2Zyd0V2QUNrV1YzVjI1V3NKcWhaS1JEQy13V244bkFwWjNyN3BWVEhTWHNXSUtwNHlLbHFHQUYydmlYNlk0Q04zTlVlZmpyU2ZycGRLSldqN1ZhUjJCMFl5RmdLM1Z6MFNGYUJDQlg3bVM2R1E1T2Z1VmNBRWVjTXVwejhuTg?oc=5
 
 ## Patriots HC Mike Vrabel breaks silence on Taylor Swift-Travis Kelce wedding - Boston Herald
 
@@ -424,86 +497,3 @@ Stories: 59
 - sources:
   - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPRWQtOWI0WDdTQXc4NWFrTzd3V3J3VFY1MWw3bXZES3NNM0VJWDFvUm8tV1dhbHVGY3FUS3dVWUxwUkljUjNrdUtkNE9SOWlIUTV0NURFd2gzQVByWEM2clJQVXJpZnFZakxVeGFMUmVNYUc4R2RaSm9tNUlPM3pSdlRHd29yZm8wV05kdHY5NA?oc=5
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOOWNFSFZLLWFNQWg0THUwNlFMaF9aNm11bWhObnAxeC10V1haazJhXzY0TlRORHVwWVhBTUtSQUtjcHRLM012bUlHRi1feEFBTVQ2RUdoMDQ5bldzT3hyellXNVJaS3VMTW12bzJadnJMNExuSjY3LThfUzJvamtSc2pQenVDd3RqTWc?oc=5
-
-## Who knows more Taylor Swift trivia? - CBS News
-
-- first seen: 2026-07-24 18:43 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Who knows more Taylor Swift trivia?  CBS News
-- sources:
-  - [unverified] CBS News — https://news.google.com/rss/articles/CBMiggFBVV95cUxQQlBqWXZnc1J3QTBRSFJaZ2lHcThfeHZQNTdhOUJaTk1PeUlqRlIxbC1iUFlqVnh1QzFHR3VvVFNzc0xZVmpPZHlWTzRCZmlETnpfdkpzMWpOMl96SWQyQzdlTDIyNTg3LWh4ZlZqdE52Nl9HUXdmTDlhczBFeWMwU053?oc=5
-
-## George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Go
-
-- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Got Invited  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbjQwVnowVFpvTGVoRVZFUjlHcDJmeGl3eTZiMGRkaUNhQUhleDJCY2M4Z3B6b3lxdE8xdDJETUZ5dTQwZVZoc0xfZUJxX0R4RDlJZ3kyRHBoSVpTRXhVTHVwVU5iMVJZMGpyVWFHQnZvc0NSQzFwTEg4OWlPQlp0b2tHU1dvR1hodGFBcnN4YUhneE5ZZVJPWUp4Szk?oc=5
-  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMifkFVX3lxTE9zQ0Zuc0JNN2FlRTBTY21uTmVvWHN4WkV6OTFoWEFLamJqRHY2Y1R1T0RBaGFoVENTa2pVcjFuaDlTOVVSdVB6TFFnLUZHM3BzMXlXTWw5aW5XMDNHeHd0M19rTFpZUlhBZk0yT2VTSFVvc2VNT2Z0QXpVaXRVZw?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQNWp4aC1NeXV4QXJLSFZpNVdkSVdMckRTUTdmWGtvUDJsTHhWdjZqWDE4djVTSDNrY2JTdVhJVjBGWEhwaEpZNG5yek42WWY5WldzS0lZNUNoRHZVaGJXbXQzOEhxQ0F4MVBVUWxsLXhwV2cyVlluc19welh1OWJnWEc2enQtR3doSWltWThvdk5kMUlDZmF6LVlaSjRha2hSZWFaSTV3?oc=5
-
-## Kylie Kelce opens up about Taylor Swift, Travis Kelce wedding - USA Today
-
-- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce opens up about Taylor Swift, Travis Kelce wedding  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixAFBVV95cUxQc1NTRS1RYUgyN2JyMmVjakF5UlUta3A1S0RkX0h0Slo2SmNKWXF0SEVZcWFKWG94WnlIalNlZm1za0tLTG5kUjZsVmxPZW5FX1o1V1phSDUzbXNUQ2dIS3pOaTdPTW5TbklpeG0wTXR6UmJ0ZkpWSlFWbnd4S2ZBQzBnQURVd09IcmhQdFhCdGhRaG93RDVfNll2ckQyNDVETXRzTTRBakR6ZmlzNWFiOFVqdnp0dE14RU1sZUNtdUFwREUx?oc=5
-
-## Taylor Swift Ex Matty Healy Marries Gabbriette Bechtel In LA Ceremony - Yahoo
-
-- first seen: 2026-07-24 18:43 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Ex Matty Healy Marries Gabbriette Bechtel In LA Ceremony  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNQjk0TE9DZElIdjdVWVZGLWlaSGJNUFNRQzVUaDhXOUhTLUY1UlpJVi1xQmdjSXdqbnNrM0I5cmlheS1LWnV6WkNBYTRmSjBlM2FWbGlrTW5wZWpBUFVYR1ZHNEE0N2xmbTdmTzhhS3RmT0lQU0RoSGxfX3ZWUHlDUW1rck9ha2d4M1lES0s1UDBtQVB0dXN4d09ETUVjQQ?oc=5
-
-## How to Be a Celebrity Friend in 2026 - Ministry of Pop Culture
-
-- first seen: 2026-07-24 18:43 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: How to Be a Celebrity Friend in 2026  Ministry of Pop Culture
-- sources:
-  - [unverified] Ministry of Pop Culture — https://news.google.com/rss/articles/CBMihwFBVV95cUxQZDRuZ21tLUFSY0JUdHFFYnJJa0ZicHJhNDNzeEItTEh2RE85eGVJNFdFTDRRNUljT2E4NjJjRDkyOFI5UXFvOGd0UFJZazZTeUtnbFQ2YTBteWpKeWxmTG5GbHY3X0FUcGxEWmNsQU5Jd0tiS0xac05iNGRlX01ROFVsUnFVdjQ?oc=5
-
-## Taylor Swift's post-concert routine includes these five beauty products you can shop now - Yahoo
-
-- first seen: 2026-07-24 18:43 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's post-concert routine includes these five beauty products you can shop now  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPb0ppMmxYNWtmNVBTYklDVEpWcXpULTJoSDZBZ1BkNDVRWXhuQm5TYy1HQ1pYcGFtTVcwUHFMMU1HdDU4R3FtbDFLZ1BZTFU4NGV0V1RqMTdNU053ZmdYMjBTc3lkMzdtRWFKcGVtLU5oVGhsMkUxTThlcVVnaU1zWlk5MmkyVFhoSlAyY1JCZmh5VndhRXNhSnFUVHlZM29jTWpWeDFydEt0WS1FdERaRS1Bdl9VMVEyLW1IVFJsZHFjd0htTXUwRlJJQnlZZ2dyMXo2WGR5R3NQS2pJ?oc=5
-
-## Niecy Nash Said Adam Sandler Looked “Decent” At Taylor & Travis' Wedding - bustle.com
-
-- first seen: 2026-07-24 18:43 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Niecy Nash Said Adam Sandler Looked “Decent” At Taylor & Travis' Wedding  bustle.com
-- sources:
-  - [unverified] bustle.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNc3JQVFBvNmcxWU5TS05KelhSamkzMzJtWUdObWExaU1OUUV2V3pDMllwajdHVW5aenFINjBXd3F0ZndQb2N4UHp1RVhxbDR1aV9pSFgtTzJJT095U2FBNHpLNExrV2JMeDNYMkNTWndFVVYtaks0NGo0bEFfdzlNNDktbGVsNkE1ZXo0bjZTeTY2VEdlVnVsNWdUclFRSjlmakRv?oc=5
-
-## Kylie and Jason Kelce Share What Changed After Taylor Swift Joined the Family - ELLE
-
-- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie and Jason Kelce Share What Changed After Taylor Swift Joined the Family  ELLE
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMitwFBVV95cUxQZkN3ZHhQYklzb2d4dFd3a240MGs1cnBuZlVydmFDcXFIUDhEV2I4c0lSNlhVZm9xZEdRd0daY0MwaFFmdkVtbjNtdFhiRjE5QVJCRkpYMmpSRmcxT051NnJCTWZxeU5YYTVLSFIxVTVPYTFic2dWd3ZmTjBLbUExZHdzXzFmeTJaYkpTaGVvd3hYU2NwN1VWSU5VQktXb0hPOTJfak1UTUlsaWw1TzF0MmlrME1KMW8?oc=5
-
-## Travis Kelce and Taylor Swift Announcement Shines Light on Heartwarming Act - Yahoo
-
-- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce and Taylor Swift Announcement Shines Light on Heartwarming Act  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxQM3FMZkl0RDBrdDV1WTU1dExseFE4eGJRVXlCMlZ3VVRfVF85c0lDOTh4LVZvODNBRVd4a1JwRWlhRmRhOWpGc0NSazZZNmxhN3hIazNWVFl2Y0JhWF9nY2FKTFdnVTF5eEtHNl84ejBjc3FNUHQ1bTF4VlV3SzdfVmp0c0VQYmlldFFvQ0xrY09FcUVpdG5xeEtNY1NIY1ZsQnhGQkJwUEl4eENH?oc=5
-
-## Niecy Nash Reveals Taylor Swift and Travis Kelce's Wedding Was 'Top Secret': 'You Had to Zip the Lip
-
-- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Niecy Nash Reveals Taylor Swift and Travis Kelce's Wedding Was 'Top Secret': 'You Had to Zip the Lip'  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTE9HcXNuekE4NEEzTlk0akFDY2F3aFo3d29pUXpqR0Jrd0JkSk1hZUlRQnlNTGlPel9PMERWWGViMkRmVC03djFtenlwOU5NbW1LQVpvNU5uQWJFUmhwdU9COExQUGtXWmNHUTVHUkRyRlc1Um95TmxZbHJTQUliZw?oc=5
-  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTFBwQ191dGFMNmE1OV9LMUdXRlR5UlpJX1JJU1ZNV2MzWEhxSERQaXhZV2NnS1Q1RnNmdGx3RGR2LXZoQUZSdU8xdnhfbzZlelNNanphbE9WM3R6R2dXeXlPcU1hd0dxTFRfem1RRXNCUGxsem15NEJ0cG1R?oc=5
