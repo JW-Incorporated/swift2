@@ -24,7 +24,7 @@ import {
 import { pushBackEntry } from './useBackDismiss';
 import type { EraId, LensId, MotifId } from './types';
 
-export type AppMode = 'landing' | 'era' | 'threads';
+export type AppMode = 'landing' | 'era' | 'threads' | 'mood';
 
 interface AppState {
   mode: AppMode;
