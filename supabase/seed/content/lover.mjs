@@ -275,6 +275,13 @@ export default {
       month: 11,
       day: 14,
       category: 'business',
+      // Cross-link (Stage 3, 2026-07-27): the "Miss Americana" cluster — the
+      // announcement, the political-turn song, and the Sundance/Netflix
+      // premiere — now interlink.
+      relatedIds: [
+        'moment:vault-lover-miss-americana-the-heartbreak-prince-a-high-school-built-fro',
+        'moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix',
+      ],
       title: 'Miss Americana is announced amid a fight over her own back catalog',
       snippet:
         'She said the men who now owned her masters, Scooter Braun and Scott Borchetta, refused to let her use any old music or performance footage in the documentary.',
@@ -1081,6 +1088,12 @@ export default {
     },
     // --- Music backstory + sighting/fashion/business depth pass (2026-07-05)
     {
+      // Cross-link (Stage 3, 2026-07-27): sibling "Shake It Off" moments.
+      relatedIds: [
+        'moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker',
+        'moment:vault-1989-shake-it-off-launches-the-era',
+        'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
+      ],
       year: 2019,
       month: 6,
       day: 14,
@@ -1173,6 +1186,11 @@ export default {
       month: 8,
       day: 23,
       category: 'music',
+      // Cross-link (Stage 3, 2026-07-27): sibling "Miss Americana" moments.
+      relatedIds: [
+        'moment:vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c',
+        'moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix',
+      ],
       title: "Miss Americana & the Heartbreak Prince, a high school built from 2018's political disillusionment",
       snippet:
         'Written with Joel Little after the midterms: "This song is about disillusionment with our crazy world of politics and inequality, set in a metaphorical high school."',
@@ -1496,9 +1514,12 @@ export default {
       // Cross-links: the reputation-era "snakes" narrative the film reframes;
       // "Only the Young," the protest song written for and released with it
       // (candidate #1491).
+      // Cross-link (Stage 3, 2026-07-27): sibling "Miss Americana" moments.
       relatedIds: [
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-lover-only-the-young-the-protest-song-saved-for-the-documentary',
+        'moment:vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c',
+        'moment:vault-lover-miss-americana-the-heartbreak-prince-a-high-school-built-fro',
       ],
       title: 'Miss Americana opens Sundance, then hits Netflix',
       snippet:
