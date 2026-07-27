@@ -1690,7 +1690,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At 4:06 it\'s the longest song on the album — a minor-key piano ballad in a tracklist otherwise built on Max Martin bounce. The lyric plays directly on "eldest daughter syndrome": the firstborn who calls herself the "first lamb to the slaughter," dressed up as a wolf so nobody worries. Swift\'s own track commentary framed it as a song about the gap between the public self and the private one — "the life you show to others... and the \'you\' that only those closest know."\n\nTime read it as a deliberate turn in the track-five tradition she once described discovering by accident — the vulnerable song instinctively sequenced fifth, a slot fans treat as canon and Swift has admitted has become a "pressurized decision." It keeps the confessional register of its predecessors while, for the first time in the tradition\'s history, landing on being taken care of rather than being wrecked: the eldest daughter gets to put the wolf costume down.',
+          'At 4:06 it\'s the longest song on the album — a minor-key piano ballad in a tracklist otherwise built on Max Martin bounce. The lyric plays directly on "eldest daughter syndrome": the firstborn who calls herself the "first lamb to the slaughter," dressed up as a wolf so nobody worries. Swift\'s own track commentary framed it as a song about the gap between the public self and the private one — "the life you show to others... and the \'you\' that only those closest know."\n\nTime read it as a deliberate turn in the track-five tradition she once described discovering by accident — the vulnerable song instinctively sequenced fifth, a slot fans treat as canon and Swift has admitted has become a "pressurized decision." It keeps the confessional register of its predecessors while, for the first time in the tradition\'s history, landing on being taken care of rather than being wrecked: the eldest daughter gets to put the wolf costume down — the grief lineage the page threads back to "So Long, London."\n\nFor all that it stands apart on the record, its credits don\'t: like the rest of the album it\'s a Swift / Max Martin / Shellback three-way co-write and production, the lone minor-key piano ballad on an otherwise up-tempo Max Martin set rather than a solo departure. Spotify\'s published runtimes confirm the 4:06 length is the longest of the twelve tracks (the Sabrina Carpenter–featuring title track is next at 4:01). On the Hot 100 dated Oct. 18, 2025 it both debuted and peaked at No. 9 — its slot inside the album\'s record top-12 sweep — and had slipped to No. 29 by its fourth week. No official music video was made: only the lyric/visualizer clip lives on Swift\'s channel, and with the Eras Tour already closed in Vancouver in December 2024, she has not performed it live.\n\nCritics split sharply on it. Rolling Stone\'s Maya Georgi praised its "brutal admissions" and RTÉ\'s Sarah McIntyre called it "gorgeously vulnerable," while a cluster of reviewers made it the album\'s low point over its internet-slang lyrics — News.com.au\'s Nick Bond found lines "cringeworthy," Paste\'s Casey Epstein-Gross wrote it "collapses into secondhand embarrassment," and The A.V. Club\'s Mary Kate Carr and The New Yorker each singled it out among the weakest tracks. Several tied it to Swift\'s earlier perseverance-and-perfectionism songs, "The Archer" and "mirrorball."',
         sources: [
           {
             outlet: 'Time',
@@ -1709,6 +1709,30 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
             reliability_score: 3,
+          },
+          // Ledger #1103 (2026-07-27): credits (Swift/Martin/Shellback co-write),
+          // the 4:06 longest-track fact, no official MV / no live performance,
+          // and the divided critical reception (RS/RTÉ vs. News.com.au/Paste/
+          // AV Club/New Yorker; ties to "The Archer" and "mirrorball").
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Eldest_Daughter',
+            source_title: 'Eldest Daughter',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-27',
+            reliability_score: 2,
+          },
+          // Ledger #1103 Q2 (2026-07-27): the No. 9 debut-and-peak inside the
+          // album's Hot 100 top-12 sweep.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-hot-100-fate-of-ophelia-number-one/',
+            source_title: 'Taylor Swift Takes Top 12 Spots on Billboard Hot 100, Led by ‘The Fate of Ophelia’',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-27',
+            reliability_score: 4,
           },
         ],
         // Lyric-video id HwQnW_ZRKhc verified via oEmbed against @TaylorSwift.
@@ -4278,7 +4302,7 @@ export default {
       category: 'fashion',
       title: 'Taylor and Selena Gomez coordinate opulent winter coats at Arrowhead',
       snippet:
-        'A Miu Miu checkered bomber for Taylor, all-black shearling-trimmed for Selena — the two friends layered up for Gomez\'s first-ever Chiefs game, a Dec. 7 loss to the Texans.',
+        'A Miu Miu checkered bomber for Taylor, all-black shearling-trimmed for Selena — the two friends layered up for Gomez\'s first Chiefs game alongside Taylor, a Dec. 7 loss to the Texans.',
       sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-selena-gomez-kansas-city-chiefs-houston-texans-game-winter-coats/',
       // Photo pass (2026-07-20): was null (no agency photo found the first
       // pass) — now points at the real Dec. 7 suite photo, see moment.photos.
@@ -4286,7 +4310,7 @@ export default {
         'https://s.yimg.com/lo/mysterio/api/51607632d8b138ca2eb5ef4309f5f62efba2de679c41c5aa011b6eea7ffc78ff/lightyear_networkapi/resizefill_w976;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpeople_218%2F6f5cc6c4b72bc346bb5078ba6b322161',
       moment: {
         context:
-          'Swift\'s oversize checkered Miu Miu bomber (originally $4,600) and Gomez\'s fitted shearling-trimmed coat drew as much coverage as the game itself, which the Chiefs lost 20-10 — the loss that helped seal the franchise\'s first missed playoffs of the Kelce-Swift era. E! Online and Marie Claire both noted it was Gomez\'s first time attending a Chiefs game with Swift, a milestone in its own right for a friendship fans have tracked since 2008.\n\nThe pairing carried extra 2025 subtext: it was a wedding-season friendship on both sides — Gomez had married Benny Blanco that September, and Swift\'s own wedding was seven months out — and the coordinated-winter-coats suite appearance became an instant fan-edit staple, the two most-followed women of their pop generation doing normal-best-friend things at a football game. Marie Claire\'s fashion desk treated the coats as a two-hander: Swift\'s loud checkerboard against Gomez\'s all-black, opulence in two registers.',
+          'Swift\'s oversize checkered Miu Miu bomber (originally $4,600) and Gomez\'s fitted shearling-trimmed coat drew as much coverage as the game itself, which the Chiefs lost 20-10 — the loss that helped seal the franchise\'s first missed playoffs of the Kelce-Swift era — Kansas City finished 6-11 and missed the postseason for the first time since 2014, its first losing season since 2012. E! Online and Marie Claire both noted it was Gomez\'s first time attending a Chiefs game with Swift, a milestone in its own right for a friendship fans have tracked since 2008.\n\nThe pairing carried extra 2025 subtext: it was a wedding-season friendship on both sides — Gomez had married Benny Blanco that September, and Swift\'s own wedding was seven months out — and the coordinated-winter-coats suite appearance became an instant fan-edit staple, the two most-followed women of their pop generation doing normal-best-friend things at a football game. They weren\'t alone in the box: Lena Dunham sat just in front of the pair and Leonardo DiCaprio was also spotted in the suite, while Benny Blanco — whom Gomez had married that September — wasn\'t among those documented in the coverage. Marie Claire\'s fashion desk treated the coats as a two-hander: Swift\'s loud checkerboard against Gomez\'s all-black, opulence in two registers.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -4305,6 +4329,28 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Ledger #1080 Q4 (2026-07-27): the suite company that day —
+          // Lena Dunham and Leonardo DiCaprio documented, Benny Blanco not.
+          {
+            outlet: 'NBC Insider',
+            url: 'https://www.nbc.com/nbc-insider/taylor-swift-watched-chiefs-texans-game-with-selena-gomez-lena-dunham',
+            source_title: 'Taylor Swift Watched Chiefs-Texans Game With Selena Gomez & Lena Dunham',
+            publisher: 'NBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-27',
+            reliability_score: 4,
+          },
+          // Ledger #1080 Q5 (2026-07-27): the Chiefs' 6-11 finish and first
+          // missed postseason since 2014 that the Dec. 7 loss fed into.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/2025_Kansas_City_Chiefs_season',
+            source_title: '2025 Kansas City Chiefs season',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-27',
+            reliability_score: 2,
           },
         ],
         // Photo pass (2026-07-20): found a real Dec. 7 suite photo (Kelce
@@ -5254,7 +5300,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The costume parade tracks the video\'s conceit — Swift as a showgirl across different stage-history periods, from the drowned-Ophelia opening to full vaudeville. The itemized wardrobe reads like a century of stagewear: a flowing white Alberta Ferretti gown for the painting-come-to-life opening, a red crystal Versace bodysuit with matching gloves, a black chainmail Roberto Cavalli fringe dress, and a rhinestone Kelsey Randall mini, with Swift directing herself through every quick-change.\n\nThe synchronized-swim sequence — Swift in a mint sequined swim cap and costume among dancers with life rings, shown in the image here — staged the album cover\'s water imagery at Busby Berkeley scale. The costumes had an afterlife, too: the long-beaded gown and the swimming costume left the closet entirely, going on display at the Rock & Roll Hall of Fame the following June as part of its Legends of Rock exhibit.',
+          'The costume parade tracks the video\'s conceit — Swift as a showgirl across different stage-history periods, from the drowned-Ophelia opening to full vaudeville. The itemized wardrobe reads like a century of stagewear: a flowing white Alberta Ferretti gown for the painting-come-to-life opening, a red crystal Versace bodysuit with matching gloves, a black chainmail Roberto Cavalli fringe dress, and a rhinestone Kelsey Randall mini, with Swift directing herself through every quick-change.\n\nThe synchronized-swim sequence — Swift in a mint sequined swim cap and costume among dancers with life rings, shown in the image here — staged the album cover\'s water imagery at Busby Berkeley scale. The costumes had an afterlife, too: the long-beaded gown and the swimming costume left the closet entirely, going on display at the Rock & Roll Hall of Fame the following June as part of its Legends of Rock exhibit.\n\nThe attribution the garment list left implicit: every look was pulled together by Swift\'s longtime stylist Joseph Cassell Falconer, and the fashion trades counted nine costume changes across the self-directed shoot. The named pieces were custom builds for the video rather than runway pulls — the opening Alberta Ferretti gown, the crystal Versace bodysuit (worn with opera gloves and Jimmy Choo heels), the Roberto Cavalli chainmail dress, and the rhinestone-and-fringe Kelsey Randall mini (paired with a teal fur jacket in the after-party scene) were each made for it. The one look the page couldn\'t place — the mint synchronized-swim costume and sequined cap — is by AREA, the New York label that also built the crystallized minidress recreating the album cover. Paolo Sebastian (a hand-beaded corset gown with a heart-and-arrow motif), Bob Mackie (an orange-feathered showgirl set) and a second embroidered Cavalli round out the nine-change parade.',
         sources: [
           {
             outlet: 'Femestella',
@@ -5282,6 +5328,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
             reliability_score: 4,
+          },
+          // Ledger #1086 (2026-07-27): stylist Joseph Cassell Falconer, the
+          // nine-outfit count, and the per-look designer attributions incl.
+          // AREA for the synchronized-swim costume the page couldn't place.
+          {
+            outlet: 'AOL',
+            url: 'https://www.aol.com/articles/inside-9-taylor-swifts-fate-174300574.html',
+            source_title: "Analyzing the Fashion in Taylor Swift's 'The Fate of Ophelia' Video",
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-27',
+            reliability_score: 3,
           },
         ],
         // On-set still from the video, hotlinked from Marie Claire's
@@ -7259,7 +7317,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Operation Breakthrough runs an early-education and family-support center in Kansas City, describing its mission as giving children in poverty a “safe, loving and educational environment” while backing their families through advocacy and emergency aid. Over the 2025 holidays, Taylor made a donation to it — the kind of low-key giving she has folded into her time in Kansas City since her relationship with Travis Kelce became public in 2023.\n\nThe organization made the gift public itself, thanking her on Instagram: “Thank you @taylorswift for supporting Operation Breakthrough. We are so grateful for your kindness and for championing creativity, education, and opportunity for our over 750 students.” Neither Billboard nor the follow-up coverage put a dollar figure on it, and none was announced — what is on the record is the act and the charity’s thanks, not the size of the check.\n\nThe nonprofit is one Kelce already works with: his Eighty-Seven & Running foundation funds its Ignition Lab, a STEM program for teenagers. Taylor’s gift read as her own gesture toward the same cause — one thread in a season of Kansas City giving rather than a headline she went looking for.',
+          'Operation Breakthrough runs an early-education and family-support center in Kansas City, describing its mission as giving children in poverty a “safe, loving and educational environment” while backing their families through advocacy and emergency aid. Over the 2025 holidays, Taylor made a donation to it — the kind of low-key giving she has folded into her time in Kansas City since her relationship with Travis Kelce became public in 2023. The institution behind the thank-you note is a Kansas City fixture: founded in 1971 by two Catholic nuns, Sisters Corita Bussanmas and Berta Sailer, as day care for the children of the working poor, it began with 50 kids at 31st and Paseo and now cares for more than 700 children each weekday from its center at 31st and Troost. Fox4KC framed the December 2025 gift as "another" to the charity — a repeat rather than a first-time gesture — though the size of any earlier gift wasn\'t put on the record.\n\nThe organization made the gift public itself, thanking her on Instagram: “Thank you @taylorswift for supporting Operation Breakthrough. We are so grateful for your kindness and for championing creativity, education, and opportunity for our over 750 students.” Neither Billboard nor the follow-up coverage put a dollar figure on it, and none was announced — what is on the record is the act and the charity’s thanks, not the size of the check.\n\nThe nonprofit is one Kelce already works with: his Eighty-Seven & Running foundation funds its Ignition Lab, a STEM program for teenagers. Taylor’s gift read as her own gesture toward the same cause — one thread in a broader December 2025 run of giving rather than a headline she went looking for. That season she gave $1 million each to the American Heart Association and Feeding America before Christmas, and — reported the same week as the Operation Breakthrough gift — supported Nashville’s Monroe Carell Jr. Children’s Hospital at Vanderbilt (including its Adolescent and Young Adult Cancer Program), alongside MusiCares, the CMA Foundation and ACM Lifting Lives; on Christmas Day she was reported tipping Arrowhead Stadium staff in cash. The Kansas City classroom was one stop on a two-city sweep.',
         sources: [
           {
             outlet: 'Billboard',
@@ -7278,6 +7336,38 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-20',
             reliability_score: 3,
+          },
+          // Ledger #1104 Q3 (2026-07-27): Operation Breakthrough's own founding
+          // story — 1971, Sisters Corita Bussanmas & Berta Sailer, 700+ kids.
+          {
+            outlet: 'KCUR',
+            url: 'https://www.kcur.org/news/2021-03-27/sister-corita-co-founder-of-operation-breakthrough-and-mom-to-more-than-70-foster-children-dies-at-87',
+            source_title: "Sister Corita, Co-Founder Of Operation Breakthrough and 'Mom' To More Than 70 Foster Children, Dies At 87",
+            publisher: 'KCUR (NPR Kansas City)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-27',
+            reliability_score: 4,
+          },
+          // Ledger #1104 Q1 (2026-07-27): the other threads in the season —
+          // $1M each to AHA and Feeding America, the Nashville hospital gift,
+          // MusiCares/CMA Foundation/ACM Lifting Lives, the Arrowhead tips.
+          {
+            outlet: 'Mix 92.9 (ABC Audio)',
+            url: 'https://mix929.com/2025/12/30/taylor-swift-donates-to-kansas-city-charity-operation-breakthrough/',
+            source_title: 'Taylor Swift donates to Kansas City charity Operation Breakthrough',
+            publisher: 'ABC Audio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-27',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'AOL / People',
+            url: 'https://www.aol.com/articles/taylor-swift-helps-children-both-223803227.html',
+            source_title: "Taylor Swift Helps Children in Both Nashville and Kansas City with Her Latest Run of Holiday Donations: 'Spreading Joy'",
+            publisher: 'People (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-27',
+            reliability_score: 4,
           },
         ],
         // No photo: a private donation has no photography of its own, and the
