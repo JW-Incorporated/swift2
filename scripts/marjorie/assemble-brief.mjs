@@ -213,5 +213,9 @@ const invokedDirectly = process.argv[1] && import.meta.url.endsWith(
   process.argv[1].split(/[\\/]/).pop());
 if (invokedDirectly) {
   const date = process.argv[2] || todayLA();
-  process.stdout.write(buildBrief(fetchState(), { date }) + '\n');
+  // fetchState() is async (it awaits the gh/REST wrapper added in #1552); the
+  // result must be awaited before buildBrief destructures it, or every field
+  // is undefined and the skeleton throws. Regression fix — see #1552.
+  const state = await fetchState();
+  process.stdout.write(buildBrief(state, { date }) + '\n');
 }
