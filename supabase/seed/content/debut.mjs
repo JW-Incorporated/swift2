@@ -37,6 +37,18 @@ export default {
             focalPoint: '28% 38%',
             credit: 'Big Machine Records (single cover art)',
           },
+          // Photo pass #762 (2026-07-27): a live companion to the cover art —
+          // three days before this single's June 19, 2006 release. Verified
+          // via Wikimedia Commons (HTTP 200 + image/jpeg, downloaded and
+          // viewed); the file's own Commons description confirms the date
+          // and venue.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Taylor_Swift.jpg',
+            focalPoint: '50% 18%',
+            credit: 'Dwight McCann, CC BY-SA 2.5, via Wikimedia Commons',
+            caption: 'Performing at the Maverick Saloon & Grill in Santa Maria, California, June 16, 2006 — three days before "Tim McGraw" came out.',
+            kind: 'archival',
+          },
         ],
       },
     },

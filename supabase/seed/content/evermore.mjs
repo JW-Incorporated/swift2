@@ -1540,6 +1540,20 @@ export default {
             // She stands with the white guitar on the right side of the frame; her face sits upper-right.
             focalPoint: '60% 25%',
           },
+          // Photo pass #762 (2026-07-27): a second, distinct angle — the
+          // step-and-repeat arrival, not the onstage performance shot above.
+          // Verified via khak.com's own CDN (townsquare.media, the
+          // Townsquare Media radio-group infrastructure that hosts the
+          // station's own galleries — not a watermarked comp): HTTP 200 +
+          // image/webp, 1600x2400, downloaded and viewed — the "Nashville
+          // Songwriter Awards" step-and-repeat is visible behind her.
+          {
+            url: 'https://townsquare.media/site/204/files/2022/09/attachment-taylor-swift-songwriter-2.jpg',
+            focalPoint: '51% 14%',
+            credit: 'Townsquare Media',
+            caption: 'Swift on the step-and-repeat at the 2022 Nashville Songwriter Awards, where she accepted Songwriter-Artist of the Decade.',
+            kind: 'reference',
+          },
         ],
       },
     },
