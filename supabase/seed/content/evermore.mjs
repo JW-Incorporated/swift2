@@ -236,9 +236,13 @@ export default {
       category: 'business',
       significance: 'defining', // the first proof the Taylor's Version project would actually work commercially (docs/decisions.md, 2026-07-19)
       threadIds: ['taylors-version'],
+      // Cross-link (Stage 3, 2026-07-27): sibling "Fearless (Taylor's
+      // Version)" moments.
       relatedIds: [
         'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
+        'moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas',
+        'moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault',
       ],
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -655,6 +659,13 @@ export default {
       month: 2,
       day: 11,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-07-27): the "Fearless (Taylor's Version)"
+      // cluster — the cover reveal, the No. 1 debut, and the tracklist —
+      // now interlink.
+      relatedIds: [
+        'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+        'moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault',
+      ],
       title: "A sepia Fearless (Taylor's Version) cover, with a Love Story Easter egg",
       snippet:
         'Revealed on Good Morning America, the cover recreates her original 2008 pose in sepia tone — in a cream Ulla Johnson blouse fans clocked as a nod to Romeo\'s shirt from the "Love Story" video.',
@@ -2104,6 +2115,12 @@ export default {
       // No new MILESTONES entry: "m-ever-2" (this same era file, Apr. 18,
       // 2021 — Fearless (TV) hits #1) already marks this release week on the
       // scrubber, 9 days out.
+      // Cross-link (Stage 3, 2026-07-27): sibling "Fearless (Taylor's
+      // Version)" moments.
+      relatedIds: [
+        'moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas',
+        'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+      ],
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
         'Out April 9, 2021: the original era re-cut top to bottom, plus six From the Vault songs — with Keith Urban and Maren Morris turning up on tracks that never made the 2008 album.',
