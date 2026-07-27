@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 61
+Stories: 60
+
+## Travis Kelce’s Ring Has a Taylor Swift Detail You Can’t Miss - Yahoo
+
+- first seen: 2026-07-27 08:43 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce’s Ring Has a Taylor Swift Detail You Can’t Miss  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOQzhTeV9rZnJRYnpUbFBmMmlJNmw0SHdzc1dpTVVFanFlVEdtYkc0aXp2VG8zWXVLY29kZll2WFdiU3RzYmU2Z0ZyeEhON0xabElDYmlxaU5GM3dGMnpEUkd1UnF1Vy1HdHlwdmZ1ampGQ0t4RExUWXlndGFIWnc1ZGlMN1ViV2JybzN5T0diTmx1SURENW1zQUFlTDM5ZjNfcmc?oc=5
+
+## Travis Kelce, Taylor Swift Anniversary Post Draws Attention After Wedding - Yahoo
+
+- first seen: 2026-07-27 08:43 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce, Taylor Swift Anniversary Post Draws Attention After Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQZUJkV1pscjdnbDdfUUItcFNzczY0TTBhSEwwYS1CUkIzVUZyR2tUVS1pU3pqSHlxNkE1bXd4OGJ5M1luR3l6ZUJ3NWJabkpmU0ZnRUtLRzN0QllCWlJSREZDVHlYcDZFMWhBOWhlZlRoeEdEQlZVUXdUaWN3bzBxQ3dRWUVxYXByZk5PYXJVRG1zMGZzRzdlZnpfMGlGRlQ4TlFKR3NoMnQzS00?oc=5
 
 ## Taylor Swift and Travis Kelce get heartfelt notes from families of first responders after $2M donati
 
@@ -498,27 +514,3 @@ Stories: 61
 - summary: New Taylor Swift display opens at the Rock & Roll Hall of Fame  95.3 X95
 - sources:
   - [unverified] 95.3 X95 — https://news.google.com/rss/articles/CBMingFBVV95cUxQQXFleHFUcDFXaWVsNzJzZmh2cnl6elNqTDRZNUM1UkZveHZ6MzJyUVYtWmJwbG1HTWQ2SzF1M2YwN2lpaFkybENONU1YVVZndjJLVmQzX1dKdzlISktiQlBna3Qtcnk1Mkc3SmR0UDNRejYwZVVFNEJpSmtxX2FWRGVPeVBfS0pqdnc0TFFRTnoxZ2tYMWl6aTdMSTUyQQ?oc=5
-
-## Taylor Swift Rumor Put to Bed After Travis Kelce Wedding - heavy.com
-
-- first seen: 2026-07-24 07:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Rumor Put to Bed After Travis Kelce Wedding  heavy.com
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNNUc4QXFVaEgwZWZZNTBiY1UteUdYMGY5X01OSHhSSndLVHJNOUIycW12N21kb21ERVFmeE9LcW5KM3JKT3VzUG05bWRuWVF4a191Y0pSWnV2NlI4dkNkZ3A1aHFJbDN2R3hDY1M3VmxRM3V6Mkd5bkcxVk5DTDNxVmhqcGQzVDYya0RCYmF5Nm5keVN6WjUwa0RORjJsSWw2OWhyalBTQ2w?oc=5
-
-## Taylor Swift and Travis Kelce's $2m donation triggers emotional testimonies from NYC first responder
-
-- first seen: 2026-07-24 07:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's $2m donation triggers emotional testimonies from NYC first responders' families  hitc.com
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxOdkxlSXBKd3VUTTdwWHlyNUpTRDlZVXBnbXE5V0phQmp4Wno4Ukg1d2taNmtIanduak5jTHliRUMwY29TODZnWE1ET1V2dFBsczM0WGM1ZHd4OU13cXBScXI0VzBqdUFXVHlaNlVsX1U2Y3Z4NUE4VWlGSGlSQVV0U2FxRkFRV09hUjNLTVZMUTkwajhaSFluSFVEYnRTV1hSeG9fT2RJNDBHWm00cnlnNGxTbVhJZnp6UEdDWVhRbGl0dkNVaUdscXh3?oc=5
-
-## Taylor Swift’s New Friend Group After Marrying Travis Kelce Allegedly Has ‘Plenty of Cattiness’ - Sh
-
-- first seen: 2026-07-24 07:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s New Friend Group After Marrying Travis Kelce Allegedly Has ‘Plenty of Cattiness’  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xWaXpVbURwdXBkU0JFd25LLTZCV2QxWjBjeUNfTVRVaUp1UVlvRHJpQmlVYUV5di0wNUZ1dmxtYVNVdXA4aTYxeks3cXN4N2N2cnpCUlZOaTNUSTZwYVg3THktdU9kNkRKdE5Ec01rZ2VYNThkdGIyVHlnT1BwdVZOX3JtdURsV0tyMW13RVNEdlc3NHdCN3hlZXFqSkM4S0swOWhsTQ?oc=5
