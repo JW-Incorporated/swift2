@@ -54,6 +54,19 @@ on:
         options: [auto, brief, delta]
 
 permissions:
+  # `contents: read` is REQUIRED and its absence broke this workflow for four
+  # days (2026-07-24 → 2026-07-27, every run). Declaring ANY `permissions`
+  # block sets every unlisted scope to `none`, so `contents` was none and
+  # `actions/checkout` failed with a misleading "Repository not found" — the
+  # repo is private, and a token with no contents scope genuinely cannot see it.
+  #
+  # It was latent until 2026-07-23, when the send step moved to
+  # scripts/watchdog/send-mail.py and this workflow needed a checkout for the
+  # first time (see the header note). Adding a checkout to a workflow with a
+  # narrowed permissions block is the whole bug.
+  #
+  # Consequence: the Founders' Brief has not been emailed since 2026-07-23.
+  contents: read
   issues: read
 
 jobs:

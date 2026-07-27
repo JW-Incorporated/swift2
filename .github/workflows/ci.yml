@@ -5,6 +5,19 @@ on:
   push:
     branches: [main]
 
+# Actions-minutes control (2026-07-27). CI is ~77% of this repo's Actions
+# minutes — 352 runs / 474 min in the 7 days to 2026-07-27 — because every bot
+# PR costs two runs: one on the PR, one on `main` after it merges.
+#
+# Superseded PR runs are cancelled: agents routinely push a fix to an open PR,
+# and the older run then burns a full ~80s proving something about a commit
+# nobody will merge. `main` is deliberately NOT cancellable — it is the deploy
+# gate and the only place a semantic conflict between two separately-green PRs
+# shows up, which matters at this repo's merge rate.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
