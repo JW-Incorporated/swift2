@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 59
+
+## Patriots HC Mike Vrabel breaks silence on Taylor Swift-Travis Kelce wedding - Boston Herald
+
+- first seen: 2026-07-27 15:50 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Patriots HC Mike Vrabel breaks silence on Taylor Swift-Travis Kelce wedding  Boston Herald
+- sources:
+  - [unverified] Boston Herald — https://news.google.com/rss/articles/CBMitwFBVV95cUxOZ2h6clBtdmVMdnhydURVd3B4NUszU1lUNDBhcE5qQ3doSXkzeUtGY1dGT3J5enl1Q3h1bXlKaTRoTkc0SUh6VWlsRVdEYUVQVm90Ym5SUm14ZzRsWU5RbEN6VnJuQTVsNmZUZXZRdno1ejFweVVsTzhfVFA5VlVMMkIxVlJfbjJpd2M4VFNtTUdXcDllVDJrUm5vMEtpQmEyNFJkaDZ3Q3Y2NDVYbE1McWFXSE5WWGc?oc=5
+
+## ‘Chemistry Very HIGH’ — Pat McAfee Reveals Chiefs Players Danced Together All Night at Travis Kelce-
+
+- first seen: 2026-07-27 15:50 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: ‘Chemistry Very HIGH’ — Pat McAfee Reveals Chiefs Players Danced Together All Night at Travis Kelce-Taylor Swift Wedding  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihgFBVV95cUxQdi13T2l0WVlNczBuRS1QQXM2SzU3djEtVmFNOGk0SHViNXNhRlhQVjQ1R3V5RlNJbms1SGJtNGhMcGEzd2s3ejFEV093OEh0eDZ2Zkxxb1hNb1o0Y0cwcEJBalBPbUlZRm1vdmk3UnVKeHZOXzhEWFNtZVdTVmlUU0dRN2dNQQ?oc=5
+
+## Taylor Swift Has Her Best Shot At An Oscar Nomination Thanks To ‘Toy Story 5’ - Forbes
+
+- first seen: 2026-07-27 15:50 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Has Her Best Shot At An Oscar Nomination Thanks To ‘Toy Story 5’  Forbes
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiyAFBVV95cUxOd0ZzLWlBWFpLLUJGUjhhdjFpNU1lUHljYXRiNkFhV3dFekx4WkdYdGdVWldhUHJxZ0xQNnlwR19PVmQwbEJ5RzVsb1lyejl1aklmX3dhSGxvOGFpSFhfX1VKcVdtTnJfMUtDcHpRTFlXTHZ0aDhJbUdaS1BwNWFVMk1OeGcwUzZzWTVQbE80M0pWeU1JTnhyQXBaX19DUElCczNORVp3dlBnV2hmNWh3MkZjNE9pMnE5aUN6bGFsRWQzQ1Rtd1hDRw?oc=5
+
+## Taylor Swift’s wedding was a clear display of the musicians’ huge power and influence - The Conversa
+
+- first seen: 2026-07-27 15:50 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s wedding was a clear display of the musicians’ huge power and influence  The Conversation
+- sources:
+  - [unverified] The Conversation — https://news.google.com/rss/articles/CBMiugFBVV95cUxPVWFTTEM1S3hMWmVCNWxLemQwYm55elJwNlpkTmR0QWJlTjVGMWR5VHU3eFlaeHlidU9ad0pFaTZuMnZvVFlqbzh0dzFpSHQ5eDFHejNGZWJDVUZ6cU1qXzdLMjg4M2VGc3ZyQmswSDNTdGVUT3ZyUUVqSzR5NXAzMEZkLTcxRzRIMUtDQmsyOUQ0VXBNajFGV3k4TkUwMmNVNFUyT1gyVzRMUFlZc0lJOURqUzhYdFBqSFE?oc=5
 
 ## First responders' families thank Taylor Swift for 'extraordinary' wedding donation - Yahoo Lifestyle
 
@@ -319,6 +351,15 @@ Stories: 63
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMixgJBVV95cUxNbHZuS01sMy1KMWMtNDVER1RDd2hhV1N6ZlYwMlVCQzRCQzhWeU5pYWc3TzdrYmExQzdrSTEwU1YwYUYzeGkwYzduanJIUVdzRlotWFhxdE5sTTBkYmc3aVhndVUzdzM0UVJfdHhsTDRTYURkNHI4N3dkZktPLXU4eW82dTMzM1c1REoya2I1RERBM1FqdjdKdm16aGhjNlk1TTloVXdKRHg0MFM4bVNlT1IydWdZOGRfRjZHeENvTWxlc2N2NVJieVdkaFRMQXhFaTkzNHpsZkxlaUNteFBnNXJVSWhXZlF0c0Ytamw2LXc5c3R5YVY5TVJuenhzQ2dfRzJfbDhjRTlFRlZkaFZwMzBydHVSQ0xJbXhFV2VRZW1JTDl4c1I0d3RzT1ZmUFJkSHMyUFMxYVFnQnlvWGFiZkpMUTFxZ9IBywJBVV95cUxOMWpKb1JmY0hXcWdiY3FlN3B3dXBRblQ0WkRFN2xLbE80RjhwYzN6NkJJTXAzTUFZTkVyS0tIV1YyajRoSGJybGxMdTZzdmEzczZLN2M3TWxCMkhYN2FWY2FuYklIYUY5SkRXNlV3QmxURG4xTlFRcVlxcjFTcXlWTzlEXzl5dWN0S2MtdVVXVDVfem9ROHgxV3Z6aGdQZ1RxcDd5a3JLMkpwSXM0c3lwMXpxcGI4ME1qM1NNNGVvMXE2OEQ5UUp6MDRRekNMNlhfMlBGaXM2ajNsX25USFFUSU16cnFYbEMwcUllaDhiVFpyLV9HY3RZaHZVWWFFcWJMS3loZWF2a0tCM2ZLQVdIYUtacUJhZ3k3RXZLZWNsVHFGS3hBeUJ6MTBfaFcxOWVHVWY1ei1fNHY0ZFVoWTJXSFNNeFkzb3RmWklR?oc=5
 
+## Travis Kelce's nod to Taylor Swift in his wedding band revealed - sportingnews.com
+
+- first seen: 2026-07-25 04:23 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce's nod to Taylor Swift in his wedding band revealed  sportingnews.com
+- sources:
+  - [unverified] sportingnews.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxNSjlhSmlCYmZqcFMzYkQxMmRSaHBNUnJyTUV3TUEzanhScTRBNW5GdllENGJKUjVOWGsxVk1tdEcwc2RWVVBqUFZRam82bnJMbjR3QWRVdkhUaGZSSlRuamdzeFJla0U4VkQxT25qSGhQUmJrQzJjX1d4b1NsdFFBNmdWQVVoME50UXkweU9uVkhzY3pmaTExY2k3ajZNRUlrbjZ2c1VFMTRoSFY5REVRdWxZdFl1THZKZkpYY1RCMzJ2OGpaSTA3U0xLS25RZGVZMW9oc0s5bw?oc=5
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOd0w4eTFWRUlmRkx3eDFsN1l3ZE5XemdQMW5qMWFMZTZIY3diYmVvS1REZ0t2TnlBOXJOMUVLTWJ4ZGotZ1FtSDd1aUpIN1F5Q2pleWZ1djg4TnVSUWNXRHZZWjdjaTRXSTQ1S1FBTE5kUzBnS24ydmsteFduSDZSdUh4cFZYN0ktaEtlbmdUMVJTNEhXYklHVlgwcldmcVpJeDNNZEFLN0Y5QQ?oc=5
+
 ## Emmy Winner Niecy Nash-Betts Spills ‘Top Secret’ Details About Taylor Swift Wedding - The Daily Beas
 
 - first seen: 2026-07-25 04:23 UTC | category: relationship | importance: 5
@@ -342,14 +383,6 @@ Stories: 63
 - summary: Taylor Swift and Travis Kelce wedding guest Niecy Nash divulges the 'crazy' lengths couple took to keep ceremony under wraps  Page Six
 - sources:
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi_AFBVV95cUxPaUlQbDdnSlItNHl2SkUtejFVNlNfOE05N0UwaFVaVzFoc2xrc3I2OXNnZzdZMDd1cHlDVDA4TmFFSmV3QlRoUE9la2dueWhrdWNoU0VtcVRLODRhZU9mTU5LWkJvR244d245Z2w0dXp5V0taYXduRHUxMzk3YTJYX1JpdnVTb3JpYVJDM2lrMWRpZGRRdlBiUy1fbENpQ1hsSndGYldzZGRpTDgwVjBhdFJidWN4ejVvTzBMWGVTTXRIU0x0dl9Wcml3YVFfczAyWXp5STJ6X3VMbHByUlhiaTBCOFhSeXNCWWVqYmduT2hpcnN3d0E3VjhCQmY?oc=5
-
-## Travis Kelce's nod to Taylor Swift in his wedding band revealed - sportingnews.com
-
-- first seen: 2026-07-25 04:23 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce's nod to Taylor Swift in his wedding band revealed  sportingnews.com
-- sources:
-  - [unverified] sportingnews.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxNSjlhSmlCYmZqcFMzYkQxMmRSaHBNUnJyTUV3TUEzanhScTRBNW5GdllENGJKUjVOWGsxVk1tdEcwc2RWVVBqUFZRam82bnJMbjR3QWRVdkhUaGZSSlRuamdzeFJla0U4VkQxT25qSGhQUmJrQzJjX1d4b1NsdFFBNmdWQVVoME50UXkweU9uVkhzY3pmaTExY2k3ajZNRUlrbjZ2c1VFMTRoSFY5REVRdWxZdFl1THZKZkpYY1RCMzJ2OGpaSTA3U0xLS25RZGVZMW9oc0s5bw?oc=5
 
 ## Shaq Responds to Missing Taylor Swift and Travis Kelce's Wedding - Yahoo
 
@@ -474,67 +507,3 @@ Stories: 63
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTE9HcXNuekE4NEEzTlk0akFDY2F3aFo3d29pUXpqR0Jrd0JkSk1hZUlRQnlNTGlPel9PMERWWGViMkRmVC03djFtenlwOU5NbW1LQVpvNU5uQWJFUmhwdU9COExQUGtXWmNHUTVHUkRyRlc1Um95TmxZbHJTQUliZw?oc=5
   - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTFBwQ191dGFMNmE1OV9LMUdXRlR5UlpJX1JJU1ZNV2MzWEhxSERQaXhZV2NnS1Q1RnNmdGx3RGR2LXZoQUZSdU8xdnhfbzZlelNNanphbE9WM3R6R2dXeXlPcU1hd0dxTFRfem1RRXNCUGxsem15NEJ0cG1R?oc=5
-
-## Swifties dubbed them the Taydaughters. Now they’re wrestling with Taylor Swift’s double-edged influe
-
-- first seen: 2026-07-24 15:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Swifties dubbed them the Taydaughters. Now they’re wrestling with Taylor Swift’s double-edged influence  The Globe and Mail
-- sources:
-  - [unverified] The Globe and Mail — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOTFVYYUFPanFqZ21NUmhyS1ZOS1A3Skl3UDlwclU0VWdRN2kwUVRVT2JyUjJ2LTUyVTlaSzA3emZwekhPc284YXdmNmc4LXVLR0JuT0lWanE3S0RxRy1vakZCVWlUTDdSRW9pNGFIMUEwcTFJY2k4dDRVOWFlZjhGdDN6R0R6dFBadnljaHA4TTZ1SVhmbTdSX0VhYzZQaWdfRzk3UzR3N2ZLZ1lmRUpWbzdsdmtiMUhRaHEwVE5NOHFHN0U?oc=5
-
-## Which Gracie Abrams Song Are You? Pick Taylor Swift Songs To Find Out - BuzzFeed
-
-- first seen: 2026-07-24 15:04 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Which Gracie Abrams Song Are You? Pick Taylor Swift Songs To Find Out  BuzzFeed
-- sources:
-  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMiowFBVV95cUxQZnRwc3Q2THVSbGJRekMxemwxR0k3eGNZRGx3b2hUVVVESS1tVUlyUDdFOGxBSER3VnozNkdCWkZid3dtbVZ2b2lzSjlsZjRJamxJX2NPdDVLOWZ1MFFHTEh6TTcxS2tPdGVHa2dqeloweDVxVG5Kbnh4aGc4UVlMRUQwXzRxblB5NmFUcTk2ZHN3ZnA2Y2E0cXlfVnpoRUlweFA4?oc=5
-
-## My Husband Deleted Our Invitation To Taylor Swift’s Wedding. When He Told Me Why, I Lost My Mind. - 
-
-- first seen: 2026-07-24 15:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: My Husband Deleted Our Invitation To Taylor Swift’s Wedding. When He Told Me Why, I Lost My Mind.  BuzzFeed
-- sources:
-  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMiigFBVV95cUxPWkgya3B5THRSdnZoR0JkMFdKelFVbkl1Qi01RDBOazVxWU9IVkdnVjE0S1ZzMjBLQUhWcXFKR0haTnJxRXNWbHNHX2R2Y2RHWFRKV2ZiSkRrVEJVU1pnV19sWEgyMi1NYnd5VHdVTTVqTmZJQl9oOENXNm9UVFlKLWZTOHJhNWxfU3c?oc=5
-
-## Korn’s Jonathan Davis Got Married (The Same Day As Taylor Swift) - Loudwire
-
-- first seen: 2026-07-24 15:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Korn’s Jonathan Davis Got Married (The Same Day As Taylor Swift)  Loudwire
-- sources:
-  - [unverified] Loudwire — https://news.google.com/rss/articles/CBMic0FVX3lxTE5VSktjNEx3cFhDRkg4cnBHN1BjYXlWbUxHTmZwbXg0QlcyVEk0NmR5dnhIanlZLTc5ekd3SlBIel9LMUxweUtNSnlhYWdlS01Ha3drWFV1Njhodm1KU2RNYXQ4bFB3ajI1UXM0T0loTXlFX1k?oc=5
-
-## Taylor Swift’s wedding story marked by privacy - The Arkansas Democrat-Gazette
-
-- first seen: 2026-07-24 15:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s wedding story marked by privacy  The Arkansas Democrat-Gazette
-- sources:
-  - [unverified] The Arkansas Democrat-Gazette — https://news.google.com/rss/articles/CBMimgFBVV95cUxNLVlFMzI0UGhLOWNnVW1lNm1QWXZGVkExSTBOR2V2ME5qY1YyMnRkdEJwUmZGazI5SEpJUnpmR1hOMElwUnJ5Um9MMGhKWVd2YW5Zb0JSS0tvdlhlYjdXazgyRHBoWGNHZkxYeU82eHpYNnVyTGZyWDdZd3JKMHFPaEpGcDEwUE5SRFZRQzZJZnUxRlBiUWxnOUVR?oc=5
-
-## Bolton Landing museum celebrates opera queen Marcella Sembrich: 'The Taylor Swift of her time' - WNY
-
-- first seen: 2026-07-24 15:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Bolton Landing museum celebrates opera queen Marcella Sembrich: 'The Taylor Swift of her time'  WNYT.com
-- sources:
-  - [unverified] WNYT.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxNQUxzWFBPMXJzRzZnZkg5ZXdZZ1pkUmVOaXMwejlQT2NlSFE1d0xNZWYxYXlLSXhTQzBSZUpTSVYydzdqY00zLVFQbkw2QjM1X0VRdUtBRi1LQWFPQzhIVjRfLWRXWWlHRmtqY3pUV0NEQkJtdlZwTXlfVDJPakdjc2NQRjA4VnVvZTBSNy1CWkdwSWc5U0RVb0xKemFzcEZMa2dMQ1I2RVQwMm1aZjdCa210WklKeGRRRVdrcEFB?oc=5
-
-## Movie theater exec who leaked Taylor Swift’s wedding deets made $15M last year - Page Six
-
-- first seen: 2026-07-24 15:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Movie theater exec who leaked Taylor Swift’s wedding deets made $15M last year  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiugFBVV95cUxPVU9SbnI0YkZSMThLM2xiYUcydXBvZGJ4elFNOWJvUjJUcXF0OFhOUXo2MkxzVElJaEtBUDAwRGhNengxX0IwODVUQVZub280cTdLM0hYQ2VxbUtDaUN5aTh2THM4dTdaMTg3alFlSVFCb3d0Z21tNkREMDhyRGZqYk91SnJEVjV5dEZMalRGVVhfZEZoY3RnbDRES1BqV0tPUEpMcEt0d3VzS0lkcXlXRWZUcm1FZnppSWc?oc=5
-
-## DAILY Q&A: Who said it? Shakespeare or Taylor Swift - WJHG
-
-- first seen: 2026-07-24 15:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: DAILY Q&A: Who said it? Shakespeare or Taylor Swift  WJHG
-- sources:
-  - [unverified] WJHG — https://news.google.com/rss/articles/CBMikAFBVV95cUxQZXQ1eFdpN2JuMUNYTVAtTm9qZXVGV1FxYkVhRjU0aVpUclg1RTJjSzJVaHQ0cjhWZnl0d3VoNnhlQkp6YWQ5VjVrbDNEcGxiR0gtSUhDZjkwNmE3ejhCTlpmTEFINEVXR2htTEtoY2ZQbUJXNkNteC1yMWFZQ3BiTGJoRHpNOC1NOW5IZXZybGs?oc=5
