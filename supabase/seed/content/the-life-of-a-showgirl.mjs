@@ -2931,6 +2931,36 @@ export default {
             focalPoint: '52% 45%',
           },
         ],
+        // Rumor Desk 2026-07-27: formalizes the wedding-DATE rumor this moment's
+        // context references in passing ("paid a bride to give up her date") into
+        // a tracked RumorNote with an honest DEBUNKED terminal state and a
+        // citation — distinct from the June 19-20 bachelorette-tent sighting in
+        // the prose above, which is a separate, single-source claim that faded.
+        // Location stays at the public resort (Ocean House) and the town (Watch
+        // Hill) — a public accommodation that itself denied the booking, and the
+        // same venue this moment already names; her home is never named. This
+        // debunked entry is the cleanest lifecycle example in the vault: a loud
+        // tabloid claim that a definitive on-record outcome settled as false.
+        rumors: [
+          {
+            claim:
+              'Page Six reported in early December 2025 that Swift and Kelce would marry on Saturday, June 13, 2026 at the Ocean House resort in Watch Hill, Rhode Island — and that Swift had "paid off" another bride-to-be to free up the date.',
+            reportedBy: 'Page Six (New York Post)',
+            reportedOn: '2025-12-04',
+            status: 'debunked',
+            url: 'https://patch.com/rhode-island/across-ri/taylor-swift-paid-bride-be-get-wedding-date-ocean-house-watch-hill-page-six',
+            note: 'Debunked on several fronts. Ocean House\'s Stephanie Leavitt denied any bought-out booking, and luxury planner Tara Guérard — overseeing a different wedding there that June 13 — said Taylor "is not her bride" that weekend. The couple married at Madison Square Garden on July 3, 2026; NPR reported "tabloid reports of a ceremony there proved unfounded." Location capped at the public resort and town.',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'venue',
+            lastCheckedOn: '2026-07-27',
+            resolution: {
+              on: '2026-07-03',
+              url: 'https://www.npr.org/2026/07/03/nx-s1-5877361/taylor-swift-travis-kelce-wedding-msg',
+              outlet: 'NPR',
+              note: 'Swift and Kelce married at Madison Square Garden on July 3, 2026 — not on June 13 in Rhode Island. NPR: "tabloid reports of a ceremony there proved unfounded."',
+            },
+          },
+        ],
       },
     },
     // --- Authored 2026-07-24 from intake #1454. A confirmed, documented
