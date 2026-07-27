@@ -51,6 +51,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png", credit: "Big Machine Records", caption: "The \"Blank Space\" single cover — the satirical tabloid persona, rendered as a torn-up polaroid.", kind: "primary", focalPoint: "48% 35%" }, { url: "https://i.ytimg.com/vi/e-ORhEE9VVg/maxresdefault.jpg", credit: "Taylor Swift / Big Machine Records, via YouTube", caption: "A close-up from the official \"Blank Space\" video — the mansion-and-mascara caricature played straight.", kind: "archival", focalPoint: "50% 40%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Blank_Space" }, { name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-blank-space-hot-100/" }],
+      relatedIds: ["moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app", "moment:vault-1989-blank-space-flips-the-narrative"],
     },
     {
       id: "vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker",
@@ -62,6 +63,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg", credit: "Big Machine Records", caption: "A frame from the \"Shake It Off\" video — the all-black look on the bare white soundstage.", kind: "primary", focalPoint: "48% 16%" }, { url: "https://i.ytimg.com/vi/nfWlot6h_JM/maxresdefault.jpg", credit: "Taylor Swift / Big Machine Records, via YouTube", caption: "The hip-hop dance-crew scene from the same official \"Shake It Off\" video — the self-deprecating punchline in motion.", kind: "archival", focalPoint: "50% 46%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Shake_It_Off" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/" }],
+      relatedIds: ["moment:vault-1989-shake-it-off-launches-the-era", "moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single", "moment:vault-lover-a-surprise-shake-it-off-at-the-stonewall-inn-for-prides-50th"],
     },
     {
       id: "vault-1989-bad-blood-and-the-friendship-it-ended",
@@ -398,6 +400,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960", credit: "Forbes", kind: "primary", focalPoint: "45% 24%" }, { url: "https://i.ytimg.com/vi/nfWlot6h_JM/hq2.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "The swan-tutu ballerina scene from the official 'Shake It Off' video — the single that, six years on, became her first Diamond-certified song.", kind: "archival", focalPoint: "52% 48%" }],
       sources: [{ name: "Forbes", url: "https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/" }, { name: "Headline Planet", url: "https://headlineplanet.com/home/2020/03/14/taylor-swifts-shake-it-off-earns-diamond-certification-in-us-lover-album-reaches-2x-platinum/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2023/10/10/taylor-swifts-1989-songs-ranked/" }],
+      relatedIds: ["moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker", "moment:vault-1989-shake-it-off-launches-the-era", "moment:vault-lover-a-surprise-shake-it-off-at-the-stonewall-inn-for-prides-50th"],
     },
     {
       id: "vault-1989-1989-itself-goes-diamond-joining-fearless-as-her-second-10-m",
@@ -515,6 +518,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary", focalPoint: "42% 28%" }],
       sources: [{ name: "Blank Space", url: "https://en.wikipedia.org/wiki/Blank_Space" }, { name: "AMEX Unstaged: Taylor Swift Experience | Emmy Awards and Nominations", url: "https://www.televisionacademy.com/shows/amex-unstaged-taylor-swift-experience" }],
+      relatedIds: ["moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed", "moment:vault-1989-blank-space-flips-the-narrative"],
     },
     {
       id: "vault-1989-swiftmas-hand-wrapped-packages-one-hand-delivered-to-connect",
@@ -726,7 +730,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one."],
       tags: ["Music", "Lore"],
       video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
-      relatedIds: ["moment:vault-midnights-slut-turns-out-to-be-a-love-song"],
+      relatedIds: ["moment:vault-midnights-slut-turns-out-to-be-a-love-song", "moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed", "moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app"],
     },
     {
       id: "vault-1989-polaroids-and-pastel",
@@ -1463,7 +1467,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1", credit: "Beth Garrabrant", kind: "primary", focalPoint: "63% 40%" }, { url: "https://i.ytimg.com/vi/rFjJs6ZjPe8/maxresdefault.jpg", credit: "Still from the official \"Mr. Perfectly Fine (Taylor's Version) (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The faceless tuxedo of \"Mr. Perfectly Fine\" — the vault cut that led the album's 291,000-unit record week.", kind: "archival", focalPoint: "50% 45%" }, { url: "https://www.billboard.com/wp-content/uploads/2020/12/03-taylor-swift-press-cr-Beth-Garrabrant-2020-billboard-1548-1607617377.jpg?w=1024", credit: "Beth Garrabrant, via Billboard", caption: "A Beth Garrabrant press portrait of Swift from the same era, used by Billboard to illustrate its coverage of Fearless (Taylor's Version) holding its chart position months after release.", kind: "archival", focalPoint: "60% 26%" }, { url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records (official album cover)", caption: "The official Fearless (Taylor's Version) cover art, released April 9, 2021.", kind: "primary", focalPoint: "55% 50%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/1/1d/FearlessPrudentialCentMay2010.jpg", credit: "itslex94, Wikimedia Commons (CC BY-SA 2.0)", caption: "Swift on the original Fearless Tour in May 2010 — the era this record-breaking 2021 re-record revisited eleven years later.", kind: "archival", focalPoint: "58% 20%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Keith_Urban_2020.jpg", credit: "Shawn Miller / Library of Congress (CC0)", caption: "Keith Urban in 2020, months before joining Swift on \"That's When,\" one of six From the Vault tracks that drove the record-setting week.", kind: "reference", focalPoint: "52% 16%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/6/65/Maren_Morris_2019_by_Glenn_Francis.jpg", credit: "© Glenn Francis, PacificProDigital.com (CC BY-SA 4.0)", caption: "Maren Morris in 2019, featured on the vault track \"You All Over Me,\" released ahead of the full album.", kind: "reference", focalPoint: "54% 20%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/news/9558306/taylor-swift-fearless-taylors-version-tops-billboard-200/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2021/04/18/taylor-swift-charts-her-ninth-no-1-album-in-the-us-with-fearless-taylors-version/" }, { name: "Taylor Swift Reveals 'Fearless (Taylor's Version)' Track List, Including Keith Urban Duet", url: "https://www.rollingstone.com/music/music-news/taylor-swift-fearless-taylors-version-track-list-keith-urban-1150599/" }],
       milestone: { id: "m-ever-2", label: "First re-record hits #1", kind: "award" },
-      relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me"],
+      relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me", "moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas", "moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault"],
       threadIds: ["taylors-version"],
       significance: "defining",
     },
@@ -1526,6 +1530,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/celebrity/a35498019/taylor-swift-outfit-new-fearless-cover-easter-egg/" }],
+      relatedIds: ["moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever", "moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault"],
       products: [{ brand: "Ulla Johnson", item: "Fernanda Blouse", retailer: "garmentory.com", url: "https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse", price: "$237.00" }],
     },
     {
@@ -1891,6 +1896,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records / Beth Garrabrant (album cover)", caption: "Album artwork for Fearless (Taylor's Version), released April 9, 2021.", kind: "primary", focalPoint: "56% 30%" }, { url: "https://i.ytimg.com/vi/XKaMUm7YwZc/maxresdefault.jpg", credit: "Still from the official \"You All Over Me (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The vault opens: the \"You All Over Me\" lyric video title card, featuring Maren Morris — proof the re-recordings could mint new canon, not just replacements.", kind: "archival", focalPoint: "50% 45%" }, { url: "https://i.ytimg.com/vi/rFjJs6ZjPe8/maxresdefault.jpg", credit: "Still from the official \"Mr. Perfectly Fine (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The \"Mr. Perfectly Fine\" title card — a headless tuxedo figure in fog, the vault track that became the era's biggest surprise hit.", kind: "archival", focalPoint: "50% 40%" }, { url: "https://i.ytimg.com/vi/aOa6D6ku3dM/maxresdefault.jpg", credit: "Still from the official \"That's When (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The \"That's When\" title card, crediting Keith Urban's feature.", kind: "archival", focalPoint: "50% 55%" }, { url: "https://i.ytimg.com/vi/dHdAN4FXzmc/maxresdefault.jpg", credit: "Still from the official \"Don't You (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The \"Don't You\" title card.", kind: "archival", focalPoint: "50% 45%" }, { url: "https://i.ytimg.com/vi/yuFuwXd-B9E/maxresdefault.jpg", credit: "Still from the official \"Bye Bye Baby (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The \"Bye Bye Baby\" title card, closing out the six-song vault.", kind: "archival", focalPoint: "50% 45%" }],
       sources: [{ name: "Fearless (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)" }],
+      relatedIds: ["moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas", "moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever"],
       threadIds: ["taylors-version"],
       significance: "notable",
     },
@@ -3247,6 +3253,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg", credit: "Netflix (documentary poster art)", kind: "primary", focalPoint: "72% 70%" }, { url: "https://i.ytimg.com/vi/q07_k5VKuaQ/hqdefault.jpg", credit: "Netflix via YouTube (official trailer)", caption: "The mirror-ball dress frame from the official Miss Americana trailer.", kind: "archival", focalPoint: "62% 28%" }, { url: "https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556", credit: "Deseret News", caption: "Swift at the \"Miss Americana\" world premiere, Sundance Film Festival, Jan. 23, 2020.", kind: "archival" }, { url: "https://townsquare.media/site/623/files/2019/11/taylor-siwft-2019-amas-40.jpg?w=980&q=75", credit: "Townsquare Media, via The Boot", caption: "The 2019 AMAs medley two weeks earlier, opening in a shirt printed with the titles of the six disputed albums — the same standoff this item is about.", kind: "archival", focalPoint: "48% 17%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/c/ce/MistyCopeland-byPhilipRomano.jpg", credit: "Philip Romano, Wikimedia Commons (CC BY-SA 4.0)", caption: "Ballet dancer Misty Copeland, who performed with Swift in the same AMA medley.", kind: "reference" }, { url: "https://upload.wikimedia.org/wikipedia/commons/1/13/Carole_King_2002_%28cropped%29.jpg", credit: "John Mathew Smith, Wikimedia Commons (CC BY-SA 2.0)", caption: "Carole King, who presented Swift with the Artist of the Decade award at that AMAs ceremony.", kind: "reference" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/culture/tv-film/taylor-swift-miss-americana-netflix-documentary-release-date-8548174/" }, { name: "Fox News", url: "https://www.foxnews.com/entertainment/netflix-taylor-swift-documentary-miss-americana" }, { name: "Capital FM", url: "https://www.capitalfm.com/artists/taylor-swift/miss-americana-trailer-netflix-documentary/" }],
+      relatedIds: ["moment:vault-lover-miss-americana-the-heartbreak-prince-a-high-school-built-fro", "moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix"],
     },
     {
       id: "vault-lover-artist-of-the-decade-and-a-record-29-ama-wins",
@@ -3457,6 +3464,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992", credit: "Getty Images via ABC News", kind: "primary" }],
       sources: [{ name: "ABC News", url: "https://abcnews.com/Entertainment/taylor-swift-makes-surprise-appearance-stonewall-inn-performs/story?id=63731487" }, { name: "BuzzFeed News", url: "https://www.buzzfeed.com/adeonibada/taylor-swift-surprise-performance-stonewall-inn-nyc-pride" }],
+      relatedIds: ["moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker", "moment:vault-1989-shake-it-off-launches-the-era", "moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single"],
     },
     {
       id: "vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack",
@@ -3490,6 +3498,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/Kwf7P2GNAVw/hqdefault.jpg", credit: "Republic Records / YouTube (official audio still)", caption: "Artwork from the official 'Miss Americana & The Heartbreak Prince' audio upload on Taylor Swift's YouTube channel.", kind: "archival" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/miss-americana-the-heartbreak-prince" }],
+      relatedIds: ["moment:vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c", "moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix"],
     },
     {
       id: "vault-lover-billboard-names-her-the-first-ever-woman-of-the-decade",
@@ -3575,7 +3584,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/ae/Taylor_Swift_-_Miss_Americana.jpg", credit: "Netflix (official release poster)", kind: "primary", focalPoint: "70% 64%" }, { url: "https://cloudfront-us-east-1.images.arcpublishing.com/deseretnews/BPFSE5GJJY32ML4VOUTHMY7J2I.jpg", credit: "Laura Seitz / Deseret News", caption: "Arriving for the Sundance premiere of Miss Americana at the Eccles Theatre in Park City, Jan. 23, 2020.", kind: "archival", focalPoint: "48% 31%" }],
       sources: [{ name: "Miss Americana", url: "https://en.wikipedia.org/wiki/Miss_Americana" }],
       milestone: { id: "m-lov-3", label: "Miss Americana premieres", kind: "life" },
-      relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative", "moment:vault-lover-only-the-young-the-protest-song-saved-for-the-documentary"],
+      relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative", "moment:vault-lover-only-the-young-the-protest-song-saved-for-the-documentary", "moment:vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c", "moment:vault-lover-miss-americana-the-heartbreak-prince-a-high-school-built-fro"],
       significance: "defining",
     },
     {
@@ -5008,6 +5017,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble" }],
+      relatedIds: ["moment:vault-red-i-knew-you-were-trouble-goes-global", "moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday"],
     },
     {
       id: "vault-red-starlight-built-from-an-old-photo-of-two-teenagers-dancing",
@@ -5435,6 +5445,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "I Knew You Were Trouble", url: "https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble" }],
+      relatedIds: ["moment:vault-red-i-knew-you-were-trouble-brings-dubstep-to-pop-radio", "moment:vault-red-i-knew-you-were-trouble-goes-global"],
     },
     {
       id: "vault-red-safe-sound-wins-the-first-grammy-of-the-red-era",
@@ -5814,6 +5825,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.", kind: "primary", focalPoint: "42% 40%" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing" }],
+      relatedIds: ["moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with", "moment:vault-reputation-the-look-what-you-made-me-do-video-shatters-youtubes-24-hour"],
       products: [{ brand: "Mehron", item: "Zombie Professional Makeup Kit", retailer: "jestpaint.com", url: "https://jestpaint.com/products/mehron-premium-makeup-kit-new-zombie-professional-makeup-kit-kmp-ez", price: "$20.19", isAlternative: true, altNote: "Bill Corso's bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect." }],
     },
     {
@@ -6044,7 +6056,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png", credit: "Big Machine Records", kind: "primary", focalPoint: "65% 42%" }, { url: "https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg", credit: "YouTube / Taylor Swift", caption: "The bathtub-of-diamonds scene from Joseph Kahn's video — the clip that pulled 43.2 million views in its first 24 hours.", kind: "archival", focalPoint: "64% 40%" }],
       sources: [{ name: "Taylor Swift's 'Look What You Made Me Do' Smashes YouTube's 24-Hour Record", url: "https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/" }, { name: "Taylor Swift's 'Look What You Made Me Do' Sets YouTube 24-Hour Streams Record", url: "https://www.billboard.com/pro/taylor-swift-psy-youtube-24-hour-streams-record/" }],
-      relatedIds: ["moment:vault-reputation-the-snake-video-that-announced-reputation"],
+      relatedIds: ["moment:vault-reputation-the-snake-video-that-announced-reputation", "moment:vault-reputation-zombie-makeup-for-look-what-you-made-me-do"],
       significance: "notable",
     },
     {
@@ -6518,6 +6530,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2010/10/27/43706a70-a643-11e2-a3f0-029118418759/thumbnail/620x465/dd9752d17c8aaecefe080fa1a6f4c4e0/Swift-Gyllenhaal.jpg", credit: "Getty Images (via CBS News)", caption: "Side-by-side file photos of the two — not the coffee run itself, which produced few clean photos.", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2010/11/25/taylor-swift-jake-gyllenhaal-thanksgiving-in-brooklyn/" }],
+      relatedIds: ["moment:vault-speak-now-the-jake-gyllenhaal-rumors-go-public", "moment:vault-speak-now-a-brief-rumored-relationship-with-jake-gyllenhaal-ends"],
     },
     {
       id: "vault-speak-now-an-anthropologie-run-the-morning-after-her-first-acm-enterta",
@@ -6628,6 +6641,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg", credit: "Getty Images (via Just Jared)", caption: "Just Jared's side-by-side report art for the Thanksgiving 2010 Brooklyn sighting — file photos of the two, shown for reference; the coffee run itself produced few clean photos.", kind: "reference", focalPoint: "50% 22%" }],
       sources: [{ name: "Elite Daily", url: "https://www.elitedaily.com/dating/taylor-swift-jake-gyllenhaal-rumored-relationship-timeline" }, { name: "Yahoo Sports", url: "https://sports.yahoo.com/amphtml/did-taylor-swift-jake-gyllenhaal-112739224.html" }],
+      relatedIds: ["moment:vault-speak-now-a-thanksgiving-morning-coffee-run-with-jake-gyllenhaal", "moment:vault-speak-now-the-jake-gyllenhaal-rumors-go-public"],
     },
     {
       id: "vault-speak-now-a-summer-with-conor-kennedy-and-ethel-kennedys-blessing",
@@ -6822,6 +6836,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg", credit: "Getty Images (via Just Jared)", caption: "Just Jared's side-by-side report art for the Thanksgiving coffee-run sighting that anchored the rumor timeline — file photos of the two, shown for reference.", kind: "reference", focalPoint: "50% 22%" }],
       sources: [{ name: "Taylor Swift and Jake Gyllenhaal's Rumored Relationship Timeline", url: "https://www.elitedaily.com/dating/taylor-swift-jake-gyllenhaal-rumored-relationship-timeline" }, { name: "Did Taylor Swift and Jake Gyllenhaal Date?", url: "https://sports.yahoo.com/amphtml/did-taylor-swift-jake-gyllenhaal-112739224.html" }],
+      relatedIds: ["moment:vault-speak-now-a-thanksgiving-morning-coffee-run-with-jake-gyllenhaal", "moment:vault-speak-now-a-brief-rumored-relationship-with-jake-gyllenhaal-ends"],
     },
     {
       id: "vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port",
@@ -8142,6 +8157,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg", credit: "Getty Images", kind: "primary", focalPoint: "37% 38%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/02/taylor-swift-super-bowl-lix-2025-billboard-1548.jpg?w=1024", credit: "Jamie Squire/Getty Images via Billboard", caption: "Ice Spice and Taylor Swift at Super Bowl LIX at Caesars Superdome, Feb. 9, 2025.", kind: "archival", focalPoint: "52% 40%" }],
       sources: [{ name: "CBS News Philadelphia", url: "https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/" }, { name: "E! News", url: "https://www.eonline.com/news/1413228/super-bowl-taylor-swift-booed-on-jumbotron" }],
+      relatedIds: ["moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick"],
       threadIds: ["the-proposal"],
     },
     {
@@ -8263,6 +8279,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg", credit: "AP", kind: "primary", focalPoint: "55% 32%" }, { url: "https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg", credit: "Getty Images", kind: "archival", focalPoint: "52% 40%" }],
       sources: [{ name: "ABC News", url: "https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249" }],
+      relatedIds: ["moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s"],
       threadIds: ["the-proposal"],
     },
     {
