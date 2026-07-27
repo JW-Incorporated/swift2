@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 60
+Stories: 63
+
+## First responders' families thank Taylor Swift for 'extraordinary' wedding donation - Yahoo Lifestyle
+
+- first seen: 2026-07-27 12:35 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: First responders' families thank Taylor Swift for 'extraordinary' wedding donation  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihwFBVV95cUxPN0FhVU9kNzVNcTZOSTBGRmt2bTFCQ19CYmt4cFBLVW1vSjJkZXRfMWloUS1GaElyV2xULUFLcU8xaGR2R2tmT18waWFHSXlsUVNDVEVQYzZEVHR6RG4wWUZvbUdSMVJGUmhyUW5wTjFjV0tlSHBIQ3dfSVpWblJHY1ZzN0RHU0U?oc=5
+
+## Taylor Swift is 'taking a step back from performing' but her next tour 'already planned' - AOL.com
+
+- first seen: 2026-07-27 12:35 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is 'taking a step back from performing' but her next tour 'already planned'  AOL.com
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5jQlo0MUg4QVlQT3l4MTh1S2tXNkRFTEQwUlB2bU5MYlBSSTFyVl9fVl9KdG5YM1pOcEpScDdzMldVZXFFVHBmUHAwV1VRQmFaVjFVSjAzNEE3eTkzc3ZDSXdZS2J0NWRJblZ4R0IwcWw4TWx6anZfWGdsQ01FZw?oc=5
+
+## Patrick Mahomes is out for revenge: Travis Kelce and Taylor Swift's wedding could lead the Chiefs to
+
+- first seen: 2026-07-27 12:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Patrick Mahomes is out for revenge: Travis Kelce and Taylor Swift's wedding could lead the Chiefs to a Super Bowl win  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMiigJBVV95cUxQMlBxckY0TF9ZMnBzaEE0dk9qazcyZTFjUGU0MWU5bFZCckx0Y2RuSFpqUTJQdm5CNU44N2FOQ2laNWFZeHE1NDRKSmxiUkNoWU9yWlVIVk9TZnFqZDlFNkE4QlhjTmFMSExHVDZCM2dpd0lQR2tJX19TOTNoUXdINVVES2NURGpPdVhhVmtUMTJrM1FKcjdYdThqb081U19QNDA5ejB0WG1BbC11RExDRlBiUVBHaW9SM0gwRUVGWXQxUDhfSVRoZEFpUm9RTjl3Yko5RDZzaWo4YjNNaGhqLTJlWDNtSmFyMlVRRzZQU3gtQnNybkRHdlcyV3hPMU81YkRDUFYzcGhYZ9IBigJBVV95cUxPWUhzLUNkYnZ4RmZGZll4ODR0YjM1NmhxWWFzejZIQ09pZHlpS0duakZGVVFhanpuOUxIVEpFVlJJV1BIVTF4ZjhkdDdYSU5tNWI4aXpUa3QzeWxicjFoaU9FTjhsR1NCaGI2cEhLNmFXeTFqMnl4N0NmQ3Z6UlhtZ01SREdyVFlfdU1RREpWa2lHb09hbGltdXNhQzB6bEZFRlM1cU1Db3Y4ZE9DNHhzSTJabFdGbUFoSHR3VHljVDdjMDlreDNJc2l4RE5ZWkItZy1WRmVMZko2TTJhNEVpb1B4RzZ3LWhzaFNERk5hOVZBTDlqb0VaQ25JMGswWHZDXzdqUnpkWDVqQQ?oc=5
+
+## Taylor Swift married Travis Kelce at Madison Square Garden - Northeast Times
+
+- first seen: 2026-07-27 12:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift married Travis Kelce at Madison Square Garden  Northeast Times
+- sources:
+  - [unverified] Northeast Times — https://news.google.com/rss/articles/CBMingFBVV95cUxPSkFtbXFNbnZNUVZobDNSRE43QnVSaU0tX1ZCTVFwYWg1MzJQc2xRcVpZenA1VFUwR0pINEtJLWhZTTNDLU50Wm5kYmhwYjFwUU9aVGQ5eF9mRnN3V3pHLXh4RDlncE0wT3RMQUt1Sm9fcDB6UnJCaG1yX0N4YUpNOG83clg2Qi1jZ3dPWmlnRVVxOVNONnYxTjZPOWdkQQ?oc=5
+
+## Taylor Swift & Travis Kelce’s ‘Crazy’ Wedding Rule Raises Eyebrows — Report - Yahoo
+
+- first seen: 2026-07-27 12:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce’s ‘Crazy’ Wedding Rule Raises Eyebrows — Report  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPanBJOURacTFxNXRPellMX0ZMRXItRHN3Yl84blV1X0VxZHdxUXNydGdLTzdGOE5kaHdDNFUxaG5QZ1F0bGVteU16a1NNSFhmei1JelBib2dpelJ4NEx6LV9Od2d6ODBHTW9XVVZLdmxmRG9sMktqMklXRnpoVTE2Q0xTTXFIR1ZjZmdQWm4wbU94VEJGUWQ3VDJSY1NEQk1uNXJB?oc=5
 
 ## Travis Kelce’s Ring Has a Taylor Swift Detail You Can’t Miss - Yahoo
 
@@ -498,19 +538,3 @@ Stories: 60
 - summary: DAILY Q&A: Who said it? Shakespeare or Taylor Swift  WJHG
 - sources:
   - [unverified] WJHG — https://news.google.com/rss/articles/CBMikAFBVV95cUxQZXQ1eFdpN2JuMUNYTVAtTm9qZXVGV1FxYkVhRjU0aVpUclg1RTJjSzJVaHQ0cjhWZnl0d3VoNnhlQkp6YWQ5VjVrbDNEcGxiR0gtSUhDZjkwNmE3ejhCTlpmTEFINEVXR2htTEtoY2ZQbUJXNkNteC1yMWFZQ3BiTGJoRHpNOC1NOW5IZXZybGs?oc=5
-
-## Taylor Swift's new sister-in-law talks 'magical' wedding - Yahoo Lifestyle Canada
-
-- first seen: 2026-07-24 11:09 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's new sister-in-law talks 'magical' wedding  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE5Deng4UTRzN0lxM1hITnFHWVZjVU1yNGV0M2dQdW1ZNHJHT2V2eG8yYmtGcENpRDduc0lJM0VtaHVzS0JnSGd0NXN5aFFfSDlmYkxjYTZqRDVkZWJwbHM2R1ZjUUpCRkgwVjRqWU5ib1B1OVRsZXRJLXgtamM?oc=5
-
-## New Taylor Swift display opens at the Rock & Roll Hall of Fame - 95.3 X95
-
-- first seen: 2026-07-24 11:09 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: New Taylor Swift display opens at the Rock & Roll Hall of Fame  95.3 X95
-- sources:
-  - [unverified] 95.3 X95 — https://news.google.com/rss/articles/CBMingFBVV95cUxQQXFleHFUcDFXaWVsNzJzZmh2cnl6elNqTDRZNUM1UkZveHZ6MzJyUVYtWmJwbG1HTWQ2SzF1M2YwN2lpaFkybENONU1YVVZndjJLVmQzX1dKdzlISktiQlBna3Qtcnk1Mkc3SmR0UDNRejYwZVVFNEJpSmtxX2FWRGVPeVBfS0pqdnc0TFFRTnoxZ2tYMWl6aTdMSTUyQQ?oc=5
