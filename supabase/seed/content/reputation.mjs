@@ -111,6 +111,22 @@ export default {
             sourceTier: 'social',
             lastCheckedOn: '2026-07-25',
           },
+          {
+            // Rumor Desk 2026-07-27: a third, later data point on the same
+            // reputation Taylor's Version question — a concrete, dated December
+            // 2025 easter-egg event, distinct from the May-2025 masters-letter
+            // entry and the fan-tracklist theory above. Forward-looking,
+            // unannounced-music speculation (allowed by the redlines); no location.
+            claim:
+              'When reputation arrived on Apple Music in Dolby Atmos in December 2025, Swift had quietly altered two lyrics from the 2017 originals — sharpening a line in "I Did Something Bad" and swapping a word in "Delicate" — and fans and music press read the tweaks as an Easter-egg tease that reputation (Taylor\'s Version) or its unreleased Vault tracks were finally near.',
+            reportedBy: 'Rolling Stone (Maya Georgi)',
+            reportedOn: '2025-12-12',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-lyric-changes-explained-1235483070/',
+            note: 'The lyric edits are documented; the re-record tease is the unconfirmed read. The coverage cuts both ways — Swift is on record calling reputation the one early album she thought "couldn\'t be improved upon by redoing it," while still promising its Vault tracks would one day "hatch." Resolves on an announced re-record or Vault release; fades if the window stays empty. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-27',
+          },
         ],
       },
     },
