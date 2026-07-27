@@ -3257,6 +3257,15 @@ export default {
           },
         ],
         photos: [
+          // Photo pass (2026-07-27): a real shot of the display itself, found
+          // on the Cleveland.com/USA TODAY Network writeup already cited
+          // above (its AOL syndication). curl HTTP 200 + image/jpeg
+          // (3784x5676, no watermark, not a Getty comp), downloaded and
+          // vision-confirmed: the "Legends of Rock" case, with the crystal
+          // swim costume, beaded/sequined performer bodysuits, and museum
+          // placards reading "Taylor Swift Ensemble Performer Bodysuits" /
+          // "Taylor Swift Outfit" / "The Fate of Ophelia" — this is the
+          // display, not the building.
           {
             url: 'https://www.billboard.com/wp-content/uploads/2026/04/Taylor-Swift-Fate-of-Ophelia-video-screengrab-billboard-1800.jpg',
             focalPoint: '50% 45%',
@@ -3352,6 +3361,24 @@ export default {
             caption:
               'Leaving the Electric Lady Studios area on June 15 — the overnight session that set off the TS13 speculation.',
             kind: 'primary',
+          },
+          // Photo pass (2026-07-27): PureWow's writeup of this exact sighting
+          // (assets.purewow.com, its own CDN) captions this frame as Swift
+          // "photographed exiting a car in front of Electric Lady Studios."
+          // curl HTTP 200 + image/jpeg (1200x1412, no watermark), downloaded
+          // and vision-confirmed: the mustard-and-white knit polo, high-waisted
+          // denim, and tan tassel bag reported for the June 15-16 overnight
+          // session. A second PureWow frame from the same set (BACKGRID) was
+          // reviewed but skipped as redundant; a third, captioned identically
+          // but showing an indoor Songwriters Hall of Fame step-and-repeat, was
+          // rejected as off-moment (mislabeled stock/file art, not this outing).
+          {
+            url: 'https://assets.purewow.com/wp-content/uploads/2026/06/taylor-swift-electric-lady-studios-2026_1-1200x1412.jpg',
+            focalPoint: '60% 22%',
+            credit: 'Kyle Mazza/CNP/Shutterstock, via PureWow',
+            caption:
+              'Swift photographed exiting a car in front of Electric Lady Studios in New York, June 15, 2026 — the overnight session that started the TS13 chatter.',
+            kind: 'reference',
           },
         ],
         // Rumor Desk 2026-08-11: this moment is the structural home for the

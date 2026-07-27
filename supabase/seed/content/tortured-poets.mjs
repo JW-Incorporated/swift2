@@ -2611,6 +2611,21 @@ export default {
             caption: 'A custom Eras Tour gown printed with "Fortnight"\'s "I love you, it\'s ruining my life" — the breakup grief TTPD turned into a 31-song double album, worn live on stage.',
             kind: 'archival',
           },
+          // Photo pass #762 (2026-07-27): the six-and-a-half-year relationship
+          // itself had almost no on-record imagery beyond a handful of
+          // sightings — this is the best-documented one. Verified via
+          // eonline.com's own image CDN (akns-images.eonline.com, their
+          // Akamai Image Manager infrastructure, not a watermarked comp):
+          // HTTP 200 + image/jpeg, 600x600, downloaded and viewed — Swift
+          // (pale blue coat) and Alwyn (black tux) hand-in-hand leaving the
+          // cited Feb. 2019 BAFTAs after-party.
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2019110/rs_600x600-190210195541-600-taylor-swift-joe-alwyn-baftas.jpg',
+            focalPoint: '42% 28%',
+            credit: 'E! News',
+            caption: 'Swift and Alwyn leaving a BAFTAs after-party together, February 2019 — one of the few public sightings from the relationship this album grieves.',
+            kind: 'reference',
+          },
         ],
       },
     },
