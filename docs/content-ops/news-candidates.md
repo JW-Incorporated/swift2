@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 58
+Stories: 60
+
+## Quote of the day by Taylor Swift's husband Travis Kelce: "If you don't care about the guy next to yo
+
+- first seen: 2026-07-27 22:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Quote of the day by Taylor Swift's husband Travis Kelce: "If you don't care about the guy next to you, one, you're a terrible…" - why caring about your teammates matters more than individual talent  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi8wJBVV95cUxNMXc2RGFHMzM5ZlZqekNzblVNOHhtVWxnYlBoX3JmUXVoRDk4c0hIeUJObWNuUERsc3EtYnlDU01GQkxXbWpsSjdkWWF0UUxocmZPUTFsVmxzZGVxOUwtVVBfUTJVNVB0YXpKcllHQmkzZHE4dWR6b2drLTZWZFNaYng5YWdzd1ZwbWlrR29BZGhEY1FjamJoVEgxUFhtODNEenZSQXJXbFc0a216MmlEd19zNmhzYkVyeDhMTXpVX0RaaDFQd2lHdXY0T0d6azEzZkt6R01IS2FLWkxGZjhkYXJBMGdlNHozTEFEa3YtQXUzSUpZYVRPX3dRZ3JfSDBieGpJWlZqT1UxbG84eHF3V2ExQzRKSWRlS3hna3lialNfeExnSzU2N1JTa00ycDVVd25kUkxGem1uNFVpUU1ZYV9LZ2lPNFZRREYybDlrRS1KdkNUVGRQSGJDdV83MThtLU1fRElmTUtjNkRiQ1B3YXZIWQ?oc=5
+
+## Owen Thiele Calls Taylor Swift and Travis Kelce ‘Magic’ Weeks After Attending Their Wedding (Exclusi
+
+- first seen: 2026-07-27 22:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Owen Thiele Calls Taylor Swift and Travis Kelce ‘Magic’ Weeks After Attending Their Wedding (Exclusive)  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxObm9oQkhHaHJpVHJCbXgtaEtMTDA4TXR3OU1qSUlBQmZiMFhqbFNrSUFTYktXOHp0Z0gzV2dKMDVlaWtRaEctTmhSUHhLenBVMXVMMzlsbXl2dWJnTEtVVTRWSFJaRmEtazF2N3V1ZXhXS0wzLUlERnhLSjFrLS1hQzU2UW9KVTE1RHZaeHBQZXVhMkNFWU1VX3l3UWlyWERQekxzZmkzclBNWUw2UFF6MVcxaTNoaVdoLXc5dEEtWkJFVmw2TUE?oc=5
 
 ## Travis Kelce's Wedding Band Pays Tribute to Taylor Swift in a Subtle but Sweet Way - instyle.com
 
@@ -60,14 +76,6 @@ Stories: 58
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMisAFBVV95cUxOMHExc3AyTDlLQ1pzSDRLZWJwdE9oV1JKdnlwU3k3dTFSUVpicUVVbHNIVUN5UFpBRHR1VDJYWFVON1RKd3FIWHlJUmpjeHVHdTBPTW1KZWxhVUpPNUZGa1NEaDZFTzdya19XYWc3RnJwbUlHbjk2WWNoQ0Jjcmpmd3NIVlpnV3A0VFVaV1NNeEQzVXRoQXk1cmFVekMzc0J0SEQ4QU1ubTd3Yk5wVDVwRQ?oc=5
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOFBMZUhOWTVMaFp2VzV2cGVGWHBqTlVoYTZhRmxCTTlqb1RNZ05TYlRsU2tqcGFuelgxMUlfVWQ5VnlDaXBzZENWZ2d4NFMzQzhZSGphVUhSWkh4elc3YWRKVk55Z2JWYk4yQ1I4REVaWENWLXBoYlZ1SzY3TGlQRHdUbkNicGdO?oc=5
 
-## Inside Taylor Swift and Kylie Kelce’s Friendship Now That They’re Officially Sisters-in-Law - instyl
-
-- first seen: 2026-07-27 18:44 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Inside Taylor Swift and Kylie Kelce’s Friendship Now That They’re Officially Sisters-in-Law  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMid0FVX3lxTFBlMTlkOGhCc0llVzJ1UUx6dWRaUktMWGkxcVBSSEpobEh4WTZ2aG1RZU5McEJoRXFUWGI4MWRGUkhQc3BFMTFhWXdTcVRxeEFaT0lYLWtKY3drMlhhVXNPY29vamVKUU9qNkdIYVF2MDJuNnFDZjVV?oc=5
-
 ## Taylor Swift, Justin Bieber, Eminem? Who's up next at the Big House? - The Detroit News
 
 - first seen: 2026-07-27 18:44 UTC | category: sighting | importance: 3
@@ -91,6 +99,15 @@ Stories: 58
 - summary: Jason Kelce Opens Up About A Part Of Taylor Swift's Life That Travis Kelce Is Reportedly 'Struggling' With  SheKnows
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbUNvMzNZSGthR2pvMFNad0RTaFFhUFViLTVQQzhOejIxUzBoOUN4VVJPcTU4VWZ1RnZjZDd6NUJLbWo5TlAxd3JlNzZRSGtSN2xiRjdtSE9jd2tZRHJ3UGV3c0tMMkNEU2hlQUNkT2dpbzIzVmJ4RTVsQW5PdjUxbVg2UUk2c1ZkQkp3eThmVnVtMFpiYTduMjdFN1otdk9STDNCTHV0NTVyZw?oc=5
+
+## Inside Taylor Swift and Kylie Kelce’s Friendship Now That They’re Officially Sisters-in-Law - instyl
+
+- first seen: 2026-07-27 18:44 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Inside Taylor Swift and Kylie Kelce’s Friendship Now That They’re Officially Sisters-in-Law  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMid0FVX3lxTFBlMTlkOGhCc0llVzJ1UUx6dWRaUktMWGkxcVBSSEpobEh4WTZ2aG1RZU5McEJoRXFUWGI4MWRGUkhQc3BFMTFhWXdTcVRxeEFaT0lYLWtKY3drMlhhVXNPY29vamVKUU9qNkdIYVF2MDJuNnFDZjVV?oc=5
+  - [unverified] Yahoo News Singapore — https://news.google.com/rss/articles/CBMifEFVX3lxTE9EcHM4NW9wY19jUEU2ekJ6WTJ1b3JFdmhNcDVjRVQ1YnRUTE1hdEdOSzBPTVZMSFR1QmkyQmZWQm5nRHp6ZFdJWERfSm0yMHVZY3B3ZFprVnp6M3hnTG1ZS3dsUE9kYzhnNlpxTEhGem5zVkdUb05oYUYtenY?oc=5
 
 ## Kayla Nicole Turns Swiftie Backlash Into ‘Dancing with the Stars’ Season 36 Shot - Complex
 
