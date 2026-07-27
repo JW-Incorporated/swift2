@@ -1055,6 +1055,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-27): the "Jake Gyllenhaal" cluster —
+      // the coffee-run sighting, the rumors going public, and the split —
+      // now interlink into one relationship arc.
+      relatedIds: [
+        'moment:vault-speak-now-the-jake-gyllenhaal-rumors-go-public',
+        'moment:vault-speak-now-a-brief-rumored-relationship-with-jake-gyllenhaal-ends',
+      ],
       year: 2010,
       month: 11,
       day: 25,
@@ -1379,6 +1386,11 @@ export default {
 
     // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
     {
+      // Cross-link (Stage 3, 2026-07-27): sibling "Jake Gyllenhaal" moments.
+      relatedIds: [
+        'moment:vault-speak-now-a-thanksgiving-morning-coffee-run-with-jake-gyllenhaal',
+        'moment:vault-speak-now-the-jake-gyllenhaal-rumors-go-public',
+      ],
       year: 2011,
       month: 1,
       day: 4,
@@ -2143,6 +2155,11 @@ export default {
     },
     {
       slug: 'gyllenhaal-rumors-fall-2010',
+      // Cross-link (Stage 3, 2026-07-27): sibling "Jake Gyllenhaal" moments.
+      relatedIds: [
+        'moment:vault-speak-now-a-thanksgiving-morning-coffee-run-with-jake-gyllenhaal',
+        'moment:vault-speak-now-a-brief-rumored-relationship-with-jake-gyllenhaal-ends',
+      ],
       year: 2010,
       month: 11,
       day: 25,

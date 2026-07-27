@@ -1529,6 +1529,9 @@ export default {
       day: 9,
       category: 'sighting',
       threadIds: ['the-proposal'],
+      // Cross-link (Stage 3, 2026-07-27): the other Super Bowl LIX sighting
+      // on the same "the-proposal" thread, two weeks earlier.
+      relatedIds: ['moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick'],
       title: 'Booed at the Superdome, cheering for a three-peat that fell short',
       snippet: 'Back at her second straight Super Bowl to support Travis — this time drawing boos from a pro-Eagles crowd as Kansas City lost, 40–22.',
       sourceUrl: 'https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/',
@@ -2130,6 +2133,9 @@ export default {
       day: 26,
       category: 'sighting',
       threadIds: ['the-proposal'],
+      // Cross-link (Stage 3, 2026-07-27): the follow-up Super Bowl LIX
+      // sighting two weeks later, same "the-proposal" thread.
+      relatedIds: ['moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s'],
       title: 'A confetti kiss after the Chiefs punch their Super Bowl ticket',
       snippet:
         'Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.',

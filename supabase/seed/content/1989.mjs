@@ -43,6 +43,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-27): the "Blank Space" cluster — the
+      // song's satire, its video/Emmy-winning companion app, and the short
+      // narrative-flip summary — now interlink.
+      relatedIds: [
+        'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+        'moment:vault-1989-blank-space-flips-the-narrative',
+      ],
       year: 2014,
       month: 11,
       day: 10,
@@ -82,6 +89,14 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-27): the "Shake It Off" cluster — its
+      // meaning, the era-launch milestone, its Diamond certification, and the
+      // Stonewall Pride surprise performance — now interlink.
+      relatedIds: [
+        'moment:vault-1989-shake-it-off-launches-the-era',
+        'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
+        'moment:vault-lover-a-surprise-shake-it-off-at-the-stonewall-inn-for-prides-50th',
+      ],
       year: 2014,
       month: 8,
       day: 18,
@@ -1247,6 +1262,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-27): sibling "Shake It Off" moments.
+      relatedIds: [
+        'moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker',
+        'moment:vault-1989-shake-it-off-launches-the-era',
+        'moment:vault-lover-a-surprise-shake-it-off-at-the-stonewall-inn-for-prides-50th',
+      ],
       year: 2020,
       month: 3,
       day: 13,
@@ -1652,6 +1673,11 @@ export default {
     },
     {
       slug: '1989-blank-space-interactive-video',
+      // Cross-link (Stage 3, 2026-07-27): sibling "Blank Space" moments.
+      relatedIds: [
+        'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
+        'moment:vault-1989-blank-space-flips-the-narrative',
+      ],
       year: 2014,
       month: 11,
       day: 10,
@@ -2559,7 +2585,12 @@ export default {
       tags: ["Lore"],
       // Cross-link (candidate #1342, 2026-07-25): the vault song Swift chose between
       // with "Blank Space" for the original 1989 tracklist.
-      relatedIds: ['moment:vault-midnights-slut-turns-out-to-be-a-love-song'],
+      // Cross-link (Stage 3, 2026-07-27): sibling "Blank Space" moments.
+      relatedIds: [
+        'moment:vault-midnights-slut-turns-out-to-be-a-love-song',
+        'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
+        'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+      ],
       title: "“Blank Space” flips the narrative",
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
       video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },

@@ -655,6 +655,14 @@ export default {
       month: 8,
       day: 27,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
+      // moments. ("...and the phone call it started with" already sits at
+      // the 4-link rail cap with other curated links, so this points only
+      // at the video-record moment; not modifying that page's existing set.)
+      relatedIds: [
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-reputation-the-look-what-you-made-me-do-video-shatters-youtubes-24-hour',
+      ],
       title: 'Zombie makeup for Look What You Made Me Do',
       snippet:
         'The grave-crawling zombie look that opens the video was created by Bill Corso — the makeup artist behind Deadpool\'s scarred face — confirmed on record by director Joseph Kahn.',
@@ -1551,7 +1559,12 @@ export default {
     {
       slug: 'rep-lwymmd-video-youtube-record',
       significance: 'notable', // a real streaming record and the era's single most-discussed visual statement (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-reputation-the-snake-video-that-announced-reputation'],
+      // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
+      // moment.
+      relatedIds: [
+        'moment:vault-reputation-the-snake-video-that-announced-reputation',
+        'moment:vault-reputation-zombie-makeup-for-look-what-you-made-me-do',
+      ],
       year: 2017,
       month: 8,
       day: 27,

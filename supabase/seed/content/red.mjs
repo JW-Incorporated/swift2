@@ -181,6 +181,13 @@ export default {
       month: 10,
       day: 9,
       category: 'music',
+      // Cross-link (Stage 3, 2026-07-27): the "I Knew You Were Trouble"
+      // cluster — the dubstep debut, its global chart run, and the video's
+      // birthday drop — now interlink.
+      relatedIds: [
+        'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
+      ],
       title: 'I Knew You Were Trouble brings dubstep to pop radio',
       snippet: 'A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being "sonically conservative."',
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
@@ -1765,6 +1772,12 @@ export default {
     },
     {
       slug: 'red-ikywt-video-birthday',
+      // Cross-link (Stage 3, 2026-07-27): sibling "I Knew You Were Trouble"
+      // moments.
+      relatedIds: [
+        'moment:vault-red-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
+        'moment:vault-red-i-knew-you-were-trouble-goes-global',
+      ],
       year: 2012,
       month: 12,
       day: 13,
