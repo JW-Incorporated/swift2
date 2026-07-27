@@ -25,15 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 61
 
-## ‘I am in tears’: How Taylor Swift and Travis Kelce’s $2 million wedding donation impacts grieving fa
+## Taylor Swift and Travis Kelce get heartfelt notes from families of first responders after $2M donati
 
-- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
+- first seen: 2026-07-27 04:49 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: ‘I am in tears’: How Taylor Swift and Travis Kelce’s $2 million wedding donation impacts grieving families  Yahoo Lifestyle Canada
+- summary: Taylor Swift and Travis Kelce get heartfelt notes from families of first responders after $2M donation  pagesix.com
 - sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTE9SajNxa3V0YUxqYy16Y3RnaU9EN3pZNjlBcFdaM0E1UFR0REVJeXB5aXVVaWVudWw0cDlVRVRRLTl5NjZCRHU3MHYxd2VVZTNWQ0ZKN1lhZjRFSEw4TWxYYUlKRy1pbThnZDB1RXRlTUtGNkV3WlJqenNR?oc=5
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMi4AFBVV95cUxQX2FMd3Jyb1V6RHVxdUwybFZlRFh1V001bXcxWjM1cHg1NnRoN3ZwcktGRjVDU2pXWXZvODFLcWd5WmNkM2x6Uld3OFFpWDZ4eV85LUZYb05XOVF5akdoZXFuM09XTU1RU1dNbWoxV0QwdDBON1RpMUhqZWhSRjhidmFiZVZ3cGZfV0d5VkhTY2hfMFF6XzZfUkVzbmdLelA0MTQ0cE1ZRmpUb1BIOTNzblE1dlRXMXdCYld2QnpVSXJZQXRMcExVVUFidzlBc0ZzN2VCaUl5NGNHaF9VbVZDbQ?oc=5
+
+## Niecy Nash Shares “Top Secret” Details About Taylor Swift’s Wedding - instyle.com
+
+- first seen: 2026-07-27 04:49 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Niecy Nash Shares “Top Secret” Details About Taylor Swift’s Wedding  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxNYnhCSjJUQWE2S1Y3ZVAwdDdFYjJoNFNnSWVOZFZqMHJXOXRvMHBvT0xId0MtQzRQZ25BT0lYeVlfZ2d0b1habGhIeVVBYS1haGV2VERJb3RTdllKLVpTaVV2dzVQdnAtdGpELTlEbm9jWmpxNzluRUs2LTVncDZUY0p6c0xXbWpvbjRNWmlxS2gzWFhFdHY1TmVSb28?oc=5
+
+## NBPAC presents FEARLESS – The Taylor Swift Experience in New Brunswick, NJ on 2026-10-03 - NewJersey
+
+- first seen: 2026-07-27 04:49 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: NBPAC presents FEARLESS – The Taylor Swift Experience in New Brunswick, NJ on 2026-10-03  NewJerseyStage.com
+- sources:
+  - [unverified] NewJerseyStage.com — https://news.google.com/rss/articles/CBMilgJBVV95cUxQdkthMFVUem1sNG95TUtpMWZ3U01qbzh5ak5iWGFnai1ZR0M4emJKOGlNTUxjV0I2UEpENUgzM0xpOUM2c1E5WXV5WHZBaUd2MzFyQUl1U0JkMVR3bVBfcjUyc0hnamhTVUJyc3I4ZFlocnpDT1hLd0xvVW9XZmQ1Yl9Pem4tRlY1c1AxREE5Znp2OHVCV1NuZGhkbEJ0UkdEeUpiMUtaTDdjU0s2aUllUm0zMUt3azB3aDF5YVVTTlByeEdDdTZOUlVMMmM0bG14ZzI0UzVZMFg0WTRqUHFJcFJoU1NtcERQTV9taU8zbnpIUFJwWkhDSHFSanBUeUZIQmw3dEpuSmpKeVpfQThTSU5SYmNoQQ?oc=5
+
+## Taylor Swift's Ex-Boyfriend Kept Shania Twain From Attending Her Wedding - Yahoo
+
+- first seen: 2026-07-27 04:49 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Ex-Boyfriend Kept Shania Twain From Attending Her Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNUktUdHhuTXlDWVhSYjJyRndqbHIwS283V2IwUW1sQ3dVX3JBVXN3alFiRGxlMmwwZW14aXNUWURScnVzU1NGbkRnTGJLeHY4RW9tNGdTUE9odGVBZXJxUlRFQWpLck1kUGNPSnNEMEJuYWY2TDRXQ1RkbUtOSmE3U2QwR1ZnNlY0Y254b1p3VHhoNy1xelBicFhDNmJoLUJ5WVlr?oc=5
 
 ## Taylor Swift and Travis Kelce Get Sweet Notes From Fallen 1st Responder Families After $2M Donation 
 
@@ -42,14 +66,6 @@ Stories: 69
 - summary: Taylor Swift and Travis Kelce Get Sweet Notes From Fallen 1st Responder Families After $2M Donation  Us Weekly
 - sources:
   - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOQ0tvSlUydmJwQjQ1T3U1ay1WZHJuWlMtTU1YSEVQd3pkdHRJLWVkXzJlSUNLcWs1UTJYWHluV0FCcG9QZmExUUtuUEpGcHFDbTZiRnlZcjFwVy1NSFFUcl95ZUpDRzR5M2pEcVNJOHdvUzlGQVpjRUtFT2hIeEZGc2hlMHJOMThycTNDbFJFZ216Z2tBQkQ1UldPVV9aQ2Zia2lBRG9FbDVuUzg?oc=5
-
-## Taylor Swift Secretly Changed Some of Her Songs & Fans Are Convinced This Album Is Next - SheKnows
-
-- first seen: 2026-07-26 22:09 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Secretly Changed Some of Her Songs & Fans Are Convinced This Album Is Next  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiowFBVV95cUxQVzl0djFnLThIY2NMWHBWWmZIT1BwNlRGRjc2LTZYMmQ2dnJVczVOTFRZZFBWbVpnYW9sZU1ETTFoOU9XWkZ0RVlwbXNMLUdXRmkxaEQzNFJBRmFCWGtkVjdxNTlLQ3VWNlUxNUl1WWdETTJqNThqY1NzV1VVTDNnSTRKdEFoUVFyMU9wTnlTLTVjU1dUcExMVDAzRGFUbWNpQU1J?oc=5
 
 ## 3 Years Ago Today, Travis Kelce's 'New Heights' Podcast Sparked His Love Story With Taylor Swift - p
 
@@ -66,6 +82,24 @@ Stories: 69
 - summary: Kylie Kelce Knew Taylor Swift and Travis Kelce Were Dating Before Everyone Sle, and She Never Told a Soul  Thought Catalog
 - sources:
   - [unverified] Thought Catalog — https://news.google.com/rss/articles/CBMi6wFBVV95cUxNZ3dkTTNuMGhsVTFObllSTzhTWFNLd0tHRENyOXlqMWwxMzNPMkpNN2YwdEowVmNxSnRneFBQcUxFNkw5cHFKajh5dy15cVdWWk9wV0piNkwwSUtvcWhGaGNTVE1tajkzdGR3WVpQa3B1SkV1ejl1bFRwLXJzTG9rWEoxcTZhZEZEdFZfaFdIVVJ5V2d3YlB3c294S1JobHZxUjNjbVF4XzFmTkhUdkk3YV85aWJPRjl3VVdpUnplZWN0eDR4SnlVZ19KNEVUNGJldjVsQmEySDhPbm50N2VucV9WWWpldGRkdTJB?oc=5
+
+## ‘I am in tears’: How Taylor Swift and Travis Kelce’s $2 million wedding donation impacts grieving fa
+
+- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: ‘I am in tears’: How Taylor Swift and Travis Kelce’s $2 million wedding donation impacts grieving families  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTE9SajNxa3V0YUxqYy16Y3RnaU9EN3pZNjlBcFdaM0E1UFR0REVJeXB5aXVVaWVudWw0cDlVRVRRLTl5NjZCRHU3MHYxd2VVZTNWQ0ZKN1lhZjRFSEw4TWxYYUlKRy1pbThnZDB1RXRlTUtGNkV3WlJqenNR?oc=5
+  - [unverified] The Independent — https://news.google.com/rss/articles/CBMingFBVV95cUxNWFZMM2VmZEJzVVNDSHl5M1RCZlJWdmhjTkxBS0lsZlk3OTVOa3JUSkVBUEVDbnRjMVZ0ZzFmcjYyeElYQ0U4a096aC1PUjlyZXVrTGZ4RDBEMVlndGlOTFdDd0g3bHpTbWN1WHhuOWpQVng2ejd4S3dqVFY0MVJrOFhZbEJ5OVRGeVRVMDBiM0hGbU5qbEtfMlo4azlxQQ?oc=5
+
+## Taylor Swift Secretly Changed Some of Her Songs & Fans Are Convinced This Album Is Next - SheKnows
+
+- first seen: 2026-07-26 22:09 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Secretly Changed Some of Her Songs & Fans Are Convinced This Album Is Next  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiowFBVV95cUxQVzl0djFnLThIY2NMWHBWWmZIT1BwNlRGRjc2LTZYMmQ2dnJVczVOTFRZZFBWbVpnYW9sZU1ETTFoOU9XWkZ0RVlwbXNMLUdXRmkxaEQzNFJBRmFCWGtkVjdxNTlLQ3VWNlUxNUl1WWdETTJqNThqY1NzV1VVTDNnSTRKdEFoUVFyMU9wTnlTLTVjU1dUcExMVDAzRGFUbWNpQU1J?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPMTd5MjB6OE5rWTFiMzBHMHpDVm0tMXlEVUtEREQ1ZFdjRkxLOXYwaS1wSlZhR01acENGQmtfMi1LRmtZY2tURTk2S2Q4VGlnY0p0Q2JPdmZ4QnlsU3p4Mk91bXpJSnlTZ0tCT3VqcjZSWHdqdHpkS0gxRmk0Y0V0U3k0aWVscExsRnU0UV9Ja0pxNzdwU3lweEpzS1VlSHVK?oc=5
 
 ## WHAT HAPPENED BETWEEN TAYLOR SWIFT AND KELEIGH TELLER?: Everything we've ever heard in one place - d
 
@@ -488,100 +522,3 @@ Stories: 69
 - summary: Taylor Swift’s New Friend Group After Marrying Travis Kelce Allegedly Has ‘Plenty of Cattiness’  SheKnows
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xWaXpVbURwdXBkU0JFd25LLTZCV2QxWjBjeUNfTVRVaUp1UVlvRHJpQmlVYUV5di0wNUZ1dmxtYVNVdXA4aTYxeks3cXN4N2N2cnpCUlZOaTNUSTZwYVg3THktdU9kNkRKdE5Ec01rZ2VYNThkdGIyVHlnT1BwdVZOX3JtdURsV0tyMW13RVNEdlc3NHdCN3hlZXFqSkM4S0swOWhsTQ?oc=5
-
-## Taylor Swift, rodeos: County fairs in South Dakota - KELOLAND.com
-
-- first seen: 2026-07-24 04:27 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, rodeos: County fairs in South Dakota  KELOLAND.com
-- sources:
-  - [unverified] KELOLAND.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOT3Q3d2gxcjZHanRiY1dmSExXVGwwQUNZRkhrMzRVeFFWNmExR0ZfaE5YU2lPcVdOQUpJdktJUl9XZXdWc2t1WVVQbVZJOGJtZkZabU1QOWdMR0JINXgxMWVsOEZsRENaRWs3WGF2WGttN0JPbFBzb1daVm1IU01NVUVtWlJ0YVVYMlFJbmhpVkdRSUhVLXg4RTRNTFHSAaIBQVVfeXFMTXZhczhZYl9sOU5KeUg3dFVsOXBPdkZRYUdxQXZQTkpMYkJBbTJna0VPMUd4LVp3d2dSNkJIcVlNNnpSck50cVo5b2dOUEZNbmZhMjlESUtlLV9WTFJkYW5kRDJBai1pNmpTMjlIUFR2S0RtUFRSZXRUQ191NXB3QkUxOWlMaDlWY0ZDdUhiVUJhVlEzb0JsTExQRkFObTMxeUlB?oc=5
-
-## 'She admits it in the songs': Taylor Swift and Travis Kelce's newlywed joy interrupted by viral post
-
-- first seen: 2026-07-24 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 'She admits it in the songs': Taylor Swift and Travis Kelce's newlywed joy interrupted by viral post revi  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMisAJBVV95cUxQVDhOemx3enROTHdGWnF3MllkMkVfZVQ2ZGhMcEt0RGVtMmZNMHZzbW9HTzl6eUhWSFctamVobm5mUks5VlVBamtjYTRVQ1ZCRnE3UGFrVVFBX19DM0FHcTA0SkUyNjZCMkk3bWZuNVpQOFZ2UnZsdi1XbVVWN0tTcmpvdmUwdzdNSW8tT2t0YkFGSXktY3F4SHVmZW4zUTVTdzQ5RUxNYzczOU1MLWk2b3lfc1IwSU4ybnhBMUtRcVNjR1U5bjZlWnlvRk9RTnNLS0NkS3VvLU9ydG9uMGN0WEJuZm5MT0xEVzNBaFBXamxYb0hIMDQ2Mm12T2tQOVRYNC0tVm5jQk4xNU1yd0JYejFSZWVJMUdyanlocU9LcVZyZUo2M08xNkpSc2hscmdE0gG2AkFVX3lxTFAtQnFQMk5FWU5xYWh3OXoyZ3FyNXluQ2NTYUlKZlpzZzBZbGJ2XzhaYk5WVGlFRTVvM2h1UkRLMkxGbnZxelhwblhEX21tdndmdFV6TFhKc0hVZXEwajFTbDlhWjNTVnAzUlJ1WldWdmhRQWlhbWxuRC1WaWFVUG05c1VxUUhYRmhpUGoxMUREb3ZzNWZpVGxqRXczRVRhMUhwenhqamZBR0pnQkVISGM1dDlpNjVXYlB3MnY5clItOFl1NTViXzl3d2l6MlAzWVZNa1lBYTkxLTZ3RFc4THJVVWNNU1BHUnUzc2FOcnJvS29ZYU5uOUQ5eExESmFObVVzNGtIT29nR2NLRjNJeFQyQ080ODZQdC11YmJrUjlxaDA2UXRvTUU4S2ZSaVM0VE9saHRiU0E?oc=5
-
-## Taylor Swift may already know when Travis Kelce will retire - MARCA
-
-- first seen: 2026-07-24 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift may already know when Travis Kelce will retire  MARCA
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQa0VfR3Izd2h2bVIxQkNVM1c0OEhMVDZrR2ZfdVFvZGx1dmN1NlZ6UHlSTkFKektFSjU2V1hrVlNEcWJwYlloa200a3ZjLXE3UV9mVVVNT0ZTMWdYR21hcWVDckJUQnRpSks5N2xqTjBSQU5nS0NUaFMxaEk0NUZlX3pQb3o2SVZTMWxUb1FHYThhSlZPc0FCSEtJVnZZTkhldE43Q1NXaEtXMDdubkxTR21ScVhHWXpZMGFHdGpPbnPSAcABQVVfeXFMTWlBM2k2UGowcXVJZDRkd2p4RWhUVjJma1VTdm5IVGVaYl9nTmlRd19HaVFFRXpzd0hNeDUtSUhhMlJuUkxuRWp2REVjOUxqQVNoNHJTTlJEVzdiaTQyTUZTT1lpZnMwMVJnLWtBZ0hlc1NBd3NJSTdDbEVZWGZ4ZjJkQlJUdXlPckR6UHdMTnhoQU43R0xPZ2ZidGQzeFNlUGJTNTNrNlV6ZDY3aGt5dE1JX1hJbVR0NmlZeE83MGIt?oc=5
-
-## Jersey Shore weekend field hockey clinic to feature coach linked to Travis Kelce, Taylor Swift - NJ.
-
-- first seen: 2026-07-24 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jersey Shore weekend field hockey clinic to feature coach linked to Travis Kelce, Taylor Swift  NJ.com
-- sources:
-  - [unverified] NJ.com — https://news.google.com/rss/articles/CBMi2AFBVV95cUxOdUlCZTNnc3RVMWhwSF9LYlgwNVhMNGE4anMxa0tkQzMzQzdPdzNDQ1U5T0VuZlg2ZVl4LVZBQ2duV0hlZEJiVXZTNFNFbmJNRFVqNE5LbXFNMWlEUzAwT1FrRTE0QWVCemcxZ2tVdGt1eHBOMXZiTGdtbVNwdW9ONVQ2T1hCZzA3WG0ybTZ6RWtSTXRpZ3BCOERoQk56QTZiZENScVpCMVhtWVdFbGo3aTMyczJUVGxGbG5zRmtXblVPdG9rNGh6T01JYVNBZ3J5dnl0RUxiMlrSAewBQVVfeXFMTU02N0s2cGRUVzhSdE1ya2hzbEFzaGZ0TURpTDBRWEhjMk9jcFNsUkJWUHlNbmI1TDdsYWFWWVU1dHIwRl9mdm1LVjg0WldCcjMyVUpjT09UUXRwWldQODBEOVhoUlEyLU1Vek1EX2FBbU9fMjdsWGZTZW5mNHh4ZENHTzJuVk9uQk5BdzNHNFdHRHJ1b0hIUG95R1RUU2xjZ1ZWNl9neEF5eWR1Y2VYYlhhRC1YN2hpS0Ftc2J6SVo1cGFOSDI3LVRqM1hfeGI2VEdEZ2VsLWR6TWVJQ00ybnFEcHcwb1JZMjlOa2U?oc=5
-
-## Blake Lively’s Reported Rift With Taylor Swift Is Allegedly Changing Her Hollywood Standing - Yahoo
-
-- first seen: 2026-07-24 04:27 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Blake Lively’s Reported Rift With Taylor Swift Is Allegedly Changing Her Hollywood Standing  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxONGhwNV9ubUllT21tVjJSb1FybkpoZkxJdEpUR3lSeVZqcWF2NzhDM21CSTJ3Nk1rRlNrUE1DUWdDSEtDWml2cE1WdTRxWk1Lc0FrZUpRRElKQzJUakdaWHAwQTJGSE9QSGp3UkJQNVNSdFZHSlpOM0k4dmhQUk5JWGNST092bXRxRmFDOFZfNGR1NFVJdFozUUNzeEwyeVd5WnI4N3h3?oc=5
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipwFBVV95cUxNNjMzUnphVXB5TlJHSlpPeXVYN21ORFhWSW9xZ2owbEdfZjhpbFRuSTFBNDQ4Y2hSUVdCSHlHN0F2S0tOSEtoY0RMUkxpaW04U1BDNVpVYTNiT1N2Ny14SWNVRUpnNS1LOWd6Y3h5RkJxVXFxT280QUZoVXJVaEQwSzNvM1ZVdWYzcnVTbmdGYzN3cVFmZ3lIeDRYMXBjMHpzRElLRW1HWQ?oc=5
-
-## Travis Kelce’s Wedding Ring Has 1 Timeless Detail That Quietly Honors Taylor Swift - Yahoo
-
-- first seen: 2026-07-23 22:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce’s Wedding Ring Has 1 Timeless Detail That Quietly Honors Taylor Swift  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPT2pROFVKdUVmaVZMQlN3NXJUcHprVmVIb2tNVEZTYlF1YjRLX0lmRG1xSzdkeU1MVTJxQk9hUDViSTVKV3JhamRjcFJuQmRwVVFEM3NjRldpdnFoV2hlR0d5b0NWd3NiVDRtdmwwS0hUUnpvN0hvTTNySUZCa3U5dTYtUF8ydnY3Tzl1RGlQeGJsU08xamlta3hZOE5rZw?oc=5
-
-## Taylor Swift, Travis Kelce praised by families who lost loved one in line of duty - Kansas City Star
-
-- first seen: 2026-07-23 22:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Travis Kelce praised by families who lost loved one in line of duty  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOQmZnNDBENUwxVGdHUzJ5NHVteHo2X2dNUFFkcktxbG1YVGVuVHRjS1VCN2V5XzVGZlVyLWRyb2JQRG4wWGgzREtyTzRMaWVlZ0tjQl94SVhMSjMzMEM3VHlpYzVJZTJoSXJEWkRqUXIwakxob3h0Z0s5V3BvMWo3a2h0Uzc5ZFZZLXFRRmo4RU1vQdIBkgFBVV95cUxNekdBYTA0ZndQcjEzYjQtNEdQb1F0QzhQT29IdjhCc0dfMmtnZHlJTm10QlcwZ01tNFRzM2tGT0NHbUprdEkxUGhMZHZ1TGdTaWoyNVNIcGFGSmVxbFNZMVJHYW5COEN4Z2NqNnJXc2ZSUDhVNlp1QjN2RGFmSEtBblNuSkp3aVdTUFgwcGhwSW1NUQ?oc=5
-
-## For Taylor Swift, Madison Square Garden’s Controversial Cameras Briefly Went Dark - WIRED
-
-- first seen: 2026-07-23 22:12 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: For Taylor Swift, Madison Square Garden’s Controversial Cameras Briefly Went Dark  WIRED
-- sources:
-  - [unverified] WIRED — https://news.google.com/rss/articles/CBMirAFBVV95cUxPQkRjM2gzR254YndwZl9wbFFsQzFiTjVjelFUd0lxOU5ta3ktNFdUSU1RSXNCakt0QUJ5SmVhZXZBeWhZUU1SSi1VUWR4VnhfdWlZV002TFNvWGpYQVFCcXQzTXpJSmg5NG91cU8yUUxNVzNuN2t5UG1NeFZnZ0dER0NHTEp3VVBUa19nVk40Sm9MX0lzdTJpZEJHU09NUE02b01acW90OGxmYmpJ?oc=5
-
-## Taylor Swift, Travis Kelce Donate $2M to Charity for Families of Fallen NYPD Officers - officer.com
-
-- first seen: 2026-07-23 22:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Travis Kelce Donate $2M to Charity for Families of Fallen NYPD Officers  officer.com
-- sources:
-  - [unverified] officer.com — https://news.google.com/rss/articles/CBMi_gFBVV95cUxOcFNRMVB3clVsdElxQXF6M2l0djJRcjNKOEV0OHZBZS03cUtmTUVReFl1bEZjTGpKVDh1ZnF1UHYxeXpPelRqcldUMGNMT25UUVdUMGF5ZUx4TmdrZW8tWmxlX29uXzNMWkZYcm9zdUwxVEVSX0Z0bGlJMmtMS1hHell0dFJzSVEweEN0dDRSNXRyZVAwZXdVS0JYN0x5amZKa2RxNWg3ZjlIY3EyX3Y1NWlobWx3SmZDTm9tM1BsZU5USk5kc2hFUmlUT25Bdl9FQW1sancxVjRoZmRYYnBzTWtBX0c5c2o5OWdPamRfeURUMHVKejRZUEdLdS1Fdw?oc=5
-
-## Exclusive | Kayla Nicole vying for ‘DWTS’ role after Taylor Swift and Travis Kelce’s wedding - Page 
-
-- first seen: 2026-07-23 22:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Exclusive | Kayla Nicole vying for ‘DWTS’ role after Taylor Swift and Travis Kelce’s wedding  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxPV0lVOWpFU3RWVkt1U1o2WlNnVXlJZU1MNGZEYnVTTzh0eVlXWjB4M3pEdmhzdV91UWp4cThlNGJncEhuVy1sQlVRWFdmbW5pZTJ1b1B3RERsNjIyMG9FN3JpUlJXTnJfb2VTR3hjQ2VjaDJaZlhYUG5xWVVoRV82NDkzS2FUT21UbmJGazNfNnlkSmcxd3hobU44VHdKYWdpWE1vQ1NadDk4YjNaay1FaWtTbGFTa04wTVpGVw?oc=5
-
-## Madison Square Garden Disabled Its Surveillance System for Taylor Swift’s Wedding - Pitchfork
-
-- first seen: 2026-07-23 22:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Madison Square Garden Disabled Its Surveillance System for Taylor Swift’s Wedding  Pitchfork
-- sources:
-  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMirgFBVV95cUxPZUcwWlVKcG1SeFJVOGpUR2MxUTVUY2thX2V5elIwSUI4M2NCVVFfNkNscU5VQzdwNzNXN2pUcU0wSENBdGVoM3V1WFRDNHVxVGpWMVJQT3Ztd2kyWHpEOGlaencyY3ZPMFl1ajhBRzI0REI1UVdOVFBzRUNEeDM5WkNpSWRCMzZCQlZwTzE2bXFwWjhyc2ZObkhFQ1JfNG13UTJqY0tEYzh6QTRXV0E?oc=5
-
-## Here’s How Kylie Kelce Describes Taylor Swift & Travis Kelce’s Wedding - Billboard
-
-- first seen: 2026-07-23 22:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Here’s How Kylie Kelce Describes Taylor Swift & Travis Kelce’s Wedding  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirAFBVV95cUxQNTdQN1BldG52WFBWejlvX004N0twTlo1ZVpWTkpGWW1RQmV0TGwtcER3aktPYjhzSUxtYmRWcmUyNGp0WHJ2SEl2aGhHSjdKTzBqVWR1alNNdXlZQlF3aXhWd1lkdENJaXJ1WmNZZmx4RHBKbHZTeE0xdWVlT1hGUzVqbWFINFJ5RE8yb1d2RjZBOGJNajJmcEpldUFla2F0aHN3czh2RzlPcnJV?oc=5
