@@ -1536,6 +1536,13 @@ export default {
             // She stands with the white guitar on the right side of the frame; her face sits upper-right.
             focalPoint: '60% 25%',
           },
+          {
+            url: 'https://townsquare.media/site/204/files/2022/09/attachment-taylor-swift-songwriter-2.jpg',
+            focalPoint: '50% 12%',
+            credit: 'Terry Wyatt/Getty Images, via Taste of Country (Townsquare Media)',
+            caption: 'Taylor Swift on the step-and-repeat at the 2022 Nashville Songwriter Awards, where she was named Songwriter-Artist of the Decade.',
+            kind: 'reference',
+          },
         ],
       },
     },

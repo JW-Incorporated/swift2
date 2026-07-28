@@ -37,6 +37,13 @@ export default {
             focalPoint: '28% 38%',
             credit: 'Big Machine Records (single cover art)',
           },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Taylor_Swift.jpg',
+            focalPoint: '48% 25%',
+            credit: 'Dwight McCann (dwightmccann.com), CC BY-SA 2.5, via Wikimedia Commons',
+            caption: 'Taylor Swift performing live on June 16, 2006, days before releasing "Tim McGraw" as her debut single.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -928,7 +935,15 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
+            focalPoint: '42% 30%',
             credit: 'Big Machine Records (single cover art)',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/04/taylor-swift-2006-billboard-1800.jpg',
+            focalPoint: '50% 42%',
+            credit: 'John Shearer/WireImage, via Billboard',
+            caption: 'Taylor Swift during the 2006 CMT Music Awards arrivals at Curb Event Center, Belmont University, Nashville.',
+            kind: 'reference',
           },
         ],
       },
@@ -1417,6 +1432,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/72/The_Taylor_Swift_Holiday_Collection.png',
+            focalPoint: '50% 45%',
             credit: 'Big Machine Records (EP cover art)',
             kind: 'primary',
           },
