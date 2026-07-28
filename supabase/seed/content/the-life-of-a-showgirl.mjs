@@ -7549,7 +7549,12 @@ export default {
       // covered event at venue level), no new private-life or location detail.
       slug: 'showgirl-wedding-uk-chart-bump',
       // Cross-link (candidate #1349): the wedding week that drove this chart bump.
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      // Cross-link (2026-07-28, intake #1591): the next chart frame, where the
+      // same singles keep returning to the UK tallies.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-elizabeth-taylor-and-opalite-return-to-the-uk-charts',
+      ],
       year: 2026,
       month: 7,
       day: 16,
@@ -7590,6 +7595,75 @@ export default {
         // No photo: a chart week has no photography of its own, and the wedding
         // it references already carries its own imagery on the msg-wedding
         // item. A stand-in shot would illustrate nothing that happened here.
+        photos: [],
+      },
+    },
+    {
+      // Authored 2026-07-28 from intake #1591. The next chart frame after the
+      // wedding-week bump above (2026-07-16) — a light catalog-movement item,
+      // not a milestone, but a confirmed chart fact. The two re-entries
+      // (Elizabeth Taylor -> Official Vinyl Singles No. 18, 13 weeks; Opalite ->
+      // Official Singles Downloads No. 83 / Sales No. 89) were independently
+      // corroborated against the Official Charts Company before writing; one
+      // established outlet (Forbes) suffices for a chart item. The fuller
+      // four-singles sweep is attributed to Forbes rather than stated flatly.
+      // Privacy redlines: clean — professional UK chart facts only, no location,
+      // third parties, health, or security material. Kept deliberately light and
+      // cross-linked to the 07-16 bump rather than spun up as a heavy moment.
+      slug: 'showgirl-uk-singles-return-july',
+      relatedIds: [
+        'moment:vault-tloas-the-wedding-week-nudges-the-whole-catalog-back-up-the-uk-cha',
+      ],
+      year: 2026,
+      month: 7,
+      day: 28,
+      category: 'music',
+      title: 'Elizabeth Taylor and Opalite return to the UK charts',
+      snippet:
+        'A week on from the wedding bump, Britain’s charts logged another Showgirl return: per Forbes, “Elizabeth Taylor” re-entered the Official Vinyl Singles chart at No. 18 — its 13th week on that tally — while “Opalite” came back to the Official Singles Downloads and Sales rankings.',
+      sourceUrl:
+        'https://www.forbes.com/sites/hughmcintyre/2026/07/28/all-of-taylor-swifts-recent-singles-remain-hits-as-several-hits-return/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A week after the wedding-week bump nudged her whole catalog back up Britain’s charts, the movement didn’t settle — it kept going. In the chart frame Forbes tallied on July 28, 2026, all four of Taylor’s most recent singles were charting together, two of them re-entering rankings they had been off entirely.\n\n“Elizabeth Taylor,” the third focus track from The Life of a Showgirl, came back onto the Official Vinyl Singles chart as a top-20 bestseller at No. 18 — now 13 weeks on a tally it has previously topped outright. “Opalite,” the era’s second single, returned to both the Official Singles Downloads chart (No. 83) and the Official Singles Sales chart (No. 89), two rankings it had led earlier in the year. By Forbes’s reckoning “The Fate of Ophelia” and “I Knew It, I Knew You” — her Toy Story 5 song — also turned up across multiple UK rankings the same week.\n\nThe vinyl re-entry isn’t a one-week fluke, which is the quietly remarkable part. By the Official Charts Company’s own mid-year reckoning, “Elizabeth Taylor” is the UK’s best-selling vinyl single of all of 2026 so far — roughly 16,500 copies on wax through the end of the second quarter — with “The Fate of Ophelia” and “Opalite” right behind it at Nos. 5 and 6 on that year-to-date vinyl ranking. Months after release, Showgirl is still moving physical singles in a format most catalogs left behind decades ago.\n\nAs with the wedding-week bump, the underlying primary is the Official Charts Company’s dated weekly tallies, not the live chart URLs, which roll over each week and stop showing the movement. This is the next frame in the same story: a catalog that, on attention and collectors alike, keeps climbing back.',
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/28/all-of-taylor-swifts-recent-singles-remain-hits-as-several-hits-return/',
+            source_title: 'Taylor Swift’s ‘The Life Of A Showgirl’ Single Returns As A Bestseller',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            // Primary: the Official Charts Company's dated UK weekly charts.
+            // Linked to the artist hub the OCC publishes; the specific weekly
+            // charts roll over and won't keep showing this movement.
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/artist/5387/taylor-swift/',
+            source_title: 'Taylor Swift — Official Chart history (UK)',
+            publisher: 'Official Charts Company (UK)',
+            source_type: 'official',
+            accessed_at: '2026-07-28',
+            reliability_score: 5,
+          },
+          {
+            // Corroborates the year-to-date vinyl-singles ranking (Elizabeth
+            // Taylor No. 1, Fate of Ophelia No. 5, Opalite No. 6 through Q2).
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/chart-news/official-best-selling-vinyl-albums-singles-of-2026/',
+            source_title: 'The Official best-selling vinyl albums and singles of 2026 so far',
+            publisher: 'Official Charts Company (UK)',
+            source_type: 'official',
+            accessed_at: '2026-07-28',
+            reliability_score: 5,
+          },
+        ],
+        // No photo: a chart week has no photography of its own; a stand-in shot
+        // would illustrate nothing that happened here. Same call as the 07-16
+        // wedding-bump item and the other Showgirl chart-week pages.
         photos: [],
       },
     },

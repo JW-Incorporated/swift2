@@ -347,7 +347,7 @@ export default {
       relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
       moment: {
         context:
-          'The Radio City crowd went from stunned silence to a standing ovation for Swift; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Swift back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.',
+          'The Radio City crowd went from stunned silence to a standing ovation for Swift; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Swift back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -356,6 +356,28 @@ export default {
           {
             outlet: 'Taste of Country',
             url: 'https://tasteofcountry.com/taylor-swift-kanye-west-interruption-2009-vmas/',
+          },
+          {
+            // Added 2026-07-28 (ledger #719, residual (b)): the Obama "jackass"
+            // aftermath. Off-the-record CNBC remark, Sept. 14 2009, surfaced by
+            // ABC's Terry Moran; contemporaneous TMZ report + Rolling Stone's
+            // later on-record coverage. Public-event commentary — no redline.
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2009/09/15/obama-caught-on-tape-calling-kanye-jackass-taylor-swift/',
+            source_title: "Obama Caught on Tape Calling Kanye 'Jackass'",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/obama-goes-on-record-to-call-kanye-west-a-jackass-204727/',
+            source_title: "Obama Goes on Record to Call Kanye West a 'Jackass'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
           },
         ],
         photos: [
