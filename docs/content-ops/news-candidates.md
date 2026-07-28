@@ -27,6 +27,22 @@ so far".
 
 Stories: 55
 
+## Taylor Swift debuts wedding ring in fellow NFL wife Laura Kruk’s wedding pics - UnionLeader.com
+
+- first seen: 2026-07-28 07:46 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift debuts wedding ring in fellow NFL wife Laura Kruk’s wedding pics  UnionLeader.com
+- sources:
+  - [unverified] UnionLeader.com — https://news.google.com/rss/articles/CBMi_wFBVV95cUxQTkY2eFdWNWRNcmFzV003MGIyT2l1WUhJa0lFd3k5UXBkcVlBYXBTUVdVYzFKZDRyQmI0a2dzQ3VxeGpKaDRSQThMdUF5T3NYdld4dlJFUHBhRzQ3OUN6UzNUQmpfM1Vwb1d5SlUxRnZvWkp0MURRSHBRQ0FiemtzUGk3YmdFc2FWLTFSVm5BUm9BdGpfNGxPQUVaN1VobkFTc0lIU2w1Y21YMG82MlNnUzFNWjhET2VJc2lENGp2MEtuNmpBd2N5cXpJWFV5TDljcFZVbkdpZU9xODdxdGhXQkEzRnNRemhHaFBON2V4ZkV1VmFIdWZRaTIxaTRmWTg?oc=5
+
+## We tried the new Rare Beauty lipstick Selena Gomez wore to Taylor Swift’s wedding - Page Six
+
+- first seen: 2026-07-28 07:46 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: We tried the new Rare Beauty lipstick Selena Gomez wore to Taylor Swift’s wedding  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiekFVX3lxTE1aQlpyM3JQY2wtc3VNY3VRRGtaTjRXWGtLRXZHRFNUNG53bHdCVlpuc0Q2NnBmRTNleGtFbXBKS0JNRzdoQmVhRnV4WjR3Y2t5dWZfZHVmVEZPdlR1RWdQenlpQ0tiZFNfVXJEOVF6RlY5U1BJeGdUeHNn?oc=5
+
 ## Taylor Swift and Travis Kelce’s dream wedding is raising red flags - MARCA
 
 - first seen: 2026-07-28 04:23 UTC | category: relationship | importance: 5
@@ -240,10 +256,11 @@ Stories: 55
 ## Taylor Swift and Travis Kelce get heartfelt notes from families of first responders after $2M donati
 
 - first seen: 2026-07-27 04:49 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift and Travis Kelce get heartfelt notes from families of first responders after $2M donation  pagesix.com
 - sources:
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMi4AFBVV95cUxQX2FMd3Jyb1V6RHVxdUwybFZlRFh1V001bXcxWjM1cHg1NnRoN3ZwcktGRjVDU2pXWXZvODFLcWd5WmNkM2x6Uld3OFFpWDZ4eV85LUZYb05XOVF5akdoZXFuM09XTU1RU1dNbWoxV0QwdDBON1RpMUhqZWhSRjhidmFiZVZ3cGZfV0d5VkhTY2hfMFF6XzZfUkVzbmdLelA0MTQ0cE1ZRmpUb1BIOTNzblE1dlRXMXdCYld2QnpVSXJZQXRMcExVVUFidzlBc0ZzN2VCaUl5NGNHaF9VbVZDbQ?oc=5
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxQX0ZBUUxxMERmRDJkS3I2emR2YWpCWmtBbWdfWnZaTlk2MGNDaTlXUEVKLXl6bS13bjB2VlE1SVA4MWVQSlN1Vk9CNmlRNU5WWUNhR3huZzhhNElhYlI3T2N0eTlLN0E5a0cteGlSRVQ5ZWhCdmE4a19oMmR6eU9lR0dUem1lZw?oc=5
 
 ## Niecy Nash Shares “Top Secret” Details About Taylor Swift’s Wedding - instyle.com
 
@@ -456,19 +473,3 @@ Stories: 55
 - summary: 'I am in tears': How Taylor Swift and Travis Kelce's $2M move left families of fallen NYC heroes feeling  The Times of India
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMivwJBVV95cUxNUFdQRlhKdlRta2lHUkxsdWFpcE9hakNDY2N5TkJWVWw4SFFCYmc2ZlJPbWVnM09ZMGlTQ0NJNFNsQ2ViMWFaWkRPeVZQS3hZWVpzSFpSa1FWd29mcHBialYwdlZnSVVFdU1hMUtOZzBlVmlDUXdkY2syUlhGSHlhZjVVQ0hveGp6NVRETlFud2hIcllhby1EMVNrVWhvR1oxZlZac2lUTkR1cU9YT3BicG9HUHRRa3VvclRHY1JkM09oV1M0eHFXR0wxS3hmWlJEMnBKVXhmenZhbG1Id3NtSmttWVdRME1xS252VzVrRUFNZlNjbWlyQmFvM3ZCYjgwbTN4OXFPWDBJenJzS2xvaFFBN19YdUxtSlZ4Y3UySFVaaFhWaUQ0RlIxeEswbG9LZjBMQTdGWWVvZVRiTWFJ0gHEAkFVX3lxTFB4ZnVLT0RESGZ2c2J4a0x1NXlTVWprSTR3TlM4SFcwN0lLV2hGaFlzejlFb2VRbkpFdFJsWFk0T1ZseWJaQzhOSmZHTmlhcXM1NjFfS1ppU0xSbWFZVFduWUlYbnhES3YxSVd6M01zcHhBQWlWY3Q5OUdmd2ZmN0RrSjQ3cVhPcERETklGWFVJUXJ6SXk4c0J1U0l0VmF2VGRQeUt6WnJmek5HQ0h1RE1vU3hOeEs3Z2E3bXZIOWE1bzd5MDBNSW0tNlVPd1p6VnpKQUpYWjQwU2ZtNzBzbmFWYXFTQXdNTlJJa2laN01vZmNCazRRellLZ2NyR2ItRXp0RGZFd1BqV3pPajhreWlRb2VyZkZncnU3eWVUMVlwRFdPbmYyazlPdUZ2OHlfQ1I0blRiYmtBQnVfWjFXeWM5UUlYRQ?oc=5
-
-## Could Chiefs fans and Swifties see Taylor Swift at training camp this summer? - Kansas City Star
-
-- first seen: 2026-07-25 07:27 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Could Chiefs fans and Swifties see Taylor Swift at training camp this summer?  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE9fc0ZtQXJPQ1VIbFV5a1lmQjdfdkt6ZnpONHR4UUJrTmcwNWg3czQ2NlNKZHp3ZHVSdkN6Ynl3aU1iSlRJbnQ0OGxRNVNQY3ZJMXRtdE91LUV5YW96cU5leEZPXzFwNTg2bUdv0gFrQVVfeXFMUEZqMFNHanlQVG9ONlJBYTVkOHp6eWpWY24yUDFtaVFueUJnOHJIbEU4QUVJZGhjc0k5U2h6ZVpaNkR3QzlrZm1OQWI3RHdFRy1HZDhDWFJtMTVRQW9PM0RJNGtNZnJtRllDaE0?oc=5
-
-## 'She’s no longer getting VIP treatment': Blake Lively's reported fallout with Taylor Swift sparks fr
-
-- first seen: 2026-07-25 07:27 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: 'She’s no longer getting VIP treatment': Blake Lively's reported fallout with Taylor Swift sparks fresh c  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMixgJBVV95cUxNbHZuS01sMy1KMWMtNDVER1RDd2hhV1N6ZlYwMlVCQzRCQzhWeU5pYWc3TzdrYmExQzdrSTEwU1YwYUYzeGkwYzduanJIUVdzRlotWFhxdE5sTTBkYmc3aVhndVUzdzM0UVJfdHhsTDRTYURkNHI4N3dkZktPLXU4eW82dTMzM1c1REoya2I1RERBM1FqdjdKdm16aGhjNlk1TTloVXdKRHg0MFM4bVNlT1IydWdZOGRfRjZHeENvTWxlc2N2NVJieVdkaFRMQXhFaTkzNHpsZkxlaUNteFBnNXJVSWhXZlF0c0Ytamw2LXc5c3R5YVY5TVJuenhzQ2dfRzJfbDhjRTlFRlZkaFZwMzBydHVSQ0xJbXhFV2VRZW1JTDl4c1I0d3RzT1ZmUFJkSHMyUFMxYVFnQnlvWGFiZkpMUTFxZ9IBywJBVV95cUxOMWpKb1JmY0hXcWdiY3FlN3B3dXBRblQ0WkRFN2xLbE80RjhwYzN6NkJJTXAzTUFZTkVyS0tIV1YyajRoSGJybGxMdTZzdmEzczZLN2M3TWxCMkhYN2FWY2FuYklIYUY5SkRXNlV3QmxURG4xTlFRcVlxcjFTcXlWTzlEXzl5dWN0S2MtdVVXVDVfem9ROHgxV3Z6aGdQZ1RxcDd5a3JLMkpwSXM0c3lwMXpxcGI4ME1qM1NNNGVvMXE2OEQ5UUp6MDRRekNMNlhfMlBGaXM2ajNsX25USFFUSU16cnFYbEMwcUllaDhiVFpyLV9HY3RZaHZVWWFFcWJMS3loZWF2a0tCM2ZLQVdIYUtacUJhZ3k3RXZLZWNsVHFGS3hBeUJ6MTBfaFcxOWVHVWY1ei1fNHY0ZFVoWTJXSFNNeFkzb3RmWklR?oc=5
