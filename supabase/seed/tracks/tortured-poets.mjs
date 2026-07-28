@@ -181,19 +181,30 @@ const TRACKS = [
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isSingle: true,
-      note: 'Love as alien abduction: beamed up, experimented on, and dropped back in a field — now crying at the gym about it.',
+      note: 'Love as alien abduction: dazzled, experimented on, then dropped back in a field — a love-bomb hangover set to pillowy synth-pop.',
       summary:
-        'A cosmic fling ends and re-entry is the injury: ordinary life feels like the wrong planet. Gen-Z idiom in the title, UFO imagery in the verses, grief in everything else.',
-      inspiration: null,
+        'A cosmic fling ends and re-entry is the injury: ordinary life feels like the wrong planet. Gen-Z idiom in the title, UFO imagery in the verses, grief in everything else. It debuted and peaked at No. 2 on the Billboard Hot 100 and Global 200 — held off the top only by “Fortnight” — inside the record week Swift held the entire top 14, and became a fixed number in the revamped Eras Tour set from May 2024. See the dossier for the full production, chart and reception record.',
+      inspiration:
+        'Swift explained the conceit in Amazon Music commentary: a love-bombing — “where someone rocks your world and dazzles you and then just kind of abandons you” — recast as being abducted by aliens and dropped back into ordinary life. She named no real-life subject.',
       themes: ['post-love withdrawal', 'alienation', 'wanting to be taken back'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Down_Bad_(Taylor_Swift_song)',
       sources: [
         wiki(
           'Down Bad (Taylor Swift song)',
           'Down_Bad_(Taylor_Swift_song)',
-          'song article: reception',
+          'song article: composition, charts, certifications, reception, live history',
         ),
         ALBUM,
+        {
+          source_url:
+            'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+          source_title: 'Taylor Swift Sets Record With All Top 14 of the Hot 100, "Fortnight" No. 1',
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-28',
+          reliability_score: 4,
+          notes: 'No. 2 Hot 100 debut/peak, behind "Fortnight," inside the top-14 record week',
+        },
       ],
     },
     {
@@ -1030,21 +1041,41 @@ const TRACKS = [
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The Greek prophetess cursed to be right and never believed — deployed by the one pop star with a documented 2016 to point it at.',
+      note: 'The Greek prophetess cursed to prophesy the truth and never be believed — a myth fans read as Swift’s snake-era epitaph, though she has named no subject.',
       summary:
-        'She told the truth, the town lit the pyre, and vindication arrived years late with no apology attached. The myth maps so precisely onto the snake-era receipts saga that fans treat it as that chapter’s formal epitaph (unconfirmed, unnecessary).',
+        'She told the truth, the town lit the pyre, and vindication arrived years late with no apology attached. The myth maps so cleanly onto the snake-era receipts saga that fans and critics treat it as that chapter’s formal epitaph — but Swift has named no one, so the mapping is interpretation, not confirmed. It debuted and peaked at No. 44 on the Hot 100 during TTPD’s all-31-tracks week, and Swift sang it live once: a Toronto Eras Tour mashup with “mad woman” and “I Did Something Bad” (Nov. 22, 2024). See the dossier for the full craft, chart and reception record.',
       inspiration:
-        'The Cassandra myth is in-text; the 2016 phone-call scandal and its 2020 full-video vindication are public record — the song leaves the wiring exposed.',
+        'The Cassandra myth is in-text; the 2016 phone-call scandal and its 2020 full-video vindication are public record, and critics (e.g. Billboard’s Jason Lipshutz) read the song against that period — but Swift has made no on-record statement naming a subject, so the wiring is press/fan reading rather than confirmed autobiography.',
       themes: ['believed too late', 'mob dynamics', 'myth as memoir'],
-      fanLore: 'Fan reading (near-universal): the 2016 feud timeline as the song’s skeleton.',
+      fanLore: 'Fan/press reading (near-universal): the 2016 feud timeline as the song’s skeleton — inferred from the myth, not confirmed by Swift.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Cassandra_(Taylor_Swift_song)',
       sources: [
         wiki(
           'Cassandra (Taylor Swift song)',
           'Cassandra_(Taylor_Swift_song)',
-          'song article: myth reference',
+          'song article: production, charts, reception, live history',
         ),
         ALBUM,
+        {
+          source_url:
+            'https://ca.billboard.com/music/music-news/taylor-swift-cassandra-mad-woman-i-did-something-bad-eras-tour-1235837621/',
+          source_title: 'Taylor Swift Mashes Up "Cassandra," "mad woman" & "I Did Something Bad" at the Eras Tour',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-28',
+          reliability_score: 4,
+          notes: 'Toronto Nov. 22, 2024 live mashup; the "rage lineage" reading',
+        },
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: 'Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week',
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-28',
+          reliability_score: 4,
+          notes: 'No. 44 Hot 100 debut/peak inside the all-31-tracks week',
+        },
       ],
     },
     {
