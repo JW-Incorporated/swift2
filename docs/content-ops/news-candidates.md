@@ -25,15 +25,88 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 71
 
-## Sadie Sink Reacts to Taylor Swift, Travis Kelce Giving Her a Standing Ovation - E! News
+## Travis Kelce’s reaction to seeing Taylor Swift walk down the aisle revealed - Page Six
 
-- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
+- first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Sadie Sink Reacts to Taylor Swift, Travis Kelce Giving Her a Standing Ovation  E! News
+- summary: Travis Kelce’s reaction to seeing Taylor Swift walk down the aisle revealed  Page Six
 - sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMioAFBVV95cUxQZE9FRWpzR285N2V0Z2hTTkRKOWg5Z2Q2RWJfQUVpaFRNWnNrQUlEUHJoU25NYmRlX05NbW5nV0pRRHliWHlwaTFKaE91Sm1ja01taTlEQkcxbEdRZDU5NVBDLXV4QXVXSGpMN1d6eG1HRjc1SWZGajB6TlRKTHc2Mk1ZMlVoc216R0NJZ0h5ZV9OZENIcmNQWDNnZzlSUm82?oc=5
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxQWVJ2WEM2b0VFWTljUmNvc293VXhBalNOME1hRi1YWVhKdWhYT05mRThvN2hMSGdtYzV1ckFxRGdMQzQtOTFRVHF5R19WMnB4bmRJdnYwME0xZGp5LWJ1d3JFcHFLTmNKamNPaEFSNmdqUktTdzNzNmpWZlNTSXJNWmJyeDkxNmk5YWYzVFFKSWZoQThaUGd2LWs2YVNVMFk1dDhheVgxQTFCc1JpeklIR00xSTQ4OHVkcUhTaw?oc=5
+
+## Karlie Kloss Is ‘So Happy’ for Taylor Swift and Travis Kelce - The Cut
+
+- first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Karlie Kloss Is ‘So Happy’ for Taylor Swift and Travis Kelce  The Cut
+- sources:
+  - [unverified] The Cut — https://news.google.com/rss/articles/CBMimgFBVV95cUxNRzZnVk9zeUFyUm5kT0czNE0yamstUDB3ckE3UzJid0t0ODZVMll2dlg4MDBmU1EzaVc1T20ydzZiTl92WjRKMjZUTkF5Q3c2WGh1S3JlSUJQVUJlLXNnS0NPUDVldXZoZmU5aTB6ZnVIRzd0Zk9JNVMwcnRHeHUxOERBYVlpeXJNc2d6cVRVZlBRMzJsRlZUc1V3?oc=5
+
+## Karlie Kloss addresses surprise attendance at Taylor Swift’s wedding after reported falling out - ew
+
+- first seen: 2026-07-28 18:40 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Karlie Kloss addresses surprise attendance at Taylor Swift’s wedding after reported falling out  ew.com
+- sources:
+  - [unverified] ew.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxNQ0lDTFozLTlzdzhrNU8zRy1xOW81b04zVU5Pa0hHcFhjTkNlRHFROFlFR3EzSXBqSHlBeFlVeC1iQ0hFb2lvY3JFM1J3aDBwN1l3YUV6SmQ1U2pXS1Iyb0JBend2Nk1VNXBvMUthZmJteHJBRHZxd0dfS1pYejVxMld6WklsbU44T1lXUThCNVp5c3lu?oc=5
+
+## Kaia Gerber Opens Up About Attending Taylor Swift and Travis Kelce’s Wedding (Exclusive) - People.co
+
+- first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kaia Gerber Opens Up About Attending Taylor Swift and Travis Kelce’s Wedding (Exclusive)  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPaU94cmJPR1laU2o3a25yQnV5blRud0N1N3lLY2ZGMkdOVFpUclJRRDBTMHBVcmVVU3JvQ29NZjZudjZVX1VRaWtDbFhhaGw2SmlYcmJ1M0NQckM3bXFoY204Q0hPVlIzVDVOSWFYcHJVdGVSQWFkTjhLM2pOeHpWa3RrY1hZUGxBdFRrcUFkUWdPN3RYVTY0YjJR?oc=5
+
+## Kids at Hospital Design Wedding Dress in Honor of Taylor Swift’s Nuptials - People.com
+
+- first seen: 2026-07-28 18:40 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kids at Hospital Design Wedding Dress in Honor of Taylor Swift’s Nuptials  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMi6AFBVV95cUxNQjVEaUJIMVgydHJRX3pKdjE1dHg4R3NaYk1NTGxHdDUzMVNnVDlVOEJaN25ldVJQQ2ctVFc5NnNwT05XMUFGTWZEUi1mN2ZJaC0wWThhMjVkRkt5TzMyYnVMd05QVUZOVHNoMEZZNWxPTUpYMFltdVJOM0lkVkpNTE85SmhUSnRpZVFiaDVURFY1Ni1HQU4zbmpCSWg3Z2VEbkQ2Y1pta0ZSTmRuejZYOFAwc2d0SXNOWlZlMl9fTTUyZ0hIWFdUd2Z1bGFfMUZzVE90RmdSMXhNZlFINGtQTFZaNHVBS0Vp?oc=5
+
+## Marcello Hernandez Reveals the ‘Most Surprising’ Guest He Saw at Taylor Swift & Travis Kelce’s Weddi
+
+- first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Marcello Hernandez Reveals the ‘Most Surprising’ Guest He Saw at Taylor Swift & Travis Kelce’s Wedding  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxQSUdlYS1ScWlGUTZ1V0JCd3hmYjV1Mmx5MElmNFhxYVBEektJYkZKenkwVmI1a3pMSVlhVnlGMmVDRDljQi1CaXFsb3hPWC05WTdEYlFwV3VXejI3Q1g5SVE1VV81ZXJyMjN2Mm1GTjNDVDlnSUJkcnVfcmdSZ3NLaU1rT25tbndHRTd4aHVPaEVHV191UWFkN1p1emNHTE5vWFVxaW03MGxweDNObE9z?oc=5
+
+## Travis Kelce Was ‘a Puddle’ Watching Taylor Swift and His Nieces Walk Down the Aisle, Joe Buck Says 
+
+- first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce Was ‘a Puddle’ Watching Taylor Swift and His Nieces Walk Down the Aisle, Joe Buck Says  Yahoo News Singapore
+- sources:
+  - [unverified] Yahoo News Singapore — https://news.google.com/rss/articles/CBMiggFBVV95cUxNWjlXTGJJUnotajZLTGNaQVI2UmVzR0F0MXlRaHg1X1ctcGxPY2NKRDE0bkZzc1llSjNGMVdmQ0V6RGVKV2tYSHVaaXZuZ1dqTDZKem94SUlWMUo4MDRWQVNXMi1GWm5CVkNfTm1KbUg2ZWZHZnBjeDloNVZ3dEN0ZllR?oc=5
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxQcEZnallKRFd2RElzTE5OOElVWndaZTV1NnZGdGMzS2FHbVQ1ekZHeFI5VWtiZFJXRkFLMkQ2cU10Y0dManJ3ZUdrU2hxcWozUXlzQWtwM2RHU05Ec29PVzNQSXBmaE1XX20yUW5SNHM4X3IzS25FMFRQYjlzaExsb2pJLXlsWmFsNnc5RmdKakVnYWlscll6aTNRZVlkd05UMGhxRDhDb2VDbzBXS05GTHNKamxuaXlKNU5meTd0ZlViS2M?oc=5
+
+## Swift’s Ex-Best Friend Breaks Silence on Star-Studded Wedding - The Daily Beast
+
+- first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Swift’s Ex-Best Friend Breaks Silence on Star-Studded Wedding  The Daily Beast
+- sources:
+  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMipgFBVV95cUxQenpTU0pTYkhpWHRpZVMzTVVWcWFlbjlYS0dDOHZITTdtQ3F3eEd5LVRidC05ckY3RFlNaHR4alJVMTV6OUVuXzJ6R0NneGswQlc5bnhoUmd3alVJQWc3N3V4QzFZMlpKdVR3OVJOeEJsZ3paanR0bERHS1doS1ltWFNNbFd0ZDd5LUJhVEJ4ODEtLTFieUoxcjJmdXRoOV9ZTWk5Q2F3?oc=5
+
+## Travis Kelce Had the Sweetest Response to Seeing Taylor Swift Walk Down the Aisle - instyle.com
+
+- first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Had the Sweetest Response to Seeing Taylor Swift Walk Down the Aisle  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxPVkpocFR4T0w5NHlQb2w5a1loLWVkalFfU0tfcjhGYTRnMjl1SUF2NXJQUHJESGRTREhwV3gxazNibVA5SzJQVGt0aVQtZ3Uyam9UQjFrbEZpcU9vdzNvNG51OEZiY3kzSkJRaE1WTmlZbUo2OGxpeGdOc2g3YmpocGcwdGl5RVNnWkREamJVXzd2Rzc5N0xuNnZ2NA?oc=5
+
+## Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle - NBC New York
+
+- first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  NBC New York
+- sources:
+  - [unverified] NBC New York — https://news.google.com/rss/articles/CBMixAFBVV95cUxPS1NuRE9PMVFuZHJLeno0M3JVbTd1T3VDQWl3clJxandPd194ZnBTRHM3WlNwLTl4T3Q3X0pNQ0owVWZBMUFqSzNGNzh3ZVBGU1lYVTVXN2RMYkdIaktNZG9sQWd2TUZ4MklTN21PMVJsWHpSQndVdnpPSUx1TGc2Tl9tbGZtVWpoY0ZXNkJPdE9YNzFISmcycm52LWZJNDVzRmozUWlhTVA4YlFVbUp1SzlnTWRaclRmUm5aQnZiaF9mTHBM0gHMAUFVX3lxTE9leDFRQ2RYRFBPdDJnR2VEamdFVEc4SXNseTdQWXdxVThFLTI2Y2FLMTFFYTVGU3hqNGJtazVVVmRoOFRVdTF4UkJMeVgyN3lZMjJKZkYwTnJ5M2ZLQ1ktdjVZV3Fnc253UUd1bnkxV2oteEJPZUUyLVNzRWdxVmRXc3Jrd3NUYV8wdDI5RXVETkNJd29YR3NlM09oSkxWMWtUT2V4bFlZLXp0NmpnS004bmxBQkt6TzJWMXhzc1V6TkZMMWVaTEswMm5Iaw?oc=5
 
 ## Taylor Swift and Travis Kelce wedding guest insists he didn't sneak in phone as Kevin Hart calls him
 
@@ -42,14 +115,6 @@ Stories: 64
 - summary: Taylor Swift and Travis Kelce wedding guest insists he didn't sneak in phone as Kevin Hart calls him out  Page Six
 - sources:
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi4wFBVV95cUxONnowRm1lMDFZckhpVXdCMW5wQXh6SFlhdVpQSTBoWmVwd3M5RnpvOU1DS3dFZHN5dWV0UjhlSGJfYXVOTzROTWtaV3lPeUx5UnBIZW42VDZXOUV3eXFuY0JudVBUTUZNeEtSTnhjSXlNUWJoYmNLblBFT2RpTHkxZTdvclp0dmkwYWM0TUNQRWNwSGhWSEpyWmp3TV9nbUhmUXBvNzFoMUdFaUxaNjdrMW9KLVRyYUNDUmdYcnZIaUFJQlM2azNTRjJZb0FBVGJsLTk1ODBXU19wT0ptYkFpN3BhRQ?oc=5
-
-## Karlie Kloss Speaks Out About Attending Taylor Swift and Travis Kelce’s Madison Square Garden Weddin
-
-- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Karlie Kloss Speaks Out About Attending Taylor Swift and Travis Kelce’s Madison Square Garden Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQazRvZFFVcC1ac1FhMTRVUnJCVmtuVnlNVE93RnctLTRIb19pQ0ZDU1ZQMkRha1ZsaGlvbFpfbDNsSzBrTlducXhtUW1CeWo5QnBtQjlHbjhweFQxNjBEbjBpNG5OQndsbGJEc3p4NUdyMTZ4Vmk5Vjd0NWx4dFVMQk9tSVhfTVlSVjZJaWJEZ1JPanA5UDhlWElUOVhmMHZqS010bWNVVlVYQQ?oc=5
 
 ## The NFL Merch Designer for Stars Like Taylor Swift Is Making a Chair for La-Z-Boy - ADWEEK
 
@@ -83,14 +148,6 @@ Stories: 64
 - summary: Karlie Kloss Makes First Comment About Taylor Swift & Travis Kelce’s Wedding  Just Jared
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisAFBVV95cUxObHRIQTNzTUhpZ1BzdGhidzZwR0F5V1FhdnFJSUVKNC13QXFIbmlRMnFjeGpfZHVqS1pyM0wySlFrYUVXbVh4WmRYZng1STdJbzdWYUtsQ0otU19jSlR3SXEwcXh1S1Z2ZWlfd0dJbmJNQUw1ZDFxVEhxcVQ5ZG5LQmd5dWVKa1NLMnNKMTVTRk1GQzR1NWQxY245VzFKZFVIOXluQ1BLU3VQTjZIVVo0dg?oc=5
-
-## Travis Kelce’s Emotional Reaction to Taylor Swift Walking Down the Aisle Revealed - E! News
-
-- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce’s Emotional Reaction to Taylor Swift Walking Down the Aisle Revealed  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTFJV0doeldGOGd2N3VCRGItTVJEenJDd29hVmFucWpJTUJvSF9UQVh6ZUd6UHNBLVV4NDJpeWJFSkdEcjBlaHdTT0RLNzdNUS1XYkVhY3p4a0NYXzB6d2VqeDlGMEEzS0tkLURZN0M2UzcwNUI1N3Awc2c3clZyMURLVmtzUjdWa2JtQS1IaVNnWEgzQzNjY0d3YTd3UDJjMENRcmlheElkUEk?oc=5
 
 ## Travis Fully Cried When Taylor Walked Down the Aisle at Their Wedding: “He Was a Puddle” - Cosmopoli
 
@@ -132,6 +189,33 @@ Stories: 64
 - summary: Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQOG10cFVFRE9VNkpuUnZrNDNTYTFLSGZNWjFrT25TaTkyQkZ0WFJvZFA0NURwNG9iWEZqMDFXcFA4a3ZYYmJ1OUUzcXpqTUg3eDVTM0pPeTRjUEhuNU92TVJnVGNKZnNiN1hTVHVfRzlxUTdJOVNoVlgxb2VXV1VNU0QyR0psTk5abnhwTm0tMFJDdUxnYlpPYjRNNzBtakxxVUFTTUptZ2VNMkN0NmFicmpKY3RFRDZr?oc=5
+
+## Sadie Sink Reacts to Taylor Swift, Travis Kelce Giving Her a Standing Ovation - E! News
+
+- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sadie Sink Reacts to Taylor Swift, Travis Kelce Giving Her a Standing Ovation  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMioAFBVV95cUxQZE9FRWpzR285N2V0Z2hTTkRKOWg5Z2Q2RWJfQUVpaFRNWnNrQUlEUHJoU25NYmRlX05NbW5nV0pRRHliWHlwaTFKaE91Sm1ja01taTlEQkcxbEdRZDU5NVBDLXV4QXVXSGpMN1d6eG1HRjc1SWZGajB6TlRKTHc2Mk1ZMlVoc216R0NJZ0h5ZV9OZENIcmNQWDNnZzlSUm82?oc=5
+
+## Karlie Kloss Speaks Out About Attending Taylor Swift and Travis Kelce’s Madison Square Garden Weddin
+
+- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Karlie Kloss Speaks Out About Attending Taylor Swift and Travis Kelce’s Madison Square Garden Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQazRvZFFVcC1ac1FhMTRVUnJCVmtuVnlNVE93RnctLTRIb19pQ0ZDU1ZQMkRha1ZsaGlvbFpfbDNsSzBrTlducXhtUW1CeWo5QnBtQjlHbjhweFQxNjBEbjBpNG5OQndsbGJEc3p4NUdyMTZ4Vmk5Vjd0NWx4dFVMQk9tSVhfTVlSVjZJaWJEZ1JPanA5UDhlWElUOVhmMHZqS010bWNVVlVYQQ?oc=5
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPWTF3d0dIbHpIUG8wOUdZNS1WQTJ0d2t6ZFNiemgzMjF5MFdoZkFSM3N2UEozM05Cd1lDdzJGdlB3VWV5U3VBVEw1Y203N0NGVWpTN2xDTHE0NHpWTDJjbVB2dk5vQ0ZpU3lWX3B5WFItbVpGeHJySXNYU2J4OGZoZXB0ZkRyREw5YUliQ0RreHNfamdvYWFRSFNnN3BzTFNiOUEtLVhYSHRyZw?oc=5
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxQWlZoT3hnS0lZdDNCM2xfNEVaMEVfYWtubjNjTWNpMDJ6ejJabWhUanA1MW8tR1ZPc2hkWDVLVFZZcnFkbEM1ek1xRnF6U0JTMFYxZ3NSTGRxVkZuUmRSUmlmRG1NcVcwVGJYalpZRDZCNU1OakExVFZQaFR4M0Zka2xXaTRuNkNFZVFFTW5PLWlra3BYdlVFa284MXlYbDg?oc=5
+
+## Travis Kelce’s Emotional Reaction to Taylor Swift Walking Down the Aisle Revealed - E! News
+
+- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce’s Emotional Reaction to Taylor Swift Walking Down the Aisle Revealed  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTFJV0doeldGOGd2N3VCRGItTVJEenJDd29hVmFucWpJTUJvSF9UQVh6ZUd6UHNBLVV4NDJpeWJFSkdEcjBlaHdTT0RLNzdNUS1XYkVhY3p4a0NYXzB6d2VqeDlGMEEzS0tkLURZN0M2UzcwNUI1N3Awc2c3clZyMURLVmtzUjdWa2JtQS1IaVNnWEgzQzNjY0d3YTd3UDJjMENRcmlheElkUEk?oc=5
+  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxOLTdicW5ZUm9tZlAwTk9WOW1hVjE4TUltTnNWOFJVUnVSQkhrdUcxaUJtdkpBMWdndkozckRqYXdHdnk2VkxmTDVwOTdoQmVRMFFKVVRxSG1PaUNRcmpuTWl6WDZzNHVaQTdwdjRUQW5yTTl3RjdjejNCTlp1M3MxVnpn?oc=5
 
 ## Taylor Swift debuts wedding ring in fellow NFL wife Laura Kruk’s wedding pics - UnionLeader.com
 
@@ -523,28 +607,3 @@ Stories: 64
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPQ0pFZ2h5djhnZTdQM09JNTVWWnBQVFZtT0pIZDkyVzVjVmlSZm1oOUdaUEtEZUpJbnZORkpVcW1pMUltd2dwQkEtUkxpX0ZpN0N0bERnRVZZNXg4N3ZkRWpJRWdoLURZbUZzLUlBQXdRYnBKRVBkQ2NPM0R2bEZ5amhPeUN5WVJMVUo0eVMyS09pWkhZeWg0cGZBLTZKVXVkSjIxVDU4akRXQQ?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPdnF0SU93cW9yaDlrYzdJeWlaT290eWFtN2JfQ2dyblhCdEVtOFJNMkpVb19yZTg1UFFZNkg5SEV1czhLSXFGZE5IdmczbFVMZk9iSExxOXNiYXRDcDNhZllGcWRhV1NNa2FyZGZvc0dZWFhzdXZxeFJUcjJleGtKRkJicElCOHVvRXlqYkFRX3FJRWh0TlpEVmJnRW5FbjVjODZVbHdIcE4?oc=5
-
-## Blake Lively Reportedly Losing ‘VIP Treatment’ by Hollywood After Taylor Swift Fallout - Yahoo
-
-- first seen: 2026-07-25 18:05 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Blake Lively Reportedly Losing ‘VIP Treatment’ by Hollywood After Taylor Swift Fallout  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQcDR2eWpJbjlGcnVobDhQNHBLdzZhTWJ5YngwQlRIMTlNMUF0Ymx3Sk9lYkpIN3hFMzJPUzlsV091RXFKMnFsRlR2YS1UNHJHUTBXVjdRUXc4WkM4ZTdzRUpMR21ZWUplZ0hLZUt4MlJSNVJiV1N6OHZEbzRaS3NOYUVmRFV3VHdIQ2FBYUZ1UG5BMW1sXzhoNGlaNk53ejVZdzFZUy1IQQ?oc=5
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMinAFBVV95cUxPdERid0JkV2FZX0pLS2hfSFZ5RklESHBXbFVGdjBUZ3JMcVpzeDZOV19wT01EZjBiTnlfYzdqNTZ6VzNENzZyYnlYMExJdWRJcW1vV2FqSmZNTjYyYWxtdndrQkxKSWZTSlhzMXRJUzY5VWVnbUlWX05lQ0FBV1RVdUs5VUdHZG95YU5LVlMtQjdjVmhTYVBzYXFKaEo?oc=5
-
-## MUST READ: Burlington couple pleads guilty in $1/4-million Taylor Swift ticket scam - BurlingtonToda
-
-- first seen: 2026-07-25 18:05 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: MUST READ: Burlington couple pleads guilty in $1/4-million Taylor Swift ticket scam  BurlingtonToday.com
-- sources:
-  - [unverified] BurlingtonToday.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxQRVNzcjZjU1kyRi12dW1jelcyT0c5c1FORWVFSTllYlBFSXFVODJxTnJUQkZnZktUWWVsQ3gwMm95SExfX0xZajg5U1ZsQ0o3Y3pOWHpVakd0M1U4eVpvYTVLOU9vZnVLcnNDVzVJMXpKZHl6cUFDS2Iza3FNWlRfQl9vN01xSENxc1FmbURQV3dfMzB2eXd4STNodjd1aFJOeS1HdHp1Y21pZ1pkb19zLWtOV0FhckpjMXo4WDRwWU5zdHQ2RndqMU9wNjM?oc=5
-
-## How Travis Kelce and Taylor Swift's relationship caused 'big flip' for family - Yahoo
-
-- first seen: 2026-07-25 18:05 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: How Travis Kelce and Taylor Swift's relationship caused 'big flip' for family  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxQMlRBNUxGcktjR2RCbS03eGN2a3p0TVNXMFdyZnN1MFYtblZVTVpDMjkxbFpzc1M2bF96d3RQSHNlb09pMTNvSFFQTnVnOGw0ZnR6dG9meU0tak90cmpadkpaMXVoTTBhQ1lFbUFvbVFsVmZmeTdXX0RmT0x0RzZ6Rko0aHdzUV9yUnJZUzk0M2dTTktfak5MOV9YeFhVekxzcXhDcm1vT1pXd0R4alE?oc=5
