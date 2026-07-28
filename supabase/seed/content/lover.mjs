@@ -1520,6 +1520,9 @@ export default {
         'moment:vault-lover-only-the-young-the-protest-song-saved-for-the-documentary',
         'moment:vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c',
         'moment:vault-lover-miss-americana-the-heartbreak-prince-a-high-school-built-fro',
+        // Cross-links added 2026-07-28 (depth ledger #1490): the protest song
+        // made for this exact film, and the outfit from this exact night.
+        'moment:vault-lover-head-to-toe-plaid-at-the-miss-americana-sundance-premiere',
       ],
       title: 'Miss Americana opens Sundance, then hits Netflix',
       snippet:
@@ -1528,7 +1531,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The film tracks the deliberate dismantling of the "good girl" reflex — built around the 2018 decision to break political silence over her team\'s objections — and gave fans the era\'s defining self-assessment: a star relearning what she actually wanted to say. It remains the most unguarded long-form footage of her career.\n\nThe title comes from "Miss Americana & the Heartbreak Prince," the Lover track about political disillusionment, and the disclosures went well beyond politics: her struggles with body dysmorphia and an eating disorder, her mother\'s cancer, the toxic online pile-ons, and the sexual assault trial all get direct treatment for the first time. Critics received it as a turning point — a 91% Rotten Tomatoes score, a National Board of Review selection as one of 2020\'s five best documentaries, and a consensus that the film marked "a pivotal moment" in how Swift told her own story.',
+          'The film tracks the deliberate dismantling of the "good girl" reflex — built around the 2018 decision to break political silence over her team\'s objections — and gave fans the era\'s defining self-assessment: a star relearning what she actually wanted to say. It remains the most unguarded long-form footage of her career.\n\nThe title comes from "Miss Americana & the Heartbreak Prince," the Lover track about political disillusionment, and the disclosures went well beyond politics: her struggles with body dysmorphia and an eating disorder, her mother\'s cancer, the toxic online pile-ons, and the sexual assault trial all get direct treatment for the first time. Critics received it as a turning point — a 91% Rotten Tomatoes score, a National Board of Review selection as one of 2020\'s five best documentaries, and a consensus that the film marked "a pivotal moment" in how Swift told her own story.\n\nThe film is a Tremolo Productions documentary directed by Lana Wilson (After Tiller, The Departure) and produced by Morgan Neville, Caitrin Rogers and Christine O\'Malley; reporting at the time indicates Netflix had the project in hand well before Sundance rather than acquiring it out of the festival. Its dramatic pivot is the 2018 scene where Swift argues with her father and team over publicly opposing Marsha Blackburn in the Tennessee Senate race — a fight she won. Her Oct. 7, 2018 Instagram endorsement of Blackburn\'s opponent had an immediate, measurable effect: Vote.org reported roughly 65,000 new registrations nationwide in the 24 hours after the post (versus 190,178 for the entire month of September), and Tennessee itself saw more than 5,000 new registrations by the following Tuesday, more than double the prior month\'s total.\n\n"Only the Young," the get-out-the-vote protest song Swift wrote in the endorsement\'s aftermath, closes the film\'s credits and was released as a single the same day the documentary hit Netflix, Jan. 31, 2020; nine months later it soundtracked a pro-Biden ad Swift approved days before the 2020 election. Reviewers were more measured than the audience-facing numbers suggest: Metacritic\'s weighted score sits at 65/100 across 23 critics, with both The New York Times and IndieWire naming it a "Critic\'s Pick" alongside some notices calling the film "stage-managed" even as they found it compelling. Netflix has never disclosed viewership figures for the film, and it remains available on the service as of 2026 — Swift\'s only stand-alone personal documentary, distinct from the later, tour-focused "Eras Tour" concert film.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1538,6 +1541,51 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Tremolo Productions',
+            url: 'https://www.tremoloproductions.com/film/taylorswift',
+            source_title: 'Taylor Swift: Miss Americana',
+            publisher: 'Tremolo Productions',
+            source_type: 'primary',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/arts-entertainment/2018/10/09/taylor-swifts-endorsement-democrats-causes-spike-voter-registrations/',
+            source_title: "Taylor Swift: Voter registration spike follows Instagram endorsement of Democrats",
+            publisher: 'The Washington Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-encourages-voter-registration/',
+            source_title: 'More than 35,000 people register to vote after Taylor Swift post',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2020/music/news/taylor-swift-biden-harris-ad-only-the-young-1234819677',
+            source_title: "Taylor Swift Approves 'Only the Young' for Pro-Biden Ad",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/movie/miss-americana/',
+            source_title: 'Miss Americana Reviews',
+            publisher: 'Metacritic',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 3,
           },
         ],
         // Photo-enrichment pass (2026-07-18, #762): added Deseret News' own
