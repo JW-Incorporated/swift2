@@ -370,6 +370,44 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      // Depth ledger #1364 (2026-07-28): the video/reveal story, live history,
+      // chart/cert record, and the Taylor's Version re-recording — the stub's
+      // "kept secret" line already covered the writing, so this fills in the
+      // documented specifics around it.
+      discussion: [
+        'Swift has said the song was a "complete secret session" written from a five-year-old\'s perspective — "the way that I used to talk when I was 5" — down to lines like "getting cold and I\'ve got my big coat on." She revealed it to Andrea Swift on Christmas, synced to a home-video montage she\'d edited herself; Andrea "had no idea that it was me singing for the first half of the song" and "just broke down crying" once she realized. Beyond the mother-daughter verses, the song also thanks her father directly ("I have an excellent father") and recalls a specific childhood memory of Andrea driving her to a different town to help her forget a run of mean girls at school.',
+        'A self-edited music video using the same childhood home-movie footage went out May 1, 2009 as a Big Machine Mother\'s Day promotion; the original track reached No. 3 on Bubbling Under Hot 100 Singles and No. 56 on Hot Country Songs despite never going to country radio, and was RIAA-certified Gold in July 2018. Swift performed it on the Fearless Tour (Evansville, April 2009; Moline, May 2010), an acoustic Red Tour set (Cleveland, April 2013) and the Reputation Stadium Tour (Santa Clara, May 2018, dedicated to mothers) — but has said she eventually dropped it from rotation because Andrea "kept breaking down" backstage whenever she heard it; it resurfaced once more as a surprise song on the Eras Tour, in Philadelphia on May 14, 2023, Mother\'s Day weekend.',
+        'The 2021 Taylor\'s Version, produced with Christopher Rowe, charted lower (No. 19 Bubbling Under Hot 100, No. 45 Hot Country Songs) and arrived April 9, 2021 with its own new video on April 30 — a longer, four-minute cut spanning Swift\'s childhood into young adulthood, still built from family footage and still starring her parents and brother Austin. Critics have long singled it out among Fearless\'s deep cuts: The Boston Globe called it "the best song on Fearless," and Paste cited it as proof Swift\'s writing extended past romance into a plainly stated love song for her mother — the reputation that has made it her de facto Mother\'s Day standard ever since.',
+      ],
+      discussionSources: [
+        {
+          source_url: 'https://www.eonline.com/news/1257438/taylor-swift-pays-tribute-to-mom-andrea-with-unseen-home-movies-in-the-best-day-lyric-video',
+          source_title: "Taylor Swift Pays Tribute to Mom Andrea With Unseen Home Movies in 'The Best Day' Lyric Video",
+          publisher: 'E! News',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-28',
+          reliability_score: 3,
+          notes: 'the 2021 Taylor\'s Version video',
+        },
+        {
+          source_url: 'https://www.songfacts.com/facts/taylor-swift/the-best-day',
+          source_title: 'The Best Day by Taylor Swift',
+          publisher: 'Songfacts',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-28',
+          reliability_score: 3,
+          notes: 'the Christmas reveal, five-year-old narrative voice, mean-girls memory, and the dropped-from-rotation account',
+        },
+        {
+          source_url: 'https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)',
+          source_title: 'The Best Day (Taylor Swift song)',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-07-28',
+          reliability_score: 2,
+          notes: 'chart peaks, RIAA certification, live-performance dates, and critical reception',
+        },
+      ],
     },
     {
       slug: 'change',
