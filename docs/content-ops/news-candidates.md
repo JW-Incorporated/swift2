@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 68
+
+## Marcello Hernández was most surprised to see this A-lister at Taylor Swift and Travis Kelce’s weddin
+
+- first seen: 2026-07-28 22:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Marcello Hernández was most surprised to see this A-lister at Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiswFBVV95cUxQeExDWmVIR2s0Q2FuajNoaWV5aHlSaWJYVTBYZGdtc2pmOWh4SENjVUxPeHB6SU1MRF9OQzdxX1ZYUXlBUVBsX0pJc0YxMFBTMVFNcjE0SUVEVmRoczh0bzJHOXROY0wwSWhoSVdQbmpRelJSUzdQS3JjNXNacWkwZHBwZ19ia29jTlVON2ZOZnUwTzZSWnNSWHFyc0tsaGN1bkdpVW8tTnI3LXBWQjMwVXNJTQ?oc=5
+
+## Take a cooking class with theme nights for Taylor Swift, ‘The Bear,' Jellycat, & more - NBC New York
+
+- first seen: 2026-07-28 22:15 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Take a cooking class with theme nights for Taylor Swift, ‘The Bear,' Jellycat, & more  NBC New York
+- sources:
+  - [unverified] NBC New York — https://news.google.com/rss/articles/CBMi7wFBVV95cUxNOEUtWk1UNEtXNE1XUjE1bjlhZjRNMVFxX0FqRnVpOHJtNUtVSE8tcXd0OGdHOXc0eDg4V2VJM1dfNlVfRW1fSEs2a0FxdGJWWkVyeDR4Y2dWTW1pamFxQXA2VUFHQkdUMGY2dHJDYWhmOEJXWjZqR1U4UXVnTFhUQTdlb3ZQSW5FdW52cDJ2Z2RsYnlkMERBVE9jZ3dEMi1EWEdraDZpUHY5UHMzQmpGSGlWN1BCb0RmRnVSXzlIMGZtcFp5VTlENUFZV1RwVVlXX09hTG5wU1dRa1J1MllSUFpWa2ZoVFMwdUVSNVBnZ9IB9wFBVV95cUxQcGJ2UHEyWXFjNmR5VjJGNzRQVElmaEJsM3k4bkJ2SzlCQmpSemZicEdod0NoY045a3JIanlUU0tyclk5UjhIanVNMHNEeGhMNEpJcmxwV1lOWkRjbGx5MEEtcU5fRTFvRFlabHBaTEdRMmczeFlvZUZ2cVRlVGJ0S05fdjQxVEdHUUdCX25ObWVvaGl5bVVwOExZZHJOOHVEc1UzMTA0dWNteElyd2ZqWE50WFZKLXJOTlNpRWN4Qk1vSVR0a09OTHFnSGRCYXJQdnFSRlR4eGdZd1otTGIyaHBjVEpZdUQ2ei10UThfNmw1R0FNTVZz?oc=5
 
 ## Travis Kelce’s reaction to seeing Taylor Swift walk down the aisle revealed - Page Six
 
@@ -43,14 +59,6 @@ Stories: 71
 - sources:
   - [unverified] The Cut — https://news.google.com/rss/articles/CBMimgFBVV95cUxNRzZnVk9zeUFyUm5kT0czNE0yamstUDB3ckE3UzJid0t0ODZVMll2dlg4MDBmU1EzaVc1T20ydzZiTl92WjRKMjZUTkF5Q3c2WGh1S3JlSUJQVUJlLXNnS0NPUDVldXZoZmU5aTB6ZnVIRzd0Zk9JNVMwcnRHeHUxOERBYVlpeXJNc2d6cVRVZlBRMzJsRlZUc1V3?oc=5
 
-## Karlie Kloss addresses surprise attendance at Taylor Swift’s wedding after reported falling out - ew
-
-- first seen: 2026-07-28 18:40 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Karlie Kloss addresses surprise attendance at Taylor Swift’s wedding after reported falling out  ew.com
-- sources:
-  - [unverified] ew.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxNQ0lDTFozLTlzdzhrNU8zRy1xOW81b04zVU5Pa0hHcFhjTkNlRHFROFlFR3EzSXBqSHlBeFlVeC1iQ0hFb2lvY3JFM1J3aDBwN1l3YUV6SmQ1U2pXS1Iyb0JBend2Nk1VNXBvMUthZmJteHJBRHZxd0dfS1pYejVxMld6WklsbU44T1lXUThCNVp5c3lu?oc=5
-
 ## Kaia Gerber Opens Up About Attending Taylor Swift and Travis Kelce’s Wedding (Exclusive) - People.co
 
 - first seen: 2026-07-28 18:40 UTC | category: relationship | importance: 5
@@ -58,6 +66,15 @@ Stories: 71
 - summary: Kaia Gerber Opens Up About Attending Taylor Swift and Travis Kelce’s Wedding (Exclusive)  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPaU94cmJPR1laU2o3a25yQnV5blRud0N1N3lLY2ZGMkdOVFpUclJRRDBTMHBVcmVVU3JvQ29NZjZudjZVX1VRaWtDbFhhaGw2SmlYcmJ1M0NQckM3bXFoY204Q0hPVlIzVDVOSWFYcHJVdGVSQWFkTjhLM2pOeHpWa3RrY1hZUGxBdFRrcUFkUWdPN3RYVTY0YjJR?oc=5
+
+## Karlie Kloss addresses surprise attendance at Taylor Swift’s wedding after reported falling out - ew
+
+- first seen: 2026-07-28 18:40 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Karlie Kloss addresses surprise attendance at Taylor Swift’s wedding after reported falling out  ew.com
+- sources:
+  - [unverified] ew.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxNQ0lDTFozLTlzdzhrNU8zRy1xOW81b04zVU5Pa0hHcFhjTkNlRHFROFlFR3EzSXBqSHlBeFlVeC1iQ0hFb2lvY3JFM1J3aDBwN1l3YUV6SmQ1U2pXS1Iyb0JBend2Nk1VNXBvMUthZmJteHJBRHZxd0dfS1pYejVxMld6WklsbU44T1lXUThCNVp5c3lu?oc=5
+  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOSXpKVFhHakRnMjZkcXdUbmJrZFRJSUVwWjcyclZfNV9DUWIwZV9VOFVzQndvV2xOMThmbVIwTmVSeUxrdTlZcjQzQ2ctZGpMNVJFeUNlcW03RTBVajV4U0FSVnNNeDZHdEJ6WlRheXJ5bWpBMWwwU2xWLVZLRm1KUHdMb0V1R1FVVFNZ?oc=5
 
 ## Kids at Hospital Design Wedding Dress in Honor of Taylor Swift’s Nuptials - People.com
 
@@ -132,15 +149,6 @@ Stories: 71
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNWEZsZS1TSEtfY2xTUVY3dGRYYXpObmFFLTNjdXdrVjJHTlFzQmZXNWc4b25idWdhelFjQmZhOXNrMGU3djFaOFlhbXNsQkkzNG9xd2l4cDN5VTNzMnplX0Y2ajlyM2d0QjNfT0ZSWUhFRWVFRHp0TWxGQXZ5UERQOXlxbzFIWmxlQUxUTzFZdnhEUmJmZVNYcUxlQUxPdWo2Z29vZTAzQldBWHNsVjI0X29zR3pGYmQxem1xcmdiWXE?oc=5
 
-## Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors -
-
-- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors  Us Weekly
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMVpxeTB4UnhuYUtzcXdsZ25TZXBRQmdZUEFicjNVMUpnM0NZLXByUF9PMmw4Q2Y0SjY5anFGZnA1alZuRUZJZ1VTMmZUWTlzQ2JFbDdsemZnM2ZWcXBoVkVwTHh1dWt4LU1QR1A2czdRMnVmVjBld2ZHVTRQSzhtRUE3OWtGLXRSbkN1R3NQbWFlcVB6RTRoazdOWXU0eUoxYnEwQzhkcw?oc=5
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiywFBVV95cUxQaE93REpEbEtUZ21Cc054Vmd3bVlZcklfUlZPRFJ1RDFWRm5scEc4MXRobWlNWEdlVmxEUzN0SnF5MnYzYi1PR3ZENG9NZHpKckdlaHB4NEFHMXU2MWdkVHZCYXoyeTBYOWVkeUhWcUlNREppa1RtMkFGLVEyTnYyanlsaEJIN01vWWFmYnBscnlHNGhGRUxodnRfZFd1eFhwTThVMFFqX2R4VzVCVWZhZ1RTUlpaYXV5c19VdEJuVmxXczcyRnJ5Z2I1TQ?oc=5
-
 ## Karlie Kloss Makes First Comment About Taylor Swift & Travis Kelce’s Wedding - Just Jared
 
 - first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
@@ -182,14 +190,6 @@ Stories: 71
   - [unverified] E! News — https://news.google.com/rss/articles/CBMipwFBVV95cUxOUVdiXzR6WEZJU3BlM0FOT0toMXhsLVdFNnExRFZKOGU2UmxUR285enhHSVc0RFJBeXZEMVJYZTMyZVN1OFRwSVRpUFdlOUdPcFdsckR6dF9Jdlp4dTUyWDgza1hKLXN0VWFCdHhERjhRbENaZ250QUs2cm9TaFZ3ZkU3Rjl2dEM4TWtZLVJoT1FjcG03OC12M0hDbGZySkdoY2VvQzFwdw?oc=5
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxOS2dnWloxczU3dXpJM0tkM3FWdUpZNWVDcm1zTTZjbXBwX3M1cE00LXJ1LTVibzVmcEZ3NlhUa09JZ215a1VRLV9pMGxGSGhGQkZjT05nbGR6czlWTnBBOXowbEFYcGFvNEJPUF9qbFVES2FuRUxuUmRLMlFxMS12RlNpY0k5aFg1QWJTTUdTWTR1aU1zZVJ1T3Bhd1Z4OTY3MGp6LQ?oc=5
 
-## Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding - Pe
-
-- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQOG10cFVFRE9VNkpuUnZrNDNTYTFLSGZNWjFrT25TaTkyQkZ0WFJvZFA0NURwNG9iWEZqMDFXcFA4a3ZYYmJ1OUUzcXpqTUg3eDVTM0pPeTRjUEhuNU92TVJnVGNKZnNiN1hTVHVfRzlxUTdJOVNoVlgxb2VXV1VNU0QyR0psTk5abnhwTm0tMFJDdUxnYlpPYjRNNzBtakxxVUFTTUptZ2VNMkN0NmFicmpKY3RFRDZr?oc=5
-
 ## Sadie Sink Reacts to Taylor Swift, Travis Kelce Giving Her a Standing Ovation - E! News
 
 - first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
@@ -216,6 +216,26 @@ Stories: 71
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTFJV0doeldGOGd2N3VCRGItTVJEenJDd29hVmFucWpJTUJvSF9UQVh6ZUd6UHNBLVV4NDJpeWJFSkdEcjBlaHdTT0RLNzdNUS1XYkVhY3p4a0NYXzB6d2VqeDlGMEEzS0tkLURZN0M2UzcwNUI1N3Awc2c3clZyMURLVmtzUjdWa2JtQS1IaVNnWEgzQzNjY0d3YTd3UDJjMENRcmlheElkUEk?oc=5
   - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxOLTdicW5ZUm9tZlAwTk9WOW1hVjE4TUltTnNWOFJVUnVSQkhrdUcxaUJtdkpBMWdndkozckRqYXdHdnk2VkxmTDVwOTdoQmVRMFFKVVRxSG1PaUNRcmpuTWl6WDZzNHVaQTdwdjRUQW5yTTl3RjdjejNCTlp1M3MxVnpn?oc=5
+
+## Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding - Pe
+
+- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQOG10cFVFRE9VNkpuUnZrNDNTYTFLSGZNWjFrT25TaTkyQkZ0WFJvZFA0NURwNG9iWEZqMDFXcFA4a3ZYYmJ1OUUzcXpqTUg3eDVTM0pPeTRjUEhuNU92TVJnVGNKZnNiN1hTVHVfRzlxUTdJOVNoVlgxb2VXV1VNU0QyR0psTk5abnhwTm0tMFJDdUxnYlpPYjRNNzBtakxxVUFTTUptZ2VNMkN0NmFicmpKY3RFRDZr?oc=5
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxQenFtcUEyMmlfSzVTSmxJRldqc2tLMzd1SXBvVmF5Z1FITlQxS1FBbDlqcWNWR1I3ZXd3cENVNGNJRzZOSHFRVkpJQmZUdjVzYkFUd3M0TUV0Q0VOZ0V1WW95STBUdTVRaFRiMlUxVmMxeDVxSGRqZ1NLOXR3dWhxSEUxQXRFRmduS1QzdW5TeUltbS1xWXZFNkx1V3hwVWdJR2k4VTQ0b0NJQXNHLVFTWU1PQQ?oc=5
+
+## Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors -
+
+- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors  Us Weekly
+- sources:
+  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMihwFBVV95cUxNOTQwMUhoeXBKWGdpa214VjZSVWhKYTdHYkR0QTNGck5HTGpaQnNlVkhFYkFmTUNkeFhlMkRrZUxIUWUyT1VFWjRtRGJnbFUtWlBVTC1TYm50akVzOGp0cVJDQjczYldlaHV5V0RuSVVyUG15WHc1ekR6bVNMMm1CRWJVRjlOb3c?oc=5
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMVpxeTB4UnhuYUtzcXdsZ25TZXBRQmdZUEFicjNVMUpnM0NZLXByUF9PMmw4Q2Y0SjY5anFGZnA1alZuRUZJZ1VTMmZUWTlzQ2JFbDdsemZnM2ZWcXBoVkVwTHh1dWt4LU1QR1A2czdRMnVmVjBld2ZHVTRQSzhtRUE3OWtGLXRSbkN1R3NQbWFlcVB6RTRoazdOWXU0eUoxYnEwQzhkcw?oc=5
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiywFBVV95cUxQaE93REpEbEtUZ21Cc054Vmd3bVlZcklfUlZPRFJ1RDFWRm5scEc4MXRobWlNWEdlVmxEUzN0SnF5MnYzYi1PR3ZENG9NZHpKckdlaHB4NEFHMXU2MWdkVHZCYXoyeTBYOWVkeUhWcUlNREppa1RtMkFGLVEyTnYyanlsaEJIN01vWWFmYnBscnlHNGhGRUxodnRfZFd1eFhwTThVMFFqX2R4VzVCVWZhZ1RTUlpaYXV5c19VdEJuVmxXczcyRnJ5Z2I1TQ?oc=5
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMizAFBVV95cUxNd1Y2d0hPRlRzYk9YbWtPX2RQSU5MMzA5d2NEQWt2aHUxMzNmX3A4Y3VXcHEzSWg3TEtLa2s2R1YweUZUMzFaVEJnUlZCdW56R0hOZTNVV0ZpU2h4akxUeXRfQmVQMVhhdWhiQXM0eEFoVVBXSm1uaGdPeWdRT1pOOXNWVndmc0J3UVBXZk9lR1pkY091MmlhclVaS0lPSVZMWk1DSzQ3QWhqUmxQSDlMdFVGVzczOGI1UjVDTFhkRC14dlZ3MmpOeG9iRFc?oc=5
 
 ## Taylor Swift debuts wedding ring in fellow NFL wife Laura Kruk’s wedding pics - UnionLeader.com
 
@@ -281,6 +301,15 @@ Stories: 71
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxObm9oQkhHaHJpVHJCbXgtaEtMTDA4TXR3OU1qSUlBQmZiMFhqbFNrSUFTYktXOHp0Z0gzV2dKMDVlaWtRaEctTmhSUHhLenBVMXVMMzlsbXl2dWJnTEtVVTRWSFJaRmEtazF2N3V1ZXhXS0wzLUlERnhLSjFrLS1hQzU2UW9KVTE1RHZaeHBQZXVhMkNFWU1VX3l3UWlyWERQekxzZmkzclBNWUw2UFF6MVcxaTNoaVdoLXc5dEEtWkJFVmw2TUE?oc=5
 
+## Taylor Swift, Justin Bieber, Eminem? Who's up next at the Big House? - The Detroit News
+
+- first seen: 2026-07-27 18:44 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift, Justin Bieber, Eminem? Who's up next at the Big House?  The Detroit News
+- sources:
+  - [unverified] The Detroit News — https://news.google.com/rss/articles/CBMiigJBVV95cUxNMmlQUk9aWnhqTk5HWGlIRDduMmtXNjJvZUJ2TkJQM19nczUwVjZCbF9RRGFVSlpxeFpGSml2SmdRWlNzZV9tU25yNExKSlBNWmRiRERMdDZQQnNYMmU2NUQ4TFN2dHI2akF0YnR3QmQ4eHV5VDNJeXRuWHEzM180T2UyS3hMeVpaSE42d0FsWHR2YkF4UTdLeEp6SWtXYzc0YjRvdE1saHctQks4OF9BVFphc0lLeWMtYzZYanVjVndDZUF4YmRiR3NDTk1Ud2Y3MEtYaEx5Vy1reFlFbDcyRHlpMDJOcnFCaHlLV3NDNU02aldOM3dmUVlwcDNNanRNZ3dOQUJTWXhYUQ?oc=5
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxNSlFjZUpxOUNmbUh6ODh3a0l0djN2SFBqZTlxTUFyX1h4aE10S3lnejU3NmV0X3QwVlhwUUJCaDZCT1ZhTENkTkhkcnVvNDY3SG5IY2xmOWJ4YVJOMW1vaGpSNUpwdnplWVFFUUFGNmJMaVFoRVlxV1JRSWhrOGZZMVNuOA?oc=5
+
 ## Jason Kelce Opens Up About A Part Of Taylor Swift's Life That Travis Kelce Is Reportedly 'Struggling
 
 - first seen: 2026-07-27 18:44 UTC | category: relationship | importance: 5
@@ -322,14 +351,6 @@ Stories: 71
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMisAFBVV95cUxOMHExc3AyTDlLQ1pzSDRLZWJwdE9oV1JKdnlwU3k3dTFSUVpicUVVbHNIVUN5UFpBRHR1VDJYWFVON1RKd3FIWHlJUmpjeHVHdTBPTW1KZWxhVUpPNUZGa1NEaDZFTzdya19XYWc3RnJwbUlHbjk2WWNoQ0Jjcmpmd3NIVlpnV3A0VFVaV1NNeEQzVXRoQXk1cmFVekMzc0J0SEQ4QU1ubTd3Yk5wVDVwRQ?oc=5
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOFBMZUhOWTVMaFp2VzV2cGVGWHBqTlVoYTZhRmxCTTlqb1RNZ05TYlRsU2tqcGFuelgxMUlfVWQ5VnlDaXBzZENWZ2d4NFMzQzhZSGphVUhSWkh4elc3YWRKVk55Z2JWYk4yQ1I4REVaWENWLXBoYlZ1SzY3TGlQRHdUbkNicGdO?oc=5
-
-## Taylor Swift, Justin Bieber, Eminem? Who's up next at the Big House? - The Detroit News
-
-- first seen: 2026-07-27 18:44 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Justin Bieber, Eminem? Who's up next at the Big House?  The Detroit News
-- sources:
-  - [unverified] The Detroit News — https://news.google.com/rss/articles/CBMiigJBVV95cUxNMmlQUk9aWnhqTk5HWGlIRDduMmtXNjJvZUJ2TkJQM19nczUwVjZCbF9RRGFVSlpxeFpGSml2SmdRWlNzZV9tU25yNExKSlBNWmRiRERMdDZQQnNYMmU2NUQ4TFN2dHI2akF0YnR3QmQ4eHV5VDNJeXRuWHEzM180T2UyS3hMeVpaSE42d0FsWHR2YkF4UTdLeEp6SWtXYzc0YjRvdE1saHctQks4OF9BVFphc0lLeWMtYzZYanVjVndDZUF4YmRiR3NDTk1Ud2Y3MEtYaEx5Vy1reFlFbDcyRHlpMDJOcnFCaHlLV3NDNU02aldOM3dmUVlwcDNNanRNZ3dOQUJTWXhYUQ?oc=5
 
 ## Producer Aaron Dessner Denies Gracie Abrams Song About Taylor Swift - Kiss 95.1 Charlotte
 
@@ -566,44 +587,3 @@ Stories: 71
 - summary: Taylor Swift revealed the awkward moment the Kelce brothers met the royal family at her concert  Yahoo Creators
 - sources:
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6AFBVV95cUxNQVpsWlhJSk1xZUtnQWl0TTJLZTZITlpLcXlhWE52TmY2WkJhZzRPYVdOcWhYdVpXYkNVNFRZWnhXaXhWTldaQ3JhdGNNdDViM1JWai1lNEp1cDNnaUx4aUJfcldpeWVhVWtKemZFSWFTSnQwdWtFazFFdng0QXhQRjY5X3l1Tk1GcHlrOURLRVkyQWF3Uk1UMGlmcHZVX0NQb1dZYzcxUWpITnF5cUFnNVIyU0oyb25ONHNoQk40TFRBc0dleGhLVmsyaEU5WUFfLS02N3RnTDljN1BDVnpsX1JCajhKN2Nq?oc=5
-
-## Brad Paisley on Taylor Swift, Travis Kelce donation to The Store - The Tennessean
-
-- first seen: 2026-07-25 22:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley on Taylor Swift, Travis Kelce donation to The Store  The Tennessean
-- sources:
-  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNMlA0WjRBQVdNSkVfYWR5TjQ3V2tCS3RwVWtlTHRJYUtMOWtHb3MtY0x1QllEclVRWnRDYW5tYV83VGZLMHpXZDdqTmZGenhJODk4ZC1tNG1lRGxMYVdFQ0dyaHlpMDhQSFZQeENtd0dIVE9IazRxdlhwYkluTG53YmZXdUI1bnlsVEpKY1ZZLXI5OXF2d1Nqai1KUHRSbXV3Q1BQR2M0eGhuNFR0QkpXZkc2NHZwTkNaU3V4N3JqTjFFc0U4M1BXRmRmVlA2Y3RUNFlRbmRoTWVrZzVjSjBsdjlVbw?oc=5
-
-## Insider Says Taylor Swift Couldn’t ‘Let Someone Else Have The Country Throne’ - Yahoo
-
-- first seen: 2026-07-25 22:06 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Insider Says Taylor Swift Couldn’t ‘Let Someone Else Have The Country Throne’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOWWZRLUFETngxeWRyZkowUnpmTHBsMFl0OUd4SnhoOGl4MUxUV1dDMllHODB5UzQ3azgxV1pwMFdRYllzdjNPRXlhWHpQU2tMQkU4N0RtYW9EcmpXZkVwMHhWUnFqVGIzMjZUeVlMN0U3aFhRY0FjREVMM2FCWUZiSU9RY1VmY25YNDdkSnFkYlo4a3lGaV9DSkV0M1M0WE0?oc=5
-
-## 'She doesn't shrink herself': Travis Kelce's comfort with Taylor Swift's fame and billion dollar for
-
-- first seen: 2026-07-25 22:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 'She doesn't shrink herself': Travis Kelce's comfort with Taylor Swift's fame and billion dollar fortune  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMivAJBVV95cUxQSTA4RXhZaEotaS05b1Fhblk5OUF3WmlVbWJFZHZrY0UwU1lwSDdmdE1PQ2M5cGpzQmdlVTN5dVhzNUloUDczU0FqbkZMVWZMUW1Xd0E1TGlpMGtka3licmhPUkhDRWJFLWlzcklZaFhVVFZ3VlZoTUJuVmY4VUdXd1EwU1VJR3VBeVJMYU1mZWFIbkJ0bnhCeWxfQkhCY0h5QTRwNDZEUkhObjY5bW9VYmlOV18xTEpvbFNEamxLbGNQa2stZk4waUxVeVR2M1ZjZkVrcy1HSGNsUHVEMHNQWkp6WU4zR3hDNjVxTEo3UXByM2JhNG9jdTdCRnJGRnBoNEltc1p4bm8yMjk5SUt3ZVhrazVfcUg4S0o5azdRNXNXYXlNLW9xZVZjXzYxMzBZU2N5N2dRMDZMQjFv0gHCAkFVX3lxTE9yLTc1cnltSkxRS244dkk3bkVNV292S3hCYm56cGVIaDA5TVRvSlMzOHVqTWNOVUpvWUZHbU51WFo0Q2pIYS1uaVNQTDZFUzRNUFdtOE1sQ0Fjb0FWdGpXWG9HLUV0TFBocm5Kcm9vRjctaENpT2FUQnlZWnJ5bzNsbC01WkJkQzVvNGV2Rm9VR2huZDhYZ1hON3pPTmtMRmNEbDhKdnpXVTlkLVYzMGhRbC1IcDNnU2tGVVRqSlpONFhBeENmb2FXaVg1eWFEY0drS2hnNEotZ09jRWEwbC1UbnRJenUxSERRRjY4OGs3blFHdHg3c1FKaHQtZ2hlSjQ3WWo1R2RNS1Z6VmZWS1ZpSzloMkhwLVRkbmxFNjd4bVFtNGVQdmQ1RWpQc2V4MXJRWkFpZUxGbW1EN1R4UmJpUVE?oc=5
-
-## Niecy Nash-Betts shares unique phone security method for Taylor Swift and Travis Kelce wedding - Yah
-
-- first seen: 2026-07-25 22:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Niecy Nash-Betts shares unique phone security method for Taylor Swift and Travis Kelce wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPVEdXbmptSm5NNDBJbkpvaFU0LS10Zk16TGVhbmp2ZV9mTE4zSzhfY3JPSmpnMzFCMXFFd2ZVTUtRSjFOZUthclhSQVRaSHk5ek05ekdGTEt2cElMT0tNc0xTQlhnMlJzYXFBS3dHTTkwazV0Y3EwTThyQ3lJbXdRVERELWdHNlJsRmtJd2VIalBoYWRwdE9EWUxLUGJkT0piX0E?oc=5
-
-## Travis Kelce & Taylor Swift Are Allegedly Planning for the Chiefs Players to Cause ‘Drama’ After Wed
-
-- first seen: 2026-07-25 22:06 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce & Taylor Swift Are Allegedly Planning for the Chiefs Players to Cause ‘Drama’ After Wedding  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPQ0pFZ2h5djhnZTdQM09JNTVWWnBQVFZtT0pIZDkyVzVjVmlSZm1oOUdaUEtEZUpJbnZORkpVcW1pMUltd2dwQkEtUkxpX0ZpN0N0bERnRVZZNXg4N3ZkRWpJRWdoLURZbUZzLUlBQXdRYnBKRVBkQ2NPM0R2bEZ5amhPeUN5WVJMVUo0eVMyS09pWkhZeWg0cGZBLTZKVXVkSjIxVDU4akRXQQ?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPdnF0SU93cW9yaDlrYzdJeWlaT290eWFtN2JfQ2dyblhCdEVtOFJNMkpVb19yZTg1UFFZNkg5SEV1czhLSXFGZE5IdmczbFVMZk9iSExxOXNiYXRDcDNhZllGcWRhV1NNa2FyZGZvc0dZWFhzdXZxeFJUcjJleGtKRkJicElCOHVvRXlqYkFRX3FJRWh0TlpEVmJnRW5FbjVjODZVbHdIcE4?oc=5
