@@ -514,17 +514,38 @@ export default {
       writers: ['Taylor Swift'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isFromTheVault: true,
-      note: 'A duet with Paramore’s Hayley Williams about fearing the fall from grace — written six years before the 2016 pile-on made it prophetic.',
+      note: 'A duet with Paramore’s Hayley Williams about fearing the fall from grace — written in the Speak Now era, its dread of a turning public an eerie pre-echo of the 2016 pile-on.',
       summary:
-        'A ruler watches the kingdom turn: cheers becoming jeers, and the terror of disappointing everyone who once chanted your name. Fans read it as Long Live’s shadow twin.',
+        'A ruler watches the kingdom turn: cheers becoming jeers, and the terror of disappointing everyone who once chanted your name. A piano-driven emo/indie-folk ballad produced by Swift with Jack Antonoff (mixed by Serban Ghenea, mastered by Randy Merrill), it was one of the release’s most-discussed vault cuts — debuting at No. 31 on the Billboard Hot 100 and No. 30 on the Global 200 the week Speak Now (Taylor’s Version) put all its songs on the chart (July 2023). Fans read it as Long Live’s shadow twin (a fan reading, not one Swift has confirmed).',
       inspiration:
-        'Written in the Speak Now era about fame anxiety; recorded with Williams, a documented friend since their teens. Its eerie pre-echo of 2016 is the fan-noted (and widely press-noted) irony.',
+        'Written in the Speak Now era about fame anxiety and recorded fourteen years later with Hayley Williams. Swift, announcing the vault track, credited Williams as an influence on her Speak Now songwriting — the basis she gave for choosing her as the duet partner; Williams told Coup de Main she was grateful for a song she felt “portrayed an experience that both she and Swift went through.” (The corpus previously called them “friends since their teens,” which no source supports — corrected here.) When in the era it was written, and why it was cut from the 2010 album, are not documented in Swift’s own statements.',
       themes: ['fame anxiety', 'fall from grace', 'public disappointment'],
-      easterEggs: 'Deliberate mirror of Long Live: same castle imagery, opposite outcome.',
+      easterEggs:
+        'Fans read it as the shadow twin of “Long Live” — same castle imagery, opposite outcome (cheers curdling to jeers) — but that mirror is a fan/critical reading, not one Swift has confirmed. Live history: performed only twice on the Eras Tour — a solo surprise-song debut in Santa Clara (July 28, 2023) and a London night on June 23, 2024 where Hayley Williams walked out to sing it with her in person.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Castles_Crumbling',
       sources: [
-        wiki('Castles Crumbling', 'Castles_Crumbling', 'song article: Williams collaboration'),
+        wiki('Castles Crumbling', 'Castles_Crumbling', 'song article: collaboration, charts, production, reception, live history'),
         TV,
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373016/',
+          source_title: "Taylor Swift's 'Speak Now (Taylor's Version)' Debuts All Songs on the Hot 100",
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-28',
+          reliability_score: 4,
+          notes: '"Castles Crumbling" debuted at No. 31 on the Hot 100 (chart dated July 22, 2023)',
+        },
+        {
+          source_url:
+            'https://www.billboard.com/lists/taylor-swift-speak-now-taylors-version-vault-songs-ranked/',
+          source_title: "Every 'From The Vault' Song Ranked on Taylor Swift's 'Speak Now (Taylor's Version)'",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-28',
+          reliability_score: 4,
+          notes: 'Reception of the vault cuts, including the Williams duet',
+        },
       ],
     },
     {
