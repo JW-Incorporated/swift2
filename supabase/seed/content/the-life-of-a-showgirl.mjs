@@ -3141,6 +3141,17 @@ export default {
             // Glass pyramid and entrance banner sit dead center, just below the midline.
             focalPoint: '50% 48%',
           },
+          {
+            // No approved-host outlet has published a photo of the exhibit case
+            // itself; this is the source imagery for one of its own artifacts
+            // (the swim-cap/life-preserver look now under glass), pulled from
+            // Billboard's own article about this exact display.
+            url: 'https://www.billboard.com/wp-content/uploads/2026/04/Taylor-Swift-Fate-of-Ophelia-video-screengrab-billboard-1800.jpg',
+            focalPoint: '50% 40%',
+            credit: 'Courtesy, via Billboard',
+            caption: "Taylor's beaded swim cap and life-preserver look from \"The Fate of Ophelia\" video — the swimming costume now on display at the Rock & Roll Hall of Fame.",
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -3225,6 +3236,22 @@ export default {
             note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-08-11',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.nme.com/wp-content/uploads/2026/06/taylor-swift@2000x1270-696x442.jpg',
+            focalPoint: '42% 28%',
+            credit: 'Aeon/GC Images, via NME',
+            caption: 'Taylor Swift in Greenwich Village on June 15, 2026, the night she was later seen leaving Electric Lady Studios after a nine-hour overnight session.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20260616/7d45c0d3-b57d-46d9-883a-552c2d7c9ded_1781613855.jpg',
+            focalPoint: '45% 18%',
+            credit: 'Aeon/GC Images, via E! Online',
+            caption: 'Taylor Swift walking in Greenwich Village the night of June 15, 2026, hours before the Electric Lady Studios sighting that sparked TS13 speculation.',
+            kind: 'reference',
           },
         ],
       },
@@ -3927,6 +3954,22 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/07/kylie-kelce-not-gonna-lie-screengrab-july2026-billboard-1800.jpg',
+            focalPoint: '58% 32%',
+            credit: 'Courtesy of Not Gonna Lie With Kylie Kelce/YouTube, via Billboard',
+            caption: 'Kylie Kelce recording the July 23, 2026 episode of "Not Gonna Lie," on which she called Taylor and Travis\'s wedding "absolutely magical."',
+            kind: 'primary',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/07/donna-kelce-macys-4th-of-july-nyc-billboard-1800.jpg',
+            focalPoint: '44% 20%',
+            credit: 'Eugene Gologursky/Getty Images for Macy\'s, Inc., via Billboard',
+            caption: "Donna Kelce at the 50th Macy's 4th of July Fireworks at Pier 17 on July 4, 2026 — where she called the wedding \"magical, man.\"",
+            kind: 'archival',
           },
         ],
       },

@@ -2670,6 +2670,29 @@ export default {
       video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
       moment: {
         context: "Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.",
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2018/06/rs-165728-454102604.jpg',
+            focalPoint: '42% 18%',
+            credit: 'Kevin Winter/Getty Images for MTV, via Rolling Stone',
+            caption: 'Taylor Swift performs "Shake It Off" live for the first time at the 2014 MTV Video Music Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shake-it-off-video-1-2014-billboard-650.jpg',
+            focalPoint: '55% 25%',
+            credit: 'Big Machine Records, via Billboard',
+            caption: 'Taylor Swift in the official "Shake It Off" music video, directed by Mark Romanek and released August 18, 2014.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/maxresdefault.jpg',
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift / Big Machine Records (official YouTube thumbnail)',
+            caption: 'Still from the official "Shake It Off" music video.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -2750,6 +2773,22 @@ export default {
       video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
       moment: {
         context: "The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/maxresdefault.jpg',
+            focalPoint: '48% 45%',
+            credit: 'Taylor Swift / Big Machine Records (official YouTube thumbnail)',
+            caption: 'Taylor Swift in the fiery opening close-up of the "Bad Blood" music video, which premiered at the 2015 Billboard Music Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2020415/rs_1200x1200-200515200835-1200-taylor-swift-2-bad-blood.ct.051520.jpg',
+            focalPoint: '50% 25%',
+            credit: 'Big Machine Records, via E! Online',
+            caption: 'Taylor Swift as her "Catastrophe" character in the "Bad Blood" video\'s opening lair sequence.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {

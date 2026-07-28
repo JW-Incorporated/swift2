@@ -2557,6 +2557,13 @@ export default {
             kind: 'primary',
             focalPoint: '50% 40%',
           },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/05/Taylor-Swift-Joe-Alwyn-2019-billboard-1548.jpg',
+            focalPoint: '50% 35%',
+            credit: 'Jackson Lee/GC Images, via Billboard',
+            caption: 'Taylor Swift and Joe Alwyn depart Zuma on Oct. 6, 2019 in New York City.',
+            kind: 'archival',
+          },
         ],
       },
     },
