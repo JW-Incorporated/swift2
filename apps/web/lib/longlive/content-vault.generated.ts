@@ -67,8 +67,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     },
     {
       id: "vault-1989-bad-blood-and-the-friendship-it-ended",
-      date: "2014-09-08",
-      dateLabel: "September 8, 2014",
+      date: "2014-10-27",
+      dateLabel: "October 27, 2014",
       title: "Bad Blood, and the friendship it ended",
       summary: "Not about an ex — by her own account, about a friend who tried to sabotage an entire arena tour.",
       body: ["She told Rolling Stone the person had \"tried to hire a bunch of people out from under\" her; a year later she told GQ she'd \"never said anything that would point a finger in the specific direction of one specific person.\"", "Katy Perry, the widely speculated subject — the falling-out reportedly traced to a 2013 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia."],
@@ -1971,7 +1971,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The second 1989 re-recording (after \"Wildest Dreams (Taylor's Version)\"), released May 6, 2022 after soundtracking the trailer for Amazon's The Summer I Turned Pretty — whose author-showrunner Jenny Han made Swift songs the show's sonic signature.",
       body: ["Like \"Wildest Dreams (Taylor's Version)\" before it, it leapfrogged its parent album — 1989 (Taylor's Version) was still 17 months away — after a snippet soundtracked the first trailer for Amazon's The Summer I Turned Pretty on May 5, 2022; she announced the full track on her socials the day the trailer dropped, and it arrived the next day.", "Critics heard a gentler remake: more subdued synths, vocals less processed and more resonant, with a lean toward indie rock. The re-recording reached No. 42 on the Hot 100 — a significantly stronger showing than the original 2014 album cut ever managed."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"This Love (Taylor's Version),\" the first 1989 re-recording released.", kind: "primary", focalPoint: "58% 26%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg/500px-Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg", credit: "Rhododendrites, Wikimedia Commons (CC BY-SA 4.0) — Jenny Han, BookCon 2019 (archival, era context)", caption: "Jenny Han, whose Amazon adaptation of The Summer I Turned Pretty carried the re-recorded \"This Love\" out into the world a night early.", kind: "archival", focalPoint: "45% 24%" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"This Love (Taylor's Version),\" the second 1989 re-recording released.", kind: "primary", focalPoint: "58% 26%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg/500px-Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg", credit: "Rhododendrites, Wikimedia Commons (CC BY-SA 4.0) — Jenny Han, BookCon 2019 (archival, era context)", caption: "Jenny Han, whose Amazon adaptation of The Summer I Turned Pretty carried the re-recorded \"This Love\" out into the world a night early.", kind: "archival", focalPoint: "45% 24%" }],
       sources: [{ name: "This Love (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)" }],
     },
     {
@@ -3900,8 +3900,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     },
     {
       id: "vault-midnights-1989-taylors-version-resets-the-vinyl-record",
-      date: "2023-10-01",
-      dateLabel: "October 2023",
+      date: "2023-11-11",
+      dateLabel: "November 11, 2023",
       title: "1989 (Taylor's Version) resets the vinyl record",
       summary: "1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album.",
       body: ["The 1.653 million-unit week ran on 1.359 million traditional sales — then the largest sales week of her entire career, and the biggest for any album since Adele's 25 moved 3.482 million in 2015 — with 693,000 of those on vinyl, a new vinyl record she'd break again with The Tortured Poets Department and The Life of a Showgirl, smashing the modern-era vinyl record Midnights had set at 575,000 just a year earlier.", "It also out-opened the original: 1989 debuted with 1.287 million in November 2014 on its way to 11 nonconsecutive weeks at No. 1. Chart-topper number thirteen — her lucky number — kept her tied with Drake for the third-most No. 1 albums in Billboard 200 history and extended her record among women."],

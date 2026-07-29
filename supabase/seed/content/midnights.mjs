@@ -265,8 +265,16 @@ export default {
       },
     },
     {
+      // Date fix (issue #1218): was year/month only (2023-10, defaulting to
+      // day 1) — a post-release chart-week achievement stamped before the
+      // Oct. 27 release it depends on, rendering ahead of the film premiere/
+      // opening and the album's own release-week cards in the date-descending
+      // timeline. Re-dated to the Billboard 200 chart date (Nov. 11, 2023;
+      // tracking week ended Nov. 2, chart posted Nov. 7) that these week-one
+      // sales figures actually belong to.
       year: 2023,
-      month: 10,
+      month: 11,
+      day: 11,
       category: 'business',
       // Cross-link (candidate #1332, 2026-07-25): the Oct-2023 billionaire milestone
       // whose own text cites this record sales week as part of the same revenue story.
