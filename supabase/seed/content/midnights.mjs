@@ -2949,6 +2949,10 @@ export default {
         'moment:vault-midnights-anti-hero-dominates',
       ],
       title: 'Every spot in the Hot 100 top 10, all at once',
+      // Era-timeline milestone (issue #616, 2026-07-29): moved here from the
+      // now-deleted duplicate stub `midnights-chart-record`, which told the
+      // same event in one sentence with no sources.
+      milestone: { id: "m-mid-1b", label: "Entire top ten", kind: "award" },
       snippet:
         'The week "Anti-Hero" debuted at No. 1, the other nine Midnights tracks filled out the rest of the top 10 — the first time in Hot 100 history one artist held the entire top 10 in a single week.',
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
@@ -4934,35 +4938,13 @@ export default {
         ],
       },
     },
-    {
-      year: 2022,
-      month: 9,
-      day: 21,
-      category: 'music',
-      title: 'Midnights Mayhem with Me: fate, a bingo cage, and thirteen ping-pong balls',
-      snippet:
-        'No cryptic clues this time — a TikTok series where a bingo cage full of numbered balls decides which track title Taylor announces into a red phone. First ball out: 13. "Track 13 is called Mastermind." Of course it was.',
-      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'Launched at midnight ET on Sep. 21, 2022, the TikTok series ran on one gloriously lo-fi mechanic: thirteen ping-pong balls in a bingo cage — "this technologically advanced device," as Taylor put it — "to help me allow fate to decide exactly what track titles I\'m going to be announcing, and in what order." A ball drops, she lifts a red phone receiver, and a title is read out. Episode one drew ball 13 and gave the era its thesis statement: "Mastermind."\n\nThirteen episodes later the series wrapped on Oct. 7, the final titles posted an hour apart — album opener "Lavender Haze," "You\'re On Your Own, Kid," "Labyrinth," "Sweet Nothings," and "Snow On The Beach" with Lana Del Rey — completing the tracklist two weeks before release. It became the rollout\'s defining fan ritual: appointment-viewing at midnight for a lottery ball.',
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
-          },
-          {
-            outlet: 'NME',
-            url: 'https://www.nme.com/news/music/taylor-swift-midnights-album-tracklist-3314098',
-          },
-          {
-            outlet: 'Today',
-            url: 'https://www.today.com/popculture/music/taylor-swift-midnights-tracklist-song-names-rcna50738',
-          },
-        ],
-      },
-    },
+    // Duplicate removed (issue #616, 2026-07-29): this item told the exact
+    // same Midnights Mayhem with Me TikTok series (Sep. 21 launch through
+    // Oct. 7 finale, same "Mastermind" first-ball reveal) as the richer,
+    // more thoroughly sourced `midnights-mayhem-with-me` item elsewhere in
+    // this file, which already covers the full Sep. 21-Oct. 7 run end to
+    // end. No milestone, relatedIds, or hiddenClue to migrate — nothing
+    // else in this file referenced it.
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
@@ -4984,7 +4966,7 @@ export default {
         'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
         'moment:vault-midnights-the-3am-edition-surprise',
         'moment:vault-midnights-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
-        'moment:vault-midnights-every-top-ten-slot-at-once',
+        'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
       ],
       snippet: "A return to pop as a diary of midnights across her life.",
       moment: {
@@ -5096,7 +5078,7 @@ export default {
       relatedIds: [
         'moment:vault-midnights-thirteen-sleepless-nights',
         'moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
-        'moment:vault-midnights-every-top-ten-slot-at-once',
+        'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
         'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
         'moment:vault-midnights-the-anti-hero-video-and-the-scale-scene-that-got-cut',
       ],
@@ -5161,25 +5143,10 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "midnights-chart-record",
-      year: 2022,
-      month: 11,
-      day: 5,
-      category: "sighting",
-      // Cross-link (candidate #1357, 2026-07-25): the lead single that anchored the sweep.
-      relatedIds: ['moment:vault-midnights-anti-hero-dominates'],
-      title: "Every top-ten slot at once",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-mid-1b", label: "Entire top ten", kind: "award" },
-      snippet: "She becomes the first artist to monopolize the entire top ten of the Hot 100.",
-      moment: {
-        context: "The album’s dominance rewrote the record books, occupying all ten of the chart’s highest positions in a single week.",
-      },
-    },
+    // Duplicate stub removed (issue #616, 2026-07-29): told the same Nov. 5,
+    // 2022 all-top-10 sweep as the richer, sourced "Every spot in the Hot
+    // 100 top 10, all at once" item above in one sentence with no sources;
+    // its milestone marker (m-mid-1b) moved there.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.

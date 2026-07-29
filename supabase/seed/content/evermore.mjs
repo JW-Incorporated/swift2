@@ -2881,48 +2881,13 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "evermore-no-body-no-crime",
-      year: 2020,
-      month: 12,
-      day: 11,
-      category: "music",
-      title: "\"no body no crime\" with HAIM",
-      snippet: "A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.",
-      moment: {
-        context: "The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Taylor to perform it live during the Eras Tour years later.",
-      },
-    },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "evermore-champagne-problems",
-      year: 2020,
-      month: 12,
-      day: 11,
-      category: "music",
-      tags: ["Lore"],
-      title: "\"champagne problems\"",
-      snippet: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
-      moment: {
-        context: "One of two evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
-        // Photo pass #762 (2026-07-19): official lyric-video still — ID
-        // wMpqCRF7TKg verified via YouTube oEmbed ("Taylor Swift - champagne
-        // problems (Official Lyric Video)", author "Taylor Swift"); curl 200
-        // image/jpeg 1280x720; Read-viewed: the title card's champagne flute.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/wMpqCRF7TKg/maxresdefault.jpg',
-            credit: 'YouTube / Taylor Swift',
-            caption: 'The official lyric video\'s title card.',
-            kind: 'archival',
-            focalPoint: '50% 40%',
-          },
-        ],
-      },
-    },
+    // Two duplicate stubs removed here (issue #616, 2026-07-29):
+    // - "evermore-no-body-no-crime" told the same HAIM-featuring murder
+    //   ballad as the richer, sourced item above.
+    // - "evermore-champagne-problems" told the same failed-proposal song as
+    //   the richer, sourced "champagne problems, a fictional proposal gone
+    //   wrong" item above — which already carries the identical lyric-video
+    //   still photo this stub also had, so nothing unique was lost.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
