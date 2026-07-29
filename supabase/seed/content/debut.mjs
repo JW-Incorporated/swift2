@@ -26,7 +26,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
-          "She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\"\n\nRose has always handed her the credit, saying Swift arrived with the idea and the melody and knew exactly what she wanted — and Swift insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\"",
+          "She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\"\n\nRose has always handed her the credit, saying Taylor arrived with the idea and the melody and knew exactly what she wanted — and Taylor insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\"",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/tim-mcgraw' },
@@ -84,7 +84,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Dolly_parton_grand_ole_opry.jpg',
             credit: 'Tech. Sgt. Cherie A. Thurlby, USAF (public domain)',
-            caption: 'Dolly Parton performing on the actual Grand Ole Opry stage, under the same "GRAND OLE OPRY" roundel — the same stage Swift debuted on, a different night.',
+            caption: 'Dolly Parton performing on the actual Grand Ole Opry stage, under the same "GRAND OLE OPRY" roundel — the same stage Taylor debuted on, a different night.',
             kind: 'reference',
             focalPoint: '78% 55%',
           },
@@ -247,7 +247,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
       moment: {
         context:
-          'The couple came over for dinner and told the story of how they\'d met as kids — and Swift, then 16, turned it into the debut\'s only whole-life love story, written with Liz Rose and Brian Maher. Her full quote reads like a thesis statement for the album: "You can go to the grocery store and read the tabloids... it was really comforting to know that all I had to do was go home and look next door to see a perfect example of forever."\n\nThen the song disappeared: per Songfacts she didn\'t perform it again after 2008 until July 6, 2024, when it resurfaced in an Eras Tour surprise-song mashup in Amsterdam.',
+          'The couple came over for dinner and told the story of how they\'d met as kids — and Taylor, then 16, turned it into the debut\'s only whole-life love story, written with Liz Rose and Brian Maher. Her full quote reads like a thesis statement for the album: "You can go to the grocery store and read the tabloids... it was really comforting to know that all I had to do was go home and look next door to see a perfect example of forever."\n\nThen the song disappeared: per Songfacts she didn\'t perform it again after 2008 until July 6, 2024, when it resurfaced in an Eras Tour surprise-song mashup in Amsterdam.',
         sources: [
           {
             outlet: 'Rolling Stone Australia',
@@ -701,7 +701,7 @@ export default {
       thumbnailUrl: 'https://townsquare.media/site/204/files/2019/08/Taylor-Rascal-Flatts-Diary-Entry.jpg?w=980&q=75',
       moment: {
         context:
-          'Rascal Flatts had just fired opener Eric Church from their "Me and My Gang" tour for repeatedly running long onstage. The opening it created went to 16-year-old Swift, who got the call on Oct. 17, 2006 and wrote in her diary the next day: "Oh my God. I am on the Rascal Flatts tour! I got the call yesterday and I screamed louder than I can ever remember screaming before." She opened the tour\'s remaining dates that fall (Oct. 19-Nov. 3, 2006).\n\nYears later, when she earned her first gold record, she gave it to Church with a note: "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
+          'Rascal Flatts had just fired opener Eric Church from their "Me and My Gang" tour for repeatedly running long onstage. The opening it created went to 16-year-old Taylor, who got the call on Oct. 17, 2006 and wrote in her diary the next day: "Oh my God. I am on the Rascal Flatts tour! I got the call yesterday and I screamed louder than I can ever remember screaming before." She opened the tour\'s remaining dates that fall (Oct. 19-Nov. 3, 2006).\n\nYears later, when she earned her first gold record, she gave it to Church with a note: "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
         sources: [
           { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-diary-entry-2006-rascal-flatts-tour/' },
         ],
@@ -724,7 +724,7 @@ export default {
       category: 'sighting',
       title: 'Singing the anthem at a Detroit Lions Thanksgiving game, 16 years old',
       snippet:
-        '"It felt impossible for a place to be that big, I was sooo insanely nervous" — 16-year-old Swift on singing the national anthem before a sold-out Ford Field on Thanksgiving Day, 2006.',
+        '"It felt impossible for a place to be that big, I was sooo insanely nervous" — 16-year-old Taylor on singing the national anthem before a sold-out Ford Field on Thanksgiving Day, 2006.',
       sourceUrl:
         'https://www.billboard.com/music/music-news/taylor-swift-reminisces-2006-national-anthem-detroit-ford-field-1235351234/',
       thumbnailUrl:
@@ -833,13 +833,13 @@ export default {
       category: 'sighting',
       title: 'A hug for Dave Grohl the second she heard her first Grammy nomination',
       snippet:
-        'Invited on as a presenter, 17-year-old Swift heard Dave Grohl and Taylor Hawkins read her name for Best New Artist and couldn\'t contain it — stepping up to hug them both on the spot.',
+        'Invited on as a presenter, 17-year-old Taylor heard Dave Grohl and Taylor Hawkins read her name for Best New Artist and couldn\'t contain it — stepping up to hug them both on the spot.',
       sourceUrl: 'https://www.thelist.com/1610914/taylor-swift-dave-grohl-drama-timeline/',
       thumbnailUrl:
         'https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg',
       moment: {
         context:
-          'At the 50th Grammy Awards nominations announcement at the Henry Fonda Music Box Theater on Dec. 6, 2007, 17-year-old Swift was invited on as one of the presenters — and then heard her own name read out as a Best New Artist nominee, her first-ever Grammy nomination.\n\nShe couldn\'t hold back her excitement, stepping up to hug Foo Fighters\' Dave Grohl and Taylor Hawkins on the spot, drawing laughs from the room. (Amy Winehouse would go on to win the category at the ceremony two months later.)',
+          'At the 50th Grammy Awards nominations announcement at the Henry Fonda Music Box Theater on Dec. 6, 2007, 17-year-old Taylor was invited on as one of the presenters — and then heard her own name read out as a Best New Artist nominee, her first-ever Grammy nomination.\n\nShe couldn\'t hold back her excitement, stepping up to hug Foo Fighters\' Dave Grohl and Taylor Hawkins on the spot, drawing laughs from the room. (Amy Winehouse would go on to win the category at the ceremony two months later.)',
         sources: [
           { outlet: 'The List', url: 'https://www.thelist.com/1610914/taylor-swift-dave-grohl-drama-timeline/' },
         ],
@@ -866,7 +866,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
       moment: {
         context:
-          'Swift wrote the song about a classmate named Drew (widely reported, including by outlets covering his later arrest, as Drew Hardwick) who sat next to her in class -- she wanted to date him, but he kept confiding in her about another girl he liked instead. She turned the feeling into a song on the walk home from school.\n\nHe didn\'t realize the song was about him until, by her account: "About two years after the album came out in the States, he showed up in my driveway. Apparently he and his girlfriend had broken up so that was his first stop when he was back in town."',
+          'Taylor wrote the song about a classmate named Drew (widely reported, including by outlets covering his later arrest, as Drew Hardwick) who sat next to her in class -- she wanted to date him, but he kept confiding in her about another girl he liked instead. She turned the feeling into a song on the walk home from school.\n\nHe didn\'t realize the song was about him until, by her account: "About two years after the album came out in the States, he showed up in my driveway. Apparently he and his girlfriend had broken up so that was his first stop when he was back in town."',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/teardrops-on-my-guitar' },
@@ -933,12 +933,12 @@ export default {
       category: 'sighting',
       title: 'A surprise duet with a 14-year-old AGT finalist, off a red-eye flight',
       snippet:
-        "\"I can't wait to sing with Julienne...she's such a sweetheart\" -- Swift flew overnight from a Rapid City tour stop to duet on the America's Got Talent finale.",
+        "\"I can't wait to sing with Julienne...she's such a sweetheart\" -- Taylor flew overnight from a Rapid City tour stop to duet on the America's Got Talent finale.",
       sourceUrl: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=851',
       thumbnailUrl: null,
       moment: {
         context:
-          'Fourteen-year-old America\'s Got Talent finalist Julienne Irwin\'s wish, if she made the finals, was to duet with her favorite singer. Swift agreed: "I can\'t wait to sing with Julienne on America\'s Got Talent. She\'s such a sweetheart, and I\'m so unbelievably honored that she chose me..."\n\nOn Aug. 21, 2007, she flew overnight from a tour date in Rapid City, South Dakota to Los Angeles for the live finale, where the pair performed "Teardrops on My Guitar" together, before Swift continued on to a show in Minneapolis.',
+          'Fourteen-year-old America\'s Got Talent finalist Julienne Irwin\'s wish, if she made the finals, was to duet with her favorite singer. Taylor agreed: "I can\'t wait to sing with Julienne on America\'s Got Talent. She\'s such a sweetheart, and I\'m so unbelievably honored that she chose me..."\n\nOn Aug. 21, 2007, she flew overnight from a tour date in Rapid City, South Dakota to Los Angeles for the live finale, where the pair performed "Teardrops on My Guitar" together, before Taylor continued on to a show in Minneapolis.',
         sources: [
           { outlet: 'Country Standard Time', url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=851' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Julienne_Irwin' },
@@ -1014,7 +1014,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At the 2008 CMT Music Awards on April 14, 2008 at Nashville\'s Curb Events Center, "Our Song" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert.\n\nAccepting, 18-year-old Swift joked: "I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that\'s not easy," before tearfully thanking the fans who\'d voted for her.',
+          'At the 2008 CMT Music Awards on April 14, 2008 at Nashville\'s Curb Events Center, "Our Song" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert.\n\nAccepting, 18-year-old Taylor joked: "I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that\'s not easy," before tearfully thanking the fans who\'d voted for her.',
         sources: [
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/' },
         ],
@@ -1433,7 +1433,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'A six-track Walmart exclusive released July 15, 2008, built from alternate versions plus two otherwise-unreleased songs, "Beautiful Eyes" and "I Heart ?." It debuted at No. 1 on Top Country Albums with her still-selling debut sitting right behind it at No. 2 — making her the first act since LeAnn Rimes in 1997 to hold both of the chart\'s top two spots at once.\n\nSwift deliberately capped the pressing and said so in her own announcement, wary of overexposing fans a year out from her real second album: "I\'m only letting my record company make a small amount of these. The last thing I want any of you to think is that we are putting out too many releases." The whole point was a stopgap — something to hold the audience until "Fearless" that November.',
+          'A six-track Walmart exclusive released July 15, 2008, built from alternate versions plus two otherwise-unreleased songs, "Beautiful Eyes" and "I Heart ?." It debuted at No. 1 on Top Country Albums with her still-selling debut sitting right behind it at No. 2 — making her the first act since LeAnn Rimes in 1997 to hold both of the chart\'s top two spots at once.\n\nTaylor deliberately capped the pressing and said so in her own announcement, wary of overexposing fans a year out from her real second album: "I\'m only letting my record company make a small amount of these. The last thing I want any of you to think is that we are putting out too many releases." The whole point was a stopgap — something to hold the audience until "Fearless" that November.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1499,7 +1499,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
-          'She got the idea in a high-school math class and finished it in about fifteen minutes with co-writer Liz Rose. The title points at McGraw\'s music, not at the boy the song is about: her favorite McGraw song — his 2004 "Can\'t Tell Me Nothin\'" — was the one she imagined an ex hearing years later, and fans who decode the capital letters hidden through the debut\'s liner notes find that same title spelled back. The subject was a senior boyfriend leaving for college, which is all Swift herself has ever said about him; the "Brandon Borello" name attached to the song comes from the press, not from her.\n\nIt was the first single Scott Borchetta\'s brand-new Big Machine Records ever released — chosen after Swift played it for him on ukulele — and pushed the slow, grassroots way everything moved in this era, with a country-radio and MySpace campaign urging fans to request it. The single debuted at No. 86 on the Hot 100 in September and didn\'t peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks; the RIAA has since certified it double platinum. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered in July 2006 — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time.',
+          'She got the idea in a high-school math class and finished it in about fifteen minutes with co-writer Liz Rose. The title points at McGraw\'s music, not at the boy the song is about: her favorite McGraw song — his 2004 "Can\'t Tell Me Nothin\'" — was the one she imagined an ex hearing years later, and fans who decode the capital letters hidden through the debut\'s liner notes find that same title spelled back. The subject was a senior boyfriend leaving for college, which is all Taylor herself has ever said about him; the "Brandon Borello" name attached to the song comes from the press, not from her.\n\nIt was the first single Scott Borchetta\'s brand-new Big Machine Records ever released — chosen after Taylor played it for him on ukulele — and pushed the slow, grassroots way everything moved in this era, with a country-radio and MySpace campaign urging fans to request it. The single debuted at No. 86 on the Hot 100 in September and didn\'t peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks; the RIAA has since certified it double platinum. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered in July 2006 — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1690,35 +1690,35 @@ export default {
             url: 'https://images.wral.com/asset/entertainment/2023/10/03/21079762/3196033-TSwift3-DMID1-60h14ptlf-640x360.jpg',
             focalPoint: '46% 44%',
             credit: 'Submitted photo, via WRAL',
-            caption: 'Swift performs for students at Athens Drive High School in Raleigh during her fall 2006 debut-album radio tour.',
+            caption: 'Taylor performs for students at Athens Drive High School in Raleigh during her fall 2006 debut-album radio tour.',
             kind: 'archival',
           },
           {
             url: 'https://images.wral.com/asset/entertainment/2023/10/03/21079771/3195989-TSwift_at_ADHS2-DMID1-60gyrf86l-640x360.jpg',
             focalPoint: '50% 40%',
             credit: 'Submitted photo, via WRAL',
-            caption: 'Swift poses with Athens Drive students after playing songs from her first album at the school in fall 2006.',
+            caption: 'Taylor poses with Athens Drive students after playing songs from her first album at the school in fall 2006.',
             kind: 'archival',
           },
           {
             url: 'https://images.wral.com/asset/entertainment/2023/10/03/21079653/3195973-TSwift_pic_cropped-DMID1-60gxv2dvw-640x360.jpg',
             focalPoint: '38% 36%',
             credit: 'Athens Drive High School, via WRAL',
-            caption: 'Swift poses with student Josh Boatwright after her stripped-down Athens Drive High School show in 2006.',
+            caption: 'Taylor poses with student Josh Boatwright after her stripped-down Athens Drive High School show in 2006.',
             kind: 'archival',
           },
           {
             url: 'https://images.wral.com/asset/entertainment/2023/10/06/21084702/3196262-TSwift_pic2-DMID1-60i4g7bch-640x360.jpg',
             focalPoint: '50% 36%',
             credit: 'Contributed photo, via WRAL',
-            caption: 'Swift poses with fans at Athens Drive High School while promoting her self-titled debut in 2006.',
+            caption: 'Taylor poses with fans at Athens Drive High School while promoting her self-titled debut in 2006.',
             kind: 'archival',
           },
           {
             url: 'https://images.wral.com/asset/entertainment/2023/10/04/21081502/3196088-TSwift5-DMID1-60hd13tr0-640x360.jpg',
             focalPoint: '46% 44%',
             credit: 'Submitted photo, via WRAL',
-            caption: 'Swift meets another group of students after her fall 2006 Athens Drive High School performance.',
+            caption: 'Taylor meets another group of students after her fall 2006 Athens Drive High School performance.',
             kind: 'archival',
           },
         ],
@@ -1735,7 +1735,7 @@ export default {
             reportedOn: '2026-07-20',
             status: 'unconfirmed',
             url: 'https://www.bustle.com/entertainment/taylor-swift-spotify-canvas-new-album-theories',
-            note: 'Swift and her team said nothing, and the canvas colors reportedly reverted the next day. Adjudicable as a forward-looking claim about the debut re-recording: it resolves if a debut Taylor\'s Version is announced, and fades if the anniversary window passes with no announcement. Lifecycle re-check 2026-07-24: still no announcement, still live.',
+            note: 'Taylor and her team said nothing, and the canvas colors reportedly reverted the next day. Adjudicable as a forward-looking claim about the debut re-recording: it resolves if a debut Taylor\'s Version is announced, and fades if the anniversary window passes with no announcement. Lifecycle re-check 2026-07-24: still no announcement, still live.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-07-24',
           },
@@ -1744,12 +1744,12 @@ export default {
             // the Spotify-canvas reading above, from a different outlet —
             // added as breadth of sourcing on the same forward-looking claim.
             claim:
-              'A mid-June wave of easter-egg reading pointed the same way: Elite Daily noted Swift\'s recent looks echoing her 2006 debut-promo photoshoot and a dress from Erdem\'s archive-inspired Fall 2026 collection — marking that label\'s 20th anniversary the same autumn the debut album turns 20 — as hints a debut Taylor\'s Version announcement is near.',
+              'A mid-June wave of easter-egg reading pointed the same way: Elite Daily noted Taylor\'s recent looks echoing her 2006 debut-promo photoshoot and a dress from Erdem\'s archive-inspired Fall 2026 collection — marking that label\'s 20th anniversary the same autumn the debut album turns 20 — as hints a debut Taylor\'s Version announcement is near.',
             reportedBy: 'Elite Daily (Hannah Kerns)',
             reportedOn: '2026-06-16',
             status: 'unconfirmed',
             url: 'https://www.elitedaily.com/entertainment/taylor-swift-album-13-clues-easter-eggs',
-            note: 'Distinct from the Spotify-canvas reading above — an earlier, independently reported easter-egg wave. The re-recording itself is on record (Swift said in June 2025 she had "already completely re-recorded" the debut); only the announcement timing is unconfirmed. Resolves if a debut Taylor\'s Version is announced, and fades if the October 2026 anniversary window passes empty.',
+            note: 'Distinct from the Spotify-canvas reading above — an earlier, independently reported easter-egg wave. The re-recording itself is on record (Taylor said in June 2025 she had "already completely re-recorded" the debut); only the announcement timing is unconfirmed. Resolves if a debut Taylor\'s Version is announced, and fades if the October 2026 anniversary window passes empty.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-07-24',
           },
@@ -2200,7 +2200,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Swift and Rodney Atkins opening the entire second leg. Her mid-2007 résumé at the time: one hit single ("Tim McGraw"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her.\n\nConcert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner.',
+          'Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Taylor and Rodney Atkins opening the entire second leg. Her mid-2007 résumé at the time: one hit single ("Tim McGraw"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her.\n\nConcert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner.',
         sources: [
           {
             outlet: 'Concert Archives',
@@ -2392,7 +2392,7 @@ export default {
         'moment:vault-debut-the-bluebird-cafe-night-a-14-year-old-and-a-label-that-didnt',
       ],
       moment: {
-        context: "Before the stadiums, there was a teenager who named her first single after Tim McGraw — a bet that specificity would travel further than polish.\n\nThe melody came to her in freshman-year math class at Hendersonville High; she finished it that afternoon with co-writer Liz Rose in about fifteen minutes, cataloguing the details that would make an older boyfriend think of her once he left for college. (Press and fans tie the muse to a graduating senior; Swift has described the leaving-for-college story but never named him.) She first titled it “When You Think Tim McGraw” — Scott Borchetta trimmed it to the country legend’s name to catch his fanbase — and the lyric points to McGraw’s “Can’t Tell Me Nothin’” as the couple’s song.\n\nReleased June 19, 2006 as the very first single on Borchetta’s brand-new Big Machine, with Swift as the label’s first signed artist, it climbed on a grassroots push — MySpace, hourly GAC vignettes, radio worked by hand — to No. 6 on Hot Country Songs and No. 40 on the Hot 100, later certified multi-platinum. Trey Fanjoy’s video, shot around Hendersonville, staged the song’s whole idea: a tune heard years later that drags an old love back to the surface. McGraw, at first wary of a newcomer borrowing his name, came around; Swift sang it at the 2007 ACM Awards with him in the front row, then crossed over afterward to introduce herself — “Hi, I’m Taylor.”",
+        context: "Before the stadiums, there was a teenager who named her first single after Tim McGraw — a bet that specificity would travel further than polish.\n\nThe melody came to her in freshman-year math class at Hendersonville High; she finished it that afternoon with co-writer Liz Rose in about fifteen minutes, cataloguing the details that would make an older boyfriend think of her once he left for college. (Press and fans tie the muse to a graduating senior; Taylor has described the leaving-for-college story but never named him.) She first titled it “When You Think Tim McGraw” — Scott Borchetta trimmed it to the country legend’s name to catch his fanbase — and the lyric points to McGraw’s “Can’t Tell Me Nothin’” as the couple’s song.\n\nReleased June 19, 2006 as the very first single on Borchetta’s brand-new Big Machine, with Taylor as the label’s first signed artist, it climbed on a grassroots push — MySpace, hourly GAC vignettes, radio worked by hand — to No. 6 on Hot Country Songs and No. 40 on the Hot 100, later certified multi-platinum. Trey Fanjoy’s video, shot around Hendersonville, staged the song’s whole idea: a tune heard years later that drags an old love back to the surface. McGraw, at first wary of a newcomer borrowing his name, came around; Taylor sang it at the 2007 ACM Awards with him in the front row, then crossed over afterward to introduce herself — “Hi, I’m Taylor.”",
         sources: [
           {
             outlet: 'Wikipedia',

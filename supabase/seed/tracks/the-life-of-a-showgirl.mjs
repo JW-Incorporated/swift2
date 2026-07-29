@@ -413,7 +413,7 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'One of the album\'s shortest and most-argued-about tracks — Swift\'s own intro frames it as about someone with a one-sided grudge against her.',
+      note: 'One of the album\'s shortest and most-argued-about tracks — Taylor\'s own intro frames it as about someone with a one-sided grudge against her.',
       summary:
         'The narrator reframes a rival\'s hostility as a backhanded compliment: living rent-free in someone\'s head, spun as flattery instead of an attack.',
       inspiration:
@@ -434,7 +434,7 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'Written last, described by Swift as the album\'s "final piece" — a companion to "Elizabeth Taylor" on what love adds to a life already full of career wins.',
+      note: 'Written last, described by Taylor as the album\'s "final piece" — a companion to "Elizabeth Taylor" on what love adds to a life already full of career wins.',
       summary:
         'A tally of things other people chase — fame, houses, headlines — set against the one thing on the narrator\'s own list: a stable, loving partner.',
       inspiration:
@@ -635,7 +635,7 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'One of the earliest songs written for the album, an R&B-leaning track with horn arrangements that Swift said confirmed she was exploring new sonic ground.',
+      note: 'One of the earliest songs written for the album, an R&B-leaning track with horn arrangements that Taylor said confirmed she was exploring new sonic ground.',
       summary:
         'A term of endearment turned into a small act of trust — softness offered on purpose after a run of songs about armor and image.',
       inspiration:

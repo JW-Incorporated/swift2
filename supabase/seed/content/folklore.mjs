@@ -28,7 +28,7 @@ export default {
       category: 'business',
       title: 'folklore makes her the first artist to top both charts at once',
       snippet:
-        "Announced the day before release — then Swift became the first artist ever to debut atop the Hot 100 (with 'cardigan') and the Billboard 200 in the same week.",
+        "Announced the day before release — then Taylor became the first artist ever to debut atop the Hot 100 (with 'cardigan') and the Billboard 200 in the same week.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
       thumbnailUrl:
         'https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1',
@@ -126,7 +126,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg',
       moment: {
         context:
-          "Rebekah Harkness was a middle-class divorcée from St. Louis who married Standard Oil heir William Harkness in 1947, inherited his fortune at his death in 1954, and spent it loudly — funding her own ballet company and filling Holiday House, the Watch Hill mansion Swift would buy decades later, with parties the town never stopped talking about.\n\nThe song plays a classic country-storytelling trick: three verses of someone else's scandal, then the reveal — \"and then it was bought by me\" — folding Swift's own tabloid-magnet Rhode Island summers into Harkness's story of a loud woman blamed for ruining everything. It peaked at No. 13 on the Hot 100, and critics at Pitchfork, Billboard, and American Songwriter ranked it among the year's best songs.",
+          "Rebekah Harkness was a middle-class divorcée from St. Louis who married Standard Oil heir William Harkness in 1947, inherited his fortune at his death in 1954, and spent it loudly — funding her own ballet company and filling Holiday House, the Watch Hill mansion Taylor would buy decades later, with parties the town never stopped talking about.\n\nThe song plays a classic country-storytelling trick: three verses of someone else's scandal, then the reveal — \"and then it was bought by me\" — folding Taylor's own tabloid-magnet Rhode Island summers into Harkness's story of a loud woman blamed for ruining everything. It peaked at No. 13 on the Hot 100, and critics at Pitchfork, Billboard, and American Songwriter ranked it among the year's best songs.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty' }],
         photos: [
           {
@@ -135,7 +135,7 @@ export default {
             // verified HTTP 200 + image/jpeg and confirmed legible by eye.
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg',
             credit: 'Wikimedia Commons',
-            caption: 'Holiday House on Watch Hill, Rhode Island — Rebekah Harkness\'s mansion, later Swift\'s.',
+            caption: 'Holiday House on Watch Hill, Rhode Island — Rebekah Harkness\'s mansion, later Taylor\'s.',
             kind: 'archival',
           },
           {
@@ -158,7 +158,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her grandfather Dean fought at the Battle of Guadalcanal and never spoke about what he saw there — Swift said she wrote the song by trying "to imagine what would happen in order to make you never be able to speak about something," then drew the line straight to 2020\'s hospital wards, where medical workers were absorbing the same unspeakable weight in twenty-minute breaks between shifts.\n\nAaron Dessner built the ambient, chamber-style arrangement by slowing and reversing instrument recordings into glacial drones under piano and strings, leaving Swift\'s vocal hanging in the middle like a hymn. The quietest song on the album still hit No. 57 on the Hot 100 in folklore\'s all-16-tracks chart week.',
+          'Her grandfather Dean fought at the Battle of Guadalcanal and never spoke about what he saw there — Taylor said she wrote the song by trying "to imagine what would happen in order to make you never be able to speak about something," then drew the line straight to 2020\'s hospital wards, where medical workers were absorbing the same unspeakable weight in twenty-minute breaks between shifts.\n\nAaron Dessner built the ambient, chamber-style arrangement by slowing and reversing instrument recordings into glacial drones under piano and strings, leaving Taylor\'s vocal hanging in the middle like a hymn. The quietest song on the album still hit No. 57 on the Hot 100 in folklore\'s all-16-tracks chart week.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Epiphany_(Taylor_Swift_song)' }],
         // Real-photo pass (2026-07-09): public-domain U.S. Marine Corps photo
         // from Wikimedia Commons (license verified on the file page this
@@ -167,7 +167,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/U.S._Marines_storm_ashore_on_Guadalcanal%2C_7_August_1942_%2880-CF-112-5-3%29.jpg',
             credit: 'U.S. Marine Corps (public domain), via Wikimedia Commons',
-            caption: 'U.S. Marines coming ashore at Guadalcanal, August 1942 — the battle Swift\'s grandfather Dean fought in and never spoke about.',
+            caption: 'U.S. Marines coming ashore at Guadalcanal, August 1942 — the battle Taylor\'s grandfather Dean fought in and never spoke about.',
             kind: 'archival',
           },
         ],
@@ -217,7 +217,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
       moment: {
         context:
-          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Swift, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile."\n\nIt\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes; Rolling Stone\'s Rob Sheffield called it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 16 days later.',
+          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Taylor, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile."\n\nIt\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes; Rolling Stone\'s Rob Sheffield called it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 16 days later.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -296,14 +296,14 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg',
             focalPoint: '57% 42%',
             credit: 'Getty Images for The Recording Academy, via Billboard',
-            caption: 'Jack Antonoff, Swift, and Aaron Dessner perform the folklore/evermore medley earlier the same night.',
+            caption: 'Jack Antonoff, Taylor, and Aaron Dessner perform the folklore/evermore medley earlier the same night.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Antonoff_at_Electric_Lady_Studios_2023_%28cropped%29.jpg',
             focalPoint: '48% 25%',
             credit: 'Alex Lockett, Wikimedia Commons (CC BY-SA 4.0)',
-            caption: "Jack Antonoff, whom Swift thanked first in her acceptance speech — folklore's co-producer.",
+            caption: "Jack Antonoff, whom Taylor thanked first in her acceptance speech — folklore's co-producer.",
             kind: 'reference',
           },
           {
@@ -317,14 +317,14 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Primavera19_-6_%2848986116446%29_%28cropped%29.jpg',
             focalPoint: '48% 33%',
             credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
-            caption: 'Justin Vernon (Bon Iver), whom Swift told "I\'m so excited to meet you someday" — the two had never met in person despite co-writing "exile."',
+            caption: 'Justin Vernon (Bon Iver), whom Taylor told "I\'m so excited to meet you someday" — the two had never met in person despite co-writing "exile."',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Guests_at_the_2026_Met_Gala_435_%28Blake_Lively%29.jpg',
             focalPoint: '48% 20%',
             credit: 'SWinxy, Wikimedia Commons (CC BY 4.0)',
-            caption: 'Blake Lively, whom Swift thanked in the same speech alongside Ryan Reynolds and their children — James, Inez, and Betty each lend their names to folklore songs.',
+            caption: 'Blake Lively, whom Taylor thanked in the same speech alongside Ryan Reynolds and their children — James, Inez, and Betty each lend their names to folklore songs.',
             kind: 'reference',
           },
         ],
@@ -415,7 +415,7 @@ export default {
         'https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/taylor-swifts-nap-dress-pays-homage-to-whimsy-1595575441.jpg',
       moment: {
         context:
-          'Swift wears one outfit for nearly the entire "cardigan" video: a flowing white nightgown-style dress in the "nap dress" trend that broke out in 2020, worn with the cream cable-knit cardigan (star embroidery, folklore patch) at the end. Filmed under pandemic protocols with a skeleton crew, social distancing, and an on-set medical inspector.\n\nThe single-costume approach fit a video Swift wrote, directed, and styled entirely herself — one dress carried through the story\'s three worlds, from candlelit cottage to mossy forest to storm-tossed sea, so the cardigan\'s appearance in the final scene lands as the only wardrobe change in the whole film. The soft, homespun look helped push the cottagecore aesthetic into the mainstream — and, as Elite Daily put it, was among the easiest Swift looks to recreate at home.',
+          'Taylor wears one outfit for nearly the entire "cardigan" video: a flowing white nightgown-style dress in the "nap dress" trend that broke out in 2020, worn with the cream cable-knit cardigan (star embroidery, folklore patch) at the end. Filmed under pandemic protocols with a skeleton crew, social distancing, and an on-set medical inspector.\n\nThe single-costume approach fit a video Taylor wrote, directed, and styled entirely herself — one dress carried through the story\'s three worlds, from candlelit cottage to mossy forest to storm-tossed sea, so the cardigan\'s appearance in the final scene lands as the only wardrobe change in the whole film. The soft, homespun look helped push the cottagecore aesthetic into the mainstream — and, as Elite Daily put it, was among the easiest Taylor looks to recreate at home.',
         sources: [
           {
             outlet: 'Nicki Swift',
@@ -462,14 +462,14 @@ export default {
       category: 'fashion',
       title: 'No glam team: self-styled hair and makeup for the folklore era',
       snippet:
-        'With pandemic protocols keeping hair and makeup artists off set, Swift did her own — natural, barely-there makeup and two low braided buns — for both the "cardigan" video and the album photoshoot.',
+        'With pandemic protocols keeping hair and makeup artists off set, Taylor did her own — natural, barely-there makeup and two low braided buns — for both the "cardigan" video and the album photoshoot.',
       sourceUrl:
         'https://www.etonline.com/taylor-swift-recalls-doing-her-own-hair-and-makeup-for-folklore-album-art-guess-ill-braid-it-229646',
       thumbnailUrl:
         'https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/intro-1595575441.jpg',
       moment: {
         context:
-          'Swift later recalled the DIY process for the album art: "Just was like, \'Guess I\'ll braid it? I don\'t know.\'" Gone were the red lips and cat-eyes of prior eras; in their place, natural waves, a messy low bun or two braided knots, and makeup-free close-ups — a stripped-down beauty look that matched the album\'s whole visual turn.\n\nThe same do-it-yourself rule covered the "cardigan" video, which she wrote, directed, and styled herself under pandemic protocols that kept hair and makeup artists off set. What started as a health necessity became the era\'s aesthetic signature: visuals made almost entirely by her own hands.',
+          'Taylor later recalled the DIY process for the album art: "Just was like, \'Guess I\'ll braid it? I don\'t know.\'" Gone were the red lips and cat-eyes of prior eras; in their place, natural waves, a messy low bun or two braided knots, and makeup-free close-ups — a stripped-down beauty look that matched the album\'s whole visual turn.\n\nThe same do-it-yourself rule covered the "cardigan" video, which she wrote, directed, and styled herself under pandemic protocols that kept hair and makeup artists off set. What started as a health necessity became the era\'s aesthetic signature: visuals made almost entirely by her own hands.',
         sources: [
           {
             outlet: 'ET Online',
@@ -533,12 +533,12 @@ export default {
       category: 'fashion',
       title: 'The folklore album cover: a self-directed, black-and-white photoshoot',
       snippet:
-        'Shot by Beth Garrabrant with no styling team on hand, in black and white for the first time — Swift standing alone in a misty forest in a plaid coat over a white prairie dress.',
+        'Shot by Beth Garrabrant with no styling team on hand, in black and white for the first time — Taylor standing alone in a misty forest in a plaid coat over a white prairie dress.',
       sourceUrl: 'https://www.femestella.com/taylor-swift-folklore-photoshoot-by-photographer-beth-garrabrant/',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
       moment: {
         context:
-          'Swift styled her own hair, makeup, and wardrobe for the shoot — cardigans, oversized plaid blazers, and rugby shirts, worn in the summer heat of a friend\'s forest. She and photographer Beth Garrabrant referenced Surrealist work and early autochromes and ambrotypes, and shot the whole series in black and white, a first for Garrabrant, who usually works in color.\n\nIt was a deliberate departure from her earlier album cycles\' larger production teams — no glam squad, no set build, just the two of them in the woods. The resulting frame of Swift standing small among the trees became the cover, and the surrounding shots were posted as a grid of captionless black-and-white photos in the July 23 announcement.',
+          'Taylor styled her own hair, makeup, and wardrobe for the shoot — cardigans, oversized plaid blazers, and rugby shirts, worn in the summer heat of a friend\'s forest. She and photographer Beth Garrabrant referenced Surrealist work and early autochromes and ambrotypes, and shot the whole series in black and white, a first for Garrabrant, who usually works in color.\n\nIt was a deliberate departure from her earlier album cycles\' larger production teams — no glam squad, no set build, just the two of them in the woods. The resulting frame of Taylor standing small among the trees became the cover, and the surrounding shots were posted as a grid of captionless black-and-white photos in the July 23 announcement.',
         sources: [
           {
             outlet: 'Femestella',
@@ -605,13 +605,13 @@ export default {
             reportedOn: '2020-12-15',
             status: 'debunked',
             url: 'https://www.wmagazine.com/story/taylor-swift-evermore-woodvale-third-album-rumor',
-            note: 'Unannounced-music / easter-egg speculation (allowed by the redlines); no location. The theory originated at folklore\'s July 24, 2020 release when fans read the hidden word on the cover, and surged when evermore dropped that December, days before Swift addressed it directly.',
+            note: 'Unannounced-music / easter-egg speculation (allowed by the redlines); no location. The theory originated at folklore\'s July 24, 2020 release when fans read the hidden word on the cover, and surged when evermore dropped that December, days before Taylor addressed it directly.',
             sourceTier: 'established',
             resolution: {
               on: '2020-12-15',
               url: 'https://www.rollingstone.com/music/music-news/taylor-swift-jimmy-kimmel-live-folklore-evermore-1104051/',
               outlet: 'Rolling Stone',
-              note: 'On Jimmy Kimmel Live!, Swift explained "Woodvale" was a fake code name her team used to keep folklore secret — it has the same number of letters as "folklore" and was placed on album-art mockups — and "we forgot to take the fake code name off of one of them." There is no third "Woodvale" album.',
+              note: 'On Jimmy Kimmel Live!, Taylor explained "Woodvale" was a fake code name her team used to keep folklore secret — it has the same number of letters as "folklore" and was placed on album-art mockups — and "we forgot to take the fake code name off of one of them." There is no third "Woodvale" album.',
             },
             lastCheckedOn: '2026-07-29',
           },
@@ -625,13 +625,13 @@ export default {
       category: 'fashion',
       title: 'A Free People velvet shirt dress for the Long Pond Studio Sessions',
       snippet:
-        'For her directorial debut on Disney+, Swift wore the Free People Lux Velvet Shirt Dress with a Tiffany & Co. bracelet — a cozy, intimate wardrobe matching the stripped-down studio set.',
+        'For her directorial debut on Disney+, Taylor wore the Free People Lux Velvet Shirt Dress with a Tiffany & Co. bracelet — a cozy, intimate wardrobe matching the stripped-down studio set.',
       sourceUrl:
         'https://fashionsizzle.com/2020/11/28/taylor-swift-wore-free-people-blouse-shirt-dress-for-folklore-the-long-pond-studio-sessions/',
       thumbnailUrl: 'https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg',
       moment: {
         context:
-          'Swift wore the Free People Lux Velvet Shirt Dress, paired with a Tiffany & Co. Infinity bracelet and a Melinda Maria Soleil stacking ring set, while filming the Long Pond Studio Sessions with Aaron Dessner and Jack Antonoff — a soft, low-key wardrobe fitting the candlelit, unplugged staging of the special.\n\nLike everything else in the film, which premiered on Disney+ on Nov. 25, 2020, the styling read as deliberately domestic: a shirt dress on a couch in a converted barn, about as far from a stadium costume as her wardrobe had ever been. It matched the era\'s whole self-styled turn — the same stretch in which she was doing her own hair and makeup for the album art and the "cardigan" video.',
+          'Taylor wore the Free People Lux Velvet Shirt Dress, paired with a Tiffany & Co. Infinity bracelet and a Melinda Maria Soleil stacking ring set, while filming the Long Pond Studio Sessions with Aaron Dessner and Jack Antonoff — a soft, low-key wardrobe fitting the candlelit, unplugged staging of the special.\n\nLike everything else in the film, which premiered on Disney+ on Nov. 25, 2020, the styling read as deliberately domestic: a shirt dress on a couch in a converted barn, about as far from a stadium costume as her wardrobe had ever been. It matched the era\'s whole self-styled turn — the same stretch in which she was doing her own hair and makeup for the album art and the "cardigan" video.',
         sources: [
           {
             outlet: 'Fashion Sizzle',
@@ -706,7 +706,7 @@ export default {
         'https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4',
       moment: {
         context:
-          'The cardigan Swift wears at the end of the "cardigan" video — tan cable knit, navy stripes, gray elbow patches, star embroidery, and a "folklore album" patch on the chest — went up for sale on her official store alongside the album and sold out almost immediately. It became one of the most sought-after pieces of Swift merch of the whole decade.\n\nIt wasn\'t restocked until July 24, 2024 — folklore\'s fourth anniversary — and even then only as a 72-hour window, priced at $70 with a four-per-order limit. The rerun wasn\'t quite the original, either: the 2024 version swapped the folklore chest patch for a Taylor Swift one and ran longer than the original, which kept the true 2020 cardigan a collector\'s item.',
+          'The cardigan Taylor wears at the end of the "cardigan" video — tan cable knit, navy stripes, gray elbow patches, star embroidery, and a "folklore album" patch on the chest — went up for sale on her official store alongside the album and sold out almost immediately. It became one of the most sought-after pieces of Taylor merch of the whole decade.\n\nIt wasn\'t restocked until July 24, 2024 — folklore\'s fourth anniversary — and even then only as a 72-hour window, priced at $70 with a four-per-order limit. The rerun wasn\'t quite the original, either: the 2024 version swapped the folklore chest patch for a Taylor Swift one and ran longer than the original, which kept the true 2020 cardigan a collector\'s item.',
         sources: [
           { outlet: 'Her Campus', url: 'https://www.hercampus.com/style/taylor-swift-folklore-cardigan-restock/' },
           { outlet: 'Capital FM', url: 'https://www.capitalfm.com/news/music/taylor-swift-cardigans-merch/' },
@@ -720,7 +720,7 @@ export default {
           {
             url: 'https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4',
             credit: 'Taylor Swift Store',
-            caption: 'The official folklore cardigan as sold on Swift\'s store.',
+            caption: 'The official folklore cardigan as sold on Taylor\'s store.',
             kind: 'primary',
             // Focal point set by viewing (photo pass #762, 2026-07-19):
             // product flat-lay, the cardigan fills the frame — genuinely
@@ -756,12 +756,12 @@ export default {
       category: 'music',
       title: 'mirrorball, written right after the Lover Fest tour was scrapped',
       snippet:
-        "Swift and Jack Antonoff wrote mirrorball after her Lover Fest tour was cancelled for the pandemic — her own words: \"a metaphor for celebrity,\" but also for anyone who feels they have to be a different version of themselves for different people.",
+        "Taylor and Jack Antonoff wrote mirrorball after her Lover Fest tour was cancelled for the pandemic — her own words: \"a metaphor for celebrity,\" but also for anyone who feels they have to be a different version of themselves for different people.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Mirrorball_(song)',
       thumbnailUrl: null,
       moment: {
         context:
-          'In the Long Pond Studio Sessions documentary, Swift explained the song\'s meaning directly: "It\'s a metaphor for celebrity, but it\'s also a metaphor for so many people who feel like they have to be different versions of themselves for different people." She wrote it with Jack Antonoff after her planned Lover Fest tour was cancelled at the start of the pandemic, channeling how fans find "solace on the dance floor" against her own anxiety about staying relevant.\n\nAntonoff\'s production wraps the idea in reverb-heavy guitars, pedal steel colors, and live drums — critics kept reaching for words like "warm" and "sparkling" to describe the glow. It reached No. 26 on the Hot 100 in the album\'s opening week and kept growing in stature from there: it became a fixture of critics\' album-highlight picks, and in 2025 Swift herself named it among her five best songs.',
+          'In the Long Pond Studio Sessions documentary, Taylor explained the song\'s meaning directly: "It\'s a metaphor for celebrity, but it\'s also a metaphor for so many people who feel like they have to be different versions of themselves for different people." She wrote it with Jack Antonoff after her planned Lover Fest tour was cancelled at the start of the pandemic, channeling how fans find "solace on the dance floor" against her own anxiety about staying relevant.\n\nAntonoff\'s production wraps the idea in reverb-heavy guitars, pedal steel colors, and live drums — critics kept reaching for words like "warm" and "sparkling" to describe the glow. It reached No. 26 on the Hot 100 in the album\'s opening week and kept growing in stature from there: it became a fixture of critics\' album-highlight picks, and in 2025 Taylor herself named it among her five best songs.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mirrorball_(song)' }],
         // Real-photo pass (2026-07-09): thumbnail from the official lyric
         // video on the Taylor Swift YouTube channel — id verified via YouTube
@@ -783,12 +783,12 @@ export default {
       category: 'music',
       title: 'mad woman, and the dispute Taylor confirmed inspired it',
       snippet:
-        'Written with Aaron Dessner about "female rage," mad woman targets the gaslighting Swift said she felt during her masters dispute — a connection she confirmed herself in a December 2020 interview, comparing the fallout to a divorce.',
+        'Written with Aaron Dessner about "female rage," mad woman targets the gaslighting Taylor said she felt during her masters dispute — a connection she confirmed herself in a December 2020 interview, comparing the fallout to a divorce.',
       sourceUrl: 'https://www.nme.com/news/music/taylor-swift-says-her-dispute-with-scooter-braun-felt-like-a-divorce-2834880',
       thumbnailUrl: null,
       moment: {
         context:
-          'In a December 2020 Entertainment Weekly interview, Swift confirmed "mad woman" (along with "my tears ricochet") grew out of her 2019 masters dispute with Scooter Braun and former label boss Scott Borchetta, saying the fallout from the 15-year professional relationship left her "very triggered by any stories, movies, or narratives revolving around divorce."\n\nOn the song itself, co-written and produced with Aaron Dessner, Swift said its theme of gaslighting was "the most rage-provoking element of being a female." The track works the accusation in circles — a woman called crazy acting exactly as crazy as she\'s been told she is — and it sits directly before "epiphany" in the tracklist, two of the album\'s heaviest songs back to back.',
+          'In a December 2020 Entertainment Weekly interview, Taylor confirmed "mad woman" (along with "my tears ricochet") grew out of her 2019 masters dispute with Scooter Braun and former label boss Scott Borchetta, saying the fallout from the 15-year professional relationship left her "very triggered by any stories, movies, or narratives revolving around divorce."\n\nOn the song itself, co-written and produced with Aaron Dessner, Taylor said its theme of gaslighting was "the most rage-provoking element of being a female." The track works the accusation in circles — a woman called crazy acting exactly as crazy as she\'s been told she is — and it sits directly before "epiphany" in the tracklist, two of the album\'s heaviest songs back to back.',
         sources: [
           {
             outlet: 'NME',
@@ -829,12 +829,12 @@ export default {
       category: 'music',
       title: 'invisible string, and "a single thread that ties you to your fate"',
       snippet:
-        'Swift built the song around one image from her album announcement — "a single thread that, for better or for worse, ties you to your fate" — tracing years of near-misses back to a Nashville park where she read as a girl.',
+        'Taylor built the song around one image from her album announcement — "a single thread that, for better or for worse, ties you to your fate" — tracing years of near-misses back to a Nashville park where she read as a girl.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Invisible_String',
       thumbnailUrl: null,
       moment: {
         context:
-          'Co-written and produced with Aaron Dessner, the song grew from an idea Swift described in her folklore announcement: "a single thread that, for better or for worse, ties you to your fate." Its lyrics recall reading as a girl at Nashville\'s Centennial Park — "green was the color of the grass where I used to read at Centennial Park" — years before meeting the person the song is about; critics have read those details as tracing the path to her relationship with Joe Alwyn.\n\nNPR ranked it No. 22 on its 100 best songs of 2020, praising "all the beautiful detail, all the muscular melody and immaculately placed acoustic production details." On an album of invented characters, it was the track fans treated as the plainly happy autobiographical one — the rare folklore song where the string holds.',
+          'Co-written and produced with Aaron Dessner, the song grew from an idea Taylor described in her folklore announcement: "a single thread that, for better or for worse, ties you to your fate." Its lyrics recall reading as a girl at Nashville\'s Centennial Park — "green was the color of the grass where I used to read at Centennial Park" — years before meeting the person the song is about; critics have read those details as tracing the path to her relationship with Joe Alwyn.\n\nNPR ranked it No. 22 on its 100 best songs of 2020, praising "all the beautiful detail, all the muscular melody and immaculately placed acoustic production details." On an album of invented characters, it was the track fans treated as the plainly happy autobiographical one — the rare folklore song where the string holds.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Invisible_String' }],
         // Real-photo pass (2026-07-09): CC BY 3.0 photo of Centennial Park
         // from Wikimedia Commons, used on the song's own Wikipedia article
@@ -869,12 +869,12 @@ export default {
       category: 'music',
       title: 'hoax, the last song written for the album',
       snippet:
-        'Swift wrote hoax\'s lyrics just days before folklore\'s surprise release, then told Aaron Dessner not to overthink the production — the last song finished became the one that closes the record.',
+        'Taylor wrote hoax\'s lyrics just days before folklore\'s surprise release, then told Aaron Dessner not to overthink the production — the last song finished became the one that closes the record.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Hoax_(song)',
       thumbnailUrl: null,
       moment: {
         context:
-          'According to Wikipedia\'s sourcing, "hoax" was the final track written for folklore — Swift wrote its lyrics only days before the July 24, 2020 release, and she and Aaron Dessner agreed it should close the album. On direction, she told him not to "try to give it any other space other than what feels natural" to him.\n\nDessner recorded the instrumentation (piano, acoustic and electric guitars, OP-1, synth bass) at Long Pond Studio in the Hudson Valley, with Rob Moose adding orchestration, violin, and viola. The result is the album\'s starkest ending: a piano ballad that refuses resolution, closing the standard edition on a bruise rather than a bow.',
+          'According to Wikipedia\'s sourcing, "hoax" was the final track written for folklore — Taylor wrote its lyrics only days before the July 24, 2020 release, and she and Aaron Dessner agreed it should close the album. On direction, she told him not to "try to give it any other space other than what feels natural" to him.\n\nDessner recorded the instrumentation (piano, acoustic and electric guitars, OP-1, synth bass) at Long Pond Studio in the Hudson Valley, with Rob Moose adding orchestration, violin, and viola. The result is the album\'s starkest ending: a piano ballad that refuses resolution, closing the standard edition on a bruise rather than a bow.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Hoax_(song)' }],
         // Real-photo pass (2026-07-09): thumbnail from the official lyric
         // video on the Taylor Swift YouTube channel — id verified via YouTube
@@ -898,7 +898,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
             credit: 'Kim Metso (CC BY-SA 4.0), via Wikimedia Commons',
-            caption: 'For reference — Aaron Dessner, who Swift told not to overthink the production of the album\'s last-written song.',
+            caption: 'For reference — Aaron Dessner, who Taylor told not to overthink the production of the album\'s last-written song.',
             kind: 'reference',
             focalPoint: '57% 20%',
           },
@@ -917,7 +917,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "folklore debuted atop the Billboard 200 with 846,000 equivalent album units — Swift's seventh No. 1 album — including 615,000 in pure album sales, the largest sales week for any album since her own Lover (679,000) the year before.\n\nIts 218,000 in streaming-equivalent units came from 289.85 million on-demand streams of the album's tracks, the largest streaming week of 2020 for an album by a woman. The number settled an open industry question in one week: a hushed indie-folk record with no lead single, no physical retail lead time, and sixteen hours of promotion had just posted the biggest U.S. sales week of any album in nearly a year.",
+          "folklore debuted atop the Billboard 200 with 846,000 equivalent album units — Taylor's seventh No. 1 album — including 615,000 in pure album sales, the largest sales week for any album since her own Lover (679,000) the year before.\n\nIts 218,000 in streaming-equivalent units came from 289.85 million on-demand streams of the album's tracks, the largest streaming week of 2020 for an album by a woman. The number settled an open industry question in one week: a hushed indie-folk record with no lead single, no physical retail lead time, and sixteen hours of promotion had just posted the biggest U.S. sales week of any album in nearly a year.",
         sources: [
           {
             outlet: 'Billboard',
@@ -961,7 +961,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the chart dated Oct. 31, 2020, folklore returned to No. 1 on the Billboard 200 for an eighth nonconsecutive week after selling another 57,000 copies in the U.S. in the tracking week ending Oct. 22 — pushing its total past 1.038 million copies sold and making it the first album to sell a million copies in the U.S. in 2020.\n\nThe back-to-back symmetry was hard to miss: Swift\'s prior album, Lover, had been the only album to sell a million U.S. copies in 2019, with 1.09 million that year. In a collapsing sales market, she had now delivered each year\'s first album to cross the million mark two years running — one made as a maximalist pop rollout, the other with sixteen hours\' notice from lockdown.',
+          'On the chart dated Oct. 31, 2020, folklore returned to No. 1 on the Billboard 200 for an eighth nonconsecutive week after selling another 57,000 copies in the U.S. in the tracking week ending Oct. 22 — pushing its total past 1.038 million copies sold and making it the first album to sell a million copies in the U.S. in 2020.\n\nThe back-to-back symmetry was hard to miss: Taylor\'s prior album, Lover, had been the only album to sell a million U.S. copies in 2019, with 1.09 million that year. In a collapsing sales market, she had now delivered each year\'s first album to cross the million mark two years running — one made as a maximalist pop rollout, the other with sixteen hours\' notice from lockdown.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1032,7 +1032,7 @@ export default {
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2020/12/Albums.jpg?w=1200&h=800&crop=1',
             credit: 'Rolling Stone',
-            caption: 'The lead art of Rolling Stone\'s 50 Best Albums of 2020 list — Swift, top right, above the field she topped.',
+            caption: 'The lead art of Rolling Stone\'s 50 Best Albums of 2020 list — Taylor, top right, above the field she topped.',
             kind: 'archival',
             focalPoint: '78% 28%',
           },
@@ -1082,7 +1082,7 @@ export default {
         // claimed a reinvention without substantiating its impact, just
         // announcement mechanics — this backs the claim with real reception.
         context:
-          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — a grid of captionless black-and-white Beth Garrabrant forest photos, no warning of any kind — with the "cardigan" video dropping alongside it at midnight. The post went up the morning of July 23 and the album arrived at midnight into July 24: under a day\'s notice, nearer fourteen hours than the "sixteen" of the fan shorthand.\n\nThe "isolation" framing hid a crowd. Aaron Dessner of The National wrote and produced most of it — about 11 of the 16 tracks — Jack Antonoff the rest, Justin Vernon (Bon Iver) sang the "exile" duet, and a mystery co-writer, "William Bowery," took credit on "exile" and "betty," revealed months later in the Long Pond Studio Sessions film as Swift\'s partner Joe Alwyn. The record was built entirely remotely, Dessner mailing instrumental sketches from his upstate Long Pond studio; even he didn\'t know who Bowery was.\n\nThe no-notice gamble paid off historically: "cardigan" debuted at No. 1 on the Hot 100 the same week folklore entered the Billboard 200 at No. 1 — the first time any artist opened atop both charts at once. folklore drew 80.6 million day-one Spotify streams (a record for a female artist) and 846,000 first-week U.S. units, aided by eight distinct deluxe editions sold only through her site. The surprise drop became the template she reused for evermore five months later.',
+          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — a grid of captionless black-and-white Beth Garrabrant forest photos, no warning of any kind — with the "cardigan" video dropping alongside it at midnight. The post went up the morning of July 23 and the album arrived at midnight into July 24: under a day\'s notice, nearer fourteen hours than the "sixteen" of the fan shorthand.\n\nThe "isolation" framing hid a crowd. Aaron Dessner of The National wrote and produced most of it — about 11 of the 16 tracks — Jack Antonoff the rest, Justin Vernon (Bon Iver) sang the "exile" duet, and a mystery co-writer, "William Bowery," took credit on "exile" and "betty," revealed months later in the Long Pond Studio Sessions film as Taylor\'s partner Joe Alwyn. The record was built entirely remotely, Dessner mailing instrumental sketches from his upstate Long Pond studio; even he didn\'t know who Bowery was.\n\nThe no-notice gamble paid off historically: "cardigan" debuted at No. 1 on the Hot 100 the same week folklore entered the Billboard 200 at No. 1 — the first time any artist opened atop both charts at once. folklore drew 80.6 million day-one Spotify streams (a record for a female artist) and 846,000 first-week U.S. units, aided by eight distinct deluxe editions sold only through her site. The surprise drop became the template she reused for evermore five months later.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1169,7 +1169,7 @@ export default {
             url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '48% 22%',
             credit: 'Taylor Swift/Instagram, via The Guardian',
-            caption: 'The black-and-white forest montage Swift posted with the July 23 surprise announcement for folklore.',
+            caption: 'The black-and-white forest montage Taylor posted with the July 23 surprise announcement for folklore.',
             kind: 'primary',
           },
           {
@@ -1183,7 +1183,7 @@ export default {
             url: 'https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg',
             focalPoint: '35% 30%',
             credit: 'Beth Garrabrant, via Vanity Fair',
-            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Swift in the album\'s woodland setting.',
+            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Taylor in the album\'s woodland setting.',
             kind: 'primary',
           },
           {
@@ -1197,7 +1197,7 @@ export default {
             url: 'https://i.guim.co.uk/img/media/6f8132a91d5eaf50614417ced6bee7903341fd46/0_0_1482_1958/master/1482.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '52% 22%',
             credit: 'TAS Rights Management, via The Guardian',
-            caption: 'Swift wears the signature knit cardigan in a release-period promotional image for the video and album.',
+            caption: 'Taylor wears the signature knit cardigan in a release-period promotional image for the video and album.',
             kind: 'primary',
           },
         ],
@@ -1218,7 +1218,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The song started at home: Joe Alwyn — still hidden behind the William Bowery credit — wrote the piano melody and the first verse, and Swift cut a demo singing both the male and female parts herself. Aaron Dessner built a piano template around that demo and sent it to Justin Vernon, who liked it, wrote his own lyrics for his part, and tracked his side from April Base, his Wisconsin studio — the two never in the same room. The bridge is built as actual counterpoint, two independent melodic lines arguing over each other rather than trading bars — the structural trick everyone covers.\n\nReleased as a single on Aug. 3, 2020, it debuted at No. 6 on the Hot 100 — its peak — reached the top five in Australia, Ireland and New Zealand and the top ten in Canada and the U.K., and became Bon Iver\'s highest-charting song anywhere; it is certified Platinum by the RIAA, Platinum in the U.K., and 4× Platinum in Australia. At the 63rd Grammy Awards in March 2021 it was nominated for Best Pop Duo/Group Performance but lost to Lady Gaga and Ariana Grande\'s "Rain on Me." Swift and Vernon still hadn\'t met in person by the time the nomination landed — the whole collaboration, like the album around it, happened over sent files.\n\nThey finally shared a stage on Oct. 26, 2022, when Swift joined Vernon at a Bon Iver show in London for the song\'s live debut; she later played it as a surprise song on the Eras Tour\'s SoFi Stadium run on Aug. 7, 2023. Critics singled the duet out — The New York Times\' Jon Caramanica called it a "lovely, anguished duet," NPR praised its "windswept sonic landscape," and Billboard later ranked it first among Swift\'s collaborations. The partnership didn\'t end there: five months after folklore, Vernon returned for the title track of evermore, a second Swift–Bon Iver duet.',
+          'The song started at home: Joe Alwyn — still hidden behind the William Bowery credit — wrote the piano melody and the first verse, and Taylor cut a demo singing both the male and female parts herself. Aaron Dessner built a piano template around that demo and sent it to Justin Vernon, who liked it, wrote his own lyrics for his part, and tracked his side from April Base, his Wisconsin studio — the two never in the same room. The bridge is built as actual counterpoint, two independent melodic lines arguing over each other rather than trading bars — the structural trick everyone covers.\n\nReleased as a single on Aug. 3, 2020, it debuted at No. 6 on the Hot 100 — its peak — reached the top five in Australia, Ireland and New Zealand and the top ten in Canada and the U.K., and became Bon Iver\'s highest-charting song anywhere; it is certified Platinum by the RIAA, Platinum in the U.K., and 4× Platinum in Australia. At the 63rd Grammy Awards in March 2021 it was nominated for Best Pop Duo/Group Performance but lost to Lady Gaga and Ariana Grande\'s "Rain on Me." Taylor and Vernon still hadn\'t met in person by the time the nomination landed — the whole collaboration, like the album around it, happened over sent files.\n\nThey finally shared a stage on Oct. 26, 2022, when Taylor joined Vernon at a Bon Iver show in London for the song\'s live debut; she later played it as a surprise song on the Eras Tour\'s SoFi Stadium run on Aug. 7, 2023. Critics singled the duet out — The New York Times\' Jon Caramanica called it a "lovely, anguished duet," NPR praised its "windswept sonic landscape," and Billboard later ranked it first among Taylor\'s collaborations. The partnership didn\'t end there: five months after folklore, Vernon returned for the title track of evermore, a second Taylor–Bon Iver duet.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1309,7 +1309,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift described it as being about "a person who was your best friend" turning on you, and in a December 2020 Entertainment Weekly interview confirmed it (with "mad woman") as one of the songs that grew out of the 2019 sale of her masters. Produced with Jack Antonoff, it holds folklore\'s track-five slot in her vulnerable-song tradition.\n\nThe conceit is gothic: the narrator is a dead woman watching her own funeral, where the person who wronged her — someone she once loved — has shown up to grieve anyway. Swift has said she was drawn to divorce narratives in that stretch (she\'d been affected by 2019\'s Marriage Story), and the song borrows that language of a bond dissolving into claims on what\'s left. It was the very first song written for folklore, and it debuted at No. 16 on the Hot 100 in the album\'s opening week.',
+          'Taylor described it as being about "a person who was your best friend" turning on you, and in a December 2020 Entertainment Weekly interview confirmed it (with "mad woman") as one of the songs that grew out of the 2019 sale of her masters. Produced with Jack Antonoff, it holds folklore\'s track-five slot in her vulnerable-song tradition.\n\nThe conceit is gothic: the narrator is a dead woman watching her own funeral, where the person who wronged her — someone she once loved — has shown up to grieve anyway. Taylor has said she was drawn to divorce narratives in that stretch (she\'d been affected by 2019\'s Marriage Story), and the song borrows that language of a bond dissolving into claims on what\'s left. It was the very first song written for folklore, and it debuted at No. 16 on the Hot 100 in the album\'s opening week.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1370,7 +1370,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Swift framed the character sympathetically, deserving kindness rather than blame for a romance that was never really hers. It entered the Hot 100 at No. 23 in the album\'s opening week, and the outro builds to what one critic described as a full-orchestra major-chord climax — the album\'s biggest purely musical release.\n\nIts stature only grew with time: Rolling Stone\'s Rob Sheffield ranked it fifth among all of Swift\'s songs in his 2021 catalog ranking, calling it "the album\'s most plainly beautiful ballad," and it earned a spot in the Grammys 2021 folklore medley and the Eras Tour\'s folklore act.',
+          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Taylor framed the character sympathetically, deserving kindness rather than blame for a romance that was never really hers. It entered the Hot 100 at No. 23 in the album\'s opening week, and the outro builds to what one critic described as a full-orchestra major-chord climax — the album\'s biggest purely musical release.\n\nIts stature only grew with time: Rolling Stone\'s Rob Sheffield ranked it fifth among all of Taylor\'s songs in his 2021 catalog ranking, calling it "the album\'s most plainly beautiful ballad," and it earned a spot in the Grammys 2021 folklore medley and the Eras Tour\'s folklore act.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1408,7 +1408,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written with Jack Antonoff and inspired by England\'s Lake District and its Romantic poets, "the lakes" was folklore\'s intended epilogue — Swift later said she considered it the album\'s thesis statement about retreating from public life, which is why it closed every deluxe pressing rather than opening anything. The Wordsworth homage is built right into the writing, down to the pun critics flagged on the poet\'s own name: "tell me what are my words worth."\n\nAntonoff had first imagined it as a big orchestral piece before Swift asked for the scaled-down arrangement that shipped — and the bigger version eventually surfaced anyway: a fuller, orchestral "original version" was released on July 24, 2021, to mark folklore\'s first anniversary.',
+          'Written with Jack Antonoff and inspired by England\'s Lake District and its Romantic poets, "the lakes" was folklore\'s intended epilogue — Taylor later said she considered it the album\'s thesis statement about retreating from public life, which is why it closed every deluxe pressing rather than opening anything. The Wordsworth homage is built right into the writing, down to the pun critics flagged on the poet\'s own name: "tell me what are my words worth."\n\nAntonoff had first imagined it as a big orchestral piece before Taylor asked for the scaled-down arrangement that shipped — and the bigger version eventually surfaced anyway: a fuller, orchestral "original version" was released on July 24, 2021, to mark folklore\'s first anniversary.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1457,7 +1457,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Sung from the perspective of seventeen-year-old James — a character voiced into being partly by Joe Alwyn, whom Swift overheard "singing the entire, fully formed chorus" from another room — "betty" was the folklore track built closest to her Nashville roots. She modeled its sound on Bob Dylan, specifically The Freewheelin\' Bob Dylan and John Wesley Harding, and the guitars, pedal steel, and harmonica read as a deliberate olive branch to the format she\'d left after Red.\n\nSent to country radio on Aug. 17, 2020, it peaked at No. 6 on Hot Country Songs — the highest debut by a woman on that chart since Bebe Rexha\'s "Meant to Be" in 2017 — and crossed to No. 42 on the Hot 100. It stayed a one-off: rather than a full country return, it was a postcard to the old neighborhood from an album that lived somewhere else entirely.',
+          'Sung from the perspective of seventeen-year-old James — a character voiced into being partly by Joe Alwyn, whom Taylor overheard "singing the entire, fully formed chorus" from another room — "betty" was the folklore track built closest to her Nashville roots. She modeled its sound on Bob Dylan, specifically The Freewheelin\' Bob Dylan and John Wesley Harding, and the guitars, pedal steel, and harmonica read as a deliberate olive branch to the format she\'d left after Red.\n\nSent to country radio on Aug. 17, 2020, it peaked at No. 6 on Hot Country Songs — the highest debut by a woman on that chart since Bebe Rexha\'s "Meant to Be" in 2017 — and crossed to No. 42 on the Hot 100. It stayed a one-off: rather than a full country return, it was a postcard to the old neighborhood from an album that lived somewhere else entirely.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1492,7 +1492,7 @@ export default {
             // image: Dylan alone with harmonica rack, no Baez visible), so the
             // caption naming her was wrong. Dropped the Baez mention; image kept
             // as-is (correct subject: Dylan, 1963).
-            caption: 'Bob Dylan in 1963 — Swift modeled the song\'s sound on his early records.',
+            caption: 'Bob Dylan in 1963 — Taylor modeled the song\'s sound on his early records.',
             kind: 'archival',
             focalPoint: '42% 35%',
           },
@@ -1512,7 +1512,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her first ACM Awards appearance in seven years was staged as minimally as the album itself: seated at the Opry with an acoustic Gibson, a single spotlight glowing behind her, one harmonica player as the entire band, in a burgundy sequined turtleneck.\n\nThe audience-free, pandemic-produced broadcast made it the world television premiere of any folklore song — Variety noted "betty" is the one track on the album that harks back to early Swift country hits like "Love Story," which made it the natural pick for a country-stage homecoming. It stayed folklore\'s only live TV performance until the Grammys medley the following March.',
+          'Her first ACM Awards appearance in seven years was staged as minimally as the album itself: seated at the Opry with an acoustic Gibson, a single spotlight glowing behind her, one harmonica player as the entire band, in a burgundy sequined turtleneck.\n\nThe audience-free, pandemic-produced broadcast made it the world television premiere of any folklore song — Variety noted "betty" is the one track on the album that harks back to early Taylor country hits like "Love Story," which made it the natural pick for a country-stage homecoming. It stayed folklore\'s only live TV performance until the Grammys medley the following March.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1741,7 +1741,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written with Aaron Dessner, it answers the triangle\'s other two songs from twenty years\' distance — "when you are young, they assume you know nothing" as the thesis. The song began as an instrumental Dessner had titled "Maple," sent over on April 27, 2020; Swift finished the songwriting in about five hours.\n\nShe wrote, directed, and styled the video herself, and did her own hair and makeup on set (the no-glam-team shoot is covered in this era\'s fashion items). Its story runs through three worlds — a candlelit cottage, a mossy forest where the piano pours a waterfall, and a storm-tossed sea where she clings to the instrument — before returning her, and the cardigan, safely home. Under COVID protocols, cinematographer Rodrigo Prieto shot much of it with a camera on a remotely operated robotic arm, with color-coded wristbands marking who could work near the unmasked performer.',
+          'Written with Aaron Dessner, it answers the triangle\'s other two songs from twenty years\' distance — "when you are young, they assume you know nothing" as the thesis. The song began as an instrumental Dessner had titled "Maple," sent over on April 27, 2020; Taylor finished the songwriting in about five hours.\n\nShe wrote, directed, and styled the video herself, and did her own hair and makeup on set (the no-glam-team shoot is covered in this era\'s fashion items). Its story runs through three worlds — a candlelit cottage, a mossy forest where the piano pours a waterfall, and a storm-tossed sea where she clings to the instrument — before returning her, and the cardigan, safely home. Under COVID protocols, cinematographer Rodrigo Prieto shot much of it with a camera on a remotely operated robotic arm, with color-coded wristbands marking who could work near the unmasked performer.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1788,7 +1788,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift sent Aaron Dessner a voice memo with the lyrics days before release; he finished the production in a scramble while his brother Bryce added orchestration — a buzzer-beater that changed the album\'s shape and set up folklore\'s whole exercise in imagined lives before a single "real" song plays.\n\nThe machinery is almost comically simple: the piano cycles just two chords, C and F, at an easy 70 BPM, with the conversational vocal carrying the wry what-ifs on top — one of the lightest-sounding songs on a heavy record. It debuted at No. 4 on the Hot 100 in the album\'s opening week, part of Swift becoming the first artist ever to debut two songs in the chart\'s top four at once.',
+          'Taylor sent Aaron Dessner a voice memo with the lyrics days before release; he finished the production in a scramble while his brother Bryce added orchestration — a buzzer-beater that changed the album\'s shape and set up folklore\'s whole exercise in imagined lives before a single "real" song plays.\n\nThe machinery is almost comically simple: the piano cycles just two chords, C and F, at an easy 70 BPM, with the conversational vocal carrying the wry what-ifs on top — one of the lightest-sounding songs on a heavy record. It debuted at No. 4 on the Hot 100 in the album\'s opening week, part of Taylor becoming the first artist ever to debut two songs in the chart\'s top four at once.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1931,7 +1931,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The third song she and Aaron Dessner wrote together for the album, and the one where she worked against the music on purpose: Swift said Dessner\'s composition gave her an "immediate sense of serenity," so she wrote conflicted lyrics over it — an offer of everything except an ordinary life, the one thing fame permanently prices out.\n\nThe production stays nearly transparent (soft piano, harmonized basslines, a ticking pulse contributed by Justin Vernon), which is why the writing lands so hard; one critic called it the most romantic song she\'d ever written precisely because peace is the only thing she can\'t promise. Fans clocked it immediately as the album\'s realest moment, and her Long Pond commentary confirmed the read. It reached No. 58 on the Hot 100.',
+          'The third song she and Aaron Dessner wrote together for the album, and the one where she worked against the music on purpose: Taylor said Dessner\'s composition gave her an "immediate sense of serenity," so she wrote conflicted lyrics over it — an offer of everything except an ordinary life, the one thing fame permanently prices out.\n\nThe production stays nearly transparent (soft piano, harmonized basslines, a ticking pulse contributed by Justin Vernon), which is why the writing lands so hard; one critic called it the most romantic song she\'d ever written precisely because peace is the only thing she can\'t promise. Fans clocked it immediately as the album\'s realest moment, and her Long Pond commentary confirmed the read. It reached No. 58 on the Hot 100.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1990,7 +1990,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her open letter laid out why the second sale stung like the first: Braun\'s team, she said, had required an "ironclad" NDA letting her speak only positively about him before any buy-back talks, never quoted her a price, and barred Shamrock from telling her until the deal was done. Braun\'s camp disputed that account — an ex-Ithaca staffer said there had been "multiple offers for her to purchase her masters" and that the NDA never ordered her silent, and reporting later surfaced a May 2020 email in which Braun said he wanted Swift to own them; he had reportedly offered her the catalog for about $305 million weeks earlier.\n\nThe buyer, Shamrock Capital, is an LA media-and-entertainment investment firm founded in 1978 as Roy E. Disney\'s family office and now managing billions. Variety pegged the sale "north of $300 million" — about what Ithaca paid for all of Big Machine in 2019 — with later reporting putting Shamrock\'s price near $405 million. Shamrock offered Swift an equity partnership and said it hoped to work with her; she declined, because Braun and Ithaca would keep profiting under the structure, and the firm publicly said it "fully respected and supported her decision."\n\nInstead she doubled down. Her Big Machine deal first allowed re-recording in November 2020, and she began within days — the campaign that produced Fearless (Taylor\'s Version) in April 2021. The re-records did their work: in its first year Fearless (Taylor\'s Version) moved roughly 1 million units to the original\'s ~242,000, eroding the value of the masters Shamrock held until she bought them back outright in May 2025.',
+          'Her open letter laid out why the second sale stung like the first: Braun\'s team, she said, had required an "ironclad" NDA letting her speak only positively about him before any buy-back talks, never quoted her a price, and barred Shamrock from telling her until the deal was done. Braun\'s camp disputed that account — an ex-Ithaca staffer said there had been "multiple offers for her to purchase her masters" and that the NDA never ordered her silent, and reporting later surfaced a May 2020 email in which Braun said he wanted Taylor to own them; he had reportedly offered her the catalog for about $305 million weeks earlier.\n\nThe buyer, Shamrock Capital, is an LA media-and-entertainment investment firm founded in 1978 as Roy E. Disney\'s family office and now managing billions. Variety pegged the sale "north of $300 million" — about what Ithaca paid for all of Big Machine in 2019 — with later reporting putting Shamrock\'s price near $405 million. Shamrock offered Taylor an equity partnership and said it hoped to work with her; she declined, because Braun and Ithaca would keep profiting under the structure, and the firm publicly said it "fully respected and supported her decision."\n\nInstead she doubled down. Her Big Machine deal first allowed re-recording in November 2020, and she began within days — the campaign that produced Fearless (Taylor\'s Version) in April 2021. The re-records did their work: in its first year Fearless (Taylor\'s Version) moved roughly 1 million units to the original\'s ~242,000, eroding the value of the masters Shamrock held until she bought them back outright in May 2025.',
         sources: [
           {
             outlet: 'Variety',
@@ -2045,7 +2045,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Scott_%28Scooter%29_Braun_2022.jpg/960px-Scott_%28Scooter%29_Braun_2022.jpg',
             credit: 'Scott Braun (CC BY-SA 4.0), via Wikimedia Commons',
-            caption: 'Scooter Braun, whose Ithaca Holdings sold the masters of Swift\'s first six albums to Shamrock Capital.',
+            caption: 'Scooter Braun, whose Ithaca Holdings sold the masters of Taylor\'s first six albums to Shamrock Capital.',
             kind: 'archival',
             focalPoint: '50% 25%',
           },
@@ -2057,7 +2057,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
             credit: 'Glenn Francis (CC BY-SA 4.0), via Wikimedia Commons',
-            caption: 'Swift in March 2019, months before the first sale of her masters set the whole saga in motion.',
+            caption: 'Taylor in March 2019, months before the first sale of her masters set the whole saga in motion.',
             kind: 'archival',
             focalPoint: '50% 18%',
           },
@@ -2137,7 +2137,7 @@ export default {
       title: "The teenage love triangle",
       snippet: "Three songs — \"cardigan,\" \"august,\" and \"betty\" — tell one story from three points of view.",
       moment: {
-        context: "Swift has said on record that \"cardigan,\" \"august,\" and \"betty\" form a fictional teenage love triangle, each song narrated by a different character in the story.\n\nIt set the template for folklore's fictional, novelistic approach — a sharp turn from the autobiographical framing of her earlier catalog.",
+        context: "Taylor has said on record that \"cardigan,\" \"august,\" and \"betty\" form a fictional teenage love triangle, each song narrated by a different character in the story.\n\nIt set the template for folklore's fictional, novelistic approach — a sharp turn from the autobiographical framing of her earlier catalog.",
       },
     },
     {
@@ -2152,7 +2152,7 @@ export default {
       title: "William Bowery revealed",
       snippet: "The mystery co-writer credited on \"exile\" and \"betty\" is confirmed as Joe Alwyn.",
       moment: {
-        context: "In the Disney+ special Folklore: The Long Pond Studio Sessions, Swift revealed that \"William Bowery\" — credited as a co-writer on \"exile\" and \"betty\" — was her then-partner Joe Alwyn.\n\nThe pseudonym combines his great-grandfather's name, William Alwyn (also a musician), with the Bowery Hotel, where the two were first spotted together.",
+        context: "In the Disney+ special Folklore: The Long Pond Studio Sessions, Taylor revealed that \"William Bowery\" — credited as a co-writer on \"exile\" and \"betty\" — was her then-partner Joe Alwyn.\n\nThe pseudonym combines his great-grandfather's name, William Alwyn (also a musician), with the Bowery Hotel, where the two were first spotted together.",
       },
     },
     {
@@ -2169,7 +2169,7 @@ export default {
       milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
       snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       moment: {
-        context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
+        context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Taylor's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
         // Photo pass #762 (2026-07-19): lead image of Billboard's own AOTY-win
         // story (billboard.com/wp-content, EXIF copyright "2021 Recording
         // Academy"); curl 200 image/jpeg 1548x1024; Read-viewed: Swift in the

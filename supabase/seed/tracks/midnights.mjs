@@ -594,7 +594,7 @@ const ERA = {
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The 3am track that became a grief anthem — embraced especially by listeners mourning pregnancy loss, a reading Swift has left open.',
+      note: 'The 3am track that became a grief anthem — embraced especially by listeners mourning pregnancy loss, a reading Taylor has left open.',
       summary:
         'A goodbye to something that never got to exist: unnamed, unbounded loss for what was only ever almost. She has never specified the subject, and the ambiguity is why it holds so many people’s grief.',
       inspiration:

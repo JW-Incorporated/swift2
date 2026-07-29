@@ -25,9 +25,9 @@ export default {
       kind: 'easter_egg',
       title: 'A liner-note code confirms when she moved out',
       claim:
-        'The 2010 Speak Now CD booklet hid a capitalization code inside "Never Grow Up" that decodes to "MOVED OUT IN JULY" — a real detail about Swift leaving her family\'s home, matching the song\'s own coming-of-age theme.',
+        'The 2010 Speak Now CD booklet hid a capitalization code inside "Never Grow Up" that decodes to "MOVED OUT IN JULY" — a real detail about Taylor leaving her family\'s home, matching the song\'s own coming-of-age theme.',
       evidence:
-        'Using the same hidden-capital-letters technique found across her early album booklets, the "Never Grow Up" lyric sheet\'s decoded phrase lines up with Swift\'s own account of moving into her first apartment that July, turning a lyric-sheet puzzle into a factual footnote on the song.',
+        'Using the same hidden-capital-letters technique found across her early album booklets, the "Never Grow Up" lyric sheet\'s decoded phrase lines up with Taylor\'s own account of moving into her first apartment that July, turning a lyric-sheet puzzle into a factual footnote on the song.',
       confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: [],
@@ -48,7 +48,7 @@ export default {
       kind: 'easter_egg',
       title: 'The Speak Now (Taylor\'s Version) track list drops on social media',
       claim:
-        'Swift unveiled the full Speak Now (Taylor\'s Version) track list, including its "From the Vault" songs, directly via social media on June 5, 2023, ahead of the album\'s July 7, 2023 release — continuing her established pattern of announcing re-record vault tracks in a dedicated reveal moment rather than a traditional press release.',
+        'Taylor unveiled the full Speak Now (Taylor\'s Version) track list, including its "From the Vault" songs, directly via social media on June 5, 2023, ahead of the album\'s July 7, 2023 release — continuing her established pattern of announcing re-record vault tracks in a dedicated reveal moment rather than a traditional press release.',
       evidence:
         'Fearless and Red (Taylor\'s Version) vault tracks had each been revealed through a cryptic scrambled-word "vault" puzzle video fans had to decode. Speak Now (TV) skipped the puzzle: a single, fan-facing announcement post named every vault track and its guest directly, rather than a label press cycle — a simplification of the earlier playbook, not a repeat of it.',
       confidence: 'official',

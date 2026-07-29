@@ -28,6 +28,40 @@ source-credibility feature instead of an AI "verdict" on news claims.
 Use naturally, not forced into every item: era nicknames, fan shorthand,
 Easter-egg culture references.
 
+### Naming rule (issue #461)
+
+The voice standard above said "not a wire-service reporter" but never named
+the single most common way copy accidentally became one anyway: repeated
+bare-surname reference. Joey's audit found bare "Swift" outnumbering
+"Taylor" in **every** era seed file — 1,170 bare-"Swift" hits vs. 931
+"Taylor" hits across the era-moment corpus alone. Real fans (checked against
+how r/TaylorSwift and Swiftie circles on X actually talk) default to her
+first name or a real, in-use nickname; nobody who loves her music calls her
+"Swift" over and over in casual conversation — that's a byline habit.
+
+**Default to "Taylor" in running prose.** Bare "Swift" is fine only in:
+
+- A direct quote — never alter someone else's real words to swap the name.
+- A formal name that contains the surname (an award category, chart/RIAA
+  name, or a title like "Taylor Swift: The Eras Tour") — the surname there
+  is part of the proper noun, not a reference choice.
+- The sentence's first reference alongside her full name ("Taylor Swift
+  released...") — after that first mention, drop to "Taylor."
+
+**Nicknames, used naturally, not forced:** "Taylor," first name only, is
+the default and covers the overwhelming majority of running prose. Beyond
+that, era-appropriate and fan-real shorthand is fine where it fits the
+sentence's register: "Tay" (casual, sparing), "TS" (label/chart-adjacent
+contexts), or an era/song self-reference she's used herself ("Miss
+Americana," used ironically or in a callback to the doc/song of that name).
+"Swiftie" refers to a *fan*, never to her — don't use it as a name for
+Taylor herself.
+
+This is now checked, not just documented: `scripts/content-engine/
+checkers/voice.mjs` (`content.voice.surname-overuse`) flags any item where
+bare "Swift" (quoted spans excluded) meets or exceeds "Taylor" in the same
+field, feeding Karen's nightly scan exactly like any other finding.
+
 ### "Cut on sight" — AI-tell list
 
 - "In this article..."
@@ -36,6 +70,10 @@ Easter-egg culture references.
 - Hedging qualifiers ("it seems," "reportedly appears to")
 - Exclamation-stacked hype
 - Corporate throat-clearing / wire-service framing
+
+This list was documented but unchecked until issue #461: the literal
+phrases above (minus "Exclamation-stacked hype," which isn't a fixed
+string) are now matched by `content.voice.ai-tell` in the same checker.
 
 ### Before / after
 

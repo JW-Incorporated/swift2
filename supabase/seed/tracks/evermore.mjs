@@ -58,7 +58,7 @@ const TRACKS = [
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'William Bowery'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The Bowery co-write about a proposal that gets a no — fiction, per Swift, and the era’s biggest gut-punch bridge.',
+      note: 'The Bowery co-write about a proposal that gets a no — fiction, per Taylor, and the era’s biggest gut-punch bridge.',
       summary:
         'She turns down a ring in front of everyone and narrates her own condemnation: his mid-sentence stall, the gossiping town, her unnamed reasons. Written with Joe Alwyn, about invented people.',
       inspiration:

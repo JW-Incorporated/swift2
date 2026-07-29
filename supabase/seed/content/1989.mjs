@@ -313,7 +313,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "The idea arrived in London, when she realized she'd spent two weeks in the same city as an ex without once thinking of him — the moment you notice the hurt is gone. She finished the lyrics and melody alone, then recorded it with Imogen Heap in a single day at Heap's Hideaway Studio, done after two takes, with Heap layering mbira, vibraphone, drums, and keyboards under the vocal. Heap later admitted she'd \"assumed Taylor didn't write too much of her own music\" and came away insisting the lyrics were entirely Swift's.\n\nOn the 1989 World Tour it became the show's confessional centerpiece, prefaced nightly by spoken reflections on mistakes and self-worth — and it kept resurfacing as an Eras Tour surprise song a decade later.",
+          "The idea arrived in London, when she realized she'd spent two weeks in the same city as an ex without once thinking of him — the moment you notice the hurt is gone. She finished the lyrics and melody alone, then recorded it with Imogen Heap in a single day at Heap's Hideaway Studio, done after two takes, with Heap layering mbira, vibraphone, drums, and keyboards under the vocal. Heap later admitted she'd \"assumed Taylor didn't write too much of her own music\" and came away insisting the lyrics were entirely Taylor's.\n\nOn the 1989 World Tour it became the show's confessional centerpiece, prefaced nightly by spoken reflections on mistakes and self-worth — and it kept resurfacing as an Eras Tour surprise song a decade later.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clean_(song)' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/imogen-heap-taylor-swift-write-music-1989-clean-6304250/' },
@@ -337,7 +337,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Imogen_Heap_keytar_2014.png',
             credit: 'devastation jhayne / Wikimedia Commons, CC BY 3.0',
             kind: 'reference',
-            caption: 'Reference image: Imogen Heap onstage in March 2014 — the co-writer and producer who recorded Clean with Swift in a single day at her Hideaway Studio.',
+            caption: 'Reference image: Imogen Heap onstage in March 2014 — the co-writer and producer who recorded Clean with Taylor in a single day at her Hideaway Studio.',
             // Tall frame; Heap's face is high, keytar diagonal through the middle.
             focalPoint: '50% 16%',
           },
@@ -356,7 +356,7 @@ export default {
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1',
       moment: {
         context:
-          "Joseph Kahn shot the video in Botswana and South Africa as a doomed romance between Swift's old-Hollywood actress and Scott Eastwood's co-star on a 1950s film set. Critics at multiple outlets read the safari fantasy and its overwhelmingly white cast as colonial nostalgia — African-studies professor Matthew Carotenuto pointed to a genre of \"pith-helmet-and-khaki-clad men as civilizing heroes\" — while Kahn countered that the casting was historically accurate to the segregated 1950s productions it depicted, not a statement on colonialism.\n\nSwift donated the video's proceeds to the African Parks Foundation of America for wildlife conservation. The controversy never dented the song's run: it became 1989's fifth consecutive top-10 hit, peaking at No. 5 on the Hot 100.",
+          "Joseph Kahn shot the video in Botswana and South Africa as a doomed romance between Taylor's old-Hollywood actress and Scott Eastwood's co-star on a 1950s film set. Critics at multiple outlets read the safari fantasy and its overwhelmingly white cast as colonial nostalgia — African-studies professor Matthew Carotenuto pointed to a genre of \"pith-helmet-and-khaki-clad men as civilizing heroes\" — while Kahn countered that the casting was historically accurate to the segregated 1950s productions it depicted, not a statement on colonialism.\n\nTaylor donated the video's proceeds to the African Parks Foundation of America for wildlife conservation. The controversy never dented the song's run: it became 1989's fifth consecutive top-10 hit, peaking at No. 5 on the Hot 100.",
         sources: [
           {
             outlet: 'Billboard',
@@ -425,7 +425,7 @@ export default {
       thumbnailUrl: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef',
       moment: {
         context:
-          "Ellie Goulding played matchmaker at the February 2015 Elle Style Awards in London, and the two were spotted flirting at a BRIT Awards afterparty the very next night, followed by a trip to Nashville together. Harris dropped the first public hint himself that April — an Instagram post of Swift's cats — before the paparazzi caught them holding hands leaving a HAIM show at the Troubadour.\n\nThe Billboard Music Awards that May made it unmistakable: they sat together all night, with cameras catching \"a smooch and plenty of hugs\" as she went up to collect her awards. By their one-year mark he was engraving the date — 3.6.15 — on a locket.",
+          "Ellie Goulding played matchmaker at the February 2015 Elle Style Awards in London, and the two were spotted flirting at a BRIT Awards afterparty the very next night, followed by a trip to Nashville together. Harris dropped the first public hint himself that April — an Instagram post of Taylor's cats — before the paparazzi caught them holding hands leaving a HAIM show at the Troubadour.\n\nThe Billboard Music Awards that May made it unmistakable: they sat together all night, with cameras catching \"a smooch and plenty of hugs\" as she went up to collect her awards. By their one-year mark he was engraving the date — 3.6.15 — on a locket.",
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -455,7 +455,7 @@ export default {
           {
             url: 'https://media.zenfs.com/en/us_magazine_896/5cdacd465b06109bab8c9239f156469e',
             credit: 'Getty Images, via Us Weekly',
-            caption: 'Swift at a 2024 event — a recent individual photo, not from the 2015 relationship.',
+            caption: 'Taylor at a 2024 event — a recent individual photo, not from the 2015 relationship.',
             kind: 'reference',
             // CDN now serves a side-by-side split (Swift left, Harris right); both faces sit high, so center-top holds them.
             focalPoint: '50% 20%',
@@ -634,7 +634,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg',
       moment: {
         context:
-          'The Sun\'s May 2017 scoop reported the two had quietly been a couple for months — with Swift moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nSwift later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
+          'The Sun\'s May 2017 scoop reported the two had quietly been a couple for months — with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
         sources: [
           {
             outlet: 'Today',
@@ -669,7 +669,7 @@ export default {
       thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1',
       moment: {
         context:
-          'The sequined, metallic houndstooth Ashish crop top and trousers — worn with dark cat-eye makeup — arrived on the night "Bad Blood" won Video of the Year. Swift walked the red carpet flanked by Martha Hunt, Hailee Steinfeld, Cara Delevingne, Selena Gomez, Serayah, Lily Aldridge, Gigi Hadid, and Karlie Kloss — the "squad" era in its full, coordinated force.\n\nEntertainment Tonight counted ten of the video\'s women on the carpet, Mariska Hargitay — namesake of her cat Olivia Benson — among them, and noted Swift came in as the night\'s most-nominated artist with nine nods. "I\'m so excited to be here with Taylor and all the \'Bad Blood\' girls," Steinfeld said on the carpet, which was roughly the whole thesis of the appearance: the video\'s casting trick restaged as a live formation.',
+          'The sequined, metallic houndstooth Ashish crop top and trousers — worn with dark cat-eye makeup — arrived on the night "Bad Blood" won Video of the Year. Taylor walked the red carpet flanked by Martha Hunt, Hailee Steinfeld, Cara Delevingne, Selena Gomez, Serayah, Lily Aldridge, Gigi Hadid, and Karlie Kloss — the "squad" era in its full, coordinated force.\n\nEntertainment Tonight counted ten of the video\'s women on the carpet, Mariska Hargitay — namesake of her cat Olivia Benson — among them, and noted Taylor came in as the night\'s most-nominated artist with nine nods. "I\'m so excited to be here with Taylor and all the \'Bad Blood\' girls," Steinfeld said on the carpet, which was roughly the whole thesis of the appearance: the video\'s casting trick restaged as a live formation.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -751,7 +751,7 @@ export default {
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top',
       moment: {
         context:
-          'The two-piece was custom Atelier Versace — a coral-red bandeau over a floor-length hot-pink silk skirt slit high up the thigh — finished with roughly $900,000 of Lorraine Schwartz sapphires. Donatella Versace told Billboard that Swift "wanted a look that was young, sexy and fresh, as she is, totally reflecting her character," with the drama coming from "the right colors, and then cut and fit."\n\nThe internet mostly saw other things: E! rounded up the lookalikes, from Bianca\'s prom dress in 10 Things I Hate About You to Emma Stone\'s pink-and-magenta 2014 Met Gala two-piece to Kimberly Schlapman in similar color-blocking on the same carpet. The night itself did the historic work — she left as the first woman ever to win Album of the Year twice.',
+          'The two-piece was custom Atelier Versace — a coral-red bandeau over a floor-length hot-pink silk skirt slit high up the thigh — finished with roughly $900,000 of Lorraine Schwartz sapphires. Donatella Versace told Billboard that Taylor "wanted a look that was young, sexy and fresh, as she is, totally reflecting her character," with the drama coming from "the right colors, and then cut and fit."\n\nThe internet mostly saw other things: E! rounded up the lookalikes, from Bianca\'s prom dress in 10 Things I Hate About You to Emma Stone\'s pink-and-magenta 2014 Met Gala two-piece to Kimberly Schlapman in similar color-blocking on the same carpet. The night itself did the historic work — she left as the first woman ever to win Album of the Year twice.',
         sources: [
           {
             outlet: 'E! Online',
@@ -928,7 +928,7 @@ export default {
         'https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg',
       moment: {
         context:
-          'Lorrie Turk, Swift\'s regular makeup artist, is credited on the "Bad Blood" video (with Jemma Muradian on hair).\n\nThe finale look layered black and midnight-blue eyeshadow with gunpowder-grey liner smudged along both lash lines, multiple coats of mascara plus false lashes top and bottom, and a precisely applied red lip — the "warrior" beauty look tying together the video\'s ensemble cast of characters.',
+          'Lorrie Turk, Taylor\'s regular makeup artist, is credited on the "Bad Blood" video (with Jemma Muradian on hair).\n\nThe finale look layered black and midnight-blue eyeshadow with gunpowder-grey liner smudged along both lash lines, multiple coats of mascara plus false lashes top and bottom, and a precisely applied red lip — the "warrior" beauty look tying together the video\'s ensemble cast of characters.',
         sources: [
           {
             outlet: 'Birchbox',
@@ -974,7 +974,7 @@ export default {
       thumbnailUrl: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2014/07/swift-king/taylor-swift-emma-stone-fourth-of-july-weekend-04.jpg',
       moment: {
         context:
-          "Swift hosted Emma Stone, Jaime King, Ingrid Michaelson, Jessica Stam, Jessica Szohr, and Girls creator Lena Dunham, among others, for the 2014 holiday weekend at her Rhode Island house.\n\nRain didn't stop the group — they built a giant Slip 'N Slide, baked an American-flag cake, and posed for a group \"family portrait\" that Dunham photobombed with a mock scowl and a raised middle finger. \"When the 4th of July gives you nonstop rain, make a giant slip n slide,\" Swift captioned one photo. Dunham called the weekend her personal Coachella.",
+          "Taylor hosted Emma Stone, Jaime King, Ingrid Michaelson, Jessica Stam, Jessica Szohr, and Girls creator Lena Dunham, among others, for the 2014 holiday weekend at her Rhode Island house.\n\nRain didn't stop the group — they built a giant Slip 'N Slide, baked an American-flag cake, and posed for a group \"family portrait\" that Dunham photobombed with a mock scowl and a raised middle finger. \"When the 4th of July gives you nonstop rain, make a giant slip n slide,\" Taylor captioned one photo. Dunham called the weekend her personal Coachella.",
         sources: [
           {
             outlet: 'E! Online',
@@ -1005,7 +1005,7 @@ export default {
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201533/rs_634x1024-150403050319-634.Taylor-Swift-Calvin-Harris-JR-4315.jpg',
       moment: {
         context:
-          'In early April 2015, weeks after they met at the BRIT Awards, Swift and Harris were photographed holding hands as they left a HAIM show at the Troubadour in West Hollywood — one of the first sightings that fueled dating rumors ahead of their public confirmation at the Billboard Music Awards that May.\n\nThe Troubadour photos fit a courtship that had been running just below the surface for weeks: Ellie Goulding had played matchmaker at the Elle Style Awards in London that February, the two were spotted flirting at a BRITs afterparty the next night, and Harris had posted a photo of Swift\'s cats to Instagram days before the concert — the kind of breadcrumb fans were already reading as confirmation.',
+          'In early April 2015, weeks after they met at the BRIT Awards, Taylor and Harris were photographed holding hands as they left a HAIM show at the Troubadour in West Hollywood — one of the first sightings that fueled dating rumors ahead of their public confirmation at the Billboard Music Awards that May.\n\nThe Troubadour photos fit a courtship that had been running just below the surface for weeks: Ellie Goulding had played matchmaker at the Elle Style Awards in London that February, the two were spotted flirting at a BRITs afterparty the next night, and Harris had posted a photo of Taylor\'s cats to Instagram days before the concert — the kind of breadcrumb fans were already reading as confirmation.',
         sources: [
           { outlet: 'E! Online', url: 'https://www.eonline.com/photos/17305/taylor-swift-calvin-harris-romance-rewind' },
           {
@@ -1059,7 +1059,7 @@ export default {
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201563/rs_600x600-150703170056-600.Taylor-Swift-Calvin-Harris-Instagram.ms.070315.JPG',
       moment: {
         context:
-          "The 2015 edition of Swift's Rhode Island Independence Day tradition drew Calvin Harris (her boyfriend at the time), Ed Sheeran, Joe Jonas, Nick Jonas, Gigi Hadid, brother Austin Swift, and the HAIM sisters.\n\nHadid and Jonas brought matching American-flag onesies for the group, and the party featured what E! called \"the biggest inflatable slide,\" piggyback rides, and Swift doing the cooking, under sunny East Coast weather ahead of that evening's fireworks.",
+          "The 2015 edition of Taylor's Rhode Island Independence Day tradition drew Calvin Harris (her boyfriend at the time), Ed Sheeran, Joe Jonas, Nick Jonas, Gigi Hadid, brother Austin Swift, and the HAIM sisters.\n\nHadid and Jonas brought matching American-flag onesies for the group, and the party featured what E! called \"the biggest inflatable slide,\" piggyback rides, and Taylor doing the cooking, under sunny East Coast weather ahead of that evening's fireworks.",
         sources: [
           {
             outlet: 'E! Online',
@@ -1092,7 +1092,7 @@ export default {
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016518/rs_634x1024-160618144035-634.Tom-Hiddleston-Taylor-Swift-Beach-kiss.tt.061816.jpg',
       moment: {
         context:
-          'On June 15, 2016, Swift and Hiddleston were photographed kissing on a beach in Westerly, Rhode Island — the first public sighting of their relationship, surfacing just weeks after her split from Calvin Harris and shortly after she and Hiddleston met at the 2016 Met Gala.\n\nThe pictures broke the story before either Swift or Hiddleston commented publicly — a rarity for a relationship this photographed, where nearly every later beat, from Rome to the Gold Coast, played out with the two visibly unbothered by the cameras.',
+          'On June 15, 2016, Taylor and Hiddleston were photographed kissing on a beach in Westerly, Rhode Island — the first public sighting of their relationship, surfacing just weeks after her split from Calvin Harris and shortly after she and Hiddleston met at the 2016 Met Gala.\n\nThe pictures broke the story before either Taylor or Hiddleston commented publicly — a rarity for a relationship this photographed, where nearly every later beat, from Rome to the Gold Coast, played out with the two visibly unbothered by the cameras.',
         sources: [
           { outlet: 'E! Online', url: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind' },
           {
@@ -1115,7 +1115,7 @@ export default {
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016528/rs_634x1024-160628080313-634.Taylor-Swift-Tom-Hiddleston-Rome-JR-062816.jpg',
       moment: {
         context:
-          "On June 27, 2016, Swift and Hiddleston were photographed sightseeing at Rome's Colosseum, wearing matching ensembles and holding hands throughout.\n\nIt was part of a European stretch of the relationship that also took them to Hiddleston's family home in Suffolk, England, before they returned to the U.S. for her Fourth of July party in Rhode Island.",
+          "On June 27, 2016, Taylor and Hiddleston were photographed sightseeing at Rome's Colosseum, wearing matching ensembles and holding hands throughout.\n\nIt was part of a European stretch of the relationship that also took them to Hiddleston's family home in Suffolk, England, before they returned to the U.S. for her Fourth of July party in Rhode Island.",
         sources: [{ outlet: 'E! Online', url: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind' }],
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016528/rs_634x1024-160628080313-634.Taylor-Swift-Tom-Hiddleston-Rome-JR-062816.jpg', credit: 'INFphoto.com' }],
       },
@@ -1132,7 +1132,7 @@ export default {
       thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/a6f6cfa25b82-taylor-a.jpg',
       moment: {
         context:
-          'On July 6, 2016, Swift and Hiddleston were photographed moving through LAX in coordinating navy jackets — she in a blue plaid skirt with flats, he in a white v-neck T-shirt — with his arm around her as they made their way through the terminal.\n\nThey were bound for Australia, where Hiddleston was filming, and touched down still wearing the same matching looks the next day.',
+          'On July 6, 2016, Taylor and Hiddleston were photographed moving through LAX in coordinating navy jackets — she in a blue plaid skirt with flats, he in a white v-neck T-shirt — with his arm around her as they made their way through the terminal.\n\nThey were bound for Australia, where Hiddleston was filming, and touched down still wearing the same matching looks the next day.',
         sources: [
           {
             outlet: 'Hello!',
@@ -1166,7 +1166,7 @@ export default {
       ],
       moment: {
         context:
-          'At the Feb. 15, 2016 ceremony, 1989 won Album of the Year at the 58th Grammy Awards (also winning Best Pop Vocal Album), making Swift the first woman in Grammy history to win Album of the Year twice — her first was for Fearless in 2010. She thanked the fans for "the last 10 years" and producer Max Martin in the same speech.\n\nThe speech\'s pointed center — the warning to young women about people who "will try to undercut your success or take credit for your accomplishments or your fame" — was widely read as her answer to Kanye West\'s "Famous," released days earlier, in which he rapped about having made her famous. She never said his name; the room, and Billboard\'s coverage that night, understood exactly who she meant.',
+          'At the Feb. 15, 2016 ceremony, 1989 won Album of the Year at the 58th Grammy Awards (also winning Best Pop Vocal Album), making Taylor the first woman in Grammy history to win Album of the Year twice — her first was for Fearless in 2010. She thanked the fans for "the last 10 years" and producer Max Martin in the same speech.\n\nThe speech\'s pointed center — the warning to young women about people who "will try to undercut your success or take credit for your accomplishments or your fame" — was widely read as her answer to Kanye West\'s "Famous," released days earlier, in which he rapped about having made her famous. She never said his name; the room, and Billboard\'s coverage that night, understood exactly who she meant.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1192,70 +1192,70 @@ export default {
             url: 'https://i.guim.co.uk/img/media/338849e33c7e6b53df14a7f5a00183b2a31d1203/0_48_2640_1584/master/2640.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '55% 42%',
             credit: 'Stringer/Reuters, via The Guardian',
-            caption: 'Swift stands on the Grammy stage during the ceremony where 1989 won Album of the Year.',
+            caption: 'Taylor stands on the Grammy stage during the ceremony where 1989 won Album of the Year.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt4200ccf647ed3548/69888f30428a9ed09ecd23bd/taylor-swift-success-double-standard-women.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
             focalPoint: '50% 30%',
             credit: 'Mark Ralston/AFP/Getty Images, via TIME',
-            caption: 'Swift holds her three trophies in the press room after the 58th Grammy Awards.',
+            caption: 'Taylor holds her three trophies in the press room after the 58th Grammy Awards.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt5ccf62fadac5fa4d/69887dac8e0601bf454649de/grammys-red-carpet-lead.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
             focalPoint: '42% 50%',
             credit: 'Steve Granitz/Getty Images, via TIME',
-            caption: 'Selena Gomez and Swift pose together on the red carpet before the 58th Grammy Awards.',
+            caption: 'Selena Gomez and Taylor pose together on the red carpet before the 58th Grammy Awards.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blta95b1ab48ade842b/69887da62dce016f4f9e7d02/taylor-swift-grammys-performance.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
             focalPoint: '50% 30%',
             credit: 'Robyn Beck/AFP/Getty Images, via TIME',
-            caption: 'Swift opens the 58th Grammy Awards with "Out of the Woods."',
+            caption: 'Taylor opens the 58th Grammy Awards with "Out of the Woods."',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/56c278c5a76c406e241cfa0e/master/w_2560%2Cc_limit/a-taylor-swift-grammys-2016-performance.jpg',
             focalPoint: '48% 30%',
             credit: 'WireImage/Getty Images, via Vanity Fair',
-            caption: 'Swift accepts Album of the Year for 1989 on the Grammy stage with her collaborators behind her.',
+            caption: 'Taylor accepts Album of the Year for 1989 on the Grammy stage with her collaborators behind her.',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
             focalPoint: '50% 12%',
             credit: 'Jason Merritt/Getty Images, via Vanity Fair',
-            caption: 'Swift poses on the Grammy red carpet in her orange-and-pink Versace ensemble.',
+            caption: 'Taylor poses on the Grammy red carpet in her orange-and-pink Versace ensemble.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618a92a7d1d17a722124/master/w_1024%2Cc_limit/GettyImages-510439952.jpg',
             focalPoint: '51% 15%',
             credit: 'AFP/Getty Images, via Teen Vogue',
-            caption: 'A second full-length red-carpet angle shows Swift\'s Versace crop top and split ball skirt.',
+            caption: 'A second full-length red-carpet angle shows Taylor\'s Versace crop top and split ball skirt.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618992a7d1d17a722120/master/w_1024%2Cc_limit/GettyImages-510439902.jpg',
             focalPoint: '56% 16%',
             credit: 'AFP/Getty Images, via Teen Vogue',
-            caption: 'A separate red-carpet close-up shows Swift\'s bob haircut and jeweled choker at the 2016 Grammys.',
+            caption: 'A separate red-carpet close-up shows Taylor\'s bob haircut and jeweled choker at the 2016 Grammys.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618ae9ea465e7cf5b563/master/w_1024%2Cc_limit/GettyImages-510439964.jpg',
             focalPoint: '38% 52%',
             credit: 'Getty Images for NARAS, via Teen Vogue',
-            caption: 'A Grammy red-carpet detail frame shows Swift\'s metallic manicure and matching cocktail ring.',
+            caption: 'A Grammy red-carpet detail frame shows Taylor\'s metallic manicure and matching cocktail ring.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618ce9ea465e7cf5b567/master/w_1024%2Cc_limit/GettyImages-510439972.jpg',
             focalPoint: '54% 60%',
             credit: 'Getty Images for NARAS, via Teen Vogue',
-            caption: 'A separate detail frame shows the metallic platform sandals worn with Swift\'s 2016 Grammy look.',
+            caption: 'A separate detail frame shows the metallic platform sandals worn with Taylor\'s 2016 Grammy look.',
             kind: 'primary',
           },
         ],
@@ -1325,7 +1325,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
       moment: {
         context:
-          'The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) almost eleven years after release, and making it Swift\'s second Diamond album after Fearless (certified in December 2017).\n\nThe company is thin: only 31 albums by women or female-fronted acts have ever gone Diamond, and the double puts her alongside Madonna, Whitney Houston, Mariah Carey, Celine Dion, Shania Twain, Britney Spears, Adele, and The Chicks among the women with more than one — with Twain and Houston leading at three apiece.',
+          'The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) almost eleven years after release, and making it Taylor\'s second Diamond album after Fearless (certified in December 2017).\n\nThe company is thin: only 31 albums by women or female-fronted acts have ever gone Diamond, and the double puts her alongside Madonna, Whitney Houston, Mariah Carey, Celine Dion, Shania Twain, Britney Spears, Adele, and The Chicks among the women with more than one — with Twain and Houston leading at three apiece.',
         sources: [
           { outlet: 'AOL', url: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html' },
           { outlet: 'RIAA Gold & Platinum Database', url: 'https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989' },
@@ -1362,7 +1362,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg',
       moment: {
         context:
-          'On Nov. 3, 2014, Big Machine Records pulled Swift\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued that "music should not be free"; she spelled out her objection to Spotify\'s ad-supported free tier in interviews that November.\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
+          'On Nov. 3, 2014, Big Machine Records pulled Taylor\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued that "music should not be free"; she spelled out her objection to Spotify\'s ad-supported free tier in interviews that November.\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
         sources: [
           { outlet: 'CNN Money', url: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html' },
           {
@@ -1395,7 +1395,7 @@ export default {
       thumbnailUrl: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg',
       moment: {
         context:
-          'Swift published the letter on Tumblr on Sunday, June 21, 2015, announcing she was withholding 1989 from Apple Music and objecting to the plan not to pay royalties during the three-month free trial. She insisted it wasn\'t about her: "This is about the new artist or band that has just released their first single and will not be paid for its success."\n\nApple\'s Eddy Cue later described reading the letter that morning — "it solidified quickly that we needed a change" — and by that night he had announced the reversal on Twitter, conceding the trial structure "was clearly something that was not working." Less than 24 hours from Tumblr post to policy change; 1989 subsequently went up on the service.',
+          'Taylor published the letter on Tumblr on Sunday, June 21, 2015, announcing she was withholding 1989 from Apple Music and objecting to the plan not to pay royalties during the three-month free trial. She insisted it wasn\'t about her: "This is about the new artist or band that has just released their first single and will not be paid for its success."\n\nApple\'s Eddy Cue later described reading the letter that morning — "it solidified quickly that we needed a change" — and by that night he had announced the reversal on Twitter, conceding the trial structure "was clearly something that was not working." Less than 24 hours from Tumblr post to policy change; 1989 subsequently went up on the service.',
         sources: [
           { outlet: 'Stereogum', url: 'https://stereogum.com/1810310/read-taylor-swifts-open-letter-to-apple-music/news' },
           {
@@ -1419,7 +1419,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/1280px-Taylor_Swift_AAMI_Park_20151212_01.jpg',
       moment: {
         context:
-          'The tour wrapped its third Melbourne show at AAMI Park on Dec. 12, 2015, having run 85 shows across 53 cities in 10 countries since opening in Tokyo that May.\n\nFinal tallies: $250.7 million grossed and 2,278,647 tickets sold (100% of capacity) — Pollstar\'s highest-grossing tour worldwide for 2015. Swift posted a farewell photo with her tour crew: "Farewell, 1989 World Tour."',
+          'The tour wrapped its third Melbourne show at AAMI Park on Dec. 12, 2015, having run 85 shows across 53 cities in 10 countries since opening in Tokyo that May.\n\nFinal tallies: $250.7 million grossed and 2,278,647 tickets sold (100% of capacity) — Pollstar\'s highest-grossing tour worldwide for 2015. Taylor posted a farewell photo with her tour crew: "Farewell, 1989 World Tour."',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' },
           {
@@ -1442,7 +1442,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png',
       moment: {
         context:
-          "Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Swift on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.\n\nThe bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time.",
+          "Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Taylor on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.\n\nThe bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)' }],
         // Photo-enrichment pass (2026-07-18, #762): added the blizzard frame from the
         // official Out of the Woods video (id oEmbed-verified against @TaylorSwift;
@@ -1540,7 +1540,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Each session hosted 89 fans, selected by Swift herself from social media. She previewed the full album weeks before release, talked through the songs, posed for photos, and served homemade chocolate chip and toasted coconut cookies. Despite hundreds of fans hearing it early, the album never leaked — a loyalty story the fandom still retells, and a rollout ritual she repeated for reputation.\n\nNYLON\'s oral history laid out the logistics: invitees — contacted by Taylor Nation via DM, phone call, or email — met at parking lots and were bused to undisclosed addresses, phones locked away and NDAs signed, before Swift played the album from her iPhone with track-by-track commentary. Five sessions ran in barely three weeks: Los Angeles on Sept. 20, her mom\'s house in Nashville on Sept. 28, her New York apartment in early October, Rhode Island on Oct. 4, and a London hotel room on Oct. 10, with individual Polaroid-and-hug meet-and-greets closing every night.',
+          'Each session hosted 89 fans, selected by Taylor herself from social media. She previewed the full album weeks before release, talked through the songs, posed for photos, and served homemade chocolate chip and toasted coconut cookies. Despite hundreds of fans hearing it early, the album never leaked — a loyalty story the fandom still retells, and a rollout ritual she repeated for reputation.\n\nNYLON\'s oral history laid out the logistics: invitees — contacted by Taylor Nation via DM, phone call, or email — met at parking lots and were bused to undisclosed addresses, phones locked away and NDAs signed, before Taylor played the album from her iPhone with track-by-track commentary. Five sessions ran in barely three weeks: Los Angeles on Sept. 20, her mom\'s house in Nashville on Sept. 28, her New York apartment in early October, Rhode Island on Oct. 4, and a London hotel room on Oct. 10, with individual Polaroid-and-hug meet-and-greets closing every night.',
         sources: [
           {
             outlet: 'NYLON',
@@ -1567,7 +1567,7 @@ export default {
             focalPoint: '62% 34%',
             credit: 'Taylor Swift via YouTube',
             kind: 'archival',
-            caption: "Hugging a fan at a session — a still from the official '1989 Secret Sessions, Behind The Scenes!' video on Swift's own channel (Oct. 2014).",
+            caption: "Hugging a fan at a session — a still from the official '1989 Secret Sessions, Behind The Scenes!' video on Taylor's own channel (Oct. 2014).",
           },
         ],
       },
@@ -1639,7 +1639,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The city\'s tourism arm built its global "Welcome to New York" campaign around the 1989 opener, with Swift fronting videos explaining New York slang and landmarks. NYC & Company confirmed she wasn\'t paid for the role; the appointment drew both delight and eye-rolls from lifelong New Yorkers, which only fed the coverage.\n\nThe rollout was total: the announcement went out live on Good Morning America the morning of the album\'s release, and nycgo.com\'s homepage turned into a 1989 billboard the same day — a photo of Swift on a Manhattan pier under the hand-lettered slogan "welcome to new york — it\'s been waiting for you," her signature underneath. For a Pennsylvania-born, Nashville-raised transplant seven months into actually living there, it was a remarkable civic embrace — and precision-timed marketing for both parties.',
+          'The city\'s tourism arm built its global "Welcome to New York" campaign around the 1989 opener, with Taylor fronting videos explaining New York slang and landmarks. NYC & Company confirmed she wasn\'t paid for the role; the appointment drew both delight and eye-rolls from lifelong New Yorkers, which only fed the coverage.\n\nThe rollout was total: the announcement went out live on Good Morning America the morning of the album\'s release, and nycgo.com\'s homepage turned into a 1989 billboard the same day — a photo of Taylor on a Manhattan pier under the hand-lettered slogan "welcome to new york — it\'s been waiting for you," her signature underneath. For a Pennsylvania-born, Nashville-raised transplant seven months into actually living there, it was a remarkable civic embrace — and precision-timed marketing for both parties.',
         sources: [
           {
             outlet: 'NYC & Company',
@@ -1666,7 +1666,7 @@ export default {
             focalPoint: '50% 45%',
             credit: 'NYC & Company / nycgo.com, via Skift',
             kind: 'primary',
-            caption: "nycgo.com's homepage on launch day: Swift fronting the 'Welcome to New York' campaign as the city's Global Welcome Ambassador, Oct. 27, 2014.",
+            caption: "nycgo.com's homepage on launch day: Taylor fronting the 'Welcome to New York' campaign as the city's Global Welcome Ambassador, Oct. 27, 2014.",
           },
         ],
       },
@@ -1690,7 +1690,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
       moment: {
         context:
-          'Joseph Kahn shot the mansion meltdown at Oheka Castle on Long Island, borrowing Stanley Kubrick\'s symmetrical framing while Swift played the tabloids\' "crazy ex" caricature to the hilt — golf clubs to the sports car included. The companion "AMEX Unstaged: Taylor Swift Experience" app let viewers roam the mansion in interactive 360° mid-video, discovering easter eggs and side characters outside the linear cut.\n\nIt won the 2015 Emmy for Outstanding Creative Achievement in Interactive Media — Original Interactive Program, with Swift credited as artist and executive producer: her first Emmy, earned for a music video\'s companion app.',
+          'Joseph Kahn shot the mansion meltdown at Oheka Castle on Long Island, borrowing Stanley Kubrick\'s symmetrical framing while Taylor played the tabloids\' "crazy ex" caricature to the hilt — golf clubs to the sports car included. The companion "AMEX Unstaged: Taylor Swift Experience" app let viewers roam the mansion in interactive 360° mid-video, discovering easter eggs and side characters outside the linear cut.\n\nIt won the 2015 Emmy for Outstanding Creative Achievement in Interactive Media — Original Interactive Program, with Taylor credited as artist and executive producer: her first Emmy, earned for a music video\'s companion app.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1823,7 +1823,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery — Swift and English actor Dominic Sherwood projected onto each other, the relationship replayed in shards of broken mirror and hazy flashbacks by the sea, in the woods, and behind the wheel. Billboard called it "gorgeously shot," conceding the plot was thinner than "Blank Space" but that the atmosphere could carry a perfume ad; other critics caught echoes of True Detective\'s title sequence, Mulholland Drive, and Chris Isaak\'s "Wicked Game" video.\n\nThe art-film styling extended the pop reinvention to her videos — and the song underneath, a No. 6 Hot 100 peak at the time, has only climbed in critical standing since, routinely ranked among the finest pure pop songs in her catalog.',
+          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery — Taylor and English actor Dominic Sherwood projected onto each other, the relationship replayed in shards of broken mirror and hazy flashbacks by the sea, in the woods, and behind the wheel. Billboard called it "gorgeously shot," conceding the plot was thinner than "Blank Space" but that the atmosphere could carry a perfume ad; other critics caught echoes of True Detective\'s title sequence, Mulholland Drive, and Chris Isaak\'s "Wicked Game" video.\n\nThe art-film styling extended the pop reinvention to her videos — and the song underneath, a No. 6 Hot 100 peak at the time, has only climbed in critical standing since, routinely ranked among the finest pure pop songs in her catalog.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2133,7 +2133,7 @@ export default {
             focalPoint: '40% 38%',
             credit: 'Apple Music, via ABC News on YouTube',
             kind: 'archival',
-            caption: 'The face-plant itself: Swift comes off the treadmill mid-"Jumpman" in the April 1, 2016 Apple Music spot.',
+            caption: 'The face-plant itself: Taylor comes off the treadmill mid-"Jumpman" in the April 1, 2016 Apple Music spot.',
           },
         ],
       },
@@ -2151,7 +2151,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift had written the Rihanna-fronted hit — released April 29, 2016 — under the name Nils Sjöberg while she and Harris were still together, keeping it secret so the relationship wouldn\'t overshadow the song. She picked the pseudonym because those are two of the most common Swedish male names, and she even sings uncredited backing vocals on the track.\n\nAfter the credit surfaced post-breakup, Harris confirmed it on Twitter — she "wrote the lyrics and contributed some background vocals" while he wrote, produced, and arranged it — but added it was "hurtful" that her team let the story out, turning a songwriting footnote into the summer\'s defining pop feud.',
+          'Taylor had written the Rihanna-fronted hit — released April 29, 2016 — under the name Nils Sjöberg while she and Harris were still together, keeping it secret so the relationship wouldn\'t overshadow the song. She picked the pseudonym because those are two of the most common Swedish male names, and she even sings uncredited backing vocals on the track.\n\nAfter the credit surfaced post-breakup, Harris confirmed it on Twitter — she "wrote the lyrics and contributed some background vocals" while he wrote, produced, and arranged it — but added it was "hurtful" that her team let the story out, turning a songwriting footnote into the summer\'s defining pop feud.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2327,7 +2327,7 @@ export default {
             url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
             focalPoint: '50% 12%',
             credit: 'Getty Images, via Vanity Fair',
-            caption: 'Swift at the Grammys red carpet, Feb. 15, 2016 — four days after "Famous" premiered, hours before her Album of the Year speech.',
+            caption: 'Taylor at the Grammys red carpet, Feb. 15, 2016 — four days after "Famous" premiered, hours before her Album of the Year speech.',
             kind: 'archival',
           },
           {
@@ -2409,7 +2409,7 @@ export default {
             // this asset is a BLANK Apple Notes screen, not the statement text
             // the prior caption claimed. Caption corrected to match the image;
             // recommend a verified replacement showing the actual statement.
-            caption: 'The Apple Notes format Swift used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
+            caption: 'The Apple Notes format Taylor used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
             kind: 'primary',
           },
           {
@@ -2428,14 +2428,14 @@ export default {
             url: 'https://media.vanityfair.com/photos/5792599af9039e5f13c9db9f/master/w_2560%2Cc_limit/taylor-swift-tom-hiddleston.jpg',
             focalPoint: '50% 33%',
             credit: 'Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair',
-            caption: 'Swift walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.',
+            caption: 'Taylor walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.',
             kind: 'archival',
           },
           {
             url: 'https://assets.teenvogue.com/photos/578c4ca16e85f8db434d478f/16%3A9/w_2560%2Cc_limit/GettyImages-463036782.jpg',
             focalPoint: '50% 25%',
             credit: 'Larry Busacca/Getty Images for NARAS, via Teen Vogue',
-            caption: 'For context, Swift, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
+            caption: 'For context, Taylor, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
             kind: 'reference',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
@@ -2445,7 +2445,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-perform-austin-oct-2016-billboard-1548.jpg?w=942&h=628&crop=1',
             focalPoint: '50% 14%',
             credit: 'Gary Miller/FilmMagic, via Billboard',
-            caption: 'Swift headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.',
+            caption: 'Taylor headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.',
             kind: 'archival',
           },
           {
@@ -2510,7 +2510,7 @@ export default {
           {
             url: 'https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556',
             credit: 'Deseret News',
-            caption: 'Swift at the "Miss Americana" Sundance premiere, Jan. 23, 2020 — her last major public appearance before the leak and the pandemic lockdown that followed weeks later.',
+            caption: 'Taylor at the "Miss Americana" Sundance premiere, Jan. 23, 2020 — her last major public appearance before the leak and the pandemic lockdown that followed weeks later.',
             kind: 'reference',
             // Over-the-shoulder pose; her face sits upper-left of center.
             focalPoint: '40% 25%',
@@ -2518,7 +2518,7 @@ export default {
           {
             url: 'https://hollywoodlife.com/wp-content/uploads/2020/03/taylor-swift-kimye-full-phone-call-leaked-rex-ftr-1-1.jpg',
             credit: 'Rex, via HollywoodLife',
-            caption: 'A composite of both parties around this period: Swift at Sundance, West and Kardashian at a 2020 event.',
+            caption: 'A composite of both parties around this period: Taylor at Sundance, West and Kardashian at a 2020 event.',
             kind: 'reference',
             // Left/right split composite; all faces read in the upper band.
             focalPoint: '50% 22%',

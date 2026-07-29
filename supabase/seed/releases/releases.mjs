@@ -450,7 +450,7 @@ export default {
       label: 'Big Machine',
       trackCount: null,
       parentReleaseSlug: null,
-      note: 'A 2008 radio-session live album released by Big Machine in 2020 without Swift\'s approval; included for discography completeness, not endorsement.',
+      note: 'A 2008 radio-session live album released by Big Machine in 2020 without Taylor\'s approval; included for discography completeness, not endorsement.',
       sources: [
         wiki('Live_from_Clear_Channel_Stripped_2008', 'Live from Clear Channel Stripped 2008'),
         press(

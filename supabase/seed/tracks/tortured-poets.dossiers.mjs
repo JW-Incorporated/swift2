@@ -310,7 +310,7 @@ export default {
       {
         date: "May 9, 2024",
         event: "The Eras Tour — Paris (Paris La Défense Arena)",
-        note: "Folded into the tour's new TTPD segment from the European leg's opening night; Swift performs it solo to Post Malone's recorded vocals, staged around a typewriter. No live performance with Post Malone has been documented."
+        note: "Folded into the tour's new TTPD segment from the European leg's opening night; Taylor performs it solo to Post Malone's recorded vocals, staged around a typewriter. No live performance with Post Malone has been documented."
       }
     ],
     sources: [
@@ -1241,7 +1241,7 @@ export default {
       {
         who: "Rob Sheffield",
         context: "Rolling Stone",
-        note: "'One of the most powerful songs Swift and Dessner have crafted.'",
+        note: "'One of the most powerful songs Taylor and Dessner have crafted.'",
       },
       {
         who: "Jason Lipshutz",
