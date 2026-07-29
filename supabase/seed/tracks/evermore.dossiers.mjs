@@ -55,14 +55,14 @@ export default {
       },
       {
         event: 'The Eras Tour — evermore act opener',
-        note: 'willow opens the evermore section: Swift and cloaked dancers move through a misty stage carrying glowing orbs, echoing the video’s coven imagery — the staging that later seeded a fan orb tradition beginning in Europe in 2024.',
+        note: 'willow opens the evermore section: Taylor and cloaked dancers move through a misty stage carrying glowing orbs, echoing the video’s coven imagery — the staging that later seeded a fan orb tradition beginning in Europe in 2024.',
       },
     ],
     voices: [
       {
         who: 'Aaron Dessner',
         context: 'on the evermore sessions',
-        note: 'Has described sending Swift instrumental sketches — willow’s was labeled "Westerly" — to which she returned finished songs almost immediately, the working method behind most of the record.',
+        note: 'Has described sending Taylor instrumental sketches — willow’s was labeled "Westerly" — to which she returned finished songs almost immediately, the working method behind most of the record.',
       },
     ],
     sources: [
@@ -111,14 +111,14 @@ export default {
       {
         date: '2023-03-17',
         event: 'The Eras Tour — opening night, Glendale, AZ',
-        note: 'Live debut inside a fixed five-song evermore act; staged at a stark candlelit dinner table set for two, Swift performing to a seated dancer and climbing across the long table at the emotional peak. It stayed a fixed part of the set until the post-TTPD setlist overhaul removed it in mid-2024.',
+        note: 'Live debut inside a fixed five-song evermore act; staged at a stark candlelit dinner table set for two, Taylor performing to a seated dancer and climbing across the long table at the emotional peak. It stayed a fixed part of the set until the post-TTPD setlist overhaul removed it in mid-2024.',
       },
     ],
     voices: [
       {
         who: 'Aaron Dessner',
         context: 'on writing the piano part',
-        note: 'Recalled composing tolerate it in 10/8 and hesitating to send Swift something so rhythmically odd — before she wrote to it anyway.',
+        note: 'Recalled composing tolerate it in 10/8 and hesitating to send Taylor something so rhythmically odd — before she wrote to it anyway.',
       },
       {
         who: 'Taylor Swift',
@@ -175,7 +175,7 @@ export default {
       {
         date: '2023-07-01',
         event: 'The Eras Tour — Cincinnati, OH (Paycor Stadium)',
-        note: 'Live debut as an acoustic surprise song, performed with Aaron Dessner on guitar in his home city — one of three surprise songs Swift played that night.',
+        note: 'Live debut as an acoustic surprise song, performed with Aaron Dessner on guitar in his home city — one of three surprise songs Taylor played that night.',
       },
     ],
     voices: [
@@ -232,7 +232,7 @@ export default {
       {
         date: '2023-06-30',
         event: 'The Eras Tour — Cincinnati, OH (Paycor Stadium)',
-        note: 'Performed as a surprise song, solo at the piano — Swift covered Vernon’s bridge herself — paired that night with an acoustic "I’m Only Me When I’m With You." No documented live performance of the duet with Bon Iver exists.',
+        note: 'Performed as a surprise song, solo at the piano — Taylor covered Vernon’s bridge herself — paired that night with an acoustic "I’m Only Me When I’m With You." No documented live performance of the duet with Bon Iver exists.',
       },
     ],
     voices: [
@@ -291,7 +291,7 @@ export default {
       {
         date: '2023-07-28',
         event: 'The Eras Tour — Santa Clara, CA (Levi’s Stadium)',
-        note: 'Live debut as the guitar surprise song, performed with Aaron Dessner on guitar; Swift restarted after flubbing a line, joking it is one of her wordiest songs. "Castles Crumbling" was the piano debut the same night.',
+        note: 'Live debut as the guitar surprise song, performed with Aaron Dessner on guitar; Taylor restarted after flubbing a line, joking it is one of her wordiest songs. "Castles Crumbling" was the piano debut the same night.',
       },
     ],
     sources: [

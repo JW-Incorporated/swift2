@@ -116,7 +116,7 @@ export default {
       releasedOn: '2019-12-06',
       relatedSongs: ['Christmas Tree Farm'],
       summary:
-        'A self-directed holiday video built from real Swift-family home footage — sledding, decorating, and Taylor unwrapping her first guitar — set on the actual Pennsylvania tree farm the song is named for.',
+        'A self-directed holiday video built from real Taylor-family home footage — sledding, decorating, and Taylor unwrapping her first guitar — set on the actual Pennsylvania tree farm the song is named for.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=mN3rDTAdM2o',
