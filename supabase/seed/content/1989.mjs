@@ -136,9 +136,14 @@ export default {
       },
     },
     {
+      // Fix (issue #1239): was dated 2014-09-08 — seven weeks before 1989
+      // (the album that introduced the song) and eight months before the
+      // single. Re-dated to the album's release day, the earliest date the
+      // song's own existence supports; the body/sources are about the
+      // single/feud and run through 2024 regardless of this date.
       year: 2014,
-      month: 9,
-      day: 8,
+      month: 10,
+      day: 27,
       category: 'music',
       title: 'Bad Blood, and the friendship it ended',
       snippet:
