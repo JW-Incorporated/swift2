@@ -228,19 +228,19 @@ export default {
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956230118.jpg',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
-            caption: 'Camila Cabello, Swift, and Charli XCX backstage at University of Phoenix Stadium before opening night, May 8, 2018.',
+            caption: 'Camila Cabello, Taylor, and Charli XCX backstage at University of Phoenix Stadium before opening night, May 8, 2018.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956319166.jpg',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
-            caption: 'The three-way "Shake It Off" that closed the opening set, Cabello and Charli XCX joining Swift on stage.',
+            caption: 'The three-way "Shake It Off" that closed the opening set, Cabello and Charli XCX joining Taylor on stage.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956299498.jpg',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
-            caption: 'Swift performs opening night of the reputation Stadium Tour, May 8, 2018.',
+            caption: 'Taylor performs opening night of the reputation Stadium Tour, May 8, 2018.',
             kind: 'archival',
           },
           {
@@ -1368,7 +1368,7 @@ export default {
             // Both faces in the upper third of the square; bias upward.
             focalPoint: '48% 28%',
             credit: 'News Licensing / MEGA, via E! Online',
-            caption: 'Leaving the BAFTAs after-party hand in hand, February 10, 2019 — Swift in the Stella McCartney gown.',
+            caption: 'Leaving the BAFTAs after-party hand in hand, February 10, 2019 — Taylor in the Stella McCartney gown.',
             kind: 'primary',
           },
         ],
@@ -1933,7 +1933,7 @@ export default {
             url: 'https://i.ytimg.com/vi/l25AL0BdD6w/maxresdefault.jpg',
             credit: 'Sugarland / YouTube (official music video still)',
             caption:
-              'Jennifer Nettles in Anthony Mandler\'s Mad Men-styled "Babe" video, released June 9, 2018 — Swift wrote the treatment and played the other woman.',
+              'Jennifer Nettles in Anthony Mandler\'s Mad Men-styled "Babe" video, released June 9, 2018 — Taylor wrote the treatment and played the other woman.',
             kind: 'archival',
             focalPoint: '63% 32%',
           },
@@ -1988,7 +1988,7 @@ export default {
             // high so neither head is cut.
             focalPoint: '48% 28%',
             credit: 'Billboard',
-            caption: 'Perry and Swift in 2010, before the falling-out — the file photo Billboard ran with news of the olive branch.',
+            caption: 'Perry and Taylor in 2010, before the falling-out — the file photo Billboard ran with news of the olive branch.',
             kind: 'archival',
           },
         ],
@@ -2035,7 +2035,7 @@ export default {
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/06/taylor-swift-robbie-williams-angels-wembley.jpg',
             credit: 'Press photos via NME',
-            caption: 'Swift on the reputation Stadium Tour, and Robbie Williams in his Taylor Swift T-shirt — the composite NME ran on the Wembley "Angels" duet.',
+            caption: 'Taylor on the reputation Stadium Tour, and Robbie Williams in his Taylor Swift T-shirt — the composite NME ran on the Wembley "Angels" duet.',
             kind: 'archival',
           },
         ],
@@ -2345,7 +2345,7 @@ export default {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201907/rs_600x600-190107083644-600x600-taylorswift-joealwyn-ggs-gj-1-7-19.jpg?fit=around%7C600:600&output-quality=90&crop=600:600;center,top',
             focalPoint: '50% 20%',
             credit: 'Composite via E! Online',
-            caption: 'Separate arrivals, January 6, 2019: Swift presenting inside the Golden Globes, Alwyn on the carpet with his castmates.',
+            caption: 'Separate arrivals, January 6, 2019: Taylor presenting inside the Golden Globes, Alwyn on the carpet with his castmates.',
             kind: 'archival',
           },
         ],

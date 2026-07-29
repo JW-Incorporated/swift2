@@ -342,14 +342,14 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/FearlessPrudentialCentMay2010.jpg',
             focalPoint: '58% 20%',
             credit: 'itslex94, Wikimedia Commons (CC BY-SA 2.0)',
-            caption: 'Swift on the original Fearless Tour in May 2010 — the era this record-breaking 2021 re-record revisited eleven years later.',
+            caption: 'Taylor on the original Fearless Tour in May 2010 — the era this record-breaking 2021 re-record revisited eleven years later.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Keith_Urban_2020.jpg',
             focalPoint: '52% 16%',
             credit: 'Shawn Miller / Library of Congress (CC0)',
-            caption: 'Keith Urban in 2020, months before joining Swift on "That\'s When," one of six From the Vault tracks that drove the record-setting week.',
+            caption: 'Keith Urban in 2020, months before joining Taylor on "That\'s When," one of six From the Vault tracks that drove the record-setting week.',
             kind: 'reference',
           },
           {
@@ -444,7 +444,7 @@ export default {
             focalPoint: '42% 42%',
             credit: 'Will Heath/NBC',
             caption:
-              'Swift performs "All Too Well (10 Minute Version)" for the first time on television, as musical guest on Saturday Night Live, Nov. 13, 2021 — part of the promotional run that carried the song to No. 1.',
+              'Taylor performs "All Too Well (10 Minute Version)" for the first time on television, as musical guest on Saturday Night Live, Nov. 13, 2021 — part of the promotional run that carried the song to No. 1.',
             kind: 'primary',
           },
           {
@@ -452,7 +452,7 @@ export default {
             focalPoint: '58% 28%',
             credit: 'Dimitrios Kambouris/Getty Images',
             caption:
-              'Swift at the "All Too Well" short film premiere, AMC Lincoln Square, New York City, Nov. 12, 2021 — the night she performed the 10-minute version live for the first time, before it played on SNL the next night.',
+              'Taylor at the "All Too Well" short film premiere, AMC Lincoln Square, New York City, Nov. 12, 2021 — the night she performed the 10-minute version live for the first time, before it played on SNL the next night.',
             kind: 'primary',
           },
           {
@@ -475,7 +475,7 @@ export default {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-03.jpg',
             focalPoint: '32% 16%',
             credit: 'Dimitrios Kambouris/Getty Images, via Just Jared Jr',
-            caption: 'Swift on the "All Too Well" short film premiere red carpet, Nov. 12, 2021.',
+            caption: 'Taylor on the "All Too Well" short film premiere red carpet, Nov. 12, 2021.',
             kind: 'archival',
           },
           {
@@ -593,7 +593,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/Uzii44SDYFA/hqdefault.jpg',
             credit: 'Republic Records / YouTube (official performance still)',
-            caption: 'Swift on the moss-covered cabin set during the folklore/evermore medley at the 2021 Grammys.',
+            caption: 'Taylor on the moss-covered cabin set during the folklore/evermore medley at the 2021 Grammys.',
             kind: 'archival',
           },
         ],
@@ -786,7 +786,7 @@ export default {
             credit: 'NBC',
             focalPoint: '42% 13%',
             caption:
-              'Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the "siren red" lip and blunt bangs of the Red (TV) beauty look, the night before the album\'s release.',
+              'Taylor on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the "siren red" lip and blunt bangs of the Red (TV) beauty look, the night before the album\'s release.',
             kind: 'archival',
           },
         ],
@@ -1142,7 +1142,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/21Ki96Lsxhc/hqdefault.jpg',
             credit: 'NBC / Saturday Night Live (YouTube sketch still)',
-            caption: 'Swift with Pete Davidson in the "Three Sad Virgins" sketch, SNL, Nov. 13, 2021.',
+            caption: 'Taylor with Pete Davidson in the "Three Sad Virgins" sketch, SNL, Nov. 13, 2021.',
             kind: 'archival',
           },
         ],
@@ -1225,7 +1225,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/3TrVA4kYTrQ/hqdefault.jpg',
             credit: 'stolenmidnights / YouTube (concert footage still)',
-            caption: 'Swift performing "Gasoline"/"Love Story" with HAIM at London\'s O2 Arena, July 21, 2022.',
+            caption: 'Taylor performing "Gasoline"/"Love Story" with HAIM at London\'s O2 Arena, July 21, 2022.',
             kind: 'archival',
           },
         ],
@@ -1606,7 +1606,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/_ptL-dwudyw/hqdefault.jpg',
             credit: 'The Hollywood Fix / YouTube (arrival footage still)',
-            caption: 'Swift arriving at the Beacon Theatre for the Tribeca Festival "All Too Well" conversation, June 11, 2022.',
+            caption: 'Taylor arriving at the Beacon Theatre for the Tribeca Festival "All Too Well" conversation, June 11, 2022.',
             kind: 'archival',
           },
         ],
@@ -1740,7 +1740,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
             focalPoint: '50% 28%',
             credit: 'Billboard',
-            caption: 'Taylor Swift and Sophie Turner, whose Instagram Story reaction to the song prompted Swift\'s "bending the knee" reply.',
+            caption: 'Taylor Swift and Sophie Turner, whose Instagram Story reaction to the song prompted Taylor\'s "bending the knee" reply.',
             kind: 'archival',
           },
         ],
@@ -2080,7 +2080,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Aaron_Dessner_%28March_25%2C_2016%29.jpg/1920px-Aaron_Dessner_%28March_25%2C_2016%29.jpg',
             credit: 'Bruce Baker, Wikimedia Commons (CC BY 2.0) — Aaron Dessner performing, March 2016',
-            caption: 'Aaron Dessner, who composed the "happiness" instrumental back in 2019 — Swift added the words just days before the album was finished.',
+            caption: 'Aaron Dessner, who composed the "happiness" instrumental back in 2019 — Taylor added the words just days before the album was finished.',
             kind: 'archival',
             // Focal point set by viewing: his face sits left of center in the
             // upper third, mic angled in from the right.
@@ -2436,7 +2436,7 @@ export default {
             url: 'https://i.ytimg.com/vi/5UMCrq-bBCg/hqdefault.jpg',
             credit: 'Republic Records / YouTube (official music video still)',
             caption:
-              'Still from the Blake Lively-directed "I Bet You Think About Me" video — Swift as the red-dressed wedding crasher — via the video\'s YouTube thumbnail.',
+              'Still from the Blake Lively-directed "I Bet You Think About Me" video — Taylor as the red-dressed wedding crasher — via the video\'s YouTube thumbnail.',
             kind: 'archival',
             // Focal point set 2026-07-18 by viewing (480x360 letterboxed):
             // Swift center frame in the red gown with guitar, face just left
@@ -2451,7 +2451,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Blake_Lively_%284994696823%29.jpg/500px-Blake_Lively_%284994696823%29.jpg',
             credit: 'Josh Jensen, Wikimedia Commons (CC BY-SA 2.0) — Blake Lively, 2010 (archival, era context; not the video shoot)',
-            caption: 'Blake Lively — the friend Swift finally got to work with, in Lively\'s directorial debut.',
+            caption: 'Blake Lively — the friend Taylor finally got to work with, in Lively\'s directorial debut.',
             kind: 'archival',
             // Focal point set by viewing: tall portrait, her face high in the
             // frame, dress filling the lower two-thirds.
@@ -2675,7 +2675,7 @@ export default {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2021411/rs_1200x1200-210511142237-1200..2-taylor-swift-brit-awards-2021.jpg',
             focalPoint: '53% 28%',
             credit: 'Ian West/PA Images via Getty Images',
-            caption: 'Swift holds up the Global Icon trophy on stage at the 2021 BRIT Awards.',
+            caption: 'Taylor holds up the Global Icon trophy on stage at the 2021 BRIT Awards.',
             kind: 'archival',
           },
           // Photo pass 2026-07-20 (#762): +1 verified. Maisie Williams
@@ -2688,7 +2688,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/2021/05/Taylor-Swift-and-Maisie-Williams-brit-awards-2021-billboard-1548-1620846105.jpg?w=942&h=628&crop=1',
             focalPoint: '48% 26%',
             credit: 'Getty Images, via Billboard',
-            caption: 'Swift with Maisie Williams, who presented the Global Icon Award, in the media room at the 2021 BRIT Awards.',
+            caption: 'Taylor with Maisie Williams, who presented the Global Icon Award, in the media room at the 2021 BRIT Awards.',
             kind: 'archival',
           },
         ],
@@ -2751,7 +2751,7 @@ export default {
             url: 'https://i.ytimg.com/vi/x_c_1qsnZ28/hqdefault.jpg',
             credit: 'Access Hollywood / YouTube (press coverage still)',
             caption:
-              'Swift accepting Video of the Year at the 2022 VMAs, moments before announcing Midnights — from Access Hollywood\'s coverage of the speech.',
+              'Taylor accepting Video of the Year at the 2022 VMAs, moments before announcing Midnights — from Access Hollywood\'s coverage of the speech.',
             kind: 'archival',
             // Focal point set 2026-07-18 by viewing (480x360): Swift at the
             // podium mid-speech, face just left of center in the upper third,

@@ -174,7 +174,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/BBd9gcrj2Wk/hqdefault.jpg',
             credit: 'Netflix via YouTube (official trailer)',
-            caption: 'Gina Rodriguez in Someone Great — the Netflix film that inspired the song, itself written to Swift\'s discography.',
+            caption: 'Gina Rodriguez in Someone Great — the Netflix film that inspired the song, itself written to Taylor\'s discography.',
             kind: 'archival',
             focalPoint: '68% 50%',
           },
@@ -335,7 +335,7 @@ export default {
           {
             url: 'https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556',
             credit: 'Deseret News',
-            caption: 'Swift at the "Miss Americana" world premiere, Sundance Film Festival, Jan. 23, 2020.',
+            caption: 'Taylor at the "Miss Americana" world premiere, Sundance Film Festival, Jan. 23, 2020.',
             kind: 'archival',
           },
           {
@@ -348,13 +348,13 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/MistyCopeland-byPhilipRomano.jpg',
             credit: 'Philip Romano, Wikimedia Commons (CC BY-SA 4.0)',
-            caption: 'Ballet dancer Misty Copeland, who performed with Swift in the same AMA medley.',
+            caption: 'Ballet dancer Misty Copeland, who performed with Taylor in the same AMA medley.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/13/Carole_King_2002_%28cropped%29.jpg',
             credit: 'John Mathew Smith, Wikimedia Commons (CC BY-SA 2.0)',
-            caption: 'Carole King, who presented Swift with the Artist of the Decade award at that AMAs ceremony.',
+            caption: 'Carole King, who presented Taylor with the Artist of the Decade award at that AMAs ceremony.',
             kind: 'reference',
           },
         ],
@@ -2108,7 +2108,7 @@ export default {
             url: 'https://assets.newsweek.com/wp-content/uploads/2025/08/1406339-gettyimages-1145071309.jpg',
             focalPoint: '33% 33%',
             credit: 'Leah Puttkammer/Getty Images, via Newsweek',
-            caption: 'Swift greets fans at the Kelsey Montague butterfly mural in Nashville, April 25, 2019 — the surprise stop that announced the era before "ME!" dropped.',
+            caption: 'Taylor greets fans at the Kelsey Montague butterfly mural in Nashville, April 25, 2019 — the surprise stop that announced the era before "ME!" dropped.',
             kind: 'archival',
           },
           {
@@ -2541,7 +2541,7 @@ export default {
             url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '50% 28%',
             credit: 'Richard Shotwell/Invision/AP, via The Guardian',
-            caption: 'A contemporaneous reference image shows Swift arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
+            caption: 'A contemporaneous reference image shows Taylor arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
             kind: 'reference',
           },
           // Two ca-times.brightspotcdn.com (LA Times) candidates were dropped
@@ -2555,14 +2555,14 @@ export default {
             url: 'https://media.vanityfair.com/photos/5ddb4a90d223c300093e7f42/master/w_2560%2Cc_limit/taylor-swift-ama-perfomance.jpg',
             focalPoint: '30% 28%',
             credit: 'JC Olivera/Getty Images, via Vanity Fair',
-            caption: 'Swift accepts Artist of the Decade at the 2019 American Music Awards amid the public dispute over performing her Big Machine-era songs.',
+            caption: 'Taylor accepts Artist of the Decade at the 2019 American Music Awards amid the public dispute over performing her Big Machine-era songs.',
             kind: 'archival',
           },
           {
             url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '58% 33%',
             credit: 'Kevin Mazur/Getty Images for ABA, via The Guardian',
-            caption: 'Swift performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',
+            caption: 'Taylor performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',
             kind: 'archival',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 2 more,

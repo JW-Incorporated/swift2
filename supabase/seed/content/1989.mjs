@@ -337,7 +337,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Imogen_Heap_keytar_2014.png',
             credit: 'devastation jhayne / Wikimedia Commons, CC BY 3.0',
             kind: 'reference',
-            caption: 'Reference image: Imogen Heap onstage in March 2014 — the co-writer and producer who recorded Clean with Swift in a single day at her Hideaway Studio.',
+            caption: 'Reference image: Imogen Heap onstage in March 2014 — the co-writer and producer who recorded Clean with Taylor in a single day at her Hideaway Studio.',
             // Tall frame; Heap's face is high, keytar diagonal through the middle.
             focalPoint: '50% 16%',
           },
@@ -455,7 +455,7 @@ export default {
           {
             url: 'https://media.zenfs.com/en/us_magazine_896/5cdacd465b06109bab8c9239f156469e',
             credit: 'Getty Images, via Us Weekly',
-            caption: 'Swift at a 2024 event — a recent individual photo, not from the 2015 relationship.',
+            caption: 'Taylor at a 2024 event — a recent individual photo, not from the 2015 relationship.',
             kind: 'reference',
             // CDN now serves a side-by-side split (Swift left, Harris right); both faces sit high, so center-top holds them.
             focalPoint: '50% 20%',
@@ -1192,70 +1192,70 @@ export default {
             url: 'https://i.guim.co.uk/img/media/338849e33c7e6b53df14a7f5a00183b2a31d1203/0_48_2640_1584/master/2640.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '55% 42%',
             credit: 'Stringer/Reuters, via The Guardian',
-            caption: 'Swift stands on the Grammy stage during the ceremony where 1989 won Album of the Year.',
+            caption: 'Taylor stands on the Grammy stage during the ceremony where 1989 won Album of the Year.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt4200ccf647ed3548/69888f30428a9ed09ecd23bd/taylor-swift-success-double-standard-women.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
             focalPoint: '50% 30%',
             credit: 'Mark Ralston/AFP/Getty Images, via TIME',
-            caption: 'Swift holds her three trophies in the press room after the 58th Grammy Awards.',
+            caption: 'Taylor holds her three trophies in the press room after the 58th Grammy Awards.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt5ccf62fadac5fa4d/69887dac8e0601bf454649de/grammys-red-carpet-lead.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
             focalPoint: '42% 50%',
             credit: 'Steve Granitz/Getty Images, via TIME',
-            caption: 'Selena Gomez and Swift pose together on the red carpet before the 58th Grammy Awards.',
+            caption: 'Selena Gomez and Taylor pose together on the red carpet before the 58th Grammy Awards.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blta95b1ab48ade842b/69887da62dce016f4f9e7d02/taylor-swift-grammys-performance.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
             focalPoint: '50% 30%',
             credit: 'Robyn Beck/AFP/Getty Images, via TIME',
-            caption: 'Swift opens the 58th Grammy Awards with "Out of the Woods."',
+            caption: 'Taylor opens the 58th Grammy Awards with "Out of the Woods."',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/56c278c5a76c406e241cfa0e/master/w_2560%2Cc_limit/a-taylor-swift-grammys-2016-performance.jpg',
             focalPoint: '48% 30%',
             credit: 'WireImage/Getty Images, via Vanity Fair',
-            caption: 'Swift accepts Album of the Year for 1989 on the Grammy stage with her collaborators behind her.',
+            caption: 'Taylor accepts Album of the Year for 1989 on the Grammy stage with her collaborators behind her.',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
             focalPoint: '50% 12%',
             credit: 'Jason Merritt/Getty Images, via Vanity Fair',
-            caption: 'Swift poses on the Grammy red carpet in her orange-and-pink Versace ensemble.',
+            caption: 'Taylor poses on the Grammy red carpet in her orange-and-pink Versace ensemble.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618a92a7d1d17a722124/master/w_1024%2Cc_limit/GettyImages-510439952.jpg',
             focalPoint: '51% 15%',
             credit: 'AFP/Getty Images, via Teen Vogue',
-            caption: 'A second full-length red-carpet angle shows Swift\'s Versace crop top and split ball skirt.',
+            caption: 'A second full-length red-carpet angle shows Taylor\'s Versace crop top and split ball skirt.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618992a7d1d17a722120/master/w_1024%2Cc_limit/GettyImages-510439902.jpg',
             focalPoint: '56% 16%',
             credit: 'AFP/Getty Images, via Teen Vogue',
-            caption: 'A separate red-carpet close-up shows Swift\'s bob haircut and jeweled choker at the 2016 Grammys.',
+            caption: 'A separate red-carpet close-up shows Taylor\'s bob haircut and jeweled choker at the 2016 Grammys.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618ae9ea465e7cf5b563/master/w_1024%2Cc_limit/GettyImages-510439964.jpg',
             focalPoint: '38% 52%',
             credit: 'Getty Images for NARAS, via Teen Vogue',
-            caption: 'A Grammy red-carpet detail frame shows Swift\'s metallic manicure and matching cocktail ring.',
+            caption: 'A Grammy red-carpet detail frame shows Taylor\'s metallic manicure and matching cocktail ring.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618ce9ea465e7cf5b567/master/w_1024%2Cc_limit/GettyImages-510439972.jpg',
             focalPoint: '54% 60%',
             credit: 'Getty Images for NARAS, via Teen Vogue',
-            caption: 'A separate detail frame shows the metallic platform sandals worn with Swift\'s 2016 Grammy look.',
+            caption: 'A separate detail frame shows the metallic platform sandals worn with Taylor\'s 2016 Grammy look.',
             kind: 'primary',
           },
         ],
@@ -2133,7 +2133,7 @@ export default {
             focalPoint: '40% 38%',
             credit: 'Apple Music, via ABC News on YouTube',
             kind: 'archival',
-            caption: 'The face-plant itself: Swift comes off the treadmill mid-"Jumpman" in the April 1, 2016 Apple Music spot.',
+            caption: 'The face-plant itself: Taylor comes off the treadmill mid-"Jumpman" in the April 1, 2016 Apple Music spot.',
           },
         ],
       },
@@ -2327,7 +2327,7 @@ export default {
             url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
             focalPoint: '50% 12%',
             credit: 'Getty Images, via Vanity Fair',
-            caption: 'Swift at the Grammys red carpet, Feb. 15, 2016 — four days after "Famous" premiered, hours before her Album of the Year speech.',
+            caption: 'Taylor at the Grammys red carpet, Feb. 15, 2016 — four days after "Famous" premiered, hours before her Album of the Year speech.',
             kind: 'archival',
           },
           {
@@ -2409,7 +2409,7 @@ export default {
             // this asset is a BLANK Apple Notes screen, not the statement text
             // the prior caption claimed. Caption corrected to match the image;
             // recommend a verified replacement showing the actual statement.
-            caption: 'The Apple Notes format Swift used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
+            caption: 'The Apple Notes format Taylor used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
             kind: 'primary',
           },
           {
@@ -2428,14 +2428,14 @@ export default {
             url: 'https://media.vanityfair.com/photos/5792599af9039e5f13c9db9f/master/w_2560%2Cc_limit/taylor-swift-tom-hiddleston.jpg',
             focalPoint: '50% 33%',
             credit: 'Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair',
-            caption: 'Swift walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.',
+            caption: 'Taylor walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.',
             kind: 'archival',
           },
           {
             url: 'https://assets.teenvogue.com/photos/578c4ca16e85f8db434d478f/16%3A9/w_2560%2Cc_limit/GettyImages-463036782.jpg',
             focalPoint: '50% 25%',
             credit: 'Larry Busacca/Getty Images for NARAS, via Teen Vogue',
-            caption: 'For context, Swift, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
+            caption: 'For context, Taylor, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
             kind: 'reference',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
@@ -2445,7 +2445,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-perform-austin-oct-2016-billboard-1548.jpg?w=942&h=628&crop=1',
             focalPoint: '50% 14%',
             credit: 'Gary Miller/FilmMagic, via Billboard',
-            caption: 'Swift headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.',
+            caption: 'Taylor headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.',
             kind: 'archival',
           },
           {
@@ -2510,7 +2510,7 @@ export default {
           {
             url: 'https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556',
             credit: 'Deseret News',
-            caption: 'Swift at the "Miss Americana" Sundance premiere, Jan. 23, 2020 — her last major public appearance before the leak and the pandemic lockdown that followed weeks later.',
+            caption: 'Taylor at the "Miss Americana" Sundance premiere, Jan. 23, 2020 — her last major public appearance before the leak and the pandemic lockdown that followed weeks later.',
             kind: 'reference',
             // Over-the-shoulder pose; her face sits upper-left of center.
             focalPoint: '40% 25%',
@@ -2518,7 +2518,7 @@ export default {
           {
             url: 'https://hollywoodlife.com/wp-content/uploads/2020/03/taylor-swift-kimye-full-phone-call-leaked-rex-ftr-1-1.jpg',
             credit: 'Rex, via HollywoodLife',
-            caption: 'A composite of both parties around this period: Swift at Sundance, West and Kardashian at a 2020 event.',
+            caption: 'A composite of both parties around this period: Taylor at Sundance, West and Kardashian at a 2020 event.',
             kind: 'reference',
             // Left/right split composite; all faces read in the upper band.
             focalPoint: '50% 22%',

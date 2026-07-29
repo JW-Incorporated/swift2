@@ -1879,7 +1879,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Taylor_Swift_-_Long_Live_-_Speak_Now_Tour_in_Vancouver.jpg',
             credit: 'Andy (agroove) / Wikimedia Commons, CC BY-SA 2.0',
             caption:
-              'Swift and her band mid-set in Vancouver, Sept. 11, 2011 — the North American leg whose footage became Speak Now World Tour Live.',
+              'Taylor and her band mid-set in Vancouver, Sept. 11, 2011 — the North American leg whose footage became Speak Now World Tour Live.',
             kind: 'archival',
             focalPoint: '49% 44%',
           },
