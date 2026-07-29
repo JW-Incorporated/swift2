@@ -3,5 +3,8 @@
   "body": "when taylor announced midnights at the 2022 vmas she called it \"the stories of 13 sleepless nights scattered throughout my life\" -- then gave the standard album exactly 13 tracks. thirteen nights, thirteen songs. 13's been her lucky number since the beginning, and here she made it the whole blueprint.",
   "scheduledAt": "2026-07-28T23:00:00Z",
   "campaign": "symbol-thread-midnights-thirteen",
-  "why": "X-native version of the number-13 symbol thread. Same vault sourcing as the IG pair (vault-midnights-thirteen-sleepless-nights): the 'stories of 13 sleepless nights' VMAs quote and the 13-track standard edition. Text-only (no media). Music/lore, outside every blocklist topic."
+  "why": "X-native version of the number-13 symbol thread. Same vault sourcing as the IG pair (vault-midnights-thirteen-sleepless-nights): the 'stories of 13 sleepless nights' VMAs quote and the 13-track standard edition. Text-only (no media). Music/lore, outside every blocklist topic.",
+  "attempts": 1,
+  "lastError": "X post failed (403): {\"detail\":\"You are not permitted to perform this action.\",\"status\":403,\"title\":\"Forbidden\",\"type\":\"about:blank\"}",
+  "lastAttemptAt": "2026-07-29T00:05:34.715Z"
 }
