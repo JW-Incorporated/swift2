@@ -301,10 +301,50 @@ export default {
     {
       year: 2017,
       month: 8,
+      day: 17,
+      category: 'music',
+      significance: 'defining', // reputation's pivot: the deliberate year-long disappearance the album answers, anchored on the eve of the Aug-18 blackout that ended it (#1238)
+      relatedIds: [
+        // The re-emergence that ended the silence…
+        'moment:vault-reputation-the-snake-video-that-announced-reputation',
+        // …and the July 2016 pile-on (told in the 1989 era) that caused it.
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+      ],
+      title: 'The year of silence',
+      snippet:
+        'After the summer 2016 pile-on, the most-watched woman in pop did the one thing no one expected — she vanished, and stayed gone for roughly a year.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "After the summer 2016 fallout — the leaked \"Famous\" call, Kim Kardashian's \"National Snake Day,\" the snake emojis flooding every post until Instagram tested a comment filter on her page — Taylor did the one thing nobody expected of the most-watched pop star alive: she stopped showing up. Through late 2016 and into 2017 there were no interviews, no magazine covers, no award-show appearances, no new music. The most documented woman in pop simply went quiet and let the noise run itself out without her in the frame.\n\nShe later framed the withdrawal as deliberate. \"Nobody physically saw me for a year,\" she says in the 2020 documentary Miss Americana, \"and I thought that that was what they wanted\" — a retreat that, in her telling, woke her up from \"constantly feeling that I was fighting for people's respect.\" The silence was not empty: out of view she was building the record that would answer it, reputation, which arrived November 10, 2017. The disappearance is the setup the whole era pays off — the reason the snake, when it finally slithered back onscreen that August, read as armor instead of apology.",
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Reputation_(album)',
+          },
+        ],
+        // Photo pass (#1238, this run): a year defined by her *not* being
+        // photographed has no honest representative image — the same reasoning
+        // the snake-teaser item below records for its social-only window. Ship
+        // text; let the photo-sparsity checker route it to Photo Enrichment
+        // rather than force an off-subject or misrepresenting crop (charter 3b).
+        photos: [],
+      },
+    },
+    {
+      year: 2017,
+      month: 8,
       day: 21,
       category: 'release',
       significance: 'defining', // the visual rebirth after the Kimye-leak silence; reputation's whole aesthetic starts here (docs/decisions.md, 2026-07-19)
       relatedIds: [
+        // The year-long silence this reveal ended (#1238).
+        'moment:vault-reputation-the-year-of-silence',
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
         // Cross-link (candidate #1027): the Showgirl portraits — Mert & Marcus's
