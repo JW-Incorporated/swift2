@@ -6426,7 +6426,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The March 31, 2026 video breaks from the era\'s self-directed clips: unlike "The Fate of Ophelia" and "Opalite," it does not appear among Swift\'s credited directorial works — her official directed-projects list carries both of those but not this one — and no director is named in the coverage. It is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer, Who\'s Afraid of Virginia Woolf?, Julia Misbehaves and Boom! among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead. Rolling Stone\'s Rob Sheffield read a deep "Liz/Swift soul connection" — "both Taylors got famous as kids, grew up in public as America\'s sweetheart" — while fans divided: some hailed the effort behind a video cleared entirely from archival footage as "art," others were let down that it was "clipped together from Elizabeth Taylor movies," and a few joked the March 31 timing meant it "has to be an April Fools\' joke."',
+          'The March 31, 2026 video breaks from the era\'s self-directed clips: unlike "The Fate of Ophelia" and "Opalite," it does not appear among Swift\'s credited directorial works — her official directed-projects list carries both of those but not this one — and no director is named in the coverage. It is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer, Who\'s Afraid of Virginia Woolf?, Julia Misbehaves and Boom! among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. Taylor Nation tied the timing to the occasion — "What could you possibly get for the girl on the last day of Women\'s History Month? We have something in mind!" — but offered no reason for the platform windowing, which matched the staggered rollout of "The Fate of Ophelia" and "Opalite" and came just weeks after YouTube stopped submitting its streaming data to Billboard (Jan. 16, 2026), so YouTube plays no longer feed the Hot 100 while paid Apple Music and Spotify streams still do. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead. Rolling Stone\'s Rob Sheffield read a deep "Liz/Swift soul connection" — "both Taylors got famous as kids, grew up in public as America\'s sweetheart" — while fans divided: some hailed the effort behind a video cleared entirely from archival footage as "art," others were let down that it was "clipped together from Elizabeth Taylor movies," and a few joked the March 31 timing meant it "has to be an April Fools\' joke."',
         sources: [
           {
             outlet: 'Variety',
@@ -6480,6 +6480,29 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-26',
+            reliability_score: 4,
+          },
+          // Added 2026-07-29 (ledger #1036 Q4): the on-record reason for the
+          // timing (Taylor Nation's Women's History Month framing) and the
+          // context for the streaming-first windowing.
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-drops-music-video-211706156.html',
+            source_title: 'Taylor Swift drops new music video with footage of Elizabeth Taylor',
+            publisher: 'Yahoo',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+          },
+          // The Jan. 16, 2026 Billboard/YouTube change that reframes why a
+          // paid-streaming-first premiere counts toward the Hot 100.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/youtube-stop-submitting-data-billboard-charts-1235486500/',
+            source_title: "YouTube to Stop Submitting Data to 'Billboard' Charts",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
             reliability_score: 4,
           },
         ],
@@ -6776,7 +6799,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The display opened in late June 2026 on the museum\'s fifth level, in the Legends of Rock exhibit — institutional-canon treatment for an era still in progress, before she is even age-eligible for induction. The case holds the long-beaded gown from the video\'s finale, the mint sequined swimming costume from its synchronized-swim number, and props carried by her dancers, staged against a backdrop image from the shoot.\n\nThe artifacts come from the self-written, self-directed video whose single led the Hot 100 for 10 weeks, her longest-leading No. 1, and which had passed 438 million views by the time the case was installed (and 450 million within weeks of it). The placement is the story: costumes from a nine-month-old music video sharing a floor with rock history\'s permanent wardrobe, the museum treating the Showgirl era as canon while it was still selling out vinyl pressings.\n\nTwo details the coverage pins down sharpen the picture. The installation is temporary, not a permanent placement: Cleveland.com reported the exhibit is "slated to be up through the end of the year," a defined 2026 run window inside the standing Legends of Rock section. And it is not the museum\'s first Swift artifact — Cleveland.com noted the case "joins a growing collection of Swift memorabilia already displayed" in Cleveland, with earlier items reported to include a cardigan from one of her music videos and a moss-covered piano, so the Rock Hall had been showing her work well before the Ophelia costumes arrived. What the coverage never settled is how the pieces got there: loan, donation, or acquisition is unstated, and no named curator went on record explaining why an era still in progress earned a case.',
+          'The display opened in late June 2026 on the museum\'s fifth level, in the Legends of Rock exhibit — institutional-canon treatment for an era still in progress, before she is even age-eligible for induction. The case holds the long-beaded gown from the video\'s finale, the mint sequined swimming costume from its synchronized-swim number, and props carried by her dancers, staged against a backdrop image from the shoot.\n\nThe artifacts come from the self-written, self-directed video whose single led the Hot 100 for 10 weeks, her longest-leading No. 1, and which had passed 438 million views by the time the case was installed (and 450 million within weeks of it). The placement is the story: costumes from a nine-month-old music video sharing a floor with rock history\'s permanent wardrobe, the museum treating the Showgirl era as canon while it was still selling out vinyl pressings.\n\nTwo details the coverage pins down sharpen the picture. The installation is temporary, not a permanent placement: Cleveland.com reported the exhibit is "slated to be up through the end of the year," a defined 2026 run window inside the standing Legends of Rock section. And it is not the museum\'s first Swift artifact — Cleveland.com noted the case "joins a growing collection of Swift memorabilia already displayed" in Cleveland, with earlier items reported to include a cardigan from one of her music videos and a moss-covered piano, so the Rock Hall had been showing her work well before the Ophelia costumes arrived. What the coverage never settled is how the pieces got there: loan, donation, or acquisition is unstated, and no named curator went on record explaining why an era still in progress earned a case. The museum labels credit no designers, but the video\'s own wardrobe record does: led by Swift\'s longtime stylist Joseph Cassell, it drew on Alberta Ferretti, Versace, Roberto Cavalli, Paolo Sebastian, Bob Mackie, Brooklyn designer Kelsey Randall and the label AREA — AREA being the house behind the icy-blue sequined "swimming costume" and its matching swim caps for the Busby Berkeley-style synchronized number now in the case.',
         sources: [
           {
             outlet: 'Billboard',
@@ -6806,6 +6829,17 @@ export default {
             publisher: 'Cleveland.com / Advance Local',
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          // Ledger #1049 Q5 (2026-07-29): the video's costume roster and stylist
+          // (Joseph Cassell), incl. AREA as the maker of the sequined swim look.
+          {
+            outlet: 'AOL / In The Know',
+            url: 'https://www.aol.com/articles/inside-9-taylor-swifts-fate-174300574.html',
+            source_title: "Analyzing the Fashion in Taylor Swift's 'The Fate of Ophelia' Video",
+            publisher: 'AOL / In The Know',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
             reliability_score: 3,
           },
         ],
@@ -7154,7 +7188,7 @@ export default {
       thumbnailUrl: 'https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg',
       moment: {
         context:
-          'Eight days after their July 3 wedding at Madison Square Garden, Taylor and Travis made their first public appearance as a married couple — not at a press event or a project of their own, but as guests at former Kansas City teammate JuJu Smith-Schuster\'s wedding to Laura Kruk, held July 10 at the Ritz-Carlton in Laguna Niguel, California.\n\nTaylor wore Markarian\'s strapless "Laila" gown — a $4,115 pink floral-brocade ball gown from the New York label (founded by designer Alexandra O\'Neill), its corset bodice flaring into a voluminous skirt — with her usual red lipstick, a Cartier Love bracelet, a pair of (already sold-out) Larkspur & Hawk "Posy" drop earrings and tortoiseshell Crap Eyewear sunglasses; Travis wore a double-breasted black suit. The couple were photographed holding hands on the way in — the first clear public look at both of their wedding bands, Taylor\'s set alongside her 10-carat old-mine-cut Kindred Lubeck engagement ring; the bands\' own designer and specifics went undisclosed. Smith-Schuster was Travis\'s teammate — alongside Patrick Mahomes — through the Chiefs\' Super Bowl LVII run and stayed close with the couple afterward; he and Kruk were among the roughly 1,000 guests at Taylor and Travis\'s own Madison Square Garden wedding a week earlier, making this something of a return trip.',
+          'Eight days after their July 3 wedding at Madison Square Garden, Taylor and Travis made their first public appearance as a married couple — not at a press event or a project of their own, but as guests at former Kansas City teammate JuJu Smith-Schuster\'s wedding to Laura Kruk, held July 10 at the Ritz-Carlton in Laguna Niguel, California.\n\nTaylor wore Markarian\'s strapless "Laila" gown — a $4,115 pink floral-brocade ball gown from the New York label (founded by designer Alexandra O\'Neill), its corset bodice flaring into a voluminous skirt — with her usual red lipstick, a Cartier Love bracelet, a pair of (already sold-out) Larkspur & Hawk "Posy" drop earrings and tortoiseshell Crap Eyewear sunglasses; Travis wore a double-breasted black suit. The couple were photographed holding hands on the way in — the first clear public look at both of their wedding bands, Taylor\'s set alongside her 10-carat old-mine-cut Kindred Lubeck engagement ring; the bands\' own designer and specifics went undisclosed. Smith-Schuster was Travis\'s teammate — alongside Patrick Mahomes — through the Chiefs\' Super Bowl LVII run and stayed close with the couple afterward; he and Kruk were among the roughly 1,000 guests at Taylor and Travis\'s own Madison Square Garden wedding a week earlier, making this something of a return trip.\n\nThe newlyweds came as guests and nothing more — no toast, reading or performance — photographed cheering from the crowd and in group shots with the couple; fellow Chiefs alumni Patrick and Brittany Mahomes were there as well. Smith-Schuster, who caught six passes in the Chiefs\' Super Bowl LVII comeback and shared three non-consecutive Kansas City seasons with Kelce (2022, 2024 and 2025), had by then moved on — he signed with the New York Giants in June 2026. Taylor and Travis had spent the days right after their own wedding privately in Montana, which makes this California trip their first photographed outing as a married couple.',
         sources: [
           {
             outlet: 'Billboard',
@@ -7184,6 +7218,28 @@ export default {
             publisher: 'Marie Claire',
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
+            reliability_score: 4,
+          },
+          // Added 2026-07-29 (ledger #1148 Q6/Q7/Q8): the guest list (Patrick &
+          // Brittany Mahomes), the couple's guests-only role, and JuJu's move
+          // to the New York Giants after three non-consecutive Chiefs seasons
+          // with Kelce (2022/2024/2025, incl. the Super Bowl LVII comeback).
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/inside-nfl-star-juju-smith-234309045.html',
+            source_title: "Inside NFL Star JuJu Smith-Schuster's Wedding, Attended By Newlyweds Taylor Swift and Travis Kelce",
+            publisher: 'Yahoo',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'New York Giants (official)',
+            url: 'https://www.giants.com/news/giants-sign-wr-juju-smith-schuster-waive-k-jason-sanders-2026-nfl-free-agency',
+            source_title: 'Giants sign WR JuJu Smith-Schuster; K Jason Sanders released',
+            publisher: 'New York Giants',
+            source_type: 'official',
+            accessed_at: '2026-07-29',
             reliability_score: 4,
           },
         ],
