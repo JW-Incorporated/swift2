@@ -34,13 +34,14 @@ import * as hotThinTopic from './checkers/hot-thin-topic.mjs';
 import * as fashionProducts from './checkers/fashion-products.mjs';
 import * as rumorLifecycle from './checkers/rumor-lifecycle.mjs';
 import * as socialPostMissing from './checkers/social-post-missing.mjs';
+import * as voice from './checkers/voice.mjs';
 
 // imageModeration no-ops without GOOGLE_VISION_API_KEY, so it is safe to always
 // include — it only does work (and costs) when a moderation key is provisioned.
 // imageUrlQuality is network-free, so it runs even under --no-images / egress
 // blocks — it is the fallback that keeps the image-quality gate alive when the
 // byte-level resolution check in imageLiveness can't reach hosts.
-const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, socialPostMissing];
+const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, socialPostMissing, voice];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 const log = (...a) => console.log(...a);
 const today = () => new Date().toISOString().slice(0, 10);

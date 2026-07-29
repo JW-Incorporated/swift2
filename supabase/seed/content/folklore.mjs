@@ -135,7 +135,7 @@ export default {
             // verified HTTP 200 + image/jpeg and confirmed legible by eye.
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg',
             credit: 'Wikimedia Commons',
-            caption: 'Holiday House on Watch Hill, Rhode Island — Rebekah Harkness\'s mansion, later Swift\'s.',
+            caption: 'Holiday House on Watch Hill, Rhode Island — Rebekah Harkness\'s mansion, later Taylor\'s.',
             kind: 'archival',
           },
           {
@@ -167,7 +167,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/U.S._Marines_storm_ashore_on_Guadalcanal%2C_7_August_1942_%2880-CF-112-5-3%29.jpg',
             credit: 'U.S. Marine Corps (public domain), via Wikimedia Commons',
-            caption: 'U.S. Marines coming ashore at Guadalcanal, August 1942 — the battle Swift\'s grandfather Dean fought in and never spoke about.',
+            caption: 'U.S. Marines coming ashore at Guadalcanal, August 1942 — the battle Taylor\'s grandfather Dean fought in and never spoke about.',
             kind: 'archival',
           },
         ],
@@ -296,7 +296,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg',
             focalPoint: '57% 42%',
             credit: 'Getty Images for The Recording Academy, via Billboard',
-            caption: 'Jack Antonoff, Swift, and Aaron Dessner perform the folklore/evermore medley earlier the same night.',
+            caption: 'Jack Antonoff, Taylor, and Aaron Dessner perform the folklore/evermore medley earlier the same night.',
             kind: 'archival',
           },
           {
@@ -317,14 +317,14 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Primavera19_-6_%2848986116446%29_%28cropped%29.jpg',
             focalPoint: '48% 33%',
             credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
-            caption: 'Justin Vernon (Bon Iver), whom Swift told "I\'m so excited to meet you someday" — the two had never met in person despite co-writing "exile."',
+            caption: 'Justin Vernon (Bon Iver), whom Taylor told "I\'m so excited to meet you someday" — the two had never met in person despite co-writing "exile."',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Guests_at_the_2026_Met_Gala_435_%28Blake_Lively%29.jpg',
             focalPoint: '48% 20%',
             credit: 'SWinxy, Wikimedia Commons (CC BY 4.0)',
-            caption: 'Blake Lively, whom Swift thanked in the same speech alongside Ryan Reynolds and their children — James, Inez, and Betty each lend their names to folklore songs.',
+            caption: 'Blake Lively, whom Taylor thanked in the same speech alongside Ryan Reynolds and their children — James, Inez, and Betty each lend their names to folklore songs.',
             kind: 'reference',
           },
         ],
@@ -720,7 +720,7 @@ export default {
           {
             url: 'https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4',
             credit: 'Taylor Swift Store',
-            caption: 'The official folklore cardigan as sold on Swift\'s store.',
+            caption: 'The official folklore cardigan as sold on Taylor\'s store.',
             kind: 'primary',
             // Focal point set by viewing (photo pass #762, 2026-07-19):
             // product flat-lay, the cardigan fills the frame — genuinely
@@ -898,7 +898,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
             credit: 'Kim Metso (CC BY-SA 4.0), via Wikimedia Commons',
-            caption: 'For reference — Aaron Dessner, who Swift told not to overthink the production of the album\'s last-written song.',
+            caption: 'For reference — Aaron Dessner, who Taylor told not to overthink the production of the album\'s last-written song.',
             kind: 'reference',
             focalPoint: '57% 20%',
           },
@@ -1032,7 +1032,7 @@ export default {
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2020/12/Albums.jpg?w=1200&h=800&crop=1',
             credit: 'Rolling Stone',
-            caption: 'The lead art of Rolling Stone\'s 50 Best Albums of 2020 list — Swift, top right, above the field she topped.',
+            caption: 'The lead art of Rolling Stone\'s 50 Best Albums of 2020 list — Taylor, top right, above the field she topped.',
             kind: 'archival',
             focalPoint: '78% 28%',
           },
@@ -1169,7 +1169,7 @@ export default {
             url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '48% 22%',
             credit: 'Taylor Swift/Instagram, via The Guardian',
-            caption: 'The black-and-white forest montage Swift posted with the July 23 surprise announcement for folklore.',
+            caption: 'The black-and-white forest montage Taylor posted with the July 23 surprise announcement for folklore.',
             kind: 'primary',
           },
           {
@@ -1183,7 +1183,7 @@ export default {
             url: 'https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg',
             focalPoint: '35% 30%',
             credit: 'Beth Garrabrant, via Vanity Fair',
-            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Swift in the album\'s woodland setting.',
+            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Taylor in the album\'s woodland setting.',
             kind: 'primary',
           },
           {
@@ -1197,7 +1197,7 @@ export default {
             url: 'https://i.guim.co.uk/img/media/6f8132a91d5eaf50614417ced6bee7903341fd46/0_0_1482_1958/master/1482.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '52% 22%',
             credit: 'TAS Rights Management, via The Guardian',
-            caption: 'Swift wears the signature knit cardigan in a release-period promotional image for the video and album.',
+            caption: 'Taylor wears the signature knit cardigan in a release-period promotional image for the video and album.',
             kind: 'primary',
           },
         ],
@@ -1492,7 +1492,7 @@ export default {
             // image: Dylan alone with harmonica rack, no Baez visible), so the
             // caption naming her was wrong. Dropped the Baez mention; image kept
             // as-is (correct subject: Dylan, 1963).
-            caption: 'Bob Dylan in 1963 — Swift modeled the song\'s sound on his early records.',
+            caption: 'Bob Dylan in 1963 — Taylor modeled the song\'s sound on his early records.',
             kind: 'archival',
             focalPoint: '42% 35%',
           },
@@ -2045,7 +2045,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Scott_%28Scooter%29_Braun_2022.jpg/960px-Scott_%28Scooter%29_Braun_2022.jpg',
             credit: 'Scott Braun (CC BY-SA 4.0), via Wikimedia Commons',
-            caption: 'Scooter Braun, whose Ithaca Holdings sold the masters of Swift\'s first six albums to Shamrock Capital.',
+            caption: 'Scooter Braun, whose Ithaca Holdings sold the masters of Taylor\'s first six albums to Shamrock Capital.',
             kind: 'archival',
             focalPoint: '50% 25%',
           },
@@ -2057,7 +2057,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
             credit: 'Glenn Francis (CC BY-SA 4.0), via Wikimedia Commons',
-            caption: 'Swift in March 2019, months before the first sale of her masters set the whole saga in motion.',
+            caption: 'Taylor in March 2019, months before the first sale of her masters set the whole saga in motion.',
             kind: 'archival',
             focalPoint: '50% 18%',
           },

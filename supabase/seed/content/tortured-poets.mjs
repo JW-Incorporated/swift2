@@ -704,7 +704,7 @@ export default {
             url: 'https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg',
             credit: 'MLB.com',
             caption:
-              'Swift and Kelce — both in caps, popcorn in reach — in the right-field suite during Game 1 of the 2024 ALCS at Yankee Stadium.',
+              'Taylor and Kelce — both in caps, popcorn in reach — in the right-field suite during Game 1 of the 2024 ALCS at Yankee Stadium.',
             kind: 'primary',
             focalPoint: '47% 27%',
           },
@@ -712,7 +712,7 @@ export default {
             url: 'https://img.mlbstatic.com/mlb-images/image/upload/t_16x9/t_w1536/mlb/rghl1u3zla8wyqz8xfw1.jpg',
             credit: 'MLB.com',
             caption:
-              'A broadcast frame from the same suite: Swift mid-laugh in a black cap as the Yankees took Game 1, 5-2.',
+              'A broadcast frame from the same suite: Taylor mid-laugh in a black cap as the Yankees took Game 1, 5-2.',
             kind: 'archival',
             focalPoint: '51% 44%',
           },
@@ -2006,7 +2006,7 @@ export default {
             // and found none verifiable. Added caption so the record doesn't misrepresent the model
             // as Swift; garment and designer are still correctly identified.
             caption:
-              'Designer lookbook image of Toni Matičevski\'s "Candescence" gown, shown here on a runway/lookbook model — not Swift, who wears the same gown in the "Fortnight" video\'s opening scene.',
+              'Designer lookbook image of Toni Matičevski\'s "Candescence" gown, shown here on a runway/lookbook model — not Taylor, who wears the same gown in the "Fortnight" video\'s opening scene.',
             // Photo pass #762 (2026-07-19): viewed — the sculptural white gown fills the frame on
             // the lookbook model; the gathered bodice is the visual anchor, upper-center.
             focalPoint: '52% 22%',
@@ -2314,7 +2314,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg/960px-Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
             credit: 'Kj1595 via Wikimedia Commons, CC BY-SA 4.0',
-            caption: 'Reference image: Arrowhead Stadium (2019 file photo). No photos of Swift surfaced from this game — she attended unseen, confirmed by a source to E!.',
+            caption: 'Reference image: Arrowhead Stadium (2019 file photo). No photos of Taylor surfaced from this game — she attended unseen, confirmed by a source to E!.',
             kind: 'reference',
             focalPoint: '50% 45%',
           },
@@ -2594,7 +2594,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/The_Eras_Tour_The_Tortured_Poets_Department_Performance.png/960px-The_Eras_Tour_The_Tortured_Poets_Department_Performance.png',
             credit: 'Sally-Marie Böhm, CC BY-SA 4.0, via Wikimedia Commons',
-            caption: 'The song\'s Tortured Poets set staging on the Eras Tour — Swift and dancer Jan Ravnik on the hydraulic platforms (Gelsenkirchen, July 2024).',
+            caption: 'The song\'s Tortured Poets set staging on the Eras Tour — Taylor and dancer Jan Ravnik on the hydraulic platforms (Gelsenkirchen, July 2024).',
             kind: 'archival',
             focalPoint: '60% 62%',
           },
@@ -2876,7 +2876,7 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/04/taylor-swift-post-malone-fortnight-music-video-still-billboard-1548.jpg?w=1024',
             credit: 'Taylor Swift / Republic Records (via Billboard)',
-            caption: 'Swift and Post Malone in the "Fortnight" video — the No. 1 that led a chart-history first.',
+            caption: 'Taylor and Post Malone in the "Fortnight" video — the No. 1 that led a chart-history first.',
             kind: 'archival',
             focalPoint: '50% 38%',
           },
@@ -3080,7 +3080,7 @@ export default {
           {
             url: 'https://cdn.sanity.io/images/o6uq28nb/production/e92e7a8463fee4535c9c538f067276de0a77c9c3-2048x2011.jpg?w=1200',
             credit: 'Taylor Swift (via Holler)',
-            caption: 'Swift and Florence Welch — the collaborators behind the album\'s biggest-sounding song.',
+            caption: 'Taylor and Florence Welch — the collaborators behind the album\'s biggest-sounding song.',
             kind: 'archival',
             focalPoint: '47% 27%',
           },
@@ -3621,7 +3621,7 @@ export default {
             url: 'https://i.abcnewsfe.com/a/eb18fccb-d278-4181-b394-da9653623dc3/GettyImages-2158904096_1719178517424_hpMain.jpg',
             credit: 'Getty Images / Gareth Cattermole (via ABC News)',
             caption:
-              'Kelce in white tie, top hat and tails during the "I Can Do It With a Broken Heart" vaudeville intro, flanking Swift and the tuxedoed dancers — Wembley, June 23, 2024.',
+              'Kelce in white tie, top hat and tails during the "I Can Do It With a Broken Heart" vaudeville intro, flanking Taylor and the tuxedoed dancers — Wembley, June 23, 2024.',
             kind: 'primary',
             // Focal points set 2026-07-18 (photo-enrichment run 2, #762) by
             // viewing each frame. Swift and Kelce's faces span the upper third,
@@ -3631,7 +3631,7 @@ export default {
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2024/06/TaylorSwiftNightThreeLondon-1.jpg?w=1600',
             credit: 'Getty Images (via Rolling Stone)',
-            caption: 'Swift onstage at Wembley on June 23, 2024 — the night Kelce joined the TTPD set\'s tuxedoed cast.',
+            caption: 'Taylor onstage at Wembley on June 23, 2024 — the night Kelce joined the TTPD set\'s tuxedoed cast.',
             kind: 'archival',
             // Swift with guitar stands left of center; her face is high in frame.
             focalPoint: '42% 18%',
@@ -4148,7 +4148,7 @@ export default {
           {
             url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2024/09/11/edfca45c-3300-45c7-9daf-30c51d86fe4e/thumbnail/1200x630g2/528b3593333d50ff51e0e52340b1ca69/gettyimages-2166943469.jpg',
             credit: 'Getty Images (via CBS News)',
-            caption: 'Swift in 2024 — the file photo CBS News ran with its coverage of the endorsement, which itself was an Instagram post.',
+            caption: 'Taylor in 2024 — the file photo CBS News ran with its coverage of the endorsement, which itself was an Instagram post.',
             kind: 'archival',
             // Over-the-shoulder look to camera; face centered, eyes upper-middle.
             focalPoint: '49% 38%',
@@ -4170,7 +4170,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg',
             focalPoint: '54% 30%',
             credit: 'Official White House portrait (public domain)',
-            caption: 'JD Vance, whose "childless cat ladies" line Swift borrowed for her own sign-off.',
+            caption: 'JD Vance, whose "childless cat ladies" line Taylor borrowed for her own sign-off.',
             kind: 'reference',
           },
           {
@@ -4307,7 +4307,7 @@ export default {
           {
             url: 'https://i.abcnewsfe.com/a/667ac5d8-cb5f-48cd-9230-89ea434a7644/Taylor-Travis-Patrick-Brittany-USOpen-1-ap-jm-240908_1725821927016_hpMain_16x9.jpg?w=1600',
             credit: 'AP (via ABC News)',
-            caption: 'Swift, Brittany Mahomes, Travis Kelce, and Patrick Mahomes in the box at Arthur Ashe Stadium, Sept. 8, 2024.',
+            caption: 'Taylor, Brittany Mahomes, Travis Kelce, and Patrick Mahomes in the box at Arthur Ashe Stadium, Sept. 8, 2024.',
             kind: 'primary',
             // Photo pass #762 (2026-07-19): viewed — the two couples' faces cluster around the
             // center of the frame; this keeps all four in a wide crop.
@@ -4321,7 +4321,7 @@ export default {
           {
             url: 'https://i.abcnewsfe.com/a/1fc501ac-ba55-40eb-b3ce-02983fbfa66f/Taylor-Travis-Patrick-Brittany-USOpen-1-rt-jm-240908_1725822057337_hpEmbed_11x7.jpg?w=1500',
             credit: 'Reuters (via ABC News)',
-            caption: 'Applauding the final from the box — Kelce, Swift, and the Mahomeses reacting to the match.',
+            caption: 'Applauding the final from the box — Kelce, Taylor, and the Mahomeses reacting to the match.',
             focalPoint: '47% 42%',
           },
         ],
@@ -4820,7 +4820,7 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
             credit: 'Courtesy of Taylor Swift (via Billboard)',
-            caption: 'The photo released with the May 30, 2025 announcement: Swift with the six albums she bought back from Shamrock Capital.',
+            caption: 'The photo released with the May 30, 2025 announcement: Taylor with the six albums she bought back from Shamrock Capital.',
             kind: 'primary',
             // Seated with arms raised, face in the upper third, slightly left of center.
             focalPoint: '48% 30%',
@@ -4916,7 +4916,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/2025/02/beyonce-grammy-awards-win-country-2025-billboard-1548.jpg?w=1024',
             credit: 'Sonja Flemming/CBS, via Billboard',
             caption:
-              'The moment everyone kept: Swift, in red Vivienne Westwood, just after presenting Best Country Album to a stunned Beyoncé — the first Black woman to win the category.',
+              'The moment everyone kept: Taylor, in red Vivienne Westwood, just after presenting Best Country Album to a stunned Beyoncé — the first Black woman to win the category.',
             kind: 'primary',
             // Beyoncé with the trophy is center-right, Swift upper-left; faces live in the top third.
             focalPoint: '45% 25%',

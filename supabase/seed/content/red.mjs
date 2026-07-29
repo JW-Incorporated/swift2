@@ -71,7 +71,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
             focalPoint: '46% 26%',
             credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
-            caption: 'Swift and opener Ed Sheeran on the Red Tour\'s B-stage, Tacoma, August 2013.',
+            caption: 'Taylor and opener Ed Sheeran on the Red Tour\'s B-stage, Tacoma, August 2013.',
             kind: 'archival',
           },
           {
@@ -727,7 +727,7 @@ export default {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013420/rs_634x1024-130520071003-634.gomez.swift.ls.52013_copy.jpg',
             credit: 'E! News',
             caption:
-              'Swift in the blue Zuhair Murad mini at the 2013 Billboard Music Awards, pictured with Selena Gomez.',
+              'Taylor in the blue Zuhair Murad mini at the 2013 Billboard Music Awards, pictured with Selena Gomez.',
           },
         ],
         // Shop pass (2026-07-21): Zuhair Murad has no accessible direct
@@ -1012,7 +1012,7 @@ export default {
             url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/ea807ef4c932-bowness-z.jpg',
             credit: 'HELLO!',
             caption:
-              'Bowness-on-Windermere, the Lake District village where the visit took place — not a photo of Swift or Styles, who could not be verified in any available frame from the trip.',
+              'Bowness-on-Windermere, the Lake District village where the visit took place — not a photo of Taylor or Styles, who could not be verified in any available frame from the trip.',
             kind: 'reference',
           },
         ],
@@ -1055,7 +1055,7 @@ export default {
             url: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
             credit: 'GC Images / Getty Images, via Bustle',
             caption:
-              'Swift and Styles in New York in December 2012, weeks before this trip — no verified photo of the CocoMaya dinner itself exists beyond a low-quality fan-photo collage.',
+              'Taylor and Styles in New York in December 2012, weeks before this trip — no verified photo of the CocoMaya dinner itself exists beyond a low-quality fan-photo collage.',
             kind: 'reference',
           },
         ],
@@ -1361,7 +1361,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/stylus/2673339-taylor-swift-nye-2013-617-409.jpg',
             credit: 'Billboard',
             caption:
-              'Swift performing in Times Square earlier on New Year\'s Eve 2012 — not the midnight kiss photo itself, which exists only as blurred/watermarked paparazzi frames.',
+              'Taylor performing in Times Square earlier on New Year\'s Eve 2012 — not the midnight kiss photo itself, which exists only as blurred/watermarked paparazzi frames.',
             kind: 'reference',
             // Mid-performance, red sequins; her singing face is high-center of the frame.
             focalPoint: '48% 28%',
@@ -1406,7 +1406,7 @@ export default {
             // Both walking full-length; faces sit near the top of the tall frame.
             focalPoint: '48% 17%',
             credit: 'GC Images / Getty Images, via Bustle',
-            caption: 'Swift and Styles walking in New York in December 2012, weeks before the Virgin Islands trip ended the relationship. The famous "blue dress on a boat" departure photo itself remains agency-controlled.',
+            caption: 'Taylor and Styles walking in New York in December 2012, weeks before the Virgin Islands trip ended the relationship. The famous "blue dress on a boat" departure photo itself remains agency-controlled.',
             kind: 'archival',
           },
         ],
@@ -1764,7 +1764,7 @@ export default {
             // Two figures wading, faces in the upper third of the tall frame.
             focalPoint: '45% 28%',
             credit: 'Paul Adao/INFphoto.com, via E! Online',
-            caption: 'Swift and Conor Kennedy on the shore at Hyannis Port in August 2012 — the summer that quietly ended that October.',
+            caption: 'Taylor and Conor Kennedy on the shore at Hyannis Port in August 2012 — the summer that quietly ended that October.',
             kind: 'archival',
           },
         ],
@@ -2168,7 +2168,7 @@ export default {
           {
             url: 'https://townsquare.media/site/252/files/2013/12/TaylorSwift26.jpg?w=980&q=75',
             credit: 'Bryan Bedder, Getty Images / PopCrush',
-            caption: 'Swift performing "I Knew You Were Trouble" during the Snow Angels finale of the 2013 Victoria\'s Secret Fashion Show — the night she and Karlie Kloss finally met.',
+            caption: 'Taylor performing "I Knew You Were Trouble" during the Snow Angels finale of the 2013 Victoria\'s Secret Fashion Show — the night she and Karlie Kloss finally met.',
             kind: 'archival',
           },
         ],
@@ -2280,7 +2280,7 @@ export default {
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2014314/rs_600x600-140414070712-600.Taylor-Swift-Gena-JR-41414_copy.jpg',
             credit: 'Instagram, via E! News',
-            caption: 'Swift and bride-to-be Gena Gabrielle at the Columbus, Ohio bridal shower, April 2014 — holding the party\'s L-O-V-E letters.',
+            caption: 'Taylor and bride-to-be Gena Gabrielle at the Columbus, Ohio bridal shower, April 2014 — holding the party\'s L-O-V-E letters.',
             kind: 'primary',
           },
         ],
