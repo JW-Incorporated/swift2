@@ -67,8 +67,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     },
     {
       id: "vault-1989-bad-blood-and-the-friendship-it-ended",
-      date: "2014-09-08",
-      dateLabel: "September 8, 2014",
+      date: "2014-10-27",
+      dateLabel: "October 27, 2014",
       title: "Bad Blood, and the friendship it ended",
       summary: "Not about an ex — by her own account, about a friend who tried to sabotage an entire arena tour.",
       body: ["She told Rolling Stone the person had \"tried to hire a bunch of people out from under\" her; a year later she told GQ she'd \"never said anything that would point a finger in the specific direction of one specific person.\"", "Katy Perry, the widely speculated subject — the falling-out reportedly traced to a 2013 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia."],
@@ -1971,7 +1971,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The second 1989 re-recording (after \"Wildest Dreams (Taylor's Version)\"), released May 6, 2022 after soundtracking the trailer for Amazon's The Summer I Turned Pretty — whose author-showrunner Jenny Han made Taylor songs the show's sonic signature.",
       body: ["Like \"Wildest Dreams (Taylor's Version)\" before it, it leapfrogged its parent album — 1989 (Taylor's Version) was still 17 months away — after a snippet soundtracked the first trailer for Amazon's The Summer I Turned Pretty on May 5, 2022; she announced the full track on her socials the day the trailer dropped, and it arrived the next day.", "Critics heard a gentler remake: more subdued synths, vocals less processed and more resonant, with a lean toward indie rock. The re-recording reached No. 42 on the Hot 100 — a significantly stronger showing than the original 2014 album cut ever managed."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"This Love (Taylor's Version),\" the first 1989 re-recording released.", kind: "primary", focalPoint: "58% 26%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg/500px-Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg", credit: "Rhododendrites, Wikimedia Commons (CC BY-SA 4.0) — Jenny Han, BookCon 2019 (archival, era context)", caption: "Jenny Han, whose Amazon adaptation of The Summer I Turned Pretty carried the re-recorded \"This Love\" out into the world a night early.", kind: "archival", focalPoint: "45% 24%" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"This Love (Taylor's Version),\" the second 1989 re-recording released.", kind: "primary", focalPoint: "58% 26%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg/500px-Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg", credit: "Rhododendrites, Wikimedia Commons (CC BY-SA 4.0) — Jenny Han, BookCon 2019 (archival, era context)", caption: "Jenny Han, whose Amazon adaptation of The Summer I Turned Pretty carried the re-recorded \"This Love\" out into the world a night early.", kind: "archival", focalPoint: "45% 24%" }],
       sources: [{ name: "This Love (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)" }],
     },
     {
@@ -5727,6 +5727,18 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "iHeartRadio", url: "https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/" }, { name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments" }],
     },
     {
+      id: "vault-reputation-the-year-of-silence",
+      date: "2017-08-17",
+      dateLabel: "August 17, 2017",
+      title: "The year of silence",
+      summary: "After the summer 2016 pile-on, the most-watched woman in pop did the one thing no one expected — she vanished, and stayed gone for roughly a year.",
+      body: ["After the summer 2016 fallout — the leaked \"Famous\" call, Kim Kardashian's \"National Snake Day,\" the snake emojis flooding every post until Instagram tested a comment filter on her page — Taylor did the one thing nobody expected of the most-watched pop star alive: she stopped showing up. Through late 2016 and into 2017 there were no interviews, no magazine covers, no award-show appearances, no new music. The most documented woman in pop simply went quiet and let the noise run itself out without her in the frame.", "She later framed the withdrawal as deliberate. \"Nobody physically saw me for a year,\" she says in the 2020 documentary Miss Americana, \"and I thought that that was what they wanted\" — a retreat that, in her telling, woke her up from \"constantly feeling that I was fighting for people's respect.\" The silence was not empty: out of view she was building the record that would answer it, reputation, which arrived November 10, 2017. The disappearance is the setup the whole era pays off — the reason the snake, when it finally slithered back onscreen that August, read as armor instead of apology."],
+      tags: ["Music"],
+      sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_(album)" }],
+      relatedIds: ["moment:vault-reputation-the-snake-video-that-announced-reputation", "moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative"],
+      significance: "defining",
+    },
+    {
       id: "vault-reputation-the-snake-video-that-announced-reputation",
       date: "2017-08-21",
       dateLabel: "August 21, 2017",
@@ -5737,7 +5749,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", caption: "The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.", kind: "archival", focalPoint: "42% 35%" }, { url: "https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg", credit: "Kevin Mazur/Getty Images for TAS, via NME", caption: "The reclaimed snake's full-size payoff, a year later: the reputation Stadium Tour's animatronic mascot, fans nicknamed her Karyn.", kind: "archival" }, { url: "https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg", credit: "Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)", caption: "Golden snake set pieces on the reputation Stadium Tour, Seattle, May 2018 — the visual language this teaser opened.", kind: "archival" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-reputation-new-album-7941019/" }],
       milestone: { id: "m-rep-0", label: "Snake video drops", kind: "life" },
-      relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative", "moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with", "moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op"],
+      relatedIds: ["moment:vault-reputation-the-year-of-silence", "moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative", "moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with", "moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op"],
       significance: "defining",
     },
     {
