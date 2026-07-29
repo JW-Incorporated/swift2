@@ -25,7 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 84
+
+## Travis Kelce Back with Chiefs for Training Camp After Marrying Taylor Swift During Offseason - peopl
+
+- first seen: 2026-07-29 18:14 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Back with Chiefs for Training Camp After Marrying Taylor Swift During Offseason  people.com
+- sources:
+  - [unverified] people.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxPR3hIYU80YTRucDJKajVNc2hkVEhKdVJxb0dOM1N6a2w1OW1IVUszTjRXT1lrWnpPRHBJMkxpb1RWNFpyY2hlb0Nvd0lfMF9qOVNXQ1BMdU1rejdWU1NSTDJNSTlKWVl1Wmp0ekU1cXNEUVZ3U2NYNllXNFUxM085VFhBQVNibzkwWDBBYlJQQTJhM1V6eTlCR0NMX3ExQ1U4ZzZQQzRLOVZEcDVNSzVHeXlpWjBZVmM?oc=5
+
+## Women’s Country Chart Sweep Is Unlike Any Before, Thanks to Ella Langley, Taylor Swift & Stella Left
+
+- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Women’s Country Chart Sweep Is Unlike Any Before, Thanks to Ella Langley, Taylor Swift & Stella Lefty  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMijAFBVV95cUxOQVkzWW5zcndvenBiTFhjYmRSLXhfTGJTQlFldDZoRGJfWjF6dUd6NU1xT21JWlRQTl9KV1B2dEx4YmNJVHNQd1QxRHd6NnFJVEpodzhGSzlIZmdMNUxfcGRGYzlrckRIa3lEQVg4X0g0b1VYOXpEdWNsY2txcVZWbmRWaXZlUXFDb2ZYWg?oc=5
+
+## Southport victim's sister switches off Taylor Swift whenever she comes on, mum says - yahoo.com
+
+- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Southport victim's sister switches off Taylor Swift whenever she comes on, mum says  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQN3lITEhFelEtN21TSHFNcGpMdDhpYm5iRTFrVmNSeEx1Vk9ySzFlcUtJMUNnMmRXVmlMUTJXSlZ2SVdjQVVNMnN0ZktLckpDNzV0dXM0alVkXzBnOTB3UHVpX29KYjRBMkh3Y1V6SWVuelR2X1R6cC1Sd1kxNWh0NXRjM1dVRDZ3ZXF3T3dEdw?oc=5
+
+## "Choosin' Texas" is breaking records set by Mariah Carey and Taylor Swift. How did Ella Langley do i
+
+- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: "Choosin' Texas" is breaking records set by Mariah Carey and Taylor Swift. How did Ella Langley do it?  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMi9AFBVV95cUxOV0k3TW5pYzVlU1NrVnV4WU40ZERBWUtQdFB3ZXVoeW90ZVFucks0SGJrZnBodXFoUmFLNUczWHIxb1p3TXM5VzhVSkkzNXRCY2dSdEtMYlJrT0VlTFJ0b0o0bFpCdzIyOEcyR3RtUnQtQVpWNFNacThvUmh0X1NadmRNU1lLU0owbFNIZy1LWG1KLXZ5eWJ0QVZZYVBmM3A0TGdfODE1REpiVHl1Y1Jkd0NnWlhQR044QXpnVjR3c2daMVlKc3V5eE51NmF4OWNPWVU5a1dGN0N5M1B6SmNWWC1HbW1KTlZTNjIwMmZ4dDNMRWpo?oc=5
+
+## Travis Kelce Gets Good News Weeks After Marriage to Taylor Swift - Sports Illustrated
+
+- first seen: 2026-07-29 18:14 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Gets Good News Weeks After Marriage to Taylor Swift  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNQ1NkVFA0bnB5MDdFemRJRVg1MFUySWZsdFJqR1gtTmJxS2JLb19nYzRpNHgyVnJKSktCd2Q2bkJidVljM3ZtLWVxbENkZ1AtSlJBTFZfVnlGTjY2ZGNMNDJlcEZFOW43UXgydmNiX0VqelBNMm1xcm9ubzZOVmhsZXZhM1l3SDRnZXZ6SjZNa2RISlp2cGY0VWNJMF8tYkR0Y09haURwQzE4QQ?oc=5
+
+## Jason Sudeikis Describes Taylor Swift and Travis Kelce’s Wedding in 1 Word - people.com
+
+- first seen: 2026-07-29 18:14 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Sudeikis Describes Taylor Swift and Travis Kelce’s Wedding in 1 Word  people.com
+- sources:
+  - [unverified] people.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOWDdEZnZRSnlRQXZjYnNzM2dKQ2hBUDl1R3R3bFkzM3FzbG5helBfS2Rwd09iWDVOYUhjTWc5enNVOHBwSTNlZlhnVDZqRXZLMkJnZklZOHUwbTBhN015aE1IYlpHQllzakxlRWlhN1BLWGl4dkptbDRJS3ZibllzSWdnUEF2bEtPQjJZTG1EckpEcWlOOUllbml6a2FXc2RheVE?oc=5
+
+## Taylor Swift’s ‘I Knew It, I Knew You’ Debuts at No. 1 on Top Movie Songs Chart - Billboard
+
+- first seen: 2026-07-29 18:14 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘I Knew It, I Knew You’ Debuts at No. 1 on Top Movie Songs Chart  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxNNEJmSUtZOEpuc2FnbnRWOUlrWWNYT0UtLUlRS3g4WURmQ3R5cEtEYXZBelo2MmI3Vkw0aGlmaTM2UUd5SmtvUjJ0OHBnWkgyZUZZZ0YzekRzRkxPbXRHREdnbW1JRHlTbThFVFMtQmNEejBUTXhlSHc4dEFuS19QZ0Fpc1dveDc1MDlsVnhhVE1fSk9xUkx3dzlQNlI1Q1BDaDlWNU9falZxa1FGczln?oc=5
+
+## Taylor Swift Sues Ella Langley For Bangs Infringement - The Onion
+
+- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Sues Ella Langley For Bangs Infringement  The Onion
+- sources:
+  - [unverified] The Onion — https://news.google.com/rss/articles/CBMigAFBVV95cUxOTmlKVE5HeUtFYUh2a3NxbGFrV25fVnBtbmlUdzJZQzBLTnVnQUJJbFVVeUJJbVh5a0lDOVFkMGFnT3VfdmNBQXRSclc5eGh1Qi1jQjVpSndOYkpSZzZZN0piT1hUdmhrOTZGOWo5ejVPNEhvUk9FbVZTV01RZkZHTA?oc=5
+
+## Just say yes: A Taylor Swift orchestral symphony experience is coming to St. Pete - I Love the Burg
+
+- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Just say yes: A Taylor Swift orchestral symphony experience is coming to St. Pete  I Love the Burg
+- sources:
+  - [unverified] I Love the Burg — https://news.google.com/rss/articles/CBMic0FVX3lxTE5ZQ3hBVXl3X0dDR1VvdnhzTUdtWVZUQkltQlVwZngzVFJOTlJaSjNWZ1RmQjA0eXFFQU5ibGt6NHZpdC1OZzREazduc2pNcmwzbGZqV2UxRm9uY1B6X0dPQ2Q1cE5ma3VLaXRpQV85ZU1kdXM?oc=5
+
+## Simone Biles Joins Taylor Swift’s Wedding Gossip Train After Showing Up In ‘Perfection’ - yahoo.com
+
+- first seen: 2026-07-29 18:14 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Simone Biles Joins Taylor Swift’s Wedding Gossip Train After Showing Up In ‘Perfection’  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOUzVha29yNUNOS3AxVmFNTkpJZ2RGX1drOG9GZ1RlLVhpS3lrTkstbjl4VXdUQlA5ZExuMEtjTVZHdkxaeGhwYmk5Vlkxa2NwMnl6akoyeEhiSFRDeEFNVGhkSk9ueThlMDh5ZWZ3ekt6TzNGNFlZNVBZekNmVEh0Y0txLWktX3pmOHNjd3Z6WVJNSVpydTBQRndMbXp5VXNzcm80?oc=5
 
 ## Simone Biles Shares Surprising ‘Gossip’ From Taylor Swift and Travis Kelce’s MSG Wedding - Us Weekly
 
@@ -104,11 +184,12 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 ## Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding - New York Daily New
 
 - first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding  New York Daily News
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMiswFBVV95cUxONjBpRU02YUlHWWprYXppLUhjQ0wxUEVLNXIwaVRoeWUxalV2RDJVbl9Ha3haUkwwSVR2SExqWjZDcmQ4VWpRUHRGdXdvUnlIZUxfUDJVc1hlb0dhdU9GZmhEVzhJdXVNa29IblZjQlY4dGJaekh1MUV5ejM0MHUxekp4bmhwTjlJOHN2RjNVOUtjdjh1S0NWa0dacnRxVWJIRjh1RTZKTWI2V2laQWUyQnZXaw?oc=5
   - [unverified] East Bay Times — https://news.google.com/rss/articles/CBMitAFBVV95cUxQeTl6NUpLc1JvNTVyQUx1c25uUFRKNTNLZjY1VFdUSzZWOTRIZXJ6dmI3aG1YSHpwX1k3allmbVVXTmlmY1VwNFowMHVnU01IRERSUExQUl9VaDFuQ2VtOE56T2FYY2NaYk9CdThzQm5WdG5xc3A4RkJGd3k0RlRVbEk1RWNzbHJJeXRqanBTTWh2YkFUcGM3UFUxM3drSTFGYlVnTl90Z1ZSZHZFQ1FUSDRsSWbSAboBQVVfeXFMTThnU1p4VHBHOVBzR2cwcGF4TDRKWnZyb01VWVhtSzVkaDhiOHZCd25nM2tESVRsSzJGcXU2UXF0STdCMzRjd2VzLU8xVmZNRzdCZXJUTm9RYUQ1NlB3Y2l1ZWloWXlNMmR5alRjaFlLX3VhamNDdTZHOEhFbHcyRk91QmhSdHhNdnloZEhFYWx4aUZjeVJIanJ6ekpQM0xoOWhkaVVsWUxfYVF1c1o0a2hLYVBBVE1TUjZ3?oc=5
+  - [unverified] Porterville Recorder — https://news.google.com/rss/articles/CBMikwJBVV95cUxNRXg3UHdRVXU0S0NWZlhzODMwTWFvT0ZLczBYWV9WSC1LbFdvSFlxdU5qaFhuTnpDbjd4NmlaZUx1T2pjWWRiUUNja1pXUUtEV04tc2M2bm1CUFdZMTZhbEFKVE9YT3VHZ2lRUk5abldXZ09zLXJidm1hWUw0UldSMFZoQUVKcnpKSnowMmZ3YjlqMFJqS29FNDladEhPVV9DN0ZoSnVzeC03QWFkbWh2U2Z2UGtsblkxTXR1OGlLc0dUa1dfU2w3WTF4VjMwM1FjRXFuVl9oM2RuampmZnRVLVlHeC1RNHlGc24zNWJ3SWFyZndzOEo3YktQMEFLWWdXSS1yeVBoVDRfeEJWaFUwRmVLVQ?oc=5
 
 ## Barefoot bandit steals Taylor Swift cardboard cutout from SoCal ice cream shop in bizarre heist - Ne
 
@@ -126,14 +207,6 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - sources:
   - [unverified] SFist — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOOTQ1TzFLVkpVNEttQXRKbVJSeko5Ulo3LUhQc1BqWUxsZVhiRmhsUHc4NWRteklyRFBLZVJuVzJuUFM0azN1WEpHNUcxM3JBZ3Rya3NqaEk5ak10Y2VBMUFtX19DZ0x5Y2Qtc0VUNnNsRGVqemFXTVJtZWo1V054RjdpR1FMZXZUSVoxT1A3R3dMVU1Qbk54Z1h0S3U2S1VsLVloU1lOVFI5Y3lHMi1STnkwT1Z5S0lQ?oc=5
 
-## Marcello Hernández was most surprised to see this A-lister at Taylor Swift and Travis Kelce’s weddin
-
-- first seen: 2026-07-28 22:15 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Marcello Hernández was most surprised to see this A-lister at Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiswFBVV95cUxQeExDWmVIR2s0Q2FuajNoaWV5aHlSaWJYVTBYZGdtc2pmOWh4SENjVUxPeHB6SU1MRF9OQzdxX1ZYUXlBUVBsX0pJc0YxMFBTMVFNcjE0SUVEVmRoczh0bzJHOXROY0wwSWhoSVdQbmpRelJSUzdQS3JjNXNacWkwZHBwZ19ia29jTlVON2ZOZnUwTzZSWnNSWHFyc0tsaGN1bkdpVW8tTnI3LXBWQjMwVXNJTQ?oc=5
-
 ## Take a cooking class with theme nights for Taylor Swift, ‘The Bear,' Jellycat, & more - NBC New York
 
 - first seen: 2026-07-28 22:15 UTC | category: sighting | importance: 3
@@ -141,6 +214,15 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - summary: Take a cooking class with theme nights for Taylor Swift, ‘The Bear,' Jellycat, & more  NBC New York
 - sources:
   - [unverified] NBC New York — https://news.google.com/rss/articles/CBMi7wFBVV95cUxNOEUtWk1UNEtXNE1XUjE1bjlhZjRNMVFxX0FqRnVpOHJtNUtVSE8tcXd0OGdHOXc0eDg4V2VJM1dfNlVfRW1fSEs2a0FxdGJWWkVyeDR4Y2dWTW1pamFxQXA2VUFHQkdUMGY2dHJDYWhmOEJXWjZqR1U4UXVnTFhUQTdlb3ZQSW5FdW52cDJ2Z2RsYnlkMERBVE9jZ3dEMi1EWEdraDZpUHY5UHMzQmpGSGlWN1BCb0RmRnVSXzlIMGZtcFp5VTlENUFZV1RwVVlXX09hTG5wU1dRa1J1MllSUFpWa2ZoVFMwdUVSNVBnZ9IB9wFBVV95cUxQcGJ2UHEyWXFjNmR5VjJGNzRQVElmaEJsM3k4bkJ2SzlCQmpSemZicEdod0NoY045a3JIanlUU0tyclk5UjhIanVNMHNEeGhMNEpJcmxwV1lOWkRjbGx5MEEtcU5fRTFvRFlabHBaTEdRMmczeFlvZUZ2cVRlVGJ0S05fdjQxVEdHUUdCX25ObWVvaGl5bVVwOExZZHJOOHVEc1UzMTA0dWNteElyd2ZqWE50WFZKLXJOTlNpRWN4Qk1vSVR0a09OTHFnSGRCYXJQdnFSRlR4eGdZd1otTGIyaHBjVEpZdUQ2ei10UThfNmw1R0FNTVZz?oc=5
+
+## Marcello Hernández was most surprised to see this A-lister at Taylor Swift and Travis Kelce’s weddin
+
+- first seen: 2026-07-28 22:15 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Marcello Hernández was most surprised to see this A-lister at Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiswFBVV95cUxQeExDWmVIR2s0Q2FuajNoaWV5aHlSaWJYVTBYZGdtc2pmOWh4SENjVUxPeHB6SU1MRF9OQzdxX1ZYUXlBUVBsX0pJc0YxMFBTMVFNcjE0SUVEVmRoczh0bzJHOXROY0wwSWhoSVdQbmpRelJSUzdQS3JjNXNacWkwZHBwZ19ia29jTlVON2ZOZnUwTzZSWnNSWHFyc0tsaGN1bkdpVW8tTnI3LXBWQjMwVXNJTQ?oc=5
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxOb1l5TENCd2I3eHNLX3phZTFjTnhUUTA0RUZWc2c2TGtqZVQtNkhhaElFbnJZcGZOcW5IdUpONmZkRFNTam9pdkU3d1NOMzNBZjZrZWFnN3NoOXhpaGFOMy1kZTVfQjFkbWR5S3BERTdXRVNGWVJ4ZUJ4N2VOYVVJTllINA?oc=5
 
 ## Travis Kelce’s reaction to seeing Taylor Swift walk down the aisle revealed - Page Six
 
@@ -329,7 +411,7 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 ## Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors -
 
 - first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors  Us Weekly
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMihwFBVV95cUxNOTQwMUhoeXBKWGdpa214VjZSVWhKYTdHYkR0QTNGck5HTGpaQnNlVkhFYkFmTUNkeFhlMkRrZUxIUWUyT1VFWjRtRGJnbFUtWlBVTC1TYm50akVzOGp0cVJDQjczYldlaHV5V0RuSVVyUG15WHc1ekR6bVNMMm1CRWJVRjlOb3c?oc=5
@@ -338,6 +420,7 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMizAFBVV95cUxNd1Y2d0hPRlRzYk9YbWtPX2RQSU5MMzA5d2NEQWt2aHUxMzNmX3A4Y3VXcHEzSWg3TEtLa2s2R1YweUZUMzFaVEJnUlZCdW56R0hOZTNVV0ZpU2h4akxUeXRfQmVQMVhhdWhiQXM0eEFoVVBXSm1uaGdPeWdRT1pOOXNWVndmc0J3UVBXZk9lR1pkY091MmlhclVaS0lPSVZMWk1DSzQ3QWhqUmxQSDlMdFVGVzczOGI1UjVDTFhkRC14dlZ3MmpOeG9iRFc?oc=5
   - [unverified] East Bay Times — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOSjZUQTFRUmhJZmpPbFlNMUU4YlFYWmhGYlZyMGdBT0ItTFJVTWpfTmxWd01DOHFzYmxFRnhnZkE2cTZldDJmMzNVUTl1WUJpblJiaW5KZW5Ec09URktqSXZPRHpmNkNCQnFncjBLS3lhVE0zVXR0SUQ4TlpDQU5NSVpWTFlNSElqb0Rn0gGQAUFVX3lxTE9SQjQ4U19SX0JBdmtDVW12ZjU1bHBzam5zWmlzMnhsMWFSQ3lxZUs2TmlKRmx0ZE51RlR3MWl2NnZ2dGIxNUNqeUtWQlpLRTNoanlkMlpYTVZyT3pEMnlXQ0t5dVFRdkFHbXl5NG1rWnc5ZkZiVU5YSzlWUnRJRVRxZkZHZkJNODFOb0loTGxLcA?oc=5
   - [unverified] The Mercury News — https://news.google.com/rss/articles/CBMiigFBVV95cUxOX3NEMHBjcVJHVkl1VG00Qmtjck1GemY2ZndyUThzT2RTUThFUDF4U0kxSkI1WGdPYm1obG1ZYlJwWnp4TUhjRlV1NlR2dE5UX2V2RXR4bE9TUjFWTnAtQTAzNlRkVEMxc25VVy1weDBnN0RNQ3ZXM1ZGcDBocTYxWDVVTlV0a3lkWVHSAY8BQVVfeXFMTWVlckxYZTJxX0ZQTHJZRlY3Q0lwMEd3dkx0aDZGR1NkZzdTNXJ0VUR5czkxM3dyX3EtSUlwWGIxOVZoNzI5MFdvQUhtNFpQVFMyUnJpZzZnZldZLWpUZ1EyMV9PdkM5OHB4T1d2U285RTBLV2pyb3NfdlhqRG5Md2dVdnppZ3J1aS0weVBubjg?oc=5
+  - [unverified] Porterville Recorder — https://news.google.com/rss/articles/CBMiiwJBVV95cUxOckJjUjVDdDdCdXhkVmQwYWFKTGVzUW9iOUpnb00wY0RMSmRqWENDSXgwejBvTDVqZWoycnBvQl96MGFCVF84ajZuVGxHeUVWQzNGaWk2clljMEg5eGdDRHY3Vk40N0FRV2ZpMEhiZjhJZHV2VGt2eVcyckxpVW81MXoySWZYcXA4cFBnSnBSRzhkTUFaZnpudnNVUFdDd2VwSjJNZ1BLRkZrRUJaTGFUSDdzZzZFZVlUbjh5WUEzTUZqQ2RDMVFUaFA3NzJCVkNuTmZsVWJmajdTTlNSSV9YTF93ME9pZTREa0VfTDlyLXByVTA4WExnZG1vRGNFRE5ETkE4ZkJMY0lhbVk?oc=5
 
 ## Taylor Swift debuts wedding ring in fellow NFL wife Laura Kruk’s wedding pics - UnionLeader.com
 
@@ -642,35 +725,3 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiowFBVV95cUxQVzl0djFnLThIY2NMWHBWWmZIT1BwNlRGRjc2LTZYMmQ2dnJVczVOTFRZZFBWbVpnYW9sZU1ETTFoOU9XWkZ0RVlwbXNMLUdXRmkxaEQzNFJBRmFCWGtkVjdxNTlLQ3VWNlUxNUl1WWdETTJqNThqY1NzV1VVTDNnSTRKdEFoUVFyMU9wTnlTLTVjU1dUcExMVDAzRGFUbWNpQU1J?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPMTd5MjB6OE5rWTFiMzBHMHpDVm0tMXlEVUtEREQ1ZFdjRkxLOXYwaS1wSlZhR01acENGQmtfMi1LRmtZY2tURTk2S2Q4VGlnY0p0Q2JPdmZ4QnlsU3p4Mk91bXpJSnlTZ0tCT3VqcjZSWHdqdHpkS0gxRmk0Y0V0U3k0aWVscExsRnU0UV9Ja0pxNzdwU3lweEpzS1VlSHVK?oc=5
-
-## WHAT HAPPENED BETWEEN TAYLOR SWIFT AND KELEIGH TELLER?: Everything we've ever heard in one place - d
-
-- first seen: 2026-07-26 18:10 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: WHAT HAPPENED BETWEEN TAYLOR SWIFT AND KELEIGH TELLER?: Everything we've ever heard in one place  deuxmoi.world
-- sources:
-  - [unverified] deuxmoi.world — https://news.google.com/rss/articles/CBMijwFBVV95cUxOcWN0ZmtoTEFCSzRacWd6SUtNaWpNcVNVT3JzNnVCbThQSE9XVjFEYk53alFXdGhOeGVaclJxMDE2c3JmM2pnWEpXZVdIY09xel92WVgzRWZYV29ISjNOSTdZbFBfT2JYekdKYzJTdlhSWHFHeWZXWmdoVElTMWk0T0JPU0ZIdmhNdHVFVzlsMA?oc=5
-
-## Taylor Swift's Gown At The 2011 Nashville Symphony Ball Is One Of Her Most Underrated Looks - women.
-
-- first seen: 2026-07-26 18:10 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Gown At The 2011 Nashville Symphony Ball Is One Of Her Most Underrated Looks  women.com
-- sources:
-  - [unverified] women.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxOcHRCQ1RrdTZJbjlSSDl4enVJMmVPVHBzbTZjOWpaanRQQnJnckdwZDFscENmdUpnUkpoVU5VVDN4Mm11ZlQ1ZjA3NFhhSGVIUHp4dWVPYUNKdkRpYlZGanlQQzFOZEJpdl93Q3A5VnJ1MldmaDNZVGFISkc2dDk3dE90WlFyTDZMdWkyak05MjZxRzNPajMzYw?oc=5
-
-## History's Most Expensive Weddings, Ranked (A 2026 Wedding Makes the List) - Mental Floss
-
-- first seen: 2026-07-26 18:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: History's Most Expensive Weddings, Ranked (A 2026 Wedding Makes the List)  Mental Floss
-- sources:
-  - [unverified] Mental Floss — https://news.google.com/rss/articles/CBMihgFBVV95cUxNOTRQVGFjMW1GREVrczdWdllzbnZEaVR1d19GdHFnbTF0V05fbWc5SExXN1FIV2owemJtSEZ3Y2M0QWNfZlVuMXR3bW9VY05QUXZ3MFdJMGVwdjVDb2c1MC1vZDJmTVF3TWUzQUwtdk9DOVBiZnpCU0ZrSGJ2eGtNa0IwY1gtQQ?oc=5
-
-## ‘300-Lb Men From The Football Business Crying.’ What Travis Kelce And Taylor Swift’s Vows Were Like 
-
-- first seen: 2026-07-26 18:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: ‘300-Lb Men From The Football Business Crying.’ What Travis Kelce And Taylor Swift’s Vows Were Like  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQVEFSUlM1ZlR4UkNRMF9UTG9Fckw3bjdIdWd2NTVDdHRSUnR0LUxjcGtiLWpLdUtuMWZ6RzMwWjBqNHo1MTRSY3dHdi1HUGR1bmpqTXk2VHNvR3NlQ3NGNG1MVDAyWTRNVW5xQnkzTE5xQ0gwWlRHRFdzYkhLUDVyQXkxM2hhTGhETl9KNFE5YUZyZDlta2w2dVZFYnJNcVE?oc=5
