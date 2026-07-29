@@ -25,7 +25,41 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 78
+
+## Simone Biles Shares Surprising ‘Gossip’ From Taylor Swift and Travis Kelce’s MSG Wedding - Us Weekly
+
+- first seen: 2026-07-29 15:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Simone Biles Shares Surprising ‘Gossip’ From Taylor Swift and Travis Kelce’s MSG Wedding  Us Weekly
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMinwFBVV95cUxOdWp6WVpydERPeFd1TFlxamZPVURqdXBkdF9yRjYxMXd0ZXBDMUNyZHR0NnFTV3R0YXg3T2k5alJQcFF4S0l3aTNiM0NhTmRDTFgxWXJtNzFkNVpnaW9xRjhVd1NIWWhsTFZNZFJIbTFrMDdhNmZ0U1BNd01ISVlhX01JUkphWmppMnk0WFpFYW5IV1JNcTU2XzhNSk9wczA?oc=5
+
+## Karlie Kloss’ Coy Take on Taylor Swift’s Wedding Raises Eyebrows - Yahoo
+
+- first seen: 2026-07-29 15:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Karlie Kloss’ Coy Take on Taylor Swift’s Wedding Raises Eyebrows  Yahoo
+Karlie Kloss breaks silence on Taylor Swift and Travis Kelce’s wedding years after fallout  Page Six
+Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  NBC New York
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNN1NsQ1lDTkRBejI2OW1mbEh3UnczZFhrMTlzUTJZbWctMVlWdTZiQUlabm9KUm96NTNmWGpFZ2dYOGtZazZuZ0xrV21wTkhhWnpVdW92VkRPbUpTYno0bnM1c0xWeG1QVXl6OHZYZzMzMXZXSTdlb3RqMGl5SnpBRUxpRDJBcnZPVjEyam1iNFRJR1RYRVp6RE1MWXVTSDZQ?oc=5
+
+## How Taylor Swift and Travis Kelce reacted to George Kittle's outrageous suit for their wedding - hit
+
+- first seen: 2026-07-29 15:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: How Taylor Swift and Travis Kelce reacted to George Kittle's outrageous suit for their wedding  hitc.com
+- sources:
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxNSEx0QXMxTUZGTjV0eFBuYm9hSlZKdV9hSDhiUUtGMG5ZeGVaYWJVZTRNdGJJcE03WmpuUWk0U0U0WVhiQXEtUnEtcUFsRGhwRnc4bTZOcTVidzN3blZEYmVrQk1mX0s5VXRfR3d0WFdyTm4yS1Q1eGtQR1RsaW45TEdtRFIxRU5pSzFPakdEdmpXTHJnUFFlWXRUTDZuX1d5WWZxdHdXaE5CQTVGUjJ0WWlNZFM3Zw?oc=5
+
+## Travis Kelce & Taylor Swift’s Wedding Hosted an A-Lister That ‘Surprised’ SNL Star - Yahoo
+
+- first seen: 2026-07-29 15:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce & Taylor Swift’s Wedding Hosted an A-Lister That ‘Surprised’ SNL Star  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQRnpZakoxcm1Ka0RNZms0ME5fTXplVkJyeW12dXQtckFJd1BMNWJacDNxLVF1QlcwcFluMG1sSjJicVhBNnJhbGdfSmNsRFVsNnNtVnhibGhfQXFYSzVHdmtqR0IxYmw2Y3JYOVJkbE4yU21FSXJLcVpEQlBoLWxiSzZPaDBlRkJsazhMeGZUZFVkN015RTJva0RqOHVUMkJUY3AwcVR3?oc=5
 
 ## Karlie Kloss Breaks Her Silence On Attending Taylor Swift’s Wedding - Elite Daily
 
@@ -59,14 +93,6 @@ Stories: 74
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxQZHhYeURwcUhsTWg3dUw4b0h4Q2NjUG40VUduQWtZUVkxNTNubHBXT2J0TWlMSV9heE9VaUQwV2E1bThjaHh5c2FhZVRCa0RWcmdmSzNKZkdsb1dJa3FtTWdReEFqOGlWYThndXpfZUFPXzVfdlJoUjFLQWg1OUozNDNGS0JTWTVkWl9Vd003dENxbjRpUDlnSG10eVdxbTdMSjQ1a2F6amhXTUVlRGNEU0czSDV3VG5SU24wQUxnQWI2eGVvOTRHQ2xGOG4?oc=5
 
-## Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding - New York Daily New
-
-- first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding  New York Daily News
-- sources:
-  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMiswFBVV95cUxONjBpRU02YUlHWWprYXppLUhjQ0wxUEVLNXIwaVRoeWUxalV2RDJVbl9Ha3haUkwwSVR2SExqWjZDcmQ4VWpRUHRGdXdvUnlIZUxfUDJVc1hlb0dhdU9GZmhEVzhJdXVNa29IblZjQlY4dGJaekh1MUV5ejM0MHUxekp4bmhwTjlJOHN2RjNVOUtjdjh1S0NWa0dacnRxVWJIRjh1RTZKTWI2V2laQWUyQnZXaw?oc=5
-
 ## Simone Biles says this singer ‘stole’ her sunglasses at Taylor Swift and Travis Kelce’s wedding - En
 
 - first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
@@ -74,6 +100,15 @@ Stories: 74
 - summary: Simone Biles says this singer ‘stole’ her sunglasses at Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMitgFBVV95cUxNQnJnTmVabS1DZUJ5bDZlaTZoc1N1OUJ0YTJpSU9ISEZMX1ROQmg0YWpKNDRFNnZ5aE9WUXZCVW01TTBsY3FuTzEtOVlCYU9QZWZCakpxYVdFNzhvNVZzMW8zaG5RN0V4UFFMRFJ3ZW5lUVM3ajdTRlQ5ZXQ0WUR2MWRsOUM2bHdKVFM1Q0NhZG5ob0Vta0xjeTR1VjBwR25XY0JRX3l0UThHSWFUU1ZOMlBkZHh5QQ?oc=5
+
+## Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding - New York Daily New
+
+- first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding  New York Daily News
+- sources:
+  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMiswFBVV95cUxONjBpRU02YUlHWWprYXppLUhjQ0wxUEVLNXIwaVRoeWUxalV2RDJVbl9Ha3haUkwwSVR2SExqWjZDcmQ4VWpRUHRGdXdvUnlIZUxfUDJVc1hlb0dhdU9GZmhEVzhJdXVNa29IblZjQlY4dGJaekh1MUV5ejM0MHUxekp4bmhwTjlJOHN2RjNVOUtjdjh1S0NWa0dacnRxVWJIRjh1RTZKTWI2V2laQWUyQnZXaw?oc=5
+  - [unverified] East Bay Times — https://news.google.com/rss/articles/CBMitAFBVV95cUxQeTl6NUpLc1JvNTVyQUx1c25uUFRKNTNLZjY1VFdUSzZWOTRIZXJ6dmI3aG1YSHpwX1k3allmbVVXTmlmY1VwNFowMHVnU01IRERSUExQUl9VaDFuQ2VtOE56T2FYY2NaYk9CdThzQm5WdG5xc3A4RkJGd3k0RlRVbEk1RWNzbHJJeXRqanBTTWh2YkFUcGM3UFUxM3drSTFGYlVnTl90Z1ZSZHZFQ1FUSDRsSWbSAboBQVVfeXFMTThnU1p4VHBHOVBzR2cwcGF4TDRKWnZyb01VWVhtSzVkaDhiOHZCd25nM2tESVRsSzJGcXU2UXF0STdCMzRjd2VzLU8xVmZNRzdCZXJUTm9RYUQ1NlB3Y2l1ZWloWXlNMmR5alRjaFlLX3VhamNDdTZHOEhFbHcyRk91QmhSdHhNdnloZEhFYWx4aUZjeVJIanJ6ekpQM0xoOWhkaVVsWUxfYVF1c1o0a2hLYVBBVE1TUjZ3?oc=5
 
 ## Barefoot bandit steals Taylor Swift cardboard cutout from SoCal ice cream shop in bizarre heist - Ne
 
@@ -245,15 +280,6 @@ Stories: 74
 - sources:
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMiwgFBVV95cUxNLUpycnpsZm5IdmRJa0dhejNQU3VvbkF2R1NOM0FjRjM1ZXd2T3NQUFZDZW9wa0VVSnd0NzkwVWRldmozNTZSQ1JCQ3VJeFpmUzJBRmFxejVNbTJ1Z0RwRDhiSXdPejJ1cExoc0ZZR1JESElLd3pId2RGT3NabDh5SnpSZ0R6SW11R0ItbEJZRTVTc25zVjZlQk9GWUFsNGwtQTJvekF1LWlpUmxpWVBZX2FobGFXaVh3RGhaOUlkMTBqZw?oc=5
 
-## Karlie Kloss Reacts to "Amazing Couple" Taylor Swift and Travis Kelce's Wedding - E! News
-
-- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Karlie Kloss Reacts to "Amazing Couple" Taylor Swift and Travis Kelce's Wedding  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMipwFBVV95cUxOUVdiXzR6WEZJU3BlM0FOT0toMXhsLVdFNnExRFZKOGU2UmxUR285enhHSVc0RFJBeXZEMVJYZTMyZVN1OFRwSVRpUFdlOUdPcFdsckR6dF9Jdlp4dTUyWDgza1hKLXN0VWFCdHhERjhRbENaZ250QUs2cm9TaFZ3ZkU3Rjl2dEM4TWtZLVJoT1FjcG03OC12M0hDbGZySkdoY2VvQzFwdw?oc=5
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxOS2dnWloxczU3dXpJM0tkM3FWdUpZNWVDcm1zTTZjbXBwX3M1cE00LXJ1LTVibzVmcEZ3NlhUa09JZ215a1VRLV9pMGxGSGhGQkZjT05nbGR6czlWTnBBOXowbEFYcGFvNEJPUF9qbFVES2FuRUxuUmRLMlFxMS12RlNpY0k5aFg1QWJTTUdTWTR1aU1zZVJ1T3Bhd1Z4OTY3MGp6LQ?oc=5
-
 ## Sadie Sink Reacts to Taylor Swift, Travis Kelce Giving Her a Standing Ovation - E! News
 
 - first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
@@ -289,6 +315,16 @@ Stories: 74
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQOG10cFVFRE9VNkpuUnZrNDNTYTFLSGZNWjFrT25TaTkyQkZ0WFJvZFA0NURwNG9iWEZqMDFXcFA4a3ZYYmJ1OUUzcXpqTUg3eDVTM0pPeTRjUEhuNU92TVJnVGNKZnNiN1hTVHVfRzlxUTdJOVNoVlgxb2VXV1VNU0QyR0psTk5abnhwTm0tMFJDdUxnYlpPYjRNNzBtakxxVUFTTUptZ2VNMkN0NmFicmpKY3RFRDZr?oc=5
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxQenFtcUEyMmlfSzVTSmxJRldqc2tLMzd1SXBvVmF5Z1FITlQxS1FBbDlqcWNWR1I3ZXd3cENVNGNJRzZOSHFRVkpJQmZUdjVzYkFUd3M0TUV0Q0VOZ0V1WW95STBUdTVRaFRiMlUxVmMxeDVxSGRqZ1NLOXR3dWhxSEUxQXRFRmduS1QzdW5TeUltbS1xWXZFNkx1V3hwVWdJR2k4VTQ0b0NJQXNHLVFTWU1PQQ?oc=5
+
+## Karlie Kloss Reacts to "Amazing Couple" Taylor Swift and Travis Kelce's Wedding - E! News
+
+- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Karlie Kloss Reacts to "Amazing Couple" Taylor Swift and Travis Kelce's Wedding  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMipwFBVV95cUxOUVdiXzR6WEZJU3BlM0FOT0toMXhsLVdFNnExRFZKOGU2UmxUR285enhHSVc0RFJBeXZEMVJYZTMyZVN1OFRwSVRpUFdlOUdPcFdsckR6dF9Jdlp4dTUyWDgza1hKLXN0VWFCdHhERjhRbENaZ250QUs2cm9TaFZ3ZkU3Rjl2dEM4TWtZLVJoT1FjcG03OC12M0hDbGZySkdoY2VvQzFwdw?oc=5
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxOS2dnWloxczU3dXpJM0tkM3FWdUpZNWVDcm1zTTZjbXBwX3M1cE00LXJ1LTVibzVmcEZ3NlhUa09JZ215a1VRLV9pMGxGSGhGQkZjT05nbGR6czlWTnBBOXowbEFYcGFvNEJPUF9qbFVES2FuRUxuUmRLMlFxMS12RlNpY0k5aFg1QWJTTUdTWTR1aU1zZVJ1T3Bhd1Z4OTY3MGp6LQ?oc=5
+  - [unverified] jezebel.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOTnBjc1owbzIwNWJvUGRFbWVGcG5NUTNrbk5PVkNNQU11MkZQcm5zeUhwV2dWbG81TmtyNWxOaHJ4WmpHWXoxT19ONHlmbFhCSGpTcndYSVhHck1OYkJNbWFiZG9LdEs4TGpyM1JFNERfdVFxc2tTXzJBYnVpUmpmWnhkaGI4enRWS2ZTMDRLNThVLUlVNXc?oc=5
 
 ## Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors -
 
