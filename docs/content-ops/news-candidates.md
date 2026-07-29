@@ -25,7 +25,81 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 87
+
+## Simone Biles says singer took her YSL shades at Taylor Swift's wedding - USA Today
+
+- first seen: 2026-07-29 22:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Simone Biles says singer took her YSL shades at Taylor Swift's wedding  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOWTJLMmpLdlRYQV83Z2g2bk15eGZPeUNwaU15YTVVY2tpd3Zaa05ETnFaOGFaQjZsbngxbUFIMTViczNVS3pQbVhua1YtVzI1RHlWbFBybFFCSnlRRTRpemlFOGZGYUo5YWRYT0xQeDdFZWZXOG93eV8wOVFYakl0OUJHbjl4cnRUSmV2eHhTaFhwMFhJdFN4Zk4wY2ZGcXJId0t1enNuS2syby11bU55VTc2MTdGcF9JSmtfaURZUUNCVDB2a21BM0plZWhFdWJtRXVKRlZwbFV1U1FM?oc=5
+
+## Sister of Southport victim still turns off Taylor Swift songs two years on from attack - The Indepen
+
+- first seen: 2026-07-29 22:09 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sister of Southport victim still turns off Taylor Swift songs two years on from attack  The Independent
+- sources:
+  - [unverified] The Independent — https://news.google.com/rss/articles/CBMixwFBVV95cUxQYnZwOHl5dWRHdlp5LVcyaHdYZ3M0Z2U5M1NIbjg5WHBXNTI5M0ZrcEROR0lkMjExMEhMN3ZGRlhJQkFKY0JpNEpIcUhHTzl4eVBreDY4U0VsbllMbW9kTWN2S0FucnJ6cU1JU0tUT2NUTzJtSzc4TUF3N216T0tWcE5TSWx5NlFmNzZpa0NjNHRxN3k0X2xuX2o3U1djd043R1ljcVVQRmtjT295M0tsS2xUb1pmeWVPZXFuVlYwVlM3Z0lrQzlJ?oc=5
+
+## Destin Was Just a Quiet Florida Beach Town Until Taylor Swift Sang About It - inc.com
+
+- first seen: 2026-07-29 22:09 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Destin Was Just a Quiet Florida Beach Town Until Taylor Swift Sang About It  inc.com
+- sources:
+  - [unverified] inc.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxPbW82TnUyRGJPeWNBcURDZG9ETXdCN0dydXBuNk1VTk16ckU2RjB2ak5YV1pWSDJ4dGhTZUZlbUo4VGJ0ajFoSHZuakFiQi1xdml5dURIMUZLbEcxTU5nTE5BT0NkTm9oN19HdGZYODNXQnlXejhOOEdhdlZqOFlGLS12ZW1mUlNYc3JEZG5rMUZ5OEo3eGJTMVh6UFRncFlFWjBaa2w1M01oN3JNU0phT01wcVlOWlZkdzFjdQ?oc=5
+
+## Joe Buck Reveals the Tearful Moment Travis Kelce Saw Taylor Swift Walk Down the Aisle - Complex
+
+- first seen: 2026-07-29 22:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Joe Buck Reveals the Tearful Moment Travis Kelce Saw Taylor Swift Walk Down the Aisle  Complex
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMipgFBVV95cUxPcnpjUzdlMkQ2Um5NZXlsTHlyZnJRZmhZLU5PbjZVQ0lPaXV3N0I0dXZnRDVfbDNPeEJ6ZVZFWDQwVlRfU0J0ZGxDMHBHX2JUdllzR19qbmZWQWRNQkt4QjE3VVlUTjBSX0lSR2V5OWFYZVV5eF95eDRVZHJkTV9fOFhWOXNTanVwUXJGTmFNbl81bWxGSXJxMnZhOGo5ZzE1b05SYTZB?oc=5
+
+## Florida Orchestra will play a Taylor Swift concert in St. Petersburg - Tampa Bay Times
+
+- first seen: 2026-07-29 22:09 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Florida Orchestra will play a Taylor Swift concert in St. Petersburg  Tampa Bay Times
+- sources:
+  - [unverified] Tampa Bay Times — https://news.google.com/rss/articles/CBMi5wFBVV95cUxNZ2N1WUhjVlV4WEtMNDJlX2wwZC1XNWR4amREaFExNi1VRGxEZDJWWERoMmRrYi1RMXNLSXBTbjUyMjNXbkZnMXdXdHREd1ZYMHhtR3BzY0pKNTJwbjVianRLdWtua0pMZDdMOUhoNUVkaEYzTXI3QWZ0Tml2TFcxdlB6dmFhMVE1YmtkNXFsenlWQlMybUNlbVE0cW1uNHhKQlBVS0lXUEJuclQ0TS1HVENweUtZMXlrTk1UVjdKdUtKc29WT2tSZVhUd1V0UXkyU0Z0d196NGM5TWhqR1R5OXRTRUZoQTQ?oc=5
+
+## Taylor Dayne Reveals Taylor Swift’s Funny Backstage Question (Exclusive) - People.com
+
+- first seen: 2026-07-29 22:09 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Dayne Reveals Taylor Swift’s Funny Backstage Question (Exclusive)  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxNd2VMa284dF9qZkZ3NkxPUEIyd0kzbmxzMGpYMlVLemlibWxyeHBPR3dPQVpKX0JVdUY0aF9lU2dkNjNKdndORWQtaXNIUjY4WEZXcEt2WkpCQnN1UmZHTzYxM0t0TjdyUWhUMDF0cHdkVjFHVTBCM1ltR29vMW9GczVqUHpFMVlKV3ZPU2NyWkZSbFhfWGdRYkJGRHh6Q3dlT0lhR2tB?oc=5
+
+## Taylor Swift’s Response to a Guest Breaking Dress Code at Her Wedding Revealed After Report Attendee
+
+- first seen: 2026-07-29 22:09 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Response to a Guest Breaking Dress Code at Her Wedding Revealed After Report Attendees Were ‘Frustrated’ with Her  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNV3RCU09nNVZZMHBDcWRacS1NWGhEYzZrOEJBdE5hQWNKTU50MnYtQnpGNFgwbjJUT2tmUkJEd3Y3cDZ6dkFYczVXTEpHVDZCWDlSRGE1bFFQUU4wclBPNUV0YWxaTzc3Y1l0RG1pbWtWLXlxVEIxSGd4cUl6QUk3YU9SNlRXRzFNZWVRbmhST2JNa1otSlFaR2VSN20xWklLQXBhSVlJODBuZw?oc=5
+
+## How Taylor Swift Reacted To A Wedding Guest Breaking Her Dress Code To Wear A Costume & 'Bring Vibes
+
+- first seen: 2026-07-29 22:09 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: How Taylor Swift Reacted To A Wedding Guest Breaking Her Dress Code To Wear A Costume & 'Bring Vibes'  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipgFBVV95cUxOV0trQmU1ZTJvU3JnWjNvOV9udlRPejl5R2NpVmI0b3pJQ0x3NG90S3I3dW0wSXk2U184Uy0zVWtzZnFaek5DQ1Y5RmV2alh6SzAycHVxcElQc3pVbjRLMVhNRFk4LTJnVFdxT1hfOVpZenZOdThMZFo2VGRTb0Y0NTNQTTkwSzhIV3VrdnI2OEt1djc4LUhkVTlIMzhKeHUyZU1oR2t3?oc=5
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxOTTJkVlZkUTVPRjh0dlF3dnRPZUdWeWFWaFZwVXZXaU81enp6Y1ktZUxmZUdXTHdXNXg5UHdnSS05aE1OYTUteWh5VG81N3dnSVRtSzB2WnhjTlc0NHFiMllpVW8weFR6akJsNW1URm1MSkloZklzRnpQWF9mZDNRZDJFWUFOaW5CZkdVY0hLRFNfbTFwV1luZUlOYzBpMFZocWdfWkVnUQ?oc=5
+
+## Just say yes: A Taylor Swift orchestral symphony experience is coming to St. Pete - I Love the Burg
+
+- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Just say yes: A Taylor Swift orchestral symphony experience is coming to St. Pete  I Love the Burg
+- sources:
+  - [unverified] I Love the Burg — https://news.google.com/rss/articles/CBMic0FVX3lxTE5ZQ3hBVXl3X0dDR1VvdnhzTUdtWVZUQkltQlVwZngzVFJOTlJaSjNWZ1RmQjA0eXFFQU5ibGt6NHZpdC1OZzREazduc2pNcmwzbGZqV2UxRm9uY1B6X0dPQ2Q1cE5ma3VLaXRpQV85ZU1kdXM?oc=5
+  - [unverified] That's So Tampa — https://news.google.com/rss/articles/CBMidkFVX3lxTE45dzNJQ040Yl9xSUlPZ1NuR053NzgyeXlFOXhCeC14aU8tNUpPT0VaNjQ5aHp3cUxvbGtQY3c2dEN2QnNiTEdlUzlfNnZnVV96VExYdC1kR3RvNEZXMDJVeEJnc2hRY1cxN3ZYTDhlTWRLZlpzdmc?oc=5
 
 ## Travis Kelce Back with Chiefs for Training Camp After Marrying Taylor Swift During Offseason - peopl
 
@@ -90,14 +164,6 @@ Stories: 84
 - summary: Taylor Swift Sues Ella Langley For Bangs Infringement  The Onion
 - sources:
   - [unverified] The Onion — https://news.google.com/rss/articles/CBMigAFBVV95cUxOTmlKVE5HeUtFYUh2a3NxbGFrV25fVnBtbmlUdzJZQzBLTnVnQUJJbFVVeUJJbVh5a0lDOVFkMGFnT3VfdmNBQXRSclc5eGh1Qi1jQjVpSndOYkpSZzZZN0piT1hUdmhrOTZGOWo5ejVPNEhvUk9FbVZTV01RZkZHTA?oc=5
-
-## Just say yes: A Taylor Swift orchestral symphony experience is coming to St. Pete - I Love the Burg
-
-- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Just say yes: A Taylor Swift orchestral symphony experience is coming to St. Pete  I Love the Burg
-- sources:
-  - [unverified] I Love the Burg — https://news.google.com/rss/articles/CBMic0FVX3lxTE5ZQ3hBVXl3X0dDR1VvdnhzTUdtWVZUQkltQlVwZngzVFJOTlJaSjNWZ1RmQjA0eXFFQU5ibGt6NHZpdC1OZzREazduc2pNcmwzbGZqV2UxRm9uY1B6X0dPQ2Q1cE5ma3VLaXRpQV85ZU1kdXM?oc=5
 
 ## Simone Biles Joins Taylor Swift’s Wedding Gossip Train After Showing Up In ‘Perfection’ - yahoo.com
 
@@ -411,7 +477,7 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 ## Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors -
 
 - first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors  Us Weekly
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMihwFBVV95cUxNOTQwMUhoeXBKWGdpa214VjZSVWhKYTdHYkR0QTNGck5HTGpaQnNlVkhFYkFmTUNkeFhlMkRrZUxIUWUyT1VFWjRtRGJnbFUtWlBVTC1TYm50akVzOGp0cVJDQjczYldlaHV5V0RuSVVyUG15WHc1ekR6bVNMMm1CRWJVRjlOb3c?oc=5
@@ -421,6 +487,7 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
   - [unverified] East Bay Times — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOSjZUQTFRUmhJZmpPbFlNMUU4YlFYWmhGYlZyMGdBT0ItTFJVTWpfTmxWd01DOHFzYmxFRnhnZkE2cTZldDJmMzNVUTl1WUJpblJiaW5KZW5Ec09URktqSXZPRHpmNkNCQnFncjBLS3lhVE0zVXR0SUQ4TlpDQU5NSVpWTFlNSElqb0Rn0gGQAUFVX3lxTE9SQjQ4U19SX0JBdmtDVW12ZjU1bHBzam5zWmlzMnhsMWFSQ3lxZUs2TmlKRmx0ZE51RlR3MWl2NnZ2dGIxNUNqeUtWQlpLRTNoanlkMlpYTVZyT3pEMnlXQ0t5dVFRdkFHbXl5NG1rWnc5ZkZiVU5YSzlWUnRJRVRxZkZHZkJNODFOb0loTGxLcA?oc=5
   - [unverified] The Mercury News — https://news.google.com/rss/articles/CBMiigFBVV95cUxOX3NEMHBjcVJHVkl1VG00Qmtjck1GemY2ZndyUThzT2RTUThFUDF4U0kxSkI1WGdPYm1obG1ZYlJwWnp4TUhjRlV1NlR2dE5UX2V2RXR4bE9TUjFWTnAtQTAzNlRkVEMxc25VVy1weDBnN0RNQ3ZXM1ZGcDBocTYxWDVVTlV0a3lkWVHSAY8BQVVfeXFMTWVlckxYZTJxX0ZQTHJZRlY3Q0lwMEd3dkx0aDZGR1NkZzdTNXJ0VUR5czkxM3dyX3EtSUlwWGIxOVZoNzI5MFdvQUhtNFpQVFMyUnJpZzZnZldZLWpUZ1EyMV9PdkM5OHB4T1d2U285RTBLV2pyb3NfdlhqRG5Md2dVdnppZ3J1aS0weVBubjg?oc=5
   - [unverified] Porterville Recorder — https://news.google.com/rss/articles/CBMiiwJBVV95cUxOckJjUjVDdDdCdXhkVmQwYWFKTGVzUW9iOUpnb00wY0RMSmRqWENDSXgwejBvTDVqZWoycnBvQl96MGFCVF84ajZuVGxHeUVWQzNGaWk2clljMEg5eGdDRHY3Vk40N0FRV2ZpMEhiZjhJZHV2VGt2eVcyckxpVW81MXoySWZYcXA4cFBnSnBSRzhkTUFaZnpudnNVUFdDd2VwSjJNZ1BLRkZrRUJaTGFUSDdzZzZFZVlUbjh5WUEzTUZqQ2RDMVFUaFA3NzJCVkNuTmZsVWJmajdTTlNSSV9YTF93ME9pZTREa0VfTDlyLXByVTA4WExnZG1vRGNFRE5ETkE4ZkJMY0lhbVk?oc=5
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxOT2JjbUhFZGh4bHNMN0poQzZtUGt0cW9meldHQUM3LVNvQVVqYjJKbThRd2dJYl81dGV2Q0xDUGNpckU0S1IyOXlzWDRmbl8yNEpoVUNTbUJqMkpNX1ZVQTRfTGthLUtLc1BnWEtDekY2N2VycGUzbHhCN0lVOXJxWFM0dHA1WlNXMlFXbExjVVEwbmx2eEpIOWJCNS1Fc01Kb3NvNUFfUQ?oc=5
 
 ## Taylor Swift debuts wedding ring in fellow NFL wife Laura Kruk’s wedding pics - UnionLeader.com
 
@@ -683,45 +750,3 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - summary: Taylor Swift's Ex-Boyfriend Kept Shania Twain From Attending Her Wedding  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNUktUdHhuTXlDWVhSYjJyRndqbHIwS283V2IwUW1sQ3dVX3JBVXN3alFiRGxlMmwwZW14aXNUWURScnVzU1NGbkRnTGJLeHY4RW9tNGdTUE9odGVBZXJxUlRFQWpLck1kUGNPSnNEMEJuYWY2TDRXQ1RkbUtOSmE3U2QwR1ZnNlY0Y254b1p3VHhoNy1xelBicFhDNmJoLUJ5WVlr?oc=5
-
-## Taylor Swift and Travis Kelce Get Sweet Notes From Fallen 1st Responder Families After $2M Donation 
-
-- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Get Sweet Notes From Fallen 1st Responder Families After $2M Donation  Us Weekly
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOQ0tvSlUydmJwQjQ1T3U1ay1WZHJuWlMtTU1YSEVQd3pkdHRJLWVkXzJlSUNLcWs1UTJYWHluV0FCcG9QZmExUUtuUEpGcHFDbTZiRnlZcjFwVy1NSFFUcl95ZUpDRzR5M2pEcVNJOHdvUzlGQVpjRUtFT2hIeEZGc2hlMHJOMThycTNDbFJFZ216Z2tBQkQ1UldPVV9aQ2Zia2lBRG9FbDVuUzg?oc=5
-
-## 3 Years Ago Today, Travis Kelce's 'New Heights' Podcast Sparked His Love Story With Taylor Swift - p
-
-- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 3 Years Ago Today, Travis Kelce's 'New Heights' Podcast Sparked His Love Story With Taylor Swift  parade.com
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxPaXNkc1hRZXNRUlFtUEJndEgtMjc2NUFoSHVkTDlyZEVXekRaVFNqVmIzRzl2dGJzb0ZxZGdoLWF0T2o3c19ZdFd1cXJXY2JaUTFxbi1McFd2MWtNMVlvRXY5aG1MMUZjaWFudmM3TVo1Njk5NnlyVzJ6Z2pmN2JuSUJQVWtzVXZuWl94eHo2dFM1NnJDcGFIU3A2VHFJS0dtaWR1a3N6UUhMdm5XcWZ0WDdwTmJKZw?oc=5
-
-## Kylie Kelce Knew Taylor Swift and Travis Kelce Were Dating Before Everyone Sle, and She Never Told a
-
-- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Knew Taylor Swift and Travis Kelce Were Dating Before Everyone Sle, and She Never Told a Soul  Thought Catalog
-- sources:
-  - [unverified] Thought Catalog — https://news.google.com/rss/articles/CBMi6wFBVV95cUxNZ3dkTTNuMGhsVTFObllSTzhTWFNLd0tHRENyOXlqMWwxMzNPMkpNN2YwdEowVmNxSnRneFBQcUxFNkw5cHFKajh5dy15cVdWWk9wV0piNkwwSUtvcWhGaGNTVE1tajkzdGR3WVpQa3B1SkV1ejl1bFRwLXJzTG9rWEoxcTZhZEZEdFZfaFdIVVJ5V2d3YlB3c294S1JobHZxUjNjbVF4XzFmTkhUdkk3YV85aWJPRjl3VVdpUnplZWN0eDR4SnlVZ19KNEVUNGJldjVsQmEySDhPbm50N2VucV9WWWpldGRkdTJB?oc=5
-
-## ‘I am in tears’: How Taylor Swift and Travis Kelce’s $2 million wedding donation impacts grieving fa
-
-- first seen: 2026-07-26 22:09 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: ‘I am in tears’: How Taylor Swift and Travis Kelce’s $2 million wedding donation impacts grieving families  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTE9SajNxa3V0YUxqYy16Y3RnaU9EN3pZNjlBcFdaM0E1UFR0REVJeXB5aXVVaWVudWw0cDlVRVRRLTl5NjZCRHU3MHYxd2VVZTNWQ0ZKN1lhZjRFSEw4TWxYYUlKRy1pbThnZDB1RXRlTUtGNkV3WlJqenNR?oc=5
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMingFBVV95cUxNWFZMM2VmZEJzVVNDSHl5M1RCZlJWdmhjTkxBS0lsZlk3OTVOa3JUSkVBUEVDbnRjMVZ0ZzFmcjYyeElYQ0U4a096aC1PUjlyZXVrTGZ4RDBEMVlndGlOTFdDd0g3bHpTbWN1WHhuOWpQVng2ejd4S3dqVFY0MVJrOFhZbEJ5OVRGeVRVMDBiM0hGbU5qbEtfMlo4azlxQQ?oc=5
-
-## Taylor Swift Secretly Changed Some of Her Songs & Fans Are Convinced This Album Is Next - SheKnows
-
-- first seen: 2026-07-26 22:09 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Secretly Changed Some of Her Songs & Fans Are Convinced This Album Is Next  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiowFBVV95cUxQVzl0djFnLThIY2NMWHBWWmZIT1BwNlRGRjc2LTZYMmQ2dnJVczVOTFRZZFBWbVpnYW9sZU1ETTFoOU9XWkZ0RVlwbXNMLUdXRmkxaEQzNFJBRmFCWGtkVjdxNTlLQ3VWNlUxNUl1WWdETTJqNThqY1NzV1VVTDNnSTRKdEFoUVFyMU9wTnlTLTVjU1dUcExMVDAzRGFUbWNpQU1J?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPMTd5MjB6OE5rWTFiMzBHMHpDVm0tMXlEVUtEREQ1ZFdjRkxLOXYwaS1wSlZhR01acENGQmtfMi1LRmtZY2tURTk2S2Q4VGlnY0p0Q2JPdmZ4QnlsU3p4Mk91bXpJSnlTZ0tCT3VqcjZSWHdqdHpkS0gxRmk0Y0V0U3k0aWVscExsRnU0UV9Ja0pxNzdwU3lweEpzS1VlSHVK?oc=5
