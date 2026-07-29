@@ -1791,10 +1791,20 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo-enrichment pass (2026-07-29): added the official music-video
+        // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
+        // the single cover; both downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
+            focalPoint: '35% 22%',
             credit: 'Big Machine Records (single cover art)',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/xKCek6_dB0M/hqdefault.jpg',
+            focalPoint: '68% 42%',
+            credit: 'Big Machine Records / YouTube (official "Teardrops on My Guitar" music video still)',
+            kind: 'video-still',
           },
         ],
       },
@@ -1834,11 +1844,21 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-29): added the official music-video
+        // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
+        // the single cover; both downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+            focalPoint: '45% 18%',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/yCMqcFAigRg/hqdefault.jpg',
+            focalPoint: '48% 32%',
+            credit: 'Big Machine Records / YouTube (official "Picture to Burn" music video still)',
+            kind: 'video-still',
           },
         ],
       },
@@ -2056,9 +2076,16 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo-enrichment pass (2026-07-29): focalPoint added (downloaded +
+        // vision-confirmed). Searched for a second, non-Getty verifiable
+        // photo of the actual trophy/red-carpet moment (Taste of Country's
+        // gallery only renders a generic hero image via JS, not per-year
+        // stills; no outlet-CDN rehost of the specific win found) — left at
+        // 1 photo, reviewed-sparse.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/mUIcC8_4ABE/hqdefault.jpg',
+            focalPoint: '55% 38%',
             credit: 'Academy of Country Music via YouTube — "Should\'ve Said No," 43rd ACM Awards, 2008 (same ceremony as the win)',
             kind: 'archival',
           },
@@ -2415,6 +2442,24 @@ export default {
             accessed_at: '2026-07-24',
             reliability_score: 4,
             notes: 'First signed artist; grassroots MySpace/GAC/radio rollout; title shortened',
+          },
+        ],
+        // Photo-enrichment pass (2026-07-29): page had zero photos. Added the
+        // official "Tim McGraw" music-video still (YouTube channel "Taylor
+        // Swift", matching the `video.youtubeId` above, oEmbed-verified) and
+        // the Wikipedia single-cover file; both downloaded and
+        // vision-confirmed, individual focal points.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/GkD20ajVxnY/hqdefault.jpg',
+            focalPoint: '46% 45%',
+            credit: 'Big Machine Records / YouTube (official "Tim McGraw" music video still)',
+            kind: 'video-still',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
+            focalPoint: '32% 22%',
+            credit: 'Big Machine Records (single cover art)',
           },
         ],
       },
