@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 74
+
+## Karlie Kloss Breaks Her Silence On Attending Taylor Swift’s Wedding - Elite Daily
+
+- first seen: 2026-07-29 11:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Karlie Kloss Breaks Her Silence On Attending Taylor Swift’s Wedding  Elite Daily
+- sources:
+  - [unverified] Elite Daily — https://news.google.com/rss/articles/CBMihwFBVV95cUxNT3hieW1zNTVZRjgtVzZwVE9oR2NPbmF3YWJpaDN4SHUzY2hfYU5xU19ZUGlfa1JKTDhBT3psRi1UeXJmdk5HOXNCSVhScjFMbHBjNWFRdXdRS1VsZ2k5LVozd2EtYV9SaUR1eHRXNldZaFdzQ1VNLVpPdmY0V21SZTNkNUhPUzQ?oc=5
+
+## Keke Palmer's Alter Ego Lady Miss Jacqueline Riffs on Taylor Swift's Wedding - BroadwayWorld
+
+- first seen: 2026-07-29 11:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Keke Palmer's Alter Ego Lady Miss Jacqueline Riffs on Taylor Swift's Wedding  BroadwayWorld
+- sources:
+  - [unverified] BroadwayWorld — https://news.google.com/rss/articles/CBMixgFBVV95cUxOT0dqSG93NWNFZU54RnVkVk1yeE9JYTdfaTZ1RnBtOGwwYmNCV2xmbGF1bXBmdUVtYmZCeTZsNElxSjJRcXU0SU8ydU82WjJBY2lPemUwNURQSWhSWi16S01Lemp0Yk9OZVA3WHNOVkVNbnF2MzAtdW10cWZEVk05Q01GR3RYb190XzA2Z3FYMHIwRWwzSEV0VzhqeXRNQ0tYazk4ZF9RUGtwaUFKTnBTUkI1WnlDeEtiUUtBa3lnZUpqV1NBUkE?oc=5
 
 ## Joe Buck details talking to Tom Cruise at Taylor Swift and Travis Kelce’s wedding - Entertainment We
 
@@ -277,7 +293,7 @@ Stories: 73
 ## Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors -
 
 - first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors  Us Weekly
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMihwFBVV95cUxNOTQwMUhoeXBKWGdpa214VjZSVWhKYTdHYkR0QTNGck5HTGpaQnNlVkhFYkFmTUNkeFhlMkRrZUxIUWUyT1VFWjRtRGJnbFUtWlBVTC1TYm50akVzOGp0cVJDQjczYldlaHV5V0RuSVVyUG15WHc1ekR6bVNMMm1CRWJVRjlOb3c?oc=5
@@ -285,6 +301,7 @@ Stories: 73
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMiywFBVV95cUxQaE93REpEbEtUZ21Cc054Vmd3bVlZcklfUlZPRFJ1RDFWRm5scEc4MXRobWlNWEdlVmxEUzN0SnF5MnYzYi1PR3ZENG9NZHpKckdlaHB4NEFHMXU2MWdkVHZCYXoyeTBYOWVkeUhWcUlNREppa1RtMkFGLVEyTnYyanlsaEJIN01vWWFmYnBscnlHNGhGRUxodnRfZFd1eFhwTThVMFFqX2R4VzVCVWZhZ1RTUlpaYXV5c19VdEJuVmxXczcyRnJ5Z2I1TQ?oc=5
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMizAFBVV95cUxNd1Y2d0hPRlRzYk9YbWtPX2RQSU5MMzA5d2NEQWt2aHUxMzNmX3A4Y3VXcHEzSWg3TEtLa2s2R1YweUZUMzFaVEJnUlZCdW56R0hOZTNVV0ZpU2h4akxUeXRfQmVQMVhhdWhiQXM0eEFoVVBXSm1uaGdPeWdRT1pOOXNWVndmc0J3UVBXZk9lR1pkY091MmlhclVaS0lPSVZMWk1DSzQ3QWhqUmxQSDlMdFVGVzczOGI1UjVDTFhkRC14dlZ3MmpOeG9iRFc?oc=5
   - [unverified] East Bay Times — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOSjZUQTFRUmhJZmpPbFlNMUU4YlFYWmhGYlZyMGdBT0ItTFJVTWpfTmxWd01DOHFzYmxFRnhnZkE2cTZldDJmMzNVUTl1WUJpblJiaW5KZW5Ec09URktqSXZPRHpmNkNCQnFncjBLS3lhVE0zVXR0SUQ4TlpDQU5NSVpWTFlNSElqb0Rn0gGQAUFVX3lxTE9SQjQ4U19SX0JBdmtDVW12ZjU1bHBzam5zWmlzMnhsMWFSQ3lxZUs2TmlKRmx0ZE51RlR3MWl2NnZ2dGIxNUNqeUtWQlpLRTNoanlkMlpYTVZyT3pEMnlXQ0t5dVFRdkFHbXl5NG1rWnc5ZkZiVU5YSzlWUnRJRVRxZkZHZkJNODFOb0loTGxLcA?oc=5
+  - [unverified] The Mercury News — https://news.google.com/rss/articles/CBMiigFBVV95cUxOX3NEMHBjcVJHVkl1VG00Qmtjck1GemY2ZndyUThzT2RTUThFUDF4U0kxSkI1WGdPYm1obG1ZYlJwWnp4TUhjRlV1NlR2dE5UX2V2RXR4bE9TUjFWTnAtQTAzNlRkVEMxc25VVy1weDBnN0RNQ3ZXM1ZGcDBocTYxWDVVTlV0a3lkWVHSAY8BQVVfeXFMTWVlckxYZTJxX0ZQTHJZRlY3Q0lwMEd3dkx0aDZGR1NkZzdTNXJ0VUR5czkxM3dyX3EtSUlwWGIxOVZoNzI5MFdvQUhtNFpQVFMyUnJpZzZnZldZLWpUZ1EyMV9PdkM5OHB4T1d2U285RTBLV2pyb3NfdlhqRG5Md2dVdnppZ3J1aS0weVBubjg?oc=5
 
 ## Taylor Swift debuts wedding ring in fellow NFL wife Laura Kruk’s wedding pics - UnionLeader.com
 
@@ -621,11 +638,3 @@ Stories: 73
 - summary: ‘300-Lb Men From The Football Business Crying.’ What Travis Kelce And Taylor Swift’s Vows Were Like  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQVEFSUlM1ZlR4UkNRMF9UTG9Fckw3bjdIdWd2NTVDdHRSUnR0LUxjcGtiLWpLdUtuMWZ6RzMwWjBqNHo1MTRSY3dHdi1HUGR1bmpqTXk2VHNvR3NlQ3NGNG1MVDAyWTRNVW5xQnkzTE5xQ0gwWlRHRFdzYkhLUDVyQXkxM2hhTGhETl9KNFE5YUZyZDlta2w2dVZFYnJNcVE?oc=5
-
-## Will Travis Kelce’s marriage to Taylor Swift ruin his career? The bold prediction that has sparked f
-
-- first seen: 2026-07-26 10:50 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Will Travis Kelce’s marriage to Taylor Swift ruin his career? The bold prediction that has sparked fans’ fury  MARCA
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMigAJBVV95cUxOZXh2ZExVU2Q1NEZqYV9hOVdmcnpudlVXcS04dEZqS0tHeHFjZ0ZfNTFJVUppZHdZd0xmcU9kX05fVV9EekRmeUxIWVYyVkhsaUNfZkdoYkJDMFlUSldzeDhvbGNHUGJScjZ2ZHgzMHJPb2FWRjVINVc5OExiVUZpRnhuR2toSUFZbDdOU1l0dVZVMW1HT3dNQ3B0YnpiNXQ1Wm0xTTh5b2luY2RTZDhyZVRqc3pwcFlkNXBkMllfc3RILXVGbzVqU1Ffa1RQRktBTGo1MWJIalhNaUpFMmNNNkVETDhHYjExaEFrQ3ViR2puU3NfUTNSV0JqQWZKd1o00gGAAkFVX3lxTE8xU3htbHB2eXJ0SU42aTVSdkFmb3ZUVUZGOVM4OHJQZ3ZjNlNQMUxrSFlqZnhBWlp1bDJJMGw3UnBPV0N2cVlSYWYtQ2ZxQnFWVGItNG9fblAySTNiN29HVXpsVW9vMHc5RW1QN2lkbkpUNDV6R1dOb09Qa3RqbFlwS0ZLUmxHdEZMVmRmVldWTFZPLWxQZHlNUHJSZ0Qzb3VMYmNUcGVuMzRCdHlEMkp4SkMwcllFUEtGTW52ZC1wTm1wWHRoUlc2N2VsaGJYZFZZV0t0TDJ0MjhSM0tORkJzUGNVN2g2YnZTbngzRC0xMVdfMFZ6WkRZS01fOVM4R1k?oc=5
