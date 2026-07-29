@@ -27,6 +27,14 @@ so far".
 
 Stories: 73
 
+## Joe Buck details talking to Tom Cruise at Taylor Swift and Travis Kelce’s wedding - Entertainment We
+
+- first seen: 2026-07-29 07:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Joe Buck details talking to Tom Cruise at Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPeTdaWTNQMFdWeFhxU2dTMlg3Wi1LT0sydlhUN1RxZ1B2eGE4RWpWT0pvR0lBVWF0NERNV1Z5Nzd6VjdaYW9nSFNBUEVONzBxTDRQM3MyR05PUzNqZFhETV9UX1dkblFKTTZlQjlvN2ZUMHVqcm4xUHFPZlVTQWRzZTR2ZW56dFlGUm1EZTN0Y2paUVZZNGJTeGhsdkhzTFJDUVF4Y2hhY0tlX1MtYXdWTHdXaWY3UXMzdF9OYW9nbjN5WEc0VlNCY0VQRTZqTG1iN3ktcDFvT3pIZjlXZ3Bz?oc=5
+
 ## Simone Biles Jokes a Celebrity Wedding Guest ‘Stole’ This Item from Her at Taylor Swift and Travis K
 
 - first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
@@ -621,11 +629,3 @@ Stories: 73
 - summary: Will Travis Kelce’s marriage to Taylor Swift ruin his career? The bold prediction that has sparked fans’ fury  MARCA
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMigAJBVV95cUxOZXh2ZExVU2Q1NEZqYV9hOVdmcnpudlVXcS04dEZqS0tHeHFjZ0ZfNTFJVUppZHdZd0xmcU9kX05fVV9EekRmeUxIWVYyVkhsaUNfZkdoYkJDMFlUSldzeDhvbGNHUGJScjZ2ZHgzMHJPb2FWRjVINVc5OExiVUZpRnhuR2toSUFZbDdOU1l0dVZVMW1HT3dNQ3B0YnpiNXQ1Wm0xTTh5b2luY2RTZDhyZVRqc3pwcFlkNXBkMllfc3RILXVGbzVqU1Ffa1RQRktBTGo1MWJIalhNaUpFMmNNNkVETDhHYjExaEFrQ3ViR2puU3NfUTNSV0JqQWZKd1o00gGAAkFVX3lxTE8xU3htbHB2eXJ0SU42aTVSdkFmb3ZUVUZGOVM4OHJQZ3ZjNlNQMUxrSFlqZnhBWlp1bDJJMGw3UnBPV0N2cVlSYWYtQ2ZxQnFWVGItNG9fblAySTNiN29HVXpsVW9vMHc5RW1QN2lkbkpUNDV6R1dOb09Qa3RqbFlwS0ZLUmxHdEZMVmRmVldWTFZPLWxQZHlNUHJSZ0Qzb3VMYmNUcGVuMzRCdHlEMkp4SkMwcllFUEtGTW52ZC1wTm1wWHRoUlc2N2VsaGJYZFZZV0t0TDJ0MjhSM0tORkJzUGNVN2g2YnZTbngzRC0xMVdfMFZ6WkRZS01fOVM4R1k?oc=5
-
-## Taylor Swift revealed the awkward moment the Kelce brothers met the royal family at her concert - Ya
-
-- first seen: 2026-07-26 04:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift revealed the awkward moment the Kelce brothers met the royal family at her concert  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6AFBVV95cUxNQVpsWlhJSk1xZUtnQWl0TTJLZTZITlpLcXlhWE52TmY2WkJhZzRPYVdOcWhYdVpXYkNVNFRZWnhXaXhWTldaQ3JhdGNNdDViM1JWai1lNEp1cDNnaUx4aUJfcldpeWVhVWtKemZFSWFTSnQwdWtFazFFdng0QXhQRjY5X3l1Tk1GcHlrOURLRVkyQWF3Uk1UMGlmcHZVX0NQb1dZYzcxUWpITnF5cUFnNVIyU0oyb25ONHNoQk40TFRBc0dleGhLVmsyaEU5WUFfLS02N3RnTDljN1BDVnpsX1JCajhKN2Nq?oc=5
