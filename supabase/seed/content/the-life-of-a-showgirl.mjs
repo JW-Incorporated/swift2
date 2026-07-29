@@ -2437,7 +2437,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Paired with the End of an Era docuseries for the same-day premiere, the film preserves the tour\'s final setlist end-to-end — the version of the show that closed out the highest-grossing tour ever, a year after the last confetti fell in Vancouver. Where the 2023 theatrical film had to trim songs for runtime, the streaming cut runs the full Vancouver marathon — the complete 45-song final setlist, roughly three and a half hours, uncut — including the Tortured Poets segment added for the 2024 legs — the set Swift called the "Female Rage" chapter — that no prior filmed version contained. It captures that night\'s specific goodbyes, too: the guitar surprise was an "A Place in This World"/"New Romantics" mashup, and the piano send-off folded "Long Live" and "New Year\'s Day" into "The Manuscript" — a literal end-of-an-era note to close 149 shows.\n\nUnlike the 2023 film, this was a Disney+ exclusive with no theatrical window, and — director aside — a different hand: Glenn Weiss directed it (not Sam Wrench, who shot the 2023 cut), with Swift credited as a producer. No separate live album or soundtrack was released; the audio lives only inside the film. The pairing was a deliberate double release: the docuseries tells you what the tour cost to make and end, and The Final Show is the artifact itself, shot at BC Place on Dec. 8, 2024 — show 149 of 149. Together they turned mid-December 2025 into a Disney+ event weekend, and the concert film went on to earn five Emmy nominations the following summer — Outstanding Variety Special (Pre-Recorded), Directing and Picture Editing for a Variety Special, Sound Mixing, and Technical Direction and Camerawork.',
+          'Paired with the End of an Era docuseries for the same-day premiere, the film preserves the tour\'s final setlist end-to-end — the version of the show that closed out the highest-grossing tour ever, a year after the last confetti fell in Vancouver. Where the 2023 theatrical film had to trim songs for runtime, the streaming cut runs the full Vancouver marathon — the complete 45-song final setlist, roughly three and a half hours, uncut — including the Tortured Poets segment added for the 2024 legs — the set Swift called the "Female Rage" chapter — that no prior filmed version contained. It captures that night\'s specific goodbyes, too: the guitar surprise was an "A Place in This World"/"New Romantics" mashup, and the piano send-off folded "Long Live" and "New Year\'s Day" into "The Manuscript" — a literal end-of-an-era note to close 149 shows.\n\nUnlike the 2023 film, this was a Disney+ exclusive with no theatrical window, and — director aside — a different hand: Glenn Weiss directed it (not Sam Wrench, who shot the 2023 cut), with Swift credited as a producer. No separate live album or soundtrack was released; the audio lives only inside the film. The pairing was a deliberate double release: the docuseries tells you what the tour cost to make and end, and The Final Show is the artifact itself, shot at BC Place on Dec. 8, 2024 — show 149 of 149. Together they turned mid-December 2025 into a Disney+ event weekend, and the concert film went on to earn five Emmy nominations the following summer — Outstanding Variety Special (Pre-Recorded), Directing and Picture Editing for a Variety Special, Sound Mixing, and Technical Direction and Camerawork.\n\nThe runtime gap is real and specific: the 2023 theatrical cut ran 2 hours 48 minutes against Swift\'s own roughly three-hour show, forcing cuts — "The Archer," "cardigan," "Wildest Dreams," "Long Live," "no body, no crime" (performed only on nights HAIM opened) and "\'tis the damn season" were all missing from that release. A separate 2024 Disney+ extended cut had already restored "cardigan" plus four acoustic-set songs, but neither version — theatrical or extended — could contain the Tortured Poets Department segment, since it didn\'t exist until Swift added it mid-tour in 2024; The Final Show, running the complete ~3.5-hour Vancouver show, is the only version with all of it. Neither Disney nor Nielsen released streaming or viewership figures for the Dec. 12, 2025 debut weekend, matching the pattern of Disney\'s film/TV numbers generally going undisclosed since 2021. Critically, review aggregation treated the two halves of the release separately: the docuseries sat at 86% on Rotten Tomatoes off seven reviews (not yet "certified fresh" at that count), while The Final Show itself scored 92% — though, notably, that figure was based on just a single tallied review at time of writing, a sample too thin to read as a real critical consensus. As of this writing the five Emmy nominations remain just that — the ceremony they compete at hasn\'t aired yet, so no result exists to report.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2477,6 +2477,29 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-21',
             reliability_score: 2,
+          },
+          // Depth ledger #1263 (2026-07-29): the specific 2023-cut songs
+          // restored, the separate docuseries/film Rotten Tomatoes scores,
+          // and the not-yet-disclosed viewership + not-yet-aired Emmy result.
+          {
+            outlet: 'ScreenRant',
+            url: 'https://screenrant.com/taylor-swift-eras-tour-movie-concert-setlist-cut-songs/',
+            source_title: "Every Song From Taylor Swift: The Eras Tour's Disney+ Movie That Was Removed From Her Concert Setlist",
+            publisher: 'ScreenRant',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+            notes: 'the specific songs cut from the 2023 theatrical cut and the 2024 extended-cut restoration',
+          },
+          {
+            outlet: 'Yahoo News UK',
+            url: 'https://uk.news.yahoo.com/taylor-swifts-end-era-gets-231800895.html',
+            source_title: "Taylor Swift's The End of an Era gets Rotten Tomatoes score",
+            publisher: 'Yahoo News UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+            notes: "the docuseries' 86%/7-review score, distinct from The Final Show's own 92%/1-review score",
           },
         ],
         // Commons photo of BC Place dressed for the Vancouver finale;
@@ -2534,11 +2557,41 @@ export default {
       ],
       moment: {
         context:
-          'The Oct. 12 game came nine days after Swift released The Life of a Showgirl on Oct. 3. ESPN called it "the first public indication" of her attending a Chiefs game this season — she\'d also been at the Sept. 14 Eagles game, but wasn\'t photographed there. The broadcast caught her mid-celebration in the suite as Kansas City handled Detroit 30-17 in the Sunday-night window, her first on-camera Arrowhead appearance of an era in which she\'d been deliberately scarcer at games.\n\nThe company mattered as much as the sighting: Caitlin Clark, by then one of the few American athletes with a Swift-adjacent level of fame, was in the suite alongside Ed Kelce. It was the second time Clark had joined her in a suite, after the January 2025 Texans playoff game — enough of a pattern that the broadcast treated the two of them as a recurring double act, the biggest star in music watching football next to the biggest new star in basketball.',
+          'The Oct. 12 game came nine days after Swift released The Life of a Showgirl on Oct. 3. ESPN called it "the first public indication" of her attending a Chiefs game this season — she\'d also been at the Sept. 14 Eagles game, but wasn\'t photographed there. The broadcast caught her mid-celebration in the suite as Kansas City handled Detroit 30-17 in the Sunday-night window, her first on-camera Arrowhead appearance of an era in which she\'d been deliberately scarcer at games.\n\nThe company mattered as much as the sighting: Caitlin Clark, by then one of the few American athletes with a Swift-adjacent level of fame, was in the suite alongside Ed Kelce. It was the second time Clark had joined her in a suite, after the January 2025 Texans playoff game — enough of a pattern that the broadcast treated the two of them as a recurring double act, the biggest star in music watching football next to the biggest new star in basketball.\n\nOn the field, Kelce had a workmanlike night rather than a signature moment: six catches for 78 yards, no touchdown — the celebration the cameras caught wasn\'t tied to a specific Kelce play the coverage reviewed identifies, more likely the run of the game itself than one score. The outing did register a milestone of its own: Kelce moved into second all-time in receiving yards in primetime NFL games, passing Jason Witten. Swift\'s look was a Chiefs-coded Ganni "League Oversized Mini Dress" in black with red trim, a red "13" (her stated lucky number) on the back like a jersey, Louis Vuitton "Louise PM" earrings, and — per after-party photos — a The Row belt and Vivienne Westwood boots. The broadcast drew 27.3 million viewers on NBC and Peacock, the second-most-watched October Sunday Night Football audience in the franchise\'s history and a season peak of 30.6 million in the second quarter — a real number, though the ratings reporting reviewed credits the Chiefs\' pull generally rather than crediting Swift\'s presence specifically. No outlet reviewed for this page reports a direct Swift-Clark exchange caught on camera, a name-checked reunion story explaining how the second suite visit came about, or any Showgirl-specific promotional tie to the appearance — those threads stay undocumented rather than invented.',
         sources: [
           {
             outlet: 'ESPN',
             url: 'https://www.espn.com/nfl/story/_/id/46577064/taylor-swift-caitlin-clark-sunday-night-football-chiefs-lions-travis-kelce',
+          },
+          // Depth ledger #1245 (2026-07-29): Kelce's stat line + primetime
+          // receiving-yards milestone, the outfit, and the broadcast's real
+          // (if not Swift-specifically-credited) ratings number.
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/game/_/gameId/401772923/lions-chiefs',
+            source_title: 'Chiefs 30-17 Lions (Oct 12, 2025) Final Score',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-detroit-lions-game-jersey-louis-vuitton-earrings/',
+            source_title: 'Taylor Swift Styles Kansas City Chiefs Jersey for Detroit Lions Game',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBCUniversal',
+            url: 'https://www.nbcuniversal.com/article/sunday-night-football-registers-record-fourth-blockbuster-audience-25-million-viewers-season-lions',
+            source_title: 'Sunday Night Football Registers Record Fourth Blockbuster Audience of 25+ Million Viewers This Season, as Lions-Chiefs Averages 27.3 Million Viewers',
+            publisher: 'NBCUniversal',
+            source_type: 'official',
+            accessed_at: '2026-07-29',
+            reliability_score: 5,
           },
         ],
         // Image ESPN ran with its story, hotlinked from its stable CDN copy;
@@ -4176,7 +4229,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift kicked off her Life of a Showgirl press run in London on The Graham Norton Show wearing a David Koma design — a black velvet mini with a crystal-embroidered halter neckline that read as a choker of jewels on camera. Marie Claire\'s close-read of the look noted it was surprisingly understated for a showgirl-era debut, letting the accessories carry the theme: drop earrings, the signature red lip, and the Artifex Fine engagement ring, on its first talk-show outing since the August proposal.\n\nThe Oct. 2 taping opened a compact, TV-first promo cycle rather than a full magazine-cover blitz: London first, then The Tonight Show Starring Jimmy Fallon and Late Night with Seth Meyers plus radio stops. The dress set the press-run template — one designer statement per couch, jewels doing the showgirl signaling — that ran through the rest of release week.',
+          'Swift kicked off her Life of a Showgirl press run in London on The Graham Norton Show wearing a David Koma design — a black velvet mini with a crystal-embroidered halter neckline that read as a choker of jewels on camera. Marie Claire\'s close-read of the look noted it was surprisingly understated for a showgirl-era debut, letting the accessories carry the theme: drop earrings, the signature red lip, and the Artifex Fine engagement ring, on its first talk-show outing since the August proposal.\n\nThe Oct. 2 taping opened a compact, TV-first promo cycle rather than a full magazine-cover blitz: London first, then The Tonight Show Starring Jimmy Fallon and Late Night with Seth Meyers plus radio stops. The dress set the press-run template — one designer statement per couch, jewels doing the showgirl signaling — that ran through the rest of release week.\n\nThe David Koma piece itself is retail, not custom: Marie Claire identified it as the label\'s "Crystal-Embellished Halterneck Minidress," a $1,875 piece sold via Mytheresa, with DeBeers diamond drop earrings completing the jewels alongside the Artifex Fine engagement ring. It wasn\'t a new pairing — stylist Joseph Cassell Falconer has sourced David Koma little black dresses for Swift\'s TV interviews before this appearance too — though no public comment from David Koma or the label about dressing her for this specific stop turned up in the coverage reviewed. Cassell styled the rest of the press run as well: Fallon (Oct. 6) got a Giuseppe Di Morabito crystal minidress with an asymmetric one-shoulder drape and Jimmy Choo "Claressa" platform heels, and Seth Meyers (Oct. 8) got a two-piece Wiederhoeft look — the corseted "Julie" brocade bustier and matching mini skirt — with a David Morris "Meteora" collar necklace and Aquazzura "Ce Soir" sandals. The full Graham Norton couch that Oct. 2 night also included Cillian Murphy, Jodie Turner-Smith, Greta Lee and Domhnall Gleeson, with Lewis Capaldi performing — the same lineup later cast, cameos and all, in the "Opalite" music video.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -4195,6 +4248,38 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
             reliability_score: 4,
+          },
+          // Depth ledger #1127 (2026-07-29): the retail dress ID + price, the
+          // Fallon and Seth Meyers looks the page named but never described,
+          // and the full Oct. 2 couch lineup.
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-giuseppe-di-morabito-minidress-jimmy-fallon-1238287155/',
+            source_title: 'Taylor Swift Sparkles in Giuseppe Di Morabito on \'Jimmy Fallon\'',
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Fashionista',
+            url: 'https://fashionista.com/2025/10/taylor-swift-seth-meyers-2025-wiederhoeft-outfit',
+            source_title: "Is Taylor Swift Finally Paying Attention to the Fashion Industry's Buzziest Indie Designers?",
+            publisher: 'Fashionista',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 4,
+            notes: 'the Wiederhoeft Seth Meyers look and its stylist credit',
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/tv/taylor-swift-graham-norton-show-how-to-watch-rcna235439',
+            source_title: "When Is 'The Graham Norton Show' with Taylor Swift on TV? How to Watch in the US",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 4,
+            notes: 'the full Oct. 2 couch lineup (Murphy, Turner-Smith, Lee, Gleeson, Capaldi)',
           },
         ],
         // Photo of the actual appearance, hotlinked from Marie Claire's
@@ -5549,7 +5634,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The tease came from the same Oct. 2 Graham Norton taping that opened the press run — the David Koma appearance — when the host pried gently at wedding plans and got the era\'s first concrete detail from Taylor herself: she called the wedding "huge," said planning wouldn\'t start until after album promotion wrapped, and said she wasn\'t about to trim the guest list — small weddings, she said, are the stressful ones. It set off months of location speculation that neither of them fed further.\n\nThe eventual Madison Square Garden ceremony in July 2026 made all that speculation moot — the venue was a subway ride for half the guest list. In a September New Heights episode, guest Jimmy Fallon had pulled the only other planning tidbit either of them ever gave: "we\'re live music kind of people," per Travis — which, in hindsight, was the whole answer. They got married in a concert venue.',
+          'The tease came from the same Oct. 2 Graham Norton taping that opened the press run — the David Koma appearance — when the host pried gently at wedding plans and got the era\'s first concrete detail from Taylor herself: she called the wedding "huge," said planning wouldn\'t start until after album promotion wrapped, and said she wasn\'t about to trim the guest list — small weddings, she said, are the stressful ones. It set off months of location speculation that neither of them fed further.\n\nThe eventual Madison Square Garden ceremony in July 2026 made all that speculation moot — the venue was a subway ride for half the guest list. On the Sept. 17, 2025 New Heights, guest Jimmy Fallon had pulled the only other planning tidbit either of them ever gave: asked "DJ or band?" Travis answered "we\'re live music kinda people" — which, in hindsight, was the whole answer. They got married in a concert venue.\n\nThe on-air invite paid off. Swift had told Norton, "I just mean that I was going to invite you" — and Norton was photographed arriving in New York in a black suit on the wedding day itself, July 3, 2026, consistent with attending. (He\'d separately made headlines that January for joking on his own podcast that he\'d "signed so many NDAs" about the wedding — a line he later said was taken far more seriously than intended, clarifying he\'d signed nothing.) The taping itself: Swift recorded the segment Oct. 2, 2025 at BBC Studioworks in London, alongside Cillian Murphy, Jodie Turner-Smith, Greta Lee and Domhnall Gleeson, with Lewis Capaldi performing — it aired in the UK the next night, Oct. 3 at 10:40 p.m., the same day the album dropped, and reached US audiences via BBC America on Oct. 9.',
         sources: [
           {
             outlet: 'Hello!',
@@ -5586,6 +5671,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 3,
+          },
+          // Depth ledger #1298 (2026-07-29): the invite payoff, the taping-vs-
+          // broadcast dates, the couch lineup, and the NDA-joke fact-check.
+          {
+            outlet: 'AOL',
+            url: 'https://www.aol.com/articles/graham-norton-steps-n-y-211235000.html',
+            source_title: "Graham Norton Steps Out in N.Y.C. for Taylor Swift and Travis Kelce's Wedding After Getting an Invite on His Talk Show",
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'AOL',
+            url: 'https://www.aol.com/articles/graham-norton-jokes-had-sign-163611686.html',
+            source_title: "Graham Norton Jokes He Had to Sign 'So Many' NDAs for Taylor Swift and Travis Kelce's Wedding",
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/tv/taylor-swift-graham-norton-show-how-to-watch-rcna235439',
+            source_title: "When Is 'The Graham Norton Show' with Taylor Swift on TV? How to Watch in the US",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 4,
+            notes: 'the Oct. 2 BBC Studioworks taping date, the full couch lineup, and the UK/US broadcast dates',
           },
         ],
         // Photos from the same Oct. 2 Graham Norton taping where the tease
@@ -7112,7 +7227,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor\'s original song for Toy Story 5, "I Knew It, I Knew You" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who\'s saying so. At the July 7 premiere for Disney\'s live-action Moana, Lin-Manuel Miranda — writer of "Along the Way," his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana\'s "How Far I\'ll Go" — told PEOPLE, "I love Taylor, and I love that song. I thought her song for \'Toy Story 5\' was really fun," adding that when writing for a character, "you\'re not thinking about the Oscars... you\'re thinking, \'How on earth do I pull this off? How can it feel honest and true?\'"\n\nThe song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn\'t ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn\'t closed. What\'s real right now is that two of the year\'s highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who\'d be competing against it.\n\nIt is the film\'s end-credit song, written from cowgirl Jessie\'s point of view — a character Swift has said she "adored" and dressed up as as a kid — and it doubled as a return to her country roots after years of pop. Released June 5, 2026 on Walt Disney Records and produced with Antonoff, it was recorded at Electric Lady Studios in New York and Tamarind Studios in Los Angeles. Swift has described writing and basic-tracking it in a single roughly eight-hour stretch: after an 11 a.m. screening of the finished film left her with "the songwriter zoomies," she went home, wrote the song, and by evening was playing it for Disney CEO Bob Iger — "one of the most fun days of my life." The official video, released the same day, is cut entirely from Toy Story footage tracing Jessie\'s own story: her meeting Woody, flashbacks to being outgrown by original owner Emily, and her present life with Bonnie.\n\nBeyond its two weeks at Hot 100 No. 1 (Swift\'s 15th chart-topper there), the song also opened at No. 1 on the Global 200, Hot Country Songs and, internationally, the UK, Australian, Canadian, German, Austrian and Belgian (Flanders) charts, reaching No. 2 in Ireland; it has been certified Silver in the UK. Critics singled out the song on its own merits — The Guardian\'s Laura Snapes called it "some of Swift\'s loveliest and tightest songwriting," and Rolling Stone described it as "blissful." It extends a run of Swift-written film songs going back to "Safe & Sound" (The Hunger Games, 2012) and including "Beautiful Ghosts" (Cats, 2019, Academy shortlisted) and "Carolina" (Where the Crawdads Sing, 2022, also shortlisted) — Swift has never landed an actual nomination despite four Golden Globe bids, but this is her first Oscar-eligible movie song to top the Hot 100, and every prior Toy Story film has produced a Best Original Song nominee, giving this one institutional precedent the earlier songs didn\'t have.',
+          'Taylor\'s original song for Toy Story 5, "I Knew It, I Knew You" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who\'s saying so. At the July 7 premiere for Disney\'s live-action Moana, Lin-Manuel Miranda — writer of "Along the Way," his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana\'s "How Far I\'ll Go" — told PEOPLE, "I love Taylor, and I love that song. I thought her song for \'Toy Story 5\' was really fun," adding that when writing for a character, "you\'re not thinking about the Oscars... you\'re thinking, \'How on earth do I pull this off? How can it feel honest and true?\'"\n\nThe song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn\'t ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn\'t closed. What\'s real right now is that two of the year\'s highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who\'d be competing against it. The Academy\'s own 99th Oscars calendar dates the process precisely: the Original Song submission deadline is Oct. 14, 2026, the shortlist is announced Dec. 15, 2026, nominations land Jan. 21, 2027, and the ceremony airs March 14, 2027.\n\nIt is the film\'s end-credit song, written from cowgirl Jessie\'s point of view — a character Swift has said she "adored" and dressed up as as a kid — and it doubled as a return to her country roots after years of pop. Released June 5, 2026 on Walt Disney Records and produced with Antonoff, it was recorded at Electric Lady Studios in New York and Tamarind Studios in Los Angeles. Swift has described writing and basic-tracking it in a single roughly eight-hour stretch: after an 11 a.m. screening of the finished film left her with "the songwriter zoomies," she went home, wrote the song, and by evening was playing it for Disney CEO Bob Iger — "one of the most fun days of my life." The official video, released the same day, is cut entirely from Toy Story footage tracing Jessie\'s own story: her meeting Woody, flashbacks to being outgrown by original owner Emily, and her present life with Bonnie.\n\nBeyond its two weeks at Hot 100 No. 1 (Swift\'s 15th chart-topper there), the song also opened at No. 1 on the Global 200, Hot Country Songs and, internationally, the UK, Australian, Canadian, German, Austrian and Belgian (Flanders) charts, reaching No. 2 in Ireland; it has been certified Silver in the UK. Critics singled out the song on its own merits — The Guardian\'s Laura Snapes called it "some of Swift\'s loveliest and tightest songwriting," and Rolling Stone described it as "blissful." It extends a run of Swift-written film songs going back to "Safe & Sound" (The Hunger Games, 2012) and including "Beautiful Ghosts" (Cats, 2019, Academy shortlisted) and "Carolina" (Where the Crawdads Sing, 2022, also shortlisted) — Swift has never landed an actual nomination despite four Golden Globe bids, but this is her first Oscar-eligible movie song to top the Hot 100, and every prior Toy Story film has produced a Best Original Song nominee, giving this one institutional precedent the earlier songs didn\'t have.',
         sources: [
           {
             outlet: 'Variety',
@@ -7167,6 +7282,30 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-28',
             reliability_score: 4,
+          },
+          // Depth ledger #1100 (2026-07-29): the official 99th Oscars calendar
+          // (submission/shortlist/nomination/ceremony dates) and Swift's actual
+          // film-song history (Beautiful Ghosts/Carolina shortlisted, never
+          // nominated) that the page's "not a nominee, not yet" framing implies
+          // is a novel situation but isn't.
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/04/oscar-cermeony-dates-2027-2028-1236783778/',
+            source_title: 'Oscars Dates For 99th & 100th Ceremonies Set; 2027 Voting Timeline',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/lists/taylor-swift-songs-written-for-movies-toy-story-5-crawdads',
+            source_title: "Songs Taylor Swift Wrote For Movies Like 'The Hunger Games' & More",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 4,
+            notes: "her prior film-song history and shortlist-not-nomination record (Beautiful Ghosts, Carolina)",
           },
         ],
         // Photo pass #762 run 9 (2026-07-18): page had zero photos. Official
