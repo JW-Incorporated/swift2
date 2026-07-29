@@ -183,7 +183,7 @@ const TRACKS = [
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
       producers: ['Taylor Swift', 'Nathan Chapman'],
-      note: 'The letter she never sends — Swift has said writing this song was how she avoided actually calling.',
+      note: 'The letter she never sends — Taylor has said writing this song was how she avoided actually calling.',
       summary:
         'Hovering over the call button after a breakup: every reason to reach out, met by the one reason not to. The song exists so the phone call did not have to.',
       inspiration:
@@ -360,7 +360,7 @@ const TRACKS = [
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
       producers: ['Taylor Swift', 'Nathan Chapman', 'Dann Huff'],
-      note: 'Sparked by a single old photograph of Ethel and Bobby Kennedy dancing as teenagers in 1945 — historical fan-fiction, Swift style.',
+      note: 'Sparked by a single old photograph of Ethel and Bobby Kennedy dancing as teenagers in 1945 — historical fan-fiction, Taylor style.',
       summary:
         'She invents the whole night around one snapshot: two seventeen-year-olds crashing a yacht-club party, the future unwritten and gleaming.',
       inspiration:
@@ -538,7 +538,7 @@ const TRACKS = [
       writers: ['Taylor Swift', 'Patrick Monahan'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isFromTheVault: true,
-      note: 'Co-written with Train’s Pat Monahan for Red, handed to Sugarland in 2018 (with Swift guesting), and finally sung solo in the vault.',
+      note: 'Co-written with Train’s Pat Monahan for Red, handed to Sugarland in 2018 (with Taylor guesting), and finally sung solo in the vault.',
       summary:
         'The last straw song: one act of betrayal detonates the whole future tense — every plan they made now needs a new pronoun.',
       inspiration:

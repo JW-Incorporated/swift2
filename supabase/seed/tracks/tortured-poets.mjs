@@ -1041,7 +1041,7 @@ const TRACKS = [
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The Greek prophetess cursed to prophesy the truth and never be believed — a myth fans read as Swift’s snake-era epitaph, though she has named no subject.',
+      note: 'The Greek prophetess cursed to prophesy the truth and never be believed — a myth fans read as Taylor’s snake-era epitaph, though she has named no subject.',
       summary:
         'She told the truth, the town lit the pyre, and vindication arrived years late with no apology attached. The myth maps so cleanly onto the snake-era receipts saga that fans and critics treat it as that chapter’s formal epitaph — but Swift has named no one, so the mapping is interpretation, not confirmed. It debuted and peaked at No. 44 on the Hot 100 during TTPD’s all-31-tracks week, and Swift sang it live once: a Toronto Eras Tour mashup with “mad woman” and “I Did Something Bad” (Nov. 22, 2024). See the dossier for the full craft, chart and reception record.',
       inspiration:

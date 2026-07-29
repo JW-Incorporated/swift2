@@ -259,7 +259,7 @@ export default {
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff', 'Max Martin'],
       isSingle: true,
-      note: 'The first Swift–Antonoff cut on a Taylor Swift album — anxious love rendered as a chanted loop, with a confirmed secret snowmobile crash buried in the bridge.',
+      note: 'The first Taylor–Antonoff cut on a Taylor Swift album — anxious love rendered as a chanted loop, with a confirmed secret snowmobile crash buried in the bridge.',
       summary:
         'A fragile relationship where every month felt like a cliffhanger: are we safe yet, are we clear yet — panic as a chorus you cannot stop repeating.',
       inspiration:
@@ -284,7 +284,7 @@ export default {
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin'],
       producers: ['Max Martin', 'Shellback', 'Mattman & Robin'],
-      note: 'Built around a squeaky high note that came to Swift in an actual dream — she woke up, recorded it, and kept it.',
+      note: 'Built around a squeaky high note that came to Taylor in an actual dream — she woke up, recorded it, and kept it.',
       summary:
         'An ex comes crawling back and the answer is the title: he had one job. The track-5 slot goes, for once, to exasperation instead of devastation.',
       inspiration:
@@ -435,7 +435,7 @@ export default {
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff', 'Max Martin'],
-      note: 'Born from an Antonoff guitar loop Swift heard and claimed on the spot — 2 a.m. headlights outside an ex’s street.',
+      note: 'Born from an Antonoff guitar loop Taylor heard and claimed on the spot — 2 a.m. headlights outside an ex’s street.',
       summary:
         'Two stubborn exes driving past each other’s lives, each wishing the other would make the first move neither will make.',
       inspiration:

@@ -75,7 +75,7 @@ export default {
       {
         date: "August 26, 2023",
         event: "The Eras Tour — Mexico City (Foro Sol)",
-        note: "Live debut, played solo on acoustic guitar as the night's first surprise song; Swift framed it as challenging herself to perform songs she hadn't yet done on the tour. Later revived, e.g. mashed with 'The Bolter' in Indianapolis on November 3, 2024.",
+        note: "Live debut, played solo on acoustic guitar as the night's first surprise song; Taylor framed it as challenging herself to perform songs she hadn't yet done on the tour. Later revived, e.g. mashed with 'The Bolter' in Indianapolis on November 3, 2024.",
       },
     ],
     connections: [
@@ -174,7 +174,7 @@ export default {
       {
         date: "2023–2024",
         event: "The Eras Tour — Lover act",
-        note: "A fixture of the show's opening Lover section, staged in a corporate office-cubicle set with Swift in an oversized silver sequined blazer backed by dancers.",
+        note: "A fixture of the show's opening Lover section, staged in a corporate office-cubicle set with Taylor in an oversized silver sequined blazer backed by dancers.",
       },
     ],
     connections: [
@@ -302,7 +302,7 @@ export default {
       {
         date: "August 26, 2019",
         event: "2019 MTV Video Music Awards (opening performance)",
-        note: "Swift opened the VMAs with 'You Need to Calm Down' segueing into 'Lover'; later the same night the video won Video of the Year and Video for Good, and she used the acceptance speech to push the Equality Act petition.",
+        note: "Taylor opened the VMAs with 'You Need to Calm Down' segueing into 'Lover'; later the same night the video won Video of the Year and Video for Good, and she used the acceptance speech to push the Equality Act petition.",
       },
       {
         date: "September 9, 2019",

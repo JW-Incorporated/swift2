@@ -61,7 +61,7 @@ const _debut = {
       writers: ['Taylor Swift', 'Liz Rose'],
       producers: ['Nathan Chapman'],
       isSingle: true,
-      note: 'The bratty banjo kiss-off — a high-school ex gets his photo torched. A softened lyric on later edits became an early lesson in Swift-lyric archaeology.',
+      note: 'The bratty banjo kiss-off — a high-school ex gets his photo torched. A softened lyric on later edits became an early lesson in Taylor-lyric archaeology.',
       summary:
         'A scorched-earth breakup romp: petty, funny, and fully aware of it, burning every reminder of a boy who never let her drive his truck.',
       inspiration:
