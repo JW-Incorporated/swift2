@@ -204,7 +204,7 @@ const TRACKS = [
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift', 'Liz Rose'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
-      note: 'Born from a venting session in Liz Rose’s writing room — Swift described the guy, Rose told her to say it in a song.',
+      note: 'Born from a venting session in Liz Rose’s writing room — Taylor described the guy, Rose told her to say it in a song.',
       summary:
         'Frustration set to a stomp: a boy who runs hot and cold, and a narrator done guessing which version of him shows up today.',
       inspiration:
@@ -355,7 +355,7 @@ const TRACKS = [
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
-      note: 'Written and recorded in secret as a gift for her mom, who first heard it set to home movies — still the go-to Swift Mother’s Day song.',
+      note: 'Written and recorded in secret as a gift for her mom, who first heard it set to home movies — still the go-to Taylor Mother’s Day song.',
       summary:
         'A thank-you letter to her mother (with a verse for her dad and brother): the parent who drove her away from the mean girls and never said anything but kind words.',
       inspiration:
@@ -461,7 +461,7 @@ const TRACKS = [
       releaseDate: '2009-10-26',
       writers: ['Cary Barlowe', 'Nathan Barlowe', 'Tommy Lee James', 'Taylor Swift'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
-      note: 'The rare Swift cover: a Luna Halo rock song she rearranged so completely into a dreamy waltz that she earned a writing credit.',
+      note: 'The rare Taylor cover: a Luna Halo rock song she rearranged so completely into a dreamy waltz that she earned a writing credit.',
       summary:
         'Longing for someone permanently out of reach, rendered as a starlit trance — distance as the whole romance.',
       inspiration:

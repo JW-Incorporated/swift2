@@ -29,7 +29,7 @@ export default {
       claim:
         'The 2008 Fearless CD booklet capitalized scattered letters within "The Best Day" lyric sheet that, read in order, spell out "GOD BLESS ANDREA SWIFT" — a hidden tribute to her mother.',
       evidence:
-        'Swift used this capitalization-code technique across her early album booklets, letting fans decode a short message per song from oddly capitalized letters in the printed lyrics. For "The Best Day" — itself written about her mother — the decoded message names her directly, tying the song\'s subject to its hidden dedication.',
+        'Taylor used this capitalization-code technique across her early album booklets, letting fans decode a short message per song from oddly capitalized letters in the printed lyrics. For "The Best Day" — itself written about her mother — the decoded message names her directly, tying the song\'s subject to its hidden dedication.',
       confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: ['fearless:the-best-day-surprise-home-video'],
@@ -50,9 +50,9 @@ export default {
       kind: 'easter_egg',
       title: 'An anagram video unlocks the "From the Vault" track list',
       claim:
-        'Before officially announcing the six "From the Vault" songs on Fearless (Taylor\'s Version), Swift posted a scrambled-letter anagram video on social media that fans raced to decode, correctly working out the titles — and a Keith Urban feature — hours ahead of the formal reveal.',
+        'Before officially announcing the six "From the Vault" songs on Fearless (Taylor\'s Version), Taylor posted a scrambled-letter anagram video on social media that fans raced to decode, correctly working out the titles — and a Keith Urban feature — hours ahead of the formal reveal.',
       evidence:
-        'The teaser clip showed jumbled letters that fans reassembled into the vault-track titles; Swift confirmed the full list, including the Keith Urban duet, on April 3, 2021, six days ahead of the April 9 release. The announcement date (Feb. 11) and release date (April 9) each reduce to her frequently cited number 13 (2+11 and 4+9), a numerology pattern she has said she builds into release timing on purpose.',
+        'The teaser clip showed jumbled letters that fans reassembled into the vault-track titles; Taylor confirmed the full list, including the Keith Urban duet, on April 3, 2021, six days ahead of the April 9 release. The announcement date (Feb. 11) and release date (April 9) each reduce to her frequently cited number 13 (2+11 and 4+9), a numerology pattern she has said she builds into release timing on purpose.',
       confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: [],

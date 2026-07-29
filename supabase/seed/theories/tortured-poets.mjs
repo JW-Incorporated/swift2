@@ -142,7 +142,7 @@ export default {
       claim:
         'Two weeks before TTPD, five Apple Music playlists of her older songs mapped the five stages of grief — and the titles were themselves the egg: "I Love You, It\'s Ruining My Life," "Old Habits Die Screaming," and "I Can Do It With a Broken Heart" were all unreleased TTPD lines hiding in plain sight.',
       evidence:
-        'Swift curated all five (denial, anger, bargaining, depression, acceptance) from her first ten albums with her own notes on each stage. On release day the titles resolved: "I Love You, It\'s Ruining My Life" is a "Fortnight" lyric, "Old Habits Die Screaming" is in "The Black Dog," and "I Can Do It With a Broken Heart" is on the tracklist itself.',
+        'Taylor curated all five (denial, anger, bargaining, depression, acceptance) from her first ten albums with her own notes on each stage. On release day the titles resolved: "I Love You, It\'s Ruining My Life" is a "Fortnight" lyric, "Old Habits Die Screaming" is in "The Black Dog," and "I Can Do It With a Broken Heart" is on the tracklist itself.',
       confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: ['tortured-poets:black-dog-real-pub'],

@@ -145,7 +145,7 @@ const TRACKS = [
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Aaron Dessner'],
-      note: 'The Rebekah Harkness biography — the real socialite who owned Swift’s Rhode Island mansion decades before her, until the last verse hands the story to Taylor herself.',
+      note: 'The Rebekah Harkness biography — the real socialite who owned Taylor’s Rhode Island mansion decades before her, until the last verse hands the story to Taylor herself.',
       summary:
         'A gossiped-about widow scandalizes a New England town for fifty years; then the narrator buys the house and inherits the reputation. History as a hand-me-down.',
       inspiration:
@@ -357,7 +357,7 @@ const TRACKS = [
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Three verses, three different people barely holding on — Swift said one narrator is fighting addiction, another squandered potential, all of them showing up anyway.',
+      note: 'Three verses, three different people barely holding on — Taylor said one narrator is fighting addiction, another squandered potential, all of them showing up anyway.',
       summary:
         'Effort as the whole achievement: pulling up to a driveway you almost drove past, one year sober with no one clapping. The bar is on the floor and clearing it is heroic.',
       inspiration:
@@ -414,7 +414,7 @@ const TRACKS = [
           },
           {
             event: 'The Eras Tour (2023–24)',
-            note: 'A fixed part of the folklore set, not a rotating surprise song; Swift delivered a rock-tinged version of the bridge that reviewers called “vocally astounding.”',
+            note: 'A fixed part of the folklore set, not a rotating surprise song; Taylor delivered a rock-tinged version of the bridge that reviewers called “vocally astounding.”',
           },
         ],
         voices: [
@@ -632,7 +632,7 @@ const TRACKS = [
           {
             date: '2020-09-16',
             event: '55th Academy of Country Music Awards',
-            note: 'Live debut at the Grand Ole Opry House — Swift’s first country-show performance in seven years, on acoustic guitar with harmonica; the live version released two days later.',
+            note: 'Live debut at the Grand Ole Opry House — Taylor’s first country-show performance in seven years, on acoustic guitar with harmonica; the live version released two days later.',
           },
           {
             date: '2023',

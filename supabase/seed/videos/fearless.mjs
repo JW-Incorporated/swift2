@@ -132,7 +132,7 @@ export default {
       releasedOn: null,
       relatedSongs: ['The Best Day'],
       summary:
-        'A home-movie tribute assembled from Swift family footage — childhood birthdays, ordinary afternoons with her mother — released as a Mother\'s Day surprise.',
+        'A home-movie tribute assembled from Taylor family footage — childhood birthdays, ordinary afternoons with her mother — released as a Mother\'s Day surprise.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=l4_6eQm7RTQ',
