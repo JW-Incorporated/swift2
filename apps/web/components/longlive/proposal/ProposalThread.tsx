@@ -35,6 +35,9 @@ export function ProposalThread() {
   const beats = contentForThread('the-proposal');
   return (
     <div className="pt-8">
+      {/* Visually hidden: beat titles are h3, so without this the outline jumps
+          h1 (thread, in ThreadsMode) → h3 (beat) — axe `heading-order` (#703). */}
+      <h2 className="sr-only">The story, beat by beat</h2>
       <div className="space-y-8">
         {beats.map((item) => {
           const era = getEra(item.eraId);
