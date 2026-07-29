@@ -110,10 +110,20 @@ export default {
             url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
           },
         ],
+        // Photo-enrichment pass (2026-07-29): added the official lyric-video
+        // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
+        // the cover; both downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
+            focalPoint: '42% 45%',
             credit: 'Republic Records',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/IEPomqor2A8/hqdefault.jpg',
+            focalPoint: '50% 50%',
+            credit: 'Republic Records / YouTube (official "no body, no crime" lyric video still)',
+            kind: 'video-still',
           },
         ],
       },
@@ -1523,6 +1533,22 @@ export default {
       thumbnailUrl:
         'https://assets1.cbsnewsstatic.com/hub/i/r/2022/05/18/066b689c-0e18-49aa-966a-7f08eeddd78d/thumbnail/1200x630/333d073afd2d380fa574745fdb2e40e7/gettyimages-1240747838-1.jpg',
       moment: {
+        // The post this page is ABOUT (issue #762 Part B). Shortcode taken
+        // from the permalink Uproxx embeds, and verified by rendering
+        // instagram.com/p/Cds4SYElpYz/embed/captioned: the taylorswift
+        // verified account, caption "Wearing a cap and gown for the very
+        // first time - see you soon NYU 🥺🥰🗽", the NYU-torch-patch gown clip
+        // set to Beabadoobee's "See You Soon" (matches the secondary line the
+        // embed itself shows). Embedded rather than hotlinked because
+        // Instagram CDN urls are signed/expiring and the host is not on the
+        // image allowlist.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'Cds4SYElpYz',
+          label:
+            'The post itself: Swift getting into her cap and gown for the first time, captioned "Wearing a cap and gown for the very first time - see you soon NYU."',
+          postedOn: '2022-05-18',
+        },
         context:
           'On May 18, 2022, Swift received an honorary Doctor of Fine Arts from New York University and delivered the commencement address to its graduating class at Yankee Stadium, captioning an Instagram post ahead of the ceremony: "Wearing a cap and gown for the very first time."\n\nIn her speech she joked, "I\'m 90% sure the main reason I\'m here is because I have a song called \'22,\'" and told graduates she "never got to have the normal college experience" because she was homeschooled while touring. She described writing as her constant: "Everything I do is just an extension of my writing, whether it\'s directing videos or a short film." Her closing advice: "Never be ashamed of trying. Effortlessness is a myth," and "my mistakes led to the best things in my life."',
         sources: [
@@ -1638,12 +1664,23 @@ export default {
         // Real-photo pass (2026-07-09): official lyric video still, id verified
         // via YouTube oEmbed (title + @TaylorSwift channel). URL verified
         // HTTP 200 + image/jpeg.
+        // Photo-enrichment pass (2026-07-29): focalPoint added (downloaded +
+        // vision-confirmed); added the second bonus track's ("it's time to
+        // go") official lyric-video still, oEmbed-verified.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/Ur_wAcYDnuA/hqdefault.jpg',
+            focalPoint: '55% 55%',
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption:
               'Still from the official "right where you left me" lyric video, released with the deluxe edition, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/1iRbIYkccgw/hqdefault.jpg',
+            focalPoint: '50% 50%',
+            credit: 'Republic Records / YouTube (official "it\'s time to go" lyric video still)',
+            caption: 'Still from the official "it\'s time to go" lyric video, the deluxe edition\'s second bonus track.',
             kind: 'archival',
           },
         ],
@@ -1686,12 +1723,25 @@ export default {
         // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
         // upload.wikimedia.org copy (exact filename from the article HTML).
         // URL verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-29): focalPoint added (downloaded +
+        // vision-confirmed); added a Billboard-hosted (billboard.com/wp-content
+        // CDN, not a Getty comp) Swift/Turner side-by-side from the same
+        // article that covers the Instagram-Story exchange this moment
+        // describes.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
+            focalPoint: '50% 30%',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Mr. Perfectly Fine (Taylor\'s Version) (From the Vault)."',
             kind: 'primary',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
+            focalPoint: '50% 28%',
+            credit: 'Billboard',
+            caption: 'Taylor Swift and Sophie Turner, whose Instagram Story reaction to the song prompted Swift\'s "bending the knee" reply.',
+            kind: 'archival',
           },
         ],
       },
