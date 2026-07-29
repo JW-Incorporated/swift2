@@ -23,10 +23,22 @@
 # Minute offset to :35 (was :30, 2026-07-18): :30 is exactly when the repo's
 # two */30 workflows also fire — moving off it is the same fix as the mailer
 # retry's root cause, applied to this workflow's own trigger too.
+#
+# Second hourly trigger added (2026-07-29, ALARMS gate #799): the brief/
+# propagation/cadence jobs below only make sense once a day (they key off
+# "today's brief"), but the prod smoke check is the one job that should run
+# far more often than daily — L1's "frequent uptime paging" ask. Rather than
+# split the smoke check into its own workflow (more moving parts, more places
+# to look), every job below gates on `github.event.schedule` so the :35
+# daily-only jobs stay exactly as often as before, while the smoke check
+# alone (`if: always()`, no schedule gate) runs on every trigger, including
+# this hourly one. :05 avoids the :00/:30 cluster the header above already
+# flags as a mailer-slip risk.
 name: watchdog
 on:
   schedule:
     - cron: "35 14 * * *"
+    - cron: "5 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -44,8 +56,14 @@ jobs:
       # previously ran entirely on gh/curl and never needed it.
       - uses: actions/checkout@v7
 
+      # Daily-only gate (ALARMS gate #799, 2026-07-29): this job now also
+      # fires hourly (see the `on.schedule` comment above) so the prod smoke
+      # check below can run far more often, but the brief/propagation/cadence
+      # jobs only make sense once a day. Skip them on the hourly trigger;
+      # still run on the daily cron and on a manual workflow_dispatch.
       - name: Check today's Founders' Brief exists
         id: brief
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -160,6 +178,14 @@ jobs:
             done
           done
 
+      # Extended 2026-07-29 (ALARMS gate #799): was homepage-only, once a
+      # day. Now runs hourly (see the `on.schedule` comment above, and this
+      # step's own `if: always()` — deliberately ungated by the daily-only
+      # condition the jobs above just picked up) and probes a second route,
+      # the era deep-link `/?era=midnights`, so a regression scoped to the
+      # era/threads reader itself (not just "the server responds at all")
+      # doesn't stay invisible. Each route is checked and reported
+      # independently so a failing alert names which one broke.
       - name: Prod smoke check (gap ALARMS sliver — zero AI)
         if: always()
         env:
@@ -170,21 +196,36 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          URL="https://www.longlivets.com/"
-          CODE=$(curl -s -o /tmp/smoke.html -w '%{http_code}' --max-time 30 "$URL" || echo 000)
-          OK=true
-          [ "$CODE" = "200" ] || OK=false
-          grep -qi "taylor\|era\|swift" /tmp/smoke.html || OK=false
+          FAILURES=""
+          check_route () {
+            local URL="$1" EXPECT="$2"
+            local FILE
+            FILE=$(mktemp)
+            local CODE
+            CODE=$(curl -s -o "$FILE" -w '%{http_code}' --max-time 30 "$URL" || echo 000)
+            if [ "$CODE" != "200" ] || ! grep -qi "$EXPECT" "$FILE"; then
+              FAILURES="${FAILURES}- ${URL} returned HTTP ${CODE} or was missing expected content ('${EXPECT}')\n"
+            fi
+            rm -f "$FILE"
+          }
+          check_route "https://www.longlivets.com/" "taylor\|era\|swift"
+          check_route "https://www.longlivets.com/?era=midnights" "midnight"
           # Persistent title (no date/code) so a multi-day outage is one
           # evolving issue, and so it self-heals cleanly once fixed.
           ALERT_TITLE="Watchdog: prod smoke check failing"
-          if [ "$OK" = "true" ]; then
-            echo "smoke OK ($CODE)"
-            echo "$URL is back to HTTP 200 with expected content as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+          if [ -z "$FAILURES" ]; then
+            echo "smoke OK (both routes)"
+            echo "Both probed routes (homepage, /?era=midnights) returned HTTP 200 with expected content as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             exit 0
           fi
-          echo "@sffan15-sys @wjduvall-cmd — ${URL} returned HTTP ${CODE} or missing expected content at $(date -u +'%H:%M UTC'). Check the Vercel dashboard; last deploys are listed on merged PRs. This is the daily zero-AI smoke check from watchdog.yml." > /tmp/alert-body.md
+          {
+            echo "@sffan15-sys @wjduvall-cmd — one or more prod routes failed the smoke check at $(date -u +'%H:%M UTC'):"
+            echo ""
+            printf "%b" "$FAILURES"
+            echo ""
+            echo "Check the Vercel dashboard; last deploys are listed on merged PRs. This is the hourly zero-AI smoke check from watchdog.yml."
+          } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           exit 1
 
@@ -195,6 +236,7 @@ jobs:
       # that is scheduled but always failing is invisible without this: it
       # produces no output to notice the absence of. Marjorie now sees it.
       - name: Scheduled workflows healthy (cadence view)
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -280,6 +322,7 @@ jobs:
       # agents (Nils, Kevin, Laura, Paul Blart, Austin, Growth) is a cheap
       # follow-up if/when they're actually observed to go dark too.
       - name: Content Shift liveness check
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
