@@ -2530,7 +2530,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records (single cover art)',
-            caption: 'Cover artwork for "This Love (Taylor\'s Version)," the first 1989 re-recording released.',
+            caption: 'Cover artwork for "This Love (Taylor\'s Version)," the second 1989 re-recording released.',
             kind: 'primary',
             // Focal point set 2026-07-18 by viewing (300x300): extreme
             // close-up, eyes and lips in the upper-right quadrant, hair

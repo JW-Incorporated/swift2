@@ -137,8 +137,8 @@ export default {
     },
     {
       year: 2014,
-      month: 9,
-      day: 8,
+      month: 10,
+      day: 27,
       category: 'music',
       title: 'Bad Blood, and the friendship it ended',
       snippet:
