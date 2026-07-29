@@ -6,5 +6,8 @@
   ],
   "scheduledAt": "2026-07-28T23:00:00Z",
   "campaign": "symbol-thread-midnights-thirteen",
-  "why": "Symbol-thread pillar (the number 13) -- a content pillar with no recent coverage, and a clean pivot away from the chart-record run. Core claims trace to the vault Midnights item (vault-midnights-thirteen-sleepless-nights): the direct 'stories of 13 sleepless nights' VMAs quote, the 13-track standard edition, the 'meet me at midnight' tagline, the film-shot lighter-flame cover. '13 is her lucky number' is long-standing, widely-verifiable Taylor-stated fact. Music/lore only -- outside every blocklist topic. Media: /eras/midnights.png (committed era tile)."
+  "why": "Symbol-thread pillar (the number 13) -- a content pillar with no recent coverage, and a clean pivot away from the chart-record run. Core claims trace to the vault Midnights item (vault-midnights-thirteen-sleepless-nights): the direct 'stories of 13 sleepless nights' VMAs quote, the 13-track standard edition, the 'meet me at midnight' tagline, the film-shot lighter-flame cover. '13 is her lucky number' is long-standing, widely-verifiable Taylor-stated fact. Music/lore only -- outside every blocklist topic. Media: /eras/midnights.png (committed era tile).",
+  "attempts": 1,
+  "lastError": "Instagram publish failed: {\"error\":{\"message\":\"Media ID is not available\",\"type\":\"OAuthException\",\"code\":9007,\"error_subcode\":2207027,\"is_transient\":false,\"error_user_title\":\"Cannot Publish\",\"error_user_msg\":\"The media is not ready for publishing, please wait for a moment\",\"fbtrace_id\":\"ANJWYwn1SfmJ0tkD0hiy77d\"}}",
+  "lastAttemptAt": "2026-07-29T00:05:34.715Z"
 }
