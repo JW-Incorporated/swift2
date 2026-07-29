@@ -1436,6 +1436,25 @@ export default {
             focalPoint: '55% 45%',
           },
         ],
+        // Rumor Desk 2026-07-29: the structural home for the open question this
+        // finale created — will Swift ever tour again? Forward-looking tour
+        // speculation, explicitly allowed by the redlines; no location (an
+        // unannounced future tour is L0 by default and this names none). Seeds
+        // the Tortured Poets era into the rumor system (previously uncovered),
+        // deliberately spread away from the wedding page.
+        rumors: [
+          {
+            claim:
+              'As the Eras Tour wound down, an Us Weekly cover story reported that Swift was weighing another tour — "albeit on a smaller scale than the Eras Tour" — as soon as 2026, a source saying "She had such a great experience on Eras. She really wants to do it again," while cautioning nothing was locked: "A lot of it hinges on what happens over the next year with Travis."',
+            reportedBy: 'Us Weekly',
+            reportedOn: '2024-12-03',
+            status: 'unconfirmed',
+            url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-next-album-engagement-burning-questions-answered-excl/',
+            note: 'Forward-looking tour speculation (allowed by the redlines); no location named. As of this check (late July 2026) no tour has been announced and the source\'s "one year" window has passed — Swift instead released The Life of a Showgirl and married Kelce — so the 2026-tour prediction looks unlikely but is not formally denied. Resolves on an official tour announcement; fades otherwise.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-07-29',
+          },
+        ],
       },
     },
     {
