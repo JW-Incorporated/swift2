@@ -591,6 +591,31 @@ export default {
             altNote: 'No brand is documented for the shoot wardrobe — this is a real oversized plaid blazer in the same spirit.',
           },
         ],
+        // Rumor Desk 2026-07-29: a clean, fully-resolved music-symbolism rumor
+        // native to this cover — the word "Woodvale" was left on an early
+        // mockup of the frame above. Unannounced-music / easter-egg speculation
+        // (explicitly allowed by the redlines); no location. Seeds the folklore
+        // era into the rumor system and demonstrates a debunked resolution
+        // carrying its citation, deliberately spread away from the wedding page.
+        rumors: [
+          {
+            claim:
+              'After fans spotted the word "Woodvale" faintly printed on an early version of the folklore album cover, a theory took hold — reported across music press and cresting when evermore arrived that December — that "Woodvale" was the title of a secret third "sister" album that would complete a trilogy with folklore and evermore.',
+            reportedBy: 'W Magazine',
+            reportedOn: '2020-12-15',
+            status: 'debunked',
+            url: 'https://www.wmagazine.com/story/taylor-swift-evermore-woodvale-third-album-rumor',
+            note: 'Unannounced-music / easter-egg speculation (allowed by the redlines); no location. The theory originated at folklore\'s July 24, 2020 release when fans read the hidden word on the cover, and surged when evermore dropped that December, days before Swift addressed it directly.',
+            sourceTier: 'established',
+            resolution: {
+              on: '2020-12-15',
+              url: 'https://www.rollingstone.com/music/music-news/taylor-swift-jimmy-kimmel-live-folklore-evermore-1104051/',
+              outlet: 'Rolling Stone',
+              note: 'On Jimmy Kimmel Live!, Swift explained "Woodvale" was a fake code name her team used to keep folklore secret — it has the same number of letters as "folklore" and was placed on album-art mockups — and "we forgot to take the fake code name off of one of them." There is no third "Woodvale" album.',
+            },
+            lastCheckedOn: '2026-07-29',
+          },
+        ],
       },
     },
     {
