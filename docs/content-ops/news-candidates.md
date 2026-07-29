@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 73
+
+## Simone Biles Jokes a Celebrity Wedding Guest ‘Stole’ This Item from Her at Taylor Swift and Travis K
+
+- first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Simone Biles Jokes a Celebrity Wedding Guest ‘Stole’ This Item from Her at Taylor Swift and Travis Kelce’s Nuptials  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxQZHhYeURwcUhsTWg3dUw4b0h4Q2NjUG40VUduQWtZUVkxNTNubHBXT2J0TWlMSV9heE9VaUQwV2E1bThjaHh5c2FhZVRCa0RWcmdmSzNKZkdsb1dJa3FtTWdReEFqOGlWYThndXpfZUFPXzVfdlJoUjFLQWg1OUozNDNGS0JTWTVkWl9Vd003dENxbjRpUDlnSG10eVdxbTdMSjQ1a2F6amhXTUVlRGNEU0czSDV3VG5SU24wQUxnQWI2eGVvOTRHQ2xGOG4?oc=5
+
+## Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding - New York Daily New
+
+- first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding  New York Daily News
+- sources:
+  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMiswFBVV95cUxONjBpRU02YUlHWWprYXppLUhjQ0wxUEVLNXIwaVRoeWUxalV2RDJVbl9Ha3haUkwwSVR2SExqWjZDcmQ4VWpRUHRGdXdvUnlIZUxfUDJVc1hlb0dhdU9GZmhEVzhJdXVNa29IblZjQlY4dGJaekh1MUV5ejM0MHUxekp4bmhwTjlJOHN2RjNVOUtjdjh1S0NWa0dacnRxVWJIRjh1RTZKTWI2V2laQWUyQnZXaw?oc=5
+
+## Simone Biles says this singer ‘stole’ her sunglasses at Taylor Swift and Travis Kelce’s wedding - En
+
+- first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Simone Biles says this singer ‘stole’ her sunglasses at Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMitgFBVV95cUxNQnJnTmVabS1DZUJ5bDZlaTZoc1N1OUJ0YTJpSU9ISEZMX1ROQmg0YWpKNDRFNnZ5aE9WUXZCVW01TTBsY3FuTzEtOVlCYU9QZWZCakpxYVdFNzhvNVZzMW8zaG5RN0V4UFFMRFJ3ZW5lUVM3ajdTRlQ5ZXQ0WUR2MWRsOUM2bHdKVFM1Q0NhZG5ob0Vta0xjeTR1VjBwR25XY0JRX3l0UThHSWFUU1ZOMlBkZHh5QQ?oc=5
+
+## Barefoot bandit steals Taylor Swift cardboard cutout from SoCal ice cream shop in bizarre heist - Ne
+
+- first seen: 2026-07-29 04:26 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Barefoot bandit steals Taylor Swift cardboard cutout from SoCal ice cream shop in bizarre heist  New York Post
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPd2w5SzZKa3lHa0lTWVpBMUZoOTYtLTd4MUtfSmsxa1pHVUZpaWRsRHk0SEZlUzB2Z2E1N2UxaDJoeWxNMW13QXJOVUo1N0RJVG1qcFlaeld4TFlsOTctSU81SXZSbmF3bnRXaUNrRi1teGc5RjNhMnJWWlJfd0xXLUR5ZnpWNlRZdUVndVNkeEV0eGhkQV9acnllVWQ3eE5QMXhjVUFaR0U?oc=5
+
+## Golden Gate Bridge Gets Featured Role In 'Best Bridges' Meme Involving Taylor Swift Songs - SFist
+
+- first seen: 2026-07-29 04:26 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Golden Gate Bridge Gets Featured Role In 'Best Bridges' Meme Involving Taylor Swift Songs  SFist
+- sources:
+  - [unverified] SFist — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOOTQ1TzFLVkpVNEttQXRKbVJSeko5Ulo3LUhQc1BqWUxsZVhiRmhsUHc4NWRteklyRFBLZVJuVzJuUFM0azN1WEpHNUcxM3JBZ3Rya3NqaEk5ak10Y2VBMUFtX19DZ0x5Y2Qtc0VUNnNsRGVqemFXTVJtZWo1V054RjdpR1FMZXZUSVoxT1A3R3dMVU1Qbk54Z1h0S3U2S1VsLVloU1lOVFI5Y3lHMi1STnkwT1Z5S0lQ?oc=5
 
 ## Marcello Hernández was most surprised to see this A-lister at Taylor Swift and Travis Kelce’s weddin
 
@@ -229,13 +269,14 @@ Stories: 68
 ## Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors -
 
 - first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Karlie Kloss Breaks Silence on Taylor Swift and Travis Kelce’s Wedding After Reconciliation Rumors  Us Weekly
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMihwFBVV95cUxNOTQwMUhoeXBKWGdpa214VjZSVWhKYTdHYkR0QTNGck5HTGpaQnNlVkhFYkFmTUNkeFhlMkRrZUxIUWUyT1VFWjRtRGJnbFUtWlBVTC1TYm50akVzOGp0cVJDQjczYldlaHV5V0RuSVVyUG15WHc1ekR6bVNMMm1CRWJVRjlOb3c?oc=5
   - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMVpxeTB4UnhuYUtzcXdsZ25TZXBRQmdZUEFicjNVMUpnM0NZLXByUF9PMmw4Q2Y0SjY5anFGZnA1alZuRUZJZ1VTMmZUWTlzQ2JFbDdsemZnM2ZWcXBoVkVwTHh1dWt4LU1QR1A2czdRMnVmVjBld2ZHVTRQSzhtRUE3OWtGLXRSbkN1R3NQbWFlcVB6RTRoazdOWXU0eUoxYnEwQzhkcw?oc=5
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMiywFBVV95cUxQaE93REpEbEtUZ21Cc054Vmd3bVlZcklfUlZPRFJ1RDFWRm5scEc4MXRobWlNWEdlVmxEUzN0SnF5MnYzYi1PR3ZENG9NZHpKckdlaHB4NEFHMXU2MWdkVHZCYXoyeTBYOWVkeUhWcUlNREppa1RtMkFGLVEyTnYyanlsaEJIN01vWWFmYnBscnlHNGhGRUxodnRfZFd1eFhwTThVMFFqX2R4VzVCVWZhZ1RTUlpaYXV5c19VdEJuVmxXczcyRnJ5Z2I1TQ?oc=5
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMizAFBVV95cUxNd1Y2d0hPRlRzYk9YbWtPX2RQSU5MMzA5d2NEQWt2aHUxMzNmX3A4Y3VXcHEzSWg3TEtLa2s2R1YweUZUMzFaVEJnUlZCdW56R0hOZTNVV0ZpU2h4akxUeXRfQmVQMVhhdWhiQXM0eEFoVVBXSm1uaGdPeWdRT1pOOXNWVndmc0J3UVBXZk9lR1pkY091MmlhclVaS0lPSVZMWk1DSzQ3QWhqUmxQSDlMdFVGVzczOGI1UjVDTFhkRC14dlZ3MmpOeG9iRFc?oc=5
+  - [unverified] East Bay Times — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOSjZUQTFRUmhJZmpPbFlNMUU4YlFYWmhGYlZyMGdBT0ItTFJVTWpfTmxWd01DOHFzYmxFRnhnZkE2cTZldDJmMzNVUTl1WUJpblJiaW5KZW5Ec09URktqSXZPRHpmNkNCQnFncjBLS3lhVE0zVXR0SUQ4TlpDQU5NSVpWTFlNSElqb0Rn0gGQAUFVX3lxTE9SQjQ4U19SX0JBdmtDVW12ZjU1bHBzam5zWmlzMnhsMWFSQ3lxZUs2TmlKRmx0ZE51RlR3MWl2NnZ2dGIxNUNqeUtWQlpLRTNoanlkMlpYTVZyT3pEMnlXQ0t5dVFRdkFHbXl5NG1rWnc5ZkZiVU5YSzlWUnRJRVRxZkZHZkJNODFOb0loTGxLcA?oc=5
 
 ## Taylor Swift debuts wedding ring in fellow NFL wife Laura Kruk’s wedding pics - UnionLeader.com
 
@@ -313,11 +354,12 @@ Stories: 68
 ## Jason Kelce Opens Up About A Part Of Taylor Swift's Life That Travis Kelce Is Reportedly 'Struggling
 
 - first seen: 2026-07-27 18:44 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Jason Kelce Opens Up About A Part Of Taylor Swift's Life That Travis Kelce Is Reportedly 'Struggling' With  SheKnows
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbUNvMzNZSGthR2pvMFNad0RTaFFhUFViLTVQQzhOejIxUzBoOUN4VVJPcTU4VWZ1RnZjZDd6NUJLbWo5TlAxd3JlNzZRSGtSN2xiRjdtSE9jd2tZRHJ3UGV3c0tMMkNEU2hlQUNkT2dpbzIzVmJ4RTVsQW5PdjUxbVg2UUk2c1ZkQkp3eThmVnVtMFpiYTduMjdFN1otdk9STDNCTHV0NTVyZw?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOMlowT1ZFTVhfeXZ0RlpTeFIyT1JnWTRjYjlhRnB0ZmZvdnVVaWZoUHpaSXI1cHAzdW9BS2dwMkhlYXlsb0hzeWNPLWRCLVlNLVUwRUdtMzBwb0lFRzR6c1ZkRmcwd3BrU1BSWGRkN0pndjZWSldCLXg4aWZrWFAyMjhBdTBWdG4yQVdYZV85Y1JnbHljWUwtc0Zibkg2T3M3?oc=5
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMivwFBVV95cUxPX3VXRmtzT0FuS2lBVnY2RW9MTW1meVVuUk5zT3J3cmo1Skd3VEh4UE5sbUVFZVhET2pOM3pha3BNQXo1RW14dWREcUgxbGlVZmMtdGNVOFBzbFJ4dTk5RDVhWm51b3VrV2ZLVG9QTjU3WlQ0U1laM214eHU1ZzIxc19uZTFKQTNEaU1hYTdBWWUyWGxYU2tHNzR4eGZ0OGJ5RHQxZEstT1JveWFYTVlETW9oYXVtT2FHb2k0VnZqTQ?oc=5
 
 ## Travis Kelce's Wedding Band Pays Tribute to Taylor Swift in a Subtle but Sweet Way - instyle.com
 
