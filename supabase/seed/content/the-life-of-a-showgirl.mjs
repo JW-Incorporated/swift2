@@ -568,7 +568,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced barely two weeks out and distributed by AMC Theatres Distribution with Variance Films domestically and Piece of Magic internationally, the roughly 89-minute event was built as a communal album drop rather than a concert film — release-day showtimes started at 3 p.m. ET, and a ticket ran the standard $12, which fans read as a nod to her 12th album (AMC never confirmed the price as a deliberate Easter egg the way the Eras film\'s $19.89 was, and $12 is also its ordinary base price). The program opened with the world premiere of the self-directed "The Fate of Ophelia" video, then behind-the-scenes footage from its shoot, then Swift on camera talking through the record over lyric videos for its tracks.\n\nThat video was shot by Rodrigo Prieto — the Oscar-nominated cinematographer of Barbie and Killers of the Flower Moon, and of her own "Fortnight" — at the 1931 Los Angeles Theatre and a soundstage, with Eras Tour collaborators Ethan Tobman (production design) and Mandy Moore (choreography); Prieto later won an ASC Music Video Award for it. The theatrical window was only about 48 hours: the video hit YouTube on Sunday, Oct. 5 at 7 p.m. ET.\n\nTheaters leaned into the party — costumes, friendship bracelets, full-crowd singalongs to songs nobody had heard that morning; CNN\'s dispatch described aisles turned into dance floors — and audiences graded it an A+ CinemaScore, the same mark the 2023 Eras Tour film earned and one only a handful of releases a year ever get. It played the single weekend of Oct. 3–5 with no held-over showings and cleared more than $50 million worldwide — enough for AMC to call it the biggest-grossing album-debut theatrical event ever and the only album-debut cinema experience to finish a weekend at No. 1 domestically.',
+          'Announced barely two weeks out and distributed by AMC Theatres Distribution with Variance Films domestically and Piece of Magic internationally, the roughly 89-minute event was built as a communal album drop rather than a concert film — release-day showtimes started at 3 p.m. ET, and a ticket ran the standard $12, which fans read as a nod to her 12th album (AMC never confirmed the price as a deliberate Easter egg the way the Eras film\'s $19.89 was, and $12 is also its ordinary base price). The program opened with the world premiere of the self-directed "The Fate of Ophelia" video, then behind-the-scenes footage from its shoot, then Swift on camera talking through the record over lyric videos for its tracks.\n\nThat video was shot by Rodrigo Prieto — the Oscar-nominated cinematographer of Barbie and Killers of the Flower Moon, and of her own "Fortnight" — at the 1931 Los Angeles Theatre and a soundstage, with Eras Tour collaborators Ethan Tobman (production design) and Mandy Moore (choreography); Prieto later won an ASC Music Video Award for it. The theatrical window was only about 48 hours: the video hit YouTube on Sunday, Oct. 5 at 7 p.m. ET.\n\nTheaters leaned into the party — costumes, friendship bracelets, full-crowd singalongs to songs nobody had heard that morning; CNN\'s dispatch described aisles turned into dance floors — and audiences graded it an A+ CinemaScore, the same mark the 2023 Eras Tour film earned and one only a handful of releases a year ever get. It played the single weekend of Oct. 3–5 with no held-over showings and cleared more than $50 million worldwide — $34.1 million domestic, $16 million international — enough for AMC to call it the biggest-grossing album-debut theatrical event ever and the only album-debut cinema experience to finish a weekend at No. 1 domestically.\n\nAMC put the full global footprint at more than 8,000 cinemas across upward of 110 territories once every partner market came online, all playing the exact same run time in their own local time zone rather than a staggered international rollout. Inside the program, the commentary segments went beyond generic reflections: Swift is shown baking sourdough bread on camera during behind-the-scenes footage, and the sequence includes a segment built around Sabrina Carpenter, framed as her having "opened" for the title track the way she opened Eras Tour shows before her own breakout — tying the film\'s structure to the same mentor/successor idea the title track\'s lyric explores. No exclusive merchandise or collectible ticket for the event has been reported. The full 89-minute program with Swift\'s commentary has not had a confirmed home or streaming release; what did surface afterward were the pieces already built for wider release — the "Fate of Ophelia" video and the album\'s lyric videos went to YouTube shortly after the theatrical run ended, which is the extent of the program\'s life outside AMC\'s three-day window as of this writing. Its $50.1 million global weekend outdrew Beyoncé\'s "Renaissance: A Film" (roughly $21 million opening weekend in 2023) by a wide margin, though it still trails the scale of Swift\'s own "The Eras Tour" concert film, which opened to $92.8 million domestically in 2023 — the two events aren\'t quite apples-to-apples: Eras was a full concert film with a wider multi-week run, while the Showgirl release party was a single 89-minute weekend event built around an album, not a tour.',
         sources: [
           {
             outlet: 'CNN Business',
@@ -625,6 +625,37 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          // Depth ledger #1161 (2026-07-29): global theater/territory count,
+          // the Carpenter/sourdough program detail, merchandise and
+          // post-run-availability facts, and the Renaissance/Eras comparison.
+          {
+            outlet: 'AMC Entertainment',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/397/taylor-swift-the-official-release-party-of-a-showgirl-goes-global-with-more-than-8000-cinemas-worldwide-across-more-than-110-territories-expected-to-play-the-experience',
+            source_title: 'THE OFFICIAL RELEASE PARTY OF A SHOWGIRL Goes Global, With More Than 8,000 Cinemas Worldwide Across More Than 110 Territories',
+            publisher: 'AMC Entertainment (press release)',
+            source_type: 'official',
+            accessed_at: '2026-07-29',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift:_The_Official_Release_Party_of_a_Showgirl',
+            source_title: 'Taylor Swift: The Official Release Party of a Showgirl',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-29',
+            reliability_score: 2,
+            notes: 'the sourdough-baking footage and the Sabrina Carpenter "opening" segment structure; the post-run YouTube release of the video and lyric videos',
+          },
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/taylor-swift-release-party-showgirl-33-million-box-office/',
+            source_title: "Taylor Swift's 'Release Party of a Showgirl' Racks Up $33 Million at Box Office",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
             reliability_score: 4,
           },
         ],
@@ -4600,7 +4631,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Swift arrived with her parents after the 8:15 p.m. kickoff — nearly an hour into a Christmas Day game the NFL had handed to Amazon Prime, whose cameras caught her in the concourse on the way up to the suite. The red-on-red palette read as both Chiefs colors and Christmas at once.\n\nMarie Claire noted the game\'s added weight: with the Chiefs missing the playoffs for the first time since 2014, the Broncos game was expected to be Kelce\'s final appearance at Arrowhead that season, which made her family-in-tow attendance read as more than a holiday outing — a send-off to the season that had bracketed their engagement year. The Artifex Fine engagement ring, by then a fixture of every game-day sighting, rounded out the look.\n\nThe game itself was already a formality, and the timing sharpens the "missed the playoffs" note: Kansas City had been eliminated from contention the previous Sunday, in a 16–13 loss to the Chargers — the game in which Patrick Mahomes tore his left ACL — sealing the Chiefs\' first missed postseason since 2014. So the Broncos matchup was played without Mahomes or backup Gardner Minshew, with third-string quarterback Chris Oladokun starting, and Denver won 20–13. The appearance traveled well past a single fashion write-up: AP, People, ESPN, Fox Sports and Yahoo all ran game-day items built around the Amazon Prime cameras catching Swift entering the concourse with parents Andrea and Scott Swift. The red hero piece was later identified as The Frankie Shop\'s "Zion Bomber Jacket" ($388).',
+          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Swift arrived with her parents after the 8:15 p.m. kickoff — nearly an hour into a Christmas Day game the NFL had handed to Amazon Prime, whose cameras caught her in the concourse on the way up to the suite. The red-on-red palette read as both Chiefs colors and Christmas at once.\n\nMarie Claire noted the game\'s added weight: with the Chiefs missing the playoffs for the first time since 2014, the Broncos game was expected to be Kelce\'s final appearance at Arrowhead that season, which made her family-in-tow attendance read as more than a holiday outing — a send-off to the season that had bracketed their engagement year. The Artifex Fine engagement ring, by then a fixture of every game-day sighting, rounded out the look.\n\nThe game itself was already a formality, and the timing sharpens the "missed the playoffs" note: Kansas City had been eliminated from contention the previous Sunday, in a 16–13 loss to the Chargers — the game in which Patrick Mahomes tore his left ACL — sealing the Chiefs\' first missed postseason since 2014. So the Broncos matchup was played without Mahomes or backup Gardner Minshew, with third-string quarterback Chris Oladokun starting, and Denver won 20–13 on a late Bo Nix-to-RJ Harvey touchdown. The appearance traveled well past a single fashion write-up: AP, People, ESPN, Fox Sports and Yahoo all ran game-day items built around the Amazon Prime cameras catching Swift entering the concourse with parents Andrea and Scott Swift. The red hero piece was later identified as The Frankie Shop\'s "Zion Bomber Jacket" ($388).\n\nOn the field, Kelce led Kansas City in receiving with five catches for 36 yards on six targets — more than half the team\'s passing offense that day — but was held out of the end zone. He was miked up during the loss and was picked up telling Nix a classy message as the Broncos closed it out, a small moment outlets flagged as in keeping with a farewell-tinged night. What "expected to be his final home game" did not become fact: Kelce did not retire that offseason. On March 9, 2026, his own New Heights account announced "HE\'S BACK!!!" — he re-signed with Kansas City on a one-year deal for a 14th NFL season, so the Christmas game was not, in the end, his Arrowhead farewell. Reporting on the broadcast goes only as far as confirming the pregame concourse footage Amazon aired during the game window; no outlet has documented an in-game cutaway to Swift\'s suite itself, a postgame interaction between her and Kelce, or any other family member (beyond Andrea and Scott) joining her there — those pieces of the "season send-off" framing remain undocumented rather than confirmed.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -4649,6 +4680,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
+          },
+          // Depth ledger #1382 (2026-07-28): Kelce's own stats, the mic'd-up
+          // Bo Nix moment, and the retirement resolution that overturns the
+          // "final home game" framing.
+          {
+            outlet: 'Fox Sports',
+            url: 'https://www.foxsports.com/nfl/week-17-denver-broncos-vs-kansas-city-chiefs-dec-25-2025-game-boxscore-10707',
+            source_title: 'Denver Broncos vs. Kansas City Chiefs - Final Score - December 25, 2025',
+            publisher: 'Fox Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/nfl/mics-caught-travis-kelces-classy-message-to-bo-nix-last-chiefs-home-game',
+            source_title: "Mics Caught Travis Kelce's Classy Message to Bo Nix in Possibly Last Chiefs Home Game",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'NFL.com',
+            url: 'https://www.nfl.com/news/travis-kelce-expected-to-return-to-chiefs-for-14th-nfl-season',
+            source_title: 'Travis Kelce re-signs with Chiefs for 14th season in Kansas City',
+            publisher: 'NFL.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2025/12/25/taylor-swift-attends-chiefs-christmas-game/',
+            source_title: 'Taylor Swift Attends Chiefs Christmas Game With Family, Supports Fiancé Travis Kelce',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 3,
           },
         ],
         // Image-fix pass (2026-07-10 retry, ticket #339): first pass
@@ -5822,12 +5892,18 @@ export default {
       // Cross-link (candidate #1440): the docuseries revisits Kelce's tuxedoed
       // Wembley cameo on camera — the June 2024 night he became an Eras Tour
       // cast member for a night.
+      // Cross-links added 2026-07-28 (depth ledger #1174): the parent
+      // docuseries page, the same-day concert-film release, and the
+      // relationship thread's proposal-story beat.
       relatedIds: [
         'moment:vault-ttpd-travis-kelce-eras-tour-cast-member-for-a-night',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
       ],
       moment: {
         context:
-          'GMA\'s exclusive first look confirmed Kelce appears in the back half of the six-episode Disney+ series, which rolled out Dec. 12, 19, and 23, 2025. His presence gave the series its relationship arc in miniature: the tour that began with him failing to hand her a friendship bracelet in July 2023 ends with him on camera inside its machinery — including the footage around his tuxedoed Wembley cameo in the "I Can Do It With a Broken Heart" bit from June 2024, the night he became briefly an Eras Tour cast member.\n\nThe docuseries also addressed the era\'s hardest moment — the cancelled Vienna shows, covered in the opening episode — making it the fullest inside account of the tour\'s final year: the terror plot, the record-breaking finale, and the relationship that started in its stands, all in one December drop.',
+          'GMA\'s exclusive first look confirmed Kelce appears in the back half of the six-episode Disney+ series, which rolled out Dec. 12, 19, and 23, 2025. His presence gave the series its relationship arc in miniature: the tour that began with him failing to hand her a friendship bracelet in July 2023 ends with him on camera inside its machinery — including the footage around his tuxedoed Wembley cameo in the "I Can Do It With a Broken Heart" bit from June 2024, the night he became briefly an Eras Tour cast member.\n\nThe docuseries also addressed the era\'s hardest moment — the cancelled Vienna shows, covered in the opening episode — making it the fullest inside account of the tour\'s final year: the terror plot, the record-breaking finale, and the relationship that started in its stands, all in one December drop.\n\nKelce\'s actual episodes (three and four, released Dec. 19) build his presence out of archival tour and rehearsal footage and recorded phone calls rather than a separate sit-down interview segment — reporting on the episodes doesn\'t describe him giving a formal talking-head interview the way Swift does. One recurring bit outlets singled out: a phone call in which he tells her "You\'ve got teammates, I\'ve got teammates," comparing life on an NFL roster to life on tour, with Swift making her own version of the comparison back. Andrea Swift also appears on camera in these episodes calling Kelce someone who "brings a lot of happiness" to the family. The finale (episode six, Dec. 23) goes further: Swift reads aloud, on camera, part of a letter Kelce wrote her before the tour\'s final Vancouver shows — "my favorite one is seeing you in concert for the first time, being mesmerized and swept off my feet by a woman who doesn\'t even know me" — the series\' most direct piece of new relationship material.\n\nCritics were positive about the tone if not unanimous about the fit: Variety wrote that Swift and Kelce "seem freakishly relaxed... like they\'re having the time of their lives" together on camera, while some fan and outlet reaction was split on whether folding the relationship into a tour documentary pulled focus from the Eras Tour itself. No outlet reporting reviewed for this page describes the Wembley cameo\'s own planning — whether it was arranged in advance or a spontaneous ask — as newly explained by the docuseries footage; that backstory remains undocumented rather than resolved.',
         sources: [
           {
             outlet: 'ABC News',
@@ -5845,6 +5921,24 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-reads-aloud-love-letter-travis-kelce/story?id=128647552',
+            source_title: 'Taylor Swift reads aloud a love letter from Travis Kelce in new docuseries: What it says',
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/reviews/end-of-an-era-taylor-swift-review-disney-docuseries-1236607569/',
+            source_title: "'End of an Era' Review: Taylor Swift Spotlights Dancers in Docuseries",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
             reliability_score: 4,
           },
         ],
@@ -6650,7 +6744,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The post-wedding episode closed a loop the era opened: New Heights hosted the album reveal in August 2025, the engagement announcement followed two weeks later, and eleven months on, Kelce used the same desk to finally tell the proposal story — confirming that during that August 2025 taping, he was already planning to ask Taylor to marry him. Per E!\'s recap, he called starting the podcast season with her "pretty epic."\n\nThe episode\'s existence was itself notable. The wedding itself remains publicly unrecounted — no interviews, no magazine exclusive, no official photos — but the proposal finally got its telling, characteristically, through the podcast that has functioned as the relationship\'s official record since 2023: the show that started it (the failed friendship-bracelet handoff), announced the album, and now got the proposal\'s own origin story.',
+          'The post-wedding episode closed a loop the era opened: New Heights hosted the album reveal in August 2025, the engagement announcement followed two weeks later, and eleven months on, Kelce used the same desk to finally tell the proposal story — confirming that during that August 2025 taping, he was already planning to ask Taylor to marry him. Per E!\'s recap, he called starting the podcast season with her "pretty epic."\n\nThe episode\'s existence was itself notable. The wedding itself remains publicly unrecounted — no interviews, no magazine exclusive, no official photos — but the proposal finally got its telling, characteristically, through the podcast that has functioned as the relationship\'s official record since 2023: the show that started it (the failed friendship-bracelet handoff), announced the album, and now got the proposal\'s own origin story.\n\nThe staging Kelce described: he had his backyard secretly transformed into what outlets called a "secret garden" — a mix of roses, peonies, hydrangeas and delphinium — while the August 2025 episode was being recorded inside the house, with blackout drapes hung over every window so Swift couldn\'t see the setup in progress. The moment he describes planning throughout that entire taping was leading her outside right after they finished recording. This July 8 episode itself was New Heights\' season-four finale, taped with Tom Brady as guest; co-host Jason Kelce called it "by far our most viewed episode of all time," though no outlet paired that claim with an exact number against the ~1.3 million concurrent viewers Guinness certified for the August 2025 Swift episode. Travis kept the wedding itself off the table on this episode — he spoke only about the proposal and the relationship\'s beginning, not the ceremony — and Swift did not appear on or corroborate this particular episode; her own on-record account of the friendship-bracelet mishap ("such a wild romantic gesture," like "an \'80s John Hughes movie") comes from her own August 2025 appearance, a separate story from the proposal itself. On timing: the August 2025 taping preceded the Aug. 26, 2025 public engagement announcement by roughly two weeks, matching Kelce\'s "started the season" framing; no outlet has published the exact taping date separate from the episode\'s Aug. 13 air date.',
         sources: [
           {
             outlet: 'E! Online',
@@ -6669,6 +6763,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 3,
+          },
+          // Depth ledger #1113 (2026-07-29): the peonies/blackout-drapes staging
+          // detail, the Tom Brady finale/viewership framing, and the
+          // wedding-stayed-private + timeline facts.
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/travis-kelce-talks-proposing-taylor-swift-1st-post/story?id=134582086',
+            source_title: "Travis Kelce talks proposing to Taylor Swift in 1st post-wedding podcast",
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/07/08/travis-kelce-details-taylor-swift-proposal/',
+            source_title: 'Travis Kelce Opens Up On Taylor Swift Proposal, Confirms Fan Theory',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://lifestyle.si.com/celebrities/travis-kelce-reflects-on-proposal-to-taylor-swift-new-heights',
+            source_title: "Travis Kelce Reflects on Proposal to Taylor Swift in 'New Heights' Season Finale Episode",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2025/08/26/taylor-swift-new-heights-world-record/',
+            source_title: "Taylor Swift's 'New Heights' Episode Breaks Guinness World Record",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-29',
+            reliability_score: 3,
+            notes: 'the ~1.3 million concurrent-viewer Guinness record for the Aug. 13, 2025 episode, and the Aug. 26 engagement-announcement date',
           },
         ],
         // Primary: the July 8, 2026 season-finale episode itself (EP 198,
@@ -7648,7 +7782,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Madison Square Garden wedding on July 3 was the most-covered week of Taylor’s year, and by the reckoning of Britain’s Official Charts Company the coverage moved records. In the week that followed, Forbes tallied a catalog-wide bump across several UK charts.\n\nTwo albums came back from off the tally entirely. The Life of a Showgirl and The Tortured Poets Department both re-entered the Official Albums and Official Albums Streaming charts, TTPD returning at No. 96 on both. “Opalite,” the Showgirl single, returned to the Official Singles Downloads and Official Singles Sales rankings. And Fearless (Taylor’s Version), her 2021 re-recording, stepped up from No. 19 to No. 13 on the Official Country Artists Albums chart — a tally it has now appeared on for 274 weeks, better than five straight years.\n\nThe causal read — that the wedding itself drove the climb — is Forbes’s, not a chart-company statement; what the Official Charts Company documents is the movement, not the reason for it. But the timing is hard to miss. It’s the ordinary mechanism of a very unordinary week: a private celebration pulls a decade-old re-recording and a pair of already-huge albums back up a national chart, on attention alone.',
+          'The Madison Square Garden wedding on July 3 was the most-covered week of Taylor’s year, and by the reckoning of Britain’s Official Charts Company the coverage moved records. In the week that followed, Forbes tallied a catalog-wide bump across several UK charts.\n\nTwo albums came back from off the tally entirely. The Life of a Showgirl and The Tortured Poets Department both re-entered the Official Albums and Official Albums Streaming charts, TTPD returning at No. 96 on both. “Opalite,” the Showgirl single, returned to the Official Singles Downloads and Official Singles Sales rankings. And Fearless (Taylor’s Version), her 2021 re-recording, stepped up from No. 19 to No. 13 on the Official Country Artists Albums chart — a tally it has now appeared on for 274 weeks, better than five straight years.\n\nThe causal read — that the wedding itself drove the climb — is Forbes’s, not a chart-company statement; what the Official Charts Company documents is the movement, not the reason for it. But the timing is hard to miss. It’s the ordinary mechanism of a very unordinary week: a private celebration pulls a decade-old re-recording and a pair of already-huge albums back up a national chart, on attention alone.\n\nThe precise re-entry positions Forbes\'s own chart-week snapshot gives: Showgirl came back at No. 57 on the Official Albums Chart (up from No. 61 the week before) and No. 59 on the Official Albums Streaming Chart (up from No. 65). "Opalite" landed at No. 93 on the main Official Singles Chart, and at No. 85 on the Singles Downloads component and No. 92 on Singles Sales — so it re-entered the actual Top 100, not only the smaller downloads/sales sub-tallies. No parallel US Billboard bump the same week is documented in the available reporting; the movement, as covered, was specifically a UK-charts story. Beyond the four titles named, Forbes\'s piece doesn\'t report any other catalog release (1989 (Taylor\'s Version), Midnights, Lover, evermore) moving that week, and no week-over-week streaming or sales figures are given — the story, as reported, is entirely about chart position, not underlying volume. On the Fearless (Taylor\'s Version) longevity note: 274 weeks made it, at the time, the first Swift release to reach four full years on the UK Country Artists Albums chart specifically — not a stated all-time chart record, but a genuine first for her own catalog there.',
         sources: [
           {
             outlet: 'Forbes',
@@ -7658,6 +7792,16 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2025/04/08/taylor-swifts-first-re-recorded-album-hits-a-huge-landmark/',
+            source_title: "Taylor Swift's First Re-Recorded Album Hits A Huge Landmark",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+            notes: 'Fearless (TV)\'s multi-year UK Country Artists Albums chart run',
           },
           {
             // The underlying primary is the Official Charts Company's dated UK
