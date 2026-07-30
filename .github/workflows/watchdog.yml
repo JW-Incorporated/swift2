@@ -385,25 +385,36 @@ jobs:
           MAX_AGE_H=24
           CUTOFF=$(date -u -d "${MAX_AGE_H} hours ago" +%Y-%m-%dT%H:%M:%SZ)
           ALERT_TITLE="Watchdog: content PR(s) stuck with a failing check"
+          BRANCH_PREFIXES="vault/ content-shift/ depth/answerer content/rumor-desk content/stylist claude/"
 
-          # Bot content lanes only. A human's WIP PR sitting red is their business.
-          STUCK=""
-          for BR in vault/ content-shift/ depth/answerer content/rumor-desk content/stylist claude/; do
-            while read -r N CREATED; do
-              [ -z "${N:-}" ] && continue
-              [ "$CREATED" \> "$CUTOFF" ] && continue
-              CONC=$(gh pr view "$N" --repo "$REPO" --json statusCheckRollup \
-                --jq '[.statusCheckRollup[]? | select(.name=="build") | .conclusion] | first // "NONE"')
-              if [ "$CONC" = "FAILURE" ]; then
-                STUCK="${STUCK}- #${N} (opened ${CREATED}, \`build\` FAILURE)
-"
-              fi
-            done < <(gh pr list --repo "$REPO" --state open --limit 100 \
-              --json number,headRefName,createdAt \
-              --jq ".[] | select(.headRefName | startswith(\"$BR\")) | \"\(.number) \(.createdAt)\"")
-          done
+          # Accumulate into a FILE, not a shell variable. An embedded newline in a
+          # double-quoted shell assignment has to start at column 0, which dedents
+          # out of this YAML block scalar and makes the whole workflow unparseable
+          # (learned the hard way on the first attempt at this step).
+          : > /tmp/stuck.md
 
-          if [ -z "$STUCK" ]; then
+          gh pr list --repo "$REPO" --state open --limit 100 \
+            --json number,headRefName,createdAt \
+            --jq '.[] | [.number, .headRefName, .createdAt] | @tsv' > /tmp/open-prs.tsv
+
+          while IFS="$(printf '\t')" read -r N BR CREATED; do
+            [ -z "${N:-}" ] && continue
+            # Bot content lanes only — a human's red WIP PR is their own business.
+            MATCH=no
+            for P in $BRANCH_PREFIXES; do
+              case "$BR" in "$P"*) MATCH=yes ;; esac
+            done
+            [ "$MATCH" = no ] && continue
+            # Only complain once it has been red long enough to be abandoned.
+            [ "$CREATED" ">" "$CUTOFF" ] && continue
+            CONC=$(gh pr view "$N" --repo "$REPO" --json statusCheckRollup \
+              --jq '[.statusCheckRollup[]? | select(.name=="build") | .conclusion] | first // "NONE"')
+            if [ "$CONC" = "FAILURE" ]; then
+              printf -- '- #%s (`%s`, opened %s) — build FAILURE\n' "$N" "$BR" "$CREATED" >> /tmp/stuck.md
+            fi
+          done < /tmp/open-prs.tsv
+
+          if [ ! -s /tmp/stuck.md ]; then
             echo "No content PR has been red for more than ${MAX_AGE_H}h." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "no stuck red content PRs"
@@ -413,9 +424,10 @@ jobs:
           {
             echo "@sffan15-sys @wjduvall-cmd — content PR(s) have had a failing \`build\` for over ${MAX_AGE_H}h. **This work is not shipping and no agent will come back for it.**"
             echo ""
-            echo "$STUCK"
-            echo "Why these strand: auto-merge is armed and correctly refuses to land a red PR, and since 2026-07-25 content agents no longer babysit their own PRs. The next scheduled run opens a NEW PR rather than fixing the old one — so nothing ever retries these. See docs/agents/vault-run-plan.md § Phase 3.5."
+            cat /tmp/stuck.md
             echo ""
-            echo "Check the failure first — a *content-invariant* test failing (feed tiers, substance spread) usually means the corpus statistics moved, not that the PR is broken. That was the cause on 2026-07-28, and relaxing the test would have been the wrong fix."
+            echo "Why these strand: auto-merge is armed and correctly refuses to land a red PR, and since 2026-07-25 content agents no longer babysit their own PRs. The next scheduled run opens a NEW PR rather than fixing the old one, so nothing ever retries these. See docs/agents/vault-run-plan.md § Phase 3.5."
+            echo ""
+            echo "Check the failure before assuming the PR is at fault: a *content-invariant* test failing (feed tiers, substance spread) usually means the corpus statistics moved, not that the content is bad. That was the cause on 2026-07-28 (issue #1628), and relaxing the threshold would have been the wrong fix."
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
