@@ -1812,7 +1812,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written alone for Where the Crawdads Sing and produced with Aaron Dessner using only instruments available before 1953, \"Carolina\" arrived June 24, 2022 — evermore's swampy ghost, one last time.",
       body: ["Taylor revealed she had written it \"alone in the middle of the night\" about a year and a half before its release, keeping its existence secret; she and Aaron Dessner then, in her words, \"meticulously worked on a sound that we felt would be authentic to the moment when this story takes place.\" The period constraint was strict — recorded in a single take, using only instruments that existed before 1953, fiddle and mandolin and acoustic guitar among them — keeping it deliberately spare and eerie.", "It earned a Golden Globe nomination for Best Original Song and a Grammy nomination for Best Song Written for Visual Media, and made the Oscars' Best Original Song shortlist — the folklore/evermore sound's formal goodbye before Midnights rebooted everything that October."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Carolina,\" from the Where the Crawdads Sing soundtrack.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Carolina,\" from the Where the Crawdads Sing soundtrack.", kind: "primary", focalPoint: "58% 68%" }],
       sources: [{ name: "Carolina (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Carolina_(Taylor_Swift_song)" }, { name: "Taylor Swift Treats 'Carolina' Like 'Folklore' in 'Where the Crawdads Sing' End Credits Theme", url: "https://variety.com/2022/music/news/taylor-swift-drops-carolina-track-released-where-crawdads-sing-movie-1235302333/" }],
     },
     {
@@ -1911,7 +1911,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The June 18, 2021 announcement promised \"all 30 songs that were meant to go on Red\" — and slipped the fandom's white whale into a parenthetical: the 10-minute \"All Too Well\" was real, and it was coming.",
       body: ["Her note described the original Red as the album of \"a fractured mosaic of feelings\" — happiness and freedom sitting next to devastation and torment — and set the date at Nov. 19, which later jumped forward a week to Nov. 12, a near-unheard-of move.", "The timing was no accident either: it came just two months after Fearless (Taylor's Version) proved the whole re-recording model with a 291,000-unit No. 1 week. The Janessa Leoné-hat cover reveal from the same day is covered in this era's fashion items."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records / Beth Garrabrant (album cover)", caption: "The Red (Taylor's Version) cover, revealed with the June 18, 2021 announcement.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records / Beth Garrabrant (album cover)", caption: "The Red (Taylor's Version) cover, revealed with the June 18, 2021 announcement.", kind: "primary", focalPoint: "35% 28%" }],
       sources: [{ name: "Red (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)" }, { name: "Taylor Swift Announces 'Red (Taylor's Version),' Reveals November Release Date", url: "https://www.billboard.com/articles/columns/pop/9589369/taylor-swift-red-taylors-version-november-release-date/" }],
     },
     {
@@ -1923,7 +1923,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Out July 2, 2021 — Taylor fronting Aaron Dessner and Justin Vernon's own band on \"How Long Do You Think It's Gonna Last?\", repaying the folklore/evermore collaboration in kind.",
       body: ["A rare Taylor feature where she's the guest in someone else's house: an anxious, galloping track about loving someone who won't get out of their own way, written with Aaron Dessner and recorded across the project's home bases — Long Pond in the Hudson Valley, Kitty Committee in Los Angeles, and April Base in Eau Claire, Wisconsin.", "Dessner's own account: \"Taylor's words hit me so hard when I heard her first voice memo and still do, every time. Justin lifted the song further into the heavens.\" The single gave Big Red Machine their first-ever Hot 100 entry, peaking at No. 73 — and she appears twice on the album, since \"Birch\" carries her vocals too."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png", credit: "37d03d / Jagjaguwar (single cover art)", caption: "Cover artwork for Big Red Machine's \"Renegade,\" featuring Taylor Swift.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png", credit: "37d03d / Jagjaguwar (single cover art)", caption: "Cover artwork for Big Red Machine's \"Renegade,\" featuring Taylor Swift.", kind: "primary", focalPoint: "50% 42%" }],
       sources: [{ name: "Renegade (Big Red Machine song)", url: "https://en.wikipedia.org/wiki/Renegade_(Big_Red_Machine_song)" }],
     },
     {
@@ -1959,7 +1959,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Out Feb. 11, 2022 — her verse added to Sheeran's piano ballad, with a video that reunites the two kids from 2013's \"Everything Has Changed\" video, now teenagers, finding each other again at college.",
       body: ["Their fourth collaboration — after \"Everything Has Changed,\" \"End Game,\" and the vault duet \"Run\" — and the most sentimental: the video brings back Ava Ames and Jack Lewis, the child actors from the 2013 \"Everything Has Changed\" video, now teenagers finding each other again at college.", "The Easter eggs run deeper than the casting: the text-message exchange shown in the video is a real one between Sheeran and Taylor that she had shared publicly back in 2015, and a framed photo from the original video sits in frame. It landed in the era's quietest stretch, a reminder the two write to each other's timelines, not the industry's."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png", credit: "Asylum / Atlantic Records (single cover art)", caption: "Cover artwork for Ed Sheeran's \"The Joker and the Queen,\" featuring Taylor Swift.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png", credit: "Asylum / Atlantic Records (single cover art)", caption: "Cover artwork for Ed Sheeran's \"The Joker and the Queen,\" featuring Taylor Swift.", kind: "primary", focalPoint: "50% 50%" }],
       sources: [{ name: "The Joker and the Queen", url: "https://en.wikipedia.org/wiki/The_Joker_and_the_Queen" }],
       relatedIds: ["moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer"],
     },
@@ -2103,7 +2103,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
       body: ["She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved.", "The whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records", kind: "primary", focalPoint: "68% 28%" }, { url: "https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg", credit: "Big Machine Records / official Taylor Swift YouTube channel", caption: "Still from the official \"Love Story\" music video.", kind: "archival", focalPoint: "52% 45%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }, { name: "Wide Open Country", url: "https://www.wideopencountry.com/love-story-taylor-swift/" }],
     },
     {
@@ -2114,7 +2114,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A freshman-year memory, built around one line about her best friend Abigail's heartbreak.",
       body: ["The whole song grew backwards from one line — \"Abigail gave everything she had to a boy who changed his mind\" — which Taylor has said she wrote first, building everything else around it. Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail's answer: \"If one girl can kind of learn from it or connect to a song like that, it's totally worth it.\"", "Recording it wrecked Taylor anyway — she's admitted she cried in the studio, \"the things that make me cry are when the people I love have gone through pain and I've seen it\" — and when Roman White shot the surreal green-screen garden video, Abigail appeared in it as herself."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png", credit: "Big Machine Records", kind: "primary", focalPoint: "62% 32%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fifteen_(song)" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/fifteen" }],
     },
     {
@@ -2413,7 +2413,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
       body: ["She's said the inspiration was an ex-boyfriend whose lies took a while to surface: \"He came across as Prince Charming [...] who had a lot of secrets that he didn't tell me about.\" The situation became a \"breaking point\" where she felt she had to walk away before getting hurt further.", "She wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png", credit: "Big Machine Records", kind: "primary", focalPoint: "46% 20%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry" }],
     },
     {
@@ -2565,7 +2565,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She plays both the girl next door and the mean-girl cheerleader in the \"You Belong with Me\" video, opposite Lucas Till — the clip that would win Best Female Video at the VMAs.",
       body: ["Premiered in May 2009 as the album's third single took off, the split-role video became the era's defining visual — and its VMA win that September is the reason the Kanye West moment happened at all.", "Roman White shot it over two days at Pope John Paul II High School near her Hendersonville home town, with Taylor playing both \"the nerd, who is pining away for this guy that she can't have\" and \"the popular girl — horrible, scary, intimidating and perfect\"; White has said the closing kiss with Lucas Till took about 45 takes. The song matched the video's reach, peaking at No. 2 on the Hot 100 (blocked only by \"I Gotta Feeling\") and becoming the first country song to top the all-genre Radio Songs airplay chart."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg", credit: "Big Machine Records / official Taylor Swift YouTube channel", caption: "Still from the official \"You Belong with Me\" music video, directed by Roman White — the dance-scene arrival in a white dress.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"You Belong with Me.\"", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg", credit: "Big Machine Records / official Taylor Swift YouTube channel", caption: "Still from the official \"You Belong with Me\" music video, directed by Roman White — the dance-scene arrival in a white dress.", kind: "primary", focalPoint: "46% 22%" }, { url: "https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"You Belong with Me.\"", kind: "primary", focalPoint: "58% 42%" }],
       sources: [{ name: "You Belong with Me", url: "https://en.wikipedia.org/wiki/You_Belong_with_Me" }, { name: "You Belong With Me by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/you-belong-with-me" }],
     },
     {
