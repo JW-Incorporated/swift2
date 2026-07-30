@@ -112,6 +112,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): "Innocent" is a direct reply to the
+      // 2009 VMA moment — a reader on either page would want the other.
+      relatedIds: ['moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic'],
       year: 2010,
       month: 10,
       day: 25,
@@ -706,6 +709,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
+      relatedIds: [
+        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
+        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
+      ],
       year: 2011,
       month: 11,
       day: 20,
@@ -750,6 +758,11 @@ export default {
 
     // --- Fashion/photo depth pass #2 (2026-07-04) ---
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
+      relatedIds: [
+        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
+        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
+      ],
       year: 2010,
       month: 10,
       day: 25,
@@ -833,6 +846,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Zuhair Murad" cluster — three
+      // looks by the same designer across three eras — now interlink.
+      relatedIds: [
+        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
+        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
+      ],
       year: 2011,
       month: 2,
       day: 27,

@@ -1013,6 +1013,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
+      relatedIds: [
+        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
+        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
+      ],
       year: 2021,
       month: 11,
       day: 11,
@@ -1749,8 +1754,11 @@ export default {
     {
       slug: 'all-too-well-short-film-premiere',
       significance: 'notable', // her feature directorial debut, the artistic follow-through on the 10-minute version's record-setting run (docs/decisions.md, 2026-07-19)
+      // Cross-link (Stage 3, 2026-07-30): + the Grammy win the short film
+      // later earned.
       relatedIds: [
-          'moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins','moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever'],
+          'moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins','moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever',
+          'moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a'],
       year: 2021,
       month: 11,
       day: 12,
@@ -2469,8 +2477,12 @@ export default {
       month: 2,
       day: 11,
       category: 'release',
+      // Cross-link (Stage 3, 2026-07-30): + the Red Tour's Omaha opening
+      // night, which put Ed Sheeran on the road with her right after
+      // "Everything Has Changed" was written.
       relatedIds: [
         'moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer',
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
       ],
       title: 'The Joker and the Queen: an Ed Sheeran duet with a nine-year Easter egg',
       snippet:

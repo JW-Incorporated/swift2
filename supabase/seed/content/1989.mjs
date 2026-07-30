@@ -530,6 +530,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Calvin Harris" moment.
+      relatedIds: ['moment:vault-1989-hand-in-hand-after-a-haim-show-at-the-troubadour-the-first-c'],
       year: 2016,
       month: 7,
       day: 14,
@@ -994,6 +996,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Calvin Harris" pair — the first
+      // sighting and the Hiddleston relationship that followed the split —
+      // now interlink.
+      relatedIds: ['moment:vault-1989-tom-hiddleston-weeks-after-the-calvin-harris-split'],
       year: 2015,
       month: 4,
       day: 2,
@@ -1431,6 +1437,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Out of the Woods" pair — the
+      // writing-room voice memo and the video that closed the era — now
+      // interlink.
+      relatedIds: ['moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve'],
       year: 2014,
       month: 10,
       day: 14,
@@ -2050,6 +2060,8 @@ export default {
     },
     {
       slug: '1989-out-of-the-woods-video-nye',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Out of the Woods" moment.
+      relatedIds: ['moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac'],
       year: 2015,
       month: 12,
       day: 31,
