@@ -172,9 +172,14 @@ const OUTLETS = [
 const REPORT_VERB =
   /(?:logged|tracked|noted|ranked|slotted|reported|found|called|flagged|singled out|credited|counted|described|covered|put|placed|named)/;
 const outletPattern = OUTLETS.map((o) => o.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+// NOT case-insensitive: outlets are always proper nouns in real prose, and
+// an 'i' flag here would let an ordinary lowercase word collide with an
+// outlet name that happens to also be a common word — e.g. "at the time
+// noted" (ordinary "time") matching "Time" (the magazine). Requiring the
+// real capitalization is what keeps this precise.
 const WIRE_ATTRIBUTION = new RegExp(
   `\\b(?:${outletPattern})(?:'s\\s+\\w+(?:[- ]\\w+){0,2})?\\s+${REPORT_VERB.source}\\b`,
-  'gi',
+  'g',
 );
 
 export async function checkWireAttribution(items) {
