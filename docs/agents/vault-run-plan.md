@@ -80,10 +80,53 @@ gate, commit, PR) so no lane repeats boilerplate.
 - [x] **Phase 2 — the orchestrator.** `runner-prompts/vault-run.md`: lane order,
       the due-today calendar, per-lane failure isolation, one commit per lane,
       one PR. Register the runner in `runners.md`.
-- [ ] **Phase 3 — create and test-fire.** Create the routine (Opus, daily,
-      `persist_session: false`, and **remove the `Claude_Code_Remote` connector`**
-      per `routine-invariants.md` — it is added by default). Test-fire and verify:
-      exactly one PR, one commit per lane, green gate.
+- [~] **Phase 3 — create and test-fire.** Routine CREATED:
+      `trig_01EuLgUdMgbuqL51o3iWQfTL`, Opus, daily `7 16 * * *`,
+      `persist_session: false`, `Claude_Code_Remote` stripped (it WAS added by
+      default, exactly as `routine-invariants.md` warns — and the API silently
+      refused to remove it, so it had to be done in the UI). Test-fired
+      2026-07-30T05:49Z against the heaviest realistic load: Thu + even
+      day-of-month = 5 of 6 lanes due. **Verification still pending** — see the
+      blocker below, which must be fixed first.
+- [ ] **Phase 3.5 — FIX THE RED-PR BLIND SPOT. Blocks Phase 4.**
+
+      **Found 2026-07-30, and it is a regression introduced by the 2026-07-25
+      token-burn work.** Photo Enrichment has opened three PRs over three days
+      (#1545, #1565, #1585) that all FAIL `build`, and nobody noticed:
+
+      - Auto-merge behaved correctly — it armed and then held each red PR.
+      - The agent no longer babysits its PR, by design.
+      - But the replacement promise, *"if CI fails, the NEXT scheduled run picks
+        it up"*, **is false**: the next run opens a BRAND NEW PR against `main`.
+        It never returns to the red one. So red content PRs accumulate silently
+        and the work never ships.
+
+      Before 07-25 the self-check-in loops caught exactly this ("drive-to-green
+      — my PR"). Killing them removed ~69% of token spend AND this safety net;
+      only the first half was accounted for.
+
+      The failures are real, not stale tests — both pass on `main` and fail only
+      on the Photo Enrichment branches:
+      `feed-tiers.test.ts` "expected 'media' to be 'hero'" and
+      `substance.test.ts` "expected 6.33 to be greater than 7". Adding photos is
+      changing a moment's tier classification and dropping its substance score.
+
+      **This blocks Phase 4.** The Vault Run inherits the same false promise —
+      `vault-run.md` currently says "tomorrow's run picks it up". Consolidating
+      six lanes behind one PR makes it WORSE: today one red PR strands one
+      lane's work, but after consolidation one red PR strands all six.
+
+      Fix requires all three:
+      1. **Detection** — `watchdog.yml` gains a check for a content PR that has
+         been open with a failing required check for >24h, alerting via the
+         real-email path (`scripts/watchdog/send-mail.py`), not a bot mention.
+      2. **A recovery path** — either the Vault Run rebases and fixes its own
+         previous red PR when one exists instead of opening a new one, or a
+         human is told. Silently opening a fresh PR is what got us here.
+      3. **The actual test failures** — diagnose whether the lane is degrading
+         content or the invariants are too strict. Do NOT relax a test to go
+         green without establishing which.
+
 - [ ] **Phase 4 — retire the six, measure the delta.** Only after Phase 3 looks
       good: **disable, do not delete** the six runners (warm spares — their
       prompts now live in the repo, but the triggers carry cadence history).
