@@ -1961,7 +1961,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png", credit: "Asylum / Atlantic Records (single cover art)", caption: "Cover artwork for Ed Sheeran's \"The Joker and the Queen,\" featuring Taylor Swift.", kind: "primary" }],
       sources: [{ name: "The Joker and the Queen", url: "https://en.wikipedia.org/wiki/The_Joker_and_the_Queen" }],
-      relatedIds: ["moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer", "moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha"],
+      relatedIds: ["moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer"],
     },
     {
       id: "vault-evermore-this-love-taylors-version-arrives-early-care-of-a-tv-trailer",
@@ -5060,7 +5060,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Everything_Has_Changed" }],
-      relatedIds: ["moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha", "moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-"],
+      relatedIds: ["moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-"],
     },
     {
       id: "vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha",
