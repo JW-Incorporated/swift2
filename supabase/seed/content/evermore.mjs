@@ -2090,6 +2090,124 @@ export default {
         ],
       },
     },
+    // evermore↔folklore parity fill (2026-07-30, content-shift, #1141): four
+    // of evermore's standard tracks had song items already, but ivy, dorothea,
+    // long story short and closure did not — and the era file dangles at two of
+    // them (the NSAI-speech item cites "ivy" as Taylor's flagship Quill lyric;
+    // "'tis the damn season" names Dorothea as a character "whose namesake
+    // track sits later on the album"). This pass authors ivy, dorothea and long
+    // story short so those hooks land somewhere. Sources: each song's Wikipedia
+    // page + Slate's evermore track-by-track (already trusted in this file, see
+    // gold rush). closure remains for a later run. Photos deferred to Photo
+    // Enrichment: no lyric-video still could be id-verified in this headless env.
+    {
+      slug: 'ivy-clandestine-affair',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: "ivy, a clandestine affair that grows like the vine it's named for",
+      snippet:
+        'A married woman drawn into a secret affair that creeps from winter into spring like ivy — and the one song Taylor later named as her flagship "Quill" lyric, the most literary pen she owns.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Track 10, and the record at its most literary: a married woman pulled into a clandestine affair that spreads from winter into spring the way ivy winds and tightens around whatever it climbs. Taylor wrote it with Aaron Dessner and Jack Antonoff, Dessner producing the folk arrangement of guitar, faint sleigh bells and banjo. Slate\'s track-by-track called it "overrun with metaphors but mostly in an enticing, thematically fitting way" — "good Swiftian dark-fairytale grist" whose tangle of images conceals "the secret… an engaged woman being drawn into a clandestine affair."\n\nIt is also the song Taylor points to when she explains her own craft. Accepting the NSAI Songwriter-Artist of the Decade honor in 2022, she sorted her lyrics into "Quill," "Fountain Pen" and "Glitter Gel Pen" pens — and named "ivy" as her flagship "Quill" lyric, the antiquated, literary register she reaches for least often and loves most. On evermore it is the purest example of that pen on the whole record.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+            source_title: 'Ivy (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'dorothea-the-one-who-stayed',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'dorothea, sung by the one who stayed behind',
+      snippet:
+        'The hometown girl who left for Hollywood, sung by the lover who stayed — the same character as "\'tis the damn season," told from the other side. The album\'s plainest act of tenderness.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Dorothea_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Track 8, and the answer to a question the album asks earlier: who is Dorothea? She is the hometown girl who left Tupelo, Mississippi for Hollywood and never quite came back, and this song is sung by the one who stayed — happy for her success, certain he\'d always take her call. It is the same character and the same small town as "\'tis the damn season," which Taylor wrote from Dorothea\'s own point of view; together the two tracks tell one story from both ends. She wrote it with Aaron Dessner, who produced it and felt it carried folklore\'s world forward into evermore.\n\nSlate heard "a welcome lack of fuss," Taylor reaching for "her old high-school-romance-songs vocal tone to reminisce," and critics warmed to it fast — The Guardian\'s Alexis Petridis singled out its "luminous" melody. After the murder ballads and divorce songs elsewhere on the record, dorothea is its plainest act of tenderness: a love that asks for nothing back.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Dorothea_(song)',
+            source_title: 'Dorothea (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'long-story-short-i-survived',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'long story short — "I survived"',
+      snippet:
+        'The reputation era seen from the far side: over golden gates and pedestals she looks back at 2016 and, instead of re-litigating it, shrugs — "long story short, I survived."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Long_Story_Short_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Track 12 is the reputation era seen from the far side of it. Over golden gates and pedestals, Taylor looks back at the 2016–17 stretch when she was knocked off her footing in public — and instead of re-litigating it, she shrugs it off in the refrain: "long story short, it was a bad time… long story short, I survived." She wrote it with Aaron Dessner, who also produced it.\n\nIt reframes an entire era as something to move past rather than avenge. Billboard\'s Jason Lipshutz called it "the best track of evermore"; Slate, more measured, landed on the same note — "a fairly slight song but an earned valedictory address." Where reputation itself answered the backlash with armor, "long story short" answers it years later with peace.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Long_Story_Short_(Taylor_Swift_song)',
+            source_title: 'Long Story Short (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
     {
       slug: 'love-story-tv-first-rerecording',
       year: 2021,
