@@ -25,10 +25,22 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)' },
           { outlet: 'Wide Open Country', url: 'https://www.wideopencountry.com/love-story-taylor-swift/' },
         ],
+        // Photo-enrichment pass (2026-07-30): added the official "Love Story"
+        // music-video still (YouTube id 8xg3vE8Ie_E, oEmbed-verified channel
+        // "Taylor Swift" @TaylorSwift; curl 200 image/jpeg); downloaded and
+        // vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+            focalPoint: '68% 28%',
             credit: 'Big Machine Records',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            focalPoint: '52% 45%',
+            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
+            caption: 'Still from the official "Love Story" music video.',
+            kind: 'archival',
           },
         ],
       },
@@ -52,6 +64,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
+            focalPoint: '62% 32%',
             credit: 'Big Machine Records',
           },
         ],
@@ -1378,6 +1391,7 @@ export default {
         photos: [
           {
             url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
+            focalPoint: '46% 20%',
             credit: 'Big Machine Records',
           },
         ],
@@ -1999,12 +2013,14 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png',
+            focalPoint: '58% 42%',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "You Belong with Me."',
             kind: 'primary',
           },
           {
             url: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg',
+            focalPoint: '46% 22%',
             credit: 'Big Machine Records / official Taylor Swift YouTube channel',
             caption:
               'Still from the official "You Belong with Me" music video, directed by Roman White — the dance-scene arrival in a white dress.',
