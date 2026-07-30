@@ -3915,8 +3915,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     },
     {
       id: "vault-midnights-1989-taylors-version-resets-the-vinyl-record",
-      date: "2023-10-01",
-      dateLabel: "October 2023",
+      date: "2023-11-11",
+      dateLabel: "November 11, 2023",
       title: "1989 (Taylor's Version) resets the vinyl record",
       summary: "1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album.",
       body: ["The 1.653 million-unit week ran on 1.359 million traditional sales — then the largest sales week of her entire career, and the biggest for any album since Adele's 25 moved 3.482 million in 2015 — with 693,000 of those on vinyl, a new vinyl record she'd break again with The Tortured Poets Department and The Life of a Showgirl, smashing the modern-era vinyl record Midnights had set at 575,000 just a year earlier.", "It also out-opened the original: 1989 debuted with 1.287 million in November 2014 on its way to 11 nonconsecutive weeks at No. 1. Chart-topper number thirteen — her lucky number — kept her tied with Drake for the third-most No. 1 albums in Billboard 200 history and extended her record among women."],
