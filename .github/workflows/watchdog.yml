@@ -357,3 +357,65 @@ jobs:
             echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+      # ── Stranded red content PRs ────────────────────────────────────────
+      # Added 2026-07-30. This is the detection half of a REGRESSION the
+      # 2026-07-25 token-burn work introduced.
+      #
+      # Before then, each content agent armed hourly self-check-ins that drove
+      # its own PR to green ("drive-to-green — my PR"). Those loops were ~69% of
+      # all scheduled agent token spend and were killed, replaced by the promise
+      # "if CI fails, the NEXT scheduled run picks it up".
+      #
+      # That promise is FALSE. The next run opens a BRAND NEW PR against main and
+      # never returns to the red one. So a content PR that fails `build` sits
+      # open forever: auto-merge correctly holds it, the agent never looks again,
+      # and nothing alerts. Photo Enrichment stranded three PRs over three days
+      # (#1545, #1565, #1585) exactly this way, with the work never shipping and
+      # no signal anywhere in the repo.
+      #
+      # Nothing in git can infer this from the outside — a red PR is a perfectly
+      # normal transient state — so it needs an explicit age threshold.
+      - name: Content PRs stuck red
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          MAX_AGE_H=24
+          CUTOFF=$(date -u -d "${MAX_AGE_H} hours ago" +%Y-%m-%dT%H:%M:%SZ)
+          ALERT_TITLE="Watchdog: content PR(s) stuck with a failing check"
+
+          # Bot content lanes only. A human's WIP PR sitting red is their business.
+          STUCK=""
+          for BR in vault/ content-shift/ depth/answerer content/rumor-desk content/stylist claude/; do
+            while read -r N CREATED; do
+              [ -z "${N:-}" ] && continue
+              [ "$CREATED" \> "$CUTOFF" ] && continue
+              CONC=$(gh pr view "$N" --repo "$REPO" --json statusCheckRollup \
+                --jq '[.statusCheckRollup[]? | select(.name=="build") | .conclusion] | first // "NONE"')
+              if [ "$CONC" = "FAILURE" ]; then
+                STUCK="${STUCK}- #${N} (opened ${CREATED}, \`build\` FAILURE)
+"
+              fi
+            done < <(gh pr list --repo "$REPO" --state open --limit 100 \
+              --json number,headRefName,createdAt \
+              --jq ".[] | select(.headRefName | startswith(\"$BR\")) | \"\(.number) \(.createdAt)\"")
+          done
+
+          if [ -z "$STUCK" ]; then
+            echo "No content PR has been red for more than ${MAX_AGE_H}h." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "no stuck red content PRs"
+            exit 0
+          fi
+
+          {
+            echo "@sffan15-sys @wjduvall-cmd — content PR(s) have had a failing \`build\` for over ${MAX_AGE_H}h. **This work is not shipping and no agent will come back for it.**"
+            echo ""
+            echo "$STUCK"
+            echo "Why these strand: auto-merge is armed and correctly refuses to land a red PR, and since 2026-07-25 content agents no longer babysit their own PRs. The next scheduled run opens a NEW PR rather than fixing the old one — so nothing ever retries these. See docs/agents/vault-run-plan.md § Phase 3.5."
+            echo ""
+            echo "Check the failure first — a *content-invariant* test failing (feed tiers, substance spread) usually means the corpus statistics moved, not that the PR is broken. That was the cause on 2026-07-28, and relaxing the test would have been the wrong fix."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md

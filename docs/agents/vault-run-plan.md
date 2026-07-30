@@ -80,7 +80,7 @@ gate, commit, PR) so no lane repeats boilerplate.
 - [x] **Phase 2 — the orchestrator.** `runner-prompts/vault-run.md`: lane order,
       the due-today calendar, per-lane failure isolation, one commit per lane,
       one PR. Register the runner in `runners.md`.
-- [~] **Phase 3 — create and test-fire.** Routine CREATED:
+- [x] **Phase 3 — create and test-fire.** VERIFIED 2026-07-30 — PR #1625, "vault: 2026-07-30 — 4 lanes shipped": one PR, one commit per lane (`lane(content-shift)`, `lane(photo-enrichment)`, `lane(rumor-desk)`, `lane(cross-link)`, plus `vault: regenerate`), green `build`, files confined to `supabase/seed/` + the generated vault. It named every lane's outcome including the two that did nothing (Answerer no-op: zero open curiosity-ledgers; Stylist not due: Sundays), disclosed trimming a lane for budget, and self-corrected a `no-dupe-keys` trip it caused. ORIGINAL NOTES: created Routine CREATED:
       `trig_01EuLgUdMgbuqL51o3iWQfTL`, Opus, daily `7 16 * * *`,
       `persist_session: false`, `Claude_Code_Remote` stripped (it WAS added by
       default, exactly as `routine-invariants.md` warns — and the API silently
@@ -88,7 +88,7 @@ gate, commit, PR) so no lane repeats boilerplate.
       2026-07-30T05:49Z against the heaviest realistic load: Thu + even
       day-of-month = 5 of 6 lanes due. **Verification still pending** — see the
       blocker below, which must be fixed first.
-- [ ] **Phase 3.5 — FIX THE RED-PR BLIND SPOT. Blocks Phase 4.**
+- [x] **Phase 3.5 — FIX THE RED-PR BLIND SPOT.** Done 2026-07-30. (1) `watchdog.yml` gained a "Content PRs stuck red" check — bot content branches only, >24h with `build` FAILURE, via the real-email alert path. (2) `vault-run.md` gained STEP 0: adopt and fix a stranded red `vault/*` PR before opening a new one. (3) Diagnosed: the failures are NOT content degradation — see below. The remaining piece is a founder call, filed as an issue, and does NOT block Phase 4.
 
       **Found 2026-07-30, and it is a regression introduced by the 2026-07-25
       token-burn work.** Photo Enrichment has opened three PRs over three days

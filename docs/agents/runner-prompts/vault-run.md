@@ -31,6 +31,44 @@ Order matters: Content Shift runs first because authoring new moments is what
 the later lanes enrich — photos, cross-links and rumors all attach to pages that
 have to exist first.
 
+## STEP 0 — adopt a stranded red PR before starting anything new
+
+Before you create today's branch, check whether the PREVIOUS Vault Run left a
+red PR behind:
+
+```
+gh pr list --state open --json number,headRefName,createdAt   --jq '.[]|select(.headRefName|startswith("vault/"))'
+```
+
+If one exists and its `build` is FAILING, **work on that branch instead of
+opening a new one.** Check it out, merge `origin/main` into it, diagnose the
+failure, fix it, push, and note in a PR comment what you fixed. Then run today's
+due lanes ON THAT SAME BRANCH and let the existing PR carry both days.
+
+**Why this step exists, and why skipping it is not an option.** Until
+2026-07-30 the rule here was "if CI fails, tomorrow's run picks it up" — which
+was false. Tomorrow's run opened a BRAND NEW PR and never came back, so a red PR
+sat open forever: auto-merge correctly refused to land it, and no agent ever
+looked again. Photo Enrichment stranded three PRs over three days that way and
+the work never shipped. Consolidation makes that worse, not better: one red
+Vault Run PR strands ALL SIX lanes' work, not one lane's.
+
+If you genuinely cannot fix it, say so in a comment on that PR naming the actual
+error, THEN open today's PR separately so the day is not lost. Never silently
+leave a red PR behind.
+
+### Content-invariant failures are a special case
+
+If the failing test is a corpus-STATISTICS test — `substance.test.ts`'s spread
+assertions, `feed-tiers.test.ts`'s tier expectations — **do not relax the
+threshold to go green.** Those tests can fail because the corpus genuinely
+improved. On 2026-07-28 enriching nine photoless pages lifted substance p05 by
+31% (0.0785 → 0.1026) while p95 held at 0.65, compressing the p95/p05 ratio from
+8.28 to 6.33 and tripping a `> 7` assertion. The photo work was correct; the
+test measures "the feed looks weighted" via a proxy that decays as thin pages
+get better. That tension is a FOUNDER decision (issue filed 2026-07-30) — flag
+it and leave the lane's content in place.
+
 ## Run procedure
 
 1. **Set up once.** Fresh clone of `main`. `npm ci`. Create branch
