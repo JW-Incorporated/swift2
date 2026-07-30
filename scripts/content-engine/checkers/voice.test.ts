@@ -179,6 +179,21 @@ describe('content.voice.wire-attribution', () => {
     expect(f).toEqual([]);
   });
 
+  it('does not flag ordinary lowercase "time" colliding with the outlet "Time" (real regression, red.mjs)', async () => {
+    // Real false positive found in the corpus: "outlets at the time noted"
+    // and "reports at the time described" both matched an early
+    // case-insensitive version of this rule, because it let lowercase
+    // "time" collide with the magazine "Time." Outlets are always proper
+    // nouns in real prose, so the match must require real capitalization.
+    const f = await checkWireAttribution([
+      item({
+        context:
+          'A look outlets at the time noted made the gown feel young and modern. Reports at the time described a blowout fight after the trip ended.',
+      }),
+    ]);
+    expect(f).toEqual([]);
+  });
+
   it('does not flag a person\'s name that happens to share a word with an outlet', async () => {
     // "Time" the magazine is in the outlet list; "time" as an ordinary noun
     // must not collide because the pattern requires a capitalized match
