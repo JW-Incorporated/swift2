@@ -239,7 +239,6 @@ export default {
       day: 22,
       category: 'music',
       relatedIds: [
-        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
         'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
       ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
@@ -269,10 +268,6 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-red-2", label: "The Red Tour", kind: "tour" },
-      relatedIds: [
-        'moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer',
-        'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
-      ],
       snippet:
         "A sold-out opening-night crowd got 17 songs and a surprise duet on 'Everything Has Changed' with opening act Ed Sheeran.",
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',

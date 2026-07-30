@@ -2468,7 +2468,6 @@ export default {
       category: 'release',
       relatedIds: [
         'moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer',
-        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
       ],
       title: 'The Joker and the Queen: an Ed Sheeran duet with a nine-year Easter egg',
       snippet:
