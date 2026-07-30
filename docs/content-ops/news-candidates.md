@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 91
+
+## Weeks after being photographed heading to Taylor Swift and Travis Kelce’s wedding in New York, Karli
+
+- first seen: 2026-07-30 04:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Weeks after being photographed heading to Taylor Swift and Travis Kelce’s wedding in New York, Karlie Kloss opened up about the nuptials.  facebook.com
+- sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxOaHljQ2hPS2lsWmVfSGJjVmtlbHljTW5jVllDcGlYUjkzR09UZUlSUkJQREF6c0RDX2NwMG1HUnhxQkJWTUN1bUtLWmNPMGFKV1Z0WVQzYVFCWXI5ZDY4X3lDOWdhcVNsZ3Z0OElWTzh0dUhkRFVNVVRiUUstTHBsR1hRT0x6ZGdrMnd0SjFkMDA2cF9kSk9ydVNwWXVFcFVOVDdGYVF3TU5tQlREbnFuQTdycUZiTkJlaEk0NEI0eEFOMDREYVpYaWVUUGFIX3NseVRYTy1vbHZBT0h6MmNN?oc=5
+
+## Taylor Swift, Katie Holmes, and Chelsea Handler Inspired Us to Upgrade Our Classic White Button-Down
+
+- first seen: 2026-07-30 04:16 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Katie Holmes, and Chelsea Handler Inspired Us to Upgrade Our Classic White Button-Downs  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPdE9XY3VmV3g2bTNMV2FXd3dOMTBGX01sZEt6dEdHc2ZhRDlWeFlTczhabWZVNW1LRGNYX1otOVlSOE5YaUJ3TFdabFRKek1QZ3lRaVdkT3Bqb0tHZVVKRE9fRzhVUnFER1JPanYzZXNqYmxsOEowV0ZKbGxvWEtMa3U4Z29NNUJfc0xLTFhoVEt1cFlPcVpYM2dn?oc=5
+
+## Noah Kahan Fans Are Calling Out Taylor Swift — Here’s Why - parade.com
+
+- first seen: 2026-07-30 04:16 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Noah Kahan Fans Are Calling Out Taylor Swift — Here’s Why  parade.com
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxPMXoyWjVBdERYbGhxQjR3eXFxY2VrVnFtQjVPM05obmhOVDl2MXhpVGZtcWpVYjFRNFgwNkVxLVVhU3JpOHo2NnZiUTUxYmI2Mm1zaFRFYk1mcHY2WDczR2kxeU5KYlpQc3hXNWxraVpoTy1UM2RGMXA4QUozZU00YlVxUGkxeVFpajlFdk9iUGFyMWVUQXl2MQ?oc=5
+
+## Barefoot bandit swipes Taylor Swift cardboard cutout from award-winning ice cream shop - Fox News
+
+- first seen: 2026-07-30 04:16 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Barefoot bandit swipes Taylor Swift cardboard cutout from award-winning ice cream shop  Fox News
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiswFBVV95cUxQMDVoN0ktZnV6SDBXNUMyUDdMeXZfUGxoUG1WV1BMNDJaZ2J3eHZBUnd2blpyaUQ1akIyTS04WXpfTnJrNTJfMnRUdXJjNnpyWmJzR3Rtc1E3aXNoVUFTU05waG0tbWVoSFhiTFR6bzdEekhwMkNhLUhPdXpJY0dPZ0tSSEp4dDRjbnNmWmZDaEcweEk3U0ZNejBZSjB4Vks1RVA2dEx5dE9mRFowSC1TRGx1UdIBuAFBVV95cUxPNm55dkVsa0FnNmFkX1VsOWFUX1dSMWVPSmVLeXAxUlN1dkU2UWxwUGdyMWMxamFxVGJpOUhjejFkZExXa3JyX1pyYnRqcUprVU9peW1tb1hXZHU3MmdVSFotWm1UNFdGazhzaXpHTmVPamJkd3NjbWJkdXVzNWVOa0w0Smh2Z1BJTmpZV1FiZFBwSXlBNFluZ09EQ3RROFNFUnM0cHdqSFlzdGdZVThWSlNRZlVZbWhU?oc=5
 
 ## Simone Biles says singer took her YSL shades at Taylor Swift's wedding - USA Today
 
@@ -34,14 +66,6 @@ Stories: 87
 - summary: Simone Biles says singer took her YSL shades at Taylor Swift's wedding  USA Today
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOWTJLMmpLdlRYQV83Z2g2bk15eGZPeUNwaU15YTVVY2tpd3Zaa05ETnFaOGFaQjZsbngxbUFIMTViczNVS3pQbVhua1YtVzI1RHlWbFBybFFCSnlRRTRpemlFOGZGYUo5YWRYT0xQeDdFZWZXOG93eV8wOVFYakl0OUJHbjl4cnRUSmV2eHhTaFhwMFhJdFN4Zk4wY2ZGcXJId0t1enNuS2syby11bU55VTc2MTdGcF9JSmtfaURZUUNCVDB2a21BM0plZWhFdWJtRXVKRlZwbFV1U1FM?oc=5
-
-## Sister of Southport victim still turns off Taylor Swift songs two years on from attack - The Indepen
-
-- first seen: 2026-07-29 22:09 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Sister of Southport victim still turns off Taylor Swift songs two years on from attack  The Independent
-- sources:
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMixwFBVV95cUxQYnZwOHl5dWRHdlp5LVcyaHdYZ3M0Z2U5M1NIbjg5WHBXNTI5M0ZrcEROR0lkMjExMEhMN3ZGRlhJQkFKY0JpNEpIcUhHTzl4eVBreDY4U0VsbllMbW9kTWN2S0FucnJ6cU1JU0tUT2NUTzJtSzc4TUF3N216T0tWcE5TSWx5NlFmNzZpa0NjNHRxN3k0X2xuX2o3U1djd043R1ljcVVQRmtjT295M0tsS2xUb1pmeWVPZXFuVlYwVlM3Z0lrQzlJ?oc=5
 
 ## Destin Was Just a Quiet Florida Beach Town Until Taylor Swift Sang About It - inc.com
 
@@ -82,6 +106,15 @@ Stories: 87
 - summary: Taylor Swift’s Response to a Guest Breaking Dress Code at Her Wedding Revealed After Report Attendees Were ‘Frustrated’ with Her  yahoo.com
 - sources:
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNV3RCU09nNVZZMHBDcWRacS1NWGhEYzZrOEJBdE5hQWNKTU50MnYtQnpGNFgwbjJUT2tmUkJEd3Y3cDZ6dkFYczVXTEpHVDZCWDlSRGE1bFFQUU4wclBPNUV0YWxaTzc3Y1l0RG1pbWtWLXlxVEIxSGd4cUl6QUk3YU9SNlRXRzFNZWVRbmhST2JNa1otSlFaR2VSN20xWklLQXBhSVlJODBuZw?oc=5
+
+## Sister of Southport victim still turns off Taylor Swift songs two years on from attack - The Indepen
+
+- first seen: 2026-07-29 22:09 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Sister of Southport victim still turns off Taylor Swift songs two years on from attack  The Independent
+- sources:
+  - [unverified] The Independent — https://news.google.com/rss/articles/CBMixwFBVV95cUxQYnZwOHl5dWRHdlp5LVcyaHdYZ3M0Z2U5M1NIbjg5WHBXNTI5M0ZrcEROR0lkMjExMEhMN3ZGRlhJQkFKY0JpNEpIcUhHTzl4eVBreDY4U0VsbllMbW9kTWN2S0FucnJ6cU1JU0tUT2NUTzJtSzc4TUF3N216T0tWcE5TSWx5NlFmNzZpa0NjNHRxN3k0X2xuX2o3U1djd043R1ljcVVQRmtjT295M0tsS2xUb1pmeWVPZXFuVlYwVlM3Z0lrQzlJ?oc=5
+  - [unverified] the-independent.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxQRGhma2pfRlNiSkdWSGlNTEdvWHhWZmozUVlYZHpwQ3RmVTNQbW5PYXEteGhQSjRMc2ZOSUg0TjU4OEZHemdSME5FMTlENVROdUlqcmZ0dDZZcm13SnBsREdXUm0xMU1CeU9FMXd3WTlvQTZVOGtIblFPR09WV25LeVVoVG1GWmJkNWo0TVdVbWFTaG81alVLejFmV3VkSGpRTUNSNTdkcFhRM3N1LTZrYkkwZFhTcUVUSnBEVHU2TmdPc3VGZWdEai13?oc=5
 
 ## How Taylor Swift Reacted To A Wedding Guest Breaking Her Dress Code To Wear A Costume & 'Bring Vibes
 
@@ -372,6 +405,16 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - sources:
   - [unverified] NBC New York — https://news.google.com/rss/articles/CBMixAFBVV95cUxPS1NuRE9PMVFuZHJLeno0M3JVbTd1T3VDQWl3clJxandPd194ZnBTRHM3WlNwLTl4T3Q3X0pNQ0owVWZBMUFqSzNGNzh3ZVBGU1lYVTVXN2RMYkdIaktNZG9sQWd2TUZ4MklTN21PMVJsWHpSQndVdnpPSUx1TGc2Tl9tbGZtVWpoY0ZXNkJPdE9YNzFISmcycm52LWZJNDVzRmozUWlhTVA4YlFVbUp1SzlnTWRaclRmUm5aQnZiaF9mTHBM0gHMAUFVX3lxTE9leDFRQ2RYRFBPdDJnR2VEamdFVEc4SXNseTdQWXdxVThFLTI2Y2FLMTFFYTVGU3hqNGJtazVVVmRoOFRVdTF4UkJMeVgyN3lZMjJKZkYwTnJ5M2ZLQ1ktdjVZV3Fnc253UUd1bnkxV2oteEJPZUUyLVNzRWdxVmRXc3Jrd3NUYV8wdDI5RXVETkNJd29YR3NlM09oSkxWMWtUT2V4bFlZLXp0NmpnS004bmxBQkt6TzJWMXhzc1V6TkZMMWVaTEswMm5Iaw?oc=5
 
+## Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding - Pe
+
+- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQOG10cFVFRE9VNkpuUnZrNDNTYTFLSGZNWjFrT25TaTkyQkZ0WFJvZFA0NURwNG9iWEZqMDFXcFA4a3ZYYmJ1OUUzcXpqTUg3eDVTM0pPeTRjUEhuNU92TVJnVGNKZnNiN1hTVHVfRzlxUTdJOVNoVlgxb2VXV1VNU0QyR0psTk5abnhwTm0tMFJDdUxnYlpPYjRNNzBtakxxVUFTTUptZ2VNMkN0NmFicmpKY3RFRDZr?oc=5
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxQenFtcUEyMmlfSzVTSmxJRldqc2tLMzd1SXBvVmF5Z1FITlQxS1FBbDlqcWNWR1I3ZXd3cENVNGNJRzZOSHFRVkpJQmZUdjVzYkFUd3M0TUV0Q0VOZ0V1WW95STBUdTVRaFRiMlUxVmMxeDVxSGRqZ1NLOXR3dWhxSEUxQXRFRmduS1QzdW5TeUltbS1xWXZFNkx1V3hwVWdJR2k4VTQ0b0NJQXNHLVFTWU1PQQ?oc=5
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMiswFBVV95cUxQT0pvc0huTGRlbWZSek0xaG5hbmFpeHVjYVpmUHhET2haaEswaWUxNU05Z042cXAxRFZ3S016OTNSWk1uSFhsWTVsLWJSdVV6Zm9hazBWYktYVDZwVnhXTnpVcXBXTDJ5SUMxZ3VSa1ZvNFVQTFdPaTBlLVRtYW1UczJWNllsdVA2blBzLXhhUmxyRDhqWVRYd2F0Yi10bnFfNmYyNkFaOUtlZkw2Z3dPUnBsSQ?oc=5
+
 ## Taylor Swift and Travis Kelce wedding guest insists he didn't sneak in phone as Kevin Hart calls him
 
 - first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
@@ -454,15 +497,6 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTFJV0doeldGOGd2N3VCRGItTVJEenJDd29hVmFucWpJTUJvSF9UQVh6ZUd6UHNBLVV4NDJpeWJFSkdEcjBlaHdTT0RLNzdNUS1XYkVhY3p4a0NYXzB6d2VqeDlGMEEzS0tkLURZN0M2UzcwNUI1N3Awc2c3clZyMURLVmtzUjdWa2JtQS1IaVNnWEgzQzNjY0d3YTd3UDJjMENRcmlheElkUEk?oc=5
   - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxOLTdicW5ZUm9tZlAwTk9WOW1hVjE4TUltTnNWOFJVUnVSQkhrdUcxaUJtdkpBMWdndkozckRqYXdHdnk2VkxmTDVwOTdoQmVRMFFKVVRxSG1PaUNRcmpuTWl6WDZzNHVaQTdwdjRUQW5yTTl3RjdjejNCTlp1M3MxVnpn?oc=5
-
-## Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding - Pe
-
-- first seen: 2026-07-28 15:30 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Marcello Hernández Reveals the Most Surprising Thing at Taylor Swift and Travis Kelce’s Wedding  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQOG10cFVFRE9VNkpuUnZrNDNTYTFLSGZNWjFrT25TaTkyQkZ0WFJvZFA0NURwNG9iWEZqMDFXcFA4a3ZYYmJ1OUUzcXpqTUg3eDVTM0pPeTRjUEhuNU92TVJnVGNKZnNiN1hTVHVfRzlxUTdJOVNoVlgxb2VXV1VNU0QyR0psTk5abnhwTm0tMFJDdUxnYlpPYjRNNzBtakxxVUFTTUptZ2VNMkN0NmFicmpKY3RFRDZr?oc=5
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxQenFtcUEyMmlfSzVTSmxJRldqc2tLMzd1SXBvVmF5Z1FITlQxS1FBbDlqcWNWR1I3ZXd3cENVNGNJRzZOSHFRVkpJQmZUdjVzYkFUd3M0TUV0Q0VOZ0V1WW95STBUdTVRaFRiMlUxVmMxeDVxSGRqZ1NLOXR3dWhxSEUxQXRFRmduS1QzdW5TeUltbS1xWXZFNkx1V3hwVWdJR2k4VTQ0b0NJQXNHLVFTWU1PQQ?oc=5
 
 ## Karlie Kloss Reacts to "Amazing Couple" Taylor Swift and Travis Kelce's Wedding - E! News
 
