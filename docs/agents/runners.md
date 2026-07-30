@@ -126,8 +126,24 @@ resolving. Also ~4.2 PRs/day → 1, and each PR costs two CI runs.
 
 Phase 1 (done): each lane's prompt now lives in
 [`runner-prompts/vault-lanes/`](runner-prompts/vault-lanes/) instead of only
-inside its trigger — which closes the drift gap recorded below. Remaining phases
-and the rollback are in the plan doc.
+inside its trigger — which closes the drift gap recorded below.
+
+Phase 2 (done): the orchestrator is
+[`runner-prompts/vault-run.md`](runner-prompts/vault-run.md). It owns the shared
+scaffolding (one clone, one `sync:content`, one gate, one PR) and reads each lane
+file at the start of that lane rather than all six up front. Three properties are
+deliberate and worth preserving if it is ever edited:
+
+- **One commit per lane** (`lane(<name>): …`), so `git revert` undoes one lane
+  without touching the others.
+- **Per-lane failure isolation** — a failing lane is logged and the run
+  continues. A single lane taking out the whole day would make this
+  consolidation strictly worse than the six runs it replaces.
+- **Trim volume, never silently skip a lane.** Silently dropping a lane is the
+  failure mode that would make consolidation a regression, so the PR body must
+  name every lane that was not due, no-opped, or failed, with the reason.
+
+Remaining phases and the rollback are in the plan doc.
 
 ### 🔁 The block DECAYS — see [`routine-invariants.md`](routine-invariants.md)
 

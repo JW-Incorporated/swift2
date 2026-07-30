@@ -77,7 +77,7 @@ gate, commit, PR) so no lane repeats boilerplate.
       gap recorded in `runners.md`: nine runners had prompts existing ONLY inside
       the trigger, so the "repo file is the source of truth" rule was vacuously
       true for exactly the agents that drifted worst.
-- [ ] **Phase 2 — the orchestrator.** `runner-prompts/vault-run.md`: lane order,
+- [x] **Phase 2 — the orchestrator.** `runner-prompts/vault-run.md`: lane order,
       the due-today calendar, per-lane failure isolation, one commit per lane,
       one PR. Register the runner in `runners.md`.
 - [ ] **Phase 3 — create and test-fire.** Create the routine (Opus, daily,
