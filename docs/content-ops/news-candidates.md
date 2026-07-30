@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 88
+
+## Barefoot bandit strolls off with Taylor Swift standee from California ice cream shop - Yahoo
+
+- first seen: 2026-07-30 07:42 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Barefoot bandit strolls off with Taylor Swift standee from California ice cream shop  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOMWpkMVd3T25MZjF5VWxPRTJhV2lfLXJBV0xiekoxT3gxd2dfNkI5bURicWRucXR6NUp1NGEtVDZubnNKY1dPa1JXanNlVnBqMFF0WFJBT0pNSWNoRXBqV2kzZXFfenV2dE5xcUFsZlJZdm1pWE9zWlRuRUhVcVlJWUdfcTBCRVZhZDJ3?oc=5
 
 ## Weeks after being photographed heading to Taylor Swift and Travis Kelce’s wedding in New York, Karli
 
@@ -264,6 +272,17 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPeTdaWTNQMFdWeFhxU2dTMlg3Wi1LT0sydlhUN1RxZ1B2eGE4RWpWT0pvR0lBVWF0NERNV1Z5Nzd6VjdaYW9nSFNBUEVONzBxTDRQM3MyR05PUzNqZFhETV9UX1dkblFKTTZlQjlvN2ZUMHVqcm4xUHFPZlVTQWRzZTR2ZW56dFlGUm1EZTN0Y2paUVZZNGJTeGhsdkhzTFJDUVF4Y2hhY0tlX1MtYXdWTHdXaWY3UXMzdF9OYW9nbjN5WEc0VlNCY0VQRTZqTG1iN3ktcDFvT3pIZjlXZ3Bz?oc=5
 
+## Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding - New York Daily New
+
+- first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding  New York Daily News
+- sources:
+  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMiswFBVV95cUxONjBpRU02YUlHWWprYXppLUhjQ0wxUEVLNXIwaVRoeWUxalV2RDJVbl9Ha3haUkwwSVR2SExqWjZDcmQ4VWpRUHRGdXdvUnlIZUxfUDJVc1hlb0dhdU9GZmhEVzhJdXVNa29IblZjQlY4dGJaekh1MUV5ejM0MHUxekp4bmhwTjlJOHN2RjNVOUtjdjh1S0NWa0dacnRxVWJIRjh1RTZKTWI2V2laQWUyQnZXaw?oc=5
+  - [unverified] East Bay Times — https://news.google.com/rss/articles/CBMitAFBVV95cUxQeTl6NUpLc1JvNTVyQUx1c25uUFRKNTNLZjY1VFdUSzZWOTRIZXJ6dmI3aG1YSHpwX1k3allmbVVXTmlmY1VwNFowMHVnU01IRERSUExQUl9VaDFuQ2VtOE56T2FYY2NaYk9CdThzQm5WdG5xc3A4RkJGd3k0RlRVbEk1RWNzbHJJeXRqanBTTWh2YkFUcGM3UFUxM3drSTFGYlVnTl90Z1ZSZHZFQ1FUSDRsSWbSAboBQVVfeXFMTThnU1p4VHBHOVBzR2cwcGF4TDRKWnZyb01VWVhtSzVkaDhiOHZCd25nM2tESVRsSzJGcXU2UXF0STdCMzRjd2VzLU8xVmZNRzdCZXJUTm9RYUQ1NlB3Y2l1ZWloWXlNMmR5alRjaFlLX3VhamNDdTZHOEhFbHcyRk91QmhSdHhNdnloZEhFYWx4aUZjeVJIanJ6ekpQM0xoOWhkaVVsWUxfYVF1c1o0a2hLYVBBVE1TUjZ3?oc=5
+  - [unverified] Porterville Recorder — https://news.google.com/rss/articles/CBMikwJBVV95cUxNRXg3UHdRVXU0S0NWZlhzODMwTWFvT0ZLczBYWV9WSC1LbFdvSFlxdU5qaFhuTnpDbjd4NmlaZUx1T2pjWWRiUUNja1pXUUtEV04tc2M2bm1CUFdZMTZhbEFKVE9YT3VHZ2lRUk5abldXZ09zLXJidm1hWUw0UldSMFZoQUVKcnpKSnowMmZ3YjlqMFJqS29FNDladEhPVV9DN0ZoSnVzeC03QWFkbWh2U2Z2UGtsblkxTXR1OGlLc0dUa1dfU2w3WTF4VjMwM1FjRXFuVl9oM2RuampmZnRVLVlHeC1RNHlGc24zNWJ3SWFyZndzOEo3YktQMEFLWWdXSS1yeVBoVDRfeEJWaFUwRmVLVQ?oc=5
+  - [unverified] The Mercury News — https://news.google.com/rss/articles/CBMiswFBVV95cUxPaXd2TUNFczRma2R4R05rYlY0LW1QS2RGb1RIS3NMNS1mVDFzNmhIMUJhc0V2a0dneExQOWFHNE5Jc1o3UDU3NlZ4UzVJTE9CLWJSQ0VCbmRibFVoRDY5Q2w0Qk1Tb3B0cS1YVXpZd2p4OURqd0d1OW5RSXBYaDlyZzZkUEh2VW1Vd1I2OTJhSEVMOHdsa0JPcWF2aHVFZ0NyNEVuNFk3YXVrTW1lTjJxRjlpONIBuAFBVV95cUxNMkZpZEZBZTRPancxUUlEN2NmRHJxaU5fVm5KU3dXd3kta292eGYyREkzS2xBckpfVG9fVjFQLVZCTTFvQldoQXltM0JrS3E3SmFJX2ZMUXk1R1pzUkw2YjFtOGlNWEh1NGQzR3lIcW5DWkVHTWxiV0pubW5jX0xJWVdZY3JoeS1WRWg4Yk9UYUY0UjZBNjlWV1pWVzF6YzlYd1c3MlJxTGJ2NUplX1ZXZVFQM2tpLTFY?oc=5
+
 ## Simone Biles Jokes a Celebrity Wedding Guest ‘Stole’ This Item from Her at Taylor Swift and Travis K
 
 - first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
@@ -279,16 +298,6 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - summary: Simone Biles says this singer ‘stole’ her sunglasses at Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMitgFBVV95cUxNQnJnTmVabS1DZUJ5bDZlaTZoc1N1OUJ0YTJpSU9ISEZMX1ROQmg0YWpKNDRFNnZ5aE9WUXZCVW01TTBsY3FuTzEtOVlCYU9QZWZCakpxYVdFNzhvNVZzMW8zaG5RN0V4UFFMRFJ3ZW5lUVM3ajdTRlQ5ZXQ0WUR2MWRsOUM2bHdKVFM1Q0NhZG5ob0Vta0xjeTR1VjBwR25XY0JRX3l0UThHSWFUU1ZOMlBkZHh5QQ?oc=5
-
-## Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding - New York Daily New
-
-- first seen: 2026-07-29 04:26 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Simone Biles: ‘Avril Lavigne stole my sunglasses’ at Taylor Swift’s MSG wedding  New York Daily News
-- sources:
-  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMiswFBVV95cUxONjBpRU02YUlHWWprYXppLUhjQ0wxUEVLNXIwaVRoeWUxalV2RDJVbl9Ha3haUkwwSVR2SExqWjZDcmQ4VWpRUHRGdXdvUnlIZUxfUDJVc1hlb0dhdU9GZmhEVzhJdXVNa29IblZjQlY4dGJaekh1MUV5ejM0MHUxekp4bmhwTjlJOHN2RjNVOUtjdjh1S0NWa0dacnRxVWJIRjh1RTZKTWI2V2laQWUyQnZXaw?oc=5
-  - [unverified] East Bay Times — https://news.google.com/rss/articles/CBMitAFBVV95cUxQeTl6NUpLc1JvNTVyQUx1c25uUFRKNTNLZjY1VFdUSzZWOTRIZXJ6dmI3aG1YSHpwX1k3allmbVVXTmlmY1VwNFowMHVnU01IRERSUExQUl9VaDFuQ2VtOE56T2FYY2NaYk9CdThzQm5WdG5xc3A4RkJGd3k0RlRVbEk1RWNzbHJJeXRqanBTTWh2YkFUcGM3UFUxM3drSTFGYlVnTl90Z1ZSZHZFQ1FUSDRsSWbSAboBQVVfeXFMTThnU1p4VHBHOVBzR2cwcGF4TDRKWnZyb01VWVhtSzVkaDhiOHZCd25nM2tESVRsSzJGcXU2UXF0STdCMzRjd2VzLU8xVmZNRzdCZXJUTm9RYUQ1NlB3Y2l1ZWloWXlNMmR5alRjaFlLX3VhamNDdTZHOEhFbHcyRk91QmhSdHhNdnloZEhFYWx4aUZjeVJIanJ6ekpQM0xoOWhkaVVsWUxfYVF1c1o0a2hLYVBBVE1TUjZ3?oc=5
-  - [unverified] Porterville Recorder — https://news.google.com/rss/articles/CBMikwJBVV95cUxNRXg3UHdRVXU0S0NWZlhzODMwTWFvT0ZLczBYWV9WSC1LbFdvSFlxdU5qaFhuTnpDbjd4NmlaZUx1T2pjWWRiUUNja1pXUUtEV04tc2M2bm1CUFdZMTZhbEFKVE9YT3VHZ2lRUk5abldXZ09zLXJidm1hWUw0UldSMFZoQUVKcnpKSnowMmZ3YjlqMFJqS29FNDladEhPVV9DN0ZoSnVzeC03QWFkbWh2U2Z2UGtsblkxTXR1OGlLc0dUa1dfU2w3WTF4VjMwM1FjRXFuVl9oM2RuampmZnRVLVlHeC1RNHlGc24zNWJ3SWFyZndzOEo3YktQMEFLWWdXSS1yeVBoVDRfeEJWaFUwRmVLVQ?oc=5
 
 ## Barefoot bandit steals Taylor Swift cardboard cutout from SoCal ice cream shop in bizarre heist - Ne
 
@@ -751,36 +760,3 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - summary: Travis Kelce, Taylor Swift Anniversary Post Draws Attention After Wedding  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQZUJkV1pscjdnbDdfUUItcFNzczY0TTBhSEwwYS1CUkIzVUZyR2tUVS1pU3pqSHlxNkE1bXd4OGJ5M1luR3l6ZUJ3NWJabkpmU0ZnRUtLRzN0QllCWlJSREZDVHlYcDZFMWhBOWhlZlRoeEdEQlZVUXdUaWN3bzBxQ3dRWUVxYXByZk5PYXJVRG1zMGZzRzdlZnpfMGlGRlQ4TlFKR3NoMnQzS00?oc=5
-
-## Taylor Swift and Travis Kelce get heartfelt notes from families of first responders after $2M donati
-
-- first seen: 2026-07-27 04:49 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce get heartfelt notes from families of first responders after $2M donation  pagesix.com
-- sources:
-  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMi4AFBVV95cUxQX2FMd3Jyb1V6RHVxdUwybFZlRFh1V001bXcxWjM1cHg1NnRoN3ZwcktGRjVDU2pXWXZvODFLcWd5WmNkM2x6Uld3OFFpWDZ4eV85LUZYb05XOVF5akdoZXFuM09XTU1RU1dNbWoxV0QwdDBON1RpMUhqZWhSRjhidmFiZVZ3cGZfV0d5VkhTY2hfMFF6XzZfUkVzbmdLelA0MTQ0cE1ZRmpUb1BIOTNzblE1dlRXMXdCYld2QnpVSXJZQXRMcExVVUFidzlBc0ZzN2VCaUl5NGNHaF9VbVZDbQ?oc=5
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxQX0ZBUUxxMERmRDJkS3I2emR2YWpCWmtBbWdfWnZaTlk2MGNDaTlXUEVKLXl6bS13bjB2VlE1SVA4MWVQSlN1Vk9CNmlRNU5WWUNhR3huZzhhNElhYlI3T2N0eTlLN0E5a0cteGlSRVQ5ZWhCdmE4a19oMmR6eU9lR0dUem1lZw?oc=5
-
-## Niecy Nash Shares “Top Secret” Details About Taylor Swift’s Wedding - instyle.com
-
-- first seen: 2026-07-27 04:49 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Niecy Nash Shares “Top Secret” Details About Taylor Swift’s Wedding  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxNYnhCSjJUQWE2S1Y3ZVAwdDdFYjJoNFNnSWVOZFZqMHJXOXRvMHBvT0xId0MtQzRQZ25BT0lYeVlfZ2d0b1habGhIeVVBYS1haGV2VERJb3RTdllKLVpTaVV2dzVQdnAtdGpELTlEbm9jWmpxNzluRUs2LTVncDZUY0p6c0xXbWpvbjRNWmlxS2gzWFhFdHY1TmVSb28?oc=5
-
-## NBPAC presents FEARLESS – The Taylor Swift Experience in New Brunswick, NJ on 2026-10-03 - NewJersey
-
-- first seen: 2026-07-27 04:49 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: NBPAC presents FEARLESS – The Taylor Swift Experience in New Brunswick, NJ on 2026-10-03  NewJerseyStage.com
-- sources:
-  - [unverified] NewJerseyStage.com — https://news.google.com/rss/articles/CBMilgJBVV95cUxQdkthMFVUem1sNG95TUtpMWZ3U01qbzh5ak5iWGFnai1ZR0M4emJKOGlNTUxjV0I2UEpENUgzM0xpOUM2c1E5WXV5WHZBaUd2MzFyQUl1U0JkMVR3bVBfcjUyc0hnamhTVUJyc3I4ZFlocnpDT1hLd0xvVW9XZmQ1Yl9Pem4tRlY1c1AxREE5Znp2OHVCV1NuZGhkbEJ0UkdEeUpiMUtaTDdjU0s2aUllUm0zMUt3azB3aDF5YVVTTlByeEdDdTZOUlVMMmM0bG14ZzI0UzVZMFg0WTRqUHFJcFJoU1NtcERQTV9taU8zbnpIUFJwWkhDSHFSanBUeUZIQmw3dEpuSmpKeVpfQThTSU5SYmNoQQ?oc=5
-
-## Taylor Swift's Ex-Boyfriend Kept Shania Twain From Attending Her Wedding - Yahoo
-
-- first seen: 2026-07-27 04:49 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Ex-Boyfriend Kept Shania Twain From Attending Her Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNUktUdHhuTXlDWVhSYjJyRndqbHIwS283V2IwUW1sQ3dVX3JBVXN3alFiRGxlMmwwZW14aXNUWURScnVzU1NGbkRnTGJLeHY4RW9tNGdTUE9odGVBZXJxUlRFQWpLck1kUGNPSnNEMEJuYWY2TDRXQ1RkbUtOSmE3U2QwR1ZnNlY0Y254b1p3VHhoNy1xelBicFhDNmJoLUJ5WVlr?oc=5
