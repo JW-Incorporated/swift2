@@ -116,6 +116,19 @@ Kept deliberately (paused, not obsolete): **Marjorie 8 PM delta** and **Lex dept
 
 ### Remaining model downgrades — IDs captured, not yet applied
 
+### 🏗️ The Vault Run is being built — see [`vault-run-plan.md`](vault-run-plan.md)
+
+Six content lanes (Answerer, Content Shift, Photo Enrichment, Rumor Desk,
+Cross-Link, Stylist) are being consolidated into ONE daily runner. They all edit
+`supabase/seed/**` plus the same generated vault, so six separate PRs conflict by
+construction — that is what the retired self-check-in loops were largely
+resolving. Also ~4.2 PRs/day → 1, and each PR costs two CI runs.
+
+Phase 1 (done): each lane's prompt now lives in
+[`runner-prompts/vault-lanes/`](runner-prompts/vault-lanes/) instead of only
+inside its trigger — which closes the drift gap recorded below. Remaining phases
+and the rollback are in the plan doc.
+
 ### 🔁 The block DECAYS — see [`routine-invariants.md`](routine-invariants.md)
 
 Detaching the connector is **per-routine and point-in-time**. Every NEW routine
