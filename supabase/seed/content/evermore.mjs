@@ -1829,6 +1829,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
+            focalPoint: '58% 68%',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Carolina," from the Where the Crawdads Sing soundtrack.',
             kind: 'primary',
@@ -2293,6 +2294,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            focalPoint: '35% 28%',
             credit: 'Republic Records / Beth Garrabrant (album cover)',
             caption: "The Red (Taylor's Version) cover, revealed with the June 18, 2021 announcement.",
             kind: 'primary',
@@ -2331,6 +2333,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png',
+            focalPoint: '50% 42%',
             credit: '37d03d / Jagjaguwar (single cover art)',
             caption: 'Cover artwork for Big Red Machine\'s "Renegade," featuring Taylor Swift.',
             kind: 'primary',
@@ -2494,6 +2497,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png',
+            focalPoint: '50% 50%',
             credit: 'Asylum / Atlantic Records (single cover art)',
             caption: 'Cover artwork for Ed Sheeran\'s "The Joker and the Queen," featuring Taylor Swift.',
             kind: 'primary',
