@@ -97,6 +97,32 @@ on 2026-07-27 and has now hit the ceiling.
 **Requires a founder:** raise the spending limit or move to a plan with more
 included minutes, in Billing & plans. An agent must not change spending.
 
+**Still blocked as of 09:35 UTC** (re-verified — same annotation, unchanged for
+~2h). The self-paced build loop that was driving these phases has been STOPPED
+rather than left polling: waking every 2h to rediscover an unchanged external
+block is precisely the wasteful polling this whole engagement removed. Phase 4
+resumes the moment CI is green.
+
+### To resume Phase 4
+
+1. Fix billing; confirm with `gh run list --limit 3` showing runs >30s.
+2. Merge the Phase 3.5 PR (detection + STEP 0 recovery) — it is green-blocked,
+   not broken.
+3. Expect a burst of "content PR stuck red" alerts that are artifacts of this
+   outage, not defects.
+4. Then Phase 4: disable (never delete) the six runners, watch one cycle,
+   write the `docs/decisions.md` entry, measure the PR-count and
+   Actions-minutes delta.
+
+### Meanwhile, the fleet is producing unmergeable work
+
+The Vault Run (daily 16:07 UTC) **and** all six original runners are still
+enabled, and STEP 0 is not on `main` yet — so each will open a fresh PR daily
+that cannot merge. That is real Opus spend for zero shipped output. Pausing the
+content fleet until billing is fixed is the cheap call; it was left running
+because billing may be fixed within the hour and stopping content production
+has its own cost. Founder's choice.
+
 **A caution for whoever reads the alerts:** the new "Content PRs stuck red"
 watchdog check keys on `build: FAILURE`, which right now means "billing", not
 "bad content". Do not read those alerts as content defects until CI is running
