@@ -1251,6 +1251,7 @@ export default {
       month: 4,
       day: 22,
       category: 'sighting',
+      relatedIds: ['moment:vault-lover-the-pastel-turn-me-ends-the-reputation-black'],
       title: 'A denim-themed birthday party for Gigi Hadid — sans denim',
       snippet:
         "Taylor made a rare public appearance at best friend Gigi Hadid's 24th birthday party in New York, skipping the party's all-denim dress code for a red checkered blazer and floral dress.",
