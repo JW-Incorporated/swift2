@@ -2535,8 +2535,17 @@ export default {
       category: "music",
       title: "“Everything Has Changed” duet",
       snippet: "A folk-pop collaboration extends the album’s long single run.",
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
       moment: {
         context: "A tender duet kept Red on the charts deep into 2013, well over a year after release.",
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
+            focalPoint: '45% 28%',
+            credit: 'Big Machine Records (single cover art)',
+            kind: 'primary',
+          },
+        ],
       },
     },
   ],
