@@ -70,6 +70,38 @@ gate, commit, PR) so no lane repeats boilerplate.
 - **Kevin** — issue triage, opens no content PR.
 - **Karen** — read-only on content; its PR is just a run report. Weekly and cheap.
 
+## ⛔ HARD BLOCK (2026-07-30 ~07:54 UTC) — GitHub Actions minutes exhausted
+
+**Nothing can merge. This is not a code problem and no agent can fix it.**
+
+Every job now fails in 0–5 seconds with no steps executed. The check annotation:
+
+> The job was not started because recent account payments have failed or your
+> spending limit needs to be increased. Please check the 'Billing & plans'
+> section in your settings
+
+Timeline: CI was succeeding normally at 06:40 UTC (66s, 94s runs); from 07:54
+UTC every workflow fails instantly. The account was at 90% of included minutes
+on 2026-07-27 and has now hit the ceiling.
+
+**Consequences while this lasts:**
+
+- `main` is branch-protected on a passing `build`, so **no PR can merge** —
+  including the Phase 3.5 PR that fixes the red-PR blind spot.
+- `auto-merge-content.yml` fails too, so content PRs will accumulate unmerged.
+- **Phase 4 cannot start.** Retiring the six runners depends on verifying a
+  Vault Run cycle end-to-end, and no cycle can complete.
+- The Vault Run itself will keep producing PRs that cannot land. Each stalled
+  day compounds the backlog.
+
+**Requires a founder:** raise the spending limit or move to a plan with more
+included minutes, in Billing & plans. An agent must not change spending.
+
+**A caution for whoever reads the alerts:** the new "Content PRs stuck red"
+watchdog check keys on `build: FAILURE`, which right now means "billing", not
+"bad content". Do not read those alerts as content defects until CI is running
+again.
+
 ## Phases
 
 - [x] **Phase 1 — lane prompt files.** Extract the six lane prompts out of their
