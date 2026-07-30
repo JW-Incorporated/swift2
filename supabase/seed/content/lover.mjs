@@ -8,6 +8,41 @@
 export default {
   eraSlug: 'lover',
   items: [
+    // Era-ignition beat (2026-07-30, #828): the Lover timeline used to open on
+    // the June 30 masters sale — a business tragedy two singles deep — with the
+    // April pastel turn living only inside a fashion caption. This is the
+    // answering card to reputation's close (the April 22 Gigi Hadid party), and
+    // the beat the era was missing.
+    {
+      year: 2019,
+      month: 4,
+      day: 25,
+      category: 'music',
+      slug: 'lover-era-ignition-me-pastel-turn',
+      title: 'The pastel turn: ME! ends the reputation black',
+      snippet:
+        'A countdown clock, a butterfly mural repainted overnight, and an NFL-Draft-night interview with Robin Roberts — the single most legible palette flip of her career, staged across April 2019.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Me!_(song)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
+      relatedIds: [
+        'moment:vault-lover-seven-pastel-outfit-changes-in-the-me-video',
+        'moment:vault-reputation-a-denim-themed-birthday-party-for-gigi-hadid-sans-denim',
+      ],
+      moment: {
+        context:
+          'reputation had ended in black and white; Lover began in every color at once. On April 13, 2019, a countdown to midnight on April 26 appeared on her website and her feed turned to pastel skies — the snake era formally over. On April 25, street artist Kelsey Montague\'s butterfly mural in Nashville\'s Gulch was repainted with the word "Me!", the campaign hiding in plain sight on a public wall fans could pose in front of. That same day, during ABC\'s NFL Draft broadcast, she confirmed the details to Robin Roberts.\n\n"ME!", her duet with Brendon Urie of Panic! at the Disco, premiered at midnight on April 26 — written by Taylor with Joel Little and Urie, and produced by Taylor and Little. The video pulled 65.2 million views in its first 24 hours, breaking Vevo\'s single-day record; the song debuted at No. 100 on the Hot 100, then leapt to a No. 2 peak the following week. Critics read the bright palette exactly as intended: a deliberate, public exit from reputation\'s black-and-white, and the first full sight of the Lover aesthetic.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Me!_(song)' },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
+            credit: 'Republic Records (single cover art)',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
     {
       year: 2019,
       month: 9,
@@ -411,6 +446,7 @@ export default {
       month: 4,
       day: 26,
       category: 'fashion',
+      relatedIds: ['moment:vault-lover-the-pastel-turn-me-ends-the-reputation-black'],
       title: 'Seven pastel outfit changes in the ME! video',
       snippet:
         'Styled by Joseph Cassell Falconer, the video traded Reputation black-and-white for tulle, pastels, and bold suiting — including a Monique Lhuillier tea-length dress and a lemon-yellow power suit.',

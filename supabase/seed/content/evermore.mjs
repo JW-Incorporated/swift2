@@ -2466,6 +2466,9 @@ export default {
       month: 2,
       day: 11,
       category: 'release',
+      relatedIds: [
+        'moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer',
+      ],
       title: 'The Joker and the Queen: an Ed Sheeran duet with a nine-year Easter egg',
       snippet:
         'Out Feb. 11, 2022 — her verse added to Sheeran\'s piano ballad, with a video that reunites the two kids from 2013\'s "Everything Has Changed" video, now teenagers, finding each other again at college.',
