@@ -238,6 +238,9 @@ export default {
       month: 10,
       day: 22,
       category: 'music',
+      relatedIds: [
+        'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
+      ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
       snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
@@ -2535,8 +2538,17 @@ export default {
       category: "music",
       title: "“Everything Has Changed” duet",
       snippet: "A folk-pop collaboration extends the album’s long single run.",
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
       moment: {
         context: "A tender duet kept Red on the charts deep into 2013, well over a year after release.",
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
+            focalPoint: '45% 28%',
+            credit: 'Big Machine Records (single cover art)',
+            kind: 'primary',
+          },
+        ],
       },
     },
   ],
