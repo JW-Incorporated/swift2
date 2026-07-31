@@ -17,7 +17,8 @@ export default {
   items: [
     {
       year: 2010,
-      month: 10,
+      month: 11,
+      day: 3,
       category: 'business',
       title: 'Speak Now sells over a million copies in a single week',
       snippet:
@@ -29,6 +30,10 @@ export default {
         context:
           "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.\n\nIt also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
         sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-sells-over-1-million-in-record-billboard-200-debut-951902',
+          },
           {
             outlet: 'Grammy.com',
             url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
