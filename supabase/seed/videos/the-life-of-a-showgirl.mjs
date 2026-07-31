@@ -56,11 +56,8 @@ export default {
         'The lead single\'s video premiered as the centerpiece of the release-party theatrical event: showgirl staging that pulls Ophelia out of the water and onto the stage, inverting the Hamlet ending.',
       symbolism: 'Rescue-by-love replaces the drowning — the era\'s glitter is framed as the survivable version of the tragedy.',
       easterEggs: [],
-      // Fix (issue #1140): was youtubeId/officialUrl null (dead card) despite
-      // the correct, oEmbed-verified id already living on the track record
-      // (tracks/the-life-of-a-showgirl.mjs). Re-verified via oEmbed this pass.
-      officialUrl: 'https://www.youtube.com/watch?v=ko70cExuzZM',
-      media: [embed('ko70cExuzZM')],
+      officialUrl: null,
+      media: [],
       sources: [
         wiki('The_Fate_of_Ophelia', 'The Fate of Ophelia'),
         press(
@@ -69,7 +66,6 @@ export default {
           'People',
           'supports the music-video premiere timing and Swift directorial credit',
         ),
-        yt('ko70cExuzZM', 'Taylor Swift - The Fate of Ophelia (Official Music Video)'),
       ],
     },
     {
