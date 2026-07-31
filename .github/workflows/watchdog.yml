@@ -54,7 +54,7 @@ jobs:
       # Added 2026-07-23: alert steps now call scripts/watchdog/upsert-alert.sh
       # and send-mail.py, which need the repo checked out -- this workflow
       # previously ran entirely on gh/curl and never needed it.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
       # Daily-only gate (ALARMS gate #799, 2026-07-29): this job now also
       # fires hourly (see the `on.schedule` comment above) so the prod smoke

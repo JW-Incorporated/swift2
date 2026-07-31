@@ -76,7 +76,7 @@ jobs:
       # Added 2026-07-23: the send step now calls scripts/watchdog/send-mail.py
       # (shared with watchdog.yml), which needs the repo checked out — this
       # workflow previously ran entirely on gh/inline Python and never needed it.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
       - name: Pick the brief or delta to send
         id: pick

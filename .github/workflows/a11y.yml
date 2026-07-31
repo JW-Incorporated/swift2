@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 24
       # Canonical public URL is defined in docs/deploy.md; keep this in sync.
@@ -33,7 +33,7 @@ jobs:
           set +e
           npx --yes pa11y --standard WCAG2AA https://www.longlivets.com/ | tee pa11y-report.txt
           echo "pa11y exit: $?  (non-blocking)"
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v4
         with:
           name: a11y-reports
           path: |
