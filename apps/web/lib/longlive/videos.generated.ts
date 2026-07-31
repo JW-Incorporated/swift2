@@ -843,8 +843,8 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       summary: "The lead single's video premiered as the centerpiece of the release-party theatrical event: showgirl staging that pulls Ophelia out of the water and onto the stage, inverting the Hamlet ending.",
       easterEggs: [],
       symbolism: "Rescue-by-love replaces the drowning — the era's glitter is framed as the survivable version of the tragedy.",
-      youtubeId: "ko70cExuzZM",
-      sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia" }, { name: "Taylor Swift Debuts The Fate of Ophelia Music Video After Premiering It at Life of a Showgirl Movie Event", url: "https://people.com/taylor-swift-the-fate-of-ophelia-music-video-11823344" }, { name: "Taylor Swift - The Fate of Ophelia (Official Music Video)", url: "https://www.youtube.com/watch?v=ko70cExuzZM" }],
+      youtubeId: null,
+      sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia" }, { name: "Taylor Swift Debuts The Fate of Ophelia Music Video After Premiering It at Life of a Showgirl Movie Event", url: "https://people.com/taylor-swift-the-fate-of-ophelia-music-video-11823344" }],
     },
   ],
   "ttpd": [
