@@ -48,6 +48,10 @@ export default {
         photos: [
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1',
+            // Photo pass #762 (2026-07-31): viewed. Same frame used elsewhere
+            // in this file for this same shoot — matching that page's focal
+            // point (seated against the tree, face upper-center-right).
+            focalPoint: '52% 22%',
             credit: 'Beth Garrabrant',
             caption: 'folklore-era publicity photograph by Beth Garrabrant, shot with no styling team during lockdown.',
             kind: 'archival',

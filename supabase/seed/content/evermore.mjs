@@ -2900,6 +2900,33 @@ export default {
       snippet: "A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.",
       moment: {
         context: "The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Taylor to perform it live during the Eras Tour years later.",
+        // Photo pass #762 (2026-07-31): page had zero photos. (1) The live
+        // debut with HAIM, hosted on billboard.com's own CDN (not
+        // media.gettyimages.com directly, though sourced from a Getty
+        // photographer — allowed per the outlet-CDN rule) — curl HTTP 200 +
+        // image/jpeg, downloaded and vision-confirmed: Taylor and all three
+        // HAIM sisters on stage together, guitars in hand. (2) The official
+        // lyric video's title card — video id IEPomqor2A8, oEmbed-verified
+        // channel "Taylor Swift" (@TaylorSwift) — curl HTTP 200 + image/jpeg,
+        // downloaded and Read-viewed: the "no body, no crime (feat. Haim)"
+        // title over the foggy tree-line still.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/07/taylor-swift-haim-eras-tour-2023-billboard-1548.jpg',
+            focalPoint: '55% 22%',
+            credit: 'Mat Hayward/TAS23/Getty Images, via Billboard',
+            caption:
+              'Taylor Swift performs "no body, no crime" with HAIM (Este on bass, Danielle on electric guitar) at Lumen Field in Seattle, July 22, 2023 — the song\'s live debut.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/IEPomqor2A8/maxresdefault.jpg',
+            focalPoint: '30% 20%',
+            credit: 'Taylor Swift / YouTube (official lyric video title card)',
+            caption: 'The official "no body, no crime (feat. HAIM)" lyric video.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
