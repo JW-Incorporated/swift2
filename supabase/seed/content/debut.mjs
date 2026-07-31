@@ -2280,7 +2280,21 @@ export default {
             notes: 'carries her "they wanted to shelf me" quote and the RCA walkaway account',
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-31): freely licensed interior of Nashville's
+        // Bluebird Cafe — the listening room this moment is set in. Verified
+        // HTTP 200 + image/jpeg + downloaded and vision-confirmed this session
+        // (1380x886). Contextual venue photo, honestly captioned: the performer
+        // pictured is not Taylor.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Jamie_Meyer_at_Bluebird_Cafe%2C_Nashville.jpg',
+            focalPoint: '37% 44%',
+            credit: 'Uppsalaelle, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              "Inside the Bluebird Cafe's listening room in Nashville — the tiny, in-the-round space where a mid-set industry showcase like the November 2004 round that caught Scott Borchetta's ear plays out just feet from the crowd. (A later night at the venue; the performer pictured is not Taylor.)",
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
