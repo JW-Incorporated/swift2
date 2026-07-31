@@ -2059,6 +2059,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.",
       body: ["The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Taylor to perform it live during the Eras Tour years later."],
       tags: ["Music"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/07/taylor-swift-haim-eras-tour-2023-billboard-1548.jpg", credit: "Mat Hayward/TAS23/Getty Images, via Billboard", caption: "Taylor Swift performs \"no body, no crime\" with HAIM (Este on bass, Danielle on electric guitar) at Lumen Field in Seattle, July 22, 2023 — the song's live debut.", kind: "primary", focalPoint: "55% 22%" }, { url: "https://i.ytimg.com/vi/IEPomqor2A8/maxresdefault.jpg", credit: "Taylor Swift / YouTube (official lyric video title card)", caption: "The official \"no body, no crime (feat. HAIM)\" lyric video.", kind: "archival", focalPoint: "30% 20%" }],
     },
     {
       id: "vault-evermore-champagne-problems",
@@ -2424,7 +2425,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She met a guy who seemed perfect on paper — then wrote a song, with country outlaw John Rich, about missing an ex who wasn't.",
       body: ["Taylor was inspired after meeting someone who seemed like the ideal partner but didn't feel as exciting as a more toxic ex. She brought the idea to a writing session with John Rich, saying he related \"because he is that complicated, frustrating messy guy in his relationships.\"", "She called the collaboration \"just so cool\" and Rich \"an incredible writer\"; he, in turn, was impressed by her songwriting and connection with her audience at her age."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records (album cover art)", caption: "Cover art for Fearless, the album that carries \"The Way I Loved You.\"", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records (album cover art)", caption: "Cover art for Fearless, the album that carries \"The Way I Loved You.\"", kind: "primary", focalPoint: "38% 30%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Way_I_Loved_You" }],
     },
     {
@@ -2446,7 +2447,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A cover of a Luna Halo rock song her label president introduced her to — reworked into a stripped-down country-pop bonus track.",
       body: ["Taylor discovered Luna Halo's \"Untouchable\" when her label president gave her the band's album, then debuted a stripped-down cover during a 2008 \"Stripped\" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition.", "Luna Halo's Nathan Barlowe on her pick: \"She could have chosen any cover in the world, but that's what she chose.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", caption: "Cover art for Fearless, the album that carries her \"Untouchable\" cover.", kind: "primary", focalPoint: "38% 30%" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-untouchable/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Luna_Halo_(album)" }],
     },
     {
@@ -2577,7 +2578,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her Fearless Tour stop at the Garden on Aug. 27, 2009 — tickets had sold out in roughly 60 seconds when they went on sale that winter.",
       body: ["Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone's review of the show read like a coronation — a two-hour, three-act \"elaborate spectacle\" that opened with \"You Belong with Me\" in marching-band gear and ended with a waterfall drenching her onstage.", "In between she carried a guitar into the stands for an acoustic set, and told the crowd after \"Tim McGraw\": \"As long as I live, I will never forget what you just did for me.\" Her own pre-show summary, per Rolling Stone: \"I'm freaking out.\""],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg", credit: "calmdownlove / Wikimedia Commons, CC BY 2.0", caption: "Performing on the Fearless Tour, 2009 — the tour whose Madison Square Garden stop sold out in about a minute.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg", credit: "calmdownlove / Wikimedia Commons, CC BY 2.0", caption: "Performing on the Fearless Tour, 2009 — the tour whose Madison Square Garden stop sold out in about a minute.", kind: "primary", focalPoint: "36% 48%" }],
       sources: [{ name: "Taylor Swift sells out fast", url: "https://www.countrystandardtime.com/news/newsitem.asp?xid=3395" }, { name: "Taylor Swift Performs a \"Fearless\" Set at Madison Square Garden", url: "https://www.rollingstone.com/music/music-country/taylor-swift-performs-a-fearless-set-at-madison-square-garden-246419/" }, { name: "Just Jared Jr. (photo gallery — the Aug. 27, 2009 MSG show)", url: "https://www.justjaredjr.com/photo-gallery/269331/taylor-swift-msg-nyc-concert-13/" }],
     },
     {
@@ -2589,7 +2590,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Justin Bieber — the 15-year-old opening the Fearless Tour's UK leg — fractured his foot during \"One Time\" at Wembley Arena on Nov. 23, 2009, and finished the song anyway.",
       body: ["Bieber said he tripped over something coming down a ramp and \"felt my ankle roll in a very bad way,\" but sang \"One Time\" through to the end before limping backstage to the medics — skipping the encore, getting a visit from Taylor herself, then heading to the hospital for X-rays and a cast.", "He was back opening for Taylor in Manchester the next night, show-must-go-on style. The booking itself is the time capsule: two teenagers on one arena bill, months before both went supernova."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/e/e9/2009_Justin_Bieber_NYC_1.JPG", credit: "Kerosene Photography / CC BY 2.0 via Wikimedia Commons", caption: "For reference — not from the Wembley show: 15-year-old Justin Bieber at a New York in-store appearance on Sept. 1, 2009, weeks before he opened the Fearless Tour's UK leg.", kind: "reference" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/e/e9/2009_Justin_Bieber_NYC_1.JPG", credit: "Kerosene Photography / CC BY 2.0 via Wikimedia Commons", caption: "For reference — not from the Wembley show: 15-year-old Justin Bieber at a New York in-store appearance on Sept. 1, 2009, weeks before he opened the Fearless Tour's UK leg.", kind: "reference", focalPoint: "46% 20%" }],
       sources: [{ name: "Justin Bieber Fractures His Foot", url: "https://www.justjaredjr.com/2009/11/23/justin-bieber-fractures-his-foot/" }, { name: "Justin Bieber Performs With Broken Foot", url: "http://archive.longislandpress.com/2009/11/25/justin-bieber-performs-with-broken-foot/" }, { name: "Wikimedia Commons (file page — 2009 Justin Bieber NYC 1)", url: "https://commons.wikimedia.org/wiki/File:2009_Justin_Bieber_NYC_1.JPG" }],
     },
     {
@@ -2689,7 +2690,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Announced the day before release — then Taylor became the first artist ever to debut atop the Hot 100 (with 'cardigan') and the Billboard 200 in the same week.",
       body: ["The Billboard 200 dates to 1956 and the Hot 100 to 1958, and in all those decades nobody had opened at No. 1 on both in the same week until the chart dated Aug. 8, 2020. \"cardigan\" did it on 34 million U.S. streams and 71,000 downloads — her sixth Hot 100 No. 1, and just the 41st song ever to debut at the top.", "The album side was just as lopsided: all 16 standard-edition tracks hit the Hot 100 at once, with three debuting in the top 10 (\"cardigan\" at No. 1, \"the 1\" at No. 4, \"exile\" at No. 6), which also made her the first artist to debut two songs in the top four simultaneously. For a record announced sixteen hours before release, with no lead single and no rollout, the double crown read as proof the surprise-drop model hadn't cost her anything at all."],
       tags: ["Lore"],
-      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1", credit: "Beth Garrabrant", caption: "folklore-era publicity photograph by Beth Garrabrant, shot with no styling team during lockdown.", kind: "primary" }],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1", credit: "Beth Garrabrant", caption: "folklore-era publicity photograph by Beth Garrabrant, shot with no styling team during lockdown.", kind: "primary", focalPoint: "52% 22%" }],
       sources: [{ name: "BuzzFeed", url: "https://www.buzzfeed.com/eleanorbate/taylor-swift-folklore-cardigan-charts" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-becomes-first-artist-open-atop-hot-100-billboard-200-same-week-1305638/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
     },
     {
