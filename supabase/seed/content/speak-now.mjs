@@ -1697,6 +1697,9 @@ export default {
           // shown as thumbnailUrl.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Taylor_Swift_2011_2.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x947 downsized from
+            // 3119x2462). Seated center with the teal guitar, face upper-center.
+            focalPoint: '46% 23%',
             credit: 'dephisticate, Wikimedia Commons (CC BY 2.0)',
             caption: 'Acoustic performance beneath an illuminated tree, Prudential Center, July 2011, on the tour supporting the album.',
             kind: 'archival',
@@ -2141,6 +2144,10 @@ export default {
         // Billboard Music Awards in Las Vegas that May — a different event
         // entirely — and was rejected rather than mislabeled. Genuinely
         // thin for this specific December ceremony.
+        // Re-reviewed 2026-08-01 (#762): tried justjared.com's Dec. 2, 2011
+        // "Billboard Women in Music Luncheon" gallery (the actual ceremony)
+        // but the host blocks automated fetches (403) and no mirror of that
+        // gallery exists on an approved CDN. Stays reviewed-sparse at one photo.
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',
