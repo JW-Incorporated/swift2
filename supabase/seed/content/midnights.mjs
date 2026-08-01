@@ -1151,6 +1151,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Cruel Summer" moments.
+      relatedIds: [
+        'moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack',
+        'moment:vault-lover-cruel-summer-takes-four-years-to-become-a-no-1',
+      ],
       year: 2023,
       month: 10,
       day: 23,
@@ -2215,6 +2220,9 @@ export default {
     // --- G-A depth pass: Active-month payoff beats (2026-07-15)
     {
       slug: 'all-too-well-grammy-best-music-video',
+      // Cross-link (Stage 3, 2026-07-30): the "All Too Well: The Short Film"
+      // pair — the premiere, and the Grammy win it led to — now interlink.
+      relatedIds: ['moment:vault-evermore-all-too-well-the-short-film-premieres-she-wrote-it-she-direc'],
       year: 2023,
       month: 2,
       day: 5,
@@ -2805,6 +2813,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the folklore reveal this song's
+      // pseudonym pays off. (Note: "William Bowery revealed" in folklore.mjs
+      // is a same-fact duplicate of the reveal moment linked below — not a
+      // second link target; see PR notes.)
+      relatedIds: ['moment:vault-folklore-william-bowery-is-joe-the-long-pond-reveal'],
       year: 2022,
       month: 10,
       category: 'music',
