@@ -1489,6 +1489,10 @@ export default {
         // Photo re-check (2026-07-19, Tier 3): stays at one image — Wikimedia
         // Commons has no Rogers Centre Toronto Eras Tour category or files
         // from the November 2024 dates this $2B tally was announced against.
+        // Re-reviewed 2026-08-01 (#762): checked for a Vancouver final-show
+        // (Dec. 8, 2024) photo tied to the tour-total announcement — nothing
+        // on an outlet CDN or Commons beyond wire/Getty art already excluded.
+        // Stays reviewed-sparse at one image.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
