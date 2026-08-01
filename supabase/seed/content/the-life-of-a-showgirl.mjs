@@ -3629,6 +3629,12 @@ export default {
             reliability_score: 5,
           },
         ],
+        // Photo pass #762 (2026-08-01): searched for a genuine photo — the gift
+        // itself has no photo op (a private wire transfer, acknowledged only
+        // via the fund's own written thank-you), and neither TMZ, Rolling
+        // Stone, ABC7, Officer.com, nor answerthecall.org run a dedicated
+        // event photo for it. Reviewed-sparse: no fabricated stand-in added.
+        photos: [],
       },
     },
     {
@@ -8794,6 +8800,11 @@ export default {
         // image/jpeg, downloaded and viewed — archival Elizabeth Taylor
         // footage, distinct from the maxresdefault already used on the
         // elizabeth-taylor track pages.
+        // Photo pass #762 (2026-08-01): reaches 2/2. A second, distinct
+        // auto-generated frame from the same official video (maxres2, not
+        // used anywhere else in this file) — curl 200 image/jpeg,
+        // downloaded and vision-confirmed: a different archival scene,
+        // candlelit, ivy in the foreground.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxres3.jpg',
@@ -8804,6 +8815,16 @@ export default {
             caption:
               'The video leans on archival footage of its namesake: Elizabeth Taylor in a violet headscarf, diamond flashing, seaside.',
             kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxres2.jpg',
+            // Face is candlelit, right-of-center, ivy leaves cross the left
+            // third of frame — keep the crop weighted right.
+            focalPoint: '58% 40%',
+            credit: 'Taylor Swift / Republic Records (official "Elizabeth Taylor" video frame, YouTube)',
+            caption:
+              'A second archival scene from the video: Elizabeth Taylor half-lit behind a trellis of ivy.',
+            kind: 'archival',
           },
         ],
       },

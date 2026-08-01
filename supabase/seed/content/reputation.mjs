@@ -74,6 +74,10 @@ export default {
         // retrievable URLs), their chart-story art is wire/Getty-only, and no
         // Commons photo depicts the sales week itself. The album cover is the
         // artifact the 1.2M buyers bought; focal point set by eye this run.
+        // Re-reviewed 2026-08-01 (#762): searched again for a second image
+        // (Time 100 gala, TIME cover, era press) — nothing on an outlet-CDN
+        // or Commons host tied to this specific Nov. 2017 chart week. Stays
+        // reviewed-sparse at one image.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
@@ -227,30 +231,46 @@ export default {
           // All 4 below curl 200 image/jpeg, downloaded and vision-confirmed.
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956230118.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Three faces level
+            // across the upper third; Taylor is the center figure.
+            focalPoint: '50% 28%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'Camila Cabello, Taylor, and Charli XCX backstage at University of Phoenix Stadium before opening night, May 8, 2018.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956319166.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Three singers mid-song,
+            // faces in the upper fifth, Taylor centered between the other two.
+            focalPoint: '48% 20%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'The three-way "Shake It Off" that closed the opening set, Cabello and Charli XCX joining Taylor on stage.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956299498.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Close crop, her
+            // face fills the top of frame, arms raised on either side.
+            focalPoint: '48% 15%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'Taylor performs opening night of the reputation Stadium Tour, May 8, 2018.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x636). The animatronic
+            // snake head fills the center-right of frame.
+            focalPoint: '55% 35%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'The tour\'s giant animatronic snake, "Karyn" — the mascot the reclaimed symbol became a year after the Kimye leak.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x800 downsized from
+            // 5472x3648). Taylor performs front-right on the gilded stage
+            // platform, lower-right of frame; the snake set dominates the rest.
+            focalPoint: '68% 55%',
             credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Golden snake set pieces frame the stage during "Look What You Made Me Do," Seattle, May 22, 2018.',
             kind: 'archival',
@@ -400,12 +420,18 @@ export default {
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '55% 35%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'The reclaimed snake\'s full-size payoff, a year later: the reputation Stadium Tour\'s animatronic mascot, fans nicknamed her Karyn.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '68% 55%',
             credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Golden snake set pieces on the reputation Stadium Tour, Seattle, May 2018 — the visual language this teaser opened.',
             kind: 'archival',
@@ -2263,36 +2289,55 @@ export default {
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Lucian_Grainge_at_State_of_the_Entertainment_Industry_2018.jpg',
+            // Photo pass #762 (2026-08-01): viewed (659x1200 downsized from
+            // 1007x1835). Portrait crop, face centered horizontally, upper third.
+            focalPoint: '50% 25%',
             credit: 'Luke Harold (CC0)',
             caption: 'Sir Lucian Grainge, UMG chairman/CEO, four days before the deal — one of the "incredible partners" named in her announcement.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Monte_Lipman_Headshot_Cropped.jpg',
+            // Photo pass #762 (2026-08-01): viewed (571x544). Tight headshot,
+            // face fills most of frame, centered.
+            focalPoint: '50% 40%',
             credit: 'BBscary, Wikimedia Commons (CC BY-SA 4.0)',
             caption: "Monte Lipman, Republic Records' founder and CEO, the other partner named in the announcement.",
             kind: 'reference',
           },
           {
             url: 'https://thefader-res.cloudinary.com/private_images/w_760,c_limit,f_auto,q_auto:best/GettyImages-1048415872_v1oq0t/taylor-swift-republic-records-deal-spotify-contract.jpg',
+            // Photo pass #762 (2026-08-01): viewed (760x508). Onstage performing,
+            // upper body upper-center of frame.
+            focalPoint: '48% 25%',
             credit: 'Kevin Winter/Getty Images, via The FADER',
             caption: 'A contemporary reference photo from the same period, not from the announcement itself — no photo op exists for the signing.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Umgheadquarters.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x900 downsized from
+            // 4608x3456). Building facade fills the frame, roughly centered
+            // with palm trees flanking both sides.
+            focalPoint: '50% 45%',
             credit: 'Coolcaesar, Wikimedia Commons (CC BY-SA 3.0)',
             caption: 'Universal Music Group\'s Santa Monica headquarters — the new corporate home behind the deal.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/98/Republic_Records_logo.svg',
+            // Photo pass #762 (2026-08-01): viewed. Wordmark stacked in the
+            // upper half of the mark, with bars beneath — visual weight sits high.
+            focalPoint: '50% 30%',
             credit: 'Republic Records (official logo)',
             caption: 'The Republic Records identity — the label side of the deal.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg',
+            // Photo pass #762 (2026-08-01): viewed. A circular, symmetric mark —
+            // genuinely reads best centered.
+            focalPoint: '50% 50%',
             credit: 'Spotify (public domain mark)',
             caption: 'The Spotify-equity clause — proceeds from any future UMG share sale distributed to all its artists, non-recoupable — was the deal point she called "non-negotiable."',
             kind: 'reference',
