@@ -180,6 +180,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg", credit: "E! Online", caption: "Dancing together at the 2016 Met Gala afterparty, where the two met — the start of the relationship this moment covers.", kind: "primary", focalPoint: "50% 40%" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html" }],
+      relatedIds: ["moment:vault-1989-hand-in-hand-after-a-haim-show-at-the-troubadour-the-first-c"],
     },
     {
       id: "vault-1989-a-fourth-of-july-beach-walk-in-rhode-island",
@@ -321,6 +322,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201533/rs_634x1024-150403050319-634.Taylor-Swift-Calvin-Harris-JR-4315.jpg", credit: "MEP/Splash News", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/17305/taylor-swift-calvin-harris-romance-rewind" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html" }],
+      relatedIds: ["moment:vault-1989-tom-hiddleston-weeks-after-the-calvin-harris-split"],
     },
     {
       id: "vault-1989-gigi-hadid-and-karlie-kloss-stop-by-the-nyc-apartment-for-a-",
@@ -458,6 +460,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png", credit: "Big Machine Records", kind: "primary", focalPoint: "47% 42%" }, { url: "https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.", kind: "archival", focalPoint: "48% 42%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)" }],
+      relatedIds: ["moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve"],
     },
     {
       id: "vault-1989-a-yahoo-livestream-announces-1989-her-first-documented-offic",
@@ -618,6 +621,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/JLf9q36UsBk/maxresdefault.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Mud-caked and mid-pursuit — a still from the official 'Out of the Woods' video, premiered on New Year's Rockin' Eve, Dec. 31, 2015.", kind: "archival", focalPoint: "50% 42%" }],
       sources: [{ name: "Taylor Swift 'Out of the Woods' Video Premiere Will Hit New Year's Rockin' Eve", url: "https://www.billboard.com/music/pop/taylor-swift-out-of-the-woods-premiere-new-years-rockin-eve-6820708/" }, { name: "Taylor Swift to Debut 'Out of the Woods' Music Video During 'New Year's Rockin' Eve' on ABC", url: "https://abcnews.go.com/Entertainment/taylor-swift-debut-woods-music-video-years-rockin/story?id=35897285" }],
+      relatedIds: ["moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac"],
     },
     {
       id: "vault-1989-taylor-vs-treadmill-the-apple-music-ad-that-sold-a-drake-son",
@@ -965,6 +969,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://townsquare.media/site/204/files/2019/08/Taylor-Rascal-Flatts-Diary-Entry.jpg?w=980&q=75", credit: "Taylor Swift's handwritten diary entry, Oct. 18, 2006", kind: "primary" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-diary-entry-2006-rascal-flatts-tour/" }],
+      relatedIds: ["moment:vault-debut-her-first-arena-tour-opening-for-rascal-flatts-on-a-days-not"],
     },
     {
       id: "vault-debut-singing-the-anthem-at-a-detroit-lions-thanksgiving-game-16-y",
@@ -1021,6 +1026,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/teardrops-on-my-guitar" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/drew-hardwick-taylor-swift-sang-122711087.html" }],
+      relatedIds: ["moment:vault-debut-teardrops-on-my-guitar-goes-to-radio-and-then-to-pop"],
     },
     {
       id: "vault-debut-picture-to-burn-and-the-line-rewritten-for-radio",
@@ -1032,7 +1038,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png", credit: "Big Machine Records (single cover art)", kind: "primary", focalPoint: "58% 22%" }, { url: "https://i.ytimg.com/vi/yCMqcFAigRg/sddefault.jpg", credit: "Still from the official \"Picture to Burn\" music video (dir. Trey Fanjoy), Big Machine Records, via YouTube", caption: "Fronting the band against a wall of amps in the \"Picture to Burn\" video — the revenge fantasy that turned an after-school outburst into a single.", kind: "archival", focalPoint: "47% 32%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Picture_to_Burn" }],
-      relatedIds: ["moment:vault-tloas-ruin-the-friendship-a-regret-from-hendersonville-high"],
+      relatedIds: ["moment:vault-tloas-ruin-the-friendship-a-regret-from-hendersonville-high", "moment:vault-debut-picture-to-burn-makes-it-four-straight-top-10s"],
     },
     {
       id: "vault-debut-a-surprise-duet-with-a-14-year-old-agt-finalist-off-a-red-ey",
@@ -1100,6 +1106,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)", kind: "archival", focalPoint: "52% 18%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Joe_Jonas.jpg", credit: "Loreal Reid (CC BY 2.0) via Wikimedia Commons", caption: "Joe Jonas on the Burnin' Up tour, July 5, 2008 — the summer the relationship began, on the tour she turned up to sing on (archival, era context).", kind: "archival", focalPoint: "45% 14%" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2008/11/06/joe-jonas-taylor-swift-phone-call-dump/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-joe-jonas-ups-175948631.html" }],
+      relatedIds: ["moment:vault-debut-the-joe-jonas-chapter-begins"],
       significance: "notable",
     },
     {
@@ -1113,6 +1120,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift, 2007 (archival, era context; not the Rascal Flatts tour)", kind: "archival", focalPoint: "70% 14%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG", credit: "Wikimedia Commons (public domain) — Taylor Swift at Phoenix International Raceway, Nov. 12, 2006", caption: "Sixteen years old, three weeks after the album release, waiting on a NASCAR stage in Phoenix mid-tour — sundress and red skull cowboy boots.", kind: "archival", focalPoint: "46% 30%" }],
       sources: [{ name: "How Eric Church's Rascal Flatts Feud Helped Launch Taylor Swift", url: "https://tasteofcountry.com/eric-church-rascal-flatts-tour-taylor-swift-secret-history/" }, { name: "Eric Church Details The Phone Call He Got From Taylor Swift When She Replaced Him On 2006 Rascal Flatts Tour", url: "https://www.whiskeyriff.com/2025/09/22/eric-church-details-the-phone-call-he-got-from-taylor-swift-when-she-replaced-him-on-2006-rascal-flatts-tour/" }],
+      relatedIds: ["moment:vault-debut-her-diary-entry-the-day-she-got-the-call-to-open-for-rascal-"],
     },
     {
       id: "vault-debut-opening-for-george-strait-countrys-biggest-headliner",
@@ -1217,6 +1225,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG", credit: "Big Machine Records (single cover art)", kind: "primary", focalPoint: "35% 22%" }, { url: "https://i.ytimg.com/vi/xKCek6_dB0M/hqdefault.jpg", credit: "Big Machine Records / YouTube (official \"Teardrops on My Guitar\" music video still)", kind: "archival", focalPoint: "68% 42%" }],
       sources: [{ name: "Teardrops on My Guitar", url: "https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar" }, { name: "Teardrops on My Guitar by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/teardrops-on-my-guitar" }],
+      relatedIds: ["moment:vault-debut-teardrops-on-my-guitar-and-the-classmate-who-showed-up-in-he"],
     },
     {
       id: "vault-debut-picture-to-burn-makes-it-four-straight-top-10s",
@@ -1229,6 +1238,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png", credit: "Big Machine Records (single cover art)", kind: "primary", focalPoint: "45% 18%" }, { url: "https://i.ytimg.com/vi/yCMqcFAigRg/hqdefault.jpg", credit: "Big Machine Records / YouTube (official \"Picture to Burn\" music video still)", kind: "archival", focalPoint: "48% 32%" }],
       sources: [{ name: "Picture to Burn", url: "https://en.wikipedia.org/wiki/Picture_to_Burn" }, { name: "Taylor Swift's Debut Album Turns 10: A Track-by-Track Retrospective", url: "https://www.billboard.com/music/pop/taylor-swift-debut-album-anniversary-7550054/" }],
+      relatedIds: ["moment:vault-debut-picture-to-burn-and-the-line-rewritten-for-radio"],
     },
     {
       id: "vault-debut-our-song-written-for-the-ninth-grade-talent-show",
@@ -1302,6 +1312,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)", kind: "archival", focalPoint: "52% 18%" }],
       sources: [{ name: "Taylor Swift And Joe Jonas: When Did They Date And Why Did They Break Up?", url: "https://www.capitalfm.com/news/taylor-swift-joe-jonas-relationship-break-up/" }, { name: "Joe Jonas & Taylor Swift: A Post-Breakup Timeline", url: "https://www.billboard.com/music/pop/joe-jonas-taylor-swift-a-post-breakup-timeline-8514830/" }],
+      relatedIds: ["moment:vault-debut-joe-jonas-ends-it-in-a-27-second-phone-call"],
     },
     {
       id: "vault-debut-opening-brad-paisleys-bonfires-amplifiers-fall-leg",
@@ -1617,6 +1628,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }, { name: "Vogue Arabia", url: "https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/" }],
+      relatedIds: ["moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party", "moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb"],
       products: [{ brand: "WonderlandByLilian", item: "Ivory Short Beaded Lace Dress with Cowl Neckline", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/ivory-short-wedding-party-dresses-with-beaded-lace-wedding-gown-long-sleeve-with-cowl-neckline-plus-size", price: "$2,999.00", isAlternative: true, altNote: "Zuhair Murad has no accessible direct retail -- this is a current made-to-order ivory beaded mini, framed as bridal rather than press-event wear, closest real match." }],
     },
     {
@@ -1801,7 +1813,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/69/All_Too_Well_short_film_poster.jpg", credit: "Republic Records (film poster)", caption: "Poster for All Too Well: The Short Film, starring Sadie Sink and Dylan O'Brien.", kind: "primary", focalPoint: "50% 32%" }],
       sources: [{ name: "All Too Well: The Short Film", url: "https://en.wikipedia.org/wiki/All_Too_Well:_The_Short_Film" }],
-      relatedIds: ["moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins", "moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever"],
+      relatedIds: ["moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins", "moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever", "moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a"],
       significance: "notable",
     },
     {
@@ -1995,7 +2007,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png", credit: "Asylum / Atlantic Records (single cover art)", caption: "Cover artwork for Ed Sheeran's \"The Joker and the Queen,\" featuring Taylor Swift.", kind: "primary", focalPoint: "50% 50%" }],
       sources: [{ name: "The Joker and the Queen", url: "https://en.wikipedia.org/wiki/The_Joker_and_the_Queen" }],
-      relatedIds: ["moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer"],
+      relatedIds: ["moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer", "moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha"],
     },
     {
       id: "vault-evermore-this-love-taylors-version-arrives-early-care-of-a-tv-trailer",
@@ -2140,6 +2152,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records", kind: "primary", focalPoint: "68% 28%" }, { url: "https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg", credit: "Big Machine Records / official Taylor Swift YouTube channel", caption: "Still from the official \"Love Story\" music video.", kind: "archival", focalPoint: "52% 45%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }, { name: "Wide Open Country", url: "https://www.wideopencountry.com/love-story-taylor-swift/" }],
+      relatedIds: ["moment:vault-fearless-love-story-arrives-two-months-before-the-album"],
     },
     {
       id: "vault-fearless-fifteen-written-for-her-best-friend-abigail",
@@ -2189,6 +2202,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg", credit: "Wikimedia Commons", kind: "primary", focalPoint: "50% 55%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg", credit: "calmdownlove / Wikimedia Commons, CC BY 2.0", caption: "The full band on the tour's round center stage, with a live jumbotron feed behind them, Portland.", kind: "reference", focalPoint: "40% 60%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg", credit: "calmdownlove / Wikimedia Commons, CC BY 2.0", caption: "A gold sequined dress and cowboy boots, fist raised mid-song, Portland.", kind: "archival", focalPoint: "25% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/47/Taylor_Swift_-_B-stage_-_Newark_-_Fearless_Tour_2010.jpg", credit: "Alexanhalasan / Wikimedia Commons, CC BY-SA 2.0", caption: "Seated on the B-stage in a teal dress and embroidered boots, her hand-painted \"13\" visible while playing acoustic guitar, Newark, May 13, 2010.", kind: "archival", focalPoint: "35% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Taylor_Swift%2C_Fearless_tour%2C_Australia%2C_2010.jpg", credit: "Soth Loeu / Wikimedia Commons, CC BY-SA 3.0", caption: "A silver fringed dress during the tour's Australian leg, 2010.", kind: "archival", focalPoint: "48% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f5/Taylor_Swift_-_Fearless_Tour_-_Foxboro_01.jpg", credit: "Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0", caption: "A white-and-gold majorette-style costume with a plumed hat for the tour's marching-band segment, Foxboro.", kind: "archival", focalPoint: "45% 25%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_Fearless_Tour_01.jpg", credit: "WEZL / Wikimedia Commons, CC BY 2.0", caption: "A black rock-styled outfit with electric guitar, flanked by her full band.", kind: "reference", focalPoint: "42% 55%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_Tour" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/" }],
       milestone: { id: "m-fear-0", label: "Fearless Tour opens", kind: "tour" },
+      relatedIds: ["moment:vault-fearless-a-marching-band-reveal-to-open-the-fearless-tour"],
       significance: "notable",
     },
     {
@@ -2213,7 +2227,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75", credit: "Taste of Country", kind: "primary", focalPoint: "50% 22%" }, { url: "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=375", credit: "Jeff Kravitz/FilmMagic, via The Guardian", caption: "Kanye West steps onto the VMA stage while Taylor is accepting Best Female Video at Radio City Music Hall.", kind: "primary", focalPoint: "50% 22%" }, { url: "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=375", credit: "Kevin Mazur/WireImage, via The Guardian", caption: "Taylor finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.", kind: "primary", focalPoint: "50% 22%" }, { url: "https://static.time.com/v3/assets/bltea6093859af6183b/bltc121921405a5eef5/698762d75f570fee2bb12f23/taylor-swift-16.jpg?branch=production&width=3840&quality=75&auto=webp", credit: "Stephen Lovekin/FilmMagic/Getty Images, via TIME", caption: "Taylor arrives on the 2009 VMA red carpet in the silver KaufmanFranco gown she would still be wearing when West interrupted her.", kind: "primary", focalPoint: "50% 40%" }, { url: "https://media.glamour.com/photos/5b748cfd0271d30d24ff90ad/master/w_1024%2Cc_limit/GettyImages-90715371.jpg", credit: "Jason Kempin/Getty Images, via Glamour", caption: "Taylor performs \"You Belong with Me\" inside a New York subway car during the 2009 VMA broadcast.", kind: "primary", focalPoint: "50% 42%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f3/T-Swift_VMA_performance.JPG", credit: "Coldbread, via Wikimedia Commons", caption: "Taylor steps down from the yellow taxi after completing her outdoor VMA performance on Sept. 13, 2009.", kind: "primary", focalPoint: "30% 25%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Taylor appears during the 2009 MTV Video Music Awards at Radio City Music Hall.", kind: "primary", focalPoint: "40% 28%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Taylor_Swift_at_2009_MTV_Video_Music_Awards_%283917030572%29.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "A distinct audience-level view of Taylor at the 2009 MTV Video Music Awards.", kind: "primary", focalPoint: "30% 40%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Taylor_Swift_at_2009_MTV_VMA%27s_2.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Taylor performs during the 2009 MTV Video Music Awards in New York.", kind: "primary", focalPoint: "40% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Taylor_Swift_at_2009_MTV_VMA%27s_3.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Standing atop a car on a closed-off Avenue of the Americas, mic raised, as a street crowd reaches up during the outdoor VMA broadcast performance.", kind: "primary", focalPoint: "33% 33%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/c/cc/Taylor_Swift_at_2009_MTV_VMA%27s_4.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Taylor performs \"You Belong with Me\" during the 2009 VMA telecast.", kind: "primary", focalPoint: "38% 28%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Taylor_Swift_at_2009_MTV_VMA%27s_5.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "A wide, horizontal view of Taylor's performance during the 2009 MTV Video Music Awards.", kind: "primary", focalPoint: "42% 35%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_at_2009_MTV_VMA%27s.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Taylor onstage during her \"You Belong with Me\" performance at the 2009 VMAs.", kind: "primary", focalPoint: "38% 37%" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/" }, { name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-kanye-west-interruption-2009-vmas/" }, { name: "Obama Caught on Tape Calling Kanye 'Jackass'", url: "https://www.tmz.com/2009/09/15/obama-caught-on-tape-calling-kanye-jackass-taylor-swift/" }, { name: "Obama Goes on Record to Call Kanye West a 'Jackass'", url: "https://www.rollingstone.com/music/music-news/obama-goes-on-record-to-call-kanye-west-a-jackass-204727/" }],
       milestone: { id: "m-fear-2", label: "VMAs moment", kind: "life" },
-      relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative"],
+      relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative", "moment:vault-speak-now-innocent-a-song-written-to-kanye-west-not-about-him"],
       significance: "defining",
     },
     {
@@ -2226,6 +2240,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg", credit: "Wikimedia Commons", caption: "For reference — Taylor performing on the Fearless Tour stage in Los Angeles; not the specific band-uniform reveal described here.", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_Tour" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/" }],
+      relatedIds: ["moment:vault-fearless-the-fearless-tour-opens-to-a-sold-out-crowd-in-30-seconds"],
       products: [{ brand: "Princess Polly", item: "Miss Me Sequin Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver", price: "$85.00", isAlternative: true, altNote: "The exact tour costume is undocumented beyond this description -- a current silver sequin mini dress in the same sparkling-cocktail-dress spirit as the reveal underneath the uniform." }],
     },
     {
@@ -2262,6 +2277,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=", credit: "Taylor Hill/WireImage, via Getty Images", caption: "The gold Reem Acra gown on the red carpet at the Nov. 11, 2009 CMA Awards.", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/2009_Country_Music_Association_Awards" }, { name: "Just Jared Jr. (photo gallery — 2009 CMA Awards)", url: "https://www.justjaredjr.com/photo-gallery/346791/taylor-swift-sweeps-cmas-00/" }],
+      relatedIds: ["moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover", "moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi"],
       products: [{ brand: "Reem Acra", item: "Sleeveless Crystal and Pearl Embroidered Gown", retailer: "reemacra.com", url: "https://www.reemacra.com/products/cloque-brocade-long-dress-with-draped-sleeves-copy", price: "$7,595.00", isAlternative: true, altNote: "Her exact 2009 gold gown is discontinued -- this is a current Reem Acra gown in nude/silver rather than gold, same house and floor-skimming formality." }],
     },
     {
@@ -2542,6 +2558,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records (single cover art)", kind: "primary", focalPoint: "70% 30%" }, { url: "https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg", credit: "Big Machine Records / YouTube (official music video still)", caption: "The sepia close-up from the official \"Love Story\" video, which premiered days before the single went to country radio.", kind: "archival", focalPoint: "48% 40%" }],
       sources: [{ name: "Love Story (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }, { name: "'Love Story': The Story Behind The Classic Taylor Swift Song", url: "https://www.wideopencountry.com/love-story-taylor-swift/" }],
+      relatedIds: ["moment:vault-fearless-love-story-and-the-boy-her-family-didnt-approve-of"],
     },
     {
       id: "vault-fearless-white-horse-the-single-greys-anatomy-saved-for-fearless",
@@ -3047,7 +3064,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png", credit: "ColliderVideo (CC BY-SA 3.0), via Wikimedia Commons", caption: "Joe Alwyn in 2018 — revealed at Long Pond as folklore's mystery co-writer \"William Bowery.\"", kind: "archival", focalPoint: "50% 32%" }],
       sources: [{ name: "Taylor Swift Reveals the Identity of folklore's Mystery Co-Writer William Bowery", url: "https://www.eonline.com/news/1212449/taylor-swift-reveals-the-identity-of-folklores-mystery-co-writer-william-bowery" }, { name: "Taylor Swift confirms Joe Alwyn is mystery Folklore writer William Bowery", url: "https://www.capitalfm.com/artists/taylor-swift/william-bowery-joe-alwyn-folklore-exile/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/joe-alwyn-william-bowery-pen-name-origin-taylor-swift-1235073220/" }],
-      relatedIds: ["moment:vault-folklore-exile-a-break-up-seen-from-both-sides-with-bon-iver-in-the-o"],
+      relatedIds: ["moment:vault-folklore-exile-a-break-up-seen-from-both-sides-with-bon-iver-in-the-o", "moment:vault-midnights-william-bowery-writes-one-more-midnights-love-song"],
     },
     {
       id: "vault-folklore-artist-of-the-year-accepted-from-the-studio-im-re-recording-",
@@ -3251,6 +3268,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top", credit: "E! News (video still)", kind: "primary" }],
       sources: [{ name: "The Advocate", url: "https://www.advocate.com/news/2019/6/17/taylor-swift-releases-lgbtq-packed-video-you-need-calm-down" }, { name: "Elite Daily", url: "https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857" }],
+      relatedIds: ["moment:vault-lover-rainbow-wig-western-shirt-and-a-french-fries-costume-in-you-"],
     },
     {
       id: "vault-lover-soon-youll-get-better-written-for-her-mother",
@@ -3296,6 +3314,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png", credit: "Republic Records (single cover art)", kind: "primary", focalPoint: "42% 32%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Eras_Tour_-_Minneapolis%2C_MN_-_Lover_act_-_4.jpg", credit: "Michael Hicks (CC BY 2.0), via Wikimedia Commons", caption: "The Eras Tour Lover act in Minneapolis, June 2023 — the nightly \"Cruel Summer\" singalong that powered the song back up the chart.", kind: "archival", focalPoint: "54% 45%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-cruel-summer-tops-billboard-hot-100-1234860029/" }],
+      relatedIds: ["moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack", "moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out"],
     },
     {
       id: "vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c",
@@ -3345,6 +3364,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1", credit: "Billboard", caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/all-of-taylor-swifts-fabulous-outfits-from-you-need-to-calm-down-music-video-shop-the-looks-127156" }, { name: "Bustle", url: "https://www.bustle.com/p/all-the-looks-from-taylor-swifts-you-need-to-calm-down-music-video-are-a-rainbow-dream-18010763" }],
+      relatedIds: ["moment:vault-lover-you-need-to-calm-down-turns-a-music-video-into-an-equality-a"],
       products: [{ brand: "Wrangler", item: "Women's Multicolor Rainbow Bandana Western Snap Shirt", retailer: "jacksonswestern.com", url: "https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/", price: "$55.00", isAlternative: true, altNote: "Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume)." }],
     },
     {
@@ -3531,6 +3551,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png", credit: "Republic Records (single cover art)", kind: "primary" }],
       sources: [{ name: "NME", url: "https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/cruel-summer" }],
+      relatedIds: ["moment:vault-lover-cruel-summer-takes-four-years-to-become-a-no-1", "moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out"],
     },
     {
       id: "vault-lover-i-forgot-that-you-existed-the-track-built-to-end-reputations",
@@ -3590,6 +3611,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://i.ytimg.com/vi/d_2WyBcFbFY/hqdefault.jpg", credit: "Republic Records / YouTube (official video still)", caption: "Onstage at L'Olympia — still from the official 'The Archer (Live From Paris)' video on Taylor Swift's YouTube channel.", kind: "archival" }],
       sources: [{ name: "City of Lover", url: "https://en.wikipedia.org/wiki/City_of_Lover" }, { name: "Taylor Swift Plays 'Lover' Tracks Live for the First Time in Paris: Watch", url: "https://www.billboard.com/music/music-news/taylor-swift-plays-lover-tracks-live-first-time-paris-watch-8529533/" }, { name: "Every Surprise Song Taylor Swift Has Played on the Eras Tour", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/" }],
+      relatedIds: ["moment:vault-lover-city-of-lover-finally-airs-a-concert-special-for-a-tour-that"],
     },
     {
       id: "vault-lover-lover-fest-a-festival-instead-of-a-tour",
@@ -3626,6 +3648,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/cf/Cats_2019_poster.jpg", credit: "Universal Pictures (theatrical release poster)", kind: "primary" }],
       sources: [{ name: "Beautiful Ghosts", url: "https://en.wikipedia.org/wiki/Beautiful_Ghosts" }, { name: "Cats (2019 film)", url: "https://en.wikipedia.org/wiki/Cats_(2019_film)" }],
+      relatedIds: ["moment:vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe"],
     },
     {
       id: "vault-lover-miss-americana-opens-sundance-then-hits-netflix",
@@ -3751,6 +3774,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/82/Taylor_Swift_-_Beautiful_Ghosts.png", credit: "Republic Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Beautiful Ghosts", url: "https://en.wikipedia.org/wiki/Beautiful_Ghosts" }],
+      relatedIds: ["moment:vault-lover-cats-arrives-bombalurina-digital-fur-and-beautiful-ghosts"],
     },
     {
       id: "vault-lover-christmas-tree-farm-from-the-girl-who-literally-grew-up-on-o",
@@ -3788,6 +3812,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/ae/City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png", credit: "ABC / Republic Records (broadcast promotional art)", kind: "primary" }],
       sources: [{ name: "City of Lover", url: "https://en.wikipedia.org/wiki/City_of_Lover" }, { name: "Taylor Swift 'City of Lover Concert' Special Set for ABC Broadcast", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-city-lover-concert-special-set-abc-broadcast-1293895/" }],
+      relatedIds: ["moment:vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b"],
     },
     {
       id: "vault-lover-headlining-we-can-survive-at-the-hollywood-bowl",
@@ -4154,6 +4179,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-eras-tour-los-angeles-night-4-sofi-stadium-2023-billboard-1548.jpg?w=1024", credit: "Billboard", kind: "primary", focalPoint: "58% 52%" }, { url: "https://i.ytimg.com/vi/xB-RZqcoIgo/maxresdefault.jpg", credit: "Taylor Swift/YouTube", caption: "The art for 'Cruel Summer (Live from Taylor Swift | The Eras Tour)' — the live single Taylor released Oct. 18, 2023, in the final push that carried the four-year-old song to No. 1.", kind: "archival", focalPoint: "45% 32%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/" }, { name: "Variety", url: "https://variety.com/2023/music/news/taylor-swift-cruel-summer-hot-100-number-1-surge-1235764652/" }],
+      relatedIds: ["moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack", "moment:vault-lover-cruel-summer-takes-four-years-to-become-a-no-1"],
     },
     {
       id: "vault-midnights-a-box-full-of-a-listers-at-metlife-stadium",
@@ -4454,6 +4480,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.rollingstone.com/wp-content/uploads/2023/02/GettyImages-1463251082.jpg?w=1600&h=900&crop=1", credit: "Getty Images via Rolling Stone", caption: "The star-scattered midnight-blue Roberto Cavalli at the 2023 Grammys — the carpet look she kept on through the evening ceremony after the afternoon Best Music Video win.", kind: "primary", focalPoint: "48% 18%" }, { url: "https://www.billboard.com/wp-content/uploads/2023/02/04-taylor-swift-2023-grammys-red-carpet-billboard-1548.jpg?w=1024", credit: "Getty Images via Billboard", caption: "Close-up on the same Grammys carpet: the diamond-and-amethyst drop earrings over the beaded Cavalli turtleneck.", kind: "primary", focalPoint: "40% 32%" }],
       sources: [{ name: "Taylor Swift Is Officially an Award-Winning Director With Her Best Music Video Grammy 2023 Win", url: "https://www.rollingstone.com/music/music-news/taylor-swift-award-winning-director-best-music-video-grammys-2023-1234674183/" }, { name: "Taylor Swift & Fans React to Grammy Win for ‘All Too Well’ Music Video", url: "https://www.billboard.com/music/awards/taylor-swift-2023-grammys-dress-winner-all-too-well-music-video-1235213021/" }, { name: "Taylor Swift Makes GRAMMY History (Again) With Best Music Video Win For \"All Too Well: The Short Film\"", url: "https://www.grammy.com/news/taylor-swift-all-too-well-the-short-film-best-music-video-winner-2023-grammys" }],
+      relatedIds: ["moment:vault-evermore-all-too-well-the-short-film-premieres-she-wrote-it-she-direc"],
     },
     {
       id: "vault-midnights-a-dita-von-teese-styled-burlesque-scene-and-pat-mcgraths-30-",
@@ -4624,6 +4651,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg/960px-Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg", credit: "GabboT, CC BY-SA 2.0, via Wikimedia Commons", caption: "Joe Alwyn — the \"William Bowery\" of the credits — at the Toronto International Film Festival in September 2022, weeks before Midnights arrived.", kind: "archival" }],
       sources: [{ name: "The Things", url: "https://www.thethings.com/why-did-taylor-swift-credit-joe-alwyn-as-william-bowery/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Sweet_Nothing_(Taylor_Swift_song)" }],
+      relatedIds: ["moment:vault-folklore-william-bowery-is-joe-the-long-pond-reveal"],
     },
     {
       id: "vault-midnights-a-sounwave-beat-finished-in-a-day-becomes-karma",
@@ -5095,7 +5123,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Everything_Has_Changed" }],
-      relatedIds: ["moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-"],
+      relatedIds: ["moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-", "moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha"],
     },
     {
       id: "vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha",
@@ -5218,6 +5246,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2013420/rs_634x1024-130520071003-634.gomez.swift.ls.52013_copy.jpg", credit: "E! News", caption: "Taylor in the blue Zuhair Murad mini at the 2013 Billboard Music Awards, pictured with Selena Gomez.", kind: "primary" }],
       sources: [{ name: "Hollywood Life", url: "https://hollywoodlife.com/2013/05/19/taylor-swift-billboard-awards-dress-2013-pics/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/2013_Billboard_Music_Awards" }],
+      relatedIds: ["moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party", "moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show"],
       products: [{ brand: "Princess Polly", item: "Moonrising Long Sleeve Sheer Blouson Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/moonrising-sheer-blouson-dress-blue", price: "$79.00", isAlternative: true, altNote: "Zuhair Murad has no accessible direct retail -- this is a current blue long-sleeve mini with sheer paneling, same silhouette (Jimmy Choo pumps, Ofira jewelry not separately sourced)." }],
     },
     {
@@ -6339,6 +6368,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://assets2.cbsnewsstatic.com/hub/i/r/2010/09/12/99eee01f-a642-11e2-a3f0-029118418759/thumbnail/620x449/8e0c01f51a0436c5eb408696fefc290f/AP100912090147.jpg", credit: "AP Photo/Matt Sayles", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-vmas-2010-innocent-lyrics-reflect-on-kanye-west-incident/" }],
+      relatedIds: ["moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic"],
     },
     {
       id: "vault-speak-now-long-live-a-love-song-to-her-band",
@@ -6505,6 +6535,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "CBS News", url: "https://www.cbsnews.com/news/american-music-awards-2011-taylor-swift-wins-artist-of-the-year/" }],
+      relatedIds: ["moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma", "moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover"],
       products: [{ brand: "Monique Lhuillier", item: "Gold Sequin Scoop Neck Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/gold-sequin-scoop-neck-gown", price: "$5,495.00", isAlternative: true, altNote: "Her exact 2011 Reem Acra gown is long discontinued -- this is a current gold sequin column gown, same shimmering gold-beaded spirit." }],
     },
     {
@@ -6517,6 +6548,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg", credit: "Reem Acra / Big Machine Records", kind: "primary", focalPoint: "54% 16%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
+      relatedIds: ["moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma", "moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi"],
       products: [{ brand: "Sherri Hill", item: "55304 One-Shoulder Ombre Sequin Gown", retailer: "formalapproach.com", url: "https://www.formalapproach.com/products/sherri-hill-55304-dress", price: "$698.00", isAlternative: true, altNote: "Her exact Reem Acra cover gown is long discontinued -- this is a current gown in Purple Ombre, the same fading-purple color story, though sequined rather than plain chiffon." }],
     },
     {
@@ -6541,6 +6573,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=", credit: "Jon Kopaloff/Getty Images", caption: "Arriving at the Vanity Fair Oscar Party at Sunset Tower, February 27, 2011, in the gold Zuhair Murad minidress.", kind: "primary" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/" }],
+      relatedIds: ["moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb", "moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show"],
       products: [{ brand: "Fashion Nova", item: "Staying Golden Sequin Mini Dress", retailer: "fashionnova.com", url: "https://www.fashionnova.com/products/staying-golden-sequin-mini-dress-gold", price: "$42.99", isAlternative: true, altNote: "Her exact Zuhair Murad minidress is long discontinued -- this is a current gold sequin mini in the same beaded-gold spirit (Jimmy Choo platforms not separately sourced)." }],
     },
     {

@@ -116,6 +116,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "You Need to Calm Down" pair —
+      // the video's petition and the costumes in it — now interlink.
+      relatedIds: ['moment:vault-lover-rainbow-wig-western-shirt-and-a-french-fries-costume-in-you-'],
       year: 2019,
       month: 6,
       day: 17,
@@ -262,6 +265,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Cruel Summer" cluster — the
+      // song's origin, the No. 1 milestone, and the four-years-later chart
+      // arc — now interlink.
+      relatedIds: [
+        'moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack',
+        'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
+      ],
       year: 2023,
       month: 10,
       day: 28,
@@ -492,6 +502,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "You Need to Calm Down" moment.
+      relatedIds: ['moment:vault-lover-you-need-to-calm-down-turns-a-music-video-into-an-equality-a'],
       year: 2019,
       month: 6,
       day: 17,
@@ -1161,6 +1173,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Cruel Summer" moments.
+      relatedIds: [
+        'moment:vault-lover-cruel-summer-takes-four-years-to-become-a-no-1',
+        'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
+      ],
       year: 2019,
       month: 8,
       day: 23,
@@ -1355,6 +1372,9 @@ export default {
     // carry the audit's additive provenance fields.
     {
       slug: 'city-of-lover-paris',
+      // Cross-link (Stage 3, 2026-07-30): the "City of Lover" pair — the
+      // concert itself, and the special that later aired — now interlink.
+      relatedIds: ['moment:vault-lover-city-of-lover-finally-airs-a-concert-special-for-a-tour-that'],
       year: 2019,
       month: 9,
       day: 9,
@@ -1496,6 +1516,8 @@ export default {
     },
     {
       slug: 'cats-beautiful-ghosts',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Beautiful Ghosts" moment.
+      relatedIds: ['moment:vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe'],
       year: 2019,
       month: 12,
       day: 20,
@@ -2180,6 +2202,9 @@ export default {
     },
     {
       slug: 'beautiful-ghosts-single',
+      // Cross-link (Stage 3, 2026-07-30): the "Beautiful Ghosts" pair — the
+      // single, and its home in the Cats film — now interlink.
+      relatedIds: ['moment:vault-lover-cats-arrives-bombalurina-digital-fur-and-beautiful-ghosts'],
       year: 2019,
       month: 11,
       day: 15,
@@ -2311,6 +2336,8 @@ export default {
     },
     {
       slug: 'city-of-lover-special-airs',
+      // Cross-link (Stage 3, 2026-07-30): sibling "City of Lover" moment.
+      relatedIds: ['moment:vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b'],
       year: 2020,
       month: 5,
       day: 17,

@@ -238,8 +238,11 @@ export default {
       month: 10,
       day: 22,
       category: 'music',
+      // Cross-link (Stage 3, 2026-07-30): + the Red Tour's Omaha opening
+      // night, which put Ed Sheeran on the road with her right after this.
       relatedIds: [
         'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
       ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
       snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
@@ -700,6 +703,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
+      relatedIds: [
+        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
+        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
+      ],
       year: 2013,
       month: 5,
       day: 19,
