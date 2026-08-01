@@ -1418,6 +1418,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            // Photo pass #762 (2026-07-31): viewed. Profile turned left, curls
+            // fanned out around her face — face sits left-of-center, upper third.
+            focalPoint: '38% 30%',
             credit: 'Big Machine Records (album cover art)',
             caption: 'Cover art for Fearless, the album that carries "The Way I Loved You."',
             kind: 'primary',
@@ -1486,7 +1489,12 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            // Photo pass #762 (2026-07-31): viewed. Same cover as the other
+            // Fearless album-track pages — face left-of-center, upper third.
+            focalPoint: '38% 30%',
             credit: 'Big Machine Records',
+            caption: 'Cover art for Fearless, the album that carries her "Untouchable" cover.',
+            kind: 'primary',
           },
         ],
       },
@@ -2080,6 +2088,11 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
+            // Photo pass #762 (2026-07-31): viewed (2345x1824, wide stage
+            // shot). She's the small figure on the round stage, lower-center;
+            // the big screen carries her face upper-left-of-center — keep the
+            // crop mid-height to hold both in frame.
+            focalPoint: '36% 48%',
             credit: 'calmdownlove / Wikimedia Commons, CC BY 2.0',
             caption:
               'Performing on the Fearless Tour, 2009 — the tour whose Madison Square Garden stop sold out in about a minute.',
@@ -2134,6 +2147,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/2009_Justin_Bieber_NYC_1.JPG',
+            // Photo pass #762 (2026-07-31): viewed. Straight-on portrait,
+            // face centered horizontally, sits in the upper quarter of frame.
+            focalPoint: '46% 20%',
             credit: 'Kerosene Photography / CC BY 2.0 via Wikimedia Commons',
             caption:
               'For reference — not from the Wembley show: 15-year-old Justin Bieber at a New York in-store appearance on Sept. 1, 2009, weeks before he opened the Fearless Tour\'s UK leg.',
