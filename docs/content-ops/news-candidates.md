@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 60
+
+## Taylor Swift's summer touring aircraft strategy: How global tours move like Fortune 500 companies - 
+
+- first seen: 2026-08-01 14:40 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's summer touring aircraft strategy: How global tours move like Fortune 500 companies  Duncan Banner
+- sources:
+  - [unverified] Duncan Banner — https://news.google.com/rss/articles/CBMijwJBVV95cUxOLU1QNG1RV3J0VjQ2RVpoSTRvcTZoMW54VXZBZUdPdXhNRy15cXcwRTN1RzJDdE4ySG0wblZJbjVVZW0yWTNvUHVMR1hIdjF3SGxXZXdyZ19nWG9XdHdHcHBLajlUYjNzaHlEZFhJQnBiOHdiQ0k2dlVwRnRIYTJ2VWFKblhFZlB4UWw0eGtaU3NoRF9HXzVjb21ZTnFNRFRrWVJoLUpmTkVCQmx5aFp4c3VtenhqYTVMSDlJbzBkcC1GazBuenJvZmpKMU5sTFRvQTc0OFlXQXJFbER4YlVva0tWVVhMbFktLVVfdmVlTUlSYjlqU1ZfUDJCekNYY0hiTFFaOFp5TjJZcFAzV0hV?oc=5
+
+## Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remark
+
+- first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remarkable’  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNSG1FU096ZFRaUWdTUmg3eEJGS21udzZXbmxUN1B1R0Jkd1pxY0IwRHdDMkdGanlRakNBUDlwN3dCdGl6eGlZc3pMb3dUUTRCZE5ITXo5dUJ3ZEVzdHU0dDFsZWZxazgzRThGV29HM3hFSlFDRlE1ek4yaHY4MnNfbDZoWEZQSW5MVHdxZlpjdGJwdXNHamFSZjBZNHMzYVh1V2Fv?oc=5
+
+## Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint - Y
+
+- first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPUE81QWZOenItbS0xRmladWFyQnE5eUJJbGkxdWZDLVpEd1lHa3pjSG1sMVBEVXIwbVV4REJYU1A4dnBmU0xIbE0yd2pMWG5kcWpVdGtPNnA2ZUMtVXVpaGpfcXR4b2pfNGU2aG8tcEVoTjUySndkZmZBSEtjN01mZGtsOG9ZcW81SmRjaE1MOFMtcldJMS1BckVjSEFrZw?oc=5
 
 ## Taylor Swift's Eras Tour dancers at her wedding: every wedding weekend look they shared - Yahoo Crea
 
@@ -46,10 +70,11 @@ Stories: 59
 ## Travis Kelce makes young fan's day by responding to Taylor Swift request at Chiefs training camp - h
 
 - first seen: 2026-08-01 10:46 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Travis Kelce makes young fan's day by responding to Taylor Swift request at Chiefs training camp  hitc.com
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOUEtKMFFEVzdIUjNuM0JQdmJQZ250RDNnb2h6UE91N1dORWpJUlJpdDIybGswa2c5d1Q0emFJY3c3OEh4QjItX21VaXEzSXdwLU05OF9nN3RZRWdQWl9ZRFN1Z0lLbTFMcWQzUC1QWHNPUmtRMnFDc3AwVTJlVzc3ckdjOFVvcUtSUXRSQ2FFbm5CZ0VLQnZCMWZMdGd3d3M3Y1h0UlkzemxIVGxEQmZtZExfM0c5NnZP?oc=5
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigwFBVV95cUxNT0VQZl9iUGJTNzZoZ3ZDTDdxQTFqRGh3a2R4MnBGT3ZqalFhaVp6V0IxUGJaeGZOWW5CVjhBNHF5QXE0QWZjOHlYanJkdFZtcG0wM0VmSlA3RGt3TjEwdmstNWxRU015ZWNKV05FMDdNRUlWSmVkZVpPN040VHl5c2JlVQ?oc=5
 
 ## Taylor Swift and Travis Kelce’s wedding could receive special MSG honor (report) - Syracuse.com
 
@@ -491,19 +516,3 @@ Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  
 - summary: Travis Kelce & Taylor Swift’s Wedding Hosted an A-Lister That ‘Surprised’ SNL Star  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQRnpZakoxcm1Ka0RNZms0ME5fTXplVkJyeW12dXQtckFJd1BMNWJacDNxLVF1QlcwcFluMG1sSjJicVhBNnJhbGdfSmNsRFVsNnNtVnhibGhfQXFYSzVHdmtqR0IxYmw2Y3JYOVJkbE4yU21FSXJLcVpEQlBoLWxiSzZPaDBlRkJsazhMeGZUZFVkN015RTJva0RqOHVUMkJUY3AwcVR3?oc=5
-
-## Karlie Kloss Breaks Her Silence On Attending Taylor Swift’s Wedding - Elite Daily
-
-- first seen: 2026-07-29 11:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Karlie Kloss Breaks Her Silence On Attending Taylor Swift’s Wedding  Elite Daily
-- sources:
-  - [unverified] Elite Daily — https://news.google.com/rss/articles/CBMihwFBVV95cUxNT3hieW1zNTVZRjgtVzZwVE9oR2NPbmF3YWJpaDN4SHUzY2hfYU5xU19ZUGlfa1JKTDhBT3psRi1UeXJmdk5HOXNCSVhScjFMbHBjNWFRdXdRS1VsZ2k5LVozd2EtYV9SaUR1eHRXNldZaFdzQ1VNLVpPdmY0V21SZTNkNUhPUzQ?oc=5
-
-## Keke Palmer's Alter Ego Lady Miss Jacqueline Riffs on Taylor Swift's Wedding - BroadwayWorld
-
-- first seen: 2026-07-29 11:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Keke Palmer's Alter Ego Lady Miss Jacqueline Riffs on Taylor Swift's Wedding  BroadwayWorld
-- sources:
-  - [unverified] BroadwayWorld — https://news.google.com/rss/articles/CBMixgFBVV95cUxOT0dqSG93NWNFZU54RnVkVk1yeE9JYTdfaTZ1RnBtOGwwYmNCV2xmbGF1bXBmdUVtYmZCeTZsNElxSjJRcXU0SU8ydU82WjJBY2lPemUwNURQSWhSWi16S01Lemp0Yk9OZVA3WHNOVkVNbnF2MzAtdW10cWZEVk05Q01GR3RYb190XzA2Z3FYMHIwRWwzSEV0VzhqeXRNQ0tYazk4ZF9RUGtwaUFKTnBTUkI1WnlDeEtiUUtBa3lnZUpqV1NBUkE?oc=5
