@@ -6263,14 +6263,14 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
   "speak-now": [
     {
       id: "vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week",
-      date: "2010-10-01",
-      dateLabel: "October 2010",
+      date: "2010-11-03",
+      dateLabel: "November 3, 2010",
       title: "Speak Now sells over a million copies in a single week",
       summary: "1,047,000 copies in week one — the first album since Lil Wayne's Tha Carter III to cross a million in its opening week.",
       body: ["It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.", "It also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did."],
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary", focalPoint: "62% 18%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Taylor_Swift_-_Speak_Now_tour_2011.jpg/960px-Taylor_Swift_-_Speak_Now_tour_2011.jpg", credit: "dephisticate / Wikimedia Commons (CC BY 2.0)", caption: "Performing from the Speak Now World Tour's flying balcony in Newark, July 2011 — the arena spectacle that record-setting week set up.", kind: "archival", focalPoint: "47% 42%" }],
-      sources: [{ name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-speak-now-sales-charts/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
+      sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-sells-over-1-million-in-record-billboard-200-debut-951902" }, { name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-speak-now-sales-charts/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
     },
     {
       id: "vault-speak-now-dear-johns-slow-burn-reckoning",
