@@ -2235,6 +2235,50 @@ export default {
         ],
       },
     },
+    // evermore↔folklore parity fill, part 2 (2026-08-01, content-shift, #1141):
+    // completes Part A of the ticket — the fourth of the four storyless standard
+    // tracks. ivy, dorothea and long story short landed on 2026-07-30 (#1637);
+    // closure is authored here. Same sourcing pattern: the song's Wikipedia page
+    // + Slate's evermore track-by-track (already trusted in this file, see gold
+    // rush). Photo deferred to Photo Enrichment. Part B of the ticket — a native
+    // surprise-drop "defining" beat for the album's December 2020 release — is
+    // still open after this pass.
+    {
+      slug: 'closure-no-closure-needed',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'closure, the 5/4 kiss-off that turns down the tidy ending',
+      snippet:
+        'evermore\'s most experimental track: an off-kilter 5/4 song wrapped in clattering, industrial drums, where Taylor takes an olive branch from someone who wronged her and hands it straight back — "I don\'t need your closure."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Track 14, and the strangest thing on the record. Built in an off-kilter 5/4 meter and dressed in clattering, industrial electro-rock drums lurching against a plain acoustic piano, "closure" is the song critics reach for when they call evermore experimental. Taylor wrote it with Aaron Dessner and cut it with him and co-producers BJ Burton and James McAlister; Dessner has pointed to it as the track that opened the album up — the one where they refused to set themselves any limits. Slate called it an "electroacoustic kiss-off" and, whatever it made of the words, granted that sonically it was "a real ear-cleaner" this deep into the album.\n\nThe lyric is the sharp part. Someone who wronged her has sent a letter dressed up as an olive branch, and the whole song is Taylor declining it: she\'s doing better, she knows it\'s over, and she can see the gesture is really for their peace of mind, not hers — so, pointedly, "I don\'t need your closure." Slate, less charmed by the words, filed it under her "tedious public airings of some music-industry grudge"; the other read is that refusing a hollow reconciliation is its own kind of resolution. Either way it is the rare Taylor song that turns down the tidy ending on purpose.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+            source_title: 'Closure (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-01',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-01',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
     {
       slug: 'love-story-tv-first-rerecording',
       year: 2021,
