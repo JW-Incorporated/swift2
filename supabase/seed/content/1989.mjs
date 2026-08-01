@@ -1384,6 +1384,9 @@ export default {
         // Photo-enrichment pass (2026-07-18, #762): deliberately kept at one photo — the
         // moment is a label decision with no photographable event; era-correct archival
         // tour shot already covers it, and the only Nov-2014 news art is agency/watermarked.
+        // Re-reviewed 2026-08-01 (#762): searched again (Daniel Ek / Spotify news photos
+        // from the same week, other 1989-era press) — nothing more on-topic than the
+        // existing archival tour shot on an allowed host. Stays reviewed-sparse.
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg', credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', focalPoint: '42% 24%', caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.' }],
       },
     },
