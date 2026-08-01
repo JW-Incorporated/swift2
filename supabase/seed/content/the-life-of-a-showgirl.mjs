@@ -545,6 +545,45 @@ export default {
             kind: 'reference',
           },
         ],
+        // Rumor Desk (2026-08-01): from the moment the album arrived, its
+        // Las Vegas showgirl register set off a "will she tour / do a Vegas
+        // residency" news cycle — the two adjudicable, named claims below.
+        // First the Sphere-specific residency the venue itself denied, then the
+        // broader Vegas/tour talk still live. Tour and residency speculation is
+        // explicitly Always-OK per privacy-redlines.md: a rumored *performance*
+        // venue is the "plays Wembley" case, not a personal-whereabouts claim,
+        // so no locationSpecificity is declared.
+        rumors: [
+          {
+            claim:
+              "As The Life of a Showgirl leaned all the way into its Las Vegas imagery, The US Sun reported that Taylor's team was privately eyeing a concert residency at the Las Vegas Sphere — the venue fans had already pegged as the era's likely home.",
+            reportedBy: "The US Sun",
+            reportedOn: "2025-08-14",
+            status: "debunked",
+            url: "https://www.musictimes.com/articles/109645/20250814/taylor-swift-could-turn-las-vegas-home-life-showgirl-era-shows.htm",
+            sourceTier: "tabloid",
+            resolution: {
+              on: "2025-08-19",
+              url: "https://www.nme.com/news/music/taylor-swift-has-no-plans-to-hold-a-residency-at-the-las-vegas-sphere-3885678",
+              outlet: "NME",
+              note:
+                "A Sphere representative told Puck's Matt Belloni: 'While we love and respect Taylor Swift, we are not in conversations with her team about a residency at Sphere.' The denial addresses the Sphere specifically — broader Las Vegas talk resurfaced in April 2026 (next entry).",
+            },
+            lastCheckedOn: "2026-08-01",
+          },
+          {
+            claim:
+              "Eight months after the Sphere denial, a Daily Mail source revived the Vegas talk — saying residency discussions were 'ongoing' across several Strip venues, with Taylor 'eyeing seven dates' but 'nothing set in stone,' and her 'main focus' a full tour rather than a residency.",
+            reportedBy: "Daily Mail",
+            reportedOn: "2026-04-07",
+            status: "unconfirmed",
+            url: "https://www.realitytea.com/2026/04/07/taylor-swift-las-vegas-performance-residency/",
+            sourceTier: "tabloid",
+            lastCheckedOn: "2026-08-01",
+            note:
+              "Daily Mail insider quotes, as carried by Reality Tea. As of this check no Life of a Showgirl tour or Las Vegas residency has been officially announced. Resolves confirmed on an official announcement; fades if it goes quiet.",
+          },
+        ],
       },
     },
     {
