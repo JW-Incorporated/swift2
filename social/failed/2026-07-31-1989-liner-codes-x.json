@@ -4,7 +4,7 @@
   "scheduledAt": "2026-07-31T23:00:00Z",
   "campaign": "easter-egg-case-file-1989-liner-codes",
   "why": "X-native version of the 1989 liner-code case file. Same confirmed-tier vault sourcing as the IG pair (theory '1989-lowercase-liner-codes', official/confirmed, Billboard): the capital-to-lowercase cipher inversion, the thirteen messages forming one continuous story in track order, the 'we begin our story in new york' opener, and the codes ending at reputation. Text-only (no media). Music/lore, outside every blocklist topic.",
-  "attempts": 2,
+  "attempts": 3,
   "lastError": "X post failed (403): {\"detail\":\"You are not permitted to perform this action.\",\"status\":403,\"title\":\"Forbidden\",\"type\":\"about:blank\"}",
-  "lastAttemptAt": "2026-08-01T05:55:12.567Z"
+  "lastAttemptAt": "2026-08-01T08:21:25.530Z"
 }
