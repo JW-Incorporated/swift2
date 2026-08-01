@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 50
+Stories: 57
+
+## Taylor Swift and Travis Kelce’s wedding could receive special MSG honor (report) - Syracuse.com
+
+- first seen: 2026-08-01 07:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce’s wedding could receive special MSG honor (report)  Syracuse.com
+- sources:
+  - [unverified] Syracuse.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxOQzlBLW9WS0gyQi04VnJ6aFVfaElNQ0M1Q0QzZnhPTXZPQXRWV0F5WUFtUFM5Rm5tUk9UNTR5NVN4Y2hoVUswYjc1dlpFajJWZko3bnVVemJsbkswRWxveDFwckRKSVp0REVPQ3VHZ3N4MlVYYVJRY0IwTktETWRCSVBqMlItaHRRSXpJOGtubGRjTlpCcWIxTkdjaVBjWjBEMS1KbW92SUE4NzNyRzlwUmxGbDNsR1U5V0lYMldLNmhtZzRGbS1lWFpB0gHeAUFVX3lxTE9qc3lLMWduajVsdG1FNG5jeW9BWFFhSHZrSFVNMDBuaWUyb0dRZjlkT0s1ZXFGcTRPd2RnVkdnbVE5SjUtV1JES3VodlJYUEhoVjViV1k2N1NfUmJ0bGdmU1Rmc29OcDBkZmFDeE5YZkp1QzYwWXVnbWJwQWdRa040Y08xVjNwX2o1OGNCZGM2bFdtbm9ZdWFBWHBFVWdZdUVTa1ZaRnhlUzhrUE52MzZ4NTl1T3Vzcm9nNnRRNXc4M0lSOUdSNFNzT3plMzNiMHpGV2NPbVBEMkxvQkZrdw?oc=5
+
+## Charissa Thompson’s bejeweled dress for Taylor Swift and Travis Kelce’s wedding left her arms ‘bleed
+
+- first seen: 2026-08-01 07:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Charissa Thompson’s bejeweled dress for Taylor Swift and Travis Kelce’s wedding left her arms ‘bleeding’  pagesix.com
+- sources:
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMivwFBVV95cUxQYWFCZ0FzWmpMRFJIdzRWT0hZVUZxT0R5WGhSU3puZVRseDdmS0otQTE1U25INTNBT1ZpOFdUYnRISm5MbzJzUFJ3NUszMkJVMVBaazNvQU1YWnFYeDJQaTV5c1J0WVFGUU1xSi1UNXlnOWZYTl9BRzJVSFhIYjdQSjVVRUxOUnptMkpDNXNRQWlqcnp1bldjVDF2SXRyN0VtQ2cybzh4cVVMVE5IUDJhenM2MnNrRXh5WUE1U3J6VQ?oc=5
+
+## “The [Taylor] Swift Effect Touches ALL”: Fans React As Travis And Jason Kelce’s Podcast Earnings Are
+
+- first seen: 2026-08-01 07:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: “The [Taylor] Swift Effect Touches ALL”: Fans React As Travis And Jason Kelce’s Podcast Earnings Are Revealed  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQS3hGeVlFMzhUeUJOQy0zUlJraGNjVG9QTkJGSi1SZ3duR3pxWURmTlctV19nU2VVTnlNQk1vMEZxdUJwRHZhOTB2SEVmQWZzMnI1MV9RYlRfbzNvVWdsVFRjYWZSXzRGU1RyNVJWeUs4VS11WW5CRmU5TGh6a19fbHRJN3NjVDdu?oc=5
+
+## NFL legend Rob Gronkowski details Travis Kelce and Taylor Swift's 'magnificent' wedding - Fox News
+
+- first seen: 2026-08-01 07:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: NFL legend Rob Gronkowski details Travis Kelce and Taylor Swift's 'magnificent' wedding  Fox News
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMirwFBVV95cUxNclhEb3YzcUFBcjhzR1hDU1N6Qnd5VWJUYnM5bVdZY29nVzNwalpiOFItdklTS2NfTG45b1l5UEJKbXVwdE9nek5SSWJLUWpIODE1RlhKbUxwWS02M2p3OU56V0VrSGZYOXMxbW8yRzczb1lRRTdBYjhhOVJWNjdQY0daSnZLLWZjclI0WExhRl80SUtNY2lFNGVMWnB3UmliT0F3TUF4SjJmNDlnZlhz0gG0AUFVX3lxTE1pWnZzWkJTMnhWN3VRNEpPc0pFQk1mQWZKUXBWTlhza1hkb3hWV2FKb0FHQVlXdy1EM0lTZjZHNkVDZllXd18wZm4zSjd4a0xCUVVmd1RJdmRfbm51RXJRVXptV2FhX2FXX1Bjb0ZhY29tQzFxdzBWOWpYNE5zdF9YTy1VMHhYSlJ1dDRjdlNQdGVkRWVrbjhYZEJ4b0FUM1hjR3g0eTZjLWZSdTQtNENrZXVpbg?oc=5
+
+## Taylor Swift Reportedly Feels ‘So Much Pressure’ After Report Travis Kelce Is ‘Struggling’ With This
+
+- first seen: 2026-08-01 07:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Reportedly Feels ‘So Much Pressure’ After Report Travis Kelce Is ‘Struggling’ With This ‘Shocking’ Part of Their Marriage  stylecaster.com
+- sources:
+  - [unverified] stylecaster.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxPTEFxVTNsZkpoVk5jbC1kYzhhM1RaSjB2RlROWExSX1h6RFFSSmN1V0FjM1J6TVJ6UjJzMVdkMndNQ1phbVlVd29IQzUybW91WHkxOElWSXFjZ2x3T3FtN0p3MEdsbjR5dzN4X3FtX3BQXzdheVN5djFxTmlHV21OaG1sWWx4bEN4QmVOU0VoMjFndXMtYnNzcC1rNA?oc=5
+
+## Taylor Swift’s label triggers fears streaming has peaked - The Telegraph
+
+- first seen: 2026-08-01 07:37 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s label triggers fears streaming has peaked  The Telegraph
+- sources:
+  - [unverified] The Telegraph — https://news.google.com/rss/articles/CBMirAFBVV95cUxNZXhNX3ZzWWpnd2szUzUxVUxtN2lFRVVKTjJqYndaM0g2SHVTcW5GbnM5T3FZaDU5MldzcXo3eEkwd3RCWkZvbnI0MUV3dU5jZ3hXWS1EQll3UnRrelByQ1dhLU1fdzcybkxyZ0VVd2xaMFdxQWFVWFFkNng1d2NqV0tJb1gzNlRra0otRmllUk4zRjRtcjlWcnlVdlFXTVhmc1EwVllyd1UtV2xM?oc=5
+
+## Taylor Swift Cuts Ties With Blake Lively's Children As Brutal Details Reveal What Finally Pushed Her
+
+- first seen: 2026-08-01 07:37 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Cuts Ties With Blake Lively's Children As Brutal Details Reveal What Finally Pushed Her To Walk Away  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTE5Kd3FDLWlLcEl3ZjNaRHptTDZQNHM4bzB2NHBGcGY1MExJcDktUHdpYi12S2Qxd2h4a3Q1bUkzYUItNTRZQWpYX0w0V3F5QTVuTlN1R0lJRlVGQlBSTnlKLWJjSnJ5ek5VWGpDSTREM242S2NQT1FQNzhn?oc=5
 
 ## Jason Kelce reveals the one thing that surprised him most about Taylor Swift and Travis' wedding - p
 
@@ -109,14 +165,6 @@ Rob Gronkowski Breaks Down How the Raffles Worked at Taylor Swift and Travis Kel
 - sources:
   - [unverified] New York Post — https://news.google.com/rss/articles/CBMizwFBVV95cUxPNEp1dzJSdVhhdHU5VXlpcXM1SjVxT3FGRjZSc2ZYb04tYmVlMVNGcjRtZWRRWEJ1YU9qaVV6SkItZkNSU0ctUVZ5NGY1M3dFMDBwWHE3d0xVdFN1eFliUWpEMVZzUWV0S18tZjdYcXAzemxGVEVwSVQxajg3amczZmVzandsalBJdFg5bnd0dnBiN0dRMlViRDZ3bW03RVVLNW5ORGowRU52bjJYcXVQbHlRNF9GZmlFdm8weE5SbmNjd3BxRzRoTHRuOFhMeWc?oc=5
 
-## Here’s How Taylor Swift & Travis Kelce’s Wedding Raffles Worked, According to Rob Gronkowski - Billb
-
-- first seen: 2026-08-01 04:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Here’s How Taylor Swift & Travis Kelce’s Wedding Raffles Worked, According to Rob Gronkowski  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxQZk4xdi1VYkozeWFPRzlTY1RGeTROd01hN2hMOElTbU9fUmduSk5FSllGMFBEbHRXQmhaX0FMY0p6VVl0bmVMTjNEcUx1R3JqNEZ6QU54Z3JqODN4bGVtS1JiWnBGMU9MQS1pTV9WV2JDSkx0WXIzeHdYX3Jqa2dkMVo4ZlRvejlBOFNTSDYySDhQa0tfa3g4TWlCTS1tT0pyeHBBU1gwcU5lak8xWnlKdw?oc=5
-
 ## Charissa Thompson Recalls ‘Magical’ Taylor Swift and Travis Kelce Wedding with Erin Andrews - People
 
 - first seen: 2026-08-01 04:31 UTC | category: relationship | importance: 5
@@ -189,6 +237,15 @@ Rob Gronkowski Breaks Down How the Raffles Worked at Taylor Swift and Travis Kel
 - summary: Fox Sports commentator Charissa Thompson details attending Taylor Swift and Travis Kelce’s ‘magical’ wedding  Entertainment Weekly
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMingFBVV95cUxOTm1uV0FMNEhJMjktV0gzN0FVZXJPcFg0T2lfbXhLNHZubzNFUVBjRFQybUFaVVZMTHRiX3FJQWFRdFdGbXk1M0M4TE8zaWwzMlRBeE5PN3d3SF9QcHFpTmQ0Q0hWV0xXc21QbUxQNlRYMDhaUVNpZ1pBU0VKdnVXLU9YNi10VzVhdU02c2hnTmhPY3NreUVDSWxEV19Jdw?oc=5
+
+## Here’s How Taylor Swift & Travis Kelce’s Wedding Raffles Worked, According to Rob Gronkowski - Billb
+
+- first seen: 2026-08-01 04:31 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Here’s How Taylor Swift & Travis Kelce’s Wedding Raffles Worked, According to Rob Gronkowski  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxQZk4xdi1VYkozeWFPRzlTY1RGeTROd01hN2hMOElTbU9fUmduSk5FSllGMFBEbHRXQmhaX0FMY0p6VVl0bmVMTjNEcUx1R3JqNEZ6QU54Z3JqODN4bGVtS1JiWnBGMU9MQS1pTV9WV2JDSkx0WXIzeHdYX3Jqa2dkMVo4ZlRvejlBOFNTSDYySDhQa0tfa3g4TWlCTS1tT0pyeHBBU1gwcU5lak8xWnlKdw?oc=5
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxOSmJIdllCYTVTbW9RdHJicENYdjRtVkJuXzlPeVlya01kcXVMMGx1TWNlbGg3WFM2WUhVZzZ1OGFYcU53Qm1hRW5HVGxxMy1PcUltNk5UTU9TX281UTF1YkNweG54NDNYM0JyM0xQQ2NEV3d6bmVqZVRiRVZZUnZqYzNYSmQ5ZTFWZHNyNXEwS3hKWEg4MzdNcmtMVGlXTmVpY1VaeDVyWGY3czNOb1p0TWtxM1c2ckMxVmxBak1FUGVMbldKOUE4?oc=5
 
 ## Barefoot bandit strolls off with Taylor Swift standee from California ice cream shop - Yahoo
 
