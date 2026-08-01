@@ -25,7 +25,64 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 60
+Stories: 57
+
+## Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like - Just Jared
+
+- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
+
+## Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive) - People.com
+
+- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive)  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZGRQZUpMSWRVamFVRDRjSk9taGJfNzVMOEo1NUxiUGp5OVc1MzJSZUNHTDRRcGVuY2g3YUx4SWFpUTRGZzdtS3NjYTBVZ0FDVlpJY2c5aVdVeFd5NXdxZlZHT1hfQzd6RHk5N091R2x6cTc5WU9OUzVLa2RMQXZrOXBpc0JzZFVxaUVibkpHRjF5cVBUV2JCMHR4dFhtX0w2UXhYVklSa0M4ZG1kTkNHMzJMNjRTVEwtbVdGaVpoaER3QQ?oc=5
+
+## I Can’t Stop Thinking About the Garden Where Taylor and Travis Got Engaged—Here’s Why I’m Still Obse
+
+- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: I Can’t Stop Thinking About the Garden Where Taylor and Travis Got Engaged—Here’s Why I’m Still Obsessed  The Spruce
+- sources:
+  - [unverified] The Spruce — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNNGxNN0xmNURNM2xIdlpuSEJNbmFhX1FLcVNzWnRJNE1PTTZxcjZGclBoUE1xaTVCOXRFeFF2QlNBUm5hdUhKRXRxelhzc3BRLXNQaTdPdTNoYWdvMnRVVXg5NGk0OVZILU52VXJieXZrdk1pQXJpUEYxWUxFdjhHN0JQZ3dkbG5N?oc=5
+
+## Taylor Swift and Travis Kelce's wedding vows offered guests a 'closer look into their love,' Maren M
+
+- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce's wedding vows offered guests a 'closer look into their love,' Maren Morris says  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi5wFBVV95cUxPcWEzeVljUVhXOVdKdllwT01XYkFzZ1JBZ21OcmtMQmUxYkFuU2dSRnlBYnYwUHJmbEY2QnJHejN5WkVzN2hoX0x1YUtwSWYzU0VvWDhOeTlCUVpkeUZ6MmVNbURSSFBWTG9pUDd1OWhnWG9PZ2lhWTAzVk84NjBISGlkeEs3ZDVseFBUS05UakNqSlp1b1Jmd1RfOGxNV0RfY3ZTdTVrZUc3OUlMTXBxTGYxSFpNSjJBckNrMkZJd2Y4Zkw1VllZZk04ZEMycVgxcTB1M3JfbFQ0SnNDQ2toRUtFOE8zS2M?oc=5
+  - [unverified] ca.style.yahoo.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxOV2Z3YlBpeXJoX3ZZNjZFemZ4WWRhUWtacV9abkFSRUZuSVRnU3EyUFl1cjNQOFhCVDRDMnZqQm1UMTBOUnZqQ3ZSQWxhU3RPdWxQNl9iQVZfUjVPTkpRTGhPX3Y0cGtQVm56cVRKbmtQcUxPWTZjeGZ6UFB2WklVWg?oc=5
+
+## Taylor Swift’s Father Reportedly Made A Secret Deal To Protect His Daughter - Yahoo
+
+- first seen: 2026-08-01 22:08 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Father Reportedly Made A Secret Deal To Protect His Daughter  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNYmpWa3I2T0ZJcmxfa1NMNnplcm9TeUJvYVdUblFRa25uRG1rUVI0ZUJhVVFrT2l0TFpWV1hpTWJubl9VYjRlSXhnM2h1X2ZLam9NeExDcEZiRW5DQ0NlTEhIUjd0YlJaQWJUWHhzOWx2clh0TVY4dDFNYmpRVlMxcXg0cnlGRHVsM2FGZVdxQndwR3laRjdkYW5jZ0lTMXRUMEF1UW12SlY?oc=5
+
+## Fans stunned at Travis Kelce's training camp physique after nuptials to Taylor Swift - Fox News
+
+- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Fans stunned at Travis Kelce's training camp physique after nuptials to Taylor Swift  Fox News
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiowFBVV95cUxOT2J5NDgwUlphMTA3b0NZOUlPelktMTdPQmRVcFprYms4bFM4V2FaQXNoWDBJN0owLWNwRlpDemgzOHJ3VDZTSGhHdWV6eFhQTDVhQXVtTGR2QVZLYzVVdWVnVXBSd2Z0bTdIUnduTjR5aF9HWEh6aU9SampPVXJMdVVJVlpFRzJTSGFsTlNhaUk0UzdxY0UtdHQ4UGk1V0djLUdj0gGoAUFVX3lxTE9oc0lqakctekhSRHE0aHp3a0RTXzRGQkFOR21pUWZzQVVuTVo2aTMxVmdJZ2t0dktoZ0plZjJ6eURmR2dwVDR6cTNjY2JVUG9KZXN3V2tLYkU5R19FTVdDd1M0a1Rwb0VOY2tkZWNsQTl6TTVXTmlCNDVXX3JqdWhJcTdrYzRMV3VJaWdyaUhsZEdHTmJ6UEF6aTZFR3VLSGkzdXBjcW9IMw?oc=5
+
+## Taylor Swift showed her funny side in wedding vows, Maren Morris says - ca.style.yahoo.com
+
+- first seen: 2026-08-01 22:08 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showed her funny side in wedding vows, Maren Morris says  ca.style.yahoo.com
+- sources:
+  - [unverified] ca.style.yahoo.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1NT2Rhck93ODlScmJHb3RtX3BTeUhiMjVGV3RXcE90b0VoTndMMllOSHUzUWY4OTdWeWZkN0dwMW1kZENXenUwN2hJZ1BCRFkxMGVOM2hyTmgtU3Z5V1I4QnlZRXdVT2VjeFZiRzlCWFZ4ZmhOZktPX3NEUQ?oc=5
 
 ## Rob Gronkowski Says Taylor Swift and Travis Kelce Made Guests Earn Their Wedding Raffle Tickets - Ya
 
@@ -434,84 +491,3 @@ Rob Gronkowski Breaks Down How the Raffles Worked at Taylor Swift and Travis Kel
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipgFBVV95cUxOV0trQmU1ZTJvU3JnWjNvOV9udlRPejl5R2NpVmI0b3pJQ0x3NG90S3I3dW0wSXk2U184Uy0zVWtzZnFaek5DQ1Y5RmV2alh6SzAycHVxcElQc3pVbjRLMVhNRFk4LTJnVFdxT1hfOVpZenZOdThMZFo2VGRTb0Y0NTNQTTkwSzhIV3VrdnI2OEt1djc4LUhkVTlIMzhKeHUyZU1oR2t3?oc=5
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxOTTJkVlZkUTVPRjh0dlF3dnRPZUdWeWFWaFZwVXZXaU81enp6Y1ktZUxmZUdXTHdXNXg5UHdnSS05aE1OYTUteWh5VG81N3dnSVRtSzB2WnhjTlc0NHFiMllpVW8weFR6akJsNW1URm1MSkloZklzRnpQWF9mZDNRZDJFWUFOaW5CZkdVY0hLRFNfbTFwV1luZUlOYzBpMFZocWdfWkVnUQ?oc=5
-
-## Just say yes: A Taylor Swift orchestral symphony experience is coming to St. Pete - I Love the Burg
-
-- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Just say yes: A Taylor Swift orchestral symphony experience is coming to St. Pete  I Love the Burg
-- sources:
-  - [unverified] I Love the Burg — https://news.google.com/rss/articles/CBMic0FVX3lxTE5ZQ3hBVXl3X0dDR1VvdnhzTUdtWVZUQkltQlVwZngzVFJOTlJaSjNWZ1RmQjA0eXFFQU5ibGt6NHZpdC1OZzREazduc2pNcmwzbGZqV2UxRm9uY1B6X0dPQ2Q1cE5ma3VLaXRpQV85ZU1kdXM?oc=5
-  - [unverified] That's So Tampa — https://news.google.com/rss/articles/CBMidkFVX3lxTE45dzNJQ040Yl9xSUlPZ1NuR053NzgyeXlFOXhCeC14aU8tNUpPT0VaNjQ5aHp3cUxvbGtQY3c2dEN2QnNiTEdlUzlfNnZnVV96VExYdC1kR3RvNEZXMDJVeEJnc2hRY1cxN3ZYTDhlTWRLZlpzdmc?oc=5
-
-## Travis Kelce Back with Chiefs for Training Camp After Marrying Taylor Swift During Offseason - peopl
-
-- first seen: 2026-07-29 18:14 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Back with Chiefs for Training Camp After Marrying Taylor Swift During Offseason  people.com
-- sources:
-  - [unverified] people.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxPR3hIYU80YTRucDJKajVNc2hkVEhKdVJxb0dOM1N6a2w1OW1IVUszTjRXT1lrWnpPRHBJMkxpb1RWNFpyY2hlb0Nvd0lfMF9qOVNXQ1BMdU1rejdWU1NSTDJNSTlKWVl1Wmp0ekU1cXNEUVZ3U2NYNllXNFUxM085VFhBQVNibzkwWDBBYlJQQTJhM1V6eTlCR0NMX3ExQ1U4ZzZQQzRLOVZEcDVNSzVHeXlpWjBZVmM?oc=5
-
-## Women’s Country Chart Sweep Is Unlike Any Before, Thanks to Ella Langley, Taylor Swift & Stella Left
-
-- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Women’s Country Chart Sweep Is Unlike Any Before, Thanks to Ella Langley, Taylor Swift & Stella Lefty  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMijAFBVV95cUxOQVkzWW5zcndvenBiTFhjYmRSLXhfTGJTQlFldDZoRGJfWjF6dUd6NU1xT21JWlRQTl9KV1B2dEx4YmNJVHNQd1QxRHd6NnFJVEpodzhGSzlIZmdMNUxfcGRGYzlrckRIa3lEQVg4X0g0b1VYOXpEdWNsY2txcVZWbmRWaXZlUXFDb2ZYWg?oc=5
-
-## Southport victim's sister switches off Taylor Swift whenever she comes on, mum says - yahoo.com
-
-- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Southport victim's sister switches off Taylor Swift whenever she comes on, mum says  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQN3lITEhFelEtN21TSHFNcGpMdDhpYm5iRTFrVmNSeEx1Vk9ySzFlcUtJMUNnMmRXVmlMUTJXSlZ2SVdjQVVNMnN0ZktLckpDNzV0dXM0alVkXzBnOTB3UHVpX29KYjRBMkh3Y1V6SWVuelR2X1R6cC1Sd1kxNWh0NXRjM1dVRDZ3ZXF3T3dEdw?oc=5
-
-## "Choosin' Texas" is breaking records set by Mariah Carey and Taylor Swift. How did Ella Langley do i
-
-- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: "Choosin' Texas" is breaking records set by Mariah Carey and Taylor Swift. How did Ella Langley do it?  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMi9AFBVV95cUxOV0k3TW5pYzVlU1NrVnV4WU40ZERBWUtQdFB3ZXVoeW90ZVFucks0SGJrZnBodXFoUmFLNUczWHIxb1p3TXM5VzhVSkkzNXRCY2dSdEtMYlJrT0VlTFJ0b0o0bFpCdzIyOEcyR3RtUnQtQVpWNFNacThvUmh0X1NadmRNU1lLU0owbFNIZy1LWG1KLXZ5eWJ0QVZZYVBmM3A0TGdfODE1REpiVHl1Y1Jkd0NnWlhQR044QXpnVjR3c2daMVlKc3V5eE51NmF4OWNPWVU5a1dGN0N5M1B6SmNWWC1HbW1KTlZTNjIwMmZ4dDNMRWpo?oc=5
-
-## Travis Kelce Gets Good News Weeks After Marriage to Taylor Swift - Sports Illustrated
-
-- first seen: 2026-07-29 18:14 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Gets Good News Weeks After Marriage to Taylor Swift  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNQ1NkVFA0bnB5MDdFemRJRVg1MFUySWZsdFJqR1gtTmJxS2JLb19nYzRpNHgyVnJKSktCd2Q2bkJidVljM3ZtLWVxbENkZ1AtSlJBTFZfVnlGTjY2ZGNMNDJlcEZFOW43UXgydmNiX0VqelBNMm1xcm9ubzZOVmhsZXZhM1l3SDRnZXZ6SjZNa2RISlp2cGY0VWNJMF8tYkR0Y09haURwQzE4QQ?oc=5
-
-## Jason Sudeikis Describes Taylor Swift and Travis Kelce’s Wedding in 1 Word - people.com
-
-- first seen: 2026-07-29 18:14 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Sudeikis Describes Taylor Swift and Travis Kelce’s Wedding in 1 Word  people.com
-- sources:
-  - [unverified] people.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOWDdEZnZRSnlRQXZjYnNzM2dKQ2hBUDl1R3R3bFkzM3FzbG5helBfS2Rwd09iWDVOYUhjTWc5enNVOHBwSTNlZlhnVDZqRXZLMkJnZklZOHUwbTBhN015aE1IYlpHQllzakxlRWlhN1BLWGl4dkptbDRJS3ZibllzSWdnUEF2bEtPQjJZTG1EckpEcWlOOUllbml6a2FXc2RheVE?oc=5
-
-## Taylor Swift’s ‘I Knew It, I Knew You’ Debuts at No. 1 on Top Movie Songs Chart - Billboard
-
-- first seen: 2026-07-29 18:14 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘I Knew It, I Knew You’ Debuts at No. 1 on Top Movie Songs Chart  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxNNEJmSUtZOEpuc2FnbnRWOUlrWWNYT0UtLUlRS3g4WURmQ3R5cEtEYXZBelo2MmI3Vkw0aGlmaTM2UUd5SmtvUjJ0OHBnWkgyZUZZZ0YzekRzRkxPbXRHREdnbW1JRHlTbThFVFMtQmNEejBUTXhlSHc4dEFuS19QZ0Fpc1dveDc1MDlsVnhhVE1fSk9xUkx3dzlQNlI1Q1BDaDlWNU9falZxa1FGczln?oc=5
-
-## Taylor Swift Sues Ella Langley For Bangs Infringement - The Onion
-
-- first seen: 2026-07-29 18:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Sues Ella Langley For Bangs Infringement  The Onion
-- sources:
-  - [unverified] The Onion — https://news.google.com/rss/articles/CBMigAFBVV95cUxOTmlKVE5HeUtFYUh2a3NxbGFrV25fVnBtbmlUdzJZQzBLTnVnQUJJbFVVeUJJbVh5a0lDOVFkMGFnT3VfdmNBQXRSclc5eGh1Qi1jQjVpSndOYkpSZzZZN0piT1hUdmhrOTZGOWo5ejVPNEhvUk9FbVZTV01RZkZHTA?oc=5
-
-## Simone Biles Joins Taylor Swift’s Wedding Gossip Train After Showing Up In ‘Perfection’ - yahoo.com
-
-- first seen: 2026-07-29 18:14 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Simone Biles Joins Taylor Swift’s Wedding Gossip Train After Showing Up In ‘Perfection’  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOUzVha29yNUNOS3AxVmFNTkpJZ2RGX1drOG9GZ1RlLVhpS3lrTkstbjl4VXdUQlA5ZExuMEtjTVZHdkxaeGhwYmk5Vlkxa2NwMnl6akoyeEhiSFRDeEFNVGhkSk9ueThlMDh5ZWZ3ekt6TzNGNFlZNVBZekNmVEh0Y0txLWktX3pmOHNjd3Z6WVJNSVpydTBQRndMbXp5VXNzcm80?oc=5
