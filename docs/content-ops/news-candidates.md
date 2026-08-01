@@ -27,6 +27,38 @@ so far".
 
 Stories: 60
 
+## Rob Gronkowski Says Taylor Swift and Travis Kelce Made Guests Earn Their Wedding Raffle Tickets - Ya
+
+- first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Rob Gronkowski Says Taylor Swift and Travis Kelce Made Guests Earn Their Wedding Raffle Tickets  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNOUJpclczMDJNUFNGMzY5Y1lIQU5zdFFIMU9xYURPN0UxSG1CNWIteGd2cXRqN29OSzBrV2VmWlNDeHNQR2FhcUlIVV83YmloLUZjc09SdmVpZmVhTmUtM1pHMzR0QThOc05vd0ZLdC1BcFBTc2xFdWxMVXFIaU5sM2ZJdFJFWFkyNnJYajZ6cEJrNXB6R2JELXBKVlZ1eUlVaXcxWQ?oc=5
+
+## Travis Kelce-Taylor Swift Wedding Prompted Unexpected Admission From Charissa Thompson - Sports Illu
+
+- first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce-Taylor Swift Wedding Prompted Unexpected Admission From Charissa Thompson  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitgFBVV95cUxNaUhOM1pWcjZZX1RiNWIwQjBoYklIdWJNRTdXX2ZjeHd6b3Rjc3YwTW51R2Vramx2UnZXQWc0T2RYTGtBU1h2RUJYa09TX1g4ZVJxWEVVYVZud3c4VDdXNnB3cDVnNzVfV3ptVmZkYmJNRkw2WWRyV0dJcjQtZ2lqNF9maW9xajB6SjlsV29Wd1kyMTVvZF9zbkhrZm5QSlkxWmVKZm5LbnFIQnhFTFhkaTVCUUxRdw?oc=5
+
+## Noah Kahan apologized to Connecticut as Taylor Swift married Travis Kelce - ctinsider.com
+
+- first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Noah Kahan apologized to Connecticut as Taylor Swift married Travis Kelce  ctinsider.com
+- sources:
+  - [unverified] ctinsider.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPNWhxX2Rob1h4VmZXakJBc1hUbE1JQnNpZlpBdmZxNy1OaEQxS1JIazZkYWJUVmM5MFZTQXJoX3U1NDlxNkZZMENrRTdJbGJzQkN6TWRZQUwwaUw5UzMzemxIb0EzM1ZzQk1EQXZRUzR5UnpzUzJUajRJSFppQmhCYnJpVGFWQTNCN0N3ZnFBYkFLNUFQZjg4OGM4MUltV0RUQWY0NHQwdzZxMkQyTTVF?oc=5
+
+## Taylor Swift, Travis Kelce’s Wedding Vows, According to Maren Morris (Exclusive) - People.com
+
+- first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Travis Kelce’s Wedding Vows, According to Maren Morris (Exclusive)  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNUWZIOGt5Yi1fMFMwdEhoelBoWXFUU3FJcWJKcUVDRUUySzgyd2JqdHVkT3pWQzFxZmtCZU5kbUdBdmRwZTdQY3lwT1ZVeVN0c2RRRHZEbnU1bDBrdmFOc3R5VWlUc0Q4VTZXZHdBVjJTZ3ZuODBQX3U0S0oxampsalBsR1VKTnI3c2NjSTR1ZlpjOUlCUzhWQWNmelhvSlRRdFQtZEdhRQ?oc=5
+
 ## Taylor Swift's summer touring aircraft strategy: How global tours move like Fortune 500 companies - 
 
 - first seen: 2026-08-01 14:40 UTC | category: tour | importance: 5
@@ -127,10 +159,11 @@ Stories: 60
 ## Taylor Swift Cuts Ties With Blake Lively's Children As Brutal Details Reveal What Finally Pushed Her
 
 - first seen: 2026-08-01 07:37 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift Cuts Ties With Blake Lively's Children As Brutal Details Reveal What Finally Pushed Her To Walk Away  Yahoo Lifestyle Canada
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTE5Kd3FDLWlLcEl3ZjNaRHptTDZQNHM4bzB2NHBGcGY1MExJcDktUHdpYi12S2Qxd2h4a3Q1bUkzYUItNTRZQWpYX0w0V3F5QTVuTlN1R0lJRlVGQlBSTnlKLWJjSnJ5ek5VWGpDSTREM242S2NQT1FQNzhn?oc=5
+  - [unverified] Bored Panda — https://news.google.com/rss/articles/CBMipgFBVV95cUxPdVVDTkdnQ0xOTUFFOW95V2ctOGNQdUotSmNDV2szVmo1ZFNWVmdEWm1MVjM4c09LR3FzS0s1ZDZLTzNMRjVCaEVZS29pRTAyRzNraXFTUVIwU3ZJSTVKMHVXaWZNV3R0R3NqSTlfQkpWb251bkQxOTlaLUNCb1ZMUEs1Z2RwN0poVWlSMkI4YnRqVUtoVEp4bmlZb19wamRsZ08xdWtn?oc=5
 
 ## Jason Kelce reveals the one thing that surprised him most about Taylor Swift and Travis' wedding - p
 
@@ -482,37 +515,3 @@ Rob Gronkowski Breaks Down How the Raffles Worked at Taylor Swift and Travis Kel
 - summary: Simone Biles Joins Taylor Swift’s Wedding Gossip Train After Showing Up In ‘Perfection’  yahoo.com
 - sources:
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOUzVha29yNUNOS3AxVmFNTkpJZ2RGX1drOG9GZ1RlLVhpS3lrTkstbjl4VXdUQlA5ZExuMEtjTVZHdkxaeGhwYmk5Vlkxa2NwMnl6akoyeEhiSFRDeEFNVGhkSk9ueThlMDh5ZWZ3ekt6TzNGNFlZNVBZekNmVEh0Y0txLWktX3pmOHNjd3Z6WVJNSVpydTBQRndMbXp5VXNzcm80?oc=5
-
-## Simone Biles Shares Surprising ‘Gossip’ From Taylor Swift and Travis Kelce’s MSG Wedding - Us Weekly
-
-- first seen: 2026-07-29 15:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Simone Biles Shares Surprising ‘Gossip’ From Taylor Swift and Travis Kelce’s MSG Wedding  Us Weekly
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMinwFBVV95cUxOdWp6WVpydERPeFd1TFlxamZPVURqdXBkdF9yRjYxMXd0ZXBDMUNyZHR0NnFTV3R0YXg3T2k5alJQcFF4S0l3aTNiM0NhTmRDTFgxWXJtNzFkNVpnaW9xRjhVd1NIWWhsTFZNZFJIbTFrMDdhNmZ0U1BNd01ISVlhX01JUkphWmppMnk0WFpFYW5IV1JNcTU2XzhNSk9wczA?oc=5
-
-## Karlie Kloss’ Coy Take on Taylor Swift’s Wedding Raises Eyebrows - Yahoo
-
-- first seen: 2026-07-29 15:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Karlie Kloss’ Coy Take on Taylor Swift’s Wedding Raises Eyebrows  Yahoo
-Karlie Kloss breaks silence on Taylor Swift and Travis Kelce’s wedding years after fallout  Page Six
-Inside Travis Kelce's instant reaction as Taylor Swift walked down the aisle  NBC New York
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNN1NsQ1lDTkRBejI2OW1mbEh3UnczZFhrMTlzUTJZbWctMVlWdTZiQUlabm9KUm96NTNmWGpFZ2dYOGtZazZuZ0xrV21wTkhhWnpVdW92VkRPbUpTYno0bnM1c0xWeG1QVXl6OHZYZzMzMXZXSTdlb3RqMGl5SnpBRUxpRDJBcnZPVjEyam1iNFRJR1RYRVp6RE1MWXVTSDZQ?oc=5
-
-## How Taylor Swift and Travis Kelce reacted to George Kittle's outrageous suit for their wedding - hit
-
-- first seen: 2026-07-29 15:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: How Taylor Swift and Travis Kelce reacted to George Kittle's outrageous suit for their wedding  hitc.com
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxNSEx0QXMxTUZGTjV0eFBuYm9hSlZKdV9hSDhiUUtGMG5ZeGVaYWJVZTRNdGJJcE03WmpuUWk0U0U0WVhiQXEtUnEtcUFsRGhwRnc4bTZOcTVidzN3blZEYmVrQk1mX0s5VXRfR3d0WFdyTm4yS1Q1eGtQR1RsaW45TEdtRFIxRU5pSzFPakdEdmpXTHJnUFFlWXRUTDZuX1d5WWZxdHdXaE5CQTVGUjJ0WWlNZFM3Zw?oc=5
-
-## Travis Kelce & Taylor Swift’s Wedding Hosted an A-Lister That ‘Surprised’ SNL Star - Yahoo
-
-- first seen: 2026-07-29 15:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce & Taylor Swift’s Wedding Hosted an A-Lister That ‘Surprised’ SNL Star  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQRnpZakoxcm1Ka0RNZms0ME5fTXplVkJyeW12dXQtckFJd1BMNWJacDNxLVF1QlcwcFluMG1sSjJicVhBNnJhbGdfSmNsRFVsNnNtVnhibGhfQXFYSzVHdmtqR0IxYmw2Y3JYOVJkbE4yU21FSXJLcVpEQlBoLWxiSzZPaDBlRkJsazhMeGZUZFVkN015RTJva0RqOHVUMkJUY3AwcVR3?oc=5
