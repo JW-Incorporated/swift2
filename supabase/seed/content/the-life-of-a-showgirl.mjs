@@ -3672,6 +3672,22 @@ export default {
             sourceTier: 'established',
             lastCheckedOn: '2026-07-25',
           },
+          {
+            // Added 2026-08-02 (Rumor Desk, Vault Run): a forward-looking,
+            // adjudicable claim — MSG either commemorates the wedding or it
+            // doesn't. Public-venue matter, no location finer than MSG (the
+            // documented wedding venue), no redline. Verified via the Yahoo/
+            // MLive writeup of Rob Shuter's newsletter this session.
+            claim:
+              'Madison Square Garden executives are reportedly discussing a permanent way to commemorate the July 3 wedding — in the vein of the banners, plaques and displays the arena hangs for historic runs (Billy Joel, Harry Styles) — with insiders saying "it\'s absolutely being discussed" but "no decisions have been made" (and "no one\'s proposing a statue").',
+            reportedBy: 'Rob Shuter’s Naughty But Nice (via MLive/Yahoo)',
+            reportedOn: '2026-07-30',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
+            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee that went up on the day — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction — the speculative part is the arena\'s decision, so no location payload is carried.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-02',
+          },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
           // review. A honeymoon is a private trip, not a public appearance —
