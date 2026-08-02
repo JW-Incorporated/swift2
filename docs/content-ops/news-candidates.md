@@ -27,6 +27,15 @@ so far".
 
 Stories: 49
 
+## Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom - Yahoo
+
+- first seen: 2026-08-02 10:48 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOQk93Y2NNMGQyeFluRjNqWGF0VFNKM2c4OXZFb000cVlxWldLeWRCaXFkMHh4WTlWWGlQbkZDZTZEUEhXSUZkRXhRRnhFeXFMeTJWdnQ1LU5rUVRfaHRPUTk1WWlMdVFTYWRNM05qMmJVdEd2YVgwWjdtanhkRk5DSGlSeWNXZ3cwZ2YxbDEzMEZnOEtzQUJiajZPOG5BVEE?oc=5
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikgFBVV95cUxOV1VGSVEzQXFlOHBobC1PWHAtWnhzZFRiMURwNmVPTUVNdlpEYzI2N1ZGS2hKNXFvZGJuRzlrZGFpbzFxUDNhczh0QUFNQlBwOVlTQmNELTNFcldNaGphZXdiSDZSMmotbkoxVnl0VFZzTDBkOEZtem1La0ZzcVRpUEV1UmdOWkJIbDdyd2pndDFHZw?oc=5
+
 ## Blake Lively Reportedly Used Taylor Swift’s Private Texts In Alleged Ultimatum - Yahoo
 
 - first seen: 2026-08-02 10:48 UTC | category: sighting | importance: 3
@@ -34,14 +43,6 @@ Stories: 49
 - summary: Blake Lively Reportedly Used Taylor Swift’s Private Texts In Alleged Ultimatum  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNT05GaWNKYjk3THJUdU5TRklFRDJYR3p5Y09iaHZsdmU0eE44eEx6R2NYMmUzVjNlYlcwVzlRUnlnSUJ6ZHc3TFc2TXhwb1BCTGxtODJxQjg5SUVDVEZjVnRJOWZlZzdsWnM2aXF3b0dia1AxeUJoREQ0OTdzQWJJMUhsOFI1WnRKblltTmNsRWptNW1rY08wLWQ1QzB3VGhvWnBJVEl4YmU?oc=5
-
-## Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom - Yahoo
-
-- first seen: 2026-08-02 10:48 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOQk93Y2NNMGQyeFluRjNqWGF0VFNKM2c4OXZFb000cVlxWldLeWRCaXFkMHh4WTlWWGlQbkZDZTZEUEhXSUZkRXhRRnhFeXFMeTJWdnQ1LU5rUVRfaHRPUTk1WWlMdVFTYWRNM05qMmJVdEd2YVgwWjdtanhkRk5DSGlSeWNXZ3cwZ2YxbDEzMEZnOEtzQUJiajZPOG5BVEE?oc=5
 
 ## Taylor Swift was inducted into the Songwriters Hall of Fame — here's what her five chosen songs reve
 
