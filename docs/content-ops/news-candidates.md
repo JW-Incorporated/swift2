@@ -25,7 +25,64 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 49
+Stories: 56
+
+## Charissa Thompson Left Taylor Swift And Travis Kelce’s Wedding After ‘Slicing’ Her Skin Open - Yahoo
+
+- first seen: 2026-08-02 18:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Charissa Thompson Left Taylor Swift And Travis Kelce’s Wedding After ‘Slicing’ Her Skin Open  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQc0FOOXk4VFVHNlVDYzBRalVoY2ZNZlV1Z1IyWUdsQlRnRDI3WmhFa0NoaEhZTnVuYkZJMG5SYml5M3FPVzZ1SV9JZjhGVTlCWlQ3QXVnYU1RdHdXVXpkcDU1MWoyNFJpV3h0ME9OM08xUDBtRlNhd3R3eWx2cXctb1ZhUjg4c3pHV3FJMVpaV2hIX1Vvd0ZiU016RmgwUUxXV2Y1Q1QxLUw?oc=5
+
+## IS THIS TAYLOR & TRAVIS’ ALLEGED DOG’S NAME?: A sweet tribute - deuxmoi.world
+
+- first seen: 2026-08-02 18:09 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: IS THIS TAYLOR & TRAVIS’ ALLEGED DOG’S NAME?: A sweet tribute  deuxmoi.world
+- sources:
+  - [unverified] deuxmoi.world — https://news.google.com/rss/articles/CBMiekFVX3lxTFB4ZFhIcWFNVmFhQkxuUmpObXZpMjBfMWgtalVKWHVlWHh6d1ZDd25NYnlPdVVoOUJZRmJZaGU3T0JYTjBRVUYwdVd1WTRFWEVHUDhFSmJfOG5ZLV9wM0N5SUR1VmFPc0llOHBtUE5RQXQ5ZjU4Z3NsWlRB?oc=5
+
+## Blake Lively 'threatens to release intimate texts' amid Taylor Swift feud - the-sun.com
+
+- first seen: 2026-08-02 18:09 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively 'threatens to release intimate texts' amid Taylor Swift feud  the-sun.com
+- sources:
+  - [unverified] the-sun.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxPeTlWUEhTbmlDdWc5d3pEM2FMaXNNVENJR2FidG5XV21PdHcxVm1INEl2NGVqSHhRZGNzX1lGcDNndnZWYXg3a3VnZmVXSWNvcVUwTTF5UzhqSHNQOThuaFEwTVUwelcxMDdOejVEVzVhcUtZcHlJV196SzZ1SDdXVno3U0I3WHNyOWxWa29ZS3FfV1MwX2c?oc=5
+
+## Phil Collins: Taylor Swift deserves to be 'hugest thing in the world' - Yahoo Lifestyle Canada
+
+- first seen: 2026-08-02 18:09 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Phil Collins: Taylor Swift deserves to be 'hugest thing in the world'  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxQRXdpQjJWTlMxMnlNck0zdjRqOFdJVC1rMVFmdlptYmpja3hEajVkcElDdHVjd3U3R3JmWWJMWHR5QkNVSTNsRFlKZzI2dHZheVl4ME5XcUdHLXdyQ24wT3B6MWQ4elZWblo1VHdDU3BlR0czRVN3MHE3UDFwM1EzM0pn?oc=5
+
+## Apparently, ‘Weirdos’ Have Been Sharing Fake Details About Taylor Swift And Travis Kelce Wedding - Y
+
+- first seen: 2026-08-02 18:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Apparently, ‘Weirdos’ Have Been Sharing Fake Details About Taylor Swift And Travis Kelce Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxNbkxlbzZCbDJaTjVYRzVzVEU5eU9QeG1xUXgzWUZBMzdWOHowa0gxV2ZBVTJ4SHFjQUtCWkhpc2wyNEFCNWNsbUs0Sl96bV9FRFFyYmd5SUsxV3VlazdJNUFyQkFBZlZXakVYQjE2b3Z4QWdRa3htRjQ0ZjBDdW8zSnFDVGZNVnpiVzktWVlYWWFrQ21hV243Tmp0QUVKUEd3c1A2dW9vN09tRVFpRmc?oc=5
+
+## Celebrity insider says Taylor Swift and Travis Kelce’s wedding vows revealed their ‘love and humor’ 
+
+- first seen: 2026-08-02 18:09 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Celebrity insider says Taylor Swift and Travis Kelce’s wedding vows revealed their ‘love and humor’  HOLA
+- sources:
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPRGlBempwYkotOFRBb0RPLVU4OGcwY2NoWHd6RnNEbWVlcGpkSEwxcnlRLWpZNE40QzhlcVdHVF9Md05RSUFLRE15Y3RxQWJaZWRKSUFocDNZZGs5Q25zR08yUEtNNlV2NzNzcWtXei1PNTBielB6M3o3aEFmcTNWWDJhQ0RKMTJvck1lajVNNktzUlZjS3YyYUJFZnlTVk8tTGNzTU9LTnUxTmdUbUtzTklSQ0NYRXpsVzgwZGh5ZThkVnM?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQQ0xsdGM0NW1mWlZHVDdVbXhsRkt6RVhHclFLU0ptQ3I3U0gtWEVTWFRpZGlOWmlJcGRhaHh3MVc3YUtJV2NfWjN6dXBhMEc3R1VRa21Mak9TNUlFa0FCbVFXcEZ1NmFlbE9XMzQwWVBjNGo5QjFscFJhdW5mRXdNS2E4dy1xekhJaHJHTWk4VjhENW9rQVN3YnN3bkdkU3VnT2ZWWmhORmM?oc=5
+
+## Phil Collins, 75, Reveals the Taylor Swift Song He Was Blown Away by When Meeting Her 15 Years Ago -
+
+- first seen: 2026-08-02 18:09 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Phil Collins, 75, Reveals the Taylor Swift Song He Was Blown Away by When Meeting Her 15 Years Ago  parade.com
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxQcE1qazlTWG9Ud09FMXRWVG9HUGZ4WmoyU0VIcGh1d01NZFh6ZE9yazRRN1VKMTN0ZFBESHZ3TmN2c21UVHJRWm9FY1dMcGF1djR2alhBNXZUUlJMRjJfZnJlVnV4dHp0cUZGTV8ySmVURW5LTUxSTS1FTGxVMnUxQ2VpZWM1dkxLWlJLLWE0WWEtSi1HQTJPWHBfM1daWTN1elZGS2FwUjJxVWVnZ0pVT1d1ZzFDdXZQNzNJQg?oc=5
 
 ## Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom - Yahoo
 
@@ -68,6 +125,17 @@ Stories: 49
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxQUVVueHNRMU1zWjhEc2dFc2FwQjV3ZG4zNHh5QkpjdTNfbmhhY3lNUHZRUkxvRTRFMTBJVzIzNXdDVHpSYXpiOVJndUZsU21SR0lpSUU2R25PdUF6eWZoTGN1TzhSTEV4LTdhcFRVODR6ZWNacm1yZjVtWFREaGl2Q01ZUENFak1JaXE4Q0JWOWZjUVowMDd1clR4dFp1UXJSdHltNFZNNU9JdEVBRTRGNldB?oc=5
 
+## Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like - Just Jared
+
+- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxPek5QQWQtNlpaSVFJeVZZZXBweVBLb3dNbXhGUUVsMWk4bjNkamdOU1B3UmN0bExSdjExQmUyeTFaakY0angwdlFlSUtCb0E4WE9zbnhiWGkwemNBalFHQkI3YTRCYkhodTZtbFdUV3NIWlFFbjJGQUxvclExSG5oT05zR0RZRVZsSmtSenRJQVRvakdO?oc=5
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxNajRaanF6RWh3azBDbGlfdU85V01zMTBkRm5sb3BWMHpwR0ZGQkFmVWN1NFFmUTB0aU90RW9MY1A5em4xalRZRWd0ZEJSUnhOeEtPUnBHd3FZdnJQRGxVRHRtUkRlc3QzMWNkeTBEZDhBSXg0M1Byc3VzSWk2NERZYmZDdENaTWpMV0ZUcmtKQmlyUXM?oc=5
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOZ2k3QWJ0LW5nSGtRb2k0WV9Ici1TSVNDV0t5RzhsMEZ6b25icGRLVDVNWDhSekkwb0dEN1ZIWkNjOVpfV1BvcmJ6ZzdQblVZSWVQVnh5bnRjaFZmZk9ZOTdONENCeVhTUUc0RGhvMHRFREdZVjJ4UkxNM3NuYXZBOHBxZXp1T2xGLVVpUEljbjYzS1VFbnJjdE5nc0tuQXczNVE?oc=5
+
 ## I Can’t Stop Thinking About the Garden Where Taylor and Travis Got Engaged—Here’s Why I’m Still Obse
 
 - first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
@@ -108,16 +176,6 @@ Stories: 49
 - summary: Taylor Swift showed her funny side in wedding vows, Maren Morris says  ca.style.yahoo.com
 - sources:
   - [unverified] ca.style.yahoo.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1NT2Rhck93ODlScmJHb3RtX3BTeUhiMjVGV3RXcE90b0VoTndMMllOSHUzUWY4OTdWeWZkN0dwMW1kZENXenUwN2hJZ1BCRFkxMGVOM2hyTmgtU3Z5V1I4QnlZRXdVT2VjeFZiRzlCWFZ4ZmhOZktPX3NEUQ?oc=5
-
-## Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like - Just Jared
-
-- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxPek5QQWQtNlpaSVFJeVZZZXBweVBLb3dNbXhGUUVsMWk4bjNkamdOU1B3UmN0bExSdjExQmUyeTFaakY0angwdlFlSUtCb0E4WE9zbnhiWGkwemNBalFHQkI3YTRCYkhodTZtbFdUV3NIWlFFbjJGQUxvclExSG5oT05zR0RZRVZsSmtSenRJQVRvakdO?oc=5
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxNajRaanF6RWh3azBDbGlfdU85V01zMTBkRm5sb3BWMHpwR0ZGQkFmVWN1NFFmUTB0aU90RW9MY1A5em4xalRZRWd0ZEJSUnhOeEtPUnBHd3FZdnJQRGxVRHRtUkRlc3QzMWNkeTBEZDhBSXg0M1Byc3VzSWk2NERZYmZDdENaTWpMV0ZUcmtKQmlyUXM?oc=5
 
 ## Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive) - People.com
 
