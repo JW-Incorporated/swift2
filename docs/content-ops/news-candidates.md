@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 48
+Stories: 49
+
+## Blake Lively Reportedly Used Taylor Swift’s Private Texts In Alleged Ultimatum - Yahoo
+
+- first seen: 2026-08-02 10:48 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively Reportedly Used Taylor Swift’s Private Texts In Alleged Ultimatum  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNT05GaWNKYjk3THJUdU5TRklFRDJYR3p5Y09iaHZsdmU0eE44eEx6R2NYMmUzVjNlYlcwVzlRUnlnSUJ6ZHc3TFc2TXhwb1BCTGxtODJxQjg5SUVDVEZjVnRJOWZlZzdsWnM2aXF3b0dia1AxeUJoREQ0OTdzQWJJMUhsOFI1WnRKblltTmNsRWptNW1rY08wLWQ1QzB3VGhvWnBJVEl4YmU?oc=5
+
+## Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom - Yahoo
+
+- first seen: 2026-08-02 10:48 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOQk93Y2NNMGQyeFluRjNqWGF0VFNKM2c4OXZFb000cVlxWldLeWRCaXFkMHh4WTlWWGlQbkZDZTZEUEhXSUZkRXhRRnhFeXFMeTJWdnQ1LU5rUVRfaHRPUTk1WWlMdVFTYWRNM05qMmJVdEd2YVgwWjdtanhkRk5DSGlSeWNXZ3cwZ2YxbDEzMEZnOEtzQUJiajZPOG5BVEE?oc=5
 
 ## Taylor Swift was inducted into the Songwriters Hall of Fame — here's what her five chosen songs reve
 
@@ -413,11 +429,3 @@ Rob Gronkowski Breaks Down How the Raffles Worked at Taylor Swift and Travis Kel
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxQZk4xdi1VYkozeWFPRzlTY1RGeTROd01hN2hMOElTbU9fUmduSk5FSllGMFBEbHRXQmhaX0FMY0p6VVl0bmVMTjNEcUx1R3JqNEZ6QU54Z3JqODN4bGVtS1JiWnBGMU9MQS1pTV9WV2JDSkx0WXIzeHdYX3Jqa2dkMVo4ZlRvejlBOFNTSDYySDhQa0tfa3g4TWlCTS1tT0pyeHBBU1gwcU5lak8xWnlKdw?oc=5
   - [unverified] People.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxOSmJIdllCYTVTbW9RdHJicENYdjRtVkJuXzlPeVlya01kcXVMMGx1TWNlbGg3WFM2WUhVZzZ1OGFYcU53Qm1hRW5HVGxxMy1PcUltNk5UTU9TX281UTF1YkNweG54NDNYM0JyM0xQQ2NEV3d6bmVqZVRiRVZZUnZqYzNYSmQ5ZTFWZHNyNXEwS3hKWEg4MzdNcmtMVGlXTmVpY1VaeDVyWGY3czNOb1p0TWtxM1c2ckMxVmxBak1FUGVMbldKOUE4?oc=5
-
-## Barefoot bandit strolls off with Taylor Swift standee from California ice cream shop - Yahoo
-
-- first seen: 2026-07-30 07:42 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Barefoot bandit strolls off with Taylor Swift standee from California ice cream shop  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOMWpkMVd3T25MZjF5VWxPRTJhV2lfLXJBV0xiekoxT3gxd2dfNkI5bURicWRucXR6NUp1NGEtVDZubnNKY1dPa1JXanNlVnBqMFF0WFJBT0pNSWNoRXBqV2kzZXFfenV2dE5xcUFsZlJZdm1pWE9zWlRuRUhVcVlJWUdfcTBCRVZhZDJ3?oc=5
