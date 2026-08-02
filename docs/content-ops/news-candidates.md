@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 56
+Stories: 59
+
+## Cristiano Ronaldo’s wedding plans break from Taylor Swift-Travis Kelce playbook - New York Post
+
+- first seen: 2026-08-02 22:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cristiano Ronaldo’s wedding plans break from Taylor Swift-Travis Kelce playbook  New York Post
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMipAFBVV95cUxNeGpKLUctVVpDaUNNaUw2eENBOWFQc29fNjRsZUZnN3hNYi1xdURXZm1PMVgxQklibUR5UGtYeGxwRnVlZHVQb19FOVJuS2NGWHF6ZW54ZWZuV2NTUTk5YXRNTU5kUXJEWXlYWVNPN0ZYY1BTTlF1VnNEeHUtNlNSQ2lzQkFEV2FDVUpVU1RoNmlWQXhIREkxQVBJaEtBS3hJdy15ZA?oc=5
+
+## Taylor Swift’s ‘No Choice’ Decision Costs Blake Lively’s Kids A Godmother - Yahoo
+
+- first seen: 2026-08-02 22:06 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘No Choice’ Decision Costs Blake Lively’s Kids A Godmother  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOdDNYX0lKdU9NWlJNRmhhbUt5ZEhxT1lPWlAzMmFGZXBnVDlGR2ZpVW1KeGJuX2RkNV9YZkxpV0VxaUluakFGSnFvYzBkTGdvNFZXT2t5ak9JUWYxZmpyTmhyYU5fM214b2FORGZvRFV4Ny10Q1cwQ1hDbHB3UHRON1I1NUZLSllMcDA1aUE2X2ZhM1kwTkhMWlN1T19zdzByTGQ4?oc=5
+
+## Exec: Taylor Swift is one of the best businesswomen of all time - Yahoo
+
+- first seen: 2026-08-02 22:06 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Exec: Taylor Swift is one of the best businesswomen of all time  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMigAFBVV95cUxOMXllSTRBUENMeWxwNm8wWkFSYlZNT0lSanRSakJXNV95RnNhckpNOEQ4QTZkdGZVam9SY0gwNW1rRjd5amVWRGxHbTk5WlNDcVk1QmhfbFNpdE9tN2NzSWtHNVl5eHEwdFhTTDlURTFpNjdOaVpqSTRpYWtUZWxXeg?oc=5
 
 ## Charissa Thompson Left Taylor Swift And Travis Kelce’s Wedding After ‘Slicing’ Her Skin Open - Yahoo
 
