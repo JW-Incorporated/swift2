@@ -25,15 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 57
-
-## Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like - Just Jared
-
-- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
+Stories: 45
 
 ## Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive) - People.com
 
@@ -84,6 +76,16 @@ Stories: 57
 - sources:
   - [unverified] ca.style.yahoo.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1NT2Rhck93ODlScmJHb3RtX3BTeUhiMjVGV3RXcE90b0VoTndMMllOSHUzUWY4OTdWeWZkN0dwMW1kZENXenUwN2hJZ1BCRFkxMGVOM2hyTmgtU3Z5V1I4QnlZRXdVT2VjeFZiRzlCWFZ4ZmhOZktPX3NEUQ?oc=5
 
+## Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like - Just Jared
+
+- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxPek5QQWQtNlpaSVFJeVZZZXBweVBLb3dNbXhGUUVsMWk4bjNkamdOU1B3UmN0bExSdjExQmUyeTFaakY0angwdlFlSUtCb0E4WE9zbnhiWGkwemNBalFHQkI3YTRCYkhodTZtbFdUV3NIWlFFbjJGQUxvclExSG5oT05zR0RZRVZsSmtSenRJQVRvakdO?oc=5
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxNajRaanF6RWh3azBDbGlfdU85V01zMTBkRm5sb3BWMHpwR0ZGQkFmVWN1NFFmUTB0aU90RW9MY1A5em4xalRZRWd0ZEJSUnhOeEtPUnBHd3FZdnJQRGxVRHRtUkRlc3QzMWNkeTBEZDhBSXg0M1Byc3VzSWk2NERZYmZDdENaTWpMV0ZUcmtKQmlyUXM?oc=5
+
 ## Rob Gronkowski Says Taylor Swift and Travis Kelce Made Guests Earn Their Wedding Raffle Tickets - Ya
 
 - first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
@@ -124,14 +126,6 @@ Stories: 57
 - sources:
   - [unverified] Duncan Banner — https://news.google.com/rss/articles/CBMijwJBVV95cUxOLU1QNG1RV3J0VjQ2RVpoSTRvcTZoMW54VXZBZUdPdXhNRy15cXcwRTN1RzJDdE4ySG0wblZJbjVVZW0yWTNvUHVMR1hIdjF3SGxXZXdyZ19nWG9XdHdHcHBLajlUYjNzaHlEZFhJQnBiOHdiQ0k2dlVwRnRIYTJ2VWFKblhFZlB4UWw0eGtaU3NoRF9HXzVjb21ZTnFNRFRrWVJoLUpmTkVCQmx5aFp4c3VtenhqYTVMSDlJbzBkcC1GazBuenJvZmpKMU5sTFRvQTc0OFlXQXJFbER4YlVva0tWVVhMbFktLVVfdmVlTUlSYjlqU1ZfUDJCekNYY0hiTFFaOFp5TjJZcFAzV0hV?oc=5
 
-## Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remark
-
-- first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remarkable’  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNSG1FU096ZFRaUWdTUmg3eEJGS21udzZXbmxUN1B1R0Jkd1pxY0IwRHdDMkdGanlRakNBUDlwN3dCdGl6eGlZc3pMb3dUUTRCZE5ITXo5dUJ3ZEVzdHU0dDFsZWZxazgzRThGV29HM3hFSlFDRlE1ek4yaHY4MnNfbDZoWEZQSW5MVHdxZlpjdGJwdXNHamFSZjBZNHMzYVh1V2Fv?oc=5
-
 ## Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint - Y
 
 - first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
@@ -139,6 +133,15 @@ Stories: 57
 - summary: Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPUE81QWZOenItbS0xRmladWFyQnE5eUJJbGkxdWZDLVpEd1lHa3pjSG1sMVBEVXIwbVV4REJYU1A4dnBmU0xIbE0yd2pMWG5kcWpVdGtPNnA2ZUMtVXVpaGpfcXR4b2pfNGU2aG8tcEVoTjUySndkZmZBSEtjN01mZGtsOG9ZcW81SmRjaE1MOFMtcldJMS1BckVjSEFrZw?oc=5
+
+## Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remark
+
+- first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remarkable’  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNSG1FU096ZFRaUWdTUmg3eEJGS21udzZXbmxUN1B1R0Jkd1pxY0IwRHdDMkdGanlRakNBUDlwN3dCdGl6eGlZc3pMb3dUUTRCZE5ITXo5dUJ3ZEVzdHU0dDFsZWZxazgzRThGV29HM3hFSlFDRlE1ek4yaHY4MnNfbDZoWEZQSW5MVHdxZlpjdGJwdXNHamFSZjBZNHMzYVh1V2Fv?oc=5
+  - [unverified] nbcnewyork.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPbHJxWVl4bmRFM0E1bHY3TTd4Z1V3NE9QVEJVNHhOa05kQzdBUW9Tb3hlTG83VGtLWU11aDV6cXpZS01XZTROTVhkVXk3SnItdW1qdDAtcXRLblRGUXJxRDZmMFduNWZnNlhDcG1NVWEtVUJ6UWNjM3pqUThHaHUyNXNIaE9yQ1FxVDJnR01DNGMwS1Z6YzY5c0N1NDVkZVdMZ0dWUkh0X0hmNTBuYVAzTE9wTWotNTd2Uzczb20zb2tRM01uZWZKSjliWWNNazhXZEttbUZKeXByUTNGUWNj0gHnAUFVX3lxTFByMWhQSGo2YmFTVmIxTGV5YnRmZ0pNSERIb25sam5tdy01NEJjUHlmalB1NWs3TUtTQlB1b1diLUd2YUFXRHBvN3FCeGZwSEdPUFh6bVQ2TjQ1amFWZ29HSWxnc3VuWGpyZUt6SFlOdDJwUzBxcEkwQkE1MjE1S2ZDT1poLUZKNHhpcVAwazdGR1ZWVUh4SmRfd1VaVGItbHVoT2RCbHZpc3BRU3Z5dC1ja1FlendkSkdqQUgxbThfbks3Nk1zem1zRmZfd05adjNmQXFNdmk2Tmo5N0lndk5ibzdJTjI3WQ?oc=5
 
 ## Taylor Swift's Eras Tour dancers at her wedding: every wedding weekend look they shared - Yahoo Crea
 
@@ -393,101 +396,3 @@ Rob Gronkowski Breaks Down How the Raffles Worked at Taylor Swift and Travis Kel
 - summary: Barefoot bandit strolls off with Taylor Swift standee from California ice cream shop  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOMWpkMVd3T25MZjF5VWxPRTJhV2lfLXJBV0xiekoxT3gxd2dfNkI5bURicWRucXR6NUp1NGEtVDZubnNKY1dPa1JXanNlVnBqMFF0WFJBT0pNSWNoRXBqV2kzZXFfenV2dE5xcUFsZlJZdm1pWE9zWlRuRUhVcVlJWUdfcTBCRVZhZDJ3?oc=5
-
-## Weeks after being photographed heading to Taylor Swift and Travis Kelce’s wedding in New York, Karli
-
-- first seen: 2026-07-30 04:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Weeks after being photographed heading to Taylor Swift and Travis Kelce’s wedding in New York, Karlie Kloss opened up about the nuptials.  facebook.com
-- sources:
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxOaHljQ2hPS2lsWmVfSGJjVmtlbHljTW5jVllDcGlYUjkzR09UZUlSUkJQREF6c0RDX2NwMG1HUnhxQkJWTUN1bUtLWmNPMGFKV1Z0WVQzYVFCWXI5ZDY4X3lDOWdhcVNsZ3Z0OElWTzh0dUhkRFVNVVRiUUstTHBsR1hRT0x6ZGdrMnd0SjFkMDA2cF9kSk9ydVNwWXVFcFVOVDdGYVF3TU5tQlREbnFuQTdycUZiTkJlaEk0NEI0eEFOMDREYVpYaWVUUGFIX3NseVRYTy1vbHZBT0h6MmNN?oc=5
-
-## Taylor Swift, Katie Holmes, and Chelsea Handler Inspired Us to Upgrade Our Classic White Button-Down
-
-- first seen: 2026-07-30 04:16 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Katie Holmes, and Chelsea Handler Inspired Us to Upgrade Our Classic White Button-Downs  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPdE9XY3VmV3g2bTNMV2FXd3dOMTBGX01sZEt6dEdHc2ZhRDlWeFlTczhabWZVNW1LRGNYX1otOVlSOE5YaUJ3TFdabFRKek1QZ3lRaVdkT3Bqb0tHZVVKRE9fRzhVUnFER1JPanYzZXNqYmxsOEowV0ZKbGxvWEtMa3U4Z29NNUJfc0xLTFhoVEt1cFlPcVpYM2dn?oc=5
-
-## Noah Kahan Fans Are Calling Out Taylor Swift — Here’s Why - parade.com
-
-- first seen: 2026-07-30 04:16 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Noah Kahan Fans Are Calling Out Taylor Swift — Here’s Why  parade.com
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxPMXoyWjVBdERYbGhxQjR3eXFxY2VrVnFtQjVPM05obmhOVDl2MXhpVGZtcWpVYjFRNFgwNkVxLVVhU3JpOHo2NnZiUTUxYmI2Mm1zaFRFYk1mcHY2WDczR2kxeU5KYlpQc3hXNWxraVpoTy1UM2RGMXA4QUozZU00YlVxUGkxeVFpajlFdk9iUGFyMWVUQXl2MQ?oc=5
-
-## Barefoot bandit swipes Taylor Swift cardboard cutout from award-winning ice cream shop - Fox News
-
-- first seen: 2026-07-30 04:16 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Barefoot bandit swipes Taylor Swift cardboard cutout from award-winning ice cream shop  Fox News
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiswFBVV95cUxQMDVoN0ktZnV6SDBXNUMyUDdMeXZfUGxoUG1WV1BMNDJaZ2J3eHZBUnd2blpyaUQ1akIyTS04WXpfTnJrNTJfMnRUdXJjNnpyWmJzR3Rtc1E3aXNoVUFTU05waG0tbWVoSFhiTFR6bzdEekhwMkNhLUhPdXpJY0dPZ0tSSEp4dDRjbnNmWmZDaEcweEk3U0ZNejBZSjB4Vks1RVA2dEx5dE9mRFowSC1TRGx1UdIBuAFBVV95cUxPNm55dkVsa0FnNmFkX1VsOWFUX1dSMWVPSmVLeXAxUlN1dkU2UWxwUGdyMWMxamFxVGJpOUhjejFkZExXa3JyX1pyYnRqcUprVU9peW1tb1hXZHU3MmdVSFotWm1UNFdGazhzaXpHTmVPamJkd3NjbWJkdXVzNWVOa0w0Smh2Z1BJTmpZV1FiZFBwSXlBNFluZ09EQ3RROFNFUnM0cHdqSFlzdGdZVThWSlNRZlVZbWhU?oc=5
-
-## Simone Biles says singer took her YSL shades at Taylor Swift's wedding - USA Today
-
-- first seen: 2026-07-29 22:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Simone Biles says singer took her YSL shades at Taylor Swift's wedding  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOWTJLMmpLdlRYQV83Z2g2bk15eGZPeUNwaU15YTVVY2tpd3Zaa05ETnFaOGFaQjZsbngxbUFIMTViczNVS3pQbVhua1YtVzI1RHlWbFBybFFCSnlRRTRpemlFOGZGYUo5YWRYT0xQeDdFZWZXOG93eV8wOVFYakl0OUJHbjl4cnRUSmV2eHhTaFhwMFhJdFN4Zk4wY2ZGcXJId0t1enNuS2syby11bU55VTc2MTdGcF9JSmtfaURZUUNCVDB2a21BM0plZWhFdWJtRXVKRlZwbFV1U1FM?oc=5
-
-## Destin Was Just a Quiet Florida Beach Town Until Taylor Swift Sang About It - inc.com
-
-- first seen: 2026-07-29 22:09 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Destin Was Just a Quiet Florida Beach Town Until Taylor Swift Sang About It  inc.com
-- sources:
-  - [unverified] inc.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxPbW82TnUyRGJPeWNBcURDZG9ETXdCN0dydXBuNk1VTk16ckU2RjB2ak5YV1pWSDJ4dGhTZUZlbUo4VGJ0ajFoSHZuakFiQi1xdml5dURIMUZLbEcxTU5nTE5BT0NkTm9oN19HdGZYODNXQnlXejhOOEdhdlZqOFlGLS12ZW1mUlNYc3JEZG5rMUZ5OEo3eGJTMVh6UFRncFlFWjBaa2w1M01oN3JNU0phT01wcVlOWlZkdzFjdQ?oc=5
-
-## Joe Buck Reveals the Tearful Moment Travis Kelce Saw Taylor Swift Walk Down the Aisle - Complex
-
-- first seen: 2026-07-29 22:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Joe Buck Reveals the Tearful Moment Travis Kelce Saw Taylor Swift Walk Down the Aisle  Complex
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMipgFBVV95cUxPcnpjUzdlMkQ2Um5NZXlsTHlyZnJRZmhZLU5PbjZVQ0lPaXV3N0I0dXZnRDVfbDNPeEJ6ZVZFWDQwVlRfU0J0ZGxDMHBHX2JUdllzR19qbmZWQWRNQkt4QjE3VVlUTjBSX0lSR2V5OWFYZVV5eF95eDRVZHJkTV9fOFhWOXNTanVwUXJGTmFNbl81bWxGSXJxMnZhOGo5ZzE1b05SYTZB?oc=5
-
-## Florida Orchestra will play a Taylor Swift concert in St. Petersburg - Tampa Bay Times
-
-- first seen: 2026-07-29 22:09 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Florida Orchestra will play a Taylor Swift concert in St. Petersburg  Tampa Bay Times
-- sources:
-  - [unverified] Tampa Bay Times — https://news.google.com/rss/articles/CBMi5wFBVV95cUxNZ2N1WUhjVlV4WEtMNDJlX2wwZC1XNWR4amREaFExNi1VRGxEZDJWWERoMmRrYi1RMXNLSXBTbjUyMjNXbkZnMXdXdHREd1ZYMHhtR3BzY0pKNTJwbjVianRLdWtua0pMZDdMOUhoNUVkaEYzTXI3QWZ0Tml2TFcxdlB6dmFhMVE1YmtkNXFsenlWQlMybUNlbVE0cW1uNHhKQlBVS0lXUEJuclQ0TS1HVENweUtZMXlrTk1UVjdKdUtKc29WT2tSZVhUd1V0UXkyU0Z0d196NGM5TWhqR1R5OXRTRUZoQTQ?oc=5
-
-## Taylor Dayne Reveals Taylor Swift’s Funny Backstage Question (Exclusive) - People.com
-
-- first seen: 2026-07-29 22:09 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Dayne Reveals Taylor Swift’s Funny Backstage Question (Exclusive)  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxNd2VMa284dF9qZkZ3NkxPUEIyd0kzbmxzMGpYMlVLemlibWxyeHBPR3dPQVpKX0JVdUY0aF9lU2dkNjNKdndORWQtaXNIUjY4WEZXcEt2WkpCQnN1UmZHTzYxM0t0TjdyUWhUMDF0cHdkVjFHVTBCM1ltR29vMW9GczVqUHpFMVlKV3ZPU2NyWkZSbFhfWGdRYkJGRHh6Q3dlT0lhR2tB?oc=5
-
-## Taylor Swift’s Response to a Guest Breaking Dress Code at Her Wedding Revealed After Report Attendee
-
-- first seen: 2026-07-29 22:09 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Response to a Guest Breaking Dress Code at Her Wedding Revealed After Report Attendees Were ‘Frustrated’ with Her  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNV3RCU09nNVZZMHBDcWRacS1NWGhEYzZrOEJBdE5hQWNKTU50MnYtQnpGNFgwbjJUT2tmUkJEd3Y3cDZ6dkFYczVXTEpHVDZCWDlSRGE1bFFQUU4wclBPNUV0YWxaTzc3Y1l0RG1pbWtWLXlxVEIxSGd4cUl6QUk3YU9SNlRXRzFNZWVRbmhST2JNa1otSlFaR2VSN20xWklLQXBhSVlJODBuZw?oc=5
-
-## Sister of Southport victim still turns off Taylor Swift songs two years on from attack - The Indepen
-
-- first seen: 2026-07-29 22:09 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Sister of Southport victim still turns off Taylor Swift songs two years on from attack  The Independent
-- sources:
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMixwFBVV95cUxQYnZwOHl5dWRHdlp5LVcyaHdYZ3M0Z2U5M1NIbjg5WHBXNTI5M0ZrcEROR0lkMjExMEhMN3ZGRlhJQkFKY0JpNEpIcUhHTzl4eVBreDY4U0VsbllMbW9kTWN2S0FucnJ6cU1JU0tUT2NUTzJtSzc4TUF3N216T0tWcE5TSWx5NlFmNzZpa0NjNHRxN3k0X2xuX2o3U1djd043R1ljcVVQRmtjT295M0tsS2xUb1pmeWVPZXFuVlYwVlM3Z0lrQzlJ?oc=5
-  - [unverified] the-independent.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxQRGhma2pfRlNiSkdWSGlNTEdvWHhWZmozUVlYZHpwQ3RmVTNQbW5PYXEteGhQSjRMc2ZOSUg0TjU4OEZHemdSME5FMTlENVROdUlqcmZ0dDZZcm13SnBsREdXUm0xMU1CeU9FMXd3WTlvQTZVOGtIblFPR09WV25LeVVoVG1GWmJkNWo0TVdVbWFTaG81alVLejFmV3VkSGpRTUNSNTdkcFhRM3N1LTZrYkkwZFhTcUVUSnBEVHU2TmdPc3VGZWdEai13?oc=5
-
-## How Taylor Swift Reacted To A Wedding Guest Breaking Her Dress Code To Wear A Costume & 'Bring Vibes
-
-- first seen: 2026-07-29 22:09 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: How Taylor Swift Reacted To A Wedding Guest Breaking Her Dress Code To Wear A Costume & 'Bring Vibes'  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipgFBVV95cUxOV0trQmU1ZTJvU3JnWjNvOV9udlRPejl5R2NpVmI0b3pJQ0x3NG90S3I3dW0wSXk2U184Uy0zVWtzZnFaek5DQ1Y5RmV2alh6SzAycHVxcElQc3pVbjRLMVhNRFk4LTJnVFdxT1hfOVpZenZOdThMZFo2VGRTb0Y0NTNQTTkwSzhIV3VrdnI2OEt1djc4LUhkVTlIMzhKeHUyZU1oR2t3?oc=5
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxOTTJkVlZkUTVPRjh0dlF3dnRPZUdWeWFWaFZwVXZXaU81enp6Y1ktZUxmZUdXTHdXNXg5UHdnSS05aE1OYTUteWh5VG81N3dnSVRtSzB2WnhjTlc0NHFiMllpVW8weFR6akJsNW1URm1MSkloZklzRnpQWF9mZDNRZDJFWUFOaW5CZkdVY0hLRFNfbTFwV1luZUlOYzBpMFZocWdfWkVnUQ?oc=5
