@@ -3688,6 +3688,107 @@ export default {
       },
     },
     {
+      // Authored 2026-08-02 from intake #1735 (Vault Run, Content Shift lane).
+      // On-record guest color about the reception raffle. Verified against
+      // Yahoo Entertainment (fetched this session), which corroborates the
+      // People exclusive with Gronkowski. The ticket's "1970s Chevelle echoes
+      // the 2023 Chiefs-Bears first-outing car" callback was NOT authored:
+      // the verified source names the Chevelle prize but carries no 2023-outing
+      // link, so the callback is cut per the no-fabrication rule. Guest-list
+      // name-drops (Brady/Cruise/etc.) also cut — reaction color, not the
+      // adjudicable raffle facts. No photo: the only image is a guest's
+      // expiring Instagram Story of a private individual, not a reusable host.
+      slug: 'showgirl-wedding-raffle-gronkowski',
+      year: 2026,
+      month: 7,
+      day: 30,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-watermarked-invitations-and-a-copyright-takedown',
+      ],
+      title: 'How the wedding raffle worked: guests earned their tickets',
+      snippet:
+        'Guest Rob Gronkowski explained the reception\'s raffle: you didn\'t just get a ticket, you had to earn it by playing games. Prizes ran from designer handbags to a 1970 Chevrolet Chevelle.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/rob-gronkowski-explains-raffles-worked-165208547.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/rob-gronkowski-explains-raffles-worked-165208547.html',
+            source_title: 'Rob Gronkowski explains how raffles worked at Taylor Swift and Travis Kelce\'s wedding',
+            publisher: 'Yahoo Entertainment (via People)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-raffles-rob-gronkowski-1236306132/',
+            source_title: 'Here\'s How Taylor Swift & Travis Kelce\'s Wedding Raffles Worked, According to Rob Gronkowski',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-02 from intake #1736 (Vault Run, Content Shift lane).
+      // Routed through the privacy-redlines rubric as leaked-material-adjacent
+      // (Codex unreachable, so the desk applied the rubric itself). The clean,
+      // publishable spine is the IP-enforcement controversy — reporting on a
+      // public takedown, the same carve-out that lets us cover the *history* of
+      // a leak without trafficking in it. Held to the three leak-independent
+      // facts: per-guest watermarking, the copyright complaint naming Taylor,
+      // Instagram's removal. The leaked invitation image is NOT reproduced or
+      // sourced, and none of its private design detail is described. No photo
+      // for exactly that reason. Watermark fact verified via AOL, the takedown
+      // via Yahoo Entertainment (both fetched this session).
+      slug: 'showgirl-wedding-invite-watermark-takedown',
+      year: 2026,
+      month: 7,
+      day: 6,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-how-the-wedding-raffle-worked-guests-earned-their-tickets',
+      ],
+      title: 'Watermarked invitations and a copyright takedown',
+      snippet:
+        'The couple\'s leak-control ran deep: each invitation carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down after a copyright complaint that named Taylor as the rights owner.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. When a guest briefly posted a photo of an invitation to Instagram, the post was removed after a copyright-infringement complaint that identified Taylor as the rights owner, with the platform warning the user about penalties for repeat violations. Screenshots had already circulated in the minutes it was up, but the takedown made the couple\'s posture explicit: the wedding\'s information was treated as their intellectual property, and enforced that way. It was the operational counterpart to all the "no photos leaked" talk — a tight, deliberate information-control effort, and the willingness to enforce it through an IP complaint.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
+            source_title: 'Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'AOL / "Real"',
+            url: 'https://www.aol.com/articles/first-look-taylor-swift-real-063110000.html',
+            source_title: 'First Look at Taylor Swift\'s Watermarked Wedding Invitation',
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
       slug: 'showgirl-wedding-bands-first-look',
       year: 2026,
       month: 7,
