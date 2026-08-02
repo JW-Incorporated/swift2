@@ -25,15 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 45
+Stories: 48
 
-## Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive) - People.com
+## Taylor Swift was inducted into the Songwriters Hall of Fame — here's what her five chosen songs reve
 
-- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- first seen: 2026-08-02 07:40 UTC | category: music | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive)  People.com
+- summary: Taylor Swift was inducted into the Songwriters Hall of Fame — here's what her five chosen songs reveal about her genius  Yahoo Creators
 - sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZGRQZUpMSWRVamFVRDRjSk9taGJfNzVMOEo1NUxiUGp5OVc1MzJSZUNHTDRRcGVuY2g3YUx4SWFpUTRGZzdtS3NjYTBVZ0FDVlpJY2c5aVdVeFd5NXdxZlZHT1hfQzd6RHk5N091R2x6cTc5WU9OUzVLa2RMQXZrOXBpc0JzZFVxaUVibkpHRjF5cVBUV2JCMHR4dFhtX0w2UXhYVklSa0M4ZG1kTkNHMzJMNjRTVEwtbVdGaVpoaER3QQ?oc=5
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMihgJBVV95cUxPVmFhWlNidU9sT1ByQjAtNHB4UGlUYlZEQkZsTFR3a19YUnNwTUp4Z29iZFpGMXh3YlBWUzRxNnZsajY3aVNvWG94RGttUGhxOTFnbXhkd1E1Y3ROS1lXbUxNVVZpdUltVEZfUjlkZ0FEcGFFVEZZN0Z2UDYzaHZoS3ctRjRMbkR1bEdEX2N5OVVITFZpbzFVal93R0Jrd0hVOTZCY2FZeHE3al9xSmhsMUNjQ0tlTVhybTY0akdqLWIwQTYxaDhNTE1hV0wwYlVfNURXOHkyMWRKaVFwV21ER3FzLU5rMHNwczk1Z0tsWTRYYnhoNGJXcUdaWGh2cUtSRDhvS2dn?oc=5
+
+## See Madison Beer's Massive Diamond, Taylor Swift's Vintage Sparkler and More Celebrity Engagement Ri
+
+- first seen: 2026-08-02 07:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: See Madison Beer's Massive Diamond, Taylor Swift's Vintage Sparkler and More Celebrity Engagement Rings  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPSnZEeVNISjVQNVRCd2tuRnExbzhyYlVRQmp0Q0EtOHZGV0U4eHI0QnhsWDlfdnNTbi0yMVVhUWlWYWphM1I3aHVScngxbWQ2VU9yams4TjFJUWNQemFaT2Q1MmlRb0g5VklnbE5BaHdSdjRwNkEwMmdJc3k3aTI4eHMzTkVVUE5hXzJPMy1pVTVkZkFUVFRKcHI2UkU1VFBoUXRIOTJLSkRMUQ?oc=5
+
+## Jason Kelce reveals previously unknown details from Taylor Swift and Travis Kelce's wedding - hitc.c
+
+- first seen: 2026-08-02 07:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce reveals previously unknown details from Taylor Swift and Travis Kelce's wedding  hitc.com
+- sources:
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxQUVVueHNRMU1zWjhEc2dFc2FwQjV3ZG4zNHh5QkpjdTNfbmhhY3lNUHZRUkxvRTRFMTBJVzIzNXdDVHpSYXpiOVJndUZsU21SR0lpSUU2R25PdUF6eWZoTGN1TzhSTEV4LTdhcFRVODR6ZWNacm1yZjVtWFREaGl2Q01ZUENFak1JaXE4Q0JWOWZjUVowMDd1clR4dFp1UXJSdHltNFZNNU9JdEVBRTRGNldB?oc=5
 
 ## I Can’t Stop Thinking About the Garden Where Taylor and Travis Got Engaged—Here’s Why I’m Still Obse
 
@@ -85,6 +101,15 @@ Stories: 45
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxPek5QQWQtNlpaSVFJeVZZZXBweVBLb3dNbXhGUUVsMWk4bjNkamdOU1B3UmN0bExSdjExQmUyeTFaakY0angwdlFlSUtCb0E4WE9zbnhiWGkwemNBalFHQkI3YTRCYkhodTZtbFdUV3NIWlFFbjJGQUxvclExSG5oT05zR0RZRVZsSmtSenRJQVRvakdO?oc=5
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxNajRaanF6RWh3azBDbGlfdU85V01zMTBkRm5sb3BWMHpwR0ZGQkFmVWN1NFFmUTB0aU90RW9MY1A5em4xalRZRWd0ZEJSUnhOeEtPUnBHd3FZdnJQRGxVRHRtUkRlc3QzMWNkeTBEZDhBSXg0M1Byc3VzSWk2NERZYmZDdENaTWpMV0ZUcmtKQmlyUXM?oc=5
+
+## Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive) - People.com
+
+- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive)  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZGRQZUpMSWRVamFVRDRjSk9taGJfNzVMOEo1NUxiUGp5OVc1MzJSZUNHTDRRcGVuY2g3YUx4SWFpUTRGZzdtS3NjYTBVZ0FDVlpJY2c5aVdVeFd5NXdxZlZHT1hfQzd6RHk5N091R2x6cTc5WU9OUzVLa2RMQXZrOXBpc0JzZFVxaUVibkpHRjF5cVBUV2JCMHR4dFhtX0w2UXhYVklSa0M4ZG1kTkNHMzJMNjRTVEwtbVdGaVpoaER3QQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNamRYS00wc0V4ZzZXTHFEMno2MTk3cDMxZ1FzX18zWlhlTGNsMUtCM0htYkpPQ095alRFZmZ0Q21oWm5iazdJZF9PZkJPeDZRMlVISW1aWWVYUjlQMkR1eENYdDJseHJ5cUx3SVJUU2N5UWxFWVVUemhjTlhJYnZ0M3otd3d2TlZUQW42TEdfY0JpbUZSRXVaQUMyQWdiY1pO?oc=5
 
 ## Rob Gronkowski Says Taylor Swift and Travis Kelce Made Guests Earn Their Wedding Raffle Tickets - Ya
 
