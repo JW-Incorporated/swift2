@@ -464,12 +464,16 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
       moment: {
         context:
-          'More than 69,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time."\n\nRolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."',
+          'More than 69,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time."\n\nRolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."\n\nOpening night also launched what became the tour\'s most-loved ritual: two surprise acoustic songs each night — one on guitar, one on piano — that she promised never to repeat, "unless I mess it up so badly." The first two were "Mirrorball" from folklore and her 2006 debut single "Tim McGraw," a nod to where it all began, played at the start of the biggest tour of her life. The night also cemented the Eras format itself — a career retrospective staged as ten distinct acts rather than a single-album promotion — which no arena or stadium run of hers had attempted before, and the tour that started here in Glendale would go on to become the highest-grossing tour in history, and the first ever to pass $2 billion in ticket sales.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/' },
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-the-eras-tour-glendale-review-1234699496/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/',
           },
         ],
         photos: [
@@ -1597,12 +1601,16 @@ export default {
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
       moment: {
         context:
-          'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work."\n\nEarlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."',
+          'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work."\n\nEarlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."\n\nThe trophy was handed over by Céline Dion, whose walk-on was one of her first major public appearances since revealing her stiff-person-syndrome diagnosis the year before. It was Swift\'s fourth Album of the Year, passing the three-way record she had shared with Frank Sinatra, Stevie Wonder, and Paul Simon and making her the only artist ever to win the category more than three times — the four coming for Fearless (2010), 1989 (2016), folklore (2021), and now Midnights, and capping a Grammy run that began fourteen years earlier, at 20, with Fearless. She had arrived with six nominations that night, and Midnights also won Best Pop Vocal Album — the award she used to announce The Tortured Poets Department with its April 19 date, so the record-setting Grammy ended up splitting its own evening\'s headlines with the surprise of the album that would follow it.',
         sources: [
           { outlet: 'Grammy.com', url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
           {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-2024-grammy-awards-fourth-album-of-the-year-win/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-grammy-2024-album-of-the-year-midnights-1235598759/',
           },
         ],
         photos: [
