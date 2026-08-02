@@ -2622,6 +2622,25 @@ export default {
             focalPoint: '64% 28%',
           },
         ],
+        // Stylist lane (Vault Run, 2026-08-02): the exact Louis Vuitton "Louise
+        // PM" earrings this moment names (corroborated by the Marie Claire
+        // source above). Verified live this session — the official LV product
+        // page (model M00396, $590) renders as a single product-detail page;
+        // its curl 403 is LV's standard anti-bot block, not a dead link. The
+        // Chiefs-coded Ganni "League Oversized Mini Dress" was NOT linked: its
+        // product page now 301s to Ganni's dresses category (discontinued), and
+        // a dead/redirecting link is worse than none. The Row belt and Vivienne
+        // Westwood boots are identified only "per after-party photos" — too
+        // vague to pin an exact product page, so skipped.
+        products: [
+          {
+            brand: 'Louis Vuitton',
+            item: 'Louise PM Earrings',
+            retailer: 'louisvuitton.com',
+            url: 'https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396',
+            price: '$590.00',
+          },
+        ],
       },
     },
     {
