@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 67
+
+## Taylor Swift and Travis Kelce’s Rumored Puppy Name Could Reveal a Hidden Tribute - heavy.com
+
+- first seen: 2026-08-03 15:50 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce’s Rumored Puppy Name Could Reveal a Hidden Tribute  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijgFBVV95cUxQdnhUTzg0bjJ4Mk4tLUtRakx6RVhTeGlOVnNWc04wQzlwM3NPRktxOG5GMWlqRVpmd1k4cG83SW5uOFNzWjRJUmx3dUhrOXBlZS1raGd2bjd0bHVBQ3lLdGNEd1F1QkpCSF90Q0QzQnh6dDU0RjBvV2FRRTZINzF5MzdIMUFrUFBKX0tkUk5B?oc=5
+
+## Tate McRae Interview: Relationships, Taylor Swift's Sourdough Bread - Variety
+
+- first seen: 2026-08-03 15:50 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Tate McRae Interview: Relationships, Taylor Swift's Sourdough Bread  Variety
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMitgFBVV95cUxNcXpYZzZhQWNWUjlOSXhqeUd4eVFncERERFBlMHpUQ2pNVjZKamRWTjBCb094aTQteVZPS2h4S3dmN3U0aEN5czY0U0hLSkhTTnFYTE1aOUZOTVlPdVE5bU9kX3U4Uk1TMG1rYXNITmZVUEdrc0ZtRWhwSDFXQnhuNVl6NGpMYU5ydnpCYjBSWG5USW1DZXVyQXNhblRKVFNFYmNMQko0N3VCOVc3alVIR0FCRzlsUQ?oc=5
+
+## Becoming Tate McRae: The Pop Sensation on Navigating Fame, Treating Work Like ‘a Fantasy’ and Gettin
+
+- first seen: 2026-08-03 15:50 UTC | category: sighting | importance: 3
+- verification_status: single_source | source_count: 1
+- summary: In early June, Tate McRae celebrated her recent move to New York by catching Knicks fever. It was less than a year since she relocated from Los Angeles, where she kick-started her career as music’s next Main Pop Girl, yet she could feel the electricity coursing through her new city over a potential 
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/features/tate-mcrae-intervoew-relationships-taylor-swift-sourdough-bread-1236825809/
 
 ## How USMNT Friendship, Taylor Swift Led Sebastian Berhalter to Middlesbrough - Sports Illustrated
 
@@ -35,14 +59,6 @@ Stories: 64
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMikwFBVV95cUxPYklhVkl5ZU11ZUtlWkt0YmFyM3Bnc3hDV3IzWGNUTk1YdFZFNlU3d0t4MzAzSHdQa19yblBOYW5VcEVhNEJZekVldkZ1elF0NTBkQXRRb2dLelZZMzIxbm9ON0I1TGJfZ0YtTFNBOS02aU5COXRTMkJ6Wk1oY0dneDByeC05UjNxSVpGX3dYVzE0aFU?oc=5
 
-## Just Found Out Taylor Swift and Travis Kelce’s Dog’s Name, and We’re Obsessed - Cosmopolitan
-
-- first seen: 2026-08-03 12:35 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Just Found Out Taylor Swift and Travis Kelce’s Dog’s Name, and We’re Obsessed  Cosmopolitan
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiowFBVV95cUxPdkxLSHl4bHRDb1FFaUFteGJGbmdzek5qY2FVd2s2NzVDU2t0N3lMTFNEVS1kb3BxLTRtRl9RcGE4ckc4a1F1SThiSDJiQ2ItWHNkYjFWd1JqYlJ6VFplUjEwMno1R2FpT0R6eVVnbjhiVC01Q2p6WEhvdTNEUUZqSmpDNUc2dmlvTGZBOUcySjBNMmtLaTZic1JJSkNlcFNRbGcw?oc=5
-
 ## New Details About Taylor Swift & Travis Kelce’s Wedding Vows Revealed - Yahoo
 
 - first seen: 2026-08-03 12:35 UTC | category: relationship | importance: 5
@@ -50,6 +66,15 @@ Stories: 64
 - summary: New Details About Taylor Swift & Travis Kelce’s Wedding Vows Revealed  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQRm9FSnNpYmpVMGdKbXk1a0o3V2tGS05XdnFjYzdKWWV4ZUtnRVNuVDVyX01ycThXUHFxLUlDVDJfWmx1RWY2Z1ZRQmZ2QVJ0YzFsMUdjQ2lRMER1U0JtZ0xBdFBFbVJhRzJoZDZRdExIeVNlekFWamhIbVoyNklJelA4T3hscU9vcWx2MEl1azlndW54dkdWMkNZV0txTndQOGpNM2dB?oc=5
+
+## Just Found Out Taylor Swift and Travis Kelce’s Dog’s Name, and We’re Obsessed - Cosmopolitan
+
+- first seen: 2026-08-03 12:35 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Just Found Out Taylor Swift and Travis Kelce’s Dog’s Name, and We’re Obsessed  Cosmopolitan
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiowFBVV95cUxPdkxLSHl4bHRDb1FFaUFteGJGbmdzek5qY2FVd2s2NzVDU2t0N3lMTFNEVS1kb3BxLTRtRl9RcGE4ckc4a1F1SThiSDJiQ2ItWHNkYjFWd1JqYlJ6VFplUjEwMno1R2FpT0R6eVVnbjhiVC01Q2p6WEhvdTNEUUZqSmpDNUc2dmlvTGZBOUcySjBNMmtLaTZic1JJSkNlcFNRbGcw?oc=5
+  - [unverified] Yahoo News Singapore — https://news.google.com/rss/articles/CBMie0FVX3lxTFBwUm9CanREcnkwN1FtWkUzWnJtQkNYVmF4YVRXVFloZXdrSUw4Z0lxc2tpQ2o2QkxyUDh5NHRqNm53WDhmLVFxV2hhUUJSZTk0QmJKaXlFTE9GSXAxQmNabEhHMVptdXUyRHRiZkltblN0b25NNXMtRmsyZw?oc=5
 
 ## Travis Kelce Might Switch to Taylor Swift’s Career After Wedding Move — Source - Yahoo
 
@@ -473,14 +498,6 @@ Rob Gronkowski Breaks Down How the Raffles Worked at Taylor Swift and Travis Kel
 - sources:
   - [unverified] New York Post — https://news.google.com/rss/articles/CBMizwFBVV95cUxPNEp1dzJSdVhhdHU5VXlpcXM1SjVxT3FGRjZSc2ZYb04tYmVlMVNGcjRtZWRRWEJ1YU9qaVV6SkItZkNSU0ctUVZ5NGY1M3dFMDBwWHE3d0xVdFN1eFliUWpEMVZzUWV0S18tZjdYcXAzemxGVEVwSVQxajg3amczZmVzandsalBJdFg5bnd0dnBiN0dRMlViRDZ3bW03RVVLNW5ORGowRU52bjJYcXVQbHlRNF9GZmlFdm8weE5SbmNjd3BxRzRoTHRuOFhMeWc?oc=5
 
-## Charissa Thompson Recalls ‘Magical’ Taylor Swift and Travis Kelce Wedding with Erin Andrews - People
-
-- first seen: 2026-08-01 04:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Charissa Thompson Recalls ‘Magical’ Taylor Swift and Travis Kelce Wedding with Erin Andrews  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPUnRqc29nOFJYUmJnM01DN3FDek1oWmxBTmlTeEZKaTZhUzFadmJIS3NDc1dwbGNFa3VmRi1OdktXN2oySUR5aFozNHVna2JoLS1ENGZuZjQ1YXF5OF9udGc3ZE5DVDVpR0Q1S1hKSlNudVNhbnJvQUpvbk0za1d2bFJKbmlkYW9KRkx4V291Q05CRklveUxQSHl5RlpwZ01Gd2tEOTBmQWxJbkIzSGx0bWRHN1p5OW41?oc=5
-
 ## Jason Kelce Says No Real Pics Have Leaked From Taylor and Travis’s Wedding - Cosmopolitan
 
 - first seen: 2026-08-01 04:31 UTC | category: relationship | importance: 5
@@ -554,3 +571,12 @@ Rob Gronkowski Breaks Down How the Raffles Worked at Taylor Swift and Travis Kel
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxQZk4xdi1VYkozeWFPRzlTY1RGeTROd01hN2hMOElTbU9fUmduSk5FSllGMFBEbHRXQmhaX0FMY0p6VVl0bmVMTjNEcUx1R3JqNEZ6QU54Z3JqODN4bGVtS1JiWnBGMU9MQS1pTV9WV2JDSkx0WXIzeHdYX3Jqa2dkMVo4ZlRvejlBOFNTSDYySDhQa0tfa3g4TWlCTS1tT0pyeHBBU1gwcU5lak8xWnlKdw?oc=5
   - [unverified] People.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxOSmJIdllCYTVTbW9RdHJicENYdjRtVkJuXzlPeVlya01kcXVMMGx1TWNlbGg3WFM2WUhVZzZ1OGFYcU53Qm1hRW5HVGxxMy1PcUltNk5UTU9TX281UTF1YkNweG54NDNYM0JyM0xQQ2NEV3d6bmVqZVRiRVZZUnZqYzNYSmQ5ZTFWZHNyNXEwS3hKWEg4MzdNcmtMVGlXTmVpY1VaeDVyWGY3czNOb1p0TWtxM1c2ckMxVmxBak1FUGVMbldKOUE4?oc=5
+
+## Charissa Thompson Recalls ‘Magical’ Taylor Swift and Travis Kelce Wedding with Erin Andrews - People
+
+- first seen: 2026-08-01 04:31 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Charissa Thompson Recalls ‘Magical’ Taylor Swift and Travis Kelce Wedding with Erin Andrews  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPUnRqc29nOFJYUmJnM01DN3FDek1oWmxBTmlTeEZKaTZhUzFadmJIS3NDc1dwbGNFa3VmRi1OdktXN2oySUR5aFozNHVna2JoLS1ENGZuZjQ1YXF5OF9udGc3ZE5DVDVpR0Q1S1hKSlNudVNhbnJvQUpvbk0za1d2bFJKbmlkYW9KRkx4V291Q05CRklveUxQSHl5RlpwZ01Gd2tEOTBmQWxJbkIzSGx0bWRHN1p5OW41?oc=5
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOLXhPRFdNdDY4dVdKcFNmNVQ1dmFBOVd2SVAyLXlHa01fQlQzckJGQmJYV2V1R2hKS05objc0VGhZLXdPdXdGYTVPLVVEYVY3X25xVTBxbmRDMDctT0tYN0t3OGRyWHJMU1RUSFgwWlJ5bTQwa2pZTzZ4RTg3MkU0UlY5Zk5lVFYxc3d4emxGMnVqVGswX1c4OE5fUEl5ZHkyTDgxRzRra2FuOEU?oc=5
