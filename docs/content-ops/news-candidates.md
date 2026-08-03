@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 79
+
+## Country Songs Take All Five Slots in the Billboard Hot 100’s Top 5 for the First Time in Chart Histo
+
+- first seen: 2026-08-03 22:15 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Country music is ruling the roost like never before, at least when it comes specifically to the Billboard Hot 100. For the first time in history, country songs are claiming all five of the top five slots on the Hot 100. That’s thanks to Ella Langley and Morgan Wallen, who currently stand at No. 1 […
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/country-songs-billboard-hot-100-ella-langley-stella-lefty-1236826778/
+
+## Taylor Swift’s ‘White Horse’ makes Phil Collins’ list of the songs that have soundtracked his life -
+
+- first seen: 2026-08-03 22:15 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘White Horse’ makes Phil Collins’ list of the songs that have soundtracked his life  Deltaplex News
+- sources:
+  - [unverified] Deltaplex News — https://news.google.com/rss/articles/CBMizwFBVV95cUxNaGxjTWNBb0NnLVcwVHBSZzhmZUZaaDFoaThTeHpOaF9oaXZoMlNHLWhtN0xLaXBUQWswR210N3l0c09ZbkNRanU5b0w2Qkstd0FENHRSRm1ibTdrTkplSDBRbldfY0hSMHR1UEdlQ2tCd2dyVlJjR0pubVltOEtuSGFRS1MtTmJmUWZZZkFRRWZXWllCY0tudFc4ZkQtWWRhbVEzYjJlVTJHdUJob240LWl4czNuSVpCcFBuVnpTTE14UXdTcHNCRDY2Mm9XZ1E?oc=5
+
+## Taylor Swift Travis Kelce Wedding: Joe Buck Recalls Emotional Aisle Moment - Yahoo
+
+- first seen: 2026-08-03 22:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Travis Kelce Wedding: Joe Buck Recalls Emotional Aisle Moment  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPOFVqbEx3LVZMcngwYmZ0NDhsemhQWS1POHV2YU5TdWRIbzJWOTBXOEk4VTF2cDlENlhkd0lYZWI0dDVwdHFPblB5bFFxaXNoWDVyemZQZHl4MXE5VG9RQWNzeVg5X1BKTjI4VTdVZXk3U0ZmZENnZHc1Z3dFdWhBSHJTOGdmaTBRenNsajYyNUlGWGpGWTJKMXVjTHh0c2JVeE00Q0lB?oc=5
+
+## Tacky Or Iconic? What Reactions To Taylor Swift's Wedding Expose About Her Fame & Celebrity Culture 
+
+- first seen: 2026-08-03 22:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tacky Or Iconic? What Reactions To Taylor Swift's Wedding Expose About Her Fame & Celebrity Culture  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNWXVEQjRhMzhQd0tpSGhGZFBsMVVZSFpianU0M1R3bEQ4WmNmYXBJenVwNmNTRFZHenBFQVgtVzFPQnpWb2dacnJTV3ZlS2M2cTBTX2JfajRjazI1RG1xOW1hY2NxVGtpTVZBREVVN1ZSMk9rdmZuNkpFRURJWWcteWdoU3lLckg2TjBsZkVxNWtoTnVROGxTZHdTMXhLRGxCMTktWEtIa0tVQQ?oc=5
+
+## Scott Eastwood Talks Taylor Swift's 'Wildest Dreams' Music Video, Reveals Who Told Him It Was a 'Bad
+
+- first seen: 2026-08-03 22:15 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Scott Eastwood Talks Taylor Swift's 'Wildest Dreams' Music Video, Reveals Who Told Him It Was a 'Bad Idea' to Star In It  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi5wFBVV95cUxNVl9tTXktNmVSYlpydU4weXVMbTVTM0VoWE9WM0lQMjJZNFlMMDNMZE5sN2lNY2swa2Z4OC1ET3pWVEhJdm1SZ0IzQlQxS2hKM3UwLUxPZFlVQmF0Y2R0Zjk1aUNjMUV5Q3VKNl9vUFZuTzh0a3A2VUlSNDhMNHdUaWJHTlYySGVUamNacEMtNkh0S2hNRGFwdkdGT2RXU2tMRWFWeVh4V1pNREFDMTFsZ3NBcDBjNnZtM3dYNkF2bnlnRTNtNTdPbzRfNXVfeVkxZEdqb3Q4Um1SOGw1cnBOaDZyc01pamM?oc=5
 
 ## Taylor Swift-Travis Kelce fans believe their dog was named for ‘Sandlot’ character - Kansas City Sta
 
