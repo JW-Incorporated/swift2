@@ -181,6 +181,7 @@ export default {
       relatedIds: [
         "moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice",
         'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
+        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
       ],
       year: 2011,
       month: 11,
@@ -2467,6 +2468,8 @@ export default {
       relatedIds: [
         "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
         "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th",
+        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
+        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
       ],
       year: 2023,
       month: 7,
