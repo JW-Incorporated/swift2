@@ -6493,7 +6493,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://s.yimg.com/ny/api/res/1.2/ickryvH9sKcF7tDFtwxxbw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE0NDA7Y2Y9d2VicA--/https://media.zenfs.com/en/insider_articles_922/7a2cc8fb3dc0f6c58c259f9ddd4d244f", credit: "Jason Kempin/Getty Images", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years" }, { name: "Yahoo Entertainment (Insider)", url: "https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html" }],
-      relatedIds: ["moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice", "moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys"],
+      relatedIds: ["moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice", "moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys", "moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice"],
       products: [{ brand: "WonderlandByLilian", item: "Silver Grey Elegance Sequin Evening Gown", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/silver-grey-elegance-sequin-evening-gown-convertible-grey-evening-dress-plus-size", price: "$695.00", isAlternative: true, altNote: "Her 2011 J. Mendel gown is long discontinued -- a current made-to-order dove-grey sequin gown in the same formal register." }],
     },
     {
@@ -7143,7 +7143,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer."],
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg", credit: "Paolo V via Wikimedia Commons, CC BY 2.0", caption: "The Eras Tour Speak Now set — the lilac ballgown and koi-fish guitar — the live embodiment of the era she reclaimed with the July 2023 re-recording.", kind: "archival", focalPoint: "59% 51%" }, { url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png", credit: "Republic Records", caption: "The Speak Now (Taylor's Version) album cover — the purple-tulle re-recording released July 7, 2023.", kind: "archival", focalPoint: "52% 30%" }],
-      relatedIds: ["moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville", "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th"],
+      relatedIds: ["moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville", "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th", "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville", "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th"],
     },
   ],
   "tloas": [
