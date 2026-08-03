@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 61
+
+## Travis Kelce Might Switch to Taylor Swift’s Career After Wedding Move — Source - Yahoo
+
+- first seen: 2026-08-03 08:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Might Switch to Taylor Swift’s Career After Wedding Move — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPRjUybm9HQlR3VTEtcDdGeWsxb0tuZEVYOFN6TlZVMjNuZWo2Zk9qd212M2pKNDBheVltMElfVlRweG9iVkJudjBJbk94NkItZFF0SC1hU3NSUGJYYW9sUXpxMDRkOEhYOHNLcmFUbmo1ZzJqbEhzOTlaX0FXSnJUb29iNWtXa0gycXA5ckVlanVxN0R6S0pXNjYzcVFmYzg?oc=5
+
+## Feature: Kacey Musgraves or Taylor Swift: Which Woman Has Had the Bigger Influence on Country Music’
+
+- first seen: 2026-08-03 08:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Feature: Kacey Musgraves or Taylor Swift: Which Woman Has Had the Bigger Influence on Country Music’s New Generation?  Entertainment Focus
+- sources:
+  - [unverified] Entertainment Focus — https://news.google.com/rss/articles/CBMi7gFBVV95cUxPbUlBYk9NbTRDYldETzFJQXBSWmo0S2dRdWVlVXZmdFpIOFdpZUFGelEyODNIQ1BOdzN3TExGUWNvNGVicm5JUll1aXpZQU1FOUpTeHhpNktGSjluc3RqQUZxNVR0MkZWdzB2bXN0d01kclczMGVmSG5kcktTWDNCdXU1bEJHTHRuc1RrNFRhUVQ3X0dJOWFWeTBjV29WTTd5UnpjeEplQUdCN1preE1zNVRtR3BRQzc3MnFGQTJGS2dHOUFBU1Q3MWsxd0FybFAzOEMxSkg4RXI0TXExcHZZUUtRWGo5UVBOOUFyV21B?oc=5
 
 ## Cristiano Ronaldo’s wedding plans break from Taylor Swift-Travis Kelce playbook - New York Post
 
@@ -243,6 +259,16 @@ Stories: 59
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNUWZIOGt5Yi1fMFMwdEhoelBoWXFUU3FJcWJKcUVDRUUySzgyd2JqdHVkT3pWQzFxZmtCZU5kbUdBdmRwZTdQY3lwT1ZVeVN0c2RRRHZEbnU1bDBrdmFOc3R5VWlUc0Q4VTZXZHdBVjJTZ3ZuODBQX3U0S0oxampsalBsR1VKTnI3c2NjSTR1ZlpjOUlCUzhWQWNmelhvSlRRdFQtZEdhRQ?oc=5
 
+## Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remark
+
+- first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remarkable’  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNSG1FU096ZFRaUWdTUmg3eEJGS21udzZXbmxUN1B1R0Jkd1pxY0IwRHdDMkdGanlRakNBUDlwN3dCdGl6eGlZc3pMb3dUUTRCZE5ITXo5dUJ3ZEVzdHU0dDFsZWZxazgzRThGV29HM3hFSlFDRlE1ek4yaHY4MnNfbDZoWEZQSW5MVHdxZlpjdGJwdXNHamFSZjBZNHMzYVh1V2Fv?oc=5
+  - [unverified] nbcnewyork.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPbHJxWVl4bmRFM0E1bHY3TTd4Z1V3NE9QVEJVNHhOa05kQzdBUW9Tb3hlTG83VGtLWU11aDV6cXpZS01XZTROTVhkVXk3SnItdW1qdDAtcXRLblRGUXJxRDZmMFduNWZnNlhDcG1NVWEtVUJ6UWNjM3pqUThHaHUyNXNIaE9yQ1FxVDJnR01DNGMwS1Z6YzY5c0N1NDVkZVdMZ0dWUkh0X0hmNTBuYVAzTE9wTWotNTd2Uzczb20zb2tRM01uZWZKSjliWWNNazhXZEttbUZKeXByUTNGUWNj0gHnAUFVX3lxTFByMWhQSGo2YmFTVmIxTGV5YnRmZ0pNSERIb25sam5tdy01NEJjUHlmalB1NWs3TUtTQlB1b1diLUd2YUFXRHBvN3FCeGZwSEdPUFh6bVQ2TjQ1amFWZ29HSWxnc3VuWGpyZUt6SFlOdDJwUzBxcEkwQkE1MjE1S2ZDT1poLUZKNHhpcVAwazdGR1ZWVUh4SmRfd1VaVGItbHVoT2RCbHZpc3BRU3Z5dC1ja1FlendkSkdqQUgxbThfbks3Nk1zem1zRmZfd05adjNmQXFNdmk2Tmo5N0lndk5ibzdJTjI3WQ?oc=5
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQdnpqWUtHNUhudEJRY0pGR1ppckhPZ0ZjTjd3WC1jVjdZcmdIazZFN1MyZUJReGpjTHBkRUlXZXBGMlVGTS00aEl0OGhpaUMxUDN0amR2aEdnS243OXA4Y21OOEtXNmRwQ21vZmQxVXlNbHJqSjQyZ3FWNGxrQzRSR0RuSVotOTRzLTE1ajctUjF0UFVCekxnS1hIejY3cWFzZHA1NzN1UzMwRmhkdy1xenpwWWtRUUM5VGJScGpQWkdwUQ?oc=5
+
 ## Taylor Swift's summer touring aircraft strategy: How global tours move like Fortune 500 companies - 
 
 - first seen: 2026-08-01 14:40 UTC | category: tour | importance: 5
@@ -258,15 +284,6 @@ Stories: 59
 - summary: Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPUE81QWZOenItbS0xRmladWFyQnE5eUJJbGkxdWZDLVpEd1lHa3pjSG1sMVBEVXIwbVV4REJYU1A4dnBmU0xIbE0yd2pMWG5kcWpVdGtPNnA2ZUMtVXVpaGpfcXR4b2pfNGU2aG8tcEVoTjUySndkZmZBSEtjN01mZGtsOG9ZcW81SmRjaE1MOFMtcldJMS1BckVjSEFrZw?oc=5
-
-## Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remark
-
-- first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remarkable’  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNSG1FU096ZFRaUWdTUmg3eEJGS21udzZXbmxUN1B1R0Jkd1pxY0IwRHdDMkdGanlRakNBUDlwN3dCdGl6eGlZc3pMb3dUUTRCZE5ITXo5dUJ3ZEVzdHU0dDFsZWZxazgzRThGV29HM3hFSlFDRlE1ek4yaHY4MnNfbDZoWEZQSW5MVHdxZlpjdGJwdXNHamFSZjBZNHMzYVh1V2Fv?oc=5
-  - [unverified] nbcnewyork.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPbHJxWVl4bmRFM0E1bHY3TTd4Z1V3NE9QVEJVNHhOa05kQzdBUW9Tb3hlTG83VGtLWU11aDV6cXpZS01XZTROTVhkVXk3SnItdW1qdDAtcXRLblRGUXJxRDZmMFduNWZnNlhDcG1NVWEtVUJ6UWNjM3pqUThHaHUyNXNIaE9yQ1FxVDJnR01DNGMwS1Z6YzY5c0N1NDVkZVdMZ0dWUkh0X0hmNTBuYVAzTE9wTWotNTd2Uzczb20zb2tRM01uZWZKSjliWWNNazhXZEttbUZKeXByUTNGUWNj0gHnAUFVX3lxTFByMWhQSGo2YmFTVmIxTGV5YnRmZ0pNSERIb25sam5tdy01NEJjUHlmalB1NWs3TUtTQlB1b1diLUd2YUFXRHBvN3FCeGZwSEdPUFh6bVQ2TjQ1amFWZ29HSWxnc3VuWGpyZUt6SFlOdDJwUzBxcEkwQkE1MjE1S2ZDT1poLUZKNHhpcVAwazdGR1ZWVUh4SmRfd1VaVGItbHVoT2RCbHZpc3BRU3Z5dC1ja1FlendkSkdqQUgxbThfbks3Nk1zem1zRmZfd05adjNmQXFNdmk2Tmo5N0lndk5ibzdJTjI3WQ?oc=5
 
 ## Taylor Swift's Eras Tour dancers at her wedding: every wedding weekend look they shared - Yahoo Crea
 
