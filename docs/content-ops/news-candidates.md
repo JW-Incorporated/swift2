@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 61
+Stories: 64
+
+## How USMNT Friendship, Taylor Swift Led Sebastian Berhalter to Middlesbrough - Sports Illustrated
+
+- first seen: 2026-08-03 12:35 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: How USMNT Friendship, Taylor Swift Led Sebastian Berhalter to Middlesbrough  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMikwFBVV95cUxPYklhVkl5ZU11ZUtlWkt0YmFyM3Bnc3hDV3IzWGNUTk1YdFZFNlU3d0t4MzAzSHdQa19yblBOYW5VcEVhNEJZekVldkZ1elF0NTBkQXRRb2dLelZZMzIxbm9ON0I1TGJfZ0YtTFNBOS02aU5COXRTMkJ6Wk1oY0dneDByeC05UjNxSVpGX3dYVzE0aFU?oc=5
+
+## Just Found Out Taylor Swift and Travis Kelce’s Dog’s Name, and We’re Obsessed - Cosmopolitan
+
+- first seen: 2026-08-03 12:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Just Found Out Taylor Swift and Travis Kelce’s Dog’s Name, and We’re Obsessed  Cosmopolitan
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiowFBVV95cUxPdkxLSHl4bHRDb1FFaUFteGJGbmdzek5qY2FVd2s2NzVDU2t0N3lMTFNEVS1kb3BxLTRtRl9RcGE4ckc4a1F1SThiSDJiQ2ItWHNkYjFWd1JqYlJ6VFplUjEwMno1R2FpT0R6eVVnbjhiVC01Q2p6WEhvdTNEUUZqSmpDNUc2dmlvTGZBOUcySjBNMmtLaTZic1JJSkNlcFNRbGcw?oc=5
+
+## New Details About Taylor Swift & Travis Kelce’s Wedding Vows Revealed - Yahoo
+
+- first seen: 2026-08-03 12:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: New Details About Taylor Swift & Travis Kelce’s Wedding Vows Revealed  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQRm9FSnNpYmpVMGdKbXk1a0o3V2tGS05XdnFjYzdKWWV4ZUtnRVNuVDVyX01ycThXUHFxLUlDVDJfWmx1RWY2Z1ZRQmZ2QVJ0YzFsMUdjQ2lRMER1U0JtZ0xBdFBFbVJhRzJoZDZRdExIeVNlekFWamhIbVoyNklJelA4T3hscU9vcWx2MEl1azlndW54dkdWMkNZV0txTndQOGpNM2dB?oc=5
 
 ## Travis Kelce Might Switch to Taylor Swift’s Career After Wedding Move — Source - Yahoo
 
