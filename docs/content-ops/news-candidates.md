@@ -25,7 +25,64 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 74
+
+## Taylor Swift-Travis Kelce fans believe their dog was named for ‘Sandlot’ character - Kansas City Sta
+
+- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift-Travis Kelce fans believe their dog was named for ‘Sandlot’ character  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxQNEg2cjJ4ZDUwTzI1Y1ZsSzlKTVRVOWpZNlVBNVYxemRRVldTV3Y1ZFBlSFFfbFFnUDJDcWdsYVNGd05WRFBKZ2Z0Y2dYcy01bHdCQS12bXFobXM5WFlxWmxaTFllbzVwZXpiU3JncGVhb3RMZThCQURtQ1ZORWNqTjg2cmN5cHlta2pFZnlnVEhoUdIBkgFBVV95cUxOSWFabUxYMVptNVZDRkhma2M4a0RoalFHMmQ0eWtXWWx4elU5aDV6OGdLeTRuWTlGMHU0NkpOaU9qTll5elRTdW9SeTU1S0c3VkxwQTV2czJrZWx0NHFHd0E4YktLQ0hyMEVQWmRhMW9xbWg2MXF4Z1Z5WHZjVHhQOHFNaGRPQ1hiQ2tPVmxZQkY5dw?oc=5
+
+## Travis Kelce Reportedly Facing Doubts from Taylor Swift’s Friends for Using His ‘Celebrity’ Amid Rep
+
+- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce Reportedly Facing Doubts from Taylor Swift’s Friends for Using His ‘Celebrity’ Amid Report She’s Feeling ‘So Much Pressure’ After Their Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNczBsdllqQUVfSUpqY2U3eE1nZjQxemx0WWpCQzFvOG91a3NMcWNMWHdmdFBkUkZ6SVNmQW53VzhVVnJZUWpoOHJPODRzZ2VHZDJrZkVObWt2YkxqZmlodFBsWjRpbnhUVVlRcWlJWUhvWmVQSVp2N0d1RWtRM1A4WXZhRnBoZ0hXUGRKa0w4NEMwd3F5VHczZkdJdVNWNXNJQkROX3d4Ym5Va0U?oc=5
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUzN0YkNwb29Kd2lCUmJINWdBTnE4MDA4SWp2MTVTU3hCa3pYN2hJanBaZFpJbXFjNFBNcU11c0NtRzJnU05mSjhwSTVkYnpKUndvaWR2V3lYV1BEOWtQS240bGo3ejdSX2xmenNkdWxObVpXYnJJb3p5cnNFOV81QzNPYkJQY2llb1N2WkctY3BlTXJ0ZnI5TUd5ZGhIaTRWU1FDXzBVc0w?oc=5
+
+## Taylor Swift & Travis Kelce’s Dog Is Allegedly Named After One Of His Famous Crushes - SheKnows
+
+- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce’s Dog Is Allegedly Named After One Of His Famous Crushes  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMimgFBVV95cUxOTDdTX18wQlFrTGMyWW9ma1ZYSFR4ZG03TWgyYjN4T1pWWGNBRDUzYjZoVjZoY3ZkVGhaRkR5SGNxdjdwa29BXzJ6UGxzUzBYeHoyN05tWWl2clUtWFpSRkJYcG1SaXcwOFZyVnUxWnpBLWxhcF9HNTRSVkNwVTdJRXJmUDdXTTdqeTRCZXAxaDRQYUJwM3Jtd1Nn?oc=5
+
+## Taylor Swift Backs Travis Kelce’s Biggest Career Gamble Yet — Insider - Yahoo
+
+- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Backs Travis Kelce’s Biggest Career Gamble Yet — Insider  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxOREM4UF9nalNHVlg2NTBJbU10QUY4RFRfWGhZd0xaNHhZN1NvWWE2OTdDcTdjX3hmdFdSb1h1ODAxVmxCMEw0TGlHdDJKc1FsRnBmNkVEZVFpaGg2NGxUTnYxd1pWanFUUUIxY3hLMnR0NW9KYzJDMUR5U1U2RUJ3RlJucURQYmc?oc=5
+
+## Brad Paisley Says Taylor Swift and Travis Kelce Pulled Off the 'Least Pretentious' Celebrity Wedding
+
+- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley Says Taylor Swift and Travis Kelce Pulled Off the 'Least Pretentious' Celebrity Wedding He's Ever Seen  Beliefnet
+- sources:
+  - [unverified] Beliefnet — https://news.google.com/rss/articles/CBMihAJBVV95cUxNVlFSYVNEMFdGVF9KMFZrdHBqUXZ6RWJvc3N4cm5yRTVaemVybkxBMkJYMkVnbm5PM045YmdMbVRNT2N3bTlkVEtiLUN5SVRCb2VQcFB4MXRNdEhMaTN1YVlfclVoeGczcW15XzlHVmgzNjNDdVhFVmp1ZldwTmh6d0tCTFpxUS1xSk1rNWZ4OWJNbk1FVDVMZmdiaV9NODZ4SFVHTFo0a3YxSnJqSjhxTVpBaF9adngtNnM2SnFDam03LTFlazIzUHIwMzAtck9wUlE0TDBjLUREYkY1QzRIaDhRcVh5ZVFkdDZsWnpsemFRNEw3NnJBVXdRQlE3dWhVT01fTw?oc=5
+
+## Taylor Swift’s wedding spurs fandom-led philanthropy - City & State New York
+
+- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s wedding spurs fandom-led philanthropy  City & State New York
+- sources:
+  - [unverified] City & State New York — https://news.google.com/rss/articles/CBMirAFBVV95cUxPdFozWHJIM3RSb1FqaHdpLWxDRTNBSjUyUnhtRExtdzFSUUl2bDh6UWlScUROV0ZFWkZjcDg3NGJSUE5scWlKQTNXS1ducjI1Wkl0WWozU29lbS0xeHc2bjNRUm5seGpnaXlIOXZrUG1kVl9PbHBCM21heXVreWlLQ1dxS0hpVnhhMFFWcGpkN1FjS3QxT1c0TElCODRnUFdPaGR6eFlUWkwxYlZU?oc=5
+
+## Flashback: ‘Magical’ Taylor Swift concert in St. Joseph, where the Chiefs train - Kansas City Star
+
+- first seen: 2026-08-03 18:57 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Flashback: ‘Magical’ Taylor Swift concert in St. Joseph, where the Chiefs train  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE5fU0JqTUdPLUhCR0RjY1BMSGYxMU1kY1FBYThfSUo1ZGlmVGUwNWdCUHMzN0NseVBNZWFTTEdqOE5QbExvWUdFdjlzVGVISTFjZUJJdDB5bWJ0Qk9uUnNkd09abDRLSkVOUmdF0gFrQVVfeXFMT2lDOFlOWHE2dlo2c283NTBRQzJ2TlE3Z2JCN0FzRkF2d3JVWDduel9wT25TU1JsZVNFYkl3Tk9sMlR5MmVGa1BGMkRSWTR6SnpydGVFdi1VRkZCZldvUWxkUVYzV2g5ZWo1WG8?oc=5
 
 ## Taylor Swift and Travis Kelce’s Rumored Puppy Name Could Reveal a Hidden Tribute - heavy.com
 
@@ -46,10 +103,11 @@ Stories: 67
 ## Becoming Tate McRae: The Pop Sensation on Navigating Fame, Treating Work Like ‘a Fantasy’ and Gettin
 
 - first seen: 2026-08-03 15:50 UTC | category: sighting | importance: 3
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: In early June, Tate McRae celebrated her recent move to New York by catching Knicks fever. It was less than a year since she relocated from Los Angeles, where she kick-started her career as music’s next Main Pop Girl, yet she could feel the electricity coursing through her new city over a potential 
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/features/tate-mcrae-intervoew-relationships-taylor-swift-sourdough-bread-1236825809/
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMitgFBVV95cUxNd040X1c5ZzNlc2pzWFhJaUprUS1ydHRkbEpwajcxM1FZWXdLbm1yZEk3NERzQ3A0LUllbU85NUp0eGZfY2Z1WXdyNEJIRXJXX19kc1dZZ3VtbER0NDZvUkRsRXFHLW1yWUhBOXJMUHlqQ0xDdjQ3U1lEbGFGMTRyR3JOWlV5Qk9zTUpWM25NYkExYjFvdDJCQVV5bXRwOTBRTm9GQ3FyaUN6M1I4RTd6X0FySEc2Zw?oc=5
 
 ## How USMNT Friendship, Taylor Swift Led Sebastian Berhalter to Middlesbrough - Sports Illustrated
 
