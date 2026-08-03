@@ -152,13 +152,14 @@ Stories: 59
 ## Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like - Just Jared
 
 - first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like  Just Jared
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxPek5QQWQtNlpaSVFJeVZZZXBweVBLb3dNbXhGUUVsMWk4bjNkamdOU1B3UmN0bExSdjExQmUyeTFaakY0angwdlFlSUtCb0E4WE9zbnhiWGkwemNBalFHQkI3YTRCYkhodTZtbFdUV3NIWlFFbjJGQUxvclExSG5oT05zR0RZRVZsSmtSenRJQVRvakdO?oc=5
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxNajRaanF6RWh3azBDbGlfdU85V01zMTBkRm5sb3BWMHpwR0ZGQkFmVWN1NFFmUTB0aU90RW9MY1A5em4xalRZRWd0ZEJSUnhOeEtPUnBHd3FZdnJQRGxVRHRtUkRlc3QzMWNkeTBEZDhBSXg0M1Byc3VzSWk2NERZYmZDdENaTWpMV0ZUcmtKQmlyUXM?oc=5
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOZ2k3QWJ0LW5nSGtRb2k0WV9Ici1TSVNDV0t5RzhsMEZ6b25icGRLVDVNWDhSekkwb0dEN1ZIWkNjOVpfV1BvcmJ6ZzdQblVZSWVQVnh5bnRjaFZmZk9ZOTdONENCeVhTUUc0RGhvMHRFREdZVjJ4UkxNM3NuYXZBOHBxZXp1T2xGLVVpUEljbjYzS1VFbnJjdE5nc0tuQXczNVE?oc=5
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMikwFBVV95cUxPZGl4TjdOalFkbm9UWll5aXBtdWZqd181YUNzTXNwRlBndG02a3R6cnpGd09IMDRXV0o1VmpPdXZiU3FsbWZlSW1jQktJSEp3d2FFbVpRQWdVamk3cXd2akJpOW1tRWRGcWdfNUU1VnB3b3BFN05NOE85cWhNaGV6dWpVM2tsWkFOU2RkS0lCLVZIZVk?oc=5
 
 ## I Can’t Stop Thinking About the Garden Where Taylor and Travis Got Engaged—Here’s Why I’m Still Obse
 
