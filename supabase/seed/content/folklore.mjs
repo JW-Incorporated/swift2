@@ -182,6 +182,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/U.S._Marines_storm_ashore_on_Guadalcanal%2C_7_August_1942_%2880-CF-112-5-3%29.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — landing
+            // craft and troops run in a horizontal band across the upper third,
+            // with a wide stretch of beach sand below.
+            focalPoint: '50% 30%',
             credit: 'U.S. Marine Corps (public domain), via Wikimedia Commons',
             caption: 'U.S. Marines coming ashore at Guadalcanal, August 1942 — the battle Taylor\'s grandfather Dean fought in and never spoke about.',
             kind: 'archival',
@@ -214,6 +218,11 @@ export default {
             // cabin silhouette, and the white-dressed performer are all clearly
             // visible at this size.
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — an
+            // ultra-wide panorama; the moon and reflection sit left-of-center,
+            // the silhouetted performer sits right-of-center. Split the
+            // difference so a crop keeps both in frame.
+            focalPoint: '55% 55%',
             credit: 'Paolo V (CC BY 2.0), via Wikimedia Commons',
             caption: 'The folklore set\'s moonlit cabin at the Eras Tour, where the album\'s songs were finally staged live.',
             kind: 'archival',
@@ -250,6 +259,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — face fills
+            // most of the frame, upper-center and slightly right, eyes closed
+            // at the mic.
+            focalPoint: '55% 38%',
             credit: 'Disney+ (official poster)',
             caption: 'Official release poster for folklore: The Long Pond Studio Sessions.',
             kind: 'primary',
