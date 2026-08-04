@@ -7391,18 +7391,6 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       ],
     },
     {
-      id: "vault-tloas-maren-morris-on-the-vows-a-closer-look-at-their-love-and-the",
-      date: "2026-08-01",
-      dateLabel: "August 1, 2026",
-      title: "Maren Morris on the vows: a closer look at their love — and their humor",
-      summary: "Maren Morris, one of the roughly 1,000 guests at the July 3 wedding, told People the couple's personally written vows offered \"a closer look into their love for each other and their sense of humor\" — and that witnessing them \"was an honor.\"",
-      body: ["Almost nothing about the ceremony inside Madison Square Garden came from the couple themselves — guests signed NDAs and the interior went unphotographed — so its small human details have surfaced secondhand, one attendee at a time. Maren Morris, one of the roughly 1,000 guests, added one of the warmer ones. The personally written vows, she told People, offered \"a closer look into their love for each other and their sense of humor,\" and being among the people who witnessed them, she said, \"was an honor.\" It is the sense-of-humor note that is new. Earlier accounts had already established that the vows ran long and left guests in tears — both bride and groom reading from gold books, Travis among those who cried — but Morris's read reframes them as funny as well as tender, of a piece with a wedding Adam Sandler officiated and Paul McCartney played. The finer texture that circulated alongside her comment — that each set of vows ran about twenty minutes, who cried hardest, that Taylor sang part of hers — traces to unnamed insiders rather than to Morris, and stays reported rather than confirmed. What is on the record under her name is the characterization itself: their love and their humor, in equal measure."],
-      tags: ["Relationship"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/77/Maren_Morris_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg", credit: "John Sears / Wikimedia Commons, CC BY-SA 4.0", caption: "Maren Morris at the 2024 Toronto International Film Festival. A guest at the July 3 wedding, she told People the vows revealed \"their love for each other and their sense of humor.\"", kind: "primary", focalPoint: "52% 26%" }],
-      sources: [{ name: "Maren Morris Reveals Taylor Swift and Travis Kelce's Wedding Vows Gave Guests ‘a Closer Look Into Their Love for Each Other’", url: "https://www.aol.com/articles/maren-morris-reveals-taylor-swift-185000000.html" }, { name: "Maren Morris Gives Insight into Taylor Swift and Travis Kelce's Vows", url: "https://www.tmz.com/2026/08/01/maren-morris-talks-taylor-swift-travis-kelce-wedding-vows/" }, { name: "Maren Morris Shares What Taylor Swift & Travis Kelce's Wedding Vows Were Like", url: "https://www.justjared.com/2026/08/01/maren-morris-shares-what-taylor-swift-travis-kelces-wedding-vows-were-like/" }],
-      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
-    },
-    {
       id: "vault-tloas-childrens-mercy-patients-design-a-tribute-wedding-gown-for-t",
       date: "2026-08-03",
       dateLabel: "August 3, 2026",
