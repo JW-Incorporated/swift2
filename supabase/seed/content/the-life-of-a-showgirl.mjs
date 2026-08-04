@@ -4087,6 +4087,15 @@ export default {
             reliability_score: 3,
           },
         ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+            focalPoint: '50% 26%',
+            credit: 'All-Pro Reels / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Jason Kelce, Travis\'s brother and New Heights co-host, in his Eagles playing days. He described his family\'s fan base flipping "from large fat men to little girls" once Travis and Taylor started dating.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
