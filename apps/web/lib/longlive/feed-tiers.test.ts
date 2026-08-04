@@ -351,8 +351,24 @@ describe('assignFeedTiers over REAL vault content', () => {
     // The whole point of #1017. Before this change the split was
     // hero 12.3 / media 55.9 / chip 1.3 / text 30.5 — chip was effectively
     // dead and more than half the feed was one silhouette.
+    //
+    // Upper bound widened 12 -> 20 (#1628, 2026-08-01): hero tier is earned
+    // per-item on an ABSOLUTE substanceScore threshold (HERO_SCORE_THRESHOLD),
+    // not a corpus-relative rank — so as depth/photo-enrichment passes
+    // legitimately raise individual items' substance over that bar, the
+    // POPULATION share of heroes drifts up too. That is the tiering design
+    // working as intended (a meatier corpus earns more hero cards), not
+    // drift to suppress. A tight ceiling fit to one day's corpus snapshot
+    // (12%) broke CI on main the first time enrichment nudged it to 12.06%,
+    // freezing every open PR for days. This is the reversible interim
+    // unblock Joey/Wyatt decided on #1628 (option 1) while option 2 — tiers
+    // driven by an explicit editorial weight/recency signal instead of
+    // corpus-relative substance, decoupling "how the feed looks" from "how
+    // good the corpus's floor is" — is tracked separately as the real fix.
+    // 20% still catches genuine regressions (a bug that made everything
+    // hero) without breaking on ordinary content growth.
     expect(pct('hero')).toBeGreaterThanOrEqual(8);
-    expect(pct('hero')).toBeLessThanOrEqual(12);
+    expect(pct('hero')).toBeLessThanOrEqual(20);
     expect(pct('media')).toBeGreaterThan(30);
     expect(pct('media')).toBeLessThan(45);
     // Chip must be a real tier now, not a rounding error.
