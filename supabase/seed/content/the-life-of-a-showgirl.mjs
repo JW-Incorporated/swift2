@@ -3589,6 +3589,80 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-maren-morris-vows',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Maren Morris on the vows: "a closer look into their love and humor"',
+      snippet:
+        'Country singer Maren Morris, a guest at the July 3 wedding, told People the couple\'s self-written vows gave the room "a closer look into their love for each other and their sense of humor."',
+      sourceUrl:
+        'https://www.aol.com/articles/taylor-swift-travis-kelce-wedding-163000000.html',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/a/a8/Maren_Morris_2019_by_Glenn_Francis_%28cropped%29.jpg',
+      moment: {
+        context:
+          'Among the roughly 1,000 guests at Madison Square Garden on July 3 was country singer Maren Morris, and in early August she became one of the few to describe the couple\'s self-written vows on the record. Speaking to People, she kept the private lines private but named what the exchange revealed — "a closer look into their love for each other and their sense of humor" — and called witnessing it "an honor."\n\nHer account restores the lighter register the fuller guest reports had left out: those dwelt on how long and how emotional the vows ran; Morris caught the jokes the two wrote into them. Any figures on the vows\' length trace to reporting around her comments, not to Morris.',
+        // Intake #1780 (2026-08-04): re-authored after being held from the
+        // 2026-08-04 Vault Run (#1784). It was held because, dated back then as
+        // the newest TLOAS item, it rendered as a hero directly ahead of the
+        // Shania Twain item and stepped it hero->media, tripping a documented-
+        // brittle example-id assertion in feed-tiers.test.ts. The fix is
+        // editorial, not a test edit: a single named-guest quote about the vows
+        // is a wedding SUB-detail, not a defining moment, so it is right-sized
+        // to a media-tier card (one photo, ~680-char body) that sits below the
+        // hero bar and cannot displace Shania's hero slot. The fuller vows
+        // account (30-minute length, the crying) already lives on the marriage
+        // moment; this adds only Morris's on-record "sense of humor" read.
+        sources: [
+          {
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swift-travis-kelce-wedding-163000000.html',
+            source_title:
+              "Taylor Swift and Travis Kelce's Wedding Vows Offered 'a Closer Look into Their Love and Humor,' Maren Morris Says",
+            publisher: 'People (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/08/01/maren-morris-talks-taylor-swift-travis-kelce-wedding-vows/',
+            source_title: "Maren Morris Gives Insight into Taylor Swift and Travis Kelce's Vows",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'HOLA!',
+            url: 'https://www.hola.com/us/celebrities/20260802916042/taylor-swift-and-travis-kelces-wedding-vows-revealed-their-love-and-humor/',
+            source_title: "Taylor Swift and Travis Kelce's wedding vows revealed their 'love and humor'",
+            publisher: 'HOLA!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 2,
+          },
+        ],
+        // Archival portrait — the vows were described in an interview, not a
+        // photographed event, so this is the closest true visual (same pattern
+        // as the Shania item). thumbnailUrl set to this url so the sync makes it
+        // the primary image. upload.wikimedia.org (allowlisted); curl 200 +
+        // image/jpeg, 2155x2529, vision-confirmed as Maren Morris.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Maren_Morris_2019_by_Glenn_Francis_%28cropped%29.jpg',
+            credit: 'Glenn Francis / PacificProDigital.com, Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'Maren Morris at the iHeartRadio Music Awards, Los Angeles, March 2019.',
+            kind: 'archival',
+            focalPoint: '50% 22%',
+          },
+        ],
+      },
+    },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
     // several days while ingestion kept running; these four items clear the
     // real backlog of verified, non-gossip wedding-adjacent stories. Every
