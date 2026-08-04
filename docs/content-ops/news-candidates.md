@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 82
+
+## Scott Eastwood’s Agents Warned That Starring in Taylor Swift’s ‘Wildest Dreams’ Video Was a ‘Bad Ide
+
+- first seen: 2026-08-04 04:26 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Scott Eastwood’s Agents Warned That Starring in Taylor Swift’s ‘Wildest Dreams’ Video Was a ‘Bad Idea’  usmagazine.com
+- sources:
+  - [unverified] usmagazine.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQbFJ4eFVJbk1kOVFXcGJjUzF5VTU5bjBqdkN0MmwzR0swZ3VWOGtNUmJoM0NTeC02NUQxS2lHMjRRaU8zdUxKenpBWkd4LWxieEl0a2IzQURuaGk0bkZBRXZuNUVXQVBlY2s2TWQtM3YzaURjT0tHSE1wM09zZktfd245a3MzTmIwMlpmNURWbmFWQm5NcHN5YlVBUTZqX3V6Y1RMdHpkVHFzdw?oc=5
+
+## Travis Kelce Revives Polarizing Look From Early Taylor Swift Relationship, 1 Month Post-Wedding - in
+
+- first seen: 2026-08-04 04:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Revives Polarizing Look From Early Taylor Swift Relationship, 1 Month Post-Wedding  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPbFNxZ20wWWVWQjNGai1SQ214bWNhT1ZiN3IyaUt2anNCVG9DS3p1VVBXbmxNeU1kVGJHUklGdVU5TTRmTU9LXzgxRkZtTWFoTGVwNlAyWmsyenVFVEFuNG9CLV94bFBKYzVSd2g0NzZLZG1XSWVwSmd5QkRqNm56TjRfVm83NGgtQkhTR2ZzYVk2SjNuM0FveVZON2hlbDdiYldRWTZoUkVtNmIwbEp1SUxfVzI2VkMzTGFQSTJkT19UYUU?oc=5
+
+## Why we think Taylor Swift might be in Cincinnati on her birthday - Cincinnati Enquirer
+
+- first seen: 2026-08-04 04:26 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Why we think Taylor Swift might be in Cincinnati on her birthday  Cincinnati Enquirer
+- sources:
+  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPUEh1MllrdUhrS0FiTlBjUTVVMnl1YjZPNjJacGlrb0gteGVRV1kzRzJiNUd6ekFob05ZZ1ZrWHJuY05FY2V5MWJEdmZ0ZnJMWXRuRmY5UnRUeDNqdWxwYWhEYjkzTHdTQ2REbGcyN0tmWVQ4ZG5EaTlFNEtmZHNMdHpIWVBvUi1VeFZ4UC1kOXo4TTJOVFZITl9SZ2s2ZnEtRGJuVVJNVllZXzk3Y0lGMXJTZXI5di1OMVRlYy1nZlpsU2hWMFhpZFVPZktjNy1XVmNPcWRlbVoxYmVm?oc=5
 
 ## Country Songs Take All Five Slots in the Billboard Hot 100’s Top 5 for the First Time in Chart Histo
 
@@ -92,14 +116,6 @@ Stories: 79
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMimgFBVV95cUxOTDdTX18wQlFrTGMyWW9ma1ZYSFR4ZG03TWgyYjN4T1pWWGNBRDUzYjZoVjZoY3ZkVGhaRkR5SGNxdjdwa29BXzJ6UGxzUzBYeHoyN05tWWl2clUtWFpSRkJYcG1SaXcwOFZyVnUxWnpBLWxhcF9HNTRSVkNwVTdJRXJmUDdXTTdqeTRCZXAxaDRQYUJwM3Jtd1Nn?oc=5
 
-## Taylor Swift Backs Travis Kelce’s Biggest Career Gamble Yet — Insider - Yahoo
-
-- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Backs Travis Kelce’s Biggest Career Gamble Yet — Insider  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxOREM4UF9nalNHVlg2NTBJbU10QUY4RFRfWGhZd0xaNHhZN1NvWWE2OTdDcTdjX3hmdFdSb1h1ODAxVmxCMEw0TGlHdDJKc1FsRnBmNkVEZVFpaGg2NGxUTnYxd1pWanFUUUIxY3hLMnR0NW9KYzJDMUR5U1U2RUJ3RlJucURQYmc?oc=5
-
 ## Brad Paisley Says Taylor Swift and Travis Kelce Pulled Off the 'Least Pretentious' Celebrity Wedding
 
 - first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
@@ -123,6 +139,15 @@ Stories: 79
 - summary: Flashback: ‘Magical’ Taylor Swift concert in St. Joseph, where the Chiefs train  Kansas City Star
 - sources:
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE5fU0JqTUdPLUhCR0RjY1BMSGYxMU1kY1FBYThfSUo1ZGlmVGUwNWdCUHMzN0NseVBNZWFTTEdqOE5QbExvWUdFdjlzVGVISTFjZUJJdDB5bWJ0Qk9uUnNkd09abDRLSkVOUmdF0gFrQVVfeXFMT2lDOFlOWHE2dlo2c283NTBRQzJ2TlE3Z2JCN0FzRkF2d3JVWDduel9wT25TU1JsZVNFYkl3Tk9sMlR5MmVGa1BGMkRSWTR6SnpydGVFdi1VRkZCZldvUWxkUVYzV2g5ZWo1WG8?oc=5
+
+## Taylor Swift Backs Travis Kelce’s Biggest Career Gamble Yet — Insider - Yahoo
+
+- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Backs Travis Kelce’s Biggest Career Gamble Yet — Insider  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxOREM4UF9nalNHVlg2NTBJbU10QUY4RFRfWGhZd0xaNHhZN1NvWWE2OTdDcTdjX3hmdFdSb1h1ODAxVmxCMEw0TGlHdDJKc1FsRnBmNkVEZVFpaGg2NGxUTnYxd1pWanFUUUIxY3hLMnR0NW9KYzJDMUR5U1U2RUJ3RlJucURQYmc?oc=5
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMihwFBVV95cUxObURJYUtKTDNHeUJyRnZMdVU2S0JVZXBvWjlTOFc4LS0xMV9CQkNiZThXWlNLcjR2MXBxZ1FibHRSUjBpY2dGSG9QVzFwZG0wZkw3SzcyVHZ6eXc4X19BRjRUc0FPNm1uOWZjakptdmh1dnZlaWoxY2NvV2dJeTV0SEhxdUFNWnM?oc=5
 
 ## Taylor Swift and Travis Kelce’s Rumored Puppy Name Could Reveal a Hidden Tribute - heavy.com
 
@@ -315,7 +340,7 @@ Stories: 79
 ## Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like - Just Jared
 
 - first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like  Just Jared
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
@@ -323,6 +348,7 @@ Stories: 79
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxNajRaanF6RWh3azBDbGlfdU85V01zMTBkRm5sb3BWMHpwR0ZGQkFmVWN1NFFmUTB0aU90RW9MY1A5em4xalRZRWd0ZEJSUnhOeEtPUnBHd3FZdnJQRGxVRHRtUkRlc3QzMWNkeTBEZDhBSXg0M1Byc3VzSWk2NERZYmZDdENaTWpMV0ZUcmtKQmlyUXM?oc=5
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOZ2k3QWJ0LW5nSGtRb2k0WV9Ici1TSVNDV0t5RzhsMEZ6b25icGRLVDVNWDhSekkwb0dEN1ZIWkNjOVpfV1BvcmJ6ZzdQblVZSWVQVnh5bnRjaFZmZk9ZOTdONENCeVhTUUc0RGhvMHRFREdZVjJ4UkxNM3NuYXZBOHBxZXp1T2xGLVVpUEljbjYzS1VFbnJjdE5nc0tuQXczNVE?oc=5
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMikwFBVV95cUxPZGl4TjdOalFkbm9UWll5aXBtdWZqd181YUNzTXNwRlBndG02a3R6cnpGd09IMDRXV0o1VmpPdXZiU3FsbWZlSW1jQktJSEp3d2FFbVpRQWdVamk3cXd2akJpOW1tRWRGcWdfNUU1VnB3b3BFN05NOE85cWhNaGV6dWpVM2tsWkFOU2RkS0lCLVZIZVk?oc=5
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxQbzFSN2VjZ1kzRFRkOThpMGJIMDhPRmN4cTl1ZkNwQnVpNDgzemQ2Q3BrOW9ndHlSOFBKbFdzOVBZUTlTTzN1YWVwcy1oNUtoektGWmpfNk9wS1BybnhPb3R4SHAyMzJWSnBCOG43MTRzR2dpLUlwbXV4aGwtckpBWUxVdXlHQldmVzM1MFM0ZzlLc0pQZFRRU0FfVHNJVnBDbVE?oc=5
 
 ## I Can’t Stop Thinking About the Garden Where Taylor and Travis Got Engaged—Here’s Why I’m Still Obse
 
