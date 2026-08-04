@@ -25,15 +25,64 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 56
+Stories: 59
+
+## Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source - Yahoo
+
+- first seen: 2026-08-04 11:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPX0FSRU5TbjBtVFozUEtDb1UwXy1La3pBTW12SFVKbU41c3RqTXQ1ZlpFc1duOXdmb2lNREt5d0NwdEZaY09sN19VNmc5TVhhR0RVeFZFdEdjd01adWN6VEd2YXBPckVTUkpJbjQ2SUI4RHVnSjRISW9CMjliU2FfbHNOUGJFUWZMaXpzYy1weDJDSmN2UHdLaWwyZDV4dDNz?oc=5
+
+## Top Actor Was Advised To Avoid Taylor Swift’s ‘Wildest Dreams’ Music Video - Yahoo
+
+- first seen: 2026-08-04 11:31 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Top Actor Was Advised To Avoid Taylor Swift’s ‘Wildest Dreams’ Music Video  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxQZjhSOHh6dWVlTEgwM1pzU04wU2duVG9TM1U2ZnZSVEVpUkp5UFBlN2h6YklWTm1Nb1RydUdtM0Q4Q0NSWXBVNjh2eDgyVDFlOWdaUmxzZjUyTjI3d3NPZkZ2S0cyajNEOWZ0WEZfLTdxQ2ZMQ0VSdFRZai02dFVhbTFxVVlmaVFZUzFsMkJ6eFA5SUtBbzhKblc4WnY?oc=5
+
+## Taylor Swift Is A 'Blissed-Out Wife' After Marrying Travis Kelce - Yahoo
+
+- first seen: 2026-08-04 11:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Is A 'Blissed-Out Wife' After Marrying Travis Kelce  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxPVndDb3ZhUzNrVXdRbkl5VXdsQkYxNmdIY2RDVWd3UUtldERrSlMwRHFpWk5SSzZBaGNpd0p5YUdjTmpKemZlcFpob3J0QW1EeTZOcUFfTzYzeHRiU2N2ZTYxN3FTYV9LSkN1bWcyNWphdHJPakRDTEpWYjJrRkhhQjJkV0llUHNSMVNBMC1QaHpta09xZXM0?oc=5
+
+## Phil Collins Praises Taylor Swift’s Rise to Global Stardom - MyRadioLink.com
+
+- first seen: 2026-08-04 11:31 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Phil Collins Praises Taylor Swift’s Rise to Global Stardom  MyRadioLink.com
+- sources:
+  - [unverified] MyRadioLink.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOMlFIMlJhaWVJLURkWjlxbjdkbnVmT1FoZkpZcElIODdWZFVEN3FfdF9tdnRxb3ZQVXRBaWtpQjVnckQyTjVhVFAtSnlBSzh5WEVvLXc3WkxmMXVrVFNtY3JCSHE2eF9DTXUzNlhhTGRrQlNyQzVNU0JmTEpueGIyZ1E4ZjdPeTJ2MU04S2QzUmZhVHVrV2t6ZTVPZHNHZw?oc=5
+
+## Phil Collins Says Taylor Swift ‘Really Deserves’ Being ‘the Hugest Thing in the World’ - People.com
+
+- first seen: 2026-08-04 11:31 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Phil Collins Says Taylor Swift ‘Really Deserves’ Being ‘the Hugest Thing in the World’  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxOWm8yMk1VTmhuQXFTcEpwM1laWk1WNGk4ZE5SekdVMnV0MXB3XzRHZGVrT1RTWktZUHk3RVF6YWl5d2dhOWpUb2tDX0gxTVhCR3JmOVJrZzM5ZFNWSHJBem1LUkVMN0R3UmYxSGVmeGhEaEpNY1V3b0NMLWVucjc5S0pENGloeGhpWUE?oc=5
+
+## Taylor Swift & Travis Kelce Have Named Their Secret Family Member — Source - Yahoo
+
+- first seen: 2026-08-04 11:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Have Named Their Secret Family Member — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNZGwwRlRxbm5qbklVaXIwVTZ2cTVQOUZBNnBVQ3A5VGV5WlBUTTVLUm13M0p4NUk5NGRNNVQ5LW9fMkR4M0RNRTY4eGtxWkh1NXBLd0lWYU9McXVIOUplTzhLTGcwS2h1S0NwcVkzX211aElzNDdNZ0NLaUc3Skx3bTd2UnY0SWpfSjBuY1VqR0k3V3BHcFFMeEJjNFlINzd5bEFj?oc=5
 
 ## Children at Children’s Mercy hospital design wedding gown for Taylor Swift - KCTV
 
 - first seen: 2026-08-04 07:47 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Children at Children’s Mercy hospital design wedding gown for Taylor Swift  KCTV
 - sources:
   - [unverified] KCTV — https://news.google.com/rss/articles/CBMikAFBVV95cUxPUEhFb1dzbVlBazFUdTdwZnZ5b0V3T3R1ZU91clhHR2p4cXJhdlc4X1VPc0ZueVE1N2g5THJfWmVxVnhUVE1VNHN4SUZidDhFQ2FSNWpUYngtckZJQU54UUFndlRpYUV2c2NUOVBtXzdhRlJPMi1WTWd6ZU0teG5oLUZpRU9kTzRaaURYVmpqcm3SAaQBQVVfeXFMTkFXbC1ISjgyY3ViaGlJbmlkaXZ4VmdDUnpGSm1vVG11ZWV3dmtjZjdhTFZJSkdteEZNTFBXNUlMTE9nc1doRWloR0l3YWpUMkhRNGVSTl9vaEI2Nmlad2hvVnVSZ29DTnRtblFHdjBnTVp6cVhsczRIUnhhZUhIRDAzMEk3NTNxeUhmaDByNjNxVkwyMVJhWUJnS0hIQnN1TmxDS2w?oc=5
+  - [unverified] JC Post — https://news.google.com/rss/articles/CBMibkFVX3lxTFBGNk9MS0ZLdUVkU2U5WHF2ekdlYWM3ejZWeXhPQmh1U0RjWVFWai1qZFF5SWtnQ1c5SjBJMi16MGpXaWZ2RFFfSDROM085RFJWNUIxU2puQzRwZkpUTkd6ZDhzWGxUR2Y2RHdkWUVn?oc=5
 
 ## Scott Eastwood’s Agents Warned That Starring in Taylor Swift’s ‘Wildest Dreams’ Video Was a ‘Bad Ide
 
@@ -465,28 +514,3 @@ Stories: 56
 - summary: Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPUE81QWZOenItbS0xRmladWFyQnE5eUJJbGkxdWZDLVpEd1lHa3pjSG1sMVBEVXIwbVV4REJYU1A4dnBmU0xIbE0yd2pMWG5kcWpVdGtPNnA2ZUMtVXVpaGpfcXR4b2pfNGU2aG8tcEVoTjUySndkZmZBSEtjN01mZGtsOG9ZcW81SmRjaE1MOFMtcldJMS1BckVjSEFrZw?oc=5
-
-## Taylor Swift's Eras Tour dancers at her wedding: every wedding weekend look they shared - Yahoo Crea
-
-- first seen: 2026-08-01 10:46 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Eras Tour dancers at her wedding: every wedding weekend look they shared  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi2wFBVV95cUxNTzZkNDI2VXVPNUNCNFVqMVZfZTQ2SHNVdTZRcHBKYm01YWxBLUpMODJzeFBtMUswdEFNZHlvMWdQOXdZT0RBVnN2eVkwQThrWVVNdDdqNzFmUklEay1PVEpEOFJFRWNPZE9lZVBEbVJCXzllTXczQkNHN0gwTnhTNDZ6VGhOYVFsMEFueGpmdGV4TFhYMTU0ZlQtcmE5aFIxMFJDT2dza0dKTzZyYUFub3RSSXVWeENRMWx1R1piWnlwN0FpYUJRaEN3TEVGVkdwcnJtY1VrWTNXTG8?oc=5
-
-## Local Event: Love Story: A Tribute to Taylor Swift - Patch
-
-- first seen: 2026-08-01 10:46 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Local Event: Love Story: A Tribute to Taylor Swift  Patch
-- sources:
-  - [unverified] Patch — https://news.google.com/rss/articles/CBMi0gFBVV95cUxOQi1Bc3ZVdDFxNWFMdnA1a3NjVVRBSDBnRmV3X3ZUMUl2TTZEdU10NG5ETjRiSy1TUUZIbFl4QjN0Q1QwU245VkxwNFRrSmtLUllUa0Z4M2ZHYjlQaGlXRTJnVG9XRmFkWEdJd2FFNEFkTWVCVFljampLRlhWWlZHc2RWM3ZwdXVLd3ItSHp2SlRCTF9nWndtTDA0Y1ljSUd3MjBPZUN1REx6cUM5THdmOVZEcVlEcWliT092STJ5ZjdMbHJhLWNKX200NHdJRGRjVWc?oc=5
-
-## Travis Kelce makes young fan's day by responding to Taylor Swift request at Chiefs training camp - h
-
-- first seen: 2026-08-01 10:46 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce makes young fan's day by responding to Taylor Swift request at Chiefs training camp  hitc.com
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOUEtKMFFEVzdIUjNuM0JQdmJQZ250RDNnb2h6UE91N1dORWpJUlJpdDIybGswa2c5d1Q0emFJY3c3OEh4QjItX21VaXEzSXdwLU05OF9nN3RZRWdQWl9ZRFN1Z0lLbTFMcWQzUC1QWHNPUmtRMnFDc3AwVTJlVzc3ckdjOFVvcUtSUXRSQ2FFbm5CZ0VLQnZCMWZMdGd3d3M3Y1h0UlkzemxIVGxEQmZtZExfM0c5NnZP?oc=5
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigwFBVV95cUxNT0VQZl9iUGJTNzZoZ3ZDTDdxQTFqRGh3a2R4MnBGT3ZqalFhaVp6V0IxUGJaeGZOWW5CVjhBNHF5QXE0QWZjOHlYanJkdFZtcG0wM0VmSlA3RGt3TjEwdmstNWxRU015ZWNKV05FMDdNRUlWSmVkZVpPN040VHl5c2JlVQ?oc=5
