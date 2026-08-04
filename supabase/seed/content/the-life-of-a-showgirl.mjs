@@ -3550,6 +3550,102 @@ export default {
         ],
       },
     },
+    {
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
+      title: 'Maren Morris on the vows: a closer look at their love — and their humor',
+      snippet:
+        'Maren Morris, one of the roughly 1,000 guests at the July 3 wedding, told People the couple\'s personally written vows offered "a closer look into their love for each other and their sense of humor" — and that witnessing them "was an honor."',
+      sourceUrl: 'https://www.tmz.com/2026/08/01/maren-morris-talks-taylor-swift-travis-kelce-wedding-vows/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/7/77/Maren_Morris_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg',
+      moment: {
+        context:
+          'Almost nothing about the ceremony inside Madison Square Garden came from the couple themselves — guests signed NDAs and the interior went unphotographed — so its small human details have surfaced secondhand, one attendee at a time. Maren Morris, one of the roughly 1,000 guests, added one of the warmer ones. The personally written vows, she told People, offered "a closer look into their love for each other and their sense of humor," and being among the people who witnessed them, she said, "was an honor." It is the sense-of-humor note that is new. Earlier accounts had already established that the vows ran long and left guests in tears — both bride and groom reading from gold books, Travis among those who cried — but Morris\'s read reframes them as funny as well as tender, of a piece with a wedding Adam Sandler officiated and Paul McCartney played. The finer texture that circulated alongside her comment — that each set of vows ran about twenty minutes, who cried hardest, that Taylor sang part of hers — traces to unnamed insiders rather than to Morris, and stays reported rather than confirmed. What is on the record under her name is the characterization itself: their love and their humor, in equal measure.',
+        sources: [
+          {
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/maren-morris-reveals-taylor-swift-185000000.html',
+            source_title: 'Maren Morris Reveals Taylor Swift and Travis Kelce\'s Wedding Vows Gave Guests ‘a Closer Look Into Their Love for Each Other’',
+            publisher: 'People (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/08/01/maren-morris-talks-taylor-swift-travis-kelce-wedding-vows/',
+            source_title: 'Maren Morris Gives Insight into Taylor Swift and Travis Kelce\'s Vows',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/08/01/maren-morris-shares-what-taylor-swift-travis-kelces-wedding-vows-were-like/',
+            source_title: 'Maren Morris Shares What Taylor Swift & Travis Kelce\'s Wedding Vows Were Like',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/77/Maren_Morris_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg',
+            credit: 'John Sears / Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'Maren Morris at the 2024 Toronto International Film Festival. A guest at the July 3 wedding, she told People the vows revealed "their love for each other and their sense of humor."',
+            kind: 'primary',
+            focalPoint: '52% 26%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'fashion',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r',
+      ],
+      title: 'Children\'s Mercy patients design a tribute wedding gown for Taylor',
+      snippet:
+        'Children being treated at Children\'s Mercy Hospital in Kansas City covered a blank bridal gown in drawings, signatures, well-wishes and Tortured Poets lyrics — a collective "thank you" to Taylor after her July 3 wedding, then shipped it to her.',
+      sourceUrl: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gesture came from Kansas City, and it doubled as a thank-you. Children being treated at Children\'s Mercy Hospital — one of the roughly twenty organizations the couple\'s reported $26 million in wedding-week giving reached — covered a blank wedding gown in their own drawings, handwritten messages, signatures and well-wishes, with lines from The Tortured Poets Department worked in among them. The dress was donated as a blank canvas by Savvy Bridal, a Kansas City boutique, and the finished tribute was packaged to ship to Taylor in the week after her July 3 wedding to Travis Kelce. Local and national reporting framed it plainly as the hospital\'s "thank-you card," tying it back both to the couple\'s donation and to Taylor\'s December 2024 visit to meet patients there. It sits where the era\'s two ongoing threads meet — the wedding and the philanthropy around it — and it belongs to the kids and the institution, not to any one of them: the outlets kept the story at the level of the collective project, and so do we.',
+        sources: [
+          {
+            outlet: 'KCTV5',
+            url: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
+            source_title: 'Children\'s Mercy kids design wedding gown for Taylor Swift',
+            publisher: 'KCTV5',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'People (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/patients-children-mercy-hospital-design-173148603.html',
+            source_title: 'Patients at Children\'s Mercy Hospital Design a Wedding Gown for Taylor Swift',
+            publisher: 'People (via Yahoo)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
     // several days while ingestion kept running; these four items clear the
     // real backlog of verified, non-gossip wedding-adjacent stories. Every
