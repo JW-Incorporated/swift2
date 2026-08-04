@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 62
+Stories: 66
+
+## Role Model reveals why he skipped Taylor Swift and Travis Kelce's wedding - Contactmusic.com
+
+- first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Role Model reveals why he skipped Taylor Swift and Travis Kelce's wedding  Contactmusic.com
+- sources:
+  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOc2M4THllMzdlYWhrVVkzcjdzZ3pqMUtYZGNZUWp2Yi14QVNNN25LWS14RWNfSTI3NHB5TWZBbVc0dXZnR2F2aVU1T0VTZ29zbmZDX25JeU14YmItNjlZRERCdmFfYzFwRGpFaWZJN2RxQnp2N3VTUTNXS2RZUnM4cnZmamJ1UDRwRnFSdWJMRzBGUTR1QkVVZUp4NlhHN3FBUVFMSExkQl9zdFFTVTdlZnFwazBvWTdsTkhZTA?oc=5
+
+## Why fans think Taylor Swift and Travis Kelce have a dog named Wendy - USA Today
+
+- first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Why fans think Taylor Swift and Travis Kelce have a dog named Wendy  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPVUZYU2NDNXZVS2pWVjNMLVFDQWg0TllabVR0cm43RjVSQjh4dHR2ZDd5eElfbVZ6dFp1b1hwVzdLTUVtcjh6aWhWZ2ZBUjE2Y3RMYnYwZUtGQlV3SkF5YWlyRmgySlhQRlNjMjd6bE0wblA3LUJPamxnQzBoelJSU2lFVGdIbVFTVDdxNlhCYnl3UmE4NGlmMktlQm1fem1LUXVqbWVZQVVBVkFtSnZtVVdRTzhubmc5U0ZVcGdTMlVXd0dQN3drcW5qYmlnRF9TNTV2dzlYTWtMUQ?oc=5
+
+## Country Songs Are Dominating the Hot 100. We Shouldn’t Be Surprised
+
+- first seen: 2026-08-04 18:47 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: For the first time in history, the Top Five is made up of all country songs, including those by Taylor Swift, Ella Langley, and Stella Lefty
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/country-songs-hot-100-chart-make-history-1235603286/
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiowFBVV95cUxPTU1FaVBfam1feGFJRmY3Nzl4dElMemJxYVdSLXRzYlRzSmhGaWt1SWI3Y0lOLWl0YnlxY1M1cGdIVkVMTlZvUVB2emVSVFNiM2w4Z1ZNLTc0MUVSR2k1b2J4TXVIZ3FjXzI0RE44RXVCQ2RxUDJoVWFtT2RqZGFXVFRRdGJGQU9iNklTd0dobnU2ZmlBdnp0TkVKS1FNTGJUeENF?oc=5
+
+## How Taylor Swift Is Navigating A ‘Fresh Start’ After Marrying Travis Kelce - SheKnows
+
+- first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: How Taylor Swift Is Navigating A ‘Fresh Start’ After Marrying Travis Kelce  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMioAFBVV95cUxNVGltd18yOEo4bnIybU1rMXZjOU1uNTBJN1FwUG00TUV4ak9FWVRHdHRDXzZhcVpnUkNORnRWMEh6ZENaelZPWHpNY1o1NEN4dUtDYVl0bUNRMTVjMXM4VzlzVFhaNUU1R2FkRGJSX1FiQllONm9oOUxydE9MSXl3RmYySTY5QXZITlhGQ0NkYy1UYVBNbjEtS3A4UWtTUk9G?oc=5
+
+## Five Mets Prospects Assigned To Binghamton After Trade Deadline Moves - WNBF
+
+- first seen: 2026-08-04 18:47 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Five Mets Prospects Assigned To Binghamton After Trade Deadline Moves  WNBF
+- sources:
+  - [unverified] WNBF — https://news.google.com/rss/articles/CBMiYkFVX3lxTE11dlBvQ0lPVEpaUm9IeWpzTldZRkJrczBaQ0FBYWItc3NuX0lvS2hzcHdiU3l6NTRIYjFEbVBxVmRsbHVESWg2X19GbFV3cmJFZFE3UjAzV2dDNkhTRmhCMFFn?oc=5
+
+## Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage - People.c
+
+- first seen: 2026-08-04 18:47 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPTFpRLWRQbGYzYWY5X0JfTm5YOVlReFJwb0llcFNIMUdCdWxTQW8yX1ZXU3JEMGw0RWwxQkdMcm5sbGVOTzg3QUY4SGo1VEROd19UWTNUR0ZmZzZTM292Q1B1Wk9GQ1laMFpmVmNtREY5V2ZBMnJZd3Q4dlRROWpBNFdGZVl0d2xTT3Z1aGZoV0pOZ0JJRDBOenphbm1pbEt4YkFuUC1TOHNTY3FBREg4WDFB?oc=5
+
+## Taylor Swift Says She’s Happier Than Ever as Mrs. Kelce - yahoo.com
+
+- first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Says She’s Happier Than Ever as Mrs. Kelce  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxQMVlUbG5Vc3pfVnNVUGdIaFZPR1V3bFNCT3UxaDVCdW5BaGlZcm5ZaWM1WmpEa3RqcTc1ekF5b2xGZ1pTZEluNVZiYzEtQ1pCeGlBYmdBaG94UWhOaFlENzlOQnVlanZxYVRWY3k2ZGNNdnduQ3FjcEFsRXU5WEZ5RTJYTEE?oc=5
+
+## Phil Collins praises Taylor Swift, says she 'deserves' massive success - USA Today
+
+- first seen: 2026-08-04 18:47 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Phil Collins praises Taylor Swift, says she 'deserves' massive success  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMirwFBVV95cUxPUXdkWUcwbmF2YWVwbzlVdVE5U082UHhvcXZjZ0R4azBONWNwREYzUE9qZ3pSVEpLTGNRNDN4X3dxWnBEc1RORmlzdU5KdlFBc29hM2tSWHF5c2gzaFRMbTRKU0JEajFUQ0Vodl9zS2FYeE5MSGdmNGE1VldWdElCVzVGSkREN0JjZ1BKMG5NOXZCR3h0NTNOaHlGbFE2WlFCM0JndVo0ZWJUbkdaQzJB?oc=5
 
 ## George Kittle Shares How His Mom Became the Unexpected ‘MVP’ of Taylor Swift and Travis Kelce’s Wedd
 
@@ -70,10 +135,11 @@ Stories: 62
 ## Taylor Swift Makes One Big Sacrifice for Life With Travis Kelce — Source - Yahoo
 
 - first seen: 2026-08-04 15:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift Makes One Big Sacrifice for Life With Travis Kelce — Source  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNN3ZmS3NqRVZ0dl9vZjN4aThpSC1jeHZ1QnlidzVJdUZEbWNzaHdBV3hoVUh3N3VLdjFUMTQtaGF5QXFoRVp3S092VWJXOF9Eb0E4d2ctbDNXX3o1NG1MWmV2RHRNaDVybVU3T2VsTkhmTnUzRXhkcmNLOE13MWpVZ0tTUkJ3ZnpaZWl1eUwzYWVRdjREbE1NM1poUk8?oc=5
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxPWG9OMVh3TDRzZWxYTlRJUEVISGxTVS1wdGRqeXV5SXVFc25jcjhhRzN3U0VQcHU0XzZCRzNlQS0tV1hfTkYxcERWdm5uSG00ZFk5cDkwTXpITWNJeDhJWHUwc0RzYmhUX2Uxam5nQVNUWmNrLTZ6SURBaV9fWTd5OHlsR2Y2YUF1RHA2OFZzeWIxMUpFWlQ0NlMzZlI?oc=5
 
 ## Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source - Yahoo
 
@@ -506,35 +572,3 @@ Stories: 62
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZGRQZUpMSWRVamFVRDRjSk9taGJfNzVMOEo1NUxiUGp5OVc1MzJSZUNHTDRRcGVuY2g3YUx4SWFpUTRGZzdtS3NjYTBVZ0FDVlpJY2c5aVdVeFd5NXdxZlZHT1hfQzd6RHk5N091R2x6cTc5WU9OUzVLa2RMQXZrOXBpc0JzZFVxaUVibkpHRjF5cVBUV2JCMHR4dFhtX0w2UXhYVklSa0M4ZG1kTkNHMzJMNjRTVEwtbVdGaVpoaER3QQ?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNamRYS00wc0V4ZzZXTHFEMno2MTk3cDMxZ1FzX18zWlhlTGNsMUtCM0htYkpPQ095alRFZmZ0Q21oWm5iazdJZF9PZkJPeDZRMlVISW1aWWVYUjlQMkR1eENYdDJseHJ5cUx3SVJUU2N5UWxFWVVUemhjTlhJYnZ0M3otd3d2TlZUQW42TEdfY0JpbUZSRXVaQUMyQWdiY1pO?oc=5
-
-## Rob Gronkowski Says Taylor Swift and Travis Kelce Made Guests Earn Their Wedding Raffle Tickets - Ya
-
-- first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Rob Gronkowski Says Taylor Swift and Travis Kelce Made Guests Earn Their Wedding Raffle Tickets  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNOUJpclczMDJNUFNGMzY5Y1lIQU5zdFFIMU9xYURPN0UxSG1CNWIteGd2cXRqN29OSzBrV2VmWlNDeHNQR2FhcUlIVV83YmloLUZjc09SdmVpZmVhTmUtM1pHMzR0QThOc05vd0ZLdC1BcFBTc2xFdWxMVXFIaU5sM2ZJdFJFWFkyNnJYajZ6cEJrNXB6R2JELXBKVlZ1eUlVaXcxWQ?oc=5
-
-## Travis Kelce-Taylor Swift Wedding Prompted Unexpected Admission From Charissa Thompson - Sports Illu
-
-- first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce-Taylor Swift Wedding Prompted Unexpected Admission From Charissa Thompson  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitgFBVV95cUxNaUhOM1pWcjZZX1RiNWIwQjBoYklIdWJNRTdXX2ZjeHd6b3Rjc3YwTW51R2Vramx2UnZXQWc0T2RYTGtBU1h2RUJYa09TX1g4ZVJxWEVVYVZud3c4VDdXNnB3cDVnNzVfV3ptVmZkYmJNRkw2WWRyV0dJcjQtZ2lqNF9maW9xajB6SjlsV29Wd1kyMTVvZF9zbkhrZm5QSlkxWmVKZm5LbnFIQnhFTFhkaTVCUUxRdw?oc=5
-
-## Noah Kahan apologized to Connecticut as Taylor Swift married Travis Kelce - ctinsider.com
-
-- first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Noah Kahan apologized to Connecticut as Taylor Swift married Travis Kelce  ctinsider.com
-- sources:
-  - [unverified] ctinsider.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPNWhxX2Rob1h4VmZXakJBc1hUbE1JQnNpZlpBdmZxNy1OaEQxS1JIazZkYWJUVmM5MFZTQXJoX3U1NDlxNkZZMENrRTdJbGJzQkN6TWRZQUwwaUw5UzMzemxIb0EzM1ZzQk1EQXZRUzR5UnpzUzJUajRJSFppQmhCYnJpVGFWQTNCN0N3ZnFBYkFLNUFQZjg4OGM4MUltV0RUQWY0NHQwdzZxMkQyTTVF?oc=5
-
-## Taylor Swift, Travis Kelce’s Wedding Vows, According to Maren Morris (Exclusive) - People.com
-
-- first seen: 2026-08-01 18:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Travis Kelce’s Wedding Vows, According to Maren Morris (Exclusive)  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNUWZIOGt5Yi1fMFMwdEhoelBoWXFUU3FJcWJKcUVDRUUySzgyd2JqdHVkT3pWQzFxZmtCZU5kbUdBdmRwZTdQY3lwT1ZVeVN0c2RRRHZEbnU1bDBrdmFOc3R5VWlUc0Q4VTZXZHdBVjJTZ3ZuODBQX3U0S0oxampsalBsR1VKTnI3c2NjSTR1ZlpjOUlCUzhWQWNmelhvSlRRdFQtZEdhRQ?oc=5
