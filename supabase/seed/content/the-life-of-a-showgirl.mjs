@@ -3550,6 +3550,45 @@ export default {
         ],
       },
     },
+    {
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'fashion',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r',
+      ],
+      title: 'Children\'s Mercy patients design a tribute wedding gown for Taylor',
+      snippet:
+        'Children being treated at Children\'s Mercy Hospital in Kansas City covered a blank bridal gown in drawings, signatures, well-wishes and Tortured Poets lyrics — a collective "thank you" to Taylor after her July 3 wedding, then shipped it to her.',
+      sourceUrl: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gesture came from Kansas City, and it doubled as a thank-you. Children being treated at Children\'s Mercy Hospital — one of the roughly twenty organizations the couple\'s reported $26 million in wedding-week giving reached — covered a blank wedding gown in their own drawings, handwritten messages, signatures and well-wishes, with lines from The Tortured Poets Department worked in among them. The dress was donated as a blank canvas by Savvy Bridal, a Kansas City boutique, and the finished tribute was packaged to ship to Taylor in the week after her July 3 wedding to Travis Kelce. Local and national reporting framed it plainly as the hospital\'s "thank-you card," tying it back both to the couple\'s donation and to Taylor\'s December 2024 visit to meet patients there. It sits where the era\'s two ongoing threads meet — the wedding and the philanthropy around it — and it belongs to the kids and the institution, not to any one of them: the outlets kept the story at the level of the collective project, and so do we.',
+        sources: [
+          {
+            outlet: 'KCTV5',
+            url: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
+            source_title: 'Children\'s Mercy kids design wedding gown for Taylor Swift',
+            publisher: 'KCTV5',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'People (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/patients-children-mercy-hospital-design-173148603.html',
+            source_title: 'Patients at Children\'s Mercy Hospital Design a Wedding Gown for Taylor Swift',
+            publisher: 'People (via Yahoo)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
     // several days while ingestion kept running; these four items clear the
     // real backlog of verified, non-gossip wedding-adjacent stories. Every
@@ -3989,6 +4028,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+            focalPoint: '50% 26%',
+            credit: 'All-Pro Reels / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Jason Kelce, Travis\'s brother and New Heights co-host, in his Eagles playing days. He described his family\'s fan base flipping "from large fat men to little girls" once Travis and Taylor started dating.',
+            kind: 'primary',
           },
         ],
       },
