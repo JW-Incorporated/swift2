@@ -25,7 +25,40 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 63
+
+## Phil Collins praises Taylor Swift and the song of hers that left him with a ‘soft spot’ - Yahoo
+
+- first seen: 2026-08-04 22:20 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Phil Collins praises Taylor Swift and the song of hers that left him with a ‘soft spot’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPWVdMTE50LUw4dEJrTFYzanNQSHF6VjBVOGpIYVZJRjJMNjNzLTRmSi1NaGY2SGRMeHNEeml0UFhKaENLVk15QmlQMHZQVVh2S3NQVlZJZUtQT2JZNjI2dTNNNzBXQmM4RG9tc1hOUTBlMDdId0ZUWkNCUG5TSGR5cHpaWHAyUnJ4eTlBOHNtLU5SNk16c0psNXNNN2xKOUg0?oc=5
+  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMif0FVX3lxTE9LbFVkU2pNWHNxaGdSOUVQYkR2MUhRTlZnZmVjaFFsWGJrejVCRkF0Ni1iMzJlblpSeUtjU21FUmFVRS05QWVJbUNfeGsyQ0ZFVHhyMDFyTFJtTkFtek9fVkQ4SHpjZnRRb3hOMXpkbWlJbUlRLWUxc0FjTGNCem8?oc=5
+
+## Taylor Swift & Travis Kelce Reportedly Don't See Eye To Eye When It Comes To Security - Yahoo
+
+- first seen: 2026-08-04 22:20 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Reportedly Don't See Eye To Eye When It Comes To Security  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOenNOblFNc05rQUpXRVc3S0lMN0pndHdicUE1SWx3MDRtUGR5T3ZCYkZVSnRaSjdkNWlpVVNNLTh3NDBUTVJoVTVRREVEUENTRFl1TzhCaVU1VzZmUWowZlhOdXhvT1MwLVZKNjdYSnlMaTMzWWQ2SE9fTkthYXotQ1FVMFZCVmRJVWw0dDY5X2Ztc1NtMGNqWGJEZENDMlNjbzZVVWJGLVdrdw?oc=5
+
+## Gracie Abrams Reveals How Friend Taylor Swift Helped Her Feel ‘Less Precious with My Ego’ - People.c
+
+- first seen: 2026-08-04 22:20 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Gracie Abrams Reveals How Friend Taylor Swift Helped Her Feel ‘Less Precious with My Ego’  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPRXQzc0pHNUhhYnQ5czd0Q1NGT0h5bmVXaE96eVhJTW9KN2tmTHNsX3lTOFdVVVRsaG1qZ182RFVVS0xMVF9EbVJRYzNtZzBjVlAwaUFBOGFlc1Q2aGhuNC1oZzZaVWsydHNCQ3lyQm05a0w0YkNGTXczd0hoczROOWdfd1V6bDRsdkhhWnFpb28tNWUteVJDNGlB?oc=5
+
+## Scott Eastwood Reveals the Career Advice He Ignored About Taylor Swift - Yahoo
+
+- first seen: 2026-08-04 22:20 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Scott Eastwood Reveals the Career Advice He Ignored About Taylor Swift  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOazRTLXRvWkVySEtDcExsVDEyclF2N0NMWGJUWllyNGhzcHBfeE9jUkpMQWgycnZZRm5MOHF5cDc0cFY5OHI5ZXNRbGtMUFlGWTJGcGF3TWwtT3NUampoNTFfal96b3R1OVRLdER3dE5Md0dRc1lrVkJMV1NFNzYzREowaWxMdkJ1MGlSVlV4MVl0WEVnaVVia005VmRuNERscGQ3UQ?oc=5
 
 ## Role Model reveals why he skipped Taylor Swift and Travis Kelce's wedding - Contactmusic.com
 
@@ -68,14 +101,6 @@ Stories: 66
 - sources:
   - [unverified] WNBF — https://news.google.com/rss/articles/CBMiYkFVX3lxTE11dlBvQ0lPVEpaUm9IeWpzTldZRkJrczBaQ0FBYWItc3NuX0lvS2hzcHdiU3l6NTRIYjFEbVBxVmRsbHVESWg2X19GbFV3cmJFZFE3UjAzV2dDNkhTRmhCMFFn?oc=5
 
-## Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage - People.c
-
-- first seen: 2026-08-04 18:47 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPTFpRLWRQbGYzYWY5X0JfTm5YOVlReFJwb0llcFNIMUdCdWxTQW8yX1ZXU3JEMGw0RWwxQkdMcm5sbGVOTzg3QUY4SGo1VEROd19UWTNUR0ZmZzZTM292Q1B1Wk9GQ1laMFpmVmNtREY5V2ZBMnJZd3Q4dlRROWpBNFdGZVl0d2xTT3Z1aGZoV0pOZ0JJRDBOenphbm1pbEt4YkFuUC1TOHNTY3FBREg4WDFB?oc=5
-
 ## Taylor Swift Says She’s Happier Than Ever as Mrs. Kelce - yahoo.com
 
 - first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
@@ -91,6 +116,14 @@ Stories: 66
 - summary: Phil Collins praises Taylor Swift, says she 'deserves' massive success  USA Today
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMirwFBVV95cUxPUXdkWUcwbmF2YWVwbzlVdVE5U082UHhvcXZjZ0R4azBONWNwREYzUE9qZ3pSVEpLTGNRNDN4X3dxWnBEc1RORmlzdU5KdlFBc29hM2tSWHF5c2gzaFRMbTRKU0JEajFUQ0Vodl9zS2FYeE5MSGdmNGE1VldWdElCVzVGSkREN0JjZ1BKMG5NOXZCR3h0NTNOaHlGbFE2WlFCM0JndVo0ZWJUbkdaQzJB?oc=5
+
+## Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage - People.c
+
+- first seen: 2026-08-04 18:47 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPTFpRLWRQbGYzYWY5X0JfTm5YOVlReFJwb0llcFNIMUdCdWxTQW8yX1ZXU3JEMGw0RWwxQkdMcm5sbGVOTzg3QUY4SGo1VEROd19UWTNUR0ZmZzZTM292Q1B1Wk9GQ1laMFpmVmNtREY5V2ZBMnJZd3Q4dlRROWpBNFdGZVl0d2xTT3Z1aGZoV0pOZ0JJRDBOenphbm1pbEt4YkFuUC1TOHNTY3FBREg4WDFB?oc=5
 
 ## George Kittle Shares How His Mom Became the Unexpected ‘MVP’ of Taylor Swift and Travis Kelce’s Wedd
 
@@ -218,10 +251,11 @@ Stories: 66
 ## Why we think Taylor Swift might be in Cincinnati on her birthday - Cincinnati Enquirer
 
 - first seen: 2026-08-04 04:26 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Why we think Taylor Swift might be in Cincinnati on her birthday  Cincinnati Enquirer
 - sources:
   - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPUEh1MllrdUhrS0FiTlBjUTVVMnl1YjZPNjJacGlrb0gteGVRV1kzRzJiNUd6ekFob05ZZ1ZrWHJuY05FY2V5MWJEdmZ0ZnJMWXRuRmY5UnRUeDNqdWxwYWhEYjkzTHdTQ2REbGcyN0tmWVQ4ZG5EaTlFNEtmZHNMdHpIWVBvUi1VeFZ4UC1kOXo4TTJOVFZITl9SZ2s2ZnEtRGJuVVJNVllZXzk3Y0lGMXJTZXI5di1OMVRlYy1nZlpsU2hWMFhpZFVPZktjNy1XVmNPcWRlbVoxYmVm?oc=5
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi2gFBVV95cUxOdDhXaU1ob2FKc0N0RlNwZzlBZG11Rzk4dHVmQ0pRci1NZ21aOFByQnJrY3BGTGdBcXNEd01JaGUxOUpPOXRVZEtCUHgtei1ZNWRGOHYwN2F0UTdyaExOcE5TSVg1S3I2dlZwNFFTN1NTOWJBVFl5SDdQM1ZZY1E4YzgtYUN6cl9HRDRlZlAxb3BpQ1g2SmRseU82RDJiWnBybzl3MHFCU3JvU3h5UDZ6WUt0QkR1bDE3c3pXOW43aUh6ZEs0VEhmN09mcXJjYnFzaUJYczFSS1ZsQQ?oc=5
 
 ## Country Songs Take All Five Slots in the Billboard Hot 100’s Top 5 for the First Time in Chart Histo
 
@@ -436,14 +470,6 @@ Stories: 66
 - sources:
   - [unverified] the-sun.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxPeTlWUEhTbmlDdWc5d3pEM2FMaXNNVENJR2FidG5XV21PdHcxVm1INEl2NGVqSHhRZGNzX1lGcDNndnZWYXg3a3VnZmVXSWNvcVUwTTF5UzhqSHNQOThuaFEwTVUwelcxMDdOejVEVzVhcUtZcHlJV196SzZ1SDdXVno3U0I3WHNyOWxWa29ZS3FfV1MwX2c?oc=5
 
-## Phil Collins: Taylor Swift deserves to be 'hugest thing in the world' - Yahoo Lifestyle Canada
-
-- first seen: 2026-08-02 18:09 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Phil Collins: Taylor Swift deserves to be 'hugest thing in the world'  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxQRXdpQjJWTlMxMnlNck0zdjRqOFdJVC1rMVFmdlptYmpja3hEajVkcElDdHVjd3U3R3JmWWJMWHR5QkNVSTNsRFlKZzI2dHZheVl4ME5XcUdHLXdyQ24wT3B6MWQ4elZWblo1VHdDU3BlR0czRVN3MHE3UDFwM1EzM0pn?oc=5
-
 ## Apparently, ‘Weirdos’ Have Been Sharing Fake Details About Taylor Swift And Travis Kelce Wedding - Y
 
 - first seen: 2026-08-02 18:09 UTC | category: relationship | importance: 5
@@ -460,6 +486,15 @@ Stories: 66
 - sources:
   - [unverified] HOLA — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPRGlBempwYkotOFRBb0RPLVU4OGcwY2NoWHd6RnNEbWVlcGpkSEwxcnlRLWpZNE40QzhlcVdHVF9Md05RSUFLRE15Y3RxQWJaZWRKSUFocDNZZGs5Q25zR08yUEtNNlV2NzNzcWtXei1PNTBielB6M3o3aEFmcTNWWDJhQ0RKMTJvck1lajVNNktzUlZjS3YyYUJFZnlTVk8tTGNzTU9LTnUxTmdUbUtzTklSQ0NYRXpsVzgwZGh5ZThkVnM?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQQ0xsdGM0NW1mWlZHVDdVbXhsRkt6RVhHclFLU0ptQ3I3U0gtWEVTWFRpZGlOWmlJcGRhaHh3MVc3YUtJV2NfWjN6dXBhMEc3R1VRa21Mak9TNUlFa0FCbVFXcEZ1NmFlbE9XMzQwWVBjNGo5QjFscFJhdW5mRXdNS2E4dy1xekhJaHJHTWk4VjhENW9rQVN3YnN3bkdkU3VnT2ZWWmhORmM?oc=5
+
+## Phil Collins: Taylor Swift deserves to be 'hugest thing in the world' - Yahoo Lifestyle Canada
+
+- first seen: 2026-08-02 18:09 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Phil Collins: Taylor Swift deserves to be 'hugest thing in the world'  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxQRXdpQjJWTlMxMnlNck0zdjRqOFdJVC1rMVFmdlptYmpja3hEajVkcElDdHVjd3U3R3JmWWJMWHR5QkNVSTNsRFlKZzI2dHZheVl4ME5XcUdHLXdyQ24wT3B6MWQ4elZWblo1VHdDU3BlR0czRVN3MHE3UDFwM1EzM0pn?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihgFBVV95cUxNNjB3c3lUQkIyNmRqQWxfT2hvWE9EcHhPZUF2aTE3aWR4ZlZHOGc5TUZCRl9WVjl3Y1RXYkMwSjUyT0RTMk9NRlVVMHI0NWVEcGMzQ1BaeEJTNFhlUmFYUE5MVElrY2p1Z240YjVHLVc3aWxrZ3F2NE5qSmRZM2txV2RqZXRPZw?oc=5
 
 ## Phil Collins, 75, Reveals the Taylor Swift Song He Was Blown Away by When Meeting Her 15 Years Ago -
 
@@ -509,66 +544,3 @@ Stories: 66
 - summary: Jason Kelce reveals previously unknown details from Taylor Swift and Travis Kelce's wedding  hitc.com
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxQUVVueHNRMU1zWjhEc2dFc2FwQjV3ZG4zNHh5QkpjdTNfbmhhY3lNUHZRUkxvRTRFMTBJVzIzNXdDVHpSYXpiOVJndUZsU21SR0lpSUU2R25PdUF6eWZoTGN1TzhSTEV4LTdhcFRVODR6ZWNacm1yZjVtWFREaGl2Q01ZUENFak1JaXE4Q0JWOWZjUVowMDd1clR4dFp1UXJSdHltNFZNNU9JdEVBRTRGNldB?oc=5
-
-## Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like - Just Jared
-
-- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: Maren Morris Shares What Taylor Swift & Travis Kelce’s Wedding Vows Were Like  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPRnVSaXRITGFsZGJsclFSbWZCYzFUVUdaVENkRTdBd2lqbHF6dzhiVkZURmdzelNaNUJQMVNXcHlrNEVtXzRWaDF0ZDlwSUFGYl9rcGM5YjVzckRvSVVObHg0cnR4TnN3R3FJeGFRdDRCYThoMUJ0eHY0T1ZSUmdieVVrX1kxLTI2dUJNM2JWTzhHLWtUN085Zy1QQ19Dd2hrdGs4bVBkeUdEWjBMZDduaFZ3?oc=5
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxPek5QQWQtNlpaSVFJeVZZZXBweVBLb3dNbXhGUUVsMWk4bjNkamdOU1B3UmN0bExSdjExQmUyeTFaakY0angwdlFlSUtCb0E4WE9zbnhiWGkwemNBalFHQkI3YTRCYkhodTZtbFdUV3NIWlFFbjJGQUxvclExSG5oT05zR0RZRVZsSmtSenRJQVRvakdO?oc=5
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxNajRaanF6RWh3azBDbGlfdU85V01zMTBkRm5sb3BWMHpwR0ZGQkFmVWN1NFFmUTB0aU90RW9MY1A5em4xalRZRWd0ZEJSUnhOeEtPUnBHd3FZdnJQRGxVRHRtUkRlc3QzMWNkeTBEZDhBSXg0M1Byc3VzSWk2NERZYmZDdENaTWpMV0ZUcmtKQmlyUXM?oc=5
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOZ2k3QWJ0LW5nSGtRb2k0WV9Ici1TSVNDV0t5RzhsMEZ6b25icGRLVDVNWDhSekkwb0dEN1ZIWkNjOVpfV1BvcmJ6ZzdQblVZSWVQVnh5bnRjaFZmZk9ZOTdONENCeVhTUUc0RGhvMHRFREdZVjJ4UkxNM3NuYXZBOHBxZXp1T2xGLVVpUEljbjYzS1VFbnJjdE5nc0tuQXczNVE?oc=5
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMikwFBVV95cUxPZGl4TjdOalFkbm9UWll5aXBtdWZqd181YUNzTXNwRlBndG02a3R6cnpGd09IMDRXV0o1VmpPdXZiU3FsbWZlSW1jQktJSEp3d2FFbVpRQWdVamk3cXd2akJpOW1tRWRGcWdfNUU1VnB3b3BFN05NOE85cWhNaGV6dWpVM2tsWkFOU2RkS0lCLVZIZVk?oc=5
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxQbzFSN2VjZ1kzRFRkOThpMGJIMDhPRmN4cTl1ZkNwQnVpNDgzemQ2Q3BrOW9ndHlSOFBKbFdzOVBZUTlTTzN1YWVwcy1oNUtoektGWmpfNk9wS1BybnhPb3R4SHAyMzJWSnBCOG43MTRzR2dpLUlwbXV4aGwtckpBWUxVdXlHQldmVzM1MFM0ZzlLc0pQZFRRU0FfVHNJVnBDbVE?oc=5
-
-## I Can’t Stop Thinking About the Garden Where Taylor and Travis Got Engaged—Here’s Why I’m Still Obse
-
-- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: I Can’t Stop Thinking About the Garden Where Taylor and Travis Got Engaged—Here’s Why I’m Still Obsessed  The Spruce
-- sources:
-  - [unverified] The Spruce — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNNGxNN0xmNURNM2xIdlpuSEJNbmFhX1FLcVNzWnRJNE1PTTZxcjZGclBoUE1xaTVCOXRFeFF2QlNBUm5hdUhKRXRxelhzc3BRLXNQaTdPdTNoYWdvMnRVVXg5NGk0OVZILU52VXJieXZrdk1pQXJpUEYxWUxFdjhHN0JQZ3dkbG5N?oc=5
-
-## Taylor Swift and Travis Kelce's wedding vows offered guests a 'closer look into their love,' Maren M
-
-- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce's wedding vows offered guests a 'closer look into their love,' Maren Morris says  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi5wFBVV95cUxPcWEzeVljUVhXOVdKdllwT01XYkFzZ1JBZ21OcmtMQmUxYkFuU2dSRnlBYnYwUHJmbEY2QnJHejN5WkVzN2hoX0x1YUtwSWYzU0VvWDhOeTlCUVpkeUZ6MmVNbURSSFBWTG9pUDd1OWhnWG9PZ2lhWTAzVk84NjBISGlkeEs3ZDVseFBUS05UakNqSlp1b1Jmd1RfOGxNV0RfY3ZTdTVrZUc3OUlMTXBxTGYxSFpNSjJBckNrMkZJd2Y4Zkw1VllZZk04ZEMycVgxcTB1M3JfbFQ0SnNDQ2toRUtFOE8zS2M?oc=5
-  - [unverified] ca.style.yahoo.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxOV2Z3YlBpeXJoX3ZZNjZFemZ4WWRhUWtacV9abkFSRUZuSVRnU3EyUFl1cjNQOFhCVDRDMnZqQm1UMTBOUnZqQ3ZSQWxhU3RPdWxQNl9iQVZfUjVPTkpRTGhPX3Y0cGtQVm56cVRKbmtQcUxPWTZjeGZ6UFB2WklVWg?oc=5
-
-## Taylor Swift’s Father Reportedly Made A Secret Deal To Protect His Daughter - Yahoo
-
-- first seen: 2026-08-01 22:08 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Father Reportedly Made A Secret Deal To Protect His Daughter  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNYmpWa3I2T0ZJcmxfa1NMNnplcm9TeUJvYVdUblFRa25uRG1rUVI0ZUJhVVFrT2l0TFpWV1hpTWJubl9VYjRlSXhnM2h1X2ZLam9NeExDcEZiRW5DQ0NlTEhIUjd0YlJaQWJUWHhzOWx2clh0TVY4dDFNYmpRVlMxcXg0cnlGRHVsM2FGZVdxQndwR3laRjdkYW5jZ0lTMXRUMEF1UW12SlY?oc=5
-
-## Fans stunned at Travis Kelce's training camp physique after nuptials to Taylor Swift - Fox News
-
-- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Fans stunned at Travis Kelce's training camp physique after nuptials to Taylor Swift  Fox News
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiowFBVV95cUxOT2J5NDgwUlphMTA3b0NZOUlPelktMTdPQmRVcFprYms4bFM4V2FaQXNoWDBJN0owLWNwRlpDemgzOHJ3VDZTSGhHdWV6eFhQTDVhQXVtTGR2QVZLYzVVdWVnVXBSd2Z0bTdIUnduTjR5aF9HWEh6aU9SampPVXJMdVVJVlpFRzJTSGFsTlNhaUk0UzdxY0UtdHQ4UGk1V0djLUdj0gGoAUFVX3lxTE9oc0lqakctekhSRHE0aHp3a0RTXzRGQkFOR21pUWZzQVVuTVo2aTMxVmdJZ2t0dktoZ0plZjJ6eURmR2dwVDR6cTNjY2JVUG9KZXN3V2tLYkU5R19FTVdDd1M0a1Rwb0VOY2tkZWNsQTl6TTVXTmlCNDVXX3JqdWhJcTdrYzRMV3VJaWdyaUhsZEdHTmJ6UEF6aTZFR3VLSGkzdXBjcW9IMw?oc=5
-
-## Taylor Swift showed her funny side in wedding vows, Maren Morris says - ca.style.yahoo.com
-
-- first seen: 2026-08-01 22:08 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showed her funny side in wedding vows, Maren Morris says  ca.style.yahoo.com
-- sources:
-  - [unverified] ca.style.yahoo.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1NT2Rhck93ODlScmJHb3RtX3BTeUhiMjVGV3RXcE90b0VoTndMMllOSHUzUWY4OTdWeWZkN0dwMW1kZENXenUwN2hJZ1BCRFkxMGVOM2hyTmgtU3Z5V1I4QnlZRXdVT2VjeFZiRzlCWFZ4ZmhOZktPX3NEUQ?oc=5
-
-## Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive) - People.com
-
-- first seen: 2026-08-01 22:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Tour Dancer Jan Ravnik Says Her Wedding Was ‘a Great Night’ (Exclusive)  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZGRQZUpMSWRVamFVRDRjSk9taGJfNzVMOEo1NUxiUGp5OVc1MzJSZUNHTDRRcGVuY2g3YUx4SWFpUTRGZzdtS3NjYTBVZ0FDVlpJY2c5aVdVeFd5NXdxZlZHT1hfQzd6RHk5N091R2x6cTc5WU9OUzVLa2RMQXZrOXBpc0JzZFVxaUVibkpHRjF5cVBUV2JCMHR4dFhtX0w2UXhYVklSa0M4ZG1kTkNHMzJMNjRTVEwtbVdGaVpoaER3QQ?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNamRYS00wc0V4ZzZXTHFEMno2MTk3cDMxZ1FzX18zWlhlTGNsMUtCM0htYkpPQ095alRFZmZ0Q21oWm5iazdJZF9PZkJPeDZRMlVISW1aWWVYUjlQMkR1eENYdDJseHJ5cUx3SVJUU2N5UWxFWVVUemhjTlhJYnZ0M3otd3d2TlZUQW42TEdfY0JpbUZSRXVaQUMyQWdiY1pO?oc=5
