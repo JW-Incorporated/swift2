@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 62
+
+## George Kittle Shares How His Mom Became the Unexpected ‘MVP’ of Taylor Swift and Travis Kelce’s Wedd
+
+- first seen: 2026-08-04 15:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: George Kittle Shares How His Mom Became the Unexpected ‘MVP’ of Taylor Swift and Travis Kelce’s Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxOMDFBMmpGbmZQdU0wWUE0MjkyNDEyeEVXellZTEE3OWFmOVlYOVNraENzNWFNVURnUzZGSzJLV3Bsb2pfUVJQT2lTd2ZvMXNsOVJfVGF6Mm5tZ0U5cHgtRlloeG9KQ3gtMDM1TGUyZ1dHSC1qaGFObm1CcmxrVVV1SkpMVzlpUDQtZ2VDOXpuV1A0UnpIMl8wT1ptMDFCZ0gyWmNjVGh6dEU4WW9zTlVPZQ?oc=5
+
+## Inside Taylor Swift and Travis Kelce's Married Life at Home - cosmopolitan.com
+
+- first seen: 2026-08-04 15:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Inside Taylor Swift and Travis Kelce's Married Life at Home  cosmopolitan.com
+- sources:
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNUUl6dGt0SzJ0TEFPZHR1YXZrbmdnQlM2Yll0b29KOVRPWkx2WHgwdUhLalZ6bzV5SlR1eUd2c1RLSzQ1WHhzR1EyaU5UWEw1V0kxQnB4bU5mV3RHc2ZBMElBRHN1M2xFMVE1Qk9aTFc4MXVUUTd0NTM0aGRuR0pBOS01MUFWSDhQQWpzQ29tR0FIaGF2Q2Q2NDByRmluejN5dlZIUWg0WEk1XzQ?oc=5
+
+## After co-producing a Taylor Swift album and writing country hits, Robert Ellis Orrall is in his ‘loc
+
+- first seen: 2026-08-04 15:33 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: After co-producing a Taylor Swift album and writing country hits, Robert Ellis Orrall is in his ‘local band’ era  The Boston Globe
+- sources:
+  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMilwFBVV95cUxNa2lPaV8xRjZ1SEJlamtvTFhiUkJDM0UxWV9sbGwwd3hwbjlPWThRM1Fya0tCQ3dkZFQzWXFMVjFxMmd6Q01BSFlRVE5HT1NyTHhmUXBDY2VZWDZKcE90N0VLa1JIOHgzQmxnUlJVbGtEX3lkUFJnWkhiS2RmZERGSDd0R2lOZzI0Y2FVbXY2UTNab0s5SHl3?oc=5
+
+## Where Will Travis and Taylor Live Now That They’re Married? Couple Eye Move to Exclusive Town Filled
+
+- first seen: 2026-08-04 15:33 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Where Will Travis and Taylor Live Now That They’re Married? Couple Eye Move to Exclusive Town Filled With A-Listers  cosmopolitan.com
+- sources:
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxQY19PZ2JtY2w0d05MNHNFam5MTXJ4ZDJkUXBiUXAyMVg4dmYyNUE4MHFPdHhqeHFoOGtEemFmRmRyNHFiVXYyb3pWVWRIS3hxRndKc2tyQ2ZsNUtzTE80X0U4SEJTVWhyOUNYMEZSSDRxaVE4UF9kSWxfSnVZZVhyQmcyWHZjMmJaSDZjOW15RFpwOG5zR2hsSnRpMHctWmU1N0ZiVUdPRXlRanI5ak9BcVVzbThrSFNXWUE?oc=5
+
+## Gracie Abrams Built a Career on Honesty. She’s Going Even Deeper Now
+
+- first seen: 2026-08-04 15:33 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The young superstar on the journey to her hit album Daughter from Hell, the “circus” surrounding her famous relationship, and how she hopes the future will unfold
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/gracie-abrams-daughter-from-hell-upbringing-relationship-1235600799/
+
+## Taylor Swift Makes One Big Sacrifice for Life With Travis Kelce — Source - Yahoo
+
+- first seen: 2026-08-04 15:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Makes One Big Sacrifice for Life With Travis Kelce — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNN3ZmS3NqRVZ0dl9vZjN4aThpSC1jeHZ1QnlidzVJdUZEbWNzaHdBV3hoVUh3N3VLdjFUMTQtaGF5QXFoRVp3S092VWJXOF9Eb0E4d2ctbDNXX3o1NG1MWmV2RHRNaDVybVU3T2VsTkhmTnUzRXhkcmNLOE13MWpVZ0tTUkJ3ZnpaZWl1eUwzYWVRdjREbE1NM1poUk8?oc=5
 
 ## Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source - Yahoo
 
@@ -54,10 +102,11 @@ Stories: 59
 ## Phil Collins Praises Taylor Swift’s Rise to Global Stardom - MyRadioLink.com
 
 - first seen: 2026-08-04 11:31 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Phil Collins Praises Taylor Swift’s Rise to Global Stardom  MyRadioLink.com
 - sources:
   - [unverified] MyRadioLink.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOMlFIMlJhaWVJLURkWjlxbjdkbnVmT1FoZkpZcElIODdWZFVEN3FfdF9tdnRxb3ZQVXRBaWtpQjVnckQyTjVhVFAtSnlBSzh5WEVvLXc3WkxmMXVrVFNtY3JCSHE2eF9DTXUzNlhhTGRrQlNyQzVNU0JmTEpueGIyZ1E4ZjdPeTJ2MU04S2QzUmZhVHVrV2t6ZTVPZHNHZw?oc=5
+  - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMipAFBVV95cUxOdnpzbHl6eW1zS1R3eWhPTWdhS3QyQm5HZE12bWpUem5fRUh0OXhZaWlmNGluUEZiYXNsTzlPTjhvN3B3Q1I0U2tMTVdLYnZaTVdwQi1rMnJTNkt4bDhqRk5CRjFycEt2NXNTSjZfcUFUZmUtdGt2aXZvQjlDZHZKUThDV2pwQjFzbVBqeEFqLXp6dl9vMWZXYXZhdlRndHg0OWF0cg?oc=5
 
 ## Phil Collins Says Taylor Swift ‘Really Deserves’ Being ‘the Hugest Thing in the World’ - People.com
 
@@ -143,10 +192,11 @@ Stories: 59
 ## Scott Eastwood Talks Taylor Swift's 'Wildest Dreams' Music Video, Reveals Who Told Him It Was a 'Bad
 
 - first seen: 2026-08-03 22:15 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Scott Eastwood Talks Taylor Swift's 'Wildest Dreams' Music Video, Reveals Who Told Him It Was a 'Bad Idea' to Star In It  Just Jared
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi5wFBVV95cUxNVl9tTXktNmVSYlpydU4weXVMbTVTM0VoWE9WM0lQMjJZNFlMMDNMZE5sN2lNY2swa2Z4OC1ET3pWVEhJdm1SZ0IzQlQxS2hKM3UwLUxPZFlVQmF0Y2R0Zjk1aUNjMUV5Q3VKNl9vUFZuTzh0a3A2VUlSNDhMNHdUaWJHTlYySGVUamNacEMtNkh0S2hNRGFwdkdGT2RXU2tMRWFWeVh4V1pNREFDMTFsZ3NBcDBjNnZtM3dYNkF2bnlnRTNtNTdPbzRfNXVfeVkxZEdqb3Q4Um1SOGw1cnBOaDZyc01pamM?oc=5
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOcEtHOE9TRWRLbmtxZTBPMVpCUW1oOTNBYW8tZ0YzRkxxekpGZnJKRE5Fck96UVFmbGNpeVRLTlliX2lFQ2FYNUY2MXRhOW5IRVRpQmZ0ZGpWNE01RF9ZVzFtcFNFVWwtNmp1WGlOQzlRcjhRYk5WWHRKbUlRbmpDN2hmQ0tYTFNxaGtSTWtkVVhlMHF3TThXbnBKb0NqMEdYY0JUWkM4WlJYVnpqTjcxT0JyckJ3VE9MT3A4TDczampvenc?oc=5
 
 ## Taylor Swift-Travis Kelce fans believe their dog was named for ‘Sandlot’ character - Kansas City Sta
 
@@ -488,29 +538,3 @@ Stories: 59
 - summary: Taylor Swift, Travis Kelce’s Wedding Vows, According to Maren Morris (Exclusive)  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNUWZIOGt5Yi1fMFMwdEhoelBoWXFUU3FJcWJKcUVDRUUySzgyd2JqdHVkT3pWQzFxZmtCZU5kbUdBdmRwZTdQY3lwT1ZVeVN0c2RRRHZEbnU1bDBrdmFOc3R5VWlUc0Q4VTZXZHdBVjJTZ3ZuODBQX3U0S0oxampsalBsR1VKTnI3c2NjSTR1ZlpjOUlCUzhWQWNmelhvSlRRdFQtZEdhRQ?oc=5
-
-## Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remark
-
-- first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Jason Kelce Is Amazed That Taylor Swift and Travis Kelce Wedding Photos Haven’t Leaked: ‘It’s Remarkable’  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNSG1FU096ZFRaUWdTUmg3eEJGS21udzZXbmxUN1B1R0Jkd1pxY0IwRHdDMkdGanlRakNBUDlwN3dCdGl6eGlZc3pMb3dUUTRCZE5ITXo5dUJ3ZEVzdHU0dDFsZWZxazgzRThGV29HM3hFSlFDRlE1ek4yaHY4MnNfbDZoWEZQSW5MVHdxZlpjdGJwdXNHamFSZjBZNHMzYVh1V2Fv?oc=5
-  - [unverified] nbcnewyork.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPbHJxWVl4bmRFM0E1bHY3TTd4Z1V3NE9QVEJVNHhOa05kQzdBUW9Tb3hlTG83VGtLWU11aDV6cXpZS01XZTROTVhkVXk3SnItdW1qdDAtcXRLblRGUXJxRDZmMFduNWZnNlhDcG1NVWEtVUJ6UWNjM3pqUThHaHUyNXNIaE9yQ1FxVDJnR01DNGMwS1Z6YzY5c0N1NDVkZVdMZ0dWUkh0X0hmNTBuYVAzTE9wTWotNTd2Uzczb20zb2tRM01uZWZKSjliWWNNazhXZEttbUZKeXByUTNGUWNj0gHnAUFVX3lxTFByMWhQSGo2YmFTVmIxTGV5YnRmZ0pNSERIb25sam5tdy01NEJjUHlmalB1NWs3TUtTQlB1b1diLUd2YUFXRHBvN3FCeGZwSEdPUFh6bVQ2TjQ1amFWZ29HSWxnc3VuWGpyZUt6SFlOdDJwUzBxcEkwQkE1MjE1S2ZDT1poLUZKNHhpcVAwazdGR1ZWVUh4SmRfd1VaVGItbHVoT2RCbHZpc3BRU3Z5dC1ja1FlendkSkdqQUgxbThfbks3Nk1zem1zRmZfd05adjNmQXFNdmk2Tmo5N0lndk5ibzdJTjI3WQ?oc=5
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQdnpqWUtHNUhudEJRY0pGR1ppckhPZ0ZjTjd3WC1jVjdZcmdIazZFN1MyZUJReGpjTHBkRUlXZXBGMlVGTS00aEl0OGhpaUMxUDN0amR2aEdnS243OXA4Y21OOEtXNmRwQ21vZmQxVXlNbHJqSjQyZ3FWNGxrQzRSR0RuSVotOTRzLTE1ajctUjF0UFVCekxnS1hIejY3cWFzZHA1NzN1UzMwRmhkdy1xenpwWWtRUUM5VGJScGpQWkdwUQ?oc=5
-
-## Taylor Swift's summer touring aircraft strategy: How global tours move like Fortune 500 companies - 
-
-- first seen: 2026-08-01 14:40 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's summer touring aircraft strategy: How global tours move like Fortune 500 companies  Duncan Banner
-- sources:
-  - [unverified] Duncan Banner — https://news.google.com/rss/articles/CBMijwJBVV95cUxOLU1QNG1RV3J0VjQ2RVpoSTRvcTZoMW54VXZBZUdPdXhNRy15cXcwRTN1RzJDdE4ySG0wblZJbjVVZW0yWTNvUHVMR1hIdjF3SGxXZXdyZ19nWG9XdHdHcHBLajlUYjNzaHlEZFhJQnBiOHdiQ0k2dlVwRnRIYTJ2VWFKblhFZlB4UWw0eGtaU3NoRF9HXzVjb21ZTnFNRFRrWVJoLUpmTkVCQmx5aFp4c3VtenhqYTVMSDlJbzBkcC1GazBuenJvZmpKMU5sTFRvQTc0OFlXQXJFbER4YlVva0tWVVhMbFktLVVfdmVlTUlSYjlqU1ZfUDJCekNYY0hiTFFaOFp5TjJZcFAzV0hV?oc=5
-
-## Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint - Y
-
-- first seen: 2026-08-01 14:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPUE81QWZOenItbS0xRmladWFyQnE5eUJJbGkxdWZDLVpEd1lHa3pjSG1sMVBEVXIwbVV4REJYU1A4dnBmU0xIbE0yd2pMWG5kcWpVdGtPNnA2ZUMtVXVpaGpfcXR4b2pfNGU2aG8tcEVoTjUySndkZmZBSEtjN01mZGtsOG9ZcW81SmRjaE1MOFMtcldJMS1BckVjSEFrZw?oc=5
