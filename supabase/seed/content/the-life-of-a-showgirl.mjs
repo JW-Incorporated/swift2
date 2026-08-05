@@ -3663,6 +3663,66 @@ export default {
         ],
       },
     },
+    // --- Rumor Desk 2026-08-05 (intake: news digest). A wholly-unconfirmed,
+    // social-tier gossip claim about the newlyweds' rumored puppy — admissible
+    // because it is attributable (Deuxmoi, named), dated, and adjudicable (it
+    // resolves the day the couple confirms a dog/name and fades if it stays
+    // unaddressed). A pet is not a private individual/minor, so no redline; no
+    // location. The whole item rides a "Reported — not confirmed" banner
+    // (confidence: plausible) AND carries a lifecycle-tracked rumors[] entry so
+    // it can later be retired. Deliberately a low-substance, photo-less item
+    // (chip/text tier, never hero) so it cannot displace a hero slot.
+    {
+      slug: 'showgirl-newlyweds-rumored-dog-wendy',
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      confidence: 'plausible',
+      title: 'A rumored newlywed puppy — and a name fans traced to "The Sandlot"',
+      snippet:
+        'A month after the wedding, gossip account Deuxmoi reported the newlyweds had quietly gotten a white puppy named "Wendy" — a name fans read as a nod to Travis\'s favorite film. Neither Taylor nor Kelce has confirmed the dog or the name.',
+      sourceUrl: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In early August 2026, roughly a month after the Madison Square Garden wedding, the gossip account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy to the household — and that its name is "Wendy." Entertainment outlets including Cosmopolitan and SheKnows picked the item up within the day, most flagging that it traces to a single blind item rather than to either of the principals.\n\nThe detail fans latched onto was the name: "Wendy" reads as a reference to Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot" — a movie Kelce has called a favorite and a character he has joked about a childhood crush on. It is the kind of small, sweet story that is easy to want to be true; the honest status is that it is one gossip report the couple has not addressed. Neither Taylor nor Kelce has publicly confirmed adopting a puppy or its name.',
+        sources: [
+          {
+            outlet: 'Cosmopolitan (via AOL)',
+            url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+            source_title: "Just Found Out Taylor Swift and Travis Kelce's Dog's Name, and We're Obsessed",
+            publisher: 'Cosmopolitan',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-rumored-181853069.html',
+            source_title: "Taylor Swift and Travis Kelce's Rumored Puppy Name Could Reveal a Hidden Tribute",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 2,
+          },
+        ],
+        rumors: [
+          {
+            claim:
+              'Gossip account Deuxmoi reported in early August 2026 that Taylor and Kelce had quietly gotten a white puppy named "Wendy," with fans reading the name as a nod to Wendy Peffercorn, the lifeguard in Kelce\'s oft-cited favorite film "The Sandlot."',
+            reportedBy: 'Deuxmoi (via Cosmopolitan)',
+            reportedOn: '2026-08-03',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+            note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Swift nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-05',
+          },
+        ],
+      },
+    },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
     // several days while ingestion kept running; these four items clear the
     // real backlog of verified, non-gossip wedding-adjacent stories. Every
