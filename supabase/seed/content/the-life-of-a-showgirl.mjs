@@ -7662,6 +7662,23 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo (Content Shift 2026-08-05): the official IKIIKY video thumbnail
+        // (id hDU4GB1PTxc, oEmbed-verified against @TaylorSwift elsewhere in
+        // this file). Downloaded and vision-confirmed this run: the Jessie
+        // frame. It represents Taylor's actual entry in the sweep; it also
+        // appears on the Oscar-buzz page, reused here because it is the single
+        // most on-topic verifiable asset for her song at No. 3. focalPoint set
+        // by eye — Jessie's face is centered, slightly high.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
+            focalPoint: '48% 33%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
+            caption:
+              'A frame from the official "I Knew It, I Knew You" video — the Toy Story 5 song that held No. 3 as country songs swept the Hot 100\'s entire top five.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     // --- Peer/mentorship (Content Shift, vault-run 2026-08-05, Closes #1801):
@@ -7702,6 +7719,21 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-05',
             reliability_score: 3,
+          },
+        ],
+        // Photo (Content Shift 2026-08-05): a Wikimedia Commons performance shot
+        // of Gracie Abrams (Justin Higuchi, El Rey Theatre LA, 2022; CC BY 2.0).
+        // Downloaded and vision-confirmed this run: Abrams singing into a mic in
+        // an oversized dark blazer, stage-lit. License verified via the Commons
+        // API. focalPoint set by eye — her face sits upper-center-right.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/be/Gracie_Abrams_%40_El_Rey_Theatre_03_05_2022_%2852297976064%29.jpg',
+            focalPoint: '55% 28%',
+            credit: 'Justin Higuchi / Wikimedia Commons, CC BY 2.0',
+            caption:
+              'Gracie Abrams performing at the El Rey Theatre in Los Angeles, 2022 — a year before she opened the Eras Tour.',
+            kind: 'primary',
           },
         ],
       },
