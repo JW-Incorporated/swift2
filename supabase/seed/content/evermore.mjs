@@ -1274,7 +1274,7 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Taylor was photographed arriving at Republic Records\' post-show party at the Fleur Room in New York City on August 28, 2022.\n\nShe wore a royal blue silk mini romper by Moschino embroidered with glittery stars — which Nylon described as "channeling \'midnight\'" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip.',
+          'Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Taylor was photographed arriving at Republic Records\' post-show party at the Fleur Room in New York City on August 28, 2022.\n\nShe wore a royal blue silk mini romper by Moschino embroidered with glittery stars — a glittery nod to the album title landing months before fans would put it together, per Nylon\'s take: "channeling \'midnight\'" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip.',
         sources: [
           { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-2022-mtv-vmas-after-party-outfit' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/' },
@@ -2055,7 +2055,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/tP4TTgt4nb0/hqdefault.jpg',
       moment: {
         context:
-          'After the wedding fantasies and murder ballads, it\'s the record\'s most adult song: no villain, just two accurate memories of the same marriage refusing to cancel each other out. Aaron Dessner had composed the instrumental back in 2019; Taylor added the words just days before the album was finished — the same last-minute tradition as folklore\'s "the 1" and "hoax."\n\nThe lyrics thread references to F. Scott Fitzgerald\'s The Great Gatsby through the wreckage, and critics singled the song out immediately — Stereogum\'s Tom Breihan called it "a masterful piece of recording and songwriting." It charted at No. 54 on the Hot 100 on album-week streams alone, without ever being a single.',
+          'After the wedding fantasies and murder ballads, it\'s the record\'s most adult song: no villain, just two accurate memories of the same marriage refusing to cancel each other out. Aaron Dessner had composed the instrumental back in 2019; Taylor added the words just days before the album was finished — the same last-minute tradition as folklore\'s "the 1" and "hoax."\n\nThe lyrics thread references to F. Scott Fitzgerald\'s The Great Gatsby through the wreckage, and it\'s the kind of songwriting critics couldn\'t help singling out immediately — Stereogum critic Tom Breihan called it "a masterful piece of recording and songwriting." It charted at No. 54 on the Hot 100 on album-week streams alone, without ever being a single.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2157,7 +2157,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Track 8, and the answer to a question the album asks earlier: who is Dorothea? She is the hometown girl who left Tupelo, Mississippi for Hollywood and never quite came back, and this song is sung by the one who stayed — happy for her success, certain he\'d always take her call. It is the same character and the same small town as "\'tis the damn season," which Taylor wrote from Dorothea\'s own point of view; together the two tracks tell one story from both ends. She wrote it with Aaron Dessner, who produced it and felt it carried folklore\'s world forward into evermore.\n\nSlate heard "a welcome lack of fuss," Taylor reaching for "her old high-school-romance-songs vocal tone to reminisce," and critics warmed to it fast — The Guardian\'s Alexis Petridis singled out its "luminous" melody. After the murder ballads and divorce songs elsewhere on the record, dorothea is its plainest act of tenderness: a love that asks for nothing back.',
+          'Track 8, and the answer to a question the album asks earlier: who is Dorothea? She is the hometown girl who left Tupelo, Mississippi for Hollywood and never quite came back, and this song is sung by the one who stayed — happy for her success, certain he\'d always take her call. It is the same character and the same small town as "\'tis the damn season," which Taylor wrote from Dorothea\'s own point of view; together the two tracks tell one story from both ends. She wrote it with Aaron Dessner, who produced it and felt it carried folklore\'s world forward into evermore.\n\nSlate heard "a welcome lack of fuss," Taylor reaching for "her old high-school-romance-songs vocal tone to reminisce," and critics warmed to it fast — "luminous" is the word The Guardian\'s Alexis Petridis reached for on the melody. After the murder ballads and divorce songs elsewhere on the record, dorothea is its plainest act of tenderness: a love that asks for nothing back.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2193,7 +2193,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Track 12 is the reputation era seen from the far side of it. Over golden gates and pedestals, Taylor looks back at the 2016–17 stretch when she was knocked off her footing in public — and instead of re-litigating it, she shrugs it off in the refrain: "long story short, it was a bad time… long story short, I survived." She wrote it with Aaron Dessner, who also produced it.\n\nIt reframes an entire era as something to move past rather than avenge. Billboard\'s Jason Lipshutz called it "the best track of evermore"; Slate, more measured, landed on the same note — "a fairly slight song but an earned valedictory address." Where reputation itself answered the backlash with armor, "long story short" answers it years later with peace.',
+          'Track 12 is the reputation era seen from the far side of it. Over golden gates and pedestals, Taylor looks back at the 2016–17 stretch when she was knocked off her footing in public — and instead of re-litigating it, she shrugs it off in the refrain: "long story short, it was a bad time… long story short, I survived." She wrote it with Aaron Dessner, who also produced it.\n\nIt reframes an entire era as something to move past rather than avenge. "The best track of evermore" — Billboard\'s Jason Lipshutz\'s call; Slate, more measured, landed on the same note — "a fairly slight song but an earned valedictory address." Where reputation itself answered the backlash with armor, "long story short" answers it years later with peace.',
         sources: [
           {
             outlet: 'Wikipedia',

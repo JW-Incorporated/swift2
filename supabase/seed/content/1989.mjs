@@ -22,7 +22,7 @@ export default {
       thumbnailUrl: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg',
       moment: {
         context:
-          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nBillboard's chart recap put the scale plainly: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and spent 11 nonconsecutive weeks at No. 1; only four albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, 1989 (Taylor's Version) itself, and The Life of a Showgirl.",
+          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nThe scale is almost absurd: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, per Billboard's chart recap, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and spent 11 nonconsecutive weeks at No. 1; only four albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, 1989 (Taylor's Version) itself, and The Life of a Showgirl.",
         sources: [
           {
             outlet: 'Forbes',
@@ -688,7 +688,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg',
       moment: {
         context:
-          'The Sun\'s May 2017 scoop reported the two had quietly been a couple for months — with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
+          'The two had quietly been a couple for months by the time The Sun\'s May 2017 scoop broke, with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
         sources: [
           {
             outlet: 'Today',
@@ -1888,7 +1888,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery — Taylor and English actor Dominic Sherwood projected onto each other, the relationship replayed in shards of broken mirror and hazy flashbacks by the sea, in the woods, and behind the wheel. Billboard called it "gorgeously shot," conceding the plot was thinner than "Blank Space" but that the atmosphere could carry a perfume ad; other critics caught echoes of True Detective\'s title sequence, Mulholland Drive, and Chris Isaak\'s "Wicked Game" video.\n\nThe art-film styling extended the pop reinvention to her videos — and the song underneath, a No. 6 Hot 100 peak at the time, has only climbed in critical standing since, routinely ranked among the finest pure pop songs in her catalog.',
+          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery — Taylor and English actor Dominic Sherwood projected onto each other, the relationship replayed in shards of broken mirror and hazy flashbacks by the sea, in the woods, and behind the wheel. "Gorgeously shot," per Billboard — the plot thinner than "Blank Space," sure, but the atmosphere alone could carry a perfume ad; other critics caught echoes of True Detective\'s title sequence, Mulholland Drive, and Chris Isaak\'s "Wicked Game" video.\n\nThe art-film styling extended the pop reinvention to her videos — and the song underneath, a No. 6 Hot 100 peak at the time, has only climbed in critical standing since, routinely ranked among the finest pure pop songs in her catalog.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1935,7 +1935,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The 24-hour total broke Nicki Minaj\'s "Anaconda" record of 19.6 million Vevo views. Joseph Kahn\'s sci-fi action treatment gave each cast member a comic-book alias — Selena Gomez as Arsyn, Karlie Kloss as Knockout, Lena Dunham as Lucky Fiori — turning the squad itself into the video\'s marketing engine.\n\nThe premiere literally opened the Billboard Music Awards broadcast from the MGM Grand. The momentum didn\'t stop at the record: Forbes counted nearly 38 million total views within four days, and by August the video had won Video of the Year at the VMAs.',
+          'The 24-hour total broke Nicki Minaj\'s "Anaconda" record of 19.6 million Vevo views. Joseph Kahn\'s sci-fi action treatment gave each cast member a comic-book alias — Selena Gomez as Arsyn, Karlie Kloss as Knockout, Lena Dunham as Lucky Fiori — turning the squad itself into the video\'s marketing engine.\n\nThe premiere literally opened the Billboard Music Awards broadcast from the MGM Grand. The momentum didn\'t stop at the record: nearly 38 million total views within four days, per Forbes, and by August the video had won Video of the Year at the VMAs.',
         sources: [
           {
             outlet: 'TIME',
@@ -2173,7 +2173,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The gag ad — captioned #TaylorvsTreadmill — racked up more than 20 million views on Facebook and Instagram within days, boosted Apple\'s #gymflow playlist plays 325%, and put a rap song that had been out for six months back up the charts. It marked how completely the Apple relationship had flipped since the 2015 royalty standoff.\n\nBillboard reported it as the first of a planned series of Apple Music spots leaning on her self-deprecating side, and Forbes did the receipts on the "Jumpman" bump: a 431% jump in iTunes sales — likely tens of thousands of downloads — for a track that had peaked at No. 12 on the Hot 100 half a year earlier, with a fresh chart climb predicted off the exposure. Not bad for sixty seconds of face-planting in athleisure.',
+          'The gag ad — captioned #TaylorvsTreadmill — racked up more than 20 million views on Facebook and Instagram within days, boosted Apple\'s #gymflow playlist plays 325%, and put a rap song that had been out for six months back up the charts. It marked how completely the Apple relationship had flipped since the 2015 royalty standoff.\n\nIt was the first of a planned series of Apple Music spots leaning on her self-deprecating side, per Billboard, and Forbes did the receipts on the "Jumpman" bump: a 431% jump in iTunes sales — likely tens of thousands of downloads — for a track that had peaked at No. 12 on the Hot 100 half a year earlier, with a fresh chart climb predicted off the exposure. Not bad for sixty seconds of face-planting in athleisure.',
         sources: [
           {
             outlet: 'Billboard',
