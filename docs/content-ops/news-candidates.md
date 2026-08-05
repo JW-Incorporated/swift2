@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 71
+
+## 'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour — Here's How - Elite Daily
+
+- first seen: 2026-08-05 18:45 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour — Here's How  Elite Daily
+- sources:
+  - [unverified] Elite Daily — https://news.google.com/rss/articles/CBMiggFBVV95cUxNcmdsSjlqdGRlMjdxVkNFaExTUnVteUlVcGZES0dOLUdaanMzUkNhV01Pa1VoQWZRMHRtSHNJVGtRYlEwei1wVkhUZHRocTZSZ2lSU0tSRE4zd2FGSklLMFFMckQzWGgteldTSHlNd0hneVdERk9hTmUxbE9jWlFCaE13?oc=5
+
+## Taylor Swift’s positive influence on KC businesses is referenced in ‘Ted Lasso’ - Kansas City Star
+
+- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s positive influence on KC businesses is referenced in ‘Ted Lasso’  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxPelMwN0VwUWdzZVJjQTV1cGlYUnFiNUZUUjVZRW9XQ1VST3BmN2hlYlp5TGtyVUl2VGp2aERXV0EyVUZVUlktcXlIVF9zQVpBbmdiTnBWTkM2Qkdrc3RPNVBfOGozUnNGcHZvWXRHZVB2VHMyNU9jNm1pVWVuZHowenZja3JBc01oaU9VYTFSN3dYUdIBkgFBVV95cUxQWjM0R3JWdXc4QWExeW9Fc3BCdXpVWlExVDVUaDJfOUhfOVZ6Um5SLTlUU01sWDYxcHVnQlNaSU10czF5VlBpSlBIY1U0bXRubzZUdkI4TGpIY0xGQVhzdWc0XzRKUzhpc25jOGNsN0RDbEhmX2ZtUHdTRHhiU2VEZnlrMTRzNUdiREpiMTdlZkttUQ?oc=5
+
+## Gigi Hadid & Bradley Cooper Reportedly Got Married Before Taylor Swift as Sources Reveal They Wanted
+
+- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Gigi Hadid & Bradley Cooper Reportedly Got Married Before Taylor Swift as Sources Reveal They Wanted the ‘Opposite’ of Her ‘Media Event  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNQXNsVlVwRXZiekdSZndQejVGZllMX2lyaGkwREFKZXczWVNoNTMzUlRHdlRuTW1HRnZYZXhoNXJMeTBLdXdaVTNyUUNGTm1TQURiVTdwWjBEX2FGcFBxYkJNWFA0cnNTaFFSanJHQXQyRkNDNFh4RDE5ZFFPb3Mwbk15S2ZYRVlRUzdWdG52NVFYbm16RElsLW56blVoSnpqTC0yb1NObmpLdw?oc=5
+
+## Sombr Opens Up About Taylor Swift Friendship, Performing Her Songs at the Songwriters Hall of Fame a
+
+- first seen: 2026-08-05 18:45 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sombr Opens Up About Taylor Swift Friendship, Performing Her Songs at the Songwriters Hall of Fame and His Thoughts on Travis Kelce  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi_AFBVV95cUxQX3ZIQ0ZVcmRvVEltZ0hOVGFiYkJ5dTNwZ21tb1hEaG16N0NvSXF5VWxKaVotTER4WHRGcVUwSjZTTnN0LVRoTVB0UEdmaENBUE03Vk1PNGRDd3hpc1pBX0daWFkzRzdjVmw2eUpfTXc2RkZJcTRZclJKVEY2UjJTM2VWS016NGVkc3hlYUVMTjh5Y3pQTTR0RVB0OTVMRDZ5Z2h1Y0JjN2VvNVhENi1qWks4Q1o1ZFZBZHp2TVlhUlJxcjJpOUxqVUM5OE1FYWNHLXU1UUFSeTF0dUExOUpsNUVsdUVSZUU3M0J6ZDluZ3FwdW0xcVRhcW1aelY?oc=5
+
+## ‘Ted Lasso’ Season 4 features fun Kansas City nod to Taylor Swift - Page Six
+
+- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: ‘Ted Lasso’ Season 4 features fun Kansas City nod to Taylor Swift  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxOYUlQZmxUcVlqVHJoSXlBdkZKd0lVRVBkR3dkU0ZfMVhTbXVfVTI2Y0lUMk5HVmpqYmFvX0dFclhzeno2MGNjbHFmTHhVdnZsVWYxRmxNMnpXZk92dVRxYURBZ19ySV9Ya0ptNmlNVGhnY2hWR25lZWdfS2ZoZEVHei1YajA5VGxteG5JV0dNc09ZUVhhQmxXWTEzWF9BUWcxRjlyU3hMUlJ5cVlkbVE?oc=5
+
+## New York Cares hosts Swiftie-inspired back-to-school volunteer event - amNewYork
+
+- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: New York Cares hosts Swiftie-inspired back-to-school volunteer event  amNewYork
+- sources:
+  - [unverified] amNewYork — https://news.google.com/rss/articles/CBMihgFBVV95cUxQR2dWSU9kdGRKaDc2YXZrcHJVU2xzRkY3Yzk4NlU5X0lQMHdHMFhmN0ZYRGlvSTZKQnByZTRqQzlaVjJHNHFDdjR5STVIbmIxMUhVdUIxVlNUQU9BaXl2N0ZWWGJES0lITVVrczJWY3pXakZXY2xkYnM1QzhQcXFpTkJ4RFB5UQ?oc=5
+
+## Newlyweds Bradley Cooper and Gigi Hadid Wanted the ‘Opposite’ of Taylor Swift’s Massive MSG Nuptials
+
+- first seen: 2026-08-05 18:45 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Newlyweds Bradley Cooper and Gigi Hadid Wanted the ‘Opposite’ of Taylor Swift’s Massive MSG Nuptials  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOV2QxSnItS1BCak9ndkhURlJ3SlMtRks0NEhKQ0hldl82VWVTYmh1aThwRzJyRWhGQXV5MElKT0FtcUR2S0NCcHZCYzZHWl9reFU1dEZtQy0tWkxCc3hLWGZpSmJULUk1ZERFSEZJTDMyTXByZnM0bjAxS3pPdzA0dmNnbnBFcXhtLWU2b0xIWG1FWThCMWZja2hMNHN4YTNyNVV1Y1BwMFc?oc=5
+
+## It’s Sombr Summer: The Pop Phenom on Impressing Taylor Swift, Singing About Body Image and Why Peopl
+
+- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: It’s Sombr Summer: The Pop Phenom on Impressing Taylor Swift, Singing About Body Image and Why People ‘Can Say Whatever the F— They Want About Me’  Variety
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMilAFBVV95cUxPOG9MeUpiVlZJTDhMU0xaRTBOZk1QLUUzUVdEUEFRalVteWx3SU9CaE5leDlKbTBNY2xGSGdtZHpRbDEzVzM1NDhNc1lYWk1OTDBlNmtiSDRzOWxyUk02eU5EQ25WM1N4Z3Q5WUZFR3BJWXlkbjBRZ0F5QW1FU3lRMjBWY3pHM05rbWJSWkhGYXE4NXNT?oc=5
 
 ## Inside Taylor Swift’s Star-Studded Love Life - Yahoo
 
@@ -542,61 +606,3 @@ Stories: 70
 - summary: Exec: Taylor Swift is one of the best businesswomen of all time  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMigAFBVV95cUxOMXllSTRBUENMeWxwNm8wWkFSYlZNT0lSanRSakJXNV95RnNhckpNOEQ4QTZkdGZVam9SY0gwNW1rRjd5amVWRGxHbTk5WlNDcVk1QmhfbFNpdE9tN2NzSWtHNVl5eHEwdFhTTDlURTFpNjdOaVpqSTRpYWtUZWxXeg?oc=5
-
-## Charissa Thompson Left Taylor Swift And Travis Kelce’s Wedding After ‘Slicing’ Her Skin Open - Yahoo
-
-- first seen: 2026-08-02 18:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Charissa Thompson Left Taylor Swift And Travis Kelce’s Wedding After ‘Slicing’ Her Skin Open  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQc0FOOXk4VFVHNlVDYzBRalVoY2ZNZlV1Z1IyWUdsQlRnRDI3WmhFa0NoaEhZTnVuYkZJMG5SYml5M3FPVzZ1SV9JZjhGVTlCWlQ3QXVnYU1RdHdXVXpkcDU1MWoyNFJpV3h0ME9OM08xUDBtRlNhd3R3eWx2cXctb1ZhUjg4c3pHV3FJMVpaV2hIX1Vvd0ZiU016RmgwUUxXV2Y1Q1QxLUw?oc=5
-
-## IS THIS TAYLOR & TRAVIS’ ALLEGED DOG’S NAME?: A sweet tribute - deuxmoi.world
-
-- first seen: 2026-08-02 18:09 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: IS THIS TAYLOR & TRAVIS’ ALLEGED DOG’S NAME?: A sweet tribute  deuxmoi.world
-- sources:
-  - [unverified] deuxmoi.world — https://news.google.com/rss/articles/CBMiekFVX3lxTFB4ZFhIcWFNVmFhQkxuUmpObXZpMjBfMWgtalVKWHVlWHh6d1ZDd25NYnlPdVVoOUJZRmJZaGU3T0JYTjBRVUYwdVd1WTRFWEVHUDhFSmJfOG5ZLV9wM0N5SUR1VmFPc0llOHBtUE5RQXQ5ZjU4Z3NsWlRB?oc=5
-
-## Blake Lively 'threatens to release intimate texts' amid Taylor Swift feud - the-sun.com
-
-- first seen: 2026-08-02 18:09 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively 'threatens to release intimate texts' amid Taylor Swift feud  the-sun.com
-- sources:
-  - [unverified] the-sun.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxPeTlWUEhTbmlDdWc5d3pEM2FMaXNNVENJR2FidG5XV21PdHcxVm1INEl2NGVqSHhRZGNzX1lGcDNndnZWYXg3a3VnZmVXSWNvcVUwTTF5UzhqSHNQOThuaFEwTVUwelcxMDdOejVEVzVhcUtZcHlJV196SzZ1SDdXVno3U0I3WHNyOWxWa29ZS3FfV1MwX2c?oc=5
-
-## Apparently, ‘Weirdos’ Have Been Sharing Fake Details About Taylor Swift And Travis Kelce Wedding - Y
-
-- first seen: 2026-08-02 18:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Apparently, ‘Weirdos’ Have Been Sharing Fake Details About Taylor Swift And Travis Kelce Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxNbkxlbzZCbDJaTjVYRzVzVEU5eU9QeG1xUXgzWUZBMzdWOHowa0gxV2ZBVTJ4SHFjQUtCWkhpc2wyNEFCNWNsbUs0Sl96bV9FRFFyYmd5SUsxV3VlazdJNUFyQkFBZlZXakVYQjE2b3Z4QWdRa3htRjQ0ZjBDdW8zSnFDVGZNVnpiVzktWVlYWWFrQ21hV243Tmp0QUVKUEd3c1A2dW9vN09tRVFpRmc?oc=5
-
-## Celebrity insider says Taylor Swift and Travis Kelce’s wedding vows revealed their ‘love and humor’ 
-
-- first seen: 2026-08-02 18:09 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Celebrity insider says Taylor Swift and Travis Kelce’s wedding vows revealed their ‘love and humor’  HOLA
-- sources:
-  - [unverified] HOLA — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPRGlBempwYkotOFRBb0RPLVU4OGcwY2NoWHd6RnNEbWVlcGpkSEwxcnlRLWpZNE40QzhlcVdHVF9Md05RSUFLRE15Y3RxQWJaZWRKSUFocDNZZGs5Q25zR08yUEtNNlV2NzNzcWtXei1PNTBielB6M3o3aEFmcTNWWDJhQ0RKMTJvck1lajVNNktzUlZjS3YyYUJFZnlTVk8tTGNzTU9LTnUxTmdUbUtzTklSQ0NYRXpsVzgwZGh5ZThkVnM?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQQ0xsdGM0NW1mWlZHVDdVbXhsRkt6RVhHclFLU0ptQ3I3U0gtWEVTWFRpZGlOWmlJcGRhaHh3MVc3YUtJV2NfWjN6dXBhMEc3R1VRa21Mak9TNUlFa0FCbVFXcEZ1NmFlbE9XMzQwWVBjNGo5QjFscFJhdW5mRXdNS2E4dy1xekhJaHJHTWk4VjhENW9rQVN3YnN3bkdkU3VnT2ZWWmhORmM?oc=5
-
-## Phil Collins: Taylor Swift deserves to be 'hugest thing in the world' - Yahoo Lifestyle Canada
-
-- first seen: 2026-08-02 18:09 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Phil Collins: Taylor Swift deserves to be 'hugest thing in the world'  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxQRXdpQjJWTlMxMnlNck0zdjRqOFdJVC1rMVFmdlptYmpja3hEajVkcElDdHVjd3U3R3JmWWJMWHR5QkNVSTNsRFlKZzI2dHZheVl4ME5XcUdHLXdyQ24wT3B6MWQ4elZWblo1VHdDU3BlR0czRVN3MHE3UDFwM1EzM0pn?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihgFBVV95cUxNNjB3c3lUQkIyNmRqQWxfT2hvWE9EcHhPZUF2aTE3aWR4ZlZHOGc5TUZCRl9WVjl3Y1RXYkMwSjUyT0RTMk9NRlVVMHI0NWVEcGMzQ1BaeEJTNFhlUmFYUE5MVElrY2p1Z240YjVHLVc3aWxrZ3F2NE5qSmRZM2txV2RqZXRPZw?oc=5
-
-## Phil Collins, 75, Reveals the Taylor Swift Song He Was Blown Away by When Meeting Her 15 Years Ago -
-
-- first seen: 2026-08-02 18:09 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Phil Collins, 75, Reveals the Taylor Swift Song He Was Blown Away by When Meeting Her 15 Years Ago  parade.com
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxQcE1qazlTWG9Ud09FMXRWVG9HUGZ4WmoyU0VIcGh1d01NZFh6ZE9yazRRN1VKMTN0ZFBESHZ3TmN2c21UVHJRWm9FY1dMcGF1djR2alhBNXZUUlJMRjJfZnJlVnV4dHp0cUZGTV8ySmVURW5LTUxSTS1FTGxVMnUxQ2VpZWM1dkxLWlJLLWE0WWEtSi1HQTJPWHBfM1daWTN1elZGS2FwUjJxVWVnZ0pVT1d1ZzFDdXZQNzNJQg?oc=5
