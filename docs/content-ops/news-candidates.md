@@ -25,16 +25,33 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 65
+
+## Role Model explains why he ‘couldn’t go’ to Taylor Swift and Travis Kelce’s wedding - Entertainment 
+
+- first seen: 2026-08-05 04:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Role Model explains why he ‘couldn’t go’ to Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMigAFBVV95cUxQaHlnSDhOVDVQZ2U3R0x2UGNxNktoSUR1SXYzVEpjRW5TTGpYQldscTM5S05TRThJcF9xUDZYSEc2aDM2dEhSN2w4MmJVMmV2SXNnOWt5ZzJqSU5OLUJORXR4WnRKYV9oQXlxRFZrMU1HMXVuUXMzd0FlaHRWeVNxbQ?oc=5
+
+## Gracie Abrams credits Taylor Swift with teaching her to be 'less precious with my ego' - Yahoo News 
+
+- first seen: 2026-08-05 04:24 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Gracie Abrams credits Taylor Swift with teaching her to be 'less precious with my ego'  Yahoo News Canada
+- sources:
+  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMigAFBVV95cUxNYldLdjZ0RWlOVHh5cDdtalRyUkl4RHBPTC1rVmpvMFllNEVWSTJaRGh3S0hwdE12Sm5JR0JoUXhwTkNGYWZ4V2F3a1E1YnZxRElXQWJ5MmZnZHprbzJGc1BSdzhuOFRVelEyNnl4bWVKbFFKVkdzd2JnVEowUFB3Ng?oc=5
 
 ## Phil Collins praises Taylor Swift and the song of hers that left him with a ‘soft spot’ - Yahoo
 
 - first seen: 2026-08-04 22:20 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Phil Collins praises Taylor Swift and the song of hers that left him with a ‘soft spot’  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPWVdMTE50LUw4dEJrTFYzanNQSHF6VjBVOGpIYVZJRjJMNjNzLTRmSi1NaGY2SGRMeHNEeml0UFhKaENLVk15QmlQMHZQVVh2S3NQVlZJZUtQT2JZNjI2dTNNNzBXQmM4RG9tc1hOUTBlMDdId0ZUWkNCUG5TSGR5cHpaWHAyUnJ4eTlBOHNtLU5SNk16c0psNXNNN2xKOUg0?oc=5
   - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMif0FVX3lxTE9LbFVkU2pNWHNxaGdSOUVQYkR2MUhRTlZnZmVjaFFsWGJrejVCRkF0Ni1iMzJlblpSeUtjU21FUmFVRS05QWVJbUNfeGsyQ0ZFVHhyMDFyTFJtTkFtek9fVkQ4SHpjZnRRb3hOMXpkbWlJbUlRLWUxc0FjTGNCem8?oc=5
+  - [unverified] The Independent — https://news.google.com/rss/articles/CBMipwFBVV95cUxOd29PYnhjWld5OWVyNENmQTZ2S2h0RnlENE00XzJLTUlvNm5KNmRmVGZCaUlOUS0yTWtHYTRDVTFoaXBhSkZLbzAyUWN1d0VKRFVyZnFJV2F1N0FaQWpyTzIxaU1zYTZyNzJvazJhRVZNbzFRM0xJVVJ3Z2QyODlVRTFlMXpuV1dNeVhyT3RwUkk4M01SV0h3U3NrQjBmRXlKR3d1bnJpRQ?oc=5
 
 ## Taylor Swift & Travis Kelce Reportedly Don't See Eye To Eye When It Comes To Security - Yahoo
 
@@ -174,14 +191,6 @@ Stories: 63
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNN3ZmS3NqRVZ0dl9vZjN4aThpSC1jeHZ1QnlidzVJdUZEbWNzaHdBV3hoVUh3N3VLdjFUMTQtaGF5QXFoRVp3S092VWJXOF9Eb0E4d2ctbDNXX3o1NG1MWmV2RHRNaDVybVU3T2VsTkhmTnUzRXhkcmNLOE13MWpVZ0tTUkJ3ZnpaZWl1eUwzYWVRdjREbE1NM1poUk8?oc=5
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxPWG9OMVh3TDRzZWxYTlRJUEVISGxTVS1wdGRqeXV5SXVFc25jcjhhRzN3U0VQcHU0XzZCRzNlQS0tV1hfTkYxcERWdm5uSG00ZFk5cDkwTXpITWNJeDhJWHUwc0RzYmhUX2Uxam5nQVNUWmNrLTZ6SURBaV9fWTd5OHlsR2Y2YUF1RHA2OFZzeWIxMUpFWlQ0NlMzZlI?oc=5
 
-## Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source - Yahoo
-
-- first seen: 2026-08-04 11:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPX0FSRU5TbjBtVFozUEtDb1UwXy1La3pBTW12SFVKbU41c3RqTXQ1ZlpFc1duOXdmb2lNREt5d0NwdEZaY09sN19VNmc5TVhhR0RVeFZFdEdjd01adWN6VEd2YXBPckVTUkpJbjQ2SUI4RHVnSjRISW9CMjliU2FfbHNOUGJFUWZMaXpzYy1weDJDSmN2UHdLaWwyZDV4dDNz?oc=5
-
 ## Top Actor Was Advised To Avoid Taylor Swift’s ‘Wildest Dreams’ Music Video - Yahoo
 
 - first seen: 2026-08-04 11:31 UTC | category: sighting | importance: 3
@@ -206,6 +215,14 @@ Stories: 63
 - sources:
   - [unverified] MyRadioLink.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOMlFIMlJhaWVJLURkWjlxbjdkbnVmT1FoZkpZcElIODdWZFVEN3FfdF9tdnRxb3ZQVXRBaWtpQjVnckQyTjVhVFAtSnlBSzh5WEVvLXc3WkxmMXVrVFNtY3JCSHE2eF9DTXUzNlhhTGRrQlNyQzVNU0JmTEpueGIyZ1E4ZjdPeTJ2MU04S2QzUmZhVHVrV2t6ZTVPZHNHZw?oc=5
   - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMipAFBVV95cUxOdnpzbHl6eW1zS1R3eWhPTWdhS3QyQm5HZE12bWpUem5fRUh0OXhZaWlmNGluUEZiYXNsTzlPTjhvN3B3Q1I0U2tMTVdLYnZaTVdwQi1rMnJTNkt4bDhqRk5CRjFycEt2NXNTSjZfcUFUZmUtdGt2aXZvQjlDZHZKUThDV2pwQjFzbVBqeEFqLXp6dl9vMWZXYXZhdlRndHg0OWF0cg?oc=5
+
+## Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source - Yahoo
+
+- first seen: 2026-08-04 11:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPX0FSRU5TbjBtVFozUEtDb1UwXy1La3pBTW12SFVKbU41c3RqTXQ1ZlpFc1duOXdmb2lNREt5d0NwdEZaY09sN19VNmc5TVhhR0RVeFZFdEdjd01adWN6VEd2YXBPckVTUkpJbjQ2SUI4RHVnSjRISW9CMjliU2FfbHNOUGJFUWZMaXpzYy1weDJDSmN2UHdLaWwyZDV4dDNz?oc=5
 
 ## Phil Collins Says Taylor Swift ‘Really Deserves’ Being ‘the Hugest Thing in the World’ - People.com
 
