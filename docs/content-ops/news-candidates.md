@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 63
+
+## Inside Ted Lasso Season 4's Enchanting Nod to Taylor Swift: How Her Eras Tour Played a Role - E! New
+
+- first seen: 2026-08-05 07:48 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Inside Ted Lasso Season 4's Enchanting Nod to Taylor Swift: How Her Eras Tour Played a Role  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPSHk5WDU3VmpmSjNVcV9Ud0RIRXBCa3YyN1A2UnlQX2tqaDExQWZuUTV0RkFYNkwwYkRPLU9YOFQ2NGxSQS0tM1VHQzJ2NlQwdks3VWdEaGhZSmZ6cXZ1OUUtVmlRejJ5M29Cdl9yX01XZDhMb2R0eWp4NElKcWRobU14NzExdVJZaGVXMFBSNWdMRmtmbHBCZjFqckhsaC1EbzVxZ3RQeVc?oc=5
 
 ## Role Model explains why he ‘couldn’t go’ to Taylor Swift and Travis Kelce’s wedding - Entertainment 
 
@@ -537,27 +545,3 @@ Stories: 65
 - summary: Blake Lively Reportedly Used Taylor Swift’s Private Texts In Alleged Ultimatum  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNT05GaWNKYjk3THJUdU5TRklFRDJYR3p5Y09iaHZsdmU0eE44eEx6R2NYMmUzVjNlYlcwVzlRUnlnSUJ6ZHc3TFc2TXhwb1BCTGxtODJxQjg5SUVDVEZjVnRJOWZlZzdsWnM2aXF3b0dia1AxeUJoREQ0OTdzQWJJMUhsOFI1WnRKblltTmNsRWptNW1rY08wLWQ1QzB3VGhvWnBJVEl4YmU?oc=5
-
-## Taylor Swift was inducted into the Songwriters Hall of Fame — here's what her five chosen songs reve
-
-- first seen: 2026-08-02 07:40 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was inducted into the Songwriters Hall of Fame — here's what her five chosen songs reveal about her genius  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMihgJBVV95cUxPVmFhWlNidU9sT1ByQjAtNHB4UGlUYlZEQkZsTFR3a19YUnNwTUp4Z29iZFpGMXh3YlBWUzRxNnZsajY3aVNvWG94RGttUGhxOTFnbXhkd1E1Y3ROS1lXbUxNVVZpdUltVEZfUjlkZ0FEcGFFVEZZN0Z2UDYzaHZoS3ctRjRMbkR1bEdEX2N5OVVITFZpbzFVal93R0Jrd0hVOTZCY2FZeHE3al9xSmhsMUNjQ0tlTVhybTY0akdqLWIwQTYxaDhNTE1hV0wwYlVfNURXOHkyMWRKaVFwV21ER3FzLU5rMHNwczk1Z0tsWTRYYnhoNGJXcUdaWGh2cUtSRDhvS2dn?oc=5
-
-## See Madison Beer's Massive Diamond, Taylor Swift's Vintage Sparkler and More Celebrity Engagement Ri
-
-- first seen: 2026-08-02 07:40 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: See Madison Beer's Massive Diamond, Taylor Swift's Vintage Sparkler and More Celebrity Engagement Rings  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPSnZEeVNISjVQNVRCd2tuRnExbzhyYlVRQmp0Q0EtOHZGV0U4eHI0QnhsWDlfdnNTbi0yMVVhUWlWYWphM1I3aHVScngxbWQ2VU9yams4TjFJUWNQemFaT2Q1MmlRb0g5VklnbE5BaHdSdjRwNkEwMmdJc3k3aTI4eHMzTkVVUE5hXzJPMy1pVTVkZkFUVFRKcHI2UkU1VFBoUXRIOTJLSkRMUQ?oc=5
-
-## Jason Kelce reveals previously unknown details from Taylor Swift and Travis Kelce's wedding - hitc.c
-
-- first seen: 2026-08-02 07:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce reveals previously unknown details from Taylor Swift and Travis Kelce's wedding  hitc.com
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxQUVVueHNRMU1zWjhEc2dFc2FwQjV3ZG4zNHh5QkpjdTNfbmhhY3lNUHZRUkxvRTRFMTBJVzIzNXdDVHpSYXpiOVJndUZsU21SR0lpSUU2R25PdUF6eWZoTGN1TzhSTEV4LTdhcFRVODR6ZWNacm1yZjVtWFREaGl2Q01ZUENFak1JaXE4Q0JWOWZjUVowMDd1clR4dFp1UXJSdHltNFZNNU9JdEVBRTRGNldB?oc=5
