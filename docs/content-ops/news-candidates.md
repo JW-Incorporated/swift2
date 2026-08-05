@@ -27,6 +27,22 @@ so far".
 
 Stories: 63
 
+## When Taylor Swift played a free Madison show 20 years ago - The Cap Times
+
+- first seen: 2026-08-05 11:27 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: When Taylor Swift played a free Madison show 20 years ago  The Cap Times
+- sources:
+  - [unverified] The Cap Times — https://news.google.com/rss/articles/CBMi4gFBVV95cUxOMjF5RjA0WmNxeEtBdllFYUY3c3AwdlVBR3YxMDlEOExsaGU3bTlyQTluU1BGeThremQ2V2FTZl8tUFNVNzZGaTF4Vm5lblRXbWFiYWZhSVN5MTJpcDVwMDlSYS1yYnpFcXotZHNhczZxTEpxODliODhPRGFSMGkyRmY5eEt4ZDFBZm5janpDa2ljS0Z3V3hscFB5dkNER2pmQWE4bE9CODFZd25fb00xemtBazNoNWpYZUVTQkVtTXh6S2tRSk84dW00enZhbXlGQzFlWW1sUlExZUJ0WGFoVGJ3?oc=5
+
+## 'A joke' - Cooper Kupp reveals what shocked him about Taylor Swift and Travis Kelce's wedding - hitc
+
+- first seen: 2026-08-05 11:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'A joke' - Cooper Kupp reveals what shocked him about Taylor Swift and Travis Kelce's wedding  hitc.com
+- sources:
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxQdDNWOWVqdWJkbmtZWk0yZUNsV3g3YmhlNFRQc1dlZmcxSXFvU2pWVUxCSWZfa0ZITURfN1JYT0I3N09DZ3FFNk5wdTRJdVRwTE5XRHI0N1lnS3NTRGxiVWwxYlRaczhXWmkxTFVOTTdxQi1aZG0yQmRuRWhDbkJCSDl6UnhnUm10eVpKckh4bnNXektndTZJdkxXeXhCM05SLVB4Q3VpYWprNFN2WWEw?oc=5
+
 ## Inside Ted Lasso Season 4's Enchanting Nod to Taylor Swift: How Her Eras Tour Played a Role - E! New
 
 - first seen: 2026-08-05 07:48 UTC | category: tour | importance: 5
@@ -528,20 +544,3 @@ Stories: 63
 - summary: Phil Collins, 75, Reveals the Taylor Swift Song He Was Blown Away by When Meeting Her 15 Years Ago  parade.com
 - sources:
   - [unverified] parade.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxQcE1qazlTWG9Ud09FMXRWVG9HUGZ4WmoyU0VIcGh1d01NZFh6ZE9yazRRN1VKMTN0ZFBESHZ3TmN2c21UVHJRWm9FY1dMcGF1djR2alhBNXZUUlJMRjJfZnJlVnV4dHp0cUZGTV8ySmVURW5LTUxSTS1FTGxVMnUxQ2VpZWM1dkxLWlJLLWE0WWEtSi1HQTJPWHBfM1daWTN1elZGS2FwUjJxVWVnZ0pVT1d1ZzFDdXZQNzNJQg?oc=5
-
-## Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom - Yahoo
-
-- first seen: 2026-08-02 10:48 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Phil Collins Recalls Being ‘Blown Away’ by Taylor Swift Before Her Superstardom  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOQk93Y2NNMGQyeFluRjNqWGF0VFNKM2c4OXZFb000cVlxWldLeWRCaXFkMHh4WTlWWGlQbkZDZTZEUEhXSUZkRXhRRnhFeXFMeTJWdnQ1LU5rUVRfaHRPUTk1WWlMdVFTYWRNM05qMmJVdEd2YVgwWjdtanhkRk5DSGlSeWNXZ3cwZ2YxbDEzMEZnOEtzQUJiajZPOG5BVEE?oc=5
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikgFBVV95cUxOV1VGSVEzQXFlOHBobC1PWHAtWnhzZFRiMURwNmVPTUVNdlpEYzI2N1ZGS2hKNXFvZGJuRzlrZGFpbzFxUDNhczh0QUFNQlBwOVlTQmNELTNFcldNaGphZXdiSDZSMmotbkoxVnl0VFZzTDBkOEZtem1La0ZzcVRpUEV1UmdOWkJIbDdyd2pndDFHZw?oc=5
-
-## Blake Lively Reportedly Used Taylor Swift’s Private Texts In Alleged Ultimatum - Yahoo
-
-- first seen: 2026-08-02 10:48 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively Reportedly Used Taylor Swift’s Private Texts In Alleged Ultimatum  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNT05GaWNKYjk3THJUdU5TRklFRDJYR3p5Y09iaHZsdmU0eE44eEx6R2NYMmUzVjNlYlcwVzlRUnlnSUJ6ZHc3TFc2TXhwb1BCTGxtODJxQjg5SUVDVEZjVnRJOWZlZzdsWnM2aXF3b0dia1AxeUJoREQ0OTdzQWJJMUhsOFI1WnRKblltTmNsRWptNW1rY08wLWQ1QzB3VGhvWnBJVEl4YmU?oc=5
