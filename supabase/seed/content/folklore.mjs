@@ -800,6 +800,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/KaM1bCuG4xo/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — the disco
+            // ball sits upper-left, light rays sweeping down and right.
+            focalPoint: '25% 30%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The disco ball from the official "mirrorball" lyric video.',
             kind: 'archival',
@@ -1419,6 +1422,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg/500px-Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — tall
+            // portrait crop, she's upper third of frame, mic raised, slightly
+            // left of center.
+            focalPoint: '46% 24%',
             credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
             caption: 'Performing "august" during the Eras Tour folklore act, Arlington, March 2023.',
             kind: 'archival',
@@ -1573,6 +1580,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/orXAg5dIMa8/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — seated
+            // figure and guitar centered, slightly right, spotlight burst
+            // above and behind.
+            focalPoint: '55% 33%',
             credit: 'Taylor Swift via YouTube (official performance video)',
             caption: 'Alone in the spotlight at the Grand Ole Opry House — from the official upload of the 2020 ACM Awards performance.',
             kind: 'primary',
@@ -1906,6 +1917,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/MLV2SJKWk4M/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — a
+            // symmetric rain-dark road receding into the woods, genuinely
+            // centered.
+            focalPoint: '50% 48%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The rain-dark woods of the official "illicit affairs" lyric video.',
             kind: 'archival',
@@ -1953,6 +1968,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/9bdLTPNrlEg/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — the
+            // drive-in screen sits upper-center-right, a wide grass field
+            // filling the lower half.
+            focalPoint: '55% 35%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The drive-in movie screen of the official "this is me trying" lyric video.',
             kind: 'archival',
