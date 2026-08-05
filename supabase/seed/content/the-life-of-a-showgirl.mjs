@@ -7617,6 +7617,95 @@ export default {
         ],
       },
     },
+    // --- Chart milestone (Content Shift, vault-run 2026-08-05, Closes #1799):
+    // the first all-country Hot 100 top five, with IKIIKY at No. 3. Verified
+    // against Variety and Rolling Stone directly. NOTE: intake #1799 listed
+    // Ella Langley's No. 1 as "You Look Like You Love Me"; the primary sources
+    // show it is "Choosin' Texas" (its 16th week at No. 1) — corrected here.
+    {
+      slug: 'showgirl-country-sweeps-hot-100-top-five',
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
+      ],
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'music',
+      title: 'Country sweeps the Hot 100\'s entire top five for the first time — "I Knew It, I Knew You" at No. 3',
+      snippet:
+        'On the Aug. 8, 2026 Billboard Hot 100, all five of the top spots are country songs — a first in the chart\'s history. Taylor sits at No. 3 with her Toy Story 5 song "I Knew It, I Knew You," one of four acts in a sweep even the \'90s Garth-and-Shania boom never pulled off.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/country-songs-billboard-hot-100-ella-langley-stella-lefty-1236826778/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'For the first time since the Billboard Hot 100 began in 1958, every song in the chart\'s top five is a country record. On the tally dated Aug. 8, 2026, the order runs: Ella Langley\'s "Choosin\' Texas" at No. 1 (its 16th week on top), Morgan Wallen\'s "Been by Now" debuting at No. 2, Taylor\'s "I Knew It, I Knew You" at No. 3, the Langley–Wallen duet "I Can\'t Love You Anymore" at No. 4, and Stella Lefty\'s "Boston" at No. 5 — four acts, five songs, no pop or hip-hop title among them.\n\nBillboard frames it as a genre milestone rather than any one artist\'s: country had reached four of the top five during two weeks in July 2026, but never the whole top tier at once, and not even the mid-\'90s peak of Garth Brooks and Shania Twain managed a clean sweep. Taylor is one thread in it, not the headline — "I Knew It, I Knew You," her end-credits song for Toy Story 5 and her return to country roots, slipped one place to No. 3 after two weeks at No. 1 earlier in the summer, and its staying power is part of what kept the top five all-country. It is the rare chart record she shares rather than sets, and it lands her Toy Story ballad inside a first-in-history moment for the genre she started in.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/country-songs-billboard-hot-100-ella-langley-stella-lefty-1236826778/',
+            source_title: "Country Songs Take All Five Slots in the Billboard Hot 100's Top 5 for the First Time in Chart History",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/country-songs-hot-100-chart-make-history-1235603286/',
+            source_title: 'Five Country Songs Dominate Hot 100 Chart for First Time Ever',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    // --- Peer/mentorship (Content Shift, vault-run 2026-08-05, Closes #1801):
+    // Gracie Abrams's on-record Rolling Stone quote crediting Taylor. Exact
+    // wording verified against the RS feature and the People/Yahoo carry.
+    {
+      slug: 'showgirl-gracie-abrams-less-precious-with-my-ego',
+      relatedIds: [
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+      ],
+      year: 2026,
+      month: 8,
+      category: 'music',
+      title: 'Gracie Abrams credits Taylor with teaching her to be "less precious with my ego"',
+      snippet:
+        'In a Rolling Stone feature, Gracie Abrams — an Eras Tour opener and a wedding guest — says watching Taylor tune out feedback taught her to hold her own work more loosely: "That\'s helped me feel less precious, with my ego."',
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-features/gracie-abrams-daughter-from-hell-upbringing-relationship-1235600799/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In an August 2026 Rolling Stone cover feature ("Gracie Abrams Built a Career on Honesty. She\'s Going Even Deeper Now"), Gracie Abrams put a name to what years of proximity to Taylor taught her. Abrams — who opened the Eras Tour across its 2023–24 run and was a guest at Taylor and Travis Kelce\'s July 2026 wedding — said she admires Taylor\'s output "not just from a place of quantity, but seemingly from a place of freedom within herself." Asked about that freedom, she reached for the idea of a songwriter learning to let go of her own precious feelings about a finished song.\n\nHer words, on record: "I think her years of experience tuning out feedback — quote, unquote — that\'s [the result of] an earned relationship one has with themselves. And that\'s helped me feel less precious, with my ego, about being like, \'Ooh, six months from now, am I not going to relate to this so much?\'" It is a small, specific piece of craft absorbed by watching rather than being taught — the working-artist version of the mentorship fans have read into the friendship since Abrams first joined the tour. It also sits beside the other Abrams thread the Vault already carries: Aaron Dessner\'s flat denial that her song "Death Wish" was ever about Taylor. The influence here is real and stated; the romance-decoding around it, less so.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/gracie-abrams-daughter-from-hell-upbringing-relationship-1235600799/',
+            source_title: "Gracie Abrams Built a Career on Honesty. She's Going Even Deeper Now",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/gracie-abrams-credits-taylor-swift-023428402.html',
+            source_title: "Gracie Abrams credits Taylor Swift with teaching her to be 'less precious with my ego'",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
     {
       // Authored 2026-07-19 from intake #902. Filled a real gap: the ruling
       // landed July 6 but was never covered. Court-record outcome, so it
