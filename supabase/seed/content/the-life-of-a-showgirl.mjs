@@ -3653,6 +3653,21 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass #762 (2026-08-05): People's own photo of the gown (via
+        // Yahoo's resize CDN, s.yimg.com/media.zenfs.com — the same host
+        // pattern already used across this repo). curl 200 image/jpeg,
+        // downloaded and vision-confirmed: a patient in a white tee at the
+        // mannequin, the bodice covered in marker drawings and a visible
+        // "who's afraid of little old me" TTPD lyric.
+        photos: [
+          {
+            url: 'https://s.yimg.com/lo/mysterio/api/d60389635d7ced6ee3d2d85903561f7949ac4f0bc076f79fde7541bebf672aff/lightyear_networkapi/resizefill_w384_h480%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpeople_218%2F425cb442037224d74b53cd6b33f6c2af',
+            focalPoint: '55% 45%',
+            credit: 'Children\'s Mercy, via People',
+            caption: 'A patient at the mannequin with the tribute gown — its bodice covered in drawings, signatures, and a "who\'s afraid of little old me" lyric.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
