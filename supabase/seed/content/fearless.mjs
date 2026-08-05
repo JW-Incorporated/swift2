@@ -9,6 +9,10 @@ export default {
   eraSlug: 'fearless',
   items: [
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Love Story" pair — the song's
+      // story, and the single's release two months ahead of the album — now
+      // interlink.
+      relatedIds: ['moment:vault-fearless-love-story-arrives-two-months-before-the-album'],
       year: 2008,
       month: 9,
       day: 15,
@@ -228,6 +232,10 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-fear-0", label: "Fearless Tour opens", kind: "tour" },
+      // Cross-link (Stage 3, 2026-07-30): the "Fearless Tour" opening-night
+      // pair — the sold-out crowd, and the marching-band reveal that opened
+      // the show — now interlink.
+      relatedIds: ['moment:vault-fearless-a-marching-band-reveal-to-open-the-fearless-tour'],
       title: 'The Fearless Tour opens to a sold-out crowd in 30 seconds',
       snippet:
         "Evansville, Indiana gave her the key to the city and declared it \"Taylor Swift Day\" — the start of her first-ever headlining tour.",
@@ -357,7 +365,12 @@ export default {
         '"I\'mma let you finish, but Beyoncé had one of the best videos of all time" — Kanye West interrupted her VMA speech for "You Belong With Me" in front of a live audience.',
       sourceUrl: 'https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/',
       thumbnailUrl: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
-      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
+      // Cross-link (Stage 3, 2026-07-30): + "Innocent" — the Speak Now song
+      // written to Kanye West, not about him — a direct reply to this moment.
+      relatedIds: [
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-speak-now-innocent-a-song-written-to-kanye-west-not-about-him',
+      ],
       moment: {
         context:
           'The Radio City crowd went from stunned silence to a standing ovation for Taylor; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Taylor back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
@@ -491,6 +504,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Fearless Tour" opening-night moment.
+      relatedIds: ['moment:vault-fearless-the-fearless-tour-opens-to-a-sold-out-crowd-in-30-seconds'],
       year: 2009,
       month: 4,
       day: 23,
@@ -632,6 +647,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Reem Acra" cluster — three
+      // gowns by the same designer across three award shows — now interlink.
+      relatedIds: [
+        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
+        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
+      ],
       year: 2009,
       month: 11,
       day: 11,
@@ -1418,6 +1439,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            // Photo pass #762 (2026-07-31): viewed. Profile turned left, curls
+            // fanned out around her face — face sits left-of-center, upper third.
+            focalPoint: '38% 30%',
             credit: 'Big Machine Records (album cover art)',
             caption: 'Cover art for Fearless, the album that carries "The Way I Loved You."',
             kind: 'primary',
@@ -1486,7 +1510,12 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            // Photo pass #762 (2026-07-31): viewed. Same cover as the other
+            // Fearless album-track pages — face left-of-center, upper third.
+            focalPoint: '38% 30%',
             credit: 'Big Machine Records',
+            caption: 'Cover art for Fearless, the album that carries her "Untouchable" cover.',
+            kind: 'primary',
           },
         ],
       },
@@ -1675,6 +1704,8 @@ export default {
     // sources per the framework.
     {
       slug: 'love-story-single-release',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Love Story" moment.
+      relatedIds: ['moment:vault-fearless-love-story-and-the-boy-her-family-didnt-approve-of'],
       year: 2008,
       month: 9,
       day: 15,
@@ -2080,6 +2111,11 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
+            // Photo pass #762 (2026-07-31): viewed (2345x1824, wide stage
+            // shot). She's the small figure on the round stage, lower-center;
+            // the big screen carries her face upper-left-of-center — keep the
+            // crop mid-height to hold both in frame.
+            focalPoint: '36% 48%',
             credit: 'calmdownlove / Wikimedia Commons, CC BY 2.0',
             caption:
               'Performing on the Fearless Tour, 2009 — the tour whose Madison Square Garden stop sold out in about a minute.',
@@ -2134,6 +2170,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/2009_Justin_Bieber_NYC_1.JPG',
+            // Photo pass #762 (2026-07-31): viewed. Straight-on portrait,
+            // face centered horizontally, sits in the upper quarter of frame.
+            focalPoint: '46% 20%',
             credit: 'Kerosene Photography / CC BY 2.0 via Wikimedia Commons',
             caption:
               'For reference — not from the Wembley show: 15-year-old Justin Bieber at a New York in-store appearance on Sept. 1, 2009, weeks before he opened the Fearless Tour\'s UK leg.',

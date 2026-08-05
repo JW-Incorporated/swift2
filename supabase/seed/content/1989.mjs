@@ -373,6 +373,53 @@ export default {
       },
     },
     {
+      year: 2016,
+      month: 8,
+      category: 'music',
+      relatedIds: [
+        'moment:vault-1989-wildest-dreams-draws-colonialism-criticism-for-its-overwhelm',
+      ],
+      title: 'Scott Eastwood on Wildest Dreams: his agents said no, he said "why the hell not"',
+      snippet:
+        'Taylor\'s "Wildest Dreams" co-star later revealed his own agents tried to talk him out of the role — "Why would you go be Taylor Swift\'s boy toy?" — and that he waved them off: "Why the hell not?"',
+      sourceUrl: 'https://www.etonline.com/news/195081_scott_eastwood_advised_not_to_star_taylor_swift_wildest_dreams_video',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/7/7a/Scott_Eastwood_%28November_2025%29_%28cropped%29.jpg',
+      moment: {
+        context:
+          'Scott Eastwood played the doomed-romance co-star in the "Wildest Dreams" video — the 1989 single\'s old-Hollywood safari fantasy, shot on location in 2014 — but by his own telling, the people paid to manage his career tried to talk him out of it. "None of my agents wanted me to do it, actually," he told People in 2016. "They said, \'Oh, we don\'t want you to do that! Why would you go be Taylor Swift\'s boy toy?\' And I said, \'Why the hell not?\'" He signed on anyway, and came away a fan: he later called Taylor "a rock star" and "someone I am proud to call a friend." It is a small backstory beat, but a telling one — a reminder that a marquee Taylor Swift video, inevitable-seeming now, once read to a rising actor\'s team as a risk worth vetoing.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/news/195081_scott_eastwood_advised_not_to_star_taylor_swift_wildest_dreams_video',
+            source_title: 'Scott Eastwood Was Advised Not to Star in Taylor Swift\'s \'Wildest Dreams\' Video',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/scott-eastwood-reveals-he-was-advised-against-starring-in-taylor-swifts-wildest-dreams-video',
+            source_title: 'Scott Eastwood reveals he was advised against starring in Taylor Swift\'s \'Wildest Dreams\' video',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Scott_Eastwood_%28November_2025%29_%28cropped%29.jpg',
+            credit: 'Web Summit / Wikimedia Commons, CC BY 4.0',
+            caption: 'Scott Eastwood in 2025. He played Taylor\'s love interest in the 2015 "Wildest Dreams" video — a role his agents advised him to turn down.',
+            kind: 'primary',
+            focalPoint: '42% 30%',
+          },
+        ],
+      },
+    },
+    {
       year: 2015,
       month: 3,
       day: 29,
@@ -535,6 +582,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Calvin Harris" moment.
+      relatedIds: ['moment:vault-1989-hand-in-hand-after-a-haim-show-at-the-troubadour-the-first-c'],
       year: 2016,
       month: 7,
       day: 14,
@@ -999,6 +1048,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Calvin Harris" pair — the first
+      // sighting and the Hiddleston relationship that followed the split —
+      // now interlink.
+      relatedIds: ['moment:vault-1989-tom-hiddleston-weeks-after-the-calvin-harris-split'],
       year: 2015,
       month: 4,
       day: 2,
@@ -1384,6 +1437,9 @@ export default {
         // Photo-enrichment pass (2026-07-18, #762): deliberately kept at one photo — the
         // moment is a label decision with no photographable event; era-correct archival
         // tour shot already covers it, and the only Nov-2014 news art is agency/watermarked.
+        // Re-reviewed 2026-08-01 (#762): searched again (Daniel Ek / Spotify news photos
+        // from the same week, other 1989-era press) — nothing more on-topic than the
+        // existing archival tour shot on an allowed host. Stays reviewed-sparse.
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg', credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', focalPoint: '42% 24%', caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.' }],
       },
     },
@@ -1436,6 +1492,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Out of the Woods" pair — the
+      // writing-room voice memo and the video that closed the era — now
+      // interlink.
+      relatedIds: ['moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve'],
       year: 2014,
       month: 10,
       day: 14,
@@ -2055,6 +2115,8 @@ export default {
     },
     {
       slug: '1989-out-of-the-woods-video-nye',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Out of the Woods" moment.
+      relatedIds: ['moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac'],
       year: 2015,
       month: 12,
       day: 31,
