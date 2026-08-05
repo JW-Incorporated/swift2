@@ -3716,7 +3716,7 @@ export default {
             reportedOn: '2026-08-03',
             status: 'unconfirmed',
             url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
-            note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Swift nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
+            note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Taylor nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
             sourceTier: 'social',
             lastCheckedOn: '2026-08-05',
           },
