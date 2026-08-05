@@ -688,6 +688,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Rascal Flatts" pair — the
+      // diary entry the day she got the call, and the tour opening it led
+      // to — now interlink.
+      relatedIds: ['moment:vault-debut-her-first-arena-tour-opening-for-rascal-flatts-on-a-days-not'],
       year: 2006,
       month: 10,
       day: 18,
@@ -855,6 +859,10 @@ export default {
     },
     // --- Music/business/fashion/sighting depth pass 3 (2026-07-05)
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Teardrops on My Guitar" pair —
+      // who the song was about, and the single's radio-to-pop crossover —
+      // now interlink.
+      relatedIds: ['moment:vault-debut-teardrops-on-my-guitar-goes-to-radio-and-then-to-pop'],
       year: 2006,
       month: 10,
       day: 24,
@@ -890,7 +898,12 @@ export default {
       category: 'music',
       // Cross-link (candidate #1047, 2026-07-25): the grown-up Hendersonville High
       // regret ("Ruin the Friendship") rooted in the same school.
-      relatedIds: ['moment:vault-tloas-ruin-the-friendship-a-regret-from-hendersonville-high'],
+      // Cross-link (Stage 3, 2026-07-30): + the "Picture to Burn" single's
+      // own top-10 chart run.
+      relatedIds: [
+        'moment:vault-tloas-ruin-the-friendship-a-regret-from-hendersonville-high',
+        'moment:vault-debut-picture-to-burn-makes-it-four-straight-top-10s',
+      ],
       title: 'Picture to Burn, and the line rewritten for radio',
       snippet:
         "Born from an after-school outburst -- \"I hate his stupid truck that he doesn't let me drive. He's such a redneck!\" -- that became the chorus of her only anger-driven song on the debut album.",
@@ -1106,6 +1119,9 @@ export default {
     // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
     {
       significance: 'notable', // became genuine pop-culture shorthand — referenced on Ellen and in her own later lyrics, not just a private breakup (docs/decisions.md, 2026-07-19)
+      // Cross-link (Stage 3, 2026-07-30): the "Joe Jonas" pair — how the
+      // relationship began, and the phone call that ended it — now interlink.
+      relatedIds: ['moment:vault-debut-the-joe-jonas-chapter-begins'],
       year: 2008,
       month: 10,
       category: 'relationship',
@@ -1156,6 +1172,8 @@ export default {
     // the audit's additive provenance fields.
     {
       slug: 'rascal-flatts-opening-run',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Rascal Flatts" moment.
+      relatedIds: ['moment:vault-debut-her-diary-entry-the-day-she-got-the-call-to-open-for-rascal-'],
       year: 2006,
       month: 10,
       day: 17,
@@ -1758,6 +1776,8 @@ export default {
     },
     {
       slug: 'teardrops-single-release',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Teardrops on My Guitar" moment.
+      relatedIds: ['moment:vault-debut-teardrops-on-my-guitar-and-the-classmate-who-showed-up-in-he'],
       year: 2007,
       month: 2,
       day: 20,
@@ -1811,6 +1831,8 @@ export default {
     },
     {
       slug: 'picture-to-burn-single',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Picture to Burn" moment.
+      relatedIds: ['moment:vault-debut-picture-to-burn-and-the-line-rewritten-for-radio'],
       year: 2008,
       month: 2,
       day: 4,
@@ -2146,6 +2168,8 @@ export default {
     },
     {
       slug: 'joe-jonas-summer-2008',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Joe Jonas" moment.
+      relatedIds: ['moment:vault-debut-joe-jonas-ends-it-in-a-27-second-phone-call'],
       year: 2008,
       month: 7,
       category: 'relationship',
@@ -2280,7 +2304,21 @@ export default {
             notes: 'carries her "they wanted to shelf me" quote and the RCA walkaway account',
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-31): freely licensed interior of Nashville's
+        // Bluebird Cafe — the listening room this moment is set in. Verified
+        // HTTP 200 + image/jpeg + downloaded and vision-confirmed this session
+        // (1380x886). Contextual venue photo, honestly captioned: the performer
+        // pictured is not Taylor.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Jamie_Meyer_at_Bluebird_Cafe%2C_Nashville.jpg',
+            focalPoint: '37% 44%',
+            credit: 'Uppsalaelle, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              "Inside the Bluebird Cafe's listening room in Nashville — the tiny, in-the-round space where a mid-set industry showcase like the November 2004 round that caught Scott Borchetta's ear plays out just feet from the crowd. (A later night at the venue; the performer pictured is not Taylor.)",
+            kind: 'primary',
+          },
+        ],
       },
     },
     {

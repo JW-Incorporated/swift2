@@ -17,7 +17,8 @@ export default {
   items: [
     {
       year: 2010,
-      month: 10,
+      month: 11,
+      day: 3,
       category: 'business',
       title: 'Speak Now sells over a million copies in a single week',
       snippet:
@@ -29,6 +30,10 @@ export default {
         context:
           "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.\n\nIt also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
         sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-sells-over-1-million-in-record-billboard-200-debut-951902',
+          },
           {
             outlet: 'Grammy.com',
             url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
@@ -112,6 +117,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): "Innocent" is a direct reply to the
+      // 2009 VMA moment — a reader on either page would want the other.
+      relatedIds: ['moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic'],
       year: 2010,
       month: 10,
       day: 25,
@@ -706,6 +714,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
+      relatedIds: [
+        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
+        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
+      ],
       year: 2011,
       month: 11,
       day: 20,
@@ -750,6 +763,11 @@ export default {
 
     // --- Fashion/photo depth pass #2 (2026-07-04) ---
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
+      relatedIds: [
+        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
+        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
+      ],
       year: 2010,
       month: 10,
       day: 25,
@@ -833,6 +851,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Zuhair Murad" cluster — three
+      // looks by the same designer across three eras — now interlink.
+      relatedIds: [
+        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
+        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
+      ],
       year: 2011,
       month: 2,
       day: 27,
@@ -1697,6 +1721,9 @@ export default {
           // shown as thumbnailUrl.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Taylor_Swift_2011_2.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x947 downsized from
+            // 3119x2462). Seated center with the teal guitar, face upper-center.
+            focalPoint: '46% 23%',
             credit: 'dephisticate, Wikimedia Commons (CC BY 2.0)',
             caption: 'Acoustic performance beneath an illuminated tree, Prudential Center, July 2011, on the tour supporting the album.',
             kind: 'archival',
@@ -2141,6 +2168,10 @@ export default {
         // Billboard Music Awards in Las Vegas that May — a different event
         // entirely — and was rejected rather than mislabeled. Genuinely
         // thin for this specific December ceremony.
+        // Re-reviewed 2026-08-01 (#762): tried justjared.com's Dec. 2, 2011
+        // "Billboard Women in Music Luncheon" gallery (the actual ceremony)
+        // but the host blocks automated fetches (403) and no mirror of that
+        // gallery exists on an approved CDN. Stays reviewed-sparse at one photo.
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',

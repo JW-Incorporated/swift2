@@ -3550,6 +3550,179 @@ export default {
         ],
       },
     },
+    {
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'fashion',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r',
+      ],
+      title: 'Children\'s Mercy patients design a tribute wedding gown for Taylor',
+      snippet:
+        'Children being treated at Children\'s Mercy Hospital in Kansas City covered a blank bridal gown in drawings, signatures, well-wishes and Tortured Poets lyrics — a collective "thank you" to Taylor after her July 3 wedding, then shipped it to her.',
+      sourceUrl: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gesture came from Kansas City, and it doubled as a thank-you. Children being treated at Children\'s Mercy Hospital — one of the roughly twenty organizations the couple\'s reported $26 million in wedding-week giving reached — covered a blank wedding gown in their own drawings, handwritten messages, signatures and well-wishes, with lines from The Tortured Poets Department worked in among them. The dress was donated as a blank canvas by Savvy Bridal, a Kansas City boutique, and the finished tribute was packaged to ship to Taylor in the week after her July 3 wedding to Travis Kelce. Local and national reporting framed it plainly as the hospital\'s "thank-you card," tying it back both to the couple\'s donation and to Taylor\'s December 2024 visit to meet patients there. It sits where the era\'s two ongoing threads meet — the wedding and the philanthropy around it — and it belongs to the kids and the institution, not to any one of them: the outlets kept the story at the level of the collective project, and so do we.',
+        sources: [
+          {
+            outlet: 'KCTV5',
+            url: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
+            source_title: 'Children\'s Mercy kids design wedding gown for Taylor Swift',
+            publisher: 'KCTV5',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'People (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/patients-children-mercy-hospital-design-173148603.html',
+            source_title: 'Patients at Children\'s Mercy Hospital Design a Wedding Gown for Taylor Swift',
+            publisher: 'People (via Yahoo)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-maren-morris-vows',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Maren Morris on the vows: "a closer look into their love and humor"',
+      snippet:
+        'Country singer Maren Morris, a guest at the July 3 wedding, told People the couple\'s self-written vows gave the room "a closer look into their love for each other and their sense of humor."',
+      sourceUrl:
+        'https://www.aol.com/articles/taylor-swift-travis-kelce-wedding-163000000.html',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/a/a8/Maren_Morris_2019_by_Glenn_Francis_%28cropped%29.jpg',
+      moment: {
+        context:
+          'Among the roughly 1,000 guests at Madison Square Garden on July 3 was country singer Maren Morris, and in early August she became one of the few to describe the couple\'s self-written vows on the record. Speaking to People, she kept the private lines private but named what the exchange revealed — "a closer look into their love for each other and their sense of humor" — and called witnessing it "an honor."\n\nHer account restores the lighter register the fuller guest reports had left out: those dwelt on how long and how emotional the vows ran; Morris caught the jokes the two wrote into them. Any figures on the vows\' length trace to reporting around her comments, not to Morris.',
+        // Intake #1780 (2026-08-04): re-authored after being held from the
+        // 2026-08-04 Vault Run (#1784). It was held because, dated back then as
+        // the newest TLOAS item, it rendered as a hero directly ahead of the
+        // Shania Twain item and stepped it hero->media, tripping a documented-
+        // brittle example-id assertion in feed-tiers.test.ts. The fix is
+        // editorial, not a test edit: a single named-guest quote about the vows
+        // is a wedding SUB-detail, not a defining moment, so it is right-sized
+        // to a media-tier card (one photo, ~680-char body) that sits below the
+        // hero bar and cannot displace Shania's hero slot. The fuller vows
+        // account (30-minute length, the crying) already lives on the marriage
+        // moment; this adds only Morris's on-record "sense of humor" read.
+        sources: [
+          {
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swift-travis-kelce-wedding-163000000.html',
+            source_title:
+              "Taylor Swift and Travis Kelce's Wedding Vows Offered 'a Closer Look into Their Love and Humor,' Maren Morris Says",
+            publisher: 'People (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/08/01/maren-morris-talks-taylor-swift-travis-kelce-wedding-vows/',
+            source_title: "Maren Morris Gives Insight into Taylor Swift and Travis Kelce's Vows",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'HOLA!',
+            url: 'https://www.hola.com/us/celebrities/20260802916042/taylor-swift-and-travis-kelces-wedding-vows-revealed-their-love-and-humor/',
+            source_title: "Taylor Swift and Travis Kelce's wedding vows revealed their 'love and humor'",
+            publisher: 'HOLA!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 2,
+          },
+        ],
+        // Archival portrait — the vows were described in an interview, not a
+        // photographed event, so this is the closest true visual (same pattern
+        // as the Shania item). thumbnailUrl set to this url so the sync makes it
+        // the primary image. upload.wikimedia.org (allowlisted); curl 200 +
+        // image/jpeg, 2155x2529, vision-confirmed as Maren Morris.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Maren_Morris_2019_by_Glenn_Francis_%28cropped%29.jpg',
+            credit: 'Glenn Francis / PacificProDigital.com, Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'Maren Morris at the iHeartRadio Music Awards, Los Angeles, March 2019.',
+            kind: 'archival',
+            focalPoint: '50% 22%',
+          },
+        ],
+      },
+    },
+    // --- Rumor Desk 2026-08-05 (intake: news digest). A wholly-unconfirmed,
+    // social-tier gossip claim about the newlyweds' rumored puppy — admissible
+    // because it is attributable (Deuxmoi, named), dated, and adjudicable (it
+    // resolves the day the couple confirms a dog/name and fades if it stays
+    // unaddressed). A pet is not a private individual/minor, so no redline; no
+    // location. The whole item rides a "Reported — not confirmed" banner
+    // (confidence: plausible) AND carries a lifecycle-tracked rumors[] entry so
+    // it can later be retired. Deliberately a low-substance, photo-less item
+    // (chip/text tier, never hero) so it cannot displace a hero slot.
+    {
+      slug: 'showgirl-newlyweds-rumored-dog-wendy',
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      confidence: 'plausible',
+      title: 'A rumored newlywed puppy — and a name fans traced to "The Sandlot"',
+      snippet:
+        'A month after the wedding, gossip account Deuxmoi reported the newlyweds had quietly gotten a white puppy named "Wendy" — a name fans read as a nod to Travis\'s favorite film. Neither Taylor nor Kelce has confirmed the dog or the name.',
+      sourceUrl: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In early August 2026, roughly a month after the Madison Square Garden wedding, the gossip account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy to the household — and that its name is "Wendy." Entertainment outlets including Cosmopolitan and SheKnows picked the item up within the day, most flagging that it traces to a single blind item rather than to either of the principals.\n\nThe detail fans latched onto was the name: "Wendy" reads as a reference to Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot" — a movie Kelce has called a favorite and a character he has joked about a childhood crush on. It is the kind of small, sweet story that is easy to want to be true; the honest status is that it is one gossip report the couple has not addressed. Neither Taylor nor Kelce has publicly confirmed adopting a puppy or its name.',
+        sources: [
+          {
+            outlet: 'Cosmopolitan (via AOL)',
+            url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+            source_title: "Just Found Out Taylor Swift and Travis Kelce's Dog's Name, and We're Obsessed",
+            publisher: 'Cosmopolitan',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-rumored-181853069.html',
+            source_title: "Taylor Swift and Travis Kelce's Rumored Puppy Name Could Reveal a Hidden Tribute",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 2,
+          },
+        ],
+        rumors: [
+          {
+            claim:
+              'Gossip account Deuxmoi reported in early August 2026 that Taylor and Kelce had quietly gotten a white puppy named "Wendy," with fans reading the name as a nod to Wendy Peffercorn, the lifeguard in Kelce\'s oft-cited favorite film "The Sandlot."',
+            reportedBy: 'Deuxmoi (via Cosmopolitan)',
+            reportedOn: '2026-08-03',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+            note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Swift nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-05',
+          },
+        ],
+      },
+    },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
     // several days while ingestion kept running; these four items clear the
     // real backlog of verified, non-gossip wedding-adjacent stories. Every
@@ -3629,6 +3802,12 @@ export default {
             reliability_score: 5,
           },
         ],
+        // Photo pass #762 (2026-08-01): searched for a genuine photo — the gift
+        // itself has no photo op (a private wire transfer, acknowledged only
+        // via the fund's own written thank-you), and neither TMZ, Rolling
+        // Stone, ABC7, Officer.com, nor answerthecall.org run a dedicated
+        // event photo for it. Reviewed-sparse: no fabricated stand-in added.
+        photos: [],
       },
     },
     {
@@ -3983,6 +4162,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+            focalPoint: '50% 26%',
+            credit: 'All-Pro Reels / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Jason Kelce, Travis\'s brother and New Heights co-host, in his Eagles playing days. He described his family\'s fan base flipping "from large fat men to little girls" once Travis and Taylor started dating.',
+            kind: 'primary',
           },
         ],
       },
@@ -8794,6 +8982,11 @@ export default {
         // image/jpeg, downloaded and viewed — archival Elizabeth Taylor
         // footage, distinct from the maxresdefault already used on the
         // elizabeth-taylor track pages.
+        // Photo pass #762 (2026-08-01): reaches 2/2. A second, distinct
+        // auto-generated frame from the same official video (maxres2, not
+        // used anywhere else in this file) — curl 200 image/jpeg,
+        // downloaded and vision-confirmed: a different archival scene,
+        // candlelit, ivy in the foreground.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxres3.jpg',
@@ -8804,6 +8997,16 @@ export default {
             caption:
               'The video leans on archival footage of its namesake: Elizabeth Taylor in a violet headscarf, diamond flashing, seaside.',
             kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxres2.jpg',
+            // Face is candlelit, right-of-center, ivy leaves cross the left
+            // third of frame — keep the crop weighted right.
+            focalPoint: '58% 40%',
+            credit: 'Taylor Swift / Republic Records (official "Elizabeth Taylor" video frame, YouTube)',
+            caption:
+              'A second archival scene from the video: Elizabeth Taylor half-lit behind a trellis of ivy.',
+            kind: 'archival',
           },
         ],
       },

@@ -92,6 +92,26 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       outcome: "confirmed",
       sources: [{ name: "A Complete History of Taylor Swift's Best Easter Eggs", url: "https://www.today.com/today/amp/rcna51887" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties" }],
     },
+    {
+      slug: "the-outside-first-song-outcast",
+      kind: "theory",
+      title: "\"The Outside\": the outcast anthem that started the songwriting",
+      claim: "Fans read \"The Outside\" as Taylor's origin story as a songwriter — a song about being a complete outcast at school that doubles as the reason she ever picked up a pen at all.",
+      evidence: "Taylor has confirmed exactly that reading. She has called it one of the first songs she ever wrote and said it \"talks about the very reason I ever started to write songs. It was when I was twelve years old, and a complete outcast at school.\" She told Entertainment Weekly the song is about \"the scariest feeling I've ever felt: going to school, walking down the hall, looking at all those faces, and not knowing who you're gonna talk to that day.\" The isolation traced to a country-music obsession her classmates didn't share — the same difference that later became her whole brand.",
+      confidence: "confirmed_interview",
+      outcome: "confirmed",
+      sources: [{ name: "Taylor Swift — \"The Outside\" (Songfacts)", url: "https://www.songfacts.com/facts/taylor-swift/the-outside" }, { name: "The Outside (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Outside_(Taylor_Swift_song)" }],
+    },
+    {
+      slug: "a-place-in-this-world-mission-statement",
+      kind: "theory",
+      title: "\"A Place in This World\": the thirteen-year-old's mission statement",
+      claim: "A common reading holds \"A Place in This World\" as the thesis of the whole debut — a newly-transplanted teenager measuring the gap between where she was and where she was determined to end up.",
+      evidence: "Taylor's own account backs the reading. She wrote it at thirteen, just after the family moved to Nashville, with co-writers Robert Ellis Orrall and Angelo Petraglia: \"It was tough trying to find out how I was going to get where I wanted to go. I knew where I wanted to be, but I just didn't know how to get there.\" She has traced the ambition itself to a television special about Faith Hill leaving for Nashville — the move Taylor then made herself.",
+      confidence: "confirmed_interview",
+      outcome: "confirmed",
+      sources: [{ name: "Taylor Swift — \"A Place in This World\" (Songfacts)", url: "https://www.songfacts.com/facts/taylor-swift/a-place-in-this-world" }, { name: "A Place in This World", url: "https://en.wikipedia.org/wiki/A_Place_in_This_World" }],
+    },
   ],
   "evermore": [
     {

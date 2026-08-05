@@ -48,6 +48,10 @@ export default {
         photos: [
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1',
+            // Photo pass #762 (2026-07-31): viewed. Same frame used elsewhere
+            // in this file for this same shoot — matching that page's focal
+            // point (seated against the tree, face upper-center-right).
+            focalPoint: '52% 22%',
             credit: 'Beth Garrabrant',
             caption: 'folklore-era publicity photograph by Beth Garrabrant, shot with no styling team during lockdown.',
             kind: 'archival',
@@ -1549,7 +1553,12 @@ export default {
     {
       slug: 'william-bowery-is-joe',
       // Cross-link (candidate #1428): the exile duet the reveal is about.
-      relatedIds: ['moment:vault-folklore-exile-a-break-up-seen-from-both-sides-with-bon-iver-in-the-o'],
+      // Cross-link (Stage 3, 2026-07-30): + the pseudonym's return on a
+      // Midnights song.
+      relatedIds: [
+        'moment:vault-folklore-exile-a-break-up-seen-from-both-sides-with-bon-iver-in-the-o',
+        'moment:vault-midnights-william-bowery-writes-one-more-midnights-love-song',
+      ],
       year: 2020,
       month: 11,
       day: 25,

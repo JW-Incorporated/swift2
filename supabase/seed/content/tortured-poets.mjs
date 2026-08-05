@@ -1450,9 +1450,9 @@ export default {
             reportedOn: '2024-12-03',
             status: 'unconfirmed',
             url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-next-album-engagement-burning-questions-answered-excl/',
-            note: 'Forward-looking tour speculation (allowed by the redlines); no location named. As of this check (late July 2026) no tour has been announced and the source\'s "one year" window has passed — Taylor instead released The Life of a Showgirl and married Kelce — so the 2026-tour prediction looks unlikely but is not formally denied. Resolves on an official tour announcement; fades otherwise.',
+            note: 'Forward-looking tour speculation; no location. Re-checked 2026-08-05: no tour announced and the source\'s 2026 window has largely passed — Taylor released The Life of a Showgirl, married Kelce, and told BBC Radio 1 in October 2025 she was "so tired," with no plans to tour soon. Unlikely now but not formally denied; resolves on an announcement, fades otherwise.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-07-29',
+            lastCheckedOn: '2026-08-05',
           },
         ],
       },
@@ -1489,6 +1489,10 @@ export default {
         // Photo re-check (2026-07-19, Tier 3): stays at one image — Wikimedia
         // Commons has no Rogers Centre Toronto Eras Tour category or files
         // from the November 2024 dates this $2B tally was announced against.
+        // Re-reviewed 2026-08-01 (#762): checked for a Vancouver final-show
+        // (Dec. 8, 2024) photo tied to the tour-total announcement — nothing
+        // on an outlet CDN or Commons beyond wire/Getty art already excluded.
+        // Stays reviewed-sparse at one image.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
