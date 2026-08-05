@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 74
+
+## Taylor Swift Is Reportedly Enjoying Being ‘Mrs. Kelce’ as Andy Reid Weighs In on Travis Kelce’s ‘Dad
+
+- first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Is Reportedly Enjoying Being ‘Mrs. Kelce’ as Andy Reid Weighs In on Travis Kelce’s ‘Dad Bod’  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikAFBVV95cUxNazBmSW10SEF3SXlqWTN2MmhZTWx1SkQxQUNkS3g3R2FkNkpqNGpfNmM0d1REckZtWE9PV3V3WXRxOTFqQXlQNmppQnA0LWtINzBjdUx6a3FEMnhRYlpCNUNDc3F2SnJuOE5LNC1IMGRybFNGbWF0QkdOVTJZdVVFVUlHNjBrSzdlUThMdXFPWTg?oc=5
+
+## Sombr recalls performing for Taylor Swift at Songwriters Hall of Fame: ‘That’s a goddess’ - Deltaple
+
+- first seen: 2026-08-05 22:18 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sombr recalls performing for Taylor Swift at Songwriters Hall of Fame: ‘That’s a goddess’  Deltaplex News
+- sources:
+  - [unverified] Deltaplex News — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQlJJeEx3aUk4NHdfbkVNejZYV29KM3Q0U3NINW4xRzYxanJnaERnT3JMNkNwVzNtVFgtaS1TalAyMWRMS28wNHROUHcxR243YXA4bWlETmhPaTdOc280b3ZMcFZsZ2dsbF9fUEF3YU9yajdTZmhYUW0yWmIzdkUzbHUzQmlzNDlKU2gycnNPcWNUOXliOTE1RzIzQm5PMHhoNDVYOU5maGQ4ZDdUaGNfRHpEeG5YeElKbmJxOFdEbUlDUjQ?oc=5
+
+## The One Luxury That Kylie Jenner and Taylor Swift Can Both Afford—and You Can’t - Slate
+
+- first seen: 2026-08-05 22:18 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: The One Luxury That Kylie Jenner and Taylor Swift Can Both Afford—and You Can’t  Slate
+- sources:
+  - [unverified] Slate — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQeGlYdUFrQm0ta2Vzc2V2cUE4R3A3eFU3Q1R3clcxcTRkTjJBNS1qU1N3RUtNazhpdUVyal9vUEhGcENHZkpmUktfbFk3NzlmQ3E1NHRVUDZOUlhkTmRuZ3oxM1pnUFBRVG5fWnZVUWZpNWRhbWZEdmhGUXAzTnRmdmdzZXc1RWtPZ3Br?oc=5
+
+## Travis Kelce, Taylor Swift Eyeing First Major Decision as Married Couple - Sports Illustrated
+
+- first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce, Taylor Swift Eyeing First Major Decision as Married Couple  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxNbzFmZWoyZHNvUmVZdW9tWG9fZEgzcTRsV3psRkNEWnpQQ3R3c0IxWktwem1VMV9SMVhYTG8tai1NMktqZTNKUjNkMEVGaW9NWHlLblpTNjh1aFNTLWt0clZnVVJjZVUyWk9vX2ZXdW9VaGZOOW5XVHdRcGVRM3FzT3A0b3FkOFlOQlNZNlY2VVdNdm5QSHE1S0xoNEtFNnd5RGdsZk1wUXlyblkyQ0VXYWFQRQ?oc=5
+
+## Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift weddin
+
+- first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift wedding  AOL.com
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE00ZWNlRG1TN09rbG1lY0xZaDVvNXBhZnpnUEt3WDl5MGRGQ1pfbll6RWxUZDVpaExyVWp4Q2FLaFFmZDlBWlBfTGxvRm9hYVVoNDFiamx4SGpLUVFtMHZPTU9RNEZzZmE5ejlaTmRJaTR0NS1vVFhQTUVUNXA?oc=5
+
+## This 2011 Taylor Swift Outfit Is One Of Her Best-Dressed Moments That Everyone Forgot About - glam.c
+
+- first seen: 2026-08-05 22:18 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: This 2011 Taylor Swift Outfit Is One Of Her Best-Dressed Moments That Everyone Forgot About  glam.com
+- sources:
+  - [unverified] glam.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOcFBtUlA3VzhDcVlxX2x2NEFOWFN1bnNfRDFIYnZiU3BMY3FIQ3g3eV9kRXVpeng5azM1bEl4Q0FsZXowM0RlTUxhWnBIYzljMDVSclc2MGlvc0kwM2ZlaVJDU2dORWxTT19UTU44c3FYdFBMTVJ3SmttLVluNlRfdjBMLVpWOTBidmtkeVpoQ1pjZjRVOVRJYzZNYmE?oc=5
 
 ## 'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour — Here's How - Elite Daily
 
@@ -582,27 +630,3 @@ Stories: 71
 - summary: Feature: Kacey Musgraves or Taylor Swift: Which Woman Has Had the Bigger Influence on Country Music’s New Generation?  Entertainment Focus
 - sources:
   - [unverified] Entertainment Focus — https://news.google.com/rss/articles/CBMi7gFBVV95cUxPbUlBYk9NbTRDYldETzFJQXBSWmo0S2dRdWVlVXZmdFpIOFdpZUFGelEyODNIQ1BOdzN3TExGUWNvNGVicm5JUll1aXpZQU1FOUpTeHhpNktGSjluc3RqQUZxNVR0MkZWdzB2bXN0d01kclczMGVmSG5kcktTWDNCdXU1bEJHTHRuc1RrNFRhUVQ3X0dJOWFWeTBjV29WTTd5UnpjeEplQUdCN1preE1zNVRtR3BRQzc3MnFGQTJGS2dHOUFBU1Q3MWsxd0FybFAzOEMxSkg4RXI0TXExcHZZUUtRWGo5UVBOOUFyV21B?oc=5
-
-## Cristiano Ronaldo’s wedding plans break from Taylor Swift-Travis Kelce playbook - New York Post
-
-- first seen: 2026-08-02 22:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cristiano Ronaldo’s wedding plans break from Taylor Swift-Travis Kelce playbook  New York Post
-- sources:
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMipAFBVV95cUxNeGpKLUctVVpDaUNNaUw2eENBOWFQc29fNjRsZUZnN3hNYi1xdURXZm1PMVgxQklibUR5UGtYeGxwRnVlZHVQb19FOVJuS2NGWHF6ZW54ZWZuV2NTUTk5YXRNTU5kUXJEWXlYWVNPN0ZYY1BTTlF1VnNEeHUtNlNSQ2lzQkFEV2FDVUpVU1RoNmlWQXhIREkxQVBJaEtBS3hJdy15ZA?oc=5
-
-## Taylor Swift’s ‘No Choice’ Decision Costs Blake Lively’s Kids A Godmother - Yahoo
-
-- first seen: 2026-08-02 22:06 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘No Choice’ Decision Costs Blake Lively’s Kids A Godmother  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOdDNYX0lKdU9NWlJNRmhhbUt5ZEhxT1lPWlAzMmFGZXBnVDlGR2ZpVW1KeGJuX2RkNV9YZkxpV0VxaUluakFGSnFvYzBkTGdvNFZXT2t5ak9JUWYxZmpyTmhyYU5fM214b2FORGZvRFV4Ny10Q1cwQ1hDbHB3UHRON1I1NUZLSllMcDA1aUE2X2ZhM1kwTkhMWlN1T19zdzByTGQ4?oc=5
-
-## Exec: Taylor Swift is one of the best businesswomen of all time - Yahoo
-
-- first seen: 2026-08-02 22:06 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Exec: Taylor Swift is one of the best businesswomen of all time  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMigAFBVV95cUxOMXllSTRBUENMeWxwNm8wWkFSYlZNT0lSanRSakJXNV95RnNhckpNOEQ4QTZkdGZVam9SY0gwNW1rRjd5amVWRGxHbTk5WlNDcVk1QmhfbFNpdE9tN2NzSWtHNVl5eHEwdFhTTDlURTFpNjdOaVpqSTRpYWtUZWxXeg?oc=5
