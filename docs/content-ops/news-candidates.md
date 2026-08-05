@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 70
+
+## Inside Taylor Swift’s Star-Studded Love Life - Yahoo
+
+- first seen: 2026-08-05 15:24 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Inside Taylor Swift’s Star-Studded Love Life  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxNZ2tWU3pYeFRMOVNxcEJYQ0Y5R0JIWFdxdUk5YXJ2QUJFVFdKeWt0U20zNTc3VElBcWhKZnpUbzZoNzItU3dLM0NOZV80NGhJLXN1eFRIc1BvNFJzbGRoMFE0R0k0S0dkaF8ydzh5d0hhQVJqWjN5UFBqbHFSOEVuVk1aZFNiRElFeXRPSV9UTFNMQ1ZY?oc=5
+
+## Taylor Swift Movies and TV Shows - Young Hollywood
+
+- first seen: 2026-08-05 15:24 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Movies and TV Shows  Young Hollywood
+- sources:
+  - [unverified] Young Hollywood — https://news.google.com/rss/articles/CBMidEFVX3lxTE5HTDRmSG1OX3hnYXdSTlN4eWR1NUlmU0o4b0JyYi1mQUNJMWgzeGNZQUNvc3NLXzdOZmxTdGExQlJKczk5MmRzZUNNNzg4V2tIVnktOWprUGpGT283RjJVakhRcmxLQk83S21oQzJoVU5jVU5R?oc=5
+
+## Role Model confirms his real-life ‘Sally’ is Dakota Johnson, explains Taylor Swift wedding absence -
+
+- first seen: 2026-08-05 15:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Role Model confirms his real-life ‘Sally’ is Dakota Johnson, explains Taylor Swift wedding absence  101.9fm The MIX - WTMX Chicago
+- sources:
+  - [unverified] 101.9fm The MIX - WTMX Chicago — https://news.google.com/rss/articles/CBMiswFBVV95cUxQMXhtdHVfV3BRdGJZM1VtcGdyUVYydEl3SUVuS19pYkdpanZtRTNrTXhNaXp4dkVFeVh2U3d4VnBSdVVJLWVGck8wYmRWeVJRVkhWOUxFc1JtYXpJU1E1Rzcyc0FyM21DNm5LOUlQYjhDV0lNS3JKcmZmSDR4MDAwMV96dmc2Y3lkUk1rVU84ZXhtVXpWNXBUeVBtT3ZrVmI1MktRVWdTdDJoYXJLcEtKXzk3QQ?oc=5
+
+## Nashville couple missed Taylor Swift's wedding after deleting the invite - The Tennessean
+
+- first seen: 2026-08-05 15:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nashville couple missed Taylor Swift's wedding after deleting the invite  The Tennessean
+- sources:
+  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMi9AFBVV95cUxPQVJkS2x6aTl6Tnl0ZVBVc2ZMRzFqdFluZzZXU3dzU2pnd3pULVIzMEdUVmZxX24tcnBWOURTaWdaeHF4UXJiMk5JSmNXWm1QLXU1X0xiMGlmUG51dEhxSmxkNE1yWDUyRWx4YndKZGNRcnJNYml3RjgyS3dQakd5dXk5WEh1VG5uRFRSZ3NpUmc2X21HcVI0V1V4cDRJYkRqSFlYX1gyeWxEclFZdWZrd29CMmpsZElhR3BpUGRLemFfNHJLUHF2Nm44dUVJWmVPLTVzdDM1aUFxaVB3bXFNMURrWkNRamhFaG1wc0FBXzREcGlH?oc=5
+
+## Travis Kelce & Taylor Swift’s Married Life Isn’t Quite What Fans Expected — Source - Yahoo
+
+- first seen: 2026-08-05 15:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce & Taylor Swift’s Married Life Isn’t Quite What Fans Expected — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNNm5OZXFGU1NGZ0NNQzhrU0o5N0I0MkJlamlkVWZaUlFELWllN1dvZC15WlZtWkl1SHB5ZzcteGJldkZTWW10ZVpXbVZPa21hWnBmY3BtUVRKUzZtYUJ3bE5DQ0g4amVsSnVEZU9oeEdwcGI5NkVVUjdBYm9UTEZGeUozRkxCRzFlT3JzZlVsSDdfT2tkcjVWVk9maUhXOGdZV3YxeWl3?oc=5
+
+## Chiefs’ Andy Reid drops mic on Travis Kelce after eventful offseason that included marrying Taylor S
+
+- first seen: 2026-08-05 15:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chiefs’ Andy Reid drops mic on Travis Kelce after eventful offseason that included marrying Taylor Swift  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigAFBVV95cUxQTUFuQ1dFVzJUZDNKc0Y4UXAwY29PSU5UeHhxeEpFOThLdG41clM1WDBqdVVCSjVQc0NDeVhId1hfaDRRQjJzZE9XUWUwUGFKTjFRRk16bkhoYmFOeXc0d3ZNc0I3QW9VVUg2SzFiTXBFSVFkeDVpbHJkWjVKWUNuRw?oc=5
+
+## Rising Pop Star Praises Taylor Swift For How She Has 'Helped' Her Career - Wide Open Country
+
+- first seen: 2026-08-05 15:24 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Rising Pop Star Praises Taylor Swift For How She Has 'Helped' Her Career  Wide Open Country
+- sources:
+  - [unverified] Wide Open Country — https://news.google.com/rss/articles/CBMipgFBVV95cUxOMThobnJuQjd3a0VIdGlaREppazZ5bG0wWjJ0bG11dFpwY3F4R2szMVp3TDh5eFdSSEZCbU5NQm1McDdOamM1QldIR1pBTnczcHpFQ01EaGZzWXJvU2ZzcjBjcWxTWm1IV3MyLW15N1diSlZwdWNLVGNnZ0hvdHFYVkZkaF9WdkQ1R3A0RDZ6LTJjT1AtV0UzSl9zS0lxUjlvWVVGbU53?oc=5
 
 ## When Taylor Swift played a free Madison show 20 years ago - The Cap Times
 
