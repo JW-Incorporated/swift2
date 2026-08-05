@@ -1075,7 +1075,7 @@ export default {
       thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100',
       moment: {
         context:
-          'Closing the show over "Call It What You Want" into "This Is Why We Can\'t Have Nice Things," Taylor wore a custom Jessica Jones gown styled with Christian Louboutin boots.\n\nThe block it dressed carried the night\'s thesis statement: after the final song, the stadium screens signed off with the line "and in the death of her reputation, she felt truly alive" — the sentence Billboard\'s opening-night review singled out as the show\'s "very perfect and poetic finish," and the closest thing the no-interviews era ever gave fans to an artist\'s statement.',
+          'Closing the show over "Call It What You Want" into "This Is Why We Can\'t Have Nice Things," Taylor wore a custom Jessica Jones gown styled with Christian Louboutin boots.\n\nThe block it dressed carried the night\'s thesis statement: after the final song, the stadium screens signed off with the line "and in the death of her reputation, she felt truly alive" — the sentence that became the era\'s unofficial thesis statement — the show\'s "very perfect and poetic finish," per Billboard\'s opening-night review — and the closest thing the no-interviews era ever gave fans to an artist\'s statement.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -1527,7 +1527,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          "The reputation Stadium Tour's North American leg (May 8-Oct. 6, 2018) grossed $266.1 million from 2,068,399 tickets over 38 shows, breaking the U.S. touring record the Rolling Stones had held since their 2005-07 A Bigger Bang tour grossed $245 million — across 70 shows, nearly double what Taylor needed.\n\nThe margin showed up venue by venue: the run averaged $7 million and 54,432 tickets a night, and her three consecutive July dates at MetLife Stadium alone grossed $22 million on 165,654 tickets, beating the venue record she'd set there herself on The 1989 World Tour. Billboard's ledger put her total domestic gross since 2009's Fearless Tour at $687.7 million — over $140 million more than any other artist in that period.",
+          "The reputation Stadium Tour's North American leg (May 8-Oct. 6, 2018) grossed $266.1 million from 2,068,399 tickets over 38 shows, breaking the U.S. touring record the Rolling Stones had held since their 2005-07 A Bigger Bang tour grossed $245 million — across 70 shows, nearly double what Taylor needed.\n\nThe margin showed up venue by venue: the run averaged $7 million and 54,432 tickets a night, and her three consecutive July dates at MetLife Stadium alone grossed $22 million on 165,654 tickets, beating the venue record she'd set there herself on The 1989 World Tour. Her total domestic gross since 2009's Fearless Tour: $687.7 million — over $140 million more than any other artist in that period, per Billboard's own ledger.",
         sources: [
           {
             outlet: 'Billboard',

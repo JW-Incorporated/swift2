@@ -72,7 +72,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The arc runs in order: James cheats on Betty over the summer ("august," told by the other girl, who thought it was real), a friend named Inez tells Betty when school starts, and James turns up at Betty\'s party to apologize ("betty") — while "cardigan" is Betty looking back on all of it from years later. The characters are entirely invented, with names borrowed as an affectionate nod to friends\' kids.\n\nThe songs quote each other: James\'s "I dreamt of you all summer long" answers the events of "august," and Betty\'s "chase two girls, lose the one" calls the whole thing. Rolling Stone\'s review counted all three among the album\'s highlights — "the same love triangle, from all three different perspectives" — and decoding which narrator held which detail became the album\'s first fan parlor game in the hours after release.',
+          'The arc runs in order: James cheats on Betty over the summer ("august," told by the other girl, who thought it was real), a friend named Inez tells Betty when school starts, and James turns up at Betty\'s party to apologize ("betty") — while "cardigan" is Betty looking back on all of it from years later. The characters are entirely invented, with names borrowed as an affectionate nod to friends\' kids.\n\nThe songs quote each other: James\'s "I dreamt of you all summer long" answers the events of "august," and Betty\'s "chase two girls, lose the one" calls the whole thing. All three landed among Rolling Stone\'s album highlights — "the same love triangle, from all three different perspectives" — and decoding which narrator held which detail became the album\'s first fan parlor game in the hours after release.',
         sources: [
           {
             outlet: 'ScreenRant',
@@ -221,7 +221,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
       moment: {
         context:
-          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Taylor, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile."\n\nIt\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes; Rolling Stone\'s Rob Sheffield called it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 16 days later.',
+          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Taylor, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile."\n\nIt\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes — Rob Sheffield\'s Rolling Stone review put it best, calling it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 16 days later.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -838,7 +838,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Co-written and produced with Aaron Dessner, the song grew from an idea Taylor described in her folklore announcement: "a single thread that, for better or for worse, ties you to your fate." Its lyrics recall reading as a girl at Nashville\'s Centennial Park — "green was the color of the grass where I used to read at Centennial Park" — years before meeting the person the song is about; critics have read those details as tracing the path to her relationship with Joe Alwyn.\n\nNPR ranked it No. 22 on its 100 best songs of 2020, praising "all the beautiful detail, all the muscular melody and immaculately placed acoustic production details." On an album of invented characters, it was the track fans treated as the plainly happy autobiographical one — the rare folklore song where the string holds.',
+          'Co-written and produced with Aaron Dessner, the song grew from an idea Taylor described in her folklore announcement: "a single thread that, for better or for worse, ties you to your fate." Its lyrics recall reading as a girl at Nashville\'s Centennial Park — "green was the color of the grass where I used to read at Centennial Park" — years before meeting the person the song is about; critics have read those details as tracing the path to her relationship with Joe Alwyn.\n\nIt landed at No. 22 on NPR\'s 100 best songs of 2020, which praised "all the beautiful detail, all the muscular melody and immaculately placed acoustic production details." On an album of invented characters, it was the track fans treated as the plainly happy autobiographical one — the rare folklore song where the string holds.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Invisible_String' }],
         // Real-photo pass (2026-07-09): CC BY 3.0 photo of Centennial Park
         // from Wikimedia Commons, used on the song's own Wikipedia article
@@ -1010,7 +1010,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "Rolling Stone put folklore at No. 1 on its year-end list of the 50 best albums of 2020, calling it potentially \"the definitive quarantine album.\"\n\nThe writeup framed the win as a creative consequence of the shutdown: without the pressure of a typical rollout, \"Swift shed the über-pop trappings of her previous album, Lover, for a project that put her once-in-a-generation songwriting talent front and center,\" with contributions from the National's Aaron Dessner and Bon Iver's Justin Vernon.",
+          "folklore is Rolling Stone's No. 1 album of 2020 — top of its year-end list of the 50 best albums, called potentially \"the definitive quarantine album.\"\n\nThe writeup framed the win as a creative consequence of the shutdown: without the pressure of a typical rollout, \"Swift shed the über-pop trappings of her previous album, Lover, for a project that put her once-in-a-generation songwriting talent front and center,\" with contributions from the National's Aaron Dessner and Bon Iver's Justin Vernon.",
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1374,7 +1374,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Taylor framed the character sympathetically, deserving kindness rather than blame for a romance that was never really hers. It entered the Hot 100 at No. 23 in the album\'s opening week, and the outro builds to what one critic described as a full-orchestra major-chord climax — the album\'s biggest purely musical release.\n\nIts stature only grew with time: Rolling Stone\'s Rob Sheffield ranked it fifth among all of Taylor\'s songs in his 2021 catalog ranking, calling it "the album\'s most plainly beautiful ballad," and it earned a spot in the Grammys 2021 folklore medley and the Eras Tour\'s folklore act.',
+          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Taylor framed the character sympathetically, deserving kindness rather than blame for a romance that was never really hers. It entered the Hot 100 at No. 23 in the album\'s opening week, and the outro builds to what one critic described as a full-orchestra major-chord climax — the album\'s biggest purely musical release.\n\nIts stature only grew with time: it landed fifth among all of Taylor\'s songs in Rob Sheffield\'s 2021 Rolling Stone catalog ranking, which called it "the album\'s most plainly beautiful ballad," and it earned a spot in the Grammys 2021 folklore medley and the Eras Tour\'s folklore act.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1516,7 +1516,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her first ACM Awards appearance in seven years was staged as minimally as the album itself: seated at the Opry with an acoustic Gibson, a single spotlight glowing behind her, one harmonica player as the entire band, in a burgundy sequined turtleneck.\n\nThe audience-free, pandemic-produced broadcast made it the world television premiere of any folklore song — Variety noted "betty" is the one track on the album that harks back to early Taylor country hits like "Love Story," which made it the natural pick for a country-stage homecoming. It stayed folklore\'s only live TV performance until the Grammys medley the following March.',
+          'Her first ACM Awards appearance in seven years was staged as minimally as the album itself: seated at the Opry with an acoustic Gibson, a single spotlight glowing behind her, one harmonica player as the entire band, in a burgundy sequined turtleneck.\n\nThe audience-free, pandemic-produced broadcast made it the world television premiere of any folklore song — and of the whole album, "betty" is the one track that harks back to early Taylor country hits like "Love Story" (as Variety pointed out), which made it the natural pick for a country-stage homecoming. It stayed folklore\'s only live TV performance until the Grammys medley the following March.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1846,7 +1846,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The structure is the story: verses of muted, procedural regret — the parking lots, the perfume worn only for one person — then a bridge where the narrator finally erupts ("don\'t call me kid, don\'t call me baby") and the song simply stops, with no final chorus to tidy it up.\n\nRolling Stone\'s Rob Sheffield flagged the line "a drug that only worked the first few hundred times" in his album review; the Los Angeles Times called the writing more sophisticated than any of her earlier infidelity songs. It never got a single push and didn\'t need one: it peaked at No. 44 on the Hot 100 on album-cut streaming alone, and the whispered-to-shouted bridge became one of the Eras Tour folklore set\'s loudest singalongs.',
+          'The structure is the story: verses of muted, procedural regret — the parking lots, the perfume worn only for one person — then a bridge where the narrator finally erupts ("don\'t call me kid, don\'t call me baby") and the song simply stops, with no final chorus to tidy it up.\n\nThe line "a drug that only worked the first few hundred times" was the one Rob Sheffield flagged in his Rolling Stone album review; the Los Angeles Times called the writing more sophisticated than any of her earlier infidelity songs. It never got a single push and didn\'t need one: it peaked at No. 44 on the Hot 100 on album-cut streaming alone, and the whispered-to-shouted bridge became one of the Eras Tour folklore set\'s loudest singalongs.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1893,7 +1893,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her commentary framed it around people trying their hardest while assuming nobody notices — the kid who "got wasted like all my potential," the person white-knuckling a hard stretch — and she traced part of it to her own 2016–2017 low, when "I just felt like I was worth absolutely nothing."\n\nWritten and produced with Jack Antonoff (Joe Alwyn holds a co-producer credit), it wraps that fragility in organ, horns, and saxophone, with processed vocals that leave the effort audible. Rolling Stone\'s Rob Sheffield called it "the disturbingly witty tale of someone pouring her heart out, to keep herself from pouring more whiskey." It reached No. 39 on the Hot 100 in folklore\'s opening week.',
+          'Her commentary framed it around people trying their hardest while assuming nobody notices — the kid who "got wasted like all my potential," the person white-knuckling a hard stretch — and she traced part of it to her own 2016–2017 low, when "I just felt like I was worth absolutely nothing."\n\nWritten and produced with Jack Antonoff (Joe Alwyn holds a co-producer credit), it wraps that fragility in organ, horns, and saxophone, with processed vocals that leave the effort audible. Rob Sheffield\'s Rolling Stone review called it "the disturbingly witty tale of someone pouring her heart out, to keep herself from pouring more whiskey." It reached No. 39 on the Hot 100 in folklore\'s opening week.',
         sources: [
           {
             outlet: 'Wikipedia',

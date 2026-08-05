@@ -341,7 +341,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
       moment: {
         context:
-          'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Taylor embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
+          'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Taylor embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — the song clearances were ultimately "granted within a timely manner," per Variety — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
         sources: [
           {
             outlet: 'Billboard',
@@ -566,7 +566,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor credited the cover to "the artistic genius that is @valheria123" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era\'s videos and press cycle.\n\nEvery element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Because Swift\'s beauty choices have a history of doubling as Easter eggs, Refinery29 noted fans immediately began hunting for a hidden meaning — and, more practically, planning recreations: "All of us are going to show up with glittery heart to the tour," as one put it, back when the era was still supposed to get one.',
+          'Taylor credited the cover to "the artistic genius that is @valheria123" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era\'s videos and press cycle.\n\nEvery element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Fans immediately began hunting for a hidden meaning, the way her beauty choices have a history of doubling as Easter eggs (as Refinery29 pointed out) — and, more practically, planning recreations: "All of us are going to show up with glittery heart to the tour," as one put it, back when the era was still supposed to get one.',
         sources: [
           {
             outlet: 'Refinery29',
@@ -770,7 +770,7 @@ export default {
         'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
       moment: {
         context:
-          'Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with "Me!" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie\'s $370 "Frida" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap.\n\nBillboard\'s recap called the staging "stadium-level production" jammed into a theater — pyrotechnics, smoke cannons, and spark showers — across a set that gave "You Need to Calm Down" its live debut and ran through "I Knew You Were Trouble," "Style," and "Love Story," plus acoustic takes on "Welcome to New York" and "Delicate," before a confetti-drenched "Shake It Off" closed the night with Becky G and Dua Lipa back onstage.',
+          'Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with "Me!" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie\'s $370 "Frida" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap.\n\nIt was "stadium-level production" jammed into a theater — pyrotechnics, smoke cannons, and spark showers, per Billboard\'s recap — across a set that gave "You Need to Calm Down" its live debut and ran through "I Knew You Were Trouble," "Style," and "Love Story," plus acoustic takes on "Welcome to New York" and "Delicate," before a confetti-drenched "Shake It Off" closed the night with Becky G and Dua Lipa back onstage.',
         sources: [
           {
             outlet: 'Yahoo / Footwear News',
@@ -2392,7 +2392,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer five-song set — "Blank Space," "ME!," an emotional "Lover," "You Need to Calm Down," and "Shake It Off" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. Rolling Stone\'s recap put the night\'s haul at more than $135,000 from tickets and Twitter activations, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
+          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer five-song set — "Blank Space," "ME!," an emotional "Lover," "You Need to Calm Down," and "Shake It Off" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. The night\'s haul topped $135,000 from tickets and Twitter activations, per Rolling Stone\'s recap, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
         sources: [
           {
             outlet: 'Billboard',
