@@ -7415,6 +7415,22 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
     },
     {
+      id: "vault-tloas-a-rumored-newlywed-puppy-and-a-name-fans-traced-to-the-sandl",
+      slug: "showgirl-newlyweds-rumored-dog-wendy",
+      date: "2026-08-03",
+      dateLabel: "August 3, 2026",
+      title: "A rumored newlywed puppy — and a name fans traced to \"The Sandlot\"",
+      summary: "A month after the wedding, gossip account Deuxmoi reported the newlyweds had quietly gotten a white puppy named \"Wendy\" — a name fans read as a nod to Travis's favorite film. Neither Taylor nor Kelce has confirmed the dog or the name.",
+      body: ["In early August 2026, roughly a month after the Madison Square Garden wedding, the gossip account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy to the household — and that its name is \"Wendy.\" Entertainment outlets including Cosmopolitan and SheKnows picked the item up within the day, most flagging that it traces to a single blind item rather than to either of the principals.", "The detail fans latched onto was the name: \"Wendy\" reads as a reference to Wendy Peffercorn, the lifeguard from the 1993 film \"The Sandlot\" — a movie Kelce has called a favorite and a character he has joked about a childhood crush on. It is the kind of small, sweet story that is easy to want to be true; the honest status is that it is one gossip report the couple has not addressed. Neither Taylor nor Kelce has publicly confirmed adopting a puppy or its name."],
+      tags: ["Relationship"],
+      sources: [{ name: "Just Found Out Taylor Swift and Travis Kelce's Dog's Name, and We're Obsessed", url: "https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html" }, { name: "Taylor Swift and Travis Kelce's Rumored Puppy Name Could Reveal a Hidden Tribute", url: "https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-rumored-181853069.html" }],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
+      confidence: "plausible",
+      rumors: [
+        { claim: "Gossip account Deuxmoi reported in early August 2026 that Taylor and Kelce had quietly gotten a white puppy named \"Wendy,\" with fans reading the name as a nod to Wendy Peffercorn, the lifeguard in Kelce's oft-cited favorite film \"The Sandlot.\"", reportedBy: "Deuxmoi (via Cosmopolitan)", reportedOn: "2026-08-03", status: "unconfirmed", url: "https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html", note: "Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Swift nor Kelce \"has publicly confirmed they adopted a puppy or revealed its name.\" A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.", sourceTier: "social", lastCheckedOn: "2026-08-05" },
+      ],
+    },
+    {
       id: "vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r",
       slug: "showgirl-answer-the-call-donation",
       date: "2026-07-02",
@@ -8277,7 +8293,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       relatedIds: ["moment:vault-ttpd-the-long-canadian-goodbye-six-nights-in-toronto", "moment:vault-ttpd-show-100-at-anfield-and-the-news-the-tour-will-end", "moment:vault-midnights-the-eras-tour-kicks-off-in-glendale", "moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion", "moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last"],
       significance: "defining",
       rumors: [
-        { claim: "As the Eras Tour wound down, an Us Weekly cover story reported that Taylor was weighing another tour — \"albeit on a smaller scale than the Eras Tour\" — as soon as 2026, a source saying \"She had such a great experience on Eras. She really wants to do it again,\" while cautioning nothing was locked: \"A lot of it hinges on what happens over the next year with Travis.\"", reportedBy: "Us Weekly", reportedOn: "2024-12-03", status: "unconfirmed", url: "https://www.usmagazine.com/celebrity-news/news/taylor-swifts-next-album-engagement-burning-questions-answered-excl/", note: "Forward-looking tour speculation (allowed by the redlines); no location named. As of this check (late July 2026) no tour has been announced and the source's \"one year\" window has passed — Taylor instead released The Life of a Showgirl and married Kelce — so the 2026-tour prediction looks unlikely but is not formally denied. Resolves on an official tour announcement; fades otherwise.", sourceTier: "tabloid", lastCheckedOn: "2026-07-29" },
+        { claim: "As the Eras Tour wound down, an Us Weekly cover story reported that Taylor was weighing another tour — \"albeit on a smaller scale than the Eras Tour\" — as soon as 2026, a source saying \"She had such a great experience on Eras. She really wants to do it again,\" while cautioning nothing was locked: \"A lot of it hinges on what happens over the next year with Travis.\"", reportedBy: "Us Weekly", reportedOn: "2024-12-03", status: "unconfirmed", url: "https://www.usmagazine.com/celebrity-news/news/taylor-swifts-next-album-engagement-burning-questions-answered-excl/", note: "Forward-looking tour speculation; no location. Re-checked 2026-08-05: no tour announced and the source's 2026 window has largely passed — Taylor released The Life of a Showgirl, married Kelce, and told BBC Radio 1 in October 2025 she was \"so tired,\" with no plans to tour soon. Unlikely now but not formally denied; resolves on an announcement, fades otherwise.", sourceTier: "tabloid", lastCheckedOn: "2026-08-05" },
       ],
     },
     {
