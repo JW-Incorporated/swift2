@@ -7778,6 +7778,19 @@ export default {
             // Jessie's face dead-center between the outstretched arms.
             focalPoint: '48% 35%',
           },
+          // Photo pass 2026-08-06 (vault-run): reaches 2/2. A second, distinct
+          // frame from the SAME official video (maxres2, unused elsewhere) —
+          // curl 200 image/jpeg, 1280x720, downloaded and vision-confirmed: a
+          // different scene, Jessie downcast beside Woody. Jessie is the song's
+          // narrator, so the crop is weighted to keep her face framed.
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxres2.jpg',
+            focalPoint: '34% 40%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video frame, YouTube)',
+            caption:
+              'A quieter beat from the same video: Jessie, the cowgirl whose story the song tells, downcast beside Woody.',
+            kind: 'archival',
+          },
         ],
         // Rumor Desk 2026-07-20: the moment above holds the confirmed line
         // ("not a nominee, not yet"); this separates the labeled, forward-
