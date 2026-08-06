@@ -754,6 +754,11 @@ export default {
     // sourced from dedicated Wikipedia song pages, NME (citing a December
     // 2020 Entertainment Weekly interview), Billboard, and Rolling Stone.
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-a-festival-instead-of-a-tour',
+        'moment:vault-lover-lover-fest-falls-to-the-pandemic',
+      ],
       year: 2020,
       month: 7,
       day: 24,

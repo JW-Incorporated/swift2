@@ -227,8 +227,12 @@ export default {
       // Cross-link (candidate #1451): the "I Can See You" video — this release's
       // marquee vault track — premiered live in Kansas City the same night the
       // album dropped.
+      // (Stage 3, 2026-08-06): also links the "Speak Now (Taylor's Version)"
+      // cluster — the announcement, and the album page itself.
       relatedIds: [
         'moment:vault-midnights-the-i-can-see-you-video-reunites-the-taylors',
+        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
+        'moment:vault-speak-now-speak-now-taylors-version',
       ],
       snippet:
         "716,000 units in week one, the biggest album week of 2023 to that point — her 12th No. 1 on the Billboard 200.",
@@ -3092,6 +3096,11 @@ export default {
     // source_type/accessed_at/reliability_score) alongside legacy {outlet,url}.
     {
       slug: 'midnights-mayhem-with-me',
+      // Cross-link (Stage 3, 2026-08-06): the "Midnights Mayhem with Me"
+      // cluster — the tracklist reveal and the mechanics behind it.
+      relatedIds: [
+        'moment:vault-midnights-midnights-mayhem-with-me-fate-a-bingo-cage-and-thirteen-ping',
+      ],
       year: 2022,
       month: 10,
       day: 7,
@@ -3647,8 +3656,12 @@ export default {
       // Cross-link (candidate #1317): the "Bejeweled" video's easter eggs (three
       // stepsisters, an orchestral "Long Live") were read as pointing to Speak
       // Now as the next re-record — this is where that prediction paid off.
+      // (Stage 3, 2026-08-06): the "Speak Now (Taylor's Version)" cluster —
+      // the album page and its record-breaking week.
       relatedIds: [
         'moment:vault-midnights-bejeweled-arrives-with-a-psychotic-amount-of-easter-eggs',
+        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
+        'moment:vault-speak-now-speak-now-taylors-version',
       ],
       threadIds: ['taylors-version'],
       year: 2023,
@@ -4834,9 +4847,13 @@ export default {
       // Cross-links (ledger #1435): the album six days out, and the Nov-2023
       // Buenos Aires "Karma is the guy on the Chiefs" moment the Ice-Spice-set
       // "Karma" dance rhymes with. Both ids verified in the generated vault.
+      // (Stage 3, 2026-08-06): also links the "New Heights" cluster — the
+      // podcast appearances this hat foreshadows.
       relatedIds: [
         'moment:vault-ttpd-the-tortured-poets-department',
         'moment:vault-midnights-karma-is-the-guy-on-the-chiefs-sung-with-travis-watching',
+        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
       ],
       year: 2024,
       month: 4,
@@ -4958,6 +4975,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Midnights Mayhem with Me"
+      // cluster.
+      relatedIds: [
+        'moment:vault-midnights-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
+      ],
       year: 2022,
       month: 9,
       day: 21,

@@ -3062,6 +3062,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
+        'moment:vault-tloas-the-rock-hall-puts-the-ophelia-gown-in-legends-of-rock',
       ],
       title: 'The Rock Hall builds an "Ophelia" display — a tribute, not an induction',
       snippet:
@@ -6980,6 +6981,7 @@ export default {
         'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
+        'moment:vault-tloas-the-rock-hall-builds-an-ophelia-display-a-tribute-not-an-ind',
       ],
       year: 2026,
       month: 6,
@@ -7074,6 +7076,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
         'moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-',
+        'moment:vault-midnights-coachella-in-a-new-heights-hat',
       ],
       year: 2026,
       month: 7,

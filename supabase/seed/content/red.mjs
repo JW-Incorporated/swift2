@@ -243,6 +243,7 @@ export default {
       relatedIds: [
         'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
         'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
+        'moment:vault-red-everything-has-changed-duet',
       ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
       snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
@@ -473,6 +474,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
+      relatedIds: [
+        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
+        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
+      ],
       year: 2013,
       month: 2,
       day: 10,
@@ -951,6 +957,10 @@ export default {
 
     // --- Sightings pass (2026-07-05) ---
     {
+      // Cross-link (Stage 3, 2026-08-06): the Times Square NYE kiss weeks
+      // later — the relationship's public confirmation, then its most-
+      // photographed moment.
+      relatedIds: ['moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square'],
       year: 2012,
       month: 12,
       day: 2,
@@ -1339,6 +1349,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the Central Park stroll that first
+      // confirmed the relationship.
+      relatedIds: ["moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles"],
       year: 2012,
       month: 12,
       day: 31,
@@ -1630,6 +1643,9 @@ export default {
     },
     {
       slug: 'red-begin-again-single',
+      // Cross-link (Stage 3, 2026-08-06): the "Begin Again" cluster — the
+      // single, and its music-video companion piece.
+      relatedIds: ['moment:vault-red-begin-again-as-the-soft-landing'],
       year: 2012,
       month: 10,
       day: 1,
@@ -1731,6 +1747,12 @@ export default {
     },
     {
       slug: 'red-conor-kennedy-split',
+      // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster — how
+      // it started, over in the speak-now era.
+      relatedIds: [
+        'moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port',
+        'moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod',
+      ],
       year: 2012,
       month: 10,
       day: 25,
@@ -2540,6 +2562,10 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "red-everything-changed",
+      // Cross-link (Stage 3, 2026-08-06): the song's writing session.
+      relatedIds: [
+        "moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer",
+      ],
       year: 2013,
       month: 7,
       day: 6,
