@@ -177,6 +177,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
+      relatedIds: [
+        "moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice",
+        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
+      ],
       year: 2011,
       month: 11,
       day: 9,
@@ -263,6 +268,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Speak Now World Tour"
+      // cluster — the tour's open and close.
+      relatedIds: ['moment:vault-speak-now-the-speak-now-world-tour-closes-out-at-123-7-million'],
       year: 2011,
       month: 2,
       day: 9,
@@ -404,7 +412,7 @@ export default {
       thumbnailUrl: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
       moment: {
         context:
-          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. Insider's CMA retrospective files it as a classic rather than a showstopper, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
+          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. A classic rather than a showstopper, per Insider's CMA retrospective, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
         sources: [
           {
             outlet: 'Yahoo Entertainment (Insider)',
@@ -473,6 +481,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
+      relatedIds: [
+        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
+        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
+      ],
       year: 2011,
       month: 1,
       day: 5,
@@ -1193,6 +1206,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster.
+      relatedIds: [
+        'moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port',
+        'moment:vault-red-the-conor-kennedy-summer-quietly-ends',
+      ],
       year: 2012,
       month: 8,
       category: 'sighting',
@@ -1292,6 +1310,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
+      // the song, and its radio-single release.
+      relatedIds: ['moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two'],
       year: 2010,
       month: 10,
       day: 12,
@@ -1521,6 +1542,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Speak Now World Tour" cluster.
+      relatedIds: ['moment:vault-speak-now-the-speak-now-world-tour-opens-in-singapore'],
       year: 2012,
       month: 3,
       day: 18,
@@ -1733,6 +1756,8 @@ export default {
     },
     {
       slug: 'back-to-december-single-release',
+      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster.
+      relatedIds: ['moment:vault-speak-now-back-to-december-her-first-apology-song'],
       year: 2010,
       month: 11,
       day: 15,
@@ -2237,6 +2262,11 @@ export default {
     },
     {
       slug: 'conor-kennedy-first-linked',
+      // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster.
+      relatedIds: [
+        'moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod',
+        'moment:vault-red-the-conor-kennedy-summer-quietly-ends',
+      ],
       year: 2012,
       month: 7,
       day: 25,
@@ -2403,6 +2433,12 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "speak-now-taylors-version",
+      // Cross-link (Stage 3, 2026-08-06): the announcement and record-week
+      // moments for this same album, over in the midnights era.
+      relatedIds: [
+        "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
+        "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th",
+      ],
       year: 2023,
       month: 7,
       day: 7,

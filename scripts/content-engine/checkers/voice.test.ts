@@ -194,6 +194,32 @@ describe('content.voice.wire-attribution', () => {
     expect(f).toEqual([]);
   });
 
+  it('flags present-tense outlet verbs too, not just past tense (real miss, 2026-08-06 spot-check)', async () => {
+    // Real misses found reading the shipped corpus by hand: the original
+    // verb list only had past tense, so "Nylon logs it as..." and "Rolling
+    // Stone's review read like a coronation" both sailed through clean.
+    const logs = await checkWireAttribution([
+      item({
+        context:
+          'The retrospectives don\'t fully agree: Nylon logs it as a custom drop-waist gown, while another outlet files it differently.',
+      }),
+    ]);
+    expect(logs).toHaveLength(1);
+
+    const read = await checkWireAttribution([
+      item({ context: 'By the time the tour reached New York, Rolling Stone\'s review of the show read like a coronation.' }),
+    ]);
+    expect(read).toHaveLength(1);
+  });
+
+  it('does not flag "Vogue cover" / "Rolling Stone cover" — the noun, not the verb (real false positive)', async () => {
+    const f = await checkWireAttribution([
+      item({ context: 'Her first Vogue cover, shot by Mario Testino, hit newsstands in January.' }),
+      item({ context: 'The Rolling Stone cover ran the same week as the album announcement.' }, { key: 'b' }),
+    ]);
+    expect(f).toEqual([]);
+  });
+
   it('does not flag a person\'s name that happens to share a word with an outlet', async () => {
     // "Time" the magazine is in the outlet list; "time" as an ordinary noun
     // must not collide because the pattern requires a capitalized match

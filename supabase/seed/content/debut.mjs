@@ -412,7 +412,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
       moment: {
         context:
-          'Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before "Fearless" brought in gold sequins and more polish.\n\nW Magazine\'s style-evolution piece files the whole period under one figure: "the curly-haired country girl of the Taylor Swift era." The look wasn\'t incidental — it was of a piece with the music, a teenager with an acoustic guitar singing confessional country, dressed like the girl-next-door those songs were narrated by. It read as authenticity first and fashion second, which is exactly why later eras could get so much mileage out of subverting it.',
+          'Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before "Fearless" brought in gold sequins and more polish.\n\nOne figure sums up the whole period, per W Magazine\'s style-evolution piece: "the curly-haired country girl of the Taylor Swift era." The look wasn\'t incidental — it was of a piece with the music, a teenager with an acoustic guitar singing confessional country, dressed like the girl-next-door those songs were narrated by. It read as authenticity first and fashion second, which is exactly why later eras could get so much mileage out of subverting it.',
         sources: [
           { outlet: 'Who What Wear', url: 'https://www.whowhatwear.com/taylor-swift-style-eras' },
           { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
@@ -456,7 +456,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg',
       moment: {
         context:
-          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era: W Magazine\'s evolution piece literally names the period after it, "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (loosened around 2011 and fully straightened by the Red era, long before reputation\'s sleeker looks) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
+          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era — literally its name in W Magazine\'s evolution piece: "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (loosened around 2011 and fully straightened by the Red era, long before reputation\'s sleeker looks) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
         sources: [
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/beauty/hair/g12774421/taylor-swift-hair/' },
           { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
@@ -483,6 +483,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Sandi Spika" designer cluster.
+      relatedIds: ['moment:vault-debut-a-sandi-spika-drop-waist-gown-for-the-2007-acm-awards'],
       year: 2008,
       month: 2,
       day: 10,
@@ -618,6 +620,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Sandi Spika" designer cluster.
+      relatedIds: ['moment:vault-debut-a-purple-sandi-spika-gown-for-her-first-grammys'],
       year: 2007,
       month: 5,
       day: 15,
@@ -630,7 +634,7 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces',
       moment: {
         context:
-          'Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007 — the same ceremony where she performed "Tim McGraw" to Tim McGraw\'s face and then introduced herself with "Hi, I\'m Taylor." One of two Sandi Spika red-carpet gowns she wore across 2006-2008, the designer who dressed most of her earliest big nights.\n\nThe retrospectives don\'t fully agree on the dress: Nylon logs it as a custom drop-waist Sandi Spika gown, while W Magazine\'s evolution piece files her 2007 ACM look as a pink corseted Sandi Spika gown. Either way it sits right at the hinge point in her early styling — the last stretch before the more structured, corseted silhouettes took over that year\'s CMAs and the 2008 Grammys.',
+          'Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007 — the same ceremony where she performed "Tim McGraw" to Tim McGraw\'s face and then introduced herself with "Hi, I\'m Taylor." One of two Sandi Spika red-carpet gowns she wore across 2006-2008, the designer who dressed most of her earliest big nights.\n\nThe retrospectives don\'t fully agree on the dress: one calls it a custom drop-waist Sandi Spika gown, another describes her 2007 ACM look as a pink corseted Sandi Spika gown. Either way it sits right at the hinge point in her early styling — the last stretch before the more structured, corseted silhouettes took over that year\'s CMAs and the 2008 Grammys.',
         sources: [
           { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp' },
           { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
@@ -1611,7 +1615,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
       moment: {
         context:
-          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record (cut across Nashville studios; Robert Ellis Orrall co-produced).\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. She arrived, at 16, "with a fully formed idea of herself as an artist" — Billboard\'s own tenth-anniversary read on it, simply put.\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song ("Tim McGraw" hides "can\'t tell me nothin\'," "Our Song" "live in love") — a code she\'d repeat on every album booklet through 1989 (2014), starting here.\n\nIts lead single, "Tim McGraw" (June 19, 2006), was named after an established country star so an ex would think of her when he heard it; co-written with Liz Rose in a fifteen-minute after-school session, it reached No. 6 on Hot Country Songs and No. 40 on the Hot 100. Four more singles followed, and "Our Song" — which she wrote alone in the ninth grade — went to No. 1, making her the youngest person to single-handedly write and perform a Hot Country Songs chart-topper. The album existed at all because Scott Borchetta, having heard her at Nashville\'s Bluebird Café, made her the first artist signed to his new label, Big Machine, after she had walked away from an RCA development deal at 14. Reviews were warm if not rapturous (Metacritic 67; "the Tammy Wynette of t.m.i.," per Rolling Stone), and the record eventually certified 8x platinum — a debut that simply never stopped selling. Its green cover was shot by Andrew Orth, a family friend who had photographed her since before fame.',
+          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record (cut across Nashville studios; Robert Ellis Orrall co-produced).\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. She arrived, at 16, "with a fully formed idea of herself as an artist," in the words of Billboard\'s own tenth-anniversary retrospective — simply put.\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song ("Tim McGraw" hides "can\'t tell me nothin\'," "Our Song" "live in love") — a code she\'d repeat on every album booklet through 1989 (2014), starting here.\n\nIts lead single, "Tim McGraw" (June 19, 2006), was named after an established country star so an ex would think of her when he heard it; co-written with Liz Rose in a fifteen-minute after-school session, it reached No. 6 on Hot Country Songs and No. 40 on the Hot 100. Four more singles followed, and "Our Song" — which she wrote alone in the ninth grade — went to No. 1, making her the youngest person to single-handedly write and perform a Hot Country Songs chart-topper. The album existed at all because Scott Borchetta, having heard her at Nashville\'s Bluebird Café, made her the first artist signed to his new label, Big Machine, after she had walked away from an RCA development deal at 14. Reviews were warm if not rapturous (Metacritic 67; "the Tammy Wynette of t.m.i.," per Rolling Stone), and the record eventually certified 8x platinum — a debut that simply never stopped selling. Its green cover was shot by Andrew Orth, a family friend who had photographed her since before fame.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1845,7 +1849,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
       moment: {
         context:
-          'Sent to country radio on Feb. 4, 2008, it peaked at No. 3 on Hot Country Songs and No. 28 on the Hot 100 — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, with "Should\'ve Said No" still to come as the fifth that May.\n\nThe Trey Fanjoy video, premiered March 14, staged the revenge fantasy with real pyrotechnics at Nashville\'s Sommet Center and cast her actual high-school best friend, Abigail Anderson, in her backup band. Billboard\'s anniversary retrospective files it as the founding document of her "woman-scorned" mode; the RIAA eventually certified it double platinum.',
+          'Sent to country radio on Feb. 4, 2008, it peaked at No. 3 on Hot Country Songs and No. 28 on the Hot 100 — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, with "Should\'ve Said No" still to come as the fifth that May.\n\nThe Trey Fanjoy video, premiered March 14, staged the revenge fantasy with real pyrotechnics at Nashville\'s Sommet Center and cast her actual high-school best friend, Abigail Anderson, in her backup band. It\'s the founding document of her "woman-scorned" mode, per Billboard\'s anniversary retrospective; the RIAA eventually certified it double platinum.',
         sources: [
           {
             outlet: 'Wikipedia',

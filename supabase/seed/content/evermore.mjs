@@ -1065,6 +1065,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "David Koma" designer cluster.
+      relatedIds: [
+        'moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi',
+      ],
       year: 2021,
       month: 11,
       day: 11,
@@ -1107,6 +1111,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "David Koma" designer cluster.
+      relatedIds: [
+        'moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s',
+      ],
       year: 2021,
       month: 11,
       day: 13,
