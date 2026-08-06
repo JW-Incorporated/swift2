@@ -1390,13 +1390,13 @@ export default {
       },
     },
     {
+      // Cross-link (vault-run 2026-08-06): the Showgirl-era Christmas Day game
+      // at Arrowhead — the same recurring holiday-game ritual, two years on.
+      relatedIds: ['moment:vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents'],
       year: 2023,
       month: 12,
       day: 25,
       category: 'sighting',
-      // Cross-link (Stage 3, 2026-08-10): the recurring Christmas Day
-      // Arrowhead game, a year later.
-      relatedIds: ['moment:vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents'],
       title: 'A Santa-costumed entrance for a Christmas Day upset',
       snippet:
         'She arrived at Arrowhead on Christmas alongside a companion dressed as Santa; the Raiders upset the Chiefs 20–14 in the most-watched Christmas Day game since 1989.',
@@ -2810,13 +2810,13 @@ export default {
       },
     },
     {
+      // Cross-link (vault-run 2026-08-06): Jason Kelce on the new audience
+      // Taylor brought the family — the same Taylor-and-Jason throughline.
+      relatedIds: ['moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-'],
       year: 2024,
       month: 1,
       day: 21,
       category: 'sighting',
-      // Cross-link (Stage 3, 2026-08-10): the "Jason Kelce" cluster —
-      // his own later commentary on the relationship's spotlight.
-      relatedIds: ['moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-'],
       title: 'A frigid divisional round in Buffalo, seated with Jason Kelce',
       snippet:
         "Braving frigid temperatures at Highmark Stadium, she watched the Chiefs beat the Bills 27–24 from a suite alongside Travis's brother Jason — while some Bills fans in the crowd held up a sign reading they'd come \"for Taylor.\"",
