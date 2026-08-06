@@ -169,16 +169,33 @@ const OUTLETS = [
 // possessive + one describing noun, e.g. "Billboard's night-one gallery
 // logged") is the tell — the outlet's own editorial act, not a person's or
 // the item's voice, drives the sentence.
+//
+// Both tenses for every verb (2026-08-06, manual 20-item spot-check found
+// real misses): the original list only had past tense, so present-tense
+// wire framing sailed through clean — "Nylon LOGS it as...", "Rolling
+// Stone's review READ like a coronation." Same outlet-name anchor keeps
+// false positives low even with a wider verb set: the match still requires
+// a real, allowlisted outlet's proper name immediately before the verb, so
+// generic prose ("she said", "a source told") never trips it.
+// NOTE: deliberately no "cover(s/ed)" — in this corpus "Vogue cover" /
+// "Rolling Stone cover" is almost always the NOUN (a magazine cover), not
+// the verb "to cover a story," and it produced real false positives on
+// items like "Her first Vogue cover, shot by Mario Testino."
 const REPORT_VERB =
-  /(?:logged|tracked|noted|ranked|slotted|reported|found|called|flagged|singled out|credited|counted|described|covered|put|placed|named)/;
+  /(?:logs?|logged|tracks?|tracked|notes?|noted|ranks?|ranked|slots?|slotted|reports?|reported|finds?|found|calls?|called|flags?|flagged|singles? out|singled out|credits?|credited|counts?|counted|describes?|described|puts?|put|places?|placed|names?|named|reads?|read|files?|filed|writes?|wrote|says?|said|dubs?|dubbed|hails?|hailed|praises?|praised|pegs?|pegged|brands?|branded)/;
 const outletPattern = OUTLETS.map((o) => o.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
 // NOT case-insensitive: outlets are always proper nouns in real prose, and
 // an 'i' flag here would let an ordinary lowercase word collide with an
 // outlet name that happens to also be a common word — e.g. "at the time
 // noted" (ordinary "time") matching "Time" (the magazine). Requiring the
 // real capitalization is what keeps this precise.
+// Gap between the outlet's possessive and the verb widened 3 -> 5 words
+// (2026-08-06, real miss): "Rolling Stone's review OF THE SHOW read" has 4
+// words in the gap ("review", "of", "the", "show") — the original 3-word cap
+// missed it. Still bounded, not unlimited, to avoid spanning into an
+// unrelated verb later in a long sentence.
 const WIRE_ATTRIBUTION = new RegExp(
-  `\\b(?:${outletPattern})(?:'s\\s+\\w+(?:[- ]\\w+){0,2})?\\s+${REPORT_VERB.source}\\b`,
+  `\\b(?:${outletPattern})(?:'s\\s+\\w+(?:[- ]\\w+){0,4})?\\s+${REPORT_VERB.source}\\b`,
   'g',
 );
 
