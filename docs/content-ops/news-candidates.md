@@ -25,7 +25,41 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## During a recent visit to NBC6, Perez Hilton spoke about Taylor Swift’s wedding, his recent move back
+
+- first seen: 2026-08-06 15:25 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a recent visit to NBC6, Perez Hilton spoke about Taylor Swift’s wedding, his recent move back to Miami and what it’s been like returning to the city where he grew up.  facebook.com
+- sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPQnpONllpX0F4REVKdndJN2FhbnI2eTRhY2ZpRHg1cHZsWFhXOEUzRENOQlZLa3UzMHNjNUVlakVkNzdhM1BYRkM4OTZzeklDRkpISG5TSjl4a0ZEbUxlUnVrejg2WXExWlVnX2ktZVVQTEh5bzNySzRxZ1NEN01GT1RydFQtSTQzR05fSEFpMkduSnNFYVYyZFctRl8tQnQ1MHpvNDdMN19CZHMySm5OVnkySC1oN1dBc3BFV0hhMW9aSlBTdEdJb3liQ2pYQWdFTjAxSTFPQjBDdDlCX0xZ?oc=5
+
+## Kylie Kelce reveals who cried at Taylor Swift, Travis Kelce wedding - USA Today
+
+- first seen: 2026-08-06 15:25 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Kylie Kelce reveals who cried at Taylor Swift, Travis Kelce wedding  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixAFBVV95cUxPRFZEVjNvQl9LNmRoSm1XMVFET0lXQVppTlRJVzBtNzl3YnAyV1djRjl1Qjk2eUdmbVVCbDlwT0Y1TEJBcmxpNU5VVnVWYzBXZVRaM0dodFNHV25STjlkT0lGbWJXSllsNFh4X1JNVmZ4OWRXZmg2SDl4MlA3UkdBdGpVYXNLU1ZBX3VyX3NKVlVyenJXVjhOTzhpTlRaN3M4MUdVdkxhY0xzaktJdWtsNEd0TDhsYld4TlNlNjI4Sl80R012?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSmJ3Z0hYXzN2Zmw3TlMzb0VvdlZIUmxNc2NuUUJvWlRRRXl0eGJxNHQzMjloUGtPaXNWTUZkX3hLTkNTZDY5X05PVEE4dEZyeVhqeUVLRUgteTlFUnhxYy1mWVFtS0pCb19QMWdzOFlRMllNNlNTcEZkNlh4ZlNFQ2VDZUI0QlMzOHdQMmd1X0JqSjhPVTcyMFI1YmZ4RUQ2VDY0Tw?oc=5
+
+## Kylie Kelce Shares the Real Reason Husband Jason Cried So Much at Travis Kelce and Taylor Swift’s We
+
+- first seen: 2026-08-06 15:25 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Kylie Kelce Shares the Real Reason Husband Jason Cried So Much at Travis Kelce and Taylor Swift’s Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxPcGdBTUMwaVl3aHNxTDY2OGhjWE45VWRJb3VMS0NWTjdWZFhaMC1CaXlfb2J4NjBwRjF3TmNSU016OWItMm9KemN0djhsU1gtSmN3QUhVV21vVDhkQlF6azRRNWpiRXp6ZGRRU1E0NEV4QU9LUHBjbWU0TDhDcFFxY2NWYnVPS1BSc0Q5OVZqR3hwaWhDSy1NSWdqOFBNcDRYMDlVWVdwZzN1MURpRVE?oc=5
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPekcyX1kxaGRSdVBTY2NnZzVvczNYVXI0a0hKQmthLTFQVnFCak9nd3VHemdJTk1EaHBxVG96OVJYOUVFQ3FwRTlXU0VkZVBoNkVsQmxXR2tqNkcwZGtmRU5BWHE0Zmo3WlhPUmVkdXZwWlUtR3JZMFNuTFhFRjN2TmpaOU90S2VLSWZZU0xOWFA3MVZFY2FYTFhCdGhKUXdoZHp6QmhVNjRXLXdjbC1UVDBR?oc=5
+
+## Taylor Swift's Ring: The Sequel - IDEX Online
+
+- first seen: 2026-08-06 15:25 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Ring: The Sequel  IDEX Online
+- sources:
+  - [unverified] IDEX Online — https://news.google.com/rss/articles/CBMiUkFVX3lxTE9vZ0ItNVV0QTZPbE8zdkdrY3RxMTVGc19MS2g1aFY1bjJfdUlFSThySHhpMUxrTmx5ZmlfQ0g1Y05nVTJDRWZBeUd1Zkl2XzZBM2c?oc=5
 
 ## Taylor Swift & Travis Kelce’s Wedding Validated Bradley Cooper & Gigi Hadid’s Private Choice — Insid
 
@@ -43,14 +77,6 @@ Stories: 81
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOSzFpTWNaM2lKUmtPSEZyUTR3eG5qdjhSVHRJZVhQWklVMW5xZW50ZV9yWEtjcjJfUHp1VXlvWFlLZDVBUE5FcElpdE1TQTQ0MWdhOEZIb1ZhZGF6TWtQUTdIY1g2MXYxRXdQYVdDd2NOM29uZUZWbFA4S1dxZGVxSzJwNjlQQU5N?oc=5
 
-## Sombr heaps praise on Travis Kelce after being asked about Taylor Swift - yahoo.com
-
-- first seen: 2026-08-06 11:30 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Sombr heaps praise on Travis Kelce after being asked about Taylor Swift  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxPSmpaaHRBVURHR2tWY1JrWGZlUHdXODJEcHlyUDkxaXhyTlgxb3FwWFhUckxMM3F3aUVVYnJjekc0VENnUjI2Zy04N04yLVNCUDBDUWJyWXlEa2N0NXNTTEtzM0J1OWpiREtSOEpSNDVPamk1TWhKcFBzYjJpUkFLQ2loRWk1MWhmMWFzTUpIZGFzbHlqM2dMUWRLNHJyR2szMUdN?oc=5
-
 ## ‘The Taylor Swift team’ – WWE star Danhausen ‘curses’ the Kansas City Chiefs - hitc.com
 
 - first seen: 2026-08-06 11:30 UTC | category: sighting | importance: 3
@@ -58,6 +84,15 @@ Stories: 81
 - summary: ‘The Taylor Swift team’ – WWE star Danhausen ‘curses’ the Kansas City Chiefs  hitc.com
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxPVF9Zb2hfY2cxWHJ2eDVBQzk5Vy1yZFI1cGx3UnlZaFFxbXBvdTFUYTgyRXFqOElrekdTVFotdGFsRVkzc09aR05LVjJJUFMtLVl1NlptRUpPTWh0V1locnBrT1VoeW9tbmJ5Vk5KS3c3QmtqaEZ1YVdIbVhYbktEcEFYaTJRdXJUaEpoYUhYY3RWOHFaZTA4?oc=5
+
+## Sombr heaps praise on Travis Kelce after being asked about Taylor Swift - yahoo.com
+
+- first seen: 2026-08-06 11:30 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Sombr heaps praise on Travis Kelce after being asked about Taylor Swift  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxPSmpaaHRBVURHR2tWY1JrWGZlUHdXODJEcHlyUDkxaXhyTlgxb3FwWFhUckxMM3F3aUVVYnJjekc0VENnUjI2Zy04N04yLVNCUDBDUWJyWXlEa2N0NXNTTEtzM0J1OWpiREtSOEpSNDVPamk1TWhKcFBzYjJpUkFLQ2loRWk1MWhmMWFzTUpIZGFzbHlqM2dMUWRLNHJyR2szMUdN?oc=5
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxQaTNDMTE5bWE4b1NlbVkwdHJUSFRQX3V3eG5VRmxZTDNxMTlHa0ZPUWg3WHdUZmtJMk9kYnVqc29HSVpVcnNQLWZUaVZNZ3REcUVlUV8zWl9aY2VZM3hLb2lCRDFVWTFsNHUzdWZ1RzVHNEZhV3NVT1pna1RxMHEtUmJQRTBBdEQ0enAyalZRaXpwQUJXVldVZg?oc=5
 
 ## Swifty Swindle: Mister Softee promo in Camarillo makes national news when Taylor Swift cutout is sto
 
@@ -664,28 +699,3 @@ Stories: 81
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/features/tate-mcrae-intervoew-relationships-taylor-swift-sourdough-bread-1236825809/
   - [unverified] Variety — https://news.google.com/rss/articles/CBMitgFBVV95cUxNd040X1c5ZzNlc2pzWFhJaUprUS1ydHRkbEpwajcxM1FZWXdLbm1yZEk3NERzQ3A0LUllbU85NUp0eGZfY2Z1WXdyNEJIRXJXX19kc1dZZ3VtbER0NDZvUkRsRXFHLW1yWUhBOXJMUHlqQ0xDdjQ3U1lEbGFGMTRyR3JOWlV5Qk9zTUpWM25NYkExYjFvdDJCQVV5bXRwOTBRTm9GQ3FyaUN6M1I4RTd6X0FySEc2Zw?oc=5
-
-## How USMNT Friendship, Taylor Swift Led Sebastian Berhalter to Middlesbrough - Sports Illustrated
-
-- first seen: 2026-08-03 12:35 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: How USMNT Friendship, Taylor Swift Led Sebastian Berhalter to Middlesbrough  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMikwFBVV95cUxPYklhVkl5ZU11ZUtlWkt0YmFyM3Bnc3hDV3IzWGNUTk1YdFZFNlU3d0t4MzAzSHdQa19yblBOYW5VcEVhNEJZekVldkZ1elF0NTBkQXRRb2dLelZZMzIxbm9ON0I1TGJfZ0YtTFNBOS02aU5COXRTMkJ6Wk1oY0dneDByeC05UjNxSVpGX3dYVzE0aFU?oc=5
-
-## New Details About Taylor Swift & Travis Kelce’s Wedding Vows Revealed - Yahoo
-
-- first seen: 2026-08-03 12:35 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: New Details About Taylor Swift & Travis Kelce’s Wedding Vows Revealed  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQRm9FSnNpYmpVMGdKbXk1a0o3V2tGS05XdnFjYzdKWWV4ZUtnRVNuVDVyX01ycThXUHFxLUlDVDJfWmx1RWY2Z1ZRQmZ2QVJ0YzFsMUdjQ2lRMER1U0JtZ0xBdFBFbVJhRzJoZDZRdExIeVNlekFWamhIbVoyNklJelA4T3hscU9vcWx2MEl1azlndW54dkdWMkNZV0txTndQOGpNM2dB?oc=5
-
-## Just Found Out Taylor Swift and Travis Kelce’s Dog’s Name, and We’re Obsessed - Cosmopolitan
-
-- first seen: 2026-08-03 12:35 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Just Found Out Taylor Swift and Travis Kelce’s Dog’s Name, and We’re Obsessed  Cosmopolitan
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiowFBVV95cUxPdkxLSHl4bHRDb1FFaUFteGJGbmdzek5qY2FVd2s2NzVDU2t0N3lMTFNEVS1kb3BxLTRtRl9RcGE4ckc4a1F1SThiSDJiQ2ItWHNkYjFWd1JqYlJ6VFplUjEwMno1R2FpT0R6eVVnbjhiVC01Q2p6WEhvdTNEUUZqSmpDNUc2dmlvTGZBOUcySjBNMmtLaTZic1JJSkNlcFNRbGcw?oc=5
-  - [unverified] Yahoo News Singapore — https://news.google.com/rss/articles/CBMie0FVX3lxTFBwUm9CanREcnkwN1FtWkUzWnJtQkNYVmF4YVRXVFloZXdrSUw4Z0lxc2tpQ2o2QkxyUDh5NHRqNm53WDhmLVFxV2hhUUJSZTk0QmJKaXlFTE9GSXAxQmNabEhHMVptdXUyRHRiZkltblN0b25NNXMtRmsyZw?oc=5
