@@ -1173,6 +1173,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      relatedIds: [
+        'moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+      ],
       year: 2018,
       month: 7,
       day: 4,
@@ -1647,6 +1652,7 @@ export default {
       relatedIds: [
         'moment:vault-reputation-the-snake-video-that-announced-reputation',
         'moment:vault-reputation-zombie-makeup-for-look-what-you-made-me-do',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       year: 2017,
       month: 8,
