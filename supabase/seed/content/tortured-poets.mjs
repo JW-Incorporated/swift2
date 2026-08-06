@@ -4049,7 +4049,7 @@ export default {
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-ttpd-4", label: "Harris endorsement", kind: "life" },
       relatedIds: [
-        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+        'moment:vault-midnights-shes-times-2023-person-of-the-year',
         'moment:vault-reputation-she-breaks-her-political-silence-and-voter-registrations-spi',
         'moment:vault-midnights-times-person-of-the-year-cover-shoot-in-three-looks',
         'moment:vault-lover-miss-americana-the-heartbreak-prince-a-high-school-built-fro',
