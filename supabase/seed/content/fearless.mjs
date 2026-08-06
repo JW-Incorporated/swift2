@@ -565,7 +565,7 @@ export default {
       thumbnailUrl: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
       moment: {
         context:
-          'The Hollywood Reporter\'s VMA style retrospective logs it as a one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
+          'A one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip, per The Hollywood Reporter\'s VMA style retrospective — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
         sources: [
           {
             outlet: 'E! Online',
@@ -2073,7 +2073,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
       moment: {
         context:
-          'The sellout was near-instant — tickets moved in early 2009, per Country Standard Time — and by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage.\n\nIn between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
+          'The sellout was near-instant — tickets moved in early 2009, per Country Standard Time — and by the time the tour reached New York that August, the show read like a coronation, per Rolling Stone\'s review — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage.\n\nIn between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
         sources: [
           {
             outlet: 'Country Standard Time',
@@ -2336,7 +2336,7 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/2015825/rs_600x600-150925152931-600.taylor-swift-csi.jpg',
       moment: {
         context:
-          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Taylor, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — Rolling Stone said she "held her own."\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later.',
+          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Taylor, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — she "held her own," per Rolling Stone.\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later.',
         sources: [
           {
             outlet: 'E! Online',

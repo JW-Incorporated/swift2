@@ -1281,7 +1281,7 @@ export default {
       month: 12,
       day: 12,
       category: 'business',
-      title: "Billboard names her the first-ever Woman of the Decade",
+      title: "She's Billboard's first-ever Woman of the Decade",
       snippet:
         'Accepting the inaugural award, she said: "The pressure that could have crushed us made us into diamonds instead" — then used the speech to relitigate the Scooter Braun masters fight.',
       sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-woman-of-the-decade-speech-billboard-women-in-music-8546156/',
@@ -2038,7 +2038,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and Teen Vogue read her oversized black blazer and sequined pants as a last flicker of the reputation aesthetic.\n\nChoosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
+          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and her oversized black blazer and sequined pants read, per Teen Vogue, as a last flicker of the reputation aesthetic.\n\nChoosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
         sources: [
           {
             outlet: 'Wikipedia',
