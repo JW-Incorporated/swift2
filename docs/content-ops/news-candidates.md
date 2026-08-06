@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 81
+
+## Taylor Swift & Travis Kelce’s Wedding Validated Bradley Cooper & Gigi Hadid’s Private Choice — Insid
+
+- first seen: 2026-08-06 11:30 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce’s Wedding Validated Bradley Cooper & Gigi Hadid’s Private Choice — Insider  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPUG9NYkc2VzhwRzEyQlFEY0tkZGNodUROcjRWZkQ1X1pEUEo2U0RySHotUWRKLXoyQjJVeUhiLVdTS19uci1kUmhoem5vWnd3eDVKdDVUVUtlR0JfZ3FHelpLTktPSnB1MnhUeWFCdHdRTUM0UEpJa2VsdTdVdVlUZmotOFJRVW9fR3lzS296d1JRbmpnbkpNZVd3SXA4LUtJNWF2WURB?oc=5
+
+## “Everyone Wants to be Travis and Taylor”: Fox Sports Host Lays Into Justin Herbert and Madison Beer’
+
+- first seen: 2026-08-06 11:30 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: “Everyone Wants to be Travis and Taylor”: Fox Sports Host Lays Into Justin Herbert and Madison Beer’s Cuddly Moment at Chargers Camp  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOSzFpTWNaM2lKUmtPSEZyUTR3eG5qdjhSVHRJZVhQWklVMW5xZW50ZV9yWEtjcjJfUHp1VXlvWFlLZDVBUE5FcElpdE1TQTQ0MWdhOEZIb1ZhZGF6TWtQUTdIY1g2MXYxRXdQYVdDd2NOM29uZUZWbFA4S1dxZGVxSzJwNjlQQU5N?oc=5
+
+## Sombr heaps praise on Travis Kelce after being asked about Taylor Swift - yahoo.com
+
+- first seen: 2026-08-06 11:30 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sombr heaps praise on Travis Kelce after being asked about Taylor Swift  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxPSmpaaHRBVURHR2tWY1JrWGZlUHdXODJEcHlyUDkxaXhyTlgxb3FwWFhUckxMM3F3aUVVYnJjekc0VENnUjI2Zy04N04yLVNCUDBDUWJyWXlEa2N0NXNTTEtzM0J1OWpiREtSOEpSNDVPamk1TWhKcFBzYjJpUkFLQ2loRWk1MWhmMWFzTUpIZGFzbHlqM2dMUWRLNHJyR2szMUdN?oc=5
+
+## ‘The Taylor Swift team’ – WWE star Danhausen ‘curses’ the Kansas City Chiefs - hitc.com
+
+- first seen: 2026-08-06 11:30 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: ‘The Taylor Swift team’ – WWE star Danhausen ‘curses’ the Kansas City Chiefs  hitc.com
+- sources:
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxPVF9Zb2hfY2cxWHJ2eDVBQzk5Vy1yZFI1cGx3UnlZaFFxbXBvdTFUYTgyRXFqOElrekdTVFotdGFsRVkzc09aR05LVjJJUFMtLVl1NlptRUpPTWh0V1locnBrT1VoeW9tbmJ5Vk5KS3c3QmtqaEZ1YVdIbVhYbktEcEFYaTJRdXJUaEpoYUhYY3RWOHFaZTA4?oc=5
 
 ## Swifty Swindle: Mister Softee promo in Camarillo makes national news when Taylor Swift cutout is sto
 
@@ -46,10 +78,11 @@ Stories: 79
 ## Travis Kelce, Taylor Swift Receive Priceless Gift After Wedding - heavy.com
 
 - first seen: 2026-08-06 04:26 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Travis Kelce, Taylor Swift Receive Priceless Gift After Wedding  heavy.com
 - sources:
   - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPVWxvcXFDdFBKd1h6aHNqTlpoZzdHRm4zRTQxOEhnR3Y5X1l5eDdvLUo1VzNNVERrbks4ZHlwMUFEeTJfRWU4S1RBUjFveG8wc2JQbXNjQUI2b0J2VExULW9xWGttXzNjR2ZnVzctSnBCdFJraFcwZ0RFWmNhSVh0N1V2cDAxUjF6R0cwZmItS2lmZUgtTzZ2Z0lIVFFpRGtVU1l3dC1oT3M?oc=5
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQR1J0UWJMYVcxeGZRMjFGYTBsVHlyTEZBSXVjRC1lS3pJR1c2a2hXNGExVmdyZ2s1aFRDVk5ZUlJKa1NiWWR4ZDlBWVJfcmZLRWpLXzQzUHBrUmN1ejJkeXI5VHBDWU9EcmxkMGtQODVTdU9YYjQzVGJadDlhRzZyNVA3ZjN2cUtlci1WN0VGUUdwNmNRUGhsMFBpLXhwYmw2X0N0QnNR?oc=5
 
 ## These 13 Taylor Swift songs were never released as singles, but I think they'd make anyone a Swiftie
 
@@ -656,19 +689,3 @@ Stories: 79
 - sources:
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiowFBVV95cUxPdkxLSHl4bHRDb1FFaUFteGJGbmdzek5qY2FVd2s2NzVDU2t0N3lMTFNEVS1kb3BxLTRtRl9RcGE4ckc4a1F1SThiSDJiQ2ItWHNkYjFWd1JqYlJ6VFplUjEwMno1R2FpT0R6eVVnbjhiVC01Q2p6WEhvdTNEUUZqSmpDNUc2dmlvTGZBOUcySjBNMmtLaTZic1JJSkNlcFNRbGcw?oc=5
   - [unverified] Yahoo News Singapore — https://news.google.com/rss/articles/CBMie0FVX3lxTFBwUm9CanREcnkwN1FtWkUzWnJtQkNYVmF4YVRXVFloZXdrSUw4Z0lxc2tpQ2o2QkxyUDh5NHRqNm53WDhmLVFxV2hhUUJSZTk0QmJKaXlFTE9GSXAxQmNabEhHMVptdXUyRHRiZkltblN0b25NNXMtRmsyZw?oc=5
-
-## Travis Kelce Might Switch to Taylor Swift’s Career After Wedding Move — Source - Yahoo
-
-- first seen: 2026-08-03 08:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Might Switch to Taylor Swift’s Career After Wedding Move — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPRjUybm9HQlR3VTEtcDdGeWsxb0tuZEVYOFN6TlZVMjNuZWo2Zk9qd212M2pKNDBheVltMElfVlRweG9iVkJudjBJbk94NkItZFF0SC1hU3NSUGJYYW9sUXpxMDRkOEhYOHNLcmFUbmo1ZzJqbEhzOTlaX0FXSnJUb29iNWtXa0gycXA5ckVlanVxN0R6S0pXNjYzcVFmYzg?oc=5
-
-## Feature: Kacey Musgraves or Taylor Swift: Which Woman Has Had the Bigger Influence on Country Music’
-
-- first seen: 2026-08-03 08:40 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Feature: Kacey Musgraves or Taylor Swift: Which Woman Has Had the Bigger Influence on Country Music’s New Generation?  Entertainment Focus
-- sources:
-  - [unverified] Entertainment Focus — https://news.google.com/rss/articles/CBMi7gFBVV95cUxPbUlBYk9NbTRDYldETzFJQXBSWmo0S2dRdWVlVXZmdFpIOFdpZUFGelEyODNIQ1BOdzN3TExGUWNvNGVicm5JUll1aXpZQU1FOUpTeHhpNktGSjluc3RqQUZxNVR0MkZWdzB2bXN0d01kclczMGVmSG5kcktTWDNCdXU1bEJHTHRuc1RrNFRhUVQ3X0dJOWFWeTBjV29WTTd5UnpjeEplQUdCN1preE1zNVRtR3BRQzc3MnFGQTJGS2dHOUFBU1Q3MWsxd0FybFAzOEMxSkg4RXI0TXExcHZZUUtRWGo5UVBOOUFyV21B?oc=5
