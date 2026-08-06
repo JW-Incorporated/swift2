@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 79
+
+## Swifty Swindle: Mister Softee promo in Camarillo makes national news when Taylor Swift cutout is sto
+
+- first seen: 2026-08-06 07:48 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Swifty Swindle: Mister Softee promo in Camarillo makes national news when Taylor Swift cutout is stolen  VC Reporter
+- sources:
+  - [unverified] VC Reporter — https://news.google.com/rss/articles/CBMiiAJBVV95cUxOc1h6bnc5a2xwUEdZbnFsX3VrQkctRHJwbHlEdHlNc1F5SE96Ui1pNHJtQmlJbXpSMldVR0JPZzBwQ3gtSGhyaXlFUW81Ri1HajJ1VGRZTGdjblRWLXFnajBaOHI4QzVUSTJqb1A2Q2VTZjRjSmVieksyU3FZZU5idDVpWkgwME1KWjBHMk0xM0xFVjRlcHVOOERCXzV5NE44X1RqcUhoS3U5Q3Y4ZFdhMFhnQ0hKSUEzUndtaVpsdG91WWJQTXBnR3gtXzdtN1ZjemE1VWk1T3FKOTlMSUItbFltUnM0V21ETTVvZnhOOE5yTEZ1d3VtOUxCMGttcTZkb2FFa2hCWnM?oc=5
+
+## NFL analysts rip apart Justin Herbert and Madison Beer's Taylor Swift-Travis Kelce gimmick at Charge
+
+- first seen: 2026-08-06 07:48 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: NFL analysts rip apart Justin Herbert and Madison Beer's Taylor Swift-Travis Kelce gimmick at Chargers camp  hitc.com
+- sources:
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxPZWRrT21tc0p4Mjg4bVlfX285aUo3YmxiTEJFcTN4b3phbnJGbzlDUVBWTmRhSndWNW0wUkFULU9wSmNYRmIxcUtFOFpyTmNxRDJobHVESnRKLVVPU3hvbkRrUXNPQ1pzbzRPdmltZ3BiVjR6Ymc3VFpSRUJBSHViR21mSFY1V19FRXd0YThXTk84UDluRHN4OEJMY3lRY04yNTEyamZ4dXBFaXNFNzlTMVVDeVFVOXl2ejdwMUFqMFZfRmNjWl9j?oc=5
 
 ## Travis Kelce, Taylor Swift Receive Priceless Gift After Wedding - heavy.com
 
@@ -59,14 +75,6 @@ Stories: 77
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikAFBVV95cUxNazBmSW10SEF3SXlqWTN2MmhZTWx1SkQxQUNkS3g3R2FkNkpqNGpfNmM0d1REckZtWE9PV3V3WXRxOTFqQXlQNmppQnA0LWtINzBjdUx6a3FEMnhRYlpCNUNDc3F2SnJuOE5LNC1IMGRybFNGbWF0QkdOVTJZdVVFVUlHNjBrSzdlUThMdXFPWTg?oc=5
 
-## Sombr recalls performing for Taylor Swift at Songwriters Hall of Fame: ‘That’s a goddess’ - Deltaple
-
-- first seen: 2026-08-05 22:18 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Sombr recalls performing for Taylor Swift at Songwriters Hall of Fame: ‘That’s a goddess’  Deltaplex News
-- sources:
-  - [unverified] Deltaplex News — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQlJJeEx3aUk4NHdfbkVNejZYV29KM3Q0U3NINW4xRzYxanJnaERnT3JMNkNwVzNtVFgtaS1TalAyMWRMS28wNHROUHcxR243YXA4bWlETmhPaTdOc280b3ZMcFZsZ2dsbF9fUEF3YU9yajdTZmhYUW0yWmIzdkUzbHUzQmlzNDlKU2gycnNPcWNUOXliOTE1RzIzQm5PMHhoNDVYOU5maGQ4ZDdUaGNfRHpEeG5YeElKbmJxOFdEbUlDUjQ?oc=5
-
 ## The One Luxury That Kylie Jenner and Taylor Swift Can Both Afford—and You Can’t - Slate
 
 - first seen: 2026-08-05 22:18 UTC | category: sighting | importance: 3
@@ -90,6 +98,15 @@ Stories: 77
 - summary: This 2011 Taylor Swift Outfit Is One Of Her Best-Dressed Moments That Everyone Forgot About  glam.com
 - sources:
   - [unverified] glam.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOcFBtUlA3VzhDcVlxX2x2NEFOWFN1bnNfRDFIYnZiU3BMY3FIQ3g3eV9kRXVpeng5azM1bEl4Q0FsZXowM0RlTUxhWnBIYzljMDVSclc2MGlvc0kwM2ZlaVJDU2dORWxTT19UTU44c3FYdFBMTVJ3SmttLVluNlRfdjBMLVpWOTBidmtkeVpoQ1pjZjRVOVRJYzZNYmE?oc=5
+
+## Sombr recalls performing for Taylor Swift at Songwriters Hall of Fame: ‘That’s a goddess’ - Deltaple
+
+- first seen: 2026-08-05 22:18 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Sombr recalls performing for Taylor Swift at Songwriters Hall of Fame: ‘That’s a goddess’  Deltaplex News
+- sources:
+  - [unverified] Deltaplex News — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQlJJeEx3aUk4NHdfbkVNejZYV29KM3Q0U3NINW4xRzYxanJnaERnT3JMNkNwVzNtVFgtaS1TalAyMWRMS28wNHROUHcxR243YXA4bWlETmhPaTdOc280b3ZMcFZsZ2dsbF9fUEF3YU9yajdTZmhYUW0yWmIzdkUzbHUzQmlzNDlKU2gycnNPcWNUOXliOTE1RzIzQm5PMHhoNDVYOU5maGQ4ZDdUaGNfRHpEeG5YeElKbmJxOFdEbUlDUjQ?oc=5
+  - [unverified] MOViN 92.5 — https://news.google.com/rss/articles/CBMisAFBVV95cUxOWDBNRXJ1RWRlNDZ2TzQ2WlpYRmk1NlZWUjZ0Q0wwMVRMVkNkSTJoWDdEajQ1aHZ3M1ZjTHh5WTU5UGRHVTNaQ2w4NXh5cThfLXZ6Mmk4SmNqX2NsdjV1S1RvejBYQkNpNE5PYmlFVkJYcGZkbnBpVGZFY3pTSWJ5Yk9mR2NJUDBzYlhsbVkwN0dvUWdJWjlXMk1WeThrOHFhZWZWS3pDZGhZVW42OEJFeA?oc=5
 
 ## Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift weddin
 
