@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 77
+
+## Travis Kelce, Taylor Swift Receive Priceless Gift After Wedding - heavy.com
+
+- first seen: 2026-08-06 04:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce, Taylor Swift Receive Priceless Gift After Wedding  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPVWxvcXFDdFBKd1h6aHNqTlpoZzdHRm4zRTQxOEhnR3Y5X1l5eDdvLUo1VzNNVERrbks4ZHlwMUFEeTJfRWU4S1RBUjFveG8wc2JQbXNjQUI2b0J2VExULW9xWGttXzNjR2ZnVzctSnBCdFJraFcwZ0RFWmNhSVh0N1V2cDAxUjF6R0cwZmItS2lmZUgtTzZ2Z0lIVFFpRGtVU1l3dC1oT3M?oc=5
+
+## These 13 Taylor Swift songs were never released as singles, but I think they'd make anyone a Swiftie
+
+- first seen: 2026-08-06 04:26 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: These 13 Taylor Swift songs were never released as singles, but I think they'd make anyone a Swiftie  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxPMjI2eEloNGVqdzVRNXlEdmFPczNJd1lmN2ZpU3BpMDZMd1k3OEt1X1UyTVlLZEZycmRMR1ZFeEJrWUdBWldLRU1jbjlpTG5YY2FmQi0tbDNoQktvYnREWUFiMlBCaWVtZHpNR0VvQUdiMzZKT2x2dXY4Q2ZnZFgxV3lJY2lXLXcwMi0xbS14eXJ4cFBERzd5OTNCY2ZCWF9TRy1VdFhzYmtKdlRDcmxrOVItMXVFUjVXQ3VXdFBxUEUtejRmdjJrTTJaa2hjRXFvNUlHR0ZqNVp0ZnBpc0dEWEVBVQ?oc=5
+
+## Taylor Swift & Travis Kelce's Wedding Guests Were Unimpressed By This 'Tacky Detail' - Yahoo
+
+- first seen: 2026-08-06 04:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce's Wedding Guests Were Unimpressed By This 'Tacky Detail'  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQQ3Ztb1Q5eUMwdThtcURfMElpd19PajFfbkRmcmZiTEhCNWhLRzg1dTdpSzQ5blBqVFNrb1RqNmVGN0M3NGxEYmhGeXVZU1E3Nm1PUUx0Qld6UWZUSWNmdERMdWxYem9YbW1EOE9Zd2tGWldmdUJCRkJaSnh3SGgyWi1WRlRzQ2FwczB5a21iWUg3NWpPOXAxN3FERmxyX1p4OVZxT0FrRQ?oc=5
 
 ## Taylor Swift Is Reportedly Enjoying Being ‘Mrs. Kelce’ as Andy Reid Weighs In on Travis Kelce’s ‘Dad
 
@@ -59,14 +83,6 @@ Stories: 74
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxNbzFmZWoyZHNvUmVZdW9tWG9fZEgzcTRsV3psRkNEWnpQQ3R3c0IxWktwem1VMV9SMVhYTG8tai1NMktqZTNKUjNkMEVGaW9NWHlLblpTNjh1aFNTLWt0clZnVVJjZVUyWk9vX2ZXdW9VaGZOOW5XVHdRcGVRM3FzT3A0b3FkOFlOQlNZNlY2VVdNdm5QSHE1S0xoNEtFNnd5RGdsZk1wUXlyblkyQ0VXYWFQRQ?oc=5
 
-## Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift weddin
-
-- first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift wedding  AOL.com
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE00ZWNlRG1TN09rbG1lY0xZaDVvNXBhZnpnUEt3WDl5MGRGQ1pfbll6RWxUZDVpaExyVWp4Q2FLaFFmZDlBWlBfTGxvRm9hYVVoNDFiamx4SGpLUVFtMHZPTU9RNEZzZmE5ejlaTmRJaTR0NS1vVFhQTUVUNXA?oc=5
-
 ## This 2011 Taylor Swift Outfit Is One Of Her Best-Dressed Moments That Everyone Forgot About - glam.c
 
 - first seen: 2026-08-05 22:18 UTC | category: fashion | importance: 5
@@ -74,6 +90,15 @@ Stories: 74
 - summary: This 2011 Taylor Swift Outfit Is One Of Her Best-Dressed Moments That Everyone Forgot About  glam.com
 - sources:
   - [unverified] glam.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOcFBtUlA3VzhDcVlxX2x2NEFOWFN1bnNfRDFIYnZiU3BMY3FIQ3g3eV9kRXVpeng5azM1bEl4Q0FsZXowM0RlTUxhWnBIYzljMDVSclc2MGlvc0kwM2ZlaVJDU2dORWxTT19UTU44c3FYdFBMTVJ3SmttLVluNlRfdjBMLVpWOTBidmtkeVpoQ1pjZjRVOVRJYzZNYmE?oc=5
+
+## Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift weddin
+
+- first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift wedding  AOL.com
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE00ZWNlRG1TN09rbG1lY0xZaDVvNXBhZnpnUEt3WDl5MGRGQ1pfbll6RWxUZDVpaExyVWp4Q2FLaFFmZDlBWlBfTGxvRm9hYVVoNDFiamx4SGpLUVFtMHZPTU9RNEZzZmE5ejlaTmRJaTR0NS1vVFhQTUVUNXA?oc=5
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQaUtfMlUyYnRkMUlpWGtrTEZseURqekMwMi0zVG8tWmpSelIxOHd5c0dIOTdLdWQ4Vkx5X0w2S3NZR3RWaXd5ek1YTU9yWk5LYUw5V2U1Q1dlUm1hZDRja2JFS1lRaTQ4S3NNZlVaYlhmckRONC1YelNJU3VubWZhSkRYaDAyWHFvaFRN?oc=5
 
 ## 'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour — Here's How - Elite Daily
 
