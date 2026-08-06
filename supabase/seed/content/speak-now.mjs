@@ -412,7 +412,7 @@ export default {
       thumbnailUrl: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
       moment: {
         context:
-          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. Insider's CMA retrospective files it as a classic rather than a showstopper, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
+          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. A classic rather than a showstopper, per Insider's CMA retrospective, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
         sources: [
           {
             outlet: 'Yahoo Entertainment (Insider)',
