@@ -655,7 +655,13 @@ export default {
         // Benjamin Button cover). Curiosity ledger #888, Q4.
         'moment:vault-midnights-times-person-of-the-year-cover-shoot-in-three-looks',
       ],
-      title: 'Time names her 2023 Person of the Year',
+      // Title reworded out of wire-attribution voice (2026-08-06, #461)
+      // from "Time names her 2023 Person of the Year" — this item's id is
+      // title-derived (sync-longlive-content.mjs's slugify(title)), so the
+      // rename changed the id's slug half from "time-names-her-2023..." to
+      // "shes-times-2023-person-of-the-year"; the 5 real relatedIds
+      // elsewhere that pointed at the old id were updated in the same pass.
+      title: "She's Time's 2023 Person of the Year",
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-3a", label: "Person of the Year", kind: "award" },
@@ -1380,7 +1386,7 @@ export default {
       day: 6,
       category: 'fashion',
       // Reciprocal cross-link to the same-day POTY award item (ledger #888, Q4).
-      relatedIds: ['moment:vault-midnights-time-names-her-2023-person-of-the-year'],
+      relatedIds: ['moment:vault-midnights-shes-times-2023-person-of-the-year'],
       title: "TIME's Person of the Year cover shoot, in three looks",
       snippet: 'A black bodysuit with her cat Benjamin Button on one cover, a crystal-embellished Area mini dress in reputation-coded gray on another.',
       sourceUrl: 'https://petapixel.com/2023/12/06/photographers-reveal-story-behind-taylor-swifts-time-person-of-the-year-covers/',
@@ -1848,7 +1854,7 @@ export default {
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/03/03-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
       moment: {
         context:
-          "For the evermore act, Billboard's gallery logs a mustard-orange Etro dress with delicate embroidery, worn with a matching cape and Christian Louboutin boots — the warmest palette of the night, photographed by Kevin Mazur for the gallery.\n\nThe cape was the tell: where most of the night's looks were cut close for choreography, the evermore silhouette flowed — a deliberate contrast to the crystal bodysuits elsewhere in the running order. She'd joked from the stage that same night about fans' evermore discourse: \"I absolutely love it, despite what some of you say on TikTok.\"",
+          "For the evermore act: a mustard-orange Etro dress with delicate embroidery, worn with a matching cape and Christian Louboutin boots — the warmest palette of the night, photographed by Kevin Mazur for Billboard's gallery.\n\nThe cape was the tell: where most of the night's looks were cut close for choreography, the evermore silhouette flowed — a deliberate contrast to the crystal bodysuits elsewhere in the running order. She'd joked from the stage that same night about fans' evermore discourse: \"I absolutely love it, despite what some of you say on TikTok.\"",
         sources: [
           {
             outlet: 'Billboard',
@@ -2094,7 +2100,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/03/07-Taylor-Swift-outfit-gallery-night-1-billboard-1548-1.jpg',
       moment: {
         context:
-          "Oscar de la Renta owned the show's final act, and Billboard's gallery logs it as a three-stage look: a faux fur coat over a crystal T-shirt to open the Midnights set, the coat shed to let the crystal shirt carry the middle songs, and finally a shining navy blue bodysuit — with Christian Louboutin boots — to close the night. The album the tour was nominally promoting got a full act's worth of wardrobe to itself.\n\nThe navy bodysuit is the one on the marquee moment: it's what she wore for the closing run that ended the night with \"Karma,\" the final song of the very first Eras Tour show — the image of Midnights as the era that contained all the others.",
+          "Oscar de la Renta owned the show's final act — a three-stage look, per Billboard's gallery: a faux fur coat over a crystal T-shirt to open the Midnights set, the coat shed to let the crystal shirt carry the middle songs, and finally a shining navy blue bodysuit — with Christian Louboutin boots — to close the night. The album the tour was nominally promoting got a full act's worth of wardrobe to itself.\n\nThe navy bodysuit is the one on the marquee moment: it's what she wore for the closing run that ended the night with \"Karma,\" the final song of the very first Eras Tour show — the image of Midnights as the era that contained all the others.",
         sources: [
           {
             outlet: 'Billboard',
@@ -3998,7 +4004,7 @@ export default {
         'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
         // Cross-link (ledger #1320 Q7 / crosslink-candidate): the page's own prose
         // says the Fed mention resurfaced in Time's Person of the Year citation.
-        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+        'moment:vault-midnights-shes-times-2023-person-of-the-year',
       ],
       year: 2023,
       month: 7,
@@ -4608,7 +4614,7 @@ export default {
       relatedIds: [
           'moment:vault-midnights-travis-confirms-it-on-the-record',
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
-        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+        'moment:vault-midnights-shes-times-2023-person-of-the-year',
       ],
       title: '"Karma is the guy on the Chiefs" — sung with Travis watching',
       snippet:
@@ -4691,7 +4697,7 @@ export default {
       // Cross-link (ledger #1251, Q-cross-links): it dropped in the same week as
       // the Spotify-2023 crown / TIME Person of the Year recognition.
       relatedIds: [
-          'moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years','moment:vault-midnights-time-names-her-2023-person-of-the-year'],
+          'moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years','moment:vault-midnights-shes-times-2023-person-of-the-year'],
       title: '"You\'re Losing Me" finally hits streaming',
       snippet:
         'The Midnights bonus track fans treated as the Alwyn-breakup rosetta stone went wide on Nov. 29 — her thank-you for being named Spotify\'s top global artist of 2023.',
