@@ -655,7 +655,13 @@ export default {
         // Benjamin Button cover). Curiosity ledger #888, Q4.
         'moment:vault-midnights-times-person-of-the-year-cover-shoot-in-three-looks',
       ],
-      title: 'Time names her 2023 Person of the Year',
+      // Title reworded out of wire-attribution voice (2026-08-06, #461)
+      // from "Time names her 2023 Person of the Year" — this item's id is
+      // title-derived (sync-longlive-content.mjs's slugify(title)), so the
+      // rename changed the id's slug half from "time-names-her-2023..." to
+      // "shes-times-2023-person-of-the-year"; the 5 real relatedIds
+      // elsewhere that pointed at the old id were updated in the same pass.
+      title: "She's Time's 2023 Person of the Year",
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-3a", label: "Person of the Year", kind: "award" },
@@ -1380,7 +1386,7 @@ export default {
       day: 6,
       category: 'fashion',
       // Reciprocal cross-link to the same-day POTY award item (ledger #888, Q4).
-      relatedIds: ['moment:vault-midnights-time-names-her-2023-person-of-the-year'],
+      relatedIds: ['moment:vault-midnights-shes-times-2023-person-of-the-year'],
       title: "TIME's Person of the Year cover shoot, in three looks",
       snippet: 'A black bodysuit with her cat Benjamin Button on one cover, a crystal-embellished Area mini dress in reputation-coded gray on another.',
       sourceUrl: 'https://petapixel.com/2023/12/06/photographers-reveal-story-behind-taylor-swifts-time-person-of-the-year-covers/',
@@ -3998,7 +4004,7 @@ export default {
         'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
         // Cross-link (ledger #1320 Q7 / crosslink-candidate): the page's own prose
         // says the Fed mention resurfaced in Time's Person of the Year citation.
-        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+        'moment:vault-midnights-shes-times-2023-person-of-the-year',
       ],
       year: 2023,
       month: 7,
@@ -4608,7 +4614,7 @@ export default {
       relatedIds: [
           'moment:vault-midnights-travis-confirms-it-on-the-record',
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
-        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+        'moment:vault-midnights-shes-times-2023-person-of-the-year',
       ],
       title: '"Karma is the guy on the Chiefs" — sung with Travis watching',
       snippet:
@@ -4691,7 +4697,7 @@ export default {
       // Cross-link (ledger #1251, Q-cross-links): it dropped in the same week as
       // the Spotify-2023 crown / TIME Person of the Year recognition.
       relatedIds: [
-          'moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years','moment:vault-midnights-time-names-her-2023-person-of-the-year'],
+          'moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years','moment:vault-midnights-shes-times-2023-person-of-the-year'],
       title: '"You\'re Losing Me" finally hits streaming',
       snippet:
         'The Midnights bonus track fans treated as the Alwyn-breakup rosetta stone went wide on Nov. 29 — her thank-you for being named Spotify\'s top global artist of 2023.',
