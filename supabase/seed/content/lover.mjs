@@ -37,6 +37,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
+            focalPoint: '50% 50%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -109,6 +110,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_The_Man.png',
+            focalPoint: '58% 28%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -176,6 +178,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/DixieChicksMSG062003.jpg',
+            focalPoint: '50% 32%',
             credit: 'Wasted Time R (CC BY-SA 2.5), via Wikimedia Commons',
             caption: 'The Dixie Chicks — who harmonize on "Soon You\'ll Get Better" — performing in 2003.',
             kind: 'reference',
@@ -1278,7 +1281,7 @@ export default {
       month: 12,
       day: 12,
       category: 'business',
-      title: "Billboard names her the first-ever Woman of the Decade",
+      title: "She's Billboard's first-ever Woman of the Decade",
       snippet:
         'Accepting the inaugural award, she said: "The pressure that could have crushed us made us into diamonds instead" — then used the speech to relitigate the Scooter Braun masters fight.',
       sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-woman-of-the-decade-speech-billboard-women-in-music-8546156/',
@@ -1374,7 +1377,12 @@ export default {
       slug: 'city-of-lover-paris',
       // Cross-link (Stage 3, 2026-07-30): the "City of Lover" pair — the
       // concert itself, and the special that later aired — now interlink.
-      relatedIds: ['moment:vault-lover-city-of-lover-finally-airs-a-concert-special-for-a-tour-that'],
+      // (Stage 3, 2026-08-06): also links Cornelia Street's same-night,
+      // same-city acoustic debut.
+      relatedIds: [
+        'moment:vault-lover-city-of-lover-finally-airs-a-concert-special-for-a-tour-that',
+        'moment:vault-lover-cornelia-street-written-alone-and-debuted-acoustic-in-paris',
+      ],
       year: 2019,
       month: 9,
       day: 9,
@@ -1428,6 +1436,12 @@ export default {
     },
     {
       slug: 'lover-fest-announced',
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster — its
+      // cancellation, and the mirrorball it led her to write instead.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-falls-to-the-pandemic',
+        'moment:vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap',
+      ],
       year: 2019,
       month: 9,
       day: 17,
@@ -1463,6 +1477,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/SoFi_Stadium_2021.jpg/960px-SoFi_Stadium_2021.jpg',
+            focalPoint: '50% 38%',
             credit: 'Troutfarm27 (CC BY-SA 4.0), via Wikimedia Commons',
             caption: 'Reference image: SoFi Stadium in Inglewood, the venue Lover Fest West would have opened — no Lover Fest show was ever performed.',
             kind: 'reference',
@@ -1472,6 +1487,11 @@ export default {
     },
     {
       slug: 'lover-fest-2020-cancelled',
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-a-festival-instead-of-a-tour',
+        'moment:vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap',
+      ],
       year: 2020,
       month: 4,
       day: 17,
@@ -1507,6 +1527,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Gillette_Stadium_Foxboro.jpg/960px-Gillette_Stadium_Foxboro.jpg',
+            focalPoint: '60% 48%',
             credit: 'Art N. (CC BY 2.0), via Wikimedia Commons',
             caption: 'Reference image: Gillette Stadium in Foxborough, where Lover Fest East was booked for July 31 and August 1, 2020 — shows that never happened.',
             kind: 'reference',
@@ -1779,6 +1800,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Taylor_Swift_-_The_Archer.png',
+            focalPoint: '50% 50%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1957,6 +1979,9 @@ export default {
     },
     {
       slug: 'cornelia-street-live-debut',
+      // Cross-link (Stage 3, 2026-08-06): same night, same city — the City
+      // of Lover concert this acoustic debut happened at.
+      relatedIds: ['moment:vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b'],
       year: 2019,
       month: 9,
       day: 9,
@@ -1992,6 +2017,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/VikHHWrgb4Y/hqdefault.jpg',
+            focalPoint: '50% 55%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'Cornelia Street' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -2012,7 +2038,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and Teen Vogue read her oversized black blazer and sequined pants as a last flicker of the reputation aesthetic.\n\nChoosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
+          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and her oversized black blazer and sequined pants read, per Teen Vogue, as a last flicker of the reputation aesthetic.\n\nChoosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2328,6 +2354,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/69/Taylor_Swift_-_Only_the_Young.png',
+            focalPoint: '42% 32%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },

@@ -280,7 +280,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png',
       moment: {
         context:
-          "Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music.\n\nRolling Stone's 2019 decade-end list ranked it No. 58 among the 100 best songs of the 2010s, calling it \"the type of relieving dance floor soul purge that the best pop can be\" and arguing the bonus track was the album's real thesis — a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist.",
+          "Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music.\n\nNo. 58 among the 100 best songs of the 2010s on Rolling Stone's 2019 decade-end list — \"the type of relieving dance floor soul purge that the best pop can be,\" and by the writer's own argument, the bonus track was the album's real thesis: a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/' },
@@ -615,6 +615,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster — the
+      // annual Rhode Island tradition and the year it moved to Turks and
+      // Caicos — now interlink.
+      relatedIds: [
+        'moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+      ],
       year: 2016,
       month: 7,
       day: 3,
@@ -1018,6 +1025,11 @@ export default {
     // and an airport look. Every photo URL hotlinked to the outlet's own CDN
     // and checked for a 2xx image response before being added.
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      relatedIds: [
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+      ],
       year: 2014,
       month: 7,
       category: 'sighting',
