@@ -3721,6 +3721,11 @@ export default {
             lastCheckedOn: '2026-08-05',
           },
         ],
+        // Photo pass #762 (2026-08-06): re-confirms the deliberate no-photo
+        // call above. The only image circulating with this story is a
+        // Deuxmoi-branded Canva composite (a "Sandlot" still + a generic
+        // stock dog photo) — a fan-made graphic, not a real photo of the
+        // couple's actual pet. No outlet has published one. Left as-is.
       },
     },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
