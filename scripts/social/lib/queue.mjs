@@ -44,6 +44,44 @@ export function utcDateOnly(isoOrDate) {
 }
 
 /**
+ * Generic era-cover art (`/eras/<id>.png`) posing as a post's real photo,
+ * rather than a dedicated image of the actual thing the post is about.
+ *
+ * Added 2026-08-06 after the drafting run defaulted to this "safe" fallback
+ * on literally every Instagram post it ever made (17/17) — with only 12
+ * distinct era-cover files in rotation and the current/recent eras getting
+ * picked disproportionately, the live profile grid looked like the same 2-3
+ * generic images repeating over and over, which is exactly what it was (see
+ * docs/decisions.md, same date). growth-draft.md now requires sourcing a
+ * real dedicated photo per post; this is the code-level backstop, since a
+ * doc instruction alone didn't hold — a real check does.
+ */
+export function isGenericEraArt(mediaPath) {
+  return typeof mediaPath === 'string' && /^\/eras\/[a-z0-9-]+\.png$/.test(mediaPath);
+}
+
+/**
+ * True if posting `item` right now would repeat a generic era-cover image
+ * that already appears among the last `lookback` real Instagram posts.
+ * Non-Instagram items and items with a real (non-era-art) photo always pass.
+ * `recentPosted` is the already-posted-today-or-recently item list, newest
+ * first is NOT required — this only checks membership, not order.
+ */
+export function repeatsRecentEraArt(item, recentPosted, lookback = 10) {
+  if (item.platform !== 'instagram') return false;
+  const media = item.media?.[0];
+  if (!isGenericEraArt(media)) return false;
+
+  const recentEraArt = new Set(
+    recentPosted
+      .slice(-lookback)
+      .map((p) => p.media?.[0])
+      .filter(isGenericEraArt),
+  );
+  return recentEraArt.has(media);
+}
+
+/**
  * Ground-truth counts of what's actually sitting in social/queue/, for the
  * brief's Growth line — added 2026-07-18 after a brief asserted "drafts
  * wait on your OK in Slack #social" while the queue was empty. No LLM

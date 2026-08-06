@@ -12,7 +12,7 @@
 import { readdir, readFile, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { selectDuePosts, utcDateOnly } from './lib/queue.mjs';
+import { selectDuePosts, utcDateOnly, repeatsRecentEraArt } from './lib/queue.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -35,6 +35,18 @@ async function readJsonDir(dir) {
     out.push({ file, full, data: JSON.parse(await readFile(full, 'utf-8')) });
   }
   return out;
+}
+
+/** Last `n` Instagram items ever posted, oldest-to-newest by `postedAt`, for
+ * the repeated-era-art guard below. Reads all of social/posted/ — cheap at
+ * this account's post volume; revisit if that ever stops being true. */
+async function recentInstagramPosts(n = 10) {
+  const posted = await readJsonDir(POSTED_DIR);
+  return posted
+    .map((p) => p.data)
+    .filter((d) => d.platform === 'instagram')
+    .sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt))
+    .slice(-n);
 }
 
 async function countPostedToday(now) {
@@ -100,8 +112,25 @@ async function main() {
     return;
   }
 
+  const recentIg = await recentInstagramPosts();
+
   for (const item of due) {
     const entry = queued.find((q) => q.data === item);
+
+    // Block, don't post-and-hope: a queue item whose only photo is generic
+    // era-cover art that already appears among the recent posts (2026-08-06,
+    // see docs/decisions.md) is an authoring gap, not a transient failure —
+    // skip it this run (still due next run) rather than spend an `attempts`
+    // retry or, worse, actually publish the repeat. Loud on purpose so it
+    // surfaces in the Action log and the brief's Growth line notices a
+    // stuck item.
+    if (repeatsRecentEraArt(item, recentIg)) {
+      console.error(
+        `social-poster: SKIPPING ${entry.file} — its media (${item.media[0]}) is generic era-cover art already used in a recent Instagram post. Needs a real dedicated photo (see docs/agents/runner-prompts/growth-draft.md's Media section) before it can ship. Left in the queue, not counted as a failed attempt.`,
+      );
+      continue;
+    }
+
     try {
       const result = await postOne(item);
       const facebook = await crosspostToFacebook(item);
