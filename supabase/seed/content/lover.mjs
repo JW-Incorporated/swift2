@@ -37,6 +37,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
+            focalPoint: '50% 50%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -109,6 +110,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_The_Man.png',
+            focalPoint: '58% 28%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -176,6 +178,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/DixieChicksMSG062003.jpg',
+            focalPoint: '50% 32%',
             credit: 'Wasted Time R (CC BY-SA 2.5), via Wikimedia Commons',
             caption: 'The Dixie Chicks — who harmonize on "Soon You\'ll Get Better" — performing in 2003.',
             kind: 'reference',
@@ -1463,6 +1466,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/SoFi_Stadium_2021.jpg/960px-SoFi_Stadium_2021.jpg',
+            focalPoint: '50% 38%',
             credit: 'Troutfarm27 (CC BY-SA 4.0), via Wikimedia Commons',
             caption: 'Reference image: SoFi Stadium in Inglewood, the venue Lover Fest West would have opened — no Lover Fest show was ever performed.',
             kind: 'reference',
@@ -1507,6 +1511,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Gillette_Stadium_Foxboro.jpg/960px-Gillette_Stadium_Foxboro.jpg',
+            focalPoint: '60% 48%',
             credit: 'Art N. (CC BY 2.0), via Wikimedia Commons',
             caption: 'Reference image: Gillette Stadium in Foxborough, where Lover Fest East was booked for July 31 and August 1, 2020 — shows that never happened.',
             kind: 'reference',
@@ -1779,6 +1784,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Taylor_Swift_-_The_Archer.png',
+            focalPoint: '50% 50%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1992,6 +1998,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/VikHHWrgb4Y/hqdefault.jpg',
+            focalPoint: '50% 55%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'Cornelia Street' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -2328,6 +2335,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/69/Taylor_Swift_-_Only_the_Young.png',
+            focalPoint: '42% 32%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },

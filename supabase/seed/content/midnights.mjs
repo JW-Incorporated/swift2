@@ -210,9 +210,11 @@ export default {
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-feature-length-directorial-debut-original-script-searchlight-1234644555/',
           },
         ],
-        // No photo: the announcement had no event imagery; direct image-URL
-        // verification is blocked in this environment (T16 pattern) — leave
-        // for the photo pass rather than hotlink unverified.
+        // Photo pass #762 (2026-08-06): searched — Variety/Rolling Stone ran
+        // no photo with the announcement (a press-release deal, no event),
+        // and Wikimedia Commons has no 2022 VMAs image (the era's nearest
+        // photographable moment) to use as a genuine reference. Left without
+        // a photo rather than reach for an unrelated stand-in.
       },
     },
     {
