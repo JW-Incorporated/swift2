@@ -1377,7 +1377,12 @@ export default {
       slug: 'city-of-lover-paris',
       // Cross-link (Stage 3, 2026-07-30): the "City of Lover" pair — the
       // concert itself, and the special that later aired — now interlink.
-      relatedIds: ['moment:vault-lover-city-of-lover-finally-airs-a-concert-special-for-a-tour-that'],
+      // (Stage 3, 2026-08-06): also links Cornelia Street's same-night,
+      // same-city acoustic debut.
+      relatedIds: [
+        'moment:vault-lover-city-of-lover-finally-airs-a-concert-special-for-a-tour-that',
+        'moment:vault-lover-cornelia-street-written-alone-and-debuted-acoustic-in-paris',
+      ],
       year: 2019,
       month: 9,
       day: 9,
@@ -1431,6 +1436,12 @@ export default {
     },
     {
       slug: 'lover-fest-announced',
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster — its
+      // cancellation, and the mirrorball it led her to write instead.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-falls-to-the-pandemic',
+        'moment:vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap',
+      ],
       year: 2019,
       month: 9,
       day: 17,
@@ -1476,6 +1487,11 @@ export default {
     },
     {
       slug: 'lover-fest-2020-cancelled',
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-a-festival-instead-of-a-tour',
+        'moment:vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap',
+      ],
       year: 2020,
       month: 4,
       day: 17,
@@ -1963,6 +1979,9 @@ export default {
     },
     {
       slug: 'cornelia-street-live-debut',
+      // Cross-link (Stage 3, 2026-08-06): same night, same city — the City
+      // of Lover concert this acoustic debut happened at.
+      relatedIds: ['moment:vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b'],
       year: 2019,
       month: 9,
       day: 9,

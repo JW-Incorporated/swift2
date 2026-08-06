@@ -483,6 +483,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Sandi Spika" designer cluster.
+      relatedIds: ['moment:vault-debut-a-sandi-spika-drop-waist-gown-for-the-2007-acm-awards'],
       year: 2008,
       month: 2,
       day: 10,
@@ -618,6 +620,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Sandi Spika" designer cluster.
+      relatedIds: ['moment:vault-debut-a-purple-sandi-spika-gown-for-her-first-grammys'],
       year: 2007,
       month: 5,
       day: 15,

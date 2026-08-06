@@ -598,6 +598,9 @@ export default {
       day: 7,
       category: 'sighting',
       threadIds: ['the-proposal'],
+      // Cross-link (Stage 3, 2026-08-06): same "the-proposal" thread — the
+      // Super Bowl LIX sighting the Chiefs' playoff run led to.
+      relatedIds: ['moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick'],
       title: 'Back at Arrowhead for a Monday night win over New Orleans',
       snippet: 'A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints.',
       sourceUrl: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582',
@@ -2158,7 +2161,12 @@ export default {
       threadIds: ['the-proposal'],
       // Cross-link (Stage 3, 2026-07-27): the follow-up Super Bowl LIX
       // sighting two weeks later, same "the-proposal" thread.
-      relatedIds: ['moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s'],
+      // (Stage 3, 2026-08-06): also links back to the Arrowhead divisional
+      // win that punched the Chiefs' Super Bowl ticket.
+      relatedIds: [
+        'moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s',
+        'moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans',
+      ],
       title: 'A confetti kiss after the Chiefs punch their Super Bowl ticket',
       snippet:
         'Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.',
