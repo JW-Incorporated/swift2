@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 74
+
+## Kylie Kelce Reveals What Had Jason Crying at Travis’ Wedding to Taylor Swift - extratv.com
+
+- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Reveals What Had Jason Crying at Travis’ Wedding to Taylor Swift  extratv.com
+- sources:
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxONlNDVmlLRnMwYllKNEo0NFlLUHo2M2tqRVYzazJWQVpuQzVlYTJFZFZaTF9JbzRMQU51LS14YkR1YklDTVliaHh2UlVtX1BUSjRISl9ObFFZVVdCMjNjRXlrOS1OLUNWdXlNWjg0TS0xUlBGQ2FXdEtydUNkMG5kWTJ1bkZDckJGd2IyRk9TNGs3bTV6azFsVWV5OWNjMlhFdFdzdHJ4VHhsaEk?oc=5
+
+## Taylor Swift & Travis Kelce’s Married Life May Not Be What Fans Expect as Sources Describe Why She F
+
+- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift & Travis Kelce’s Married Life May Not Be What Fans Expect as Sources Describe Why She Feels ‘So Much Pressure’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQcE8xTU5TOGw2MlNxOUw0R3lJWTZHd1BITkxKM1pjS1RqVENZYnNldkFRT3JEZnp1b3Mwak5OZUo4MWZSNHpMYmFuS2tjWFNwYms2dncyTU8tTzAwNGFwYm5WSG5uQTJJSWlyTXctbDE5MFRGMXhNYWRnM2pmR1I2TWJoUFV6Y1V6NTN4TkN4U2lXcjZCZ1pBUktWVXZhZFdvcEc2eVRn?oc=5
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMipAFBVV95cUxPU3o0M3ltd1pBcmx2SklKQ3Q3RktLQXYySFFiWUtnMHJVakpjelh5ZmZBTVhHY200amIxbS1ibzBJSkk5MVZXZDB0QThrdkpGaEFKa2xlZERzUEwwUWNFZm1aTTk3M3lVQnJWTFB5NkV2dEJIVWVDWC04TVI4NHFpaFJqVXkyck14RmF1SldxV3lPTGMyOWpvNGZJTnB3WHBnQ1IzZA?oc=5
+
+## Greta Lee Reveals the Taylor Swift Moment She Didn’t See Coming - Yahoo
+
+- first seen: 2026-08-07 17:59 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Greta Lee Reveals the Taylor Swift Moment She Didn’t See Coming  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNUmdXUEduODBHZ191dmF6ZDY4MU5oVTJySGhvT2JtRFNial9HR2ppS1JkZ094dWJsa3QyeS14a0ljTGhWYzkwQ1lCa2hyREtuZE5pR3E0MnlxLXU3M09aX3d6Y0JzcWF2TTJJLVl4bzlmYnZIel9Qazg0VjJnYWRfZ2lVMzRzRC0tRUV4QmZIMGJmc3p2RVVIc1lCU1BGWGpyLVE?oc=5
+
+## Greta Lee Reveals the Inspiration She Got From Working Alongside Taylor Swift on "Opalite" Music Vid
+
+- first seen: 2026-08-07 17:59 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Greta Lee Reveals the Inspiration She Got From Working Alongside Taylor Swift on "Opalite" Music Video  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQR0NXRU5KYklXRWhfR1kwdHJfanplMjVUNWl6a0JmY3pRZjBOdGMxb2Z1Z1d0cHlCcTRkbGIzRjNHZElDSUZjUGFJdVc0Z2F4aGs0UUpwR0s5TFZ2U1J3Nm1QOUh6R2pXT3E3c0NubWJVci1iMTBETFNHYi1PNDNZWnRZNFdCd0tnRGhCSVBiSG9OYWwzV1R3QWgteHFlOE4xeENsMWtMTzA?oc=5
+
+## Did This Taylor Swift Lyric Lead Her to Travis Kelce? + Chiefs Camp Buzz - Yahoo Sports
+
+- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Did This Taylor Swift Lyric Lead Her to Travis Kelce? + Chiefs Camp Buzz  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMif0FVX3lxTE1vTHZaRVpWZUVxaWp4dGljbUJJbW9CT0VTRldwYl9oOHFzWC16MHN2UjBrNlNoRkgtcGM5eFJIeGszTVNoUkNMb2JkNHVvYk5uUThtdHJ1dXA0WlJXdkZHdWQyMy1EY1JndVEyc0JLQUVYRTZiR1RIVlJ5VVJpa3c?oc=5
+
+## Cooper Kupp was surprised by invite to Taylor Swift and Travis Kelce’s wedding - Entertainment Weekl
+
+- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cooper Kupp was surprised by invite to Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxORXVnQ21yeU9YUDN1WUxhN01iSy12U3RGX3AzdEV3RllRTDVoaE85Q1hHVjRKOW91Rlh0bUFlcTcxSzNwVWxQcndLdEZLcThtZkdZQXppZFkxYXZwQ2VtWGRIWC1qV0VKME5ic1J4Z2c5Ulc5YlVMTEh3aF84MFRfNm9ZYV9WbURfV3hB?oc=5
+
+## This Taylor Swift and Travis Kelce Wedding Guest Truthfully Doesn’t Know Why He Was Invited to Their
+
+- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: This Taylor Swift and Travis Kelce Wedding Guest Truthfully Doesn’t Know Why He Was Invited to Their MSG Ceremony  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxORlJ4ejExcGRidGxUVzc0ZGRHR3dQYWtSX01xdG4zWkdPLTR4dDJpZmxTRzRCb3c4MW5HSUtGa2h3bUpOWHlUUnM2eU9vclVka1FfaXpuTF9UVXVWVThrN19XcXN2MHF6QVZ6YkdKWTVOWEtRa05yNzBiWlc0M2c0U2hxWWJTbWoyU2R6WnFDSk1tc3ctdlJNM3ctR2JrelhwcFNIMUt0OA?oc=5
+
+## Taylor Swift and Travis Kelce Have New Competition From NFL's Hottest Couple - Sports Illustrated
+
+- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce Have New Competition From NFL's Hottest Couple  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxPcHVwQjRmRFI5V3ltdTlHMXMzWlBEQTdXYnlPeENLcjAxNWhUUFZkMGFGTG9Ydm1hTHZkQ1RiRldrNmFSOVhlSjluREVoaGNkbWVfeW5OOGJWRnVzRnd4bkVwS2J3MFpIUVh6aTBZT0dHTGtiM0pWX045REd6T0R3SGNGZjNScWdkVDQ0MG1aWnpUSUxnZ0ZlOFNyNEl6N2NCRnJoVlFFRVBEYmRCWUQ4NEEtOA?oc=5
 
 ## Taylor Swift Wedding Street Trash, Sydney Sweeney's Bathwater Soap and Justin Bieber's Hair Among We
 
@@ -440,10 +505,11 @@ Stories: 72
 ## 'A joke' - Cooper Kupp reveals what shocked him about Taylor Swift and Travis Kelce's wedding - hitc
 
 - first seen: 2026-08-05 11:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: 'A joke' - Cooper Kupp reveals what shocked him about Taylor Swift and Travis Kelce's wedding  hitc.com
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxQdDNWOWVqdWJkbmtZWk0yZUNsV3g3YmhlNFRQc1dlZmcxSXFvU2pWVUxCSWZfa0ZITURfN1JYT0I3N09DZ3FFNk5wdTRJdVRwTE5XRHI0N1lnS3NTRGxiVWwxYlRaczhXWmkxTFVOTTdxQi1aZG0yQmRuRWhDbkJCSDl6UnhnUm10eVpKckh4bnNXektndTZJdkxXeXhCM05SLVB4Q3VpYWprNFN2WWEw?oc=5
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxPelFWLV9ySEV0S0xCSU5GdGdld1o5N1dGSWRYWGpKbFNVQnB4Rk1nVElBb01ISUxiMTBjSk01UVNtTXh6Sl8xS29VeGlKV1RlNXk0Z3BMaEZ5aEhKOHJLTng0YUd0RnBsRzZkWXl3U0NHSmwwYXZFbWViZWhYa0VWcmRVdy1valhMbnFDcmZ2bTQwSHJ5b0tKMnBfQ2NfbmsxWC1uS0RYaURmd01uQ1F6VGsxb01tcjg3Y2ZSQjlBS0JMWkV5a0d5WUVR?oc=5
 
 ## Inside Ted Lasso Season 4's Enchanting Nod to Taylor Swift: How Her Eras Tour Played a Role - E! New
 
@@ -568,52 +634,3 @@ Stories: 72
 - summary: Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPTFpRLWRQbGYzYWY5X0JfTm5YOVlReFJwb0llcFNIMUdCdWxTQW8yX1ZXU3JEMGw0RWwxQkdMcm5sbGVOTzg3QUY4SGo1VEROd19UWTNUR0ZmZzZTM292Q1B1Wk9GQ1laMFpmVmNtREY5V2ZBMnJZd3Q4dlRROWpBNFdGZVl0d2xTT3Z1aGZoV0pOZ0JJRDBOenphbm1pbEt4YkFuUC1TOHNTY3FBREg4WDFB?oc=5
-
-## George Kittle Shares How His Mom Became the Unexpected ‘MVP’ of Taylor Swift and Travis Kelce’s Wedd
-
-- first seen: 2026-08-04 15:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: George Kittle Shares How His Mom Became the Unexpected ‘MVP’ of Taylor Swift and Travis Kelce’s Wedding  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxOMDFBMmpGbmZQdU0wWUE0MjkyNDEyeEVXellZTEE3OWFmOVlYOVNraENzNWFNVURnUzZGSzJLV3Bsb2pfUVJQT2lTd2ZvMXNsOVJfVGF6Mm5tZ0U5cHgtRlloeG9KQ3gtMDM1TGUyZ1dHSC1qaGFObm1CcmxrVVV1SkpMVzlpUDQtZ2VDOXpuV1A0UnpIMl8wT1ptMDFCZ0gyWmNjVGh6dEU4WW9zTlVPZQ?oc=5
-
-## Inside Taylor Swift and Travis Kelce's Married Life at Home - cosmopolitan.com
-
-- first seen: 2026-08-04 15:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Inside Taylor Swift and Travis Kelce's Married Life at Home  cosmopolitan.com
-- sources:
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNUUl6dGt0SzJ0TEFPZHR1YXZrbmdnQlM2Yll0b29KOVRPWkx2WHgwdUhLalZ6bzV5SlR1eUd2c1RLSzQ1WHhzR1EyaU5UWEw1V0kxQnB4bU5mV3RHc2ZBMElBRHN1M2xFMVE1Qk9aTFc4MXVUUTd0NTM0aGRuR0pBOS01MUFWSDhQQWpzQ29tR0FIaGF2Q2Q2NDByRmluejN5dlZIUWg0WEk1XzQ?oc=5
-
-## After co-producing a Taylor Swift album and writing country hits, Robert Ellis Orrall is in his ‘loc
-
-- first seen: 2026-08-04 15:33 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: After co-producing a Taylor Swift album and writing country hits, Robert Ellis Orrall is in his ‘local band’ era  The Boston Globe
-- sources:
-  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMilwFBVV95cUxNa2lPaV8xRjZ1SEJlamtvTFhiUkJDM0UxWV9sbGwwd3hwbjlPWThRM1Fya0tCQ3dkZFQzWXFMVjFxMmd6Q01BSFlRVE5HT1NyTHhmUXBDY2VZWDZKcE90N0VLa1JIOHgzQmxnUlJVbGtEX3lkUFJnWkhiS2RmZERGSDd0R2lOZzI0Y2FVbXY2UTNab0s5SHl3?oc=5
-
-## Where Will Travis and Taylor Live Now That They’re Married? Couple Eye Move to Exclusive Town Filled
-
-- first seen: 2026-08-04 15:33 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Where Will Travis and Taylor Live Now That They’re Married? Couple Eye Move to Exclusive Town Filled With A-Listers  cosmopolitan.com
-- sources:
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxQY19PZ2JtY2w0d05MNHNFam5MTXJ4ZDJkUXBiUXAyMVg4dmYyNUE4MHFPdHhqeHFoOGtEemFmRmRyNHFiVXYyb3pWVWRIS3hxRndKc2tyQ2ZsNUtzTE80X0U4SEJTVWhyOUNYMEZSSDRxaVE4UF9kSWxfSnVZZVhyQmcyWHZjMmJaSDZjOW15RFpwOG5zR2hsSnRpMHctWmU1N0ZiVUdPRXlRanI5ak9BcVVzbThrSFNXWUE?oc=5
-
-## Gracie Abrams Built a Career on Honesty. She’s Going Even Deeper Now
-
-- first seen: 2026-08-04 15:33 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The young superstar on the journey to her hit album Daughter from Hell, the “circus” surrounding her famous relationship, and how she hopes the future will unfold
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/gracie-abrams-daughter-from-hell-upbringing-relationship-1235600799/
-
-## Taylor Swift Makes One Big Sacrifice for Life With Travis Kelce — Source - Yahoo
-
-- first seen: 2026-08-04 15:33 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Makes One Big Sacrifice for Life With Travis Kelce — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNN3ZmS3NqRVZ0dl9vZjN4aThpSC1jeHZ1QnlidzVJdUZEbWNzaHdBV3hoVUh3N3VLdjFUMTQtaGF5QXFoRVp3S092VWJXOF9Eb0E4d2ctbDNXX3o1NG1MWmV2RHRNaDVybVU3T2VsTkhmTnUzRXhkcmNLOE13MWpVZ0tTUkJ3ZnpaZWl1eUwzYWVRdjREbE1NM1poUk8?oc=5
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxPWG9OMVh3TDRzZWxYTlRJUEVISGxTVS1wdGRqeXV5SXVFc25jcjhhRzN3U0VQcHU0XzZCRzNlQS0tV1hfTkYxcERWdm5uSG00ZFk5cDkwTXpITWNJeDhJWHUwc0RzYmhUX2Uxam5nQVNUWmNrLTZ6SURBaV9fWTd5OHlsR2Y2YUF1RHA2OFZzeWIxMUpFWlQ0NlMzZlI?oc=5
