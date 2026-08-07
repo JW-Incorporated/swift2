@@ -83,14 +83,6 @@ Stories: 77
 - sources:
   - [unverified] beaconjournal.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOWUtvN2dCajRENXJUQ3RoSmtpTVEzSEtqU1VVemJnWVVxZUVxd2RhYkkyS19TVzZsdG1RT1N3VlREaGNOU1k5bkdzcHBuRmpiUE1mM3VQaDc1YkEycXBYbzNuTWRVSVU0MUYxUk9fa0d4MmpBdXRqY3kzM29GbEtxS0VDZWdUZzFPb3IzQS1GNVFMQzJiU0VDRVBzbGdEc28wcWpvYWxNTThoY2FOamtBSnJHRFRUYWNSV2lmd2VLWnRjYTVpRW1BQzRzR1BZZXp6OXhBUGtXZw?oc=5
 
-## Charles Barkley declined Travis Kelce and Taylor Swift's wedding invitation for a simple reason - Fo
-
-- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Charles Barkley declined Travis Kelce and Taylor Swift's wedding invitation for a simple reason  Fox News
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMitAFBVV95cUxObDFMWmJzWkdmTmlpYzh4RGRZWDNybUxKRVNtS0ViSmY2NHFsajVsUUtqSF80eldMeE0wYVhMRGdQQXh4LWdqUjQyVlNTU1Bob2o2eFVMSmVXcDJxQWt3RkE3d3RnQmNtY25CeVdqbGN2SVduOUNjTVFMX2NBZjVlNFllek5KTU8wRkgtamMxYkEzYUE5c3B4MXoyaGtTT0RVZXN1OEY0QWF1QVBFa0lieDNyQmjSAboBQVVfeXFMT3lya3FxeDktSlZWUGJ6UlNST0p1aktBR0JFVVpNMlhwSG1DeXNZWlVfX1ZLdG8xWk93RUJnVkR0eWFTdkI2cjJ1Y2lCYnZYVW0tdExqcFFBcVIzaEY5aURCQVFGTUdaQUpHMHp2TmFmNGItX0lpTkJMMmRiRGU3eFd3N3RZRDFvUHJZRUhwUzNvemc4N2tjd1c4WGR2bjdiVktBdkJpT3FKVTNRSWVxaHNzaXVYVmNmWTh3?oc=5
-
 ## The Fight Over Tracking Elon Musk, Taylor Swift and Other Private Jets - observer.com
 
 - first seen: 2026-08-07 01:02 UTC | category: music | importance: 5
@@ -106,6 +98,15 @@ Stories: 77
 - summary: The blogger was the “original influencer,” but he’s also a human being
 - sources:
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-commentary/perez-hilton-mental-health-celebrity-1235604600/
+
+## Charles Barkley declined Travis Kelce and Taylor Swift's wedding invitation for a simple reason - Fo
+
+- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Charles Barkley declined Travis Kelce and Taylor Swift's wedding invitation for a simple reason  Fox News
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMitAFBVV95cUxObDFMWmJzWkdmTmlpYzh4RGRZWDNybUxKRVNtS0ViSmY2NHFsajVsUUtqSF80eldMeE0wYVhMRGdQQXh4LWdqUjQyVlNTU1Bob2o2eFVMSmVXcDJxQWt3RkE3d3RnQmNtY25CeVdqbGN2SVduOUNjTVFMX2NBZjVlNFllek5KTU8wRkgtamMxYkEzYUE5c3B4MXoyaGtTT0RVZXN1OEY0QWF1QVBFa0lieDNyQmjSAboBQVVfeXFMT3lya3FxeDktSlZWUGJ6UlNST0p1aktBR0JFVVpNMlhwSG1DeXNZWlVfX1ZLdG8xWk93RUJnVkR0eWFTdkI2cjJ1Y2lCYnZYVW0tdExqcFFBcVIzaEY5aURCQVFGTUdaQUpHMHp2TmFmNGItX0lpTkJMMmRiRGU3eFd3N3RZRDFvUHJZRUhwUzNvemc4N2tjd1c4WGR2bjdiVktBdkJpT3FKVTNRSWVxaHNzaXVYVmNmWTh3?oc=5
+  - [unverified] WFIN — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNXzRIU05UU1gyd1drNTRvRURKajU0N21qUXpjXy1QVjdNZm9fS1F3aC1CUHZSQk55RXpNbjA2ZkNxTDdoLUQwYnN4djg1czFseUNCbVYyTlhucE1wYV9OQVBMMGpQZnBvaVhTYlJJSXlwV0g0cExEd3FvNGFkbXFjOTJ4MGdldVU2dVZzQm5wdV9ycGRIOHlRdE9KaktNYmNVQTd2dndDQ21mR3F2QmwwU2xWZ1dQTEF1UTlGNFdFcHQ?oc=5
 
 ## During a recent visit to NBC6, Perez Hilton spoke about Taylor Swift’s wedding, his recent move back
 
