@@ -215,6 +215,9 @@ export default {
       day: 25,
       category: 'release',
       title: 'folklore: The Long Pond Studio Sessions marks her directorial debut',
+      // Cross-link (2026-08-07): the Free People velvet dress she wore filming
+      // these same sessions.
+      relatedIds: ['moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se'],
       snippet:
         'A surprise Disney+ release, filmed in a secluded Hudson Valley studio with Aaron Dessner and Jack Antonoff — her first time directing a film.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions',
@@ -628,6 +631,9 @@ export default {
       day: 25,
       category: 'fashion',
       title: 'A Free People velvet shirt dress for the Long Pond Studio Sessions',
+      // Cross-link (2026-08-07): the sessions themselves — her directorial
+      // debut, filmed the day she wore this.
+      relatedIds: ['moment:vault-folklore-folklore-the-long-pond-studio-sessions-marks-her-directorial'],
       snippet:
         'For her directorial debut on Disney+, Taylor wore the Free People Lux Velvet Shirt Dress with a Tiffany & Co. bracelet — a cozy, intimate wardrobe matching the stripped-down studio set.',
       sourceUrl:
@@ -1411,6 +1417,9 @@ export default {
       day: 18,
       category: 'release',
       title: 'the lakes: the Lake District escape fantasy, saved for the deluxe edition',
+      // Cross-link (2026-08-07): the real Lake District retreat behind the
+      // song — her 2012 birthday minibreak there.
+      relatedIds: ['moment:vault-red-a-birthday-minibreak-to-the-lake-district-spotted-feeding-do'],
       snippet:
         'The lone bonus track — a Windermere daydream about quitting the discourse and moving somewhere the poets went to die — arrived Aug. 18 on folklore\'s deluxe editions, three weeks after the album.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Lakes_(song)',

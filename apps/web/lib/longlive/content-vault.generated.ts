@@ -499,6 +499,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/EKnl7STzSMU/hqdefault.jpg", credit: "Taylor Swift via YouTube", caption: "Hugging a fan at a session — a still from the official '1989 Secret Sessions, Behind The Scenes!' video on Taylor's own channel (Oct. 2014).", kind: "archival", focalPoint: "62% 34%" }],
       sources: [{ name: "An Oral History Of Taylor Swift's '1989' Secret Sessions", url: "https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions" }, { name: "Taylor Swift Invites Fans to Her Home for '1989' Secret Sessions", url: "https://www.justjared.com/2014/09/22/taylor-swift-invites-fans-to-her-home-for-1989-secret-sessions/" }],
+      relatedIds: ["moment:vault-reputation-the-reputation-secret-sessions-500-fans-four-houses-zero-lea"],
     },
     {
       id: "vault-1989-welcome-to-new-york-with-the-proceeds-going-to-the-citys-sch",
@@ -2817,6 +2818,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg", credit: "Disney+ (official poster)", caption: "Official release poster for folklore: The Long Pond Studio Sessions.", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-live-reviews/taylor-swift-folklore-movie-disney-1095464/" }],
+      relatedIds: ["moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se"],
     },
     {
       id: "vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-",
@@ -2892,6 +2894,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg", credit: "Disney+ (still from folklore: The Long Pond Studio Sessions)", caption: "The Free People velvet shirt dress, in a still from the Disney+ special.", kind: "primary" }],
       sources: [{ name: "Fashion Sizzle", url: "https://fashionsizzle.com/2020/11/28/taylor-swift-wore-free-people-blouse-shirt-dress-for-folklore-the-long-pond-studio-sessions/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions" }],
+      relatedIds: ["moment:vault-folklore-folklore-the-long-pond-studio-sessions-marks-her-directorial"],
       products: [{ brand: "Free People", item: "Lux Velvet Shirt Dress", retailer: "revolve.com", url: "https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/", price: "$139.00", inStock: false }, { brand: "Tiffany & Co.", item: "Tiffany Infinity Bracelet", retailer: "tiffany.com", url: "https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html", price: "$350.00" }, { brand: "Melinda Maria", item: "Perfect Pearl Stacked Ring", retailer: "melindamaria.com", url: "https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold", price: "$75.00", isAlternative: true, altNote: "The exact Soleil stacking set is discontinued — this is a current Melinda Maria stacked ring, same brand and spirit." }],
     },
     {
@@ -3047,6 +3050,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a2/The_Lakes_%28Original_Version%29_-_Taylor_Swift.png", credit: "Republic Records", caption: "Cover art for \"the lakes (original version),\" released on folklore's first anniversary.", kind: "primary", focalPoint: "50% 32%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/William_Wordsworth_by_Henry_William_Pickersgill.jpg/1280px-William_Wordsworth_by_Henry_William_Pickersgill.jpg", credit: "Henry William Pickersgill (public domain), via Wikimedia Commons", caption: "William Wordsworth, the Lake Poet behind the lyric's \"what are my words worth\" pun.", kind: "archival", focalPoint: "57% 28%" }],
       sources: [{ name: "The Lakes (song)", url: "https://en.wikipedia.org/wiki/The_Lakes_(song)" }],
+      relatedIds: ["moment:vault-red-a-birthday-minibreak-to-the-lake-district-spotted-feeding-do"],
     },
     {
       id: "vault-folklore-betty-goes-to-country-radio-her-first-country-single-since-2",
@@ -5344,6 +5348,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/ea807ef4c932-bowness-z.jpg", credit: "HELLO!", caption: "Bowness-on-Windermere, the Lake District village where the visit took place — not a photo of Taylor or Styles, who could not be verified in any available frame from the trip.", kind: "primary" }],
       sources: [{ name: "HELLO!", url: "https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/" }],
+      relatedIds: ["moment:vault-folklore-the-lakes-the-lake-district-escape-fantasy-saved-for-the-del"],
     },
     {
       id: "vault-red-a-virgin-islands-getaway-spotted-at-dinner-at-cocomaya",
@@ -6225,6 +6230,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://s.abcnews.com/images/Entertainment/taylor-swift-2-ht-mem-171107_16x9_992.jpg", credit: "ABC News", caption: "Inside a reputation Secret Session, from the behind-the-scenes footage ABC aired on November 7, 2017.", kind: "archival" }],
       sources: [{ name: "Taylor Swift 'Reputation' Secret Sessions: Fans Listen to Album in London", url: "https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/" }, { name: "Exclusive 1st look inside Taylor Swift's secret sessions for 'Reputation'", url: "https://abcnews.go.com/Entertainment/exclusive-1st-inside-taylor-swifts-secret-sessions-reputation/story?id=50973344" }],
+      relatedIds: ["moment:vault-1989-the-secret-sessions-89-fans-at-a-time-in-her-living-rooms"],
     },
     {
       id: "vault-reputation-the-end-game-video-miami-tokyo-london-with-ed-sheeran-and-fu",
