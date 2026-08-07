@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 73
+
+## Healing begins when we challenge the stories others tell about us. - Psychology Today
+
+- first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Healing begins when we challenge the stories others tell about us.  Psychology Today
+- sources:
+  - [unverified] Psychology Today — https://news.google.com/rss/articles/CBMivwFBVV95cUxOU0Z2LUlaZzYxS0ZXdVJpbzBaQkt6YjNVd0hUV1hKWFlZUzFzbGVSczNYa291b0ZpY3dfdER6RE1PbzVGNnZnWjd1M013b3VaVlYwMl8tYzNXTU1KQTJHRVNKZngxQVpVWjFUVHR1czZ2ZFNjMktUd2U4WDZvVnFEcEFmYVZLRFptZk9yaXdBRGVWX2o2V0NZWlNsdjJkOG9DR1ozcllGT0tyUmU3ampPYmFZSWpyS1RaLUlyaDlOVdIBxAFBVV95cUxOVnRRY2gxMUMxM25FQmR3bDdFM09QRWRrb1NmQi1hSXRWalZKUzZLVFdORS04UFM2Sl9vUHFpT2wzQTVOdjNVUEdNclUyS3BSOW12Q1kwQzBJT2FLWDM0aUUzS2I1c1pOWDJoY0JzbExWUERWV2JtQmRtcGx0ZFlJTFpENGpVNFJpekJYUWlKLWMyQzR1Y3Y0LUJoZXpNc0xRcXZ4bV8zN0RkdVpHdTUzUllCQkdtQ1h0WGxMQV9jOGxjTE94?oc=5
+
+## Taylor Swift's sister-in-law Kylie Kelce sets record straight on husband Jason crying at pop star's 
+
+- first seen: 2026-08-07 21:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's sister-in-law Kylie Kelce sets record straight on husband Jason crying at pop star's wedding with Travis Kelce  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE1QcEliOXpjelVmRHp3dDlnVWpzSWlxOThwQUFUQlF0dnZrQ1d6ZVZMVHIxeGllTy1Tb3hLTjhvU2NTSzZjRTRDTzVpSkpTMnFMYmRGeUlXUXhuY01FUlloTmZ4N1pjcGY0cVp4aHgyVHl4ZTA1OWlTVVdkbFA?oc=5
+
+## What would Taylor Swift do in China? Protecting against AI deepfakes - managingip.com
+
+- first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: What would Taylor Swift do in China? Protecting against AI deepfakes  managingip.com
+- sources:
+  - [unverified] managingip.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNR01CSEd4TVRURmZxMVhfQXhxYUpYYy1VUm1jZWhEaGxjajh1NHlVVUkxVXpxZWw1ZHNFVXBxVkRmZnNmYWltaWdDUVJCazhvU0ZxNTJyanJjelFpSlE3ZGx4OVNudG1WaFFZNVlsckltZlVVWFFsVnN5ZUZmdGdEVHpqaUVXT0dvMVM4U1JHalotWFhQLXVCYUhmY1FRMTNwSGxWU1hEWTV6LW93SFpoVm9XSjBCY0FqVy1YQlMwMWNXak5CUU50YjEtZkxtOXdzQkYxQ2lZVElQdw?oc=5
+
+## Taylor Swift Allegedly Restocks 250,000 Vinyl Records for Unknown Release as Fans Speculate Rerecord
+
+- first seen: 2026-08-07 21:52 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Allegedly Restocks 250,000 Vinyl Records for Unknown Release as Fans Speculate Rerecording of Debut Album  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxNY3BzZFBmbmY3Tk8xTk9qWDVPZW1pUmxhaTA2Qk9iM2tfRlp4SVpMMWljcGdrQ2NqWjFkeFZoVzhhZXJzalFUTmxjZ2hkTURtY3VDYWI2cEl3S25FaTRxTjY2UFZkekZvRXl6WFlxdnM1dGJGOWVDVFB5OXNzUFdvemZCNA?oc=5
+
+## Sombr Reflects on Performing at Taylor Swift’s Songwriters Hall of Fame Induction - Kiss 95.1 Charlo
+
+- first seen: 2026-08-07 21:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sombr Reflects on Performing at Taylor Swift’s Songwriters Hall of Fame Induction  Kiss 95.1 Charlotte
+- sources:
+  - [unverified] Kiss 95.1 Charlotte — https://news.google.com/rss/articles/CBMisgFBVV95cUxQR2RpZVYyRzlpSEN4Rm51WUNpMUxxT1pMRlhuQzlFUHZNT0pOdVVPZndncTNjQklqaEdnZ2tTQVl1alU3VktxVFJ3U2RMeEc1a2xUdHBSbGJRQW8wbXBZRjBwcjlLaHdLV3lOREJpWDVKeHBmMnVXYXdicGF0MWdGR0VWcm50ei04bjhVMkt3dVJiUmJLQ1hEaVdSbWVuc2VUbU9FOTJSQVFvWW5CaHdYdkJ3?oc=5
+
+## Este Haim opens up about emotional bond with 'sister' Taylor Swift - USA Today
+
+- first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Este Haim opens up about emotional bond with 'sister' Taylor Swift  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxNV1NZY1Z6NVpMWFFtTHV6NkY5MWtWRklyaEtiMGV6UHEtejFWeHRNWEJGWkotcmdCMUNiSEs3bGJSX1RnOVdnUGc1NHAtRHhhSHEwRHBLOWI1cllrY3lwanM2RG0taFdvV1dBdnlvdWVmVV9wZk11SzlZNU45dWxBT09FempjSV81RWs2MlkwMUk5a1o4VF9GMGVzZjVBQXpDS2k1aXY2bjJUcmNWTnhtQU1iMVIzbFFwQ1kwdmIzZjRHZ09lUDlBdjZESQ?oc=5
+
+## Kam Saunders Calls Taylor Swift and Travis Kelce’s Wedding ‘Transformative and Remarkable’ - People.
+
+- first seen: 2026-08-07 21:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kam Saunders Calls Taylor Swift and Travis Kelce’s Wedding ‘Transformative and Remarkable’  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxONy1zSFBKNEQ1ZTdtV3FfQVFmWU13QUV0TnlVNHU1WkRQWWxvZVVtSTFGWHJzZ3oxM1N6SHdaejh1aWI4MnpRdFdQbDY0dVZlaGNZUDVUa2V6ZS1PdGV3Zm95THJzaVBHdVVFdHBiQzBrRWxQLVAzbE1wWkExOWlTTWYyR0ZFbVMxNVVsQ1BPMFdOVVhrbEJtZXlaNXJUT3VDcktOeFhzSzFvX01wTlRtM0xjZlE?oc=5
 
 ## Kylie Kelce Reveals What Had Jason Crying at Travis’ Wedding to Taylor Swift - extratv.com
 
@@ -569,68 +625,3 @@ Stories: 74
 - summary: Scott Eastwood Reveals the Career Advice He Ignored About Taylor Swift  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOazRTLXRvWkVySEtDcExsVDEyclF2N0NMWGJUWllyNGhzcHBfeE9jUkpMQWgycnZZRm5MOHF5cDc0cFY5OHI5ZXNRbGtMUFlGWTJGcGF3TWwtT3NUampoNTFfal96b3R1OVRLdER3dE5Md0dRc1lrVkJMV1NFNzYzREowaWxMdkJ1MGlSVlV4MVl0WEVnaVVia005VmRuNERscGQ3UQ?oc=5
-
-## Role Model reveals why he skipped Taylor Swift and Travis Kelce's wedding - Contactmusic.com
-
-- first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Role Model reveals why he skipped Taylor Swift and Travis Kelce's wedding  Contactmusic.com
-- sources:
-  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOc2M4THllMzdlYWhrVVkzcjdzZ3pqMUtYZGNZUWp2Yi14QVNNN25LWS14RWNfSTI3NHB5TWZBbVc0dXZnR2F2aVU1T0VTZ29zbmZDX25JeU14YmItNjlZRERCdmFfYzFwRGpFaWZJN2RxQnp2N3VTUTNXS2RZUnM4cnZmamJ1UDRwRnFSdWJMRzBGUTR1QkVVZUp4NlhHN3FBUVFMSExkQl9zdFFTVTdlZnFwazBvWTdsTkhZTA?oc=5
-
-## Why fans think Taylor Swift and Travis Kelce have a dog named Wendy - USA Today
-
-- first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Why fans think Taylor Swift and Travis Kelce have a dog named Wendy  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPVUZYU2NDNXZVS2pWVjNMLVFDQWg0TllabVR0cm43RjVSQjh4dHR2ZDd5eElfbVZ6dFp1b1hwVzdLTUVtcjh6aWhWZ2ZBUjE2Y3RMYnYwZUtGQlV3SkF5YWlyRmgySlhQRlNjMjd6bE0wblA3LUJPamxnQzBoelJSU2lFVGdIbVFTVDdxNlhCYnl3UmE4NGlmMktlQm1fem1LUXVqbWVZQVVBVkFtSnZtVVdRTzhubmc5U0ZVcGdTMlVXd0dQN3drcW5qYmlnRF9TNTV2dzlYTWtMUQ?oc=5
-
-## Country Songs Are Dominating the Hot 100. We Shouldn’t Be Surprised
-
-- first seen: 2026-08-04 18:47 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: For the first time in history, the Top Five is made up of all country songs, including those by Taylor Swift, Ella Langley, and Stella Lefty
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/country-songs-hot-100-chart-make-history-1235603286/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiowFBVV95cUxPTU1FaVBfam1feGFJRmY3Nzl4dElMemJxYVdSLXRzYlRzSmhGaWt1SWI3Y0lOLWl0YnlxY1M1cGdIVkVMTlZvUVB2emVSVFNiM2w4Z1ZNLTc0MUVSR2k1b2J4TXVIZ3FjXzI0RE44RXVCQ2RxUDJoVWFtT2RqZGFXVFRRdGJGQU9iNklTd0dobnU2ZmlBdnp0TkVKS1FNTGJUeENF?oc=5
-
-## How Taylor Swift Is Navigating A ‘Fresh Start’ After Marrying Travis Kelce - SheKnows
-
-- first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: How Taylor Swift Is Navigating A ‘Fresh Start’ After Marrying Travis Kelce  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMioAFBVV95cUxNVGltd18yOEo4bnIybU1rMXZjOU1uNTBJN1FwUG00TUV4ak9FWVRHdHRDXzZhcVpnUkNORnRWMEh6ZENaelZPWHpNY1o1NEN4dUtDYVl0bUNRMTVjMXM4VzlzVFhaNUU1R2FkRGJSX1FiQllONm9oOUxydE9MSXl3RmYySTY5QXZITlhGQ0NkYy1UYVBNbjEtS3A4UWtTUk9G?oc=5
-
-## Five Mets Prospects Assigned To Binghamton After Trade Deadline Moves - WNBF
-
-- first seen: 2026-08-04 18:47 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Five Mets Prospects Assigned To Binghamton After Trade Deadline Moves  WNBF
-- sources:
-  - [unverified] WNBF — https://news.google.com/rss/articles/CBMiYkFVX3lxTE11dlBvQ0lPVEpaUm9IeWpzTldZRkJrczBaQ0FBYWItc3NuX0lvS2hzcHdiU3l6NTRIYjFEbVBxVmRsbHVESWg2X19GbFV3cmJFZFE3UjAzV2dDNkhTRmhCMFFn?oc=5
-
-## Taylor Swift Says She’s Happier Than Ever as Mrs. Kelce - yahoo.com
-
-- first seen: 2026-08-04 18:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Says She’s Happier Than Ever as Mrs. Kelce  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxQMVlUbG5Vc3pfVnNVUGdIaFZPR1V3bFNCT3UxaDVCdW5BaGlZcm5ZaWM1WmpEa3RqcTc1ekF5b2xGZ1pTZEluNVZiYzEtQ1pCeGlBYmdBaG94UWhOaFlENzlOQnVlanZxYVRWY3k2ZGNNdnduQ3FjcEFsRXU5WEZ5RTJYTEE?oc=5
-
-## Phil Collins praises Taylor Swift, says she 'deserves' massive success - USA Today
-
-- first seen: 2026-08-04 18:47 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Phil Collins praises Taylor Swift, says she 'deserves' massive success  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMirwFBVV95cUxPUXdkWUcwbmF2YWVwbzlVdVE5U082UHhvcXZjZ0R4azBONWNwREYzUE9qZ3pSVEpLTGNRNDN4X3dxWnBEc1RORmlzdU5KdlFBc29hM2tSWHF5c2gzaFRMbTRKU0JEajFUQ0Vodl9zS2FYeE5MSGdmNGE1VldWdElCVzVGSkREN0JjZ1BKMG5NOXZCR3h0NTNOaHlGbFE2WlFCM0JndVo0ZWJUbkdaQzJB?oc=5
-
-## Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage - People.c
-
-- first seen: 2026-08-04 18:47 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Role Model Reveals Why He Missed Taylor Swift’s Nuptials, Shares His Thoughts on Marriage  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPTFpRLWRQbGYzYWY5X0JfTm5YOVlReFJwb0llcFNIMUdCdWxTQW8yX1ZXU3JEMGw0RWwxQkdMcm5sbGVOTzg3QUY4SGo1VEROd19UWTNUR0ZmZzZTM292Q1B1Wk9GQ1laMFpmVmNtREY5V2ZBMnJZd3Q4dlRROWpBNFdGZVl0d2xTT3Z1aGZoV0pOZ0JJRDBOenphbm1pbEt4YkFuUC1TOHNTY3FBREg4WDFB?oc=5
