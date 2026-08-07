@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 74
 
 ## Taylor Swift tribute band postpones Niles show - wfmj.com
 
@@ -406,9 +406,10 @@ Stories: 77
 ## Inside Ted Lasso Season 4's Enchanting Nod to Taylor Swift: How Her Eras Tour Played a Role - E! New
 
 - first seen: 2026-08-05 07:48 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Inside Ted Lasso Season 4's Enchanting Nod to Taylor Swift: How Her Eras Tour Played a Role  E! News
 - sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9FOGJ2ZnFJV1c5RTNzbG5MajlHWHY1dnhxV3M0LVVCeEdpbzFBZ3h2RWYwYm4xekctRU42RE9IYkZGbUt3WW8yUDBRSkNkYklGYVhJb0ROcjBBanNMRUYySkJBdHhNenRhRmxBTlVta1FDT2VC?oc=5
   - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPSHk5WDU3VmpmSjNVcV9Ud0RIRXBCa3YyN1A2UnlQX2tqaDExQWZuUTV0RkFYNkwwYkRPLU9YOFQ2NGxSQS0tM1VHQzJ2NlQwdks3VWdEaGhZSmZ6cXZ1OUUtVmlRejJ5M29Cdl9yX01XZDhMb2R0eWp4NElKcWRobU14NzExdVJZaGVXMFBSNWdMRmtmbHBCZjFqckhsaC1EbzVxZ3RQeVc?oc=5
 
 ## Role Model explains why he ‘couldn’t go’ to Taylor Swift and Travis Kelce’s wedding - Entertainment 
@@ -632,28 +633,3 @@ Stories: 77
 - sources:
   - [unverified] KCTV — https://news.google.com/rss/articles/CBMikAFBVV95cUxPUEhFb1dzbVlBazFUdTdwZnZ5b0V3T3R1ZU91clhHR2p4cXJhdlc4X1VPc0ZueVE1N2g5THJfWmVxVnhUVE1VNHN4SUZidDhFQ2FSNWpUYngtckZJQU54UUFndlRpYUV2c2NUOVBtXzdhRlJPMi1WTWd6ZU0teG5oLUZpRU9kTzRaaURYVmpqcm3SAaQBQVVfeXFMTkFXbC1ISjgyY3ViaGlJbmlkaXZ4VmdDUnpGSm1vVG11ZWV3dmtjZjdhTFZJSkdteEZNTFBXNUlMTE9nc1doRWloR0l3YWpUMkhRNGVSTl9vaEI2Nmlad2hvVnVSZ29DTnRtblFHdjBnTVp6cVhsczRIUnhhZUhIRDAzMEk3NTNxeUhmaDByNjNxVkwyMVJhWUJnS0hIQnN1TmxDS2w?oc=5
   - [unverified] JC Post — https://news.google.com/rss/articles/CBMibkFVX3lxTFBGNk9MS0ZLdUVkU2U5WHF2ekdlYWM3ejZWeXhPQmh1U0RjWVFWai1qZFF5SWtnQ1c5SjBJMi16MGpXaWZ2RFFfSDROM085RFJWNUIxU2puQzRwZkpUTkd6ZDhzWGxUR2Y2RHdkWUVn?oc=5
-
-## Scott Eastwood’s Agents Warned That Starring in Taylor Swift’s ‘Wildest Dreams’ Video Was a ‘Bad Ide
-
-- first seen: 2026-08-04 04:26 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Scott Eastwood’s Agents Warned That Starring in Taylor Swift’s ‘Wildest Dreams’ Video Was a ‘Bad Idea’  usmagazine.com
-- sources:
-  - [unverified] usmagazine.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQbFJ4eFVJbk1kOVFXcGJjUzF5VTU5bjBqdkN0MmwzR0swZ3VWOGtNUmJoM0NTeC02NUQxS2lHMjRRaU8zdUxKenpBWkd4LWxieEl0a2IzQURuaGk0bkZBRXZuNUVXQVBlY2s2TWQtM3YzaURjT0tHSE1wM09zZktfd245a3MzTmIwMlpmNURWbmFWQm5NcHN5YlVBUTZqX3V6Y1RMdHpkVHFzdw?oc=5
-
-## Travis Kelce Revives Polarizing Look From Early Taylor Swift Relationship, 1 Month Post-Wedding - in
-
-- first seen: 2026-08-04 04:26 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Revives Polarizing Look From Early Taylor Swift Relationship, 1 Month Post-Wedding  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPbFNxZ20wWWVWQjNGai1SQ214bWNhT1ZiN3IyaUt2anNCVG9DS3p1VVBXbmxNeU1kVGJHUklGdVU5TTRmTU9LXzgxRkZtTWFoTGVwNlAyWmsyenVFVEFuNG9CLV94bFBKYzVSd2g0NzZLZG1XSWVwSmd5QkRqNm56TjRfVm83NGgtQkhTR2ZzYVk2SjNuM0FveVZON2hlbDdiYldRWTZoUkVtNmIwbEp1SUxfVzI2VkMzTGFQSTJkT19UYUU?oc=5
-
-## Why we think Taylor Swift might be in Cincinnati on her birthday - Cincinnati Enquirer
-
-- first seen: 2026-08-04 04:26 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Why we think Taylor Swift might be in Cincinnati on her birthday  Cincinnati Enquirer
-- sources:
-  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPUEh1MllrdUhrS0FiTlBjUTVVMnl1YjZPNjJacGlrb0gteGVRV1kzRzJiNUd6ekFob05ZZ1ZrWHJuY05FY2V5MWJEdmZ0ZnJMWXRuRmY5UnRUeDNqdWxwYWhEYjkzTHdTQ2REbGcyN0tmWVQ4ZG5EaTlFNEtmZHNMdHpIWVBvUi1VeFZ4UC1kOXo4TTJOVFZITl9SZ2s2ZnEtRGJuVVJNVllZXzk3Y0lGMXJTZXI5di1OMVRlYy1nZlpsU2hWMFhpZFVPZktjNy1XVmNPcWRlbVoxYmVm?oc=5
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi2gFBVV95cUxOdDhXaU1ob2FKc0N0RlNwZzlBZG11Rzk4dHVmQ0pRci1NZ21aOFByQnJrY3BGTGdBcXNEd01JaGUxOUpPOXRVZEtCUHgtei1ZNWRGOHYwN2F0UTdyaExOcE5TSVg1S3I2dlZwNFFTN1NTOWJBVFl5SDdQM1ZZY1E4YzgtYUN6cl9HRDRlZlAxb3BpQ1g2SmRseU82RDJiWnBybzl3MHFCU3JvU3h5UDZ6WUt0QkR1bDE3c3pXOW43aUh6ZEs0VEhmN09mcXJjYnFzaUJYczFSS1ZsQQ?oc=5
