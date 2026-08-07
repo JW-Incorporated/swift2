@@ -41,6 +41,44 @@ export default {
       },
     },
     {
+      slug: 'willow-island-madison-2006',
+      year: 2006,
+      month: 8,
+      day: 4,
+      category: 'sighting',
+      title: 'A free set at Willow Island, near the bottom of the bill',
+      snippet:
+        'Six weeks after her first single, a 16-year-old played about ten of her own songs for a crowd of roughly 60 at a Madison radio-station party.',
+      sourceUrl:
+        'https://captimes.com/entertainment/music/when-taylor-swift-played-a-free-madison-show-20-years-ago/article_b4d3dfcb-4dc2-4b23-a305-5468971f8ac5.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Aug. 4, 2006: "Tim McGraw" had been at country radio for about six weeks, the debut album was still two months out, and a 16-year-old took the 4:45 p.m. Friday slot — near the bottom of a six-act national lineup — at Willow Island in Madison, Wisconsin, for country station Q106\'s free birthday party on the Brat Fest grounds. She played roughly ten of her own songs, among them "Picture to Burn," "Our Song" and "I\'d Lie," and closed on her single, to a crowd The Cap Times\' Tom Alesia puts at "60 or so." Her mother Andrea had driven her and a hired guitarist up from Nashville that morning.\n\nMadison kept a soft spot for her. On Oct. 29, 2007 — the album out, "Our Song" climbing, a Brad Paisley arena tour just ahead — she came back to the Madison Marriott West, where Q106 named her "Madison\'s choice for country music\'s best new artist" and handed her a glass statue in front of about a thousand fans. One of them, Lenora Lawrence, still has the cowboy hat Taylor signed "love love love," curled around with stars and twirls — a small souvenir of the fifteen months between a radio-park afternoon for sixty people and the awards this career was about to start collecting.',
+        sources: [
+          {
+            outlet: 'The Cap Times',
+            url: 'https://captimes.com/entertainment/music/when-taylor-swift-played-a-free-madison-show-20-years-ago/article_b4d3dfcb-4dc2-4b23-a305-5468971f8ac5.html',
+          },
+        ],
+        // No freely licensed image of the 2006 Willow Island set exists (the
+        // article's photos are outlet/contributor-credited, not reusable-host),
+        // so this stays honest era-context: a genuine, already-verified 2006
+        // public-domain appearance shot — not the Willow Island afternoon
+        // itself. Vault Run 2026-08-07 (Content Shift lane, Closes #1832).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG',
+            credit: 'Wikimedia Commons (public domain)',
+            caption:
+              'A real 2006 appearance — curly hair and a printed dress, the same first-year-signed-artist stretch as the Madison show, though not that afternoon.',
+            kind: 'archival',
+            focalPoint: '68% 35%',
+          },
+        ],
+      },
+    },
+    {
       year: 2006,
       month: 9,
       day: 1,
