@@ -268,14 +268,16 @@ describe('assignFeedTiers over REAL vault content', () => {
   });
 
   it('renders unsigned but substantial real items as hero where spacing allows', () => {
-    // Example item, repointed 2026-07-25: this is a spacing-dependent assertion,
+    // Example item, repointed 2026-08-05: this is a spacing-dependent assertion,
     // so the specific id rotates as the TLOAS feed's substance/pacing shifts (a
     // depth pass enriching neighbours can demote any single example — see the
     // "ONE demotion pacing is still allowed" note above). The prior example
-    // (pink-markarian) stepped to media after a depth pass enriched its wedding-
-    // cluster neighbours; repointed to a currently-hero unsigned item. The
-    // population-level guarantee is covered by the next test.
-    const id = 'vault-tloas-shania-twain-explains-the-scheduling-conflict-that-kept-her-';
+    // (shania-twain-scheduling-conflict) stepped to media after the 2026-08-05
+    // vault run added two substantial TLOAS moments (the country Hot 100 sweep
+    // and the Gracie Abrams quote) that shifted its cluster's hero spacing;
+    // repointed to a currently-hero unsigned item (the Eras Tour docuseries
+    // page). The population-level guarantee is covered by the next test.
+    const id = 'vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney';
     const it = ALL_VAULT_ITEMS.find((c) => c.id === id)!;
     expect(it.significance).toBeUndefined();
     expect(realTier(id)).toBe('hero');
