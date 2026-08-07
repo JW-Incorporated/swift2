@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { isDue, selectDuePosts, summarizeQueueStatus, utcDateOnly, MAX_POSTS_PER_RUN, MAX_POSTS_PER_PLATFORM_PER_DAY } from './queue.mjs';
+import {
+  isDue,
+  selectDuePosts,
+  summarizeQueueStatus,
+  utcDateOnly,
+  isGenericEraArt,
+  repeatsRecentEraArt,
+  MAX_POSTS_PER_RUN,
+  MAX_POSTS_PER_PLATFORM_PER_DAY,
+} from './queue.mjs';
 
 const now = new Date('2026-07-17T20:00:00Z');
 
@@ -59,6 +68,54 @@ describe('selectDuePosts', () => {
 describe('utcDateOnly', () => {
   it('extracts the UTC calendar date', () => {
     expect(utcDateOnly('2026-07-17T23:59:00Z')).toBe('2026-07-17');
+  });
+});
+
+describe('isGenericEraArt', () => {
+  it('matches an era-cover path', () => {
+    expect(isGenericEraArt('/eras/tloas.png')).toBe(true);
+    expect(isGenericEraArt('/eras/the-life-of-a-showgirl.png')).toBe(true);
+  });
+
+  it('does not match a dedicated photo path', () => {
+    expect(isGenericEraArt('/social/2026-08-06-haim-cameo.png')).toBe(false);
+  });
+
+  it('does not match non-string/undefined media', () => {
+    expect(isGenericEraArt(undefined)).toBe(false);
+    expect(isGenericEraArt(42)).toBe(false);
+  });
+});
+
+describe('repeatsRecentEraArt', () => {
+  const igItem = (media) => ({ platform: 'instagram', media: [media] });
+  const posted = (media, postedAt) => ({ platform: 'instagram', media: [media], postedAt });
+
+  it('flags era art that already appears in the recent posted list', () => {
+    const recent = [posted('/eras/folklore.png', '2026-08-01T00:00:00Z'), posted('/eras/tloas.png', '2026-08-02T00:00:00Z')];
+    expect(repeatsRecentEraArt(igItem('/eras/tloas.png'), recent)).toBe(true);
+  });
+
+  it('does not flag era art that has not recently been used', () => {
+    const recent = [posted('/eras/folklore.png', '2026-08-01T00:00:00Z')];
+    expect(repeatsRecentEraArt(igItem('/eras/red.png'), recent)).toBe(false);
+  });
+
+  it('never flags a dedicated (non-era-art) photo, however often reused', () => {
+    const recent = [posted('/social/2026-08-01-thing.png', '2026-08-01T00:00:00Z')];
+    expect(repeatsRecentEraArt(igItem('/social/2026-08-01-thing.png'), recent)).toBe(false);
+  });
+
+  it('ignores X items entirely (no media field to check)', () => {
+    const recent = [posted('/eras/tloas.png', '2026-08-01T00:00:00Z')];
+    expect(repeatsRecentEraArt({ platform: 'x', body: 'hello' }, recent)).toBe(false);
+  });
+
+  it('only looks back `lookback` items, oldest dropped first', () => {
+    const recent = [posted('/eras/tloas.png', '2026-07-01T00:00:00Z'), posted('/eras/folklore.png', '2026-08-01T00:00:00Z')];
+    // lookback of 1 keeps only the most recent (folklore) — tloas should no longer count as "recent".
+    expect(repeatsRecentEraArt(igItem('/eras/tloas.png'), recent, 1)).toBe(false);
+    expect(repeatsRecentEraArt(igItem('/eras/folklore.png'), recent, 1)).toBe(true);
   });
 });
 

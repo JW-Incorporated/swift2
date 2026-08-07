@@ -7,6 +7,51 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
+
+**Decision:** Fix the Growth desk's drafting instructions so Instagram posts
+default to a real, dedicated photo of what the post is about, with generic
+era-cover art (`/eras/<id>.png`) demoted to a last resort — plus a code-level
+guard in `scripts/social/lib/queue.mjs`/`post-queue.mjs` that blocks a queue
+item from posting if its only photo is era art already used in a recent
+Instagram post, rather than relying on the instruction alone.
+
+**Why:** Joey flagged the live profile as "very broken" from a screenshot
+showing the same handful of images cycling. Investigation found every single
+Instagram post ever made (17/17, back to the account's first real post) used
+generic `/eras/<id>.png` era-cover art — never a real, specific photo — even
+though real dedicated photos exist and are demonstrably usable (see
+`apps/web/public/social/2026-07-17-electric-lady-*.png`, the one time this
+was done right; nothing since replicated it). With only 12 distinct era-cover
+files and the current/recent eras drawing disproportionate coverage, the
+account's grid visibly repeated 2-3 images. Not a code crash — the posting
+pipeline (`scripts/social/lib/platforms.mjs`) correctly sends whatever
+`media` path a queue item specifies; the bug was the drafting runner always
+taking the documented "safe default" instead of doing the real photo-sourcing
+work. A prompt-only fix wouldn't have held (same lesson as the voice-checker
+work the same week: a doc instruction is advisory, a real check is not), so
+this pairs the runbook rewrite with an enforced code check.
+
+**Also found, not fixed here (needs a human):** a documented 2026-07-17
+duplicate-post incident (`docs/agents/growth.md`) left 2 duplicate Instagram
+posts still live — Instagram's API has no delete endpoint
+(`scripts/social/delete-media.mjs`), so removing them requires manually
+deleting from the Instagram app. Flagging for Joey/Wyatt, not doing it
+myself — deleting a live public post is exactly the kind of external,
+hard-to-reverse action that needs a human's own hand on it.
+
+**Alternatives considered:** loosening `auto-merge-content.yml`'s allowlist
+to include `apps/web/public/**` so photo-sourcing PRs could auto-merge like
+queue-only ones — rejected: a bot-selected image landing on the live profile
+with zero human eyes on it is a bigger risk than a caption is, so those PRs
+should keep waiting for a quick founder merge, same as any other code-adjacent
+change.
+
+**Who approved:** Claude, acting on Joey's direct bug report ("something is
+very broken with our Instagram posting, please fix").
+
+---
+
 ## 2026-07-25 — Cut agent token burn: auto-merge content, autopost social, no self-check-ins
 
 **Decision:** Three linked changes, all approved by Wyatt (CTO) after an audit
