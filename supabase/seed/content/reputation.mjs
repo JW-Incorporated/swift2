@@ -1853,6 +1853,9 @@ export default {
       day: 13,
       category: 'release',
       title: 'The reputation Secret Sessions: 500 fans, four houses, zero leaks',
+      // Cross-link (2026-08-07): where the Secret Sessions tradition started,
+      // the 1989 living-room listening parties.
+      relatedIds: ['moment:vault-1989-the-secret-sessions-89-fans-at-a-time-in-her-living-rooms'],
       snippet:
         'London on October 13, Rhode Island on the 18th and 19th, LA on the 22nd, Nashville on the 25th — she played reputation to 500 hand-picked fans in her own homes, and not one song leaked.',
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/',

@@ -1611,6 +1611,9 @@ export default {
       month: 10,
       category: 'release',
       title: 'The Secret Sessions: 89 fans at a time, in her living rooms',
+      // Cross-link (2026-08-07): the reputation Secret Sessions, the same
+      // living-room-listening tradition scaled up two eras later.
+      relatedIds: ['moment:vault-reputation-the-reputation-secret-sessions-500-fans-four-houses-zero-lea'],
       snippet:
         'Through September and October she hand-picked fans off the internet and played them 1989 early — at her homes in New York, LA, Rhode Island, her mom\'s place in Nashville, and a London hotel — baking the cookies herself. Nobody leaked a note.',
       sourceUrl: 'https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions',
