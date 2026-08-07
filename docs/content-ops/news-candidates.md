@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 72
+
+## Taylor Swift Wedding Street Trash, Sydney Sweeney's Bathwater Soap and Justin Bieber's Hair Among We
+
+- first seen: 2026-08-07 14:18 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Wedding Street Trash, Sydney Sweeney's Bathwater Soap and Justin Bieber's Hair Among Weirdest Celebrity Memorabilia Ever Sold  Latin Times
+- sources:
+  - [unverified] Latin Times — https://news.google.com/rss/articles/CBMiwgFBVV95cUxPN09ES1d2bzVJc2ZraTlJdERmQzhtdFVUcEdSWi1zbkxyLXlidDVwNXJDTkhSakJoa2xSUUpNTlpOeG5fUko3Rm9SV0JpdUY0VmlkU2JWNTBKamVVTFkwNUJiVXhlQzRLTC1RTk1laURKX1pyaUprRHZoMUdmbXpfZVRaSlhUbmxzdzN3Z1RYSkFJT01QcjVZR3EyZTNTZ2U3RVJTelVCV0F5VHExNDd0RDdrVUNvM3FwOFFGRWR6T1VfUQ?oc=5
+
+## Kim Kardashian 'Wants Her Wedding to Outshine Taylor Swift's Nuptials', According to Insiders - Yaho
+
+- first seen: 2026-08-07 14:18 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kim Kardashian 'Wants Her Wedding to Outshine Taylor Swift's Nuptials', According to Insiders  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMif0FVX3lxTE5mV0E2V016dnV5LXMxQmtESTZjSktWWWQ5aTV3Y09icEtxQzlmTFluWjAtTmpHVjdWbWJCRTQ5bGpjRzB2cDlBemsybk1KNHI5T3B5NklVWHBRakJDM3NCNHZHM0Rnb29QU0NETzl0OTJTd3k1UGQ0UUFIOURoY0E?oc=5
+
+## When Taylor Swift played Madison and Odessa Piper on L'Etoile's 50th - The Cap Times
+
+- first seen: 2026-08-07 14:18 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: When Taylor Swift played Madison and Odessa Piper on L'Etoile's 50th  The Cap Times
+- sources:
+  - [unverified] The Cap Times — https://news.google.com/rss/articles/CBMi_AFBVV95cUxQR2lmZWthb3V4RWdrQk5PSURhRGt1UlByVVpDeFl5M2h4Z201VnVSc0MycFQxY0hXT0dseXJUZmMxcWNuQnQ5QzZxcEJHRW5RRnkxQ3h3c1FyTFhhWGdwSmsxVVlYc1FLa05KWFJ6RFhabWR3TF9OZzhWX3RUYzJFekk1a2puMFk0allwOUhCZU5DcWJRLUtZVkwyRXhQMzg1cEZWZjlBRXRuc0dOVnZNNUlydFBUbUlCMTdBRC1EeDVmTzdOUUczdUs2OUlnRlR3YlpVLWFsaUU0V3haMUFvTkhlNm5IQ2h4aU1NQUVLVjNfYmYycjN1WVdiaC0?oc=5
 
 ## Taylor Swift & Travis Kelce Changed Brother Jason's Life With Their Relationship - yahoo.com
 
@@ -38,10 +62,11 @@ Stories: 75
 ## How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video - yahoo.com
 
 - first seen: 2026-08-07 10:08 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video  yahoo.com
 - sources:
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMingFBVV95cUxPcU9kNGtpTGxnZW1vWE9qcmo5ZDlqYXFBWmpiTnk1eFVmaGFmaS1Ua1JKcE9LUFdPX1N5M1VSM3FtVy1QbVpxLWZBbHZHV2NnNXRUUlJQVnI2Q25tbHR5T0hPWHRYeDdZcUVMSjMwY0JheEhGSFItVGI2MWxkVERJZ3JqWnRFVnhOeG5QcmpaUlNZenBYVEF1LTFmYkFEQQ?oc=5
+  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxOS1VJOWk0NWFpMEZVMlJMOWJEQkhpNDcycDA1OS1rZVpVZ3ZwZzlKbGRVSThtV3p2YTNmalFGZnhLOWJBYlpXNVpNSjd1eUswMVVCSmdVR0NUWExNYkhXcHV3dFlsRDRKNFYzdk9vWFNlcEtoTldjVjVSS2JHUVJIbWo0emZaUk80N2pnczRwS3hJbXRMT0ZCUGJPMmNJM3kzeXl0Smc5Q2tOUldXS1p3OVR3?oc=5
 
 ## Taylor Swift tribute band postpones Niles show - wfmj.com
 
@@ -592,52 +617,3 @@ Stories: 75
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNN3ZmS3NqRVZ0dl9vZjN4aThpSC1jeHZ1QnlidzVJdUZEbWNzaHdBV3hoVUh3N3VLdjFUMTQtaGF5QXFoRVp3S092VWJXOF9Eb0E4d2ctbDNXX3o1NG1MWmV2RHRNaDVybVU3T2VsTkhmTnUzRXhkcmNLOE13MWpVZ0tTUkJ3ZnpaZWl1eUwzYWVRdjREbE1NM1poUk8?oc=5
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxPWG9OMVh3TDRzZWxYTlRJUEVISGxTVS1wdGRqeXV5SXVFc25jcjhhRzN3U0VQcHU0XzZCRzNlQS0tV1hfTkYxcERWdm5uSG00ZFk5cDkwTXpITWNJeDhJWHUwc0RzYmhUX2Uxam5nQVNUWmNrLTZ6SURBaV9fWTd5OHlsR2Y2YUF1RHA2OFZzeWIxMUpFWlQ0NlMzZlI?oc=5
-
-## Top Actor Was Advised To Avoid Taylor Swift’s ‘Wildest Dreams’ Music Video - Yahoo
-
-- first seen: 2026-08-04 11:31 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Top Actor Was Advised To Avoid Taylor Swift’s ‘Wildest Dreams’ Music Video  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxQZjhSOHh6dWVlTEgwM1pzU04wU2duVG9TM1U2ZnZSVEVpUkp5UFBlN2h6YklWTm1Nb1RydUdtM0Q4Q0NSWXBVNjh2eDgyVDFlOWdaUmxzZjUyTjI3d3NPZkZ2S0cyajNEOWZ0WEZfLTdxQ2ZMQ0VSdFRZai02dFVhbTFxVVlmaVFZUzFsMkJ6eFA5SUtBbzhKblc4WnY?oc=5
-
-## Taylor Swift Is A 'Blissed-Out Wife' After Marrying Travis Kelce - Yahoo
-
-- first seen: 2026-08-04 11:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Is A 'Blissed-Out Wife' After Marrying Travis Kelce  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxPVndDb3ZhUzNrVXdRbkl5VXdsQkYxNmdIY2RDVWd3UUtldERrSlMwRHFpWk5SSzZBaGNpd0p5YUdjTmpKemZlcFpob3J0QW1EeTZOcUFfTzYzeHRiU2N2ZTYxN3FTYV9LSkN1bWcyNWphdHJPakRDTEpWYjJrRkhhQjJkV0llUHNSMVNBMC1QaHpta09xZXM0?oc=5
-
-## Phil Collins Praises Taylor Swift’s Rise to Global Stardom - MyRadioLink.com
-
-- first seen: 2026-08-04 11:31 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Phil Collins Praises Taylor Swift’s Rise to Global Stardom  MyRadioLink.com
-- sources:
-  - [unverified] MyRadioLink.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOMlFIMlJhaWVJLURkWjlxbjdkbnVmT1FoZkpZcElIODdWZFVEN3FfdF9tdnRxb3ZQVXRBaWtpQjVnckQyTjVhVFAtSnlBSzh5WEVvLXc3WkxmMXVrVFNtY3JCSHE2eF9DTXUzNlhhTGRrQlNyQzVNU0JmTEpueGIyZ1E4ZjdPeTJ2MU04S2QzUmZhVHVrV2t6ZTVPZHNHZw?oc=5
-  - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMipAFBVV95cUxOdnpzbHl6eW1zS1R3eWhPTWdhS3QyQm5HZE12bWpUem5fRUh0OXhZaWlmNGluUEZiYXNsTzlPTjhvN3B3Q1I0U2tMTVdLYnZaTVdwQi1rMnJTNkt4bDhqRk5CRjFycEt2NXNTSjZfcUFUZmUtdGt2aXZvQjlDZHZKUThDV2pwQjFzbVBqeEFqLXp6dl9vMWZXYXZhdlRndHg0OWF0cg?oc=5
-
-## Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source - Yahoo
-
-- first seen: 2026-08-04 11:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Facing Doubts From Taylor Swift’s Friends for a Reason — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPX0FSRU5TbjBtVFozUEtDb1UwXy1La3pBTW12SFVKbU41c3RqTXQ1ZlpFc1duOXdmb2lNREt5d0NwdEZaY09sN19VNmc5TVhhR0RVeFZFdEdjd01adWN6VEd2YXBPckVTUkpJbjQ2SUI4RHVnSjRISW9CMjliU2FfbHNOUGJFUWZMaXpzYy1weDJDSmN2UHdLaWwyZDV4dDNz?oc=5
-
-## Phil Collins Says Taylor Swift ‘Really Deserves’ Being ‘the Hugest Thing in the World’ - People.com
-
-- first seen: 2026-08-04 11:31 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Phil Collins Says Taylor Swift ‘Really Deserves’ Being ‘the Hugest Thing in the World’  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxOWm8yMk1VTmhuQXFTcEpwM1laWk1WNGk4ZE5SekdVMnV0MXB3XzRHZGVrT1RTWktZUHk3RVF6YWl5d2dhOWpUb2tDX0gxTVhCR3JmOVJrZzM5ZFNWSHJBem1LUkVMN0R3UmYxSGVmeGhEaEpNY1V3b0NMLWVucjc5S0pENGloeGhpWUE?oc=5
-
-## Taylor Swift & Travis Kelce Have Named Their Secret Family Member — Source - Yahoo
-
-- first seen: 2026-08-04 11:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Have Named Their Secret Family Member — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNZGwwRlRxbm5qbklVaXIwVTZ2cTVQOUZBNnBVQ3A5VGV5WlBUTTVLUm13M0p4NUk5NGRNNVQ5LW9fMkR4M0RNRTY4eGtxWkh1NXBLd0lWYU9McXVIOUplTzhLTGcwS2h1S0NwcVkzX211aElzNDdNZ0NLaUc3Skx3bTd2UnY0SWpfSjBuY1VqR0k3V3BHcFFMeEJjNFlINzd5bEFj?oc=5
