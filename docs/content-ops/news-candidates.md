@@ -25,7 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 77
+
+## Taylor Swift tribute band postpones Niles show - wfmj.com
+
+- first seen: 2026-08-07 01:02 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift tribute band postpones Niles show  wfmj.com
+- sources:
+  - [unverified] wfmj.com — https://news.google.com/rss/articles/CBMi1gFBVV95cUxQWWc0MTc1WGE0QU0tMzZvcDFRSWkwazRJQ0hUaFV2UzJiQndTMDRkVWU3VGJCNUZZZjJ1bk1xcU1zNVNTci1WZ0tqaHZFblJ0dmxKQTdPd1d6d0pBc2hYblBWX1cyUzFRVmdvYXNPM09PV2J0UGlJYmNKZkdaUlFhelM4YVFGZzRQOW5XbU44QXRmcVJHblFJOHM2elN3eWZaTS1fUTg4UG9iYUVKYXBYVE5nc3R0ck1uZnV3Rm5uc1ZHTER5MU1abWFRZUNkWV9pYjYzZlpR?oc=5
+
+## Kylie Kelce Shares the Moment That Made Jason So Emotional at Travis and Taylor Swift’s Wedding - TO
+
+- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Shares the Moment That Made Jason So Emotional at Travis and Taylor Swift’s Wedding  TODAY.com
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxQbV9MWWZMd3o2Ymp1ZHVPV0U5M2U4YWVTMDByN0hsN2pXd0J3VElfTlJnYkFyM2NhVkc1WWVPazd6Z2JubWphV29QN3YzN0lBTFp0YnUyNWpfNkhWRERicFpKS3ZOb2lxeTRQQ09ESUkzaVNyTmRBamVSZGFVSG5VUTZTdmdQdTh2a2lQVkJmNUVTOW9ubHhuOXNoTm55NklzNXhhOXp3eDV3bmFUdjYteg?oc=5
+
+## The Kelce Who Cried at Taylor Swift’s Wedding Has Been Revealed - The Daily Beast
+
+- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Kelce Who Cried at Taylor Swift’s Wedding Has Been Revealed  The Daily Beast
+- sources:
+  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMirwFBVV95cUxNb1kwZGZQNlg0MUg4eVE0LVlsQi1OWV9vQVpVVG41MTlJX2lnUl8zTUZxLVJteGwyd242NC1wY3pob1lvUVZGTEpwejVhb2JBOVZkY0VBY0hBOWNya2dENGtUc21VT1paSmlPTzkxQ3F1b1VRbTctSFdDWThldm1YQzRtRWYydjM2bHpmOGdiOXY2Rnd1SDVwTjNLcUhGQV8xT3U3M0k4RVAtM05lSkJF?oc=5
+
+## ‘Ted Lasso’ EP Jamie Lee says Taylor Swift has an open invite if she wants to ever swing by the set:
+
+- first seen: 2026-08-07 01:02 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: ‘Ted Lasso’ EP Jamie Lee says Taylor Swift has an open invite if she wants to ever swing by the set: “We would love it”  Decider
+- sources:
+  - [unverified] Decider — https://news.google.com/rss/articles/CBMicEFVX3lxTFBzVkV4ajVHb3dma1NpNjhPa1d1a1djYXlqSTVFNzl1UTdnM0JVT0E4b0Rub2tQaEFRWFMza3A5UXhPa2lEZUc1THFOMlZTcGlyOGdpYzkwcFd4NUNYSkFwcWt0cV9uenFFc2RjN2xNaWg?oc=5
+
+## Opinion: We know more about Taylor Swift’s wedding than the water we drink - Times of San Diego
+
+- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Opinion: We know more about Taylor Swift’s wedding than the water we drink  Times of San Diego
+- sources:
+  - [unverified] Times of San Diego — https://news.google.com/rss/articles/CBMipwFBVV95cUxPS2R0VnpJa0tOUmpkZE5nSUtpMUNmVGpWVEs2SWhCVGtSTG9Sa1ZidFgzVWtpOUl1WFVlczhsN3UydEtkMW9WX04xU0VMNVA3NktNcjRvcExKTndKOVk2Q3JxbkttTEF6cE44NERvYVo3SGg0clFIdU1mUlR1bFRHSlF2c1FKUTIycVlrRHYySUN0bUNyYk1qRVpfdmhwOUJ1cU1CdXFybw?oc=5
+
+## Taylor Swift’s ‘Bliss’ As Mrs Kelce Comes With A Surprising New Routine - Yahoo
+
+- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘Bliss’ As Mrs Kelce Comes With A Surprising New Routine  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNYTZDWkhHcGEzSTlpeW8ydk5pVmJ5UWI1S3lKZFJ5S0dUbXBFNGdFb3RZTXg4cmxYR2hLOU10NWoxdDFyWk9JUzM2VTdhcDZZd1BRb0wxYklLRE1hUXpTLWFoMDYzUWl1VVRpQ3hzeWRPb2tmSU1fRjQ0TWkwVzRhNEJTYW1naXJIZjRCMURlcllZU1JNV1N0RzlIaXNlUGs?oc=5
+
+## In umbrella hat, Jason Kelce visits Cedar Point. See photos, video - beaconjournal.com
+
+- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In umbrella hat, Jason Kelce visits Cedar Point. See photos, video  beaconjournal.com
+- sources:
+  - [unverified] beaconjournal.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOWUtvN2dCajRENXJUQ3RoSmtpTVEzSEtqU1VVemJnWVVxZUVxd2RhYkkyS19TVzZsdG1RT1N3VlREaGNOU1k5bkdzcHBuRmpiUE1mM3VQaDc1YkEycXBYbzNuTWRVSVU0MUYxUk9fa0d4MmpBdXRqY3kzM29GbEtxS0VDZWdUZzFPb3IzQS1GNVFMQzJiU0VDRVBzbGdEc28wcWpvYWxNTThoY2FOamtBSnJHRFRUYWNSV2lmd2VLWnRjYTVpRW1BQzRzR1BZZXp6OXhBUGtXZw?oc=5
+
+## Charles Barkley declined Travis Kelce and Taylor Swift's wedding invitation for a simple reason - Fo
+
+- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Charles Barkley declined Travis Kelce and Taylor Swift's wedding invitation for a simple reason  Fox News
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMitAFBVV95cUxObDFMWmJzWkdmTmlpYzh4RGRZWDNybUxKRVNtS0ViSmY2NHFsajVsUUtqSF80eldMeE0wYVhMRGdQQXh4LWdqUjQyVlNTU1Bob2o2eFVMSmVXcDJxQWt3RkE3d3RnQmNtY25CeVdqbGN2SVduOUNjTVFMX2NBZjVlNFllek5KTU8wRkgtamMxYkEzYUE5c3B4MXoyaGtTT0RVZXN1OEY0QWF1QVBFa0lieDNyQmjSAboBQVVfeXFMT3lya3FxeDktSlZWUGJ6UlNST0p1aktBR0JFVVpNMlhwSG1DeXNZWlVfX1ZLdG8xWk93RUJnVkR0eWFTdkI2cjJ1Y2lCYnZYVW0tdExqcFFBcVIzaEY5aURCQVFGTUdaQUpHMHp2TmFmNGItX0lpTkJMMmRiRGU3eFd3N3RZRDFvUHJZRUhwUzNvemc4N2tjd1c4WGR2bjdiVktBdkJpT3FKVTNRSWVxaHNzaXVYVmNmWTh3?oc=5
+
+## The Fight Over Tracking Elon Musk, Taylor Swift and Other Private Jets - observer.com
+
+- first seen: 2026-08-07 01:02 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Fight Over Tracking Elon Musk, Taylor Swift and Other Private Jets  observer.com
+- sources:
+  - [unverified] observer.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxNMTd0OFRZYVk3a1BNR2s5ZE41MnB2YzdPSDczUFJfRjlYMHZuaGp0MzNyZ2pMVm9rYnFOejRqeUxhM192aGJkU0ZZaW1SS0w2a0tHRUcxTzg2Qml6MUtkVy1NNHlGdi1CcU9NWkhPZzFnMUk3YldvS1NJRk9lSFB5Mg?oc=5
+
+## A Complicated Case for Perez Hilton
+
+- first seen: 2026-08-07 01:02 UTC | category: sighting | importance: 3
+- verification_status: single_source | source_count: 1
+- summary: The blogger was the “original influencer,” but he’s also a human being
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-commentary/perez-hilton-mental-health-celebrity-1235604600/
 
 ## During a recent visit to NBC6, Perez Hilton spoke about Taylor Swift’s wedding, his recent move back
 
@@ -34,15 +114,6 @@ Stories: 82
 - summary: During a recent visit to NBC6, Perez Hilton spoke about Taylor Swift’s wedding, his recent move back to Miami and what it’s been like returning to the city where he grew up.  facebook.com
 - sources:
   - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPQnpONllpX0F4REVKdndJN2FhbnI2eTRhY2ZpRHg1cHZsWFhXOEUzRENOQlZLa3UzMHNjNUVlakVkNzdhM1BYRkM4OTZzeklDRkpISG5TSjl4a0ZEbUxlUnVrejg2WXExWlVnX2ktZVVQTEh5bzNySzRxZ1NEN01GT1RydFQtSTQzR05fSEFpMkduSnNFYVYyZFctRl8tQnQ1MHpvNDdMN19CZHMySm5OVnkySC1oN1dBc3BFV0hhMW9aSlBTdEdJb3liQ2pYQWdFTjAxSTFPQjBDdDlCX0xZ?oc=5
-
-## Kylie Kelce reveals who cried at Taylor Swift, Travis Kelce wedding - USA Today
-
-- first seen: 2026-08-06 15:25 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Kylie Kelce reveals who cried at Taylor Swift, Travis Kelce wedding  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixAFBVV95cUxPRFZEVjNvQl9LNmRoSm1XMVFET0lXQVppTlRJVzBtNzl3YnAyV1djRjl1Qjk2eUdmbVVCbDlwT0Y1TEJBcmxpNU5VVnVWYzBXZVRaM0dodFNHV25STjlkT0lGbWJXSllsNFh4X1JNVmZ4OWRXZmg2SDl4MlA3UkdBdGpVYXNLU1ZBX3VyX3NKVlVyenJXVjhOTzhpTlRaN3M4MUdVdkxhY0xzaktJdWtsNEd0TDhsYld4TlNlNjI4Sl80R012?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSmJ3Z0hYXzN2Zmw3TlMzb0VvdlZIUmxNc2NuUUJvWlRRRXl0eGJxNHQzMjloUGtPaXNWTUZkX3hLTkNTZDY5X05PVEE4dEZyeVhqeUVLRUgteTlFUnhxYy1mWVFtS0pCb19QMWdzOFlRMllNNlNTcEZkNlh4ZlNFQ2VDZUI0QlMzOHdQMmd1X0JqSjhPVTcyMFI1YmZ4RUQ2VDY0Tw?oc=5
 
 ## Kylie Kelce Shares the Real Reason Husband Jason Cried So Much at Travis Kelce and Taylor Swift’s We
 
@@ -60,6 +131,16 @@ Stories: 82
 - summary: Taylor Swift's Ring: The Sequel  IDEX Online
 - sources:
   - [unverified] IDEX Online — https://news.google.com/rss/articles/CBMiUkFVX3lxTE9vZ0ItNVV0QTZPbE8zdkdrY3RxMTVGc19MS2g1aFY1bjJfdUlFSThySHhpMUxrTmx5ZmlfQ0g1Y05nVTJDRWZBeUd1Zkl2XzZBM2c?oc=5
+
+## Kylie Kelce reveals who cried at Taylor Swift, Travis Kelce wedding - USA Today
+
+- first seen: 2026-08-06 15:25 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Kylie Kelce reveals who cried at Taylor Swift, Travis Kelce wedding  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixAFBVV95cUxPRFZEVjNvQl9LNmRoSm1XMVFET0lXQVppTlRJVzBtNzl3YnAyV1djRjl1Qjk2eUdmbVVCbDlwT0Y1TEJBcmxpNU5VVnVWYzBXZVRaM0dodFNHV25STjlkT0lGbWJXSllsNFh4X1JNVmZ4OWRXZmg2SDl4MlA3UkdBdGpVYXNLU1ZBX3VyX3NKVlVyenJXVjhOTzhpTlRaN3M4MUdVdkxhY0xzaktJdWtsNEd0TDhsYld4TlNlNjI4Sl80R012?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSmJ3Z0hYXzN2Zmw3TlMzb0VvdlZIUmxNc2NuUUJvWlRRRXl0eGJxNHQzMjloUGtPaXNWTUZkX3hLTkNTZDY5X05PVEE4dEZyeVhqeUVLRUgteTlFUnhxYy1mWVFtS0pCb19QMWdzOFlRMllNNlNTcEZkNlh4ZlNFQ2VDZUI0QlMzOHdQMmd1X0JqSjhPVTcyMFI1YmZ4RUQ2VDY0Tw?oc=5
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMinwFBVV95cUxObnJiNXVXX3RhY0YtZ3V1SzY2Y3o3VTY5NU9vOUg1eGpIY1ZKZVQwcDI2eU92Sjh1bmdaQXBkRmFmaGFMNVhFVzFFeXo1cGE4RFJkbjFHZDdyUnJ0VmV4SE1uREFrNTJnSHQ3VEFTb1ZVbEtRZmJhUDN4LS0zWGZERWJDaEk3SnBaNDl6XzRlZTZhRDVYYXRRRmpWcy1HckU?oc=5
 
 ## Taylor Swift & Travis Kelce’s Wedding Validated Bradley Cooper & Gigi Hadid’s Private Choice — Insid
 
@@ -575,127 +656,3 @@ Stories: 82
 - sources:
   - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPUEh1MllrdUhrS0FiTlBjUTVVMnl1YjZPNjJacGlrb0gteGVRV1kzRzJiNUd6ekFob05ZZ1ZrWHJuY05FY2V5MWJEdmZ0ZnJMWXRuRmY5UnRUeDNqdWxwYWhEYjkzTHdTQ2REbGcyN0tmWVQ4ZG5EaTlFNEtmZHNMdHpIWVBvUi1VeFZ4UC1kOXo4TTJOVFZITl9SZ2s2ZnEtRGJuVVJNVllZXzk3Y0lGMXJTZXI5di1OMVRlYy1nZlpsU2hWMFhpZFVPZktjNy1XVmNPcWRlbVoxYmVm?oc=5
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi2gFBVV95cUxOdDhXaU1ob2FKc0N0RlNwZzlBZG11Rzk4dHVmQ0pRci1NZ21aOFByQnJrY3BGTGdBcXNEd01JaGUxOUpPOXRVZEtCUHgtei1ZNWRGOHYwN2F0UTdyaExOcE5TSVg1S3I2dlZwNFFTN1NTOWJBVFl5SDdQM1ZZY1E4YzgtYUN6cl9HRDRlZlAxb3BpQ1g2SmRseU82RDJiWnBybzl3MHFCU3JvU3h5UDZ6WUt0QkR1bDE3c3pXOW43aUh6ZEs0VEhmN09mcXJjYnFzaUJYczFSS1ZsQQ?oc=5
-
-## Country Songs Take All Five Slots in the Billboard Hot 100’s Top 5 for the First Time in Chart Histo
-
-- first seen: 2026-08-03 22:15 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Country music is ruling the roost like never before, at least when it comes specifically to the Billboard Hot 100. For the first time in history, country songs are claiming all five of the top five slots on the Hot 100. That’s thanks to Ella Langley and Morgan Wallen, who currently stand at No. 1 […
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/country-songs-billboard-hot-100-ella-langley-stella-lefty-1236826778/
-
-## Taylor Swift’s ‘White Horse’ makes Phil Collins’ list of the songs that have soundtracked his life -
-
-- first seen: 2026-08-03 22:15 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘White Horse’ makes Phil Collins’ list of the songs that have soundtracked his life  Deltaplex News
-- sources:
-  - [unverified] Deltaplex News — https://news.google.com/rss/articles/CBMizwFBVV95cUxNaGxjTWNBb0NnLVcwVHBSZzhmZUZaaDFoaThTeHpOaF9oaXZoMlNHLWhtN0xLaXBUQWswR210N3l0c09ZbkNRanU5b0w2Qkstd0FENHRSRm1ibTdrTkplSDBRbldfY0hSMHR1UEdlQ2tCd2dyVlJjR0pubVltOEtuSGFRS1MtTmJmUWZZZkFRRWZXWllCY0tudFc4ZkQtWWRhbVEzYjJlVTJHdUJob240LWl4czNuSVpCcFBuVnpTTE14UXdTcHNCRDY2Mm9XZ1E?oc=5
-
-## Taylor Swift Travis Kelce Wedding: Joe Buck Recalls Emotional Aisle Moment - Yahoo
-
-- first seen: 2026-08-03 22:15 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Travis Kelce Wedding: Joe Buck Recalls Emotional Aisle Moment  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPOFVqbEx3LVZMcngwYmZ0NDhsemhQWS1POHV2YU5TdWRIbzJWOTBXOEk4VTF2cDlENlhkd0lYZWI0dDVwdHFPblB5bFFxaXNoWDVyemZQZHl4MXE5VG9RQWNzeVg5X1BKTjI4VTdVZXk3U0ZmZENnZHc1Z3dFdWhBSHJTOGdmaTBRenNsajYyNUlGWGpGWTJKMXVjTHh0c2JVeE00Q0lB?oc=5
-
-## Tacky Or Iconic? What Reactions To Taylor Swift's Wedding Expose About Her Fame & Celebrity Culture 
-
-- first seen: 2026-08-03 22:15 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tacky Or Iconic? What Reactions To Taylor Swift's Wedding Expose About Her Fame & Celebrity Culture  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNWXVEQjRhMzhQd0tpSGhGZFBsMVVZSFpianU0M1R3bEQ4WmNmYXBJenVwNmNTRFZHenBFQVgtVzFPQnpWb2dacnJTV3ZlS2M2cTBTX2JfajRjazI1RG1xOW1hY2NxVGtpTVZBREVVN1ZSMk9rdmZuNkpFRURJWWcteWdoU3lLckg2TjBsZkVxNWtoTnVROGxTZHdTMXhLRGxCMTktWEtIa0tVQQ?oc=5
-
-## Scott Eastwood Talks Taylor Swift's 'Wildest Dreams' Music Video, Reveals Who Told Him It Was a 'Bad
-
-- first seen: 2026-08-03 22:15 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Scott Eastwood Talks Taylor Swift's 'Wildest Dreams' Music Video, Reveals Who Told Him It Was a 'Bad Idea' to Star In It  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi5wFBVV95cUxNVl9tTXktNmVSYlpydU4weXVMbTVTM0VoWE9WM0lQMjJZNFlMMDNMZE5sN2lNY2swa2Z4OC1ET3pWVEhJdm1SZ0IzQlQxS2hKM3UwLUxPZFlVQmF0Y2R0Zjk1aUNjMUV5Q3VKNl9vUFZuTzh0a3A2VUlSNDhMNHdUaWJHTlYySGVUamNacEMtNkh0S2hNRGFwdkdGT2RXU2tMRWFWeVh4V1pNREFDMTFsZ3NBcDBjNnZtM3dYNkF2bnlnRTNtNTdPbzRfNXVfeVkxZEdqb3Q4Um1SOGw1cnBOaDZyc01pamM?oc=5
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOcEtHOE9TRWRLbmtxZTBPMVpCUW1oOTNBYW8tZ0YzRkxxekpGZnJKRE5Fck96UVFmbGNpeVRLTlliX2lFQ2FYNUY2MXRhOW5IRVRpQmZ0ZGpWNE01RF9ZVzFtcFNFVWwtNmp1WGlOQzlRcjhRYk5WWHRKbUlRbmpDN2hmQ0tYTFNxaGtSTWtkVVhlMHF3TThXbnBKb0NqMEdYY0JUWkM4WlJYVnpqTjcxT0JyckJ3VE9MT3A4TDczampvenc?oc=5
-
-## Taylor Swift-Travis Kelce fans believe their dog was named for ‘Sandlot’ character - Kansas City Sta
-
-- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift-Travis Kelce fans believe their dog was named for ‘Sandlot’ character  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxQNEg2cjJ4ZDUwTzI1Y1ZsSzlKTVRVOWpZNlVBNVYxemRRVldTV3Y1ZFBlSFFfbFFnUDJDcWdsYVNGd05WRFBKZ2Z0Y2dYcy01bHdCQS12bXFobXM5WFlxWmxaTFllbzVwZXpiU3JncGVhb3RMZThCQURtQ1ZORWNqTjg2cmN5cHlta2pFZnlnVEhoUdIBkgFBVV95cUxOSWFabUxYMVptNVZDRkhma2M4a0RoalFHMmQ0eWtXWWx4elU5aDV6OGdLeTRuWTlGMHU0NkpOaU9qTll5elRTdW9SeTU1S0c3VkxwQTV2czJrZWx0NHFHd0E4YktLQ0hyMEVQWmRhMW9xbWg2MXF4Z1Z5WHZjVHhQOHFNaGRPQ1hiQ2tPVmxZQkY5dw?oc=5
-
-## Travis Kelce Reportedly Facing Doubts from Taylor Swift’s Friends for Using His ‘Celebrity’ Amid Rep
-
-- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce Reportedly Facing Doubts from Taylor Swift’s Friends for Using His ‘Celebrity’ Amid Report She’s Feeling ‘So Much Pressure’ After Their Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNczBsdllqQUVfSUpqY2U3eE1nZjQxemx0WWpCQzFvOG91a3NMcWNMWHdmdFBkUkZ6SVNmQW53VzhVVnJZUWpoOHJPODRzZ2VHZDJrZkVObWt2YkxqZmlodFBsWjRpbnhUVVlRcWlJWUhvWmVQSVp2N0d1RWtRM1A4WXZhRnBoZ0hXUGRKa0w4NEMwd3F5VHczZkdJdVNWNXNJQkROX3d4Ym5Va0U?oc=5
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUzN0YkNwb29Kd2lCUmJINWdBTnE4MDA4SWp2MTVTU3hCa3pYN2hJanBaZFpJbXFjNFBNcU11c0NtRzJnU05mSjhwSTVkYnpKUndvaWR2V3lYV1BEOWtQS240bGo3ejdSX2xmenNkdWxObVpXYnJJb3p5cnNFOV81QzNPYkJQY2llb1N2WkctY3BlTXJ0ZnI5TUd5ZGhIaTRWU1FDXzBVc0w?oc=5
-
-## Taylor Swift & Travis Kelce’s Dog Is Allegedly Named After One Of His Famous Crushes - SheKnows
-
-- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce’s Dog Is Allegedly Named After One Of His Famous Crushes  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMimgFBVV95cUxOTDdTX18wQlFrTGMyWW9ma1ZYSFR4ZG03TWgyYjN4T1pWWGNBRDUzYjZoVjZoY3ZkVGhaRkR5SGNxdjdwa29BXzJ6UGxzUzBYeHoyN05tWWl2clUtWFpSRkJYcG1SaXcwOFZyVnUxWnpBLWxhcF9HNTRSVkNwVTdJRXJmUDdXTTdqeTRCZXAxaDRQYUJwM3Jtd1Nn?oc=5
-
-## Brad Paisley Says Taylor Swift and Travis Kelce Pulled Off the 'Least Pretentious' Celebrity Wedding
-
-- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley Says Taylor Swift and Travis Kelce Pulled Off the 'Least Pretentious' Celebrity Wedding He's Ever Seen  Beliefnet
-- sources:
-  - [unverified] Beliefnet — https://news.google.com/rss/articles/CBMihAJBVV95cUxNVlFSYVNEMFdGVF9KMFZrdHBqUXZ6RWJvc3N4cm5yRTVaemVybkxBMkJYMkVnbm5PM045YmdMbVRNT2N3bTlkVEtiLUN5SVRCb2VQcFB4MXRNdEhMaTN1YVlfclVoeGczcW15XzlHVmgzNjNDdVhFVmp1ZldwTmh6d0tCTFpxUS1xSk1rNWZ4OWJNbk1FVDVMZmdiaV9NODZ4SFVHTFo0a3YxSnJqSjhxTVpBaF9adngtNnM2SnFDam03LTFlazIzUHIwMzAtck9wUlE0TDBjLUREYkY1QzRIaDhRcVh5ZVFkdDZsWnpsemFRNEw3NnJBVXdRQlE3dWhVT01fTw?oc=5
-
-## Taylor Swift’s wedding spurs fandom-led philanthropy - City & State New York
-
-- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s wedding spurs fandom-led philanthropy  City & State New York
-- sources:
-  - [unverified] City & State New York — https://news.google.com/rss/articles/CBMirAFBVV95cUxPdFozWHJIM3RSb1FqaHdpLWxDRTNBSjUyUnhtRExtdzFSUUl2bDh6UWlScUROV0ZFWkZjcDg3NGJSUE5scWlKQTNXS1ducjI1Wkl0WWozU29lbS0xeHc2bjNRUm5seGpnaXlIOXZrUG1kVl9PbHBCM21heXVreWlLQ1dxS0hpVnhhMFFWcGpkN1FjS3QxT1c0TElCODRnUFdPaGR6eFlUWkwxYlZU?oc=5
-
-## Flashback: ‘Magical’ Taylor Swift concert in St. Joseph, where the Chiefs train - Kansas City Star
-
-- first seen: 2026-08-03 18:57 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Flashback: ‘Magical’ Taylor Swift concert in St. Joseph, where the Chiefs train  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE5fU0JqTUdPLUhCR0RjY1BMSGYxMU1kY1FBYThfSUo1ZGlmVGUwNWdCUHMzN0NseVBNZWFTTEdqOE5QbExvWUdFdjlzVGVISTFjZUJJdDB5bWJ0Qk9uUnNkd09abDRLSkVOUmdF0gFrQVVfeXFMT2lDOFlOWHE2dlo2c283NTBRQzJ2TlE3Z2JCN0FzRkF2d3JVWDduel9wT25TU1JsZVNFYkl3Tk9sMlR5MmVGa1BGMkRSWTR6SnpydGVFdi1VRkZCZldvUWxkUVYzV2g5ZWo1WG8?oc=5
-
-## Taylor Swift Backs Travis Kelce’s Biggest Career Gamble Yet — Insider - Yahoo
-
-- first seen: 2026-08-03 18:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Backs Travis Kelce’s Biggest Career Gamble Yet — Insider  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxOREM4UF9nalNHVlg2NTBJbU10QUY4RFRfWGhZd0xaNHhZN1NvWWE2OTdDcTdjX3hmdFdSb1h1ODAxVmxCMEw0TGlHdDJKc1FsRnBmNkVEZVFpaGg2NGxUTnYxd1pWanFUUUIxY3hLMnR0NW9KYzJDMUR5U1U2RUJ3RlJucURQYmc?oc=5
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMihwFBVV95cUxObURJYUtKTDNHeUJyRnZMdVU2S0JVZXBvWjlTOFc4LS0xMV9CQkNiZThXWlNLcjR2MXBxZ1FibHRSUjBpY2dGSG9QVzFwZG0wZkw3SzcyVHZ6eXc4X19BRjRUc0FPNm1uOWZjakptdmh1dnZlaWoxY2NvV2dJeTV0SEhxdUFNWnM?oc=5
-
-## Taylor Swift and Travis Kelce’s Rumored Puppy Name Could Reveal a Hidden Tribute - heavy.com
-
-- first seen: 2026-08-03 15:50 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce’s Rumored Puppy Name Could Reveal a Hidden Tribute  heavy.com
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijgFBVV95cUxQdnhUTzg0bjJ4Mk4tLUtRakx6RVhTeGlOVnNWc04wQzlwM3NPRktxOG5GMWlqRVpmd1k4cG83SW5uOFNzWjRJUmx3dUhrOXBlZS1raGd2bjd0bHVBQ3lLdGNEd1F1QkpCSF90Q0QzQnh6dDU0RjBvV2FRRTZINzF5MzdIMUFrUFBKX0tkUk5B?oc=5
-
-## Tate McRae Interview: Relationships, Taylor Swift's Sourdough Bread - Variety
-
-- first seen: 2026-08-03 15:50 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Tate McRae Interview: Relationships, Taylor Swift's Sourdough Bread  Variety
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMitgFBVV95cUxNcXpYZzZhQWNWUjlOSXhqeUd4eVFncERERFBlMHpUQ2pNVjZKamRWTjBCb094aTQteVZPS2h4S3dmN3U0aEN5czY0U0hLSkhTTnFYTE1aOUZOTVlPdVE5bU9kX3U4Uk1TMG1rYXNITmZVUEdrc0ZtRWhwSDFXQnhuNVl6NGpMYU5ydnpCYjBSWG5USW1DZXVyQXNhblRKVFNFYmNMQko0N3VCOVc3alVIR0FCRzlsUQ?oc=5
-
-## Becoming Tate McRae: The Pop Sensation on Navigating Fame, Treating Work Like ‘a Fantasy’ and Gettin
-
-- first seen: 2026-08-03 15:50 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: In early June, Tate McRae celebrated her recent move to New York by catching Knicks fever. It was less than a year since she relocated from Los Angeles, where she kick-started her career as music’s next Main Pop Girl, yet she could feel the electricity coursing through her new city over a potential 
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/features/tate-mcrae-intervoew-relationships-taylor-swift-sourdough-bread-1236825809/
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMitgFBVV95cUxNd040X1c5ZzNlc2pzWFhJaUprUS1ydHRkbEpwajcxM1FZWXdLbm1yZEk3NERzQ3A0LUllbU85NUp0eGZfY2Z1WXdyNEJIRXJXX19kc1dZZ3VtbER0NDZvUkRsRXFHLW1yWUhBOXJMUHlqQ0xDdjQ3U1lEbGFGMTRyR3JOWlV5Qk9zTUpWM25NYkExYjFvdDJCQVV5bXRwOTBRTm9GQ3FyaUN6M1I4RTd6X0FySEc2Zw?oc=5
