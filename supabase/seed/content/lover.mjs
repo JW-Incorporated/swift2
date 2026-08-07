@@ -148,10 +148,22 @@ export default {
             url: 'https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857',
           },
         ],
+        // Photo pass (#762, 2026-08-07): added a second still — the official
+        // aerial pool shot from the same video — downloaded and vision-
+        // confirmed. Set focalPoint on both photos individually by eye.
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
+            focalPoint: '55% 30%',
             credit: 'E! News (video still)',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/Dkk9gvTmCXY/maxresdefault.jpg',
+            focalPoint: '50% 50%',
+            credit: 'Taylor Swift / YouTube (official "You Need to Calm Down" video, aerial still)',
+            caption:
+              'An aerial shot from the "You Need to Calm Down" video: Taylor floating on a yellow inner tube in a rose-ringed trailer-park pool.',
+            kind: 'archival',
           },
         ],
       },
@@ -1198,9 +1210,16 @@ export default {
           { outlet: 'NME', url: 'https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/cruel-summer' },
         ],
+        // Photo pass (#762, 2026-08-07): reviewed for a second photo — the
+        // only other on-topic candidate found is the generic "Lover" album
+        // template still already reused across several sibling deep-cut
+        // pages in this file (no new visual information for the reader, and
+        // the kind of reuse a prior #762 run had to revert for tanking the
+        // corpus substance-score). Skipped; left at editorial max.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
+            focalPoint: '50% 42%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1227,9 +1246,14 @@ export default {
           },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/i-forgot-that-you-existed' },
         ],
+        // Photo pass (#762, 2026-08-07): reviewed for a second photo — a
+        // deep-cut opening track with no music video or promo single, so no
+        // second verifiable image exists. Left at editorial max; focalPoint
+        // added to the existing still.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/p1cEvNn88jM/hqdefault.jpg',
+            focalPoint: '50% 60%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'I Forgot That You Existed' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -1265,9 +1289,14 @@ export default {
             url: 'https://www.songfacts.com/facts/taylor-swift/miss-americana-the-heartbreak-prince',
           },
         ],
+        // Photo pass (#762, 2026-08-07): every candidate lyric-video re-check
+        // (6 YouTube ids) came back a fan reupload, not the official channel;
+        // this is an album track with no single or dedicated video. Left at
+        // editorial max; focalPoint added to the existing still.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/Kwf7P2GNAVw/hqdefault.jpg',
+            focalPoint: '50% 45%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'Miss Americana & The Heartbreak Prince' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -1424,11 +1453,32 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo pass (#762, 2026-08-07): added 2 verified Getty/Dave Hogan
+        // frames from this exact Sept 9 2019 L'Olympia show (EXIF caption
+        // confirms venue/date), served via HollywoodLife's own CDN.
+        // Downloaded and vision-confirmed; focalPoint set individually.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/d_2WyBcFbFY/hqdefault.jpg',
+            focalPoint: '58% 60%',
             credit: 'Republic Records / YouTube (official video still)',
             caption: "Onstage at L'Olympia — still from the official 'The Archer (Live From Paris)' video on Taylor Swift's YouTube channel.",
+            kind: 'archival',
+          },
+          {
+            url: 'https://i0.wp.com/media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-6.jpg',
+            focalPoint: '40% 25%',
+            credit: "Dave Hogan, via HollywoodLife",
+            caption:
+              "Taylor Swift performing at her City of Lover concert at L'Olympia, Paris, Sept. 9, 2019.",
+            kind: 'primary',
+          },
+          {
+            url: 'https://i0.wp.com/media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-7.jpg',
+            focalPoint: '50% 25%',
+            credit: "Dave Hogan, via HollywoodLife",
+            caption:
+              "Taylor Swift mid-performance at the same L'Olympia show, Sept. 9, 2019.",
             kind: 'archival',
           },
         ],
@@ -1571,9 +1621,14 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo pass (#762, 2026-08-07): searched for a second photo of
+        // Taylor in character as Bombalurina — no free-use, verifiable,
+        // non-watermarked still exists (checked Wikimedia Commons, official
+        // trailers, Wikipedia). Left at editorial max; focalPoint added.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/cf/Cats_2019_poster.jpg',
+            focalPoint: '50% 62%',
             credit: 'Universal Pictures (theatrical release poster)',
             kind: 'primary',
           },
@@ -2254,11 +2309,23 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo pass (#762, 2026-08-07): added the official Vevo lyric-video
+        // still (London skyline, the dancing-cat silhouette) — genuinely
+        // distinct from the cover art. Downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/82/Taylor_Swift_-_Beautiful_Ghosts.png',
+            focalPoint: '50% 45%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/trIjpVH8h88/maxresdefault.jpg',
+            focalPoint: '48% 42%',
+            credit: "Taylor Swift / Vevo (official 'Beautiful Ghosts' lyric video still)",
+            caption:
+              'A still from the official lyric video: a nighttime London skyline with Big Ben and a dancing-cat silhouette, as the lyric "these beautiful ghosts" glows in.',
+            kind: 'archival',
           },
         ],
       },
@@ -2297,14 +2364,19 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Focal points set 2026-08-07 (#762): both images individually
+        // viewed — the cover has young Taylor and the dog left-of-center,
+        // the video still has toddler Taylor right-of-center, upper frame.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png',
+            focalPoint: '38% 45%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
           {
             url: 'https://i.ytimg.com/vi/mN3rDTAdM2o/hqdefault.jpg',
+            focalPoint: '65% 35%',
             credit: 'Republic Records / YouTube (official music video still)',
             caption: "Taylor-family home-movie footage — still from the official 'Christmas Tree Farm' video on Taylor Swift's YouTube channel.",
             kind: 'archival',

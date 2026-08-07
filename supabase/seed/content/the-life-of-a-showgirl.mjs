@@ -7677,6 +7677,9 @@ export default {
         // appears on the Oscar-buzz page, reused here because it is the single
         // most on-topic verifiable asset for her song at No. 3. focalPoint set
         // by eye — Jessie's face is centered, slightly high.
+        // Photo pass (#762, 2026-08-07): added a second, distinct still from
+        // Disney's own Toy Story 5 press page (Jessie peeking through a
+        // doorway) — downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
@@ -7684,6 +7687,14 @@ export default {
             credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
             caption:
               'A frame from the official "I Knew It, I Knew You" video — the Toy Story 5 song that held No. 3 as country songs swept the Hot 100\'s entire top five.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://thewaltdisneycompany.com/app/uploads/2026/06/TOYSTORY5-ONLINE-USE_t580-1024x550.jpg',
+            focalPoint: '57% 27%',
+            credit: 'Disney / Pixar (official Toy Story 5 press still)',
+            caption:
+              'Jessie peeking through a doorway in Toy Story 5, from Disney\'s own press page announcing Taylor Swift\'s "I Knew It, I Knew You."',
             kind: 'archival',
           },
         ],
@@ -7734,6 +7745,9 @@ export default {
         // Downloaded and vision-confirmed this run: Abrams singing into a mic in
         // an oversized dark blazer, stage-lit. License verified via the Commons
         // API. focalPoint set by eye — her face sits upper-center-right.
+        // Photo pass (#762, 2026-08-07): added the Rolling Stone cover shot
+        // from the actual feature this page quotes — downloaded and vision-
+        // confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/b/be/Gracie_Abrams_%40_El_Rey_Theatre_03_05_2022_%2852297976064%29.jpg',
@@ -7742,6 +7756,14 @@ export default {
             caption:
               'Gracie Abrams performing at the El Rey Theatre in Los Angeles, 2022 — a year before she opened the Eras Tour.',
             kind: 'primary',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2026/08/R1415_COV_Gracie-Abrams-No-Banner.jpg',
+            focalPoint: '40% 24%',
+            credit: 'Laura Jane Coulson / Rolling Stone',
+            caption:
+              'Gracie Abrams on the cover of Rolling Stone\'s September 2026 issue — the feature in which she credits Taylor with teaching her to be "less precious with my ego."',
+            kind: 'archival',
           },
         ],
       },
