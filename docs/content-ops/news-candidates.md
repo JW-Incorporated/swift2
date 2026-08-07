@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 75
+
+## Taylor Swift & Travis Kelce Changed Brother Jason's Life With Their Relationship - yahoo.com
+
+- first seen: 2026-08-07 10:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Changed Brother Jason's Life With Their Relationship  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPMlNQX2k0T2hsa0RnRG9lLVFocmFlcV9GLXpoRDhBVmdCQnIxV2hodDEwbFFOMy1oMzhuTXhnVG9vczFQTjdFWm5WVHlqNFBpaTVHZld3VGpabXFqRFpKWHRFUjMwMjhITjF3U0NaT1RjNHhoMWN6RHE2dVhKTUlsNm5aY2x1VE1jT2MtTWtrT000dGlybkxzaVBEU2tJMVJXTHBzbTB3?oc=5
+
+## How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video - yahoo.com
+
+- first seen: 2026-08-07 10:08 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video  yahoo.com
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMingFBVV95cUxPcU9kNGtpTGxnZW1vWE9qcmo5ZDlqYXFBWmpiTnk1eFVmaGFmaS1Ua1JKcE9LUFdPX1N5M1VSM3FtVy1QbVpxLWZBbHZHV2NnNXRUUlJQVnI2Q25tbHR5T0hPWHRYeDdZcUVMSjMwY0JheEhGSFItVGI2MWxkVERJZ3JqWnRFVnhOeG5QcmpaUlNZenBYVEF1LTFmYkFEQQ?oc=5
 
 ## Taylor Swift tribute band postpones Niles show - wfmj.com
 
@@ -261,11 +277,12 @@ Stories: 74
 ## Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift weddin
 
 - first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift wedding  AOL.com
 - sources:
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE00ZWNlRG1TN09rbG1lY0xZaDVvNXBhZnpnUEt3WDl5MGRGQ1pfbll6RWxUZDVpaExyVWp4Q2FLaFFmZDlBWlBfTGxvRm9hYVVoNDFiamx4SGpLUVFtMHZPTU9RNEZzZmE5ejlaTmRJaTR0NS1vVFhQTUVUNXA?oc=5
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQaUtfMlUyYnRkMUlpWGtrTEZseURqekMwMi0zVG8tWmpSelIxOHd5c0dIOTdLdWQ4Vkx5X0w2S3NZR3RWaXd5ek1YTU9yWk5LYUw5V2U1Q1dlUm1hZDRja2JFS1lRaTQ4S3NNZlVaYlhmckRONC1YelNJU3VubWZhSkRYaDAyWHFvaFRN?oc=5
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxPUS1qUmxDTkY0WG5TTUZnQkF6STdJd1FkOFdXUGx4MzdOMjZ2SzF2RFlheEs1Z1ZHSkJycTM3bVlJMktrSDVicHZUTFZNZ1dKNlptN0ZEWHA5eHBSLTcyaG9PWkJrZWhvc0w4VzZ1djZUZzh0NDZyQ0FNbDdKNGhxNlZ3WUcwQVk2Wmlfc1BEc092OG5UQkhIOTNFVFBKUQ?oc=5
 
 ## 'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour — Here's How - Elite Daily
 
@@ -624,12 +641,3 @@ Stories: 74
 - summary: Taylor Swift & Travis Kelce Have Named Their Secret Family Member — Source  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNZGwwRlRxbm5qbklVaXIwVTZ2cTVQOUZBNnBVQ3A5VGV5WlBUTTVLUm13M0p4NUk5NGRNNVQ5LW9fMkR4M0RNRTY4eGtxWkh1NXBLd0lWYU9McXVIOUplTzhLTGcwS2h1S0NwcVkzX211aElzNDdNZ0NLaUc3Skx3bTd2UnY0SWpfSjBuY1VqR0k3V3BHcFFMeEJjNFlINzd5bEFj?oc=5
-
-## Children at Children’s Mercy hospital design wedding gown for Taylor Swift - KCTV
-
-- first seen: 2026-08-04 07:47 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Children at Children’s Mercy hospital design wedding gown for Taylor Swift  KCTV
-- sources:
-  - [unverified] KCTV — https://news.google.com/rss/articles/CBMikAFBVV95cUxPUEhFb1dzbVlBazFUdTdwZnZ5b0V3T3R1ZU91clhHR2p4cXJhdlc4X1VPc0ZueVE1N2g5THJfWmVxVnhUVE1VNHN4SUZidDhFQ2FSNWpUYngtckZJQU54UUFndlRpYUV2c2NUOVBtXzdhRlJPMi1WTWd6ZU0teG5oLUZpRU9kTzRaaURYVmpqcm3SAaQBQVVfeXFMTkFXbC1ISjgyY3ViaGlJbmlkaXZ4VmdDUnpGSm1vVG11ZWV3dmtjZjdhTFZJSkdteEZNTFBXNUlMTE9nc1doRWloR0l3YWpUMkhRNGVSTl9vaEI2Nmlad2hvVnVSZ29DTnRtblFHdjBnTVp6cVhsczRIUnhhZUhIRDAzMEk3NTNxeUhmaDByNjNxVkwyMVJhWUJnS0hIQnN1TmxDS2w?oc=5
-  - [unverified] JC Post — https://news.google.com/rss/articles/CBMibkFVX3lxTFBGNk9MS0ZLdUVkU2U5WHF2ekdlYWM3ejZWeXhPQmh1U0RjWVFWai1qZFF5SWtnQ1c5SjBJMi16MGpXaWZ2RFFfSDROM085RFJWNUIxU2puQzRwZkpUTkd6ZDhzWGxUR2Y2RHdkWUVn?oc=5
