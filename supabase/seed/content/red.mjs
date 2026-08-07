@@ -1006,6 +1006,9 @@ export default {
       day: 13,
       category: 'sighting',
       title: 'A birthday minibreak to the Lake District, spotted feeding doves and shopping for Beatrix Potter gifts',
+      // Cross-link (2026-08-07): "the lakes," the folklore song built on the
+      // same Lake District she actually retreated to here.
+      relatedIds: ['moment:vault-folklore-the-lakes-the-lake-district-escape-fantasy-saved-for-the-del'],
       snippet:
         'Spotted with Harry Styles in Bowness-on-Windermere on December 10, 2012 — sightseeing, feeding white doves in the town square, and shopping at the Beatrix Potter store and a local jewelry shop.',
       sourceUrl: 'https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/',
