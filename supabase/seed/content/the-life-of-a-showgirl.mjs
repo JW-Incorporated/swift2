@@ -8519,6 +8519,39 @@ export default {
             focalPoint: '51% 32%',
           },
         ],
+        // Rumor Desk 2026-08-07 (news digest / web trace). The Vegas-coded
+        // orange rollout that opened here immediately spawned a tour rumor: an
+        // insider claim, reported by The US Sun days after this Aug 13 reveal,
+        // that Taylor's team was eyeing a Las Vegas Sphere residency. It is a
+        // clean adjudicable claim — tour/residency speculation is explicitly
+        // admissible (privacy-redlines.md, "Always OK"), and it was DEBUNKED on
+        // the record within days by the venue itself, so it ships as a resolved
+        // rumor. The venue is named only as the entity that issued the denial
+        // (same pattern as the shipped Ocean House wedding-rumor entry), and the
+        // subject is a public performance venue, not her whereabouts — no
+        // redline, no live security/doxxing risk (she is not, per the venue,
+        // going to be there). This anchors on the announcement page the rumor
+        // grew out of, not the wedding page, per the breadth directive.
+        rumors: [
+          {
+            claim:
+              'Days after the Showgirl reveal, as the era\'s Vegas-coded rollout took off, The US Sun reported an insider claim that Taylor\'s team had privately discussed Las Vegas gigs and was specifically eyeing a residency at the Sphere.',
+            reportedBy: 'The US Sun',
+            reportedOn: '2025-08-14',
+            status: 'debunked',
+            url: 'https://www.the-sun.com/entertainment/14966683/taylor-swift-las-vegas-venues-sphere-album-reveal/',
+            note: 'Debunked on the record within days: a Sphere rep told Puck\'s Matt Belloni (Aug 18, 2025) they "are not in conversations with her team about a residency at Sphere"; NME, Consequence and Just Jared carried the denial. Rigor: the denial addresses the Sphere-specific claim; the vaguer "Vegas gigs" ambition was never resolved. Tour speculation, admissible; venue named only as the denial\'s source.',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'venue',
+            lastCheckedOn: '2026-08-07',
+            resolution: {
+              on: '2025-08-18',
+              url: 'https://consequence.net/2025/08/tayor-swift-vegas-sphere-not-happening/',
+              outlet: 'Consequence (quoting the Sphere rep via Puck\'s Matt Belloni)',
+              note: 'A Sphere representative told Puck\'s Matt Belloni: "While we love and respect Taylor Swift, we are not in conversations with her team about a residency at Sphere." Reported Aug 18, 2025; the Sphere-residency version of the rumor did not hold.',
+            },
+          },
+        ],
       },
     },
     {
