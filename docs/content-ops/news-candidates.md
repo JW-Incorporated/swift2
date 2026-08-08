@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 74
+
+## Travis Kelce's Transformation Through the Years in Before-and-After Photos - Yahoo Lifestyle Canada
+
+- first seen: 2026-08-08 09:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce's Transformation Through the Years in Before-and-After Photos  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPbDRkeDZHTnZEbUUyY3E5TlFwc0ZmcXNFX244S0EtTFJHZ0Nfek0tdXVjN0JtNzRjQmhIYTVMN2swbjN5d29sU2FBQVFtMFpnTi1vSEhRRjFDYTlQa0J0SUxDTTQySDVJZlYyMVNPdHpHWkJLcFJpRDhkWTUtTG5taXp6NWJuREdNZVNN?oc=5
+
+## Taylor Swift Song Removed From Donald Trump Video Days After It Was Posted - Just Jared
+
+- first seen: 2026-08-08 09:51 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Song Removed From Donald Trump Video Days After It Was Posted  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPUC1Cam1UdTh5aFhHbFMtQmlQc2JtRExtUEdEMml4YWszZlR6c25UaHl4QW1CZkM0S29jVFVHaVV1TFNMTzI3TEpuMzJQUVFoSVNSaFV2UlZZNkQ3djdrMlltY09QX1BHWThOcGFwcDQxRFowemNPMEtxZG9zcEhobm8wNDlBVUYxR3R4aXl3RjhUWWsxWHBGMGpwYXBIdW40VGtWZUFHMC1RQjZyTU9YWmVn?oc=5
+
+## Taylor Swift, Zendaya & More Who Kept Wedding Dress Photos Private - Yahoo
+
+- first seen: 2026-08-08 09:51 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Zendaya & More Who Kept Wedding Dress Photos Private  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeFktdVY5NDRLemdUOHdfUlBzbnNMRjJPOXA2WjhKWkw1VkZLZ1BmWkFyNHVYbXFxYU04am42RnoyR1ltTVNNRXRXdFV5SFRtQ3NjNGN2Z05teUtzaXMza0JmYVRjVFMyU1c4cVpnSTN0eWdaQnJ6X3pBT3pEbVVYZ1ktRmU3NGZNNG5PUTZ0VFQzb0pNbmtxc0E5T1J3RmxGTnc?oc=5
 
 ## Taylor Swift Blocks Trump from Using Her Music on TikTok - consequence.net
 
@@ -92,14 +116,6 @@ Stories: 72
 - sources:
   - [unverified] managingip.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNR01CSEd4TVRURmZxMVhfQXhxYUpYYy1VUm1jZWhEaGxjajh1NHlVVUkxVXpxZWw1ZHNFVXBxVkRmZnNmYWltaWdDUVJCazhvU0ZxNTJyanJjelFpSlE3ZGx4OVNudG1WaFFZNVlsckltZlVVWFFsVnN5ZUZmdGdEVHpqaUVXT0dvMVM4U1JHalotWFhQLXVCYUhmY1FRMTNwSGxWU1hEWTV6LW93SFpoVm9XSjBCY0FqVy1YQlMwMWNXak5CUU50YjEtZkxtOXdzQkYxQ2lZVElQdw?oc=5
 
-## Taylor Swift Allegedly Restocks 250,000 Vinyl Records for Unknown Release as Fans Speculate Rerecord
-
-- first seen: 2026-08-07 21:52 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Allegedly Restocks 250,000 Vinyl Records for Unknown Release as Fans Speculate Rerecording of Debut Album  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxNY3BzZFBmbmY3Tk8xTk9qWDVPZW1pUmxhaTA2Qk9iM2tfRlp4SVpMMWljcGdrQ2NqWjFkeFZoVzhhZXJzalFUTmxjZ2hkTURtY3VDYWI2cEl3S25FaTRxTjY2UFZkekZvRXl6WFlxdnM1dGJGOWVDVFB5OXNzUFdvemZCNA?oc=5
-
 ## Sombr Reflects on Performing at Taylor Swift’s Songwriters Hall of Fame Induction - Kiss 95.1 Charlo
 
 - first seen: 2026-08-07 21:52 UTC | category: music | importance: 5
@@ -123,6 +139,15 @@ Stories: 72
 - summary: Kam Saunders Calls Taylor Swift and Travis Kelce’s Wedding ‘Transformative and Remarkable’  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxONy1zSFBKNEQ1ZTdtV3FfQVFmWU13QUV0TnlVNHU1WkRQWWxvZVVtSTFGWHJzZ3oxM1N6SHdaejh1aWI4MnpRdFdQbDY0dVZlaGNZUDVUa2V6ZS1PdGV3Zm95THJzaVBHdVVFdHBiQzBrRWxQLVAzbE1wWkExOWlTTWYyR0ZFbVMxNVVsQ1BPMFdOVVhrbEJtZXlaNXJUT3VDcktOeFhzSzFvX01wTlRtM0xjZlE?oc=5
+
+## Taylor Swift Allegedly Restocks 250,000 Vinyl Records for Unknown Release as Fans Speculate Rerecord
+
+- first seen: 2026-08-07 21:52 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Allegedly Restocks 250,000 Vinyl Records for Unknown Release as Fans Speculate Rerecording of Debut Album  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxNY3BzZFBmbmY3Tk8xTk9qWDVPZW1pUmxhaTA2Qk9iM2tfRlp4SVpMMWljcGdrQ2NqWjFkeFZoVzhhZXJzalFUTmxjZ2hkTURtY3VDYWI2cEl3S25FaTRxTjY2UFZkekZvRXl6WFlxdnM1dGJGOWVDVFB5OXNzUFdvemZCNA?oc=5
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxNMmFxbnMzV2Zvc0cweVl3Zm5GdTkyZ1NjZG42cXBFTk12Wk5fSFgwMmpnUUVxcVN6SlRzai0wOWRrRUFNZWR1bUthVEhvZWxqbGhjZVhlcTdBUFpVdERkRjRQN01TWkg1VnZlNEMzRGlsUWEtaWx1VTVKX3J5alBwSV9BVXh5Zw?oc=5
 
 ## Kylie Kelce Reveals What Had Jason Crying at Travis’ Wedding to Taylor Swift - extratv.com
 
@@ -607,12 +632,3 @@ Stories: 72
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxQdDNWOWVqdWJkbmtZWk0yZUNsV3g3YmhlNFRQc1dlZmcxSXFvU2pWVUxCSWZfa0ZITURfN1JYT0I3N09DZ3FFNk5wdTRJdVRwTE5XRHI0N1lnS3NTRGxiVWwxYlRaczhXWmkxTFVOTTdxQi1aZG0yQmRuRWhDbkJCSDl6UnhnUm10eVpKckh4bnNXektndTZJdkxXeXhCM05SLVB4Q3VpYWprNFN2WWEw?oc=5
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxPelFWLV9ySEV0S0xCSU5GdGdld1o5N1dGSWRYWGpKbFNVQnB4Rk1nVElBb01ISUxiMTBjSk01UVNtTXh6Sl8xS29VeGlKV1RlNXk0Z3BMaEZ5aEhKOHJLTng0YUd0RnBsRzZkWXl3U0NHSmwwYXZFbWViZWhYa0VWcmRVdy1valhMbnFDcmZ2bTQwSHJ5b0tKMnBfQ2NfbmsxWC1uS0RYaURmd01uQ1F6VGsxb01tcjg3Y2ZSQjlBS0JMWkV5a0d5WUVR?oc=5
-
-## Inside Ted Lasso Season 4's Enchanting Nod to Taylor Swift: How Her Eras Tour Played a Role - E! New
-
-- first seen: 2026-08-05 07:48 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Inside Ted Lasso Season 4's Enchanting Nod to Taylor Swift: How Her Eras Tour Played a Role  E! News
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9FOGJ2ZnFJV1c5RTNzbG5MajlHWHY1dnhxV3M0LVVCeEdpbzFBZ3h2RWYwYm4xekctRU42RE9IYkZGbUt3WW8yUDBRSkNkYklGYVhJb0ROcjBBanNMRUYySkJBdHhNenRhRmxBTlVta1FDT2VC?oc=5
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPSHk5WDU3VmpmSjNVcV9Ud0RIRXBCa3YyN1A2UnlQX2tqaDExQWZuUTV0RkFYNkwwYkRPLU9YOFQ2NGxSQS0tM1VHQzJ2NlQwdks3VWdEaGhZSmZ6cXZ1OUUtVmlRejJ5M29Cdl9yX01XZDhMb2R0eWp4NElKcWRobU14NzExdVJZaGVXMFBSNWdMRmtmbHBCZjFqckhsaC1EbzVxZ3RQeVc?oc=5
