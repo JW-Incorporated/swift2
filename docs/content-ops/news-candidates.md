@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 75
+
+## Taylor Swift Song Pulled From Trump Team’s TikTok Amid Backlash - parade.com
+
+- first seen: 2026-08-08 13:54 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Song Pulled From Trump Team’s TikTok Amid Backlash  parade.com
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQeFFNTVhSMnRlb0tpS0tCQTZpSG5mR3Z2dGdhUGFEZVoyMXBDV1RLU0phb0tpMGNmUHpLREhXZFBQX0twRE5acXQxVUpHWDlyTzVZMmFQNzhwYU9Oc3VlY2JhUlRGV0ZzM3d6WE1QZXJVeFZBX3FfdWxDa3BhT0t2akFNdXdRb0UxTUJOY0h5aw?oc=5
+
+## Is Taylor Swift the New Michael Jackson? Jelly Roll Asks. - Yahoo
+
+- first seen: 2026-08-08 13:54 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Is Taylor Swift the New Michael Jackson? Jelly Roll Asks.  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxNbTBOLXNGQTNWMG54UUdMdW42M2FmS1NXMkVldHpSY3ljcGY2NUpDMjdBTFhfdzQxY19nTkJQWmFwa1I2R0o2WGc1Yi16d1hvT2VlZ3ljMGhvbGpfOEptemZuUzJaUHFxRXVvT2xweWRCbklKbWtoRmVDN0l6MzEwZlNoM0oycm9ZSUkwaVp0T3ljdw?oc=5
+
+## Taylor Swift's song 'August' removed from Donald Trump's TikTok fireworks clip - The Times of India
+
+- first seen: 2026-08-08 13:54 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's song 'August' removed from Donald Trump's TikTok fireworks clip  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi_gFBVV95cUxQN1FDczVySkQteDdvNjM5RVZEc2NPRUlmNDl1d3JISjk4SWtxNFNPOEZtQUViQTlmR1lNY1NiWW9qaDd5SmM2Vm9aMUZtVk1LcVIzNDRNZFN1ejYtVUNraHplT2NldzlWbUpCUGtMeVJGUU9SOHN3bFNqUVdJT3FJTEdIX3hSSEF0NzEtdHRGcE4wS2tNTjZSTDRKTUYya3B6REQzbEJicFFiNGJoX2VCN1p2ZVdGeGdTZ1lWbzBSVkpUbkw1ZE43UHlpQ0Vpck5fRE80cWx5djRJdUpJSk8ySVBUWmtNbGljSVRoaEVST2IwdGowcUJ0WFVocDhkUdIBgwJBVV95cUxOMTNhUkpBLUxIR29uVEY4blNqMjVSdXgtSGdMUzhDTExubWFZM3I1V3V3amNNUzI5bV9OWTJNdTFpMGVxNWNhRENZaWJMc0htazQ5QVlhMkdJemRsMVNiOTJINkJ0WlFWM3d5VzdmQ1ZFT3loMEQ1N042VE0yS01BamtINTBmYnVqN2NjbThlUW41RTZLMmFKNmpPWFU2UEgxT0JidzRkNFNvVjFKUkl1dlN5MXRHLVF1S3BJcFA4MTU3QzdZbkFWYTBMR3RxZV9MME5FOE9XckYxWnE2SXRxMG80b19sYUM5eXVjOG44aFNudzcyZmNUYXhoOXpaNGpOaktz?oc=5
 
 ## Travis Kelce's Transformation Through the Years in Before-and-After Photos - Yahoo Lifestyle Canada
 
@@ -59,15 +83,6 @@ Stories: 74
 - sources:
   - [unverified] consequence.net — https://news.google.com/rss/articles/CBMigwFBVV95cUxPQmFVUnVuaGZWNG42ZFFUZ2xxOHJMNlZla19QcDJBbktQRnRhVGg0aXF6NnhnQzlLcEZaYlN1d3FRZ0V1NlA2VXYwek5XMEw3R0RoalV1aTF2U3ZYMUxWbUxNdGdSV2RBYW9XRndsNVkyTGxNUER2NFVsN1Q2bVlXMHBFWQ?oc=5
 
-## Taylor Swift Song ‘August’ Removed From Trump TikTok Video - Variety
-
-- first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Song ‘August’ Removed From Trump TikTok Video  Variety
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMHlqN1RwN0t4ZjhYY1d3LTlTNHF3OG1VZWw2cXpOQllZM3JpMzd2QmlsU3lfVmd2eUh0QkE1d2N6dVBoXy1tT2FQM2FlYzhHd0ZFeVg5V3lURkY3YmIxYTBiYmhLU051TEpzTVlTbndFalRjdWpOSjFaUmtPcFZaTHNzMk9tZThwZHJhN2gtM1IxcEI3RENScEZXSGRYaWJv?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/
-
 ## Roundup: Dogs, Sports, Taylor Swift … - 06880
 
 - first seen: 2026-08-08 05:53 UTC | category: sighting | importance: 3
@@ -75,6 +90,16 @@ Stories: 74
 - summary: Roundup: Dogs, Sports, Taylor Swift …  06880
 - sources:
   - [unverified] 06880 — https://news.google.com/rss/articles/CBMifEFVX3lxTFB5SWlHcnYwaHNfMzhpdHQxbWw3RmJYOS13SWVvMEUwdDh5clhjZDVoMjlCSVBwRDhFZS13NE1OR0JZeUx2UEMyV3Bid3VmbjZoaWZjRDZxdlZqU0lRMS1DNlBZNEVtQWYxaGZZV0d6VURXbmNrM210V0tQRlHSAXxBVV95cUxQeUlpR3J2MGhzXzM4aXR0MW1sN0ZiWDktd0llbzBFMHQ4eXJYY2Q1aDI5QklQcEQ4RWUtdzRNTkdCWXlMdlBDMldwYnd1Zm42aGlmY0Q2cXZWalNJUTEtQzZQWTRFbUFmMWhmWVdHelVEV25jazNtdFdLUEZR?oc=5
+
+## Taylor Swift Song ‘August’ Removed From Trump TikTok Video - Variety
+
+- first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift Song ‘August’ Removed From Trump TikTok Video  Variety
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMHlqN1RwN0t4ZjhYY1d3LTlTNHF3OG1VZWw2cXpOQllZM3JpMzd2QmlsU3lfVmd2eUh0QkE1d2N6dVBoXy1tT2FQM2FlYzhHd0ZFeVg5V3lURkY3YmIxYTBiYmhLU051TEpzTVlTbndFalRjdWpOSjFaUmtPcFZaTHNzMk9tZThwZHJhN2gtM1IxcEI3RENScEZXSGRYaWJv?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/
+  - [unverified] NDTV — https://news.google.com/rss/articles/CBMisAFBVV95cUxPMFQ1Um9PdTExVVFnMGtQeFNKaG5mT19nanFRVHFkYXN5dEwxb2hDYTYyb3N2NGFMdFlMWjZoVzJTV0FhdVRPdktwR2RVMEFleHdaUDg2QUdEbDBybVBDbW83RzFLU2RfMkZQYkRmNDZMYnF3NkVveTh1YzdwQUFrVVcyYUJOOWRoeHZrQXVwNWNSd04zd3MxcV9QS3FMN091T1hzS3lNYlVucHNBcU9OQdIBuAFBVV95cUxOZWNsV2s5RDVXQ3NwT3hRbUlsOURqVGhzSC13eXpxNEJEanVGaFlhZVJ5bGFlbnI3eUhyYWhjSGdEMFZDOVpaQ1pFTGxHdGx1NEJ4aDlvY0wxYzlXbzZtcFFPenpvWnF4NFJFblhmbm5QSTYyU2hGc1hTY295ZVRJeW91YzhQQjZUM3ZhUzBnVzZCdVBDRGNxdVg3N0xvc01qajBSYzEtM2JjanNLZGU2SHRUVURYUW9I?oc=5
 
 ## Taylor Swift Appears to Block Trump From Using Her Song in TikTok Celebrating His Presidency - TheWr
 
@@ -615,20 +640,3 @@ Stories: 74
 - summary: Rising Pop Star Praises Taylor Swift For How She Has 'Helped' Her Career  Wide Open Country
 - sources:
   - [unverified] Wide Open Country — https://news.google.com/rss/articles/CBMipgFBVV95cUxOMThobnJuQjd3a0VIdGlaREppazZ5bG0wWjJ0bG11dFpwY3F4R2szMVp3TDh5eFdSSEZCbU5NQm1McDdOamM1QldIR1pBTnczcHpFQ01EaGZzWXJvU2ZzcjBjcWxTWm1IV3MyLW15N1diSlZwdWNLVGNnZ0hvdHFYVkZkaF9WdkQ1R3A0RDZ6LTJjT1AtV0UzSl9zS0lxUjlvWVVGbU53?oc=5
-
-## When Taylor Swift played a free Madison show 20 years ago - The Cap Times
-
-- first seen: 2026-08-05 11:27 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: When Taylor Swift played a free Madison show 20 years ago  The Cap Times
-- sources:
-  - [unverified] The Cap Times — https://news.google.com/rss/articles/CBMi4gFBVV95cUxOMjF5RjA0WmNxeEtBdllFYUY3c3AwdlVBR3YxMDlEOExsaGU3bTlyQTluU1BGeThremQ2V2FTZl8tUFNVNzZGaTF4Vm5lblRXbWFiYWZhSVN5MTJpcDVwMDlSYS1yYnpFcXotZHNhczZxTEpxODliODhPRGFSMGkyRmY5eEt4ZDFBZm5janpDa2ljS0Z3V3hscFB5dkNER2pmQWE4bE9CODFZd25fb00xemtBazNoNWpYZUVTQkVtTXh6S2tRSk84dW00enZhbXlGQzFlWW1sUlExZUJ0WGFoVGJ3?oc=5
-
-## 'A joke' - Cooper Kupp reveals what shocked him about Taylor Swift and Travis Kelce's wedding - hitc
-
-- first seen: 2026-08-05 11:27 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: 'A joke' - Cooper Kupp reveals what shocked him about Taylor Swift and Travis Kelce's wedding  hitc.com
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxQdDNWOWVqdWJkbmtZWk0yZUNsV3g3YmhlNFRQc1dlZmcxSXFvU2pWVUxCSWZfa0ZITURfN1JYT0I3N09DZ3FFNk5wdTRJdVRwTE5XRHI0N1lnS3NTRGxiVWwxYlRaczhXWmkxTFVOTTdxQi1aZG0yQmRuRWhDbkJCSDl6UnhnUm10eVpKckh4bnNXektndTZJdkxXeXhCM05SLVB4Q3VpYWprNFN2WWEw?oc=5
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxPelFWLV9ySEV0S0xCSU5GdGdld1o5N1dGSWRYWGpKbFNVQnB4Rk1nVElBb01ISUxiMTBjSk01UVNtTXh6Sl8xS29VeGlKV1RlNXk0Z3BMaEZ5aEhKOHJLTng0YUd0RnBsRzZkWXl3U0NHSmwwYXZFbWViZWhYa0VWcmRVdy1valhMbnFDcmZ2bTQwSHJ5b0tKMnBfQ2NfbmsxWC1uS0RYaURmd01uQ1F6VGsxb01tcjg3Y2ZSQjlBS0JMWkV5a0d5WUVR?oc=5
