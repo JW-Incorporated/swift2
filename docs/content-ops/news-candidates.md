@@ -27,6 +27,62 @@ so far".
 
 Stories: 75
 
+## The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4 - PureWow
+
+- first seen: 2026-08-08 17:43 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4  PureWow
+- sources:
+  - [unverified] PureWow — https://news.google.com/rss/articles/CBMieEFVX3lxTE12b0JLT0liQ01SMDBKY0pmTVE2TzlELVo2WTZ4SlNLcmxSWFROVTFlaHYxODBqLVNIQy1MYkpXZG5pVFBOLW9ya0d0ZzBrcDgzQVJUbFA4OFVTT1RndWEyUEpJWXpUZ2paZ2ZaeGJCWFBEZWo4RnEzbQ?oc=5
+
+## Scott Eastwood Was Told Doing A Taylor Swift Music Video Was ‘A Bad Idea.’ Why He Did It Anyway - Ya
+
+- first seen: 2026-08-08 17:43 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Scott Eastwood Was Told Doing A Taylor Swift Music Video Was ‘A Bad Idea.’ Why He Did It Anyway  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQWUg1OXNqNWphN3Q0SG9vWXh3LXN1b2dNbmJxYzhUTHZvamhnT3llb1pIcVBEVkk0N3o0QnVxS3JfeWJuTy1jUHFxbHVJbjlMQUtnUThIbTVObFBTQUdCcklic2djYVNWRi03SmFzeEl0Y1Q0dGdLdkxEYUk3Vlh1dDVMLWdudUtDbk84QXdaVW9pbzJvWTlSNks2STJ5TUU?oc=5
+
+## Taylor Swift songs vanish from Team Trump’s TikTok videos - Indulge Express
+
+- first seen: 2026-08-08 17:43 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift songs vanish from Team Trump’s TikTok videos  Indulge Express
+- sources:
+  - [unverified] Indulge Express — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOcWxNdUdJaC1GR3J5ZWRFWHdGcW45TmlvclJjcGM0VEVOc3ljT2lweGVCZGhNbEhPUGUxaGc4S0xSTS1QQkFrRXE1OTA5bF9sS0pfVmM3Tmx0NkNGNTBlR0drVDBjbGFLMmIxWEltLVFIRm1LLWZsampzaWxzWlJ2a1haNzBzT3VtaGdjSmE4MEtVZ1g0eXN1ZU1wNGxIQ0RwMFR3ZmVUbVVYUkNoQ0xUTG0zLTFUSl9IUTZV0gHIAUFVX3lxTE9Wa1o0b196U2RHVlJuRHR0N2F4SGtGdVU0WGhuY0FMRGZpSW9YdjhRMDd5WU8yVkROclNiSkp4YkUyWktpbThTZ1NBTVY4YjFQaGVTRzZleXI1TEJxaGU5b1dZYkpjSTBPQ3JkYS1Bak9UdkEzWmNTdWZINVluYXljRHo2Zm8wTTdydXJTVTVBOUgyODlfY1BseXpJNWIyQk93d3NpczREU2JZV3Rpam5kRWtfeVlhdms3d1h4dHNjZWltUWR5TFY2?oc=5
+
+## Taylor Swift Silences Trump on TikTok as President's Team Uses 'Red' to Claim Album Is About the GOP
+
+- first seen: 2026-08-08 17:43 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Silences Trump on TikTok as President's Team Uses 'Red' to Claim Album Is About the GOP  International Business Times
+- sources:
+  - [unverified] International Business Times — https://news.google.com/rss/articles/CBMiswFBVV95cUxPbkF3aFFKc1lJb1pwNXI1RzlRNHBzTEN5R2NsSlhGQ2NlNlVDOTVTVlF3NFgwUnNPa2ZkaDVNQ1RCVkxjc3J6WGlTN1M1QzROU1BVNzFDanpVb3pYdnd4YVc3aDM2dnNTdlJlUmtNNmgtc1FQUEhwNm1hRHQ5a3llNEdiWnVvc3NoY01GT2s0R243NWpOZEtEZWlHb3M2QTNXVTF1eDlQWGV4VFRrY1c2WDJ1cw?oc=5
+
+## Travis Kelce Accused of Not Having His ‘Eye on the Prize’ Since Marrying Taylor Swift - heavy.com
+
+- first seen: 2026-08-08 17:43 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Accused of Not Having His ‘Eye on the Prize’ Since Marrying Taylor Swift  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxObDRzOTZEYm41dFRPeElMbWhaSVhKX3JpbTQ2aGtFM0xCTDRUb0hkbGN0VTcyTXhiTGFQWUx0SGpZdndoVGU2LVFXTGtIQm1vbjdvdHlPdVE5TzJrVmlfZGRUc2V0YjdHRlh0X1M2WlRmY19JRWtGQ1laNTNjXzdlT1JBUU9GQWU5enl5SWNIYjV2WmpmVzl5eFNubw?oc=5
+
+## Taylor Swift Isn’t Alone: Zendaya, Kirsten Dunst and More Stars Who Kept Wedding Dress Photos Privat
+
+- first seen: 2026-08-08 17:43 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Isn’t Alone: Zendaya, Kirsten Dunst and More Stars Who Kept Wedding Dress Photos Private  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMijwFBVV95cUxOcjNsaXlQYUtCalM1Q2FsdThUd0dqa3AxTzg2TFFpQkJlYVN2aVU5ZVFBZlN3bGRnTlpreHpsU1gzUnN6ZW1ETHZWS2tuUVZwNXRmdGM2SGV4Y2ttWGd5WDJRS2FadzZlcFk3a3lyU0FJN2RuWXZlRHBKWEM0dlZSNTduMktmRE9Vb0FVbFBnMA?oc=5
+
+## Taylor Swift Takes Action, Has Songs Removed From Trump TikTok Videos - Bleeding Cool News
+
+- first seen: 2026-08-08 17:43 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Takes Action, Has Songs Removed From Trump TikTok Videos  Bleeding Cool News
+- sources:
+  - [unverified] Bleeding Cool News — https://news.google.com/rss/articles/CBMingFBVV95cUxPWGtyV3JwYzN5WkducVNxNUhQWGRKakYtdTlxYVhudXBMVzZpakhwNDR6Wi1fV1FwbGltNjI1RFZOR0FhNkdGRXBZc1BjRlBjWUR4SVJpNUlTaldQTHhIUUl0ZTZ0OHFGQ2xMRlBWeHFUWnlOMG95RUJoMW9UOFczek9XQlZlNmpVdGZDay1CTFNTd3ZSUHZCSC1OREx0QQ?oc=5
+
 ## Taylor Swift Song Pulled From Trump Team’s TikTok Amid Backlash - parade.com
 
 - first seen: 2026-08-08 13:54 UTC | category: music | importance: 5
@@ -75,6 +131,17 @@ Stories: 75
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeFktdVY5NDRLemdUOHdfUlBzbnNMRjJPOXA2WjhKWkw1VkZLZ1BmWkFyNHVYbXFxYU04am42RnoyR1ltTVNNRXRXdFV5SFRtQ3NjNGN2Z05teUtzaXMza0JmYVRjVFMyU1c4cVpnSTN0eWdaQnJ6X3pBT3pEbVVYZ1ktRmU3NGZNNG5PUTZ0VFQzb0pNbmtxc0E5T1J3RmxGTnc?oc=5
 
+## Taylor Swift Song ‘August’ Removed From Trump TikTok Video - Variety
+
+- first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Taylor Swift Song ‘August’ Removed From Trump TikTok Video  Variety
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMHlqN1RwN0t4ZjhYY1d3LTlTNHF3OG1VZWw2cXpOQllZM3JpMzd2QmlsU3lfVmd2eUh0QkE1d2N6dVBoXy1tT2FQM2FlYzhHd0ZFeVg5V3lURkY3YmIxYTBiYmhLU051TEpzTVlTbndFalRjdWpOSjFaUmtPcFZaTHNzMk9tZThwZHJhN2gtM1IxcEI3RENScEZXSGRYaWJv?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/
+  - [unverified] NDTV — https://news.google.com/rss/articles/CBMisAFBVV95cUxPMFQ1Um9PdTExVVFnMGtQeFNKaG5mT19nanFRVHFkYXN5dEwxb2hDYTYyb3N2NGFMdFlMWjZoVzJTV0FhdVRPdktwR2RVMEFleHdaUDg2QUdEbDBybVBDbW83RzFLU2RfMkZQYkRmNDZMYnF3NkVveTh1YzdwQUFrVVcyYUJOOWRoeHZrQXVwNWNSd04zd3MxcV9QS3FMN091T1hzS3lNYlVucHNBcU9OQdIBuAFBVV95cUxOZWNsV2s5RDVXQ3NwT3hRbUlsOURqVGhzSC13eXpxNEJEanVGaFlhZVJ5bGFlbnI3eUhyYWhjSGdEMFZDOVpaQ1pFTGxHdGx1NEJ4aDlvY0wxYzlXbzZtcFFPenpvWnF4NFJFblhmbm5QSTYyU2hGc1hTY295ZVRJeW91YzhQQjZUM3ZhUzBnVzZCdVBDRGNxdVg3N0xvc01qajBSYzEtM2JjanNLZGU2SHRUVURYUW9I?oc=5
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-removes-august-team-trump-tiktok-video-1235605878/
+
 ## Taylor Swift Blocks Trump from Using Her Music on TikTok - consequence.net
 
 - first seen: 2026-08-08 05:53 UTC | category: sighting | importance: 3
@@ -90,16 +157,6 @@ Stories: 75
 - summary: Roundup: Dogs, Sports, Taylor Swift …  06880
 - sources:
   - [unverified] 06880 — https://news.google.com/rss/articles/CBMifEFVX3lxTFB5SWlHcnYwaHNfMzhpdHQxbWw3RmJYOS13SWVvMEUwdDh5clhjZDVoMjlCSVBwRDhFZS13NE1OR0JZeUx2UEMyV3Bid3VmbjZoaWZjRDZxdlZqU0lRMS1DNlBZNEVtQWYxaGZZV0d6VURXbmNrM210V0tQRlHSAXxBVV95cUxQeUlpR3J2MGhzXzM4aXR0MW1sN0ZiWDktd0llbzBFMHQ4eXJYY2Q1aDI5QklQcEQ4RWUtdzRNTkdCWXlMdlBDMldwYnd1Zm42aGlmY0Q2cXZWalNJUTEtQzZQWTRFbUFmMWhmWVdHelVEV25jazNtdFdLUEZR?oc=5
-
-## Taylor Swift Song ‘August’ Removed From Trump TikTok Video - Variety
-
-- first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift Song ‘August’ Removed From Trump TikTok Video  Variety
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMHlqN1RwN0t4ZjhYY1d3LTlTNHF3OG1VZWw2cXpOQllZM3JpMzd2QmlsU3lfVmd2eUh0QkE1d2N6dVBoXy1tT2FQM2FlYzhHd0ZFeVg5V3lURkY3YmIxYTBiYmhLU051TEpzTVlTbndFalRjdWpOSjFaUmtPcFZaTHNzMk9tZThwZHJhN2gtM1IxcEI3RENScEZXSGRYaWJv?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/
-  - [unverified] NDTV — https://news.google.com/rss/articles/CBMisAFBVV95cUxPMFQ1Um9PdTExVVFnMGtQeFNKaG5mT19nanFRVHFkYXN5dEwxb2hDYTYyb3N2NGFMdFlMWjZoVzJTV0FhdVRPdktwR2RVMEFleHdaUDg2QUdEbDBybVBDbW83RzFLU2RfMkZQYkRmNDZMYnF3NkVveTh1YzdwQUFrVVcyYUJOOWRoeHZrQXVwNWNSd04zd3MxcV9QS3FMN091T1hzS3lNYlVucHNBcU9OQdIBuAFBVV95cUxOZWNsV2s5RDVXQ3NwT3hRbUlsOURqVGhzSC13eXpxNEJEanVGaFlhZVJ5bGFlbnI3eUhyYWhjSGdEMFZDOVpaQ1pFTGxHdGx1NEJ4aDlvY0wxYzlXbzZtcFFPenpvWnF4NFJFblhmbm5QSTYyU2hGc1hTY295ZVRJeW91YzhQQjZUM3ZhUzBnVzZCdVBDRGNxdVg3N0xvc01qajBSYzEtM2JjanNLZGU2SHRUVURYUW9I?oc=5
 
 ## Taylor Swift Appears to Block Trump From Using Her Song in TikTok Celebrating His Presidency - TheWr
 
@@ -584,59 +641,3 @@ Stories: 75
 - summary: It’s Sombr Summer: The Pop Phenom on Impressing Taylor Swift, Singing About Body Image and Why People ‘Can Say Whatever the F— They Want About Me’  Variety
 - sources:
   - [unverified] Variety — https://news.google.com/rss/articles/CBMilAFBVV95cUxPOG9MeUpiVlZJTDhMU0xaRTBOZk1QLUUzUVdEUEFRalVteWx3SU9CaE5leDlKbTBNY2xGSGdtZHpRbDEzVzM1NDhNc1lYWk1OTDBlNmtiSDRzOWxyUk02eU5EQ25WM1N4Z3Q5WUZFR3BJWXlkbjBRZ0F5QW1FU3lRMjBWY3pHM05rbWJSWkhGYXE4NXNT?oc=5
-
-## Inside Taylor Swift’s Star-Studded Love Life - Yahoo
-
-- first seen: 2026-08-05 15:24 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Inside Taylor Swift’s Star-Studded Love Life  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxNZ2tWU3pYeFRMOVNxcEJYQ0Y5R0JIWFdxdUk5YXJ2QUJFVFdKeWt0U20zNTc3VElBcWhKZnpUbzZoNzItU3dLM0NOZV80NGhJLXN1eFRIc1BvNFJzbGRoMFE0R0k0S0dkaF8ydzh5d0hhQVJqWjN5UFBqbHFSOEVuVk1aZFNiRElFeXRPSV9UTFNMQ1ZY?oc=5
-
-## Taylor Swift Movies and TV Shows - Young Hollywood
-
-- first seen: 2026-08-05 15:24 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Movies and TV Shows  Young Hollywood
-- sources:
-  - [unverified] Young Hollywood — https://news.google.com/rss/articles/CBMidEFVX3lxTE5HTDRmSG1OX3hnYXdSTlN4eWR1NUlmU0o4b0JyYi1mQUNJMWgzeGNZQUNvc3NLXzdOZmxTdGExQlJKczk5MmRzZUNNNzg4V2tIVnktOWprUGpGT283RjJVakhRcmxLQk83S21oQzJoVU5jVU5R?oc=5
-
-## Role Model confirms his real-life ‘Sally’ is Dakota Johnson, explains Taylor Swift wedding absence -
-
-- first seen: 2026-08-05 15:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Role Model confirms his real-life ‘Sally’ is Dakota Johnson, explains Taylor Swift wedding absence  101.9fm The MIX - WTMX Chicago
-- sources:
-  - [unverified] 101.9fm The MIX - WTMX Chicago — https://news.google.com/rss/articles/CBMiswFBVV95cUxQMXhtdHVfV3BRdGJZM1VtcGdyUVYydEl3SUVuS19pYkdpanZtRTNrTXhNaXp4dkVFeVh2U3d4VnBSdVVJLWVGck8wYmRWeVJRVkhWOUxFc1JtYXpJU1E1Rzcyc0FyM21DNm5LOUlQYjhDV0lNS3JKcmZmSDR4MDAwMV96dmc2Y3lkUk1rVU84ZXhtVXpWNXBUeVBtT3ZrVmI1MktRVWdTdDJoYXJLcEtKXzk3QQ?oc=5
-
-## Nashville couple missed Taylor Swift's wedding after deleting the invite - The Tennessean
-
-- first seen: 2026-08-05 15:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nashville couple missed Taylor Swift's wedding after deleting the invite  The Tennessean
-- sources:
-  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMi9AFBVV95cUxPQVJkS2x6aTl6Tnl0ZVBVc2ZMRzFqdFluZzZXU3dzU2pnd3pULVIzMEdUVmZxX24tcnBWOURTaWdaeHF4UXJiMk5JSmNXWm1QLXU1X0xiMGlmUG51dEhxSmxkNE1yWDUyRWx4YndKZGNRcnJNYml3RjgyS3dQakd5dXk5WEh1VG5uRFRSZ3NpUmc2X21HcVI0V1V4cDRJYkRqSFlYX1gyeWxEclFZdWZrd29CMmpsZElhR3BpUGRLemFfNHJLUHF2Nm44dUVJWmVPLTVzdDM1aUFxaVB3bXFNMURrWkNRamhFaG1wc0FBXzREcGlH?oc=5
-
-## Travis Kelce & Taylor Swift’s Married Life Isn’t Quite What Fans Expected — Source - Yahoo
-
-- first seen: 2026-08-05 15:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce & Taylor Swift’s Married Life Isn’t Quite What Fans Expected — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNNm5OZXFGU1NGZ0NNQzhrU0o5N0I0MkJlamlkVWZaUlFELWllN1dvZC15WlZtWkl1SHB5ZzcteGJldkZTWW10ZVpXbVZPa21hWnBmY3BtUVRKUzZtYUJ3bE5DQ0g4amVsSnVEZU9oeEdwcGI5NkVVUjdBYm9UTEZGeUozRkxCRzFlT3JzZlVsSDdfT2tkcjVWVk9maUhXOGdZV3YxeWl3?oc=5
-
-## Chiefs’ Andy Reid drops mic on Travis Kelce after eventful offseason that included marrying Taylor S
-
-- first seen: 2026-08-05 15:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chiefs’ Andy Reid drops mic on Travis Kelce after eventful offseason that included marrying Taylor Swift  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigAFBVV95cUxQTUFuQ1dFVzJUZDNKc0Y4UXAwY29PSU5UeHhxeEpFOThLdG41clM1WDBqdVVCSjVQc0NDeVhId1hfaDRRQjJzZE9XUWUwUGFKTjFRRk16bkhoYmFOeXc0d3ZNc0I3QW9VVUg2SzFiTXBFSVFkeDVpbHJkWjVKWUNuRw?oc=5
-
-## Rising Pop Star Praises Taylor Swift For How She Has 'Helped' Her Career - Wide Open Country
-
-- first seen: 2026-08-05 15:24 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Rising Pop Star Praises Taylor Swift For How She Has 'Helped' Her Career  Wide Open Country
-- sources:
-  - [unverified] Wide Open Country — https://news.google.com/rss/articles/CBMipgFBVV95cUxOMThobnJuQjd3a0VIdGlaREppazZ5bG0wWjJ0bG11dFpwY3F4R2szMVp3TDh5eFdSSEZCbU5NQm1McDdOamM1QldIR1pBTnczcHpFQ01EaGZzWXJvU2ZzcjBjcWxTWm1IV3MyLW15N1diSlZwdWNLVGNnZ0hvdHFYVkZkaF9WdkQ1R3A0RDZ6LTJjT1AtV0UzSl9zS0lxUjlvWVVGbU53?oc=5
