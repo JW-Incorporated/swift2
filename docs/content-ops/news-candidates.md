@@ -25,7 +25,80 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 76
+
+## Taylor Swift song loses audio on Trump TikTok video - Washington Times
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift song loses audio on Trump TikTok video  Washington Times
+- sources:
+  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMingFBVV95cUxQcnBxZFF5WmxKeGN6VllyODFidDRlSmsxY2ZPNGU3akNNN1ZVT1VIWVBBWG42d2NsU1FPa0NxVWx5MHk5akc4anVHSF9YRVMxX0hCZkVkTXg3Q282NTJ6VVROaEFjTlNQYnctbF9OcUhqMDBOenAtSmFibk83TmZxYjR5TkxPcFpXMkpQU3ZlcWY0OVFQVmc3dVpIZWdBZw?oc=5
+
+## Swifties celebrate after Taylor Swift blocks Team Trump from using her song on TikTok - MARCA
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Swifties celebrate after Taylor Swift blocks Team Trump from using her song on TikTok  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNQWVyeENfNEdncmQ4c1ktclg4VTdKNF9ZTWFBQkxWOGwxREUtcG1fdmxnckRLc3dleTNoMU4zLXh0QlR5djA4X0lyTnNmLURZQlA5bVVHcnJleFBrcHBnTXNjM0IxX3Q2cU1rTGVha0R4NGQ5ZUVFVTJfRjhiN2F2WWZfNHFidjVmXzdrWHZOYzhQa2lGY3ZaVnhxRklPZjRnVjZuMkNUMWR2YVJSbXN3YUtGemR5LWlEVllWeDFtZi1Ockt5VUlpZlAyamJfMzFYOS1OTjVBOTRFZw?oc=5
+
+## Taylor Swift’s ‘August,’ ‘Father Figure’ & Other Songs Removed From Trump-Related TikTok Posts - bil
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘August,’ ‘Father Figure’ & Other Songs Removed From Trump-Related TikTok Posts  billboard.com
+- sources:
+  - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNdk5CS2hGZmVqNzBwZWNLaFhnd3Itckh5Vk1obkdDUVhxRmJXZ0ZmZ0RBZ0VyMmluZDAtRldYQXMzU3NmS092SW5hRFZaTHBiT0VPVzhPMUZZVUpVOEtpOEdjbFo1SjhHZ3ZhV1FJZzRZNjFPRWs5dnBPTk9FS0JsOFQ2V3VEOTNQa2M4MkFKY3BfWFRrOGtWYW5TQ1UtNlZFVWc?oc=5
+
+## Taylor Swift removes multiple songs from Trump social media posts - Entertainment Weekly
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift removes multiple songs from Trump social media posts  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxOZ1NCc0lmeW5KRFZmbUZUSEN4czBISE9vNWFjT0lhNlZjbklkak5kQ1dDa21QTHdUSHdKcWd6bzR6SU9Xd2J6QmY4R1NJVFdJeUZlU0VpUXJhdWdTck9hR0ZJbUY4ZFdtMXVnS1I3eU1jNEg1R1ZqUnkyZ1p1YXdKQjlQdG5qTXZ2T2tnUjFKMjRlNVU?oc=5
+  - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3lQekxKR3pHRXFHelB0ajhfcFhtbmoyZXB3clI2dDlQY0FObjJJTXBUc09hSElZYTd1YnlUckg2WXB4LVFZd0xBV1paYldGeUxITGFhZHNTUzlKRGVIU2dQLU56TG5wekxpM0ZJSWY4MzMtNktQdW1QOFp4bFB1cHBMQWpHRWF4MFF0SUFKOVd4c2VJZGRZaG5VSUVuYUJNWUE0OUZnR3M5ako2dmVQXw?oc=5
+
+## A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier t
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier this week over a copyright claim. Read more below.  facebook.com
+- sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxNQzZPaVp3cl9McndxODdWQ2d5LUdpUW5BZFBGR053NWoxcklBc3VQdTczVk5JVFltNmtSMmJ2ai1KYU03MU5ETi14Tzkxd3M3TzhGNjZuOE1HWG9DU3U0QVJROTdKVTdLcEVnakFEU2dQbmpBWEloZkZaYVJjLUwxa2Q0ZlN2YUZtaWsxN21YbjUwdFhFZVVxclNwLVB5aWhwR1Vzc1FoVkFYVnpxdGg2ZVhMMVBJVVo3a29XbEtJMjl2WTlQWVJmYkRIbzFMTlhIU3RTUQ?oc=5
+
+## Taylor Swift Humiliates Trump With Copyright Smackdown - The Daily Beast
+
+- first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Humiliates Trump With Copyright Smackdown  The Daily Beast
+- sources:
+  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMijwFBVV95cUxQYmMwLXFHQUo3ZHJ0dWpMU0NqSHFDMlRfdTZEYXN3SzZlNFNTUlNvalpLR21SVVNtbW1uVmg5d2xiTUdsRDc3VHFqcnd3eEdFNDI2UUdPblRCazBHbXk0TjdOd00yUERhYVl1WGMwbnNPVElLVVJyRXlsNDhHS0FlYzVlRHYzRTFyXzM0amtrVQ?oc=5
+
+## Is Phil Collins A Swiftie? Music Icon Says Taylor Swift ‘Deserves’ To Be ‘Hugest Thing In The World’
+
+- first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Is Phil Collins A Swiftie? Music Icon Says Taylor Swift ‘Deserves’ To Be ‘Hugest Thing In The World’  TODAY.com
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxQd200VngzUW91WjlBMnhsOU5ndDc3bk1VbTMyWk5yOG9BZTVIZHo1SmZ3RGNfNExMNnY3MEZMTjA1UGtoblRyUFlGWlljSWVmendMWXZsNHFLOFRvbWs3WmxucEJaank2cjU4SGw5dm96V1I4TDRWZGpnMklVWG0ycTY4eTBWeUlDZVFTSUdjTnNZamV6c0dfLXBLM0tNdzhLMVlzTGZ6Yw?oc=5
+
+## Donald Trump's TikTok Team Trolls Taylor Swift After Her Songs Removed from Its Posts - TMZ
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Donald Trump's TikTok Team Trolls Taylor Swift After Her Songs Removed from Its Posts  TMZ
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiowFBVV95cUxQNm9LbGtVVWNGZ0dzekxmYWV5aTUwVFJfQUhlNHBDQllzWnNGWnhVTWdiYWNmckFLNUJiakowQk1ySGRhUGJoRnBmSW5PVldtb2tnYmJ1TmgwQnZ2XzZrVjUxd0pXSnVYeFBMUlRpWDZCSllRekY1cjl0dFlaQ0FXdGxXcGpjdFNFRERBMUNvVjh0eUhUVzU0MTN6Q3hGaGQ2YjhV?oc=5
+
+## Blake Lively, Ryan Reynolds All Smiles Month After Missing Taylor Swift Wedding - TMZ
+
+- first seen: 2026-08-08 21:42 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively, Ryan Reynolds All Smiles Month After Missing Taylor Swift Wedding  TMZ
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQV0o1TnJTdzAtRnNpRlB2UmtXRkV0b1AtdGl0enNPMFdyZXo1WkJWbDVPV3pmeFNMcnh1aE5wRFFmZW9hRi0tQlQ2ZG9Vc0RVLUVxY0daX3pmSTNidVVsaEI4Q1poWGEwMDB2eXVILUZIQzRvU1dUVXBsWUJNbWUzYjExLXFreHcwQWE0?oc=5
 
 ## The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4 - PureWow
 
@@ -134,13 +207,15 @@ Stories: 75
 ## Taylor Swift Song ‘August’ Removed From Trump TikTok Video - Variety
 
 - first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift Song ‘August’ Removed From Trump TikTok Video  Variety
 - sources:
   - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMHlqN1RwN0t4ZjhYY1d3LTlTNHF3OG1VZWw2cXpOQllZM3JpMzd2QmlsU3lfVmd2eUh0QkE1d2N6dVBoXy1tT2FQM2FlYzhHd0ZFeVg5V3lURkY3YmIxYTBiYmhLU051TEpzTVlTbndFalRjdWpOSjFaUmtPcFZaTHNzMk9tZThwZHJhN2gtM1IxcEI3RENScEZXSGRYaWJv?oc=5
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/
   - [unverified] NDTV — https://news.google.com/rss/articles/CBMisAFBVV95cUxPMFQ1Um9PdTExVVFnMGtQeFNKaG5mT19nanFRVHFkYXN5dEwxb2hDYTYyb3N2NGFMdFlMWjZoVzJTV0FhdVRPdktwR2RVMEFleHdaUDg2QUdEbDBybVBDbW83RzFLU2RfMkZQYkRmNDZMYnF3NkVveTh1YzdwQUFrVVcyYUJOOWRoeHZrQXVwNWNSd04zd3MxcV9QS3FMN091T1hzS3lNYlVucHNBcU9OQdIBuAFBVV95cUxOZWNsV2s5RDVXQ3NwT3hRbUlsOURqVGhzSC13eXpxNEJEanVGaFlhZVJ5bGFlbnI3eUhyYWhjSGdEMFZDOVpaQ1pFTGxHdGx1NEJ4aDlvY0wxYzlXbzZtcFFPenpvWnF4NFJFblhmbm5QSTYyU2hGc1hTY295ZVRJeW91YzhQQjZUM3ZhUzBnVzZCdVBDRGNxdVg3N0xvc01qajBSYzEtM2JjanNLZGU2SHRUVURYUW9I?oc=5
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-removes-august-team-trump-tiktok-video-1235605878/
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxPNGczMU9HRXhUUXA3QVFndzJXdFRQVFpoaExHSks4SERYcG9lSW9SMzhMYjd0UjJHSHBBLWJyMk5KLVRsYjR4WnpFWk1GMlRrMzFTUFZMbzR2bnh4RjJRbUlMRXZ1T3FsZWtvbVNFMXhNTVFsZzJfNzhua3RvZzZnUC1fbVdPOTFtTF9PX3p4czRiUGhwbktMa2lHbF9KOEFEVFJiQk5XQy1yamRWT1E?oc=5
+  - [unverified] The Independent — https://news.google.com/rss/articles/CBMiugFBVV95cUxPQzNUaXpPOGhpUmI4MVo3M0tRdzdoV0VSbFRZS3VIVDNaV2o2SGkwSGRBeTJrQXpRVVpGV3pvM3hmb2ZEZWo0eXRLWnFnamtZTGFLb1NlRXk3VXAzWDZvRklXVDFUSjN5WG9pNnNSQ3VWM3p6dV9XYm4wSnZaOEJxVXp6Y3FjaExlOWZXc09YT25TTDZ2UU1qdGJrT3JLbGh6YUlyRUk3ZUVZLWJjajJBajJiLVdMM0RDRnc?oc=5
 
 ## Taylor Swift Blocks Trump from Using Her Music on TikTok - consequence.net
 
@@ -577,67 +652,3 @@ Stories: 75
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE00ZWNlRG1TN09rbG1lY0xZaDVvNXBhZnpnUEt3WDl5MGRGQ1pfbll6RWxUZDVpaExyVWp4Q2FLaFFmZDlBWlBfTGxvRm9hYVVoNDFiamx4SGpLUVFtMHZPTU9RNEZzZmE5ejlaTmRJaTR0NS1vVFhQTUVUNXA?oc=5
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQaUtfMlUyYnRkMUlpWGtrTEZseURqekMwMi0zVG8tWmpSelIxOHd5c0dIOTdLdWQ4Vkx5X0w2S3NZR3RWaXd5ek1YTU9yWk5LYUw5V2U1Q1dlUm1hZDRja2JFS1lRaTQ4S3NNZlVaYlhmckRONC1YelNJU3VubWZhSkRYaDAyWHFvaFRN?oc=5
   - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxPUS1qUmxDTkY0WG5TTUZnQkF6STdJd1FkOFdXUGx4MzdOMjZ2SzF2RFlheEs1Z1ZHSkJycTM3bVlJMktrSDVicHZUTFZNZ1dKNlptN0ZEWHA5eHBSLTcyaG9PWkJrZWhvc0w4VzZ1djZUZzh0NDZyQ0FNbDdKNGhxNlZ3WUcwQVk2Wmlfc1BEc092OG5UQkhIOTNFVFBKUQ?oc=5
-
-## 'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour — Here's How - Elite Daily
-
-- first seen: 2026-08-05 18:45 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour — Here's How  Elite Daily
-- sources:
-  - [unverified] Elite Daily — https://news.google.com/rss/articles/CBMiggFBVV95cUxNcmdsSjlqdGRlMjdxVkNFaExTUnVteUlVcGZES0dOLUdaanMzUkNhV01Pa1VoQWZRMHRtSHNJVGtRYlEwei1wVkhUZHRocTZSZ2lSU0tSRE4zd2FGSklLMFFMckQzWGgteldTSHlNd0hneVdERk9hTmUxbE9jWlFCaE13?oc=5
-
-## Taylor Swift’s positive influence on KC businesses is referenced in ‘Ted Lasso’ - Kansas City Star
-
-- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s positive influence on KC businesses is referenced in ‘Ted Lasso’  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxPelMwN0VwUWdzZVJjQTV1cGlYUnFiNUZUUjVZRW9XQ1VST3BmN2hlYlp5TGtyVUl2VGp2aERXV0EyVUZVUlktcXlIVF9zQVpBbmdiTnBWTkM2Qkdrc3RPNVBfOGozUnNGcHZvWXRHZVB2VHMyNU9jNm1pVWVuZHowenZja3JBc01oaU9VYTFSN3dYUdIBkgFBVV95cUxQWjM0R3JWdXc4QWExeW9Fc3BCdXpVWlExVDVUaDJfOUhfOVZ6Um5SLTlUU01sWDYxcHVnQlNaSU10czF5VlBpSlBIY1U0bXRubzZUdkI4TGpIY0xGQVhzdWc0XzRKUzhpc25jOGNsN0RDbEhmX2ZtUHdTRHhiU2VEZnlrMTRzNUdiREpiMTdlZkttUQ?oc=5
-
-## Gigi Hadid & Bradley Cooper Reportedly Got Married Before Taylor Swift as Sources Reveal They Wanted
-
-- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Gigi Hadid & Bradley Cooper Reportedly Got Married Before Taylor Swift as Sources Reveal They Wanted the ‘Opposite’ of Her ‘Media Event  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNQXNsVlVwRXZiekdSZndQejVGZllMX2lyaGkwREFKZXczWVNoNTMzUlRHdlRuTW1HRnZYZXhoNXJMeTBLdXdaVTNyUUNGTm1TQURiVTdwWjBEX2FGcFBxYkJNWFA0cnNTaFFSanJHQXQyRkNDNFh4RDE5ZFFPb3Mwbk15S2ZYRVlRUzdWdG52NVFYbm16RElsLW56blVoSnpqTC0yb1NObmpLdw?oc=5
-
-## Sombr Opens Up About Taylor Swift Friendship, Performing Her Songs at the Songwriters Hall of Fame a
-
-- first seen: 2026-08-05 18:45 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Sombr Opens Up About Taylor Swift Friendship, Performing Her Songs at the Songwriters Hall of Fame and His Thoughts on Travis Kelce  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi_AFBVV95cUxQX3ZIQ0ZVcmRvVEltZ0hOVGFiYkJ5dTNwZ21tb1hEaG16N0NvSXF5VWxKaVotTER4WHRGcVUwSjZTTnN0LVRoTVB0UEdmaENBUE03Vk1PNGRDd3hpc1pBX0daWFkzRzdjVmw2eUpfTXc2RkZJcTRZclJKVEY2UjJTM2VWS016NGVkc3hlYUVMTjh5Y3pQTTR0RVB0OTVMRDZ5Z2h1Y0JjN2VvNVhENi1qWks4Q1o1ZFZBZHp2TVlhUlJxcjJpOUxqVUM5OE1FYWNHLXU1UUFSeTF0dUExOUpsNUVsdUVSZUU3M0J6ZDluZ3FwdW0xcVRhcW1aelY?oc=5
-
-## ‘Ted Lasso’ Season 4 features fun Kansas City nod to Taylor Swift - Page Six
-
-- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: ‘Ted Lasso’ Season 4 features fun Kansas City nod to Taylor Swift  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxOYUlQZmxUcVlqVHJoSXlBdkZKd0lVRVBkR3dkU0ZfMVhTbXVfVTI2Y0lUMk5HVmpqYmFvX0dFclhzeno2MGNjbHFmTHhVdnZsVWYxRmxNMnpXZk92dVRxYURBZ19ySV9Ya0ptNmlNVGhnY2hWR25lZWdfS2ZoZEVHei1YajA5VGxteG5JV0dNc09ZUVhhQmxXWTEzWF9BUWcxRjlyU3hMUlJ5cVlkbVE?oc=5
-
-## New York Cares hosts Swiftie-inspired back-to-school volunteer event - amNewYork
-
-- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: New York Cares hosts Swiftie-inspired back-to-school volunteer event  amNewYork
-- sources:
-  - [unverified] amNewYork — https://news.google.com/rss/articles/CBMihgFBVV95cUxQR2dWSU9kdGRKaDc2YXZrcHJVU2xzRkY3Yzk4NlU5X0lQMHdHMFhmN0ZYRGlvSTZKQnByZTRqQzlaVjJHNHFDdjR5STVIbmIxMUhVdUIxVlNUQU9BaXl2N0ZWWGJES0lITVVrczJWY3pXakZXY2xkYnM1QzhQcXFpTkJ4RFB5UQ?oc=5
-
-## Newlyweds Bradley Cooper and Gigi Hadid Wanted the ‘Opposite’ of Taylor Swift’s Massive MSG Nuptials
-
-- first seen: 2026-08-05 18:45 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Newlyweds Bradley Cooper and Gigi Hadid Wanted the ‘Opposite’ of Taylor Swift’s Massive MSG Nuptials  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOV2QxSnItS1BCak9ndkhURlJ3SlMtRks0NEhKQ0hldl82VWVTYmh1aThwRzJyRWhGQXV5MElKT0FtcUR2S0NCcHZCYzZHWl9reFU1dEZtQy0tWkxCc3hLWGZpSmJULUk1ZERFSEZJTDMyTXByZnM0bjAxS3pPdzA0dmNnbnBFcXhtLWU2b0xIWG1FWThCMWZja2hMNHN4YTNyNVV1Y1BwMFc?oc=5
-
-## It’s Sombr Summer: The Pop Phenom on Impressing Taylor Swift, Singing About Body Image and Why Peopl
-
-- first seen: 2026-08-05 18:45 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: It’s Sombr Summer: The Pop Phenom on Impressing Taylor Swift, Singing About Body Image and Why People ‘Can Say Whatever the F— They Want About Me’  Variety
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMilAFBVV95cUxPOG9MeUpiVlZJTDhMU0xaRTBOZk1QLUUzUVdEUEFRalVteWx3SU9CaE5leDlKbTBNY2xGSGdtZHpRbDEzVzM1NDhNc1lYWk1OTDBlNmtiSDRzOWxyUk02eU5EQ25WM1N4Z3Q5WUZFR3BJWXlkbjBRZ0F5QW1FU3lRMjBWY3pHM05rbWJSWkhGYXE4NXNT?oc=5
