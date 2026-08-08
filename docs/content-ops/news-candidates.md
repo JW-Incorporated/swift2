@@ -25,7 +25,48 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 72
+
+## Taylor Swift Blocks Trump from Using Her Music on TikTok - consequence.net
+
+- first seen: 2026-08-08 05:53 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Blocks Trump from Using Her Music on TikTok  consequence.net
+- sources:
+  - [unverified] consequence.net — https://news.google.com/rss/articles/CBMigwFBVV95cUxPQmFVUnVuaGZWNG42ZFFUZ2xxOHJMNlZla19QcDJBbktQRnRhVGg0aXF6NnhnQzlLcEZaYlN1d3FRZ0V1NlA2VXYwek5XMEw3R0RoalV1aTF2U3ZYMUxWbUxNdGdSV2RBYW9XRndsNVkyTGxNUER2NFVsN1Q2bVlXMHBFWQ?oc=5
+
+## Taylor Swift Song ‘August’ Removed From Trump TikTok Video - Variety
+
+- first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Song ‘August’ Removed From Trump TikTok Video  Variety
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMHlqN1RwN0t4ZjhYY1d3LTlTNHF3OG1VZWw2cXpOQllZM3JpMzd2QmlsU3lfVmd2eUh0QkE1d2N6dVBoXy1tT2FQM2FlYzhHd0ZFeVg5V3lURkY3YmIxYTBiYmhLU051TEpzTVlTbndFalRjdWpOSjFaUmtPcFZaTHNzMk9tZThwZHJhN2gtM1IxcEI3RENScEZXSGRYaWJv?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/
+
+## Roundup: Dogs, Sports, Taylor Swift … - 06880
+
+- first seen: 2026-08-08 05:53 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Roundup: Dogs, Sports, Taylor Swift …  06880
+- sources:
+  - [unverified] 06880 — https://news.google.com/rss/articles/CBMifEFVX3lxTFB5SWlHcnYwaHNfMzhpdHQxbWw3RmJYOS13SWVvMEUwdDh5clhjZDVoMjlCSVBwRDhFZS13NE1OR0JZeUx2UEMyV3Bid3VmbjZoaWZjRDZxdlZqU0lRMS1DNlBZNEVtQWYxaGZZV0d6VURXbmNrM210V0tQRlHSAXxBVV95cUxQeUlpR3J2MGhzXzM4aXR0MW1sN0ZiWDktd0llbzBFMHQ4eXJYY2Q1aDI5QklQcEQ4RWUtdzRNTkdCWXlMdlBDMldwYnd1Zm42aGlmY0Q2cXZWalNJUTEtQzZQWTRFbUFmMWhmWVdHelVEV25jazNtdFdLUEZR?oc=5
+
+## Taylor Swift Appears to Block Trump From Using Her Song in TikTok Celebrating His Presidency - TheWr
+
+- first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Appears to Block Trump From Using Her Song in TikTok Celebrating His Presidency  TheWrap
+- sources:
+  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMimgFBVV95cUxOY1p3OUxsZnNlUFE4a1loX0J6M1NBbVJrZzM5VXp0bUtFUFF1X2k0NkQtUk5hQjNZN2hDS1pqNEdlallyaFJpdHJKNFNLMWJWUzd1OF9EUWd2Z1ZSYnl0U3MxTTBTcVhfX1lCYTEzU2VnODFacXhMSGlRbzdRc1JaT184aVJvbVBBeFJ6RXFVOHozaTRPSVNKSmRR?oc=5
+
+## Travis Kelce could follow Taylor Swift into the music industry after NFL career - MARCA
+
+- first seen: 2026-08-08 05:53 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce could follow Taylor Swift into the music industry after NFL career  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2wFBVV95cUxPVTRub2NuVXZVaVV1WF9hWFBjYVk4SFZQWEVmVkZfVWlhYU9xRjZoUnlBd2xRelRVV3ZKVzFUdmo2UjE2M1U0RU5ldWhiVHVpTktMR21jSXMzcGtKcGpZVWt2LUR1MVBTQlpDdHpaWjZPeDRhME1ERXpoNll6MkY2VUFINVc0NHRSQ3Y0X1JZaHVKQnl4X3Z4SmpCRndnc3laU2o4bXkybFdWaEp1OWdRdVFYRGwxYklzbEUwaGgxcnFOVmpkejNWXy02MF9Pek1DMEFyZlFjU3lmbzDSAdsBQVVfeXFMTjFPTVpNQkJNM1N4UFVqTlg5YVBsZ3lGTjVjOHplODlLbUhVNEdvQWpTeDF6cHBBd3NJcnhBLVhINi1SVFZZYU5EVkFTVkVEdjY0MWVxM19JaW9ZVm1QYzhtWDB2dXJrakFjVnpnZC1Pc0VRYjA0dG10WG9ub3Y4UkV2QXIwTFJhNTF4bURPMU5BS1BPOG1GeTNVVV9ETWRHZVd3NnVMLS1yRlFWUkN5a01FYzFRZlpGblZ1ZG5nRTNLbHBuTFZIdDVYN19RblpsMjJMV2k5OWs3aXpj?oc=5
 
 ## Healing begins when we challenge the stories others tell about us. - Psychology Today
 
@@ -575,53 +616,3 @@ Stories: 73
 - sources:
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9FOGJ2ZnFJV1c5RTNzbG5MajlHWHY1dnhxV3M0LVVCeEdpbzFBZ3h2RWYwYm4xekctRU42RE9IYkZGbUt3WW8yUDBRSkNkYklGYVhJb0ROcjBBanNMRUYySkJBdHhNenRhRmxBTlVta1FDT2VC?oc=5
   - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPSHk5WDU3VmpmSjNVcV9Ud0RIRXBCa3YyN1A2UnlQX2tqaDExQWZuUTV0RkFYNkwwYkRPLU9YOFQ2NGxSQS0tM1VHQzJ2NlQwdks3VWdEaGhZSmZ6cXZ1OUUtVmlRejJ5M29Cdl9yX01XZDhMb2R0eWp4NElKcWRobU14NzExdVJZaGVXMFBSNWdMRmtmbHBCZjFqckhsaC1EbzVxZ3RQeVc?oc=5
-
-## Role Model explains why he ‘couldn’t go’ to Taylor Swift and Travis Kelce’s wedding - Entertainment 
-
-- first seen: 2026-08-05 04:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Role Model explains why he ‘couldn’t go’ to Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMigAFBVV95cUxQaHlnSDhOVDVQZ2U3R0x2UGNxNktoSUR1SXYzVEpjRW5TTGpYQldscTM5S05TRThJcF9xUDZYSEc2aDM2dEhSN2w4MmJVMmV2SXNnOWt5ZzJqSU5OLUJORXR4WnRKYV9oQXlxRFZrMU1HMXVuUXMzd0FlaHRWeVNxbQ?oc=5
-
-## Gracie Abrams credits Taylor Swift with teaching her to be 'less precious with my ego' - Yahoo News 
-
-- first seen: 2026-08-05 04:24 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Gracie Abrams credits Taylor Swift with teaching her to be 'less precious with my ego'  Yahoo News Canada
-- sources:
-  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMigAFBVV95cUxNYldLdjZ0RWlOVHh5cDdtalRyUkl4RHBPTC1rVmpvMFllNEVWSTJaRGh3S0hwdE12Sm5JR0JoUXhwTkNGYWZ4V2F3a1E1YnZxRElXQWJ5MmZnZHprbzJGc1BSdzhuOFRVelEyNnl4bWVKbFFKVkdzd2JnVEowUFB3Ng?oc=5
-
-## Phil Collins praises Taylor Swift and the song of hers that left him with a ‘soft spot’ - Yahoo
-
-- first seen: 2026-08-04 22:20 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Phil Collins praises Taylor Swift and the song of hers that left him with a ‘soft spot’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPWVdMTE50LUw4dEJrTFYzanNQSHF6VjBVOGpIYVZJRjJMNjNzLTRmSi1NaGY2SGRMeHNEeml0UFhKaENLVk15QmlQMHZQVVh2S3NQVlZJZUtQT2JZNjI2dTNNNzBXQmM4RG9tc1hOUTBlMDdId0ZUWkNCUG5TSGR5cHpaWHAyUnJ4eTlBOHNtLU5SNk16c0psNXNNN2xKOUg0?oc=5
-  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMif0FVX3lxTE9LbFVkU2pNWHNxaGdSOUVQYkR2MUhRTlZnZmVjaFFsWGJrejVCRkF0Ni1iMzJlblpSeUtjU21FUmFVRS05QWVJbUNfeGsyQ0ZFVHhyMDFyTFJtTkFtek9fVkQ4SHpjZnRRb3hOMXpkbWlJbUlRLWUxc0FjTGNCem8?oc=5
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMipwFBVV95cUxOd29PYnhjWld5OWVyNENmQTZ2S2h0RnlENE00XzJLTUlvNm5KNmRmVGZCaUlOUS0yTWtHYTRDVTFoaXBhSkZLbzAyUWN1d0VKRFVyZnFJV2F1N0FaQWpyTzIxaU1zYTZyNzJvazJhRVZNbzFRM0xJVVJ3Z2QyODlVRTFlMXpuV1dNeVhyT3RwUkk4M01SV0h3U3NrQjBmRXlKR3d1bnJpRQ?oc=5
-
-## Taylor Swift & Travis Kelce Reportedly Don't See Eye To Eye When It Comes To Security - Yahoo
-
-- first seen: 2026-08-04 22:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Reportedly Don't See Eye To Eye When It Comes To Security  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOenNOblFNc05rQUpXRVc3S0lMN0pndHdicUE1SWx3MDRtUGR5T3ZCYkZVSnRaSjdkNWlpVVNNLTh3NDBUTVJoVTVRREVEUENTRFl1TzhCaVU1VzZmUWowZlhOdXhvT1MwLVZKNjdYSnlMaTMzWWQ2SE9fTkthYXotQ1FVMFZCVmRJVWw0dDY5X2Ztc1NtMGNqWGJEZENDMlNjbzZVVWJGLVdrdw?oc=5
-
-## Gracie Abrams Reveals How Friend Taylor Swift Helped Her Feel ‘Less Precious with My Ego’ - People.c
-
-- first seen: 2026-08-04 22:20 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Gracie Abrams Reveals How Friend Taylor Swift Helped Her Feel ‘Less Precious with My Ego’  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPRXQzc0pHNUhhYnQ5czd0Q1NGT0h5bmVXaE96eVhJTW9KN2tmTHNsX3lTOFdVVVRsaG1qZ182RFVVS0xMVF9EbVJRYzNtZzBjVlAwaUFBOGFlc1Q2aGhuNC1oZzZaVWsydHNCQ3lyQm05a0w0YkNGTXczd0hoczROOWdfd1V6bDRsdkhhWnFpb28tNWUteVJDNGlB?oc=5
-
-## Scott Eastwood Reveals the Career Advice He Ignored About Taylor Swift - Yahoo
-
-- first seen: 2026-08-04 22:20 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Scott Eastwood Reveals the Career Advice He Ignored About Taylor Swift  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOazRTLXRvWkVySEtDcExsVDEyclF2N0NMWGJUWllyNGhzcHBfeE9jUkpMQWgycnZZRm5MOHF5cDc0cFY5OHI5ZXNRbGtMUFlGWTJGcGF3TWwtT3NUampoNTFfal96b3R1OVRLdER3dE5Md0dRc1lrVkJMV1NFNzYzREowaWxMdkJ1MGlSVlV4MVl0WEVnaVVia005VmRuNERscGQ3UQ?oc=5
