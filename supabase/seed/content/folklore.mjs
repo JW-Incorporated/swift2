@@ -89,12 +89,18 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — her face
+            // rests on her knee upper-left of center, cheek to hand.
+            focalPoint: '38% 32%',
             credit: 'Republic Records',
             caption: 'Official single cover for "cardigan" — adult Betty\'s chapter of the triangle.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/3/38/Taylor_Swift_-_Betty.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the
+            // standing figure with guitar sits centered, slightly right.
+            focalPoint: '55% 55%',
             credit: 'Republic Records',
             // Image-fix pass (2026-07-10): ticket #232 — viewed the file: its
             // on-image text reads "betty — Live from the 2020 Academy of Country
@@ -138,12 +144,18 @@ export default {
             // thumbnailUrl above: 1280px render of the same Commons file,
             // verified HTTP 200 + image/jpeg and confirmed legible by eye.
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the white
+            // mansion cluster sits left-of-center, below a wide open sky.
+            focalPoint: '32% 50%',
             credit: 'Wikimedia Commons',
             caption: 'Holiday House on Watch Hill, Rhode Island — Rebekah Harkness\'s mansion, later Taylor\'s.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Rebekah_Harkness_publicity_photo.jpg',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — face is
+            // upper-left of frame, gaze turned toward camera.
+            focalPoint: '38% 32%',
             credit: 'Wikimedia Commons (public domain publicity photo)',
             caption: 'Rebekah Harkness, the "mad" widow of the song\'s first three verses.',
             kind: 'archival',
@@ -2116,6 +2128,13 @@ export default {
       snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
       moment: {
         context: "No rollout, no singles, no warning: folklore arrived overnight and rewrote what a Taylor Swift album could be.\n\nMuted, literary, and fictional, it introduced interlocking character stories fans mapped for months.",
+        // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- checked
+        // Wikimedia Commons, official press kits and album-review outlets for
+        // a distinct release-announcement image; every verifiable candidate
+        // is already the primary photo on a richer sibling moment elsewhere
+        // in this file. Reusing one caused a corpus substance-score
+        // regression when a prior run tried it (2026-08-05, reverted). Left
+        // without a photo.
       },
     },
     {
@@ -2161,6 +2180,12 @@ export default {
       snippet: "Three songs — \"cardigan,\" \"august,\" and \"betty\" — tell one story from three points of view.",
       moment: {
         context: "Taylor has said on record that \"cardigan,\" \"august,\" and \"betty\" form a fictional teenage love triangle, each song narrated by a different character in the story.\n\nIt set the template for folklore's fictional, novelistic approach — a sharp turn from the autobiographical framing of her earlier catalog.",
+        // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- the only
+        // candidate images (the cardigan/betty single covers) are already the
+        // primary photos on the richer sibling moment above ("A fictional
+        // teenage love triangle, told across three songs"); reusing them here
+        // caused a corpus substance-score regression when a prior run tried
+        // it (2026-08-05, reverted). Left without a photo.
       },
     },
     {
@@ -2176,6 +2201,12 @@ export default {
       snippet: "The mystery co-writer credited on \"exile\" and \"betty\" is confirmed as Joe Alwyn.",
       moment: {
         context: "In the Disney+ special Folklore: The Long Pond Studio Sessions, Taylor revealed that \"William Bowery\" — credited as a co-writer on \"exile\" and \"betty\" — was her then-partner Joe Alwyn.\n\nThe pseudonym combines his great-grandfather's name, William Alwyn (also a musician), with the Bowery Hotel, where the two were first spotted together.",
+        // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- the same
+        // reveal is covered in full by the richer sibling moment
+        // "william-bowery-is-joe-the-long-pond-reveal" (linked from
+        // exile-bon-iver-duet), which already carries its own verified photo.
+        // Reusing that image here caused a corpus substance-score regression
+        // when a prior run tried it (2026-08-05, reverted). Left without one.
       },
     },
     {

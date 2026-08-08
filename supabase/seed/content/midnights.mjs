@@ -2817,6 +2817,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/af/Taylor_Swift_-_Lavender_Haze.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — her face
+            // sits lower-center of the purple-water artwork, below the title.
+            focalPoint: '48% 72%',
             credit: 'Republic Records',
             caption: 'Single artwork for "Lavender Haze," the Mad Men-inspired opening track.',
             kind: 'primary',

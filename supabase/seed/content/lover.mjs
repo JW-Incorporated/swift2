@@ -2472,6 +2472,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — profile
+            // singing into the mic sits right of center.
+            focalPoint: '60% 42%',
             credit: 'ABC / Republic Records (broadcast promotional art)',
             kind: 'primary',
           },
@@ -2524,6 +2527,10 @@ export default {
         photos: [
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2019/10/GettyImages-1182186382.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the small
+            // onstage figure sits centered, low in the frame under the
+            // arched night-sky screen.
+            focalPoint: '48% 75%',
             credit: 'Getty Images, via Rolling Stone',
             caption: 'Onstage at the Hollywood Bowl for We Can Survive, October 19, 2019, backed by Lover-era night-sky visuals.',
             kind: 'archival',
@@ -2568,6 +2575,9 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shanghai-2019-billboard-1548.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the
+            // figure occupies the right half of the frame, face upper-right.
+            focalPoint: '62% 30%',
             credit: 'Billboard',
             caption: "Onstage at Alibaba's 11.11 Countdown Gala at the Mercedes-Benz Arena in Shanghai, November 10, 2019.",
             kind: 'archival',
@@ -2612,6 +2622,9 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-jingle-ball-dec-13-2019-billboard-1548.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — she
+            // stands right of the cake, face upper-right of frame.
+            focalPoint: '78% 22%',
             credit: 'Billboard',
             caption: 'The cat-decorated birthday cake onstage at Z100\'s Jingle Ball at Madison Square Garden — her 30th birthday, December 13, 2019.',
             kind: 'archival',
