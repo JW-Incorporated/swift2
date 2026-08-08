@@ -8,7 +8,7 @@ const wiki = (article, title, notes) => ({
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  accessed_at: '2026-07-08',
+  accessed_at: '2026-08-08',
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
