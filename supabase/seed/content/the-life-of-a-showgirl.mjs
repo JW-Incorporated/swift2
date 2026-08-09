@@ -3411,6 +3411,21 @@ export default {
             lastCheckedOn: '2026-08-11',
           },
         ],
+        // Photo pass #762 (2026-08-09): no photo of the sighting itself
+        // exists (a "spotted" report, not a syndicated paparazzi photo) —
+        // an honestly-captioned photo of the real venue instead. curl 200
+        // image/jpeg, downloaded and vision-confirmed as the Electric Lady
+        // Studios storefront (mirrored window signage, oval entry porthole).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Electric_Lady_Studios_2013.jpg',
+            // Signage sits left-of-center, upper-middle of the frame.
+            focalPoint: '45% 35%',
+            credit: 'Jhsounds / Wikimedia Commons, CC BY-SA 3.0',
+            caption: 'Electric Lady Studios in New York\'s Greenwich Village, where Taylor was spotted for an overnight session in early June 2026 — not a photo from that night.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
