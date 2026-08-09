@@ -7556,7 +7556,7 @@ export default {
             price: '$7,895.00',
             inStock: false,
             isAlternative: true,
-            altNote: 'The gown Taylor wore is the same Markarian "Laila" strapless silhouette in its pink floral-brocade colorway (about $4,115, per Marie Claire), which is past-season and no longer on the brand\'s site. This is the white beaded-organza "Laila" the label currently lists — same designer and style name, different color and price; made-to-order and marked sold out.',
+            altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
           },
         ],
       },
