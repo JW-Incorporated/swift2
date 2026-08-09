@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 77
+
+## Taylor Swift songs vanish from White House and Trump campaign videos - AnewZ
+
+- first seen: 2026-08-09 21:45 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift songs vanish from White House and Trump campaign videos  AnewZ
+- sources:
+  - [unverified] AnewZ — https://news.google.com/rss/articles/CBMipwFBVV95cUxOMkR4OXhnZkZTZDh3Z3g0endIQ09vd0FmeEp3d0U1T1ZtQXNiMXpFaThLaDZYSVE3a0JBZ0VjS09wcEtrN1gzcXgyTXBOejNyeVFaeC0wM1E2aHpvbkhJTGVKYU1oODlBQm93TzBEbjM2cF9JcDFUZ2RiVjhuQjFGRm1BWVk5aVZVWUNqbW1GaGp0cEl0TUh4OVlIVnNWeUdSakd0VGIwTQ?oc=5
+
+## Trump Used Taylor Swift Songs; Now They're Gone From His Posts — Here's Why - NDTV Profit
+
+- first seen: 2026-08-09 21:45 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Trump Used Taylor Swift Songs; Now They're Gone From His Posts — Here's Why  NDTV Profit
+- sources:
+  - [unverified] NDTV Profit — https://news.google.com/rss/articles/CBMisgFBVV95cUxNaEZHUndfVXlTckF3OFF6QWNyTFktUlZkaS1BMkl2LW43cVdqMk4wcHE1TzF5N0JfNjliR0YxUHZ4bkNITy16M3FPU0JVQTNwT3l6VG1CX2NxSG1NaDJudHBZd2FjUlZrR1gxUU4xZ3A1QV8tZXl5RHJqT1FFSlVGN2xxVUNXMUVkUEJrY2JqY082NC03TXdibi1lUzdwOWt0T2xLQTBiTHRFR1JmOWhzcjR30gG6AUFVX3lxTE1XNzY4XzRETVhKZ1FFTENSNHFtRWcxb3Z2aXY0TWlZMmFNTmM2VjhZbVN2Y1lBVUJQU20xc3pfR2RMWDA4S1l1Y3lqM3NJbzdLZ2xOek84SDM2ZGpuTy1aMzBtSGNQU0VYUDkwRER1dUV2OGRROVRCdWppUFFaeFZ4UmxmaGltaExMSHgtdVBub2E0UnVpR25IX0ItazBrb2hRdUdGanN0ckp3U3ZXMFJYZGxYRzI5ZWRLQQ?oc=5
 
 ## Taylor Swift songs removed from Donald Trump's and White House's social media posts - ABC News & Hea
 
@@ -42,14 +58,6 @@ Stories: 75
 - summary: Ontario couple who scammed Taylor Swift fans out of hundreds of thousands of dollars to be sentenced in October  CP24
 - sources:
   - [unverified] CP24 — https://news.google.com/rss/articles/CBMi7wFBVV95cUxOUkNIcGJBS0luQlJHYTBiWXdnSUtQS1BPTnRHU1lSRFdXSW1CYWs5cV9UQTlYb3RSN2EtYTBFdXp0cUFFUXVDWXFzMWREUTROa1gwUFNuSXk5eU52RVJ0LWFwX3hra2dJREFRNWRrNVVwckpRR3MzLVpna0p2ZzNQd0htbDJtSUh3RXNmM0UtZ3FYSlQ4czZIczk0X1l5MnJyR2dKSHF2NE5BQ2g2bmVGMEx6bzRISlJoVVA0ellQbklvM0hnNkxYVjlwclZIbjFYa0s1X19VS1BlWlFHcEtRdVpoek0xUFNxV1RGLUROcw?oc=5
-
-## Avalanche’s Parker Kelly Swapped Taylor Swift For Noah Kahan At Coors Field - Yahoo Sports
-
-- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Avalanche’s Parker Kelly Swapped Taylor Swift For Noah Kahan At Coors Field  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijAFBVV95cUxOU2E5SGdHNENmTFBncEE5dnNLeFZOdGdwbExKbFZaOHhSS3NBM05nc0dscEFQTFJOZHhnQng0QnhCSDdoRDZmLUE5U2t4aWdia1N5MXgyczJmRWUtVmpyZFllVnJsVlhQU2FjR3pUVUpNM0ZDQVRISDY0N2wyeE5sNk1iQ1FzNXlGNVpMQQ?oc=5
 
 ## Trump and Taylor Swift Clash Again After Her Song Is Removed From His TikTok Post - Currently.com
 
@@ -90,6 +98,15 @@ Stories: 75
 - summary: FILE PHOTO: Taylor Swift performs in Vancouver  galvnews.com
 - sources:
   - [unverified] galvnews.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOYlRsdVgtNWt6WnQzT0htZURnQk1oSkROM1hlTmZDYU13WWVKbXZITUhNQnlwUndiSUZQam9mR3JlZDhQeDJlWXgtR3R6OUI0UUlCTVNGN2NNeHRVMVI2SGNHNFlUbmVCUTBPUkotaVM5RU1aRnMtWGVZQ19WSVhHSDF4ekRkZjQ1d3RuN090aU82dWNVT0NaU3BLSl9iazh2V28wYWk4c052dEplQmJaR1pHTnlfUzJiZGFJLTRBcTBjY0ZuaHQzMDBvQk1XUE1qanhfQWJFOA?oc=5
+
+## Avalanche’s Parker Kelly Swapped Taylor Swift For Noah Kahan At Coors Field - Yahoo Sports
+
+- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Avalanche’s Parker Kelly Swapped Taylor Swift For Noah Kahan At Coors Field  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijAFBVV95cUxOU2E5SGdHNENmTFBncEE5dnNLeFZOdGdwbExKbFZaOHhSS3NBM05nc0dscEFQTFJOZHhnQng0QnhCSDdoRDZmLUE5U2t4aWdia1N5MXgyczJmRWUtVmpyZFllVnJsVlhQU2FjR3pUVUpNM0ZDQVRISDY0N2wyeE5sNk1iQ1FzNXlGNVpMQQ?oc=5
+  - [unverified] The Hockey News — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNRTQzcWdXaVhiVVg2NXF6OTB5TEtPaHVJRTM3U1lhQ1pqWTdaNzFBTVVmelNDVVhCbzBPWG5Zc2ZTeEVfaF9mRWtZZWpRT3B4TDdIaURvSFBuSWdnUTVMZ1B3elZ1a01BcWt1cThMaHNNOGhJTXpsZnRtbGkzMWozUDUtNzEwdzNLM0tiX1JaS05fQzVHWG4wZlRybzB2Tm1vclNPdC1MbmsyZ2ZkT3VZeFdDNS1rNzRzS213RVZyMzZxdXhYbXdMRXJLQUhYeG91dFE?oc=5
 
 ## Taylor Swift songs removed from Trump campaign material - Yahoo
 
