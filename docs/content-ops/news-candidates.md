@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 71
+
+## Taylor Swift songs removed from Trump campaign material - Yahoo
+
+- first seen: 2026-08-09 13:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift songs removed from Trump campaign material  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNUnZTNzZmMzM5eU83Z1BXM3BxNmFteXAwOFN5YUtiWkhVd2IzMS1nZE5pSzNtdlZQR0Npd09zUVRzSmItdjE4YUJWeGxGMWNWQ3pwSklRSU1pczh3Mk9IU3F4bUNUSG9OWU1EcU9BU19oTnJDUEd3SzdRcHJSTGZsejhpM2xSTF9nZDJ2TW90blFlVGExXzlQZ3c4N1dhTDQ?oc=5
+
+## Our Songs of Summer playlist feat. Charli XCX, Beyoncé, Taylor Swift, the Rolling Stones, and Kurt V
+
+- first seen: 2026-08-09 13:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Our Songs of Summer playlist feat. Charli XCX, Beyoncé, Taylor Swift, the Rolling Stones, and Kurt Vile  inquirer.com
+- sources:
+  - [unverified] inquirer.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOTmhZd1B2N1E2Y2xfRHJxejBqQU5zb05uWUQzNC1WSlVhcEMxaUoyUU1jQ2M4emt5Y1dncThhaktVYmJ1TlZpdk8wZWVQMDB4SVB4N1lyaGFKVFhldHdpbDhpc0RRV3dHbGRqRUNJbGhDMmxleDhSd2dZak0teVFTcWNHQWFDQ1loRFl1YzRSWnpfQW1jaG16azFHOEJ5OHZHUmxiWHpsTC1xWXVGclpDRkZKTGFSWjVa?oc=5
+
+## Taylor Swift’s ‘August’ Featured in a Donald Trump Video for a Political Reason - Yahoo
+
+- first seen: 2026-08-09 13:56 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘August’ Featured in a Donald Trump Video for a Political Reason  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxPS3dzWWIyaUZUME5QRzQyS2tOQnFLRXpCTFNOR3JpWWJoR2dTdVhkMUszMHhDUmxDZGpRMUhOU0U0SmpfY0MzMlN1TDNLdjhzaUszZXc3WlA3dzJOTU1lZ3RHMFRta3JEM05qM05PQ2ZRMU96NktsSjAxQldCX1R5b0ctSjB1Q3JPbzVBd25EZDdhNzNMU25ULU53Yw?oc=5
 
 ## “Not Gonna Make It All Year”: NFL World Reacts As Travis Kelce Takes Hard Hit During Chiefs Practice
 
@@ -51,14 +75,6 @@ Stories: 72
 - sources:
   - [unverified] The Daily News | Texas' Oldest Newspaper — https://news.google.com/rss/articles/CBMi7AFBVV95cUxOSlhrcHFrMTJiRGU3ZF9qbXQxbU53X2FRWmxfZ0l1RkMzVXphSmxyS2hkc1JhS2FiYmJGVUt3VS1Rb2pYSG1obi16N25EUTU1ZExMaFdjckRYU2dZYVM0cEU5X2VXdVNkVGJ1LWRyU3hGZXJXaWVJNnAtaXN1UVVLdzlBdDBWTzJCcjhOSEpYT1BOMDd0Yk1xYmZibURNLVI0RHFiU0VyLTlSaHNwcy1oYUJzaTIxMlBnbmctQ0JNcWxEM3dYeFlINHRjQ2FnVXB1U0ZnS012MXphVzVNMEI2Qk5WS09tTTAtZDlFaw?oc=5
 
-## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
-
-- first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
-- sources:
-  - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
-
 ## ‘I don’t know where his head’s at’: Travis Kelce sparks concerns for his NFL 14th season after marri
 
 - first seen: 2026-08-09 09:52 UTC | category: relationship | importance: 5
@@ -66,6 +82,15 @@ Stories: 72
 - summary: ‘I don’t know where his head’s at’: Travis Kelce sparks concerns for his NFL 14th season after marriage w  The Times of India
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMktqS1pDLXhRRTZ1MjRSZGtjQkNaS3BFMjRMMjVzS3Q0UDlmMjRNdDJSdE9ReVBraHdRWXJ4dlNiMmdEaVlyLWtBbGF2RXRVODllQUdZdkE0QzlseHYwUjhmamQxNXRKWTdkODBadE9ndWFvU1A1QXJCRjN1c1M4LWpjSnB4SVJUd1ltaUhldms0WFhxWjhQdEFSbGZ4cVIxVDBMdXhzQ2lPX0xmTzFPeTVyUXV0ZUxtQXZVaEk4Mmc1V0dPa2xobjNyQ29KS0lqeFg4YzZVYWhyUWRabkZBcm1IVzhlVE1McmJiaXNsaDVEUWZqOFJ6N0hhTjRKRmZOREx3UUdMSE0tdjJyZjhIUlJyOWJEQmlJQ21UemNycXhXLTJRV2xxWm1iOFc0MDlqMUhtN0R30gG7AkFVX3lxTE5HdFdpemJKcmpfS0QzaTZpTXJyWWdkNWNpM1RvQVZSUUFlTUs3bXpJdkp2TFVJaFJOYktLZFo3MWIteEZIcFFtb1JfcFE2Tm1OaXZjNHJHRm9rWFREY3UwTk8wcm81Umx1S01qdUN2MzNpZTNpeV9qbDV3bXoyZ1F6b1BXeTRSbS1IX1IweWJlM2QtQ3RZMGhYazJSQlpoWmhjY0ctSkNwa3RNOGJSb2x5LVJLUlM4M0FreUkxMWlkMkw2RDFoTDYxVXdRS2xBemhUVHM3U3BWaDYtSEdtRzBVZmRqMUlqdHJTZV81QWtfX0lCaWdzNmU0cnFRNzRoZWlzVjA4VGxnV1RMYW1OWHpkZTN0SGUxQ0R0ZHIwWlVHMm04ZFhpTFNlLVR0OTIwdDY2MmlpZ2pQMm0tNA?oc=5
+
+## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
+
+- first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
+- sources:
+  - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
+  - [unverified] Reuters — https://news.google.com/rss/articles/CBMiugFBVV95cUxQem8tQ281dWR1RWV5ZVFHX1BEQWZnNU1RaW1uZm40S0VjZzZEbGxVVHVLZkJDZjBkRzM4bUNrNVIwR0RSbDM1MFo1UVdYUV8yLXZKc1QyZEZxcFlHOGgtZzcxYk0zNzZiWlc3TExjMlU4cGhYS0tzT09feE93US1TMEh0eXlGMk12VHNRQUdkcDdmM2ZDRGhBcExEazVUOVBaTlNXc2ZZbmd4SDBxcW1kU1pFSHJZT0dqU1E?oc=5
 
 ## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
 
@@ -107,15 +132,6 @@ Stories: 72
 - sources:
   - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNdk5CS2hGZmVqNzBwZWNLaFhnd3Itckh5Vk1obkdDUVhxRmJXZ0ZmZ0RBZ0VyMmluZDAtRldYQXMzU3NmS092SW5hRFZaTHBiT0VPVzhPMUZZVUpVOEtpOEdjbFo1SjhHZ3ZhV1FJZzRZNjFPRWs5dnBPTk9FS0JsOFQ2V3VEOTNQa2M4MkFKY3BfWFRrOGtWYW5TQ1UtNlZFVWc?oc=5
 
-## Taylor Swift removes multiple songs from Trump social media posts - Entertainment Weekly
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift removes multiple songs from Trump social media posts  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxOZ1NCc0lmeW5KRFZmbUZUSEN4czBISE9vNWFjT0lhNlZjbklkak5kQ1dDa21QTHdUSHdKcWd6bzR6SU9Xd2J6QmY4R1NJVFdJeUZlU0VpUXJhdWdTck9hR0ZJbUY4ZFdtMXVnS1I3eU1jNEg1R1ZqUnkyZ1p1YXdKQjlQdG5qTXZ2T2tnUjFKMjRlNVU?oc=5
-  - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3lQekxKR3pHRXFHelB0ajhfcFhtbmoyZXB3clI2dDlQY0FObjJJTXBUc09hSElZYTd1YnlUckg2WXB4LVFZd0xBV1paYldGeUxITGFhZHNTUzlKRGVIU2dQLU56TG5wekxpM0ZJSWY4MzMtNktQdW1QOFp4bFB1cHBMQWpHRWF4MFF0SUFKOVd4c2VJZGRZaG5VSUVuYUJNWUE0OUZnR3M5ako2dmVQXw?oc=5
-
 ## Taylor Swift Humiliates Trump With Copyright Smackdown - The Daily Beast
 
 - first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
@@ -155,6 +171,16 @@ Stories: 72
 - summary: A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier this week over a copyright claim. Read more below.  facebook.com
 - sources:
   - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxNQzZPaVp3cl9McndxODdWQ2d5LUdpUW5BZFBGR053NWoxcklBc3VQdTczVk5JVFltNmtSMmJ2ai1KYU03MU5ETi14Tzkxd3M3TzhGNjZuOE1HWG9DU3U0QVJROTdKVTdLcEVnakFEU2dQbmpBWEloZkZaYVJjLUwxa2Q0ZlN2YUZtaWsxN21YbjUwdFhFZVVxclNwLVB5aWhwR1Vzc1FoVkFYVnpxdGg2ZVhMMVBJVVo3a29XbEtJMjl2WTlQWVJmYkRIbzFMTlhIU3RTUQ?oc=5
+
+## Taylor Swift removes multiple songs from Trump social media posts - Entertainment Weekly
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift removes multiple songs from Trump social media posts  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxOZ1NCc0lmeW5KRFZmbUZUSEN4czBISE9vNWFjT0lhNlZjbklkak5kQ1dDa21QTHdUSHdKcWd6bzR6SU9Xd2J6QmY4R1NJVFdJeUZlU0VpUXJhdWdTck9hR0ZJbUY4ZFdtMXVnS1I3eU1jNEg1R1ZqUnkyZ1p1YXdKQjlQdG5qTXZ2T2tnUjFKMjRlNVU?oc=5
+  - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3lQekxKR3pHRXFHelB0ajhfcFhtbmoyZXB3clI2dDlQY0FObjJJTXBUc09hSElZYTd1YnlUckg2WXB4LVFZd0xBV1paYldGeUxITGFhZHNTUzlKRGVIU2dQLU56TG5wekxpM0ZJSWY4MzMtNktQdW1QOFp4bFB1cHBMQWpHRWF4MFF0SUFKOVd4c2VJZGRZaG5VSUVuYUJNWUE0OUZnR3M5ako2dmVQXw?oc=5
+  - [unverified] Arise News — https://news.google.com/rss/articles/CBMikAFBVV95cUxOSFZOTGU1WWF4czE1QTNnbFl3ZThsdzMzOUdZMjdFSUdkRncwVTVNZHRYY0dYNWhzVnVKU2IwN0FYRFdGbWlyYXVWM3RiMHJ6eUF1RDRjcnYyNTdGTlF0QnpFSHBHVTU4SG5Pb0t1NGI1NXNFWmRhY095em5fSTZFSURlakZNWXRENzJRMmdqV00?oc=5
 
 ## The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4 - PureWow
 
@@ -333,11 +359,12 @@ Stories: 72
 ## Este Haim opens up about emotional bond with 'sister' Taylor Swift - USA Today
 
 - first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Este Haim opens up about emotional bond with 'sister' Taylor Swift  USA Today
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxNV1NZY1Z6NVpMWFFtTHV6NkY5MWtWRklyaEtiMGV6UHEtejFWeHRNWEJGWkotcmdCMUNiSEs3bGJSX1RnOVdnUGc1NHAtRHhhSHEwRHBLOWI1cllrY3lwanM2RG0taFdvV1dBdnlvdWVmVV9wZk11SzlZNU45dWxBT09FempjSV81RWs2MlkwMUk5a1o4VF9GMGVzZjVBQXpDS2k1aXY2bjJUcmNWTnhtQU1iMVIzbFFwQ1kwdmIzZjRHZ09lUDlBdjZESQ?oc=5
   - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMie0FVX3lxTE9wR0llMTVJX0YtakhISGo0Qmg4a0FxQlM0dlNpU2U3aU9QRmZFeldpWU1fUGtSZVBwS245ZExuaG9aWWpYS1dhLVUwam14ZHZ1SnBDTFRxZHhNX2l2dHZLY3lrR2haSGRhb2F0OFdJYlF2LVJaZlF1YmI0TQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOV0lCaVc2VmkzeC1USU1JT0tKUVlwdnNaLVZhRDZpOExvZ2xYeFh4amNPUUFNM2I4ZzRvVzhmdHZxX3ZNLXFvOGNWbTd2MGRpVTVzcTkwUUlEaVNxbTRXTDRlS2lWSFNFLU1RZmo2ZGZtZDc0bERvNGRuTjUtUU9hZmJZV3ZTdFFFUjV1b1UwZTVPTVpwRG0tQlJWc3p3ZmpPTHc?oc=5
 
 ## Sombr Reflects on Performing at Taylor Swift’s Songwriters Hall of Fame Induction - Kiss 95.1 Charlo
 
@@ -585,36 +612,3 @@ Stories: 72
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMixAFBVV95cUxPRFZEVjNvQl9LNmRoSm1XMVFET0lXQVppTlRJVzBtNzl3YnAyV1djRjl1Qjk2eUdmbVVCbDlwT0Y1TEJBcmxpNU5VVnVWYzBXZVRaM0dodFNHV25STjlkT0lGbWJXSllsNFh4X1JNVmZ4OWRXZmg2SDl4MlA3UkdBdGpVYXNLU1ZBX3VyX3NKVlVyenJXVjhOTzhpTlRaN3M4MUdVdkxhY0xzaktJdWtsNEd0TDhsYld4TlNlNjI4Sl80R012?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSmJ3Z0hYXzN2Zmw3TlMzb0VvdlZIUmxNc2NuUUJvWlRRRXl0eGJxNHQzMjloUGtPaXNWTUZkX3hLTkNTZDY5X05PVEE4dEZyeVhqeUVLRUgteTlFUnhxYy1mWVFtS0pCb19QMWdzOFlRMllNNlNTcEZkNlh4ZlNFQ2VDZUI0QlMzOHdQMmd1X0JqSjhPVTcyMFI1YmZ4RUQ2VDY0Tw?oc=5
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMinwFBVV95cUxObnJiNXVXX3RhY0YtZ3V1SzY2Y3o3VTY5NU9vOUg1eGpIY1ZKZVQwcDI2eU92Sjh1bmdaQXBkRmFmaGFMNVhFVzFFeXo1cGE4RFJkbjFHZDdyUnJ0VmV4SE1uREFrNTJnSHQ3VEFTb1ZVbEtRZmJhUDN4LS0zWGZERWJDaEk3SnBaNDl6XzRlZTZhRDVYYXRRRmpWcy1HckU?oc=5
-
-## Taylor Swift & Travis Kelce’s Wedding Validated Bradley Cooper & Gigi Hadid’s Private Choice — Insid
-
-- first seen: 2026-08-06 11:30 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce’s Wedding Validated Bradley Cooper & Gigi Hadid’s Private Choice — Insider  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPUG9NYkc2VzhwRzEyQlFEY0tkZGNodUROcjRWZkQ1X1pEUEo2U0RySHotUWRKLXoyQjJVeUhiLVdTS19uci1kUmhoem5vWnd3eDVKdDVUVUtlR0JfZ3FHelpLTktPSnB1MnhUeWFCdHdRTUM0UEpJa2VsdTdVdVlUZmotOFJRVW9fR3lzS296d1JRbmpnbkpNZVd3SXA4LUtJNWF2WURB?oc=5
-
-## “Everyone Wants to be Travis and Taylor”: Fox Sports Host Lays Into Justin Herbert and Madison Beer’
-
-- first seen: 2026-08-06 11:30 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: “Everyone Wants to be Travis and Taylor”: Fox Sports Host Lays Into Justin Herbert and Madison Beer’s Cuddly Moment at Chargers Camp  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOSzFpTWNaM2lKUmtPSEZyUTR3eG5qdjhSVHRJZVhQWklVMW5xZW50ZV9yWEtjcjJfUHp1VXlvWFlLZDVBUE5FcElpdE1TQTQ0MWdhOEZIb1ZhZGF6TWtQUTdIY1g2MXYxRXdQYVdDd2NOM29uZUZWbFA4S1dxZGVxSzJwNjlQQU5N?oc=5
-
-## ‘The Taylor Swift team’ – WWE star Danhausen ‘curses’ the Kansas City Chiefs - hitc.com
-
-- first seen: 2026-08-06 11:30 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: ‘The Taylor Swift team’ – WWE star Danhausen ‘curses’ the Kansas City Chiefs  hitc.com
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxPVF9Zb2hfY2cxWHJ2eDVBQzk5Vy1yZFI1cGx3UnlZaFFxbXBvdTFUYTgyRXFqOElrekdTVFotdGFsRVkzc09aR05LVjJJUFMtLVl1NlptRUpPTWh0V1locnBrT1VoeW9tbmJ5Vk5KS3c3QmtqaEZ1YVdIbVhYbktEcEFYaTJRdXJUaEpoYUhYY3RWOHFaZTA4?oc=5
-
-## Sombr heaps praise on Travis Kelce after being asked about Taylor Swift - yahoo.com
-
-- first seen: 2026-08-06 11:30 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Sombr heaps praise on Travis Kelce after being asked about Taylor Swift  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxPSmpaaHRBVURHR2tWY1JrWGZlUHdXODJEcHlyUDkxaXhyTlgxb3FwWFhUckxMM3F3aUVVYnJjekc0VENnUjI2Zy04N04yLVNCUDBDUWJyWXlEa2N0NXNTTEtzM0J1OWpiREtSOEpSNDVPamk1TWhKcFBzYjJpUkFLQ2loRWk1MWhmMWFzTUpIZGFzbHlqM2dMUWRLNHJyR2szMUdN?oc=5
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxQaTNDMTE5bWE4b1NlbVkwdHJUSFRQX3V3eG5VRmxZTDNxMTlHa0ZPUWg3WHdUZmtJMk9kYnVqc29HSVpVcnNQLWZUaVZNZ3REcUVlUV8zWl9aY2VZM3hLb2lCRDFVWTFsNHUzdWZ1RzVHNEZhV3NVT1pna1RxMHEtUmJQRTBBdEQ0enAyalZRaXpwQUJXVldVZg?oc=5
