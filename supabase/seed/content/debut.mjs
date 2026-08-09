@@ -1813,6 +1813,21 @@ export default {
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-07-24',
           },
+          {
+            // Rumor Desk 2026-08-09: a more concrete signal than the earlier
+            // easter-egg reads — an inventory-restock flag — but sourced to a
+            // fan-run tracking bot and a tabloid write-up, not to Taylor. Same
+            // forward-looking debut-re-record question, fresh data point.
+            claim:
+              'A fan-run inventory bot ("Taylor Swift Store Updates") flagged ~250,000 vinyl records restocked in Swift\'s webstore warehouse — with per-unit weights suggesting multi-LP sets — which fans and tabloids read as a sign the finished re-recording of her 2006 debut could arrive around its 20th anniversary on Oct 24, 2026. A Target listing briefly showed SEO text for a "Taylor Swift 20" set.',
+            reportedBy: 'Radar Online (Alex West), via AOL',
+            reportedOn: '2026-08-07',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/taylor-swift-allegedly-restocks-250-200000000.html',
+            note: 'A more concrete signal than the easter-egg reads above, but sourced to a fan-bot and a tabloid write-up — Taylor and her team have said nothing. The re-recording is on record as finished (her May 2025 letter: "already completely re-recorded my entire debut album"); only the release is unannounced. Resolves on a debut Taylor\'s Version announcement, fades if anniversary passes empty. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-09',
+          },
         ],
       },
     },
