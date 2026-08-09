@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 72
+
+## “Not Gonna Make It All Year”: NFL World Reacts As Travis Kelce Takes Hard Hit During Chiefs Practice
+
+- first seen: 2026-08-09 09:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: “Not Gonna Make It All Year”: NFL World Reacts As Travis Kelce Takes Hard Hit During Chiefs Practice  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigAFBVV95cUxORkFiMDQ3UXRCZWpxcWltekk4SFZUZVRvNTQ4bE5USzVXdTlSN0RyaWVpUmNqZExjeGg0UU9BdlppbnVjcV9OSER1ejBMMFFOZGN5UHRPMjBnQjlEb3FXLW16ejE4Vlc2V29HS2d2Y3JMUmEwS0NWU1h6VlRoQWpaNg?oc=5
+
+## Why are Taylor Swift songs being removed from White House posts? - news.az
+
+- first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Why are Taylor Swift songs being removed from White House posts?  news.az
+- sources:
+  - [unverified] news.az — https://news.google.com/rss/articles/CBMijAFBVV95cUxPcE5wT0JJMmNwMnRwNnl5ekcwTTdGY3I5a1lSNzZOczlaejZsQUg4MTczd3B6Nl9hUVZaOFRaeHZ5QUwtMkRIMTlrUTZfTkNCSDFIQTBVcTA1QXFFV3NMUDRmQjZsbEFSN2NscmxHQnJkYXotRHRsNnladHJzMnBUYVp1eDNOQzlndzBZLQ?oc=5
+
+## FILE PHOTO: Taylor Swift performs in Vancouver - The Daily News | Texas' Oldest Newspaper
+
+- first seen: 2026-08-09 09:52 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: FILE PHOTO: Taylor Swift performs in Vancouver  The Daily News | Texas' Oldest Newspaper
+- sources:
+  - [unverified] The Daily News | Texas' Oldest Newspaper — https://news.google.com/rss/articles/CBMi7AFBVV95cUxOSlhrcHFrMTJiRGU3ZF9qbXQxbU53X2FRWmxfZ0l1RkMzVXphSmxyS2hkc1JhS2FiYmJGVUt3VS1Rb2pYSG1obi16N25EUTU1ZExMaFdjckRYU2dZYVM0cEU5X2VXdVNkVGJ1LWRyU3hGZXJXaWVJNnAtaXN1UVVLdzlBdDBWTzJCcjhOSEpYT1BOMDd0Yk1xYmZibURNLVI0RHFiU0VyLTlSaHNwcy1oYUJzaTIxMlBnbmctQ0JNcWxEM3dYeFlINHRjQ2FnVXB1U0ZnS012MXphVzVNMEI2Qk5WS09tTTAtZDlFaw?oc=5
+
+## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
+
+- first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
+- sources:
+  - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
+
+## ‘I don’t know where his head’s at’: Travis Kelce sparks concerns for his NFL 14th season after marri
+
+- first seen: 2026-08-09 09:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: ‘I don’t know where his head’s at’: Travis Kelce sparks concerns for his NFL 14th season after marriage w  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMktqS1pDLXhRRTZ1MjRSZGtjQkNaS3BFMjRMMjVzS3Q0UDlmMjRNdDJSdE9ReVBraHdRWXJ4dlNiMmdEaVlyLWtBbGF2RXRVODllQUdZdkE0QzlseHYwUjhmamQxNXRKWTdkODBadE9ndWFvU1A1QXJCRjN1c1M4LWpjSnB4SVJUd1ltaUhldms0WFhxWjhQdEFSbGZ4cVIxVDBMdXhzQ2lPX0xmTzFPeTVyUXV0ZUxtQXZVaEk4Mmc1V0dPa2xobjNyQ29KS0lqeFg4YzZVYWhyUWRabkZBcm1IVzhlVE1McmJiaXNsaDVEUWZqOFJ6N0hhTjRKRmZOREx3UUdMSE0tdjJyZjhIUlJyOWJEQmlJQ21UemNycXhXLTJRV2xxWm1iOFc0MDlqMUhtN0R30gG7AkFVX3lxTE5HdFdpemJKcmpfS0QzaTZpTXJyWWdkNWNpM1RvQVZSUUFlTUs3bXpJdkp2TFVJaFJOYktLZFo3MWIteEZIcFFtb1JfcFE2Tm1OaXZjNHJHRm9rWFREY3UwTk8wcm81Umx1S01qdUN2MzNpZTNpeV9qbDV3bXoyZ1F6b1BXeTRSbS1IX1IweWJlM2QtQ3RZMGhYazJSQlpoWmhjY0ctSkNwa3RNOGJSb2x5LVJLUlM4M0FreUkxMWlkMkw2RDFoTDYxVXdRS2xBemhUVHM3U3BWaDYtSEdtRzBVZmRqMUlqdHJTZV81QWtfX0lCaWdzNmU0cnFRNzRoZWlzVjA4VGxnV1RMYW1OWHpkZTN0SGUxQ0R0ZHIwWlVHMm04ZFhpTFNlLVR0OTIwdDY2MmlpZ2pQMm0tNA?oc=5
 
 ## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
 
@@ -578,19 +618,3 @@ Stories: 69
 - sources:
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxPSmpaaHRBVURHR2tWY1JrWGZlUHdXODJEcHlyUDkxaXhyTlgxb3FwWFhUckxMM3F3aUVVYnJjekc0VENnUjI2Zy04N04yLVNCUDBDUWJyWXlEa2N0NXNTTEtzM0J1OWpiREtSOEpSNDVPamk1TWhKcFBzYjJpUkFLQ2loRWk1MWhmMWFzTUpIZGFzbHlqM2dMUWRLNHJyR2szMUdN?oc=5
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxQaTNDMTE5bWE4b1NlbVkwdHJUSFRQX3V3eG5VRmxZTDNxMTlHa0ZPUWg3WHdUZmtJMk9kYnVqc29HSVpVcnNQLWZUaVZNZ3REcUVlUV8zWl9aY2VZM3hLb2lCRDFVWTFsNHUzdWZ1RzVHNEZhV3NVT1pna1RxMHEtUmJQRTBBdEQ0enAyalZRaXpwQUJXVldVZg?oc=5
-
-## Swifty Swindle: Mister Softee promo in Camarillo makes national news when Taylor Swift cutout is sto
-
-- first seen: 2026-08-06 07:48 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Swifty Swindle: Mister Softee promo in Camarillo makes national news when Taylor Swift cutout is stolen  VC Reporter
-- sources:
-  - [unverified] VC Reporter — https://news.google.com/rss/articles/CBMiiAJBVV95cUxOc1h6bnc5a2xwUEdZbnFsX3VrQkctRHJwbHlEdHlNc1F5SE96Ui1pNHJtQmlJbXpSMldVR0JPZzBwQ3gtSGhyaXlFUW81Ri1HajJ1VGRZTGdjblRWLXFnajBaOHI4QzVUSTJqb1A2Q2VTZjRjSmVieksyU3FZZU5idDVpWkgwME1KWjBHMk0xM0xFVjRlcHVOOERCXzV5NE44X1RqcUhoS3U5Q3Y4ZFdhMFhnQ0hKSUEzUndtaVpsdG91WWJQTXBnR3gtXzdtN1ZjemE1VWk1T3FKOTlMSUItbFltUnM0V21ETTVvZnhOOE5yTEZ1d3VtOUxCMGttcTZkb2FFa2hCWnM?oc=5
-
-## NFL analysts rip apart Justin Herbert and Madison Beer's Taylor Swift-Travis Kelce gimmick at Charge
-
-- first seen: 2026-08-06 07:48 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: NFL analysts rip apart Justin Herbert and Madison Beer's Taylor Swift-Travis Kelce gimmick at Chargers camp  hitc.com
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxPZWRrT21tc0p4Mjg4bVlfX285aUo3YmxiTEJFcTN4b3phbnJGbzlDUVBWTmRhSndWNW0wUkFULU9wSmNYRmIxcUtFOFpyTmNxRDJobHVESnRKLVVPU3hvbkRrUXNPQ1pzbzRPdmltZ3BiVjR6Ymc3VFpSRUJBSHViR21mSFY1V19FRXd0YThXTk84UDluRHN4OEJMY3lRY04yNTEyamZ4dXBFaXNFNzlTMVVDeVFVOXl2ejdwMUFqMFZfRmNjWl9j?oc=5
