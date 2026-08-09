@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 71
+
+## Team Trump Trolls Taylor Swift With Song Use Before Copyright Claim Brings Silence - Deadline
+
+- first seen: 2026-08-09 03:07 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Team Trump Trolls Taylor Swift With Song Use Before Copyright Claim Brings Silence  Deadline
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQLV9aaGlxOTdEQ1E5ODhOeTU4RDJyRmpOU19zY1czaDBQb0JZSjROYmNXSUhQOXpnX2hJVEpUc0c5T1JYaklURUcxdEtQekdwcTFEVEE2VHItZklhTC0zaG05Z2NSSm5IN3dkWkUyZlM3a0p4Szd5VThfQUJ0ZF9PWHhEZkdxaVBE?oc=5
 
 ## Taylor Swift song loses audio on Trump TikTok video - Washington Times
 
@@ -60,14 +68,6 @@ Stories: 76
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxOZ1NCc0lmeW5KRFZmbUZUSEN4czBISE9vNWFjT0lhNlZjbklkak5kQ1dDa21QTHdUSHdKcWd6bzR6SU9Xd2J6QmY4R1NJVFdJeUZlU0VpUXJhdWdTck9hR0ZJbUY4ZFdtMXVnS1I3eU1jNEg1R1ZqUnkyZ1p1YXdKQjlQdG5qTXZ2T2tnUjFKMjRlNVU?oc=5
   - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3lQekxKR3pHRXFHelB0ajhfcFhtbmoyZXB3clI2dDlQY0FObjJJTXBUc09hSElZYTd1YnlUckg2WXB4LVFZd0xBV1paYldGeUxITGFhZHNTUzlKRGVIU2dQLU56TG5wekxpM0ZJSWY4MzMtNktQdW1QOFp4bFB1cHBMQWpHRWF4MFF0SUFKOVd4c2VJZGRZaG5VSUVuYUJNWUE0OUZnR3M5ako2dmVQXw?oc=5
 
-## A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier t
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier this week over a copyright claim. Read more below.  facebook.com
-- sources:
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxNQzZPaVp3cl9McndxODdWQ2d5LUdpUW5BZFBGR053NWoxcklBc3VQdTczVk5JVFltNmtSMmJ2ai1KYU03MU5ETi14Tzkxd3M3TzhGNjZuOE1HWG9DU3U0QVJROTdKVTdLcEVnakFEU2dQbmpBWEloZkZaYVJjLUwxa2Q0ZlN2YUZtaWsxN21YbjUwdFhFZVVxclNwLVB5aWhwR1Vzc1FoVkFYVnpxdGg2ZVhMMVBJVVo3a29XbEtJMjl2WTlQWVJmYkRIbzFMTlhIU3RTUQ?oc=5
-
 ## Taylor Swift Humiliates Trump With Copyright Smackdown - The Daily Beast
 
 - first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
@@ -99,6 +99,14 @@ Stories: 76
 - summary: Blake Lively, Ryan Reynolds All Smiles Month After Missing Taylor Swift Wedding  TMZ
 - sources:
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQV0o1TnJTdzAtRnNpRlB2UmtXRkV0b1AtdGl0enNPMFdyZXo1WkJWbDVPV3pmeFNMcnh1aE5wRFFmZW9hRi0tQlQ2ZG9Vc0RVLUVxY0daX3pmSTNidVVsaEI4Q1poWGEwMDB2eXVILUZIQzRvU1dUVXBsWUJNbWUzYjExLXFreHcwQWE0?oc=5
+
+## A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier t
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier this week over a copyright claim. Read more below.  facebook.com
+- sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxNQzZPaVp3cl9McndxODdWQ2d5LUdpUW5BZFBGR053NWoxcklBc3VQdTczVk5JVFltNmtSMmJ2ai1KYU03MU5ETi14Tzkxd3M3TzhGNjZuOE1HWG9DU3U0QVJROTdKVTdLcEVnakFEU2dQbmpBWEloZkZaYVJjLUwxa2Q0ZlN2YUZtaWsxN21YbjUwdFhFZVVxclNwLVB5aWhwR1Vzc1FoVkFYVnpxdGg2ZVhMMVBJVVo3a29XbEtJMjl2WTlQWVJmYkRIbzFMTlhIU3RTUQ?oc=5
 
 ## The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4 - PureWow
 
@@ -207,7 +215,7 @@ Stories: 76
 ## Taylor Swift Song ‘August’ Removed From Trump TikTok Video - Variety
 
 - first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift Song ‘August’ Removed From Trump TikTok Video  Variety
 - sources:
   - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMHlqN1RwN0t4ZjhYY1d3LTlTNHF3OG1VZWw2cXpOQllZM3JpMzd2QmlsU3lfVmd2eUh0QkE1d2N6dVBoXy1tT2FQM2FlYzhHd0ZFeVg5V3lURkY3YmIxYTBiYmhLU051TEpzTVlTbndFalRjdWpOSjFaUmtPcFZaTHNzMk9tZThwZHJhN2gtM1IxcEI3RENScEZXSGRYaWJv?oc=5
@@ -216,6 +224,7 @@ Stories: 76
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-removes-august-team-trump-tiktok-video-1235605878/
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxPNGczMU9HRXhUUXA3QVFndzJXdFRQVFpoaExHSks4SERYcG9lSW9SMzhMYjd0UjJHSHBBLWJyMk5KLVRsYjR4WnpFWk1GMlRrMzFTUFZMbzR2bnh4RjJRbUlMRXZ1T3FsZWtvbVNFMXhNTVFsZzJfNzhua3RvZzZnUC1fbVdPOTFtTF9PX3p4czRiUGhwbktMa2lHbF9KOEFEVFJiQk5XQy1yamRWT1E?oc=5
   - [unverified] The Independent — https://news.google.com/rss/articles/CBMiugFBVV95cUxPQzNUaXpPOGhpUmI4MVo3M0tRdzdoV0VSbFRZS3VIVDNaV2o2SGkwSGRBeTJrQXpRVVpGV3pvM3hmb2ZEZWo0eXRLWnFnamtZTGFLb1NlRXk3VXAzWDZvRklXVDFUSjN5WG9pNnNSQ3VWM3p6dV9XYm4wSnZaOEJxVXp6Y3FjaExlOWZXc09YT25TTDZ2UU1qdGJrT3JLbGh6YUlyRUk3ZUVZLWJjajJBajJiLVdMM0RDRnc?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQT296NDRWcEp0RmtkdGRDbWVzdlJ1UWZ6VFNkT1hMRVNPUnlKblJJT0J6UkZFZ1kwMzRSRnJGbThaVHF1UjgyeWpwdEhtNTlFMVJrLWluMW9mWlFiNDhHdVd1SXdWYnNIOHFMS1pFU2ZoS05MWTFHYmJVYS1ySXUxSnRjMXRtZ1M0T2p3WW03cnV5LURYYWFHLUdScU5XT0k?oc=5
 
 ## Taylor Swift Blocks Trump from Using Her Music on TikTok - consequence.net
 
@@ -273,6 +282,15 @@ Stories: 76
 - sources:
   - [unverified] managingip.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNR01CSEd4TVRURmZxMVhfQXhxYUpYYy1VUm1jZWhEaGxjajh1NHlVVUkxVXpxZWw1ZHNFVXBxVkRmZnNmYWltaWdDUVJCazhvU0ZxNTJyanJjelFpSlE3ZGx4OVNudG1WaFFZNVlsckltZlVVWFFsVnN5ZUZmdGdEVHpqaUVXT0dvMVM4U1JHalotWFhQLXVCYUhmY1FRMTNwSGxWU1hEWTV6LW93SFpoVm9XSjBCY0FqVy1YQlMwMWNXak5CUU50YjEtZkxtOXdzQkYxQ2lZVElQdw?oc=5
 
+## Este Haim opens up about emotional bond with 'sister' Taylor Swift - USA Today
+
+- first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Este Haim opens up about emotional bond with 'sister' Taylor Swift  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxNV1NZY1Z6NVpMWFFtTHV6NkY5MWtWRklyaEtiMGV6UHEtejFWeHRNWEJGWkotcmdCMUNiSEs3bGJSX1RnOVdnUGc1NHAtRHhhSHEwRHBLOWI1cllrY3lwanM2RG0taFdvV1dBdnlvdWVmVV9wZk11SzlZNU45dWxBT09FempjSV81RWs2MlkwMUk5a1o4VF9GMGVzZjVBQXpDS2k1aXY2bjJUcmNWTnhtQU1iMVIzbFFwQ1kwdmIzZjRHZ09lUDlBdjZESQ?oc=5
+  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMie0FVX3lxTE9wR0llMTVJX0YtakhISGo0Qmg4a0FxQlM0dlNpU2U3aU9QRmZFeldpWU1fUGtSZVBwS245ZExuaG9aWWpYS1dhLVUwam14ZHZ1SnBDTFRxZHhNX2l2dHZLY3lrR2haSGRhb2F0OFdJYlF2LVJaZlF1YmI0TQ?oc=5
+
 ## Sombr Reflects on Performing at Taylor Swift’s Songwriters Hall of Fame Induction - Kiss 95.1 Charlo
 
 - first seen: 2026-08-07 21:52 UTC | category: music | importance: 5
@@ -280,14 +298,6 @@ Stories: 76
 - summary: Sombr Reflects on Performing at Taylor Swift’s Songwriters Hall of Fame Induction  Kiss 95.1 Charlotte
 - sources:
   - [unverified] Kiss 95.1 Charlotte — https://news.google.com/rss/articles/CBMisgFBVV95cUxQR2RpZVYyRzlpSEN4Rm51WUNpMUxxT1pMRlhuQzlFUHZNT0pOdVVPZndncTNjQklqaEdnZ2tTQVl1alU3VktxVFJ3U2RMeEc1a2xUdHBSbGJRQW8wbXBZRjBwcjlLaHdLV3lOREJpWDVKeHBmMnVXYXdicGF0MWdGR0VWcm50ei04bjhVMkt3dVJiUmJLQ1hEaVdSbWVuc2VUbU9FOTJSQVFvWW5CaHdYdkJ3?oc=5
-
-## Este Haim opens up about emotional bond with 'sister' Taylor Swift - USA Today
-
-- first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Este Haim opens up about emotional bond with 'sister' Taylor Swift  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxNV1NZY1Z6NVpMWFFtTHV6NkY5MWtWRklyaEtiMGV6UHEtejFWeHRNWEJGWkotcmdCMUNiSEs3bGJSX1RnOVdnUGc1NHAtRHhhSHEwRHBLOWI1cllrY3lwanM2RG0taFdvV1dBdnlvdWVmVV9wZk11SzlZNU45dWxBT09FempjSV81RWs2MlkwMUk5a1o4VF9GMGVzZjVBQXpDS2k1aXY2bjJUcmNWTnhtQU1iMVIzbFFwQ1kwdmIzZjRHZ09lUDlBdjZESQ?oc=5
 
 ## Kam Saunders Calls Taylor Swift and Travis Kelce’s Wedding ‘Transformative and Remarkable’ - People.
 
@@ -601,54 +611,3 @@ Stories: 76
 - summary: Taylor Swift & Travis Kelce's Wedding Guests Were Unimpressed By This 'Tacky Detail'  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQQ3Ztb1Q5eUMwdThtcURfMElpd19PajFfbkRmcmZiTEhCNWhLRzg1dTdpSzQ5blBqVFNrb1RqNmVGN0M3NGxEYmhGeXVZU1E3Nm1PUUx0Qld6UWZUSWNmdERMdWxYem9YbW1EOE9Zd2tGWldmdUJCRkJaSnh3SGgyWi1WRlRzQ2FwczB5a21iWUg3NWpPOXAxN3FERmxyX1p4OVZxT0FrRQ?oc=5
-
-## Taylor Swift Is Reportedly Enjoying Being ‘Mrs. Kelce’ as Andy Reid Weighs In on Travis Kelce’s ‘Dad
-
-- first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Is Reportedly Enjoying Being ‘Mrs. Kelce’ as Andy Reid Weighs In on Travis Kelce’s ‘Dad Bod’  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikAFBVV95cUxNazBmSW10SEF3SXlqWTN2MmhZTWx1SkQxQUNkS3g3R2FkNkpqNGpfNmM0d1REckZtWE9PV3V3WXRxOTFqQXlQNmppQnA0LWtINzBjdUx6a3FEMnhRYlpCNUNDc3F2SnJuOE5LNC1IMGRybFNGbWF0QkdOVTJZdVVFVUlHNjBrSzdlUThMdXFPWTg?oc=5
-
-## The One Luxury That Kylie Jenner and Taylor Swift Can Both Afford—and You Can’t - Slate
-
-- first seen: 2026-08-05 22:18 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: The One Luxury That Kylie Jenner and Taylor Swift Can Both Afford—and You Can’t  Slate
-- sources:
-  - [unverified] Slate — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQeGlYdUFrQm0ta2Vzc2V2cUE4R3A3eFU3Q1R3clcxcTRkTjJBNS1qU1N3RUtNazhpdUVyal9vUEhGcENHZkpmUktfbFk3NzlmQ3E1NHRVUDZOUlhkTmRuZ3oxM1pnUFBRVG5fWnZVUWZpNWRhbWZEdmhGUXAzTnRmdmdzZXc1RWtPZ3Br?oc=5
-
-## Travis Kelce, Taylor Swift Eyeing First Major Decision as Married Couple - Sports Illustrated
-
-- first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce, Taylor Swift Eyeing First Major Decision as Married Couple  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxNbzFmZWoyZHNvUmVZdW9tWG9fZEgzcTRsV3psRkNEWnpQQ3R3c0IxWktwem1VMV9SMVhYTG8tai1NMktqZTNKUjNkMEVGaW9NWHlLblpTNjh1aFNTLWt0clZnVVJjZVUyWk9vX2ZXdW9VaGZOOW5XVHdRcGVRM3FzT3A0b3FkOFlOQlNZNlY2VVdNdm5QSHE1S0xoNEtFNnd5RGdsZk1wUXlyblkyQ0VXYWFQRQ?oc=5
-
-## This 2011 Taylor Swift Outfit Is One Of Her Best-Dressed Moments That Everyone Forgot About - glam.c
-
-- first seen: 2026-08-05 22:18 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: This 2011 Taylor Swift Outfit Is One Of Her Best-Dressed Moments That Everyone Forgot About  glam.com
-- sources:
-  - [unverified] glam.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOcFBtUlA3VzhDcVlxX2x2NEFOWFN1bnNfRDFIYnZiU3BMY3FIQ3g3eV9kRXVpeng5azM1bEl4Q0FsZXowM0RlTUxhWnBIYzljMDVSclc2MGlvc0kwM2ZlaVJDU2dORWxTT19UTU44c3FYdFBMTVJ3SmttLVluNlRfdjBMLVpWOTBidmtkeVpoQ1pjZjRVOVRJYzZNYmE?oc=5
-
-## Sombr recalls performing for Taylor Swift at Songwriters Hall of Fame: ‘That’s a goddess’ - Deltaple
-
-- first seen: 2026-08-05 22:18 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Sombr recalls performing for Taylor Swift at Songwriters Hall of Fame: ‘That’s a goddess’  Deltaplex News
-- sources:
-  - [unverified] Deltaplex News — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQlJJeEx3aUk4NHdfbkVNejZYV29KM3Q0U3NINW4xRzYxanJnaERnT3JMNkNwVzNtVFgtaS1TalAyMWRMS28wNHROUHcxR243YXA4bWlETmhPaTdOc280b3ZMcFZsZ2dsbF9fUEF3YU9yajdTZmhYUW0yWmIzdkUzbHUzQmlzNDlKU2gycnNPcWNUOXliOTE1RzIzQm5PMHhoNDVYOU5maGQ4ZDdUaGNfRHpEeG5YeElKbmJxOFdEbUlDUjQ?oc=5
-  - [unverified] MOViN 92.5 — https://news.google.com/rss/articles/CBMisAFBVV95cUxOWDBNRXJ1RWRlNDZ2TzQ2WlpYRmk1NlZWUjZ0Q0wwMVRMVkNkSTJoWDdEajQ1aHZ3M1ZjTHh5WTU5UGRHVTNaQ2w4NXh5cThfLXZ6Mmk4SmNqX2NsdjV1S1RvejBYQkNpNE5PYmlFVkJYcGZkbnBpVGZFY3pTSWJ5Yk9mR2NJUDBzYlhsbVkwN0dvUWdJWjlXMk1WeThrOHFhZWZWS3pDZGhZVW42OEJFeA?oc=5
-
-## Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift weddin
-
-- first seen: 2026-08-05 22:18 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Travis Kelce’s coach Andy Reid defends athlete from ‘dad body’ claims in wake of Taylor Swift wedding  AOL.com
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE00ZWNlRG1TN09rbG1lY0xZaDVvNXBhZnpnUEt3WDl5MGRGQ1pfbll6RWxUZDVpaExyVWp4Q2FLaFFmZDlBWlBfTGxvRm9hYVVoNDFiamx4SGpLUVFtMHZPTU9RNEZzZmE5ejlaTmRJaTR0NS1vVFhQTUVUNXA?oc=5
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQaUtfMlUyYnRkMUlpWGtrTEZseURqekMwMi0zVG8tWmpSelIxOHd5c0dIOTdLdWQ4Vkx5X0w2S3NZR3RWaXd5ek1YTU9yWk5LYUw5V2U1Q1dlUm1hZDRja2JFS1lRaTQ4S3NNZlVaYlhmckRONC1YelNJU3VubWZhSkRYaDAyWHFvaFRN?oc=5
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxPUS1qUmxDTkY0WG5TTUZnQkF6STdJd1FkOFdXUGx4MzdOMjZ2SzF2RFlheEs1Z1ZHSkJycTM3bVlJMktrSDVicHZUTFZNZ1dKNlptN0ZEWHA5eHBSLTcyaG9PWkJrZWhvc0w4VzZ1djZUZzh0NDZyQ0FNbDdKNGhxNlZ3WUcwQVk2Wmlfc1BEc092OG5UQkhIOTNFVFBKUQ?oc=5
