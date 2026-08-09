@@ -9312,5 +9312,146 @@ export default {
         ],
       },
     },
+    // --- Content Shift 2026-08-09. Two verified wedding-arc color items from
+    // the intake queue (#1844, #1842). Both were researched and verified on
+    // 2026-08-08 and held only for the brittle substance.test corpus assertion
+    // (#1845, since fixed); every URL and quote independently re-fetched and
+    // read this session. Each right-sized to a sub-detail card so none
+    // displaces a hero slot. (The third held item — "August" pulled from a
+    // Team Trump TikTok, #1841 — was intentionally dropped here because Rumor
+    // Desk landed the same event as a rumor in PR #1857; authoring a second
+    // confirmed moment would duplicate it. See the #1841 ledger comment.)
+    {
+      slug: 'showgirl-charles-barkley-declined-wedding',
+      year: 2026,
+      month: 8,
+      day: 7,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-shania-twain-explains-the-scheduling-conflict-that-kept-her-',
+      ],
+      title: 'Charles Barkley, invited, said no — "I don\'t go to weddings or funerals"',
+      snippet:
+        'Charles Barkley said on the record that he was invited to Taylor and Travis\'s July 3 wedding and politely declined — "I don\'t go to weddings or funerals" — while insisting he loves the Kelces and meant no slight to "the bride\'s special day."',
+      sourceUrl:
+        'https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charles-barkley-declined-invitation-to-attend-travis-kelce-taylor-swift-wedding',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Charles_Barkley_in_2026.jpg',
+      moment: {
+        context:
+          'Among the roughly 1,000 names attached to the July 3 wedding, one belonged to someone who wasn\'t there by choice: Charles Barkley. The Hall of Famer and longtime NBA analyst said on the record that he had been invited and had turned it down, politely. His reasons were pure Barkley — "I don\'t go to weddings or funerals," a preference for hanging out and playing golf over dressing up, and a wish to keep the focus where it belonged: "That\'s the bride\'s special day, let her enjoy herself."\n\nHe was careful about the affection behind the no. Barkley said he loves both Travis and Jason Kelce, has met Taylor once, and found the invitation itself "pretty special." The comments first surfaced around the wedding in early July and recirculated in an early-August digest window; either way they read as friendly color — the guest list seen from an empty seat, alongside the other invited names (Shania Twain, Ryan Seacrest, Robert Pattinson) who explained their absences on the record.',
+        sources: [
+          {
+            outlet: 'NBC Sports (Pro Football Talk)',
+            url: 'https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charles-barkley-declined-invitation-to-attend-travis-kelce-taylor-swift-wedding',
+            source_title: 'Charles Barkley declined invitation to attend Travis Kelce, Taylor Swift wedding',
+            publisher: 'NBC Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-charles-barkley-declined-1236289754/',
+            source_title: "Charles Barkley Explains Why He 'Politely Declined' Taylor Swift & Travis Kelce's Wedding Invite",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/why-charles-barkley-declined-invitation-to-travis-kelce-and-taylor-swift-s-wedding-01kx1361v120',
+            source_title: "Why Charles Barkley Declined Invitation To Travis Kelce and Taylor Swift's Wedding",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+          },
+        ],
+        // Archival portrait — Barkley's remarks were an interview, not a
+        // photographed event, so this is the closest true visual (same pattern
+        // as the Maren/Shania items). thumbnailUrl set to this url so the sync
+        // makes it the primary image. upload.wikimedia.org (allowlisted); curl
+        // 200 + image/jpeg, 1113102 bytes, re-verified live this session.
+        // Public domain (U.S. Air Force).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Charles_Barkley_in_2026.jpg',
+            credit: 'U.S. Air Force (public domain), via Wikimedia Commons',
+            caption: 'Charles Barkley, 2026.',
+            kind: 'archival',
+            focalPoint: '52% 28%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-kylie-kelce-why-jason-cried',
+      year: 2026,
+      month: 8,
+      day: 6,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Why Jason Kelce cried at the wedding, per Kylie: the flower girls',
+      snippet:
+        'On her podcast "Not Gonna Lie," Kylie Kelce clarified why Jason Kelce cried at Travis and Taylor\'s July 3 wedding: not the vows, but watching his own daughters serve as flower girls. She called the night "touching" and "very loving."',
+      sourceUrl:
+        'https://www.today.com/popculture/news/kylie-kelce-reacts-jason-comments-crying-travis-taylor-wedding-rcna591280',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+      moment: {
+        context:
+          'When word got out that Jason Kelce had cried at his younger brother\'s wedding — harder, he said, than he had at other family milestones — the easy reading was that watching Travis marry Taylor had undone him. On her podcast "Not Gonna Lie," Kylie Kelce set the record straight: the tears came from watching his own daughters serve as flower girls. "It was touching. It was very loving to see all of the things that were happening," she said, and admitted Jason wasn\'t the only adult in their family who cried that night — she was "guilty," too.\n\nIt is a small correction that reframes a viral moment. The emotion at the Madison Square Garden ceremony, in her telling, was as much about the Kelces\' own family as about the couple at the altar — a father watching his children in the middle of someone else\'s wedding.',
+        // Redline note (intake #1842): the Kelce daughters are minors. This
+        // clears the redline only as a family-published fact (Kylie shared it
+        // on her own podcast). Kept to the public-facing detail — his daughters
+        // served as flower girls, which moved him — with NO names, ages, or
+        // count. The item is about Jason's reaction and the wedding, not the
+        // kids. No location/security/health redline.
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/kylie-kelce-real-reason-jason-kelce-cried-travis-taylor-wedding-1236310249/',
+            source_title: "Kylie Kelce On Real, Heart-Tugging Reason Husband Jason Cried at Travis & Taylor's Wedding",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/news/kylie-kelce-reacts-jason-comments-crying-travis-taylor-wedding-rcna591280',
+            source_title: 'Kylie Kelce Shares the Moment That Made Jason So Emotional at Travis and Taylor Swift\'s Wedding',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Daily Beast',
+            url: 'https://www.thedailybeast.com/obsessed/kylie-kelce-says-jason-cried-at-travis-kelce-and-taylor-swifts-wedding/',
+            source_title: 'Kylie Kelce Says Jason Cried at Travis Kelce and Taylor Swift\'s Wedding',
+            publisher: 'The Daily Beast',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+          },
+        ],
+        // Archival portrait — Kylie's account was a podcast segment, not a
+        // photographed event, so a true visual of Jason Kelce (the subject of
+        // the moment) is the closest honest image. thumbnailUrl set to this url
+        // so the sync makes it primary. upload.wikimedia.org (allowlisted);
+        // curl 200 + image/jpeg, 183058 bytes, re-verified live this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+            credit: 'Joe Glorioso / All-Pro Reels, via Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Jason Kelce.',
+            kind: 'archival',
+            focalPoint: '50% 24%',
+          },
+        ],
+      },
+    },
   ],
 };
