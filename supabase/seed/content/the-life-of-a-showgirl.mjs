@@ -4573,6 +4573,22 @@ export default {
             notes: 'Confirms the video, its release and its cast (Lee among them), independent of the E! interview.',
           },
         ],
+        // Photo Enrichment (Vault Run, 2026-08-09): the moment centers on Greta
+        // Lee, so a `reference` portrait of her — a CC-licensed Wikimedia
+        // Commons file (no reusable-host still of the E! sit-down or her
+        // "Opalite" cameo exists). Verified HTTP 200 + image/jpeg (767x1063),
+        // downloaded and vision-confirmed as Greta Lee at the Berlinale 2023
+        // photocall (the "Berlinale" backdrop is visible).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/72/Greta_Lee%2C_Berlinale_2023_%28cropped%29.jpg',
+            focalPoint: '50% 34%',
+            credit: 'Elena Ternovaja, CC BY-SA 3.0, via Wikimedia Commons',
+            caption:
+              'Greta Lee at the 2023 Berlinale — a portrait of the "Opalite" cameo turned first-time director whose reflection this moment records (not from the video shoot).',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
