@@ -7533,6 +7533,32 @@ export default {
             focalPoint: '50% 22%',
           },
         ],
+        // Stylist lane (Vault Run, 2026-08-09): sourcing the named garments.
+        // The exact gown — Markarian's strapless "Laila" in the pink floral-
+        // brocade colorway (~$4,115, per Marie Claire) — is past-season and no
+        // longer carried on the brand's own site; it survives only on resale/
+        // aggregator listings (reversible/lyst), which the sourcing bar
+        // excludes. Markarian DOES still list the same "Laila" silhouette in a
+        // white beaded-organza colorway on its own site (curl-verified HTTP 200
+        // this run), linked here as an isAlternative so the designer + style are
+        // shoppable without misrepresenting the price or color of the piece she
+        // actually wore. Not linked (checked, no valid page): the Cartier Love
+        // bracelet (cartier.com 403s automated verification; exact model
+        // unstated), the Larkspur & Hawk "Posy" earrings (one-of-a-kind + noted
+        // sold out — the site's only Posy listing is a DIFFERENT unique pair),
+        // and the Crap Eyewear sunglasses (exact model unidentified).
+        products: [
+          {
+            brand: 'Markarian',
+            item: 'Laila Floral Beaded Organza Strapless Gown',
+            retailer: 'markarian-nyc.com',
+            url: 'https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers',
+            price: '$7,895.00',
+            inStock: false,
+            isAlternative: true,
+            altNote: 'The gown Taylor wore is the same Markarian "Laila" strapless silhouette in its pink floral-brocade colorway (about $4,115, per Marie Claire), which is past-season and no longer on the brand\'s site. This is the white beaded-organza "Laila" the label currently lists — same designer and style name, different color and price; made-to-order and marked sold out.',
+          },
+        ],
       },
     },
     {
