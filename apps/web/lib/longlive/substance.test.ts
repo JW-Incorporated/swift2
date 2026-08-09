@@ -235,12 +235,39 @@ describe('substanceScore over real vault content', () => {
 
   it('produces real spread across the corpus, not one clustered band', () => {
     const scores = ALL_VAULT_ITEMS.map(substanceScore).sort((a, b) => a - b);
-    const at = (p: number) => scores[Math.floor((scores.length - 1) * p)];
+    // Linear-interpolated, not a hard `floor` index (#1845): with a floor
+    // index, a single item added to the corpus can step at(0.05)'s target
+    // index across a cluster gap in the low tail and swing the ratio by
+    // ~20% on its own, independent of that item's own score. That pinned
+    // the vault at exactly 720 items — every content addition tripped this
+    // assertion. Interpolating between the two neighboring order statistics
+    // makes the percentile move continuously with N instead of jumping.
+    const at = (p: number) => {
+      const idx = (scores.length - 1) * p;
+      const lo = Math.floor(idx);
+      const hi = Math.ceil(idx);
+      if (lo === hi) return scores[lo];
+      return scores[lo] + (scores[hi] - scores[lo]) * (idx - lo);
+    };
     // The tails are what make a feed look weighted: the corpus's raw body
     // length spans only 2.5x p10..p90 and 5.7x p05..p95, and it bottoms out
     // at a nonzero floor. The composite pulls the extremes much further apart.
-    expect(at(0.95) / at(0.05)).toBeGreaterThan(7);
-    expect(scores[scores.length - 1] / at(0.1)).toBeGreaterThan(4);
+    //
+    // Lower bounds relaxed 7->4 and 4->3 (#1845, 2026-08-09): Photo
+    // Enrichment (#762) raising previously photo-sparse items' scores is
+    // that project's stated job, not drift to suppress (see #1628, where
+    // Joey decided the real decoupling fix is editorial-weight tiers, not
+    // this corpus-relative ratio; this is the same reversible interim
+    // unblock applied to feed-tiers.test.ts's hero-share ceiling). Same
+    // pattern: a bound fit to one day's corpus snapshot froze every content
+    // PR, including the very enrichment epic finishing the thin tail this
+    // assertion was measuring. Ratios measured 2026-08-09: 6.35 / 4.05 on
+    // `main` as of this PR, and 5.46 / 4.05 on #1849 (a then-open photo
+    // PR this bug was blocking, since merged) — both bounds keep real
+    // margin below the lower of those, not just enough to go green today
+    // (#1849 was open, stuck on this bug, at time of writing).
+    expect(at(0.95) / at(0.05)).toBeGreaterThan(4);
+    expect(scores[scores.length - 1] / at(0.1)).toBeGreaterThan(3);
     expect(scores[scores.length - 1]).toBeGreaterThan(0.8);
     expect(at(0.05)).toBeLessThan(0.15);
   });
