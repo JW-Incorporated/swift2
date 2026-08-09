@@ -4515,6 +4515,82 @@ export default {
         ],
       },
     },
+    // Intake #1859 (2026-08-09, Content Shift): E! News color moment — Greta
+    // Lee, a cameo in the self-directed "Opalite" video, on watching Taylor
+    // direct. Confirmed (named person, on-record to an established outlet about
+    // a documented project). Verified against Yahoo's syndication of the E!
+    // sit-down; the E! original 403s the default fetcher but returns 200 in a
+    // browser. No photo shipped now — no reusable-host still of Lee or the E!
+    // frame verified; left for Photo Enrichment / photo-sparsity to route.
+    {
+      slug: 'greta-lee-opalite-directorial-inspiration',
+      relatedIds: [
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto',
+      ],
+      year: 2026,
+      month: 8,
+      day: 7,
+      category: 'music',
+      title: "Greta Lee: the 'Opalite' shoot inspired her directorial debut",
+      snippet:
+        'Reflecting on her cameo in Taylor\'s self-directed "Opalite" video, Greta Lee told E! News that watching Taylor spin an idea into a finished film — conceived live on the Graham Norton couch — left her in awe as she readies her own turn behind the camera.',
+      sourceUrl:
+        'https://www.eonline.com/news/1434703/how-taylor-swift-inspired-greta-lee-after-opalite-music-video-collab',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Greta Lee — the "Indie Rock Goddess" among the cameos in Taylor\'s \'90s-infomercial "Opalite" video (released February 2026) — told E! News in early August 2026 that working on the clip stayed with her as she prepares to direct for the first time herself. Speaking alongside her "The Last House" co-star Wagner Moura, Lee described watching Taylor take the video from a spark to a finished film in real time. Per Lee, the concept was born on camera during a taping of The Graham Norton Show: "She just had a light bulb idea for a music video she wanted to do, and you see it happen on the actual show during the interview." Taylor then recruited that night\'s Graham Norton guests — the same couch that seated Cillian Murphy, Jodie Turner-Smith, Domhnall Gleeson and Lee, with Lewis Capaldi performing — for the video she went on to write and direct herself. What stayed with Lee was the speed and certainty of it: "I just have such a tremendous respect for that ability, to put an idea into action and to just do it like that. And as a woman, I have a lot of admiration for her." She framed it as fuel for her own turn behind the camera — her directorial debut, the horror film "The Eyes Are the Best Part." It is a rare on-record, cast\'s-eye account of Taylor\'s directing process, from a collaborator rather than a critic.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1434703/how-taylor-swift-inspired-greta-lee-after-opalite-music-video-collab',
+            source_title: 'Greta Lee Reveals the Inspiration She Got From Working Alongside Taylor Swift on "Opalite" Music Video',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+            notes: "Lee's direct quotes (the Graham Norton light-bulb idea; \"tremendous respect… to just do it like that\") and the directorial-debut framing. Original 403s the default fetcher; opens 200 in a browser.",
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-inspired-greta-lee-065900451.html',
+            source_title: 'How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+            notes: 'Syndication of the same E! News interview, used to verify the quotes without the paywall/UA block.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-opalite-music-video-domhnall-gleeson-greta-lee-1236653651/',
+            source_title: "Taylor Swift's 'Opalite' Music Video Stars Domhnall Gleeson, Greta Lee",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+            notes: 'Confirms the video, its release and its cast (Lee among them), independent of the E! interview.',
+          },
+        ],
+        // Photo Enrichment (Vault Run, 2026-08-09): the moment centers on Greta
+        // Lee, so a `reference` portrait of her — a CC-licensed Wikimedia
+        // Commons file (no reusable-host still of the E! sit-down or her
+        // "Opalite" cameo exists). Verified HTTP 200 + image/jpeg (767x1063),
+        // downloaded and vision-confirmed as Greta Lee at the Berlinale 2023
+        // photocall (the "Berlinale" backdrop is visible).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/72/Greta_Lee%2C_Berlinale_2023_%28cropped%29.jpg',
+            focalPoint: '50% 34%',
+            credit: 'Elena Ternovaja, CC BY-SA 3.0, via Wikimedia Commons',
+            caption:
+              'Greta Lee at the 2023 Berlinale — a portrait of the "Opalite" cameo turned first-time director whose reflection this moment records (not from the video shoot).',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
     {
       slug: 'showgirl-orange-reformation-versace',
       year: 2025,
@@ -7455,6 +7531,32 @@ export default {
             // TMZ two-panel frame — Travis's face upper-left panel, Taylor's face
             // upper-right panel; both sit in the top quarter, so bias the crop high.
             focalPoint: '50% 22%',
+          },
+        ],
+        // Stylist lane (Vault Run, 2026-08-09): sourcing the named garments.
+        // The exact gown — Markarian's strapless "Laila" in the pink floral-
+        // brocade colorway (~$4,115, per Marie Claire) — is past-season and no
+        // longer carried on the brand's own site; it survives only on resale/
+        // aggregator listings (reversible/lyst), which the sourcing bar
+        // excludes. Markarian DOES still list the same "Laila" silhouette in a
+        // white beaded-organza colorway on its own site (curl-verified HTTP 200
+        // this run), linked here as an isAlternative so the designer + style are
+        // shoppable without misrepresenting the price or color of the piece she
+        // actually wore. Not linked (checked, no valid page): the Cartier Love
+        // bracelet (cartier.com 403s automated verification; exact model
+        // unstated), the Larkspur & Hawk "Posy" earrings (one-of-a-kind + noted
+        // sold out — the site's only Posy listing is a DIFFERENT unique pair),
+        // and the Crap Eyewear sunglasses (exact model unidentified).
+        products: [
+          {
+            brand: 'Markarian',
+            item: 'Laila Floral Beaded Organza Strapless Gown',
+            retailer: 'markarian-nyc.com',
+            url: 'https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers',
+            price: '$7,895.00',
+            inStock: false,
+            isAlternative: true,
+            altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
           },
         ],
       },
