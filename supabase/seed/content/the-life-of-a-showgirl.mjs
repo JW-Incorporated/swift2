@@ -4515,6 +4515,66 @@ export default {
         ],
       },
     },
+    // Intake #1859 (2026-08-09, Content Shift): E! News color moment — Greta
+    // Lee, a cameo in the self-directed "Opalite" video, on watching Taylor
+    // direct. Confirmed (named person, on-record to an established outlet about
+    // a documented project). Verified against Yahoo's syndication of the E!
+    // sit-down; the E! original 403s the default fetcher but returns 200 in a
+    // browser. No photo shipped now — no reusable-host still of Lee or the E!
+    // frame verified; left for Photo Enrichment / photo-sparsity to route.
+    {
+      slug: 'greta-lee-opalite-directorial-inspiration',
+      relatedIds: [
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto',
+      ],
+      year: 2026,
+      month: 8,
+      day: 7,
+      category: 'music',
+      title: "Greta Lee: the 'Opalite' shoot inspired her directorial debut",
+      snippet:
+        'Reflecting on her cameo in Taylor\'s self-directed "Opalite" video, Greta Lee told E! News that watching Taylor spin an idea into a finished film — conceived live on the Graham Norton couch — left her in awe as she readies her own turn behind the camera.',
+      sourceUrl:
+        'https://www.eonline.com/news/1434703/how-taylor-swift-inspired-greta-lee-after-opalite-music-video-collab',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Greta Lee — the "Indie Rock Goddess" among the cameos in Taylor\'s \'90s-infomercial "Opalite" video (released February 2026) — told E! News in early August 2026 that working on the clip stayed with her as she prepares to direct for the first time herself. Speaking alongside her "The Last House" co-star Wagner Moura, Lee described watching Taylor take the video from a spark to a finished film in real time. Per Lee, the concept was born on camera during a taping of The Graham Norton Show: "She just had a light bulb idea for a music video she wanted to do, and you see it happen on the actual show during the interview." Taylor then recruited that night\'s Graham Norton guests — the same couch that seated Cillian Murphy, Jodie Turner-Smith, Domhnall Gleeson and Lee, with Lewis Capaldi performing — for the video she went on to write and direct herself. What stayed with Lee was the speed and certainty of it: "I just have such a tremendous respect for that ability, to put an idea into action and to just do it like that. And as a woman, I have a lot of admiration for her." She framed it as fuel for her own turn behind the camera — her directorial debut, the horror film "The Eyes Are the Best Part." It is a rare on-record, cast\'s-eye account of Taylor\'s directing process, from a collaborator rather than a critic.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1434703/how-taylor-swift-inspired-greta-lee-after-opalite-music-video-collab',
+            source_title: 'Greta Lee Reveals the Inspiration She Got From Working Alongside Taylor Swift on "Opalite" Music Video',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+            notes: "Lee's direct quotes (the Graham Norton light-bulb idea; \"tremendous respect… to just do it like that\") and the directorial-debut framing. Original 403s the default fetcher; opens 200 in a browser.",
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-inspired-greta-lee-065900451.html',
+            source_title: 'How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+            notes: 'Syndication of the same E! News interview, used to verify the quotes without the paywall/UA block.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-opalite-music-video-domhnall-gleeson-greta-lee-1236653651/',
+            source_title: "Taylor Swift's 'Opalite' Music Video Stars Domhnall Gleeson, Greta Lee",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+            notes: 'Confirms the video, its release and its cast (Lee among them), independent of the E! interview.',
+          },
+        ],
+      },
+    },
     {
       slug: 'showgirl-orange-reformation-versace',
       year: 2025,
