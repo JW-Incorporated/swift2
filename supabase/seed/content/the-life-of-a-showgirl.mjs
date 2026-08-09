@@ -2622,6 +2622,21 @@ export default {
             focalPoint: '64% 28%',
           },
         ],
+        // Shop pass (2026-08-09): the Ganni mini dress and boots aren't
+        // identifiable to an exact retailer SKU from photos alone — the
+        // Louis Vuitton earrings are named and current. WebFetch-verified
+        // real product page + $590 price (curl blocked, 403 bot protection —
+        // luxury-site bot-blocking, same as the Etro entry in evermore.mjs).
+        products: [
+          {
+            brand: 'Louis Vuitton',
+            item: 'Louise PM Earrings',
+            retailer: 'louisvuitton.com',
+            url: 'https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396',
+            price: '$590.00',
+            inStock: true,
+          },
+        ],
       },
     },
     {
