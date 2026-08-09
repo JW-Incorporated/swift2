@@ -3275,11 +3275,11 @@ export default {
             kind: 'primary',
           },
           {
-            // Establishing shot of the named venue (the exhibit interior isn't
-            // on a reusable host); captioned as the building, not the display.
-            // curl HTTP 200 + image/jpeg, 6000x4000, vision-confirmed as the
-            // I.M. Pei pyramid with the "Rock & Roll Hall of Fame" entrance
-            // banner. CC BY-SA 4.0, Wikimedia Commons.
+            // Establishing shot of the named venue. curl HTTP 200 + image/jpeg,
+            // 6000x4000, vision-confirmed as the I.M. Pei pyramid with the
+            // "Rock & Roll Hall of Fame" entrance banner. CC BY-SA 4.0,
+            // Wikimedia Commons. Field-order fix #762 (2026-08-09): focalPoint
+            // moved to immediately after url; no values changed.
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
             // Glass pyramid and entrance banner sit dead center, just below the midline.
             focalPoint: '50% 48%',
@@ -3287,6 +3287,22 @@ export default {
             caption:
               'The Rock & Roll Hall of Fame in Cleveland, where the "Fate of Ophelia" display opened on Level 5 in June 2026.',
             kind: 'archival',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — the actual
+          // exhibit interior, from the Yahoo/ABC Audio article this moment
+          // already cites (its own embedded image, Yahoo's own Zenfs media
+          // network — an outlet-CDN precedent already used elsewhere in this
+          // codebase). curl 200 image/jpeg 630x354, downloaded and
+          // vision-confirmed: mannequins in the swimming-costume-style looks
+          // and beaded gown from the video, under blue-lit "TAYLOR" signage.
+          {
+            url: 'https://media.zenfs.com/en/abc_audio_244/d25a082ac3d338a56032835766d248f0',
+            // Center mannequin/costume detail sits just left of center, upper-middle.
+            focalPoint: '49% 40%',
+            credit: 'Rock & Roll Hall of Fame (courtesy), via Yahoo Entertainment / ABC Audio',
+            caption:
+              'Inside the display: mannequins wear the shimmering swimming-costume-style looks and beaded gown from "The Fate of Ophelia" video, under the museum\'s blue-lit "TAYLOR" signage.',
+            kind: 'primary',
           },
         ],
       },
