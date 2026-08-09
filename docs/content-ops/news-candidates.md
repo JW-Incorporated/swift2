@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 69
+
+## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
+
+- first seen: 2026-08-09 05:55 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift makes her music unavailable to Trump on TikTok after trolling  thenationalnews.com
+- sources:
+  - [unverified] thenationalnews.com — https://news.google.com/rss/articles/CBMiywFBVV95cUxOc1FDZmNBSUF3dnFlQUg0WUNsSmNMT3hHOFpoNG42a0Ftbnd4azNlODJOTG54UUVuQ0pjQV9JdHRQZDZTRUpqT0VaaV9IQVQ3MnY3UVZZUzhzdURDWDVPSXJWM3hoVjRtdWlGams2U1F6bHd5QWViS2M4UXYzWndiZm9xbGVnNXNpNTN5eVBNaGlVXzh4ajJPUkRSWjlVRkdDbHhtYmpHT2xtSERwSzZnTTBsRGo2M0ZzVkF5RDVpMjZNb0dFUHFLY2pMUQ?oc=5
 
 ## Team Trump Trolls Taylor Swift With Song Use Before Copyright Claim Brings Silence - Deadline
 
@@ -586,28 +594,3 @@ Stories: 71
 - summary: NFL analysts rip apart Justin Herbert and Madison Beer's Taylor Swift-Travis Kelce gimmick at Chargers camp  hitc.com
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxPZWRrT21tc0p4Mjg4bVlfX285aUo3YmxiTEJFcTN4b3phbnJGbzlDUVBWTmRhSndWNW0wUkFULU9wSmNYRmIxcUtFOFpyTmNxRDJobHVESnRKLVVPU3hvbkRrUXNPQ1pzbzRPdmltZ3BiVjR6Ymc3VFpSRUJBSHViR21mSFY1V19FRXd0YThXTk84UDluRHN4OEJMY3lRY04yNTEyamZ4dXBFaXNFNzlTMVVDeVFVOXl2ejdwMUFqMFZfRmNjWl9j?oc=5
-
-## Travis Kelce, Taylor Swift Receive Priceless Gift After Wedding - heavy.com
-
-- first seen: 2026-08-06 04:26 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce, Taylor Swift Receive Priceless Gift After Wedding  heavy.com
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPVWxvcXFDdFBKd1h6aHNqTlpoZzdHRm4zRTQxOEhnR3Y5X1l5eDdvLUo1VzNNVERrbks4ZHlwMUFEeTJfRWU4S1RBUjFveG8wc2JQbXNjQUI2b0J2VExULW9xWGttXzNjR2ZnVzctSnBCdFJraFcwZ0RFWmNhSVh0N1V2cDAxUjF6R0cwZmItS2lmZUgtTzZ2Z0lIVFFpRGtVU1l3dC1oT3M?oc=5
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQR1J0UWJMYVcxeGZRMjFGYTBsVHlyTEZBSXVjRC1lS3pJR1c2a2hXNGExVmdyZ2s1aFRDVk5ZUlJKa1NiWWR4ZDlBWVJfcmZLRWpLXzQzUHBrUmN1ejJkeXI5VHBDWU9EcmxkMGtQODVTdU9YYjQzVGJadDlhRzZyNVA3ZjN2cUtlci1WN0VGUUdwNmNRUGhsMFBpLXhwYmw2X0N0QnNR?oc=5
-
-## These 13 Taylor Swift songs were never released as singles, but I think they'd make anyone a Swiftie
-
-- first seen: 2026-08-06 04:26 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: These 13 Taylor Swift songs were never released as singles, but I think they'd make anyone a Swiftie  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxPMjI2eEloNGVqdzVRNXlEdmFPczNJd1lmN2ZpU3BpMDZMd1k3OEt1X1UyTVlLZEZycmRMR1ZFeEJrWUdBWldLRU1jbjlpTG5YY2FmQi0tbDNoQktvYnREWUFiMlBCaWVtZHpNR0VvQUdiMzZKT2x2dXY4Q2ZnZFgxV3lJY2lXLXcwMi0xbS14eXJ4cFBERzd5OTNCY2ZCWF9TRy1VdFhzYmtKdlRDcmxrOVItMXVFUjVXQ3VXdFBxUEUtejRmdjJrTTJaa2hjRXFvNUlHR0ZqNVp0ZnBpc0dEWEVBVQ?oc=5
-
-## Taylor Swift & Travis Kelce's Wedding Guests Were Unimpressed By This 'Tacky Detail' - Yahoo
-
-- first seen: 2026-08-06 04:26 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce's Wedding Guests Were Unimpressed By This 'Tacky Detail'  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQQ3Ztb1Q5eUMwdThtcURfMElpd19PajFfbkRmcmZiTEhCNWhLRzg1dTdpSzQ5blBqVFNrb1RqNmVGN0M3NGxEYmhGeXVZU1E3Nm1PUUx0Qld6UWZUSWNmdERMdWxYem9YbW1EOE9Zd2tGWldmdUJCRkJaSnh3SGgyWi1WRlRzQ2FwczB5a21iWUg3NWpPOXAxN3FERmxyX1p4OVZxT0FrRQ?oc=5
