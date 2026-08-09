@@ -4200,6 +4200,24 @@ export default {
             kind: 'reference',
           },
         ],
+        // Rumor Desk 2026-08-09: the structural home for the ongoing
+        // Taylor-vs-Trump thread this moment already records (the 2024 AI-fake
+        // endorsement, "I HATE TAYLOR SWIFT!"). A public political/copyright
+        // matter about her own music — no redline, no location. The removal is
+        // documented; the unconfirmed part is who issued the copyright block.
+        rumors: [
+          {
+            claim:
+              'Team Trump\'s TikTok posted Donald and Melania Trump watching fireworks — captioned "Mood because it\'s August and Donald Trump is your president," set to Taylor\'s "august" — taunting "I\'m sure @Taylor Swift is going to be super excited we used her song!" By Friday the audio was gone ("The copyright owner hasn\'t made this sound available in your country"); who pulled it stayed unconfirmed.',
+            reportedBy: 'Variety',
+            reportedOn: '2026-08-08',
+            status: 'unconfirmed',
+            url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
+            note: 'The muting is documented across outlets (Variety, Rolling Stone, Deadline, EW); what is unconfirmed is who issued the copyright block. Continues the Taylor-vs-Trump thread here — a "Father Figure" clip was similarly muted in Nov 2025. Resolves if Swift, her team, or her label confirms it acted (or it is shown to be TikTok\'s automated system); fades if no one claims it. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-09',
+          },
+        ],
       },
     },
     {
