@@ -261,9 +261,11 @@ describe('substanceScore over real vault content', () => {
     // unblock applied to feed-tiers.test.ts's hero-share ceiling). Same
     // pattern: a bound fit to one day's corpus snapshot froze every content
     // PR, including the very enrichment epic finishing the thin tail this
-    // assertion was measuring. Ratios measured 2026-08-09 post-#762: 5.46
-    // and 4.05 — both bounds keep real margin below that, not just enough
-    // to go green today.
+    // assertion was measuring. Ratios measured 2026-08-09: 6.35 / 4.05 on
+    // `main` as of this PR, and 5.46 / 4.05 on #1849 (a then-open photo
+    // PR this bug was blocking, since merged) — both bounds keep real
+    // margin below the lower of those, not just enough to go green today
+    // (#1849 was open, stuck on this bug, at time of writing).
     expect(at(0.95) / at(0.05)).toBeGreaterThan(4);
     expect(scores[scores.length - 1] / at(0.1)).toBeGreaterThan(3);
     expect(scores[scores.length - 1]).toBeGreaterThan(0.8);
