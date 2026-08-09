@@ -4184,7 +4184,23 @@ export default {
               'Kylie Kelce recording the July 23 "Not Gonna Lie" episode where she called Taylor family — "only making it official."',
             kind: 'primary',
           },
+        // Photo pass #762 (2026-08-09): a photo of Kylie Kelce, the subject
+        // of this beat — not a generic Taylor file photo. TODAY's own CDN
+        // (already allowlisted), curl 200 image/jpeg 1500x1000, downloaded
+        // and vision-confirmed. A second, Donna Kelce candidate was found but
+        // declined: its exact credit line could only be inferred from a
+        // companion photo on the same article, not confirmed for this frame.
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/rockcms/2026-07/kylie-kelce-webby-ky-260723-a8a747.jpg',
+            // Face upper-center-left of frame.
+            focalPoint: '49% 26%',
+            credit: 'Getty Images/The Webby Awards, via TODAY',
+            caption: 'Kylie Kelce at the 30th Annual Webby Awards in New York City, May 11, 2026 — weeks before she called Taylor and Travis\'s wedding "absolutely magical" on her podcast.',
+            kind: 'archival',
+          },
         ],
+      },
+    },
       },
     },
     {
