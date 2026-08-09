@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 75
+
+## Taylor Swift songs removed from Donald Trump's and White House's social media posts - ABC News & Hea
+
+- first seen: 2026-08-09 17:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift songs removed from Donald Trump's and White House's social media posts  ABC News & Headlines – Australian Broadcasting Corporation
+- sources:
+  - [unverified] ABC News & Headlines – Australian Broadcasting Corporation — https://news.google.com/rss/articles/CBMisgFBVV95cUxOZng2RVhyYjFlZVFOMy1DR0lvN0I3RHRxNGZZX2t0eEJlM2xTQ2lPUlZyZWlldUFhekRmc3ZoREo4QThNOXU2RjhoR2NmTVhGZGJWME4yMlFNR2RxenN6bkh2b0FoQWh6R2ZzSkhoNW1MLTZXc0tQVWpfWEZGY3B6SW9DSzNDY1B1eENRRXBuYV9aajJiLWdVVmZBU1BpWFBOcjNxeXotY2lxLWcyWE1PRFdR?oc=5
+
+## Ontario couple who scammed Taylor Swift fans out of hundreds of thousands of dollars to be sentenced
+
+- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Ontario couple who scammed Taylor Swift fans out of hundreds of thousands of dollars to be sentenced in October  CP24
+- sources:
+  - [unverified] CP24 — https://news.google.com/rss/articles/CBMi7wFBVV95cUxOUkNIcGJBS0luQlJHYTBiWXdnSUtQS1BPTnRHU1lSRFdXSW1CYWs5cV9UQTlYb3RSN2EtYTBFdXp0cUFFUXVDWXFzMWREUTROa1gwUFNuSXk5eU52RVJ0LWFwX3hra2dJREFRNWRrNVVwckpRR3MzLVpna0p2ZzNQd0htbDJtSUh3RXNmM0UtZ3FYSlQ4czZIczk0X1l5MnJyR2dKSHF2NE5BQ2g2bmVGMEx6bzRISlJoVVA0ellQbklvM0hnNkxYVjlwclZIbjFYa0s1X19VS1BlWlFHcEtRdVpoek0xUFNxV1RGLUROcw?oc=5
+
+## Avalanche’s Parker Kelly Swapped Taylor Swift For Noah Kahan At Coors Field - Yahoo Sports
+
+- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Avalanche’s Parker Kelly Swapped Taylor Swift For Noah Kahan At Coors Field  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijAFBVV95cUxOU2E5SGdHNENmTFBncEE5dnNLeFZOdGdwbExKbFZaOHhSS3NBM05nc0dscEFQTFJOZHhnQng0QnhCSDdoRDZmLUE5U2t4aWdia1N5MXgyczJmRWUtVmpyZFllVnJsVlhQU2FjR3pUVUpNM0ZDQVRISDY0N2wyeE5sNk1iQ1FzNXlGNVpMQQ?oc=5
+
+## Trump and Taylor Swift Clash Again After Her Song Is Removed From His TikTok Post - Currently.com
+
+- first seen: 2026-08-09 17:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Trump and Taylor Swift Clash Again After Her Song Is Removed From His TikTok Post  Currently.com
+- sources:
+  - [unverified] Currently.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOcWUwOUlYZ0VfNjliM1FNLVZnV0pxTlBPc3pBWnZUOFhKZl83aE9iUHd3Y3hObXpMTndjUkRPRHIwZFRWc2N0cGZMUlFvUGtJSEprb25zN3hqZXZRVnRRU1BCR1o4RE01dnJWejFVTFBTZU91V3BuVUpOdUxoakxucGNJTDBoX2lE?oc=5
+
+## Travis Kelce, Taylor Swift Make First Appearance Since Training Camp - heavy.com
+
+- first seen: 2026-08-09 17:44 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce, Taylor Swift Make First Appearance Since Training Camp  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNNEVFX3FHT2JuQ24wdEhaS2Vtc2hESnBpZWx1N3RwTmdGZ3RmZ3NvTC1tbWVZaTRlblhuNG8xam5GZmQ2dXM3SjIxSXZXUjNEa19ZT3RQYk5hNk9UbFo3MkotODlpeDlDRlhOZGN0S3dRajBzSmRpSUNxRlYwY1V4bnF4RE8yOW1vNHh1cUFGX21wUjIwc3BNbnhpLW5jM1dQeWxPMjBXZGVZaWJ0a0ln?oc=5
+
+## Taylor Swift’s songs pulled from Trump-linked TikTok posts - northeasttimes.com
+
+- first seen: 2026-08-09 17:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s songs pulled from Trump-linked TikTok posts  northeasttimes.com
+- sources:
+  - [unverified] northeasttimes.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOU2JOcXpyMERja09zRElvVjNFdGRIa2N6VV9WTGJDQWVFc2kwOWVVMTJEcFdVTXV1VTEtUVFlMms4UGFLRkNqdHVINzREOXVNWTBSS1lTS19FV3puV2w1aFlkLVpoelR0Xy1fVlZNcGg2X01PS1phVlVxVHlHVnRaazVxQ0hySndkOGFFbEtmcVF3Umh0aUgtb2EtMXludw?oc=5
+
+## Copying Taylor Swift's everyday habits could make you happier, according to science - Yahoo Creators
+
+- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Copying Taylor Swift's everyday habits could make you happier, according to science  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi1gFBVV95cUxOYUZNMTR5a2toMkN0YldtRV9kN3VrRmxWT0pPWlRZN0lNbnRLWDNBOXppNi1ZbEdiUFRqZmliZGJ1bUdreWVzTEJTWDA1bGNES2pfd0xNVkx5WVpnTkFxdFA3cFBkQTBMeW9xZXl5cEVteFhEeXdISTFxUXY5a3dSZzRVUTd6aWhSTzRTVjZjWHRTb0xvVG5wYlR6Y29vdkF5dGJseUFwR1RxT2UwUEFlTnBHVmJvSE9nZnR3RDJDMWRacjVxbWpleHlfdlJaQ0JxWWhPWHZR?oc=5
+
+## FILE PHOTO: Taylor Swift performs in Vancouver - galvnews.com
+
+- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: FILE PHOTO: Taylor Swift performs in Vancouver  galvnews.com
+- sources:
+  - [unverified] galvnews.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOYlRsdVgtNWt6WnQzT0htZURnQk1oSkROM1hlTmZDYU13WWVKbXZITUhNQnlwUndiSUZQam9mR3JlZDhQeDJlWXgtR3R6OUI0UUlCTVNGN2NNeHRVMVI2SGNHNFlUbmVCUTBPUkotaVM5RU1aRnMtWGVZQ19WSVhHSDF4ekRkZjQ1d3RuN090aU82dWNVT0NaU3BLSl9iazh2V28wYWk4c052dEplQmJaR1pHTnlfUzJiZGFJLTRBcTBjY0ZuaHQzMDBvQk1XUE1qanhfQWJFOA?oc=5
 
 ## Taylor Swift songs removed from Trump campaign material - Yahoo
 
@@ -86,11 +150,13 @@ Stories: 71
 ## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
 
 - first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
 - sources:
   - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
   - [unverified] Reuters — https://news.google.com/rss/articles/CBMiugFBVV95cUxQem8tQ281dWR1RWV5ZVFHX1BEQWZnNU1RaW1uZm40S0VjZzZEbGxVVHVLZkJDZjBkRzM4bUNrNVIwR0RSbDM1MFo1UVdYUV8yLXZKc1QyZEZxcFlHOGgtZzcxYk0zNzZiWlc3TExjMlU4cGhYS0tzT09feE93US1TMEh0eXlGMk12VHNRQUdkcDdmM2ZDRGhBcExEazVUOVBaTlNXc2ZZbmd4SDBxcW1kU1pFSHJZT0dqU1E?oc=5
+  - [unverified] CBC — https://news.google.com/rss/articles/CBMimwFBVV95cUxQb3BnM2Y5MVY0Vzl0WW94dnhJN1ZWN1cyRXUyVzF4QTAzOG5ncDNZUG9zbVhjakMxcmtEbFAwZ20tNFBNdDhxNXEtUlFLMXJWMTFwanFrcU91ZFRtY3c3YWZJSm50SDRPaGctaTFXdnAzQ041eGNVMThuaFZQaXUzYkhfSjBDcW52TFNPWkpFQXNCQjI5d2FURFJvVQ?oc=5
+  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMinwFBVV95cUxPc1pPb3pnTUxvN1JqNmdHTzlSbHNhbVRpQkhsUHF1cDZDOFg1d2dKcHdsR1lSdHFOV3c5ci11RjlycUNEcjVzWUtjV1BvdmxHd1ZuWlhRQWd3bkJOSXp3UTl6RS1KamNNSmlLdFBsMjNBcjBSRVplR0ZCN2p3TXdsMTk0dm0tZUFFdl8zNEhCLThQbGxsYWxBYkcteXFEQ1U?oc=5
 
 ## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
 
@@ -175,12 +241,13 @@ Stories: 71
 ## Taylor Swift removes multiple songs from Trump social media posts - Entertainment Weekly
 
 - first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift removes multiple songs from Trump social media posts  Entertainment Weekly
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxOZ1NCc0lmeW5KRFZmbUZUSEN4czBISE9vNWFjT0lhNlZjbklkak5kQ1dDa21QTHdUSHdKcWd6bzR6SU9Xd2J6QmY4R1NJVFdJeUZlU0VpUXJhdWdTck9hR0ZJbUY4ZFdtMXVnS1I3eU1jNEg1R1ZqUnkyZ1p1YXdKQjlQdG5qTXZ2T2tnUjFKMjRlNVU?oc=5
   - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3lQekxKR3pHRXFHelB0ajhfcFhtbmoyZXB3clI2dDlQY0FObjJJTXBUc09hSElZYTd1YnlUckg2WXB4LVFZd0xBV1paYldGeUxITGFhZHNTUzlKRGVIU2dQLU56TG5wekxpM0ZJSWY4MzMtNktQdW1QOFp4bFB1cHBMQWpHRWF4MFF0SUFKOVd4c2VJZGRZaG5VSUVuYUJNWUE0OUZnR3M5ako2dmVQXw?oc=5
   - [unverified] Arise News — https://news.google.com/rss/articles/CBMikAFBVV95cUxOSFZOTGU1WWF4czE1QTNnbFl3ZThsdzMzOUdZMjdFSUdkRncwVTVNZHRYY0dYNWhzVnVKU2IwN0FYRFdGbWlyYXVWM3RiMHJ6eUF1RDRjcnYyNTdGTlF0QnpFSHBHVTU4SG5Pb0t1NGI1NXNFWmRhY095em5fSTZFSURlakZNWXRENzJRMmdqV00?oc=5
+  - [unverified] Sky News — https://news.google.com/rss/articles/CBMitAFBVV95cUxPNTZyR0FiR21BVHhoN1V6bVVRLWY0NDVWRDVldXVqYmNXT3B4YmRBTEo0aHhEU3hEYkJNa1NqbDNWS3FTZk9qQXRRZ2x0bFJlLTVUWmo3RlFhYmF0eUY2OTZmY2R3VE9YamxDTGxRU3ZtTlFJSC1nRnBQcDU3czk1a3czXzNXS3F5V3NhS2owRFhLQmxNcU90UktwYWRTRVVZNkFsUDN0SjE1WkdCekFLSi1rNlQ?oc=5
 
 ## The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4 - PureWow
 
@@ -577,38 +644,3 @@ Stories: 71
 - sources:
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMitAFBVV95cUxObDFMWmJzWkdmTmlpYzh4RGRZWDNybUxKRVNtS0ViSmY2NHFsajVsUUtqSF80eldMeE0wYVhMRGdQQXh4LWdqUjQyVlNTU1Bob2o2eFVMSmVXcDJxQWt3RkE3d3RnQmNtY25CeVdqbGN2SVduOUNjTVFMX2NBZjVlNFllek5KTU8wRkgtamMxYkEzYUE5c3B4MXoyaGtTT0RVZXN1OEY0QWF1QVBFa0lieDNyQmjSAboBQVVfeXFMT3lya3FxeDktSlZWUGJ6UlNST0p1aktBR0JFVVpNMlhwSG1DeXNZWlVfX1ZLdG8xWk93RUJnVkR0eWFTdkI2cjJ1Y2lCYnZYVW0tdExqcFFBcVIzaEY5aURCQVFGTUdaQUpHMHp2TmFmNGItX0lpTkJMMmRiRGU3eFd3N3RZRDFvUHJZRUhwUzNvemc4N2tjd1c4WGR2bjdiVktBdkJpT3FKVTNRSWVxaHNzaXVYVmNmWTh3?oc=5
   - [unverified] WFIN — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNXzRIU05UU1gyd1drNTRvRURKajU0N21qUXpjXy1QVjdNZm9fS1F3aC1CUHZSQk55RXpNbjA2ZkNxTDdoLUQwYnN4djg1czFseUNCbVYyTlhucE1wYV9OQVBMMGpQZnBvaVhTYlJJSXlwV0g0cExEd3FvNGFkbXFjOTJ4MGdldVU2dVZzQm5wdV9ycGRIOHlRdE9KaktNYmNVQTd2dndDQ21mR3F2QmwwU2xWZ1dQTEF1UTlGNFdFcHQ?oc=5
-
-## During a recent visit to NBC6, Perez Hilton spoke about Taylor Swift’s wedding, his recent move back
-
-- first seen: 2026-08-06 15:25 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During a recent visit to NBC6, Perez Hilton spoke about Taylor Swift’s wedding, his recent move back to Miami and what it’s been like returning to the city where he grew up.  facebook.com
-- sources:
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxPQnpONllpX0F4REVKdndJN2FhbnI2eTRhY2ZpRHg1cHZsWFhXOEUzRENOQlZLa3UzMHNjNUVlakVkNzdhM1BYRkM4OTZzeklDRkpISG5TSjl4a0ZEbUxlUnVrejg2WXExWlVnX2ktZVVQTEh5bzNySzRxZ1NEN01GT1RydFQtSTQzR05fSEFpMkduSnNFYVYyZFctRl8tQnQ1MHpvNDdMN19CZHMySm5OVnkySC1oN1dBc3BFV0hhMW9aSlBTdEdJb3liQ2pYQWdFTjAxSTFPQjBDdDlCX0xZ?oc=5
-
-## Kylie Kelce Shares the Real Reason Husband Jason Cried So Much at Travis Kelce and Taylor Swift’s We
-
-- first seen: 2026-08-06 15:25 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Kylie Kelce Shares the Real Reason Husband Jason Cried So Much at Travis Kelce and Taylor Swift’s Wedding  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxPcGdBTUMwaVl3aHNxTDY2OGhjWE45VWRJb3VMS0NWTjdWZFhaMC1CaXlfb2J4NjBwRjF3TmNSU016OWItMm9KemN0djhsU1gtSmN3QUhVV21vVDhkQlF6azRRNWpiRXp6ZGRRU1E0NEV4QU9LUHBjbWU0TDhDcFFxY2NWYnVPS1BSc0Q5OVZqR3hwaWhDSy1NSWdqOFBNcDRYMDlVWVdwZzN1MURpRVE?oc=5
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPekcyX1kxaGRSdVBTY2NnZzVvczNYVXI0a0hKQmthLTFQVnFCak9nd3VHemdJTk1EaHBxVG96OVJYOUVFQ3FwRTlXU0VkZVBoNkVsQmxXR2tqNkcwZGtmRU5BWHE0Zmo3WlhPUmVkdXZwWlUtR3JZMFNuTFhFRjN2TmpaOU90S2VLSWZZU0xOWFA3MVZFY2FYTFhCdGhKUXdoZHp6QmhVNjRXLXdjbC1UVDBR?oc=5
-
-## Taylor Swift's Ring: The Sequel - IDEX Online
-
-- first seen: 2026-08-06 15:25 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Ring: The Sequel  IDEX Online
-- sources:
-  - [unverified] IDEX Online — https://news.google.com/rss/articles/CBMiUkFVX3lxTE9vZ0ItNVV0QTZPbE8zdkdrY3RxMTVGc19MS2g1aFY1bjJfdUlFSThySHhpMUxrTmx5ZmlfQ0g1Y05nVTJDRWZBeUd1Zkl2XzZBM2c?oc=5
-
-## Kylie Kelce reveals who cried at Taylor Swift, Travis Kelce wedding - USA Today
-
-- first seen: 2026-08-06 15:25 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Kylie Kelce reveals who cried at Taylor Swift, Travis Kelce wedding  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixAFBVV95cUxPRFZEVjNvQl9LNmRoSm1XMVFET0lXQVppTlRJVzBtNzl3YnAyV1djRjl1Qjk2eUdmbVVCbDlwT0Y1TEJBcmxpNU5VVnVWYzBXZVRaM0dodFNHV25STjlkT0lGbWJXSllsNFh4X1JNVmZ4OWRXZmg2SDl4MlA3UkdBdGpVYXNLU1ZBX3VyX3NKVlVyenJXVjhOTzhpTlRaN3M4MUdVdkxhY0xzaktJdWtsNEd0TDhsYld4TlNlNjI4Sl80R012?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSmJ3Z0hYXzN2Zmw3TlMzb0VvdlZIUmxNc2NuUUJvWlRRRXl0eGJxNHQzMjloUGtPaXNWTUZkX3hLTkNTZDY5X05PVEE4dEZyeVhqeUVLRUgteTlFUnhxYy1mWVFtS0pCb19QMWdzOFlRMllNNlNTcEZkNlh4ZlNFQ2VDZUI0QlMzOHdQMmd1X0JqSjhPVTcyMFI1YmZ4RUQ2VDY0Tw?oc=5
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMinwFBVV95cUxObnJiNXVXX3RhY0YtZ3V1SzY2Y3o3VTY5NU9vOUg1eGpIY1ZKZVQwcDI2eU92Sjh1bmdaQXBkRmFmaGFMNVhFVzFFeXo1cGE4RFJkbjFHZDdyUnJ0VmV4SE1uREFrNTJnSHQ3VEFTb1ZVbEtRZmJhUDN4LS0zWGZERWJDaEk3SnBaNDl6XzRlZTZhRDVYYXRRRmpWcy1HckU?oc=5
