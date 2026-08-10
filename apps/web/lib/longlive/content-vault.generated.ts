@@ -359,6 +359,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201563/rs_600x600-150703170056-600.Taylor-Swift-Calvin-Harris-Instagram.ms.070315.JPG", credit: "E! Online / Instagram", caption: "Calvin Harris giving Taylor a piggyback ride at the July 3, 2015 Rhode Island Independence Day party — the same weekend as the group's flag-onesie photos.", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/673098/10-reasons-why-taylor-swift-s-fourth-of-july-celebration-was-better-than-anyone-else-s-party" }, { name: "E! Online", url: "https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide" }],
+      relatedIds: ["moment:vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift"],
     },
     {
       id: "vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift",
@@ -370,6 +371,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016518/rs_634x1024-160618144035-634.Tom-Hiddleston-Taylor-Swift-Beach-kiss.tt.061816.jpg", credit: "TheImageDirect.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind" }, { name: "Hello!", url: "https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/" }],
+      relatedIds: ["moment:vault-1989-matching-flag-onesies-for-the-fourth-of-july-calvin-harris-i", "moment:vault-1989-sightseeing-at-the-colosseum-hand-in-hand-in-matching-outfit"],
     },
     {
       id: "vault-1989-sightseeing-at-the-colosseum-hand-in-hand-in-matching-outfit",
@@ -381,6 +383,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016528/rs_634x1024-160628080313-634.Taylor-Swift-Tom-Hiddleston-Rome-JR-062816.jpg", credit: "INFphoto.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind" }],
+      relatedIds: ["moment:vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift"],
     },
     {
       id: "vault-1989-matching-outfits-through-lax-hours-before-a-flight-to-austra",
@@ -673,6 +676,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg/960px-Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg", credit: "Paolo V / Wikimedia Commons, CC BY 2.0", caption: "Onstage at SoFi Stadium on Aug. 9, 2023 — the night of the 1989 (Taylor's Version) announcement — during the Midnights act.", kind: "primary", focalPoint: "62% 45%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109741404%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109741404%29.jpg", credit: "Paolo Villanueva / Wikimedia Commons, CC BY 2.0", caption: "The 1989 act at SoFi that same night — one of the not-so-subtle blue hints dropped across the show before the screens flipped.", kind: "primary", focalPoint: "72% 56%" }],
       sources: [{ name: "Taylor Swift Reveals '1989 (Taylor's Version)' Is Coming at L.A. Tour Finale", url: "https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/" }, { name: "6 Best Moments From Night 6 of Taylor Swift's Eras Tour at LA's SoFi Stadium", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-la-recap-night-6-best-moments-sofi-stadium/" }],
+      relatedIds: ["moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record"],
     },
     {
       id: "vault-1989-the-night-famous-premiered-and-she-said-no",
@@ -1598,6 +1602,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", caption: "Taylor on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the \"siren red\" lip and blunt bangs of the Red (TV) beauty look, the night before the album's release.", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/style/taylor-swift-red-beauty-look" }],
+      relatedIds: ["moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s"],
       products: [{ brand: "NARS", item: "Lipstick in Ravishing Red (Matte)", retailer: "amazon.com", url: "https://www.amazon.com/Lipstick-Ravishing-Matte-3-5g-0-12oz/dp/B082P4X6FV", isAlternative: true, altNote: "No exact shade is named for this look — a real matte red lipstick matching the overlined \"siren red\" mouth described." }],
     },
     {
@@ -1671,7 +1676,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg", credit: "NBC", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }],
-      relatedIds: ["moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi"],
+      relatedIds: ["moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi", "moment:vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv"],
       products: [{ brand: "David Koma", item: "Crystal-Embellished Cady Mini Dress", retailer: "runwaycatalog.com", url: "https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress", price: "$1,210.00", isAlternative: true, altNote: "Her exact 2021 dress isn't currently listed anywhere verifiable — this is a current David Koma crystal-embellished mini in the same signature style." }],
     },
     {
@@ -1809,6 +1814,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://i.ytimg.com/vi/_ptL-dwudyw/hqdefault.jpg", credit: "The Hollywood Fix / YouTube (arrival footage still)", caption: "Taylor arriving at the Beacon Theatre for the Tribeca Festival \"All Too Well\" conversation, June 11, 2022.", kind: "primary" }],
       sources: [{ name: "Variety", url: "https://variety.com/2022/film/news/taylor-swift-all-too-well-tribeca-festival-1235291648/" }],
+      relatedIds: ["moment:vault-lover-blake-lively-and-ryan-reynolds-help-her-ring-in-30-at-oscar-"],
     },
     {
       id: "vault-evermore-the-deluxe-edition-surfaces-right-where-you-left-me-a-narrat",
@@ -1833,6 +1839,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Mr. Perfectly Fine (Taylor's Version) (From the Vault).\"", kind: "primary", focalPoint: "50% 30%" }, { url: "https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg", credit: "Billboard", caption: "Taylor Swift and Sophie Turner, whose Instagram Story reaction to the song prompted Taylor's \"bending the knee\" reply.", kind: "archival", focalPoint: "50% 28%" }],
       sources: [{ name: "Mr. Perfectly Fine", url: "https://en.wikipedia.org/wiki/Mr._Perfectly_Fine" }, { name: "Taylor Swift Responds to Sophie Turner's 'Mr. Perfectly Fine' Reaction", url: "https://www.billboard.com/articles/columns/pop/9552800/taylor-swift-responds-sophie-turner-reaction-mr-perfectly-fine" }],
+      relatedIds: ["moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault"],
     },
     {
       id: "vault-evermore-all-too-well-the-short-film-premieres-she-wrote-it-she-direc",
@@ -1976,7 +1983,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records / Beth Garrabrant (album cover)", caption: "Album artwork for Fearless (Taylor's Version), released April 9, 2021.", kind: "primary", focalPoint: "56% 30%" }, { url: "https://i.ytimg.com/vi/XKaMUm7YwZc/maxresdefault.jpg", credit: "Still from the official \"You All Over Me (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The vault opens: the \"You All Over Me\" lyric video title card, featuring Maren Morris — proof the re-recordings could mint new canon, not just replacements.", kind: "archival", focalPoint: "50% 45%" }, { url: "https://i.ytimg.com/vi/rFjJs6ZjPe8/maxresdefault.jpg", credit: "Still from the official \"Mr. Perfectly Fine (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The \"Mr. Perfectly Fine\" title card — a headless tuxedo figure in fog, the vault track that became the era's biggest surprise hit.", kind: "archival", focalPoint: "50% 40%" }, { url: "https://i.ytimg.com/vi/aOa6D6ku3dM/maxresdefault.jpg", credit: "Still from the official \"That's When (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The \"That's When\" title card, crediting Keith Urban's feature.", kind: "archival", focalPoint: "50% 55%" }, { url: "https://i.ytimg.com/vi/dHdAN4FXzmc/maxresdefault.jpg", credit: "Still from the official \"Don't You (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The \"Don't You\" title card.", kind: "archival", focalPoint: "50% 45%" }, { url: "https://i.ytimg.com/vi/yuFuwXd-B9E/maxresdefault.jpg", credit: "Still from the official \"Bye Bye Baby (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The \"Bye Bye Baby\" title card, closing out the six-song vault.", kind: "archival", focalPoint: "50% 45%" }],
       sources: [{ name: "Fearless (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)" }],
-      relatedIds: ["moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas", "moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever"],
+      relatedIds: ["moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas", "moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever", "moment:vault-evermore-mr-perfectly-fine-opens-the-vault"],
       threadIds: ["taylors-version"],
       significance: "notable",
     },
@@ -2027,6 +2034,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/5UMCrq-bBCg/hqdefault.jpg", credit: "Republic Records / YouTube (official music video still)", caption: "Still from the Blake Lively-directed \"I Bet You Think About Me\" video — Taylor as the red-dressed wedding crasher — via the video's YouTube thumbnail.", kind: "primary", focalPoint: "48% 40%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Blake_Lively_%284994696823%29.jpg/500px-Blake_Lively_%284994696823%29.jpg", credit: "Josh Jensen, Wikimedia Commons (CC BY-SA 2.0) — Blake Lively, 2010 (archival, era context; not the video shoot)", caption: "Blake Lively — the friend Taylor finally got to work with, in Lively's directorial debut.", kind: "archival", focalPoint: "50% 16%" }],
       sources: [{ name: "I Bet You Think About Me", url: "https://en.wikipedia.org/wiki/I_Bet_You_Think_About_Me" }, { name: "Taylor Swift Releases Music Video Directed by Blake Lively", url: "https://www.hollywoodreporter.com/music/music-news/taylor-swift-blake-lively-music-video-red-taylors-version-1235047645/" }],
+      relatedIds: ["moment:vault-midnights-a-crescent-moon-dress-for-her-34th-birthday-with-blake-livel"],
     },
     {
       id: "vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-",
@@ -2382,6 +2390,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/95615213/photo/peoples-choice-awards-2010-inside.jpg?s=594x594&w=0&k=20&c=i2sE4_vzMgI0z9xq55bKp3xHMw8YS29LcycMA7v6bWU=", credit: "Michael Buckner/Getty Images", caption: "Backstage in the Jenny Packham mini with her Favorite Female Artist trophy, Jan. 6, 2010.", kind: "primary" }],
       sources: [{ name: "Taylor Swift Styled", url: "https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-wins-favorite-female-artist-at-2010-peoples-choice-awards-960796/" }],
+      relatedIds: ["moment:vault-red-a-jenny-packham-lace-gown-blooms-with-red-at-the-2012-cmas"],
       products: [{ brand: "Jenny Packham", item: "Sirocco", retailer: "jennypackham.com", url: "https://www.jennypackham.com/products/sirocco", price: "$4,930.00", isAlternative: true, altNote: "Her Resort 2010 mini is discontinued -- a current Jenny Packham mini in bordeaux, not white, same house (Louboutin pumps, Neil Lane jewelry not separately sourced)." }],
     },
     {
@@ -2406,7 +2415,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-05.jpg", credit: "Just Jared Jr.", kind: "primary" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/photo-gallery/231981/taylor-lautner-taylor-swift-team-01/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Valentine%27s_Day_(2010_film)" }],
-      relatedIds: ["moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center", "moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner", "moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner"],
+      relatedIds: ["moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center", "moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner", "moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner", "moment:vault-fearless-today-was-a-fairytale-breaks-a-download-record-in-a-week"],
     },
     {
       id: "vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center",
@@ -2627,6 +2636,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"Today Was a Fairytale.\"", kind: "primary", focalPoint: "67% 75%" }, { url: "https://i.ytimg.com/vi/xSWVPqnKcXQ/hqdefault.jpg", credit: "Taylor Swift via YouTube (official lyric video)", caption: "The title card of the Taylor's Version lyric video, built from the single's white-dress cover shoot.", kind: "archival", focalPoint: "50% 45%" }],
       sources: [{ name: "Today Was a Fairytale", url: "https://en.wikipedia.org/wiki/Today_Was_a_Fairytale" }, { name: "Today Was a Fairytale by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/today-was-a-fairytale" }],
+      relatedIds: ["moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner"],
     },
     {
       id: "vault-fearless-hey-stephen-addressed-to-the-opening-act",
@@ -2907,7 +2917,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg", credit: "Disney+ (still from folklore: The Long Pond Studio Sessions)", caption: "The Free People velvet shirt dress, in a still from the Disney+ special.", kind: "primary" }],
       sources: [{ name: "Fashion Sizzle", url: "https://fashionsizzle.com/2020/11/28/taylor-swift-wore-free-people-blouse-shirt-dress-for-folklore-the-long-pond-studio-sessions/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions" }],
-      relatedIds: ["moment:vault-folklore-folklore-the-long-pond-studio-sessions-marks-her-directorial"],
+      relatedIds: ["moment:vault-folklore-folklore-the-long-pond-studio-sessions-marks-her-directorial", "moment:vault-midnights-a-70s-lace-slip-dress-and-free-people-fur-coat-for-lavender-"],
       products: [{ brand: "Free People", item: "Lux Velvet Shirt Dress", retailer: "revolve.com", url: "https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/", price: "$139.00", inStock: false }, { brand: "Tiffany & Co.", item: "Tiffany Infinity Bracelet", retailer: "tiffany.com", url: "https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html", price: "$350.00" }, { brand: "Melinda Maria", item: "Perfect Pearl Stacked Ring", retailer: "melindamaria.com", url: "https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold", price: "$75.00", isAlternative: true, altNote: "The exact Soleil stacking set is discontinued — this is a current Melinda Maria stacked ring, same brand and spirit." }],
     },
     {
@@ -3125,6 +3135,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png", credit: "Republic Records", caption: "\"cardigan,\" nominated for both Song of the Year and Best Pop Solo Performance.", kind: "primary", focalPoint: "40% 45%" }, { url: "https://i.ytimg.com/vi/trIjpVH8h88/hqdefault.jpg", credit: "Taylor Swift via YouTube (official lyric video)", caption: "The \"Beautiful Ghosts\" lyric video — the stray Cats credit that completed the six-nomination slate.", kind: "archival", focalPoint: "50% 45%" }],
       sources: [{ name: "Folklore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }, { name: "Taylor Swift's folklore Sweeps 2021 Grammys Nominations", url: "https://www.eonline.com/news/1211337/taylor-swifts-folklore-sweeps-2021-grammys-nominations" }],
+      relatedIds: ["moment:vault-ttpd-fortnights-grammy-double-nominated-for-both-record-and-song-"],
     },
     {
       id: "vault-folklore-cardigan-the-lead-single-with-a-video-she-directed-herself",
@@ -3425,6 +3436,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg", credit: "Steve Granitz/WireImage", kind: "primary", focalPoint: "50% 12%" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1095478/revisiting-taylor-swift-s-gorgeous-american-music-awards-looks" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-shines-in-sparkly-green-dress-ahead-of-2019-amas-artist-of-the-decade-honor-136894" }],
+      relatedIds: ["moment:vault-red-a-gold-julien-macdonald-gown-altered-with-a-hidden-message"],
       products: [{ brand: "Alamour The Label", item: "Isabel Open Plunge With Thigh Slit Sequins Gown", retailer: "alamourthelabel.com", url: "https://www.alamourthelabel.com/products/isabel-gown?country=US", price: "$357.21", isAlternative: true, altNote: "Her custom Julien Macdonald gown was never sold at retail -- this is a current made-to-order emerald sequin gown, a one-shoulder plunge rather than a draped silhouette." }],
     },
     {
@@ -3531,6 +3543,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg", credit: "Backgrid", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2019/12/14/blake-lively-ryan-reynolds-help-taylor-swift-celebrate-her-30th-birthday-in-nyc/" }],
+      relatedIds: ["moment:vault-evermore-a-tribeca-q-a-ends-in-a-surprise-all-too-well-singalong-blak"],
     },
     {
       id: "vault-lover-hand-in-hand-under-an-umbrella-after-the-cats-premiere",
@@ -4022,7 +4035,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024", credit: "Beth Garrabrant/Billboard", kind: "primary", focalPoint: "50% 32%" }, { url: "https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-bb-1548.jpg?w=1024", credit: "Beth Garrabrant/Billboard", caption: "Another Beth Garrabrant frame from the 1989 (Taylor's Version) beach shoot, run with Billboard's chart coverage of the record-resetting vinyl week.", kind: "archival", focalPoint: "50% 18%" }, { url: "https://i.ytimg.com/vi/tNxUxm3-658/maxresdefault.jpg", credit: "Taylor Swift/YouTube", caption: "The official lyric-video art for 'Is It Over Now? (Taylor's Version) (From The Vault)' — the vault track from this release that went on to hit No. 1 on the Hot 100.", kind: "archival", focalPoint: "50% 50%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-number-one-billboard-200-albums-chart-1235463917/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2023/11/05/taylor-swift-scores-the-biggest-debut-of-the-year-with-1989-taylors-version/" }],
-      relatedIds: ["moment:vault-midnights-billionaire-status-from-the-music-alone"],
+      relatedIds: ["moment:vault-midnights-billionaire-status-from-the-music-alone", "moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s"],
     },
     {
       id: "vault-midnights-a-vault-track-that-almost-made-the-original-1989",
@@ -4276,6 +4289,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/12/taylor-swift-chiefs-raiders-christmas-2023-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Kirby Lee/Getty Images via Billboard", caption: "Taylor in the red No. 87 Santa hat and red sweater, in the Arrowhead suite on Christmas Day 2023.", kind: "primary" }],
       sources: [{ name: "Sports Illustrated", url: "https://www.si.com/nfl/2023/12/25/raiders-chiefs-taylor-swift-arrives-with-santa-claus-fans-love-it" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/" }],
+      relatedIds: ["moment:vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents"],
     },
     {
       id: "vault-midnights-times-person-of-the-year-cover-shoot-in-three-looks",
@@ -4311,6 +4325,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/01/Taylor-swift-travis-kelce-jan-28-2024-baltimore-billboard-1548.jpg", credit: "Billboard", kind: "primary", focalPoint: "55% 38%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-curls-chiefs-ravens-afc-championship-game-1235591057/" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-afc-championship-kansas-city-chiefs-baltimore-ravens-travis-kelce/" }],
+      relatedIds: ["moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick"],
     },
     {
       id: "vault-midnights-custom-schiaparelli-with-a-midnights-clock-hidden-in-the-cho",
@@ -4567,6 +4582,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/cdb2d2b2b516-tcoatz-z.jpg", credit: "Taylor Swift / Republic Records (music video still) via Hello!", caption: "The lace slip dress and Free People faux fur coat, on the 70s-themed set of the self-directed \"Lavender Haze\" video.", kind: "primary" }],
       sources: [{ name: "SheFinds", url: "https://www.shefinds.com/collections/taylor-swift-lavender-haze-lacy-slip-mini-dress-music-video/" }, { name: "Hello!", url: "https://www.hellomagazine.com/hfm/20230127162890/taylor-swift-lavender-haze-fashion-beauty-moments/" }],
+      relatedIds: ["moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se"],
       products: [{ brand: "Beginning Boutique", item: "All Mine White Lace Mini Dress", retailer: "beginningboutique.com", url: "https://www.beginningboutique.com/products/all-mine-white-lace-mini-dress", price: "$99.99", isAlternative: true, altNote: "The original Free People slip and coat are discontinued -- this white lace mini is a current stand-in for the dress only, with a different lace construction (the fur coat not included)." }],
     },
     {
@@ -4646,6 +4662,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/12/01-taylor-swift-dec-13-2023-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-birthday-blake-lively-miles-teller-photos-1235556824/" }],
+      relatedIds: ["moment:vault-evermore-blake-lively-directs-i-bet-you-think-about-me-wedding-cake-c"],
     },
     {
       id: "vault-midnights-ringing-in-2024-with-the-mahomeses",
@@ -4668,6 +4685,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2024/01/21/3ea9f4b6-39c9-4026-aea6-be7d5a44af76/thumbnail/620x413/fe93c98a06090411f5266f68af3ce8b1/gettyimages-1950919592.jpg", credit: "Getty Images via CBS News", kind: "primary" }, { url: "https://assets1.cbsnewsstatic.com/hub/i/r/2024/01/21/bc1ab4aa-2929-4189-b2bb-a0b408647c54/thumbnail/620x413/9555c45396dfac8af60912df8cfb71ac/gettyimages-1950836092.jpg", credit: "Getty Images via CBS News", kind: "archival" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-chiefs-buffalo-bills-highmark/" }],
+      relatedIds: ["moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-"],
     },
     {
       id: "vault-midnights-a-mad-men-rerun-gave-midnights-its-opening-track",
@@ -5190,6 +5208,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://static3.refinery29.com/bin/entry/218/1155x/1120498/rexusa-1815036m.jpg", credit: "MediaPunch Inc/REX USA", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2013/11/56892/taylor-swift-cma-awards" }],
+      relatedIds: ["moment:vault-speak-now-a-pink-elie-saab-sequin-gown-at-the-billboard-music-awards"],
       products: [{ brand: "Mac Duggal", item: "Burgundy Satin Off-the-Shoulder Twist Evening Ball Gown", retailer: "macduggal.com", url: "https://macduggal.com/products/56188", price: "$598.00", isAlternative: true, altNote: "Her exact 2013 Elie Saab gown is long discontinued -- this is a current Mac Duggal gown in Wine, the same deep red-wine color family." }],
     },
     {
@@ -5276,6 +5295,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2012/11/46th_CMA_Awards_12.jpg?w=1500", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/gallery/cma-2012-arrivals-taylor-swift-385607/" }],
+      relatedIds: ["moment:vault-fearless-a-jenny-packham-resort-mini-for-the-2010-peoples-choice-awar"],
       products: [{ brand: "Jenny Packham", item: "Sirocco", retailer: "jennypackham.com", url: "https://www.jennypackham.com/products/sirocco", price: "$4,930.00", isAlternative: true, altNote: "Her exact 2012 rose-appliqued gown is long discontinued -- this is a current Jenny Packham gown in Bordeaux rather than nude lace, same house." }],
     },
     {
@@ -5313,6 +5333,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://townsquare.media/site/252/files/2013/11/taylor-swift5.jpg?w=980&q=75", credit: "Jason Kempin/Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/11/taylor-swift-11.jpg?w=980&q=75", credit: "Jason Kempin/Getty Images", kind: "archival" }],
       sources: [{ name: "Mix 95.7", url: "https://mix957gr.com/taylor-swift-dress-2013-american-music-awards-red-carpet-photos/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/American_Music_Awards_of_2013" }],
+      relatedIds: ["moment:vault-lover-a-shimmering-green-julien-macdonald-gown-at-the-2019-amas"],
       products: [{ brand: "Windsor", item: "Nicki Beaded Fringe Mermaid Formal Dress", retailer: "windsorstore.com", url: "https://www.windsorstore.com/products/nicki-beaded-fringe-mermaid-formal-dress-05002001093625", price: "$99.90", isAlternative: true, altNote: "Her exact altered runway gown is one-of-a-kind and long gone -- this is a current gold beaded gown in the same spangled-gold spirit." }],
     },
     {
@@ -5349,7 +5370,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800", credit: "GC Images / Getty Images, via Bustle", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/" }, { name: "E! News", url: "https://www.eonline.com/news/367789/taylor-swift-and-one-direction-s-harry-styles-spotted-together-at-central-park-zoo" }],
-      relatedIds: ["moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square"],
+      relatedIds: ["moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square", "moment:vault-red-a-birthday-minibreak-to-the-lake-district-spotted-feeding-do"],
     },
     {
       id: "vault-red-a-birthday-minibreak-to-the-lake-district-spotted-feeding-do",
@@ -5361,7 +5382,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/ea807ef4c932-bowness-z.jpg", credit: "HELLO!", caption: "Bowness-on-Windermere, the Lake District village where the visit took place — not a photo of Taylor or Styles, who could not be verified in any available frame from the trip.", kind: "primary" }],
       sources: [{ name: "HELLO!", url: "https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/" }],
-      relatedIds: ["moment:vault-folklore-the-lakes-the-lake-district-escape-fantasy-saved-for-the-del"],
+      relatedIds: ["moment:vault-folklore-the-lakes-the-lake-district-escape-fantasy-saved-for-the-del", "moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles"],
     },
     {
       id: "vault-red-a-virgin-islands-getaway-spotted-at-dinner-at-cocomaya",
@@ -6057,6 +6078,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2018/05/swift-lunch/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london-04.jpg", credit: "Backgrid USA", caption: "Taylor and Joe Alwyn heading to the car after their fish-and-chips stop at The Flask, May 30, 2018.", kind: "primary" }],
       sources: [{ name: "W Magazine", url: "https://www.wmagazine.com/story/taylor-swift-joe-alwyn-photographed-date-london" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-steps-mini-skirt-232044419.html" }, { name: "Just Jared", url: "https://www.justjared.com/2018/05/31/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london/" }],
+      relatedIds: ["moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic"],
     },
     {
       id: "vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic",
@@ -6068,7 +6090,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201869/rs_634x1024-180709130925-634-Taylor-Swift-Joe-Alwayn-Turks-And-Caicos-JR-070918.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "SBMF / BACKGRID", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/950442/taylor-swift-and-joe-alwyn-hold-hands-in-turks-and-caicos" }, { name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2018/07/05/taylor-swift-vacations-with-joe-alwyn-in-turks-caicos/" }],
-      relatedIds: ["moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island", "moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island"],
+      relatedIds: ["moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island", "moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island", "moment:vault-reputation-a-fish-and-chips-pub-date-at-the-flask-no-red-carpet-in-sigh"],
     },
     {
       id: "vault-reputation-steak-wine-and-a-rare-london-date-night-at-hawksmoor",
@@ -6454,6 +6476,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary", focalPoint: "42% 20%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour" }],
+      relatedIds: ["moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to"],
       products: [{ brand: "12th Tribe", item: "Ophelia Gold Fringe Mini Dress", retailer: "12thtribe.com", url: "https://www.12thtribe.com/products/ophelia-gold-fringe-mini-dress", price: "$114.00", isAlternative: true, altNote: "The exact Roberto Cavalli tour costume is undocumented beyond this description -- a current gold fringe mini in the same silhouette (Everybody Fargo boots not separately sourced)." }],
     },
     {
@@ -6528,6 +6551,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp", credit: "Susan Hilferty (costume designer)", kind: "primary" }],
       sources: [{ name: "Susan Hilferty (official)", url: "https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/" }, { name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
+      relatedIds: ["moment:vault-speak-now-a-red-chiffon-susan-hilferty-dress-closes-out-haunted", "moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to"],
       products: [{ brand: "Sherri Hill", item: "55304 One-Shoulder Ombre Sequin Gown", retailer: "formalapproach.com", url: "https://www.formalapproach.com/products/sherri-hill-55304-dress", price: "$698.00", isAlternative: true, altNote: "Hilferty's halter gown was a one-of-a-kind custom stage costume, never sold -- this is a current gown in Purple Ombre, same color family, though sequined rather than plain chiffon." }],
     },
     {
@@ -6540,6 +6564,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Mean_(song)" }],
+      relatedIds: ["moment:vault-speak-now-a-gold-roberto-cavalli-fringe-dress-for-sparks-fly-mine-and-", "moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour"],
       products: [{ brand: "Princess Polly", item: "Hailees Lace Strapless Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/hendrie-lace-mini-dress-white", price: "$15.00", isAlternative: true, altNote: "The exact custom Alice + Olivia stage piece was never sold at retail -- this is a current white lace mini dress in the same general spirit." }],
     },
     {
@@ -6564,6 +6589,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Susan Hilferty (official)", url: "https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/" }],
+      relatedIds: ["moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour"],
       products: [{ brand: "Monique Lhuillier", item: "Poppy Jacquard Column Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/poppy-jacquard-column-gown", price: "$5,995.00", isAlternative: true, altNote: "Hilferty's red chiffon midi was a one-of-a-kind custom stage costume, never sold -- this is a current red-orange gown in the same color family, a floor-length column rather than a midi." }],
     },
     {
@@ -6576,6 +6602,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-billboard-music-awards-2011-country-artist-of-the-year/" }],
+      relatedIds: ["moment:vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award"],
       products: [{ brand: "WonderlandByLilian", item: "Elegant Pink Sequin Evening Gown", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/elegant-pink-sequin-evening-gown-and-embellished-gown-designer-sequin-gown-and-pink-sequin-dress-plus-size", price: "$699.00", isAlternative: true, altNote: "Her exact 2011 Elie Saab gown is discontinued -- this is a current made-to-order pink sequin gown in the same strapless, top-to-bottom sequin spirit (Lorraine Schwartz jewelry not separately sourced)." }],
     },
     {
@@ -6721,7 +6748,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg", credit: "Paul Adao/INFphoto.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind" }],
-      relatedIds: ["moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port", "moment:vault-red-the-conor-kennedy-summer-quietly-ends"],
+      relatedIds: ["moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port", "moment:vault-red-the-conor-kennedy-summer-quietly-ends", "moment:vault-speak-now-a-quiet-visit-to-mary-kennedys-gravesite"],
     },
     {
       id: "vault-speak-now-a-quiet-visit-to-mary-kennedys-gravesite",
@@ -6733,6 +6760,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2012722/634.ConorKennedy.TaylorSwift.081912.jpeg", credit: "Paul Adao/INFphoto.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind" }, { name: "E! Online", url: "https://www.eonline.com/news/340153/taylor-swift-bonds-with-conor-kennedy-s-family-at-graveyard-before-wedding-drama" }],
+      relatedIds: ["moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod"],
     },
     {
       id: "vault-speak-now-enchanted-was-almost-the-albums-title-and-hid-a-coded-name-i",
@@ -6812,6 +6840,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg", credit: "Paul Adao/INFphoto.com", caption: "Wading off Cape Cod in mid-August 2012 — the most photographed stretch of the summer romance.", kind: "archival", focalPoint: "48% 28%" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split" }, { name: "Nicki Swift", url: "https://www.nickiswift.com/271614/the-truth-about-taylor-swifts-relationship-with-conor-kennedy/" }],
+      relatedIds: ["moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port"],
     },
     {
       id: "vault-speak-now-wonderstruck-her-first-fragrance-named-for-an-enchanted-lyri",
@@ -7010,7 +7039,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg", credit: "Paul Adao/INFphoto.com", caption: "Off Cape Cod in mid-August 2012, a few weeks after the two were first linked in July.", kind: "archival", focalPoint: "48% 28%" }],
       sources: [{ name: "Taylor Swift & Conor Kennedy: Romance Rewind", url: "https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind" }, { name: "The Truth About Taylor Swift's Relationship With Conor Kennedy", url: "https://www.nickiswift.com/271614/the-truth-about-taylor-swifts-relationship-with-conor-kennedy/" }],
-      relatedIds: ["moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod", "moment:vault-red-the-conor-kennedy-summer-quietly-ends"],
+      relatedIds: ["moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod", "moment:vault-red-the-conor-kennedy-summer-quietly-ends", "moment:vault-speak-now-a-summer-with-conor-kennedy-and-ethel-kennedys-blessing"],
     },
     {
       id: "vault-speak-now-teaching-zac-efron-guitar-on-ellen",
@@ -7541,7 +7570,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg", credit: "All-Pro Reels / Wikimedia Commons, CC BY-SA 2.0", caption: "Jason Kelce, Travis's brother and New Heights co-host, in his Eagles playing days. He described his family's fan base flipping \"from large fat men to little girls\" once Travis and Taylor started dating.", kind: "primary", focalPoint: "50% 26%" }],
       sources: [{ name: "Jason Kelce Reveals How His Life Has Changed Since Travis Kelce Started Dating Taylor Swift", url: "https://people.com/jason-kelce-reveals-how-his-life-has-changed-since-travis-kelce-taylor-swift-started-dating-12024707" }, { name: "Jason Kelce Gets Candid About How Life Has Changed Since Taylor Swift Joined the Family", url: "https://www.harpersbazaar.com/celebrity/latest/a73247382/jason-kelce-talks-impact-of-travis-taylor-swift-relationship-fame/" }, { name: "'A Whole Other Demographic' — Jason Kelce Details How Taylor Swift Elevated His Family's Fame", url: "https://www.profootballnetwork.com/jason-kelce-taylor-swift-family-fame-stratosphere/" }, { name: "Taylor Swift's star power sends Travis Kelce's jersey sales soaring", url: "https://www.kcur.org/sports/2023-09-28/taylor-swifts-travis-kelce-kansas-city-chiefs-jersey" }, { name: "Taylor Swift-Travis Kelce Podcast Delivers a Massive 15 Million Views, Stream Crashes", url: "https://www.hollywoodreporter.com/music/music-news/taylor-swift-travis-kelce-podcast-ratings-1236344673/" }, { name: "Kelce brothers reach $100 million-plus deal with Amazon for 'New Heights'", url: "https://awfulannouncing.com/podcasts/kelce-brothers-new-heights-amazon-deal.html" }, { name: "How Taylor Swift changed the NFL — and how the NFL changed Taylor Swift", url: "https://www.livenowfox.com/news/taylor-swift-nfl-impact-travis-kelce" }],
-      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story"],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story", "moment:vault-midnights-a-frigid-divisional-round-in-buffalo-seated-with-jason-kelce", "moment:vault-tloas-why-jason-kelce-cried-at-the-wedding-per-kylie-the-flower-gi"],
     },
     {
       id: "vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep",
@@ -7644,7 +7673,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/30ea9668-3908-4972-a828-f97ff5fdbcf4/1225+Taylor+Swift+Chiefs+vs+Broncos+Feature.png", credit: "NFL via Amazon Prime broadcast, via Taylor Swift Style", caption: "From the Prime broadcast of the Christmas Day game: Taylor in the red Frankie Shop bomber, Louis Vuitton bag on her arm and engagement ring visible.", kind: "primary", focalPoint: "65% 14%" }],
       sources: [{ name: "Is Taylor Swift Styling a Kansas City Chiefs vs. Denver Broncos Christmas Game Outfit?", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-denver-broncos-christmas-game-outfit/" }, { name: "Broncos 20-13 Chiefs (Dec 25, 2025) Final Score", url: "https://www.espn.com/nfl/game/_/gameId/401772622/broncos-chiefs" }, { name: "Mahomes Tears ACL and Chiefs Eliminated From Playoffs", url: "https://frontofficesports.com/chiefs-dynasty-ends-as-amazons-christmas-game-loses-shine/" }, { name: "Taylor Swift Elevates $300 Jacket With $4K Louis Vuitton Bag", url: "https://www.thefashionspot.com/fashion-news/921485-taylor-swift-bomber-jacket-bag-louis-vuitton/" }, { name: "Taylor Swift Matches Her Signature Red Lipstick to Trendy Bomber Jacket for Fiance Travis Kelce's Christmas Day Game", url: "https://www.aol.com/articles/taylor-swift-matches-her-signature-125318714.html" }, { name: "Denver Broncos vs. Kansas City Chiefs - Final Score - December 25, 2025", url: "https://www.foxsports.com/nfl/week-17-denver-broncos-vs-kansas-city-chiefs-dec-25-2025-game-boxscore-10707" }, { name: "Mics Caught Travis Kelce's Classy Message to Bo Nix in Possibly Last Chiefs Home Game", url: "https://www.si.com/nfl/mics-caught-travis-kelces-classy-message-to-bo-nix-last-chiefs-home-game" }, { name: "Travis Kelce re-signs with Chiefs for 14th season in Kansas City", url: "https://www.nfl.com/news/travis-kelce-expected-to-return-to-chiefs-for-14th-nfl-season" }, { name: "Taylor Swift Attends Chiefs Christmas Game With Family, Supports Fiancé Travis Kelce", url: "https://www.tmz.com/2025/12/25/taylor-swift-attends-chiefs-christmas-game/" }],
-      relatedIds: ["moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game"],
+      relatedIds: ["moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game", "moment:vault-midnights-a-santa-costumed-entrance-for-a-christmas-day-upset"],
       products: [{ brand: "The Frankie Shop", item: "Zion Bomber Jacket - Red", retailer: "thefrankieshop.com", url: "https://thefrankieshop.com/products/zion-bomber-jacket-red", price: "$388.00" }],
     },
     {
@@ -7962,7 +7991,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["Three days after the Madison Square Garden wedding, a case that had run since 2024 ended in a single order. Kimberly Marasco, a Florida poet acting pro se, first sued in April 2024 — a $100 small-claims filing in St. Lucie County (No. 2024SC001385) that was removed to federal court (S.D. Fla., No. 2:24-cv-14153, before Judge Aileen Cannon) and amended by that October to demand more than $7 million. It was not her first attempt: the operative complaint, Cannon noted, closely mirrored an earlier one Marasco had already lost. On July 6, 2026 the judge dismissed it — this time with prejudice, so it cannot be amended and refiled — against Taylor, producers Jack Antonoff and Aaron Dessner, Republic Records and Universal Music Group.", "Marasco claimed more than a dozen songs borrowed from her poetry — \"Down Bad\" and \"I Can Do It With a Broken Heart\" from The Tortured Poets Department, but also \"The Man,\" \"The Great War\" and \"Invisible String,\" reaching back across Midnights, folklore and evermore (the Dessner records, which is why he was named). Cannon's order weighed not whether the songs resembled the poems but whether there was anything there to copy: she concluded \"that Plaintiff's poems do not contain protectable expression and that, regardless, Plaintiff has failed to plausibly plead copying,\" the alleged overlaps being \"quintessential themes, concepts and isolated words\" copyright does not protect. The order also noted Marasco's concession that one of her books had sold roughly 3,000 copies worldwide, none actively promoted — the access problem underneath the legal one.", "Marasco moved fast: she told ABC News she had filed a notice of appeal to the Eleventh Circuit on July 7 — the day after the order — so the docket is not fully closed even now. Taylor's representatives, as after most of these filings, declined to comment on the win, and none of the co-defendants issued a statement. But at the district level the case is over — the quietest possible bookend to the loudest week of her year."],
       tags: ["Lore"],
       sources: [{ name: "Judge sides with Taylor Swift in Florida poet's plagiarism lawsuit", url: "https://www.cbc.ca/news/entertainment/swift-poet-plagiarism-lawsuit-9.7261092" }, { name: "Taylor Swift Wins Plagiarism Lawsuit Against Florida Poet", url: "https://www.thewrap.com/industry-news/public-policy-legal/taylor-swift-plagiarism-lawsuit-florida-poet-win/" }, { name: "Taylor Swift Prevails in Poet's Plagiarism Lawsuit, as Florida Judge Dismisses Case With Prejudice", url: "https://variety.com/2026/music/news/taylor-swift-wins-plagiarism-poet-lawsuit-florida-judge-1236802619/" }, { name: "Judge dismisses poet's copyright infringement lawsuit against Taylor Swift", url: "https://abcnews.com/GMA/Culture/judge-dismisses-poets-copyright-infringement-lawsuit-taylor-swift/story?id=134546988" }, { name: "Marasco v. Taylor Swift Productions, Inc., No. 2:24-cv-14153 (S.D. Fla.)", url: "https://www.govinfo.gov/content/pkg/USCOURTS-flsd-2_24-cv-14153/pdf/USCOURTS-flsd-2_24-cv-14153-0.pdf" }],
-      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-evermore-evermore-vs-evermore-the-theme-park-lawsuit-that-ended-in-a-"],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-evermore-evermore-vs-evermore-the-theme-park-lawsuit-that-ended-in-a-", "moment:vault-ttpd-tortured-poets-breaks-spotifys-single-day-record"],
     },
     {
       id: "vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c",
@@ -8176,7 +8205,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg", credit: "Joe Glorioso / All-Pro Reels, via Wikimedia Commons (CC BY-SA 2.0)", caption: "Jason Kelce.", kind: "primary", focalPoint: "50% 24%" }, { url: "https://www.billboard.com/wp-content/uploads/2026/08/P1068KQV-e1786026515917.jpg?w=1024", credit: "Getty Images, via Billboard", caption: "Kylie Kelce — the source of the on-record correction that it was the flower girls, not the vows, that moved Jason to tears.", kind: "archival", focalPoint: "46% 18%" }],
       sources: [{ name: "Kylie Kelce On Real, Heart-Tugging Reason Husband Jason Cried at Travis & Taylor's Wedding", url: "https://www.billboard.com/music/music-news/kylie-kelce-real-reason-jason-kelce-cried-travis-taylor-wedding-1236310249/" }, { name: "Kylie Kelce Shares the Moment That Made Jason So Emotional at Travis and Taylor Swift's Wedding", url: "https://www.today.com/popculture/news/kylie-kelce-reacts-jason-comments-crying-travis-taylor-wedding-rcna591280" }, { name: "Kylie Kelce Says Jason Cried at Travis Kelce and Taylor Swift's Wedding", url: "https://www.thedailybeast.com/obsessed/kylie-kelce-says-jason-cried-at-travis-kelce-and-taylor-swifts-wedding/" }],
-      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-"],
     },
   ],
   "ttpd": [
@@ -8201,7 +8230,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_5-1-1440x1440.jpg", credit: "Spotify Newsroom", kind: "primary", focalPoint: "60% 60%" }, { url: "https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_1-819x1024.jpg", credit: "Spotify Newsroom", caption: "The pop-up library's lyric case at The Grove — new album lines revealed each day before release.", kind: "archival", focalPoint: "50% 60%" }],
       sources: [{ name: "Spotify Newsroom", url: "https://newsroom.spotify.com/2024-04-19/tortured-poets-department-taylor-swift-library-los-angeles/" }, { name: "Forbes", url: "https://www.forbes.com/sites/mollybohannon/2024/04/22/all-the-records-taylor-swifts-the-tortured-poets-department-has-broken-so-far/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-tortured-poets-passes-billion-spotify-streams-1235665087/" }],
-      relatedIds: ["moment:vault-ttpd-spotifys-top-global-artist-again-26-6-billion-streams", "moment:vault-midnights-midnights-breaks-spotify-in-a-single-day"],
+      relatedIds: ["moment:vault-ttpd-spotifys-top-global-artist-again-26-6-billion-streams", "moment:vault-midnights-midnights-breaks-spotify-in-a-single-day", "moment:vault-tloas-a-federal-judge-throws-out-the-tortured-poets-plagiarism-sui"],
       significance: "notable",
     },
     {
@@ -8318,7 +8347,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-glitter-freckles-chiefs-game-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Jamie Squire/Getty Images", kind: "primary", focalPoint: "53% 40%" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-monday-night-football-style-glitter-freckles-plaid-dress-boots-1235795383/" }],
-      relatedIds: ["moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick"],
+      relatedIds: ["moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick", "moment:vault-ttpd-box-seats-at-arthur-ashe-for-the-us-open-mens-final", "moment:vault-ttpd-date-night-at-yankee-stadium-for-alcs-game-1"],
       threadIds: ["the-proposal"],
     },
     {
@@ -8332,6 +8361,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg", credit: "MLB.com", caption: "Taylor and Kelce — both in caps, popcorn in reach — in the right-field suite during Game 1 of the 2024 ALCS at Yankee Stadium.", kind: "primary", focalPoint: "47% 27%" }, { url: "https://img.mlbstatic.com/mlb-images/image/upload/t_16x9/t_w1536/mlb/rghl1u3zla8wyqz8xfw1.jpg", credit: "MLB.com", caption: "A broadcast frame from the same suite: Taylor mid-laugh in a black cap as the Yankees took Game 1, 5-2.", kind: "archival", focalPoint: "51% 44%" }],
       sources: [{ name: "Taylor Swift and Travis Kelce in attendance for Game 1 of Guardians-Yankees ALCS series", url: "https://www.espn.com/nfl/story/_/id/41796394/taylor-swift-travis-kelce-new-york-yankees-cleveland-guardians-alcs-game-one" }, { name: "Taylor Swift and Travis Kelce attend ALCS Game 1 2024", url: "https://www.mlb.com/news/taylor-swift-travis-kelce-attend-alcs-game-1-2024" }, { name: "Taylor Swift reacts to Juan Soto's home run", url: "https://www.mlb.com/yankees/video/taylor-swift-reacts-to-juan-soto-s-home-run" }, { name: "Travis Kelce Talks 'Mixed Feelings' Attending Yankees vs. Guardians With Taylor Swift", url: "https://bleacherreport.com/articles/10139652-travis-kelce-talks-mixed-feelings-attending-yankees-vs-guardians-with-taylor-swift" }, { name: "Taylor Swift and Travis Kelce Wear Midnight Rodeo Hats to Yankees Game", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-travis-kelce-midnight-rodeo-hat-yankees-game-1236684448/" }],
+      relatedIds: ["moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans"],
       threadIds: ["the-proposal"],
     },
     {
@@ -8358,7 +8388,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-sabrina-carpenter-eras-tour-new-orleans-oct-26-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "TAS2024/Getty Images for TAS", caption: "Taylor Swift and Sabrina Carpenter mid-mashup on night two at the Caesars Superdome, Oct. 26, 2024.", kind: "primary", focalPoint: "48% 42%" }],
       sources: [{ name: "Taylor Swift surprises New Orleans with Sabrina Carpenter, 'Espresso' duet at Eras Tour", url: "https://www.nola.com/entertainment_life/taylor_swift/sabrina-carpenter-taylor-swift-surprise-songs/article_166bb366-93e4-11ef-aa8f-77e530d02cf8.html" }, { name: "See Taylor Swift Bring Out Sabrina Carpenter for 'Espresso' Mash-Up at New Orleans Show", url: "https://www.rollingstone.com/music/music-news/taylor-swift-sabrina-carpenter-espresso-mash-up-new-orleans-1235144110/" }, { name: "Taylor Swift, Sabrina Carpenter Sing 'Espresso' & More in New Orleans", url: "https://ca.billboard.com/music/music-news/taylor-swift-sabrina-carpenter-espresso-surprise-new-orleans-1235812233/" }, { name: "Taylor Swift's 'The Life of a Showgirl' has a New Orleans connection you may have missed", url: "https://www.nola.com/entertainment_life/new-orleans-life-of-a-showgirl-connection/article_466cd932-9548-4b2d-8bcd-6d0c5688b91f.html" }, { name: "Taylor Swift Setlist, Caesars Superdome, Oct. 26, 2024", url: "https://www.setlist.fm/setlist/taylor-swift/2024/caesars-superdome-new-orleans-la-1357c595.html" }, { name: "Sabrina Carpenter's appearance stuns sold-out Superdome audience Night 2 of Taylor Swift Eras tour stop in New Orleans", url: "https://www.fox8live.com/2024/10/27/sabrina-carpenters-appearance-stuns-sold-out-superdome-audience-night-2-taylor-swift-eras-tour-stop-new-orleans/" }, { name: "In photos: Taylor Swift's Eras Tour in New Orleans", url: "https://www.axios.com/local/new-orleans/2024/10/27/photos-taylor-swift-eras-tour-sabrina-carpenter" }],
-      relatedIds: ["moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter", "moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc"],
+      relatedIds: ["moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter", "moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc", "moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel"],
     },
     {
       id: "vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t",
@@ -8559,7 +8589,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg", credit: "Jamie Squire/Getty Images", kind: "primary", focalPoint: "73% 37%" }],
       sources: [{ name: "Sports Illustrated", url: "https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift" }],
-      relatedIds: ["moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb", "moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t"],
+      relatedIds: ["moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb", "moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t", "moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick"],
       threadIds: ["the-proposal"],
     },
     {
@@ -8572,7 +8602,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg", credit: "AP", kind: "primary", focalPoint: "55% 32%" }, { url: "https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg", credit: "Getty Images", kind: "archival", focalPoint: "52% 40%" }],
       sources: [{ name: "ABC News", url: "https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249" }],
-      relatedIds: ["moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s", "moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans"],
+      relatedIds: ["moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s", "moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans", "moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play", "moment:vault-midnights-a-kiss-to-celebrate-the-afc-championship"],
       threadIds: ["the-proposal"],
     },
     {
@@ -8680,6 +8710,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/11/Taylor-Swift-_-The-Eras-Tour-Toronto-ON-345-billboard-1548.jpg?w=1024", credit: "Getty Images (via Billboard)", caption: "In Toronto the night the 2025 Grammy nominations landed: \"you guys got this album nominated for six Grammys.\"", kind: "archival", focalPoint: "53% 26%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-reacts-2025-grammy-nominations-tortured-poets-1235830451/" }, { name: "Capital FM", url: "https://www.capitalfm.com/news/music/taylor-swift-grammys-nominations-2025/" }],
+      relatedIds: ["moment:vault-folklore-six-grammy-nominations-for-the-quarantine-album"],
     },
     {
       id: "vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z",
@@ -8857,6 +8888,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://i.abcnewsfe.com/a/667ac5d8-cb5f-48cd-9230-89ea434a7644/Taylor-Travis-Patrick-Brittany-USOpen-1-ap-jm-240908_1725821927016_hpMain_16x9.jpg?w=1600", credit: "AP (via ABC News)", caption: "Taylor, Brittany Mahomes, Travis Kelce, and Patrick Mahomes in the box at Arthur Ashe Stadium, Sept. 8, 2024.", kind: "primary", focalPoint: "55% 42%" }, { url: "https://i.abcnewsfe.com/a/1fc501ac-ba55-40eb-b3ce-02983fbfa66f/Taylor-Travis-Patrick-Brittany-USOpen-1-rt-jm-240908_1725822057337_hpEmbed_11x7.jpg?w=1500", credit: "Reuters (via ABC News)", caption: "Applauding the final from the box — Kelce, Taylor, and the Mahomeses reacting to the match.", kind: "archival", focalPoint: "47% 42%" }],
       sources: [{ name: "Taylor Swift and Travis Kelce attend US Open men's final with Patrick and Brittany Mahomes", url: "https://abcnews.go.com/GMA/Culture/taylor-swift-travis-kelce-attend-us-open-mens/story?id=113500642" }, { name: "In her tennis era: Taylor Swift and Travis Kelce attend 2024 US Open", url: "https://www.usopen.org/en_US/news/articles/2024-09-08/in_her_tennis_era_taylor_swift_and_travis_kelce_attend_2024_us_open.html" }, { name: "Taylor Swift Serves Up Reformation Dress at US Open With Travis Kelce", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-reformation-dress-us-open-travis-kelce-1236584025/" }, { name: "Taylor Swift Wore Gucci Lady Sandals at 2024 US Open With Travis Kelce", url: "https://footwearnews.com/shoes/womens-footwear/taylor-swift-travis-kelce-gucci-sandals-us-open-new-york-1203686442/" }, { name: "Jannik Sinner defeats Taylor Fritz for US Open title", url: "https://www.atptour.com/en/news/sinner-fritz-us-open-2024-final" }, { name: "The Darkness's 'I Believe in a Thing Called Love' Gets a US Open Bump", url: "https://www.billboard.com/music/chart-beat/taylor-swift-travis-kelce-darkness-i-believe-in-a-thing-called-love-us-open-bump-1235772356/" }, { name: "Taylor Swift and Travis Kelce Attend the 2024 US Open", url: "https://www.yahoo.com/entertainment/taylor-swift-travis-kelce-attend-013108867.html" }],
+      relatedIds: ["moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans"],
       threadIds: ["the-proposal"],
       products: [{ brand: "Reformation", item: "Sora Linen Dress", retailer: "thereformation.com", url: "https://www.thereformation.com/products/sora-linen-dress/1314992.html", price: "$248.00", inStock: false }],
     },

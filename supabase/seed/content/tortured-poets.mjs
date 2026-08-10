@@ -64,7 +64,10 @@ export default {
     {
       significance: 'notable', // the second consecutive album to set this exact platform record (docs/decisions.md, 2026-07-19)
       relatedIds: [
-          'moment:vault-ttpd-spotifys-top-global-artist-again-26-6-billion-streams','moment:vault-midnights-midnights-breaks-spotify-in-a-single-day'],
+          'moment:vault-ttpd-spotifys-top-global-artist-again-26-6-billion-streams','moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
+          // Cross-link (Stage 3, 2026-08-10): the same album's later legal
+          // fight, years after this chart record.
+          'moment:vault-tloas-a-federal-judge-throws-out-the-tortured-poets-plagiarism-sui'],
       year: 2024,
       month: 4,
       day: 19,
@@ -600,7 +603,13 @@ export default {
       threadIds: ['the-proposal'],
       // Cross-link (Stage 3, 2026-08-06): same "the-proposal" thread — the
       // Super Bowl LIX sighting the Chiefs' playoff run led to.
-      relatedIds: ['moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick'],
+      // (2026-08-10): + the Arthur Ashe and Yankee Stadium sightings on
+      // either side of it that same fall.
+      relatedIds: [
+        'moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick',
+        'moment:vault-ttpd-box-seats-at-arthur-ashe-for-the-us-open-mens-final',
+        'moment:vault-ttpd-date-night-at-yankee-stadium-for-alcs-game-1',
+      ],
       title: 'Back at Arrowhead for a Monday night win over New Orleans',
       snippet: 'A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints.',
       sourceUrl: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582',
@@ -637,6 +646,9 @@ export default {
       day: 14,
       category: 'sighting',
       threadIds: ['the-proposal'],
+      // Cross-link (Stage 3, 2026-08-10): the Arrowhead Monday-night win one
+      // week before, same fall.
+      relatedIds: ['moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans'],
       title: 'Date night at Yankee Stadium for ALCS Game 1',
       snippet:
         'A bye-week baseball date: she and Travis watched the Yankees take Game 1 of the ALCS from a right-field suite, four nights before the Eras Tour restarted in Miami.',
@@ -916,9 +928,12 @@ export default {
       // Cross-links added 2026-07-24 (ledger #1310): the later Showgirl
       // title-track feature this duet prefigured, and the Miami Florence cameo
       // the page name-checks. Ids verified against content-vault.generated.
+      // (Stage 3, 2026-08-10): + the Showgirl album-arrival page (one-
+      // directional: that page is already at the ~4-link cap).
       relatedIds: [
         'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
         'moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
       ],
       snippet:
         'Night two in New Orleans: Taylor announces she\'s about to sing a song that isn\'t hers, starts strumming "Espresso" — and Sabrina Carpenter appears for a three-song mashup with "Please Please Please" and "Is It Over Now?"',
@@ -2129,6 +2144,9 @@ export default {
       relatedIds: [
         'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
         'moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t',
+        // Cross-link (Stage 3, 2026-08-10): the AFC Championship win the
+        // following week, punching the Chiefs' Super Bowl ticket.
+        'moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick',
       ],
       moment: {
         context:
@@ -2163,9 +2181,13 @@ export default {
       // sighting two weeks later, same "the-proposal" thread.
       // (Stage 3, 2026-08-06): also links back to the Arrowhead divisional
       // win that punched the Chiefs' Super Bowl ticket.
+      // (Stage 3, 2026-08-10): + the family-suite divisional win the week
+      // before, and the previous season's AFC Championship celebration kiss.
       relatedIds: [
         'moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s',
         'moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans',
+        'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
+        'moment:vault-midnights-a-kiss-to-celebrate-the-afc-championship',
       ],
       title: 'A confetti kiss after the Chiefs punch their Super Bowl ticket',
       snippet:
@@ -2620,6 +2642,9 @@ export default {
       month: 11,
       day: 8,
       category: 'business',
+      // Cross-link (Stage 3, 2026-08-10): the same Grammy-nominations beat,
+      // four albums earlier.
+      relatedIds: ['moment:vault-folklore-six-grammy-nominations-for-the-quarantine-album'],
       title: "Fortnight's Grammy double: nominated for both Record and Song of the Year",
       snippet:
         'Alongside TTPD\'s Album of the Year nod, "Fortnight" picked up matching Record and Song of the Year nominations and a Best Music Video nod, while "us." with Gracie Abrams landed Best Pop Duo/Group Performance — six 2025 Grammy nominations in all.',
@@ -4226,6 +4251,9 @@ export default {
       month: 9,
       day: 8,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Arrowhead Monday-night win a
+      // month later, same fall.
+      relatedIds: ['moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans'],
       title: "Box seats at Arthur Ashe for the US Open men's final",
       // the-proposal thread opt-in (stage 3, 2026-07-19): the first big
       // non-football public date — a beat of the derived End Game thread.

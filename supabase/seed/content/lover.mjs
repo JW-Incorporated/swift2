@@ -633,6 +633,9 @@ export default {
       month: 11,
       day: 24,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Julien Macdonald" designer
+      // cluster.
+      relatedIds: ['moment:vault-red-a-gold-julien-macdonald-gown-altered-with-a-hidden-message'],
       title: 'A shimmering green Julien Macdonald gown at the 2019 AMAs',
       snippet: 'She walked the American Music Awards red carpet in a green Julien Macdonald gown before changing into a shirt printed with the names of her old albums to perform "The Man."',
       sourceUrl: 'https://www.eonline.com/news/1095478/revisiting-taylor-swift-s-gorgeous-american-music-awards-looks',
@@ -1025,6 +1028,9 @@ export default {
       month: 12,
       day: 13,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively and Ryan
+      // Reynolds" recurring-friends cluster.
+      relatedIds: ['moment:vault-evermore-a-tribeca-q-a-ends-in-a-surprise-all-too-well-singalong-blak'],
       title: 'Blake Lively and Ryan Reynolds help her ring in 30 at Oscar Wilde',
       snippet:
         "After opening Z100's Jingle Ball, she gathered close friends — Blake Lively, Ryan Reynolds, and Gigi Hadid among them — for a 10 p.m. birthday dinner at Oscar Wilde restaurant in New York.",
