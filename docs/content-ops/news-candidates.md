@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 69
+
+## Taylor Swift & Travis Kelce's Cats & Dog Fighting After Wedding - StyleCaster
+
+- first seen: 2026-08-10 17:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce's Cats & Dog Fighting After Wedding  StyleCaster
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMioAFBVV95cUxPMFUzejlzT2RyaGlwNnpiX2k2RnJhNjNzT203Z3o3bThCeVM5VW5NZTBtSERSUE8tQWNIR29KbVAtaThwS2ZEdjVzZUdYeVl5R2hHRDVWZ2FtNTY1eThSMmQxX3VNaHJDLVZfczhmUGxqMHctdWdfTndrUEpkVkJJYTlZWjRfMXNGNnZ5OVZwd3RBS2dCa2R0S2d5SDV2QkVo?oc=5
+
+## Taylor Swift songs vanish from Trump, White House posts as removal questions linger - WSBT
+
+- first seen: 2026-08-10 17:59 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift songs vanish from Trump, White House posts as removal questions linger  WSBT
+- sources:
+  - [unverified] WSBT — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVzRUV1EtZ1RCWDBpU1dKZlczTHRNMWVVZHN0UWIyNEJiTmQwMDdWc09jSVVHUk9FTEVOTldUUlpTVXJsaURSVjVtbUNRS1VJc2h2bEM2MEdqQW9zd0JZU2lDUjhjbEJYd2o0ckVFMnB1SDVxMXhseVlQNWFxbUd0Y3pvdmVOYnJTMjVtQUMxODdiaUNkMllaNGc0em1odzRhaWgyaThPUU42bnlVYmpvMWNjQkFINHE0?oc=5
+
+## Taylor Swift and Selena Gomez's affordable jewelry favorites are on sale for up to 25% off - Yahoo
+
+- first seen: 2026-08-10 17:59 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Selena Gomez's affordable jewelry favorites are on sale for up to 25% off  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi7AFBVV95cUxNUU1WRThLbzlDb2lhTU1sLXI3Vk1wa0JBV3J1T18wM2EyN2t3eWxjU2ZSVmNqejVNMlpzbEpvSC1fLVdXOW5ybDRvTDNtMmRtX3ZjMUprWG1fRkx6dEo0NW5GTTV6dE9vdm83MkVOa0tGNkstUXE0LVg4RVk4a2pXRWxtYnFqcXJrcW11V1hDQTBWNmZuNktIS1J6Y0RCMTZ1dTdteXNrdkpWbHk5aFpDTXJHd0JRT0hLVnkyQk1jaUVIVVo3ZXRfbnoxanZxQ0ZFN2luc19YZGlRQ3AtTXdyeGFvYW5aWm9nWnR3Tg?oc=5
+
+## Taylor Swift & Travis Kelce’s Family Members Reportedly Fighting After Wedding: ‘Every Newlywed Coup
+
+- first seen: 2026-08-10 17:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce’s Family Members Reportedly Fighting After Wedding: ‘Every Newlywed Couple Has an Adjustment Period’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOZFJ6NTlzbWJvVTNGR1otTFdYRVJhdzRYR0w3U082bkQzUmFQdEFzamNrVmV0NGJBZ0Jjd0Ryb01EMUlEdzB3YjR5U3EzTWRjTVNBOFVYZzByaDVPRGJPaWJkVXY4dHdyOWxXai1IcTV3UU0wMWFYdVZ3RmxKZktyY213Vy1HRlNlTUFiY0Q0c090aENRdkUyZ2dqOUh3SGw3ck9CUg?oc=5
+
+## Trump Campaign Removes Taylor Swift Songs From TikTok Videos, White House Posts Go Silent - NewsCord
+
+- first seen: 2026-08-10 17:59 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Trump Campaign Removes Taylor Swift Songs From TikTok Videos, White House Posts Go Silent  NewsCord
+- sources:
+  - [unverified] NewsCord — https://news.google.com/rss/articles/CBMi6gFBVV95cUxOZk12dU9LcmQ0Q0Nua3pIWWtNd2pYS2FvLTMwUkgya3hET0JQTm9EZDIzMlBFQWI0OGxnX2lNRXFEUDRsbU03U3pBdm9hTU10YjdLeWhYYi1mVXJTUFZmNmtHb0tnUThtTllsOUotazJNcl9kZmduZXhzOG1vc0lRakVfOXRXQ0w4X21uRjB3d1Z3Y1Y2UzZlS3U4RlplVXVLbWlaVmtuN00zQkRhN1JsRjRnNGtDV1FGb2xvS2JJMWZfQ0tFXy03RHM3Y1gxRFRraDJhLXBDQVZETmFaaHFvUzhjWnRIVUdLNkE?oc=5
 
 ## Taylor Swift Silently Shuts Down Donald Trump - Vanity Fair
 
@@ -300,14 +340,6 @@ Stories: 72
 - sources:
   - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNdk5CS2hGZmVqNzBwZWNLaFhnd3Itckh5Vk1obkdDUVhxRmJXZ0ZmZ0RBZ0VyMmluZDAtRldYQXMzU3NmS092SW5hRFZaTHBiT0VPVzhPMUZZVUpVOEtpOEdjbFo1SjhHZ3ZhV1FJZzRZNjFPRWs5dnBPTk9FS0JsOFQ2V3VEOTNQa2M4MkFKY3BfWFRrOGtWYW5TQ1UtNlZFVWc?oc=5
 
-## Taylor Swift Humiliates Trump With Copyright Smackdown - The Daily Beast
-
-- first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Humiliates Trump With Copyright Smackdown  The Daily Beast
-- sources:
-  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMijwFBVV95cUxQYmMwLXFHQUo3ZHJ0dWpMU0NqSHFDMlRfdTZEYXN3SzZlNFNTUlNvalpLR21SVVNtbW1uVmg5d2xiTUdsRDc3VHFqcnd3eEdFNDI2UUdPblRCazBHbXk0TjdOd00yUERhYVl1WGMwbnNPVElLVVJyRXlsNDhHS0FlYzVlRHYzRTFyXzM0amtrVQ?oc=5
-
 ## Is Phil Collins A Swiftie? Music Icon Says Taylor Swift ‘Deserves’ To Be ‘Hugest Thing In The World’
 
 - first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
@@ -340,10 +372,19 @@ Stories: 72
 - sources:
   - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxNQzZPaVp3cl9McndxODdWQ2d5LUdpUW5BZFBGR053NWoxcklBc3VQdTczVk5JVFltNmtSMmJ2ai1KYU03MU5ETi14Tzkxd3M3TzhGNjZuOE1HWG9DU3U0QVJROTdKVTdLcEVnakFEU2dQbmpBWEloZkZaYVJjLUwxa2Q0ZlN2YUZtaWsxN21YbjUwdFhFZVVxclNwLVB5aWhwR1Vzc1FoVkFYVnpxdGg2ZVhMMVBJVVo3a29XbEtJMjl2WTlQWVJmYkRIbzFMTlhIU3RTUQ?oc=5
 
+## Taylor Swift Humiliates Trump With Copyright Smackdown - The Daily Beast
+
+- first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Humiliates Trump With Copyright Smackdown  The Daily Beast
+- sources:
+  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMijwFBVV95cUxQYmMwLXFHQUo3ZHJ0dWpMU0NqSHFDMlRfdTZEYXN3SzZlNFNTUlNvalpLR21SVVNtbW1uVmg5d2xiTUdsRDc3VHFqcnd3eEdFNDI2UUdPblRCazBHbXk0TjdOd00yUERhYVl1WGMwbnNPVElLVVJyRXlsNDhHS0FlYzVlRHYzRTFyXzM0amtrVQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZHNhSHZOLUVzOW5Tb0stSXdjSHVfUVZmRG5jXzBldVJqQ19QNzBmc2NZQjlrcHIzaEx3YkxRUkkycF9Ja1Z1WFVld2szaEZOZlYwRF95OWZ6WHRzWEFOWFNnZEl4djd1UldBajBKTzlORjk5X3d4UU1hT09iRUtlMHBQZ3JodlQxd2pEVEdzMmhjTzVtV3ExQ2JtNWp3OWxOUW83UUJnRUc?oc=5
+
 ## Taylor Swift removes multiple songs from Trump social media posts - Entertainment Weekly
 
 - first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift removes multiple songs from Trump social media posts  Entertainment Weekly
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxOZ1NCc0lmeW5KRFZmbUZUSEN4czBISE9vNWFjT0lhNlZjbklkak5kQ1dDa21QTHdUSHdKcWd6bzR6SU9Xd2J6QmY4R1NJVFdJeUZlU0VpUXJhdWdTck9hR0ZJbUY4ZFdtMXVnS1I3eU1jNEg1R1ZqUnkyZ1p1YXdKQjlQdG5qTXZ2T2tnUjFKMjRlNVU?oc=5
@@ -351,6 +392,7 @@ Stories: 72
   - [unverified] Arise News — https://news.google.com/rss/articles/CBMikAFBVV95cUxOSFZOTGU1WWF4czE1QTNnbFl3ZThsdzMzOUdZMjdFSUdkRncwVTVNZHRYY0dYNWhzVnVKU2IwN0FYRFdGbWlyYXVWM3RiMHJ6eUF1RDRjcnYyNTdGTlF0QnpFSHBHVTU4SG5Pb0t1NGI1NXNFWmRhY095em5fSTZFSURlakZNWXRENzJRMmdqV00?oc=5
   - [unverified] Sky News — https://news.google.com/rss/articles/CBMitAFBVV95cUxPNTZyR0FiR21BVHhoN1V6bVVRLWY0NDVWRDVldXVqYmNXT3B4YmRBTEo0aHhEU3hEYkJNa1NqbDNWS3FTZk9qQXRRZ2x0bFJlLTVUWmo3RlFhYmF0eUY2OTZmY2R3VE9YamxDTGxRU3ZtTlFJSC1nRnBQcDU3czk1a3czXzNXS3F5V3NhS2owRFhLQmxNcU90UktwYWRTRVVZNkFsUDN0SjE1WkdCekFLSi1rNlQ?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNdGhXTmN1LWlTcUUzYU15V0pSX3ltLVdPcWlXWFVSbGkxLWNTVDFaVVM0M3hRX3RtVW1ZUHZVdnVjNXktNkpqeXgwYU9ZUkJSS3hqUDlrczJyblhxNkpYbnJ3eGhpdFA1dDMwdWRHQ0gxaFNuQi1mOHBXdUpacTlscmdLMk5CVTQ0V2tCemY3eHpqN08zTkJzNmh6SzNkMjZUTVE?oc=5
+  - [unverified] Indy100 — https://news.google.com/rss/articles/CBMie0FVX3lxTFB1WFR5Zy1xMlFTcVhUY3Y4eGk2RjdXUG9IRm5CU0RsOGl0T3c4NjRJUkpMLU4yb25MckwzOXcyZUd2VUxwQUdkbkh5dlI5YTM5SngtZS1UMnpxUTFwV3NJTXE1S2t2QVU1dEtVRWRKZWg4SzNVcWhMSkRrWQ?oc=5
 
 ## The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4 - PureWow
 
@@ -561,68 +603,3 @@ Stories: 72
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxNY3BzZFBmbmY3Tk8xTk9qWDVPZW1pUmxhaTA2Qk9iM2tfRlp4SVpMMWljcGdrQ2NqWjFkeFZoVzhhZXJzalFUTmxjZ2hkTURtY3VDYWI2cEl3S25FaTRxTjY2UFZkekZvRXl6WFlxdnM1dGJGOWVDVFB5OXNzUFdvemZCNA?oc=5
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxNMmFxbnMzV2Zvc0cweVl3Zm5GdTkyZ1NjZG42cXBFTk12Wk5fSFgwMmpnUUVxcVN6SlRzai0wOWRrRUFNZWR1bUthVEhvZWxqbGhjZVhlcTdBUFpVdERkRjRQN01TWkg1VnZlNEMzRGlsUWEtaWx1VTVKX3J5alBwSV9BVXh5Zw?oc=5
-
-## Kylie Kelce Reveals What Had Jason Crying at Travis’ Wedding to Taylor Swift - extratv.com
-
-- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Reveals What Had Jason Crying at Travis’ Wedding to Taylor Swift  extratv.com
-- sources:
-  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxONlNDVmlLRnMwYllKNEo0NFlLUHo2M2tqRVYzazJWQVpuQzVlYTJFZFZaTF9JbzRMQU51LS14YkR1YklDTVliaHh2UlVtX1BUSjRISl9ObFFZVVdCMjNjRXlrOS1OLUNWdXlNWjg0TS0xUlBGQ2FXdEtydUNkMG5kWTJ1bkZDckJGd2IyRk9TNGs3bTV6azFsVWV5OWNjMlhFdFdzdHJ4VHhsaEk?oc=5
-
-## Taylor Swift & Travis Kelce’s Married Life May Not Be What Fans Expect as Sources Describe Why She F
-
-- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift & Travis Kelce’s Married Life May Not Be What Fans Expect as Sources Describe Why She Feels ‘So Much Pressure’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQcE8xTU5TOGw2MlNxOUw0R3lJWTZHd1BITkxKM1pjS1RqVENZYnNldkFRT3JEZnp1b3Mwak5OZUo4MWZSNHpMYmFuS2tjWFNwYms2dncyTU8tTzAwNGFwYm5WSG5uQTJJSWlyTXctbDE5MFRGMXhNYWRnM2pmR1I2TWJoUFV6Y1V6NTN4TkN4U2lXcjZCZ1pBUktWVXZhZFdvcEc2eVRn?oc=5
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMipAFBVV95cUxPU3o0M3ltd1pBcmx2SklKQ3Q3RktLQXYySFFiWUtnMHJVakpjelh5ZmZBTVhHY200amIxbS1ibzBJSkk5MVZXZDB0QThrdkpGaEFKa2xlZERzUEwwUWNFZm1aTTk3M3lVQnJWTFB5NkV2dEJIVWVDWC04TVI4NHFpaFJqVXkyck14RmF1SldxV3lPTGMyOWpvNGZJTnB3WHBnQ1IzZA?oc=5
-
-## Greta Lee Reveals the Taylor Swift Moment She Didn’t See Coming - Yahoo
-
-- first seen: 2026-08-07 17:59 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Greta Lee Reveals the Taylor Swift Moment She Didn’t See Coming  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNUmdXUEduODBHZ191dmF6ZDY4MU5oVTJySGhvT2JtRFNial9HR2ppS1JkZ094dWJsa3QyeS14a0ljTGhWYzkwQ1lCa2hyREtuZE5pR3E0MnlxLXU3M09aX3d6Y0JzcWF2TTJJLVl4bzlmYnZIel9Qazg0VjJnYWRfZ2lVMzRzRC0tRUV4QmZIMGJmc3p2RVVIc1lCU1BGWGpyLVE?oc=5
-
-## Greta Lee Reveals the Inspiration She Got From Working Alongside Taylor Swift on "Opalite" Music Vid
-
-- first seen: 2026-08-07 17:59 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Greta Lee Reveals the Inspiration She Got From Working Alongside Taylor Swift on "Opalite" Music Video  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQR0NXRU5KYklXRWhfR1kwdHJfanplMjVUNWl6a0JmY3pRZjBOdGMxb2Z1Z1d0cHlCcTRkbGIzRjNHZElDSUZjUGFJdVc0Z2F4aGs0UUpwR0s5TFZ2U1J3Nm1QOUh6R2pXT3E3c0NubWJVci1iMTBETFNHYi1PNDNZWnRZNFdCd0tnRGhCSVBiSG9OYWwzV1R3QWgteHFlOE4xeENsMWtMTzA?oc=5
-
-## Did This Taylor Swift Lyric Lead Her to Travis Kelce? + Chiefs Camp Buzz - Yahoo Sports
-
-- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Did This Taylor Swift Lyric Lead Her to Travis Kelce? + Chiefs Camp Buzz  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMif0FVX3lxTE1vTHZaRVpWZUVxaWp4dGljbUJJbW9CT0VTRldwYl9oOHFzWC16MHN2UjBrNlNoRkgtcGM5eFJIeGszTVNoUkNMb2JkNHVvYk5uUThtdHJ1dXA0WlJXdkZHdWQyMy1EY1JndVEyc0JLQUVYRTZiR1RIVlJ5VVJpa3c?oc=5
-
-## Cooper Kupp was surprised by invite to Taylor Swift and Travis Kelce’s wedding - Entertainment Weekl
-
-- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cooper Kupp was surprised by invite to Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxORXVnQ21yeU9YUDN1WUxhN01iSy12U3RGX3AzdEV3RllRTDVoaE85Q1hHVjRKOW91Rlh0bUFlcTcxSzNwVWxQcndLdEZLcThtZkdZQXppZFkxYXZwQ2VtWGRIWC1qV0VKME5ic1J4Z2c5Ulc5YlVMTEh3aF84MFRfNm9ZYV9WbURfV3hB?oc=5
-
-## This Taylor Swift and Travis Kelce Wedding Guest Truthfully Doesn’t Know Why He Was Invited to Their
-
-- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: This Taylor Swift and Travis Kelce Wedding Guest Truthfully Doesn’t Know Why He Was Invited to Their MSG Ceremony  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxORlJ4ejExcGRidGxUVzc0ZGRHR3dQYWtSX01xdG4zWkdPLTR4dDJpZmxTRzRCb3c4MW5HSUtGa2h3bUpOWHlUUnM2eU9vclVka1FfaXpuTF9UVXVWVThrN19XcXN2MHF6QVZ6YkdKWTVOWEtRa05yNzBiWlc0M2c0U2hxWWJTbWoyU2R6WnFDSk1tc3ctdlJNM3ctR2JrelhwcFNIMUt0OA?oc=5
-
-## Taylor Swift and Travis Kelce Have New Competition From NFL's Hottest Couple - Sports Illustrated
-
-- first seen: 2026-08-07 17:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Have New Competition From NFL's Hottest Couple  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxPcHVwQjRmRFI5V3ltdTlHMXMzWlBEQTdXYnlPeENLcjAxNWhUUFZkMGFGTG9Ydm1hTHZkQ1RiRldrNmFSOVhlSjluREVoaGNkbWVfeW5OOGJWRnVzRnd4bkVwS2J3MFpIUVh6aTBZT0dHTGtiM0pWX045REd6T0R3SGNGZjNScWdkVDQ0MG1aWnpUSUxnZ0ZlOFNyNEl6N2NCRnJoVlFFRVBEYmRCWUQ4NEEtOA?oc=5
