@@ -9495,5 +9495,71 @@ export default {
         ],
       },
     },
+    // Added 2026-08-10 (Vault Run, Content Shift lane) — Closes #1872. A
+    // documented Canadian court proceeding (guilty pleas entered), squarely
+    // inside the redline carve-out for legal facts in court records / major
+    // outlets. Names verified across CP24, Global News and Billboard Canada;
+    // scale and sentencing date re-verified live this session against CP24 and
+    // CTV News. No location beyond city level; nothing cut on privacy grounds.
+    {
+      slug: 'showgirl-eras-toronto-ticket-scam-guilty-plea',
+      year: 2026,
+      month: 7,
+      day: 22,
+      category: 'business',
+      title: 'Guilty pleas in a $265K fake-ticket scam that hit 107 Toronto Eras Tour fans',
+      snippet:
+        'An Ontario couple pleaded guilty to a Facebook Marketplace scheme that sold non-existent tickets to Taylor\'s sold-out November 2024 Toronto Eras Tour shows — defrauding 107 fans of about $265,000 (CAD), some of whom paid more than a year in advance. Sentencing is set for October 6, 2026.',
+      sourceUrl:
+        'https://www.ctvnews.ca/toronto/article/ontario-couple-to-be-sentenced-in-265k-taylor-swift-ticket-scam-heres-when/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Denise Tisor and her common-law partner, David Blake, of the Hamilton–Burlington area of Ontario, took money from 107 people for tickets to one of Taylor\'s six sold-out Eras Tour nights at Toronto\'s Rogers Centre in November 2024. The tickets did not exist. Sold largely through Facebook Marketplace, the fake seats drew buyers in as early as August 2023 — more than a year before the concerts — and cost their victims a combined $265,330 (CAD). In an Ontario court in July 2026, Tisor pleaded guilty to defrauding the public and Blake pleaded guilty to possession of property obtained by crime, per CP24, CTV News and Global News.\n\nThe court heard where the money went. Between July 2023 and late November 2024, roughly $139,000 of the proceeds was placed on online gambling platforms, alongside some 350 ATM cash withdrawals totalling more than $297,000. Sentencing is scheduled for October 6, 2026.\n\nIt is one of the largest documented Eras Tour resale frauds to reach a Canadian courtroom, and a plain warning stitched into the tour\'s history: the same demand that emptied these shows in minutes is exactly what a scammer counts on. Every fake sale here happened off-platform, buyer-to-"seller," for a run of nights whose real tickets never left the official channels.',
+        sources: [
+          {
+            outlet: 'CTV News',
+            url: 'https://www.ctvnews.ca/toronto/article/ontario-couple-to-be-sentenced-in-265k-taylor-swift-ticket-scam-heres-when/',
+            source_title: "Ontario couple to be sentenced in $265K Taylor Swift ticket scam: here's when",
+            publisher: 'CTV News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CP24',
+            url: 'https://www.cp24.com/local/toronto/2026/07/22/ontario-couple-pleads-guilty-to-defrauding-victims-out-of-over-265k-in-taylor-swift-ticket-scam/',
+            source_title: 'Ontario couple pleads guilty after victims defrauded out of over $265K in Taylor Swift ticket scam',
+            publisher: 'CP24',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Global News',
+            url: 'https://globalnews.ca/news/11968687/ontario-woman-pleads-guilty-to-defrauding-taylor-swift-fans-out-of-265k-in-ticket-scam/',
+            source_title: 'Ontario woman pleads guilty to defrauding Taylor Swift fans out of $265K in ticket scam',
+            publisher: 'Global News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Money.ca',
+            url: 'https://money.ca/news/taylor-swift-fake-ticket-scam-canada',
+            source_title: 'Ontario couple pleads guilty to $265K fake Eras Tour ticket scam that defrauded 107 Canadians',
+            publisher: 'Money.ca',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 3,
+          },
+        ],
+        // No honest, subject-specific image exists for a fraud proceeding (a
+        // courthouse or generic tour shot would be decorative, not the story),
+        // so this ships text-only per content-shift.md 3b's "nothing verifiable
+        // exists" clause. The photo-sparsity checker will route it; the Photo
+        // Enrichment lane declined to force a non-honest visual.
+      },
+    },
   ],
 };
