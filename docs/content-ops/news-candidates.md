@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 71
+
+## Kim Kardashian Wants a Bigger Wedding Guest List Than Taylor Swift — Insider - Yahoo
+
+- first seen: 2026-08-10 10:34 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kim Kardashian Wants a Bigger Wedding Guest List Than Taylor Swift — Insider  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPMl9WQ2dUNkYzeUtiT256dmJzX2NtR2F2UlkzWGx6aDhOeFBqcHRMd1FTVEMwZm5yTmQzVldpcUt0MVZkZ3ZMSnpDdjVnNzVRYlhNZ01JNC1VRWptTTh4MFpwVldvd1RDSDVLTDRXRDZFNEFTV1VFQmNWa2FNQUJ1UUlZVkRlQXhPNElhX1Y5V2pPYmFXVUxXeGpySjFZa19mQ1ZWVXN6MmM?oc=5
+
+## SPOTTED: Taylor Swift and Travis Kelce Reportedly Make First Public Appearance Amid Chiefs Training 
+
+- first seen: 2026-08-10 10:34 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: SPOTTED: Taylor Swift and Travis Kelce Reportedly Make First Public Appearance Amid Chiefs Training Camp  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOdGFqeHVfem9GZmRIcUQ2Rm1LNnFpaWYtbXBZUkdIX1pXX1RENHFQUDdyV2JsbnRjMWhmLVlrLXdTdHc3bXcwWTgwdW10SEdHMWtrWFYzVGlMOFc5T05FbDk1TzdQcTBMTDRlNllHN1lvSHhmYmxENms4cEt5ZUs5XzZxN0J2VHZHbnRmVnlOdVprdjMzaVZMUktJZFFRU1JfYUFNR2ZR?oc=5
+
+## Taylor Swift Took Action Against Donald Trump Using Her Song - Yahoo
+
+- first seen: 2026-08-10 10:34 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Took Action Against Donald Trump Using Her Song  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPOVZJMFpFNmptbDFnVWhuVGdKQ29Ha0xkSVlPclM1bXNwNlZvaXljTHBURl9MZEFlam9uZ05kSWxkUE5uRm1tUk9DQ0oyVnEwR2pTQXFuU1VybDZLeUxCSUEzdjUxMzN3ZGZaU3ZmcFotc094QlUtZkNKbnNjY05nakNLanlOc2JHY0pkZm1NMU5pVDhjSEVtRzFyYWlzN0U?oc=5
 
 ## Trump’s Team Used Taylor Swift’s Songs Despite Her Stance — Now Her Music Is Disappearing From Campa
 
@@ -589,20 +613,3 @@ Stories: 70
 - summary: When Taylor Swift played Madison and Odessa Piper on L'Etoile's 50th  The Cap Times
 - sources:
   - [unverified] The Cap Times — https://news.google.com/rss/articles/CBMi_AFBVV95cUxQR2lmZWthb3V4RWdrQk5PSURhRGt1UlByVVpDeFl5M2h4Z201VnVSc0MycFQxY0hXT0dseXJUZmMxcWNuQnQ5QzZxcEJHRW5RRnkxQ3h3c1FyTFhhWGdwSmsxVVlYc1FLa05KWFJ6RFhabWR3TF9OZzhWX3RUYzJFekk1a2puMFk0allwOUhCZU5DcWJRLUtZVkwyRXhQMzg1cEZWZjlBRXRuc0dOVnZNNUlydFBUbUlCMTdBRC1EeDVmTzdOUUczdUs2OUlnRlR3YlpVLWFsaUU0V3haMUFvTkhlNm5IQ2h4aU1NQUVLVjNfYmYycjN1WVdiaC0?oc=5
-
-## Taylor Swift & Travis Kelce Changed Brother Jason's Life With Their Relationship - yahoo.com
-
-- first seen: 2026-08-07 10:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Changed Brother Jason's Life With Their Relationship  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPMlNQX2k0T2hsa0RnRG9lLVFocmFlcV9GLXpoRDhBVmdCQnIxV2hodDEwbFFOMy1oMzhuTXhnVG9vczFQTjdFWm5WVHlqNFBpaTVHZld3VGpabXFqRFpKWHRFUjMwMjhITjF3U0NaT1RjNHhoMWN6RHE2dVhKTUlsNm5aY2x1VE1jT2MtTWtrT000dGlybkxzaVBEU2tJMVJXTHBzbTB3?oc=5
-
-## How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video - yahoo.com
-
-- first seen: 2026-08-07 10:08 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video  yahoo.com
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMingFBVV95cUxPcU9kNGtpTGxnZW1vWE9qcmo5ZDlqYXFBWmpiTnk1eFVmaGFmaS1Ua1JKcE9LUFdPX1N5M1VSM3FtVy1QbVpxLWZBbHZHV2NnNXRUUlJQVnI2Q25tbHR5T0hPWHRYeDdZcUVMSjMwY0JheEhGSFItVGI2MWxkVERJZ3JqWnRFVnhOeG5QcmpaUlNZenBYVEF1LTFmYkFEQQ?oc=5
-  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxOS1VJOWk0NWFpMEZVMlJMOWJEQkhpNDcycDA1OS1rZVpVZ3ZwZzlKbGRVSThtV3p2YTNmalFGZnhLOWJBYlpXNVpNSjd1eUswMVVCSmdVR0NUWExNYkhXcHV3dFlsRDRKNFYzdk9vWFNlcEtoTldjVjVSS2JHUVJIbWo0emZaUk80N2pnczRwS3hJbXRMT0ZCUGJPMmNJM3kzeXl0Smc5Q2tOUldXS1p3OVR3?oc=5
