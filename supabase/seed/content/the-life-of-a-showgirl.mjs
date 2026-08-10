@@ -3433,9 +3433,9 @@ export default {
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
             note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure. (Distinct from the separately confirmed $160K+ NYC permit fee — a city-services figure, not the cost of hiring the arena.)',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-07-20: no outlet has confirmed the
+            // Lifecycle re-check 2026-08-10: still no outlet has confirmed the
             // venue-hire figure; still an unattributed estimate.
-            lastCheckedOn: '2026-07-20',
+            lastCheckedOn: '2026-08-10',
           },
           {
             claim:
@@ -3463,10 +3463,10 @@ export default {
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
             note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-07-20: no complete guest list has been
+            // Lifecycle re-check 2026-08-10: no complete guest list has been
             // published; stays partially confirmed — some names verified by
             // arrival photos, the roster as a whole never confirmed.
-            lastCheckedOn: '2026-07-20',
+            lastCheckedOn: '2026-08-10',
           },
           {
             claim:
@@ -3504,9 +3504,11 @@ export default {
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
             note: 'The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News. No outlet has confirmed or denied that Sheeran — who was photographed arriving as a guest — actually performed.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-07-20: still no confirmation or denial of
-            // a Sheeran performance; Nicks remains the only confirmed act.
-            lastCheckedOn: '2026-07-20',
+            // Lifecycle re-check 2026-08-10: still no confirmation or denial of
+            // a Sheeran performance; post-wedding reporting names Stevie Nicks
+            // (and, reportedly, Tim McGraw) as performers, but nothing on
+            // whether Sheeran — photographed arriving as a guest — played.
+            lastCheckedOn: '2026-08-10',
           },
           {
             claim:
@@ -7729,9 +7731,9 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination: as of this report the Academy had not ruled on eligibility and nothing was shortlisted. Resolves with the shortlist and the January 2027 nominations.',
+            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Lifecycle re-check 2026-08-10: still pending, not faded — a prediction awaiting scheduled Academy dates (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026), so no eligibility ruling or shortlist exists yet. Still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-07-20',
+            lastCheckedOn: '2026-08-10',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
