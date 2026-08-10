@@ -9563,5 +9563,134 @@ export default {
         // Enrichment lane declined to force a non-honest visual.
       },
     },
+    // --- News catch-up (2026-08-10, Content Shift): a confirmed music/copyright
+    // event (#1841). The removals + the copyright-block message are documented
+    // fact across Variety, Billboard, Rolling Stone and Deadline; "who filed
+    // it" is left unasserted in prose (no named party claimed it), which is
+    // also carried as a lifecycle-tracked rumor on the TTPD endorsement moment.
+    // NOTE (verification against the ticket): the 2026-08-10 triage comment
+    // also claimed "The Fate of Ophelia" was pulled from an official White
+    // House TikTok; sources conflict on that one (one syndication says it
+    // "disappeared," another says it is "still soundtracked" and the removals
+    // were "selective"), so that angle is deliberately NOT authored here.
+    // Only the cleanly-corroborated Team Trump removals (August, Father Figure)
+    // are stated as fact. Text-only: no honest reusable-host image of the posts.
+    {
+      slug: 'showgirl-swift-music-pulled-from-trump-tiktoks',
+      year: 2026,
+      month: 8,
+      day: 7,
+      category: 'music',
+      relatedIds: ['moment:vault-ttpd-an-endorsement-signed-childless-cat-lady'],
+      title: 'Her music goes quiet on Team Trump’s TikTok — pulled by a copyright block',
+      snippet:
+        'In August 2026 two of Taylor’s songs — “August” and “Father Figure” — disappeared from Team Trump TikTok posts, replaced by a notice that “the copyright owner hasn’t made this sound available in your country.” No named party claimed the takedowns; Team Trump answered by reposting “Red” as “Red (Trump’s Version).”',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nReporting quickly established it wasn’t the only one. Billboard and Variety noted that a second Team Trump clip — posted back in November 2025 and set to her 2025 single “Father Figure” — had gone silent the same way. Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Swift and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Swift’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president in an Instagram post signed “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
+            source_title: "Taylor Swift Song 'August' Removed From Trump TikTok Video",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-songs-removed-trump-tiktok-posts-1236312291/',
+            source_title: "Taylor Swift's 'August,' 'Father Figure' & Other Songs Removed From Trump-Related TikTok Posts",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-removes-august-team-trump-tiktok-video-1235605878/',
+            source_title: "Taylor Swift Removes 'August' From Team Trump TikTok Video",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/taylor-swift-donald-trump-august-tik-tok-1237029309/',
+            source_title: "Taylor Swift's Music Pulled From Trump TikTok Videos; Team Trump Reposts With 'Red (Trump's Version)'",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    // --- News catch-up (2026-08-10, Content Shift): a labeled low-confidence
+    // rumor (#1873). Deliberately a low-substance, photo-less item (chip/text
+    // tier, never hero) that cannot displace a hero slot — same pattern as
+    // the "Wendy" puppy rumor above. Venue-level naming (1587 Prime) only, as
+    // a public, past, concluded restaurant visit (privacy-redlines.md Ocean
+    // House / Watch Hill principle); the outlets' "under heavy guard" security
+    // framing is dropped per Never-OK #2. locationSpecificity is intentionally
+    // omitted — an unconfirmed rumor is machine-capped at 'region', and the
+    // venue lives in the claim text, not that field.
+    {
+      slug: 'showgirl-newlyweds-1587-prime-dinner-rumored',
+      year: 2026,
+      month: 8,
+      day: 9,
+      category: 'sighting',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      confidence: 'plausible',
+      title: 'A rumored first date night since training camp — dinner at Kelce’s Kansas City steakhouse',
+      snippet:
+        'On the Chiefs’ day off, gossip account Deuxmoi and circulating social-media photos placed Taylor and Travis at 1587 Prime — the Kansas City steakhouse Kelce co-owns with Patrick Mahomes — in what fans called their first public outing since he reported to training camp. No established outlet or either camp has confirmed it.',
+      sourceUrl:
+        'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, at 1587 Prime — the Kansas City steakhouse Kelce co-owns with his quarterback, Patrick Mahomes. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce nor the restaurant has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married, Kelce plays and trains in Kansas City, and 1587 Prime is his own room — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades.',
+        sources: [
+          {
+            outlet: 'heavy.com',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
+            source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
+            publisher: 'heavy.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-first-172543038.html',
+            source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 2,
+          },
+        ],
+        rumors: [
+          {
+            claim:
+              'Gossip account Deuxmoi and unverified social-media photos placed Taylor and Travis at dinner at 1587 Prime — the Kansas City steakhouse Kelce co-owns with Patrick Mahomes — on Saturday, Aug. 9, 2026, in what fans called their first public outing since Kelce reported to Chiefs training camp.',
+            reportedBy: 'Deuxmoi / heavy.com',
+            reportedOn: '2026-08-09',
+            status: 'unconfirmed',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
+            note: 'Traces to a Deuxmoi tip plus unverified social photos, aggregated by heavy.com and Yahoo; no established outlet or either camp has confirmed it (social tier). Venue-level only — a public, past, concluded restaurant visit (the Ocean House principle); no address, no security detail. Resolves if a named outlet or the couple confirms; fades if it stays a single tip.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-10',
+          },
+        ],
+      },
+    },
   ],
 };
