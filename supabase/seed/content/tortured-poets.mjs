@@ -647,8 +647,13 @@ export default {
       category: 'sighting',
       threadIds: ['the-proposal'],
       // Cross-link (Stage 3, 2026-08-10): the Arrowhead Monday-night win one
-      // week before, same fall.
-      relatedIds: ['moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans'],
+      // week before, same fall. (Vault Run, Cross-Link lane, 2026-08-10): + the
+      // Sept. 8 US Open final this moment's own text names — the two NYC
+      // sporting date nights of that fall, same "the-proposal" thread.
+      relatedIds: [
+        'moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans',
+        'moment:vault-ttpd-box-seats-at-arthur-ashe-for-the-us-open-mens-final',
+      ],
       title: 'Date night at Yankee Stadium for ALCS Game 1',
       snippet:
         'A bye-week baseball date: she and Travis watched the Yankees take Game 1 of the ALCS from a right-field suite, four nights before the Eras Tour restarted in Miami.',
@@ -4252,8 +4257,13 @@ export default {
       day: 8,
       category: 'sighting',
       // Cross-link (Stage 3, 2026-08-10): the Arrowhead Monday-night win a
-      // month later, same fall.
-      relatedIds: ['moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans'],
+      // month later, same fall. (Vault Run, Cross-Link lane, 2026-08-10): + the
+      // Oct. 14 Yankees ALCS date night five weeks on — the pair of fall-2024
+      // NYC sporting dates, same "the-proposal" thread.
+      relatedIds: [
+        'moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans',
+        'moment:vault-ttpd-date-night-at-yankee-stadium-for-alcs-game-1',
+      ],
       title: "Box seats at Arthur Ashe for the US Open men's final",
       // the-proposal thread opt-in (stage 3, 2026-07-19): the first big
       // non-football public date — a beat of the derived End Game thread.
