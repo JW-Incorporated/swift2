@@ -4902,6 +4902,19 @@ export default {
             focalPoint: '50% 35%',
             kind: 'primary',
           },
+          // Added 2026-08-10 (Vault Run, Photo Enrichment lane): a verified CC
+          // exterior of the venue itself, to lift this page off a single photo.
+          // Commons "AUS Melbourne, Melbourne, Melbourne Cricket Ground 001.jpg",
+          // curl HTTP 200 + image/jpeg (344,667 bytes), downloaded and
+          // vision-confirmed as the MCG (light tower, cable-stayed roof, MCG
+          // SHOP signage). Reference kind — the ground, not the concert.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/AUS_Melbourne%2C_Melbourne%2C_Melbourne_Cricket_Ground_001.jpg/1280px-AUS_Melbourne%2C_Melbourne%2C_Melbourne_Cricket_Ground_001.jpg',
+            focalPoint: '50% 45%',
+            credit: '-wuppertaler, CC BY 4.0, via Wikimedia Commons',
+            caption: 'The Melbourne Cricket Ground, whose three February 2024 nights of 96,000 each became the biggest crowds of Taylor\'s career.',
+            kind: 'reference',
+          },
         ],
       },
     },
