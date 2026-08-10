@@ -182,8 +182,28 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' },
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-midnights-3am-anti-hero-video/' },
         ],
+        // Photo pass #762 (2026-08-10): the existing single-cover photo had no
+        // focalPoint (downloaded and viewed — she's seated at the kitchen
+        // table, figure right-of-center, face upper-right). 2nd photo: an
+        // official video still. oEmbed-verified videoId b1kbLwvqugk belongs to
+        // the official @TaylorSwift channel; i.ytimg.com is YouTube's own CDN;
+        // curl 200 image/jpeg 1280x720, downloaded and vision-confirmed —
+        // the "current Taylor" kitchen segment, distinct from the cover crop.
         photos: [
-          { url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png', credit: 'Republic Records' },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png',
+            focalPoint: '62% 24%',
+            credit: 'Republic Records',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/b1kbLwvqugk/maxresdefault.jpg',
+            // Face centered, slightly left, eyeline just under a third down.
+            focalPoint: '49% 30%',
+            credit: 'Taylor Swift / Republic Records (official "Anti-Hero" music video still)',
+            caption:
+              'The "current Taylor" segment of the "Anti-Hero" video — a 1970s-style suburban kitchen, the setting for the bathroom-scale scene that was later edited out.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -347,12 +367,27 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the album the vault track finally landed on.
         // Wikipedia's stable upload.wikimedia.org copy; verified HTTP 200 + image/png.
+        // Photo pass #762 (2026-08-10): 2nd verified photo — the song's own
+        // lyric-video title card. oEmbed-verified videoId yF4ulRTCn44 belongs
+        // to the official @TaylorSwift channel; i.ytimg.com is YouTube's own
+        // CDN; curl 200 image/jpeg 1280x720, downloaded and vision-confirmed —
+        // the frame reads "NOW THAT WE DON'T TALK / TAYLOR'S VERSION / FROM
+        // THE VAULT" over the album's swirling jewel-tone art, distinct from
+        // the plain cover already used above.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/d/d5/Taylor_Swift_-_1989_%28Taylor%27s_Version%29.png',
             focalPoint: '50% 46%',
             credit: 'Republic Records',
             caption: "1989 (Taylor's Version), the October 2023 re-record where \"Now That We Don't Talk\" finally surfaced from the vault.",
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/yF4ulRTCn44/maxresdefault.jpg',
+            // Symmetric swirling art, genuinely centered — title text sits mid-frame.
+            focalPoint: '50% 50%',
+            credit: 'Taylor Swift / Republic Records (official "Now That We Don\'t Talk (Taylor\'s Version)" lyric video still)',
+            caption: 'The lyric video\'s title card: "Now That We Don\'t Talk," swirling jewel-tone art lifted from the 1989 (Taylor\'s Version) visual identity.',
             kind: 'archival',
           },
         ],
