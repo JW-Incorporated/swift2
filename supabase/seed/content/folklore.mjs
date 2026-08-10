@@ -645,7 +645,11 @@ export default {
       title: 'A Free People velvet shirt dress for the Long Pond Studio Sessions',
       // Cross-link (2026-08-07): the sessions themselves — her directorial
       // debut, filmed the day she wore this.
-      relatedIds: ['moment:vault-folklore-folklore-the-long-pond-studio-sessions-marks-her-directorial'],
+      relatedIds: [
+        'moment:vault-folklore-folklore-the-long-pond-studio-sessions-marks-her-directorial',
+        // Cross-link (Stage 3, 2026-08-10): the "Free People" designer cluster.
+        'moment:vault-midnights-a-70s-lace-slip-dress-and-free-people-fur-coat-for-lavender-',
+      ],
       snippet:
         'For her directorial debut on Disney+, Taylor wore the Free People Lux Velvet Shirt Dress with a Tiffany & Co. bracelet — a cozy, intimate wardrobe matching the stripped-down studio set.',
       sourceUrl:
@@ -1703,6 +1707,9 @@ export default {
       month: 11,
       day: 24,
       category: 'business',
+      // Cross-link (Stage 3, 2026-08-10): the same Grammy-nominations beat,
+      // four albums later.
+      relatedIds: ['moment:vault-ttpd-fortnights-grammy-double-nominated-for-both-record-and-song-'],
       title: 'Six Grammy nominations for the quarantine album',
       snippet:
         'The Nov. 24, 2020 nominations gave the surprise album a full slate: folklore for Album of the Year and Best Pop Vocal Album, "cardigan" for Song of the Year and Best Pop Solo Performance, "exile" for Best Pop Duo/Group Performance, and her Cats ballad "Beautiful Ghosts" for visual media.',

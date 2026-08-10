@@ -4108,6 +4108,10 @@ export default {
         // Cross-link (candidate #1294): the New Heights proposal-story episode —
         // the same Kelce-family-media-and-fame throughline.
         'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
+        // Cross-link (Stage 3, 2026-08-10): + the "Jason Kelce" cluster
+        // (his earlier sighting) and his other wedding-season commentary.
+        'moment:vault-midnights-a-frigid-divisional-round-in-buffalo-seated-with-jason-kelce',
+        'moment:vault-tloas-why-jason-kelce-cried-at-the-wedding-per-kylie-the-flower-gi',
       ],
       title: 'Jason Kelce on the new audience Taylor brought to the whole family',
       snippet:
@@ -4989,7 +4993,12 @@ export default {
       slug: 'showgirl-broncos-christmas-game',
       // Cross-link (candidate #1123): the Colts-game low-key look — the same
       // recurring game-day-styling beat of the engagement/wedding season.
-      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
+      // (Stage 3, 2026-08-10): + the previous year's Santa-costumed
+      // Christmas Day entrance at the same stadium.
+      relatedIds: [
+        'moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game',
+        'moment:vault-midnights-a-santa-costumed-entrance-for-a-christmas-day-upset',
+      ],
       year: 2025,
       month: 12,
       day: 25,
@@ -7898,6 +7907,9 @@ export default {
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-evermore-evermore-vs-evermore-the-theme-park-lawsuit-that-ended-in-a-',
+        // Cross-link (Stage 3, 2026-08-10): the album's Spotify chart-record
+        // debut — the same record, its legal aftermath years later.
+        'moment:vault-ttpd-tortured-poets-breaks-spotifys-single-day-record',
       ],
       year: 2026,
       month: 7,
@@ -9404,7 +9416,12 @@ export default {
       month: 8,
       day: 6,
       category: 'relationship',
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      // (Stage 3, 2026-08-10): + his own "new audience" commentary, same
+      // wedding-season throughline.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-',
+      ],
       title: 'Why Jason Kelce cried at the wedding, per Kylie: the flower girls',
       snippet:
         'On her podcast "Not Gonna Lie," Kylie Kelce clarified why Jason Kelce cried at Travis and Taylor\'s July 3 wedding: not the vows, but watching his own daughters serve as flower girls. She called the night "touching" and "very loving."',

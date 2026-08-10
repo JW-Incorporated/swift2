@@ -1133,6 +1133,9 @@ export default {
       month: 5,
       day: 30,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the private Turks and Caicos
+      // Fourth of July, the same tour break's low-key stretch.
+      relatedIds: ['moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic'],
       title: 'A fish-and-chips pub date at The Flask, no red carpet in sight',
       snippet:
         'Paparazzi caught Taylor and Joe Alwyn leaving The Flask, a traditional North London pub, after fish and chips and a pint each — one of only a handful of public sightings during a deliberately private relationship.',
@@ -1177,6 +1180,9 @@ export default {
       relatedIds: [
         'moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
         'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        // Cross-link (Stage 3, 2026-08-10): the low-key London pub date, same
+        // tour break.
+        'moment:vault-reputation-a-fish-and-chips-pub-date-at-the-flask-no-red-carpet-in-sigh',
       ],
       year: 2018,
       month: 7,

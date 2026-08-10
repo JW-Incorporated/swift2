@@ -962,6 +962,8 @@ export default {
       month: 1,
       day: 6,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Jenny Packham" designer cluster.
+      relatedIds: ['moment:vault-red-a-jenny-packham-lace-gown-blooms-with-red-at-the-2012-cmas'],
       title: "A Jenny Packham resort mini for the 2010 People's Choice Awards",
       snippet: 'A white Jenny Packham Resort 2010 mini dress, Christian Louboutin pumps, and Neil Lane jewelry at the Nokia Theatre.',
       sourceUrl: 'https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/',
@@ -1071,6 +1073,8 @@ export default {
         'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
         'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
         'moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner',
+        // Cross-link (Stage 3, 2026-08-10): the movie's soundtrack single.
+        'moment:vault-fearless-today-was-a-fairytale-breaks-a-download-record-in-a-week',
       ],
       moment: {
         context:
@@ -1877,6 +1881,9 @@ export default {
       month: 1,
       day: 26,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the Valentine's Day set the
+      // soundtrack single came from.
+      relatedIds: ['moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner'],
       title: 'Today Was a Fairytale breaks a download record in a week',
       snippet:
         'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',
