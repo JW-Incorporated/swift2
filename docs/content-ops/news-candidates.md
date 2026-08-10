@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 65
+
+## Someone sneaked a photo of Taylor Swift at 1587 Prime and incited privacy debate - Kansas City Star
+
+- first seen: 2026-08-10 21:55 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Someone sneaked a photo of Taylor Swift at 1587 Prime and incited privacy debate  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTFB1REdTZGZMaGdNLWRTRnJKSWFMRlhlTHVOTm1XSmEzaU54c0tmSzgwNGFUakRsSjRsbUZUNUpaaUYyenB6bFdoMHJHWVVueWZBMVNkQUZYcHBKWXE1WXJUbWxYN0I1UjdKQkNB0gFrQVVfeXFMT3pEMTFENUItQnFxWDc1UGk3QXUwSm5URVZ2ZmZZWHpkNHQtR1Q0R3ByT1pMNkNLWnE0cDBYMndMQWJCUEdmaXB3SmdWZzhNdmt5ZmROekx1aUd1V3hOX1hfcHFGM25TVW5CY2M?oc=5
+
+## Travis Kelce, Taylor Swift Reportedly Ban Restaurant Guests From Taking Photos - Yahoo Sports
+
+- first seen: 2026-08-10 21:55 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce, Taylor Swift Reportedly Ban Restaurant Guests From Taking Photos  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijgFBVV95cUxPcS00V2p5R3pQXzdYSHMxQkJpVFhocXZyMk1XLW1PYlVoSTBMOEdlR290TXVieWVOakV2UGZXX0VONnFzY3owQkoza1lPMGhOOGFhQlVyVE1rdmF2SmtLYXZ4MGxrTTA1MXpoZDNmemFPNHE2TXZ5RDFiamdlblZJMWt4azVINUFOZHpSU2RR?oc=5
+
+## At last, Taylor Swift mutes her songs on Donald Trump’s troll TikToks - Paste Magazine
+
+- first seen: 2026-08-10 21:55 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At last, Taylor Swift mutes her songs on Donald Trump’s troll TikToks  Paste Magazine
+- sources:
+  - [unverified] Paste Magazine — https://news.google.com/rss/articles/CBMitwFBVV95cUxPVDRJNFRNWHVqX0hjZkI0cnVCSnpTamhnVzhNWk9mOWFGLXJYRGo2clFuaWtuUjd3bmV5SFR0aUthYzJ3RUNpU0hKdDJnS3pnQ1F3SGprbFF0bkRjbG15QWhhUHpiTnVaUXdkdld2Z2NpQ3V3dFp6YXVjYW14eW5DSTNoUEkya0hfbWtSVjVpMjhzMWk2RVI4OXNQdHZ0ZGxGcmJiVkw2cVdMMGdHMENDQ254Vkx5TWc?oc=5
 
 ## Taylor Swift & Travis Kelce's Cats & Dog Fighting After Wedding - StyleCaster
 
@@ -34,14 +58,6 @@ Stories: 69
 - summary: Taylor Swift & Travis Kelce's Cats & Dog Fighting After Wedding  StyleCaster
 - sources:
   - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMioAFBVV95cUxPMFUzejlzT2RyaGlwNnpiX2k2RnJhNjNzT203Z3o3bThCeVM5VW5NZTBtSERSUE8tQWNIR29KbVAtaThwS2ZEdjVzZUdYeVl5R2hHRDVWZ2FtNTY1eThSMmQxX3VNaHJDLVZfczhmUGxqMHctdWdfTndrUEpkVkJJYTlZWjRfMXNGNnZ5OVZwd3RBS2dCa2R0S2d5SDV2QkVo?oc=5
-
-## Taylor Swift songs vanish from Trump, White House posts as removal questions linger - WSBT
-
-- first seen: 2026-08-10 17:59 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift songs vanish from Trump, White House posts as removal questions linger  WSBT
-- sources:
-  - [unverified] WSBT — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVzRUV1EtZ1RCWDBpU1dKZlczTHRNMWVVZHN0UWIyNEJiTmQwMDdWc09jSVVHUk9FTEVOTldUUlpTVXJsaURSVjVtbUNRS1VJc2h2bEM2MEdqQW9zd0JZU2lDUjhjbEJYd2o0ckVFMnB1SDVxMXhseVlQNWFxbUd0Y3pvdmVOYnJTMjVtQUMxODdiaUNkMllaNGc0em1odzRhaWgyaThPUU42bnlVYmpvMWNjQkFINHE0?oc=5
 
 ## Taylor Swift and Selena Gomez's affordable jewelry favorites are on sale for up to 25% off - Yahoo
 
@@ -66,6 +82,15 @@ Stories: 69
 - summary: Trump Campaign Removes Taylor Swift Songs From TikTok Videos, White House Posts Go Silent  NewsCord
 - sources:
   - [unverified] NewsCord — https://news.google.com/rss/articles/CBMi6gFBVV95cUxOZk12dU9LcmQ0Q0Nua3pIWWtNd2pYS2FvLTMwUkgya3hET0JQTm9EZDIzMlBFQWI0OGxnX2lNRXFEUDRsbU03U3pBdm9hTU10YjdLeWhYYi1mVXJTUFZmNmtHb0tnUThtTllsOUotazJNcl9kZmduZXhzOG1vc0lRakVfOXRXQ0w4X21uRjB3d1Z3Y1Y2UzZlS3U4RlplVXVLbWlaVmtuN00zQkRhN1JsRjRnNGtDV1FGb2xvS2JJMWZfQ0tFXy03RHM3Y1gxRFRraDJhLXBDQVZETmFaaHFvUzhjWnRIVUdLNkE?oc=5
+
+## Taylor Swift songs vanish from Trump, White House posts as removal questions linger - WSBT
+
+- first seen: 2026-08-10 17:59 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift songs vanish from Trump, White House posts as removal questions linger  WSBT
+- sources:
+  - [unverified] WSBT — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVzRUV1EtZ1RCWDBpU1dKZlczTHRNMWVVZHN0UWIyNEJiTmQwMDdWc09jSVVHUk9FTEVOTldUUlpTVXJsaURSVjVtbUNRS1VJc2h2bEM2MEdqQW9zd0JZU2lDUjhjbEJYd2o0ckVFMnB1SDVxMXhseVlQNWFxbUd0Y3pvdmVOYnJTMjVtQUMxODdiaUNkMllaNGc0em1odzRhaWgyaThPUU42bnlVYmpvMWNjQkFINHE0?oc=5
+  - [unverified] WXLV — https://news.google.com/rss/articles/CBMiugFBVV95cUxONkY3aFduTXBLTDZha3lwdWhNNkdsVnB2T1NSaFExdWlUMXpUckMyY2xYaENiaTdlc0lfLXNmaTNzQzRuazhFTW1RVzhmc3h5dEI0cGV3UzJCekdtNEJ0T2JadF9LSmp4Q3BlSHhBY0xaaFhXc3RQUTJKcFVxbnNwZGQ4dUdJUmlHQ3FhOUsydWVVWjZUM3JCcVl5Vl9scFVKS3BQZE90R1ZaQXhwTnRGY3lzbi1GUTg5MXc?oc=5
 
 ## Taylor Swift Silently Shuts Down Donald Trump - Vanity Fair
 
@@ -287,7 +312,7 @@ Stories: 69
 ## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
 
 - first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 10
 - summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
 - sources:
   - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
@@ -299,6 +324,7 @@ Stories: 69
   - [unverified] CBS News — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcGhlQ1VlVzA0cExsZE5WS1otblI3Vm9vMWpmeXlnZHJPY0hhSnJRQlN1cWdsc0FtLXRBbzF0Q18zRnRaZkthaHB1d09sYy1PU3A3SVBzUTFUSWM4UnM1YzgydDdmQUZyLWZpcGtVbzVmdFd0YkdpajN5ZWVRSk1VTWl5eTNoRzFwWjNSSDF2TWhsTFpTemplT3FYWnBmc3FuOWZ1ZHpiMjFWblhhTDF5UmFvRU5GODVVbndPNDZDMVk?oc=5
   - [unverified] Washington Times — https://news.google.com/rss/articles/CBMitwFBVV95cUxOR1BneVdQTWJJbzNTTV9qYlJfUEEyLUhTRUhFR3pkNUhDeXI3MDdPZlFXeldDNGN0dTAxVUdYckY5cTB2aFUzMk01U2tEZ2ROTlphUVppTWljZC00NHhBc1NNWEphOW1DbUpsak8xQmRUZWI1UHc1Q2JRZUFJWEkwVlFyTnlTV0VUNE5sXzJwN2pqMi0tRlVjT2dKdmkyZjVMamFtZHBMWU5Nejh1N3hPM3NZOWpRcWc?oc=5
   - [unverified] The Hill — https://news.google.com/rss/articles/CBMijgFBVV95cUxQNnpXZWJxZ3FLYzZWS0ZyQl9MMTVkSHdxMWVQSzY3Z29jREY3VlVZNnlwQzRHSzhoVnlvQkpIMUR4Z2FPdDRJekZ1VDBnaUNNNEJWdmh0NVQ0ODJGUGcxTHM4cnhhUmN0dVpJaTVvWnpOV0x4bDZjUEJDYzN2WS1hUWs0bnlpQWE0UkgtSXdB0gGTAUFVX3lxTE1hYWJBWTJjVnJTN3ZNY2F0MXdOR1llbW1oWDZsVnRkVEY4eDFYYmE2aTgwYlMzaEdDQlZtZHlUVnhlQmluOGVGQjNjZWtaRHRFRHdBc1pad25vNUFtd2U5aFl4RERRSHlza2hfc3ZnYm1mSlY5Y2gwS2haWmo0VlJXRC1mWVEzbEVpd1VxWURmUllXZw?oc=5
+  - [unverified] baltimoresun.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNX2dsMkRrVWRQaU4zU1F5Yk1oNFRYbWFjUVEwTGV4cGJXVEdzcG5ncWpQSEdjU2otR3VlU24yYXRvRno4aWRNR2kyY1NsUE4wdzhwUEFkQ29YWUhNVFk5a0RTYlZOVmNxOG0wWmFIV2VXLVdNR1NGajVDN1pUZ2Q2bWYtT2hUYkZjdWVuQ3ctdlpidkowdjhfUEl4X2JEUDZnNG1HT2M4SGRSejNDNG9obGl3?oc=5
 
 ## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
 
@@ -544,62 +570,3 @@ Stories: 69
 - summary: Travis Kelce could follow Taylor Swift into the music industry after NFL career  MARCA
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2wFBVV95cUxPVTRub2NuVXZVaVV1WF9hWFBjYVk4SFZQWEVmVkZfVWlhYU9xRjZoUnlBd2xRelRVV3ZKVzFUdmo2UjE2M1U0RU5ldWhiVHVpTktMR21jSXMzcGtKcGpZVWt2LUR1MVBTQlpDdHpaWjZPeDRhME1ERXpoNll6MkY2VUFINVc0NHRSQ3Y0X1JZaHVKQnl4X3Z4SmpCRndnc3laU2o4bXkybFdWaEp1OWdRdVFYRGwxYklzbEUwaGgxcnFOVmpkejNWXy02MF9Pek1DMEFyZlFjU3lmbzDSAdsBQVVfeXFMTjFPTVpNQkJNM1N4UFVqTlg5YVBsZ3lGTjVjOHplODlLbUhVNEdvQWpTeDF6cHBBd3NJcnhBLVhINi1SVFZZYU5EVkFTVkVEdjY0MWVxM19JaW9ZVm1QYzhtWDB2dXJrakFjVnpnZC1Pc0VRYjA0dG10WG9ub3Y4UkV2QXIwTFJhNTF4bURPMU5BS1BPOG1GeTNVVV9ETWRHZVd3NnVMLS1yRlFWUkN5a01FYzFRZlpGblZ1ZG5nRTNLbHBuTFZIdDVYN19RblpsMjJMV2k5OWs3aXpj?oc=5
-
-## Healing begins when we challenge the stories others tell about us. - Psychology Today
-
-- first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Healing begins when we challenge the stories others tell about us.  Psychology Today
-- sources:
-  - [unverified] Psychology Today — https://news.google.com/rss/articles/CBMivwFBVV95cUxOU0Z2LUlaZzYxS0ZXdVJpbzBaQkt6YjNVd0hUV1hKWFlZUzFzbGVSczNYa291b0ZpY3dfdER6RE1PbzVGNnZnWjd1M013b3VaVlYwMl8tYzNXTU1KQTJHRVNKZngxQVpVWjFUVHR1czZ2ZFNjMktUd2U4WDZvVnFEcEFmYVZLRFptZk9yaXdBRGVWX2o2V0NZWlNsdjJkOG9DR1ozcllGT0tyUmU3ampPYmFZSWpyS1RaLUlyaDlOVdIBxAFBVV95cUxOVnRRY2gxMUMxM25FQmR3bDdFM09QRWRrb1NmQi1hSXRWalZKUzZLVFdORS04UFM2Sl9vUHFpT2wzQTVOdjNVUEdNclUyS3BSOW12Q1kwQzBJT2FLWDM0aUUzS2I1c1pOWDJoY0JzbExWUERWV2JtQmRtcGx0ZFlJTFpENGpVNFJpekJYUWlKLWMyQzR1Y3Y0LUJoZXpNc0xRcXZ4bV8zN0RkdVpHdTUzUllCQkdtQ1h0WGxMQV9jOGxjTE94?oc=5
-
-## Taylor Swift's sister-in-law Kylie Kelce sets record straight on husband Jason crying at pop star's 
-
-- first seen: 2026-08-07 21:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's sister-in-law Kylie Kelce sets record straight on husband Jason crying at pop star's wedding with Travis Kelce  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE1QcEliOXpjelVmRHp3dDlnVWpzSWlxOThwQUFUQlF0dnZrQ1d6ZVZMVHIxeGllTy1Tb3hLTjhvU2NTSzZjRTRDTzVpSkpTMnFMYmRGeUlXUXhuY01FUlloTmZ4N1pjcGY0cVp4aHgyVHl4ZTA1OWlTVVdkbFA?oc=5
-
-## What would Taylor Swift do in China? Protecting against AI deepfakes - managingip.com
-
-- first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: What would Taylor Swift do in China? Protecting against AI deepfakes  managingip.com
-- sources:
-  - [unverified] managingip.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNR01CSEd4TVRURmZxMVhfQXhxYUpYYy1VUm1jZWhEaGxjajh1NHlVVUkxVXpxZWw1ZHNFVXBxVkRmZnNmYWltaWdDUVJCazhvU0ZxNTJyanJjelFpSlE3ZGx4OVNudG1WaFFZNVlsckltZlVVWFFsVnN5ZUZmdGdEVHpqaUVXT0dvMVM4U1JHalotWFhQLXVCYUhmY1FRMTNwSGxWU1hEWTV6LW93SFpoVm9XSjBCY0FqVy1YQlMwMWNXak5CUU50YjEtZkxtOXdzQkYxQ2lZVElQdw?oc=5
-
-## Este Haim opens up about emotional bond with 'sister' Taylor Swift - USA Today
-
-- first seen: 2026-08-07 21:52 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 3
-- summary: Este Haim opens up about emotional bond with 'sister' Taylor Swift  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxNV1NZY1Z6NVpMWFFtTHV6NkY5MWtWRklyaEtiMGV6UHEtejFWeHRNWEJGWkotcmdCMUNiSEs3bGJSX1RnOVdnUGc1NHAtRHhhSHEwRHBLOWI1cllrY3lwanM2RG0taFdvV1dBdnlvdWVmVV9wZk11SzlZNU45dWxBT09FempjSV81RWs2MlkwMUk5a1o4VF9GMGVzZjVBQXpDS2k1aXY2bjJUcmNWTnhtQU1iMVIzbFFwQ1kwdmIzZjRHZ09lUDlBdjZESQ?oc=5
-  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMie0FVX3lxTE9wR0llMTVJX0YtakhISGo0Qmg4a0FxQlM0dlNpU2U3aU9QRmZFeldpWU1fUGtSZVBwS245ZExuaG9aWWpYS1dhLVUwam14ZHZ1SnBDTFRxZHhNX2l2dHZLY3lrR2haSGRhb2F0OFdJYlF2LVJaZlF1YmI0TQ?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOV0lCaVc2VmkzeC1USU1JT0tKUVlwdnNaLVZhRDZpOExvZ2xYeFh4amNPUUFNM2I4ZzRvVzhmdHZxX3ZNLXFvOGNWbTd2MGRpVTVzcTkwUUlEaVNxbTRXTDRlS2lWSFNFLU1RZmo2ZGZtZDc0bERvNGRuTjUtUU9hZmJZV3ZTdFFFUjV1b1UwZTVPTVpwRG0tQlJWc3p3ZmpPTHc?oc=5
-
-## Sombr Reflects on Performing at Taylor Swift’s Songwriters Hall of Fame Induction - Kiss 95.1 Charlo
-
-- first seen: 2026-08-07 21:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Sombr Reflects on Performing at Taylor Swift’s Songwriters Hall of Fame Induction  Kiss 95.1 Charlotte
-- sources:
-  - [unverified] Kiss 95.1 Charlotte — https://news.google.com/rss/articles/CBMisgFBVV95cUxQR2RpZVYyRzlpSEN4Rm51WUNpMUxxT1pMRlhuQzlFUHZNT0pOdVVPZndncTNjQklqaEdnZ2tTQVl1alU3VktxVFJ3U2RMeEc1a2xUdHBSbGJRQW8wbXBZRjBwcjlLaHdLV3lOREJpWDVKeHBmMnVXYXdicGF0MWdGR0VWcm50ei04bjhVMkt3dVJiUmJLQ1hEaVdSbWVuc2VUbU9FOTJSQVFvWW5CaHdYdkJ3?oc=5
-
-## Kam Saunders Calls Taylor Swift and Travis Kelce’s Wedding ‘Transformative and Remarkable’ - People.
-
-- first seen: 2026-08-07 21:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kam Saunders Calls Taylor Swift and Travis Kelce’s Wedding ‘Transformative and Remarkable’  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxONy1zSFBKNEQ1ZTdtV3FfQVFmWU13QUV0TnlVNHU1WkRQWWxvZVVtSTFGWHJzZ3oxM1N6SHdaejh1aWI4MnpRdFdQbDY0dVZlaGNZUDVUa2V6ZS1PdGV3Zm95THJzaVBHdVVFdHBiQzBrRWxQLVAzbE1wWkExOWlTTWYyR0ZFbVMxNVVsQ1BPMFdOVVhrbEJtZXlaNXJUT3VDcktOeFhzSzFvX01wTlRtM0xjZlE?oc=5
-
-## Taylor Swift Allegedly Restocks 250,000 Vinyl Records for Unknown Release as Fans Speculate Rerecord
-
-- first seen: 2026-08-07 21:52 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Allegedly Restocks 250,000 Vinyl Records for Unknown Release as Fans Speculate Rerecording of Debut Album  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxNY3BzZFBmbmY3Tk8xTk9qWDVPZW1pUmxhaTA2Qk9iM2tfRlp4SVpMMWljcGdrQ2NqWjFkeFZoVzhhZXJzalFUTmxjZ2hkTURtY3VDYWI2cEl3S25FaTRxTjY2UFZkekZvRXl6WFlxdnM1dGJGOWVDVFB5OXNzUFdvemZCNA?oc=5
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxNMmFxbnMzV2Zvc0cweVl3Zm5GdTkyZ1NjZG42cXBFTk12Wk5fSFgwMmpnUUVxcVN6SlRzai0wOWRrRUFNZWR1bUthVEhvZWxqbGhjZVhlcTdBUFpVdERkRjRQN01TWkg1VnZlNEMzRGlsUWEtaWx1VTVKX3J5alBwSV9BVXh5Zw?oc=5
