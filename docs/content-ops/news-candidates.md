@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 72
+
+## Taylor Swift Silently Shuts Down Donald Trump - Vanity Fair
+
+- first seen: 2026-08-10 14:23 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Silently Shuts Down Donald Trump  Vanity Fair
+- sources:
+  - [unverified] Vanity Fair — https://news.google.com/rss/articles/CBMigwFBVV95cUxNbHNrT2lHNVp0RUZqUzF2b1JwRTBoLWtFeHFBMF9EcFhjZFFyWVp2ZGI4aHlaZUpsUGJKaFR0cTJ3TzRLc1c4dmE0SzdxTzczWlFxN3QzSWhaWWVqcXRFcDIyeDdoeGhNWnRtRG1sTXJCQm9oSzgyTVpYdUFpVng3dnk1NA?oc=5
+
+## Taylor Swift songs removed from several White House TikTok videos - usatoday.com
+
+- first seen: 2026-08-10 14:23 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift songs removed from several White House TikTok videos  usatoday.com
+- sources:
+  - [unverified] usatoday.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxQRDhoTC1NZkxaSTV5LXZaMFZlWjlIUnJCMm5pczFicnY1S1BySGd1dGZrczRpWE10eEpvbEtiT0gzQjZoWGFmVmlQMHY0ZEUyYmM2VWpMV3dudndrTGlVTWNLMk1kUWw3R195MTliaXlZamI5b2hUMEp1MXBJdWZtYnNETEwwdzhZbmM2bkU1LUhKYTZBYjZxcmNhSGdjckJZWHltN25ZTWxTNFRzVF8zRy1NNFE?oc=5
+
+## Times Taylor Swift Skipped Tons Of Makeup And Looked So Different - Yahoo
+
+- first seen: 2026-08-10 14:23 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Times Taylor Swift Skipped Tons Of Makeup And Looked So Different  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikwFBVV95cUxQZ2k5cnBPMFZTaFBqSkdham43R1ZzSlJtX3UyZW10aGpYMmRNUndDWkU0ZVlYVkdocXJwYVVuUDlDLU5FRkc5amhCdW5DbUIwUjlmLXR6RjRyR1JDejVEUU1UT2JES2JCSEVuYzhJX29nLWJmSG12T0xPdGtkVUZuMTN3OUdZczdyd3dETndweEVSZ28?oc=5
+
+## ‘Taylor Swift Tax’ on homes is law in Rhode Island. Could it help solve Cape Cod’s housing crunch? -
+
+- first seen: 2026-08-10 14:23 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: ‘Taylor Swift Tax’ on homes is law in Rhode Island. Could it help solve Cape Cod’s housing crunch?  Boston 25 News
+- sources:
+  - [unverified] Boston 25 News — https://news.google.com/rss/articles/CBMi8AFBVV95cUxPWjFKMmFKN1FCNFFlNGdXdnRJbGF0ZlFnMERDRjJaVWRKMnFWOEF2ZzBTX0M5aVFxWlhjMGxYYWVjajFXZHBka0JXSFZkQjlOVTNfOU0zTTRENERmRV83ZDRFTFFjd3E0MHc1T1liUFZqMXJGV1ZxWmdTN2xNcEhEU0FlNF9yYXdiVU4xWEdsYlUyMERoZkV6X2h5WV9LaUN5dDc3X0o3aEhUZWstNTNEOGlKbmkwYnQ1d213SHZpd0ZwX2tGUkRZRUdscjBocm1qWFFSdVQ1TnFRMlN2NnpUNl9YTGJROUtUTkFlOWZrTk0?oc=5
 
 ## Kim Kardashian Wants a Bigger Wedding Guest List Than Taylor Swift — Insider - Yahoo
 
@@ -215,7 +247,7 @@ Stories: 71
 ## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
 
 - first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 9
 - summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
 - sources:
   - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
@@ -224,6 +256,9 @@ Stories: 71
   - [unverified] The Guardian — https://news.google.com/rss/articles/CBMinwFBVV95cUxPc1pPb3pnTUxvN1JqNmdHTzlSbHNhbVRpQkhsUHF1cDZDOFg1d2dKcHdsR1lSdHFOV3c5ci11RjlycUNEcjVzWUtjV1BvdmxHd1ZuWlhRQWd3bkJOSXp3UTl6RS1KamNNSmlLdFBsMjNBcjBSRVplR0ZCN2p3TXdsMTk0dm0tZUFFdl8zNEhCLThQbGxsYWxBYkcteXFEQ1U?oc=5
   - [unverified] Red Lake Nation News — https://news.google.com/rss/articles/CBMizAFBVV95cUxPZWx3X094SllZdTJVRW9DZzVzd21EVzdHQ3BNSnpLUlpnODdYS2FKQmhlQXpHcnVEMk9LVlktNTNOYy1iZVc1VFl2blh0YlJ3VWp6SWlPek1IY1J1WlBqc0pnU2ZXY0E0OWMzVVR2YmhWVW05VHczdTRiWlpZOXlKNnQzS19obDJ0NDZrRFRjbFg0X1o4bFRBR2J1Q0dpanRSaVVGaHNqYllpWmt5b2ZIelkyekdzOEFkVE41eFU2NWpZVF94R2FkUndjZVA?oc=5
   - [unverified] Free Press Kashmir — https://news.google.com/rss/articles/CBMirwFBVV95cUxPU0wzN3Y5bFY0eHNxWklzYXJmVTVlSzd2aktGaGRETjRsQVJyOW5oRVBVb3NwWXdFWmdIQmo2MzVNbkRyRUhmX2p1S1pXUW1hTmY5eDJPb3lFTl9TN3FpWFVKQkZNZjZlUTIxWGZZbHh6LWlZek4yLUdCZUxoUE9ucVZCUktCak9Bc29JLTBXTF9zTnAzRDZ4VVY0Zms1UndfaUtIaW5xZmZSQUdGbHY40gG0AUFVX3lxTFBMRXZXMkRGbnBBVHVHYVlrYmhoNWRTd0J2ZXJWVlFrRW43TU9MR2dUelNFaEUwdElBQjFZaGx0cHE5ZS0yVTZmU0ZhV1Y5dTRmaVpUTUhDT2dHQVdFa3VHZEdEV3RJN0hJU2ZFZFJEN19OSVFrYnM4WkF1UXdid1JWNFlRZGdqWVE3ZmljdDRRendNOHpSY2o4NXBDU3UzNF91Sl9ZR21PSnp1SnRqUGduTDhObw?oc=5
+  - [unverified] CBS News — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcGhlQ1VlVzA0cExsZE5WS1otblI3Vm9vMWpmeXlnZHJPY0hhSnJRQlN1cWdsc0FtLXRBbzF0Q18zRnRaZkthaHB1d09sYy1PU3A3SVBzUTFUSWM4UnM1YzgydDdmQUZyLWZpcGtVbzVmdFd0YkdpajN5ZWVRSk1VTWl5eTNoRzFwWjNSSDF2TWhsTFpTemplT3FYWnBmc3FuOWZ1ZHpiMjFWblhhTDF5UmFvRU5GODVVbndPNDZDMVk?oc=5
+  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMitwFBVV95cUxOR1BneVdQTWJJbzNTTV9qYlJfUEEyLUhTRUhFR3pkNUhDeXI3MDdPZlFXeldDNGN0dTAxVUdYckY5cTB2aFUzMk01U2tEZ2ROTlphUVppTWljZC00NHhBc1NNWEphOW1DbUpsak8xQmRUZWI1UHc1Q2JRZUFJWEkwVlFyTnlTV0VUNE5sXzJwN2pqMi0tRlVjT2dKdmkyZjVMamFtZHBMWU5Nejh1N3hPM3NZOWpRcWc?oc=5
+  - [unverified] The Hill — https://news.google.com/rss/articles/CBMijgFBVV95cUxQNnpXZWJxZ3FLYzZWS0ZyQl9MMTVkSHdxMWVQSzY3Z29jREY3VlVZNnlwQzRHSzhoVnlvQkpIMUR4Z2FPdDRJekZ1VDBnaUNNNEJWdmh0NVQ0ODJGUGcxTHM4cnhhUmN0dVpJaTVvWnpOV0x4bDZjUEJDYzN2WS1hUWs0bnlpQWE0UkgtSXdB0gGTAUFVX3lxTE1hYWJBWTJjVnJTN3ZNY2F0MXdOR1llbW1oWDZsVnRkVEY4eDFYYmE2aTgwYlMzaEdDQlZtZHlUVnhlQmluOGVGQjNjZWtaRHRFRHdBc1pad25vNUFtd2U5aFl4RERRSHlza2hfc3ZnYm1mSlY5Y2gwS2haWmo0VlJXRC1mWVEzbEVpd1VxWURmUllXZw?oc=5
 
 ## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
 
@@ -308,13 +343,14 @@ Stories: 71
 ## Taylor Swift removes multiple songs from Trump social media posts - Entertainment Weekly
 
 - first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Taylor Swift removes multiple songs from Trump social media posts  Entertainment Weekly
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxOZ1NCc0lmeW5KRFZmbUZUSEN4czBISE9vNWFjT0lhNlZjbklkak5kQ1dDa21QTHdUSHdKcWd6bzR6SU9Xd2J6QmY4R1NJVFdJeUZlU0VpUXJhdWdTck9hR0ZJbUY4ZFdtMXVnS1I3eU1jNEg1R1ZqUnkyZ1p1YXdKQjlQdG5qTXZ2T2tnUjFKMjRlNVU?oc=5
   - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3lQekxKR3pHRXFHelB0ajhfcFhtbmoyZXB3clI2dDlQY0FObjJJTXBUc09hSElZYTd1YnlUckg2WXB4LVFZd0xBV1paYldGeUxITGFhZHNTUzlKRGVIU2dQLU56TG5wekxpM0ZJSWY4MzMtNktQdW1QOFp4bFB1cHBMQWpHRWF4MFF0SUFKOVd4c2VJZGRZaG5VSUVuYUJNWUE0OUZnR3M5ako2dmVQXw?oc=5
   - [unverified] Arise News — https://news.google.com/rss/articles/CBMikAFBVV95cUxOSFZOTGU1WWF4czE1QTNnbFl3ZThsdzMzOUdZMjdFSUdkRncwVTVNZHRYY0dYNWhzVnVKU2IwN0FYRFdGbWlyYXVWM3RiMHJ6eUF1RDRjcnYyNTdGTlF0QnpFSHBHVTU4SG5Pb0t1NGI1NXNFWmRhY095em5fSTZFSURlakZNWXRENzJRMmdqV00?oc=5
   - [unverified] Sky News — https://news.google.com/rss/articles/CBMitAFBVV95cUxPNTZyR0FiR21BVHhoN1V6bVVRLWY0NDVWRDVldXVqYmNXT3B4YmRBTEo0aHhEU3hEYkJNa1NqbDNWS3FTZk9qQXRRZ2x0bFJlLTVUWmo3RlFhYmF0eUY2OTZmY2R3VE9YamxDTGxRU3ZtTlFJSC1nRnBQcDU3czk1a3czXzNXS3F5V3NhS2owRFhLQmxNcU90UktwYWRTRVVZNkFsUDN0SjE1WkdCekFLSi1rNlQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNdGhXTmN1LWlTcUUzYU15V0pSX3ltLVdPcWlXWFVSbGkxLWNTVDFaVVM0M3hRX3RtVW1ZUHZVdnVjNXktNkpqeXgwYU9ZUkJSS3hqUDlrczJyblhxNkpYbnJ3eGhpdFA1dDMwdWRHQ0gxaFNuQi1mOHBXdUpacTlscmdLMk5CVTQ0V2tCemY3eHpqN08zTkJzNmh6SzNkMjZUTVE?oc=5
 
 ## The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4 - PureWow
 
@@ -437,10 +473,11 @@ Stories: 71
 ## Taylor Swift Blocks Trump from Using Her Music on TikTok - consequence.net
 
 - first seen: 2026-08-08 05:53 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift Blocks Trump from Using Her Music on TikTok  consequence.net
 - sources:
   - [unverified] consequence.net — https://news.google.com/rss/articles/CBMigwFBVV95cUxPQmFVUnVuaGZWNG42ZFFUZ2xxOHJMNlZla19QcDJBbktQRnRhVGg0aXF6NnhnQzlLcEZaYlN1d3FRZ0V1NlA2VXYwek5XMEw3R0RoalV1aTF2U3ZYMUxWbUxNdGdSV2RBYW9XRndsNVkyTGxNUER2NFVsN1Q2bVlXMHBFWQ?oc=5
+  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxQOUJPSFlHb2lxVEhzeFV5LWRTN3VKRlNwTDZhbDRoVGtOTEZXejBLeXdNVjdST2ZibXdpaVFxVEZiem9XS0lydUw1MVlsak1JZzNSbGNMblZSMjQ0eS1PRE56Y0hXNzZfaWVyYXdieVVTeTFtdW45RmtWS1lHLUhvSjg1RmlYTGl2elNiNXhDRnVfN0paVGxLempJTm45eVRWOFh2cW5WVmpNRnRzZm9Z?oc=5
 
 ## Roundup: Dogs, Sports, Taylor Swift … - 06880
 
@@ -589,27 +626,3 @@ Stories: 71
 - summary: Taylor Swift and Travis Kelce Have New Competition From NFL's Hottest Couple  Sports Illustrated
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxPcHVwQjRmRFI5V3ltdTlHMXMzWlBEQTdXYnlPeENLcjAxNWhUUFZkMGFGTG9Ydm1hTHZkQ1RiRldrNmFSOVhlSjluREVoaGNkbWVfeW5OOGJWRnVzRnd4bkVwS2J3MFpIUVh6aTBZT0dHTGtiM0pWX045REd6T0R3SGNGZjNScWdkVDQ0MG1aWnpUSUxnZ0ZlOFNyNEl6N2NCRnJoVlFFRVBEYmRCWUQ4NEEtOA?oc=5
-
-## Taylor Swift Wedding Street Trash, Sydney Sweeney's Bathwater Soap and Justin Bieber's Hair Among We
-
-- first seen: 2026-08-07 14:18 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Wedding Street Trash, Sydney Sweeney's Bathwater Soap and Justin Bieber's Hair Among Weirdest Celebrity Memorabilia Ever Sold  Latin Times
-- sources:
-  - [unverified] Latin Times — https://news.google.com/rss/articles/CBMiwgFBVV95cUxPN09ES1d2bzVJc2ZraTlJdERmQzhtdFVUcEdSWi1zbkxyLXlidDVwNXJDTkhSakJoa2xSUUpNTlpOeG5fUko3Rm9SV0JpdUY0VmlkU2JWNTBKamVVTFkwNUJiVXhlQzRLTC1RTk1laURKX1pyaUprRHZoMUdmbXpfZVRaSlhUbmxzdzN3Z1RYSkFJT01QcjVZR3EyZTNTZ2U3RVJTelVCV0F5VHExNDd0RDdrVUNvM3FwOFFGRWR6T1VfUQ?oc=5
-
-## Kim Kardashian 'Wants Her Wedding to Outshine Taylor Swift's Nuptials', According to Insiders - Yaho
-
-- first seen: 2026-08-07 14:18 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kim Kardashian 'Wants Her Wedding to Outshine Taylor Swift's Nuptials', According to Insiders  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMif0FVX3lxTE5mV0E2V016dnV5LXMxQmtESTZjSktWWWQ5aTV3Y09icEtxQzlmTFluWjAtTmpHVjdWbWJCRTQ5bGpjRzB2cDlBemsybk1KNHI5T3B5NklVWHBRakJDM3NCNHZHM0Rnb29QU0NETzl0OTJTd3k1UGQ0UUFIOURoY0E?oc=5
-
-## When Taylor Swift played Madison and Odessa Piper on L'Etoile's 50th - The Cap Times
-
-- first seen: 2026-08-07 14:18 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: When Taylor Swift played Madison and Odessa Piper on L'Etoile's 50th  The Cap Times
-- sources:
-  - [unverified] The Cap Times — https://news.google.com/rss/articles/CBMi_AFBVV95cUxQR2lmZWthb3V4RWdrQk5PSURhRGt1UlByVVpDeFl5M2h4Z201VnVSc0MycFQxY0hXT0dseXJUZmMxcWNuQnQ5QzZxcEJHRW5RRnkxQ3h3c1FyTFhhWGdwSmsxVVlYc1FLa05KWFJ6RFhabWR3TF9OZzhWX3RUYzJFekk1a2puMFk0allwOUhCZU5DcWJRLUtZVkwyRXhQMzg1cEZWZjlBRXRuc0dOVnZNNUlydFBUbUlCMTdBRC1EeDVmTzdOUUczdUs2OUlnRlR3YlpVLWFsaUU0V3haMUFvTkhlNm5IQ2h4aU1NQUVLVjNfYmYycjN1WVdiaC0?oc=5
