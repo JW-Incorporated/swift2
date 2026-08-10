@@ -1122,6 +1122,9 @@ export default {
       month: 7,
       day: 4,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Rhode Island beach kiss weeks
+      // later — the same summer, Calvin Harris to Hiddleswift.
+      relatedIds: ['moment:vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift'],
       title: 'Matching flag onesies for the Fourth of July, Calvin Harris included',
       snippet:
         'Gigi Hadid and Joe Jonas brought American-flag onesies for the whole group; Ed Sheeran, the HAIM sisters, and boyfriend Calvin Harris rounded out the guest list at the Rhode Island beach house.',
@@ -1155,6 +1158,13 @@ export default {
       month: 6,
       day: 15,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Fourth of July party weeks
+      // before (still with Calvin Harris) and the Colosseum sightseeing two
+      // weeks after — the Hiddleswift relationship's opening timeline.
+      relatedIds: [
+        'moment:vault-1989-matching-flag-onesies-for-the-fourth-of-july-calvin-harris-i',
+        'moment:vault-1989-sightseeing-at-the-colosseum-hand-in-hand-in-matching-outfit',
+      ],
       title: 'Caught kissing on a Rhode Island beach — the first Hiddleswift sighting',
       snippet:
         'Weeks after the Calvin Harris breakup, paparazzi photographed Taylor and Tom Hiddleston kissing on a beach in Westerly, Rhode Island — the candid that broke the story before either side said a word.',
@@ -1178,6 +1188,9 @@ export default {
       month: 6,
       day: 27,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Rhode Island beach kiss two
+      // weeks before — the relationship's first sighting.
+      relatedIds: ['moment:vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift'],
       title: 'Sightseeing at the Colosseum, hand in hand, in matching outfits',
       snippet:
         "Two weeks into the relationship, Taylor and Tom Hiddleston toured Rome's Colosseum in coordinated ensembles, photographed holding hands through the cobblestone streets.",
@@ -2281,6 +2294,9 @@ export default {
       month: 8,
       day: 9,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the record-breaking sales week the
+      // announcement led to.
+      relatedIds: ['moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record'],
       title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
       snippet:
         'August 9, 2023, the final show of the Eras Tour\'s first U.S. leg: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',

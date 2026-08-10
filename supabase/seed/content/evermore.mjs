@@ -759,6 +759,9 @@ export default {
       year: 2021,
       month: 11,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): another Red (TV) release-week look,
+      // the same week.
+      relatedIds: ['moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s'],
       title: "The 'siren red' lip and cat eye that came to define the Red (TV) era",
       snippet:
         'Overlined red-liner-and-matte-lipstick "siren red" mouth, a fine-tipped black liquid cat eye, and flat-ironed, straight-across bangs — the signature beauty look of the re-release run.',
@@ -1066,8 +1069,10 @@ export default {
     },
     {
       // Cross-link (Stage 3, 2026-08-06): the "David Koma" designer cluster.
+      // (2026-08-10): + the "siren red" beauty look from the same release week.
       relatedIds: [
         'moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi',
+        'moment:vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv',
       ],
       year: 2021,
       month: 11,
@@ -1587,6 +1592,9 @@ export default {
       month: 6,
       day: 11,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively and Ryan
+      // Reynolds" recurring-friends cluster.
+      relatedIds: ['moment:vault-lover-blake-lively-and-ryan-reynolds-help-her-ring-in-30-at-oscar-'],
       title: "A Tribeca Q&A ends in a surprise \"All Too Well\" singalong, Blake Lively and Ryan Reynolds in the crowd",
       snippet:
         'At the Beacon Theatre for a live conversation about her short film, Taylor revealed easter eggs, talked directing ambitions, and broke into an unplanned performance of the 10-minute song — with Lively and Reynolds singing along from the audience.',
@@ -1705,6 +1713,9 @@ export default {
       month: 4,
       day: 7,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the album the vault-track format
+      // it introduced went on to define.
+      relatedIds: ['moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault'],
       title: 'Mr. Perfectly Fine opens the vault',
       snippet:
         'The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor\'s Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner\'s Instagram verdict: "It\'s not NOT a bop."',
@@ -2305,6 +2316,8 @@ export default {
       relatedIds: [
         'moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas',
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+        // Cross-link (Stage 3, 2026-08-10): the vault-track format's debut.
+        'moment:vault-evermore-mr-perfectly-fine-opens-the-vault',
       ],
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
@@ -2536,6 +2549,9 @@ export default {
       month: 11,
       day: 15,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively" recurring-friend
+      // cluster.
+      relatedIds: ['moment:vault-midnights-a-crescent-moon-dress-for-her-34th-birthday-with-blake-livel'],
       title: 'Blake Lively directs "I Bet You Think About Me" — wedding-cake carnage included',
       snippet:
         'The vault track got a Nov. 15, 2021 video directed by Blake Lively in her directing debut, with Miles Teller as the groom and Taylor as the red-dressed ghost of relationships past, cheerfully ruining a wedding.',
