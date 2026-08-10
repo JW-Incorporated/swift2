@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 70
+
+## Trump’s Team Used Taylor Swift’s Songs Despite Her Stance — Now Her Music Is Disappearing From Campa
+
+- first seen: 2026-08-10 06:20 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Trump’s Team Used Taylor Swift’s Songs Despite Her Stance — Now Her Music Is Disappearing From Campaign  Benzinga
+- sources:
+  - [unverified] Benzinga — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNZXdiVF9WSUkyNVpBelI4Q2xyYmEzU1czM1ZmNE5tVFFaaEVDRTlHbUhWaUFoc1kwQUZXNFZRaEFpVUJCSC1KZkYtYnJBaXRhaGs4di1EakRDTkJDbnhqeHhxVHlGOW03a25uZmpMS2NOSlJSUXNiX1FORmR5MS1rdlNObUxhWTNsZnRSY2ZzWnJsR3VJVTl0Q3QwUzN4LUJpVFpQZE84QlA?oc=5
+
+## Now a ‘Blank Space’: Taylor Swift songs vanish from Trump, White House posts - The Times of India
+
+- first seen: 2026-08-10 06:20 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Now a ‘Blank Space’: Taylor Swift songs vanish from Trump, White House posts  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi2wFBVV95cUxNTkpzS1F6bUNpNEo1LTZlM3RxTVZWdDcwa0tOZVFxcnpiUWM4RVZOYTZkdjlmV0NfMUdVMzNac0xzenl0U3pDLTZkeS1TN0Zuam1VWjNVZ2Ywd1FSWWhkejJXSzNfNVdnQ1BRZjRkbWdOckV2Vm1SRWNMZjF5MWZ6bjJTckFUb2NraXlJYmZnZ05jMDZPcUJNenY5c01PY3k5WGZRUUZNNFZBdy0zWUV0bWkzRTVZNFpCNHUyYmR4Z25yUDl6UHN1UTBnajFPRnVRZ3hUNkFzeDJrMGvSAeABQVVfeXFMTXU3OVctYjJROFNXOE9HZWs2Ny16WjJnclVIWDNMY2U1WXBrSEhmNjhJRXlyZzBEaEtVMm1razhaVEoxcUVYY0hiQkRQalAzamNKSU43dzM3ZnFBMllQRUtVVDlEazZqUnVMRWNpZ2lrbG5yb0RtSEpNOXoxOEs4eHRVb0Q4N013d0p4ZTBFRlVFRl95WjAzODBWV0xoM2JYYTBwRjV4MjAtUVlJQTdPdU9OOTNBT3pNQk9VMzUwZUNtQ3I0UnFVM2dUZUdQeFhIdUt0c0hiTC0wWUh3YXY2QlU?oc=5
 
 ## Investigating rumor ICE contractor attended Taylor Swift and Travis Kelce's wedding - Yahoo
 
@@ -175,7 +191,7 @@ Stories: 68
 ## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
 
 - first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
 - sources:
   - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
@@ -183,6 +199,7 @@ Stories: 68
   - [unverified] CBC — https://news.google.com/rss/articles/CBMimwFBVV95cUxQb3BnM2Y5MVY0Vzl0WW94dnhJN1ZWN1cyRXUyVzF4QTAzOG5ncDNZUG9zbVhjakMxcmtEbFAwZ20tNFBNdDhxNXEtUlFLMXJWMTFwanFrcU91ZFRtY3c3YWZJSm50SDRPaGctaTFXdnAzQ041eGNVMThuaFZQaXUzYkhfSjBDcW52TFNPWkpFQXNCQjI5d2FURFJvVQ?oc=5
   - [unverified] The Guardian — https://news.google.com/rss/articles/CBMinwFBVV95cUxPc1pPb3pnTUxvN1JqNmdHTzlSbHNhbVRpQkhsUHF1cDZDOFg1d2dKcHdsR1lSdHFOV3c5ci11RjlycUNEcjVzWUtjV1BvdmxHd1ZuWlhRQWd3bkJOSXp3UTl6RS1KamNNSmlLdFBsMjNBcjBSRVplR0ZCN2p3TXdsMTk0dm0tZUFFdl8zNEhCLThQbGxsYWxBYkcteXFEQ1U?oc=5
   - [unverified] Red Lake Nation News — https://news.google.com/rss/articles/CBMizAFBVV95cUxPZWx3X094SllZdTJVRW9DZzVzd21EVzdHQ3BNSnpLUlpnODdYS2FKQmhlQXpHcnVEMk9LVlktNTNOYy1iZVc1VFl2blh0YlJ3VWp6SWlPek1IY1J1WlBqc0pnU2ZXY0E0OWMzVVR2YmhWVW05VHczdTRiWlpZOXlKNnQzS19obDJ0NDZrRFRjbFg0X1o4bFRBR2J1Q0dpanRSaVVGaHNqYllpWmt5b2ZIelkyekdzOEFkVE41eFU2NWpZVF94R2FkUndjZVA?oc=5
+  - [unverified] Free Press Kashmir — https://news.google.com/rss/articles/CBMirwFBVV95cUxPU0wzN3Y5bFY0eHNxWklzYXJmVTVlSzd2aktGaGRETjRsQVJyOW5oRVBVb3NwWXdFWmdIQmo2MzVNbkRyRUhmX2p1S1pXUW1hTmY5eDJPb3lFTl9TN3FpWFVKQkZNZjZlUTIxWGZZbHh6LWlZek4yLUdCZUxoUE9ucVZCUktCak9Bc29JLTBXTF9zTnAzRDZ4VVY0Zms1UndfaUtIaW5xZmZSQUdGbHY40gG0AUFVX3lxTFBMRXZXMkRGbnBBVHVHYVlrYmhoNWRTd0J2ZXJWVlFrRW43TU9MR2dUelNFaEUwdElBQjFZaGx0cHE5ZS0yVTZmU0ZhV1Y5dTRmaVpUTUhDT2dHQVdFa3VHZEdEV3RJN0hJU2ZFZFJEN19OSVFrYnM4WkF1UXdid1JWNFlRZGdqWVE3ZmljdDRRendNOHpSY2o4NXBDU3UzNF91Sl9ZR21PSnp1SnRqUGduTDhObw?oc=5
 
 ## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
 
