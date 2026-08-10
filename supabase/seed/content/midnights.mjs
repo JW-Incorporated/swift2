@@ -304,7 +304,12 @@ export default {
       category: 'business',
       // Cross-link (candidate #1332, 2026-07-25): the Oct-2023 billionaire milestone
       // whose own text cites this record sales week as part of the same revenue story.
-      relatedIds: ['moment:vault-midnights-billionaire-status-from-the-music-alone'],
+      relatedIds: [
+        'moment:vault-midnights-billionaire-status-from-the-music-alone',
+        // Cross-link (Stage 3, 2026-08-10): the SoFi Stadium announcement
+        // this sales week followed.
+        'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+      ],
       title: "1989 (Taylor's Version) resets the vinyl record",
       snippet:
         '1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album.',
@@ -1386,6 +1391,9 @@ export default {
       month: 12,
       day: 25,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the recurring Christmas Day
+      // Arrowhead game, a year later.
+      relatedIds: ['moment:vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents'],
       title: 'A Santa-costumed entrance for a Christmas Day upset',
       snippet:
         'She arrived at Arrowhead on Christmas alongside a companion dressed as Santa; the Raiders upset the Chiefs 20–14 in the most-watched Christmas Day game since 1989.',
@@ -1492,6 +1500,9 @@ export default {
       month: 1,
       day: 28,
       category: 'relationship',
+      // Cross-link (Stage 3, 2026-08-10): the celebration kiss after the
+      // following season's AFC Championship, a year later.
+      relatedIds: ['moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick'],
       title: 'A kiss to celebrate the AFC Championship',
       snippet: 'She kissed Travis on the field as Kansas City beat Baltimore to reach a second straight Super Bowl.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-curls-chiefs-ravens-afc-championship-game-1235591057/',
@@ -2475,6 +2486,8 @@ export default {
       month: 1,
       day: 27,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Free People" designer cluster.
+      relatedIds: ['moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se'],
       title: 'A 70s lace slip dress and Free People fur coat for "Lavender Haze"',
       snippet:
         'A white lace-trimmed slip mini dress under a light-violet Free People "Renata" faux fur coat, styled with shag-inspired bangs, glittery eyeshadow, and glossy pink lips for the self-directed 70s-themed video.',
@@ -2735,6 +2748,9 @@ export default {
       month: 12,
       day: 13,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively" recurring-friend
+      // cluster.
+      relatedIds: ['moment:vault-evermore-blake-lively-directs-i-bet-you-think-about-me-wedding-cake-c'],
       title: 'A crescent-moon dress for her 34th birthday, with Blake Lively',
       snippet:
         'A black Clio Peppiatt cocktail dress covered in silver crescent moons and stars, a furry coat, and Blake Lively\'s hand to hold walking into The Box nightclub — Travis stayed behind in Kansas City for mandatory Chiefs practice.',
@@ -2791,6 +2807,9 @@ export default {
       month: 1,
       day: 21,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Jason Kelce" cluster —
+      // his own later commentary on the relationship's spotlight.
+      relatedIds: ['moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-'],
       title: 'A frigid divisional round in Buffalo, seated with Jason Kelce',
       snippet:
         "Braving frigid temperatures at Highmark Stadium, she watched the Chiefs beat the Bills 27–24 from a suite alongside Travis's brother Jason — while some Bills fans in the crowd held up a sign reading they'd come \"for Taylor.\"",

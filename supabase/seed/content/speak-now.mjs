@@ -232,6 +232,9 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): another recurring Speak Now Tour
+      // costume, the white lace 'Mean' dress.
+      relatedIds: ['moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to'],
       title: 'A gold Roberto Cavalli fringe dress for Sparks Fly, Mine, and The Story of Us',
       snippet:
         'A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album\'s songs.',
@@ -529,6 +532,12 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the same designer's red chiffon
+      // 'Haunted' dress, and another recurring tour costume.
+      relatedIds: [
+        'moment:vault-speak-now-a-red-chiffon-susan-hilferty-dress-closes-out-haunted',
+        'moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to',
+      ],
       title: "Susan Hilferty's purple chiffon halter dress becomes the tour's signature",
       snippet:
         "A custom purple chiffon halter gown by costume designer Susan Hilferty — worn for the title track, 'Fearless,' 'Last Kiss,' and more across the Speak Now World Tour.",
@@ -569,6 +578,12 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): two more recurring Speak Now Tour
+      // costumes — the Cavalli fringe dress and Hilferty's purple halter.
+      relatedIds: [
+        'moment:vault-speak-now-a-gold-roberto-cavalli-fringe-dress-for-sparks-fly-mine-and-',
+        'moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour',
+      ],
       title: "A white lace Alice + Olivia dress for 'Mean' on the Speak Now Tour",
       snippet:
         "A custom white lace Alice + Olivia dress, worn during 'Mean' performances across the Speak Now World Tour.",
@@ -648,6 +663,9 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the same designer's purple chiffon
+      // halter, the tour's other signature Hilferty look.
+      relatedIds: ['moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour'],
       title: "A red chiffon Susan Hilferty dress closes out 'Haunted'",
       snippet:
         "Another Susan Hilferty custom piece — a red chiffon midi-length dress worn for the tour's 'Haunted' performances.",
@@ -688,6 +706,8 @@ export default {
       month: 5,
       day: 22,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Elie Saab" designer cluster.
+      relatedIds: ['moment:vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award'],
       title: 'A pink Elie Saab sequin gown at the Billboard Music Awards',
       snippet:
         'A strapless Elie Saab gown covered top to bottom in pink sequins, with side-swept curls — a glamorous but still youthful red-carpet look.',
@@ -1207,9 +1227,11 @@ export default {
     },
     {
       // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster.
+      // (2026-08-10): + the quiet Mary Kennedy gravesite visit, same summer.
       relatedIds: [
         'moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port',
         'moment:vault-red-the-conor-kennedy-summer-quietly-ends',
+        'moment:vault-speak-now-a-quiet-visit-to-mary-kennedys-gravesite',
       ],
       year: 2012,
       month: 8,
@@ -1241,6 +1263,8 @@ export default {
       month: 8,
       day: 19,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Conor Kennedy" cluster.
+      relatedIds: ['moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod'],
       title: "A quiet visit to Mary Kennedy's gravesite",
       snippet:
         "On August 19, 2012, Taylor joined Conor Kennedy at his mother Mary Richardson Kennedy's gravesite — one of the last photographed moments of their summer romance.",
@@ -1473,6 +1497,9 @@ export default {
       year: 2012,
       month: 8,
       category: 'relationship',
+      // Cross-link (Stage 3, 2026-08-10): the "Conor Kennedy" cluster — how
+      // it started, in Hyannis Port.
+      relatedIds: ['moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port'],
       title: "A summer with Conor Kennedy, and Ethel Kennedy's blessing",
       snippet: 'A whirlwind romance with the 18-year-old Kennedy family member, complete with a grandmother\'s public blessing and a house bought near the family\'s Hyannis Port compound — quietly over within months.',
       sourceUrl: 'https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split',
@@ -2263,9 +2290,11 @@ export default {
     {
       slug: 'conor-kennedy-first-linked',
       // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster.
+      // (2026-08-10): + Ethel Kennedy's on-record blessing that same summer.
       relatedIds: [
         'moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod',
         'moment:vault-red-the-conor-kennedy-summer-quietly-ends',
+        'moment:vault-speak-now-a-summer-with-conor-kennedy-and-ethel-kennedys-blessing',
       ],
       year: 2012,
       month: 7,
