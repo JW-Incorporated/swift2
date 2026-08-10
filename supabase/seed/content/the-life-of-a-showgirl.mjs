@@ -9374,14 +9374,26 @@ export default {
         // as the Maren/Shania items). thumbnailUrl set to this url so the sync
         // makes it the primary image. upload.wikimedia.org (allowlisted); curl
         // 200 + image/jpeg, 1113102 bytes, re-verified live this session.
-        // Public domain (U.S. Air Force).
+        // Public domain (U.S. Air Force). Field-order fix #762 (2026-08-10):
+        // focalPoint moved to immediately after url; no values changed.
+        // 2nd photo (#762, 2026-08-10): Barkley on a broadcast desk, laughing —
+        // Billboard's own CDN (already allowlisted), curl 200 image/jpeg,
+        // downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Charles_Barkley_in_2026.jpg',
+            focalPoint: '52% 28%',
             credit: 'U.S. Air Force (public domain), via Wikimedia Commons',
             caption: 'Charles Barkley, 2026.',
             kind: 'archival',
-            focalPoint: '52% 28%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/07/2267126554-e1783524087210.jpg?w=1024',
+            // Face right-of-center, upper third, headset visible.
+            focalPoint: '62% 26%',
+            credit: 'Getty Images, via Billboard',
+            caption: "Charles Barkley on a broadcast desk — the TV analyst persona behind his on-record explanation of the declined wedding invite.",
+            kind: 'archival',
           },
         ],
       },
@@ -9442,13 +9454,26 @@ export default {
         // the moment) is the closest honest image. thumbnailUrl set to this url
         // so the sync makes it primary. upload.wikimedia.org (allowlisted);
         // curl 200 + image/jpeg, 183058 bytes, re-verified live this session.
+        // Field-order fix #762 (2026-08-10): focalPoint moved to immediately
+        // after url; no values changed. 2nd photo (#762, 2026-08-10): Kylie
+        // Kelce herself — the moment's actual source (her podcast comments) —
+        // Billboard's own CDN (already allowlisted), curl 200 image/jpeg,
+        // downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+            focalPoint: '50% 24%',
             credit: 'Joe Glorioso / All-Pro Reels, via Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Jason Kelce.',
             kind: 'archival',
-            focalPoint: '50% 24%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/08/P1068KQV-e1786026515917.jpg?w=1024',
+            // Face upper third, slightly left of center.
+            focalPoint: '46% 18%',
+            credit: 'Getty Images, via Billboard',
+            caption: 'Kylie Kelce — the source of the on-record correction that it was the flower girls, not the vows, that moved Jason to tears.',
+            kind: 'archival',
           },
         ],
       },
