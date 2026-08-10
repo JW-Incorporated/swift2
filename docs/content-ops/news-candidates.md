@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 68
+
+## Investigating rumor ICE contractor attended Taylor Swift and Travis Kelce's wedding - Yahoo
+
+- first seen: 2026-08-10 03:18 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Investigating rumor ICE contractor attended Taylor Swift and Travis Kelce's wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiswFBVV95cUxQU2VUUWM5OTlxX2xObzRwanJzTUY2NFc2VDFIaHRfS3JGYlpCaHZOa1BFcFp2Zm80Q1FnVjZDZVpnUGhfXzg4X1Q0V1FmY2luNkw4eTNFU1Z0RkhzbHI4TE9oc19nemU4LWIyeUtBZlFfYldaR2ZTYS1BazRoUExRUms5S3FLZUJxMmpZM3RnQkFobDgxRFp6VHNhY29MUTdhYTRlWFNvalRaZXN2VlNQakd6NA?oc=5
 
 ## Taylor Swift songs vanish from White House and Trump campaign videos - AnewZ
 
@@ -167,13 +175,14 @@ Stories: 77
 ## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
 
 - first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
 - sources:
   - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
   - [unverified] Reuters — https://news.google.com/rss/articles/CBMiugFBVV95cUxQem8tQ281dWR1RWV5ZVFHX1BEQWZnNU1RaW1uZm40S0VjZzZEbGxVVHVLZkJDZjBkRzM4bUNrNVIwR0RSbDM1MFo1UVdYUV8yLXZKc1QyZEZxcFlHOGgtZzcxYk0zNzZiWlc3TExjMlU4cGhYS0tzT09feE93US1TMEh0eXlGMk12VHNRQUdkcDdmM2ZDRGhBcExEazVUOVBaTlNXc2ZZbmd4SDBxcW1kU1pFSHJZT0dqU1E?oc=5
   - [unverified] CBC — https://news.google.com/rss/articles/CBMimwFBVV95cUxQb3BnM2Y5MVY0Vzl0WW94dnhJN1ZWN1cyRXUyVzF4QTAzOG5ncDNZUG9zbVhjakMxcmtEbFAwZ20tNFBNdDhxNXEtUlFLMXJWMTFwanFrcU91ZFRtY3c3YWZJSm50SDRPaGctaTFXdnAzQ041eGNVMThuaFZQaXUzYkhfSjBDcW52TFNPWkpFQXNCQjI5d2FURFJvVQ?oc=5
   - [unverified] The Guardian — https://news.google.com/rss/articles/CBMinwFBVV95cUxPc1pPb3pnTUxvN1JqNmdHTzlSbHNhbVRpQkhsUHF1cDZDOFg1d2dKcHdsR1lSdHFOV3c5ci11RjlycUNEcjVzWUtjV1BvdmxHd1ZuWlhRQWd3bkJOSXp3UTl6RS1KamNNSmlLdFBsMjNBcjBSRVplR0ZCN2p3TXdsMTk0dm0tZUFFdl8zNEhCLThQbGxsYWxBYkcteXFEQ1U?oc=5
+  - [unverified] Red Lake Nation News — https://news.google.com/rss/articles/CBMizAFBVV95cUxPZWx3X094SllZdTJVRW9DZzVzd21EVzdHQ3BNSnpLUlpnODdYS2FKQmhlQXpHcnVEMk9LVlktNTNOYy1iZVc1VFl2blh0YlJ3VWp6SWlPek1IY1J1WlBqc0pnU2ZXY0E0OWMzVVR2YmhWVW05VHczdTRiWlpZOXlKNnQzS19obDJ0NDZrRFRjbFg0X1o4bFRBR2J1Q0dpanRSaVVGaHNqYllpWmt5b2ZIelkyekdzOEFkVE41eFU2NWpZVF94R2FkUndjZVA?oc=5
 
 ## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
 
@@ -580,84 +589,3 @@ Stories: 77
 - sources:
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMingFBVV95cUxPcU9kNGtpTGxnZW1vWE9qcmo5ZDlqYXFBWmpiTnk1eFVmaGFmaS1Ua1JKcE9LUFdPX1N5M1VSM3FtVy1QbVpxLWZBbHZHV2NnNXRUUlJQVnI2Q25tbHR5T0hPWHRYeDdZcUVMSjMwY0JheEhGSFItVGI2MWxkVERJZ3JqWnRFVnhOeG5QcmpaUlNZenBYVEF1LTFmYkFEQQ?oc=5
   - [unverified] eonline.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxOS1VJOWk0NWFpMEZVMlJMOWJEQkhpNDcycDA1OS1rZVpVZ3ZwZzlKbGRVSThtV3p2YTNmalFGZnhLOWJBYlpXNVpNSjd1eUswMVVCSmdVR0NUWExNYkhXcHV3dFlsRDRKNFYzdk9vWFNlcEtoTldjVjVSS2JHUVJIbWo0emZaUk80N2pnczRwS3hJbXRMT0ZCUGJPMmNJM3kzeXl0Smc5Q2tOUldXS1p3OVR3?oc=5
-
-## Taylor Swift tribute band postpones Niles show - wfmj.com
-
-- first seen: 2026-08-07 01:02 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift tribute band postpones Niles show  wfmj.com
-- sources:
-  - [unverified] wfmj.com — https://news.google.com/rss/articles/CBMi1gFBVV95cUxQWWc0MTc1WGE0QU0tMzZvcDFRSWkwazRJQ0hUaFV2UzJiQndTMDRkVWU3VGJCNUZZZjJ1bk1xcU1zNVNTci1WZ0tqaHZFblJ0dmxKQTdPd1d6d0pBc2hYblBWX1cyUzFRVmdvYXNPM09PV2J0UGlJYmNKZkdaUlFhelM4YVFGZzRQOW5XbU44QXRmcVJHblFJOHM2elN3eWZaTS1fUTg4UG9iYUVKYXBYVE5nc3R0ck1uZnV3Rm5uc1ZHTER5MU1abWFRZUNkWV9pYjYzZlpR?oc=5
-
-## Kylie Kelce Shares the Moment That Made Jason So Emotional at Travis and Taylor Swift’s Wedding - TO
-
-- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Shares the Moment That Made Jason So Emotional at Travis and Taylor Swift’s Wedding  TODAY.com
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxQbV9MWWZMd3o2Ymp1ZHVPV0U5M2U4YWVTMDByN0hsN2pXd0J3VElfTlJnYkFyM2NhVkc1WWVPazd6Z2JubWphV29QN3YzN0lBTFp0YnUyNWpfNkhWRERicFpKS3ZOb2lxeTRQQ09ESUkzaVNyTmRBamVSZGFVSG5VUTZTdmdQdTh2a2lQVkJmNUVTOW9ubHhuOXNoTm55NklzNXhhOXp3eDV3bmFUdjYteg?oc=5
-
-## The Kelce Who Cried at Taylor Swift’s Wedding Has Been Revealed - The Daily Beast
-
-- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Kelce Who Cried at Taylor Swift’s Wedding Has Been Revealed  The Daily Beast
-- sources:
-  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMirwFBVV95cUxNb1kwZGZQNlg0MUg4eVE0LVlsQi1OWV9vQVpVVG41MTlJX2lnUl8zTUZxLVJteGwyd242NC1wY3pob1lvUVZGTEpwejVhb2JBOVZkY0VBY0hBOWNya2dENGtUc21VT1paSmlPTzkxQ3F1b1VRbTctSFdDWThldm1YQzRtRWYydjM2bHpmOGdiOXY2Rnd1SDVwTjNLcUhGQV8xT3U3M0k4RVAtM05lSkJF?oc=5
-
-## ‘Ted Lasso’ EP Jamie Lee says Taylor Swift has an open invite if she wants to ever swing by the set:
-
-- first seen: 2026-08-07 01:02 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: ‘Ted Lasso’ EP Jamie Lee says Taylor Swift has an open invite if she wants to ever swing by the set: “We would love it”  Decider
-- sources:
-  - [unverified] Decider — https://news.google.com/rss/articles/CBMicEFVX3lxTFBzVkV4ajVHb3dma1NpNjhPa1d1a1djYXlqSTVFNzl1UTdnM0JVT0E4b0Rub2tQaEFRWFMza3A5UXhPa2lEZUc1THFOMlZTcGlyOGdpYzkwcFd4NUNYSkFwcWt0cV9uenFFc2RjN2xNaWg?oc=5
-
-## Opinion: We know more about Taylor Swift’s wedding than the water we drink - Times of San Diego
-
-- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Opinion: We know more about Taylor Swift’s wedding than the water we drink  Times of San Diego
-- sources:
-  - [unverified] Times of San Diego — https://news.google.com/rss/articles/CBMipwFBVV95cUxPS2R0VnpJa0tOUmpkZE5nSUtpMUNmVGpWVEs2SWhCVGtSTG9Sa1ZidFgzVWtpOUl1WFVlczhsN3UydEtkMW9WX04xU0VMNVA3NktNcjRvcExKTndKOVk2Q3JxbkttTEF6cE44NERvYVo3SGg0clFIdU1mUlR1bFRHSlF2c1FKUTIycVlrRHYySUN0bUNyYk1qRVpfdmhwOUJ1cU1CdXFybw?oc=5
-
-## Taylor Swift’s ‘Bliss’ As Mrs Kelce Comes With A Surprising New Routine - Yahoo
-
-- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘Bliss’ As Mrs Kelce Comes With A Surprising New Routine  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNYTZDWkhHcGEzSTlpeW8ydk5pVmJ5UWI1S3lKZFJ5S0dUbXBFNGdFb3RZTXg4cmxYR2hLOU10NWoxdDFyWk9JUzM2VTdhcDZZd1BRb0wxYklLRE1hUXpTLWFoMDYzUWl1VVRpQ3hzeWRPb2tmSU1fRjQ0TWkwVzRhNEJTYW1naXJIZjRCMURlcllZU1JNV1N0RzlIaXNlUGs?oc=5
-
-## In umbrella hat, Jason Kelce visits Cedar Point. See photos, video - beaconjournal.com
-
-- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In umbrella hat, Jason Kelce visits Cedar Point. See photos, video  beaconjournal.com
-- sources:
-  - [unverified] beaconjournal.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOWUtvN2dCajRENXJUQ3RoSmtpTVEzSEtqU1VVemJnWVVxZUVxd2RhYkkyS19TVzZsdG1RT1N3VlREaGNOU1k5bkdzcHBuRmpiUE1mM3VQaDc1YkEycXBYbzNuTWRVSVU0MUYxUk9fa0d4MmpBdXRqY3kzM29GbEtxS0VDZWdUZzFPb3IzQS1GNVFMQzJiU0VDRVBzbGdEc28wcWpvYWxNTThoY2FOamtBSnJHRFRUYWNSV2lmd2VLWnRjYTVpRW1BQzRzR1BZZXp6OXhBUGtXZw?oc=5
-
-## The Fight Over Tracking Elon Musk, Taylor Swift and Other Private Jets - observer.com
-
-- first seen: 2026-08-07 01:02 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Fight Over Tracking Elon Musk, Taylor Swift and Other Private Jets  observer.com
-- sources:
-  - [unverified] observer.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxNMTd0OFRZYVk3a1BNR2s5ZE41MnB2YzdPSDczUFJfRjlYMHZuaGp0MzNyZ2pMVm9rYnFOejRqeUxhM192aGJkU0ZZaW1SS0w2a0tHRUcxTzg2Qml6MUtkVy1NNHlGdi1CcU9NWkhPZzFnMUk3YldvS1NJRk9lSFB5Mg?oc=5
-
-## A Complicated Case for Perez Hilton
-
-- first seen: 2026-08-07 01:02 UTC | category: sighting | importance: 3
-- verification_status: single_source | source_count: 1
-- summary: The blogger was the “original influencer,” but he’s also a human being
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-commentary/perez-hilton-mental-health-celebrity-1235604600/
-
-## Charles Barkley declined Travis Kelce and Taylor Swift's wedding invitation for a simple reason - Fo
-
-- first seen: 2026-08-07 01:02 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Charles Barkley declined Travis Kelce and Taylor Swift's wedding invitation for a simple reason  Fox News
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMitAFBVV95cUxObDFMWmJzWkdmTmlpYzh4RGRZWDNybUxKRVNtS0ViSmY2NHFsajVsUUtqSF80eldMeE0wYVhMRGdQQXh4LWdqUjQyVlNTU1Bob2o2eFVMSmVXcDJxQWt3RkE3d3RnQmNtY25CeVdqbGN2SVduOUNjTVFMX2NBZjVlNFllek5KTU8wRkgtamMxYkEzYUE5c3B4MXoyaGtTT0RVZXN1OEY0QWF1QVBFa0lieDNyQmjSAboBQVVfeXFMT3lya3FxeDktSlZWUGJ6UlNST0p1aktBR0JFVVpNMlhwSG1DeXNZWlVfX1ZLdG8xWk93RUJnVkR0eWFTdkI2cjJ1Y2lCYnZYVW0tdExqcFFBcVIzaEY5aURCQVFGTUdaQUpHMHp2TmFmNGItX0lpTkJMMmRiRGU3eFd3N3RZRDFvUHJZRUhwUzNvemc4N2tjd1c4WGR2bjdiVktBdkJpT3FKVTNRSWVxaHNzaXVYVmNmWTh3?oc=5
-  - [unverified] WFIN — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNXzRIU05UU1gyd1drNTRvRURKajU0N21qUXpjXy1QVjdNZm9fS1F3aC1CUHZSQk55RXpNbjA2ZkNxTDdoLUQwYnN4djg1czFseUNCbVYyTlhucE1wYV9OQVBMMGpQZnBvaVhTYlJJSXlwV0g0cExEd3FvNGFkbXFjOTJ4MGdldVU2dVZzQm5wdV9ycGRIOHlRdE9KaktNYmNVQTd2dndDQ21mR3F2QmwwU2xWZ1dQTEF1UTlGNFdFcHQ?oc=5
