@@ -9,7 +9,8 @@
 //   - eraSlug is a real era (from eras-data.mjs)
 //   - year is an int; month is 1..12
 //   - category is one of the month_item CHECK values
-//   - title present; snippet <= 400 (DB CHECK); moment.context <= 4000 (DB CHECK)
+//   - title present; snippet + moment.context within their DB CHECK caps
+//     (all caps come from scripts/lib/content-caps.mjs — never re-typed here)
 //   - confidence (optional) is a known level; moment.rumors entries carry
 //     claim (<=400) + reportedBy + reportedOn (ISO) + status + url .... ERROR
 //   - has at least one source (link-first model) ...................... WARN
@@ -20,8 +21,8 @@
 // supabase/seed/{releases,tours,theories,videos}/*.mjs:
 //   - stable kebab slug, unique per type; known eraSlug
 //   - enums (kind / confidence / outcome / source_type / media kind+rights)
-//   - length caps mirroring the DB CHECKs (note/claim/summary <= 400,
-//     evidence/symbolism <= 2000, source excerpt <= 300 — audit §5 hard cap)
+//   - length caps mirroring the DB CHECKs and the audit §5 source-excerpt cap
+//     — every number from scripts/lib/content-caps.mjs (DB_CAPS/POLICY_CAPS)
 //   - >= 1 source on EVERY record (hard rule for the new types) ....... ERROR
 //   - theories: confidence + outcome REQUIRED so nothing renders as fact
 import { readdirSync } from 'node:fs';
@@ -35,6 +36,9 @@ import {
   slugify,
 } from './sync-longlive-content.mjs';
 import { SLUG_TO_ERA_ID } from './lib/longlive-sync-shared.mjs';
+// Every length cap lives in ONE module — see the incident note at the top of
+// scripts/lib/content-caps.mjs. Never hard-code a cap number in this file.
+import { DB_CAPS, POLICY_CAPS } from './lib/content-caps.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
@@ -123,7 +127,8 @@ const THREAD_IDS = new Set([
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-const EXCERPT_CAP = 300; // audit §5 — hard cap on verbatim source excerpts
+// audit §5 — hard cap on verbatim source excerpts
+const EXCERPT_CAP = POLICY_CAPS.sourceExcerpt;
 
 const monthIndex = (y, m) => y * 12 + (m - 1);
 
@@ -198,14 +203,16 @@ for (const { file, data } of loaded) {
     if (!CATEGORIES.has(it.category))
       err(`category "${it.category}" not in ${[...CATEGORIES].join('|')}`);
     if (!it.title) err('missing title');
-    if ((it.snippet ?? '').length > 400) err(`snippet ${it.snippet.length} > 400 (DB CHECK)`);
+    if ((it.snippet ?? '').length > DB_CAPS['month_item.snippet'])
+      err(`snippet ${it.snippet.length} > ${DB_CAPS['month_item.snippet']} (DB CHECK)`);
     // Raised 2000 -> 4000 on 2026-07-22 (founder decision) together with
-    // supabase/migrations/20260722120000_moment_context_4000.sql. These two
-    // numbers MUST move together: if this one is looser, a seed passes CI and
-    // then fails at the database on insert; if it is tighter, authors are
-    // blocked by a limit that no longer exists.
-    if ((it.moment?.context ?? '').length > 4000)
-      err(`moment.context ${it.moment.context.length} > 4000 (DB CHECK)`);
+    // supabase/migrations/20260722120000_moment_context_4000.sql. Both numbers
+    // now come from scripts/lib/content-caps.mjs, whose test parses the
+    // migration SQL — they physically cannot desync any more. (If this gate
+    // were looser than the DB, a seed would pass CI and then fail at insert;
+    // tighter, and authors are blocked by a limit that no longer exists.)
+    if ((it.moment?.context ?? '').length > DB_CAPS['moment.context'])
+      err(`moment.context ${it.moment.context.length} > ${DB_CAPS['moment.context']} (DB CHECK)`);
 
     if (!(it.sourceUrl || it.moment?.sources?.length > 0))
       warn('no sourceUrl and no moment.sources (link-first model)');
@@ -249,7 +256,8 @@ for (const { file, data } of loaded) {
           if (p.inStock != null && typeof p.inStock !== 'boolean') err(`${pAt} inStock must be a boolean when present`);
           if (p.isAlternative != null && typeof p.isAlternative !== 'boolean') err(`${pAt} isAlternative must be a boolean when present`);
           if (p.isAlternative === true && !(typeof p.altNote === 'string' && p.altNote.trim())) err(`${pAt} isAlternative:true requires a non-empty altNote explaining why this isn't the exact piece`);
-          if (p.altNote != null && p.altNote.length > 200) err(`${pAt} altNote ${p.altNote.length} > 200`);
+          if (p.altNote != null && p.altNote.length > POLICY_CAPS.productAltNote)
+            err(`${pAt} altNote ${p.altNote.length} > ${POLICY_CAPS.productAltNote}`);
         });
     }
 
@@ -326,7 +334,8 @@ for (const { file, data } of loaded) {
           if (!r || typeof r !== 'object') return err(`${rAt} is not an object`);
           const trimmed = (v) => (typeof v === 'string' ? v.trim() : '');
           if (!trimmed(r.claim)) err(`${rAt} missing claim`);
-          if ((r.claim ?? '').length > 400) err(`${rAt} claim ${r.claim.length} > 400`);
+          if ((r.claim ?? '').length > POLICY_CAPS.rumorText)
+            err(`${rAt} claim ${r.claim.length} > ${POLICY_CAPS.rumorText}`);
           if (!trimmed(r.reportedBy))
             err(`${rAt} missing reportedBy — every rumor names who reported it`);
           if (!ISO_DATE_RE.test(trimmed(r.reportedOn)))
@@ -343,7 +352,8 @@ for (const { file, data } of loaded) {
           if (!RUMOR_STATUSES.has(r.status))
             err(`${rAt} status "${r.status}" not in ${[...RUMOR_STATUSES].join('|')}`);
           if (!/^https?:\/\//.test(trimmed(r.url))) err(`${rAt} url is not an http(s) link`);
-          if ((r.note ?? '').length > 400) err(`${rAt} note ${r.note.length} > 400`);
+          if ((r.note ?? '').length > POLICY_CAPS.rumorText)
+            err(`${rAt} note ${r.note.length} > ${POLICY_CAPS.rumorText}`);
 
           // --- lifecycle integrity (2026-07-20, rumor-pipeline.md) ---------
           // A settled claim must carry the citation that settled it. Without
@@ -360,7 +370,8 @@ for (const { file, data } of loaded) {
               if (!/^https?:\/\//.test(trimmed(res.url)))
                 err(`${rAt} resolution.url is not an http(s) link — cite what settled it`);
               if (!trimmed(res.outlet)) err(`${rAt} resolution.outlet is required`);
-              if ((res.note ?? '').length > 400) err(`${rAt} resolution.note ${res.note.length} > 400`);
+              if ((res.note ?? '').length > POLICY_CAPS.rumorText)
+                err(`${rAt} resolution.note ${res.note.length} > ${POLICY_CAPS.rumorText}`);
             }
           } else if (r.resolution != null) {
             err(`${rAt} has a resolution but status is "${r.status}" — only confirmed/debunked resolve`);
@@ -509,7 +520,7 @@ for (const entry of releaseRows) {
     err(`kind "${row.kind}" not in ${[...RELEASE_KINDS].join('|')}`);
   if (!ISO_DATE_RE.test(row.releaseDate ?? ''))
     err(`releaseDate "${row.releaseDate}" is not YYYY-MM-DD`);
-  capped(err, 'note', row.note, 400);
+  capped(err, 'note', row.note, DB_CAPS['release.note']);
   if (row.tracklist != null && !Array.isArray(row.tracklist))
     err('tracklist must be an array of track titles');
   if (
@@ -538,8 +549,8 @@ for (const entry of await loadTypeDir('tours', 'tours')) {
   if (!ISO_DATE_RE.test(row.openedOn ?? '')) err(`openedOn "${row.openedOn}" is not YYYY-MM-DD`);
   if (row.closedOn != null && !ISO_DATE_RE.test(row.closedOn))
     err(`closedOn "${row.closedOn}" is not YYYY-MM-DD`);
-  capped(err, 'note', row.note, 400);
-  capped(err, 'surpriseSongsNote', row.surpriseSongsNote, 400);
+  capped(err, 'note', row.note, DB_CAPS['tour.note']);
+  capped(err, 'surpriseSongsNote', row.surpriseSongsNote, DB_CAPS['tour.note']);
   for (const leg of row.legs ?? []) {
     if (!leg.name) err('leg missing name');
     if (!ISO_DATE_RE.test(leg.from ?? '') || !ISO_DATE_RE.test(leg.to ?? ''))
@@ -549,8 +560,8 @@ for (const entry of await loadTypeDir('tours', 'tours')) {
     const sAt = `show ${show.date ?? '?'}`;
     if (!ISO_DATE_RE.test(show.date ?? '')) err(`${sAt}: date is not YYYY-MM-DD`);
     if (!show.city || !show.venue) err(`${sAt}: needs city + venue (venue-level, past-tense only)`);
-    capped(err, `${sAt} outfitNote`, show.outfitNote, 400);
-    capped(err, `${sAt} setlistChange`, show.setlistChange, 400);
+    capped(err, `${sAt} outfitNote`, show.outfitNote, POLICY_CAPS.showNote);
+    capped(err, `${sAt} setlistChange`, show.setlistChange, POLICY_CAPS.showNote);
     if (show.confidence != null && !THEORY_CONFIDENCE.has(show.confidence))
       err(`${sAt}: confidence "${show.confidence}" not a known level`);
   }
@@ -564,8 +575,8 @@ for (const entry of await loadTypeDir('theories', 'theories')) {
   checkCommon({ ...entry, err }, theorySlugs);
   if (!THEORY_KINDS.has(row.kind)) err(`kind "${row.kind}" not in ${[...THEORY_KINDS].join('|')}`);
   if (!row.claim) err('missing claim');
-  capped(err, 'claim', row.claim, 400);
-  capped(err, 'evidence', row.evidence, 2000);
+  capped(err, 'claim', row.claim, DB_CAPS['theory.claim']);
+  capped(err, 'evidence', row.evidence, DB_CAPS['theory.evidence']);
   if (!THEORY_CONFIDENCE.has(row.confidence))
     err(
       `confidence "${row.confidence}" missing or not a known level — REQUIRED so speculation never renders as fact`,
@@ -585,9 +596,9 @@ for (const entry of await loadTypeDir('videos', 'videos')) {
   if (!VIDEO_KINDS.has(row.kind)) err(`kind "${row.kind}" not in ${[...VIDEO_KINDS].join('|')}`);
   if (row.releasedOn != null && !ISO_DATE_RE.test(row.releasedOn))
     err(`releasedOn "${row.releasedOn}" is not YYYY-MM-DD`);
-  capped(err, 'summary', row.summary, 400);
-  capped(err, 'symbolism', row.symbolism, 2000);
-  for (const egg of row.easterEggs ?? []) capped(err, 'easterEggs entry', egg, 400);
+  capped(err, 'summary', row.summary, DB_CAPS['video_work.summary']);
+  capped(err, 'symbolism', row.symbolism, DB_CAPS['video_work.symbolism']);
+  for (const egg of row.easterEggs ?? []) capped(err, 'easterEggs entry', egg, POLICY_CAPS.easterEgg);
 }
 
 // -- tracks (song track guide) --
@@ -621,6 +632,12 @@ for (const file of trackFiles) {
     );
     if (row.youtubeId != null && !YOUTUBE_ID_RE.test(String(row.youtubeId)))
       err(`youtubeId "${row.youtubeId}" is not a bare 11-char YouTube id`);
+    // track_note.note has a DB CHECK (<= 400, 20260704120000_track_note.sql)
+    // that nothing here mirrored — found while consolidating the caps on
+    // 2026-08-11. Longest note in the corpus today is 212, so this closes a
+    // gap rather than changing behavior: without it an over-long note passes
+    // every local gate and then fails at insert against the live project.
+    capped(err, 'note', row.note, DB_CAPS['track_note.note']);
   }
 }
 
