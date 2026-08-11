@@ -49,7 +49,7 @@ export function momentShareCopy(
  * shifts (#453).
  */
 export function topbarShareTarget(
-  mode: 'landing' | 'era' | 'threads' | 'mood',
+  mode: 'landing' | 'era' | 'threads' | 'mood' | 'clownbot',
   eraId: EraId,
   lensId: LensId | null,
 ): ShareTarget | null {
@@ -61,6 +61,10 @@ export function topbarShareTarget(
   // that is exactly the thing this feature promises never to persist or
   // transmit. Share stays rendered-but-disabled, same as the thread gallery.
   if (mode === 'mood') return null;
+  // Clownbot: same reasoning as Mood. The only thing distinguishing one
+  // reader's view is what they typed, and that is exactly what this surface
+  // promises never to persist or transmit.
+  if (mode === 'clownbot') return null;
   if (mode === 'era') return { kind: 'era', eraId };
   if (lensId != null) return { kind: 'lens', lensId };
   return null;
