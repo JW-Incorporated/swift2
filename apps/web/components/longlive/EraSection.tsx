@@ -378,6 +378,9 @@ export function EraSection({ era }: { era: Era }) {
             `items-start` is load-bearing: without it a chip sharing a row with
             a media card would stretch to that card's height, which destroys
             the compactness that IS the chip tier. */}
+        {/* Visually hidden: card titles are h3, so without this the outline
+            jumps h1 (era) → h3 (card) — axe `heading-order` (#703). */}
+        <h2 className="sr-only">Moments from {era.shortName}</h2>
         <ol className="relative grid grid-cols-1 items-start gap-5 md:grid-cols-2 md:gap-6">
           {feedEntries.map((entry) =>
             entry.kind === 'video' ? (
