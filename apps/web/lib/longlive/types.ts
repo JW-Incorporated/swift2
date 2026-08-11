@@ -169,7 +169,28 @@ export type TheoryOutcome =
   | 'abandoned'
   | 'unfalsifiable';
 
-export type MilestoneKind = 'album' | 'tour' | 'life' | 'business' | 'award';
+/**
+ * Milestone categories. The first five mark things Taylor or her business did;
+ * `fandom` (added 2026-08-11) marks something **the fan community** did that
+ * was documented by a named outlet — the Eras Tour seismic readings, the
+ * friendship-bracelet phenomenon, the Ticketmaster hearing, a fan group
+ * crossing a membership threshold the group itself published.
+ *
+ * `fandom` exists because none of the other five fit without a category error:
+ * a community event is not Taylor's `life`, nor her `business`. It is
+ * deliberately **not** a per-platform kind — there is no `facebook` kind, and
+ * there must not be one. The platform belongs in the moment's prose and
+ * source, not in the type system, so a Facebook group, a subreddit and a
+ * Discord all land in the same bucket.
+ *
+ * **Sourcing bar (binding, `docs/content-ops/privacy-redlines.md`).** A
+ * `fandom` milestone describes a *community in aggregate* and nothing else. It
+ * may never name, quote, picture, or characterize a private group member, and
+ * a membership number needs a published source — a group's own public
+ * announcement or a named outlet. Never estimate one, never read one off a
+ * screenshot. See `docs/proposals/2026-08-11-facebook-groups-signal.md`.
+ */
+export type MilestoneKind = 'album' | 'tour' | 'life' | 'business' | 'award' | 'fandom';
 
 /** Font personality applied to era headings. */
 export type EraFont = 'serif' | 'sans' | 'mono' | 'script';
