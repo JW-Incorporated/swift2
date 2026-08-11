@@ -1659,16 +1659,27 @@ export default {
           'Andrew Lloyd Webber — the Cats and Phantom composer, and one of the most serious private collectors of Pre-Raphaelite painting in the world — spent part of August 2026 as an unexpected champion of the era\'s central image. In a short video posted to his own Instagram, reported by Robin Raven for Yahoo Creators on Aug. 11, he said he had "just been listening to Taylor Swift\'s new album," called it "really, really good," and singled out one track: "the track that really intrigues me is \'The Fate of Ophelia.\'" What caught him was the lineage the whole era had been built on — the submerged album cover and its opening single both restage John Everett Millais\'s 1852 "Ophelia." "As somebody who loves the Pre-Raphaelites," he said, "this really intrigues me because I\'ve seen a picture of Taylor posing as \'Ophelia\' by Millais," closing on the movement rather than the song: "I\'m just intrigued that once again the Pre-Raphaelites are coming to the fore."\n\nThe part fans seized on was his own house. Webber owns a version of the Millais "Ophelia," and he mused — carefully, without claiming it — that Taylor might have seen it in person: "I have a version of that at home... it does actually hang in the room where we all had lunch, so maybe she did." He put no more weight on it than that "maybe." It is a suggestion of influence, not a documented one, and it sits alongside the vault\'s existing note that the Millais-cover parallel is a reading Taylor and her photographers never confirmed. What is solid is the validation itself: an outside artist of Webber\'s stature hearing the same visual thread the album was reaching for, and hearing it clearly enough to trace it back to a specific Victorian canvas.\n\nThe timing was not a coincidence. Webber was in the middle of talking about that collection publicly — he appeared onstage at the Delaware Art Museum for an interview with curator Sophie Lynford about his Pre-Raphaelite holdings, where he explained why the Victorians kept returning to Shakespeare\'s drowned girl. Ophelia "probably was the most painted legend in Victorian art," he said, "a fairly minor figure in \'Hamlet\'" who "resonated with the Victorians a lot because she was a sad, mad woman." That is the same well the era draws from — the reason a song called "The Fate of Ophelia" and a cover of a woman half-submerged in a diamond bralette read, to a collector who has spent a lifetime with these paintings, as one continuous Pre-Raphaelite echo.',
         photos: [
           {
+            // Andrew Lloyd Webber himself — the collector making the comment.
+            // Wikimedia Commons, CC BY-SA 2.0; downloaded and vision-confirmed
+            // this session as a solo portrait of Webber (1256x1660 PNG).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/AndrewLloydWebber3_%28cropped%29.png',
+            focalPoint: '48% 32%',
+            credit: 'Tracey Nolan (CC BY-SA 2.0, via Wikimedia Commons)',
+            caption:
+              'Andrew Lloyd Webber, whose Pre-Raphaelite collection includes a version of the Millais painting he tied "The Fate of Ophelia" to.',
+            kind: 'primary',
+          },
+          {
             // Reused public-domain Millais "Ophelia" (Tate, 1852) — the exact
             // painting Webber names, and the one the era's cover and lead single
             // restage. Same allowlisted Wikimedia/Google Art Project asset the
             // album-cover moment carries; caption re-pointed to this moment.
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/94/John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg',
+            focalPoint: '52% 50%',
             credit: 'John Everett Millais, 1852 (public domain, Google Art Project)',
             caption:
               'Millais\'s "Ophelia" (1852) — the Pre-Raphaelite painting Webber traced the song to, and the one he owns a version of.',
             kind: 'archival',
-            focalPoint: '52% 50%',
           },
         ],
         sources: [
