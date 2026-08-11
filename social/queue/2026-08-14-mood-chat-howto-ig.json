@@ -1,0 +1,10 @@
+{
+  "platform": "instagram",
+  "body": "three taps and it knows. here they are, literally.\n\none: open longlivets.com and hit the sparkle icon at the top — third in the little row, next to the layers.\n\ntwo: pick a starter chip, or ignore them and type your own sentence in the box. \"however you want to say it\" is not a figure of speech; a fragment works, so does a paragraph.\n\nthree: read what comes back. five songs, each with one line on why it fits, and a play button on every one.\n\nthat’s the whole thing. no account, no email, and the small print is real — what you type isn’t saved.\n\nlonglivets.com/?utm_source=instagram&utm_medium=social&utm_campaign=mood-chat",
+  "media": [
+    "/social/library/mood-feature.png"
+  ],
+  "scheduledAt": "2026-08-14T23:00:00Z",
+  "campaign": "launch:mood-chat",
+  "why": "Calendar slot 2026-08-14 23:00Z IG, launch:mood-chat day +2 (how-to), hook \"the challenge\" — \"three taps and it knows\", then the three taps literally, assuming the reader has never found the feature. Media is the designed Mood card from PR #1903 (/social/library/mood-feature.png), which the calendar explicitly allows for this slot (\"screenshot sequence or designed card\"); the real screenshot is spent on the 08-12 announce and 08-16 example, and this queue-only PR cannot commit a new capture. Tap path verified against the Mood screenshot in #1903 (compass / layers / sparkle nav order) and apps/web/components/longlive/TopBar.tsx’s ModeToggle; five picks and their oneLiners verified against apps/web/app/api/mood/route.ts (DEFAULT_LIMIT = 5) and MoodSongCard. DEPLOY DEPENDENCY: needs #1903 deployed."
+}

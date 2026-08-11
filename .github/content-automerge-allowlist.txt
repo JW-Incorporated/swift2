@@ -1,0 +1,45 @@
+# content-automerge allowlist — THE source of truth for what may merge with no
+# human review.
+#
+# `.github/workflows/auto-merge-content.yml` reads THIS FILE (from `main`, via
+# the API — never from the PR head) and enables GitHub auto-merge only when
+# every changed path in a PR starts with one of the prefixes below. One path
+# outside the list and the PR waits for a founder. That is the fail-safe
+# direction, so keep this list narrow.
+#
+# ⚠️ EDITING THIS FILE CHANGES MERGE AUTHORITY. Adding a line means bots can
+# land that path with nobody looking. Only add paths that are CONTENT: seed
+# data, or an artifact mechanically DERIVED from seed data by a sync script.
+# Never app code, never anything hand-authored, never `apps/web/public/**`
+# (see docs/decisions.md 2026-07-28 — a bot-picked image gets human eyes).
+#
+# Format: one path prefix per line, matched with a literal `startsWith`.
+#   - `#` starts a comment; blank lines ignored.
+#   - Directory prefixes MUST end in `/` (`docs/audits` would also match
+#     `docs/auditsX/`).
+#   - Every entry must name a path that actually exists.
+#
+# `npm run check:automerge-allowlist` (CI, in `build`) enforces all of the
+# above AND that every apps/web/lib/longlive/*.generated.ts is either listed
+# here or explicitly excluded in scripts/check-automerge-allowlist.mjs. A new
+# generated file therefore cannot go silently un-auto-mergeable — which is the
+# bug this file exists to prevent (PRs #1891/#1762 sat a week because
+# theories.generated.ts was never added to the old inline list).
+
+# ── Seed data: the authored source of truth for all Vault content. ──────────
+supabase/seed/
+
+# ── Social queue: drafted posts (per docs/decisions.md 2026-07-25). ─────────
+social/queue/
+
+# ── Audit reports written by the content-engine runners. ────────────────────
+docs/audits/
+
+# ── Built vault: machine-generated from supabase/seed/** by the sync scripts
+#    listed in scripts/lib/generated-content.mjs. Never hand-edited; `npm run
+#    check:generated` fails if any of these drifts from its seeds. ───────────
+apps/web/lib/longlive/content-vault.generated.ts
+apps/web/lib/longlive/tracks.generated.ts
+apps/web/lib/longlive/theories.generated.ts
+apps/web/lib/longlive/videos.generated.ts
+apps/web/lib/longlive/song-moods.generated.ts
