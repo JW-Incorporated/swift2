@@ -2588,6 +2588,18 @@ export default {
             caption: "Onstage at Alibaba's 11.11 Countdown Gala at the Mercedes-Benz Arena in Shanghai, November 10, 2019.",
             kind: 'archival',
           },
+          // Photo pass #762 (2026-08-09): 2nd verified photo, a different
+          // moment from the same set. SCMP's own article + own CDN (not a
+          // third-party aggregator), curl 200 image/jpeg 1020x680, downloaded
+          // and vision-confirmed.
+          {
+            url: 'https://cdn.i-scmp.com/sites/default/files/styles/1020x680/public/d8/images/methode/2019/11/11/0223cb00-042e-11ea-a68f-66ebddf9f136_image_hires_172655.jpg?itok=uUebZMQw&v=1573464423',
+            // Centered onstage, face upper-middle of frame.
+            focalPoint: '50% 40%',
+            credit: 'AFP, via South China Morning Post',
+            caption: "Performing at Alibaba's 11.11 Countdown Gala in a silver snake-print romper, flanked by backup vocalists against a butterfly-lit LED backdrop.",
+            kind: 'archival',
+          },
         ],
       },
     },
