@@ -7144,7 +7144,7 @@ export default {
         'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
       moment: {
         context:
-          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
+          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." Sombr, for his part, was terrified. Recounting the night to Variety that August, he called her "a goddess" and said that if he had let himself look at her "for three seconds during the performance, my mind would have completely blanked." Their friendship had begun the way many of his heroes\' do: she praised him in an interview, he sent a thank-you note, and she wrote back with a letter and a necklace. "I freaked out and fangirled," he said. The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
         sources: [
           {
             outlet: 'PBS NewsHour',
@@ -7184,6 +7184,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
+          },
+          // Added 2026-08-06 (ledger #1816): sombr's own August recollection of
+          // the tribute — the "goddess" quote and the letter-and-necklace origin
+          // of the friendship (Variety interview, via Yahoo/ABC Audio syndication).
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/sombr-recalls-performing-taylor-swift-200000773.html',
+            source_title: 'Sombr recalls performing Taylor Swift songs at her Songwriters Hall of Fame induction',
+            publisher: 'Yahoo Entertainment (ABC Audio)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
+            reliability_score: 3,
           },
           {
             outlet: 'Rolling Stone',
@@ -7878,6 +7890,19 @@ export default {
             kind: 'primary',
             // Jessie's face dead-center between the outstretched arms.
             focalPoint: '48% 35%',
+          },
+          // Photo pass 2026-08-06 (vault-run): reaches 2/2. A second, distinct
+          // frame from the SAME official video (maxres2, unused elsewhere) —
+          // curl 200 image/jpeg, 1280x720, downloaded and vision-confirmed: a
+          // different scene, Jessie downcast beside Woody. Jessie is the song's
+          // narrator, so the crop is weighted to keep her face framed.
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxres2.jpg',
+            focalPoint: '34% 40%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video frame, YouTube)',
+            caption:
+              'A quieter beat from the same video: Jessie, the cowgirl whose story the song tells, downcast beside Woody.',
+            kind: 'archival',
           },
         ],
         // Rumor Desk 2026-07-20: the moment above holds the confirmed line
@@ -9789,6 +9814,43 @@ export default {
             publisher: 'Deadline',
             source_type: 'reputable_press',
             accessed_at: '2026-08-10',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'ted-lasso-kansas-city-nod',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'tour',
+      title: 'The Eras Tour turns up in "Ted Lasso" — as a Kansas City in-joke',
+      snippet:
+        'Apple TV\'s "Ted Lasso" returns for a fourth season with a Kansas City wink: a fictional boutique whose whole business, a shop owner explains, took off after one of Taylor\'s backup singers "floated in, bought an outfit, posted it on her Insta." The writers, an executive producer said, simply couldn\'t stop talking about the Eras Tour.',
+      sourceUrl:
+        'https://www.eonline.com/news/1434630/ted-lasso-season-4-taylor-swifts-kansas-city-eras-tour-show-shoutout',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Eras Tour surfaced in an unlikely place in the summer of 2026: an Apple TV+ comedy about an English football club. "Ted Lasso" returned for a fourth season — the premiere screened in Los Angeles on July 27, 2026, before the first episode reached the service in early August — and folded a Kansas City nod to Taylor into the script. In a scene with Rebecca Welton (Hannah Waddingham) and Keeley Jones, the owner of a fictional Kansas City boutique named "Dazzle Me Moi," set at the real Country Club Plaza shopping district, explains how the shop caught fire: one of Taylor\'s backup singers, she says, "floated in, bought an outfit, posted it on her Insta. We\'ve been poppin\' and hoppin\', and guys have been shoppin\' ever since." The store is invented; the mechanism it is spoofing — a single Taylor-adjacent post moving a local economy — is the least fictional thing in the scene.\n\nExecutive producer Jamie Lee told E! News at the LA premiere that the reference came straight out of the writers\' room\'s ongoing preoccupation with her: "The Eras Tour was happening while we [were writing]... Taylor\'s always in the mix of the conversation. It\'s kind of impossible not to talk about her because she\'s just so famously incredible." The Kansas City setting does quiet double duty. Series co-creator and star Jason Sudeikis grew up there and had taken his kids to an Eras Tour night at Arrowhead Stadium, and Kansas City is where the Taylor–Travis Kelce story began — the 2023 tour stop after which Kelce first, publicly, went looking for her with a friendship bracelet. A throwaway boutique gag, in other words, sits on top of two of the biggest cultural facts of her decade: the tour that reshaped local economies wherever it landed, and the romance it set in motion.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1434630/ted-lasso-season-4-taylor-swifts-kansas-city-eras-tour-show-shoutout',
+            source_title: "'Ted Lasso' Season 4 Includes a Sweet Nod to Taylor Swift's Kansas City Eras Tour Impact",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/entertainment/where-was-ted-lasso-season-4-filmed',
+            source_title: "'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour",
+            publisher: 'Elite Daily',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
             reliability_score: 3,
           },
         ],
