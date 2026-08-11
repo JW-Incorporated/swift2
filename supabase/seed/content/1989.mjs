@@ -416,6 +416,17 @@ export default {
             kind: 'primary',
             focalPoint: '42% 30%',
           },
+          // Photo pass #762 (2026-08-05): official "Wildest Dreams" video
+          // thumbnail — id verified via YouTube oEmbed (author "Taylor
+          // Swift"), downloaded and vision-confirmed: a tight close-up on
+          // Taylor's face, tilted, from the video Eastwood co-starred in.
+          {
+            url: 'https://i.ytimg.com/vi/IdneKLhsWOQ/hqdefault.jpg',
+            focalPoint: '58% 45%',
+            credit: 'Taylor Swift via YouTube (official video)',
+            caption: 'The official "Wildest Dreams" video — the 1950s-safari shoot Eastwood\'s own agents advised him to skip.',
+            kind: 'reference',
+          },
         ],
       },
     },
