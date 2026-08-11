@@ -1,0 +1,7 @@
+{
+  "platform": "x",
+  "body": "you know that squeaky high note in the hook of \"all you had to do was stay\"? taylor dreamed it. an ex came crawling back and that was the only sound she could get out. she woke up, went into the studio, and kept it exactly as it arrived.\n\nlonglivets.com/?era=1989&utm_source=x&utm_medium=social&utm_campaign=track-fact",
+  "scheduledAt": "2026-08-14T15:00:00Z",
+  "campaign": "heartbeat:track-fact",
+  "why": "Calendar slot 2026-08-14 15:00Z X. No Vault item is dated 08-14, so this takes the calendar’s stated fallback — heartbeat:track-fact from a 1989 dossier — with hook \"direct address\" (the calendar said \"the number\", changed because 08-15 15:00Z already runs the number on X and strategy rule 5 bans the same shape two days running on one platform). Source: the 1989 dossier entry for \"All You Had to Do Was Stay\" in apps/web/lib/longlive/tracks.generated.ts, whose discussion marks it Confirmed — \"the pitched-up vocal hook came from a dream in which she could only squeak the word at a returning ex; she recreated it in the studio\" (sourced Wikipedia ×2). No lyrics reproduced. Song-craft only, outside every blocklist topic."
+}

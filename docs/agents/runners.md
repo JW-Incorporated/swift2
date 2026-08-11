@@ -38,6 +38,13 @@ Fixes applied (see `docs/decisions.md` 2026-07-25 and PR #1539):
    prompts for the Answerer and Content Shift now carry a **Run discipline**
    block — do the work, open the PR, exit.
 2. `.github/workflows/auto-merge-content.yml` lands content-only PRs on green.
+   **What counts as "content" is `.github/content-automerge-allowlist.txt`** —
+   the workflow reads that file from `main` at run time; it is not written in
+   the workflow. If a content PR is sitting open, read the workflow's job
+   summary: it says `enabled` / `declined` / `held` / `frozen` and prints both
+   the offending paths and the allowlist in effect (2026-08-11 — an inline copy
+   of the list had fallen three generated files behind, stranding PRs while
+   reporting success).
 3. Social posts ship without per-item approval (`isDue` no longer checks
    `approvedBy`/`approvedAt`).
 
