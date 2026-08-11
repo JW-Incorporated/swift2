@@ -19,6 +19,16 @@
 # a PR `hold` (or `cie:escalate`) to stop it, or set the repo variable
 # CONTENT_AUTOMERGE_FREEZE to halt all of it instantly with no PR needed —
 # same pattern as SOCIAL_FREEZE.
+#
+# check-drafts job (added 2026-08-11, WS1+WS5): social/queue/**.json is
+# content by path, but a queue draft can still be low-quality in ways a
+# path allowlist can't see (wire-voice, a formula opener, an X/IG sibling
+# pair that will 403 on X for being near-identical, an unmarked/repeated
+# era-art fallback, a missing media file). scripts/social/check-drafts.mjs
+# is that gate now — see its header and social/README.md. `enable` `needs`
+# this job, so a PR that touches social/queue/** only gets auto-merge when
+# its OWN changed draft(s) pass; a failure just leaves the PR for a human,
+# same fail-safe direction as everything else here.
 name: auto-merge-content
 
 on:
@@ -34,8 +44,70 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check-drafts:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.base.ref == 'main'
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      # Checks out the BASE ref (main) — pull_request_target's default
+      # GITHUB_SHA/ref, deliberately NOT the PR head. scripts/social/
+      # check-drafts.mjs that runs below is therefore OUR trusted copy, not
+      # whatever the PR contains. The PR's own new/changed data files (queue
+      # JSON + any media under apps/web/public/social/) are fetched
+      # individually as raw bytes via the read-only Contents API below —
+      # data only, never executed — the same "never checkout untrusted PR
+      # code in a pull_request_target job" rule the `enable` job below
+      # documents for itself.
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Fetch this PR's changed queue + media files (data only, no PR code runs)
+        id: files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          ALL=$(gh pr view "$PR" --repo "$REPO" --json files --jq '.files[].path')
+          QUEUE_FILES=$(echo "$ALL" | grep -E '^social/queue/.*\.json$' || true)
+          if [ -z "$QUEUE_FILES" ]; then
+            echo "No social/queue/**.json changes in this PR — nothing to check."
+            echo "has_drafts=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "has_drafts=true" >> "$GITHUB_OUTPUT"
+
+          # Pull every changed file check-drafts.mjs might read — the queue
+          # JSON itself plus any media it references that this same PR is
+          # also adding — as raw bytes from the PR head commit, overlaying
+          # this (trusted, base-ref) checkout. `--jq -r` on a 404 would just
+          # be empty; `set -e` + explicit status check below makes a fetch
+          # failure loud instead of silently checking stale/missing content.
+          RELEVANT=$(echo "$ALL" | grep -E '^(social/queue/.*\.json|apps/web/public/.*\.(png|jpg|jpeg))$' || true)
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            mkdir -p "$(dirname "$f")"
+            gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" > "$f"
+          done <<<"$RELEVANT"
+
+          echo "$QUEUE_FILES" > /tmp/queue-files.txt
+
+      - name: Run draft quality checks
+        if: steps.files.outputs.has_drafts == 'true'
+        run: node scripts/social/check-drafts.mjs $(tr '\n' ' ' < /tmp/queue-files.txt)
+
   enable:
     runs-on: ubuntu-latest
+    needs: check-drafts
     # NOTE: no `actions/checkout` anywhere in this job. `pull_request_target`
     # runs with repo secrets against the BASE ref; checking out PR head code
     # here would hand those secrets to whatever the PR contains. We only ever
@@ -49,6 +121,7 @@ jobs:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
           PR: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
+          SHA: ${{ github.event.pull_request.head.sha }}
           FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
         run: |
           set -euo pipefail
@@ -59,13 +132,21 @@ jobs:
           fi
 
           # Files a content run is allowed to touch. Anything else -> human.
+          # apps/web/public/social/ added 2026-08-11 (WS1+WS5, founder-approved
+          # same day — decisions.md entry from a parallel workstream) so a
+          # drafted post's own dedicated photo can ship in the same PR as its
+          # queue JSON; extension + size are re-checked per-file below, this
+          # prefix match alone is not sufficient.
           ALLOWED_PREFIXES='
           supabase/seed/
           social/queue/
           docs/audits/
           apps/web/lib/longlive/content-vault.generated.ts
           apps/web/lib/longlive/tracks.generated.ts
+          apps/web/public/social/
           '
+          IMAGE_PREFIX='apps/web/public/social/'
+          MAX_IMAGE_BYTES=1572864 # 1.5MB
 
           # Blocking labels: an explicit request for a human look.
           labels=$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name')
@@ -85,17 +166,33 @@ jobs:
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             ok=0
+            matched_prefix=""
             while IFS= read -r prefix; do
               [ -z "$prefix" ] && continue
               case "$f" in
-                "$prefix"*) ok=1; break ;;
+                "$prefix"*) ok=1; matched_prefix="$prefix"; break ;;
               esac
             done <<<"$(echo "$ALLOWED_PREFIXES" | tr -d ' ')"
             if [ "$ok" -eq 0 ]; then
               echo "PR #$PR touches non-content path '$f' — leaving it for a human."
               exit 0
             fi
+
+            if [ "$matched_prefix" = "$IMAGE_PREFIX" ]; then
+              case "$f" in
+                *.png|*.jpg|*.jpeg) : ;;
+                *)
+                  echo "PR #$PR adds a non-image file under $IMAGE_PREFIX ('$f') — leaving it for a human."
+                  exit 0
+                  ;;
+              esac
+              size=$(gh api "repos/$REPO/contents/$f?ref=$SHA" --jq '.size // 0')
+              if [ "$size" -gt "$MAX_IMAGE_BYTES" ]; then
+                echo "PR #$PR adds an oversized image '$f' (${size} bytes > ${MAX_IMAGE_BYTES}) — leaving it for a human."
+                exit 0
+              fi
+            fi
           done <<<"$files"
 
-          echo "PR #$PR is content-only and unlabelled for hold — enabling auto-merge."
+          echo "PR #$PR is content-only, its queue drafts (if any) passed check-drafts, and it's unlabelled for hold — enabling auto-merge."
           gh pr merge "$PR" --repo "$REPO" --squash --auto --delete-branch
