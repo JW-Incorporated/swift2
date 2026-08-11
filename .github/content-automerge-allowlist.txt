@@ -13,6 +13,16 @@
 # Never app code, never anything hand-authored, never `apps/web/public/**`
 # (see docs/decisions.md 2026-07-28 — a bot-picked image gets human eyes).
 #
+# THE SELF-AMENDMENT BAR (2026-08-11). Some paths are not a judgement call and
+# CI refuses them outright: `.github/**`, `scripts/**`, `CLAUDE.md`, `AGENTS.md`,
+# `docs/agents/**`, `docs/decisions.md`, `docs/proposals/**`, `docs/specs/**`,
+# `docs/content-ops/**`, `package.json`, lockfiles, config, migrations, and
+# `apps/web/public/**`. Those paths change *what merges with nobody looking, or
+# what agents are permitted to do* — allowlisting one would let a bot PR widen
+# its own authority and land the widening unreviewed. The mechanism that decides
+# what merges without a human must itself always need a human. The full list and
+# the reason per path: NEVER_ALLOWLIST in scripts/check-automerge-allowlist.mjs.
+#
 # Format: one path prefix per line, matched with a literal `startsWith`.
 #   - `#` starts a comment; blank lines ignored.
 #   - Directory prefixes MUST end in `/` (`docs/audits` would also match

@@ -7,6 +7,114 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Work ownership is state, not prose; and the self-amendment bar
+
+**Decision (PENDING Wyatt's approval — this changes routing authority, merge
+authority and two charters).** Answering Wyatt's two questions: how work gets
+picked up without a founder, and how much PR review we can stop doing. Full
+design: `docs/proposals/2026-08-11-autonomous-pickup-and-merge-delegation.md`.
+
+**1. No "founder-bot".** Wyatt asked whether Marjorie should spin up a Fable
+agent with permission to solve ~all issues. Recommendation: **no**, on four
+grounds. (a) It answers the wrong question — sorting every currently-stuck item
+by what blocked it, roughly none were blocked on "no agent was allowed": they
+were blocked on a silently misconfigured gate (#1891/#1762), a red PR nobody
+returns to (#1545/#1565/#1585), a review nobody ran (#1580/#1596/#1619), or
+routing that existed only as a comment (#680). (b) "~all issues with few
+exceptions" is a deny-list, and this repo already proved deny-lists fail at this
+job — `check-content-inert.mjs` was rebuilt as a positive grammar precisely
+because a name deny-list was defeated by `({}).constructor.constructor('…')()`.
+(c) One privileged agent is a single arrival-rate limit with correlated failure
+across every lane, which is the bottleneck we are removing, one layer down.
+(d) It would run as `wjduvall-cmd` — the same identity as Wyatt's own approvals.
+
+**2. Routing writes state.** A `desk:*` label taxonomy; an open issue is routed
+iff it carries **exactly one** `desk:*` label. A routing comment is not routing.
+Correction to the obvious design: the **assignee cannot carry the route** —
+GitHub assignees must be collaborators, there are exactly two, and both are
+shared by every agent. Label = route; assignee = claim lock (Austin's existing
+meaning, 24h lease); `desk:founder` = a human owes an action.
+
+**3. The fence complement gets a name.** `desk:unowned` is a first-class answer.
+Reading every charter: `.github/**` (beyond Paul Blart's CI/security slice),
+infra/deploy verification, legal prose, cross-desk chores and stale-PR
+shepherding have no chartered owner, and nothing is chartered to notice that.
+The complement is decomposed to the nearest existing owner rather than to a new
+actor: `.github/**` → extend Paul Blart; stale/red PRs → a loop closure, not a
+desk; dispatch → Marjorie writes labels instead of prose; legal → stays founders.
+
+**4. Escalation ratchets instead of capping.** Operating model §5.5 caps an item
+at **one nudge, ever**. That controls repetition when the thing worth controlling
+is channel count — which is why an unstaffed item gets diagnosed, nudged once,
+then reprinted in the brief for three weeks. Supersede with: one persistent
+alert issue per condition (the `upsert-alert.sh` pattern that already fixed this
+exact bug after #947/#1177/#1203/#1224), volume capped, memory unbounded.
+
+**5. Merge delegation, by class, on mechanical proof.** Widen: `docs/**` minus
+the governance set (a non-charter, non-decision, non-spec doc cannot change what
+any agent may do — a checkable path property); dependabot **dev**-dependency
+patch/minor into Marjorie's envelope (a bad dev dep breaks CI, which is the
+failure we want; a bad production dep ships to users while CI stays green); and,
+**blocked on #669**, Austin's a11y lane once a re-run of axe on the preview can
+prove the ticket's own named violation is gone. Refuse permanently: legal prose,
+migrations (`git revert` is not a rollback — undoing one is a new migration and
+the data may be gone), `apps/web/public/**` media, and automated replies.
+
+**6. THE SELF-AMENDMENT BAR — shipped in this PR, and the part that should not
+wait.** `check-automerge-allowlist.mjs` says in its own header that it "cannot
+judge whether a path *deserves* to be auto-mergeable — adding `apps/web/` to that
+file would pass CI." For ordinary paths that is right. But one class differs in
+kind: a PR touching the allowlist, a workflow, a checker, a charter, `CLAUDE.md`
+or this file changes **what may merge with nobody looking, and what agents are
+permitted to do**. Allowlisting one would let a bot PR widen its own authority
+and land the widening unreviewed — self-ratifying. `NEVER_ALLOWLIST` now refuses
+20 such prefixes outright, matched bidirectionally so both `docs/agents/` and a
+broad `docs/` are rejected. **The mechanism that decides what merges without a
+human must itself always need a human.**
+
+**What ships now and needs no approval:** the `desk:*` and
+`review:not-run`/`review:contested` labels (inert until bootstrapped);
+`scripts/check-work-ownership.mjs` + a daily `watchdog.yml` step (zero AI,
+persistent alert, real email); `.github/work-ownership-budget.json`; and the
+self-amendment bar. None of it grants authority to anything — it makes the
+current state measurable and closes a hole a future grant could fall through.
+
+**Known gaps, stated rather than engineered around.**
+- **Founder provenance is decorative.** Two collaborators, both admin, both
+  shared with every agent. The 2026-07-18 merge grant vested on "a
+  founder-authored comment on brief #822" — from an account any agent can post
+  from. **Recommended prerequisite to any further grant:** real personal GitHub
+  accounts for Joey and Wyatt, bots demoted to `write`. This is a TX item.
+- **`needs-human-review` conflates two opposite states.** Austin applies it when
+  Codex *disagreed*; Content Shift when Codex was *unreachable*. Contested and
+  unreviewed are not the same risk, and the 2026-07-18 standing grant merges the
+  class assuming the benign one. Replacement labels ship here; making only
+  `review:not-run` envelope-eligible is a charter change.
+- **A budget can be raised to silence an alarm.** Nothing in the code prevents
+  it. Mitigation is that it is a one-line visible diff in a file whose header
+  says it is a policy act, and that the file cannot be auto-merged.
+- **Bot-selected images fail on Instagram, not in CI.** The general rule this
+  implies: automation is safe in proportion to how close the detector sits to
+  the harm.
+
+**Alternatives considered:** (a) build the founder-bot as asked — rejected,
+above. (b) A founder-bot with a *tight* fence — collapses into this proposal
+once you enumerate what it may touch, and adds a second account, making
+provenance worse. (c) Keep prose routing and improve nudging — rejected for the
+reason Joey rejected it on 2026-07-15 ("the bottleneck itself was the problem,
+not its visibility"); three weeks of briefs restating one unstaffed item *is*
+the improved-nudging outcome. (d) Assignee-only routing — rejected on mechanics.
+(e) Zero-threshold alarms instead of a budget file — rejected: 138 items every
+morning is how #947/#1177/#1203/#1224 were lost. (f) Have CI judge which paths
+*deserve* auto-merge — rejected as over-reach, except for the one class where it
+is not a policy call (the self-amendment bar).
+
+**Who approved:** proposed by Claude; **needs Wyatt's sign-off** for items 2–5
+(routing authority, charter amendments, merge-authority widening). Item 6 and the
+measurement layer are shipped as safety ratchets and can stand on their own.
+
+---
+
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
 **Decision (PENDING Wyatt's approval — this changes merge authority).** Three
