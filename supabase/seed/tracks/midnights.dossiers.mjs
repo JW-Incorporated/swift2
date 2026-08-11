@@ -85,6 +85,12 @@ export default {
         label: "You're on Your Own, Kid",
         why: "Its Midnights sibling in fragile hope after damage — talking yourself through the fear toward the next step."
       }
+    ],
+    sources: [
+      {
+        name: "Labyrinth (Taylor Swift song) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Labyrinth_(Taylor_Swift_song)"
+      }
     ]
   },
   'midnight-rain': {
@@ -99,6 +105,16 @@ export default {
         label: "Every spot in the Hot 100 top 10, all at once",
         why: "Midnight Rain debuted at No. 5 in the week Swift became the first artist to hold the chart's entire top 10."
       }
+    ],
+    sources: [
+      {
+        name: "Midnight Rain — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Midnight_Rain"
+      },
+      {
+        name: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+        url: "https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/"
+      }
     ]
   },
   'the-great-war': {
@@ -106,12 +122,22 @@ export default {
       {
         relatedId: "song:high-infidelity",
         label: "High Infidelity",
-        why: "The album's only other core Aaron Dessner co-write — the pair of folk-rock imports on an otherwise Antonoff-built synth-pop record."
+        why: "Midnights' two anatomies of a relationship at war: The Great War fights through the wreckage to a closing vow, High Infidelity stops fighting and slips one foot out the door — the folk-rock wounds Dessner brought to a synth-pop record."
       },
       {
         relatedId: "song:wouldve-couldve-shouldve",
         label: "Would've, Could've, Should've",
-        why: "The third Dessner collaboration on the 3am Edition, sharing the same acoustic, folklore/evermore lineage."
+        why: "Two 3am songs where an old wound reopens: The Great War re-fights a battle the couple barely survived, Would've, Could've, Should've re-litigates a relationship from nineteen that still won't close decades on."
+      }
+    ],
+    sources: [
+      {
+        name: "The Great War by Taylor Swift — Songfacts",
+        url: "https://www.songfacts.com/facts/taylor-swift/the-great-war"
+      },
+      {
+        name: "Midnights (Taylor Swift album) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Midnights"
       }
     ]
   },
@@ -180,6 +206,12 @@ export default {
         label: "Cowboy Like Me",
         why: "The Indianapolis surprise-song mashup partner (Nov. 2, 2024)."
       }
+    ],
+    sources: [
+      {
+        name: "Maroon (song) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Maroon_(song)"
+      }
     ]
   },
   'paris': {
@@ -188,6 +220,12 @@ export default {
         relatedId: "song:sweet-nothing",
         label: "Sweet Nothing",
         why: "The album's other portrait of love as a private refuge that shuts out the industry noise."
+      }
+    ],
+    sources: [
+      {
+        name: "Midnights (Taylor Swift album) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Midnights"
       }
     ]
   },
@@ -198,17 +236,27 @@ export default {
       {
         relatedId: "song:wouldve-couldve-shouldve",
         label: "Would've, Could've, Should've",
-        why: "The album's only other core Aaron Dessner co-write — the two folk-lineage tracks he brought to a synth-pop record."
+        why: "Midnights' two Dessner-built reckonings with a relationship's damage — High Infidelity from inside the betrayal as it happens, Would've, Could've, Should've from decades after a wound that never healed."
       },
       {
         relatedId: "song:the-great-war",
         label: "The Great War",
-        why: "The 3am Edition's other Swift–Dessner collaboration, sharing its acoustic-turned-electronic Dessner fingerprints."
+        why: "The album's other Dessner portrait of a relationship at war — High Infidelity the cold, quiet exit, The Great War the bloody reconciliation that vows never to fight that way again."
       },
       {
         relatedId: "song:illicit-affairs",
         label: "illicit affairs",
-        why: "Business Insider's Courteney Larocca paired the two — both detail the inevitable end of an ill-fated affair."
+        why: "Two affair songs tracing the same doomed arc — both sit inside an ill-fated affair and clock the exact, inevitable moment its loyalty gives way."
+      }
+    ],
+    sources: [
+      {
+        name: "High Infidelity (song) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/High_Infidelity_(song)"
+      },
+      {
+        name: "Midnights (Taylor Swift album) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Midnights"
       }
     ]
   },
