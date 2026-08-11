@@ -1,0 +1,85 @@
+# Emails the founders when Tree (the social-media manager desk) produces its
+# weekly artifacts, so they land in real inboxes rather than only as GitHub
+# activity — @mentions of bot identities do not reach the founders' actual
+# email (see docs/agents/marjorie.md › Delivery; the same gap let four
+# watchdog alerts sit unread for days in July).
+#
+# Two triggers, one delivery path (scripts/watchdog/send-mail.py — the exact
+# mailer the Founders' Brief and watchdog alerts already use; From Marjorie,
+# To Joey, CC Wyatt; skips quietly if the mail secrets are unset):
+#
+#   1. Tree's weekly planning PR (head branch `tree/<date>`, per
+#      docs/agents/tree.md › Mutation rights) — the PR body IS Tree's weekly
+#      report to its manager, so it goes out on `opened`.
+#   2. Tree's weekly `founder-task` issue — the ≤15-min human task list.
+#      `opened` only (Tree creates it with the label already applied, per its
+#      charter) — adding `labeled` too would double-send on creation.
+#
+# Zero AI, event-payload-only, no polling. `pull_request` on a same-repo
+# branch has normal secrets access; Tree cannot run code here (no PR-head
+# checkout — the mailer runs from the trusted base ref).
+name: tree-mail
+
+on:
+  pull_request:
+    types: [opened]
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tree-mail-${{ github.event_name }}-${{ github.event.pull_request.number || github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  mail:
+    # Fire only for Tree's two artifact shapes; everything else exits at the
+    # job filter with zero steps run.
+    if: >
+      (github.event_name == 'pull_request' &&
+       startsWith(github.event.pull_request.head.ref, 'tree/')) ||
+      (github.event_name == 'issues' &&
+       contains(join(github.event.issue.labels.*.name, ','), 'founder-task'))
+    runs-on: ubuntu-latest
+    steps:
+      # Trusted base-ref checkout only — never the PR head. The mailer script
+      # is the only thing we need from the tree.
+      - uses: actions/checkout@v7
+
+      - name: Build payload from the event
+        env:
+          # Event fields via env, never inline-interpolated into the script,
+          # so a crafted PR/issue body cannot inject shell.
+          KIND: ${{ github.event_name }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os
+          kind = os.environ["KIND"]
+          if kind == "pull_request":
+              subject = "Tree's weekly plan: " + os.environ["PR_TITLE"]
+              body = os.environ.get("PR_BODY") or "(no PR body)"
+              url = os.environ["PR_URL"]
+          else:
+              subject = "Tree needs ~15 min of founder time: " + os.environ["ISSUE_TITLE"]
+              body = os.environ.get("ISSUE_BODY") or "(no issue body)"
+              url = os.environ["ISSUE_URL"]
+          with open("payload.json", "w", encoding="utf-8") as f:
+              json.dump({"subject": subject, "body": body, "url": url}, f)
+          PY
+
+      - name: Send From Marjorie, To Joey, CC Wyatt
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python3 scripts/watchdog/send-mail.py payload.json
