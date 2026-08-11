@@ -25,6 +25,7 @@ import {
   esc,
   loadWebEnvLocal,
   preferDbSource,
+  sourceLiteral,
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
@@ -341,7 +342,7 @@ export function renderModule(byEra) {
       lines.push(`      title: ${esc(t.title)},`);
       lines.push(`      note: ${esc(t.note)},`);
       if (t.sources.length) {
-        const srcs = t.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
+        const srcs = t.sources.map(sourceLiteral).join(', ');
         lines.push(`      sources: [${srcs}],`);
       }
       if (t.discussion && t.discussion.length) {
@@ -349,9 +350,7 @@ export function renderModule(byEra) {
         if (t.quotedLines && t.quotedLines.length) {
           lines.push(`      quotedLines: [${t.quotedLines.map(esc).join(', ')}],`);
         }
-        const discSrcs = t.discussionSources
-          .map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`)
-          .join(', ');
+        const discSrcs = t.discussionSources.map(sourceLiteral).join(', ');
         lines.push(`      discussionSources: [${discSrcs}],`);
       }
       // Grouped objects (facts/dossier) are emitted as plain JSON — already
