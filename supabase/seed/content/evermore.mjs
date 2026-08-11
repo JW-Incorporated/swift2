@@ -2975,6 +2975,67 @@ export default {
       },
     },
 
+    // Part B of #1141 (evermore↔folklore parity): the era had a Dec-11
+    // "willow leads / folklore's sister arrives" release-day card and the
+    // Dec-26 chart-double item, but no native beat for the *announcement
+    // itself* — the surprise-drop move that folklore's "Sixteen hours' notice"
+    // item gets in full. This is that beat. Dated Dec 10 (the announcement) to
+    // sit a day ahead of the Dec-11 release cluster, exactly as folklore's
+    // announcement beat sits a day ahead of its release. Verified this session
+    // (2026-08-02) against Wikipedia (Evermore album, fetched directly),
+    // Rolling Stone's announcement report, and Good Morning America (the
+    // birthday note + the simultaneous "willow" video premiere).
+    {
+      slug: 'evermore-surprise-announcement',
+      significance: 'defining', // the surprise drop repeated — proof folklore's no-rollout model was a method, not a one-off (mirrors folklore's Sixteen-hours beat)
+      year: 2020,
+      month: 12,
+      day: 10,
+      category: 'release',
+      title: "Doing the impossible twice: evermore's surprise announcement",
+      snippet:
+        '"To put it plainly, we just couldn\'t stop writing songs." Five months after folklore, a second surprise album — announced December 10, out at midnight eastern.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp',
+        'moment:vault-evermore-folklores-sister-arrives',
+      ],
+      moment: {
+        context:
+          'Five months after folklore appeared with barely a day\'s warning, Taylor did the thing that was supposed to be a one-time trick a second time. On December 10, 2020 she posted that "my 9th studio album, and folklore\'s sister record, will be out tonight at midnight eastern. It\'s called evermore." Hours later the record and the "willow" music video arrived together — no lead single, no countdown, no rollout, just the note, the cover art, the track list, and then the songs.\n\nThe note framed evermore not as leftover folklore material but as a deliberate walk further in: "To put it plainly, we just couldn\'t stop writing songs. To try and put it more poetically, it feels like we were standing on the edge of the folklorian woods and had a choice: to turn and go back or to travel further into the forest of this music. We chose to wander deeper in." The collaborators came with her — Aaron Dessner and Jack Antonoff producing, Bon Iver on the title-track duet, HAIM on "no body no crime," and the returning "William Bowery" (Joe Alwyn), with the National and Marcus Mumford in the credits.\n\nThe timing carried her own numerology. evermore landed two days before her 31st birthday, and she said so in the note: "Ever since I was 13, I\'ve been excited about turning 31 because it\'s my lucky number backwards, which is why I wanted to surprise you with this now. You\'ve all been so caring, supportive and thoughtful on my birthdays and so this time I thought I would give you something!" She added that she knew the holiday season "will be a lonely one for most of us," offering the album to anyone who, like her, turns to music to cope with missing people. What folklore had proved a surprise album *could* do, evermore proved she could do on purpose — and the double No. 1 debut that followed (told in this era\'s chart items) made it twice in a single year, a feat no artist had pulled off even once before.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-02',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-evermore-album-surprise-1101630/',
+            source_title: "Taylor Swift Announces Ninth Album 'Evermore'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-announces-surprise-9th-studio-album-evermore-74646424',
+            source_title: "Taylor Swift announces surprise 9th studio album 'evermore' to be released at midnight",
+            publisher: 'ABC / Good Morning America',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
