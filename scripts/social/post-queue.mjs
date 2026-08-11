@@ -21,15 +21,32 @@
 // happened; without that the failed/ move would never land and the item would
 // retry against the same wall forever.
 //
+// Two states deliberately spend NO attempt, so an item can sit in either
+// forever without ever reaching social/failed/:
+//   - skipped  — the generic era-art repetition guard (an authoring gap).
+//   - waiting  — media not yet live on the site (lib/preflight.mjs); the
+//                item is fine, its image PR just hasn't merged/deployed.
+// Both are the right behaviour and both were, until 2026-08-11, invisible:
+// social/queue/2026-08-09-august-augustine-ig.json was skipped every 30
+// minutes for two days inside runs that exited 0. run-report.mjs now
+// escalates either state past STUCK_AFTER_HOURS into a red run, so a wait
+// cannot quietly become a never.
+//
 // Environment overrides (both for tests only, never set in the workflow):
 //   SOCIAL_ROOT             — repo root to read social/** from.
 //   SOCIAL_POSTER_REPORT    — file to write the markdown report to.
+//   SOCIAL_IG_POLL_TIMEOUT_MS / SOCIAL_IG_POLL_INTERVAL_MS
+//                           — bounds for the Instagram container-readiness
+//                             poll (lib/ig-container.mjs), so a test can
+//                             exercise the timeout path in milliseconds
+//                             instead of the real 90 seconds.
 
 import { readdir, readFile, writeFile, appendFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { selectDuePosts, utcDateOnly, repeatsRecentEraArt } from './lib/queue.mjs';
+import { selectDuePosts, utcDateOnly, repeatsRecentEraArt, requiresLiveMedia, hoursOverdue } from './lib/queue.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
+import { mediaUrlsReachable } from './lib/preflight.mjs';
 import { OUTCOME, hasBlockingFailure, summarizeRun, formatReportMarkdown, formatAnnotations } from './lib/run-report.mjs';
 
 const MEDIA_BASE_URL = 'https://www.longlivets.com';
@@ -77,6 +94,17 @@ async function countPostedToday(postedDir, now) {
   return counts;
 }
 
+/** Container-poll bounds, defaulted in lib/ig-container.mjs and overridable
+ * only so tests don't have to burn the real 90-second ceiling. */
+function igPollOptions() {
+  const options = {};
+  const timeoutMs = Number(process.env.SOCIAL_IG_POLL_TIMEOUT_MS);
+  const intervalMs = Number(process.env.SOCIAL_IG_POLL_INTERVAL_MS);
+  if (Number.isFinite(timeoutMs) && timeoutMs > 0) options.timeoutMs = timeoutMs;
+  if (Number.isFinite(intervalMs) && intervalMs >= 0) options.intervalMs = intervalMs;
+  return options;
+}
+
 async function postOne(item) {
   const creds = {
     apiKey: process.env.X_API_KEY,
@@ -88,7 +116,9 @@ async function postOne(item) {
   const igAccessToken = process.env.IG_ACCESS_TOKEN;
 
   if (item.platform === 'x') return postToX(item, creds);
-  if (item.platform === 'instagram') return postToInstagram(item, { ...creds, accessToken: igAccessToken }, MEDIA_BASE_URL);
+  if (item.platform === 'instagram') {
+    return postToInstagram(item, { ...creds, accessToken: igAccessToken }, MEDIA_BASE_URL, igPollOptions());
+  }
   throw new Error(`Unknown platform "${item.platform}"`);
 }
 
@@ -183,8 +213,43 @@ export async function main() {
     if (repeatsRecentEraArt(item, recentIg)) {
       const reason = `its media (${item.media[0]}) is generic era-cover art already used in a recent Instagram post. Needs a real dedicated photo (see docs/agents/runner-prompts/growth-draft.md's Media section) before it can ship. Left in the queue, not counted as a failed attempt.`;
       console.error(`social-poster: SKIPPING ${entry.file} — ${reason}`);
-      outcomes.push({ kind: OUTCOME.SKIPPED, file: entry.file, platform: item.platform, error: reason });
+      outcomes.push({
+        kind: OUTCOME.SKIPPED,
+        file: entry.file,
+        platform: item.platform,
+        error: reason,
+        overdueHours: hoursOverdue(item, now),
+      });
       continue;
+    }
+
+    // Media-reachability gate (2026-08-11). Instagram/Facebook do not receive
+    // an upload — Meta fetches the image from the live site — so an item
+    // whose image PR is merged-but-not-deployed, or not merged at all, is not
+    // postable no matter what its `scheduledAt` says. Before this, such an
+    // item was "due", so it burned real attempts against a 404 and died in
+    // social/failed/; the drafting agent's rational response was to stop
+    // queueing real photos and reuse deployed era art (21 of 22 IG posts).
+    // Now it WAITS instead: no publish, no attempt spent, visible in the run
+    // report, and it ships itself on the first run after the deploy lands.
+    // See lib/preflight.mjs. It only stops being benign if it goes on too
+    // long — run-report.mjs escalates a wait past STUCK_AFTER_HOURS to a red
+    // run, so "waiting" can't quietly become "never".
+    if (requiresLiveMedia(item)) {
+      const urls = item.media.map((p) => `${MEDIA_BASE_URL}${p}`);
+      const preflight = await mediaUrlsReachable(urls);
+      if (!preflight.ok) {
+        const reason = `its media is not live at ${MEDIA_BASE_URL} yet — ${preflight.reason}. Instagram fetches media by URL, so publishing now would 404. Waiting for the image PR to merge and deploy; no attempt spent, still queued.`;
+        console.error(`social-poster: WAITING ${entry.file} — ${reason}`);
+        outcomes.push({
+          kind: OUTCOME.WAITING,
+          file: entry.file,
+          platform: item.platform,
+          error: reason,
+          overdueHours: hoursOverdue(item, now),
+        });
+        continue;
+      }
     }
 
     try {
@@ -231,7 +296,9 @@ export async function main() {
   // means the failed/ move is still recorded despite this.
   if (hasBlockingFailure(outcomes)) {
     process.exitCode = 1;
-    console.error('social-poster: exiting non-zero — at least one post permanently failed and was NOT published.');
+    console.error(
+      'social-poster: exiting non-zero — at least one post permanently failed, or has been stuck past schedule long enough that it will never post on its own.',
+    );
   }
 
   return outcomes;

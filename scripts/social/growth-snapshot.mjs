@@ -13,12 +13,12 @@
 // throws — a single platform's API hiccup yields `null` for that field
 // rather than failing the whole snapshot.
 
-import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
+import { readdir, readFile, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, URLSearchParams } from 'node:url';
 import { oauth1Header } from './lib/oauth1.mjs';
 import { GRAPH_VERSION } from './lib/platforms.mjs';
-import { countPostsOn, countPostsByPlatformSince, buildSnapshot } from './lib/growth.mjs';
+import { countPostsOn, countPostsByPlatformSince, buildSnapshot, findSeriesGaps, recentGaps } from './lib/growth.mjs';
 import { utcDateOnly } from './lib/queue.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -113,11 +113,67 @@ async function main() {
   // UTC slot — see countPostsByPlatformSince's docstring.
   const postsLast24h = countPostsByPlatformSince(postedItems, now);
 
-  const snapshot = buildSnapshot({ date, followers: { x, instagram, facebook }, postsToday, postsLast24h });
+  // Continuity check BEFORE today's file is written, so today isn't counted
+  // as present by its own run. See findSeriesGaps for the two real causes
+  // this went looking for and found.
+  const gaps = findSeriesGaps(await existingSnapshotDates(), date).filter((d) => d !== date);
+
+  const snapshot = buildSnapshot({
+    date,
+    followers: { x, instagram, facebook },
+    postsToday,
+    postsLast24h,
+    seriesGaps: gaps,
+  });
 
   await mkdir(METRICS_DIR, { recursive: true });
   await writeFile(path.join(METRICS_DIR, `${date}.json`), JSON.stringify(snapshot, null, 2) + '\n');
   console.log(`growth-snapshot: wrote social/metrics/${date}.json`, snapshot);
+
+  reportGaps(gaps, date);
+}
+
+/** YYYY-MM-DDs already present in social/metrics/. */
+async function existingSnapshotDates() {
+  try {
+    return (await readdir(METRICS_DIR)).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -'.json'.length));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Makes a hole in the daily series impossible to miss without ever failing
+ * the run — a historical gap must not block today's snapshot from being
+ * written and committed, which is the whole reason the gap is a gap.
+ *
+ * A gap inside the last week is an ::error:: annotation (the pipeline may be
+ * broken right now); older ones are a ::warning:: (history, already
+ * explained). Both also land in the job summary, and in the snapshot file
+ * itself via buildSnapshot's `seriesGaps`.
+ */
+function reportGaps(gaps, date) {
+  if (!gaps.length) {
+    console.log(`growth-snapshot: metrics series is continuous through ${date}.`);
+    return;
+  }
+  const recent = recentGaps(gaps, date);
+  const level = recent.length ? 'error' : 'warning';
+  const headline =
+    `social/metrics/ is missing ${gaps.length} day(s): ${gaps.join(', ')}. ` +
+    (recent.length
+      ? `${recent.length} of those are in the last 7 days — check that this workflow is running AND that its auto-merge PR actually merged (a snapshot that runs green but never lands on main leaves exactly this hole).`
+      : 'All are older than 7 days.');
+
+  console.log(`::${level} title=growth-snapshot: gap in the daily metrics series::${headline}`);
+  console.error(`growth-snapshot: ${headline}`);
+
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    appendFile(
+      process.env.GITHUB_STEP_SUMMARY,
+      `\n**growth-snapshot: ${gaps.length} missing day(s) in social/metrics/**\n\n${gaps.map((g) => `- \`${g}\``).join('\n')}\n`,
+    ).catch((err) => console.error(`growth-snapshot: could not write job summary: ${err.message ?? err}`));
+  }
 }
 
 main();

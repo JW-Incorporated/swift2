@@ -64,11 +64,72 @@ export function computeDeltas(todayFollowers, previousFollowers) {
 }
 
 /**
+ * Missing days in the social/metrics/ daily series, from the earliest
+ * snapshot present through `through` (a YYYY-MM-DD, normally today).
+ *
+ * Added 2026-08-11 after the series turned out to have a ~25% hole nobody
+ * had noticed: 20 files from 07-18 to 08-11 with five days missing. The
+ * causes were two entirely different things, which is the point — a daily
+ * series needs a continuity check, not a per-cause alarm:
+ *
+ *   - 07-30, 07-31: a repo-wide GitHub Actions outage. Every scheduled
+ *     workflow in the repo failed in under 5 seconds with no steps run
+ *     (growth-snapshot, social-poster, watchdog, brief-mailer, news-worker,
+ *     marjorie-inbox). Nothing here was broken and nothing here could have
+ *     retried its way out.
+ *   - 08-02, 08-03, 08-04: the snapshot ran and SUCCEEDED all three days.
+ *     Its auto-merge PRs (#1729, #1754, #1775) then sat open for 7-9 days
+ *     because their required `build` check never got triggered, so the data
+ *     never reached main — which is the only place Marjorie's brief reads
+ *     it from. They were finally merged 2026-08-11T15:44Z. A green workflow
+ *     whose output never lands is the worst of the two failure modes: every
+ *     signal said fine.
+ *
+ * Reported, never fatal: a historical hole must not stop today's snapshot
+ * from being written and committed.
+ */
+export function findSeriesGaps(dates, through) {
+  const present = new Set(dates);
+  const sorted = [...present].sort();
+  if (!sorted.length) return [];
+
+  const gaps = [];
+  const cursor = new Date(`${sorted[0]}T00:00:00Z`);
+  const end = new Date(`${through}T00:00:00Z`);
+  while (cursor.getTime() <= end.getTime()) {
+    const day = cursor.toISOString().slice(0, 10);
+    if (!present.has(day)) gaps.push(day);
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+  return gaps;
+}
+
+/** Gaps within the last `days` ending at `through` — the actionable subset.
+ * An old hole is history; a hole in the last week means the pipeline may be
+ * broken right now. */
+export function recentGaps(gaps, through, days = 7) {
+  const cutoff = new Date(`${through}T00:00:00Z`).getTime() - (days - 1) * 24 * 60 * 60 * 1000;
+  return gaps.filter((day) => new Date(`${day}T00:00:00Z`).getTime() >= cutoff);
+}
+
+/**
  * Assembles the snapshot object written to social/metrics/YYYY-MM-DD.json.
  * `postsToday` is retained (same meaning as before) so older readers and the
  * existing metrics history stay valid; `postsLast24h` is what the brief now
  * reports — see countPostsByPlatformSince for why.
+ *
+ * `seriesGaps` is written into the file itself, not only logged, so the hole
+ * is visible to every reader of the metrics directory (the brief, a human
+ * scrolling the folder, any later analysis) rather than only to whoever
+ * happens to open one 25-minute-old Action log. Omitted entirely when the
+ * series is whole, so a clean history stays clean on disk.
  */
-export function buildSnapshot({ date, followers, postsToday, postsLast24h }) {
-  return { date, followers, postsToday, ...(postsLast24h ? { postsLast24h } : {}) };
+export function buildSnapshot({ date, followers, postsToday, postsLast24h, seriesGaps }) {
+  return {
+    date,
+    followers,
+    postsToday,
+    ...(postsLast24h ? { postsLast24h } : {}),
+    ...(seriesGaps?.length ? { seriesGaps } : {}),
+  };
 }

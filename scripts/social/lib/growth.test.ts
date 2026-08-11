@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { countPostsOn, countPostsByPlatformSince, computeDeltas, buildSnapshot } from './growth.mjs';
+import { countPostsOn, countPostsByPlatformSince, computeDeltas, buildSnapshot, findSeriesGaps, recentGaps } from './growth.mjs';
 
 describe('countPostsOn', () => {
   it('counts only items posted on the given UTC date', () => {
@@ -104,5 +104,76 @@ describe('buildSnapshot', () => {
       postsToday: 0,
       postsLast24h,
     });
+  });
+});
+
+describe('findSeriesGaps', () => {
+  // The real hole this was written for: 20 files 07-18..08-11, missing
+  // 07-30 and 07-31 (repo-wide Actions outage) and 08-02..08-04 (three
+  // green runs whose auto-merge PRs sat unmerged for 7-9 days).
+  const real = [
+    '2026-07-18', '2026-07-19', '2026-07-20', '2026-07-21', '2026-07-22',
+    '2026-07-23', '2026-07-24', '2026-07-25', '2026-07-26', '2026-07-27',
+    '2026-07-28', '2026-07-29', '2026-08-01', '2026-08-05', '2026-08-06',
+    '2026-08-07', '2026-08-08', '2026-08-09', '2026-08-10', '2026-08-11',
+  ];
+
+  it('finds every missing day in the real 2026-07/08 series', () => {
+    expect(findSeriesGaps(real, '2026-08-11')).toEqual([
+      '2026-07-30', '2026-07-31', '2026-08-02', '2026-08-03', '2026-08-04',
+    ]);
+  });
+
+  it('returns nothing for a continuous series', () => {
+    expect(findSeriesGaps(['2026-08-09', '2026-08-10', '2026-08-11'], '2026-08-11')).toEqual([]);
+  });
+
+  it('counts a missing today as a gap (the workflow ran but nothing landed)', () => {
+    expect(findSeriesGaps(['2026-08-09', '2026-08-10'], '2026-08-11')).toEqual(['2026-08-11']);
+  });
+
+  it('starts at the first snapshot, not at some fixed epoch', () => {
+    expect(findSeriesGaps(['2026-08-10', '2026-08-11'], '2026-08-11')).toEqual([]);
+  });
+
+  it('handles month and duplicate boundaries', () => {
+    expect(findSeriesGaps(['2026-07-30', '2026-07-30', '2026-08-02'], '2026-08-02')).toEqual(['2026-07-31', '2026-08-01']);
+  });
+
+  it('is empty for an empty directory', () => {
+    expect(findSeriesGaps([], '2026-08-11')).toEqual([]);
+  });
+});
+
+describe('recentGaps', () => {
+  const gaps = ['2026-07-30', '2026-07-31', '2026-08-02', '2026-08-03', '2026-08-04'];
+
+  it('picks out only gaps inside the last 7 days', () => {
+    expect(recentGaps(gaps, '2026-08-08')).toEqual(['2026-08-02', '2026-08-03', '2026-08-04']);
+  });
+
+  it('is empty once every gap has aged out — history, not an alarm', () => {
+    expect(recentGaps(gaps, '2026-08-11')).toEqual([]);
+  });
+
+  it('includes the boundary day itself', () => {
+    expect(recentGaps(['2026-08-05'], '2026-08-11')).toEqual(['2026-08-05']);
+  });
+});
+
+describe('buildSnapshot seriesGaps', () => {
+  it('records the gaps in the file so the hole outlives the Action log', () => {
+    const snapshot = buildSnapshot({
+      date: '2026-08-11',
+      followers: { x: 0 },
+      postsToday: 0,
+      seriesGaps: ['2026-07-30', '2026-07-31'],
+    });
+    expect(snapshot.seriesGaps).toEqual(['2026-07-30', '2026-07-31']);
+  });
+
+  it('omits the field entirely when the series is whole', () => {
+    const snapshot = buildSnapshot({ date: '2026-08-11', followers: { x: 0 }, postsToday: 0, seriesGaps: [] });
+    expect('seriesGaps' in snapshot).toBe(false);
   });
 });

@@ -4,6 +4,7 @@
 // lastError field.
 
 import { oauth1Header } from './oauth1.mjs';
+import { waitForContainerReady } from './ig-container.mjs';
 
 export const GRAPH_VERSION = 'v25.0';
 
@@ -43,34 +44,42 @@ export async function postToX(item, creds) {
  * queued images under apps/web/public/social/**, so `mediaBaseUrl` (the live
  * site origin) + the item's relative path is what Graph API fetches from.
  * That means a queued image needs its PR merged and deployed before its
- * scheduled time — see docs/agents/growth.md.
+ * scheduled time — see docs/agents/growth.md. post-queue.mjs HEAD-checks
+ * that before spending an attempt (lib/preflight.mjs).
  *
- * KNOWN BUG — #1897: this publishes a container without first polling its
- * `status_code` until `FINISHED`, which is the Content Publishing API's
- * actual contract. When Meta hasn't finished processing yet, publish returns
- * error 9007 / subcode 2207027 and the post dies. It has already cost one
- * real post (social/failed/2026-07-27-all-too-well-scarf-metaphor-ig.json).
- * Retrying does NOT help: every attempt builds a fresh container and
- * publishes it milliseconds later, so the hours between scheduled runs buy
- * nothing — the race is entirely inside a single attempt. Fix is the poll,
- * not a bigger MAX_ATTEMPTS. Also: that error carries `is_transient: false`
- * while its own user-facing message says to wait, so never add
- * "skip retries for non-transient errors" without excluding it.
+ * FIXED — #1897 (2026-08-11): every container is now polled to `FINISHED`
+ * before it is used, which is the Content Publishing API's actual contract.
+ * See lib/ig-container.mjs for the full why, including the trap that error
+ * 9007 / subcode 2207027 carries `is_transient: false` while its own
+ * user-facing message says to wait. The carousel path needs the wait TWICE:
+ * once per child container before the parent can reference it, and once on
+ * the parent before /media_publish.
+ *
+ * `options` is forwarded to the container poller (timeoutMs / intervalMs /
+ * fetchImpl / sleep), which is how tests drive this with no network and no
+ * real clock.
  */
-export async function postToInstagram(item, creds, mediaBaseUrl) {
+export async function postToInstagram(item, creds, mediaBaseUrl, options = {}) {
   if (!item.media?.length) throw new Error('Instagram posts require at least one image in `media`.');
 
-  const base = `https://graph.facebook.com/${GRAPH_VERSION}/${creds.igUserId}`;
+  const graphRoot = `https://graph.facebook.com/${GRAPH_VERSION}`;
+  const base = `${graphRoot}/${creds.igUserId}`;
+  // The status read is on the CONTAINER's own node, not under the IG user id
+  // that /media and /media_publish hang off — hence graphRoot, not base.
+  const awaitReady = (id) => waitForContainerReady(graphRoot, creds.accessToken, id, options);
 
   if (item.media.length === 1) {
     const containerId = await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${item.media[0]}`, item.body);
+    await awaitReady(containerId);
     return publishContainer(base, creds.accessToken, containerId);
   }
 
   // Carousel: one child container per image, then a parent carousel container.
   const childIds = [];
   for (const path of item.media) {
-    childIds.push(await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${path}`, null, true));
+    const childId = await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${path}`, null, true);
+    await awaitReady(childId);
+    childIds.push(childId);
   }
   const parentRes = await fetch(`${base}/media`, {
     method: 'POST',
@@ -84,6 +93,7 @@ export async function postToInstagram(item, creds, mediaBaseUrl) {
   });
   const parentBody = await parentRes.json();
   if (!parentRes.ok) throw new Error(`Instagram carousel container failed: ${JSON.stringify(parentBody)}`);
+  await awaitReady(parentBody.id);
   return publishContainer(base, creds.accessToken, parentBody.id);
 }
 

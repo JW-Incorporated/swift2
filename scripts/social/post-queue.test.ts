@@ -67,13 +67,35 @@ function stubFetch(response: { ok: boolean; status: number; body: unknown }) {
   return spy;
 }
 
-/** Distinct response per call, for multi-step platform flows (IG's
- * create-container then publish). The last entry repeats if exhausted. */
-function stubFetchSequence(responses: { ok: boolean; status: number; body: unknown }[]) {
-  let i = 0;
-  const spy = vi.fn(async () => {
-    const r = responses[Math.min(i++, responses.length - 1)];
-    return { ok: r.ok, status: r.status, json: async () => r.body };
+type StubResponse = { ok?: boolean; status?: number; body?: unknown };
+
+/**
+ * URL-aware stub for the full Instagram flow, which is four distinct calls
+ * now: the deploy-lag HEAD preflight, POST /media (container), GET the
+ * container's status_code, POST /media_publish. Keyed by URL rather than by
+ * call order so a test asserting on one step doesn't have to know how many
+ * calls the others make.
+ */
+function stubIgFetch(steps: {
+  preflight?: StubResponse;
+  container?: StubResponse;
+  status?: StubResponse;
+  publish?: StubResponse;
+} = {}) {
+  const ok = (body: unknown): StubResponse => ({ ok: true, status: 200, body });
+  const resolved = {
+    preflight: steps.preflight ?? ok({}),
+    container: steps.container ?? ok({ id: 'container-1' }),
+    status: steps.status ?? ok({ status_code: 'FINISHED' }),
+    publish: steps.publish ?? ok({ id: 'ig-post-1' }),
+  };
+  const spy = vi.fn(async (url: string, init?: { method?: string }) => {
+    let step: StubResponse;
+    if (init?.method === 'HEAD') step = resolved.preflight;
+    else if (String(url).includes('/media_publish')) step = resolved.publish;
+    else if (init?.method === 'POST') step = resolved.container;
+    else step = resolved.status;
+    return { ok: step.ok ?? true, status: step.status ?? 200, json: async () => step.body ?? {} };
   });
   vi.stubGlobal('fetch', spy);
   return spy;
@@ -207,8 +229,8 @@ describe('post-queue: a failed X post is reported, never swallowed', () => {
 // block. social/failed/2026-07-27-all-too-well-scarf-metaphor-ig.json is the
 // proof it bit Instagram too: a real post killed by Meta error 9007/2207027
 // on a green run. (The container-readiness race that CAUSED that error is
-// issue #1897, deliberately not fixed here — this only asserts that when
-// Instagram fails, we hear about it.)
+// issue #1897, fixed separately in lib/ig-container.mjs — these cases only
+// assert that when Instagram fails, we hear about it.)
 describe('post-queue: an Instagram failure is reported just as loudly', () => {
   // Meta's real payload for the post we lost.
   const NOT_READY = {
@@ -224,11 +246,9 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
   };
 
   it('reddens the run when an IG publish exhausts its attempts', async () => {
-    // Container creation succeeds; the publish that follows is the failure.
-    stubFetchSequence([
-      { ok: true, status: 200, body: { id: 'container-1' } },
-      { ok: false, status: 400, body: NOT_READY },
-    ]);
+    // Media is live and the container reports FINISHED; the publish that
+    // follows is still the failure.
+    stubIgFetch({ publish: { ok: false, status: 400, body: NOT_READY } });
     await seedQueueItem('2026-07-27-all-too-well-scarf-metaphor-ig.json', igItem({ attempts: 2 }));
 
     const outcomes = await runPoster();
@@ -240,10 +260,7 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
   });
 
   it('names Instagram, not just X, in the run report', async () => {
-    stubFetchSequence([
-      { ok: true, status: 200, body: { id: 'container-1' } },
-      { ok: false, status: 400, body: NOT_READY },
-    ]);
+    stubIgFetch({ publish: { ok: false, status: 400, body: NOT_READY } });
     await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
 
     await runPoster();
@@ -254,13 +271,138 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
   });
 
   it('surfaces a failure at the container step too, not only at publish', async () => {
-    stubFetch({ ok: false, status: 400, body: { error: { message: 'Invalid image URL' } } });
+    stubIgFetch({ container: { ok: false, status: 400, body: { error: { message: 'Invalid image URL' } } } });
     await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
 
     const outcomes = await runPoster();
 
     expect(process.exitCode).toBe(1);
     expect(outcomes[0].error).toContain('Instagram media container failed');
+  });
+
+  // #1897: publishing a container Meta hasn't finished is what killed the
+  // real post above. The poll must fail the attempt instead of publishing.
+  it('never publishes a container still stuck IN_PROGRESS', async () => {
+    process.env.SOCIAL_IG_POLL_TIMEOUT_MS = '5';
+    process.env.SOCIAL_IG_POLL_INTERVAL_MS = '0';
+    const spy = stubIgFetch({ status: { body: { status_code: 'IN_PROGRESS' } } });
+    await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].error).toContain('still "IN_PROGRESS"');
+    const published = spy.mock.calls.filter(([url]) => String(url).includes('/media_publish'));
+    expect(published).toHaveLength(0);
+  });
+});
+
+// --- item 1: the media gate, wired to the schedule ------------------------
+// Instagram media is FETCHED by Meta from the live site, so an item whose
+// image PR hasn't merged/deployed cannot post no matter what scheduledAt
+// says. It must WAIT — visibly — not burn attempts and die.
+describe('post-queue: media that is not live yet waits instead of failing', () => {
+  /** Due 30 minutes ago — inside the stuck threshold. */
+  const justDue = () => new Date(Date.now() - 30 * 60 * 1000).toISOString();
+
+  it('does not publish, does not spend an attempt, and stays queued', async () => {
+    const spy = stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem({ scheduledAt: justDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'waiting', platform: 'instagram' });
+    expect(outcomes[0].error).toContain('not live at');
+    // No container was ever created — no Graph write of any kind.
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'POST')).toHaveLength(0);
+    // Still queued, attempts untouched.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+    const stillQueued = JSON.parse(await readFile(path.join(root, 'social', 'queue', 'a-ig.json'), 'utf-8'));
+    expect(stillQueued.attempts).toBeUndefined();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
+  });
+
+  it('stays green while waiting — this is holding, not breaking', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem({ scheduledAt: justDue() }));
+
+    await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('waiting on deploy');
+    expect(report).toContain('a-ig.json');
+    expect(report).not.toContain('PERMANENTLY FAILED');
+  });
+
+  it('ships itself on the next run once the deploy lands', async () => {
+    stubIgFetch();
+    await seedQueueItem('a-ig.json', igItem({ scheduledAt: justDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'instagram' });
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual(['a-ig.json']);
+  });
+
+  it('reddens the run once the wait passes the stuck threshold', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    // scheduledAt in 2020 — waiting for years, not minutes.
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].kind).toBe('waiting');
+    expect(await readFile(reportPath, 'utf-8')).toContain('STUCK more than');
+  });
+
+  it('does not preflight a text-only X item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    await runPoster();
+
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'HEAD')).toHaveLength(0);
+  });
+});
+
+// --- item 4: a no-attempt skip must not be able to hide forever ----------
+describe('post-queue: an indefinitely-skipped item escalates', () => {
+  it('reddens the run when the era-art guard has skipped an item past the threshold', async () => {
+    stubIgFetch();
+    // A recent IG post using the same era tile makes the guard skip this one,
+    // exactly as it has skipped the real 2026-08-09 item every 30 minutes.
+    await writeFile(
+      path.join(root, 'social', 'posted', 'earlier-ig.json'),
+      JSON.stringify({ platform: 'instagram', media: ['/eras/folklore.png'], postedAt: '2026-08-04T19:37:29Z' }, null, 2),
+    );
+    await seedQueueItem('2026-08-09-august-augustine-ig.json', igItem({ media: ['/eras/folklore.png'] }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(process.exitCode).toBe(1);
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('STUCK more than');
+    expect(report).toContain('2026-08-09-august-augustine-ig.json');
+    expect(report).toContain('a human has to change the item');
+  });
+
+  it('stays green for a skip that is still fresh', async () => {
+    stubIgFetch();
+    await writeFile(
+      path.join(root, 'social', 'posted', 'earlier-ig.json'),
+      JSON.stringify({ platform: 'instagram', media: ['/eras/folklore.png'], postedAt: '2026-08-04T19:37:29Z' }, null, 2),
+    );
+    await seedQueueItem(
+      'fresh-ig.json',
+      igItem({ media: ['/eras/folklore.png'], scheduledAt: new Date(Date.now() - 60 * 1000).toISOString() }),
+    );
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(process.exitCode).toBe(0);
   });
 });
 
