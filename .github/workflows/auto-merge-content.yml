@@ -11,8 +11,16 @@
 #
 # The safety model is PATH-BASED, not branch-name-based. A bot can name its
 # branch anything; it cannot make app code look like a seed file. If a PR
-# touches even one file outside ALLOWED_PREFIXES, this job does nothing and
+# touches even one file outside the allowlist, this job does nothing and
 # the PR waits for a human — that is the fail-safe direction.
+#
+# The allowlist is NOT written here. It lives in
+# `.github/content-automerge-allowlist.txt` and is fetched from `main` at run
+# time (never from the PR head — a PR cannot widen its own gate). One source of
+# truth, because the inline copy that used to live here silently fell three
+# generated files behind and stranded content PRs for a week with a green check
+# (#1891, #1762 — see docs/decisions.md 2026-08-11).
+# `npm run check:automerge-allowlist` in `build` keeps that file honest.
 #
 # NOTE: this only ENABLES auto-merge. `protect-main` still requires the
 # `build` check to pass, so a red PR never merges. Two escape hatches: label
@@ -37,15 +45,32 @@
 # past 100 files) — a >100-file PR could otherwise pad the first 100 with
 # allowlisted paths and hide a non-allowlisted file in the remainder. Both
 # jobs cross-check the paginated count against the PR's own `changedFiles`
-# total and fail closed (leave it for a human) on any mismatch. `enable`
-# additionally re-verifies the PR head SHA hasn't moved since it started
+# total and fail closed (BROKEN GATE) on any mismatch. `enable` additionally
+# re-verifies the PR head SHA hasn't moved since it started
 # (`--match-head-commit`) and disables any PREVIOUSLY-armed auto-merge on
-# every early exit (`--disable-auto`) — otherwise a commit that passed this
-# job's checks could arm auto-merge, then a LATER commit on the same PR
-# (which re-triggers this workflow via `synchronize`) that fails these
-# checks would still merge once `build` goes green, since GitHub's native
-# auto-merge doesn't know about this file-allowlist at all — only that the
-# checks it actually understands (`build`) passed.
+# every non-`enabled` verdict (`--disable-auto`) — otherwise a commit that
+# passed this job's checks could arm auto-merge, then a LATER commit on the
+# same PR (which re-triggers this workflow via `synchronize`) that fails
+# these checks would still merge once `build` goes green, since GitHub's
+# native auto-merge doesn't know about this file-allowlist at all — only
+# that the checks it actually understands (`build`) passed.
+#
+# Reconciled 2026-08-11 with #1902's externalized-allowlist + verdict/job-
+# summary rework (this branch and #1902 landed the same day and both touched
+# this file — see PR #1900's "Review round 2" for the merge). NOT carried
+# over from round 1: the `apps/web/public/social/` auto-merge carve-out (a
+# per-image extension/size/git-blob-type check that would have let a queue
+# item's own photo land in the same auto-merged PR). #1902 merged the SAME
+# day with an explicit, passing regression test
+# (scripts/check-automerge-allowlist.test.ts, "still refuses app code and
+# committed images") asserting that exact path must NOT auto-merge, citing
+# docs/decisions.md 2026-07-28 ("a bot-picked image gets human eyes") — a
+# real, tested, CTO-merged policy this round found no standing authority to
+# override unilaterally, despite WS1+WS5's original brief describing it as
+# already founder-approved. Flagged for Joey/Wyatt to reconcile (two
+# same-day "founder-approved" claims pointing opposite directions); not
+# resolved by this branch. A photo PR still correctly waits for a founder,
+# same as before WS1+WS5 started.
 name: auto-merge-content
 
 on:
@@ -151,112 +176,140 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
           SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
           FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
+          ALLOWLIST_PATH: .github/content-automerge-allowlist.txt
         run: |
           set -euo pipefail
 
-          # Every early exit below goes through this instead of a bare
-          # `exit 0`: if an EARLIER commit on this PR passed every check and
-          # armed auto-merge, and a LATER commit (this run) fails one, the
-          # earlier arm must not survive — otherwise `build` going green on
-          # the later, unvetted commit would still merge it. `|| true`
-          # because there may be nothing armed to disable.
-          leave_for_human () {
-            echo "$1"
-            gh pr merge "$PR" --repo "$REPO" --disable-auto >/dev/null 2>&1 || true
-            exit 0
+          # Every terminal path writes ONE verdict line to the job summary, so
+          # "correctly declined" is distinguishable from "misconfigured" at a
+          # glance. Declining is still exit 0 — a mixed app-code PR legitimately
+          # is not auto-mergeable and must not fail its build. Only a broken
+          # GATE (unreadable/invalid allowlist, or a file listing we can't trust
+          # — see the pagination check below) exits non-zero; `build` is the
+          # only required check, so a red run here blocks nothing, it just
+          # shouts.
+          #
+          # Every NON-"enabled" verdict also disables any previously-armed
+          # auto-merge (Codex review round 1 on PR #1900): if an earlier commit
+          # on this PR passed every check and armed it, and a later commit (this
+          # run) fails one, the earlier arm must not survive — otherwise `build`
+          # going green on the later, unvetted commit would still merge it.
+          # `|| true` because there may be nothing armed to disable.
+          verdict() {
+            echo "$2"
+            if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+              printf 'auto-merge-content — **%s**\n\n%s\n' "$1" "$2" >>"$GITHUB_STEP_SUMMARY"
+            fi
+            if [ "$1" != "enabled" ]; then
+              gh pr merge "$PR" --repo "$REPO" --disable-auto >/dev/null 2>&1 || true
+            fi
           }
 
           if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
-            leave_for_human "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge."
+            verdict "frozen" "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge. This is the kill switch, not a fault."
+            exit 0
           fi
 
-          # Files a content run is allowed to touch. Anything else -> human.
-          # apps/web/public/social/ added 2026-08-11 (WS1+WS5, founder-approved
-          # same day — decisions.md entry from a parallel workstream) so a
-          # drafted post's own dedicated photo can ship in the same PR as its
-          # queue JSON; extension + size are re-checked per-file below, this
-          # prefix match alone is not sufficient.
-          ALLOWED_PREFIXES='
-          supabase/seed/
-          social/queue/
-          docs/audits/
-          apps/web/lib/longlive/content-vault.generated.ts
-          apps/web/lib/longlive/tracks.generated.ts
-          apps/web/public/social/
-          '
-          IMAGE_PREFIX='apps/web/public/social/'
-          MAX_IMAGE_BYTES=1572864 # 1.5MB
+          # The allowlist of paths a content run may touch. Single source of
+          # truth, read from the BASE branch (trusted, protected) — never from
+          # the PR head, which is why this uses the API and not a checkout.
+          err_log="${RUNNER_TEMP:-/tmp}/allowlist.err"
+          if ! raw=$(gh api -H "Accept: application/vnd.github.raw" \
+                "repos/$REPO/contents/$ALLOWLIST_PATH?ref=$BASE_REF" 2>"$err_log"); then
+            echo "::error::Could not read $ALLOWLIST_PATH from '$BASE_REF': $(cat "$err_log")"
+            verdict "BROKEN GATE" "Could not read \`$ALLOWLIST_PATH\` from \`$BASE_REF\`. No PR can auto-merge until this is fixed — this is a misconfiguration, not a decision."
+            exit 1
+          fi
+
+          # Strip `#` comments and blank lines; trim surrounding whitespace.
+          allowed=$(printf '%s\n' "$raw" | sed -e 's/#.*$//' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | grep -v '^$' || true)
+          if [ -z "$allowed" ]; then
+            echo "::error::$ALLOWLIST_PATH parsed to zero entries."
+            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` parsed to zero entries — refusing to run an empty gate."
+            exit 1
+          fi
+          # Reject anything that is not a plain repo-relative path, so a stray
+          # edit can never turn into a surprise glob or shell expansion.
+          if bad=$(printf '%s\n' "$allowed" | grep -vE '^[A-Za-z0-9._/-]+$' || true); [ -n "$bad" ]; then
+            echo "::error::$ALLOWLIST_PATH has malformed entries: $bad"
+            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` has malformed entries (must be plain repo-relative paths): $bad"
+            exit 1
+          fi
 
           # Blocking labels: an explicit request for a human look.
           labels=$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name')
           for blocker in hold cie:escalate founder-decision; do
             if grep -qx "$blocker" <<<"$labels"; then
-              leave_for_human "PR #$PR carries the '$blocker' label — leaving it for a human."
+              verdict "held" "PR #$PR carries the \`$blocker\` label — leaving it for a human, as intended."
+              exit 0
             fi
           done
 
-          # Paginated REST enumeration, not `gh pr view --json files` — see
-          # the header note (a >100-file PR could hide a bad file past the
-          # GraphQL connection's 100-item cap).
+          # Paginated REST enumeration, not `gh pr view --json files` (caps at
+          # 100 via GraphQL `files(first: 100)`) — see the header note. A count
+          # mismatch means we cannot trust the file list at all, so this is a
+          # gate malfunction (BROKEN GATE), not an ordinary decline.
           files=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
           got_count=$(printf '%s\n' "$files" | grep -c . || true)
           want_count=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles')
           if [ "$got_count" -ne "$want_count" ]; then
-            leave_for_human "PR #$PR: paginated file enumeration returned $got_count filename(s) but the PR reports $want_count changed — refusing to auto-merge on a possibly-truncated file list."
+            verdict "BROKEN GATE" "PR #$PR: paginated file enumeration returned $got_count filename(s) but the PR reports $want_count changed — refusing to evaluate a possibly-truncated file list."
+            exit 1
           fi
           if [ -z "$files" ]; then
-            leave_for_human "No files reported for PR #$PR — refusing to auto-merge."
+            verdict "declined" "No files reported for PR #$PR — refusing to auto-merge."
+            exit 0
           fi
 
+          # Collect EVERY offending path, not just the first: seeing all of them
+          # is what makes "one stray file" vs "the allowlist is stale" obvious.
+          outside=""
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             ok=0
-            matched_prefix=""
             while IFS= read -r prefix; do
               [ -z "$prefix" ] && continue
               case "$f" in
-                "$prefix"*) ok=1; matched_prefix="$prefix"; break ;;
+                "$prefix"*) ok=1; break ;;
               esac
-            done <<<"$(echo "$ALLOWED_PREFIXES" | tr -d ' ')"
+            done <<<"$allowed"
             if [ "$ok" -eq 0 ]; then
-              leave_for_human "PR #$PR touches non-content path '$f' — leaving it for a human."
-            fi
-
-            if [ "$matched_prefix" = "$IMAGE_PREFIX" ]; then
-              case "$f" in
-                *.png|*.jpg|*.jpeg) : ;;
-                *)
-                  leave_for_human "PR #$PR adds a non-image file under $IMAGE_PREFIX ('$f') — leaving it for a human."
-                  ;;
-              esac
-              # One call for both checks: `type` must be a regular file blob
-              # — "symlink" or "submodule" are how a path could point outside
-              # what it appears to be (e.g. a symlink resolving elsewhere at
-              # deploy/build time) while still matching the extension/prefix
-              # checks above. `size` is the existing 1.5MB cap.
-              meta=$(gh api "repos/$REPO/contents/$f?ref=$SHA" --jq '{size: (.size // 0), type: (.type // "unknown")}')
-              file_type=$(echo "$meta" | jq -r '.type')
-              size=$(echo "$meta" | jq -r '.size')
-              if [ "$file_type" != "file" ]; then
-                leave_for_human "PR #$PR adds '$f' as a git '$file_type', not a regular file — leaving it for a human (symlinks/submodules aren't a real image, whatever the extension says)."
-              fi
-              if [ "$size" -gt "$MAX_IMAGE_BYTES" ]; then
-                leave_for_human "PR #$PR adds an oversized image '$f' (${size} bytes > ${MAX_IMAGE_BYTES}) — leaving it for a human."
-              fi
+              outside="${outside}- \`${f}\`"$'\n'
             fi
           done <<<"$files"
 
-          # Bind the decision to the exact commit it was computed against:
-          # if the PR head moved between this job starting and this line
-          # (another push landed mid-run), re-evaluate on the new commit's
-          # own run instead of merging content this run never actually
-          # checked. `--match-head-commit` makes `gh pr merge` itself refuse
-          # if the head has since moved, as a second, atomic guarantee.
-          current_sha=$(gh pr view "$PR" --repo "$REPO" --json headRefOid --jq '.headRefOid')
-          if [ "$current_sha" != "$SHA" ]; then
-            leave_for_human "PR #$PR head moved ($SHA -> $current_sha) since this run started — not enabling auto-merge; the run triggered by the new commit will re-evaluate it."
+          if [ -n "$outside" ]; then
+            # Print the allowlist that was actually in effect. This is the whole
+            # point of the summary: a stale gate and a genuinely-mixed PR used to
+            # look identical from the outside.
+            in_effect=$(printf '%s\n' "$allowed" | sed 's/^/- `/; s/$/`/')
+            verdict "declined — needs a human merge" \
+          "PR #$PR touches paths outside the content allowlist, so it waits for a founder. This is the gate working as designed, not a failure.
+
+          **Paths outside the allowlist**
+
+          ${outside}
+          **Allowlist in effect** (\`$ALLOWLIST_PATH\` @ \`$BASE_REF\`)
+
+          ${in_effect}
+
+          If one of those paths *is* content, the allowlist is stale — fix \`$ALLOWLIST_PATH\`, not this workflow."
+            exit 0
           fi
 
-          echo "PR #$PR is content-only, its queue drafts (if any) passed check-drafts, and it's unlabelled for hold — enabling auto-merge."
+          # Bind the decision to the exact commit it was computed against: if
+          # the PR head moved between this job starting and this line (another
+          # push landed mid-run), re-evaluate on the new commit's own run
+          # instead of merging content this run never actually checked.
+          # `--match-head-commit` below makes `gh pr merge` itself refuse if the
+          # head has since moved too, as a second, atomic guarantee.
+          current_sha=$(gh pr view "$PR" --repo "$REPO" --json headRefOid --jq '.headRefOid')
+          if [ "$current_sha" != "$SHA" ]; then
+            verdict "declined" "PR #$PR head moved ($SHA -> $current_sha) since this run started — not enabling auto-merge; the run triggered by the new commit will re-evaluate it."
+            exit 0
+          fi
+
+          verdict "enabled" "PR #$PR is content-only, its queue drafts (if any) passed check-drafts, and it's unlabelled for hold — enabling auto-merge; it lands when \`build\` goes green."
           gh pr merge "$PR" --repo "$REPO" --squash --auto --delete-branch --match-head-commit "$SHA"
