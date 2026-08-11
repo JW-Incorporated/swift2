@@ -66,9 +66,10 @@ Live once these exist (founder TX, issue #738): an X (Twitter) developer
 App on `@longlivetscom` with Read+Write permissions → repo secrets
 `X_API_KEY`, `X_API_KEY_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET`;
 and a Meta Graph API long-lived token + the linked IG account's numeric ID →
-repo secrets `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`. X image/video
-posting isn't implemented yet (text-only) — Instagram carries all media
-posts until that's built.
+repo secrets `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`. X posts can carry
+images too (as of 2026-08-11, WS1+WS5 — up to 4, uploaded via the v1.1 media
+endpoint in `scripts/social/lib/platforms.mjs`); video is still not
+implemented on either platform.
 
 **Facebook Page cross-posting (2026-07-17):** every Instagram post also
 posts to the linked Facebook Page's own feed as a genuinely separate post —
