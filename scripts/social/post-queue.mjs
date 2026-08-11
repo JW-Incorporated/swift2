@@ -12,9 +12,10 @@
 // Failures are LOUD (2026-08-11). A permanently-failed item (all 3 attempts
 // burned, moved to social/failed/) makes this process exit non-zero, emits a
 // `::error::` Action annotation, and writes a markdown report that the
-// workflow puts in the queue-state PR's title and body. Before this, twelve X
-// posts died into social/failed/ across 2026-07-21..08-04 with X returning
-// 403 every time, and every one of those runs finished GREEN — see
+// workflow puts in the queue-state PR's title and body. Before this, twelve
+// posts died into social/failed/ across 2026-07-21..08-04 — eleven X (403
+// every time) and one Instagram (#1897) — and every one of those runs
+// finished GREEN. See
 // scripts/social/lib/run-report.mjs's header for the receipts. The workflow's
 // state-commit step runs with `if: always()`, so a red run still records what
 // happened; without that the failed/ move would never land and the item would

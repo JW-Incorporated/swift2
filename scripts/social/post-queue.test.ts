@@ -1,8 +1,9 @@
 // End-to-end regression test for the 2026-08-11 silent-failure bug: an X post
 // that the API rejects must be REPORTED — non-zero exit, an ::error::
 // annotation, a report naming the item and the platform's error text — not
-// swallowed into a green run. Twelve real X posts died that way between
-// 2026-07-21 and 2026-08-04 while every social-poster run stayed green.
+// swallowed into a green run. Twelve real posts died that way between
+// 2026-07-21 and 2026-08-04 (eleven X, one Instagram — #1897) while every
+// social-poster run stayed green.
 //
 // Drives the real post-queue.mjs against a temp SOCIAL_ROOT with `fetch`
 // stubbed. No network, no credentials: the X_* env vars below are obvious
@@ -45,12 +46,35 @@ async function runPoster() {
   return mod.main();
 }
 
+function igItem(overrides: Record<string, unknown> = {}) {
+  return {
+    platform: 'instagram',
+    body: 'there\'s a scarf in "all too well." you know the one.',
+    media: ['/eras/red.png'],
+    scheduledAt: '2020-01-01T00:00:00Z',
+    campaign: 'test',
+    ...overrides,
+  };
+}
+
 function stubFetch(response: { ok: boolean; status: number; body: unknown }) {
   const spy = vi.fn(async () => ({
     ok: response.ok,
     status: response.status,
     json: async () => response.body,
   }));
+  vi.stubGlobal('fetch', spy);
+  return spy;
+}
+
+/** Distinct response per call, for multi-step platform flows (IG's
+ * create-container then publish). The last entry repeats if exhausted. */
+function stubFetchSequence(responses: { ok: boolean; status: number; body: unknown }[]) {
+  let i = 0;
+  const spy = vi.fn(async () => {
+    const r = responses[Math.min(i++, responses.length - 1)];
+    return { ok: r.ok, status: r.status, json: async () => r.body };
+  });
   vi.stubGlobal('fetch', spy);
   return spy;
 }
@@ -176,6 +200,67 @@ describe('post-queue: a failed X post is reported, never swallowed', () => {
     expect(process.exitCode).toBe(1);
     expect(outcomes[0].error).toContain('X image/video posting is not implemented yet');
     expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+});
+
+// The swallow was never X-specific — it lived in a platform-agnostic catch
+// block. social/failed/2026-07-27-all-too-well-scarf-metaphor-ig.json is the
+// proof it bit Instagram too: a real post killed by Meta error 9007/2207027
+// on a green run. (The container-readiness race that CAUSED that error is
+// issue #1897, deliberately not fixed here — this only asserts that when
+// Instagram fails, we hear about it.)
+describe('post-queue: an Instagram failure is reported just as loudly', () => {
+  // Meta's real payload for the post we lost.
+  const NOT_READY = {
+    error: {
+      message: 'Media ID is not available',
+      type: 'OAuthException',
+      code: 9007,
+      error_subcode: 2207027,
+      is_transient: false,
+      error_user_title: 'Cannot Publish',
+      error_user_msg: 'The media is not ready for publishing, please wait for a moment',
+    },
+  };
+
+  it('reddens the run when an IG publish exhausts its attempts', async () => {
+    // Container creation succeeds; the publish that follows is the failure.
+    stubFetchSequence([
+      { ok: true, status: 200, body: { id: 'container-1' } },
+      { ok: false, status: 400, body: NOT_READY },
+    ]);
+    await seedQueueItem('2026-07-27-all-too-well-scarf-metaphor-ig.json', igItem({ attempts: 2 }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'instagram', attempts: 3 });
+    expect(outcomes[0].error).toContain('Instagram publish failed');
+    expect(outcomes[0].error).toContain('2207027');
+  });
+
+  it('names Instagram, not just X, in the run report', async () => {
+    stubFetchSequence([
+      { ok: true, status: 200, body: { id: 'container-1' } },
+      { ok: false, status: 400, body: NOT_READY },
+    ]);
+    await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
+
+    await runPoster();
+
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('PERMANENTLY FAILED (instagram 1)');
+    expect(report).toContain('The media is not ready for publishing');
+  });
+
+  it('surfaces a failure at the container step too, not only at publish', async () => {
+    stubFetch({ ok: false, status: 400, body: { error: { message: 'Invalid image URL' } } });
+    await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].error).toContain('Instagram media container failed');
   });
 });
 

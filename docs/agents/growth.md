@@ -108,7 +108,7 @@ file's header) — the two duplicate Instagram posts need manual deletion in
 the app; this can't recur going forward since the PAT fix prevents a queue
 item from ever staying stuck on `main`.
 
-**The silent X outage (2026-07-21 → 2026-08-04, found 2026-08-11):** twelve X
+**The silent outage (2026-07-21 → 2026-08-04, found 2026-08-11):** eleven X
 queue items hit `403 {"detail":"You are not permitted to perform this
 action."}` on all three attempts and were binned into `social/failed/`, and
 **every one of those social-poster runs finished green** — the poster caught
@@ -128,6 +128,18 @@ Usage page shows whether the monthly post cap was hit. If permissions were
 Read-only, fix them AND regenerate the access token — an existing token keeps
 the scope it was minted with.** That is a founder action (credential
 surface), never an agent's.
+
+**It was never X-only.** The twelfth item in `social/failed/` is
+`2026-07-27-all-too-well-scarf-metaphor-ig.json` — a real Instagram post
+(the Red "scarf is a metaphor" deep cut), killed just as silently by Meta
+error `9007`/`2207027`, "the media is not ready for publishing". The swallow
+was in `post-queue.mjs`'s platform-agnostic catch block; X was simply failing
+often enough to be noticed. Its root cause — publishing an IG media container
+without waiting for `status_code: FINISHED` — is tracked as **#1897**. Note
+for whoever picks that up: the Meta payload says `is_transient: false` while
+its own `error_user_msg` says "please wait for a moment", so a
+"don't retry non-transient errors" rule would make this failure permanent on
+the first attempt. Don't add one without excluding `9007`/`2207027`.
 
 **What "0 posts" in the brief used to mean (fixed 2026-08-11):** the Growth
 line's post count was `postsToday`, taken by `growth-snapshot.yml` at 11:05

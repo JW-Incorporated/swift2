@@ -42,9 +42,10 @@
 #
 # Failure surfacing (2026-08-11). This workflow used to finish GREEN even when
 # a post permanently failed — the only trace was a console.error in the log
-# and a PR body of fixed boilerplate. Twelve X posts died that way between
-# 2026-07-21 and 2026-08-04 (403 Forbidden from X on every attempt) and nobody
-# noticed for two weeks; the run that killed the last one, 30981473515, is
+# and a PR body of fixed boilerplate. Twelve posts died that way between
+# 2026-07-21 and 2026-08-04 — eleven X (403 Forbidden on every attempt) and
+# one Instagram (#1897) — and nobody noticed for two weeks; the run that
+# killed the last one, 30981473515, is
 # still marked `success`. Now: the poster exits non-zero on a permanent
 # failure (so the run goes RED and watchdog/notification paths see it), emits
 # ::error:: annotations, writes a job summary, and puts the per-item outcome

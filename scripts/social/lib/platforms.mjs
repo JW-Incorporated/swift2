@@ -44,6 +44,18 @@ export async function postToX(item, creds) {
  * site origin) + the item's relative path is what Graph API fetches from.
  * That means a queued image needs its PR merged and deployed before its
  * scheduled time — see docs/agents/growth.md.
+ *
+ * KNOWN BUG — #1897: this publishes a container without first polling its
+ * `status_code` until `FINISHED`, which is the Content Publishing API's
+ * actual contract. When Meta hasn't finished processing yet, publish returns
+ * error 9007 / subcode 2207027 and the post dies. It has already cost one
+ * real post (social/failed/2026-07-27-all-too-well-scarf-metaphor-ig.json).
+ * Retrying does NOT help: every attempt builds a fresh container and
+ * publishes it milliseconds later, so the hours between scheduled runs buy
+ * nothing — the race is entirely inside a single attempt. Fix is the poll,
+ * not a bigger MAX_ATTEMPTS. Also: that error carries `is_transient: false`
+ * while its own user-facing message says to wait, so never add
+ * "skip retries for non-transient errors" without excluding it.
  */
 export async function postToInstagram(item, creds, mediaBaseUrl) {
   if (!item.media?.length) throw new Error('Instagram posts require at least one image in `media`.');
