@@ -1370,7 +1370,9 @@ export default {
     {
       // Cross-link (Stage 3, 2026-08-06): the Central Park stroll that first
       // confirmed the relationship.
-      relatedIds: ["moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles"],
+      relatedIds: [
+        'moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles',
+      ],
       year: 2012,
       month: 12,
       day: 31,

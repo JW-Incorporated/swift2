@@ -1654,7 +1654,9 @@ export default {
       slug: 'rep-lwymmd-video-youtube-record',
       significance: 'notable', // a real streaming record and the era's single most-discussed visual statement (docs/decisions.md, 2026-07-19)
       // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
-      // moment.
+      // moment. One-directional to the song-backstory moment (2026-08-03):
+      // that moment is already at the ~4-link cap, so this side carries the
+      // pointer instead of bumping a curated link there.
       relatedIds: [
         'moment:vault-reputation-the-snake-video-that-announced-reputation',
         'moment:vault-reputation-zombie-makeup-for-look-what-you-made-me-do',
