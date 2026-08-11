@@ -32,6 +32,7 @@
     "sync:content": "node scripts/sync-longlive-content.mjs && node scripts/sync-longlive-tracks.mjs && node scripts/sync-longlive-theories.mjs && node scripts/sync-longlive-videos.mjs && node scripts/sync-song-moods.mjs",
     "check:generated": "node scripts/check-generated-in-sync.mjs",
     "check:automerge-allowlist": "node scripts/check-automerge-allowlist.mjs",
+    "check:launch-gates": "node scripts/check-launch-gates.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "check:content-inert": "node scripts/check-content-inert.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
