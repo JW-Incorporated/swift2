@@ -90,10 +90,10 @@ export default {
       snippet: 'At the 52nd Grammys, 20-year-old Taylor became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
       sourceUrl: 'https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/',
       thumbnailUrl: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
-      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi'],
+      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi', 'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-'],
       moment: {
         context:
-          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
+          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."\n\nThe four went to Album of the Year and Best Country Album for Fearless, plus Best Country Song and Best Female Country Vocal Performance for "White Horse," the twice-honored Swift–Liz Rose co-write — a haul that made Fearless the most-awarded country album in Grammy history. The album had already closed 2009 as the best-selling release in the United States, and Guinness World Records still lists her as the youngest solo artist ever to win Album of the Year. The mark held for a decade, until 18-year-old Billie Eilish won for When We All Fall Asleep, Where Do We Go? in 2020. It came a little over four months after Kanye West took the microphone from her at the MTV Video Music Awards, and it was the first of four Album of the Year wins — 1989, folklore, and Midnights followed — more than any artist has won in the category, which is why a quiet January night in 2010 reads in hindsight as the start of a dynasty.',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -102,6 +102,10 @@ export default {
           {
             outlet: 'Guinness World Records',
             url: 'https://www.guinnessworldrecords.com/world-records/607151-youngest-solo-artist-to-win-album-of-the-year-at-the-grammy-awards',
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/grammy-rewind-watch-taylor-swift-win-album-year-fearless-2010/',
           },
         ],
         photos: [

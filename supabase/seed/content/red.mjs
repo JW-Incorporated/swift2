@@ -28,7 +28,7 @@ export default {
       day: 30,
       category: 'business',
       significance: 'defining', // stands in for the whole Red era's arrival — no dedicated release-day item exists yet (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1'],
+      relatedIds: ['moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1', 'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week'],
       title: 'Red sells 1.2 million copies — the biggest week in a decade',
       snippet:
         "1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row.",
@@ -36,7 +36,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
       moment: {
         context:
-          "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.",
+          "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.\n\nBeyond the raw number, Red entered the Billboard 200 at No. 1 — her third studio album in a row to debut on top — and it did so almost entirely on full-price purchases at a moment the industry had already begun writing off blockbuster sales weeks. The 1.208-million total stayed the biggest week of Swift's career until she broke her own record two years later, when 1989 opened to 1.287 million in 2014, and it stood among the largest opening weeks any album had posted since the CD era's peak. It also sharpened the pattern Slate marveled at: where a strong 2012 debut meant 300,000 copies, Swift had cleared four times that, doubling the year's next-best debut and turning a release week into the kind of cultural event only a handful of artists in the world could still reliably command in a fragmenting market.",
         sources: [
           {
             outlet: 'Slate',
