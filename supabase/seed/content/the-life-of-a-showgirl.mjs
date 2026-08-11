@@ -2334,6 +2334,24 @@ export default {
             focalPoint: '48% 42%',
           },
         ],
+        // Rumor Desk 2026-08-11: the "who is 'Actually Romantic' about" question
+        // is classic public song-symbolism speculation (explicitly allowed by
+        // the redlines) — labeled interpretation, both principals are public
+        // artists, no location. Formalizes the prose above into a lifecycle-
+        // tracked entry. Spread away from the wedding page.
+        rumors: [
+          {
+            claim:
+              'Critics and fans near-unanimously read "Actually Romantic" as Taylor\'s answer to Charli XCX\'s 2024 "Sympathy Is a Knife," built from the "Boring Barbie" opening line, the title\'s echo of Brat\'s "Everything Is Romantic," and the two artists\' overlapping history. Taylor has never named a subject, and Charli, asked directly, declined to confirm it.',
+            reportedBy: 'Variety',
+            reportedOn: '2025-10-03',
+            status: 'unconfirmed',
+            url: 'https://variety.com/2025/music/news/taylor-swift-charli-xcx-feud-actually-romantic-timeline-showgirl-1236538041/',
+            note: 'Public song-symbolism speculation (explicitly allowed by the redlines), labeled as critic/fan interpretation — Taylor has never confirmed a subject and Charli declined to comment (Vanity Fair, October 2025). Resolves only on an on-record confirmation or denial; otherwise it stays a labeled interpretation. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-11',
+          },
+        ],
       },
     },
 
@@ -3177,6 +3195,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 2,
+          },
+        ],
+        // Rumor Desk 2026-08-11: this moment is the structural home for the
+        // "TS13 / album No. 13 is coming" speculation — forward-looking,
+        // unannounced-music rumor (explicitly allowed by the redlines), no
+        // location. Formalizes the prose above into lifecycle-tracked entries
+        // so the queue can promote them on an announcement or fade them if the
+        // signs go dark. Deliberately spread away from the wedding page.
+        rumors: [
+          {
+            claim:
+              'A Us Weekly source said in April 2026 that Taylor "does have another record in the works, but there\'s no pressure to release it anytime soon" — "still very much in the creative stages." No album No. 13 (TS13) has been announced, titled, or dated.',
+            reportedBy: 'Us Weekly (via AOL)',
+            reportedOn: '2026-04-07',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
+            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-11',
+          },
+          {
+            claim:
+              'Entertainment outlets rounded up a fan case that TS13 is imminent: Taylor was spotted at New York\'s Electric Lady Studios for a roughly 12-hour overnight session in early June 2026, and fans point to an "A13" sign in the Eras docuseries finale (where an "A12" once teased album 12) and opal earrings with 13 stones as Easter eggs. Nothing has been confirmed by Taylor or her team.',
+            reportedBy: 'Cosmopolitan (via Yahoo)',
+            reportedOn: '2026-07-21',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
+            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-11',
           },
         ],
       },
