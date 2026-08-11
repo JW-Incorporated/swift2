@@ -3167,18 +3167,26 @@ export default {
         ],
         photos: [
           {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/04/Taylor-Swift-Fate-of-Ophelia-video-screengrab-billboard-1800.jpg',
+            focalPoint: '50% 45%',
+            credit: 'Republic Records, via Billboard',
+            caption:
+              'The sequined swimming cap and costume from "The Fate of Ophelia" video — now one of the pieces under glass in the Rock Hall display.',
+            kind: 'primary',
+          },
+          {
             // Establishing shot of the named venue (the exhibit interior isn't
             // on a reusable host); captioned as the building, not the display.
             // curl HTTP 200 + image/jpeg, 6000x4000, vision-confirmed as the
             // I.M. Pei pyramid with the "Rock & Roll Hall of Fame" entrance
             // banner. CC BY-SA 4.0, Wikimedia Commons.
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
+            // Glass pyramid and entrance banner sit dead center, just below the midline.
+            focalPoint: '50% 48%',
             credit: 'MusikAnimal, CC BY-SA 4.0, via Wikimedia Commons',
             caption:
               'The Rock & Roll Hall of Fame in Cleveland, where the "Fate of Ophelia" display opened on Level 5 in June 2026.',
             kind: 'archival',
-            // Glass pyramid and entrance banner sit dead center, just below the midline.
-            focalPoint: '50% 48%',
           },
         ],
       },
@@ -3234,6 +3242,25 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 2,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1433021/taylor-swift-spends-9-hours-recording-at-electric-lady-studio-in-new-york',
+            source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20260616/77b1faf9-7865-4bb4-81e6-374c771b15d4_1781613754.jpg',
+            focalPoint: '50% 22%',
+            credit: 'E! News',
+            caption:
+              'Leaving the Electric Lady Studios area on June 15 — the overnight session that set off the TS13 speculation.',
+            kind: 'primary',
           },
         ],
         // Rumor Desk 2026-08-11: this moment is the structural home for the
@@ -3966,6 +3993,16 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/07/kylie-kelce-not-gonna-lie-screengrab-july2026-billboard-1800.jpg',
+            focalPoint: '58% 35%',
+            credit: 'Wave/Not Gonna Lie with Kylie Kelce, via Billboard',
+            caption:
+              'Kylie Kelce recording the July 23 "Not Gonna Lie" episode where she called Taylor family — "only making it official."',
+            kind: 'primary',
           },
         ],
       },

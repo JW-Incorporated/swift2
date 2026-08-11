@@ -2670,6 +2670,15 @@ export default {
       video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
       moment: {
         context: "Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
+            focalPoint: '46% 55%',
+            credit: 'Big Machine Records / YouTube (official video still)',
+            caption: 'Swift crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -2750,6 +2759,15 @@ export default {
       video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
       moment: {
         context: "The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg',
+            focalPoint: '52% 48%',
+            credit: 'Big Machine Records / YouTube (official video still)',
+            caption: 'A close-up from the "Bad Blood" video — the star-studded action-movie premiere that doubled as an awards-show event.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
