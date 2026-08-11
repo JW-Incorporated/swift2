@@ -57,20 +57,22 @@
 #
 # Reconciled 2026-08-11 with #1902's externalized-allowlist + verdict/job-
 # summary rework (this branch and #1902 landed the same day and both touched
-# this file — see PR #1900's "Review round 2" for the merge). NOT carried
-# over from round 1: the `apps/web/public/social/` auto-merge carve-out (a
-# per-image extension/size/git-blob-type check that would have let a queue
-# item's own photo land in the same auto-merged PR). #1902 merged the SAME
-# day with an explicit, passing regression test
-# (scripts/check-automerge-allowlist.test.ts, "still refuses app code and
-# committed images") asserting that exact path must NOT auto-merge, citing
-# docs/decisions.md 2026-07-28 ("a bot-picked image gets human eyes") — a
-# real, tested, CTO-merged policy this round found no standing authority to
-# override unilaterally, despite WS1+WS5's original brief describing it as
-# already founder-approved. Flagged for Joey/Wyatt to reconcile (two
-# same-day "founder-approved" claims pointing opposite directions); not
-# resolved by this branch. A photo PR still correctly waits for a founder,
-# same as before WS1+WS5 started.
+# this file — see PR #1900's "Review round 2" for the merge).
+#
+# apps/web/public/social/ carve-out (PR #1900 round 1, reinstated in a
+# follow-up fix after #1902's same-day regression test initially blocked it —
+# see docs/decisions.md 2026-08-11): a queue item's own dedicated photo CAN
+# auto-merge in the same PR as its queue JSON, but only under
+# `apps/web/public/social/` and only when it passes the per-file constraints
+# below (.png/.jpg/.jpeg, ≤1.5MB, a regular git blob — not a symlink or
+# submodule). Every OTHER path under apps/web/public/** still waits for a
+# founder, unchanged (2026-07-28 decision) — this is a narrow, checker-gated
+# exception for exactly one already-validated directory
+# (check-drafts.mjs's own media rules run first, in the check-drafts job),
+# not a general "images are content now" policy. Approved by Joey; Wyatt
+# (verbally, relayed by Joey 2026-08-11 evening) — see docs/decisions.md for
+# the full record, including why this superseded #1902's test the same day
+# it landed.
 name: auto-merge-content
 
 on:
@@ -263,9 +265,18 @@ jobs:
             exit 0
           fi
 
+          # A path under this prefix is allowlisted by .github/content-
+          # automerge-allowlist.txt's plain prefix match, but that file only
+          # ever sees PATHS — it cannot express "and also must be a small
+          # real image, not a symlink." These per-file constraints stay here,
+          # in the workflow, applied only to this one directory.
+          IMAGE_PREFIX='apps/web/public/social/'
+          MAX_IMAGE_BYTES=1572864 # 1.5MB
+
           # Collect EVERY offending path, not just the first: seeing all of them
           # is what makes "one stray file" vs "the allowlist is stale" obvious.
           outside=""
+          image_violations=""
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             ok=0
@@ -277,25 +288,61 @@ jobs:
             done <<<"$allowed"
             if [ "$ok" -eq 0 ]; then
               outside="${outside}- \`${f}\`"$'\n'
+              continue
             fi
+
+            case "$f" in
+              "$IMAGE_PREFIX"*)
+                case "$f" in
+                  *.png|*.jpg|*.jpeg) : ;;
+                  *)
+                    image_violations="${image_violations}- \`${f}\` — not a .png/.jpg/.jpeg"$'\n'
+                    continue
+                    ;;
+                esac
+                # One call for both checks: `type` must be a regular file blob
+                # (git mode 100644/100755) — "symlink" (120000) or "submodule"
+                # (160000) are how a path could point somewhere else entirely
+                # while still matching the extension check above. `size` is
+                # the 1.5MB cap.
+                meta=$(gh api "repos/$REPO/contents/$f?ref=$SHA" --jq '{size: (.size // 0), type: (.type // "unknown")}')
+                file_type=$(echo "$meta" | jq -r '.type')
+                size=$(echo "$meta" | jq -r '.size')
+                if [ "$file_type" != "file" ]; then
+                  image_violations="${image_violations}- \`${f}\` — git blob type \`${file_type}\`, not a regular file (symlinks/submodules aren't a real image, whatever the extension says)"$'\n'
+                elif [ "$size" -gt "$MAX_IMAGE_BYTES" ]; then
+                  image_violations="${image_violations}- \`${f}\` — ${size} bytes, over the ${MAX_IMAGE_BYTES}-byte (1.5MB) cap"$'\n'
+                fi
+                ;;
+            esac
           done <<<"$files"
 
-          if [ -n "$outside" ]; then
+          if [ -n "$outside" ] || [ -n "$image_violations" ]; then
             # Print the allowlist that was actually in effect. This is the whole
             # point of the summary: a stale gate and a genuinely-mixed PR used to
             # look identical from the outside.
             in_effect=$(printf '%s\n' "$allowed" | sed 's/^/- `/; s/$/`/')
-            verdict "declined — needs a human merge" \
-          "PR #$PR touches paths outside the content allowlist, so it waits for a founder. This is the gate working as designed, not a failure.
-
-          **Paths outside the allowlist**
+            sections=""
+            if [ -n "$outside" ]; then
+              sections="${sections}**Paths outside the allowlist**
 
           ${outside}
-          **Allowlist in effect** (\`$ALLOWLIST_PATH\` @ \`$BASE_REF\`)
+          "
+            fi
+            if [ -n "$image_violations" ]; then
+              sections="${sections}**Images under \`$IMAGE_PREFIX\` that don't meet the per-file constraints** (.png/.jpg/.jpeg only, ≤ 1.5MB, must be a regular file — not a symlink/submodule)
+
+          ${image_violations}
+          "
+            fi
+            verdict "declined — needs a human merge" \
+          "PR #$PR touches a path outside the content allowlist, or an image under \`$IMAGE_PREFIX\` that fails the per-file constraints, so it waits for a founder. This is the gate working as designed, not a failure.
+
+          ${sections}**Allowlist in effect** (\`$ALLOWLIST_PATH\` @ \`$BASE_REF\`)
 
           ${in_effect}
 
-          If one of those paths *is* content, the allowlist is stale — fix \`$ALLOWLIST_PATH\`, not this workflow."
+          If a path outside the allowlist *is* content, the allowlist is stale — fix \`$ALLOWLIST_PATH\`, not this workflow."
             exit 0
           fi
 
