@@ -7,7 +7,9 @@
 // this catches the same classes of problem before the draft's PR ever
 // merges, which is strictly cheaper.
 //
-// Four independent rule families:
+// Five independent rule families:
+//   - schema        — body/platform/scheduledAt must be well-formed BEFORE
+//                     any other rule runs (they all assume valid shapes).
 //   - voice        — reuses scripts/content-engine/checkers/voice.mjs's
 //                     surname-overuse / ai-tell / wire-attribution rules
 //                     verbatim against the draft's body (not re-implemented).
@@ -15,23 +17,33 @@
 //                     flags a draft whose first 6 words match the opening of
 //                     any post from the last 14 days or any other queue item.
 //   - cross-post copy — an X draft that reads as a near-clone of its IG
-//                     sibling (same `campaign`) is what has been causing X's
-//                     duplicate-content 403s (11 of 12 social/failed/ items
-//                     as of 2026-08-11).
+//                     sibling (same `campaign`, or the closest same-day IG
+//                     item when no campaign is set) is what has been causing
+//                     X's duplicate-content 403s (11 of 12 social/failed/
+//                     items as of 2026-08-11).
 //   - media         — IG drafts must have media; every media path must
-//                     exist under apps/web/public/; generic era-cover art
-//                     needs "mediaKind": "era-art" and must not repeat the
-//                     last 10 posted Instagram items; non-era media must
-//                     not repeat them either.
+//                     exist under apps/web/public/, be a .png/.jpg/.jpeg
+//                     (the only formats this pipeline ever produces or
+//                     uploads to X); generic era-cover art needs
+//                     "mediaKind": "era-art" and must not repeat the last 10
+//                     posted Instagram items; non-era media must not repeat
+//                     them either.
 //
 // Usage:
-//   node scripts/social/check-drafts.mjs                # checks every file in social/queue/
-//   node scripts/social/check-drafts.mjs <file> [file…]  # checks only the given files
-//     (repo-relative or absolute paths) — what
-//     .github/workflows/auto-merge-content.yml passes: just the files a PR
-//     actually touched, so tightening a rule after older items already
-//     shipped doesn't retroactively fail every future PR that merely touches
-//     social/queue/ near them.
+//   node scripts/social/check-drafts.mjs                    # checks every file in social/queue/
+//   node scripts/social/check-drafts.mjs <file> [file…]      # checks only the given files
+//   node scripts/social/check-drafts.mjs --manifest <path>   # checks the files listed in a JSON
+//     array file — what .github/workflows/auto-merge-content.yml passes
+//     (never a raw shell-split arg list: a filename containing a space must
+//     never silently become two bogus paths). Either form's file paths may
+//     be repo-relative or absolute. Only checking a PR's own changed files
+//     (not the whole directory) means tightening a rule after older items
+//     already shipped doesn't retroactively fail every future PR that
+//     merely touches social/queue/ near them.
+//
+// A requested-but-unresolvable target (doesn't exist under social/queue/) is
+// a HARD failure, not a warning — silently checking nothing and exiting 0
+// would be a false green.
 //
 // Exits non-zero with a readable findings list if anything fails.
 
@@ -39,7 +51,7 @@ import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { checkSurnameOveruse, checkAiTells, checkWireAttribution } from '../content-engine/checkers/voice.mjs';
-import { isGenericEraArt, repeatsRecentIgMedia } from './lib/queue.mjs';
+import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -50,7 +62,13 @@ const PUBLIC_DIR = path.join(ROOT, 'apps', 'web', 'public');
 const OPENER_WORDS = 6;
 const POSTED_LOOKBACK_DAYS = 14;
 const SIBLING_SIMILARITY_THRESHOLD = 0.8;
+// A same-day IG item this similar to an X draft with no shared `campaign`
+// is worth flagging as "probably should have been tagged," even below the
+// near-duplicate threshold above — see checkCrossPostCopy's fallback path.
+const PAIRED_LOOKING_FLOOR = 0.15;
 const ERA_ART_LOOKBACK = 10;
+const RECOGNIZED_PLATFORMS = new Set(['x', 'instagram']);
+const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
 
 async function readJsonDir(dir) {
   let files;
@@ -67,14 +85,24 @@ async function readJsonDir(dir) {
   return out;
 }
 
-function firstWords(text, n) {
+/**
+ * Strips leading non-letter characters (punctuation, smart quotes, emoji,
+ * digits, whitespace — anything that isn't a Unicode letter) down to the
+ * first real word, then lowercases. Used before both the "did you know"
+ * opener ban and the first-N-words formula match, so a body that opens with
+ * a quote mark or emoji before the real text isn't silently exempt from
+ * either check.
+ */
+function normalizeOpener(text) {
   return String(text ?? '')
+    .replace(/^[^\p{L}]+/u, '')
     .trim()
-    .toLowerCase()
-    .replace(/\s+/g, ' ')
-    .split(' ')
-    .slice(0, n)
-    .join(' ');
+    .toLowerCase();
+}
+
+function firstWords(text, n) {
+  const normalized = normalizeOpener(text).replace(/\s+/g, ' ');
+  return normalized.split(' ').filter(Boolean).slice(0, n).join(' ');
 }
 
 function tokenSet(text) {
@@ -86,6 +114,12 @@ function tokenSet(text) {
       .filter(Boolean),
   );
 }
+
+// Very short texts need a token floor before the overlap coefficient below
+// is trustworthy: two 2-word bodies that happen to share both words look
+// "100% similar" by pure set overlap, which is noise, not a real signal —
+// added 2026-08-11 (Codex review round 1 on PR #1900).
+const MIN_TOKENS_FOR_SIMILARITY = 4;
 
 // Word-level OVERLAP coefficient (intersection / size of the SMALLER set),
 // not Jaccard (intersection / union). An X sibling is deliberately trimmed
@@ -101,6 +135,7 @@ export function bodySimilarity(a, b) {
   const A = tokenSet(a);
   const B = tokenSet(b);
   if (!A.size || !B.size) return 0;
+  if (Math.min(A.size, B.size) < MIN_TOKENS_FOR_SIMILARITY) return 0;
   let inter = 0;
   for (const x of A) if (B.has(x)) inter++;
   return inter / Math.min(A.size, B.size);
@@ -113,6 +148,28 @@ async function fileExists(p) {
   } catch {
     return false;
   }
+}
+
+/**
+ * Schema validation — runs BEFORE every other rule family, since voice/
+ * openers/cross-post-copy/media all assume `body` is a real string,
+ * `platform` is recognized, and (for the cross-post fallback)
+ * `scheduledAt` parses. A malformed item fails here and skips the rest
+ * (checkDraft short-circuits) rather than risking a confusing crash or a
+ * misleading finding from a rule that assumed well-formed input.
+ */
+export function checkSchema(item) {
+  const findings = [];
+  if (typeof item?.body !== 'string' || item.body.trim().length === 0) {
+    findings.push('schema: `body` must be a non-empty string.');
+  }
+  if (typeof item?.platform !== 'string' || !RECOGNIZED_PLATFORMS.has(item.platform)) {
+    findings.push(`schema: \`platform\` must be one of ${[...RECOGNIZED_PLATFORMS].join(', ')} (got ${JSON.stringify(item?.platform)}).`);
+  }
+  if (!isValidScheduledAt(item)) {
+    findings.push(`schema: \`scheduledAt\` is missing or not a valid date (got ${JSON.stringify(item?.scheduledAt)}) — this can never become due or stale (see lib/queue.mjs's isValidScheduledAt) and would sit unprocessed forever if it reached the queue.`);
+  }
+  return findings;
 }
 
 /** Voice rules — reuses voice.mjs's checkers rather than re-implementing
@@ -129,8 +186,10 @@ export async function checkVoice(file, body) {
 
 export function checkOpeners(file, item, others) {
   const findings = [];
-  const trimmed = String(item.body ?? '').trim();
-  if (/^did you know/i.test(trimmed)) {
+  const normalized = normalizeOpener(item.body);
+  // Word boundary (`\b`) so "did you knowledge..." (a real, if unlikely,
+  // sentence) doesn't false-positive — only an actual standalone "know".
+  if (/^did you know\b/.test(normalized)) {
     findings.push('opener: body opens with "did you know" — banned formula opener, rewrite the hook.');
   }
   const mine = firstWords(item.body, OPENER_WORDS);
@@ -147,14 +206,47 @@ export function checkOpeners(file, item, others) {
 }
 
 export function checkCrossPostCopy(file, item, allQueueItems) {
-  if (item.platform !== 'x' || !item.campaign) return [];
-  const sibling = allQueueItems.find((o) => o.file !== file && o.data.platform === 'instagram' && o.data.campaign === item.campaign);
-  if (!sibling) return [];
-  const similarity = bodySimilarity(item.body, sibling.data.body);
+  if (item.platform !== 'x') return [];
+
+  if (item.campaign) {
+    const sibling = allQueueItems.find((o) => o.file !== file && o.data.platform === 'instagram' && o.data.campaign === item.campaign);
+    if (!sibling) return [];
+    const similarity = bodySimilarity(item.body, sibling.data.body);
+    if (similarity > SIBLING_SIMILARITY_THRESHOLD) {
+      return [
+        `cross-post copy: ${Math.round(similarity * 100)}% similar to its Instagram sibling ${sibling.file} (campaign "${item.campaign}") — ` +
+          'near-identical siblings are what trigger X\'s duplicate-content 403s and break the platform-native rule. Rewrite the X version distinctly.',
+      ];
+    }
+    return [];
+  }
+
+  // No `campaign` to key off of — fall back to "closest same-day Instagram
+  // item" so an X/IG pair authored without a shared campaign still gets
+  // checked, rather than silently skipping this rule just because the
+  // drafter forgot to tag them (added 2026-08-11, Codex review round 1).
+  if (!isValidScheduledAt(item)) return []; // checkSchema already flags this; nothing more to compare here
+  const itemDay = utcDateOnly(item.scheduledAt);
+  const sameDayIg = allQueueItems.filter(
+    (o) => o.file !== file && o.data.platform === 'instagram' && isValidScheduledAt(o.data) && utcDateOnly(o.data.scheduledAt) === itemDay,
+  );
+  if (!sameDayIg.length) return [];
+
+  sameDayIg.sort(
+    (a, b) => Math.abs(new Date(a.data.scheduledAt).getTime() - new Date(item.scheduledAt).getTime()) - Math.abs(new Date(b.data.scheduledAt).getTime() - new Date(item.scheduledAt).getTime()),
+  );
+  const closest = sameDayIg[0];
+  const similarity = bodySimilarity(item.body, closest.data.body);
+
   if (similarity > SIBLING_SIMILARITY_THRESHOLD) {
     return [
-      `cross-post copy: ${Math.round(similarity * 100)}% similar to its Instagram sibling ${sibling.file} (campaign "${item.campaign}") — ` +
-        'near-identical siblings are what trigger X\'s duplicate-content 403s and break the platform-native rule. Rewrite the X version distinctly.',
+      `cross-post copy: no \`campaign\` set, but this X draft is ${Math.round(similarity * 100)}% similar to ${closest.file} (the closest same-day Instagram item) — ` +
+        'either tag both with a shared `campaign` (recommended, makes this detection reliable) or rewrite the X version distinctly.',
+    ];
+  }
+  if (similarity >= PAIRED_LOOKING_FLOOR) {
+    return [
+      `cross-post copy: no \`campaign\` set on this X draft, and a same-day Instagram item (${closest.file}) looks like it could be its sibling (${Math.round(similarity * 100)}% word overlap) — add a shared \`campaign\` value so this check can compare them reliably.`,
     ];
   }
   return [];
@@ -170,6 +262,11 @@ export async function checkMedia(file, item, recentIgPosted) {
     findings.push(`media: X posts support at most ${MAX_X_IMAGES} images (this draft has ${item.media.length}).`);
   }
   for (const mediaPath of item.media ?? []) {
+    const ext = String(mediaPath).split('.').pop()?.toLowerCase();
+    if (!ALLOWED_MEDIA_EXTENSIONS.has(ext)) {
+      findings.push(`media: "${mediaPath}" has an unsupported extension — only ${[...ALLOWED_MEDIA_EXTENSIONS].join('/')} are produced/uploaded by this pipeline today.`);
+      continue; // an unsupported format isn't worth the existence/repeat checks below
+    }
     const full = path.join(PUBLIC_DIR, mediaPath);
     if (!(await fileExists(full))) {
       findings.push(`media: "${mediaPath}" does not exist under apps/web/public/ — commit it in this PR.`);
@@ -203,13 +300,48 @@ async function recentPostedOpeners(days = POSTED_LOOKBACK_DAYS) {
   return posted.filter((p) => p.data.postedAt && new Date(p.data.postedAt).getTime() >= cutoff).map((p) => ({ file: p.file, body: p.data.body }));
 }
 
-/** Resolves CLI args to absolute file paths, or null meaning "everything in social/queue/". */
-function resolveTargets(args) {
-  if (!args.length) return null;
-  return args.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a)));
+/**
+ * Resolves CLI args to absolute file paths, or `{ targetPaths: null }`
+ * meaning "everything in social/queue/". `--manifest <path>` reads a JSON
+ * array of strings from that file — the robust option for a caller (the
+ * auto-merge-content.yml workflow) that can't safely word-split filenames
+ * through a shell. Positional args remain supported for local ad-hoc use.
+ * Returns `{ error }` instead of throwing so main() can report it as a
+ * normal (loud, exit-1) failure rather than an uncaught crash.
+ */
+async function resolveTargets(argv) {
+  const manifestIdx = argv.indexOf('--manifest');
+  let rawPaths;
+
+  if (manifestIdx !== -1) {
+    const manifestPath = argv[manifestIdx + 1];
+    if (!manifestPath) return { error: '--manifest requires a file path argument.' };
+    let content;
+    try {
+      content = await readFile(manifestPath, 'utf-8');
+    } catch (err) {
+      return { error: `could not read manifest "${manifestPath}": ${err.message ?? err}` };
+    }
+    try {
+      rawPaths = JSON.parse(content);
+    } catch (err) {
+      return { error: `manifest "${manifestPath}" is not valid JSON: ${err.message ?? err}` };
+    }
+    if (!Array.isArray(rawPaths) || !rawPaths.every((p) => typeof p === 'string')) {
+      return { error: `manifest "${manifestPath}" must be a JSON array of file path strings.` };
+    }
+  } else {
+    rawPaths = argv;
+  }
+
+  if (!rawPaths.length) return { targetPaths: null };
+  return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
 }
 
 export async function checkDraft(target, { allQueue, openerContext, recentIg }) {
+  const schemaFindings = checkSchema(target.data);
+  if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
+
   return [
     ...(await checkVoice(target.file, target.data.body)),
     ...checkOpeners(target.file, target.data, openerContext),
@@ -219,18 +351,40 @@ export async function checkDraft(target, { allQueue, openerContext, recentIg }) 
 }
 
 async function main() {
-  const targetPaths = resolveTargets(process.argv.slice(2));
+  const resolved = await resolveTargets(process.argv.slice(2));
+  if (resolved.error) {
+    console.error(`check-drafts: ${resolved.error}`);
+    process.exit(1);
+  }
+  const targetPaths = resolved.targetPaths;
+
   const allQueue = await readJsonDir(QUEUE_DIR);
   const targets = targetPaths ? allQueue.filter((q) => targetPaths.includes(q.full)) : allQueue;
 
   if (targetPaths) {
+    // Specific files were requested — every one of them MUST resolve.
+    // A requested-but-missing file (or zero resolved out of N requested) is
+    // a hard failure, not a warning: silently checking nothing while
+    // exiting 0 would be a false green (added 2026-08-11, Codex review
+    // round 1 on PR #1900).
     const foundFulls = new Set(targets.map((t) => t.full));
-    for (const p of targetPaths) {
-      if (!foundFulls.has(p)) console.error(`check-drafts: WARNING — requested file not found under social/queue/: ${p}`);
+    const unresolved = targetPaths.filter((p) => !foundFulls.has(p));
+    if (unresolved.length) {
+      console.error(`check-drafts: requested file(s) not found under social/queue/ — failing closed:\n${unresolved.map((p) => `  - ${p}`).join('\n')}`);
+      process.exit(1);
+    }
+    if (targets.length === 0) {
+      // Unreachable given the check above (unresolved would already have
+      // caught it), but a second, explicit guard against "0 checked, exit
+      // 0" costs nothing and documents the invariant directly.
+      console.error('check-drafts: targets were requested but none resolved — failing closed.');
+      process.exit(1);
     }
   }
 
   if (!targets.length) {
+    // Only reachable via the "check everything" (no args/manifest) path
+    // with an empty social/queue/ directory.
     console.log('check-drafts: no target queue files found — nothing to check.');
     return;
   }

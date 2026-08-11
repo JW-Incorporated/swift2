@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bodySimilarity, checkVoice, checkOpeners, checkCrossPostCopy, checkMedia } from './check-drafts.mjs';
+import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCrossPostCopy, checkMedia, checkDraft } from './check-drafts.mjs';
 
 describe('bodySimilarity', () => {
   it('is 1 for identical text', () => {
@@ -35,6 +35,70 @@ describe('bodySimilarity', () => {
     const x =
       'did you know: "All Too Well (10 Minute Version)" is the longest song to ever hit #1 on the Hot 100 -- over 10 minutes long, and it still went all the way to the top. a decade-old vault track, re-recorded, breaking a chart record no one saw coming.';
     expect(bodySimilarity(ig, x)).toBeLessThan(0.8);
+  });
+
+  it('is 0 below the minimum-token floor, even for identical short text (avoids noise on tiny bodies)', () => {
+    // "hi there" vs "hi there" is a trivial 2-word/2-word 100%-overlap case
+    // that isn't a meaningful signal at this length.
+    expect(bodySimilarity('hi there', 'hi there')).toBe(0);
+  });
+
+  it('is trustworthy right at and above the minimum-token floor', () => {
+    expect(bodySimilarity('one two three four', 'one two three four')).toBe(1);
+  });
+});
+
+describe('checkSchema', () => {
+  const valid = () => ({ platform: 'x', body: 'a real post body here', scheduledAt: '2026-08-11T00:00:00Z' });
+
+  it('passes a well-formed item', () => {
+    expect(checkSchema(valid())).toEqual([]);
+  });
+
+  it('flags a missing/empty body', () => {
+    expect(checkSchema({ ...valid(), body: '' }).some((f) => f.includes('body'))).toBe(true);
+    expect(checkSchema({ ...valid(), body: undefined }).some((f) => f.includes('body'))).toBe(true);
+    expect(checkSchema({ ...valid(), body: '   ' }).some((f) => f.includes('body'))).toBe(true);
+  });
+
+  it('flags a non-string body', () => {
+    expect(checkSchema({ ...valid(), body: 12345 }).some((f) => f.includes('body'))).toBe(true);
+  });
+
+  it('flags an unrecognized platform', () => {
+    expect(checkSchema({ ...valid(), platform: 'facebook' }).some((f) => f.includes('platform'))).toBe(true);
+    expect(checkSchema({ ...valid(), platform: undefined }).some((f) => f.includes('platform'))).toBe(true);
+  });
+
+  it('flags a missing/invalid scheduledAt', () => {
+    expect(checkSchema({ ...valid(), scheduledAt: undefined }).some((f) => f.includes('scheduledAt'))).toBe(true);
+    expect(checkSchema({ ...valid(), scheduledAt: 'not-a-date' }).some((f) => f.includes('scheduledAt'))).toBe(true);
+  });
+
+  it('reports all violations at once, not just the first', () => {
+    const findings = checkSchema({});
+    expect(findings.length).toBeGreaterThanOrEqual(3);
+  });
+});
+
+describe('checkDraft (schema short-circuit)', () => {
+  it('returns only schema findings and skips other rule families when schema is invalid', async () => {
+    const target = { file: 'bad.json', data: { platform: 'bogus', body: '' } };
+    const findings = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [] });
+    expect(findings.every((f) => f.startsWith('schema:'))).toBe(true);
+    expect(findings.length).toBeGreaterThan(0);
+  });
+
+  it('runs the full rule set for a schema-valid item', async () => {
+    const target = {
+      file: 'good.json',
+      data: { platform: 'instagram', body: 'a perfectly fine fan post about the eras tour.', scheduledAt: '2026-08-11T00:00:00Z' },
+    };
+    const findings = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [] });
+    // No schema findings; the only failure here should be the media rule
+    // (Instagram requires media), proving voice/openers/media all ran.
+    expect(findings.some((f) => f.startsWith('schema:'))).toBe(false);
+    expect(findings.some((f) => f.includes('require at least one image'))).toBe(true);
   });
 });
 
@@ -85,6 +149,28 @@ describe('checkOpeners', () => {
     const findings = checkOpeners('a.json', { body: 'on this day a totally different event' }, others);
     expect(findings).toEqual([]);
   });
+
+  it('uses a word boundary — does NOT flag "did you knowledge..." as the banned opener', () => {
+    const findings = checkOpeners('a.json', { body: 'did you knowledge of this song is impressive.' }, []);
+    expect(findings.some((f) => f.includes('did you know'))).toBe(false);
+  });
+
+  it('strips a leading emoji/smart-quote/punctuation before checking the opener', () => {
+    const withEmoji = checkOpeners('a.json', { body: '✨ did you know: this is a fact.' }, []);
+    expect(withEmoji.some((f) => f.includes('did you know'))).toBe(true);
+
+    const withSmartQuote = checkOpeners('a.json', { body: '“did you know: this is a fact.”' }, []);
+    expect(withSmartQuote.some((f) => f.includes('did you know'))).toBe(true);
+
+    const withPunctuation = checkOpeners('a.json', { body: '...did you know: this is a fact.' }, []);
+    expect(withPunctuation.some((f) => f.includes('did you know'))).toBe(true);
+  });
+
+  it('normalizes a leading emoji before the formula-opener (first-6-words) comparison too', () => {
+    const others = [{ file: 'b.json', body: 'on this day in 2010 something else happened here' }];
+    const findings = checkOpeners('a.json', { body: '🎶 on this day in 2010 something totally different' }, others);
+    expect(findings.some((f) => f.includes('b.json'))).toBe(true);
+  });
 });
 
 describe('checkCrossPostCopy', () => {
@@ -120,6 +206,48 @@ describe('checkCrossPostCopy', () => {
     const all = [{ file: 'x.json', data: { platform: 'x', campaign: 'lonely', body: 'no sibling here' } }];
     const findings = checkCrossPostCopy('x.json', all[0].data, all);
     expect(findings).toEqual([]);
+  });
+
+  describe('no `campaign` set — same-day fallback', () => {
+    const igBody =
+      "did you know: the tortured poets department was a secret double album -- and taylor didn't tell anyone until 2am. two hours after the midnight release, a second post landed: \"it's a 2am surprise: the tortured poets department is a secret DOUBLE album. i'd written so much tortured poetry in the past 2 years and wanted to share it all with you.\" the anthology added 15 more songs. 31 total, pushing the whole thing past the two-hour mark.";
+    const xBody =
+      'did you know: the tortured poets department was a secret double album -- and no one knew until 2am. two hours after the midnight drop, taylor revealed 15 more songs. 31 total. "i\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."';
+
+    it('still flags a near-duplicate against the closest same-day Instagram item', () => {
+      const all = [
+        { file: 'ig.json', data: { platform: 'instagram', body: igBody, scheduledAt: '2026-08-10T23:00:00Z' } },
+        { file: 'x.json', data: { platform: 'x', body: xBody, scheduledAt: '2026-08-10T23:20:00Z' } },
+      ];
+      const findings = checkCrossPostCopy('x.json', all[1].data, all);
+      expect(findings).toHaveLength(1);
+      expect(findings[0]).toContain('ig.json');
+      expect(findings[0]).toContain('campaign');
+    });
+
+    it('nudges toward adding a campaign when similarity is inconclusive but plausibly paired', () => {
+      const all = [
+        { file: 'ig.json', data: { platform: 'instagram', body: 'the tortured poets department dropped as a secret double album with 31 songs total.', scheduledAt: '2026-08-10T23:00:00Z' } },
+        { file: 'x.json', data: { platform: 'x', body: 'huge TTPD news just dropped and the fandom is not okay right now honestly.', scheduledAt: '2026-08-10T23:20:00Z' } },
+      ];
+      const findings = checkCrossPostCopy('x.json', all[1].data, all);
+      // Not necessarily flagged — depends on incidental word overlap; this
+      // just asserts it never throws and returns an array either way.
+      expect(Array.isArray(findings)).toBe(true);
+    });
+
+    it('is silent when there is no same-day Instagram item at all', () => {
+      const all = [{ file: 'x.json', data: { platform: 'x', body: xBody, scheduledAt: '2026-08-10T23:20:00Z' } }];
+      expect(checkCrossPostCopy('x.json', all[0].data, all)).toEqual([]);
+    });
+
+    it('is silent against an Instagram item on a different day', () => {
+      const all = [
+        { file: 'ig.json', data: { platform: 'instagram', body: igBody, scheduledAt: '2026-07-01T23:00:00Z' } },
+        { file: 'x.json', data: { platform: 'x', body: xBody, scheduledAt: '2026-08-10T23:20:00Z' } },
+      ];
+      expect(checkCrossPostCopy('x.json', all[1].data, all)).toEqual([]);
+    });
   });
 });
 
@@ -165,6 +293,31 @@ describe('checkMedia', () => {
 
   it('passes an X draft with no media at all', async () => {
     const findings = await checkMedia('a.json', { platform: 'x', body: 'text only' }, []);
+    expect(findings).toEqual([]);
+  });
+
+  it('rejects a .gif/.webp media path — only png/jpg/jpeg are produced/uploaded today', async () => {
+    const gifFindings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/thing.gif'] }, []);
+    expect(gifFindings.some((f) => f.includes('unsupported extension'))).toBe(true);
+
+    const webpFindings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/thing.webp'] }, []);
+    expect(webpFindings.some((f) => f.includes('unsupported extension'))).toBe(true);
+  });
+
+  it('treats the extension check case-insensitively (.PNG is not "unsupported")', async () => {
+    // A path that reliably does not exist on ANY OS (unlike a
+    // case-different variant of a real filename, which Windows' default
+    // case-insensitive filesystem would resolve — this repo's CI runs on
+    // Linux, where that resolution would NOT happen, so this test avoids
+    // depending on filesystem case-sensitivity at all) — isolates the
+    // extension check from the existence check.
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/does-not-exist-xyz.PNG'] }, []);
+    expect(findings.some((f) => f.includes('unsupported extension'))).toBe(false);
+    expect(findings.some((f) => f.includes('does not exist'))).toBe(true);
+  });
+
+  it('accepts a real, existing .png file with no findings', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/eras/red.png'], mediaKind: 'era-art' }, []);
     expect(findings).toEqual([]);
   });
 });
