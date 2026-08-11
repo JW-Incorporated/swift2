@@ -11,8 +11,16 @@
 #
 # The safety model is PATH-BASED, not branch-name-based. A bot can name its
 # branch anything; it cannot make app code look like a seed file. If a PR
-# touches even one file outside ALLOWED_PREFIXES, this job does nothing and
+# touches even one file outside the allowlist, this job does nothing and
 # the PR waits for a human — that is the fail-safe direction.
+#
+# The allowlist is NOT written here. It lives in
+# `.github/content-automerge-allowlist.txt` and is fetched from `main` at run
+# time (never from the PR head — a PR cannot widen its own gate). One source of
+# truth, because the inline copy that used to live here silently fell three
+# generated files behind and stranded content PRs for a week with a green check
+# (#1891, #1762 — see docs/decisions.md 2026-08-11).
+# `npm run check:automerge-allowlist` in `build` keeps that file honest.
 #
 # NOTE: this only ENABLES auto-merge. `protect-main` still requires the
 # `build` check to pass, so a red PR never merges. Two escape hatches: label
@@ -49,39 +57,75 @@ jobs:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
           PR: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
           FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
+          ALLOWLIST_PATH: .github/content-automerge-allowlist.txt
         run: |
           set -euo pipefail
 
+          # Every terminal path writes ONE verdict line to the job summary, so
+          # "correctly declined" is distinguishable from "misconfigured" at a
+          # glance. Declining is still exit 0 — a mixed app-code PR legitimately
+          # is not auto-mergeable and must not fail its build. Only a broken
+          # GATE (unreadable/invalid allowlist) exits non-zero; `build` is the
+          # only required check, so a red run here blocks nothing, it just
+          # shouts.
+          verdict() {
+            echo "$2"
+            if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+              printf 'auto-merge-content — **%s**\n\n%s\n' "$1" "$2" >>"$GITHUB_STEP_SUMMARY"
+            fi
+          }
+
           if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
-            echo "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge."
+            verdict "frozen" "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge. This is the kill switch, not a fault."
             exit 0
           fi
 
-          # Files a content run is allowed to touch. Anything else -> human.
-          ALLOWED_PREFIXES='
-          supabase/seed/
-          social/queue/
-          docs/audits/
-          apps/web/lib/longlive/content-vault.generated.ts
-          apps/web/lib/longlive/tracks.generated.ts
-          '
+          # The allowlist of paths a content run may touch. Single source of
+          # truth, read from the BASE branch (trusted, protected) — never from
+          # the PR head, which is why this uses the API and not a checkout.
+          err_log="${RUNNER_TEMP:-/tmp}/allowlist.err"
+          if ! raw=$(gh api -H "Accept: application/vnd.github.raw" \
+                "repos/$REPO/contents/$ALLOWLIST_PATH?ref=$BASE_REF" 2>"$err_log"); then
+            echo "::error::Could not read $ALLOWLIST_PATH from '$BASE_REF': $(cat "$err_log")"
+            verdict "BROKEN GATE" "Could not read \`$ALLOWLIST_PATH\` from \`$BASE_REF\`. No PR can auto-merge until this is fixed — this is a misconfiguration, not a decision."
+            exit 1
+          fi
+
+          # Strip `#` comments and blank lines; trim surrounding whitespace.
+          allowed=$(printf '%s\n' "$raw" | sed -e 's/#.*$//' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | grep -v '^$' || true)
+          if [ -z "$allowed" ]; then
+            echo "::error::$ALLOWLIST_PATH parsed to zero entries."
+            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` parsed to zero entries — refusing to run an empty gate."
+            exit 1
+          fi
+          # Reject anything that is not a plain repo-relative path, so a stray
+          # edit can never turn into a surprise glob or shell expansion.
+          if bad=$(printf '%s\n' "$allowed" | grep -vE '^[A-Za-z0-9._/-]+$' || true); [ -n "$bad" ]; then
+            echo "::error::$ALLOWLIST_PATH has malformed entries: $bad"
+            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` has malformed entries (must be plain repo-relative paths): $bad"
+            exit 1
+          fi
 
           # Blocking labels: an explicit request for a human look.
           labels=$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name')
           for blocker in hold cie:escalate founder-decision; do
             if grep -qx "$blocker" <<<"$labels"; then
-              echo "PR #$PR carries the '$blocker' label — leaving it for a human."
+              verdict "held" "PR #$PR carries the \`$blocker\` label — leaving it for a human, as intended."
               exit 0
             fi
           done
 
           files=$(gh pr view "$PR" --repo "$REPO" --json files --jq '.files[].path')
           if [ -z "$files" ]; then
-            echo "No files reported for PR #$PR — refusing to auto-merge."
+            verdict "declined" "No files reported for PR #$PR — refusing to auto-merge."
             exit 0
           fi
 
+          # Collect EVERY offending path, not just the first: seeing all of them
+          # is what makes "one stray file" vs "the allowlist is stale" obvious.
+          outside=""
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             ok=0
@@ -90,12 +134,30 @@ jobs:
               case "$f" in
                 "$prefix"*) ok=1; break ;;
               esac
-            done <<<"$(echo "$ALLOWED_PREFIXES" | tr -d ' ')"
+            done <<<"$allowed"
             if [ "$ok" -eq 0 ]; then
-              echo "PR #$PR touches non-content path '$f' — leaving it for a human."
-              exit 0
+              outside="${outside}- \`${f}\`"$'\n'
             fi
           done <<<"$files"
 
-          echo "PR #$PR is content-only and unlabelled for hold — enabling auto-merge."
+          if [ -n "$outside" ]; then
+            # Print the allowlist that was actually in effect. This is the whole
+            # point of the summary: a stale gate and a genuinely-mixed PR used to
+            # look identical from the outside.
+            in_effect=$(printf '%s\n' "$allowed" | sed 's/^/- `/; s/$/`/')
+            verdict "declined — needs a human merge" \
+          "PR #$PR touches paths outside the content allowlist, so it waits for a founder. This is the gate working as designed, not a failure.
+
+          **Paths outside the allowlist**
+
+          ${outside}
+          **Allowlist in effect** (\`$ALLOWLIST_PATH\` @ \`$BASE_REF\`)
+
+          ${in_effect}
+
+          If one of those paths *is* content, the allowlist is stale — fix \`$ALLOWLIST_PATH\`, not this workflow."
+            exit 0
+          fi
+
+          verdict "enabled" "PR #$PR is content-only and unlabelled for hold — enabling auto-merge; it lands when \`build\` goes green."
           gh pr merge "$PR" --repo "$REPO" --squash --auto --delete-branch

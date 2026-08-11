@@ -7,6 +7,72 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
+
+**Decision (PENDING Wyatt's approval — this changes merge authority).** Three
+changes to `.github/workflows/auto-merge-content.yml`:
+
+1. **Widen the allowlist by three paths.** `theories.generated.ts`,
+   `videos.generated.ts` and `song-moods.generated.ts` join
+   `content-vault.generated.ts` and `tracks.generated.ts` as auto-mergeable.
+2. **Move the allowlist out of the workflow** into
+   `.github/content-automerge-allowlist.txt`, which the workflow fetches from
+   `main` at run time via the API (never from the PR head, so a PR still cannot
+   widen its own gate). One source of truth, no copy to fall behind.
+3. **Guard it in CI.** `npm run check:automerge-allowlist` (new, in `build`)
+   fails if any `apps/web/lib/longlive/*.generated.ts` is neither allowlisted
+   nor on an explicit reasoned exclusion list, if any entry points at a path
+   that no longer exists, or if the list gets re-inlined into the workflow.
+   `scripts/lib/generated-content.mjs` is now the single manifest of generated
+   artifacts, shared with `check:generated`.
+
+**Why:** `apps/web/lib/longlive/` grew from two generated files to five; the
+workflow's hand-typed list stayed at two. Every content PR touching theories,
+videos or song moods hit the "non-content path" branch — which prints a line
+and `exit 0`s, so the check reported SUCCESS. PRs #1891 and #1762 (a theory
+seed plus its regenerated vault) sat open a week with nothing appearing wrong.
+The three missing entries were the symptom; the defect was a duplicated list
+that could desync with no signal.
+
+**What this does and does not widen.** All five files are pure functions of
+`supabase/seed/**` — each sync script writes its output wholesale from the
+seeds, and `check:generated` already fails CI if any of them differs from a
+fresh regeneration, so none can be hand-authored. A PR that regenerates one is
+therefore exactly as reviewed as the seed edit that caused it, which was
+already auto-mergeable. Nothing else moves: `apps/web/public/**` and all app
+code still wait for a founder (see the 2026-07-28 entry — a bot-picked image
+gets human eyes).
+
+**Observability.** "Correctly declined" and "misconfigured" used to look
+identical: one line in a log, exit 0. Declining stays exit 0 — a mixed
+app-code PR legitimately is not auto-mergeable and must not fail its build —
+but every run now writes a verdict to the job summary (`enabled` / `declined` /
+`held` / `frozen` / `BROKEN GATE`), lists *every* offending path rather than
+the first, and prints the allowlist that was actually in effect. A stale gate
+is now visible in the summary of the PR it stranded. A gate that cannot be
+read or does not parse is the one case that exits non-zero; `build` is the only
+required check, so that goes red without blocking anything.
+
+**Alternatives considered:** (a) just adding the three lines — rejected, it
+fixes today's symptom and leaves the drift mechanism intact; (b) keeping the
+list inline and having CI diff the workflow YAML against a manifest — honest,
+but it detects duplication rather than removing it, and YAML-parsing a shell
+heredoc in a checker is its own rot risk; (c) deriving the allowlist from the
+sync scripts' outputs at run time — rejected, it would make the gate widen
+itself automatically, and *what may merge unreviewed* must be an explicit human
+edit. The chosen shape keeps the policy hand-written in one obvious file and
+makes CI prove it stays complete.
+
+**Known gap:** the guard proves the allowlist *covers* every generated
+artifact. It cannot judge whether a path *deserves* to be auto-mergeable —
+adding `apps/web/` to that file would pass CI. That is why the file carries a
+merge-authority warning header and why this entry exists.
+
+**Who approved:** proposed by Claude; **needs Wyatt's sign-off before merge**,
+as a policy change rather than a config fix.
+
+---
+
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
 
 **Decision:** Fix the Growth desk's drafting instructions so Instagram posts
