@@ -285,43 +285,62 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
-      # Content Shift liveness check (2026-07-23). Content Shift is a
-      # Wyatt-account cloud routine (docs/agents/runners.md), not a GitHub
-      # Actions workflow, so it's invisible to the cadence check above.
-      # Confirmed this session: it went silent after 2026-07-22 with zero
-      # trace anywhere (no PR, no stranded branch, no ticket comment) despite
-      # its own charter's rule 8 ("never exit silently") — that rule is
-      # LLM-prompt-compliance-dependent and had already regressed once
-      # before. This check is independent of the agent's own behavior: it
-      # only trusts objective git/gh history.
+      # Content-lane liveness checks (2026-07-23; generalised 2026-08-11).
+      # These lanes are Wyatt-account cloud routines (docs/agents/runners.md),
+      # not GitHub Actions workflows, so they are invisible to the cadence
+      # check above. Confirmed 2026-07-23: Content Shift went silent for a
+      # full day+ with zero trace anywhere (no PR, no stranded branch, no
+      # ticket comment) despite its own charter's rule 8 ("never exit
+      # silently") — that rule is LLM-prompt-compliance-dependent and had
+      # already regressed once. These checks are independent of the agent's
+      # own behavior: they only trust objective gh history.
       #
-      # Match on the PR HEAD BRANCH prefix "content-shift/", not the title or
-      # the shared `content-shift` LABEL. The label is shared with the hourly
-      # photo-enrichment worker (`content/photo-enrichment-*` branches), so a
-      # label check false-positives on it. The TITLE prefix "content(shift): "
-      # was tried first (until 2026-07-25) but false-NEGATIVED: Content Shift
-      # titles its PRs inconsistently (`content:`, `content(showgirl):`,
-      # `content(reputation):` …), so real output (#1240, #1494 on 07-24) went
-      # undetected and #1449 alarmed from 07-22 on. The branch is the reliable
-      # discriminator: Content Shift always branches `content-shift/<date>`,
-      # and no other routine uses that prefix.
+      # Match on the PR HEAD BRANCH prefix, not the title or the shared
+      # `content-shift` LABEL. The label is shared with the photo-enrichment
+      # worker (`content/photo-enrichment-*`), so a label check
+      # false-positives on it. The TITLE prefix "content(shift): " was tried
+      # first (until 2026-07-25) but false-NEGATIVED: Content Shift titles its
+      # PRs inconsistently (`content:`, `content(showgirl):` …), so real
+      # output (#1240, #1494 on 07-24) went undetected and #1449 alarmed from
+      # 07-22 on. The branch prefix is the reliable discriminator.
       #
-      # Window is 30h: Content Shift runs at 17:00/23:00 UTC, so the
-      # worst-case gap between two scheduled attempts is 18h — 30h tolerates
-      # one missed slot without false-alarming, while still catching real
-      # multi-day silence within a day and a half.
+      # WHY THIS IS NOW A LOOP (2026-08-11, Vault Run phase 4 prep). The Vault
+      # Run orchestrator (`vault/<date>`) is being brought in to replace six
+      # standalone lanes including Content Shift. When those standalone
+      # triggers are finally disabled, `content-shift/` PRs stop appearing and
+      # a check hard-keyed to that prefix would alarm every single day. Rather
+      # than flip the prefix — which would leave the still-live standalone
+      # lane unmonitored in the meantime, and silently swap what is being
+      # watched — both prefixes are watched independently, each with its own
+      # window and its own alert title so they self-heal separately.
+      #
+      # **When the standalone lanes are disabled, DELETE the content-shift/
+      # row below.** That is the whole migration: one line, not a rewrite.
+      #
+      # Windows. A lane with NO PR inside its window is considered down.
+      #   content-shift/ = 30h — runs 17:00/23:00 UTC, worst-case gap between
+      #     two scheduled attempts is 18h, so 30h tolerates one missed slot.
+      #   vault/ = 36h — runs once daily at 16:07 UTC. This watchdog job runs
+      #     at 14:35 UTC, so a healthy newest-PR age at check time is ~22.5h;
+      #     36h clears that with ~13h of slop for a late run, while a genuinely
+      #     missed day (age ~46h) still alarms. A missed day is NOT a minor
+      #     event for this lane — the orchestrator carries all six content
+      #     lanes, so one missed run is a whole-day content outage, which is
+      #     precisely what must page. Do not widen this to 48h "to be safe";
+      #     that would hide exactly the failure it exists to catch.
+      #
+      # EXPECT THIS TO FIRE. As of 2026-08-11 the Vault Run has no PR on
+      # 08-01, 08-02 or 08-08 (verified: no PR and no stranded remote branch)
+      # — roughly a 25% miss rate that nobody noticed, because the standalone
+      # lanes were still covering those days. That gap is the finding, not a
+      # false positive.
       #
       # Known, accepted limitation: a genuinely idle run (queue empty) also
-      # leaves no PR, so this can fire on a real quiet stretch, not just a
-      # dead routine. The charter treats an idle exit as itself worth
-      # surfacing ("if all three priorities are empty... that is itself a
-      # finding"), so a nudge to confirm "quiet week or actually dead?" is a
-      # reasonable, low-cost outcome either way — not a bug to engineer
-      # around. Scoped to Content Shift only for now (the one agent with
-      # directly confirmed silent failure); extending to other cloud-routine
-      # agents (Nils, Kevin, Laura, Paul Blart, Austin, Growth) is a cheap
-      # follow-up if/when they're actually observed to go dark too.
-      - name: Content Shift liveness check
+      # leaves no PR, so this can fire on a real quiet stretch rather than a
+      # dead routine. Both charters treat an idle exit as itself worth
+      # surfacing, so "quiet day or actually dead?" is a reasonable low-cost
+      # outcome either way — not a bug to engineer around.
+      - name: Content lane liveness checks
         if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -331,29 +350,41 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          WINDOW_HOURS=30
-          CUTOFF=$(date -u -d "-${WINDOW_HOURS} hours" +%Y-%m-%dT%H:%M:%SZ)
-          # gh pr list sorts newest-first by default (confirmed empirically) —
-          # 100 comfortably covers this repo's real PR volume (~8/day from
-          # this session's own observation) within a 30h window.
-          RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
-            --json headRefName,createdAt \
-            --jq "[.[] | select(.headRefName | startswith(\"content-shift/\")) | select(.createdAt >= \"$CUTOFF\")] | length")
 
-          ALERT_TITLE="Watchdog: Content Shift hasn't produced a PR in ${WINDOW_HOURS}h"
+          # check_lane <branch-prefix> <window-hours> <lane name> <cadence prose>
+          # Always returns 0: an alarming lane must not abort the step and take
+          # the other lane's check down with it. The alert issue is the signal.
+          check_lane () {
+            local PREFIX="$1" WINDOW="$2" LANE="$3" CADENCE="$4"
+            local CUTOFF RECENT ALERT_TITLE
+            CUTOFF=$(date -u -d "-${WINDOW} hours" +%Y-%m-%dT%H:%M:%SZ)
+            # gh pr list sorts newest-first by default (confirmed empirically) —
+            # 100 comfortably covers this repo's real PR volume (~8/day) within
+            # any of these windows.
+            RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
+              --json headRefName,createdAt \
+              --jq "[.[] | select(.headRefName | startswith(\"${PREFIX}\")) | select(.createdAt >= \"${CUTOFF}\")] | length")
 
-          if [ "$RECENT" -gt 0 ]; then
-            echo "Content Shift is active — $RECENT PR(s) from a 'content-shift/*' branch in the last ${WINDOW_HOURS}h." > /tmp/alert-body.md
-            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
-            echo "content shift OK ($RECENT recent PRs)"
-            exit 0
-          fi
+            ALERT_TITLE="Watchdog: ${LANE} hasn't produced a PR in ${WINDOW}h"
 
-          {
-            echo "@sffan15-sys @wjduvall-cmd — no PR from a \`content-shift/*\` branch in the last ${WINDOW_HOURS}h. Content Shift runs twice daily (17:00/23:00 UTC, docs/agents/runners.md) — this either means a genuinely quiet news cycle (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
-            echo ""
-            echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"content-shift/\"))'\` for the most recent one, and whether a \`content-shift/*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash, per docs/agents/content-shift.md's own diagnosed-failure history)."
-            echo ""
-            echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
-          } > /tmp/alert-body.md
-          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            if [ "$RECENT" -gt 0 ]; then
+              echo "${LANE} is active — ${RECENT} PR(s) from a '${PREFIX}*' branch in the last ${WINDOW}h." > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+              echo "${LANE} OK (${RECENT} recent PRs)"
+              return 0
+            fi
+
+            {
+              echo "@sffan15-sys @wjduvall-cmd — no PR from a \`${PREFIX}*\` branch in the last ${WINDOW}h. ${LANE} runs ${CADENCE} (docs/agents/runners.md) — this either means a genuinely quiet queue (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
+              echo ""
+              echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"${PREFIX}\"))'\` for the most recent one, and whether a \`${PREFIX}*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash)."
+              echo ""
+              echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "${LANE} ALARM (no PR in ${WINDOW}h)"
+            return 0
+          }
+
+          check_lane "vault/"         36 "The Vault Run"  "once daily at 16:07 UTC, carrying all six content lanes"
+          check_lane "content-shift/" 30 "Content Shift"  "twice daily at 17:00/23:00 UTC"

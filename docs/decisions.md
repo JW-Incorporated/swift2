@@ -7,6 +7,80 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Vault Run phase 4 NOT executed; the Answerer was never starved, its lane was pointed at a drained queue
+
+**Decision:** do **not** disable the six standalone content lane runners today,
+and do **not** re-enable Lex. Land three reversible repo changes instead, and
+record the preconditions that must clear before phase 4 runs.
+
+**Why phase 4 was refused.** The consolidation is half-done — the orchestrator
+(`trig_01EuLgUdMgbuqL51o3iWQfTL`) has run daily since 07-30 *alongside* the six
+lanes it was meant to replace, so PR count went up, no minutes or tokens were
+saved, and Rumor Desk — the highest privacy-liability lane, which auto-merges
+unread — is now effectively daily (standalone cron `47 14 */2 * *` fires odd
+days; orchestrator lane 4 is due even days). That is a real problem, but three
+of four preconditions for fixing it by disabling the six were unmet:
+
+1. **Phase 3.5 is unmerged** (PR #1629, open since 07-30). On `main` there is
+   still no stuck-red-PR detection and no recovery path — `vault-run.md` still
+   promises "TOMORROW's run picks it up", which is false. Consolidating makes
+   this strictly worse: one red PR would strand all six lanes instead of one.
+   #1585 (red since 07-28) and #1762 (open since 08-03) show it is live.
+2. **The orchestrator misses ~25% of days** — no `vault/` PR *and no stranded
+   branch* on 08-01, 08-02, 08-08. The standalone lanes covered those days.
+3. **Trigger state could not be verified** — the `RemoteTrigger` tool was
+   unavailable, so no trigger's `enabled` flag or `job_config` was ever read.
+   An unverified disable is worse than none, especially given the documented
+   full-replacement footgun that has already destroyed two triggers' prompts.
+
+**The Answerer finding, which inverts the premise.** The lane was believed
+"structurally starved" because Lex is disabled and open `curiosity-ledger`
+issues have been 0 since ~07-29 — with the implied fix being "re-enable Lex or
+stand the Answerer down". Both are wrong. The standalone Answerer is **not**
+idle: it shipped #1732 (5 defining moments deepened) and #1827 (3 cross-link
+throughlines) in August, drawing from **Karen's CIE depth rollups** — #1719
+`content.depth-deficit` (26 items), #1720 `hot-thin-topic`, #1724
+`crosslink-opportunity` (60 items). Karen's nightly scan is a deterministic
+checker that keeps refilling those, so the supply is alive.
+
+What was actually broken is `vault-lanes/2-answerer.md`: it gated solely on
+`curiosity-ledger`, so lane 2 correctly found nothing and no-opped every day
+while a 26-item backlog sat open. **The lane was reading the wrong queue.** It
+has been repointed at the CIE rollups, with the drained legacy queues kept as
+queue 1–2 and explicitly marked "empty is expected, not a stop condition", plus
+a run-log requirement to report the open count of every queue checked — a bare
+"nothing to do" is what hid this for two weeks.
+
+**Re-enabling Lex is rejected**, not deferred. Lex generates *questions*; the
+bottleneck is *answers*. It cost 12 cloud runs/day, and Karen's checker already
+produces the same targeting deterministically and for free. Re-enabling it
+would rebuild the exact token-burn pattern the 2026-07-25 audit removed, to
+refill a queue that duplicates a cheaper supplier.
+
+**Watchdog: both prefixes, not a swap.** The Content Shift liveness check keys
+on the `content-shift/` branch prefix, so disabling that lane would make it
+alarm every day — the known landmine. Rather than flip it to `vault/` (which
+would leave the still-live standalone lane unmonitored and silently change what
+is watched), it is now a `check_lane` helper called per lane: `vault/` at 36h
+and `content-shift/` at 30h, with independent alert titles. Correct in both
+states; phase 4 deletes one line. The 36h window is chosen to alarm on a single
+missed Vault Run day — for a runner carrying all six lanes, a missed day is a
+whole-day content outage, so it must page. **This check is expected to fire**
+against the 08-01/02/08 gap pattern; that gap is the finding, not a false
+positive.
+
+**Alternatives considered:** (a) disable the six anyway and accept the risk —
+rejected, it removes the only cover for a 25% miss rate and an unverified
+disable cannot be safely rolled back; (b) disable only Rumor Desk, the genuine
+liability — tempting and still the best single next step once #1629 lands, but
+it needs verified trigger state to be reversible, which was unavailable;
+(c) retarget the watchdog to `vault/` only — rejected as above.
+
+**Approved by:** proposed by Wyatt's engineering agent; **phase 4 itself and
+the Rumor Desk daily-cadence question need Wyatt's call.**
+
+---
+
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
 **Decision (PENDING Wyatt's approval — this changes merge authority).** Three

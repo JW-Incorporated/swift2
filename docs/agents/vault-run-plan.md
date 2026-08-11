@@ -133,6 +133,51 @@ gate, commit, PR) so no lane repeats boilerplate.
       Watch one full cycle, then write the `docs/decisions.md` entry and record
       the actual Actions-minutes and PR-count change.
 
+      **STILL BLOCKED as of 2026-08-11. Attempted this session; NOT executed.**
+      Four preconditions were checked and three failed. Do not disable anything
+      until each is cleared — the six standalone lanes are currently the only
+      thing masking these:
+
+      1. **Phase 3.5 is not on `main`.** Its work exists as **PR #1629**, open
+         and unmerged since 07-30. The PR body says "Phase 4 is now unblocked",
+         which is true of the branch and false of `main`. Verified on `main`:
+         `watchdog.yml` has no stuck-red-PR check, and `vault-run.md` still ends
+         with *"If CI fails or a conflict appears, TOMORROW's run picks it up"*
+         — the exact false promise Phase 3.5 exists to remove, and there is no
+         STEP 0 adoption path. Consolidating six lanes behind one PR while that
+         is true means one red Vault Run PR silently strands all six lanes'
+         work. Live proof the failure mode is active, not theoretical: **#1585**
+         (red, open since 07-28) and **#1762** (open since 08-03).
+         → **Merge #1629 first.** That is the whole of precondition 1.
+
+      2. **The orchestrator misses ~25% of days.** No `vault/` PR *and no
+         stranded remote branch* on **08-01, 08-02, 08-08** (branches run
+         07-30, 07-31, then 08-03…08-07, 08-09…08-11). On each of those days the
+         standalone lanes were the only content that shipped. Disabling them
+         converts a masked gap into a real content outage. Root-cause the misses
+         first — a run that leaves no branch at all did not fail mid-run, it
+         never started, which points at the trigger/environment, not the prompt.
+
+      3. **Lane 2 does not cover the standalone Answerer's work.** Lane 2 was
+         gated solely on open `curiosity-ledger` issues, which have been at 0
+         since ~07-29, so it no-ops every day. The standalone Answerer draws
+         from Karen's CIE depth rollups instead and shipped **#1732** (5 defining
+         moments) and **#1827** (3 cross-link throughlines) in August. Disabling
+         it would have deleted the only thing draining the depth backlog. Lane 2
+         has been repointed at the live queue (same commit as this note); it
+         must be **observed actually shipping** before the standalone comes off.
+
+      4. **Trigger state was never verified.** The `RemoteTrigger` tool was not
+         available in the session that attempted this, so no trigger's
+         `enabled` flag, cron, or `job_config` was read. Every cadence claim
+         here is inferred from PR branch history. **Do not disable on inferred
+         state** — read each trigger back first, and record its full config
+         before writing, per the full-replacement footgun in `runners.md`.
+
+      Ordering, once unblocked: merge #1629 → fix the missed-day cause → confirm
+      lane 2 ships → disable the six one at a time, reading each back → delete
+      the `content-shift/` row from the watchdog's lane table.
+
 ## Rollback
 
 Re-enable the six triggers and disable the Vault Run. Nothing is deleted in
