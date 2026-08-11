@@ -9917,5 +9917,76 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-08-03 (Vault Run, Content Shift lane) from intake #1759.
+      // A confirmed, on-record public statement — not a rumor — so ≥1
+      // established outlet suffices; AOL UK was fetched and verified 200 this
+      // session, Billboard is the origin outlet, and Yahoo Entertainment
+      // corroborates. The "~2010 Songwriters Hall of Fame" detail is Collins's
+      // own recollection framing ("roughly fifteen years ago"), not a new dated
+      // event, so it is written as his memory rather than pinned to a year.
+      // Redlines: clean — a musician praising Taylor's public performance and
+      // career; no location, health, security, sexuality, minor, or third-party
+      // private-life content.
+      slug: 'phil-collins-white-horse-blown-away',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'music',
+      title: 'Phil Collins: Taylor’s early “White Horse” “blew me away completely”',
+      snippet:
+        'On BBC Radio 2, the Genesis frontman recalled Taylor playing “White Horse” at a Songwriters Hall of Fame event years before her fame — and said the superstardom that followed is deserved.',
+      moment: {
+        context:
+          'On BBC Radio 2’s “Tracks of My Years” with Vernon Kay, aired in early August 2026, Phil Collins reached back roughly fifteen years to the first time he saw Taylor perform — before she was a superstar, at a Songwriters Hall of Fame event where his daughter Lily introduced them. Taylor got up with a guitar and sang “White Horse,” her 2008 heartbreak ballad, and Collins said it “blew me away completely”: “not only was the song great, and the sentiment of the song really got me, but she sang it beautifully.” He added that he has “always had a soft spot for this song since then.”\n\nWatching her become, in his words, “the hugest thing in the world,” the Genesis and Grammy-laden solo hitmaker was pointedly unbegrudging about it. “It’s easy to knock someone that’s got so much success,” he said, “but I think she really deserves it” — she “kind of feels like she deserves it.” Coming from one of the best-selling artists of all time, it is the kind of legacy praise that lands as a concrete memory rather than a talking point: a specific song, a specific room, and a first impression that never wore off.',
+        sources: [
+          {
+            outlet: 'AOL UK',
+            url: 'https://www.aol.co.uk/articles/phil-collins-praises-taylor-swift-230212000.html',
+            source_title: "Phil Collins praises Taylor Swift and says she 'really deserves' huge success",
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/phil-collins-praises-taylor-swift-1236307708/',
+            source_title: "Phil Collins Recalls Being 'Blown Away' by Taylor Swift Before Her Superstardom",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/phil-collins-recalls-being-blown-090327439.html',
+            source_title: "Phil Collins Recalls Being 'Blown Away' by Taylor Swift Before Her Superstardom",
+            publisher: 'Yahoo',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 3,
+          },
+        ],
+        // Photo: no imagery exists of the ~2010 event Collins describes, so the
+        // moment carries a verified performance photo of Collins himself — the
+        // subject of the quote. Raph_PH's Royal Albert Hall 2017 shot
+        // (CC BY 2.0) curl-verified HTTP 200 image/jpeg at the 1280px thumb,
+        // downloaded and vision-confirmed: Phil Collins seated centre at the
+        // mic (his seated staging on that tour), full band behind him.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg/1280px-Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg',
+            credit: 'Raph_PH, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'Phil Collins performing at London’s Royal Albert Hall in 2017. He later told BBC Radio 2 that hearing a young Taylor sing “White Horse” “blew me away completely.”',
+            kind: 'reference',
+            // Collins is the seated figure at the mic, left-of-centre; keep the
+            // crop weighted there so his face survives a tight square.
+            focalPoint: '46% 42%',
+          },
+        ],
+      },
+    },
   ],
 };
