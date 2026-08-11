@@ -10,8 +10,18 @@
 # ⚠️ EDITING THIS FILE CHANGES MERGE AUTHORITY. Adding a line means bots can
 # land that path with nobody looking. Only add paths that are CONTENT: seed
 # data, or an artifact mechanically DERIVED from seed data by a sync script.
-# Never app code, never anything hand-authored, never `apps/web/public/**`
-# (see docs/decisions.md 2026-07-28 — a bot-picked image gets human eyes).
+# Never app code, never anything hand-authored, and never the rest of
+# `apps/web/public/**` (see docs/decisions.md 2026-07-28 — a bot-picked image
+# gets human eyes). ONE exception: `apps/web/public/social/`, carved out by
+# docs/decisions.md 2026-08-11 (checker-gated social images — approved by
+# Joey and Wyatt, superseding the 2026-07-28 note for this one directory
+# only). That path is a plain prefix match here same as any other entry, but
+# `.github/workflows/auto-merge-content.yml`'s `enable` job applies EXTRA
+# per-file constraints to it (must be .png/.jpg/.jpeg, ≤1.5MB, a regular git
+# blob — not a symlink/submodule) that this file has no way to express, since
+# it only ever sees paths, never file properties. A file under that prefix
+# failing those constraints still declines, same as any other non-content
+# path would.
 #
 # Format: one path prefix per line, matched with a literal `startsWith`.
 #   - `#` starts a comment; blank lines ignored.
@@ -34,6 +44,13 @@ social/queue/
 
 # ── Audit reports written by the content-engine runners. ────────────────────
 docs/audits/
+
+# ── Social images: ONE narrow exception to the apps/web/public/** rule above
+#    (docs/decisions.md 2026-08-11 — checker-gated, per-file constraints
+#    enforced by the workflow, not by this file). A queue item's own
+#    dedicated photo, already validated by scripts/social/check-drafts.mjs's
+#    media rules in the check-drafts job. ────────────────────────────────────
+apps/web/public/social/
 
 # ── Built vault: machine-generated from supabase/seed/** by the sync scripts
 #    listed in scripts/lib/generated-content.mjs. Never hand-edited; `npm run
