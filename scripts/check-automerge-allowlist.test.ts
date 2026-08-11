@@ -4,9 +4,13 @@ import { describe, expect, it } from 'vitest';
 import {
   ALLOWLIST_FILE,
   EXCLUDED,
+  NEVER_ALLOWLIST,
+  NEVER_ALLOWLIST_EXCEPTIONS,
   WORKFLOW_FILE,
+  barredPrefixes,
   checkAllowlist,
   covers,
+  overlaps,
   parseAllowlist,
 } from './check-automerge-allowlist.mjs';
 import { GENERATED, ROOT, SYNC_TARGETS, listGeneratedOnDisk } from './lib/generated-content.mjs';
@@ -311,4 +315,137 @@ describe('the committed allowlist', () => {
   // enforced by that workflow step, not by this allowlist file or this
   // test suite (which only covers the allowlist FILE's own format and
   // coverage rules, not PR-time file content).
+});
+
+// ── the self-amendment bar (2026-08-11) ───────────────────────────────────
+describe('NEVER_ALLOWLIST — the self-amendment bar', () => {
+  it('overlaps() matches in both directions', () => {
+    // entry sits inside a barred area
+    expect(overlaps('docs/agents/austin.md', 'docs/agents/')).toBe(true);
+    // entry is broad enough to swallow a barred area
+    expect(overlaps('docs/', 'docs/agents/')).toBe(true);
+    expect(overlaps('', '.github/')).toBe(true);
+    // unrelated siblings do not
+    expect(overlaps('docs/audits/', 'docs/agents/')).toBe(false);
+    expect(overlaps('supabase/seed/', 'supabase/migrations/')).toBe(false);
+  });
+
+  it('refuses every barred prefix, by name, with its reason', () => {
+    for (const [prefix, reason] of Object.entries(NEVER_ALLOWLIST)) {
+      const problems = run({
+        allowlistText: `supabase/seed/\n${prefix}\n`,
+        generatedOnDisk: [],
+        syncTargets: [],
+        pathKind: () => 'dir',
+      });
+      expect(problems.join('\n'), prefix).toContain('may NEVER be auto-merged');
+      expect(problems.join('\n'), prefix).toContain(reason);
+    }
+  });
+
+  it('refuses a broad entry that would swallow a barred area', () => {
+    // The realistic mistake: someone allowlists `docs/` to unblock doc chores
+    // and silently hands away the charters and the decision log with it.
+    const problems = run({
+      allowlistText: 'docs/\n',
+      generatedOnDisk: [],
+      syncTargets: [],
+      pathKind: () => 'dir',
+    });
+    expect(problems.join('\n')).toContain('docs/agents/');
+    expect(problems.join('\n')).toContain('docs/decisions.md');
+  });
+
+  it('refuses a barred path even when it exists on disk (authority, not typo)', () => {
+    const problems = run({
+      allowlistText: '.github/workflows/auto-merge-content.yml\n',
+      generatedOnDisk: [],
+      syncTargets: [],
+      pathKind: () => 'file',
+    });
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('must itself always need a human');
+    expect(problems[0]).not.toContain('does not exist');
+  });
+
+  it('leaves legitimate content paths alone', () => {
+    for (const entry of ['supabase/seed/', 'social/queue/', 'docs/audits/']) {
+      const problems = run({
+        allowlistText: `${entry}\n`,
+        generatedOnDisk: [],
+        syncTargets: [],
+        pathKind: () => 'dir',
+      });
+      expect(problems, entry).toEqual([]);
+    }
+  });
+
+  it('every bar carries a real reason — the set has to stay arguable', () => {
+    for (const [prefix, reason] of Object.entries(NEVER_ALLOWLIST)) {
+      expect(reason.length, prefix).toBeGreaterThan(25);
+    }
+  });
+
+  it('the committed allowlist satisfies the bar (after the social exception)', () => {
+    const entries = parseAllowlist(read(ALLOWLIST_FILE)).map((p) => p.entry);
+    for (const entry of entries) {
+      expect(
+        barredPrefixes(entry, NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+        `${entry} is barred`,
+      ).toEqual([]);
+    }
+  });
+});
+
+// ── the one narrowing: the apps/web/public/social/ carve-out ───────────────
+describe('NEVER_ALLOWLIST_EXCEPTIONS — the social-image narrowing', () => {
+  it('exempts the exact granted subtree and nothing broader or adjacent', () => {
+    // the granted subtree passes the bar
+    expect(barredPrefixes('apps/web/public/social/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS)).toEqual([]);
+    // the whole public dir does NOT — an exception narrows, it does not open
+    expect(
+      barredPrefixes('apps/web/public/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('apps/web/public/');
+    // a sibling that merely shares a prefix string is NOT swept in
+    expect(
+      barredPrefixes('apps/web/public/socialite/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('apps/web/public/');
+    // an unrelated public dir stays barred
+    expect(
+      barredPrefixes('apps/web/public/eras/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('apps/web/public/');
+    // and a broad `apps/` entry, which overlaps the bar, is not exempted either
+    expect(
+      barredPrefixes('apps/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('apps/web/public/');
+  });
+
+  it('an exception can only narrow the bar it lives inside, never a different one', () => {
+    // Every exception key must itself sit inside some barred prefix — otherwise
+    // it would be a free-floating grant, not a narrowing.
+    for (const x of Object.keys(NEVER_ALLOWLIST_EXCEPTIONS)) {
+      const inside = Object.keys(NEVER_ALLOWLIST).some((p) => x.startsWith(p));
+      expect(inside, `${x} must live inside a barred prefix`).toBe(true);
+    }
+  });
+
+  it('the committed allowlist actually exercises the exception (social is present and clears the bar)', () => {
+    const entries = parseAllowlist(read(ALLOWLIST_FILE)).map((p) => p.entry);
+    expect(entries).toContain('apps/web/public/social/');
+    expect(
+      barredPrefixes('apps/web/public/social/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toEqual([]);
+  });
+
+  it('checkAllowlist lets the social entry through but still bars the rest of public/', () => {
+    const base = 'supabase/seed/\napps/web/public/social/\n';
+    const kind = (p: string): 'file' | 'dir' | null =>
+      ['supabase/seed', 'apps/web/public/social', 'apps/web/public/eras'].includes(p) ? 'dir' : null;
+    expect(
+      run({ allowlistText: base, generatedOnDisk: [], syncTargets: [], pathKind: kind }),
+    ).toEqual([]);
+    const withEras = `${base}apps/web/public/eras/\n`;
+    const problems = run({ allowlistText: withEras, generatedOnDisk: [], syncTargets: [], pathKind: kind });
+    expect(problems.some((p) => p.includes('apps/web/public/eras/') && p.includes('may NEVER'))).toBe(true);
+  });
 });

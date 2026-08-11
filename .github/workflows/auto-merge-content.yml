@@ -96,6 +96,14 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
+    # `enable` reads has_drafts to fail closed on social images (2026-08-11):
+    # a committed apps/web/public/social/** image only auto-merges when it rode
+    # in with a queue draft that check-drafts.mjs actually validated. An
+    # image-only PR (no social/queue/**.json) sets has_drafts=false and is
+    # DECLINED — otherwise the checker never runs and an image would merge
+    # ungated, the fail-OPEN direction Joey's decision explicitly forbids.
+    outputs:
+      has_drafts: ${{ steps.files.outputs.has_drafts }}
     steps:
       # Checks out the BASE ref (main) — pull_request_target's default
       # GITHUB_SHA/ref, deliberately NOT the PR head. scripts/social/
@@ -181,6 +189,7 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
           FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
           ALLOWLIST_PATH: .github/content-automerge-allowlist.txt
+          HAS_DRAFTS: ${{ needs.check-drafts.outputs.has_drafts }}
         run: |
           set -euo pipefail
 
@@ -343,6 +352,28 @@ jobs:
           ${in_effect}
 
           If a path outside the allowlist *is* content, the allowlist is stale — fix \`$ALLOWLIST_PATH\`, not this workflow."
+            exit 0
+          fi
+
+          # Fail-closed gate for the apps/web/public/social/** carve-out
+          # (docs/decisions.md 2026-08-11). Those images are allowlisted, but the
+          # human look they replace is scripts/social/check-drafts.mjs — and that
+          # checker only runs when this PR also changes a social/queue/**.json
+          # draft (check-drafts' `has_drafts`). An IMAGE-ONLY PR would otherwise
+          # sail through: allowlisted by path, but validated by nothing. So if
+          # this PR commits any social image and check-drafts did NOT actually
+          # validate a draft, DECLINE — the fail-safe direction. (When a draft IS
+          # present, check-drafts is a hard `needs:` of this job, so a failing
+          # draft check skips `enable` entirely; this only adds the no-draft case.)
+          social_media=$(printf '%s\n' "$files" | grep -E '^apps/web/public/social/.*\.(png|jpg|jpeg)$' || true)
+          if [ -n "$social_media" ] && [ "${HAS_DRAFTS:-false}" != "true" ]; then
+            image_list=$(printf '%s\n' "$social_media" | sed 's/^/- `/; s/$/`/')
+            verdict "declined — image needs an accompanying draft" \
+          "PR #$PR commits social image(s) but changes no \`social/queue/**.json\` draft, so \`scripts/social/check-drafts.mjs\` never validated them. Auto-merge of \`apps/web/public/social/**\` is conditioned on that checker (docs/decisions.md 2026-08-11); an image with nothing to check waits for a human. Add the queue draft that uses the image, or merge by hand.
+
+          **Uncheckable social image(s)**
+
+          ${image_list}"
             exit 0
           fi
 
