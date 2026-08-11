@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 69
+
+## Taylor Swift Removes Her Songs from Trump’s TikTok - Vulture
+
+- first seen: 2026-08-11 06:01 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Removes Her Songs from Trump’s TikTok  Vulture
+- sources:
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMid0FVX3lxTE5WMkE2OEZ4R19BRFRKQWRDdFJRR2JKd21NSEVCeGpOd2pwVmVRUW01X1J3RzRRVnQzanlaQl9VM0I3RG0zX1RWaE1UZm85aXVuUVAyYkd4TDktb2l2UGlTRVBIeGlsTXZQU3ZVM1BLQlFhaC1Za2g4?oc=5
+
+## Inside Taylor Swift’s Star-Studded Love Life - Yahoo
+
+- first seen: 2026-08-11 06:01 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Inside Taylor Swift’s Star-Studded Love Life  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOV0d0T2tTNkQ0OTJIUEhpUjZKWUZ3YTdYSkEtN1Q1OFZpQksxUmMyaEltYVQ5Sy1tbkJEWHNnSnlhMWpreFBwSVFrYzVNYWk5Z2xINXE4X3k3amItRldiMUNTeXJhb00tR2NtV0I3TE5SRXVMbDhoTTA0OVJOa0R6TUdaUUo1b09kOUxFTExoMWFyQzNGSXNVSERpa0h3YmFCY3dtYw?oc=5
+
+## Can politicians use whatever music they want on social media? - NBC News
+
+- first seen: 2026-08-11 06:01 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Can politicians use whatever music they want on social media?  NBC News
+- sources:
+  - [unverified] NBC News — https://news.google.com/rss/articles/CBMiywFBVV95cUxNQ2NxTXFINHg0YkVqQXp1VGMxYlh3WUJTbmVoVFJRQ2xESVY0cmcxMjk4RDA5MTJJM1ZGN0lqcFR4bWVGVGNlUlp6bTRiSjZUN240aUhSUTUtZC1UaldCdlN6TU1YVk9adGVMcHptVUwwZEd4cTNuR0VtTmJuWXdqMzZkbjkwLXg5eFRCYk1TdktrcFFveEx1VlM5Qk1oNG1ELV9fR0JBYzRsVnNtN0xodTIwLXVta1lFTXRjRlNJUTR3MUxmTVNrc18tSQ?oc=5
 
 ## Meet the man who's sold garbage from Taylor Swift's wedding & more - NBC New York
 
@@ -422,14 +446,6 @@ Stories: 71
 - sources:
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxQd200VngzUW91WjlBMnhsOU5ndDc3bk1VbTMyWk5yOG9BZTVIZHo1SmZ3RGNfNExMNnY3MEZMTjA1UGtoblRyUFlGWlljSWVmendMWXZsNHFLOFRvbWs3WmxucEJaank2cjU4SGw5dm96V1I4TDRWZGpnMklVWG0ycTY4eTBWeUlDZVFTSUdjTnNZamV6c0dfLXBLM0tNdzhLMVlzTGZ6Yw?oc=5
 
-## Donald Trump's TikTok Team Trolls Taylor Swift After Her Songs Removed from Its Posts - TMZ
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Donald Trump's TikTok Team Trolls Taylor Swift After Her Songs Removed from Its Posts  TMZ
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiowFBVV95cUxQNm9LbGtVVWNGZ0dzekxmYWV5aTUwVFJfQUhlNHBDQllzWnNGWnhVTWdiYWNmckFLNUJiakowQk1ySGRhUGJoRnBmSW5PVldtb2tnYmJ1TmgwQnZ2XzZrVjUxd0pXSnVYeFBMUlRpWDZCSllRekY1cjl0dFlaQ0FXdGxXcGpjdFNFRERBMUNvVjh0eUhUVzU0MTN6Q3hGaGQ2YjhV?oc=5
-
 ## Blake Lively, Ryan Reynolds All Smiles Month After Missing Taylor Swift Wedding - TMZ
 
 - first seen: 2026-08-08 21:42 UTC | category: relationship | importance: 5
@@ -467,6 +483,15 @@ Stories: 71
   - [unverified] Sky News — https://news.google.com/rss/articles/CBMitAFBVV95cUxPNTZyR0FiR21BVHhoN1V6bVVRLWY0NDVWRDVldXVqYmNXT3B4YmRBTEo0aHhEU3hEYkJNa1NqbDNWS3FTZk9qQXRRZ2x0bFJlLTVUWmo3RlFhYmF0eUY2OTZmY2R3VE9YamxDTGxRU3ZtTlFJSC1nRnBQcDU3czk1a3czXzNXS3F5V3NhS2owRFhLQmxNcU90UktwYWRTRVVZNkFsUDN0SjE1WkdCekFLSi1rNlQ?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNdGhXTmN1LWlTcUUzYU15V0pSX3ltLVdPcWlXWFVSbGkxLWNTVDFaVVM0M3hRX3RtVW1ZUHZVdnVjNXktNkpqeXgwYU9ZUkJSS3hqUDlrczJyblhxNkpYbnJ3eGhpdFA1dDMwdWRHQ0gxaFNuQi1mOHBXdUpacTlscmdLMk5CVTQ0V2tCemY3eHpqN08zTkJzNmh6SzNkMjZUTVE?oc=5
   - [unverified] Indy100 — https://news.google.com/rss/articles/CBMie0FVX3lxTFB1WFR5Zy1xMlFTcVhUY3Y4eGk2RjdXUG9IRm5CU0RsOGl0T3c4NjRJUkpMLU4yb25MckwzOXcyZUd2VUxwQUdkbkh5dlI5YTM5SngtZS1UMnpxUTFwV3NJTXE1S2t2QVU1dEtVRWRKZWg4SzNVcWhMSkRrWQ?oc=5
+
+## Donald Trump's TikTok Team Trolls Taylor Swift After Her Songs Removed from Its Posts - TMZ
+
+- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Donald Trump's TikTok Team Trolls Taylor Swift After Her Songs Removed from Its Posts  TMZ
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiowFBVV95cUxQNm9LbGtVVWNGZ0dzekxmYWV5aTUwVFJfQUhlNHBDQllzWnNGWnhVTWdiYWNmckFLNUJiakowQk1ySGRhUGJoRnBmSW5PVldtb2tnYmJ1TmgwQnZ2XzZrVjUxd0pXSnVYeFBMUlRpWDZCSllRekY1cjl0dFlaQ0FXdGxXcGpjdFNFRERBMUNvVjh0eUhUVzU0MTN6Q3hGaGQ2YjhV?oc=5
+  - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMiogFBVV95cUxOa2ppSVh6a3MtWWI0cDNZNG1XUFhOMWhqTXR4SDdMVUI2alhrZkxydXA4ZjJvY25fX1d1QXZiXzdIWWx5LWl5dnNjc1VCOFItV0hCRkEzbGZrYUZ0YThZWmN1YWlfQjgwekJ0RW9fOXdqeVg4TUdJWEpDbl9sMWJyWVBPM2hTeDZTRzYxb2Ytd2lYQVpra1ZoZzBSNTNtRWE5V2c?oc=5
 
 ## The Surprising Taylor Swift Callout in 'Ted Lasso' Season 4 - PureWow
 
@@ -571,50 +596,3 @@ Stories: 71
 - summary: Taylor Swift, Zendaya & More Who Kept Wedding Dress Photos Private  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeFktdVY5NDRLemdUOHdfUlBzbnNMRjJPOXA2WjhKWkw1VkZLZ1BmWkFyNHVYbXFxYU04am42RnoyR1ltTVNNRXRXdFV5SFRtQ3NjNGN2Z05teUtzaXMza0JmYVRjVFMyU1c4cVpnSTN0eWdaQnJ6X3pBT3pEbVVYZ1ktRmU3NGZNNG5PUTZ0VFQzb0pNbmtxc0E5T1J3RmxGTnc?oc=5
-
-## Taylor Swift Song ‘August’ Removed From Trump TikTok Video - Variety
-
-- first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: Taylor Swift Song ‘August’ Removed From Trump TikTok Video  Variety
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMHlqN1RwN0t4ZjhYY1d3LTlTNHF3OG1VZWw2cXpOQllZM3JpMzd2QmlsU3lfVmd2eUh0QkE1d2N6dVBoXy1tT2FQM2FlYzhHd0ZFeVg5V3lURkY3YmIxYTBiYmhLU051TEpzTVlTbndFalRjdWpOSjFaUmtPcFZaTHNzMk9tZThwZHJhN2gtM1IxcEI3RENScEZXSGRYaWJv?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/
-  - [unverified] NDTV — https://news.google.com/rss/articles/CBMisAFBVV95cUxPMFQ1Um9PdTExVVFnMGtQeFNKaG5mT19nanFRVHFkYXN5dEwxb2hDYTYyb3N2NGFMdFlMWjZoVzJTV0FhdVRPdktwR2RVMEFleHdaUDg2QUdEbDBybVBDbW83RzFLU2RfMkZQYkRmNDZMYnF3NkVveTh1YzdwQUFrVVcyYUJOOWRoeHZrQXVwNWNSd04zd3MxcV9QS3FMN091T1hzS3lNYlVucHNBcU9OQdIBuAFBVV95cUxOZWNsV2s5RDVXQ3NwT3hRbUlsOURqVGhzSC13eXpxNEJEanVGaFlhZVJ5bGFlbnI3eUhyYWhjSGdEMFZDOVpaQ1pFTGxHdGx1NEJ4aDlvY0wxYzlXbzZtcFFPenpvWnF4NFJFblhmbm5QSTYyU2hGc1hTY295ZVRJeW91YzhQQjZUM3ZhUzBnVzZCdVBDRGNxdVg3N0xvc01qajBSYzEtM2JjanNLZGU2SHRUVURYUW9I?oc=5
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-removes-august-team-trump-tiktok-video-1235605878/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxPNGczMU9HRXhUUXA3QVFndzJXdFRQVFpoaExHSks4SERYcG9lSW9SMzhMYjd0UjJHSHBBLWJyMk5KLVRsYjR4WnpFWk1GMlRrMzFTUFZMbzR2bnh4RjJRbUlMRXZ1T3FsZWtvbVNFMXhNTVFsZzJfNzhua3RvZzZnUC1fbVdPOTFtTF9PX3p4czRiUGhwbktMa2lHbF9KOEFEVFJiQk5XQy1yamRWT1E?oc=5
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMiugFBVV95cUxPQzNUaXpPOGhpUmI4MVo3M0tRdzdoV0VSbFRZS3VIVDNaV2o2SGkwSGRBeTJrQXpRVVpGV3pvM3hmb2ZEZWo0eXRLWnFnamtZTGFLb1NlRXk3VXAzWDZvRklXVDFUSjN5WG9pNnNSQ3VWM3p6dV9XYm4wSnZaOEJxVXp6Y3FjaExlOWZXc09YT25TTDZ2UU1qdGJrT3JLbGh6YUlyRUk3ZUVZLWJjajJBajJiLVdMM0RDRnc?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQT296NDRWcEp0RmtkdGRDbWVzdlJ1UWZ6VFNkT1hMRVNPUnlKblJJT0J6UkZFZ1kwMzRSRnJGbThaVHF1UjgyeWpwdEhtNTlFMVJrLWluMW9mWlFiNDhHdVd1SXdWYnNIOHFMS1pFU2ZoS05MWTFHYmJVYS1ySXUxSnRjMXRtZ1M0T2p3WW03cnV5LURYYWFHLUdScU5XT0k?oc=5
-
-## Taylor Swift Blocks Trump from Using Her Music on TikTok - consequence.net
-
-- first seen: 2026-08-08 05:53 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Blocks Trump from Using Her Music on TikTok  consequence.net
-- sources:
-  - [unverified] consequence.net — https://news.google.com/rss/articles/CBMigwFBVV95cUxPQmFVUnVuaGZWNG42ZFFUZ2xxOHJMNlZla19QcDJBbktQRnRhVGg0aXF6NnhnQzlLcEZaYlN1d3FRZ0V1NlA2VXYwek5XMEw3R0RoalV1aTF2U3ZYMUxWbUxNdGdSV2RBYW9XRndsNVkyTGxNUER2NFVsN1Q2bVlXMHBFWQ?oc=5
-  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxQOUJPSFlHb2lxVEhzeFV5LWRTN3VKRlNwTDZhbDRoVGtOTEZXejBLeXdNVjdST2ZibXdpaVFxVEZiem9XS0lydUw1MVlsak1JZzNSbGNMblZSMjQ0eS1PRE56Y0hXNzZfaWVyYXdieVVTeTFtdW45RmtWS1lHLUhvSjg1RmlYTGl2elNiNXhDRnVfN0paVGxLempJTm45eVRWOFh2cW5WVmpNRnRzZm9Z?oc=5
-
-## Roundup: Dogs, Sports, Taylor Swift … - 06880
-
-- first seen: 2026-08-08 05:53 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Roundup: Dogs, Sports, Taylor Swift …  06880
-- sources:
-  - [unverified] 06880 — https://news.google.com/rss/articles/CBMifEFVX3lxTFB5SWlHcnYwaHNfMzhpdHQxbWw3RmJYOS13SWVvMEUwdDh5clhjZDVoMjlCSVBwRDhFZS13NE1OR0JZeUx2UEMyV3Bid3VmbjZoaWZjRDZxdlZqU0lRMS1DNlBZNEVtQWYxaGZZV0d6VURXbmNrM210V0tQRlHSAXxBVV95cUxQeUlpR3J2MGhzXzM4aXR0MW1sN0ZiWDktd0llbzBFMHQ4eXJYY2Q1aDI5QklQcEQ4RWUtdzRNTkdCWXlMdlBDMldwYnd1Zm42aGlmY0Q2cXZWalNJUTEtQzZQWTRFbUFmMWhmWVdHelVEV25jazNtdFdLUEZR?oc=5
-
-## Taylor Swift Appears to Block Trump From Using Her Song in TikTok Celebrating His Presidency - TheWr
-
-- first seen: 2026-08-08 05:53 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Appears to Block Trump From Using Her Song in TikTok Celebrating His Presidency  TheWrap
-- sources:
-  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMimgFBVV95cUxOY1p3OUxsZnNlUFE4a1loX0J6M1NBbVJrZzM5VXp0bUtFUFF1X2k0NkQtUk5hQjNZN2hDS1pqNEdlallyaFJpdHJKNFNLMWJWUzd1OF9EUWd2Z1ZSYnl0U3MxTTBTcVhfX1lCYTEzU2VnODFacXhMSGlRbzdRc1JaT184aVJvbVBBeFJ6RXFVOHozaTRPSVNKSmRR?oc=5
-
-## Travis Kelce could follow Taylor Swift into the music industry after NFL career - MARCA
-
-- first seen: 2026-08-08 05:53 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce could follow Taylor Swift into the music industry after NFL career  MARCA
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2wFBVV95cUxPVTRub2NuVXZVaVV1WF9hWFBjYVk4SFZQWEVmVkZfVWlhYU9xRjZoUnlBd2xRelRVV3ZKVzFUdmo2UjE2M1U0RU5ldWhiVHVpTktMR21jSXMzcGtKcGpZVWt2LUR1MVBTQlpDdHpaWjZPeDRhME1ERXpoNll6MkY2VUFINVc0NHRSQ3Y0X1JZaHVKQnl4X3Z4SmpCRndnc3laU2o4bXkybFdWaEp1OWdRdVFYRGwxYklzbEUwaGgxcnFOVmpkejNWXy02MF9Pek1DMEFyZlFjU3lmbzDSAdsBQVVfeXFMTjFPTVpNQkJNM1N4UFVqTlg5YVBsZ3lGTjVjOHplODlLbUhVNEdvQWpTeDF6cHBBd3NJcnhBLVhINi1SVFZZYU5EVkFTVkVEdjY0MWVxM19JaW9ZVm1QYzhtWDB2dXJrakFjVnpnZC1Pc0VRYjA0dG10WG9ub3Y4UkV2QXIwTFJhNTF4bURPMU5BS1BPOG1GeTNVVV9ETWRHZVd3NnVMLS1yRlFWUkN5a01FYzFRZlpGblZ1ZG5nRTNLbHBuTFZIdDVYN19RblpsMjJMV2k5OWs3aXpj?oc=5
