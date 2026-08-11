@@ -968,40 +968,11 @@ export default {
       year: 2023,
       month: 9,
       day: 24,
-      category: 'sighting',
-      title: 'First Chiefs game: cheering on from the family suite',
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-mid-2b", label: "Relationship goes public", kind: "life" },
-      snippet:
-        "Taylor watched Kansas City rout Chicago 41–10 from Travis's family suite at Arrowhead, sitting beside his mother Donna in a red-and-white Chiefs jacket.",
-      sourceUrl: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/',
-      thumbnailUrl:
-        'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
-      moment: {
-        context:
-          'Three days earlier, Travis had put the invitation on the record on The Pat McAfee Show: "I told her that I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead." She took him up on it — and when he caught a three-yard touchdown pass in the third quarter, Fox cameras found her jumping and screaming in the glass-enclosed suite beside Donna Kelce.\n\nPatrick Mahomes admitted afterward he\'d felt "a little pressure" to get Kelce a touchdown with her watching; the two were spotted leaving Arrowhead together after the 41-10 rout.',
-        sources: [
-          { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
-          {
-            outlet: 'ESPN',
-            url: 'https://www.espn.com/nfl/story/_/id/38481870/taylor-swift-accepts-travis-kelce-invite-chiefs-game',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
-            credit: 'CNN',
-            focalPoint: '36% 16%',
-          },
-        ],
-      },
-    },
-    {
-      year: 2023,
-      month: 9,
-      day: 24,
       category: 'relationship',
+      // Milestone moved here from the retired duplicate "family suite" moment
+      // (#1855 merge, 2026-08-11): the derived era-timeline marker now rides
+      // this defining, thread-tagged card. Legacy id kept for stability.
+      milestone: { id: "m-mid-2b", label: "Relationship goes public", kind: "life" },
       significance: 'defining', // the crossover into mainstream/NFL culture that reshaped her public life (docs/decisions.md, 2026-07-19)
       threadIds: ['the-proposal'],
       relatedIds: [
@@ -1017,7 +988,7 @@ export default {
         'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         context:
-          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.',
+          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
           {
@@ -1129,46 +1100,6 @@ export default {
             price: '$138.00',
             isAlternative: true,
             altNote: 'The exact game-day tank is discontinued -- this is a current Dôen white pointelle tank, same brand (shorts, windbreaker, and shoes not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2023,
-      month: 9,
-      day: 12,
-      category: 'fashion',
-      title: 'A black-and-gold gown for a record VMA night',
-      snippet: 'A reputation-coded black gown with gold accents and a thigh-high slit on the pink carpet.',
-      sourceUrl: 'https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947',
-      thumbnailUrl:
-        'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
-      moment: {
-        context:
-          "The Sept. 12, 2023 pink carpet at the Prudential Center got a black Versace gown with a line of the house's signature gold hardware and a thigh-high slit — a look fans immediately read as reputation-coded, arriving in the thick of re-record-announcement mania. The dress did a full night's work: she was on camera constantly as the show's most-awarded and most-visible attendee.\n\nThe night behind the gown was historic: nine Moon Person trophies from 11 nominations, including Video of the Year for \"Anti-Hero\" — her fourth win in the show's top category, more than anyone in VMAs history, in a field where no other artist (not Beyoncé, Rihanna, or Eminem) has more than two.",
-        sources: [
-          { outlet: 'NBC News', url: 'https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947' },
-          { outlet: 'TheWrap', url: 'https://www.thewrap.com/taylor-swift-most-video-of-the-year-wins-vmas-2023/' },
-        ],
-        photos: [
-          {
-            url: 'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
-            credit: 'NBC News',
-            focalPoint: '47% 12%',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact Versace gown is discontinued
-        // -- a current black-and-gold embellished gown, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Mac Duggal',
-            item: 'Black and Gold Embellished Column Gown with Chiffon Cape Sleeves',
-            retailer: 'macduggal.com',
-            url: 'https://macduggal.com/products/13206',
-            price: '$798.00',
-            isAlternative: true,
-            altNote: 'Her exact Versace gown is discontinued -- this is a current black-and-gold gown in the same formal palette, with chiffon cape sleeves rather than gold hardware.',
           },
         ],
       },
@@ -2423,7 +2354,7 @@ export default {
         'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
       moment: {
         context:
-          'Worn to the Sept. 12, 2023 MTV VMAs — the night she won Video of the Year for "Anti-Hero" among nine total Moon Person wins — the black Versace ran its asymmetrical line of the house\'s signature gold buttons down the bodice, with a thigh-high slit over Jimmy Choo stiletto pumps. The look was finished with a stack of necklaces from Joseph Saidian and Sons and an Anita Ko diamond ear cuff.\n\nStylist Joseph Cassell — the same hand behind her Eras Tour wardrobe — kept the formula consistent with her biggest awards-night looks of the era: one house, one dark statement piece, gold hardware doing the accent work. In a season when every appearance was scanned for re-record clues, the black-and-gold palette was read as reputation-coded on sight.',
+          'Worn to the Sept. 12, 2023 MTV VMAs — the night she won Video of the Year for "Anti-Hero," her fourth win in the show\'s top category and more than anyone in VMAs history (no other artist, Beyoncé, Rihanna and Eminem included, has more than two), among nine Moon Person trophies from 11 nominations — the black Versace ran its asymmetrical line of the house\'s signature gold buttons down the bodice, with a thigh-high slit over Jimmy Choo stiletto pumps. The look was finished with a stack of necklaces from Joseph Saidian and Sons and an Anita Ko diamond ear cuff.\n\nStylist Joseph Cassell — the same hand behind her Eras Tour wardrobe — kept the formula consistent with her biggest awards-night looks of the era: one house, one dark statement piece, gold hardware doing the accent work. In a season when every appearance was scanned for re-record clues, the black-and-gold palette was read as reputation-coded on sight.',
         sources: [
           {
             outlet: 'WWD',
