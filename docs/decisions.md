@@ -28,7 +28,7 @@ different, instructive ways.
 
 *Delivery.* X posting was in fact fine — six consecutive nights, 08-05 through
 08-10, each with a real tweet id in `social/posted/*-x.json`. But it HAD been
-dead: between 2026-07-21 and 2026-08-04, twelve X items exhausted their
+dead: between 2026-07-21 and 2026-08-04, **eleven** X items exhausted their
 attempts against `403 {"detail":"You are not permitted to perform this
 action."}` and were binned into `social/failed/`. Every one of those
 social-poster runs finished **green** — e.g. run 30981473515, conclusion
@@ -39,6 +39,19 @@ only artifact was a queue-state PR whose body was fixed boilerplate. The
 recovery on 08-05 came with no code change either — nobody knows what X did,
 because nothing was watching. What we can control is that a post which never
 reached the timeline never again leaves a green check.
+
+*This was never X-only.* The twelfth item in `social/failed/` is
+`2026-07-27-all-too-well-scarf-metaphor-ig.json` — a real **Instagram** post,
+killed by Meta error `9007`/`2207027` ("the media is not ready for
+publishing"), just as silently. The swallow lived in `post-queue.mjs`'s
+platform-agnostic catch block, so it was never an X problem; X was simply the
+platform failing often enough to notice. That IG failure has its own root
+cause — we publish a media container without waiting for it to reach
+`FINISHED` — tracked separately as **#1897** and deliberately NOT fixed here:
+it changes the live publish path of the one channel that currently posts
+reliably, and it cannot be validated against the real Graph API from an agent
+session (no credentials, no test posts), so it should land on its own with
+attention rather than riding along in a reporting change.
 
 *Measurement.* `postsToday` counted `social/posted/**` entries whose
 `postedAt` fell on the current UTC date, but `growth-snapshot.yml` runs at

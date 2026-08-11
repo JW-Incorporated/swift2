@@ -1,9 +1,10 @@
 // Pure reporting logic for the social poster — kept separate from the
 // network/filesystem code in post-queue.mjs so it's unit-testable.
 //
-// Why this exists (2026-08-11): between 2026-07-21 and 2026-08-04, twelve X
-// queue items exhausted their 3 attempts against a hard 403 from X's API and
-// were moved to social/failed/ — and EVERY one of those social-poster runs
+// Why this exists (2026-08-11): between 2026-07-21 and 2026-08-04, twelve
+// queue items — eleven X (hard 403 from X's API) and one Instagram (issue
+// #1897) — exhausted their 3 attempts and were moved to social/failed/, and
+// EVERY one of those social-poster runs
 // finished green. The only trace was a console.error line buried in an Action
 // log nobody reads, and a queue-state PR whose body was fixed boilerplate
 // ("see the run log for what happened to each item"). Proof:
