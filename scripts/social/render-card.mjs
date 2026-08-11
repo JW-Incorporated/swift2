@@ -48,17 +48,24 @@ Required:
   --out <path>            Output PNG path
 
 Common:
-  --variant text|photo|quote   Layout (default: text)
+  --variant text|photo|quote|thread   Layout (default: text)
   --era <id>                    Era palette id (${listEraIds().join(', ')}) — omit for brand default
   --eyebrow <text>              Small tracked label above the headline
   --kicker <text>               Subtitle line below the headline (or attribution, for quote)
   --size portrait|square        1080x1350 (default) or 1080x1080
-  --icon sparkles|layers|compass  Oversized watermark glyph, text variant only (matches the
-                                   app's own Mood/Threads/Eras nav icons)
+  --icon sparkles|layers|compass  Oversized watermark glyph, text/thread variants only (matches
+                                   the app's own Mood/Threads/Eras nav icons)
 
 Photo variant only:
   --photo <path-or-url>         Local file path or http(s) URL for the background image
   --credit <text>                Small credit line rendered bottom-left on the scrim
+
+Thread variant only (a real-data proof stat as the centerpiece — no invented numbers):
+  --stat-value <text>            Big numeral (e.g. "42")
+  --stat-label <text>            Label under it (e.g. "Hidden clues")
+  --stat2-value <text>           Optional second numeral, renders as a two-up pair
+  --stat2-label <text>
+  --detail <text>                Sentence-case line under the stat panel
 `;
 }
 
@@ -95,6 +102,12 @@ async function main() {
     photoDataUri = await loadImageAsDataUri(args.photo);
   }
 
+  if (variant === 'thread' && typeof args['stat-value'] !== 'string') {
+    console.error('--variant thread requires --stat-value (and --stat-label)');
+    process.exitCode = 1;
+    return;
+  }
+
   const png = await renderCardPng({
     variant,
     palette,
@@ -106,6 +119,15 @@ async function main() {
     photoDataUri,
     credit: typeof args.credit === 'string' ? args.credit : undefined,
     icon: typeof args.icon === 'string' ? args.icon : undefined,
+    stat:
+      typeof args['stat-value'] === 'string'
+        ? { value: args['stat-value'], label: typeof args['stat-label'] === 'string' ? args['stat-label'] : '' }
+        : undefined,
+    stat2:
+      typeof args['stat2-value'] === 'string'
+        ? { value: args['stat2-value'], label: typeof args['stat2-label'] === 'string' ? args['stat2-label'] : '' }
+        : undefined,
+    detail: typeof args.detail === 'string' ? args.detail : undefined,
   });
 
   await mkdir(path.dirname(args.out), { recursive: true });

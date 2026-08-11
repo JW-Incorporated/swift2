@@ -30,25 +30,91 @@ const LIBRARY_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library'
 // importing lenses.ts drags in its content-vault.generated.ts dependency
 // chain for no benefit to a card-copy list. If a thread's title/kicker
 // changes on the site, update it here too.
+//
+// `era` picks each card's accent palette. Deliberately NOT the same era the
+// site uses as that thread's hero image (the-proposal and love-story both
+// use lover.png on-site) — the WS2 design-review fix asked for six visually
+// distinct cards in a grid, so each thread gets its own era here purely for
+// color variety.
+//
+// `stat`/`stat2`/`detail` are the proof-element centerpiece the design
+// review demanded in place of the old faint watermark glyph — one real,
+// verified number per thread (counted straight from apps/web/lib/longlive/
+// lenses.ts on 2026-08-11; re-verify by running scripts/social/_count.mjs-
+// style queries against lenses.ts if these arrays change materially):
+//   hidden-clues:      CLUE_PAIRS.length = 42, .filter(c => c.confirmed).length = 24,
+//                       longest plant->payoff gap = "The Karma graffiti" at 953 days (2.6 yrs)
+//   easter-eggs:        EGG_NODES.length = 30, MOTIFS.length (trails) = 7
+//   fashion:            RUNWAY_LOOKS.length = 12, covering all 12 ERAS ids (verified: one look/era)
+//   taylors-version:    RERECORDS.length = 6, .filter(r => r.reclaimedYear).length = 4 (released as TV)
+//   the-proposal:       threadPoints('the-proposal').length = 17 dated moments,
+//                       2023-07-26 (bracelet) through 2026-07-03 (wedding at MSG)
+//   love-story:         RELATIONSHIPS.length = 10 named eras/chapters
 const THREADS = [
-  { id: 'the-proposal', title: 'End Game', kicker: 'A love story, in real time', era: 'lover' },
-  { id: 'love-story', title: 'Blank Spaces', kicker: 'The one that stuck', era: 'lover' },
-  { id: 'fashion', title: 'The Runway', kicker: 'Twelve wardrobes, one story', era: '1989' },
-  { id: 'taylors-version', title: "Taylor's Version", kicker: 'Owning the masters', era: 'red' },
-  { id: 'easter-eggs', title: 'The Clue Web', kicker: 'The secrets she plants', era: 'midnights' },
-  { id: 'hidden-clues', title: 'The Decode', kicker: 'One clue, one payoff', era: 'ttpd' },
+  {
+    id: 'the-proposal',
+    title: 'End Game',
+    kicker: 'A love story, in real time',
+    era: 'lover',
+    stat: { value: '17', label: 'Dated moments' },
+    detail: 'Bracelet to altar, tracked in real time',
+  },
+  {
+    id: 'love-story',
+    title: 'Blank Spaces',
+    kicker: 'The one that stuck',
+    era: 'red',
+    stat: { value: '10', label: 'Chapters' },
+    detail: 'Every era has a name',
+  },
+  {
+    id: 'fashion',
+    title: 'The Runway',
+    kicker: 'Twelve wardrobes, one story',
+    era: '1989',
+    stat: { value: '12', label: 'Eras' },
+    stat2: { value: '12', label: 'Looks' },
+    detail: 'One signature look, every era',
+  },
+  {
+    id: 'taylors-version',
+    title: "Taylor's Version",
+    kicker: 'Owning the masters',
+    era: 'fearless',
+    stat: { value: '6', label: 'Albums' },
+    detail: '4 already out as Taylor’s Version',
+  },
+  {
+    id: 'easter-eggs',
+    title: 'The Clue Web',
+    kicker: 'The secrets she plants',
+    era: 'midnights',
+    stat: { value: '30', label: 'Easter eggs' },
+    detail: '7 trails to pull, all mapped',
+  },
+  {
+    id: 'hidden-clues',
+    title: 'The Decode',
+    kicker: 'One clue, one payoff',
+    era: 'ttpd',
+    stat: { value: '42', label: 'Hidden clues' },
+    detail: '24 confirmed · longest gap 2.6 years',
+  },
 ];
 
 const CARD_JOBS = [
   ...THREADS.map((t) => ({
     out: `thread-${t.id}-intro.png`,
     opts: {
-      variant: 'text',
+      variant: 'thread',
       palette: eraPalette(t.era),
       ...SIZES.portrait,
       eyebrow: 'The Threads',
       headline: t.title,
       kicker: t.kicker,
+      stat: t.stat,
+      stat2: t.stat2,
+      detail: t.detail,
       icon: 'layers',
     },
   })),

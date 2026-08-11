@@ -389,6 +389,248 @@ function photoCard({ palette, width, height, eyebrow, headline, kicker, photoDat
   );
 }
 
+/**
+ * Single big stat column: a giant Playfair numeral over a tracked uppercase
+ * label. Two of these side by side (with a divider) is how the fashion card
+ * shows "12 eras / 12 looks" as one payload instead of two competing lines.
+ */
+function StatColumn({ palette, value, label, fontSize, labelSize }) {
+  return h(
+    'div',
+    { style: { display: 'flex', flexDirection: 'column', alignItems: 'center' } },
+    [
+      h(
+        'div',
+        {
+          style: {
+            display: 'flex',
+            fontFamily: 'Playfair Display',
+            fontWeight: 900,
+            fontSize,
+            lineHeight: 1,
+            color: palette.accent,
+          },
+        },
+        value,
+      ),
+      h(
+        'div',
+        {
+          style: {
+            display: 'flex',
+            fontFamily: 'Inter',
+            fontWeight: 700,
+            fontSize: labelSize,
+            letterSpacing: 3,
+            textTransform: 'uppercase',
+            color: palette.ink,
+            marginTop: Math.round(labelSize * 0.4),
+          },
+        },
+        label,
+      ),
+    ],
+  );
+}
+
+/**
+ * The proof-element centerpiece for the `thread` variant: one concrete,
+ * real-data stat (or a pair of them) inside a bordered panel, with an
+ * optional sentence-case detail line underneath spelling out the rest of
+ * the number (e.g. how many are *confirmed*, not just planted). This is the
+ * "would a scroller know what this is" payload the old bottom-anchored
+ * text card didn't have room for.
+ */
+function StatPanel({ palette, width, stat, stat2, detail }) {
+  const scale = width / 1080;
+  const bigSize = Math.round((stat2 ? 168 : 264) * scale);
+  const labelSize = Math.round(28 * scale);
+  const detailSize = Math.round(27 * scale);
+  return h(
+    'div',
+    {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        position: 'relative',
+        padding: `${Math.round(68 * scale)}px ${Math.round(72 * scale)}px`,
+        borderRadius: Math.round(28 * scale),
+        border: `${Math.max(1, Math.round(scale))}px solid ${hexToRgba(palette.accent, 0.4)}`,
+        background: hexToRgba(palette.surface2, 0.55),
+      },
+    },
+    [
+      h(
+        'div',
+        {
+          style: {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: stat2 ? Math.round(56 * scale) : 0,
+          },
+        },
+        stat2
+          ? [
+              StatColumn({ palette, ...stat, fontSize: bigSize, labelSize }),
+              h('div', {
+                style: {
+                  display: 'flex',
+                  width: Math.max(1, Math.round(scale)),
+                  height: bigSize * 0.7,
+                  background: hexToRgba(palette.accent, 0.35),
+                },
+              }),
+              StatColumn({ palette, ...stat2, fontSize: bigSize, labelSize }),
+            ]
+          : [StatColumn({ palette, ...stat, fontSize: bigSize, labelSize })],
+      ),
+      detail
+        ? h(
+            'div',
+            {
+              style: {
+                display: 'flex',
+                fontFamily: 'Inter',
+                fontWeight: 600,
+                fontSize: detailSize,
+                letterSpacing: 0.5,
+                textAlign: 'center',
+                color: palette.inkSoft,
+                marginTop: Math.round(28 * scale),
+                maxWidth: Math.round(width * 0.62),
+              },
+            },
+            detail,
+          )
+        : null,
+    ].filter(Boolean),
+  );
+}
+
+/**
+ * Thread intro card: fixes the WS2 design-review fail on the original
+ * bottom-anchored `text` layout (~70% empty canvas, all copy crammed small
+ * in the bottom quarter, a meaningless era tag in the corner). The thread
+ * name now runs large in the top third, a real-data proof stat is the
+ * centerpiece (not a decorative glyph), and there's no era tag — a thread
+ * spans eras, so tagging it with one was arbitrary. Still shares the
+ * brand skeleton (eyebrow, serif headline, wordmark) with the other
+ * variants.
+ */
+function threadCard({ palette, width, height, eyebrow, headline, kicker, stat, stat2, detail, icon }) {
+  const scale = width / 1080;
+  return h(
+    'div',
+    {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        width,
+        height,
+        background: palette.bg,
+        position: 'relative',
+        overflow: 'hidden',
+      },
+    },
+    [
+      icon ? WatermarkIcon({ icon, width, color: palette.accent, opacity: 0.08, rotate: 12 }) : null,
+      // Glow centered behind the stat panel (not tucked in a corner) so the
+      // proof element reads as the card's focal point.
+      h('div', {
+        style: {
+          display: 'flex',
+          position: 'absolute',
+          width: width * 0.95,
+          height: width * 0.95,
+          borderRadius: '50%',
+          top: height * 0.56 - (width * 0.95) / 2,
+          left: width * 0.5 - (width * 0.95) / 2,
+          backgroundImage: `radial-gradient(circle, ${palette.glow} 0%, rgba(0,0,0,0) 68%)`,
+        },
+      }),
+      h(
+        'div',
+        {
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            padding: `${Math.round(72 * scale)}px ${Math.round(84 * scale)}px 0`,
+            position: 'relative',
+          },
+        },
+        [
+          Rule({ color: palette.accent, width }),
+          Eyebrow({ text: eyebrow, color: palette.accent, width }),
+          h(
+            'div',
+            {
+              style: {
+                display: 'flex',
+                fontFamily: 'Playfair Display',
+                fontWeight: 900,
+                fontSize: headlineFontSize(headline, width),
+                lineHeight: 1.02,
+                letterSpacing: -1,
+                color: palette.ink,
+                marginTop: Math.round(16 * scale),
+              },
+            },
+            headline,
+          ),
+          kicker
+            ? h(
+                'div',
+                {
+                  style: {
+                    display: 'flex',
+                    fontFamily: 'Inter',
+                    fontWeight: 400,
+                    fontSize: Math.round(30 * scale),
+                    lineHeight: 1.3,
+                    color: palette.inkSoft,
+                    marginTop: Math.round(14 * scale),
+                    maxWidth: '92%',
+                  },
+                },
+                kicker,
+              )
+            : null,
+        ].filter(Boolean),
+      ),
+      h(
+        'div',
+        {
+          style: {
+            display: 'flex',
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            padding: `0 ${Math.round(56 * scale)}px`,
+          },
+        },
+        StatPanel({ palette, width, stat, stat2, detail }),
+      ),
+      h(
+        'div',
+        {
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            padding: `0 ${Math.round(84 * scale)}px ${Math.round(64 * scale)}px`,
+            position: 'relative',
+          },
+        },
+        // name: null strips the era tag the design review flagged — a thread
+        // runs across every era, so pinning it to one was arbitrary.
+        Wordmark({ palette: { ...palette, name: null }, width, dark: false }),
+      ),
+    ].filter(Boolean),
+  );
+}
+
 function QuoteGlyph({ palette, width }) {
   const scale = width / 1080;
   return h(
@@ -520,7 +762,7 @@ function hexToRgba(hex, alpha) {
 
 /**
  * @param {object} opts
- * @param {'text'|'photo'|'quote'} opts.variant
+ * @param {'text'|'photo'|'quote'|'thread'} opts.variant
  * @param {object} opts.palette from era-palette.mjs's eraPalette()
  * @param {number} opts.width
  * @param {number} opts.height
@@ -529,7 +771,10 @@ function hexToRgba(hex, alpha) {
  * @param {string} [opts.kicker]
  * @param {string} [opts.photoDataUri] required for variant 'photo'
  * @param {string} [opts.credit]
- * @param {'sparkles'|'layers'|'compass'} [opts.icon] oversized watermark glyph (variant 'text' only)
+ * @param {'sparkles'|'layers'|'compass'} [opts.icon] oversized watermark glyph (variant 'text'/'thread' only)
+ * @param {{value:string,label:string}} [opts.stat] required for variant 'thread' — the real-data proof number
+ * @param {{value:string,label:string}} [opts.stat2] optional second stat, variant 'thread' (renders as a two-up pair)
+ * @param {string} [opts.detail] variant 'thread' only — sentence-case line under the stat panel
  * @returns {Promise<Buffer>} PNG bytes
  */
 export async function renderCardPng(opts) {
@@ -544,6 +789,9 @@ export async function renderCardPng(opts) {
     photoDataUri,
     credit,
     icon,
+    stat,
+    stat2,
+    detail,
   } = opts;
   if (!headline) throw new Error('headline is required');
   let tree;
@@ -554,8 +802,11 @@ export async function renderCardPng(opts) {
     tree = quoteCard({ palette, width, height, eyebrow, headline, kicker });
   } else if (variant === 'text') {
     tree = textCard({ palette, width, height, eyebrow, headline, kicker, icon });
+  } else if (variant === 'thread') {
+    if (!stat) throw new Error('variant "thread" requires stat: {value, label}');
+    tree = threadCard({ palette, width, height, eyebrow, headline, kicker, stat, stat2, detail, icon });
   } else {
-    throw new Error(`Unknown variant "${variant}". Expected "text", "photo", or "quote".`);
+    throw new Error(`Unknown variant "${variant}". Expected "text", "photo", "quote", or "thread".`);
   }
 
   const svg = await satori(tree, { width, height, fonts: loadFonts() });
