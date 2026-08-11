@@ -4054,6 +4054,16 @@ export default {
             lastCheckedOn: '2026-07-24',
           },
         ],
+        // Photo pass #762 (2026-08-02): searched for a verified on-topic photo
+        // and came up empty. The only image that actually shows a ring
+        // (Cris Carter's July 20 Instagram post) is Instagram-only — not
+        // rehostable. StyleCaster's article art is a generic May 15 file photo
+        // of the couple (no hands visible, wrong date). Harper's Bazaar's own
+        // piece never got a dedicated photo either — its body text says so
+        // outright ("still waiting for those wedding photos"). No candidate
+        // cleared the verify-first bar; left at editorial max rather than
+        // ship an off-hook stand-in.
+        photos: [],
       },
     },
     {
@@ -4139,10 +4149,22 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg',
+            focalPoint: '50% 22%',
             credit: 'Raph_PH / Wikimedia Commons, CC BY 2.0',
             caption: 'Shania Twain performing at Glastonbury Festival, June 30, 2024.',
             kind: 'archival',
-            focalPoint: '50% 22%',
+          },
+          // Photo pass #762 (2026-08-02): the actual commitment named in this
+          // moment — opening for Harry Styles's Wembley residency. Rolling
+          // Stone's own CDN; curl-verified 200 image/jpeg, downloaded and
+          // vision-confirmed (Twain mid-song in the black corset stage look
+          // reported across the residency's June/July run).
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2026/06/shania-twain-opening-for-harry-styles.jpg',
+            focalPoint: '50% 32%',
+            credit: 'Fred Thiebaud/LiveNation, via Rolling Stone',
+            caption: 'Shania Twain opening for Harry Styles at Wembley Stadium — the booking she cited as the reason she couldn\'t attend the wedding.',
+            kind: 'primary',
           },
         ],
       },
