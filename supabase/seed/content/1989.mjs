@@ -410,11 +410,29 @@ export default {
         ],
         photos: [
           {
+            // Field-order fix #762 (2026-08-09): focalPoint moved to
+            // immediately after url per the field-order rule (docs/decisions.md
+            // 2026-07-20); no values changed.
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Scott_Eastwood_%28November_2025%29_%28cropped%29.jpg',
+            focalPoint: '42% 30%',
             credit: 'Web Summit / Wikimedia Commons, CC BY 4.0',
             caption: 'Scott Eastwood in 2025. He played Taylor\'s love interest in the 2015 "Wildest Dreams" video — a role his agents advised him to turn down.',
             kind: 'primary',
-            focalPoint: '42% 30%',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — official video
+          // still. oEmbed-verified videoId IdneKLhsWOQ belongs to the
+          // official @TaylorSwift channel; i.ytimg.com is YouTube's own CDN;
+          // curl 200 image/jpeg 1280x720, downloaded and vision-confirmed.
+          // Shows Taylor only (in character), not Eastwood — no verifiable,
+          // sufficiently-large still of him from this video was found on any
+          // allowlisted host; storyboard frames are 120x90px, under the floor.
+          {
+            url: 'https://i.ytimg.com/vi/IdneKLhsWOQ/maxresdefault.jpg',
+            // Face right-of-center, upper third.
+            focalPoint: '63% 33%',
+            credit: 'Big Machine Records / YouTube (official "Wildest Dreams" music video still)',
+            caption: 'A close-up still from the "Wildest Dreams" music video — Taylor in character as the film-set-era actress, dark-haired for the role, reclining against patterned fabric.',
+            kind: 'archival',
           },
           // Photo pass #762 (2026-08-05): official "Wildest Dreams" video
           // thumbnail — id verified via YouTube oEmbed (author "Taylor
@@ -1501,6 +1519,12 @@ export default {
           },
         ],
         // Focal point (#762): tight 'Shake It Off' frame, her face fills the upper-center of the shot.
+        // Photo-enrichment pass (2026-07-27, #762): searched for a second, genuinely
+        // on-topic image (Apple Music/WWDC 2015 launch, Eddy Cue at a contemporaneous
+        // event) — nothing verifiable turned up. No free-licensed period photo of Eddy
+        // Cue exists (Wikipedia/Commons' only photo of him is SXSW 2025, a decade removed
+        // from this story, so it was rejected as unrelated filler rather than added).
+        // Kept at one photo; reviewed-sparse.
         photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum', focalPoint: '48% 30%' }],
       },
     },

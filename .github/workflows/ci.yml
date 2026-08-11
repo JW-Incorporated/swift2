@@ -34,6 +34,7 @@ jobs:
       - run: npm run validate:content
       - run: npm run check:generated
       - run: npm run check:content-inert
+      - run: npm run check:automerge-allowlist
       - run: npm run content:coverage
       - run: npm run build
       - run: npm run check:budget:seed

@@ -3257,6 +3257,15 @@ export default {
           },
         ],
         photos: [
+          // Photo pass (2026-07-27): a real shot of the display itself, found
+          // on the Cleveland.com/USA TODAY Network writeup already cited
+          // above (its AOL syndication). curl HTTP 200 + image/jpeg
+          // (3784x5676, no watermark, not a Getty comp), downloaded and
+          // vision-confirmed: the "Legends of Rock" case, with the crystal
+          // swim costume, beaded/sequined performer bodysuits, and museum
+          // placards reading "Taylor Swift Ensemble Performer Bodysuits" /
+          // "Taylor Swift Outfit" / "The Fate of Ophelia" — this is the
+          // display, not the building.
           {
             url: 'https://www.billboard.com/wp-content/uploads/2026/04/Taylor-Swift-Fate-of-Ophelia-video-screengrab-billboard-1800.jpg',
             focalPoint: '50% 45%',
@@ -3266,11 +3275,11 @@ export default {
             kind: 'primary',
           },
           {
-            // Establishing shot of the named venue (the exhibit interior isn't
-            // on a reusable host); captioned as the building, not the display.
-            // curl HTTP 200 + image/jpeg, 6000x4000, vision-confirmed as the
-            // I.M. Pei pyramid with the "Rock & Roll Hall of Fame" entrance
-            // banner. CC BY-SA 4.0, Wikimedia Commons.
+            // Establishing shot of the named venue. curl HTTP 200 + image/jpeg,
+            // 6000x4000, vision-confirmed as the I.M. Pei pyramid with the
+            // "Rock & Roll Hall of Fame" entrance banner. CC BY-SA 4.0,
+            // Wikimedia Commons. Field-order fix #762 (2026-08-09): focalPoint
+            // moved to immediately after url; no values changed.
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
             // Glass pyramid and entrance banner sit dead center, just below the midline.
             focalPoint: '50% 48%',
@@ -3278,6 +3287,22 @@ export default {
             caption:
               'The Rock & Roll Hall of Fame in Cleveland, where the "Fate of Ophelia" display opened on Level 5 in June 2026.',
             kind: 'archival',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — the actual
+          // exhibit interior, from the Yahoo/ABC Audio article this moment
+          // already cites (its own embedded image, Yahoo's own Zenfs media
+          // network — an outlet-CDN precedent already used elsewhere in this
+          // codebase). curl 200 image/jpeg 630x354, downloaded and
+          // vision-confirmed: mannequins in the swimming-costume-style looks
+          // and beaded gown from the video, under blue-lit "TAYLOR" signage.
+          {
+            url: 'https://media.zenfs.com/en/abc_audio_244/d25a082ac3d338a56032835766d248f0',
+            // Center mannequin/costume detail sits just left of center, upper-middle.
+            focalPoint: '49% 40%',
+            credit: 'Rock & Roll Hall of Fame (courtesy), via Yahoo Entertainment / ABC Audio',
+            caption:
+              'Inside the display: mannequins wear the shimmering swimming-costume-style looks and beaded gown from "The Fate of Ophelia" video, under the museum\'s blue-lit "TAYLOR" signage.',
+            kind: 'primary',
           },
         ],
       },
@@ -3352,6 +3377,37 @@ export default {
             caption:
               'Leaving the Electric Lady Studios area on June 15 — the overnight session that set off the TS13 speculation.',
             kind: 'primary',
+          },
+          // Photo pass (2026-07-27): PureWow's writeup of this exact sighting
+          // (assets.purewow.com, its own CDN) captions this frame as Swift
+          // "photographed exiting a car in front of Electric Lady Studios."
+          // curl HTTP 200 + image/jpeg (1200x1412, no watermark), downloaded
+          // and vision-confirmed: the mustard-and-white knit polo, high-waisted
+          // denim, and tan tassel bag reported for the June 15-16 overnight
+          // session. A second PureWow frame from the same set (BACKGRID) was
+          // reviewed but skipped as redundant; a third, captioned identically
+          // but showing an indoor Songwriters Hall of Fame step-and-repeat, was
+          // rejected as off-moment (mislabeled stock/file art, not this outing).
+          {
+            url: 'https://assets.purewow.com/wp-content/uploads/2026/06/taylor-swift-electric-lady-studios-2026_1-1200x1412.jpg',
+            focalPoint: '60% 22%',
+            credit: 'Kyle Mazza/CNP/Shutterstock, via PureWow',
+            caption:
+              'Swift photographed exiting a car in front of Electric Lady Studios in New York, June 15, 2026 — the overnight session that started the TS13 chatter.',
+            kind: 'reference',
+          },
+        // Photo pass #762 (2026-08-09): no photo of the sighting itself
+        // exists (a "spotted" report, not a syndicated paparazzi photo) —
+        // an honestly-captioned photo of the real venue instead. curl 200
+        // image/jpeg, downloaded and vision-confirmed as the Electric Lady
+        // Studios storefront (mirrored window signage, oval entry porthole).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Electric_Lady_Studios_2013.jpg',
+            // Signage sits left-of-center, upper-middle of the frame.
+            focalPoint: '45% 35%',
+            credit: 'Jhsounds / Wikimedia Commons, CC BY-SA 3.0',
+            caption: 'Electric Lady Studios in New York\'s Greenwich Village, where Taylor was spotted for an overnight session in early June 2026 — not a photo from that night.',
+            kind: 'archival',
           },
         ],
         // Rumor Desk 2026-08-11: this moment is the structural home for the
@@ -4125,6 +4181,20 @@ export default {
             caption:
               'Kylie Kelce recording the July 23 "Not Gonna Lie" episode where she called Taylor family — "only making it official."',
             kind: 'primary',
+          },
+        // Photo pass #762 (2026-08-09): a photo of Kylie Kelce, the subject
+        // of this beat — not a generic Taylor file photo. TODAY's own CDN
+        // (already allowlisted), curl 200 image/jpeg 1500x1000, downloaded
+        // and vision-confirmed. A second, Donna Kelce candidate was found but
+        // declined: its exact credit line could only be inferred from a
+        // companion photo on the same article, not confirmed for this frame.
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/rockcms/2026-07/kylie-kelce-webby-ky-260723-a8a747.jpg',
+            // Face upper-center-left of frame.
+            focalPoint: '49% 26%',
+            credit: 'Getty Images/The Webby Awards, via TODAY',
+            caption: 'Kylie Kelce at the 30th Annual Webby Awards in New York City, May 11, 2026 — weeks before she called Taylor and Travis\'s wedding "absolutely magical" on her podcast.',
+            kind: 'archival',
           },
         ],
       },
