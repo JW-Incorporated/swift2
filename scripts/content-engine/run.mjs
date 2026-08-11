@@ -33,6 +33,7 @@ import * as crosslinkOpportunity from './checkers/crosslink-opportunity.mjs';
 import * as hotThinTopic from './checkers/hot-thin-topic.mjs';
 import * as fashionProducts from './checkers/fashion-products.mjs';
 import * as rumorLifecycle from './checkers/rumor-lifecycle.mjs';
+import * as rumorRedline from './checkers/rumor-redline.mjs';
 import * as socialPostMissing from './checkers/social-post-missing.mjs';
 import * as voice from './checkers/voice.mjs';
 
@@ -41,7 +42,7 @@ import * as voice from './checkers/voice.mjs';
 // imageUrlQuality is network-free, so it runs even under --no-images / egress
 // blocks — it is the fallback that keeps the image-quality gate alive when the
 // byte-level resolution check in imageLiveness can't reach hosts.
-const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, socialPostMissing, voice];
+const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 const log = (...a) => console.log(...a);
 const today = () => new Date().toISOString().slice(0, 10);
