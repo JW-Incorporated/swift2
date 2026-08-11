@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 71
+
+## Meet the man who's sold garbage from Taylor Swift's wedding & more - NBC New York
+
+- first seen: 2026-08-11 03:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Meet the man who's sold garbage from Taylor Swift's wedding & more  NBC New York
+- sources:
+  - [unverified] NBC New York — https://news.google.com/rss/articles/CBMirwFBVV95cUxPVE9zakI4ZHNOc3Q4eWd2bGFidWpWVkwxaUJRZjczcjRROTVfbHh2U1VlWHVxWWRvOWZ4SFRPNGlkcEp3ZmlYdFRwQmZNT0FOVFFxQVZQejNGcmRsT1o3a0todjB5ZXB1V1hSYU41c2llRHFrZGNQYXEzRnRTdEJsZHJJMjVFWjA5RlpMX2FHaTJSZW1lVW1KZGtaZ1hua2RfZlJYUjRsWTVkYkhRa3Bz0gG3AUFVX3lxTE14amVEZUZoUEFYajZiVXlvZW5pRHUxM0xzNWJqa2VFUldKemYtWVk2WkZGeURTZTM3UHc0akppcm9abzVLbjR4XzRhYl9vdzV0X3pmQ3F2dFJmeW9RZkJ6LWFna0hrTGVTdzhFR2VqdFRPRUc5enBvS3RZZHNMa2pjajk4Z0dqblZBWFdZUlpLYVRzb0dGSnhMTXdUQmxIQ21RaTdfM0ZuUXVYbEZ4S1pWSVFHcFN0MA?oc=5
+
+## White House And Trump Campaign Remove Taylor Swift Songs From Social Media Videos: how 19 outlets fr
+
+- first seen: 2026-08-11 03:09 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: White House And Trump Campaign Remove Taylor Swift Songs From Social Media Videos: how 19 outlets framed it  NewsCord
+- sources:
+  - [unverified] NewsCord — https://news.google.com/rss/articles/CBMi6gFBVV95cUxQclR2akNULWgxcnVVSG5MQWZtbnFlUlZQZE9sYUZJbWNhZTluZXBXajVmUHFhVzhGVTZhR0VObUZidy1VQ0VsUFVzeGFJa2lmdUtwS2x5d1JCZzg4RnAtOWhUYzdlZEx6cURMOTV2OUlJYk9DQXpSc2JsSndHcU9WUkljNm1OdzcwVGxELXk3X2NxcTRVTEtBVG9DdHRwNU5xNld5d0xFaGhERmlwZHY2alhZenM2V2g5aktRcDVBYjVpOWx3ZDlmREdIMy0wV0JFdDZCWE5EVmhvN2VNTDFOQTNBMkJPSjlRRkE?oc=5
+
+## Taylor Swift and Travis Kelce Just Quietly Hit an Important Milestone - Sports Illustrated
+
+- first seen: 2026-08-11 03:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce Just Quietly Hit an Important Milestone  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMisAFBVV95cUxQNGtXandhREtkYjY4cmVFeWVwZEtIZjdOaWFNNms0VURFMjBsYk5lSXI0THlIQk5nY1pRSTAxNzJodlpHejBtTy1rOElub013SHJxMkx6dlRoVWVvZmtRazc0a2Rod2UxWTJfbVBtT2ptRm1PX2JxclFvQUVueHU5M3dZWVZCTktaOEpEbmpjdWtvNW1VWEtkN0lKSDhXb0xEdkxmOUdKdjRCVEwwdnJVRg?oc=5
+
+## Taylor Swift and Bad Bunny Dealt With Trump Quietly. It’s a Smart Move
+
+- first seen: 2026-08-11 03:09 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Both superstars muted their songs from videos posted by the administration without drawing more attention to the White House
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swift-bad-bunny-trump-remove-tik-tok-songs-1235606235/
+
+## Taylor Swift’s Next Move? + The Chiefs Rivalry Debate Gets Personal! | Travis + Taylor - Yahoo Sport
+
+- first seen: 2026-08-11 03:09 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Next Move? + The Chiefs Rivalry Debate Gets Personal! | Travis + Taylor  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiggFBVV95cUxPZVB0RTZQSjJyNFRudDBLU3g4M2lwbTJ5Um1KZ2tyeEJFSmxud2FpbVhmYlliMkVBXzl2a2N2V2d5SXkweXNMaHN6S01NMkFpOE9RelZaREVlZHFtd0xjcFdfU3FkNUhSYUlGUFFaelN5TFRYcjIwNzhyRGJEbVVPWll3?oc=5
+
+## Brad Pitt spotted drinking at Taylor Swift and Travis Kelce’s wedding in July before publicly admitt
+
+- first seen: 2026-08-11 03:09 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Pitt spotted drinking at Taylor Swift and Travis Kelce’s wedding in July before publicly admitting he is off the wagon  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQRVY0aWhBWUFJSE1KVTBscmloRUZBYW9sa1RRS1hBcGV4c1FRbkUwMUhyTlNaZEFKUjBtZ0xkNXNNZm5sZnpka1JIZWEyRXg2em5YQUNwRDI1SXZTd0Jodjh5UFlUdWVyX29FZVRhV3p3ejZ0OGx4UlR0TkZ2TEkzZld1aWUybHIzWWNOSURDSEtuaXNBcGhvMDFETWljbm1rZXM1ci1rb1ZvUQ?oc=5
 
 ## Someone sneaked a photo of Taylor Swift at 1587 Prime and incited privacy debate - Kansas City Star
 
