@@ -32,6 +32,19 @@ supabase/seed/
 # ── Social queue: drafted posts (per docs/decisions.md 2026-07-25). ─────────
 social/queue/
 
+# ── Social images: screenshots, designed cards, and vetted photos that ride
+#    with a queue draft (per docs/decisions.md 2026-08-11, "Auto-merge
+#    allowlist extended to apps/web/public/social/**", approved by Joey;
+#    implemented per Wyatt's 2026-08-11 directive, reconciling the #1902
+#    "Content auto-merge scope" entry toward Joey's image decision). This is
+#    the ONE carve-out from the "bot-picked media gets human eyes" rule
+#    (docs/decisions.md 2026-07-28) — and ONLY this subtree, never the rest of
+#    apps/web/public/**. The human look is replaced by scripts/social/
+#    check-drafts.mjs, which the auto-merge-content.yml `enable` job requires:
+#    an image only auto-merges when it accompanies a queue draft that passed
+#    check-drafts (see that workflow's `has_social_media` fail-closed gate).
+apps/web/public/social/
+
 # ── Audit reports written by the content-engine runners. ────────────────────
 docs/audits/
 

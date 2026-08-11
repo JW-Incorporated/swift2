@@ -7,6 +7,76 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Merge-delegation execution: a downgrade guard now, class widenings on proof (PENDING Wyatt)
+
+**Decision (PENDING Wyatt's approval):** Deliver the founder's "never merge
+routine work again" as **"never merge *routine* work again, plus a permanent,
+enumerated human residue."** Concretely: (1) **ship now, no judgement call** — a
+dependency-downgrade guard (`scripts/check-no-downgrade.mjs`) wired into the
+required `build` job that fails if any dependency's highest resolved version drops
+below `main`, closing the #1903 merge-order regression class; and this plan
+(`docs/proposals/2026-08-11-merge-delegation-execution.md`). (2) **Gate on
+prerequisites** — the `docs/**` content widening depends on #1910's
+`NEVER_ALLOWLIST` landing first (a bare `docs/` prefix would let a bot edit
+`docs/decisions.md` unreviewed; the allowlist matcher can't express "docs except
+governance" without it), so it is written up but NOT shipped. (3) **Move to a
+separate vehicle** — Dependabot dev-dep patch/minor auto-merge belongs in its own
+`dependabot[bot]`-keyed workflow gated on the new downgrade guard + `build` +
+dev-only scope, NOT the content path allowlist (`package.json`/lockfiles are
+correctly barred); recommended PENDING Wyatt because a malicious-but-passing
+release is a real residual risk no CI check catches. (4) **Refuse as a path
+widening** — the a11y lane is `.tsx` app code with no inertness proof; it needs a
+dedicated a11y CI lane, not an allowlist line. (5) **Ship the social-image
+carve-out (already founder-approved, not pending):** per the 2026-08-11 entry
+"Auto-merge allowlist extended to `apps/web/public/social/**`" (Joey) and Wyatt's
+directive to implement it, add `apps/web/public/social/` to
+`.github/content-automerge-allowlist.txt`, reconcile the #1902 "Content auto-merge
+scope" test (`scripts/check-automerge-allowlist.test.ts`) so that subtree is
+permitted while the rest of `apps/web/public/**` stays refused, and add a
+fail-closed gate to `auto-merge-content.yml` so a social image only auto-merges
+when it rides with a queue draft that `scripts/social/check-drafts.mjs` actually
+validated (an image-only PR is declined). This resolves the two same-day
+"founder-approved" claims (Joey's image decision vs the #1902 scope entry, still
+PENDING Wyatt) toward Joey, per Wyatt's 2026-08-11 direction. Only the `social/`
+subtree is granted; base-ref fetch of the allowlist is preserved (a PR still
+cannot widen its own gate). Reconciliation note: #1910's `NEVER_ALLOWLIST` bars
+`apps/web/public/`; whichever of {#1910, this PR} lands second must exempt the
+granted `apps/web/public/social/` subtree from that bar.
+
+**Permanent human residue (auto-merge refused forever):** app code, `.github/**`
+workflows, the merge rules themselves (allowlists/checkers/`package.json`/
+lockfiles/config), governance docs & charters, secrets, legal copy, schema
+migrations, public media (outside the gated `social/` carve-out), and automated
+replies to real people. This is the honest complement of the goal, not a "not
+yet."
+
+**Why:** #1903 proved the concrete gap — a lockfile regenerated from a stale base
+silently reverted a security fix (`brace-expansion 5.0.9 → 5.0.7`) on `main` with
+a green check (#1933 is the cleanup). Blind auto-merge is unsafe against
+merge-order regressions until that class is fenced; the guard is that fence and it
+serves the goal directly. The widenings, by contrast, are safe only as a function
+of prerequisites (#1910's self-amendment bar; real per-agent identity for any
+founder-attested exception) — shipping them ahead of those would re-open the
+exact self-ratification hole #1910 closed. Provenance is still decorative (both
+GitHub accounts are shared by every agent), so every widening here is justified by
+**path + mechanism**, never by "who approved," which is the only kind that's safe
+today.
+
+**Alternatives considered:** (a) *Ship the `docs/**` widening now* — rejected:
+unsafe without `NEVER_ALLOWLIST` on `main`; it would let a bot merge governance
+docs. (b) *Auto-merge the a11y lane by path* — rejected: it's app code; a path
+fence can't prove behavior. (c) *Route Dependabot through the content allowlist* —
+rejected: lockfiles are barred for good reason (they swap what checks run). (d)
+*An `npm audit`-based guard instead of version comparison* — the version check is
+deterministic, offline, and directly names the regressed package; audit is
+recommended as a complementary signal in the Dependabot workflow, not the primary
+gate. (e) *Do nothing until identity is fixed* — rejected: the guard and the
+path/mechanism widenings need no identity, so they shouldn't wait on it.
+
+**Approved by:** PENDING Wyatt (CTO).
+
+---
+
 ## 2026-08-11 — Tree: a standing social-media-manager agent, planning separated from drafting
 
 **Decision:** Create **Tree** (`docs/agents/tree.md`), a standing agent whose
