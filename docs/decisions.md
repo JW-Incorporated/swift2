@@ -71,6 +71,123 @@ confined to the dead files because another agent owns `apps/web`):
 
 ---
 
+## 2026-08-11 — Tree: a standing social-media-manager agent, planning separated from drafting
+
+**Decision:** Create **Tree** (`docs/agents/tree.md`), a standing agent whose
+only job is social strategy. It runs **once a week** on Wyatt's account (Opus),
+owns exactly one artifact — `social/calendar.md`, always covering the next 14
+days — audits the previous week's posts against strategy and metrics, files a
+weekly `founder-task` issue for the reach lane APIs can't touch, and never posts
+anything. The daily Growth run stops inventing content and drafts what the
+calendar says. The operating strategy it applies is a new file,
+`docs/marketing/social-strategy.md`, which supersedes `growth-plan.md` §4-6 as
+the posting strategy (growth-plan keeps listening, etiquette, UTM, and the
+founder-action table). Posts stay **fully automated** — no approval gate is
+being reintroduced.
+
+**Why:** Founder-verified audit today: **12 of the last 14 posts open "did you
+know"** — the pillar *name* from growth-plan §4 leaked into caption copy and the
+drafting prompt's "see posted examples for voice" instruction turned it into a
+copying loop. Every Instagram image was a generic era tile. **11 of 12 items in
+`social/failed/` are X drafts** that were near-copies of their IG sibling and hit
+X's duplicate-content 403. And nothing planned around the three things Joey
+actually wants: a coordinated push when a feature ships, a monthly re-teaching of
+the six site threads (new followers keep arriving and nobody has ever explained
+them), and a recurring beat for Mood. The missing piece was not a better prompt;
+it was an artifact between "the pillars exist" and "draft something today". A
+planning layer is also the cheapest thing in the fleet — one Opus session a
+week — and it makes the daily run cheaper by removing the invention step.
+
+**Alternatives considered:** (a) *Just fix the Growth prompt* — rejected, that
+is what 2026-08-06 tried for the media half and the same run kept taking the
+lazy default; strategy and execution in one 11:00 UTC session means the
+strategist is always the person under time pressure. (b) *A daily Tree* —
+rejected as pure token waste: a calendar covering 14 days on a weekly cadence
+survives a missed run, which a daily planner's output would not need to.
+(c) *Reintroduce a founder approval gate on posts* — rejected by Joey outright:
+he has a full-time job and the site should mostly run itself; the answer to bad
+posts is better planning plus code-level checks, not a human bottleneck.
+(d) *Fold social planning into Marjorie* — rejected, she is chief of staff and
+already the auditor; an agent auditing its own plan is the failure mode every
+charter in this directory is written against.
+
+**Approved by:** Joey
+
+## 2026-08-11 — Social image posture: screenshots and cards first, vetted real photos allowed, clickability over caution
+
+**Decision:** Social images come from a four-rung ladder, in order: (1) **site
+screenshots** (`scripts/social/capture-screens.mjs`), (2) **designed cards**
+(`scripts/social/render-card.mjs`), (3) **clearly-safe real photos** — only ones
+already vetted into the Vault carrying a real photographer/outlet credit, or a
+vetted asset under `apps/web/public/social/library/` — and (4) generic
+`/eras/<id>.png` era tiles as a **last resort**, requiring an explicit
+`mediaKind: "era-art"` field plus written justification. Bounded risk tolerance
+on rung 3: no paparazzi or private-setting shots, no watermarked images, no fan
+edits without the creator's permission, credit carried into the caption where
+the format allows, designed cards never reproduce lyrics, and takedown-on-request
+honoured without argument. **Clickability is priority #1** — a rights-clean but
+boring tile is the failure we are correcting, not the safe default.
+
+**Why:** The 2026-08-06 decision correctly demoted era tiles but left the
+alternative as "go find a real photo", which is the most legally fraught and most
+laborious option — so the runner kept defaulting back and the grid stayed a
+repeating slideshow. Screenshots invert that: they are unambiguously ours, cost
+nothing in rights, are trivially generated, and *show the product*, which is the
+entire purpose of the account. Cards cover the text-forward posts screenshots
+can't. Real photos stay available because some moments genuinely need the real
+image, but the pool is restricted to what Karen's integrity engine has already
+scanned rather than the open internet.
+
+**Alternatives considered:** (a) *No real photos at all* — rejected by Joey; some
+posts need the actual photograph and a blanket ban would flatten the account into
+UI screenshots. (b) *Open photo sourcing with per-image human review* —
+rejected, that reintroduces the approval gate Joey just removed and is the exact
+bottleneck he asked us to design around. (c) *Keep era tiles as the default and
+just add more of them* — rejected: 12 files can't carry a daily account, which is
+what produced the repetition in the first place.
+
+**Approved by:** Joey
+
+## 2026-08-11 — Auto-merge allowlist extended to `apps/web/public/social/**`, gated by the draft checker
+
+**Decision:** Add `apps/web/public/social/` to the allowed prefixes in
+`.github/workflows/auto-merge-content.yml`, so a Growth drafting PR that commits
+a screenshot, a designed card, or a vetted photo alongside its queue items lands
+on green like a queue-only PR. The gate that replaces the human look is
+`scripts/social/check-drafts.mjs`, which runs before the PR opens and enforces
+the media rules (Instagram media required, era art only with an explicit
+`mediaKind: "era-art"` justification, no banned openers, no opener-pattern reuse
+inside 14 days, sibling copy >20% different). The `hold` label still blocks
+auto-merge for anything a run wants a human to see, and `SOCIAL_FREEZE` remains
+the total kill switch. (This entry is the decision; the workflow edit and the
+checker itself land with the social-tooling workstream — until they do, image
+PRs keep waiting for a human merge, which is the safe direction to fail.)
+
+**Why:** This directly reverses the "alternatives considered" note in the
+2026-08-06 entry, which rejected exactly this extension on the grounds that "a
+bot-selected image landing on the live profile with zero human eyes on it is a
+bigger risk than a caption is". Two things changed. First, the reasoning assumed
+bot-selected *photographs*; the default image is now a screenshot of our own site
+— there is no third-party rights question and nothing to review. Second, the
+2026-08-06 posture was tested for five days and produced the opposite of its
+intent: rather than a founder quickly merging photo PRs, the drafter avoided
+committing images at all and kept using era tiles, because that was the only path
+that auto-merged. A rule that makes the good behaviour slower than the bad
+behaviour selects for the bad behaviour. And the premise that a human sees these
+images is already false in the general case — captions ship unread since
+2026-07-25.
+
+**Alternatives considered:** (a) *Keep the human merge for images* — rejected for
+the reason above: it is the friction that caused the failure it was meant to
+prevent. (b) *Allow only `apps/web/public/social/library/`* (pre-vetted assets)
+— appealing, but it blocks the screenshot path, which is the whole point, since
+screenshots are generated per-post and can't be pre-vetted. (c) *Auto-merge
+screenshots and cards but not photos* — rejected as unenforceable at the
+workflow level: the allowlist sees paths, not provenance; the checker is the
+right place for that distinction and already carries it.
+
+**Approved by:** Joey
+
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
 **Decision (PENDING Wyatt's approval — this changes merge authority).** Three
