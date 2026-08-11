@@ -16,8 +16,6 @@ import {
   Mic2,
   ScrollText,
   SlidersHorizontal,
-  ChevronDown,
-  ChevronUp,
   AlertTriangle,
   type LucideIcon,
   Clapperboard,
@@ -100,11 +98,15 @@ type FeedEntry = { kind: 'moment'; item: ContentItem } | { kind: 'video'; video:
 export function EraSection({ era }: { era: Era }) {
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide } =
     useAppActions();
+  // Filter STATE is still "off by default" (no tag selected = everything
+  // shows, per the content-framework addendum). What changed is the
+  // AFFORDANCE: the chips are always on screen instead of hidden behind a
+  // Filter disclosure, because the disclosure cost an interaction on every
+  // single use and the row it hid is only ever ≤5 chips (2026-08-11, founder
+  // feedback from the live site). The old addendum's "not a persistent filter
+  // row on every one of ~230 months" concern predates the era-section layout —
+  // this is one row per era section, not per month.
   const [activeTags, setActiveTags] = useState<Set<ContentTag>>(new Set());
-  // Collapsed by default (content-framework doc's addendum: "off by default,
-  // not a persistent filter row on every one of ~230 months") — a toggle
-  // reveals the chip row, scoped to this era's own local state.
-  const [filterOpen, setFilterOpen] = useState(false);
   const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
   const trackCount = useMemo(() => tracksForEra(era.id).length, [era.id]);
   const theoryCount = useMemo(() => theoriesForEra(era.id).length, [era.id]);
@@ -287,79 +289,85 @@ export function EraSection({ era }: { era: Era }) {
         </div>
       </div>
 
-      {/* Per-era category filter: collapsed/off by default (only rendered at
-          all when this era actually has tagged content), non-sticky so
-          stacked sections don't fight for the top. Reuses the same
-          icon+color set as the card badges below. */}
+      {/* Per-era category filter: the chips are ALWAYS visible (only rendered
+          at all when this era actually has tagged content), non-sticky so
+          stacked sections don't fight for the top. Reuses the same icon+color
+          set as the card badges below.
+
+          Responsive shape: one `flex-wrap` rail. There are at most five
+          category chips (ContentTag), so on a 360–390px phone the rail wraps
+          to two short rows and every option stays on screen — no horizontal
+          scroll rail, which would just re-hide options behind a gesture, and
+          no disclosure, which is the interaction this change removes. `Clear`
+          is styled as a chip too so it clears the same 24px minimum target as
+          its neighbours (WCAG 2.5.8). */}
       {presentTags.length > 0 && (
         <div className="border-y border-[color:var(--era-line)] bg-[color:var(--era-surface)]/40">
           <div className="mx-auto max-w-4xl px-4 py-3 md:pr-8">
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setFilterOpen((o) => !o)}
-                aria-expanded={filterOpen}
-                aria-controls={`era-filter-${era.id}`}
-                className="era-btn-ghost inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium uppercase tracking-widest"
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span
+                id={`era-filter-label-${era.id}`}
+                className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-[color:var(--era-ink-soft)]"
               >
-                <SlidersHorizontal className="h-3.5 w-3.5" />
+                <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden />
                 Filter
-                {activeTags.size > 0 && (
-                  <span
-                    className="inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold"
-                    style={{ backgroundColor: 'var(--era-accent)', color: 'var(--era-bg)' }}
-                  >
-                    {activeTags.size}
-                  </span>
-                )}
-                {filterOpen ? (
-                  <ChevronUp className="h-3 w-3" />
-                ) : (
-                  <ChevronDown className="h-3 w-3" />
-                )}
-              </button>
-              {activeTags.size > 0 && (
-                <button
-                  type="button"
-                  onClick={clearTags}
-                  className="text-xs font-medium text-[color:var(--era-ink-soft)] underline decoration-dotted underline-offset-2 hover:text-[color:var(--era-ink)]"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
+              </span>
 
-            {filterOpen && (
               <div
                 id={`era-filter-${era.id}`}
                 role="group"
-                aria-label={`Filter ${era.shortName} by category`}
-                className="mt-3 flex flex-wrap gap-2"
+                aria-labelledby={`era-filter-label-${era.id}`}
+                className="flex flex-wrap gap-2"
               >
                 {presentTags.map((tag) => {
                   const active = activeTags.has(tag);
                   const Icon = TAG_ICON[tag];
                   const color = TAG_COLORS[tag];
+                  // TAG_COLORS are specced as mid-dark hues that clear AA
+                  // *against white text* (see tagBadges.ts) — i.e. for the
+                  // solid, selected pill. Painting the same hue as the LABEL
+                  // of an unselected, transparent chip inverts that contract
+                  // and lands at 2.3–3.0:1 on the darker era palettes. Now
+                  // that the chips are always on screen (rather than hidden
+                  // behind a disclosure, where the failure went unseen), the
+                  // unselected label uses --era-ink, which every era theme
+                  // guarantees against its own background; the tag hue stays
+                  // as the identity cue on the border + icon, lifted toward
+                  // the ink so it also reads on the dark eras.
+                  const cue = `color-mix(in srgb, ${color} 70%, var(--era-ink))`;
                   return (
                     <button
                       key={tag}
                       type="button"
                       aria-pressed={active}
                       onClick={() => toggleTag(tag)}
-                      className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold transition"
+                      className="inline-flex min-h-6 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition"
                       style={{
                         backgroundColor: active ? color : 'transparent',
-                        borderColor: color,
-                        color: active ? '#fff' : color,
+                        borderColor: active ? color : cue,
+                        color: active ? '#fff' : 'var(--era-ink)',
                       }}
                     >
-                      <Icon className="h-3.5 w-3.5" aria-hidden />
+                      <Icon
+                        className="h-3.5 w-3.5"
+                        aria-hidden
+                        style={{ color: active ? '#fff' : cue }}
+                      />
                       {TAG_META[tag].label}
                     </button>
                   );
                 })}
+                {activeTags.size > 0 && (
+                  <button
+                    type="button"
+                    onClick={clearTags}
+                    className="era-btn-ghost inline-flex min-h-6 items-center rounded-full px-3 py-1.5 text-xs font-medium"
+                  >
+                    Clear
+                  </button>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       )}
