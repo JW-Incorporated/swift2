@@ -1,5 +1,22 @@
 # Privacy: policy + store data-safety answers
 
+> ## ⚠️ STALE — DO NOT SUBMIT EITHER STORE FORM FROM THIS DOC (2026-08-11, #800)
+>
+> Everything below was verified on 2026-07-08 and describes a **web + mobile**
+> pair that collected nothing. That is no longer true of the **web** app: the
+> in-app feedback button (#427), the mood chat (which sends typed text to the
+> Anthropic API), and Vercel Web Analytics (#799) all shipped afterwards, and
+> none of them updated this file or the privacy page — exactly the failure the
+> callout further down warns about.
+>
+> The **mobile** app itself may still collect nothing — it is unreleased and
+> was not re-audited in that pass. Re-verify it against the shipped code before
+> answering either store questionnaire, and read the current, code-verified
+> inventory in `apps/web/lib/longlive/legal.ts` (rendered at `/privacy`) first.
+> That page is itself a **draft pending counsel review**. Lying on a store
+> data-safety form is a removal-grade violation on both stores, so this is not
+> a paperwork detail.
+
 The apps collect **nothing**. No accounts, no analytics, no crash reporting,
 no ads, no device permissions. The only network traffic is anonymous HTTPS
 reads of published Vault content from Supabase (anon key + public RLS).

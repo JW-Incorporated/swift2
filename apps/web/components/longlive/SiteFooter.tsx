@@ -1,8 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { formatRelativeTime } from '@/lib/longlive/format';
 import { contentGeneratedAt } from '@/lib/longlive/freshness';
+import { LEGAL_LINKS } from '@/lib/longlive/legal';
 import { SOCIAL_LINKS, type SocialLink } from '@/lib/longlive/social';
 
 // Official brand glyphs, drawn as plain 24×24 paths so they inherit the era
@@ -39,6 +41,23 @@ export function SiteFooter() {
           Vault refreshed {freshness}
         </p>
       )}
+      {/* #800: the legal pages must be reachable from every page, or they may
+          as well not exist. Next <Link> (not a bare <a>) so the client router
+          handles it like any other in-app navigation. */}
+      <nav
+        aria-label="Legal"
+        className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs"
+      >
+        {LEGAL_LINKS.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="text-[color:var(--era-ink-soft)] underline underline-offset-4 transition-opacity hover:text-[color:var(--era-ink)]"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </nav>
       <nav aria-label="Long Live on social media" className="mt-5 flex items-center justify-center gap-1">
         {SOCIAL_LINKS.map((link) => (
           <a
