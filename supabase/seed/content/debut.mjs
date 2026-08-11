@@ -940,7 +940,22 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
+            // Photo pass #762 (2026-08-09): downloaded and viewed (316x316) —
+            // her face sits in the upper-left quadrant of the cover.
+            focalPoint: '35% 25%',
             credit: 'Big Machine Records (single cover art)',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — official video
+          // still. oEmbed-verified videoId xKCek6_dB0M belongs to the
+          // official @TaylorSwift channel; i.ytimg.com is YouTube's own CDN;
+          // curl 200 image/jpeg 640x480, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/xKCek6_dB0M/sddefault.jpg',
+            // Face sits right-of-center, upper third.
+            focalPoint: '68% 33%',
+            credit: 'Big Machine Records / YouTube (official "Teardrops on My Guitar" music video still)',
+            caption: 'A close-up still from the "Teardrops on My Guitar" video — Taylor holding the neck of an acoustic guitar as she sings.',
+            kind: 'archival',
           },
         ],
       },
