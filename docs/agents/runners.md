@@ -207,6 +207,48 @@ Two stale instructions fixed in the same edit:
 - Step 7 (merge sweep) now notes that `auto-merge-content.yml` lands content-only
   PRs automatically, so fewer PRs waiting is expected, not a sign of a dead fleet.
 
+### ✅ Marjorie's brief assembler runs in a cloud runner again (2026-08-11, #1869)
+
+Five consecutive briefs (2026-08-06..11) were hand-assembled because
+`node scripts/marjorie/assemble-brief.mjs` could not reach GitHub from a cloud
+runner. **Two independent failures were stacked**, both in `scripts/lib/gh.mjs`'s
+REST fallback, both now fixed:
+
+1. **The proxy was bypassed.** The fallback used `fetch()`. Node's built-in
+   fetch ignores `HTTPS_PROXY` unless the *process was booted* with
+   `--use-env-proxy` / `NODE_USE_ENV_PROXY=1` — reproduced on Node v24.15
+   against a real local CONNECT proxy: **0 tunnels opened**. Cloud `GH_TOKEN`s
+   are proxy-scoped credentials, so going direct means `401 Bad credentials`.
+   Setting `process.env.NODE_USE_ENV_PROXY` from inside the script does **not**
+   work (undici reads it at bootstrap) — also verified, so the workaround
+   suggested in #1869 would not have held. `gh.mjs` now speaks HTTPS over an
+   explicit CONNECT tunnel of its own, which needs no boot flag, no re-exec and
+   no new dependency.
+2. **`/search/*` is forbidden.** Every list shape was
+   `/search/issues?q=repo:…`. Repo-bound sessions get `403 "This GitHub API
+   path is not available: sessions are bound to their configured repositories."`
+   Lists are now `/repos/{owner}/{repo}/issues` and `/repos/{owner}/{repo}/pulls`,
+   with the search-only qualifiers (`is:merged`, and hiding the PRs that
+   `/repos/…/issues` mixes in) applied client-side.
+
+Verified end-to-end: the assembler's output is byte-identical across the gh-CLI
+path, the direct REST path, and the REST path forced through a CONNECT proxy —
+**5 API requests, one page each**.
+
+**Full-text search still has no repo-scoped equivalent.** Karen's
+`cie-fp:` dedupe (`scripts/content-engine/lib/issues.mjs`) is the only caller
+that needs it; it stays on `/search/issues` and now fails with an error that
+names the limitation instead of a bare 403. Karen's cloud runs therefore still
+risk re-filing duplicate tickets — tracked separately from #1869.
+
+> ⚠️ **Trigger drift to reconcile (Wyatt).** The 2026-07-26 edit below changed
+> the *live* trigger's step 3 and step 7, but never landed in
+> `runner-prompts/marjorie-brief.md` — the file still carried the pre-#1552
+> "requires gh — stop and exit loudly" text until this change. Per this doc's
+> own rule the FILE is the source of truth, so both steps are now corrected
+> there; the live trigger `trig_01KJLFZpKaFV6jDVshMrHG3E` should be re-synced
+> from the file. Not done here: live triggers are founders-only.
+
 ### ⚠️ RemoteTrigger API footgun — read before editing any trigger
 
 **`job_config` updates are a FULL REPLACEMENT, not a merge.** Sending
