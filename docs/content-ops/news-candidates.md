@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 73
+
+## Andrew Lloyd Webber weighed in on Taylor Swift's 'The Life of a Showgirl' album and art inspiration 
+
+- first seen: 2026-08-11 14:24 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Andrew Lloyd Webber weighed in on Taylor Swift's 'The Life of a Showgirl' album and art inspiration  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6gFBVV95cUxNQVFuZ2t0Zk9wS1BQbnFueDNVTG9IWVZwcktuQlVWSVQ5SDZCWm5ram5sbjZVM3JyMExUZU5lTHpHMFM4VGJxSGRJQ1E4WUJ3b2VYUWN4NW5YOFhWY3RISjA0RFJRSDE1ODZQdk9UWFhNeWJ1ODV2aU1LdWM2eVdGNDVvMkJBekxtckNlcnlJdm9aTTBHRkZvZXh2VEloT0FjeDdNaVRjSFFWMWdLNU8wRW9RLVpUSG5vZWFhdnlzOWt2OFRMN3VVampZVWVpYkVLMFBVb0pRNEVjRjVCQUZ6ZzZxNkozQ29IUkE?oc=5
+
+## Taylor Swift and Travis Kelce ‘Get Back to Reality’ After Fairy Tale Wedding: ‘It’s a Big Change’ - 
+
+- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce ‘Get Back to Reality’ After Fairy Tale Wedding: ‘It’s a Big Change’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPamZGNkhlUnhrVDI3WGd6VWhwdzc1a1c5aTV3NmV4Z1g2c3NCZEJ2STR4ekVEdms3T0dRLUlZZ0UxbjRsdDZUNERlTi1jenk2b1lKQUQzLXplR1gtQ3VnS3ZWTjU2ZWd5UDhZMFVCcDJsenBoYlJXN1Q3YzBNX1FYc2FyTXk4RlVITDhldk1fcUVkc0pPempQeE8yU1ZvVkZRaFE?oc=5
+
+## Taylor Swift and Travis Kelce’s Pets Are ‘Having the Hardest Time’ Getting Along Post Wedding - Star
+
+- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce’s Pets Are ‘Having the Hardest Time’ Getting Along Post Wedding  Star Magazine
+- sources:
+  - [unverified] Star Magazine — https://news.google.com/rss/articles/CBMitwFBVV95cUxPSTMwRzItajI5Y0lWSG1SR2pKZVczZXBIZGhjUU9OSll5X0R5UmZNQU5wemFqQ2xnUlFyNmQwNjRDUFJmNXBRQW91aHZUei1JMkt0aFpSLTA2VEN6RWZ5WGxjclVma0Ezcjc3Y3BiVHZuTWN2ZEtndFA1Nzdjdk9Wa29kdEd5MTNSRm94WEpPVWlPN2NWTDNnQWlETFc3Yl80Wm1qV1ZrN2s0V09UWDhtdi03ZWNjam8?oc=5
+
+## Ahead of KC concert, Train’s lead singer gives peek into Taylor-Travis wedding ‘magic’ - Kansas City
+
+- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ahead of KC concert, Train’s lead singer gives peek into Taylor-Travis wedding ‘magic’  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMif0FVX3lxTE80eEZuN0hyMElRdnJ6LUxGNDRHbFd0R3BscG5fWUxCbnBKUloxbFhRT0tKSVZ1azhILUIzNTkwcFFRenhLWmNRaWJmaG1rY2FZX0Nnb19TVmdCOFRoTFhWMHRrQjZfNUh0NHhzdXVzQWRYU3l0VXdVdjIyS1h5Yk3SAX9BVV95cUxOQTRWUC1Pc21jaFZ6Qm5xSWs3UDhnY2piNDhwdXIwYUk5X1FsRUJXZE5PaWYyN01jcllCVzNCRGRWTHpibkViUm5PRkk3NVVnU1pfUUpRdEVJaU1jNFZ5VGtDc0FvTnd4WTBIZlZlVFdDa0xyLU96TUgwdzZpM2Jz?oc=5
+
+## Bridal brands brace for a Taylor Swift wedding dress frenzy - The Lufkin Daily News
+
+- first seen: 2026-08-11 14:24 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bridal brands brace for a Taylor Swift wedding dress frenzy  The Lufkin Daily News
+- sources:
+  - [unverified] The Lufkin Daily News — https://news.google.com/rss/articles/CBMi7gFBVV95cUxQY254YUpEVko3NE85VG8wcGFkR3pYNXc0UzM3Z2dsOGFNbnJLY3pRcVB2X19POFlwSE91LVFjU19ydjhjV2JDcFdtOUlZd0xUMjZzWUYzaGY2dlI3YnRfUnFENmF3ZEMxQ3ZhNkp0dDNqcWQzeEtYQTdGRVN1NnlnNm9MVEQ3Sjh2VW1YTlBsUks2OGJJM3ZJOGJBZTg3clctN1NhVTU1X1kzdTB3QTYybmRGUFhrLTQ2a1RVQ1F6d0xJVzNlVWpCOFRvQWVOelNVQTdDTjEwZU0wZWFTSHo2SHhqZDVVZzB2RGhBbDJ3?oc=5
+
+## Taylor Swift and Travis Kelce to follow in Prince Harry and Meghan Markle’s footsteps? - Yahoo
+
+- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce to follow in Prince Harry and Meghan Markle’s footsteps?  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOT0lJOWJLanJGVzRpbGU0VVh1MXN1Q0dma0xKcWYtTlBfSmxZQjZHLUtudEozQ3Uwbnd2cE1VcnE5VWlFS09leEh3cHd1NktTUC10TmljNVBKSU9Zbl9BSEN5ZUlEeDVCVUlCMjVzVFM5YnZTdExSR1VCb1g2YXJieFFsMHFGZDdjc0MzNE1sQTVVcGNKUkhoUTNrMnU0NElnbTZpVg?oc=5
+
+## Taylor Swift wedding-dress fever puts bridal brands on high alert - Reuters
+
+- first seen: 2026-08-11 14:24 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift wedding-dress fever puts bridal brands on high alert  Reuters
+- sources:
+  - [unverified] Reuters — https://news.google.com/rss/articles/CBMirAFBVV95cUxNT2NyZ0RTTVhkaVExNzJ4d1JkVUxKY0hoOE8yckk4dkpDZGt6UVBRUDhxTm9JcEFZLXdjdzUyRldhMkNGQVFFdjBGcFQ4aHhQTjdYN29neWcwRDUxU2RMTW85bXhvRGlMVXd1d1dQcmV2WksxUWxyUjR5QnI4NWxvSTM4T1NHeF9vUlcyM2dhQW1LaUtsbmN4OUJxc3dpOFFUTDZrVVNpUGlydlJI?oc=5
+  - [unverified] The Detroit News — https://news.google.com/rss/articles/CBMirgFBVV95cUxQcGFTb1VScFk0U2kyQ09wdzVMX1ltSWJQV2pTbXlZdDFYMXBaUE1zdTkyeGJpVjBxNU52bVI1VkFPSGdEbG84MV9vMFRWaEFpY0lIV2tUc2lCVTNDeWREMFNoYmI3MFNLNkQ2X0JWbnhQcmhqQlVpZVVBTllMbTU0N21adUZnNkpEdHViWFBJQmVsSVdNdlY1dEpfTjF3czZ4Z2F0MVVjTXVCRTFUZnc?oc=5
+
+## Chiefs Heiress Gracie Hunt on Faith, Fitness & Taylor Swift’s Wedding | The Riley Gaines Show - Fox 
+
+- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chiefs Heiress Gracie Hunt on Faith, Fitness & Taylor Swift’s Wedding | The Riley Gaines Show  Fox News
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiVkFVX3lxTE1MRUFEN3dKclJ2M2ctNC1wNzA5bFlkamxCWmZkQXpPTEVLUzRPTENvTUZFby04dVBLdi1XdlVpMU96a2puSUxjaEtZT3pvMnJQS0J6TmJB?oc=5
 
 ## Taylor Swift's Trump TikTok takedowns show the White House isn't above copyright law - Creative Bloq
 
@@ -565,27 +630,3 @@ Stories: 68
 - summary: Taylor Swift Takes Action, Has Songs Removed From Trump TikTok Videos  Bleeding Cool News
 - sources:
   - [unverified] Bleeding Cool News — https://news.google.com/rss/articles/CBMingFBVV95cUxPWGtyV3JwYzN5WkducVNxNUhQWGRKakYtdTlxYVhudXBMVzZpakhwNDR6Wi1fV1FwbGltNjI1RFZOR0FhNkdGRXBZc1BjRlBjWUR4SVJpNUlTaldQTHhIUUl0ZTZ0OHFGQ2xMRlBWeHFUWnlOMG95RUJoMW9UOFczek9XQlZlNmpVdGZDay1CTFNTd3ZSUHZCSC1OREx0QQ?oc=5
-
-## Taylor Swift Song Pulled From Trump Team’s TikTok Amid Backlash - parade.com
-
-- first seen: 2026-08-08 13:54 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Song Pulled From Trump Team’s TikTok Amid Backlash  parade.com
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQeFFNTVhSMnRlb0tpS0tCQTZpSG5mR3Z2dGdhUGFEZVoyMXBDV1RLU0phb0tpMGNmUHpLREhXZFBQX0twRE5acXQxVUpHWDlyTzVZMmFQNzhwYU9Oc3VlY2JhUlRGV0ZzM3d6WE1QZXJVeFZBX3FfdWxDa3BhT0t2akFNdXdRb0UxTUJOY0h5aw?oc=5
-
-## Is Taylor Swift the New Michael Jackson? Jelly Roll Asks. - Yahoo
-
-- first seen: 2026-08-08 13:54 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Is Taylor Swift the New Michael Jackson? Jelly Roll Asks.  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxNbTBOLXNGQTNWMG54UUdMdW42M2FmS1NXMkVldHpSY3ljcGY2NUpDMjdBTFhfdzQxY19nTkJQWmFwa1I2R0o2WGc1Yi16d1hvT2VlZ3ljMGhvbGpfOEptemZuUzJaUHFxRXVvT2xweWRCbklKbWtoRmVDN0l6MzEwZlNoM0oycm9ZSUkwaVp0T3ljdw?oc=5
-
-## Taylor Swift's song 'August' removed from Donald Trump's TikTok fireworks clip - The Times of India
-
-- first seen: 2026-08-08 13:54 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's song 'August' removed from Donald Trump's TikTok fireworks clip  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi_gFBVV95cUxQN1FDczVySkQteDdvNjM5RVZEc2NPRUlmNDl1d3JISjk4SWtxNFNPOEZtQUViQTlmR1lNY1NiWW9qaDd5SmM2Vm9aMUZtVk1LcVIzNDRNZFN1ejYtVUNraHplT2NldzlWbUpCUGtMeVJGUU9SOHN3bFNqUVdJT3FJTEdIX3hSSEF0NzEtdHRGcE4wS2tNTjZSTDRKTUYya3B6REQzbEJicFFiNGJoX2VCN1p2ZVdGeGdTZ1lWbzBSVkpUbkw1ZE43UHlpQ0Vpck5fRE80cWx5djRJdUpJSk8ySVBUWmtNbGljSVRoaEVST2IwdGowcUJ0WFVocDhkUdIBgwJBVV95cUxOMTNhUkpBLUxIR29uVEY4blNqMjVSdXgtSGdMUzhDTExubWFZM3I1V3V3amNNUzI5bV9OWTJNdTFpMGVxNWNhRENZaWJMc0htazQ5QVlhMkdJemRsMVNiOTJINkJ0WlFWM3d5VzdmQ1ZFT3loMEQ1N042VE0yS01BamtINTBmYnVqN2NjbThlUW41RTZLMmFKNmpPWFU2UEgxT0JidzRkNFNvVjFKUkl1dlN5MXRHLVF1S3BJcFA4MTU3QzdZbkFWYTBMR3RxZV9MME5FOE9XckYxWnE2SXRxMG80b19sYUM5eXVjOG44aFNudzcyZmNUYXhoOXpaNGpOaktz?oc=5
