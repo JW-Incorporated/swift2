@@ -102,9 +102,15 @@ the media rules (Instagram media required, era art only with an explicit
 `mediaKind: "era-art"` justification, no banned openers, no opener-pattern reuse
 inside 14 days, sibling copy >20% different). The `hold` label still blocks
 auto-merge for anything a run wants a human to see, and `SOCIAL_FREEZE` remains
-the total kill switch. (This entry is the decision; the workflow edit and the
-checker itself land with the social-tooling workstream — until they do, image
-PRs keep waiting for a human merge, which is the safe direction to fail.)
+the total kill switch. (Implemented: `scripts/social/check-drafts.mjs` and the
+workflow's `check-drafts` job landed in PR #1900. The allowlist entry itself
+took two attempts — PR #1902 merged the same day with an unrelated allowlist
+refactor whose own regression test briefly asserted the opposite of this
+entry, so round 1's version of this change was dropped pending Wyatt's
+sign-off; the "Approved by" line below records that sign-off and
+`fix/social-image-automerge` lands the reinstated allowlist entry + per-file
+constraints. Until that PR merges, image PRs keep waiting for a human merge,
+which is the safe direction to fail.)
 
 **Why:** This directly reverses the "alternatives considered" note in the
 2026-08-06 entry, which rejected exactly this extension on the grounds that "a
@@ -129,7 +135,8 @@ screenshots and cards but not photos* — rejected as unenforceable at the
 workflow level: the allowlist sees paths, not provenance; the checker is the
 right place for that distinction and already carries it.
 
-**Approved by:** Joey
+**Approved by:** Joey; Wyatt (verbally, relayed by Joey 2026-08-11 evening —
+resolves the same-day conflict with #1902's regression test)
 
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
