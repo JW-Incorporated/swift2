@@ -285,6 +285,112 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
+      # Karen filed-what-she-found check (2026-08-11). The cadence check above
+      # sees Actions workflows; the Content Shift check below sees "did a PR
+      # appear". Neither can see the failure Karen actually has, which is the
+      # nastiest shape a runner failure takes: she runs, she scans perfectly,
+      # she commits a completely normal-looking run report, her PR merges — and
+      # the findings never reach a ticket.
+      #
+      # It has happened twice. 2026-07-26 (issue #528): step 5 died on
+      # `spawn gh ENOENT`, 623 filable findings discarded. 2026-08-09 (PR
+      # #1850): step 5 died on `401 Bad credentials` in the REST fallback, 597
+      # discarded (P1 49 · P2 505 · P3 43). Both runs looked healthy from
+      # outside — same report file, same PR, same merge — so ~1,220 findings
+      # were destroyed with nothing anywhere saying so.
+      #
+      # `run.mjs` now stamps every report with a machine-readable verdict
+      # (`lib/report.mjs` → `<!-- cie-filing: status=… unfiled=N -->`). This
+      # check is pure grep over the committed report: no API call, no LLM, no
+      # judgment. Three ways it fires:
+      #   - the newest report has NO marker  → the run never reached the end of
+      #     step 5 (i.e. it crashed exactly the way 07-26 and 08-09 did)
+      #   - status is not `ok`               → filing failed or was fatal
+      #   - unfiled > 0                      → findings detected and discarded
+      #
+      # MARKER_EPOCH: reports written before the stamp shipped legitimately
+      # have no marker, so they are not evidence of anything. Only reports
+      # dated on/after this are required to carry one.
+      #
+      # Staleness: Karen is a Wyatt-account cloud routine (docs/agents/runners.md,
+      # `0 9 * * *`), invisible to the Actions cadence check. 72h tolerates two
+      # consecutive misses plus report-PR merge lag (she runs 09:00 UTC; this
+      # runs 14:35 UTC, so a same-day report that hasn't merged yet just leaves
+      # yesterday's as newest — well inside the window).
+      #
+      # No new cron: this rides the existing daily 35 14 trigger, gated the same
+      # way as the other daily-only jobs, and adds nothing to the :00/:30
+      # cluster the header warns about.
+      - name: Karen filed what she found (CIE ticket-filing check)
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          MARKER_EPOCH="2026-08-12"
+          MAX_AGE_HOURS=72
+          ALERT_TITLE="Watchdog: Karen scanned but filed no tickets"
+
+          # Report filenames are YYYY-MM-DD-cie-run.md, so lexical sort is
+          # chronological. Newest wins.
+          NEWEST=$(ls docs/audits/engine/*-cie-run.md 2>/dev/null | sort | tail -1 || true)
+          if [ -z "$NEWEST" ]; then
+            echo "no CIE run reports in docs/audits/engine — nothing to check yet."
+            exit 0
+          fi
+          RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
+          AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
+          MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
+          echo "newest report: $NEWEST (${AGE_H}h old) marker: ${MARKER:-<none>}"
+
+          PROBLEM=""
+          if [ "$AGE_H" -gt "$MAX_AGE_HOURS" ]; then
+            PROBLEM="Karen's newest run report is \`$(basename "$NEWEST")\` — **${AGE_H}h old** (expected within ${MAX_AGE_HOURS}h). The nightly scan has stopped producing reports."
+          elif [ -z "$MARKER" ]; then
+            # Only meaningful once the stamp exists; older reports predate it.
+            if [ "$RUN_DATE" \> "$MARKER_EPOCH" ] || [ "$RUN_DATE" = "$MARKER_EPOCH" ]; then
+              PROBLEM="\`$(basename "$NEWEST")\` carries **no \`cie-filing\` verdict**, which means the run never reached the end of step 5 — it scanned, wrote this report, and then died before filing. That is the exact shape of the 2026-07-26 (623 findings) and 2026-08-09 (597 findings) losses."
+            else
+              echo "report predates MARKER_EPOCH ($MARKER_EPOCH) — no verdict expected."
+            fi
+          else
+            # Anchored on the leading space: a bare `grep -o 'filed=[0-9]*'`
+            # also matches the tail of `unfiled=597` and returns two values.
+            STATUS=$(echo "$MARKER" | sed -n 's/.*[[:space:]]status=\([a-z-]*\).*/\1/p')
+            UNFILED=$(echo "$MARKER" | sed -n 's/.*[[:space:]]unfiled=\([0-9]*\).*/\1/p')
+            FILED=$(echo "$MARKER" | sed -n 's/.*[[:space:]]filed=\([0-9]*\).*/\1/p')
+            if [ "$STATUS" != "ok" ] || [ "${UNFILED:-0}" -gt 0 ]; then
+              PROBLEM="\`$(basename "$NEWEST")\` reports filing status **\`${STATUS}\`** with **${UNFILED:-?} finding(s) detected and never filed** (${FILED:-0} filed). Those findings are on no ticket and in no queue."
+            fi
+          fi
+
+          if [ -z "$PROBLEM" ]; then
+            echo "Karen's newest run report ($(basename "$NEWEST")) confirms every detected finding reached the tracker, as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "karen filing OK"
+            exit 0
+          fi
+
+          {
+            echo "@sffan15-sys @wjduvall-cmd — the Content Integrity Engine detected content problems and did not turn them into tickets."
+            echo ""
+            printf '%b\n' "$PROBLEM"
+            echo ""
+            echo "**Why this matters more than it looks:** a Karen run that files nothing still commits a normal report and still merges a normal PR, so it is indistinguishable from a healthy night unless something checks this. Roughly 1,220 findings were destroyed this way across 2026-07-26 and 2026-08-09 before anyone noticed."
+            echo ""
+            echo "Check, in order:"
+            echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure."
+            echo "2. Can the runner write to GitHub at all? \`node scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
+            echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab."
+            echo ""
+            echo "Nothing is lost by re-running: the engine is idempotent and fingerprint-deduped, so \`node scripts/content-engine/run.mjs all --create\` re-derives the same findings and files whatever is still missing."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
       # Content Shift liveness check (2026-07-23). Content Shift is a
       # Wyatt-account cloud routine (docs/agents/runners.md), not a GitHub
       # Actions workflow, so it's invisible to the cadence check above.

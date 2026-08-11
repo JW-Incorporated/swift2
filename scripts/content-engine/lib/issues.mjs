@@ -36,23 +36,81 @@ const LABELS = [
   [`${PFX}:fact`, 'c2e0c6', 'CIE factual finding'],
 ];
 
+/** Readable one-liner from whatever gh/REST/execFile threw. */
+export function errText(e) {
+  return String(e?.stderr || e?.message || e).replace(/\s+/g, ' ').trim().slice(0, 400);
+}
+
+// `--force` means "upsert", so an already-exists is success. Anything else —
+// 401/403/network/no-token — means we cannot write to GitHub at all, and the
+// caller must NOT go on to pretend it filed tickets.
+const ALREADY_EXISTS = /already[_ ]exists|422/i;
+
+/**
+ * Upsert the label set. This doubles as the engine's WRITE PREFLIGHT: it is the
+ * cheapest authenticated write we make, so `all --create` runs it before the
+ * scan to find out in one second — not twenty minutes later, with findings in
+ * hand and nowhere to put them — whether this runner can file at all.
+ *
+ * Throws when EVERY label upsert failed for a non-already-exists reason. One
+ * flaky label is tolerated (and returned); nine failures is a broken credential.
+ */
 export async function ensureLabels() {
+  const problems = [];
   for (const [name, color, desc] of LABELS) {
     try {
       await gh(['label', 'create', name, '--color', color, '--description', desc, '--force']);
-    } catch {
-      /* label may already exist / --force covers it; ignore */
+    } catch (e) {
+      const msg = errText(e);
+      if (ALREADY_EXISTS.test(msg)) continue;
+      problems.push(`${name}: ${msg}`);
     }
+  }
+  if (problems.length === LABELS.length) {
+    throw new Error(
+      `GitHub is not writable from this runner — all ${LABELS.length} label upserts failed.\n` +
+      `First failure: ${problems[0]}\n` +
+      'Nothing can be filed. See docs/agents/runners.md (cloud credential path) and scripts/lib/gh.mjs.',
+    );
+  }
+  return problems;
+}
+
+const FP_MARKER = /cie-fp:([0-9a-f]{6,64})/g;
+
+/**
+ * One bulk read of every `cie` issue body → the set of fingerprints already on
+ * the tracker. Used ONLY as a positive cache: a hit is proof the finding is
+ * already filed; a miss proves nothing (the list may be truncated by the REST
+ * fallback's per-page cap), so a miss still falls through to `existsByFp`.
+ * That asymmetry is deliberate — it is what makes the optimisation incapable of
+ * causing a duplicate, no matter how the underlying transport paginates.
+ */
+export async function loadKnownFingerprints(limit = 1000) {
+  try {
+    const { stdout } = await gh(['issue', 'list', '--label', PFX, '--state', 'all', '--json', 'number,body', '--limit', String(limit)]);
+    const rows = JSON.parse(stdout || '[]');
+    const fps = new Set();
+    for (const r of rows) for (const m of String(r?.body ?? '').matchAll(FP_MARKER)) fps.add(m[1]);
+    return { fps, issues: rows.length };
+  } catch (e) {
+    // Not fatal: every candidate simply falls through to its own lookup below.
+    return { fps: null, issues: 0, error: errText(e) };
   }
 }
 
-async function existsByFp(fp) {
-  try {
-    const { stdout } = await gh(['issue', 'list', '--state', 'all', '--search', `cie-fp:${fp} in:body`, '--json', 'number', '--limit', '1']);
-    return JSON.parse(stdout || '[]').length > 0;
-  } catch {
-    return false;
-  }
+/**
+ * Has this fingerprint already been filed?
+ *
+ * FAILS CLOSED. This used to `catch { return false }` — "the lookup blew up, so
+ * assume it isn't filed" — which is how #1716 and #813 ended up as two open
+ * issues carrying the identical fingerprint `e4dc909b86b64e19`. An error is not
+ * a "no"; it is an unknown, and the caller must refuse to file on an unknown
+ * rather than manufacture a duplicate.
+ */
+export async function existsByFp(fp) {
+  const { stdout } = await gh(['issue', 'list', '--state', 'all', '--search', `cie-fp:${fp} in:body`, '--json', 'number', '--limit', '1']);
+  return JSON.parse(stdout || '[]').length > 0;
 }
 
 function bodyFor(f, fp) {
@@ -96,16 +154,74 @@ async function createIssue({ title, body, labels }, dryRun) {
 }
 
 /**
+ * Identity of a checker's rollup tracking issue.
+ *
+ * It is one issue PER CHECKER, forever — so its fingerprint must be a function
+ * of the checker alone. It used to hash the item COUNT (`excerpt: `${fs.length}``),
+ * which made "the same standing defect class, one item more than yesterday"
+ * look like a brand-new problem: 24 of 36 open `cie` issues were rollups
+ * covering only 11 distinct checkers, `image.host-reputation` alone holding 5
+ * (#137 · #647 · #815 · #883 · #1723 at 194 · 149 · 156 · 245 · 259 items).
+ * The count belongs in the title and the body, never in the identity.
+ */
+export function rollupFingerprint(checker) {
+  return fingerprint({ checker, itemRef: { key: 'rollup' }, excerpt: 'rollup' });
+}
+
+/**
  * Create issues from findings. Findings below `minConfidence` are treated as
  * agent-routing signals (verify-this), not filable defects, and are skipped —
  * this is what keeps the tracker actionable instead of drowning in low-signal
  * "verify" flags that the agent factual pass will adjudicate anyway.
+ *
+ * Returns `{ created, skipped, unfiled, dryRun }`. **`unfiled` is the number of
+ * findings this run detected and did NOT get onto the tracker** — a dedupe
+ * lookup that errored, or a create that failed. It is never silently zero, and
+ * the caller is required to treat a non-zero value as a failed run: a green run
+ * that discarded 597 findings (2026-08-09) and one that discarded 623
+ * (2026-07-26) are the two incidents this return value exists to make loud.
  */
-export async function createIssues(findings, { dryRun = true, limit = Infinity, minConfidence = 0.5 } = {}) {
+export async function createIssues(findings, { dryRun = true, limit = Infinity, minConfidence = 0.5, log = () => {} } = {}) {
   const ranked = rank(findings.filter((f) => f.confidence >= minConfidence || f.escalate));
   const created = [];
   const skipped = [];
+  const unfiled = []; // { title, fp, reason }
   let count = 0;
+
+  // Positive-only fingerprint cache (see loadKnownFingerprints): saves one
+  // search per candidate when it works, and cannot cause a duplicate when it
+  // doesn't. Skipped entirely on a dry run — no network, no surprises.
+  let known = null;
+  if (!dryRun) {
+    const pre = await loadKnownFingerprints();
+    known = pre.fps;
+    if (pre.error) log(`  (fingerprint prefetch unavailable: ${pre.error} — falling back to per-finding lookups)`);
+    else log(`  (${pre.issues} existing ${PFX} issues scanned, ${known.size} fingerprints known)`);
+  }
+
+  /** true / false / throws. A throw means "unknown", never "not filed". */
+  const alreadyFiled = async (fp) => (known?.has(fp) ? true : existsByFp(fp));
+
+  /** Shared file-one-thing path: dedupe (fail closed) → create (record failure). */
+  async function file(fp, title, body, labels, extra) {
+    if (!dryRun) {
+      let exists;
+      try {
+        exists = await alreadyFiled(fp);
+      } catch (e) {
+        unfiled.push({ title, fp, reason: `dedupe lookup failed: ${errText(e)}` });
+        return;
+      }
+      if (exists) { skipped.push(fp); return; }
+    }
+    try {
+      const r = await createIssue({ title, body, labels }, dryRun);
+      created.push({ ...r, title, ...extra });
+      count++;
+    } catch (e) {
+      unfiled.push({ title, fp, reason: `issue create failed: ${errText(e)}` });
+    }
+  }
 
   // 1) Individual issues — all P0/P1, plus every agent-sourced P2/P3 (a specific
     //  verified defect). One closeable ticket each.
@@ -114,16 +230,12 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
   for (const f of individual) {
     if (count >= limit) break;
     const fp = fingerprint(f);
-    if (!dryRun && (await existsByFp(fp))) { skipped.push(fp); continue; }
     const labels = [PFX, `${PFX}:${f.severity}`];
     if (f.checker.startsWith('safety.')) labels.push(`${PFX}:safety`);
     if (f.checker.startsWith('image.')) labels.push(`${PFX}:image`);
     if (f.checker.startsWith('fact.')) labels.push(`${PFX}:fact`);
     if (f.escalate) labels.push(`${PFX}:escalate`);
-    const title = `[CIE ${f.severity}] ${f.title}`;
-    const r = await createIssue({ title, body: bodyFor(f, fp), labels }, dryRun);
-    created.push({ ...r, severity: f.severity });
-    count++;
+    await file(fp, `[CIE ${f.severity}] ${f.title}`, bodyFor(f, fp), labels, { severity: f.severity });
   }
 
   // 2) Rollups — deterministic P2/P3 only: one tracking issue per checker.
@@ -136,8 +248,7 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
   }
   for (const [checker, fs] of byChecker) {
     if (count >= limit) break;
-    const fp = fingerprint({ checker, itemRef: { key: 'rollup' }, excerpt: `${fs.length}` });
-    if (!dryRun && (await existsByFp(fp))) { skipped.push(fp); continue; }
+    const fp = rollupFingerprint(checker);
     const worst = fs.some((f) => f.severity === 'P2') ? 'P2' : 'P3';
     const title = `[CIE ${worst}] ${checker}: ${fs.length} items to review`;
     // GitHub caps issue bodies at 65536 chars. Build a compact one-line-per-item
@@ -163,10 +274,8 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
       shown++;
     }
     if (shown < fs.length) itemLines.push(`\n…and ${fs.length - shown} more (see the run report for the full list).`);
-    const r = await createIssue({ title, body: [...header, ...itemLines, ...footer].join('\n'), labels: [PFX, `${PFX}:${worst}`] }, dryRun);
-    created.push({ ...r, severity: worst, rollup: fs.length });
-    count++;
+    await file(fp, title, [...header, ...itemLines, ...footer].join('\n'), [PFX, `${PFX}:${worst}`], { severity: worst, rollup: fs.length });
   }
 
-  return { created, skipped: skipped.length, dryRun };
+  return { created, skipped: skipped.length, unfiled, dryRun };
 }

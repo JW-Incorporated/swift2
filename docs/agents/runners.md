@@ -271,9 +271,76 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
 | Kevin — S3 comment radar | `23 1,13 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Twice daily (~6am + 6pm PT); surfaces cross-session comments — cut from hourly 2026-07-24 to reduce token burn (Wyatt) |
 | Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
+| **Karen Deep — agent review** ⚠️ **NOT YET CREATED** — config below | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
+
+## Karen Deep — trigger config for a human to create (2026-08-11)
+
+**Not created by this change.** Live triggers are founders-only, so this is the
+exact config to paste; nothing runs until someone does.
+
+| Field | Value |
+|---|---|
+| Name | `Karen Deep — agent review` |
+| Account | **Wyatt** |
+| Model | `claude-sonnet-5` |
+| Cron (UTC) | `40 9 * * *` — 40 min after Karen's nightly `0 9`, so the deterministic scan and its report have landed first; off the `:00`/`:30` cluster |
+| Repo | `JW-Incorporated/swift2`, branch `main` |
+| Prompt | the **full text** of `docs/agents/runner-prompts/karen-deep-review.md`, verbatim |
+| MCP connectors | none |
+
+**The file is the source of truth.** If the trigger's inline prompt ever drifts
+from the file, that is a bug — re-sync from the file. And per the RemoteTrigger
+footgun noted above, a partial `job_config` PUT destroys the prompt: send the
+whole config or edit in the routines UI.
+
+**Why it is a separate runner and not more steps in `karen-nightly.md`.** The
+nightly is a deterministic script plus a summary — it finishes in minutes and
+costs one session. This one fans out to subagents that fetch sources and
+download images; folding it in would make a failure in the expensive half take
+down the cheap half that files the tickets, which is exactly the coupling that
+lost 1,220 findings on 2026-07-26 and 2026-08-09.
+
+### What it costs, and the knob to turn
+
+Budget is `--factual-batches 2 --image-batches 1` = **3 subagents/night**.
+
+| Agent | Input it carries | Estimated tokens |
+|---|---|---:|
+| Factual batch (28 items) | ~50 KB batch JSON (~13k) + prompt/schema (~5k) + WebFetch of ~40–60 cited sources + WebSearch corroboration | ~400k |
+| Image batch (40 images) | ~24 KB batch JSON (~6k) + 40 downloaded images at ~1.2k each + tool overhead | ~170k |
+| Safety batch (121 candidates, only when changed) | ~1 batch + the redlines rubric; no fetching | ~60k |
+
+≈ **1.0M tokens/night**, ~92% input. At Claude Sonnet 5 list ($3/MTok in,
+$15/MTok out) that is **≈ $3.75/night ≈ $114/month** (≈ $2.50/night on the
+introductory $2/$10 rate through 2026-08-31). On Fable it would be ~$10/night —
+**Sonnet is the deliberate choice here**, matching the model tiering above,
+which already puts Karen on Sonnet.
+
+The token figures are **estimates from measured batch sizes plus a fetch-volume
+assumption**, not from an observed run. `review-status` and the ledger make the
+real number checkable after a week — re-baseline then.
+
+**Coverage.** 56 items + 40 images/night against 1,137 items and 1,056 images:
+a full first pass in **~20 nights (factual)** and **~27 nights (images)**, and
+after that a standing ~3–4 week refresh cycle. Changed and never-reviewed
+content jumps the queue, so newly merged content is reviewed within a day or two
+regardless of where the rotation is.
+
+**Dials, in order of preference:** `--factual-batches 1 --image-batches 1`
+halves it to ≈ $66/month (slower rotation, changed-content priority unaffected);
+raising both for a one-time catch-up sweep is fine and bounded — the ledger
+records it, so the sweep pays down the backlog permanently rather than
+re-reviewing.
+
+**Rejected alternatives.** (a) *Full sweep weekly* — one ~20M-token night is
+both a rate-limit-window problem and an all-or-nothing failure. (b)
+*Changed-content-only* — cheapest, but the 1,137-item backlog that has never been
+agent-reviewed would stay at zero forever, which is today's bug with extra steps.
+(c) *`--claims-only` focusing* — RUNBOOK.md already records that this caused a
+real miss: claim-free narrative records are exactly where fabricated events hide.
 
 ## Maintenance fleet (2026-07-12)
 
