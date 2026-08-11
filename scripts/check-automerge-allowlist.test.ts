@@ -264,12 +264,16 @@ describe('the committed allowlist', () => {
     }
   });
 
-  it('still refuses app code and committed images', () => {
+  it('still refuses app code, non-social public media, and the merge rules', () => {
     const entries = parseAllowlist(allowlistText).map((p) => p.entry);
     for (const f of [
       'apps/web/app/page.tsx',
       'apps/web/lib/longlive/tracks.ts',
-      'apps/web/public/social/2026-07-17-electric-lady-1.png',
+      // Non-social public media stays human-merge — only the social/ subtree
+      // was granted (docs/decisions.md 2026-08-11; docs/decisions.md 2026-07-28
+      // still governs the rest of apps/web/public/**).
+      'apps/web/public/eras/midnights.png',
+      'apps/web/public/og-image.png',
       '.github/workflows/auto-merge-content.yml',
       '.github/content-automerge-allowlist.txt',
       'package.json',
@@ -279,5 +283,21 @@ describe('the committed allowlist', () => {
         `${f} must NOT auto-merge`,
       ).toBe(false);
     }
+  });
+
+  it('allows social images (the check-drafts-gated carve-out, docs/decisions.md 2026-08-11)', () => {
+    const entries = parseAllowlist(allowlistText).map((p) => p.entry);
+    for (const f of [
+      'apps/web/public/social/2026-07-17-electric-lady-1.png',
+      'apps/web/public/social/library/thread-fashion-screen.png',
+    ]) {
+      expect(
+        entries.some((e) => covers(e, f)),
+        `${f} should be auto-mergeable (gated by check-drafts.mjs in the workflow)`,
+      ).toBe(true);
+    }
+    // The grant is exactly the social/ subtree and no broader — a sibling
+    // public dir must not be swept in by the prefix.
+    expect(entries.some((e) => covers(e, 'apps/web/public/socialite/x.png'))).toBe(false);
   });
 });
