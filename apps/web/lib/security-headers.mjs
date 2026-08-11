@@ -32,6 +32,12 @@
  * `securityHeaders({ enforceResourcePolicy: true })` from next.config.mjs.
  * Read the `script-src` note first — enforcing as written buys very little
  * against XSS.
+ *
+ * EXPECTED NOISE when reading those reports: PREVIEW deployments inject the
+ * Vercel toolbar from `https://vercel.live`, which will report against
+ * script-src / frame-src / connect-src. That is preview-only tooling, absent
+ * from production, and is deliberately NOT allowlisted here — do not widen the
+ * production policy for it. Judge readiness to enforce from PRODUCTION reports.
  */
 
 /** Hosts we mount in an <iframe>. Keep in sync with the embed components. */
