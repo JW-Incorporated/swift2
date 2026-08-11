@@ -591,6 +591,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/42/Cardinals_stadium_crop.jpg',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // a wide exterior shot; the stadium facade fills the middle band.
+            focalPoint: '50% 40%',
             credit: 'MCSixth (Flickr), CC BY-SA 2.0, via Wikimedia Commons',
             caption: 'State Farm Stadium in Glendale, Arizona — photographed in 2006, when it was still Cardinals Stadium — the venue Taylor became the first act ever to sell out twice on a single tour.',
             kind: 'archival',
@@ -1795,6 +1798,10 @@ export default {
         photos: [
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltc2ec949c9ace970b/698a490516d8847cd4c3d41a/Taylor-Swift-Singapore-Eras-Tour.jpg?branch=production&width=2400&quality=75&auto=webp&crop=16:9',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // a mall installation stacking TVs looping the 1989 cover; the
+            // stacked-screen cluster sits right-of-center.
+            focalPoint: '55% 45%',
             credit: 'Getty Images via Time',
           },
         ],
@@ -2914,6 +2921,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg/960px-Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // a tight vertical portrait; face fills the frame, eyes upper-third.
+            focalPoint: '48% 32%',
             credit: 'GabboT, CC BY-SA 2.0, via Wikimedia Commons',
             caption: 'Joe Alwyn — the "William Bowery" of the credits — at the Toronto International Film Festival in September 2022, weeks before Midnights arrived.',
             kind: 'archival',
@@ -2987,6 +2997,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Lana_del_rey_MITA.jpg_%28cropped%29.jpg/960px-Lana_del_rey_MITA.jpg_%28cropped%29.jpg',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // she leans in toward the crowd from the left; her face sits in
+            // the left third of the frame.
+            focalPoint: '22% 35%',
             credit: 'Raphaelp18, CC BY-SA 4.0, via Wikimedia Commons',
             caption: 'Lana Del Rey greeting fans at MITA Festival in São Paulo, June 2023 — the year her buried "Snow on the Beach" vocals finally got their fuller version.',
             kind: 'archival',
@@ -3019,6 +3033,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // the lighter-flame cover; her face sits upper-right of center.
+            focalPoint: '54% 45%',
             credit: 'Republic Records',
             caption: 'Midnights — "Mastermind" closes the standard edition, the last move of the album\'s chessboard.',
             kind: 'archival',
@@ -3253,6 +3270,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
+            // Photo-enrichment pass #762 (2026-08-11): same cover art as other
+            // Midnights pages in this file — downloaded and viewed; her face
+            // sits upper-right of center.
+            focalPoint: '54% 45%',
             credit: 'Republic Records',
             caption: 'The Midnights cover — the 13-track list a bingo cage announced, one title at a time, on TikTok.',
             kind: 'archival',
@@ -3345,6 +3366,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/7b/Taylor_Swift_-_Bejeweled.png',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // the video-still cover; her face sits just left of center, upper half.
+            focalPoint: '48% 48%',
             credit: 'Republic Records',
             caption: 'Single artwork for "Bejeweled," whose video carried the self-described "psychotic amount" of easter eggs.',
             kind: 'archival',
@@ -3707,6 +3731,10 @@ export default {
         photos: [
           {
             url: 'https://media.npr.org/assets/img/2023/01/24/gettyimages-1246499609_wide-b572c3a7dd2ccede1212035348be1254ff017d20.jpg?s=1400&c=85&f=jpeg',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // a protester's face and the "Ticketmaster / Live Nation" broken-heart
+            // sign anchor the shot, just above and left of center.
+            focalPoint: '50% 35%',
             credit: 'Getty Images via NPR',
             caption: 'Swiftie protesters outside the U.S. Capitol on hearing day, Jan. 24, 2023, with lyric-pun signs aimed at Ticketmaster and Live Nation.',
             kind: 'primary',
@@ -3920,6 +3948,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/87/I_Can_See_You_%E2%80%93_Taylor_Swift_%28music_video_screenshot%29.png',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // a dim three-shot; Taylor stands center-frame between two
+            // silhouetted figures, faces in the upper-middle band.
+            focalPoint: '50% 35%',
             credit: 'Taylor Swift / Republic Records (music video still)',
             caption: 'A still from the self-directed "I Can See You" vault-heist video.',
             kind: 'primary',
@@ -4653,6 +4685,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/d/d5/Taylor_Swift_-_1989_%28Taylor%27s_Version%29.png',
+            // Photo-enrichment pass #762 (2026-08-11): downloaded and viewed —
+            // the "Taylor's Version" cover; her face sits right of center,
+            // just below the midline.
+            focalPoint: '62% 45%',
             credit: 'Republic Records',
             caption: '1989 (Taylor\'s Version), where "Slut!" surfaced from the vault as a love song instead of the expected diss.',
             kind: 'archival',
