@@ -28,7 +28,7 @@ Audited 2026-08-11 (Joey, founder-verified):
 |---|---|
 | **12 of the last 14 posts open "did you know…"** | The pillar *name* from growth-plan §4 ("did-you-know track facts") leaked into caption copy, and the drafting prompt said "see `social/posted/*.json` for real shipped examples" — so every run copied the last run. A formula loop with no strategy behind it. |
 | **Every IG image is a generic era tile** (`/eras/<id>.png`) | The 2026-08-06 decision told the drafter to source real photos; it kept taking the documented last-resort default because that was less work, and nothing checked. |
-| **11 of 12 failed posts are X** | X 403s on near-duplicate content. IG and X siblings were written as the same caption, one truncated. |
+| **11 of 12 failed posts are X** | Generic 403s from X rejecting over-length tweets on this non-premium account — all 11 measured 294-373 characters against X's real 280-character *weighted* limit (URLs always count as 23 regardless of actual length). Not duplicate content, corrected 2026-08-11 same day — see §2's "Sibling rule + the X length rule". |
 | **Nothing plans ahead** | There was no artifact between "the pillars exist" and "draft something today". Feature launches got no push; the six site threads were never taught; Mood was never promoted. |
 
 Three structural fixes, in priority order:
@@ -219,6 +219,16 @@ days running on the same platform:
 (era / item / lens) with the UTM tags from growth-plan §8. "longlivets.com" bare
 is only for Mood posts, which have no deep link.
 
+**Rule 7 — mind X's real length limit, and it's weighted, not raw characters.**
+X counts any autolinked URL (including a bare domain like
+`longlivets.com/?utm=...`) as exactly **23** characters regardless of its real
+length, most emoji/CJK as 2, everything else as 1 — not the string's plain
+character count. Target **≤270 weighted characters**; `check-drafts.mjs` hard
+fails anything over the real **280**. A caption that reads short in an editor
+can still be 300+ weighted once the link is counted — this, not duplicate
+sibling copy, is what actually broke 11 of 12 `social/failed/` items (§0,
+corrected 2026-08-11).
+
 ### (e) Human reach — the lane APIs can't touch
 
 Facebook groups, Reddit and Tumblr are where this audience actually lives, and
@@ -269,19 +279,34 @@ the stronger X slot sit there. Facebook rides every IG post automatically
 allows 5 per run and 10 per platform per day, and 3 slots/day stays inside the
 Growth run's ≤4 drafts per run.
 
-### Sibling rule — the X 403 fix
+### Sibling rule + the X length rule
 
 **Heartbeat days never sibling-pair.** Slot C is a different subject from slot
 B, full stop. Only campaign posts run true IG+X siblings, and when they do:
 
-- The X post is **written first, as its own post**: hook in ≤280 characters, one
-  idea, the link. It is never the IG caption truncated.
+- The X post is **written first, as its own post**: one idea, the link. It is
+  never the IG caption truncated.
 - IG can breathe: 3-6 short paragraphs, the story, credit line, then the link.
 - `check-drafts.mjs` fails the pair if the two bodies are less than 20%
-  different.
+  different — still good, checker-enforced practice (a near-clone sibling
+  reads as spam either way), even though it turned out not to be what caused
+  the failures below.
 
-Cause of the current failure: 11 of 12 items in `social/failed/` are X drafts
-that were near-copies of their IG sibling and hit X's duplicate-content 403.
+**X's real length limit — and what actually broke 11 of 12 `social/failed/`
+items (corrected 2026-08-11, same day):** the original diagnosis blamed
+duplicate-content 403s from near-identical IG/X sibling copy. That was wrong.
+Every one of those 11 items had a *raw* body length of 294-373 characters —
+none had an IG sibling copied verbatim — and every one failed with the same
+generic 403 ("You are not permitted to perform this action") that X returns
+both for duplicate content and for a tweet over its length cap on a
+non-premium account, which is what produced the original misread. X counts
+length by its own **weighted** rule, not raw characters: any autolinked URL
+(including a bare domain like `longlivets.com/?utm=...`) counts as exactly
+**23** characters no matter how long it actually is; most emoji and CJK count
+as 2; everything else counts as 1. `scripts/social/check-drafts.mjs` now
+hard-fails any X draft over the real **280**-weighted-character limit and
+warns above a **270** target, via `weightedTweetLength` — see that file's
+header comment.
 
 ### What is out of scope
 
