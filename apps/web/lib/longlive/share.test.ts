@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { momentShareCopy, topbarShareTarget } from './share';
+import {
+  momentShareCopy,
+  siteShareCopy,
+  theoryGuideShareCopy,
+  topbarShareTarget,
+  trackGuideShareCopy,
+  trackShareCopy,
+} from './share';
 
 describe('momentShareCopy', () => {
   it('builds title and self-contained text from the moment + era', () => {
@@ -57,6 +64,41 @@ describe('momentShareCopy', () => {
     expect(copy.text.length).toBeLessThanOrEqual(
       '1989 arrives (1989, October 2014) — '.length + 181,
     );
+  });
+});
+
+describe('trackShareCopy', () => {
+  it('builds title + self-contained text from the song note (#707)', () => {
+    const copy = trackShareCopy(
+      { title: 'All Too Well', note: 'The ten-minute reclaiming of the scarf.' },
+      { name: 'Red' },
+    );
+    expect(copy.title).toBe('All Too Well — Red · Long Live');
+    expect(copy.text).toBe('All Too Well (Red) — The ten-minute reclaiming of the scarf.');
+  });
+});
+
+describe('trackGuideShareCopy', () => {
+  it('names the album and its year (#707)', () => {
+    const copy = trackGuideShareCopy({ album: '1989', yearLabel: '2014' });
+    expect(copy.title).toBe('1989 — track guide · Long Live');
+    expect(copy.text).toContain('Every song on 1989 (2014)');
+  });
+});
+
+describe('theoryGuideShareCopy', () => {
+  it('frames the era decode without asserting any theory as fact (#707)', () => {
+    const copy = theoryGuideShareCopy({ shortName: 'Reputation' });
+    expect(copy.title).toBe('Reputation decoded — theories & Easter eggs · Long Live');
+    expect(copy.text).toContain('sourced and graded');
+  });
+});
+
+describe('siteShareCopy', () => {
+  it('is the bare front-door copy (#707)', () => {
+    const copy = siteShareCopy();
+    expect(copy.title).toContain('Long Live');
+    expect(copy.text).toContain('any era');
   });
 });
 

@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { tracksForEra, keepExploring, releasedFactValue } from '@/lib/longlive/tracks';
+import { tracksForEra, keepExploring, releasedFactValue, trackKey } from '@/lib/longlive/tracks';
 import { videoForTrack } from '@/lib/longlive/videos';
 import { MomentVideo } from './MomentVideo';
 import { OverlayNav } from './OverlayNav';
@@ -24,10 +24,10 @@ import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@/lib/longlive/types';
 
-/** Same composite key TrackRow/TrackGuide use — TrackNote has no stable id. */
-export function trackKey(eraId: string, track: TrackNote): string {
-  return `${eraId}::${track.trackNumber ?? 'x'}::${track.title}`;
-}
+// The composite song key now lives in lib/longlive/tracks (so the store's
+// deep-link resolver and the ShareSheet can share it). Re-exported here so
+// TrackGuide's `import { trackKey } from './TrackDetail'` keeps working.
+export { trackKey };
 
 /**
  * A single song's dossier page (issue #440 Phase 1): hero, essential facts,
@@ -101,7 +101,12 @@ export function TrackDetail() {
       aria-modal="true"
       aria-label={`${track.title} — song detail`}
     >
-      <OverlayNav onClose={closeTrack} />
+      <OverlayNav
+        onClose={closeTrack}
+        // track resolved from openTrackKey above, so this rebuilds the same key
+        // (typed string, unlike the nullable openTrackKey from the store).
+        shareTarget={{ kind: 'track', eraId: era.id, trackKey: trackKey(era.id, track) }}
+      />
 
       {/* Compact era-art hero (same treatment as TrackGuide/TheoryGuide). */}
       <div className="relative h-[24vh] min-h-36 w-full">
