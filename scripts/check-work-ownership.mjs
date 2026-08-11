@@ -106,8 +106,12 @@ const daysBetween = (a, b) => hoursBetween(a, b) / 24;
 /**
  * The whole judgement, as a pure function. No network, no clock, no fs.
  *
- * @param {{issues: any[], prs: any[]}} snapshot open issues and open PRs
- * @param {Record<string, number>} budget max tolerated count per condition
+ * @param {{issues: object[], prs: object[]}} snapshot open issues and open PRs
+ * @param {{unrouted?: number, ambiguous?: number, unowned?: number,
+ *          abandoned?: number, stalePr?: number,
+ *          $notEnforced?: Record<string, string>}} budget
+ *        max tolerated count per condition, plus the reasoned suspension map
+ *        that `loadBudget` attaches (see `notEnforced` below)
  * @param {Date} now
  * @param {{routeWithinHours: number, abandonedDays: number, stalePrDays: number}} windows
  */
@@ -281,7 +285,10 @@ export function loadBudget(text, file = BUDGET_FILE) {
   try {
     parsed = JSON.parse(text);
   } catch (e) {
-    throw new Error(`${file} is not valid JSON: ${e.message}`);
+    // Keep the original as `cause`: the parser's own message names the byte
+    // offset, and a check whose whole argument is "report the real state"
+    // should not throw away the root cause on its way out.
+    throw new Error(`${file} is not valid JSON: ${e.message}`, { cause: e });
   }
   const budget = parsed.budget;
   if (!budget || typeof budget !== 'object') throw new Error(`${file} has no "budget" object.`);
