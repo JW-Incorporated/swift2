@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 79
+
+## Brad Pitt Had an Unexpected Moment at Taylor Swift’s Wedding That Suddenly Makes Sense - Yahoo
+
+- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Pitt Had an Unexpected Moment at Taylor Swift’s Wedding That Suddenly Makes Sense  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOTnZzdXR4X3hRUXFNbEttY0tCTl82WUhFaGpVaWh6UkJRX2hESHBIOS05dW1Vc3FXeHYxWDJ3YjJEZm9OaXdvZ3NLWE5ST0piTVctdmJ1RkQxVE02MnRITXBxaWM0U0FFV1VLeUpTZDhuN0g4TVUzM0ZVS1BuUjE1NVBlYlhEbURIdjhueHNLWlZjV0JwS3F0dUVYcFMxWUFIRldR?oc=5
+
+## Taylor Swift, others among 2026 Nashville Songwriters Hall of Fame inductees - WSMV
+
+- first seen: 2026-08-11 22:00 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, others among 2026 Nashville Songwriters Hall of Fame inductees  WSMV
+- sources:
+  - [unverified] WSMV — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOemc5cW1MN0UyRDlXYjdiUm1xMnl2QVlKSHFYaEVHUjhRRjQwTVRzaHpLeFpPaUhhZHA3cnZKZWhTZ2RBTXBMZXY3QndXR2dNbHZtTGhGREY3TWhuaWQ5VFRER1BDeHpVS0o5cGNKRTNSYzdaZkhPd3pBTDd5anlVOWlvdDdTd2MyeXJ6dWxXV1BPRDFqSzdWLW1LQ2dBcGlKQWZJUjdlT0s?oc=5
+
+## Brad Pitt Was Reportedly Drinking at Taylor Swift's Wedding - Pajiba
+
+- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Pitt Was Reportedly Drinking at Taylor Swift's Wedding  Pajiba
+- sources:
+  - [unverified] Pajiba — https://news.google.com/rss/articles/CBMilAFBVV95cUxNUGtIYnFCZVlHZWFwZVk0NUpaQzhsX2V0X3pYS1IyU2pyTlhXMU9fUlVZOFhwcXp6X1BzSzFxWGpUZC1lZ0FLcnpNUHpIYkxpR2pWcVNwbmNnc3J0Z241MHVXc280XzU4VE1iY29YdHBfQ3ljNEI2dkRudGdNWjFsamktRjhhbGJFdVNkZGZNQ3AyWXZm?oc=5
+
+## Taylor Swift & Travis Kelce Reportedly Facing ‘Reality’ of Marriage Amid Report of Their Family Figh
+
+- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Reportedly Facing ‘Reality’ of Marriage Amid Report of Their Family Fighting After Their Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQX09waEJ3bzhkam5qcDgzbWJSMGtORXBkaXNjVjNuT2ptUG4yeXpvLVBYT3pJQ0N3RndVZmFGY0g4VE4xaTdzS3BKay13WWJtVXdnUEJGdGlZU1ZSMG1VNGk4VGtOU0xSc3g0X1lDOTFSNGZuOGQ1VU9uYXRjR0VWSkxBUUJ0RV9ZNThVNVg5ZVpMdkdaOF82c1ZRTVVwTGhnN0p0WHFxSnUxQQ?oc=5
+
+## Taylor Swift added to Nashville Songwriter’s Hall of Fame - WKRN News 2
+
+- first seen: 2026-08-11 22:00 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift added to Nashville Songwriter’s Hall of Fame  WKRN News 2
+- sources:
+  - [unverified] WKRN News 2 — https://news.google.com/rss/articles/CBMimwFBVV95cUxONlRWeFZzeUFfZmVfRzRvejl4ZFhBMjAzR1lZYWJ6U1p1RF9YaDlFdTB4MEhKVFlkUnQyckdzYkVDRXo5aWctS3ljWC1zcUlaVjUtdlk4UWpOZDVaSFR3NzktbkRFMzJ2Y2pXR0xZR3paYlUyQmhOLXNhSHA2SkducDIyM0R0MEFfb3B3LUpCVGJaaG15T2hvSTdISdIBoAFBVV95cUxQODBURlgyYmROWFB5aHAyRkhPa1U0WVI1dHVLWFJxNm9la0lHeVQ5c1FfOTllTEJIRk1nNk44c1p0SzFOUW0zenJ3a3pNak9hd1BRYk53VzQ3bjE3NHNSWlZaVGt3U1JubFUzd0N3WkdqaWVEcHRIdmlVWWRvRkFULWE4dGNwbTVjSjJzLVNBTkNPSzVEaElBc2xRbDY2akhf?oc=5
+
+## The Latest Update on Taylor Swift & Travis Kelce’s Marriage - StyleCaster
+
+- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Latest Update on Taylor Swift & Travis Kelce’s Marriage  StyleCaster
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMipgFBVV95cUxORnFnU3hTUDdfTTM1Y0d6RV9rODFpTk9kLXV2QmlCUm9acW9UdXFEbGhPWWVhdlI2WmVtNXJVcVphUlFPVWx5N3kwNjhnSHk0MWNWZUNBRUQ1MmNjSWZMLVpaVU1RWTJQeDBSTVVPQTl3U0EzNnNnaUVuZVA5aEdnOFpWbWYxay1KMTVjYlk4bVg2WHpWeVNkUnYwU3ZHOEpRTk90bFZn?oc=5
+
+## Taylor Swift and Travis Kelce Hunting for Homes Near Prince Harry and Meghan — Source - Yahoo
+
+- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce Hunting for Homes Near Prince Harry and Meghan — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQbVFYTjh0bk1lQ0xYUlJ4VG5DTXhVVnZPUEpkaFEtMlhfZlNUU1UteGtUWUFBbEpFQnljRk9xNlpYdmI3ekJleExTeXUyYWQtYTlrYkh4TkdKQVBFT3RpRXlZSzBzWjBtemdpWG9Ucl90QjBFR3lRLWY1WVM5ay1WbzhjNWdGSVI5YjVOa24yYWhOMGN5US10a3ExUXRydl9BbHpaaXFR?oc=5
+
+## Taylor Swift’s music has been removed from all White House social media accounts - KBTX News 3
+
+- first seen: 2026-08-11 22:00 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s music has been removed from all White House social media accounts  KBTX News 3
+- sources:
+  - [unverified] KBTX News 3 — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOOThsS3ItN2k5MHJnWFFpLUl5REUzTDZtNVByWmp4bkMxNUViQ0NJODEwQ1cwSDdrYlh2NHAzeHVfbDdtVWVXUXBFaHl1OE53MjRLa2RLT0Qyb18yQXV0aGV0YmtTcEswSWJ4eTFkb2hWVzJ3RDBMSmhWN1R2ZHFFTGtvb0RJcmotbjkyemxxRUphd3F4cVY1RmxROExnYVBKTFBiZVpEYmliNVXSAb8BQVVfeXFMT2NwSzNjXzA1eThKM3VWM1UtM1NnVzFscURwdTh0NjBDaTFvOERxbVZJdjYtdFZaVUQ4cVlKcXpkWlBTdm9Rd3Z1c0F4Yy1yalBhWlN1dVFSTU02MXVjR3NzYWREZ3ZZRnhGUHpqT2Z6NzlWVDUyN2VLdU5nb0o2UXhqaUhaeWpkZGhJQjhzVjduX0ktVFhCeU5uUXdVa2VJSXNpUHN5Wm5aeU83VjFlR0RxVmRyRENTbnNwMFBjTG8?oc=5
 
 ## Taylor Swift Becomes Youngest-Ever Musician to Be Inducted Into 2026 Nashville Songwriters Hall of F
 
@@ -102,27 +166,20 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - sources:
   - [unverified] people.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxOa2t5bmNzRURMbVF0aGlDVVBZNENpTDE1aE9fTUtMeWZFbk55d0pZVXRkTE5xdFN2c04tYncwWnpVS1JzcnlBdm5RV1QxWGpDTTV0SVhubWJNbzFDOWlHZHpDOXAxMXBZNktXeEhmbGNTekZxcm9rVEFKcThVamZELXJDVGJVY2k1c1djOUlvTlJxZ2F2TVRsZA?oc=5
 
-## Taylor Swift’s Former No. 1 Hit Mounts A Surprising Return - Forbes
-
-- first seen: 2026-08-11 18:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Former No. 1 Hit Mounts A Surprising Return  Forbes
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMirwFBVV95cUxQakFpS3hYVnludlBWQ3d1YmJ2TjhKMXFtUWFib3Z4aFAwZmtJWWNKeUV0Rk9wWnJHOFI0a05xM3ZUcU1TSVdxYUk2Tnp1bWg4MUVfN3RrSUFST3JobWI0Y1hwdzNtOVlaLUVPeF94RGc0aTZyUXZiX2JZcjJnSUsxSTU1V3ZDNDBkU3h3RTQ5TExHMjZiNE1aRWhqdE85VDZLb3dnYnVpRUFCTEVqajJN?oc=5
-
 ## Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Youngest Inductee Ever
 
 - first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift will be adding another trophy to her shelf, as the Nashville Songwriters Hall of Fame announced Tuesday that the superstar will be inducted into the hall this fall, becoming, at 36, the youngest writer ever to receive the honor. Swift sent a message to be read by Mark Ford, executive di
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-inductee-nashville-songwriters-hall-of-fame-1236832080/
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMivgFBVV95cUxPV3hOTEhOSXpEM3NkZm1naTdFWHI5VWlJTVNfdUp3WDROb2pnQ3owd2RHZXZMSXVZdnRkd2s0TThzNzY5M1diblM4UUlpOG9hc3ptQzhPTEVnT0xlalB3dVdERXJoaW1ZM0lmYlZiTFRZZnM3RVlKMTFSMWlWc0Utd05xem1DV3BkekRCUzdSS1dpdDJ4cWhFOHNvRDczZzJWOHZPZ1pVV3N0SlFhX25veC1waFBGcnlSa0xhV0x3?oc=5
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxPYmlodW1oMVhfN3FMU1o1Si1jeEVzLUtaRHdWZG0wM2xBVjdGbFRBYV9sY29ma0RVblVHTGpnRXV0aEhHNkRoMGwxSWlLRl9ZNGcxQ3U3TlUxWVU2UzdmVjJXMW1PRDU0bjd5TTNXSmVQQ202RTE3MkFjMkNuNTBBR0dyeGhtYmp1ZGdUV3NLNENxcmRBcHM4QXJ6R2Zhc1pGSDkwdkJXVQ?oc=5
 
 ## Taylor Swift to Be Inducted Into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Swift will join the likes of Dolly Parton, Johnny Cash, and Willie Nelson when she is honored later this year alongside Lyle Lovett
 - sources:
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdlowNUM5dVNVQTFrX0FjbkdhZ1VEcG00a1E4VUVhZXlacHBQTWZXUHU3SzFfeU42di1BcXRFOG9QN043eG8xbmRxdlUxR2w0dWY3ODJjSVhhX1FHbTdjR2t6RHE2dHAtQXlDN0F5WXJSdnpoY0FSYTRVY2NXYm1LOFdQUDg1YWVDMXBRMDRweE1NblJINmU0OEJ1SDBwZFVleWhQWGxaZnE?oc=5
@@ -130,6 +187,15 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-1235606729/
   - [unverified] billboard.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPazl1MnhIWmlONDZ6RXl1cmQ1cUY2dmIwZDVzeDBQaGxXdlFOVzNoc2FfUTJ2QjFWRVZOQjhPVkE3Nkl4SHB4bVhqR2hXeXl4eVBVU2hKYklWZXptTWdtZVRZa2FwUEhhQ1QxcDBkQVprOGRKQUJLcjVpQjlyNFBqTXplYWxOdEFySmlDR2dDVEIwM1FqZUVQZnU4QlJHbmJVUTJ2Q00tdnF5STR1SkxvZ3Vn?oc=5
   - [unverified] WZTV — https://news.google.com/rss/articles/CBMi9AJBVV95cUxOOW4xc1RlbkItbUcxS1NOQU91eVQ3RjJiR094OVVNVzNlVk5xc3h6dm5kem8tLUZwc0VCVjM5U0wzZDUwdzdNNmIwM001aDlNVlpJbXZfellpYXZsUW5ncnlwa3hSb2Q5eW1BakU0TDFjcU00TVJZdXlQdDItTjIyRVZ2TUI2ZjA2Tk1wSmlZbHhKNzF3eVViZUM0ZmEzWmwtRFJlMGJid0steHVPY2lmTkdFVzNqX0hPczlZLTNkcVR4amJXWE1qTTllQXpZRFJCYXhlVVl4a0QzMFdkajhOZWhaWW9nQS1ucVVtUG1NM3ZCQXZMamxISEt3SlYzZ1I5STBPeTVXZk1GelJfMmJZTU53MTR5QnFoODYzU0NxQ1JCSmcyRVl6Ni1BdXhteFljTGFzb2NKOXYzTVdhQlFyVjJKZ0pWNllKQkxFc3BlRHVsMEMwVGU1SVh4YllLNzVPSWVuVVBhYUJOMHlhcWQtN2o0UHc?oc=5
+  - [unverified] Axios — https://news.google.com/rss/articles/CBMinAFBVV95cUxQVDBCQVNqNk5oYWVhTi1lMDVlTlpmSHJLeE04V0pycWJNcFc4aDRTRUF4UTNVTlRJbU5objNCVnc2OTliLXNaVFZIQ3R2Z1J2em90TFlEUWZJQ2RRdmRPZG9DVUVITjN3SDJjTHFESFlTM1ZsRk9EcmJ3NEpqZnYyWHhrMGVOZWZveXd1aTNkUVZYY2ZJcEU2QkhwMWQ?oc=5
+
+## Taylor Swift’s Former No. 1 Hit Mounts A Surprising Return - Forbes
+
+- first seen: 2026-08-11 18:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Former No. 1 Hit Mounts A Surprising Return  Forbes
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMirwFBVV95cUxQakFpS3hYVnludlBWQ3d1YmJ2TjhKMXFtUWFib3Z4aFAwZmtJWWNKeUV0Rk9wWnJHOFI0a05xM3ZUcU1TSVdxYUk2Tnp1bWg4MUVfN3RrSUFST3JobWI0Y1hwdzNtOVlaLUVPeF94RGc0aTZyUXZiX2JZcjJnSUsxSTU1V3ZDNDBkU3h3RTQ5TExHMjZiNE1aRWhqdE85VDZLb3dnYnVpRUFCTEVqajJN?oc=5
 
 ## Taylor Swift to join 2026 Nashville Songwriters Hall of Fame - usatoday.com
 
@@ -552,6 +618,25 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxPS3dzWWIyaUZUME5QRzQyS2tOQnFLRXpCTFNOR3JpWWJoR2dTdVhkMUszMHhDUmxDZGpRMUhOU0U0SmpfY0MzMlN1TDNLdjhzaUszZXc3WlA3dzJOTU1lZ3RHMFRta3JEM05qM05PQ2ZRMU96NktsSjAxQldCX1R5b0ctSjB1Q3JPbzVBd25EZDdhNzNMU25ULU53Yw?oc=5
 
+## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
+
+- first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 12
+- summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
+- sources:
+  - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
+  - [unverified] Reuters — https://news.google.com/rss/articles/CBMiugFBVV95cUxQem8tQ281dWR1RWV5ZVFHX1BEQWZnNU1RaW1uZm40S0VjZzZEbGxVVHVLZkJDZjBkRzM4bUNrNVIwR0RSbDM1MFo1UVdYUV8yLXZKc1QyZEZxcFlHOGgtZzcxYk0zNzZiWlc3TExjMlU4cGhYS0tzT09feE93US1TMEh0eXlGMk12VHNRQUdkcDdmM2ZDRGhBcExEazVUOVBaTlNXc2ZZbmd4SDBxcW1kU1pFSHJZT0dqU1E?oc=5
+  - [unverified] CBC — https://news.google.com/rss/articles/CBMimwFBVV95cUxQb3BnM2Y5MVY0Vzl0WW94dnhJN1ZWN1cyRXUyVzF4QTAzOG5ncDNZUG9zbVhjakMxcmtEbFAwZ20tNFBNdDhxNXEtUlFLMXJWMTFwanFrcU91ZFRtY3c3YWZJSm50SDRPaGctaTFXdnAzQ041eGNVMThuaFZQaXUzYkhfSjBDcW52TFNPWkpFQXNCQjI5d2FURFJvVQ?oc=5
+  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMinwFBVV95cUxPc1pPb3pnTUxvN1JqNmdHTzlSbHNhbVRpQkhsUHF1cDZDOFg1d2dKcHdsR1lSdHFOV3c5ci11RjlycUNEcjVzWUtjV1BvdmxHd1ZuWlhRQWd3bkJOSXp3UTl6RS1KamNNSmlLdFBsMjNBcjBSRVplR0ZCN2p3TXdsMTk0dm0tZUFFdl8zNEhCLThQbGxsYWxBYkcteXFEQ1U?oc=5
+  - [unverified] Red Lake Nation News — https://news.google.com/rss/articles/CBMizAFBVV95cUxPZWx3X094SllZdTJVRW9DZzVzd21EVzdHQ3BNSnpLUlpnODdYS2FKQmhlQXpHcnVEMk9LVlktNTNOYy1iZVc1VFl2blh0YlJ3VWp6SWlPek1IY1J1WlBqc0pnU2ZXY0E0OWMzVVR2YmhWVW05VHczdTRiWlpZOXlKNnQzS19obDJ0NDZrRFRjbFg0X1o4bFRBR2J1Q0dpanRSaVVGaHNqYllpWmt5b2ZIelkyekdzOEFkVE41eFU2NWpZVF94R2FkUndjZVA?oc=5
+  - [unverified] Free Press Kashmir — https://news.google.com/rss/articles/CBMirwFBVV95cUxPU0wzN3Y5bFY0eHNxWklzYXJmVTVlSzd2aktGaGRETjRsQVJyOW5oRVBVb3NwWXdFWmdIQmo2MzVNbkRyRUhmX2p1S1pXUW1hTmY5eDJPb3lFTl9TN3FpWFVKQkZNZjZlUTIxWGZZbHh6LWlZek4yLUdCZUxoUE9ucVZCUktCak9Bc29JLTBXTF9zTnAzRDZ4VVY0Zms1UndfaUtIaW5xZmZSQUdGbHY40gG0AUFVX3lxTFBMRXZXMkRGbnBBVHVHYVlrYmhoNWRTd0J2ZXJWVlFrRW43TU9MR2dUelNFaEUwdElBQjFZaGx0cHE5ZS0yVTZmU0ZhV1Y5dTRmaVpUTUhDT2dHQVdFa3VHZEdEV3RJN0hJU2ZFZFJEN19OSVFrYnM4WkF1UXdid1JWNFlRZGdqWVE3ZmljdDRRendNOHpSY2o4NXBDU3UzNF91Sl9ZR21PSnp1SnRqUGduTDhObw?oc=5
+  - [unverified] CBS News — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcGhlQ1VlVzA0cExsZE5WS1otblI3Vm9vMWpmeXlnZHJPY0hhSnJRQlN1cWdsc0FtLXRBbzF0Q18zRnRaZkthaHB1d09sYy1PU3A3SVBzUTFUSWM4UnM1YzgydDdmQUZyLWZpcGtVbzVmdFd0YkdpajN5ZWVRSk1VTWl5eTNoRzFwWjNSSDF2TWhsTFpTemplT3FYWnBmc3FuOWZ1ZHpiMjFWblhhTDF5UmFvRU5GODVVbndPNDZDMVk?oc=5
+  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMitwFBVV95cUxOR1BneVdQTWJJbzNTTV9qYlJfUEEyLUhTRUhFR3pkNUhDeXI3MDdPZlFXeldDNGN0dTAxVUdYckY5cTB2aFUzMk01U2tEZ2ROTlphUVppTWljZC00NHhBc1NNWEphOW1DbUpsak8xQmRUZWI1UHc1Q2JRZUFJWEkwVlFyTnlTV0VUNE5sXzJwN2pqMi0tRlVjT2dKdmkyZjVMamFtZHBMWU5Nejh1N3hPM3NZOWpRcWc?oc=5
+  - [unverified] The Hill — https://news.google.com/rss/articles/CBMijgFBVV95cUxQNnpXZWJxZ3FLYzZWS0ZyQl9MMTVkSHdxMWVQSzY3Z29jREY3VlVZNnlwQzRHSzhoVnlvQkpIMUR4Z2FPdDRJekZ1VDBnaUNNNEJWdmh0NVQ0ODJGUGcxTHM4cnhhUmN0dVpJaTVvWnpOV0x4bDZjUEJDYzN2WS1hUWs0bnlpQWE0UkgtSXdB0gGTAUFVX3lxTE1hYWJBWTJjVnJTN3ZNY2F0MXdOR1llbW1oWDZsVnRkVEY4eDFYYmE2aTgwYlMzaEdDQlZtZHlUVnhlQmluOGVGQjNjZWtaRHRFRHdBc1pad25vNUFtd2U5aFl4RERRSHlza2hfc3ZnYm1mSlY5Y2gwS2haWmo0VlJXRC1mWVEzbEVpd1VxWURmUllXZw?oc=5
+  - [unverified] baltimoresun.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNX2dsMkRrVWRQaU4zU1F5Yk1oNFRYbWFjUVEwTGV4cGJXVEdzcG5ncWpQSEdjU2otR3VlU24yYXRvRno4aWRNR2kyY1NsUE4wdzhwUEFkQ29YWUhNVFk5a0RTYlZOVmNxOG0wWmFIV2VXLVdNR1NGajVDN1pUZ2Q2bWYtT2hUYkZjdWVuQ3ctdlpidkowdjhfUEl4X2JEUDZnNG1HT2M4SGRSejNDNG9obGl3?oc=5
+  - [unverified] 5newsonline.com — https://news.google.com/rss/articles/CBMi7wFBVV95cUxNaUZiUUJBbjVpNkNSRU5fVVFkeUFJcVBXb2Y2M1UxVTkzOW9kSVdiRVg2M2tuV1N6UWRxamdjUHQwdDRuWS1qTW5tR2ZjR1ZfV1Fhak9nWVAyUVZfRHR3cUxRN1E0VmFtUms3RzNVendaaW9BSlZld01sZkdWdWhwcU43eUhHUU55Q3lMa2owU3VUaHJZczhDQ1hCRkJSY1ViU1pBbnVZWjFIalFscEtzd1R0RUVWVU9VN1B5T05OTDUtdVN2SjZ0OVVKdHhfVUg2cVNTRkxGSXVydGF2UmtpVE1tTTRFYnpLZnpxNnBVcw?oc=5
+  - [unverified] KVUE — https://news.google.com/rss/articles/CBMi5gFBVV95cUxOdWVwVm9Ka2JodlpFdVhDSWRTbFpVc1pfMERXUUczYTltWm1GQVhRdzdEU0NyNnphdVR6WEJSaTliZV83cjQ3YjhSMldlSkxFUVRaVjVGVjhsTktucG5sLTk4QWdTVjFQdm9rcTdGcUVsLXhkeE9MX0YtY1NVb011YTBFa0RESFQyQmNmVXdMMDVtcmh0WnFMZzI5ZzZoSFFiOWl0V2Z3RHVSczhYRTBSSTVybXl1Zmwtd2dBOWtTZ2sxR3JwMkplRFJTbmI2TFlXUTdSSEc5NkNwckRFX0JBS0VvNmE4QQ?oc=5
+
 ## “Not Gonna Make It All Year”: NFL World Reacts As Travis Kelce Takes Hard Hit During Chiefs Practice
 
 - first seen: 2026-08-09 09:52 UTC | category: relationship | importance: 5
@@ -584,24 +669,6 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMktqS1pDLXhRRTZ1MjRSZGtjQkNaS3BFMjRMMjVzS3Q0UDlmMjRNdDJSdE9ReVBraHdRWXJ4dlNiMmdEaVlyLWtBbGF2RXRVODllQUdZdkE0QzlseHYwUjhmamQxNXRKWTdkODBadE9ndWFvU1A1QXJCRjN1c1M4LWpjSnB4SVJUd1ltaUhldms0WFhxWjhQdEFSbGZ4cVIxVDBMdXhzQ2lPX0xmTzFPeTVyUXV0ZUxtQXZVaEk4Mmc1V0dPa2xobjNyQ29KS0lqeFg4YzZVYWhyUWRabkZBcm1IVzhlVE1McmJiaXNsaDVEUWZqOFJ6N0hhTjRKRmZOREx3UUdMSE0tdjJyZjhIUlJyOWJEQmlJQ21UemNycXhXLTJRV2xxWm1iOFc0MDlqMUhtN0R30gG7AkFVX3lxTE5HdFdpemJKcmpfS0QzaTZpTXJyWWdkNWNpM1RvQVZSUUFlTUs3bXpJdkp2TFVJaFJOYktLZFo3MWIteEZIcFFtb1JfcFE2Tm1OaXZjNHJHRm9rWFREY3UwTk8wcm81Umx1S01qdUN2MzNpZTNpeV9qbDV3bXoyZ1F6b1BXeTRSbS1IX1IweWJlM2QtQ3RZMGhYazJSQlpoWmhjY0ctSkNwa3RNOGJSb2x5LVJLUlM4M0FreUkxMWlkMkw2RDFoTDYxVXdRS2xBemhUVHM3U3BWaDYtSEdtRzBVZmRqMUlqdHJTZV81QWtfX0lCaWdzNmU0cnFRNzRoZWlzVjA4VGxnV1RMYW1OWHpkZTN0SGUxQ0R0ZHIwWlVHMm04ZFhpTFNlLVR0OTIwdDY2MmlpZ2pQMm0tNA?oc=5
 
-## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
-
-- first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 11
-- summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
-- sources:
-  - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
-  - [unverified] Reuters — https://news.google.com/rss/articles/CBMiugFBVV95cUxQem8tQ281dWR1RWV5ZVFHX1BEQWZnNU1RaW1uZm40S0VjZzZEbGxVVHVLZkJDZjBkRzM4bUNrNVIwR0RSbDM1MFo1UVdYUV8yLXZKc1QyZEZxcFlHOGgtZzcxYk0zNzZiWlc3TExjMlU4cGhYS0tzT09feE93US1TMEh0eXlGMk12VHNRQUdkcDdmM2ZDRGhBcExEazVUOVBaTlNXc2ZZbmd4SDBxcW1kU1pFSHJZT0dqU1E?oc=5
-  - [unverified] CBC — https://news.google.com/rss/articles/CBMimwFBVV95cUxQb3BnM2Y5MVY0Vzl0WW94dnhJN1ZWN1cyRXUyVzF4QTAzOG5ncDNZUG9zbVhjakMxcmtEbFAwZ20tNFBNdDhxNXEtUlFLMXJWMTFwanFrcU91ZFRtY3c3YWZJSm50SDRPaGctaTFXdnAzQ041eGNVMThuaFZQaXUzYkhfSjBDcW52TFNPWkpFQXNCQjI5d2FURFJvVQ?oc=5
-  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMinwFBVV95cUxPc1pPb3pnTUxvN1JqNmdHTzlSbHNhbVRpQkhsUHF1cDZDOFg1d2dKcHdsR1lSdHFOV3c5ci11RjlycUNEcjVzWUtjV1BvdmxHd1ZuWlhRQWd3bkJOSXp3UTl6RS1KamNNSmlLdFBsMjNBcjBSRVplR0ZCN2p3TXdsMTk0dm0tZUFFdl8zNEhCLThQbGxsYWxBYkcteXFEQ1U?oc=5
-  - [unverified] Red Lake Nation News — https://news.google.com/rss/articles/CBMizAFBVV95cUxPZWx3X094SllZdTJVRW9DZzVzd21EVzdHQ3BNSnpLUlpnODdYS2FKQmhlQXpHcnVEMk9LVlktNTNOYy1iZVc1VFl2blh0YlJ3VWp6SWlPek1IY1J1WlBqc0pnU2ZXY0E0OWMzVVR2YmhWVW05VHczdTRiWlpZOXlKNnQzS19obDJ0NDZrRFRjbFg0X1o4bFRBR2J1Q0dpanRSaVVGaHNqYllpWmt5b2ZIelkyekdzOEFkVE41eFU2NWpZVF94R2FkUndjZVA?oc=5
-  - [unverified] Free Press Kashmir — https://news.google.com/rss/articles/CBMirwFBVV95cUxPU0wzN3Y5bFY0eHNxWklzYXJmVTVlSzd2aktGaGRETjRsQVJyOW5oRVBVb3NwWXdFWmdIQmo2MzVNbkRyRUhmX2p1S1pXUW1hTmY5eDJPb3lFTl9TN3FpWFVKQkZNZjZlUTIxWGZZbHh6LWlZek4yLUdCZUxoUE9ucVZCUktCak9Bc29JLTBXTF9zTnAzRDZ4VVY0Zms1UndfaUtIaW5xZmZSQUdGbHY40gG0AUFVX3lxTFBMRXZXMkRGbnBBVHVHYVlrYmhoNWRTd0J2ZXJWVlFrRW43TU9MR2dUelNFaEUwdElBQjFZaGx0cHE5ZS0yVTZmU0ZhV1Y5dTRmaVpUTUhDT2dHQVdFa3VHZEdEV3RJN0hJU2ZFZFJEN19OSVFrYnM4WkF1UXdid1JWNFlRZGdqWVE3ZmljdDRRendNOHpSY2o4NXBDU3UzNF91Sl9ZR21PSnp1SnRqUGduTDhObw?oc=5
-  - [unverified] CBS News — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcGhlQ1VlVzA0cExsZE5WS1otblI3Vm9vMWpmeXlnZHJPY0hhSnJRQlN1cWdsc0FtLXRBbzF0Q18zRnRaZkthaHB1d09sYy1PU3A3SVBzUTFUSWM4UnM1YzgydDdmQUZyLWZpcGtVbzVmdFd0YkdpajN5ZWVRSk1VTWl5eTNoRzFwWjNSSDF2TWhsTFpTemplT3FYWnBmc3FuOWZ1ZHpiMjFWblhhTDF5UmFvRU5GODVVbndPNDZDMVk?oc=5
-  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMitwFBVV95cUxOR1BneVdQTWJJbzNTTV9qYlJfUEEyLUhTRUhFR3pkNUhDeXI3MDdPZlFXeldDNGN0dTAxVUdYckY5cTB2aFUzMk01U2tEZ2ROTlphUVppTWljZC00NHhBc1NNWEphOW1DbUpsak8xQmRUZWI1UHc1Q2JRZUFJWEkwVlFyTnlTV0VUNE5sXzJwN2pqMi0tRlVjT2dKdmkyZjVMamFtZHBMWU5Nejh1N3hPM3NZOWpRcWc?oc=5
-  - [unverified] The Hill — https://news.google.com/rss/articles/CBMijgFBVV95cUxQNnpXZWJxZ3FLYzZWS0ZyQl9MMTVkSHdxMWVQSzY3Z29jREY3VlVZNnlwQzRHSzhoVnlvQkpIMUR4Z2FPdDRJekZ1VDBnaUNNNEJWdmh0NVQ0ODJGUGcxTHM4cnhhUmN0dVpJaTVvWnpOV0x4bDZjUEJDYzN2WS1hUWs0bnlpQWE0UkgtSXdB0gGTAUFVX3lxTE1hYWJBWTJjVnJTN3ZNY2F0MXdOR1llbW1oWDZsVnRkVEY4eDFYYmE2aTgwYlMzaEdDQlZtZHlUVnhlQmluOGVGQjNjZWtaRHRFRHdBc1pad25vNUFtd2U5aFl4RERRSHlza2hfc3ZnYm1mSlY5Y2gwS2haWmo0VlJXRC1mWVEzbEVpd1VxWURmUllXZw?oc=5
-  - [unverified] baltimoresun.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNX2dsMkRrVWRQaU4zU1F5Yk1oNFRYbWFjUVEwTGV4cGJXVEdzcG5ncWpQSEdjU2otR3VlU24yYXRvRno4aWRNR2kyY1NsUE4wdzhwUEFkQ29YWUhNVFk5a0RTYlZOVmNxOG0wWmFIV2VXLVdNR1NGajVDN1pUZ2Q2bWYtT2hUYkZjdWVuQ3ctdlpidkowdjhfUEl4X2JEUDZnNG1HT2M4SGRSejNDNG9obGl3?oc=5
-  - [unverified] 5newsonline.com — https://news.google.com/rss/articles/CBMi7wFBVV95cUxNaUZiUUJBbjVpNkNSRU5fVVFkeUFJcVBXb2Y2M1UxVTkzOW9kSVdiRVg2M2tuV1N6UWRxamdjUHQwdDRuWS1qTW5tR2ZjR1ZfV1Fhak9nWVAyUVZfRHR3cUxRN1E0VmFtUms3RzNVendaaW9BSlZld01sZkdWdWhwcU43eUhHUU55Q3lMa2owU3VUaHJZczhDQ1hCRkJSY1ViU1pBbnVZWjFIalFscEtzd1R0RUVWVU9VN1B5T05OTDUtdVN2SjZ0OVVKdHhfVUg2cVNTRkxGSXVydGF2UmtpVE1tTTRFYnpLZnpxNnBVcw?oc=5
-
 ## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
 
 - first seen: 2026-08-09 05:55 UTC | category: sighting | importance: 3
@@ -617,82 +684,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Team Trump Trolls Taylor Swift With Song Use Before Copyright Claim Brings Silence  Deadline
 - sources:
   - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQLV9aaGlxOTdEQ1E5ODhOeTU4RDJyRmpOU19zY1czaDBQb0JZSjROYmNXSUhQOXpnX2hJVEpUc0c5T1JYaklURUcxdEtQekdwcTFEVEE2VHItZklhTC0zaG05Z2NSSm5IN3dkWkUyZlM3a0p4Szd5VThfQUJ0ZF9PWHhEZkdxaVBE?oc=5
-
-## Taylor Swift song loses audio on Trump TikTok video - Washington Times
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift song loses audio on Trump TikTok video  Washington Times
-- sources:
-  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMingFBVV95cUxQcnBxZFF5WmxKeGN6VllyODFidDRlSmsxY2ZPNGU3akNNN1ZVT1VIWVBBWG42d2NsU1FPa0NxVWx5MHk5akc4anVHSF9YRVMxX0hCZkVkTXg3Q282NTJ6VVROaEFjTlNQYnctbF9OcUhqMDBOenAtSmFibk83TmZxYjR5TkxPcFpXMkpQU3ZlcWY0OVFQVmc3dVpIZWdBZw?oc=5
-
-## Swifties celebrate after Taylor Swift blocks Team Trump from using her song on TikTok - MARCA
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Swifties celebrate after Taylor Swift blocks Team Trump from using her song on TikTok  MARCA
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNQWVyeENfNEdncmQ4c1ktclg4VTdKNF9ZTWFBQkxWOGwxREUtcG1fdmxnckRLc3dleTNoMU4zLXh0QlR5djA4X0lyTnNmLURZQlA5bVVHcnJleFBrcHBnTXNjM0IxX3Q2cU1rTGVha0R4NGQ5ZUVFVTJfRjhiN2F2WWZfNHFidjVmXzdrWHZOYzhQa2lGY3ZaVnhxRklPZjRnVjZuMkNUMWR2YVJSbXN3YUtGemR5LWlEVllWeDFtZi1Ockt5VUlpZlAyamJfMzFYOS1OTjVBOTRFZw?oc=5
-
-## Taylor Swift’s ‘August,’ ‘Father Figure’ & Other Songs Removed From Trump-Related TikTok Posts - bil
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘August,’ ‘Father Figure’ & Other Songs Removed From Trump-Related TikTok Posts  billboard.com
-- sources:
-  - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNdk5CS2hGZmVqNzBwZWNLaFhnd3Itckh5Vk1obkdDUVhxRmJXZ0ZmZ0RBZ0VyMmluZDAtRldYQXMzU3NmS092SW5hRFZaTHBiT0VPVzhPMUZZVUpVOEtpOEdjbFo1SjhHZ3ZhV1FJZzRZNjFPRWs5dnBPTk9FS0JsOFQ2V3VEOTNQa2M4MkFKY3BfWFRrOGtWYW5TQ1UtNlZFVWc?oc=5
-
-## Is Phil Collins A Swiftie? Music Icon Says Taylor Swift ‘Deserves’ To Be ‘Hugest Thing In The World’
-
-- first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Is Phil Collins A Swiftie? Music Icon Says Taylor Swift ‘Deserves’ To Be ‘Hugest Thing In The World’  TODAY.com
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxQd200VngzUW91WjlBMnhsOU5ndDc3bk1VbTMyWk5yOG9BZTVIZHo1SmZ3RGNfNExMNnY3MEZMTjA1UGtoblRyUFlGWlljSWVmendMWXZsNHFLOFRvbWs3WmxucEJaank2cjU4SGw5dm96V1I4TDRWZGpnMklVWG0ycTY4eTBWeUlDZVFTSUdjTnNZamV6c0dfLXBLM0tNdzhLMVlzTGZ6Yw?oc=5
-
-## Blake Lively, Ryan Reynolds All Smiles Month After Missing Taylor Swift Wedding - TMZ
-
-- first seen: 2026-08-08 21:42 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively, Ryan Reynolds All Smiles Month After Missing Taylor Swift Wedding  TMZ
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQV0o1TnJTdzAtRnNpRlB2UmtXRkV0b1AtdGl0enNPMFdyZXo1WkJWbDVPV3pmeFNMcnh1aE5wRFFmZW9hRi0tQlQ2ZG9Vc0RVLUVxY0daX3pmSTNidVVsaEI4Q1poWGEwMDB2eXVILUZIQzRvU1dUVXBsWUJNbWUzYjExLXFreHcwQWE0?oc=5
-
-## A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier t
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Taylor Swift song has been removed from a TikTok video posted to the White House account earlier this week over a copyright claim. Read more below.  facebook.com
-- sources:
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxNQzZPaVp3cl9McndxODdWQ2d5LUdpUW5BZFBGR053NWoxcklBc3VQdTczVk5JVFltNmtSMmJ2ai1KYU03MU5ETi14Tzkxd3M3TzhGNjZuOE1HWG9DU3U0QVJROTdKVTdLcEVnakFEU2dQbmpBWEloZkZaYVJjLUwxa2Q0ZlN2YUZtaWsxN21YbjUwdFhFZVVxclNwLVB5aWhwR1Vzc1FoVkFYVnpxdGg2ZVhMMVBJVVo3a29XbEtJMjl2WTlQWVJmYkRIbzFMTlhIU3RTUQ?oc=5
-
-## Taylor Swift Humiliates Trump With Copyright Smackdown - The Daily Beast
-
-- first seen: 2026-08-08 21:42 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Humiliates Trump With Copyright Smackdown  The Daily Beast
-- sources:
-  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMijwFBVV95cUxQYmMwLXFHQUo3ZHJ0dWpMU0NqSHFDMlRfdTZEYXN3SzZlNFNTUlNvalpLR21SVVNtbW1uVmg5d2xiTUdsRDc3VHFqcnd3eEdFNDI2UUdPblRCazBHbXk0TjdOd00yUERhYVl1WGMwbnNPVElLVVJyRXlsNDhHS0FlYzVlRHYzRTFyXzM0amtrVQ?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZHNhSHZOLUVzOW5Tb0stSXdjSHVfUVZmRG5jXzBldVJqQ19QNzBmc2NZQjlrcHIzaEx3YkxRUkkycF9Ja1Z1WFVld2szaEZOZlYwRF95OWZ6WHRzWEFOWFNnZEl4djd1UldBajBKTzlORjk5X3d4UU1hT09iRUtlMHBQZ3JodlQxd2pEVEdzMmhjTzVtV3ExQ2JtNWp3OWxOUW83UUJnRUc?oc=5
-
-## Taylor Swift removes multiple songs from Trump social media posts - Entertainment Weekly
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift removes multiple songs from Trump social media posts  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxOZ1NCc0lmeW5KRFZmbUZUSEN4czBISE9vNWFjT0lhNlZjbklkak5kQ1dDa21QTHdUSHdKcWd6bzR6SU9Xd2J6QmY4R1NJVFdJeUZlU0VpUXJhdWdTck9hR0ZJbUY4ZFdtMXVnS1I3eU1jNEg1R1ZqUnkyZ1p1YXdKQjlQdG5qTXZ2T2tnUjFKMjRlNVU?oc=5
-  - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3lQekxKR3pHRXFHelB0ajhfcFhtbmoyZXB3clI2dDlQY0FObjJJTXBUc09hSElZYTd1YnlUckg2WXB4LVFZd0xBV1paYldGeUxITGFhZHNTUzlKRGVIU2dQLU56TG5wekxpM0ZJSWY4MzMtNktQdW1QOFp4bFB1cHBMQWpHRWF4MFF0SUFKOVd4c2VJZGRZaG5VSUVuYUJNWUE0OUZnR3M5ako2dmVQXw?oc=5
-  - [unverified] Arise News — https://news.google.com/rss/articles/CBMikAFBVV95cUxOSFZOTGU1WWF4czE1QTNnbFl3ZThsdzMzOUdZMjdFSUdkRncwVTVNZHRYY0dYNWhzVnVKU2IwN0FYRFdGbWlyYXVWM3RiMHJ6eUF1RDRjcnYyNTdGTlF0QnpFSHBHVTU4SG5Pb0t1NGI1NXNFWmRhY095em5fSTZFSURlakZNWXRENzJRMmdqV00?oc=5
-  - [unverified] Sky News — https://news.google.com/rss/articles/CBMitAFBVV95cUxPNTZyR0FiR21BVHhoN1V6bVVRLWY0NDVWRDVldXVqYmNXT3B4YmRBTEo0aHhEU3hEYkJNa1NqbDNWS3FTZk9qQXRRZ2x0bFJlLTVUWmo3RlFhYmF0eUY2OTZmY2R3VE9YamxDTGxRU3ZtTlFJSC1nRnBQcDU3czk1a3czXzNXS3F5V3NhS2owRFhLQmxNcU90UktwYWRTRVVZNkFsUDN0SjE1WkdCekFLSi1rNlQ?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNdGhXTmN1LWlTcUUzYU15V0pSX3ltLVdPcWlXWFVSbGkxLWNTVDFaVVM0M3hRX3RtVW1ZUHZVdnVjNXktNkpqeXgwYU9ZUkJSS3hqUDlrczJyblhxNkpYbnJ3eGhpdFA1dDMwdWRHQ0gxaFNuQi1mOHBXdUpacTlscmdLMk5CVTQ0V2tCemY3eHpqN08zTkJzNmh6SzNkMjZUTVE?oc=5
-  - [unverified] Indy100 — https://news.google.com/rss/articles/CBMie0FVX3lxTFB1WFR5Zy1xMlFTcVhUY3Y4eGk2RjdXUG9IRm5CU0RsOGl0T3c4NjRJUkpMLU4yb25MckwzOXcyZUd2VUxwQUdkbkh5dlI5YTM5SngtZS1UMnpxUTFwV3NJTXE1S2t2QVU1dEtVRWRKZWg4SzNVcWhMSkRrWQ?oc=5
-
-## Donald Trump's TikTok Team Trolls Taylor Swift After Her Songs Removed from Its Posts - TMZ
-
-- first seen: 2026-08-08 21:42 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Donald Trump's TikTok Team Trolls Taylor Swift After Her Songs Removed from Its Posts  TMZ
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiowFBVV95cUxQNm9LbGtVVWNGZ0dzekxmYWV5aTUwVFJfQUhlNHBDQllzWnNGWnhVTWdiYWNmckFLNUJiakowQk1ySGRhUGJoRnBmSW5PVldtb2tnYmJ1TmgwQnZ2XzZrVjUxd0pXSnVYeFBMUlRpWDZCSllRekY1cjl0dFlaQ0FXdGxXcGpjdFNFRERBMUNvVjh0eUhUVzU0MTN6Q3hGaGQ2YjhV?oc=5
-  - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMiogFBVV95cUxOa2ppSVh6a3MtWWI0cDNZNG1XUFhOMWhqTXR4SDdMVUI2alhrZkxydXA4ZjJvY25fX1d1QXZiXzdIWWx5LWl5dnNjc1VCOFItV0hCRkEzbGZrYUZ0YThZWmN1YWlfQjgwekJ0RW9fOXdqeVg4TUdJWEpDbl9sMWJyWVBPM2hTeDZTRzYxb2Ytd2lYQVpra1ZoZzBSNTNtRWE5V2c?oc=5
