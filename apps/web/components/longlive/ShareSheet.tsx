@@ -118,7 +118,7 @@ export function ShareSheet() {
           <span className="text-sm font-medium text-white/80">Share card</span>
           <button
             onClick={closeShare}
-            className="rounded-full bg-white/10 p-1.5 text-white/80 hover:bg-white/20"
+            className="era-icon-btn rounded-full p-1.5"
             aria-label="Close share"
           >
             <X className="h-4 w-4" />
