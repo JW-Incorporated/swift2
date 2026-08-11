@@ -8250,21 +8250,23 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
+            // Photo pass #762 (2026-08-03): re-viewed full-res — Taylor's full
+            // figure sits left-of-center but well below the frame's vertical
+            // midline (lots of dark stadium bowl above), not near the top.
+            focalPoint: '37% 62%',
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption:
               'The Eras Tour\'s Lover set at SoFi Stadium, August 2023 — the show whose filmed Vancouver finale earned the five nominations.',
             kind: 'archival',
-            // Wide panorama, Taylor small in the left third against a dark bowl.
-            focalPoint: '34% 40%',
           },
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2026/07/GettyImages-2166917001.jpg?w=1440&h=810&crop=1',
+            // Taylor centered, face just above the vertical midline.
+            focalPoint: '50% 36%',
             credit: 'Getty Images, via The Hollywood Reporter',
             caption:
               'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
             kind: 'archival',
-            // Taylor centered, face just above the vertical midline.
-            focalPoint: '50% 36%',
           },
         ],
       },
