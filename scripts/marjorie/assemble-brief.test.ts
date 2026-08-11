@@ -69,16 +69,19 @@ describe('formatGrowthLine', () => {
     );
   });
 
-  it('formats follower counts, signed deltas, and posts-today', () => {
+  it('formats follower counts, signed deltas, and a per-platform 24h post count', () => {
     const line = formatGrowthLine(
       {
         followers: { instagram: 1204, x: 340, facebook: 89 },
         deltas: { instagram: 18, x: 5, facebook: 0 },
         postsToday: 2,
+        postsLast24h: { total: 3, x: 1, instagram: 1, facebook: 1 },
       },
       emptyQueueStatus,
     );
-    expect(line).toBe('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today · queue: empty (nothing drafted) · site: pending #799');
+    expect(line).toBe(
+      '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 3 posts/24h (X 1/IG 1/FB 1) · queue: empty (nothing drafted) · site: pending #799',
+    );
   });
 
   it('renders "?" for a platform that failed to fetch and omits its delta', () => {
@@ -87,10 +90,37 @@ describe('formatGrowthLine', () => {
         followers: { instagram: null, x: 340, facebook: 89 },
         deltas: { instagram: null, x: 5, facebook: null },
         postsToday: 1,
+        postsLast24h: { total: 1, x: 0, instagram: 1, facebook: 0 },
       },
       emptyQueueStatus,
     );
-    expect(line).toBe('- Growth: IG ? · X 340 (+5) · FB 89 · 1 post today · queue: empty (nothing drafted) · site: pending #799');
+    expect(line).toBe('- Growth: IG ? · X 340 (+5) · FB 89 · 1 post/24h (X 0/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799');
+  });
+
+  // The 2026-08-11 misread: the brief showed one aggregate "0 posts today"
+  // number taken at 11:05 UTC against a 23:00 UTC posting cadence, and it was
+  // read as "the X poster is silently failing" while X had posted six nights
+  // running. The per-platform 24h window can't produce that ambiguity.
+  it('shows X posting even when the calendar-day count is 0', () => {
+    const line = formatGrowthLine(
+      {
+        followers: { instagram: 1, x: 0, facebook: 8 },
+        deltas: { instagram: 0, x: 0, facebook: 0 },
+        postsToday: 0,
+        postsLast24h: { total: 2, x: 1, instagram: 1, facebook: 0 },
+      },
+      emptyQueueStatus,
+    );
+    expect(line).toContain('2 posts/24h (X 1/IG 1/FB 0)');
+    expect(line).not.toContain('0 posts');
+  });
+
+  it('falls back to the legacy count, labelled, for snapshots taken before the 24h window existed', () => {
+    const line = formatGrowthLine(
+      { followers: { instagram: 1, x: 0, facebook: 8 }, deltas: { instagram: null, x: null, facebook: null }, postsToday: 2 },
+      emptyQueueStatus,
+    );
+    expect(line).toContain('2 posts today (pre-24h-window snapshot)');
   });
 
   it('reports scheduled and due counts separately — the ground truth a curation pass must copy, not invent', () => {
@@ -203,10 +233,20 @@ describe('buildBrief', () => {
 
   it('includes the Growth line in Health', () => {
     const withSnapshot = buildBrief(
-      { ...emptyState, growth: { followers: { instagram: 1200, x: 340, facebook: 89 }, deltas: { instagram: 18, x: 5, facebook: 0 }, postsToday: 2 } },
+      {
+        ...emptyState,
+        growth: {
+          followers: { instagram: 1200, x: 340, facebook: 89 },
+          deltas: { instagram: 18, x: 5, facebook: 0 },
+          postsToday: 2,
+          postsLast24h: { total: 2, x: 1, instagram: 1, facebook: 0 },
+        },
+      },
       { date: '2026-07-12', now: NOW },
     );
-    expect(withSnapshot).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today · queue: empty (nothing drafted) · site: pending #799');
+    expect(withSnapshot).toContain(
+      '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
+    );
 
     const noSnapshot = buildBrief(emptyState, { date: '2026-07-12', now: NOW });
     expect(noSnapshot).toContain("- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)");

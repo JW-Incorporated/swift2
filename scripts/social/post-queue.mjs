@@ -8,19 +8,35 @@
 // Crisis stop: if the repo variable SOCIAL_FREEZE is set to anything
 // truthy, this exits immediately without posting or touching the queue —
 // per the Growth desk charter's hard rail. Any founder can set it.
+//
+// Failures are LOUD (2026-08-11). A permanently-failed item (all 3 attempts
+// burned, moved to social/failed/) makes this process exit non-zero, emits a
+// `::error::` Action annotation, and writes a markdown report that the
+// workflow puts in the queue-state PR's title and body. Before this, twelve X
+// posts died into social/failed/ across 2026-07-21..08-04 with X returning
+// 403 every time, and every one of those runs finished GREEN — see
+// scripts/social/lib/run-report.mjs's header for the receipts. The workflow's
+// state-commit step runs with `if: always()`, so a red run still records what
+// happened; without that the failed/ move would never land and the item would
+// retry against the same wall forever.
+//
+// Environment overrides (both for tests only, never set in the workflow):
+//   SOCIAL_ROOT             — repo root to read social/** from.
+//   SOCIAL_POSTER_REPORT    — file to write the markdown report to.
 
-import { readdir, readFile, writeFile, rm } from 'node:fs/promises';
+import { readdir, readFile, writeFile, appendFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { selectDuePosts, utcDateOnly, repeatsRecentEraArt } from './lib/queue.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
+import { OUTCOME, hasBlockingFailure, summarizeRun, formatReportMarkdown, formatAnnotations } from './lib/run-report.mjs';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
-const POSTED_DIR = path.join(ROOT, 'social', 'posted');
-const FAILED_DIR = path.join(ROOT, 'social', 'failed');
 const MEDIA_BASE_URL = 'https://www.longlivets.com';
 const MAX_ATTEMPTS = 3;
+
+function resolveRoot() {
+  return process.env.SOCIAL_ROOT || path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+}
 
 async function readJsonDir(dir) {
   let files;
@@ -40,8 +56,8 @@ async function readJsonDir(dir) {
 /** Last `n` Instagram items ever posted, oldest-to-newest by `postedAt`, for
  * the repeated-era-art guard below. Reads all of social/posted/ — cheap at
  * this account's post volume; revisit if that ever stops being true. */
-async function recentInstagramPosts(n = 10) {
-  const posted = await readJsonDir(POSTED_DIR);
+async function recentInstagramPosts(postedDir, n = 10) {
+  const posted = await readJsonDir(postedDir);
   return posted
     .map((p) => p.data)
     .filter((d) => d.platform === 'instagram')
@@ -49,8 +65,8 @@ async function recentInstagramPosts(n = 10) {
     .slice(-n);
 }
 
-async function countPostedToday(now) {
-  const posted = await readJsonDir(POSTED_DIR);
+async function countPostedToday(postedDir, now) {
+  const posted = await readJsonDir(postedDir);
   const today = utcDateOnly(now);
   const counts = new Map();
   for (const { data } of posted) {
@@ -82,37 +98,76 @@ async function postOne(item) {
  * it already landed; a Facebook failure is logged loudly but doesn't undo
  * that or trigger a retry of the whole item (which would re-post to
  * Instagram too). Only runs when FB_PAGE_ID is configured.
+ *
+ * It IS reported, though: the caller records a `facebookError` on the
+ * outcome so a Page that silently stopped accepting posts (an expired token,
+ * a dropped `pages_manage_posts` scope) shows up in the run report instead of
+ * living only in a log line. It still doesn't redden the run.
  */
 async function crosspostToFacebook(item) {
   const facebookPageId = process.env.FB_PAGE_ID;
-  if (!facebookPageId || item.platform !== 'instagram') return null;
+  if (!facebookPageId || item.platform !== 'instagram') return { result: null, error: null };
   try {
     const result = await postToFacebookPage(item, { accessToken: process.env.IG_ACCESS_TOKEN, facebookPageId }, MEDIA_BASE_URL);
     console.log(`social-poster: cross-posted to Facebook Page -> ${result.url}`);
-    return result;
+    return { result, error: null };
   } catch (err) {
-    console.error(`social-poster: Facebook Page cross-post failed (Instagram post itself still succeeded): ${err.message ?? err}`);
-    return null;
+    const error = String(err.message ?? err);
+    console.error(`social-poster: Facebook Page cross-post failed (Instagram post itself still succeeded): ${error}`);
+    return { result: null, error };
   }
 }
 
-async function main() {
+/** Writes the run report everywhere a human might actually look at it. */
+async function publishReport(outcomes) {
+  const summary = summarizeRun(outcomes);
+  const runUrl =
+    process.env.GITHUB_SERVER_URL && process.env.GITHUB_REPOSITORY && process.env.GITHUB_RUN_ID
+      ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+      : undefined;
+  const markdown = formatReportMarkdown(outcomes, { runUrl });
+
+  for (const annotation of formatAnnotations(outcomes)) console.log(annotation);
+  console.log(`social-poster: run summary — ${summary}`);
+
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    await appendFile(process.env.GITHUB_STEP_SUMMARY, markdown + '\n').catch((err) =>
+      console.error(`social-poster: could not write job summary: ${err.message ?? err}`),
+    );
+  }
+  if (process.env.SOCIAL_POSTER_REPORT) {
+    await writeFile(process.env.SOCIAL_POSTER_REPORT, markdown).catch((err) =>
+      console.error(`social-poster: could not write report file: ${err.message ?? err}`),
+    );
+  }
+  return { summary, markdown };
+}
+
+export async function main() {
   if (process.env.SOCIAL_FREEZE && process.env.SOCIAL_FREEZE !== 'false' && process.env.SOCIAL_FREEZE !== '0') {
     console.log(`social-poster: SOCIAL_FREEZE is set ("${process.env.SOCIAL_FREEZE}") — skipping this run entirely.`);
-    return;
+    return [];
   }
 
+  const root = resolveRoot();
+  const queueDir = path.join(root, 'social', 'queue');
+  const postedDir = path.join(root, 'social', 'posted');
+  const failedDir = path.join(root, 'social', 'failed');
+
   const now = new Date();
-  const queued = await readJsonDir(QUEUE_DIR);
-  const postedToday = await countPostedToday(now);
+  const queued = await readJsonDir(queueDir);
+  const postedToday = await countPostedToday(postedDir, now);
   const due = selectDuePosts(queued.map((q) => q.data), now, postedToday);
+
+  const outcomes = [];
 
   if (due.length === 0) {
     console.log('social-poster: nothing due this run.');
-    return;
+    await publishReport(outcomes);
+    return outcomes;
   }
 
-  const recentIg = await recentInstagramPosts();
+  const recentIg = await recentInstagramPosts(postedDir);
 
   for (const item of due) {
     const entry = queued.find((q) => q.data === item);
@@ -125,15 +180,15 @@ async function main() {
     // surfaces in the Action log and the brief's Growth line notices a
     // stuck item.
     if (repeatsRecentEraArt(item, recentIg)) {
-      console.error(
-        `social-poster: SKIPPING ${entry.file} — its media (${item.media[0]}) is generic era-cover art already used in a recent Instagram post. Needs a real dedicated photo (see docs/agents/runner-prompts/growth-draft.md's Media section) before it can ship. Left in the queue, not counted as a failed attempt.`,
-      );
+      const reason = `its media (${item.media[0]}) is generic era-cover art already used in a recent Instagram post. Needs a real dedicated photo (see docs/agents/runner-prompts/growth-draft.md's Media section) before it can ship. Left in the queue, not counted as a failed attempt.`;
+      console.error(`social-poster: SKIPPING ${entry.file} — ${reason}`);
+      outcomes.push({ kind: OUTCOME.SKIPPED, file: entry.file, platform: item.platform, error: reason });
       continue;
     }
 
     try {
       const result = await postOne(item);
-      const facebook = await crosspostToFacebook(item);
+      const { result: facebook, error: facebookError } = await crosspostToFacebook(item);
       const posted = {
         ...item,
         postedAt: now.toISOString(),
@@ -141,22 +196,47 @@ async function main() {
         url: result.url,
         ...(facebook ? { facebookPostId: facebook.id, facebookUrl: facebook.url } : {}),
       };
-      await writeFile(path.join(POSTED_DIR, entry.file), JSON.stringify(posted, null, 2) + '\n');
+      await writeFile(path.join(postedDir, entry.file), JSON.stringify(posted, null, 2) + '\n');
       await rm(entry.full);
       console.log(`social-poster: posted ${entry.file} -> ${result.url}`);
+      outcomes.push({
+        kind: OUTCOME.POSTED,
+        file: entry.file,
+        platform: item.platform,
+        url: result.url,
+        ...(facebookError ? { facebookError } : {}),
+      });
     } catch (err) {
       const attempts = (item.attempts ?? 0) + 1;
-      const failed = { ...item, attempts, lastError: String(err.message ?? err), lastAttemptAt: now.toISOString() };
+      const lastError = String(err.message ?? err);
+      const failed = { ...item, attempts, lastError, lastAttemptAt: now.toISOString() };
       if (attempts >= MAX_ATTEMPTS) {
-        await writeFile(path.join(FAILED_DIR, entry.file), JSON.stringify(failed, null, 2) + '\n');
+        await writeFile(path.join(failedDir, entry.file), JSON.stringify(failed, null, 2) + '\n');
         await rm(entry.full);
-        console.error(`social-poster: ${entry.file} failed ${attempts} times, moved to social/failed/: ${failed.lastError}`);
+        console.error(`social-poster: ${entry.file} failed ${attempts} times, moved to social/failed/: ${lastError}`);
+        outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, attempts, error: lastError });
       } else {
         await writeFile(entry.full, JSON.stringify(failed, null, 2) + '\n');
-        console.error(`social-poster: ${entry.file} attempt ${attempts} failed, will retry: ${failed.lastError}`);
+        console.error(`social-poster: ${entry.file} attempt ${attempts} failed, will retry: ${lastError}`);
+        outcomes.push({ kind: OUTCOME.RETRYING, file: entry.file, platform: item.platform, attempts, error: lastError });
       }
     }
   }
+
+  await publishReport(outcomes);
+
+  // The whole point: a post that never made it to the timeline must not leave
+  // a green check behind. `if: always()` on the workflow's state-commit step
+  // means the failed/ move is still recorded despite this.
+  if (hasBlockingFailure(outcomes)) {
+    process.exitCode = 1;
+    console.error('social-poster: exiting non-zero — at least one post permanently failed and was NOT published.');
+  }
+
+  return outcomes;
 }
 
-main();
+// Only auto-run as a CLI; tests import `main` and drive it directly.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main();
+}

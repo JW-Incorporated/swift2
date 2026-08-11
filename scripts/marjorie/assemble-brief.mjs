@@ -93,13 +93,33 @@ function formatQueueStatus(queueStatus) {
 export function formatGrowthLine(growth, queueStatus) {
   const queuePart = formatQueueStatus(queueStatus);
   if (!growth) return `- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · ${queuePart}`;
-  const { followers, deltas, postsToday } = growth;
+  const { followers, deltas } = growth;
   const parts = [
     `IG ${formatFollowerCount(followers.instagram)}${formatDelta(deltas.instagram)}`,
     `X ${formatFollowerCount(followers.x)}${formatDelta(deltas.x)}`,
     `FB ${formatFollowerCount(followers.facebook)}${formatDelta(deltas.facebook)}`,
   ];
-  return `- Growth: ${parts.join(' · ')} · ${postsToday} post${postsToday === 1 ? '' : 's'} today · ${queuePart} · site: pending #799`;
+  return `- Growth: ${parts.join(' · ')} · ${formatPostsPart(growth)} · ${queuePart} · site: pending #799`;
+}
+
+// Posts published in the last 24h, per platform. Was "<n> posts today" from
+// the snapshot's `postsToday` until 2026-08-11, which was doubly misleading:
+// it summed every platform (so a dark X hid behind Instagram's cadence) and
+// it was taken at 11:05 UTC against a posting cadence scheduled for 23:00
+// UTC, so it read 0 on days that posted perfectly well. The 2026-08-11 brief
+// said "X 0 · 0 posts today" and was read as "the X poster is silently
+// failing" when X had in fact posted six nights running. Old snapshots that
+// predate `postsLast24h` fall back to the legacy number, labelled honestly.
+function formatPostsPart(growth) {
+  const window = growth.postsLast24h;
+  if (!window) {
+    const n = growth.postsToday ?? 0;
+    return `${n} post${n === 1 ? '' : 's'} today (pre-24h-window snapshot)`;
+  }
+  const breakdown = ['x', 'instagram', 'facebook']
+    .map((platform) => `${platform === 'x' ? 'X' : platform === 'instagram' ? 'IG' : 'FB'} ${window[platform] ?? 0}`)
+    .join('/');
+  return `${window.total} post${window.total === 1 ? '' : 's'}/24h (${breakdown})`;
 }
 
 export async function fetchState(repo = REPO) {

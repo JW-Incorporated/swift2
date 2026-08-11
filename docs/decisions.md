@@ -7,6 +7,72 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — A failed social post must turn the run red; the brief counts posts per platform over 24h
+
+**Decision:** Two changes, one to delivery and one to measurement.
+
+1. `scripts/social/post-queue.mjs` now exits non-zero when an item permanently
+   fails (all 3 attempts burned, moved to `social/failed/`), emits `::error::`
+   annotations, writes an Actions job summary, and puts the per-item outcome
+   in the queue-state PR's title and body. A mid-retry attempt stays green —
+   the item is still queued — but is reported. `social-poster.yml`'s
+   state-commit step gains `if: always()` so a red run still records the
+   `failed/` move; without it the item would sit in `social/queue/` on `main`
+   and retry against the same wall forever.
+2. `social/metrics/*.json` gains `postsLast24h` (per platform + total) and the
+   Founders' Brief Growth line reports that instead of `postsToday`.
+
+**Why:** The 2026-08-11 brief read `X 0 · 0 posts today` and was taken as "the
+X poster is silently failing." Both halves of that reading were wrong in
+different, instructive ways.
+
+*Delivery.* X posting was in fact fine — six consecutive nights, 08-05 through
+08-10, each with a real tweet id in `social/posted/*-x.json`. But it HAD been
+dead: between 2026-07-21 and 2026-08-04, twelve X items exhausted their
+attempts against `403 {"detail":"You are not permitted to perform this
+action."}` and were binned into `social/failed/`. Every one of those
+social-poster runs finished **green** — e.g. run 30981473515, conclusion
+`success`, whose log contains "2026-08-04-mine-rush-release-x.json failed 3
+times, moved to social/failed/". The error was caught, logged to a console
+nobody reads, and the process exited 0. Two weeks of a dark channel and the
+only artifact was a queue-state PR whose body was fixed boilerplate. The
+recovery on 08-05 came with no code change either — nobody knows what X did,
+because nothing was watching. What we can control is that a post which never
+reached the timeline never again leaves a green check.
+
+*Measurement.* `postsToday` counted `social/posted/**` entries whose
+`postedAt` fell on the current UTC date, but `growth-snapshot.yml` runs at
+11:05 UTC and the entire queue is scheduled for 23:00–23:20 UTC. The day's
+posts land ~12 hours after the snapshot meant to count them, so the number
+was structurally near-always 0 — every snapshot from 08-08 on reads 0 while
+the poster was shipping nightly. It also summed all platforms, so a totally
+dark X was invisible behind Instagram's cadence: the one question the number
+gets asked ("is X posting?") was the one it could not answer.
+
+**Alternatives considered.** *Redden the run on any failed attempt, not just
+permanent ones:* rejected — a half-hourly workflow that goes red on a
+transient 429 trains everyone to ignore it, which is precisely the failure
+mode being fixed. *Open a GitHub issue per failed post:* rejected for now as
+duplicative — a red run plus a titled PR is already loud, and `watchdog.yml`
+already watches run liveness. Revisit if a red run turns out not to reach
+anyone. *Move `growth-snapshot.yml` to ~01:00 UTC so "today" lines up:*
+rejected — it must run before the 12:45 UTC brief, and a rolling window is
+invariant to scheduling instead of coupled to it.
+
+**Open, needs Wyatt:** nobody has verified what the 403 window actually was.
+The discriminating check is the X developer portal for the `@longlivetscom`
+app — **User authentication settings → App permissions** must read *Read and
+Write*, and the **Usage/limits** page shows whether the monthly post cap was
+hit in that window. If permissions were flipped to Read-only, the access
+token must be regenerated after fixing them (an existing token keeps the
+scope it was minted with). Do not run this from an agent session — it is a
+credential-surface action.
+
+**Approved by:** proposed by the 2026-08-11 engineering session; Wyatt (CTO)
+signs off by merging the PR. Engineering-health change, no product surface.
+
+---
+
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
 
 **Decision:** Fix the Growth desk's drafting instructions so Instagram posts
