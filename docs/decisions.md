@@ -124,6 +124,94 @@ right place for that distinction and already carries it.
 
 **Approved by:** Joey
 
+---
+
+## 2026-08-11 — Security headers: a split CSP (enforce the safe half, report-only the rest) and a permissive `img-src`
+
+**Decision (PENDING Wyatt's approval).** The app shipped with **no** security
+response headers. It now sends HSTS, `X-Content-Type-Options`,
+`X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and **two** CSP
+headers, defined in `apps/web/lib/security-headers.mjs`:
+
+1. **`Content-Security-Policy` (enforcing)** — `frame-ancestors 'none'`,
+   `base-uri 'self'`, `form-action 'self'`, `object-src 'none'`. Nothing else.
+2. **`Content-Security-Policy-Report-Only`** — the full resource policy
+   (script/style/img/font/connect/frame/worker/manifest), reporting to
+   `/api/csp-report`.
+
+**Why split.** The site is embed-heavy and hotlinks images from ~500 distinct
+third-party hosts, a set that grows with every content PR. A single enforcing
+policy is a loaded gun pointed at content: the first new image host silently
+blanks a photo, and nobody notices for a week. The split lets us have the
+controls that *cannot* break a page today, while learning what the real site
+loads before anything becomes fatal. The four enforced directives were chosen
+because none of them governs loading a resource — a unit test asserts the
+enforced policy contains no fetch directive at all, so no future content can be
+broken by it. `frame-ancestors` has to be in the enforcing header specifically:
+browsers ignore it in a report-only policy.
+
+**Why `img-src` stays permissive (`'self' data: blob: https:`) even after the
+flip.** An allowlist of ~500 hosts is a maintenance trap with a silent failure
+mode, and it buys very little — an image URL is not a code-execution vector.
+`https:` keeps the guarantee that actually matters (no plaintext image loads).
+Being honest about this beats a policy that looks strict and gets widened in a
+panic the first time a page goes blank.
+
+**What `script-src` does and does not buy.** It carries `'unsafe-inline'`,
+because Next's hydration bootstrap and the JSON-LD block are inline scripts
+whose content changes every build. Removing it needs a per-request nonce, which
+in the App Router means middleware, which opts every page out of static
+generation — a bad trade on a 100% prerendered content site. So `script-src` is
+a host allowlist, not an XSS control. Acceptable today because the app renders
+no user-supplied HTML anywhere (feedback text goes to GitHub, never back into a
+page). **If that ever changes, this directive needs the nonce.**
+
+**Not done deliberately:** `preload` on HSTS (submitting to the browser preload
+list is effectively irreversible — Wyatt's call, not a side effect of a headers
+PR), and `upgrade-insecure-requests` (no http:// subresources exist to fix, and
+content carries a few http:// source links to old archives we don't want to
+risk rewriting).
+
+**How to flip report-only → enforcing:** watch `/api/csp-report` across the era
+reader, moment detail, Taylor's Version and Mood surfaces for a quiet period,
+fold any legitimate host into the lists, then pass
+`enforceResourcePolicy: true` from `next.config.mjs`.
+
+**Alternatives considered:** (a) one enforcing policy from day one — rejected,
+silent content breakage; (b) nonce-based `script-src` via middleware — rejected,
+costs static generation for XSS protection the threat model doesn't need yet;
+(c) a real `img-src` allowlist — rejected, unmaintainable at ~500 hosts.
+
+**Approved by:** pending Wyatt.
+
+---
+
+## 2026-08-11 — Third-party embeds are click-to-load, without exception
+
+**Decision (PENDING Wyatt's approval).** Every third-party embed on the site
+mounts only after the reader opts in. YouTube (`MomentVideo`, `MoodSongCard`)
+and Spotify (`EraMedia`) already worked this way; `MomentSocialPost`
+(Instagram) and `SpotifyCompare` (two Spotify players side by side) did not,
+and now do.
+
+**Why:** an eager embed hands the visitor's IP, user-agent and referring URL to
+Instagram/Spotify before the visitor has asked for anything. `loading="lazy"`
+does not fix this — it defers the load, but any reader who scrolls to the
+component still pays, and `SpotifyCompare`'s desktop layout puts both players
+in the viewport together.
+
+**Tension this resolves.** `MomentSocialPost` was deliberately made eager on
+2026-07-21 on founder direction: *"can we see the post on our page? ... The
+intent is to have a seamless flow in the app, not just push users over to
+instagram."* That intent is preserved — the post still renders **inline, on our
+page**, and the "Open on Instagram" link stays a secondary affordance. What
+changed is that it costs one tap. **Wyatt should confirm he's happy with that
+trade**, since it partially walks back his own direction.
+
+**Approved by:** pending Wyatt.
+
+---
+
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
 **Decision (PENDING Wyatt's approval — this changes merge authority).** Three
