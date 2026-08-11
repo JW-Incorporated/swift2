@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 68
+
+## Taylor Swift's Trump TikTok takedowns show the White House isn't above copyright law - Creative Bloq
+
+- first seen: 2026-08-11 10:08 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Trump TikTok takedowns show the White House isn't above copyright law  Creative Bloq
+- sources:
+  - [unverified] Creative Bloq — https://news.google.com/rss/articles/CBMivgFBVV95cUxNWHdVeGNWUjZYT2FWX1lJR3RPQkx6UEpHSGhYN3VWZFd2MS1DY2hjT015RFl3TjhhM1ZLSFpDeWxwWUd6czlvdXh0SzNMaWVpM040aDdHZHFhR3RjR1cwRk56QUxnQlZYMTZWakdfSkhvMXNNcEpPd3AxazdydTlvYWQzcmhuanZEUjNYN2Y3UUxrOUVCZXVfb0FPaTJKdGt5X1o5MXVLbkxidGFocEthMkZiWlJTbGNMTVU4djVn?oc=5
+
+## Charissa Thompson explains problem she had with her dress at Taylor Swift and Travis Kelce’s wedding
+
+- first seen: 2026-08-11 10:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Charissa Thompson explains problem she had with her dress at Taylor Swift and Travis Kelce’s wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxQb1Z0cnB5YkI3Ym9yb2c1VVV4c3hucXUydnBXeDRBZVpUU3pmOXgxajMtcG1UVDNpV3RGaEtpZmZ0UEdsM0FEZzR1NzNuV0k2bURnWDlYTE9WQ29aNkcyVk5jbEtBSWxESFlrb1RwUHd5VjM3ZzBNNEtZekd0X1RVNV9LTk53dUptNDAzWUdmVG92T2UybnpPSHpkdV9QZTg4REFPdmhPRF9VcGpP?oc=5
 
 ## Taylor Swift Removes Her Songs from Trump’s TikTok - Vulture
 
@@ -51,6 +67,15 @@ Stories: 69
 - sources:
   - [unverified] NBC News — https://news.google.com/rss/articles/CBMiywFBVV95cUxNQ2NxTXFINHg0YkVqQXp1VGMxYlh3WUJTbmVoVFJRQ2xESVY0cmcxMjk4RDA5MTJJM1ZGN0lqcFR4bWVGVGNlUlp6bTRiSjZUN240aUhSUTUtZC1UaldCdlN6TU1YVk9adGVMcHptVUwwZEd4cTNuR0VtTmJuWXdqMzZkbjkwLXg5eFRCYk1TdktrcFFveEx1VlM5Qk1oNG1ELV9fR0JBYzRsVnNtN0xodTIwLXVta1lFTXRjRlNJUTR3MUxmTVNrc18tSQ?oc=5
 
+## Taylor Swift and Bad Bunny Dealt With Trump Quietly. It’s a Smart Move
+
+- first seen: 2026-08-11 03:09 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Both superstars muted their songs from videos posted by the administration without drawing more attention to the White House
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swift-bad-bunny-trump-remove-tik-tok-songs-1235606235/
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMisAFBVV95cUxQV3NFaC1oWFc4bnZaNmNCS3FnWnNvakFiME9idlcxZTRkYVNKd3ZSMXlDeFJFa1Z4WXlhZWh3TkxzeXU4Mnota3pEbGxPZVQ5RmJPM1BHbUQwTWdXS2tlNjRGVmZDYUtycEdMeUhRNVdDSGJSSjMxaThEZEg1bkJ0TjlyQ3R6X2VmbGJ5TllVaUFITkp2eTJTb0NURHBNcG81RVQxM09LWUZoV2dZcVBaSw?oc=5
+
 ## Meet the man who's sold garbage from Taylor Swift's wedding & more - NBC New York
 
 - first seen: 2026-08-11 03:09 UTC | category: relationship | importance: 5
@@ -74,14 +99,6 @@ Stories: 69
 - summary: Taylor Swift and Travis Kelce Just Quietly Hit an Important Milestone  Sports Illustrated
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMisAFBVV95cUxQNGtXandhREtkYjY4cmVFeWVwZEtIZjdOaWFNNms0VURFMjBsYk5lSXI0THlIQk5nY1pRSTAxNzJodlpHejBtTy1rOElub013SHJxMkx6dlRoVWVvZmtRazc0a2Rod2UxWTJfbVBtT2ptRm1PX2JxclFvQUVueHU5M3dZWVZCTktaOEpEbmpjdWtvNW1VWEtkN0lKSDhXb0xEdkxmOUdKdjRCVEwwdnJVRg?oc=5
-
-## Taylor Swift and Bad Bunny Dealt With Trump Quietly. It’s a Smart Move
-
-- first seen: 2026-08-11 03:09 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Both superstars muted their songs from videos posted by the administration without drawing more attention to the White House
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swift-bad-bunny-trump-remove-tik-tok-songs-1235606235/
 
 ## Taylor Swift’s Next Move? + The Chiefs Rivalry Debate Gets Personal! | Travis + Taylor - Yahoo Sport
 
@@ -572,27 +589,3 @@ Stories: 69
 - summary: Taylor Swift's song 'August' removed from Donald Trump's TikTok fireworks clip  The Times of India
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi_gFBVV95cUxQN1FDczVySkQteDdvNjM5RVZEc2NPRUlmNDl1d3JISjk4SWtxNFNPOEZtQUViQTlmR1lNY1NiWW9qaDd5SmM2Vm9aMUZtVk1LcVIzNDRNZFN1ejYtVUNraHplT2NldzlWbUpCUGtMeVJGUU9SOHN3bFNqUVdJT3FJTEdIX3hSSEF0NzEtdHRGcE4wS2tNTjZSTDRKTUYya3B6REQzbEJicFFiNGJoX2VCN1p2ZVdGeGdTZ1lWbzBSVkpUbkw1ZE43UHlpQ0Vpck5fRE80cWx5djRJdUpJSk8ySVBUWmtNbGljSVRoaEVST2IwdGowcUJ0WFVocDhkUdIBgwJBVV95cUxOMTNhUkpBLUxIR29uVEY4blNqMjVSdXgtSGdMUzhDTExubWFZM3I1V3V3amNNUzI5bV9OWTJNdTFpMGVxNWNhRENZaWJMc0htazQ5QVlhMkdJemRsMVNiOTJINkJ0WlFWM3d5VzdmQ1ZFT3loMEQ1N042VE0yS01BamtINTBmYnVqN2NjbThlUW41RTZLMmFKNmpPWFU2UEgxT0JidzRkNFNvVjFKUkl1dlN5MXRHLVF1S3BJcFA4MTU3QzdZbkFWYTBMR3RxZV9MME5FOE9XckYxWnE2SXRxMG80b19sYUM5eXVjOG44aFNudzcyZmNUYXhoOXpaNGpOaktz?oc=5
-
-## Travis Kelce's Transformation Through the Years in Before-and-After Photos - Yahoo Lifestyle Canada
-
-- first seen: 2026-08-08 09:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce's Transformation Through the Years in Before-and-After Photos  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPbDRkeDZHTnZEbUUyY3E5TlFwc0ZmcXNFX244S0EtTFJHZ0Nfek0tdXVjN0JtNzRjQmhIYTVMN2swbjN5d29sU2FBQVFtMFpnTi1vSEhRRjFDYTlQa0J0SUxDTTQySDVJZlYyMVNPdHpHWkJLcFJpRDhkWTUtTG5taXp6NWJuREdNZVNN?oc=5
-
-## Taylor Swift Song Removed From Donald Trump Video Days After It Was Posted - Just Jared
-
-- first seen: 2026-08-08 09:51 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Song Removed From Donald Trump Video Days After It Was Posted  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxPUC1Cam1UdTh5aFhHbFMtQmlQc2JtRExtUEdEMml4YWszZlR6c25UaHl4QW1CZkM0S29jVFVHaVV1TFNMTzI3TEpuMzJQUVFoSVNSaFV2UlZZNkQ3djdrMlltY09QX1BHWThOcGFwcDQxRFowemNPMEtxZG9zcEhobm8wNDlBVUYxR3R4aXl3RjhUWWsxWHBGMGpwYXBIdW40VGtWZUFHMC1RQjZyTU9YWmVn?oc=5
-
-## Taylor Swift, Zendaya & More Who Kept Wedding Dress Photos Private - Yahoo
-
-- first seen: 2026-08-08 09:51 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Zendaya & More Who Kept Wedding Dress Photos Private  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeFktdVY5NDRLemdUOHdfUlBzbnNMRjJPOXA2WjhKWkw1VkZLZ1BmWkFyNHVYbXFxYU04am42RnoyR1ltTVNNRXRXdFV5SFRtQ3NjNGN2Z05teUtzaXMza0JmYVRjVFMyU1c4cVpnSTN0eWdaQnJ6X3pBT3pEbVVYZ1ktRmU3NGZNNG5PUTZ0VFQzb0pNbmtxc0E5T1J3RmxGTnc?oc=5
