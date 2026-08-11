@@ -138,6 +138,105 @@ right place for that distinction and already carries it.
 **Approved by:** Joey; Wyatt (verbally, relayed by Joey 2026-08-11 evening —
 resolves the same-day conflict with #1902's regression test)
 
+---
+
+## 2026-08-11 — Dependabot: bump `nanoid` + re-apply `brace-expansion`; ACCEPT `image-size` and `uuid` with documented reasoning
+
+**Decision (PENDING Wyatt's approval).** Of the six open Dependabot alerts,
+three are fixed here and two are accepted, not fixed (the sixth is a second
+advisory on the same `image-size` version). Reachability was checked per
+package (`docs/agents/paul-blart.md` step 1), not assumed from severity.
+
+### Fixed: `brace-expansion` 5.0.7 → 5.0.9 — AND A PROCESS BUG BEHIND IT
+
+Two high advisories (GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895; both
+unbounded-array DoS, `A:H` only). Straightforward: the requiring range is
+`^5.0.5`, so `npm update brace-expansion` is the whole fix.
+
+**The part worth Wyatt's attention is why it came back.** PR #1893 already
+bumped this to 5.0.9 on 2026-08-11. PR #1903 (`social(images)`) then merged a
+regenerated `package-lock.json` built from a base predating #1893, which
+reverted the entry to 5.0.7 and re-opened both alerts (they were re-created at
+16:57Z the same day). Nothing in CI noticed: no gate compares the lockfile
+against known advisories, so a security bump can be silently undone by any PR
+that happens to run `npm install`.
+
+**Left for Wyatt** (not done here, it changes CI): add a lockfile-regression
+gate — the cheapest version is `npm audit --audit-level=high` on the merge
+result, or a check that no dependency version *decreases* relative to `main`.
+Without one, this will recur; it is a property of the merge order, not of the
+people involved.
+
+### Fixed: `nanoid` 3.3.16 → 3.3.18 (GHSA-2v37-7h3g-55p8, high)
+
+Lockfile-only bump, no `package.json` change — `postcss` asks for `^3.3.16`
+and 3.3.18 already satisfies it, so `npm update nanoid` is the whole fix.
+Build-time only (`postcss` ← `next` and `apps/web`); the vulnerable path is a
+custom generator called with `size: 0`, which nothing in this repo does.
+
+### Accepted: `image-size` (GHSA-w3rx-r6r6-pgpr + GHSA-5p2g-fcmc-qvqq, both high)
+
+**There is no patched version — the advisories cover `<= 2.0.2`, which is
+latest.** So this is a reachability decision, not a bump.
+
+- **What pulls it in:** `image-size@1.2.1` ← `metro@0.84.4` ← `react-native` /
+  `expo`, i.e. the **React Native bundler** in `apps/mobile`. It is listed
+  under `dependencies` (which is why Dependabot labels the scope "runtime"),
+  but metro is build tooling: it runs on a developer's machine or an EAS build
+  server, never in a request path.
+- **Not in the web app at all.** Nothing in `apps/web`, `packages/*` or
+  `scripts/` imports `image-size` (only the lockfile mentions it). The website
+  is Next.js; metro never runs for it. `npm run build` does not invoke it, and
+  no CI workflow builds `apps/mobile`.
+- **What metro uses it for:** reading the dimensions of image assets it is
+  bundling. In this repo that input is `apps/mobile/assets/` — three PNGs we
+  authored (`icon.png`, `adaptive-icon.png`, `splash.png`). There are **zero**
+  `.icns`, `.jxl`, `.heic`, `.heif` or `.avif` files anywhere in the repo, and
+  those are the only three parsers the advisories touch.
+- **Impact if it did fire:** both are `C:N/I:N/A:H` — an infinite loop that
+  hangs the Node process. Worst realistic case is a hung local or EAS build,
+  not a production outage. There is no user-supplied image anywhere in the
+  product; the app has no upload path.
+- **Who could exploit it:** someone able to commit a crafted `.icns`/`.jxl`/
+  `.heif` into `apps/mobile/assets/`. That is repo write access, which already
+  implies arbitrary code execution in CI. The advisory adds nothing to that
+  threat model.
+
+**Verdict: accept, do not patch.** Pinning changes nothing (1.2.1 is already
+the newest 1.x and 2.x is equally vulnerable); an `overrides` to 2.x would
+break metro, whose range is `^1.0.2` and whose call site uses the 1.x default
+export. Replacing the dependency means forking metro. Re-evaluate when either
+(a) upstream ships a fix, or (b) `apps/mobile` gains any path that reads an
+image the user supplied — at which point this becomes reachable and urgent.
+
+### Accepted: `uuid` (GHSA-w5hq-g745-h8pq, medium)
+
+- **What pulls it in:** `uuid@7.0.3` ← `xcode@3.0.1` ← `@expo/config-plugins`.
+  It generates the object IDs inside an iOS `.pbxproj` during `expo prebuild`.
+  Build-time, macOS-only, never shipped.
+- **The repo's own UUIDs are unaffected.** The note that "the repo generates
+  uuids for content rows" checks out, but those come from **Postgres
+  `gen_random_uuid()`** in `supabase/migrations/**`, not from this package. No
+  file in `apps/`, `packages/` or `scripts/` imports `uuid` at all — so there
+  is no behaviour of the old version for anything to depend on.
+- **The advised fix is not available to us.** The advisory wants `>= 11.1.1`;
+  `xcode@3.0.1` declares `uuid: ^7.0.3`. Forcing 11.x via `overrides` would
+  hand a CommonJS consumer an ESM-only package with a changed API — a likely
+  broken `expo prebuild` traded for a medium-severity bounds check on
+  `v3/v5/v6` with a caller-supplied `buf`, which `xcode` does not use.
+
+**Verdict: accept.** It clears when Expo bumps `xcode`. Not worth an override.
+
+**Alternatives considered:** `npm audit fix --force` (rejected — it would pull
+unrelated majors across the Expo toolchain to satisfy two build-time DoS
+advisories); `overrides` for both (rejected per the reasoning above);
+suppressing the alerts (rejected — leave them visible, with this entry as the
+answer when they resurface).
+
+**Approved by:** pending Wyatt.
+
+---
+
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
 **Decision (PENDING Wyatt's approval — this changes merge authority).** Three
