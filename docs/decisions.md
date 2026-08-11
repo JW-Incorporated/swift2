@@ -7,6 +7,70 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Delete the unmounted VaultReader UI; keep the `/vault/*` HTTP routes
+
+**Decision.** Delete eight files in `apps/web` that exist only to serve a
+component nothing renders, and keep the HTTP API they called.
+
+**Deleted** (`VaultReader` and its exclusive dependency closure):
+`components/VaultReader.tsx`, `components/MomentDetail.tsx`,
+`components/TrackGuide.tsx`, `lib/useMoment.ts`, `lib/useTrackGuide.ts`,
+`lib/theme.ts`, `lib/categoryBadges.ts`, `lib/categoryBadges.test.ts`.
+
+`VaultReader` had **zero** importers — static, dynamic, or by name. Each of the
+other seven has exactly one consumer, `VaultReader`, so all seven died with it.
+`categoryBadges.test.ts` goes too: it tests only `categoryBadges.ts`, and
+leaving it would break `npm run test`. Note the name collision —
+`components/longlive/MomentDetail.tsx` and `components/longlive/TrackGuide.tsx`
+are **live** and are different files.
+
+**Kept deliberately:** `app/vault/tier0/route.ts`,
+`app/vault/moment/[id]/route.ts`, `app/vault/album/[slug]/tracks/route.ts` and
+`lib/vault.ts`. Three reasons, any one sufficient:
+
+1. `/vault/tier0` has a live consumer — `scripts/check-tier0-budget.mjs:19`
+   defaults to it, i.e. `npm run check:budget`, documented as an operator
+   command at `docs/deploy.md:121`. (It is not in CI; CI runs the seed-based
+   `check:budget:seed`.)
+2. All three are shipped deliverables of record: roadmap W4.5 and W7, plus a
+   `docs/decisions.md` entry for the tracks route. Retiring an API of record is
+   a product/architecture call, not cleanup.
+3. They are the convergence target both `docs/architecture.md` and
+   `docs/longlive-experience.md` point at.
+
+After this change `/vault/moment/[id]` and `/vault/album/[slug]/tracks` have no
+in-repo consumer at all (their only callers were the deleted hooks). They are
+kept on reasons 2 and 3; **flagging for Wyatt** that if convergence is not
+happening, those two are the next honest deletion.
+
+**Verified before deleting** — repo-wide, case-insensitive, across `apps/**`
+(including `apps/mobile`), `packages/**`, `scripts/**`, `e2e/**`, `.github/**`,
+`social/**`, `supabase/**` and every config file: no static import, no
+`import()`/`require()`/`next/dynamic`/`React.lazy`, no bare-string reference, no
+`next.config.mjs`/`vercel.json` rewrite, no Playwright spec (`e2e/vault.spec.ts`
+drives the `longlive/` selectors, and its own comments record that the old
+`VaultReader` selectors matched zero elements), no entry in
+`.github/content-automerge-allowlist.txt`, and no codegen script
+(`check:generated`, `check:content-inert`, `content:coverage` all scope to
+`supabase/seed/**` or `apps/web/lib/longlive/**`). `apps/mobile` has its own
+separate `lib/vault.ts` that talks to Supabase directly via `@swift2/core` and
+never touches the web routes.
+
+**Two things found on the way, not fixed here** (this diff is deliberately
+confined to the dead files because another agent owns `apps/web`):
+
+- `apps/web/lib/vault.ts:29,35,42` falls back to
+  `https://swift2-web-nine.vercel.app` when Supabase env is absent — a
+  deployment `docs/deploy.md:11-14` explicitly marks superseded, "do not cite
+  either of these anymore". A Supabase-less deployment proxies `/vault/tier0`
+  to a stale sandbox.
+- `docs/roadmap.md:58` claims the two-tier API is "reused by web + Expo".
+  Mobile does not call it; it goes straight to Supabase.
+
+**Approved by:** pending Wyatt.
+
+---
+
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
 **Decision (PENDING Wyatt's approval — this changes merge authority).** Three

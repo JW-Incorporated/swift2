@@ -9,7 +9,8 @@ session) work in parallel toward a ship by Taylor's wedding.
 > front-end shipped at `/` (`docs/longlive-experience.md`) currently reads
 > static mock data from `apps/web/lib/longlive/*`, not Supabase. The
 > ENGINE-track UI work below (W3/W4/etc.) built the older `VaultReader`
-> reader, which is not the component mounted today. Reconciling the two —
+> reader, which was never mounted and was deleted on 2026-08-11 (its `/vault/*`
+> HTTP routes remain — see `docs/decisions.md`). Reconciling the two —
 > wiring LongLive to real seeded content — is unscheduled; don't assume
 > content authored per this roadmap is visible in the live app yet.
 
