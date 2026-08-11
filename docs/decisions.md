@@ -7,6 +7,251 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Merge-machinery consolidation (#1910 + #1941) and the a11y-lane refusal
+
+**Decision:** Ship the two founder-approved merge-machinery PRs as a **single
+reconciled branch** off current `main`, and **do NOT build an a11y auto-merge
+lane yet** — the safety proof cannot be constructed today (below). This entry is
+the reconciliation record; the two original decision entries it consolidates
+follow immediately below, as authored.
+
+**What was reconciled.**
+1. **The self-amendment bar vs. the social carve-out.** #1910's `NEVER_ALLOWLIST`
+   bars `apps/web/public/` outright; the social-image carve-out (already on
+   `main`) allowlists `apps/web/public/social/`. Left as-is, `build` would fail —
+   the committed allowlist would trip its own bar. Resolved with
+   `NEVER_ALLOWLIST_EXCEPTIONS` in `scripts/check-automerge-allowlist.mjs`: a
+   single, fail-closed narrowing that exempts **exactly** `apps/web/public/social/`
+   and nothing broader or adjacent (an exception must lie *inside* the bar it
+   narrows AND cover the entry; a broad `apps/web/public/` or a sibling
+   `apps/web/public/socialite/` stays barred). Adding an exception is a
+   `.github/`-barred change, so the narrowing list itself can never be
+   auto-widened.
+2. **#1902's allowlist restructure (already merged).** The single-source-of-truth
+   allowlist file, its base-ref fetch, and the `check-automerge-allowlist.test.ts`
+   social reconciliation were already on `main`. #1941's redundant re-additions
+   (the `apps/web/public/social/` allowlist line and its own test edits) were
+   dropped in favour of `main`'s versions — no re-inlined list, one source of
+   truth preserved.
+3. **The social-image fail-closed gate.** `main`'s workflow was fail-*open* for an
+   image-only PR (allowlisted by path, validated by nothing). #1941's
+   `has_drafts` gate is preserved and applied: a social image only auto-merges
+   when it rides with a `social/queue/**.json` draft that `check-drafts.mjs`
+   validated; `hold`/`SOCIAL_FREEZE` still block; the allowlist is still fetched
+   from the base ref.
+4. The dependency-downgrade guard, `check-work-ownership.mjs`, the `desk:*` /
+   `review:*` taxonomy, the watchdog step, and both delegation docs are carried
+   over intact.
+
+**The a11y auto-merge lane — REFUSED for now, honestly.** #1941 called it "not
+built"; this session confirmed it **cannot be made safe today**. A safe app-code
+auto-merge needs four legs and every one is missing: (a) a **per-PR** a11y check —
+today's `a11y.yml` runs axe/pa11y against **production** on a **schedule**,
+non-blocking, and never sees a PR's diff; (b) a **behavioural-regression net** —
+the E2E suite is 100% red against prod (#669); (c) a **path/diff fence** — there
+is no `*.a11y.*` convention and no mechanical proof a `.tsx` change is
+behaviour-preserving (an `aria`/spacing edit can still break layout or handlers,
+so the `check-content-inert` analogy does not hold); (d) **trustworthy author
+identity** — both GitHub accounts are shared by every agent, so "authored by
+Austin" proves nothing. A loose lane that let arbitrary `.tsx` through would be
+worse than the status quo, so none ships. The full gate design and the
+mechanical acceptance test for each missing leg:
+`docs/proposals/2026-08-11-a11y-auto-merge-lane.md`.
+
+**Why one branch, not a 2-PR stack:** the bar↔carve-out interdependency (item 1)
+is the whole risk. A stack would leave "whichever lands second must fix it" as a
+live failure mode; consolidating removes it — the reconciled tree is green as a
+unit or not at all.
+
+**Approved by:** consolidation prepared by the CTO engineering session per
+Wyatt's directive to stop approving routine merge machinery; the underlying
+grants remain as marked in the two entries below. Merge is Wyatt's action.
+
+---
+
+## 2026-08-11 — Work ownership is state, not prose; and the self-amendment bar
+
+**Decision (PENDING Wyatt's approval — this changes routing authority, merge
+authority and two charters).** Answering Wyatt's two questions: how work gets
+picked up without a founder, and how much PR review we can stop doing. Full
+design: `docs/proposals/2026-08-11-autonomous-pickup-and-merge-delegation.md`.
+
+**1. No "founder-bot".** Wyatt asked whether Marjorie should spin up a Fable
+agent with permission to solve ~all issues. Recommendation: **no**, on four
+grounds. (a) It answers the wrong question — sorting every currently-stuck item
+by what blocked it, roughly none were blocked on "no agent was allowed": they
+were blocked on a silently misconfigured gate (#1891/#1762), a red PR nobody
+returns to (#1545/#1565/#1585), a review nobody ran (#1580/#1596/#1619), or
+routing that existed only as a comment (#680). (b) "~all issues with few
+exceptions" is a deny-list, and this repo already proved deny-lists fail at this
+job — `check-content-inert.mjs` was rebuilt as a positive grammar precisely
+because a name deny-list was defeated by `({}).constructor.constructor('…')()`.
+(c) One privileged agent is a single arrival-rate limit with correlated failure
+across every lane, which is the bottleneck we are removing, one layer down.
+(d) It would run as `wjduvall-cmd` — the same identity as Wyatt's own approvals.
+
+**2. Routing writes state.** A `desk:*` label taxonomy; an open issue is routed
+iff it carries **exactly one** `desk:*` label. A routing comment is not routing.
+Correction to the obvious design: the **assignee cannot carry the route** —
+GitHub assignees must be collaborators, there are exactly two, and both are
+shared by every agent. Label = route; assignee = claim lock (Austin's existing
+meaning, 24h lease); `desk:founder` = a human owes an action.
+
+**3. The fence complement gets a name.** `desk:unowned` is a first-class answer.
+Reading every charter: `.github/**` (beyond Paul Blart's CI/security slice),
+infra/deploy verification, legal prose, cross-desk chores and stale-PR
+shepherding have no chartered owner, and nothing is chartered to notice that.
+The complement is decomposed to the nearest existing owner rather than to a new
+actor: `.github/**` → extend Paul Blart; stale/red PRs → a loop closure, not a
+desk; dispatch → Marjorie writes labels instead of prose; legal → stays founders.
+
+**4. Escalation ratchets instead of capping.** Operating model §5.5 caps an item
+at **one nudge, ever**. That controls repetition when the thing worth controlling
+is channel count — which is why an unstaffed item gets diagnosed, nudged once,
+then reprinted in the brief for three weeks. Supersede with: one persistent
+alert issue per condition (the `upsert-alert.sh` pattern that already fixed this
+exact bug after #947/#1177/#1203/#1224), volume capped, memory unbounded.
+
+**5. Merge delegation, by class, on mechanical proof.** Widen: `docs/**` minus
+the governance set (a non-charter, non-decision, non-spec doc cannot change what
+any agent may do — a checkable path property); dependabot **dev**-dependency
+patch/minor into Marjorie's envelope (a bad dev dep breaks CI, which is the
+failure we want; a bad production dep ships to users while CI stays green); and,
+**blocked on #669**, Austin's a11y lane once a re-run of axe on the preview can
+prove the ticket's own named violation is gone. Refuse permanently: legal prose,
+migrations (`git revert` is not a rollback — undoing one is a new migration and
+the data may be gone), `apps/web/public/**` media, and automated replies.
+
+**6. THE SELF-AMENDMENT BAR — shipped in this PR, and the part that should not
+wait.** `check-automerge-allowlist.mjs` says in its own header that it "cannot
+judge whether a path *deserves* to be auto-mergeable — adding `apps/web/` to that
+file would pass CI." For ordinary paths that is right. But one class differs in
+kind: a PR touching the allowlist, a workflow, a checker, a charter, `CLAUDE.md`
+or this file changes **what may merge with nobody looking, and what agents are
+permitted to do**. Allowlisting one would let a bot PR widen its own authority
+and land the widening unreviewed — self-ratifying. `NEVER_ALLOWLIST` now refuses
+20 such prefixes outright, matched bidirectionally so both `docs/agents/` and a
+broad `docs/` are rejected. **The mechanism that decides what merges without a
+human must itself always need a human.** (Reconciliation note, this PR: the one
+narrowing of that bar is `NEVER_ALLOWLIST_EXCEPTIONS`, exempting the
+founder-approved `apps/web/public/social/` carve-out and nothing else.)
+
+**What ships now and needs no approval:** the `desk:*` and
+`review:not-run`/`review:contested` labels (inert until bootstrapped);
+`scripts/check-work-ownership.mjs` + a daily `watchdog.yml` step (zero AI,
+persistent alert, real email); `.github/work-ownership-budget.json`; and the
+self-amendment bar. None of it grants authority to anything — it makes the
+current state measurable and closes a hole a future grant could fall through.
+
+**Known gaps, stated rather than engineered around.**
+- **Founder provenance is decorative.** Two collaborators, both admin, both
+  shared with every agent. The 2026-07-18 merge grant vested on "a
+  founder-authored comment on brief #822" — from an account any agent can post
+  from. **Recommended prerequisite to any further grant:** real personal GitHub
+  accounts for Joey and Wyatt, bots demoted to `write`. This is a TX item.
+- **`needs-human-review` conflates two opposite states.** Austin applies it when
+  Codex *disagreed*; Content Shift when Codex was *unreachable*. Contested and
+  unreviewed are not the same risk, and the 2026-07-18 standing grant merges the
+  class assuming the benign one. Replacement labels ship here; making only
+  `review:not-run` envelope-eligible is a charter change.
+- **A budget can be raised to silence an alarm.** Nothing in the code prevents
+  it. Mitigation is that it is a one-line visible diff in a file whose header
+  says it is a policy act, and that the file cannot be auto-merged.
+- **Bot-selected images fail on Instagram, not in CI.** The general rule this
+  implies: automation is safe in proportion to how close the detector sits to
+  the harm.
+
+**Alternatives considered:** (a) build the founder-bot as asked — rejected,
+above. (b) A founder-bot with a *tight* fence — collapses into this proposal
+once you enumerate what it may touch, and adds a second account, making
+provenance worse. (c) Keep prose routing and improve nudging — rejected for the
+reason Joey rejected it on 2026-07-15 ("the bottleneck itself was the problem,
+not its visibility"); three weeks of briefs restating one unstaffed item *is*
+the improved-nudging outcome. (d) Assignee-only routing — rejected on mechanics.
+(e) Zero-threshold alarms instead of a budget file — rejected: 138 items every
+morning is how #947/#1177/#1203/#1224 were lost. (f) Have CI judge which paths
+*deserve* auto-merge — rejected as over-reach, except for the one class where it
+is not a policy call (the self-amendment bar).
+
+**Who approved:** proposed by Claude; **needs Wyatt's sign-off** for items 2–5
+(routing authority, charter amendments, merge-authority widening). Item 6 and the
+measurement layer are shipped as safety ratchets and can stand on their own.
+
+---
+
+## 2026-08-11 — Merge-delegation execution: a downgrade guard now, class widenings on proof (PENDING Wyatt)
+
+**Decision (PENDING Wyatt's approval):** Deliver the founder's "never merge
+routine work again" as **"never merge *routine* work again, plus a permanent,
+enumerated human residue."** Concretely: (1) **ship now, no judgement call** — a
+dependency-downgrade guard (`scripts/check-no-downgrade.mjs`) wired into the
+required `build` job that fails if any dependency's highest resolved version drops
+below `main`, closing the #1903 merge-order regression class; and this plan
+(`docs/proposals/2026-08-11-merge-delegation-execution.md`). (2) **Gate on
+prerequisites** — the `docs/**` content widening depends on #1910's
+`NEVER_ALLOWLIST` landing first (a bare `docs/` prefix would let a bot edit
+`docs/decisions.md` unreviewed; the allowlist matcher can't express "docs except
+governance" without it), so it is written up but NOT shipped. (3) **Move to a
+separate vehicle** — Dependabot dev-dep patch/minor auto-merge belongs in its own
+`dependabot[bot]`-keyed workflow gated on the new downgrade guard + `build` +
+dev-only scope, NOT the content path allowlist (`package.json`/lockfiles are
+correctly barred); recommended PENDING Wyatt because a malicious-but-passing
+release is a real residual risk no CI check catches. (4) **Refuse as a path
+widening** — the a11y lane is `.tsx` app code with no inertness proof; it needs a
+dedicated a11y CI lane, not an allowlist line. (5) **Ship the social-image
+carve-out (already founder-approved, not pending):** per the 2026-08-11 entry
+"Auto-merge allowlist extended to `apps/web/public/social/**`" (Joey) and Wyatt's
+directive to implement it, add `apps/web/public/social/` to
+`.github/content-automerge-allowlist.txt`, reconcile the #1902 "Content auto-merge
+scope" test (`scripts/check-automerge-allowlist.test.ts`) so that subtree is
+permitted while the rest of `apps/web/public/**` stays refused, and add a
+fail-closed gate to `auto-merge-content.yml` so a social image only auto-merges
+when it rides with a queue draft that `scripts/social/check-drafts.mjs` actually
+validated (an image-only PR is declined). This resolves the two same-day
+"founder-approved" claims (Joey's image decision vs the #1902 scope entry, still
+PENDING Wyatt) toward Joey, per Wyatt's 2026-08-11 direction. Only the `social/`
+subtree is granted; base-ref fetch of the allowlist is preserved (a PR still
+cannot widen its own gate). Reconciliation note (this PR): the #1910
+`NEVER_ALLOWLIST` bar on `apps/web/public/` and this grant were both landed in the
+same consolidated branch; the exemption is `NEVER_ALLOWLIST_EXCEPTIONS`
+(social-only), so there is no longer a "whichever lands second" hazard, and the
+social allowlist line + test reconciliation already present on `main` were used
+rather than re-added.
+
+**Permanent human residue (auto-merge refused forever):** app code, `.github/**`
+workflows, the merge rules themselves (allowlists/checkers/`package.json`/
+lockfiles/config), governance docs & charters, secrets, legal copy, schema
+migrations, public media (outside the gated `social/` carve-out), and automated
+replies to real people. This is the honest complement of the goal, not a "not
+yet."
+
+**Why:** #1903 proved the concrete gap — a lockfile regenerated from a stale base
+silently reverted a security fix (`brace-expansion 5.0.9 → 5.0.7`) on `main` with
+a green check (#1933 is the cleanup). Blind auto-merge is unsafe against
+merge-order regressions until that class is fenced; the guard is that fence and it
+serves the goal directly. The widenings, by contrast, are safe only as a function
+of prerequisites (#1910's self-amendment bar; real per-agent identity for any
+founder-attested exception) — shipping them ahead of those would re-open the
+exact self-ratification hole #1910 closed. Provenance is still decorative (both
+GitHub accounts are shared by every agent), so every widening here is justified by
+**path + mechanism**, never by "who approved," which is the only kind that's safe
+today.
+
+**Alternatives considered:** (a) *Ship the `docs/**` widening now* — rejected:
+unsafe without `NEVER_ALLOWLIST` on `main`; it would let a bot merge governance
+docs. (b) *Auto-merge the a11y lane by path* — rejected: it's app code; a path
+fence can't prove behavior. (c) *Route Dependabot through the content allowlist* —
+rejected: lockfiles are barred for good reason (they swap what checks run). (d)
+*An `npm audit`-based guard instead of version comparison* — the version check is
+deterministic, offline, and directly names the regressed package; audit is
+recommended as a complementary signal in the Dependabot workflow, not the primary
+gate. (e) *Do nothing until identity is fixed* — rejected: the guard and the
+path/mechanism widenings need no identity, so they shouldn't wait on it.
+
+**Approved by:** PENDING Wyatt (CTO).
+
+---
+
 ## 2026-08-11 — Tree: a standing social-media-manager agent, planning separated from drafting
 
 **Decision:** Create **Tree** (`docs/agents/tree.md`), a standing agent whose
