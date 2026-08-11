@@ -7,6 +7,119 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — X's 280-character limit is what killed X, not credentials or duplicate content
+
+**Decision:** Add a schema gate for `social/queue/**` (`npm run validate:social`,
+wired into CI's required `build` job) whose first rule is a per-platform body
+length cap — 280 for X, 2,200 for Instagram. Trim the six queued X drafts that
+were already over it.
+
+**Why:** The eleven X posts in `social/failed/` all died on
+`403 "You are not permitted to perform this action."` That reads like a
+permissions or duplicate-content problem, and was diagnosed as one for two
+weeks. It is neither. Sort every X post this account has ever attempted by
+body length:
+
+| outcome | body lengths |
+| --- | --- |
+| posted (13) | 84, 219, 246, 247, 260, 268, 270, 271, 272, 272, 274, 275, 276 |
+| failed 403 (11) | 294, 302, 310, 321, 322, 338, 341, 342, 352, 358, 373 |
+
+A clean separation at 280 — X's standard tweet limit for a non-Premium
+account, which X enforces with a 403 rather than a 400 on the v2 endpoint.
+Every post under it landed; every post over it died. There was no credentials
+problem and no duplicate-content problem.
+
+This was invisible because `validate:content` covers only `supabase/seed/**`,
+so the FIRST validator a queue item ever met was the live platform API at
+23:00 UTC — with three retries and then `social/failed/`. All six X items in
+the queue at the time of writing were over the limit (307–540 chars), i.e. X
+was about to go dark for another six days.
+
+**Alternatives considered:** Making the poster truncate an over-length body
+automatically — rejected, silently publishing a cut-off sentence is worse than
+not publishing. Warning instead of failing CI — rejected, a warning is what
+the last two weeks already were.
+
+**Approved by:** Wyatt (CTO agent), pending review. If the account is upgraded
+to X Premium (25,000 chars) the cap must be raised deliberately in
+`scripts/social/lib/queue-schema.mjs`.
+
+---
+
+## 2026-08-11 — An item whose media isn't live yet waits; a wait that never ends turns the run red
+
+**Decision:** Three coupled changes to `scripts/social/`.
+
+1. **The media gate is wired to the schedule.** The poster HEAD-checks every
+   media URL against the live site before publishing. An item whose media
+   isn't reachable is reported as `waiting`, spends no attempt, stays queued,
+   and ships itself on the first run after the deploy lands
+   (`lib/preflight.mjs`).
+2. **Neither no-attempt state can hide.** `skipped` (era-art repetition guard)
+   and `waiting` both escalate past 24 hours overdue to an `::error::`
+   annotation and a non-zero exit (`lib/run-report.mjs`).
+3. **Instagram containers are polled to `FINISHED` before publish**
+   (`lib/ig-container.mjs`), including each carousel child and the parent —
+   issue #1897.
+
+**Why:** The 2026-08-06 decision correctly requires a human merge for image
+PRs (`apps/web/public/**` is outside the auto-merge allowlist). But the gate
+covered the *asset* while the clock ran on the *schedule*: an item whose photo
+was waiting on a human was still "due", so it burned real publish attempts
+against a 404 and died in `social/failed/`. The drafting agent's rational
+response was to stop queueing real photos and reuse already-deployed era art —
+21 of 22 Instagram posts, and 4 of 4 queued IG items, five days after the
+decision meant to end exactly that. Fixing the coupling rather than the gate
+makes queueing a real photo the safe choice again.
+
+The escalation exists because a no-attempt skip can never reach
+`social/failed/` and so can never trip the failure path added earlier the same
+day. `social/queue/2026-08-09-august-augustine-ig.json` proved it: skipped
+every 30 minutes for two days, each run logging an error and exiting 0, its X
+twin published fine, and the founders' brief counted the day as healthy.
+
+**Alternatives considered:** Relaxing the human merge gate for images —
+rejected, the 2026-08-06 risk judgement still holds. Auto-failing a
+not-yet-deployed item faster — rejected, that is the behaviour that caused the
+era-art workaround.
+
+**Approved by:** Wyatt (CTO agent), pending review.
+
+---
+
+## 2026-08-11 — The daily metrics series carries its own gap check
+
+**Decision:** `growth-snapshot.mjs` checks `social/metrics/` for missing days
+before writing today's file, records them in the snapshot as `seriesGaps`, and
+annotates the run — `::error::` if any gap is inside the last 7 days,
+`::warning::` if all are older. It never fails the run: a historical hole must
+not stop today's snapshot from being committed.
+
+**Why:** The series had 20 files from 07-18 to 08-11 with five days missing —
+a ~25% hole in a daily series, unexplained and unalarmed. The two causes were
+completely different, which is exactly why the check has to be on continuity
+rather than on any one cause:
+
+- **07-30, 07-31** — a repo-wide GitHub Actions outage. Every scheduled
+  workflow in the repo failed in under 5 seconds with no steps run
+  (growth-snapshot, social-poster, watchdog, brief-mailer, news-worker,
+  marjorie-inbox). Nothing in this pipeline was broken.
+- **08-02, 08-03, 08-04** — the snapshot ran and **succeeded** all three days.
+  Its auto-merge PRs (#1729, #1754, #1775) then sat open for 7–9 days because
+  their required `build` check never got triggered, so the data never reached
+  `main` — the only place Marjorie's brief reads it from. They were finally
+  merged 2026-08-11T15:44Z. A green workflow whose output never lands is the
+  worse of the two: every signal said fine.
+
+**Alternatives considered:** Failing the snapshot run on a gap — rejected, it
+would block the very commit that closes the series. Alarming on the workflow's
+own success/failure — rejected, it would have caught neither cause.
+
+**Approved by:** Wyatt (CTO agent), pending review.
+
+---
+
 ## 2026-08-11 — A failed social post must turn the run red; the brief counts posts per platform over 24h
 
 **Decision:** Two changes, one to delivery and one to measurement.

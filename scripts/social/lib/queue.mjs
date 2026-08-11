@@ -7,15 +7,42 @@
 export const MAX_POSTS_PER_RUN = 5;
 export const MAX_POSTS_PER_PLATFORM_PER_DAY = 10;
 
-/** True if the queue item is due to post.
+/** How long an item may sit due-but-unpostable before the poster stops
+ * treating it as a normal wait and makes the run red. Two days of quiet
+ * skipping is what 2026-08-09-august-augustine-ig.json got. */
+export const STUCK_AFTER_HOURS = 24;
+
+/** True if the queue item's scheduled time has arrived.
  *
  * Per-item founder approval was REMOVED 2026-07-25 (Wyatt, CTO) — see
  * docs/decisions.md. The desk now queues and the poster ships on schedule.
  * `approvedBy`/`approvedAt` remain optional provenance fields (who/when, when
  * a human did weigh in) but are no longer a gate. What still constrains
- * posting: the SOCIAL_FREEZE crisis stop, and the caps above. */
+ * posting: the SOCIAL_FREEZE crisis stop, and the caps above.
+ *
+ * NOTE — this is a "not before" test, not the whole readiness question.
+ * `scheduledAt` passing is necessary but not sufficient: an item whose media
+ * is not yet reachable on the live site is NOT postable, and post-queue.mjs
+ * enforces that separately (lib/preflight.mjs) because it needs the network
+ * and this module is deliberately pure. See requiresLiveMedia below. */
 export function isDue(item, now) {
   return new Date(item.scheduledAt).getTime() <= now.getTime();
+}
+
+/** True when the platform will go and FETCH this item's media from the live
+ * site, so the media must be deployed before the post can succeed. Instagram
+ * always (Meta fetches by URL, and a Facebook cross-post rides the same
+ * path); X only if/when X media posting lands. */
+export function requiresLiveMedia(item) {
+  return Boolean(item.media?.length) && (item.platform === 'instagram' || item.platform === 'x');
+}
+
+/** Hours since `scheduledAt` passed (0 for a not-yet-due item). The number a
+ * waiting/skipped item carries into the run report so "waiting" and "stuck"
+ * are distinguishable without reading two days of Action logs. */
+export function hoursOverdue(item, now) {
+  const ms = now.getTime() - new Date(item.scheduledAt).getTime();
+  return ms <= 0 ? 0 : ms / (60 * 60 * 1000);
 }
 
 /**
