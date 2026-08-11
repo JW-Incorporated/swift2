@@ -59,6 +59,18 @@ npm run db:seed:tracks   # song notes   (supabase/seed/tracks/*.mjs)
 After any schema change: add a migration file, apply it, and update
 `packages/shared` types + `packages/core/src/map.ts` to match.
 
+**Backup / restore — safe, no prod.** The DB scripts above pick their SSL mode
+from the connection string (`scripts/lib/pg.mjs`), so the same `db:migrate` and
+`db:seed*` commands work against a local or scratch Postgres — that is what the
+restore drill uses.
+```
+npm run test:backup-restore   # backup → restore → verify, into throwaway databases
+```
+Needs a Postgres to work in: `--cluster <url>` for one you already have, or
+`npm i --no-save embedded-postgres` then `--cluster ephemeral` for none.
+Runbook, recovery decision tree, and what is/isn't recoverable from git:
+**`docs/backup-restore.md`**.
+
 ## Run the apps
 
 **Web:** `npm run dev --workspace @swift2/web` → http://localhost:3000

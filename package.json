@@ -15,6 +15,7 @@
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:backup-restore": "node scripts/backup-restore-test.mjs --drill",
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
