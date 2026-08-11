@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 // Posts due, founder-approved items from social/queue/**.json to their
 // platform, moving each to social/posted/ (success) or social/failed/
-// (after 3 failed attempts). Run as a scheduled GitHub Action
-// (.github/workflows/social-poster.yml) — see docs/agents/growth.md for the
-// approval flow this sits downstream of.
+// (after 3 failed attempts, OR after sitting due >48h for any reason — see
+// isStaleDue in lib/queue.mjs — with a `failureReason` field explaining why).
+// Run as a scheduled GitHub Action (.github/workflows/social-poster.yml) —
+// see docs/agents/growth.md for the approval flow this sits downstream of.
+//
+// Two guards can skip an item WITHOUT burning an `attempts` retry (era-art
+// guard, deploy-lag preflight — see the loop below); the 48h staleness rule
+// is what stops either of those from becoming a silent, permanent deadlock.
 //
 // Crisis stop: if the repo variable SOCIAL_FREEZE is set to anything
 // truthy, this exits immediately without posting or touching the queue —
@@ -12,8 +17,9 @@
 import { readdir, readFile, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { selectDuePosts, utcDateOnly, repeatsRecentEraArt } from './lib/queue.mjs';
+import { selectDuePosts, utcDateOnly, eraArtGuardReason, isStaleDue } from './lib/queue.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
+import { mediaUrlsReachable } from './lib/preflight.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
@@ -70,9 +76,23 @@ async function postOne(item) {
   };
   const igAccessToken = process.env.IG_ACCESS_TOKEN;
 
-  if (item.platform === 'x') return postToX(item, creds);
+  if (item.platform === 'x') return postToX(item, creds, MEDIA_BASE_URL);
   if (item.platform === 'instagram') return postToInstagram(item, { ...creds, accessToken: igAccessToken }, MEDIA_BASE_URL);
   throw new Error(`Unknown platform "${item.platform}"`);
+}
+
+/**
+ * True when `item` needs the deploy-lag preflight before posting: any item
+ * carrying media, on either platform that can actually publish it (IG always
+ * requires media; X can carry it now too since the upload support this
+ * change added).
+ */
+function needsMediaPreflight(item) {
+  return Boolean(item.media?.length) && (item.platform === 'instagram' || item.platform === 'x');
+}
+
+function mediaUrlsFor(item) {
+  return (item.media ?? []).map((p) => `${MEDIA_BASE_URL}${p}`);
 }
 
 /**
@@ -116,18 +136,40 @@ async function main() {
 
   for (const item of due) {
     const entry = queued.find((q) => q.data === item);
+    const stale = isStaleDue(item, now);
 
-    // Block, don't post-and-hope: a queue item whose only photo is generic
-    // era-cover art that already appears among the recent posts (2026-08-06,
-    // see docs/decisions.md) is an authoring gap, not a transient failure —
-    // skip it this run (still due next run) rather than spend an `attempts`
-    // retry or, worse, actually publish the repeat. Loud on purpose so it
-    // surfaces in the Action log and the brief's Growth line notices a
-    // stuck item.
-    if (repeatsRecentEraArt(item, recentIg)) {
-      console.error(
-        `social-poster: SKIPPING ${entry.file} — its media (${item.media[0]}) is generic era-cover art already used in a recent Instagram post. Needs a real dedicated photo (see docs/agents/runner-prompts/growth-draft.md's Media section) before it can ship. Left in the queue, not counted as a failed attempt.`,
-      );
+    // Block, don't post-and-hope: an item whose only photo is undeclared or
+    // recently-repeated era-cover art (2026-08-06 / 2026-08-11, see
+    // docs/decisions.md and social/README.md's mediaKind section) is an
+    // authoring gap or a transient rotation block, not something to spend a
+    // real publish attempt on.
+    let blockReason = eraArtGuardReason(item, recentIg);
+
+    // Deploy-lag preflight: a merged item can be due before Vercel finishes
+    // deploying its media. HEAD-check every media URL before spending a real
+    // IG/X publish attempt (and IG container) on something that will just
+    // 404 — this is intentionally NOT counted as a failed attempt, the same
+    // way the era-art guard above isn't.
+    if (!blockReason && needsMediaPreflight(item)) {
+      const preflight = await mediaUrlsReachable(mediaUrlsFor(item));
+      if (!preflight.ok) {
+        blockReason = `media not deployed yet — ${preflight.reason} (merged but not live at ${MEDIA_BASE_URL} yet?)`;
+      }
+    }
+
+    if (blockReason) {
+      if (stale) {
+        const failed = {
+          ...item,
+          failureReason: `Still unposted more than 48h after scheduledAt: ${blockReason}`,
+          lastAttemptAt: now.toISOString(),
+        };
+        await writeFile(path.join(FAILED_DIR, entry.file), JSON.stringify(failed, null, 2) + '\n');
+        await rm(entry.full);
+        console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past scheduledAt: ${blockReason}`);
+      } else {
+        console.error(`social-poster: SKIPPING ${entry.file} — ${blockReason} Left in the queue, not counted as a failed attempt.`);
+      }
       continue;
     }
 
@@ -146,14 +188,18 @@ async function main() {
       console.log(`social-poster: posted ${entry.file} -> ${result.url}`);
     } catch (err) {
       const attempts = (item.attempts ?? 0) + 1;
-      const failed = { ...item, attempts, lastError: String(err.message ?? err), lastAttemptAt: now.toISOString() };
-      if (attempts >= MAX_ATTEMPTS) {
+      const lastError = String(err.message ?? err);
+      const failed = { ...item, attempts, lastError, lastAttemptAt: now.toISOString() };
+      if (attempts >= MAX_ATTEMPTS || stale) {
+        failed.failureReason = stale
+          ? `Still unposted more than 48h after scheduledAt (${attempts} attempt(s) so far): ${lastError}`
+          : `Failed ${attempts} time(s): ${lastError}`;
         await writeFile(path.join(FAILED_DIR, entry.file), JSON.stringify(failed, null, 2) + '\n');
         await rm(entry.full);
-        console.error(`social-poster: ${entry.file} failed ${attempts} times, moved to social/failed/: ${failed.lastError}`);
+        console.error(`social-poster: ${entry.file} failed ${attempts} time(s), moved to social/failed/: ${lastError}`);
       } else {
         await writeFile(entry.full, JSON.stringify(failed, null, 2) + '\n');
-        console.error(`social-poster: ${entry.file} attempt ${attempts} failed, will retry: ${failed.lastError}`);
+        console.error(`social-poster: ${entry.file} attempt ${attempts} failed, will retry: ${lastError}`);
       }
     }
   }
