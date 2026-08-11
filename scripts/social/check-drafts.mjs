@@ -18,9 +18,23 @@
 //                     any post from the last 14 days or any other queue item.
 //   - cross-post copy — an X draft that reads as a near-clone of its IG
 //                     sibling (same `campaign`, or the closest same-day IG
-//                     item when no campaign is set) is what has been causing
-//                     X's duplicate-content 403s (11 of 12 social/failed/
-//                     items as of 2026-08-11).
+//                     item when no campaign is set) reads as spam and risks
+//                     X's duplicate-content 403 — still worth blocking on its
+//                     own merits, even though it turned out NOT to be the
+//                     cause of the 11 social/failed/ items as of 2026-08-11
+//                     (see the `length` rule below — corrected 2026-08-11,
+//                     same day: every one of those 11 was a generic 403 from
+//                     exceeding X's 280-character *weighted* length, not
+//                     duplicate content — see docs/decisions.md).
+//   - length        — X drafts only. X counts a tweet's length by its own
+//                     "weighted" rule, not raw JS string length: any
+//                     autolinked URL counts as exactly 23 characters
+//                     regardless of its real length, most emoji/CJK count as
+//                     2, everything else counts as 1 (see
+//                     weightedTweetLength below). HARD FAILS over 280
+//                     weighted (X's real limit — this is what actually
+//                     produced the 11 social/failed/ 403s), WARNS over 270
+//                     (non-fatal — gives headroom before the hard limit).
 //   - media         — IG drafts must have media; every media path must
 //                     exist under apps/web/public/, be a .png/.jpg/.jpeg
 //                     (the only formats this pipeline ever produces or
@@ -69,6 +83,23 @@ const PAIRED_LOOKING_FLOOR = 0.15;
 const ERA_ART_LOOKBACK = 10;
 const RECOGNIZED_PLATFORMS = new Set(['x', 'instagram']);
 const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
+
+// X's own length limit — see checkLength/weightedTweetLength below for the
+// full story. HARD_LIMIT is X's real cap; anything past it gets rejected
+// with a generic 403 (this is what actually broke the 11 social/failed/
+// items, corrected 2026-08-11). WARN_THRESHOLD is a self-imposed target with
+// headroom, not an X rule — flagged as non-fatal.
+const X_WEIGHTED_LENGTH_HARD_LIMIT = 280;
+const X_WEIGHTED_LENGTH_WARN_THRESHOLD = 270;
+// twitter-text (X's own open-sourced counting library) shortens every
+// autolinked URL to a t.co link of exactly this length, regardless of the
+// original URL's actual length.
+const WEIGHTED_URL_LENGTH = 23;
+// Findings that are advisory, not fatal, are tagged with this prefix so
+// main() can tell the two apart without a richer finding-object shape (every
+// other rule family here already returns plain strings) — see checkLength
+// and main()'s severity split below.
+const WARNING_PREFIX = 'length: warning —';
 
 async function readJsonDir(dir) {
   let files;
@@ -252,6 +283,93 @@ export function checkCrossPostCopy(file, item, allQueueItems) {
   return [];
 }
 
+// Matches whatever X will autolink into a t.co link: an explicit http(s)://
+// URL through to the next whitespace, OR a bare/naked domain with no scheme
+// at all (this pipeline's own links are always written this way — e.g.
+// `longlivets.com/?utm_source=x&utm_medium=social&utm_campaign=…` — and X's
+// autolinker treats a recognizable domain the same as a full URL). The bare
+// form requires one or more `label.` groups ending in a letters-only TLD
+// (2-24 chars) that sits directly against the preceding dot with no space in
+// between — the no-space requirement is deliberate cheap insurance against
+// misreading ordinary sentence punctuation as a domain (e.g. "Mr. Smith" has
+// a space after the period, so it never matches), plus an optional
+// path/query/fragment glued on with no intervening space.
+//
+// This is a pragmatic approximation of twitter-text's real (considerably
+// larger) valid-URL grammar — https://github.com/twitter/twitter-text — not
+// a byte-for-byte port. It's sized to what this pipeline actually emits
+// (bare longlivets.com links, generic http(s) links) rather than every edge
+// case X's own matcher handles (IDN domains, obscure TLDs, IPv4 literals,
+// etc.). If a future draft's link shape stops matching this regex, that's a
+// bug to fix here, not a reason to hand-wave the length rule.
+const AUTOLINK_URL_RE = /https?:\/\/\S+|\b(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,24}(?:\/\S*)?/gu;
+
+// Characters X's counter weighs as 2 instead of 1 — emoji
+// (Extended_Pictographic) and the CJK-family scripts twitter-text also
+// upweights (Han covers Chinese/Kanji, plus Hiragana/Katakana/Hangul).
+// Checked per Unicode code point (via the `for…of` loop in weightPlainText
+// below), not per UTF-16 code unit, so a surrogate-pair emoji isn't
+// accidentally counted twice over.
+const WIDE_CHAR_RE = /\p{Extended_Pictographic}|\p{Script=Han}|\p{Script=Hiragana}|\p{Script=Katakana}|\p{Script=Hangul}/u;
+
+function weightPlainText(segment) {
+  let total = 0;
+  for (const ch of segment) total += WIDE_CHAR_RE.test(ch) ? 2 : 1;
+  return total;
+}
+
+/**
+ * X's "weighted" tweet length — approximates twitter-text's
+ * unicodeCharacterCount + autolink-URL-collapsing algorithm
+ * (https://github.com/twitter/twitter-text), NOT `body.length`. Every
+ * autolinked URL (see AUTOLINK_URL_RE above) counts as exactly
+ * WEIGHTED_URL_LENGTH (23) characters no matter how long it actually is;
+ * most emoji and CJK-script characters count as 2 (see WIDE_CHAR_RE); every
+ * other character counts as 1.
+ *
+ * Why this matters: `social/failed/`'s 11 X items (as of 2026-08-11) all had
+ * a RAW body length of 294-373 characters and all failed with a generic 403
+ * — X silently rejecting an over-280-weighted-length tweet on a non-premium
+ * account. Nothing in this pipeline ever checked length against X's real
+ * limit before now (a doc instruction — growth-draft.md's old "≤280
+ * characters" — is not a check; see checkLength below for the actual gate).
+ */
+export function weightedTweetLength(body) {
+  const text = String(body ?? '');
+  let total = 0;
+  let cursor = 0;
+  AUTOLINK_URL_RE.lastIndex = 0;
+  let match;
+  while ((match = AUTOLINK_URL_RE.exec(text))) {
+    total += weightPlainText(text.slice(cursor, match.index));
+    total += WEIGHTED_URL_LENGTH;
+    cursor = match.index + match[0].length;
+  }
+  total += weightPlainText(text.slice(cursor));
+  return total;
+}
+
+/**
+ * X-only. HARD FAILS over X's real 280-weighted-character limit (see
+ * weightedTweetLength's docstring for why this is the rule that was
+ * actually missing). WARNS (non-fatal — main() treats a `WARNING_PREFIX`
+ * finding as advisory, not a checker failure) above 270, to leave headroom
+ * before the hard limit rather than let every draft ride the edge.
+ */
+export function checkLength(item) {
+  if (item.platform !== 'x') return [];
+  const weighted = weightedTweetLength(item.body);
+  if (weighted > X_WEIGHTED_LENGTH_HARD_LIMIT) {
+    return [
+      `length: weighted ${weighted} exceeds X's real ${X_WEIGHTED_LENGTH_HARD_LIMIT}-character limit (URLs always count as ${WEIGHTED_URL_LENGTH} regardless of actual length; most emoji/CJK count as 2) — X will reject this with a generic 403. Trim the body.`,
+    ];
+  }
+  if (weighted > X_WEIGHTED_LENGTH_WARN_THRESHOLD) {
+    return [`${WARNING_PREFIX} weighted ${weighted} is over the ${X_WEIGHTED_LENGTH_WARN_THRESHOLD}-char target (X's hard limit is ${X_WEIGHTED_LENGTH_HARD_LIMIT}) — trim if it doesn't cost the hook.`];
+  }
+  return [];
+}
+
 export async function checkMedia(file, item, recentIgPosted) {
   const findings = [];
   if (item.platform === 'instagram' && !item.media?.length) {
@@ -346,8 +464,15 @@ export async function checkDraft(target, { allQueue, openerContext, recentIg }) 
     ...(await checkVoice(target.file, target.data.body)),
     ...checkOpeners(target.file, target.data, openerContext),
     ...checkCrossPostCopy(target.file, target.data, allQueue),
+    ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg)),
   ];
+}
+
+/** True for a finding that's advisory only (see WARNING_PREFIX / checkLength)
+ * — main() keeps these out of the pass/fail exit code but still prints them. */
+function isWarningFinding(finding) {
+  return finding.startsWith(WARNING_PREFIX);
 }
 
 async function main() {
@@ -394,12 +519,23 @@ async function main() {
   const openerContext = [...recentPosted, ...allQueue.map((q) => ({ file: q.file, body: q.data.body }))];
 
   let hadFindings = false;
+  let hadWarnings = false;
   for (const target of targets) {
     const findings = await checkDraft(target, { allQueue, openerContext, recentIg });
-    if (findings.length) {
+    // A warning (currently only checkLength's over-270-but-within-280 case)
+    // is advisory: it prints, but never flips the exit code on its own — see
+    // WARNING_PREFIX/isWarningFinding. Any non-warning finding is a hard
+    // FAIL, same as before this rule existed.
+    const hardFindings = findings.filter((f) => !isWarningFinding(f));
+    const warnFindings = findings.filter(isWarningFinding);
+    if (hardFindings.length) {
       hadFindings = true;
       console.error(`\nFAIL ${target.file}`);
-      for (const f of findings) console.error(`  - ${f}`);
+      for (const f of [...hardFindings, ...warnFindings]) console.error(`  - ${f}`);
+    } else if (warnFindings.length) {
+      hadWarnings = true;
+      console.log(`\nWARN ${target.file}`);
+      for (const f of warnFindings) console.log(`  - ${f}`);
     } else {
       console.log(`OK   ${target.file}`);
     }
@@ -408,6 +544,10 @@ async function main() {
   if (hadFindings) {
     console.error('\ncheck-drafts: one or more queue drafts failed quality checks (see above).');
     process.exit(1);
+  }
+  if (hadWarnings) {
+    console.log('\ncheck-drafts: all checked drafts passed (warnings above are non-fatal).');
+    return;
   }
   console.log('\ncheck-drafts: all checked drafts passed.');
 }

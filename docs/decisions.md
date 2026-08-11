@@ -25,8 +25,15 @@ being reintroduced.
 know"** — the pillar *name* from growth-plan §4 leaked into caption copy and the
 drafting prompt's "see posted examples for voice" instruction turned it into a
 copying loop. Every Instagram image was a generic era tile. **11 of 12 items in
-`social/failed/` are X drafts** that were near-copies of their IG sibling and hit
-X's duplicate-content 403. And nothing planned around the three things Joey
+`social/failed/` are X drafts** that failed with a generic 403 — first thought to
+be duplicate-content rejections from near-copied IG siblings, **corrected
+2026-08-11 later the same day**: the actual cause was X rejecting each one for
+exceeding its real 280-character *weighted* length (all 11 measured 294-373
+weighted characters; X counts an autolinked URL as exactly 23 characters
+regardless of its real length), not sibling duplication — see
+`scripts/social/check-drafts.mjs`'s `weightedTweetLength` and
+`docs/marketing/social-strategy.md` §2's "Sibling rule + the X length rule".
+And nothing planned around the three things Joey
 actually wants: a coordinated push when a feature ships, a monthly re-teaching of
 the six site threads (new followers keep arriving and nobody has ever explained
 them), and a recurring beat for Mood. The missing piece was not a better prompt;
