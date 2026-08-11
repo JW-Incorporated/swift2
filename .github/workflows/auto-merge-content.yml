@@ -29,6 +29,23 @@
 # this job, so a PR that touches social/queue/** only gets auto-merge when
 # its OWN changed draft(s) pass; a failure just leaves the PR for a human,
 # same fail-safe direction as everything else here.
+#
+# Pagination + atomicity (2026-08-11, Codex review round 1 on PR #1900):
+# both jobs enumerate a PR's changed files via `gh api --paginate .../files`
+# (REST, follows every page) rather than `gh pr view --json files` (which is
+# backed by a GraphQL `files(first: 100)` connection and silently truncates
+# past 100 files) — a >100-file PR could otherwise pad the first 100 with
+# allowlisted paths and hide a non-allowlisted file in the remainder. Both
+# jobs cross-check the paginated count against the PR's own `changedFiles`
+# total and fail closed (leave it for a human) on any mismatch. `enable`
+# additionally re-verifies the PR head SHA hasn't moved since it started
+# (`--match-head-commit`) and disables any PREVIOUSLY-armed auto-merge on
+# every early exit (`--disable-auto`) — otherwise a commit that passed this
+# job's checks could arm auto-merge, then a LATER commit on the same PR
+# (which re-triggers this workflow via `synchronize`) that fails these
+# checks would still merge once `build` goes green, since GitHub's native
+# auto-merge doesn't know about this file-allowlist at all — only that the
+# checks it actually understands (`build`) passed.
 name: auto-merge-content
 
 on:
@@ -77,7 +94,17 @@ jobs:
           SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
-          ALL=$(gh pr view "$PR" --repo "$REPO" --json files --jq '.files[].path')
+
+          # Paginated REST enumeration, not `gh pr view --json files` (caps
+          # at 100 via GraphQL `files(first: 100)`) — see the header note.
+          ALL=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
+          GOT_COUNT=$(printf '%s\n' "$ALL" | grep -c . || true)
+          WANT_COUNT=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles')
+          if [ "$GOT_COUNT" -ne "$WANT_COUNT" ]; then
+            echo "PR #$PR: paginated file enumeration returned $GOT_COUNT filename(s) but the PR reports $WANT_COUNT changed — failing closed rather than checking a possibly-truncated file list." >&2
+            exit 1
+          fi
+
           QUEUE_FILES=$(echo "$ALL" | grep -E '^social/queue/.*\.json$' || true)
           if [ -z "$QUEUE_FILES" ]; then
             echo "No social/queue/**.json changes in this PR — nothing to check."
@@ -89,8 +116,7 @@ jobs:
           # Pull every changed file check-drafts.mjs might read — the queue
           # JSON itself plus any media it references that this same PR is
           # also adding — as raw bytes from the PR head commit, overlaying
-          # this (trusted, base-ref) checkout. `--jq -r` on a 404 would just
-          # be empty; `set -e` + explicit status check below makes a fetch
+          # this (trusted, base-ref) checkout. `set -e` makes a fetch
           # failure loud instead of silently checking stale/missing content.
           RELEVANT=$(echo "$ALL" | grep -E '^(social/queue/.*\.json|apps/web/public/.*\.(png|jpg|jpeg))$' || true)
           while IFS= read -r f; do
@@ -99,11 +125,14 @@ jobs:
             gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" > "$f"
           done <<<"$RELEVANT"
 
-          echo "$QUEUE_FILES" > /tmp/queue-files.txt
+          # A JSON array manifest (not a shell word-split list) so a
+          # filename containing a space can never be silently split into two
+          # bogus paths — check-drafts.mjs reads this with --manifest.
+          printf '%s\n' "$QUEUE_FILES" | jq -R -s -c 'split("\n") | map(select(length > 0))' > /tmp/queue-files.json
 
       - name: Run draft quality checks
         if: steps.files.outputs.has_drafts == 'true'
-        run: node scripts/social/check-drafts.mjs $(tr '\n' ' ' < /tmp/queue-files.txt)
+        run: node scripts/social/check-drafts.mjs --manifest /tmp/queue-files.json
 
   enable:
     runs-on: ubuntu-latest
@@ -126,9 +155,20 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
-            echo "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge."
+          # Every early exit below goes through this instead of a bare
+          # `exit 0`: if an EARLIER commit on this PR passed every check and
+          # armed auto-merge, and a LATER commit (this run) fails one, the
+          # earlier arm must not survive — otherwise `build` going green on
+          # the later, unvetted commit would still merge it. `|| true`
+          # because there may be nothing armed to disable.
+          leave_for_human () {
+            echo "$1"
+            gh pr merge "$PR" --repo "$REPO" --disable-auto >/dev/null 2>&1 || true
             exit 0
+          }
+
+          if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
+            leave_for_human "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge."
           fi
 
           # Files a content run is allowed to touch. Anything else -> human.
@@ -152,15 +192,21 @@ jobs:
           labels=$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name')
           for blocker in hold cie:escalate founder-decision; do
             if grep -qx "$blocker" <<<"$labels"; then
-              echo "PR #$PR carries the '$blocker' label — leaving it for a human."
-              exit 0
+              leave_for_human "PR #$PR carries the '$blocker' label — leaving it for a human."
             fi
           done
 
-          files=$(gh pr view "$PR" --repo "$REPO" --json files --jq '.files[].path')
+          # Paginated REST enumeration, not `gh pr view --json files` — see
+          # the header note (a >100-file PR could hide a bad file past the
+          # GraphQL connection's 100-item cap).
+          files=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
+          got_count=$(printf '%s\n' "$files" | grep -c . || true)
+          want_count=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles')
+          if [ "$got_count" -ne "$want_count" ]; then
+            leave_for_human "PR #$PR: paginated file enumeration returned $got_count filename(s) but the PR reports $want_count changed — refusing to auto-merge on a possibly-truncated file list."
+          fi
           if [ -z "$files" ]; then
-            echo "No files reported for PR #$PR — refusing to auto-merge."
-            exit 0
+            leave_for_human "No files reported for PR #$PR — refusing to auto-merge."
           fi
 
           while IFS= read -r f; do
@@ -174,25 +220,43 @@ jobs:
               esac
             done <<<"$(echo "$ALLOWED_PREFIXES" | tr -d ' ')"
             if [ "$ok" -eq 0 ]; then
-              echo "PR #$PR touches non-content path '$f' — leaving it for a human."
-              exit 0
+              leave_for_human "PR #$PR touches non-content path '$f' — leaving it for a human."
             fi
 
             if [ "$matched_prefix" = "$IMAGE_PREFIX" ]; then
               case "$f" in
                 *.png|*.jpg|*.jpeg) : ;;
                 *)
-                  echo "PR #$PR adds a non-image file under $IMAGE_PREFIX ('$f') — leaving it for a human."
-                  exit 0
+                  leave_for_human "PR #$PR adds a non-image file under $IMAGE_PREFIX ('$f') — leaving it for a human."
                   ;;
               esac
-              size=$(gh api "repos/$REPO/contents/$f?ref=$SHA" --jq '.size // 0')
+              # One call for both checks: `type` must be a regular file blob
+              # — "symlink" or "submodule" are how a path could point outside
+              # what it appears to be (e.g. a symlink resolving elsewhere at
+              # deploy/build time) while still matching the extension/prefix
+              # checks above. `size` is the existing 1.5MB cap.
+              meta=$(gh api "repos/$REPO/contents/$f?ref=$SHA" --jq '{size: (.size // 0), type: (.type // "unknown")}')
+              file_type=$(echo "$meta" | jq -r '.type')
+              size=$(echo "$meta" | jq -r '.size')
+              if [ "$file_type" != "file" ]; then
+                leave_for_human "PR #$PR adds '$f' as a git '$file_type', not a regular file — leaving it for a human (symlinks/submodules aren't a real image, whatever the extension says)."
+              fi
               if [ "$size" -gt "$MAX_IMAGE_BYTES" ]; then
-                echo "PR #$PR adds an oversized image '$f' (${size} bytes > ${MAX_IMAGE_BYTES}) — leaving it for a human."
-                exit 0
+                leave_for_human "PR #$PR adds an oversized image '$f' (${size} bytes > ${MAX_IMAGE_BYTES}) — leaving it for a human."
               fi
             fi
           done <<<"$files"
 
+          # Bind the decision to the exact commit it was computed against:
+          # if the PR head moved between this job starting and this line
+          # (another push landed mid-run), re-evaluate on the new commit's
+          # own run instead of merging content this run never actually
+          # checked. `--match-head-commit` makes `gh pr merge` itself refuse
+          # if the head has since moved, as a second, atomic guarantee.
+          current_sha=$(gh pr view "$PR" --repo "$REPO" --json headRefOid --jq '.headRefOid')
+          if [ "$current_sha" != "$SHA" ]; then
+            leave_for_human "PR #$PR head moved ($SHA -> $current_sha) since this run started — not enabling auto-merge; the run triggered by the new commit will re-evaluate it."
+          fi
+
           echo "PR #$PR is content-only, its queue drafts (if any) passed check-drafts, and it's unlabelled for hold — enabling auto-merge."
-          gh pr merge "$PR" --repo "$REPO" --squash --auto --delete-branch
+          gh pr merge "$PR" --repo "$REPO" --squash --auto --delete-branch --match-head-commit "$SHA"
