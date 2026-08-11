@@ -49,6 +49,15 @@ drifting out of sync with a duplicated palette. See
   white, `--credit` renders small at the bottom.
 - `quote` — centered composition with an oversized decorative quote mark,
   italic headline, `--kicker` as the attribution line.
+- `thread` — headline runs large near the top (not bottom-corner small), and
+  the centerpiece is a bordered stat panel showing ONE real, verified number
+  about that thread (`--stat-value`/`--stat-label`, optionally
+  `--stat2-value`/`--stat2-label` for a two-up pair like "12 eras / 12
+  looks", plus `--detail` for a sentence-case line underneath). No era tag —
+  a thread spans every era, so pinning it to one was arbitrary. This is what
+  the six `thread-*-intro.png` library cards use; see `seed-library.mjs` for
+  where each thread's number is sourced from and verified against
+  `apps/web/lib/longlive/lenses.ts`.
 
 **Sizes** (`--size`): `portrait` (1080×1350, default — IG feed 4:5, most
 room for a hook) or `square` (1080×1080).
@@ -69,8 +78,9 @@ everything else, loaded from `@fontsource/*` static files (no network fetch
 at render time — deterministic in CI). Deliberately **not** centered-text-on-
 a-flat-color, which is the generic-template look this exists to avoid: the
 `text` and `photo` variants are bottom-anchored and asymmetric; `quote` is
-the one centered layout, which is enough variation that the library doesn't
-read as one template stamped three times.
+centered; `thread` is top-anchored with a centered stat panel as the focal
+point. Four distinct compositions, so the library doesn't read as one
+template stamped repeatedly.
 
 ## `capture-screens.mjs` — live site screenshots
 
@@ -140,7 +150,7 @@ have all landed under 900KB in practice.
 | File | What |
 |---|---|
 | `thread-<id>-screen.png` × 6 | Mobile screenshot of each thread (`/?lens=<id>`) |
-| `thread-<id>-intro.png` × 6 | Designed intro card, one per thread |
+| `thread-<id>-intro.png` × 6 | Designed intro card, one per thread — `thread` variant: real-data proof stat as centerpiece (e.g. "42 hidden clues, 24 confirmed"), no era tag, a distinct era-derived accent color per card so the six vary in a grid. Numbers sourced and verified in `seed-library.mjs`'s `THREADS` array comments. |
 | `thread-the-proposal-photo.png` | Photo-variant demo — Commons photo + scrim, End Game thread |
 | `mood-chat-screen.png` | Mobile screenshot of the Mood chat with starter chips visible |
 | `mood-feature.png` | Designed card for the Mood feature |

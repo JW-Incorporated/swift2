@@ -70,6 +70,56 @@ describe('renderCardPng', () => {
     expect(png.length).toBeLessThan(1.5 * 1024 * 1024);
   });
 
+  it('renders a thread-variant card with a single real-data stat, no era tag needed', async () => {
+    const png = await renderCardPng({
+      variant: 'thread',
+      palette: eraPalette('ttpd'),
+      width: SIZES.portrait.width,
+      height: SIZES.portrait.height,
+      eyebrow: 'The Threads',
+      headline: 'The Decode',
+      kicker: 'One clue, one payoff',
+      stat: { value: '42', label: 'Hidden clues' },
+      detail: '24 confirmed · longest gap 2.6 years',
+      icon: 'layers',
+    });
+    const meta = await sharp(png).metadata();
+    expect(meta.format).toBe('png');
+    expect(meta.width).toBe(1080);
+    expect(meta.height).toBe(1350);
+    expect(png.length).toBeLessThan(1.5 * 1024 * 1024);
+  });
+
+  it('renders a thread-variant card with a two-up stat pair', async () => {
+    const png = await renderCardPng({
+      variant: 'thread',
+      palette: eraPalette('1989'),
+      width: SIZES.portrait.width,
+      height: SIZES.portrait.height,
+      eyebrow: 'The Threads',
+      headline: 'The Runway',
+      kicker: 'Twelve wardrobes, one story',
+      stat: { value: '12', label: 'Eras' },
+      stat2: { value: '12', label: 'Looks' },
+      detail: 'One signature look, every era',
+    });
+    const meta = await sharp(png).metadata();
+    expect(meta.width).toBe(1080);
+    expect(meta.height).toBe(1350);
+  });
+
+  it('rejects a thread variant with no stat supplied', async () => {
+    await expect(
+      renderCardPng({
+        variant: 'thread',
+        palette: BRAND,
+        width: 1080,
+        height: 1350,
+        headline: 'The Decode',
+      }),
+    ).rejects.toThrow(/stat/);
+  });
+
   it('rejects a missing headline', async () => {
     await expect(
       renderCardPng({ variant: 'text', palette: BRAND, width: 1080, height: 1350 }),
