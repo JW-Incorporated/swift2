@@ -1501,6 +1501,12 @@ export default {
           },
         ],
         // Focal point (#762): tight 'Shake It Off' frame, her face fills the upper-center of the shot.
+        // Photo-enrichment pass (2026-07-27, #762): searched for a second, genuinely
+        // on-topic image (Apple Music/WWDC 2015 launch, Eddy Cue at a contemporaneous
+        // event) — nothing verifiable turned up. No free-licensed period photo of Eddy
+        // Cue exists (Wikipedia/Commons' only photo of him is SXSW 2025, a decade removed
+        // from this story, so it was rejected as unrelated filler rather than added).
+        // Kept at one photo; reviewed-sparse.
         photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum', focalPoint: '48% 30%' }],
       },
     },
