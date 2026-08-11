@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCrossPostCopy, checkMedia, checkDraft } from './check-drafts.mjs';
+import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
 
 describe('bodySimilarity', () => {
   it('is 1 for identical text', () => {
@@ -248,6 +248,119 @@ describe('checkCrossPostCopy', () => {
       ];
       expect(checkCrossPostCopy('x.json', all[1].data, all)).toEqual([]);
     });
+  });
+});
+
+describe('weightedTweetLength', () => {
+  it('matches raw character count when there is nothing to collapse or upweight', () => {
+    expect(weightedTweetLength('hello world')).toBe(11);
+  });
+
+  it('collapses an http(s):// URL to exactly 23 weighted chars, regardless of its real length', () => {
+    const prefix = 'check this out: ';
+    const url = 'https://example.com/some/very/long/path?query=123456789&more=abcdefgh';
+    expect(weightedTweetLength(prefix + url)).toBe(prefix.length + 23);
+  });
+
+  it('collapses a bare/naked domain (no scheme) the same way — this pipeline\'s own link shape', () => {
+    const prefix = 'read more at ';
+    const url = 'longlivets.com/?utm_source=x&utm_medium=social&utm_campaign=mood-chat';
+    expect(weightedTweetLength(prefix + url)).toBe(prefix.length + 23);
+  });
+
+  it('collapses a bare domain with no path/query at all', () => {
+    expect(weightedTweetLength('try it → longlivets.com')).toBe('try it → '.length + 23);
+  });
+
+  it('collapses two separate URLs in the same body independently', () => {
+    const body = 'longlivets.com/?era=lover and also longlivets.com/?era=red';
+    const between = ' and also ';
+    expect(weightedTweetLength(body)).toBe(23 + between.length + 23);
+  });
+
+  it('does not treat an ordinary sentence abbreviation as a domain (space breaks the match)', () => {
+    const text = 'Mr. Smith said hi to Dr. Jones.';
+    expect(weightedTweetLength(text)).toBe(text.length);
+  });
+
+  it('weighs an Extended_Pictographic emoji as 2 characters', () => {
+    // 'hi ' (3, weight 1 each) + one emoji (weight 2) = 5
+    expect(weightedTweetLength('hi \u{1F389}')).toBe(5);
+  });
+
+  it('weighs a run of emoji as 2 each, not 1 per UTF-16 code unit', () => {
+    // Three astral-plane emoji, each a UTF-16 surrogate pair (raw .length
+    // would be 6) — weighted length must be 6 (2 per emoji), not 3 or 6-by-coincidence.
+    const threeEmoji = '\u{1F389}\u{1F600}\u{2728}'; // tada, grinning face, sparkles
+    expect(weightedTweetLength(threeEmoji)).toBe(6);
+  });
+
+  it('weighs CJK characters as 2 each', () => {
+    expect(weightedTweetLength('你好')).toBe(4); // "hello" (Han script, 2 chars)
+  });
+
+  it('is empty-safe', () => {
+    expect(weightedTweetLength('')).toBe(0);
+    expect(weightedTweetLength(undefined)).toBe(0);
+  });
+
+  it('boundary: a 280-char plain-ASCII body weighs exactly 280', () => {
+    expect(weightedTweetLength('a'.repeat(280))).toBe(280);
+  });
+
+  it('boundary: a 281-char plain-ASCII body weighs exactly 281', () => {
+    expect(weightedTweetLength('a'.repeat(281))).toBe(281);
+  });
+});
+
+describe('checkLength', () => {
+  const xItem = (body) => ({ platform: 'x', body, scheduledAt: '2026-08-11T00:00:00Z' });
+
+  it('is a no-op for Instagram drafts — the rule is X-only', () => {
+    expect(checkLength({ platform: 'instagram', body: 'y'.repeat(500) })).toEqual([]);
+  });
+
+  it('passes silently at or under the 270-weighted target', () => {
+    expect(checkLength(xItem('a'.repeat(270)))).toEqual([]);
+  });
+
+  it('warns (non-fatal) between 271 and 280 weighted', () => {
+    const findings = checkLength(xItem('a'.repeat(275)));
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('warning');
+    expect(findings[0]).toContain('275');
+  });
+
+  it('boundary: 280 weighted warns but does not hard-fail', () => {
+    const findings = checkLength(xItem('a'.repeat(280)));
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('warning');
+  });
+
+  it('boundary: 281 weighted hard-fails, one character over the real limit', () => {
+    const findings = checkLength(xItem('a'.repeat(281)));
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).not.toContain('warning');
+    expect(findings[0]).toContain('length:');
+    expect(findings[0]).toContain('281');
+  });
+
+  it('hard-fails a real-shape example: a long body plus one bare-domain link, still over 280 weighted', () => {
+    // Mirrors the actual social/failed/ failure shape: a body written without
+    // the weighted-length rule in mind, well past 280 once accounted for.
+    const body = 'x'.repeat(260) + ' longlivets.com/?utm_source=x&utm_medium=social&utm_campaign=test';
+    const findings = checkLength(xItem(body));
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('length:');
+    expect(findings[0]).not.toContain('warning');
+  });
+});
+
+describe('checkDraft includes the length rule for X drafts', () => {
+  it('surfaces a checkLength hard-fail alongside other rule families', async () => {
+    const target = { file: 'toolong.json', data: { platform: 'x', body: 'z'.repeat(300), scheduledAt: '2026-08-11T00:00:00Z' } };
+    const findings = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [] });
+    expect(findings.some((f) => f.startsWith('length:'))).toBe(true);
   });
 });
 
