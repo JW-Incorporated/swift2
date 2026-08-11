@@ -7,30 +7,102 @@ import { oauth1Header } from './oauth1.mjs';
 
 export const GRAPH_VERSION = 'v25.0';
 
+// X (Twitter) caps a single tweet at 4 photos — the v1.1 media/upload
+// endpoint itself doesn't enforce this (it'll happily accept a 5th upload),
+// the v2 tweet create call rejects it, so we check up front rather than
+// burning 4 real uploads before finding out.
+export const MAX_X_IMAGES = 4;
+
+const X_UPLOAD_URL = 'https://upload.twitter.com/1.1/media/upload.json';
+const X_TWEET_URL = 'https://api.twitter.com/2/tweets';
+
+const MIME_BY_EXT = {
+  png: 'image/png',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  gif: 'image/gif',
+  webp: 'image/webp',
+};
+
+/** Best-effort content-type from a media path's extension, for the multipart upload. */
+export function mimeTypeFor(mediaPath) {
+  const ext = String(mediaPath).split('.').pop()?.toLowerCase();
+  return MIME_BY_EXT[ext] ?? 'application/octet-stream';
+}
+
 /**
- * Posts a text tweet via X's v2 API (OAuth1 user context). Image/video
- * tweets are not implemented yet — a queue item with `media` targeting
- * platform "x" is rejected with a clear error rather than silently posting
- * text-only, so a media-bearing X draft fails loudly instead of shipping
- * wrong. See docs/agents/growth.md's automation section for the follow-up.
+ * Uploads one image to X's v1.1 media endpoint (simple, non-chunked upload —
+ * fine for the still-photo sizes this pipeline ever queues; video/animated
+ * GIF would need the chunked INIT/APPEND/FINALIZE flow, not implemented
+ * here since nothing in social/queue/ has ever queued one) and returns the
+ * resulting media_id_string to attach to the tweet.
+ *
+ * Deliberately multipart/form-data, not the alternate `media_data` (base64
+ * in an x-www-form-urlencoded body) shape: OAuth1 only signs
+ * x-www-form-urlencoded bodies, so `media_data` would need the full base64
+ * payload folded into the signature base string — correct but needlessly
+ * expensive for a multi-hundred-KB image. A multipart body's fields are
+ * never part of the OAuth1 signature (per spec), so the Authorization header
+ * here signs no body params at all, same as the plain POST /2/tweets below.
  */
-export async function postToX(item, creds) {
-  if (item.media?.length) {
-    throw new Error('X image/video posting is not implemented yet — remove media or post this one manually.');
-  }
-  const url = 'https://api.twitter.com/2/tweets';
+async function uploadXMedia(mediaPath, creds, mediaBaseUrl) {
+  const imageUrl = `${mediaBaseUrl}${mediaPath}`;
+  const imgRes = await fetch(imageUrl);
+  if (!imgRes.ok) throw new Error(`X media fetch failed for ${imageUrl} (${imgRes.status}) — is it merged AND deployed yet?`);
+  const bytes = Buffer.from(await imgRes.arrayBuffer());
+
   const header = oauth1Header({
     method: 'POST',
-    url,
+    url: X_UPLOAD_URL,
     consumerKey: creds.apiKey,
     consumerSecret: creds.apiKeySecret,
     token: creds.accessToken,
     tokenSecret: creds.accessTokenSecret,
   });
-  const res = await fetch(url, {
+  const form = new FormData();
+  form.append('media', new Blob([bytes], { type: mimeTypeFor(mediaPath) }), mediaPath.split('/').pop());
+  // No Content-Type header set manually — fetch derives it (with the
+  // multipart boundary) from the FormData body itself.
+  const res = await fetch(X_UPLOAD_URL, { method: 'POST', headers: { Authorization: header }, body: form });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`X media upload failed for ${mediaPath} (${res.status}): ${JSON.stringify(body)}`);
+  return body.media_id_string;
+}
+
+/**
+ * Posts a tweet via X's v2 API (OAuth1 user context). Text-only when the
+ * item has no `media`; otherwise uploads each image (up to MAX_X_IMAGES) via
+ * the v1.1 media endpoint first and attaches the resulting media_ids —
+ * mirrors postToInstagram's convention of fetching from `mediaBaseUrl` + the
+ * item's relative path, so an X image post has the exact same "must be
+ * merged AND deployed before scheduledAt" requirement as Instagram.
+ */
+export async function postToX(item, creds, mediaBaseUrl) {
+  if (item.media?.length > MAX_X_IMAGES) {
+    throw new Error(`X posts support at most ${MAX_X_IMAGES} images (this draft has ${item.media.length}).`);
+  }
+
+  const payload = { text: item.body };
+  if (item.media?.length) {
+    const mediaIds = [];
+    for (const mediaPath of item.media) {
+      mediaIds.push(await uploadXMedia(mediaPath, creds, mediaBaseUrl));
+    }
+    payload.media = { media_ids: mediaIds };
+  }
+
+  const header = oauth1Header({
+    method: 'POST',
+    url: X_TWEET_URL,
+    consumerKey: creds.apiKey,
+    consumerSecret: creds.apiKeySecret,
+    token: creds.accessToken,
+    tokenSecret: creds.accessTokenSecret,
+  });
+  const res = await fetch(X_TWEET_URL, {
     method: 'POST',
     headers: { Authorization: header, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text: item.body }),
+    body: JSON.stringify(payload),
   });
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`X post failed (${res.status}): ${JSON.stringify(body)}`);
