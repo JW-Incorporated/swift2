@@ -7,6 +7,64 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Reliability scores reach the vault; nothing displays them yet
+
+**Decision:** `sourcesFrom()` (`scripts/lib/longlive-sync-shared.mjs`) now carries
+each citation's `reliability_score` and `source_type` into the built vault as
+`reliability` / `type`, and all five generator emit sites go through one new
+`sourceLiteral()` so a citation field can never again be added to the
+normalizer and dropped by four of the five serializers. **No UI renders either
+field.** The seam is deliberate and this entry is the thing to read before
+closing it.
+
+**Why plumb it:** the 2026-07-08 audit §5 rubric is real, documented, and
+enforced — `validate-content.mjs` rejects a score outside 1..5 — and editors
+have scored ~2.1k citations against it. Every one was flattened to `{name,url}`
+at build time. The app could not tell `grammy.com` from a fan wiki. That is a
+month of editorial judgment thrown away by one line, and the fix is ten.
+
+**Why NOT display it — the coverage is uneven, and a badge would lie.** Of 1,918
+`moment.sources` citations, 1,161 (61%) carry a score and 757 do not; every one
+of the 946 citations on typed records (releases/tours/theories/videos) does,
+because `checkCommon` has required them since the audit. A reliability badge
+rendered on the scored 61% and omitted on the rest does not read as "we scored
+these"; it reads as "the unbadged ones are weaker," which is false — most are
+pre-rubric citations from reputable outlets that nobody has gone back to score.
+The failure mode is precisely the one the confidence banners were built to
+avoid: a provenance signal that misleads by omission is worse than no signal.
+**The gate to reopen this is coverage, not design:** when unscored moment
+citations reach ~0, display becomes a design question worth having.
+
+**And the visual language is already full.** A moment can carry a sub-confirmed
+`ConfidenceBanner`, a "What's rumored" section with per-rumor status pills, and
+per-image `reference`/`archival` badges. Those all answer *"how sure are we of
+this claim?"* A per-citation reliability badge answers *"how good is this
+link?"* — a quieter, more clerical question — and stacking a fourth trust
+chrome on the same card dilutes the three that carry real weight. Today's
+citation line is deliberately footnote-scale (10px, `opacity-80`, below a
+rule), which is the correct altitude for it.
+
+**Precedent:** rumors' `sourceTier` has been plumbed to the vault and typed in
+`types.ts` since the rumor pipeline landed, is present on 36 vault entries, and
+has never been rendered. That seam has cost nothing and is available the day
+someone wants it. This is the same shape.
+
+**Alternatives considered:** (a) render a 1–5 badge on every citation —
+rejected, see coverage above; (b) render only for scores of 1–2 ("low-quality
+source") — rejected, it is a scarlet letter on the 2s, which the rubric defines
+as legitimate supplements (wikis, moderated forums) that the same rubric already
+forbids from *standing alone*; enforcing that at build time is strictly better
+than shaming it at render time; (c) sort citations by reliability so the best
+source is listed first — genuinely tempting and cheap, but it silently reorders
+the *first* source, and `ConfidenceBanner` attributes the sub-confirmed label to
+`sources[0]` **by position** — so sorting would re-attribute banners across the
+corpus. Rejected as an invisible content change riding along in a plumbing PR;
+filed instead; (d) keep discarding it — rejected, it is the site's own stated
+credibility standard.
+
+**Approved by:** pending — Joey owns whether a reliability signal ever renders;
+this PR only makes it available and argues for the wait.
+
 ## 2026-08-11 — One source of truth for content length caps; restore the 31 contexts a stale cap deleted
 
 **Decision:** every content length cap now lives in `scripts/lib/content-caps.mjs`
