@@ -264,12 +264,16 @@ describe('the committed allowlist', () => {
     }
   });
 
-  it('still refuses app code and committed images', () => {
+  it('still refuses app code and committed images outside the one carved-out directory', () => {
     const entries = parseAllowlist(allowlistText).map((p) => p.entry);
     for (const f of [
       'apps/web/app/page.tsx',
       'apps/web/lib/longlive/tracks.ts',
-      'apps/web/public/social/2026-07-17-electric-lady-1.png',
+      // apps/web/public/** stays refused EXCEPT the one carved-out
+      // directory tested separately below — a sibling directory, or the
+      // public root itself, must still decline.
+      'apps/web/public/eras/red.png',
+      'apps/web/public/favicon.ico',
       '.github/workflows/auto-merge-content.yml',
       '.github/content-automerge-allowlist.txt',
       'package.json',
@@ -280,4 +284,31 @@ describe('the committed allowlist', () => {
       ).toBe(false);
     }
   });
+
+  // Flipped 2026-08-11 (docs/decisions.md, same date): this test used to
+  // assert the opposite — that apps/web/public/social/2026-07-17-electric-
+  // lady-1.png could never be covered by any allowlist entry, per the
+  // 2026-07-28 "a bot-picked image gets human eyes" policy. A same-day
+  // decisions.md entry (approved by Joey; Wyatt verbally, relayed by Joey
+  // 2026-08-11 evening) carves out `apps/web/public/social/` specifically,
+  // superseding 2026-07-28 for that one directory: a queue item's own
+  // dedicated photo, already validated by check-drafts.mjs's media rules,
+  // can now auto-merge alongside its queue JSON.
+  it('covers a real committed image under the carved-out apps/web/public/social/ directory', () => {
+    const entries = parseAllowlist(allowlistText).map((p) => p.entry);
+    expect(entries.some((e) => covers(e, 'apps/web/public/social/2026-07-17-electric-lady-1.png'))).toBe(true);
+  });
+
+  // What this file's `covers()` CANNOT express, and does not try to: a path
+  // being allowlisted is necessary but not sufficient for
+  // apps/web/public/social/** specifically — the `enable` job in
+  // .github/workflows/auto-merge-content.yml applies its own per-file
+  // constraints at runtime (extension must be .png/.jpg/.jpeg, size ≤1.5MB,
+  // git blob type must be "file" — not a symlink/submodule) BEFORE treating
+  // a covered image path as mergeable, since a plain path-prefix file has no
+  // way to express file properties. A non-image extension, an oversized
+  // file, or a symlink under this same directory therefore still declines —
+  // enforced by that workflow step, not by this allowlist file or this
+  // test suite (which only covers the allowlist FILE's own format and
+  // coverage rules, not PR-time file content).
 });
