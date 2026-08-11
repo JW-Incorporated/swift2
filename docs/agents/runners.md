@@ -255,7 +255,8 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
 |---|---|---|---|---|---|
 | Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
 | ~~Marjorie — 8 PM delta~~ **(DISABLED 2026-07-25, Wyatt)** | ~~`0 3 * * *`~~ | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Cut to once-daily for sustainment mode — the morning brief stands alone. Trigger `trig_01G4GsUsphyz9LycqKjDEdi4` set `enabled:false` (not deleted; re-enable to restore). NOTE: the delta also ran an evening merge-sweep + founder-email-reply pass — those now happen only at the 6 AM brief (autonomous merge cycles cover the gap). |
-| Growth — daily draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/growth-draft.md`](runner-prompts/growth-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md`) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason |
+| Growth — daily draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/growth-draft.md`](runner-prompts/growth-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md`) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason. **Since 2026-08-11 it drafts Tree's calendar rather than inventing content** |
+| Tree — weekly social plan | `0 10 * * 1` (Mondays, an hour before that day's Growth draft, so the fresh calendar is readable the same morning) | **Opus** — genuine strategy judgment; a script-and-summarize tier would restore the formula loop it exists to break | [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md) | **Wyatt** | Added 2026-08-11 (Joey): posting was strategically random — 12 of 14 captions opened "did you know", every IG image a generic era tile, and feature launches / the six threads / Mood had never been posted about. Tree plans `social/calendar.md`; Growth executes it. Charter: [`tree.md`](tree.md) |
 | Austin — build runs ×2 | `0 16 * * *`, `0 21 * * *` | Fable | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** | Solves work (code) |
 | Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site + SEO/discoverability lens |
 | Content Shift ×2 | `0 17,23 * * *` | Fable | [`runner-prompts/content-shift-run.md`](runner-prompts/content-shift-run.md) | **Wyatt** | Heaviest: research + writing |
@@ -267,6 +268,26 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
+
+### Tree's routine does not exist yet — it is a Wyatt-side paste (2026-08-11)
+
+The row above is the *specification*. **No routine was created by the session
+that wrote it**, deliberately: creating cloud routines is a Wyatt-account action,
+and `routine-invariants.md`'s checklist has steps (detaching the
+`Claude_Code_Remote` connector) that can only be done in the routines UI.
+
+To bring Tree live, from Wyatt's side: create a routine named
+`Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the
+fleet's current Opus), prompt = the **exact contents** of
+[`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md), then run the
+`routine-invariants.md` checklist on it — remove the `Claude_Code_Remote`
+connector (Edit → Connectors → `×` → Save; the API silently ignores
+`mcp_connections: []`), `persist_session: false`, no `Task` in `allowed_tools`.
+
+Until that paste happens, `social/calendar.md` is a static seed covering
+2026-08-12 → 08-25 and the Growth daily run will fall back to heartbeat pillars
+once it runs out — which it reports in its PR body, so the gap is visible rather
+than silent.
 
 ## Maintenance fleet (2026-07-12)
 
