@@ -126,11 +126,32 @@ right place for that distinction and already carries it.
 
 ---
 
-## 2026-08-11 — Dependabot: bump `nanoid`; ACCEPT `image-size` and `uuid` with documented reasoning
+## 2026-08-11 — Dependabot: bump `nanoid` + re-apply `brace-expansion`; ACCEPT `image-size` and `uuid` with documented reasoning
 
-**Decision (PENDING Wyatt's approval).** Of the four open Dependabot alerts,
-one is fixed here and two are accepted, not fixed. Reachability was checked
-per package (`docs/agents/paul-blart.md` step 1), not assumed from severity.
+**Decision (PENDING Wyatt's approval).** Of the six open Dependabot alerts,
+three are fixed here and two are accepted, not fixed (the sixth is a second
+advisory on the same `image-size` version). Reachability was checked per
+package (`docs/agents/paul-blart.md` step 1), not assumed from severity.
+
+### Fixed: `brace-expansion` 5.0.7 → 5.0.9 — AND A PROCESS BUG BEHIND IT
+
+Two high advisories (GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895; both
+unbounded-array DoS, `A:H` only). Straightforward: the requiring range is
+`^5.0.5`, so `npm update brace-expansion` is the whole fix.
+
+**The part worth Wyatt's attention is why it came back.** PR #1893 already
+bumped this to 5.0.9 on 2026-08-11. PR #1903 (`social(images)`) then merged a
+regenerated `package-lock.json` built from a base predating #1893, which
+reverted the entry to 5.0.7 and re-opened both alerts (they were re-created at
+16:57Z the same day). Nothing in CI noticed: no gate compares the lockfile
+against known advisories, so a security bump can be silently undone by any PR
+that happens to run `npm install`.
+
+**Left for Wyatt** (not done here, it changes CI): add a lockfile-regression
+gate — the cheapest version is `npm audit --audit-level=high` on the merge
+result, or a check that no dependency version *decreases* relative to `main`.
+Without one, this will recur; it is a property of the merge order, not of the
+people involved.
 
 ### Fixed: `nanoid` 3.3.16 → 3.3.18 (GHSA-2v37-7h3g-55p8, high)
 
