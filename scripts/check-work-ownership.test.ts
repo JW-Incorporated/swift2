@@ -16,13 +16,69 @@ import {
   renderAlert,
 } from './check-work-ownership.mjs';
 
+// The checker is plain `.mjs` with JSDoc, so its shapes are not importable as
+// types. These mirror them, which keeps the tests honestly typed AND makes the
+// contract the tests rely on explicit — if `evaluate` ever returns a different
+// shape, the mismatch shows up here rather than being absorbed by `any`.
+type Label = { name: string };
+type Issue = {
+  number: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  labels: Label[];
+};
+type Pr = {
+  number: number;
+  title: string;
+  createdAt: string;
+  isDraft: boolean;
+  author: { login: string };
+  labels: Label[];
+};
+type Snapshot = { issues: Issue[]; prs: Pr[] };
+
+/** Every key optional: a budget that OMITS a condition is a case under test. */
+type Budget = {
+  unrouted?: number;
+  ambiguous?: number;
+  unowned?: number;
+  abandoned?: number;
+  stalePr?: number;
+  $notEnforced?: Record<string, string>;
+};
+
+/** Union of the five finding shapes; only `number`/`title` are on all of them. */
+type Finding = {
+  number: number;
+  title: string;
+  ageDays?: number;
+  idleDays?: number;
+  desk?: string;
+  desks?: string[];
+  author?: string;
+};
+type Breach = {
+  key: string;
+  count: number;
+  budget: number | null;
+  over: number;
+  reason?: string;
+};
+type Result = {
+  findings: Record<string, Finding[]>;
+  breaches: Breach[];
+  notEnforced: Record<string, string>;
+  ok: boolean;
+};
+
 const NOW = new Date('2026-08-11T12:00:00Z');
 const daysAgo = (n: number) => new Date(NOW.getTime() - n * 86_400_000).toISOString();
 
 const WINDOWS = { routeWithinHours: 24, abandonedDays: 10, stalePrDays: 7 };
-const ZERO = { unrouted: 0, ambiguous: 0, unowned: 0, abandoned: 0, stalePr: 0 };
+const ZERO: Budget = { unrouted: 0, ambiguous: 0, unowned: 0, abandoned: 0, stalePr: 0 };
 
-const issue = (over: Record<string, unknown> = {}) => ({
+const issue = (over: Partial<Issue> = {}): Issue => ({
   number: 1,
   title: 'a thing',
   createdAt: daysAgo(30),
@@ -30,7 +86,7 @@ const issue = (over: Record<string, unknown> = {}) => ({
   labels: [],
   ...over,
 });
-const pr = (over: Record<string, unknown> = {}) => ({
+const pr = (over: Partial<Pr> = {}): Pr => ({
   number: 100,
   title: 'a PR',
   createdAt: daysAgo(30),
@@ -39,10 +95,13 @@ const pr = (over: Record<string, unknown> = {}) => ({
   labels: [],
   ...over,
 });
-const L = (...names: string[]) => names.map((name) => ({ name }));
+const L = (...names: string[]): Label[] => names.map((name) => ({ name }));
 
-const run = (snapshot: any, budget = ZERO) =>
-  evaluate({ issues: [], prs: [], ...snapshot }, budget as any, NOW, WINDOWS);
+// One narrowing assertion, here and nowhere else. `evaluate` builds `findings`
+// from empty-array literals, so TypeScript infers `never[]` across the JS/TS
+// boundary; asserting once at the seam beats sprinkling `any` at every call.
+const run = (snapshot: Partial<Snapshot> = {}, budget: Budget = ZERO): Result =>
+  evaluate({ issues: [], prs: [], ...snapshot }, budget, NOW, WINDOWS) as unknown as Result;
 
 describe('deskLabels / isExempt', () => {
   it('picks out only desk:* labels, deduped and sorted', () => {
@@ -52,7 +111,8 @@ describe('deskLabels / isExempt', () => {
 
   it('treats an item with no labels as having no desk', () => {
     expect(deskLabels(issue())).toEqual([]);
-    expect(deskLabels({} as any)).toEqual([]);
+    // No `labels` key at all — the shape gh returns for an unlabelled item.
+    expect(deskLabels({})).toEqual([]);
   });
 
   it('exempts ledgers, digests and persistent alerts', () => {
@@ -154,7 +214,7 @@ describe('evaluate — ordering and budgets', () => {
     const { findings } = run({
       issues: [issue({ number: 1, createdAt: daysAgo(3) }), issue({ number: 2, createdAt: daysAgo(40) })],
     });
-    expect(findings.unrouted.map((f: any) => f.number)).toEqual([2, 1]);
+    expect(findings.unrouted.map((f) => f.number)).toEqual([2, 1]);
   });
 
   it('is ok when every count is at or under budget', () => {
@@ -170,16 +230,16 @@ describe('evaluate — ordering and budgets', () => {
   });
 
   it('a MISSING budget entry breaches loudly rather than defaulting to permissive', () => {
-    const partial = { unrouted: 0, ambiguous: 0, unowned: 0, abandoned: 0 };
-    const res = run({ prs: [pr()] }, partial as any);
+    const partial: Budget = { unrouted: 0, ambiguous: 0, unowned: 0, abandoned: 0 };
+    const res = run({ prs: [pr()] }, partial);
     expect(res.ok).toBe(false);
     expect(res.breaches[0]).toMatchObject({ key: 'stalePr', budget: null });
     expect(res.breaches[0].reason).toMatch(/no budget entry/);
   });
 
   it('a not-enforced condition is still measured but never breaches', () => {
-    const budget = { ...ZERO, $notEnforced: { unrouted: 'taxonomy not adopted yet' } };
-    const res = run({ issues: [issue(), issue({ number: 2 })] }, budget as any);
+    const budget: Budget = { ...ZERO, $notEnforced: { unrouted: 'taxonomy not adopted yet' } };
+    const res = run({ issues: [issue(), issue({ number: 2 })] }, budget);
     expect(res.findings.unrouted).toHaveLength(2);
     expect(res.ok).toBe(true);
     expect(res.notEnforced).toEqual({ unrouted: 'taxonomy not adopted yet' });
@@ -203,9 +263,9 @@ describe('renderAlert', () => {
   });
 
   it('reports suspended conditions without treating them as failures', () => {
-    const budget = { ...ZERO, $notEnforced: { unrouted: 'taxonomy not adopted yet' } };
-    const res = run({ issues: [issue()], prs: [pr()] }, budget as any);
-    const body = renderAlert(res, budget as any, WINDOWS);
+    const budget: Budget = { ...ZERO, $notEnforced: { unrouted: 'taxonomy not adopted yet' } };
+    const res = run({ issues: [issue()], prs: [pr()] }, budget);
+    const body = renderAlert(res, budget, WINDOWS);
     expect(body).toContain('Measured, not enforced');
     expect(body).toContain('`unrouted`: **1**');
   });
