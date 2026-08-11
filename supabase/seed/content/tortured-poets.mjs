@@ -2552,10 +2552,19 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            focalPoint: '50% 55%',
             credit: 'Republic Records (album cover, via Wikipedia)',
             caption: 'The Tortured Poets Department (2024) — the record that turned the end of the Joe Alwyn years into an album.',
             kind: 'primary',
-            focalPoint: '50% 40%',
+          },
+          // Photo pass #762 (2026-08-03): Wikimedia Commons, CC BY 4.0,
+          // curl-verified 200 image/jpeg, downloaded and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Taylor_Swift_TTPD_Dress.jpg',
+            focalPoint: '46% 38%',
+            credit: 'Wikithebeavr / Wikimedia Commons, CC BY 4.0',
+            caption: 'A custom Eras Tour gown printed with "Fortnight"\'s "I love you, it\'s ruining my life" — the breakup grief TTPD turned into a 31-song double album, worn live on stage.',
+            kind: 'archival',
           },
         ],
       },
