@@ -70,63 +70,24 @@ gate, commit, PR) so no lane repeats boilerplate.
 - **Kevin** — issue triage, opens no content PR.
 - **Karen** — read-only on content; its PR is just a run report. Weekly and cheap.
 
-## ⛔ HARD BLOCK (2026-07-30 ~07:54 UTC) — GitHub Actions minutes exhausted
+## Resolved: the 2026-07-30 Actions-minutes block
 
-**Nothing can merge. This is not a code problem and no agent can fix it.**
+From 07:54 UTC on 2026-07-30 every workflow in this repo failed in 0-5 seconds
+with "The job was not started because recent account payments have failed or
+your spending limit needs to be increased." Nothing could merge, including the
+Phase 3.5 PR that fixes the red-PR blind spot. That is why #1629 sat unmerged:
+it was green-blocked, not broken.
 
-Every job now fails in 0–5 seconds with no steps executed. The check annotation:
+**Billing was fixed and CI has been running normally since.** Verified
+2026-08-11: `build` is passing on `main` and on #1629 itself. This section is
+kept as history only — do not read the paragraphs that used to live here as a
+live status. It is also the reason the alert burst everyone expected on 07-30
+never needed triaging: by the time detection landed, the failures it would have
+reported were gone.
 
-> The job was not started because recent account payments have failed or your
-> spending limit needs to be increased. Please check the 'Billing & plans'
-> section in your settings
-
-Timeline: CI was succeeding normally at 06:40 UTC (66s, 94s runs); from 07:54
-UTC every workflow fails instantly. The account was at 90% of included minutes
-on 2026-07-27 and has now hit the ceiling.
-
-**Consequences while this lasts:**
-
-- `main` is branch-protected on a passing `build`, so **no PR can merge** —
-  including the Phase 3.5 PR that fixes the red-PR blind spot.
-- `auto-merge-content.yml` fails too, so content PRs will accumulate unmerged.
-- **Phase 4 cannot start.** Retiring the six runners depends on verifying a
-  Vault Run cycle end-to-end, and no cycle can complete.
-- The Vault Run itself will keep producing PRs that cannot land. Each stalled
-  day compounds the backlog.
-
-**Requires a founder:** raise the spending limit or move to a plan with more
-included minutes, in Billing & plans. An agent must not change spending.
-
-**Still blocked as of 09:35 UTC** (re-verified — same annotation, unchanged for
-~2h). The self-paced build loop that was driving these phases has been STOPPED
-rather than left polling: waking every 2h to rediscover an unchanged external
-block is precisely the wasteful polling this whole engagement removed. Phase 4
-resumes the moment CI is green.
-
-### To resume Phase 4
-
-1. Fix billing; confirm with `gh run list --limit 3` showing runs >30s.
-2. Merge the Phase 3.5 PR (detection + STEP 0 recovery) — it is green-blocked,
-   not broken.
-3. Expect a burst of "content PR stuck red" alerts that are artifacts of this
-   outage, not defects.
-4. Then Phase 4: disable (never delete) the six runners, watch one cycle,
-   write the `docs/decisions.md` entry, measure the PR-count and
-   Actions-minutes delta.
-
-### Meanwhile, the fleet is producing unmergeable work
-
-The Vault Run (daily 16:07 UTC) **and** all six original runners are still
-enabled, and STEP 0 is not on `main` yet — so each will open a fresh PR daily
-that cannot merge. That is real Opus spend for zero shipped output. Pausing the
-content fleet until billing is fixed is the cheap call; it was left running
-because billing may be fixed within the hour and stopping content production
-has its own cost. Founder's choice.
-
-**A caution for whoever reads the alerts:** the new "Content PRs stuck red"
-watchdog check keys on `build: FAILURE`, which right now means "billing", not
-"bad content". Do not read those alerts as content defects until CI is running
-again.
+The durable lesson is in `docs/decisions.md` (2026-08-11): this repo is
+cost-sensitive on Actions minutes, so anything that can trigger a CI run on a
+schedule needs an explicit cap. The stuck-PR watchdog check carries one.
 
 ## Phases
 
@@ -146,7 +107,34 @@ again.
       2026-07-30T05:49Z against the heaviest realistic load: Thu + even
       day-of-month = 5 of 6 lanes due. **Verification still pending** — see the
       blocker below, which must be fixed first.
-- [x] **Phase 3.5 — FIX THE RED-PR BLIND SPOT.** Done 2026-07-30. (1) `watchdog.yml` gained a "Content PRs stuck red" check — bot content branches only, >24h with `build` FAILURE, via the real-email alert path. (2) `vault-run.md` gained STEP 0: adopt and fix a stranded red `vault/*` PR before opening a new one. (3) Diagnosed: the failures are NOT content degradation — see below. The remaining piece is a founder call, filed as an issue, and does NOT block Phase 4.
+- [x] **Phase 3.5 — FIX THE RED-PR BLIND SPOT.** Written 2026-07-30, **corrected 2026-08-11** (see "What the 07-30 version got wrong" below — it would have shipped a detector that caught nothing). As it now stands: (1) `watchdog.yml` gained a "PRs stuck on failing or missing checks" step — EVERY open non-draft PR, >24h, any failing check or a missing `build`, minus PRs explicitly parked for a human; it also re-runs a `build` red >48h, capped at 2/day. (2) `vault-run.md` gained STEP 0: adopt a stranded `vault/*` PR before opening a new one, **at most once**, then label it `founder-decision` and move on. (3) `CLAUDE.md`'s "the next scheduled run picks it up" promise is corrected to say what actually happens. (4) Diagnosed: the 07-28 failures are NOT content degradation — see below. The remaining piece is a founder call, filed as an issue, and does NOT block Phase 4.
+
+      **What the 07-30 version got wrong.** Replayed against the live repo on
+      2026-08-11, the detector as originally written examined 2 of 27 open PRs
+      and alerted on NEITHER — it missed every genuinely stuck PR in the repo,
+      including ones this very document names. Three independent causes:
+
+      - **The bot branch-prefix allowlist was the big one.** `vault/
+        content-shift/ depth/answerer content/rumor-desk content/stylist
+        claude/` — three of those six match no branch that has ever existed,
+        while `claude/` matches every Claude session including ops work. The
+        longest-stuck PR in the repo, **#1642** (`build` red since 07-31, 11
+        days, auto-merge armed), is on `fix/ci-actions-v7-tags` and was never
+        even looked at. Enumerating bot branch prefixes is a losing game: the
+        list goes stale the moment a lane is renamed, and it fails CLOSED
+        (silently missing PRs) rather than open.
+      - **Only `build` was read.** **#1762** has been open since 08-03 with
+        `build` SUCCESS and `enable` FAILURE — the auto-merge gate is what
+        strands it. Any failing check strands a PR, not just `build`.
+      - **A missing check read as healthy.** **#1585** has been open since
+        07-28 with NO `build` check at all on its head commit (CI never fired
+        for that push). The jq returned "NONE", which is not "FAILURE", so it
+        stayed silent — and auto-merge waits on a check that will never arrive,
+        forever. This is the same class of fault as the stale-check cases
+        #1633 (5 days) and #1565 (07-27 → 08-11).
+
+      The corrected step catches all three, verified by dry-running it against
+      live repo data before merge.
 
       **Found 2026-07-30, and it is a regression introduced by the 2026-07-25
       token-burn work.** Photo Enrichment has opened three PRs over three days

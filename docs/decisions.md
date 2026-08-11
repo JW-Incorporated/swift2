@@ -7,6 +7,67 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Stuck-PR detection watches every PR, not a list of bot branches; and re-runs stale CI under a hard cap
+
+**Decision.** `watchdog.yml` gets one step, "PRs stuck on failing or missing
+checks", replacing the never-merged 07-30 draft in PR #1629. It runs once a day
+(not on the hourly trigger) and:
+
+1. Examines **every open non-draft PR**, excluding only those labelled `hold`,
+   `cie:escalate` or `founder-decision` — the same three `auto-merge-content.yml`
+   treats as blocking.
+2. Alerts on any such PR open >24h that has **any** failing check, or that has
+   **no `build` check at all** on its head commit.
+3. Re-runs a `build` that has been FAILING for >48h with no newer run, **capped
+   at 2 re-runs per pass**, and only when the failing run is still on the PR's
+   head commit.
+
+**Why not a branch-prefix allowlist,** which is what the 07-30 draft used
+(`vault/ content-shift/ depth/answerer content/rumor-desk content/stylist
+claude/`): replayed against the live repo, it examined 2 of 27 open PRs and
+alerted on neither. It missed #1642 (red 11 days, branch `fix/…`), #1762
+(`build` green, `enable` red) and #1585 (no `build` check at all). An allowlist
+of bot branch prefixes fails CLOSED — a renamed lane goes silently unmonitored,
+which is the exact failure mode being fixed. Inverting to "everything except
+what a human explicitly parked" cannot go stale that way, and the cost of the
+other direction is a founder occasionally being told about their own red PR.
+
+**Why the re-run is capped, and why it only fires on a red build.** This repo
+hit 90% of included Actions minutes on 07-27 and a build freeze blocked every
+merge on 07-30, so a monitor that burns the budget it protects is
+self-defeating. Cost ceiling: 2 re-runs/day × ~2 billed minutes ≈ **4 min/day
+worst case, ~0 expected** against ~1,400 min/cycle current usage. Three things
+keep it there: daily not hourly; the hard per-pass cap; and re-running only a
+`build` that is already FAILING and STALE — a green PR idling on human review is
+never re-run (#1580 has been green and untouched 15 days; re-running it would be
+pure waste). Re-running also makes the check fresh, so the same PR cannot be
+re-run again for 48h — the cap is self-limiting, not just per-pass.
+
+**Alternatives considered.** (a) A second, separate scheduled workflow for stale
+CI — rejected, two mechanisms watching the same PRs would double the API cost and
+drift apart. (b) Pushing an empty commit instead of `gh run rerun` — rejected,
+it needs write access to other agents' branches and re-triggers CI + CodeQL +
+auto-merge + Vercel rather than just the failed job. (c) Adding
+`workflow_dispatch` to `ci.yml` so the missing-`build` case (#1585) could also be
+repaired automatically — **not done**; it changes the semantics of the required
+deploy gate (dispatch checks out the branch head, `pull_request` checks out the
+merge ref), which is Wyatt's call, not a side effect of a watchdog PR. That case
+alerts instead.
+
+**Also corrected here:** `CLAUDE.md` § "Never babysit your own PR" told every
+session that "the next scheduled run of that agent picks it up." It never did —
+each runner branches fresh off `main` and never revisits. That single false
+sentence is the root cause of PRs sitting red for 3, 5 and 15 days, and it is
+still repeated verbatim in 13 `docs/agents/runner-prompts/*.md` files; those are
+other agents' prompts and are left for their owners, but the detection above is
+global so they are covered regardless.
+
+**Approved by:** pending Wyatt. Nothing here merges anything or changes merge
+authority; the only new privilege exercised is `gh run rerun`, under
+`actions: write`, which `watchdog.yml` already held.
+
+---
+
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
 **Decision (PENDING Wyatt's approval — this changes merge authority).** Three
