@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   isDue,
+  isValidScheduledAt,
   selectDuePosts,
   summarizeQueueStatus,
   utcDateOnly,
@@ -8,6 +9,13 @@ import {
   repeatsRecentIgMedia,
   eraArtGuardReason,
   isStaleDue,
+  recentInstagramPosts,
+  countPostedToday,
+  bodyHash,
+  findPostedDuplicate,
+  missingCredsFor,
+  needsMediaPreflight,
+  mediaUrlsFor,
   MAX_POSTS_PER_RUN,
   MAX_POSTS_PER_PLATFORM_PER_DAY,
 } from './queue.mjs';
@@ -25,6 +33,26 @@ function item(overrides = {}) {
   };
 }
 
+describe('isValidScheduledAt', () => {
+  it('is true for a real ISO timestamp', () => {
+    expect(isValidScheduledAt(item())).toBe(true);
+  });
+
+  it('is false for a missing scheduledAt', () => {
+    expect(isValidScheduledAt({ platform: 'x', body: 'hi' })).toBe(false);
+  });
+
+  it('is false for a malformed scheduledAt string', () => {
+    expect(isValidScheduledAt(item({ scheduledAt: 'not-a-date' }))).toBe(false);
+    expect(isValidScheduledAt(item({ scheduledAt: 'TBD' }))).toBe(false);
+  });
+
+  it('is false for null/undefined item', () => {
+    expect(isValidScheduledAt(null)).toBe(false);
+    expect(isValidScheduledAt(undefined)).toBe(false);
+  });
+});
+
 describe('isDue', () => {
   // Approval stopped gating posting 2026-07-25 (see docs/decisions.md).
   it('does not require an approval', () => {
@@ -37,6 +65,14 @@ describe('isDue', () => {
 
   it('is true when due', () => {
     expect(isDue(item(), now)).toBe(true);
+  });
+
+  // Regression: a malformed scheduledAt used to feed NaN into this
+  // comparison, which is always false — meaning the item was never "due"
+  // (and never "stale" either), so it just sat in the queue invisibly
+  // forever. isValidScheduledAt() must be checked upstream before this.
+  it('is false (not true!) for an invalid scheduledAt — never silently "due"', () => {
+    expect(isDue(item({ scheduledAt: 'garbage' }), now)).toBe(false);
   });
 });
 
@@ -64,6 +100,12 @@ describe('selectDuePosts', () => {
     const selected = selectDuePosts(items, now, postedToday);
     expect(selected).toHaveLength(1);
     expect(selected[0].platform).toBe('instagram');
+  });
+
+  it('an explicit maxPerRun overrides the default cap (post-queue.mjs passes Infinity)', () => {
+    const items = Array.from({ length: MAX_POSTS_PER_RUN + 3 }, (_, i) => item({ body: `${i}` }));
+    expect(selectDuePosts(items, now, new Map(), Infinity)).toHaveLength(items.length);
+    expect(selectDuePosts(items, now, new Map(), 1)).toHaveLength(1);
   });
 });
 
@@ -186,5 +228,130 @@ describe('summarizeQueueStatus', () => {
   it('splits still-scheduled from due, regardless of approval', () => {
     const items = [item(), item({ approvedBy: undefined, approvedAt: undefined }), item({ scheduledAt: '2099-01-01T00:00:00Z' })];
     expect(summarizeQueueStatus(items, now)).toEqual({ total: 3, scheduled: 1, due: 2, awaitingApproval: 0 });
+  });
+});
+
+describe('recentInstagramPosts', () => {
+  const posted = (media, postedAt, platform = 'instagram') => ({ platform, media: [media], postedAt });
+
+  it('filters to Instagram only and sorts oldest-to-newest', () => {
+    const all = [
+      posted('/eras/red.png', '2026-08-02T00:00:00Z'),
+      posted('/eras/lover.png', '2026-08-01T00:00:00Z', 'x'),
+      posted('/eras/folklore.png', '2026-08-01T00:00:00Z'),
+    ];
+    expect(recentInstagramPosts(all).map((p) => p.media[0])).toEqual(['/eras/folklore.png', '/eras/red.png']);
+  });
+
+  it('respects the `n` cutoff, dropping the oldest first', () => {
+    const all = [posted('/a.png', '2026-08-01T00:00:00Z'), posted('/b.png', '2026-08-02T00:00:00Z'), posted('/c.png', '2026-08-03T00:00:00Z')];
+    expect(recentInstagramPosts(all, 2).map((p) => p.media[0])).toEqual(['/b.png', '/c.png']);
+  });
+});
+
+describe('countPostedToday', () => {
+  const now = new Date('2026-08-11T20:00:00Z');
+
+  it('counts only items posted on the same UTC day, per platform', () => {
+    const all = [
+      { platform: 'x', postedAt: '2026-08-11T01:00:00Z' },
+      { platform: 'x', postedAt: '2026-08-11T05:00:00Z' },
+      { platform: 'instagram', postedAt: '2026-08-11T10:00:00Z' },
+      { platform: 'x', postedAt: '2026-08-10T23:59:00Z' }, // yesterday, excluded
+    ];
+    const counts = countPostedToday(all, now);
+    expect(counts.get('x')).toBe(2);
+    expect(counts.get('instagram')).toBe(1);
+  });
+
+  it('is an empty map for no posted items', () => {
+    expect(countPostedToday([], now).size).toBe(0);
+  });
+});
+
+describe('bodyHash', () => {
+  it('is stable for the same text', () => {
+    expect(bodyHash('hello world')).toBe(bodyHash('hello world'));
+  });
+
+  it('differs for different text', () => {
+    expect(bodyHash('hello world')).not.toBe(bodyHash('hello world!'));
+  });
+
+  it('handles undefined/null without throwing', () => {
+    expect(() => bodyHash(undefined)).not.toThrow();
+    expect(bodyHash(undefined)).toBe(bodyHash(null));
+  });
+});
+
+describe('findPostedDuplicate', () => {
+  it('finds a match by same platform + same campaign', () => {
+    const posted = [{ platform: 'x', campaign: 'launch-day', body: 'original text', url: 'https://x.com/1' }];
+    const dup = findPostedDuplicate({ platform: 'x', campaign: 'launch-day', body: 'different rewording' }, posted);
+    expect(dup).toBeDefined();
+    expect(dup!.url).toBe('https://x.com/1');
+  });
+
+  it('finds a match by identical body when campaigns differ or are absent', () => {
+    const posted = [{ platform: 'x', body: 'the exact same text' }];
+    expect(findPostedDuplicate({ platform: 'x', body: 'the exact same text' }, posted)).toBeDefined();
+  });
+
+  it('does not match across platforms even with the same campaign', () => {
+    const posted = [{ platform: 'instagram', campaign: 'launch-day', body: 'ig body' }];
+    expect(findPostedDuplicate({ platform: 'x', campaign: 'launch-day', body: 'x body' }, posted)).toBeUndefined();
+  });
+
+  it('does not match a genuinely different post (different campaign AND different body)', () => {
+    const posted = [{ platform: 'x', campaign: 'launch-day', body: 'original text' }];
+    expect(findPostedDuplicate({ platform: 'x', campaign: 'other-day', body: 'unrelated text' }, posted)).toBeUndefined();
+  });
+});
+
+describe('missingCredsFor', () => {
+  it('lists missing X credentials', () => {
+    const env = { X_API_KEY: 'k' };
+    const missing = missingCredsFor('x', env);
+    expect(missing).toContain('X_API_KEY_SECRET');
+    expect(missing).toContain('X_ACCESS_TOKEN');
+    expect(missing).toContain('X_ACCESS_TOKEN_SECRET');
+    expect(missing).not.toContain('X_API_KEY');
+  });
+
+  it('is empty when all X credentials are present', () => {
+    const env = { X_API_KEY: 'k', X_API_KEY_SECRET: 's', X_ACCESS_TOKEN: 't', X_ACCESS_TOKEN_SECRET: 'ts' };
+    expect(missingCredsFor('x', env)).toEqual([]);
+  });
+
+  it('lists missing Instagram credentials', () => {
+    expect(missingCredsFor('instagram', {})).toEqual(['IG_ACCESS_TOKEN', 'IG_BUSINESS_ACCOUNT_ID']);
+  });
+
+  it('is empty (not an error) for an unrecognized platform', () => {
+    expect(missingCredsFor('facebook', {})).toEqual([]);
+  });
+});
+
+describe('needsMediaPreflight', () => {
+  it('is true for an Instagram item with media', () => {
+    expect(needsMediaPreflight({ platform: 'instagram', media: ['/a.png'] })).toBe(true);
+  });
+
+  it('is true for an X item with media', () => {
+    expect(needsMediaPreflight({ platform: 'x', media: ['/a.png'] })).toBe(true);
+  });
+
+  it('is false for an X item with no media', () => {
+    expect(needsMediaPreflight({ platform: 'x', body: 'hi' })).toBe(false);
+  });
+});
+
+describe('mediaUrlsFor', () => {
+  it('joins the base URL with each media path', () => {
+    expect(mediaUrlsFor({ media: ['/a.png', '/b.png'] }, 'https://example.com')).toEqual(['https://example.com/a.png', 'https://example.com/b.png']);
+  });
+
+  it('is an empty array for no media', () => {
+    expect(mediaUrlsFor({}, 'https://example.com')).toEqual([]);
   });
 });
