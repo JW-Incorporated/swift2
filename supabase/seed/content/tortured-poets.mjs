@@ -5244,6 +5244,26 @@ export default {
       title: "Ink, typewriters and monochrome",
       snippet: "The most restrained visual era: black, white, and typewritten confession.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-tortured-poets-department-album-release-date-details',
+            source_title: 'Get Ready For Taylor Swift\'s \'The Tortured Poets Department\' Album Release: Everything You Need To Know',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/6971832/the-tortured-poets-department-french-manuscripts/',
+            source_title: '\'The Tortured Poets Department\' Has Stirred Up a Craze for Old French Documents',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Grayscale styling and typewriter motifs frame the era as a literary confessional.",
         // Shop pass (2026-07-22): no single named piece -- a current
         // newspaper-print mesh tee, verified in stock, turning the era's
