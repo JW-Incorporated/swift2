@@ -31,6 +31,7 @@ import { threadsInEra, getThread } from '@/lib/longlive/lenses';
 import { videosForEra, musicVideosForEra } from '@/lib/longlive/videos';
 import { formatMonthYear } from '@/lib/longlive/format';
 import { EraMedia } from './EraMedia';
+import { EraSecretCard } from './EraSecretCard';
 import { EraVideos } from './EraVideos';
 import { MomentVideo } from './MomentVideo';
 import { SignificanceBadge } from './SignificanceBadge';
@@ -286,6 +287,11 @@ export function EraSection({ era }: { era: Era }) {
           )}
         </div>
       </div>
+
+      {/* Era Secret (#688): the first thing inside every era — one sourced,
+          genuinely-obscure fact, so a fan learns something the moment they
+          enter. Renders nothing for an era with no sourced secrets. */}
+      <EraSecretCard eraId={era.id} />
 
       {/* Per-era category filter: collapsed/off by default (only rendered at
           all when this era actually has tagged content), non-sticky so
