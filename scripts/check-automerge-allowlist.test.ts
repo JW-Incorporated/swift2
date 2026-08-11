@@ -4,9 +4,11 @@ import { describe, expect, it } from 'vitest';
 import {
   ALLOWLIST_FILE,
   EXCLUDED,
+  NEVER_ALLOWLIST,
   WORKFLOW_FILE,
   checkAllowlist,
   covers,
+  overlaps,
   parseAllowlist,
 } from './check-automerge-allowlist.mjs';
 import { GENERATED, ROOT, SYNC_TARGETS, listGeneratedOnDisk } from './lib/generated-content.mjs';
@@ -278,6 +280,85 @@ describe('the committed allowlist', () => {
         entries.some((e) => covers(e, f)),
         `${f} must NOT auto-merge`,
       ).toBe(false);
+    }
+  });
+});
+
+// ── the self-amendment bar (2026-08-11) ───────────────────────────────────
+describe('NEVER_ALLOWLIST — the self-amendment bar', () => {
+  it('overlaps() matches in both directions', () => {
+    // entry sits inside a barred area
+    expect(overlaps('docs/agents/austin.md', 'docs/agents/')).toBe(true);
+    // entry is broad enough to swallow a barred area
+    expect(overlaps('docs/', 'docs/agents/')).toBe(true);
+    expect(overlaps('', '.github/')).toBe(true);
+    // unrelated siblings do not
+    expect(overlaps('docs/audits/', 'docs/agents/')).toBe(false);
+    expect(overlaps('supabase/seed/', 'supabase/migrations/')).toBe(false);
+  });
+
+  it('refuses every barred prefix, by name, with its reason', () => {
+    for (const [prefix, reason] of Object.entries(NEVER_ALLOWLIST)) {
+      const problems = run({
+        allowlistText: `supabase/seed/\n${prefix}\n`,
+        generatedOnDisk: [],
+        syncTargets: [],
+        pathKind: () => 'dir',
+      });
+      expect(problems.join('\n'), prefix).toContain('may NEVER be auto-merged');
+      expect(problems.join('\n'), prefix).toContain(reason);
+    }
+  });
+
+  it('refuses a broad entry that would swallow a barred area', () => {
+    // The realistic mistake: someone allowlists `docs/` to unblock doc chores
+    // and silently hands away the charters and the decision log with it.
+    const problems = run({
+      allowlistText: 'docs/\n',
+      generatedOnDisk: [],
+      syncTargets: [],
+      pathKind: () => 'dir',
+    });
+    expect(problems.join('\n')).toContain('docs/agents/');
+    expect(problems.join('\n')).toContain('docs/decisions.md');
+  });
+
+  it('refuses a barred path even when it exists on disk (authority, not typo)', () => {
+    const problems = run({
+      allowlistText: '.github/workflows/auto-merge-content.yml\n',
+      generatedOnDisk: [],
+      syncTargets: [],
+      pathKind: () => 'file',
+    });
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('must itself always need a human');
+    expect(problems[0]).not.toContain('does not exist');
+  });
+
+  it('leaves legitimate content paths alone', () => {
+    for (const entry of ['supabase/seed/', 'social/queue/', 'docs/audits/']) {
+      const problems = run({
+        allowlistText: `${entry}\n`,
+        generatedOnDisk: [],
+        syncTargets: [],
+        pathKind: () => 'dir',
+      });
+      expect(problems, entry).toEqual([]);
+    }
+  });
+
+  it('every bar carries a real reason — the set has to stay arguable', () => {
+    for (const [prefix, reason] of Object.entries(NEVER_ALLOWLIST)) {
+      expect(reason.length, prefix).toBeGreaterThan(25);
+    }
+  });
+
+  it('the committed allowlist satisfies the bar', () => {
+    const entries = parseAllowlist(read(ALLOWLIST_FILE)).map((p) => p.entry);
+    for (const entry of entries) {
+      for (const prefix of Object.keys(NEVER_ALLOWLIST)) {
+        expect(overlaps(entry, prefix), `${entry} vs ${prefix}`).toBe(false);
+      }
     }
   });
 });

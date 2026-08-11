@@ -19,11 +19,19 @@
 //      reading the file rather than a re-inlined copy.
 //
 // What it deliberately does NOT do: decide whether a path *deserves* to be
-// auto-mergeable. Widening the allowlist to app code would pass this check.
-// That is a human policy call — see the warning header in the allowlist file.
+// auto-mergeable. Widening the allowlist to ordinary app code still passes this
+// check — that is a human policy call, see the warning header in the allowlist
+// file.
 //
-// Exports the pure pieces (`parseAllowlist`, `checkAllowlist`, `EXCLUDED`) for
-// scripts/check-automerge-allowlist.test.ts.
+// ONE EXCEPTION, added 2026-08-11: `NEVER_ALLOWLIST` below. Paths that can
+// change *what merges with nobody looking, or what agents are permitted to do*
+// — the workflows, this allowlist, the checker scripts, the charters,
+// CLAUDE.md, the decision log — are refused outright. Everything else is
+// policy; that class is structural, because allowlisting it would let a bot PR
+// widen its own authority and land the widening unreviewed.
+//
+// Exports the pure pieces (`parseAllowlist`, `checkAllowlist`, `EXCLUDED`,
+// `NEVER_ALLOWLIST`, `overlaps`) for scripts/check-automerge-allowlist.test.ts.
 
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
@@ -45,6 +53,64 @@ export const WORKFLOW_FILE = '.github/workflows/auto-merge-content.yml';
  * @type {Record<string, string>}
  */
 export const EXCLUDED = {};
+
+/**
+ * THE SELF-AMENDMENT BAR (2026-08-11).
+ *
+ * Paths that may NEVER appear in the allowlist, keyed by prefix with the reason.
+ * This is the one rule that has to hold no matter how far merge delegation is
+ * widened later, so it is code rather than a sentence in a header.
+ *
+ * The header of `.github/content-automerge-allowlist.txt` already warns humans
+ * to keep the list narrow, and this checker's own "known gap" note says the
+ * quiet part out loud: *"it cannot judge whether a path deserves to be
+ * auto-mergeable — adding `apps/web/` to that file would pass CI."* For most
+ * paths that is correct; deciding what content may merge unreviewed is a human
+ * policy call and CI should not pretend to make it.
+ *
+ * But one class is different in kind. A PR that edits this allowlist, a
+ * workflow, a checker script, a charter, `CLAUDE.md`, or the decision log does
+ * not just change the product — it changes **what may merge with nobody
+ * looking, and what agents are permitted to do**. If any of those were ever
+ * allowlisted, a bot PR could widen its own authority and land that widening
+ * unreviewed, and every downstream control would inherit the change. One
+ * mistaken line in a policy file would be self-ratifying.
+ *
+ * So: the mechanism that decides what merges without a human must itself
+ * always need a human. That is not a judgement call and it does not get
+ * relaxed, which is why it lives here and not in a prose header.
+ *
+ * The match is deliberately bidirectional — an entry is refused both when it
+ * sits INSIDE a barred area (`docs/agents/`) and when it is broad enough to
+ * COVER one (`docs/`, `apps/`, or a bare `.`).
+ *
+ * @type {Record<string, string>}
+ */
+export const NEVER_ALLOWLIST = {
+  '.github/': 'Workflows, this allowlist, dependabot config and CODEOWNERS ARE the gate. A gate that can widen itself unreviewed is not a gate.',
+  'CODEOWNERS': 'Decides who must review. Self-ratifying if it could merge itself.',
+  'CLAUDE.md': 'The standing instruction set for every AI session in this repo.',
+  'AGENTS.md': "Codex's instruction set — the independent reviewer's own rules.",
+  'docs/agents/': 'Desk charters. `docs/agents/README.md`: "no agent may edit any charter, including its own."',
+  'docs/decisions.md': 'The authority trail. A grant that could record itself is not a grant.',
+  'docs/cto-role.md': 'Role and authority limits.',
+  'docs/architecture.md': 'The hard boundaries daily work is judged against.',
+  'docs/proposals/': 'Specs and operating-model design, including the tier/authority model.',
+  'docs/specs/': 'Approved specs — the thing "implement the approved spec exactly" refers to.',
+  'docs/content-ops/': 'Holds privacy-redlines.md, which by its own text overrides everything else.',
+  'docs/launch-readiness.md': 'The go/no-go artifact. Marjorie opens PRs against it; those get read.',
+  'scripts/': 'The checkers themselves — validate:content, check:generated, check:content-inert, this file. A PR that can weaken its own gate while being judged by it.',
+  'package.json': 'Defines which checks `build` actually runs.',
+  'package-lock.json': 'Dependency resolution; a lockfile edit can swap what any check executes.',
+  '.gitignore': 'Can hide files from the very diff a reviewer or checker inspects.',
+  'tsconfig.json': 'Can disable typecheck coverage.',
+  'vitest.config.ts': 'Can silence the test suite that gates every merge.',
+  'supabase/migrations/': 'A schema migration is not revertable by `git revert`; undoing one is a new migration, and data may already be gone.',
+  'apps/web/public/': 'Bot-picked media reaching a public surface gets human eyes (docs/decisions.md 2026-07-28, reaffirmed 2026-08-06).',
+};
+
+/** True when two path prefixes overlap in EITHER direction. */
+export const overlaps = (a, b) => a.startsWith(b) || b.startsWith(a);
 
 /** Entries must be plain repo-relative paths — no shell metacharacters. */
 const SAFE_ENTRY = /^[A-Za-z0-9._/-]+$/;
@@ -89,6 +155,7 @@ export function checkAllowlist({
   syncTargets,
   excluded = {},
   pathKind,
+  neverAllowlist = NEVER_ALLOWLIST,
 }) {
   const problems = [];
   const parsed = parseAllowlist(allowlistText);
@@ -120,6 +187,22 @@ export function checkAllowlist({
       continue;
     }
     seen.set(entry, line);
+
+    // ── 1b. The self-amendment bar ────────────────────────────────────────
+    // Checked before existence, so the message is about authority rather than
+    // a typo, and so a barred entry is refused even if the path is real.
+    const barred = Object.entries(neverAllowlist).filter(([p]) => overlaps(entry, p));
+    if (barred.length) {
+      for (const [prefix, reason] of barred) {
+        problems.push(
+          `${ALLOWLIST_FILE}:${line}: \`${entry}\` overlaps \`${prefix}\`, which may NEVER be auto-merged. ${reason} ` +
+            'The mechanism that decides what merges without a human must itself always need a human — ' +
+            'see NEVER_ALLOWLIST in scripts/check-automerge-allowlist.mjs. If this is genuinely intended, ' +
+            'it is a founder decision that changes NEVER_ALLOWLIST first, in its own reviewed PR.',
+        );
+      }
+      continue;
+    }
 
     const kind = pathKind(entry.replace(/\/$/, ''));
     if (kind === null) {
@@ -220,7 +303,8 @@ function main() {
 
   console.log(
     `automerge allowlist: ${parseAllowlist(read(ALLOWLIST_FILE)).length} entr(ies); ` +
-      `${generatedOnDisk.length} generated artifact(s) on disk; ${Object.keys(EXCLUDED).length} explicit exclusion(s).`,
+      `${generatedOnDisk.length} generated artifact(s) on disk; ${Object.keys(EXCLUDED).length} explicit exclusion(s); ` +
+      `${Object.keys(NEVER_ALLOWLIST).length} path(s) barred outright (self-amendment bar).`,
   );
 
   if (problems.length) {
