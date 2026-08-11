@@ -1477,6 +1477,23 @@ export default {
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-08-05',
           },
+          {
+            // Rumor Desk 2026-08-03: a later, distinct data point on the same
+            // open "will she tour again?" question — the Aug. 2025 Deuxmoi
+            // report that pushed the projected start from 2026 to 2027, which
+            // directly updates the Us Weekly entry above (whose one-year window
+            // has since lapsed with no announcement). Forward-looking, no
+            // location named (an unannounced tour is L0 by default).
+            claim:
+              'A year on, the projected timing slipped: Deuxmoi reported, citing two sources, that Swift\'s next outing — a follow-up to the Eras Tour — would now start in 2027, not 2026, with 2026 "looking unlikely."',
+            reportedBy: 'Deuxmoi, via Yahoo Entertainment',
+            reportedOn: '2025-08-20',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-upcoming-tour-reportedly-132936634.html',
+            note: 'A later data point on the same open question as the Us Weekly report above, pushing the projected start from 2026 to 2027 — consistent with that earlier window lapsing with no announcement. Blind-item sourcing (Deuxmoi), carried at the lowest tier. As of this check no tour is announced. Resolves on an official tour announcement; fades otherwise. No location.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-03',
+          },
         ],
       },
     },
@@ -1674,6 +1691,34 @@ export default {
             price: '$599.98',
             isAlternative: true,
             altNote: 'Her exact Saint Laurent blazer is discontinued -- this is a current white double-breasted blazer with padded shoulders in a similar longline cut, in knit rather than tailored fabric.',
+          },
+        ],
+        // Rumor Desk 2026-08-03: a clean DEBUNKED lifecycle entry, seeding the
+        // recurring "will Taylor headline a Super Bowl halftime?" question onto
+        // the moment about her attending one. The claim is entirely public — the
+        // NFL's own commissioner floated it on the record, and Taylor answered
+        // it herself on national TV — so it clears the redlines (no private
+        // matter, no security/health/third-party issue) and resolves cleanly:
+        // the LX slot went to Bad Bunny and she said, on Fallon, that she turned
+        // it down. Scoped tightly to the LX cycle so the debunk is airtight; a
+        // later Super Bowl is a separate, still-open question. No location.
+        rumors: [
+          {
+            claim:
+              'With Taylor a fixture at Chiefs games, speculation recurred that she would headline the Super Bowl LX halftime show (Feb. 8, 2026). NFL commissioner Roger Goodell fanned it on the record — calling her "a special, special talent" who would be "welcome at any time" and, pressed on whether it was happening, saying "It\'s a maybe."',
+            reportedBy: 'Roger Goodell (NFL commissioner), via TODAY',
+            reportedOn: '2025-09-03',
+            status: 'debunked',
+            url: 'https://www.today.com/popculture/roger-goodell-taylor-swift-super-bowl-halftime-show-rcna228736',
+            resolution: {
+              on: '2025-10-06',
+              url: 'https://www.today.com/popculture/music/taylor-swift-explains-super-bowl-halftime-jimmy-fallon-rcna236094',
+              outlet: 'TODAY (The Tonight Show Starring Jimmy Fallon)',
+              note: 'Bad Bunny was named the LX performer; on Fallon (Oct. 6, 2025) Taylor said she turned it down — "I\'m just too locked in" on Travis\'s season, "nothing to do with Travis." A rare rumor a principal settled on the record.',
+            },
+            note: 'Public, on-record speculation — the NFL\'s own chief floated it and Taylor answered it herself, so nothing here is a private matter. Scoped to the LX cycle, now closed; whether she ever headlines a later Super Bowl is a separate, still-open question. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-03',
           },
         ],
       },
