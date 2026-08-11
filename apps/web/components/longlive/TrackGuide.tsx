@@ -56,7 +56,7 @@ export function TrackGuide() {
       aria-modal="true"
       aria-label={`${era.album} track guide`}
     >
-      <OverlayNav onClose={closeTrackGuide} />
+      <OverlayNav onClose={closeTrackGuide} shareTarget={{ kind: 'trackGuide', eraId: era.id }} />
 
       {/* Compact era-art header */}
       <div className="relative h-[28vh] min-h-44 w-full">
