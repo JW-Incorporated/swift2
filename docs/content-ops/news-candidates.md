@@ -25,7 +25,68 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 80
+
+## Travis Kelce opens up on Taylor Swift wedding: 'Best night of my life' - ABC News - Breaking News, L
+
+- first seen: 2026-08-12 18:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce opens up on Taylor Swift wedding: 'Best night of my life'  ABC News - Breaking News, Latest News and Videos
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiowFBVV95cUxNUUZ6RnJDWk9jcVFpV0ZwcmdMOGtYY0xhZUNuNWxuTm1TOERLS016NUdlMUFQNDNUdG1pNXpoLWl3bmlHS1JIZUNkSkJVNm1oYnE2Z0JsYTczZHRwTmVZa0FkX3NQUW0yNTI1OVJGSlc4YXZOXzVUeGpOb1hRVnYyQUdVNG5qNmNiZE9TWDRybllPdUc5djBrbTBfMVZpeDlfX05V0gGoAUFVX3lxTE1iQkwtVzNmdGFPLXlzMUFVOFQtb2J6bHdQQTVTQ2tLRTFyVXoyMWM1d3RKdUw5RVRhQ0VhdzIzbTN4ZmlaTmVhVC0xMG9EaHFRdXNidThrYVZJSVJ6VlZWeklWOWRuSlpPT2Nod0R0MUxDeDFxRHREa1VQVXZVbGNvWi1DV1k3YWNSU1dEbTVqcjdfb2RHenpGSm9HMzNMMF82QnR0RlhfSQ?oc=5
+
+## Travis Kelce Calls Wedding to Taylor Swift ‘Best Night of My Life’ in First Comments - People.com
+
+- first seen: 2026-08-12 18:04 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce Calls Wedding to Taylor Swift ‘Best Night of My Life’ in First Comments  People.com
+Travis Kelce breaks silence on Taylor Swift wedding: 'Best night of my life'  USA Today
+Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Hollywood Reporter
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNejZYT2VJTUh3OWl5ZGhDaU1xY2VVVnVySzFlb01jc0Y0aEJlak82N2xwOW9hWFhHZTEtOFdCQlYxcGp2UnJITnE5MVdIaDVWMFpwOWRCQl9JU1Z2UnQ4Q3BJVGZkT2V2LUNCazhlaUhyVmNlMVBXa2tOcDFOeWo0Y3IyUmYxRGJrYXM2Rk9PT1BpWkk2QjhTWDZKaldkaU1YT3FpbkhrelA2R3c?oc=5
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMimgFBVV95cUxPWW1VQW5zcld4SUM4YnNkUjFFS3ZXRlVmcnI5NzNNbGRLdFlFUWpaRFNHWWVxVFM5OGNad0h6Y1d3X201WHNXSGljMGN6V296NkxaQkpEeFFWeTZ5OHNBS3BYNlVZTnJibFNEVzA1QXg5bXRxay11dUQ5ZUtXVW8wWmxlTG5HdmtHSXNwaVV1RTdFREdGVTlma2ln?oc=5
+
+## Travis Kelce breaks silence on ‘crazy’ Taylor Swift wedding - Page Six
+
+- first seen: 2026-08-12 18:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce breaks silence on ‘crazy’ Taylor Swift wedding  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipgFBVV95cUxNeWhRMEYzbEZNUHVvLTlCcmVJYktlZkY5cmNfT1BhQ18ydUszSkpCSUJzeXltOVJyb2RaMjZPempER2FmSkszVnpYeUJlTzdVZWxUVVV1S0I5eW50bkM4N084OWxjUHd1ak44R1ZqV0JsZ1RwZTBiZVRUYzVPVjVrckdxdDdnZmNMNDRta0RqU1NzcmVuXzVaS2puR0tnRnlvUXFuNTZR?oc=5
+
+## Taylor Swift takes a quieter approach to Trump using her music on social media - CNN
+
+- first seen: 2026-08-12 18:04 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift takes a quieter approach to Trump using her music on social media  CNN
+Trump’s team taunted Taylor Swift with her own music. Then the songs vanished.  NBC News
+Taylor Swift and Bad Bunny Dealt With Trump Quietly. It’s a Smart Move  Rolling Stone
+- sources:
+  - [unverified] CNN — https://news.google.com/rss/articles/CBMickFVX3lxTE9fZkZZb1FOcmxpMVoxU3NFMnNEdWFRVXZGR1JVemdkYzRFR1FDZzlpblFaTndvMmJyaHE0STFxRU12TDRqZ0NiYURFZzc4ZlVOc2VqTElSXzZKcFVrZzl5V2tjR3dGNUdFNFJDbjlpdUc4dw?oc=5
+
+## Travis Kelce Publicly Calls Taylor Swift His ‘Wife’ for First Time at Chiefs Camp - Yahoo Sports
+
+- first seen: 2026-08-12 18:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Publicly Calls Taylor Swift His ‘Wife’ for First Time at Chiefs Camp  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOSW5EOGJDbm5MTmlXOUFGOVh4WDd2SEZEZjFZQndYdW9KVGJHNkVFN29VYmlTZ09UOEpqWmdrS0lMUjhEQzhUM0FLbVg1dTYtLURYaUluZldBMFJWbmNqVjlQTURLNms4bWVGTlkyaVMxUHdJTWgyeTdwY0NqTmk2SXNlQUd3V1FiR2hN?oc=5
+
+## See Inside Taylor Swift’s Eight Houses, Mansions, and Seaside Getaways - ELLE Decor
+
+- first seen: 2026-08-12 18:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: See Inside Taylor Swift’s Eight Houses, Mansions, and Seaside Getaways  ELLE Decor
+- sources:
+  - [unverified] ELLE Decor — https://news.google.com/rss/articles/CBMiogFBVV95cUxPTXlibTEydEJBU0prMFhaVXU4SUhkbl9RdG5TRnp4SlBBSW1WeHdnOWR3Rm5CcFBuMF9GRko2WFpZWEFOYW1OMkFubC1vVUtkSDVMZjVla0dDMEp6VV9kaFdKMmJXRzVjZXBrUUs4YnRRbjUwaUE1QWllNjRvNlVUV29fc3VsSU5GS1lHWk5JbnBfd2V4N0FpSmY4MW5YTmgyWFE?oc=5
+
+## Graham Norton Says Taylor Swift and Travis Kelce’s ‘Lovely’ Nuptials Were ‘Like Any Wedding’ - Peopl
+
+- first seen: 2026-08-12 18:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Graham Norton Says Taylor Swift and Travis Kelce’s ‘Lovely’ Nuptials Were ‘Like Any Wedding’  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxNQmUtSTlKQ3Y5c0NmdU1qTFBVbF96d2poaTE1b01kUURVeGRmYjZVVERaYjhPY2p4Nm9sMDFDUU9kYVRkZU5UQWMtQktjeGpjbGNfem1HTlFIOG5IdkNyMmctc0RkRDFyMTJxU2t4QktrNWRPM0VuSTBMVFQ3UFFFa2oxS1JLQ3lBOVlSZmdrV043RW9rRllIUGlKZG1PZlVOUF9FbWVIXzRPTWxQN3ZuU2t3c0U?oc=5
 
 ## Taylor Swift and Travis Kelce face first big change after getting married - en.as.com
 
@@ -111,12 +172,14 @@ Stories: 81
 ## Taylor Swift to become youngest inductee into the Nashville Songwriters Hall of Fame - Good Morning 
 
 - first seen: 2026-08-12 03:29 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 5
 - summary: Taylor Swift to become youngest inductee into the Nashville Songwriters Hall of Fame  Good Morning America
 - sources:
   - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQNi1TY0gzdHMzWEdHUEtfMkZfbUEzYlQxeHdIWWFrSEFoOVJycHhBX3EtM3ktNTloV0Z3cC1iYzB0bmpURlYxejB6Sks0SXJuSVk2bkFzdFFMdnlDQ2t4Y3JnNXhqdGgzYzllQzAzWF96cF9PMjh0T040MDJwSnJhVkZlUE1WX3V0YlUyR25aaHBTN2htWllZQVRWQmlLZXA4TTlJX19UcHVNcExhamJxN0p1VFpzNVF4Q3BnMEl0ZGvSAcYBQVVfeXFMUGVleUlvZEJRbmFsWEVWWEVvSGwyeE9qbzI0MHBiZW1tMUwzYTM0dzhQcHVMM0czYkVtQy03QTcxWHg2dnFuSlZDb3BzSzBiLXozRWVxckIzekdnOXBILThXNURNNzlIbkwyMEFWbnFkNEIwTmtVdXo5dG9jUllDRUE5dlduQWhud1ZPX1FqMlNvQVY2MEtOUjRidExTRlExSnJ4TVR1dUNmSkV0MmY0UGMtYUhhaWNPQndyV2xoTTZfaTRpcHVB?oc=5
   - [unverified] Everett Post — https://news.google.com/rss/articles/CBMizgFBVV95cUxOOWRRUXJBRWdlaVJJMm95Wnd1UDRyd2lZQUFQbGxOd0hxdWxiTjRsSUlEZl9qV3ZUODNZWkZrclMxN0JybzBveTU5cFZKZlc0VjZBLW1iVWNia05wa3I5UjJfUDVmd2FGaDdtWTFBM1BDd2NLRkhKdjB6aWlKMkJBanNfNDdQYUNkeXV5VGMxdE03UW1SamI5X0NSaUxYTDdGT3JoY2pjYTVGWGg3bW9tcU5qLUVUTmpJc3A0WUZEOWliWVA1WnpYc1J3WDJ3QQ?oc=5
   - [unverified] KVUE — https://news.google.com/rss/articles/CBMi3gFBVV95cUxPUk04aUVCcDNqS2RCbDYyTXp3cXpLNkQ0c2dFNVlRdXJIOHctVGVtUTQtQkRmS2lCclNXY1daY0FJS251Y0tBS1IyUEpobmJIaEtlOFdJSWkydVljUE52QkZKMk9nclk5YXBTbERBeUowWjdRX0wtYlpYSlRBYl85cEdqdk5Hb0kxdEVHN3o0UEVfR05rMEhuVDNZOWVGeVU0bUQ0cWlIbmk3YXZoWTBkOTYzVVpnUXZEU3hPTUVwai1XU3lLQ2xpSTFXWHVSMHBxNGNZTVRQZXNUX3c2Rnc?oc=5
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE9HZUlrSXA2cG1RcEh3MGJrc2dkRGJiWmZGc3g5OU03WkNhTF9BdktBUE81cXRvRUhUdWRzZVBQSlB1QXBUbTVvZS1jVHU?oc=5
+  - [unverified] Gulf Coast News and Weather — https://news.google.com/rss/articles/CBMijgFBVV95cUxPUDY0S2FfcTRHUERlTlZuczFqdXREYlVrY1pBZzRUUVFic3hIR2g4bGU1bzl1Ymh4WUJYeEJYb1NSb3BuNVUxWmVvbTJIYUVCZW0xQnZMd0VIMjRxWlhNbkhEclItV2dFczlwZm96Ykk1UjlvVkhtbTROWC16SHNfSHVYM2FtMy1zQUpCT3hB?oc=5
 
 ## ‘Toy Story 5’ soundtrack features Taylor Swift original, Randy Newman score - The Music Universe
 
@@ -169,11 +232,12 @@ Stories: 81
 ## Taylor Swift added to Nashville Songwriter’s Hall of Fame - WKRN News 2
 
 - first seen: 2026-08-11 22:00 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift added to Nashville Songwriter’s Hall of Fame  WKRN News 2
 - sources:
   - [unverified] WKRN News 2 — https://news.google.com/rss/articles/CBMimwFBVV95cUxONlRWeFZzeUFfZmVfRzRvejl4ZFhBMjAzR1lZYWJ6U1p1RF9YaDlFdTB4MEhKVFlkUnQyckdzYkVDRXo5aWctS3ljWC1zcUlaVjUtdlk4UWpOZDVaSFR3NzktbkRFMzJ2Y2pXR0xZR3paYlUyQmhOLXNhSHA2SkducDIyM0R0MEFfb3B3LUpCVGJaaG15T2hvSTdISdIBoAFBVV95cUxQODBURlgyYmROWFB5aHAyRkhPa1U0WVI1dHVLWFJxNm9la0lHeVQ5c1FfOTllTEJIRk1nNk44c1p0SzFOUW0zenJ3a3pNak9hd1BRYk53VzQ3bjE3NHNSWlZaVGt3U1JubFUzd0N3WkdqaWVEcHRIdmlVWWRvRkFULWE4dGNwbTVjSjJzLVNBTkNPSzVEaElBc2xRbDY2akhf?oc=5
   - [unverified] wate.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNbzlmTUVTLVJ3SFYyRW43MEpzY283bGxZSEd6b2FoQWZkU05iYUZTZzZKa0dvdVlwTG5PaW5hV2x0cG5QZDJSc2l6aERYMFRRNzZNNDFOSThsWnp1dloxWFpmYVhlS3JXMFJhUkFZa25WNjBmWkY3RzNvcm1mVVRaQzR4N1FHWnJFYS1J0gGQAUFVX3lxTE5PdnZ0NUV4WjlMNENUckVES2pZeThTSVhzcVNMN25LY2MzLXRzLWJRYUlmS0xUbHRJaGozMFBaV2pBdWtQclp4TzNhd25XdzZvRWo0U2xtUFIzUFdnUW5PeFNhS0VSZDdVN2o1elNLWl85bzdWaFhta25TRG5kQU40Z0FyRWNsaGlLdWxLTGptQw?oc=5
+  - [unverified] News Channel 5 Nashville — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOQlU4NFZWZklVTWI5ci1FR3NvbjBJYWM3NjdwQ1gwcGlqYkdTOUtHQ2xaTjF1NVpTbmQ3eFY3UjBQaldIekpMTkpUbTBtMjVBQ0VYQzlmdDdHQ2Q5M3AtaUhBb2l2aU9aT0JrLVVlbW5WQXRzLTJwU3pBckduUEtHTjRIamFuNUljNGJTano4M1dabTI0akZnSGxyMU11cDYxR3Q3S2hEdzd3YTdkRGswYXVZVFBkZWE3?oc=5
 
 ## Taylor Swift and Travis Kelce Hunting for Homes Near Prince Harry and Meghan — Source - Yahoo
 
@@ -632,68 +696,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Trump Used Taylor Swift Songs; Now They're Gone From His Posts — Here's Why  NDTV Profit
 - sources:
   - [unverified] NDTV Profit — https://news.google.com/rss/articles/CBMisgFBVV95cUxNaEZHUndfVXlTckF3OFF6QWNyTFktUlZkaS1BMkl2LW43cVdqMk4wcHE1TzF5N0JfNjliR0YxUHZ4bkNITy16M3FPU0JVQTNwT3l6VG1CX2NxSG1NaDJudHBZd2FjUlZrR1gxUU4xZ3A1QV8tZXl5RHJqT1FFSlVGN2xxVUNXMUVkUEJrY2JqY082NC03TXdibi1lUzdwOWt0T2xLQTBiTHRFR1JmOWhzcjR30gG6AUFVX3lxTE1XNzY4XzRETVhKZ1FFTENSNHFtRWcxb3Z2aXY0TWlZMmFNTmM2VjhZbVN2Y1lBVUJQU20xc3pfR2RMWDA4S1l1Y3lqM3NJbzdLZ2xOek84SDM2ZGpuTy1aMzBtSGNQU0VYUDkwRER1dUV2OGRROVRCdWppUFFaeFZ4UmxmaGltaExMSHgtdVBub2E0UnVpR25IX0ItazBrb2hRdUdGanN0ckp3U3ZXMFJYZGxYRzI5ZWRLQQ?oc=5
-
-## Taylor Swift songs removed from Donald Trump's and White House's social media posts - ABC News & Hea
-
-- first seen: 2026-08-09 17:44 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift songs removed from Donald Trump's and White House's social media posts  ABC News & Headlines – Australian Broadcasting Corporation
-- sources:
-  - [unverified] ABC News & Headlines – Australian Broadcasting Corporation — https://news.google.com/rss/articles/CBMisgFBVV95cUxOZng2RVhyYjFlZVFOMy1DR0lvN0I3RHRxNGZZX2t0eEJlM2xTQ2lPUlZyZWlldUFhekRmc3ZoREo4QThNOXU2RjhoR2NmTVhGZGJWME4yMlFNR2RxenN6bkh2b0FoQWh6R2ZzSkhoNW1MLTZXc0tQVWpfWEZGY3B6SW9DSzNDY1B1eENRRXBuYV9aajJiLWdVVmZBU1BpWFBOcjNxeXotY2lxLWcyWE1PRFdR?oc=5
-
-## Ontario couple who scammed Taylor Swift fans out of hundreds of thousands of dollars to be sentenced
-
-- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Ontario couple who scammed Taylor Swift fans out of hundreds of thousands of dollars to be sentenced in October  CP24
-- sources:
-  - [unverified] CP24 — https://news.google.com/rss/articles/CBMi7wFBVV95cUxOUkNIcGJBS0luQlJHYTBiWXdnSUtQS1BPTnRHU1lSRFdXSW1CYWs5cV9UQTlYb3RSN2EtYTBFdXp0cUFFUXVDWXFzMWREUTROa1gwUFNuSXk5eU52RVJ0LWFwX3hra2dJREFRNWRrNVVwckpRR3MzLVpna0p2ZzNQd0htbDJtSUh3RXNmM0UtZ3FYSlQ4czZIczk0X1l5MnJyR2dKSHF2NE5BQ2g2bmVGMEx6bzRISlJoVVA0ellQbklvM0hnNkxYVjlwclZIbjFYa0s1X19VS1BlWlFHcEtRdVpoek0xUFNxV1RGLUROcw?oc=5
-
-## Trump and Taylor Swift Clash Again After Her Song Is Removed From His TikTok Post - Currently.com
-
-- first seen: 2026-08-09 17:44 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Trump and Taylor Swift Clash Again After Her Song Is Removed From His TikTok Post  Currently.com
-- sources:
-  - [unverified] Currently.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOcWUwOUlYZ0VfNjliM1FNLVZnV0pxTlBPc3pBWnZUOFhKZl83aE9iUHd3Y3hObXpMTndjUkRPRHIwZFRWc2N0cGZMUlFvUGtJSEprb25zN3hqZXZRVnRRU1BCR1o4RE01dnJWejFVTFBTZU91V3BuVUpOdUxoakxucGNJTDBoX2lE?oc=5
-
-## Travis Kelce, Taylor Swift Make First Appearance Since Training Camp - heavy.com
-
-- first seen: 2026-08-09 17:44 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce, Taylor Swift Make First Appearance Since Training Camp  heavy.com
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNNEVFX3FHT2JuQ24wdEhaS2Vtc2hESnBpZWx1N3RwTmdGZ3RmZ3NvTC1tbWVZaTRlblhuNG8xam5GZmQ2dXM3SjIxSXZXUjNEa19ZT3RQYk5hNk9UbFo3MkotODlpeDlDRlhOZGN0S3dRajBzSmRpSUNxRlYwY1V4bnF4RE8yOW1vNHh1cUFGX21wUjIwc3BNbnhpLW5jM1dQeWxPMjBXZGVZaWJ0a0ln?oc=5
-
-## Taylor Swift’s songs pulled from Trump-linked TikTok posts - northeasttimes.com
-
-- first seen: 2026-08-09 17:44 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s songs pulled from Trump-linked TikTok posts  northeasttimes.com
-- sources:
-  - [unverified] northeasttimes.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOU2JOcXpyMERja09zRElvVjNFdGRIa2N6VV9WTGJDQWVFc2kwOWVVMTJEcFdVTXV1VTEtUVFlMms4UGFLRkNqdHVINzREOXVNWTBSS1lTS19FV3puV2w1aFlkLVpoelR0Xy1fVlZNcGg2X01PS1phVlVxVHlHVnRaazVxQ0hySndkOGFFbEtmcVF3Umh0aUgtb2EtMXludw?oc=5
-
-## Copying Taylor Swift's everyday habits could make you happier, according to science - Yahoo Creators
-
-- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Copying Taylor Swift's everyday habits could make you happier, according to science  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi1gFBVV95cUxOYUZNMTR5a2toMkN0YldtRV9kN3VrRmxWT0pPWlRZN0lNbnRLWDNBOXppNi1ZbEdiUFRqZmliZGJ1bUdreWVzTEJTWDA1bGNES2pfd0xNVkx5WVpnTkFxdFA3cFBkQTBMeW9xZXl5cEVteFhEeXdISTFxUXY5a3dSZzRVUTd6aWhSTzRTVjZjWHRTb0xvVG5wYlR6Y29vdkF5dGJseUFwR1RxT2UwUEFlTnBHVmJvSE9nZnR3RDJDMWRacjVxbWpleHlfdlJaQ0JxWWhPWHZR?oc=5
-
-## FILE PHOTO: Taylor Swift performs in Vancouver - galvnews.com
-
-- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: FILE PHOTO: Taylor Swift performs in Vancouver  galvnews.com
-- sources:
-  - [unverified] galvnews.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOYlRsdVgtNWt6WnQzT0htZURnQk1oSkROM1hlTmZDYU13WWVKbXZITUhNQnlwUndiSUZQam9mR3JlZDhQeDJlWXgtR3R6OUI0UUlCTVNGN2NNeHRVMVI2SGNHNFlUbmVCUTBPUkotaVM5RU1aRnMtWGVZQ19WSVhHSDF4ekRkZjQ1d3RuN090aU82dWNVT0NaU3BLSl9iazh2V28wYWk4c052dEplQmJaR1pHTnlfUzJiZGFJLTRBcTBjY0ZuaHQzMDBvQk1XUE1qanhfQWJFOA?oc=5
-
-## Avalanche’s Parker Kelly Swapped Taylor Swift For Noah Kahan At Coors Field - Yahoo Sports
-
-- first seen: 2026-08-09 17:44 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Avalanche’s Parker Kelly Swapped Taylor Swift For Noah Kahan At Coors Field  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijAFBVV95cUxOU2E5SGdHNENmTFBncEE5dnNLeFZOdGdwbExKbFZaOHhSS3NBM05nc0dscEFQTFJOZHhnQng0QnhCSDdoRDZmLUE5U2t4aWdia1N5MXgyczJmRWUtVmpyZFllVnJsVlhQU2FjR3pUVUpNM0ZDQVRISDY0N2wyeE5sNk1iQ1FzNXlGNVpMQQ?oc=5
-  - [unverified] The Hockey News — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNRTQzcWdXaVhiVVg2NXF6OTB5TEtPaHVJRTM3U1lhQ1pqWTdaNzFBTVVmelNDVVhCbzBPWG5Zc2ZTeEVfaF9mRWtZZWpRT3B4TDdIaURvSFBuSWdnUTVMZ1B3elZ1a01BcWt1cThMaHNNOGhJTXpsZnRtbGkzMWozUDUtNzEwdzNLM0tiX1JaS05fQzVHWG4wZlRybzB2Tm1vclNPdC1MbmsyZ2ZkT3VZeFdDNS1rNzRzS213RVZyMzZxdXhYbXdMRXJLQUhYeG91dFE?oc=5
