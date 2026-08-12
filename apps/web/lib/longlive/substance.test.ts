@@ -215,12 +215,16 @@ describe('substanceScore over real vault content', () => {
   // Thin fixture repointed 2026-07-24 (ledger #1274): the Answerer enriched the
   // former fixture ("Orange sequins and feathers") with sourced provenance,
   // cross-links and the real Gucci/Bob Mackie looks, so it is no longer a valid
-  // "bare" example (as its own repoint comment predicted). Repointed to the
-  // 1989 "pop reinvention" era-vibe card — a genuinely bare aesthetic marker,
-  // and one outside the depth engine's defining-moment/current-era queue, so it
-  // should stay a stable thin stand-in rather than rotate every few weeks.
+  // "bare" example (as its own repoint comment predicted).
+  // Repointed AGAIN 2026-08-12 (depth-audit batch): the previous stand-in —
+  // the 1989 "pop reinvention" card — was one of the seven caption-level 1989
+  // headline stubs the rows-per-month audit queued, and deepening it was the
+  // point of that pass (docs/audits/2026-08-12-depth-rows-per-month.md). Now
+  // the debut "curls, sundresses and cowboy boots" era-vibe card: a genuinely
+  // bare aesthetic marker in the era the depth queues touch last, so it should
+  // stay a stable thin stand-in rather than rotate every few weeks.
   it('ranks a bare single-announcement item near the bottom', () => {
-    const thin = byId('vault-1989-the-pop-reinvention');
+    const thin = byId('vault-debut-curls-sundresses-and-cowboy-boots');
     expect(bodyChars(thin)).toBeLessThan(BODY_FLOOR_CHARS + 50);
     expect(substanceScore(thin)).toBeLessThan(0.2);
   });
@@ -229,7 +233,7 @@ describe('substanceScore over real vault content', () => {
     const meaty = substanceScore(
       byId('vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already'),
     );
-    const thin = substanceScore(byId('vault-1989-the-pop-reinvention'));
+    const thin = substanceScore(byId('vault-debut-curls-sundresses-and-cowboy-boots'));
     expect(meaty).toBeGreaterThan(thin * 4);
   });
 
@@ -296,7 +300,16 @@ describe('substanceScore over real vault content', () => {
       scores.filter((s) => s >= lo && s < hi).length / scores.length;
     // Four bands, each a real slice. This is what lets four card tiers exist;
     // before #1017 the `chip` tier held 1.3% of cards, i.e. it did not exist.
-    expect(share(0, 0.2)).toBeGreaterThan(0.08);
+    //
+    // Bottom-band floor relaxed 0.08 -> 0.06 (2026-08-12, depth-audit batch):
+    // the same snapshot-fitted-bound failure documented twice in the spread
+    // test above — the rows-per-month audit's stated job was deepening the
+    // bottom band's caption-level headline stubs (7 in 1989 alone), so the
+    // band that measured them shrank from ~8.1% to 7.5%. The INTENT — the
+    // chip tier is a real slice, not the pre-#1017 1.3% — still holds with
+    // real margin at 6%. Same reversible interim unblock as #1845/#1628;
+    // the durable fix remains editorial-weight tiers.
+    expect(share(0, 0.2)).toBeGreaterThan(0.06);
     expect(share(0.2, 0.3)).toBeGreaterThan(0.15);
     expect(share(0.3, 0.4)).toBeGreaterThan(0.15);
     expect(share(0.4, 1.01)).toBeGreaterThan(0.1);
