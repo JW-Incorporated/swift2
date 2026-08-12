@@ -123,13 +123,38 @@ Kept deliberately (paused, not obsolete): **Marjorie 8 PM delta** and **Lex dept
 
 ### Remaining model downgrades — IDs captured, not yet applied
 
-### 🏗️ The Vault Run is being built — see [`vault-run-plan.md`](vault-run-plan.md)
+### ⚠️ The Vault Run is LIVE — and so are all six lanes it was meant to replace
 
-Six content lanes (Answerer, Content Shift, Photo Enrichment, Rumor Desk,
-Cross-Link, Stylist) are being consolidated into ONE daily runner. They all edit
-`supabase/seed/**` plus the same generated vault, so six separate PRs conflict by
-construction — that is what the retired self-check-in loops were largely
-resolving. Also ~4.2 PRs/day → 1, and each PR costs two CI runs.
+**Status as of 2026-08-11: the consolidation is HALF-DONE, and the half that is
+missing is the half that saves anything.** Read this before reasoning about
+content PR volume or Actions minutes.
+
+`trig_01EuLgUdMgbuqL51o3iWQfTL` (Opus, daily `7 16 * * *`) has been opening
+`vault/<date>` PRs since 07-30. **Phase 4 — disabling the six standalone lane
+runners — never happened.** So the orchestrator runs *in addition to* the six,
+not instead of them, and every stated win is unrealized or inverted:
+
+- **PR count went UP, not down.** ~4.2 content PRs/day + 1 orchestrator PR.
+- **Actions minutes and tokens: no saving at all** — the six cold boots still
+  happen, plus a seventh.
+- **The cross-lane conflict bug class is not removed** — there are still up to
+  seven writers regenerating the same vault on seven branches.
+- **Rumor Desk now effectively runs DAILY.** Its standalone cron is
+  `47 14 */2 * *` (odd days of the month); the orchestrator's lane 4 is due on
+  **even** day-of-month. The two interleave to daily coverage of the highest
+  privacy-liability lane in the system, which auto-merges with no human read.
+  Nobody designed this; it is an artifact of Phase 4 not landing. Confirmed by
+  branch history: `content/rumor-desk-` on 08-03/05/07/11 (odd),
+  `lane(rumor-desk)` commits inside `vault/2026-08-10` (even).
+
+**Do not "just disable the six" to fix this.** Four preconditions are unmet and
+three of them are load-bearing — the standalone lanes are currently masking a
+~25% Vault Run miss rate (no PR at all on 08-01, 08-02, 08-08) and are the only
+thing draining the depth backlog. The full checklist, with evidence, is in
+[`vault-run-plan.md`](vault-run-plan.md) § Phase 4. The first item is **merge
+PR #1629** (Phase 3.5, open since 07-30) — until it lands, `main` has neither
+stuck-red-PR detection nor a recovery path, and consolidation makes a stranded
+red PR strictly worse (one red PR would strand all six lanes, not one).
 
 Phase 1 (done): each lane's prompt now lives in
 [`runner-prompts/vault-lanes/`](runner-prompts/vault-lanes/) instead of only
@@ -437,13 +462,32 @@ Content Shift went silent for a full day+ with zero trace anywhere (no PR,
 no stranded branch, no ticket comment), invisible to any existing check.
 
 Added a per-agent liveness check for any cloud routine that reliably
-titles its own PRs with a fixed prefix — currently just **Content Shift**
-(`content(shift): ` prefix, checked against a 30h window — its cadence is
-17:00/23:00 UTC, so 30h tolerates one missed slot before alerting). Extending
-to another cloud-routine agent (Nils, Kevin, Karen, Laura, Paul Blart,
-Austin, Growth) is a few-line addition to the same job in `watchdog.yml`,
-once/if one of them is actually observed going dark the same way — not
-pre-built speculatively for all of them now.
+branches its PRs with a fixed prefix. **Generalised 2026-08-11** from a single
+hard-coded Content Shift check into a `check_lane` helper called once per
+watched lane, each with its own window and its own alert title so they
+self-heal independently:
+
+| Branch prefix | Window | Lane |
+|---|---:|---|
+| `vault/` | 36h | The Vault Run (daily `7 16 * * *`, carries all six lanes) |
+| `content-shift/` | 30h | Content Shift standalone (17:00/23:00 UTC) |
+
+Why both, rather than moving the check: the Vault Run was always going to need
+liveness cover, and a check hard-keyed to `content-shift/` **would alarm every
+single day the moment Phase 4 disables that lane**. Watching both means the
+check is correct before *and* after Phase 4, and the migration is deleting one
+row rather than rewriting a step. **When the standalone lanes are disabled,
+delete the `content-shift/` row.**
+
+The 36h window is deliberate and should not be widened: the Vault Run carries
+all six content lanes, so one missed day is a whole-day content outage, and
+36h is the value that still alarms on it (healthy age at check time is ~22.5h;
+a missed day is ~46h). Expect it to fire — the Vault Run had no PR on 08-01,
+08-02 or 08-08, which nobody noticed precisely because this check did not exist.
+
+Extending to another cloud-routine agent (Nils, Kevin, Karen, Laura, Paul
+Blart, Austin, Growth) is now one more `check_lane` line, once/if one of them
+is actually observed going dark — not pre-built speculatively for all of them.
 
 Also fixed: every `watchdog-alert` issue is now real-emailed via
 `scripts/watchdog/send-mail.py` (the same delivery path `brief-mailer.yml`
