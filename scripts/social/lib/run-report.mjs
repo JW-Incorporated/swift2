@@ -28,12 +28,12 @@ export const OUTCOME = {
 };
 
 /** Past this many hours overdue, a `skipped`/`waiting` item stops being a
- * normal wait and becomes a delivery failure that reddens the run. Mirrors
- * The lower rung of the escalation ladder: lib/queue.mjs's isStaleDue (48h)
- * then RETIRES the item to social/failed/ a full day after this makes it
- * loud — 24h alerts a human while the item is still recoverable (merge the
- * image PR and it ships), 48h moves it. Kept as its own constant so this
- * module stays free of queue-selection imports. */
+ * normal wait and becomes a delivery failure that reddens the run. The lower
+ * rung of the escalation ladder: lib/queue.mjs's isStaleDue (48h) then
+ * RETIRES the item to social/failed/ a full day after this makes it loud —
+ * 24h alerts a human while the item is still recoverable (merge the image PR
+ * and it ships), 48h moves it. Kept as its own constant so this module stays
+ * free of queue-selection imports. */
 export const STUCK_AFTER_HOURS = 24;
 
 /** True for a skipped/waiting outcome that has been in that state long
@@ -57,14 +57,16 @@ export function isStuck(outcome) {
  *
  * A skipped or waiting item ALSO qualifies once it has been stuck for more
  * than STUCK_AFTER_HOURS (2026-08-11). Those two states cost no attempt by
- * design, which means they can never reach social/failed/ and never trip the
- * failure path above — so an item in one of them was, until now, capable of
+ * design, which means they can never reach social/failed/ through the
+ * attempts counter — so an item in one of them was, until now, capable of
  * failing to post FOREVER inside a green run.
  * `social/queue/2026-08-09-august-augustine-ig.json` did exactly that for two
  * days: the era-art repetition guard skipped it every 30 minutes, each run
  * logged an error and exited 0, its X twin published fine, and the founders'
  * brief counted the day as healthy. A wait with no bound and no alarm is
- * indistinguishable from a silent drop; this is the bound.
+ * indistinguishable from a silent drop; this is the bound. (The 48h isStaleDue
+ * rule then retires such an item to social/failed/ a day later — see
+ * STUCK_AFTER_HOURS above for the ladder.)
  */
 export function hasBlockingFailure(outcomes) {
   return outcomes.some((o) => o.kind === OUTCOME.FAILED || isStuck(o));
@@ -122,10 +124,21 @@ function platformBreakdown(items) {
  * Markdown report for the run page's job summary and the queue-state PR body.
  * Leads with the bad news: a reader who only sees the first line must be able
  * to tell whether anything is broken.
+ *
+ * `abortReason` (optional) marks a run that had due work but stopped before
+ * attempting any of it (missing credentials) — it replaces the headline,
+ * because "nothing due" would be a lie for such a run.
  */
-export function formatReportMarkdown(outcomes, { runUrl } = {}) {
+export function formatReportMarkdown(outcomes, { runUrl, abortReason } = {}) {
   const groups = groupOutcomes(outcomes);
-  const lines = [`**social-poster: ${summarizeRun(outcomes)}**`, ''];
+  const lines = abortReason
+    ? [
+        '**social-poster: ⛔ RUN ABORTED — nothing was attempted**',
+        '',
+        abortReason,
+        '',
+      ]
+    : [`**social-poster: ${summarizeRun(outcomes)}**`, ''];
 
   if (groups.failed.length) {
     lines.push(
@@ -140,27 +153,27 @@ export function formatReportMarkdown(outcomes, { runUrl } = {}) {
     lines.push('');
   }
 
-  if (groups.retrying.length) {
-    lines.push(`### ⚠️ ${groups.retrying.length} retrying`, '');
-    for (const outcome of groups.retrying) {
-      lines.push(
-        `- \`${outcome.file}\` (${outcome.platform}) attempt ${outcome.attempts} — ${outcome.error}`,
-      );
-    }
-    lines.push('');
-  }
-
   const stuck = [...groups.skipped, ...groups.waiting].filter(isStuck);
   if (stuck.length) {
     lines.push(
       `### ⛔ ${stuck.length} item${stuck.length === 1 ? '' : 's'} STUCK more than ${STUCK_AFTER_HOURS}h past schedule — not posted, not failed, going nowhere`,
       '',
-      'These are blocked in a state that costs no retry, so they would otherwise sit here indefinitely without ever reaching `social/failed/`. Nothing will unblock them on its own — a human has to change the item or the thing blocking it.',
+      'These are blocked in a state that costs no retry, so they would otherwise sit here indefinitely without ever reaching `social/failed/` (the 48h staleness rule retires them a day from now). Nothing will unblock them on its own — a human has to change the item or the thing blocking it.',
       '',
     );
     for (const outcome of stuck) {
       lines.push(
         `- \`${outcome.file}\` (${outcome.platform}) — overdue ${formatOverdue(outcome.overdueHours)} — ${outcome.error}`,
+      );
+    }
+    lines.push('');
+  }
+
+  if (groups.retrying.length) {
+    lines.push(`### ⚠️ ${groups.retrying.length} retrying`, '');
+    for (const outcome of groups.retrying) {
+      lines.push(
+        `- \`${outcome.file}\` (${outcome.platform}) attempt ${outcome.attempts} — ${outcome.error}`,
       );
     }
     lines.push('');
@@ -194,12 +207,17 @@ export function formatReportMarkdown(outcomes, { runUrl } = {}) {
   if (groups.posted.length) {
     lines.push(`### ✅ ${groups.posted.length} posted`, '');
     for (const outcome of groups.posted) {
-      lines.push(`- \`${outcome.file}\` (${outcome.platform}) — ${outcome.url}`);
+      lines.push(
+        `- \`${outcome.file}\` (${outcome.platform}) — ${outcome.url}` +
+          (outcome.facebookError
+            ? ` — ⚠️ the Facebook Page cross-post FAILED (the ${outcome.platform} post itself is live): ${outcome.facebookError}`
+            : ''),
+      );
     }
     lines.push('');
   }
 
-  if (outcomes.length === 0) lines.push('Nothing was due this run.', '');
+  if (outcomes.length === 0 && !abortReason) lines.push('Nothing was due this run.', '');
   if (runUrl) lines.push(`[Full run log](${runUrl})`, '');
   return lines.join('\n');
 }
@@ -207,11 +225,18 @@ export function formatReportMarkdown(outcomes, { runUrl } = {}) {
 /**
  * GitHub Actions annotation lines (`::error::` / `::warning::`) so failures
  * show up on the run page and the Checks tab, not just in the raw log.
+ * A posted item whose Facebook cross-post failed gets a warning (the primary
+ * post is live, so it must not redden the run — but a Page that quietly stops
+ * accepting posts must not be invisible either). An aborted run gets an
+ * ::error:: of its own.
  */
-export function formatAnnotations(outcomes) {
+export function formatAnnotations(outcomes, { abortReason } = {}) {
   const groups = groupOutcomes(outcomes);
   const held = [...groups.skipped, ...groups.waiting];
   return [
+    ...(abortReason
+      ? [`::error title=social-poster: run aborted::${abortReason}`]
+      : []),
     ...groups.failed.map(
       (o) =>
         `::error title=social-poster: ${o.platform} post permanently failed::${o.file} exhausted all attempts and was NOT published — ${o.error}`,
@@ -237,6 +262,12 @@ export function formatAnnotations(outcomes) {
       .map(
         (o) =>
           `::warning title=social-poster: post waiting on deploy::${o.file} — media not live yet, no attempt spent — ${o.error}`,
+      ),
+    ...groups.posted
+      .filter((o) => o.facebookError)
+      .map(
+        (o) =>
+          `::warning title=social-poster: facebook cross-post failed::${o.file} posted to ${o.platform}, but the Facebook Page cross-post failed — ${o.facebookError}`,
       ),
   ];
 }

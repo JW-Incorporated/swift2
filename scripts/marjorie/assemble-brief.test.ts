@@ -234,10 +234,14 @@ describe('buildBrief — two sections, nothing else', () => {
     expect(brief).toContain('proxy');
   });
 
-  it('includes the Growth line in Health', () => {
+  it('calls a day with no merges and no closes a failed org day', () => {
+    expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('failed org day');
+  });
+
+  it('reports posts per platform over a rolling 24h window when the snapshot has one', () => {
     const withSnapshot = buildBrief(
       {
-        ...emptyState,
+        ...withGates,
         growth: {
           followers: { instagram: 1200, x: 340, facebook: 89 },
           deltas: { instagram: 18, x: 5, facebook: 0 },
@@ -250,10 +254,6 @@ describe('buildBrief — two sections, nothing else', () => {
     expect(withSnapshot).toContain(
       '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
     );
-  });
-
-  it('calls a day with no merges and no closes a failed org day', () => {
-    expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('failed org day');
   });
 
   it('reports what landed in the last 24h from real timestamps', () => {
@@ -273,9 +273,6 @@ describe('buildBrief — two sections, nothing else', () => {
       { ...withGates, growth: { followers: { instagram: 1200, x: 340, facebook: 89 }, deltas: { instagram: 18, x: 5, facebook: 0 }, postsToday: 2 } },
       { date: '2026-07-12', now: NOW },
     );
-    // A snapshot predating `postsLast24h` falls back to the legacy count,
-    // labelled honestly (see formatPostsPart) — the 2026-08-11 brief read a
-    // structurally-near-always-0 "posts today" as "X is silently failing".
     expect(brief).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today (pre-24h-window snapshot) · queue: empty (nothing drafted) · site: pending #799');
   });
 

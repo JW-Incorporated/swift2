@@ -34,16 +34,23 @@
 // auto-retried at all, since retrying one is indistinguishable from
 // manufacturing a duplicate.
 //
-// Failures are LOUD (2026-08-11, PR #1888/#1924). Every item this run
-// touched resolves to an outcome (posted / retrying / failed / skipped /
-// waiting), and lib/run-report.mjs turns those into a markdown report (job
-// summary + queue-state PR body), ::error::/::warning:: annotations, and a
-// non-zero exit for anything that permanently failed. Before this, twelve
-// posts died into social/failed/ across 2026-07-21..08-04 and every one of
-// those runs finished GREEN. The workflow's state-commit step runs with
-// `if: always()`, so a red run still records what happened; without that
-// the failed/ move would never land and the item would retry against the
-// same wall forever.
+// Crisis stop: if the repo variable SOCIAL_FREEZE is set to anything
+// truthy, this exits immediately without posting or touching the queue —
+// per the Growth desk charter's hard rail. Any founder can set it.
+//
+// Failures are LOUD (2026-08-11). Any item that leaves the schedule without
+// reaching a timeline — attempts exhausted, stale >48h, invalid scheduledAt,
+// or an ambiguous transport failure, i.e. every path into social/failed/ —
+// makes this process exit non-zero, emits a `::error::` Action annotation,
+// and writes a markdown report that the workflow puts in the queue-state
+// PR's title and body. A run that has due work but must abort (missing
+// credentials) is loud the same way. Before this, twelve posts died into
+// social/failed/ across 2026-07-21..08-04 — eleven X (403 every time) and
+// one Instagram (#1897) — and every one of those runs finished GREEN. See
+// scripts/social/lib/run-report.mjs's header for the receipts. The workflow's
+// state-commit step runs with `if: always()`, so a red run still records what
+// happened; without that the failed/ move would never land and the item would
+// retry against the same wall forever.
 //
 // Two states deliberately spend NO attempt, so an item in either can never
 // reach social/failed/ through the attempts counter:
@@ -57,10 +64,6 @@
 // run-report.mjs reddens either state past STUCK_AFTER_HOURS (24h — loud
 // while the item is still recoverable), and isStaleDue (48h, step 1 above)
 // retires it to social/failed/ a day later if nothing changed.
-//
-// Crisis stop: if the repo variable SOCIAL_FREEZE is set to anything
-// truthy, this exits immediately without posting or touching the queue —
-// per the Growth desk charter's hard rail. Any founder can set it.
 //
 // Environment overrides (all for tests only, never set in the workflow):
 //   SOCIAL_ROOT             — repo root to read social/** from.
@@ -112,6 +115,11 @@ async function readJsonDir(dir) {
     out.push({ file, full, data: JSON.parse(await readFile(full, 'utf-8')) });
   }
   return out;
+}
+
+async function moveToFailed(failedDir, entry, failed) {
+  await writeFile(path.join(failedDir, entry.file), JSON.stringify(failed, null, 2) + '\n');
+  await rm(entry.full);
 }
 
 /** Container-poll bounds, defaulted in lib/ig-container.mjs and overridable
@@ -170,15 +178,15 @@ async function crosspostToFacebook(item) {
 }
 
 /** Writes the run report everywhere a human might actually look at it. */
-async function publishReport(outcomes) {
-  const summary = summarizeRun(outcomes);
+async function publishReport(outcomes, { abortReason } = {}) {
+  const summary = abortReason ? `RUN ABORTED — ${abortReason}` : summarizeRun(outcomes);
   const runUrl =
     process.env.GITHUB_SERVER_URL && process.env.GITHUB_REPOSITORY && process.env.GITHUB_RUN_ID
       ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
       : undefined;
-  const markdown = formatReportMarkdown(outcomes, { runUrl });
+  const markdown = formatReportMarkdown(outcomes, { runUrl, abortReason });
 
-  for (const annotation of formatAnnotations(outcomes)) console.log(annotation);
+  for (const annotation of formatAnnotations(outcomes, { abortReason })) console.log(annotation);
   console.log(`social-poster: run summary — ${summary}`);
 
   if (process.env.GITHUB_STEP_SUMMARY) {
@@ -194,6 +202,26 @@ async function publishReport(outcomes) {
   return { summary, markdown };
 }
 
+/**
+ * The whole point (2026-08-11): a post that never made it to the timeline
+ * must not leave a green check behind. Every return path of main() funnels
+ * through here so no early exit can skip the report or the exit code.
+ * `if: always()` on the workflow's state-commit step means the failed/ move
+ * is still recorded despite the non-zero exit.
+ */
+async function finish(outcomes, { abortReason } = {}) {
+  await publishReport(outcomes, { abortReason });
+  if (abortReason || hasBlockingFailure(outcomes)) {
+    process.exitCode = 1;
+    console.error(
+      abortReason
+        ? 'social-poster: exiting non-zero — the run aborted with due work it could not attempt.'
+        : 'social-poster: exiting non-zero — at least one post permanently failed and was NOT published, or has been stuck past schedule long enough that it will never post on its own.',
+    );
+  }
+  return outcomes;
+}
+
 export async function main() {
   if (process.env.SOCIAL_FREEZE && process.env.SOCIAL_FREEZE !== 'false' && process.env.SOCIAL_FREEZE !== '0') {
     console.log(`social-poster: SOCIAL_FREEZE is set ("${process.env.SOCIAL_FREEZE}") — skipping this run entirely.`);
@@ -204,11 +232,6 @@ export async function main() {
   const queueDir = path.join(root, 'social', 'queue');
   const postedDir = path.join(root, 'social', 'posted');
   const failedDir = path.join(root, 'social', 'failed');
-
-  async function moveToFailed(entry, failed) {
-    await writeFile(path.join(failedDir, entry.file), JSON.stringify(failed, null, 2) + '\n');
-    await rm(entry.full);
-  }
 
   const now = new Date();
   const queued = await readJsonDir(queueDir);
@@ -226,14 +249,14 @@ export async function main() {
       validQueued.push(entry);
       continue;
     }
-    const reason = `invalid or missing "scheduledAt" (${JSON.stringify(entry.data.scheduledAt)}) — this item could never become due or stale, so it would have sat unprocessed forever. Moved to social/failed/.`;
-    await moveToFailed(entry, {
+    const failureReason = `Invalid or missing "scheduledAt" (${JSON.stringify(entry.data.scheduledAt)}) — this item could never become due or stale, so it would have sat unprocessed forever.`;
+    await moveToFailed(failedDir, entry, {
       ...entry.data,
-      failureReason: reason,
+      failureReason,
       lastAttemptAt: now.toISOString(),
     });
     console.error(`social-poster: ${entry.file} has an invalid/missing scheduledAt — moved to social/failed/.`);
-    outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: reason });
+    outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
   }
 
   const allPosted = await readJsonDir(postedDir);
@@ -251,32 +274,29 @@ export async function main() {
     Infinity,
   );
 
-  if (due.length === 0 && outcomes.length === 0) {
+  if (due.length === 0) {
     console.log('social-poster: nothing due this run.');
-    await publishReport(outcomes);
-    return outcomes;
+    return finish(outcomes);
   }
 
   // Abort the WHOLE run, before touching any item, if a platform with due
   // work this run is missing required credentials — a per-item failure here
   // would just burn 3 attempts (1.5h) on every single due item for a
-  // problem no retry can fix. Loud: this leaves due work unposted, so it
-  // annotates and reddens the run rather than returning quietly.
+  // problem no retry can fix. Aborting is still LOUD (non-zero exit, an
+  // ::error:: annotation, the report): nothing will ever post until a human
+  // fixes the configuration, so a green "nothing happened" run would be the
+  // exact silent-failure mode this file exists to prevent.
   const neededPlatforms = [...new Set(due.map((item) => item.platform))];
   const credIssues = neededPlatforms.flatMap((platform) => {
     const missing = missingCredsFor(platform);
     return missing.length ? [`${platform}: missing ${missing.join(', ')}`] : [];
   });
   if (credIssues.length) {
-    console.log(
-      `::error title=social-poster: missing credentials::${due.length} due item(s) were NOT posted — ${credIssues.join('; ')}. No items were touched; nothing was attempted or retried.`,
-    );
+    const abortReason = `required credentials are missing for a platform with due items (${credIssues.join('; ')}). No items were touched; nothing was attempted or retried — and nothing will post until the credentials are fixed.`;
     console.error(
       `social-poster: ABORTING this run — required credentials are missing for a platform with due items:\n${credIssues.map((c) => `  - ${c}`).join('\n')}\nNo items were touched; nothing was attempted or retried.`,
     );
-    await publishReport(outcomes);
-    process.exitCode = 1;
-    return outcomes;
+    return finish(outcomes, { abortReason });
   }
 
   const recentIg = recentInstagramPosts(allPostedData);
@@ -290,15 +310,14 @@ export async function main() {
     // about this item. A 3-day-stale item must not quietly post just
     // because it happens to be unblocked on the run that finally checks it.
     if (isStaleDue(item, now)) {
-      const reason =
-        "still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md's 48h rule).";
-      await moveToFailed(entry, {
+      const failureReason = 'Still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
+      await moveToFailed(failedDir, entry, {
         ...item,
-        failureReason: `Still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md's 48h rule).`,
+        failureReason,
         lastAttemptAt: now.toISOString(),
       });
       console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past scheduledAt.`);
-      outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, error: reason });
+      outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, error: failureReason });
       continue;
     }
 
@@ -325,7 +344,7 @@ export async function main() {
         kind: OUTCOME.SKIPPED,
         file: entry.file,
         platform: item.platform,
-        error: blockReason,
+        error: `${blockReason} Left in the queue, not counted as a failed attempt.`,
         overdueHours: hoursOverdue(item, now),
       });
       continue;
@@ -336,7 +355,9 @@ export async function main() {
     // A not-yet-deployed image is a WAITING outcome, not a skip: nothing is
     // wrong with the item, its image PR just hasn't merged/deployed, and it
     // ships itself on the first run after the deploy lands. No publish, no
-    // Graph write, no attempt spent. See lib/preflight.mjs.
+    // Graph write, no attempt spent. See lib/preflight.mjs — and
+    // lib/run-report.mjs's isStuck for the 24h bound that stops this state
+    // from hiding forever.
     if (needsMediaPreflight(item)) {
       const preflight = await mediaUrlsReachable(mediaUrlsFor(item, MEDIA_BASE_URL));
       if (!preflight.ok) {
@@ -355,7 +376,11 @@ export async function main() {
 
     // 5. Only an item that survived every check above consumes one of the
     // per-run slots — a blocked item never got this far, so it can't
-    // monopolize the cap that's meant to bound REAL posting volume.
+    // monopolize the cap that's meant to bound REAL posting volume. A
+    // deferral is routine scheduling (it happens whenever more than
+    // MAX_POSTS_PER_RUN items are postable), so it's logged but NOT an
+    // outcome — annotating every deferral would train readers to skim past
+    // the warnings that matter.
     if (attemptsThisRun >= MAX_POSTS_PER_RUN) {
       console.log(`social-poster: per-run cap (${MAX_POSTS_PER_RUN}) reached — deferring ${entry.file} to the next run.`);
       continue;
@@ -399,16 +424,16 @@ export async function main() {
       // human doesn't mistake it for an ordinary rejected-by-the-platform
       // failure that's safe to just re-queue.
       if (err.ambiguous) {
-        const reason = `AMBIGUOUS transport failure while publishing — the request may have already landed server-side, so this was NOT auto-retried (retrying an ambiguous publish is exactly the mechanism behind the 2026-07-17 triple-post incident). A human should check social/posted/ and the live account before deciding what to do next. Raw error: ${lastError}`;
-        await moveToFailed(entry, {
+        const failureReason = `Transport-level failure while publishing — request may have already succeeded server-side, so this was NOT auto-retried (retrying an ambiguous publish is exactly the mechanism behind the 2026-07-17 triple-post incident). A human should check social/posted/ and the live account before deciding what to do next. Raw error: ${lastError}`;
+        await moveToFailed(failedDir, entry, {
           ...item,
           attempts: (item.attempts ?? 0) + 1,
           lastError: 'ambiguous',
           lastAttemptAt: now.toISOString(),
-          failureReason: reason,
+          failureReason,
         });
         console.error(`social-poster: ${entry.file} hit an AMBIGUOUS transport failure — moved to social/failed/ WITHOUT retrying: ${lastError}`);
-        outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, attempts: (item.attempts ?? 0) + 1, error: reason });
+        outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, attempts: (item.attempts ?? 0) + 1, error: failureReason });
         continue;
       }
 
@@ -416,7 +441,7 @@ export async function main() {
       const failed = { ...item, attempts, lastError, lastAttemptAt: now.toISOString() };
       if (attempts >= MAX_ATTEMPTS) {
         failed.failureReason = `Failed ${attempts} time(s): ${lastError}`;
-        await moveToFailed(entry, failed);
+        await moveToFailed(failedDir, entry, failed);
         console.error(`social-poster: ${entry.file} failed ${attempts} time(s), moved to social/failed/: ${lastError}`);
         outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, attempts, error: lastError });
       } else {
@@ -427,19 +452,7 @@ export async function main() {
     }
   }
 
-  await publishReport(outcomes);
-
-  // The whole point: a post that never made it to the timeline must not leave
-  // a green check behind. `if: always()` on the workflow's state-commit step
-  // means the failed/ move is still recorded despite this.
-  if (hasBlockingFailure(outcomes)) {
-    process.exitCode = 1;
-    console.error(
-      'social-poster: exiting non-zero — at least one post permanently failed, or has been stuck past schedule long enough that it will never post on its own.',
-    );
-  }
-
-  return outcomes;
+  return finish(outcomes);
 }
 
 // Only auto-run as a CLI; tests import `main` and drive it directly.
