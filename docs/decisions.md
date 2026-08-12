@@ -50,6 +50,661 @@ rejected, migrations are immutable history and must stay literal SQL, so the
 test asserts parity instead.
 
 **Approved by:** pending Wyatt — the restore reverses a merged content PR.
+## 2026-08-11 — Product Definition of Done adopted: eight items gate the marketing push
+
+**Decision:** Joey and Wyatt (in person, 2026-08-11) defined the short-term
+product bar: no large marketing push until the eight items in
+`docs/definition-of-done.md` are complete — landing-page rethink (scroll-first
++ unmistakable nav), End Game/Blank Spaces card differentiation, Clue
+Web/Decode card differentiation, two new sections (Marketplace, Community), a
+full site-wide link-liveness pass made permanent, complete chronological video
+coverage with a Videos filter, a re-scoped "clown bot" (blocked on a fresh
+founder decision — the #36 no-go stands until then), and an era/album
+capitalization audit enforced by a checker. Wyatt reworks Marjorie's
+dashboard/brief around this list. `docs/launch-readiness.md` remains the
+historical gate record and now points to the new file.
+
+**Why:** the original launch gates are mostly closed; the founders needed a
+single agreed artifact for "what must be true before we drive real traffic,"
+owned the same way launch-readiness was — statuses move with PR links, items
+move only by founder decision.
+
+**Approved by:** Joey + Wyatt (verbal; documented at Joey's direction)
+## 2026-08-11 — Auto-merge widened to app code, gated by full CI (not human review)
+
+**Decision:** Add app code — `apps/web/app/`, `apps/web/components/`,
+`apps/web/lib/`, and `packages/` (plus their colocated tests) — to the content
+auto-merge allowlist, so those PRs land the moment the required `build` check is
+green, with **no human merge**. Keep specific paths HUMAN-ONLY via a new **deny
+(`!`) mechanism** and the `NEVER_ALLOWLIST` bar.
+
+**Why.** Wyatt, 2026-08-11: *"Remove [app code] from the exclusion list —
+honestly we're not reviewing any code."* A human-merge gate that nobody actually
+exercises is theater: it delays shipping and gives false assurance. The honest
+replacement is a machine gate that always runs — **full required CI green** —
+rather than a rubber stamp. "Full green" = the `build` required check, one job
+that runs typecheck + lint + the entire vitest suite + validate:content +
+check:generated + check:content-inert + check:automerge-allowlist +
+check:content-ownership + check:no-downgrade + content:coverage + build +
+check:budget:seed. GitHub native auto-merge blocks until that passes.
+
+**What stays human-only, and why it is NOT about code review:**
+- `.github/**`, `scripts/**`, `package.json`, lockfiles, config — the gate and
+  what CI runs. A gate that can widen itself unreviewed is not a gate
+  (`NEVER_ALLOWLIST`, unchanged). The auto-merge machinery
+  (`auto-merge-content.yml`, `content-automerge-allowlist.txt`,
+  `check-automerge-allowlist.mjs`, the NEVER list, the ruleset) can never
+  auto-widen itself.
+- `apps/web/app/api/**` — the request-handling / data layer. **Held because
+  E2E is 100% red (#669):** app-code auto-merge currently has no behavioural
+  regression net beyond unit + typecheck + build. That is adequate for view
+  components and lib, thin for request handlers. **Chose option (a): hold the
+  API routes** until #669 is green (then a one-line PR removes the deny). Not (b)
+  "widen and accept the risk" — the API layer is where an un-caught regression
+  actually hurts (data writes, external calls), and it is a small, well-bounded
+  carve-out to hold.
+- `apps/web/app/privacy/**`, `apps/web/app/terms/**`, and any legal lib — legal
+  surfaces need counsel, not a code review.
+- `supabase/migrations/**` — irreversible schema (already `NEVER_ALLOWLIST`).
+- the rest of `apps/web/public/**` — bot-picked media gets human eyes
+  (2026-07-28), except the checker-gated `apps/web/public/social/` carve-out.
+
+**The deny mechanism.** The allowlist now supports `!prefix` deny lines that
+always beat an allow. This lets a broad allow (`apps/web/app/`) flow while a
+barred subtree (`apps/web/app/api/`) stays human. The self-amendment checker was
+extended (`barredPrefixes` in `check-automerge-allowlist.mjs`): a broad allow
+that overlaps a `NEVER_ALLOWLIST` bar is permitted **only** when a deny prefix
+*fully covers* that barred area — a partial deny does not satisfy the bar, so
+nothing slips through. Deny wins at runtime (the enable job checks deny before
+allow) and is fail-safe: a denied path never auto-merges.
+
+**Alternatives considered.** (1) Positive-listing only the safe subtrees, no
+deny — fail-safe but a new page would need a human, which re-creates the theater
+the founder is removing. Rejected. (2) Widening `apps/web/**` broadly and denying
+carve-outs — rejected because it would sweep in `apps/web/public/**` (media) too;
+we allow the three code subtrees explicitly instead. (3) Widening the API routes
+now — rejected per the #669 reasoning above.
+
+**Residual risk (honest).** App code auto-merges with **E2E red (#669)**, so
+there is no full-journey regression net — only unit + typecheck + build. That
+catches most regressions in view/lib code but can miss integration/routing/
+hydration failures that only appear in a real browser. Mitigations: API routes
+(the thinnest-covered layer) are held out; the #669 fix restores the net; and the
+self-amendment paths (`.github`, `scripts`, workflows, allowlist, migrations)
+remain structurally barred, so the worst case is a *product* regression that a
+human can revert, not a compromise of the merge gate itself. Second residual: a
+NEW sensitive product path added later under a broad allow would auto-merge
+unless someone denies it — the deny/NEVER lists must be maintained; but that
+class is bounded to product code, never the gate.
+
+**Approved by:** Wyatt (CTO), 2026-08-11. Opened as its own PR, separate from the
+content-ownership lock (#1959) it shares merge machinery with. Not merged by the
+agent.
+
+---
+
+## 2026-08-11 — Merge-machinery consolidation (#1910 + #1941) and the a11y-lane refusal
+
+**Decision:** Ship the two founder-approved merge-machinery PRs as a **single
+reconciled branch** off current `main`, and **do NOT build an a11y auto-merge
+lane yet** — the safety proof cannot be constructed today (below). This entry is
+the reconciliation record; the two original decision entries it consolidates
+follow immediately below, as authored.
+
+**What was reconciled.**
+1. **The self-amendment bar vs. the social carve-out.** #1910's `NEVER_ALLOWLIST`
+   bars `apps/web/public/` outright; the social-image carve-out (already on
+   `main`) allowlists `apps/web/public/social/`. Left as-is, `build` would fail —
+   the committed allowlist would trip its own bar. Resolved with
+   `NEVER_ALLOWLIST_EXCEPTIONS` in `scripts/check-automerge-allowlist.mjs`: a
+   single, fail-closed narrowing that exempts **exactly** `apps/web/public/social/`
+   and nothing broader or adjacent (an exception must lie *inside* the bar it
+   narrows AND cover the entry; a broad `apps/web/public/` or a sibling
+   `apps/web/public/socialite/` stays barred). Adding an exception is a
+   `.github/`-barred change, so the narrowing list itself can never be
+   auto-widened.
+2. **#1902's allowlist restructure (already merged).** The single-source-of-truth
+   allowlist file, its base-ref fetch, and the `check-automerge-allowlist.test.ts`
+   social reconciliation were already on `main`. #1941's redundant re-additions
+   (the `apps/web/public/social/` allowlist line and its own test edits) were
+   dropped in favour of `main`'s versions — no re-inlined list, one source of
+   truth preserved.
+3. **The social-image fail-closed gate.** `main`'s workflow was fail-*open* for an
+   image-only PR (allowlisted by path, validated by nothing). #1941's
+   `has_drafts` gate is preserved and applied: a social image only auto-merges
+   when it rides with a `social/queue/**.json` draft that `check-drafts.mjs`
+   validated; `hold`/`SOCIAL_FREEZE` still block; the allowlist is still fetched
+   from the base ref.
+4. The dependency-downgrade guard, `check-work-ownership.mjs`, the `desk:*` /
+   `review:*` taxonomy, the watchdog step, and both delegation docs are carried
+   over intact.
+
+**The a11y auto-merge lane — REFUSED for now, honestly.** #1941 called it "not
+built"; this session confirmed it **cannot be made safe today**. A safe app-code
+auto-merge needs four legs and every one is missing: (a) a **per-PR** a11y check —
+today's `a11y.yml` runs axe/pa11y against **production** on a **schedule**,
+non-blocking, and never sees a PR's diff; (b) a **behavioural-regression net** —
+the E2E suite is 100% red against prod (#669); (c) a **path/diff fence** — there
+is no `*.a11y.*` convention and no mechanical proof a `.tsx` change is
+behaviour-preserving (an `aria`/spacing edit can still break layout or handlers,
+so the `check-content-inert` analogy does not hold); (d) **trustworthy author
+identity** — both GitHub accounts are shared by every agent, so "authored by
+Austin" proves nothing. A loose lane that let arbitrary `.tsx` through would be
+worse than the status quo, so none ships. The full gate design and the
+mechanical acceptance test for each missing leg:
+`docs/proposals/2026-08-11-a11y-auto-merge-lane.md`.
+
+**Why one branch, not a 2-PR stack:** the bar↔carve-out interdependency (item 1)
+is the whole risk. A stack would leave "whichever lands second must fix it" as a
+live failure mode; consolidating removes it — the reconciled tree is green as a
+unit or not at all.
+
+**Approved by:** consolidation prepared by the CTO engineering session per
+Wyatt's directive to stop approving routine merge machinery; the underlying
+grants remain as marked in the two entries below. Merge is Wyatt's action.
+
+---
+
+## 2026-08-11 — Work ownership is state, not prose; and the self-amendment bar
+
+**Decision (PENDING Wyatt's approval — this changes routing authority, merge
+authority and two charters).** Answering Wyatt's two questions: how work gets
+picked up without a founder, and how much PR review we can stop doing. Full
+design: `docs/proposals/2026-08-11-autonomous-pickup-and-merge-delegation.md`.
+
+**1. No "founder-bot".** Wyatt asked whether Marjorie should spin up a Fable
+agent with permission to solve ~all issues. Recommendation: **no**, on four
+grounds. (a) It answers the wrong question — sorting every currently-stuck item
+by what blocked it, roughly none were blocked on "no agent was allowed": they
+were blocked on a silently misconfigured gate (#1891/#1762), a red PR nobody
+returns to (#1545/#1565/#1585), a review nobody ran (#1580/#1596/#1619), or
+routing that existed only as a comment (#680). (b) "~all issues with few
+exceptions" is a deny-list, and this repo already proved deny-lists fail at this
+job — `check-content-inert.mjs` was rebuilt as a positive grammar precisely
+because a name deny-list was defeated by `({}).constructor.constructor('…')()`.
+(c) One privileged agent is a single arrival-rate limit with correlated failure
+across every lane, which is the bottleneck we are removing, one layer down.
+(d) It would run as `wjduvall-cmd` — the same identity as Wyatt's own approvals.
+
+**2. Routing writes state.** A `desk:*` label taxonomy; an open issue is routed
+iff it carries **exactly one** `desk:*` label. A routing comment is not routing.
+Correction to the obvious design: the **assignee cannot carry the route** —
+GitHub assignees must be collaborators, there are exactly two, and both are
+shared by every agent. Label = route; assignee = claim lock (Austin's existing
+meaning, 24h lease); `desk:founder` = a human owes an action.
+
+**3. The fence complement gets a name.** `desk:unowned` is a first-class answer.
+Reading every charter: `.github/**` (beyond Paul Blart's CI/security slice),
+infra/deploy verification, legal prose, cross-desk chores and stale-PR
+shepherding have no chartered owner, and nothing is chartered to notice that.
+The complement is decomposed to the nearest existing owner rather than to a new
+actor: `.github/**` → extend Paul Blart; stale/red PRs → a loop closure, not a
+desk; dispatch → Marjorie writes labels instead of prose; legal → stays founders.
+
+**4. Escalation ratchets instead of capping.** Operating model §5.5 caps an item
+at **one nudge, ever**. That controls repetition when the thing worth controlling
+is channel count — which is why an unstaffed item gets diagnosed, nudged once,
+then reprinted in the brief for three weeks. Supersede with: one persistent
+alert issue per condition (the `upsert-alert.sh` pattern that already fixed this
+exact bug after #947/#1177/#1203/#1224), volume capped, memory unbounded.
+
+**5. Merge delegation, by class, on mechanical proof.** Widen: `docs/**` minus
+the governance set (a non-charter, non-decision, non-spec doc cannot change what
+any agent may do — a checkable path property); dependabot **dev**-dependency
+patch/minor into Marjorie's envelope (a bad dev dep breaks CI, which is the
+failure we want; a bad production dep ships to users while CI stays green); and,
+**blocked on #669**, Austin's a11y lane once a re-run of axe on the preview can
+prove the ticket's own named violation is gone. Refuse permanently: legal prose,
+migrations (`git revert` is not a rollback — undoing one is a new migration and
+the data may be gone), `apps/web/public/**` media, and automated replies.
+
+**6. THE SELF-AMENDMENT BAR — shipped in this PR, and the part that should not
+wait.** `check-automerge-allowlist.mjs` says in its own header that it "cannot
+judge whether a path *deserves* to be auto-mergeable — adding `apps/web/` to that
+file would pass CI." For ordinary paths that is right. But one class differs in
+kind: a PR touching the allowlist, a workflow, a checker, a charter, `CLAUDE.md`
+or this file changes **what may merge with nobody looking, and what agents are
+permitted to do**. Allowlisting one would let a bot PR widen its own authority
+and land the widening unreviewed — self-ratifying. `NEVER_ALLOWLIST` now refuses
+20 such prefixes outright, matched bidirectionally so both `docs/agents/` and a
+broad `docs/` are rejected. **The mechanism that decides what merges without a
+human must itself always need a human.** (Reconciliation note, this PR: the one
+narrowing of that bar is `NEVER_ALLOWLIST_EXCEPTIONS`, exempting the
+founder-approved `apps/web/public/social/` carve-out and nothing else.)
+
+**What ships now and needs no approval:** the `desk:*` and
+`review:not-run`/`review:contested` labels (inert until bootstrapped);
+`scripts/check-work-ownership.mjs` + a daily `watchdog.yml` step (zero AI,
+persistent alert, real email); `.github/work-ownership-budget.json`; and the
+self-amendment bar. None of it grants authority to anything — it makes the
+current state measurable and closes a hole a future grant could fall through.
+
+**Known gaps, stated rather than engineered around.**
+- **Founder provenance is decorative.** Two collaborators, both admin, both
+  shared with every agent. The 2026-07-18 merge grant vested on "a
+  founder-authored comment on brief #822" — from an account any agent can post
+  from. **Recommended prerequisite to any further grant:** real personal GitHub
+  accounts for Joey and Wyatt, bots demoted to `write`. This is a TX item.
+- **`needs-human-review` conflates two opposite states.** Austin applies it when
+  Codex *disagreed*; Content Shift when Codex was *unreachable*. Contested and
+  unreviewed are not the same risk, and the 2026-07-18 standing grant merges the
+  class assuming the benign one. Replacement labels ship here; making only
+  `review:not-run` envelope-eligible is a charter change.
+- **A budget can be raised to silence an alarm.** Nothing in the code prevents
+  it. Mitigation is that it is a one-line visible diff in a file whose header
+  says it is a policy act, and that the file cannot be auto-merged.
+- **Bot-selected images fail on Instagram, not in CI.** The general rule this
+  implies: automation is safe in proportion to how close the detector sits to
+  the harm.
+
+**Alternatives considered:** (a) build the founder-bot as asked — rejected,
+above. (b) A founder-bot with a *tight* fence — collapses into this proposal
+once you enumerate what it may touch, and adds a second account, making
+provenance worse. (c) Keep prose routing and improve nudging — rejected for the
+reason Joey rejected it on 2026-07-15 ("the bottleneck itself was the problem,
+not its visibility"); three weeks of briefs restating one unstaffed item *is*
+the improved-nudging outcome. (d) Assignee-only routing — rejected on mechanics.
+(e) Zero-threshold alarms instead of a budget file — rejected: 138 items every
+morning is how #947/#1177/#1203/#1224 were lost. (f) Have CI judge which paths
+*deserve* auto-merge — rejected as over-reach, except for the one class where it
+is not a policy call (the self-amendment bar).
+
+**Who approved:** proposed by Claude; **needs Wyatt's sign-off** for items 2–5
+(routing authority, charter amendments, merge-authority widening). Item 6 and the
+measurement layer are shipped as safety ratchets and can stand on their own.
+
+---
+
+## 2026-08-11 — Merge-delegation execution: a downgrade guard now, class widenings on proof (PENDING Wyatt)
+
+**Decision (PENDING Wyatt's approval):** Deliver the founder's "never merge
+routine work again" as **"never merge *routine* work again, plus a permanent,
+enumerated human residue."** Concretely: (1) **ship now, no judgement call** — a
+dependency-downgrade guard (`scripts/check-no-downgrade.mjs`) wired into the
+required `build` job that fails if any dependency's highest resolved version drops
+below `main`, closing the #1903 merge-order regression class; and this plan
+(`docs/proposals/2026-08-11-merge-delegation-execution.md`). (2) **Gate on
+prerequisites** — the `docs/**` content widening depends on #1910's
+`NEVER_ALLOWLIST` landing first (a bare `docs/` prefix would let a bot edit
+`docs/decisions.md` unreviewed; the allowlist matcher can't express "docs except
+governance" without it), so it is written up but NOT shipped. (3) **Move to a
+separate vehicle** — Dependabot dev-dep patch/minor auto-merge belongs in its own
+`dependabot[bot]`-keyed workflow gated on the new downgrade guard + `build` +
+dev-only scope, NOT the content path allowlist (`package.json`/lockfiles are
+correctly barred); recommended PENDING Wyatt because a malicious-but-passing
+release is a real residual risk no CI check catches. (4) **Refuse as a path
+widening** — the a11y lane is `.tsx` app code with no inertness proof; it needs a
+dedicated a11y CI lane, not an allowlist line. (5) **Ship the social-image
+carve-out (already founder-approved, not pending):** per the 2026-08-11 entry
+"Auto-merge allowlist extended to `apps/web/public/social/**`" (Joey) and Wyatt's
+directive to implement it, add `apps/web/public/social/` to
+`.github/content-automerge-allowlist.txt`, reconcile the #1902 "Content auto-merge
+scope" test (`scripts/check-automerge-allowlist.test.ts`) so that subtree is
+permitted while the rest of `apps/web/public/**` stays refused, and add a
+fail-closed gate to `auto-merge-content.yml` so a social image only auto-merges
+when it rides with a queue draft that `scripts/social/check-drafts.mjs` actually
+validated (an image-only PR is declined). This resolves the two same-day
+"founder-approved" claims (Joey's image decision vs the #1902 scope entry, still
+PENDING Wyatt) toward Joey, per Wyatt's 2026-08-11 direction. Only the `social/`
+subtree is granted; base-ref fetch of the allowlist is preserved (a PR still
+cannot widen its own gate). Reconciliation note (this PR): the #1910
+`NEVER_ALLOWLIST` bar on `apps/web/public/` and this grant were both landed in the
+same consolidated branch; the exemption is `NEVER_ALLOWLIST_EXCEPTIONS`
+(social-only), so there is no longer a "whichever lands second" hazard, and the
+social allowlist line + test reconciliation already present on `main` were used
+rather than re-added.
+
+**Permanent human residue (auto-merge refused forever):** app code, `.github/**`
+workflows, the merge rules themselves (allowlists/checkers/`package.json`/
+lockfiles/config), governance docs & charters, secrets, legal copy, schema
+migrations, public media (outside the gated `social/` carve-out), and automated
+replies to real people. This is the honest complement of the goal, not a "not
+yet."
+
+**Why:** #1903 proved the concrete gap — a lockfile regenerated from a stale base
+silently reverted a security fix (`brace-expansion 5.0.9 → 5.0.7`) on `main` with
+a green check (#1933 is the cleanup). Blind auto-merge is unsafe against
+merge-order regressions until that class is fenced; the guard is that fence and it
+serves the goal directly. The widenings, by contrast, are safe only as a function
+of prerequisites (#1910's self-amendment bar; real per-agent identity for any
+founder-attested exception) — shipping them ahead of those would re-open the
+exact self-ratification hole #1910 closed. Provenance is still decorative (both
+GitHub accounts are shared by every agent), so every widening here is justified by
+**path + mechanism**, never by "who approved," which is the only kind that's safe
+today.
+
+**Alternatives considered:** (a) *Ship the `docs/**` widening now* — rejected:
+unsafe without `NEVER_ALLOWLIST` on `main`; it would let a bot merge governance
+docs. (b) *Auto-merge the a11y lane by path* — rejected: it's app code; a path
+fence can't prove behavior. (c) *Route Dependabot through the content allowlist* —
+rejected: lockfiles are barred for good reason (they swap what checks run). (d)
+*An `npm audit`-based guard instead of version comparison* — the version check is
+deterministic, offline, and directly names the regressed package; audit is
+recommended as a complementary signal in the Dependabot workflow, not the primary
+gate. (e) *Do nothing until identity is fixed* — rejected: the guard and the
+path/mechanism widenings need no identity, so they shouldn't wait on it.
+
+**Approved by:** PENDING Wyatt (CTO).
+
+---
+
+## 2026-08-11 — Tree: a standing social-media-manager agent, planning separated from drafting
+
+**Decision:** Create **Tree** (`docs/agents/tree.md`), a standing agent whose
+only job is social strategy. It runs **once a week** on Wyatt's account (Opus),
+owns exactly one artifact — `social/calendar.md`, always covering the next 14
+days — audits the previous week's posts against strategy and metrics, files a
+weekly `founder-task` issue for the reach lane APIs can't touch, and never posts
+anything. The daily Growth run stops inventing content and drafts what the
+calendar says. The operating strategy it applies is a new file,
+`docs/marketing/social-strategy.md`, which supersedes `growth-plan.md` §4-6 as
+the posting strategy (growth-plan keeps listening, etiquette, UTM, and the
+founder-action table). Posts stay **fully automated** — no approval gate is
+being reintroduced.
+
+**Why:** Founder-verified audit today: **12 of the last 14 posts open "did you
+know"** — the pillar *name* from growth-plan §4 leaked into caption copy and the
+drafting prompt's "see posted examples for voice" instruction turned it into a
+copying loop. Every Instagram image was a generic era tile. **11 of 12 items in
+`social/failed/` are X drafts** that failed with a generic 403 — first thought to
+be duplicate-content rejections from near-copied IG siblings, **corrected
+2026-08-11 later the same day**: the actual cause was X rejecting each one for
+exceeding its real 280-character *weighted* length (all 11 measured 294-373
+weighted characters; X counts an autolinked URL as exactly 23 characters
+regardless of its real length), not sibling duplication — see
+`scripts/social/check-drafts.mjs`'s `weightedTweetLength` and
+`docs/marketing/social-strategy.md` §2's "Sibling rule + the X length rule".
+And nothing planned around the three things Joey
+actually wants: a coordinated push when a feature ships, a monthly re-teaching of
+the six site threads (new followers keep arriving and nobody has ever explained
+them), and a recurring beat for Mood. The missing piece was not a better prompt;
+it was an artifact between "the pillars exist" and "draft something today". A
+planning layer is also the cheapest thing in the fleet — one Opus session a
+week — and it makes the daily run cheaper by removing the invention step.
+
+**Alternatives considered:** (a) *Just fix the Growth prompt* — rejected, that
+is what 2026-08-06 tried for the media half and the same run kept taking the
+lazy default; strategy and execution in one 11:00 UTC session means the
+strategist is always the person under time pressure. (b) *A daily Tree* —
+rejected as pure token waste: a calendar covering 14 days on a weekly cadence
+survives a missed run, which a daily planner's output would not need to.
+(c) *Reintroduce a founder approval gate on posts* — rejected by Joey outright:
+he has a full-time job and the site should mostly run itself; the answer to bad
+posts is better planning plus code-level checks, not a human bottleneck.
+(d) *Fold social planning into Marjorie* — rejected, she is chief of staff and
+already the auditor; an agent auditing its own plan is the failure mode every
+charter in this directory is written against.
+
+**Approved by:** Joey
+
+## 2026-08-11 — Social image posture: screenshots and cards first, vetted real photos allowed, clickability over caution
+
+**Decision:** Social images come from a four-rung ladder, in order: (1) **site
+screenshots** (`scripts/social/capture-screens.mjs`), (2) **designed cards**
+(`scripts/social/render-card.mjs`), (3) **clearly-safe real photos** — only ones
+already vetted into the Vault carrying a real photographer/outlet credit, or a
+vetted asset under `apps/web/public/social/library/` — and (4) generic
+`/eras/<id>.png` era tiles as a **last resort**, requiring an explicit
+`mediaKind: "era-art"` field plus written justification. Bounded risk tolerance
+on rung 3: no paparazzi or private-setting shots, no watermarked images, no fan
+edits without the creator's permission, credit carried into the caption where
+the format allows, designed cards never reproduce lyrics, and takedown-on-request
+honoured without argument. **Clickability is priority #1** — a rights-clean but
+boring tile is the failure we are correcting, not the safe default.
+
+**Why:** The 2026-08-06 decision correctly demoted era tiles but left the
+alternative as "go find a real photo", which is the most legally fraught and most
+laborious option — so the runner kept defaulting back and the grid stayed a
+repeating slideshow. Screenshots invert that: they are unambiguously ours, cost
+nothing in rights, are trivially generated, and *show the product*, which is the
+entire purpose of the account. Cards cover the text-forward posts screenshots
+can't. Real photos stay available because some moments genuinely need the real
+image, but the pool is restricted to what Karen's integrity engine has already
+scanned rather than the open internet.
+
+**Alternatives considered:** (a) *No real photos at all* — rejected by Joey; some
+posts need the actual photograph and a blanket ban would flatten the account into
+UI screenshots. (b) *Open photo sourcing with per-image human review* —
+rejected, that reintroduces the approval gate Joey just removed and is the exact
+bottleneck he asked us to design around. (c) *Keep era tiles as the default and
+just add more of them* — rejected: 12 files can't carry a daily account, which is
+what produced the repetition in the first place.
+
+**Approved by:** Joey
+
+## 2026-08-11 — Auto-merge allowlist extended to `apps/web/public/social/**`, gated by the draft checker
+
+**Decision:** Add `apps/web/public/social/` to the allowed prefixes in
+`.github/workflows/auto-merge-content.yml`, so a Growth drafting PR that commits
+a screenshot, a designed card, or a vetted photo alongside its queue items lands
+on green like a queue-only PR. The gate that replaces the human look is
+`scripts/social/check-drafts.mjs`, which runs before the PR opens and enforces
+the media rules (Instagram media required, era art only with an explicit
+`mediaKind: "era-art"` justification, no banned openers, no opener-pattern reuse
+inside 14 days, sibling copy >20% different). The `hold` label still blocks
+auto-merge for anything a run wants a human to see, and `SOCIAL_FREEZE` remains
+the total kill switch. (Implemented: `scripts/social/check-drafts.mjs` and the
+workflow's `check-drafts` job landed in PR #1900. The allowlist entry itself
+took two attempts — PR #1902 merged the same day with an unrelated allowlist
+refactor whose own regression test briefly asserted the opposite of this
+entry, so round 1's version of this change was dropped pending Wyatt's
+sign-off; the "Approved by" line below records that sign-off and
+`fix/social-image-automerge` lands the reinstated allowlist entry + per-file
+constraints. Until that PR merges, image PRs keep waiting for a human merge,
+which is the safe direction to fail.)
+
+**Why:** This directly reverses the "alternatives considered" note in the
+2026-08-06 entry, which rejected exactly this extension on the grounds that "a
+bot-selected image landing on the live profile with zero human eyes on it is a
+bigger risk than a caption is". Two things changed. First, the reasoning assumed
+bot-selected *photographs*; the default image is now a screenshot of our own site
+— there is no third-party rights question and nothing to review. Second, the
+2026-08-06 posture was tested for five days and produced the opposite of its
+intent: rather than a founder quickly merging photo PRs, the drafter avoided
+committing images at all and kept using era tiles, because that was the only path
+that auto-merged. A rule that makes the good behaviour slower than the bad
+behaviour selects for the bad behaviour. And the premise that a human sees these
+images is already false in the general case — captions ship unread since
+2026-07-25.
+
+**Alternatives considered:** (a) *Keep the human merge for images* — rejected for
+the reason above: it is the friction that caused the failure it was meant to
+prevent. (b) *Allow only `apps/web/public/social/library/`* (pre-vetted assets)
+— appealing, but it blocks the screenshot path, which is the whole point, since
+screenshots are generated per-post and can't be pre-vetted. (c) *Auto-merge
+screenshots and cards but not photos* — rejected as unenforceable at the
+workflow level: the allowlist sees paths, not provenance; the checker is the
+right place for that distinction and already carries it.
+
+**Approved by:** Joey; Wyatt (verbally, relayed by Joey 2026-08-11 evening —
+resolves the same-day conflict with #1902's regression test)
+
+---
+
+## 2026-08-11 — Dependabot: bump `nanoid` + re-apply `brace-expansion`; ACCEPT `image-size` and `uuid` with documented reasoning
+
+**Decision (PENDING Wyatt's approval).** Of the six open Dependabot alerts,
+three are fixed here and two are accepted, not fixed (the sixth is a second
+advisory on the same `image-size` version). Reachability was checked per
+package (`docs/agents/paul-blart.md` step 1), not assumed from severity.
+
+### Fixed: `brace-expansion` 5.0.7 → 5.0.9 — AND A PROCESS BUG BEHIND IT
+
+Two high advisories (GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895; both
+unbounded-array DoS, `A:H` only). Straightforward: the requiring range is
+`^5.0.5`, so `npm update brace-expansion` is the whole fix.
+
+**The part worth Wyatt's attention is why it came back.** PR #1893 already
+bumped this to 5.0.9 on 2026-08-11. PR #1903 (`social(images)`) then merged a
+regenerated `package-lock.json` built from a base predating #1893, which
+reverted the entry to 5.0.7 and re-opened both alerts (they were re-created at
+16:57Z the same day). Nothing in CI noticed: no gate compares the lockfile
+against known advisories, so a security bump can be silently undone by any PR
+that happens to run `npm install`.
+
+**Left for Wyatt** (not done here, it changes CI): add a lockfile-regression
+gate — the cheapest version is `npm audit --audit-level=high` on the merge
+result, or a check that no dependency version *decreases* relative to `main`.
+Without one, this will recur; it is a property of the merge order, not of the
+people involved.
+
+### Fixed: `nanoid` 3.3.16 → 3.3.18 (GHSA-2v37-7h3g-55p8, high)
+
+Lockfile-only bump, no `package.json` change — `postcss` asks for `^3.3.16`
+and 3.3.18 already satisfies it, so `npm update nanoid` is the whole fix.
+Build-time only (`postcss` ← `next` and `apps/web`); the vulnerable path is a
+custom generator called with `size: 0`, which nothing in this repo does.
+
+### Accepted: `image-size` (GHSA-w3rx-r6r6-pgpr + GHSA-5p2g-fcmc-qvqq, both high)
+
+**There is no patched version — the advisories cover `<= 2.0.2`, which is
+latest.** So this is a reachability decision, not a bump.
+
+- **What pulls it in:** `image-size@1.2.1` ← `metro@0.84.4` ← `react-native` /
+  `expo`, i.e. the **React Native bundler** in `apps/mobile`. It is listed
+  under `dependencies` (which is why Dependabot labels the scope "runtime"),
+  but metro is build tooling: it runs on a developer's machine or an EAS build
+  server, never in a request path.
+- **Not in the web app at all.** Nothing in `apps/web`, `packages/*` or
+  `scripts/` imports `image-size` (only the lockfile mentions it). The website
+  is Next.js; metro never runs for it. `npm run build` does not invoke it, and
+  no CI workflow builds `apps/mobile`.
+- **What metro uses it for:** reading the dimensions of image assets it is
+  bundling. In this repo that input is `apps/mobile/assets/` — three PNGs we
+  authored (`icon.png`, `adaptive-icon.png`, `splash.png`). There are **zero**
+  `.icns`, `.jxl`, `.heic`, `.heif` or `.avif` files anywhere in the repo, and
+  those are the only three parsers the advisories touch.
+- **Impact if it did fire:** both are `C:N/I:N/A:H` — an infinite loop that
+  hangs the Node process. Worst realistic case is a hung local or EAS build,
+  not a production outage. There is no user-supplied image anywhere in the
+  product; the app has no upload path.
+- **Who could exploit it:** someone able to commit a crafted `.icns`/`.jxl`/
+  `.heif` into `apps/mobile/assets/`. That is repo write access, which already
+  implies arbitrary code execution in CI. The advisory adds nothing to that
+  threat model.
+
+**Verdict: accept, do not patch.** Pinning changes nothing (1.2.1 is already
+the newest 1.x and 2.x is equally vulnerable); an `overrides` to 2.x would
+break metro, whose range is `^1.0.2` and whose call site uses the 1.x default
+export. Replacing the dependency means forking metro. Re-evaluate when either
+(a) upstream ships a fix, or (b) `apps/mobile` gains any path that reads an
+image the user supplied — at which point this becomes reachable and urgent.
+
+### Accepted: `uuid` (GHSA-w5hq-g745-h8pq, medium)
+
+- **What pulls it in:** `uuid@7.0.3` ← `xcode@3.0.1` ← `@expo/config-plugins`.
+  It generates the object IDs inside an iOS `.pbxproj` during `expo prebuild`.
+  Build-time, macOS-only, never shipped.
+- **The repo's own UUIDs are unaffected.** The note that "the repo generates
+  uuids for content rows" checks out, but those come from **Postgres
+  `gen_random_uuid()`** in `supabase/migrations/**`, not from this package. No
+  file in `apps/`, `packages/` or `scripts/` imports `uuid` at all — so there
+  is no behaviour of the old version for anything to depend on.
+- **The advised fix is not available to us.** The advisory wants `>= 11.1.1`;
+  `xcode@3.0.1` declares `uuid: ^7.0.3`. Forcing 11.x via `overrides` would
+  hand a CommonJS consumer an ESM-only package with a changed API — a likely
+  broken `expo prebuild` traded for a medium-severity bounds check on
+  `v3/v5/v6` with a caller-supplied `buf`, which `xcode` does not use.
+
+**Verdict: accept.** It clears when Expo bumps `xcode`. Not worth an override.
+
+**Alternatives considered:** `npm audit fix --force` (rejected — it would pull
+unrelated majors across the Expo toolchain to satisfy two build-time DoS
+advisories); `overrides` for both (rejected per the reasoning above);
+suppressing the alerts (rejected — leave them visible, with this entry as the
+answer when they resurface).
+
+**Approved by:** pending Wyatt.
+
+---
+
+---
+
+## 2026-08-11 — Security headers: a split CSP (enforce the safe half, report-only the rest) and a permissive `img-src`
+
+**Decision (PENDING Wyatt's approval).** The app shipped with **no** security
+response headers. It now sends HSTS, `X-Content-Type-Options`,
+`X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and **two** CSP
+headers, defined in `apps/web/lib/security-headers.mjs`:
+
+1. **`Content-Security-Policy` (enforcing)** — `frame-ancestors 'none'`,
+   `base-uri 'self'`, `form-action 'self'`, `object-src 'none'`. Nothing else.
+2. **`Content-Security-Policy-Report-Only`** — the full resource policy
+   (script/style/img/font/connect/frame/worker/manifest), reporting to
+   `/api/csp-report`.
+
+**Why split.** The site is embed-heavy and hotlinks images from ~500 distinct
+third-party hosts, a set that grows with every content PR. A single enforcing
+policy is a loaded gun pointed at content: the first new image host silently
+blanks a photo, and nobody notices for a week. The split lets us have the
+controls that *cannot* break a page today, while learning what the real site
+loads before anything becomes fatal. The four enforced directives were chosen
+because none of them governs loading a resource — a unit test asserts the
+enforced policy contains no fetch directive at all, so no future content can be
+broken by it. `frame-ancestors` has to be in the enforcing header specifically:
+browsers ignore it in a report-only policy.
+
+**Why `img-src` stays permissive (`'self' data: blob: https:`) even after the
+flip.** An allowlist of ~500 hosts is a maintenance trap with a silent failure
+mode, and it buys very little — an image URL is not a code-execution vector.
+`https:` keeps the guarantee that actually matters (no plaintext image loads).
+Being honest about this beats a policy that looks strict and gets widened in a
+panic the first time a page goes blank.
+
+**What `script-src` does and does not buy.** It carries `'unsafe-inline'`,
+because Next's hydration bootstrap and the JSON-LD block are inline scripts
+whose content changes every build. Removing it needs a per-request nonce, which
+in the App Router means middleware, which opts every page out of static
+generation — a bad trade on a 100% prerendered content site. So `script-src` is
+a host allowlist, not an XSS control. Acceptable today because the app renders
+no user-supplied HTML anywhere (feedback text goes to GitHub, never back into a
+page). **If that ever changes, this directive needs the nonce.**
+
+**Not done deliberately:** `preload` on HSTS (submitting to the browser preload
+list is effectively irreversible — Wyatt's call, not a side effect of a headers
+PR), and `upgrade-insecure-requests` (no http:// subresources exist to fix, and
+content carries a few http:// source links to old archives we don't want to
+risk rewriting).
+
+**How to flip report-only → enforcing:** watch `/api/csp-report` across the era
+reader, moment detail, Taylor's Version and Mood surfaces for a quiet period,
+fold any legitimate host into the lists, then pass
+`enforceResourcePolicy: true` from `next.config.mjs`.
+
+**Alternatives considered:** (a) one enforcing policy from day one — rejected,
+silent content breakage; (b) nonce-based `script-src` via middleware — rejected,
+costs static generation for XSS protection the threat model doesn't need yet;
+(c) a real `img-src` allowlist — rejected, unmaintainable at ~500 hosts.
+
+**Approved by:** pending Wyatt.
+
+---
+
+## 2026-08-11 — Third-party embeds are click-to-load, without exception
+
+**Decision (PENDING Wyatt's approval).** Every third-party embed on the site
+mounts only after the reader opts in. YouTube (`MomentVideo`, `MoodSongCard`)
+and Spotify (`EraMedia`) already worked this way; `MomentSocialPost`
+(Instagram) and `SpotifyCompare` (two Spotify players side by side) did not,
+and now do.
+
+**Why:** an eager embed hands the visitor's IP, user-agent and referring URL to
+Instagram/Spotify before the visitor has asked for anything. `loading="lazy"`
+does not fix this — it defers the load, but any reader who scrolls to the
+component still pays, and `SpotifyCompare`'s desktop layout puts both players
+in the viewport together.
+
+**Tension this resolves.** `MomentSocialPost` was deliberately made eager on
+2026-07-21 on founder direction: *"can we see the post on our page? ... The
+intent is to have a seamless flow in the app, not just push users over to
+instagram."* That intent is preserved — the post still renders **inline, on our
+page**, and the "Open on Instagram" link stays a secondary affordance. What
+changed is that it costs one tap. **Wyatt should confirm he's happy with that
+trade**, since it partially walks back his own direction.
+
+**Approved by:** pending Wyatt.
+
+---
 
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
@@ -116,6 +771,58 @@ merge-authority warning header and why this entry exists.
 as a policy change rather than a config fix.
 
 ---
+
+## 2026-08-11 — Queue exclusions are label-based and self-reporting, never hardcoded
+
+**Decision:** No agent prompt may exclude work by issue number. Exclusions are
+labels (`kevin-skip`, `cie:safety`, `cie:escalate`), every `kevin-skip` carries
+a reason and a review date in a comment on the ticket, and a deterministic daily
+sweep (`scripts/ops/unowned-sweep.mjs`) re-lists every parked ticket with its
+age. Separately, any issue opened with zero labels is auto-stamped `needs-triage`,
+which Kevin S3 now honours regardless of author.
+
+**Why:** Kevin's Stream 1 prompt subtracted a hardcoded set
+`{194,203,206,298,301,153,137,138}` from 2026-07-14 (introduced wholesale in the
+cloud-routine migration #520 with no rationale, no expiry, no tracking ticket).
+Those 8 tickets were unowned by construction — one was the PhotoDNA/NCMEC CSAM
+ticket, and five were watermarked-image fixes of a class Kevin had already fixed
+successfully elsewhere. Every scanner in the fleet pulls its queue with a filter,
+and nobody owns the complement of a union of filters: the same audit found 17
+open issues no scanner's filter reached at all. The individual tickets were never
+the bug; the silent, permanent, unreviewable exclusion was.
+
+**Alternatives considered:** (a) Just delete the 8 numbers — rejected, the next
+agent adds nine more; nothing structural changes. (b) A `--check` CI gate that
+fails `build` on any unlabeled issue — rejected, a human opening an issue must
+never turn `main` red. (c) A new triage agent — rejected, this is a deterministic
+set operation and CLAUDE.md rule 8 says codify it, not spend tokens on it.
+
+**Approved by:** Wyatt (CTO) — pending PR review.
+
+## 2026-08-11 — `needs-manual-a11y` gates the sign-off, not the build
+
+**Decision:** The label means "the *pass criterion* cannot be asserted by axe or
+a scripted probe." A fully-specified code fix is never blocked on
+assistive-technology availability: it ships, and the AT confirmation happens on a
+batched founder checklist (`docs/a11y-manual-queue.md`) run per milestone and
+before go-live. #657/#660/#1206 lose the label; #834/#835 keep it for their
+genuine residual but are buildable now.
+
+**Why:** The queue stood at 5 open, 0 ever closed, since the label was created on
+2026-07-15. All five were found by a scripted probe or a named axe rule and carry
+an exact file, line and fix — none needed AT to know what to do. The label was
+carrying three meanings at once ("AT needed to find it", "AT needed to confirm
+it", and — as Austin's fence read it — "do not build it"), so five specified
+fixes sat still for four weeks.
+
+**Alternatives considered:** (a) Charter an agent to do AT testing — rejected,
+emulating a screen reader and calling the result a pass is worse than an empty
+queue because it is not obviously empty. (b) A standing weekly AT chore —
+rejected, nobody will do it; batching per milestone amortises the expensive
+setup against a moment that already commands attention.
+
+**Approved by:** Wyatt (CTO) — pending PR review. Laura's charter edit included;
+the matching one-line Austin charter change is handed to that charter's owner.
 
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
 

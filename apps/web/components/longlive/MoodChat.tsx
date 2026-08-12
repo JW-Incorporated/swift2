@@ -39,6 +39,7 @@ const MAX_CHARS = 300;
 type Result =
   | { kind: 'crisis'; message: string[] }
   | { kind: 'refusal'; message: string }
+  | { kind: 'unclear'; message: string }
   | { kind: 'matches'; picks: MoodMatch[]; intro?: string }
   | null;
 
@@ -51,6 +52,8 @@ export function MoodChat() {
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const starters = useMemo(() => visibleStarters(rotation), [rotation]);
+  /** Once there's an answer, the starters stop being the way in. */
+  const answered = result !== null;
 
   const ask = useCallback(async (body: Record<string, unknown>) => {
     setBusy(true);
@@ -66,7 +69,13 @@ export function MoodChat() {
       setResult(data);
       // Move the rotation on so the chip set never reads as a fixed menu.
       setRotation((r) => r + 3);
-      requestAnimationFrame(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+      // The answer now renders directly under the box, so the box itself is
+      // usually already in view — scroll only when it isn't, and never yank the
+      // input off-screen (`block: 'nearest'`, not 'start'). Screen readers get
+      // the answer from the live region regardless of scroll position.
+      requestAnimationFrame(() =>
+        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }),
+      );
     } catch {
       setError("That didn't go through. Try again in a moment?");
     } finally {
@@ -140,38 +149,31 @@ export function MoodChat() {
         </div>
       </form>
 
-      <div className="mt-5">
-        <p className="text-sm text-[color:var(--era-ink-soft)]">Not sure where to start?</p>
-        <div className="mt-2.5 flex flex-wrap gap-2">
-          {starters.map((s) => (
-            <button
-              key={s.label}
-              type="button"
-              onClick={() => tapStarter(s)}
-              disabled={busy}
-              className="rounded-full border border-[color:var(--era-line)] px-3.5 py-2 text-sm text-[color:var(--era-ink)] transition hover:border-[color:var(--era-accent)] hover:text-[color:var(--era-accent)] disabled:opacity-50"
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* THE ANSWER GOES HERE — directly under the box the reader just typed
+          into, above the starter chips. It used to render below them, so the
+          reply to your own words was pushed off-screen behind "Not sure where
+          to start?" — the first thing the founder called out.
 
-      <div ref={resultsRef} className="scroll-mt-24">
+          aria-live="polite" + aria-busy: the reply arrives asynchronously with
+          no focus change, so a screen reader would otherwise never hear it.
+          Polite (not assertive) because nothing here is an interruption — the
+          crisis block included; it is an answer, not an alarm. */}
+      <div
+        ref={resultsRef}
+        className="scroll-mt-24"
+        aria-live="polite"
+        aria-atomic="false"
+        aria-busy={busy}
+      >
         {error && (
-          <p role="status" className="mt-8 text-sm text-[color:var(--era-ink-soft)]">
-            {error}
-          </p>
+          <p className="mt-8 text-sm text-[color:var(--era-ink-soft)]">{error}</p>
         )}
 
         {/* Crisis: the message and NOTHING else. No songs, no chips, no retry
             prompt — a playlist is the wrong answer and a "try again" nudge
             would push the reader back toward the box. */}
         {result?.kind === 'crisis' && (
-          <div
-            role="status"
-            className="mt-8 rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)] p-6"
-          >
+          <div className="mt-8 rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)] p-6">
             {result.message.map((line, i) => (
               <p
                 key={i}
@@ -187,10 +189,16 @@ export function MoodChat() {
           </div>
         )}
 
+        {/* Block 6 — a genuine boundary ("I don't do legal advice"). */}
         {result?.kind === 'refusal' && (
-          <p role="status" className="mt-8 leading-relaxed text-[color:var(--era-ink)]">
-            {result.message}
-          </p>
+          <p className="mt-8 leading-relaxed text-[color:var(--era-ink)]">{result.message}</p>
+        )}
+
+        {/* NOT a refusal — "I couldn't find a feeling in that, say more". The
+            reader's own words are still in the box above, so this reads as an
+            invitation to add to them rather than a rejection. */}
+        {result?.kind === 'unclear' && (
+          <p className="mt-8 leading-relaxed text-[color:var(--era-ink)]">{result.message}</p>
         )}
 
         {result?.kind === 'matches' && result.picks.length > 0 && (
@@ -210,6 +218,36 @@ export function MoodChat() {
             </ul>
           </section>
         )}
+      </div>
+
+      {/* Starters live BELOW the answer. Before anyone has asked anything they
+          are the way in, so they sit right under the box and lead with the
+          prompt. Once there is an answer on screen they are no longer the way
+          in — they demote to a quieter "or try one of these" and never again
+          sit between the reader's question and its reply.
+
+          Deliberately still rendered after a crisis response rather than
+          hidden: the approved copy promises "the songs will still be here
+          whenever you want them", and removing every way back would make that
+          line false. They are below the message and visually quiet, so they
+          don't read as a nudge back toward the box. */}
+      <div className={answered ? 'mt-10' : 'mt-5'}>
+        <p className="text-sm text-[color:var(--era-ink-soft)]">
+          {answered ? 'Or try one of these:' : 'Not sure where to start?'}
+        </p>
+        <div className="mt-2.5 flex flex-wrap gap-2">
+          {starters.map((s) => (
+            <button
+              key={s.label}
+              type="button"
+              onClick={() => tapStarter(s)}
+              disabled={busy}
+              className="rounded-full border border-[color:var(--era-line)] px-3.5 py-2 text-sm text-[color:var(--era-ink)] transition hover:border-[color:var(--era-accent)] hover:text-[color:var(--era-accent)] disabled:opacity-50"
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
