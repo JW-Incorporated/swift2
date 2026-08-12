@@ -40,6 +40,11 @@ const INTAKE_COLOR = '1D76DB';
 const INTAKE_DESC = 'Real-world event dropped for content authoring';
 const LEDGER_LIMIT = 1000;
 const FETCH_TIMEOUT_MS = 30_000;
+// Attempts per channel (1 retry). Worst case bounds the run:
+// 14 channels x 2 attempts x 30s + backoff is under 15 minutes, which is what
+// the workflow's timeout-minutes is sized against.
+const FETCH_ATTEMPTS = 2;
+const RETRY_DELAY_MS = 3_000;
 
 /**
  * A positive-integer argument, or a hard exit. Everything else in this script
@@ -69,11 +74,55 @@ function withTimeout(promise, ms, what) {
   return Promise.race([promise, bomb]).finally(() => clearTimeout(timer));
 }
 
-/** Fetch + parse one channel feed. Throws with a channel-named error. */
-async function fetchChannel(channel) {
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * One attempt at a feed. Separated from the retry wrapper so the retry decision
+ * can distinguish "the internet blinked" from "this channel is misconfigured".
+ */
+async function fetchChannelOnce(channel) {
   const url = feedUrl(channel.channelId);
   const res = await withTimeout(httpsRequest(url), FETCH_TIMEOUT_MS, url);
+  // 429 (rate limited) and 5xx are transient by definition; a 404 is a wrong
+  // channel id, which retrying only turns into three requests for the same
+  // wrong answer. Marked so the wrapper can tell them apart.
+  if (res.status === 429 || res.status >= 500) {
+    const e = new Error(`${channel.name}: feed HTTP ${res.status}`);
+    e.transient = true;
+    throw e;
+  }
   if (res.status !== 200) throw new Error(`${channel.name}: feed HTTP ${res.status}`);
+  return res;
+}
+
+/**
+ * Fetch + parse one channel feed, with ONE retry for transient conditions.
+ *
+ * This lane runs unattended every day against 14 third-party feeds, and any
+ * channel failure turns the whole run red (deliberately — see the exit-code
+ * note in the header). Without a retry, one dropped TCP connection out of
+ * fourteen is a red run and a false alarm, and an alert that cries wolf daily
+ * stops being read — which is the same silent-failure class the loud exit code
+ * exists to prevent, arriving from the other direction. So: retry the things
+ * that are genuinely transient (socket errors, timeouts, 429, 5xx), and stay
+ * loud about everything else immediately. A real outage still goes red, one
+ * attempt later.
+ */
+async function fetchChannel(channel) {
+  let res;
+  for (let attempt = 1; ; attempt++) {
+    try {
+      res = await fetchChannelOnce(channel);
+      break;
+    } catch (e) {
+      // A timeout or a socket-level error carries no HTTP status; both are the
+      // transient case. `e.transient` marks the status codes that are too.
+      const transient = e.transient || !/feed HTTP \d+$/.test(e.message);
+      if (!transient || attempt >= FETCH_ATTEMPTS) throw e;
+      console.error(`  … ${channel.name}: ${e.message} — retrying in ${RETRY_DELAY_MS}ms`);
+      await sleep(RETRY_DELAY_MS);
+    }
+  }
   if (!looksLikeFeed(res.text)) throw new Error(`${channel.name}: response is not an Atom feed`);
   const { channelTitle, entries } = parseFeed(res.text);
   // Zero entries from a channel that uploads constantly is not a quiet day —
@@ -89,13 +138,15 @@ async function fetchChannel(channel) {
  * Every YouTube video id already cited anywhere under supabase/seed — i.e. the
  * videos that are already site content rather than news.
  *
- * Ids are EXTRACTED from real YouTube URLs, not substring-matched against the
- * raw corpus. A bare 11-character id can occur inside a longer token (a content
- * hash, another platform's id), and a substring hit there would silently skip a
- * genuine new appearance as "already-in-seed" — an invisible false negative.
- * Reuses the same URL matcher the issue ledger uses, so there is one definition
- * of "this text references video X", and returns a Set instead of retaining the
- * whole concatenated corpus in memory.
+ * Ids are EXTRACTED — from real YouTube URLs and from KEYED id fields
+ * (`youtubeId: "…"`, which is how the seed actually stores most videos) — never
+ * substring-matched against the raw corpus. A bare 11-character id can occur
+ * inside a longer token (a content hash, another platform's id), and a
+ * substring hit there would silently skip a genuine new appearance as
+ * "already-in-seed" — an invisible false negative. Reuses the same matcher the
+ * issue ledger uses, so there is one definition of "this text references video
+ * X", and returns a Set instead of retaining the whole concatenated corpus in
+ * memory.
  */
 export function readSeedIds(root) {
   const dir = join(root, 'supabase', 'seed');

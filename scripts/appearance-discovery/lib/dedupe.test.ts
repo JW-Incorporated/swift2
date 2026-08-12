@@ -24,6 +24,29 @@ describe('videoIdsIn', () => {
     const ids = videoIdsIn([null, undefined, 'https://vimeo.com/12345678901']);
     expect(ids.size).toBe(0);
   });
+
+  // The seed corpus stores videos as a bare id in a keyed field far more often
+  // than as a URL, so URL-only extraction left the "already in seed" guard
+  // seeing a small minority of the corpus.
+  it('finds ids in the keyed id fields the seed corpus actually uses', () => {
+    const ids = videoIdsIn([
+      'video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },',
+      "video: { youtubeId: 'e-ORhEE9VVg' },",
+      '"video_id": "QcIy9NiNbmo"',
+    ]);
+    expect([...ids].sort()).toEqual(['QcIy9NiNbmo', 'e-ORhEE9VVg', 'nfWlot6h_JM'].sort());
+  });
+
+  // The reason this is a KEYED match and not a substring scan: an 11-character
+  // run inside a longer token must not register as a reference, or a genuine
+  // new appearance gets silently skipped as "already-in-seed".
+  it('does not treat a bare 11-char run inside a longer token as a reference', () => {
+    const ids = videoIdsIn([
+      'sha256: 7f3aAAAAAAAAAAAbb91c0d',
+      'spotifyTrackId: "1234567890abcdefghij"',
+    ]);
+    expect(ids.size).toBe(0);
+  });
 });
 
 describe('planFilings — stateless, fail-closed dedupe (#2008 / #2031 lessons)', () => {
