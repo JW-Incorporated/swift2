@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
 import { X, Heart, Star, Music, BookText } from 'lucide-react';
+import { useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '@/lib/longlive/love-story';
 import { contentForThreadInRange } from '@/lib/longlive/threads';
@@ -22,6 +24,19 @@ function entryColor(entry: LoveStoryEntry): string {
  * shown as an unfinished-looking gap in a shipped page.
  */
 export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntry; timeline: LoveStoryEntry[]; onClose: () => void }) {
+  const { share } = useAppState();
+
+  // Escape collapses the expanded entry (#525), matching its X. Only mounted
+  // while an entry is expanded, so the listener exists only then; the share
+  // sheet owns Escape while it is open on top.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !share) onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [share, onClose]);
+
   const isRel = entry.kind === 'relationship';
   const color = entryColor(entry);
   // Only relationships carry a portrait, and only when the subject is a public

@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Heart, Shirt, RefreshCw, Gem, ArrowLeft, ArrowRight, X, GitFork } from 'lucide-react';
-import { useAppActions } from '@/lib/longlive/store';
+import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { CAREER_START_MS, careerEndMs, ERAS, getEra } from '@/lib/longlive/eras';
 import {
   CROSSING_THREADS,
@@ -46,7 +46,21 @@ function gapLabel(days: number): string {
  */
 export function Crossings({ a, b }: { a: LensId; b: LensId }) {
   const { openCrossing, closeCrossing, openThread, openEra } = useAppActions();
+  const { share } = useAppState();
   const [selected, setSelected] = useState<number | null>(null);
+
+  // Close on Escape (#525) — the open crossing detail first (same as its X),
+  // otherwise back to the thread gallery (same as "All threads"). The share
+  // sheet owns Escape while it is open on top.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || share) return;
+      if (selected !== null) setSelected(null);
+      else closeCrossing();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selected, share, closeCrossing]);
 
   const start = CAREER_START_MS;
   const end = useMemo(() => careerEndMs(), []);
