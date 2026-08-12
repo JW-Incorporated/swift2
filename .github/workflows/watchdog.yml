@@ -592,9 +592,20 @@ jobs:
       # #1177 / #1203 / #1224 were lost. The script's own header explains the
       # rest, including which conditions are measured but not yet enforced.
       #
-      # No setup-node: the script imports only node builtins plus
-      # scripts/lib/gh.mjs (also builtins-only), so the runner's preinstalled
-      # Node is enough and this step costs no `npm ci`.
+      # setup-node, but still no `npm ci`: the script imports only node builtins
+      # plus scripts/lib/gh.mjs (also builtins-only), so this stays a
+      # dependency-free step. Node is pinned anyway because the invocation below
+      # passes `--use-env-proxy`, which only exists on Node >= 24 (#2008). An
+      # unknown CLI flag is not ignored — Node exits 9 with `bad option` before
+      # running a line of the script — and this step's exit code is load-bearing
+      # (see below: 1 = alarm, anything else = "the check itself broke"). So
+      # relying on whatever Node the runner image happens to preinstall would
+      # turn an image bump into a broken watchdog. `24` matches package.json
+      # engines.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
       - name: Work-ownership check (zero AI)
         if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
         env:

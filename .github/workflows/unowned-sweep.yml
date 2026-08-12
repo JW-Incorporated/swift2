@@ -48,9 +48,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 24, not 22: the steps below pass `--use-env-proxy` (#2008), which only
+      # exists on Node >= 24. Node does not ignore an unknown CLI flag — it
+      # exits 9 with `bad option` before running the script — so on 22 both
+      # steps below would fail outright. 24 also matches package.json engines.
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       # Issue events: label-only, no ledger churn. One issue changing state
       # should not rewrite the daily report.
