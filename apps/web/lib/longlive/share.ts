@@ -6,7 +6,7 @@
 import { truncate } from './format';
 import type { ShareTarget } from './store';
 import { isSubConfirmed } from './types';
-import type { ContentItem, Era, EraId, LensId } from './types';
+import type { ContentItem, Era, EraId, LensId, TrackNote } from './types';
 
 export interface ShareCopy {
   /** Share-target title (many targets show it as the headline). */
@@ -36,6 +36,46 @@ export function momentShareCopy(
   return {
     title: `${item.title} — ${era.name} · Long Live`,
     text: `${item.title} (${era.name}, ${item.dateLabel})${qualifier} — ${truncate(item.summary, SHARE_SUMMARY_MAX)}`,
+  };
+}
+
+/**
+ * Share copy for one song's dossier (#707). The song's note is short and
+ * self-contained, so it rides in the body whole where a moment summary would
+ * be truncated. Mirrors momentShareCopy's shape so the ShareSheet treats all
+ * rich targets identically.
+ */
+export function trackShareCopy(
+  track: Pick<TrackNote, 'title' | 'note'>,
+  era: Pick<Era, 'name'>,
+): ShareCopy {
+  return {
+    title: `${track.title} — ${era.name} · Long Live`,
+    text: `${track.title} (${era.name}) — ${truncate(track.note, SHARE_SUMMARY_MAX)}`,
+  };
+}
+
+/** Share copy for an album's track guide overlay (#707). */
+export function trackGuideShareCopy(era: Pick<Era, 'album' | 'yearLabel'>): ShareCopy {
+  return {
+    title: `${era.album} — track guide · Long Live`,
+    text: `Every song on ${era.album} (${era.yearLabel}), each with a sourced note — on Long Live.`,
+  };
+}
+
+/** Share copy for an era's theories & Easter eggs guide overlay (#707). */
+export function theoryGuideShareCopy(era: Pick<Era, 'shortName'>): ShareCopy {
+  return {
+    title: `${era.shortName} decoded — theories & Easter eggs · Long Live`,
+    text: `${era.shortName} theories and Easter eggs, every one sourced and graded so you know what's confirmed — on Long Live.`,
+  };
+}
+
+/** Share copy for the bare site front door — the landing page (#707). */
+export function siteShareCopy(): ShareCopy {
+  return {
+    title: 'Long Live — the Taylor Swift time machine',
+    text: 'Long Live — real-time updates on her whole life, or step back into any era.',
   };
 }
 
