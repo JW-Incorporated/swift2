@@ -273,7 +273,10 @@ describe('buildBrief — two sections, nothing else', () => {
       { ...withGates, growth: { followers: { instagram: 1200, x: 340, facebook: 89 }, deltas: { instagram: 18, x: 5, facebook: 0 }, postsToday: 2 } },
       { date: '2026-07-12', now: NOW },
     );
-    expect(brief).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today · queue: empty (nothing drafted) · site: pending #799');
+    // A snapshot predating `postsLast24h` falls back to the legacy count,
+    // labelled honestly (see formatPostsPart) — the 2026-08-11 brief read a
+    // structurally-near-always-0 "posts today" as "X is silently failing".
+    expect(brief).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today (pre-24h-window snapshot) · queue: empty (nothing drafted) · site: pending #799');
   });
 
   it('stamps its own line and word count so a run cannot silently blow the cap', () => {
