@@ -16,7 +16,32 @@
 //   2. ABSENCE. When `gh` genuinely isn't installed, we fall back to the
 //      GitHub REST API, which needs no binary at all.
 //
-// The REST fallback deliberately covers ONLY the four call shapes this repo
+// THE SECOND BUG THIS FIXES (#1869): the REST fallback then failed in cloud
+// for two further, stacking reasons — five days of hand-assembled Founders'
+// Briefs.
+//
+//   3. THE PROXY WAS BYPASSED. The fallback used `fetch()`. Node's built-in
+//      fetch IGNORES `HTTPS_PROXY` unless the process was *booted* with
+//      `NODE_USE_ENV_PROXY=1` / `--use-env-proxy` (verified on Node v24.15:
+//      with `HTTPS_PROXY` set and neither flag, a fetch makes zero proxy
+//      CONNECTs). Cloud `GH_TOKEN`s are proxy-scoped credentials that only
+//      authenticate *through* the agent proxy, so bypassing it means a flat
+//      `401 Bad credentials`. Setting `process.env.NODE_USE_ENV_PROXY` from
+//      inside the script does NOT help — undici reads it at bootstrap, before
+//      any of our code runs (also verified). So we no longer use `fetch`: we
+//      speak HTTPS ourselves over an explicit CONNECT tunnel when a proxy is
+//      configured. That works no matter how the script was invoked, with no
+//      re-exec and no new dependency.
+//   4. THE SEARCH API IS FORBIDDEN. Every list shape was built as
+//      `/search/issues?q=repo:…`. Repo-scoped cloud sessions get:
+//        403 {"message":"This GitHub API path is not available: sessions are
+//        bound to their configured repositories. Use repository-scoped
+//        endpoints (repos/{owner}/{repo}/...)."}
+//      So lists now use `/repos/{owner}/{repo}/issues` and
+//      `/repos/{owner}/{repo}/pulls`, with the filters `gh` expresses as
+//      search qualifiers (`is:merged`) applied client-side.
+//
+// The REST fallback deliberately covers ONLY the call shapes this repo
 // actually uses. An unrecognised command throws a loud, specific error rather
 // than silently returning nothing — a scan that reports success while filing
 // no tickets is worse than one that crashes.
@@ -25,6 +50,9 @@ import { promisify } from 'node:util';
 import { readFileSync, existsSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
+import http from 'node:http';
+import https from 'node:https';
+import tls from 'node:tls';
 
 const execFileAsync = promisify(execFile);
 
@@ -35,6 +63,13 @@ const CANDIDATE_PATHS = [
   '/home/linuxbrew/.linuxbrew/bin/gh',
   join(homedir(), '.local', 'bin', 'gh'),
 ];
+
+// GitHub's REST maximum. Also our pagination page size: fewer, fuller pages is
+// the cheap shape (see CLAUDE.md § Cost discipline).
+const PER_PAGE = 100;
+// Hard ceiling on pages per list call, so a client-side filter that matches
+// nothing can never turn into an unbounded crawl of the repo's history.
+const MAX_PAGES = 3;
 
 let resolved; // undefined = not tried, null = definitively absent, string = path
 
@@ -104,16 +139,117 @@ export function defaultRepo(cwd = process.cwd()) {
   return null;
 }
 
+// ---------------------------------------------------------------------------
+// HTTPS transport that honours HTTPS_PROXY (see note 3 at the top of the file)
+// ---------------------------------------------------------------------------
+
+/**
+ * The proxy URL to use for `host`, or null. Exported for tests — getting
+ * NO_PROXY wrong silently sends repo traffic the wrong way.
+ */
+export function proxyForHost(host, env = process.env) {
+  const noProxy = (env.NO_PROXY || env.no_proxy || '')
+    .split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  const h = host.toLowerCase();
+  if (noProxy.some((p) => p === '*' || h === p.replace(/^\./, '') || h.endsWith(`.${p.replace(/^\./, '')}`))) {
+    return null;
+  }
+  const raw = env.HTTPS_PROXY || env.https_proxy || env.HTTP_PROXY || env.http_proxy;
+  if (!raw) return null;
+  try {
+    return new URL(raw);
+  } catch {
+    return null;
+  }
+}
+
+/** Open a TCP tunnel to host:port through an HTTP proxy via CONNECT. */
+function connectThroughProxy(proxyUrl, host, port) {
+  return new Promise((resolve, reject) => {
+    const headers = { host: `${host}:${port}` };
+    if (proxyUrl.username || proxyUrl.password) {
+      const creds = `${decodeURIComponent(proxyUrl.username)}:${decodeURIComponent(proxyUrl.password)}`;
+      headers['proxy-authorization'] = `Basic ${Buffer.from(creds).toString('base64')}`;
+    }
+    const req = http.request({
+      host: proxyUrl.hostname,
+      port: Number(proxyUrl.port) || (proxyUrl.protocol === 'https:' ? 443 : 80),
+      method: 'CONNECT',
+      path: `${host}:${port}`,
+      headers,
+    });
+    req.once('connect', (res, socket) => {
+      if (res.statusCode !== 200) {
+        socket.destroy();
+        reject(new Error(`proxy CONNECT ${host}:${port} → ${res.statusCode} ${res.statusMessage || ''}`.trim()));
+        return;
+      }
+      resolve(socket);
+    });
+    req.once('error', reject);
+    req.end();
+  });
+}
+
+/**
+ * One HTTPS request, through the configured proxy when there is one.
+ * Deliberately NOT `fetch` — see note 3 at the top of this file.
+ */
+export async function httpsRequest(url, { method = 'GET', headers = {}, body } = {}) {
+  const u = new URL(url);
+  const proxy = proxyForHost(u.hostname);
+  const socket = proxy ? await connectThroughProxy(proxy, u.hostname, Number(u.port) || 443) : null;
+  return new Promise((resolve, reject) => {
+    const req = https.request({
+      method,
+      host: u.hostname,
+      port: Number(u.port) || 443,
+      path: u.pathname + u.search,
+      headers,
+      // A one-off agent: our tunnelled socket must never land in a shared pool.
+      ...(socket ? { agent: false, createConnection: () => tls.connect({ socket, servername: u.hostname }) } : {}),
+    }, (res) => {
+      const chunks = [];
+      res.on('data', (c) => chunks.push(c));
+      res.on('end', () => resolve({
+        status: res.statusCode,
+        headers: res.headers,
+        text: Buffer.concat(chunks).toString('utf8'),
+      }));
+      res.on('error', reject);
+    });
+    req.once('error', reject);
+    if (body) req.write(body);
+    req.end();
+  });
+}
+
+// ---------------------------------------------------------------------------
+// gh argv → REST request
+// ---------------------------------------------------------------------------
+
 /** Pull `--flag value` out of a gh argv. */
 function flag(args, name) {
   const i = args.indexOf(name);
   return i === -1 ? undefined : args[i + 1];
 }
 
+/** Every `--flag value` pair for a repeatable flag (gh allows `--label a --label b`). */
+function flags(args, name) {
+  const out = [];
+  args.forEach((v, i) => { if (v === name && args[i + 1] !== undefined) out.push(args[i + 1]); });
+  return out;
+}
+
 /**
  * Translate a supported gh argv into a REST request descriptor.
  * Pure and exported so the mapping is unit-testable without a network or a token.
  * Returns null for commands the fallback does not implement.
+ *
+ * List shapes are REPO-SCOPED (`/repos/{owner}/{repo}/…`), never `/search/*`:
+ * repo-bound cloud sessions are forbidden the global search namespace (#1869).
+ * Filters `gh` would express as search qualifiers become `postFilter` steps
+ * that `rest()` applies to the fetched page.
  */
 export function planRest(args, repoFallback) {
   const repo = flag(args, '--repo') || repoFallback;
@@ -131,37 +267,77 @@ export function planRest(args, repoFallback) {
   }
 
   if ((a === 'issue' || a === 'pr') && b === 'list') {
-    const limit = flag(args, '--limit') || '30';
+    const limit = Math.max(1, Number(flag(args, '--limit')) || 30);
     const state = flag(args, '--state') || 'open';
     const search = flag(args, '--search');
-    const label = flag(args, '--label');
+    const labels = flags(args, '--label');
     const fields = (flag(args, '--json') || 'number').split(',');
-    const q = [
-      `repo:${repo}`,
-      `type:${a === 'pr' ? 'pr' : 'issue'}`,
-      state === 'all' ? null : state === 'merged' ? 'is:merged' : `state:${state}`,
-      label ? `label:"${label}"` : null,
-      search || null,
-    ].filter(Boolean).join(' ');
+
+    // Free-text / qualifier search has no repo-scoped equivalent — the REST
+    // list endpoints cannot filter on body text. Karen's fingerprint dedupe is
+    // the only caller. Kept on /search/issues, and `rest()` turns the proxy's
+    // 403 into an error that names the limitation instead of a bare status.
+    if (search) {
+      const q = [
+        `repo:${repo}`,
+        `type:${a === 'pr' ? 'pr' : 'issue'}`,
+        state === 'all' ? null : state === 'merged' ? 'is:merged' : `state:${state}`,
+        ...labels.map((l) => `label:"${l}"`),
+        search,
+      ].filter(Boolean).join(' ');
+      return {
+        method: 'GET',
+        path: `/search/issues?q=${encodeURIComponent(q)}&per_page=${Math.min(limit, PER_PAGE)}`,
+        kind: 'search',
+        fields,
+        limit,
+      };
+    }
+
+    if (a === 'pr') {
+      // `--state merged` is a search-only qualifier; REST only knows
+      // open/closed/all, so ask for closed and keep the merged ones. Sorting by
+      // `updated` desc guarantees anything merged recently is on page 1 — a PR
+      // merge is an update.
+      const merged = state === 'merged';
+      const restState = merged ? 'closed' : state === 'all' ? 'all' : state;
+      const sort = merged ? 'updated' : 'created';
+      return {
+        method: 'GET',
+        path: `/repos/${repo}/pulls?state=${restState}&sort=${sort}&direction=desc&per_page=${PER_PAGE}`,
+        kind: 'list',
+        fields,
+        limit,
+        postFilter: merged ? ['mergedOnly'] : [],
+        sortBy: merged ? 'mergedAt' : null,
+      };
+    }
+
+    // `/repos/{owner}/{repo}/issues` returns pull requests too — every hit with
+    // a `pull_request` key is a PR wearing an issue's clothes. `gh issue list`
+    // does not show those, so neither do we.
+    const labelParam = labels.length ? `&labels=${encodeURIComponent(labels.join(','))}` : '';
+    const restState = state === 'merged' ? 'closed' : state;
     return {
       method: 'GET',
-      path: `/search/issues?q=${encodeURIComponent(q)}&per_page=${Math.min(Number(limit) || 30, 100)}`,
+      path: `/repos/${repo}/issues?state=${restState}${labelParam}&sort=created&direction=desc&per_page=${PER_PAGE}`,
       kind: 'list',
       fields,
+      limit,
+      postFilter: ['dropPullRequests'],
+      sortBy: null,
     };
   }
 
   if (a === 'issue' && b === 'create') {
     const bodyFile = flag(args, '--body-file');
-    const labels = [];
-    args.forEach((v, i) => { if (v === '--label') labels.push(args[i + 1]); });
     return {
       method: 'POST',
       path: `/repos/${repo}/issues`,
       body: {
         title: flag(args, '--title'),
         body: bodyFile ? readFileSync(bodyFile, 'utf8') : (flag(args, '--body') || ''),
-        labels,
+        labels: flags(args, '--label'),
       },
       kind: 'create',
     };
@@ -170,8 +346,37 @@ export function planRest(args, repoFallback) {
   return null;
 }
 
-/** Shape a REST search hit like `gh --json <fields>` would. */
-function shapeHit(hit, fields) {
+const POST_FILTERS = {
+  // `/repos/…/issues` mixes in PRs; `gh issue list` never shows them.
+  dropPullRequests: (h) => !h.pull_request,
+  // `/repos/…/pulls?state=closed` mixes merged with abandoned.
+  mergedOnly: (h) => Boolean(h.merged_at || h.pull_request?.merged_at),
+};
+
+/**
+ * Apply a plan's client-side filtering, ordering and limit to raw REST hits.
+ * Exported and pure so the `is:merged` / PR-in-issues semantics gap that the
+ * repo-scoped endpoints create is covered by tests, not by hope.
+ */
+export function applyPostFilters(hits, plan) {
+  let out = hits.filter((h) => (plan.postFilter || []).every((name) => POST_FILTERS[name](h)));
+  if (plan.sortBy === 'mergedAt') {
+    out = out.slice().sort((x, y) =>
+      new Date(mergedAtOf(y)).getTime() - new Date(mergedAtOf(x)).getTime());
+  }
+  return plan.limit ? out.slice(0, plan.limit) : out;
+}
+
+function mergedAtOf(hit) {
+  return hit.merged_at ?? hit.pull_request?.merged_at ?? null;
+}
+
+/**
+ * Shape a REST hit like `gh --json <fields>` would. Handles all three hit
+ * shapes we now see: `/search/issues` items, `/repos/…/issues` items (where a
+ * PR's merge time hides under `pull_request`), and `/repos/…/pulls` items.
+ */
+export function shapeHit(hit, fields) {
   const map = {
     number: () => hit.number,
     title: () => hit.title,
@@ -180,10 +385,13 @@ function shapeHit(hit, fields) {
     labels: () => (hit.labels || []).map((l) => ({ name: typeof l === 'string' ? l : l.name })),
     author: () => ({ login: hit.user?.login ?? '' }),
     createdAt: () => hit.created_at,
+    updatedAt: () => hit.updated_at,
     closedAt: () => hit.closed_at,
-    mergedAt: () => hit.pull_request?.merged_at ?? hit.closed_at,
+    // null, never closed_at: an abandoned PR has a closed_at and no merge, and
+    // callers date "merged in the last 24h" off this field.
+    mergedAt: () => mergedAtOf(hit),
     isDraft: () => Boolean(hit.draft),
-    reviewDecision: () => '', // not exposed by the search API; callers treat '' as "unknown"
+    reviewDecision: () => '', // needs a second call per PR; callers treat '' as "unknown"
     state: () => (hit.state || '').toUpperCase(),
   };
   const out = {};
@@ -191,26 +399,63 @@ function shapeHit(hit, fields) {
   return out;
 }
 
+function ghHeaders(token, hasBody) {
+  return {
+    authorization: `Bearer ${token}`,
+    accept: 'application/vnd.github+json',
+    'user-agent': 'swift2-scripts',
+    ...(hasBody ? { 'content-type': 'application/json' } : {}),
+  };
+}
+
+function restError(plan, res) {
+  const base = `GitHub REST ${plan.method} ${plan.path} → ${res.status} ${res.text}`;
+  if (plan.kind === 'search' && (res.status === 403 || res.status === 404)) {
+    return new Error(
+      `${base}\n` +
+      'The global /search namespace is blocked for repo-scoped sessions (#1869).\n' +
+      'This call needs full-text search, which has no /repos/{owner}/{repo} equivalent — ' +
+      'run it where the gh CLI is installed, or dedupe from a repo-scoped list instead.',
+    );
+  }
+  return new Error(base);
+}
+
 async function rest(plan, token) {
-  const res = await fetch(`https://api.github.com${plan.path}`, {
+  const url = (page) => {
+    const base = `https://api.github.com${plan.path}`;
+    return page > 1 ? `${base}${plan.path.includes('?') ? '&' : '?'}page=${page}` : base;
+  };
+
+  if (plan.kind === 'list') {
+    const hits = [];
+    for (let page = 1; page <= MAX_PAGES; page++) {
+      const res = await httpsRequest(url(page), { method: plan.method, headers: ghHeaders(token, false) });
+      if (res.status < 200 || res.status >= 300) throw restError(plan, res);
+      const batch = JSON.parse(res.text || '[]');
+      hits.push(...batch);
+      // Stop as soon as we can satisfy the limit, or the API runs out. Every
+      // extra page is a request we're charged for and a second we don't have.
+      if (batch.length < PER_PAGE) break;
+      if (applyPostFilters(hits, plan).length >= plan.limit) break;
+    }
+    return { stdout: JSON.stringify(applyPostFilters(hits, plan).map((h) => shapeHit(h, plan.fields))) };
+  }
+
+  const res = await httpsRequest(url(1), {
     method: plan.method,
-    headers: {
-      authorization: `Bearer ${token}`,
-      accept: 'application/vnd.github+json',
-      'user-agent': 'swift2-scripts',
-      ...(plan.body ? { 'content-type': 'application/json' } : {}),
-    },
+    headers: ghHeaders(token, Boolean(plan.body)),
     ...(plan.body ? { body: JSON.stringify(plan.body) } : {}),
   });
-  if (!res.ok && !(plan.tolerate || []).includes(res.status)) {
-    throw new Error(`GitHub REST ${plan.method} ${plan.path} → ${res.status} ${await res.text()}`);
-  }
-  if (plan.kind === 'list') {
-    const json = await res.json();
+  const ok = res.status >= 200 && res.status < 300;
+  if (!ok && !(plan.tolerate || []).includes(res.status)) throw restError(plan, res);
+  if (plan.kind === 'search') {
+    const json = JSON.parse(res.text || '{}');
     return { stdout: JSON.stringify((json.items || []).map((h) => shapeHit(h, plan.fields))) };
   }
-  if (!res.ok) return { stdout: '' }; // tolerated (e.g. label already exists)
-  const json = await res.json().catch(() => ({}));
+  if (!ok) return { stdout: '' }; // tolerated (e.g. label already exists)
+  let json = {};
+  try { json = JSON.parse(res.text || '{}'); } catch { /* non-JSON body */ }
   return { stdout: json.html_url || JSON.stringify(json) };
 }
 

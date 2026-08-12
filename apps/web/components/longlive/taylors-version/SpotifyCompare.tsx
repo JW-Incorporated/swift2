@@ -1,23 +1,72 @@
 'use client';
 
 import { useState } from 'react';
-import { Music } from 'lucide-react';
+import { Music, Play } from 'lucide-react';
 import type { ReRecord } from '@/lib/longlive/types';
 
 type SpotifyRefs = ReRecord['spotify'];
 type Side = 'original' | 'taylorsVersion';
 
+/** Both the facade and the real player occupy this height, so opting in never
+ *  reflows the comparison. Matches MissingPanel. */
+const EMBED_HEIGHT = 352;
+
+/**
+ * One album player, as a CLICK-TO-PLAY FACADE — the iframe only mounts after
+ * the reader opts in, mirroring EraMedia (Spotify) and MomentVideo (YouTube).
+ *
+ * Why it matters more here than anywhere else on the site (privacy audit,
+ * 2026-08-11): this is the only surface that mounted TWO third-party players
+ * side by side on render. A reader who scrolled past a Taylor's Version panel
+ * without touching it had already handed Spotify their IP, user-agent and the
+ * referring URL twice over — for a comparison they may only have been reading
+ * the prose of. `loading="lazy"` did not help: the desktop layout puts both
+ * embeds in the viewport together.
+ */
 function SpotifyEmbed({ id, title }: { id: string; title: string }) {
+  const [playing, setPlaying] = useState(false);
+
+  if (playing) {
+    return (
+      <iframe
+        title={title}
+        // No `autoplay` param: EraMedia's facade doesn't use one either, and
+        // Spotify's widget ignores it for anonymous listeners anyway. The click
+        // mounts the player; the player's own control starts it.
+        src={`https://open.spotify.com/embed/album/${id}?utm_source=generator&theme=0`}
+        width="100%"
+        height={EMBED_HEIGHT}
+        loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        style={{ border: 0, borderRadius: '0.5rem', colorScheme: 'normal' }}
+      />
+    );
+  }
+
   return (
-    <iframe
-      title={title}
-      src={`https://open.spotify.com/embed/album/${id}?utm_source=generator&theme=0`}
-      width="100%"
-      height={352}
-      loading="lazy"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      style={{ border: 0, borderRadius: '0.5rem', colorScheme: 'normal' }}
-    />
+    <button
+      type="button"
+      onClick={() => setPlaying(true)}
+      // The visible label ("Play on Spotify") must be a prefix of the
+      // accessible name — WCAG 2.5.3 Label in Name, same as EraMedia (#702).
+      aria-label={`Play on Spotify: ${title}`}
+      className="group flex w-full flex-col items-center justify-center gap-3 rounded-lg px-4 text-center transition hover:brightness-110"
+      style={{
+        height: EMBED_HEIGHT,
+        border: '1px solid var(--era-line)',
+        backgroundColor: 'var(--era-surface-2)',
+      }}
+    >
+      <span
+        className="flex h-14 w-14 items-center justify-center rounded-full transition-transform group-hover:scale-110"
+        style={{ backgroundColor: 'var(--era-accent)' }}
+      >
+        <Play className="h-6 w-6 translate-x-px" style={{ color: 'var(--era-bg)' }} fill="currentColor" />
+      </span>
+      <span className="text-[11px] uppercase tracking-[0.2em]" style={{ color: 'var(--era-ink-soft)' }}>
+        Play on Spotify
+      </span>
+    </button>
   );
 }
 

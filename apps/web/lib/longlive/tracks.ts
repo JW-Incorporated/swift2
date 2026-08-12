@@ -17,6 +17,34 @@ export function tracksForEra(eraId: EraId): TrackNote[] {
 }
 
 /**
+ * The composite key that identifies one song across the store, the guide, and
+ * a shared URL. A TrackNote has no stable id, so the era + track number +
+ * title stand in. Lives here (not in the TrackDetail component that used to
+ * own it) so the store's deep-link resolver and the ShareSheet can build and
+ * parse it without importing a React component. TrackDetail re-exports it, so
+ * every existing `trackKey` call site is unchanged.
+ */
+export function trackKey(eraId: string, track: Pick<TrackNote, 'trackNumber' | 'title'>): string {
+  return `${eraId}::${track.trackNumber ?? 'x'}::${track.title}`;
+}
+
+/**
+ * Resolve a shared `?song=` key back to its era + track (#707). The key's
+ * first `::` segment is the era, so we only scan that one album. Returns null
+ * for a stale/mangled key — the store then simply stays on the landing page
+ * rather than opening an empty dossier over the wrong era.
+ */
+export function resolveTrackKey(key: string): { eraId: EraId; track: TrackNote } | null {
+  const rawEra = key.split('::')[0];
+  const eraId = getEra(rawEra).id;
+  // getEra falls back to the last era for an unknown id; reject that so a bad
+  // era segment can't silently resolve against the wrong album.
+  if (eraId !== rawEra) return null;
+  const track = tracksForEra(eraId).find((t) => trackKey(eraId, t) === key);
+  return track ? { eraId, track } : null;
+}
+
+/**
  * Value of the facts card's Released row (issue #458). The card already sits
  * inside the album's own guide, so the album name is redundant next to the
  * date: prefer the date alone, and show `facts.release` only when there is a

@@ -46,14 +46,40 @@ export interface HitRange {
 }
 
 /**
- * WCAG 2.5.8 hit-area allocation for the timeline band (#658): painted
- * segments stay proportional, but each clickable range must be ≥ `minWidth`
- * (same unit as the domain). Boundaries seed at the midpoint between adjacent
- * painted edges, then forward+backward passes push them apart until every
- * range has the minimum — slivers take space from neighbors that can spare
- * it. Ranges tile [domainStart, domainEnd] in order without overlapping; if
- * n × minWidth exceeds the domain, the shortfall is shared evenly instead of
- * letting ranges collapse.
+ * Hit-area allocation for the timeline band. Painted segments stay
+ * proportional (a two-month relationship must still *look* two months long),
+ * so the clickable ranges are allocated separately and tile
+ * [domainStart, domainEnd] in order without overlapping.
+ *
+ * Two properties, in priority order:
+ *
+ * 1. **A range always contains its own segment's painted centre.** This is
+ *    the invariant, and it is not negotiable: clicking the block you can see
+ *    must open the chapter you clicked. #1532's allocator broke it — it
+ *    seeded boundaries at the midpoint of adjacent painted *edges* and then
+ *    only ever pushed them RIGHT to make room, so the displacement
+ *    accumulated across a run of slivers and dragged ranges clean off their
+ *    own segments. Measured on the live 18-entry dataset, 8 of 18 segments
+ *    opened a *different* entry when you clicked their painted centre at the
+ *    band's real 862px width (clicking Harry Styles opened Conor Kennedy);
+ *    at 640px it was 13 of 18. It passed axe because every range was ≥24px —
+ *    it just pointed at the wrong thing.
+ *
+ * 2. **Subject to (1), every range is ≥ `minWidth`** (same unit as the
+ *    domain — WCAG 2.5.8's 24px expressed as a percentage of band width).
+ *
+ * Boundaries therefore seed at the midpoint of adjacent painted *centres*
+ * (nearest-centre / Voronoi: click resolves to the closest block, which is
+ * what a user expects), then forward+backward min-gap passes widen slivers by
+ * taking space from neighbours that can spare it — with every boundary
+ * clamped into `[centre(i-1), centre(i)]` so widening can never step over a
+ * neighbour's centre and re-break property 1.
+ *
+ * Where the two properties genuinely conflict, (1) wins and (2) is dropped:
+ * three centres inside a 25px span cannot all own 24px, and no allocator can
+ * change that. Those ranges are covered by WCAG 2.5.8's "Equivalent"
+ * exception — the same chapter is reachable from the full-width row in the
+ * chapter list that this thread renders below the band at every viewport.
  */
 export function allocateHitRanges(
   segments: Array<{ start: number; end: number }>,
@@ -63,15 +89,34 @@ export function allocateHitRanges(
 ): HitRange[] {
   const n = segments.length;
   if (n === 0) return [];
+  const centres = segments.map((s) => (s.start + s.end) / 2);
   const m = Math.min(minWidth, (domainEnd - domainStart) / n);
+  // A boundary must keep at least KEEP_OFF of the inter-centre gap clear of
+  // each centre, so every centre sits STRICTLY inside its own range with real
+  // margin. Landing exactly on a centre is not good enough:
+  // `document.elementFromPoint` at an exact boundary resolves to the
+  // neighbour, and percentage layout rounds the painted rect and the button
+  // rect independently, so a click on the middle pixel of a two-month sliver
+  // would still open the wrong chapter. At 0.25 the guaranteed margin is a
+  // quarter of the local gap — ≥0.5px even in the tightest cluster on the
+  // narrowest phone — and widening still recovers ~75% of the slack a
+  // neighbour can spare.
+  const KEEP_OFF = 0.25;
+  const lo = (i: number) => centres[i - 1] + KEEP_OFF * (centres[i] - centres[i - 1]);
+  const hi = (i: number) => centres[i] - KEEP_OFF * (centres[i] - centres[i - 1]);
   const b: number[] = new Array(n + 1);
   b[0] = domainStart;
   b[n] = domainEnd;
+  for (let i = 1; i < n; i++) b[i] = (centres[i - 1] + centres[i]) / 2;
+  // Widen forward, then backward, clamping into (centres[i-1], centres[i]) on
+  // every write. The clamp boxes are disjoint and increasing
+  // (hi(i) < centres[i] < lo(i+1)), so ranges can never invert or reorder.
   for (let i = 1; i < n; i++) {
-    b[i] = (segments[i - 1].end + segments[i].start) / 2;
+    b[i] = Math.min(Math.max(b[i], b[i - 1] + m), hi(i));
   }
-  for (let i = 1; i < n; i++) b[i] = Math.max(b[i], b[i - 1] + m);
-  for (let i = n - 1; i >= 1; i--) b[i] = Math.min(b[i], b[i + 1] - m);
+  for (let i = n - 1; i >= 1; i--) {
+    b[i] = Math.max(Math.min(b[i], b[i + 1] - m), lo(i));
+  }
   return segments.map((_, i) => ({ start: b[i], end: b[i + 1] }));
 }
 
