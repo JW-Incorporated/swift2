@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { getEra, eraIndex } from '@/lib/longlive/eras';
 import type { CluePair } from '@/lib/longlive/types';
+import { RAIL_BUTTON_CLASS, railButtonLabel } from './patternRailLayout';
 
 /**
  * Replaces the career-timeline scrubber for The Decode thread. On mobile:
@@ -57,14 +58,16 @@ export function PatternRail({
         const count = eraDensity.get(eraId) ?? 0;
         const isActive = activeEra === eraId;
         const density = count / max;
+        const label = railButtonLabel(era.shortName, count);
 
         return (
           <button
             key={eraId}
             onClick={() => onEraClick(eraId)}
-            title={`${era.shortName} — ${count} clue${count !== 1 ? 's' : ''}`}
+            title={label}
+            aria-label={label}
             aria-pressed={isActive}
-            className="group relative z-10 flex flex-col items-center transition-all duration-200"
+            className={RAIL_BUTTON_CLASS}
           >
             <span
               className="rounded-full border-2 transition-all duration-200"

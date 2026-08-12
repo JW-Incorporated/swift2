@@ -99,30 +99,6 @@ export function TimelineScrubber() {
   // once real layout is known, instead of staying pinned to the pre-measure
   // calendar-linear fallback.
   const [anchorsVersion, setAnchorsVersion] = useState(0);
-  // First-run legend hint: shown once, dismissed on first interaction.
-  const [showHint, setShowHint] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    try {
-      if (!localStorage.getItem('ll-scrubber-hint-seen')) setShowHint(true);
-    } catch {
-      /* no-op */
-    }
-  }, []);
-
-  const dismissHint = useCallback(() => {
-    setShowHint((was) => {
-      if (was) {
-        try {
-          localStorage.setItem('ll-scrubber-hint-seen', '1');
-        } catch {
-          /* no-op */
-        }
-      }
-      return false;
-    });
-  }, []);
 
   // Calendar-linear fallback, used only before the DOM has been measured
   // (first paint) so ticks/milestones have *something* sane to render.
@@ -453,11 +429,21 @@ export function TimelineScrubber() {
         }}
       />
 
+      {/* What the removed first-run popup used to say, kept as a description
+          on the control itself instead of an interstitial: assistive tech
+          announces it, and sighted users are taught the same thing without an
+          interaction by the hover/drag pill (date + nearest moment) that this
+          rail already shows the instant you touch it. */}
+      <span id={`ll-scrubber-desc-${era.id}`} className="sr-only">
+        Drag to scrub through {era.name}. The ridge bulges where the most happened.
+      </span>
+
       <div
         ref={railRef}
         role="slider"
         tabIndex={0}
         aria-label={`${era.name} timeline scrubber`}
+        aria-describedby={`ll-scrubber-desc-${era.id}`}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(currentPct ?? 0)}
@@ -466,10 +452,7 @@ export function TimelineScrubber() {
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
-        onPointerEnter={() => {
-          setActive(true);
-          dismissHint();
-        }}
+        onPointerEnter={() => setActive(true)}
         onPointerLeave={() => {
           if (!draggingRef.current) setActive(false);
           setHoverDate(null);
@@ -687,45 +670,6 @@ export function TimelineScrubber() {
           </>
         )}
 
-        {/* First-run legend hint: explains the density ridge, shown once. */}
-        {showHint && !active && (
-          <div
-            className="clue-reveal pointer-events-auto absolute top-1/2 flex w-44 -translate-y-1/2 flex-col gap-1 rounded-lg border p-3 shadow-xl"
-            style={{
-              right: RAIL_RIGHT + 22,
-              background: 'var(--era-surface-2)',
-              borderColor: 'color-mix(in srgb, var(--era-accent) 40%, var(--era-line))',
-            }}
-          >
-            <div
-              className="text-[10px] font-semibold uppercase tracking-wider"
-              style={{ color: 'var(--era-accent)' }}
-            >
-              Timeline
-            </div>
-            <p className="text-[12px] leading-snug text-[color:var(--era-ink)]">
-              This ridge bulges where the most happened. Drag or hover to explore {era.shortName}.
-            </p>
-            <button
-              type="button"
-              onClick={dismissHint}
-              className="mt-1 self-start text-[11px] font-medium underline decoration-dotted underline-offset-2"
-              style={{ color: 'var(--era-ink-soft)' }}
-            >
-              Got it
-            </button>
-            {/* Pointer toward the ridge */}
-            <span
-              aria-hidden
-              className="absolute top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 border-b border-r"
-              style={{
-                right: -5,
-                background: 'var(--era-surface-2)',
-                borderColor: 'color-mix(in srgb, var(--era-accent) 40%, var(--era-line))',
-              }}
-            />
-          </div>
-        )}
       </div>
     </div>
   );

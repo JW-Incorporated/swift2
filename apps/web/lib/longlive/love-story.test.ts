@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, previousRelationship, soloLeadIn } from './love-story';
+import { RELATIONSHIPS, SINGLE_PERIODS } from './lenses';
 import type { Relationship, SinglePeriod } from './types';
 
 const rels: Relationship[] = [
@@ -40,30 +41,85 @@ describe('previousRelationship', () => {
 });
 
 describe('allocateHitRanges', () => {
-  // Regression for #658: a run of contiguous sliver segments (5–12px painted
-  // at 1280px wide, ~0.5–1% each) must still yield ≥24px (2% of ~1200px) hit
-  // ranges that tile the band without overlapping.
+  // A run of contiguous sliver segments (5–12px painted at 1280px wide,
+  // ~0.5–1% each) next to two roomy neighbours.
   const slivers = [0, 16, 16.5, 17.4, 18.2, 19.2, 40, 100];
   const sliverRun = slivers.slice(0, -1).map((s, i) => ({ start: s, end: slivers[i + 1] }));
   const MIN = 2;
+  const centre = (s: { start: number; end: number }) => (s.start + s.end) / 2;
 
-  it('gives every segment the minimum width, ordered and tiling the domain', () => {
+  it('tiles the domain in order without gaps or overlaps', () => {
     const ranges = allocateHitRanges(sliverRun, MIN);
     expect(ranges[0].start).toBe(0);
     expect(ranges[ranges.length - 1].end).toBe(100);
     ranges.forEach((r, i) => {
-      expect(r.end - r.start).toBeGreaterThanOrEqual(MIN - 1e-9);
+      expect(r.end).toBeGreaterThanOrEqual(r.start);
       if (i > 0) expect(r.start).toBeCloseTo(ranges[i - 1].end, 9);
     });
   });
 
-  it('leaves boundaries between roomy segments at the midpoint of their painted edges', () => {
-    const [a, b] = allocateHitRanges([{ start: 0, end: 30 }, { start: 32, end: 100 }], MIN);
-    expect(a.end).toBe(31);
-    expect(b.start).toBe(31);
+  it('widens slivers to the minimum by taking space from roomier neighbours', () => {
+    // Two roomy segments either side of one sliver: the sliver can reach MIN
+    // without either boundary crossing a neighbouring centre.
+    const ranges = allocateHitRanges(
+      [{ start: 0, end: 40 }, { start: 40, end: 40.5 }, { start: 40.5, end: 100 }],
+      MIN,
+    );
+    expect(ranges[1].end - ranges[1].start).toBeGreaterThanOrEqual(MIN - 1e-9);
   });
 
-  it('shares the shortfall evenly when the domain cannot fit every minimum', () => {
+  // THE invariant, and the regression this function was rewritten for
+  // (#1532's allocator failed it on 8 of 18 real segments at 862px): the
+  // range for a segment must contain that segment's own painted centre, so
+  // clicking the block you can see opens the chapter you clicked.
+  it('always contains its own segment centre, even across a run of slivers', () => {
+    for (const min of [0, 1, 2, 5, 20]) {
+      const ranges = allocateHitRanges(sliverRun, min);
+      ranges.forEach((r, i) => {
+        const c = centre(sliverRun[i]);
+        // Strictly inside — landing exactly on a boundary means
+        // elementFromPoint hands the click to the neighbour.
+        if (i > 0) expect(c).toBeGreaterThan(r.start);
+        if (i < ranges.length - 1) expect(c).toBeLessThan(r.end);
+      });
+    }
+  });
+
+  it('holds the centre invariant on the real 18-entry timeline at every plausible band width', () => {
+    const timeline = mergedTimeline(RELATIONSHIPS, SINGLE_PERIODS);
+    const T0 = new Date('2006-01-01').getTime();
+    const TOTAL = new Date('2026-12-31').getTime() - T0;
+    const asPct = (iso: string | null) => ((new Date(iso ?? new Date().toISOString()).getTime() - T0) / TOTAL) * 100;
+    const segments = timeline.map((e) => {
+      const start = asPct(e.start);
+      return { start, end: start + Math.max(asPct(e.end) - start, 0.6) };
+    });
+    expect(segments.length).toBeGreaterThanOrEqual(18);
+
+    for (const bandWidth of [320, 361, 480, 640, 862, 1024, 1440]) {
+      const ranges = allocateHitRanges(segments, (24 / bandWidth) * 100);
+      ranges.forEach((r, i) => {
+        const c = centre(segments[i]);
+        // Strict on the inner edges, with at least half a CSS pixel of margin
+        // so percentage-layout rounding can't tip a click into the neighbour.
+        const halfPx = 100 / bandWidth / 2;
+        const startOk = i === 0 ? c >= r.start : c > r.start + halfPx;
+        const endOk = i === ranges.length - 1 ? c <= r.end : c < r.end - halfPx;
+        expect(
+          startOk && endOk,
+          `band ${bandWidth}px: "${timeline[i].id}" centre ${c.toFixed(3)}% is not safely inside its hit range [${r.start.toFixed(3)}, ${r.end.toFixed(3)}]`,
+        ).toBe(true);
+      });
+    }
+  });
+
+  it('puts the boundary between two roomy segments at the midpoint of their centres', () => {
+    const [a, b] = allocateHitRanges([{ start: 0, end: 30 }, { start: 32, end: 100 }], MIN);
+    expect(a.end).toBeCloseTo((15 + 66) / 2, 9);
+    expect(b.start).toBeCloseTo(a.end, 9);
+  });
+
+  it('shares the shortfall when the domain cannot fit every minimum', () => {
     const five = Array.from({ length: 5 }, (_, i) => ({ start: i * 20, end: (i + 1) * 20 }));
     allocateHitRanges(five, 30, 0, 100).forEach((r) => expect(r.end - r.start).toBeCloseTo(20, 9));
   });

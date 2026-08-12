@@ -464,12 +464,16 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
       moment: {
         context:
-          'More than 69,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time."\n\nRolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."',
+          'More than 69,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time."\n\nRolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."\n\nOpening night also launched what became the tour\'s most-loved ritual: two surprise acoustic songs each night — one on guitar, one on piano — that she promised never to repeat, "unless I mess it up so badly." The first two were "Mirrorball" from folklore and her 2006 debut single "Tim McGraw," a nod to where it all began, played at the start of the biggest tour of her life. The night also cemented the Eras format itself — a career retrospective staged as ten distinct acts rather than a single-album promotion — which no arena or stadium run of hers had attempted before, and the tour that started here in Glendale would go on to become the highest-grossing tour in history, and the first ever to pass $2 billion in ticket sales.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/' },
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-the-eras-tour-glendale-review-1234699496/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/',
           },
         ],
         photos: [
@@ -964,40 +968,11 @@ export default {
       year: 2023,
       month: 9,
       day: 24,
-      category: 'sighting',
-      title: 'First Chiefs game: cheering on from the family suite',
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-mid-2b", label: "Relationship goes public", kind: "life" },
-      snippet:
-        "Taylor watched Kansas City rout Chicago 41–10 from Travis's family suite at Arrowhead, sitting beside his mother Donna in a red-and-white Chiefs jacket.",
-      sourceUrl: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/',
-      thumbnailUrl:
-        'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
-      moment: {
-        context:
-          'Three days earlier, Travis had put the invitation on the record on The Pat McAfee Show: "I told her that I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead." She took him up on it — and when he caught a three-yard touchdown pass in the third quarter, Fox cameras found her jumping and screaming in the glass-enclosed suite beside Donna Kelce.\n\nPatrick Mahomes admitted afterward he\'d felt "a little pressure" to get Kelce a touchdown with her watching; the two were spotted leaving Arrowhead together after the 41-10 rout.',
-        sources: [
-          { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
-          {
-            outlet: 'ESPN',
-            url: 'https://www.espn.com/nfl/story/_/id/38481870/taylor-swift-accepts-travis-kelce-invite-chiefs-game',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
-            credit: 'CNN',
-            focalPoint: '36% 16%',
-          },
-        ],
-      },
-    },
-    {
-      year: 2023,
-      month: 9,
-      day: 24,
       category: 'relationship',
+      // Milestone moved here from the retired duplicate "family suite" moment
+      // (#1855 merge, 2026-08-11): the derived era-timeline marker now rides
+      // this defining, thread-tagged card. Legacy id kept for stability.
+      milestone: { id: "m-mid-2b", label: "Relationship goes public", kind: "life" },
       significance: 'defining', // the crossover into mainstream/NFL culture that reshaped her public life (docs/decisions.md, 2026-07-19)
       threadIds: ['the-proposal'],
       relatedIds: [
@@ -1013,7 +988,7 @@ export default {
         'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         context:
-          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.',
+          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
           {
@@ -1125,46 +1100,6 @@ export default {
             price: '$138.00',
             isAlternative: true,
             altNote: 'The exact game-day tank is discontinued -- this is a current Dôen white pointelle tank, same brand (shorts, windbreaker, and shoes not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2023,
-      month: 9,
-      day: 12,
-      category: 'fashion',
-      title: 'A black-and-gold gown for a record VMA night',
-      snippet: 'A reputation-coded black gown with gold accents and a thigh-high slit on the pink carpet.',
-      sourceUrl: 'https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947',
-      thumbnailUrl:
-        'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
-      moment: {
-        context:
-          "The Sept. 12, 2023 pink carpet at the Prudential Center got a black Versace gown with a line of the house's signature gold hardware and a thigh-high slit — a look fans immediately read as reputation-coded, arriving in the thick of re-record-announcement mania. The dress did a full night's work: she was on camera constantly as the show's most-awarded and most-visible attendee.\n\nThe night behind the gown was historic: nine Moon Person trophies from 11 nominations, including Video of the Year for \"Anti-Hero\" — her fourth win in the show's top category, more than anyone in VMAs history, in a field where no other artist (not Beyoncé, Rihanna, or Eminem) has more than two.",
-        sources: [
-          { outlet: 'NBC News', url: 'https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947' },
-          { outlet: 'TheWrap', url: 'https://www.thewrap.com/taylor-swift-most-video-of-the-year-wins-vmas-2023/' },
-        ],
-        photos: [
-          {
-            url: 'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
-            credit: 'NBC News',
-            focalPoint: '47% 12%',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact Versace gown is discontinued
-        // -- a current black-and-gold embellished gown, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Mac Duggal',
-            item: 'Black and Gold Embellished Column Gown with Chiffon Cape Sleeves',
-            retailer: 'macduggal.com',
-            url: 'https://macduggal.com/products/13206',
-            price: '$798.00',
-            isAlternative: true,
-            altNote: 'Her exact Versace gown is discontinued -- this is a current black-and-gold gown in the same formal palette, with chiffon cape sleeves rather than gold hardware.',
           },
         ],
       },
@@ -1390,13 +1325,13 @@ export default {
       },
     },
     {
+      // Cross-link (vault-run 2026-08-06): the Showgirl-era Christmas Day game
+      // at Arrowhead — the same recurring holiday-game ritual, two years on.
+      relatedIds: ['moment:vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents'],
       year: 2023,
       month: 12,
       day: 25,
       category: 'sighting',
-      // Cross-link (Stage 3, 2026-08-10): the recurring Christmas Day
-      // Arrowhead game, a year later.
-      relatedIds: ['moment:vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents'],
       title: 'A Santa-costumed entrance for a Christmas Day upset',
       snippet:
         'She arrived at Arrowhead on Christmas alongside a companion dressed as Santa; the Raiders upset the Chiefs 20–14 in the most-watched Christmas Day game since 1989.',
@@ -1597,12 +1532,16 @@ export default {
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
       moment: {
         context:
-          'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work."\n\nEarlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."',
+          'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work."\n\nEarlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."\n\nThe trophy was handed over by Céline Dion, whose walk-on was one of her first major public appearances since revealing her stiff-person-syndrome diagnosis the year before. It was Swift\'s fourth Album of the Year, passing the three-way record she had shared with Frank Sinatra, Stevie Wonder, and Paul Simon and making her the only artist ever to win the category more than three times — the four coming for Fearless (2010), 1989 (2016), folklore (2021), and now Midnights, and capping a Grammy run that began fourteen years earlier, at 20, with Fearless. She had arrived with six nominations that night, and Midnights also won Best Pop Vocal Album — the award she used to announce The Tortured Poets Department with its April 19 date, so the record-setting Grammy ended up splitting its own evening\'s headlines with the surprise of the album that would follow it.',
         sources: [
           { outlet: 'Grammy.com', url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
           {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-2024-grammy-awards-fourth-album-of-the-year-win/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-grammy-2024-album-of-the-year-midnights-1235598759/',
           },
         ],
         photos: [
@@ -2415,7 +2354,7 @@ export default {
         'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
       moment: {
         context:
-          'Worn to the Sept. 12, 2023 MTV VMAs — the night she won Video of the Year for "Anti-Hero" among nine total Moon Person wins — the black Versace ran its asymmetrical line of the house\'s signature gold buttons down the bodice, with a thigh-high slit over Jimmy Choo stiletto pumps. The look was finished with a stack of necklaces from Joseph Saidian and Sons and an Anita Ko diamond ear cuff.\n\nStylist Joseph Cassell — the same hand behind her Eras Tour wardrobe — kept the formula consistent with her biggest awards-night looks of the era: one house, one dark statement piece, gold hardware doing the accent work. In a season when every appearance was scanned for re-record clues, the black-and-gold palette was read as reputation-coded on sight.',
+          'Worn to the Sept. 12, 2023 MTV VMAs — the night she won Video of the Year for "Anti-Hero," her fourth win in the show\'s top category and more than anyone in VMAs history (no other artist, Beyoncé, Rihanna and Eminem included, has more than two), among nine Moon Person trophies from 11 nominations — the black Versace ran its asymmetrical line of the house\'s signature gold buttons down the bodice, with a thigh-high slit over Jimmy Choo stiletto pumps. The look was finished with a stack of necklaces from Joseph Saidian and Sons and an Anita Ko diamond ear cuff.\n\nStylist Joseph Cassell — the same hand behind her Eras Tour wardrobe — kept the formula consistent with her biggest awards-night looks of the era: one house, one dark statement piece, gold hardware doing the accent work. In a season when every appearance was scanned for re-record clues, the black-and-gold palette was read as reputation-coded on sight.',
         sources: [
           {
             outlet: 'WWD',
@@ -2810,13 +2749,13 @@ export default {
       },
     },
     {
+      // Cross-link (vault-run 2026-08-06): Jason Kelce on the new audience
+      // Taylor brought the family — the same Taylor-and-Jason throughline.
+      relatedIds: ['moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-'],
       year: 2024,
       month: 1,
       day: 21,
       category: 'sighting',
-      // Cross-link (Stage 3, 2026-08-10): the "Jason Kelce" cluster —
-      // his own later commentary on the relationship's spotlight.
-      relatedIds: ['moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-'],
       title: 'A frigid divisional round in Buffalo, seated with Jason Kelce',
       snippet:
         "Braving frigid temperatures at Highmark Stadium, she watched the Chiefs beat the Bills 27–24 from a suite alongside Travis's brother Jason — while some Bills fans in the crowd held up a sign reading they'd come \"for Taylor.\"",

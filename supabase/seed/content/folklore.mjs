@@ -182,6 +182,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/U.S._Marines_storm_ashore_on_Guadalcanal%2C_7_August_1942_%2880-CF-112-5-3%29.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — landing
+            // craft and troops run in a horizontal band across the upper third,
+            // with a wide stretch of beach sand below.
+            focalPoint: '50% 30%',
             credit: 'U.S. Marine Corps (public domain), via Wikimedia Commons',
             caption: 'U.S. Marines coming ashore at Guadalcanal, August 1942 — the battle Taylor\'s grandfather Dean fought in and never spoke about.',
             kind: 'archival',
@@ -214,6 +218,11 @@ export default {
             // cabin silhouette, and the white-dressed performer are all clearly
             // visible at this size.
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — an
+            // ultra-wide panorama; the moon and reflection sit left-of-center,
+            // the silhouetted performer sits right-of-center. Split the
+            // difference so a crop keeps both in frame.
+            focalPoint: '55% 55%',
             credit: 'Paolo V (CC BY 2.0), via Wikimedia Commons',
             caption: 'The folklore set\'s moonlit cabin at the Eras Tour, where the album\'s songs were finally staged live.',
             kind: 'archival',
@@ -250,6 +259,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — face fills
+            // most of the frame, upper-center and slightly right, eyes closed
+            // at the mic.
+            focalPoint: '55% 38%',
             credit: 'Disney+ (official poster)',
             caption: 'Official release poster for folklore: The Long Pond Studio Sessions.',
             kind: 'primary',
@@ -800,6 +813,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/KaM1bCuG4xo/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — the disco
+            // ball sits upper-left, light rays sweeping down and right.
+            focalPoint: '25% 30%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The disco ball from the official "mirrorball" lyric video.',
             kind: 'archival',
@@ -1419,6 +1435,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg/500px-Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — tall
+            // portrait crop, she's upper third of frame, mic raised, slightly
+            // left of center.
+            focalPoint: '46% 24%',
             credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
             caption: 'Performing "august" during the Eras Tour folklore act, Arlington, March 2023.',
             kind: 'archival',
@@ -1573,6 +1593,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/orXAg5dIMa8/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — seated
+            // figure and guitar centered, slightly right, spotlight burst
+            // above and behind.
+            focalPoint: '55% 33%',
             credit: 'Taylor Swift via YouTube (official performance video)',
             caption: 'Alone in the spotlight at the Grand Ole Opry House — from the official upload of the 2020 ACM Awards performance.',
             kind: 'primary',
@@ -1906,6 +1930,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/MLV2SJKWk4M/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — a
+            // symmetric rain-dark road receding into the woods, genuinely
+            // centered.
+            focalPoint: '50% 48%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The rain-dark woods of the official "illicit affairs" lyric video.',
             kind: 'archival',
@@ -1953,6 +1981,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/9bdLTPNrlEg/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — the
+            // drive-in screen sits upper-center-right, a wide grass field
+            // filling the lower half.
+            focalPoint: '55% 35%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The drive-in movie screen of the official "this is me trying" lyric video.',
             kind: 'archival',
