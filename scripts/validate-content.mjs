@@ -35,6 +35,7 @@ import {
   slugify,
 } from './sync-longlive-content.mjs';
 import { SLUG_TO_ERA_ID } from './lib/longlive-sync-shared.mjs';
+import { blockingRumorRedlineViolations } from './lib/rumor-redlines.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
@@ -383,6 +384,25 @@ for (const { file, data } of loaded) {
               !RESOLVED_RUMOR_STATUSES.has(r.status)
             )
               err(`${rAt} locationSpecificity "${r.locationSpecificity}" on an unresolved rumor — speculative location is capped at 'region' (privacy-redlines.md Never-OK #1). Coarsen the claim or drop it.`);
+          }
+
+          // --- Rumor Desk privacy redlines (2026-08-11) --------------------
+          // The deterministic half of the judgment rules — security
+          // arrangements, health/body, minors, relationship prognosis,
+          // accusations — which the 2026-07-25 auto-merge decision record
+          // named as the exposure it was accepting and prescribed exactly this
+          // remedy for. Rules live in scripts/lib/rumor-redlines.mjs and bind
+          // in two places: the BLOCKING subset here (a violating seed cannot
+          // merge, which is the only form of enforcement that helps when
+          // content auto-merges with no human read), and every rule as a Karen
+          // finding via scripts/content-engine/checkers/rumor-redline.mjs
+          // (which catches what is already live).
+          //
+          // Only the blocking subset runs here, and a rule is blocking only
+          // when its remedy is mechanical: relabel a field, add a field, or
+          // drop an inadmissible claim. Judgment-shaped rules stay advisory.
+          for (const v of blockingRumorRedlineViolations(r, { category: it.category })) {
+            err(`${rAt} [${v.rule}] ${v.title} — ${v.evidence} FIX: ${v.fix}`);
           }
         });
     }
