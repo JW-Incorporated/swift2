@@ -66,7 +66,8 @@ apps/web/
     ThreadsTimeline.tsx            the shared career-axis rail used by every thread
     ClueWeb.tsx                    the Easter-egg mini-app (home / trail / explore views)
     Crossings.tsx                  two-thread intersection overlay
-    ShareSheet.tsx / SiteFooter.tsx
+    ShareSheet.tsx / SiteFooter.tsx    SiteFooter also carries the /privacy + /terms links (#800)
+    LegalDocument.tsx              renders a LegalDoc as semantic markup (the /privacy + /terms routes)
   lib/longlive/
     types.ts                       ALL shared types (Era, ContentItem, threads, motifs, crossings…)
     eras.ts                        the 12 ERAS (data) + getEra() + per-era media
@@ -80,6 +81,9 @@ apps/web/
     lenses.ts                      threads, thread points, easter eggs, motifs, clue pairs, crossings
     tags.ts                        content tag metadata
     theme.ts                       EraTheme -> CSS custom properties (the re-skin pipeline)
+    legal.ts                       privacy policy + terms COPY and facts (#800). DRAFT, counsel-review-
+                                   required. **Any change to what the site collects updates this in the
+                                   SAME change** — the old policy went stale three times over.
     store.tsx                      the single React context store (state + actions)
 ```
 
