@@ -1,21 +1,50 @@
 #!/usr/bin/env node
-// Posts due, founder-approved items from social/queue/**.json to their
-// platform, moving each to social/posted/ (success) or social/failed/
-// (after 3 failed attempts). Run as a scheduled GitHub Action
-// (.github/workflows/social-poster.yml) — see docs/agents/growth.md for the
-// approval flow this sits downstream of.
+// Posts due items from social/queue/**.json to their platform, moving each
+// to social/posted/ (success) or social/failed/ (after 3 failed attempts,
+// after sitting due >48h for any reason, or after an ambiguous transport
+// failure — see isStaleDue/failureReason notes below). Run as a scheduled
+// GitHub Action (.github/workflows/social-poster.yml) — see
+// docs/agents/growth.md for the approval flow this sits downstream of.
+//
+// Per-item processing order (Codex review round 1 on PR #1900 fixed the
+// original order, which let a stale item post once "unblocked" and let
+// blocked items eat into the per-run cap):
+//   1. Stale check FIRST, before anything else — any due item sitting
+//      unposted >48h moves straight to social/failed/, whether or not it
+//      would otherwise be postable right now. Never touches the per-run cap.
+//   2. Idempotency check — is there already a social/posted/ record with
+//      the same campaign+platform or the same body? Skip loudly, don't
+//      repost (see the 2026-07-17 triple-post note below).
+//   3. Era-art guard + same-run media dedupe (no network).
+//   4. Deploy-lag preflight (network, so checked after the free checks).
+//   5. ONLY items that pass 2-4 consume one of the MAX_POSTS_PER_RUN slots
+//      and actually get posted — a run that selects 5 due items but 3 are
+//      blocked no longer wastes its whole cap on items that never post.
+//
+// The 2026-07-17 triple-post incident: the state-commit step (queue/posted/
+// failed changes -> a throwaway branch -> auto-merging PR, see
+// social-poster.yml's header) can itself fail to land even after a real
+// post genuinely succeeded, so a later run can see the item still sitting
+// in social/queue/ and try again. Two mitigations here: the idempotency
+// check above catches the common case (the state commit failed AFTER a
+// clean success), and ambiguous transport failures (request sent, response
+// never received — see lib/platforms.mjs's publishFetch) are never
+// auto-retried at all, since retrying one is indistinguishable from
+// manufacturing a duplicate.
 //
 // Crisis stop: if the repo variable SOCIAL_FREEZE is set to anything
 // truthy, this exits immediately without posting or touching the queue —
 // per the Growth desk charter's hard rail. Any founder can set it.
 //
-// Failures are LOUD (2026-08-11). A permanently-failed item (all 3 attempts
-// burned, moved to social/failed/) makes this process exit non-zero, emits a
-// `::error::` Action annotation, and writes a markdown report that the
-// workflow puts in the queue-state PR's title and body. Before this, twelve
-// posts died into social/failed/ across 2026-07-21..08-04 — eleven X (403
-// every time) and one Instagram (#1897) — and every one of those runs
-// finished GREEN. See
+// Failures are LOUD (2026-08-11). Any item that leaves the schedule without
+// reaching a timeline — attempts exhausted, stale >48h, invalid scheduledAt,
+// or an ambiguous transport failure, i.e. every path into social/failed/ —
+// makes this process exit non-zero, emits a `::error::` Action annotation,
+// and writes a markdown report that the workflow puts in the queue-state
+// PR's title and body. A run that has due work but must abort (missing
+// credentials) is loud the same way. Before this, twelve posts died into
+// social/failed/ across 2026-07-21..08-04 — eleven X (403 every time) and
+// one Instagram (#1897) — and every one of those runs finished GREEN. See
 // scripts/social/lib/run-report.mjs's header for the receipts. The workflow's
 // state-commit step runs with `if: always()`, so a red run still records what
 // happened; without that the failed/ move would never land and the item would
@@ -28,8 +57,21 @@
 import { readdir, readFile, writeFile, appendFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { selectDuePosts, utcDateOnly, repeatsRecentEraArt } from './lib/queue.mjs';
+import {
+  selectDuePosts,
+  eraArtGuardReason,
+  isStaleDue,
+  isValidScheduledAt,
+  MAX_POSTS_PER_RUN,
+  recentInstagramPosts,
+  countPostedToday,
+  findPostedDuplicate,
+  missingCredsFor,
+  needsMediaPreflight,
+  mediaUrlsFor,
+} from './lib/queue.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
+import { mediaUrlsReachable } from './lib/preflight.mjs';
 import { OUTCOME, hasBlockingFailure, summarizeRun, formatReportMarkdown, formatAnnotations } from './lib/run-report.mjs';
 
 const MEDIA_BASE_URL = 'https://www.longlivets.com';
@@ -54,27 +96,9 @@ async function readJsonDir(dir) {
   return out;
 }
 
-/** Last `n` Instagram items ever posted, oldest-to-newest by `postedAt`, for
- * the repeated-era-art guard below. Reads all of social/posted/ — cheap at
- * this account's post volume; revisit if that ever stops being true. */
-async function recentInstagramPosts(postedDir, n = 10) {
-  const posted = await readJsonDir(postedDir);
-  return posted
-    .map((p) => p.data)
-    .filter((d) => d.platform === 'instagram')
-    .sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt))
-    .slice(-n);
-}
-
-async function countPostedToday(postedDir, now) {
-  const posted = await readJsonDir(postedDir);
-  const today = utcDateOnly(now);
-  const counts = new Map();
-  for (const { data } of posted) {
-    if (utcDateOnly(data.postedAt) !== today) continue;
-    counts.set(data.platform, (counts.get(data.platform) ?? 0) + 1);
-  }
-  return counts;
+async function moveToFailed(failedDir, entry, failed) {
+  await writeFile(path.join(failedDir, entry.file), JSON.stringify(failed, null, 2) + '\n');
+  await rm(entry.full);
 }
 
 async function postOne(item) {
@@ -87,7 +111,7 @@ async function postOne(item) {
   };
   const igAccessToken = process.env.IG_ACCESS_TOKEN;
 
-  if (item.platform === 'x') return postToX(item, creds);
+  if (item.platform === 'x') return postToX(item, creds, MEDIA_BASE_URL);
   if (item.platform === 'instagram') return postToInstagram(item, { ...creds, accessToken: igAccessToken }, MEDIA_BASE_URL);
   throw new Error(`Unknown platform "${item.platform}"`);
 }
@@ -120,15 +144,15 @@ async function crosspostToFacebook(item) {
 }
 
 /** Writes the run report everywhere a human might actually look at it. */
-async function publishReport(outcomes) {
-  const summary = summarizeRun(outcomes);
+async function publishReport(outcomes, { abortReason } = {}) {
+  const summary = abortReason ? `RUN ABORTED — ${abortReason}` : summarizeRun(outcomes);
   const runUrl =
     process.env.GITHUB_SERVER_URL && process.env.GITHUB_REPOSITORY && process.env.GITHUB_RUN_ID
       ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
       : undefined;
-  const markdown = formatReportMarkdown(outcomes, { runUrl });
+  const markdown = formatReportMarkdown(outcomes, { runUrl, abortReason });
 
-  for (const annotation of formatAnnotations(outcomes)) console.log(annotation);
+  for (const annotation of formatAnnotations(outcomes, { abortReason })) console.log(annotation);
   console.log(`social-poster: run summary — ${summary}`);
 
   if (process.env.GITHUB_STEP_SUMMARY) {
@@ -144,6 +168,26 @@ async function publishReport(outcomes) {
   return { summary, markdown };
 }
 
+/**
+ * The whole point (2026-08-11): a post that never made it to the timeline
+ * must not leave a green check behind. Every return path of main() funnels
+ * through here so no early exit can skip the report or the exit code.
+ * `if: always()` on the workflow's state-commit step means the failed/ move
+ * is still recorded despite the non-zero exit.
+ */
+async function finish(outcomes, { abortReason } = {}) {
+  await publishReport(outcomes, { abortReason });
+  if (abortReason || hasBlockingFailure(outcomes)) {
+    process.exitCode = 1;
+    console.error(
+      abortReason
+        ? 'social-poster: exiting non-zero — the run aborted with due work it could not attempt.'
+        : 'social-poster: exiting non-zero — at least one post permanently failed and was NOT published.',
+    );
+  }
+  return outcomes;
+}
+
 export async function main() {
   if (process.env.SOCIAL_FREEZE && process.env.SOCIAL_FREEZE !== 'false' && process.env.SOCIAL_FREEZE !== '0') {
     console.log(`social-poster: SOCIAL_FREEZE is set ("${process.env.SOCIAL_FREEZE}") — skipping this run entirely.`);
@@ -157,35 +201,136 @@ export async function main() {
 
   const now = new Date();
   const queued = await readJsonDir(queueDir);
-  const postedToday = await countPostedToday(postedDir, now);
-  const due = selectDuePosts(queued.map((q) => q.data), now, postedToday);
-
   const outcomes = [];
+
+  // Invalid/missing scheduledAt is quarantined immediately, before due-ness
+  // is even asked about: isDue()/isStaleDue() both feed it into
+  // `new Date(...).getTime()`, which is NaN for a bad value, and every
+  // comparison against NaN is false — meaning such an item would otherwise
+  // never be "due" AND never be "stale," making it permanently invisible to
+  // everything below (see isValidScheduledAt's docstring in lib/queue.mjs).
+  const validQueued = [];
+  for (const entry of queued) {
+    if (isValidScheduledAt(entry.data)) {
+      validQueued.push(entry);
+      continue;
+    }
+    const failureReason = `Invalid or missing "scheduledAt" (${JSON.stringify(entry.data.scheduledAt)}) — this item could never become due or stale, so it would have sat unprocessed forever.`;
+    await moveToFailed(failedDir, entry, {
+      ...entry.data,
+      failureReason,
+      lastAttemptAt: now.toISOString(),
+    });
+    console.error(`social-poster: ${entry.file} has an invalid/missing scheduledAt — moved to social/failed/.`);
+    outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
+  }
+
+  const allPosted = await readJsonDir(postedDir);
+  const allPostedData = allPosted.map((p) => p.data);
+  const postedToday = countPostedToday(allPostedData, now);
+
+  // maxPerRun: Infinity — get every due-and-within-daily-budget candidate,
+  // not just the first MAX_POSTS_PER_RUN. The per-run cap is enforced below,
+  // in the loop, counted only against items actually attempted — see the
+  // header comment for why.
+  const due = selectDuePosts(
+    validQueued.map((q) => q.data),
+    now,
+    postedToday,
+    Infinity,
+  );
 
   if (due.length === 0) {
     console.log('social-poster: nothing due this run.');
-    await publishReport(outcomes);
-    return outcomes;
+    return finish(outcomes);
   }
 
-  const recentIg = await recentInstagramPosts(postedDir);
+  // Abort the WHOLE run, before touching any item, if a platform with due
+  // work this run is missing required credentials — a per-item failure here
+  // would just burn 3 attempts (1.5h) on every single due item for a
+  // problem no retry can fix. Aborting is still LOUD (non-zero exit, an
+  // ::error:: annotation, the report): nothing will ever post until a human
+  // fixes the configuration, so a green "nothing happened" run would be the
+  // exact silent-failure mode this file exists to prevent.
+  const neededPlatforms = [...new Set(due.map((item) => item.platform))];
+  const credIssues = neededPlatforms.flatMap((platform) => {
+    const missing = missingCredsFor(platform);
+    return missing.length ? [`${platform}: missing ${missing.join(', ')}`] : [];
+  });
+  if (credIssues.length) {
+    const abortReason = `required credentials are missing for a platform with due items (${credIssues.join('; ')}). No items were touched; nothing was attempted or retried — and nothing will post until the credentials are fixed.`;
+    console.error(
+      `social-poster: ABORTING this run — required credentials are missing for a platform with due items:\n${credIssues.map((c) => `  - ${c}`).join('\n')}\nNo items were touched; nothing was attempted or retried.`,
+    );
+    return finish(outcomes, { abortReason });
+  }
+
+  const recentIg = recentInstagramPosts(allPostedData);
+  const mediaUsedThisRun = new Set();
+  let attemptsThisRun = 0;
 
   for (const item of due) {
-    const entry = queued.find((q) => q.data === item);
+    const entry = validQueued.find((q) => q.data === item);
 
-    // Block, don't post-and-hope: a queue item whose only photo is generic
-    // era-cover art that already appears among the recent posts (2026-08-06,
-    // see docs/decisions.md) is an authoring gap, not a transient failure —
-    // skip it this run (still due next run) rather than spend an `attempts`
-    // retry or, worse, actually publish the repeat. Loud on purpose so it
-    // surfaces in the Action log and the brief's Growth line notices a
-    // stuck item.
-    if (repeatsRecentEraArt(item, recentIg)) {
-      const reason = `its media (${item.media[0]}) is generic era-cover art already used in a recent Instagram post. Needs a real dedicated photo (see docs/agents/runner-prompts/growth-draft.md's Media section) before it can ship. Left in the queue, not counted as a failed attempt.`;
-      console.error(`social-poster: SKIPPING ${entry.file} — ${reason}`);
-      outcomes.push({ kind: OUTCOME.SKIPPED, file: entry.file, platform: item.platform, error: reason });
+    // 1. Stale check FIRST — unconditional, regardless of what else is true
+    // about this item. A 3-day-stale item must not quietly post just
+    // because it happens to be unblocked on the run that finally checks it.
+    if (isStaleDue(item, now)) {
+      const failureReason = 'Still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
+      await moveToFailed(failedDir, entry, {
+        ...item,
+        failureReason,
+        lastAttemptAt: now.toISOString(),
+      });
+      console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past scheduledAt.`);
+      outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, error: failureReason });
       continue;
     }
+
+    // 2. Idempotency: does social/posted/ already have this exact post?
+    const dup = findPostedDuplicate(item, allPostedData);
+    let blockReason = dup
+      ? `already posted: a social/posted/ record with the same platform and ${item.campaign && dup.campaign === item.campaign ? `campaign "${item.campaign}"` : 'an identical body'} already exists (${dup.url ?? 'no url recorded'}) — this looks like a duplicate, not a new post.`
+      : null;
+
+    // 3. Era-art guard (undeclared/repeated-vs-social/posted/) + same-run
+    // media dedupe (repeated-vs-earlier-in-THIS-run — the era-art guard's
+    // `recentIg` list only reflects social/posted/ as of the start of this
+    // run, so without this a second IG item in the same run could reuse
+    // media the FIRST item in this same run just posted).
+    if (!blockReason) blockReason = eraArtGuardReason(item, recentIg);
+    if (!blockReason) {
+      const repeatedThisRun = item.media?.find((m) => mediaUsedThisRun.has(m));
+      if (repeatedThisRun) blockReason = `media "${repeatedThisRun}" was already posted earlier in this same run — not reposting it again this run.`;
+    }
+
+    // 4. Deploy-lag preflight (network — checked last among the free/cheap
+    // checks above, and only reached if none of them already blocked it).
+    if (!blockReason && needsMediaPreflight(item)) {
+      const preflight = await mediaUrlsReachable(mediaUrlsFor(item, MEDIA_BASE_URL));
+      if (!preflight.ok) {
+        blockReason = `media not deployed yet — ${preflight.reason} (merged but not live at ${MEDIA_BASE_URL} yet?)`;
+      }
+    }
+
+    if (blockReason) {
+      console.error(`social-poster: SKIPPING ${entry.file} — ${blockReason} Left in the queue, not counted as a failed attempt.`);
+      outcomes.push({ kind: OUTCOME.SKIPPED, file: entry.file, platform: item.platform, error: `${blockReason} Left in the queue, not counted as a failed attempt.` });
+      continue;
+    }
+
+    // 5. Only an item that survived every check above consumes one of the
+    // per-run slots — a blocked item never got this far, so it can't
+    // monopolize the cap that's meant to bound REAL posting volume. A
+    // deferral is routine scheduling (it happens whenever more than
+    // MAX_POSTS_PER_RUN items are postable), so it's logged but NOT an
+    // outcome — annotating every deferral would train readers to skim past
+    // the warnings that matter.
+    if (attemptsThisRun >= MAX_POSTS_PER_RUN) {
+      console.log(`social-poster: per-run cap (${MAX_POSTS_PER_RUN}) reached — deferring ${entry.file} to the next run.`);
+      continue;
+    }
+    attemptsThisRun++;
 
     try {
       const result = await postOne(item);
@@ -207,14 +352,42 @@ export async function main() {
         url: result.url,
         ...(facebookError ? { facebookError } : {}),
       });
+
+      // Keep every in-run dedupe/idempotency signal current for the REST of
+      // this run's remaining items, not just for the next scheduled run.
+      for (const m of item.media ?? []) mediaUsedThisRun.add(m);
+      if (item.platform === 'instagram') recentIg.push(posted);
+      allPostedData.push(posted);
     } catch (err) {
-      const attempts = (item.attempts ?? 0) + 1;
       const lastError = String(err.message ?? err);
+
+      // Ambiguous (transport-level, response never received) failures are
+      // never auto-retried — see lib/platforms.mjs's publishFetch and this
+      // file's header. Fails immediately, same MAX_ATTEMPTS-exhausted shape
+      // (so downstream tooling doesn't need a third state to handle) but
+      // with attempts left at 1 and a distinct, explicit lastError so a
+      // human doesn't mistake it for an ordinary rejected-by-the-platform
+      // failure that's safe to just re-queue.
+      if (err.ambiguous) {
+        const failureReason = `Transport-level failure while publishing — request may have already succeeded server-side, so this was NOT auto-retried (retrying an ambiguous publish is exactly the mechanism behind the 2026-07-17 triple-post incident). A human should check social/posted/ and the live account before deciding what to do next. Raw error: ${lastError}`;
+        await moveToFailed(failedDir, entry, {
+          ...item,
+          attempts: (item.attempts ?? 0) + 1,
+          lastError: 'ambiguous',
+          lastAttemptAt: now.toISOString(),
+          failureReason,
+        });
+        console.error(`social-poster: ${entry.file} hit an AMBIGUOUS transport failure — moved to social/failed/ WITHOUT retrying: ${lastError}`);
+        outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, attempts: (item.attempts ?? 0) + 1, error: failureReason });
+        continue;
+      }
+
+      const attempts = (item.attempts ?? 0) + 1;
       const failed = { ...item, attempts, lastError, lastAttemptAt: now.toISOString() };
       if (attempts >= MAX_ATTEMPTS) {
-        await writeFile(path.join(failedDir, entry.file), JSON.stringify(failed, null, 2) + '\n');
-        await rm(entry.full);
-        console.error(`social-poster: ${entry.file} failed ${attempts} times, moved to social/failed/: ${lastError}`);
+        failed.failureReason = `Failed ${attempts} time(s): ${lastError}`;
+        await moveToFailed(failedDir, entry, failed);
+        console.error(`social-poster: ${entry.file} failed ${attempts} time(s), moved to social/failed/: ${lastError}`);
         outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, attempts, error: lastError });
       } else {
         await writeFile(entry.full, JSON.stringify(failed, null, 2) + '\n');
@@ -224,17 +397,7 @@ export async function main() {
     }
   }
 
-  await publishReport(outcomes);
-
-  // The whole point: a post that never made it to the timeline must not leave
-  // a green check behind. `if: always()` on the workflow's state-commit step
-  // means the failed/ move is still recorded despite this.
-  if (hasBlockingFailure(outcomes)) {
-    process.exitCode = 1;
-    console.error('social-poster: exiting non-zero — at least one post permanently failed and was NOT published.');
-  }
-
-  return outcomes;
+  return finish(outcomes);
 }
 
 // Only auto-run as a CLI; tests import `main` and drive it directly.

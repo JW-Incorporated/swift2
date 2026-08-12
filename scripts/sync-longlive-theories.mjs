@@ -25,6 +25,7 @@ import {
   esc,
   loadWebEnvLocal,
   preferDbSource,
+  sourceLiteral,
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
@@ -158,7 +159,7 @@ export function renderModule(byEra) {
       lines.push(`      evidence: ${t.evidence === null ? 'null' : esc(t.evidence)},`);
       lines.push(`      confidence: ${esc(t.confidence)},`);
       lines.push(`      outcome: ${esc(t.outcome)},`);
-      const srcs = t.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
+      const srcs = t.sources.map(sourceLiteral).join(', ');
       lines.push(`      sources: [${srcs}],`);
       if (t.relatedSlugs && t.relatedSlugs.length) {
         lines.push(`      relatedSlugs: [${t.relatedSlugs.map(esc).join(', ')}],`);

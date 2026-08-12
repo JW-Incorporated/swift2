@@ -3,7 +3,9 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, fetchQueueStatus, formatGrowthLine, todayLA } from './assemble-brief.mjs';
+import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, fetchQueueStatus, formatGrowthLine, todayLA, shortTitle } from './assemble-brief.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { GATES, parseGateTable as parseTable } from './gate-history.mjs';
 
 const NOW = new Date('2026-07-12T13:00:00Z').getTime();
 
@@ -24,7 +26,21 @@ const formBody = [
 ].join('\n');
 
 const emptyQueueStatus = { total: 0, scheduled: 0, due: 0, awaitingApproval: 0 };
-const emptyState = { decisions: [], intake: [], alerts: [], openPRs: [], mergedPRs: [], growth: null, queueStatus: emptyQueueStatus };
+
+// A 12-gate tracker in the real file's shape, all red, so buildBrief has a
+// goalpost to measure against.
+const gateTable = [
+  '| # | Gate | Status | Next action · owner |',
+  '|---|---|---|---|',
+  ...GATES.map((g: string) => `| ${g} | a description | 🔴 not started | do the thing · Some desk |`),
+].join('\n');
+
+const emptyState = {
+  decisions: [], askedBefore: [], intake: [], alerts: [],
+  openPRs: [], allPRs: [], allIssues: [], briefs: [],
+  gates: {}, series: [], ciRuns: [],
+  growth: null, queueStatus: emptyQueueStatus, constraints: null,
+};
 
 describe('extractOptions', () => {
   it('pulls lettered options from a form body', () => {
@@ -177,64 +193,55 @@ describe('fetchQueueStatus', () => {
   });
 });
 
-describe('buildBrief', () => {
-  it('renders a decision as unchecked boxes with cost and affects', () => {
-    const brief = buildBrief(
-      {
-        ...emptyState,
-        decisions: [{ number: 501, title: '[decision] Persona names', body: formBody, createdAt: '2026-07-12T01:00:00Z' }],
-      },
-      { date: '2026-07-12', now: NOW },
-    );
-    expect(brief).toContain('# Founders’ Brief — 2026-07-12'.replace('’', "'"));
-    expect(brief).toContain('### #501 — Persona names');
-    expect(brief).toContain('- [ ] A) Do the safe thing (recommended)');
-    expect(brief).not.toContain('- [x]'); // nothing may ever be pre-ticked
-    expect(brief).toContain('Cost of delay: Copy desk idles on persona names.');
-    expect(brief).toContain('Unblocks: #463 #480');
+describe('shortTitle', () => {
+  it('cuts at a word boundary — a line ending mid-word reads as a bug', () => {
+    expect(shortTitle('LEGAL/image: 17 distinct Getty comp URLs hotlinked across 4 era files')).not.toMatch(/\ber…$/);
+    expect(shortTitle('[decision] Persona names')).toBe('Persona names');
+    expect(shortTitle('Feedback chatbot pilot — spec ready, DORMANT')).toBe('Feedback chatbot pilot');
+  });
+});
+
+describe('buildBrief — two sections, nothing else', () => {
+  const withGates = { ...emptyState, gates: parseTable(gateTable) };
+
+  it('leads with the founder gate, then the distance to done', () => {
+    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain("# Founders' Brief — 2026-07-12");
+    expect(brief).toContain('## 1 · Progress toward Done');
+    expect(brief).toContain('## 2 · Maintenance');
+    expect(brief.indexOf('Gated on you') > -1 || brief.indexOf('Nothing is gated on you') > -1).toBe(true);
+    expect(brief.indexOf('Nothing is gated on you')).toBeLessThan(brief.indexOf('Distance to done'));
   });
 
-  it('flags intake items older than 48h', () => {
-    const brief = buildBrief(
-      {
-        ...emptyState,
-        intake: [
-          { number: 1, title: 'old drop', body: '', createdAt: '2026-07-09T00:00:00Z' },
-          { number: 2, title: 'fresh drop', body: '', createdAt: '2026-07-12T09:00:00Z' },
-        ],
-      },
-      { date: '2026-07-12', now: NOW },
-    );
-    expect(brief).toContain('Intake queue: 2 open — ⚠ 1 older than 48h untriaged');
+  it('never pre-ticks a box', () => {
+    const decision = {
+      number: 501, title: '[decision] Persona names', body: formBody, state: 'OPEN',
+      labels: [{ name: 'founder-decision' }], createdAt: '2026-07-11T01:00:00Z', comments: [],
+    };
+    const brief = buildBrief({ ...withGates, decisions: [decision] }, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('#501');
+    expect(brief).toContain('- [ ] ');
+    expect(brief).not.toContain('- [x]');
   });
 
-  it('says so when nothing needs the founders', () => {
-    const brief = buildBrief(emptyState, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('_Nothing needs you today._');
-    expect(brief).toContain('none 🟢');
+  it('says so plainly when nothing is gated on a founder', () => {
+    expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('Nothing is gated on you');
   });
 
-  it('separates merged-today from open PRs', () => {
-    const brief = buildBrief(
-      {
-        ...emptyState,
-        openPRs: [{ number: 9, title: 'wip thing', isDraft: true, createdAt: '2026-07-11T00:00:00Z', author: { login: 'x' } }],
-        mergedPRs: [
-          { number: 7, title: 'landed today', mergedAt: '2026-07-12T08:00:00Z' },
-          { number: 3, title: 'landed last week', mergedAt: '2026-07-05T08:00:00Z' },
-        ],
-      },
-      { date: '2026-07-12', now: NOW },
-    );
-    expect(brief).toContain('- #7 landed today');
-    expect(brief).not.toContain('- #3 landed last week');
-    expect(brief).toContain('- #9 wip thing — draft');
+  it('names the gates as a proxy and points at Joey\'s Definition of Done every day', () => {
+    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('docs/definition-of-done.md');
+    expect(brief).toContain('proxy');
   });
 
-  it('includes the Growth line in Health', () => {
+  it('calls a day with no merges and no closes a failed org day', () => {
+    expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('failed org day');
+  });
+
+  it('reports posts per platform over a rolling 24h window when the snapshot has one', () => {
     const withSnapshot = buildBrief(
       {
-        ...emptyState,
+        ...withGates,
         growth: {
           followers: { instagram: 1200, x: 340, facebook: 89 },
           deltas: { instagram: 18, x: 5, facebook: 0 },
@@ -247,16 +254,30 @@ describe('buildBrief', () => {
     expect(withSnapshot).toContain(
       '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
     );
-
-    const noSnapshot = buildBrief(emptyState, { date: '2026-07-12', now: NOW });
-    expect(noSnapshot).toContain("- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)");
   });
 
-  it('reports real queue counts instead of leaving them to be invented', () => {
+  it('reports what landed in the last 24h from real timestamps', () => {
+    const brief = buildBrief({
+      ...withGates,
+      allPRs: [
+        { number: 7, title: 'landed today', mergedAt: '2026-07-12T08:00:00Z', createdAt: '2026-07-12T07:00:00Z', headRefName: 'x' },
+        { number: 3, title: 'landed last week', mergedAt: '2026-07-05T08:00:00Z', createdAt: '2026-07-05T07:00:00Z', headRefName: 'x' },
+      ],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('#7 landed today');
+    expect(brief).not.toContain('#3 landed last week');
+  });
+
+  it('keeps the growth line as the single source for any social claim', () => {
     const brief = buildBrief(
-      { ...emptyState, queueStatus: { total: 2, scheduled: 2, due: 0, awaitingApproval: 0 } },
+      { ...withGates, growth: { followers: { instagram: 1200, x: 340, facebook: 89 }, deltas: { instagram: 18, x: 5, facebook: 0 }, postsToday: 2 } },
       { date: '2026-07-12', now: NOW },
     );
-    expect(brief).toContain('queue: 2 scheduled to post');
+    expect(brief).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today (pre-24h-window snapshot) · queue: empty (nothing drafted) · site: pending #799');
+  });
+
+  it('stamps its own line and word count so a run cannot silently blow the cap', () => {
+    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
+    expect(brief).toMatch(/<!-- budget: \d+ lines \/ \d+ words -->/);
   });
 });

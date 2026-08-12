@@ -1,7 +1,59 @@
 import { describe, expect, it } from 'vitest';
-import { isScored, matchMoods, scoreSong, scoredSongs, type MoodQuery } from './mood-match';
+import {
+  BEREAVEMENT_SLUGS,
+  isBereavementSong,
+  isScored,
+  matchMoods,
+  scoreSong,
+  scoredSongs,
+  type MoodQuery,
+} from './mood-match';
 import { SONG_MOODS } from './song-moods.generated';
 import { MOOD_AXES, type MoodAxes, type SongMood } from './types';
+
+/**
+ * #1984 — the grief-canon gate. Bereavement songs are scored max-heartbreak
+ * (honestly — that is what they are), so before this they surfaced for ordinary
+ * sadness: "I feel numb" → Ronan (a dead four-year-old). The matcher must EXCLUDE
+ * them unless the query is explicitly flagged as a bereavement query, and it must
+ * still surface them WHEN it is.
+ */
+describe('grief-canon gate (#1984)', () => {
+  it('every curated bereavement slug is a real catalogue entry — no drift', () => {
+    const catalogueSlugs = new Set(SONG_MOODS.map((s) => s.slug));
+    for (const slug of BEREAVEMENT_SLUGS) {
+      expect(catalogueSlugs.has(slug), `${slug} missing from catalogue`).toBe(true);
+    }
+  });
+
+  // A "numb / ordinary sadness" query: high heartbreak, quiet and sad — exactly
+  // the shape that used to rank Ronan and Soon You'll Get Better at the top.
+  const sadQuery: MoodQuery = { moods: { heartbreak: 0.7 }, energy: 0.2, valence: 0.15 };
+
+  it('excludes the grief canon for ordinary sadness (no bereavement flag)', () => {
+    const picks = matchMoods(sadQuery, { limit: 8 });
+    expect(picks.length).toBeGreaterThan(0);
+    for (const p of picks) {
+      expect(isBereavementSong(p), `${p.slug} should be gated out`).toBe(false);
+    }
+  });
+
+  it('never surfaces a grief song for ANY unflagged query across the axes', () => {
+    for (const axis of MOOD_AXES) {
+      const picks = matchMoods({ moods: { [axis]: 1 } as Partial<MoodAxes> }, { limit: 8 });
+      for (const p of picks) expect(BEREAVEMENT_SLUGS.has(p.slug)).toBe(false);
+    }
+  });
+
+  it('DOES surface the grief canon when the query is flagged bereavement', () => {
+    const picks = matchMoods({ ...sadQuery, bereavement: true }, { limit: 8 });
+    const slugs = picks.map((p) => p.slug);
+    // Ronan and Soon You'll Get Better are the two scored, heartbreak-heavy grief
+    // songs — a genuine bereavement SHOULD reach the songs written for it.
+    expect(slugs.some((s) => BEREAVEMENT_SLUGS.has(s))).toBe(true);
+    expect(slugs).toContain('ronan');
+  });
+});
 
 const slugsOf = (q: MoodQuery, limit = 8) => matchMoods(q, { limit }).map((m) => m.slug);
 

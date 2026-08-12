@@ -545,6 +545,45 @@ export default {
             kind: 'reference',
           },
         ],
+        // Rumor Desk (2026-08-01): from the moment the album arrived, its
+        // Las Vegas showgirl register set off a "will she tour / do a Vegas
+        // residency" news cycle — the two adjudicable, named claims below.
+        // First the Sphere-specific residency the venue itself denied, then the
+        // broader Vegas/tour talk still live. Tour and residency speculation is
+        // explicitly Always-OK per privacy-redlines.md: a rumored *performance*
+        // venue is the "plays Wembley" case, not a personal-whereabouts claim,
+        // so no locationSpecificity is declared.
+        rumors: [
+          {
+            claim:
+              "As The Life of a Showgirl leaned all the way into its Las Vegas imagery, The US Sun reported that Taylor's team was privately eyeing a concert residency at the Las Vegas Sphere — the venue fans had already pegged as the era's likely home.",
+            reportedBy: "The US Sun",
+            reportedOn: "2025-08-14",
+            status: "debunked",
+            url: "https://www.musictimes.com/articles/109645/20250814/taylor-swift-could-turn-las-vegas-home-life-showgirl-era-shows.htm",
+            sourceTier: "tabloid",
+            resolution: {
+              on: "2025-08-19",
+              url: "https://www.nme.com/news/music/taylor-swift-has-no-plans-to-hold-a-residency-at-the-las-vegas-sphere-3885678",
+              outlet: "NME",
+              note:
+                "A Sphere representative told Puck's Matt Belloni: 'While we love and respect Taylor Swift, we are not in conversations with her team about a residency at Sphere.' The denial addresses the Sphere specifically — broader Las Vegas talk resurfaced in April 2026 (next entry).",
+            },
+            lastCheckedOn: "2026-08-01",
+          },
+          {
+            claim:
+              "Eight months after the Sphere denial, a Daily Mail source revived the Vegas talk — saying residency discussions were 'ongoing' across several Strip venues, with Taylor 'eyeing seven dates' but 'nothing set in stone,' and her 'main focus' a full tour rather than a residency.",
+            reportedBy: "Daily Mail",
+            reportedOn: "2026-04-07",
+            status: "unconfirmed",
+            url: "https://www.realitytea.com/2026/04/07/taylor-swift-las-vegas-performance-residency/",
+            sourceTier: "tabloid",
+            lastCheckedOn: "2026-08-01",
+            note:
+              "Daily Mail insider quotes, as carried by Reality Tea. As of this check no Life of a Showgirl tour or Las Vegas residency has been officially announced. Resolves confirmed on an official announcement; fades if it goes quiet.",
+          },
+        ],
       },
     },
     {
@@ -1581,6 +1620,97 @@ export default {
             kind: 'archival',
             // MV frame: showgirl headdress center frame, face upper-middle.
             focalPoint: '48% 35%',
+          },
+        ],
+      },
+    },
+    {
+      // Intake #1885 (2026-08-11): Andrew Lloyd Webber, a Pre-Raphaelite
+      // collector, publicly praised the album and its Ophelia thread on his own
+      // Instagram. Authored as a confirmed music/culture reception moment — the
+      // claim is fully self-published and adjudicable (he said it on the record).
+      // Not filed as a rumor: it is on-record commentary about her public art,
+      // no privacy redline implicated (the home he references is his, not hers,
+      // and stated by him — no location/security detail on Taylor).
+      slug: 'showgirl-andrew-lloyd-webber-ophelia-praise',
+      // Cross-links: the two Ophelia anchors this outside validation attaches to
+      // — the opening single that shares the Millais conceit and the submerged
+      // "Ophelia bathtub" cover it restages. Both ids verified to resolve.
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+      ],
+      year: 2026,
+      month: 8,
+      day: 11,
+      category: 'music',
+      title: 'Andrew Lloyd Webber hears his own Ophelia in "The Fate of Ophelia"',
+      snippet:
+        'The composer — who owns what is called the largest private collection of Pre-Raphaelite art — posted to Instagram that "The Fate of Ophelia" was the track that most intrigued him on The Life of a Showgirl, tying it to Millais\'s "Ophelia," a version of which hangs in his own home, and wondering aloud whether Taylor saw it there.',
+      sourceUrl:
+        'https://creators.yahoo.com/lifestyle/story/andrew-lloyd-webber-weighs-in-on-taylor-swifts-the-life-of-a-showgirl-album-and-art-inspiration-021518939.html',
+      thumbnailUrl: null,
+      moment: {
+        // No `socialPost` embed: the charter's Instagram-embed route is scoped
+        // to verifying a @taylorswift post, and this post is on Webber's own
+        // account. The post is cited as the primary self-published source
+        // instead, and the item renders with the Millais painting it is about.
+        context:
+          'Andrew Lloyd Webber — the Cats and Phantom composer, and one of the most serious private collectors of Pre-Raphaelite painting in the world — spent part of August 2026 as an unexpected champion of the era\'s central image. In a short video posted to his own Instagram, reported by Robin Raven for Yahoo Creators on Aug. 11, he said he had "just been listening to Taylor Swift\'s new album," called it "really, really good," and singled out one track: "the track that really intrigues me is \'The Fate of Ophelia.\'" What caught him was the lineage the whole era had been built on — the submerged album cover and its opening single both restage John Everett Millais\'s 1852 "Ophelia." "As somebody who loves the Pre-Raphaelites," he said, "this really intrigues me because I\'ve seen a picture of Taylor posing as \'Ophelia\' by Millais," closing on the movement rather than the song: "I\'m just intrigued that once again the Pre-Raphaelites are coming to the fore."\n\nThe part fans seized on was his own house. Webber owns a version of the Millais "Ophelia," and he mused — carefully, without claiming it — that Taylor might have seen it in person: "I have a version of that at home... it does actually hang in the room where we all had lunch, so maybe she did." He put no more weight on it than that "maybe." It is a suggestion of influence, not a documented one, and it sits alongside the vault\'s existing note that the Millais-cover parallel is a reading Taylor and her photographers never confirmed. What is solid is the validation itself: an outside artist of Webber\'s stature hearing the same visual thread the album was reaching for, and hearing it clearly enough to trace it back to a specific Victorian canvas.\n\nThe timing was not a coincidence. Webber was in the middle of talking about that collection publicly — he appeared onstage at the Delaware Art Museum for an interview with curator Sophie Lynford about his Pre-Raphaelite holdings, where he explained why the Victorians kept returning to Shakespeare\'s drowned girl. Ophelia "probably was the most painted legend in Victorian art," he said, "a fairly minor figure in \'Hamlet\'" who "resonated with the Victorians a lot because she was a sad, mad woman." That is the same well the era draws from — the reason a song called "The Fate of Ophelia" and a cover of a woman half-submerged in a diamond bralette read, to a collector who has spent a lifetime with these paintings, as one continuous Pre-Raphaelite echo.',
+        photos: [
+          {
+            // Andrew Lloyd Webber himself — the collector making the comment.
+            // Wikimedia Commons, CC BY-SA 2.0; downloaded and vision-confirmed
+            // this session as a solo portrait of Webber (1256x1660 PNG).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/AndrewLloydWebber3_%28cropped%29.png',
+            focalPoint: '48% 32%',
+            credit: 'Tracey Nolan (CC BY-SA 2.0, via Wikimedia Commons)',
+            caption:
+              'Andrew Lloyd Webber, whose Pre-Raphaelite collection includes a version of the Millais painting he tied "The Fate of Ophelia" to.',
+            kind: 'primary',
+          },
+          {
+            // Reused public-domain Millais "Ophelia" (Tate, 1852) — the exact
+            // painting Webber names, and the one the era's cover and lead single
+            // restage. Same allowlisted Wikimedia/Google Art Project asset the
+            // album-cover moment carries; caption re-pointed to this moment.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/94/John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg',
+            focalPoint: '52% 50%',
+            credit: 'John Everett Millais, 1852 (public domain, Google Art Project)',
+            caption:
+              'Millais\'s "Ophelia" (1852) — the Pre-Raphaelite painting Webber traced the song to, and the one he owns a version of.',
+            kind: 'archival',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Yahoo Creators (Robin Raven)',
+            url: 'https://creators.yahoo.com/lifestyle/story/andrew-lloyd-webber-weighs-in-on-taylor-swifts-the-life-of-a-showgirl-album-and-art-inspiration-021518939.html',
+            source_title:
+              "Andrew Lloyd Webber weighs in on Taylor Swift's 'The Life of a Showgirl' album and art inspiration",
+            publisher: 'Yahoo Creators',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Instagram (@andrewlloydwebber, official post)',
+            url: 'https://www.instagram.com/p/DQb5uJJgRQz/',
+            source_title: "Andrew Lloyd Webber on Taylor Swift's 'The Fate of Ophelia'",
+            publisher: 'Instagram',
+            source_type: 'social',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'WHYY',
+            url: 'https://whyy.org/articles/andrew-lloyd-webber-delaware-art-museum-pre-raphaelite/',
+            source_title:
+              'Andrew Lloyd Webber talks Pre-Raphaelite art, Taylor Swift at Delaware Art Museum',
+            publisher: 'WHYY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
           },
         ],
       },
@@ -3127,19 +3257,52 @@ export default {
           },
         ],
         photos: [
+          // Photo pass (2026-07-27): a real shot of the display itself, found
+          // on the Cleveland.com/USA TODAY Network writeup already cited
+          // above (its AOL syndication). curl HTTP 200 + image/jpeg
+          // (3784x5676, no watermark, not a Getty comp), downloaded and
+          // vision-confirmed: the "Legends of Rock" case, with the crystal
+          // swim costume, beaded/sequined performer bodysuits, and museum
+          // placards reading "Taylor Swift Ensemble Performer Bodysuits" /
+          // "Taylor Swift Outfit" / "The Fate of Ophelia" — this is the
+          // display, not the building.
           {
-            // Establishing shot of the named venue (the exhibit interior isn't
-            // on a reusable host); captioned as the building, not the display.
-            // curl HTTP 200 + image/jpeg, 6000x4000, vision-confirmed as the
-            // I.M. Pei pyramid with the "Rock & Roll Hall of Fame" entrance
-            // banner. CC BY-SA 4.0, Wikimedia Commons.
+            url: 'https://www.billboard.com/wp-content/uploads/2026/04/Taylor-Swift-Fate-of-Ophelia-video-screengrab-billboard-1800.jpg',
+            focalPoint: '50% 45%',
+            credit: 'Republic Records, via Billboard',
+            caption:
+              'The sequined swimming cap and costume from "The Fate of Ophelia" video — now one of the pieces under glass in the Rock Hall display.',
+            kind: 'primary',
+          },
+          {
+            // Establishing shot of the named venue. curl HTTP 200 + image/jpeg,
+            // 6000x4000, vision-confirmed as the I.M. Pei pyramid with the
+            // "Rock & Roll Hall of Fame" entrance banner. CC BY-SA 4.0,
+            // Wikimedia Commons. Field-order fix #762 (2026-08-09): focalPoint
+            // moved to immediately after url; no values changed.
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
+            // Glass pyramid and entrance banner sit dead center, just below the midline.
+            focalPoint: '50% 48%',
             credit: 'MusikAnimal, CC BY-SA 4.0, via Wikimedia Commons',
             caption:
               'The Rock & Roll Hall of Fame in Cleveland, where the "Fate of Ophelia" display opened on Level 5 in June 2026.',
             kind: 'archival',
-            // Glass pyramid and entrance banner sit dead center, just below the midline.
-            focalPoint: '50% 48%',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — the actual
+          // exhibit interior, from the Yahoo/ABC Audio article this moment
+          // already cites (its own embedded image, Yahoo's own Zenfs media
+          // network — an outlet-CDN precedent already used elsewhere in this
+          // codebase). curl 200 image/jpeg 630x354, downloaded and
+          // vision-confirmed: mannequins in the swimming-costume-style looks
+          // and beaded gown from the video, under blue-lit "TAYLOR" signage.
+          {
+            url: 'https://media.zenfs.com/en/abc_audio_244/d25a082ac3d338a56032835766d248f0',
+            // Center mannequin/costume detail sits just left of center, upper-middle.
+            focalPoint: '49% 40%',
+            credit: 'Rock & Roll Hall of Fame (courtesy), via Yahoo Entertainment / ABC Audio',
+            caption:
+              'Inside the display: mannequins wear the shimmering swimming-costume-style looks and beaded gown from "The Fate of Ophelia" video, under the museum\'s blue-lit "TAYLOR" signage.',
+            kind: 'primary',
           },
         ],
       },
@@ -3195,6 +3358,56 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 2,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1433021/taylor-swift-spends-9-hours-recording-at-electric-lady-studio-in-new-york',
+            source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20260616/77b1faf9-7865-4bb4-81e6-374c771b15d4_1781613754.jpg',
+            focalPoint: '50% 22%',
+            credit: 'E! News',
+            caption:
+              'Leaving the Electric Lady Studios area on June 15 — the overnight session that set off the TS13 speculation.',
+            kind: 'primary',
+          },
+          // Photo pass (2026-07-27): PureWow's writeup of this exact sighting
+          // (assets.purewow.com, its own CDN) captions this frame as Swift
+          // "photographed exiting a car in front of Electric Lady Studios."
+          // curl HTTP 200 + image/jpeg (1200x1412, no watermark), downloaded
+          // and vision-confirmed: the mustard-and-white knit polo, high-waisted
+          // denim, and tan tassel bag reported for the June 15-16 overnight
+          // session. A second PureWow frame from the same set (BACKGRID) was
+          // reviewed but skipped as redundant; a third, captioned identically
+          // but showing an indoor Songwriters Hall of Fame step-and-repeat, was
+          // rejected as off-moment (mislabeled stock/file art, not this outing).
+          {
+            url: 'https://assets.purewow.com/wp-content/uploads/2026/06/taylor-swift-electric-lady-studios-2026_1-1200x1412.jpg',
+            focalPoint: '60% 22%',
+            credit: 'Kyle Mazza/CNP/Shutterstock, via PureWow',
+            caption:
+              'Swift photographed exiting a car in front of Electric Lady Studios in New York, June 15, 2026 — the overnight session that started the TS13 chatter.',
+            kind: 'reference',
+          },
+        // Photo pass #762 (2026-08-09): no photo of the sighting itself
+        // exists (a "spotted" report, not a syndicated paparazzi photo) —
+        // an honestly-captioned photo of the real venue instead. curl 200
+        // image/jpeg, downloaded and vision-confirmed as the Electric Lady
+        // Studios storefront (mirrored window signage, oval entry porthole).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Electric_Lady_Studios_2013.jpg',
+            // Signage sits left-of-center, upper-middle of the frame.
+            focalPoint: '45% 35%',
+            credit: 'Jhsounds / Wikimedia Commons, CC BY-SA 3.0',
+            caption: 'Electric Lady Studios in New York\'s Greenwich Village, where Taylor was spotted for an overnight session in early June 2026 — not a photo from that night.',
+            kind: 'archival',
           },
         ],
         // Rumor Desk 2026-08-11: this moment is the structural home for the
@@ -3589,7 +3802,12 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.realitytea.com/2026/07/20/taylor-swift-wedding-photos-out-release/',
             note: 'A gossip-newsletter claim about her release strategy. Better-sourced update 2026-07-25 (ledger #1246): Dior told The New York Times that Taylor herself will post the first wedding images to Instagram (timing unstated), and, per People, no plans for a wedding documentary or film. No official photographer of record has been named — so the official channel is her own Instagram, on her own timing.',
-            sourceTier: 'tabloid',
+            // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): the
+            // primary source is a self-published gossip newsletter, which is
+            // the `social` tier's definition — the note said as much while the
+            // field said 'tabloid'. Reality Tea is the aggregator, not the
+            // reporter, so it does not lift the tier.
+            sourceTier: 'social',
             lastCheckedOn: '2026-07-25',
           },
           {
@@ -3605,6 +3823,26 @@ export default {
             note: 'The processional FORMAT (live strings, an acoustic version of one of her own songs) is corroborated across outlets, but the specific "Love Story" title rests on a single unnamed source and is unconfirmed by the couple — Wikipedia records only "an acoustic version of one of her songs." Public-facing, redline-clean.',
             sourceTier: 'established',
             lastCheckedOn: '2026-07-25',
+          },
+          {
+            // Added 2026-08-02 (Rumor Desk, Vault Run): a forward-looking,
+            // adjudicable claim — MSG either commemorates the wedding or it
+            // doesn't. Public-venue matter, no location finer than MSG (the
+            // documented wedding venue), no redline. Verified via the Yahoo/
+            // MLive writeup of Rob Shuter's newsletter this session.
+            claim:
+              'Madison Square Garden executives are reportedly discussing a permanent way to commemorate the July 3 wedding — in the vein of the banners, plaques and displays the arena hangs for historic runs (Billy Joel, Harry Styles) — with insiders saying "it\'s absolutely being discussed" but "no decisions have been made" (and "no one\'s proposing a statue").',
+            reportedBy: 'Rob Shuter’s Naughty But Nice (via MLive/Yahoo)',
+            reportedOn: '2026-07-30',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
+            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee that went up on the day — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction — the speculative part is the arena\'s decision, so no location payload is carried.',
+            // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
+            // correction as the photo-release entry above — the note called it
+            // a gossip-newsletter tip from unnamed insiders while the field
+            // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-02',
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
@@ -3651,6 +3889,21 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-04',
             reliability_score: 3,
+          },
+        ],
+        // Photo pass #762 (2026-08-05): People's own photo of the gown (via
+        // Yahoo's resize CDN, s.yimg.com/media.zenfs.com — the same host
+        // pattern already used across this repo). curl 200 image/jpeg,
+        // downloaded and vision-confirmed: a patient in a white tee at the
+        // mannequin, the bodice covered in marker drawings and a visible
+        // "who's afraid of little old me" TTPD lyric.
+        photos: [
+          {
+            url: 'https://s.yimg.com/lo/mysterio/api/d60389635d7ced6ee3d2d85903561f7949ac4f0bc076f79fde7541bebf672aff/lightyear_networkapi/resizefill_w384_h480%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpeople_218%2F425cb442037224d74b53cd6b33f6c2af',
+            focalPoint: '55% 45%',
+            credit: 'Children\'s Mercy, via People',
+            caption: 'A patient at the mannequin with the tribute gown — its bodice covered in drawings, signatures, and a "who\'s afraid of little old me" lyric.',
+            kind: 'primary',
           },
         ],
       },
@@ -3929,6 +4182,131 @@ export default {
             reliability_score: 4,
           },
         ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/07/kylie-kelce-not-gonna-lie-screengrab-july2026-billboard-1800.jpg',
+            focalPoint: '58% 35%',
+            credit: 'Wave/Not Gonna Lie with Kylie Kelce, via Billboard',
+            caption:
+              'Kylie Kelce recording the July 23 "Not Gonna Lie" episode where she called Taylor family — "only making it official."',
+            kind: 'primary',
+          },
+        // Photo pass #762 (2026-08-09): a photo of Kylie Kelce, the subject
+        // of this beat — not a generic Taylor file photo. TODAY's own CDN
+        // (already allowlisted), curl 200 image/jpeg 1500x1000, downloaded
+        // and vision-confirmed. A second, Donna Kelce candidate was found but
+        // declined: its exact credit line could only be inferred from a
+        // companion photo on the same article, not confirmed for this frame.
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/rockcms/2026-07/kylie-kelce-webby-ky-260723-a8a747.jpg',
+            // Face upper-center-left of frame.
+            focalPoint: '49% 26%',
+            credit: 'Getty Images/The Webby Awards, via TODAY',
+            caption: 'Kylie Kelce at the 30th Annual Webby Awards in New York City, May 11, 2026 — weeks before she called Taylor and Travis\'s wedding "absolutely magical" on her podcast.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-02 from intake #1735 (Vault Run, Content Shift lane).
+      // On-record guest color about the reception raffle. Verified against
+      // Yahoo Entertainment (fetched this session), which corroborates the
+      // People exclusive with Gronkowski. The ticket's "1970s Chevelle echoes
+      // the 2023 Chiefs-Bears first-outing car" callback was NOT authored:
+      // the verified source names the Chevelle prize but carries no 2023-outing
+      // link, so the callback is cut per the no-fabrication rule. Guest-list
+      // name-drops (Brady/Cruise/etc.) also cut — reaction color, not the
+      // adjudicable raffle facts. No photo: the only image is a guest's
+      // expiring Instagram Story of a private individual, not a reusable host.
+      slug: 'showgirl-wedding-raffle-gronkowski',
+      year: 2026,
+      month: 7,
+      day: 30,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-watermarked-invitations-and-a-copyright-takedown',
+      ],
+      title: 'How the wedding raffle worked: guests earned their tickets',
+      snippet:
+        'Guest Rob Gronkowski explained the reception\'s raffle: you didn\'t just get a ticket, you had to earn it by playing games. Prizes ran from designer handbags to a 1970 Chevrolet Chevelle.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/rob-gronkowski-explains-raffles-worked-165208547.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/rob-gronkowski-explains-raffles-worked-165208547.html',
+            source_title: 'Rob Gronkowski explains how raffles worked at Taylor Swift and Travis Kelce\'s wedding',
+            publisher: 'Yahoo Entertainment (via People)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-raffles-rob-gronkowski-1236306132/',
+            source_title: 'Here\'s How Taylor Swift & Travis Kelce\'s Wedding Raffles Worked, According to Rob Gronkowski',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-02 from intake #1736 (Vault Run, Content Shift lane).
+      // Routed through the privacy-redlines rubric as leaked-material-adjacent
+      // (Codex unreachable, so the desk applied the rubric itself). The clean,
+      // publishable spine is the IP-enforcement controversy — reporting on a
+      // public takedown, the same carve-out that lets us cover the *history* of
+      // a leak without trafficking in it. Held to the three leak-independent
+      // facts: per-guest watermarking, the copyright complaint naming Taylor,
+      // Instagram's removal. The leaked invitation image is NOT reproduced or
+      // sourced, and none of its private design detail is described. No photo
+      // for exactly that reason. Watermark fact verified via AOL, the takedown
+      // via Yahoo Entertainment (both fetched this session).
+      slug: 'showgirl-wedding-invite-watermark-takedown',
+      year: 2026,
+      month: 7,
+      day: 6,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-how-the-wedding-raffle-worked-guests-earned-their-tickets',
+      ],
+      title: 'Watermarked invitations and a copyright takedown',
+      snippet:
+        'The couple\'s leak-control ran deep: each invitation carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down after a copyright complaint that named Taylor as the rights owner.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. When a guest briefly posted a photo of an invitation to Instagram, the post was removed after a copyright-infringement complaint that identified Taylor as the rights owner, with the platform warning the user about penalties for repeat violations. Screenshots had already circulated in the minutes it was up, but the takedown made the couple\'s posture explicit: the wedding\'s information was treated as their intellectual property, and enforced that way. It was the operational counterpart to all the "no photos leaked" talk — a tight, deliberate information-control effort, and the willingness to enforce it through an IP complaint.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
+            source_title: 'Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'AOL / "Real"',
+            url: 'https://www.aol.com/articles/first-look-taylor-swift-real-063110000.html',
+            source_title: 'First Look at Taylor Swift\'s Watermarked Wedding Invitation',
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
+          },
+        ],
       },
     },
     {
@@ -4054,6 +4432,16 @@ export default {
             lastCheckedOn: '2026-07-24',
           },
         ],
+        // Photo pass #762 (2026-08-02): searched for a verified on-topic photo
+        // and came up empty. The only image that actually shows a ring
+        // (Cris Carter's July 20 Instagram post) is Instagram-only — not
+        // rehostable. StyleCaster's article art is a generic May 15 file photo
+        // of the couple (no hands visible, wrong date). Harper's Bazaar's own
+        // piece never got a dedicated photo either — its body text says so
+        // outright ("still waiting for those wedding photos"). No candidate
+        // cleared the verify-first bar; left at editorial max rather than
+        // ship an off-hook stand-in.
+        photos: [],
       },
     },
     {
@@ -4139,10 +4527,22 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg',
+            focalPoint: '50% 22%',
             credit: 'Raph_PH / Wikimedia Commons, CC BY 2.0',
             caption: 'Shania Twain performing at Glastonbury Festival, June 30, 2024.',
             kind: 'archival',
-            focalPoint: '50% 22%',
+          },
+          // Photo pass #762 (2026-08-02): the actual commitment named in this
+          // moment — opening for Harry Styles's Wembley residency. Rolling
+          // Stone's own CDN; curl-verified 200 image/jpeg, downloaded and
+          // vision-confirmed (Twain mid-song in the black corset stage look
+          // reported across the residency's June/July run).
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2026/06/shania-twain-opening-for-harry-styles.jpg',
+            focalPoint: '50% 32%',
+            credit: 'Fred Thiebaud/LiveNation, via Rolling Stone',
+            caption: 'Shania Twain opening for Harry Styles at Wembley Stadium — the booking she cited as the reason she couldn\'t attend the wedding.',
+            kind: 'primary',
           },
         ],
       },
@@ -7031,7 +7431,7 @@ export default {
         'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
       moment: {
         context:
-          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
+          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." Sombr, for his part, was terrified. Recounting the night to Variety that August, he called her "a goddess" and said that if he had let himself look at her "for three seconds during the performance, my mind would have completely blanked." Their friendship had begun the way many of his heroes\' do: she praised him in an interview, he sent a thank-you note, and she wrote back with a letter and a necklace. "I freaked out and fangirled," he said. The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
         sources: [
           {
             outlet: 'PBS NewsHour',
@@ -7071,6 +7471,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
+          },
+          // Added 2026-08-06 (ledger #1816): sombr's own August recollection of
+          // the tribute — the "goddess" quote and the letter-and-necklace origin
+          // of the friendship (Variety interview, via Yahoo/ABC Audio syndication).
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/sombr-recalls-performing-taylor-swift-200000773.html',
+            source_title: 'Sombr recalls performing Taylor Swift songs at her Songwriters Hall of Fame induction',
+            publisher: 'Yahoo Entertainment (ABC Audio)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
+            reliability_score: 3,
           },
           {
             outlet: 'Rolling Stone',
@@ -7766,6 +8178,19 @@ export default {
             // Jessie's face dead-center between the outstretched arms.
             focalPoint: '48% 35%',
           },
+          // Photo pass 2026-08-06 (vault-run): reaches 2/2. A second, distinct
+          // frame from the SAME official video (maxres2, unused elsewhere) —
+          // curl 200 image/jpeg, 1280x720, downloaded and vision-confirmed: a
+          // different scene, Jessie downcast beside Woody. Jessie is the song's
+          // narrator, so the crop is weighted to keep her face framed.
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxres2.jpg',
+            focalPoint: '34% 40%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video frame, YouTube)',
+            caption:
+              'A quieter beat from the same video: Jessie, the cowgirl whose story the song tells, downcast beside Woody.',
+            kind: 'archival',
+          },
         ],
         // Rumor Desk 2026-07-20: the moment above holds the confirmed line
         // ("not a nominee, not yet"); this separates the labeled, forward-
@@ -8250,21 +8675,23 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
+            // Photo pass #762 (2026-08-03): re-viewed full-res — Taylor's full
+            // figure sits left-of-center but well below the frame's vertical
+            // midline (lots of dark stadium bowl above), not near the top.
+            focalPoint: '37% 62%',
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption:
               'The Eras Tour\'s Lover set at SoFi Stadium, August 2023 — the show whose filmed Vancouver finale earned the five nominations.',
             kind: 'archival',
-            // Wide panorama, Taylor small in the left third against a dark bowl.
-            focalPoint: '34% 40%',
           },
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2026/07/GettyImages-2166917001.jpg?w=1440&h=810&crop=1',
+            // Taylor centered, face just above the vertical midline.
+            focalPoint: '50% 36%',
             credit: 'Getty Images, via The Hollywood Reporter',
             caption:
               'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
             kind: 'archival',
-            // Taylor centered, face just above the vertical midline.
-            focalPoint: '50% 36%',
           },
         ],
       },
@@ -9151,6 +9578,27 @@ export default {
       title: "All twelve songs, all twelve top spots",
       snippet: "Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.",
       moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://billboard.substack.com/p/here-are-all-the-billboard-chart',
+            source_title: 'Here Are All the Billboard Chart Records Taylor Swift Breaks (or Extends) With \'The Life of a Showgirl\'',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'Billboard\'s own Substack. billboard.com itself now 307s to a tollbit paywall gateway that returns 402, so the main site is unfetchable and unverifiable.',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/texas/video/taylor-swift-makes-billboard-history-as-all-12-songs-from-new-album-hit-top-12/',
+            source_title: 'Taylor Swift makes Billboard history as all 12 songs from new album hit top 12',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Led by \"The Fate of Ophelia\" at number one, the full tracklist swept the top of the Hot 100 with no other song breaking the streak.\n\nIt was the first time in the chart’s history, dating back to the 1950s, that an entire album occupied every one of its top positions uninterrupted.",
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
         // wp-content PR image 05 from the album's Mert & Marcus press set
@@ -9679,6 +10127,43 @@ export default {
         ],
       },
     },
+    {
+      slug: 'ted-lasso-kansas-city-nod',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'tour',
+      title: 'The Eras Tour turns up in "Ted Lasso" — as a Kansas City in-joke',
+      snippet:
+        'Apple TV\'s "Ted Lasso" returns for a fourth season with a Kansas City wink: a fictional boutique whose whole business, a shop owner explains, took off after one of Taylor\'s backup singers "floated in, bought an outfit, posted it on her Insta." The writers, an executive producer said, simply couldn\'t stop talking about the Eras Tour.',
+      sourceUrl:
+        'https://www.eonline.com/news/1434630/ted-lasso-season-4-taylor-swifts-kansas-city-eras-tour-show-shoutout',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Eras Tour surfaced in an unlikely place in the summer of 2026: an Apple TV+ comedy about an English football club. "Ted Lasso" returned for a fourth season — the premiere screened in Los Angeles on July 27, 2026, before the first episode reached the service in early August — and folded a Kansas City nod to Taylor into the script. In a scene with Rebecca Welton (Hannah Waddingham) and Keeley Jones, the owner of a fictional Kansas City boutique named "Dazzle Me Moi," set at the real Country Club Plaza shopping district, explains how the shop caught fire: one of Taylor\'s backup singers, she says, "floated in, bought an outfit, posted it on her Insta. We\'ve been poppin\' and hoppin\', and guys have been shoppin\' ever since." The store is invented; the mechanism it is spoofing — a single Taylor-adjacent post moving a local economy — is the least fictional thing in the scene.\n\nExecutive producer Jamie Lee told E! News at the LA premiere that the reference came straight out of the writers\' room\'s ongoing preoccupation with her: "The Eras Tour was happening while we [were writing]... Taylor\'s always in the mix of the conversation. It\'s kind of impossible not to talk about her because she\'s just so famously incredible." The Kansas City setting does quiet double duty. Series co-creator and star Jason Sudeikis grew up there and had taken his kids to an Eras Tour night at Arrowhead Stadium, and Kansas City is where the Taylor–Travis Kelce story began — the 2023 tour stop after which Kelce first, publicly, went looking for her with a friendship bracelet. A throwaway boutique gag, in other words, sits on top of two of the biggest cultural facts of her decade: the tour that reshaped local economies wherever it landed, and the romance it set in motion.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1434630/ted-lasso-season-4-taylor-swifts-kansas-city-eras-tour-show-shoutout',
+            source_title: "'Ted Lasso' Season 4 Includes a Sweet Nod to Taylor Swift's Kansas City Eras Tour Impact",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/entertainment/where-was-ted-lasso-season-4-filmed',
+            source_title: "'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour",
+            publisher: 'Elite Daily',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
     // --- News catch-up (2026-08-10, Content Shift): a labeled low-confidence
     // rumor (#1873). Deliberately a low-substance, photo-less item (chip/text
     // tier, never hero) that cannot displace a hero slot — same pattern as
@@ -9736,6 +10221,77 @@ export default {
             note: 'Traces to a Deuxmoi tip plus unverified social photos, aggregated by heavy.com and Yahoo; no established outlet or either camp has confirmed it (social tier). Venue-level only — a public, past, concluded restaurant visit (the Ocean House principle); no address, no security detail. Resolves if a named outlet or the couple confirms; fades if it stays a single tip.',
             sourceTier: 'social',
             lastCheckedOn: '2026-08-10',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-03 (Vault Run, Content Shift lane) from intake #1759.
+      // A confirmed, on-record public statement — not a rumor — so ≥1
+      // established outlet suffices; AOL UK was fetched and verified 200 this
+      // session, Billboard is the origin outlet, and Yahoo Entertainment
+      // corroborates. The "~2010 Songwriters Hall of Fame" detail is Collins's
+      // own recollection framing ("roughly fifteen years ago"), not a new dated
+      // event, so it is written as his memory rather than pinned to a year.
+      // Redlines: clean — a musician praising Taylor's public performance and
+      // career; no location, health, security, sexuality, minor, or third-party
+      // private-life content.
+      slug: 'phil-collins-white-horse-blown-away',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'music',
+      title: 'Phil Collins: Taylor’s early “White Horse” “blew me away completely”',
+      snippet:
+        'On BBC Radio 2, the Genesis frontman recalled Taylor playing “White Horse” at a Songwriters Hall of Fame event years before her fame — and said the superstardom that followed is deserved.',
+      moment: {
+        context:
+          'On BBC Radio 2’s “Tracks of My Years” with Vernon Kay, aired in early August 2026, Phil Collins reached back roughly fifteen years to the first time he saw Taylor perform — before she was a superstar, at a Songwriters Hall of Fame event where his daughter Lily introduced them. Taylor got up with a guitar and sang “White Horse,” her 2008 heartbreak ballad, and Collins said it “blew me away completely”: “not only was the song great, and the sentiment of the song really got me, but she sang it beautifully.” He added that he has “always had a soft spot for this song since then.”\n\nWatching her become, in his words, “the hugest thing in the world,” the Genesis and Grammy-laden solo hitmaker was pointedly unbegrudging about it. “It’s easy to knock someone that’s got so much success,” he said, “but I think she really deserves it” — she “kind of feels like she deserves it.” Coming from one of the best-selling artists of all time, it is the kind of legacy praise that lands as a concrete memory rather than a talking point: a specific song, a specific room, and a first impression that never wore off.',
+        sources: [
+          {
+            outlet: 'AOL UK',
+            url: 'https://www.aol.co.uk/articles/phil-collins-praises-taylor-swift-230212000.html',
+            source_title: "Phil Collins praises Taylor Swift and says she 'really deserves' huge success",
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/phil-collins-praises-taylor-swift-1236307708/',
+            source_title: "Phil Collins Recalls Being 'Blown Away' by Taylor Swift Before Her Superstardom",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/phil-collins-recalls-being-blown-090327439.html',
+            source_title: "Phil Collins Recalls Being 'Blown Away' by Taylor Swift Before Her Superstardom",
+            publisher: 'Yahoo',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 3,
+          },
+        ],
+        // Photo: no imagery exists of the ~2010 event Collins describes, so the
+        // moment carries a verified performance photo of Collins himself — the
+        // subject of the quote. Raph_PH's Royal Albert Hall 2017 shot
+        // (CC BY 2.0) curl-verified HTTP 200 image/jpeg at the 1280px thumb,
+        // downloaded and vision-confirmed: Phil Collins seated centre at the
+        // mic (his seated staging on that tour), full band behind him.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg/1280px-Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg',
+            // Collins is the seated figure at the mic, left-of-centre; keep the
+            // crop weighted there so his face survives a tight square.
+            focalPoint: '46% 42%',
+            credit: 'Raph_PH, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'Phil Collins performing at London’s Royal Albert Hall in 2017. He later told BBC Radio 2 that hearing a young Taylor sing “White Horse” “blew me away completely.”',
+            kind: 'reference',
           },
         ],
       },

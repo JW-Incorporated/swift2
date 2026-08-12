@@ -181,6 +181,7 @@ export default {
       relatedIds: [
         "moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice",
         'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
+        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
       ],
       year: 2011,
       month: 11,
@@ -2398,6 +2399,26 @@ export default {
       title: "Written entirely alone",
       snippet: "A response to critics who doubted her songwriting: every word, solo.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career — And Proved She\'ll Always Get The Last Word',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-wrote-speak-now-by-herself/',
+            source_title: 'Taylor Swift Reveals Why She Wrote \'Speak Now\' by Herself',
+            publisher: 'Taste of Country',
+            source_type: 'interview',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Speak Now carries no co-writers — a deliberate statement of authorship after whispers that others wrote her hits.\n\nThe result is theatrical and intimate at once: apologies, fantasies, and confrontations staged under violet light.",
       },
     },
@@ -2412,6 +2433,26 @@ export default {
       title: "\"Mine\" leaks early, ships anyway",
       snippet: "The lead single was rushed to radio and iTunes after an unauthorized online leak.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/',
+            source_title: 'Taylor Swift Rush Releases "Mine" to Radio After Internet Leak',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "\"Mine\" was announced via livestream and scheduled for an August 16 release, but an early leak forced Big Machine Records to rush it to country radio and iTunes on August 4 instead — nearly two weeks ahead of plan.",
       },
     },
@@ -2427,6 +2468,26 @@ export default {
       title: "The ballgown tour",
       snippet: "Sweeping purple gowns turn every show into a fairy tale.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/behind-the-scenes-at-a-taylor-swift-concert/',
+            source_title: 'Behind the scenes at a Taylor Swift concert (60 Minutes)',
+            publisher: 'CBS News / 60 Minutes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-speak-now-era-looks-dresses/',
+            source_title: 'Look Back at Taylor Swift\'s Iconic \'Speak Now\' World Tour Outfits',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "The Speak Now World Tour leaned fully theatrical — flowing gowns, castles, and enchantment.\n\nEach song got its own staged set piece, from the title track's wedding-crashing fantasy to \"Enchanted\"'s ballroom backdrop.",
       },
     },
@@ -2439,8 +2500,32 @@ export default {
       day: 14,
       category: "music",
       title: "\"Mean\" answers a critic",
-      snippet: "A banjo-driven single written directly about online criticism she'd received.",
+      // Corrected 2026-08-11: both citations below describe a critic's review
+      // of her 2010 GRAMMYs performance, not generalized online criticism.
+      snippet:
+        "A banjo-driven single written directly about a critic's review of her performance.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swifts-mean-takes-aim-at-her-critics/',
+            source_title: 'Taylor Swift\'s "Mean" Takes Aim at Her Critics',
+            publisher: 'CBS News',
+            source_type: 'interview',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'The Recording Academy names the critic as Bob Lefsetz. Taylor has only ever said \'this dude\' (60 Minutes, 2011) — the identification is the Academy\'s, not hers, and the copy must not attribute it to her.',
+          },
+        ],
         context: "Taylor has said \"Mean\" was written in direct response to a critical review — a rare moment of the album engaging a critic rather than an ex, and one of Speak Now's more overtly personal tracks.",
       },
     },
@@ -2455,6 +2540,26 @@ export default {
       title: "\"Enchanted,\" a fan favorite",
       snippet: "A sprawling, six-minute love-at-first-sight song that became one of the album's most enduring deep cuts.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-songs-essentials-midnights-anti-hero-album-all-too-well-2023-grammys-blank-space-folklore-reputation-lover-discography/',
+            source_title: 'The Taylor Swift Essentials: 13 Songs That Display Her Storytelling Prowess And Genre-Bouncing Genius',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/a-battle-of-taylor-swifts-songs-the-big-hits-vs-fan-favorites/',
+            source_title: 'A Battle of Taylor Swift\'s Songs: The Big Hits vs. Fan Favorites',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Never released as an official single, \"Enchanted\" nonetheless became one of Speak Now's most fan-beloved tracks — its extended, key-changing structure a favorite live moment on the Speak Now World Tour.",
       },
     },
@@ -2467,6 +2572,8 @@ export default {
       relatedIds: [
         "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
         "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th",
+        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
+        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
       ],
       year: 2023,
       month: 7,
@@ -2475,6 +2582,26 @@ export default {
       title: "Speak Now (Taylor's Version)",
       snippet: "The third re-recording arrives with six previously unreleased \"From the Vault\" tracks.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-speak-now-taylors-version-vault-tracks-better-than-revenge-mattress-lyric/',
+            source_title: 'Taylor Swift releases "Speak Now: Taylor\'s Version" with previously unreleased tracks and a change to a lyric',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/taylor-swift-releases-re-recorded-version-of-speak-now-its-yours-its-mine-its-ours/',
+            source_title: 'Taylor Swift Releases Re-Recorded Version of \'Speak Now\': "It\'s Yours, It\'s Mine, It\'s Ours"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer.",
         // Photo pass #762 (2026-07-20): page had zero photos, and the July 2023
         // re-recording release has no red-carpet event of its own. Used a freely

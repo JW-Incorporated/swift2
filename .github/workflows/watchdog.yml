@@ -285,43 +285,224 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
-      # Content Shift liveness check (2026-07-23). Content Shift is a
-      # Wyatt-account cloud routine (docs/agents/runners.md), not a GitHub
-      # Actions workflow, so it's invisible to the cadence check above.
-      # Confirmed this session: it went silent after 2026-07-22 with zero
-      # trace anywhere (no PR, no stranded branch, no ticket comment) despite
-      # its own charter's rule 8 ("never exit silently") — that rule is
-      # LLM-prompt-compliance-dependent and had already regressed once
-      # before. This check is independent of the agent's own behavior: it
-      # only trusts objective git/gh history.
+      # ── Stalled PRs: red too long, or a check that will never come back ──
+      # Added 2026-07-30 (PR #1629); rewritten 2026-08-11 after replaying the
+      # original against live data showed it caught nothing (see below).
       #
-      # Match on the PR HEAD BRANCH prefix "content-shift/", not the title or
-      # the shared `content-shift` LABEL. The label is shared with the hourly
-      # photo-enrichment worker (`content/photo-enrichment-*` branches), so a
-      # label check false-positives on it. The TITLE prefix "content(shift): "
-      # was tried first (until 2026-07-25) but false-NEGATIVED: Content Shift
-      # titles its PRs inconsistently (`content:`, `content(showgirl):`,
-      # `content(reputation):` …), so real output (#1240, #1494 on 07-24) went
-      # undetected and #1449 alarmed from 07-22 on. The branch is the reliable
-      # discriminator: Content Shift always branches `content-shift/<date>`,
-      # and no other routine uses that prefix.
+      # THE REGRESSION THIS EXISTS FOR. Before 2026-07-25 each content agent
+      # armed hourly self-check-ins that drove its own PR to green. Those loops
+      # were ~69% of all scheduled agent token spend and were killed, replaced
+      # by the promise in CLAUDE.md: "if a PR fails CI or hits a conflict, the
+      # next scheduled run of that agent picks it up." That promise is FALSE.
+      # The next run opens a BRAND NEW PR against `main` and never returns to
+      # the red one, so a stuck PR sits open forever: auto-merge correctly
+      # refuses to land it, no agent ever looks again, and nothing alerts.
       #
-      # Window is 30h: Content Shift runs at 17:00/23:00 UTC, so the
-      # worst-case gap between two scheduled attempts is 18h — 30h tolerates
-      # one missed slot without false-alarming, while still catching real
-      # multi-day silence within a day and a half.
+      # WHY THE FIRST VERSION OF THIS STEP DID NOT WORK. As written on 07-30 it
+      # keyed on `build == FAILURE` AND an allowlist of bot branch prefixes
+      # (`vault/ content-shift/ depth/answerer content/rumor-desk
+      # content/stylist claude/`). Replayed against the live repo on 08-11 that
+      # logic examined 2 of 27 open PRs and alerted on NEITHER — it missed every
+      # genuinely stuck PR in the repo, including ones its own PR body named:
       #
-      # Known, accepted limitation: a genuinely idle run (queue empty) also
-      # leaves no PR, so this can fire on a real quiet stretch, not just a
-      # dead routine. The charter treats an idle exit as itself worth
-      # surfacing ("if all three priorities are empty... that is itself a
-      # finding"), so a nudge to confirm "quiet week or actually dead?" is a
-      # reasonable, low-cost outcome either way — not a bug to engineer
-      # around. Scoped to Content Shift only for now (the one agent with
-      # directly confirmed silent failure); extending to other cloud-routine
-      # agents (Nils, Kevin, Laura, Paul Blart, Austin, Growth) is a cheap
-      # follow-up if/when they're actually observed to go dark too.
-      - name: Content Shift liveness check
+      #   #1642  `build` red since 07-31 (11 days), auto-merge armed. Branch is
+      #          `fix/ci-actions-v7-tags`, which is not in the prefix list, so
+      #          it was never even looked at. The prefix allowlist was the
+      #          single biggest miss: three of its six entries
+      #          (`depth/answerer`, `content/rumor-desk`, `content/stylist`)
+      #          match no branch that has ever existed, while `claude/` matches
+      #          every Claude session in the repo including ops work.
+      #   #1762  open since 08-03. `build` is SUCCESS; `enable` is FAILURE. The
+      #          auto-merge gate is what strands it, and only `build` was read.
+      #   #1585  open since 07-28 with NO `build` check at all on its head
+      #          commit — CI never fired for that push. The jq returned "NONE",
+      #          which is not "FAILURE", so it stayed silent. A check that never
+      #          runs is invisible here and auto-merge waits on it forever.
+      #
+      # So this version (1) looks at EVERY open non-draft PR and excludes only
+      # what is explicitly parked for a human, rather than enumerating bot
+      # branch prefixes that go stale the moment a lane is renamed; (2) treats
+      # ANY currently-failing check as stranding, not just `build`; (3) treats a
+      # MISSING `build` as its own alarm; (4) reads the LATEST result per check
+      # name rather than whichever the rollup happens to list first (#1580 has
+      # a CANCELLED `enable` superseded by a SUCCESS one — order is not
+      # documented and must not be trusted); and (5) re-triggers a stale red
+      # `build`, the case where CI died for an unrelated reason and nothing is
+      # left to nudge it (#1633 sat 5 days, #1565 sat 07-27 → 08-11).
+      #
+      # ACTIONS-MINUTES BUDGET. This repo hit 90% of included minutes on 07-27
+      # and a build freeze blocked every merge on 07-30, so a monitor that burns
+      # the budget it protects is self-defeating. Four guards:
+      #   * Daily only — gated to the 14:35 cron, not the hourly one. A 24h
+      #     threshold gains nothing from 24 looks a day.
+      #   * RERUN_BUDGET re-runs per pass, hard cap, counted before each call.
+      #   * A PR is re-run ONLY when its `build` is FAILING and that failure is
+      #     already STALE_H old. A green PR idling on human review is never
+      #     re-run — #1580 has been green and untouched for 15 days and
+      #     re-running it would be pure waste.
+      #   * Re-running makes the check fresh, so the same PR cannot be re-run
+      #     again for another STALE_H. The cap is self-limiting, not just
+      #     per-pass.
+      # Worst case 2 re-runs/day x ~2 billed min = ~4 min/day. Expected ~0/day.
+      #
+      # `!cancelled()` rather than the bare daily gate the steps above use: the
+      # prod smoke check exits 1 when the site is down, and a plain `if:` is
+      # implicitly ANDed with success(), so every later step is skipped. An
+      # outage should not also blind us to stranded PRs.
+      - name: PRs stuck on failing or missing checks
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          RED_AFTER_H=24        # a PR may be open and unhealthy this long before we shout
+          STALE_H=48            # a red `build` older than this earns one re-run
+          RERUN_BUDGET=2        # hard cap on CI re-runs per pass
+          # Same three labels auto-merge-content.yml treats as blocking. A PR
+          # deliberately held for a founder is not "stranded", it is parked.
+          PARKED_LABELS="hold cie:escalate founder-decision"
+
+          NOW=$(date -u +%s)
+          RED_CUTOFF=$(date -u -d "${RED_AFTER_H} hours ago" +%Y-%m-%dT%H:%M:%SZ)
+          ALERT_TITLE="Watchdog: PR(s) stuck on a failing or missing check"
+
+          # Accumulate into FILES, never shell variables. An embedded newline in
+          # a double-quoted assignment has to start at column 0, which dedents
+          # out of this YAML block scalar and makes the whole workflow
+          # unparseable — that is what broke the first version of this step.
+          : > /tmp/stuck.md
+          : > /tmp/retried.md
+          RERUNS=0
+
+          gh pr list --repo "$REPO" --state open --limit 100 \
+            --json number,headRefName,createdAt,isDraft,headRefOid,labels \
+            --jq '.[] | select(.isDraft | not)
+                  | [.number, .headRefName, .createdAt, .headRefOid,
+                     ([.labels[].name] | join(","))] | @tsv' > /tmp/open-prs.tsv
+
+          while IFS="$(printf '\t')" read -r N BR CREATED SHA LABELS; do
+            if [ -z "${N:-}" ]; then continue; fi
+            # Give every PR a fair chance to go green on its own first.
+            if [ "$CREATED" ">" "$RED_CUTOFF" ]; then continue; fi
+            PARKED=no
+            for L in $PARKED_LABELS; do
+              case ",${LABELS}," in *",${L},"*) PARKED=yes ;; esac
+            done
+            if [ "$PARKED" = yes ]; then continue; fi
+
+            # Latest result per check NAME, plus every name currently failing.
+            ROLL=$(gh pr view "$N" --repo "$REPO" --json statusCheckRollup --jq '
+                    [ .statusCheckRollup[]?
+                      | { name:  (.name // .context),
+                          concl: (.conclusion // .state),
+                          at:    (.startedAt // .completedAt // "1970-01-01T00:00:00Z"),
+                          url:   (.detailsUrl // "") } ]
+                    | group_by(.name) | map(max_by(.at))
+                    | ((map(select(.name == "build")) | first) as $b
+                       | [ ($b.concl // "MISSING"), ($b.at // ""), ($b.url // ""),
+                           (map(select(.concl == "FAILURE")) | map(.name) | join(",")) ]
+                       | @tsv)')
+            B_CONCL=$(printf '%s' "$ROLL" | cut -f1)
+            B_AT=$(printf '%s' "$ROLL" | cut -f2)
+            B_URL=$(printf '%s' "$ROLL" | cut -f3)
+            FAILING=$(printf '%s' "$ROLL" | cut -f4)
+
+            REASON=""
+            if [ "$B_CONCL" = "MISSING" ]; then
+              REASON="no \`build\` check on head \`$(printf '%s' "$SHA" | cut -c1-7)\` — CI never fired, so auto-merge waits on it forever"
+            elif [ -n "$FAILING" ]; then
+              REASON="failing: \`${FAILING}\`"
+            fi
+            if [ -z "$REASON" ]; then continue; fi
+
+            AGE_D=$(( ( NOW - $(date -u -d "$CREATED" +%s) ) / 86400 ))
+            printf -- '- #%s (`%s`, open %sd) — %s\n' "$N" "$BR" "$AGE_D" "$REASON" >> /tmp/stuck.md
+
+            # Re-trigger ONLY a stale red `build` — the documented case where CI
+            # died for a reason unrelated to the PR (freeze, billing, infra),
+            # auto-merge is armed, and nothing exists to nudge it.
+            if [ "$B_CONCL" = "FAILURE" ] && [ -n "$B_AT" ] && [ "$RERUNS" -lt "$RERUN_BUDGET" ]; then
+              B_AGE_H=$(( ( NOW - $(date -u -d "$B_AT" +%s) ) / 3600 ))
+              RUN_ID=$(printf '%s' "$B_URL" | sed -n 's#.*/actions/runs/\([0-9]*\)/.*#\1#p')
+              if [ "$B_AGE_H" -ge "$STALE_H" ] && [ -n "$RUN_ID" ]; then
+                # Only if that run is still the PR's head commit — re-running a
+                # superseded commit proves nothing and costs a full CI run.
+                RUN_SHA=$(gh run view "$RUN_ID" --repo "$REPO" --json headSha --jq '.headSha' 2>/dev/null || echo "")
+                if [ "$RUN_SHA" = "$SHA" ]; then
+                  if gh run rerun "$RUN_ID" --repo "$REPO" --failed 2>/dev/null; then
+                    RERUNS=$(( RERUNS + 1 ))
+                    printf -- '- #%s — `build` red %sh with no newer run; re-ran run %s\n' "$N" "$B_AGE_H" "$RUN_ID" >> /tmp/retried.md
+                  fi
+                fi
+              fi
+            fi
+          done < /tmp/open-prs.tsv
+
+          if [ ! -s /tmp/stuck.md ]; then
+            echo "No open PR has been stuck on a failing or missing check for more than ${RED_AFTER_H}h." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "no stuck PRs"
+            exit 0
+          fi
+
+          {
+            echo "@sffan15-sys @wjduvall-cmd — PR(s) open more than ${RED_AFTER_H}h are blocked on a check that nothing will retry. **This work is not shipping and no agent is coming back for it.**"
+            echo ""
+            cat /tmp/stuck.md
+            echo ""
+            if [ -s /tmp/retried.md ]; then
+              echo "Re-triggered this pass (cap ${RERUN_BUDGET}/day, only for a \`build\` already red ${STALE_H}h+ on the current head):"
+              echo ""
+              cat /tmp/retried.md
+              echo ""
+            fi
+            echo "Why these strand: auto-merge is armed and correctly refuses to land a PR whose checks are not green, and since 2026-07-25 agents no longer babysit their own PRs — the next scheduled run opens a NEW PR instead of fixing the old one. See docs/agents/vault-run-plan.md § Phase 3.5."
+            echo ""
+            echo "Triage: a **missing** \`build\` means CI never fired for that push (a push made with GITHUB_TOKEN does not trigger workflows) — push an empty commit to the branch. A failing \`enable\` is the auto-merge gate, not the content; read its job summary, which says whether it declined deliberately or the gate is misconfigured. A failing \`build\` on a *content-invariant* test (feed tiers, substance spread) usually means the corpus statistics moved, not that the content is bad — that was the cause on 2026-07-28 (#1628), and relaxing the threshold would have been the wrong fix."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+      # Karen filed-what-she-found check (2026-08-11). The cadence check above
+      # sees Actions workflows; the content-lane liveness checks below see "did
+      # a PR appear". Neither can see the failure Karen actually has, which is the
+      # nastiest shape a runner failure takes: she runs, she scans perfectly,
+      # she commits a completely normal-looking run report, her PR merges — and
+      # the findings never reach a ticket.
+      #
+      # It has happened twice. 2026-07-26 (issue #528): step 5 died on
+      # `spawn gh ENOENT`, 623 filable findings discarded. 2026-08-09 (PR
+      # #1850): step 5 died on `401 Bad credentials` in the REST fallback, 597
+      # discarded (P1 49 · P2 505 · P3 43). Both runs looked healthy from
+      # outside — same report file, same PR, same merge — so ~1,220 findings
+      # were destroyed with nothing anywhere saying so.
+      #
+      # `run.mjs` now stamps every report with a machine-readable verdict
+      # (`lib/report.mjs` → `<!-- cie-filing: status=… unfiled=N -->`). This
+      # check is pure grep over the committed report: no API call, no LLM, no
+      # judgment. Three ways it fires:
+      #   - the newest report has NO marker  → the run never reached the end of
+      #     step 5 (i.e. it crashed exactly the way 07-26 and 08-09 did)
+      #   - status is not `ok`               → filing failed or was fatal
+      #   - unfiled > 0                      → findings detected and discarded
+      #
+      # MARKER_EPOCH: reports written before the stamp shipped legitimately
+      # have no marker, so they are not evidence of anything. Only reports
+      # dated on/after this are required to carry one.
+      #
+      # Staleness: Karen is a Wyatt-account cloud routine (docs/agents/runners.md,
+      # `0 9 * * *`), invisible to the Actions cadence check. 72h tolerates two
+      # consecutive misses plus report-PR merge lag (she runs 09:00 UTC; this
+      # runs 14:35 UTC, so a same-day report that hasn't merged yet just leaves
+      # yesterday's as newest — well inside the window).
+      #
+      # No new cron: this rides the existing daily 35 14 trigger, gated the same
+      # way as the other daily-only jobs, and adds nothing to the :00/:30
+      # cluster the header warns about.
+      - name: Karen filed what she found (CIE ticket-filing check)
         if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -331,29 +512,217 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          WINDOW_HOURS=30
-          CUTOFF=$(date -u -d "-${WINDOW_HOURS} hours" +%Y-%m-%dT%H:%M:%SZ)
-          # gh pr list sorts newest-first by default (confirmed empirically) —
-          # 100 comfortably covers this repo's real PR volume (~8/day from
-          # this session's own observation) within a 30h window.
-          RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
-            --json headRefName,createdAt \
-            --jq "[.[] | select(.headRefName | startswith(\"content-shift/\")) | select(.createdAt >= \"$CUTOFF\")] | length")
+          MARKER_EPOCH="2026-08-12"
+          MAX_AGE_HOURS=72
+          ALERT_TITLE="Watchdog: Karen scanned but filed no tickets"
 
-          ALERT_TITLE="Watchdog: Content Shift hasn't produced a PR in ${WINDOW_HOURS}h"
+          # Report filenames are YYYY-MM-DD-cie-run.md, so lexical sort is
+          # chronological. Newest wins.
+          NEWEST=$(ls docs/audits/engine/*-cie-run.md 2>/dev/null | sort | tail -1 || true)
+          if [ -z "$NEWEST" ]; then
+            echo "no CIE run reports in docs/audits/engine — nothing to check yet."
+            exit 0
+          fi
+          RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
+          AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
+          MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
+          echo "newest report: $NEWEST (${AGE_H}h old) marker: ${MARKER:-<none>}"
 
-          if [ "$RECENT" -gt 0 ]; then
-            echo "Content Shift is active — $RECENT PR(s) from a 'content-shift/*' branch in the last ${WINDOW_HOURS}h." > /tmp/alert-body.md
+          PROBLEM=""
+          if [ "$AGE_H" -gt "$MAX_AGE_HOURS" ]; then
+            PROBLEM="Karen's newest run report is \`$(basename "$NEWEST")\` — **${AGE_H}h old** (expected within ${MAX_AGE_HOURS}h). The nightly scan has stopped producing reports."
+          elif [ -z "$MARKER" ]; then
+            # Only meaningful once the stamp exists; older reports predate it.
+            if [ "$RUN_DATE" \> "$MARKER_EPOCH" ] || [ "$RUN_DATE" = "$MARKER_EPOCH" ]; then
+              PROBLEM="\`$(basename "$NEWEST")\` carries **no \`cie-filing\` verdict**, which means the run never reached the end of step 5 — it scanned, wrote this report, and then died before filing. That is the exact shape of the 2026-07-26 (623 findings) and 2026-08-09 (597 findings) losses."
+            else
+              echo "report predates MARKER_EPOCH ($MARKER_EPOCH) — no verdict expected."
+            fi
+          else
+            # Anchored on the leading space: a bare `grep -o 'filed=[0-9]*'`
+            # also matches the tail of `unfiled=597` and returns two values.
+            STATUS=$(echo "$MARKER" | sed -n 's/.*[[:space:]]status=\([a-z-]*\).*/\1/p')
+            UNFILED=$(echo "$MARKER" | sed -n 's/.*[[:space:]]unfiled=\([0-9]*\).*/\1/p')
+            FILED=$(echo "$MARKER" | sed -n 's/.*[[:space:]]filed=\([0-9]*\).*/\1/p')
+            if [ "$STATUS" != "ok" ] || [ "${UNFILED:-0}" -gt 0 ]; then
+              PROBLEM="\`$(basename "$NEWEST")\` reports filing status **\`${STATUS}\`** with **${UNFILED:-?} finding(s) detected and never filed** (${FILED:-0} filed). Those findings are on no ticket and in no queue."
+            fi
+          fi
+
+          if [ -z "$PROBLEM" ]; then
+            echo "Karen's newest run report ($(basename "$NEWEST")) confirms every detected finding reached the tracker, as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
-            echo "content shift OK ($RECENT recent PRs)"
+            echo "karen filing OK"
             exit 0
           fi
 
           {
-            echo "@sffan15-sys @wjduvall-cmd — no PR from a \`content-shift/*\` branch in the last ${WINDOW_HOURS}h. Content Shift runs twice daily (17:00/23:00 UTC, docs/agents/runners.md) — this either means a genuinely quiet news cycle (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
+            echo "@sffan15-sys @wjduvall-cmd — the Content Integrity Engine detected content problems and did not turn them into tickets."
             echo ""
-            echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"content-shift/\"))'\` for the most recent one, and whether a \`content-shift/*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash, per docs/agents/content-shift.md's own diagnosed-failure history)."
+            printf '%b\n' "$PROBLEM"
             echo ""
-            echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
+            echo "**Why this matters more than it looks:** a Karen run that files nothing still commits a normal report and still merges a normal PR, so it is indistinguishable from a healthy night unless something checks this. Roughly 1,220 findings were destroyed this way across 2026-07-26 and 2026-08-09 before anyone noticed."
+            echo ""
+            echo "Check, in order:"
+            echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure."
+            echo "2. Can the runner write to GitHub at all? \`node scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
+            echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab."
+            echo ""
+            echo "Nothing is lost by re-running: the engine is idempotent and fingerprint-deduped, so \`node scripts/content-engine/run.mjs all --create\` re-derives the same findings and files whatever is still missing."
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+
+      # Work-ownership check (2026-08-11). Every other job in this file watches
+      # whether a RUNNER is alive. None of them watch whether the WORK has an
+      # owner, and that is the failure the 2026-08-11 audit actually found: on
+      # the day this shipped, 183 issues were open and 4 had an assignee, both
+      # red launch gates had been "routed" for weeks by comment to a desk whose
+      # own fence excludes their change type, and 9 non-draft PRs were more than
+      # a week old. Nothing anywhere alarmed, because routing is prose — a
+      # sentence in a thread that no runner queries.
+      #
+      # Zero AI, same shape as every other alert here: one persistent issue per
+      # condition via upsert-alert.sh, real email, self-closing when it recovers.
+      #
+      # Budgeted, not zero-thresholded. `.github/work-ownership-budget.json` is
+      # seeded at the backlog that existed when this shipped, so the alarm means
+      # "this got WORSE" rather than "the backlog still exists". An alarm that is
+      # red by construction is one nobody reads — which is the exact way #947 /
+      # #1177 / #1203 / #1224 were lost. The script's own header explains the
+      # rest, including which conditions are measured but not yet enforced.
+      #
+      # No setup-node: the script imports only node builtins plus
+      # scripts/lib/gh.mjs (also builtins-only), so the runner's preinstalled
+      # Node is enough and this step costs no `npm ci`.
+      - name: Work-ownership check (zero AI)
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: work is going unowned"
+          # `set -e` is deliberately off for this line: a non-zero exit IS the
+          # alarm signal, not a failure of the step.
+          node scripts/check-work-ownership.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
+          STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "work-ownership OK"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            # Any other exit code means the check itself broke (unreadable or
+            # invalid budget, a GitHub query returning fields it reasons about
+            # as null). That must not be reported as "no ownership problems".
+            echo "::error::check-work-ownership.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
+      # Content-lane liveness checks (2026-07-23; generalised 2026-08-11).
+      # These lanes are Wyatt-account cloud routines (docs/agents/runners.md),
+      # not GitHub Actions workflows, so they are invisible to the cadence
+      # check above. Confirmed 2026-07-23: Content Shift went silent for a
+      # full day+ with zero trace anywhere (no PR, no stranded branch, no
+      # ticket comment) despite its own charter's rule 8 ("never exit
+      # silently") — that rule is LLM-prompt-compliance-dependent and had
+      # already regressed once. These checks are independent of the agent's
+      # own behavior: they only trust objective gh history.
+      #
+      # Match on the PR HEAD BRANCH prefix, not the title or the shared
+      # `content-shift` LABEL. The label is shared with the photo-enrichment
+      # worker (`content/photo-enrichment-*`), so a label check
+      # false-positives on it. The TITLE prefix "content(shift): " was tried
+      # first (until 2026-07-25) but false-NEGATIVED: Content Shift titles its
+      # PRs inconsistently (`content:`, `content(showgirl):` …), so real
+      # output (#1240, #1494 on 07-24) went undetected and #1449 alarmed from
+      # 07-22 on. The branch prefix is the reliable discriminator.
+      #
+      # WHY THIS IS NOW A LOOP (2026-08-11, Vault Run phase 4 prep). The Vault
+      # Run orchestrator (`vault/<date>`) is being brought in to replace six
+      # standalone lanes including Content Shift. When those standalone
+      # triggers are finally disabled, `content-shift/` PRs stop appearing and
+      # a check hard-keyed to that prefix would alarm every single day. Rather
+      # than flip the prefix — which would leave the still-live standalone
+      # lane unmonitored in the meantime, and silently swap what is being
+      # watched — both prefixes are watched independently, each with its own
+      # window and its own alert title so they self-heal separately.
+      #
+      # **When the standalone lanes are disabled, DELETE the content-shift/
+      # row below.** That is the whole migration: one line, not a rewrite.
+      #
+      # Windows. A lane with NO PR inside its window is considered down.
+      #   content-shift/ = 30h — runs 17:00/23:00 UTC, worst-case gap between
+      #     two scheduled attempts is 18h, so 30h tolerates one missed slot.
+      #   vault/ = 36h — runs once daily at 16:07 UTC. This watchdog job runs
+      #     at 14:35 UTC, so a healthy newest-PR age at check time is ~22.5h;
+      #     36h clears that with ~13h of slop for a late run, while a genuinely
+      #     missed day (age ~46h) still alarms. A missed day is NOT a minor
+      #     event for this lane — the orchestrator carries all six content
+      #     lanes, so one missed run is a whole-day content outage, which is
+      #     precisely what must page. Do not widen this to 48h "to be safe";
+      #     that would hide exactly the failure it exists to catch.
+      #
+      # EXPECT THIS TO FIRE. As of 2026-08-11 the Vault Run has no PR on
+      # 08-01, 08-02 or 08-08 (verified: no PR and no stranded remote branch)
+      # — roughly a 25% miss rate that nobody noticed, because the standalone
+      # lanes were still covering those days. That gap is the finding, not a
+      # false positive.
+      #
+      # Known, accepted limitation: a genuinely idle run (queue empty) also
+      # leaves no PR, so this can fire on a real quiet stretch rather than a
+      # dead routine. Both charters treat an idle exit as itself worth
+      # surfacing, so "quiet day or actually dead?" is a reasonable low-cost
+      # outcome either way — not a bug to engineer around.
+      - name: Content lane liveness checks
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          # check_lane <branch-prefix> <window-hours> <lane name> <cadence prose>
+          # Always returns 0: an alarming lane must not abort the step and take
+          # the other lane's check down with it. The alert issue is the signal.
+          check_lane () {
+            local PREFIX="$1" WINDOW="$2" LANE="$3" CADENCE="$4"
+            local CUTOFF RECENT ALERT_TITLE
+            CUTOFF=$(date -u -d "-${WINDOW} hours" +%Y-%m-%dT%H:%M:%SZ)
+            # gh pr list sorts newest-first by default (confirmed empirically) —
+            # 100 comfortably covers this repo's real PR volume (~8/day) within
+            # any of these windows.
+            RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
+              --json headRefName,createdAt \
+              --jq "[.[] | select(.headRefName | startswith(\"${PREFIX}\")) | select(.createdAt >= \"${CUTOFF}\")] | length")
+
+            ALERT_TITLE="Watchdog: ${LANE} hasn't produced a PR in ${WINDOW}h"
+
+            if [ "$RECENT" -gt 0 ]; then
+              echo "${LANE} is active — ${RECENT} PR(s) from a '${PREFIX}*' branch in the last ${WINDOW}h." > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+              echo "${LANE} OK (${RECENT} recent PRs)"
+              return 0
+            fi
+
+            {
+              echo "@sffan15-sys @wjduvall-cmd — no PR from a \`${PREFIX}*\` branch in the last ${WINDOW}h. ${LANE} runs ${CADENCE} (docs/agents/runners.md) — this either means a genuinely quiet queue (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
+              echo ""
+              echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"${PREFIX}\"))'\` for the most recent one, and whether a \`${PREFIX}*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash)."
+              echo ""
+              echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "${LANE} ALARM (no PR in ${WINDOW}h)"
+            return 0
+          }
+
+          check_lane "vault/"         36 "The Vault Run"  "once daily at 16:07 UTC, carrying all six content lanes"
+          check_lane "content-shift/" 30 "Content Shift"  "twice daily at 17:00/23:00 UTC"

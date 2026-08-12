@@ -15,9 +15,10 @@ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ROOT, loadCorpus, imageIndex } from './lib/corpus.mjs';
 import { rank, dedupe, makeFinding } from './lib/finding.mjs';
-import { writeReport } from './lib/report.mjs';
-import { createIssues, ensureLabels } from './lib/issues.mjs';
+import { writeReport, appendFilingStatus } from './lib/report.mjs';
+import { createIssues, ensureLabels, errText } from './lib/issues.mjs';
 import { tier, visibilityScore } from './lib/visibility.mjs';
+import { contentHash, coverage, loadLedger, saveLedger, selectSlice, LEDGER_REL } from './lib/review-ledger.mjs';
 import { CONFIG } from './config.mjs';
 
 import * as numericDate from './checkers/numeric-date.mjs';
@@ -33,6 +34,7 @@ import * as crosslinkOpportunity from './checkers/crosslink-opportunity.mjs';
 import * as hotThinTopic from './checkers/hot-thin-topic.mjs';
 import * as fashionProducts from './checkers/fashion-products.mjs';
 import * as rumorLifecycle from './checkers/rumor-lifecycle.mjs';
+import * as rumorRedline from './checkers/rumor-redline.mjs';
 import * as socialPostMissing from './checkers/social-post-missing.mjs';
 import * as voice from './checkers/voice.mjs';
 
@@ -41,7 +43,7 @@ import * as voice from './checkers/voice.mjs';
 // imageUrlQuality is network-free, so it runs even under --no-images / egress
 // blocks — it is the fallback that keeps the image-quality gate alive when the
 // byte-level resolution check in imageLiveness can't reach hosts.
-const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, socialPostMissing, voice];
+const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 const log = (...a) => console.log(...a);
 const today = () => new Date().toISOString().slice(0, 10);
@@ -95,6 +97,168 @@ async function scan(opts) {
   log(`\n✓ ${deduped.length} deterministic findings — P0 ${bySev.P0} · P1 ${bySev.P1} · P2 ${bySev.P2} · P3 ${bySev.P3}`);
   log(`  findings → ${join(CONFIG.output.findingsDir, 'deterministic.json')}`);
   log(`  report   → ${reportPath.replace(ROOT, '.')}`);
+}
+
+// ── The agent review layer, on a schedule ────────────────────────────────────
+// `prep-batches` chunks the WHOLE corpus (46 factual + 27 image batches ≈ 20M
+// tokens to review in one night) — that is a full sweep, not a nightly job, and
+// nobody ever ran it. `review-slice` is the nightly form: it picks a bounded
+// slice, changed content first, and `record-review` writes what was covered into
+// the committed ledger so tomorrow's clean-checkout runner knows where it left
+// off. See lib/review-ledger.mjs for why the state has to be committed.
+const SLICE_DIR = () => join(FINDINGS_DIR, 'agent-input', 'slice');
+
+/** Stable identity + change detection for one reviewable item. */
+function factualEntries(items) {
+  return items.map((it) => ({
+    id: it.key,
+    hash: contentHash({ t: it.texts, s: it.sources.map((s) => s.url) }),
+    weight: visibilityScore(it),
+    item: it,
+  }));
+}
+function imageEntries(items) {
+  return imageIndex(items).map((im) => ({
+    id: im.url,
+    hash: contentHash({ c: im.caption, u: im.usedBy.map((u) => u.key).sort() }),
+    weight: im.usedBy.length,
+    image: im,
+  }));
+}
+function safetyEntries(items) {
+  return redlines.candidates(items).map((c) => ({
+    id: `${c.item.key}|${c.field}|${c.kind}|${c.term}`,
+    hash: contentHash(c.excerpt),
+    weight: c.kind === 'illegal-context' ? 3 : c.kind === 'sexualization' ? 2 : 1,
+    cand: c,
+  }));
+}
+
+async function reviewSlice(opts) {
+  const items = await loadCorpus();
+  const ledger = await loadLedger();
+  const dir = SLICE_DIR();
+  await rm(dir, { recursive: true, force: true });
+  await mkdir(dir, { recursive: true });
+
+  const factualSize = opts.factualSize ?? 28;
+  const imageSize = opts.imageSize ?? 40;
+  const nFactual = opts.factualBatches ?? 2;
+  const nImages = opts.imageBatches ?? 1;
+
+  const fEntries = factualEntries(items);
+  const iEntries = imageEntries(items);
+  const sEntries = safetyEntries(items);
+
+  const fPick = selectSlice(fEntries, ledger.factual, nFactual * factualSize);
+  const iPick = selectSlice(iEntries, ledger.images, nImages * imageSize);
+  // Safety is small (~121 candidates) and cheap, but re-classifying an unchanged
+  // candidate set every night is pure waste — so it runs only when something is
+  // new or has changed, and then it covers the WHOLE set in one pass. That keeps
+  // the safety route (redlines.candidates → agent) genuinely unattended without
+  // adding a standing nightly cost.
+  const sPending = selectSlice(sEntries, ledger.safety, sEntries.length);
+  const runSafety = sPending.counts.changed + sPending.counts.new > 0;
+
+  const manifest = { date: today(), factual: [], images: [], safety: null };
+  const pad = (n) => String(n).padStart(3, '0');
+  const byId = (arr) => new Map(arr.map((e) => [e.id, e]));
+
+  const fById = byId(fEntries);
+  for (let i = 0, b = 0; i < fPick.picked.length; i += factualSize, b++) {
+    const chunk = fPick.picked.slice(i, i + factualSize);
+    const name = `factual-${pad(b)}`;
+    const payload = chunk.map(({ id }) => {
+      const it = fById.get(id).item;
+      return {
+        type: it.type, file: it.file, era: it.era, key: it.key, title: it.title,
+        score: visibilityScore(it), tier: tier(it), texts: it.texts,
+        sources: it.sources.map((s) => s.url),
+      };
+    });
+    await writeFile(join(dir, `${name}.json`), JSON.stringify(payload, null, 2), 'utf8');
+    manifest.factual.push({ name, count: chunk.length, ids: chunk.map((c) => c.id), hashes: Object.fromEntries(chunk.map((c) => [c.id, c.hash])), input: `agent-input/slice/${name}.json`, output: `agent-${name}.json` });
+  }
+
+  const iById = byId(iEntries);
+  for (let i = 0, b = 0; i < iPick.picked.length; i += imageSize, b++) {
+    const chunk = iPick.picked.slice(i, i + imageSize);
+    const name = `image-${pad(b)}`;
+    const payload = chunk.map(({ id }) => {
+      const im = iById.get(id).image;
+      return { url: im.url, caption: im.caption, usedBy: im.usedBy.map((u) => ({ key: u.key, caption: u.caption, file: u.file })) };
+    });
+    await writeFile(join(dir, `${name}.json`), JSON.stringify(payload, null, 2), 'utf8');
+    manifest.images.push({ name, count: chunk.length, ids: chunk.map((c) => c.id), hashes: Object.fromEntries(chunk.map((c) => [c.id, c.hash])), input: `agent-input/slice/${name}.json`, output: `agent-${name}.json` });
+  }
+
+  if (runSafety) {
+    const sById = byId(sEntries);
+    const payload = sEntries.map((e) => {
+      const c = sById.get(e.id).cand;
+      return { type: c.item.type, file: c.item.file, key: c.item.key, field: c.field, kind: c.kind, term: c.term, excerpt: c.excerpt };
+    });
+    await writeFile(join(dir, 'safety.json'), JSON.stringify(payload, null, 2), 'utf8');
+    manifest.safety = { name: 'safety', count: sEntries.length, ids: sEntries.map((e) => e.id), hashes: Object.fromEntries(sEntries.map((e) => [e.id, e.hash])), input: 'agent-input/slice/safety.json', output: 'agent-safety.json' };
+  }
+
+  await writeFile(join(dir, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
+
+  const fCov = coverage(fEntries, ledger.factual, today());
+  const iCov = coverage(iEntries, ledger.images, today());
+  log(`review-slice → ${manifest.factual.length} factual batch(es), ${manifest.images.length} image batch(es)${runSafety ? ', 1 safety batch' : ' (safety unchanged — skipped)'}`);
+  log(`  factual picked: ${fPick.counts.changed} changed · ${fPick.counts.new} new · ${fPick.counts.rotation} rotation   (backlog: ${fPick.available.changed} changed, ${fPick.available.new} never reviewed)`);
+  log(`  images  picked: ${iPick.counts.changed} changed · ${iPick.counts.new} new · ${iPick.counts.rotation} rotation   (backlog: ${iPick.available.changed} changed, ${iPick.available.new} never reviewed)`);
+  log(`  coverage: factual ${fCov.reviewed}/${fCov.total} (${fCov.pct}%, ${fCov.stale} stale) · images ${iCov.reviewed}/${iCov.total} (${iCov.pct}%, ${iCov.stale} stale)`);
+  log(`  manifest → ${join(CONFIG.output.findingsDir, 'agent-input', 'slice', 'manifest.json')}`);
+  return manifest;
+}
+
+/**
+ * Mark the slice reviewed. Only batches whose agent actually WROTE an output
+ * file are recorded — a batch that failed, hit a session limit, or was never
+ * dispatched stays unreviewed and comes back to the front of tomorrow's queue.
+ * That is the whole reason this is a separate step and not a side effect of
+ * `review-slice`.
+ */
+async function recordReview() {
+  const manifestPath = join(SLICE_DIR(), 'manifest.json');
+  if (!existsSync(manifestPath)) return log('no slice manifest — run `review-slice` first.');
+  const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+  const ledger = await loadLedger();
+  const date = manifest.date ?? today();
+
+  let recorded = 0;
+  let skipped = 0;
+  const sections = [['factual', manifest.factual ?? []], ['images', manifest.images ?? []], ['safety', manifest.safety ? [manifest.safety] : []]];
+  for (const [section, batches] of sections) {
+    for (const b of batches) {
+      if (!existsSync(join(FINDINGS_DIR, b.output))) {
+        log(`  ⏭ ${b.name}: no ${b.output} — left unreviewed, it returns to the front of the queue`);
+        skipped += b.count;
+        continue;
+      }
+      for (const id of b.ids) ledger[section][id] = { h: b.hashes[id], d: date };
+      recorded += b.count;
+    }
+  }
+  ledger.updated = date;
+  await saveLedger(ledger);
+  log(`record-review → ${recorded} item(s) marked reviewed on ${date}${skipped ? `, ${skipped} left unreviewed` : ''}`);
+  log(`  ledger → ${LEDGER_REL} (commit it — it is the review layer's only durable memory)`);
+  return { recorded, skipped };
+}
+
+async function reviewStatus() {
+  const items = await loadCorpus();
+  const ledger = await loadLedger();
+  const f = coverage(factualEntries(items), ledger.factual, today());
+  const i = coverage(imageEntries(items), ledger.images, today());
+  const s = coverage(safetyEntries(items), ledger.safety, today());
+  log(`agent-review coverage (ledger updated ${ledger.updated ?? 'never'}):`);
+  for (const [name, c] of [['factual', f], ['images ', i], ['safety ', s]]) {
+    log(`  ${name}: ${c.reviewed}/${c.total} reviewed (${c.pct}%) · ${c.never} never · ${c.stale} changed since review · oldest ${c.oldestReviewDays}d`);
+  }
 }
 
 async function prepAgents() {
@@ -258,25 +422,76 @@ async function report() {
     checkers, note,
   });
   log(`report → ${reportPath.replace(ROOT, '.')} (${filable.length} filable, ${routed} routed)`);
+  return reportPath;
 }
 
+const ALARM = (lines) => {
+  const bar = '!'.repeat(78);
+  console.error(`\n${bar}\n${lines.map((l) => `!! ${l}`).join('\n')}\n${bar}\n`);
+};
+
+/**
+ * File the findings. Returns a filing STATUS object rather than throwing —
+ * `all()` needs it to stamp the run report before the process dies, because a
+ * report that doesn't say "these findings were thrown away" is exactly how two
+ * runs (2026-07-26, 2026-08-09) discarded ~1,220 findings and still looked green.
+ */
 async function issues(opts) {
   const merged = existsSync(join(FINDINGS_DIR, 'merged.json'))
     ? JSON.parse(await readFile(join(FINDINGS_DIR, 'merged.json'), 'utf8')).map(makeFinding)
     : dedupe(await loadAllFindings());
-  if (!merged.length) return log('no findings to file — run `scan` (and optionally agent passes + `ingest`) first.');
-  if (opts.create) {
-    log('ensuring labels…');
-    await ensureLabels();
+  if (!merged.length) {
+    log('no findings to file — run `scan` (and optionally agent passes + `ingest`) first.');
+    return { filed: 0, deduped: 0, unfiled: [], fatal: null, detected: 0, dryRun: !opts.create };
   }
-  const res = await createIssues(rank(merged), { dryRun: !opts.create, limit: opts.limit });
+  const detected = merged.filter((f) => f.confidence >= 0.5 || f.escalate).length;
+
+  if (opts.create) {
+    // WRITE PREFLIGHT. The label upsert is the cheapest authenticated write the
+    // engine makes; if it cannot run, nothing downstream can either, and we say
+    // so here instead of discovering it one issue at a time.
+    log('ensuring labels (write preflight)…');
+    try {
+      const partial = await ensureLabels();
+      for (const p of partial) log(`  ⚠ label upsert failed: ${p}`);
+    } catch (e) {
+      const fatal = errText(e);
+      ALARM([
+        'KAREN CANNOT FILE — the scan succeeded and the tickets cannot be written.',
+        `${detected} filable finding(s) will be DISCARDED unless this is fixed and the run repeated.`,
+        '',
+        fatal,
+      ]);
+      process.exitCode = 1; // `issues --create` on its own must fail too, not just `all`.
+      return { filed: 0, deduped: 0, unfiled: [], fatal, detected, dryRun: false };
+    }
+  }
+
+  const res = await createIssues(rank(merged), { dryRun: !opts.create, limit: opts.limit, log });
+  const status = {
+    filed: res.created.length, deduped: res.skipped, unfiled: res.unfiled,
+    fatal: null, detected, dryRun: res.dryRun,
+  };
+
   if (res.dryRun) {
     log(`DRY-RUN — would file ${res.created.length} issues (${res.created.filter((c) => c.rollup).length} rollups). Re-run with --create to file them.`);
     for (const c of res.created.slice(0, 40)) log(`  • ${c.title ?? c.url}${c.rollup ? ` (${c.rollup} instances)` : ''}`);
-  } else {
-    log(`filed ${res.created.length} issues (skipped ${res.skipped} already-existing).`);
-    for (const c of res.created) log(`  • ${c.url ?? c.title}`);
+    return status;
   }
+
+  log(`filed ${res.created.length} issues (skipped ${res.skipped} already-existing).`);
+  for (const c of res.created) log(`  • ${c.url ?? c.title}`);
+  if (res.unfiled.length) {
+    ALARM([
+      `${res.unfiled.length} DETECTED FINDING(S) WERE NOT FILED. They are on no ticket.`,
+      'This run FAILED. Fix the cause below and re-run — the engine is idempotent.',
+      '',
+      ...res.unfiled.slice(0, 15).map((u) => `${u.title} — ${u.reason}`),
+      ...(res.unfiled.length > 15 ? [`…and ${res.unfiled.length - 15} more.`] : []),
+    ]);
+    process.exitCode = 1;
+  }
+  return status;
 }
 
 // One entry point that spins up the whole engine. The DETERMINISTIC layer +
@@ -286,16 +501,73 @@ async function issues(opts) {
 // re-running `all` folds them in. Idempotent throughout — safe to re-run.
 async function all(opts) {
   log('━━ Content Integrity Engine ━━\n');
+
+  // Early write preflight. The scan takes ~20 minutes; knowing in the first
+  // second that this runner cannot file anything is worth one API call. We do
+  // NOT abort on failure — the run report is still worth producing, and step 5
+  // stamps the failure onto it — but the operator sees the alarm up front
+  // instead of at the end of a run that looked fine the whole way.
+  if (opts.create) {
+    try {
+      await ensureLabels();
+      log('[0/5] Write preflight OK — GitHub is writable from this runner.\n');
+    } catch (e) {
+      ALARM([
+        'WRITE PREFLIGHT FAILED — this runner cannot file GitHub issues.',
+        'The scan below will run and the report will be written, but every finding',
+        'it produces will be DISCARDED unless this is fixed and the run repeated.',
+        '',
+        errText(e),
+      ]);
+    }
+  }
+
   log('[1/5] Deterministic scan (facts/redlines/images)…');
   await scan(opts);
   log('\n[2/5] Preparing agent-review batches…');
+  // prepAgents() writes safety-candidates.json — the scoped set the safety agent
+  // must classify. `all()` never called it, so `redlines.candidates()` (the whole
+  // sexualization / illegal-context / privacy routing path) produced nothing on
+  // any unattended run: the deterministic screen ran, and its output went
+  // nowhere. Every unattended run now produces the safety hand-off too.
+  await prepAgents();
   await prepBatches(opts);
   log('\n[3/5] Ingesting all findings (deterministic + any agent output)…');
   await ingest();
   log('\n[4/5] Writing run report…');
-  await report();
+  const reportPath = await report();
   log(`\n[5/5] ${opts.create ? 'Filing GitHub issues…' : 'Issue preview (dry-run)…'}`);
-  await issues(opts);
+
+  // Step 5 is allowed to fail, but it is NEVER allowed to fail quietly. Whatever
+  // happens, the committed run report gets a filing verdict stamped on it (the
+  // watchdog's zero-AI "Karen filed what she found" check reads that stamp), and
+  // a lossy run exits non-zero so the runner, CI, and any shell see a failure.
+  let status;
+  try {
+    status = await issues(opts);
+  } catch (e) {
+    status = { filed: 0, deduped: 0, unfiled: [], fatal: errText(e), detected: 0, dryRun: !opts.create };
+    console.error(e);
+  }
+  if (reportPath) {
+    try {
+      await appendFilingStatus(reportPath, status);
+    } catch (e) {
+      console.error(`could not stamp filing status onto the run report: ${errText(e)}`);
+    }
+  }
+  const lost = status.fatal ? status.detected : status.unfiled.length;
+  // `status.fatal` alone also fails the run: when issues() THREW (rather than
+  // returning a status), `detected` is unknown-zero — a fatal with an unknown
+  // loss must never read as a healthy run.
+  if (!status.dryRun && (lost > 0 || status.fatal)) {
+    ALARM([
+      `RUN FAILED: ${lost} finding(s) detected, ${status.filed} filed, ${lost} DISCARDED.`,
+      'The run report records this. Exiting non-zero so nothing downstream reads this as a healthy run.',
+    ]);
+    process.exitCode = 1;
+  }
+
   log('\n━━ Agent-review layer (the LLM passes) ━━');
   log('The deterministic layer is done. To run the agent passes (factual + image');
   log('review), open this repo in Claude Code and say:');
@@ -308,19 +580,29 @@ async function all(opts) {
 }
 
 const [cmd, ...rest] = process.argv.slice(2);
+const num = (flag, dflt) => (rest.includes(flag) ? Number(rest[rest.indexOf(flag) + 1]) : dflt);
 const opts = {
   noImages: rest.includes('--no-images'),
   claimsOnly: rest.includes('--claims-only'),
   create: rest.includes('--create'),
-  limit: rest.includes('--limit') ? Number(rest[rest.indexOf('--limit') + 1]) : Infinity,
+  limit: num('--limit', Infinity),
+  factualBatches: num('--factual-batches', 2),
+  imageBatches: num('--image-batches', 1),
 };
-const cmds = { all, karen: all, scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues };
+const cmds = {
+  all, karen: all, scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues,
+  'review-slice': reviewSlice, 'record-review': recordReview, 'review-status': reviewStatus,
+};
 (cmds[cmd] ?? (async () => {
   log('Content Integrity Engine — read-only content checker → GitHub issues.\n');
   log('One command (recommended):');
   log('  node scripts/content-engine/run.mjs all            # full pipeline, dry-run issues');
   log('  node scripts/content-engine/run.mjs all --create   # …and file the GitHub issues\n');
-  log('Individual phases:');
-  log('  scan [--no-images] | prep-batches | ingest | report | issues [--create] [--limit N]');
+  log('Deterministic phases:');
+  log('  scan [--no-images] | prep-agents | prep-batches | ingest | report | issues [--create] [--limit N]\n');
+  log('Agent review layer (the LLM half — see docs/agents/runner-prompts/karen-deep-review.md):');
+  log('  review-slice [--factual-batches N] [--image-batches N]   # tonight\'s bounded slice, changed content first');
+  log('  record-review                                            # mark the reviewed slice in the committed ledger');
+  log('  review-status                                            # how much of the corpus the agent layer has ever seen');
 }))(opts)
   .catch((e) => { console.error(e); process.exit(1); });
