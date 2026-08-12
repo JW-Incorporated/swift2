@@ -274,10 +274,13 @@ describe('assignFeedTiers over REAL vault content', () => {
     // "ONE demotion pacing is still allowed" note above). The prior example
     // (shania-twain-scheduling-conflict) stepped to media after the 2026-08-05
     // vault run added two substantial TLOAS moments (the country Hot 100 sweep
-    // and the Gracie Abrams quote) that shifted its cluster's hero spacing;
-    // repointed to a currently-hero unsigned item (the Eras Tour docuseries
-    // page). The population-level guarantee is covered by the next test.
-    const id = 'vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney';
+    // and the Gracie Abrams quote) that shifted its cluster's hero spacing.
+    // Repointed again (issue #616 dedup): removing the duplicate Rock Hall
+    // item and enriching the surviving one shifted TLOAS hero spacing and
+    // stepped the Eras Tour docuseries example to media; repointed to a
+    // currently-hero unsigned item (the album release page). The
+    // population-level guarantee is covered by the next test.
+    const id = 'vault-tloas-the-life-of-a-showgirl-released';
     const it = ALL_VAULT_ITEMS.find((c) => c.id === id)!;
     expect(it.significance).toBeUndefined();
     expect(realTier(id)).toBe('hero');

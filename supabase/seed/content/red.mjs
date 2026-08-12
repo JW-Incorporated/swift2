@@ -1181,6 +1181,11 @@ export default {
       day: 22,
       category: 'business',
       title: "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
+      // Era-timeline milestone + video (issue #616, 2026-07-29): moved here
+      // from the now-deleted duplicate stub `red-wanegbt`, which told the
+      // same single's chart-topping story in two sentences with no sources.
+      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
+      video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
       snippet:
         "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
       sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
@@ -1195,6 +1200,17 @@ export default {
             url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together' },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `red-wanegbt` stub, which a later vault pass had sourced.
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
+            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
         ],
         // Photo-enrichment pass (2026-07-18, #762): single cover viewed — face sits top-left,
         // so the focal point pulls up-left. Added the 2013 Grammys ringmaster performance of
@@ -2499,35 +2515,10 @@ export default {
         context: "Red is maximalist and messy on purpose — dubstep drops next to acoustic confessionals, all of it about one crimson-colored heartbreak.\n\nThe centerpiece, a ten-minute epic, would return years later as a cultural event of its own.",
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "red-wanegbt",
-      year: 2012,
-      month: 8,
-      day: 13,
-      category: "music",
-      title: "“We Are Never Ever Getting Back Together”",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
-      snippet: "The gleeful kiss-off lead single that announced a decisive pop pivot.",
-      video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
-      moment: {
-        sources: [
-          {
-            outlet: 'Stereogum',
-            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
-            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
-            publisher: 'Stereogum',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-        ],
-        context: "The lead single arrived with an eye-roll and a spoken-word bridge, and it shot straight to number one — her first Hot 100 chart-topper.\n\nIt signaled, unmistakably, that the country prodigy was walking toward the center of pop.",
-      },
-    },
+    // Duplicate stub removed (issue #616, 2026-07-29): told the same "We Are
+    // Never Ever Getting Back Together" chart-topping story as the richer,
+    // sourced item above in two sentences with no sources; its milestone
+    // marker (m-red-0) and video field moved there.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
