@@ -24,10 +24,35 @@ describe('deepLinkTarget', () => {
     expect(deepLinkTarget('?era=red', LENSES)).toEqual({ kind: 'era', id: 'red' });
   });
 
-  it('prefers item over lens over era when several are present', () => {
+  it('routes ?song= to a song dossier, carrying the whole composite key', () => {
+    expect(deepLinkTarget('?song=red%3A%3A5%3A%3AAll%20Too%20Well', LENSES)).toEqual({
+      kind: 'song',
+      key: 'red::5::All Too Well',
+    });
+  });
+
+  it('routes ?guide= to an album track guide', () => {
+    expect(deepLinkTarget('?guide=red', LENSES)).toEqual({ kind: 'guide', eraId: 'red' });
+  });
+
+  it('routes ?theories= to an era theories guide', () => {
+    expect(deepLinkTarget('?theories=red', LENSES)).toEqual({ kind: 'theories', eraId: 'red' });
+  });
+
+  it('prefers item > song > guide > theories > lens > era', () => {
     expect(deepLinkTarget('?era=red&lens=fashion&item=x', LENSES)).toEqual({
       kind: 'item',
       id: 'x',
+    });
+    // song outranks the bare guide it stacks on top of.
+    expect(deepLinkTarget('?guide=red&song=red%3A%3A5%3A%3AATW', LENSES)).toEqual({
+      kind: 'song',
+      key: 'red::5::ATW',
+    });
+    expect(deepLinkTarget('?era=red&guide=1989', LENSES)).toEqual({ kind: 'guide', eraId: '1989' });
+    expect(deepLinkTarget('?era=red&theories=1989', LENSES)).toEqual({
+      kind: 'theories',
+      eraId: '1989',
     });
     expect(deepLinkTarget('?era=red&lens=fashion', LENSES)).toEqual({
       kind: 'lens',

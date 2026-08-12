@@ -132,7 +132,7 @@ export function FeedbackButton() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close feedback"
-              className="-mr-1 -mt-1 rounded-md p-1 text-ink-soft transition-colors hover:text-ink"
+              className="era-icon-btn -mr-1 -mt-1 rounded-full"
             >
               <X size={16} />
             </button>
