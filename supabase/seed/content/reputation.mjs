@@ -74,6 +74,10 @@ export default {
         // retrievable URLs), their chart-story art is wire/Getty-only, and no
         // Commons photo depicts the sales week itself. The album cover is the
         // artifact the 1.2M buyers bought; focal point set by eye this run.
+        // Re-reviewed 2026-08-01 (#762): searched again for a second image
+        // (Time 100 gala, TIME cover, era press) — nothing on an outlet-CDN
+        // or Commons host tied to this specific Nov. 2017 chart week. Stays
+        // reviewed-sparse at one image.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
@@ -91,7 +95,7 @@ export default {
         rumors: [
           {
             claim:
-              'Fans and music press kept expecting reputation (Taylor\'s Version) — or at least its unreleased Vault tracks — to eventually surface, after Swift wrote in her May 2025 masters-buyback letter that the album\'s Vault tracks would one day "hatch," while confirming she\'d "not even re-recorded a quarter of it." No reputation re-recording or Vault release has been announced.',
+              'Fans and music press kept expecting reputation (Taylor\'s Version) — or at least its unreleased Vault tracks — to eventually surface, after Taylor wrote in her May 2025 masters-buyback letter that the album\'s Vault tracks would one day "hatch," while confirming she\'d "not even re-recorded a quarter of it." No reputation re-recording or Vault release has been announced.',
             reportedBy: 'Rolling Stone (Angie Martoccio)',
             reportedOn: '2025-05-30',
             status: 'unconfirmed',
@@ -102,7 +106,7 @@ export default {
           },
           {
             claim:
-              'Among the specific songs fans theorized could land on a reputation re-recording, the most persistent was "This Is What You Came For" — the 2016 Calvin Harris/Rihanna hit Swift secretly co-wrote as "Nils Sjöberg" — alongside the Zayn duet "I Don\'t Wanna Live Forever," with fans reading her acoustic Eras Tour surprise-song performances of both as tea leaves.',
+              'Among the specific songs fans theorized could land on a reputation re-recording, the most persistent was "This Is What You Came For" — the 2016 Calvin Harris/Rihanna hit Taylor secretly co-wrote as "Nils Sjöberg" — alongside the Zayn duet "I Don\'t Wanna Live Forever," with fans reading her acoustic Eras Tour surprise-song performances of both as tea leaves.',
             reportedBy: 'Capital FM',
             reportedOn: '2025-09-30',
             status: 'unconfirmed',
@@ -110,6 +114,22 @@ export default {
             note: 'Pure fan speculation about an unannounced tracklist, aggregated by Capital — carried at the lowest source tier. Resolves if a reputation Vault release confirms or excludes these songs, and fades if no such release materializes. No location.',
             sourceTier: 'social',
             lastCheckedOn: '2026-07-25',
+          },
+          {
+            // Rumor Desk 2026-07-27: a third, later data point on the same
+            // reputation Taylor's Version question — a concrete, dated December
+            // 2025 easter-egg event, distinct from the May-2025 masters-letter
+            // entry and the fan-tracklist theory above. Forward-looking,
+            // unannounced-music speculation (allowed by the redlines); no location.
+            claim:
+              'When reputation arrived on Apple Music in Dolby Atmos in December 2025, Taylor had quietly altered two lyrics from the 2017 originals — sharpening a line in "I Did Something Bad" and swapping a word in "Delicate" — and fans and music press read the tweaks as an Easter-egg tease that reputation (Taylor\'s Version) or its unreleased Vault tracks were finally near.',
+            reportedBy: 'Rolling Stone (Maya Georgi)',
+            reportedOn: '2025-12-12',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-lyric-changes-explained-1235483070/',
+            note: 'The lyric edits are documented; the re-record tease is the unconfirmed read. The coverage cuts both ways — Taylor is on record calling reputation the one early album she thought "couldn\'t be improved upon by redoing it," while still promising its Vault tracks would one day "hatch." Resolves on an announced re-record or Vault release; fades if the window stays empty. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-27',
           },
         ],
       },
@@ -211,30 +231,46 @@ export default {
           // All 4 below curl 200 image/jpeg, downloaded and vision-confirmed.
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956230118.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Three faces level
+            // across the upper third; Taylor is the center figure.
+            focalPoint: '50% 28%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
-            caption: 'Camila Cabello, Swift, and Charli XCX backstage at University of Phoenix Stadium before opening night, May 8, 2018.',
+            caption: 'Camila Cabello, Taylor, and Charli XCX backstage at University of Phoenix Stadium before opening night, May 8, 2018.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956319166.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Three singers mid-song,
+            // faces in the upper fifth, Taylor centered between the other two.
+            focalPoint: '48% 20%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
-            caption: 'The three-way "Shake It Off" that closed the opening set, Cabello and Charli XCX joining Swift on stage.',
+            caption: 'The three-way "Shake It Off" that closed the opening set, Cabello and Charli XCX joining Taylor on stage.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956299498.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Close crop, her
+            // face fills the top of frame, arms raised on either side.
+            focalPoint: '48% 15%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
-            caption: 'Swift performs opening night of the reputation Stadium Tour, May 8, 2018.',
+            caption: 'Taylor performs opening night of the reputation Stadium Tour, May 8, 2018.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x636). The animatronic
+            // snake head fills the center-right of frame.
+            focalPoint: '55% 35%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'The tour\'s giant animatronic snake, "Karyn" — the mascot the reclaimed symbol became a year after the Kimye leak.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x800 downsized from
+            // 5472x3648). Taylor performs front-right on the gilded stage
+            // platform, lower-right of frame; the snake set dominates the rest.
+            focalPoint: '68% 55%',
             credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Golden snake set pieces frame the stage during "Look What You Made Me Do," Seattle, May 22, 2018.',
             kind: 'archival',
@@ -285,10 +321,50 @@ export default {
     {
       year: 2017,
       month: 8,
+      day: 17,
+      category: 'music',
+      significance: 'defining', // reputation's pivot: the deliberate year-long disappearance the album answers, anchored on the eve of the Aug-18 blackout that ended it (#1238)
+      relatedIds: [
+        // The re-emergence that ended the silence…
+        'moment:vault-reputation-the-snake-video-that-announced-reputation',
+        // …and the July 2016 pile-on (told in the 1989 era) that caused it.
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+      ],
+      title: 'The year of silence',
+      snippet:
+        'After the summer 2016 pile-on, the most-watched woman in pop did the one thing no one expected — she vanished, and stayed gone for roughly a year.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "After the summer 2016 fallout — the leaked \"Famous\" call, Kim Kardashian's \"National Snake Day,\" the snake emojis flooding every post until Instagram tested a comment filter on her page — Taylor did the one thing nobody expected of the most-watched pop star alive: she stopped showing up. Through late 2016 and into 2017 there were no interviews, no magazine covers, no award-show appearances, no new music. The most documented woman in pop simply went quiet and let the noise run itself out without her in the frame.\n\nShe later framed the withdrawal as deliberate. \"Nobody physically saw me for a year,\" she says in the 2020 documentary Miss Americana, \"and I thought that that was what they wanted\" — a retreat that, in her telling, woke her up from \"constantly feeling that I was fighting for people's respect.\" The silence was not empty: out of view she was building the record that would answer it, reputation, which arrived November 10, 2017. The disappearance is the setup the whole era pays off — the reason the snake, when it finally slithered back onscreen that August, read as armor instead of apology.",
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Reputation_(album)',
+          },
+        ],
+        // Photo pass (#1238, this run): a year defined by her *not* being
+        // photographed has no honest representative image — the same reasoning
+        // the snake-teaser item below records for its social-only window. Ship
+        // text; let the photo-sparsity checker route it to Photo Enrichment
+        // rather than force an off-subject or misrepresenting crop (charter 3b).
+        photos: [],
+      },
+    },
+    {
+      year: 2017,
+      month: 8,
       day: 21,
       category: 'release',
       significance: 'defining', // the visual rebirth after the Kimye-leak silence; reputation's whole aesthetic starts here (docs/decisions.md, 2026-07-19)
       relatedIds: [
+        // The year-long silence this reveal ended (#1238).
+        'moment:vault-reputation-the-year-of-silence',
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
         // Cross-link (candidate #1027): the Showgirl portraits — Mert & Marcus's
@@ -344,12 +420,18 @@ export default {
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '55% 35%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'The reclaimed snake\'s full-size payoff, a year later: the reputation Stadium Tour\'s animatronic mascot, fans nicknamed her Karyn.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '68% 55%',
             credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Golden snake set pieces on the reputation Stadium Tour, Seattle, May 2018 — the visual language this teaser opened.',
             kind: 'archival',
@@ -423,7 +505,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/MBR2kxt7RK8/maxresdefault.jpg',
       moment: {
         context:
-          "Released March 30, 2018 as a Spotify exclusive — initially viewable only in the U.S., U.K., Sweden, and Latin America — the vertical video was shot by Swift herself in a single unbroken take, lip-syncing and twirling through a wooded clearing. Fans zeroed in on one blink-and-miss gesture: her clutching a necklace with a \"J\" pendant, read as a nod to Joe Alwyn.\n\nWhere Joseph Kahn's original video was a dance-heavy fantasy about turning invisible, this one was deliberately homemade — and it finally hit YouTube for everyone on May 15.",
+          "Released March 30, 2018 as a Spotify exclusive — initially viewable only in the U.S., U.K., Sweden, and Latin America — the vertical video was shot by Taylor herself in a single unbroken take, lip-syncing and twirling through a wooded clearing. Fans zeroed in on one blink-and-miss gesture: her clutching a necklace with a \"J\" pendant, read as a nod to Joe Alwyn.\n\nWhere Joseph Kahn's original video was a dance-heavy fantasy about turning invisible, this one was deliberately homemade — and it finally hit YouTube for everyone on May 15.",
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -530,7 +612,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
       moment: {
         context:
-          'The sparkling, snake-themed bodysuit-and-boots silhouette she wore for the "Look What You Made Me Do" staging became one of the tour\'s signature images — the era\'s reclaimed insult rendered as stagewear, captured here mid-song in Seattle.\n\nThe look outlived the tour itself. When the Eras Tour revived reputation as a full act in 2023, Roberto Cavalli built its black-and-red sequined snake bodysuit in the same mold — and that costume went unchanged for 131 shows, the only Eras Tour look that never got a variation, until a black-and-gold rework debuted at Miami\'s Hard Rock Stadium on October 18, 2024. Stylist Joseph Cassell\'s team raced the calendar to finish the new version, an origin story told in the third episode of The End of an Era; Swift\'s own verdict on the swap, posted to Instagram: "I got some new outfits, and it\'s always nice when the crowd notices that."',
+          'The sparkling, snake-themed bodysuit-and-boots silhouette she wore for the "Look What You Made Me Do" staging became one of the tour\'s signature images — the era\'s reclaimed insult rendered as stagewear, captured here mid-song in Seattle.\n\nThe look outlived the tour itself. When the Eras Tour revived reputation as a full act in 2023, Roberto Cavalli built its black-and-red sequined snake bodysuit in the same mold — and that costume went unchanged for 131 shows, the only Eras Tour look that never got a variation, until a black-and-gold rework debuted at Miami\'s Hard Rock Stadium on October 18, 2024. Stylist Joseph Cassell\'s team raced the calendar to finish the new version, an origin story told in the third episode of The End of an Era; Taylor\'s own verdict on the swap, posted to Instagram: "I got some new outfits, and it\'s always nice when the crowd notices that."',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -728,7 +810,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'Worn to the 2018 Billboard Music Awards — a rare red-carpet stop mid-tour, which she called "my first award show in a few years" — the custom Atelier Versace gown paired scattered appliques at the bust, shoulder, and hips with Casadei shoes.\n\nDonatella Versace confirmed the build time on Instagram: "This gown took more than 800 hours to bring to life." Swift won Top Female Artist that night, then thanked the house with an era-appropriate word choice, describing the feathered pink design as "delicate."',
+          'Worn to the 2018 Billboard Music Awards — a rare red-carpet stop mid-tour, which she called "my first award show in a few years" — the custom Atelier Versace gown paired scattered appliques at the bust, shoulder, and hips with Casadei shoes.\n\nDonatella Versace confirmed the build time on Instagram: "This gown took more than 800 hours to bring to life." Taylor won Top Female Artist that night, then thanked the house with an era-appropriate word choice, describing the feathered pink design as "delicate."',
         sources: [
           {
             outlet: 'Billboard',
@@ -773,7 +855,7 @@ export default {
       thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100',
       moment: {
         context:
-          'Jessica Jones, Swift\'s longtime tour costume designer, reworked the "...Ready For It?" opening-number look partway through the run — swapping in a bodysuit-and-jacket set covered edge to edge in cutout glitter patterning, which the Taylor Swift Style archive dates to the tour\'s Chicago stop in early June.\n\nThe number it dressed was the show\'s detonation point: after opening sets from Camila Cabello and Charli XCX, the main set opened with "...Ready for It?". The Soldier Field stand where the new look debuted was itself a two-night, 105,208-ticket engagement on June 1-2, 2018 — the kind of scale that made a mid-run costume refresh legible from the last row.',
+          'Jessica Jones, Taylor\'s longtime tour costume designer, reworked the "...Ready For It?" opening-number look partway through the run — swapping in a bodysuit-and-jacket set covered edge to edge in cutout glitter patterning, which the Taylor Swift Style archive dates to the tour\'s Chicago stop in early June.\n\nThe number it dressed was the show\'s detonation point: after opening sets from Camila Cabello and Charli XCX, the main set opened with "...Ready for It?". The Soldier Field stand where the new look debuted was itself a two-night, 105,208-ticket engagement on June 1-2, 2018 — the kind of scale that made a mid-run costume refresh legible from the last row.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -942,7 +1024,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shawn-mendes-live-2018-u-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'Worn in Pasadena on May 18, 2018, when Shawn Mendes joined the tour for "There\'s Nothing Holdin\' Me Back": a Jessica Jones snake-pattern bodysuit under a red camo sequined jacket with buckle detailing, styled with custom Louboutin boots.\n\nThe cameo it dressed was one of the North American leg\'s biggest surprise-guest gets. Swift had teased it that afternoon with a rehearsal clip, then opened Mendes\' hit herself — singing the first verse solo before calling him out — at the fourth show of the tour, night one of a two-night Rose Bowl stand that sold 118,084 tickets.',
+          'Worn in Pasadena on May 18, 2018, when Shawn Mendes joined the tour for "There\'s Nothing Holdin\' Me Back": a Jessica Jones snake-pattern bodysuit under a red camo sequined jacket with buckle detailing, styled with custom Louboutin boots.\n\nThe cameo it dressed was one of the North American leg\'s biggest surprise-guest gets. Taylor had teased it that afternoon with a rehearsal clip, then opened Mendes\' hit herself — singing the first verse solo before calling him out — at the fourth show of the tour, night one of a two-night Rose Bowl stand that sold 118,084 tickets.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -993,7 +1075,7 @@ export default {
       thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100',
       moment: {
         context:
-          'Closing the show over "Call It What You Want" into "This Is Why We Can\'t Have Nice Things," Taylor wore a custom Jessica Jones gown styled with Christian Louboutin boots.\n\nThe block it dressed carried the night\'s thesis statement: after the final song, the stadium screens signed off with the line "and in the death of her reputation, she felt truly alive" — the sentence Billboard\'s opening-night review singled out as the show\'s "very perfect and poetic finish," and the closest thing the no-interviews era ever gave fans to an artist\'s statement.',
+          'Closing the show over "Call It What You Want" into "This Is Why We Can\'t Have Nice Things," Taylor wore a custom Jessica Jones gown styled with Christian Louboutin boots.\n\nThe block it dressed carried the night\'s thesis statement: after the final song, the stadium screens signed off with the line "and in the death of her reputation, she felt truly alive" — the sentence that became the era\'s unofficial thesis statement — the show\'s "very perfect and poetic finish," per Billboard\'s opening-night review — and the closest thing the no-interviews era ever gave fans to an artist\'s statement.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -1051,6 +1133,9 @@ export default {
       month: 5,
       day: 30,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the private Turks and Caicos
+      // Fourth of July, the same tour break's low-key stretch.
+      relatedIds: ['moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic'],
       title: 'A fish-and-chips pub date at The Flask, no red carpet in sight',
       snippet:
         'Paparazzi caught Taylor and Joe Alwyn leaving The Flask, a traditional North London pub, after fish and chips and a pint each — one of only a handful of public sightings during a deliberately private relationship.',
@@ -1059,7 +1144,7 @@ export default {
         'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2018/05/swift-lunch/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london-04.jpg',
       moment: {
         context:
-          'Photographed leaving The Flask, a centuries-old pub in North London, on May 30, 2018, mid-way through a break in the reputation Stadium Tour. Swift wore a striped tank top and skirt; Alwyn kept it casual in a white T-shirt and jeans.\n\nThe two spent about 45 minutes inside over fish and chips and pints of London Pride before leaving in a waiting car — one of the rare unstaged sightings the notoriously private couple allowed during this era.',
+          'Photographed leaving The Flask, a centuries-old pub in North London, on May 30, 2018, mid-way through a break in the reputation Stadium Tour. Taylor wore a striped tank top and skirt; Alwyn kept it casual in a white T-shirt and jeans.\n\nThe two spent about 45 minutes inside over fish and chips and pints of London Pride before leaving in a waiting car — one of the rare unstaged sightings the notoriously private couple allowed during this era.',
         sources: [
           {
             outlet: 'W Magazine',
@@ -1091,6 +1176,14 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      relatedIds: [
+        'moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        // Cross-link (Stage 3, 2026-08-10): the low-key London pub date, same
+        // tour break.
+        'moment:vault-reputation-a-fish-and-chips-pub-date-at-the-flask-no-red-carpet-in-sigh',
+      ],
       year: 2018,
       month: 7,
       day: 4,
@@ -1103,7 +1196,7 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/201869/rs_634x1024-180709130925-634-Taylor-Swift-Joe-Alwayn-Turks-And-Caicos-JR-070918.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top',
       moment: {
         context:
-          "During a break in the reputation Stadium Tour's summer leg, Swift and Alwyn spent the July 4, 2018 weekend at an oceanfront villa in Turks and Caicos rather than hosting her usual Rhode Island gathering.\n\nPaparazzi photographed the couple walking the shoreline hand in hand, swimming, and snorkeling; an eyewitness told E! News they kept a low profile the entire stay, splitting time between the villa's beach, pool, and gym.",
+          "During a break in the reputation Stadium Tour's summer leg, Taylor and Alwyn spent the July 4, 2018 weekend at an oceanfront villa in Turks and Caicos rather than hosting her usual Rhode Island gathering.\n\nPaparazzi photographed the couple walking the shoreline hand in hand, swimming, and snorkeling; an eyewitness told E! News they kept a low profile the entire stay, splitting time between the villa's beach, pool, and gym.",
         sources: [
           {
             outlet: 'E! Online',
@@ -1135,7 +1228,7 @@ export default {
         'https://s.yimg.com/ny/api/res/1.2/8s7AwHFL8l1fcEO1Nzrakg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02MjQ7Y2Y9d2VicA--/https://media.zenfs.com/en-US/homerun/elle_570/932921f24da6dde86e34cff9ab62a007',
       moment: {
         context:
-          'On August 22, 2018, during a five-day break from touring, Swift and Alwyn dined at Hawksmoor Seven Dials in Covent Garden, arriving around 8 p.m. with security and leaving hand in hand roughly two and a half hours later.\n\nThey reportedly shared fillet steaks with spinach and mac and cheese, toasting with wine in a private section of the restaurant. Swift wore an off-the-shoulder green dress and a necklace bearing Alwyn\'s initial.',
+          'On August 22, 2018, during a five-day break from touring, Taylor and Alwyn dined at Hawksmoor Seven Dials in Covent Garden, arriving around 8 p.m. with security and leaving hand in hand roughly two and a half hours later.\n\nThey reportedly shared fillet steaks with spinach and mac and cheese, toasting with wine in a private section of the restaurant. Taylor wore an off-the-shoulder green dress and a necklace bearing Alwyn\'s initial.',
         sources: [
           {
             outlet: 'E! Online',
@@ -1165,13 +1258,13 @@ export default {
       category: 'sighting',
       title: 'Skipping the red carpet to support Joe Alwyn at the New York Film Festival',
       snippet:
-        "Swift avoided The Favourite's red carpet entirely, watching from inside Lincoln Center and catching up with Jennifer Lawrence, then left hand in hand with Alwyn through a back exit.",
+        "Taylor avoided The Favourite's red carpet entirely, watching from inside Lincoln Center and catching up with Jennifer Lawrence, then left hand in hand with Alwyn through a back exit.",
       sourceUrl: 'https://www.wmagazine.com/story/taylor-swift-joe-alwyn-the-favourite-premiere',
       thumbnailUrl:
         'https://imgix.bustle.com/wmag/2018/09/29/5baf8bb27359e94f4fc119bb_GettyImages-1042761566.jpg?w=414&h=531&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'On September 28, 2018, Swift attended the New York Film Festival premiere of The Favourite to support Alwyn, who co-starred alongside Emma Stone and Rachel Weisz. She skipped the red carpet where her boyfriend posed with castmates, instead watching the screening from inside Lincoln Center\'s theater, where she was seen chatting with Jennifer Lawrence.\n\nPhotographers caught the couple leaving hand in hand through a side exit afterward, in a sparkling red-and-black sequined dress, Jimmy Choo pumps, and Eva Fehren jewelry.',
+          'On September 28, 2018, Taylor attended the New York Film Festival premiere of The Favourite to support Alwyn, who co-starred alongside Emma Stone and Rachel Weisz. She skipped the red carpet where her boyfriend posed with castmates, instead watching the screening from inside Lincoln Center\'s theater, where she was seen chatting with Jennifer Lawrence.\n\nPhotographers caught the couple leaving hand in hand through a side exit afterward, in a sparkling red-and-black sequined dress, Jimmy Choo pumps, and Eva Fehren jewelry.',
         sources: [
           {
             outlet: 'W Magazine',
@@ -1195,14 +1288,15 @@ export default {
       month: 4,
       day: 22,
       category: 'sighting',
+      relatedIds: ['moment:vault-lover-the-pastel-turn-me-ends-the-reputation-black'],
       title: 'A denim-themed birthday party for Gigi Hadid — sans denim',
       snippet:
-        "Swift made a rare public appearance at best friend Gigi Hadid's 24th birthday party in New York, skipping the party's all-denim dress code for a red checkered blazer and floral dress.",
+        "Taylor made a rare public appearance at best friend Gigi Hadid's 24th birthday party in New York, skipping the party's all-denim dress code for a red checkered blazer and floral dress.",
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-gigi-hadid-birthday-party-photos-8508341/',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-nyc-April-22-2019-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          "Swift attended Gigi Hadid's 24th birthday celebration at L'Avenue at Saks in New York City on April 22, 2019, alongside guests including Martha Hunt, Hailee Steinfeld, Ashley Graham, and Hadid's mother Yolanda.\n\nPhotographers caught her arriving in a red checkered blazer over a floral dress, having opted out of the party's denim theme. Appearances at friends' private events were among the only places she was reliably photographed during this deliberately low-profile stretch.",
+          "Taylor attended Gigi Hadid's 24th birthday celebration at L'Avenue at Saks in New York City on April 22, 2019, alongside guests including Martha Hunt, Hailee Steinfeld, Ashley Graham, and Hadid's mother Yolanda.\n\nPhotographers caught her arriving in a red checkered blazer over a floral dress, having opted out of the party's denim theme. Appearances at friends' private events were among the only places she was reliably photographed during this deliberately low-profile stretch.",
         sources: [
           {
             outlet: 'Billboard',
@@ -1280,7 +1374,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At the iHeartRadio reputation release-party special the night the album came out, Taylor explained why Delicate — track five — marks the record\'s turn from bombastic to vulnerable: "Could something fake, like your reputation, affect something real, like somebody getting to know you?" It\'s the moment she\'s said the album starts asking what happens when you meet someone you actually want in your life.\n\nThe confession became the era\'s sleeper hit. Sent to pop radio on March 12, 2018 as the album\'s fourth single, it peaked at No. 12 on the Hot 100 but went No. 1 on three separate Billboard airplay charts — Pop Songs, Adult Pop Songs, and Adult Contemporary — and Joseph Kahn\'s video, with Swift dancing unwatched through the Millennium Biltmore Hotel after a magic note turns her invisible, premiered at the iHeartRadio Music Awards on March 11.',
+          'At the iHeartRadio reputation release-party special the night the album came out, Taylor explained why Delicate — track five — marks the record\'s turn from bombastic to vulnerable: "Could something fake, like your reputation, affect something real, like somebody getting to know you?" It\'s the moment she\'s said the album starts asking what happens when you meet someone you actually want in your life.\n\nThe confession became the era\'s sleeper hit. Sent to pop radio on March 12, 2018 as the album\'s fourth single, it peaked at No. 12 on the Hot 100 but went No. 1 on three separate Billboard airplay charts — Pop Songs, Adult Pop Songs, and Adult Contemporary — and Joseph Kahn\'s video, with Taylor dancing unwatched through the Millennium Biltmore Hotel after a magic note turns her invisible, premiered at the iHeartRadio Music Awards on March 11.',
         sources: [
           {
             outlet: 'iHeartRadio',
@@ -1331,7 +1425,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On February 10, 2019, The Favourite won seven BAFTAs — including Outstanding British Film, Best Actress for Olivia Colman, and Best Supporting Actress for Rachel Weisz — with Alwyn in the cast as Samuel Masham.\n\nSwift skipped the ceremony and red carpet entirely, surfacing at the after-party at his side in a flowing Stella McCartney gown, and let Instagram do the talking: "AHHHHH @thefavouritemovie just won 7 @bafta awards !!! Bout to go give some high fives."',
+          'On February 10, 2019, The Favourite won seven BAFTAs — including Outstanding British Film, Best Actress for Olivia Colman, and Best Supporting Actress for Rachel Weisz — with Alwyn in the cast as Samuel Masham.\n\nTaylor skipped the ceremony and red carpet entirely, surfacing at the after-party at his side in a flowing Stella McCartney gown, and let Instagram do the talking: "AHHHHH @thefavouritemovie just won 7 @bafta awards !!! Bout to go give some high fives."',
         sources: [
           {
             outlet: 'Billboard',
@@ -1352,7 +1446,7 @@ export default {
             // Both faces in the upper third of the square; bias upward.
             focalPoint: '48% 28%',
             credit: 'News Licensing / MEGA, via E! Online',
-            caption: 'Leaving the BAFTAs after-party hand in hand, February 10, 2019 — Swift in the Stella McCartney gown.',
+            caption: 'Leaving the BAFTAs after-party hand in hand, February 10, 2019 — Taylor in the Stella McCartney gown.',
             kind: 'primary',
           },
         ],
@@ -1371,7 +1465,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 14, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."\n\nFans got it a week before the album: released November 3, 2017 as the rollout\'s final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Swift in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album\'s back half describes.',
+          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 14, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."\n\nFans got it a week before the album: released November 3, 2017 as the rollout\'s final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Taylor in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album\'s back half describes.',
         sources: [
           {
             outlet: 'iHeartRadio',
@@ -1444,7 +1538,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          "The reputation Stadium Tour's North American leg (May 8-Oct. 6, 2018) grossed $266.1 million from 2,068,399 tickets over 38 shows, breaking the U.S. touring record the Rolling Stones had held since their 2005-07 A Bigger Bang tour grossed $245 million — across 70 shows, nearly double what Swift needed.\n\nThe margin showed up venue by venue: the run averaged $7 million and 54,432 tickets a night, and her three consecutive July dates at MetLife Stadium alone grossed $22 million on 165,654 tickets, beating the venue record she'd set there herself on The 1989 World Tour. Billboard's ledger put her total domestic gross since 2009's Fearless Tour at $687.7 million — over $140 million more than any other artist in that period.",
+          "The reputation Stadium Tour's North American leg (May 8-Oct. 6, 2018) grossed $266.1 million from 2,068,399 tickets over 38 shows, breaking the U.S. touring record the Rolling Stones had held since their 2005-07 A Bigger Bang tour grossed $245 million — across 70 shows, nearly double what Taylor needed.\n\nThe margin showed up venue by venue: the run averaged $7 million and 54,432 tickets a night, and her three consecutive July dates at MetLife Stadium alone grossed $22 million on 165,654 tickets, beating the venue record she'd set there herself on The 1989 World Tour. Her total domestic gross since 2009's Fearless Tour: $687.7 million — over $140 million more than any other artist in that period, per Billboard's own ledger.",
         sources: [
           {
             outlet: 'Billboard',
@@ -1560,10 +1654,13 @@ export default {
       slug: 'rep-lwymmd-video-youtube-record',
       significance: 'notable', // a real streaming record and the era's single most-discussed visual statement (docs/decisions.md, 2026-07-19)
       // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
-      // moment.
+      // moment. One-directional to the song-backstory moment (2026-08-03):
+      // that moment is already at the ~4-link cap, so this side carries the
+      // pointer instead of bumping a curated link there.
       relatedIds: [
         'moment:vault-reputation-the-snake-video-that-announced-reputation',
         'moment:vault-reputation-zombie-makeup-for-look-what-you-made-me-do',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       year: 2017,
       month: 8,
@@ -1635,7 +1732,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The minute-long clip scored footage of the teams taking the field during the ABC/ESPN broadcast, with the full song hitting streaming that night and radio the next morning.\n\nThe album\'s opening track became its second single officially on October 24, 2017, peaking at No. 4 on the Hot 100, and Joseph Kahn\'s video — a human Swift dueling her own cyborg double inside a neon compound — followed on October 26. Dropping a pop single through a football telecast read very differently six years later, once the NFL became part of her story.',
+          'The minute-long clip scored footage of the teams taking the field during the ABC/ESPN broadcast, with the full song hitting streaming that night and radio the next morning.\n\nThe album\'s opening track became its second single officially on October 24, 2017, peaking at No. 4 on the Hot 100, and Joseph Kahn\'s video — a human Taylor dueling her own cyborg double inside a neon compound — followed on October 26. Dropping a pop single through a football telecast read very differently six years later, once the NFL became part of her story.',
         sources: [
           {
             outlet: 'Variety',
@@ -1680,7 +1777,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/wIft-t-MQuE/hqdefault.jpg',
             credit: 'YouTube / Taylor Swift',
-            caption: "From Joseph Kahn's \"...Ready for It?\" video, released October 26, 2017 — human Swift eye to eye with her cyborg double.",
+            caption: "From Joseph Kahn's \"...Ready for It?\" video, released October 26, 2017 — human Taylor eye to eye with her cyborg double.",
             kind: 'archival',
             focalPoint: '54% 50%',
           },
@@ -1708,7 +1805,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The third track released ahead of reputation swapped the vengeful lead-single mode for flustered crush comedy, and it debuted at No. 13 on the Hot 100 — proof the rollout\'s pull didn\'t depend on a revenge narrative.\n\nThe one-word cameo came about after Swift played a demo for Lively and Reynolds and their toddler kept repeating "gorgeous" — the credit made her the youngest name in the album\'s liner notes, and the kind of decodable detail (which friend? whose baby?) that kept fans treating every liner-note line of this era as a puzzle.',
+          'The third track released ahead of reputation swapped the vengeful lead-single mode for flustered crush comedy, and it debuted at No. 13 on the Hot 100 — proof the rollout\'s pull didn\'t depend on a revenge narrative.\n\nThe one-word cameo came about after Taylor played a demo for Lively and Reynolds and their toddler kept repeating "gorgeous" — the credit made her the youngest name in the album\'s liner notes, and the kind of decodable detail (which friend? whose baby?) that kept fans treating every liner-note line of this era as a puzzle.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1759,6 +1856,9 @@ export default {
     },
     {
       slug: 'rep-secret-sessions',
+      // Cross-link (vault-run 2026-08-06): the 1989 Secret Sessions — where the
+      // living-room-listening-party tradition began.
+      relatedIds: ['moment:vault-1989-the-secret-sessions-89-fans-at-a-time-in-her-living-rooms'],
       year: 2017,
       month: 10,
       day: 13,
@@ -1770,7 +1870,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Reviving the 1989 rollout ritual, Swift selected fans from social media herself and talked through each track before playing it. For an album rolled out with almost no press interviews, the living-room listening parties were the promotional strategy.\n\nABC\'s cameras got the only outside look: behind-the-scenes footage that aired on Good Morning America on November 7, 2017, three days before release, showing her dancing through a candle-lit living room of fans. The secrecy ran both ways — one attendee told ABC News they\'d "left the country in secret" to fly in from Ireland without telling friends, and a Rhode Island guest summed up the pitch of the whole exercise: "she just felt like my best friend."',
+          'Reviving the 1989 rollout ritual, Taylor selected fans from social media herself and talked through each track before playing it. For an album rolled out with almost no press interviews, the living-room listening parties were the promotional strategy.\n\nABC\'s cameras got the only outside look: behind-the-scenes footage that aired on Good Morning America on November 7, 2017, three days before release, showing her dancing through a candle-lit living room of fans. The secrecy ran both ways — one attendee told ABC News they\'d "left the country in secret" to fly in from Ireland without telling friends, and a Rhode Island guest summed up the pitch of the whole exercise: "she just felt like my best friend."',
         sources: [
           {
             outlet: 'Billboard',
@@ -1875,7 +1975,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift pitched the six-year-old outtake to the duo when she heard they\'d reunited. She sang backing vocals — audible echoing through the chorus and bridge under Jennifer Nettles\' lead — and the single climbed to No. 8 on Hot Country Songs.\n\nAnthony Mandler\'s video, teased at the CMT Music Awards and released June 9, 2018, cast Swift against type as the other woman: a 1960s, Mad Men-styled secretary opposite Brandon Routh\'s straying husband. The two acts finally performed it together live at the reputation Stadium Tour\'s Arlington finale that October, and her own version eventually arrived in 2021 as a from-the-vault track on Red (Taylor\'s Version).',
+          'Taylor pitched the six-year-old outtake to the duo when she heard they\'d reunited. She sang backing vocals — audible echoing through the chorus and bridge under Jennifer Nettles\' lead — and the single climbed to No. 8 on Hot Country Songs.\n\nAnthony Mandler\'s video, teased at the CMT Music Awards and released June 9, 2018, cast Taylor against type as the other woman: a 1960s, Mad Men-styled secretary opposite Brandon Routh\'s straying husband. The two acts finally performed it together live at the reputation Stadium Tour\'s Arlington finale that October, and her own version eventually arrived in 2021 as a from-the-vault track on Red (Taylor\'s Version).',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1917,7 +2017,7 @@ export default {
             url: 'https://i.ytimg.com/vi/l25AL0BdD6w/maxresdefault.jpg',
             credit: 'Sugarland / YouTube (official music video still)',
             caption:
-              'Jennifer Nettles in Anthony Mandler\'s Mad Men-styled "Babe" video, released June 9, 2018 — Swift wrote the treatment and played the other woman.',
+              'Jennifer Nettles in Anthony Mandler\'s Mad Men-styled "Babe" video, released June 9, 2018 — Taylor wrote the treatment and played the other woman.',
             kind: 'archival',
             focalPoint: '63% 32%',
           },
@@ -1939,7 +2039,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          '"So I just got to my dressing room and found this actual olive branch. This means so much," Swift said on her Instagram Story before taking the stage in Glendale, captioning the clip "Thank you Katy" with a heart. Only the note\'s opening — "Hello old friend" — was fully legible in the video; fans spent the night squinting at the rest of Perry\'s handwriting.\n\nThe gesture closed the loop on the falling-out widely understood to be behind "Bad Blood," a feud that had shadowed both discographies for four years — and it set up their on-camera reunion in the "You Need to Calm Down" video a year later.',
+          '"So I just got to my dressing room and found this actual olive branch. This means so much," Taylor said on her Instagram Story before taking the stage in Glendale, captioning the clip "Thank you Katy" with a heart. Only the note\'s opening — "Hello old friend" — was fully legible in the video; fans spent the night squinting at the rest of Perry\'s handwriting.\n\nThe gesture closed the loop on the falling-out widely understood to be behind "Bad Blood," a feud that had shadowed both discographies for four years — and it set up their on-camera reunion in the "You Need to Calm Down" video a year later.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1972,7 +2072,7 @@ export default {
             // high so neither head is cut.
             focalPoint: '48% 28%',
             credit: 'Billboard',
-            caption: 'Perry and Swift in 2010, before the falling-out — the file photo Billboard ran with news of the olive branch.',
+            caption: 'Perry and Taylor in 2010, before the falling-out — the file photo Billboard ran with news of the olive branch.',
             kind: 'archival',
           },
         ],
@@ -2019,7 +2119,7 @@ export default {
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/06/taylor-swift-robbie-williams-angels-wembley.jpg',
             credit: 'Press photos via NME',
-            caption: 'Swift on the reputation Stadium Tour, and Robbie Williams in his Taylor Swift T-shirt — the composite NME ran on the Wembley "Angels" duet.',
+            caption: 'Taylor on the reputation Stadium Tour, and Robbie Williams in his Taylor Swift T-shirt — the composite NME ran on the Wembley "Angels" duet.',
             kind: 'archival',
           },
         ],
@@ -2059,7 +2159,7 @@ export default {
           {
             outlet: 'TIME',
             url: 'https://time.com/5419276/taylor-swift-instagram-post-voter-registration-spike/',
-            source_title: "Taylor's First Political Endorsements Caused a Swift Spike in Voter Registrations",
+            source_title: "Taylor's First Political Endorsements Caused a Taylor Spike in Voter Registrations",
             publisher: 'TIME',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
@@ -2126,7 +2226,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The contract\'s headline term — ownership of her future master recordings — became the fault line of the next year\'s Big Machine catalog fight and the entire Taylor\'s Version project. She also negotiated that if UMG sold its Spotify shares, proceeds would be distributed to all its artists on a non-recoupable basis, a condition she called non-negotiable and framed as leverage on behalf of other musicians.\n\nHer own words put the weight on that second clause: the payout condition "meant more to me than any other deal point," she wrote, casting the signing not as a label change but as "positive change for creators" — the first of the era-ending business moves that would define the next several years of her career.\n\nShe made the announcement herself, on Instagram, captioned "My new home": a photo with UMG chairman Sir Lucian Grainge and Republic Records co-founder Monte Lipman, calling them "incredible partners."\n\nThe fine print stayed private. UMG announced only a multi-year, multi-album global agreement; the master-ownership headline came from Swift\'s own post — she wrote that she owns "all of my master recordings that I make from now on" — and it covered future work only. Her first six albums\' masters stayed with Big Machine, sold to Scooter Braun\'s Ithaca Holdings in 2019. No dollar figure was confirmed: Forbes estimated $100–200 million in guarantees, which UMG called "entirely inaccurate." Lover (2019) became the first album released under the deal, and the first master she owned outright.\n\nThe Spotify-equity clause took years to pay out. UMG\'s 2021 stock-market debut did not trigger it — that was UMG listing itself, not selling its Spotify shares. The clause fired for the first time in April 2026, when UMG moved to sell half its roughly 3% Spotify stake — about $1.4 billion — and confirmed the proceeds would reach its entire roster on the non-recoupable basis Swift had demanded, not just its biggest names.',
+          'The contract\'s headline term — ownership of her future master recordings — became the fault line of the next year\'s Big Machine catalog fight and the entire Taylor\'s Version project. She also negotiated that if UMG sold its Spotify shares, proceeds would be distributed to all its artists on a non-recoupable basis, a condition she called non-negotiable and framed as leverage on behalf of other musicians.\n\nHer own words put the weight on that second clause: the payout condition "meant more to me than any other deal point," she wrote, casting the signing not as a label change but as "positive change for creators" — the first of the era-ending business moves that would define the next several years of her career.\n\nShe made the announcement herself, on Instagram, captioned "My new home": a photo with UMG chairman Sir Lucian Grainge and Republic Records co-founder Monte Lipman, calling them "incredible partners."\n\nThe fine print stayed private. UMG announced only a multi-year, multi-album global agreement; the master-ownership headline came from Taylor\'s own post — she wrote that she owns "all of my master recordings that I make from now on" — and it covered future work only. Her first six albums\' masters stayed with Big Machine, sold to Scooter Braun\'s Ithaca Holdings in 2019. No dollar figure was confirmed: Forbes estimated $100–200 million in guarantees, which UMG called "entirely inaccurate." Lover (2019) became the first album released under the deal, and the first master she owned outright.\n\nThe Spotify-equity clause took years to pay out. UMG\'s 2021 stock-market debut did not trigger it — that was UMG listing itself, not selling its Spotify shares. The clause fired for the first time in April 2026, when UMG moved to sell half its roughly 3% Spotify stake — about $1.4 billion — and confirmed the proceeds would reach its entire roster on the non-recoupable basis Taylor had demanded, not just its biggest names.',
         sources: [
           {
             outlet: 'Variety',
@@ -2206,36 +2306,55 @@ export default {
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Lucian_Grainge_at_State_of_the_Entertainment_Industry_2018.jpg',
+            // Photo pass #762 (2026-08-01): viewed (659x1200 downsized from
+            // 1007x1835). Portrait crop, face centered horizontally, upper third.
+            focalPoint: '50% 25%',
             credit: 'Luke Harold (CC0)',
             caption: 'Sir Lucian Grainge, UMG chairman/CEO, four days before the deal — one of the "incredible partners" named in her announcement.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Monte_Lipman_Headshot_Cropped.jpg',
+            // Photo pass #762 (2026-08-01): viewed (571x544). Tight headshot,
+            // face fills most of frame, centered.
+            focalPoint: '50% 40%',
             credit: 'BBscary, Wikimedia Commons (CC BY-SA 4.0)',
             caption: "Monte Lipman, Republic Records' founder and CEO, the other partner named in the announcement.",
             kind: 'reference',
           },
           {
             url: 'https://thefader-res.cloudinary.com/private_images/w_760,c_limit,f_auto,q_auto:best/GettyImages-1048415872_v1oq0t/taylor-swift-republic-records-deal-spotify-contract.jpg',
+            // Photo pass #762 (2026-08-01): viewed (760x508). Onstage performing,
+            // upper body upper-center of frame.
+            focalPoint: '48% 25%',
             credit: 'Kevin Winter/Getty Images, via The FADER',
             caption: 'A contemporary reference photo from the same period, not from the announcement itself — no photo op exists for the signing.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Umgheadquarters.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x900 downsized from
+            // 4608x3456). Building facade fills the frame, roughly centered
+            // with palm trees flanking both sides.
+            focalPoint: '50% 45%',
             credit: 'Coolcaesar, Wikimedia Commons (CC BY-SA 3.0)',
             caption: 'Universal Music Group\'s Santa Monica headquarters — the new corporate home behind the deal.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/98/Republic_Records_logo.svg',
+            // Photo pass #762 (2026-08-01): viewed. Wordmark stacked in the
+            // upper half of the mark, with bars beneath — visual weight sits high.
+            focalPoint: '50% 30%',
             credit: 'Republic Records (official logo)',
             caption: 'The Republic Records identity — the label side of the deal.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg',
+            // Photo pass #762 (2026-08-01): viewed. A circular, symmetric mark —
+            // genuinely reads best centered.
+            focalPoint: '50% 50%',
             credit: 'Spotify (public domain mark)',
             caption: 'The Spotify-equity clause — proceeds from any future UMG share sale distributed to all its artists, non-recoupable — was the deal point she called "non-negotiable."',
             kind: 'reference',
@@ -2329,7 +2448,7 @@ export default {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201907/rs_600x600-190107083644-600x600-taylorswift-joealwyn-ggs-gj-1-7-19.jpg?fit=around%7C600:600&output-quality=90&crop=600:600;center,top',
             focalPoint: '50% 20%',
             credit: 'Composite via E! Online',
-            caption: 'Separate arrivals, January 6, 2019: Swift presenting inside the Golden Globes, Alwyn on the carpet with his castmates.',
+            caption: 'Separate arrivals, January 6, 2019: Taylor presenting inside the Golden Globes, Alwyn on the carpet with his castmates.',
             kind: 'archival',
           },
         ],
@@ -2355,6 +2474,26 @@ export default {
       snippet: "Armored, monochrome, and defiant — the sound of rebuilding on her own terms.",
       hiddenClue: { clue: "She reclaimed the snake her critics used against her.", payoff: "Turning the insult into iconography flipped the whole narrative in her favor." },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/5017724/taylor-swift-reputation-explained/',
+            source_title: 'Analyzing Every Song on Taylor Swift\'s Reputation',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/reviews/review/taylor-swift-reputation-album-review-2158267',
+            source_title: 'Taylor Swift – \'Reputation\' Review',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "After a very public year, she disappeared and returned all in black, with snakes reclaimed as armor.\n\nBeneath the hard exterior, though, reputation hides a surprisingly tender love story.",
       },
     },
@@ -2369,6 +2508,26 @@ export default {
       title: "Giant snakes, record numbers",
       snippet: "The Reputation Stadium Tour becomes the highest-grossing US tour at the time.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-breaks-own-tour-record-sold-out-reputation',
+            source_title: 'Taylor Swift Breaks Own Tour Record With Sold-Out Reputation',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Music Network',
+            url: 'https://themusicnetwork.com/news/taylor-swifts-reputation-tour-sets-new-us-record-for-highest-grossing',
+            source_title: 'Taylor Swift\'s Reputation Stadium Tour highest grossing in US history',
+            publisher: 'The Music Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Towering cobra stage design and a stadium-scale production reset expectations for her live shows.",
         // Photo pass #762 (2026-07-20): page had zero photos. Two freely
         // licensed Commons shots from the Reputation Stadium Tour itself —

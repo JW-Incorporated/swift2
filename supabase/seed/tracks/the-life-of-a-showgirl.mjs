@@ -413,7 +413,7 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'One of the album\'s shortest and most-argued-about tracks — Swift\'s own intro frames it as about someone with a one-sided grudge against her.',
+      note: 'One of the album\'s shortest and most-argued-about tracks — Taylor\'s own intro frames it as about someone with a one-sided grudge against her.',
       summary:
         'The narrator reframes a rival\'s hostility as a backhanded compliment: living rent-free in someone\'s head, spun as flattery instead of an attack.',
       inspiration:
@@ -434,7 +434,7 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'Written last, described by Swift as the album\'s "final piece" — a companion to "Elizabeth Taylor" on what love adds to a life already full of career wins.',
+      note: 'Written last, described by Taylor as the album\'s "final piece" — a companion to "Elizabeth Taylor" on what love adds to a life already full of career wins.',
       summary:
         'A tally of things other people chase — fame, houses, headlines — set against the one thing on the narrator\'s own list: a stable, loving partner.',
       inspiration:
@@ -635,7 +635,7 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'One of the earliest songs written for the album, an R&B-leaning track with horn arrangements that Swift said confirmed she was exploring new sonic ground.',
+      note: 'One of the earliest songs written for the album, an R&B-leaning track with horn arrangements that Taylor said confirmed she was exploring new sonic ground.',
       summary:
         'A term of endearment turned into a small act of trust — softness offered on purpose after a run of songs about armor and image.',
       inspiration:
@@ -698,6 +698,61 @@ const TRACKS = [
       themes: ['showbiz mentorship', 'passing the torch', 'the cost of fame'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
       sources: [ALBUM],
+      // Depth ledger #1495 (2026-07-28): personnel, the Carpenter collab's own
+      // account, chart/cert record, reception, the "Kitty Finlay" name, and
+      // the live/video axis — song-craft only; narrative meaning stays in the
+      // dossier (moment-level ledger #1028 covers the announcement framing).
+      discussion: [
+        'Written and produced by Swift with Max Martin and Shellback, the album\'s closer and only feature was tracked at MXM, Shellback, IMRSV and Studio 112 in Stockholm, built on live Swedish session players rather than samples: Erik Arvinder led a string section (with Conny Lindgren, Daniela Bonfigioli, Fredrik Syberg, Lola Torrente and Mattias Johansson), Tomas Jonsson\'s horns ranged from clarinet to baritone sax, and Per Strandberg added banjo, mandolin and electric guitar alongside Anders Pettersson\'s pedal steel — a bigger, more theatrical live-band arrangement than the album\'s more electronic cuts. Carpenter recorded her vocal separately, fitting the session into a day off during her own tour\'s stop in Sweden rather than in the same room as Swift.\n\nSwift asked Carpenter directly to feature, and Carpenter — an Eras Tour opening act before her own breakout — has said "ten-year-old me... could not believe it, to hear our voices together," telling Variety Swift "was so gracious to think of me for a song that spoke to our life experiences in such a real, genuine way." The song\'s veteran-performer character is named Kitty Finlay (a surname pulled from Swift\'s maternal family line) and appears in an imagined stage revue called "Sequins Are Forever"; Swift has described Kitty warning a younger performer backstage — "You don\'t want to do this... people take advantage of you, and you seem so sweet" — as a version of warnings Swift says she\'s heard many times herself about fame not being "all flowers and magic."',
+        'It debuted at No. 8 on both the Hot 100 and the Billboard Global 200 during the week all twelve Showgirl tracks charted at once, and peaked at No. 6 in both Australia and Canada, No. 7 in New Zealand and No. 46 in the UK, going on to certify Platinum in Canada and Brazil, Gold in Australia and New Zealand, and Silver in the UK. Reception split on whether the duet stuck the landing: Pitchfork called it "a big, glorious pageant that inspires organic passion" and The Independent read the pairing as "a grand finale" staging a generational handoff, while Clash felt it left the album\'s direction unresolved and Consequence dismissed it as "surprisingly limp"; Billboard\'s Jason Lipshutz ranked it sixth on the record, allowing the narrative "gets a bit knotty" even as the two voices "complement one another splendidly."\n\nNo dedicated music video followed — only an official lyric video (the same one already sourced on this page) — and no live or televised performance of the song, together or apart, is on record as of mid-2026.',
+      ],
+      discussionSources: [
+        {
+          source_url: 'https://www.yahoo.com/entertainment/music/articles/life-showgirl-credits-see-full-174553519.html',
+          source_title: 'The Life of a Showgirl credits: See the full list of producers and collaborators',
+          publisher: 'Yahoo Entertainment',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-28',
+          reliability_score: 3,
+          notes: 'full session-player and studio credits for the title track',
+        },
+        {
+          source_url: 'https://www.billboard.com/music/music-news/sabrina-carpenter-taylor-swift-so-gracious-collab-invite-1236127325/',
+          source_title: "Sabrina Carpenter Says Her Childhood Self 'Could Not Believe' Taylor Swift Asked Her to Collaborate",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-28',
+          reliability_score: 4,
+          notes: "Carpenter's own account of the invite and recording in Sweden on tour",
+        },
+        {
+          source_url: 'https://www.yahoo.com/entertainment/music/articles/kitty-life-showgirl-everything-know-215632660.html',
+          source_title: "Who is Kitty in 'The Life of a Showgirl'? Everything we know about the character",
+          publisher: 'Yahoo Entertainment',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-28',
+          reliability_score: 3,
+          notes: 'Kitty Finlay name, the "Sequins Are Forever" revue, and the backstage-warning framing',
+        },
+        {
+          source_url: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl_(song)',
+          source_title: 'The Life of a Showgirl (song)',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-07-28',
+          reliability_score: 2,
+          notes: 'chart peaks (Hot 100/Global 200 No. 8, AUS/CAN No. 6, NZ No. 7, UK No. 46) and certifications',
+        },
+        {
+          source_url: 'https://www.today.com/popculture/music/the-life-of-a-showgirl-lyrics-meaning-taylor-swift-sabrina-carpenter-rcna234281',
+          source_title: "'The Life of a Showgirl' Lyrics: Taylor Swift and Sabrina Carpenter Explore the Price of Stardom",
+          publisher: 'TODAY',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-28',
+          reliability_score: 3,
+          notes: 'critical-reception roundup (Pitchfork, The Independent, Clash, Consequence, Billboard)',
+        },
+      ],
     },
 ];
 

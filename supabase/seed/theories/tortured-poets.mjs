@@ -1,13 +1,18 @@
 // Vault theories/easter eggs — Tortured Poets era. All URLs verified 2026-07-08.
 // Egg-density pass (#686, Content Shift 2026-07-17): four eggs added, URLs
 // verified 2026-07-17.
+// Theory-density pass (#685, Content Shift 2026-08-05): TTPD sat at 0 theories
+// while every other non-folklore/evermore era had a theory pass. Three
+// content/craft/lyrical theories added (Clara Bow, Cassandra, the pen
+// categories) — no relationship/private-life readings, per theory-weaving.md.
+// URLs verified 2026-08-05.
 
 const wiki = (article, title, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${article}`,
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  accessed_at: '2026-07-08',
+  accessed_at: '2026-08-08',
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
@@ -142,7 +147,7 @@ export default {
       claim:
         'Two weeks before TTPD, five Apple Music playlists of her older songs mapped the five stages of grief — and the titles were themselves the egg: "I Love You, It\'s Ruining My Life," "Old Habits Die Screaming," and "I Can Do It With a Broken Heart" were all unreleased TTPD lines hiding in plain sight.',
       evidence:
-        'Swift curated all five (denial, anger, bargaining, depression, acceptance) from her first ten albums with her own notes on each stage. On release day the titles resolved: "I Love You, It\'s Ruining My Life" is a "Fortnight" lyric, "Old Habits Die Screaming" is in "The Black Dog," and "I Can Do It With a Broken Heart" is on the tracklist itself.',
+        'Taylor curated all five (denial, anger, bargaining, depression, acceptance) from her first ten albums with her own notes on each stage. On release day the titles resolved: "I Love You, It\'s Ruining My Life" is a "Fortnight" lyric, "Old Habits Die Screaming" is in "The Black Dog," and "I Can Do It With a Broken Heart" is on the tracklist itself.',
       confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: ['tortured-poets:black-dog-real-pub'],
@@ -162,6 +167,96 @@ export default {
           source_type: 'reputable_press',
           accessed_at: '2026-07-17',
           reliability_score: 4,
+        },
+      ],
+    },
+    {
+      slug: 'clara-bow-it-girl-lineage',
+      kind: 'theory',
+      title: 'Clara Bow, Stevie Nicks, and the it-girl assembly line',
+      claim:
+        'The album closer reads as Taylor mapping the industry\'s cycle of crowning and discarding its women: label voices call the narrator "Clara Bow in this light," then "Stevie Nicks in \'75," then tell her a newer girl has the "edge" that Taylor "never did" — she puts herself mid-conveyor-belt, next in line to be replaced.',
+      evidence:
+        'The lineage is right there in the text — the song names Clara Bow (the silent era\'s original "It Girl," who retired young under relentless media scrutiny) and Stevie Nicks by name before turning the same appraising label-speak on Taylor herself. Critics read it as a companion to her earlier fame parables "The Lucky One" and "Nothing New": Rolling Stone\'s Rob Sheffield tied it to her writing on short-lived fame and being left behind, and NPR and The Ringer both framed it as Taylor clocking the cyclical nature of stardom. The self-aware reading is widely shared; she has not narrated it line by line.',
+      confidence: 'reputable_reporting',
+      outcome: 'partially_confirmed',
+      relatedSlugs: [],
+      sources: [
+        {
+          source_url: 'https://en.wikipedia.org/wiki/Clara_Bow_(song)',
+          source_title: 'Clara Bow (song)',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-08-05',
+          reliability_score: 2,
+        },
+        {
+          source_url: 'https://time.com/6969048/clara-bow-taylor-swift-song/',
+          source_title: 'Who Is Clara Bow? The Inspiration Behind Taylor Swift\'s Song',
+          publisher: 'Time',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-05',
+          reliability_score: 4,
+        },
+      ],
+    },
+    {
+      slug: 'cassandra-reputation-callback',
+      kind: 'theory',
+      title: 'Cassandra: the prophet no one believed, and the snakes',
+      claim:
+        'Fans read "Cassandra" as Taylor mapping her 2016 public downfall onto the Greek myth of the prophet cursed to tell the truth and never be believed — the tell being the snake motif ("they filled my cell with snakes... do you believe me now?"), the reputation-era emoji pile-on revisited from the far side of vindication.',
+      evidence:
+        'The myth is explicit: Apollo curses Cassandra so her true prophecies always go unheeded. The lyric pulls its snake imagery straight from the reputation-era campaign this catalog already documents, and Billboard, Capital FM and others read the track as Taylor\'s account of being publicly disbelieved in 2016 — down to the "supposed supporters who didn\'t take her side." It points at the same public controversy the "thanK you aIMee" stylization does; it is a documented press reading of a public chapter, not an authorial confirmation.',
+      confidence: 'reputable_reporting',
+      outcome: 'pending',
+      relatedSlugs: ['tortured-poets:thank-you-aimee-capitals', 'reputation:snake-reclamation'],
+      sources: [
+        {
+          source_url: 'https://en.wikipedia.org/wiki/Cassandra_(Taylor_Swift_song)',
+          source_title: 'Cassandra (Taylor Swift song)',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-08-05',
+          reliability_score: 2,
+        },
+        {
+          source_url: 'https://www.capitalfm.com/news/music/taylor-swift-cassandra-lyrics-meaning-who/',
+          source_title: 'Taylor Swift Explains The Meaning Behind Her \'Cassandra\' Lyrics',
+          publisher: 'Capital FM',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-05',
+          reliability_score: 3,
+        },
+      ],
+    },
+    {
+      slug: 'ttpd-quill-fountain-pen-era',
+      kind: 'theory',
+      title: 'The most "quill and fountain pen" album she\'s made',
+      claim:
+        'Using Taylor\'s own three-pen system — Quill (antique, literary), Fountain Pen (modern, brutally honest), Glitter Gel Pen (carefree fun) — fans peg The Tortured Poets Department as her heaviest lean yet toward the quill/fountain-pen end: the poetry-department framing, the typewriter aesthetic, almost no glitter-gel levity.',
+      evidence:
+        'Taylor defined the three categories herself while accepting the Songwriter-Artist of the Decade honor at the 2022 Nashville Songwriter Awards, naming "ivy" as a quill lyric, "All Too Well" as fountain pen, and "Shake It Off" as glitter gel. Fans applied the framework to TTPD before release and pointed to a planted clue — the fountain pen sitting on the writing desk in the album\'s Spotify pop-up library. Which specific tracks land in which category is fan debate; Taylor has not sorted this album\'s songs in public.',
+      confidence: 'reputable_reporting',
+      outcome: 'pending',
+      relatedSlugs: ['tortured-poets:ttpd-spotify-library-eggs'],
+      sources: [
+        {
+          source_url: 'https://www.nme.com/news/music/taylor-swift-organises-her-lyrics-into-three-dorky-pen-themed-categories-3325355',
+          source_title: 'Taylor Swift organises her lyrics into three "dorky" pen-themed categories',
+          publisher: 'NME',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-05',
+          reliability_score: 4,
+        },
+        {
+          source_url: 'https://www.capitalfm.com/news/music/taylor-swifts-quill-fountain-glitter-pen-songwriting/',
+          source_title: 'Is Taylor Swift\'s \'The Tortured Poets Department\' A Quill, Fountain Or Glitter Pen album?',
+          publisher: 'Capital FM',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-05',
+          reliability_score: 3,
         },
       ],
     },

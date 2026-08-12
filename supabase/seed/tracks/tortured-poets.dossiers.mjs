@@ -278,7 +278,7 @@ export default {
     meaning: {
       confirmed: [
         "The Tortured Poets Department's lead single (April 19, 2024), written by Swift, Post Malone and Jack Antonoff — a muted, 1980s-leaning synth-pop ballad built on a pulsing eighth-note synth bass with Swift singing much of it near-monotone.",
-        "Post Malone recorded his parts at his Los Angeles home studio after Swift brought him the track; the song debuted atop the Hot 100 and spent two consecutive weeks at No. 1, and set Spotify's single-day streaming record for a song on release day.",
+        "After Swift brought him the track, Post Malone's vocals were recorded and produced by Louis Bell — Malone's longtime collaborator, credited here as vocal producer/engineer rather than a full producer — at Electric Feel Studios in Los Angeles, while Jack Antonoff programmed the track and played its guitars and synths; the song debuted atop the Hot 100 and spent two consecutive weeks at No. 1, and set Spotify's single-day streaming record for a song on release day.",
         "The Swift-directed video was shot in black-and-white by cinematographer Rodrigo Prieto and won Video of the Year and Best Direction at the 2024 MTV VMAs; the song was later nominated for Record of the Year and Song of the Year at the 2025 Grammys."
       ],
       supported: [
@@ -310,7 +310,7 @@ export default {
       {
         date: "May 9, 2024",
         event: "The Eras Tour — Paris (Paris La Défense Arena)",
-        note: "Folded into the tour's new TTPD segment from the European leg's opening night; Swift performs it solo to Post Malone's recorded vocals, staged around a typewriter. No live performance with Post Malone has been documented."
+        note: "Folded into the tour's new TTPD segment from the European leg's opening night; Taylor performs it solo to Post Malone's recorded vocals, staged around a typewriter. No live performance with Post Malone has been documented."
       }
     ],
     sources: [
@@ -1128,6 +1128,132 @@ export default {
       { name: "Rolling Stone: See Taylor Swift Debut 'The Bolter,' 'Crazier' Live at Edinburgh", url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-bolter-crazier-live-debut-eras-tour-1235036115/' },
       { name: 'Rolling Stone: TTPD — The Anthology Review', url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/' },
       { name: "AOL/Yahoo: Is Taylor Swift's 'The Bolter' based on a true story?", url: 'https://www.aol.com/news/taylor-swift-song-bolter-based-212636465.html' },
+    ],
+  },
+
+  "down-bad": {
+    whyItMatters: [
+      "'Down Bad' is the album's proof that its most bruised feelings could still make pure pop: Swift and Jack Antonoff dress a love-bomb hangover in pillowy synths and muted drums, and the Gen-Z slang of the title collides with a science-fiction conceit. Swift spelled the metaphor out herself in Amazon Music commentary — the song is about 'being love bombed, where someone rocks your world and dazzles you and then just kind of abandons you,' likened to being abducted by aliens and dropped back into ordinary life.",
+      "Commercially it was one of TTPD's biggest tracks. It debuted and peaked at No. 2 on both the Billboard Hot 100 and the Global 200 — held off the top only by lead single 'Fortnight' — inside the record week when Swift became the first artist to hold the entire top 14 of the Hot 100. It reached the top five in the UK (4), Canada (2), Australia (2) and New Zealand (3), and was later certified 2x Platinum in Australia, 3x Platinum in Brazil, Platinum in New Zealand and Gold in the UK. It was never released as a standalone single with its own music video — a lyric video accompanied it — yet it became a fixed part of the revamped Eras Tour set from May 2024.",
+    ],
+    meaning: {
+      confirmed: [
+        "Track 4 on The Tortured Poets Department (April 19, 2024), written and produced by Taylor Swift and Jack Antonoff. Antonoff played Juno, M1, Mellotron, piano, drums and percussion and handled programming, with Mikey Freedom Hart on Mellotron, DX7 and M1, Sean Hutchinson on percussion, and Evan Smith and Zem Audu on saxophone; it was recorded at Conway Recording (Los Angeles) and Electric Lady (New York), mixed by Serban Ghenea and mastered by Randy Merrill.",
+        "It debuted and peaked at No. 2 on the Billboard Hot 100 and the Global 200 during the album's top-14 week, and was certified 2x Platinum in Australia, 3x Platinum in Brazil, Platinum in New Zealand and Gold in the UK.",
+        "Swift added it to the Eras Tour's new TTPD segment from the European leg's opening night (Paris, May 2024), performing it on a rotating metal block beneath a projected UFO — a fixed set number, not a one-off surprise song.",
+      ],
+      supported: [
+        "The song's signature is its collision of registers — flip slang over a 'cosmic love' abduction narrative — and critics split on whether it landed. Billboard's Jason Lipshutz ranked it sixth of the album's 31 tracks and called it 'one of the album's purest pop pleasures,' and Pitchfork's Olivia Horn credited the 'juxtaposition between its banal hook and its description of cosmic love'; Beats Per Minute's John Wohlmacher faulted its 'metaphor-chains' and the Associated Press's Maria Sherman found it 'mawkish.'",
+        "It carries some of the album's heaviest profanity — the repeated hook built on the word most cut for radio — part of why it stayed an album track rather than a serviced radio single.",
+      ],
+      fanTheories: [
+        "Swift named no real-life subject; the alien-abduction framing is her own stated metaphor for love-bombing, not a coded biography, and any autobiographical reading is fan/press interpretation.",
+      ],
+    },
+    connections: [
+      {
+        relatedId: "song:fortnight",
+        label: "Fortnight",
+        why: "The No. 1 that kept 'Down Bad' at No. 2 — the two opened the album at the top two spots of the Hot 100, and both sit in the same numbed-aftermath register (Fortnight medicated, Down Bad grieving the re-entry).",
+      },
+      {
+        relatedId: "song:my-boy-only-breaks-his-favorite-toys",
+        label: "My Boy Only Breaks His Favorite Toys",
+        why: "The album's back-to-back wreckage pair (tracks 3 and 4): 'My Boy' rationalizes being broken as proof of love, 'Down Bad' grieves the crash after the high — My Boy's own dossier names this song its mirror.",
+      },
+      {
+        relatedId: "moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z",
+        label: "TTPD's 2.61-million debut",
+        why: "The record week 'Down Bad' charted inside — the top-14 Hot 100 sweep behind the biggest album week in nine years, where this track landed at No. 2.",
+      },
+    ],
+    live: [
+      {
+        date: "May 9, 2024",
+        event: "The Eras Tour — Paris (Paris La Défense Arena)",
+        note: "Added to the revamped TTPD segment from the European leg's opening night and kept in the set thereafter; staged on a rotating metal block beneath a projected UFO.",
+      },
+    ],
+    voices: [
+      {
+        who: "Jason Lipshutz",
+        context: "Billboard",
+        note: "Ranked it sixth of the album's 31 tracks — 'one of the album's purest pop pleasures.'",
+      },
+      {
+        who: "Olivia Horn",
+        context: "Pitchfork",
+        note: "Credited the juxtaposition between its 'banal hook' and its 'cosmic love' description.",
+      },
+    ],
+    sources: [
+      { name: "Down Bad (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Down_Bad_(Taylor_Swift_song)" },
+      { name: "Billboard: Taylor Swift Sets Record With All Top 14 of the Hot 100, 'Fortnight' No. 1", url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/" },
+      { name: "Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in One Week", url: "https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/" },
+      { name: "Billboard: The Tortured Poets Department — All 31 Tracks Ranked", url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/" },
+    ],
+  },
+
+  "cassandra": {
+    whyItMatters: [
+      "'Cassandra' is the Anthology's myth-as-memoir centerpiece: Swift borrows the Trojan princess cursed by Apollo to prophesy the truth and never be believed, and critics heard in it her account of the stretch that led to Reputation — the 2016 period when a public feud turned much of the culture against her. She names no one; the mapping is the reading reviewers reached for, not a subject she confirmed.",
+      "Built with Aaron Dessner at Long Pond, it is a folk-pop piano ballad of soft-glow piano and strings (orchestration recorded in Biarritz with the London Contemporary Orchestra) — a sound closer to folklore and evermore than to the standard edition's synth-pop. It charted inside TTPD's history-making week, when all 31 tracks hit the Hot 100 at once, debuting and peaking at No. 44, and Rolling Stone's Rob Sheffield called it 'one of the most powerful songs Swift and Dessner have crafted.'",
+    ],
+    meaning: {
+      confirmed: [
+        "Track 27 on The Tortured Poets Department: The Anthology (April 19, 2024), written and produced by Taylor Swift and Aaron Dessner. Dessner played piano, electric guitar, keyboards, percussion, synth bass and synthesizer, with orchestration by the London Contemporary Orchestra; it was recorded at Long Pond Studios (Hudson Valley) with strings cut in Biarritz, mixed at MixStar (Virginia Beach) and mastered at Sterling Sound.",
+        "It debuted and peaked at No. 44 on the Billboard Hot 100 and the Global 200 during the album's record week, also reaching No. 44 in Canada and No. 49 in Australia.",
+        "It was performed live once — an Eras Tour surprise-song mashup with folklore's 'mad woman' and reputation's 'I Did Something Bad' in Toronto on November 22, 2024.",
+      ],
+      supported: [
+        "The song adapts the Cassandra myth directly — the seer whose warnings go unheeded until the city falls — and threads it with the imagery of a woman condemned by a mob. Billboard's Jason Lipshutz read the lyric as insight into 'the period in Swift's life that led to her album Reputation,' when the feud with Kanye West and Kim Kardashian 'turned many against her,' pointing to its lines about supposed supporters who did not take her side.",
+        "Reception ran mixed-to-strong: Rolling Stone's Rob Sheffield called it one of the most powerful Swift–Dessner songs and Beats Per Minute's John Wohlmacher and USA Today's Melissa Ruggieri praised its 'pretty' piano, while Vulture's Craig Jenkins found the central metaphor 'a stretch,' Slate's Carl Wilson faulted Swift for criticizing readings-into-songs while doing the same, and The Hollywood Reporter ranked it the album's weakest track.",
+      ],
+      fanTheories: [
+        "Swift has made no on-record statement naming a subject for 'Cassandra' — not in the TTPD prologue, the liner notes, or any interview — so the near-universal reading of it as her 2016-feud epitaph is fan and press interpretation, not confirmed autobiography. The myth is in-text; the celebrity mapping is inferred.",
+      ],
+    },
+    connections: [
+      {
+        relatedId: "song:whos-afraid-of-little-old-me",
+        label: "Who's Afraid of Little Old Me?",
+        why: "Its Anthology sibling and closest neighbor on the record — both are Dessner-built portraits of a woman remade monstrous by other people's stories, 'Little Old Me' seething where 'Cassandra' mourns being disbelieved.",
+      },
+      {
+        relatedId: "song:mad-woman",
+        label: "mad woman",
+        why: "The folklore forerunner of the disbelieved-woman song and its Toronto live-mashup partner: Billboard grouped 'Cassandra,' 'mad woman' and 'I Did Something Bad' as one rage lineage.",
+      },
+      {
+        relatedId: "song:i-did-something-bad",
+        label: "I Did Something Bad",
+        why: "The reputation track from the very feud 'Cassandra' is read against, and the third song braided into its Eras Tour Toronto mashup — the rage that answered the pyre.",
+      },
+    ],
+    live: [
+      {
+        date: "November 22, 2024",
+        event: "The Eras Tour — Toronto (Rogers Centre)",
+        note: "Its only live performance — an acoustic surprise-song mashup with folklore's 'mad woman' and reputation's 'I Did Something Bad,' three disbelieved/enraged-woman songs sung as one.",
+      },
+    ],
+    voices: [
+      {
+        who: "Rob Sheffield",
+        context: "Rolling Stone",
+        note: "'One of the most powerful songs Taylor and Dessner have crafted.'",
+      },
+      {
+        who: "Jason Lipshutz",
+        context: "Billboard",
+        note: "Read it as insight into the Reputation-era period when the West/Kardashian feud 'turned many against her.'",
+      },
+    ],
+    sources: [
+      { name: "Cassandra (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Cassandra_(Taylor_Swift_song)" },
+      { name: "Billboard: Cassandra, mad woman and I Did Something Bad — the rage lineage (Eras Tour Toronto)", url: "https://ca.billboard.com/music/music-news/taylor-swift-cassandra-mad-woman-i-did-something-bad-eras-tour-1235837621/" },
+      { name: "Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in One Week", url: "https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/" },
+      { name: "Rolling Stone: TTPD — The Anthology Review", url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/" },
     ],
   }
 };

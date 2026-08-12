@@ -53,7 +53,7 @@ export default {
       summary:
         'A barefoot walk through a Watertown, Tennessee forest and cemetery in a long white gown, intercut with The Civil Wars performing by firelight — recorded for The Hunger Games soundtrack, dotted with mockingjay references.',
       symbolism: null,
-      easterEggs: ['Swift finds a mockingjay pin during the woods sequence, tying the video to the film\'s central symbol.'],
+      easterEggs: ['Taylor finds a mockingjay pin during the woods sequence, tying the video to the film\'s central symbol.'],
       officialUrl: 'https://www.youtube.com/watch?v=RzhAS_GnJIc',
       media: [embed('RzhAS_GnJIc')],
       sources: [

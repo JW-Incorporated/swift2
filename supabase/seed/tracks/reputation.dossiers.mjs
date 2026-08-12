@@ -296,7 +296,7 @@ export default {
       {
         who: 'Stephen Thomas Erlewine',
         context: 'AllMusic',
-        note: "Read the Antonoff cuts as Swift at her most 'deeply felt and complex,' with 'vulnerability, melody, and confidence.'",
+        note: "Read the Antonoff cuts as Taylor at her most 'deeply felt and complex,' with 'vulnerability, melody, and confidence.'",
       },
     ],
     sources: [

@@ -52,7 +52,7 @@ export default {
       kind: 'easter_egg',
       title: 'A word puzzle unlocks the Red (Taylor\'s Version) vault tracks',
       claim:
-        'On Aug. 5, 2021, Swift posted an interactive word-puzzle video across social media that, once solved, revealed the "From the Vault" collaborators and titles — including Chris Stapleton, Phoebe Bridgers, "Babe," "Better Man," and the All Too Well (10 Minute Version) — ahead of the album\'s release.',
+        'On Aug. 5, 2021, Taylor posted an interactive word-puzzle video across social media that, once solved, revealed the "From the Vault" collaborators and titles — including Chris Stapleton, Phoebe Bridgers, "Babe," "Better Man," and the All Too Well (10 Minute Version) — ahead of the album\'s release.',
       evidence:
         'The puzzle format built on the anagram-teaser approach from the Fearless re-record, this time rewarding fans who solved it with a bonus image. All of the revealed information — the featured artists and track titles — matched the official track list confirmed at release.',
       confidence: 'official',

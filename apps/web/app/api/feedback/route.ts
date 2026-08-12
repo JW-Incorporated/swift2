@@ -156,7 +156,17 @@ export async function POST(req: Request): Promise<Response> {
   if (!token) {
     // No token wired up (e.g. local/preview). Log for visibility; tell the user
     // gracefully rather than 500.
-    console.warn('feedback: no GITHUB_FEEDBACK_TOKEN set; feedback dropped:', message.slice(0, 120));
+    //
+    // NEVER log the message itself. This endpoint is public, unauthenticated
+    // and free-text: whatever a visitor types could be a bug report or could be
+    // their name, their email, or something they'd never expect to land in a
+    // Vercel log they can't see or delete. The misconfiguration is fully
+    // diagnosable from the fact + the shape of the drop — length tells us the
+    // request was real rather than an empty probe, and the env name tells an
+    // operator exactly what to set.
+    console.warn(
+      `feedback: no GITHUB_FEEDBACK_TOKEN set; dropped a ${message.length}-char submission (content not logged)`,
+    );
     return NextResponse.json(
       { error: 'Feedback isn’t wired up in this environment yet.' },
       { status: 503 },

@@ -9,6 +9,10 @@ export default {
   eraSlug: 'fearless',
   items: [
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Love Story" pair — the song's
+      // story, and the single's release two months ahead of the album — now
+      // interlink.
+      relatedIds: ['moment:vault-fearless-love-story-arrives-two-months-before-the-album'],
       year: 2008,
       month: 9,
       day: 15,
@@ -25,10 +29,22 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)' },
           { outlet: 'Wide Open Country', url: 'https://www.wideopencountry.com/love-story-taylor-swift/' },
         ],
+        // Photo-enrichment pass (2026-07-30): added the official "Love Story"
+        // music-video still (YouTube id 8xg3vE8Ie_E, oEmbed-verified channel
+        // "Taylor Swift" @TaylorSwift; curl 200 image/jpeg); downloaded and
+        // vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+            focalPoint: '68% 28%',
             credit: 'Big Machine Records',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            focalPoint: '52% 45%',
+            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
+            caption: 'Still from the official "Love Story" music video.',
+            kind: 'archival',
           },
         ],
       },
@@ -44,7 +60,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
       moment: {
         context:
-          'The whole song grew backwards from one line — "Abigail gave everything she had to a boy who changed his mind" — which Swift has said she wrote first, building everything else around it. Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail\'s answer: "If one girl can kind of learn from it or connect to a song like that, it\'s totally worth it."\n\nRecording it wrecked Swift anyway — she\'s admitted she cried in the studio, "the things that make me cry are when the people I love have gone through pain and I\'ve seen it" — and when Roman White shot the surreal green-screen garden video, Abigail appeared in it as herself.',
+          'The whole song grew backwards from one line — "Abigail gave everything she had to a boy who changed his mind" — which Taylor has said she wrote first, building everything else around it. Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail\'s answer: "If one girl can kind of learn from it or connect to a song like that, it\'s totally worth it."\n\nRecording it wrecked Taylor anyway — she\'s admitted she cried in the studio, "the things that make me cry are when the people I love have gone through pain and I\'ve seen it" — and when Roman White shot the surreal green-screen garden video, Abigail appeared in it as herself.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fifteen_(song)' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/fifteen' },
@@ -52,6 +68,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
+            focalPoint: '62% 32%',
             credit: 'Big Machine Records',
           },
         ],
@@ -70,13 +87,13 @@ export default {
       // Corrected 2026-07-19 (found in review): snippet/sourceUrl/thumbnail
       // previously described the Nov. 2008 album debut, not the Jan. 2010
       // Grammy win this item is actually about — mismatched hero card.
-      snippet: 'At the 52nd Grammys, 20-year-old Swift became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
+      snippet: 'At the 52nd Grammys, 20-year-old Taylor became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
       sourceUrl: 'https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/',
       thumbnailUrl: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
-      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi'],
+      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi', 'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-'],
       moment: {
         context:
-          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
+          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."\n\nThe four went to Album of the Year and Best Country Album for Fearless, plus Best Country Song and Best Female Country Vocal Performance for "White Horse," the twice-honored Swift–Liz Rose co-write — a haul that made Fearless the most-awarded country album in Grammy history. The album had already closed 2009 as the best-selling release in the United States, and Guinness World Records still lists her as the youngest solo artist ever to win Album of the Year. The mark held for a decade, until 18-year-old Billie Eilish won for When We All Fall Asleep, Where Do We Go? in 2020. It came a little over four months after Kanye West took the microphone from her at the MTV Video Music Awards, and it was the first of four Album of the Year wins — 1989, folklore, and Midnights followed — more than any artist has won in the category, which is why a quiet January night in 2010 reads in hindsight as the start of a dynasty.',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -85,6 +102,10 @@ export default {
           {
             outlet: 'Guinness World Records',
             url: 'https://www.guinnessworldrecords.com/world-records/607151-youngest-solo-artist-to-win-album-of-the-year-at-the-grammy-awards',
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/grammy-rewind-watch-taylor-swift-win-album-year-fearless-2010/',
           },
         ],
         photos: [
@@ -116,42 +137,42 @@ export default {
             url: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
             focalPoint: '30% 20%',
             credit: 'Dan MacMedan/WireImage, via Vanity Fair',
-            caption: 'Swift arrives at the 52nd Grammy Awards in a blue sequined KaufmanFranco gown.',
+            caption: 'Taylor arrives at the 52nd Grammy Awards in a blue sequined KaufmanFranco gown.',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1264988049224/Singer-Swift-speaks-onsta-001.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '52% 30%',
             credit: 'Danny Moloshok/Reuters, via The Guardian',
-            caption: 'Swift speaks onstage after winning Best Female Country Vocal Performance for "White Horse," one of her four Grammys that night.',
+            caption: 'Taylor speaks onstage after winning Best Female Country Vocal Performance for "White Horse," one of her four Grammys that night.',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1265015933818/Taylor-Swift-drops-one-of-003.jpg?crop=none&dpr=1&s=none&width=375',
             focalPoint: '52% 30%',
             credit: 'Valerie Macon/AFP/Getty Images, via The Guardian',
-            caption: 'Swift loses her grip on one of the four trophies she carried in the Grammy press room.',
+            caption: 'Taylor loses her grip on one of the four trophies she carried in the Grammy press room.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blte142e31b64ce6139/69877c56524fc062c0dec2d5/ap100131042457.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
             focalPoint: '50% 28%',
             credit: 'Matt Sayles/AP, via TIME',
-            caption: 'Swift and Stevie Nicks perform together during the 52nd Grammy Awards telecast.',
+            caption: 'Taylor and Stevie Nicks perform together during the 52nd Grammy Awards telecast.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltca5404e6952dca29/698762d6e20a87c7bda82aeb/taylor-swift-12.jpg?branch=production&width=3840&quality=75&auto=webp',
             focalPoint: '55% 30%',
             credit: 'Michael Caulfield/WireImage/Getty Images, via TIME',
-            caption: 'Swift performs onstage during the 52nd Grammy Awards at Staples Center.',
+            caption: 'Taylor performs onstage during the 52nd Grammy Awards at Staples Center.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56be4d24e9ea465e7cf59f44/16%3A9/w_2560%2Cc_limit/GettyImages-98115429.jpg',
             focalPoint: '52% 28%',
             credit: 'Michael Tran/FilmMagic, via Teen Vogue',
-            caption: 'Swift poses in the Grammy press room with all four awards she won that night, including Album of the Year.',
+            caption: 'Taylor poses in the Grammy press room with all four awards she won that night, including Album of the Year.',
             kind: 'primary',
           },
         ],
@@ -215,6 +236,10 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-fear-0", label: "Fearless Tour opens", kind: "tour" },
+      // Cross-link (Stage 3, 2026-07-30): the "Fearless Tour" opening-night
+      // pair — the sold-out crowd, and the marching-band reveal that opened
+      // the show — now interlink.
+      relatedIds: ['moment:vault-fearless-a-marching-band-reveal-to-open-the-fearless-tour'],
       title: 'The Fearless Tour opens to a sold-out crowd in 30 seconds',
       snippet:
         "Evansville, Indiana gave her the key to the city and declared it \"Taylor Swift Day\" — the start of her first-ever headlining tour.",
@@ -298,7 +323,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
       moment: {
         context:
-          'Swift wrote it in summer 2008 on tour and recorded it with producer Nathan Chapman without her mother knowing, then unveiled it on Christmas Eve alongside a home video she\'d edited herself from family footage.\n\nHer mother, Andrea, on hearing it: "that\'s when I lost it... I\'ve lost it pretty much every time I\'ve heard that song since." That never stopped being true — the song had to come out of the Fearless Tour setlist because, as Andrea put it, "I kept breaking down" backstage every time it played.',
+          'Taylor wrote it in summer 2008 on tour and recorded it with producer Nathan Chapman without her mother knowing, then unveiled it on Christmas Eve alongside a home video she\'d edited herself from family footage.\n\nHer mother, Andrea, on hearing it: "that\'s when I lost it... I\'ve lost it pretty much every time I\'ve heard that song since." That never stopped being true — the song had to come out of the Fearless Tour setlist because, as Andrea put it, "I kept breaking down" backstage every time it played.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/the-best-day' },
@@ -321,7 +346,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/l4_6eQm7RTQ/maxresdefault.jpg',
             credit: 'Still from the official "The Best Day" music video (home-movie footage), Big Machine Records, via YouTube',
-            caption: 'The gift itself: a frame from the home-movie video Swift edited in secret — toddler Taylor in pigtails — unveiled to her mom on Christmas Eve.',
+            caption: 'The gift itself: a frame from the home-movie video Taylor edited in secret — toddler Taylor in pigtails — unveiled to her mom on Christmas Eve.',
             kind: 'archival',
             // Focal point set by viewing: the child stands just left of
             // center, face in the upper third, armchair lower right.
@@ -344,10 +369,15 @@ export default {
         '"I\'mma let you finish, but Beyoncé had one of the best videos of all time" — Kanye West interrupted her VMA speech for "You Belong With Me" in front of a live audience.',
       sourceUrl: 'https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/',
       thumbnailUrl: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
-      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
+      // Cross-link (Stage 3, 2026-07-30): + "Innocent" — the Speak Now song
+      // written to Kanye West, not about him — a direct reply to this moment.
+      relatedIds: [
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-speak-now-innocent-a-song-written-to-kanye-west-not-about-him',
+      ],
       moment: {
         context:
-          'The Radio City crowd went from stunned silence to a standing ovation for Swift; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Swift back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.',
+          'The Radio City crowd went from stunned silence to a standing ovation for Taylor; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Taylor back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -356,6 +386,28 @@ export default {
           {
             outlet: 'Taste of Country',
             url: 'https://tasteofcountry.com/taylor-swift-kanye-west-interruption-2009-vmas/',
+          },
+          {
+            // Added 2026-07-28 (ledger #719, residual (b)): the Obama "jackass"
+            // aftermath. Off-the-record CNBC remark, Sept. 14 2009, surfaced by
+            // ABC's Terry Moran; contemporaneous TMZ report + Rolling Stone's
+            // later on-record coverage. Public-event commentary — no redline.
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2009/09/15/obama-caught-on-tape-calling-kanye-jackass-taylor-swift/',
+            source_title: "Obama Caught on Tape Calling Kanye 'Jackass'",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/obama-goes-on-record-to-call-kanye-west-a-jackass-204727/',
+            source_title: "Obama Goes on Record to Call Kanye West a 'Jackass'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
           },
         ],
         photos: [
@@ -372,56 +424,56 @@ export default {
             url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=375',
             focalPoint: '50% 22%',
             credit: 'Jeff Kravitz/FilmMagic, via The Guardian',
-            caption: 'Kanye West steps onto the VMA stage while Swift is accepting Best Female Video at Radio City Music Hall.',
+            caption: 'Kanye West steps onto the VMA stage while Taylor is accepting Best Female Video at Radio City Music Hall.',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=375',
             focalPoint: '50% 22%',
             credit: 'Kevin Mazur/WireImage, via The Guardian',
-            caption: 'Swift finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.',
+            caption: 'Taylor finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltc121921405a5eef5/698762d75f570fee2bb12f23/taylor-swift-16.jpg?branch=production&width=3840&quality=75&auto=webp',
             focalPoint: '50% 40%',
             credit: 'Stephen Lovekin/FilmMagic/Getty Images, via TIME',
-            caption: 'Swift arrives on the 2009 VMA red carpet in the silver KaufmanFranco gown she would still be wearing when West interrupted her.',
+            caption: 'Taylor arrives on the 2009 VMA red carpet in the silver KaufmanFranco gown she would still be wearing when West interrupted her.',
             kind: 'primary',
           },
           {
             url: 'https://media.glamour.com/photos/5b748cfd0271d30d24ff90ad/master/w_1024%2Cc_limit/GettyImages-90715371.jpg',
             focalPoint: '50% 42%',
             credit: 'Jason Kempin/Getty Images, via Glamour',
-            caption: 'Swift performs "You Belong with Me" inside a New York subway car during the 2009 VMA broadcast.',
+            caption: 'Taylor performs "You Belong with Me" inside a New York subway car during the 2009 VMA broadcast.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/T-Swift_VMA_performance.JPG',
             focalPoint: '30% 25%',
             credit: 'Coldbread, via Wikimedia Commons',
-            caption: 'Swift steps down from the yellow taxi after completing her outdoor VMA performance on Sept. 13, 2009.',
+            caption: 'Taylor steps down from the yellow taxi after completing her outdoor VMA performance on Sept. 13, 2009.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg',
             focalPoint: '40% 28%',
             credit: 'Philip Nelson, via Wikimedia Commons',
-            caption: 'Swift appears during the 2009 MTV Video Music Awards at Radio City Music Hall.',
+            caption: 'Taylor appears during the 2009 MTV Video Music Awards at Radio City Music Hall.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Taylor_Swift_at_2009_MTV_Video_Music_Awards_%283917030572%29.jpg',
             focalPoint: '30% 40%',
             credit: 'Philip Nelson, via Wikimedia Commons',
-            caption: 'A distinct audience-level view of Swift at the 2009 MTV Video Music Awards.',
+            caption: 'A distinct audience-level view of Taylor at the 2009 MTV Video Music Awards.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Taylor_Swift_at_2009_MTV_VMA%27s_2.jpg',
             focalPoint: '40% 30%',
             credit: 'Philip Nelson, via Wikimedia Commons',
-            caption: 'Swift performs during the 2009 MTV Video Music Awards in New York.',
+            caption: 'Taylor performs during the 2009 MTV Video Music Awards in New York.',
             kind: 'primary',
           },
           {
@@ -435,27 +487,29 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Taylor_Swift_at_2009_MTV_VMA%27s_4.jpg',
             focalPoint: '38% 28%',
             credit: 'Philip Nelson, via Wikimedia Commons',
-            caption: 'Swift performs "You Belong with Me" during the 2009 VMA telecast.',
+            caption: 'Taylor performs "You Belong with Me" during the 2009 VMA telecast.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Taylor_Swift_at_2009_MTV_VMA%27s_5.jpg',
             focalPoint: '42% 35%',
             credit: 'Philip Nelson, via Wikimedia Commons',
-            caption: 'A wide, horizontal view of Swift\'s performance during the 2009 MTV Video Music Awards.',
+            caption: 'A wide, horizontal view of Taylor\'s performance during the 2009 MTV Video Music Awards.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_at_2009_MTV_VMA%27s.jpg',
             focalPoint: '38% 37%',
             credit: 'Philip Nelson, via Wikimedia Commons',
-            caption: 'Swift onstage during her "You Belong with Me" performance at the 2009 VMAs.',
+            caption: 'Taylor onstage during her "You Belong with Me" performance at the 2009 VMAs.',
             kind: 'primary',
           },
         ],
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Fearless Tour" opening-night moment.
+      relatedIds: ['moment:vault-fearless-the-fearless-tour-opens-to-a-sold-out-crowd-in-30-seconds'],
       year: 2009,
       month: 4,
       day: 23,
@@ -468,7 +522,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg',
       moment: {
         context:
-          'The show opened with "You Belong with Me," Swift in a drum majorette uniform that dancers stripped away mid-number to reveal the sparkling silver cocktail dress underneath.\n\nIt set the tone for a production she had a design hand in herself — a fairytale castle lit by more than a million lumens, LED projection walls, and a night of quick changes that ran through a crimson gown and a white wedding dress for "Love Story."',
+          'The show opened with "You Belong with Me," Taylor in a drum majorette uniform that dancers stripped away mid-number to reveal the sparkling silver cocktail dress underneath.\n\nIt set the tone for a production she had a design hand in herself — a fairytale castle lit by more than a million lumens, LED projection walls, and a night of quick changes that ran through a crimson gown and a white wedding dress for "Love Story."',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/' },
@@ -482,7 +536,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg',
             credit: 'Wikimedia Commons',
-            caption: 'For reference — Swift performing on the Fearless Tour stage in Los Angeles; not the specific band-uniform reveal described here.',
+            caption: 'For reference — Taylor performing on the Fearless Tour stage in Los Angeles; not the specific band-uniform reveal described here.',
             kind: 'reference',
           },
         ],
@@ -515,7 +569,7 @@ export default {
       thumbnailUrl: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
       moment: {
         context:
-          'The Hollywood Reporter\'s VMA style retrospective logs it as a one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
+          'A one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip, per The Hollywood Reporter\'s VMA style retrospective — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
         sources: [
           {
             outlet: 'E! Online',
@@ -597,6 +651,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Reem Acra" cluster — three
+      // gowns by the same designer across three award shows — now interlink.
+      relatedIds: [
+        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
+        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
+      ],
       year: 2009,
       month: 11,
       day: 11,
@@ -607,7 +667,7 @@ export default {
       thumbnailUrl: 'https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=',
       moment: {
         context:
-          'At the Nov. 11, 2009 CMA Awards in Nashville, Swift paired the gold gown with hair pinned back in an old-Hollywood style — a more grown-up counterpoint to the sleek silver look she\'d worn the year before. E!\'s CMA style retrospective remembers her looking "like a total award-winning star," in "a gold Reem Acra gown that skimmed the floor."\n\nThe styling matched the scoreboard: she swept all four categories she was nominated in that night — Entertainer of the Year, Female Vocalist of the Year, Album of the Year for Fearless, and Music Video of the Year for "Love Story" — becoming the youngest Entertainer of the Year winner in CMA history.',
+          'At the Nov. 11, 2009 CMA Awards in Nashville, Taylor paired the gold gown with hair pinned back in an old-Hollywood style — a more grown-up counterpoint to the sleek silver look she\'d worn the year before. E!\'s CMA style retrospective remembers her looking "like a total award-winning star," in "a gold Reem Acra gown that skimmed the floor."\n\nThe styling matched the scoreboard: she swept all four categories she was nominated in that night — Entertainer of the Year, Female Vocalist of the Year, Album of the Year for Fearless, and Music Video of the Year for "Love Story" — becoming the youngest Entertainer of the Year winner in CMA history.',
         sources: [
           {
             outlet: 'E! Online',
@@ -771,7 +831,7 @@ export default {
         'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/7d638f75-6b9b-4ff6-b9d2-06e0871c2dba/David+Letterman+November+2008+Taylor+Swift+Style+Feature+Image.png',
       moment: {
         context:
-          'Worn Nov. 10, 2008 in New York for a Letterman taping, days before Fearless hit shelves — a low-key, mixed-designer look (French Connection "Tallulah" skirt, Christian Louboutin "Babel" leather boots, Nordstrom floral tights and a black turtleneck) typical of her pre-tour press-run style.\n\nTaylor Swift Style\'s archive ranks the ensemble among the writer\'s all-time favorite Swift outfits, while noting how completely her styling logic changed in the years since: today\'s Swift, the blog reckons, would swap the heeled boots for pumps, crop the turtleneck, and drop the stacks of bracelets that were practically a uniform in 2008.',
+          'Worn Nov. 10, 2008 in New York for a Letterman taping, days before Fearless hit shelves — a low-key, mixed-designer look (French Connection "Tallulah" skirt, Christian Louboutin "Babel" leather boots, Nordstrom floral tights and a black turtleneck) typical of her pre-tour press-run style.\n\nTaylor Swift Style\'s archive ranks the ensemble among the writer\'s all-time favorite Taylor outfits, while noting how completely her styling logic changed in the years since: today\'s Taylor, the blog reckons, would swap the heeled boots for pumps, crop the turtleneck, and drop the stacks of bracelets that were practically a uniform in 2008.',
         sources: [
           { outlet: 'Taylor Swift Style', url: 'https://www.taylorswiftstyle.com/post-grid/letterman-111008' },
         ],
@@ -906,6 +966,8 @@ export default {
       month: 1,
       day: 6,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Jenny Packham" designer cluster.
+      relatedIds: ['moment:vault-red-a-jenny-packham-lace-gown-blooms-with-red-at-the-2012-cmas'],
       title: "A Jenny Packham resort mini for the 2010 People's Choice Awards",
       snippet: 'A white Jenny Packham Resort 2010 mini dress, Christian Louboutin pumps, and Neil Lane jewelry at the Nokia Theatre.',
       sourceUrl: 'https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/',
@@ -1015,10 +1077,12 @@ export default {
         'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
         'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
         'moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner',
+        // Cross-link (Stage 3, 2026-08-10): the movie's soundtrack single.
+        'moment:vault-fearless-today-was-a-fairytale-breaks-a-download-record-in-a-week',
       ],
       moment: {
         context:
-          'Shot July 30, 2009, the candids show Lautner clearing a high-jump bar on the track-and-field equipment while the pair filmed their Valentine’s Day roles as high school sweethearts — among the earliest public photos of the two Taylors together.\n\nThe Garry Marshall ensemble rom-com, released Feb. 12, 2010, cast Swift as Felicia and Lautner as Willy — a young couple written to represent "the freshness of new love" — in what was her feature-film acting debut. The chemistry visible in these set photos read on screen, too: the pair went on to earn a Best Kiss nomination at the 2010 MTV Movie Awards.',
+          'Shot July 30, 2009, the candids show Lautner clearing a high-jump bar on the track-and-field equipment while the pair filmed their Valentine’s Day roles as high school sweethearts — among the earliest public photos of the two Taylors together.\n\nThe Garry Marshall ensemble rom-com, released Feb. 12, 2010, cast Taylor as Felicia and Lautner as Willy — a young couple written to represent "the freshness of new love" — in what was her feature-film acting debut. The chemistry visible in these set photos read on screen, too: the pair went on to earn a Best Kiss nomination at the 2010 MTV Movie Awards.',
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -1076,7 +1140,7 @@ export default {
       ],
       moment: {
         context:
-          'On Oct. 25, 2009, Swift picked Lautner up from the airport and the two headed to a Los Angeles Kings–Columbus Blue Jackets game at the Staples Center, then were seen together in a Beverly Hills hotel lobby that night.\n\nAn eyewitness said Swift "was all dolled up and looked super pretty," while Lautner "was hiding under a hoody."',
+          'On Oct. 25, 2009, Taylor picked Lautner up from the airport and the two headed to a Los Angeles Kings–Columbus Blue Jackets game at the Staples Center, then were seen together in a Beverly Hills hotel lobby that night.\n\nAn eyewitness said Taylor "was all dolled up and looked super pretty," while Lautner "was hiding under a hoody."',
         sources: [{ outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-taylor-lautner-3/' }],
         // Image-fix pass (2026-07-10): the previous townsquare.media hotlink
         // was serving the site's own placeholder/logo graphic, not a real
@@ -1159,7 +1223,7 @@ export default {
       ],
       moment: {
         context:
-          'On Dec. 3, 2009, after afternoon reshoots for Valentine’s Day at a local high school, Swift and Lautner grabbed a snack at Menchie’s Frozen Yogurt and met up with co-star Emma Roberts (in a brunette wig) before heading to dinner at Benihana in Beverly Hills.\n\nThe paparazzi set caught the details that made the outing a fan favorite: the pair leaving with a giant pink box — presumed chocolates, per Just Jared Jr. — and a giant stuffed polar bear. The day had started as work, with the reshoots staged in the bleachers of a football field, and ended as one of the pair’s last widely photographed outings before the quiet December breakup.',
+          'On Dec. 3, 2009, after afternoon reshoots for Valentine’s Day at a local high school, Taylor and Lautner grabbed a snack at Menchie’s Frozen Yogurt and met up with co-star Emma Roberts (in a brunette wig) before heading to dinner at Benihana in Beverly Hills.\n\nThe paparazzi set caught the details that made the outing a fan favorite: the pair leaving with a giant pink box — presumed chocolates, per Just Jared Jr. — and a giant stuffed polar bear. The day had started as work, with the reshoots staged in the bleachers of a football field, and ended as one of the pair’s last widely photographed outings before the quiet December breakup.',
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -1194,7 +1258,7 @@ export default {
       thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-01.jpg',
       moment: {
         context:
-          'Swift described the Dec. 9, 2009 outing herself: "Photo shoot all day, followed by dinner with Emma Stone. Then we wandered around a candy store like wide-eyed little kids." The pair had dinner at Otto Restaurant before stopping at the ice cream shop.\n\nThe friendship was still new but already more than a year deep: the two met at the 2008 Young Hollywood Awards, and Stone later admitted she made the first move — "I listened to some of her music, and I wrote her an e-mail saying I liked her music, I swear. And then we started talking and hanging out." The Baskin-Robbins run was one of the friendship\'s first paparazzi-documented hangouts.',
+          'Taylor described the Dec. 9, 2009 outing herself: "Photo shoot all day, followed by dinner with Emma Stone. Then we wandered around a candy store like wide-eyed little kids." The pair had dinner at Otto Restaurant before stopping at the ice cream shop.\n\nThe friendship was still new but already more than a year deep: the two met at the 2008 Young Hollywood Awards, and Stone later admitted she made the first move — "I listened to some of her music, and I wrote her an e-mail saying I liked her music, I swear. And then we started talking and hanging out." The Baskin-Robbins run was one of the friendship\'s first paparazzi-documented hangouts.',
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -1246,7 +1310,7 @@ export default {
         'https://media.gettyimages.com/id/94673660/photo/z100s-jingle-ball-2009-presented-by-h-m-show.jpg?s=594x594&w=0&k=20&c=E59rBFYnR4Ncd9xBGTWP2Z7eMj8WOUs75Hy4l1odmC8=',
       moment: {
         context:
-          'Mayer, then 31, had invited 19-year-old Swift to sing on "Half of My Heart" while he was still finishing Battle Studies, and their live duet at Z100\'s Jingle Ball made the chemistry public. The romance the rumors predicted did happen — and was over within a couple of months.\n\nThe real aftermath arrived on her next album: "Dear John" called out the age gap directly, and Mayer fired back in a 2012 Rolling Stone interview, calling it "cheap songwriting" and "a really lousy thing to do."',
+          'Mayer, then 31, had invited 19-year-old Taylor to sing on "Half of My Heart" while he was still finishing Battle Studies, and their live duet at Z100\'s Jingle Ball made the chemistry public. The romance the rumors predicted did happen — and was over within a couple of months.\n\nThe real aftermath arrived on her next album: "Dear John" called out the age gap directly, and Mayer fired back in a 2012 Rolling Stone interview, calling it "cheap songwriting" and "a really lousy thing to do."',
         sources: [
           {
             outlet: 'Billboard',
@@ -1289,7 +1353,7 @@ export default {
       thumbnailUrl: 'https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/001.jpg',
       moment: {
         context:
-          'Swift landed in Sydney on Feb. 5, 2010 ahead of the Australian leg of the Fearless Tour — a five-city, week-long run that had opened at the Brisbane Entertainment Centre the night before and reached Sydney’s Acer Arena for two shows on Feb. 6 and 7.\n\nThe leg carried on through Newcastle, Melbourne’s Rod Laver Arena and Adelaide by Feb. 12, with country trio Gloriana opening, and played to roughly 78,000 people across the week — the Fearless show’s only visit to Australia before the tour wrapped that July.',
+          'Taylor landed in Sydney on Feb. 5, 2010 ahead of the Australian leg of the Fearless Tour — a five-city, week-long run that had opened at the Brisbane Entertainment Centre the night before and reached Sydney’s Acer Arena for two shows on Feb. 6 and 7.\n\nThe leg carried on through Newcastle, Melbourne’s Rod Laver Arena and Adelaide by Feb. 12, with country trio Gloriana opening, and played to roughly 78,000 people across the week — the Fearless show’s only visit to Australia before the tour wrapped that July.',
         sources: [
           { outlet: 'Taylor Swift Web Photo Gallery', url: 'https://taylorpictures.net/thumbnails.php?album=812' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
@@ -1319,7 +1383,7 @@ export default {
         'https://taylorpictures.net/albums/candids/2010/23-3%20Selena%20Gomez%20and%20Taylor%20Swift%20at%20Pinz%20Bowling%20in%20Studio%20City/normal_001.jpg',
       moment: {
         context:
-          'On March 23, 2010, Swift and Gomez spent the afternoon bowling with a group of friends at Pinz Bowling Center in Studio City, California — a casual, camera-ready hangout from the earliest stretch of their friendship.\n\nThe two had met in 2008 while dating brothers — "I dated Nick, and she dated Joe. And it was cute, we were young," Gomez has said of the Jonas Brothers chapter — and bonded when both relationships ended, agreeing that "the best thing we got out of those relationships was each other." By this 2010 afternoon the friendship had already outlasted both romances, on its way to becoming one of the longest-running in Swift\'s circle.',
+          'On March 23, 2010, Taylor and Gomez spent the afternoon bowling with a group of friends at Pinz Bowling Center in Studio City, California — a casual, camera-ready hangout from the earliest stretch of their friendship.\n\nThe two had met in 2008 while dating brothers — "I dated Nick, and she dated Joe. And it was cute, we were young," Gomez has said of the Jonas Brothers chapter — and bonded when both relationships ended, agreeing that "the best thing we got out of those relationships was each other." By this 2010 afternoon the friendship had already outlasted both romances, on its way to becoming one of the longest-running in Taylor\'s circle.',
         sources: [
           {
             outlet: 'Taylor Swift Web Photo Gallery',
@@ -1356,6 +1420,7 @@ export default {
         photos: [
           {
             url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
+            focalPoint: '46% 20%',
             credit: 'Big Machine Records',
           },
         ],
@@ -1373,7 +1438,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'Swift was inspired after meeting someone who seemed like the ideal partner but didn\'t feel as exciting as a more toxic ex. She brought the idea to a writing session with John Rich, saying he related "because he is that complicated, frustrating messy guy in his relationships."\n\nShe called the collaboration "just so cool" and Rich "an incredible writer"; he, in turn, was impressed by her songwriting and connection with her audience at her age.',
+          'Taylor was inspired after meeting someone who seemed like the ideal partner but didn\'t feel as exciting as a more toxic ex. She brought the idea to a writing session with John Rich, saying he related "because he is that complicated, frustrating messy guy in his relationships."\n\nShe called the collaboration "just so cool" and Rich "an incredible writer"; he, in turn, was impressed by her songwriting and connection with her audience at her age.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You' }],
         // T16 photo pass (2026-07-09): the song is an album track with no
         // single artwork or video, so this is the parent album's cover art
@@ -1382,6 +1447,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            // Photo pass #762 (2026-07-31): viewed. Profile turned left, curls
+            // fanned out around her face — face sits left-of-center, upper third.
+            focalPoint: '38% 30%',
             credit: 'Big Machine Records (album cover art)',
             caption: 'Cover art for Fearless, the album that carries "The Way I Loved You."',
             kind: 'primary',
@@ -1401,7 +1469,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg',
       moment: {
         context:
-          'Swift pleaded with Big Machine\'s Scott Borchetta to add the track a day before the tracklist was finalized, because it was about "something really, really dramatic and crazy." She\'s described her writing process as reactive: "I can write something, call up my producer, we can get in the studio, put a rush on it, get an overnight mix."\n\nOn Ellen that November, she first guessed Jonas had ended things "over the phone in 25 seconds," then said she\'d actually checked her call log afterward and corrected herself: it was 27 seconds — "that\'s got to be a record." She felt she "owed it" to fans to be open about it; Jonas later called her response "flattering."',
+          'Taylor pleaded with Big Machine\'s Scott Borchetta to add the track a day before the tracklist was finalized, because it was about "something really, really dramatic and crazy." She\'s described her writing process as reactive: "I can write something, call up my producer, we can get in the studio, put a rush on it, get an overnight mix."\n\nOn Ellen that November, she first guessed Jonas had ended things "over the phone in 25 seconds," then said she\'d actually checked her call log afterward and corrected herself: it was 27 seconds — "that\'s got to be a record." She felt she "owed it" to fans to be open about it; Jonas later called her response "flattering."',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Forever_%26_Always' }],
         photos: [
           {
@@ -1442,7 +1510,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'Swift discovered Luna Halo\'s "Untouchable" when her label president gave her the band\'s album, then debuted a stripped-down cover during a 2008 "Stripped" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition.\n\nLuna Halo\'s Nathan Barlowe on her pick: "She could have chosen any cover in the world, but that\'s what she chose."',
+          'Taylor discovered Luna Halo\'s "Untouchable" when her label president gave her the band\'s album, then debuted a stripped-down cover during a 2008 "Stripped" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition.\n\nLuna Halo\'s Nathan Barlowe on her pick: "She could have chosen any cover in the world, but that\'s what she chose."',
         sources: [
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-untouchable/' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Luna_Halo_(album)' },
@@ -1450,7 +1518,12 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            // Photo pass #762 (2026-07-31): viewed. Same cover as the other
+            // Fearless album-track pages — face left-of-center, upper third.
+            focalPoint: '38% 30%',
             credit: 'Big Machine Records',
+            caption: 'Cover art for Fearless, the album that carries her "Untouchable" cover.',
+            kind: 'primary',
           },
         ],
       },
@@ -1508,12 +1581,12 @@ export default {
       day: 7,
       category: 'business',
       title: 'The best-selling album in America — for all of 2009',
-      snippet: '3.217 million copies sold in the US in 2009 alone, making 20-year-old Swift the youngest artist — and only female country act — with a calendar-year best-seller.',
+      snippet: '3.217 million copies sold in the US in 2009 alone, making 20-year-old Taylor the youngest artist — and only female country act — with a calendar-year best-seller.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Swift, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.\n\nIt also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
+          'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Taylor, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.\n\nIt also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' }],
         // Photo-enrichment run 16 (2026-07-18, #762): added a CC BY 2.0 Commons
         // shot from the Fearless Tour's 2010 leg (WEZL, Apr. 30, 2010) —
@@ -1549,7 +1622,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg',
       moment: {
         context:
-          'On June 5, 2010, the Fearless Tour stop at Gillette Stadium in Foxborough, Massachusetts brought in $3.7 million in ticket sales from 56,868 concertgoers — the tour\'s highest-grossing show — and made Swift the first female musician to headline and sell out Gillette Stadium.\n\nIt was also the tour\'s final US date, and Billboard\'s review caught her playing to the home crowd: she pulled on a No. 13 Patriots jersey mid-show, walked the stands hugging fans through an acoustic set, and closed under the waterfall effect that soaked her at the end of every night.',
+          'On June 5, 2010, the Fearless Tour stop at Gillette Stadium in Foxborough, Massachusetts brought in $3.7 million in ticket sales from 56,868 concertgoers — the tour\'s highest-grossing show — and made Taylor the first female musician to headline and sell out Gillette Stadium.\n\nIt was also the tour\'s final US date, and Billboard\'s review caught her playing to the home crowd: she pulled on a No. 13 Patriots jersey mid-show, walked the stands hugging fans through an acoustic set, and closed under the waterfall effect that soaked her at the end of every night.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
           {
@@ -1588,7 +1661,7 @@ export default {
       thumbnailUrl: 'https://media.gettyimages.com/id/98533973/photo/45th-annual-academy-of-country-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=67QbByMHXPBbPhVd880zAhmLEoz7-Hm5Ns4unn8vrnA=',
       moment: {
         context:
-          'At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Swift wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage.\n\nFor once the trophies went elsewhere: despite nominations spanning Entertainer of the Year, Top Female Vocalist of the Year, and Song of the Year and Video of the Year for "You Belong with Me," she went home empty-handed, with Entertainer of the Year going to Carrie Underwood. Her performance slot went to "Change" — one of the only major award nights of the era where the draped wisteria chiffon, not a sweep, was the headline.',
+          'At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Taylor wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage.\n\nFor once the trophies went elsewhere: despite nominations spanning Entertainer of the Year, Top Female Vocalist of the Year, and Song of the Year and Video of the Year for "You Belong with Me," she went home empty-handed, with Entertainer of the Year going to Carrie Underwood. Her performance slot went to "Change" — one of the only major award nights of the era where the draped wisteria chiffon, not a sweep, was the headline.',
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -1639,6 +1712,8 @@ export default {
     // sources per the framework.
     {
       slug: 'love-story-single-release',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Love Story" moment.
+      relatedIds: ['moment:vault-fearless-love-story-and-the-boy-her-family-didnt-approve-of'],
       year: 2008,
       month: 9,
       day: 15,
@@ -1810,6 +1885,9 @@ export default {
       month: 1,
       day: 26,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the Valentine's Day set the
+      // soundtrack single came from.
+      relatedIds: ['moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner'],
       title: 'Today Was a Fairytale breaks a download record in a week',
       snippet:
         'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',
@@ -1880,7 +1958,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/7/72/Love_and_Theft_-_Stephen_Barker_Liles.jpg',
       moment: {
         context:
-          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008.\n\nSwift texted Liles about the song after the album dropped, and his first reaction was dread: "What did I do? Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He eventually answered in kind, writing Swift a response song, "Try to Make It Anyway," recorded in his home studio and released in 2011.',
+          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008.\n\nTaylor texted Liles about the song after the album dropped, and his first reaction was dread: "What did I do? Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He eventually answered in kind, writing Taylor a response song, "Try to Make It Anyway," recorded in his home studio and released in 2011.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1948,7 +2026,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg',
       moment: {
         context:
-          'Premiered in May 2009 as the album\'s third single took off, the split-role video became the era\'s defining visual — and its VMA win that September is the reason the Kanye West moment happened at all.\n\nRoman White shot it over two days at Pope John Paul II High School near her Hendersonville home town, with Swift playing both "the nerd, who is pining away for this guy that she can\'t have" and "the popular girl — horrible, scary, intimidating and perfect"; White has said the closing kiss with Lucas Till took about 45 takes. The song matched the video\'s reach, peaking at No. 2 on the Hot 100 (blocked only by "I Gotta Feeling") and becoming the first country song to top the all-genre Radio Songs airplay chart.',
+          'Premiered in May 2009 as the album\'s third single took off, the split-role video became the era\'s defining visual — and its VMA win that September is the reason the Kanye West moment happened at all.\n\nRoman White shot it over two days at Pope John Paul II High School near her Hendersonville home town, with Taylor playing both "the nerd, who is pining away for this guy that she can\'t have" and "the popular girl — horrible, scary, intimidating and perfect"; White has said the closing kiss with Lucas Till took about 45 takes. The song matched the video\'s reach, peaking at No. 2 on the Hot 100 (blocked only by "I Gotta Feeling") and becoming the first country song to top the all-genre Radio Songs airplay chart.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1977,12 +2055,14 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png',
+            focalPoint: '58% 42%',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "You Belong with Me."',
             kind: 'primary',
           },
           {
             url: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg',
+            focalPoint: '46% 22%',
             credit: 'Big Machine Records / official Taylor Swift YouTube channel',
             caption:
               'Still from the official "You Belong with Me" music video, directed by Roman White — the dance-scene arrival in a white dress.',
@@ -2004,7 +2084,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
       moment: {
         context:
-          'Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage.\n\nIn between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
+          'The sellout was near-instant — tickets moved in early 2009, per Country Standard Time — and by the time the tour reached New York that August, the show read like a coronation, per Rolling Stone\'s review — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage.\n\nIn between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
         sources: [
           {
             outlet: 'Country Standard Time',
@@ -2042,6 +2122,11 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
+            // Photo pass #762 (2026-07-31): viewed (2345x1824, wide stage
+            // shot). She's the small figure on the round stage, lower-center;
+            // the big screen carries her face upper-left-of-center — keep the
+            // crop mid-height to hold both in frame.
+            focalPoint: '36% 48%',
             credit: 'calmdownlove / Wikimedia Commons, CC BY 2.0',
             caption:
               'Performing on the Fearless Tour, 2009 — the tour whose Madison Square Garden stop sold out in about a minute.',
@@ -2063,7 +2148,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Bieber said he tripped over something coming down a ramp and "felt my ankle roll in a very bad way," but sang "One Time" through to the end before limping backstage to the medics — skipping the encore, getting a visit from Swift herself, then heading to the hospital for X-rays and a cast.\n\nHe was back opening for Swift in Manchester the next night, show-must-go-on style. The booking itself is the time capsule: two teenagers on one arena bill, months before both went supernova.',
+          'Bieber said he tripped over something coming down a ramp and "felt my ankle roll in a very bad way," but sang "One Time" through to the end before limping backstage to the medics — skipping the encore, getting a visit from Taylor herself, then heading to the hospital for X-rays and a cast.\n\nHe was back opening for Taylor in Manchester the next night, show-must-go-on style. The booking itself is the time capsule: two teenagers on one arena bill, months before both went supernova.',
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -2096,6 +2181,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/2009_Justin_Bieber_NYC_1.JPG',
+            // Photo pass #762 (2026-07-31): viewed. Straight-on portrait,
+            // face centered horizontally, sits in the upper quarter of frame.
+            focalPoint: '46% 20%',
             credit: 'Kerosene Photography / CC BY 2.0 via Wikimedia Commons',
             caption:
               'For reference — not from the Wembley show: 15-year-old Justin Bieber at a New York in-store appearance on Sept. 1, 2009, weeks before he opened the Fearless Tour\'s UK leg.',
@@ -2259,7 +2347,7 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/2015825/rs_600x600-150925152931-600.taylor-swift-csi.jpg',
       moment: {
         context:
-          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Swift, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — Rolling Stone said she "held her own."\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later.',
+          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Taylor, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — she "held her own," per Rolling Stone.\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later.',
         sources: [
           {
             outlet: 'E! Online',
@@ -2368,7 +2456,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hq1.jpg',
       moment: {
         context:
-          'Till confirmed it himself in interviews: the two dated for a stretch after shooting the video, then settled back into friendship — one of the era\'s few relationship stories with no drama attached.\n\n"We just really both liked each other. I really just liked her as a friend. That\'s the only reason that didn\'t work out," he explained later, putting the romance at about a month or two. The shoot itself he remembers fondly — "I remember just feeling like a star when I came and did that music video. I felt so special," he said in 2020, calling Swift generous and professional — and the video left him permanently attached to the era as the boy next door reading her notebook messages through the window.',
+          'Till confirmed it himself in interviews: the two dated for a stretch after shooting the video, then settled back into friendship — one of the era\'s few relationship stories with no drama attached.\n\n"We just really both liked each other. I really just liked her as a friend. That\'s the only reason that didn\'t work out," he explained later, putting the romance at about a month or two. The shoot itself he remembers fondly — "I remember just feeling like a star when I came and did that music video. I felt so special," he said in 2020, calling Taylor generous and professional — and the video left him permanently attached to the era as the boy next door reading her notebook messages through the window.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -2423,6 +2511,27 @@ export default {
       milestone: { id: "m-fear-1", label: "Fearless released", kind: "album" },
       snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/deep-10-taylor-swifts-fearless/',
+            source_title: 'Deep 10: Taylor Swift\'s Fearless',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Big Machine Records (via PR Newswire)',
+            url: 'https://www.prnewswire.com/news-releases/taylor-swifts-fearless-album-officially-lauded-as-most-awarded-album-in-country-music-history-88431737.html',
+            source_title: 'Taylor Swift\'s FEARLESS Album Officially Lauded as Most Awarded Album in Country Music History',
+            publisher: 'Big Machine Records',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'Label press release — primary for the award tally it lists, not an independent assessment.',
+          },
+        ],
         context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
         // Photo pass #762 (2026-07-19): freely licensed Commons live shot from
         // the album's own tour — license (CC BY-SA 2.0, alexahalasan) verified
@@ -2451,6 +2560,26 @@ export default {
       snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
       hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://content.time.com/time/specials/packages/article/0,28804,1922188_1922187_1922190,00.html',
+            source_title: 'Taylor Swift Got Kanyed — Top 10 Outrageous Kanye West Moments',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'VICE',
+            url: 'https://www.vice.com/en/article/on-this-day-in-2009-kanye-west-grabbed-the-mic-from-taylor-swift-at-the-mtv-vmas/',
+            source_title: 'On This Day in 2009, Kanye West Grabbed the Mic From Taylor Swift at the MTV VMAs',
+            publisher: 'VICE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
       },
     },

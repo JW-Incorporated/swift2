@@ -17,7 +17,8 @@ export default {
   items: [
     {
       year: 2010,
-      month: 10,
+      month: 11,
+      day: 3,
       category: 'business',
       title: 'Speak Now sells over a million copies in a single week',
       snippet:
@@ -29,6 +30,10 @@ export default {
         context:
           "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.\n\nIt also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
         sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-sells-over-1-million-in-record-billboard-200-debut-951902',
+          },
           {
             outlet: 'Grammy.com',
             url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
@@ -68,7 +73,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "At six minutes and forty-three seconds, it's the longest, darkest thing on the album — a blues-inflected power ballad whose 19-year-old narrator finally asks, 'Don't you think I was too young to be messed with?' Swift said only that it was about someone who 'made my world very dark for a while,' and waved off the guessing game outright: 'How presumptuous! I never disclose who my songs are about.'\n\nOn the Speak Now World Tour she staged the bridge literally, with fireworks erupting overhead as she sang 'I'm shining like fireworks over your sad, empty town' — and in June 2023 she brought it back as an Eras Tour surprise song in Minneapolis. Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'",
+          "At six minutes and forty-three seconds, it's the longest, darkest thing on the album — a blues-inflected power ballad whose 19-year-old narrator finally asks, 'Don't you think I was too young to be messed with?' Taylor said only that it was about someone who 'made my world very dark for a while,' and waved off the guessing game outright: 'How presumptuous! I never disclose who my songs are about.'\n\nOn the Speak Now World Tour she staged the bridge literally, with fireworks erupting overhead as she sang 'I'm shining like fireworks over your sad, empty town' — and in June 2023 she brought it back as an Eras Tour surprise song in Minneapolis. Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)' },
           {
@@ -112,6 +117,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): "Innocent" is a direct reply to the
+      // 2009 VMA moment — a reader on either page would want the other.
+      relatedIds: ['moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic'],
       year: 2010,
       month: 10,
       day: 25,
@@ -169,6 +177,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
+      relatedIds: [
+        "moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice",
+        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
+        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
+      ],
       year: 2011,
       month: 11,
       day: 9,
@@ -219,6 +233,9 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): another recurring Speak Now Tour
+      // costume, the white lace 'Mean' dress.
+      relatedIds: ['moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to'],
       title: 'A gold Roberto Cavalli fringe dress for Sparks Fly, Mine, and The Story of Us',
       snippet:
         'A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album\'s songs.',
@@ -255,6 +272,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Speak Now World Tour"
+      // cluster — the tour's open and close.
+      relatedIds: ['moment:vault-speak-now-the-speak-now-world-tour-closes-out-at-123-7-million'],
       year: 2011,
       month: 2,
       day: 9,
@@ -271,7 +291,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg/500px-Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg',
       moment: {
         context:
-          "The staging was pure Broadway ambition: nine costume changes, pyrotechnics, confetti, aerialists on trapezes, and a suspended balcony that descended over the crowd for the finale.\n\nFrom opening night at the Singapore Indoor Stadium, the production ran through Asia and Europe before the North American leg opened in Omaha that May — six US stadium dates included — and closed in Auckland on March 18, 2012. Announcing the run, Swift kept it simple: 'I'm so excited to go back out on tour again in 2011! The FEARLESS Tour was so much fun...'",
+          "The staging was pure Broadway ambition: nine costume changes, pyrotechnics, confetti, aerialists on trapezes, and a suspended balcony that descended over the crowd for the finale.\n\nFrom opening night at the Singapore Indoor Stadium, the production ran through Asia and Europe before the North American leg opened in Omaha that May — six US stadium dates included — and closed in Auckland on March 18, 2012. Announcing the run, Taylor kept it simple: 'I'm so excited to go back out on tour again in 2011! The FEARLESS Tour was so much fun...'",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
           {
@@ -396,7 +416,7 @@ export default {
       thumbnailUrl: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
       moment: {
         context:
-          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. Insider's CMA retrospective files it as a classic rather than a showstopper, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
+          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. A classic rather than a showstopper, per Insider's CMA retrospective, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
         sources: [
           {
             outlet: 'Yahoo Entertainment (Insider)',
@@ -465,6 +485,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
+      relatedIds: [
+        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
+        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
+      ],
       year: 2011,
       month: 1,
       day: 5,
@@ -508,6 +533,12 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the same designer's red chiffon
+      // 'Haunted' dress, and another recurring tour costume.
+      relatedIds: [
+        'moment:vault-speak-now-a-red-chiffon-susan-hilferty-dress-closes-out-haunted',
+        'moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to',
+      ],
       title: "Susan Hilferty's purple chiffon halter dress becomes the tour's signature",
       snippet:
         "A custom purple chiffon halter gown by costume designer Susan Hilferty — worn for the title track, 'Fearless,' 'Last Kiss,' and more across the Speak Now World Tour.",
@@ -548,6 +579,12 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): two more recurring Speak Now Tour
+      // costumes — the Cavalli fringe dress and Hilferty's purple halter.
+      relatedIds: [
+        'moment:vault-speak-now-a-gold-roberto-cavalli-fringe-dress-for-sparks-fly-mine-and-',
+        'moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour',
+      ],
       title: "A white lace Alice + Olivia dress for 'Mean' on the Speak Now Tour",
       snippet:
         "A custom white lace Alice + Olivia dress, worn during 'Mean' performances across the Speak Now World Tour.",
@@ -627,6 +664,9 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the same designer's purple chiffon
+      // halter, the tour's other signature Hilferty look.
+      relatedIds: ['moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour'],
       title: "A red chiffon Susan Hilferty dress closes out 'Haunted'",
       snippet:
         "Another Susan Hilferty custom piece — a red chiffon midi-length dress worn for the tour's 'Haunted' performances.",
@@ -667,6 +707,8 @@ export default {
       month: 5,
       day: 22,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Elie Saab" designer cluster.
+      relatedIds: ['moment:vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award'],
       title: 'A pink Elie Saab sequin gown at the Billboard Music Awards',
       snippet:
         'A strapless Elie Saab gown covered top to bottom in pink sequins, with side-swept curls — a glamorous but still youthful red-carpet look.',
@@ -706,6 +748,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
+      relatedIds: [
+        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
+        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
+      ],
       year: 2011,
       month: 11,
       day: 20,
@@ -750,6 +797,11 @@ export default {
 
     // --- Fashion/photo depth pass #2 (2026-07-04) ---
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
+      relatedIds: [
+        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
+        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
+      ],
       year: 2010,
       month: 10,
       day: 25,
@@ -833,6 +885,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Zuhair Murad" cluster — three
+      // looks by the same designer across three eras — now interlink.
+      relatedIds: [
+        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
+        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
+      ],
       year: 2011,
       month: 2,
       day: 27,
@@ -1153,7 +1211,7 @@ export default {
         'https://jj-justjaredjr-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2012/03/taylor-pastaio/taylor-swift-il-pastaio-01.JPG',
       moment: {
         context:
-          "Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\"\n\nSwift and the Glee star had grown close that year while Swift was recording Red between tour dates. The next day, Swift received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards.",
+          "Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\"\n\nSwift and the Glee star had grown close that year while Taylor was recording Red between tour dates. The next day, Taylor received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards.",
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -1169,6 +1227,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster.
+      // (2026-08-10): + the quiet Mary Kennedy gravesite visit, same summer.
+      relatedIds: [
+        'moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port',
+        'moment:vault-red-the-conor-kennedy-summer-quietly-ends',
+        'moment:vault-speak-now-a-quiet-visit-to-mary-kennedys-gravesite',
+      ],
       year: 2012,
       month: 8,
       category: 'sighting',
@@ -1179,7 +1244,7 @@ export default {
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
       moment: {
         context:
-          "By mid-August 2012 the two were photographed wading and embracing in the water off the Kennedy family's stretch of Cape Cod, part of a summer Swift spent largely at the Kennedys' Hyannis Port compound after she and Conor — RFK's 18-year-old grandson — were first linked that July.\n\nDays later they were photographed strolling Hyannis Port and joining his family for outdoor volleyball.",
+          "By mid-August 2012 the two were photographed wading and embracing in the water off the Kennedy family's stretch of Cape Cod, part of a summer Taylor spent largely at the Kennedys' Hyannis Port compound after she and Conor — RFK's 18-year-old grandson — were first linked that July.\n\nDays later they were photographed strolling Hyannis Port and joining his family for outdoor volleyball.",
         sources: [
           {
             outlet: 'E! Online',
@@ -1199,6 +1264,8 @@ export default {
       month: 8,
       day: 19,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Conor Kennedy" cluster.
+      relatedIds: ['moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod'],
       title: "A quiet visit to Mary Kennedy's gravesite",
       snippet:
         "On August 19, 2012, Taylor joined Conor Kennedy at his mother Mary Richardson Kennedy's gravesite — one of the last photographed moments of their summer romance.",
@@ -1207,7 +1274,7 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/2012722/634.ConorKennedy.TaylorSwift.081912.jpeg',
       moment: {
         context:
-          "Mary Richardson Kennedy had died in May 2012; reports at the time said Swift accompanied Conor to the grave and helped clear overgrown brush from the site. It's remembered as one of the final documented moments of the two together — the relationship reportedly ended by October.\n\nE! Online's account had her in a floral pink dress and black sunglasses, joined by Kennedy family and friends for what amounted to an impromptu memorial. It landed just days after she'd attended a Kennedy cousin's wedding with Conor — the appearance that briefly spawned a 'wedding crash' tabloid story E! itself predicted would blow over — and in hindsight it reads as the quiet close of the summer the tabloids couldn't get enough of.",
+          "Mary Richardson Kennedy had died in May 2012; reports at the time said Taylor accompanied Conor to the grave and helped clear overgrown brush from the site. It's remembered as one of the final documented moments of the two together — the relationship reportedly ended by October.\n\nE! Online's account had her in a floral pink dress and black sunglasses, joined by Kennedy family and friends for what amounted to an impromptu memorial. It landed just days after she'd attended a Kennedy cousin's wedding with Conor — the appearance that briefly spawned a 'wedding crash' tabloid story E! itself predicted would blow over — and in hindsight it reads as the quiet close of the summer the tabloids couldn't get enough of.",
         sources: [
           {
             outlet: 'E! Online',
@@ -1240,7 +1307,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift wrote "Enchanted" about a man she was infatuated with after meeting him in person in New York City, deliberately using the word "wonderstruck" because he\'d used it in an email to her after they met. The album booklet\'s hidden-message code for the song reads "A-D-A-M." Media speculation pointed to Owl City\'s Adam Young; he responded on his website in February 2011 confirming his own feelings and posted a cover with rewritten lyrics ("Taylor I was so in love with you"), but Swift never confirmed or denied it, and never replied.\n\n"Enchanted" was originally the working title for the whole album until Big Machine president Scott Borchetta pushed for a name reflecting a more grown-up perspective. The song still got the fairy-tale treatment the discarded title implied: on the Speak Now World Tour she performed it in a ball gown atop a winding staircase with ballerinas behind her, and in 2011 her debut fragrance, Wonderstruck, took its name straight from the song\'s borrowed word.',
+          'Taylor wrote "Enchanted" about a man she was infatuated with after meeting him in person in New York City, deliberately using the word "wonderstruck" because he\'d used it in an email to her after they met. The album booklet\'s hidden-message code for the song reads "A-D-A-M." Media speculation pointed to Owl City\'s Adam Young; he responded on his website in February 2011 confirming his own feelings and posted a cover with rewritten lyrics ("Taylor I was so in love with you"), but Taylor never confirmed or denied it, and never replied.\n\n"Enchanted" was originally the working title for the whole album until Big Machine president Scott Borchetta pushed for a name reflecting a more grown-up perspective. The song still got the fairy-tale treatment the discarded title implied: on the Speak Now World Tour she performed it in a ball gown atop a winding staircase with ballerinas behind her, and in 2011 her debut fragrance, Wonderstruck, took its name straight from the song\'s borrowed word.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Enchanted_(Taylor_Swift_song)' }],
         photos: [
           {
@@ -1268,6 +1335,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
+      // the song, and its radio-single release.
+      relatedIds: ['moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two'],
       year: 2010,
       month: 10,
       day: 12,
@@ -1279,7 +1349,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
       moment: {
         context:
-          'In interviews before Speak Now\'s release, Swift explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that."\n\nIt was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
+          'In interviews before Speak Now\'s release, Taylor explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that."\n\nIt was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' }],
         photos: [
           {
@@ -1302,7 +1372,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_The_Story_of_Us.png',
       moment: {
         context:
-          'Swift was inspired by an uncomfortable encounter with an ex-boyfriend at an awards show — she wanted to talk to him but couldn\'t get past the awkwardness. Back home, she told her mother, "I felt like I was standing alone in a crowded room," and wrote the lyrics from there.\n\nShe later told USA Today\'s Brian Mansfield that the subject behind "The Story of Us" was the same person behind "Dear John." It was the last song she wrote for Speak Now.',
+          'Taylor was inspired by an uncomfortable encounter with an ex-boyfriend at an awards show — she wanted to talk to him but couldn\'t get past the awkwardness. Back home, she told her mother, "I felt like I was standing alone in a crowded room," and wrote the lyrics from there.\n\nShe later told USA Today\'s Brian Mansfield that the subject behind "The Story of Us" was the same person behind "Dear John." It was the last song she wrote for Speak Now.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Story_of_Us_(song)' }],
         photos: [
           {
@@ -1319,13 +1389,13 @@ export default {
       category: 'business',
       title: 'Speak Now: the only album Taylor Swift has ever written entirely alone',
       snippet:
-        'All 14 standard-edition tracks credited to Swift alone — a direct answer to critics who doubted a 20-year-old could really write her own songs.',
+        'All 14 standard-edition tracks credited to Taylor alone — a direct answer to critics who doubted a 20-year-old could really write her own songs.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
-          'Swift wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour.\n\nShe\'s since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track "If This Was a Movie" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer.',
+          'Taylor wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour.\n\nShe\'s since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track "If This Was a Movie" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' }],
         photos: [
           {
@@ -1401,7 +1471,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The relationship was never confirmed on the record by either party — known publicly through sightings and reporting, including a backstage appearance at an October 2010 "Saturday Night Live" hosted by Swift\'s friend Emma Stone.\n\nWhat reporting there was sketched both ends of the arc: Gwyneth Paltrow later said she had introduced the two at a dinner party, and by January, sources were telling Us Weekly that Gyllenhaal "wasn\'t feeling it anymore and was uncomfortable with all the attention," with the nine-year age gap doing quiet work in every account. Neither of them ever put a word of it on the record — which is exactly why fans would spend the next decade reading Red as its documentation.',
+          'The relationship was never confirmed on the record by either party — known publicly through sightings and reporting, including a backstage appearance at an October 2010 "Saturday Night Live" hosted by Taylor\'s friend Emma Stone.\n\nWhat reporting there was sketched both ends of the arc: Gwyneth Paltrow later said she had introduced the two at a dinner party, and by January, sources were telling Us Weekly that Gyllenhaal "wasn\'t feeling it anymore and was uncomfortable with all the attention," with the nine-year age gap doing quiet work in every account. Neither of them ever put a word of it on the record — which is exactly why fans would spend the next decade reading Red as its documentation.',
         sources: [
           {
             outlet: 'Elite Daily',
@@ -1428,6 +1498,9 @@ export default {
       year: 2012,
       month: 8,
       category: 'relationship',
+      // Cross-link (Stage 3, 2026-08-10): the "Conor Kennedy" cluster — how
+      // it started, in Hyannis Port.
+      relatedIds: ['moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port'],
       title: "A summer with Conor Kennedy, and Ethel Kennedy's blessing",
       snippet: 'A whirlwind romance with the 18-year-old Kennedy family member, complete with a grandmother\'s public blessing and a house bought near the family\'s Hyannis Port compound — quietly over within months.',
       sourceUrl: 'https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split',
@@ -1474,7 +1547,7 @@ export default {
         'https://media.gettyimages.com/id/129173267/photo/taylor-swifts-wonderstruck-fragrance-launch.jpg?s=594x594&w=0&k=20&c=ibJp3dK0NvxFinzatkJl7lOPCieM5xP3asbvei7IB8s=',
       moment: {
         context:
-          'Swift partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011.\n\nShe named it directly after her own lyric: "I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone," adding that fragrance helps "shape someone\'s first impression and memory of you." It became her best-selling perfume, and alongside Justin Bieber\'s "Someday," helped drive a reported 57% jump in celebrity-fragrance sales that year.',
+          'Taylor partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011.\n\nShe named it directly after her own lyric: "I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone," adding that fragrance helps "shape someone\'s first impression and memory of you." It became her best-selling perfume, and alongside Justin Bieber\'s "Someday," helped drive a reported 57% jump in celebrity-fragrance sales that year.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1497,6 +1570,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Speak Now World Tour" cluster.
+      relatedIds: ['moment:vault-speak-now-the-speak-now-world-tour-opens-in-singapore'],
       year: 2012,
       month: 3,
       day: 18,
@@ -1539,7 +1614,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/5/56/Taylor_Swift_-_Mine.png',
       moment: {
         context:
-          'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.\n\nThe numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Swift and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards.',
+          'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.\n\nThe numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Taylor and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1697,6 +1772,9 @@ export default {
           // shown as thumbnailUrl.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Taylor_Swift_2011_2.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x947 downsized from
+            // 3119x2462). Seated center with the teal guitar, face upper-center.
+            focalPoint: '46% 23%',
             credit: 'dephisticate, Wikimedia Commons (CC BY 2.0)',
             caption: 'Acoustic performance beneath an illuminated tree, Prudential Center, July 2011, on the tour supporting the album.',
             kind: 'archival',
@@ -1706,6 +1784,8 @@ export default {
     },
     {
       slug: 'back-to-december-single-release',
+      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster.
+      relatedIds: ['moment:vault-speak-now-back-to-december-her-first-apology-song'],
       year: 2010,
       month: 11,
       day: 15,
@@ -1879,7 +1959,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Taylor_Swift_-_Long_Live_-_Speak_Now_Tour_in_Vancouver.jpg',
             credit: 'Andy (agroove) / Wikimedia Commons, CC BY-SA 2.0',
             caption:
-              'Swift and her band mid-set in Vancouver, Sept. 11, 2011 — the North American leg whose footage became Speak Now World Tour Live.',
+              'Taylor and her band mid-set in Vancouver, Sept. 11, 2011 — the North American leg whose footage became Speak Now World Tour Live.',
             kind: 'archival',
             focalPoint: '49% 44%',
           },
@@ -1900,7 +1980,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
       moment: {
         context:
-          'Producer T Bone Burnett had the Civil Wars over to his house after a Los Angeles show; Swift, who\'d spent two days reading the novel, wrote "Safe & Sound" with them in about two hours, singing from Katniss Everdeen\'s perspective. It went on to win the Grammy for Best Song Written for Visual Media.\n\nAs a release it was an outlier on every axis: an out-of-cycle soundtrack single with no album of her own attached, debuting at No. 30 on the Hot 100 on 136,000 first-week downloads. The Philip Andelman-directed video — Swift barefoot in a white dress, walking woods and a cemetery in Watertown, Tennessee — premiered on MTV that February, and the song picked up a Golden Globe nomination for Best Original Song, losing to Adele\'s "Skyfall."',
+          'Producer T Bone Burnett had the Civil Wars over to his house after a Los Angeles show; Taylor, who\'d spent two days reading the novel, wrote "Safe & Sound" with them in about two hours, singing from Katniss Everdeen\'s perspective. It went on to win the Grammy for Best Song Written for Visual Media.\n\nAs a release it was an outlier on every axis: an out-of-cycle soundtrack single with no album of her own attached, debuting at No. 30 on the Hot 100 on 136,000 first-week downloads. The Philip Andelman-directed video — Taylor barefoot in a white dress, walking woods and a cemetery in Watertown, Tennessee — premiered on MTV that February, and the song picked up a Golden Globe nomination for Best Original Song, losing to Adele\'s "Skyfall."',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1929,7 +2009,7 @@ export default {
       category: 'music',
       title: 'Speak Now, the title track: a wedding she never crashed',
       snippet:
-        'The album\'s namesake started with a friend\'s story — the boy she\'d loved since childhood was marrying, in Swift\'s telling, a "horrible, controlling, mean girl" — so Swift wrote the objection scene as fiction.',
+        'The album\'s namesake started with a friend\'s story — the boy she\'d loved since childhood was marrying, in Taylor\'s telling, a "horrible, controlling, mean girl" — so Taylor wrote the objection scene as fiction.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_(song)',
       thumbnailUrl: null,
       moment: {
@@ -1972,7 +2052,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Taylor_Swift_-_Speak_Now_-_Speak_Now_World_Tour_2011_in_Vancouver.jpg',
             credit: 'Andy (agroove) / Wikimedia Commons, CC BY-SA 2.0',
             caption:
-              "The song's wedding scene, staged live: Swift in purple with gloved dancers before a stained-glass chapel screen, performing 'Speak Now' in Vancouver on the 2011 tour.",
+              "The song's wedding scene, staged live: Taylor in purple with gloved dancers before a stained-glass chapel screen, performing 'Speak Now' in Vancouver on the 2011 tour.",
             kind: 'archival',
             focalPoint: '49% 46%',
           },
@@ -2141,6 +2221,10 @@ export default {
         // Billboard Music Awards in Las Vegas that May — a different event
         // entirely — and was rejected rather than mislabeled. Genuinely
         // thin for this specific December ceremony.
+        // Re-reviewed 2026-08-01 (#762): tried justjared.com's Dec. 2, 2011
+        // "Billboard Women in Music Luncheon" gallery (the actual ceremony)
+        // but the host blocks automated fetches (403) and no mirror of that
+        // gallery exists on an approved CDN. Stays reviewed-sparse at one photo.
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',
@@ -2206,6 +2290,13 @@ export default {
     },
     {
       slug: 'conor-kennedy-first-linked',
+      // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster.
+      // (2026-08-10): + Ethel Kennedy's on-record blessing that same summer.
+      relatedIds: [
+        'moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod',
+        'moment:vault-red-the-conor-kennedy-summer-quietly-ends',
+        'moment:vault-speak-now-a-summer-with-conor-kennedy-and-ethel-kennedys-blessing',
+      ],
       year: 2012,
       month: 7,
       day: 25,
@@ -2263,7 +2354,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/d8kCTPPwfpM/hqdefault.jpg',
       moment: {
         context:
-          'Swift had been teaching her Lorax co-star to play guitar; the rewritten cover — cheat-sheet lyrics in hand — became one of the show\'s most replayed musical bits from that year.\n\nBoth were voicing characters in The Lorax, and the guitar lessons were real: "He had like one lesson," Swift said, marveling that he was already good at it, having taught him the Foster the People song herself. The two spent the rest of the appearance laughing off dating rumors and insisting they were just friends — which only helped the duet clip travel.',
+          'Taylor had been teaching her Lorax co-star to play guitar; the rewritten cover — cheat-sheet lyrics in hand — became one of the show\'s most replayed musical bits from that year.\n\nBoth were voicing characters in The Lorax, and the guitar lessons were real: "He had like one lesson," Taylor said, marveling that he was already good at it, having taught him the Foster the People song herself. The two spent the rest of the appearance laughing off dating rumors and insisting they were just friends — which only helped the duet clip travel.',
         sources: [
           {
             outlet: 'CBS News',
@@ -2289,7 +2380,7 @@ export default {
             url: 'https://i.ytimg.com/vi/d8kCTPPwfpM/hqdefault.jpg',
             credit: 'The Ellen Show / Warner Bros. (official YouTube clip thumbnail)',
             caption:
-              "Swift and Zac Efron mid-duet on Ellen, Feb. 21, 2012 — thumbnail of the show's official YouTube upload of the segment.",
+              "Taylor and Zac Efron mid-duet on Ellen, Feb. 21, 2012 — thumbnail of the show's official YouTube upload of the segment.",
             kind: 'archival',
           },
         ],
@@ -2308,6 +2399,26 @@ export default {
       title: "Written entirely alone",
       snippet: "A response to critics who doubted her songwriting: every word, solo.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career — And Proved She\'ll Always Get The Last Word',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-wrote-speak-now-by-herself/',
+            source_title: 'Taylor Swift Reveals Why She Wrote \'Speak Now\' by Herself',
+            publisher: 'Taste of Country',
+            source_type: 'interview',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Speak Now carries no co-writers — a deliberate statement of authorship after whispers that others wrote her hits.\n\nThe result is theatrical and intimate at once: apologies, fantasies, and confrontations staged under violet light.",
       },
     },
@@ -2322,6 +2433,26 @@ export default {
       title: "\"Mine\" leaks early, ships anyway",
       snippet: "The lead single was rushed to radio and iTunes after an unauthorized online leak.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/',
+            source_title: 'Taylor Swift Rush Releases "Mine" to Radio After Internet Leak',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "\"Mine\" was announced via livestream and scheduled for an August 16 release, but an early leak forced Big Machine Records to rush it to country radio and iTunes on August 4 instead — nearly two weeks ahead of plan.",
       },
     },
@@ -2337,6 +2468,26 @@ export default {
       title: "The ballgown tour",
       snippet: "Sweeping purple gowns turn every show into a fairy tale.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/behind-the-scenes-at-a-taylor-swift-concert/',
+            source_title: 'Behind the scenes at a Taylor Swift concert (60 Minutes)',
+            publisher: 'CBS News / 60 Minutes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-speak-now-era-looks-dresses/',
+            source_title: 'Look Back at Taylor Swift\'s Iconic \'Speak Now\' World Tour Outfits',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "The Speak Now World Tour leaned fully theatrical — flowing gowns, castles, and enchantment.\n\nEach song got its own staged set piece, from the title track's wedding-crashing fantasy to \"Enchanted\"'s ballroom backdrop.",
       },
     },
@@ -2349,9 +2500,33 @@ export default {
       day: 14,
       category: "music",
       title: "\"Mean\" answers a critic",
-      snippet: "A banjo-driven single written directly about online criticism she'd received.",
+      // Corrected 2026-08-11: both citations below describe a critic's review
+      // of her 2010 GRAMMYs performance, not generalized online criticism.
+      snippet:
+        "A banjo-driven single written directly about a critic's review of her performance.",
       moment: {
-        context: "Swift has said \"Mean\" was written in direct response to a critical review — a rare moment of the album engaging a critic rather than an ex, and one of Speak Now's more overtly personal tracks.",
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swifts-mean-takes-aim-at-her-critics/',
+            source_title: 'Taylor Swift\'s "Mean" Takes Aim at Her Critics',
+            publisher: 'CBS News',
+            source_type: 'interview',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'The Recording Academy names the critic as Bob Lefsetz. Taylor has only ever said \'this dude\' (60 Minutes, 2011) — the identification is the Academy\'s, not hers, and the copy must not attribute it to her.',
+          },
+        ],
+        context: "Taylor has said \"Mean\" was written in direct response to a critical review — a rare moment of the album engaging a critic rather than an ex, and one of Speak Now's more overtly personal tracks.",
       },
     },
     {
@@ -2365,6 +2540,26 @@ export default {
       title: "\"Enchanted,\" a fan favorite",
       snippet: "A sprawling, six-minute love-at-first-sight song that became one of the album's most enduring deep cuts.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-songs-essentials-midnights-anti-hero-album-all-too-well-2023-grammys-blank-space-folklore-reputation-lover-discography/',
+            source_title: 'The Taylor Swift Essentials: 13 Songs That Display Her Storytelling Prowess And Genre-Bouncing Genius',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/a-battle-of-taylor-swifts-songs-the-big-hits-vs-fan-favorites/',
+            source_title: 'A Battle of Taylor Swift\'s Songs: The Big Hits vs. Fan Favorites',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Never released as an official single, \"Enchanted\" nonetheless became one of Speak Now's most fan-beloved tracks — its extended, key-changing structure a favorite live moment on the Speak Now World Tour.",
       },
     },
@@ -2372,6 +2567,14 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "speak-now-taylors-version",
+      // Cross-link (Stage 3, 2026-08-06): the announcement and record-week
+      // moments for this same album, over in the midnights era.
+      relatedIds: [
+        "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
+        "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th",
+        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
+        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
+      ],
       year: 2023,
       month: 7,
       day: 7,
@@ -2379,6 +2582,26 @@ export default {
       title: "Speak Now (Taylor's Version)",
       snippet: "The third re-recording arrives with six previously unreleased \"From the Vault\" tracks.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-speak-now-taylors-version-vault-tracks-better-than-revenge-mattress-lyric/',
+            source_title: 'Taylor Swift releases "Speak Now: Taylor\'s Version" with previously unreleased tracks and a change to a lyric',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/taylor-swift-releases-re-recorded-version-of-speak-now-its-yours-its-mine-its-ours/',
+            source_title: 'Taylor Swift Releases Re-Recorded Version of \'Speak Now\': "It\'s Yours, It\'s Mine, It\'s Ours"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer.",
         // Photo pass #762 (2026-07-20): page had zero photos, and the July 2023
         // re-recording release has no red-carpet event of its own. Used a freely

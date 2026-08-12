@@ -23,6 +23,9 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 export function RunwayThread() {
   return (
     <div className="space-y-10 pt-8">
+      {/* Visually hidden: look names are h3, so without this the outline jumps
+          h1 (thread, in ThreadsMode) → h3 (look) — axe `heading-order` (#703). */}
+      <h2 className="sr-only">The looks, era by era</h2>
       {/* RUNWAY_LOOKS is authored oldest-first for readability; render newest-first
           to match the site-wide convention (top = now) and the adjacent scrubber.
           Copy before reversing — never mutate the exported array. (#433) */}

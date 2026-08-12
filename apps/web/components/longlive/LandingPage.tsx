@@ -1,5 +1,6 @@
 'use client';
 
+import { Share2 } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { EraGrid } from './EraGrid';
 import { ModeToggle } from './TopBar';
@@ -12,11 +13,24 @@ import { ModeToggle } from './TopBar';
  * threads gallery. Back from either returns here via the nav stack.
  */
 export function LandingPage() {
-  const { openEra, setMode } = useAppActions();
+  const { openEra, setMode, openShare } = useAppActions();
 
   return (
     <div className="min-h-screen">
-      <div className="mx-auto max-w-5xl px-5 pb-16 pt-12 sm:pt-20">
+      <div className="relative mx-auto max-w-5xl px-5 pb-16 pt-12 sm:pt-20">
+        {/* The front door has no TopBar (#684), so its Share button lives here
+            — it's the single most-seen screen, and sharing is a founder-
+            declared requirement for every screen (#707). Shares the bare site
+            URL (no deep-link params needed for the landing page itself). */}
+        <button
+          type="button"
+          onClick={() => openShare({ kind: 'site' })}
+          aria-label="Share Long Live"
+          title="Share"
+          className="era-icon-btn absolute right-5 top-5 grid size-11 place-items-center rounded-full sm:top-6"
+        >
+          <Share2 className="size-5" />
+        </button>
         <header className="mb-10 flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-2">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--era-accent-2)]">
@@ -33,7 +47,9 @@ export function LandingPage() {
             mode="era"
             alwaysShowLabels
             onChange={(m) => {
-              if (m === 'threads') setMode('threads');
+              // 'era' is a no-op here: the landing page IS the era front door,
+              // so its own tab stays selected. The others are real jumps.
+              if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
             }}
           />
         </header>

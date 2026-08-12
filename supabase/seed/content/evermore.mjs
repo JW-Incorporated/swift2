@@ -72,7 +72,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/9/9a/Taylor_Swift_-_Willow.png',
       moment: {
         context:
-          'Full quote: "Willow is about intrigue, desire, and the complexity that goes into wanting someone." The music arrived almost by accident: Aaron Dessner had an instrumental sketch he called "Westerly," named for Swift\'s Rhode Island home, and sent it over without expecting anything back — she wrote the entire song to it within the hour.\n\nThe self-directed video (her third) picks up exactly where "cardigan" left off, following a golden thread through an enchanted forest, and the single later spawned a full coven of official remixes: "dancing witch," "lonely witch," and "moonlit witch" versions.',
+          'Full quote: "Willow is about intrigue, desire, and the complexity that goes into wanting someone." The music arrived almost by accident: Aaron Dessner had an instrumental sketch he called "Westerly," named for Taylor\'s Rhode Island home, and sent it over without expecting anything back — she wrote the entire song to it within the hour.\n\nThe self-directed video (her third) picks up exactly where "cardigan" left off, following a golden thread through an enchanted forest, and the single later spawned a full coven of official remixes: "dancing witch," "lonely witch," and "moonlit witch" versions.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Willow_(song)' },
           {
@@ -102,7 +102,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
       moment: {
         context:
-          'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.\n\nSwift had written the song entirely alone while deep in a true-crime documentary and podcast phase, then sent Aaron Dessner a voice memo of the finished thing; the production leans all the way into its country staging, harmonica courtesy of Josh Kaufman. It even went to country radio as a single in January 2021, and when HAIM opened Eras Tour shows in 2023, it bumped "\'tis the damn season" to become the evermore set\'s opener.',
+          'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.\n\nTaylor had written the song entirely alone while deep in a true-crime documentary and podcast phase, then sent Aaron Dessner a voice memo of the finished thing; the production leans all the way into its country staging, harmonica courtesy of Josh Kaufman. It even went to country radio as a single in January 2021, and when HAIM opened Eras Tour shows in 2023, it bumped "\'tis the damn season" to become the evermore set\'s opener.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime' },
           {
@@ -110,10 +110,20 @@ export default {
             url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
           },
         ],
+        // Photo-enrichment pass (2026-07-29): added the official lyric-video
+        // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
+        // the cover; both downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
+            focalPoint: '42% 45%',
             credit: 'Republic Records',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/IEPomqor2A8/hqdefault.jpg',
+            focalPoint: '50% 50%',
+            credit: 'Republic Records / YouTube (official "no body, no crime" lyric video still)',
+            kind: 'video-still',
           },
         ],
       },
@@ -163,7 +173,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/wMpqCRF7TKg/hqdefault.jpg',
       moment: {
         context:
-          'Swift described it simply as a story about "two college sweethearts" — a character study, not autobiography. She wrote it with Joe Alwyn (as William Bowery) during the September 2020 sessions at Long Pond that were being filmed for the folklore documentary, with Aaron Dessner producing the spare, oom-pah-tinged piano ballad.\n\nDespite never being released as a single, it reached No. 21 on the Hot 100 — and on the Eras Tour it became a nightly event anyway, consistently drawing extended ovations from the crowd.',
+          'Taylor described it simply as a story about "two college sweethearts" — a character study, not autobiography. She wrote it with Joe Alwyn (as William Bowery) during the September 2020 sessions at Long Pond that were being filmed for the folklore documentary, with Aaron Dessner producing the spare, oom-pah-tinged piano ballad.\n\nDespite never being released as a single, it reached No. 21 on the Hot 100 — and on the Eras Tour it became a nightly event anyway, consistently drawing extended ovations from the crowd.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)' },
           {
@@ -313,7 +323,7 @@ export default {
             focalPoint: '60% 26%',
             credit: 'Beth Garrabrant, via Billboard',
             caption:
-              "A Beth Garrabrant press portrait of Swift from the same era, used by Billboard to illustrate its coverage of Fearless (Taylor's Version) holding its chart position months after release.",
+              "A Beth Garrabrant press portrait of Taylor from the same era, used by Billboard to illustrate its coverage of Fearless (Taylor's Version) holding its chart position months after release.",
             kind: 'archival',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): the prior
@@ -332,14 +342,14 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/FearlessPrudentialCentMay2010.jpg',
             focalPoint: '58% 20%',
             credit: 'itslex94, Wikimedia Commons (CC BY-SA 2.0)',
-            caption: 'Swift on the original Fearless Tour in May 2010 — the era this record-breaking 2021 re-record revisited eleven years later.',
+            caption: 'Taylor on the original Fearless Tour in May 2010 — the era this record-breaking 2021 re-record revisited eleven years later.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Keith_Urban_2020.jpg',
             focalPoint: '52% 16%',
             credit: 'Shawn Miller / Library of Congress (CC0)',
-            caption: 'Keith Urban in 2020, months before joining Swift on "That\'s When," one of six From the Vault tracks that drove the record-setting week.',
+            caption: 'Keith Urban in 2020, months before joining Taylor on "That\'s When," one of six From the Vault tracks that drove the record-setting week.',
             kind: 'reference',
           },
           {
@@ -358,7 +368,7 @@ export default {
       day: 22,
       category: 'business',
       significance: 'defining', // an unprecedented chart record for a song fans had wanted for a decade (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a'],
+      relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a', 'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1'],
       title: 'All Too Well (10 Minute Version) becomes the longest song ever to hit No. 1',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -374,7 +384,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
-          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.',
+          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.\n\nBoth the song and its parent album debuted at No. 1 in the same week — Variety called them "twin No. 1 chart debuts" — with Red (Taylor\'s Version) entering the Billboard 200 on top and the ten-minute cut bowing at No. 1 on the Hot 100, an unusually direct payoff for a track fans had spent nearly a decade asking her to release in full. The version was a "From the Vault" recording, a restored expansion of the 5:29 song from 2012\'s Red, and Swift leaned the entire promotional push on it: she performed the full ten minutes on Saturday Night Live on Nov. 13, 2021 — one of the longest musical performances in the show\'s history — premiered the self-directed short film in New York, and surprised the theater audience with an acoustic set. The record it broke had stood since January 1972, so a fifty-year-old benchmark fell to a song most listeners already knew by heart.',
         sources: [
           {
             outlet: 'Guinness World Records',
@@ -387,6 +397,10 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/chart-beat/morgan-wallen-single-week-hot-100-record-36-songs-one-thing-at-a-time-1235285241/',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2021/music/news/taylor-swift-charts-album-single-all-too-well-red-taylors-version-1235117515/',
           },
         ],
         // Image-fix pass (2026-07-10): tickets #193/#147 — old Guinness URL was
@@ -434,7 +448,7 @@ export default {
             focalPoint: '42% 42%',
             credit: 'Will Heath/NBC',
             caption:
-              'Swift performs "All Too Well (10 Minute Version)" for the first time on television, as musical guest on Saturday Night Live, Nov. 13, 2021 — part of the promotional run that carried the song to No. 1.',
+              'Taylor performs "All Too Well (10 Minute Version)" for the first time on television, as musical guest on Saturday Night Live, Nov. 13, 2021 — part of the promotional run that carried the song to No. 1.',
             kind: 'primary',
           },
           {
@@ -442,7 +456,7 @@ export default {
             focalPoint: '58% 28%',
             credit: 'Dimitrios Kambouris/Getty Images',
             caption:
-              'Swift at the "All Too Well" short film premiere, AMC Lincoln Square, New York City, Nov. 12, 2021 — the night she performed the 10-minute version live for the first time, before it played on SNL the next night.',
+              'Taylor at the "All Too Well" short film premiere, AMC Lincoln Square, New York City, Nov. 12, 2021 — the night she performed the 10-minute version live for the first time, before it played on SNL the next night.',
             kind: 'primary',
           },
           {
@@ -465,7 +479,7 @@ export default {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-03.jpg',
             focalPoint: '32% 16%',
             credit: 'Dimitrios Kambouris/Getty Images, via Just Jared Jr',
-            caption: 'Swift on the "All Too Well" short film premiere red carpet, Nov. 12, 2021.',
+            caption: 'Taylor on the "All Too Well" short film premiere red carpet, Nov. 12, 2021.',
             kind: 'archival',
           },
           {
@@ -473,7 +487,7 @@ export default {
             focalPoint: '50% 38%',
             credit: 'Republic Records / Taylor Swift (All Too Well: The Short Film still)',
             caption:
-              "A still from All Too Well: The Short Film, the Sadie Sink/Dylan O'Brien-led film Swift wrote and directed and released alongside the 10-minute version — central to the promotional push that took the song to No. 1.",
+              "A still from All Too Well: The Short Film, the Sadie Sink/Dylan O'Brien-led film Taylor wrote and directed and released alongside the 10-minute version — central to the promotional push that took the song to No. 1.",
             kind: 'archival',
           },
         ],
@@ -491,7 +505,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png',
       moment: {
         context:
-          'The nomination came with an asterisk-shaped subplot: Swift was briefly up for Album of the Year twice that cycle, credited on Olivia Rodrigo\'s Sour because two of its songs drew on previously released Swift material — until the Recording Academy ruled that only writers of new material count in the category and struck her (along with Jack Antonoff and St. Vincent) from the Sour nomination, leaving evermore as her lone shot.\n\nThe album then lost to the night\'s great upset: Jon Batiste\'s We Are, which had peaked at No. 86 on the Billboard 200 but rode in on 11 nominations, the most of any artist that year.',
+          'The nomination came with an asterisk-shaped subplot: Taylor was briefly up for Album of the Year twice that cycle, credited on Olivia Rodrigo\'s Sour because two of its songs drew on previously released Taylor material — until the Recording Academy ruled that only writers of new material count in the category and struck her (along with Jack Antonoff and St. Vincent) from the Sour nomination, leaving evermore as her lone shot.\n\nThe album then lost to the night\'s great upset: Jon Batiste\'s We Are, which had peaked at No. 86 on the Billboard 200 but rode in on 11 nominations, the most of any artist that year.',
         sources: [
           {
             outlet: 'Forbes',
@@ -583,7 +597,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/Uzii44SDYFA/hqdefault.jpg',
             credit: 'Republic Records / YouTube (official performance still)',
-            caption: 'Swift on the moss-covered cabin set during the folklore/evermore medley at the 2021 Grammys.',
+            caption: 'Taylor on the moss-covered cabin set during the folklore/evermore medley at the 2021 Grammys.',
             kind: 'archival',
           },
         ],
@@ -713,7 +727,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
-          'Leoné had no advance notice her "Mattie" cap would appear on the cover, telling Billboard: "It came as a total surprise to see her sport Mattie on the album cover — we were genuinely shocked, but thrilled."\n\nShe said the shoot was not a team collaboration — Swift\'s stylist chose the piece independently — and the cap sold out on Leoné\'s site immediately after the reveal on June 18, 2021.',
+          'Leoné had no advance notice her "Mattie" cap would appear on the cover, telling Billboard: "It came as a total surprise to see her sport Mattie on the album cover — we were genuinely shocked, but thrilled."\n\nShe said the shoot was not a team collaboration — Taylor\'s stylist chose the piece independently — and the cap sold out on Leoné\'s site immediately after the reveal on June 18, 2021.',
         sources: [
           {
             outlet: 'Billboard',
@@ -749,6 +763,9 @@ export default {
       year: 2021,
       month: 11,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): another Red (TV) release-week look,
+      // the same week.
+      relatedIds: ['moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s'],
       title: "The 'siren red' lip and cat eye that came to define the Red (TV) era",
       snippet:
         'Overlined red-liner-and-matte-lipstick "siren red" mouth, a fine-tipped black liquid cat eye, and flat-ironed, straight-across bangs — the signature beauty look of the re-release run.',
@@ -776,7 +793,7 @@ export default {
             credit: 'NBC',
             focalPoint: '42% 13%',
             caption:
-              'Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the "siren red" lip and blunt bangs of the Red (TV) beauty look, the night before the album\'s release.',
+              'Taylor on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the "siren red" lip and blunt bangs of the Red (TV) beauty look, the night before the album\'s release.',
             kind: 'archival',
           },
         ],
@@ -806,7 +823,7 @@ export default {
       thumbnailUrl: 'https://www.shefinds.com/files/2021/11/taylor-swift-snl-performance.jpg',
       moment: {
         context:
-          'For her November 13, 2021 SNL performance of "All Too Well (10 Minute Version)," Swift wore a skin-tight off-the-shoulder Alaïa stretch-knit jumpsuit (about $3,590) with Jennifer Zeuner Holland earrings and Loeffler Randall ankle booties.\n\nAt the after-party that night at L\'Avenue in New York with Blake Lively, she layered a houndstooth blazer by Anine Bing and platform boots by Aquazzura over the same jumpsuit.',
+          'For her November 13, 2021 SNL performance of "All Too Well (10 Minute Version)," Taylor wore a skin-tight off-the-shoulder Alaïa stretch-knit jumpsuit (about $3,590) with Jennifer Zeuner Holland earrings and Loeffler Randall ankle booties.\n\nAt the after-party that night at L\'Avenue in New York with Blake Lively, she layered a houndstooth blazer by Anine Bing and platform boots by Aquazzura over the same jumpsuit.',
         sources: [
           {
             outlet: 'SheFinds',
@@ -921,7 +938,7 @@ export default {
         'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg',
       moment: {
         context:
-          'For her red-carpet arrival at the March 14, 2021 Grammys — where folklore won Album of the Year — Swift wore a mini dress from Oscar de la Renta\'s Spring 2021 collection: long mesh bell sleeves, a mock neck, and bold 3D floral embroidery with botanical appliqués tacked on individually.\n\nShe paired it with pink Christian Louboutin "Rose Amelie" peep-toe ankle-strap heels and Cathy Waterman jewelry — a separate outfit from the navy-and-gold Etro paisley gown she changed into to perform the folklore/evermore medley later that night.',
+          'For her red-carpet arrival at the March 14, 2021 Grammys — where folklore won Album of the Year — Taylor wore a mini dress from Oscar de la Renta\'s Spring 2021 collection: long mesh bell sleeves, a mock neck, and bold 3D floral embroidery with botanical appliqués tacked on individually.\n\nShe paired it with pink Christian Louboutin "Rose Amelie" peep-toe ankle-strap heels and Cathy Waterman jewelry — a separate outfit from the navy-and-gold Etro paisley gown she changed into to perform the folklore/evermore medley later that night.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -969,7 +986,7 @@ export default {
         'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Etro-To-The-All-Too-Well-New-York-Premiere.jpg',
       moment: {
         context:
-          'At the AMC Lincoln Square 13 premiere of her self-written-and-directed "All Too Well" short film, Swift wore a purple velvet Etro pantsuit with padded shoulders and contrasting black lapels, styled with Melinda Maria jewelry.\n\nCo-stars Dylan O\'Brien and Sadie Sink joined her on the carpet for the film built around the 10-minute version of "All Too Well" from Red (Taylor\'s Version), released that week.',
+          'At the AMC Lincoln Square 13 premiere of her self-written-and-directed "All Too Well" short film, Taylor wore a purple velvet Etro pantsuit with padded shoulders and contrasting black lapels, styled with Melinda Maria jewelry.\n\nCo-stars Dylan O\'Brien and Sadie Sink joined her on the carpet for the film built around the 10-minute version of "All Too Well" from Red (Taylor\'s Version), released that week.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -1003,6 +1020,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
+      relatedIds: [
+        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
+        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
+      ],
       year: 2021,
       month: 11,
       day: 11,
@@ -1015,7 +1037,7 @@ export default {
         'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg',
       moment: {
         context:
-          'Promoting Red (Taylor\'s Version) on The Tonight Show Starring Jimmy Fallon, Swift wore an ivory shift dress from Lebanese couturier Zuhair Murad\'s Resort 2022 collection, with gold beaded trim at the neckline and sleeves and oversized pockets. She paired it with gold Christian Louboutin "So Kate" pumps, Lark & Berry jewelry, and her signature red lip.\n\nIt was one of two late-night looks from the same release-week press blitz — the crystal-covered David Koma she changed into for Late Night with Seth Meyers, covered separately in this era\'s fashion items, was the other.',
+          'Promoting Red (Taylor\'s Version) on The Tonight Show Starring Jimmy Fallon, Taylor wore an ivory shift dress from Lebanese couturier Zuhair Murad\'s Resort 2022 collection, with gold beaded trim at the neckline and sleeves and oversized pockets. She paired it with gold Christian Louboutin "So Kate" pumps, Lark & Berry jewelry, and her signature red lip.\n\nIt was one of two late-night looks from the same release-week press blitz — the crystal-covered David Koma she changed into for Late Night with Seth Meyers, covered separately in this era\'s fashion items, was the other.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -1050,6 +1072,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "David Koma" designer cluster.
+      // (2026-08-10): + the "siren red" beauty look from the same release week.
+      relatedIds: [
+        'moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi',
+        'moment:vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv',
+      ],
       year: 2021,
       month: 11,
       day: 11,
@@ -1062,7 +1090,7 @@ export default {
         'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg',
       moment: {
         context:
-          'For her Late Night with Seth Meyers stop the same week she released Red (Taylor\'s Version), Swift changed into an off-the-shoulder David Koma mini dress covered in the designer\'s signature structured crystal embellishment, worn with Aquazzura "Love Link" crystal-embellished slingback pumps.\n\nIt was a different David Koma piece from the navy sequin dress she\'d wear days later in her "Three Sad Virgins" SNL sketch cameo — the same designer twice in one promo week, both covered by Red Carpet Fashion Awards\' roundup of the album\'s late-night circuit.',
+          'For her Late Night with Seth Meyers stop the same week she released Red (Taylor\'s Version), Taylor changed into an off-the-shoulder David Koma mini dress covered in the designer\'s signature structured crystal embellishment, worn with Aquazzura "Love Link" crystal-embellished slingback pumps.\n\nIt was a different David Koma piece from the navy sequin dress she\'d wear days later in her "Three Sad Virgins" SNL sketch cameo — the same designer twice in one promo week, both covered by Red Carpet Fashion Awards\' roundup of the album\'s late-night circuit.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -1092,6 +1120,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "David Koma" designer cluster.
+      relatedIds: [
+        'moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s',
+      ],
       year: 2021,
       month: 11,
       day: 13,
@@ -1107,7 +1139,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/21Ki96Lsxhc/hqdefault.jpg',
       moment: {
         context:
-          'On the same episode where she performed "All Too Well (10 Minute Version)," Swift also made a surprise appearance in "Please Don\'t Destroy" — the SNL writing trio of John Higgins, Ben Marshall and Martin Herlihy\'s musical sketch "Three Sad Virgins," starring Pete Davidson.\n\nPer the writers, they doubted she\'d agree to do it, but she said yes immediately when asked; she appears at the sketch\'s bridge, in a navy one-shoulder sequined David Koma mini dress, singing comedic insults about the trio. The sketch went on to rack up tens of millions of YouTube views.',
+          'On the same episode where she performed "All Too Well (10 Minute Version)," Taylor also made a surprise appearance in "Please Don\'t Destroy" — the SNL writing trio of John Higgins, Ben Marshall and Martin Herlihy\'s musical sketch "Three Sad Virgins," starring Pete Davidson.\n\nPer the writers, they doubted she\'d agree to do it, but she said yes immediately when asked; she appears at the sketch\'s bridge, in a navy one-shoulder sequined David Koma mini dress, singing comedic insults about the trio. The sketch went on to rack up tens of millions of YouTube views.',
         sources: [
           {
             outlet: 'NBC Insider',
@@ -1132,7 +1164,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/21Ki96Lsxhc/hqdefault.jpg',
             credit: 'NBC / Saturday Night Live (YouTube sketch still)',
-            caption: 'Swift with Pete Davidson in the "Three Sad Virgins" sketch, SNL, Nov. 13, 2021.',
+            caption: 'Taylor with Pete Davidson in the "Three Sad Virgins" sketch, SNL, Nov. 13, 2021.',
             kind: 'archival',
           },
         ],
@@ -1167,7 +1199,7 @@ export default {
       thumbnailUrl: 'https://www.rte.ie/images/001825a9-500.jpg',
       moment: {
         context:
-          'Swift was in Belfast to support Joe Alwyn as he finished filming the BBC/Hulu adaptation of Sally Rooney\'s "Conversations with Friends." On Thursday, September 9, 2021, she dined at Shu Restaurant on the Lisburn Road and posed for selfies with staff, who posted that she "was so lovely and really is a beautiful person inside and out."\n\nThe next night, Friday September 10, she turned up at The Tipsy Bird cocktail bar in the city centre and stayed for musician Tiernán Heffron\'s full three-hour set, joining a singalong and tipping him afterward; Heffron said, "It\'s not everyday Taylor Swift walks into your gig and stays for your whole three hour set. She was the most lovely person!" The bar confirmed her visit and posed for a photo with its team.',
+          'Taylor was in Belfast to support Joe Alwyn as he finished filming the BBC/Hulu adaptation of Sally Rooney\'s "Conversations with Friends." On Thursday, September 9, 2021, she dined at Shu Restaurant on the Lisburn Road and posed for selfies with staff, who posted that she "was so lovely and really is a beautiful person inside and out."\n\nThe next night, Friday September 10, she turned up at The Tipsy Bird cocktail bar in the city centre and stayed for musician Tiernán Heffron\'s full three-hour set, joining a singalong and tipping him afterward; Heffron said, "It\'s not everyday Taylor Swift walks into your gig and stays for your whole three hour set. She was the most lovely person!" The bar confirmed her visit and posed for a photo with its team.',
         sources: [
           { outlet: 'RTÉ', url: 'https://www.rte.ie/entertainment/2021/0913/1246573-taylor-swift-thrills-fans-at-a-belfast-bar/' },
           { outlet: 'Irish News', url: 'https://www.irishnews.com/magazine/entertainment/2021/09/13/news/taylor-swift-thrills-fans-at-a-belfast-bar-2447182/' },
@@ -1198,7 +1230,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/3TrVA4kYTrQ/hqdefault.jpg',
       moment: {
         context:
-          'At HAIM\'s sold-out show at London\'s O2 Arena on July 21, 2022 — their last UK date before heading to US tour dates — Swift walked out mid-set, telling the crowd of roughly 20,000: "I heard that my girls were playing in London at the O2 and I thought, \'I\'m gonna have to see that.\' And it looks like there\'s about 20,000 other people that also thought that, too."\n\nShe joined the sisters, who opened for her 1989 World Tour in 2015, for a mashup of their collaboration "Gasoline" with her own "Love Story," wearing a black sports bra and the same custom Louis Vuitton trousers HAIM had worn throughout their tour. She added: "I haven\'t been on stage in a very long time. It\'s nice…it\'s nice, it\'s very nice [to be back]."',
+          'At HAIM\'s sold-out show at London\'s O2 Arena on July 21, 2022 — their last UK date before heading to US tour dates — Taylor walked out mid-set, telling the crowd of roughly 20,000: "I heard that my girls were playing in London at the O2 and I thought, \'I\'m gonna have to see that.\' And it looks like there\'s about 20,000 other people that also thought that, too."\n\nShe joined the sisters, who opened for her 1989 World Tour in 2015, for a mashup of their collaboration "Gasoline" with her own "Love Story," wearing a black sports bra and the same custom Louis Vuitton trousers HAIM had worn throughout their tour. She added: "I haven\'t been on stage in a very long time. It\'s nice…it\'s nice, it\'s very nice [to be back]."',
         sources: [
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-haim-love-story-gasoline-mashup-o2-arena-1386538/' },
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1339032/taylor-swift-joins-haim-for-a-surprise-performance-and-its-the-love-story-we-always-needed' },
@@ -1215,7 +1247,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/3TrVA4kYTrQ/hqdefault.jpg',
             credit: 'stolenmidnights / YouTube (concert footage still)',
-            caption: 'Swift performing "Gasoline"/"Love Story" with HAIM at London\'s O2 Arena, July 21, 2022.',
+            caption: 'Taylor performing "Gasoline"/"Love Story" with HAIM at London\'s O2 Arena, July 21, 2022.',
             kind: 'archival',
           },
         ],
@@ -1233,7 +1265,7 @@ export default {
       thumbnailUrl: 'https://hollywoodlife.com/wp-content/uploads/2022/07/taylor-swift-joe-alwyn-london-coffee-date-embed2.jpg',
       moment: {
         context:
-          'On July 14, 2022, during a London heatwave with temperatures near 90 degrees, paparazzi photographed Swift and Alwyn holding hands and talking over iced coffees in a park.\n\nShe wore dark denim shorts, sunglasses and a white baseball cap; he wore blue shorts, a white t-shirt, sneakers and a blue cap. E! Online reported the photos were credited to Backgrid.',
+          'On July 14, 2022, during a London heatwave with temperatures near 90 degrees, paparazzi photographed Taylor and Alwyn holding hands and talking over iced coffees in a park.\n\nShe wore dark denim shorts, sunglasses and a white baseball cap; he wore blue shorts, a white t-shirt, sneakers and a blue cap. E! Online reported the photos were credited to Backgrid.',
         sources: [
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1338054/taylor-swift-and-joe-alwyn-enjoy-cute-coffee-date-while-out-in-london' },
           { outlet: 'HollywoodLife', url: 'https://hollywoodlife.com/2022/07/14/taylor-swift-joe-alwyn-holding-hands-london-denim-shorts-photos/' },
@@ -1259,7 +1291,7 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Swift was photographed arriving at Republic Records\' post-show party at the Fleur Room in New York City on August 28, 2022.\n\nShe wore a royal blue silk mini romper by Moschino embroidered with glittery stars — which Nylon described as "channeling \'midnight\'" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip.',
+          'Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Taylor was photographed arriving at Republic Records\' post-show party at the Fleur Room in New York City on August 28, 2022.\n\nShe wore a royal blue silk mini romper by Moschino embroidered with glittery stars — a glittery nod to the album title landing months before fans would put it together, per Nylon\'s take: "channeling \'midnight\'" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip.',
         sources: [
           { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-2022-mtv-vmas-after-party-outfit' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/' },
@@ -1298,13 +1330,13 @@ export default {
       category: 'music',
       title: "cowboy like me, cut at Marcus Mumford's home studio",
       snippet:
-        'Swift recorded this late-album duet during the pandemic at Marcus Mumford\'s home studio in Devon, where he called her "the most phenomenal houseguest" before she asked him to sing on it: "I chose Cowboy Like Me. Man, I love that song."',
+        'Taylor recorded this late-album duet during the pandemic at Marcus Mumford\'s home studio in Devon, where he called her "the most phenomenal houseguest" before she asked him to sing on it: "I chose Cowboy Like Me. Man, I love that song."',
       sourceUrl: 'https://www.billboard.com/music/music-news/marcus-mumford-taylor-swift-phenomenal-houseguest-studio-1236112442/',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/1280px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
       moment: {
         context:
-          'Swift finished much of evermore\'s second half at Scarlet Pimpernel, the home studio of Mumford & Sons\' Marcus Mumford in Devon, England, working there with producer Aaron Dessner. On the Table Manners podcast, Mumford recalled Dessner asking to borrow his studio for an artist he was producing — Mumford joked, "Beyoncé or something?" — before learning it was Swift, who arrived "right at the end of COVID." He called her "the most phenomenal houseguest," joking that he "burned a lot of vegetables for her" and that "her candle game was excellent."\n\nIn a separate interview with The Sunday Times, Mumford said: "Taylor came to my studio, played me some music and asked if I wanted to sing on anything. I chose Cowboy Like Me. Man, I love that song." Asked whether she arrived with heavy security, he said: "Ha, no, none of that. She stayed over and was a great house guest. Straightforward, easy-going. She ate my cauliflower salad."\n\nJustin Vernon also played drums on the track, and Josh Kaufman added lap steel, harmonica and mandolin.',
+          'Taylor finished much of evermore\'s second half at Scarlet Pimpernel, the home studio of Mumford & Sons\' Marcus Mumford in Devon, England, working there with producer Aaron Dessner. On the Table Manners podcast, Mumford recalled Dessner asking to borrow his studio for an artist he was producing — Mumford joked, "Beyoncé or something?" — before learning it was Taylor, who arrived "right at the end of COVID." He called her "the most phenomenal houseguest," joking that he "burned a lot of vegetables for her" and that "her candle game was excellent."\n\nIn a separate interview with The Sunday Times, Mumford said: "Taylor came to my studio, played me some music and asked if I wanted to sing on anything. I chose Cowboy Like Me. Man, I love that song." Asked whether she arrived with heavy security, he said: "Ha, no, none of that. She stayed over and was a great house guest. Straightforward, easy-going. She ate my cauliflower salad."\n\nJustin Vernon also played drums on the track, and Josh Kaufman added lap steel, harmonica and mandolin.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1353,7 +1385,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/EXLgZZE072g/hqdefault.jpg',
       moment: {
         context:
-          'In a Rolling Stone interview, producer Aaron Dessner described writing the closing title track: "At some point, Taylor wrote \'Evermore\' with William Bowery [Joe Alwyn\'s songwriting pseudonym], and then we sent it to Justin, who wrote the bridge, and all of a sudden, that\'s when it started to become clear that there was a sister record" to folklore. Dessner said the run of collaboration felt like "weird alchemy," arriving after "seven or eight or nine" songs written in quick succession.\n\nPer Wikipedia, the piano ballad progresses into a dramatic bridge with a tempo shift, where Swift is joined midway by Vernon\'s multitracked falsetto in a call-and-response. Swift has said the lyrics were shaped by 2016 — a year she described as one where "all those times were just taking it day by day to get through" — along with the uncertainty of the 2020 U.S. election.',
+          'In a Rolling Stone interview, producer Aaron Dessner described writing the closing title track: "At some point, Taylor wrote \'Evermore\' with William Bowery [Joe Alwyn\'s songwriting pseudonym], and then we sent it to Justin, who wrote the bridge, and all of a sudden, that\'s when it started to become clear that there was a sister record" to folklore. Dessner said the run of collaboration felt like "weird alchemy," arriving after "seven or eight or nine" songs written in quick succession.\n\nPer Wikipedia, the piano ballad progresses into a dramatic bridge with a tempo shift, where Taylor is joined midway by Vernon\'s multitracked falsetto in a call-and-response. Taylor has said the lyrics were shaped by 2016 — a year she described as one where "all those times were just taking it day by day to get through" — along with the uncertainty of the 2020 U.S. election.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1403,7 +1435,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/ukxEKY_7MOc/hqdefault.jpg',
       moment: {
         context:
-          'In the same Rolling Stone interview, Dessner recalled writing the piano instrumental for "tolerate it": "I remember when I wrote the piano track to \'Tolerate It,\' right before I sent it to her, I thought, This song is intense. It\'s in 10/8, which is an odd time signature. And I did think for a second, \'Maybe I shouldn\'t send it to her, she won\'t be into it.\' But I sent it to her, and it conjured a scene in her mind, and she wrote this crushingly beautiful song to it and sent it back. I think I cried when I first heard it."\n\nPer Wikipedia, Swift has said the song explores "ambivalent toleration" in a relationship, drawing on Daphne du Maurier\'s 1938 novel Rebecca, in which a young woman is undervalued by an older, emotionally distant husband.',
+          'In the same Rolling Stone interview, Dessner recalled writing the piano instrumental for "tolerate it": "I remember when I wrote the piano track to \'Tolerate It,\' right before I sent it to her, I thought, This song is intense. It\'s in 10/8, which is an odd time signature. And I did think for a second, \'Maybe I shouldn\'t send it to her, she won\'t be into it.\' But I sent it to her, and it conjured a scene in her mind, and she wrote this crushingly beautiful song to it and sent it back. I think I cried when I first heard it."\n\nPer Wikipedia, Taylor has said the song explores "ambivalent toleration" in a relationship, drawing on Daphne du Maurier\'s 1938 novel Rebecca, in which a young woman is undervalued by an older, emotionally distant husband.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1438,7 +1470,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
-          'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history."\n\nThe same week, Swift also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. At the time, only Drake — with 27 total titles charted after Scorpion\'s 2018 release — had ever had more entries from one act on a single week\'s survey; Morgan Wallen has since surpassed both marks, with 36 songs in 2023 and 37 in 2025.',
+          'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history."\n\nThe same week, Taylor also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. At the time, only Drake — with 27 total titles charted after Scorpion\'s 2018 release — had ever had more entries from one act on a single week\'s survey; Morgan Wallen has since surpassed both marks, with 36 songs in 2023 and 37 in 2025.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1484,13 +1516,13 @@ export default {
       category: 'business',
       title: 'Nashville Songwriters name her Songwriter-Artist of the Decade — and she debuts her "pen" framework',
       snippet:
-        'Accepting NSAI\'s Songwriter-Artist of the Decade award, Swift publicly explained her three lyric-writing styles for the first time: "Quill," "Fountain Pen" and "Glitter Gel Pen."',
+        'Accepting NSAI\'s Songwriter-Artist of the Decade award, Taylor publicly explained her three lyric-writing styles for the first time: "Quill," "Fountain Pen" and "Glitter Gel Pen."',
       sourceUrl: 'https://www.billboard.com/music/country/taylor-swift-nashville-songwriter-awards-full-speech-1235142144/',
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2022/09/taylor-swift-performs-nsai-nashville-songwriter-awards-2022-billboard-1548.png?w=1024',
       moment: {
         context:
-          'At the 5th annual Nashville Songwriter Awards at the Ryman Auditorium on September 20, 2022, the Nashville Songwriters Association International named Swift its Songwriter-Artist of the Decade. Accepting the honor, she said: "This award celebrates my family and my co-writers and my team. My friends and my fiercest fans and my harshest detractors and everyone who entered my life or left it."\n\nShe also revealed, publicly for the first time, a framework she uses to sort her own lyrics: "Quill" lyrics lean on antiquated, literary language (she cited "ivy"); "Fountain Pen" lyrics — "most of my lyrics fall into this category" — pair a modern storyline with "a poetic twist" (she cited "All Too Well"); and "Glitter Gel Pen" lyrics are "frivolous, carefree, bouncy, syncopated perfectly to the beat" (she cited "Shake It Off"). She admitted she\'d "never talked about this publicly before, because, well, it\'s dorky."',
+          'At the 5th annual Nashville Songwriter Awards at the Ryman Auditorium on September 20, 2022, the Nashville Songwriters Association International named Taylor its Songwriter-Artist of the Decade. Accepting the honor, she said: "This award celebrates my family and my co-writers and my team. My friends and my fiercest fans and my harshest detractors and everyone who entered my life or left it."\n\nShe also revealed, publicly for the first time, a framework she uses to sort her own lyrics: "Quill" lyrics lean on antiquated, literary language (she cited "ivy"); "Fountain Pen" lyrics — "most of my lyrics fall into this category" — pair a modern storyline with "a poetic twist" (she cited "All Too Well"); and "Glitter Gel Pen" lyrics are "frivolous, carefree, bouncy, syncopated perfectly to the beat" (she cited "Shake It Off"). She admitted she\'d "never talked about this publicly before, because, well, it\'s dorky."',
         sources: [
           {
             outlet: 'Billboard',
@@ -1508,6 +1540,20 @@ export default {
             // She stands with the white guitar on the right side of the frame; her face sits upper-right.
             focalPoint: '60% 25%',
           },
+          // Photo pass #762 (2026-07-27): a second, distinct angle — the
+          // step-and-repeat arrival, not the onstage performance shot above.
+          // Verified via khak.com's own CDN (townsquare.media, the
+          // Townsquare Media radio-group infrastructure that hosts the
+          // station's own galleries — not a watermarked comp): HTTP 200 +
+          // image/webp, 1600x2400, downloaded and viewed — the "Nashville
+          // Songwriter Awards" step-and-repeat is visible behind her.
+          {
+            url: 'https://townsquare.media/site/204/files/2022/09/attachment-taylor-swift-songwriter-2.jpg',
+            focalPoint: '51% 14%',
+            credit: 'Townsquare Media',
+            caption: 'Swift on the step-and-repeat at the 2022 Nashville Songwriter Awards, where she accepted Songwriter-Artist of the Decade.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -1523,8 +1569,24 @@ export default {
       thumbnailUrl:
         'https://assets1.cbsnewsstatic.com/hub/i/r/2022/05/18/066b689c-0e18-49aa-966a-7f08eeddd78d/thumbnail/1200x630/333d073afd2d380fa574745fdb2e40e7/gettyimages-1240747838-1.jpg',
       moment: {
+        // The post this page is ABOUT (issue #762 Part B). Shortcode taken
+        // from the permalink Uproxx embeds, and verified by rendering
+        // instagram.com/p/Cds4SYElpYz/embed/captioned: the taylorswift
+        // verified account, caption "Wearing a cap and gown for the very
+        // first time - see you soon NYU 🥺🥰🗽", the NYU-torch-patch gown clip
+        // set to Beabadoobee's "See You Soon" (matches the secondary line the
+        // embed itself shows). Embedded rather than hotlinked because
+        // Instagram CDN urls are signed/expiring and the host is not on the
+        // image allowlist.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'Cds4SYElpYz',
+          label:
+            'The post itself: Swift getting into her cap and gown for the first time, captioned "Wearing a cap and gown for the very first time - see you soon NYU."',
+          postedOn: '2022-05-18',
+        },
         context:
-          'On May 18, 2022, Swift received an honorary Doctor of Fine Arts from New York University and delivered the commencement address to its graduating class at Yankee Stadium, captioning an Instagram post ahead of the ceremony: "Wearing a cap and gown for the very first time."\n\nIn her speech she joked, "I\'m 90% sure the main reason I\'m here is because I have a song called \'22,\'" and told graduates she "never got to have the normal college experience" because she was homeschooled while touring. She described writing as her constant: "Everything I do is just an extension of my writing, whether it\'s directing videos or a short film." Her closing advice: "Never be ashamed of trying. Effortlessness is a myth," and "my mistakes led to the best things in my life."',
+          'On May 18, 2022, Taylor received an honorary Doctor of Fine Arts from New York University and delivered the commencement address to its graduating class at Yankee Stadium, captioning an Instagram post ahead of the ceremony: "Wearing a cap and gown for the very first time."\n\nIn her speech she joked, "I\'m 90% sure the main reason I\'m here is because I have a song called \'22,\'" and told graduates she "never got to have the normal college experience" because she was homeschooled while touring. She described writing as her constant: "Everything I do is just an extension of my writing, whether it\'s directing videos or a short film." Her closing advice: "Never be ashamed of trying. Effortlessness is a myth," and "my mistakes led to the best things in my life."',
         sources: [
           {
             outlet: 'CBS News',
@@ -1548,9 +1610,12 @@ export default {
       month: 6,
       day: 11,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively and Ryan
+      // Reynolds" recurring-friends cluster.
+      relatedIds: ['moment:vault-lover-blake-lively-and-ryan-reynolds-help-her-ring-in-30-at-oscar-'],
       title: "A Tribeca Q&A ends in a surprise \"All Too Well\" singalong, Blake Lively and Ryan Reynolds in the crowd",
       snippet:
-        'At the Beacon Theatre for a live conversation about her short film, Swift revealed easter eggs, talked directing ambitions, and broke into an unplanned performance of the 10-minute song — with Lively and Reynolds singing along from the audience.',
+        'At the Beacon Theatre for a live conversation about her short film, Taylor revealed easter eggs, talked directing ambitions, and broke into an unplanned performance of the 10-minute song — with Lively and Reynolds singing along from the audience.',
       sourceUrl: 'https://variety.com/2022/film/news/taylor-swift-all-too-well-tribeca-festival-1235291648/',
       // Image-fix pass (2026-07-10): ticket #213 — old Variety URL was a
       // recycled Nov 2021 "All Too Well" premiere file photo (same Etro suit
@@ -1560,7 +1625,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/_ptL-dwudyw/hqdefault.jpg',
       moment: {
         context:
-          'On June 11, 2022, Swift appeared at the Tribeca Festival\'s Beacon Theatre for "A Conversation with Taylor Swift," screening her self-written-and-directed "All Too Well" short film and discussing its making with filmmaker Mike Mills.\n\nPer Variety: "the notoriously private pop star also revealed easter eggs in the short film, discussed her ambitions to direct a movie and treated fans to a surprise performance of \'All Too Well.\' Seated near the stage, Blake Lively and Ryan Reynolds were among the many in the crowd who enthusiastically sung along, clapped and took videos of Swift throughout the lengthy track."',
+          'On June 11, 2022, Taylor appeared at the Tribeca Festival\'s Beacon Theatre for "A Conversation with Taylor Swift," screening her self-written-and-directed "All Too Well" short film and discussing its making with filmmaker Mike Mills.\n\nPer Variety: "the notoriously private pop star also revealed easter eggs in the short film, discussed her ambitions to direct a movie and treated fans to a surprise performance of \'All Too Well.\' Seated near the stage, Blake Lively and Ryan Reynolds were among the many in the crowd who enthusiastically sung along, clapped and took videos of Swift throughout the lengthy track."',
         sources: [
           {
             outlet: 'Variety',
@@ -1580,7 +1645,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/_ptL-dwudyw/hqdefault.jpg',
             credit: 'The Hollywood Fix / YouTube (arrival footage still)',
-            caption: 'Swift arriving at the Beacon Theatre for the Tribeca Festival "All Too Well" conversation, June 11, 2022.',
+            caption: 'Taylor arriving at the Beacon Theatre for the Tribeca Festival "All Too Well" conversation, June 11, 2022.',
             kind: 'archival',
           },
         ],
@@ -1638,12 +1703,23 @@ export default {
         // Real-photo pass (2026-07-09): official lyric video still, id verified
         // via YouTube oEmbed (title + @TaylorSwift channel). URL verified
         // HTTP 200 + image/jpeg.
+        // Photo-enrichment pass (2026-07-29): focalPoint added (downloaded +
+        // vision-confirmed); added the second bonus track's ("it's time to
+        // go") official lyric-video still, oEmbed-verified.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/Ur_wAcYDnuA/hqdefault.jpg',
+            focalPoint: '55% 55%',
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption:
               'Still from the official "right where you left me" lyric video, released with the deluxe edition, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/1iRbIYkccgw/hqdefault.jpg',
+            focalPoint: '50% 50%',
+            credit: 'Republic Records / YouTube (official "it\'s time to go" lyric video still)',
+            caption: 'Still from the official "it\'s time to go" lyric video, the deluxe edition\'s second bonus track.',
             kind: 'archival',
           },
         ],
@@ -1655,6 +1731,9 @@ export default {
       month: 4,
       day: 7,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the album the vault-track format
+      // it introduced went on to define.
+      relatedIds: ['moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault'],
       title: 'Mr. Perfectly Fine opens the vault',
       snippet:
         'The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor\'s Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner\'s Instagram verdict: "It\'s not NOT a bop."',
@@ -1662,7 +1741,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
       moment: {
         context:
-          'Written solo when she was 18 and left off the original Fearless, it introduced the vault-track format that became the re-recording project\'s signature: finished songs from each album\'s original sessions, released as new. Produced with Jack Antonoff for the 2021 release, it debuted at No. 90 on the Hot 100 and climbed to No. 30, reaching No. 2 on Hot Country Songs — remarkable mileage for a thirteen-year-old castoff.\n\nThen there was the subplot: fans immediately read the song as a Joe Jonas post-mortem, and Turner — married to Jonas at the time — posted it to her Instagram story with the now-famous verdict, "It\'s not NOT a bop." Swift reposted her with a Game of Thrones bow, writing that she was "forever bending the knee" for the queen of the north.',
+          'Written solo when she was 18 and left off the original Fearless, it introduced the vault-track format that became the re-recording project\'s signature: finished songs from each album\'s original sessions, released as new. Produced with Jack Antonoff for the 2021 release, it debuted at No. 90 on the Hot 100 and climbed to No. 30, reaching No. 2 on Hot Country Songs — remarkable mileage for a thirteen-year-old castoff.\n\nThen there was the subplot: fans immediately read the song as a Joe Jonas post-mortem, and Turner — married to Jonas at the time — posted it to her Instagram story with the now-famous verdict, "It\'s not NOT a bop." Taylor reposted her with a Game of Thrones bow, writing that she was "forever bending the knee" for the queen of the north.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1686,12 +1765,25 @@ export default {
         // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
         // upload.wikimedia.org copy (exact filename from the article HTML).
         // URL verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-29): focalPoint added (downloaded +
+        // vision-confirmed); added a Billboard-hosted (billboard.com/wp-content
+        // CDN, not a Getty comp) Swift/Turner side-by-side from the same
+        // article that covers the Instagram-Story exchange this moment
+        // describes.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
+            focalPoint: '50% 30%',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Mr. Perfectly Fine (Taylor\'s Version) (From the Vault)."',
             kind: 'primary',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-and-Sophie-Turner-billboard-1548-1617818770.jpg',
+            focalPoint: '50% 28%',
+            credit: 'Billboard',
+            caption: 'Taylor Swift and Sophie Turner, whose Instagram Story reaction to the song prompted Taylor\'s "bending the knee" reply.',
+            kind: 'archival',
           },
         ],
       },
@@ -1699,8 +1791,11 @@ export default {
     {
       slug: 'all-too-well-short-film-premiere',
       significance: 'notable', // her feature directorial debut, the artistic follow-through on the 10-minute version's record-setting run (docs/decisions.md, 2026-07-19)
+      // Cross-link (Stage 3, 2026-07-30): + the Grammy win the short film
+      // later earned.
       relatedIds: [
-          'moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins','moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever'],
+          'moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins','moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever',
+          'moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a'],
       year: 2021,
       month: 11,
       day: 12,
@@ -1712,7 +1807,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/6/69/All_Too_Well_short_film_poster.jpg',
       moment: {
         context:
-          'Her most ambitious directing work to date — shot on 35mm by cinematographer Rina Yang and chaptered like a short story, ending with Swift herself as the older writer reading from the book of it. Sadie Sink and Dylan O\'Brien carry the film as the couple; Swift has said she would not have gone ahead with making it had Sink turned the part down.\n\nIt went on to win the Grammy for Best Music Video — with Swift as the sole credited director — and gave the era its defining visual: the scarf, finally on screen. Its VMAs sweep the following summer — Video of the Year, plus an album announcement from the podium — is covered in this era\'s business items. (The premiere-night Etro pantsuit is covered separately in this era\'s fashion items.)',
+          'Her most ambitious directing work to date — shot on 35mm by cinematographer Rina Yang and chaptered like a short story, ending with Taylor herself as the older writer reading from the book of it. Sadie Sink and Dylan O\'Brien carry the film as the couple; Taylor has said she would not have gone ahead with making it had Sink turned the part down.\n\nIt went on to win the Grammy for Best Music Video — with Taylor as the sole credited director — and gave the era its defining visual: the scarf, finally on screen. Its VMAs sweep the following summer — Video of the Year, plus an album announcement from the podium — is covered in this era\'s business items. (The premiere-night Etro pantsuit is covered separately in this era\'s fashion items.)',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1752,7 +1847,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
       moment: {
         context:
-          'Swift revealed she had written it "alone in the middle of the night" about a year and a half before its release, keeping its existence secret; she and Aaron Dessner then, in her words, "meticulously worked on a sound that we felt would be authentic to the moment when this story takes place." The period constraint was strict — recorded in a single take, using only instruments that existed before 1953, fiddle and mandolin and acoustic guitar among them — keeping it deliberately spare and eerie.\n\nIt earned a Golden Globe nomination for Best Original Song and a Grammy nomination for Best Song Written for Visual Media, and made the Oscars\' Best Original Song shortlist — the folklore/evermore sound\'s formal goodbye before Midnights rebooted everything that October.',
+          'Taylor revealed she had written it "alone in the middle of the night" about a year and a half before its release, keeping its existence secret; she and Aaron Dessner then, in her words, "meticulously worked on a sound that we felt would be authentic to the moment when this story takes place." The period constraint was strict — recorded in a single take, using only instruments that existed before 1953, fiddle and mandolin and acoustic guitar among them — keeping it deliberately spare and eerie.\n\nIt earned a Golden Globe nomination for Best Original Song and a Grammy nomination for Best Song Written for Visual Media, and made the Oscars\' Best Original Song shortlist — the folklore/evermore sound\'s formal goodbye before Midnights rebooted everything that October.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1779,6 +1874,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
+            focalPoint: '58% 68%',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Carolina," from the Where the Crawdads Sing soundtrack.',
             kind: 'primary',
@@ -1829,7 +1925,7 @@ export default {
             url: 'https://i.ytimg.com/vi/JPmvsG3iSF4/hqdefault.jpg',
             credit: 'Recording Academy / YouTube (GRAMMY Rewind still)',
             caption:
-              "Swift with the Album of the Year Grammy for folklore, from the Recording Academy's GRAMMY Rewind clip of the March 14, 2021 speech.",
+              "Taylor with the Album of the Year Grammy for folklore, from the Recording Academy's GRAMMY Rewind clip of the March 14, 2021 speech.",
             kind: 'archival',
             focalPoint: '57% 33%',
           },
@@ -1996,7 +2092,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/tP4TTgt4nb0/hqdefault.jpg',
       moment: {
         context:
-          'After the wedding fantasies and murder ballads, it\'s the record\'s most adult song: no villain, just two accurate memories of the same marriage refusing to cancel each other out. Aaron Dessner had composed the instrumental back in 2019; Swift added the words just days before the album was finished — the same last-minute tradition as folklore\'s "the 1" and "hoax."\n\nThe lyrics thread references to F. Scott Fitzgerald\'s The Great Gatsby through the wreckage, and critics singled the song out immediately — Stereogum\'s Tom Breihan called it "a masterful piece of recording and songwriting." It charted at No. 54 on the Hot 100 on album-week streams alone, without ever being a single.',
+          'After the wedding fantasies and murder ballads, it\'s the record\'s most adult song: no villain, just two accurate memories of the same marriage refusing to cancel each other out. Aaron Dessner had composed the instrumental back in 2019; Taylor added the words just days before the album was finished — the same last-minute tradition as folklore\'s "the 1" and "hoax."\n\nThe lyrics thread references to F. Scott Fitzgerald\'s The Great Gatsby through the wreckage, and it\'s the kind of songwriting critics couldn\'t help singling out immediately — Stereogum critic Tom Breihan called it "a masterful piece of recording and songwriting." It charted at No. 54 on the Hot 100 on album-week streams alone, without ever being a single.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2030,11 +2126,230 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Aaron_Dessner_%28March_25%2C_2016%29.jpg/1920px-Aaron_Dessner_%28March_25%2C_2016%29.jpg',
             credit: 'Bruce Baker, Wikimedia Commons (CC BY 2.0) — Aaron Dessner performing, March 2016',
-            caption: 'Aaron Dessner, who composed the "happiness" instrumental back in 2019 — Swift added the words just days before the album was finished.',
+            caption: 'Aaron Dessner, who composed the "happiness" instrumental back in 2019 — Taylor added the words just days before the album was finished.',
             kind: 'archival',
             // Focal point set by viewing: his face sits left of center in the
             // upper third, mic angled in from the right.
             focalPoint: '44% 28%',
+          },
+        ],
+      },
+    },
+    // evermore↔folklore parity fill (2026-07-30, content-shift, #1141): four
+    // of evermore's standard tracks had song items already, but ivy, dorothea,
+    // long story short and closure did not — and the era file dangles at two of
+    // them (the NSAI-speech item cites "ivy" as Taylor's flagship Quill lyric;
+    // "'tis the damn season" names Dorothea as a character "whose namesake
+    // track sits later on the album"). This pass authors ivy, dorothea and long
+    // story short so those hooks land somewhere. Sources: each song's Wikipedia
+    // page + Slate's evermore track-by-track (already trusted in this file, see
+    // gold rush). closure remains for a later run. Photos deferred to Photo
+    // Enrichment: no lyric-video still could be id-verified in this headless env.
+    {
+      slug: 'ivy-clandestine-affair',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: "ivy, a clandestine affair that grows like the vine it's named for",
+      snippet:
+        'A married woman drawn into a secret affair that creeps from winter into spring like ivy — and the one song Taylor later named as her flagship "Quill" lyric, the most literary pen she owns.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
+      moment: {
+        context:
+          'Track 10, and the record at its most literary: a married woman pulled into a clandestine affair that spreads from winter into spring the way ivy winds and tightens around whatever it climbs. Taylor wrote it with Aaron Dessner and Jack Antonoff, Dessner producing the folk arrangement of guitar, faint sleigh bells and banjo. Slate\'s track-by-track called it "overrun with metaphors but mostly in an enticing, thematically fitting way" — "good Swiftian dark-fairytale grist" whose tangle of images conceals "the secret… an engaged woman being drawn into a clandestine affair."\n\nIt is also the song Taylor points to when she explains her own craft. Accepting the NSAI Songwriter-Artist of the Decade honor in 2022, she sorted her lyrics into "Quill," "Fountain Pen" and "Glitter Gel Pen" pens — and named "ivy" as her flagship "Quill" lyric, the antiquated, literary register she reaches for least often and loves most. On evermore it is the purest example of that pen on the whole record.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+            source_title: 'Ivy (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-08-01, #762/#1141): official "ivy" lyric-video
+        // still. oEmbed-verified the video (9nIOx-ezlzA) is titled "Taylor
+        // Swift - ivy (Official Lyric Video)" on the @TaylorSwift channel;
+        // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 480x360,
+        // downloaded and vision-confirmed (foggy moss-roofed cottage).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
+            focalPoint: '44% 58%',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption: 'Still from the official "ivy" lyric video — a moss-roofed cottage in the fog, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'dorothea-the-one-who-stayed',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'dorothea, sung by the one who stayed behind',
+      snippet:
+        'The hometown girl who left for Hollywood, sung by the lover who stayed — the same character as "\'tis the damn season," told from the other side. The album\'s plainest act of tenderness.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Dorothea_(song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/zI4DS5GmQWE/hqdefault.jpg',
+      moment: {
+        context:
+          'Track 8, and the answer to a question the album asks earlier: who is Dorothea? She is the hometown girl who left Tupelo, Mississippi for Hollywood and never quite came back, and this song is sung by the one who stayed — happy for her success, certain he\'d always take her call. It is the same character and the same small town as "\'tis the damn season," which Taylor wrote from Dorothea\'s own point of view; together the two tracks tell one story from both ends. She wrote it with Aaron Dessner, who produced it and felt it carried folklore\'s world forward into evermore.\n\nSlate heard "a welcome lack of fuss," Taylor reaching for "her old high-school-romance-songs vocal tone to reminisce," and critics warmed to it fast — "luminous" is the word The Guardian\'s Alexis Petridis reached for on the melody. After the murder ballads and divorce songs elsewhere on the record, dorothea is its plainest act of tenderness: a love that asks for nothing back.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Dorothea_(song)',
+            source_title: 'Dorothea (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-08-01, #762/#1141): official "dorothea" lyric-video
+        // still. oEmbed-verified the video (zI4DS5GmQWE) is titled "Taylor
+        // Swift - dorothea (Official Lyric Video)" on the @TaylorSwift channel;
+        // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 480x360,
+        // downloaded and vision-confirmed (prairie field at golden hour).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/zI4DS5GmQWE/hqdefault.jpg',
+            focalPoint: '50% 48%',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption: 'Still from the official "dorothea" lyric video — a prairie at golden hour, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'long-story-short-i-survived',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'long story short — "I survived"',
+      snippet:
+        'The reputation era seen from the far side: over golden gates and pedestals she looks back at 2016 and, instead of re-litigating it, shrugs — "long story short, I survived."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Long_Story_Short_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/rqQHa2HcGtM/hqdefault.jpg',
+      moment: {
+        context:
+          'Track 12 is the reputation era seen from the far side of it. Over golden gates and pedestals, Taylor looks back at the 2016–17 stretch when she was knocked off her footing in public — and instead of re-litigating it, she shrugs it off in the refrain: "long story short, it was a bad time… long story short, I survived." She wrote it with Aaron Dessner, who also produced it.\n\nIt reframes an entire era as something to move past rather than avenge. "The best track of evermore" — Billboard\'s Jason Lipshutz\'s call; Slate, more measured, landed on the same note — "a fairly slight song but an earned valedictory address." Where reputation itself answered the backlash with armor, "long story short" answers it years later with peace.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Long_Story_Short_(Taylor_Swift_song)',
+            source_title: 'Long Story Short (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-08-01, #762/#1141): official "long story short"
+        // lyric-video still. oEmbed-verified the video (rqQHa2HcGtM) is titled
+        // "Taylor Swift - long story short (Official Lyric Video)" on the
+        // @TaylorSwift channel; i.ytimg.com is YouTube's own CDN; curl 200
+        // image/jpeg 480x360, downloaded and vision-confirmed (a coffee mug and
+        // open journal on a warm-lit desk).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/rqQHa2HcGtM/hqdefault.jpg',
+            focalPoint: '46% 60%',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption: 'Still from the official "long story short" lyric video — a coffee mug and an open journal, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    // evermore↔folklore parity fill, part 2 (2026-08-01, content-shift, #1141):
+    // completes Part A of the ticket — the fourth of the four storyless standard
+    // tracks. ivy, dorothea and long story short landed on 2026-07-30 (#1637);
+    // closure is authored here. Same sourcing pattern: the song's Wikipedia page
+    // + Slate's evermore track-by-track (already trusted in this file, see gold
+    // rush). Photo deferred to Photo Enrichment. Part B of the ticket — a native
+    // surprise-drop "defining" beat for the album's December 2020 release — is
+    // still open after this pass.
+    {
+      slug: 'closure-no-closure-needed',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'closure, the 5/4 kiss-off that turns down the tidy ending',
+      snippet:
+        'evermore\'s most experimental track: an off-kilter 5/4 song wrapped in clattering, industrial drums, where Taylor takes an olive branch from someone who wronged her and hands it straight back — "I don\'t need your closure."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/AIFnKqIeEdY/hqdefault.jpg',
+      moment: {
+        context:
+          'Track 14, and the strangest thing on the record. Built in an off-kilter 5/4 meter and dressed in clattering, industrial electro-rock drums lurching against a plain acoustic piano, "closure" is the song critics reach for when they call evermore experimental. Taylor wrote it with Aaron Dessner and cut it with him and co-producers BJ Burton and James McAlister; Dessner has pointed to it as the track that opened the album up — the one where they refused to set themselves any limits. Slate called it an "electroacoustic kiss-off" and, whatever it made of the words, granted that sonically it was "a real ear-cleaner" this deep into the album.\n\nThe lyric is the sharp part. Someone who wronged her has sent a letter dressed up as an olive branch, and the whole song is Taylor declining it: she\'s doing better, she knows it\'s over, and she can see the gesture is really for their peace of mind, not hers — so, pointedly, "I don\'t need your closure." Slate, less charmed by the words, filed it under her "tedious public airings of some music-industry grudge"; the other read is that refusing a hollow reconciliation is its own kind of resolution. Either way it is the rare Taylor song that turns down the tidy ending on purpose.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+            source_title: 'Closure (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-01',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-01',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-08-01, #762/#1141): official "closure" lyric-video
+        // still. oEmbed-verified the video (AIFnKqIeEdY) is titled "Taylor
+        // Swift - closure (Official Lyric Video)" on the @TaylorSwift channel;
+        // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 480x360,
+        // downloaded and vision-confirmed (aged letters and a lit candle).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/AIFnKqIeEdY/hqdefault.jpg',
+            focalPoint: '52% 46%',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption: 'Still from the official "closure" lyric video — aged letters and a single candle, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
           },
         ],
       },
@@ -2120,6 +2435,8 @@ export default {
       relatedIds: [
         'moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas',
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+        // Cross-link (Stage 3, 2026-08-10): the vault-track format's debut.
+        'moment:vault-evermore-mr-perfectly-fine-opens-the-vault',
       ],
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
@@ -2128,7 +2445,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
       moment: {
         context:
-          'She chased faithful-but-grown versions of songs she first sang at 18: the twenty re-recordings were produced with Christopher Rowe, and critics heard sharper instrumentation and a deeper, stronger voice — though some reviewers missed the teenage earnestness of the originals.\n\nThe six From the Vault cuts, produced with Jack Antonoff and Aaron Dessner, proved the project could generate new canon, not just replacements — "Mr. Perfectly Fine" chief among them (covered separately in this era), plus "You All Over Me" with Maren Morris and "That\'s When" with Keith Urban. The chart history it made is covered in this era\'s business items.\n\nFans clocked the vault tracks before the label did: a scrambled-letter anagram video Swift posted days ahead of the formal reveal let fans decode the six titles (and the Keith Urban feature) hours early, and the release timing carried her own numerology — Feb. 11 and Apr. 9 each reduce to her lucky 13 (2+11, 4+9) (Fearless (Taylor\'s Version), Wikipedia).',
+          'She chased faithful-but-grown versions of songs she first sang at 18: the twenty re-recordings were produced with Christopher Rowe, and critics heard sharper instrumentation and a deeper, stronger voice — though some reviewers missed the teenage earnestness of the originals.\n\nThe six From the Vault cuts, produced with Jack Antonoff and Aaron Dessner, proved the project could generate new canon, not just replacements — "Mr. Perfectly Fine" chief among them (covered separately in this era), plus "You All Over Me" with Maren Morris and "That\'s When" with Keith Urban. The chart history it made is covered in this era\'s business items.\n\nFans clocked the vault tracks before the label did: a scrambled-letter anagram video Taylor posted days ahead of the formal reveal let fans decode the six titles (and the Keith Urban feature) hours early, and the release timing carried her own numerology — Feb. 11 and Apr. 9 each reduce to her lucky 13 (2+11, 4+9) (Fearless (Taylor\'s Version), Wikipedia).',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2243,6 +2560,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            focalPoint: '35% 28%',
             credit: 'Republic Records / Beth Garrabrant (album cover)',
             caption: "The Red (Taylor's Version) cover, revealed with the June 18, 2021 announcement.",
             kind: 'primary',
@@ -2258,12 +2576,12 @@ export default {
       category: 'release',
       title: 'Renegade: guesting on Big Red Machine, the Dessner–Vernon mothership',
       snippet:
-        'Out July 2, 2021 — Swift fronting Aaron Dessner and Justin Vernon\'s own band on "How Long Do You Think It\'s Gonna Last?", repaying the folklore/evermore collaboration in kind.',
+        'Out July 2, 2021 — Taylor fronting Aaron Dessner and Justin Vernon\'s own band on "How Long Do You Think It\'s Gonna Last?", repaying the folklore/evermore collaboration in kind.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Renegade_(Big_Red_Machine_song)',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png',
       moment: {
         context:
-          'A rare Swift feature where she\'s the guest in someone else\'s house: an anxious, galloping track about loving someone who won\'t get out of their own way, written with Aaron Dessner and recorded across the project\'s home bases — Long Pond in the Hudson Valley, Kitty Committee in Los Angeles, and April Base in Eau Claire, Wisconsin.\n\nDessner\'s own account: "Taylor\'s words hit me so hard when I heard her first voice memo and still do, every time. Justin lifted the song further into the heavens." The single gave Big Red Machine their first-ever Hot 100 entry, peaking at No. 73 — and she appears twice on the album, since "Birch" carries her vocals too.',
+          'A rare Taylor feature where she\'s the guest in someone else\'s house: an anxious, galloping track about loving someone who won\'t get out of their own way, written with Aaron Dessner and recorded across the project\'s home bases — Long Pond in the Hudson Valley, Kitty Committee in Los Angeles, and April Base in Eau Claire, Wisconsin.\n\nDessner\'s own account: "Taylor\'s words hit me so hard when I heard her first voice memo and still do, every time. Justin lifted the song further into the heavens." The single gave Big Red Machine their first-ever Hot 100 entry, peaking at No. 73 — and she appears twice on the album, since "Birch" carries her vocals too.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2281,6 +2599,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png',
+            focalPoint: '50% 42%',
             credit: '37d03d / Jagjaguwar (single cover art)',
             caption: 'Cover artwork for Big Red Machine\'s "Renegade," featuring Taylor Swift.',
             kind: 'primary',
@@ -2349,6 +2668,9 @@ export default {
       month: 11,
       day: 15,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively" recurring-friend
+      // cluster.
+      relatedIds: ['moment:vault-midnights-a-crescent-moon-dress-for-her-34th-birthday-with-blake-livel'],
       title: 'Blake Lively directs "I Bet You Think About Me" — wedding-cake carnage included',
       snippet:
         'The vault track got a Nov. 15, 2021 video directed by Blake Lively in her directing debut, with Miles Teller as the groom and Taylor as the red-dressed ghost of relationships past, cheerfully ruining a wedding.',
@@ -2356,7 +2678,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/5UMCrq-bBCg/hqdefault.jpg',
       moment: {
         context:
-          'Swift and Lively co-wrote the video\'s concept, and the song itself carries Chris Stapleton\'s harmonies — the twangiest thing in the entire vault.\n\nThe casting kept it in the family: Miles Teller\'s bride is played by his real-life wife, Keleigh Sperry, and Swift\'s own announcement framed the collaboration as overdue — "I finally got to work with the brilliant, brave, & wickedly funny @blakelively on her directorial debut. Join us as we raise a toast, and a little hell." It was the friends\' first official creative project together, years after Swift borrowed the names of Lively and Ryan Reynolds\' daughters for folklore\'s "betty."',
+          'Taylor and Lively co-wrote the video\'s concept, and the song itself carries Chris Stapleton\'s harmonies — the twangiest thing in the entire vault.\n\nThe casting kept it in the family: Miles Teller\'s bride is played by his real-life wife, Keleigh Sperry, and Taylor\'s own announcement framed the collaboration as overdue — "I finally got to work with the brilliant, brave, & wickedly funny @blakelively on her directorial debut. Join us as we raise a toast, and a little hell." It was the friends\' first official creative project together, years after Taylor borrowed the names of Lively and Ryan Reynolds\' daughters for folklore\'s "betty."',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2386,7 +2708,7 @@ export default {
             url: 'https://i.ytimg.com/vi/5UMCrq-bBCg/hqdefault.jpg',
             credit: 'Republic Records / YouTube (official music video still)',
             caption:
-              'Still from the Blake Lively-directed "I Bet You Think About Me" video — Swift as the red-dressed wedding crasher — via the video\'s YouTube thumbnail.',
+              'Still from the Blake Lively-directed "I Bet You Think About Me" video — Taylor as the red-dressed wedding crasher — via the video\'s YouTube thumbnail.',
             kind: 'archival',
             // Focal point set 2026-07-18 by viewing (480x360 letterboxed):
             // Swift center frame in the red gown with guitar, face just left
@@ -2401,7 +2723,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Blake_Lively_%284994696823%29.jpg/500px-Blake_Lively_%284994696823%29.jpg',
             credit: 'Josh Jensen, Wikimedia Commons (CC BY-SA 2.0) — Blake Lively, 2010 (archival, era context; not the video shoot)',
-            caption: 'Blake Lively — the friend Swift finally got to work with, in Lively\'s directorial debut.',
+            caption: 'Blake Lively — the friend Taylor finally got to work with, in Lively\'s directorial debut.',
             kind: 'archival',
             // Focal point set by viewing: tall portrait, her face high in the
             // frame, dress filling the lower two-thirds.
@@ -2416,6 +2738,13 @@ export default {
       month: 2,
       day: 11,
       category: 'release',
+      // Cross-link (Stage 3, 2026-07-30): + the Red Tour's Omaha opening
+      // night, which put Ed Sheeran on the road with her right after
+      // "Everything Has Changed" was written.
+      relatedIds: [
+        'moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer',
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
+      ],
       title: 'The Joker and the Queen: an Ed Sheeran duet with a nine-year Easter egg',
       snippet:
         'Out Feb. 11, 2022 — her verse added to Sheeran\'s piano ballad, with a video that reunites the two kids from 2013\'s "Everything Has Changed" video, now teenagers, finding each other again at college.',
@@ -2423,7 +2752,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png',
       moment: {
         context:
-          'Their fourth collaboration — after "Everything Has Changed," "End Game," and the vault duet "Run" — and the most sentimental: the video brings back Ava Ames and Jack Lewis, the child actors from the 2013 "Everything Has Changed" video, now teenagers finding each other again at college.\n\nThe Easter eggs run deeper than the casting: the text-message exchange shown in the video is a real one between Sheeran and Swift that she had shared publicly back in 2015, and a framed photo from the original video sits in frame. It landed in the era\'s quietest stretch, a reminder the two write to each other\'s timelines, not the industry\'s.',
+          'Their fourth collaboration — after "Everything Has Changed," "End Game," and the vault duet "Run" — and the most sentimental: the video brings back Ava Ames and Jack Lewis, the child actors from the 2013 "Everything Has Changed" video, now teenagers finding each other again at college.\n\nThe Easter eggs run deeper than the casting: the text-message exchange shown in the video is a real one between Sheeran and Taylor that she had shared publicly back in 2015, and a framed photo from the original video sits in frame. It landed in the era\'s quietest stretch, a reminder the two write to each other\'s timelines, not the industry\'s.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2441,6 +2770,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png',
+            focalPoint: '50% 50%',
             credit: 'Asylum / Atlantic Records (single cover art)',
             caption: 'Cover artwork for Ed Sheeran\'s "The Joker and the Queen," featuring Taylor Swift.',
             kind: 'primary',
@@ -2456,7 +2786,7 @@ export default {
       category: 'release',
       title: "This Love (Taylor's Version) arrives early, care of a TV trailer",
       snippet:
-        'The second 1989 re-recording (after "Wildest Dreams (Taylor\'s Version)"), released May 6, 2022 after soundtracking the trailer for Amazon\'s The Summer I Turned Pretty — whose author-showrunner Jenny Han made Swift songs the show\'s sonic signature.',
+        'The second 1989 re-recording (after "Wildest Dreams (Taylor\'s Version)"), released May 6, 2022 after soundtracking the trailer for Amazon\'s The Summer I Turned Pretty — whose author-showrunner Jenny Han made Taylor songs the show\'s sonic signature.',
       sourceUrl: 'https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png',
       moment: {
@@ -2480,7 +2810,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records (single cover art)',
-            caption: 'Cover artwork for "This Love (Taylor\'s Version)," the first 1989 re-recording released.',
+            caption: 'Cover artwork for "This Love (Taylor\'s Version)," the second 1989 re-recording released.',
             kind: 'primary',
             // Focal point set 2026-07-18 by viewing (300x300): extreme
             // close-up, eyes and lips in the upper-right quadrant, hair
@@ -2518,7 +2848,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png',
       moment: {
         context:
-          'Evermore Park alleged trademark infringement and "actual confusion" with its brand, seeking up to $2 million per counterfeit mark plus attorney fees; TAS Rights Management\'s countersuit answered that the park\'s costumed performers had been singing three Swift songs in shows while ignoring numerous licensing notices from BMI.\n\nOn March 24, 2021 — barely seven weeks after the first filing — both sides dropped and dismissed everything, with a Swift spokesperson confirming no money changed hands. One of the odder footnotes in the album\'s history.',
+          'Evermore Park alleged trademark infringement and "actual confusion" with its brand, seeking up to $2 million per counterfeit mark plus attorney fees; TAS Rights Management\'s countersuit answered that the park\'s costumed performers had been singing three Taylor songs in shows while ignoring numerous licensing notices from BMI.\n\nOn March 24, 2021 — barely seven weeks after the first filing — both sides dropped and dismissed everything, with a Taylor spokesperson confirming no money changed hands. One of the odder footnotes in the album\'s history.',
         sources: [
           {
             outlet: 'Variety',
@@ -2584,7 +2914,7 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/2021411/rs_1200x1200-210511142237-1200..2-taylor-swift-brit-awards-2021.jpg',
       moment: {
         context:
-          'The ceremony doubled as a UK live-events pilot, with an O2 Arena crowd of roughly 4,000 made up largely of frontline workers — one of the first big indoor shows of the reopening — and she was there in person to accept, mid-re-recording-era, with no album of her own to promote.\n\nGame of Thrones\' Maisie Williams presented the award, and Swift aimed her speech at the room\'s newer artists: "If you\'re being met with resistance, that probably means doing something new. If you\'re experiencing turbulence or pressure, that probably means you\'re rising."',
+          'The ceremony doubled as a UK live-events pilot, with an O2 Arena crowd of roughly 4,000 made up largely of frontline workers — one of the first big indoor shows of the reopening — and she was there in person to accept, mid-re-recording-era, with no album of her own to promote.\n\nGame of Thrones\' Maisie Williams presented the award, and Taylor aimed her speech at the room\'s newer artists: "If you\'re being met with resistance, that probably means doing something new. If you\'re experiencing turbulence or pressure, that probably means you\'re rising."',
         sources: [
           {
             outlet: 'Billboard',
@@ -2625,7 +2955,7 @@ export default {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2021411/rs_1200x1200-210511142237-1200..2-taylor-swift-brit-awards-2021.jpg',
             focalPoint: '53% 28%',
             credit: 'Ian West/PA Images via Getty Images',
-            caption: 'Swift holds up the Global Icon trophy on stage at the 2021 BRIT Awards.',
+            caption: 'Taylor holds up the Global Icon trophy on stage at the 2021 BRIT Awards.',
             kind: 'archival',
           },
           // Photo pass 2026-07-20 (#762): +1 verified. Maisie Williams
@@ -2638,7 +2968,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/2021/05/Taylor-Swift-and-Maisie-Williams-brit-awards-2021-billboard-1548-1620846105.jpg?w=942&h=628&crop=1',
             focalPoint: '48% 26%',
             credit: 'Getty Images, via Billboard',
-            caption: 'Swift with Maisie Williams, who presented the Global Icon Award, in the media room at the 2021 BRIT Awards.',
+            caption: 'Taylor with Maisie Williams, who presented the Global Icon Award, in the media room at the 2021 BRIT Awards.',
             kind: 'archival',
           },
         ],
@@ -2667,7 +2997,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/x_c_1qsnZ28/hqdefault.jpg',
       moment: {
         context:
-          'The short film swept its categories that night — Video of the Year plus Best Longform Video and Best Direction, the direction prize for Swift\'s own work behind the camera.\n\nAt midnight her socials revealed the title, Midnights — "the stories of 13 sleepless nights scattered throughout my life." The Moschino star romper she wore to the after-party, already reading as a teaser, is covered in this era\'s sighting items.',
+          'The short film swept its categories that night — Video of the Year plus Best Longform Video and Best Direction, the direction prize for Taylor\'s own work behind the camera.\n\nAt midnight her socials revealed the title, Midnights — "the stories of 13 sleepless nights scattered throughout my life." The Moschino star romper she wore to the after-party, already reading as a teaser, is covered in this era\'s sighting items.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2701,7 +3031,7 @@ export default {
             url: 'https://i.ytimg.com/vi/x_c_1qsnZ28/hqdefault.jpg',
             credit: 'Access Hollywood / YouTube (press coverage still)',
             caption:
-              'Swift accepting Video of the Year at the 2022 VMAs, moments before announcing Midnights — from Access Hollywood\'s coverage of the speech.',
+              'Taylor accepting Video of the Year at the 2022 VMAs, moments before announcing Midnights — from Access Hollywood\'s coverage of the speech.',
             kind: 'archival',
             // Focal point set 2026-07-18 by viewing (480x360): Swift at the
             // podium mid-speech, face just left of center in the upper third,
@@ -2764,6 +3094,67 @@ export default {
       },
     },
 
+    // Part B of #1141 (evermore↔folklore parity): the era had a Dec-11
+    // "willow leads / folklore's sister arrives" release-day card and the
+    // Dec-26 chart-double item, but no native beat for the *announcement
+    // itself* — the surprise-drop move that folklore's "Sixteen hours' notice"
+    // item gets in full. This is that beat. Dated Dec 10 (the announcement) to
+    // sit a day ahead of the Dec-11 release cluster, exactly as folklore's
+    // announcement beat sits a day ahead of its release. Verified this session
+    // (2026-08-02) against Wikipedia (Evermore album, fetched directly),
+    // Rolling Stone's announcement report, and Good Morning America (the
+    // birthday note + the simultaneous "willow" video premiere).
+    {
+      slug: 'evermore-surprise-announcement',
+      significance: 'defining', // the surprise drop repeated — proof folklore's no-rollout model was a method, not a one-off (mirrors folklore's Sixteen-hours beat)
+      year: 2020,
+      month: 12,
+      day: 10,
+      category: 'release',
+      title: "Doing the impossible twice: evermore's surprise announcement",
+      snippet:
+        '"To put it plainly, we just couldn\'t stop writing songs." Five months after folklore, a second surprise album — announced December 10, out at midnight eastern.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp',
+        'moment:vault-evermore-folklores-sister-arrives',
+      ],
+      moment: {
+        context:
+          'Five months after folklore appeared with barely a day\'s warning, Taylor did the thing that was supposed to be a one-time trick a second time. On December 10, 2020 she posted that "my 9th studio album, and folklore\'s sister record, will be out tonight at midnight eastern. It\'s called evermore." Hours later the record and the "willow" music video arrived together — no lead single, no countdown, no rollout, just the note, the cover art, the track list, and then the songs.\n\nThe note framed evermore not as leftover folklore material but as a deliberate walk further in: "To put it plainly, we just couldn\'t stop writing songs. To try and put it more poetically, it feels like we were standing on the edge of the folklorian woods and had a choice: to turn and go back or to travel further into the forest of this music. We chose to wander deeper in." The collaborators came with her — Aaron Dessner and Jack Antonoff producing, Bon Iver on the title-track duet, HAIM on "no body no crime," and the returning "William Bowery" (Joe Alwyn), with the National and Marcus Mumford in the credits.\n\nThe timing carried her own numerology. evermore landed two days before her 31st birthday, and she said so in the note: "Ever since I was 13, I\'ve been excited about turning 31 because it\'s my lucky number backwards, which is why I wanted to surprise you with this now. You\'ve all been so caring, supportive and thoughtful on my birthdays and so this time I thought I would give you something!" She added that she knew the holiday season "will be a lonely one for most of us," offering the album to anyone who, like her, turns to music to cope with missing people. What folklore had proved a surprise album *could* do, evermore proved she could do on purpose — and the double No. 1 debut that followed (told in this era\'s chart items) made it twice in a single year, a feat no artist had pulled off even once before.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-02',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-evermore-album-surprise-1101630/',
+            source_title: "Taylor Swift Announces Ninth Album 'Evermore'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-announces-surprise-9th-studio-album-evermore-74646424',
+            source_title: "Taylor Swift announces surprise 9th studio album 'evermore' to be released at midnight",
+            publisher: 'ABC / Good Morning America',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
@@ -2784,7 +3175,27 @@ export default {
       milestone: { id: "m-ever-1", label: "evermore surprise drop", kind: "album" },
       snippet: "A second surprise album in five months — warmer, rustier, and just as literary.",
       moment: {
-        context: "evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.\n\nSwift announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\"",
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-albums-guide-eras-discography/',
+            source_title: 'Songbook: An Era-By-Era Breakdown Of Taylor Swift\'s Journey From Country Starlet To Pop Phenomenon',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-announces-evermore-the-surprise-sister-record-to-folklore-157598',
+            source_title: 'Taylor Swift Announces \'evermore,\' the Surprise \'Sister Record\' to \'folklore\'',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        context: "evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.\n\nTaylor announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\"",
         // Photo pass #762 (2026-07-19): alternate official frame of the
         // "willow" video, which premiered alongside the album at midnight —
         // video ID verified via YouTube oEmbed (author "Taylor Swift",
@@ -2815,6 +3226,26 @@ export default {
       snippet: "The lead single doubles as the album's only official single release.",
       video: { youtubeId: "RsEZmictANA", title: "Taylor Swift - willow" },
       moment: {
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/watch-taylor-swifts-music-video-for-willow-2836507',
+            source_title: 'Watch Taylor Swift\'s fantastical new music video for \'Willow\'',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-brings-folklore-album-life-2021-grammys-medley-2021-grammy-awards-show/',
+            source_title: 'Taylor Swift Brings \'Folklore\' Album to Life With 2021 GRAMMYs Medley',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+        ],
         context: "\"willow\" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys.",
         // Photo pass #762 (2026-07-19): official video still — ID RsEZmictANA
         // (already cited by this entry's video field) verified via YouTube
@@ -2842,7 +3273,54 @@ export default {
       title: "\"no body no crime\" with HAIM",
       snippet: "A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.",
       moment: {
-        context: "The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Swift to perform it live during the Eras Tour years later.",
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2020/12/10222300/taylor-swift-haim-no-body-no-crime-real-murder-mystery',
+            source_title: 'So, Taylor Swift & Haim Wrote The Best Murder Mystery Of The Year',
+            publisher: 'Refinery29',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Guitar.com',
+            url: 'https://guitar.com/news/music-news/taylor-swift-haim-no-body-no-crime/',
+            source_title: 'Watch Taylor Swift\'s live debut of No Body, No Crime with Haim',
+            publisher: 'Guitar.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        context: "The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Taylor to perform it live during the Eras Tour years later.",
+        // Photo pass #762 (2026-07-31): page had zero photos. (1) The live
+        // debut with HAIM, hosted on billboard.com's own CDN (not
+        // media.gettyimages.com directly, though sourced from a Getty
+        // photographer — allowed per the outlet-CDN rule) — curl HTTP 200 +
+        // image/jpeg, downloaded and vision-confirmed: Taylor and all three
+        // HAIM sisters on stage together, guitars in hand. (2) The official
+        // lyric video's title card — video id IEPomqor2A8, oEmbed-verified
+        // channel "Taylor Swift" (@TaylorSwift) — curl HTTP 200 + image/jpeg,
+        // downloaded and Read-viewed: the "no body, no crime (feat. Haim)"
+        // title over the foggy tree-line still.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/07/taylor-swift-haim-eras-tour-2023-billboard-1548.jpg',
+            focalPoint: '55% 22%',
+            credit: 'Mat Hayward/TAS23/Getty Images, via Billboard',
+            caption:
+              'Taylor Swift performs "no body, no crime" with HAIM (Este on bass, Danielle on electric guitar) at Lumen Field in Seattle, July 22, 2023 — the song\'s live debut.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/IEPomqor2A8/maxresdefault.jpg',
+            focalPoint: '30% 20%',
+            credit: 'Taylor Swift / YouTube (official lyric video title card)',
+            caption: 'The official "no body, no crime (feat. HAIM)" lyric video.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -2857,7 +3335,32 @@ export default {
       title: "\"champagne problems\"",
       snippet: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
       moment: {
-        context: "One of two evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
+        sources: [
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/the-meaning-of-champagne-problems-by-taylor-swift/',
+            source_title: 'The Meaning of "Champagne Problems" by Taylor Swift',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swifts-evermore-which-songs-did-william-bowery-aka-joe-alwyn-help-write-157620',
+            source_title: 'Taylor Swift\'s \'Evermore\': Which Songs Did William Bowery, aka Joe Alwyn, Help Write?',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        // Corrected 2026-08-11: THREE evermore tracks carry a William Bowery
+        // co-write — "champagne problems", "coney island" and the title
+        // track — per the Entertainment Tonight piece cited below. The old
+        // "two" contradicted the source this moment now cites.
+        context:
+          "One of three evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
         // Photo pass #762 (2026-07-19): official lyric-video still — ID
         // wMpqCRF7TKg verified via YouTube oEmbed ("Taylor Swift - champagne
         // problems (Official Lyric Video)", author "Taylor Swift"); curl 200
@@ -2884,7 +3387,32 @@ export default {
       title: "The deluxe edition adds two tracks",
       snippet: "\"right where you left me\" and \"it's time to go\" arrive a month after the album.",
       moment: {
-        context: "A deluxe edition released three weeks after the original, adding \"right where you left me\" and \"it's time to go\" — both later folded into the era's standard track list on streaming.",
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-releases-digital-deluxe-edition-of-evermore-featuring-two-bonus-songs-2851027',
+            source_title: 'Stream Taylor Swift\'s deluxe edition of \'Evermore\', featuring two bonus songs',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2021/01/stream-taylor-swift-evermore-deluxe-edition-bonus-tracks/',
+            source_title: 'Taylor Swift Releases evermore Deluxe Edition Bonus Tracks "Right Where You Left Me" and "It\'s Time to Go": Stream',
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        // Corrected 2026-08-11: the deluxe shipped on CD and vinyl alongside
+        // the original in December; only the two bonus tracks' STREAMING
+        // release was later (2021-01-07, four weeks on). Both citations below
+        // say so, and "three weeks" also contradicted this item's own snippet.
+        context:
+          "The two deluxe-edition bonus tracks reached streaming four weeks after the original — \"right where you left me\" and \"it's time to go\", both later folded into the era's standard track list.",
         // Photo pass #762 (2026-07-19): official lyric-video still — ID
         // Ur_wAcYDnuA verified via YouTube oEmbed ("Taylor Swift - right
         // where you left me (Official Lyric Video)", author "Taylor Swift");
@@ -2910,9 +3438,29 @@ export default {
       category: "music",
       tags: ["Lore"],
       title: "\"marjorie,\" for her grandmother",
-      snippet: "A tribute built partly from archival recordings of Swift's late grandmother, opera singer Marjorie Finlay.",
+      snippet: "A tribute built partly from archival recordings of Taylor's late grandmother, opera singer Marjorie Finlay.",
       moment: {
-        context: "The song incorporates real vocal recordings of Marjorie Finlay, Swift's grandmother and a professional opera singer who died in 2003 — Swift has spoken about writing it as a way of \"bringing her back.\"",
+        sources: [
+          {
+            outlet: 'South China Morning Post',
+            url: 'https://www.scmp.com/magazines/style/entertainment/article/3244204/who-was-taylor-swifts-opera-singer-grandma-marjorie-finlay-pop-stars-lookalike-relative-was-star',
+            source_title: 'Who was Taylor Swift\'s opera singer grandma, Marjorie Finlay?',
+            publisher: 'South China Morning Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/features/taylor-swift-grandmother-marjorie-opera-singer-evermore-vocals/',
+            source_title: 'Taylor Swift Features Grandmother\'s Opera Singing Vocals On Evermore Track \'Marjorie\'',
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        context: "The song incorporates real vocal recordings of Marjorie Finlay, Taylor's grandmother and a professional opera singer who died in 2003 — Taylor has spoken about writing it as a way of \"bringing her back.\"",
         // Photo pass #762 (2026-07-19): official lyric-video still — ID
         // hP6QpMeSG6s verified via YouTube oEmbed ("Taylor Swift - marjorie
         // (Official Lyric Video)", author "Taylor Swift"); curl 200 image/jpeg

@@ -8,6 +8,42 @@
 export default {
   eraSlug: 'lover',
   items: [
+    // Era-ignition beat (2026-07-30, #828): the Lover timeline used to open on
+    // the June 30 masters sale — a business tragedy two singles deep — with the
+    // April pastel turn living only inside a fashion caption. This is the
+    // answering card to reputation's close (the April 22 Gigi Hadid party), and
+    // the beat the era was missing.
+    {
+      year: 2019,
+      month: 4,
+      day: 25,
+      category: 'music',
+      slug: 'lover-era-ignition-me-pastel-turn',
+      title: 'The pastel turn: ME! ends the reputation black',
+      snippet:
+        'A countdown clock, a butterfly mural repainted overnight, and an NFL-Draft-night interview with Robin Roberts — the single most legible palette flip of her career, staged across April 2019.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Me!_(song)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
+      relatedIds: [
+        'moment:vault-lover-seven-pastel-outfit-changes-in-the-me-video',
+        'moment:vault-reputation-a-denim-themed-birthday-party-for-gigi-hadid-sans-denim',
+      ],
+      moment: {
+        context:
+          'reputation had ended in black and white; Lover began in every color at once. On April 13, 2019, a countdown to midnight on April 26 appeared on her website and her feed turned to pastel skies — the snake era formally over. On April 25, street artist Kelsey Montague\'s butterfly mural in Nashville\'s Gulch was repainted with the word "Me!", the campaign hiding in plain sight on a public wall fans could pose in front of. That same day, during ABC\'s NFL Draft broadcast, she confirmed the details to Robin Roberts.\n\n"ME!", her duet with Brendon Urie of Panic! at the Disco, premiered at midnight on April 26 — written by Taylor with Joel Little and Urie, and produced by Taylor and Little. The video pulled 65.2 million views in its first 24 hours, breaking Vevo\'s single-day record; the song debuted at No. 100 on the Hot 100, then leapt to a No. 2 peak the following week. Critics read the bright palette exactly as intended: a deliberate, public exit from reputation\'s black-and-white, and the first full sight of the Lover aesthetic.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Me!_(song)' },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
+            focalPoint: '50% 50%',
+            credit: 'Republic Records (single cover art)',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
     {
       year: 2019,
       month: 9,
@@ -74,6 +110,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_The_Man.png',
+            focalPoint: '58% 28%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -81,6 +118,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "You Need to Calm Down" pair —
+      // the video's petition and the costumes in it — now interlink.
+      relatedIds: ['moment:vault-lover-rainbow-wig-western-shirt-and-a-french-fries-costume-in-you-'],
       year: 2019,
       month: 6,
       day: 17,
@@ -108,10 +148,22 @@ export default {
             url: 'https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857',
           },
         ],
+        // Photo pass (#762, 2026-08-07): added a second still — the official
+        // aerial pool shot from the same video — downloaded and vision-
+        // confirmed. Set focalPoint on both photos individually by eye.
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
+            focalPoint: '55% 30%',
             credit: 'E! News (video still)',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/Dkk9gvTmCXY/maxresdefault.jpg',
+            focalPoint: '50% 50%',
+            credit: 'Taylor Swift / YouTube (official "You Need to Calm Down" video, aerial still)',
+            caption:
+              'An aerial shot from the "You Need to Calm Down" video: Taylor floating on a yellow inner tube in a rose-ringed trailer-park pool.',
+            kind: 'archival',
           },
         ],
       },
@@ -138,6 +190,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/DixieChicksMSG062003.jpg',
+            focalPoint: '50% 32%',
             credit: 'Wasted Time R (CC BY-SA 2.5), via Wikimedia Commons',
             caption: 'The Dixie Chicks — who harmonize on "Soon You\'ll Get Better" — performing in 2003.',
             kind: 'reference',
@@ -174,7 +227,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/BBd9gcrj2Wk/hqdefault.jpg',
             credit: 'Netflix via YouTube (official trailer)',
-            caption: 'Gina Rodriguez in Someone Great — the Netflix film that inspired the song, itself written to Swift\'s discography.',
+            caption: 'Gina Rodriguez in Someone Great — the Netflix film that inspired the song, itself written to Taylor\'s discography.',
             kind: 'archival',
             focalPoint: '68% 50%',
           },
@@ -227,6 +280,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Cruel Summer" cluster — the
+      // song's origin, the No. 1 milestone, and the four-years-later chart
+      // arc — now interlink.
+      relatedIds: [
+        'moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack',
+        'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
+      ],
       year: 2023,
       month: 10,
       day: 28,
@@ -296,7 +356,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
       moment: {
         context:
-          'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Swift embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
+          'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Taylor embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — the song clearances were ultimately "granted within a timely manner," per Variety — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
         sources: [
           {
             outlet: 'Billboard',
@@ -335,7 +395,7 @@ export default {
           {
             url: 'https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556',
             credit: 'Deseret News',
-            caption: 'Swift at the "Miss Americana" world premiere, Sundance Film Festival, Jan. 23, 2020.',
+            caption: 'Taylor at the "Miss Americana" world premiere, Sundance Film Festival, Jan. 23, 2020.',
             kind: 'archival',
           },
           {
@@ -348,13 +408,13 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/MistyCopeland-byPhilipRomano.jpg',
             credit: 'Philip Romano, Wikimedia Commons (CC BY-SA 4.0)',
-            caption: 'Ballet dancer Misty Copeland, who performed with Swift in the same AMA medley.',
+            caption: 'Ballet dancer Misty Copeland, who performed with Taylor in the same AMA medley.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/13/Carole_King_2002_%28cropped%29.jpg',
             credit: 'John Mathew Smith, Wikimedia Commons (CC BY-SA 2.0)',
-            caption: 'Carole King, who presented Swift with the Artist of the Decade award at that AMAs ceremony.',
+            caption: 'Carole King, who presented Taylor with the Artist of the Decade award at that AMAs ceremony.',
             kind: 'reference',
           },
         ],
@@ -411,6 +471,7 @@ export default {
       month: 4,
       day: 26,
       category: 'fashion',
+      relatedIds: ['moment:vault-lover-the-pastel-turn-me-ends-the-reputation-black'],
       title: 'Seven pastel outfit changes in the ME! video',
       snippet:
         'Styled by Joseph Cassell Falconer, the video traded Reputation black-and-white for tulle, pastels, and bold suiting — including a Monique Lhuillier tea-length dress and a lemon-yellow power suit.',
@@ -418,7 +479,7 @@ export default {
       thumbnailUrl: 'https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-04/taylor-swift-me-music-video-1280.jpg',
       moment: {
         context:
-          'Longtime stylist Joseph Cassell Falconer put her through seven looks for the video, including a floral Monique Lhuillier tea-length dress with Alison Lou earrings and Roger Vivier shoes, an Alexander McQueen floral jacket-and-shorts set, and a ruffled Amorphose top over an Monica Ivena tulle skirt — the first full preview of the pastel "Lover" aesthetic.\n\nThe wardrobe had a huge stage to debut on: the video, co-directed by Swift and Dave Meyers and premiered at midnight on April 26, 2019, pulled in 65.2 million views in its first day — breaking the 24-hour Vevo record previously held by Ariana Grande\'s "Thank U, Next" — and critics read the bright palette as a deliberate, symbolic exit from the reputation era\'s black-and-white. The kitten Brendon Urie hands her mid-video was real, and stayed: Swift adopted him as her third cat, Benjamin Button.',
+          'Longtime stylist Joseph Cassell Falconer put her through seven looks for the video, including a floral Monique Lhuillier tea-length dress with Alison Lou earrings and Roger Vivier shoes, an Alexander McQueen floral jacket-and-shorts set, and a ruffled Amorphose top over an Monica Ivena tulle skirt — the first full preview of the pastel "Lover" aesthetic.\n\nThe wardrobe had a huge stage to debut on: the video, co-directed by Taylor and Dave Meyers and premiered at midnight on April 26, 2019, pulled in 65.2 million views in its first day — breaking the 24-hour Vevo record previously held by Ariana Grande\'s "Thank U, Next" — and critics read the bright palette as a deliberate, symbolic exit from the reputation era\'s black-and-white. The kitten Brendon Urie hands her mid-video was real, and stayed: Taylor adopted him as her third cat, Benjamin Button.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -456,6 +517,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "You Need to Calm Down" moment.
+      relatedIds: ['moment:vault-lover-you-need-to-calm-down-turns-a-music-video-into-an-equality-a'],
       year: 2019,
       month: 6,
       day: 17,
@@ -518,7 +581,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift credited the cover to "the artistic genius that is @valheria123" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era\'s videos and press cycle.\n\nEvery element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Because Swift\'s beauty choices have a history of doubling as Easter eggs, Refinery29 noted fans immediately began hunting for a hidden meaning — and, more practically, planning recreations: "All of us are going to show up with glittery heart to the tour," as one put it, back when the era was still supposed to get one.',
+          'Taylor credited the cover to "the artistic genius that is @valheria123" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era\'s videos and press cycle.\n\nEvery element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Fans immediately began hunting for a hidden meaning, the way her beauty choices have a history of doubling as Easter eggs (as Refinery29 pointed out) — and, more practically, planning recreations: "All of us are going to show up with glittery heart to the tour," as one put it, back when the era was still supposed to get one.',
         sources: [
           {
             outlet: 'Refinery29',
@@ -570,6 +633,9 @@ export default {
       month: 11,
       day: 24,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Julien Macdonald" designer
+      // cluster.
+      relatedIds: ['moment:vault-red-a-gold-julien-macdonald-gown-altered-with-a-hidden-message'],
       title: 'A shimmering green Julien Macdonald gown at the 2019 AMAs',
       snippet: 'She walked the American Music Awards red carpet in a green Julien Macdonald gown before changing into a shirt printed with the names of her old albums to perform "The Man."',
       sourceUrl: 'https://www.eonline.com/news/1095478/revisiting-taylor-swift-s-gorgeous-american-music-awards-looks',
@@ -672,7 +738,7 @@ export default {
       thumbnailUrl: 'https://medias.spotern.com/spots/w640/226/226542-1566837979.jpg',
       moment: {
         context:
-          'The "Lover" video follows a couple through a color-coded house spanning different moods and moments of a shared life. The sunshine-yellow tiered dress is identified as Johanna Ortiz\'s "Ladies Who Lunch" style, paired with Rebecca de Ravenel "Les Bonbons" drop earrings — part of the video\'s wider pastel wardrobe.\n\nThe house itself was the concept: co-directed by Swift and Drew Kirsch and premiered on YouTube on August 22, 2019 — hours before the album dropped — the video puts the couple\'s whole domestic life inside a dollhouse held in a snow globe, one distinctly colored room at a time, with former tour dancer Christian Owens as the male lead. Critics compared the miniature, hyper-art-directed rooms to a Wes Anderson film, and the closing shot reveals the child holding the snow globe is the couple\'s daughter.',
+          'The "Lover" video follows a couple through a color-coded house spanning different moods and moments of a shared life. The sunshine-yellow tiered dress is identified as Johanna Ortiz\'s "Ladies Who Lunch" style, paired with Rebecca de Ravenel "Les Bonbons" drop earrings — part of the video\'s wider pastel wardrobe.\n\nThe house itself was the concept: co-directed by Taylor and Drew Kirsch and premiered on YouTube on August 22, 2019 — hours before the album dropped — the video puts the couple\'s whole domestic life inside a dollhouse held in a snow globe, one distinctly colored room at a time, with former tour dancer Christian Owens as the male lead. Critics compared the miniature, hyper-art-directed rooms to a Wes Anderson film, and the closing shot reveals the child holding the snow globe is the couple\'s daughter.',
         sources: [
           {
             outlet: 'Spotern',
@@ -722,7 +788,7 @@ export default {
         'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
       moment: {
         context:
-          'Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with "Me!" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie\'s $370 "Frida" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap.\n\nBillboard\'s recap called the staging "stadium-level production" jammed into a theater — pyrotechnics, smoke cannons, and spark showers — across a set that gave "You Need to Calm Down" its live debut and ran through "I Knew You Were Trouble," "Style," and "Love Story," plus acoustic takes on "Welcome to New York" and "Delicate," before a confetti-drenched "Shake It Off" closed the night with Becky G and Dua Lipa back onstage.',
+          'Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with "Me!" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie\'s $370 "Frida" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap.\n\nIt was "stadium-level production" jammed into a theater — pyrotechnics, smoke cannons, and spark showers, per Billboard\'s recap — across a set that gave "You Need to Calm Down" its live debut and ran through "I Knew You Were Trouble," "Style," and "Love Story," plus acoustic takes on "Welcome to New York" and "Delicate," before a confetti-drenched "Shake It Off" closed the night with Becky G and Dua Lipa back onstage.',
         sources: [
           {
             outlet: 'Yahoo / Footwear News',
@@ -813,7 +879,7 @@ export default {
       thumbnailUrl: 'https://www.nme.com/wp-content/uploads/2020/02/tay-696x442.png',
       moment: {
         context:
-          'For the self-directed video released February 27, 2020, makeup artist Bill Corso — known for Nicole Kidman\'s Bombshell transformation — led a team of more than six people to turn Swift into "Tyler Swift."\n\nThe look combined a muscle suit, eyebrow wigs, and facial prosthetics for a new jawline and nose, with movement coaches Stephen Galloway and Spenser Theberge teaching her masculine gait and mannerisms. The video closes on a before-and-after reveal of the disguise.',
+          'For the self-directed video released February 27, 2020, makeup artist Bill Corso — known for Nicole Kidman\'s Bombshell transformation — led a team of more than six people to turn Taylor into "Tyler Swift."\n\nThe look combined a muscle suit, eyebrow wigs, and facial prosthetics for a new jawline and nose, with movement coaches Stephen Galloway and Spenser Theberge teaching her masculine gait and mannerisms. The video closes on a before-and-after reveal of the disguise.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -962,6 +1028,9 @@ export default {
       month: 12,
       day: 13,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively and Ryan
+      // Reynolds" recurring-friends cluster.
+      relatedIds: ['moment:vault-evermore-a-tribeca-q-a-ends-in-a-surprise-all-too-well-singalong-blak'],
       title: 'Blake Lively and Ryan Reynolds help her ring in 30 at Oscar Wilde',
       snippet:
         "After opening Z100's Jingle Ball, she gathered close friends — Blake Lively, Ryan Reynolds, and Gigi Hadid among them — for a 10 p.m. birthday dinner at Oscar Wilde restaurant in New York.",
@@ -1105,7 +1174,7 @@ export default {
       thumbnailUrl: 'https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992',
       moment: {
         context:
-          'In mid-June 2019, hours after releasing "You Need to Calm Down," Swift made a surprise appearance at AEG and the Stonewall Inn\'s invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson.\n\nShe performed an acoustic "Shake It Off," telling the crowd, "Thank you for having me, Stonewall. Happy Pride!" before inviting Ferguson onstage for a duet, saying she\'d heard it was his favorite karaoke song.',
+          'In mid-June 2019, hours after releasing "You Need to Calm Down," Taylor made a surprise appearance at AEG and the Stonewall Inn\'s invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson.\n\nShe performed an acoustic "Shake It Off," telling the crowd, "Thank you for having me, Stonewall. Happy Pride!" before inviting Ferguson onstage for a duet, saying she\'d heard it was his favorite karaoke song.',
         sources: [
           {
             outlet: 'ABC News',
@@ -1125,6 +1194,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Cruel Summer" moments.
+      relatedIds: [
+        'moment:vault-lover-cruel-summer-takes-four-years-to-become-a-no-1',
+        'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
+      ],
       year: 2019,
       month: 8,
       day: 23,
@@ -1137,14 +1211,21 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
       moment: {
         context:
-          'Swift wrote the song with Jack Antonoff and St. Vincent (Annie Clark), who later described their process to NME as "really casual... just some people in a room jammin\'."\n\nIn her own Spotify storyline note, Swift wrote: "I wanted this song to feel like a desperate summer love that might be doomed from the start. My favorite line from this song is \'I love you. Ain\'t that the worst thing you ever heard?\'" It wasn\'t released as a single in 2019 — it took the Eras Tour, four years later, to send it to No. 1.',
+          'Taylor wrote the song with Jack Antonoff and St. Vincent (Annie Clark), who later described their process to NME as "really casual... just some people in a room jammin\'."\n\nIn her own Spotify storyline note, Taylor wrote: "I wanted this song to feel like a desperate summer love that might be doomed from the start. My favorite line from this song is \'I love you. Ain\'t that the worst thing you ever heard?\'" It wasn\'t released as a single in 2019 — it took the Eras Tour, four years later, to send it to No. 1.',
         sources: [
           { outlet: 'NME', url: 'https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/cruel-summer' },
         ],
+        // Photo pass (#762, 2026-08-07): reviewed for a second photo — the
+        // only other on-topic candidate found is the generic "Lover" album
+        // template still already reused across several sibling deep-cut
+        // pages in this file (no new visual information for the reader, and
+        // the kind of reuse a prior #762 run had to revert for tanking the
+        // corpus substance-score). Skipped; left at editorial max.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
+            focalPoint: '50% 42%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1163,7 +1244,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift told Rolling Stone the song came out of the emotional distance she found on the Reputation Stadium Tour: "It was sometime on the Reputation tour, which was the most transformative emotional experience of my career. That tour put me in the healthiest, most balanced place I\'ve ever been. After that tour, bad stuff can happen to me, but it doesn\'t level me anymore."\n\nShe picked it to open Lover as a way of "basically kind of shrugging off a lot of things that you\'ve been through that have been causing a lot of struggle and pain."',
+          'Taylor told Rolling Stone the song came out of the emotional distance she found on the Reputation Stadium Tour: "It was sometime on the Reputation tour, which was the most transformative emotional experience of my career. That tour put me in the healthiest, most balanced place I\'ve ever been. After that tour, bad stuff can happen to me, but it doesn\'t level me anymore."\n\nShe picked it to open Lover as a way of "basically kind of shrugging off a lot of things that you\'ve been through that have been causing a lot of struggle and pain."',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1171,9 +1252,14 @@ export default {
           },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/i-forgot-that-you-existed' },
         ],
+        // Photo pass (#762, 2026-08-07): reviewed for a second photo — a
+        // deep-cut opening track with no music video or promo single, so no
+        // second verifiable image exists. Left at editorial max; focalPoint
+        // added to the existing still.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/p1cEvNn88jM/hqdefault.jpg',
+            focalPoint: '50% 60%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'I Forgot That You Existed' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -1198,7 +1284,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'In her Spotify storyline, Swift said: "This song is about disillusionment with our crazy world of politics and inequality, set in a metaphorical high school... I wanted it to be about finding one person who really sees you and cares about you through all the noise."\n\nShe expanded on it to Rolling Stone: "It\'s about the illusions of what I thought America was before our political landscape took this turn, and that naivete that we used to have about it," written "a couple of months after midterm elections."',
+          'In her Spotify storyline, Taylor said: "This song is about disillusionment with our crazy world of politics and inequality, set in a metaphorical high school... I wanted it to be about finding one person who really sees you and cares about you through all the noise."\n\nShe expanded on it to Rolling Stone: "It\'s about the illusions of what I thought America was before our political landscape took this turn, and that naivete that we used to have about it," written "a couple of months after midterm elections."',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1209,9 +1295,14 @@ export default {
             url: 'https://www.songfacts.com/facts/taylor-swift/miss-americana-the-heartbreak-prince',
           },
         ],
+        // Photo pass (#762, 2026-08-07): every candidate lyric-video re-check
+        // (6 YouTube ids) came back a fan reupload, not the official channel;
+        // this is an album track with no single or dedicated video. Left at
+        // editorial max; focalPoint added to the existing still.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/Kwf7P2GNAVw/hqdefault.jpg',
+            focalPoint: '50% 45%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'Miss Americana & The Heartbreak Prince' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -1225,14 +1316,14 @@ export default {
       month: 12,
       day: 12,
       category: 'business',
-      title: "Billboard names her the first-ever Woman of the Decade",
+      title: "She's Billboard's first-ever Woman of the Decade",
       snippet:
         'Accepting the inaugural award, she said: "The pressure that could have crushed us made us into diamonds instead" — then used the speech to relitigate the Scooter Braun masters fight.',
       sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-woman-of-the-decade-speech-billboard-women-in-music-8546156/',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-bb29-2019-feat-billboard-ylajkse-1500.jpg',
       moment: {
         context:
-          "At Billboard's Women in Music event on December 12, 2019 at the Hollywood Palladium, Swift became the first recipient of the magazine's Woman of the Decade award, recognizing five No. 1 albums, five No. 1 singles, and three stadium tours across the 2010s. In her speech she said: \"I now have come to expect that with good news comes some sort of pushback, but I didn't know that then... the pressure that could have crushed us made us into diamonds instead.\"\n\nShe also addressed the sale of her masters, noting it happened \"without my approval, consultation, or consent,\" and told Billboard's accompanying cover story: \"I do want my music to live on. I do want it to be in movies, I do want it to be in commercials.\"",
+          "At Billboard's Women in Music event on December 12, 2019 at the Hollywood Palladium, Taylor became the first recipient of the magazine's Woman of the Decade award, recognizing five No. 1 albums, five No. 1 singles, and three stadium tours across the 2010s. In her speech she said: \"I now have come to expect that with good news comes some sort of pushback, but I didn't know that then... the pressure that could have crushed us made us into diamonds instead.\"\n\nShe also addressed the sale of her masters, noting it happened \"without my approval, consultation, or consent,\" and told Billboard's accompanying cover story: \"I do want my music to live on. I do want it to be in movies, I do want it to be in commercials.\"",
         sources: [
           {
             outlet: 'Billboard',
@@ -1278,7 +1369,7 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2020/1/6/36da59a0-670b-451b-bd63-4ef9b0134e59-getty-1197739056.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'At the January 5, 2020 Golden Globes, where she was nominated for Best Original Song for her Cats ballad "Beautiful Ghosts" (co-written with Andrew Lloyd Webber), Swift wore a custom Etro gown: a navy jacquard base with a bold golden floral pattern, a keyhole cutout at the midriff, straps extending into a low-cut open back, and a structured floral train.\n\nShe paired it with drop earrings set with navy, emerald, and diamond stones, swapping her signature red lip for a pink nude. Joe Alwyn, there to support Harriet co-stars, wore a dark tuxedo.',
+          'At the January 5, 2020 Golden Globes, where she was nominated for Best Original Song for her Cats ballad "Beautiful Ghosts" (co-written with Andrew Lloyd Webber), Taylor wore a custom Etro gown: a navy jacquard base with a bold golden floral pattern, a keyhole cutout at the midriff, straps extending into a low-cut open back, and a structured floral train.\n\nShe paired it with drop earrings set with navy, emerald, and diamond stones, swapping her signature red lip for a pink nude. Joe Alwyn, there to support Harriet co-stars, wore a dark tuxedo.',
         sources: [
           {
             outlet: 'Bustle',
@@ -1319,6 +1410,14 @@ export default {
     // carry the audit's additive provenance fields.
     {
       slug: 'city-of-lover-paris',
+      // Cross-link (Stage 3, 2026-07-30): the "City of Lover" pair — the
+      // concert itself, and the special that later aired — now interlink.
+      // (Stage 3, 2026-08-06): also links Cornelia Street's same-night,
+      // same-city acoustic debut.
+      relatedIds: [
+        'moment:vault-lover-city-of-lover-finally-airs-a-concert-special-for-a-tour-that',
+        'moment:vault-lover-cornelia-street-written-alone-and-debuted-acoustic-in-paris',
+      ],
       year: 2019,
       month: 9,
       day: 9,
@@ -1360,11 +1459,32 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo pass (#762, 2026-08-07): added 2 verified Getty/Dave Hogan
+        // frames from this exact Sept 9 2019 L'Olympia show (EXIF caption
+        // confirms venue/date), served via HollywoodLife's own CDN.
+        // Downloaded and vision-confirmed; focalPoint set individually.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/d_2WyBcFbFY/hqdefault.jpg',
+            focalPoint: '58% 60%',
             credit: 'Republic Records / YouTube (official video still)',
             caption: "Onstage at L'Olympia — still from the official 'The Archer (Live From Paris)' video on Taylor Swift's YouTube channel.",
+            kind: 'archival',
+          },
+          {
+            url: 'https://i0.wp.com/media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-6.jpg',
+            focalPoint: '40% 25%',
+            credit: "Dave Hogan, via HollywoodLife",
+            caption:
+              "Taylor Swift performing at her City of Lover concert at L'Olympia, Paris, Sept. 9, 2019.",
+            kind: 'primary',
+          },
+          {
+            url: 'https://i0.wp.com/media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-7.jpg',
+            focalPoint: '50% 25%',
+            credit: "Dave Hogan, via HollywoodLife",
+            caption:
+              "Taylor Swift mid-performance at the same L'Olympia show, Sept. 9, 2019.",
             kind: 'archival',
           },
         ],
@@ -1372,6 +1492,12 @@ export default {
     },
     {
       slug: 'lover-fest-announced',
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster — its
+      // cancellation, and the mirrorball it led her to write instead.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-falls-to-the-pandemic',
+        'moment:vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap',
+      ],
       year: 2019,
       month: 9,
       day: 17,
@@ -1407,6 +1533,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/SoFi_Stadium_2021.jpg/960px-SoFi_Stadium_2021.jpg',
+            focalPoint: '50% 38%',
             credit: 'Troutfarm27 (CC BY-SA 4.0), via Wikimedia Commons',
             caption: 'Reference image: SoFi Stadium in Inglewood, the venue Lover Fest West would have opened — no Lover Fest show was ever performed.',
             kind: 'reference',
@@ -1416,6 +1543,11 @@ export default {
     },
     {
       slug: 'lover-fest-2020-cancelled',
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-a-festival-instead-of-a-tour',
+        'moment:vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap',
+      ],
       year: 2020,
       month: 4,
       day: 17,
@@ -1451,6 +1583,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Gillette_Stadium_Foxboro.jpg/960px-Gillette_Stadium_Foxboro.jpg',
+            focalPoint: '60% 48%',
             credit: 'Art N. (CC BY 2.0), via Wikimedia Commons',
             caption: 'Reference image: Gillette Stadium in Foxborough, where Lover Fest East was booked for July 31 and August 1, 2020 — shows that never happened.',
             kind: 'reference',
@@ -1460,6 +1593,8 @@ export default {
     },
     {
       slug: 'cats-beautiful-ghosts',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Beautiful Ghosts" moment.
+      relatedIds: ['moment:vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe'],
       year: 2019,
       month: 12,
       day: 20,
@@ -1471,7 +1606,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She played Bombalurina in Tom Hooper\'s adaptation and co-wrote "Beautiful Ghosts" as a response song to "Memory," sung in the film by Francesca Hayward. Critics roasted the movie and largely exempted her scene; the song\'s Globe nomination gave the Lover era its one awards-season campaign.\n\nThe wreckage around her roughly ten minutes of screen time was historic: a 19% Rotten Tomatoes score, a worldwide gross of $75.5 million against a budget of $80–100 million, and six Razzies including Worst Picture. The "digital fur technology" became its own news story — the first release went out with visual-effects glitches (including a shot where Judi Dench\'s human hand, wedding ring and all, was visible), and Universal took the near-unprecedented step of shipping a patched version with "improved visual effects" to theaters on December 22, two days into the run. Reviewers consistently noted Swift seemed to be one of the few people onscreen having fun.',
+          'She played Bombalurina in Tom Hooper\'s adaptation and co-wrote "Beautiful Ghosts" as a response song to "Memory," sung in the film by Francesca Hayward. Critics roasted the movie and largely exempted her scene; the song\'s Globe nomination gave the Lover era its one awards-season campaign.\n\nThe wreckage around her roughly ten minutes of screen time was historic: a 19% Rotten Tomatoes score, a worldwide gross of $75.5 million against a budget of $80–100 million, and six Razzies including Worst Picture. The "digital fur technology" became its own news story — the first release went out with visual-effects glitches (including a shot where Judi Dench\'s human hand, wedding ring and all, was visible), and Universal took the near-unprecedented step of shipping a patched version with "improved visual effects" to theaters on December 22, two days into the run. Reviewers consistently noted Taylor seemed to be one of the few people onscreen having fun.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1492,9 +1627,14 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo pass (#762, 2026-08-07): searched for a second photo of
+        // Taylor in character as Bombalurina — no free-use, verifiable,
+        // non-watermarked still exists (checked Wikimedia Commons, official
+        // trailers, Wikipedia). Left at editorial max; focalPoint added.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/cf/Cats_2019_poster.jpg',
+            focalPoint: '50% 62%',
             credit: 'Universal Pictures (theatrical release poster)',
             kind: 'primary',
           },
@@ -1520,6 +1660,9 @@ export default {
         'moment:vault-lover-only-the-young-the-protest-song-saved-for-the-documentary',
         'moment:vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c',
         'moment:vault-lover-miss-americana-the-heartbreak-prince-a-high-school-built-fro',
+        // Cross-links added 2026-07-28 (depth ledger #1490): the protest song
+        // made for this exact film, and the outfit from this exact night.
+        'moment:vault-lover-head-to-toe-plaid-at-the-miss-americana-sundance-premiere',
       ],
       title: 'Miss Americana opens Sundance, then hits Netflix',
       snippet:
@@ -1528,7 +1671,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The film tracks the deliberate dismantling of the "good girl" reflex — built around the 2018 decision to break political silence over her team\'s objections — and gave fans the era\'s defining self-assessment: a star relearning what she actually wanted to say. It remains the most unguarded long-form footage of her career.\n\nThe title comes from "Miss Americana & the Heartbreak Prince," the Lover track about political disillusionment, and the disclosures went well beyond politics: her struggles with body dysmorphia and an eating disorder, her mother\'s cancer, the toxic online pile-ons, and the sexual assault trial all get direct treatment for the first time. Critics received it as a turning point — a 91% Rotten Tomatoes score, a National Board of Review selection as one of 2020\'s five best documentaries, and a consensus that the film marked "a pivotal moment" in how Swift told her own story.',
+          'The film tracks the deliberate dismantling of the "good girl" reflex — built around the 2018 decision to break political silence over her team\'s objections — and gave fans the era\'s defining self-assessment: a star relearning what she actually wanted to say. It remains the most unguarded long-form footage of her career.\n\nThe title comes from "Miss Americana & the Heartbreak Prince," the Lover track about political disillusionment, and the disclosures went well beyond politics: her struggles with body dysmorphia and an eating disorder, her mother\'s cancer, the toxic online pile-ons, and the sexual assault trial all get direct treatment for the first time. Critics received it as a turning point — a 91% Rotten Tomatoes score, a National Board of Review selection as one of 2020\'s five best documentaries, and a consensus that the film marked "a pivotal moment" in how Taylor told her own story.\n\nThe film is a Tremolo Productions documentary directed by Lana Wilson (After Tiller, The Departure) and produced by Morgan Neville, Caitrin Rogers and Christine O\'Malley; reporting at the time indicates Netflix had the project in hand well before Sundance rather than acquiring it out of the festival. Its dramatic pivot is the 2018 scene where Taylor argues with her father and team over publicly opposing Marsha Blackburn in the Tennessee Senate race — a fight she won. Her Oct. 7, 2018 Instagram endorsement of Blackburn\'s opponent had an immediate, measurable effect: Vote.org reported roughly 65,000 new registrations nationwide in the 24 hours after the post (versus 190,178 for the entire month of September), and Tennessee itself saw more than 5,000 new registrations by the following Tuesday, more than double the prior month\'s total.\n\n"Only the Young," the get-out-the-vote protest song Taylor wrote in the endorsement\'s aftermath, closes the film\'s credits and was released as a single the same day the documentary hit Netflix, Jan. 31, 2020; nine months later it soundtracked a pro-Biden ad Taylor approved days before the 2020 election. Reviewers were more measured than the audience-facing numbers suggest: Metacritic\'s weighted score sits at 65/100 across 23 critics, with both The New York Times and IndieWire naming it a "Critic\'s Pick" alongside some notices calling the film "stage-managed" even as they found it compelling. Netflix has never disclosed viewership figures for the film, and it remains available on the service as of 2026 — Taylor\'s only stand-alone personal documentary, distinct from the later, tour-focused "Eras Tour" concert film.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1538,6 +1681,51 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Tremolo Productions',
+            url: 'https://www.tremoloproductions.com/film/taylorswift',
+            source_title: 'Taylor Swift: Miss Americana',
+            publisher: 'Tremolo Productions',
+            source_type: 'primary',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/arts-entertainment/2018/10/09/taylor-swifts-endorsement-democrats-causes-spike-voter-registrations/',
+            source_title: "Taylor Swift: Voter registration spike follows Instagram endorsement of Democrats",
+            publisher: 'The Washington Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-encourages-voter-registration/',
+            source_title: 'More than 35,000 people register to vote after Taylor Swift post',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2020/music/news/taylor-swift-biden-harris-ad-only-the-young-1234819677',
+            source_title: "Taylor Swift Approves 'Only the Young' for Pro-Biden Ad",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/movie/miss-americana/',
+            source_title: 'Miss Americana Reviews',
+            publisher: 'Metacritic',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-28',
+            reliability_score: 3,
           },
         ],
         // Photo-enrichment pass (2026-07-18, #762): added Deseret News' own
@@ -1673,6 +1861,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Taylor_Swift_-_The_Archer.png',
+            focalPoint: '50% 50%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1724,7 +1913,7 @@ export default {
           {
             url: 'https://i.ytimg.com/vi/-BjZmE2gtdo/maxresdefault.jpg',
             credit: 'Republic Records / YouTube (official music video still)',
-            caption: "Still from the official 'Lover' music video, co-directed by Swift and Drew Kirsch.",
+            caption: "Still from the official 'Lover' music video, co-directed by Taylor and Drew Kirsch.",
             kind: 'archival',
             focalPoint: '49% 36%',
           },
@@ -1752,7 +1941,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'British listeners immediately pointed out the geography reads like a tourist doing every borough in one afternoon — which became half the song\'s charm and a running joke online. The London romance at its center went unnamed, but nobody needed a map for that part.\n\nThe Idris Elba spoken clip that opens the track — a stray remark about riding his scooter around London — was lifted from his 2017 appearance on The Late Late Show with James Corden. Swift wrote and produced the song with Jack Antonoff and Sounwave, with Cautious Clay receiving a writing credit for the interpolation of his 2018 song "Cold War," and the album cut still reached No. 62 on the Hot 100 without ever being a single — carried there almost entirely by the joke, the sample, and the subtext.',
+          'British listeners immediately pointed out the geography reads like a tourist doing every borough in one afternoon — which became half the song\'s charm and a running joke online. The London romance at its center went unnamed, but nobody needed a map for that part.\n\nThe Idris Elba spoken clip that opens the track — a stray remark about riding his scooter around London — was lifted from his 2017 appearance on The Late Late Show with James Corden. Taylor wrote and produced the song with Jack Antonoff and Sounwave, with Cautious Clay receiving a writing credit for the interpolation of his 2018 song "Cold War," and the album cut still reached No. 62 on the Hot 100 without ever being a single — carried there almost entirely by the joke, the sample, and the subtext.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1851,6 +2040,9 @@ export default {
     },
     {
       slug: 'cornelia-street-live-debut',
+      // Cross-link (Stage 3, 2026-08-06): same night, same city — the City
+      // of Lover concert this acoustic debut happened at.
+      relatedIds: ['moment:vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b'],
       year: 2019,
       month: 9,
       day: 9,
@@ -1886,6 +2078,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/VikHHWrgb4Y/hqdefault.jpg',
+            focalPoint: '50% 55%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'Cornelia Street' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -1906,7 +2099,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and Teen Vogue read her oversized black blazer and sequined pants as a last flicker of the reputation aesthetic.\n\nChoosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
+          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and her oversized black blazer and sequined pants read, per Teen Vogue, as a last flicker of the reputation aesthetic.\n\nChoosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1974,7 +2167,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her November 2018 deal with Republic and Universal — signed just after the reputation Stadium Tour ended — guaranteed ownership of everything she recorded going forward, and she said it plainly on GMA the day before release: Lover is "the first one that I will own."\n\nRecorded between November 2018 and February 2019, it was also her first album on streaming services from its first week, and it carried three Grammy nominations, including her first solo-written Song of the Year nod for the title track. That made the release more than an era launch: it was the pivot the entire masters fight would be argued around — old catalog owned by someone else, everything new owned by her.\n\nCommercially it was a peak: Lover opened at No. 1 on the Billboard 200 with 867,000 units (679,000 pure sales), 2019\'s biggest U.S. sales week, and ended the year as the country\'s best-selling album (1.085 million pure copies) and the world\'s second-best-selling behind Arashi\'s — Swift was named IFPI\'s global recording artist of 2019. All 18 tracks charted on the Hot 100 at once; the singles ran "ME!" and "You Need to Calm Down" (both No. 2), "Lover" (No. 10) and "The Man" (No. 23), while deep cut "Cruel Summer" belatedly topped the Hot 100 in 2023. Reviews ran warm but split on the 18-track length (Metacritic 79), and the three Grammy nods all went home empty at the 2020 ceremony. She never toured it: Lover Fest, the first tour she designed herself, was erased by the pandemic and formally cancelled in 2021. Her UMG deal also forced any sale of the label\'s Spotify equity to be paid to artists non-recoupably. And the same GMA hit where she claimed the album is where she unveiled the plan to re-record her old catalog.',
+          'Her November 2018 deal with Republic and Universal — signed just after the reputation Stadium Tour ended — guaranteed ownership of everything she recorded going forward, and she said it plainly on GMA the day before release: Lover is "the first one that I will own."\n\nRecorded between November 2018 and February 2019, it was also her first album on streaming services from its first week, and it carried three Grammy nominations, including her first solo-written Song of the Year nod for the title track. That made the release more than an era launch: it was the pivot the entire masters fight would be argued around — old catalog owned by someone else, everything new owned by her.\n\nCommercially it was a peak: Lover opened at No. 1 on the Billboard 200 with 867,000 units (679,000 pure sales), 2019\'s biggest U.S. sales week, and ended the year as the country\'s best-selling album (1.085 million pure copies) and the world\'s second-best-selling behind Arashi\'s — Taylor was named IFPI\'s global recording artist of 2019. All 18 tracks charted on the Hot 100 at once; the singles ran "ME!" and "You Need to Calm Down" (both No. 2), "Lover" (No. 10) and "The Man" (No. 23), while deep cut "Cruel Summer" belatedly topped the Hot 100 in 2023. Reviews ran warm but split on the 18-track length (Metacritic 79), and the three Grammy nods all went home empty at the 2020 ceremony. She never toured it: Lover Fest, the first tour she designed herself, was erased by the pandemic and formally cancelled in 2021. Her UMG deal also forced any sale of the label\'s Spotify equity to be paid to artists non-recoupably. And the same GMA hit where she claimed the album is where she unveiled the plan to re-record her old catalog.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2060,7 +2253,7 @@ export default {
             url: 'https://assets.newsweek.com/wp-content/uploads/2025/08/1406339-gettyimages-1145071309.jpg',
             focalPoint: '33% 33%',
             credit: 'Leah Puttkammer/Getty Images, via Newsweek',
-            caption: 'Swift greets fans at the Kelsey Montague butterfly mural in Nashville, April 25, 2019 — the surprise stop that announced the era before "ME!" dropped.',
+            caption: 'Taylor greets fans at the Kelsey Montague butterfly mural in Nashville, April 25, 2019 — the surprise stop that announced the era before "ME!" dropped.',
             kind: 'archival',
           },
           {
@@ -2096,6 +2289,9 @@ export default {
     },
     {
       slug: 'beautiful-ghosts-single',
+      // Cross-link (Stage 3, 2026-07-30): the "Beautiful Ghosts" pair — the
+      // single, and its home in the Cats film — now interlink.
+      relatedIds: ['moment:vault-lover-cats-arrives-bombalurina-digital-fur-and-beautiful-ghosts'],
       year: 2019,
       month: 11,
       day: 15,
@@ -2119,11 +2315,23 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo pass (#762, 2026-08-07): added the official Vevo lyric-video
+        // still (London skyline, the dancing-cat silhouette) — genuinely
+        // distinct from the cover art. Downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/82/Taylor_Swift_-_Beautiful_Ghosts.png',
+            focalPoint: '50% 45%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/trIjpVH8h88/maxresdefault.jpg',
+            focalPoint: '48% 42%',
+            credit: "Taylor Swift / Vevo (official 'Beautiful Ghosts' lyric video still)",
+            caption:
+              'A still from the official lyric video: a nighttime London skyline with Big Ben and a dancing-cat silhouette, as the lyric "these beautiful ghosts" glows in.',
+            kind: 'archival',
           },
         ],
       },
@@ -2136,12 +2344,12 @@ export default {
       category: 'release',
       title: 'Christmas Tree Farm, from the girl who literally grew up on one',
       snippet:
-        'A holiday single out Dec. 6, 2019, written just days earlier — with a video cut from real Swift-family home movies shot on the Pennsylvania tree farm where she spent her childhood.',
+        'A holiday single out Dec. 6, 2019, written just days earlier — with a video cut from real Taylor-family home movies shot on the Pennsylvania tree farm where she spent her childhood.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Christmas_Tree_Farm_(song)',
       thumbnailUrl: null,
       moment: {
         context:
-          'The timeline was almost absurd: written December 1, vocals recorded December 2, a choir session December 3, out December 6 — her first original Christmas music since the 2007 holiday EP.\n\nThe self-directed video is cut entirely from real Swift-family home movies shot at Pine Ridge Farm: sledding, Santa visits, and a young Taylor unwrapping her first guitar on Christmas morning. It reached No. 59 on the Hot 100 and No. 3 on Adult Contemporary — her actual origin story, turned into era canon in under a week.',
+          'The timeline was almost absurd: written December 1, vocals recorded December 2, a choir session December 3, out December 6 — her first original Christmas music since the 2007 holiday EP.\n\nThe self-directed video is cut entirely from real Taylor-family home movies shot at Pine Ridge Farm: sledding, Santa visits, and a young Taylor unwrapping her first guitar on Christmas morning. It reached No. 59 on the Hot 100 and No. 3 on Adult Contemporary — her actual origin story, turned into era canon in under a week.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2162,16 +2370,21 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Focal points set 2026-08-07 (#762): both images individually
+        // viewed — the cover has young Taylor and the dog left-of-center,
+        // the video still has toddler Taylor right-of-center, upper frame.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png',
+            focalPoint: '38% 45%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
           {
             url: 'https://i.ytimg.com/vi/mN3rDTAdM2o/hqdefault.jpg',
+            focalPoint: '65% 35%',
             credit: 'Republic Records / YouTube (official music video still)',
-            caption: "Swift-family home-movie footage — still from the official 'Christmas Tree Farm' video on Taylor Swift's YouTube channel.",
+            caption: "Taylor-family home-movie footage — still from the official 'Christmas Tree Farm' video on Taylor Swift's YouTube channel.",
             kind: 'archival',
           },
         ],
@@ -2219,6 +2432,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/69/Taylor_Swift_-_Only_the_Young.png',
+            focalPoint: '42% 32%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -2227,6 +2441,8 @@ export default {
     },
     {
       slug: 'city-of-lover-special-airs',
+      // Cross-link (Stage 3, 2026-07-30): sibling "City of Lover" moment.
+      relatedIds: ['moment:vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b'],
       year: 2020,
       month: 5,
       day: 17,
@@ -2262,6 +2478,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — profile
+            // singing into the mic sits right of center.
+            focalPoint: '60% 42%',
             credit: 'ABC / Republic Records (broadcast promotional art)',
             kind: 'primary',
           },
@@ -2281,7 +2500,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer five-song set — "Blank Space," "ME!," an emotional "Lover," "You Need to Calm Down," and "Shake It Off" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. Rolling Stone\'s recap put the night\'s haul at more than $135,000 from tickets and Twitter activations, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
+          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer five-song set — "Blank Space," "ME!," an emotional "Lover," "You Need to Calm Down," and "Shake It Off" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. The night\'s haul topped $135,000 from tickets and Twitter activations, per Rolling Stone\'s recap, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2314,6 +2533,10 @@ export default {
         photos: [
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2019/10/GettyImages-1182186382.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the small
+            // onstage figure sits centered, low in the frame under the
+            // arched night-sky screen.
+            focalPoint: '48% 75%',
             credit: 'Getty Images, via Rolling Stone',
             caption: 'Onstage at the Hollywood Bowl for We Can Survive, October 19, 2019, backed by Lover-era night-sky visuals.',
             kind: 'archival',
@@ -2358,8 +2581,23 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shanghai-2019-billboard-1548.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the
+            // figure occupies the right half of the frame, face upper-right.
+            focalPoint: '62% 30%',
             credit: 'Billboard',
             caption: "Onstage at Alibaba's 11.11 Countdown Gala at the Mercedes-Benz Arena in Shanghai, November 10, 2019.",
+            kind: 'archival',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo, a different
+          // moment from the same set. SCMP's own article + own CDN (not a
+          // third-party aggregator), curl 200 image/jpeg 1020x680, downloaded
+          // and vision-confirmed.
+          {
+            url: 'https://cdn.i-scmp.com/sites/default/files/styles/1020x680/public/d8/images/methode/2019/11/11/0223cb00-042e-11ea-a68f-66ebddf9f136_image_hires_172655.jpg?itok=uUebZMQw&v=1573464423',
+            // Centered onstage, face upper-middle of frame.
+            focalPoint: '50% 40%',
+            credit: 'AFP, via South China Morning Post',
+            caption: "Performing at Alibaba's 11.11 Countdown Gala in a silver snake-print romper, flanked by backup vocalists against a butterfly-lit LED backdrop.",
             kind: 'archival',
           },
         ],
@@ -2402,6 +2640,9 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-jingle-ball-dec-13-2019-billboard-1548.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — she
+            // stands right of the cake, face upper-right of frame.
+            focalPoint: '78% 22%',
             credit: 'Billboard',
             caption: 'The cat-decorated birthday cake onstage at Z100\'s Jingle Ball at Madison Square Garden — her 30th birthday, December 13, 2019.',
             kind: 'archival',
@@ -2481,7 +2722,7 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/2024/10/scooter-braun-taylor-swift-2024-billboard-1548.jpg',
             credit: 'Billboard',
             caption:
-              "The two sides of the fight, in Billboard's art for its feud timeline — later photos of Braun and Swift, not from the 2019 sale.",
+              "The two sides of the fight, in Billboard's art for its feud timeline — later photos of Braun and Taylor, not from the 2019 sale.",
             kind: 'reference',
             focalPoint: '50% 30%',
           },
@@ -2493,7 +2734,7 @@ export default {
             url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '50% 28%',
             credit: 'Richard Shotwell/Invision/AP, via The Guardian',
-            caption: 'A contemporaneous reference image shows Swift arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
+            caption: 'A contemporaneous reference image shows Taylor arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
             kind: 'reference',
           },
           // Two ca-times.brightspotcdn.com (LA Times) candidates were dropped
@@ -2507,14 +2748,14 @@ export default {
             url: 'https://media.vanityfair.com/photos/5ddb4a90d223c300093e7f42/master/w_2560%2Cc_limit/taylor-swift-ama-perfomance.jpg',
             focalPoint: '30% 28%',
             credit: 'JC Olivera/Getty Images, via Vanity Fair',
-            caption: 'Swift accepts Artist of the Decade at the 2019 American Music Awards amid the public dispute over performing her Big Machine-era songs.',
+            caption: 'Taylor accepts Artist of the Decade at the 2019 American Music Awards amid the public dispute over performing her Big Machine-era songs.',
             kind: 'archival',
           },
           {
             url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '58% 33%',
             credit: 'Kevin Mazur/Getty Images for ABA, via The Guardian',
-            caption: 'Swift performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',
+            caption: 'Taylor performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',
             kind: 'archival',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 2 more,
@@ -2617,6 +2858,27 @@ export default {
       milestone: { id: "m-lov-2", label: "Lover released", kind: "album" },
       snippet: "A pastel love letter — and the first album she would fully own.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-confirms-seventh-studio-album-lover/',
+            source_title: 'Taylor Swift Confirms Seventh Studio Album, \'Lover\'',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/753393630',
+            source_title: 'Look What They Made Her Do: Taylor Swift To Re-Record Her Catalog',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+        ],
         context: "After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere.",
         // Photo pass #762 (2026-07-19): freely licensed Commons shot from the
         // era's launch season — license (CC BY-SA 4.0, Glenn Francis/Toglenn)
@@ -2654,6 +2916,27 @@ export default {
       // photo-less rather than fabricate. Skip on future runs.
       hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
       moment: {
+        sources: [
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/737613627',
+            source_title: 'Taylor Swift\'s Former Label Big Machine Is Sold, Rankling The Star',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/caitlinkelley/2019/06/30/taylor-swift-calls-scooter-braun-manipulative-after-big-machine-sells-her-catalog/',
+            source_title: 'Taylor Swift Calls Scooter Braun \'Manipulative\' After Big Machine Sells Her Catalog',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
       },
     },
