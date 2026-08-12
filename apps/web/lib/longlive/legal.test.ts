@@ -80,11 +80,18 @@ describe('legal documents — draft safety', () => {
     expect(banner).toContain('not legal advice');
   });
 
+  it('records the founder-supplied entity name verbatim', () => {
+    // Wyatt supplied the operating entity on 2026-08-12. It is the one fact no
+    // longer a blank — everything else below must still be.
+    expect(LEGAL_FACTS.entity).toBe('JW Labs LLC');
+    expect(hasPlaceholder(LEGAL_FACTS.entity)).toBe(false);
+  });
+
   it('leaves every fact a human must supply as a tracked blank, not a guess', () => {
     // Regression guard for the failure mode this whole ticket exists to avoid:
     // an agent inventing a company name, a governing law, or a contact address.
+    // (`entity` left this list on 2026-08-12 — founder-supplied, see above.)
     for (const key of [
-      'entity',
       'jurisdiction',
       'privacyEmail',
       'legalEmail',

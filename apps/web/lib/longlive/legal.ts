@@ -62,14 +62,10 @@ export const LEGAL_FACTS = {
   /** Production host. Verified: apps/web/app/layout.tsx `metadataBase`, docs/deploy.md. */
   siteUrl: 'https://www.longlivets.com',
   /**
-   * The operating entity. NOT DETERMINABLE FROM THE REPO. `JW-Incorporated` is
-   * a GitHub organisation slug, which is not evidence of a registered company:
-   * no incorporation record, registered address, or company number appears
-   * anywhere in the repo or docs.
+   * The operating entity. Provided by Wyatt (founder) on 2026-08-12 — not
+   * derivable from the repo, so it is a founder-supplied fact, not a guess.
    */
-  entity: FOUNDERS(
-    'legal name of the operating entity — the GitHub org "JW-Incorporated" is not proof of a registered company; if there is no entity yet, say whose personal name the site operates under',
-  ),
+  entity: 'JW Labs LLC',
   /** Where the entity is formed / whose law governs. Not determinable from the repo. */
   jurisdiction: FOUNDERS(
     'governing law + venue (e.g. "the State of ___, USA") and the entity\'s state/country of formation',
