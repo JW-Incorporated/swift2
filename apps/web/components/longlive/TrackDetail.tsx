@@ -15,19 +15,20 @@ import {
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { tracksForEra, keepExploring, releasedFactValue } from '@/lib/longlive/tracks';
+import { tracksForEra, keepExploring, releasedFactValue, trackKey } from '@/lib/longlive/tracks';
 import { videoForTrack } from '@/lib/longlive/videos';
 import { MomentVideo } from './MomentVideo';
 import { OverlayNav } from './OverlayNav';
+import { TrackFiveCallout } from './TrackFivePill';
 import { eraStyle } from '@/lib/longlive/theme';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@/lib/longlive/types';
 
-/** Same composite key TrackRow/TrackGuide use — TrackNote has no stable id. */
-export function trackKey(eraId: string, track: TrackNote): string {
-  return `${eraId}::${track.trackNumber ?? 'x'}::${track.title}`;
-}
+// The composite song key now lives in lib/longlive/tracks (so the store's
+// deep-link resolver and the ShareSheet can share it). Re-exported here so
+// TrackGuide's `import { trackKey } from './TrackDetail'` keeps working.
+export { trackKey };
 
 /**
  * A single song's dossier page (issue #440 Phase 1): hero, essential facts,
@@ -86,10 +87,7 @@ export function TrackDetail() {
   // The dossier backs whyItMatters/meaning/live/voices; the narrative
   // discussion keeps its own citation list. Merged (de-duped by url) into one
   // source line at the foot of the page.
-  const sources = mergeSources(
-    dossier?.sources,
-    track.discussionSources ?? track.sources,
-  );
+  const sources = mergeSources(dossier?.sources, track.discussionSources ?? track.sources);
 
   return (
     <div
@@ -101,11 +99,22 @@ export function TrackDetail() {
       aria-modal="true"
       aria-label={`${track.title} — song detail`}
     >
-      <OverlayNav onClose={closeTrack} />
+      <OverlayNav
+        onClose={closeTrack}
+        // track resolved from openTrackKey above, so this rebuilds the same key
+        // (typed string, unlike the nullable openTrackKey from the store).
+        shareTarget={{ kind: 'track', eraId: era.id, trackKey: trackKey(era.id, track) }}
+      />
 
       {/* Compact era-art hero (same treatment as TrackGuide/TheoryGuide). */}
       <div className="relative h-[24vh] min-h-36 w-full">
-        <Image src={era.image || '/placeholder.svg'} alt="" fill priority className="object-cover" />
+        <Image
+          src={era.image || '/placeholder.svg'}
+          alt=""
+          fill
+          priority
+          className="object-cover"
+        />
         <div
           className="absolute inset-0"
           style={{
@@ -124,7 +133,11 @@ export function TrackDetail() {
         <h1 className="mt-2 font-[family-name:var(--era-font)] text-balance text-4xl font-semibold leading-tight sm:text-5xl">
           {track.title}
         </h1>
-        <p className="mt-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{track.note}</p>
+        <p className="mt-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          {track.note}
+        </p>
+
+        {track.trackNumber === 5 && <TrackFiveCallout />}
 
         {video && <MomentVideo video={video} className="mt-6" />}
 
@@ -209,7 +222,9 @@ export function TrackDetail() {
                       <span className="text-xs text-[color:var(--era-ink-soft)]">{v.context}</span>
                     )}
                   </div>
-                  <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink)]">{v.note}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink)]">
+                    {v.note}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -404,7 +419,10 @@ function ConnectionsSection({ eraId, track }: { eraId: EraId; track: TrackNote }
         {resolved.map((r) => {
           const target =
             r.kind === 'song'
-              ? { hint: getEra(r.eraId).shortName, onClick: () => openSong(r.eraId, trackKey(r.eraId, r.track)) }
+              ? {
+                  hint: getEra(r.eraId).shortName,
+                  onClick: () => openSong(r.eraId, trackKey(r.eraId, r.track)),
+                }
               : {
                   hint: getEra(r.item.eraId).shortName,
                   onClick: () => {

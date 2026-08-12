@@ -32,6 +32,7 @@ agent's outputs).
 | [`austin.md`](austin.md) | Build desk autonomous lane | **Active** (2026-07-11, #494; G3 waived pending the Team-plan upgrade) |
 | [`nils.md`](nils.md) | The critic — walks the site daily, tickets what's unworthy | **Active** (2026-07-11, Joey directive) |
 | [`content-shift.md`](content-shift.md) | The standing writer — authors intake + experience + depth tickets | **Active** (2026-07-11, Joey directive) |
+| [`tree.md`](tree.md) | Social media manager — plans `social/calendar.md` weekly; Growth drafts it, the poster ships it | **Active** (2026-08-11, Joey directive) — routine is a pending Wyatt-side paste, see [`runners.md`](runners.md) |
 | `../kevin.md` | Ticket ops (moves here in Phase 2) | Active on Wyatt's side |
 | *(Phase 2)* | Karen (Integrity), v0, delegation scripts | Charters pending |
 | *(Phase 1, copy desk)* | Theo, Loren, Vera, Deb — `docs/content-ops/personas/` | Spec approved (#463) |
