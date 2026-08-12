@@ -24,6 +24,23 @@ describe('checkTarget — refuses to restore over anything real', () => {
     expect(checkTarget(SCRATCH, SCRATCH)).toMatch(/source database/);
   });
 
+  it('refuses the source database spelled through a loopback alias', () => {
+    // `localhost` and `127.0.0.1` are the same server; the refusal must not
+    // be fooled by which spelling each URL happens to use.
+    expect(
+      checkTarget(
+        'postgres://postgres:postgres@localhost:5432/brt',
+        'postgres://postgres:postgres@127.0.0.1:5432/brt',
+      ),
+    ).toMatch(/source database/);
+    expect(
+      checkTarget(
+        'postgres://postgres:postgres@127.0.0.1:5432/brt',
+        'postgres://postgres:postgres@localhost:5432/brt_other',
+      ),
+    ).toBeNull();
+  });
+
   it('refuses a lookalike host that merely embeds the name', () => {
     // `notsupabase.co.evil.test` must not slip through, and neither may a
     // substring match on a host we do not actually recognise.

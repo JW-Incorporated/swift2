@@ -158,6 +158,12 @@ function fail(msg) {
 // --------------------------------------------------------------------------
 const MANAGED_HOST = /(^|\.)(supabase\.(co|com|net|in)|pooler\.supabase\.com)$/i;
 
+// `localhost`, `127.0.0.1` and `::1` are the same server in practice; the
+// source-vs-target comparison must not be fooled by spelling.
+const LOOPBACK_ALIASES = new Set(['localhost', '127.0.0.1', '::1', '[::1]']);
+const canonicalHost = (hostname) =>
+  LOOPBACK_ALIASES.has(hostname.toLowerCase()) ? '127.0.0.1' : hostname.toLowerCase();
+
 /**
  * Why is this target unsafe to overwrite? Returns a reason, or null if it is
  * fine. Pure and exported so the refusal rules are unit-tested rather than
@@ -184,7 +190,7 @@ export function checkTarget(sourceUrl, targetUrl) {
       return '--source is not a valid Postgres URL';
     }
     if (
-      s.hostname === t.hostname &&
+      canonicalHost(s.hostname) === canonicalHost(t.hostname) &&
       (s.port || '5432') === (t.port || '5432') &&
       s.pathname === t.pathname
     ) {
@@ -318,10 +324,12 @@ const FETCH = 500;
  * Stream one table out as NDJSON. `to_jsonb(t)` makes Postgres itself render
  * every column — dates, jsonb, arrays, nulls — so there is no client-side type
  * guessing on the way out and none on the way back in either.
+ *
+ * The CALLER owns the transaction (cursors require one). The whole backup runs
+ * inside a single REPEATABLE READ snapshot — see the backup section in main().
  */
 async function dumpTable(client, table, file) {
   const cur = `brt_${table.replace(/[^a-z0-9_]/gi, '')}`;
-  await client.query('begin');
   await client.query(
     `declare ${cur} no scroll cursor for select to_jsonb(t)::text as j from public.${q(table)} t`,
   );
@@ -343,15 +351,14 @@ async function dumpTable(client, table, file) {
     }
   } finally {
     await client.query(`close ${cur}`).catch(() => {});
-    await client.query('commit').catch(() => {});
   }
   return { rows: n, bytes, checksum: digest(acc) };
 }
 
-/** Same accounting as dumpTable, but read straight from a database. */
+/** Same accounting as dumpTable, but read straight from a database. The caller
+ *  owns the transaction, exactly as with dumpTable. */
 async function measureTable(client, table) {
   const cur = `brtv_${table.replace(/[^a-z0-9_]/gi, '')}`;
-  await client.query('begin');
   await client.query(
     `declare ${cur} no scroll cursor for select to_jsonb(t)::text as j from public.${q(table)} t`,
   );
@@ -366,7 +373,6 @@ async function measureTable(client, table) {
     }
   } finally {
     await client.query(`close ${cur}`).catch(() => {});
-    await client.query('commit').catch(() => {});
   }
   return { rows: n, checksum: digest(acc) };
 }
@@ -649,6 +655,23 @@ async function main() {
         clusterUrl = cluster.url;
         console.log('ok');
       }
+      // Refuse a managed Supabase cluster BEFORE provisioning anything on it.
+      // The drill creates scratch databases and runs migrations against
+      // --cluster; none of that is destructive, but none of it belongs on the
+      // real project either, and the target refusal below would only fire
+      // after the fact.
+      let clusterHost = '';
+      try {
+        clusterHost = new URL(clusterUrl).hostname;
+      } catch {
+        fail('--cluster is not a valid Postgres URL');
+      }
+      if (MANAGED_HOST.test(clusterHost)) {
+        fail(
+          `--cluster points at ${clusterHost} — a managed Supabase host.\n` +
+            `  The drill provisions scratch databases on the cluster. Point --cluster at a local or throwaway Postgres.`,
+        );
+      }
       const suffix = String(Date.now()).slice(-9);
       scratch = { clusterUrl, source: `brt_source_${suffix}`, target: `brt_target_${suffix}` };
       await withAdmin(clusterUrl, async (admin) => {
@@ -697,6 +720,14 @@ async function main() {
     await src.connect();
     let manifest;
     try {
+      // ONE snapshot for the whole backup: schema fingerprint, every table
+      // dump, and the source spot checks all see the same instant. Without
+      // this, each table was dumped in its own transaction — against a live
+      // source (the worker writes 6×/day) a row landing between two dumps
+      // could produce an artifact whose FK chains do not restore, and the
+      // spot checks could drift from the dumped bytes. READ ONLY is belt and
+      // braces on top of the session pin above.
+      await src.query('begin transaction isolation level repeatable read, read only');
       const version = (await src.query('select version()')).rows[0].version;
       const tables = await listTables(src);
       const order = await dependencyOrder(src, tables);
@@ -728,6 +759,7 @@ async function main() {
         `  ${String(order.length)} tables · ${totalRows} rows · ${(totalBytes / 1e6).toFixed(2)} MB · ${timings.backup} ms`,
       );
       manifest.spotChecks = await runSpotChecks(src);
+      await src.query('commit').catch(() => {});
     } finally {
       await src.end();
     }
@@ -765,6 +797,10 @@ async function main() {
     await tgt.connect();
     let report;
     try {
+      // Mirror of the backup snapshot: one transaction for every verify read
+      // (cursors need one anyway), so the fingerprint, the per-table
+      // checksums and the spot checks all describe the same instant.
+      await tgt.query('begin transaction isolation level repeatable read, read only');
       const schema = await schemaFingerprint(tgt);
       const schemaOk = schema.hash === manifest.schemaFingerprint;
       if (!schemaOk) failures.push('schema fingerprint differs between source and target');
@@ -795,6 +831,7 @@ async function main() {
 
       console.log('\n  spot checks (source vs restored, compared verbatim):');
       const after = await runSpotChecks(tgt);
+      await tgt.query('commit').catch(() => {});
       const spot = [];
       for (const [i, check] of SPOT_CHECKS.entries()) {
         const a = manifest.spotChecks[i];
@@ -874,12 +911,18 @@ async function main() {
  * Errors and (in drill mode) empty results are surfaced explicitly.
  */
 async function runSpotChecks(client) {
+  // Both call sites run inside a snapshot transaction, where a failing query
+  // poisons everything after it ("current transaction is aborted"). Each check
+  // gets a savepoint so one broken query stays ONE failed check.
   const out = [];
   for (const c of SPOT_CHECKS) {
     try {
+      await client.query('savepoint spot_check');
       const { rows } = await client.query(c.sql);
+      await client.query('release savepoint spot_check');
       out.push({ rows: rows.length, json: JSON.stringify(rows), error: null });
     } catch (err) {
+      await client.query('rollback to savepoint spot_check').catch(() => {});
       out.push({ rows: 0, json: null, error: err.message });
     }
   }

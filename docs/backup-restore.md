@@ -81,7 +81,10 @@ node scripts/backup-restore-test.mjs \
 
 `--keep` leaves the artifact in `.backups/<timestamp>/` (gitignored). The source
 session is pinned `default_transaction_read_only=on` at the server, so this
-cannot write to production even if the script is buggy.
+cannot write to production even if the script is buggy. The entire backup —
+schema fingerprint, every table dump, and the source spot checks — runs inside
+one `REPEATABLE READ` snapshot, so the artifact is internally consistent (FK
+chains restore) even if the news worker writes mid-backup.
 
 ---
 
