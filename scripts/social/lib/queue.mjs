@@ -181,6 +181,19 @@ export function isStaleDue(item, now, maxAgeHours = 48) {
   return now.getTime() - scheduled >= maxAgeHours * 60 * 60 * 1000;
 }
 
+/** Hours since `scheduledAt` passed (0 for a not-yet-due item). The number a
+ * waiting/skipped item carries into the run report so "waiting" and "stuck"
+ * are distinguishable without reading two days of Action logs — see
+ * lib/run-report.mjs's isStuck, which reddens a no-attempt block past
+ * STUCK_AFTER_HOURS (24h), a full day before isStaleDue (48h) retires it to
+ * social/failed/. Escalation ladder, not two competing thresholds: 24h makes
+ * it loud while it is still recoverable, 48h moves it. Assumes a valid
+ * `scheduledAt` (see isValidScheduledAt). */
+export function hoursOverdue(item, now) {
+  const ms = now.getTime() - new Date(item.scheduledAt).getTime();
+  return ms <= 0 ? 0 : ms / (60 * 60 * 1000);
+}
+
 /** Last `n` Instagram items from `allPostedData` (the parsed contents of
  * every social/posted/*.json file), oldest-to-newest by `postedAt`, for the
  * era-art guard. Takes already-loaded data rather than reading the

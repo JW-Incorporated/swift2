@@ -109,6 +109,18 @@ export default {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
           },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `evermore-no-body-no-crime` stub — backs the Eras Tour
+          // live-debut photo below.
+          {
+            outlet: 'Guitar.com',
+            url: 'https://guitar.com/news/music-news/taylor-swift-haim-no-body-no-crime/',
+            source_title: 'Watch Taylor Swift\'s live debut of No Body, No Crime with Haim',
+            publisher: 'Guitar.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
         ],
         // Photo-enrichment pass (2026-07-29): added the official lyric-video
         // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
@@ -124,6 +136,20 @@ export default {
             focalPoint: '50% 50%',
             credit: 'Republic Records / YouTube (official "no body, no crime" lyric video still)',
             kind: 'video-still',
+          },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `evermore-no-body-no-crime` stub, where photo pass #762
+          // (2026-07-31) had verified it: the song's live debut with HAIM,
+          // billboard.com's own CDN (outlet-CDN rule), curl HTTP 200 +
+          // image/jpeg, vision-confirmed — matches the Eras Tour opener
+          // detail in the context above.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/07/taylor-swift-haim-eras-tour-2023-billboard-1548.jpg',
+            focalPoint: '55% 22%',
+            credit: 'Mat Hayward/TAS23/Getty Images, via Billboard',
+            caption:
+              'Taylor Swift performs "no body, no crime" with HAIM (Este on bass, Danielle on electric guitar) at Lumen Field in Seattle, July 22, 2023 — the song\'s live debut.',
+            kind: 'primary',
           },
         ],
       },
@@ -384,7 +410,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
-          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.\n\nBoth the song and its parent album debuted at No. 1 in the same week — Variety called them "twin No. 1 chart debuts" — with Red (Taylor\'s Version) entering the Billboard 200 on top and the ten-minute cut bowing at No. 1 on the Hot 100, an unusually direct payoff for a track fans had spent nearly a decade asking her to release in full. The version was a "From the Vault" recording, a restored expansion of the 5:29 song from 2012\'s Red, and Swift leaned the entire promotional push on it: she performed the full ten minutes on Saturday Night Live on Nov. 13, 2021 — one of the longest musical performances in the show\'s history — premiered the self-directed short film in New York, and surprised the theater audience with an acoustic set. The record it broke had stood since January 1972, so a fifty-year-old benchmark fell to a song most listeners already knew by heart.',
+          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.\n\nBoth the song and its parent album debuted at No. 1 in the same week — "twin No. 1 chart debuts," per Variety — with Red (Taylor\'s Version) entering the Billboard 200 on top and the ten-minute cut bowing at No. 1 on the Hot 100, an unusually direct payoff for a track fans had spent nearly a decade asking her to release in full. The version was a "From the Vault" recording, a restored expansion of the 5:29 song from 2012\'s Red, and Taylor leaned the entire promotional push on it: she performed the full ten minutes on Saturday Night Live on Nov. 13, 2021 — one of the longest musical performances in the show\'s history — premiered the self-directed short film in New York, and surprised the theater audience with an acoustic set. The record it broke had stood since January 1972, so a fifty-year-old benchmark fell to a song most listeners already knew by heart.',
         sources: [
           {
             outlet: 'Guinness World Records',
@@ -1551,7 +1577,7 @@ export default {
             url: 'https://townsquare.media/site/204/files/2022/09/attachment-taylor-swift-songwriter-2.jpg',
             focalPoint: '51% 14%',
             credit: 'Townsquare Media',
-            caption: 'Swift on the step-and-repeat at the 2022 Nashville Songwriter Awards, where she accepted Songwriter-Artist of the Decade.',
+            caption: 'Taylor on the step-and-repeat at the 2022 Nashville Songwriter Awards, where she accepted Songwriter-Artist of the Decade.',
             kind: 'reference',
           },
         ],
@@ -3262,120 +3288,13 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "evermore-no-body-no-crime",
-      year: 2020,
-      month: 12,
-      day: 11,
-      category: "music",
-      title: "\"no body no crime\" with HAIM",
-      snippet: "A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.",
-      moment: {
-        sources: [
-          {
-            outlet: 'Refinery29',
-            url: 'https://www.refinery29.com/en-us/2020/12/10222300/taylor-swift-haim-no-body-no-crime-real-murder-mystery',
-            source_title: 'So, Taylor Swift & Haim Wrote The Best Murder Mystery Of The Year',
-            publisher: 'Refinery29',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Guitar.com',
-            url: 'https://guitar.com/news/music-news/taylor-swift-haim-no-body-no-crime/',
-            source_title: 'Watch Taylor Swift\'s live debut of No Body, No Crime with Haim',
-            publisher: 'Guitar.com',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Taylor to perform it live during the Eras Tour years later.",
-        // Photo pass #762 (2026-07-31): page had zero photos. (1) The live
-        // debut with HAIM, hosted on billboard.com's own CDN (not
-        // media.gettyimages.com directly, though sourced from a Getty
-        // photographer — allowed per the outlet-CDN rule) — curl HTTP 200 +
-        // image/jpeg, downloaded and vision-confirmed: Taylor and all three
-        // HAIM sisters on stage together, guitars in hand. (2) The official
-        // lyric video's title card — video id IEPomqor2A8, oEmbed-verified
-        // channel "Taylor Swift" (@TaylorSwift) — curl HTTP 200 + image/jpeg,
-        // downloaded and Read-viewed: the "no body, no crime (feat. Haim)"
-        // title over the foggy tree-line still.
-        photos: [
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/2023/07/taylor-swift-haim-eras-tour-2023-billboard-1548.jpg',
-            focalPoint: '55% 22%',
-            credit: 'Mat Hayward/TAS23/Getty Images, via Billboard',
-            caption:
-              'Taylor Swift performs "no body, no crime" with HAIM (Este on bass, Danielle on electric guitar) at Lumen Field in Seattle, July 22, 2023 — the song\'s live debut.',
-            kind: 'primary',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/IEPomqor2A8/maxresdefault.jpg',
-            focalPoint: '30% 20%',
-            credit: 'Taylor Swift / YouTube (official lyric video title card)',
-            caption: 'The official "no body, no crime (feat. HAIM)" lyric video.',
-            kind: 'archival',
-          },
-        ],
-      },
-    },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "evermore-champagne-problems",
-      year: 2020,
-      month: 12,
-      day: 11,
-      category: "music",
-      tags: ["Lore"],
-      title: "\"champagne problems\"",
-      snippet: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
-      moment: {
-        sources: [
-          {
-            outlet: 'American Songwriter',
-            url: 'https://americansongwriter.com/the-meaning-of-champagne-problems-by-taylor-swift/',
-            source_title: 'The Meaning of "Champagne Problems" by Taylor Swift',
-            publisher: 'American Songwriter',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Entertainment Tonight',
-            url: 'https://www.etonline.com/taylor-swifts-evermore-which-songs-did-william-bowery-aka-joe-alwyn-help-write-157620',
-            source_title: 'Taylor Swift\'s \'Evermore\': Which Songs Did William Bowery, aka Joe Alwyn, Help Write?',
-            publisher: 'Entertainment Tonight',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        // Corrected 2026-08-11: THREE evermore tracks carry a William Bowery
-        // co-write — "champagne problems", "coney island" and the title
-        // track — per the Entertainment Tonight piece cited below. The old
-        // "two" contradicted the source this moment now cites.
-        context:
-          "One of three evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
-        // Photo pass #762 (2026-07-19): official lyric-video still — ID
-        // wMpqCRF7TKg verified via YouTube oEmbed ("Taylor Swift - champagne
-        // problems (Official Lyric Video)", author "Taylor Swift"); curl 200
-        // image/jpeg 1280x720; Read-viewed: the title card's champagne flute.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/wMpqCRF7TKg/maxresdefault.jpg',
-            credit: 'YouTube / Taylor Swift',
-            caption: 'The official lyric video\'s title card.',
-            kind: 'archival',
-            focalPoint: '50% 40%',
-          },
-        ],
-      },
-    },
+    // Two duplicate stubs removed here (issue #616, 2026-07-29):
+    // - "evermore-no-body-no-crime" told the same HAIM-featuring murder
+    //   ballad as the richer, sourced item above.
+    // - "evermore-champagne-problems" told the same failed-proposal song as
+    //   the richer, sourced "champagne problems, a fictional proposal gone
+    //   wrong" item above — which already carries the identical lyric-video
+    //   still photo this stub also had, so nothing unique was lost.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
