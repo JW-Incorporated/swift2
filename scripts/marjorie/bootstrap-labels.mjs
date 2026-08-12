@@ -2,7 +2,7 @@
 // setup is code, not a remembered checklist). Issue forms only apply labels
 // that already exist, and assemble-brief.mjs / watchdog.yml query by label —
 // so a fresh repo (or the future org home, see org-transfer plans) must run
-// this once:  node scripts/marjorie/bootstrap-labels.mjs
+// this once:  node --use-env-proxy scripts/marjorie/bootstrap-labels.mjs
 import { gh } from '../lib/gh.mjs';
 
 // The `desk:*` routing taxonomy (2026-08-11). EXACTLY ONE of these on an open

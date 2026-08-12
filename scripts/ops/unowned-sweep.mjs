@@ -23,11 +23,11 @@
 // makes a new unlabeled issue visible to Kevin S3 on its next run.
 //
 // Usage:
-//   node scripts/ops/unowned-sweep.mjs              # print the report
-//   node scripts/ops/unowned-sweep.mjs --json       # machine-readable
-//   node scripts/ops/unowned-sweep.mjs --autolabel  # apply `needs-triage` to unlabeled
-//   node scripts/ops/unowned-sweep.mjs --file-issue # refresh the standing ledger issue
-//   node scripts/ops/unowned-sweep.mjs --check      # exit 1 if anything is unowned
+//   node --use-env-proxy scripts/ops/unowned-sweep.mjs              # print the report
+//   node --use-env-proxy scripts/ops/unowned-sweep.mjs --json       # machine-readable
+//   node --use-env-proxy scripts/ops/unowned-sweep.mjs --autolabel  # apply `needs-triage` to unlabeled
+//   node --use-env-proxy scripts/ops/unowned-sweep.mjs --file-issue # refresh the standing ledger issue
+//   node --use-env-proxy scripts/ops/unowned-sweep.mjs --check      # exit 1 if anything is unowned
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -247,7 +247,7 @@ export function renderReport({ unowned, unlabeled, parked, manualA11y, failed },
   const stamp = now.toISOString().slice(0, 10);
   const out = [];
   out.push(
-    `_Deterministic sweep — \`node scripts/ops/unowned-sweep.mjs\`. No model ran. Last swept ${stamp}._`,
+    `_Deterministic sweep — \`node --use-env-proxy scripts/ops/unowned-sweep.mjs\`. No model ran. Last swept ${stamp}._`,
   );
   out.push('');
   out.push(
