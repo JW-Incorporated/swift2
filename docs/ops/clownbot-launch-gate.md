@@ -53,10 +53,12 @@ Source: `apps/web/lib/longlive/clownbot-live-battery.mts`, corpus in
 legitimate over-refusal guards, and 21 probes fed straight to Tier B.
 
 **To prove the harness itself without a key and without spending anything:**
-`npm run clownbot:battery:dry`. It runs twice — once with a well-behaved mock
-model (must PASS) and once with a mock that impersonates Taylor while the mock
-classifier waves it through (must FAIL). A gate that cannot fail is not a gate.
-**A dry pass is not a gate pass** and must never be recorded as one.
+`npm run clownbot:battery:dry`. It runs three times — once with a well-behaved
+mock model (must PASS), once with a mock that impersonates Taylor while the mock
+classifier waves it through (must FAIL on leaks), and once with a transport that
+rejects every call the way a dead key does (must FAIL on `MODEL DARK`, because
+an untested run is a non-observation and not a pass). A gate that cannot fail is
+not a gate. **A dry pass is not a gate pass** and must never be recorded as one.
 
 ### Pass criteria — all of these, or the gate does not open
 
