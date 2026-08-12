@@ -187,9 +187,93 @@ jobs:
         if: steps.files.outputs.has_drafts == 'true'
         run: node scripts/social/check-drafts.mjs --manifest /tmp/queue-files.json
 
+  # ── guard-code (P0 fix #1972, 2026-08-12) ────────────────────────────────
+  # The CONTENT/NAME backstop the path allowlist structurally cannot be. A
+  # `startsWith` prefix cannot express "any route.ts under app/" (a suffix, and
+  # three route handlers already live outside /api/) or "any file that reads a
+  # secret / is a Server Action / imports server-only" (which can live in ANY
+  # app/ or lib/ file). This job runs scripts/automerge-content-guard.mjs — OUR
+  # trusted copy from the BASE ref — over the PR's changed code files (fetched
+  # as raw bytes, DATA never executed, exactly like check-drafts) and reports a
+  # single verdict the `enable` job consumes:
+  #   ok          — no server-executing / secret-reading code file changed
+  #   server_code — at least one did → enable DECLINES it to a human
+  #   broken      — could not evaluate (fetch/enumeration failure) → enable
+  #                 fails closed (BROKEN GATE)
+  # It ALWAYS exits 0 and reports via the output, so `enable` always runs and
+  # can disable any previously-armed auto-merge on a non-ok verdict (the same
+  # downgrade-guard reasoning the enable job documents). A server-executing file
+  # never fails `build` here — `build` is the only required check — this just
+  # routes such a PR to a human, the fail-safe direction.
+  guard-code:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.base.ref == 'main'
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      verdict: ${{ steps.scan.outputs.verdict }}
+    steps:
+      # BASE ref (main) — the trusted checkout. The guard SCRIPT that runs is
+      # ours, never the PR's. The PR's changed code is pulled below as raw bytes
+      # via the read-only Contents API and only ever READ by the script, never
+      # imported or executed — the same rule the enable job documents for itself.
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Scan changed code files for server-executing content
+        id: scan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # NOT `set -e`: every failure must still emit a verdict output so the
+          # `enable` job's `needs` is satisfied and it can disable a stale arm.
+          set -uo pipefail
+          emit() { echo "verdict=$1" >> "$GITHUB_OUTPUT"; }
+          fail_broken() { echo "guard-code: $1" >&2; emit broken; exit 0; }
+
+          ALL=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename') \
+            || fail_broken "could not enumerate PR files"
+          GOT=$(printf '%s\n' "$ALL" | grep -c . || true)
+          WANT=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles') \
+            || fail_broken "could not read changedFiles"
+          if [ "$GOT" -ne "$WANT" ]; then
+            fail_broken "paginated file count $GOT != reported $WANT — refusing a possibly-truncated list"
+          fi
+
+          # Only code files can be server-executing; a data/seed/image PR yields
+          # none and is trivially clear.
+          CODE=$(printf '%s\n' "$ALL" | grep -E '\.(ts|tsx|js|jsx|mjs|cjs)$' || true)
+          if [ -z "$CODE" ]; then emit ok; exit 0; fi
+
+          # Overlay each changed code file's PR-head bytes onto this trusted
+          # checkout, as data. `set -e`-style failure via `|| fail_broken`.
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            mkdir -p "$(dirname "$f")"
+            gh api -H "Accept: application/vnd.github.raw" \
+              "repos/$REPO/contents/$f?ref=$SHA" > "$f" \
+              || fail_broken "could not fetch $f"
+          done <<<"$CODE"
+
+          printf '%s\n' "$CODE" | jq -R -s -c 'split("\n") | map(select(length > 0))' > /tmp/code-files.json
+
+          node scripts/automerge-content-guard.mjs --manifest /tmp/code-files.json
+          rc=$?
+          if [ "$rc" -eq 0 ]; then emit ok
+          elif [ "$rc" -eq 1 ]; then emit server_code
+          else fail_broken "guard script errored (rc=$rc)"; fi
+          exit 0
+
   enable:
     runs-on: ubuntu-latest
-    needs: check-drafts
+    needs: [check-drafts, guard-code]
     # NOTE: no `actions/checkout` anywhere in this job. `pull_request_target`
     # runs with repo secrets against the BASE ref; checking out PR head code
     # here would hand those secrets to whatever the PR contains. We only ever
@@ -210,6 +294,7 @@ jobs:
           OWNERSHIP_PATH: .github/content-ownership.json
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           HAS_DRAFTS: ${{ needs.check-drafts.outputs.has_drafts }}
+          GUARD_VERDICT: ${{ needs.guard-code.outputs.verdict }}
         run: |
           set -euo pipefail
 
@@ -505,6 +590,28 @@ jobs:
               fi
             fi
           fi
+
+          # ── SERVER-CODE CONTENT GUARD (P0 #1972) ────────────────────────────
+          # Even when every changed path is allowlisted, a route handler
+          # (route.ts anywhere under app/), a Server Action ("use server"), a
+          # server-only module, or a file reading a secret env var must NOT
+          # auto-merge — a path prefix cannot see any of that. The `guard-code`
+          # job scanned the PR's changed code files with our trusted
+          # scripts/automerge-content-guard.mjs and returned a verdict.
+          #   ok          -> continue
+          #   server_code -> decline to a human (disables any stale arm via verdict)
+          #   anything else (broken / missing output) -> fail closed, BROKEN GATE
+          case "${GUARD_VERDICT:-}" in
+            ok)
+              : ;;
+            server_code)
+              verdict "declined — server-executing code" \
+          "PR #$PR changes a file that executes server-side or reads a secret — a Next.js route handler (\`route.ts\`/\`.tsx\`/\`.js\` under \`app/\`, not only \`/api/\`), a Server Action (\`\"use server\"\`), a \`server-only\` module, or a read of a secret env var. Those auto-deploy to prod with no human, so this waits for a founder. See the \`guard-code\` job log for the exact file(s) and reason(s), and scripts/automerge-content-guard.mjs. This is the #1972 fix working as designed, not a failure."
+              exit 0 ;;
+            *)
+              verdict "BROKEN GATE" "The \`guard-code\` job returned no usable verdict (got \`${GUARD_VERDICT:-<none>}\`). Not auto-merging until this is fixed — a human can still merge. This is a misconfiguration, not a decision."
+              exit 1 ;;
+          esac
 
           # Bind the decision to the exact commit it was computed against: if
           # the PR head moved between this job starting and this line (another

@@ -26,10 +26,12 @@ import { createClient } from '@supabase/supabase-js';
 import {
   ROOT,
   SLUG_TO_ERA_ID,
+  SOURCE_TYPE_LITERAL,
   esc,
   loadWebEnvLocal,
   preferDbSource,
   slugify,
+  sourceLiteral,
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
@@ -688,7 +690,7 @@ export function buildOutputSource(byEra) {
   lines.push('  body: string[];');
   lines.push('  tags: ContentTag[];');
   lines.push('  images?: ImageRef[];');
-  lines.push('  sources?: { name: string; url: string }[];');
+  lines.push(`  sources?: ${SOURCE_TYPE_LITERAL}[];`);
   lines.push('  video?: { youtubeId: string; title: string };');
   lines.push('  socialPost?: SocialPost;');
   lines.push('  hiddenClue?: HiddenClue;');
@@ -729,7 +731,7 @@ export function buildOutputSource(byEra) {
         lines.push(`      images: [${imgs}],`);
       }
       if (it.sources && it.sources.length) {
-        const srcs = it.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
+        const srcs = it.sources.map(sourceLiteral).join(', ');
         lines.push(`      sources: [${srcs}],`);
       }
       if (it.video) {

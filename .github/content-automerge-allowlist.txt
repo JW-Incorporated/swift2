@@ -13,7 +13,9 @@
 #
 # WIDENED 2026-08-11 (Wyatt directive — docs/decisions.md): app code
 # (`apps/web/app/`, `apps/web/components/`, `apps/web/lib/`) and shared
-# packages (`packages/`) now auto-merge too. Reasoning: a human-merge gate that
+# packages (`packages/`) now auto-merge too. (The `apps/web/lib/` grant was
+# narrowed to `apps/web/lib/longlive/` on 2026-08-12 — P0 fix #1972, see the
+# App-code block below.) Reasoning: a human-merge gate that
 # nobody actually exercises is theater — "honestly we're not reviewing any
 # code." The real gate for app code is FULL required CI green, not a rubber
 # stamp: the `build` check runs typecheck + lint + the whole test suite +
@@ -36,6 +38,19 @@
 #     E2E is 100% red (#669): app-code auto-merge currently has NO behavioural
 #     regression net beyond unit + typecheck + build, which is adequate for view
 #     components but thin for request handlers. Revisit when #669 is green.
+#   - ANY `route.ts`/`.tsx`/`.js` under `apps/web/app/**` — a Next.js route
+#     handler executes server-side and is NOT limited to `/api/` (P0 #1972).
+#     Enforced by the content guard, not a path line (a prefix can't match a
+#     `*/route.ts` suffix).
+#   - The top-level `apps/web/lib/*` files — the server data layer
+#     (`vault.ts`), the CSP module (`security-headers.mjs`), and the top-level
+#     hooks/utils. Only the `apps/web/lib/longlive/` display subtree auto-merges.
+#   - `apps/web/lib/longlive/mood-client.ts` — reads `ANTHROPIC_API_KEY`
+#     (denied by path, and by the content guard).
+#   - `apps/web/next.config.*`, any `apps/web/middleware.*` — deploy/security
+#     config (barred in NEVER_ALLOWLIST; also caught by the content guard).
+#   - Server Actions (`"use server"`) and `server-only` modules anywhere —
+#     caught by the content guard, since they can live in any file.
 #   - `apps/web/app/privacy/**`, `apps/web/app/terms/**` and any legal lib —
 #     legal surfaces need counsel, not a code review.
 #   - `supabase/migrations/**` — irreversible schema (already NEVER_ALLOWLIST).
@@ -104,14 +119,26 @@ apps/web/lib/longlive/content-vault.generated.ts
 apps/web/lib/longlive/tracks.generated.ts
 apps/web/lib/longlive/theories.generated.ts
 apps/web/lib/longlive/videos.generated.ts
+apps/web/lib/longlive/era-secrets.generated.ts
 apps/web/lib/longlive/song-moods.generated.ts
 
 # ── App code (WIDENED 2026-08-11, Wyatt — docs/decisions.md). Gated by FULL
-#    required CI green (`build`), not a human. View components, client/server
-#    lib, app pages, and shared packages — plus their colocated tests. ────────
+#    required CI green (`build`), not a human. View components, app pages, the
+#    client/display lib subtree, and shared packages — plus colocated tests.
+#
+#    TIGHTENED 2026-08-12 (P0 security fix — red-team finding #1972). The lib
+#    allow was `apps/web/lib/` (the WHOLE directory). That swept in the
+#    server-side data layer (`apps/web/lib/vault.ts`) and the CSP/security-
+#    headers module (`apps/web/lib/security-headers.mjs`), letting either
+#    auto-deploy to prod with no human. The allow is now the CLIENT/DISPLAY
+#    subtree only — `apps/web/lib/longlive/` — which is where the pure
+#    view/formatting modules and the generated vault artifacts live. The
+#    top-level `apps/web/lib/*` files (vault.ts, security-headers.mjs, hooks,
+#    utils) fall back to human merge by default-deny. See docs/decisions.md
+#    2026-08-12 and NEVER_ALLOWLIST in scripts/check-automerge-allowlist.mjs. ──
 apps/web/app/
 apps/web/components/
-apps/web/lib/
+apps/web/lib/longlive/
 packages/
 
 # ── DENY carve-outs (`!` wins over any allow). These reinstate the human gate
@@ -123,3 +150,21 @@ packages/
 # Legal surfaces need counsel, not a code review.
 !apps/web/app/privacy/
 !apps/web/app/terms/
+# The ONE server module inside the client/display subtree: mood-client.ts is
+# "the one module that spends money" — it reads ANTHROPIC_API_KEY. It lives
+# among pure display modules, so `apps/web/lib/longlive/` would otherwise sweep
+# it in. Denied here by path, AND caught at runtime by the content guard below.
+!apps/web/lib/longlive/mood-client.ts
+
+# ── A path prefix CANNOT express two things that decide whether a file executes
+#    server-side with secrets, so they are NOT (and cannot be) listed above —
+#    they are enforced at merge time by scripts/automerge-content-guard.mjs (the
+#    `guard-code` job in .github/workflows/auto-merge-content.yml):
+#      1. A Next.js route handler is ANY `route.ts`/`.tsx`/`.js` under
+#         `apps/web/app/`, not only under `/api/`. Three already exist outside
+#         /api/ (apps/web/app/vault/{tier0,moment/[id],album/[slug]/tracks}/
+#         route.ts). A `startsWith` deny cannot match a `*/route.ts` suffix.
+#      2. A Server Action (`"use server"`), a `server-only` import, or a read of
+#         a secret env var can appear in ANY app/ or lib/ file regardless of
+#         path. The guard scans file CONTENT and declines such a PR to a human.
+#    This is the durable fix for #1972 — see that guard's header. ──────────────

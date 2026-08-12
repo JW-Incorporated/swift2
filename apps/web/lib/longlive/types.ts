@@ -920,6 +920,50 @@ export interface ReRecord {
 export interface EggSource {
   name: string;
   url: string;
+  /**
+   * The editor's provenance judgment, carried through from the seed's
+   * `reliability_score` (2026-07-08 audit §5 rubric): 5 official/primary ·
+   * 4 reputable press · 3 trade databases / verified interviews · 2 wikis and
+   * moderated fan forums · 1 unverified social.
+   *
+   * OPTIONAL and genuinely absent on citations authored before the rubric —
+   * `undefined` means "never scored", which is NOT the same as "scored low".
+   * Any consumer that renders this must treat the two differently.
+   *
+   * Nothing displays this yet, by decision (docs/decisions.md 2026-08-11): it
+   * is plumbed so the data stops being thrown away at build time and so a
+   * future citation treatment has something real to read. See that entry
+   * before wiring it to a badge.
+   */
+  reliability?: 1 | 2 | 3 | 4 | 5;
+  /** The §5 `source_type` (official | reputable_press | wiki | …), when set. */
+  type?: string;
+}
+
+/**
+ * One Era Secret (#688): a single sourced, genuinely-obscure fact that greets
+ * an era entry — the first thing a fan meets inside an era, so they immediately
+ * learn something they didn't know (founder decision 2026-07-15,
+ * docs/proposals/2026-07-15-era-secrets.md). Static data in
+ * era-secrets.generated.ts, produced from supabase/seed/era-secrets/** by
+ * scripts/sync-longlive-era-secrets.mjs. Every secret is REAL and SOURCED — the
+ * generator drops any with no source — so a fabricated fact can never ship.
+ */
+export interface EraSecret {
+  /** Stable kebab id, unique per era. */
+  slug: string;
+  /** The one-line hook shown as the card's headline. */
+  title: string;
+  /** The fact itself — the obscure, sourced thing the fan didn't know. */
+  secret: string;
+  /**
+   * Optional hop deeper into the site (`song:<slug>` / `moment:<id>` /
+   * `egg:<id>`), resolved at render time by resolveEraSecretLink. An
+   * unresolvable link degrades to no link rather than a dead one.
+   */
+  deeperLink?: string;
+  /** Citations backing the fact. Never empty (generator-enforced). */
+  sources: EggSource[];
 }
 
 export interface EggNode {
