@@ -57,7 +57,7 @@ export default {
       claim:
         'Track 4, "Father Figure," is not just named after George Michael\'s 1987 classic — it interpolates it, rebuilding the hook and melody of Michael\'s chorus inside a TS12 song. The tell is in the credits: George Michael is listed as a co-writer, a Wham!-era hitmaker folded whole into the album decades on.',
       evidence:
-        'An interpolation re-records a song\'s musical elements rather than sampling the original master, and it shows up as a formal songwriting credit — which is exactly where this one is documented, with George Michael credited as a co-writer on "Father Figure." Coverage describes Swift\'s track as an interpolation of Michael\'s song, reusing its title-line hook and a similar melody. Reaching back into a specific catalog and crediting it in the liner metadata is the same buried-clue instinct that runs through her rollouts; here the clue is hiding in the songwriting credits themselves.',
+        'An interpolation re-records a song\'s musical elements rather than sampling the original master, and it shows up as a formal songwriting credit — which is exactly where this one is documented, with George Michael credited as a co-writer on "Father Figure." Coverage describes Taylor\'s track as an interpolation of Michael\'s song, reusing its title-line hook and a similar melody. Reaching back into a specific catalog and crediting it in the liner metadata is the same buried-clue instinct that runs through her rollouts; here the clue is hiding in the songwriting credits themselves.',
       confidence: 'reputable_reporting',
       outcome: 'confirmed',
       relatedSlugs: ['the-life-of-a-showgirl:ophelia-rewrite'],
@@ -88,7 +88,7 @@ export default {
       claim:
         'Swifties treat track 5 as sacred: since Fearless, the fifth song on each album is reliably her most emotionally exposed — a pattern she has spoken about and fans now brace for. On The Life of a Showgirl, track 5 is "Eldest Daughter," and reviewers immediately read it as this album\'s Track 5 confessional.',
       evidence:
-        'The "Track 5" convention — the album\'s most vulnerable, confessional song deliberately placed fifth — is a long-documented Swift signature running through the catalog (e.g. "The Archer" on Lover, "mirrorball" on folklore). "Eldest Daughter" is the fifth track on The Life of a Showgirl, and critics placed it directly in that lineage, comparing it to "The Archer" and "mirrorball" and their shared themes of perseverance, desperation and perfectionism. The egg is structural rather than hidden-in-the-art: knowing the rule tells a listener where to look for the album\'s emotional core before pressing play.',
+        'The "Track 5" convention — the album\'s most vulnerable, confessional song deliberately placed fifth — is a long-documented Taylor trademark running through the catalog (e.g. "The Archer" on Lover, "mirrorball" on folklore). "Eldest Daughter" is the fifth track on The Life of a Showgirl, and critics placed it directly in that lineage, comparing it to "The Archer" and "mirrorball" and their shared themes of perseverance, desperation and perfectionism. The egg is structural rather than hidden-in-the-art: knowing the rule tells a listener where to look for the album\'s emotional core before pressing play.',
       confidence: 'reputable_reporting',
       outcome: 'confirmed',
       relatedSlugs: ['the-life-of-a-showgirl:ophelia-rewrite'],
@@ -149,7 +149,7 @@ export default {
       claim:
         'The Life of a Showgirl is Taylor\'s twelfth studio album, and its standard edition runs exactly twelve tracks — the era Swifties had been counting toward and tagging "TS12" before it had a title. Fans read the twelve-on-twelfth alignment as one more of her deliberate number games.',
       evidence:
-        'The album is her twelfth studio LP and its standard tracklist is twelve songs long — both plain, documented facts. Swift has a long, self-acknowledged history of number play (the recurring 13 motif; release dates and track counts used as planted clues), which is why fans read the twelve-on-twelfth symmetry as intentional rather than incidental. The alignment itself is verified fact; the intent behind it is the fan reading, so the egg is graded partially confirmed — the numbers line up, but Taylor has not itemized this one as a wink.',
+        'The album is her twelfth studio LP and its standard tracklist is twelve songs long — both plain, documented facts. Taylor has a long, self-acknowledged history of number play (the recurring 13 motif; release dates and track counts used as planted clues), which is why fans read the twelve-on-twelfth symmetry as intentional rather than incidental. The alignment itself is verified fact; the intent behind it is the fan reading, so the egg is graded partially confirmed — the numbers line up, but Taylor has not itemized this one as a wink.',
       confidence: 'strong_fan_consensus',
       outcome: 'partially_confirmed',
       relatedSlugs: ['the-life-of-a-showgirl:orange-era-clues'],

@@ -45,6 +45,11 @@ first name or a real, in-use nickname; nobody who loves her music calls her
 - A formal name that contains the surname (an award category, chart/RIAA
   name, or a title like "Taylor Swift: The Eras Tour") — the surname there
   is part of the proper noun, not a reference choice.
+- **A legal case caption** ("Hall v. Swift", "Mueller v. Swift"). A case name
+  is a fixed citation — it is what the proceeding *is called* on the docket
+  and in every filing. "Hall v. Taylor" is not the same case; it is not a
+  case at all. Same principle as a quote: this is someone else's fixed text,
+  not our reference choice.
 - The sentence's first reference alongside her full name ("Taylor Swift
   released...") — after that first mention, drop to "Taylor."
 
@@ -60,7 +65,17 @@ Taylor herself.
 This is now checked, not just documented: `scripts/content-engine/
 checkers/voice.mjs` (`content.voice.surname-overuse`) flags any item where
 bare "Swift" (quoted spans excluded) meets or exceeds "Taylor" in the same
-field, feeding Karen's nightly scan exactly like any other finding.
+field, feeding Karen's scan exactly like any other finding.
+
+**And since 2026-08-12 it also BLOCKS THE MERGE.** `npm run check:voice`
+(`scripts/check-voice.mjs`) runs in CI's `build` job on every PR, over the
+seed files that PR changes. Relying on the scan alone did not hold: the scan
+went weekly on 2026-07-25 while still being described as nightly, and 19
+voice findings landed on `main` before anyone looked (#1917, #1918). Author
+freely — if a line drifts into wire voice, CI tells you on the PR, with the
+field name and the fix, before it is anyone else's problem. If the check
+fires on something that is genuinely a quote, a legal caption, or a formal
+credit, fix the *rule* (with a test) rather than bending the sentence.
 
 ### "Cut on sight" — AI-tell list
 

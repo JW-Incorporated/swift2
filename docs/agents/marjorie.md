@@ -43,7 +43,7 @@ checkout**. **Model: pin to Fable (`claude-fable-5`)** — Joey's call,
 2026-07-11: Marjorie's judgment passes always run on the most capable
 available model; set it in the runner/agent config, and if Fable is ever
 unavailable the runner may fall back but must flag the substitution in the
-brief's Health section. `node scripts/marjorie/assemble-brief.mjs` produces
+brief's Health section. `node --use-env-proxy scripts/marjorie/assemble-brief.mjs` produces
 the deterministic skeleton (open bank items, PRs, merges, cadence status);
 Marjorie's judgment pass curates it (precedent, dedupe, ranking, plain-
 language framing) and posts. If no session runs, the watchdog Action

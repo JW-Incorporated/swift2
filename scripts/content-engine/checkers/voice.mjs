@@ -62,7 +62,19 @@ export const id = 'content.voice';
 // pass rewrote "Austin Swift" (her brother) into "Austin Taylor" before this
 // lookbehind was widened — never assume "Swift" alone means Taylor Swift
 // when a name immediately precedes it.
-const BARE_SWIFT = /(?<![A-Z][a-z]+ )\bSwift\b/g;
+//
+// LEGAL CASE CAPTIONS are excluded too (`… v. Swift`, `Swift v. …`, and the
+// `vs.` spelling). A case name is a fixed legal citation — "Hall v. Swift"
+// (the "Shake It Off" copyright suit) and "Mueller v. Swift" (the Denver
+// assault trial) are what those proceedings ARE CALLED, in filings, in
+// coverage, and on the docket. "Hall v. Taylor" is not the same case; it is
+// not a case at all. The `[A-Z][a-z]+ ` lookbehind above does not cover this
+// because the token before the surname is "v.", not a name. Found by the
+// false-positive battery in scripts/check-voice.test.ts (2026-08-12) while
+// making this rule a BLOCKING merge gate — a gate that demands an author
+// falsify a court caption is a gate that gets routed around on its first
+// real encounter.
+const BARE_SWIFT = /(?<![A-Z][a-z]+ )(?<!\bvs?\.\s)\bSwift\b(?!\s+vs?\.\s)/g;
 const TAYLOR = /\bTaylor\b/g;
 
 // Strip double-quoted spans (straight " " and curly " ") before counting —
@@ -194,8 +206,29 @@ const outletPattern = OUTLETS.map((o) => o.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'
 // words in the gap ("review", "of", "the", "show") — the original 3-word cap
 // missed it. Still bounded, not unlimited, to avoid spanning into an
 // unrelated verb later in a long sentence.
+//
+// DETERMINER GUARD (2026-08-12, real false positive — the last of the three
+// #1918 findings). Nearly every word in REPORT_VERB is also a common NOUN
+// ("report", "read", "note", "call", "find", "count", "credit", "file"…), so
+// `OUTLET + VERB` matches noun phrases as readily as clauses. The corpus hit:
+// "A later data point on the same open question as THE US WEEKLY REPORT
+// above" — an ordinary cross-reference to an earlier rumor, not the outlet
+// acting as anyone's grammatical subject, and nothing a rewrite could
+// improve. What separates the two is the article in front: real wire voice
+// writes "Us Weekly reported" / "Billboard's gallery logged" with NO
+// determiner before the outlet, while a determiner ("the/a/this/that/its/
+// her/his/their") makes the outlet part of a noun phrase the sentence is
+// merely referring to. So a determiner immediately before the outlet name
+// disqualifies the match. Outlets whose own name starts with "The" ("The
+// Guardian", "The New York Times") are unaffected: the match begins at their
+// "The", and the guard only inspects what precedes the match. This costs a
+// contrived miss ("That Billboard called it a masterpiece surprised nobody")
+// and buys the far more common noun-phrase false positive — the right trade
+// for a P3 rule that now BLOCKS merges (check:voice), where a false positive
+// is what makes people route around the gate.
+const DETERMINER_BEFORE = `(?<!\\b(?:[Tt]he|[Aa]|[Aa]n|[Tt]his|[Tt]hat|[Tt]hese|[Tt]hose|[Ii]ts|[Hh]er|[Hh]is|[Tt]heir|[Oo]ur)\\s)`;
 const WIRE_ATTRIBUTION = new RegExp(
-  `\\b(?:${outletPattern})(?:'s\\s+\\w+(?:[- ]\\w+){0,4})?\\s+${REPORT_VERB.source}\\b`,
+  `${DETERMINER_BEFORE}\\b(?:${outletPattern})(?:'s\\s+\\w+(?:[- ]\\w+){0,4})?\\s+${REPORT_VERB.source}\\b`,
   'g',
 );
 

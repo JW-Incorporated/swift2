@@ -39,6 +39,18 @@
 # (#783) sat permanently un-mergeable. A real user's token doesn't have
 # that restriction. Rotate SOCIAL_POSTER_PAT before it expires or this
 # silently reverts to that same stuck state.
+#
+# Failure surfacing (2026-08-11). This workflow used to finish GREEN even when
+# a post permanently failed — the only trace was a console.error in the log
+# and a PR body of fixed boilerplate. Twelve posts died that way between
+# 2026-07-21 and 2026-08-04 — eleven X (403 Forbidden on every attempt) and
+# one Instagram (#1897) — and nobody noticed for two weeks; the run that
+# killed the last one, 30981473515, is
+# still marked `success`. Now: the poster exits non-zero on a permanent
+# failure (so the run goes RED and watchdog/notification paths see it), emits
+# ::error:: annotations, writes a job summary, and puts the per-item outcome
+# in the queue-state PR's title and body. The state-commit step runs with
+# `if: always()` so a red run still records what happened — see its comment.
 name: social-poster
 on:
   schedule:
@@ -66,9 +78,14 @@ jobs:
         with:
           node-version: "24"
 
+      # Exits non-zero when a post permanently failed (2026-08-11) — see the
+      # "Failure surfacing" note in the header. Writes its run report to
+      # $SOCIAL_POSTER_REPORT, which the commit step below puts in the PR.
       - name: Post due queue items
+        id: post
         env:
           SOCIAL_FREEZE: ${{ vars.SOCIAL_FREEZE }}
+          SOCIAL_POSTER_REPORT: ${{ runner.temp }}/social-poster-report.md
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
@@ -78,9 +95,19 @@ jobs:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
         run: node scripts/social/post-queue.mjs
 
+      # `if: always()` is load-bearing, not defensive: the step above now
+      # fails the job when an item permanently failed, and that is exactly the
+      # run whose state MUST be recorded — the item's move into social/failed/
+      # only exists on this runner's disk. Skip this and the item stays in
+      # social/queue/ on main and retries against the same wall forever.
       - name: Commit queue state changes (via PR — main is branch-protected)
+        # Runs whether the poster succeeded or failed, but not if it never ran
+        # (a checkout/setup failure has no state to commit).
+        if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
         env:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          REPORT_FILE: ${{ runner.temp }}/social-poster-report.md
+          POST_OUTCOME: ${{ steps.post.outcome }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -89,11 +116,22 @@ jobs:
             echo "No queue changes to commit."
             exit 0
           fi
+          TITLE_SUFFIX=""
+          if [ "$POST_OUTCOME" != "success" ]; then
+            TITLE_SUFFIX=" — ⛔ A POST FAILED"
+          fi
+          BODY_FILE="$RUNNER_TEMP/social-poster-pr-body.md"
+          if [ -s "$REPORT_FILE" ]; then
+            cp "$REPORT_FILE" "$BODY_FILE"
+          else
+            echo "social-poster produced no report (the poster step itself crashed before reporting)." > "$BODY_FILE"
+          fi
+          printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run. No content decisions are made here.\n' >> "$BODY_FILE"
           BRANCH="social-poster/state-$(date -u +%Y%m%d%H%M%S)"
           git checkout -b "$BRANCH"
           git commit -m "social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push origin "$BRANCH"
-          gh pr create --title "social-poster: queue state $(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            --body "Automated queue state update (posted/failed/retry attempts) from this scheduled run. No content decisions are made here — see the run log for what happened to each item." \
+          gh pr create --title "social-poster: queue state $(date -u +%Y-%m-%dT%H:%M:%SZ)$TITLE_SUFFIX" \
+            --body-file "$BODY_FILE" \
             --base main --head "$BRANCH"
           gh pr merge "$BRANCH" --squash --auto --delete-branch

@@ -6,7 +6,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import pg from 'pg';
+import { makeClient } from './lib/pg.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const migrationsDir = join(here, '..', 'supabase', 'migrations');
@@ -21,7 +21,7 @@ const files = readdirSync(migrationsDir)
   .filter((f) => f.endsWith('.sql'))
   .sort();
 
-const client = new pg.Client({ connectionString, ssl: { rejectUnauthorized: false } });
+const client = makeClient(connectionString);
 await client.connect();
 try {
   for (const file of files) {

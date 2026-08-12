@@ -2388,74 +2388,13 @@ export default {
     },
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "speak-now-album",
-      year: 2010,
-      month: 10,
-      day: 25,
-      category: "music",
-      title: "Written entirely alone",
-      snippet: "A response to critics who doubted her songwriting: every word, solo.",
-      moment: {
-        sources: [
-          {
-            outlet: 'The Recording Academy',
-            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
-            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career — And Proved She\'ll Always Get The Last Word',
-            publisher: 'The Recording Academy',
-            source_type: 'official',
-            accessed_at: '2026-08-11',
-            reliability_score: 5,
-          },
-          {
-            outlet: 'Taste of Country',
-            url: 'https://tasteofcountry.com/taylor-swift-wrote-speak-now-by-herself/',
-            source_title: 'Taylor Swift Reveals Why She Wrote \'Speak Now\' by Herself',
-            publisher: 'Taste of Country',
-            source_type: 'interview',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Speak Now carries no co-writers — a deliberate statement of authorship after whispers that others wrote her hits.\n\nThe result is theatrical and intimate at once: apologies, fantasies, and confrontations staged under violet light.",
-      },
-    },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "speak-now-mine",
-      year: 2010,
-      month: 8,
-      day: 4,
-      category: "music",
-      title: "\"Mine\" leaks early, ships anyway",
-      snippet: "The lead single was rushed to radio and iTunes after an unauthorized online leak.",
-      moment: {
-        sources: [
-          {
-            outlet: 'The Recording Academy',
-            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
-            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career',
-            publisher: 'The Recording Academy',
-            source_type: 'official',
-            accessed_at: '2026-08-11',
-            reliability_score: 5,
-          },
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/',
-            source_title: 'Taylor Swift Rush Releases "Mine" to Radio After Internet Leak',
-            publisher: 'CBS News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-        ],
-        context: "\"Mine\" was announced via livestream and scheduled for an August 16 release, but an early leak forced Big Machine Records to rush it to country radio and iTunes on August 4 instead — nearly two weeks ahead of plan.",
-      },
-    },
+    // Two duplicate stubs removed (issue #616, 2026-07-29): "Written
+    // entirely alone" (speak-now-album) told the same no-co-writers story
+    // as the richer, sourced item above, and "'Mine' leaks early, ships
+    // anyway" (speak-now-mine) told the same rushed-release story as the
+    // richer, sourced "Mine leaks, so the label ships it 12 days early"
+    // item elsewhere in this file. Neither stub carried a milestone,
+    // hiddenClue, or other field not already covered by its rich twin.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.

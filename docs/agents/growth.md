@@ -128,6 +128,47 @@ file's header) — the two duplicate Instagram posts need manual deletion in
 the app; this can't recur going forward since the PAT fix prevents a queue
 item from ever staying stuck on `main`.
 
+**The silent outage (2026-07-21 → 2026-08-04, found 2026-08-11):** eleven X
+queue items hit `403 {"detail":"You are not permitted to perform this
+action."}` on all three attempts and were binned into `social/failed/`, and
+**every one of those social-poster runs finished green** — the poster caught
+the error, logged it to a console nobody reads, and exited 0. Run
+[30981473515](https://github.com/JW-Incorporated/swift2/actions/runs/30981473515)
+is the canonical receipt: conclusion `success`, log line
+"2026-08-04-mine-rush-release-x.json failed 3 times, moved to
+social/failed/". X posting recovered on its own from 2026-08-05 (six
+consecutive nights of real tweet ids in `social/posted/*-x.json`) with no code
+change, so the 403's cause was never established — nothing was watching.
+Fixed at the reporting layer, not the cause: the poster now exits non-zero on
+a permanent failure, annotates the run, and titles the queue-state PR
+`— ⛔ A POST FAILED` (see `docs/decisions.md`, 2026-08-11). **If it recurs,
+the check is the X developer portal for the `@longlivetscom` app: User
+authentication settings → App permissions must be *Read and Write*, and the
+Usage page shows whether the monthly post cap was hit. If permissions were
+Read-only, fix them AND regenerate the access token — an existing token keeps
+the scope it was minted with.** That is a founder action (credential
+surface), never an agent's.
+
+**It was never X-only.** The twelfth item in `social/failed/` is
+`2026-07-27-all-too-well-scarf-metaphor-ig.json` — a real Instagram post
+(the Red "scarf is a metaphor" deep cut), killed just as silently by Meta
+error `9007`/`2207027`, "the media is not ready for publishing". The swallow
+was in `post-queue.mjs`'s platform-agnostic catch block; X was simply failing
+often enough to be noticed. Its root cause — publishing an IG media container
+without waiting for `status_code: FINISHED` — is tracked as **#1897**. Note
+for whoever picks that up: the Meta payload says `is_transient: false` while
+its own `error_user_msg` says "please wait for a moment", so a
+"don't retry non-transient errors" rule would make this failure permanent on
+the first attempt. Don't add one without excluding `9007`/`2207027`.
+
+**What "0 posts" in the brief used to mean (fixed 2026-08-11):** the Growth
+line's post count was `postsToday`, taken by `growth-snapshot.yml` at 11:05
+UTC against a queue scheduled for 23:00–23:20 UTC — so it read 0 on days that
+posted perfectly well, and it summed all platforms, hiding a dark channel
+behind an active one. It now reports `postsLast24h` per platform
+(`X 1/IG 1/FB 0`). A brief showing `X 0` for **followers** is a genuine read
+from the X API, not a bug: the account really does have ~0 followers.
+
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
 - **Draft post approvals** → the Founders' Brief (6 AM / 8 PM delta) under a

@@ -5,7 +5,7 @@ Context you need: this layer last ran **2026-07-10** and was dark for a month, b
 Steps:
 
 1. From a clean checkout of `main`:
-   `node scripts/content-engine/run.mjs review-slice --factual-batches 2 --image-batches 1`
+   `node --use-env-proxy scripts/content-engine/run.mjs review-slice --factual-batches 2 --image-batches 1`
    It prints what it picked and why (changed content first, then never-reviewed, then oldest-reviewed) and writes the batch inputs plus `manifest.json` under `scripts/content-engine/.findings/agent-input/slice/`. **Do not run `prep-batches`** — that chunks the whole corpus (46 + 27 batches) and is a full sweep, not a nightly.
 
 2. Dispatch ONE subagent per batch in `manifest.json`, all in a single message so they run concurrently. **Model: `sonnet`. subagent_type: `general-purpose`.** Keep image agents to ≤3 concurrent (Wikimedia throttles). Do not exceed the batches the manifest lists — that cap is the budget.
@@ -37,9 +37,9 @@ Steps:
 
 3. When every dispatched agent has finished (or failed), fold the results in and file:
    ```
-   node scripts/content-engine/run.mjs ingest
-   node scripts/content-engine/run.mjs issues --create
-   node scripts/content-engine/run.mjs record-review
+   node --use-env-proxy scripts/content-engine/run.mjs ingest
+   node --use-env-proxy scripts/content-engine/run.mjs issues --create
+   node --use-env-proxy scripts/content-engine/run.mjs record-review
    ```
    `issues --create` is fingerprint-deduped and exits **non-zero** if any detected finding could not be filed — if it does, that is a REAL failure: say so loudly in the PR body and do not describe the run as successful. `record-review` marks only the batches that actually produced an output file; a batch that failed or hit a session limit stays unreviewed and returns to the front of tomorrow's queue automatically. Do not hand-edit the ledger.
 
