@@ -114,12 +114,19 @@ export default {
           excerpt: null,
           notes: 'official upload — verified via YouTube oEmbed 2026-08-12',
         },
-        press(
-          'https://www.billboard.com/music/pop/taylor-swift-snl-all-too-well-10-minute-version-performance-video-9659774/',
-          "'SNL': Taylor Swift Performs \"All Too Well (10 Minute Version)\"",
-          'Billboard',
-          'documents the single-song musical-guest slot and the short-film backdrop',
-        ),
+        // Not the press() helper: it hardcodes accessed_at 2026-07-09, which
+        // would stamp a source added and verified on 2026-08-12 with a
+        // month-old access date.
+        {
+          source_url: 'https://www.billboard.com/music/pop/taylor-swift-snl-all-too-well-10-minute-version-performance-video-9659774/',
+          source_title: "'SNL': Taylor Swift Performs \"All Too Well (10 Minute Version)\"",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-12',
+          reliability_score: 4,
+          excerpt: null,
+          notes: 'documents the single-song musical-guest slot and the short-film backdrop',
+        },
       ],
     },
     {
