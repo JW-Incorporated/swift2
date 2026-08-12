@@ -39,7 +39,7 @@ export default {
         'Decoded within hours of release from shared names and mirrored details across the three lyrics; Taylor confirmed the intended triangle in interviews and the Long Pond sessions. The characters are explicitly fictional — which is what makes this the fandom\'s cleanest confirmed close-read.',
       confidence: 'official',
       outcome: 'confirmed',
-      relatedSlugs: [],
+      relatedSlugs: ['evermore:dorothea-and-the-love-triangle'],
       sources: [
         wiki('Folklore_(Taylor_Swift_album)', 'Folklore (Taylor Swift album)'),
         wiki('Cardigan_(song)', 'cardigan (song)'),

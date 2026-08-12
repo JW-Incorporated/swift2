@@ -63,7 +63,7 @@ directly on a PR.
 **Hourly** Kevin:
 1. Lists open `cie` issues (`--limit 500`; the gh default caps at 30).
 2. Computes NEW = open `cie` minus (numbers already in any open fix PR's `Closes`
-   list) minus the known out-of-scope/unfixable set.
+   list) minus every ticket carrying an **exclusion label** (below).
 3. If NEW is empty → no-op ("no new Karen tickets").
 4. For each NEW ticket, **reads its comments first** (invariant 7): honor the
    latest human comment over the body — apply the refined fix, skip it if a
@@ -72,6 +72,36 @@ directly on a PR.
    (`fix/karen-tickets`, or a fresh branch off `origin/main` if that PR merged),
    one file-scoped agent per seed file, then updates the PR body with `Closes #`.
 6. Never merges, never closes.
+
+### The parked set — how a ticket leaves Kevin's queue
+
+**A ticket may only leave Stream 1 by carrying a label. Never by issue number.**
+
+| Label | Meaning | Expires? |
+|---|---|---|
+| `cie:safety` | Safety/red-line finding. Escalated to a founder; an unattended agent must never "fix" one. | No — permanent class rule |
+| `cie:escalate` | Karen demanded human review now. | No — permanent class rule |
+| `kevin-skip` | This *specific* ticket is parked, for a reason recorded in a comment on the ticket, with a review date. | **Yes — every park states a review date** |
+
+Applying `kevin-skip` without a comment giving **(a) the reason and (b) a review
+date** is a defect. `.github/workflows/unowned-sweep.yml` re-lists every parked
+ticket in its standing ledger on every run, with its age, so a park can never
+become permanent through silence.
+
+> **Why this section exists (2026-08-11).** From 2026-07-14 the Stream 1 prompt
+> subtracted a hardcoded set — `{194,203,206,298,301,153,137,138}` — introduced
+> wholesale in the cloud-routine migration (#520) with no rationale in the
+> commit, no expiry, and no tracking ticket. Those eight tickets were therefore
+> **permanently unowned by construction**, and no other scanner's filter reached
+> them. The audit that removed it found: two were stale duplicate rollups
+> superseded four times over; **one was the PhotoDNA/NCMEC CSAM-detection
+> ticket**, which needed a founder, not a skip; and **five were ordinary
+> watermarked-image fixes of a class Kevin had already fixed successfully
+> elsewhere** — `supabase/seed/content/reputation.mjs` carries an in-file note
+> where Stream 1 replaced a `tayswiftstyle` collage under rollup #751 on
+> 2026-07-23, the same host and same defect as parked #298/#301. The individual
+> tickets were never the bug. **The silent, permanent, unreviewable exclusion
+> was the bug.**
 
 ## Stream 2 — user-feedback tickets (`user-feedback` label): daily digest → human accept/reject
 

@@ -1,0 +1,10 @@
+{
+  "platform": "instagram",
+  "body": "cardigan weather.\n\nthat is a starter chip, word for word, and this is what it actually handed back:\n\nnever grow up (speak now) — a lullaby to a child that turns out to be a lullaby to herself, alone in a new apartment.\nseven (folklore) — two little girls plotting pirate escapes, remembered decades on.\ntim mcgraw (debut) — a goodbye that just wants to be remembered when the right song comes on.\nnew year’s day (reputation) — after twelve tracks of armor, she just wants whoever holds the trash bag.\nwe were happy (fearless) — cataloging the golden middle of a love, because the happiness is what hurts to recall.\n\nfive songs, five different eras, from two words.\n\ntap Mood at the top of the page and try your own.\n\nlonglivets.com/?utm_source=instagram&utm_medium=social&utm_campaign=mood-chat",
+  "media": [
+    "/social/library/mood-chat-screen.png"
+  ],
+  "scheduledAt": "2026-08-16T23:00:00Z",
+  "campaign": "launch:mood-chat",
+  "why": "Calendar slot 2026-08-16 23:00Z IG, launch:mood-chat day +4 (example output), hook = the chip label VERBATIM as the first line, exactly as the calendar and mood-starters.ts require (approved copy, never reworded). The result is REAL, not invented: the chip path is deterministic and model-free, and this exact vector was run against the live endpoint at www.longlivets.com/api/mood on 2026-08-11, returning Never Grow Up / seven / Tim McGraw / New Year’s Day / We Were Happy in that order, with the one-liners quoted from the response. Every returned song sits in a scored era — nothing from evermore, Midnights, TTPD or TLOAS, per the coverage-gap rule. MEDIA, disclosed: this reuses /social/library/mood-chat-screen.png, four days after the 08-12 announce, because the library has only two Mood assets and the ideal image (a screenshot of this actual result) cannot be captured in a queue-only PR. Recommend Tree/Growth capture a real result screenshot for the next Mood beat. DEPLOY DEPENDENCY: needs #1903 deployed."
+}
