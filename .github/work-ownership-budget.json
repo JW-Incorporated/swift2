@@ -1,0 +1,46 @@
+{
+  "$comment": [
+    "Budget for `npm run check:work-ownership` (scripts/check-work-ownership.mjs),",
+    "run daily by watchdog.yml. Each number is the MAXIMUM tolerated count for one",
+    "ownership condition. Exceed it and the watchdog opens/refreshes a persistent",
+    "watchdog-alert issue and emails both founders.",
+    "",
+    "WHY A BUDGET AND NOT ZERO. Seeded 2026-08-11 at the real counts on the day the",
+    "check shipped: 138 open issues carried no `desk:*` label at all, and 9 non-draft",
+    "PRs were more than 7 days old. Zero thresholds would have made this alarm red on",
+    "day one and every day after, and this repo has already proved what happens to an",
+    "alarm that is always red (#947 / #1177 / #1203 / #1224 — four watchdog alerts,",
+    "zero comments between them). Budgeted at today's backlog, a breach means the",
+    "situation got WORSE — which is the only thing worth an email.",
+    "",
+    "HOW TO USE IT. Lowering a number banks progress and is the normal edit; it is",
+    "how the backlog actually gets burned down. Raising one is a policy act: say why",
+    "in the commit message, because nothing here can force you to.",
+    "",
+    "`ambiguous` and `abandoned` start at 0 because no `desk:*` label exists yet. They",
+    "measure failures of routing, and a failure of routing should never be budgeted for.",
+    "",
+    "`unowned` starts at 0 DELIBERATELY, and it is the one number expected to be raised",
+    "rather than lowered. It counts the fence complement — work no charter covers — so 0",
+    "means the very first item that lands there is loud, which is the point: nothing in",
+    "the org is chartered today to notice the complement is non-empty. Once its real",
+    "steady-state size is known, raise it to what the org can actually work off.",
+    "",
+    "Full rationale: docs/proposals/2026-08-11-autonomous-pickup-and-merge-delegation.md"
+  ],
+  "budget": {
+    "unrouted": 138,
+    "ambiguous": 0,
+    "unowned": 0,
+    "abandoned": 0,
+    "stalePr": 9
+  },
+  "notEnforced": {
+    "unrouted": "The `desk:*` taxonomy is proposed, not adopted — see the pending 2026-08-11 decision. Until a dispatcher actually labels issues, every open issue counts as unrouted and this would page daily with 138 items, which is an alarm nobody would read. Measured from day one so the number is real before it is enforced. ENFORCE THIS the day routing-as-state is approved, and lower the budget as the backlog is labelled."
+  },
+  "windows": {
+    "routeWithinHours": 24,
+    "abandonedDays": 10,
+    "stalePrDays": 7
+  }
+}

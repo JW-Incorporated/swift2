@@ -5,8 +5,13 @@
 // 2026-07-21 and 2026-08-04 (eleven X, one Instagram — #1897) while every
 // social-poster run stayed green.
 //
+// Also covers the states that deliberately spend no attempt (skipped /
+// waiting) and their escalation ladder: red at 24h overdue
+// (run-report.mjs's STUCK_AFTER_HOURS), retired to social/failed/ at 48h
+// (queue.mjs's isStaleDue).
+//
 // Drives the real post-queue.mjs against a temp SOCIAL_ROOT with `fetch`
-// stubbed. No network, no credentials: the X_* env vars below are obvious
+// stubbed. No network, no credentials: the *_ENV vars below are obvious
 // dummies and never leave the process.
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -14,16 +19,26 @@ import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promis
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
-const DUMMY_X_ENV = {
+const DUMMY_CREDS_ENV = {
   X_API_KEY: 'dummy-key',
   X_API_KEY_SECRET: 'dummy-key-secret',
   X_ACCESS_TOKEN: 'dummy-token',
   X_ACCESS_TOKEN_SECRET: 'dummy-token-secret',
+  IG_ACCESS_TOKEN: 'dummy-ig-token',
+  IG_BUSINESS_ACCOUNT_ID: '999',
 };
 
 let root: string;
 let reportPath: string;
 const savedEnv = { ...process.env };
+
+/** Due 30 minutes ago — recently due: past scheduledAt, but nowhere near the
+ * 24h stuck threshold or the 48h staleness rule. */
+const justDue = () => new Date(Date.now() - 30 * 60 * 1000).toISOString();
+/** Due 30 hours ago — past the 24h stuck threshold, before the 48h rule. */
+const stuckDue = () => new Date(Date.now() - 30 * 60 * 60 * 1000).toISOString();
+/** Due 3 days ago — past the 48h staleness rule. */
+const staleDue = () => new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
 
 async function seedQueueItem(name: string, item: Record<string, unknown>) {
   await writeFile(path.join(root, 'social', 'queue', name), JSON.stringify(item, null, 2) + '\n');
@@ -33,8 +48,19 @@ function xItem(overrides: Record<string, unknown> = {}) {
   return {
     platform: 'x',
     body: 'on this day in 2010: "mine" leaked early, so taylor just shipped it early.',
-    scheduledAt: '2020-01-01T00:00:00Z', // long past — always due
-    campaign: 'test',
+    scheduledAt: justDue(),
+    campaign: 'test-x',
+    ...overrides,
+  };
+}
+
+function igItem(overrides: Record<string, unknown> = {}) {
+  return {
+    platform: 'instagram',
+    body: 'there\'s a scarf in "all too well." you know the one.',
+    media: ['/social/library/scarf.png'],
+    scheduledAt: justDue(),
+    campaign: 'test-ig',
     ...overrides,
   };
 }
@@ -46,23 +72,21 @@ async function runPoster() {
   return mod.main();
 }
 
-function igItem(overrides: Record<string, unknown> = {}) {
+/** lib/platforms.mjs reads bodies via res.text() (parseResponse), so every
+ * stubbed response carries both shapes. */
+function asResponse(r: { ok?: boolean; status?: number; body?: unknown }) {
+  const body = r.body ?? {};
   return {
-    platform: 'instagram',
-    body: 'there\'s a scarf in "all too well." you know the one.',
-    media: ['/eras/red.png'],
-    scheduledAt: '2020-01-01T00:00:00Z',
-    campaign: 'test',
-    ...overrides,
+    ok: r.ok ?? true,
+    status: r.status ?? 200,
+    json: async () => body,
+    text: async () => JSON.stringify(body),
+    headers: { get: () => null },
   };
 }
 
 function stubFetch(response: { ok: boolean; status: number; body: unknown }) {
-  const spy = vi.fn(async () => ({
-    ok: response.ok,
-    status: response.status,
-    json: async () => response.body,
-  }));
+  const spy = vi.fn(async () => asResponse(response));
   vi.stubGlobal('fetch', spy);
   return spy;
 }
@@ -95,7 +119,7 @@ function stubIgFetch(steps: {
     else if (String(url).includes('/media_publish')) step = resolved.publish;
     else if (init?.method === 'POST') step = resolved.container;
     else step = resolved.status;
-    return { ok: step.ok ?? true, status: step.status ?? 200, json: async () => step.body ?? {} };
+    return asResponse(step);
   });
   vi.stubGlobal('fetch', spy);
   return spy;
@@ -108,7 +132,7 @@ beforeEach(async () => {
   reportPath = path.join(root, 'report.md');
   process.env = {
     ...savedEnv,
-    ...DUMMY_X_ENV,
+    ...DUMMY_CREDS_ENV,
     SOCIAL_ROOT: root,
     SOCIAL_POSTER_REPORT: reportPath,
   };
@@ -213,14 +237,15 @@ describe('post-queue: a failed X post is reported, never swallowed', () => {
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
   });
 
-  it('reports a media-bearing X item as failed rather than posting it text-only', async () => {
+  it('reports an X item with too many images as failed rather than posting a subset', async () => {
     stubFetch({ ok: true, status: 200, body: { data: { id: '123' } } });
-    await seedQueueItem('a-x.json', xItem({ attempts: 2, media: ['/eras/red.png'] }));
+    const five = Array.from({ length: 5 }, (_, i) => `/social/library/${i}.png`);
+    await seedQueueItem('a-x.json', xItem({ attempts: 2, media: five }));
 
     const outcomes = await runPoster();
 
     expect(process.exitCode).toBe(1);
-    expect(outcomes[0].error).toContain('X image/video posting is not implemented yet');
+    expect(outcomes[0].error).toContain('X posts support at most 4 images');
     expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
   });
 });
@@ -296,17 +321,14 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
   });
 });
 
-// --- item 1: the media gate, wired to the schedule ------------------------
+// --- the media gate, wired to the schedule --------------------------------
 // Instagram media is FETCHED by Meta from the live site, so an item whose
 // image PR hasn't merged/deployed cannot post no matter what scheduledAt
 // says. It must WAIT — visibly — not burn attempts and die.
 describe('post-queue: media that is not live yet waits instead of failing', () => {
-  /** Due 30 minutes ago — inside the stuck threshold. */
-  const justDue = () => new Date(Date.now() - 30 * 60 * 1000).toISOString();
-
   it('does not publish, does not spend an attempt, and stays queued', async () => {
     const spy = stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
-    await seedQueueItem('a-ig.json', igItem({ scheduledAt: justDue() }));
+    await seedQueueItem('a-ig.json', igItem());
 
     const outcomes = await runPoster();
 
@@ -323,7 +345,7 @@ describe('post-queue: media that is not live yet waits instead of failing', () =
 
   it('stays green while waiting — this is holding, not breaking', async () => {
     stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
-    await seedQueueItem('a-ig.json', igItem({ scheduledAt: justDue() }));
+    await seedQueueItem('a-ig.json', igItem());
 
     await runPoster();
 
@@ -336,7 +358,7 @@ describe('post-queue: media that is not live yet waits instead of failing', () =
 
   it('ships itself on the next run once the deploy lands', async () => {
     stubIgFetch();
-    await seedQueueItem('a-ig.json', igItem({ scheduledAt: justDue() }));
+    await seedQueueItem('a-ig.json', igItem());
 
     const outcomes = await runPoster();
 
@@ -344,16 +366,17 @@ describe('post-queue: media that is not live yet waits instead of failing', () =
     expect(await readdir(path.join(root, 'social', 'posted'))).toEqual(['a-ig.json']);
   });
 
-  it('reddens the run once the wait passes the stuck threshold', async () => {
+  it('reddens the run once the wait passes the 24h stuck threshold', async () => {
     stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
-    // scheduledAt in 2020 — waiting for years, not minutes.
-    await seedQueueItem('a-ig.json', igItem());
+    await seedQueueItem('a-ig.json', igItem({ scheduledAt: stuckDue() }));
 
     const outcomes = await runPoster();
 
     expect(process.exitCode).toBe(1);
     expect(outcomes[0].kind).toBe('waiting');
     expect(await readFile(reportPath, 'utf-8')).toContain('STUCK more than');
+    // Still queued — loud is not the same as retired; the 48h rule does that.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
   });
 
   it('does not preflight a text-only X item', async () => {
@@ -366,17 +389,24 @@ describe('post-queue: media that is not live yet waits instead of failing', () =
   });
 });
 
-// --- item 4: a no-attempt skip must not be able to hide forever ----------
+// --- a no-attempt skip must not be able to hide forever -------------------
 describe('post-queue: an indefinitely-skipped item escalates', () => {
-  it('reddens the run when the era-art guard has skipped an item past the threshold', async () => {
-    stubIgFetch();
-    // A recent IG post using the same era tile makes the guard skip this one,
-    // exactly as it has skipped the real 2026-08-09 item every 30 minutes.
+  const eraArt = { media: ['/eras/folklore.png'], mediaKind: 'era-art' };
+
+  async function seedRecentEraArtPost() {
+    // A recent IG post using the same era tile makes the guard skip the
+    // queued one, exactly as it skipped the real 2026-08-09 item every 30
+    // minutes.
     await writeFile(
       path.join(root, 'social', 'posted', 'earlier-ig.json'),
       JSON.stringify({ platform: 'instagram', media: ['/eras/folklore.png'], postedAt: '2026-08-04T19:37:29Z' }, null, 2),
     );
-    await seedQueueItem('2026-08-09-august-augustine-ig.json', igItem({ media: ['/eras/folklore.png'] }));
+  }
+
+  it('reddens the run when the era-art guard has skipped an item past the threshold', async () => {
+    stubIgFetch();
+    await seedRecentEraArtPost();
+    await seedQueueItem('2026-08-09-august-augustine-ig.json', igItem({ ...eraArt, scheduledAt: stuckDue() }));
 
     const outcomes = await runPoster();
 
@@ -390,19 +420,69 @@ describe('post-queue: an indefinitely-skipped item escalates', () => {
 
   it('stays green for a skip that is still fresh', async () => {
     stubIgFetch();
-    await writeFile(
-      path.join(root, 'social', 'posted', 'earlier-ig.json'),
-      JSON.stringify({ platform: 'instagram', media: ['/eras/folklore.png'], postedAt: '2026-08-04T19:37:29Z' }, null, 2),
-    );
-    await seedQueueItem(
-      'fresh-ig.json',
-      igItem({ media: ['/eras/folklore.png'], scheduledAt: new Date(Date.now() - 60 * 1000).toISOString() }),
-    );
+    await seedRecentEraArtPost();
+    await seedQueueItem('fresh-ig.json', igItem({ ...eraArt, scheduledAt: justDue() }));
 
     const outcomes = await runPoster();
 
     expect(outcomes[0].kind).toBe('skipped');
     expect(process.exitCode).toBe(0);
+  });
+
+  it('retires an item stuck past 48h to social/failed/ as a reported failure', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem({ scheduledAt: staleDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].kind).toBe('failed');
+    expect(outcomes[0].error).toContain('48h');
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-ig.json']);
+    const retired = JSON.parse(await readFile(path.join(root, 'social', 'failed', 'a-ig.json'), 'utf-8'));
+    expect(retired.failureReason).toContain('48h');
+  });
+});
+
+// --- idempotency: the 2026-07-17 triple-post class ------------------------
+// A post can genuinely succeed while its queue -> posted state-commit PR
+// never lands, so a later run finds the item still in social/queue/. It must
+// be skipped loudly, never reposted.
+describe('post-queue: an already-posted item is never reposted', () => {
+  it('skips a queue item whose campaign already has a posted record', async () => {
+    const spy = stubIgFetch();
+    await writeFile(
+      path.join(root, 'social', 'posted', 'same-campaign-ig.json'),
+      JSON.stringify(
+        { platform: 'instagram', body: 'different text, same campaign', campaign: 'test-ig', postedAt: '2026-08-10T19:00:00Z', url: 'https://www.instagram.com/p/x' },
+        null,
+        2,
+      ),
+    );
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(outcomes[0].error).toContain('already posted');
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'POST')).toHaveLength(0);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+  });
+
+  it('skips an identical body even with no campaign tag', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    const body = 'the exact same tweet text';
+    await writeFile(
+      path.join(root, 'social', 'posted', 'earlier-x.json'),
+      JSON.stringify({ platform: 'x', body, postedAt: '2026-08-10T19:00:00Z' }, null, 2),
+    );
+    await seedQueueItem('a-x.json', xItem({ body, campaign: undefined }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(outcomes[0].error).toContain('already posted');
   });
 });
 
@@ -445,5 +525,17 @@ describe('post-queue: the happy path stays green', () => {
     expect(outcomes).toEqual([]);
     expect(spy).not.toHaveBeenCalled();
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('quarantines an invalid scheduledAt as a reported failure instead of an invisible item', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    await seedQueueItem('bad-x.json', xItem({ scheduledAt: 'not a date' }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(outcomes[0].error).toContain('scheduledAt');
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['bad-x.json']);
   });
 });

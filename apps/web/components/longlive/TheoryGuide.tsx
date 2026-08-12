@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
-import { X, Sparkles, Egg, HelpCircle, ArrowRight } from 'lucide-react';
+import { X, Share2, Sparkles, Egg, HelpCircle, ArrowRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { theoriesForEra, resolveRelatedTheory } from '@/lib/longlive/theories';
@@ -51,7 +51,7 @@ const SETTLED_OUTCOMES: ReadonlySet<TheoryOutcome> = new Set(['confirmed', 'part
 
 export function TheoryGuide() {
   const { theoryGuideEraId, share } = useAppState();
-  const { closeTheoryGuide } = useAppActions();
+  const { closeTheoryGuide, openShare } = useAppActions();
 
   const era = theoryGuideEraId ? getEra(theoryGuideEraId) : undefined;
   const theories = theoryGuideEraId ? theoriesForEra(theoryGuideEraId) : [];
@@ -96,13 +96,27 @@ export function TheoryGuide() {
               'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 30%, transparent), var(--era-bg))',
           }}
         />
-        <button
-          onClick={closeTheoryGuide}
-          className="era-icon-btn absolute right-4 top-4 rounded-full p-2 backdrop-blur-md"
-          aria-label="Close theories guide"
-        >
-          <X className="h-5 w-5" />
-        </button>
+        {/* This overlay covers the TopBar, so its Share button is unreachable
+            here — the affordance rides in the hero controls, beside Close
+            (#707). TheoryGuide uses its own hero X rather than OverlayNav, so
+            the button is added here directly. */}
+        <div className="absolute right-4 top-4 flex items-center gap-2">
+          <button
+            onClick={() => openShare({ kind: 'theoryGuide', eraId: era.id })}
+            className="era-icon-btn grid size-11 place-items-center rounded-full backdrop-blur-md"
+            aria-label="Share"
+            title="Share"
+          >
+            <Share2 className="h-5 w-5" />
+          </button>
+          <button
+            onClick={closeTheoryGuide}
+            className="era-icon-btn grid size-11 place-items-center rounded-full backdrop-blur-md"
+            aria-label="Close theories guide"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
       </div>
 
       <div className="relative z-10 mx-auto -mt-12 max-w-2xl px-5 pb-24">

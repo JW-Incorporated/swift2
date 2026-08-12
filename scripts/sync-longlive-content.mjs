@@ -26,10 +26,12 @@ import { createClient } from '@supabase/supabase-js';
 import {
   ROOT,
   SLUG_TO_ERA_ID,
+  SOURCE_TYPE_LITERAL,
   esc,
   loadWebEnvLocal,
   preferDbSource,
   slugify,
+  sourceLiteral,
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
@@ -559,6 +561,73 @@ async function fetchFromSupabase() {
   return byEra;
 }
 
+/**
+ * Projects one seed `item` into the flat argument object addItem() expects,
+ * resolving each field to its authored home. This is the CALLER link of the
+ * chain — the one that has silently dropped a field five times now
+ * (significance, moment cross-links, rumor lifecycle, socialPost, and #846's
+ * `moment.video`): the type, normalizer, validator, serializer and UI were
+ * all correct every time, and the vault still received nothing because this
+ * projection never read the field. It's exported and pure specifically so a
+ * test can feed it a seed-shaped item and assert the value survives to the
+ * emitted source — a test on addItem()/buildOutputSource() alone cannot catch
+ * a bug here, since those links already handle every field. Every optional
+ * field authored at the moment level needs an explicit read below.
+ */
+export function seedItemToInput(item) {
+  return {
+    year: item.year,
+    month: item.month,
+    day: item.day ?? null,
+    category: item.category,
+    title: item.title,
+    snippet: item.snippet,
+    context: item.moment?.context ?? null,
+    sources: item.moment?.sources ?? null,
+    sourceUrl: item.sourceUrl ?? null,
+    thumbnailUrl: item.thumbnailUrl ?? null,
+    photos: item.moment?.photos ?? null,
+    slug: item.slug ?? null,
+    tags: item.tags ?? null,
+    threadIds: item.threadIds ?? null,
+    // Accepted at EITHER level, like relatedIds/socialPost below (#846): the
+    // clip reads as item metadata to one author and as Tier-1 moment detail to
+    // another. Reading only `item.video` here is exactly what silently dropped
+    // the 3 real `moment.video` clips in the-life-of-a-showgirl.mjs (Fate of
+    // Ophelia MV, Elizabeth Taylor supercut, the songwriting interview) — the
+    // video type, addItem() and the serializer were all correct; this line was
+    // the sole missing link.
+    video: item.video ?? item.moment?.video ?? null,
+    // Accepted at EITHER level, like relatedIds below: the post reads as
+    // item metadata to one author and as Tier-1 moment detail to another.
+    // Missing this line is what made the field vanish on first build —
+    // the type, normalizer, validator, serializer and UI were all correct
+    // and the vault still received nothing, because the CALLER never
+    // passed it. Fourth time this repo has lost a field in exactly one
+    // link of that chain.
+    socialPost: item.socialPost ?? item.moment?.socialPost ?? null,
+    // Cross-links may live on the item or its Tier-1 moment detail —
+    // accept either so the content lane can pick the natural home.
+    relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
+    significance: item.significance ?? null,
+    // Tier-1 detail like photos/sources — products live on the moment.
+    products: item.moment?.products ?? null,
+    // Like relatedIds, confidence/rumors are accepted at EITHER level —
+    // confidence naturally reads as item metadata, rumors as Tier-1
+    // moment detail, but a mixed-up placement must not fail open (a
+    // silently-ignored honesty label is the worst outcome this feature
+    // has). validate-content.mjs checks both spots the same way.
+    confidence: item.confidence ?? item.moment?.confidence ?? null,
+    rumors: item.moment?.rumors ?? item.rumors ?? null,
+    // Editorial period labels + hidden-clue payoffs (stage-2a migration,
+    // 2026-07-19) — item-level seed fields, piped to addItem's handling.
+    dateLabel: item.dateLabel ?? null,
+    hiddenClue: item.hiddenClue ?? null,
+    milestone: item.milestone ?? null,
+    pullQuote: item.pullQuote ?? null,
+  };
+}
+
 /** Fallback source: the local supabase/seed/content/*.mjs files. */
 async function fetchFromLocalFiles() {
   const files = (await readdir(SEED_DIR)).filter((f) => f.endsWith('.mjs') && f !== '_example.mjs');
@@ -571,50 +640,7 @@ async function fetchFromLocalFiles() {
     const { eraSlug, items } = mod.default;
 
     for (const item of items) {
-      addItem(byEra, seenIdsByEra, item.eraSlug ?? eraSlug, {
-        year: item.year,
-        month: item.month,
-        day: item.day ?? null,
-        category: item.category,
-        title: item.title,
-        snippet: item.snippet,
-        context: item.moment?.context ?? null,
-        sources: item.moment?.sources ?? null,
-        sourceUrl: item.sourceUrl ?? null,
-        thumbnailUrl: item.thumbnailUrl ?? null,
-        photos: item.moment?.photos ?? null,
-        slug: item.slug ?? null,
-        tags: item.tags ?? null,
-        threadIds: item.threadIds ?? null,
-        video: item.video ?? null,
-        // Accepted at EITHER level, like relatedIds below: the post reads as
-        // item metadata to one author and as Tier-1 moment detail to another.
-        // Missing this line is what made the field vanish on first build —
-        // the type, normalizer, validator, serializer and UI were all correct
-        // and the vault still received nothing, because the CALLER never
-        // passed it. Fourth time this repo has lost a field in exactly one
-        // link of that chain.
-        socialPost: item.socialPost ?? item.moment?.socialPost ?? null,
-        // Cross-links may live on the item or its Tier-1 moment detail —
-        // accept either so the content lane can pick the natural home.
-        relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
-        significance: item.significance ?? null,
-        // Tier-1 detail like photos/sources — products live on the moment.
-        products: item.moment?.products ?? null,
-        // Like relatedIds, confidence/rumors are accepted at EITHER level —
-        // confidence naturally reads as item metadata, rumors as Tier-1
-        // moment detail, but a mixed-up placement must not fail open (a
-        // silently-ignored honesty label is the worst outcome this feature
-        // has). validate-content.mjs checks both spots the same way.
-        confidence: item.confidence ?? item.moment?.confidence ?? null,
-        rumors: item.moment?.rumors ?? item.rumors ?? null,
-        // Editorial period labels + hidden-clue payoffs (stage-2a migration,
-        // 2026-07-19) — item-level seed fields, piped to addItem's handling.
-        dateLabel: item.dateLabel ?? null,
-        hiddenClue: item.hiddenClue ?? null,
-        milestone: item.milestone ?? null,
-        pullQuote: item.pullQuote ?? null,
-      });
+      addItem(byEra, seenIdsByEra, item.eraSlug ?? eraSlug, seedItemToInput(item));
     }
   }
 
@@ -664,7 +690,7 @@ export function buildOutputSource(byEra) {
   lines.push('  body: string[];');
   lines.push('  tags: ContentTag[];');
   lines.push('  images?: ImageRef[];');
-  lines.push('  sources?: { name: string; url: string }[];');
+  lines.push(`  sources?: ${SOURCE_TYPE_LITERAL}[];`);
   lines.push('  video?: { youtubeId: string; title: string };');
   lines.push('  socialPost?: SocialPost;');
   lines.push('  hiddenClue?: HiddenClue;');
@@ -705,7 +731,7 @@ export function buildOutputSource(byEra) {
         lines.push(`      images: [${imgs}],`);
       }
       if (it.sources && it.sources.length) {
-        const srcs = it.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
+        const srcs = it.sources.map(sourceLiteral).join(', ');
         lines.push(`      sources: [${srcs}],`);
       }
       if (it.video) {

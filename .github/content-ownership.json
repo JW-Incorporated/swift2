@@ -1,0 +1,9 @@
+{
+  "_readme": "CONTENT OWNERSHIP LOCK. A founder claims an era here; the automated content fleet (Vault Run and its lanes) then skips that era's seed files, and auto-merge-content.yml will NOT auto-merge a non-owner PR that touches a claimed era's seed files (it waits for a human, or an ownership-override label). SHIPPED EMPTY = nothing claimed = the fleet runs exactly as before. This file lives under .github/ on purpose: .github/ is in NEVER_ALLOWLIST, so a bot/fleet PR can never auto-merge a change to this lock itself. Schema + rules: scripts/check-content-ownership.mjs. To claim: add a row to `claims` in a PR a human merges. era must be a real era slug (supabase/seed/eras-data.mjs); owner must be a key of `founders`.",
+  "version": 1,
+  "founders": {
+    "joey": ["sffan15-sys"],
+    "wyatt": ["wjduvall-cmd"]
+  },
+  "claims": []
+}

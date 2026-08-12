@@ -1,30 +1,29 @@
-// Schema validation for social/queue/**.json — the layer that was entirely
-// missing (2026-08-11). `npm run validate:content` covers supabase/seed/**
-// and nothing else, so until now the FIRST validator a queue item ever met
-// was the live platform API, at 23:00 UTC, with three retries and then
-// social/failed/. There is no cheaper place to catch a malformed draft than
-// the PR that adds it.
+// Schema validation for social/queue/**.json — the CI backstop layer
+// (2026-08-11). `npm run validate:content` covers supabase/seed/** and
+// nothing else, and check-drafts.mjs (the draft-time quality gate) runs on
+// the files a PR touches — so an item already sitting in the queue when a
+// rule tightens, or one that lands via a path that skips the draft checker,
+// used to meet its FIRST validator at the live platform API, at post time,
+// with three retries and then social/failed/. There is no cheaper place to
+// catch a malformed draft than CI's required `build` job.
 //
 // WHY THIS EXISTS, CONCRETELY — the X body-length rule below is not
-// hypothetical. Of the 12 items in social/failed/, eleven are X posts that
-// died on a 403 "You are not permitted to perform this action." Lengths:
-//
-//   posted OK (13 items):  84, 219, 246, 247, 260, 268, 270, 271, 272,
-//                          272, 274, 275, 276
-//   failed 403 (11 items): 294, 302, 310, 321, 322, 338, 341, 342, 352,
-//                          358, 373
-//
-// A clean separation at 280 — X's standard character limit for a non-Premium
-// account. Every X post ever attempted at <=276 chars landed; every one at
-// >=294 got a 403. X returns 403 (not 400) for an over-length tweet on the
-// v2 endpoint, which is why this read as a permissions problem for two weeks
-// and why "X is dark" was diagnosed as a credentials/duplicate-content
-// issue. It was neither: the drafts were simply too long.
+// hypothetical. Of the 12 items in social/failed/ as of 2026-08-11, eleven
+// are X posts that died on a 403 "You are not permitted to perform this
+// action." Every one measured over X's real 280-character *weighted* limit
+// (raw lengths 294-373); every X post that ever succeeded was under it.
+// X returns 403 (not 400) for an over-length tweet on the v2 endpoint,
+// which is why this read as a permissions/duplicate-content problem for two
+// weeks. It was neither: the drafts were simply too long. The counting rule
+// lives in lib/x-length.mjs (URLs always weigh 23, most emoji/CJK weigh 2)
+// and is shared verbatim with check-drafts.mjs's draft-time gate.
 //
 // This module is pure (no fs, no network) so it is unit-testable and can be
-// called from anywhere: scripts/social/validate-queue.mjs (CI), and — when
-// #1900's draft-time gate lands — from check-drafts.mjs, which today does
-// voice/opener/media quality but no schema at all.
+// called from anywhere: scripts/social/validate-queue.mjs (CI), and
+// check-drafts.mjs if the two gates ever fold into one.
+
+import { weightedTweetLength } from './x-length.mjs';
+import { MAX_X_IMAGES } from './platforms.mjs';
 
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
@@ -32,22 +31,23 @@ export const PLATFORMS = ['x', 'instagram'];
 /**
  * Per-platform hard limits, enforced by the platform, not by taste.
  *
- * `maxBody` for X is the standard 280-character tweet limit. If the account
- * is ever upgraded to X Premium (25,000 chars) this becomes wrong in the
- * safe direction — it would reject posts that would now succeed — so raise
- * it deliberately, in a PR, with the upgrade.
+ * `maxBody` for X is the standard 280 *weighted*-character tweet limit
+ * (see lib/x-length.mjs — URLs count 23, most emoji/CJK count 2). If the
+ * account is ever upgraded to X Premium (25,000 chars) this becomes wrong in
+ * the safe direction — it would reject posts that would now succeed — so
+ * raise it deliberately, in a PR, with the upgrade (and check-drafts.mjs's
+ * copy of the threshold with it).
  *
  * Instagram's caption limit is 2,200 characters; it also caps hashtags at 30
  * (not checked here — no draft has ever come close).
  *
- * `media`: 'forbidden' means the poster rejects it outright rather than
- * silently posting text-only (see postToX). If X image posting lands (PR
- * #1900), change this to 'optional' with maxMedia 4 — the rest of the rules
- * already work unchanged.
+ * `media`: X posts may carry up to MAX_X_IMAGES images (uploaded via the
+ * v1.1 media endpoint — see lib/platforms.mjs's postToX); Instagram requires
+ * at least one and supports a 10-image carousel.
  */
 export const PLATFORM_RULES = {
-  x: { maxBody: 280, media: 'forbidden', maxMedia: 0 },
-  instagram: { maxBody: 2200, media: 'required', maxMedia: 10 },
+  x: { maxBody: 280, media: 'optional', maxMedia: MAX_X_IMAGES, measure: weightedTweetLength, unit: 'weighted characters' },
+  instagram: { maxBody: 2200, media: 'required', maxMedia: 10, measure: (body) => String(body ?? '').length, unit: 'characters' },
 };
 
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
@@ -62,8 +62,9 @@ function isIsoInstant(value) {
  * callers get every problem at once rather than the first one.
  *
  * Deliberately does NOT judge content quality (voice, openers, whether the
- * image is a lazy era-art fallback). That is a separate, complementary gate;
- * this one only answers "can the platform API accept this at all".
+ * image is a lazy era-art fallback, cross-post similarity). That is
+ * check-drafts.mjs's complementary draft-time gate; this one only answers
+ * "can the platform API accept this at all".
  */
 export function validateQueueItem(item) {
   const findings = [];
@@ -84,23 +85,27 @@ export function validateQueueItem(item) {
   // --- body ---------------------------------------------------------------
   if (typeof item.body !== 'string' || item.body.trim() === '') {
     findings.push('body: required, must be a non-empty string.');
-  } else if (rules && item.body.length > rules.maxBody) {
-    findings.push(
-      `body: ${item.body.length} characters exceeds ${item.platform}'s ${rules.maxBody}-character limit by ` +
-        `${item.body.length - rules.maxBody}. ` +
-        (item.platform === 'x'
-          ? 'X answers an over-length tweet with a 403 "You are not permitted to perform this action" — ' +
-            'the exact error that killed all eleven X items in social/failed/. Trim it.'
-          : 'The platform will reject it.'),
-    );
+  } else if (rules) {
+    const measured = rules.measure(item.body);
+    if (measured > rules.maxBody) {
+      findings.push(
+        `body: ${measured} ${rules.unit} exceeds ${item.platform}'s ${rules.maxBody}-${rules.unit.replace(/s$/, '')} limit by ` +
+          `${measured - rules.maxBody}. ` +
+          (item.platform === 'x'
+            ? 'X answers an over-length tweet with a 403 "You are not permitted to perform this action" — ' +
+              'the exact error that killed all eleven X items in social/failed/. URLs always weigh 23, most emoji/CJK weigh 2 ' +
+              '(lib/x-length.mjs). Trim it.'
+            : 'The platform will reject it.'),
+      );
+    }
   }
 
   // --- scheduledAt --------------------------------------------------------
   if (!isIsoInstant(item.scheduledAt)) {
     findings.push(
       `scheduledAt: required, must be an ISO-8601 instant with a timezone (e.g. "2026-08-12T23:00:00Z"); got ` +
-        `${JSON.stringify(item.scheduledAt)}. This field is what ships the post — a value \`new Date()\` can't parse ` +
-        'makes isDue() NaN-compare to false and the item never posts, silently, forever.',
+        `${JSON.stringify(item.scheduledAt)}. This field is what ships the post — post-queue.mjs quarantines an ` +
+        'unparseable value to social/failed/ at run time, but the cheap place to catch it is here, on the PR.',
     );
   }
 
@@ -114,22 +119,28 @@ export function validateQueueItem(item) {
       if (typeof p !== 'string' || !p.startsWith('/')) {
         findings.push(
           `media: ${JSON.stringify(p)} must be a site-absolute path starting with "/" — it is appended to the live ` +
-            'site origin and fetched by the platform, so a relative path 404s.',
+            'site origin and fetched from there, so a relative path 404s.',
         );
       }
     }
     if (rules?.media === 'required' && paths.length === 0) {
       findings.push(`media: ${item.platform} posts require at least one image.`);
     }
-    if (rules?.media === 'forbidden' && paths.length > 0) {
-      findings.push(
-        `media: ${item.platform} posting does not support media yet — postToX throws on a media-bearing item, so this ` +
-          'would fail 3 times and land in social/failed/. Remove `media` or post it manually.',
-      );
-    }
-    if (rules && paths.length > rules.maxMedia && rules.media !== 'forbidden') {
+    if (rules && paths.length > rules.maxMedia) {
       findings.push(`media: ${paths.length} items exceeds ${item.platform}'s limit of ${rules.maxMedia}.`);
     }
+  }
+
+  // --- mediaKind ----------------------------------------------------------
+  // Only the shape is checked here; the "era art requires the tag, and even
+  // declared era art can't repeat recent posts" rule is check-drafts.mjs's
+  // (draft time) and eraArtGuardReason's (post time) — both need context
+  // (posted history / the filesystem) a pure schema check doesn't have.
+  if (item.mediaKind !== undefined && item.mediaKind !== 'era-art') {
+    findings.push(
+      `mediaKind: ${JSON.stringify(item.mediaKind)} is not recognized — the only defined value is "era-art" ` +
+        '(declares a deliberate era-tile choice; omit the field entirely for a real dedicated photo).',
+    );
   }
 
   // --- optional provenance/bookkeeping fields ------------------------------
@@ -141,7 +152,7 @@ export function validateQueueItem(item) {
   if (item.attempts !== undefined && (!Number.isInteger(item.attempts) || item.attempts < 0)) {
     findings.push(`attempts: must be a non-negative integer when present (${JSON.stringify(item.attempts)}).`);
   }
-  for (const field of ['campaign', 'why', 'approvedBy']) {
+  for (const field of ['campaign', 'why', 'approvedBy', 'lastError']) {
     if (item[field] !== undefined && typeof item[field] !== 'string') {
       findings.push(`${field}: must be a string when present.`);
     }

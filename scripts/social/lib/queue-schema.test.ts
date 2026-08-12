@@ -29,8 +29,25 @@ describe('validateQueueItem', () => {
     // 280 chars and every one that posted was under it.
     it("rejects an X body over X's 280-character limit", () => {
       const finding = findingFor({ ...validX, body: 'x'.repeat(281) }, 'body:');
-      expect(finding).toContain('281 characters exceeds');
+      expect(finding).toContain('281 weighted characters exceeds');
       expect(finding).toContain('403');
+    });
+
+    it("counts X length by X's weighted rule — a URL weighs 23, not its raw length", () => {
+      // Raw length is way past 280, but the URL collapses to 23 weighted:
+      // this is the shape every current queue X draft actually has.
+      const url = 'longlivets.com/?era=tloas&utm_source=x&utm_medium=social&utm_campaign=on-this-day';
+      const prose = 'y'.repeat(250);
+      const body = `${prose}
+
+${url}`;
+      expect(body.length).toBeGreaterThan(280);
+      expect(validateQueueItem({ ...validX, body })).toEqual([]);
+      // …and a short-looking body can still be over: 260 prose + URL = 285.
+      const over = `${'y'.repeat(260)}
+
+${url}`;
+      expect(findingFor({ ...validX, body: over }, 'body:')).toBeDefined();
     });
 
     it('accepts an X body exactly at the limit', () => {
@@ -76,9 +93,16 @@ describe('validateQueueItem', () => {
       expect(findingFor({ ...validIg, media: undefined }, 'media:')).toBeDefined();
     });
 
-    it('rejects media on X while X media posting is unimplemented', () => {
-      expect(PLATFORM_RULES.x.media).toBe('forbidden');
-      expect(findingFor({ ...validX, media: ['/eras/red.png'] }, 'media:')).toContain('does not support media yet');
+    it('allows media on X up to the 4-image tweet cap', () => {
+      expect(PLATFORM_RULES.x.media).toBe('optional');
+      expect(validateQueueItem({ ...validX, media: ['/social/library/a.png'] })).toEqual([]);
+      const five = Array.from({ length: 5 }, (_, i) => `/social/${i}.png`);
+      expect(findingFor({ ...validX, media: five }, 'media:')).toContain("exceeds x's limit of 4");
+    });
+
+    it('accepts a declared era-art item and rejects an unknown mediaKind', () => {
+      expect(validateQueueItem({ ...validIg, mediaKind: 'era-art' })).toEqual([]);
+      expect(findingFor({ ...validIg, mediaKind: 'real-photo' }, 'mediaKind:')).toBeDefined();
     });
 
     it('requires site-absolute paths', () => {

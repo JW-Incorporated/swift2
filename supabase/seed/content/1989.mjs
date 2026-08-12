@@ -410,11 +410,40 @@ export default {
         ],
         photos: [
           {
+            // Field-order fix #762 (2026-08-09): focalPoint moved to
+            // immediately after url per the field-order rule (docs/decisions.md
+            // 2026-07-20); no values changed.
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Scott_Eastwood_%28November_2025%29_%28cropped%29.jpg',
+            focalPoint: '42% 30%',
             credit: 'Web Summit / Wikimedia Commons, CC BY 4.0',
             caption: 'Scott Eastwood in 2025. He played Taylor\'s love interest in the 2015 "Wildest Dreams" video — a role his agents advised him to turn down.',
             kind: 'primary',
-            focalPoint: '42% 30%',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — official video
+          // still. oEmbed-verified videoId IdneKLhsWOQ belongs to the
+          // official @TaylorSwift channel; i.ytimg.com is YouTube's own CDN;
+          // curl 200 image/jpeg 1280x720, downloaded and vision-confirmed.
+          // Shows Taylor only (in character), not Eastwood — no verifiable,
+          // sufficiently-large still of him from this video was found on any
+          // allowlisted host; storyboard frames are 120x90px, under the floor.
+          {
+            url: 'https://i.ytimg.com/vi/IdneKLhsWOQ/maxresdefault.jpg',
+            // Face right-of-center, upper third.
+            focalPoint: '63% 33%',
+            credit: 'Big Machine Records / YouTube (official "Wildest Dreams" music video still)',
+            caption: 'A close-up still from the "Wildest Dreams" music video — Taylor in character as the film-set-era actress, dark-haired for the role, reclining against patterned fabric.',
+            kind: 'archival',
+          },
+          // Photo pass #762 (2026-08-05): official "Wildest Dreams" video
+          // thumbnail — id verified via YouTube oEmbed (author "Taylor
+          // Swift"), downloaded and vision-confirmed: a tight close-up on
+          // Taylor's face, tilted, from the video Eastwood co-starred in.
+          {
+            url: 'https://i.ytimg.com/vi/IdneKLhsWOQ/hqdefault.jpg',
+            focalPoint: '58% 45%',
+            credit: 'Taylor Swift via YouTube (official video)',
+            caption: 'The official "Wildest Dreams" video — the 1950s-safari shoot Eastwood\'s own agents advised him to skip.',
+            kind: 'reference',
           },
         ],
       },
@@ -1490,6 +1519,12 @@ export default {
           },
         ],
         // Focal point (#762): tight 'Shake It Off' frame, her face fills the upper-center of the shot.
+        // Photo-enrichment pass (2026-07-27, #762): searched for a second, genuinely
+        // on-topic image (Apple Music/WWDC 2015 launch, Eddy Cue at a contemporaneous
+        // event) — nothing verifiable turned up. No free-licensed period photo of Eddy
+        // Cue exists (Wikipedia/Commons' only photo of him is SXSW 2025, a decade removed
+        // from this story, so it was rejected as unrelated filler rather than added).
+        // Kept at one photo; reviewed-sparse.
         photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum', focalPoint: '48% 30%' }],
       },
     },
@@ -1620,13 +1655,13 @@ export default {
     },
     {
       slug: '1989-secret-sessions',
+      // Cross-link (vault-run 2026-08-06): the reputation Secret Sessions — the
+      // same fan-hosting tradition carried into the next era.
+      relatedIds: ['moment:vault-reputation-the-reputation-secret-sessions-500-fans-four-houses-zero-lea'],
       year: 2014,
       month: 10,
       category: 'release',
       title: 'The Secret Sessions: 89 fans at a time, in her living rooms',
-      // Cross-link (2026-08-07): the reputation Secret Sessions, the same
-      // living-room-listening tradition scaled up two eras later.
-      relatedIds: ['moment:vault-reputation-the-reputation-secret-sessions-500-fans-four-houses-zero-lea'],
       snippet:
         'Through September and October she hand-picked fans off the internet and played them 1989 early — at her homes in New York, LA, Rhode Island, her mom\'s place in Nashville, and a London hotel — baking the cookies herself. Nobody leaked a note.',
       sourceUrl: 'https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions',
@@ -2651,6 +2686,26 @@ export default {
       milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
       snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/texas/news/new-taylor-swift-album-coming-in-october',
+            source_title: 'New Taylor Swift Album Coming In October',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-1989-first-official-pop-album-country-music-departure-130004184.html',
+            source_title: 'Taylor Swift called \'1989\' her 1st \'official pop album.\' Why experts say it was the right time for her to leave country music.',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world.",
       },
     },
@@ -2666,10 +2721,44 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
-      snippet: "A brass-driven lead single announces the full pop pivot from a stadium stage.",
+      // Corrected 2026-08-11 with the citation added below: the debut was a
+      // Yahoo/ABC live-stream from the Empire State Building observation
+      // deck, not a stadium (TheWrap). The old wording contradicted the
+      // source this moment now cites.
+      snippet:
+        "A lead single announces the full pop pivot from the top of the Empire State Building.",
       video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
       moment: {
+        sources: [
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/taylor-swift-drops-shake-it-off-from-the-empire-state-building-video/',
+            source_title: 'Taylor Swift Drops \'Shake It Off\' From the Empire State Building (Video)',
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/',
+            source_title: 'Taylor Swift\'s \'Shake It Off\' Debuts At No. 1',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
+            focalPoint: '46% 55%',
+            credit: 'Big Machine Records / YouTube (official video still)',
+            caption: 'Swift crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -2693,6 +2782,17 @@ export default {
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
       video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
       moment: {
+        sources: [
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2014/12/taylor-swift-blank-space-is-back-to-back-number-1-hit-with-shake-it-off-is-this-her-imperial-moment.html',
+            source_title: 'Taylor Swift: Blank Space is back-to-back number 1 hit with Shake It Off. Is this her "Imperial Moment"?',
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one.",
       },
     },
@@ -2707,6 +2807,26 @@ export default {
       title: "Polaroids and pastel",
       snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       moment: {
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609',
+            source_title: 'Taylor Swift Explains Meaning Behind Cover of New Album \'1989\'',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Line of Best Fit',
+            url: 'https://www.thelineofbestfit.com/features/articles/beyond-1989-taylor-swift-and-polaroids',
+            source_title: 'Beyond 1989: Taylor Swift and Polaroids',
+            publisher: 'The Line of Best Fit',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic.",
         // Shop pass (2026-07-22): no single named dress -- a current
         // sky-blue mini in the era's pastel-minimalist palette.
@@ -2734,6 +2854,17 @@ export default {
       title: "The “squad” era",
       snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
       moment: {
+        sources: [
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/human-interest/2015/07/taylor-swift-waka-flocka-and-squadgoals-how-squad-went-from-underdogs-to-queen-bees.html',
+            source_title: 'Taylor Swift, Waka Flocka, and #squadgoals: How squad went from underdogs to queen bees.',
+            publisher: 'Slate (Lexicon Valley)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Group appearances and red-carpet friendships turned her social circle into a defining 1989-era talking point.",
       },
     },
@@ -2749,7 +2880,36 @@ export default {
       snippet: "A star-studded cinematic music video doubles as an event premiere.",
       video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/3854282/taylor-swift-bad-blood-video-billboard-music-awards/',
+            source_title: 'Taylor Swift "Bad Blood" Music Video: Billboard Awards',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/billboard-music-awards-2015-taylor-swift-dominates-bad/story?id=31114958',
+            source_title: 'Billboard Music Awards 2015: Taylor Swift Dominates With \'Bad Blood\' Video Premiere, 8 Wins',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg',
+            focalPoint: '52% 48%',
+            credit: 'Big Machine Records / YouTube (official video still)',
+            caption: 'A close-up from the "Bad Blood" video — the star-studded action-movie premiere that doubled as an awards-show event.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -2774,6 +2934,17 @@ export default {
       thumbnailUrl:
         "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/',
+            source_title: 'GRAMMY Rewind: Watch Taylor Swift Become The First Woman To Win Album Of The Year Twice',
+            publisher: 'The Recording Academy',
+            source_type: 'awards_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+        ],
         context: "Accepting the award, she used the moment to speak directly to young women about crediting their own work.",
         photos: [
           {

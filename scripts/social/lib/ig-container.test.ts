@@ -4,6 +4,12 @@ import { postToInstagram } from './platforms.mjs';
 
 const GRAPH = 'https://graph.facebook.com/v25.0';
 
+/** lib/platforms.mjs reads bodies via res.text() (parseResponse) while the
+ * container poller uses res.json(), so stubbed responses carry both. */
+function respond(body: unknown, ok = true, status = 200) {
+  return { ok, status, json: async () => body, text: async () => JSON.stringify(body) };
+}
+
 /** A fetch stub that replays a scripted list of JSON responses in order. */
 function scriptedFetch(responses: Array<{ ok?: boolean; status?: number; body: unknown }>) {
   const calls: string[] = [];
@@ -126,9 +132,9 @@ describe('postToInstagram container waits', () => {
     const calls: string[] = [];
     const fetchImpl = vi.fn(async (url: string, init?: { method?: string }) => {
       calls.push(`${init?.method ?? 'GET'} ${url}`);
-      if (url.includes('/media_publish')) return { ok: true, status: 200, json: async () => ({ id: 'post-1' }) };
-      if (url.includes('/999/media')) return { ok: true, status: 200, json: async () => ({ id: 'container-1' }) };
-      return { ok: true, status: 200, json: async () => ({ status_code: 'FINISHED' }) };
+      if (url.includes('/media_publish')) return respond({ id: 'post-1' });
+      if (url.includes('/999/media')) return respond({ id: 'container-1' });
+      return respond({ status_code: 'FINISHED' });
     });
     vi.stubGlobal('fetch', fetchImpl);
 
@@ -152,15 +158,15 @@ describe('postToInstagram container waits', () => {
     const fetchImpl = vi.fn(async (url: string) => {
       if (url.includes('/media_publish')) {
         order.push('publish');
-        return { ok: true, status: 200, json: async () => ({ id: 'post-2' }) };
+        return respond({ id: 'post-2' });
       }
       if (url.includes('/999/media')) {
         container += 1;
         order.push(`create:${container}`);
-        return { ok: true, status: 200, json: async () => ({ id: `c${container}` }) };
+        return respond({ id: `c${container}` });
       }
       order.push(`poll:${url.split('/').pop()?.split('?')[0]}`);
-      return { ok: true, status: 200, json: async () => ({ status_code: 'FINISHED' }) };
+      return respond({ status_code: 'FINISHED' });
     });
     vi.stubGlobal('fetch', fetchImpl);
 
@@ -184,10 +190,10 @@ describe('postToInstagram container waits', () => {
     const fetchImpl = vi.fn(async (url: string) => {
       if (url.includes('/media_publish')) {
         published = true;
-        return { ok: true, status: 200, json: async () => ({ id: 'nope' }) };
+        return respond({ id: 'nope' });
       }
-      if (url.includes('/999/media')) return { ok: true, status: 200, json: async () => ({ id: 'c1' }) };
-      return { ok: true, status: 200, json: async () => ({ status_code: 'ERROR', status: 'download failed' }) };
+      if (url.includes('/999/media')) return respond({ id: 'c1' });
+      return respond({ status_code: 'ERROR', status: 'download failed' });
     });
     vi.stubGlobal('fetch', fetchImpl);
 

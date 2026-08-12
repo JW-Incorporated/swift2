@@ -1654,7 +1654,9 @@ export default {
       slug: 'rep-lwymmd-video-youtube-record',
       significance: 'notable', // a real streaming record and the era's single most-discussed visual statement (docs/decisions.md, 2026-07-19)
       // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
-      // moment.
+      // moment. One-directional to the song-backstory moment (2026-08-03):
+      // that moment is already at the ~4-link cap, so this side carries the
+      // pointer instead of bumping a curated link there.
       relatedIds: [
         'moment:vault-reputation-the-snake-video-that-announced-reputation',
         'moment:vault-reputation-zombie-makeup-for-look-what-you-made-me-do',
@@ -1854,14 +1856,14 @@ export default {
     },
     {
       slug: 'rep-secret-sessions',
+      // Cross-link (vault-run 2026-08-06): the 1989 Secret Sessions — where the
+      // living-room-listening-party tradition began.
+      relatedIds: ['moment:vault-1989-the-secret-sessions-89-fans-at-a-time-in-her-living-rooms'],
       year: 2017,
       month: 10,
       day: 13,
       category: 'release',
       title: 'The reputation Secret Sessions: 500 fans, four houses, zero leaks',
-      // Cross-link (2026-08-07): where the Secret Sessions tradition started,
-      // the 1989 living-room listening parties.
-      relatedIds: ['moment:vault-1989-the-secret-sessions-89-fans-at-a-time-in-her-living-rooms'],
       snippet:
         'London on October 13, Rhode Island on the 18th and 19th, LA on the 22nd, Nashville on the 25th — she played reputation to 500 hand-picked fans in her own homes, and not one song leaked.',
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/',
@@ -2472,6 +2474,26 @@ export default {
       snippet: "Armored, monochrome, and defiant — the sound of rebuilding on her own terms.",
       hiddenClue: { clue: "She reclaimed the snake her critics used against her.", payoff: "Turning the insult into iconography flipped the whole narrative in her favor." },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/5017724/taylor-swift-reputation-explained/',
+            source_title: 'Analyzing Every Song on Taylor Swift\'s Reputation',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/reviews/review/taylor-swift-reputation-album-review-2158267',
+            source_title: 'Taylor Swift – \'Reputation\' Review',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "After a very public year, she disappeared and returned all in black, with snakes reclaimed as armor.\n\nBeneath the hard exterior, though, reputation hides a surprisingly tender love story.",
       },
     },
@@ -2486,6 +2508,26 @@ export default {
       title: "Giant snakes, record numbers",
       snippet: "The Reputation Stadium Tour becomes the highest-grossing US tour at the time.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-breaks-own-tour-record-sold-out-reputation',
+            source_title: 'Taylor Swift Breaks Own Tour Record With Sold-Out Reputation',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Music Network',
+            url: 'https://themusicnetwork.com/news/taylor-swifts-reputation-tour-sets-new-us-record-for-highest-grossing',
+            source_title: 'Taylor Swift\'s Reputation Stadium Tour highest grossing in US history',
+            publisher: 'The Music Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Towering cobra stage design and a stadium-scale production reset expectations for her live shows.",
         // Photo pass #762 (2026-07-20): page had zero photos. Two freely
         // licensed Commons shots from the Reputation Stadium Tour itself —

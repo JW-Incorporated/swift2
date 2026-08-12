@@ -44,4 +44,43 @@ describe('keywordQuery', () => {
     const q = keywordQuery('thinking about project management today');
     expect(q.moods.anger).toBeUndefined();
   });
+
+  // #1981 — hyperbole/idiom that the crisis suppressor clears used to dead-end
+  // in UNCLEAR (no axis word, empty query, no songs). It must now seed a
+  // sensible default vector and return real songs.
+  describe('hyperbole idioms seed a default mood and return songs (#1981)', () => {
+    const EXCITED = [
+      "I'm dying to see the Eras tour",
+      'I am dying to see her live',
+      'this bridge is to die for',
+      'I want to die laughing at this',
+    ];
+    const ANXIOUS = [
+      'this is killing me',
+      'this wait is killing me',
+      'I could die of embarrassment',
+      'I want to die of embarrassment',
+    ];
+
+    it.each(EXCITED)('seeds joy and returns songs for %j', (text) => {
+      const q = keywordQuery(text);
+      expect(isEmptyQuery(q)).toBe(false);
+      expect(q.moods.joy).toBeGreaterThan(0);
+      expect(matchMoods(q, { limit: 5 }).length).toBeGreaterThan(0);
+    });
+
+    it.each(ANXIOUS)('seeds catharsis and returns songs for %j', (text) => {
+      const q = keywordQuery(text);
+      expect(isEmptyQuery(q)).toBe(false);
+      expect(q.moods.catharsis).toBeGreaterThan(0);
+      expect(matchMoods(q, { limit: 5 }).length).toBeGreaterThan(0);
+    });
+
+    it('an idiom never overrides a real mood word already in the message', () => {
+      // "heartbroken" hits an axis, so the idiom seed must not add joy on top.
+      const q = keywordQuery('heartbroken, this is killing me');
+      expect(q.moods.heartbreak).toBeGreaterThan(0);
+      expect(q.moods.joy).toBeUndefined();
+    });
+  });
 });

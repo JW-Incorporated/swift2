@@ -39,6 +39,26 @@ jobs:
       - run: npm run validate:social
       - run: npm run check:generated
       - run: npm run check:content-inert
+      - run: npm run check:automerge-allowlist
+      # Offline + ~50ms: proves docs/launch-readiness.md's cadence claims are
+      # backed by a real cron and that no gate is green on a cadence nothing
+      # provides. Throttling a runner now breaks `build` until the gates that
+      # depend on it are re-scored (2026-08-11 audit; see the script header).
+      - run: npm run check:launch-gates
+      # Content ownership lock (#1954): the manifest must parse and be
+      # well-formed. A malformed lock is caught HERE, at the PR, never at fleet
+      # runtime. An empty manifest (nothing claimed) always passes.
+      - run: npm run check:content-ownership
+      # Dependency-downgrade guard (#1903): fail if any dep's highest resolved
+      # version dropped below `main`. The base lockfile is fetched from the LIVE
+      # base branch at build time (not the PR's stale base), so a lockfile
+      # regenerated from a stale tree can't silently revert a security bump the
+      # moment `build` goes green — the exact #1903 failure. `--depth=1` is
+      # enough: the script only reads `FETCH_HEAD:package-lock.json`.
+      - name: Guard against dependency downgrades vs main
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          npm run check:no-downgrade -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
       - run: npm run build
       - run: npm run check:budget:seed
