@@ -76,9 +76,28 @@ themselves. See `docs/decisions.md` (2026-07-25) and `docs/agents/runners.md`.
 
 **You don't need it.** `build` gates every merge, `auto-merge-content.yml`
 lands content-only PRs the moment they go green, and `watchdog.yml` alerts if a
-runner goes dark. If a PR fails CI or hits a conflict, the next scheduled run of
-that agent picks it up. If something genuinely needs a human, say so once in the
-PR body or one comment, then exit — never poll for the answer.
+runner goes dark. If something genuinely needs a human, say so once in the PR
+body or one comment, then exit — never poll for the answer.
+
+**What actually happens to a red PR — read this, it used to say something
+false.** Until 2026-08-11 this section promised "the next scheduled run of that
+agent picks it up." It did not. Every runner opens a BRAND NEW branch off `main`
+each run and never revisits the previous one, so red PRs sat open for 3, 5 and
+15 days with nobody looking. What is true now:
+
+- `watchdog.yml` § "PRs stuck on failing or missing checks" scans **every** open
+  non-draft PR once a day and emails the founders about any that has been open
+  >24h with a failing check, or with no `build` check at all. That is the safety
+  net — detection, not repair.
+- It also re-runs a `build` that has been red >48h with no newer run, capped at
+  2 re-runs per day, for the case where CI died of something unrelated to the PR.
+- Only the Vault Run has a repair path (`runner-prompts/vault-run.md` STEP 0),
+  and it adopts a stranded PR **at most once** before labelling it
+  `founder-decision` and moving on.
+
+So: opening the PR and exiting is still correct. Just do not assume anything
+will fix a red PR for you — nothing will, beyond one Vault Run attempt. If you
+can see why it is red before you exit, fix it in that same session.
 
 This matters doubly on Joey's account: every scheduled runner is deliberately on
 Wyatt's account (`docs/agents/runners.md`) so Joey's weekly limit stays free. A

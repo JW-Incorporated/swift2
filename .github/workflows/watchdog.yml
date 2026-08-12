@@ -285,6 +285,187 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
+      # ── Stalled PRs: red too long, or a check that will never come back ──
+      # Added 2026-07-30 (PR #1629); rewritten 2026-08-11 after replaying the
+      # original against live data showed it caught nothing (see below).
+      #
+      # THE REGRESSION THIS EXISTS FOR. Before 2026-07-25 each content agent
+      # armed hourly self-check-ins that drove its own PR to green. Those loops
+      # were ~69% of all scheduled agent token spend and were killed, replaced
+      # by the promise in CLAUDE.md: "if a PR fails CI or hits a conflict, the
+      # next scheduled run of that agent picks it up." That promise is FALSE.
+      # The next run opens a BRAND NEW PR against `main` and never returns to
+      # the red one, so a stuck PR sits open forever: auto-merge correctly
+      # refuses to land it, no agent ever looks again, and nothing alerts.
+      #
+      # WHY THE FIRST VERSION OF THIS STEP DID NOT WORK. As written on 07-30 it
+      # keyed on `build == FAILURE` AND an allowlist of bot branch prefixes
+      # (`vault/ content-shift/ depth/answerer content/rumor-desk
+      # content/stylist claude/`). Replayed against the live repo on 08-11 that
+      # logic examined 2 of 27 open PRs and alerted on NEITHER — it missed every
+      # genuinely stuck PR in the repo, including ones its own PR body named:
+      #
+      #   #1642  `build` red since 07-31 (11 days), auto-merge armed. Branch is
+      #          `fix/ci-actions-v7-tags`, which is not in the prefix list, so
+      #          it was never even looked at. The prefix allowlist was the
+      #          single biggest miss: three of its six entries
+      #          (`depth/answerer`, `content/rumor-desk`, `content/stylist`)
+      #          match no branch that has ever existed, while `claude/` matches
+      #          every Claude session in the repo including ops work.
+      #   #1762  open since 08-03. `build` is SUCCESS; `enable` is FAILURE. The
+      #          auto-merge gate is what strands it, and only `build` was read.
+      #   #1585  open since 07-28 with NO `build` check at all on its head
+      #          commit — CI never fired for that push. The jq returned "NONE",
+      #          which is not "FAILURE", so it stayed silent. A check that never
+      #          runs is invisible here and auto-merge waits on it forever.
+      #
+      # So this version (1) looks at EVERY open non-draft PR and excludes only
+      # what is explicitly parked for a human, rather than enumerating bot
+      # branch prefixes that go stale the moment a lane is renamed; (2) treats
+      # ANY currently-failing check as stranding, not just `build`; (3) treats a
+      # MISSING `build` as its own alarm; (4) reads the LATEST result per check
+      # name rather than whichever the rollup happens to list first (#1580 has
+      # a CANCELLED `enable` superseded by a SUCCESS one — order is not
+      # documented and must not be trusted); and (5) re-triggers a stale red
+      # `build`, the case where CI died for an unrelated reason and nothing is
+      # left to nudge it (#1633 sat 5 days, #1565 sat 07-27 → 08-11).
+      #
+      # ACTIONS-MINUTES BUDGET. This repo hit 90% of included minutes on 07-27
+      # and a build freeze blocked every merge on 07-30, so a monitor that burns
+      # the budget it protects is self-defeating. Four guards:
+      #   * Daily only — gated to the 14:35 cron, not the hourly one. A 24h
+      #     threshold gains nothing from 24 looks a day.
+      #   * RERUN_BUDGET re-runs per pass, hard cap, counted before each call.
+      #   * A PR is re-run ONLY when its `build` is FAILING and that failure is
+      #     already STALE_H old. A green PR idling on human review is never
+      #     re-run — #1580 has been green and untouched for 15 days and
+      #     re-running it would be pure waste.
+      #   * Re-running makes the check fresh, so the same PR cannot be re-run
+      #     again for another STALE_H. The cap is self-limiting, not just
+      #     per-pass.
+      # Worst case 2 re-runs/day x ~2 billed min = ~4 min/day. Expected ~0/day.
+      #
+      # `!cancelled()` rather than the bare daily gate the steps above use: the
+      # prod smoke check exits 1 when the site is down, and a plain `if:` is
+      # implicitly ANDed with success(), so every later step is skipped. An
+      # outage should not also blind us to stranded PRs.
+      - name: PRs stuck on failing or missing checks
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          RED_AFTER_H=24        # a PR may be open and unhealthy this long before we shout
+          STALE_H=48            # a red `build` older than this earns one re-run
+          RERUN_BUDGET=2        # hard cap on CI re-runs per pass
+          # Same three labels auto-merge-content.yml treats as blocking. A PR
+          # deliberately held for a founder is not "stranded", it is parked.
+          PARKED_LABELS="hold cie:escalate founder-decision"
+
+          NOW=$(date -u +%s)
+          RED_CUTOFF=$(date -u -d "${RED_AFTER_H} hours ago" +%Y-%m-%dT%H:%M:%SZ)
+          ALERT_TITLE="Watchdog: PR(s) stuck on a failing or missing check"
+
+          # Accumulate into FILES, never shell variables. An embedded newline in
+          # a double-quoted assignment has to start at column 0, which dedents
+          # out of this YAML block scalar and makes the whole workflow
+          # unparseable — that is what broke the first version of this step.
+          : > /tmp/stuck.md
+          : > /tmp/retried.md
+          RERUNS=0
+
+          gh pr list --repo "$REPO" --state open --limit 100 \
+            --json number,headRefName,createdAt,isDraft,headRefOid,labels \
+            --jq '.[] | select(.isDraft | not)
+                  | [.number, .headRefName, .createdAt, .headRefOid,
+                     ([.labels[].name] | join(","))] | @tsv' > /tmp/open-prs.tsv
+
+          while IFS="$(printf '\t')" read -r N BR CREATED SHA LABELS; do
+            if [ -z "${N:-}" ]; then continue; fi
+            # Give every PR a fair chance to go green on its own first.
+            if [ "$CREATED" ">" "$RED_CUTOFF" ]; then continue; fi
+            PARKED=no
+            for L in $PARKED_LABELS; do
+              case ",${LABELS}," in *",${L},"*) PARKED=yes ;; esac
+            done
+            if [ "$PARKED" = yes ]; then continue; fi
+
+            # Latest result per check NAME, plus every name currently failing.
+            ROLL=$(gh pr view "$N" --repo "$REPO" --json statusCheckRollup --jq '
+                    [ .statusCheckRollup[]?
+                      | { name:  (.name // .context),
+                          concl: (.conclusion // .state),
+                          at:    (.startedAt // .completedAt // "1970-01-01T00:00:00Z"),
+                          url:   (.detailsUrl // "") } ]
+                    | group_by(.name) | map(max_by(.at))
+                    | ((map(select(.name == "build")) | first) as $b
+                       | [ ($b.concl // "MISSING"), ($b.at // ""), ($b.url // ""),
+                           (map(select(.concl == "FAILURE")) | map(.name) | join(",")) ]
+                       | @tsv)')
+            B_CONCL=$(printf '%s' "$ROLL" | cut -f1)
+            B_AT=$(printf '%s' "$ROLL" | cut -f2)
+            B_URL=$(printf '%s' "$ROLL" | cut -f3)
+            FAILING=$(printf '%s' "$ROLL" | cut -f4)
+
+            REASON=""
+            if [ "$B_CONCL" = "MISSING" ]; then
+              REASON="no \`build\` check on head \`$(printf '%s' "$SHA" | cut -c1-7)\` — CI never fired, so auto-merge waits on it forever"
+            elif [ -n "$FAILING" ]; then
+              REASON="failing: \`${FAILING}\`"
+            fi
+            if [ -z "$REASON" ]; then continue; fi
+
+            AGE_D=$(( ( NOW - $(date -u -d "$CREATED" +%s) ) / 86400 ))
+            printf -- '- #%s (`%s`, open %sd) — %s\n' "$N" "$BR" "$AGE_D" "$REASON" >> /tmp/stuck.md
+
+            # Re-trigger ONLY a stale red `build` — the documented case where CI
+            # died for a reason unrelated to the PR (freeze, billing, infra),
+            # auto-merge is armed, and nothing exists to nudge it.
+            if [ "$B_CONCL" = "FAILURE" ] && [ -n "$B_AT" ] && [ "$RERUNS" -lt "$RERUN_BUDGET" ]; then
+              B_AGE_H=$(( ( NOW - $(date -u -d "$B_AT" +%s) ) / 3600 ))
+              RUN_ID=$(printf '%s' "$B_URL" | sed -n 's#.*/actions/runs/\([0-9]*\)/.*#\1#p')
+              if [ "$B_AGE_H" -ge "$STALE_H" ] && [ -n "$RUN_ID" ]; then
+                # Only if that run is still the PR's head commit — re-running a
+                # superseded commit proves nothing and costs a full CI run.
+                RUN_SHA=$(gh run view "$RUN_ID" --repo "$REPO" --json headSha --jq '.headSha' 2>/dev/null || echo "")
+                if [ "$RUN_SHA" = "$SHA" ]; then
+                  if gh run rerun "$RUN_ID" --repo "$REPO" --failed 2>/dev/null; then
+                    RERUNS=$(( RERUNS + 1 ))
+                    printf -- '- #%s — `build` red %sh with no newer run; re-ran run %s\n' "$N" "$B_AGE_H" "$RUN_ID" >> /tmp/retried.md
+                  fi
+                fi
+              fi
+            fi
+          done < /tmp/open-prs.tsv
+
+          if [ ! -s /tmp/stuck.md ]; then
+            echo "No open PR has been stuck on a failing or missing check for more than ${RED_AFTER_H}h." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "no stuck PRs"
+            exit 0
+          fi
+
+          {
+            echo "@sffan15-sys @wjduvall-cmd — PR(s) open more than ${RED_AFTER_H}h are blocked on a check that nothing will retry. **This work is not shipping and no agent is coming back for it.**"
+            echo ""
+            cat /tmp/stuck.md
+            echo ""
+            if [ -s /tmp/retried.md ]; then
+              echo "Re-triggered this pass (cap ${RERUN_BUDGET}/day, only for a \`build\` already red ${STALE_H}h+ on the current head):"
+              echo ""
+              cat /tmp/retried.md
+              echo ""
+            fi
+            echo "Why these strand: auto-merge is armed and correctly refuses to land a PR whose checks are not green, and since 2026-07-25 agents no longer babysit their own PRs — the next scheduled run opens a NEW PR instead of fixing the old one. See docs/agents/vault-run-plan.md § Phase 3.5."
+            echo ""
+            echo "Triage: a **missing** \`build\` means CI never fired for that push (a push made with GITHUB_TOKEN does not trigger workflows) — push an empty commit to the branch. A failing \`enable\` is the auto-merge gate, not the content; read its job summary, which says whether it declined deliberately or the gate is misconfigured. A failing \`build\` on a *content-invariant* test (feed tiers, substance spread) usually means the corpus statistics moved, not that the content is bad — that was the cause on 2026-07-28 (#1628), and relaxing the threshold would have been the wrong fix."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
       # Karen filed-what-she-found check (2026-08-11). The cadence check above
       # sees Actions workflows; the content-lane liveness checks below see "did
       # a PR appear". Neither can see the failure Karen actually has, which is the
