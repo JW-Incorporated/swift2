@@ -10378,5 +10378,56 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-bridal-brands-swift-dress-frenzy',
+      year: 2026,
+      month: 8,
+      day: 11,
+      category: 'fashion',
+      // Cross-link: the July 3 MSG wedding whose still-unseen Dior gown set the
+      // whole industry scramble off, and the gown item itself.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
+      ],
+      title: 'The dress nobody has seen sends the bridal industry into a scramble',
+      snippet:
+        'Her Dior wedding gown still hasn\'t been shown in public — and the bridal business isn\'t waiting on Taylor. David\'s Bridal has already sketched about two dozen looks in her likely style; Pronovias is chasing the "attitude" of her wedding-day look. (Reuters, Aug. 11, 2026.)',
+      sourceUrl: 'https://us.fashionnetwork.com/news/Taylor-swift-wedding-dress-fever-puts-bridal-brands-on-high-alert,1858904.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Nobody outside the July 3 guest list has seen the Christian Dior gown Taylor wore at Madison Square Garden — she hasn\'t posted it and neither has the house — so the wedding-dress trade is designing for it blind. Reuters found David\'s Bridal, which runs roughly 200 U.S. stores, already out ahead of the reveal: its Hong Kong couture team, led by Viola Chan, studied her aesthetic and sketched about two dozen looks sorted into three bets — embellished ball gowns, pared-back gowns with a single detail, and short dresses in case of a mid-ceremony change — leaning Hollywood glamour and drop-waist silhouettes, with the site already logging a jump in searches for looks like hers. Barcelona\'s Pronovias, sold in more than 100 countries, said it plans to draw on the silhouettes, fabrics and "attitude" of her look, the way it has for past royal and celebrity weddings, and the Justin Alexander Group told reporters it may fold elements in once the gown is actually seen. The tell is the timing: brands are placing bets on a dress that stays a mystery, because the fan market moves fast enough that being second to it isn\'t worth much.',
+        sources: [
+          {
+            outlet: 'Reuters',
+            url: 'https://us.fashionnetwork.com/news/Taylor-swift-wedding-dress-fever-puts-bridal-brands-on-high-alert,1858904.html',
+            source_title: 'Taylor Swift wedding-dress fever puts bridal brands on high alert',
+            publisher: 'Reuters (via FashionNetwork)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/newyork/video/taylor-swifts-wedding-dress-expected-to-inspire-trends-for-future-brides/',
+            source_title: "Taylor Swift's wedding dress expected to inspire trends for future brides",
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/life/taylor-swift-wedding-inspire-future-trends-rcna353318',
+            source_title: 'How Taylor Swift\'s Wedding Will Influence Future Brides',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
   ],
 };
