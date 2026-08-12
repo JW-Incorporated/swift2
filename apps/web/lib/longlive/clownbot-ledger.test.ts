@@ -43,8 +43,14 @@ describe('the CLOWNED / CONFIRMED ledger', () => {
     expect(entry!.verdict).toBe('clowned');
   });
 
-  it('keeps the losses in public', () => {
-    expect(wigCountLine()).toMatch(/\d+ called, \d+ clowned/);
+  it('keeps the losses in public, and leads with them (#1998 humility, not a brag)', () => {
+    const line = wigCountLine();
+    // Both columns, still derived and honest.
+    expect(line).toMatch(/\d+ clowned, \d+ called/);
+    // The clowned (wrong) count must come BEFORE the called (right) count, so
+    // the humility lands on being wrong rather than reading as a win-count flex.
+    expect(line.indexOf('clowned')).toBeLessThan(line.indexOf('called'));
+    expect(line.toLowerCase()).toContain('selling you something');
   });
 
   it('recentLedger honours its limit', () => {
@@ -110,5 +116,32 @@ describe('theory naming — deterministic reuse without cross-session memory', (
       const viaKeyword = entry.keywords?.[0] ? resolveTheoryName(entry.keywords[0], [], null) : null;
       expect(viaId?.name ?? viaKeyword?.name, `${entry.name} unreachable`).toBe(entry.name);
     }
+  });
+
+  it('the label matches the matched lore, not a default (#1996)', () => {
+    // The AI receipt must surface as The Machine Question even though Debutation
+    // sits earlier in the registry — the theory a take stands on decides its
+    // name, so nothing collapses to the first entry any more.
+    expect(resolveTheoryName('anything', [receipt('lore:swifties-against-ai')], null)?.name).toBe(
+      'The Machine Question',
+    );
+    expect(
+      resolveTheoryName('anything', [receipt('lore:tloas-countdown-announcement')], null)?.name,
+    ).toBe('The Twelve-Twelve Cipher');
+    // The evermore hill is reachable by its own receipts, name and all.
+    expect(
+      resolveTheoryName('anything', [receipt('moment:vault-evermore-folklores-sister-arrives')], null)
+        ?.name,
+    ).toBe('The evermore Hill');
+  });
+
+  it('picks the theory with the most cited-receipt overlap on a tie of one', () => {
+    // A take that cites both a Debutation receipt and an AI receipt is a genuine
+    // ambiguity; each entry overlaps by one, and registry order breaks the tie
+    // deterministically (Debutation first) — but a SINGLE unambiguous AI receipt
+    // still resolves to The Machine Question, which is the bug that mattered.
+    const single = resolveTheoryName('', [receipt('lore:swifties-against-ai')], null);
+    expect(single?.canonical).toBe(true);
+    expect(single?.name).toBe('The Machine Question');
   });
 });

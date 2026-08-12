@@ -260,6 +260,193 @@ signs off by merging the PR. Engineering-health change, no product surface.
 
 ---
 
+## 2026-08-11 — Vault Run phase 4 NOT executed; the Answerer was never starved, its lane was pointed at a drained queue
+
+**Decision:** do **not** disable the six standalone content lane runners today,
+and do **not** re-enable Lex. Land three reversible repo changes instead, and
+record the preconditions that must clear before phase 4 runs.
+
+**Why phase 4 was refused.** The consolidation is half-done — the orchestrator
+(`trig_01EuLgUdMgbuqL51o3iWQfTL`) has run daily since 07-30 *alongside* the six
+lanes it was meant to replace, so PR count went up, no minutes or tokens were
+saved, and Rumor Desk — the highest privacy-liability lane, which auto-merges
+unread — is now effectively daily (standalone cron `47 14 */2 * *` fires odd
+days; orchestrator lane 4 is due even days). That is a real problem, but three
+of four preconditions for fixing it by disabling the six were unmet:
+
+1. **Phase 3.5 is unmerged** (PR #1629, open since 07-30). On `main` there is
+   still no stuck-red-PR detection and no recovery path — `vault-run.md` still
+   promises "TOMORROW's run picks it up", which is false. Consolidating makes
+   this strictly worse: one red PR would strand all six lanes instead of one.
+   #1585 (red since 07-28) and #1762 (open since 08-03) show it is live.
+2. **The orchestrator misses ~25% of days** — no `vault/` PR *and no stranded
+   branch* on 08-01, 08-02, 08-08. The standalone lanes covered those days.
+3. **Trigger state could not be verified** — the `RemoteTrigger` tool was
+   unavailable, so no trigger's `enabled` flag or `job_config` was ever read.
+   An unverified disable is worse than none, especially given the documented
+   full-replacement footgun that has already destroyed two triggers' prompts.
+
+**The Answerer finding, which inverts the premise.** The lane was believed
+"structurally starved" because Lex is disabled and open `curiosity-ledger`
+issues have been 0 since ~07-29 — with the implied fix being "re-enable Lex or
+stand the Answerer down". Both are wrong. The standalone Answerer is **not**
+idle: it shipped #1732 (5 defining moments deepened) and #1827 (3 cross-link
+throughlines) in August, drawing from **Karen's CIE depth rollups** — #1719
+`content.depth-deficit` (26 items), #1720 `hot-thin-topic`, #1724
+`crosslink-opportunity` (60 items). Karen's nightly scan is a deterministic
+checker that keeps refilling those, so the supply is alive.
+
+What was actually broken is `vault-lanes/2-answerer.md`: it gated solely on
+`curiosity-ledger`, so lane 2 correctly found nothing and no-opped every day
+while a 26-item backlog sat open. **The lane was reading the wrong queue.** It
+has been repointed at the CIE rollups, with the drained legacy queues kept as
+queue 1–2 and explicitly marked "empty is expected, not a stop condition", plus
+a run-log requirement to report the open count of every queue checked — a bare
+"nothing to do" is what hid this for two weeks.
+
+**Re-enabling Lex is rejected**, not deferred. Lex generates *questions*; the
+bottleneck is *answers*. It cost 12 cloud runs/day, and Karen's checker already
+produces the same targeting deterministically and for free. Re-enabling it
+would rebuild the exact token-burn pattern the 2026-07-25 audit removed, to
+refill a queue that duplicates a cheaper supplier.
+
+**Watchdog: both prefixes, not a swap.** The Content Shift liveness check keys
+on the `content-shift/` branch prefix, so disabling that lane would make it
+alarm every day — the known landmine. Rather than flip it to `vault/` (which
+would leave the still-live standalone lane unmonitored and silently change what
+is watched), it is now a `check_lane` helper called per lane: `vault/` at 36h
+and `content-shift/` at 30h, with independent alert titles. Correct in both
+states; phase 4 deletes one line. The 36h window is chosen to alarm on a single
+missed Vault Run day — for a runner carrying all six lanes, a missed day is a
+whole-day content outage, so it must page. **This check is expected to fire**
+against the 08-01/02/08 gap pattern; that gap is the finding, not a false
+positive.
+
+**Alternatives considered:** (a) disable the six anyway and accept the risk —
+rejected, it removes the only cover for a 25% miss rate and an unverified
+disable cannot be safely rolled back; (b) disable only Rumor Desk, the genuine
+liability — tempting and still the best single next step once #1629 lands, but
+it needs verified trigger state to be reversible, which was unavailable;
+(c) retarget the watchdog to `vault/` only — rejected as above.
+
+**Approved by:** proposed by Wyatt's engineering agent; **phase 4 itself and
+the Rumor Desk daily-cadence question need Wyatt's call.**
+
+---
+
+## 2026-08-11 — No Facebook crawler; groups are a LEAD channel, and fandom milestones get a `fandom` kind
+
+**Decision (PENDING Wyatt's approval — this closes off a requested feature and
+sets standing policy for a whole class of sourcing).** Three parts. Full
+reasoning, sources, and the guardrail design:
+`docs/proposals/2026-08-11-facebook-groups-signal.md`.
+
+**1. We do not build a bot that reads Facebook groups — by any means.** Not via
+the Graph API (impossible), and not via a logged-in crawler (possible, refused).
+
+The API half is not a policy call, it is a fact: Meta removed the **Groups API
+itself**, plus `publish_to_groups` and `groups_access_member_info`, from **all
+API versions on 2024-04-22** — *including* "the ability for group admins to
+install apps on the group, even if they have an admin or developer role on the
+app" ([v19.0 changelog](https://developers.facebook.com/docs/graph-api/changelog/version19.0)).
+**Admin rights on a group therefore unlock nothing.** There is no App Review to
+submit and no asset the founders could acquire. CrowdTangle (which did expose
+group content) shut down 2024-08-14; its replacement is limited to academic and
+nonprofit researchers, which we are not.
+
+The crawler half *was* a live option and is refused on merits, not reflex:
+
+- **Meta actions the account, not the script.** Enforcement cascades across
+  linked personal accounts, Pages, and ad assets. That would cost us (a) the
+  legitimate human read access the founders have in these groups today, and
+  (b) the FB Page the social pipeline cross-posts to — risking the *outbound*
+  channel to gain an inbound one. The stake is a founder's personal identity,
+  and a burner account is worse (fake accounts were the aggravating fact in
+  Meta v. Voyager Labs: permanent injunction plus payment).
+- **Randomized timing is a countermeasure to the ~2015 detection stack.** It
+  defeats rate heuristics; it does nothing against automation-framework
+  fingerprinting (Selenium/Puppeteer detected on request #1), device
+  fingerprinting, browser-tampering detection, or account-history anomalies.
+  Beating those means anti-detect browsers and residential proxies — i.e. an
+  explicit evasion program.
+- **Decisively: almost nothing collected could ship.** Group posts are authored
+  by private individuals, whom `privacy-redlines.md` puts on the Never-OK list,
+  under the standing rule that **attribution does not launder a privacy
+  violation**. Member posts, names, photos, screenshots, sighting reports,
+  and health/sexuality chatter are all unpublishable. What survives is a
+  *pointer to public reporting* — which the existing channels already reach.
+  So the crawler is risk without payoff.
+
+**2. Facebook groups are a LEAD channel, never a source.** A group may never be
+cited by any moment, rumor, or milestone. Leads enter through the existing
+`intake` door, which already rules that *"the drop is never the copy… leads
+only… never paste-through, ever, from any source"*, and are re-sourced to named
+public reporting or parked on `needs-sources`. Private individuals never enter
+the repo at all — not the site, not a GitHub issue: no screenshots, no member
+names/handles/photos, no verbatim member quotes. Naming a *group* is fine;
+naming a *member* is not.
+
+The recommended build is an **assisted intake** reusing
+`.github/workflows/marjorie-inbox.yml` — the DKIM-verified, founder-only,
+deterministic email→GitHub relay that already runs every 30 minutes on existing
+secrets. A founder emails `intake: <one line>`; the relay opens an
+`intake`-labeled issue; the fleet does the sourcing. **Not built in this PR** —
+it modifies a running workflow and needs Wyatt's go-ahead.
+
+**3. `MilestoneKind` gains `fandom`** (`'album' | 'tour' | 'life' | 'business'
+| 'award' | 'fandom'`) for documented fan-**community** events. No new table,
+field, or migration — consistent with the theory-weaving ruling that
+fan-community material reuses existing structures. But the existing five kinds
+all describe things *Taylor or her business* did, so a community event has no
+honest home among them (`life` means her life). Deliberately **`fandom`, not
+`facebook`**: a per-platform kind would put a vendor in the type system and need
+a sibling every time the community moves platform.
+
+**Why "strong presence in most eras" is not delivered as asked.** No Facebook
+group milestone is currently authorable without fabricating something. Early
+eras (Debut 2006, Fearless 2008) predate meaningful Facebook-group fandom, and
+no outlet publishes group membership counts — a live count read off a page is an
+observation, not a citation. **No milestone was invented and no seed content
+shipped.** The mechanism ships; the content need is filed. The recommendation is
+to read the ask as *fan-community* presence (Eras Tour seismic activity,
+friendship bracelets, the Ticketmaster hearing, voter-registration spikes — all
+aggregate, dated, and properly sourceable), which genuinely spans the eras.
+
+**Bug fixed on the way:** `scripts/sync-longlive-content.mjs` validated
+`milestone.kind` against a hardcoded array and **silently dropped** any
+unrecognized kind — a marker vanished from the scrubber with no error and a
+green build, the same "declined and misconfigured look identical" failure as the
+auto-merge allowlist entry above. Now warns on stderr with the marker id, moment
+slug, and bad kind. Deliberately still non-fatal: this script runs on every
+content PR and must not break the pipeline for other desks.
+
+**Alternatives considered:** (a) *Meta Content Library* — ineligible; applying
+under a research framing we don't meet would be misrepresentation. (b) *Logged-
+out public scraping only* — the one place the "color outside the lines" case has
+real support, since Meta v. Bright Data held that logged-out public scraping did
+not breach Meta's terms; rejected because the groups that matter are private,
+which requires a login and lands in the Voyager fact pattern instead, and
+because §2.4's privacy wall kills the output regardless. (c) *A `facebook`
+MilestoneKind* — rejected, see above. (d) *Seeding example group milestones to
+demonstrate the feature* — rejected outright: it would require inventing a
+membership number or a date.
+
+**Honest qualifiers recorded** so this isn't overstated: "anything worth
+publishing leaks to public reporting within hours" is directionally supported
+(36/36 authored rumors cite professional publishers; 0.26% of 1,161 typed
+sources are fan-adjacent; the `RumorSourceTier` enum has no fan rung; and
+several fandom-native claims — the Woodvale theory, a fan inventory bot, three
+Deuxmoi items — reached us via mainstream pickup) but the *latency* is
+unmeasured. And Reddit/Tumblr were excluded from ingestion on commercial-
+licensing and deletion-obligation grounds, **not** because they'd add nothing.
+The defensible claim is "the compliant channels already catch it," not "fan
+communities are worthless as signal."
+
+**Approved by:** _pending Wyatt (CTO)._ Product questions in the proposal's §7
+are for Joey.
+
+---
+
 ## 2026-08-11 — Delete the unmounted VaultReader UI; keep the `/vault/*` HTTP routes
 
 **Decision.** Delete eight files in `apps/web` that exist only to serve a

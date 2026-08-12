@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server';
 
-import { findReceipts, receiptById, type Receipt } from '../../../lib/longlive/clownbot-receipts';
+import {
+  DEFAULT_RECEIPT_LIMIT,
+  canonReceipts,
+  findReceipts,
+  receiptById,
+  receiptForSource,
+  type Receipt,
+} from '../../../lib/longlive/clownbot-receipts';
 import { askClownbot, type ClownTake } from '../../../lib/longlive/clownbot-client';
 import { clownbotUsage } from '../../../lib/longlive/clownbot-usage';
 import { gradeTheory } from '../../../lib/longlive/clownbot-grade';
@@ -64,6 +71,35 @@ function clientIp(req: Request): string {
   );
 }
 
+/**
+ * Is the reader explicitly asking for CLOWNBOT'S OWN take — its best/wildest
+ * theory, its opinion, "what do you think"? The marquee ask of an opinionated
+ * bot (#1993). When one of these finds no specific receipt, the route offers a
+ * canon theory instead of discarding the answer. Normalised apostrophe-free so
+ * "what's your take" and "whats your take" collide.
+ */
+const OPINION_ASK: readonly RegExp[] = [
+  /\byour (own )?(best|favourite|favorite|wildest|boldest|craziest|hottest|top|go to|ride or die) (theory|take|hunch|hill|opinion|guess|conspiracy)\b/,
+  /\byour (theory|take|opinion|hot take|hunch)\b/,
+  /\b(best|favourite|favorite|wildest|craziest|boldest|hottest) (theory|take|conspiracy)\b/,
+  /\bhot take\b/,
+  /\bwhat do you (think|believe|reckon)\b/,
+  /\bwhats your (theory|take|opinion|hunch|hot take)\b/,
+  /\bgive me (a|your|the|one) (theory|take|hot take|hunch|conspiracy)\b/,
+  /\b(convince|persuade) me\b/,
+  /\bpitch me\b/,
+  /\byou pick\b/,
+];
+
+function isOpinionAsk(text: string): boolean {
+  const q = ` ${text
+    .toLowerCase()
+    .replace(/['’`]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()} `;
+  return OPINION_ASK.some((re) => re.test(q));
+}
+
 /** Only receipts we actually supplied may be cited. Anything else is dropped. */
 function validateCited(take: ClownTake, supplied: readonly Receipt[]): Receipt[] {
   const allowed = new Set(supplied.map((r) => r.id));
@@ -99,7 +135,7 @@ function degradedTake(receipts: readonly Receipt[]): ClownTake {
 type Source = 'model' | 'degraded';
 
 export async function POST(req: Request): Promise<Response> {
-  let payload: { text?: string; hp?: string };
+  let payload: { text?: string; hp?: string; sourceId?: string };
   try {
     payload = await req.json();
   } catch {
@@ -135,7 +171,25 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // Deterministic retrieval. The model never searches the vault.
-  const supplied = findReceipts(text);
+  //
+  // A suggested chip carries the lore `sourceId` it was authored against, so an
+  // authored prompt ALWAYS lands on its intended receipt even when its prose
+  // shares no meaningful term with it (#1990). And when the reader asks for the
+  // bot's OWN take (#1993) and lexical retrieval turns up nothing specific, we
+  // hand over one of Clownbot's canon theories with its real receipts rather
+  // than letting the marquee ask return a shrug. Neither path fabricates: both
+  // seed only real, sourced vault records the model may then cite.
+  const sourceId = typeof payload.sourceId === 'string' ? payload.sourceId.slice(0, 120) : undefined;
+  let supplied = findReceipts(text);
+  if (sourceId) {
+    const seed = receiptForSource(sourceId);
+    if (seed) {
+      supplied = [seed, ...supplied.filter((r) => r.id !== seed.id)].slice(0, DEFAULT_RECEIPT_LIMIT);
+    }
+  }
+  if (supplied.length === 0 && isOpinionAsk(text)) {
+    supplied = canonReceipts(text);
+  }
 
   const take = await askClownbot(clownbotUsage, text, supplied);
   let source: Source = take ? 'model' : 'degraded';
