@@ -35,9 +35,14 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
+        # Defaults TRUE, matching the script's own dry-run-by-default contract:
+        # a human clicking "Run workflow" to see what this lane would do should
+        # not discover the answer by having it filed. Scheduled runs are
+        # unaffected — a schedule event carries no inputs, so the step's
+        # `${DRY_RUN:-false}` fallback still files.
         description: "Print what would be filed without filing anything"
         type: boolean
-        default: false
+        default: true
       max:
         description: "Max issues to file this run"
         default: "10"
@@ -57,6 +62,17 @@ concurrency:
 jobs:
   discover:
     runs-on: ubuntu-latest
+    # Bounded, because this job CAN hang. `withTimeout` in discover.mjs races
+    # each fetch and gives up, but racing a promise does not destroy the
+    # underlying socket (scripts/lib/gh.mjs's httpsRequest has no socket
+    # teardown — flagged separately as shared-infra work), so a stalled
+    # connection keeps a live handle and Node will not exit even after the run
+    # has printed its summary. Without this the default 6-hour ceiling applies,
+    # and because the concurrency group above does NOT cancel in progress, one
+    # hung run would sit on the group and block every following day's run. 20
+    # minutes is ~4x the observed full-sweep time and above the worst-case
+    # 14 channels x 2 attempts x 30s.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
 

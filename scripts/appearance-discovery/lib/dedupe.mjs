@@ -31,11 +31,21 @@ const MARKER_RE = /yt-appearance:([A-Za-z0-9_-]{11})/g;
 // Any YouTube watch/short/embed URL in an issue body counts as "known", so a
 // human-filed intake issue about the same video blocks a machine duplicate.
 const WATCH_RE = /(?:youtube\.com\/(?:watch\?[^\s)"'<>]*?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/g;
+// The seed corpus overwhelmingly stores videos as a BARE id in a keyed field
+// (`video: { youtubeId: "nfWlot6h_JM", … }`), not as a watch URL: at the time
+// of writing 222 of the 272 ids under supabase/seed are reachable ONLY this
+// way, so URL matching alone saw 18% of the corpus and the "already in seed"
+// guard was mostly decorative. Matching the KEY (rather than substring-scanning
+// for any 11 chars, which is what this file's history rejected) recovers them
+// without reintroducing the false "already-in-seed" hits that a bare substring
+// scan produced inside content hashes and other platforms' ids.
+const ID_FIELD_RE = /\b(?:youtubeId|youtube_id|videoId|video_id)["']?\s*[:=]\s*["']([A-Za-z0-9_-]{11})["']/g;
 
 /**
- * Every video id referenced by a set of TEXTS (markers + watch URLs). Used for
- * issue titles and bodies, and for the seed corpus — one definition of "this
- * text references video X", so the ledger and the seed check cannot drift.
+ * Every video id referenced by a set of TEXTS (markers, watch URLs, and keyed
+ * id fields). Used for issue titles and bodies, and for the seed corpus — one
+ * definition of "this text references video X", so the ledger and the seed
+ * check cannot drift.
  */
 export function videoIdsIn(texts) {
   const ids = new Set();
@@ -43,6 +53,7 @@ export function videoIdsIn(texts) {
     const text = String(body ?? '');
     for (const m of text.matchAll(MARKER_RE)) ids.add(m[1]);
     for (const m of text.matchAll(WATCH_RE)) ids.add(m[1]);
+    for (const m of text.matchAll(ID_FIELD_RE)) ids.add(m[1]);
   }
   return ids;
 }
