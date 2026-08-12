@@ -45,6 +45,59 @@ describe('POST /api/mood', () => {
     expect(json.message.join(' ')).toContain('988');
   });
 
+  it('abuse disclosure returns the DV hotline, not just the suicide line (#1979)', async () => {
+    const res = await post({ text: 'my boyfriend hits me' }, '10.1.0.20');
+    const json = await res.json();
+    expect(json.kind).toBe('crisis');
+    expect(json.picks).toBeUndefined();
+    const joined = json.message.join(' ');
+    expect(joined).toContain('1-800-799-7233');
+    expect(joined).toContain('START to 88788');
+  });
+
+  it('"he hurts me" no longer returns a breakup playlist (#1979)', async () => {
+    const res = await post({ text: 'he hurts me' }, '10.1.0.21');
+    const json = await res.json();
+    expect(json.kind).toBe('crisis');
+    expect(json.picks).toBeUndefined();
+    expect(json.message.join(' ')).toContain('1-800-799-7233');
+  });
+
+  it('self-directed ideation keeps the 988 message, no DV line (#1980)', async () => {
+    const res = await post({ text: 'there is no reason to live' }, '10.1.0.22');
+    const json = await res.json();
+    expect(json.kind).toBe('crisis');
+    const joined = json.message.join(' ');
+    expect(joined).toContain('988');
+    expect(joined).not.toContain('1-800-799-7233');
+  });
+
+  it('obfuscated crisis spellings still get resources end to end (hardening follow-up)', async () => {
+    for (const [i, text] of ['k1ll myself', 'ｉ ｗａｎｔ ｔｏ ｄｉｅ', 'i want to unalive myself'].entries()) {
+      const res = await post({ text }, `10.1.0.4${i}`);
+      const json = await res.json();
+      expect(json.kind).toBe('crisis');
+      expect(json.picks).toBeUndefined();
+      expect(json.message.join(' ')).toContain('988');
+    }
+  });
+
+  it('fan speech with a harm verb still reaches songs, not the DV path (hardening follow-up)', async () => {
+    const res = await post({ text: 'this song chokes me up, im crying' }, '10.1.0.50');
+    const json = await res.json();
+    expect(json.kind).toBe('matches');
+    expect(json.picks.length).toBeGreaterThan(0);
+  });
+
+  it('hyperbole returns songs instead of dead-ending in unclear (#1981)', async () => {
+    for (const [i, text] of ['this is killing me', "I'm dying to see the Eras tour"].entries()) {
+      const res = await post({ text }, `10.1.0.3${i}`);
+      const json = await res.json();
+      expect(json.kind).toBe('matches');
+      expect(json.picks.length).toBeGreaterThan(0);
+    }
+  });
+
   it('free text with no key falls back to keyword matcher and still returns songs', async () => {
     const res = await post({ text: 'heartbroken and angry, he betrayed me' }, '10.1.0.3');
     const json = await res.json();
@@ -62,11 +115,35 @@ describe('POST /api/mood', () => {
     expect(json.intro).toContain('heavy');
   });
 
-  it('out-of-scope / no-mood text gets the refusal, not noise', async () => {
+  // "We couldn't read a feeling here" and "this is out of scope" are DIFFERENT
+  // facts, and the route used to answer both with Block 6. On the degraded
+  // (no-API-key) path that meant any wording the keyword lexicon missed was
+  // told it was outside what the bot can help with — including "I'm sad".
+  // Block 6 is now reachable only via the classifier's out_of_scope flag.
+  it('unrecognised text gets the say-more nudge, not a refusal', async () => {
     const res = await post({ text: 'what is the capital of France' }, '10.1.0.5');
     const json = await res.json();
-    expect(json.kind).toBe('refusal');
-    expect(json.message).toContain('Taylor song');
+    expect(json.kind).toBe('unclear');
+    expect(json.message).not.toContain('outside what I can help with');
+  });
+
+  it('ordinary negative feeling reaches songs on the degraded path', async () => {
+    // The founder's sentence, end to end, with no ANTHROPIC_API_KEY set.
+    const res = await post(
+      { text: "I'm grumpy and everything is pissing me off" },
+      '10.1.0.11',
+    );
+    const json = await res.json();
+    expect(json.kind).toBe('matches');
+    expect(json.source).toBe('keyword');
+    expect(json.picks.length).toBeGreaterThan(0);
+  });
+
+  it('plain sadness reaches songs rather than a refusal', async () => {
+    const res = await post({ text: 'im sad' }, '10.1.0.12');
+    const json = await res.json();
+    expect(json.kind).toBe('matches');
+    expect(json.picks.length).toBeGreaterThan(0);
   });
 
   it('rejects empty text', async () => {
