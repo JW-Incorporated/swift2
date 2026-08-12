@@ -13,6 +13,7 @@ import {
 } from '@/lib/longlive/lenses';
 import type { LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
+import { resolveCrossingMarkerTops } from './crossingMarkerLayout';
 
 const THREAD_ICONS: Partial<Record<LensId, typeof Heart>> = {
   'love-story': Heart,
@@ -60,6 +61,18 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
   const pointsA = useMemo(() => threadPoints(a), [a]);
   const pointsB = useMemo(() => threadPoints(b), [b]);
   const crossings = useMemo(() => threadCrossings(a, b), [a, b]);
+
+  // Diamond tops after the ≥24px collision pass (#701); connectors keep the true dates.
+  const markerTops = useMemo(
+    () =>
+      resolveCrossingMarkerTops(
+        crossings.map(
+          (c) => (pct(new Date(c.a.date).getTime()) + pct(new Date(c.b.date).getTime())) / 2,
+        ),
+        RAIL_HEIGHT,
+      ),
+    [crossings, end, span], // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   // Which point indices participate in a crossing, so we can emphasize them.
   const { crossedA, crossedB } = useMemo(() => {
@@ -272,7 +285,7 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
 
             {/* Crossing diamonds (interactive) */}
             {crossings.map((c, i) => {
-              const yMid = (pct(new Date(c.a.date).getTime()) + pct(new Date(c.b.date).getTime())) / 2;
+              const yMid = markerTops[i];
               const isSel = selected === i;
               return (
                 <button
@@ -438,7 +451,7 @@ function CrossingDetail({
         </span>
         <button
           onClick={onClose}
-          className="rounded-full p-1 text-[color:var(--era-ink-soft)] transition hover:text-[color:var(--era-ink)]"
+          className="era-icon-btn rounded-full p-1.5"
           aria-label="Close crossing detail"
         >
           <X className="h-4 w-4" />

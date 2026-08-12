@@ -4,16 +4,38 @@
  * The landing page is the front door for every fresh load, but a shared URL
  * must land the visitor on the shared thing, not the front door. This pure
  * helper decides which — kept out of the store so the precedence rules
- * (item > lens > era, invalid lens falls through) are unit-testable.
+ * (most specific wins) are unit-testable.
+ *
+ * Precedence (#707 — every immersive overlay is now shareable, so every
+ * overlay needs a param that reopens it):
+ *   item > song > guide > theories > lens > era
+ * Most specific first: a `?song=` opens the song dossier *stacked on top of*
+ * its album's track guide, so it must outrank a bare `?guide=`; both outrank
+ * the era stream underneath. Exactly one param is ever present on a shared
+ * URL, but the order keeps the helper total when a URL is hand-mangled.
  */
 
 export type DeepLinkTarget =
-  { kind: 'item'; id: string } | { kind: 'lens'; id: string } | { kind: 'era'; id: string } | null;
+  | { kind: 'item'; id: string }
+  | { kind: 'song'; key: string }
+  | { kind: 'guide'; eraId: string }
+  | { kind: 'theories'; eraId: string }
+  | { kind: 'lens'; id: string }
+  | { kind: 'era'; id: string }
+  | null;
 
 export function deepLinkTarget(search: string, validLensIds: readonly string[]): DeepLinkTarget {
   const params = new URLSearchParams(search);
   const item = params.get('item');
   if (item) return { kind: 'item', id: item };
+  // Song dossier: the whole composite trackKey (`${eraId}::${n}::${title}`)
+  // rides in the param, so it carries its own era — the store resolves it.
+  const song = params.get('song');
+  if (song) return { kind: 'song', key: song };
+  const guide = params.get('guide');
+  if (guide) return { kind: 'guide', eraId: guide };
+  const theories = params.get('theories');
+  if (theories) return { kind: 'theories', eraId: theories };
   const lens = params.get('lens');
   if (lens && validLensIds.includes(lens)) return { kind: 'lens', id: lens };
   const era = params.get('era');

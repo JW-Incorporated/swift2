@@ -1,0 +1,51 @@
+# Manual-only Instagram media audit. Never scheduled — run by hand from the
+# Actions tab. Lists every post actually live on the linked IG business
+# account and flags likely duplicates, then opens (or refreshes) a single
+# "IG media audit" issue with the report so a founder can hand-delete any
+# real duplicate in the app — Instagram's Content Publishing API has no
+# delete operation at all (see scripts/social/delete-media.mjs's header),
+# so this can only ever recommend, never act.
+name: social-audit
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Run IG media audit
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          REPORT_PATH: /tmp/ig-media-audit.md
+        run: node scripts/social/list-media.mjs
+
+      - name: Create or update the "IG media audit" issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TITLE="IG media audit"
+          # Exact-title match only (a --search hit is a text match, not exact) —
+          # same pattern as scripts/watchdog/upsert-alert.sh, so a re-run
+          # updates the one persistent issue instead of minting a new one
+          # every time.
+          EXISTING=$(gh issue list --repo "$REPO" --state open --search "\"$TITLE\" in:title" --json number,title \
+            | jq --arg t "$TITLE" -r '[.[] | select(.title == $t)] | .[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue edit "$EXISTING" --repo "$REPO" --body-file /tmp/ig-media-audit.md
+            echo "Updated existing IG media audit issue #$EXISTING"
+          else
+            gh issue create --repo "$REPO" --title "$TITLE" --body-file /tmp/ig-media-audit.md
+          fi
