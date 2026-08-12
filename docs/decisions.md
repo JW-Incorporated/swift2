@@ -7,6 +7,79 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — Appearance discovery: YouTube channel RSS, not the Data API
+
+**Decision:** the content engine gains a standing discovery lane that finds new
+Taylor appearances on YouTube forever going forward, built on **public channel
+RSS** (`https://www.youtube.com/feeds/videos.xml?channel_id=<id>`), and it is
+**deterministic with zero LLM calls**.
+
+Shape: a daily GitHub Actions workflow (`appearance-discovery.yml`) polls a
+curated, committed channel list (`scripts/appearance-discovery/channels.mjs` —
+14 channels, each with a recorded reason it is watched), applies keyword
+relevance rules to video **titles**, and files one `intake` issue per new video.
+Nothing downstream changes: those issues enter the existing intake door and the
+Content Shift authors them under new handling rules in its charter.
+
+**Cost model.** Discovery is **$0 in model spend** — it is `node` reading 14 XML
+documents on a GitHub-hosted runner, in the same zero-AI family as
+`watchdog.yml` and `unowned-sweep.yml`. There is no per-user or per-request LLM
+call, so this adds nothing to runtime cost (the Vault stays static). The
+*judging* half — verify, place, author — rides the **existing Content Shift
+budget** and its existing ≤2–3 items/run cap; discovery raises queue supply, not
+the token ceiling. A per-run cap (default 10 issues) bounds how much work one
+day can inject.
+
+**Why not the YouTube Data API:** it needs an API key, which means a new
+account, a new service, and a new secret — all of which are founder-approval
+items under CLAUDE.md, and a quota to manage besides. RSS is keyless,
+unauthenticated, needs no secret beyond the built-in `GITHUB_TOKEN`, and gives
+us the ~15 most recent uploads per channel, which is everything a daily poll
+needs. Revisit only if we ever need search across all of YouTube (finding
+appearances on channels *not* on the list), which the Data API can do and RSS
+cannot. That is the known, accepted limitation: this design sees only curated
+channels, and hand-filed intake remains the door for everything else.
+
+**Why zero LLM in detection:** reading XML and matching a title is mechanical,
+and rule 8 of CLAUDE.md says codify mechanical work rather than re-executing it
+token-by-token. Spending a session's context to re-read fifteen feeds daily
+would be the most expensive possible way to do a `grep`.
+
+**Dedupe is stateless, by decision, against two same-week incidents.** The video
+id is the fingerprint. Known ids are re-derived every run from the repo-scoped
+issue list (open **and** closed `intake` issues) plus the seed corpus — never
+from persisted state.
+
+- Never GitHub's global `/search` (#1869, #2008): repo-scoped runners get 403,
+  and #2008's code read that failure as "not filed", duplicating #2017–#2027.
+  Here an unreadable **or possibly-truncated** ledger **refuses to file**. Fail
+  closed: a *transient* failure self-heals on tomorrow's run; a duplicate does
+  not. Note the one case that does **not** self-heal: the ledger counts intake
+  issues `--state all`, so the population only grows, and at `LEDGER_LIMIT`
+  (1000) the refusal becomes permanent rather than daily. The script warns from
+  80% so there is room to act; at ~48 issues today that is years out, but it is
+  a wedge, not a wobble, and it needs raising rather than waiting out.
+- Never state carried by a PR that has to auto-merge (#2031): when the merge
+  gate stranded that PR the state silently rolled back and the social poster
+  published three duplicates. So there is no state file and no state PR here at
+  all — the filed issues themselves are the memory.
+
+**Alternatives considered:** (a) YouTube Data API — rejected above; (b) a
+committed `seen.json` ledger — rejected, it is exactly #2031's failure mode and
+adds a merge dependency to a read-only job; (c) LLM relevance judging — rejected
+as cost with no precision gain over a title keyword at this recall target;
+(d) matching video *descriptions* as well as titles — implemented, then removed
+after the first live dry run: news/talk-show descriptions are segment lists and
+subscribe boilerplate, so GMA's "Rod Stewart calls off remaining tour dates"
+matched on a Pop News roundup that listed a Taylor segment. Title-only.
+
+**Approved by:** Joey (pre-approved as engine-lane work); **Wyatt owns the
+technical review and the live trigger sync** — per `docs/agents/runners.md`,
+changing runner behavior is a PR to the file, while syncing the live trigger is
+a founder-only action.
+
+---
+
 ## 2026-08-12 — P0: close the auto-merge hole that let server code auto-deploy (#1972)
 
 **Decision:** the content auto-merge gate is tightened, purely additively, so no
