@@ -122,6 +122,125 @@ above are Wyatt's to close.
 
 ---
 
+## 2026-08-11 — The queue gets a schema gate in required CI, not only a draft-time checker
+
+**Decision:** Add `npm run validate:social` (`scripts/social/validate-queue.mjs`
++ the pure `scripts/social/lib/queue-schema.mjs`), wired into CI's required
+`build` job. It parses every `social/queue/**.json` and enforces shape:
+platform enum, non-empty body, per-platform body-length caps (X's 280
+**weighted** characters — the same `weightedTweetLength` rule
+`check-drafts.mjs` uses, where an autolinked URL counts as 23 — and
+Instagram's 2,200), ISO-8601 `scheduledAt`, per-platform media rules
+(required for IG, ≤4 images for X, ≤10 for an IG carousel, site-absolute
+paths), and bookkeeping-field types.
+
+**Why:** `validate:content` covers only `supabase/seed/**`, and
+`check-drafts.mjs` (the draft-time quality gate) runs against the files a PR
+touches. Neither layer guards an item that is already sitting in the queue
+when a rule tightens, or that lands via a path that skips the draft checker —
+until now the first validator such an item ever met was the live platform API
+at post time, with three retries and then `social/failed/`. That is how
+eleven over-length X drafts died on an unexplained 403 over two weeks (the
+280-weighted-limit diagnosis and the draft-time length check landed earlier
+today — see the Tree entry below and `docs/marketing/social-strategy.md`).
+A parse check also means a truncated/malformed JSON draft fails on its own PR
+instead of crashing the poster mid-run.
+
+**Alternatives considered:** Making the poster truncate an over-length body
+automatically — rejected, silently publishing a cut-off sentence is worse
+than not publishing. Only checking PR-touched files — rejected, that is the
+layer that already existed and is kept; this gate is the backstop for items
+nobody edits. Warning instead of failing CI — rejected, a warning is what the
+previous two weeks already were.
+
+**Approved by:** Wyatt (CTO agent), pending review. If the account is
+upgraded to X Premium the 280 cap must be raised deliberately in
+`scripts/social/lib/queue-schema.mjs` (and `check-drafts.mjs`), in a PR, with
+the upgrade.
+
+---
+
+## 2026-08-11 — Not-yet-deployed media WAITS visibly; Instagram containers are polled to FINISHED
+
+**Decision:** Three coupled changes to `scripts/social/`, integrating with the
+deploy-lag preflight and 48h staleness rule that landed via PR #1900:
+
+1. **A blocked item is a first-class run-report outcome.** The poster's
+   deploy-lag preflight (media not live on the site yet) now records the item
+   as `waiting` — no publish, no Graph write, no attempt spent, still queued,
+   ships itself on the first run after the deploy lands — and every skip
+   (idempotency duplicate, era-art guard, same-run media dedupe) is a
+   `skipped` outcome, each carrying how long it has been overdue.
+2. **An escalation ladder, not a silent hold.** A `waiting`/`skipped` item
+   past 24h overdue (`STUCK_AFTER_HOURS`, lib/run-report.mjs) turns the run
+   red with an `::error::` annotation while the item is still recoverable;
+   the existing 48h `isStaleDue` rule then retires it to `social/failed/` a
+   day later if nothing changed. 24h makes it loud, 48h moves it — two rungs,
+   one mechanism each.
+3. **Instagram containers are polled to `FINISHED` before publish**
+   (`lib/ig-container.mjs`), including each carousel child and the parent —
+   issue #1897. Bounded at 90s / 3s intervals; `ERROR`/`EXPIRED` fail the
+   attempt. Retries structurally cannot fix this race (every attempt builds a
+   fresh container and publishes milliseconds later), and Meta stamps
+   `is_transient: false` on error 9007/2207027 while its own message says to
+   wait — so any future "skip retries for non-transient errors" rule must
+   exclude it (`isMediaNotReadyError()` is exported for exactly that).
+
+**Why:** The 2026-08-06 human-merge rule for `apps/web/public/**` is right,
+but the gate covered the *asset* while the clock ran on the *schedule*: an
+item whose photo was waiting on a human was still "due", burned real publish
+attempts against a 404, and died — so the drafting agent rationally stopped
+queueing real photos (21 of 22 IG posts on era art). The preflight (#1900)
+stopped the attempt-burning; this makes the wait visible, bounded, and
+self-resolving, so queueing a real photo is the safe choice again. The
+escalation exists because a no-attempt skip can never reach `social/failed/`
+through the attempts counter: `2026-08-09-august-augustine-ig.json` was
+skipped every 30 minutes for two days inside green runs while its X twin
+published fine and the founders' brief counted the day as healthy.
+
+**Alternatives considered:** Relaxing the human merge gate for images —
+rejected, the 2026-08-06 risk judgement still holds. A single threshold
+(only 48h) — rejected, the first loud signal would also be the destructive
+one; a human alerted at 24h can merge the image PR and the item still ships.
+Publishing the container without polling and retrying harder — rejected,
+the race is entirely intra-attempt (see `lib/ig-container.mjs`'s header).
+
+**Approved by:** Wyatt (CTO agent), pending review.
+
+---
+
+## 2026-08-11 — The daily metrics series carries its own gap check
+
+**Decision:** `growth-snapshot.mjs` checks `social/metrics/` for missing days
+before writing today's file, records them in the snapshot as `seriesGaps`, and
+annotates the run — `::error::` if any gap is inside the last 7 days,
+`::warning::` if all are older. It never fails the run: a historical hole must
+not stop today's snapshot from being committed.
+
+**Why:** The series had 20 files from 07-18 to 08-11 with five days missing —
+a ~25% hole in a daily series, unexplained and unalarmed. The two causes were
+completely different, which is exactly why the check has to be on continuity
+rather than on any one cause:
+
+- **07-30, 07-31** — a repo-wide GitHub Actions outage. Every scheduled
+  workflow in the repo failed in under 5 seconds with no steps run
+  (growth-snapshot, social-poster, watchdog, brief-mailer, news-worker,
+  marjorie-inbox). Nothing in this pipeline was broken.
+- **08-02, 08-03, 08-04** — the snapshot ran and **succeeded** all three days.
+  Its auto-merge PRs (#1729, #1754, #1775) then sat open for 7–9 days because
+  their required `build` check never got triggered, so the data never reached
+  `main` — the only place Marjorie's brief reads it from. They were finally
+  merged 2026-08-11T15:44Z. A green workflow whose output never lands is the
+  worse of the two: every signal said fine.
+
+**Alternatives considered:** Failing the snapshot run on a gap — rejected, it
+would block the very commit that closes the series. Alarming on the workflow's
+own success/failure — rejected, it would have caught neither cause.
+
+**Approved by:** Wyatt (CTO agent), pending review.
+
+---
+
 ## 2026-08-11 — A failed social post must turn the run red; the brief counts posts per platform over 24h
 
 **Decision:** Two changes, one to delivery and one to measurement.
@@ -1524,6 +1643,8 @@ setup against a moment that already commands attention.
 
 **Approved by:** Wyatt (CTO) — pending PR review. Laura's charter edit included;
 the matching one-line Austin charter change is handed to that charter's owner.
+---
+
 
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
 
