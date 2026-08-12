@@ -9578,6 +9578,27 @@ export default {
       title: "All twelve songs, all twelve top spots",
       snippet: "Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.",
       moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://billboard.substack.com/p/here-are-all-the-billboard-chart',
+            source_title: 'Here Are All the Billboard Chart Records Taylor Swift Breaks (or Extends) With \'The Life of a Showgirl\'',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'Billboard\'s own Substack. billboard.com itself now 307s to a tollbit paywall gateway that returns 402, so the main site is unfetchable and unverifiable.',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/texas/video/taylor-swift-makes-billboard-history-as-all-12-songs-from-new-album-hit-top-12/',
+            source_title: 'Taylor Swift makes Billboard history as all 12 songs from new album hit top 12',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Led by \"The Fate of Ophelia\" at number one, the full tracklist swept the top of the Hot 100 with no other song breaking the streak.\n\nIt was the first time in the chart’s history, dating back to the 1950s, that an entire album occupied every one of its top positions uninterrupted.",
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
         // wp-content PR image 05 from the album's Mert & Marcus press set
