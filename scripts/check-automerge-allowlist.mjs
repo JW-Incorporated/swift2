@@ -115,6 +115,14 @@ export const NEVER_ALLOWLIST = {
   'vitest.config.ts': 'Can silence the test suite that gates every merge.',
   'supabase/migrations/': 'A schema migration is not revertable by `git revert`; undoing one is a new migration, and data may already be gone.',
   'apps/web/public/': 'Bot-picked media reaching a public surface gets human eyes (docs/decisions.md 2026-07-28, reaffirmed 2026-08-06) — EXCEPT the narrower apps/web/public/social/ grant, see NEVER_ALLOWLIST_EXCEPTIONS.',
+  // App code is auto-mergeable (docs/decisions.md 2026-08-11), but these three
+  // sub-paths are NOT. They are barred here so a broad `apps/web/app/` allow can
+  // only clear the self-amendment check when a DENY (`!`) prefix covers each —
+  // which is exactly how the allowlist reinstates the human gate for them. To
+  // ever auto-merge one, a founder edits THIS map first, in its own reviewed PR.
+  'apps/web/app/api/': 'The request-handling / data layer. Held while E2E is red (#669): app-code auto-merge has no behavioural regression net beyond unit+typecheck+build.',
+  'apps/web/app/privacy/': 'Legal surface — needs counsel, not a code review.',
+  'apps/web/app/terms/': 'Legal surface — needs counsel, not a code review.',
 };
 
 /**
@@ -160,13 +168,22 @@ export const overlaps = (a, b) => a.startsWith(b) || b.startsWith(a);
  * @param {Record<string,string>} exceptions
  * @returns {string[]} barred prefixes that are NOT narrowed away for this entry
  */
-export function barredPrefixes(entry, neverAllowlist, exceptions) {
+export function barredPrefixes(entry, neverAllowlist, exceptions, denies = []) {
   return Object.keys(neverAllowlist).filter(
     (p) =>
       overlaps(entry, p) &&
       // exempt only when a listed exception lies inside THIS bar and also
       // covers the entry — both directions, so nothing broader slips through.
-      !Object.keys(exceptions).some((x) => x.startsWith(p) && entry.startsWith(x)),
+      !Object.keys(exceptions).some((x) => x.startsWith(p) && entry.startsWith(x)) &&
+      // ── or when a DENY (`!`) prefix fully covers the barred area ──────────
+      // `p.startsWith(d)` means EVERY path under the barred prefix `p` is denied,
+      // so no file there can auto-merge no matter how broad this allow is. This
+      // is what lets `apps/web/app/` be allowed while `apps/web/app/api/` (etc.)
+      // stay human: the deny reinstates the gate for exactly that subtree. A
+      // deny that only covers PART of `p` (e.g. `!apps/web/public/social/` vs a
+      // barred `apps/web/public/`) does NOT satisfy the bar — the rest of `p`
+      // would still slip through — so the broad allow stays refused.
+      !denies.some((d) => p.startsWith(d)),
   );
 }
 
@@ -183,8 +200,11 @@ const SAFE_ENTRY = /^[A-Za-z0-9._/-]+$/;
 export function parseAllowlist(text) {
   const out = [];
   text.split(/\r?\n/).forEach((raw, i) => {
-    const entry = raw.replace(/#.*$/, '').trim();
-    if (entry) out.push({ entry, line: i + 1 });
+    const stripped = raw.replace(/#.*$/, '').trim();
+    if (!stripped) return;
+    const deny = stripped.startsWith('!');
+    const entry = deny ? stripped.slice(1).trim() : stripped;
+    out.push({ entry, line: i + 1, deny });
   });
   return out;
 }
@@ -218,17 +238,44 @@ export function checkAllowlist({
 }) {
   const problems = [];
   const parsed = parseAllowlist(allowlistText);
-  const entries = parsed.map((p) => p.entry);
+  const allowParsed = parsed.filter((p) => !p.deny);
+  const denyParsed = parsed.filter((p) => p.deny);
+  const entries = allowParsed.map((p) => p.entry);
+  const denies = denyParsed.map((p) => p.entry);
 
   if (entries.length === 0) {
     problems.push(
-      `${ALLOWLIST_FILE} has no entries — that would disable content auto-merge entirely.`,
+      `${ALLOWLIST_FILE} has no allow entries — that would disable content auto-merge entirely.`,
     );
   }
 
-  // ── 1. Entries are well-formed, unique, and real ────────────────────────
+  // ── 0. DENY (`!`) entries are well-formed, unique, and not also an allow ──
+  // Deny entries only RESTRICT, so they skip the self-amendment bar and the
+  // existence check (a deny may be forward-looking, e.g. `!apps/web/app/terms/`
+  // before that route exists).
+  const seenDeny = new Map();
+  for (const { entry, line } of denyParsed) {
+    if (!SAFE_ENTRY.test(entry) || entry.startsWith('/') || entry.split('/').includes('..')) {
+      problems.push(
+        `${ALLOWLIST_FILE}:${line}: deny \`!${entry}\` — must be a plain repo-relative path ([A-Za-z0-9._/-]), no leading \`/\` or \`..\`.`,
+      );
+      continue;
+    }
+    if (seenDeny.has(entry)) {
+      problems.push(`${ALLOWLIST_FILE}:${line}: deny \`!${entry}\` duplicates line ${seenDeny.get(entry)}.`);
+      continue;
+    }
+    seenDeny.set(entry, line);
+    if (entries.includes(entry)) {
+      problems.push(
+        `${ALLOWLIST_FILE}:${line}: \`${entry}\` is listed as BOTH an allow and a deny (\`!\`). Pick one — a deny always wins, so this would just never auto-merge.`,
+      );
+    }
+  }
+
+  // ── 1. Allow entries are well-formed, unique, and real ──────────────────
   const seen = new Map();
-  for (const { entry, line } of parsed) {
+  for (const { entry, line } of allowParsed) {
     if (!SAFE_ENTRY.test(entry)) {
       problems.push(
         `${ALLOWLIST_FILE}:${line}: \`${entry}\` — entries must be plain repo-relative paths ([A-Za-z0-9._/-]); no spaces, globs, or shell metacharacters.`,
@@ -251,14 +298,15 @@ export function checkAllowlist({
     // Checked before existence, so the message is about authority rather than
     // a typo, and so a barred entry is refused even if the path is real. The
     // one narrowing is NEVER_ALLOWLIST_EXCEPTIONS (the social-image carve-out).
-    const barred = barredPrefixes(entry, neverAllowlist, neverExceptions);
+    const barred = barredPrefixes(entry, neverAllowlist, neverExceptions, denies);
     if (barred.length) {
       for (const prefix of barred) {
         problems.push(
           `${ALLOWLIST_FILE}:${line}: \`${entry}\` overlaps \`${prefix}\`, which may NEVER be auto-merged. ${neverAllowlist[prefix]} ` +
             'The mechanism that decides what merges without a human must itself always need a human — ' +
-            'see NEVER_ALLOWLIST in scripts/check-automerge-allowlist.mjs. If this is genuinely intended, ' +
-            'it is a founder decision that changes NEVER_ALLOWLIST (or NEVER_ALLOWLIST_EXCEPTIONS) first, in its own reviewed PR.',
+            'see NEVER_ALLOWLIST in scripts/check-automerge-allowlist.mjs. Either narrow this allow, add a ' +
+            `deny (\`!${prefix}\`) that fully covers the barred area, or — if genuinely intended — change ` +
+            'NEVER_ALLOWLIST (or NEVER_ALLOWLIST_EXCEPTIONS) first, in its own reviewed PR.',
         );
       }
       continue;
@@ -301,7 +349,7 @@ export function checkAllowlist({
   // ── 3. Every generated artifact is covered, or explicitly excluded ──────
   const allFiles = [...new Set([...generatedOnDisk, ...manifestOuts])].sort();
   for (const f of allFiles) {
-    const isCovered = entries.some((e) => covers(e, f));
+    const isCovered = entries.some((e) => covers(e, f)) && !denies.some((d) => covers(d, f));
     const isExcluded = Object.prototype.hasOwnProperty.call(excluded, f);
     if (isCovered && isExcluded) {
       problems.push(
@@ -339,6 +387,16 @@ export function checkAllowlist({
     );
   }
 
+  // ── 5. If the allowlist uses DENY (`!`) prefixes, the workflow must enforce
+  //      them. `deny_prefixes` is the variable the enable job splits them into;
+  //      its absence would mean deny lines are silently ignored at merge time —
+  //      a file under a deny prefix would auto-merge. Fail loudly instead.
+  if (denies.length > 0 && !workflowText.includes('deny_prefixes')) {
+    problems.push(
+      `${ALLOWLIST_FILE} has deny (\`!\`) entries but ${WORKFLOW_FILE} has no \`deny_prefixes\` handling — the workflow would ignore them and auto-merge denied paths. Wire the deny check into the enable job.`,
+    );
+  }
+
   return problems;
 }
 
@@ -361,8 +419,10 @@ function main() {
     pathKind: pathKindFromDisk,
   });
 
+  const parsedForCount = parseAllowlist(read(ALLOWLIST_FILE));
   console.log(
-    `automerge allowlist: ${parseAllowlist(read(ALLOWLIST_FILE)).length} entr(ies); ` +
+    `automerge allowlist: ${parsedForCount.filter((p) => !p.deny).length} allow + ` +
+      `${parsedForCount.filter((p) => p.deny).length} deny entr(ies); ` +
       `${generatedOnDisk.length} generated artifact(s) on disk; ${Object.keys(EXCLUDED).length} explicit exclusion(s); ` +
       `${Object.keys(NEVER_ALLOWLIST).length} path(s) barred outright (self-amendment bar), ${Object.keys(NEVER_ALLOWLIST_EXCEPTIONS).length} narrowing exception(s).`,
   );
