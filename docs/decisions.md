@@ -1333,7 +1333,6 @@ setup against a moment that already commands attention.
 **Approved by:** Wyatt (CTO) — pending PR review. Laura's charter edit included;
 the matching one-line Austin charter change is handed to that charter's owner.
 
-
 ---
 
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard

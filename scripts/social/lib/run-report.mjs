@@ -29,8 +29,11 @@ export const OUTCOME = {
 
 /** Past this many hours overdue, a `skipped`/`waiting` item stops being a
  * normal wait and becomes a delivery failure that reddens the run. Mirrors
- * lib/queue.mjs's STUCK_AFTER_HOURS; kept as its own constant so this module
- * stays free of queue-selection imports. */
+ * The lower rung of the escalation ladder: lib/queue.mjs's isStaleDue (48h)
+ * then RETIRES the item to social/failed/ a full day after this makes it
+ * loud — 24h alerts a human while the item is still recoverable (merge the
+ * image PR and it ships), 48h moves it. Kept as its own constant so this
+ * module stays free of queue-selection imports. */
 export const STUCK_AFTER_HOURS = 24;
 
 /** True for a skipped/waiting outcome that has been in that state long
