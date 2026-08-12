@@ -7,6 +7,36 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Founder mail: `founder-task` means a human acts, and founder mail is digest-batched
+
+**Decision:** (1) The `founder-task` label is reserved for "a human founder
+must personally act, and the body is written for a non-coder" per the new
+standard `docs/agents/founder-comms.md`; agent-to-agent coordination gets the
+new `desk-coordination` label, which never mails anyone. (2) `tree-mail.yml`
+no longer mails instantly per labelled issue: a 3-hourly sweep batches all
+unmailed open `founder-task` issues into ONE email (exactly-once via the
+machine-only `founder-mailed` label), and only Tree-authored artifacts carry
+"Tree" subject lines — everything else is "Founder action needed".
+
+**Why:** On 2026-08-11 a Wyatt-side deconfliction pass opened four
+`founder-task` issues (#1955–#1958) in a burst. The mailer sent Joey four
+near-simultaneous emails, each subject-lined as Tree (which had never run),
+each full of agent jargon (merge matrices, "MERGEABLE/CLEAN"). Joey's report:
+"too jargon heavy, very unclear what it wants me to do." The founder-mail
+lane only works if a mail reliably means "you, personally, ~15 minutes,
+plain instructions."
+
+**Alternatives considered:** an author allowlist on the issue trigger
+(rejected — the incident author was a legitimate identity, Wyatt's agent, so
+it would not have prevented this, and it breaks as more desks legitimately
+file founder tasks); time-window queries instead of a bookkeeping label
+(rejected — boundary drift double- or zero-mails; a label is exactly-once
+and inspectable); instant per-issue mail kept with dedupe only (rejected —
+burst-noise was the minor half of the incident, but 3 h latency costs
+nothing for "sometime this week" tasks).
+
+**Approved:** Joey (reported the failure and set the bar: "I need simple
+instructions"), implemented 2026-08-11.
 ## 2026-08-11 — One source of truth for content length caps; restore the 31 contexts a stale cap deleted
 
 **Decision:** every content length cap now lives in `scripts/lib/content-caps.mjs`

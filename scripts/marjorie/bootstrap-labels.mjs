@@ -50,17 +50,52 @@ export const LABELS = [
   // UNREACHABLE. "Contested" and "unreviewed" are not the same risk, and the
   // 2026-07-18 standing grant lets that class be merged on the assumption it
   // is the benign one.
-  ['review:not-run', 'C5DEF5', 'Codex review could not run in the authoring environment — unreviewed, not contested'],
-  ['review:contested', 'B60205', 'Codex review ran and a finding stands unresolved — a human must adjudicate'],
+  [
+    'review:not-run',
+    'C5DEF5',
+    'Codex review could not run in the authoring environment — unreviewed, not contested',
+  ],
+  [
+    'review:contested',
+    'B60205',
+    'Codex review ran and a finding stands unresolved — a human must adjudicate',
+  ],
+
+  // Founder-mail semantics (2026-08-11 four-email incident, #1955-#1958):
+  // `founder-task` MAILS the founders (tree-mail.yml digest, body verbatim),
+  // so it is reserved for "a human must personally act, body written for a
+  // non-coder per docs/agents/founder-comms.md". Agent-to-agent coordination
+  // gets `desk-coordination` and mails no one. `founder-mailed` is the
+  // digest's machine-only exactly-once bookkeeping.
+  // (GitHub caps label descriptions at 100 chars.)
+  [
+    'founder-task',
+    'C5DEF5',
+    'A human founder must personally act; body written for a non-coder (docs/agents/founder-comms.md)',
+  ],
+  [
+    'desk-coordination',
+    'EDEDED',
+    'Agent-to-agent coordination (merge order, file claims) — mails no one',
+  ],
+  ['founder-mailed', 'F9D0C4', 'Machine-only: the tree-mail digest already emailed this issue'],
 ];
 
-const invokedDirectly = process.argv[1] && import.meta.url.endsWith(
-  process.argv[1].split(/[\\/]/).pop());
+const invokedDirectly =
+  process.argv[1] && import.meta.url.endsWith(process.argv[1].split(/[\\/]/).pop());
 if (invokedDirectly) {
   for (const [name, color, description] of LABELS) {
     try {
-      await gh(['label', 'create', name, '--color', color,
-        '--description', description, '--force']);
+      await gh([
+        'label',
+        'create',
+        name,
+        '--color',
+        color,
+        '--description',
+        description,
+        '--force',
+      ]);
       console.log(`ok: ${name}`);
     } catch (e) {
       console.error(`FAILED: ${name}: ${e.message}`);
