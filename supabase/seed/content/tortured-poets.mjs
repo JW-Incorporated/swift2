@@ -1485,7 +1485,7 @@ export default {
             // has since lapsed with no announcement). Forward-looking, no
             // location named (an unannounced tour is L0 by default).
             claim:
-              'A year on, the projected timing slipped: Deuxmoi reported, citing two sources, that Swift\'s next outing — a follow-up to the Eras Tour — would now start in 2027, not 2026, with 2026 "looking unlikely."',
+              'A year on, the projected timing slipped: Deuxmoi reported, citing two sources, that Taylor\'s next outing — a follow-up to the Eras Tour — would now start in 2027, not 2026, with 2026 "looking unlikely."',
             reportedBy: 'Deuxmoi, via Yahoo Entertainment',
             reportedOn: '2025-08-20',
             status: 'unconfirmed',
@@ -2623,7 +2623,7 @@ export default {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2019110/rs_600x600-190210195541-600-taylor-swift-joe-alwyn-baftas.jpg',
             focalPoint: '42% 28%',
             credit: 'E! News',
-            caption: 'Swift and Alwyn leaving a BAFTAs after-party together, February 2019 — one of the few public sightings from the relationship this album grieves.',
+            caption: 'Taylor and Alwyn leaving a BAFTAs after-party together, February 2019 — one of the few public sightings from the relationship this album grieves.',
             kind: 'reference',
           },
         ],
@@ -4312,7 +4312,7 @@ export default {
             reportedOn: '2026-08-08',
             status: 'unconfirmed',
             url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
-            note: 'The muting is documented across outlets (Variety, Rolling Stone, Deadline, EW); what is unconfirmed is who issued the copyright block. Continues the Taylor-vs-Trump thread here — a "Father Figure" clip was similarly muted in Nov 2025. Resolves if Swift, her team, or her label confirms it acted (or it is shown to be TikTok\'s automated system); fades if no one claims it. No location.',
+            note: 'The muting is documented across outlets (Variety, Rolling Stone, Deadline, EW); what is unconfirmed is who issued the copyright block. Continues the Taylor-vs-Trump thread here — a "Father Figure" clip was similarly muted in Nov 2025. Resolves if Taylor, her team, or her label confirms it acted (or it is shown to be TikTok\'s automated system); fades if no one claims it. No location.',
             sourceTier: 'established',
             lastCheckedOn: '2026-08-09',
           },

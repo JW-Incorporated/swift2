@@ -13,7 +13,11 @@ const wiki = (article, title, notes) => ({
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  accessed_at: '2026-07-08',
+  // Rumor Desk recheck 2026-08-12 (rumor-lifecycle staleness on the evermore
+  // theories): the readings here are unfalsifiable fan close-reads of a 2020
+  // album and their Wikipedia sources are unchanged — nothing resolved or
+  // shifted, so this refreshes the last-accessed date rather than any claim.
+  accessed_at: '2026-08-12',
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,

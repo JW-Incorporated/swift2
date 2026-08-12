@@ -12,7 +12,9 @@ const MEDIA_BASE_URL = 'https://www.longlivets.com';
 // Responses are parsed via res.text() (then best-effort JSON.parse'd) now,
 // not res.json() — so every fake response needs a .text(), not a .json().
 function jsonResponse(status: number, body: unknown) {
-  return { ok: status >= 200 && status < 300, status, text: async () => JSON.stringify(body) };
+  // text() serves parseResponse; json() serves the container-status poll
+  // (lib/ig-container.mjs's waitForContainerReady).
+  return { ok: status >= 200 && status < 300, status, text: async () => JSON.stringify(body), json: async () => body };
 }
 
 function rawResponse(status: number, text: string) {
@@ -237,6 +239,7 @@ describe('postToInstagram', () => {
   it('creates a container then publishes it for a single image', async () => {
     const fetchMock = vi.fn(async (url: string) => {
       if (url === `${base}/media`) return jsonResponse(200, { id: 'container-1' });
+      if (url.startsWith('https://graph.facebook.com/v25.0/container-1?fields=status_code')) return jsonResponse(200, { status_code: 'FINISHED' });
       if (url === `${base}/media_publish`) return jsonResponse(200, { id: 'post-1' });
       throw new Error(`unexpected fetch to ${url}`);
     });
@@ -259,6 +262,7 @@ describe('postToInstagram', () => {
   it('rejects when media_publish is 2xx but has no id', async () => {
     const fetchMock = vi.fn(async (url: string) => {
       if (url === `${base}/media`) return jsonResponse(200, { id: 'container-1' });
+      if (url.startsWith('https://graph.facebook.com/v25.0/container-1?fields=status_code')) return jsonResponse(200, { status_code: 'FINISHED' });
       if (url === `${base}/media_publish`) return jsonResponse(200, {});
       throw new Error(`unexpected fetch to ${url}`);
     });
@@ -270,6 +274,7 @@ describe('postToInstagram', () => {
   it('marks a transport-level failure at media_publish as ambiguous', async () => {
     const fetchMock = vi.fn(async (url: string) => {
       if (url === `${base}/media`) return jsonResponse(200, { id: 'container-1' });
+      if (url.startsWith('https://graph.facebook.com/v25.0/container-1?fields=status_code')) return jsonResponse(200, { status_code: 'FINISHED' });
       if (url === `${base}/media_publish`) throw new Error('ETIMEDOUT');
       throw new Error(`unexpected fetch to ${url}`);
     });
