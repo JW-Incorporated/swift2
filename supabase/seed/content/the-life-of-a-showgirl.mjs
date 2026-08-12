@@ -10285,13 +10285,13 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg/1280px-Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg',
+            // Collins is the seated figure at the mic, left-of-centre; keep the
+            // crop weighted there so his face survives a tight square.
+            focalPoint: '46% 42%',
             credit: 'Raph_PH, CC BY 2.0, via Wikimedia Commons',
             caption:
               'Phil Collins performing at London’s Royal Albert Hall in 2017. He later told BBC Radio 2 that hearing a young Taylor sing “White Horse” “blew me away completely.”',
             kind: 'reference',
-            // Collins is the seated figure at the mic, left-of-centre; keep the
-            // crop weighted there so his face survives a tight square.
-            focalPoint: '46% 42%',
           },
         ],
       },
