@@ -36,6 +36,45 @@ export interface MoodQuery {
   energy?: number;
   /** Desired emotional valence, 0 (sad) .. 1 (happy). Optional. */
   valence?: number;
+  /**
+   * Set ONLY when the reader's words carry an explicit bereavement/death signal
+   * (a death, grief, a funeral, "lost my dad" — see `hasBereavementSignal` in
+   * mood-keywords.ts). It gates the grief-canon songs ({@link BEREAVEMENT_SLUGS}):
+   * they are match-eligible ONLY when this is true. Left unset for ordinary
+   * sadness, stress, numbness, and every chip — so a reader at their lowest is
+   * never handed a song about a dead child (#1984). This is a safety property,
+   * not a ranking nicety: the gate is exclusion, not a downweight.
+   */
+  bereavement?: boolean;
+}
+
+/**
+ * The grief canon (#1984): songs written from inside a real bereavement — a
+ * death, a terminal illness, a loss to grieve. They are scored max-`heartbreak`
+ * because that is honestly what they are, which is exactly why they used to
+ * surface for "I feel numb" and "stressed about work": ordinary sadness shares
+ * the heartbreak axis with genuine grief. They must NOT appear for ordinary
+ * sadness/stress/numbness — only when the reader's words carry an explicit
+ * bereavement signal (see {@link MoodQuery.bereavement}).
+ *
+ * Curated by slug rather than a mood axis on purpose: a full "grief" axis would
+ * require re-scoring all 162 songs, and the distinction we need is editorial
+ * ("is this song ABOUT a death?"), not sonic. Kept here, beside the matcher that
+ * gates on it, and asserted against the live catalogue by the tests so it can't
+ * silently drift. Includes the currently-unscored grief entries (marjorie,
+ * bigger-than-the-whole-sky) so the gate already holds the day they're scored.
+ */
+export const BEREAVEMENT_SLUGS: ReadonlySet<string> = new Set([
+  'ronan', // a mother's eulogy for her son, dead just before turning four
+  'soon-youll-get-better', // written amid her mother's cancer
+  'epiphany', // her grandfather's war dead and a 2020 hospital ward
+  'marjorie', // her late grandmother (unscored today)
+  'bigger-than-the-whole-sky', // an elegy for a loss (unscored today)
+]);
+
+/** True when a catalogue entry is one of the grief-canon songs (#1984). */
+export function isBereavementSong(song: Pick<SongMood, 'slug'>): boolean {
+  return BEREAVEMENT_SLUGS.has(song.slug);
 }
 
 /** One ranked pick returned by {@link matchMoods}. */
@@ -179,7 +218,14 @@ export function matchMoods(query: MoodQuery, options: MatchOptions = {}): MoodMa
   const catalogue = options.catalogue ?? SONG_MOODS;
   if (limit === 0) return [];
 
+  // Grief-canon gate (#1984): the bereavement songs are eligible ONLY when the
+  // reader's words carried an explicit bereavement signal. This runs BEFORE
+  // scoring so a grief song can't win a slot for ordinary sadness no matter how
+  // high its heartbreak score — the safety property is exclusion, not a nudge.
+  const allowBereavement = query.bereavement === true;
+
   const ranked = scoredSongs(catalogue)
+    .filter((song) => allowBereavement || !BEREAVEMENT_SLUGS.has(song.slug))
     .map((song) => ({ song, score: scoreSong(query, song) }))
     .filter((entry) => entry.score > 0)
     .sort((a, b) => b.score - a.score || a.song.slug.localeCompare(b.song.slug));

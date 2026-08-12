@@ -91,6 +91,20 @@ describe('every chip returns real matches', () => {
     expect(picks.length).toBeGreaterThanOrEqual(3);
     expect(picks[0].score).toBeGreaterThan(0.6);
   });
+
+  // #2000 — the chip had drifted onto the high-energy DEFIANT breakup songs
+  // (Getaway Car / Is It Over Now? / The Story of Us) with All Too Well buried at
+  // #5. Re-pinned, All Too Well leads and the defiant-drift songs are gone.
+  it('"feral about a bridge" re-pins to All Too Well, not the defiant drift', () => {
+    const s = MOOD_STARTERS.find((x) => x.label === 'feral about a bridge')!;
+    const slugs = matchMoods({ moods: s.moods, energy: s.energy, valence: s.valence }, { limit: 5 }).map(
+      (p) => p.slug,
+    );
+    expect(slugs[0]).toBe('all-too-well-10-minute-version');
+    expect(slugs).not.toContain('the-story-of-us');
+    expect(slugs).not.toContain('getaway-car');
+    expect(slugs).not.toContain('is-it-over-now');
+  });
 });
 
 describe('visibleStarters', () => {
