@@ -147,6 +147,21 @@ export default {
             outlet: 'Elite Daily',
             url: 'https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857',
           },
+          // YouTube-appearances research pass (2026-08-12): this item's context
+          // already narrates the Aug. 26 VMA acceptance speech and the
+          // White-House-response threshold, so the speech is sourced here
+          // rather than split into a second moment about the same night (the
+          // era's fashion items already carry the VMA red carpet).
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech',
+          },
+          // The acceptance speech itself on MTV's own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — MTV',
+            url: 'https://www.youtube.com/watch?v=8z4icNgFSPI',
+          },
         ],
         // Photo pass (#762, 2026-08-07): added a second still — the official
         // aerial pool shot from the same video — downloaded and vision-
@@ -2968,30 +2983,6 @@ export default {
           },
         ],
         context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
-      },
-    },
-
-    // ── YouTube-appearances research pass (2026-08-12) ──
-    // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
-    // and docs/research/2026-08-12-youtube-appearances-manifest.md.
-    {
-      year: 2019,
-      month: 8,
-      day: 26,
-      category: 'music',
-      title: 'Video of the Year — and a petition plug from the VMA podium',
-      snippet:
-        'Accepting the top prize for "You Need to Calm Down," she pointed the room at her Equality Act petition, noting its signature count had already cleared the threshold that warrants a White House response.',
-      sourceUrl: 'https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech',
-      thumbnailUrl: 'https://i.ytimg.com/vi/8z4icNgFSPI/hqdefault.jpg',
-      moment: {
-        context:
-          'Her first Video of the Year win since 2015 — and the first VMAs of the Lover era — turned into the night\'s political moment: rather than a thank-you list, she used the speech to push the Equality Act petition her "You Need to Calm Down" video had launched in June (covered in this era\'s business items), tapping her wrist as she noted the White House had yet to respond. The rainbow Versace blazer she wore is covered in this era\'s fashion items.',
-        sources: [
-          { outlet: 'CBS News', url: 'https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech' },
-          { outlet: 'YouTube — MTV', url: 'https://www.youtube.com/watch?v=8z4icNgFSPI' },
-        ],
-        photos: [],
       },
     },
   ],

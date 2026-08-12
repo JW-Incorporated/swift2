@@ -10498,7 +10498,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/Wd7S1wZqkbI/hqdefault.jpg',
       moment: {
         context:
-          'The last of the October late-night stops (after Graham Norton, Fallon and the Zane Lowe interview), and the most unusual format: Late Night built the entire episode around her as its only guest. Variety later covered the extended cut of the conversation; the interview is on the show\'s official channel.',
+          'The last of the October late-night stops (after Graham Norton, Fallon and the Zane Lowe interview), and the most unusual format: Late Night built the entire episode around her as its only guest — a sole-guest "TAY/kover" Variety flagged ahead of the broadcast. The interview is on the show\'s official channel.',
         sources: [
           { outlet: 'Variety', url: 'https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/' },
           { outlet: 'YouTube — Late Night with Seth Meyers', url: 'https://www.youtube.com/watch?v=Wd7S1wZqkbI' },
