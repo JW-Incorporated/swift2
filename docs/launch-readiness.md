@@ -110,7 +110,7 @@ history" below.
 
 | Gate | Status | Blocked on | What is actually left | Next-action issues |
 |---|---|---|---|---|
-| DEPTH | 🟡 | nobody | `unverified` — the rows-per-month audit against the tier rubric named as this gate's next action on 2026-07-11 has still never been run, so nobody knows the true gap. TTPD's `relationship` axis (2 items) is the weakest weighted axis in the corpus. Joey's spot-check never happened either | #1719, #47 |
+| DEPTH | 🟡 | nobody | **The rows-per-month audit ran 2026-08-12** (`docs/audits/2026-08-12-depth-rows-per-month.md`, re-runnable via `npm run depth:months`): the wavetop floor is MET in all 12 eras; the true gap is TTPD's `relationship` axis (2 rows vs a floor of 4 — the one flagship launch-bar miss), 1989's month grid (1.47 rows/mo, a 14-month near-dead stretch missing the 2017 Mueller trial entirely), and 21 caption-level headline items in red/1989/speak-now/evermore (26 pre-#1618-dedup). Gap queue is in the report. Joey's spot-check still never happened | #1719, #47 |
 | VOICE | 🟡 | nobody | **Regressed after being closed, and still growing.** 19 open `content.voice` findings in the shipped corpus (16 surname-overuse, 3 wire-attribution) on a fresh checker run at merge 2026-08-12 — up from 16 on 08-11 and 0 on 08-08. The gate closed partly on the promise that the scan enforces this nightly; the scan is weekly | — |
 | WORTHY | 🟡 | nobody | 83/244 song dossiers, flat since 2026-07-29 — the photo lane ships steadily, the dossier lane has nobody on it. speak-now 0/23. 59 photo-sparse pages, 5 hot-thin topics | #440, #441, #615 |
 | SONGS | 🟢 | nobody | Nothing — founder-verified on device; the E2E synthetic monitor is the standing regression signal and is green | — |
