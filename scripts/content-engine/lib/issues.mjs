@@ -80,11 +80,17 @@ const FP_MARKER = /cie-fp:([0-9a-f]{6,64})/g;
 
 /**
  * One bulk read of every `cie` issue body → the set of fingerprints already on
- * the tracker. Used ONLY as a positive cache: a hit is proof the finding is
- * already filed; a miss proves nothing (the list may be truncated by the REST
- * fallback's per-page cap), so a miss still falls through to `existsByFp`.
- * That asymmetry is deliberate — it is what makes the optimisation incapable of
- * causing a duplicate, no matter how the underlying transport paginates.
+ * the tracker.
+ *
+ * `complete` is the load-bearing bit. When the transport returned FEWER rows
+ * than we asked for, we hold the entire `cie` history, so a miss is proof the
+ * finding was never filed — no per-fingerprint lookup needed. That matters in
+ * cloud runners, where `existsByFp`'s `/search/issues` call is 403-forbidden
+ * (repo-scoped sessions, #1869): without a complete prefetch, every genuinely
+ * new finding there would fail its dedupe lookup and go unfiled. When the list
+ * came back AT the limit it may be truncated, so `complete` is false and a
+ * miss proves nothing — the caller falls through to `existsByFp`, which is
+ * what makes the cache incapable of causing a duplicate.
  */
 export async function loadKnownFingerprints(limit = 1000) {
   try {
@@ -92,10 +98,10 @@ export async function loadKnownFingerprints(limit = 1000) {
     const rows = JSON.parse(stdout || '[]');
     const fps = new Set();
     for (const r of rows) for (const m of String(r?.body ?? '').matchAll(FP_MARKER)) fps.add(m[1]);
-    return { fps, issues: rows.length };
+    return { fps, issues: rows.length, complete: rows.length < limit };
   } catch (e) {
     // Not fatal: every candidate simply falls through to its own lookup below.
-    return { fps: null, issues: 0, error: errText(e) };
+    return { fps: null, issues: 0, complete: false, error: errText(e) };
   }
 }
 
@@ -188,19 +194,27 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
   const unfiled = []; // { title, fp, reason }
   let count = 0;
 
-  // Positive-only fingerprint cache (see loadKnownFingerprints): saves one
-  // search per candidate when it works, and cannot cause a duplicate when it
-  // doesn't. Skipped entirely on a dry run — no network, no surprises.
+  // Fingerprint cache (see loadKnownFingerprints): a hit is always proof of
+  // "already filed"; a miss is proof of "never filed" only when the prefetch
+  // was COMPLETE — otherwise it falls through to the per-finding search, so a
+  // truncated list cannot cause a duplicate. Skipped entirely on a dry run —
+  // no network, no surprises.
   let known = null;
+  let knownComplete = false;
   if (!dryRun) {
     const pre = await loadKnownFingerprints();
     known = pre.fps;
+    knownComplete = pre.complete;
     if (pre.error) log(`  (fingerprint prefetch unavailable: ${pre.error} — falling back to per-finding lookups)`);
-    else log(`  (${pre.issues} existing ${PFX} issues scanned, ${known.size} fingerprints known)`);
+    else log(`  (${pre.issues} existing ${PFX} issues scanned, ${known.size} fingerprints known${knownComplete ? ', complete' : ', possibly truncated'})`);
   }
 
   /** true / false / throws. A throw means "unknown", never "not filed". */
-  const alreadyFiled = async (fp) => (known?.has(fp) ? true : existsByFp(fp));
+  const alreadyFiled = async (fp) => {
+    if (known?.has(fp)) return true;
+    if (knownComplete) return false; // authoritative miss — no /search call (403 in cloud)
+    return existsByFp(fp);
+  };
 
   /** Shared file-one-thing path: dedupe (fail closed) → create (record failure). */
   async function file(fp, title, body, labels, extra) {

@@ -557,7 +557,10 @@ async function all(opts) {
     }
   }
   const lost = status.fatal ? status.detected : status.unfiled.length;
-  if (!status.dryRun && lost > 0) {
+  // `status.fatal` alone also fails the run: when issues() THREW (rather than
+  // returning a status), `detected` is unknown-zero — a fatal with an unknown
+  // loss must never read as a healthy run.
+  if (!status.dryRun && (lost > 0 || status.fatal)) {
     ALARM([
       `RUN FAILED: ${lost} finding(s) detected, ${status.filed} filed, ${lost} DISCARDED.`,
       'The run report records this. Exiting non-zero so nothing downstream reads this as a healthy run.',

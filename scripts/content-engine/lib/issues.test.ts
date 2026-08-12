@@ -41,6 +41,15 @@ function route(handlers: Record<string, (args: string[]) => unknown>) {
   });
 }
 
+/**
+ * A prefetch response that is exactly AT the requested limit — i.e. possibly
+ * truncated, so createIssues must NOT treat a miss as authoritative and must
+ * fall through to the per-finding search. (A shorter list is proof of
+ * completeness, and a miss then files without touching /search.)
+ */
+const truncatedPrefetch = (bodies: string[] = []) =>
+  Array.from({ length: 1000 }, (_, i) => ({ number: i + 1, body: bodies[i] ?? '' }));
+
 describe('rollup identity', () => {
   it('does not include the item count', () => {
     // The bug: `fingerprint({... excerpt: `${fs.length}` })`. 9 items one night
@@ -82,7 +91,7 @@ describe('dedupe lookup fails CLOSED', () => {
       'issue list': (args) =>
         args.includes('--search')
           ? new Error('GitHub REST GET /search/issues → 403 forbidden')
-          : [],
+          : truncatedPrefetch(), // possibly-truncated prefetch → the search must run, and it errors
       'issue create': () => 'https://github.com/x/y/issues/1',
     });
     const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
@@ -103,7 +112,7 @@ describe('dedupe lookup fails CLOSED', () => {
 
   it('skips when the check says "already present"', async () => {
     route({
-      'issue list': (args) => (args.includes('--search') ? [{ number: 5 }] : []),
+      'issue list': (args) => (args.includes('--search') ? [{ number: 5 }] : truncatedPrefetch()),
       'issue create': () => new Error('should never be called'),
     });
     const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
@@ -128,7 +137,7 @@ describe('fingerprint prefetch', () => {
     expect(res.created).toHaveLength(0);
   });
 
-  it('a MISS still falls through to the per-finding search (truncated lists cannot cause duplicates)', async () => {
+  it('a MISS in a POSSIBLY-TRUNCATED prefetch still falls through to the per-finding search', async () => {
     let searched = 0;
     route({
       'issue list': (args) => {
@@ -136,12 +145,29 @@ describe('fingerprint prefetch', () => {
           searched++;
           return [{ number: 9 }];
         }
-        return [{ number: 1, body: '<!-- cie-fp:0000000000000000 -->' }]; // some OTHER issue
+        return truncatedPrefetch(['<!-- cie-fp:0000000000000000 -->']); // other issues, at the limit
       },
     });
     const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
     expect(searched).toBe(1);
     expect(res.skipped).toBe(1); // the search found it; the truncated prefetch had not
+  });
+
+  it('a MISS in a COMPLETE prefetch files without touching /search (403-forbidden in cloud, #1869)', async () => {
+    // The 2026-08-09 shape after #1887: repo-scoped list works, /search never
+    // does. A sub-limit prefetch is the whole cie history, so a miss is proof —
+    // requiring the search here would leave every NEW finding unfiled in cloud.
+    route({
+      'issue list': (args) =>
+        args.includes('--search')
+          ? new Error('GitHub REST GET /search/issues → 403 repo-scoped sessions')
+          : [{ number: 1, body: '<!-- cie-fp:0000000000000000 -->' }], // short of the limit → complete
+      'issue create': () => 'https://github.com/x/y/issues/11',
+    });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
+    expect(res.created).toHaveLength(1);
+    expect(res.unfiled).toHaveLength(0);
+    expect(ghMock.mock.calls.filter((c) => c[0].includes('--search'))).toHaveLength(0);
   });
 
   it('a failed prefetch degrades to per-finding lookups rather than filing blind', async () => {
