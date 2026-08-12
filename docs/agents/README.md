@@ -61,9 +61,17 @@ To stop all autonomous activity **right now**:
 
 | Label | Owner | Meaning |
 |---|---|---|
-| `founder-decision` | Marjorie (bank) | Needs a founder answer; filed via the issue form |
+| `founder-decision` | Marjorie (bank) | Needs a founder answer; filed via the issue form. Body follows [`founder-comms.md`](founder-comms.md) |
+| `founder-task` | Any desk (Tree is the standing filer) | **A human founder must personally act**, and the body is written for a non-coder per [`founder-comms.md`](founder-comms.md). The body gets **emailed verbatim** by `tree-mail.yml`'s digest sweep — never apply this to agent-coordination work (that's `desk-coordination`). Misuse caused the 2026-08-11 four-email incident (#1955–#1958) |
+| `desk-coordination` | Any desk | Agent-to-agent coordination artifact (merge sequencing, file claims, fleet scheduling). Mails **no one**; a human never needs to read it to act |
+| `founder-mailed` | `tree-mail.yml` (machine-only) | Bookkeeping: the founder-task digest already emailed this issue. Never apply or remove by hand |
 | `founders-brief` | Marjorie | The daily brief issues |
 | `watchdog-alert` | watchdog Action | A cadence failed loudly |
 | `intake` | Content desk | A real-world event dropped for authoring |
 | `cie`, `cie:*` | Karen | Content-integrity findings |
 | `kevin-triage`, `kevin-radar`, `user-feedback`, `kevin-digest` | Kevin | Ticket-ops streams |
+
+Anything written for a founder's inbox — `founder-task` and `founder-decision`
+bodies, or any email — must follow the founder-readability standard in
+[`founder-comms.md`](founder-comms.md): lead with numbered plain-language
+steps + links, no repo jargon, the "why" in one sentence at the end.

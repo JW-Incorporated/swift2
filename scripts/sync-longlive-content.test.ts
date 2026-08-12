@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
 import {
@@ -97,6 +97,48 @@ describe('addItem date precision', () => {
     addItem(byEra, {}, 'debut', { ...base, title: 'Test Item 2', year: 2026, month: 7, day: 4.5 });
     expect(byEra.debut[0].dateLabel).toBe('July 2026');
     expect(byEra.debut[1].dateLabel).toBe('July 2026');
+  });
+
+  it("carries the 'fandom' milestone kind through (2026-08-11)", () => {
+    const byEra = {};
+    addItem(byEra, {}, 'midnights', {
+      ...base,
+      year: 2023,
+      month: 7,
+      day: 22,
+      milestone: { id: 'm-test-fandom', label: 'Test fandom milestone', kind: 'fandom' },
+    });
+    expect(byEra.midnights[0].milestone).toEqual({
+      id: 'm-test-fandom',
+      label: 'Test fandom milestone',
+      kind: 'fandom',
+    });
+  });
+
+  it('DROPS a milestone with an unrecognized kind — but says so on stderr', () => {
+    // Regression guard for a silent-failure mode: before 2026-08-11 an
+    // unregistered or typo'd kind removed the marker from the scrubber with
+    // no signal anywhere, so a new kind authored in seed simply vanished.
+    // The drop is still non-fatal (this script runs on every content PR);
+    // it just is no longer invisible.
+    const byEra = {};
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    try {
+      addItem(byEra, {}, 'debut', {
+        ...base,
+        year: 2026,
+        month: 7,
+        day: 3,
+        milestone: { id: 'm-bogus', label: 'Bogus', kind: 'facebook' },
+      });
+      expect(byEra.debut[0].milestone).toBeUndefined();
+      expect(warn).toHaveBeenCalledTimes(1);
+      const [message] = warn.mock.calls[0];
+      expect(message).toContain('m-bogus');
+      expect(message).toContain('"facebook"');
+    } finally {
+      warn.mockRestore();
+    }
   });
 
   it('carries a valid significance through end to end, and omits it when absent', () => {

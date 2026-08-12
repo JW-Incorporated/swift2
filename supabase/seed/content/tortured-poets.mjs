@@ -5096,7 +5096,7 @@ export default {
       ],
       moment: {
         context:
-          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Taylor — the two collaborators who defined the folklore-through-Midnights run — splitting the work almost by half: Antonoff led the standard sixteen tracks, Dessner the fifteen-song Anthology. It carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." The title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Taylor has never named it as the source).\n\nIt opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. It set records well past the first week: the first album in Spotify history to pass one billion streams in a single week, and it monopolized all top 14 of the Billboard Hot 100, a first for any artist.\n\nLive, the album reshaped the Eras Tour: the May 9, 2024 European opener at Paris La Défense Arena debuted a new act Taylor nicknamed "Female Rage: The Musical," folding in seven TTPD songs and trimming older cuts to fit. Awards ran hot then cold: "Fortnight" won Video of the Year and Best Collaboration in a seven-VMA night in 2024, but at the 67th Grammys (Feb. 2, 2025) TTPD drew Taylor a record seventh Album of the Year nomination and a Best Pop Vocal Album nod and won neither — AOTY went to Beyoncé\'s Cowboy Carter, Best Pop Vocal Album to Sabrina Carpenter.',
+          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Taylor — the two collaborators who defined the folklore-through-Midnights run — splitting the work almost by half: Antonoff led the standard sixteen tracks, Dessner the fifteen-song Anthology, whose hushed folk cuts ("How Did It End?," "The Albatross," "The Black Dog") are largely his. It carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." Four collectible deluxe editions each carried a different bonus track — "The Manuscript," "The Bolter," "The Albatross" and "The Black Dog" — before all four were folded into the Anthology.\n\nThe title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Taylor has never named it as the source). It opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. Reviews were admiring but split (Metacritic 76): critics praised the cathartic writing while calling the 31-track sprawl overlong.\n\nIt set records well past the first week: the first album in Spotify history to pass one billion streams in a single week, after also taking the single-day album and single-day song ("Fortnight") records on April 19 — and it monopolized all top 14 of the Billboard Hot 100, a first for any artist. Live, the album reshaped the Eras Tour: the May 9, 2024 European opener at Paris La Défense Arena debuted a new act Taylor nicknamed "Female Rage: The Musical," folding in seven TTPD songs — among them "Fortnight," "But Daddy I Love Him," "Down Bad," "So High School" and "I Can Do It With a Broken Heart" — and trimming older cuts to fit. Beyond that scripted act, TTPD tracks worked their way into the acoustic surprise slot through 2024 — "Paris" and "loml" were the first, at the Paris opener — and she held "So Long, London" back until the final Wembley night, debuting it solo on piano. Awards ran hot then cold: "Fortnight" won Video of the Year and Best Collaboration in a seven-VMA night in 2024, but at the 67th Grammys (Feb. 2, 2025) TTPD drew Taylor a record seventh Album of the Year nomination and a Best Pop Vocal Album nod and won neither — AOTY went to Beyoncé\'s Cowboy Carter, Best Pop Vocal Album to Sabrina Carpenter.',
         sources: [
           {
             outlet: 'Variety',
@@ -5244,6 +5244,26 @@ export default {
       title: "Ink, typewriters and monochrome",
       snippet: "The most restrained visual era: black, white, and typewritten confession.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-tortured-poets-department-album-release-date-details',
+            source_title: 'Get Ready For Taylor Swift\'s \'The Tortured Poets Department\' Album Release: Everything You Need To Know',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/6971832/the-tortured-poets-department-french-manuscripts/',
+            source_title: '\'The Tortured Poets Department\' Has Stirred Up a Craze for Old French Documents',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Grayscale styling and typewriter motifs frame the era as a literary confessional.",
         // Shop pass (2026-07-22): no single named piece -- a current
         // newspaper-print mesh tee, verified in stock, turning the era's

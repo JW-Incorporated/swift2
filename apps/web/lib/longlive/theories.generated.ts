@@ -15,7 +15,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Born as a Tumblr exchange during her famously online 1989-era presence. Taylor canonized the meme herself by wearing a \"no its becky\" T-shirt, turning a fandom in-joke into official-adjacent lore.",
       confidence: "joke_meme",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift Wears 'no its becky' T-Shirt", url: "https://time.com/3430491/taylor-swift-internet-meme-no-its-becky-tshirt/" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties" }],
+      sources: [{ name: "Taylor Swift Wears 'no its becky' T-Shirt", url: "https://time.com/3430491/taylor-swift-internet-meme-no-its-becky-tshirt/", reliability: 4, type: "reputable_press" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties", reliability: 2, type: "wiki" }],
     },
     {
       slug: "1989-lowercase-liner-codes",
@@ -25,7 +25,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Billboard decoded and published the full 1989 set the week the album dropped — it opens \"We begin our story in New York\" and runs as a single arc through all thirteen tracks, a two-year autobiography threaded through the lyric sheets. The inversion mattered to code-watchers: new sound, new cipher. It was also the finale — the booklet codes stop entirely at reputation.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift's '1989' Liner Note Messages & Reference Guide", url: "https://www.billboard.com/music/music-news/taylor-swift-1989-liner-notes-6296676/" }, { name: "Liner notes and easter eggs: How Taylor Swift turned fandom into a scavenger hunt", url: "https://www.today.com/popculture/music/taylor-swift-easter-eggs-hidden-messages-rcna51887" }],
+      sources: [{ name: "Taylor Swift's '1989' Liner Note Messages & Reference Guide", url: "https://www.billboard.com/music/music-news/taylor-swift-1989-liner-notes-6296676/", reliability: 4, type: "reputable_press" }, { name: "Liner notes and easter eggs: How Taylor Swift turned fandom into a scavenger hunt", url: "https://www.today.com/popculture/music/taylor-swift-easter-eggs-hidden-messages-rcna51887", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["debut:liner-notes-hidden-messages", "red:twenty-two-liner-note-code"],
     },
     {
@@ -36,7 +36,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor told ABC News the album photos were shot on an instant camera — \"that photo you are seeing is a Polaroid we took… it was kind of an accident, so I figured why not make that photo the album cover?\" — and cropped the frame at her eyes so fans couldn't immediately read the record's emotional tone. The physical release turned that instant-photo motif into a scavenger hunt: each 1989 CD shipped with a packet of 13 Polaroids drawn from 65 numbered shots (#01–#65), five different sets in all, every one captioned with a scrap of lyric in her handwriting. Completists needed all five copies to assemble the full 65 — and the concept is credited with helping spark a real-world revival of instant film.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift Explains Meaning Behind Cover of New Album '1989'", url: "https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609" }, { name: "1989 (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/1989_(Taylor_Swift_album)" }],
+      sources: [{ name: "Taylor Swift Explains Meaning Behind Cover of New Album '1989'", url: "https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609", reliability: 4, type: "reputable_press" }, { name: "1989 (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/1989_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["1989:1989-lowercase-liner-codes"],
     },
     {
@@ -47,7 +47,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Alongside three extra songs, the deluxe 1989 hid a rarer bonus: raw voice memos Taylor had recorded on her phone while the songs were still forming — piano-and-vocal for \"I Know Places,\" a rough track-and-vocal for \"I Wish You Would,\" guitar-and-vocal for \"Blank Space.\" You hear her humming a melody into the phone, talking through the writing, catching an idea before it is finished. It made the songwriting process itself a bonus track — a behind-the-curtain move she liked enough to bring back for the Taylor's Version re-records years later.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift's Songwriting Memos Reveal Secrets About '1989' Tracks", url: "https://www.bustle.com/articles/47243-taylor-swifts-songwriting-memos-reveal-secrets-about-1989-tracks" }, { name: "1989 (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/1989_(Taylor_Swift_album)" }],
+      sources: [{ name: "Taylor Swift's Songwriting Memos Reveal Secrets About '1989' Tracks", url: "https://www.bustle.com/articles/47243-taylor-swifts-songwriting-memos-reveal-secrets-about-1989-tracks", reliability: 3, type: "reputable_press" }, { name: "1989 (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/1989_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
     },
     {
       slug: "blank-space-media-caricature",
@@ -57,7 +57,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Fans and critics heard \"Blank Space\" as Taylor performing the caricature the press had drawn of her, and she said as much. She told NME the song was deliberately ironic — \"It's so opposite my actual life. Half the people got the joke, half the people really think that I was like really owning the fact that I'm a psychopath\" — framing it as a reply to a media that \"every few years… finds something that they unanimously feel is annoying about me.\" She described the character elsewhere as \"a girl who's crazy but seductive but glamorous but nuts but manipulative.\" The theory is squarely about the media narrative she was skewering, not any real relationship.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift explained to us the story and misconceptions of 'Blank Space'", url: "https://www.nme.com/blogs/nme-blogs/taylor-swift-explained-to-us-the-story-and-misconceptions-of-blank-space-14783" }, { name: "Blank Space", url: "https://en.wikipedia.org/wiki/Blank_Space" }],
+      sources: [{ name: "Taylor Swift explained to us the story and misconceptions of 'Blank Space'", url: "https://www.nme.com/blogs/nme-blogs/taylor-swift-explained-to-us-the-story-and-misconceptions-of-blank-space-14783", reliability: 4, type: "reputable_press" }, { name: "Blank Space", url: "https://en.wikipedia.org/wiki/Blank_Space", reliability: 2, type: "wiki" }],
     },
     {
       slug: "blank-space-starbucks-lovers",
@@ -67,7 +67,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The real lyric is \"got a long list of ex-lovers,\" but \"all the lonely Starbucks lovers\" became one of 2014–15's defining misheard lines. Taylor acknowledged the mix-up on Valentine's Day 2015, and that May she posted her mom's verdict — \"hahah it really does sound like Starbucks Lovers… -my mom just now who is SUPPOSED TO BE ON MY SIDE,\" with a resigned \"Smh\" (May 25, 2015). Starbucks eventually built a 122-track \"Starbucks Lovers\" playlist off the joke. Like \"no it's becky,\" it's 1989-era proof of how online the era was — a slip of the ear the fandom, and the artist, adopted on purpose.",
       confidence: "joke_meme",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift’s Blank Space Lyrics Not About Starbucks Lovers", url: "https://time.com/3895936/taylor-swift-blank-space-lyrics-starbucks-lovers/" }, { name: "Taylor Swift's Mom Misheard 'Starbucks Lovers' Too", url: "https://abcnews.com/Entertainment/taylor-swifts-mom-mishears-starbucks-lovers/story?id=31289081" }],
+      sources: [{ name: "Taylor Swift’s Blank Space Lyrics Not About Starbucks Lovers", url: "https://time.com/3895936/taylor-swift-blank-space-lyrics-starbucks-lovers/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift's Mom Misheard 'Starbucks Lovers' Too", url: "https://abcnews.com/Entertainment/taylor-swifts-mom-mishears-starbucks-lovers/story?id=31289081", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["1989:no-its-becky"],
     },
   ],
@@ -80,7 +80,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "On the record from the start: she has repeatedly explained the number (her birthday, her first album going gold in 13 weeks, seat rows and awards-show coincidences) and wore a hand-painted 13 at Fearless-era shows. Decoding-by-13 became the founding grammar of Swiftie lore.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift", url: "https://en.wikipedia.org/wiki/Taylor_Swift" }, { name: "Cultural impact of Taylor Swift", url: "https://en.wikipedia.org/wiki/Cultural_impact_of_Taylor_Swift" }],
+      sources: [{ name: "Taylor Swift", url: "https://en.wikipedia.org/wiki/Taylor_Swift", reliability: 2, type: "wiki" }, { name: "Cultural impact of Taylor Swift", url: "https://en.wikipedia.org/wiki/Cultural_impact_of_Taylor_Swift", reliability: 2, type: "wiki" }],
     },
     {
       slug: "liner-notes-hidden-messages",
@@ -90,7 +90,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "A confirmed, deliberate practice — the booklet codes ran from the 2006 debut through 1989 (2014) and trained the fandom to decode everything that followed. She later said the clue-planting simply moved from liner notes into videos, posts, and performances.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "A Complete History of Taylor Swift's Best Easter Eggs", url: "https://www.today.com/today/amp/rcna51887" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties" }],
+      sources: [{ name: "A Complete History of Taylor Swift's Best Easter Eggs", url: "https://www.today.com/today/amp/rcna51887", reliability: 4, type: "reputable_press" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties", reliability: 2, type: "wiki" }],
       relatedSlugs: ["debut:tim-mcgraw-debut-single-nested-clue"],
     },
     {
@@ -101,7 +101,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor wrote it in about fifteen minutes during a math class, singing \"when you think Tim McGraw\" to herself. Big Machine head Scott Borchetta talked her out of the longer working title \"When You Think Tim McGraw\" and down to just \"Tim McGraw\" — and naming a debut single after an established star, as one music scholar put it, was \"a clever strategy\" that handed an unknown sixteen-year-old instant \"country music legibility.\" The song turns on McGraw's 2004 hit \"Can't Tell Me Nothin',\" her favorite of his — and the debut booklet's capitalized-letter secret message for the track spells out that same title, \"CAN'T TELL ME NOTHIN'.\" The homage is doubled: the name on the marquee, and the name hidden in the margins.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "Tim McGraw at 20: how Taylor Swift's debut single set her formula for success", url: "https://theconversation.com/tim-mcgraw-at-20-how-taylor-swifts-debut-single-set-her-formula-for-success-285254" }, { name: "The Reactions of the Men Behind Taylor Swift's Debut Single, \"Tim McGraw\"", url: "https://americansongwriter.com/the-reactions-of-the-men-behind-taylor-swifts-debut-single-tim-mcgraw-released-on-this-day-in-2006/" }, { name: "Tim McGraw (song)", url: "https://en.wikipedia.org/wiki/Tim_McGraw_(song)" }, { name: "Taylor Swift's 13 Best Liner Note Secret Messages", url: "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/" }],
+      sources: [{ name: "Tim McGraw at 20: how Taylor Swift's debut single set her formula for success", url: "https://theconversation.com/tim-mcgraw-at-20-how-taylor-swifts-debut-single-set-her-formula-for-success-285254", reliability: 4, type: "reputable_press" }, { name: "The Reactions of the Men Behind Taylor Swift's Debut Single, \"Tim McGraw\"", url: "https://americansongwriter.com/the-reactions-of-the-men-behind-taylor-swifts-debut-single-tim-mcgraw-released-on-this-day-in-2006/", reliability: 4, type: "reputable_press" }, { name: "Tim McGraw (song)", url: "https://en.wikipedia.org/wiki/Tim_McGraw_(song)", reliability: 2, type: "wiki" }, { name: "Taylor Swift's 13 Best Liner Note Secret Messages", url: "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["debut:liner-notes-hidden-messages"],
     },
     {
@@ -112,7 +112,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor has confirmed exactly that reading. She has called it one of the first songs she ever wrote and said it \"talks about the very reason I ever started to write songs. It was when I was twelve years old, and a complete outcast at school.\" She told Entertainment Weekly the song is about \"the scariest feeling I've ever felt: going to school, walking down the hall, looking at all those faces, and not knowing who you're gonna talk to that day.\" The isolation traced to a country-music obsession her classmates didn't share — the same difference that later became her whole brand.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift — \"The Outside\" (Songfacts)", url: "https://www.songfacts.com/facts/taylor-swift/the-outside" }, { name: "The Outside (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Outside_(Taylor_Swift_song)" }],
+      sources: [{ name: "Taylor Swift — \"The Outside\" (Songfacts)", url: "https://www.songfacts.com/facts/taylor-swift/the-outside", reliability: 4, type: "reputable_press" }, { name: "The Outside (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Outside_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
     },
     {
       slug: "a-place-in-this-world-mission-statement",
@@ -122,7 +122,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor's own account backs the reading. She wrote it at thirteen, just after the family moved to Nashville, with co-writers Robert Ellis Orrall and Angelo Petraglia: \"It was tough trying to find out how I was going to get where I wanted to go. I knew where I wanted to be, but I just didn't know how to get there.\" She has traced the ambition itself to a television special about Faith Hill leaving for Nashville — the move Taylor then made herself.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift — \"A Place in This World\" (Songfacts)", url: "https://www.songfacts.com/facts/taylor-swift/a-place-in-this-world" }, { name: "A Place in This World", url: "https://en.wikipedia.org/wiki/A_Place_in_This_World" }],
+      sources: [{ name: "Taylor Swift — \"A Place in This World\" (Songfacts)", url: "https://www.songfacts.com/facts/taylor-swift/a-place-in-this-world", reliability: 4, type: "reputable_press" }, { name: "A Place in This World", url: "https://en.wikipedia.org/wiki/A_Place_in_This_World", reliability: 2, type: "wiki" }],
     },
   ],
   "evermore": [
@@ -134,7 +134,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Stated in her own announcement of the album: the 31/13 mirror was her framing, not a fan read. The numerology habit that started with hand-painted 13s now sets release dates.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["debut:lucky-number-13", "folklore:woodvale"],
     },
     {
@@ -145,7 +145,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor framed evermore as folklore's sister record, set in the same fictional world, and the two songs share a narrator: someone who left a small town for the screen, and the road that keeps leading her back to an old flame. Fans map her onto Betty, or onto the one who got away — but Taylor confirmed only the shared universe, never that Dorothea IS any named folklore character, so the specific casting stays an open close-read rather than canon.",
       confidence: "strong_fan_consensus",
       outcome: "unfalsifiable",
-      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }, { name: "Folklore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
+      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }, { name: "Folklore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["folklore:teenage-love-triangle"],
     },
     {
@@ -156,7 +156,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "evermore is built from fictional character studies, and ivy's narrator is widely read as a wife whose heart has gone elsewhere, the overgrown-garden metaphor doing the work a plainer confession couldn't. Its old-fashioned, poem-like language fed a second reading that the song echoes Dickinson. Both stay interpretation of a deliberately literary, fictional lyric — not a key Taylor has handed over.",
       confidence: "strong_fan_consensus",
       outcome: "unfalsifiable",
-      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
     },
     {
       slug: "cowboy-like-me-two-con-artists",
@@ -166,7 +166,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The lyric's tells — the tallied marks, the wariness, the recognition of a fellow schemer — support a near-universal fan reading of two grifters undone by real feeling. Like most of evermore it's a character study, so the reading is about the fictional narrators rather than anyone real; Taylor has left the song to speak for itself.",
       confidence: "strong_fan_consensus",
       outcome: "unfalsifiable",
-      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
     },
     {
       slug: "closure-discomfort-by-design",
@@ -176,7 +176,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "closure pairs a bitter kiss-off — thanks but no thanks to a peace offering that's really about the ex's comfort — with a deliberately abrasive, industrial-leaning arrangement in an unsettled meter. Critics and fans read the mismatch as intentional: the discomfort in the mix mirrors a narrator denying the tidy ending everyone expects. A craft reading, not a confirmed statement.",
       confidence: "plausible",
       outcome: "unfalsifiable",
-      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
     },
     {
       slug: "evermore-bonus-tracks-true-ending",
@@ -186,7 +186,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Placed after the title track, the pair reads as a deliberate coda: right where you left me strands a woman in the exact moment of heartbreak while the world moves on, and it's time to go answers it with the wisdom to recognize a lost cause and leave first. Fans prize the two as the record's thesis on endings — an editorial reading of track placement, not an official 'real ending' Taylor has claimed.",
       confidence: "strong_fan_consensus",
       outcome: "unfalsifiable",
-      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
     },
     {
       slug: "marjorie-grandmothers-vocals",
@@ -196,7 +196,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor has said she layered her grandmother's real operatic vocals into the track named for her, so Marjorie Finlay quite literally sings on her own tribute. It's the era's most-cited egg because it's confirmed and quietly devastating — a fact Taylor shared herself about a family member the family made public, not a fan guess.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
     },
   ],
   "fearless": [
@@ -208,7 +208,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor used this capitalization-code technique across her early album booklets, letting fans decode a short message per song from oddly capitalized letters in the printed lyrics. For \"The Best Day\" — itself written about her mother — the decoded message names her directly, tying the song's subject to its hidden dedication.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift's 13 Best Liner Note Secret Messages", url: "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/" }],
+      sources: [{ name: "Taylor Swift's 13 Best Liner Note Secret Messages", url: "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["fearless:the-best-day-surprise-home-video"],
     },
     {
@@ -219,7 +219,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The teaser clip showed jumbled letters that fans reassembled into the vault-track titles; Taylor confirmed the full list, including the Keith Urban duet, on April 3, 2021, six days ahead of the April 9 release. The announcement date (Feb. 11) and release date (April 9) each reduce to her frequently cited number 13 (2+11 and 4+9), a numerology pattern she has said she builds into release timing on purpose.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Fearless (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)" }, { name: "Taylor Swift Reveals 'Fearless (Taylor's Version)' Track List, Including Keith Urban Duet", url: "https://www.rollingstone.com/music/music-news/taylor-swift-fearless-taylors-version-track-list-keith-urban-1150599/" }],
+      sources: [{ name: "Fearless (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)", reliability: 2, type: "wiki" }, { name: "Taylor Swift Reveals 'Fearless (Taylor's Version)' Track List, Including Keith Urban Duet", url: "https://www.rollingstone.com/music/music-news/taylor-swift-fearless-taylors-version-track-list-keith-urban-1150599/", reliability: 4, type: "reputable_press" }],
     },
     {
       slug: "the-best-day-surprise-home-video",
@@ -229,7 +229,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "She kept the song and the video hidden from Andrea, then played both for her on Christmas Eve. \"That's when I lost it,\" Andrea recalled, \"and I've lost it pretty much every time I've heard that song since.\" The self-edited clip of childhood footage went public on May 1, 2009 as a Mother's Day release through Big Machine — the moving-image companion to the booklet's decoded \"GOD BLESS ANDREA SWIFT\" tribute, so the same dedication is hidden twice on the same album, once in the printed letters and once on film. Years later she extended the gesture, adding never-before-seen home movies to the \"Best Day (Taylor's Version)\" lyric video.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "The Best Day (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)" }, { name: "Taylor Swift Pays Tribute to Mom Andrea With Unseen Home Movies in 'The Best Day' Lyric Video", url: "https://www.eonline.com/news/1257438/taylor-swift-pays-tribute-to-mom-andrea-with-unseen-home-movies-in-the-best-day-lyric-video" }],
+      sources: [{ name: "The Best Day (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "Taylor Swift Pays Tribute to Mom Andrea With Unseen Home Movies in 'The Best Day' Lyric Video", url: "https://www.eonline.com/news/1257438/taylor-swift-pays-tribute-to-mom-andrea-with-unseen-home-movies-in-the-best-day-lyric-video", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["fearless:the-best-day-liner-note-code"],
     },
     {
@@ -240,7 +240,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor has said she wrote the song in about twenty minutes on her bedroom floor, using Romeo and Juliet as the frame but refusing its tragedy: \"I thought, why can't you make it a happy ending and put a key change in the song and turn it into a marriage proposal?\" The finished lyric ends not with a tomb but with a proposal, and the music literally lifts a whole step at the payoff — the key change she described built into the song. It is a reading about craft and literary source, not about who the song is written for.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Love Story (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }, { name: "Love Story by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/love-story" }],
+      sources: [{ name: "Love Story (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "Love Story by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/love-story", reliability: 3, type: "reputable_press" }],
     },
     {
       slug: "change-underdog-anthem",
@@ -250,7 +250,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor has called it plainly \"an underdog story,\" written \"about being on a small record label and being a 16 year-old girl and having a lot of odds against all of us\" — Big Machine against the Nashville majors, the feeling of \"when are we going to get a fighting chance?\" She finished it around her 2007 CMA Horizon Award win, watching label head Scott Borchetta react. NBC then chose it for the 2008 Summer Olympics and the AT&T Team USA Soundtrack, which she found fitting but unexpected: \"it's kind of crazy to think that the Olympics chose this.\" The entry is about the song's stated meaning and rollout, not any relationship.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Change (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)" }, { name: "Change by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/change" }],
+      sources: [{ name: "Change (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "Change by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/change", reliability: 3, type: "reputable_press" }],
     },
   ],
   "folklore": [
@@ -262,7 +262,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The word really was there — Taylor later explained on late-night TV that \"Woodvale\" was a working codename for folklore that mistakenly survived on a mock-up. A perfect case study: real artifact, real pattern-matching, wrong conclusion, official debunk.",
       confidence: "strong_fan_consensus",
       outcome: "debunked",
-      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["evermore:thirteen-backwards"],
     },
     {
@@ -273,7 +273,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Decoded within hours of release from shared names and mirrored details across the three lyrics; Taylor confirmed the intended triangle in interviews and the Long Pond sessions. The characters are explicitly fictional — which is what makes this the fandom's cleanest confirmed close-read.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Folklore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }, { name: "cardigan (song)", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }],
+      sources: [{ name: "Folklore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)", reliability: 2, type: "wiki" }, { name: "cardigan (song)", url: "https://en.wikipedia.org/wiki/Cardigan_(song)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["evermore:dorothea-and-the-love-triangle"],
     },
     {
@@ -284,7 +284,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The credits were the entire clue: no such songwriter existed anywhere. The confirmation came in folklore: the long pond studio sessions, where she named the person behind the pen name. Textbook fandom arc — anomaly, theory, on-record resolution within months.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Folklore: The Long Pond Studio Sessions", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions" }],
+      sources: [{ name: "Folklore: The Long Pond Studio Sessions", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions", reliability: 2, type: "wiki" }],
     },
   ],
   "lover": [
@@ -296,7 +296,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Documented rollout stunt: the mural went up unannounced, fan detectives connected it to the countdown Taylor had posted, and she showed up at the wall herself. The butterfly-eats-snake beat inside the \"ME!\" video completed the metamorphosis arc.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "ME!", url: "https://en.wikipedia.org/wiki/Me!" }],
+      sources: [{ name: "ME!", url: "https://en.wikipedia.org/wiki/Me!", reliability: 2, type: "wiki" }],
       relatedSlugs: ["reputation:snake-reclamation"],
     },
     {
@@ -307,7 +307,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "She described the practice in Lover-era interviews and later wrote it into a song (\"Mastermind\"). This record is the anchor for every other entry in this collection: the eggs are real, planted, and intended to be found — which is exactly why unconfirmed readings still need labels.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Cultural impact of Taylor Swift", url: "https://en.wikipedia.org/wiki/Cultural_impact_of_Taylor_Swift" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties" }],
+      sources: [{ name: "Cultural impact of Taylor Swift", url: "https://en.wikipedia.org/wiki/Cultural_impact_of_Taylor_Swift", reliability: 2, type: "wiki" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties", reliability: 2, type: "wiki" }],
       relatedSlugs: ["debut:liner-notes-hidden-messages"],
     },
     {
@@ -318,7 +318,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Egg roundups flagged the painting the day the video dropped in April 2019, months after Taylor had name-checked the group in her Elle essay — and the payoff shipped on the album that August. The same video gasped a real cat into existence: the kitten Brendon Urie offers her became Benjamin Button, adopted from the shoot.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift's 'ME!' Video Easter Eggs: Album Title, Her Next Single & More", url: "https://www.billboard.com/music/pop/taylor-swift-me-video-easter-eggs-8509007/" }, { name: "Taylor Swift's ''ME!'' Music Video: All the Hidden Easter Eggs and Symbolism", url: "https://www.eonline.com/news/1035688/taylor-swift-s-me-music-video-all-the-hidden-easter-eggs-and-symbolism" }],
+      sources: [{ name: "Taylor Swift's 'ME!' Video Easter Eggs: Album Title, Her Next Single & More", url: "https://www.billboard.com/music/pop/taylor-swift-me-video-easter-eggs-8509007/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift's ''ME!'' Music Video: All the Hidden Easter Eggs and Symbolism", url: "https://www.eonline.com/news/1035688/taylor-swift-s-me-music-video-all-the-hidden-easter-eggs-and-symbolism", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["lover:mastermind-doctrine"],
     },
     {
@@ -329,7 +329,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Outlets catalogued the wall shot when the video dropped in February 2020, mid-fight over her masters — the graffiti read as a map of the back catalog Scooter Braun had just bought, with the 13th Street station sign as a bonus. The KARMA tag fed the long-running lost-album theory; no Karma album ever surfaced, but 'Karma' the song arrived on Midnights and she has kept the wink going since.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "Easter Eggs In Taylor Swift's 'The Man' Video Are Everywhere", url: "https://www.marieclaire.com/celebrity/a31129779/easter-eggs-taylor-swift-the-man/" }, { name: "7 Easter Eggs You Might Not Have Noticed in Taylor Swift's \"The Man\" Music Video", url: "https://www.distractify.com/p/taylor-swift-the-man-music-video-easter-eggs" }],
+      sources: [{ name: "Easter Eggs In Taylor Swift's 'The Man' Video Are Everywhere", url: "https://www.marieclaire.com/celebrity/a31129779/easter-eggs-taylor-swift-the-man/", reliability: 4, type: "reputable_press" }, { name: "7 Easter Eggs You Might Not Have Noticed in Taylor Swift's \"The Man\" Music Video", url: "https://www.distractify.com/p/taylor-swift-the-man-music-video-easter-eggs", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["midnights:karma-lost-album"],
     },
     {
@@ -340,7 +340,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The room-by-room mapping circulated for years before a viral TikTok matched every room to an album when Midnights was announced in 2022 and declared the house complete. Taylor liked the TikTok — E! and ABC Audio both covered it as a seeming nod of approval — but she has never confirmed the mapping outright, so the thumbs-up is as official as it gets.",
       confidence: "strong_fan_consensus",
       outcome: "partially_confirmed",
-      sources: [{ name: "Taylor Swift Approves of This Theory About Her 10 Albums", url: "https://www.eonline.com/news/1344281/taylor-swift-approves-of-this-theory-about-her-10-albums" }, { name: "Taylor Swift seemingly confirms fan theory about the \"Lover\" house", url: "https://digital.abcaudio.com/news/taylor-swift-seemingly-confirms-fan-theory-about-lover-house" }],
+      sources: [{ name: "Taylor Swift Approves of This Theory About Her 10 Albums", url: "https://www.eonline.com/news/1344281/taylor-swift-approves-of-this-theory-about-her-10-albums", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift seemingly confirms fan theory about the \"Lover\" house", url: "https://digital.abcaudio.com/news/taylor-swift-seemingly-confirms-fan-theory-about-lover-house", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["lover:mastermind-doctrine"],
     },
   ],
@@ -353,7 +353,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Built from 2016-era teasers fans read as an album hint, then supercharged when Midnights shipped a song literally called \"Karma.\" Never confirmed, never denied; every era adds a new \"proof\" and the theory keeps its engine running. Filed as beloved, unresolved canon.",
       confidence: "strong_fan_consensus",
       outcome: "pending",
-      sources: [{ name: "Karma (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Karma_(Taylor_Swift_song)" }],
+      sources: [{ name: "Karma (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Karma_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
     },
     {
       slug: "bejeweled-speak-now-clues",
@@ -363,7 +363,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor said on release day that the video was stuffed with easter eggs; the fandom filed the purple/third-floor cluster under Speak Now within hours. Just over six months later the Nashville announcement proved the read. The clean template of clue -> consensus -> confirmation.",
       confidence: "strong_fan_consensus",
       outcome: "confirmed",
-      sources: [{ name: "Bejeweled (song)", url: "https://en.wikipedia.org/wiki/Bejeweled_(song)" }, { name: "Speak Now (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor%27s_Version)" }],
+      sources: [{ name: "Bejeweled (song)", url: "https://en.wikipedia.org/wiki/Bejeweled_(song)", reliability: 2, type: "wiki" }, { name: "Speak Now (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor%27s_Version)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["lover:mastermind-doctrine"],
     },
     {
@@ -374,7 +374,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "An official, platform-scale scavenger hunt run with Google in September 2023; the fandom cleared the 33-million target in under a day (crashing the puzzle at one point) and the vault titles unlocked. Easter-egg culture as infrastructure.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "1989 (Taylor's Version)", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)" }],
+      sources: [{ name: "1989 (Taylor's Version)", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)", reliability: 2, type: "wiki" }],
     },
     {
       slug: "eight-nine-sofi",
@@ -384,7 +384,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "A genuinely predictive win for fan numerology: date logic (8/9 = ’89), the color-code system (blue = 1989), and the tour calendar all pointed the same way, publicly, before the show. Documented as called-in-advance rather than retrofitted.",
       confidence: "strong_fan_consensus",
       outcome: "confirmed",
-      sources: [{ name: "1989 (Taylor's Version)", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)" }],
+      sources: [{ name: "1989 (Taylor's Version)", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["midnights:album-color-canon"],
     },
     {
@@ -395,7 +395,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The color system started as fan taxonomy and became a two-way channel: the Eras Tour staged each act in its color, and announcement-watching now runs on outfit forensics (blue before 1989 TV, purple before Speak Now TV). Repeatedly validated, never formally codified.",
       confidence: "strong_fan_consensus",
       outcome: "partially_confirmed",
-      sources: [{ name: "The Eras Tour", url: "https://en.wikipedia.org/wiki/The_Eras_Tour" }, { name: "Cultural impact of Taylor Swift", url: "https://en.wikipedia.org/wiki/Cultural_impact_of_Taylor_Swift" }],
+      sources: [{ name: "The Eras Tour", url: "https://en.wikipedia.org/wiki/The_Eras_Tour", reliability: 2, type: "wiki" }, { name: "Cultural impact of Taylor Swift", url: "https://en.wikipedia.org/wiki/Cultural_impact_of_Taylor_Swift", reliability: 2, type: "wiki" }],
       relatedSlugs: ["midnights:eight-nine-sofi"],
     },
     {
@@ -406,7 +406,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The no-repeat pattern held through most of 2023 (screwed-up songs earned reruns, by her own stage admission), making the community spreadsheets genuinely predictive — until the 2024 mashup era deliberately broke the system. Pattern real; rule informal; expiration confirmed.",
       confidence: "reputable_reporting",
       outcome: "partially_confirmed",
-      sources: [{ name: "The Eras Tour", url: "https://en.wikipedia.org/wiki/The_Eras_Tour" }],
+      sources: [{ name: "The Eras Tour", url: "https://en.wikipedia.org/wiki/The_Eras_Tour", reliability: 2, type: "wiki" }],
     },
     {
       slug: "friendship-bracelets",
@@ -416,7 +416,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Fans took the lyric as an instruction within weeks of opening night; by mid-2023 bracelet trading was the tour's defining ritual, covered everywhere from local news to bead-shortage business stories. A lyric became a subculture — the fandom's favorite kind of easter egg: one they built themselves.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "The Eras Tour", url: "https://en.wikipedia.org/wiki/The_Eras_Tour" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties" }],
+      sources: [{ name: "The Eras Tour", url: "https://en.wikipedia.org/wiki/The_Eras_Tour", reliability: 2, type: "wiki" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties", reliability: 2, type: "wiki" }],
     },
   ],
   "red": [
@@ -428,7 +428,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Following the same hidden-capital-letters technique used on her earlier album booklets, the \"22\" lyric sheet's decoded message names four friends rather than a romantic subject, matching the song's own framing as a friendship anthem about a birthday night out.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift's 13 Best Liner Note Secret Messages", url: "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/" }],
+      sources: [{ name: "Taylor Swift's 13 Best Liner Note Secret Messages", url: "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/", reliability: 4, type: "reputable_press" }],
     },
     {
       slug: "vault-track-word-puzzle-reveal",
@@ -438,7 +438,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The puzzle format built on the anagram-teaser approach from the Fearless re-record, this time rewarding fans who solved it with a bonus image. All of the revealed information — the featured artists and track titles — matched the official track list confirmed at release.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Red (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)" }],
+      sources: [{ name: "Red (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["fearless:vault-track-anagram-reveal"],
     },
     {
@@ -449,7 +449,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The shirt debuts in the Red-era \"22\" video (2012 album, 2013 single), then takes on a life of its own. On April 27, 2020 Taylor captioned a selfie with the same words and fans went hunting for a reveal — early guesses ran to a \"Cruel Summer\" single (Refinery29) — months before folklore surprise-dropped that July. On the Eras Tour \"22\" set she wore variants (\"A lot going on at the moment\") whose red-highlighted words — \"A lot,\" \"never,\" \"ever,\" \"ew\" — fans unscrambled on April 1, 2023 to \"Speak Now Taylor's Version,\" weeks before she announced that re-record. Read honestly: the recurring-caption sightings are fan tracking, not a confirmed cipher, but the Eras Tour anagram was staged deliberately and did precede the announcement.",
       confidence: "strong_fan_consensus",
       outcome: "partially_confirmed",
-      sources: [{ name: "Taylor Swift Is Not Being Subtle With Her Clues Anymore", url: "https://www.refinery29.com/en-us/2020/04/9746793/taylor-swift-not-a-lot-going-on-photo-theories-clues" }, { name: "Taylor Swift Fans Seemingly Decode Hidden Message In 'Eras Tour' Outfits", url: "https://www.iheart.com/content/2023-04-01-taylor-swift-fans-seemingly-decode-hidden-message-in-eras-tour-outfits/" }],
+      sources: [{ name: "Taylor Swift Is Not Being Subtle With Her Clues Anymore", url: "https://www.refinery29.com/en-us/2020/04/9746793/taylor-swift-not-a-lot-going-on-photo-theories-clues", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift Fans Seemingly Decode Hidden Message In 'Eras Tour' Outfits", url: "https://www.iheart.com/content/2023-04-01-taylor-swift-fans-seemingly-decode-hidden-message-in-eras-tour-outfits/", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["speak-now:speak-now-tv-tracklist-reveal"],
     },
     {
@@ -460,7 +460,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Released alongside Red (Taylor's Version) and co-treated by Taylor and Lively, the video became an egg hunt. Reporters cataloged them: the RED-cover ring; the red scarf handed over mid-toast, a direct callback to \"All Too Well\"; a lighting change from bright to dark blue during the dance, read as a nod to the track \"Red\"; and a tiered cake carrying 13 (Taylor's number) and 26 (her age when 1989 released), its birds echoing the 1989 cover, with a white-roses-turning-red set piece mirroring Alice in Wonderland (\"Wonderland\" is a 1989 deluxe track). Those 1989-leaning details also fuel the separate next-re-record reading.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "8 'I Bet You Think About Me' Easter Eggs", url: "https://www.newsweek.com/taylor-swift-i-bet-you-think-about-me-easter-eggs-1989-speak-now-miles-teller-1649696" }, { name: "Taylor Swift, Blake Lively Debut I Bet You Think About Me Music Video", url: "https://variety.com/2021/music/news/taylor-swift-blake-lively-i-bet-you-think-about-me-music-video-miles-teller-1235111991/" }],
+      sources: [{ name: "8 'I Bet You Think About Me' Easter Eggs", url: "https://www.newsweek.com/taylor-swift-i-bet-you-think-about-me-easter-eggs-1989-speak-now-miles-teller-1649696", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift, Blake Lively Debut I Bet You Think About Me Music Video", url: "https://variety.com/2021/music/news/taylor-swift-blake-lively-i-bet-you-think-about-me-music-video-miles-teller-1235111991/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["red:i-bet-you-think-about-me-rerecord-clues"],
     },
     {
@@ -471,7 +471,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor has recounted (Good Morning America) that the song poured out at about ten minutes and that she called Liz Rose — \"Come over, we've gotta filter this down\" — to pare it for Red (2012); the original even carried profanity later scrubbed for the album cut. The full \"All Too Well (10 Minute Version)\" arrived on Red (Taylor's Version) on November 12, 2021, with the short film a day later, vindicating the long-held fan belief that a longer \"real\" version existed. Kept strictly to songwriting history — the song's subject is out of scope.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "'All Too Well': Behind Taylor Swift's Ten Minute Long Heartbreak Anthem", url: "https://www.wideopencountry.com/all-too-well/" }, { name: "All Too Well (10 Minute Version)", url: "https://en.wikipedia.org/wiki/All_Too_Well_(10_Minute_Version)" }],
+      sources: [{ name: "'All Too Well': Behind Taylor Swift's Ten Minute Long Heartbreak Anthem", url: "https://www.wideopencountry.com/all-too-well/", reliability: 4, type: "reputable_press" }, { name: "All Too Well (10 Minute Version)", url: "https://en.wikipedia.org/wiki/All_Too_Well_(10_Minute_Version)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["red:vault-track-word-puzzle-reveal"],
     },
     {
@@ -482,7 +482,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "November 2021 coverage (Newsweek, E!) laid out the competing reads: birds on the cake mirroring the 1989 cover, \"26\" for her age when 1989 released, and Alice-in-Wonderland roses tied to 1989's \"Wonderland\"; against that, the wedding theme and a voluminous red dress resembling the Speak Now deluxe gown argued Speak Now was up next. In the event, both were re-recorded in 2023 — Speak Now (Taylor's Version) in July, 1989 (Taylor's Version) in October — so both reads landed, in that order. Marked partially confirmed: the sequencing bore out, but whether any single frame was an intentional clue stays fan speculation.",
       confidence: "strong_fan_consensus",
       outcome: "partially_confirmed",
-      sources: [{ name: "8 'I Bet You Think About Me' Easter Eggs That Prove Taylor's Next Re-Record", url: "https://www.newsweek.com/taylor-swift-i-bet-you-think-about-me-easter-eggs-1989-speak-now-miles-teller-1649696" }, { name: "All the Easter Eggs in Taylor Swift's \"I Bet You Think About Me\" Music Video", url: "https://www.eonline.com/news/1309712/all-the-easter-eggs-in-taylor-swifts-i-bet-you-think-about-me-music-video-with-miles-teller" }],
+      sources: [{ name: "8 'I Bet You Think About Me' Easter Eggs That Prove Taylor's Next Re-Record", url: "https://www.newsweek.com/taylor-swift-i-bet-you-think-about-me-easter-eggs-1989-speak-now-miles-teller-1649696", reliability: 4, type: "reputable_press" }, { name: "All the Easter Eggs in Taylor Swift's \"I Bet You Think About Me\" Music Video", url: "https://www.eonline.com/news/1309712/all-the-easter-eggs-in-taylor-swifts-i-bet-you-think-about-me-music-video-with-miles-teller", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["red:i-bet-you-think-about-me-video-eggs", "speak-now:speak-now-tv-tracklist-reveal"],
     },
   ],
@@ -495,7 +495,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The era launch was three wordless snake videos posted to blacked-out socials; 'Look What You Made Me Do' leaned all the way in (a snake serving tea); the Stadium Tour made the snake a mascot. A documented, deliberate reclamation arc — the insult became the brand.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Look What You Made Me Do", url: "https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do" }, { name: "Kanye West–Taylor Swift feud", url: "https://en.wikipedia.org/wiki/Kanye_West%E2%80%93Taylor_Swift_feud" }],
+      sources: [{ name: "Look What You Made Me Do", url: "https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do", reliability: 2, type: "wiki" }, { name: "Kanye West–Taylor Swift feud", url: "https://en.wikipedia.org/wiki/Kanye_West%E2%80%93Taylor_Swift_feud", reliability: 2, type: "wiki" }],
     },
     {
       slug: "lwymmd-nils-sjoberg-gravestone",
@@ -505,7 +505,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Outlets ran full decoder guides the week the video premiered at the 2017 VMAs, and the gravestone was near the top of every list. The pseudonym's story was already public — the co-write came out messily after the Harris breakup in July 2016 — which is what made burying the name read as such a pointed goodbye to the era of hiding her own credits.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "All the References You Might Have Missed in Taylor Swift's 'Look What You Made Me Do' Video", url: "https://time.com/4918411/taylor-swift-look-what-you-made-me-do-music-video-references/" }, { name: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed", url: "https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/" }],
+      sources: [{ name: "All the References You Might Have Missed in Taylor Swift's 'Look What You Made Me Do' Video", url: "https://time.com/4918411/taylor-swift-look-what-you-made-me-do-music-video-references/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed", url: "https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["reputation:snake-reclamation"],
     },
     {
@@ -516,7 +516,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The timing does the arguing: the jury found in her favor on August 14, 2017, awarding the single symbolic dollar she had asked for, and the video premiered at the VMAs on August 27. Outlets covered the fan reading immediately, and a year later fans held up $1 bills at her Tampa show on the verdict's anniversary. Taylor has never confirmed the detail herself — which is why this stays a theory, not a fact.",
       confidence: "strong_fan_consensus",
       outcome: "pending",
-      sources: [{ name: "The $1 Taylor Swift won during her sexual assault trial makes an appearance in \"Look What You Made Me Do\"", url: "https://hellogiggles.com/taylor-swift-sexual-assault-trial-music-video/" }, { name: "Taylor Swift Speaks Out About Believing Sexual Assault Victims on Anniversary of Her Trial Verdict", url: "https://time.com/5367874/taylor-swift-sexual-assault/" }],
+      sources: [{ name: "The $1 Taylor Swift won during her sexual assault trial makes an appearance in \"Look What You Made Me Do\"", url: "https://hellogiggles.com/taylor-swift-sexual-assault-trial-music-video/", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift Speaks Out About Believing Sexual Assault Victims on Anniversary of Her Trial Verdict", url: "https://time.com/5367874/taylor-swift-sexual-assault/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["reputation:lwymmd-nils-sjoberg-gravestone"],
     },
     {
@@ -527,7 +527,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Each figure is a resurrected version of herself — the 'You Belong With Me' Junior Jewels tee, the 2014 Met Gala look, the snake-throne queen, zombie-Taylor from the video's own graveyard — and their lines quote real jabs ('There she goes playing the victim again,' 'Stop making that surprised face, it's so annoying'). The closing quote lifts verbatim from the statement she posted during the 2016 phone-call controversy, so the gag turns her most-mocked moments into a chorus she talks back to. Documented in the frame-by-frame decoder guides the week the video premiered at the 2017 VMAs.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed", url: "https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/" }, { name: "All the References You Might Have Missed in Taylor Swift's 'Look What You Made Me Do' Video", url: "https://time.com/4918411/taylor-swift-look-what-you-made-me-do-music-video-references/" }],
+      sources: [{ name: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed", url: "https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/", reliability: 4, type: "reputable_press" }, { name: "All the References You Might Have Missed in Taylor Swift's 'Look What You Made Me Do' Video", url: "https://time.com/4918411/taylor-swift-look-what-you-made-me-do-music-video-references/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["reputation:snake-reclamation", "reputation:lwymmd-nils-sjoberg-gravestone"],
     },
     {
@@ -538,7 +538,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The Latin tag frames the era's betrayal theme in one prop: Julius Caesar realizing his ally Brutus was among his assassins. Paired with the tea-pouring snake — a literal 'serving tea' pun that also reclaims the snake-emoji pile-on — the throne scene reads as the album's thesis staged as set design. Named in the frame-by-frame decoder guides that ran the week the video premiered.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed", url: "https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/" }, { name: "All the References You Might Have Missed in Taylor Swift's 'Look What You Made Me Do' Video", url: "https://time.com/4918411/taylor-swift-look-what-you-made-me-do-music-video-references/" }],
+      sources: [{ name: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed", url: "https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/", reliability: 4, type: "reputable_press" }, { name: "All the References You Might Have Missed in Taylor Swift's 'Look What You Made Me Do' Video", url: "https://time.com/4918411/taylor-swift-look-what-you-made-me-do-music-video-references/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["reputation:snake-reclamation"],
     },
     {
@@ -549,7 +549,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The design (shot by Mert & Marcus) mimics tabloid front-page typography as a comment on the media narrative that had defined her since 2016 — and the rollout extended the joke, with Target-exclusive physical copies packaged as two magazine-style booklets styled like gossip rags. Outlets read the repeated-name newsprint as her taking the pen back: the press wrote her story, so she reprinted it as nothing but her signature.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "What Does Taylor Swift's 'Reputation' Album Cover Art Mean?", url: "https://www.bustle.com/p/what-does-taylor-swifts-reputation-album-cover-art-mean-the-singer-may-be-reclaiming-her-image-78525" }, { name: "Taylor Swift's New Album Cover for 'Reputation' Is...Headline-Making", url: "https://www.papermag.com/taylor-swifts-new-album-cover-for-reputation-is-headline-making" }],
+      sources: [{ name: "What Does Taylor Swift's 'Reputation' Album Cover Art Mean?", url: "https://www.bustle.com/p/what-does-taylor-swifts-reputation-album-cover-art-mean-the-singer-may-be-reclaiming-her-image-78525", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift's New Album Cover for 'Reputation' Is...Headline-Making", url: "https://www.papermag.com/taylor-swifts-new-album-cover-for-reputation-is-headline-making", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["reputation:snake-reclamation"],
     },
   ],
@@ -562,7 +562,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Using the same hidden-capital-letters technique found across her early album booklets, the \"Never Grow Up\" lyric sheet's decoded phrase lines up with Taylor's own account of moving into her first apartment that July, turning a lyric-sheet puzzle into a factual footnote on the song.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift's 13 Best Liner Note Secret Messages", url: "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/" }],
+      sources: [{ name: "Taylor Swift's 13 Best Liner Note Secret Messages", url: "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/", reliability: 4, type: "reputable_press" }],
     },
     {
       slug: "speak-now-tv-tracklist-reveal",
@@ -572,7 +572,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Fearless and Red (Taylor's Version) vault tracks had each been revealed through a cryptic scrambled-word \"vault\" puzzle video fans had to decode. Speak Now (TV) skipped the puzzle: a single, fan-facing announcement post named every vault track and its guest directly, rather than a label press cycle — a simplification of the earlier playbook, not a repeat of it.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Speak Now (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor%27s_Version)" }],
+      sources: [{ name: "Speak Now (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor%27s_Version)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["fearless:vault-track-anagram-reveal", "red:vault-track-word-puzzle-reveal"],
     },
     {
@@ -583,7 +583,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor had been teasing the single with a countdown when the leak collapsed the timeline; rather than let a bootleg define the song, the label pushed the official version out the same afternoon. Taylor said the leak left her in tears, but the rushed release still shot to No. 1 on iTunes, and Speak Now followed on October 25, 2010. It is an early, accidental version of the rollout chaos her later eras would stage on purpose.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift Rush Releases \"Mine\" to Radio After Internet Leak, \"Speak Now\" Album in October", url: "https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/" }, { name: "Taylor Swift Unleashes New Single \"Mine\"", url: "https://www.rollingstone.com/music/music-news/taylor-swift-unleashes-new-single-mine-78726/" }],
+      sources: [{ name: "Taylor Swift Rush Releases \"Mine\" to Radio After Internet Leak, \"Speak Now\" Album in October", url: "https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift Unleashes New Single \"Mine\"", url: "https://www.rollingstone.com/music/music-news/taylor-swift-unleashes-new-single-mine-78726/", reliability: 4, type: "reputable_press" }],
     },
     {
       slug: "speak-now-tour-surprise-covers",
@@ -593,7 +593,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Seated under a lit tree with a ukulele or guitar, she used the acoustic segment to break from the otherwise-rehearsed show: Alanis Morissette and Avril Lavigne in Toronto, the Beach Boys and Kim Carnes' \"Bette Davis Eyes\" in Los Angeles, the Fray's \"How to Save a Life\" in Denver. \"You'll have a lot of people who will come to more than one show,\" she explained, \"and I want them to get a different experience every time.\" By the Red Tour the surprise slot had become a permanent fixture of the setlist, and the Eras Tour turned it into two songs a night.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Speak Now World Tour", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour" }, { name: "Taylor Swift Eras Tour: Every Surprise Song From Taylor's Setlist So Far", url: "https://www.capitalfm.com/artists/taylor-swift/eras-tour-surprise-songs-setlist/" }],
+      sources: [{ name: "Speak Now World Tour", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour", reliability: 2, type: "wiki" }, { name: "Taylor Swift Eras Tour: Every Surprise Song From Taylor's Setlist So Far", url: "https://www.capitalfm.com/artists/taylor-swift/eras-tour-surprise-songs-setlist/", reliability: 3, type: "reputable_press" }],
     },
     {
       slug: "speak-now-written-entirely-alone",
@@ -603,7 +603,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Swift has framed the solo writing as a reaction to critics' doubts about her songwriting, and described finishing songs on the road with no collaborator on hand: \"I'd get my best ideas at 3:00 a.m. in Arkansas, and I didn't have a co-writer around so I would just finish it.\" Released Oct. 25, 2010 and co-produced with Nathan Chapman, the standard album carries only her name in every writing credit — the claim is verifiable from the credits themselves, not a reading of the lyrics.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Speak Now", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
+      sources: [{ name: "Speak Now", url: "https://en.wikipedia.org/wiki/Speak_Now", reliability: 2, type: "wiki" }],
       relatedSlugs: ["speak-now:long-live-band-and-fans-tribute"],
     },
     {
@@ -614,7 +614,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Introducing the song, Swift described it as being \"about my band, and my producer, and all the people who have helped us build this brick by brick,\" and cast it as replaying a photo album of award-show and stadium moments shared with her collaborators and crowd. The royalty-and-graduation imagery is universal enough that it also reads as a graduation anthem, but her stated intent — the closing track of the 14-song standard edition — was gratitude to her team.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Long Live (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)" }, { name: "Long Live by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/long-live" }],
+      sources: [{ name: "Long Live (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "Long Live by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/long-live", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["speak-now:speak-now-written-entirely-alone"],
     },
   ],
@@ -627,7 +627,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The album was announced on the New Heights podcast in August 2025 wrapped in glittering orange (and mint) — instantly validating months of color-watching. How much of the pre-announcement orange was planted versus pattern-matched has never been itemized, so the call is graded, not fully confirmed.",
       confidence: "strong_fan_consensus",
       outcome: "partially_confirmed",
-      sources: [{ name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl" }],
+      sources: [{ name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl", reliability: 2, type: "wiki" }],
       relatedSlugs: ["midnights:album-color-canon"],
     },
     {
@@ -638,7 +638,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The allusion is the title; coverage of the single documented the Hamlet inversion as the song's central conceit, continuing the quill-pen literary streak from TTPD (Peter Pan, Cassandra, Clara Bow).",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia" }],
+      sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia", reliability: 2, type: "wiki" }],
       relatedSlugs: ["ttpd:peter-pan-throughline"],
     },
     {
@@ -649,7 +649,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "An interpolation re-records a song's musical elements rather than sampling the original master, and it shows up as a formal songwriting credit — which is exactly where this one is documented, with George Michael credited as a co-writer on \"Father Figure.\" Coverage describes Swift's track as an interpolation of Michael's song, reusing its title-line hook and a similar melody. Reaching back into a specific catalog and crediting it in the liner metadata is the same buried-clue instinct that runs through her rollouts; here the clue is hiding in the songwriting credits themselves.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "Father Figure (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Father_Figure_(Taylor_Swift_song)" }],
+      sources: [{ name: "Father Figure (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Father_Figure_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["tloas:ophelia-rewrite"],
     },
     {
@@ -660,7 +660,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The \"Track 5\" convention — the album's most vulnerable, confessional song deliberately placed fifth — is a long-documented Swift signature running through the catalog (e.g. \"The Archer\" on Lover, \"mirrorball\" on folklore). \"Eldest Daughter\" is the fifth track on The Life of a Showgirl, and critics placed it directly in that lineage, comparing it to \"The Archer\" and \"mirrorball\" and their shared themes of perseverance, desperation and perfectionism. The egg is structural rather than hidden-in-the-art: knowing the rule tells a listener where to look for the album's emotional core before pressing play.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "Eldest Daughter", url: "https://en.wikipedia.org/wiki/Eldest_Daughter" }],
+      sources: [{ name: "Eldest Daughter", url: "https://en.wikipedia.org/wiki/Eldest_Daughter", reliability: 2, type: "wiki" }],
       relatedSlugs: ["tloas:ophelia-rewrite"],
     },
     {
@@ -671,7 +671,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Documentation of the video notes that it features easter eggs referencing other tracks from The Life of a Showgirl and moments from the Eras Tour, and that Vancouver's Science World makes a brief appearance near the end. Planting references to the record's other songs inside the first video is the same self-referential clue-laying — the album teasing itself — that has defined her visual rollouts since the reputation and Lover eras; here it runs through the era's very first frames.",
       confidence: "reputable_reporting",
       outcome: "confirmed",
-      sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia" }],
+      sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia", reliability: 2, type: "wiki" }],
       relatedSlugs: ["tloas:ophelia-rewrite"],
     },
     {
@@ -682,7 +682,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The album is her twelfth studio LP and its standard tracklist is twelve songs long — both plain, documented facts. Swift has a long, self-acknowledged history of number play (the recurring 13 motif; release dates and track counts used as planted clues), which is why fans read the twelve-on-twelfth symmetry as intentional rather than incidental. The alignment itself is verified fact; the intent behind it is the fan reading, so the egg is graded partially confirmed — the numbers line up, but Taylor has not itemized this one as a wink.",
       confidence: "strong_fan_consensus",
       outcome: "partially_confirmed",
-      sources: [{ name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl" }],
+      sources: [{ name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl", reliability: 2, type: "wiki" }],
       relatedSlugs: ["tloas:orange-era-clues"],
     },
     {
@@ -693,7 +693,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The change itself is documented — Just Jared (Bradley Stern, July 20) and geo.tv both logged the three new canvases — but nothing was announced, and Just Jared's own line was that \"no one seems to know what it means yet.\" Everything past the color swap is fan decoding, and the reads openly contradict each other. The loudest leans on green as debut's color, pointing to a debut \"Taylor's Version.\" A date-code version lines up the three albums' release days — debut on Oct 24, Speak Now on Oct 25, Red on Oct 22 — and fixates on the missing Oct 23, a Friday in 2026 and Taylor's usual release day. A numerology version adds the albums' places in her catalog (Red 4th + Speak Now 3rd + reputation 6th = 13). None of them cleanly accounts for \"Blank Space,\" a 1989 track that belongs to none of those records — which is exactly why it stays a theory. If a re-recording or new release follows, this promotes with the citation; if it goes quiet, it fades.",
       confidence: "plausible",
       outcome: "pending",
-      sources: [{ name: "Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories", url: "https://www.justjared.com/2026/07/20/taylor-swift-fans-spiral-over-tiny-spotify-change-fueling-new-album-taylors-version-theories/" }, { name: "Taylor Swift sparks curiosity with new \"Easter Eggs\" on streaming platforms", url: "https://www.geo.tv/latest/673940-taylor-swift-sparks-curiosity-with-new-easter-eggs-on-streaming-platforms" }],
+      sources: [{ name: "Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories", url: "https://www.justjared.com/2026/07/20/taylor-swift-fans-spiral-over-tiny-spotify-change-fueling-new-album-taylors-version-theories/", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift sparks curiosity with new \"Easter Eggs\" on streaming platforms", url: "https://www.geo.tv/latest/673940-taylor-swift-sparks-curiosity-with-new-easter-eggs-on-streaming-platforms", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["tloas:orange-era-clues"],
     },
     {
@@ -704,7 +704,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The song's co-writer and producer, Aaron Dessner — the same collaborator behind folklore and evermore — was asked about the theory head-on in a July 21, 2026 Billboard interview and shut it down flatly: \"Yeah, definitely not.\" He said Abrams wrote it \"at a time when [Gracie] was writing about a friend's ex, being in a bad relationship,\" and added that he did not even know the person's identity — so there is no hidden third party to expose, and nothing about Taylor in it. NME and E! News carried the same denial. The reading was always a fan inference stacked on a public friendship, never anything Abrams or Dessner had suggested; on the record from the man who helped write the song, it resolves debunked.",
       confidence: "reputable_reporting",
       outcome: "debunked",
-      sources: [{ name: "Aaron Dessner Sets the Record Straight on Gracie Abrams' 'Death Wish': It's 'Definitely Not' About Taylor Swift", url: "https://www.billboard.com/music/music-news/aaron-dessner-gracie-abrams-death-wish-noah-kahan-interview-1236299956/" }, { name: "The National's Aaron Dessner speaks out on if Gracie Abrams' 'Death Wish' is about Taylor Swift", url: "https://www.nme.com/news/music/the-nationals-aaron-dessner-speaks-out-on-if-gracie-abrams-death-wish-is-about-taylor-swift-3958555" }, { name: "Gracie Abrams Song \"Death Wish\" Is Not About Taylor Swift", url: "https://www.eonline.com/news/1434254/gracie-abrams-song-death-wish-is-not-about-taylor-swift" }],
+      sources: [{ name: "Aaron Dessner Sets the Record Straight on Gracie Abrams' 'Death Wish': It's 'Definitely Not' About Taylor Swift", url: "https://www.billboard.com/music/music-news/aaron-dessner-gracie-abrams-death-wish-noah-kahan-interview-1236299956/", reliability: 4, type: "reputable_press" }, { name: "The National's Aaron Dessner speaks out on if Gracie Abrams' 'Death Wish' is about Taylor Swift", url: "https://www.nme.com/news/music/the-nationals-aaron-dessner-speaks-out-on-if-gracie-abrams-death-wish-is-about-taylor-swift-3958555", reliability: 4, type: "reputable_press" }, { name: "Gracie Abrams Song \"Death Wish\" Is Not About Taylor Swift", url: "https://www.eonline.com/news/1434254/gracie-abrams-song-death-wish-is-not-about-taylor-swift", reliability: 3, type: "reputable_press" }],
     },
   ],
   "ttpd": [
@@ -716,7 +716,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The stylization is objective fact (it is printed that way on the tracklist) and the reading was reported by major outlets within hours. But the attribution remains an inference from typography — so it stays labeled as reporting, not confirmation.",
       confidence: "reputable_reporting",
       outcome: "pending",
-      sources: [{ name: "The Tortured Poets Department", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
+      sources: [{ name: "The Tortured Poets Department", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department", reliability: 2, type: "wiki" }],
       relatedSlugs: ["reputation:snake-reclamation"],
     },
     {
@@ -727,7 +727,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The Peter Pan allusion is explicit in both lyrics four years apart, and the callback was noted across the album's press coverage. The songs connect textually; whether they share one narrator is the (unconfirmed) fan layer.",
       confidence: "reputable_reporting",
       outcome: "partially_confirmed",
-      sources: [{ name: "The Tortured Poets Department", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }, { name: "cardigan (song)", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }],
+      sources: [{ name: "The Tortured Poets Department", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department", reliability: 2, type: "wiki" }, { name: "cardigan (song)", url: "https://en.wikipedia.org/wiki/Cardigan_(song)", reliability: 2, type: "wiki" }],
       relatedSlugs: ["folklore:teenage-love-triangle"],
     },
     {
@@ -738,7 +738,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Hawke confirmed the intent in release-week interviews: Taylor reached out through his daughter Maya, and he described the album title as owing \"some debt\" to the film. Charles said he assumed Hawke was punking him when he called with the offer. Both cameos were reported the day the video dropped.",
       confidence: "confirmed_interview",
       outcome: "confirmed",
-      sources: [{ name: "Ethan Hawke Talks Taylor Swift's 'Fortnight' Music Video", url: "https://www.hollywoodreporter.com/music/music-news/ethan-hawke-taylor-swift-fortnight-music-video-1235892762/" }, { name: "Taylor Swift Reunites 'Dead Poets' Stars Ethan Hawke, Josh Charles For 'Fortnight' Video", url: "https://deadline.com/2024/04/taylor-swift-dead-poets-society-stars-ethan-hawke-josh-charles-fortnight-video-1235890796/" }],
+      sources: [{ name: "Ethan Hawke Talks Taylor Swift's 'Fortnight' Music Video", url: "https://www.hollywoodreporter.com/music/music-news/ethan-hawke-taylor-swift-fortnight-music-video-1235892762/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift Reunites 'Dead Poets' Stars Ethan Hawke, Josh Charles For 'Fortnight' Video", url: "https://deadline.com/2024/04/taylor-swift-dead-poets-society-stars-ethan-hawke-josh-charles-fortnight-video-1235890796/", reliability: 4, type: "reputable_press" }],
     },
     {
       slug: "ttpd-spotify-library-eggs",
@@ -748,7 +748,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Fans documented the room in real time and the plants paid off on release day: \"Even statues crumble if they're made to wait\" and \"One less temptress, one less dagger to sharpen\" both surfaced as album lines, and the book spines — \"The Manuscript,\" \"The Albatross\" — matched the record. Dried flowers and a peace-sign bust rounded out the set dressing fans mined for days.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift 'The Tortured Poets Department' LA Spotify library", url: "https://www.deseret.com/entertainment/2024/04/16/taylor-swift-tortured-poets-department-los-angeles-art-installation/" }, { name: "As Taylor Swift's 'The Tortured Poets Department' drops, here's everything you need to know", url: "https://www.nbcnews.com/pop-culture/music/taylor-swift-new-album-tortured-poets-department-what-know-rcna148277" }],
+      sources: [{ name: "Taylor Swift 'The Tortured Poets Department' LA Spotify library", url: "https://www.deseret.com/entertainment/2024/04/16/taylor-swift-tortured-poets-department-los-angeles-art-installation/", reliability: 3, type: "reputable_press" }, { name: "As Taylor Swift's 'The Tortured Poets Department' drops, here's everything you need to know", url: "https://www.nbcnews.com/pop-culture/music/taylor-swift-new-album-tortured-poets-department-what-know-rcna148277", reliability: 4, type: "reputable_press" }],
     },
     {
       slug: "black-dog-real-pub",
@@ -758,7 +758,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The pub's owners say they learned about the song from the fan surge itself, then leaned in: lyric signage in the window, \"home to tortured poets\" in the Instagram bio, a \"Taylor's Version\" cocktail menu, and queues they had to turn away. Taylor has never said whether she meant this exact Black Dog — the fan identification, and the pub's embrace of it, is the story.",
       confidence: "reputable_reporting",
       outcome: "partially_confirmed",
-      sources: [{ name: "What it's like inside The Black Dog, the London pub made famous by Taylor Swift", url: "https://www.cnn.com/travel/black-dog-vauxhall-london-pub-taylor-swift" }, { name: "Why Swifties have sniffed out and descended upon London's Black Dog pub", url: "https://www.cbsnews.com/news/talyor-swift-london-pub-black-dog-swifties-descend/" }],
+      sources: [{ name: "What it's like inside The Black Dog, the London pub made famous by Taylor Swift", url: "https://www.cnn.com/travel/black-dog-vauxhall-london-pub-taylor-swift", reliability: 4, type: "reputable_press" }, { name: "Why Swifties have sniffed out and descended upon London's Black Dog pub", url: "https://www.cbsnews.com/news/talyor-swift-london-pub-black-dog-swifties-descend/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["ttpd:ttpd-grief-playlists"],
     },
     {
@@ -769,7 +769,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor curated all five (denial, anger, bargaining, depression, acceptance) from her first ten albums with her own notes on each stage. On release day the titles resolved: \"I Love You, It's Ruining My Life\" is a \"Fortnight\" lyric, \"Old Habits Die Screaming\" is in \"The Black Dog,\" and \"I Can Do It With a Broken Heart\" is on the tracklist itself.",
       confidence: "official",
       outcome: "confirmed",
-      sources: [{ name: "Taylor Swift Shares 5 'Stages of Heartbreak' Playlists on Apple Music", url: "https://www.billboard.com/music/music-news/taylor-swift-5-stages-of-heartbreak-playlists-apple-music-1235649873/" }, { name: "Taylor Swift Soundtracks the Five Stages of Grief With New Apple Music Playlists", url: "https://www.rollingstone.com/music/music-news/taylor-swift-stages-grief-playlists-apple-music-1234999955/" }],
+      sources: [{ name: "Taylor Swift Shares 5 'Stages of Heartbreak' Playlists on Apple Music", url: "https://www.billboard.com/music/music-news/taylor-swift-5-stages-of-heartbreak-playlists-apple-music-1235649873/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift Soundtracks the Five Stages of Grief With New Apple Music Playlists", url: "https://www.rollingstone.com/music/music-news/taylor-swift-stages-grief-playlists-apple-music-1234999955/", reliability: 4, type: "reputable_press" }],
       relatedSlugs: ["ttpd:black-dog-real-pub"],
     },
     {
@@ -780,7 +780,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The lineage is right there in the text — the song names Clara Bow (the silent era's original \"It Girl,\" who retired young under relentless media scrutiny) and Stevie Nicks by name before turning the same appraising label-speak on Taylor herself. Critics read it as a companion to her earlier fame parables \"The Lucky One\" and \"Nothing New\": Rolling Stone's Rob Sheffield tied it to her writing on short-lived fame and being left behind, and NPR and The Ringer both framed it as Taylor clocking the cyclical nature of stardom. The self-aware reading is widely shared; she has not narrated it line by line.",
       confidence: "reputable_reporting",
       outcome: "partially_confirmed",
-      sources: [{ name: "Clara Bow (song)", url: "https://en.wikipedia.org/wiki/Clara_Bow_(song)" }, { name: "Who Is Clara Bow? The Inspiration Behind Taylor Swift's Song", url: "https://time.com/6969048/clara-bow-taylor-swift-song/" }],
+      sources: [{ name: "Clara Bow (song)", url: "https://en.wikipedia.org/wiki/Clara_Bow_(song)", reliability: 2, type: "wiki" }, { name: "Who Is Clara Bow? The Inspiration Behind Taylor Swift's Song", url: "https://time.com/6969048/clara-bow-taylor-swift-song/", reliability: 4, type: "reputable_press" }],
     },
     {
       slug: "cassandra-reputation-callback",
@@ -790,7 +790,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "The myth is explicit: Apollo curses Cassandra so her true prophecies always go unheeded. The lyric pulls its snake imagery straight from the reputation-era campaign this catalog already documents, and Billboard, Capital FM and others read the track as Taylor's account of being publicly disbelieved in 2016 — down to the \"supposed supporters who didn't take her side.\" It points at the same public controversy the \"thanK you aIMee\" stylization does; it is a documented press reading of a public chapter, not an authorial confirmation.",
       confidence: "reputable_reporting",
       outcome: "pending",
-      sources: [{ name: "Cassandra (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Cassandra_(Taylor_Swift_song)" }, { name: "Taylor Swift Explains The Meaning Behind Her 'Cassandra' Lyrics", url: "https://www.capitalfm.com/news/music/taylor-swift-cassandra-lyrics-meaning-who/" }],
+      sources: [{ name: "Cassandra (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Cassandra_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "Taylor Swift Explains The Meaning Behind Her 'Cassandra' Lyrics", url: "https://www.capitalfm.com/news/music/taylor-swift-cassandra-lyrics-meaning-who/", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["ttpd:thank-you-aimee-capitals", "reputation:snake-reclamation"],
     },
     {
@@ -801,7 +801,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       evidence: "Taylor defined the three categories herself while accepting the Songwriter-Artist of the Decade honor at the 2022 Nashville Songwriter Awards, naming \"ivy\" as a quill lyric, \"All Too Well\" as fountain pen, and \"Shake It Off\" as glitter gel. Fans applied the framework to TTPD before release and pointed to a planted clue — the fountain pen sitting on the writing desk in the album's Spotify pop-up library. Which specific tracks land in which category is fan debate; Taylor has not sorted this album's songs in public.",
       confidence: "reputable_reporting",
       outcome: "pending",
-      sources: [{ name: "Taylor Swift organises her lyrics into three \"dorky\" pen-themed categories", url: "https://www.nme.com/news/music/taylor-swift-organises-her-lyrics-into-three-dorky-pen-themed-categories-3325355" }, { name: "Is Taylor Swift's 'The Tortured Poets Department' A Quill, Fountain Or Glitter Pen album?", url: "https://www.capitalfm.com/news/music/taylor-swifts-quill-fountain-glitter-pen-songwriting/" }],
+      sources: [{ name: "Taylor Swift organises her lyrics into three \"dorky\" pen-themed categories", url: "https://www.nme.com/news/music/taylor-swift-organises-her-lyrics-into-three-dorky-pen-themed-categories-3325355", reliability: 4, type: "reputable_press" }, { name: "Is Taylor Swift's 'The Tortured Poets Department' A Quill, Fountain Or Glitter Pen album?", url: "https://www.capitalfm.com/news/music/taylor-swifts-quill-fountain-glitter-pen-songwriting/", reliability: 3, type: "reputable_press" }],
       relatedSlugs: ["ttpd:ttpd-spotify-library-eggs"],
     },
   ],

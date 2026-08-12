@@ -1,7 +1,7 @@
 import http from 'node:http';
 import type { AddressInfo } from 'node:net';
 import { afterEach, describe, expect, it } from 'vitest';
-import { applyPostFilters, httpsRequest, planRest, proxyForHost, shapeHit } from './gh.mjs';
+import { applyPostFilters, httpsRequest, maxPagesFor, planRest, proxyForHost, shapeHit } from './gh.mjs';
 
 // These cover the REST fallback's argv→request translation, which is the part
 // that silently does the wrong thing if it's wrong. The failure mode we're
@@ -142,6 +142,20 @@ describe('planRest — issue create', () => {
 describe('planRest — unsupported', () => {
   it('returns null rather than guessing, so gh() can throw a named error', () => {
     expect(planRest(['release', 'create', 'v1'], REPO)).toBeNull();
+  });
+});
+
+describe('maxPagesFor — list pagination honours the caller\'s limit, bounded', () => {
+  it('keeps the 3-page floor for small limits whose post-filters eat hits', () => {
+    expect(maxPagesFor(30)).toBe(3);
+    expect(maxPagesFor(undefined)).toBe(3);
+  });
+  it('pages far enough to satisfy a large limit — Karen\'s fingerprint prefetch asks for 1000, and a sub-limit result is what proves the cie history COMPLETE (issues.mjs skips the forbidden /search on that proof)', () => {
+    expect(maxPagesFor(1000)).toBe(10);
+    expect(maxPagesFor(450)).toBe(5);
+  });
+  it('stays bounded no matter what the caller asks for', () => {
+    expect(maxPagesFor(1e9)).toBe(10);
   });
 });
 
