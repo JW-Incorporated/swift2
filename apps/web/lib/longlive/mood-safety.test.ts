@@ -144,8 +144,35 @@ const ORDINARY_FEELINGS: readonly string[] = [
   // and bare medication adherence must not fire (only quantified overdose does).
   'I want to end it with him', // breakup, not ideation
   'I wanna end it with her, we are done',
+  'I was thinking about ending it with him anyway',
   'I took the pills the doctor prescribed and I feel a bit better',
   'took my meds like I was told',
+
+  // Obfuscation-hardening collisions (follow-up to #2002). Folding leet digits
+  // and collapsing spaced-out letters must never manufacture a crisis phrase
+  // out of ordinary Swiftie text — digits, era names, and multi-char words all
+  // keep their boundaries.
+  'top 5 songs of 1989',
+  'listening to 1989 at 3am on repeat',
+  'she is 13 forever and so am I',
+  'paid $5 for merch at the popup',
+  'i want to spend my life with him', // must never collapse into "endmylife"
+  'i want to skill myself up in guitar', // "skill" is not "kill"
+  'kms lol the presale sold out', // algospeak hyperbole — same call as bare "kill me"
+  'the unalive jokes on my feed are exhausting', // meme vocabulary, not disclosure
+  'I want to unalive him I swear', // the "I could kill him" of algospeak
+
+  // Abuse-tier collisions (follow-up to #2002) — emotional fan speech with a
+  // harm verb must clear via the subject/idiom/figurative guards.
+  'this song chokes me up',
+  'that ending choked me up so bad',
+  'my anxiety attacks me at night',
+  'cupid attacks me with these lyrics',
+  'my boss beats me to the office every day',
+  'she hits me with the feels every time',
+  'she hits me right in the feels',
+  'the way he sings hurts me in the best way',
+  'he cheated on me and it hurts me so bad', // heartbreak — "it" owns the verb
 ];
 
 /** MUST fire. Explicit ideation, intent, method, or self-harm. */
@@ -209,6 +236,57 @@ const GENUINE_RISK: readonly string[] = [
   'I just want to stop existing',
   "I don't want to exist",
   'I wish I didn’t exist',
+
+  // Guarded-ideation additions (follow-up to #2002).
+  'I keep thinking about ending it',
+  'I thought about ending it last night',
+
+  // Algospeak (follow-up to #2002) — platform-filter euphemisms whose dominant
+  // usage is the disclosure itself.
+  'i want to unalive myself',
+  'thinking about unaliving myself',
+  'i want to unalive',
+  'commit sewer slide',
+  'i want to self delete',
+];
+
+/**
+ * MUST fire — obfuscated spellings of Tier A/B content (follow-up to #2002,
+ * mirroring the Clownbot refusal gate's #1989/#2001 hardening). A reader who
+ * has spent years typing around platform filters does not switch the habit off
+ * for a genuine disclosure; every class here reached songs or UNCLEAR before
+ * the normalizer learned NFKD, homoglyph/leet folding, zero-width deletion,
+ * and spaced-letter collapse.
+ */
+const OBFUSCATED_RISK: readonly string[] = [
+  // Fullwidth — previously normalized to the EMPTY STRING and vanished.
+  'ｋｉｌｌ ｍｙｓｅｌｆ',
+  'ｉ ｗａｎｔ ｔｏ ｄｉｅ',
+  // Fancy-font generators (mathematical alphanumerics, circled letters).
+  '𝐤𝐢𝐥𝐥 𝐦𝐲𝐬𝐞𝐥𝐟',
+  '𝓀𝒾𝓁𝓁 𝓂𝓎𝓈𝑒𝓁𝒻',
+  'ⓚⓘⓛⓛ ⓜⓨⓢⓔⓛⓕ',
+  // Leet.
+  'k1ll myself',
+  'i want to k1ll mys3lf',
+  'su1c1dal',
+  '5uicidal',
+  'i w4nt to di3',
+  // Cyrillic homoglyphs (м, с, і).
+  'kill мyself',
+  'suiсidal tonight',
+  // Zero-width joiner/space inside or between words.
+  'k‍i‍l‍l myself',
+  'kill​myself',
+  // No separator at all.
+  'killmyself',
+  'i want to killmyself',
+  // Spaced-out letters.
+  'k i l l m y s e l f',
+  'i want to k i l l myself',
+  // Diacritics.
+  'kïll mysélf',
+  'suïcidal',
 ];
 
 /**
@@ -240,6 +318,19 @@ const ABUSE_RISK: readonly string[] = [
   'my partner is violent',
   'he gets violent when he drinks',
   'my husband is abusive',
+
+  // Follow-up to #2002 — physical-violence verbs and past-tense threats the
+  // first pass skipped.
+  'he chokes me',
+  'he choked me last night',
+  'he strangles me',
+  'he slaps me when he is drunk',
+  'my dad slapped me',
+  'he punches me',
+  'he punched me again',
+  'he attacks me when he is drunk',
+  'he beats me to a pulp',
+  'he threatened me again last night',
 ];
 
 describe('crisis detection — genuine risk signals', () => {
@@ -251,6 +342,41 @@ describe('crisis detection — genuine risk signals', () => {
 describe('crisis detection — ordinary feeling must reach the songs', () => {
   it.each(ORDINARY_FEELINGS)('does NOT fire on %j', (text) => {
     expect(isCrisisText(text)).toBe(false);
+  });
+});
+
+describe('crisis detection — obfuscated spellings still fire (parity with the refusal gate)', () => {
+  it.each(OBFUSCATED_RISK)('fires on %j', (text) => {
+    expect(isCrisisText(text)).toBe(true);
+  });
+
+  it('fullwidth text no longer normalizes to the empty string', () => {
+    expect(normalizeForCrisis('ｋｉｌｌ ｍｙｓｅｌｆ')).toBe('kill myself');
+  });
+
+  it('folds leet and homoglyphs without corrupting era names into phrases', () => {
+    expect(normalizeForCrisis('k1ll mys3lf')).toBe('kill myself');
+    // Digit folding mangles "1989" into a nonsense token — which is fine,
+    // because no crisis phrase can ever match a nonsense token. What matters is
+    // that the message stays clear.
+    expect(isCrisisText('top 5 songs of 1989')).toBe(false);
+  });
+
+  it('deletes zero-width characters instead of turning them into boundaries', () => {
+    expect(normalizeForCrisis('k‍i‍l‍l myself')).toBe('kill myself');
+    expect(normalizeForCrisis('kill​myself')).toBe('killmyself');
+    expect(isCrisisText('kill​myself')).toBe(true);
+  });
+
+  it('spaced-out letters collapse for Tier A only — guards keep their boundaries', () => {
+    expect(isCrisisText('k i l l m y s e l f')).toBe(true);
+    // Ordinary multi-character words never collapse, so "spend my life" can
+    // never form "endmylife" and "skill myself" never forms "killmyself".
+    expect(isCrisisText('i want to spend my life with him')).toBe(false);
+    expect(isCrisisText('i want to skill myself up in guitar')).toBe(false);
+    // A spelled-out negation stays a non-match: the collapsed token
+    // "idontwanttodie" whole-token-matches no stripped phrase.
+    expect(isCrisisText('d o n t w a n t t o d i e')).toBe(false);
   });
 });
 
@@ -282,6 +408,34 @@ describe('abuse tier (#1979) — fires AND routes to the DV resources', () => {
     expect(isCrisisText('it hurts me that he forgot')).toBe(false);
     expect(isCrisisText('he beats me at chess every time')).toBe(false);
     expect(isCrisisText('he hits me up every day')).toBe(false);
+  });
+
+  it('a non-human subject directly before the verb owns it, whoever else is nearby', () => {
+    // "he" sits inside the 6-word window, but grammar says "it" is the subject.
+    expect(isCrisisText('he cheated on me and it hurts me so bad')).toBe(false);
+    // With the person as the subject the same verb is a disclosure again.
+    expect(assessCrisis('he hurts me so bad').abuse).toBe(true);
+  });
+
+  it('figurative fan-speech frames clear a gated verb, but only unmistakable ones', () => {
+    expect(isCrisisText('she hits me with the feels every time')).toBe(false);
+    expect(isCrisisText('the way he sings hurts me in the best way')).toBe(false);
+    // No figurative frame → still a disclosure.
+    expect(assessCrisis('she hits me when she is angry').abuse).toBe(true);
+    expect(assessCrisis('he hits me with a belt').abuse).toBe(true);
+  });
+
+  it('"beats me to X" clears as an idiom except the violent completion', () => {
+    expect(isCrisisText('my boss beats me to the office every day')).toBe(false);
+    expect(assessCrisis('he beats me to a pulp').abuse).toBe(true);
+  });
+
+  it('"chokes me up" is fan speech; "chokes me" with a human subject is not', () => {
+    expect(isCrisisText('this song chokes me up')).toBe(false);
+    expect(assessCrisis('he chokes me').abuse).toBe(true);
+    // "up" after the human-subject form clears too — "he chokes me up" is the
+    // emotional sense even with a person as the subject.
+    expect(isCrisisText('he chokes me up with that speech')).toBe(false);
   });
 });
 

@@ -72,6 +72,23 @@ describe('POST /api/mood', () => {
     expect(joined).not.toContain('1-800-799-7233');
   });
 
+  it('obfuscated crisis spellings still get resources end to end (hardening follow-up)', async () => {
+    for (const [i, text] of ['k1ll myself', 'ｉ ｗａｎｔ ｔｏ ｄｉｅ', 'i want to unalive myself'].entries()) {
+      const res = await post({ text }, `10.1.0.4${i}`);
+      const json = await res.json();
+      expect(json.kind).toBe('crisis');
+      expect(json.picks).toBeUndefined();
+      expect(json.message.join(' ')).toContain('988');
+    }
+  });
+
+  it('fan speech with a harm verb still reaches songs, not the DV path (hardening follow-up)', async () => {
+    const res = await post({ text: 'this song chokes me up, im crying' }, '10.1.0.50');
+    const json = await res.json();
+    expect(json.kind).toBe('matches');
+    expect(json.picks.length).toBeGreaterThan(0);
+  });
+
   it('hyperbole returns songs instead of dead-ending in unclear (#1981)', async () => {
     for (const [i, text] of ['this is killing me', "I'm dying to see the Eras tour"].entries()) {
       const res = await post({ text }, `10.1.0.3${i}`);
