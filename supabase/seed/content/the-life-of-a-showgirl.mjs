@@ -3210,103 +3210,11 @@ export default {
         ],
       },
     },
-    // --- Authored 2026-07-24 from intake #1454. A confirmed, documented
-    // museum exhibit — culture/music item, clean on redlines (public
-    // institution, Taylor's own work on display; "Cleveland" is the museum's
-    // location, not her whereabouts). Chart facts cross-checked against the
-    // existing "Fate of Ophelia" song item in this file (10 non-consecutive
-    // weeks at No. 1). Photo is an establishing shot of the named venue.
-    {
-      slug: 'showgirl-rock-hall-ophelia-display',
-      year: 2026,
-      month: 6,
-      day: 26,
-      category: 'music',
-      relatedIds: [
-        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
-        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
-        'moment:vault-tloas-the-rock-hall-puts-the-ophelia-gown-in-legends-of-rock',
-      ],
-      title: 'The Rock Hall builds an "Ophelia" display — a tribute, not an induction',
-      snippet:
-        'Cleveland\'s Rock & Roll Hall of Fame opened a display built around "The Fate of Ophelia": the swimming costume and long beaded gown Taylor wears in the video, plus props and costumes worn by its dancers, up on Level 5 with the Legends of Rock. A tribute to the work — she isn\'t even eligible for induction until 2031.',
-      sourceUrl: 'https://www.yahoo.com/entertainment/music/articles/rock-roll-hall-fame-opens-163000167.html',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
-      moment: {
-        context:
-          'The display sits on Level 5, folded into the museum\'s "Legends of Rock" section, and it\'s built entirely around "The Fate of Ophelia" — the Showgirl lead single that logged 10 non-consecutive weeks at No. 1 on the Hot 100, her longest-running chart-topper. Under glass: the swimming costume and the long beaded gown Taylor wears in the video, plus props and costumes worn by the clip\'s dancers. The video itself is an elaborate production, carrying her through look after look across historical periods, from the 1800s to today, per ABC Audio\'s writeup.\n\nOne thing the coverage was careful to keep straight, and so are we: this is a tribute display, not a Hall of Fame induction. The museum\'s own rule is that an artist isn\'t eligible until 25 years after their first single, and "Tim McGraw" arrived in 2006 — so Taylor doesn\'t even come up for induction until 2031. The Rock Hall isn\'t waiting to celebrate her in the meantime, though: it\'s already hosted Taylor Swift Fan Days on site, with another in the works. Reported June 26, 2026.',
-        sources: [
-          {
-            outlet: 'Yahoo Entertainment (ABC Audio)',
-            url: 'https://www.yahoo.com/entertainment/music/articles/rock-roll-hall-fame-opens-163000167.html',
-            source_title: 'Rock & Roll Hall of Fame opens Taylor Swift display',
-            publisher: 'Yahoo Entertainment / ABC Audio',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Kiss 95.1',
-            url: 'https://kiss951.com/2026/06/30/rock-hall-opens-taylor-swift-exhibit-with-the-fate-of-ophelia-artifacts/',
-            source_title: 'Rock Hall opens Taylor Swift exhibit with "The Fate of Ophelia" artifacts',
-            publisher: 'Kiss 95.1 (Beasley Media)',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 3,
-          },
-        ],
-        photos: [
-          // Photo pass (2026-07-27): a real shot of the display itself, found
-          // on the Cleveland.com/USA TODAY Network writeup already cited
-          // above (its AOL syndication). curl HTTP 200 + image/jpeg
-          // (3784x5676, no watermark, not a Getty comp), downloaded and
-          // vision-confirmed: the "Legends of Rock" case, with the crystal
-          // swim costume, beaded/sequined performer bodysuits, and museum
-          // placards reading "Taylor Swift Ensemble Performer Bodysuits" /
-          // "Taylor Swift Outfit" / "The Fate of Ophelia" — this is the
-          // display, not the building.
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/2026/04/Taylor-Swift-Fate-of-Ophelia-video-screengrab-billboard-1800.jpg',
-            focalPoint: '50% 45%',
-            credit: 'Republic Records, via Billboard',
-            caption:
-              'The sequined swimming cap and costume from "The Fate of Ophelia" video — now one of the pieces under glass in the Rock Hall display.',
-            kind: 'primary',
-          },
-          {
-            // Establishing shot of the named venue. curl HTTP 200 + image/jpeg,
-            // 6000x4000, vision-confirmed as the I.M. Pei pyramid with the
-            // "Rock & Roll Hall of Fame" entrance banner. CC BY-SA 4.0,
-            // Wikimedia Commons. Field-order fix #762 (2026-08-09): focalPoint
-            // moved to immediately after url; no values changed.
-            url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
-            // Glass pyramid and entrance banner sit dead center, just below the midline.
-            focalPoint: '50% 48%',
-            credit: 'MusikAnimal, CC BY-SA 4.0, via Wikimedia Commons',
-            caption:
-              'The Rock & Roll Hall of Fame in Cleveland, where the "Fate of Ophelia" display opened on Level 5 in June 2026.',
-            kind: 'archival',
-          },
-          // Photo pass #762 (2026-08-09): 2nd verified photo — the actual
-          // exhibit interior, from the Yahoo/ABC Audio article this moment
-          // already cites (its own embedded image, Yahoo's own Zenfs media
-          // network — an outlet-CDN precedent already used elsewhere in this
-          // codebase). curl 200 image/jpeg 630x354, downloaded and
-          // vision-confirmed: mannequins in the swimming-costume-style looks
-          // and beaded gown from the video, under blue-lit "TAYLOR" signage.
-          {
-            url: 'https://media.zenfs.com/en/abc_audio_244/d25a082ac3d338a56032835766d248f0',
-            // Center mannequin/costume detail sits just left of center, upper-middle.
-            focalPoint: '49% 40%',
-            credit: 'Rock & Roll Hall of Fame (courtesy), via Yahoo Entertainment / ABC Audio',
-            caption:
-              'Inside the display: mannequins wear the shimmering swimming-costume-style looks and beaded gown from "The Fate of Ophelia" video, under the museum\'s blue-lit "TAYLOR" signage.',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
+    // Duplicate removed (issue #616, 2026-07-29): "showgirl-rock-hall-
+    // ophelia-display" told the same June 26, 2026 Rock Hall exhibit as the
+    // richer, better-cross-linked "rock-hall-ophelia-display" item elsewhere
+    // in this file; its one unique fact (the 2031 induction-eligibility date
+    // and Fan Days mention) and its Kiss 95.1 source were merged there.
     // --- Authored 2026-07-24 from intake #1455. Unannounced-music / easter-egg
     // speculation — admissible per privacy-redlines.md ("unannounced music,
     // re-recordings, symbolism"). Whole item is sub-confirmed, so it rides a
@@ -7543,7 +7451,8 @@ export default {
         'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
-        'moment:vault-tloas-the-rock-hall-builds-an-ophelia-display-a-tribute-not-an-ind',
+        // Fourth link (to the other Rock Hall display item) removed with its
+        // target (issue #616 dedup): that item told this same exhibit story.
       ],
       year: 2026,
       month: 6,
@@ -7556,7 +7465,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The display opened in late June 2026 on the museum\'s fifth level, in the Legends of Rock exhibit — institutional-canon treatment for an era still in progress, before she is even age-eligible for induction. The case holds the long-beaded gown from the video\'s finale, the mint sequined swimming costume from its synchronized-swim number, and props carried by her dancers, staged against a backdrop image from the shoot.\n\nThe artifacts come from the self-written, self-directed video whose single led the Hot 100 for 10 weeks, her longest-leading No. 1, and which had passed 438 million views by the time the case was installed (and 450 million within weeks of it). The placement is the story: costumes from a nine-month-old music video sharing a floor with rock history\'s permanent wardrobe, the museum treating the Showgirl era as canon while it was still selling out vinyl pressings.\n\nTwo details the coverage pins down sharpen the picture. The installation is temporary, not a permanent placement: Cleveland.com reported the exhibit is "slated to be up through the end of the year," a defined 2026 run window inside the standing Legends of Rock section. And it is not the museum\'s first Taylor artifact — Cleveland.com noted the case "joins a growing collection of Swift memorabilia already displayed" in Cleveland, with earlier items reported to include a cardigan from one of her music videos and a moss-covered piano, so the Rock Hall had been showing her work well before the Ophelia costumes arrived. What the coverage never settled is how the pieces got there: loan, donation, or acquisition is unstated, and no named curator went on record explaining why an era still in progress earned a case. The museum labels credit no designers, but the video\'s own wardrobe record does: led by Taylor\'s longtime stylist Joseph Cassell, it drew on Alberta Ferretti, Versace, Roberto Cavalli, Paolo Sebastian, Bob Mackie, Brooklyn designer Kelsey Randall and the label AREA — AREA being the house behind the icy-blue sequined "swimming costume" and its matching swim caps for the Busby Berkeley-style synchronized number now in the case.',
+          'The display opened in late June 2026 on the museum\'s fifth level, in the Legends of Rock exhibit — institutional-canon treatment for an era still in progress, before she is even age-eligible for induction. The case holds the long-beaded gown from the video\'s finale, the mint sequined swimming costume from its synchronized-swim number, and props carried by her dancers, staged against a backdrop image from the shoot.\n\nThe artifacts come from the self-written, self-directed video whose single led the Hot 100 for 10 weeks, her longest-leading No. 1, and which had passed 438 million views by the time the case was installed (and 450 million within weeks of it). The placement is the story: costumes from a nine-month-old music video sharing a floor with rock history\'s permanent wardrobe, the museum treating the Showgirl era as canon while it was still selling out vinyl pressings. It is a tribute display, not an induction: the museum\'s own rule requires 25 years since an artist\'s first single, and with "Tim McGraw" out in 2006, Taylor doesn\'t come up for actual induction until 2031 — the Rock Hall has also already hosted Taylor Swift Fan Days on site, with another in the works, ahead of that date.\n\nTwo details the coverage pins down sharpen the picture. The installation is temporary, not a permanent placement: Cleveland.com reported the exhibit is "slated to be up through the end of the year," a defined 2026 run window inside the standing Legends of Rock section. And it is not the museum\'s first Taylor artifact — Cleveland.com noted the case "joins a growing collection of Swift memorabilia already displayed" in Cleveland, with earlier items reported to include a cardigan from one of her music videos and a moss-covered piano, so the Rock Hall had been showing her work well before the Ophelia costumes arrived. What the coverage never settled is how the pieces got there: loan, donation, or acquisition is unstated, and no named curator went on record explaining why an era still in progress earned a case. The museum labels credit no designers, but the video\'s own wardrobe record does: led by Taylor\'s longtime stylist Joseph Cassell, it drew on Alberta Ferretti, Versace, Roberto Cavalli, Paolo Sebastian, Bob Mackie, Brooklyn designer Kelsey Randall and the label AREA — AREA being the house behind the icy-blue sequined "swimming costume" and its matching swim caps for the Busby Berkeley-style synchronized number now in the case.',
         sources: [
           {
             outlet: 'Billboard',
@@ -7579,6 +7488,18 @@ export default {
           // Ledger #1049 Q2 + Q4 (2026-07-25): the temporary "through the end of
           // the year" run window, and that the case joins an existing Swift
           // collection at the Rock Hall (so it is not her first artifact there).
+          // Merged (issue #616, 2026-07-29) from the now-deleted duplicate
+          // `showgirl-rock-hall-ophelia-display` — corroborates the
+          // induction-ineligibility/Fan Days detail folded into the context above.
+          {
+            outlet: 'Kiss 95.1',
+            url: 'https://kiss951.com/2026/06/30/rock-hall-opens-taylor-swift-exhibit-with-the-fate-of-ophelia-artifacts/',
+            source_title: 'Rock Hall opens Taylor Swift exhibit with "The Fate of Ophelia" artifacts',
+            publisher: 'Kiss 95.1 (Beasley Media)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
           {
             outlet: 'Cleveland.com (via AOL)',
             url: 'https://www.aol.com/articles/taylor-swifts-fate-ophelia-joins-172729000.html',
@@ -7599,6 +7520,18 @@ export default {
             accessed_at: '2026-07-29',
             reliability_score: 3,
           },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `showgirl-rock-hall-ophelia-display` — the ABC Audio writeup
+          // whose embedded image is the exhibit-interior photo below.
+          {
+            outlet: 'Yahoo Entertainment (ABC Audio)',
+            url: 'https://www.yahoo.com/entertainment/music/articles/rock-roll-hall-fame-opens-163000167.html',
+            source_title: 'Rock & Roll Hall of Fame opens Taylor Swift display',
+            publisher: 'Yahoo Entertainment / ABC Audio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
         ],
         // Image-fix pass (2026-07-10, ticket #340): removed the ABC7
         // two-panel composite (display photo + AP file photo of Swift, with
@@ -7618,7 +7551,25 @@ export default {
         // a Getty Songwriters-HOF red-carpet portrait — off-moment, and a
         // third party's Getty copy — rejected on viewing. Still no direct
         // photo of the case on an approved source; deliberately one photo.
+        // Update (issue #616 dedup): the clean case photo the notes above
+        // were waiting for surfaced on the now-deleted duplicate item, where
+        // photo pass #762 (2026-08-09) verified it — the actual exhibit
+        // interior from the Yahoo/ABC Audio article this moment now cites
+        // (its own embedded image, Yahoo's Zenfs media network, an
+        // outlet-CDN precedent already used elsewhere in this codebase).
+        // curl 200 image/jpeg 630x354, downloaded and vision-confirmed:
+        // mannequins in the swimming-costume-style looks and beaded gown,
+        // under blue-lit "TAYLOR" signage. Migrated here as the primary.
         photos: [
+          {
+            url: 'https://media.zenfs.com/en/abc_audio_244/d25a082ac3d338a56032835766d248f0',
+            // Center mannequin/costume detail sits just left of center, upper-middle.
+            focalPoint: '49% 40%',
+            credit: 'Rock & Roll Hall of Fame (courtesy), via Yahoo Entertainment / ABC Audio',
+            caption:
+              'Inside the display: mannequins wear the shimmering swimming-costume-style looks and beaded gown from "The Fate of Ophelia" video, under the museum\'s blue-lit "TAYLOR" signage.',
+            kind: 'primary',
+          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
             credit: 'MusikAnimal, CC BY-SA 4.0, via Wikimedia Commons',
