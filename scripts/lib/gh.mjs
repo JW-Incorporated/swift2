@@ -67,9 +67,24 @@ const CANDIDATE_PATHS = [
 // GitHub's REST maximum. Also our pagination page size: fewer, fuller pages is
 // the cheap shape (see CLAUDE.md § Cost discipline).
 const PER_PAGE = 100;
-// Hard ceiling on pages per list call, so a client-side filter that matches
-// nothing can never turn into an unbounded crawl of the repo's history.
+// Floor on pages per list call: even a small `--limit` may need a few pages
+// once client-side filters (mergedOnly, dropPullRequests) discard hits.
 const MAX_PAGES = 3;
+// Absolute ceiling, so a caller passing a huge `--limit` against a filter that
+// matches nothing can never turn into an unbounded crawl of the repo's history.
+const HARD_MAX_PAGES = 10;
+
+/**
+ * Pages a list call may fetch: enough to satisfy the caller's `--limit`
+ * (Karen's fingerprint prefetch asks for 1000 — see issues.mjs, which treats a
+ * sub-limit result as the COMPLETE set and skips the forbidden /search
+ * namespace entirely), floored at MAX_PAGES for small limits whose post-filters
+ * eat hits, ceilinged so it stays bounded. Exported for tests.
+ */
+export function maxPagesFor(limit) {
+  const wanted = Math.ceil((Number(limit) || PER_PAGE) / PER_PAGE);
+  return Math.min(Math.max(wanted, MAX_PAGES), HARD_MAX_PAGES);
+}
 
 let resolved; // undefined = not tried, null = definitively absent, string = path
 
@@ -429,7 +444,8 @@ async function rest(plan, token) {
 
   if (plan.kind === 'list') {
     const hits = [];
-    for (let page = 1; page <= MAX_PAGES; page++) {
+    const pages = maxPagesFor(plan.limit);
+    for (let page = 1; page <= pages; page++) {
       const res = await httpsRequest(url(page), { method: plan.method, headers: ghHeaders(token, false) });
       if (res.status < 200 || res.status >= 300) throw restError(plan, res);
       const batch = JSON.parse(res.text || '[]');

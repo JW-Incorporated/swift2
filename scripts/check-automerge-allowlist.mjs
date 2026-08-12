@@ -123,6 +123,17 @@ export const NEVER_ALLOWLIST = {
   'apps/web/app/api/': 'The request-handling / data layer. Held while E2E is red (#669): app-code auto-merge has no behavioural regression net beyond unit+typecheck+build.',
   'apps/web/app/privacy/': 'Legal surface — needs counsel, not a code review.',
   'apps/web/app/terms/': 'Legal surface — needs counsel, not a code review.',
+  // Server/deploy/security surface barred by P0 fix #1972 (2026-08-12). These
+  // execute server-side or configure the deploy, so they must never be
+  // re-allowlisted without a reviewed change to THIS map. The `apps/web/lib/`
+  // grant was also narrowed to `apps/web/lib/longlive/` in the allowlist, but
+  // barring the specific server files here makes that permanent: a future PR
+  // that re-broadened the lib allow to `apps/web/lib/` would fail this check,
+  // because that allow overlaps these bars with no deny covering them.
+  'apps/web/lib/vault.ts': 'The server-side vault data layer — constructs the data client and is the server read path. Not a view module.',
+  'apps/web/lib/security-headers.': 'The CSP / security-headers module — changes what the browser is allowed to load; a security control, not content.',
+  'apps/web/next.config.': 'Next.js deploy configuration — headers, redirects, build behaviour. A deploy-config change, human-only.',
+  'apps/web/middleware.': 'Next.js middleware runs on every request (auth, redirects, headers) — server-executing and security-relevant. Forward-looking guard.',
 };
 
 /**

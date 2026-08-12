@@ -7,6 +7,61 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — P0: close the auto-merge hole that let server code auto-deploy (#1972)
+
+**Decision:** the content auto-merge gate is tightened, purely additively, so no
+file that executes server-side with secrets can auto-merge:
+
+1. The `apps/web/lib/` allow in `.github/content-automerge-allowlist.txt` is
+   narrowed to `apps/web/lib/longlive/` (the client/display subtree, where the
+   generated vault artifacts and pure view/formatting modules live). The
+   top-level `apps/web/lib/*` files — the server data layer `vault.ts`, the CSP
+   module `security-headers.mjs`, and the hooks/utils — fall back to human merge
+   by default-deny.
+2. `!apps/web/lib/longlive/mood-client.ts` is denied explicitly (it reads
+   `ANTHROPIC_API_KEY` while living among display modules).
+3. A new **content guard** (`scripts/automerge-content-guard.mjs`, run by a
+   `guard-code` job in `auto-merge-content.yml`) declines any PR whose changed
+   code contains a Next.js route handler (`route.ts`/`.tsx`/`.js` anywhere under
+   `app/`, not only `/api/`), a Server Action (`"use server"`), a `server-only`
+   import, or a read of a secret env var. A path prefix structurally cannot
+   express any of those (a `*/route.ts` suffix; content that can live in any
+   file), so this is the durable fix.
+4. `apps/web/lib/vault.ts`, `apps/web/lib/security-headers.*`,
+   `apps/web/next.config.*`, and `apps/web/middleware.*` are added to
+   `NEVER_ALLOWLIST` — they can never be re-allowlisted without a reviewed
+   change to the checker itself.
+
+**Why:** red-team finding #1972. PR #1960 widened auto-merge to app code with a
+single `!apps/web/app/api/` carve-out. That was too narrow: three real route
+handlers already live outside `/api/` (`apps/web/app/vault/{tier0,moment/[id],
+album/[slug]/tracks}/route.ts`), the server data layer and CSP module live under
+`apps/web/lib/**`, and Server Actions can live anywhere. With `main` requiring 0
+approving reviews and E2E not a required check (#669), a CI-passing PR adding a
+server route that reads secrets would auto-deploy to prod with no human — a
+prod-compromise primitive. `mood-client.ts` reading `ANTHROPIC_API_KEY` from
+inside the "display" subtree is a live example that path boundaries do not
+separate server from client here, which is why the content guard (not just a
+tighter path list) is required.
+
+**Alternatives considered:** (a) explicit client-safe allow-list vs (b) broad
+allow + per-path denies. Chose a hybrid: default-deny the top-level lib (a) for
+the clean directory split, and the content guard for what no path list can
+express. A pure path-based deny cannot cover route handlers (suffix) or Server
+Actions/secret reads (content, any location) — stated in the guard's header.
+
+**Residual (not solved here, exposure reduced):** the deeper fix is real
+per-author identity plus making E2E a required check (#669); until then app-code
+auto-merge still leans on unit+typecheck+build. A Server Component that leaks
+data without touching a known secret env var, a `server-only` import, or a
+`"use server"` directive is not caught by content signals — path default-deny
+plus the required checks are the only net there. `pull_request_target` uses the
+base-branch workflow, so this gate takes effect for PRs opened after it merges.
+
+**Approved:** Wyatt (CTO) — P0 directive.
+
+---
+
 ## 2026-08-11 — No Facebook crawler; groups are a LEAD channel, and fandom milestones get a `fandom` kind
 
 **Decision (PENDING Wyatt's approval — this closes off a requested feature and
@@ -117,6 +172,308 @@ communities are worthless as signal."
 
 **Approved by:** _pending Wyatt (CTO)._ Product questions in the proposal's §7
 are for Joey.
+
+---
+
+## 2026-08-11 — Delete the unmounted VaultReader UI; keep the `/vault/*` HTTP routes
+
+**Decision.** Delete eight files in `apps/web` that exist only to serve a
+component nothing renders, and keep the HTTP API they called.
+
+**Deleted** (`VaultReader` and its exclusive dependency closure):
+`components/VaultReader.tsx`, `components/MomentDetail.tsx`,
+`components/TrackGuide.tsx`, `lib/useMoment.ts`, `lib/useTrackGuide.ts`,
+`lib/theme.ts`, `lib/categoryBadges.ts`, `lib/categoryBadges.test.ts`.
+
+`VaultReader` had **zero** importers — static, dynamic, or by name. Each of the
+other seven has exactly one consumer, `VaultReader`, so all seven died with it.
+`categoryBadges.test.ts` goes too: it tests only `categoryBadges.ts`, and
+leaving it would break `npm run test`. Note the name collision —
+`components/longlive/MomentDetail.tsx` and `components/longlive/TrackGuide.tsx`
+are **live** and are different files.
+
+**Kept deliberately:** `app/vault/tier0/route.ts`,
+`app/vault/moment/[id]/route.ts`, `app/vault/album/[slug]/tracks/route.ts` and
+`lib/vault.ts`. Three reasons, any one sufficient:
+
+1. `/vault/tier0` has a live consumer — `scripts/check-tier0-budget.mjs:19`
+   defaults to it, i.e. `npm run check:budget`, documented as an operator
+   command at `docs/deploy.md:121`. (It is not in CI; CI runs the seed-based
+   `check:budget:seed`.)
+2. All three are shipped deliverables of record: roadmap W4.5 and W7, plus a
+   `docs/decisions.md` entry for the tracks route. Retiring an API of record is
+   a product/architecture call, not cleanup.
+3. They are the convergence target both `docs/architecture.md` and
+   `docs/longlive-experience.md` point at.
+
+After this change `/vault/moment/[id]` and `/vault/album/[slug]/tracks` have no
+in-repo consumer at all (their only callers were the deleted hooks). They are
+kept on reasons 2 and 3; **flagging for Wyatt** that if convergence is not
+happening, those two are the next honest deletion.
+
+**Verified before deleting** — repo-wide, case-insensitive, across `apps/**`
+(including `apps/mobile`), `packages/**`, `scripts/**`, `e2e/**`, `.github/**`,
+`social/**`, `supabase/**` and every config file: no static import, no
+`import()`/`require()`/`next/dynamic`/`React.lazy`, no bare-string reference, no
+`next.config.mjs`/`vercel.json` rewrite, no Playwright spec (`e2e/vault.spec.ts`
+drives the `longlive/` selectors, and its own comments record that the old
+`VaultReader` selectors matched zero elements), no entry in
+`.github/content-automerge-allowlist.txt`, and no codegen script
+(`check:generated`, `check:content-inert`, `content:coverage` all scope to
+`supabase/seed/**` or `apps/web/lib/longlive/**`). `apps/mobile` has its own
+separate `lib/vault.ts` that talks to Supabase directly via `@swift2/core` and
+never touches the web routes.
+
+**Two things found on the way, not fixed here** (this diff is deliberately
+confined to the dead files because another agent owns `apps/web`):
+
+- `apps/web/lib/vault.ts:29,35,42` falls back to
+  `https://swift2-web-nine.vercel.app` when Supabase env is absent — a
+  deployment `docs/deploy.md:11-14` explicitly marks superseded, "do not cite
+  either of these anymore". A Supabase-less deployment proxies `/vault/tier0`
+  to a stale sandbox.
+- `docs/roadmap.md:58` claims the two-tier API is "reused by web + Expo".
+  Mobile does not call it; it goes straight to Supabase.
+
+**Approved by:** pending Wyatt.
+
+---
+
+## 2026-08-11 — Moment sourcing becomes a hard gate, with two lists that can only shrink
+
+**Decision:** `validate-content.mjs` now ERRORS, not warns, when a moment has
+no source, and errors when a `relationship`/`business` moment has fewer than
+two independent outlets. Both gates live in `scripts/lib/sourcing-gate.mjs`
+with a grandfather list of the records that predate them: 1 moment
+(`UNSOURCED_LEGACY`) and 25 (`SINGLE_OUTLET_LEGACY`). 44 of the 45 unsourced
+moments were sourced first, in the same pass, so the gate went up against a
+corpus that could survive it.
+
+**Why:** typed records have hard-failed with no sources since the audit
+(`checkCommon` → `err('no sources — every new-type record requires >= 1
+source')`). Moments — the largest surface on the site and the one every reader
+lands on — only ever got a `warn()`. `validate:content` prints ~100 warnings
+and exits 0, so 45 unsourced moments passed CI green and auto-merged to
+production on a site whose entire proposition is receipts. Separately, the
+"two independent outlets for relationship and business claims" standard has
+been written in `editorial-voice-and-pipeline.md` since that doc existed and
+had **no implementation anywhere**. 143 of 164 records in those categories met
+it anyway; 4 of the 21 that did not rest on Wikipedia alone, which the same
+rubric says never satisfies a factual claim.
+
+**Why a grandfather list rather than fixing everything or leaving it a warn:**
+flipping the gate first would have red-lined the build and blocked every other
+desk. Leaving it a warn is what produced the 45 in the first place — the whole
+lesson here is that a warning does not hold a line. A list makes the rule bite
+on all NEW content immediately while the residue is worked down in the open.
+Two properties keep it from becoming amnesty: a listed record that HAS been
+sourced is an error (delete the entry), and a listed key matching no record is
+an error (the record was deleted or retitled). A vitest ceiling on each list's
+size means adding an entry to make a build green fails the suite.
+
+**Alternatives considered:** (a) fix all 45 and skip the list — attempted; one
+is an unfalsifiable generalisation ("A run of TV performances… every major
+stage") with no citable assertion, and inventing a source for it is the one
+thing this work must never do; (b) exempt the whole legacy cohort by a flag on
+the records — rejected, an in-record exemption is invisible at review time and
+travels with copy-paste; (c) file the two-outlet checker instead of building it
+— rejected, it shares the grandfather machinery exactly and 87% of the corpus
+already passed, so the marginal cost was ~40 lines; (d) hard-fail the 4
+Wikipedia-only business claims with no grandfathering — tempting, and they are
+the priority follow-up, but a red build is a red build.
+
+**Approved by:** pending Wyatt — this changes what CI rejects.
+
+## 2026-08-11 — Reliability scores reach the vault; nothing displays them yet
+
+**Decision:** `sourcesFrom()` (`scripts/lib/longlive-sync-shared.mjs`) now carries
+each citation's `reliability_score` and `source_type` into the built vault as
+`reliability` / `type`, and all five generator emit sites go through one new
+`sourceLiteral()` so a citation field can never again be added to the
+normalizer and dropped by four of the five serializers. **No UI renders either
+field.** The seam is deliberate and this entry is the thing to read before
+closing it.
+
+**Why plumb it:** the 2026-07-08 audit §5 rubric is real, documented, and
+enforced — `validate-content.mjs` rejects a score outside 1..5 — and editors
+have scored ~2.1k citations against it. Every one was flattened to `{name,url}`
+at build time. The app could not tell `grammy.com` from a fan wiki. That is a
+month of editorial judgment thrown away by one line, and the fix is ten.
+
+**Why NOT display it — the coverage is uneven, and a badge would lie.** Of 1,918
+`moment.sources` citations, 1,161 (61%) carry a score and 757 do not; every one
+of the 946 citations on typed records (releases/tours/theories/videos) does,
+because `checkCommon` has required them since the audit. A reliability badge
+rendered on the scored 61% and omitted on the rest does not read as "we scored
+these"; it reads as "the unbadged ones are weaker," which is false — most are
+pre-rubric citations from reputable outlets that nobody has gone back to score.
+The failure mode is precisely the one the confidence banners were built to
+avoid: a provenance signal that misleads by omission is worse than no signal.
+**The gate to reopen this is coverage, not design:** when unscored moment
+citations reach ~0, display becomes a design question worth having.
+
+**And the visual language is already full.** A moment can carry a sub-confirmed
+`ConfidenceBanner`, a "What's rumored" section with per-rumor status pills, and
+per-image `reference`/`archival` badges. Those all answer *"how sure are we of
+this claim?"* A per-citation reliability badge answers *"how good is this
+link?"* — a quieter, more clerical question — and stacking a fourth trust
+chrome on the same card dilutes the three that carry real weight. Today's
+citation line is deliberately footnote-scale (10px, `opacity-80`, below a
+rule), which is the correct altitude for it.
+
+**Precedent:** rumors' `sourceTier` has been plumbed to the vault and typed in
+`types.ts` since the rumor pipeline landed, is present on 36 vault entries, and
+has never been rendered. That seam has cost nothing and is available the day
+someone wants it. This is the same shape.
+
+**Alternatives considered:** (a) render a 1–5 badge on every citation —
+rejected, see coverage above; (b) render only for scores of 1–2 ("low-quality
+source") — rejected, it is a scarlet letter on the 2s, which the rubric defines
+as legitimate supplements (wikis, moderated forums) that the same rubric already
+forbids from *standing alone*; enforcing that at build time is strictly better
+than shaming it at render time; (c) sort citations by reliability so the best
+source is listed first — genuinely tempting and cheap, but it silently reorders
+the *first* source, and `ConfidenceBanner` attributes the sub-confirmed label to
+`sources[0]` **by position** — so sorting would re-attribute banners across the
+corpus. Rejected as an invisible content change riding along in a plumbing PR;
+filed instead; (d) keep discarding it — rejected, it is the site's own stated
+credibility standard.
+
+**Approved by:** pending — Joey owns whether a reliability signal ever renders;
+this PR only makes it available and argues for the wait.
+
+## 2026-08-11 — Founder mail: `founder-task` means a human acts, and founder mail is digest-batched
+
+**Decision:** (1) The `founder-task` label is reserved for "a human founder
+must personally act, and the body is written for a non-coder" per the new
+standard `docs/agents/founder-comms.md`; agent-to-agent coordination gets the
+new `desk-coordination` label, which never mails anyone. (2) `tree-mail.yml`
+no longer mails instantly per labelled issue: a 3-hourly sweep batches all
+unmailed open `founder-task` issues into ONE email (exactly-once via the
+machine-only `founder-mailed` label), and only Tree-authored artifacts carry
+"Tree" subject lines — everything else is "Founder action needed".
+
+**Why:** On 2026-08-11 a Wyatt-side deconfliction pass opened four
+`founder-task` issues (#1955–#1958) in a burst. The mailer sent Joey four
+near-simultaneous emails, each subject-lined as Tree (which had never run),
+each full of agent jargon (merge matrices, "MERGEABLE/CLEAN"). Joey's report:
+"too jargon heavy, very unclear what it wants me to do." The founder-mail
+lane only works if a mail reliably means "you, personally, ~15 minutes,
+plain instructions."
+
+**Alternatives considered:** an author allowlist on the issue trigger
+(rejected — the incident author was a legitimate identity, Wyatt's agent, so
+it would not have prevented this, and it breaks as more desks legitimately
+file founder tasks); time-window queries instead of a bookkeeping label
+(rejected — boundary drift double- or zero-mails; a label is exactly-once
+and inspectable); instant per-issue mail kept with dedupe only (rejected —
+burst-noise was the minor half of the incident, but 3 h latency costs
+nothing for "sometime this week" tasks).
+
+**Approved:** Joey (reported the failure and set the bar: "I need simple
+instructions"), implemented 2026-08-11.
+
+## 2026-08-11 — One source of truth for content length caps; restore the 31 contexts a stale cap deleted
+
+**Decision:** every content length cap now lives in `scripts/lib/content-caps.mjs`
+and nowhere else. `validate-content.mjs`, `content-coverage.mjs` and
+`content-engine/checkers/redlines.mjs` import it and hold zero cap literals.
+`scripts/lib/content-caps.test.ts` parses the migration SQL and fails if the
+table and the database disagree, and fails if any consumer re-types a cap
+number. The 31 `moment.context` fields trimmed by commit `26e9a5b` are restored
+to their pre-trim text.
+
+**Why:** the same number was hand-written in four places. On 2026-07-22 Wyatt
+raised `moment.context` 2000 -> 4000 (founder decision,
+`supabase/migrations/20260722120000_moment_context_4000.sql`) because the 2000
+ceiling had made the marquee pages come out byte-identical after a 91-ledger
+depth push. Three of the four sites moved. `redlines.mjs` kept a flat
+`FIELD_FAIL_CHARS = 2000` with no exemption, so Karen filed a P1 safety ticket
+for every context between 2000 and 4000 — content that is deliberately that
+long. PR #1727 cleared the ticket by deleting 30,562 characters across 31
+moments (44 of the 47 lines its message claims were photo/generated lines; the
+real count is 31 contexts, all in Showgirl/TTPD/Lover). That is a closed loop:
+depth engine writes long -> stale checker calls it a violation -> fixer
+truncates -> repeat. The pre-trim text was verified as pure deletion (every
+character of each trimmed version appears verbatim in the original, so nothing
+was improved along the way) and every pre-trim value is <= 3916 chars, well
+inside the real 4000 cap.
+
+**The two caps are different policies and stay separate.** The DB CHECK caps
+are column widths — exceed one and the insert fails. The redlines/coverage
+ceiling is an *anti-dump* heuristic: it is looking for pasted source text, a
+copyright and safety concern. Those stay at 2000 for every field, because a
+2000-char paste is a red line; `moment.context` alone is raised to 4000 because
+it is our own editorial prose and length is not the dump signal for it. The
+lyrics-block, verbatim-quote-span (>= 600) and private-data detectors apply to
+it unchanged — those are the checks that actually catch a paste.
+
+**Alternatives considered:** (a) just fix the 2000 in `redlines.mjs` — rejected,
+it leaves four hand-written copies and the next raise desyncs again; (b) raise
+every field to 4000 — rejected, it destroys the anti-dump intent for fields
+that have no reason to be long; (c) generate the migrations from the JS table —
+rejected, migrations are immutable history and must stay literal SQL, so the
+test asserts parity instead.
+
+**Approved by:** pending Wyatt — the restore reverses a merged content PR.
+## 2026-08-11 — Clownbot: a fourth surface, with the refusal layer built OUTSIDE the persona prompt
+
+**Decision (PENDING founder review on the posture question below).** Ship
+Clownbot — a "clowning" theory-bot surface beside Eras, Threads and Mood —
+with a deliberately unusual architecture: the model writes voice and nothing
+else, and every boundary, receipt and number is enforced in deterministic
+TypeScript around it.
+
+**The architecture, and why it is expensive to reverse:**
+
+1. **The refusal layer is independent of the persona prompt.**
+   `clownbot-safety.ts` is pure, dependency-free TypeScript with two gates — an
+   input screen that runs *before any spend*, and an output screen that runs
+   over everything the model produced and discards the whole answer on a hit.
+   Both work with no API key. Boundary enforcement therefore does not depend on
+   a prompt holding, which is the property we actually need: tone-under-pressure
+   and boundary judgement are exactly where a small model fails, and every
+   failure here is a screenshot. Reversing this (moving boundaries into the
+   prompt) would be cheap to type and very expensive to be wrong about.
+2. **The model never searches the Vault.** Retrieval is deterministic and
+   upstream; the model receives a fixed handful of receipts and may cite only
+   ids from that set. It structurally cannot invent a receipt — the same
+   guarantee that stops the Mood classifier inventing a song.
+3. **Evidence and confidence are computed, never claimed.** The model proposes
+   only a "delulu" rating. Evidence is derived from the receipts that survived
+   id-validation, and confidence is derived from both and hard-capped at 85%.
+   Clownbot is structurally incapable of telling a reader it is certain, which
+   is the documented way fan-theory accounts lose community trust.
+4. **Identity is structural, not a disclaimer.** It is branded as a clown, never
+   speaks as Taylor (enforced in the deterministic layer and red-teamed with 20
+   distinct impersonation attempts held as CI tests), and the surface carries no
+   imagery of Taylor at all.
+
+**Cost model (required by CLAUDE.md cost discipline).** Model:
+`claude-haiku-4-5` ($1/MTok in, $5/MTok out). Per turn ≈ 2.2K input + ~350
+output ≈ **$0.004**; a ~5-turn conversation ≈ **$0.02**. Daily cap 300 calls per
+warm instance ≈ **$1.20/day/instance** ceiling, above which the route degrades
+to a free deterministic receipts answer rather than failing. No prompt caching:
+Haiku 4.5's minimum cacheable prefix is 4096 tokens and ours is ~1.5K, so a
+`cache_control` marker would silently no-op — left off with a comment rather
+than shipped as decoration. Swapping to `claude-sonnet-5` is a one-constant
+change and roughly doubles cost; do it *and* add `cache_control` together.
+
+**Alternatives considered.** (a) Boundaries in the system prompt only — cheaper,
+and the failure mode is a screenshot; rejected. (b) A larger model to get
+boundary judgement "for free" — 2–3× cost for a property we can get
+deterministically at zero marginal cost; rejected. (c) Letting the model score
+its own evidence — one fewer moving part, but it makes overpromising possible,
+which is the one documented trust-killer; rejected.
+
+**Open for the founders — this is a product-posture call, not an engineering
+one.** The fandom is currently hostile to generative AI (#SwiftiesAgainstAI,
+Oct 2025). This PR takes the position that the honest move is to be loudly,
+structurally a bot with no AI imagery. The alternative postures (ship quietly;
+or don't ship a bot into this fandom at all right now) are Joey's call, not
+mine. See the PR body.
+
+**Approved by:** pending (Joey on posture, Wyatt on architecture).
 ## 2026-08-11 — Product Definition of Done adopted: eight items gate the marketing push
 
 **Decision:** Joey and Wyatt (in person, 2026-08-11) defined the short-term

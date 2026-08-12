@@ -5,10 +5,18 @@ coding standards. Expensive-to-reverse choices are mirrored as entries in
 `docs/decisions.md`.
 
 Status: v0.2 — stack proven against the reference workload. The Supabase-backed
-web Vault reader (era-scrubber + two-tier serving, `VaultReader.tsx`/
-`lib/vault.ts`) was built against this plan, but is **currently unmounted** —
-`/` renders the static LongLive experience instead (see the front-end note
-below and `docs/longlive-experience.md`). The Expo mobile app is scaffolded
+web Vault reader UI (era-scrubber, `VaultReader.tsx` and its exclusive
+dependencies) was built against this plan, was never mounted, and was
+**deleted on 2026-08-11** — `/` renders the static LongLive experience instead
+(see the front-end note below and `docs/longlive-experience.md`). It is
+recoverable from git history if the convergence ever wants it; rebuilding
+against the current schema is likely cheaper than reviving it.
+
+**The two-tier HTTP serving path it read is still here and still supported:**
+`apps/web/app/vault/tier0`, `/vault/moment/[id]`, `/vault/album/[slug]/tracks`
+and `apps/web/lib/vault.ts`. Those are shipped deliverables of record (roadmap
+W4.5/W7, `docs/decisions.md`) and `/vault/tier0` is the default target of
+`npm run check:budget`. Only the unmounted UI was removed. The Expo mobile app is scaffolded
 reusing `packages/*` unchanged (validating the shared boundary). Product
 vision (`docs/vision.md`) is still Joey's to fill in; this doc grows as
 features are specced.

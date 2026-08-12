@@ -268,6 +268,10 @@ describe('deny (`!`) prefixes', () => {
   });
 
   it('accepts a broad app allow when its barred subtrees are denied', () => {
+    // #1972: a broad `apps/web/lib/` allow now overlaps the barred vault.ts and
+    // security-headers.* files, so it needs denies fully covering them — the
+    // exact remedy the checker's error message prescribes. (The committed
+    // allowlist instead narrows the allow to `apps/web/lib/longlive/`.)
     const allowlistText = [
       'supabase/seed/',
       'apps/web/lib/longlive/a.generated.ts',
@@ -279,8 +283,30 @@ describe('deny (`!`) prefixes', () => {
       '!apps/web/app/api/',
       '!apps/web/app/privacy/',
       '!apps/web/app/terms/',
+      '!apps/web/lib/vault.ts',
+      '!apps/web/lib/security-headers.',
     ].join('\n');
     expect(appRun(allowlistText)).toEqual([]);
+  });
+
+  it('rejects re-broadening the lib allow without denying the server/security files (#1972)', () => {
+    // The regression the self-amendment bar exists for: a future PR that flips
+    // `apps/web/lib/longlive/` back to `apps/web/lib/` must fail the checker.
+    const allowlistText = [
+      'supabase/seed/',
+      'apps/web/lib/longlive/a.generated.ts',
+      'apps/web/lib/longlive/b.generated.ts',
+      'apps/web/app/',
+      'apps/web/lib/',
+      '!apps/web/app/api/',
+      '!apps/web/app/privacy/',
+      '!apps/web/app/terms/',
+    ].join('\n');
+    const problems = appRun(allowlistText);
+    expect(problems.some((p) => p.includes('apps/web/lib/vault.ts') && p.includes('NEVER'))).toBe(true);
+    expect(
+      problems.some((p) => p.includes('apps/web/lib/security-headers.') && p.includes('NEVER')),
+    ).toBe(true);
   });
 
   it('rejects the broad app allow when the deny carve-out is missing', () => {
@@ -320,9 +346,11 @@ describe('runtime allow/deny matching on the committed allowlist', () => {
   const deny = parsed.filter((p) => p.deny).map((p) => p.entry);
   const mergeable = (f: string) => allow.some((a) => f.startsWith(a)) && !deny.some((d) => f.startsWith(d));
 
-  it('app components / lib / pages and shared packages auto-merge', () => {
+  it('app components / display-lib / pages and shared packages auto-merge (path level)', () => {
     expect(mergeable('apps/web/components/VaultReader.tsx')).toBe(true);
-    expect(mergeable('apps/web/lib/utils.ts')).toBe(true);
+    // The lib allow is the display subtree only now (#1972); a client-safe
+    // display module still qualifies by path.
+    expect(mergeable('apps/web/lib/longlive/format.ts')).toBe(true);
     expect(mergeable('apps/web/app/vault/page.tsx')).toBe(true);
     expect(mergeable('apps/web/app/page.tsx')).toBe(true);
     expect(mergeable('packages/core/src/map.ts')).toBe(true);
@@ -339,6 +367,33 @@ describe('runtime allow/deny matching on the committed allowlist', () => {
     expect(mergeable('scripts/check-automerge-allowlist.mjs')).toBe(false);
     expect(mergeable('package.json')).toBe(false);
     expect(mergeable('apps/web/public/hero.png')).toBe(false);
+  });
+
+  // #1972 (2026-08-12): the server-side lib surface is no longer swept in by a
+  // broad `apps/web/lib/` allow. These decline at the PATH level (they are not
+  // under any allow prefix), independent of the content guard.
+  it('the top-level server/security lib files do NOT auto-merge by path', () => {
+    expect(mergeable('apps/web/lib/vault.ts')).toBe(false);
+    expect(mergeable('apps/web/lib/security-headers.mjs')).toBe(false);
+    expect(mergeable('apps/web/lib/utils.ts')).toBe(false);
+    expect(mergeable('apps/web/lib/useMoment.ts')).toBe(false);
+    expect(mergeable('apps/web/next.config.mjs')).toBe(false);
+  });
+
+  // The money-spending module lives inside the display subtree, so it is also
+  // denied explicitly (belt-and-suspenders with the content guard).
+  it('mood-client.ts is denied by path even though it is under the display subtree', () => {
+    expect(mergeable('apps/web/lib/longlive/mood-client.ts')).toBe(false);
+    // its sibling display modules are unaffected
+    expect(mergeable('apps/web/lib/longlive/mood-match.ts')).toBe(true);
+  });
+
+  // Route handlers OUTSIDE /api/ still MATCH the path allowlist (apps/web/app/
+  // covers them) — that is exactly why the content guard, not this file, is the
+  // fix for them. Documented here so nobody mistakes the path gate for enough.
+  it('vault route handlers still match the PATH allowlist (the content guard is what stops them)', () => {
+    expect(mergeable('apps/web/app/vault/tier0/route.ts')).toBe(true);
+    expect(mergeable('apps/web/app/vault/moment/[id]/route.ts')).toBe(true);
   });
 
   it('the checker-gated social image carve-out still matches (path level)', () => {
