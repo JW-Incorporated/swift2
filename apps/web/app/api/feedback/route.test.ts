@@ -100,6 +100,33 @@ describe('POST', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
+  it('never writes the submitted text to logs on the unconfigured path', async () => {
+    // Regression guard (privacy audit, 2026-08-11): this path used to
+    // `console.warn(... message.slice(0, 120))`. The endpoint is public and
+    // unauthenticated, so anything a visitor types — a name, an email, a
+    // grievance — landed in a log they can neither see nor delete.
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', '');
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.stubGlobal('fetch', vi.fn());
+
+    const secret = 'my email is nobody@example.com and I hate the scrubber';
+    const res = await POST(req({ message: secret }));
+    expect(res.status).toBe(503);
+
+    // The misconfiguration is still announced...
+    expect(warn).toHaveBeenCalledTimes(1);
+    const logged = warn.mock.calls.flat().join(' ');
+    expect(logged).toContain('GITHUB_FEEDBACK_TOKEN');
+    // ...and it is still diagnosable (we know a real submission was dropped)...
+    expect(logged).toContain(String(secret.length));
+    // ...but no fragment of what the user wrote appears anywhere.
+    expect(logged).not.toContain('nobody@example.com');
+    expect(logged).not.toContain('scrubber');
+    for (const word of secret.split(' ')) {
+      if (word.length > 3) expect(logged).not.toContain(word);
+    }
+  });
+
   it('files an issue with defanged content when a feedback token is set', async () => {
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'feedback-scoped-token');
     const fetchSpy = vi.fn().mockResolvedValue(
