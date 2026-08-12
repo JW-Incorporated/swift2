@@ -2858,6 +2858,27 @@ export default {
       milestone: { id: "m-lov-2", label: "Lover released", kind: "album" },
       snippet: "A pastel love letter — and the first album she would fully own.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-confirms-seventh-studio-album-lover/',
+            source_title: 'Taylor Swift Confirms Seventh Studio Album, \'Lover\'',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/753393630',
+            source_title: 'Look What They Made Her Do: Taylor Swift To Re-Record Her Catalog',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+        ],
         context: "After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere.",
         // Photo pass #762 (2026-07-19): freely licensed Commons shot from the
         // era's launch season — license (CC BY-SA 4.0, Glenn Francis/Toglenn)
@@ -2895,6 +2916,27 @@ export default {
       // photo-less rather than fabricate. Skip on future runs.
       hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
       moment: {
+        sources: [
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/737613627',
+            source_title: 'Taylor Swift\'s Former Label Big Machine Is Sold, Rankling The Star',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/caitlinkelley/2019/06/30/taylor-swift-calls-scooter-braun-manipulative-after-big-machine-sells-her-catalog/',
+            source_title: 'Taylor Swift Calls Scooter Braun \'Manipulative\' After Big Machine Sells Her Catalog',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
       },
     },

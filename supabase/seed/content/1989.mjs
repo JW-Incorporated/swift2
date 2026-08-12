@@ -2686,6 +2686,26 @@ export default {
       milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
       snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/texas/news/new-taylor-swift-album-coming-in-october',
+            source_title: 'New Taylor Swift Album Coming In October',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-1989-first-official-pop-album-country-music-departure-130004184.html',
+            source_title: 'Taylor Swift called \'1989\' her 1st \'official pop album.\' Why experts say it was the right time for her to leave country music.',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world.",
       },
     },
@@ -2701,9 +2721,34 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
-      snippet: "A brass-driven lead single announces the full pop pivot from a stadium stage.",
+      // Corrected 2026-08-11 with the citation added below: the debut was a
+      // Yahoo/ABC live-stream from the Empire State Building observation
+      // deck, not a stadium (TheWrap). The old wording contradicted the
+      // source this moment now cites.
+      snippet:
+        "A lead single announces the full pop pivot from the top of the Empire State Building.",
       video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
       moment: {
+        sources: [
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/taylor-swift-drops-shake-it-off-from-the-empire-state-building-video/',
+            source_title: 'Taylor Swift Drops \'Shake It Off\' From the Empire State Building (Video)',
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/',
+            source_title: 'Taylor Swift\'s \'Shake It Off\' Debuts At No. 1',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.",
         photos: [
           {
@@ -2737,6 +2782,17 @@ export default {
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
       video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
       moment: {
+        sources: [
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2014/12/taylor-swift-blank-space-is-back-to-back-number-1-hit-with-shake-it-off-is-this-her-imperial-moment.html',
+            source_title: 'Taylor Swift: Blank Space is back-to-back number 1 hit with Shake It Off. Is this her "Imperial Moment"?',
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one.",
       },
     },
@@ -2751,6 +2807,26 @@ export default {
       title: "Polaroids and pastel",
       snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       moment: {
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609',
+            source_title: 'Taylor Swift Explains Meaning Behind Cover of New Album \'1989\'',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Line of Best Fit',
+            url: 'https://www.thelineofbestfit.com/features/articles/beyond-1989-taylor-swift-and-polaroids',
+            source_title: 'Beyond 1989: Taylor Swift and Polaroids',
+            publisher: 'The Line of Best Fit',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic.",
         // Shop pass (2026-07-22): no single named dress -- a current
         // sky-blue mini in the era's pastel-minimalist palette.
@@ -2778,6 +2854,17 @@ export default {
       title: "The “squad” era",
       snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
       moment: {
+        sources: [
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/human-interest/2015/07/taylor-swift-waka-flocka-and-squadgoals-how-squad-went-from-underdogs-to-queen-bees.html',
+            source_title: 'Taylor Swift, Waka Flocka, and #squadgoals: How squad went from underdogs to queen bees.',
+            publisher: 'Slate (Lexicon Valley)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Group appearances and red-carpet friendships turned her social circle into a defining 1989-era talking point.",
       },
     },
@@ -2793,6 +2880,26 @@ export default {
       snippet: "A star-studded cinematic music video doubles as an event premiere.",
       video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/3854282/taylor-swift-bad-blood-video-billboard-music-awards/',
+            source_title: 'Taylor Swift "Bad Blood" Music Video: Billboard Awards',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/billboard-music-awards-2015-taylor-swift-dominates-bad/story?id=31114958',
+            source_title: 'Billboard Music Awards 2015: Taylor Swift Dominates With \'Bad Blood\' Video Premiere, 8 Wins',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.",
         photos: [
           {
@@ -2827,6 +2934,17 @@ export default {
       thumbnailUrl:
         "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/',
+            source_title: 'GRAMMY Rewind: Watch Taylor Swift Become The First Woman To Win Album Of The Year Twice',
+            publisher: 'The Recording Academy',
+            source_type: 'awards_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+        ],
         context: "Accepting the award, she used the moment to speak directly to young women about crediting their own work.",
         photos: [
           {
