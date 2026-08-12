@@ -2,27 +2,23 @@
 
 import { useMemo } from 'react';
 import { Clapperboard } from 'lucide-react';
-import { videosForEra } from '@/lib/longlive/videos';
-import type { EraId, VideoNote, VideoNoteKind } from '@/lib/longlive/types';
+import { videosForEra, VIDEO_KIND_LABEL } from '@/lib/longlive/videos';
+import type { EraId, VideoNote } from '@/lib/longlive/types';
 import { MomentVideo } from './MomentVideo';
 
 /**
- * Per-era official videos rail, rendered inside EraSection. Data is static,
- * synced at build time from the Vault video_work seed/table
- * (lib/longlive/videos.ts); no runtime fetch. Works with a verified official
- * YouTube upload embed via the MomentVideo click-to-play facade (poster
- * thumbnail only until the user opts in — cheap even in the infinite scroll);
- * works without one (e.g. theatrical tour films) render as metadata cards.
+ * Per-era videos rail, rendered inside EraSection. Data is static, synced at
+ * build time from the Vault video_work seed/table (lib/longlive/videos.ts); no
+ * runtime fetch. Works with a verified official YouTube upload embed via the
+ * MomentVideo click-to-play facade (poster thumbnail only until the user opts
+ * in — cheap even in the infinite scroll); works without one (e.g. theatrical
+ * tour films) render as metadata cards.
+ *
+ * Carries two families since 2026-08-12: works she made or headlined, and
+ * appearances (interviews, award speeches, speeches, press events). Every
+ * entry is still an official/first-party upload — a fan re-upload can be a
+ * timeline source but never lands here.
  */
-
-const KIND_LABEL: Record<VideoNoteKind, string> = {
-  music_video: 'Music video',
-  lyric_video: 'Lyric video',
-  short_film: 'Short film',
-  tour_film: 'Tour film',
-  documentary: 'Documentary',
-  performance: 'Performance',
-};
 
 export function EraVideos({ eraId }: { eraId: EraId }) {
   const videos = useMemo(() => videosForEra(eraId), [eraId]);
@@ -33,8 +29,12 @@ export function EraVideos({ eraId }: { eraId: EraId }) {
       <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         <div className="flex items-center gap-2">
           <Clapperboard className="h-4 w-4 text-[color:var(--era-accent)]" />
+          {/* "Official videos" was accurate when the rail only held her own
+              works; it now also holds appearances on other people's shows, and
+              calling a Fallon interview one of her official videos misreads it.
+              The official-upload GUARANTEE hasn't changed — only the wording. */}
           <h2 className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
-            Official videos · {videos.length}
+            Videos &amp; appearances · {videos.length}
           </h2>
         </div>
 
@@ -50,7 +50,7 @@ export function EraVideos({ eraId }: { eraId: EraId }) {
 
 function VideoCard({ video }: { video: VideoNote }) {
   const meta = [
-    video.kind ? KIND_LABEL[video.kind] : null,
+    video.kind ? VIDEO_KIND_LABEL[video.kind] : null,
     video.director ? `Dir. ${video.director}` : null,
     video.releasedOn ? video.releasedOn.slice(0, 4) : null,
   ].filter(Boolean);
