@@ -53,6 +53,17 @@ export const NAME_REGISTRY: readonly CanonicalName[] = [
     receiptIds: ['lore:tloas-countdown-announcement'],
     keywords: ['countdown', '12 12', '1212', 'twelve'],
   },
+  {
+    name: 'The evermore Hill',
+    // The bot's opinionated album take, grounded in the evermore announcement
+    // and folklore's Album of the Year win as the honest counterpoint.
+    receiptIds: [
+      'moment:vault-evermore-folklores-sister-arrives',
+      'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+    ],
+    // Narrow on purpose: the hill is the *comparison*, not any evermore mention.
+    keywords: ['evermore hill', 'evermore vs folklore', 'evermore is better', 'evermore better than folklore', 'better than folklore'],
+  },
 ];
 
 /** Same normalisation shape as the safety layer: lowercase, alphanumeric runs. */
@@ -77,10 +88,25 @@ export function resolveTheoryName(
   const citedIds = new Set(receipts.map((r) => r.id));
   const q = ` ${normalizeQuery(question)} `;
 
+  // 1) STRONGEST signal — the theory whose OWN receipts were actually cited.
+  //    Pick the entry with the most cited-receipt overlap, not the first in the
+  //    registry: this is why a take citing the AI receipt now surfaces as "The
+  //    Machine Question" instead of everything collapsing to "Debutation"
+  //    (#1996). The receipts the answer stands on decide its name.
+  let best: { name: string; overlap: number } | null = null;
   for (const entry of NAME_REGISTRY) {
-    const byId = entry.receiptIds?.some((id) => citedIds.has(id)) ?? false;
-    const byKeyword = entry.keywords?.some((k) => q.includes(` ${k} `) || q.includes(k)) ?? false;
-    if (byId || byKeyword) return { name: entry.name, canonical: true };
+    const overlap = entry.receiptIds?.filter((id) => citedIds.has(id)).length ?? 0;
+    if (overlap > 0 && (best === null || overlap > best.overlap)) {
+      best = { name: entry.name, overlap };
+    }
+  }
+  if (best) return { name: best.name, canonical: true };
+
+  // 2) Otherwise the reader's own wording pins a canonical theory.
+  for (const entry of NAME_REGISTRY) {
+    if (entry.keywords?.some((k) => q.includes(` ${k} `))) {
+      return { name: entry.name, canonical: true };
+    }
   }
 
   if (typeof modelProposed === 'string') {
