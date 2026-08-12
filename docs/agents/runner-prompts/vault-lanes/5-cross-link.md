@@ -20,7 +20,7 @@ them.
 
 ## Your job — turn detector findings into authored links
 
-Run `node scripts/content-engine/run.mjs scan --no-images` and read the
+Run `node --use-env-proxy scripts/content-engine/run.mjs scan --no-images` and read the
 `content.crosslink-opportunity` findings. Take the highest-confidence cluster or
 pair and add the `relatedIds` entries to the seed files, so the rail has
 something to show.

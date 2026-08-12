@@ -31,7 +31,23 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
+      # The Clownbot launch gate proving itself. The keyed battery cannot run
+      # here — it needs the prod key and it spends — but its self-test can, and
+      # this is the only CI coverage the gate script gets: `.mts` is not matched
+      # by apps/web/tsconfig.json's `**/*.ts` include, so typecheck never sees
+      # it. Hermetic and ~2s: a stubbed transport that throws on any non-
+      # Anthropic URL, with the key/flag set in-process to dummies. It asserts
+      # the gate PASSES a clean run, FAILS a leaking one, and FAILS a dark one.
+      # If someone regresses the gate into something that cannot fail, `build`
+      # goes red here rather than on launch day. See
+      # docs/ops/clownbot-launch-gate.md.
+      - run: npm run clownbot:battery:dry
       - run: npm run validate:content
+      # Schema gate for social/queue/** (2026-08-11). validate:content only
+      # ever covered supabase/seed/**, so until now the first validator a
+      # queue item met was the live platform API — see
+      # scripts/social/lib/queue-schema.mjs for the eleven X posts that cost.
+      - run: npm run validate:social
       - run: npm run check:generated
       - run: npm run check:content-inert
       - run: npm run check:automerge-allowlist
@@ -54,6 +70,18 @@ jobs:
         run: |
           git fetch --no-tags --depth=1 origin main
           npm run check:no-downgrade -- --base-ref FETCH_HEAD
+      # Voice gate (#461 / #1917 / #1918): house style is "Taylor," not "Swift."
+      # This gate used to be enforced only by Karen's scan — which went weekly
+      # on 2026-07-25 while still being described as nightly, so 19 findings
+      # landed on `main` before anyone looked. A cadence is not a gate; this is.
+      # Scans the seed files THIS PR changed (a corpus-wide block would freeze
+      # merges for authors who touched none of it, and a gate people route
+      # around enforces nothing). Editing the rule itself escalates to a
+      # full-corpus scan. Base fetched live, same idiom as check:no-downgrade.
+      - name: Voice gate on changed content
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
       - run: npm run build
       - run: npm run check:budget:seed
