@@ -330,6 +330,38 @@ function relatedIdsFrom(relatedIds) {
   return out.length ? out : undefined;
 }
 
+/**
+ * Valid `MilestoneKind` values — must stay in step with the union in
+ * apps/web/lib/longlive/types.ts. `fandom` (2026-08-11) covers documented
+ * fan-community events; see docs/proposals/2026-08-11-facebook-groups-signal.md.
+ */
+export const MILESTONE_KINDS = ['album', 'tour', 'life', 'business', 'award', 'fandom'];
+
+/**
+ * Era-timeline milestone marker. All three fields are required or the marker
+ * is dropped — but a marker that was clearly *meant* to exist (it has an id
+ * and a label) and only fails on an unrecognized `kind` now says so on stderr
+ * instead of vanishing silently. That silent drop meant a typo'd or
+ * not-yet-registered kind removed a milestone from the scrubber with no
+ * signal anywhere; same failure shape as the auto-merge gate that logged and
+ * exited 0 (docs/decisions.md, 2026-08-11). Still non-fatal: this script is
+ * shared by every content PR, so a bad marker must not break the pipeline.
+ */
+function milestoneFrom(milestone, slug) {
+  if (!milestone || typeof milestone !== 'object') return undefined;
+  const { id, label, kind } = milestone;
+  const named = typeof id === 'string' && id && typeof label === 'string' && label;
+  if (!named) return undefined;
+  if (!MILESTONE_KINDS.includes(kind)) {
+    console.warn(
+      `sync-longlive-content: DROPPED milestone "${id}" on "${slug}" — unrecognized kind ${JSON.stringify(kind)}. ` +
+        `Expected one of: ${MILESTONE_KINDS.join(', ')}. Add it to MILESTONE_KINDS and to MilestoneKind in apps/web/lib/longlive/types.ts.`,
+    );
+    return undefined;
+  }
+  return { id, label, kind };
+}
+
 /** Appends one normalized item to byEra, de-duping ids within the era. */
 export function addItem(
   byEra,
@@ -439,10 +471,7 @@ export function addItem(
         : undefined,
     // Era-timeline milestone marker (stage 2b): content.ts derives MILESTONES
     // from these. All three fields required (kind validated) or dropped.
-    milestone:
-      milestone && typeof milestone.id === 'string' && milestone.id && typeof milestone.label === 'string' && milestone.label && ['album', 'tour', 'life', 'business', 'award'].includes(milestone.kind)
-        ? { id: milestone.id, label: milestone.label, kind: milestone.kind }
-        : undefined,
+    milestone: milestoneFrom(milestone, slug),
     // Thread-card pull-quote (stage 3): a caption/lyric/statement string.
     pullQuote: typeof pullQuote === 'string' && pullQuote.trim() ? pullQuote.trim() : undefined,
     relatedIds: relatedIdsFrom(relatedIds),
