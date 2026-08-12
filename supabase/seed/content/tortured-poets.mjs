@@ -1477,6 +1477,23 @@ export default {
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-08-05',
           },
+          {
+            // Rumor Desk 2026-08-03: a later, distinct data point on the same
+            // open "will she tour again?" question — the Aug. 2025 Deuxmoi
+            // report that pushed the projected start from 2026 to 2027, which
+            // directly updates the Us Weekly entry above (whose one-year window
+            // has since lapsed with no announcement). Forward-looking, no
+            // location named (an unannounced tour is L0 by default).
+            claim:
+              'A year on, the projected timing slipped: Deuxmoi reported, citing two sources, that Swift\'s next outing — a follow-up to the Eras Tour — would now start in 2027, not 2026, with 2026 "looking unlikely."',
+            reportedBy: 'Deuxmoi, via Yahoo Entertainment',
+            reportedOn: '2025-08-20',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-upcoming-tour-reportedly-132936634.html',
+            note: 'A later data point on the same open question as the Us Weekly report above, pushing the projected start from 2026 to 2027 — consistent with that earlier window lapsing with no announcement. Blind-item sourcing (Deuxmoi), carried at the lowest tier. As of this check no tour is announced. Resolves on an official tour announcement; fades otherwise. No location.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-03',
+          },
         ],
       },
     },
@@ -1674,6 +1691,34 @@ export default {
             price: '$599.98',
             isAlternative: true,
             altNote: 'Her exact Saint Laurent blazer is discontinued -- this is a current white double-breasted blazer with padded shoulders in a similar longline cut, in knit rather than tailored fabric.',
+          },
+        ],
+        // Rumor Desk 2026-08-03: a clean DEBUNKED lifecycle entry, seeding the
+        // recurring "will Taylor headline a Super Bowl halftime?" question onto
+        // the moment about her attending one. The claim is entirely public — the
+        // NFL's own commissioner floated it on the record, and Taylor answered
+        // it herself on national TV — so it clears the redlines (no private
+        // matter, no security/health/third-party issue) and resolves cleanly:
+        // the LX slot went to Bad Bunny and she said, on Fallon, that she turned
+        // it down. Scoped tightly to the LX cycle so the debunk is airtight; a
+        // later Super Bowl is a separate, still-open question. No location.
+        rumors: [
+          {
+            claim:
+              'With Taylor a fixture at Chiefs games, speculation recurred that she would headline the Super Bowl LX halftime show (Feb. 8, 2026). NFL commissioner Roger Goodell fanned it on the record — calling her "a special, special talent" who would be "welcome at any time" and, pressed on whether it was happening, saying "It\'s a maybe."',
+            reportedBy: 'Roger Goodell (NFL commissioner), via TODAY',
+            reportedOn: '2025-09-03',
+            status: 'debunked',
+            url: 'https://www.today.com/popculture/roger-goodell-taylor-swift-super-bowl-halftime-show-rcna228736',
+            resolution: {
+              on: '2025-10-06',
+              url: 'https://www.today.com/popculture/music/taylor-swift-explains-super-bowl-halftime-jimmy-fallon-rcna236094',
+              outlet: 'TODAY (The Tonight Show Starring Jimmy Fallon)',
+              note: 'Bad Bunny was named the LX performer; on Fallon (Oct. 6, 2025) Taylor said she turned it down — "I\'m just too locked in" on Travis\'s season, "nothing to do with Travis." A rare rumor a principal settled on the record.',
+            },
+            note: 'Public, on-record speculation — the NFL\'s own chief floated it and Taylor answered it herself, so nothing here is a private matter. Scoped to the LX cycle, now closed; whether she ever headlines a later Super Bowl is a separate, still-open question. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-03',
           },
         ],
       },
@@ -2552,10 +2597,34 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            focalPoint: '50% 55%',
             credit: 'Republic Records (album cover, via Wikipedia)',
             caption: 'The Tortured Poets Department (2024) — the record that turned the end of the Joe Alwyn years into an album.',
             kind: 'primary',
-            focalPoint: '50% 40%',
+          },
+          // Photo pass #762 (2026-08-03): Wikimedia Commons, CC BY 4.0,
+          // curl-verified 200 image/jpeg, downloaded and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Taylor_Swift_TTPD_Dress.jpg',
+            focalPoint: '46% 38%',
+            credit: 'Wikithebeavr / Wikimedia Commons, CC BY 4.0',
+            caption: 'A custom Eras Tour gown printed with "Fortnight"\'s "I love you, it\'s ruining my life" — the breakup grief TTPD turned into a 31-song double album, worn live on stage.',
+            kind: 'archival',
+          },
+          // Photo pass #762 (2026-07-27): the six-and-a-half-year relationship
+          // itself had almost no on-record imagery beyond a handful of
+          // sightings — this is the best-documented one. Verified via
+          // eonline.com's own image CDN (akns-images.eonline.com, their
+          // Akamai Image Manager infrastructure, not a watermarked comp):
+          // HTTP 200 + image/jpeg, 600x600, downloaded and viewed — Swift
+          // (pale blue coat) and Alwyn (black tux) hand-in-hand leaving the
+          // cited Feb. 2019 BAFTAs after-party.
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2019110/rs_600x600-190210195541-600-taylor-swift-joe-alwyn-baftas.jpg',
+            focalPoint: '42% 28%',
+            credit: 'E! News',
+            caption: 'Swift and Alwyn leaving a BAFTAs after-party together, February 2019 — one of the few public sightings from the relationship this album grieves.',
+            kind: 'reference',
           },
         ],
       },
@@ -5027,7 +5096,7 @@ export default {
       ],
       moment: {
         context:
-          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Taylor — the two collaborators who defined the folklore-through-Midnights run — splitting the work almost by half: Antonoff led the standard sixteen tracks, Dessner the fifteen-song Anthology, whose hushed folk cuts ("How Did It End?," "The Albatross," "The Black Dog") are largely his. It carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." Four collectible deluxe editions each carried a different bonus track — "The Manuscript," "The Bolter," "The Albatross" and "The Black Dog" — before all four were folded into the Anthology.\n\nThe title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Taylor has never named it as the source). It opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. Reviews were admiring but split (Metacritic 76): critics praised the cathartic writing while calling the 31-track sprawl overlong.\n\nIt set records well past the first week: the first album in Spotify history to pass one billion streams in a single week, after also taking the single-day album and single-day song ("Fortnight") records on April 19 — and it monopolized all top 14 of the Billboard Hot 100, a first for any artist. Live, the album reshaped the Eras Tour: the May 9, 2024 European opener at Paris La Défense Arena debuted a new act Taylor nicknamed "Female Rage: The Musical," folding in seven TTPD songs — among them "Fortnight," "But Daddy I Love Him," "Down Bad," "So High School" and "I Can Do It With a Broken Heart" — and trimming older cuts to fit. Beyond that scripted act, TTPD tracks worked their way into the acoustic surprise slot through 2024 — "Paris" and "loml" were the first, at the Paris opener — and she held "So Long, London" back until the final Wembley night, debuting it solo on piano. Awards ran hot then cold: "Fortnight" won Video of the Year and Best Collaboration in a seven-VMA night in 2024, but at the 67th Grammys (Feb. 2, 2025) TTPD drew Taylor a record seventh Album of the Year nomination and a Best Pop Vocal Album nod and won neither — AOTY went to Beyoncé\'s Cowboy Carter, Best Pop Vocal Album to Sabrina Carpenter.',
+          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Taylor — the two collaborators who defined the folklore-through-Midnights run — splitting the work almost by half: Antonoff led the standard sixteen tracks, Dessner the fifteen-song Anthology. It carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." The title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Taylor has never named it as the source).\n\nIt opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. It set records well past the first week: the first album in Spotify history to pass one billion streams in a single week, and it monopolized all top 14 of the Billboard Hot 100, a first for any artist.\n\nLive, the album reshaped the Eras Tour: the May 9, 2024 European opener at Paris La Défense Arena debuted a new act Taylor nicknamed "Female Rage: The Musical," folding in seven TTPD songs and trimming older cuts to fit. Awards ran hot then cold: "Fortnight" won Video of the Year and Best Collaboration in a seven-VMA night in 2024, but at the 67th Grammys (Feb. 2, 2025) TTPD drew Taylor a record seventh Album of the Year nomination and a Best Pop Vocal Album nod and won neither — AOTY went to Beyoncé\'s Cowboy Carter, Best Pop Vocal Album to Sabrina Carpenter.',
         sources: [
           {
             outlet: 'Variety',

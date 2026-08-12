@@ -1,5 +1,11 @@
 # Launch readiness — the gate, in one place
 
+> **2026-08-11 — the successor bar lives in [`definition-of-done.md`](definition-of-done.md).**
+> Joey + Wyatt defined the eight-item product Definition of Done that gates
+> the large marketing push. This file's original gates remain the historical
+> record (most are 🟢); new pre-push work tracks THERE, and Wyatt is reworking
+> Marjorie's dashboard/brief around that list.
+
 **Owner: Marjorie (tracking + brief reporting) · Founders (the go/no-go).**
 Created 2026-07-11 after Joey's audit request exposed the real problem: every
 gate below existed somewhere in decisions/roadmap/tickets, but no artifact
