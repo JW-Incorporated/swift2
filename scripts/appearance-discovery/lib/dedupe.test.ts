@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { fingerprintMarker, knownIdsFromIssueBodies, planFilings } from './dedupe.mjs';
+import { fingerprintMarker, videoIdsIn, planFilings } from './dedupe.mjs';
 
 const cand = (videoId: string, extra = {}) => ({ videoId, title: 't', published: '2026-08-10T00:00:00+00:00', ...extra });
 
-describe('knownIdsFromIssueBodies', () => {
+describe('videoIdsIn', () => {
   it('finds ids via the machine marker', () => {
-    const ids = knownIdsFromIssueBodies([`filed earlier\n${fingerprintMarker('dQw4w9WgXcQ')}`]);
+    const ids = videoIdsIn([`filed earlier\n${fingerprintMarker('dQw4w9WgXcQ')}`]);
     expect(ids.has('dQw4w9WgXcQ')).toBe(true);
   });
 
   it('finds ids via plain watch/short/embed/youtu.be URLs, so hand-filed intake issues dedupe too', () => {
-    const ids = knownIdsFromIssueBodies([
+    const ids = videoIdsIn([
       'see https://www.youtube.com/watch?v=AAAAAAAAAAA for the clip',
       'short: https://youtube.com/shorts/BBBBBBBBBBB trailing',
       'embed https://www.youtube.com/embed/CCCCCCCCCCC?rel=0',
@@ -21,7 +21,7 @@ describe('knownIdsFromIssueBodies', () => {
   });
 
   it('ignores null bodies and non-YouTube urls', () => {
-    const ids = knownIdsFromIssueBodies([null, undefined, 'https://vimeo.com/12345678901']);
+    const ids = videoIdsIn([null, undefined, 'https://vimeo.com/12345678901']);
     expect(ids.size).toBe(0);
   });
 });
@@ -32,7 +32,7 @@ describe('planFilings — stateless, fail-closed dedupe (#2008 / #2031 lessons)'
   it('files only unknown ids, skipping already-filed and already-in-seed', () => {
     const plan = planFilings(
       [cand('AAAAAAAAAAA'), cand('BBBBBBBBBBB'), cand('CCCCCCCCCCC')],
-      { ledger: ledger(['AAAAAAAAAAA']), seedText: 'officialUrl: "https://www.youtube.com/watch?v=BBBBBBBBBBB"' },
+      { ledger: ledger(['AAAAAAAAAAA']), seedIds: videoIdsIn(['officialUrl: "https://www.youtube.com/watch?v=BBBBBBBBBBB"']) },
     );
     expect(plan.refuse).toBeNull();
     expect(plan.toFile.map((c) => c.videoId)).toEqual(['CCCCCCCCCCC']);

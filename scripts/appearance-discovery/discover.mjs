@@ -31,7 +31,7 @@ import { gh, httpsRequest } from '../lib/gh.mjs';
 import { CHANNELS, feedUrl } from './channels.mjs';
 import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
-import { knownIdsFromIssueBodies, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
+import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
 
 const INTAKE_LABEL = 'intake';
 // Matches the label as it already exists on the repo — the upsert is a no-op
@@ -41,13 +41,25 @@ const INTAKE_DESC = 'Real-world event dropped for content authoring';
 const LEDGER_LIMIT = 1000;
 const FETCH_TIMEOUT_MS = 30_000;
 
-function arg(name, fallback) {
+/**
+ * A positive-integer argument, or a hard exit. Everything else in this script
+ * fails closed, so a typo'd `--max abc` must not silently become the default
+ * and quietly change how much a run is allowed to file.
+ */
+function intArg(name, fallback) {
   const i = process.argv.indexOf(name);
-  return i === -1 ? fallback : process.argv[i + 1];
+  if (i === -1) return fallback;
+  const raw = process.argv[i + 1];
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 1) {
+    console.error(`appearance-discovery: ${name} must be a positive integer, got "${raw}"`);
+    process.exit(2);
+  }
+  return n;
 }
 const FILE_MODE = process.argv.includes('--file');
-const MAX_PER_RUN = Math.max(1, Number(arg('--max', 10)) || 10);
-const MAX_AGE_DAYS = Math.max(1, Number(arg('--max-age-days', 30)) || 30);
+const MAX_PER_RUN = intArg('--max', 10);
+const MAX_AGE_DAYS = intArg('--max-age-days', 30);
 
 function withTimeout(promise, ms, what) {
   let timer;
@@ -73,15 +85,26 @@ async function fetchChannel(channel) {
   return { channelTitle, entries };
 }
 
-/** Every .mjs under supabase/seed, concatenated — the "already site content" corpus. */
-export function readSeedCorpus(root) {
+/**
+ * Every YouTube video id already cited anywhere under supabase/seed — i.e. the
+ * videos that are already site content rather than news.
+ *
+ * Ids are EXTRACTED from real YouTube URLs, not substring-matched against the
+ * raw corpus. A bare 11-character id can occur inside a longer token (a content
+ * hash, another platform's id), and a substring hit there would silently skip a
+ * genuine new appearance as "already-in-seed" — an invisible false negative.
+ * Reuses the same URL matcher the issue ledger uses, so there is one definition
+ * of "this text references video X", and returns a Set instead of retaining the
+ * whole concatenated corpus in memory.
+ */
+export function readSeedIds(root) {
   const dir = join(root, 'supabase', 'seed');
-  let text = '';
+  const texts = [];
   for (const f of readdirSync(dir, { recursive: true, withFileTypes: true })) {
     if (!f.isFile() || !/\.(mjs|json)$/.test(f.name)) continue;
-    text += readFileSync(join(f.parentPath ?? f.path, f.name), 'utf8');
+    texts.push(readFileSync(join(f.parentPath ?? f.path, f.name), 'utf8'));
   }
-  return text;
+  return videoIdsIn(texts);
 }
 
 /**
@@ -106,20 +129,38 @@ async function loadLedger() {
   return {
     // Titles as well as bodies: a hand-filed intake issue may carry the watch
     // URL only in its title, and it still means "this one is already known".
-    ids: knownIdsFromIssueBodies(rows.flatMap((r) => [r?.title, r?.body])),
+    ids: videoIdsIn(rows.flatMap((r) => [r?.title, r?.body])),
     issues: rows.length,
-    // `complete` is the truncation guard. It holds only because we ask for
-    // exactly LEDGER_LIMIT: scripts/lib/gh.mjs's REST fallback pages to
-    // ceil(limit/100) capped at 10 pages = 1000 rows, so any truncation lands
-    // AT the limit and trips this to false. Keep LEDGER_LIMIT <= 1000, or the
-    // fallback could silently return fewer rows than it claims are all of them.
+    // `complete` is the truncation guard, and it is a ONE-SIDED test: hitting
+    // the limit proves truncation, but falling short does NOT prove
+    // completeness. On the gh-CLI path (what the workflow runner uses) it is
+    // exact. On scripts/lib/gh.mjs's REST fallback it is not: that path pages
+    // to ceil(limit/100), capped at 10 pages = 1000 RAW rows, and then drops
+    // pull requests post-fetch — so a truncated fetch can return fewer than
+    // LEDGER_LIMIT rows and still be missing issues, reading as complete.
+    //
+    // Exposure today is nil (labels on PRs are not how `intake` is used; the
+    // repo has 0 intake-labeled PRs against 48 lifetime intake issues), and the
+    // near-limit warning below is the tripwire. The real fix is for gh.mjs to
+    // report whether its page loop exhausted the cap, instead of every caller
+    // inferring it from a post-filtered count — flagged for Wyatt on the PR.
     complete: rows.length < LEDGER_LIMIT,
   };
 }
 
+// GitHub rejects issue titles over 256 characters. The per-field cap in
+// feed.mjs bounds the video title alone; this bounds the ASSEMBLED string,
+// which also carries the channel name and the date suffix. Truncating the
+// video title (not the suffix) keeps the published date legible.
+const MAX_ISSUE_TITLE = 250;
+
 function issueTitle(c) {
   const day = (c.published || '').slice(0, 10) || 'date unknown';
-  return `intake: YouTube appearance — ${c.channelName}: “${c.title}” (published ${day})`;
+  const build = (title) => `intake: YouTube appearance — ${c.channelName}: “${title}” (published ${day})`;
+  const full = build(c.title);
+  if (full.length <= MAX_ISSUE_TITLE) return full;
+  const over = full.length - MAX_ISSUE_TITLE;
+  return build(`${c.title.slice(0, Math.max(0, c.title.length - over - 1))}…`);
 }
 
 function issueBody(c) {
@@ -195,14 +236,31 @@ async function main() {
   // is the newest, which is still fresh (and re-discovered) tomorrow.
   candidates.sort((a, b) => Date.parse(a.published) - Date.parse(b.published));
 
-  const seedText = readSeedCorpus(root);
+  const seedIds = readSeedIds(root);
   // Assigned on every path below; `null` means "unreadable", which planFilings
   // turns into a refusal rather than a blind file.
   let ledger;
   if (FILE_MODE) {
     try {
+      // The label upsert runs BEFORE the ledger read, not after: the read is
+      // filtered by this label, and if querying a non-existent label errors,
+      // the run would refuse forever and never reach the line that creates it.
+      // It doubles as the write preflight (same pattern as the CIE) — find out
+      // GitHub is unwritable before filing, not halfway through.
+      await gh(['label', 'create', INTAKE_LABEL, '--color', INTAKE_COLOR, '--description', INTAKE_DESC, '--force']);
       ledger = await loadLedger();
       console.log(`ledger: ${ledger.issues} intake issues scanned, ${ledger.ids.size} video ids known${ledger.complete ? '' : ' (POSSIBLY TRUNCATED)'}`);
+      // Tripwire for both ceiling problems: the one-sided truncation test above,
+      // and the fact that `--state all` makes this population MONOTONIC — at the
+      // limit the lane refuses every day and does NOT self-heal, because nothing
+      // ever reduces the count. Warn with room to act rather than discovering it
+      // the day filing stops.
+      if (ledger.issues >= LEDGER_LIMIT * 0.8) {
+        console.error(
+          `ledger: WARNING — ${ledger.issues}/${LEDGER_LIMIT} intake issues. This ceiling does not self-heal: ` +
+          'at the limit every run refuses permanently. Raise LEDGER_LIMIT (and gh.mjs\'s page cap) or narrow the query.',
+        );
+      }
     } catch (e) {
       console.error(`ledger: unavailable — ${e.message}`);
       ledger = null; // planFilings refuses on this
@@ -213,7 +271,7 @@ async function main() {
     ledger = { ids: new Set(), issues: 0, complete: true };
   }
 
-  const plan = planFilings(candidates, { ledger, seedText, max: MAX_PER_RUN });
+  const plan = planFilings(candidates, { ledger, seedIds, max: MAX_PER_RUN });
 
   for (const s of plan.skipped) console.log(`  skip [${s.reason}] ${s.videoId} — ${s.channelName}: ${s.title}`);
   for (const c of plan.toFile) console.log(`  ${FILE_MODE ? 'FILE' : 'would file'} [${c.rule}] ${c.videoId} — ${issueTitle(c)}`);
@@ -223,9 +281,7 @@ async function main() {
   if (plan.refuse) {
     console.error(`REFUSED to file: ${plan.refuse}`);
   } else if (FILE_MODE && plan.toFile.length) {
-    // Label upsert doubles as the write preflight (same pattern as the CIE):
-    // find out GitHub is unwritable before filing, not halfway through.
-    await gh(['label', 'create', INTAKE_LABEL, '--color', INTAKE_COLOR, '--description', INTAKE_DESC, '--force']);
+    // (The label upsert / write preflight already ran before the ledger read.)
     for (const c of plan.toFile) {
       try {
         const url = await createIntakeIssue(c);
