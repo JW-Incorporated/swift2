@@ -5,9 +5,9 @@
 // tightens the prose on top of this; the skeleton alone is already a correct,
 // postable brief.
 //
-//   node scripts/marjorie/assemble-brief.mjs            # today, live gh data
-//   node scripts/marjorie/assemble-brief.mjs 2026-07-12 # explicit date
-//   node scripts/marjorie/assemble-brief.mjs --json     # the evidence, for the journal
+//   node --use-env-proxy scripts/marjorie/assemble-brief.mjs            # today, live gh data
+//   node --use-env-proxy scripts/marjorie/assemble-brief.mjs 2026-07-12 # explicit date
+//   node --use-env-proxy scripts/marjorie/assemble-brief.mjs --json     # the evidence, for the journal
 //
 // ─── THE 2026-08-11 REBUILD ───────────────────────────────────────────────
 // Wyatt: "the daily brief is honestly unhelpful… the focus should likely

@@ -32,8 +32,8 @@ check the cap before you cut.
 
 ## 1. Deterministic layer + batch prep (one shell step)
 ```bash
-node scripts/content-engine/run.mjs scan          # facts/redlines/images → .findings/deterministic.json + report
-node scripts/content-engine/run.mjs prep-batches  # FULL corpus → .findings/agent-input/{factual,images}/*.json + manifest.json
+node --use-env-proxy scripts/content-engine/run.mjs scan          # facts/redlines/images → .findings/deterministic.json + report
+node --use-env-proxy scripts/content-engine/run.mjs prep-batches  # FULL corpus → .findings/agent-input/{factual,images}/*.json + manifest.json
 ```
 `prep-batches` defaults to the whole corpus (43 factual + 15 image batches, ~28
 items each). We deliberately do NOT use `--claims-only` — claim-free narrative
@@ -48,11 +48,11 @@ records are exactly where fabricated events hide (that filter caused a real miss
 > with committed state:
 >
 > ```bash
-> node scripts/content-engine/run.mjs review-slice   # tonight's slice, changed content first
+> node --use-env-proxy scripts/content-engine/run.mjs review-slice   # tonight's slice, changed content first
 > # …dispatch one subagent per batch in slice/manifest.json (prompts in §2)…
-> node scripts/content-engine/run.mjs ingest && node scripts/content-engine/run.mjs issues --create
-> node scripts/content-engine/run.mjs record-review  # commit docs/audits/engine/agent-review-ledger.json
-> node scripts/content-engine/run.mjs review-status  # how much of the corpus has ever been agent-reviewed
+> node --use-env-proxy scripts/content-engine/run.mjs ingest && node --use-env-proxy scripts/content-engine/run.mjs issues --create
+> node --use-env-proxy scripts/content-engine/run.mjs record-review  # commit docs/audits/engine/agent-review-ledger.json
+> node --use-env-proxy scripts/content-engine/run.mjs review-status  # how much of the corpus has ever been agent-reviewed
 > ```
 >
 > Runner + budget + trigger config: `docs/agents/runner-prompts/karen-deep-review.md`
@@ -115,8 +115,8 @@ Cover **every** batch under `agent-input/factual/` and `agent-input/images/`.
 
 ## 3. Aggregate + file (after each wave; safe to repeat)
 ```bash
-node scripts/content-engine/run.mjs ingest          # merge deterministic + all agent-*.json → merged.json
-node scripts/content-engine/run.mjs issues --create # file GitHub issues (idempotent; one bulk fingerprint fetch)
+node --use-env-proxy scripts/content-engine/run.mjs ingest          # merge deterministic + all agent-*.json → merged.json
+node --use-env-proxy scripts/content-engine/run.mjs issues --create # file GitHub issues (idempotent; one bulk fingerprint fetch)
 ```
 Ticketing: P0/P1 + every agent-verified P2/P3 → individual issues; deterministic
 P2/P3 (size-based image.quality, host-reputation) → one rollup each. Timing note:
@@ -131,7 +131,7 @@ step 2 once the limit clears. Findings already filed stay filed (idempotent).
 
 ## 5. Finalize
 ```bash
-node scripts/content-engine/run.mjs report   # committed run report → docs/audits/engine/<date>-cie-run.md
+node --use-env-proxy scripts/content-engine/run.mjs report   # committed run report → docs/audits/engine/<date>-cie-run.md
 ```
 Commit the report; comment the tally on PR #139 (open `gh issue list --label cie`
 for counts). Do NOT merge the PR without approval.

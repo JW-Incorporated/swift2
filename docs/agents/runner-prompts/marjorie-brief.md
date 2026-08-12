@@ -29,8 +29,8 @@ The old "Today in 30 seconds", "Scoreboard", "Notes" and "The plan" sections are
 2. **Run the assembler. It is the brief, not a hint at one.**
 
    ```
-   node scripts/marjorie/assemble-brief.mjs            # the brief
-   node scripts/marjorie/assemble-brief.mjs --json     # the full evidence, for your journal comment
+   node --use-env-proxy scripts/marjorie/assemble-brief.mjs            # the brief
+   node --use-env-proxy scripts/marjorie/assemble-brief.mjs --json     # the full evidence, for your journal comment
    ```
 
    It does NOT need the `gh` CLI: since #1552 it falls back to the GitHub REST API, and since #1869 that fallback uses repo-scoped endpoints (`/repos/{owner}/{repo}/issues` and `/pulls` — the global `/search` namespace is forbidden to repo-bound sessions) and dials the runner's HTTPS proxy itself, so it works in a bare cloud runner with only `GH_TOKEN` set.

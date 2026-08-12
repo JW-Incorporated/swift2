@@ -16,8 +16,8 @@
 // everything it does is reversible — it closes duplicates (reopenable) and only
 // ever APPENDS a comment marker to the survivor's body; no body text is removed.
 //
-//   node scripts/content-engine/dedupe-rollups.mjs            # show the plan
-//   node scripts/content-engine/dedupe-rollups.mjs --apply    # do it
+//   node --use-env-proxy scripts/content-engine/dedupe-rollups.mjs            # show the plan
+//   node --use-env-proxy scripts/content-engine/dedupe-rollups.mjs --apply    # do it
 import { writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
