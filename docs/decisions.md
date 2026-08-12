@@ -7,6 +7,49 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — One source of truth for content length caps; restore the 31 contexts a stale cap deleted
+
+**Decision:** every content length cap now lives in `scripts/lib/content-caps.mjs`
+and nowhere else. `validate-content.mjs`, `content-coverage.mjs` and
+`content-engine/checkers/redlines.mjs` import it and hold zero cap literals.
+`scripts/lib/content-caps.test.ts` parses the migration SQL and fails if the
+table and the database disagree, and fails if any consumer re-types a cap
+number. The 31 `moment.context` fields trimmed by commit `26e9a5b` are restored
+to their pre-trim text.
+
+**Why:** the same number was hand-written in four places. On 2026-07-22 Wyatt
+raised `moment.context` 2000 -> 4000 (founder decision,
+`supabase/migrations/20260722120000_moment_context_4000.sql`) because the 2000
+ceiling had made the marquee pages come out byte-identical after a 91-ledger
+depth push. Three of the four sites moved. `redlines.mjs` kept a flat
+`FIELD_FAIL_CHARS = 2000` with no exemption, so Karen filed a P1 safety ticket
+for every context between 2000 and 4000 — content that is deliberately that
+long. PR #1727 cleared the ticket by deleting 30,562 characters across 31
+moments (44 of the 47 lines its message claims were photo/generated lines; the
+real count is 31 contexts, all in Showgirl/TTPD/Lover). That is a closed loop:
+depth engine writes long -> stale checker calls it a violation -> fixer
+truncates -> repeat. The pre-trim text was verified as pure deletion (every
+character of each trimmed version appears verbatim in the original, so nothing
+was improved along the way) and every pre-trim value is <= 3916 chars, well
+inside the real 4000 cap.
+
+**The two caps are different policies and stay separate.** The DB CHECK caps
+are column widths — exceed one and the insert fails. The redlines/coverage
+ceiling is an *anti-dump* heuristic: it is looking for pasted source text, a
+copyright and safety concern. Those stay at 2000 for every field, because a
+2000-char paste is a red line; `moment.context` alone is raised to 4000 because
+it is our own editorial prose and length is not the dump signal for it. The
+lyrics-block, verbatim-quote-span (>= 600) and private-data detectors apply to
+it unchanged — those are the checks that actually catch a paste.
+
+**Alternatives considered:** (a) just fix the 2000 in `redlines.mjs` — rejected,
+it leaves four hand-written copies and the next raise desyncs again; (b) raise
+every field to 4000 — rejected, it destroys the anti-dump intent for fields
+that have no reason to be long; (c) generate the migrations from the JS table —
+rejected, migrations are immutable history and must stay literal SQL, so the
+test asserts parity instead.
+
+**Approved by:** pending Wyatt — the restore reverses a merged content PR.
 ## 2026-08-11 — Clownbot: a fourth surface, with the refusal layer built OUTSIDE the persona prompt
 
 **Decision (PENDING founder review on the posture question below).** Ship
