@@ -50,7 +50,7 @@ whenever you coarsened a location.
 
 ## Each run, do both
 
-**A. Lifecycle queue.** `node scripts/content-engine/run.mjs scan --no-images`,
+**A. Lifecycle queue.** `node --use-env-proxy scripts/content-engine/run.mjs scan --no-images`,
 read `content.rumor-lifecycle` findings (never-checked / gone-quiet / overdue).
 CONFIRMED → status `confirmed` + `resolution { on, url, outlet, note }`;
 DEBUNKED → same shape; STILL LIVE → leave status, set `lastCheckedOn` to today;

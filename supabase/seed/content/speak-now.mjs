@@ -2609,7 +2609,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/L8-HPbEemcY/hqdefault.jpg',
       moment: {
         context:
-          'Billboard counts the mash-up among her defining American Music Awards moments. A month after the album arrived, she performed its second single with the OneRepublic interpolation woven into the back half — the same night her blunt-bangs debut got its own headlines (covered in this era\'s fashion items).',
+          'The mash-up sits among her defining American Music Awards moments, by Billboard\'s count. A month after the album arrived, she performed its second single with the OneRepublic interpolation woven into the back half — the same night her blunt-bangs debut got its own headlines (covered in this era\'s fashion items).',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/awards/taylor-swift-american-music-awards-moments-amas-8544183/' },
           { outlet: 'YouTube — LadyStefani (fan archive)', url: 'https://www.youtube.com/watch?v=L8-HPbEemcY' },
