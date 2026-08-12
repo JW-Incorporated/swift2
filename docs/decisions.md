@@ -7,6 +7,109 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Moment sourcing becomes a hard gate, with two lists that can only shrink
+
+**Decision:** `validate-content.mjs` now ERRORS, not warns, when a moment has
+no source, and errors when a `relationship`/`business` moment has fewer than
+two independent outlets. Both gates live in `scripts/lib/sourcing-gate.mjs`
+with a grandfather list of the records that predate them: 1 moment
+(`UNSOURCED_LEGACY`) and 25 (`SINGLE_OUTLET_LEGACY`). 44 of the 45 unsourced
+moments were sourced first, in the same pass, so the gate went up against a
+corpus that could survive it.
+
+**Why:** typed records have hard-failed with no sources since the audit
+(`checkCommon` → `err('no sources — every new-type record requires >= 1
+source')`). Moments — the largest surface on the site and the one every reader
+lands on — only ever got a `warn()`. `validate:content` prints ~100 warnings
+and exits 0, so 45 unsourced moments passed CI green and auto-merged to
+production on a site whose entire proposition is receipts. Separately, the
+"two independent outlets for relationship and business claims" standard has
+been written in `editorial-voice-and-pipeline.md` since that doc existed and
+had **no implementation anywhere**. 143 of 164 records in those categories met
+it anyway; 4 of the 21 that did not rest on Wikipedia alone, which the same
+rubric says never satisfies a factual claim.
+
+**Why a grandfather list rather than fixing everything or leaving it a warn:**
+flipping the gate first would have red-lined the build and blocked every other
+desk. Leaving it a warn is what produced the 45 in the first place — the whole
+lesson here is that a warning does not hold a line. A list makes the rule bite
+on all NEW content immediately while the residue is worked down in the open.
+Two properties keep it from becoming amnesty: a listed record that HAS been
+sourced is an error (delete the entry), and a listed key matching no record is
+an error (the record was deleted or retitled). A vitest ceiling on each list's
+size means adding an entry to make a build green fails the suite.
+
+**Alternatives considered:** (a) fix all 45 and skip the list — attempted; one
+is an unfalsifiable generalisation ("A run of TV performances… every major
+stage") with no citable assertion, and inventing a source for it is the one
+thing this work must never do; (b) exempt the whole legacy cohort by a flag on
+the records — rejected, an in-record exemption is invisible at review time and
+travels with copy-paste; (c) file the two-outlet checker instead of building it
+— rejected, it shares the grandfather machinery exactly and 87% of the corpus
+already passed, so the marginal cost was ~40 lines; (d) hard-fail the 4
+Wikipedia-only business claims with no grandfathering — tempting, and they are
+the priority follow-up, but a red build is a red build.
+
+**Approved by:** pending Wyatt — this changes what CI rejects.
+
+## 2026-08-11 — Reliability scores reach the vault; nothing displays them yet
+
+**Decision:** `sourcesFrom()` (`scripts/lib/longlive-sync-shared.mjs`) now carries
+each citation's `reliability_score` and `source_type` into the built vault as
+`reliability` / `type`, and all five generator emit sites go through one new
+`sourceLiteral()` so a citation field can never again be added to the
+normalizer and dropped by four of the five serializers. **No UI renders either
+field.** The seam is deliberate and this entry is the thing to read before
+closing it.
+
+**Why plumb it:** the 2026-07-08 audit §5 rubric is real, documented, and
+enforced — `validate-content.mjs` rejects a score outside 1..5 — and editors
+have scored ~2.1k citations against it. Every one was flattened to `{name,url}`
+at build time. The app could not tell `grammy.com` from a fan wiki. That is a
+month of editorial judgment thrown away by one line, and the fix is ten.
+
+**Why NOT display it — the coverage is uneven, and a badge would lie.** Of 1,918
+`moment.sources` citations, 1,161 (61%) carry a score and 757 do not; every one
+of the 946 citations on typed records (releases/tours/theories/videos) does,
+because `checkCommon` has required them since the audit. A reliability badge
+rendered on the scored 61% and omitted on the rest does not read as "we scored
+these"; it reads as "the unbadged ones are weaker," which is false — most are
+pre-rubric citations from reputable outlets that nobody has gone back to score.
+The failure mode is precisely the one the confidence banners were built to
+avoid: a provenance signal that misleads by omission is worse than no signal.
+**The gate to reopen this is coverage, not design:** when unscored moment
+citations reach ~0, display becomes a design question worth having.
+
+**And the visual language is already full.** A moment can carry a sub-confirmed
+`ConfidenceBanner`, a "What's rumored" section with per-rumor status pills, and
+per-image `reference`/`archival` badges. Those all answer *"how sure are we of
+this claim?"* A per-citation reliability badge answers *"how good is this
+link?"* — a quieter, more clerical question — and stacking a fourth trust
+chrome on the same card dilutes the three that carry real weight. Today's
+citation line is deliberately footnote-scale (10px, `opacity-80`, below a
+rule), which is the correct altitude for it.
+
+**Precedent:** rumors' `sourceTier` has been plumbed to the vault and typed in
+`types.ts` since the rumor pipeline landed, is present on 36 vault entries, and
+has never been rendered. That seam has cost nothing and is available the day
+someone wants it. This is the same shape.
+
+**Alternatives considered:** (a) render a 1–5 badge on every citation —
+rejected, see coverage above; (b) render only for scores of 1–2 ("low-quality
+source") — rejected, it is a scarlet letter on the 2s, which the rubric defines
+as legitimate supplements (wikis, moderated forums) that the same rubric already
+forbids from *standing alone*; enforcing that at build time is strictly better
+than shaming it at render time; (c) sort citations by reliability so the best
+source is listed first — genuinely tempting and cheap, but it silently reorders
+the *first* source, and `ConfidenceBanner` attributes the sub-confirmed label to
+`sources[0]` **by position** — so sorting would re-attribute banners across the
+corpus. Rejected as an invisible content change riding along in a plumbing PR;
+filed instead; (d) keep discarding it — rejected, it is the site's own stated
+credibility standard.
+
+**Approved by:** pending — Joey owns whether a reliability signal ever renders;
+this PR only makes it available and argues for the wait.
+
 ## 2026-08-11 — Founder mail: `founder-task` means a human acts, and founder mail is digest-batched
 
 **Decision:** (1) The `founder-task` label is reserved for "a human founder
@@ -37,6 +140,7 @@ nothing for "sometime this week" tasks).
 
 **Approved:** Joey (reported the failure and set the bar: "I need simple
 instructions"), implemented 2026-08-11.
+
 ## 2026-08-11 — One source of truth for content length caps; restore the 31 contexts a stale cap deleted
 
 **Decision:** every content length cap now lives in `scripts/lib/content-caps.mjs`
