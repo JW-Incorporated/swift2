@@ -62,6 +62,66 @@ base-branch workflow, so this gate takes effect for PRs opened after it merges.
 
 ---
 
+## 2026-08-11 — Backups: our own logical backup, not `pg_dump`; drill monthly, not nightly
+
+**Decision:** The BACKUPS launch gate (#680) is met by two layers, and the
+second one is ours: (a) whatever Supabase's plan provides — still unverified,
+see below — and (b) a **data-only logical backup** taken by
+`scripts/backup-restore-test.mjs`: NDJSON per table plus a manifest of row
+counts and order-independent content checksums, with **no `pg_dump` /
+`pg_restore` binary anywhere in the path**. Schema is restored from
+`supabase/migrations/**` in git, not from the backup artifact. The drill runs
+**monthly** in CI plus on any change to `supabase/migrations/**`, against a
+throwaway Postgres service container with no production credentials. Runbook:
+`docs/backup-restore.md`.
+
+**Why:** Three findings drove it.
+
+1. **Most of this database is not at risk.** Schema is git; content is git
+   (`supabase/seed/**`) and the live site renders from the committed generated
+   vault, not Supabase. The only state that exists nowhere else is the four
+   `news_*` tables, `news_source.last_polled_at`, and every generated `uuid`.
+   A backup story sized for "we could lose the company's content" would have
+   been wrong; the real exposure is small, and *stated*, so nobody
+   over-invests here again.
+2. **`pg_dump` is not available where this work happens.** No Postgres client
+   binaries on the dev machine, no Docker, no Supabase CLI; runners are not
+   guaranteed to have them either. This repo's entire DB toolchain already
+   speaks `pg` over the wire (`scripts/migrate.mjs`, the seeds), so the backup
+   tool speaks it too. A backup tool that cannot be run is not a backup tool.
+   The cost is real and accepted: a logical row-level dump does not capture
+   roles, grants, or extensions — those come from migrations, and if this
+   project ever adds Supabase Storage or Auth, this decision must be revisited.
+3. **Cadence is an Actions-minutes decision.** The repo hit 90% of included
+   minutes on 2026-07-27 and CI is ~77% of the spend. The drill guards against
+   migrations breaking the restore path — a weeks-scale risk — so monthly
+   (~3 min/month) plus a `paths` trigger on `supabase/migrations/**` catches
+   the actual failure mode at ~1/30th the cost of nightly.
+
+**Alternatives considered:** *Supabase PITR / branching* — rejected for now:
+paid, and unverifiable without dashboard access; it remains the right answer
+for "bad write 20 minutes ago" and is called out as a founder decision below.
+*A one-off manual restore, documented* — rejected under CLAUDE.md rule 8: a
+runbook nobody re-executes is a runbook that has already rotted, and the gate
+asks for a *tested* restore, which only stays true if it keeps being tested.
+*`pg_dump -Fc` in CI only* — rejected: it would make CI the only place the
+backup path works, which is precisely backwards for a disaster procedure.
+
+**Still open — founder decision (Wyatt):** nobody has confirmed which Supabase
+plan this project is on or whether automated daily backups / PITR are actually
+enabled for it; that needs the dashboard. On the free plan there are no
+automated backups at all, in which case layer (b) is the *entire* backup story
+and that should be an explicit, accepted risk rather than an assumption. Also
+open: one real-data drill against production (read-only source, scratch
+target) before launch — the committed drill proves the procedure, not
+production's own bytes.
+
+**Approved by:** proposed by the Build desk under #680's routing (Marjorie,
+2026-07-15, executing Joey's directive on brief #650); the two open items
+above are Wyatt's to close.
+
+---
+
 ## 2026-08-11 — A failed social post must turn the run red; the brief counts posts per platform over 24h
 
 **Decision:** Two changes, one to delivery and one to measurement.
@@ -688,6 +748,9 @@ or don't ship a bot into this fandom at all right now) are Joey's call, not
 mine. See the PR body.
 
 **Approved by:** pending (Joey on posture, Wyatt on architecture).
+
+---
+
 ## 2026-08-11 — Product Definition of Done adopted: eight items gate the marketing push
 
 **Decision:** Joey and Wyatt (in person, 2026-08-11) defined the short-term
