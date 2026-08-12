@@ -692,6 +692,55 @@ for (const entry of await loadTypeDir('videos', 'videos')) {
   for (const egg of row.easterEggs ?? []) capped(err, 'easterEggs entry', egg, POLICY_CAPS.easterEgg);
 }
 
+// -- era secrets (the Era Secret card, #688) --
+// One sourced, genuinely-obscure fact per era, greeting every era entry. Every
+// secret must be REAL and SOURCED — the generator drops any secret with no
+// source, so a fabricated fact can't ship; this makes the same rule a hard,
+// authored-early error. Self-contained (not checkCommon): the provisional-v0
+// seeds carry source_type values outside the shared new-type enum
+// (fan_wiki / reference), which is fine for a fact citation, so this checks the
+// things that matter — identity, sourcing, and shape — without that coupling.
+// `deeperLink` is an optional hop (song:/moment:/egg:) resolved at render time;
+// an unresolvable one degrades to no link, so the shape check is a lint, not a
+// cross-existence guarantee.
+const ERA_SECRET_DEEPER_LINK_RE = /^(song|moment|egg):.+/;
+const ERA_SECRET_PROVENANCE = new Set(['sourced', 'fan_consensus']);
+const eraSecretSlugs = new Map();
+for (const entry of await loadTypeDir('era-secrets', 'secrets')) {
+  const { row, fileEra, file } = entry;
+  checked += 1;
+  const { err } = makeReporters(`${file} "${String(row.title ?? row.slug ?? '').slice(0, 42)}"`);
+  const eraSlug = row.eraSlug ?? fileEra;
+  if (!row.slug) err('missing slug (stable identity is required)');
+  else if (!SLUG_RE.test(row.slug)) err(`slug "${row.slug}" is not kebab-case`);
+  else if (eraSecretSlugs.has(row.slug))
+    err(`duplicate slug "${row.slug}" (first seen in ${eraSecretSlugs.get(row.slug)})`);
+  if (row.slug && !eraSecretSlugs.has(row.slug)) eraSecretSlugs.set(row.slug, file);
+  if (!eraSlug) err('missing eraSlug (not on record or file)');
+  else if (!knownEra(eraSlug)) err(`unknown eraSlug "${eraSlug}"`);
+  if (!row.title) err('missing title');
+  capped(err, 'title', row.title, POLICY_CAPS.eraSecretTitle);
+  if (!row.secret) err('missing secret (the fact itself is required)');
+  capped(err, 'secret', row.secret, POLICY_CAPS.eraSecretSecret);
+  const sources = row.sources ?? [];
+  if (!Array.isArray(sources) || sources.length === 0)
+    err('no sources — every Era Secret must be sourced (hard rule; no invented trivia)');
+  for (const s of sources) {
+    if (!s.source_url) err('source entry missing source_url');
+    if (s.accessed_at != null && !ISO_DATE_RE.test(s.accessed_at))
+      err(`accessed_at "${s.accessed_at}" is not YYYY-MM-DD`);
+    if (
+      s.reliability_score != null &&
+      !(Number.isInteger(s.reliability_score) && s.reliability_score >= 1 && s.reliability_score <= 5)
+    )
+      err(`reliability_score ${s.reliability_score} out of 1..5`);
+  }
+  if (row.deeperLink != null && !ERA_SECRET_DEEPER_LINK_RE.test(row.deeperLink))
+    err(`deeperLink "${row.deeperLink}" must be a song:/moment:/egg: reference`);
+  if (row.provenance != null && !ERA_SECRET_PROVENANCE.has(row.provenance))
+    err(`provenance "${row.provenance}" not a known value (expected sourced|fan_consensus)`);
+}
+
 // -- tracks (song track guide) --
 // The track seed files export `{ eraSlug, tracks: [] }` and carry per-era
 // `.dossiers.mjs` side modules that export a slug->dossier map instead — skip

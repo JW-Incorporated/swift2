@@ -57,6 +57,11 @@ export const POLICY_CAPS = Object.freeze({
   easterEgg: 400,
   // Tour show notes.
   showNote: 400,
+  // Era Secret card (#688) — the headline hook and the fact itself. No DB
+  // column behind them (the pipeline is seed-only; no era_secret table yet):
+  // these bound what EraSecretCard renders as a compact card.
+  eraSecretTitle: 200,
+  eraSecretSecret: 800,
 });
 
 // ---------------------------------------------------------------------------

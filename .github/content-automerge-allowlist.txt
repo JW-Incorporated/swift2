@@ -119,6 +119,7 @@ apps/web/lib/longlive/content-vault.generated.ts
 apps/web/lib/longlive/tracks.generated.ts
 apps/web/lib/longlive/theories.generated.ts
 apps/web/lib/longlive/videos.generated.ts
+apps/web/lib/longlive/era-secrets.generated.ts
 apps/web/lib/longlive/song-moods.generated.ts
 
 # ── App code (WIDENED 2026-08-11, Wyatt — docs/decisions.md). Gated by FULL
