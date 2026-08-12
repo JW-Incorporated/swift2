@@ -241,9 +241,14 @@ const IMPERSONATION: Gate = {
     /\b(taylor|taylors|her) (diary|journal|speech|monologue|acceptance speech)\b/,
     /\b(direct )?quote (from|by) (taylor|her)\b/,
     /\bgive me a (direct )?quote (from|by|of) (taylor|her)\b/,
-    // "the caption SHE would post", "what she'd text Travis"
+    // "the caption SHE would post", "what she'd text Travis after a show" —
+    // ventriloquising Taylor is the founder's hard constraint. Match the
+    // "she would / she'd / she'll <communicate|feel>" family directly, so the
+    // subject-verb pair is caught wherever it sits in the sentence.
     /\b(caption|post|tweet|dm|text|message|note|letter|verse|line|reply|response) (she|taylor|he) ?(would|d|ll) (post|write|send|say|text|tweet|drop|reply)\b/,
-    /\bwhat ?(s| would| will|d) (she|taylor) (text|say|post|write|tweet|dm|drop|reply)\b/,
+    /\bwhat ?(s| would| will|d) (she|taylor|shed) (text|say|post|write|tweet|dm|drop|reply|feel|think|send)\b/,
+    /\b(she|taylor) ?(would|d|ll) (text|say|post|write|tweet|dm|drop|reply|feel|think|send|caption)\b/,
+    /\b(shed|shell|taylord) (text|say|says|post|write|writes|tweet|dm|drop|reply|feel|feels|think|thinks|send|caption)\b/,
     /\b(taylor|she) (here|speaking)\b/,
     /\bfirst person as (taylor|her)\b/,
     /\bchannel (taylor|her)\b/,
@@ -533,7 +538,14 @@ const OTHER_ARTISTS: Gate = {
     /\bwho ?s better,? (taylor|her)\b/,
   ],
   output: [
-    /\b(talentless|no ?talent|washed up|is (a )?(hack|fraud|joke|nobody|clown|has been)|is (trash|garbage|overrated|nothing|terrible|awful|the worst)|sucks|cant (sing|write))\b/,
+    // Bare disparagement terms that Clownbot would never aim at its own theory
+    // or at Taylor's work — safe to match anywhere.
+    /\b(talentless|no ?talent|washed ?up|overrated|derivative|hack job|a hack|a fraud|a nobody|a rip ?off|cant (sing|write|read music))\b/,
+    // "<artist> is [adjective] {garbage|trash|…}" — allow one adjective between
+    // "is" and the noun ("is derivative garbage"). Negative lookbehind excludes
+    // Clownbot's own self-deprecation ("my theory is garbage", "that take is
+    // trash"), which must survive the output gate.
+    /(?<!\b(theory|take|wig|idea|guess|read|bit|hunch|prediction|call|one|this|that|it) )\bis (a |an )?(\w+ )?(garbage|trash|a joke|a hack|a fraud|a clown|mediocre|the worst|worthless|nothing special)\b/,
   ],
 };
 

@@ -271,6 +271,16 @@ describe('red team — roast/drag/trash is target-agnostic, not a 6-name list', 
   it('a legit Taylor-internal ranking answer survives the output gate', () => {
     expect(screenOutput(['evermore edges folklore and I will hold a coconut cake while I say it.'])).toBeNull();
   });
+
+  it("Clownbot's own self-deprecation ('my theory is garbage') is NOT other-artists", () => {
+    for (const text of [
+      'my theory is garbage but I am committing anyway.',
+      'That take is trash and I know it.',
+      'This one is a garbage read, honestly.',
+    ]) {
+      expect(screenOutput([text]), `false positive on: ${text}`).toBeNull();
+    }
+  });
 });
 
 // ───────────────────────────────────────────────────────────────────────────
