@@ -2755,7 +2755,7 @@ export default {
             url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
             focalPoint: '46% 55%',
             credit: 'Big Machine Records / YouTube (official video still)',
-            caption: 'Swift crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
+            caption: 'Taylor crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
             kind: 'primary',
           },
         ],
