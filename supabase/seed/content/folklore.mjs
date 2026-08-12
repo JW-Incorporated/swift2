@@ -182,6 +182,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/U.S._Marines_storm_ashore_on_Guadalcanal%2C_7_August_1942_%2880-CF-112-5-3%29.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — landing
+            // craft and troops run in a horizontal band across the upper third,
+            // with a wide stretch of beach sand below.
+            focalPoint: '50% 30%',
             credit: 'U.S. Marine Corps (public domain), via Wikimedia Commons',
             caption: 'U.S. Marines coming ashore at Guadalcanal, August 1942 — the battle Taylor\'s grandfather Dean fought in and never spoke about.',
             kind: 'archival',
@@ -214,6 +218,11 @@ export default {
             // cabin silhouette, and the white-dressed performer are all clearly
             // visible at this size.
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — an
+            // ultra-wide panorama; the moon and reflection sit left-of-center,
+            // the silhouetted performer sits right-of-center. Split the
+            // difference so a crop keeps both in frame.
+            focalPoint: '55% 55%',
             credit: 'Paolo V (CC BY 2.0), via Wikimedia Commons',
             caption: 'The folklore set\'s moonlit cabin at the Eras Tour, where the album\'s songs were finally staged live.',
             kind: 'archival',
@@ -250,6 +259,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — face fills
+            // most of the frame, upper-center and slightly right, eyes closed
+            // at the mic.
+            focalPoint: '55% 38%',
             credit: 'Disney+ (official poster)',
             caption: 'Official release poster for folklore: The Long Pond Studio Sessions.',
             kind: 'primary',
@@ -800,6 +813,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/KaM1bCuG4xo/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — the disco
+            // ball sits upper-left, light rays sweeping down and right.
+            focalPoint: '25% 30%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The disco ball from the official "mirrorball" lyric video.',
             kind: 'archival',
@@ -1419,6 +1435,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg/500px-Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — tall
+            // portrait crop, she's upper third of frame, mic raised, slightly
+            // left of center.
+            focalPoint: '46% 24%',
             credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
             caption: 'Performing "august" during the Eras Tour folklore act, Arlington, March 2023.',
             kind: 'archival',
@@ -1573,6 +1593,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/orXAg5dIMa8/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — seated
+            // figure and guitar centered, slightly right, spotlight burst
+            // above and behind.
+            focalPoint: '55% 33%',
             credit: 'Taylor Swift via YouTube (official performance video)',
             caption: 'Alone in the spotlight at the Grand Ole Opry House — from the official upload of the 2020 ACM Awards performance.',
             kind: 'primary',
@@ -1906,6 +1930,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/MLV2SJKWk4M/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — a
+            // symmetric rain-dark road receding into the woods, genuinely
+            // centered.
+            focalPoint: '50% 48%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The rain-dark woods of the official "illicit affairs" lyric video.',
             kind: 'archival',
@@ -1953,6 +1981,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/9bdLTPNrlEg/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — the
+            // drive-in screen sits upper-center-right, a wide grass field
+            // filling the lower half.
+            focalPoint: '55% 35%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The drive-in movie screen of the official "this is me trying" lyric video.',
             kind: 'archival',
@@ -2134,6 +2166,27 @@ export default {
       milestone: { id: "m-folk-1", label: "folklore surprise drop", kind: "album" },
       snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-announces-new-surprise-album-folklore-featuring-bon-iver-nationals-aaron/',
+            source_title: 'Taylor Swift Announces New Surprise Album \'Folklore,\' Featuring Bon Iver & The National\'s Aaron Dessner',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/897193428',
+            source_title: 'With \'Folklore,\' Taylor Swift Marks Off Her Past And Enters A New Phase',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+        ],
         context: "No rollout, no singles, no warning: folklore arrived overnight and rewrote what a Taylor Swift album could be.\n\nMuted, literary, and fictional, it introduced interlocking character stories fans mapped for months.",
         // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- checked
         // Wikimedia Commons, official press kits and album-review outlets for
@@ -2156,6 +2209,26 @@ export default {
       snippet: "Grayscale knitwear and misty forests define the era’s look.",
       video: { youtubeId: "K-a8s8OLBSE", title: "Taylor Swift - cardigan" },
       moment: {
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2020/07/9931460/taylor-swift-folklore-fashion-clothing-trend',
+            source_title: 'Folklore Fashion, According To Taylor Swift',
+            publisher: 'Refinery29',
+            source_type: 'fashion_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Grazia',
+            url: 'https://graziadaily.co.uk/fashion/shopping/taylor-swift-folklore-style-cardigans/',
+            source_title: 'Folklore, Taylor Swift\'s New Album, Is Responsible For A Surge In Searches For Cardigans',
+            publisher: 'Grazia Daily',
+            source_type: 'fashion_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Cozy cardigans, braided hair, and a foggy woodland palette made cottagecore the aesthetic of 2020.\n\nThe cream cable-knit cardigan from the video, embroidered with stars, was sold as official merch and is widely credited with driving cottagecore's mainstream revival.",
         // Shop pass (2026-07-22): the official star-embroidered merch
         // cardigan is long discontinued from Taylor's own store (only
@@ -2186,6 +2259,26 @@ export default {
       title: "The teenage love triangle",
       snippet: "Three songs — \"cardigan,\" \"august,\" and \"betty\" — tell one story from three points of view.",
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/5871159/taylor-swift-folklore-explained/',
+            source_title: 'Let\'s Break Down Taylor Swift\'s Tender New Album Folklore',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/blogs/taylor-swift-new-album-folklore-hidden-references-meanings-easter-eggs-2714814',
+            source_title: 'Taylor Swift\'s new album \'Folklore\': all the hidden meanings and Easter eggs',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Taylor has said on record that \"cardigan,\" \"august,\" and \"betty\" form a fictional teenage love triangle, each song narrated by a different character in the story.\n\nIt set the template for folklore's fictional, novelistic approach — a sharp turn from the autobiographical framing of her earlier catalog.",
         // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- the only
         // candidate images (the cardigan/betty single covers) are already the
@@ -2207,6 +2300,26 @@ export default {
       title: "William Bowery revealed",
       snippet: "The mystery co-writer credited on \"exile\" and \"betty\" is confirmed as Joe Alwyn.",
       moment: {
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-confirms-the-identity-of-folklore-song-co-writer-william-bowery-2825041',
+            source_title: 'Taylor Swift confirms the identity of \'Folklore\' song co-writer William Bowery',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-tortured-poets-department-joe-alwyn-matt-healy-who-are-they-songs-are-about/',
+            source_title: 'Taylor Swift fans speculate her songs are about Matty Healy and Joe Alwyn – who are they?',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "In the Disney+ special Folklore: The Long Pond Studio Sessions, Taylor revealed that \"William Bowery\" — credited as a co-writer on \"exile\" and \"betty\" — was her then-partner Joe Alwyn.\n\nThe pseudonym combines his great-grandfather's name, William Alwyn (also a musician), with the Bowery Hotel, where the two were first spotted together.",
         // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- the same
         // reveal is covered in full by the richer sibling moment
@@ -2230,6 +2343,26 @@ export default {
       milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
       snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-wins-album-year-folklore-2021-grammys/',
+            source_title: 'Taylor Swift Wins Album Of The Year For \'Folklore\' | 2021 GRAMMY Awards Show',
+            publisher: 'The Recording Academy',
+            source_type: 'awards_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
+            source_title: 'Taylor Swift becomes first woman to win Album of the Year Grammy 3 times',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Taylor's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
         // Photo pass #762 (2026-07-19): lead image of Billboard's own AOTY-win
         // story (billboard.com/wp-content, EXIF copyright "2021 Recording

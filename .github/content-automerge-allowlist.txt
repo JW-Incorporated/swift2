@@ -1,0 +1,170 @@
+# content-automerge allowlist — THE source of truth for what may merge with no
+# human review.
+#
+# `.github/workflows/auto-merge-content.yml` reads THIS FILE (from `main`, via
+# the API — never from the PR head) and enables GitHub auto-merge only when
+# every changed path in a PR starts with one of the ALLOW prefixes below AND
+# none of them starts with a DENY (`!`) prefix. One path outside the allow set,
+# or one path under a deny prefix, and the PR waits for a founder. That is the
+# fail-safe direction.
+#
+# ⚠️ EDITING THIS FILE CHANGES MERGE AUTHORITY. Adding an allow line means bots
+# can land that path with nobody looking.
+#
+# WIDENED 2026-08-11 (Wyatt directive — docs/decisions.md): app code
+# (`apps/web/app/`, `apps/web/components/`, `apps/web/lib/`) and shared
+# packages (`packages/`) now auto-merge too. (The `apps/web/lib/` grant was
+# narrowed to `apps/web/lib/longlive/` on 2026-08-12 — P0 fix #1972, see the
+# App-code block below.) Reasoning: a human-merge gate that
+# nobody actually exercises is theater — "honestly we're not reviewing any
+# code." The real gate for app code is FULL required CI green, not a rubber
+# stamp: the `build` check runs typecheck + lint + the whole test suite +
+# validate:content + check:generated + check:content-inert +
+# check:automerge-allowlist + check:content-ownership + check:no-downgrade +
+# content:coverage + build + check:budget:seed, all in one required job. Auto-
+# merge waits on that; a red anything blocks the merge.
+#
+# The DENY (`!`) lines below carve specific sub-paths back OUT of a broad allow —
+# they always win over an allow. They are how `apps/web/app/` can flow while
+# `apps/web/app/api/`, `/privacy`, `/terms` do not.
+#
+# STILL HUMAN-ONLY (not widened, on purpose — this is NOT about code review, it
+# is about not letting the system rewrite its own safety or ship irreversible /
+# counsel-needing changes unreviewed):
+#   - `.github/**`, `scripts/**`, `package.json`, lockfiles, config — the gate
+#     and what CI runs. A gate that can widen itself is not a gate. (Barred by
+#     NEVER_ALLOWLIST; also simply not allowed here.)
+#   - `apps/web/app/api/**` — the request-handling / data layer. Held because
+#     E2E is 100% red (#669): app-code auto-merge currently has NO behavioural
+#     regression net beyond unit + typecheck + build, which is adequate for view
+#     components but thin for request handlers. Revisit when #669 is green.
+#   - ANY `route.ts`/`.tsx`/`.js` under `apps/web/app/**` — a Next.js route
+#     handler executes server-side and is NOT limited to `/api/` (P0 #1972).
+#     Enforced by the content guard, not a path line (a prefix can't match a
+#     `*/route.ts` suffix).
+#   - The top-level `apps/web/lib/*` files — the server data layer
+#     (`vault.ts`), the CSP module (`security-headers.mjs`), and the top-level
+#     hooks/utils. Only the `apps/web/lib/longlive/` display subtree auto-merges.
+#   - `apps/web/lib/longlive/mood-client.ts` — reads `ANTHROPIC_API_KEY`
+#     (denied by path, and by the content guard).
+#   - `apps/web/next.config.*`, any `apps/web/middleware.*` — deploy/security
+#     config (barred in NEVER_ALLOWLIST; also caught by the content guard).
+#   - Server Actions (`"use server"`) and `server-only` modules anywhere —
+#     caught by the content guard, since they can live in any file.
+#   - `apps/web/app/privacy/**`, `apps/web/app/terms/**` and any legal lib —
+#     legal surfaces need counsel, not a code review.
+#   - `supabase/migrations/**` — irreversible schema (already NEVER_ALLOWLIST).
+#   - the rest of `apps/web/public/**` — bot-picked media gets human eyes
+#     (2026-07-28), EXCEPT the `apps/web/public/social/` carve-out below.
+#
+# The `apps/web/public/social/` exception is checker-gated (docs/decisions.md
+# 2026-08-11): that path is a plain prefix match here same as any other entry,
+# but the `enable` job applies EXTRA per-file constraints to it (must be
+# .png/.jpg/.jpeg, ≤1.5MB, a regular git blob — not a symlink/submodule) that
+# this file has no way to express. A file under that prefix failing those
+# constraints still declines, same as any other non-content path would.
+#
+# THE SELF-AMENDMENT BAR (2026-08-11). Some paths are not a judgement call and
+# CI refuses them outright: `.github/**`, `scripts/**`, `CLAUDE.md`, `AGENTS.md`,
+# `docs/agents/**`, `docs/decisions.md`, `docs/proposals/**`, `docs/specs/**`,
+# `docs/content-ops/**`, `package.json`, lockfiles, config, migrations, and
+# `apps/web/public/**` (EXCEPT the `apps/web/public/social/` carve-out above).
+# Those paths change *what merges with nobody looking, or what agents are
+# permitted to do* — allowlisting one would let a bot PR widen its own authority
+# and land the widening unreviewed. The mechanism that decides what merges
+# without a human must itself always need a human. The full list and the reason
+# per path: NEVER_ALLOWLIST in scripts/check-automerge-allowlist.mjs; the single
+# narrowing (the social carve-out) is NEVER_ALLOWLIST_EXCEPTIONS there.
+#
+# Format: one path prefix per line, matched with a literal `startsWith`.
+#   - `#` starts a comment; blank lines ignored.
+#   - A leading `!` makes the line a DENY prefix: a changed file under it is
+#     NEVER auto-mergeable, even if an allow prefix also matches. Deny wins.
+#   - Directory prefixes MUST end in `/` (`docs/audits` would also match
+#     `docs/auditsX/`).
+#   - Every ALLOW entry must name a path that actually exists. DENY entries need
+#     not exist yet (`!apps/web/app/terms/` is a forward-looking guard).
+#   - A broad allow that would otherwise sweep in a NEVER_ALLOWLIST-barred area
+#     is only permitted when a DENY prefix fully covers that barred area — so
+#     `apps/web/app/` is allowed BECAUSE `!apps/web/app/api/` (etc.) deny it
+#     back out. See barredPrefixes() in check-automerge-allowlist.mjs.
+#
+# `npm run check:automerge-allowlist` (CI, in `build`) enforces all of the
+# above AND that every apps/web/lib/longlive/*.generated.ts is either listed
+# here or explicitly excluded in scripts/check-automerge-allowlist.mjs. A new
+# generated file therefore cannot go silently un-auto-mergeable — which is the
+# bug this file exists to prevent (PRs #1891/#1762 sat a week because
+# theories.generated.ts was never added to the old inline list).
+
+# ── Seed data: the authored source of truth for all Vault content. ──────────
+supabase/seed/
+
+# ── Social queue: drafted posts (per docs/decisions.md 2026-07-25). ─────────
+social/queue/
+
+# ── Audit reports written by the content-engine runners. ────────────────────
+docs/audits/
+
+# ── Social images: ONE narrow exception to the apps/web/public/** rule above
+#    (docs/decisions.md 2026-08-11 — checker-gated, per-file constraints
+#    enforced by the workflow, not by this file). A queue item's own
+#    dedicated photo, already validated by scripts/social/check-drafts.mjs's
+#    media rules in the check-drafts job. ────────────────────────────────────
+apps/web/public/social/
+
+# ── Built vault: machine-generated from supabase/seed/** by the sync scripts
+#    listed in scripts/lib/generated-content.mjs. Never hand-edited; `npm run
+#    check:generated` fails if any of these drifts from its seeds. ───────────
+apps/web/lib/longlive/content-vault.generated.ts
+apps/web/lib/longlive/tracks.generated.ts
+apps/web/lib/longlive/theories.generated.ts
+apps/web/lib/longlive/videos.generated.ts
+apps/web/lib/longlive/era-secrets.generated.ts
+apps/web/lib/longlive/song-moods.generated.ts
+
+# ── App code (WIDENED 2026-08-11, Wyatt — docs/decisions.md). Gated by FULL
+#    required CI green (`build`), not a human. View components, app pages, the
+#    client/display lib subtree, and shared packages — plus colocated tests.
+#
+#    TIGHTENED 2026-08-12 (P0 security fix — red-team finding #1972). The lib
+#    allow was `apps/web/lib/` (the WHOLE directory). That swept in the
+#    server-side data layer (`apps/web/lib/vault.ts`) and the CSP/security-
+#    headers module (`apps/web/lib/security-headers.mjs`), letting either
+#    auto-deploy to prod with no human. The allow is now the CLIENT/DISPLAY
+#    subtree only — `apps/web/lib/longlive/` — which is where the pure
+#    view/formatting modules and the generated vault artifacts live. The
+#    top-level `apps/web/lib/*` files (vault.ts, security-headers.mjs, hooks,
+#    utils) fall back to human merge by default-deny. See docs/decisions.md
+#    2026-08-12 and NEVER_ALLOWLIST in scripts/check-automerge-allowlist.mjs. ──
+apps/web/app/
+apps/web/components/
+apps/web/lib/longlive/
+packages/
+
+# ── DENY carve-outs (`!` wins over any allow). These reinstate the human gate
+#    for exactly the sub-paths that must NOT auto-merge even though a broad
+#    allow above covers them. ─────────────────────────────────────────────────
+# Request-handling / data layer — held while E2E is red (#669); no behavioural
+# regression net beyond unit+typecheck+build. Revisit when #669 is green.
+!apps/web/app/api/
+# Legal surfaces need counsel, not a code review.
+!apps/web/app/privacy/
+!apps/web/app/terms/
+# The ONE server module inside the client/display subtree: mood-client.ts is
+# "the one module that spends money" — it reads ANTHROPIC_API_KEY. It lives
+# among pure display modules, so `apps/web/lib/longlive/` would otherwise sweep
+# it in. Denied here by path, AND caught at runtime by the content guard below.
+!apps/web/lib/longlive/mood-client.ts
+
+# ── A path prefix CANNOT express two things that decide whether a file executes
+#    server-side with secrets, so they are NOT (and cannot be) listed above —
+#    they are enforced at merge time by scripts/automerge-content-guard.mjs (the
+#    `guard-code` job in .github/workflows/auto-merge-content.yml):
+#      1. A Next.js route handler is ANY `route.ts`/`.tsx`/`.js` under
+#         `apps/web/app/`, not only under `/api/`. Three already exist outside
+#         /api/ (apps/web/app/vault/{tier0,moment/[id],album/[slug]/tracks}/
+#         route.ts). A `startsWith` deny cannot match a `*/route.ts` suffix.
+#      2. A Server Action (`"use server"`), a `server-only` import, or a read of
+#         a secret env var can appear in ANY app/ or lib/ file regardless of
+#         path. The guard scans file CONTENT and declines such a PR to a human.
+#    This is the durable fix for #1972 — see that guard's header. ──────────────

@@ -33,6 +33,8 @@ export default tseslint.config(
         clearTimeout: 'readonly',
         AbortController: 'readonly',
         Intl: 'readonly',
+        FormData: 'readonly',
+        Blob: 'readonly',
       },
     },
   },
