@@ -200,6 +200,21 @@ const CRISIS_PHRASES: readonly string[] = [
   'swallowed all the pills',
   'swallowed a bunch of pills',
   'took a bottle of pills',
+
+  // Algospeak (follow-up to #2002, alongside the obfuscation hardening). Years
+  // of typing around platform filters taught readers these euphemisms, and they
+  // don't switch off for a real disclosure. Only the forms with no benign
+  // reading are here: bare "unalive" (meme vocabulary, "the unalive jokes") and
+  // "kms" (the same everyday hyperbole as bare "kill me", which stays out — see
+  // the note at the end of this file) are deliberately NOT listed; the directed
+  // "want to unalive" lives in GUARDED_IDEATION so "unalive him" (the
+  // "I could kill him" of algospeak) clears.
+  'unalive myself',
+  'unaliving myself',
+  'sewer slide',
+  'sewerslide',
+  'self delete',
+  'self deletion',
 ] as const;
 
 /**
@@ -219,6 +234,13 @@ const GUARDED_IDEATION: readonly { phrase: string; clearers: readonly string[] }
   { phrase: 'want to end it', clearers: ['with', 'between'] },
   { phrase: 'wanna end it', clearers: ['with', 'between'] },
   { phrase: 'ready to end it', clearers: ['with', 'between'] },
+  { phrase: 'thinking about ending it', clearers: ['with', 'between'] },
+  { phrase: 'thought about ending it', clearers: ['with', 'between'] },
+  // Algospeak ideation: fires unless aimed at someone else — "want to unalive
+  // him" is the "I could kill him" of algospeak (hyperbolic anger, must-NOT-fire
+  // corpus), while bare "want to unalive" is a disclosure.
+  { phrase: 'want to unalive', clearers: ['him', 'her', 'them', 'you'] },
+  { phrase: 'wanna unalive', clearers: ['him', 'her', 'them', 'you'] },
 ] as const;
 
 /**
@@ -244,12 +266,15 @@ const ABUSE_PHRASES: readonly string[] = [
   'threatens to hurt me',
   'threatening to hurt me',
   'threatens me',
+  'threatening me',
+  'threatened me',
   'beats me up',
   'is beating me',
   'is hitting me',
-  'attacks me',
-  'chokes me',
-  'strangles me',
+  // "beats me to X" clears as an idiom below ("beats me to the office"), so the
+  // one violent completion of that shape is pinned unconditionally here.
+  'beats me to a pulp',
+  'beat me to a pulp',
 ] as const;
 
 /**
@@ -263,7 +288,20 @@ const ABUSE_PHRASES: readonly string[] = [
  *  - `directed` needs only the subject — "he hurts me", "my partner is violent"
  *    have no comparable benign completion once a person is the subject.
  */
-const ABUSE_GATED_PHYSICAL: readonly string[] = ['hits me', 'beats me'];
+const ABUSE_GATED_PHYSICAL: readonly string[] = [
+  'hits me',
+  'beats me',
+  // Moved from the unconditional list / added (follow-up to #2002): "this song
+  // chokes me up" and "that ending choked me up" are core emotional fan speech,
+  // and the unconditional "chokes me" fired the DV path on them. With a human
+  // subject and no "up" they are disclosures again ("he chokes me").
+  'chokes me',
+  'choked me',
+  'slaps me',
+  'slapped me',
+  'punches me',
+  'punched me',
+];
 const ABUSE_GATED_DIRECTED: readonly string[] = [
   'hurts me',
   'hurting me',
@@ -276,6 +314,11 @@ const ABUSE_GATED_DIRECTED: readonly string[] = [
   'gets violent',
   'is being violent',
   'is abusive',
+  // Moved from the unconditional list (follow-up to #2002): "my anxiety attacks
+  // me at night" and "cupid attacks me with these lyrics" are feelings-box
+  // speech; these verbs need a human subject like every other gated harm verb.
+  'attacks me',
+  'strangles me',
 ];
 
 /** Human-subject tokens that make a bare harm verb a disclosure of violence. */
@@ -315,11 +358,51 @@ const ABUSE_SUBJECTS: readonly string[] = [
   'roommate',
 ];
 
-/** Followers that clear a physical-harm match as an idiom, checked immediately after. */
-const ABUSE_PHYSICAL_CLEARERS: readonly string[] = ['up', 'at', 'back'];
+/**
+ * Followers that clear a physical-harm match as an idiom, checked immediately
+ * after. "up" (hits me up, chokes me up), "at" (beats me at chess), "back"
+ * (hit me back), "to" (beats me to the office / to the punch — the violent
+ * completion "beats me to a pulp" is pinned unconditionally in
+ * {@link ABUSE_PHRASES} so this clearer cannot lose it).
+ */
+const ABUSE_PHYSICAL_CLEARERS: readonly string[] = ['up', 'at', 'back', 'to'];
 
 /** How many words before a gated harm verb we look for a human subject. */
 const ABUSE_SUBJECT_WINDOW_WORDS = 6;
+
+/**
+ * Non-human subjects that, sitting IMMEDIATELY before a gated harm verb, mark
+ * it as figurative even when a person is named earlier in the window. The
+ * 6-word subject window is deliberately generous ("im scared he will hurt me"),
+ * but it over-reached on "he cheated on me and it hurts me so bad" — grammar
+ * says the subject of "hurts" there is "it", and a heartbreak disclosure must
+ * reach the songs, not the DV hotline. Only these four words are trusted to
+ * override: they are unambiguous grammatical subjects when adjacent.
+ */
+const ABUSE_NONHUMAN_SUBJECTS: readonly string[] = ['it', 'that', 'this', 'which'];
+
+/**
+ * Figurative frames that clear a GATED abuse match, checked in the short
+ * window right after it — the abuse tier's counterpart of
+ * {@link HYPERBOLE_MARKERS}. "she hits me with the feels" and "the way he
+ * sings hurts me in the best way" are fan speech about Taylor ("she"), and a
+ * human pronoun alone cannot tell them from a disclosure. Kept to unmistakable
+ * fan-speech frames; when in doubt leave the marker off — the recovery cost of
+ * an unneeded resources card is bounded, a missed disclosure is not. Applies
+ * ONLY to the subject-gated verbs, never to {@link ABUSE_PHRASES}.
+ */
+const ABUSE_FIGURATIVE_MARKERS: readonly string[] = [
+  'the feels',
+  'in the feels',
+  'in the heart',
+  'in the best way',
+  'so good',
+  'with nostalgia',
+  'with emotion',
+];
+
+/** How many words after a gated abuse hit we look for a figurative marker. */
+const ABUSE_FIGURATIVE_WINDOW_WORDS = 4;
 
 /**
  * Tier B — genuine risk language that also has a heavy everyday hyperbolic
@@ -400,17 +483,85 @@ const NEGATIONS: readonly string[] = ['dont', 'do not', 'never', 'didnt', 'did n
 const NEGATION_WINDOW_WORDS = 3;
 
 /**
- * Fold text to a comparison form: lowercase, strip apostrophes (so "don't"
- * matches "dont"), collapse any run of non-alphanumerics to a single space,
- * and trim. Keeps phrase matching robust to punctuation/spacing without a
- * regex per phrase.
+ * Homoglyph and leet folding, applied character-by-character inside
+ * {@link normalizeForCrisis}. Same table as the Clownbot refusal gate
+ * (clownbot-safety.ts) — a reader who has learned platform-filter evasion
+ * ("k1ll", "su1c1dal", Cyrillic "мyself") is EXACTLY the reader this check
+ * exists for: algospeak habits come from years of typing around moderation,
+ * and they don't switch off for a genuine disclosure.
+ *
+ * Folding digits to letters is safe for THIS lexicon because no crisis phrase
+ * is a fold-image of innocent digit text ("1989" → "i989", "3am" → "eam",
+ * "top 5" → "top s" — none of which any phrase can match). The keyword lexicon
+ * (mood-keywords.ts) deliberately does NOT fold: it matches hundreds of common
+ * words where "3am" → "eam"-style corruption would cost real hits, and a miss
+ * there degrades to UNCLEAR, not to a safety failure.
+ */
+const CRISIS_FOLD: Readonly<Record<string, string>> = {
+  // leet
+  '0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '@': 'a', '$': 's',
+  // Cyrillic look-alikes
+  а: 'a', в: 'b', е: 'e', к: 'k', м: 'm', н: 'h', о: 'o', р: 'p', с: 'c', т: 't', у: 'y', х: 'x',
+  // Greek look-alikes
+  α: 'a', ε: 'e', ι: 'i', κ: 'k', ο: 'o', ρ: 'p', τ: 't', υ: 'y', χ: 'x',
+};
+
+/**
+ * Fold text to a comparison form: lowercase, NFKD (fullwidth / circled /
+ * mathematical-alphanumeric letters fold back to ASCII — the "fancy font"
+ * generators teens paste from produce exactly these), strip combining marks
+ * (diacritics), DELETE zero-width characters (a ZWJ between letters must not
+ * become a word boundary — "k‍i‍l‍l" is one word), strip
+ * apostrophes (so "don't" matches "dont"), fold leet/homoglyphs, collapse any
+ * remaining run of non-alphanumerics to a single space, and trim.
+ *
+ * Before the NFKD/fold hardening (follow-up to #2002, mirroring the Clownbot
+ * gate's #1989/#2001 treatment), fullwidth "ｋｉｌｌ ｍｙｓｅｌｆ" normalized
+ * to the EMPTY STRING — every character was stripped as non-[a-z0-9] and the
+ * disclosure vanished unmatchable, straight through to the song matcher.
  */
 export function normalizeForCrisis(text: string): string {
   return text
     .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '') // combining marks left by NFKD (kïll → kill)
+    .replace(/[​-‏⁠﻿­]/g, '') // zero-width chars + soft hyphen: deleted, never a boundary
     .replace(/['’`]/g, '')
+    .split('')
+    .map((ch) => CRISIS_FOLD[ch] ?? ch)
+    .join('')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
+}
+
+/**
+ * Collapse runs of single-character tokens ("k i l l m y s e l f" →
+ * "killmyself", "k i l l myself" → "kill myself") so spaced-out obfuscation
+ * lands back on the lexicon. Only runs of two or more one-character tokens
+ * collapse, so ordinary words NEVER merge — "spend my life" stays three tokens
+ * and can never form "endmylife". The collapsed text is checked against
+ * Tier A ONLY (see {@link assessCrisis}): the guard machinery (negation,
+ * hyperbole, subject windows) needs real word boundaries, which a collapsed
+ * spelling no longer has.
+ */
+function collapseSpacedLetters(normalized: string): string {
+  const tokens = normalized.split(' ');
+  const out: string[] = [];
+  let run: string[] = [];
+  const flush = () => {
+    if (run.length >= 2) out.push(run.join(''));
+    else out.push(...run);
+    run = [];
+  };
+  for (const token of tokens) {
+    if (token.length === 1) run.push(token);
+    else {
+      flush();
+      out.push(token);
+    }
+  }
+  flush();
+  return out.join(' ');
 }
 
 /**
@@ -481,8 +632,23 @@ function precededByNegation(haystack: string, start: number): boolean {
  */
 function precededBySubject(haystack: string, start: number): boolean {
   const before = haystack.slice(0, start + 1).trim().split(' ');
+  // A non-human subject directly before the verb owns it grammatically — "he
+  // cheated on me and IT hurts me" is heartbreak, whoever else is in the window.
+  const immediate = before[before.length - 1] ?? '';
+  if (ABUSE_NONHUMAN_SUBJECTS.includes(immediate)) return false;
   const window = ` ${before.slice(-ABUSE_SUBJECT_WINDOW_WORDS).join(' ')} `;
   return ABUSE_SUBJECTS.some((s) => window.includes(` ${s} `));
+}
+
+/**
+ * True when the short window after a gated abuse hit contains a figurative
+ * fan-speech frame ({@link ABUSE_FIGURATIVE_MARKERS}) — "hits me right in the
+ * feels". Same shape as {@link followedByHyperbole}, same reasoning: a marker
+ * further away than a few words is not modifying this verb.
+ */
+function followedByAbuseFigurative(haystack: string, end: number): boolean {
+  const window = haystack.slice(end).trim().split(' ').slice(0, ABUSE_FIGURATIVE_WINDOW_WORDS).join(' ');
+  return ABUSE_FIGURATIVE_MARKERS.some((marker) => window.includes(marker));
 }
 
 /**
@@ -510,13 +676,18 @@ function isAbuseText(normalized: string): boolean {
     phraseHits(normalized, phrase).some(
       (hit) =>
         precededBySubject(normalized, hit.start) &&
-        !followedByWord(normalized, hit.end, ABUSE_PHYSICAL_CLEARERS),
+        !followedByWord(normalized, hit.end, ABUSE_PHYSICAL_CLEARERS) &&
+        !followedByAbuseFigurative(normalized, hit.end),
     ),
   );
   if (physical) return true;
 
   return ABUSE_GATED_DIRECTED.some((phrase) =>
-    phraseHits(normalized, phrase).some((hit) => precededBySubject(normalized, hit.start)),
+    phraseHits(normalized, phrase).some(
+      (hit) =>
+        precededBySubject(normalized, hit.start) &&
+        !followedByAbuseFigurative(normalized, hit.end),
+    ),
   );
 }
 
@@ -538,14 +709,38 @@ export interface CrisisAssessment {
 }
 
 export function assessCrisis(text: string): CrisisAssessment {
-  const normalized = ` ${normalizeForCrisis(text)} `;
+  const base = normalizeForCrisis(text);
+  const normalized = ` ${base} `;
 
   // Abuse / immediate-danger tier — checked first so it wins the resource choice.
   if (isAbuseText(normalized)) return { crisis: true, abuse: true };
 
   // Tier A — no exemptions. Negation and hyperbole guards deliberately do NOT
-  // apply here.
-  if (CRISIS_PHRASES.some((phrase) => phraseHits(normalized, phrase).length > 0)) {
+  // apply here. Each phrase is matched as-is AND as its space-stripped form as
+  // a WHOLE token, so a disclosure written without separators — "killmyself"
+  // typed as one word, or "kill​myself" joined by a zero-width character
+  // the normalizer deletes — still lands. Whole-token matching keeps the
+  // stripped forms collision-free: no ordinary token EQUALS "killmyself" or
+  // "endmylife" ("i want to spend my life with him" keeps its spaces, so
+  // "endmylife" never exists as a token in it; "skill myself" stays two
+  // tokens), and "i dont want to die" contains no stripped-phrase token at all.
+  const tierAHit = (haystack: string): boolean =>
+    CRISIS_PHRASES.some(
+      (phrase) =>
+        phraseHits(haystack, phrase).length > 0 ||
+        (phrase.includes(' ') && phraseHits(haystack, phrase.replace(/ /g, '')).length > 0),
+    );
+  if (tierAHit(normalized)) return { crisis: true, abuse: false };
+
+  // Spaced-out obfuscation ("k i l l m y s e l f", "k i l l myself"): collapse
+  // single-letter runs and re-check Tier A — the phrases themselves catch
+  // partially spaced text, the stripped whole-token forms catch fully spaced
+  // text (where the run collapses into one token). Tier A ONLY: the
+  // negation/hyperbole/subject guards of the other tiers need real word
+  // boundaries, which a collapsed spelling no longer carries. Ordinary words
+  // never collapse (runs are single-char tokens only).
+  const despacedBase = collapseSpacedLetters(base);
+  if (despacedBase !== base && tierAHit(` ${despacedBase} `)) {
     return { crisis: true, abuse: false };
   }
 
@@ -585,4 +780,11 @@ export function isCrisisText(text: string): boolean {
  * or the die-family (Tier B); the only phrase that adds "kill me" without
  * torching the over-refusal guarantee is the directed "threatens to kill me",
  * which IS in {@link ABUSE_PHRASES}. Left out on purpose — see the PR.
+ *
+ * "kms" is the same call, one abstraction over: it is bare "kill me (myself)"
+ * as algospeak, used overwhelmingly as the identical mild-frustration hyperbole
+ * ("kms lol", "missed the presale kms"), and it stays out for the same reason —
+ * pinned as a must-NOT-fire alongside "kill me now". The algospeak forms we DO
+ * match ("unalive myself", "sewer slide", "self delete") are the ones whose
+ * dominant usage is the disclosure itself, not the joke.
  */
