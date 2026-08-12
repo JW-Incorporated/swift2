@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { POST } from './route';
+import { suggestedPrompts } from '../../../lib/longlive/clownbot-prompts';
+import { CANON_THEORIES } from '../../../lib/longlive/clownbot-receipts';
 
 /**
  * Route tests run with NO API KEY, so the model path is structurally
@@ -123,6 +125,99 @@ describe('the degraded path still answers with real receipts', () => {
 
   it('applies a canonical theory name', async () => {
     const body = await (await POST(post({ text: 'is rep tv ever coming out' }, '1.0.2.5'))).json();
+    expect(body.theoryName).toBe('Debutation');
+  });
+});
+
+describe('no suggested chip dead-ends (#1990)', () => {
+  it('every suggested chip resolves to a non-empty, on-topic take', async () => {
+    // Iterate the WHOLE rotating pool, not one screen of it. Each chip carries
+    // its lore sourceId, so retrieval must always find the receipt the prompt
+    // was authored against — the first-chip-on-the-page dead-end is the bug.
+    const now = new Date('2026-08-11T12:00:00Z');
+    const chips = suggestedPrompts(now, 0, 100);
+    expect(chips.length).toBeGreaterThan(0);
+
+    let i = 0;
+    for (const chip of chips) {
+      i += 1;
+      const res = await POST(post({ text: chip.text, sourceId: chip.sourceId }, `9.1.0.${i}`));
+      const body = await res.json();
+      expect(body.kind, `chip "${chip.text}" dead-ended (${body.kind})`).toBe('take');
+      expect(body.receipts.length, `chip "${chip.text}" returned no receipts`).toBeGreaterThan(0);
+      // On-topic: the authored chip's own lore receipt is present.
+      expect(
+        body.receipts.some((r: { id: string }) => r.id === `lore:${chip.sourceId}`),
+        `chip "${chip.text}" did not surface its own receipt lore:${chip.sourceId}`,
+      ).toBe(true);
+    }
+  });
+
+  it('a chip whose prose shares no term with its receipt still resolves via sourceId', async () => {
+    // The Bad Bunny chip is about "Levi's Stadium" / "February" and shares no
+    // meaningful term with the Super Bowl halftime headline — the sourceId is
+    // what saves it from the february-junk failure.
+    const res = await POST(
+      post(
+        {
+          text: 'Bad Bunny played Levi\'s Stadium in February 2026 and so did the Eras Tour. Tell me why that is not a clue.',
+          sourceId: 'superbowl-lx-halftime',
+        },
+        '9.1.5.1',
+      ),
+    );
+    const body = await res.json();
+    expect(body.kind).toBe('take');
+    expect(body.receipts.some((r: { id: string }) => r.id === 'lore:superbowl-lx-halftime')).toBe(
+      true,
+    );
+  });
+});
+
+describe('the best-theory ask is answerable (#1993/#1996)', () => {
+  const canonNames = new Set(CANON_THEORIES.map((t) => t.name));
+
+  it('"Give me YOUR best theory" returns a real canon theory, not a shrug', async () => {
+    const body = await (await POST(post({ text: 'Give me YOUR best theory' }, '9.2.0.1'))).json();
+    expect(body.kind).toBe('take');
+    expect(body.receipts.length).toBeGreaterThan(0);
+    expect(body.theoryName).not.toBeNull();
+    expect(canonNames.has(body.theoryName)).toBe(true);
+  });
+
+  it('answers an open opinion ask that retrieval alone would leave empty', async () => {
+    const body = await (await POST(post({ text: 'what do you think, honestly?' }, '9.2.0.2'))).json();
+    expect(body.kind).toBe('take');
+    expect(body.receipts.length).toBeGreaterThan(0);
+  });
+
+  it('still returns an honest empty for a real off-topic miss (not every empty is a take)', async () => {
+    // The canon path is for OPINION asks only — a gibberish miss must remain an
+    // honest "nothing in the vault", or #1983 regresses.
+    const body = await (await POST(post({ text: 'zzzqqqxyw jjjkkkwww' }, '9.2.0.3'))).json();
+    expect(body.kind).toBe('empty');
+  });
+});
+
+describe('junk retrieval no longer surfaces (#1983/#1994)', () => {
+  it('"hi" does not return a low-confidence Hiddleswift take — it returns nothing', async () => {
+    const body = await (await POST(post({ text: 'hi' }, '9.3.0.1'))).json();
+    expect(body.kind).toBe('empty');
+  });
+
+  it('"was the orange door a clue" lands on the doors hunt, not a stray-token pile', async () => {
+    const body = await (
+      await POST(post({ text: 'was the orange door a clue' }, '9.3.0.2'))
+    ).json();
+    expect(body.kind).toBe('take');
+    expect(body.receipts.some((r: { id: string }) => r.id === 'lore:orange-doors-hunt')).toBe(true);
+    expect(body.theoryName).toBe('The Twelve Doors');
+  });
+
+  it('the rep-tv false empty is fixed end to end', async () => {
+    const body = await (await POST(post({ text: 'is rep tv actually coming' }, '9.3.0.3'))).json();
+    expect(body.kind).toBe('take');
+    expect(body.receipts.some((r: { id: string }) => r.id === 'lore:rep-tv-debut-tv')).toBe(true);
     expect(body.theoryName).toBe('Debutation');
   });
 });

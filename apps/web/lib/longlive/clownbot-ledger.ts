@@ -122,10 +122,14 @@ export function ledgerTally(): LedgerTally {
 /**
  * The self-deprecating stat, derived rather than written — so the bit stays
  * true as the ledger grows. This is the running gag with a number behind it.
+ *
+ * The humility has to land on being WRONG (#1998): the old "51 called, 3
+ * clowned" led with the wins and read as a brag. Lead with the clownings and
+ * name why we keep them — the losses are the product, not the footnote.
  */
 export function wigCountLine(): string {
   const { clowned, confirmed } = ledgerTally();
-  return `${confirmed} called, ${clowned} clowned. I keep both columns.`;
+  return `${clowned} clowned, ${confirmed} called — and I put the clownings first, because a theorist who only counts the wins is selling you something.`;
 }
 
 /** The most recent N entries, for the surface's ledger panel. */
