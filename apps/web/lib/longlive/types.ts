@@ -801,14 +801,26 @@ export interface TheoryNote {
 }
 
 /** What kind of visual-media work a VideoNote records. Mirrors VIDEO_KINDS in
- * packages/shared/src/vault-types.ts. */
+ * packages/shared/src/vault-types.ts — WORKS she made or headlined, then
+ * APPEARANCES where she turns up as herself in someone else's programming
+ * (see that file for why the split exists and why it's only four values). */
 export type VideoNoteKind =
+  // Works
   | 'music_video'
   | 'lyric_video'
   | 'short_film'
   | 'tour_film'
   | 'documentary'
-  | 'performance';
+  | 'performance'
+  // Appearances
+  | 'interview'
+  | 'award_speech'
+  | 'speech'
+  | 'press_event';
+
+/** The appearance half of VideoNoteKind. Mirrors APPEARANCE_VIDEO_KINDS in
+ * packages/shared/src/vault-types.ts. */
+export type AppearanceVideoKind = 'interview' | 'award_speech' | 'speech' | 'press_event';
 
 /**
  * One official video/visual-media work in an era's videos rail
