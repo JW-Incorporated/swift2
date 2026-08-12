@@ -250,6 +250,7 @@ describe('buildBrief — two sections, nothing else', () => {
     expect(withSnapshot).toContain(
       '- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts/24h (X 1/IG 1/FB 0) · queue: empty (nothing drafted) · site: pending #799',
     );
+  });
 
   it('calls a day with no merges and no closes a failed org day', () => {
     expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('failed org day');
