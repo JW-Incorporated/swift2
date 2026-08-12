@@ -3175,6 +3175,26 @@ export default {
       milestone: { id: "m-ever-1", label: "evermore surprise drop", kind: "album" },
       snippet: "A second surprise album in five months — warmer, rustier, and just as literary.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-albums-guide-eras-discography/',
+            source_title: 'Songbook: An Era-By-Era Breakdown Of Taylor Swift\'s Journey From Country Starlet To Pop Phenomenon',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-announces-evermore-the-surprise-sister-record-to-folklore-157598',
+            source_title: 'Taylor Swift Announces \'evermore,\' the Surprise \'Sister Record\' to \'folklore\'',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.\n\nTaylor announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\"",
         // Photo pass #762 (2026-07-19): alternate official frame of the
         // "willow" video, which premiered alongside the album at midnight —
@@ -3206,6 +3226,26 @@ export default {
       snippet: "The lead single doubles as the album's only official single release.",
       video: { youtubeId: "RsEZmictANA", title: "Taylor Swift - willow" },
       moment: {
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/watch-taylor-swifts-music-video-for-willow-2836507',
+            source_title: 'Watch Taylor Swift\'s fantastical new music video for \'Willow\'',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-brings-folklore-album-life-2021-grammys-medley-2021-grammy-awards-show/',
+            source_title: 'Taylor Swift Brings \'Folklore\' Album to Life With 2021 GRAMMYs Medley',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+        ],
         context: "\"willow\" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys.",
         // Photo pass #762 (2026-07-19): official video still — ID RsEZmictANA
         // (already cited by this entry's video field) verified via YouTube
@@ -3233,6 +3273,26 @@ export default {
       title: "\"no body no crime\" with HAIM",
       snippet: "A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.",
       moment: {
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2020/12/10222300/taylor-swift-haim-no-body-no-crime-real-murder-mystery',
+            source_title: 'So, Taylor Swift & Haim Wrote The Best Murder Mystery Of The Year',
+            publisher: 'Refinery29',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Guitar.com',
+            url: 'https://guitar.com/news/music-news/taylor-swift-haim-no-body-no-crime/',
+            source_title: 'Watch Taylor Swift\'s live debut of No Body, No Crime with Haim',
+            publisher: 'Guitar.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Taylor to perform it live during the Eras Tour years later.",
         // Photo pass #762 (2026-07-31): page had zero photos. (1) The live
         // debut with HAIM, hosted on billboard.com's own CDN (not
@@ -3275,7 +3335,32 @@ export default {
       title: "\"champagne problems\"",
       snippet: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
       moment: {
-        context: "One of two evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
+        sources: [
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/the-meaning-of-champagne-problems-by-taylor-swift/',
+            source_title: 'The Meaning of "Champagne Problems" by Taylor Swift',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swifts-evermore-which-songs-did-william-bowery-aka-joe-alwyn-help-write-157620',
+            source_title: 'Taylor Swift\'s \'Evermore\': Which Songs Did William Bowery, aka Joe Alwyn, Help Write?',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        // Corrected 2026-08-11: THREE evermore tracks carry a William Bowery
+        // co-write — "champagne problems", "coney island" and the title
+        // track — per the Entertainment Tonight piece cited below. The old
+        // "two" contradicted the source this moment now cites.
+        context:
+          "One of three evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
         // Photo pass #762 (2026-07-19): official lyric-video still — ID
         // wMpqCRF7TKg verified via YouTube oEmbed ("Taylor Swift - champagne
         // problems (Official Lyric Video)", author "Taylor Swift"); curl 200
@@ -3302,7 +3387,32 @@ export default {
       title: "The deluxe edition adds two tracks",
       snippet: "\"right where you left me\" and \"it's time to go\" arrive a month after the album.",
       moment: {
-        context: "A deluxe edition released three weeks after the original, adding \"right where you left me\" and \"it's time to go\" — both later folded into the era's standard track list on streaming.",
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-releases-digital-deluxe-edition-of-evermore-featuring-two-bonus-songs-2851027',
+            source_title: 'Stream Taylor Swift\'s deluxe edition of \'Evermore\', featuring two bonus songs',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2021/01/stream-taylor-swift-evermore-deluxe-edition-bonus-tracks/',
+            source_title: 'Taylor Swift Releases evermore Deluxe Edition Bonus Tracks "Right Where You Left Me" and "It\'s Time to Go": Stream',
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        // Corrected 2026-08-11: the deluxe shipped on CD and vinyl alongside
+        // the original in December; only the two bonus tracks' STREAMING
+        // release was later (2021-01-07, four weeks on). Both citations below
+        // say so, and "three weeks" also contradicted this item's own snippet.
+        context:
+          "The two deluxe-edition bonus tracks reached streaming four weeks after the original — \"right where you left me\" and \"it's time to go\", both later folded into the era's standard track list.",
         // Photo pass #762 (2026-07-19): official lyric-video still — ID
         // Ur_wAcYDnuA verified via YouTube oEmbed ("Taylor Swift - right
         // where you left me (Official Lyric Video)", author "Taylor Swift");
@@ -3330,6 +3440,26 @@ export default {
       title: "\"marjorie,\" for her grandmother",
       snippet: "A tribute built partly from archival recordings of Taylor's late grandmother, opera singer Marjorie Finlay.",
       moment: {
+        sources: [
+          {
+            outlet: 'South China Morning Post',
+            url: 'https://www.scmp.com/magazines/style/entertainment/article/3244204/who-was-taylor-swifts-opera-singer-grandma-marjorie-finlay-pop-stars-lookalike-relative-was-star',
+            source_title: 'Who was Taylor Swift\'s opera singer grandma, Marjorie Finlay?',
+            publisher: 'South China Morning Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/features/taylor-swift-grandmother-marjorie-opera-singer-evermore-vocals/',
+            source_title: 'Taylor Swift Features Grandmother\'s Opera Singing Vocals On Evermore Track \'Marjorie\'',
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "The song incorporates real vocal recordings of Marjorie Finlay, Taylor's grandmother and a professional opera singer who died in 2003 — Taylor has spoken about writing it as a way of \"bringing her back.\"",
         // Photo pass #762 (2026-07-19): official lyric-video still — ID
         // hP6QpMeSG6s verified via YouTube oEmbed ("Taylor Swift - marjorie

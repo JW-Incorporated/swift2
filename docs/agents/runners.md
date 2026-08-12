@@ -123,13 +123,38 @@ Kept deliberately (paused, not obsolete): **Marjorie 8 PM delta** and **Lex dept
 
 ### Remaining model downgrades — IDs captured, not yet applied
 
-### 🏗️ The Vault Run is being built — see [`vault-run-plan.md`](vault-run-plan.md)
+### ⚠️ The Vault Run is LIVE — and so are all six lanes it was meant to replace
 
-Six content lanes (Answerer, Content Shift, Photo Enrichment, Rumor Desk,
-Cross-Link, Stylist) are being consolidated into ONE daily runner. They all edit
-`supabase/seed/**` plus the same generated vault, so six separate PRs conflict by
-construction — that is what the retired self-check-in loops were largely
-resolving. Also ~4.2 PRs/day → 1, and each PR costs two CI runs.
+**Status as of 2026-08-11: the consolidation is HALF-DONE, and the half that is
+missing is the half that saves anything.** Read this before reasoning about
+content PR volume or Actions minutes.
+
+`trig_01EuLgUdMgbuqL51o3iWQfTL` (Opus, daily `7 16 * * *`) has been opening
+`vault/<date>` PRs since 07-30. **Phase 4 — disabling the six standalone lane
+runners — never happened.** So the orchestrator runs *in addition to* the six,
+not instead of them, and every stated win is unrealized or inverted:
+
+- **PR count went UP, not down.** ~4.2 content PRs/day + 1 orchestrator PR.
+- **Actions minutes and tokens: no saving at all** — the six cold boots still
+  happen, plus a seventh.
+- **The cross-lane conflict bug class is not removed** — there are still up to
+  seven writers regenerating the same vault on seven branches.
+- **Rumor Desk now effectively runs DAILY.** Its standalone cron is
+  `47 14 */2 * *` (odd days of the month); the orchestrator's lane 4 is due on
+  **even** day-of-month. The two interleave to daily coverage of the highest
+  privacy-liability lane in the system, which auto-merges with no human read.
+  Nobody designed this; it is an artifact of Phase 4 not landing. Confirmed by
+  branch history: `content/rumor-desk-` on 08-03/05/07/11 (odd),
+  `lane(rumor-desk)` commits inside `vault/2026-08-10` (even).
+
+**Do not "just disable the six" to fix this.** Four preconditions are unmet and
+three of them are load-bearing — the standalone lanes are currently masking a
+~25% Vault Run miss rate (no PR at all on 08-01, 08-02, 08-08) and are the only
+thing draining the depth backlog. The full checklist, with evidence, is in
+[`vault-run-plan.md`](vault-run-plan.md) § Phase 4. The first item is **merge
+PR #1629** (Phase 3.5, open since 07-30) — until it lands, `main` has neither
+stuck-red-PR detection nor a recovery path, and consolidation makes a stranded
+red PR strictly worse (one red PR would strand all six lanes, not one).
 
 Phase 1 (done): each lane's prompt now lives in
 [`runner-prompts/vault-lanes/`](runner-prompts/vault-lanes/) instead of only
@@ -214,6 +239,48 @@ Two stale instructions fixed in the same edit:
 - Step 7 (merge sweep) now notes that `auto-merge-content.yml` lands content-only
   PRs automatically, so fewer PRs waiting is expected, not a sign of a dead fleet.
 
+### ✅ Marjorie's brief assembler runs in a cloud runner again (2026-08-11, #1869)
+
+Five consecutive briefs (2026-08-06..11) were hand-assembled because
+`node scripts/marjorie/assemble-brief.mjs` could not reach GitHub from a cloud
+runner. **Two independent failures were stacked**, both in `scripts/lib/gh.mjs`'s
+REST fallback, both now fixed:
+
+1. **The proxy was bypassed.** The fallback used `fetch()`. Node's built-in
+   fetch ignores `HTTPS_PROXY` unless the *process was booted* with
+   `--use-env-proxy` / `NODE_USE_ENV_PROXY=1` — reproduced on Node v24.15
+   against a real local CONNECT proxy: **0 tunnels opened**. Cloud `GH_TOKEN`s
+   are proxy-scoped credentials, so going direct means `401 Bad credentials`.
+   Setting `process.env.NODE_USE_ENV_PROXY` from inside the script does **not**
+   work (undici reads it at bootstrap) — also verified, so the workaround
+   suggested in #1869 would not have held. `gh.mjs` now speaks HTTPS over an
+   explicit CONNECT tunnel of its own, which needs no boot flag, no re-exec and
+   no new dependency.
+2. **`/search/*` is forbidden.** Every list shape was
+   `/search/issues?q=repo:…`. Repo-bound sessions get `403 "This GitHub API
+   path is not available: sessions are bound to their configured repositories."`
+   Lists are now `/repos/{owner}/{repo}/issues` and `/repos/{owner}/{repo}/pulls`,
+   with the search-only qualifiers (`is:merged`, and hiding the PRs that
+   `/repos/…/issues` mixes in) applied client-side.
+
+Verified end-to-end: the assembler's output is byte-identical across the gh-CLI
+path, the direct REST path, and the REST path forced through a CONNECT proxy —
+**5 API requests, one page each**.
+
+**Full-text search still has no repo-scoped equivalent.** Karen's
+`cie-fp:` dedupe (`scripts/content-engine/lib/issues.mjs`) is the only caller
+that needs it; it stays on `/search/issues` and now fails with an error that
+names the limitation instead of a bare 403. Karen's cloud runs therefore still
+risk re-filing duplicate tickets — tracked separately from #1869.
+
+> ⚠️ **Trigger drift to reconcile (Wyatt).** The 2026-07-26 edit below changed
+> the *live* trigger's step 3 and step 7, but never landed in
+> `runner-prompts/marjorie-brief.md` — the file still carried the pre-#1552
+> "requires gh — stop and exit loudly" text until this change. Per this doc's
+> own rule the FILE is the source of truth, so both steps are now corrected
+> there; the live trigger `trig_01KJLFZpKaFV6jDVshMrHG3E` should be re-synced
+> from the file. Not done here: live triggers are founders-only.
+
 ### ⚠️ RemoteTrigger API footgun — read before editing any trigger
 
 **`job_config` updates are a FULL REPLACEMENT, not a merge.** Sending
@@ -272,9 +339,76 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
 | Kevin — S3 comment radar | `23 1,13 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Twice daily (~6am + 6pm PT); surfaces cross-session comments — cut from hourly 2026-07-24 to reduce token burn (Wyatt) |
 | Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
+| **Karen Deep — agent review** ⚠️ **NOT YET CREATED** — config below | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
+
+## Karen Deep — trigger config for a human to create (2026-08-11)
+
+**Not created by this change.** Live triggers are founders-only, so this is the
+exact config to paste; nothing runs until someone does.
+
+| Field | Value |
+|---|---|
+| Name | `Karen Deep — agent review` |
+| Account | **Wyatt** |
+| Model | `claude-sonnet-5` |
+| Cron (UTC) | `40 9 * * *` — 40 min after Karen's nightly `0 9`, so the deterministic scan and its report have landed first; off the `:00`/`:30` cluster |
+| Repo | `JW-Incorporated/swift2`, branch `main` |
+| Prompt | the **full text** of `docs/agents/runner-prompts/karen-deep-review.md`, verbatim |
+| MCP connectors | none |
+
+**The file is the source of truth.** If the trigger's inline prompt ever drifts
+from the file, that is a bug — re-sync from the file. And per the RemoteTrigger
+footgun noted above, a partial `job_config` PUT destroys the prompt: send the
+whole config or edit in the routines UI.
+
+**Why it is a separate runner and not more steps in `karen-nightly.md`.** The
+nightly is a deterministic script plus a summary — it finishes in minutes and
+costs one session. This one fans out to subagents that fetch sources and
+download images; folding it in would make a failure in the expensive half take
+down the cheap half that files the tickets, which is exactly the coupling that
+lost 1,220 findings on 2026-07-26 and 2026-08-09.
+
+### What it costs, and the knob to turn
+
+Budget is `--factual-batches 2 --image-batches 1` = **3 subagents/night**.
+
+| Agent | Input it carries | Estimated tokens |
+|---|---|---:|
+| Factual batch (28 items) | ~50 KB batch JSON (~13k) + prompt/schema (~5k) + WebFetch of ~40–60 cited sources + WebSearch corroboration | ~400k |
+| Image batch (40 images) | ~24 KB batch JSON (~6k) + 40 downloaded images at ~1.2k each + tool overhead | ~170k |
+| Safety batch (121 candidates, only when changed) | ~1 batch + the redlines rubric; no fetching | ~60k |
+
+≈ **1.0M tokens/night**, ~92% input. At Claude Sonnet 5 list ($3/MTok in,
+$15/MTok out) that is **≈ $3.75/night ≈ $114/month** (≈ $2.50/night on the
+introductory $2/$10 rate through 2026-08-31). On Fable it would be ~$10/night —
+**Sonnet is the deliberate choice here**, matching the model tiering above,
+which already puts Karen on Sonnet.
+
+The token figures are **estimates from measured batch sizes plus a fetch-volume
+assumption**, not from an observed run. `review-status` and the ledger make the
+real number checkable after a week — re-baseline then.
+
+**Coverage.** 56 items + 40 images/night against 1,137 items and 1,056 images:
+a full first pass in **~20 nights (factual)** and **~27 nights (images)**, and
+after that a standing ~3–4 week refresh cycle. Changed and never-reviewed
+content jumps the queue, so newly merged content is reviewed within a day or two
+regardless of where the rotation is.
+
+**Dials, in order of preference:** `--factual-batches 1 --image-batches 1`
+halves it to ≈ $66/month (slower rotation, changed-content priority unaffected);
+raising both for a one-time catch-up sweep is fine and bounded — the ledger
+records it, so the sweep pays down the backlog permanently rather than
+re-reviewing.
+
+**Rejected alternatives.** (a) *Full sweep weekly* — one ~20M-token night is
+both a rate-limit-window problem and an all-or-nothing failure. (b)
+*Changed-content-only* — cheapest, but the 1,137-item backlog that has never been
+agent-reviewed would stay at zero forever, which is today's bug with extra steps.
+(c) *`--claims-only` focusing* — RUNBOOK.md already records that this caused a
+real miss: claim-free narrative records are exactly where fabricated events hide.
 
 ### Tree's routine does not exist yet — it is a Wyatt-side paste (2026-08-11)
 
@@ -328,13 +462,32 @@ Content Shift went silent for a full day+ with zero trace anywhere (no PR,
 no stranded branch, no ticket comment), invisible to any existing check.
 
 Added a per-agent liveness check for any cloud routine that reliably
-titles its own PRs with a fixed prefix — currently just **Content Shift**
-(`content(shift): ` prefix, checked against a 30h window — its cadence is
-17:00/23:00 UTC, so 30h tolerates one missed slot before alerting). Extending
-to another cloud-routine agent (Nils, Kevin, Karen, Laura, Paul Blart,
-Austin, Growth) is a few-line addition to the same job in `watchdog.yml`,
-once/if one of them is actually observed going dark the same way — not
-pre-built speculatively for all of them now.
+branches its PRs with a fixed prefix. **Generalised 2026-08-11** from a single
+hard-coded Content Shift check into a `check_lane` helper called once per
+watched lane, each with its own window and its own alert title so they
+self-heal independently:
+
+| Branch prefix | Window | Lane |
+|---|---:|---|
+| `vault/` | 36h | The Vault Run (daily `7 16 * * *`, carries all six lanes) |
+| `content-shift/` | 30h | Content Shift standalone (17:00/23:00 UTC) |
+
+Why both, rather than moving the check: the Vault Run was always going to need
+liveness cover, and a check hard-keyed to `content-shift/` **would alarm every
+single day the moment Phase 4 disables that lane**. Watching both means the
+check is correct before *and* after Phase 4, and the migration is deleting one
+row rather than rewriting a step. **When the standalone lanes are disabled,
+delete the `content-shift/` row.**
+
+The 36h window is deliberate and should not be widened: the Vault Run carries
+all six content lanes, so one missed day is a whole-day content outage, and
+36h is the value that still alarms on it (healthy age at check time is ~22.5h;
+a missed day is ~46h). Expect it to fire — the Vault Run had no PR on 08-01,
+08-02 or 08-08, which nobody noticed precisely because this check did not exist.
+
+Extending to another cloud-routine agent (Nils, Kevin, Karen, Laura, Paul
+Blart, Austin, Growth) is now one more `check_lane` line, once/if one of them
+is actually observed going dark — not pre-built speculatively for all of them.
 
 Also fixed: every `watchdog-alert` issue is now real-emailed via
 `scripts/watchdog/send-mail.py` (the same delivery path `brief-mailer.yml`

@@ -124,11 +124,72 @@ publish:
 
 | Layer | What | Mode |
 |---|---|---|
-| CI hard-fail | `scripts/content-coverage.mjs` PRIVATE_DATA_PATTERNS (addresses, flight tracking, real-time + future whereabouts) | A violating seed **cannot merge** |
+| CI hard-fail | `scripts/content-coverage.mjs` PRIVATE_DATA_PATTERNS (addresses, flight tracking, real-time whereabouts) | A violating seed **cannot merge** |
+| CI hard-fail | `scripts/validate-content.mjs` — the **structural** rumor gate: `locationSpecificity` above `region` on an *unresolved* rumor is an ERROR; resolved claims must carry the citation that settled them | A violating seed **cannot merge**. Arguably the strongest layer, and this table forgot it until 2026-08-11 |
+| CI hard-fail | `scripts/validate-content.mjs` ← `scripts/lib/rumor-redlines.mjs` **blocking** rules RR2/RR3/RR4 (source-tier laundering, absent tier, redline category asserted at speculative provenance) | A violating seed **cannot merge** |
 | Karen nightly | `safety.redline` checker — same hard patterns → auto-filed P0 | Catches what lands anyway |
+| Karen nightly | `safety.rumor-redline` checker — **all** rumor-redline rules including advisory RR1 → auto-filed P0/P1 | Catches what is already live |
 | Agent review | `redlines.candidates()` routes *speculation-adjacent terms* (pregnancy/medical, sexuality, home/estate references, security detail) to the safety agent pass | A keyword hit never auto-accuses — existing corpus legitimately contains e.g. the disclosed cancer diagnosis; an agent classifies with this file as the rubric |
 | Bot prompts | Every content-writing routine cites this file and treats Never-OK as absolute | Prevention at the source |
 
 Deterministic patterns are deliberately **narrow** (zero false positives on
 the 2026-07-19 corpus); the candidates route is deliberately **broad** (catch
 everything, judge with context). When in doubt: don't publish, file a ticket.
+
+### The Rumor Desk redline rules (2026-08-11)
+
+Added to pay the debt the 2026-07-25 content auto-merge decision record named:
+rumor content now reaches longlivets.com with no human read, and the record
+prescribed *"add a deterministic checker for it in `scripts/content-engine/`"*
+as the remedy for exactly that. Rules live once, in
+`scripts/lib/rumor-redlines.mjs`, and bind in two places.
+
+| Rule | Fires on | Binding |
+|---|---|---|
+| **RR1** | An unresolved rumor on a `sighting` moment with no `locationSpecificity` declared | Advisory (Karen P0) |
+| **RR2** | `reportedBy`'s *primary* source is a blind-item account but `sourceTier` claims better than `social` | **Blocks** |
+| **RR3** | `sourceTier` absent — fail closed, since it is the gate RR4 tests | **Blocks** |
+| **RR4** | A redline-category phrase in `claim` on a rumor that is *both* unresolved *and* not `official` tier | **Blocks** |
+
+**Why RR4 is allowed to read prose when `candidates()` is not.** A term alone
+proves nothing — "diagnosis" is Always-OK when Taylor disclosed it and Never-OK
+when a tabloid guessed it. But every Always-OK exception in this file requires
+*official provenance or a resolved claim carrying its citation*. So a
+redline-category term on a claim that is both unresolved and not official-tier
+**cannot be the exception, whatever it means**. The term names the category; the
+provenance structure decides admissibility. Neither half accuses on its own.
+RR4 reads `claim` and never `note`, because `note` is our commentary — it is
+where an author writes *"no address, no security detail"* to explain why an
+entry is clean, and a checker that reads it flags entries for saying they are
+safe. That was a real false positive on the live corpus, not a hypothetical.
+
+**RR1 is advisory on purpose.** Its remedy is a content judgment (coarsen the
+claim, or argue the Ocean House principle applies), and hard-failing a judgment
+call is how a checker becomes noise.
+
+### What is still NOT guarded — residual risk, written down
+
+These are known gaps, not oversights. Nothing deterministic covers them; they
+rely on the agent-review layer and on bot prompts.
+
+1. **A declared `locationSpecificity` is never verified against the prose.**
+   RR1 forces the field to exist so the matrix gate can run, but an author who
+   declares `region` on a claim that names a venue defeats both. Verifying a
+   declaration against free text is semantics.
+2. **Residence precision.** A residence is capped at `L1` *regardless of
+   provenance* — the one cap no structural gate enforces, since
+   `locationSpecificity: 'venue'` cannot distinguish her house from a
+   restaurant. A rule was written and **rejected**: every pattern that caught
+   "the Watch Hill estate" also caught "the Ocean House resort", which this
+   file expressly blesses. Covered only by `candidates()` → agent, and by
+   `content-coverage.mjs` at street level (`L3`).
+3. **Private individuals.** Distinguishing a public figure in a public-facing
+   role from a private person is name-level world knowledge. Agent layer only.
+4. **Which proposition inside an entry is the unresolved one.** `status` is a
+   property of the whole rumor, but the location cap applies to the location
+   claim. An entry whose *sighting* is documented and whose *conclusion* is
+   speculative reads as fully speculative to every mechanical rule.
+5. **Redline material phrased without any listed phrase.** RR4 matches a closed
+   list. Paraphrase defeats it. It is a tripwire, not a classifier.
+6. **`note` prose is unscreened by RR4** (deliberately — see above). It reaches
+   `candidates()` and the agent pass, which is advisory.

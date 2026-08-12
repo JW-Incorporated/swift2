@@ -2,14 +2,16 @@ import { NextResponse } from 'next/server';
 
 import { MOOD_AXES, type MoodAxis } from '../../../lib/longlive/types';
 import { matchMoods, type MoodMatch, type MoodQuery } from '../../../lib/longlive/mood-match';
-import { keywordQuery, isEmptyQuery } from '../../../lib/longlive/mood-keywords';
+import { keywordQuery, isEmptyQuery, hasSignal, hasBereavementSignal } from '../../../lib/longlive/mood-keywords';
 import { classifyMood } from '../../../lib/longlive/mood-client';
 import { moodUsage } from '../../../lib/longlive/mood-usage';
 import {
   CRISIS_MESSAGE,
+  CRISIS_MESSAGE_ABUSE,
   HEAVY_INTRO,
   REFUSAL_MESSAGE,
-  isCrisisText,
+  UNCLEAR_MESSAGE,
+  assessCrisis,
 } from '../../../lib/longlive/mood-safety';
 
 // Mood Chat — Stage 4: the API route. See docs/proposals/2026-07-19-mood-chat.md
@@ -99,7 +101,14 @@ function isHeavy(query: MoodQuery): boolean {
   // (the model often asserts heartbreak without a valence number), so genuine
   // heartbreak still earns Block 2's line.
   const notMostlyHappy = (m.joy ?? 0) < 0.4 && (query.valence === undefined || query.valence <= 0.45);
-  return heavyAxis && notMostlyHappy;
+  // #2000 — the "sitting with something heavy?" intro was showing on FUN chips.
+  // The intro is about the slow songs that SIT WITH you, so two moods that trip
+  // the heavy-axis test but aren't that intro are excluded: an energetic mood
+  // ("feral about a bridge", energy ≥ 0.6) is cathartic-fun, not heavy; and a
+  // calm/nostalgia-led mood ("cardigan weather") is cozy/wistful, not heavy.
+  const energetic = (query.energy ?? 0) >= 0.6;
+  const soothingLed = (m.calm ?? 0) >= 0.6 || (m.nostalgia ?? 0) >= 0.75;
+  return heavyAxis && notMostlyHappy && !energetic && !soothingLed;
 }
 
 /** The mood vector we DO log (safety doc Block 5) — derived numbers, never text. */
@@ -174,9 +183,16 @@ export async function POST(req: Request): Promise<Response> {
 
   // CRISIS CHECK FIRST — deterministic, before any spend or matching. A song is
   // the wrong answer to "I want to die": return the resources block and NO
-  // songs. Do NOT log the text (not even that a crisis fired against it).
-  if (isCrisisText(text)) {
-    return NextResponse.json({ kind: 'crisis' as const, message: CRISIS_MESSAGE, source: 'crisis' });
+  // songs. Do NOT log the text (not even that a crisis fired against it). When
+  // the disclosure is abuse (another person hurting the reader), lead with the
+  // DV hotline instead of the suicide line (#1979).
+  const crisis = assessCrisis(text);
+  if (crisis.crisis) {
+    return NextResponse.json({
+      kind: 'crisis' as const,
+      message: crisis.abuse ? CRISIS_MESSAGE_ABUSE : CRISIS_MESSAGE,
+      source: 'crisis',
+    });
   }
 
   // Classify. Model when a key + budget exist; otherwise the free keyword
@@ -186,17 +202,43 @@ export async function POST(req: Request): Promise<Response> {
   const source: Source = classified ? 'model' : 'keyword';
   const degraded = classified === null;
 
+  // #1984 — gate the grief canon on an explicit bereavement signal in the raw
+  // text, for BOTH paths (the model doesn't know about this flag; keywordQuery
+  // already sets it, and re-asserting is idempotent). Runs strictly AFTER the
+  // crisis check above, so it can never re-open a crisis bypass. Without a signal
+  // the flag stays unset and the matcher excludes the bereavement songs, so
+  // "I feel numb" / "stressed about work" can never surface a song about a death.
+  if (hasBereavementSignal(text)) query.bereavement = true;
+
   // Defense in depth: the model can catch crisis phrasings the keyword list
   // misses. If it flags one, honor Block 1 and return no songs.
   if (classified?.crisis) {
     return NextResponse.json({ kind: 'crisis' as const, message: CRISIS_MESSAGE, source: 'crisis' });
   }
 
-  // Out of scope (advice / general chatbot), or nothing to match on → Block 6.
-  const picks = isEmptyQuery(query) ? [] : matchMoods(query, { limit });
-  if (classified?.outOfScope || picks.length === 0) {
+  // Out of scope → Block 6. ONLY the model's out_of_scope flag reaches here:
+  // the approved trigger for Block 6 is "medical, legal or relationship advice,
+  // or general-chatbot use" (safety doc), and nothing else.
+  if (classified?.outOfScope) {
     console.log('mood:refusal', JSON.stringify({ source, degraded, vector: loggableVector(query) }));
     return NextResponse.json({ kind: 'refusal' as const, message: REFUSAL_MESSAGE, source });
+  }
+
+  // Nothing to match on. THIS IS NOT A REFUSAL — it means our reading failed,
+  // not that the reader asked for something we don't do.
+  //
+  // The old code was `if (classified?.outOfScope || picks.length === 0)`, and
+  // that `||` is the bug the founder hit. On the degraded path (no
+  // ANTHROPIC_API_KEY — the documented normal local/preview state) every
+  // message the hand-built keyword lexicon didn't recognise came back as
+  // "that's outside what I can help with". "I'm grumpy and everything is
+  // pissing me off" produced an empty vector, so did "I'm sad", and both got
+  // told their feeling was out of scope. Ordinary negative emotion is the
+  // product; it must never route here.
+  const picks = hasSignal(query) ? matchMoods(query, { limit }) : [];
+  if (picks.length === 0) {
+    console.log('mood:unclear', JSON.stringify({ source, degraded, vector: loggableVector(query) }));
+    return NextResponse.json({ kind: 'unclear' as const, message: UNCLEAR_MESSAGE, source });
   }
 
   return matchesResponse(query, picks, source, degraded);

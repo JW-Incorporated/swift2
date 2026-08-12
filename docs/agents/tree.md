@@ -103,6 +103,14 @@ plan.
     another agent's outputs.
 12. **≤3 founder tasks per week**, each ≤5 minutes. Joey has a full-time job;
     the budget is ~15 min/week and blowing it is how the whole lane gets ignored.
+13. **Every `founder-task` body follows `docs/agents/founder-comms.md`.** It is
+    emailed to the founders verbatim by `tree-mail.yml`'s digest, so it must
+    open with "What I need from you:" numbered plain-language steps with
+    links, carry zero unglossed repo jargon, and keep the "why" to one
+    sentence at the end. The label itself is a promise that a *human* must
+    act — coordination between agents goes under `desk-coordination` instead
+    (see the label table in `docs/agents/README.md`; standard written after
+    the 2026-08-11 four-email incident).
 
 ## Mutation rights
 

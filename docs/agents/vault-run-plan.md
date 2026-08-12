@@ -70,6 +70,25 @@ gate, commit, PR) so no lane repeats boilerplate.
 - **Kevin** — issue triage, opens no content PR.
 - **Karen** — read-only on content; its PR is just a run report. Weekly and cheap.
 
+## Resolved: the 2026-07-30 Actions-minutes block
+
+From 07:54 UTC on 2026-07-30 every workflow in this repo failed in 0-5 seconds
+with "The job was not started because recent account payments have failed or
+your spending limit needs to be increased." Nothing could merge, including the
+Phase 3.5 PR that fixes the red-PR blind spot. That is why #1629 sat unmerged:
+it was green-blocked, not broken.
+
+**Billing was fixed and CI has been running normally since.** Verified
+2026-08-11: `build` is passing on `main` and on #1629 itself. This section is
+kept as history only — do not read the paragraphs that used to live here as a
+live status. It is also the reason the alert burst everyone expected on 07-30
+never needed triaging: by the time detection landed, the failures it would have
+reported were gone.
+
+The durable lesson is in `docs/decisions.md` (2026-08-11): this repo is
+cost-sensitive on Actions minutes, so anything that can trigger a CI run on a
+schedule needs an explicit cap. The stuck-PR watchdog check carries one.
+
 ## Phases
 
 - [x] **Phase 1 — lane prompt files.** Extract the six lane prompts out of their
@@ -80,7 +99,7 @@ gate, commit, PR) so no lane repeats boilerplate.
 - [x] **Phase 2 — the orchestrator.** `runner-prompts/vault-run.md`: lane order,
       the due-today calendar, per-lane failure isolation, one commit per lane,
       one PR. Register the runner in `runners.md`.
-- [~] **Phase 3 — create and test-fire.** Routine CREATED:
+- [x] **Phase 3 — create and test-fire.** VERIFIED 2026-07-30 — PR #1625, "vault: 2026-07-30 — 4 lanes shipped": one PR, one commit per lane (`lane(content-shift)`, `lane(photo-enrichment)`, `lane(rumor-desk)`, `lane(cross-link)`, plus `vault: regenerate`), green `build`, files confined to `supabase/seed/` + the generated vault. It named every lane's outcome including the two that did nothing (Answerer no-op: zero open curiosity-ledgers; Stylist not due: Sundays), disclosed trimming a lane for budget, and self-corrected a `no-dupe-keys` trip it caused. ORIGINAL NOTES: created Routine CREATED:
       `trig_01EuLgUdMgbuqL51o3iWQfTL`, Opus, daily `7 16 * * *`,
       `persist_session: false`, `Claude_Code_Remote` stripped (it WAS added by
       default, exactly as `routine-invariants.md` warns — and the API silently
@@ -88,7 +107,34 @@ gate, commit, PR) so no lane repeats boilerplate.
       2026-07-30T05:49Z against the heaviest realistic load: Thu + even
       day-of-month = 5 of 6 lanes due. **Verification still pending** — see the
       blocker below, which must be fixed first.
-- [ ] **Phase 3.5 — FIX THE RED-PR BLIND SPOT. Blocks Phase 4.**
+- [x] **Phase 3.5 — FIX THE RED-PR BLIND SPOT.** Written 2026-07-30, **corrected 2026-08-11** (see "What the 07-30 version got wrong" below — it would have shipped a detector that caught nothing). As it now stands: (1) `watchdog.yml` gained a "PRs stuck on failing or missing checks" step — EVERY open non-draft PR, >24h, any failing check or a missing `build`, minus PRs explicitly parked for a human; it also re-runs a `build` red >48h, capped at 2/day. (2) `vault-run.md` gained STEP 0: adopt a stranded `vault/*` PR before opening a new one, **at most once**, then label it `founder-decision` and move on. (3) `CLAUDE.md`'s "the next scheduled run picks it up" promise is corrected to say what actually happens. (4) Diagnosed: the 07-28 failures are NOT content degradation — see below. The remaining piece is a founder call, filed as an issue, and does NOT block Phase 4.
+
+      **What the 07-30 version got wrong.** Replayed against the live repo on
+      2026-08-11, the detector as originally written examined 2 of 27 open PRs
+      and alerted on NEITHER — it missed every genuinely stuck PR in the repo,
+      including ones this very document names. Three independent causes:
+
+      - **The bot branch-prefix allowlist was the big one.** `vault/
+        content-shift/ depth/answerer content/rumor-desk content/stylist
+        claude/` — three of those six match no branch that has ever existed,
+        while `claude/` matches every Claude session including ops work. The
+        longest-stuck PR in the repo, **#1642** (`build` red since 07-31, 11
+        days, auto-merge armed), is on `fix/ci-actions-v7-tags` and was never
+        even looked at. Enumerating bot branch prefixes is a losing game: the
+        list goes stale the moment a lane is renamed, and it fails CLOSED
+        (silently missing PRs) rather than open.
+      - **Only `build` was read.** **#1762** has been open since 08-03 with
+        `build` SUCCESS and `enable` FAILURE — the auto-merge gate is what
+        strands it. Any failing check strands a PR, not just `build`.
+      - **A missing check read as healthy.** **#1585** has been open since
+        07-28 with NO `build` check at all on its head commit (CI never fired
+        for that push). The jq returned "NONE", which is not "FAILURE", so it
+        stayed silent — and auto-merge waits on a check that will never arrive,
+        forever. This is the same class of fault as the stale-check cases
+        #1633 (5 days) and #1565 (07-27 → 08-11).
+
+      The corrected step catches all three, verified by dry-running it against
+      live repo data before merge.
 
       **Found 2026-07-30, and it is a regression introduced by the 2026-07-25
       token-burn work.** Photo Enrichment has opened three PRs over three days
@@ -132,6 +178,51 @@ gate, commit, PR) so no lane repeats boilerplate.
       prompts now live in the repo, but the triggers carry cadence history).
       Watch one full cycle, then write the `docs/decisions.md` entry and record
       the actual Actions-minutes and PR-count change.
+
+      **STILL BLOCKED as of 2026-08-11. Attempted this session; NOT executed.**
+      Four preconditions were checked and three failed. Do not disable anything
+      until each is cleared — the six standalone lanes are currently the only
+      thing masking these:
+
+      1. **Phase 3.5 is not on `main`.** Its work exists as **PR #1629**, open
+         and unmerged since 07-30. The PR body says "Phase 4 is now unblocked",
+         which is true of the branch and false of `main`. Verified on `main`:
+         `watchdog.yml` has no stuck-red-PR check, and `vault-run.md` still ends
+         with *"If CI fails or a conflict appears, TOMORROW's run picks it up"*
+         — the exact false promise Phase 3.5 exists to remove, and there is no
+         STEP 0 adoption path. Consolidating six lanes behind one PR while that
+         is true means one red Vault Run PR silently strands all six lanes'
+         work. Live proof the failure mode is active, not theoretical: **#1585**
+         (red, open since 07-28) and **#1762** (open since 08-03).
+         → **Merge #1629 first.** That is the whole of precondition 1.
+
+      2. **The orchestrator misses ~25% of days.** No `vault/` PR *and no
+         stranded remote branch* on **08-01, 08-02, 08-08** (branches run
+         07-30, 07-31, then 08-03…08-07, 08-09…08-11). On each of those days the
+         standalone lanes were the only content that shipped. Disabling them
+         converts a masked gap into a real content outage. Root-cause the misses
+         first — a run that leaves no branch at all did not fail mid-run, it
+         never started, which points at the trigger/environment, not the prompt.
+
+      3. **Lane 2 does not cover the standalone Answerer's work.** Lane 2 was
+         gated solely on open `curiosity-ledger` issues, which have been at 0
+         since ~07-29, so it no-ops every day. The standalone Answerer draws
+         from Karen's CIE depth rollups instead and shipped **#1732** (5 defining
+         moments) and **#1827** (3 cross-link throughlines) in August. Disabling
+         it would have deleted the only thing draining the depth backlog. Lane 2
+         has been repointed at the live queue (same commit as this note); it
+         must be **observed actually shipping** before the standalone comes off.
+
+      4. **Trigger state was never verified.** The `RemoteTrigger` tool was not
+         available in the session that attempted this, so no trigger's
+         `enabled` flag, cron, or `job_config` was read. Every cadence claim
+         here is inferred from PR branch history. **Do not disable on inferred
+         state** — read each trigger back first, and record its full config
+         before writing, per the full-replacement footgun in `runners.md`.
+
+      Ordering, once unblocked: merge #1629 → fix the missed-day cause → confirm
+      lane 2 ships → disable the six one at a time, reading each back → delete
+      the `content-shift/` row from the watchdog's lane table.
 
 ## Rollback
 

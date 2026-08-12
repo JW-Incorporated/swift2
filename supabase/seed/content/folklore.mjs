@@ -2166,6 +2166,27 @@ export default {
       milestone: { id: "m-folk-1", label: "folklore surprise drop", kind: "album" },
       snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-announces-new-surprise-album-folklore-featuring-bon-iver-nationals-aaron/',
+            source_title: 'Taylor Swift Announces New Surprise Album \'Folklore,\' Featuring Bon Iver & The National\'s Aaron Dessner',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/897193428',
+            source_title: 'With \'Folklore,\' Taylor Swift Marks Off Her Past And Enters A New Phase',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+        ],
         context: "No rollout, no singles, no warning: folklore arrived overnight and rewrote what a Taylor Swift album could be.\n\nMuted, literary, and fictional, it introduced interlocking character stories fans mapped for months.",
         // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- checked
         // Wikimedia Commons, official press kits and album-review outlets for
@@ -2188,6 +2209,26 @@ export default {
       snippet: "Grayscale knitwear and misty forests define the era’s look.",
       video: { youtubeId: "K-a8s8OLBSE", title: "Taylor Swift - cardigan" },
       moment: {
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2020/07/9931460/taylor-swift-folklore-fashion-clothing-trend',
+            source_title: 'Folklore Fashion, According To Taylor Swift',
+            publisher: 'Refinery29',
+            source_type: 'fashion_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Grazia',
+            url: 'https://graziadaily.co.uk/fashion/shopping/taylor-swift-folklore-style-cardigans/',
+            source_title: 'Folklore, Taylor Swift\'s New Album, Is Responsible For A Surge In Searches For Cardigans',
+            publisher: 'Grazia Daily',
+            source_type: 'fashion_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Cozy cardigans, braided hair, and a foggy woodland palette made cottagecore the aesthetic of 2020.\n\nThe cream cable-knit cardigan from the video, embroidered with stars, was sold as official merch and is widely credited with driving cottagecore's mainstream revival.",
         // Shop pass (2026-07-22): the official star-embroidered merch
         // cardigan is long discontinued from Taylor's own store (only
@@ -2218,6 +2259,26 @@ export default {
       title: "The teenage love triangle",
       snippet: "Three songs — \"cardigan,\" \"august,\" and \"betty\" — tell one story from three points of view.",
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/5871159/taylor-swift-folklore-explained/',
+            source_title: 'Let\'s Break Down Taylor Swift\'s Tender New Album Folklore',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/blogs/taylor-swift-new-album-folklore-hidden-references-meanings-easter-eggs-2714814',
+            source_title: 'Taylor Swift\'s new album \'Folklore\': all the hidden meanings and Easter eggs',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Taylor has said on record that \"cardigan,\" \"august,\" and \"betty\" form a fictional teenage love triangle, each song narrated by a different character in the story.\n\nIt set the template for folklore's fictional, novelistic approach — a sharp turn from the autobiographical framing of her earlier catalog.",
         // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- the only
         // candidate images (the cardigan/betty single covers) are already the
@@ -2239,6 +2300,26 @@ export default {
       title: "William Bowery revealed",
       snippet: "The mystery co-writer credited on \"exile\" and \"betty\" is confirmed as Joe Alwyn.",
       moment: {
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-confirms-the-identity-of-folklore-song-co-writer-william-bowery-2825041',
+            source_title: 'Taylor Swift confirms the identity of \'Folklore\' song co-writer William Bowery',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-tortured-poets-department-joe-alwyn-matt-healy-who-are-they-songs-are-about/',
+            source_title: 'Taylor Swift fans speculate her songs are about Matty Healy and Joe Alwyn – who are they?',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "In the Disney+ special Folklore: The Long Pond Studio Sessions, Taylor revealed that \"William Bowery\" — credited as a co-writer on \"exile\" and \"betty\" — was her then-partner Joe Alwyn.\n\nThe pseudonym combines his great-grandfather's name, William Alwyn (also a musician), with the Bowery Hotel, where the two were first spotted together.",
         // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- the same
         // reveal is covered in full by the richer sibling moment
@@ -2262,6 +2343,26 @@ export default {
       milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
       snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-wins-album-year-folklore-2021-grammys/',
+            source_title: 'Taylor Swift Wins Album Of The Year For \'Folklore\' | 2021 GRAMMY Awards Show',
+            publisher: 'The Recording Academy',
+            source_type: 'awards_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
+            source_title: 'Taylor Swift becomes first woman to win Album of the Year Grammy 3 times',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Taylor's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
         // Photo pass #762 (2026-07-19): lead image of Billboard's own AOTY-win
         // story (billboard.com/wp-content, EXIF copyright "2021 Recording

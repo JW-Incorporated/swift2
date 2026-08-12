@@ -1,38 +1,65 @@
 // Marjorie's deterministic brief skeleton (charter: docs/agents/marjorie.md).
 //
 // Gathers the raw material for a Founders' Brief from GitHub — zero LLM
-// tokens — and prints a markdown skeleton to stdout. Marjorie's judgment
-// pass (precedent, dedupe, ranking, plain language) happens on top of this
-// output; the skeleton alone is already a readable degraded-mode brief.
+// tokens — and prints a markdown brief to stdout. Marjorie's judgment pass
+// tightens the prose on top of this; the skeleton alone is already a correct,
+// postable brief.
 //
 //   node scripts/marjorie/assemble-brief.mjs            # today, live gh data
 //   node scripts/marjorie/assemble-brief.mjs 2026-07-12 # explicit date
+//   node scripts/marjorie/assemble-brief.mjs --json     # the evidence, for the journal
 //
-// Requires an authenticated `gh` CLI. Read-only: never writes to GitHub.
+// ─── THE 2026-08-11 REBUILD ───────────────────────────────────────────────
+// Wyatt: "the daily brief is honestly unhelpful… the focus should likely
+// shift to focusing on the definition of done."
+//
+// The old brief's measured record: across 11 briefs the founders were asked
+// for 26 checklist line-items that reduce to 5 distinct asks, and ZERO
+// checkboxes were ever ticked. #799 was answered by Joey on the ticket on
+// 08-01 and re-asked in five more briefs. Two scoreboard rows still named
+// tickets closed on 07-30. None of that was a writing problem — it was a
+// data problem, so the fix is here and not in the prompt.
+//
+// The brief is now two sections and nothing else:
+//
+//   1 · PROGRESS TOWARD DONE — what is gated on a founder (computed against
+//       each ticket's own state, not against the last brief's checkboxes),
+//       how far away done is (computed, with its own error bars), what would
+//       make it closer, and what actually landed.
+//   2 · MAINTENANCE — one green/not-green line, then a fixed checklist. Green
+//       means stop reading.
+//
+// Requires an authenticated `gh` or a GH_TOKEN. Read-only: never writes to GitHub.
 
-// Shared gh runner: CLI when present, GitHub REST when it isn't — this script
-// was the original victim of `spawn gh ENOENT` in cloud runners (#528).
 import { gh as ghRun } from '../lib/gh.mjs';
+import { ghApiSoft } from './lib/gh-api.mjs';
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { computeDeltas } from '../social/lib/growth.mjs';
 import { summarizeQueueStatus } from '../social/lib/queue.mjs';
+import { readGateHistory, readCurrentGates, GATES } from './gate-history.mjs';
+import { buildGateActivity, extractTickets, trackerLagDays } from './gate-activity.mjs';
+import { estimateDaysToDone, renderDoneLines } from './done-estimator.mjs';
+import { partitionAsks, asksInBrief, ESCALATE_AFTER } from './founder-gate.mjs';
+import { runStandingChecks, renderStandingChecks, loadRunnerCadence } from './standing-checks.mjs';
+import { collectConstraints } from './meta-constraints.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
+const ORG = REPO.split('/')[0];
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const METRICS_DIR = path.join(ROOT, 'social', 'metrics');
 const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
+const DAY_MS = 86_400_000;
 
 async function gh(args) {
   const { stdout } = await ghRun(args);
   return JSON.parse(stdout || '[]');
 }
 
-// Reads the two most recent social/metrics/YYYY-MM-DD.json files (written
-// by .github/workflows/growth-snapshot.yml) and computes follower deltas.
-// Returns null if growth-snapshot.yml hasn't produced a file yet — the
-// brief says so plainly rather than showing a fabricated zero.
+// ─── unchanged growth/queue helpers (kept verbatim: the 2026-07-18 rule that
+// every social claim comes from this number and nowhere else still stands) ──
+
 export function fetchGrowthSnapshot(metricsDir = METRICS_DIR) {
   let files;
   try {
@@ -48,11 +75,6 @@ export function fetchGrowthSnapshot(metricsDir = METRICS_DIR) {
   return { ...latest, deltas: computeDeltas(latest.followers, previous?.followers) };
 }
 
-// Ground truth for social/queue/ — added 2026-07-18 after a brief asserted
-// drafts were "waiting on your OK in Slack #social" while the queue was
-// actually empty. That line was never checked against real state; it was
-// synthesized from what the charter says SHOULD happen. This function is
-// the fact to copy instead — see summarizeQueueStatus's own comment.
 export function fetchQueueStatus(queueDir = QUEUE_DIR) {
   let files;
   try {
@@ -73,9 +95,6 @@ function formatDelta(n) {
   return typeof n === 'number' ? ` (${n >= 0 ? '+' : ''}${n})` : '';
 }
 
-// Nothing "awaits your OK" any more — per-item founder approval was removed
-// 2026-07-25 (docs/decisions.md); the desk queues and the poster ships on
-// schedule. The brief now reports what is going out, not what is blocked.
 function formatQueueStatus(queueStatus) {
   const { total, scheduled, due } = queueStatus;
   if (total === 0) return 'queue: empty (nothing drafted)';
@@ -85,11 +104,6 @@ function formatQueueStatus(queueStatus) {
   return `queue: ${parts.join(', ')}`;
 }
 
-// Pure formatter, kept separate from the filesystem reads so the display
-// logic is unit-testable without fixture files. queueStatus is the ground
-// truth for what's actually pending — Marjorie copies it, never re-derives
-// a claim about queue contents from the growth charter's description of
-// how approvals are SUPPOSED to work (see fetchQueueStatus's comment).
 export function formatGrowthLine(growth, queueStatus) {
   const queuePart = formatQueueStatus(queueStatus);
   if (!growth) return `- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · ${queuePart}`;
@@ -102,30 +116,6 @@ export function formatGrowthLine(growth, queueStatus) {
   return `- Growth: ${parts.join(' · ')} · ${postsToday} post${postsToday === 1 ? '' : 's'} today · ${queuePart} · site: pending #799`;
 }
 
-export async function fetchState(repo = REPO) {
-  const issueFields = 'number,title,body,labels,createdAt,author';
-  const [decisions, intake, alerts, openPRs, mergedPRs] = await Promise.all([
-    gh(['issue', 'list', '--repo', repo, '--label', 'founder-decision',
-      '--state', 'open', '--limit', '100', '--json', issueFields]),
-    gh(['issue', 'list', '--repo', repo, '--label', 'intake',
-      '--state', 'open', '--limit', '100', '--json', issueFields]),
-    gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert',
-      '--state', 'open', '--limit', '20', '--json', issueFields]),
-    gh(['pr', 'list', '--repo', repo, '--state', 'open', '--limit', '50',
-      '--json', 'number,title,author,isDraft,reviewDecision,createdAt']),
-    gh(['pr', 'list', '--repo', repo, '--state', 'merged', '--limit', '30',
-      '--json', 'number,title,mergedAt']),
-  ]);
-  return {
-    decisions, intake, alerts, openPRs, mergedPRs,
-    growth: fetchGrowthSnapshot(),
-    queueStatus: fetchQueueStatus(),
-  };
-}
-
-// Pull the "### Options" block a founder-decision form submission produces.
-// Returns [] when the body doesn't parse — the skeleton then tells Marjorie
-// to write the A/B blocks by hand rather than guessing.
 export function extractOptions(body) {
   if (!body) return [];
   const m = body.match(/###\s*Options\s*\n+([\s\S]*?)(?=\n###|\s*$)/i);
@@ -150,72 +140,304 @@ export function todayLA(now = new Date()) {
   }).format(now);
 }
 
-function hoursOld(iso, now) {
-  return Math.floor((now - new Date(iso).getTime()) / 3_600_000);
+// ─── fetch ─────────────────────────────────────────────────────────────────
+
+const ISSUE_FIELDS = 'number,title,body,labels,createdAt,updatedAt,closedAt,state,url,assignees';
+const PR_FIELDS = 'number,title,body,author,isDraft,reviewDecision,createdAt,updatedAt,mergedAt,headRefName,state,url,statusCheckRollup';
+
+/**
+ * One fetch pass for the whole brief. Everything downstream is pure, so this
+ * is the only place that touches the network — and the only place that can
+ * fail. It fails LOUDLY for the core lists (a brief built on a silent empty
+ * list is the #1869 failure mode) and softly for the optional ones.
+ */
+export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
+  const [decisions, intake, alerts, openPRs, allPRs, allIssues, briefs] = await Promise.all([
+    gh(['issue', 'list', '--repo', repo, '--label', 'founder-decision', '--state', 'open', '--limit', '100', '--json', ISSUE_FIELDS]),
+    gh(['issue', 'list', '--repo', repo, '--label', 'intake', '--state', 'open', '--limit', '100', '--json', ISSUE_FIELDS]),
+    gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert', '--state', 'open', '--limit', '20', '--json', ISSUE_FIELDS]),
+    gh(['pr', 'list', '--repo', repo, '--state', 'open', '--limit', '60', '--json', PR_FIELDS]),
+    gh(['pr', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', 'number,title,body,createdAt,updatedAt,mergedAt,headRefName,state,url']),
+    gh(['issue', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', ISSUE_FIELDS]),
+    gh(['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'all', '--limit', '14', '--json', 'number,title,body,createdAt']),
+  ]);
+
+  const gates = readCurrentGates();
+  const series = readGateHistory();
+
+  // The gate rows name their own tickets. Fetch any we don't already have —
+  // this is what turns "the tracker says red" into "and here is whether
+  // anyone is actually working on it".
+  const wanted = [...new Set(GATES.flatMap((g) => extractTickets(gates[g]?.nextAction)))];
+  const have = new Map(allIssues.map((i) => [i.number, i]));
+  const missing = wanted.filter((n) => !have.has(n));
+  const fetched = await Promise.all(missing.map(async (n) => {
+    const r = await ghApiSoft(`/repos/${repo}/issues/${n}`);
+    return r.ok && r.data
+      ? { number: r.data.number, title: r.data.title, state: r.data.state, createdAt: r.data.created_at, updatedAt: r.data.updated_at, closedAt: r.data.closed_at, url: r.data.html_url, labels: (r.data.labels || []).map((l) => ({ name: l.name })), assignees: r.data.assignees || [] }
+      : null;
+  }));
+  const gateIssues = [...allIssues, ...fetched.filter(Boolean)];
+
+  // Comments on the bank items — the fix for the phantom-ask loop. Only the
+  // open founder-decision items, so this is a handful of calls, not hundreds.
+  const withComments = await Promise.all(decisions.map(async (d) => {
+    const r = await ghApiSoft(`/repos/${repo}/issues/${d.number}/comments?per_page=100`, []);
+    return { ...d, comments: (r.data || []).map((c) => ({ author: { login: c.user?.login }, createdAt: c.created_at, body: c.body })) };
+  }));
+
+  // Anything the founders were ASKED FOR that has since closed. Without this,
+  // a closed ticket can never be reported as resolved — which is precisely how
+  // #799 stayed on the checklist for five briefs after Joey answered it.
+  //
+  // Only checkbox lines count. Scanning whole brief bodies pulls in every
+  // ticket the brief merely mentions (scoreboard rows, plan tables, notes),
+  // and "cleared since the last brief" then lists everything the org closed.
+  const askedNumbers = new Set();
+  for (const b of briefs) for (const ask of asksInBrief(b.body)) for (const n of ask.issues) askedNumbers.add(n);
+  const recentlyAsked = await Promise.all([...askedNumbers]
+    .filter((n) => !withComments.some((d) => d.number === n))
+    .slice(0, 40)
+    .map(async (n) => {
+      const known = have.get(n);
+      if (known) return { ...known, comments: [] };
+      const r = await ghApiSoft(`/repos/${repo}/issues/${n}`);
+      return r.ok && r.data && !r.data.pull_request
+        ? { number: r.data.number, title: r.data.title, state: r.data.state, body: r.data.body, createdAt: r.data.created_at, closedAt: r.data.closed_at, url: r.data.html_url, labels: (r.data.labels || []).map((l) => ({ name: l.name })), comments: [] }
+        : null;
+    }));
+
+  const ciRuns = await ghApiSoft(`/repos/${repo}/actions/workflows/ci.yml/runs?branch=main&per_page=40`, { workflow_runs: [] });
+
+  return {
+    decisions: withComments,
+    askedBefore: recentlyAsked.filter(Boolean),
+    intake, alerts, openPRs, allPRs, allIssues: gateIssues, briefs,
+    gates, series,
+    ciRuns: ciRuns.data?.workflow_runs ?? [],
+    growth: fetchGrowthSnapshot(),
+    queueStatus: fetchQueueStatus(),
+    now,
+  };
 }
 
-export function buildBrief(state, { date, now = Date.now() } = {}) {
-  const { decisions, intake, alerts, openPRs, mergedPRs, growth, queueStatus } = state;
-  const dayMs = 24 * 3_600_000;
-  const mergedToday = mergedPRs.filter((p) => now - new Date(p.mergedAt).getTime() < dayMs);
-  const staleIntake = intake.filter((i) => hoursOld(i.createdAt, now) >= 48);
+// ─── analysis (pure) ───────────────────────────────────────────────────────
+
+/**
+ * Everything the brief asserts, decided before a single line is written.
+ * Exported so tests can assert on the numbers rather than on the prose, and
+ * so `--json` can dump the whole evidence trail into the journal comment.
+ */
+export function analyse(state, { now = state.now ?? Date.now() } = {}) {
+  const nowMs = Number(now);
+  const activity = buildGateActivity(state.gates, { issues: state.allIssues, prs: state.openPRs });
+  const estimate = estimateDaysToDone(state.series, state.gates, { now: nowMs, activity });
+  const lag = trackerLagDays(state.series, activity, nowMs);
+
+  const asks = partitionAsks([...state.decisions, ...state.askedBefore], { briefs: state.briefs, now: nowMs });
+
+  const cadence = loadRunnerCadence();
+  const merged24 = state.allPRs.filter((p) => p.mergedAt && nowMs - new Date(p.mergedAt).getTime() < DAY_MS);
+  const opened24 = state.allPRs.filter((p) => nowMs - new Date(p.createdAt).getTime() < DAY_MS);
+  const closed24 = state.allIssues.filter((i) => i.closedAt && nowMs - new Date(i.closedAt).getTime() < DAY_MS);
+
+  return { activity, estimate, lag, asks, cadence, merged24, opened24, closed24, now: nowMs };
+}
+
+/**
+ * The accelerants — computed, not brainstormed. Each one is a lever that
+ * exists in the data right now, ordered by how many gate-points it unblocks.
+ */
+export function accelerators(state, a) {
+  const out = [];
+  for (const g of a.estimate.trackerStale.filter((x) => x.prs.length)) {
+    const prs = g.prs.map((p) => `#${p.number}`).join(', ');
+    out.push({ points: g.pointsMissing + 0.01, text: `**Land ${prs}** — closes **${g.gate}**, which the tracker still shows as ${g.status}.` });
+  }
+  for (const g of a.estimate.idle) {
+    out.push({ points: g.pointsMissing, text: `**Staff ${g.gate}** (${g.pointsMissing} pt) — ${g.reason}.` });
+  }
+  const green = (state.openPRs || []).filter((p) => !p.isDraft && (p.statusCheckRollup || []).length > 0
+    && !(p.statusCheckRollup || []).some((c) => ['FAILURE', 'ERROR', 'TIMED_OUT'].includes(String(c.conclusion || c.state).toUpperCase()))
+    && olderThanADay(a.now, p.createdAt));
+  if (green.length >= 3) out.push({ points: 0.4, text: `**Clear the merge queue** — ${green.length} green PRs older than 24h. Merge latency, not build capacity, is the constraint.` });
+  if (a.asks.escalated.length) {
+    out.push({ points: 0.3, text: `**Answer or close the ${a.asks.escalated.length} escalated ask(s)** — each has been re-asked ${ESCALATE_AFTER}+ times and costs a brief slot every day.` });
+  }
+  return out.sort((x, y) => y.points - x.points).slice(0, 4);
+}
+
+function olderThanADay(now, iso) {
+  return now - new Date(iso).getTime() > DAY_MS;
+}
+
+// ─── render ────────────────────────────────────────────────────────────────
+
+const GATE_ICON = { green: '🟢', yellow: '🟡', red: '🔴' };
+
+function link(n) {
+  return `[#${n}](https://github.com/${REPO}/issues/${n})`;
+}
+
+/**
+ * Ticket titles in this repo are essay-length. Cut at a word boundary — a
+ * checklist line that ends mid-word ("…hotlinked across 4 er") reads as a bug
+ * and undermines the rest of the brief.
+ */
+export function shortTitle(title, max = 62) {
+  const t = String(title || '')
+    .replace(/^\[(decision|future decision|intake)\]\s*/i, '')
+    .replace(/\s*[—–]\s.*$/, '')
+    .trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max);
+  const at = cut.lastIndexOf(' ');
+  return `${(at > max * 0.6 ? cut.slice(0, at) : cut).replace(/[,;:(]+$/, '')}…`;
+}
+
+export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {}) {
+  const a = analyse(state, { now });
   const out = [];
 
+  out.push('cc @sffan15-sys @wjduvall-cmd', '');
   out.push(`# Founders' Brief — ${date}`, '');
-  out.push(`> Skeleton assembled deterministically; Marjorie curates before posting.`,
-    `> Tick ONE box per decision. Unticked items carry over. Charter: docs/agents/marjorie.md`, '');
 
-  out.push('## 1 · Decisions needed');
-  if (decisions.length === 0) {
-    out.push('', '_Nothing needs you today._');
+  // ── SECTION 1 ────────────────────────────────────────────────────────────
+  out.push('## 1 · Progress toward Done', '');
+
+  // 1a — what is gated on a founder. First, because it is the only part of
+  // the brief that asks anything of the reader.
+  const { open, escalated, resolved, phantom } = a.asks;
+  if (escalated.length === 0 && open.length === 0) {
+    out.push('**🫵 Nothing is gated on you.** No founder action is blocking any gate today.', '');
+  } else {
+    out.push(`**🫵 Gated on you: ${open.length + escalated.length}**${escalated.length ? ` — ${escalated.length} overdue. Each of these needs an answer **or a close**; leaving them open is what makes this list grow.` : '.'}`, '');
+    for (const e of escalated) out.push(`- 🔴 ${link(e.number)} **${shortTitle(e.title)}** — ${e.escalateReason}`);
+    for (const o of open) out.push(`- [ ] ${link(o.number)} **${shortTitle(o.title)}** — ${o.gateReasons[0]}, ${o.daysOpen}d old`);
+    out.push('');
   }
-  for (const d of decisions) {
-    const opts = extractOptions(d.body);
-    const cost = extractField(d.body, 'Cost of delay');
-    const affects = extractField(d.body, 'Affects');
-    out.push('', `### #${d.number} — ${d.title.replace(/^\[decision\]\s*/i, '')}`);
-    if (cost) out.push(`Cost of delay: ${cost}`);
-    if (affects) out.push(`Unblocks: ${affects}`);
-    if (opts.length) {
-      for (const o of opts) out.push(`- [ ] ${o}`);
-    } else {
-      out.push('- [ ] _(options unparseable — Marjorie: write the A/B blocks from the issue body)_');
-    }
-    out.push(`([full context](https://github.com/${REPO}/issues/${d.number}))`);
-  }
-
-  out.push('', '## 2 · Founder-action items');
-  const tx = decisions.filter((d) => /TX — founder-only/i.test(d.body || ''));
-  out.push(tx.length
-    ? tx.map((d) => `- #${d.number} ${d.title.replace(/^\[decision\]\s*/i, '')}`).join('\n')
-    : '_None pending._');
-
-  out.push('', '## 3 · Shipped & in flight');
-  out.push(`Merged in the last 24h: ${mergedToday.length ? '' : '_none_'}`);
-  for (const p of mergedToday) out.push(`- #${p.number} ${p.title}`);
-  out.push('', `Open PRs (${openPRs.length}):`);
-  for (const p of openPRs) {
-    const state = p.isDraft ? 'draft' : (p.reviewDecision || 'awaiting review').toLowerCase();
-    out.push(`- #${p.number} ${p.title} — ${state}`);
+  if (resolved.length) {
+    const shown = resolved.slice(0, 4).map((r) => `${link(r.number)} (${r.resolution.how})`).join(' · ');
+    const leak = phantom.length === 1 ? '1 of these was' : `${phantom.length} of these were`;
+    out.push(`**Cleared: ${resolved.length}** — ${shown}${resolved.length > 4 ? ` +${resolved.length - 4}` : ''}${phantom.length ? ` · ${leak} already closed while still on your checklist; that loop is now fixed.` : ''}`, '');
   }
 
-  out.push('', '## 4 · Health');
-  out.push(`- Open watchdog alerts: ${alerts.length ? alerts.map((a) => `#${a.number}`).join(' ') : 'none 🟢'}`);
-  out.push(`- Intake queue: ${intake.length} open${staleIntake.length ? ` — ⚠ ${staleIntake.length} older than 48h untriaged` : ''}`);
-  out.push('- Spend vs monthly cap: _(collector lands in Phase 2 — report manually)_');
-  out.push(formatGrowthLine(growth, queueStatus));
+  // 1b — distance to done.
+  out.push('### 📈 Distance to done', '');
+  out.push(...renderDoneLines(a.estimate).map((l) => `${l}`));
+  out.push('');
+  out.push(`> "Done" here = all 12 launch-readiness gates green — the historical proxy. Joey's product Definition of Done (2026-08-11) is the eight-item bar in \`docs/definition-of-done.md\`; the estimator keeps measuring the gates until it is repointed at that bar (\`docs/ops/definition-of-done.md\`).`);
+  out.push('');
 
-  out.push('', '## 5 · Today\'s plan', '_(Marjorie: one line per active desk.)_', '');
-  return out.join('\n');
+  // 1c — accelerants.
+  const acc = accelerators(state, a);
+  if (acc.length) {
+    out.push('### ⚡ What would make it sooner', '');
+    for (const x of acc) out.push(`- ${x.text}`);
+    out.push('');
+  }
+
+  // 1d — the gate table, derived from the tracker rather than retyped. The
+  // old brief hand-wrote this and drifted: it still named #669 and #736 as
+  // next actions three weeks after both were closed.
+  // Only the gates still in play get a row. The done ones get a single line —
+  // the table's job is to show what is LEFT, and four permanent 🟢 rows every
+  // morning is exactly the padding that made the old brief unreadable.
+  const done = GATES.filter((g) => state.gates[g]?.status === 'green');
+  out.push('### 📊 Gates still open', '');
+  out.push('| Gate | | Next step | Tickets |', '|---|---|---|---|');
+  for (const g of GATES) {
+    const row = state.gates[g];
+    if (!row || row.status === 'green') continue;
+    const act = a.activity[g];
+    const tickets = (act?.tickets ?? []);
+    const live = tickets.filter((t) => t.state === 'open').map((t) => `#${t.number}`);
+    const closed = tickets.filter((t) => t.state === 'closed').map((t) => `~~#${t.number}~~`);
+    const prs = (act?.openPRs ?? []).map((p) => `PR #${p.number}`);
+    const stateCell = [live.join(' ') || null, prs.join(' ') || null, closed.join(' ') || null].filter(Boolean).join(' · ') || '—';
+    out.push(`| ${g} | ${GATE_ICON[row.status]} | ${row.nextAction.replace(/\|/g, '/').replace(/\*\*/g, '').replace(/\s*·.*$/, '').slice(0, 44)} | ${stateCell} |`);
+  }
+  out.push('', `🟢 done (${done.length}): ${done.join(', ')}. Struck-through tickets are already closed — if one is still a "next step", that row is stale.`, '');
+
+  // 1e — what actually landed.
+  out.push('### 📰 Last 24 hours', '');
+  if (a.merged24.length === 0 && a.closed24.length === 0) {
+    out.push('- Nothing merged and nothing closed. Per the charter\'s 2026-07-12 amendment this is a failed org day; the stuck point is named above.');
+  } else {
+    out.push(`- **${a.merged24.length} PRs merged · ${a.closed24.length} tickets closed · ${a.opened24.length} PRs opened.** Newest: ${a.merged24.slice(0, 3).map((p) => `#${p.number} ${p.title.replace(/^[a-z()-]+:\s*/i, '').slice(0, 42)}`).join(' · ')}`);
+  }
+  out.push('');
+
+  // ── SECTION 2 ────────────────────────────────────────────────────────────
+  const checks = runStandingChecks({
+    openPRs: state.openPRs,
+    allPRs: state.allPRs,
+    issues: state.allIssues,
+    alerts: state.alerts,
+    gateTickets: [...new Set(GATES.flatMap((g) => extractTickets(state.gates[g]?.nextAction)))],
+    runs: state.ciRuns,
+    cadence: a.cadence,
+    queueStatus: state.queueStatus,
+    growth: state.growth,
+    constraints: state.constraints,
+    lag: a.lag,
+    staleRows: a.estimate.trackerStale,
+    now,
+  });
+  out.push(...renderStandingChecks(checks));
+  out.push('');
+  out.push('**What ran:**');
+  out.push(formatGrowthLine(state.growth, state.queueStatus));
+  out.push(`- Content + social PRs landed today: ${a.merged24.filter((p) => /^(content|vault|growth|social)/.test(p.headRefName || '')).length} · intake queue ${state.intake.length} open`);
+  out.push('');
+  out.push('Full evidence: journal comment below.');
+
+  const body = out.join('\n');
+  // Budget marker — invisible when rendered, but it means a run can never
+  // blow the charter's length cap without leaving a trace.
+  const lines = body.split('\n').length;
+  const words = body.split(/\s+/).filter(Boolean).length;
+  return `${body}\n<!-- budget: ${lines} lines / ${words} words -->\n`;
 }
 
-const invokedDirectly = process.argv[1] && import.meta.url.endsWith(
-  process.argv[1].split(/[\\/]/).pop());
+// ─── entry point ───────────────────────────────────────────────────────────
+
+const invokedDirectly = process.argv[1] && import.meta.url.endsWith(process.argv[1].split(/[\\/]/).pop());
 if (invokedDirectly) {
-  const date = process.argv[2] || todayLA();
-  // fetchState() is async (it awaits the gh/REST wrapper added in #1552); the
-  // result must be awaited before buildBrief destructures it, or every field
-  // is undefined and the skeleton throws. Regression fix — see #1552.
-  const state = await fetchState();
-  process.stdout.write(buildBrief(state, { date }) + '\n');
+  const args = process.argv.slice(2);
+  const wantJson = args.includes('--json');
+  const date = args.find((x) => /^\d{4}-\d{2}-\d{2}$/.test(x)) || todayLA();
+  const now = Date.now();
+
+  const state = await fetchState(REPO, { now });
+  // Constraints last: it is the only optional collector, and a billing hiccup
+  // must degrade the Budget line, never the brief.
+  state.constraints = await collectConstraints({
+    org: ORG,
+    repo: REPO,
+    now,
+    plan: 'team',
+    state,
+    ciRuns: state.ciRuns,
+    expectations: loadRunnerCadence().runners
+      .filter((r) => r.checkable !== false)
+      .map((r) => ({
+        name: r.name,
+        perDay: r.perDay,
+        match: (art) => (r.match.kind === 'pr-branch' ? art.type === 'pr' && String(art.branch || '').startsWith(r.match.value)
+          : r.match.kind === 'pr-title' ? art.type === 'pr' && String(art.title || '').toLowerCase().includes(r.match.value.toLowerCase())
+            : r.match.kind === 'issue-label' ? art.type === 'issue' && (art.labels || []).includes(r.match.value)
+              : art.type === 'issue' && String(art.title || '').includes(r.match.value)),
+      })),
+    artifacts: [
+      ...state.allPRs.map((p) => ({ type: 'pr', at: p.createdAt, branch: p.headRefName, title: p.title })),
+      ...state.allIssues.map((i) => ({ type: 'issue', at: i.createdAt, title: i.title, labels: (i.labels || []).map((l) => (typeof l === 'string' ? l : l.name)) })),
+    ],
+  });
+
+  if (wantJson) {
+    process.stdout.write(`${JSON.stringify({ analysis: analyse(state, { now }), constraints: state.constraints }, null, 2)}\n`);
+  } else {
+    process.stdout.write(buildBrief(state, { date, now }));
+  }
 }

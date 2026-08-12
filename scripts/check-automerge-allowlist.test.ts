@@ -4,9 +4,13 @@ import { describe, expect, it } from 'vitest';
 import {
   ALLOWLIST_FILE,
   EXCLUDED,
+  NEVER_ALLOWLIST,
+  NEVER_ALLOWLIST_EXCEPTIONS,
   WORKFLOW_FILE,
+  barredPrefixes,
   checkAllowlist,
   covers,
+  overlaps,
   parseAllowlist,
 } from './check-automerge-allowlist.mjs';
 import { GENERATED, ROOT, SYNC_TARGETS, listGeneratedOnDisk } from './lib/generated-content.mjs';
@@ -201,9 +205,9 @@ describe('checkAllowlist', () => {
   });
 
   it('refuses an empty allowlist rather than silently gating nothing', () => {
-    expect(run({ allowlistText: '# only comments\n' }).some((p) => p.includes('no entries'))).toBe(
-      true,
-    );
+    expect(
+      run({ allowlistText: '# only comments\n' }).some((p) => p.includes('no allow entries')),
+    ).toBe(true);
   });
 
   it('fails if the workflow stops reading the allowlist file', () => {
@@ -217,6 +221,183 @@ describe('checkAllowlist', () => {
   it('fails if the generated-file list gets re-inlined into the workflow', () => {
     const workflowText = `${OK_WORKFLOW}          apps/web/lib/longlive/tracks.generated.ts\n`;
     expect(run({ workflowText }).some((p) => p.includes('inline copy'))).toBe(true);
+  });
+});
+
+// ── DENY (`!`) prefixes: the app-code widening (2026-08-11) ───────────────
+describe('deny (`!`) prefixes', () => {
+  // A world where the app dirs exist, so a broad app allow is "real".
+  const APP_KIND = fakePathKind(
+    ['supabase/seed', 'apps/web/app', 'apps/web/components', 'apps/web/lib', 'packages'],
+    [...OK_ON_DISK, ...OK_TARGETS.map((t) => t.sync)],
+  );
+  // A workflow that reads the allowlist AND handles deny_prefixes.
+  const APP_WORKFLOW = `${OK_WORKFLOW}          deny_prefixes=$(printf '%s\\n' "$allowed" | grep '^!')\n`;
+  const appRun = (allowlistText: string, over: Record<string, unknown> = {}) =>
+    run({ allowlistText, workflowText: APP_WORKFLOW, pathKind: APP_KIND, ...over });
+
+  it('parseAllowlist marks deny lines and strips the `!`', () => {
+    expect(parseAllowlist('apps/web/app/\n!apps/web/app/api/\n')).toEqual([
+      { entry: 'apps/web/app/', line: 1, deny: false },
+      { entry: 'apps/web/app/api/', line: 2, deny: true },
+    ]);
+  });
+
+  it('a deny fully covering a barred area clears the self-amendment bar for a broad allow', () => {
+    // Without denies, `apps/web/app/` is barred because it covers apps/web/app/api/.
+    expect(barredPrefixes('apps/web/app/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS)).toContain(
+      'apps/web/app/api/',
+    );
+    // Denying every barred subtree clears it.
+    expect(
+      barredPrefixes('apps/web/app/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS, [
+        'apps/web/app/api/',
+        'apps/web/app/privacy/',
+        'apps/web/app/terms/',
+      ]),
+    ).toEqual([]);
+  });
+
+  it('a deny covering only PART of a barred area does NOT clear the bar', () => {
+    // apps/web/public/ is barred; denying only its social/ slice leaves the rest.
+    expect(
+      barredPrefixes('apps/web/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS, [
+        'apps/web/public/social/',
+      ]),
+    ).toContain('apps/web/public/');
+  });
+
+  it('accepts a broad app allow when its barred subtrees are denied', () => {
+    // #1972: a broad `apps/web/lib/` allow now overlaps the barred vault.ts and
+    // security-headers.* files, so it needs denies fully covering them — the
+    // exact remedy the checker's error message prescribes. (The committed
+    // allowlist instead narrows the allow to `apps/web/lib/longlive/`.)
+    const allowlistText = [
+      'supabase/seed/',
+      'apps/web/lib/longlive/a.generated.ts',
+      'apps/web/lib/longlive/b.generated.ts',
+      'apps/web/app/',
+      'apps/web/components/',
+      'apps/web/lib/',
+      'packages/',
+      '!apps/web/app/api/',
+      '!apps/web/app/privacy/',
+      '!apps/web/app/terms/',
+      '!apps/web/lib/vault.ts',
+      '!apps/web/lib/security-headers.',
+    ].join('\n');
+    expect(appRun(allowlistText)).toEqual([]);
+  });
+
+  it('rejects re-broadening the lib allow without denying the server/security files (#1972)', () => {
+    // The regression the self-amendment bar exists for: a future PR that flips
+    // `apps/web/lib/longlive/` back to `apps/web/lib/` must fail the checker.
+    const allowlistText = [
+      'supabase/seed/',
+      'apps/web/lib/longlive/a.generated.ts',
+      'apps/web/lib/longlive/b.generated.ts',
+      'apps/web/app/',
+      'apps/web/lib/',
+      '!apps/web/app/api/',
+      '!apps/web/app/privacy/',
+      '!apps/web/app/terms/',
+    ].join('\n');
+    const problems = appRun(allowlistText);
+    expect(problems.some((p) => p.includes('apps/web/lib/vault.ts') && p.includes('NEVER'))).toBe(true);
+    expect(
+      problems.some((p) => p.includes('apps/web/lib/security-headers.') && p.includes('NEVER')),
+    ).toBe(true);
+  });
+
+  it('rejects the broad app allow when the deny carve-out is missing', () => {
+    const allowlistText =
+      'supabase/seed/\napps/web/lib/longlive/a.generated.ts\napps/web/lib/longlive/b.generated.ts\napps/web/app/\n';
+    expect(
+      appRun(allowlistText).some((p) => p.includes('apps/web/app/api/') && p.includes('NEVER')),
+    ).toBe(true);
+  });
+
+  it('rejects a path listed as BOTH an allow and a deny', () => {
+    const allowlistText =
+      'supabase/seed/\napps/web/lib/longlive/a.generated.ts\napps/web/lib/longlive/b.generated.ts\napps/web/app/\n!apps/web/app/\n';
+    expect(appRun(allowlistText).some((p) => p.includes('BOTH an allow and a deny'))).toBe(true);
+  });
+
+  it('fails when the workflow lacks deny_prefixes handling but denies exist', () => {
+    const allowlistText =
+      'supabase/seed/\napps/web/lib/longlive/a.generated.ts\napps/web/lib/longlive/b.generated.ts\n!apps/web/app/api/\n';
+    // default OK_WORKFLOW has no deny_prefixes
+    expect(run({ allowlistText, pathKind: APP_KIND }).some((p) => p.includes('deny_prefixes'))).toBe(
+      true,
+    );
+  });
+
+  it('refuses a deny-only allowlist (no allow prefixes)', () => {
+    expect(appRun('!apps/web/app/api/\n').some((p) => p.includes('no allow entries'))).toBe(true);
+  });
+});
+
+// ── The runtime allow/deny decision the enable job computes, unit-proven on
+//    the REAL shipped allowlist (a file is auto-mergeable iff it matches an
+//    allow prefix and no deny prefix — exactly the shell loop). ──────────────
+describe('runtime allow/deny matching on the committed allowlist', () => {
+  const parsed = parseAllowlist(read(ALLOWLIST_FILE));
+  const allow = parsed.filter((p) => !p.deny).map((p) => p.entry);
+  const deny = parsed.filter((p) => p.deny).map((p) => p.entry);
+  const mergeable = (f: string) => allow.some((a) => f.startsWith(a)) && !deny.some((d) => f.startsWith(d));
+
+  it('app components / display-lib / pages and shared packages auto-merge (path level)', () => {
+    expect(mergeable('apps/web/components/VaultReader.tsx')).toBe(true);
+    // The lib allow is the display subtree only now (#1972); a client-safe
+    // display module still qualifies by path.
+    expect(mergeable('apps/web/lib/longlive/format.ts')).toBe(true);
+    expect(mergeable('apps/web/app/vault/page.tsx')).toBe(true);
+    expect(mergeable('apps/web/app/page.tsx')).toBe(true);
+    expect(mergeable('packages/core/src/map.ts')).toBe(true);
+    expect(mergeable('packages/shared/src/vault-nav.ts')).toBe(true);
+  });
+
+  it('API routes, legal pages, migrations, and the gate itself do NOT', () => {
+    expect(mergeable('apps/web/app/api/feedback/route.ts')).toBe(false);
+    expect(mergeable('apps/web/app/privacy/page.tsx')).toBe(false);
+    expect(mergeable('apps/web/app/terms/page.tsx')).toBe(false);
+    expect(mergeable('supabase/migrations/003_x.sql')).toBe(false);
+    expect(mergeable('.github/workflows/auto-merge-content.yml')).toBe(false);
+    expect(mergeable('.github/content-automerge-allowlist.txt')).toBe(false);
+    expect(mergeable('scripts/check-automerge-allowlist.mjs')).toBe(false);
+    expect(mergeable('package.json')).toBe(false);
+    expect(mergeable('apps/web/public/hero.png')).toBe(false);
+  });
+
+  // #1972 (2026-08-12): the server-side lib surface is no longer swept in by a
+  // broad `apps/web/lib/` allow. These decline at the PATH level (they are not
+  // under any allow prefix), independent of the content guard.
+  it('the top-level server/security lib files do NOT auto-merge by path', () => {
+    expect(mergeable('apps/web/lib/vault.ts')).toBe(false);
+    expect(mergeable('apps/web/lib/security-headers.mjs')).toBe(false);
+    expect(mergeable('apps/web/lib/utils.ts')).toBe(false);
+    expect(mergeable('apps/web/lib/useMoment.ts')).toBe(false);
+    expect(mergeable('apps/web/next.config.mjs')).toBe(false);
+  });
+
+  // The money-spending module lives inside the display subtree, so it is also
+  // denied explicitly (belt-and-suspenders with the content guard).
+  it('mood-client.ts is denied by path even though it is under the display subtree', () => {
+    expect(mergeable('apps/web/lib/longlive/mood-client.ts')).toBe(false);
+    // its sibling display modules are unaffected
+    expect(mergeable('apps/web/lib/longlive/mood-match.ts')).toBe(true);
+  });
+
+  // Route handlers OUTSIDE /api/ still MATCH the path allowlist (apps/web/app/
+  // covers them) — that is exactly why the content guard, not this file, is the
+  // fix for them. Documented here so nobody mistakes the path gate for enough.
+  it('vault route handlers still match the PATH allowlist (the content guard is what stops them)', () => {
+    expect(mergeable('apps/web/app/vault/tier0/route.ts')).toBe(true);
+    expect(mergeable('apps/web/app/vault/moment/[id]/route.ts')).toBe(true);
+  });
+
+  it('the checker-gated social image carve-out still matches (path level)', () => {
+    expect(mergeable('apps/web/public/social/queue-item.png')).toBe(true);
   });
 });
 
@@ -264,20 +445,189 @@ describe('the committed allowlist', () => {
     }
   });
 
-  it('still refuses app code and committed images', () => {
-    const entries = parseAllowlist(allowlistText).map((p) => p.entry);
+  it('now MERGES app code (widened 2026-08-11) but still refuses the gate, legal, API, and non-social images', () => {
+    const parsed = parseAllowlist(allowlistText);
+    const allow = parsed.filter((p) => !p.deny).map((p) => p.entry);
+    const deny = parsed.filter((p) => p.deny).map((p) => p.entry);
+    const mergeable = (f: string) => allow.some((e) => covers(e, f)) && !deny.some((d) => covers(d, f));
+
+    // Widened: app code now auto-merges on full green (docs/decisions.md 2026-08-11).
+    for (const f of ['apps/web/app/page.tsx', 'apps/web/lib/longlive/tracks.ts', 'packages/core/src/map.ts']) {
+      expect(mergeable(f), `${f} should now auto-merge`).toBe(true);
+    }
+    // Still human-only: the gate itself, API/data layer, legal, and public
+    // media outside the one carved-out social directory.
     for (const f of [
-      'apps/web/app/page.tsx',
-      'apps/web/lib/longlive/tracks.ts',
-      'apps/web/public/social/2026-07-17-electric-lady-1.png',
+      'apps/web/app/api/feedback/route.ts',
+      'apps/web/app/privacy/page.tsx',
+      'apps/web/public/eras/red.png',
+      'apps/web/public/favicon.ico',
       '.github/workflows/auto-merge-content.yml',
       '.github/content-automerge-allowlist.txt',
       'package.json',
     ]) {
-      expect(
-        entries.some((e) => covers(e, f)),
-        `${f} must NOT auto-merge`,
-      ).toBe(false);
+      expect(mergeable(f), `${f} must NOT auto-merge`).toBe(false);
     }
+  });
+
+  // Flipped 2026-08-11 (docs/decisions.md, same date): this test used to
+  // assert the opposite — that apps/web/public/social/2026-07-17-electric-
+  // lady-1.png could never be covered by any allowlist entry, per the
+  // 2026-07-28 "a bot-picked image gets human eyes" policy. A same-day
+  // decisions.md entry (approved by Joey; Wyatt verbally, relayed by Joey
+  // 2026-08-11 evening) carves out `apps/web/public/social/` specifically,
+  // superseding 2026-07-28 for that one directory: a queue item's own
+  // dedicated photo, already validated by check-drafts.mjs's media rules,
+  // can now auto-merge alongside its queue JSON.
+  it('covers a real committed image under the carved-out apps/web/public/social/ directory', () => {
+    const entries = parseAllowlist(allowlistText).map((p) => p.entry);
+    expect(entries.some((e) => covers(e, 'apps/web/public/social/2026-07-17-electric-lady-1.png'))).toBe(true);
+  });
+
+  // What this file's `covers()` CANNOT express, and does not try to: a path
+  // being allowlisted is necessary but not sufficient for
+  // apps/web/public/social/** specifically — the `enable` job in
+  // .github/workflows/auto-merge-content.yml applies its own per-file
+  // constraints at runtime (extension must be .png/.jpg/.jpeg, size ≤1.5MB,
+  // git blob type must be "file" — not a symlink/submodule) BEFORE treating
+  // a covered image path as mergeable, since a plain path-prefix file has no
+  // way to express file properties. A non-image extension, an oversized
+  // file, or a symlink under this same directory therefore still declines —
+  // enforced by that workflow step, not by this allowlist file or this
+  // test suite (which only covers the allowlist FILE's own format and
+  // coverage rules, not PR-time file content).
+});
+
+// ── the self-amendment bar (2026-08-11) ───────────────────────────────────
+describe('NEVER_ALLOWLIST — the self-amendment bar', () => {
+  it('overlaps() matches in both directions', () => {
+    // entry sits inside a barred area
+    expect(overlaps('docs/agents/austin.md', 'docs/agents/')).toBe(true);
+    // entry is broad enough to swallow a barred area
+    expect(overlaps('docs/', 'docs/agents/')).toBe(true);
+    expect(overlaps('', '.github/')).toBe(true);
+    // unrelated siblings do not
+    expect(overlaps('docs/audits/', 'docs/agents/')).toBe(false);
+    expect(overlaps('supabase/seed/', 'supabase/migrations/')).toBe(false);
+  });
+
+  it('refuses every barred prefix, by name, with its reason', () => {
+    for (const [prefix, reason] of Object.entries(NEVER_ALLOWLIST)) {
+      const problems = run({
+        allowlistText: `supabase/seed/\n${prefix}\n`,
+        generatedOnDisk: [],
+        syncTargets: [],
+        pathKind: () => 'dir',
+      });
+      expect(problems.join('\n'), prefix).toContain('may NEVER be auto-merged');
+      expect(problems.join('\n'), prefix).toContain(reason);
+    }
+  });
+
+  it('refuses a broad entry that would swallow a barred area', () => {
+    // The realistic mistake: someone allowlists `docs/` to unblock doc chores
+    // and silently hands away the charters and the decision log with it.
+    const problems = run({
+      allowlistText: 'docs/\n',
+      generatedOnDisk: [],
+      syncTargets: [],
+      pathKind: () => 'dir',
+    });
+    expect(problems.join('\n')).toContain('docs/agents/');
+    expect(problems.join('\n')).toContain('docs/decisions.md');
+  });
+
+  it('refuses a barred path even when it exists on disk (authority, not typo)', () => {
+    const problems = run({
+      allowlistText: '.github/workflows/auto-merge-content.yml\n',
+      generatedOnDisk: [],
+      syncTargets: [],
+      pathKind: () => 'file',
+    });
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('must itself always need a human');
+    expect(problems[0]).not.toContain('does not exist');
+  });
+
+  it('leaves legitimate content paths alone', () => {
+    for (const entry of ['supabase/seed/', 'social/queue/', 'docs/audits/']) {
+      const problems = run({
+        allowlistText: `${entry}\n`,
+        generatedOnDisk: [],
+        syncTargets: [],
+        pathKind: () => 'dir',
+      });
+      expect(problems, entry).toEqual([]);
+    }
+  });
+
+  it('every bar carries a real reason — the set has to stay arguable', () => {
+    for (const [prefix, reason] of Object.entries(NEVER_ALLOWLIST)) {
+      expect(reason.length, prefix).toBeGreaterThan(25);
+    }
+  });
+
+  it('the committed allowlist satisfies the bar (after the social exception and the app-code denies)', () => {
+    const parsed = parseAllowlist(read(ALLOWLIST_FILE));
+    const denies = parsed.filter((p) => p.deny).map((p) => p.entry);
+    for (const { entry } of parsed.filter((p) => !p.deny)) {
+      expect(
+        barredPrefixes(entry, NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS, denies),
+        `${entry} is barred`,
+      ).toEqual([]);
+    }
+  });
+});
+
+// ── the one narrowing: the apps/web/public/social/ carve-out ───────────────
+describe('NEVER_ALLOWLIST_EXCEPTIONS — the social-image narrowing', () => {
+  it('exempts the exact granted subtree and nothing broader or adjacent', () => {
+    // the granted subtree passes the bar
+    expect(barredPrefixes('apps/web/public/social/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS)).toEqual([]);
+    // the whole public dir does NOT — an exception narrows, it does not open
+    expect(
+      barredPrefixes('apps/web/public/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('apps/web/public/');
+    // a sibling that merely shares a prefix string is NOT swept in
+    expect(
+      barredPrefixes('apps/web/public/socialite/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('apps/web/public/');
+    // an unrelated public dir stays barred
+    expect(
+      barredPrefixes('apps/web/public/eras/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('apps/web/public/');
+    // and a broad `apps/` entry, which overlaps the bar, is not exempted either
+    expect(
+      barredPrefixes('apps/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('apps/web/public/');
+  });
+
+  it('an exception can only narrow the bar it lives inside, never a different one', () => {
+    // Every exception key must itself sit inside some barred prefix — otherwise
+    // it would be a free-floating grant, not a narrowing.
+    for (const x of Object.keys(NEVER_ALLOWLIST_EXCEPTIONS)) {
+      const inside = Object.keys(NEVER_ALLOWLIST).some((p) => x.startsWith(p));
+      expect(inside, `${x} must live inside a barred prefix`).toBe(true);
+    }
+  });
+
+  it('the committed allowlist actually exercises the exception (social is present and clears the bar)', () => {
+    const entries = parseAllowlist(read(ALLOWLIST_FILE)).map((p) => p.entry);
+    expect(entries).toContain('apps/web/public/social/');
+    expect(
+      barredPrefixes('apps/web/public/social/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toEqual([]);
+  });
+
+  it('checkAllowlist lets the social entry through but still bars the rest of public/', () => {
+    const base = 'supabase/seed/\napps/web/public/social/\n';
+    const kind = (p: string): 'file' | 'dir' | null =>
+      ['supabase/seed', 'apps/web/public/social', 'apps/web/public/eras'].includes(p) ? 'dir' : null;
+    expect(
+      run({ allowlistText: base, generatedOnDisk: [], syncTargets: [], pathKind: kind }),
+    ).toEqual([]);
+    const withEras = `${base}apps/web/public/eras/\n`;
+    const problems = run({ allowlistText: withEras, generatedOnDisk: [], syncTargets: [], pathKind: kind });
+    expect(problems.some((p) => p.includes('apps/web/public/eras/') && p.includes('may NEVER'))).toBe(true);
   });
 });
