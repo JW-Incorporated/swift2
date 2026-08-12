@@ -18,7 +18,7 @@ import path from 'node:path';
 import { fileURLToPath, URLSearchParams } from 'node:url';
 import { oauth1Header } from './lib/oauth1.mjs';
 import { GRAPH_VERSION } from './lib/platforms.mjs';
-import { countPostsOn, buildSnapshot } from './lib/growth.mjs';
+import { countPostsOn, countPostsByPlatformSince, buildSnapshot } from './lib/growth.mjs';
 import { utcDateOnly } from './lib/queue.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -108,8 +108,12 @@ async function main() {
   ]);
   const postedItems = await readPostedItems();
   const postsToday = countPostsOn(postedItems, date);
+  // The number the brief actually reports. `postsToday` is kept for history
+  // compatibility but is structurally near-always 0 at this workflow's 11:05
+  // UTC slot — see countPostsByPlatformSince's docstring.
+  const postsLast24h = countPostsByPlatformSince(postedItems, now);
 
-  const snapshot = buildSnapshot({ date, followers: { x, instagram, facebook }, postsToday });
+  const snapshot = buildSnapshot({ date, followers: { x, instagram, facebook }, postsToday, postsLast24h });
 
   await mkdir(METRICS_DIR, { recursive: true });
   await writeFile(path.join(METRICS_DIR, `${date}.json`), JSON.stringify(snapshot, null, 2) + '\n');
