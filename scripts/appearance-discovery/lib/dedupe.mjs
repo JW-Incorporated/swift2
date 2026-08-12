@@ -32,10 +32,14 @@ const MARKER_RE = /yt-appearance:([A-Za-z0-9_-]{11})/g;
 // human-filed intake issue about the same video blocks a machine duplicate.
 const WATCH_RE = /(?:youtube\.com\/(?:watch\?[^\s)"'<>]*?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/g;
 
-/** Every video id referenced by a set of issue bodies (markers + watch URLs). */
-export function knownIdsFromIssueBodies(bodies) {
+/**
+ * Every video id referenced by a set of TEXTS (markers + watch URLs). Used for
+ * issue titles and bodies, and for the seed corpus — one definition of "this
+ * text references video X", so the ledger and the seed check cannot drift.
+ */
+export function videoIdsIn(texts) {
   const ids = new Set();
-  for (const body of bodies) {
+  for (const body of texts) {
     const text = String(body ?? '');
     for (const m of text.matchAll(MARKER_RE)) ids.add(m[1]);
     for (const m of text.matchAll(WATCH_RE)) ids.add(m[1]);
@@ -51,10 +55,10 @@ export function knownIdsFromIssueBodies(bodies) {
  * in that case we cannot prove ANY candidate is unfiled, so the decision is a
  * refusal (`refuse` carries the reason) and nothing files. See header.
  *
- * `seedText` is the concatenated seed corpus: a video already cited anywhere
- * in `supabase/seed/**` is site content, not news.
+ * `seedIds` is the set of video ids already cited anywhere in
+ * `supabase/seed/**` — those are site content, not news.
  */
-export function planFilings(candidates, { ledger, seedText = '', max = 10 }) {
+export function planFilings(candidates, { ledger, seedIds = new Set(), max = 10 }) {
   if (!ledger || !ledger.ids) {
     return { toFile: [], skipped: [], refuse: 'intake-issue ledger unavailable — refusing to file (fail closed, see #2008)' };
   }
@@ -72,7 +76,7 @@ export function planFilings(candidates, { ledger, seedText = '', max = 10 }) {
     if (!VIDEO_ID_RE.test(c.videoId)) { skipped.push({ ...c, reason: 'malformed-id' }); continue; }
     if (acceptedThisRun.has(c.videoId)) { skipped.push({ ...c, reason: 'duplicate-in-run' }); continue; }
     if (ledger.ids.has(c.videoId)) { skipped.push({ ...c, reason: 'already-filed' }); continue; }
-    if (seedText.includes(c.videoId)) { skipped.push({ ...c, reason: 'already-in-seed' }); continue; }
+    if (seedIds.has(c.videoId)) { skipped.push({ ...c, reason: 'already-in-seed' }); continue; }
     if (toFile.length >= max) { skipped.push({ ...c, reason: 'over-per-run-cap' }); continue; }
     toFile.push(c);
     acceptedThisRun.add(c.videoId);

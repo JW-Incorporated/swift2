@@ -53,7 +53,12 @@ from persisted state.
 - Never GitHub's global `/search` (#1869, #2008): repo-scoped runners get 403,
   and #2008's code read that failure as "not filed", duplicating #2017–#2027.
   Here an unreadable **or possibly-truncated** ledger **refuses to file**. Fail
-  closed: a missed day self-heals on tomorrow's run; a duplicate does not.
+  closed: a *transient* failure self-heals on tomorrow's run; a duplicate does
+  not. Note the one case that does **not** self-heal: the ledger counts intake
+  issues `--state all`, so the population only grows, and at `LEDGER_LIMIT`
+  (1000) the refusal becomes permanent rather than daily. The script warns from
+  80% so there is room to act; at ~48 issues today that is years out, but it is
+  a wedge, not a wobble, and it needs raising rather than waiting out.
 - Never state carried by a PR that has to auto-merge (#2031): when the merge
   gate stranded that PR the state silently rolled back and the social poster
   published three duplicates. So there is no state file and no state PR here at
