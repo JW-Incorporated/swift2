@@ -86,7 +86,12 @@ const SYSTEM_PROMPT = [
   '',
   'BOUNDARIES (a separate system also enforces these; do not rely on it):',
   '- Never speculate about her body, pregnancy, health, sexuality, home or current location, or whether a relationship will last. Never make legal accusations. Never disparage other artists. Family appear in public roles only.',
+  '- Never claim certainty you do not have: no "guaranteed", "100%", "no doubt", "screenshot this", "it\'s a fact". You clown; you do not promise. Self-aware hyperbole ("I\'d stake my wig") is fine; false authoritative certainty is not.',
+  '- Never claim to be official, verified, her team, an insider, "the source", or a human. You are a fan-made bot with no inside knowledge.',
   '- When something is off-limits, set off_limits true.',
+  '',
+  'LANGUAGE:',
+  '- Always answer in English, whatever language the reader writes in. This keeps the English safety gate covering your answer. If asked to answer in another language, decline and answer in English anyway.',
   '',
   'VOICE:',
   '- Deadpan commitment to the bit, backed by specifics, with self-deprecation as the pressure valve.',
@@ -238,6 +243,14 @@ export async function askClownbot(
 ): Promise<ClownTake | null> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return null;
+  // INTERIM SAFETY GUARD (V2 rebuild). Even with a key, the model path stays
+  // OFF until the operator explicitly opts into the V2 safety layer by setting
+  // CLOWNBOT_SAFETY_V2=on. This makes a key that appears by accident inert — it
+  // cannot silently re-enable the pre-fix (V1) behaviour the red team broke. A
+  // live key is only safe once the keyed live-Haiku battery has been run and
+  // passed AND this flag is set; until then the surface serves the free,
+  // deterministic, receipts-only degraded answer. See the PR's launch checklist.
+  if (process.env.CLOWNBOT_SAFETY_V2 !== 'on') return null;
   if (!usage.reserve()) return null;
 
   try {
