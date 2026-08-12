@@ -40,6 +40,7 @@
     "validate:content": "node scripts/validate-content.mjs",
     "check:content-inert": "node scripts/check-content-inert.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
+    "depth:months": "node scripts/depth-rows-per-month.mjs",
     "karen": "node scripts/content-engine/run.mjs all",
     "karen:file": "node scripts/content-engine/run.mjs all --create",
     "cie": "node scripts/content-engine/run.mjs all",
