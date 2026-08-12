@@ -3913,6 +3913,13 @@ export default {
       month: 7,
       day: 22,
       category: 'tour',
+      // First `fandom` milestone (#1909): the scrubber's inaugural marker for
+      // something the fan *community* did — tens of thousands dancing in sync
+      // hard enough to register on a real seismometer — as distinct from the
+      // five kinds that mark what Taylor or her business did. Aggregate only,
+      // never a named fan (privacy-redlines §5); the moment's own outlet +
+      // seismologist sourcing already carries it.
+      milestone: { id: "m-mid-7", label: 'The "Swift Quake"', kind: "fandom" },
       title: 'The "Swift Quake": Seattle shows register as seismic activity',
       snippet:
         'Two nights at Lumen Field shook the ground like a 2.3-magnitude quake — beating the stadium\'s famous 2011 "Beast Quake," with dancing Swifties out-rumbling a Marshawn Lynch touchdown.',
@@ -5411,6 +5418,61 @@ export default {
             // viewing: portrait magazine cover, Travis's hooded face fills the
             // upper-middle with eyes about a quarter down the frame.
             focalPoint: '55% 28%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'friendship-bracelets-phenomenon',
+      significance: 'notable', // the defining image of Eras Tour fan culture, fan-originated and widely documented
+      year: 2023,
+      month: 3,
+      day: 17, // Eras Tour opening night, where the lyric became a tour-wide ritual
+      category: 'tour',
+      // Second `fandom` milestone (#1909): a fan-originated ritual documented
+      // by named outlets — a practice the community built, not the artist.
+      // Aggregate, never a named fan (privacy-redlines §5).
+      milestone: { id: "m-mid-8", label: "Friendship bracelets", kind: "fandom" },
+      // Cross-links: the other Eras Tour fan-culture beats of this era.
+      relatedIds: [
+        'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
+        'moment:vault-midnights-the-senate-holds-a-ticketmaster-hearing-in-swiftie-puns',
+      ],
+      title: 'Make the friendship bracelets: a lyric becomes the Eras Tour\'s currency',
+      snippet:
+        'A single line from Taylor\'s "You\'re On Your Own, Kid" — "make the friendship bracelets, take the moment and taste it" — turned into the tour\'s ritual: fans beading names, lyrics and inside jokes to trade by the armful at every stop.',
+      sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-eras-tour-friendship-bracelets-rcna99768',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The instruction was hiding in a bridge. On "You\'re On Your Own, Kid," the Midnights track fans read as the record\'s emotional core, Taylor sings "So make the friendship bracelets / Take the moment and taste it" — a line about grabbing fleeting joy before it\'s gone. When the Eras Tour opened in March 2023, Swifties took it literally, and the beaded friendship bracelet — a summer-camp craft, revived — became the tour\'s unofficial currency: fans spelled out song titles, lyrics, cat names and memes, then swapped them with strangers in stadium concourses, plenty leaving with strands running wrist to elbow. The habit jumped the fandom\'s borders — athletes, other artists and brands started trading them too — and the retail signal was real, with one bracelet-kit seller reporting purchases up more than 900%. It endured as the single most-cited picture of Eras Tour fan culture: a communal, handmade answer to a lyric, made by the crowd rather than handed down from the stage.',
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-eras-tour-friendship-bracelets-rcna99768',
+            source_title: 'Taylor Swift Eras Tour friendship bracelets: Why fans are trading them',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/flavor-flav-taylor-swift-friendship-bracelets-fans-1235351238',
+            source_title: 'How Flavor Flav Got Pulled Into the Taylor Swift Friendship-Bracelet Craze',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'BBC Newsround',
+            url: 'https://feeds.bbci.co.uk/newsround/articles/c0xx9yj7jjpo',
+            source_title: 'Taylor Swift: Why do fans make and swap friendship bracelets?',
+            publisher: 'BBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 5,
           },
         ],
       },

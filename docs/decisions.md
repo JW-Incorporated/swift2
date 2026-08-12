@@ -241,7 +241,6 @@ own success/failure — rejected, it would have caught neither cause.
 
 ---
 
-
 ## 2026-08-11 — A failed social post must turn the run red; the brief counts posts per platform over 24h
 
 **Decision:** Two changes, one to delivery and one to measurement.
