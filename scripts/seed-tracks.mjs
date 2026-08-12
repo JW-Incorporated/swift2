@@ -7,7 +7,7 @@
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import pg from 'pg';
+import { makeClient } from './lib/pg.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const tracksDir = join(here, '..', 'supabase', 'seed', 'tracks');
@@ -25,7 +25,7 @@ const files = readdirSync(tracksDir)
   .filter((f) => f.endsWith('.mjs') && !f.startsWith('_') && !f.endsWith('.dossiers.mjs'))
   .sort();
 
-const client = new pg.Client({ connectionString, ssl: { rejectUnauthorized: false } });
+const client = makeClient(connectionString);
 await client.connect();
 let notes = 0;
 try {
