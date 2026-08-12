@@ -621,6 +621,58 @@ as a policy change rather than a config fix.
 
 ---
 
+## 2026-08-11 — Queue exclusions are label-based and self-reporting, never hardcoded
+
+**Decision:** No agent prompt may exclude work by issue number. Exclusions are
+labels (`kevin-skip`, `cie:safety`, `cie:escalate`), every `kevin-skip` carries
+a reason and a review date in a comment on the ticket, and a deterministic daily
+sweep (`scripts/ops/unowned-sweep.mjs`) re-lists every parked ticket with its
+age. Separately, any issue opened with zero labels is auto-stamped `needs-triage`,
+which Kevin S3 now honours regardless of author.
+
+**Why:** Kevin's Stream 1 prompt subtracted a hardcoded set
+`{194,203,206,298,301,153,137,138}` from 2026-07-14 (introduced wholesale in the
+cloud-routine migration #520 with no rationale, no expiry, no tracking ticket).
+Those 8 tickets were unowned by construction — one was the PhotoDNA/NCMEC CSAM
+ticket, and five were watermarked-image fixes of a class Kevin had already fixed
+successfully elsewhere. Every scanner in the fleet pulls its queue with a filter,
+and nobody owns the complement of a union of filters: the same audit found 17
+open issues no scanner's filter reached at all. The individual tickets were never
+the bug; the silent, permanent, unreviewable exclusion was.
+
+**Alternatives considered:** (a) Just delete the 8 numbers — rejected, the next
+agent adds nine more; nothing structural changes. (b) A `--check` CI gate that
+fails `build` on any unlabeled issue — rejected, a human opening an issue must
+never turn `main` red. (c) A new triage agent — rejected, this is a deterministic
+set operation and CLAUDE.md rule 8 says codify it, not spend tokens on it.
+
+**Approved by:** Wyatt (CTO) — pending PR review.
+
+## 2026-08-11 — `needs-manual-a11y` gates the sign-off, not the build
+
+**Decision:** The label means "the *pass criterion* cannot be asserted by axe or
+a scripted probe." A fully-specified code fix is never blocked on
+assistive-technology availability: it ships, and the AT confirmation happens on a
+batched founder checklist (`docs/a11y-manual-queue.md`) run per milestone and
+before go-live. #657/#660/#1206 lose the label; #834/#835 keep it for their
+genuine residual but are buildable now.
+
+**Why:** The queue stood at 5 open, 0 ever closed, since the label was created on
+2026-07-15. All five were found by a scripted probe or a named axe rule and carry
+an exact file, line and fix — none needed AT to know what to do. The label was
+carrying three meanings at once ("AT needed to find it", "AT needed to confirm
+it", and — as Austin's fence read it — "do not build it"), so five specified
+fixes sat still for four weeks.
+
+**Alternatives considered:** (a) Charter an agent to do AT testing — rejected,
+emulating a screen reader and calling the result a pass is worse than an empty
+queue because it is not obviously empty. (b) A standing weekly AT chore —
+rejected, nobody will do it; batching per milestone amortises the expensive
+setup against a moment that already commands attention.
+
+**Approved by:** Wyatt (CTO) — pending PR review. Laura's charter edit included;
+the matching one-line Austin charter change is handed to that charter's owner.
+
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
 
 **Decision:** Fix the Growth desk's drafting instructions so Instagram posts
