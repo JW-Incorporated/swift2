@@ -1,7 +1,0 @@
-{
-  "platform": "x",
-  "body": "august 12, 2025, 12:12 a.m. eastern: a countdown on her site hit zero and left one blurred teaser. no title, no date. the reveal waited a day — a mint-green briefcase, album twelve, and a livestream that buckled at 1.3 million watching at once.\n\nlonglivets.com/?era=tloas&utm_source=x&utm_medium=social&utm_campaign=on-this-day",
-  "scheduledAt": "2026-08-12T15:00:00Z",
-  "campaign": "heartbeat:on-this-day",
-  "why": "Calendar slot 2026-08-12 15:00Z X, heartbeat:on-this-day, hook \"the date\". No Vault item is dated 08-12, but the Aug. 12, 2025 12:12 a.m. ET countdown is documented inside the Vault TLOAS item \"A mint-green briefcase on New Heights\" (sourced NBC News, Variety, CNN, Guinness World Records), which also carries the Aug. 13 episode, the mint-green briefcase, album No. 12 and the Guinness-certified 1.3M concurrent viewers when the stream crashed — so the date hook is real and sourced rather than the calendar’s fearless fallback. Deep link is /?era=tloas rather than /?item=: the item ids are ~70 characters of slug, and the era page lands the reader on the same timeline; noted here as a deliberate drafter call. Rollout mechanics only — no relationship framing, no other blocklist topic."
-}
