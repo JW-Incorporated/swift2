@@ -65,6 +65,26 @@ or don't ship a bot into this fandom at all right now) are Joey's call, not
 mine. See the PR body.
 
 **Approved by:** pending (Joey on posture, Wyatt on architecture).
+## 2026-08-11 — Product Definition of Done adopted: eight items gate the marketing push
+
+**Decision:** Joey and Wyatt (in person, 2026-08-11) defined the short-term
+product bar: no large marketing push until the eight items in
+`docs/definition-of-done.md` are complete — landing-page rethink (scroll-first
++ unmistakable nav), End Game/Blank Spaces card differentiation, Clue
+Web/Decode card differentiation, two new sections (Marketplace, Community), a
+full site-wide link-liveness pass made permanent, complete chronological video
+coverage with a Videos filter, a re-scoped "clown bot" (blocked on a fresh
+founder decision — the #36 no-go stands until then), and an era/album
+capitalization audit enforced by a checker. Wyatt reworks Marjorie's
+dashboard/brief around this list. `docs/launch-readiness.md` remains the
+historical gate record and now points to the new file.
+
+**Why:** the original launch gates are mostly closed; the founders needed a
+single agreed artifact for "what must be true before we drive real traffic,"
+owned the same way launch-readiness was — statuses move with PR links, items
+move only by founder decision.
+
+**Approved by:** Joey + Wyatt (verbal; documented at Joey's direction)
 ## 2026-08-11 — Auto-merge widened to app code, gated by full CI (not human review)
 
 **Decision:** Add app code — `apps/web/app/`, `apps/web/components/`,
