@@ -61,7 +61,7 @@
     "satori": "^0.29.0",
     "sharp": "^0.35.3",
     "tsx": "^4.23.11",
-    "typescript": "^5.5.4",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.66.0",
     "vitest": "^4.1.10"
   }
