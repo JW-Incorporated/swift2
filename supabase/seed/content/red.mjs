@@ -2710,5 +2710,29 @@ export default {
         ],
       },
     },
+
+    // ── YouTube-appearances research pass (2026-08-12) ──
+    // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
+    // and docs/research/2026-08-12-youtube-appearances-manifest.md.
+    {
+      year: 2012,
+      month: 10,
+      day: 23,
+      category: 'music',
+      title: 'Taking over Times Square on Good Morning America, one day after Red',
+      snippet:
+        'The morning after release day: a GMA fall-concert set in Times Square — "We Are Never Ever Getting Back Together," the title track on a red electric guitar, and "Love Story" for the crowd.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-whips-new-york-into-a-frenzy-on-good-morning-america-48822/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/019k5vbbqB0/hqdefault.jpg',
+      moment: {
+        context:
+          "Rolling Stone's live review described her whipping New York into a frenzy: an early-morning Times Square crowd singing along to the new album's singles the day after it went on sale — the first live outing for the Red songs in what became the biggest sales week in a decade. The Red era is the sparsest on official YouTube; the performance survives as a long-lived fan archive upload.",
+        sources: [
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-whips-new-york-into-a-frenzy-on-good-morning-america-48822/' },
+          { outlet: 'YouTube — Paul Henry (fan archive)', url: 'https://www.youtube.com/watch?v=019k5vbbqB0' },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

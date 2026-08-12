@@ -4535,6 +4535,13 @@ export default {
             reliability_score: 3,
             notes: 'Tartan Christian Dior carpet look and the Monse UFO minidress change (stylist Joseph Cassell Falconer)',
           },
+          // The Best Collaboration acceptance (the 9/11-anniversary remarks)
+          // on Access Hollywood's channel — oEmbed-verified 2026-08-12 (see
+          // candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — Access Hollywood',
+            url: 'https://www.youtube.com/watch?v=g55D_gAoC3I',
+          },
           {
             outlet: 'Forbes',
             url: 'https://www.forbes.com/sites/tonifitzgerald/2025/09/07/taylor-swift-skips--2025-vmas-stays-tied-for-record-wins/',
