@@ -66,15 +66,24 @@ jobs:
 
       # Scheduled runs always file. A manual run can ask for a dry run, which
       # makes zero GitHub calls and only reads RSS.
+      #
+      # Inputs cross into the shell as ENV VARS, never as `${{ }}` interpolated
+      # into the script text. Interpolation is textual substitution done before
+      # bash ever sees the line, so a dispatch input of `$(...)` or `; cmd` would
+      # execute with this job's GH_TOKEN (issues:write). As env vars they are
+      # inert data. The script itself re-validates them as numbers anyway.
       - name: Discover new appearances
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          MAX: ${{ inputs.max }}
+          MAX_AGE_DAYS: ${{ inputs.max_age_days }}
         run: |
           set -euo pipefail
-          ARGS="--max ${{ inputs.max || '10' }} --max-age-days ${{ inputs.max_age_days || '30' }}"
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
+          set -- --max "${MAX:-10}" --max-age-days "${MAX_AGE_DAYS:-30}"
+          if [ "${DRY_RUN:-false}" = "true" ]; then
             echo "DRY RUN — no issues will be filed"
           else
-            ARGS="--file $ARGS"
+            set -- --file "$@"
           fi
-          node scripts/appearance-discovery/discover.mjs $ARGS
+          node scripts/appearance-discovery/discover.mjs "$@"

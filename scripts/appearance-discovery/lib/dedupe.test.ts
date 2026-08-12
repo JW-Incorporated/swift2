@@ -63,4 +63,16 @@ describe('planFilings — stateless, fail-closed dedupe (#2008 / #2031 lessons)'
     expect(plan.toFile).toHaveLength(0);
     expect(plan.skipped[0].reason).toBe('malformed-id');
   });
+
+  // Codex review, 2026-08-12: the ledger only knows what PREVIOUS runs filed.
+  // Without in-run tracking, one video reaching the planner twice files twice —
+  // dedupe that only looks backwards is not dedupe.
+  it('never files the same id twice within a single run', () => {
+    const plan = planFilings(
+      [cand('AAAAAAAAAAA'), cand('AAAAAAAAAAA'), cand('BBBBBBBBBBB')],
+      { ledger: ledger([]) },
+    );
+    expect(plan.toFile.map((c) => c.videoId)).toEqual(['AAAAAAAAAAA', 'BBBBBBBBBBB']);
+    expect(plan.skipped.map((s) => s.reason)).toEqual(['duplicate-in-run']);
+  });
 });

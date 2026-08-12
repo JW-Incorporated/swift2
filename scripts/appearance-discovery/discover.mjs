@@ -64,6 +64,12 @@ async function fetchChannel(channel) {
   if (res.status !== 200) throw new Error(`${channel.name}: feed HTTP ${res.status}`);
   if (!looksLikeFeed(res.text)) throw new Error(`${channel.name}: response is not an Atom feed`);
   const { channelTitle, entries } = parseFeed(res.text);
+  // Zero entries from a channel that uploads constantly is not a quiet day —
+  // it is the signature of a feed shape change, and the regex parser's whole
+  // failure mode is returning nothing rather than erroring. Every watched
+  // channel is an active broadcaster, so treat empty as broken and say so.
+  // (Loud beats quiet: a silent no-op is indistinguishable from a working run.)
+  if (!entries.length) throw new Error(`${channel.name}: feed parsed to 0 entries (shape change?)`);
   return { channelTitle, entries };
 }
 
@@ -86,12 +92,27 @@ export function readSeedCorpus(root) {
 async function loadLedger() {
   const { stdout } = await gh([
     'issue', 'list', '--label', INTAKE_LABEL, '--state', 'all',
-    '--json', 'number,body', '--limit', String(LEDGER_LIMIT),
+    '--json', 'number,title,body', '--limit', String(LEDGER_LIMIT),
   ]);
-  const rows = JSON.parse(stdout || '[]');
+  // Empty stdout is NOT an empty ledger. A successful "no issues" result is
+  // still `[]` on stdout; genuinely blank output means the call produced
+  // nothing we can interpret, and #2008's whole lesson is that an
+  // uninterpretable dedupe read must not read as "nothing was filed" — that is
+  // the exact coercion that duplicated #2017–#2027. Throw, so the caller
+  // refuses.
+  if (!String(stdout).trim()) throw new Error('issue list returned no output');
+  const rows = JSON.parse(stdout);
+  if (!Array.isArray(rows)) throw new Error('issue list did not return an array');
   return {
-    ids: knownIdsFromIssueBodies(rows.map((r) => r?.body)),
+    // Titles as well as bodies: a hand-filed intake issue may carry the watch
+    // URL only in its title, and it still means "this one is already known".
+    ids: knownIdsFromIssueBodies(rows.flatMap((r) => [r?.title, r?.body])),
     issues: rows.length,
+    // `complete` is the truncation guard. It holds only because we ask for
+    // exactly LEDGER_LIMIT: scripts/lib/gh.mjs's REST fallback pages to
+    // ceil(limit/100) capped at 10 pages = 1000 rows, so any truncation lands
+    // AT the limit and trips this to false. Keep LEDGER_LIMIT <= 1000, or the
+    // fallback could silently return fewer rows than it claims are all of them.
     complete: rows.length < LEDGER_LIMIT,
   };
 }

@@ -63,12 +63,19 @@ export function planFilings(candidates, { ledger, seedText = '', max = 10 }) {
   }
   const toFile = [];
   const skipped = [];
+  // Ids accepted EARLIER IN THIS RUN. The ledger only knows what previous runs
+  // filed, so without this a video appearing twice in one sweep files twice —
+  // a feed can repeat an <entry>, and the same video can reach us from two
+  // watched channels. Dedupe that only looks backwards is not dedupe.
+  const acceptedThisRun = new Set();
   for (const c of candidates) {
     if (!VIDEO_ID_RE.test(c.videoId)) { skipped.push({ ...c, reason: 'malformed-id' }); continue; }
+    if (acceptedThisRun.has(c.videoId)) { skipped.push({ ...c, reason: 'duplicate-in-run' }); continue; }
     if (ledger.ids.has(c.videoId)) { skipped.push({ ...c, reason: 'already-filed' }); continue; }
     if (seedText.includes(c.videoId)) { skipped.push({ ...c, reason: 'already-in-seed' }); continue; }
     if (toFile.length >= max) { skipped.push({ ...c, reason: 'over-per-run-cap' }); continue; }
     toFile.push(c);
+    acceptedThisRun.add(c.videoId);
   }
   return { toFile, skipped, refuse: null };
 }
