@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { MOOD_AXES, type MoodAxis } from '../../../lib/longlive/types';
 import { matchMoods, type MoodMatch, type MoodQuery } from '../../../lib/longlive/mood-match';
-import { keywordQuery, isEmptyQuery, hasSignal } from '../../../lib/longlive/mood-keywords';
+import { keywordQuery, isEmptyQuery, hasSignal, hasBereavementSignal } from '../../../lib/longlive/mood-keywords';
 import { classifyMood } from '../../../lib/longlive/mood-client';
 import { moodUsage } from '../../../lib/longlive/mood-usage';
 import {
@@ -101,7 +101,14 @@ function isHeavy(query: MoodQuery): boolean {
   // (the model often asserts heartbreak without a valence number), so genuine
   // heartbreak still earns Block 2's line.
   const notMostlyHappy = (m.joy ?? 0) < 0.4 && (query.valence === undefined || query.valence <= 0.45);
-  return heavyAxis && notMostlyHappy;
+  // #2000 — the "sitting with something heavy?" intro was showing on FUN chips.
+  // The intro is about the slow songs that SIT WITH you, so two moods that trip
+  // the heavy-axis test but aren't that intro are excluded: an energetic mood
+  // ("feral about a bridge", energy ≥ 0.6) is cathartic-fun, not heavy; and a
+  // calm/nostalgia-led mood ("cardigan weather") is cozy/wistful, not heavy.
+  const energetic = (query.energy ?? 0) >= 0.6;
+  const soothingLed = (m.calm ?? 0) >= 0.6 || (m.nostalgia ?? 0) >= 0.75;
+  return heavyAxis && notMostlyHappy && !energetic && !soothingLed;
 }
 
 /** The mood vector we DO log (safety doc Block 5) — derived numbers, never text. */
@@ -194,6 +201,14 @@ export async function POST(req: Request): Promise<Response> {
   const query: MoodQuery = classified ? classified.query : keywordQuery(text);
   const source: Source = classified ? 'model' : 'keyword';
   const degraded = classified === null;
+
+  // #1984 — gate the grief canon on an explicit bereavement signal in the raw
+  // text, for BOTH paths (the model doesn't know about this flag; keywordQuery
+  // already sets it, and re-asserting is idempotent). Runs strictly AFTER the
+  // crisis check above, so it can never re-open a crisis bypass. Without a signal
+  // the flag stays unset and the matcher excludes the bereavement songs, so
+  // "I feel numb" / "stressed about work" can never surface a song about a death.
+  if (hasBereavementSignal(text)) query.bereavement = true;
 
   // Defense in depth: the model can catch crisis phrasings the keyword list
   // misses. If it flags one, honor Block 1 and return no songs.

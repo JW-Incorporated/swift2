@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { POST } from './route';
+import { MOOD_STARTERS } from '../../../lib/longlive/mood-starters';
+import { BEREAVEMENT_SLUGS } from '../../../lib/longlive/mood-match';
 
 // Post JSON to the route with a chosen client IP so the per-IP rate limiter
 // doesn't bleed between unrelated cases.
@@ -170,5 +172,77 @@ describe('POST /api/mood', () => {
       if (res.status === 429) sawLimit = true;
     }
     expect(sawLimit).toBe(true);
+  });
+
+  // #1984 — the grief-canon gate, end to end. Ordinary sadness must reach songs
+  // but never a bereavement song; a genuine bereavement must reach them.
+  it('"I feel numb" returns songs but never the grief canon (#1984)', async () => {
+    const res = await post({ text: 'I feel numb' }, '10.2.0.1');
+    const json = await res.json();
+    expect(json.kind).toBe('matches');
+    expect(json.picks.length).toBeGreaterThan(0);
+    for (const p of json.picks) expect(BEREAVEMENT_SLUGS.has(p.slug)).toBe(false);
+  });
+
+  it('an explicit bereavement reaches the grief songs (#1984)', async () => {
+    const res = await post({ text: 'my grandma just died' }, '10.2.0.2');
+    const json = await res.json();
+    expect(json.kind).toBe('matches');
+    expect(json.picks.some((p: { slug: string }) => BEREAVEMENT_SLUGS.has(p.slug))).toBe(true);
+  });
+
+  // #2000 — the "sitting with something heavy?" wellness intro was showing on
+  // FUN chips. It must show only for genuinely heavy moods.
+  it('the "feral about a bridge" FUN chip gets NO heavy intro (#2000)', async () => {
+    const s = MOOD_STARTERS.find((x) => x.label === 'feral about a bridge')!;
+    const res = await post({ moods: s.moods, energy: s.energy, valence: s.valence }, '10.2.0.3');
+    const json = await res.json();
+    expect(json.kind).toBe('matches');
+    expect(json.intro).toBeFalsy();
+  });
+
+  it('the "cardigan weather" (cozy) chip gets NO heavy intro (#2000)', async () => {
+    const s = MOOD_STARTERS.find((x) => x.label === 'cardigan weather')!;
+    const res = await post({ moods: s.moods, energy: s.energy, valence: s.valence }, '10.2.0.4');
+    const json = await res.json();
+    expect(json.intro).toBeFalsy();
+  });
+
+  it('a genuinely heavy chip still gets the heavy intro (#2000)', async () => {
+    const s = MOOD_STARTERS.find((x) => x.label === 'someone said "we need to talk"')!;
+    const res = await post({ moods: s.moods, energy: s.energy, valence: s.valence }, '10.2.0.5');
+    const json = await res.json();
+    expect(json.intro).toBeTruthy();
+    expect(json.intro).toContain('heavy');
+  });
+
+  // HARD CONSTRAINT regression: the crisis/abuse battery (#2002) must still fire
+  // ahead of any scoring. These changes sit downstream of the crisis check; if a
+  // crisis input ever reached the matcher this would go red.
+  it('the crisis / abuse battery still fires — no crisis input reaches songs', async () => {
+    const battery: Array<[string, 'crisis']> = [
+      ['i want to die', 'crisis'],
+      ['I want to end my life', 'crisis'],
+      ['there is no reason to live', 'crisis'],
+      ['nobody would notice if I was gone', 'crisis'],
+      ['I took all the pills', 'crisis'],
+      ['my boyfriend hits me', 'crisis'],
+      ['he hurts me', 'crisis'],
+      ['my dad abuses me', 'crisis'],
+      ['he threatens to kill me', 'crisis'],
+    ];
+    for (const [i, [text]] of battery.entries()) {
+      const res = await post({ text }, `10.3.0.${i}`);
+      const json = await res.json();
+      expect(json.kind, `crisis must fire for: ${text}`).toBe('crisis');
+      expect(json.picks).toBeUndefined();
+    }
+  });
+
+  it('the abuse tier still leads with the DV hotline after the changes (#2002)', async () => {
+    const res = await post({ text: 'my partner is violent' }, '10.3.1.0');
+    const json = await res.json();
+    expect(json.kind).toBe('crisis');
+    expect(json.message.join(' ')).toContain('1-800-799-7233');
   });
 });
