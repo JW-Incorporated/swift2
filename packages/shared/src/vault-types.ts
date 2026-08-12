@@ -438,16 +438,61 @@ export interface Theory {
   sources: SourceRef[];
 }
 
-/** What kind of visual-media work a `VideoWork` row records. */
+/**
+ * What kind of visual-media work a `VideoWork` row records.
+ *
+ * Two families, and the split is the point (2026-08-12):
+ *
+ * - **WORKS** — visual media Taylor made or headlined: the video *is* the
+ *   creative output. `music_video` … `performance`.
+ * - **APPEARANCES** — Taylor appearing as herself inside someone else's
+ *   programming: a couch, a podium, a microphone, a carpet. The video is a
+ *   record of an event, not a work she released.
+ *
+ * The appearance family exists because 25 oEmbed-verified appearances landed
+ * in the era timelines with nowhere legitimate to sit on the Videos rail
+ * (PR #2035). Stretching `performance` to cover an award *speech* would have
+ * made the rail dishonest — someone talking at a podium is not a performance.
+ *
+ * Deliberately FOUR appearance values, not one per venue type: talk show,
+ * podcast and radio sit-downs are the same thing to a reader (`interview`),
+ * and a premiere Q&A, a red carpet and a news-segment reveal are all
+ * publicity appearances (`press_event`). `award_speech` stays separate from
+ * `speech` because "thanks my parents, holding a trophy" and a 20-minute
+ * commencement address read as different records to a fan.
+ */
 export const VIDEO_KINDS = [
+  // Works
   'music_video',
   'lyric_video',
   'short_film',
   'tour_film',
   'documentary',
   'performance',
+  // Appearances
+  /** Sit-down conversation: talk show, podcast, or radio/streaming interview. */
+  'interview',
+  /** Accepting or presenting at an awards show — a podium, a trophy. */
+  'award_speech',
+  /** A standalone address outside an awards show (commencement, honors). */
+  'speech',
+  /** Publicity appearance: premiere Q&A, red carpet, news-segment reveal. */
+  'press_event',
 ] as const;
 export type VideoKind = (typeof VIDEO_KINDS)[number];
+
+/**
+ * The appearance half of `VIDEO_KINDS` (see above). Exported so the UI and the
+ * validators can reason about "is this a work she made, or a room she walked
+ * into" without re-listing the values and drifting.
+ */
+export const APPEARANCE_VIDEO_KINDS = [
+  'interview',
+  'award_speech',
+  'speech',
+  'press_event',
+] as const;
+export type AppearanceVideoKind = (typeof APPEARANCE_VIDEO_KINDS)[number];
 
 /**
  * One official video/visual-media work (music video, short film, tour film,
