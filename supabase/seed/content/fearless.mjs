@@ -107,6 +107,12 @@ export default {
             outlet: 'Grammy.com',
             url: 'https://www.grammy.com/news/grammy-rewind-watch-taylor-swift-win-album-year-fearless-2010/',
           },
+          // The acceptance speech on the Recording Academy's own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — GRAMMYS',
+            url: 'https://www.youtube.com/watch?v=BFk2NjdJ1yY',
+          },
         ],
         photos: [
           {

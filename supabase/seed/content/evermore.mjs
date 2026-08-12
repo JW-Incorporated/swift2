@@ -1622,6 +1622,12 @@ export default {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-nyu-commencement-speech-full-transcript-1235072824/',
           },
+          // The full commencement address on NYU's own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — New York University',
+            url: 'https://www.youtube.com/watch?v=OBG50aoUwlI',
+          },
         ],
         photos: [
           {
@@ -3034,6 +3040,12 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 2,
           },
+          // The announcement moment on Entertainment Tonight's channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — Entertainment Tonight',
+            url: 'https://www.youtube.com/watch?v=0H4Bhf-KPZ0',
+          },
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/',
@@ -3394,6 +3406,49 @@ export default {
             focalPoint: '40% 40%',
           },
         ],
+      },
+    },
+
+    // ── YouTube-appearances research pass (2026-08-12) ──
+    // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
+    // and docs/research/2026-08-12-youtube-appearances-manifest.md.
+    {
+      year: 2020,
+      month: 12,
+      day: 14,
+      category: 'music',
+      title: 'On Kimmel, three days after evermore: how the secret held',
+      snippet:
+        'Her first talk-show stop of the evermore era, days after the surprise drop and the night after turning 31 — keeping an album secret in quarantine, fan theories, and the "William Bowery" pseudonym question.',
+      sourceUrl: 'https://www.youtube.com/watch?v=ionfV_r8s40',
+      thumbnailUrl: 'https://i.ytimg.com/vi/ionfV_r8s40/hqdefault.jpg',
+      moment: {
+        context:
+          'The remote sit-down with Jimmy Kimmel covered the folklore/evermore surprise-album playbook from the inside: how the second secret held, what the fans had already decoded, and the songwriting credit — "William Bowery" — whose real identity she would confirm elsewhere (covered in the folklore era\'s Long Pond reveal item). The full interview is on the show\'s official channel.',
+        sources: [
+          { outlet: 'YouTube — Jimmy Kimmel Live', url: 'https://www.youtube.com/watch?v=ionfV_r8s40' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2021,
+      month: 11,
+      day: 13,
+      category: 'music',
+      title: 'Ten minutes, one song: "All Too Well" takes over SNL',
+      snippet:
+        'A rare single-song musical-guest slot: the full 10-minute "All Too Well" live on SNL, on a leaf-strewn stage with the short film rolling behind her — one performance instead of the customary two.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-snl-all-too-well-10-minute-version-performance-video-9659774/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/nJr_8l0AEWE/hqdefault.jpg',
+      moment: {
+        context:
+          'One day after Red (Taylor\'s Version) arrived, SNL gave its musical guest a single extended slot rather than the usual two songs — and she used all of it on the 10-minute "All Too Well," acoustic guitar in hand, red lipstick, snow falling by the final verse as footage from her short film played behind her. The Alaïa jumpsuit she wore is covered in this era\'s fashion items; the official performance video lives on her own channel.',
+        sources: [
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-snl-all-too-well-10-minute-version-performance-video-9659774/' },
+          { outlet: 'YouTube — Taylor Swift', url: 'https://www.youtube.com/watch?v=nJr_8l0AEWE' },
+        ],
+        photos: [],
       },
     },
   ],

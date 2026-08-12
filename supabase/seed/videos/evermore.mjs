@@ -80,6 +80,49 @@ export default {
       ],
     },
     {
+      // YouTube-appearances research pass (2026-08-12): official upload
+      // oEmbed-verified 2026-08-12 (title + author_name "Taylor Swift").
+      slug: 'all-too-well-10-min-snl-performance',
+      kind: 'performance',
+      title: 'All Too Well (10 Minute Version) — Live on Saturday Night Live',
+      director: null,
+      releasedOn: '2021-11-13',
+      relatedSongs: ['All Too Well (10 Minute Version)'],
+      summary:
+        'A rare single-song SNL musical-guest slot, one day after Red (Taylor\'s Version): the full ten minutes live on a leaf-strewn stage, short-film footage rolling behind her, snow falling by the last verse.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=nJr_8l0AEWE',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=nJr_8l0AEWE',
+          oembed_fetched_at: '2026-08-12',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=nJr_8l0AEWE',
+          source_title: 'Taylor Swift - All Too Well (10 Minute Version) (Live on Saturday Night Live)',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-12',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload — verified via YouTube oEmbed 2026-08-12',
+        },
+        press(
+          'https://www.billboard.com/music/pop/taylor-swift-snl-all-too-well-10-minute-version-performance-video-9659774/',
+          "'SNL': Taylor Swift Performs \"All Too Well (10 Minute Version)\"",
+          'Billboard',
+          'documents the single-song musical-guest slot and the short-film backdrop',
+        ),
+      ],
+    },
+    {
       slug: 'i-bet-you-think-about-me-mv',
       kind: 'music_video',
       title: 'I Bet You Think About Me',

@@ -2570,5 +2570,49 @@ export default {
         ],
       },
     },
+
+    // ── YouTube-appearances research pass (2026-08-12) ──
+    // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
+    // and docs/research/2026-08-12-youtube-appearances-manifest.md.
+    {
+      year: 2010,
+      month: 11,
+      day: 1,
+      category: 'music',
+      title: 'A Speak Now victory lap on Ellen, one week after release',
+      snippet:
+        "Seven days after Speak Now dropped, she was back on Ellen's couch — talking the new album and getting caught by one of Ellen's signature ambush scares.",
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-ellen-appearances-8511659/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/f4kEl3f-ySc/hqdefault.jpg',
+      moment: {
+        context:
+          "Ellen was a recurring stop through Taylor's first decade — Billboard later catalogued the full run of visits, pranks and confessionals between the two. This Nov. 1, 2010 sit-down landed in the middle of Speak Now's release week, part of the promo blitz around what became a million-copy debut. No official clip exists; the interview survives on YouTube as a long-lived fan archive upload.",
+        sources: [
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-ellen-appearances-8511659/' },
+          { outlet: 'YouTube — tswiftfan13 (fan archive)', url: 'https://www.youtube.com/watch?v=f4kEl3f-ySc' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2010,
+      month: 11,
+      day: 21,
+      category: 'music',
+      title: '"Back to December" meets "Apologize" at the 2010 AMAs',
+      snippet:
+        'Her first awards-show performance of the Speak Now era: "Back to December" at the piano, folding in a passage of OneRepublic\'s "Apologize" — an apology song answering an apology song.',
+      sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-american-music-awards-moments-amas-8544183/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/L8-HPbEemcY/hqdefault.jpg',
+      moment: {
+        context:
+          'Billboard counts the mash-up among her defining American Music Awards moments. A month after the album arrived, she performed its second single with the OneRepublic interpolation woven into the back half — the same night her blunt-bangs debut got its own headlines (covered in this era\'s fashion items). No official AMA channel version has surfaced; the performance survives on YouTube as a long-lived fan archive upload.',
+        sources: [
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/awards/taylor-swift-american-music-awards-moments-amas-8544183/' },
+          { outlet: 'YouTube — LadyStefani (fan archive)', url: 'https://www.youtube.com/watch?v=L8-HPbEemcY' },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

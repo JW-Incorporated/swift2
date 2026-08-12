@@ -444,6 +444,12 @@ export default {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-ama-singer-beats-michael-jackson-for-most-american-music-awards-2019-performance-artist-of-the-decade/',
           },
+          // The Artist of the Decade acceptance on the AMAs' own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — American Music Awards',
+            url: 'https://www.youtube.com/watch?v=0pbSQ_0qbqU',
+          },
         ],
         photos: [
           {
@@ -1333,6 +1339,13 @@ export default {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-cover-story-interview-billboard-women-in-music-2019-8545822/',
           },
+          // The full ~15-minute speech (no official Billboard upload exists;
+          // long-lived fan archive) — oEmbed-verified 2026-08-12 (see
+          // candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — TaylorShreya13 (fan archive)',
+            url: 'https://www.youtube.com/watch?v=hyf9vJB8V3s',
+          },
         ],
         // Photo-enrichment pass (2026-07-18, #762): added the on-stage speech
         // photo from Billboard's own story on the night (billboard.com CDN,
@@ -1690,6 +1703,13 @@ export default {
             source_type: 'primary',
             accessed_at: '2026-07-28',
             reliability_score: 4,
+          },
+          // The opening-night premiere Q&A with Swift and Lana Wilson, filmed
+          // by a film journalist at Sundance — oEmbed-verified 2026-08-12
+          // (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — Scott D. Menzel',
+            url: 'https://www.youtube.com/watch?v=JqIt0H6XqpA',
           },
           {
             outlet: 'The Washington Post',
@@ -2938,6 +2958,30 @@ export default {
           },
         ],
         context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
+      },
+    },
+
+    // ── YouTube-appearances research pass (2026-08-12) ──
+    // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
+    // and docs/research/2026-08-12-youtube-appearances-manifest.md.
+    {
+      year: 2019,
+      month: 8,
+      day: 26,
+      category: 'music',
+      title: 'Video of the Year — and a petition plug from the VMA podium',
+      snippet:
+        'Accepting the top prize for "You Need to Calm Down," she pointed the room at her Equality Act petition, noting its signature count had already cleared the threshold that warrants a White House response.',
+      sourceUrl: 'https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8z4icNgFSPI/hqdefault.jpg',
+      moment: {
+        context:
+          'Her first Video of the Year win since 2015 — and the first VMAs of the Lover era — turned into the night\'s political moment: rather than a thank-you list, she used the speech to push the Equality Act petition her "You Need to Calm Down" video had launched in June (covered in this era\'s business items), tapping her wrist as she noted the White House had yet to respond. The rainbow Versace blazer she wore is covered in this era\'s fashion items.',
+        sources: [
+          { outlet: 'CBS News', url: 'https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech' },
+          { outlet: 'YouTube — MTV', url: 'https://www.youtube.com/watch?v=8z4icNgFSPI' },
+        ],
+        photos: [],
       },
     },
   ],
