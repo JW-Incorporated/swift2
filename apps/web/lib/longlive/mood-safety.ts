@@ -30,6 +30,32 @@ export const CRISIS_MESSAGE: readonly string[] = [
 ] as const;
 
 /**
+ * Block 1 (abuse variant) — the response when the disclosure is that another
+ * person is hurting, threatening, or controlling the reader (domestic/partner/
+ * family violence), not self-directed ideation. A suicide line is the wrong
+ * lead resource for "he hits me"; the National Domestic Violence Hotline is.
+ *
+ * The DV resource line is load-bearing and must survive edits intact:
+ *   National Domestic Violence Hotline — call 1-800-799-7233, text START to 88788.
+ *
+ * We still keep the 988/741741 line below it (a person in an abusive situation
+ * is also at elevated suicide risk, and the Crisis Text Line handles both), but
+ * we LEAD with the DV hotline so the most relevant help is first. The ideation
+ * tier keeps {@link CRISIS_MESSAGE} unchanged.
+ */
+export const DV_RESOURCE_LINE =
+  'If someone is hurting, threatening, or controlling you: you are not overreacting, and it is not your fault. In the US you can reach the National Domestic Violence Hotline any time — call 1-800-799-7233, or text START to 88788. It’s free, confidential, and available 24/7.';
+
+export const CRISIS_MESSAGE_ABUSE: readonly string[] = [
+  CRISIS_MESSAGE[0],
+  CRISIS_MESSAGE[1],
+  DV_RESOURCE_LINE,
+  CRISIS_MESSAGE[2],
+  CRISIS_MESSAGE[3],
+  CRISIS_MESSAGE[4],
+] as const;
+
+/**
  * Block 2 — the one added line above the songs for heavy-but-not-crisis moods
  * (genuine sadness, grief, heartbreak, loneliness — the normal heavy stuff
  * this feature exists for). Deliberately NOT a resources dump: that would
@@ -130,7 +156,170 @@ const CRISIS_PHRASES: readonly string[] = [
   'i cant go on',
   'i can not go on',
   'i give up on life',
+
+  // #1980 — passive / obfuscated ideation the old list keyed around. These are
+  // still explicit risk content by a screening instrument's reading (a wish to
+  // be gone, a method, a plan, a goodbye), just phrased in the indirect way real
+  // readers use. Kept in Tier A (no exemptions) because none of them has an
+  // ordinary hyperbolic sense the way the die-family in Tier B does — but see
+  // GUARDED_IDEATION below for the two that DO have a benign completion, and the
+  // note on "kill me" at the end of the file for the one we deliberately skip.
+  'if i was gone',
+  'if i were gone',
+  'if i wasnt here',
+  'if i were not here',
+  'nobody would notice if i was gone',
+  'want to be gone',
+  'wish i was gone',
+  'dont want to be here anymore',
+  'do not want to be here anymore',
+  'no point in living',
+  'no point in being here',
+  'dont see the point anymore',
+  'do not see the point anymore',
+  'stop existing',
+  'want to stop existing',
+  'dont want to exist',
+  'do not want to exist',
+  'wish i didnt exist',
+  'wish i did not exist',
+  'wrote the note',
+  'written the note',
+  'wrote a note',
+  'wrote a goodbye',
+  'writing a goodbye',
+  'goodbye letter',
+  'goodbye note',
+  // Overdose-by-method. Kept to the UNAMBIGUOUS quantifier forms: bare "took
+  // the pills" is deliberately NOT here — it collides with ordinary medication
+  // adherence ("I took the pills the doctor prescribed"), which the over-refusal
+  // guard forbids us from firing on. The quantified forms have no benign reading.
+  'took all the pills',
+  'took a bunch of pills',
+  'took a whole bottle of pills',
+  'swallowed all the pills',
+  'swallowed a bunch of pills',
+  'took a bottle of pills',
 ] as const;
+
+/**
+ * #1980 — ideation phrasings that also carry an ordinary, non-risk completion,
+ * so they fire unless the reader marks the benign sense within the next few
+ * words. "I want to end it" is a disclosure; "I want to end it with him" is a
+ * breakup. Same machinery as Tier B's hyperbole/negation windows, but the
+ * clearer set is per-phrase because the benign completion is specific.
+ *
+ * Kept SMALL and specific on purpose — a guarded phrase is one we could not put
+ * in Tier A without over-refusing, and every entry here is a phrase we would
+ * rather fire on the ambiguous case than miss the real one, so the clearer list
+ * only holds completions that are unmistakably about ending a relationship or a
+ * task, never a life.
+ */
+const GUARDED_IDEATION: readonly { phrase: string; clearers: readonly string[] }[] = [
+  { phrase: 'want to end it', clearers: ['with', 'between'] },
+  { phrase: 'wanna end it', clearers: ['with', 'between'] },
+  { phrase: 'ready to end it', clearers: ['with', 'between'] },
+] as const;
+
+/**
+ * Abuse / immediate-danger tier (#1979). A reader disclosing that another
+ * person is hurting, threatening, or controlling them is in crisis, and the old
+ * lexicon had NO abuse language at all — "he hurts me" fell through to the
+ * heartbreak playlist because "hurt" is a heartbreak keyword. This tier fires
+ * the crisis path AND flags {@link CrisisAssessment.abuse}, so the route leads
+ * with the DV hotline ({@link CRISIS_MESSAGE_ABUSE}) rather than a suicide line.
+ *
+ * Unconditional entries are unambiguous on their own — "being abused",
+ * "threatens to kill me" have no benign reading in a feelings box.
+ */
+const ABUSE_PHRASES: readonly string[] = [
+  'being abused',
+  'getting abused',
+  'abuses me',
+  'is abusing me',
+  'abused me',
+  'threatens to kill me',
+  'threatening to kill me',
+  'threatened to kill me',
+  'threatens to hurt me',
+  'threatening to hurt me',
+  'threatens me',
+  'beats me up',
+  'is beating me',
+  'is hitting me',
+  'attacks me',
+  'chokes me',
+  'strangles me',
+] as const;
+
+/**
+ * Harm verbs that DO collide with ordinary Swiftie speech ("this song hits
+ * me", "beats me why he left", "it hurts me that he forgot") and so fire only
+ * when a human subject sits just before them. Two shapes:
+ *
+ *  - `physical` also clears on an idiom follower ("hits me up" = messages me,
+ *    "beats me at" = a game, "hits me back"), because a human subject alone
+ *    isn't enough to tell "he hits me" from "he hits me up".
+ *  - `directed` needs only the subject — "he hurts me", "my partner is violent"
+ *    have no comparable benign completion once a person is the subject.
+ */
+const ABUSE_GATED_PHYSICAL: readonly string[] = ['hits me', 'beats me'];
+const ABUSE_GATED_DIRECTED: readonly string[] = [
+  'hurts me',
+  'hurting me',
+  'is hurting me',
+  'keeps hurting me',
+  'will hurt me',
+  'gonna hurt me',
+  'going to hurt me',
+  'is violent',
+  'gets violent',
+  'is being violent',
+  'is abusive',
+];
+
+/** Human-subject tokens that make a bare harm verb a disclosure of violence. */
+const ABUSE_SUBJECTS: readonly string[] = [
+  'he',
+  'she',
+  'they',
+  // Contractions normalize with the apostrophe stripped ("he's" → "hes"), so
+  // list those forms too or "im scared hes going to hurt me" slips through.
+  'hes',
+  'shes',
+  'theyre',
+  'him',
+  'her',
+  'husband',
+  'wife',
+  'partner',
+  'boyfriend',
+  'girlfriend',
+  'bf',
+  'gf',
+  'mom',
+  'mum',
+  'mother',
+  'dad',
+  'father',
+  'parents',
+  'stepdad',
+  'stepfather',
+  'stepmom',
+  'ex',
+  'uncle',
+  'aunt',
+  'brother',
+  'sister',
+  'boss',
+  'roommate',
+];
+
+/** Followers that clear a physical-harm match as an idiom, checked immediately after. */
+const ABUSE_PHYSICAL_CLEARERS: readonly string[] = ['up', 'at', 'back'];
+
+/** How many words before a gated harm verb we look for a human subject. */
+const ABUSE_SUBJECT_WINDOW_WORDS = 6;
 
 /**
  * Tier B — genuine risk language that also has a heavy everyday hyperbolic
@@ -285,25 +474,115 @@ function precededByNegation(haystack: string, start: number): boolean {
 }
 
 /**
- * True when the reader's raw text carries a crisis signal. Runs first in the
- * route, on the raw text, BEFORE any model call — and its result is never
- * logged with the text attached (see the route). Held to the standard in the
- * lexicon note above: explicit ideation or self-harm content, never ordinary
- * negative emotion.
+ * True when a human subject ({@link ABUSE_SUBJECTS}) sits within
+ * {@link ABUSE_SUBJECT_WINDOW_WORDS} words before `start`. This is what tells
+ * "he hits me" (a person is the subject) from "this song hits me" (it isn't),
+ * so a gated harm verb never fires on ordinary fan speech.
  */
-export function isCrisisText(text: string): boolean {
+function precededBySubject(haystack: string, start: number): boolean {
+  const before = haystack.slice(0, start + 1).trim().split(' ');
+  const window = ` ${before.slice(-ABUSE_SUBJECT_WINDOW_WORDS).join(' ')} `;
+  return ABUSE_SUBJECTS.some((s) => window.includes(` ${s} `));
+}
+
+/**
+ * True when the word immediately after `end` is one of `clearers` — the generic
+ * "does the next word mark this as the benign sense?" check used by both the
+ * physical-harm idiom guard ("hits me up") and {@link GUARDED_IDEATION}
+ * ("end it with him"). Only the very next token counts: the benign completion
+ * of these phrases is always adjacent.
+ */
+function followedByWord(haystack: string, end: number, clearers: readonly string[]): boolean {
+  const next = haystack.slice(end).trim().split(' ')[0] ?? '';
+  return clearers.includes(next);
+}
+
+/**
+ * True when the text discloses another person hurting, threatening, or
+ * controlling the reader — the abuse / immediate-danger tier (#1979).
+ * Unconditional phrases fire on their own; gated harm verbs fire only with a
+ * human subject in front (and, for the physical ones, no idiom follower).
+ */
+function isAbuseText(normalized: string): boolean {
+  if (ABUSE_PHRASES.some((phrase) => phraseHits(normalized, phrase).length > 0)) return true;
+
+  const physical = ABUSE_GATED_PHYSICAL.some((phrase) =>
+    phraseHits(normalized, phrase).some(
+      (hit) =>
+        precededBySubject(normalized, hit.start) &&
+        !followedByWord(normalized, hit.end, ABUSE_PHYSICAL_CLEARERS),
+    ),
+  );
+  if (physical) return true;
+
+  return ABUSE_GATED_DIRECTED.some((phrase) =>
+    phraseHits(normalized, phrase).some((hit) => precededBySubject(normalized, hit.start)),
+  );
+}
+
+/**
+ * The deterministic crisis verdict for a piece of raw text, split into whether
+ * it is a crisis at all and whether the crisis is an abuse/immediate-danger
+ * disclosure (which changes which resources we lead with). Runs first in the
+ * route, on the raw text, BEFORE any model call — and its result is never
+ * logged with the text attached (see the route).
+ *
+ * Order matters: abuse is checked first so an abuse disclosure that also trips a
+ * generic phrase still routes to the DV resources.
+ */
+export interface CrisisAssessment {
+  /** True when we must show resources and no songs. */
+  crisis: boolean;
+  /** True when the crisis is another person hurting the reader (→ DV resources). */
+  abuse: boolean;
+}
+
+export function assessCrisis(text: string): CrisisAssessment {
   const normalized = ` ${normalizeForCrisis(text)} `;
+
+  // Abuse / immediate-danger tier — checked first so it wins the resource choice.
+  if (isAbuseText(normalized)) return { crisis: true, abuse: true };
 
   // Tier A — no exemptions. Negation and hyperbole guards deliberately do NOT
   // apply here.
-  if (CRISIS_PHRASES.some((phrase) => phraseHits(normalized, phrase).length > 0)) return true;
+  if (CRISIS_PHRASES.some((phrase) => phraseHits(normalized, phrase).length > 0)) {
+    return { crisis: true, abuse: false };
+  }
+
+  // Guarded ideation (#1980) — fires unless the benign completion follows.
+  const guarded = GUARDED_IDEATION.some(({ phrase, clearers }) =>
+    phraseHits(normalized, phrase).some((hit) => !followedByWord(normalized, hit.end, clearers)),
+  );
+  if (guarded) return { crisis: true, abuse: false };
 
   // Tier B — fires unless EVERY occurrence is cleared as figurative or negated.
   // One unhedged "I want to die" in a message is enough; a reader does not have
   // to phrase a disclosure carefully to be heard.
-  return HEDGED_CRISIS_PHRASES.some((phrase) =>
+  const hedged = HEDGED_CRISIS_PHRASES.some((phrase) =>
     phraseHits(normalized, phrase).some(
       (hit) => !followedByHyperbole(normalized, hit.end) && !precededByNegation(normalized, hit.start),
     ),
   );
+  return { crisis: hedged, abuse: false };
 }
+
+/**
+ * True when the reader's raw text carries a crisis signal. Held to the standard
+ * in the lexicon note above: explicit ideation, self-harm, or abuse content,
+ * never ordinary negative emotion. Thin wrapper over {@link assessCrisis} for
+ * the many callers that only need the boolean.
+ */
+export function isCrisisText(text: string): boolean {
+  return assessCrisis(text).crisis;
+}
+
+/**
+ * "kill me" in a self-context (#1980) was on the red-team list and is
+ * DELIBERATELY NOT added here. Bare "kill me" is the single most common English
+ * hyperbole for mild frustration — "kill me now, my alarm didn't go off",
+ * "ugh, kill me" — and it sits in the ordinary-feelings regression battery as a
+ * must-NOT-fire. Real self-directed intent reaches us as "kill myself" (Tier A)
+ * or the die-family (Tier B); the only phrase that adds "kill me" without
+ * torching the over-refusal guarantee is the directed "threatens to kill me",
+ * which IS in {@link ABUSE_PHRASES}. Left out on purpose — see the PR.
+ */

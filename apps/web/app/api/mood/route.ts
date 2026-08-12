@@ -7,10 +7,11 @@ import { classifyMood } from '../../../lib/longlive/mood-client';
 import { moodUsage } from '../../../lib/longlive/mood-usage';
 import {
   CRISIS_MESSAGE,
+  CRISIS_MESSAGE_ABUSE,
   HEAVY_INTRO,
   REFUSAL_MESSAGE,
   UNCLEAR_MESSAGE,
-  isCrisisText,
+  assessCrisis,
 } from '../../../lib/longlive/mood-safety';
 
 // Mood Chat — Stage 4: the API route. See docs/proposals/2026-07-19-mood-chat.md
@@ -175,9 +176,16 @@ export async function POST(req: Request): Promise<Response> {
 
   // CRISIS CHECK FIRST — deterministic, before any spend or matching. A song is
   // the wrong answer to "I want to die": return the resources block and NO
-  // songs. Do NOT log the text (not even that a crisis fired against it).
-  if (isCrisisText(text)) {
-    return NextResponse.json({ kind: 'crisis' as const, message: CRISIS_MESSAGE, source: 'crisis' });
+  // songs. Do NOT log the text (not even that a crisis fired against it). When
+  // the disclosure is abuse (another person hurting the reader), lead with the
+  // DV hotline instead of the suicide line (#1979).
+  const crisis = assessCrisis(text);
+  if (crisis.crisis) {
+    return NextResponse.json({
+      kind: 'crisis' as const,
+      message: crisis.abuse ? CRISIS_MESSAGE_ABUSE : CRISIS_MESSAGE,
+      source: 'crisis',
+    });
   }
 
   // Classify. Model when a key + budget exist; otherwise the free keyword
