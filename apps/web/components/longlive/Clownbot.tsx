@@ -127,14 +127,17 @@ export function Clownbot() {
   const ledger = useMemo(() => recentLedger(), []);
   const wigLine = useMemo(() => wigCountLine(), []);
 
-  const ask = useCallback(async (question: string) => {
+  const ask = useCallback(async (question: string, sourceId?: string) => {
     setBusy(true);
     setError(null);
     try {
       const res = await fetch('/api/clownbot', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ text: question }),
+        // A suggested chip carries the lore `sourceId` it was authored against,
+        // so its intended receipt always resolves and the chip never dead-ends
+        // (#1990). Free-typed questions omit it. JSON.stringify drops undefined.
+        body: JSON.stringify({ text: question, sourceId }),
       });
       if (!res.ok) throw new Error(String(res.status));
       setResult(await res.json());
@@ -163,7 +166,7 @@ export function Clownbot() {
     (p: SuggestedPrompt) => {
       if (busy) return;
       setText(p.text);
-      void ask(p.text);
+      void ask(p.text, p.sourceId);
     },
     [busy, ask],
   );
