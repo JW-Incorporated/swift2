@@ -2,9 +2,12 @@ import { describe, expect, it } from 'vitest';
 
 import {
   CRISIS_MESSAGE,
+  CRISIS_MESSAGE_ABUSE,
+  DV_RESOURCE_LINE,
   HEAVY_INTRO,
   REFUSAL_MESSAGE,
   UNCLEAR_MESSAGE,
+  assessCrisis,
   isCrisisText,
   normalizeForCrisis,
 } from './mood-safety';
@@ -119,6 +122,30 @@ const ORDINARY_FEELINGS: readonly string[] = [
   'so happy I could cry',
   'feeling nostalgic about high school',
   'winning, quietly',
+
+  // #1979 collisions — the abuse tier must not fire on ordinary Swiftie speech
+  // that happens to contain a harm verb without a human subject, or with an
+  // idiom follower. These are the exact strings the subject/idiom guards exist
+  // to protect.
+  'this song really hits me',
+  'that lyric hits me every time',
+  'the bridge hits me so hard',
+  'it hurts me that he forgot my birthday', // emotional hurt, "it" subject → heartbreak, not abuse
+  'beats me why he even bothered', // "beats me" = I have no idea
+  'he beats me at chess every single time',
+  'she always beats me at Mario Kart',
+  'hit me up when you land',
+  'he hits me up every day', // = messages me
+  'this movie is so violent',
+  'nobody can hurt me anymore', // defiance, bare "hurt me" (not matched)
+  "you can't hurt me",
+
+  // #1980 collisions — guarded ideation must clear on the benign completion,
+  // and bare medication adherence must not fire (only quantified overdose does).
+  'I want to end it with him', // breakup, not ideation
+  'I wanna end it with her, we are done',
+  'I took the pills the doctor prescribed and I feel a bit better',
+  'took my meds like I was told',
 ];
 
 /** MUST fire. Explicit ideation, intent, method, or self-harm. */
@@ -162,6 +189,57 @@ const GENUINE_RISK: readonly string[] = [
   // Existing approved behaviour, preserved deliberately (see the note below).
   'i cant go on like this',
   'I give up on life',
+
+  // #1980 — passive / obfuscated ideation the old lexicon skipped.
+  'nobody would notice if I was gone',
+  'if I was gone it would be easier for everyone',
+  'if I were gone nobody would care',
+  'I want to end it',
+  'honestly I just want to end it',
+  'I wrote the note already',
+  'I have written the note',
+  'I wrote a goodbye letter to my parents',
+  'I left a goodbye note',
+  'I took all the pills',
+  'I took a whole bottle of pills last night',
+  'I swallowed all the pills',
+  "I don't want to be here anymore",
+  'there is no point in living',
+  'I don’t see the point anymore',
+  'I just want to stop existing',
+  "I don't want to exist",
+  'I wish I didn’t exist',
+];
+
+/**
+ * #1979 — the abuse / immediate-danger tier. MUST fire, AND must be flagged as
+ * abuse so the route leads with the DV hotline rather than the suicide line.
+ * These used to fall through: "hurts me" was a heartbreak keyword and the rest
+ * had no entry at all, so a reader in danger got a breakup playlist.
+ */
+const ABUSE_RISK: readonly string[] = [
+  // "hurt(s) me" in the violence sense — the exact regressions in the ticket.
+  'he hurts me',
+  'my mom hurts me',
+  'he is hurting me',
+  'she keeps hurting me',
+  'im scared he will hurt me',
+  "I'm scared he's going to hurt me",
+  // Physical violence.
+  'my boyfriend hits me',
+  'he hits me',
+  'my husband beats me',
+  'my girlfriend hits me when she is angry',
+  'he is hitting me',
+  // Named abuse / threats / control.
+  'my dad abuses me',
+  'im being abused',
+  'I think I am being abused',
+  'he threatens to kill me',
+  'my partner threatens to hurt me',
+  'my partner is violent',
+  'he gets violent when he drinks',
+  'my husband is abusive',
 ];
 
 describe('crisis detection — genuine risk signals', () => {
@@ -173,6 +251,73 @@ describe('crisis detection — genuine risk signals', () => {
 describe('crisis detection — ordinary feeling must reach the songs', () => {
   it.each(ORDINARY_FEELINGS)('does NOT fire on %j', (text) => {
     expect(isCrisisText(text)).toBe(false);
+  });
+});
+
+describe('abuse tier (#1979) — fires AND routes to the DV resources', () => {
+  it.each(ABUSE_RISK)('fires as an abuse-tier crisis on %j', (text) => {
+    const a = assessCrisis(text);
+    expect(a.crisis).toBe(true);
+    expect(a.abuse).toBe(true);
+  });
+
+  it('the exact ticket regressions no longer read as a breakup playlist', () => {
+    // Before the fix these returned songs (heartbreak) or unclear. Now crisis.
+    for (const t of ['he hurts me', 'my mom hurts me', 'he is hurting me', 'im scared he will hurt me']) {
+      expect(isCrisisText(t)).toBe(true);
+    }
+  });
+
+  it('ideation stays ideation — no DV misfire on self-directed risk', () => {
+    for (const t of ['i want to kill myself', 'i want to die', 'there is no reason to live']) {
+      const a = assessCrisis(t);
+      expect(a.crisis).toBe(true);
+      expect(a.abuse).toBe(false);
+    }
+  });
+
+  it('a harm verb needs a human subject — ordinary fan speech does not fire', () => {
+    expect(assessCrisis('this song hits me').abuse).toBe(false);
+    expect(assessCrisis('this song hits me').crisis).toBe(false);
+    expect(isCrisisText('it hurts me that he forgot')).toBe(false);
+    expect(isCrisisText('he beats me at chess every time')).toBe(false);
+    expect(isCrisisText('he hits me up every day')).toBe(false);
+  });
+});
+
+describe('the DV resource line (#1979)', () => {
+  it('the abuse message leads with the National DV Hotline specifics', () => {
+    const joined = CRISIS_MESSAGE_ABUSE.join(' ');
+    expect(joined).toContain('1-800-799-7233');
+    expect(joined).toContain('START to 88788');
+    // DV resources come before the general suicide line in the abuse message.
+    const dvAt = CRISIS_MESSAGE_ABUSE.indexOf(DV_RESOURCE_LINE);
+    const line988 = CRISIS_MESSAGE_ABUSE.findIndex((l) => l.includes('988'));
+    expect(dvAt).toBeGreaterThanOrEqual(0);
+    expect(dvAt).toBeLessThan(line988);
+  });
+
+  it('the ideation message is unchanged — no DV line, keeps 988/741741', () => {
+    const joined = CRISIS_MESSAGE.join(' ');
+    expect(joined).not.toContain('1-800-799-7233');
+    expect(joined).toContain('988');
+    expect(joined).toContain('741741');
+  });
+});
+
+describe('guarded ideation (#1980) clears on the benign completion', () => {
+  it('"want to end it" fires, "end it with him" does not', () => {
+    expect(isCrisisText('I want to end it')).toBe(true);
+    expect(isCrisisText('I want to end it with him')).toBe(false);
+    expect(isCrisisText('I want to end it all')).toBe(true);
+  });
+
+  it('"kill me" hyperbole is deliberately never a crisis', () => {
+    // On the red-team list, intentionally omitted (see the note in mood-safety).
+    expect(isCrisisText('kill me now, my alarm did not go off')).toBe(false);
+    expect(isCrisisText('ugh kill me')).toBe(false);
+    // But the DIRECTED threat form is caught by the abuse tier.
+    expect(assessCrisis('he threatens to kill me').abuse).toBe(true);
   });
 });
 

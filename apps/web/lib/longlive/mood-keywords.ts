@@ -117,6 +117,29 @@ const HIGH_VALENCE = ['happy', 'joy', 'joyful', 'excited', 'in love', 'celebrati
 const LOW_VALENCE = ['sad', 'heartbroken', 'depressed', 'down', 'miserable', 'lonely', 'crying', 'grief', 'hopeless', 'empty', 'grumpy', 'annoyed', 'frustrated', 'angry', 'awful', 'terrible', 'horrible', 'rough', 'bad day', 'worst', 'sucks', 'exhausted', 'drained', 'anxious', 'stressed', 'upset', 'bummed', 'gloomy'];
 
 /**
+ * Hyperbole/idiom seeds (#1981). A figurative "die"/"kill" idiom carries a real
+ * feeling but no literal mood word, so it lands ZERO axis hits and used to
+ * dead-end in UNCLEAR ("this is killing me", "dying to see her live"). The
+ * crisis suppressor in mood-safety.ts correctly clears these from the crisis
+ * path — this is the other half of that decision: give the cleared idiom a
+ * sensible default vector so the reader gets songs, not a blank.
+ *
+ * SAFETY: this runs only inside {@link keywordQuery}, which the route reaches
+ * strictly AFTER {@link isCrisisText} has already returned false. It can never
+ * re-open a crisis bypass — by the time we seed here, the crisis decision is
+ * made and done. And we seed ONLY when nothing else matched, so an idiom never
+ * overrides a genuine mood word elsewhere in the message.
+ *
+ * Two senses, mapped to the nearest of the eight axes:
+ *  - excited/anticipation ("dying to see", "to die for", "die laughing") → joy,
+ *    high energy, high valence.
+ *  - impatient/self-conscious ("this is killing me", "die of embarrassment") →
+ *    catharsis (where anxiety lives), mild energy, low-ish valence.
+ */
+const EXCITED_IDIOMS = ['dying to see', 'dying to', 'to die for', 'die laughing', 'dying laughing', 'die of laughter', 'die of happiness', 'die of joy', 'die of excitement'];
+const ANXIOUS_IDIOMS = ['killing me', 'is killing me', 'die of embarrassment', 'die of cringe', 'die of shame', 'dying of embarrassment', 'die of boredom'];
+
+/**
  * Inflections a listed keyword is allowed to appear in. A hand-built lexicon
  * cannot list every form of every word, and the gap is not harmless: "pissed"
  * was listed but "pissing me off" was not, which is precisely how the founder's
@@ -170,6 +193,18 @@ export function keywordQuery(text: string): MoodQuery {
     // Saturating: 1 hit → 0.6, 2 → ~0.8, 3+ → ~0.9+. One clear signal is
     // enough to assert an axis; extra hits nudge it toward certainty.
     moods[axis] = Math.min(1, 0.6 + 0.2 * (hits - 1));
+  }
+
+  // #1981 — a figurative die/kill idiom lands no axis hit and would dead-end in
+  // UNCLEAR. Seed a default vector so it returns songs. Only when nothing else
+  // matched (an idiom never overrides a real mood word), and only ever reached
+  // AFTER the crisis check has cleared (see the note on IDIOM seeds).
+  if (Object.keys(moods).length === 0) {
+    if (EXCITED_IDIOMS.some((w) => contains(hay, w))) {
+      moods.joy = 0.6;
+    } else if (ANXIOUS_IDIOMS.some((w) => contains(hay, w))) {
+      moods.catharsis = 0.6;
+    }
   }
 
   const query: MoodQuery = { moods };

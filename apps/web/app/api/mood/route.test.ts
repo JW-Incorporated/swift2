@@ -45,6 +45,42 @@ describe('POST /api/mood', () => {
     expect(json.message.join(' ')).toContain('988');
   });
 
+  it('abuse disclosure returns the DV hotline, not just the suicide line (#1979)', async () => {
+    const res = await post({ text: 'my boyfriend hits me' }, '10.1.0.20');
+    const json = await res.json();
+    expect(json.kind).toBe('crisis');
+    expect(json.picks).toBeUndefined();
+    const joined = json.message.join(' ');
+    expect(joined).toContain('1-800-799-7233');
+    expect(joined).toContain('START to 88788');
+  });
+
+  it('"he hurts me" no longer returns a breakup playlist (#1979)', async () => {
+    const res = await post({ text: 'he hurts me' }, '10.1.0.21');
+    const json = await res.json();
+    expect(json.kind).toBe('crisis');
+    expect(json.picks).toBeUndefined();
+    expect(json.message.join(' ')).toContain('1-800-799-7233');
+  });
+
+  it('self-directed ideation keeps the 988 message, no DV line (#1980)', async () => {
+    const res = await post({ text: 'there is no reason to live' }, '10.1.0.22');
+    const json = await res.json();
+    expect(json.kind).toBe('crisis');
+    const joined = json.message.join(' ');
+    expect(joined).toContain('988');
+    expect(joined).not.toContain('1-800-799-7233');
+  });
+
+  it('hyperbole returns songs instead of dead-ending in unclear (#1981)', async () => {
+    for (const [i, text] of ['this is killing me', "I'm dying to see the Eras tour"].entries()) {
+      const res = await post({ text }, `10.1.0.3${i}`);
+      const json = await res.json();
+      expect(json.kind).toBe('matches');
+      expect(json.picks.length).toBeGreaterThan(0);
+    }
+  });
+
   it('free text with no key falls back to keyword matcher and still returns songs', async () => {
     const res = await post({ text: 'heartbroken and angry, he betrayed me' }, '10.1.0.3');
     const json = await res.json();
