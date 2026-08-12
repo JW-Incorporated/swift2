@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
 
 ## Taylor Swift Makes History With This Major Career Milestone - instyle.com
 
@@ -128,11 +128,12 @@ Stories: 83
 ## Taylor Swift’s music has been removed from all White House social media accounts - KBTX News 3
 
 - first seen: 2026-08-11 22:00 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift’s music has been removed from all White House social media accounts  KBTX News 3
 - sources:
   - [unverified] KBTX News 3 — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOOThsS3ItN2k5MHJnWFFpLUl5REUzTDZtNVByWmp4bkMxNUViQ0NJODEwQ1cwSDdrYlh2NHAzeHVfbDdtVWVXUXBFaHl1OE53MjRLa2RLT0Qyb18yQXV0aGV0YmtTcEswSWJ4eTFkb2hWVzJ3RDBMSmhWN1R2ZHFFTGtvb0RJcmotbjkyemxxRUphd3F4cVY1RmxROExnYVBKTFBiZVpEYmliNVXSAb8BQVVfeXFMT2NwSzNjXzA1eThKM3VWM1UtM1NnVzFscURwdTh0NjBDaTFvOERxbVZJdjYtdFZaVUQ4cVlKcXpkWlBTdm9Rd3Z1c0F4Yy1yalBhWlN1dVFSTU02MXVjR3NzYWREZ3ZZRnhGUHpqT2Z6NzlWVDUyN2VLdU5nb0o2UXhqaUhaeWpkZGhJQjhzVjduX0ktVFhCeU5uUXdVa2VJSXNpUHN5Wm5aeU83VjFlR0RxVmRyRENTbnNwMFBjTG8?oc=5
   - [unverified] WKYT — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOS0M0SVZwa3o4SE0wdHZVTmE0VkFzcTFKaGtJSUtrSzlMaXFNTmc2MzV0bVhWaVNoaHFwVU1obWU5My10MzJ0NDk2QVBGeHh3Wi13dVByRGJYZmMtd2h6eUNaOFh5U2dtZEVhdEgxQ3pqeVRMOHlGcC13Q2ZleDFMUVBXOGxhVXVTMXl1eUlLWS1YMGFzVGV5NzhEaWpGMks4VXlqMGJsQXhaTzDSAb8BQVVfeXFMTzdVMUxMZVhYeF9KdFVuRVlqLWNsV00wVEU2QWNjRGxBeWJ3NktOb090bnZnbktXZ0FQbTNIZVBtLTBod1h0by10TjcyU3dJSWp2SjFyRGZyaXNZYS1BMGQxZmFXWmw2djFHbHV4WkxmMmhybG9INk5YQkt1UFBhcVhPaGFRWDNKMkJoMjhfTlNUVTlhM2VuNzdWOU8xcmlCRjhqb19HUFBfdmtwS09KQnVwZE9rbExDZDBpZmg1cnc?oc=5
+  - [unverified] WVIR — https://news.google.com/rss/articles/CBMirgFBVV95cUxOMzlfeGwxcW9CaDhBbzQxZ3dGMHdZQW1neVVsS0xMVWtsdFZmSm9Fc0NhSmU1Y2pZdThTU244cUloZEZrNXdib2pBbzJCS24wSXFyR2lhRDRNMkpUYjNpSTdyVnFCZW5TcjZRSHh3VmstTXYyN2U1R3hVLXRRZmhNQVRkSlMwekhycUNvU3o2LXlNeFBwX19FYU12S2gzUFYzYW92T2pYVHlaY2hhU3fSAcIBQVVfeXFMTzFuMHZ6Tzd1dGNFRVZxLTRLSGFscWFBeGpWak1jQkJkUXBSMEJ6NW5GMFVhMlljOHhpSDNOblJXckFYTXhlQ1p1Z3AzZXYtRjBZZWpHREYxN1VueU5xRlNnbk1POXhFVVEzRUI3TnZEb3pQOTJnOEZ6Qm13WEg1Y2pxakhOU0lqb1hTblRsLVdEb2hZNEVjWlhURlR0UmFjQ01TYWhOa1d3VG9aR2YteWVJdkhFV3gtdVVNa3J2ZjlIWnc?oc=5
 
 ## Taylor Swift Becomes Youngest-Ever Musician to Be Inducted Into 2026 Nashville Songwriters Hall of F
 
@@ -712,11 +713,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: ‘I don’t know where his head’s at’: Travis Kelce sparks concerns for his NFL 14th season after marriage w  The Times of India
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMktqS1pDLXhRRTZ1MjRSZGtjQkNaS3BFMjRMMjVzS3Q0UDlmMjRNdDJSdE9ReVBraHdRWXJ4dlNiMmdEaVlyLWtBbGF2RXRVODllQUdZdkE0QzlseHYwUjhmamQxNXRKWTdkODBadE9ndWFvU1A1QXJCRjN1c1M4LWpjSnB4SVJUd1ltaUhldms0WFhxWjhQdEFSbGZ4cVIxVDBMdXhzQ2lPX0xmTzFPeTVyUXV0ZUxtQXZVaEk4Mmc1V0dPa2xobjNyQ29KS0lqeFg4YzZVYWhyUWRabkZBcm1IVzhlVE1McmJiaXNsaDVEUWZqOFJ6N0hhTjRKRmZOREx3UUdMSE0tdjJyZjhIUlJyOWJEQmlJQ21UemNycXhXLTJRV2xxWm1iOFc0MDlqMUhtN0R30gG7AkFVX3lxTE5HdFdpemJKcmpfS0QzaTZpTXJyWWdkNWNpM1RvQVZSUUFlTUs3bXpJdkp2TFVJaFJOYktLZFo3MWIteEZIcFFtb1JfcFE2Tm1OaXZjNHJHRm9rWFREY3UwTk8wcm81Umx1S01qdUN2MzNpZTNpeV9qbDV3bXoyZ1F6b1BXeTRSbS1IX1IweWJlM2QtQ3RZMGhYazJSQlpoWmhjY0ctSkNwa3RNOGJSb2x5LVJLUlM4M0FreUkxMWlkMkw2RDFoTDYxVXdRS2xBemhUVHM3U3BWaDYtSEdtRzBVZmRqMUlqdHJTZV81QWtfX0lCaWdzNmU0cnFRNzRoZWlzVjA4VGxnV1RMYW1OWHpkZTN0SGUxQ0R0ZHIwWlVHMm04ZFhpTFNlLVR0OTIwdDY2MmlpZ2pQMm0tNA?oc=5
-
-## Taylor Swift makes her music unavailable to Trump on TikTok after trolling - thenationalnews.com
-
-- first seen: 2026-08-09 05:55 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift makes her music unavailable to Trump on TikTok after trolling  thenationalnews.com
-- sources:
-  - [unverified] thenationalnews.com — https://news.google.com/rss/articles/CBMiywFBVV95cUxOc1FDZmNBSUF3dnFlQUg0WUNsSmNMT3hHOFpoNG42a0Ftbnd4azNlODJOTG54UUVuQ0pjQV9JdHRQZDZTRUpqT0VaaV9IQVQ3MnY3UVZZUzhzdURDWDVPSXJWM3hoVjRtdWlGams2U1F6bHd5QWViS2M4UXYzWndiZm9xbGVnNXNpNTN5eVBNaGlVXzh4ajJPUkRSWjlVRkdDbHhtYmpHT2xtSERwSzZnTTBsRGo2M0ZzVkF5RDVpMjZNb0dFUHFLY2pMUQ?oc=5
