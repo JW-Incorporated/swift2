@@ -2726,7 +2726,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/019k5vbbqB0/hqdefault.jpg',
       moment: {
         context:
-          "Rolling Stone's live review described her whipping New York into a frenzy: an early-morning Times Square crowd singing along to the new album's songs the day after it went on sale, with the record-setting opening week still being counted (the first-week number is covered in this era's business items).",
+          "An early-morning Times Square crowd sang along to the new album's songs the day after it went on sale — New York whipped into a frenzy, in the words of Rolling Stone's live review — with the record-setting opening week still being counted (the first-week number is covered in this era's business items).",
         sources: [
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-whips-new-york-into-a-frenzy-on-good-morning-america-48822/' },
           { outlet: 'YouTube — Paul Henry (fan archive)', url: 'https://www.youtube.com/watch?v=019k5vbbqB0' },
