@@ -15,8 +15,11 @@
 //       documentary   a documentary or studio-sessions film
 //       performance   her performing a song — live TV, awards stage, session
 //
-//     APPEARANCES — her, as herself, inside someone else's programming; the
-//     video is the record of an event, not a work she released:
+//     APPEARANCES — an era moment as it played out inside someone else's
+//     programming; the video is the record of an event, not a work she
+//     released. (Usually her on someone's couch/stage/carpet; occasionally the
+//     broadcast where the news itself broke. Never general commentary about
+//     her — the bar is a specific dated event with an official upload.)
 //       interview     a sit-down conversation: talk show, podcast, or
 //                     radio/streaming interview (Fallon, New Heights, Zane Lowe)
 //       award_speech  accepting or presenting at an awards show — a podium

@@ -445,9 +445,19 @@ export interface Theory {
  *
  * - **WORKS** — visual media Taylor made or headlined: the video *is* the
  *   creative output. `music_video` … `performance`.
- * - **APPEARANCES** — Taylor appearing as herself inside someone else's
- *   programming: a couch, a podium, a microphone, a carpet. The video is a
- *   record of an event, not a work she released.
+ * - **APPEARANCES** — an era moment as it played out inside someone else's
+ *   programming: a couch, a podium, a microphone, a carpet, or the broadcast
+ *   where the news broke. The video is the record of an event, not a work she
+ *   released.
+ *
+ *   Note the wording: "an era moment", not "Taylor appearing as herself". A
+ *   review pass (2026-08-12) caught that the tighter phrasing excluded the one
+ *   record where the event is the announcement rather than her — Time naming
+ *   her Person of the Year, revealed on TODAY. That record is honest (its card
+ *   says exactly what it is) and it is footage a fan wants, so the DEFINITION
+ *   was corrected rather than the record deleted. What is NOT licensed by this
+ *   wording: general news coverage or commentary ABOUT her. The bar remains a
+ *   specific, dated event with an official upload.
  *
  * The appearance family exists because 25 oEmbed-verified appearances landed
  * in the era timelines with nowhere legitimate to sit on the Videos rail

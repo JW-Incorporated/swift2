@@ -4,6 +4,7 @@ import {
   mergeEraFeed,
   visibleMoments,
   visibleVideos,
+  watchableCount,
   type EraFeedFilter,
 } from './era-feed';
 import type { ContentItem, ContentTag, VideoNote } from './types';
@@ -130,6 +131,28 @@ describe('mergeEraFeed', () => {
 
   it('is stable when there is nothing to merge', () => {
     expect(mergeEraFeed([], [])).toEqual([]);
+  });
+});
+
+describe('watchableCount', () => {
+  it('equals the number of cards the Videos filter actually renders', () => {
+    // The invariant that matters: the chip's badge must predict the result.
+    // It regressed once (the badge showed the RAIL count, so tloas promised 10
+    // and rendered 13) — this is what catches that.
+    const filter = filterOf([], true);
+    const rendered = mergeEraFeed(
+      visibleMoments(ITEMS, filter),
+      visibleVideos(MUSIC_VIDEOS, ALL_VIDEOS, filter),
+    ).length;
+    expect(watchableCount(ITEMS, ALL_VIDEOS)).toBe(rendered);
+  });
+
+  it('counts moments carrying footage even when the era has no video records', () => {
+    expect(watchableCount(ITEMS, [])).toBe(1);
+  });
+
+  it('is zero when there is nothing to watch, so the chip stays hidden', () => {
+    expect(watchableCount([moment('m', '2019-01-01', ['Lore'])], [])).toBe(0);
   });
 });
 

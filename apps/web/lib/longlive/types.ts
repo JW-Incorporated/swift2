@@ -802,7 +802,7 @@ export interface TheoryNote {
 
 /** What kind of visual-media work a VideoNote records. Mirrors VIDEO_KINDS in
  * packages/shared/src/vault-types.ts — WORKS she made or headlined, then
- * APPEARANCES where she turns up as herself in someone else's programming
+ * APPEARANCES: an era moment as it played out in someone else's programming
  * (see that file for why the split exists and why it's only four values). */
 export type VideoNoteKind =
   // Works
