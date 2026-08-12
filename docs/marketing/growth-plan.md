@@ -5,6 +5,16 @@
 maintains from real metrics. Delivers issue #518. Written to be followed by
 a non-software human, offline, top to bottom.
 
+> **⚠️ §4-6 are superseded (2026-08-11).** The posting strategy — what to post,
+> when, in what campaign, with what image and what hook — now lives in
+> [`social-strategy.md`](social-strategy.md), owned by Tree
+> (`docs/agents/tree.md`). Read that file for anything about *content and
+> cadence*; §6's Reels/Stories cadence in particular is **not executable** by the
+> current pipeline (single image + text only) and must not be planned into a
+> slot. Everything else here stays live and authoritative: §0 mental model, §1-3
+> accounts/handles/profile kit, §7 Reddit + Tumblr etiquette, §8 site↔social
+> integration and UTM tagging, §9 the founder-action table.
+
 ---
 
 ## 0. The mental model (read this first)
@@ -126,6 +136,11 @@ drafts. *(Done 2026-07-17 — handles recorded in §1.)*
 
 ## 4. The content engine — how posts get made, end to end
 
+> **Superseded 2026-08-11 by [`social-strategy.md`](social-strategy.md).** Kept
+> for history: §4's pillar *names* leaked into caption copy ("did you know")
+> and produced 12 near-identical posts in 14 days. The pillars survive in the
+> strategy file's daily heartbeat, with hook rules attached.
+
 The pipeline (#518's rails, made concrete):
 
 1. **Draft.** The Growth desk turns Vault content into platform-native
@@ -217,6 +232,13 @@ earned it yet), paid anything, follow sprees.
 ---
 
 ## 6. Instagram — the full worked example (#518's primary ask)
+
+> **Cadence superseded 2026-08-11** — see [`social-strategy.md`](social-strategy.md)
+> §2 for the real slot grammar (1 IG + 2 X per day). The "3-5 Reels/week" line
+> below cannot be executed by any agent: the pipeline posts one image plus text.
+> The growth *mechanics* here (engage outward, shares as the target metric,
+> keyword-rich captions, collabs, evening-US timing) are still right and still
+> apply.
 
 **Setup before following anyone:** 9-post grid (3 era deep-cut carousels,
 3 on-this-day posts, 2 theory case-file carousels, 1 site-peek Reel),

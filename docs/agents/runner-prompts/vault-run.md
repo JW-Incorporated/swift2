@@ -34,7 +34,12 @@ have to exist first.
 ## Run procedure
 
 1. **Set up once.** Fresh clone of `main`. `npm ci`. Create branch
-   `vault/<YYYY-MM-DD>`.
+   `vault/<YYYY-MM-DD>`. **Read the ownership lock once:**
+   `.github/content-ownership.json`. Every era listed in `claims` is CLAIMED by a
+   founder — treat its seed files (`supabase/seed/{content,theories,tracks,era-secrets}/<era>*.mjs`)
+   as off-limits for every lane today. Empty `claims` (the default) = nothing
+   claimed = work normally. If the file is absent or unreadable, proceed as if
+   nothing is claimed — a missing lock never stops a run.
 2. **For each due lane, in order:**
    a. Read that lane's file.
    b. Do the work, editing `supabase/seed/**` only.
@@ -87,6 +92,13 @@ appears, TOMORROW's run picks it up.
 - **Seed files only.** Never `docs/`, `scripts/`, `apps/` (except the two
   generated vault files, and only via `sync:content`), or `.github/`. Only
   Austin touches app code.
+- **Respect the ownership lock.** Skip every era claimed in
+  `.github/content-ownership.json` (loaded in step 1) — pick a different,
+  unclaimed era or corpus instead. If a lane's only available work is on a
+  claimed era, that lane no-ops and says so in its run log; it does not error and
+  it does not touch the claimed files. This is the SOFT layer: the hard
+  enforcement is `auto-merge-content.yml`, which won't auto-merge a non-owner PR
+  over a claim even if a lane slips — but comply anyway so those PRs never open.
 - `docs/content-ops/privacy-redlines.md` is absolute and overrides everything,
   including "a real outlet reported it".
 - **Nothing stands between this PR and the live site.** Content auto-merges on
