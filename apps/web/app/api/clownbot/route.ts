@@ -12,6 +12,7 @@ import {
   screenInput,
   screenOutput,
 } from '../../../lib/longlive/clownbot-safety';
+import { classifyOutput, UNCERTAIN } from '../../../lib/longlive/clownbot-output-classifier';
 import {
   DEGRADED_ASIDE,
   DEGRADED_COUNTERPOINT,
@@ -137,37 +138,59 @@ export async function POST(req: Request): Promise<Response> {
   const supplied = findReceipts(text);
 
   const take = await askClownbot(clownbotUsage, text, supplied);
-  const source: Source = take ? 'model' : 'degraded';
+  let source: Source = take ? 'model' : 'degraded';
+
+  let effective: ClownTake;
 
   if (take) {
-    // GATE 2 — deterministic output screen over everything the model wrote.
-    // Catches persona drift (speaking as Taylor) and volunteered redline
-    // material. A hit discards the whole answer; we do not try to repair it.
-    const outputHit = screenOutput([
-      take.stance,
-      take.argument,
-      take.counterpoint,
-      take.aside,
-      take.theoryName ?? undefined,
-    ]);
+    const parts = [take.stance, take.argument, take.counterpoint, take.aside, take.theoryName ?? undefined];
+
+    // GATE 2, TIER A — deterministic output screen over everything the model
+    // wrote. The fast, free, keyless pre-filter: catches persona drift and
+    // volunteered redline material that carries a trigger token. A hit discards
+    // the whole answer; we do not try to repair it.
+    const outputHit = screenOutput(parts);
     if (outputHit) {
       console.log('clownbot:refusal', JSON.stringify({ gate: 'output', category: outputHit }));
       const { message } = refusal(outputHit);
       return NextResponse.json({ kind: 'refusal', message, category: outputHit, source: 'safety' });
     }
 
-    // Defense in depth behind the deterministic gate — the model's own read.
-    if (take.offLimits) {
+    // GATE 2, TIER B — the SEMANTIC classifier. Runs only on drafts that already
+    // cleared Tier A, so it screens the token-free paraphrases (first-person-as-
+    // Taylor prose with no trigger word) that a keyword gate structurally cannot
+    // enumerate. It FAILS CLOSED: a UNCERTAIN verdict (error/timeout/junk)
+    // discards the draft and drops to the deterministic receipts-only answer,
+    // never ships the unscreened draft. A confident redline refuses in-voice.
+    const verdict = await classifyOutput(parts);
+    if (verdict !== 'none' && verdict !== UNCERTAIN) {
+      console.log('clownbot:refusal', JSON.stringify({ gate: 'classifier', category: verdict }));
+      const { message } = refusal(verdict);
+      return NextResponse.json({ kind: 'refusal', message, category: verdict, source: 'safety' });
+    }
+    if (verdict === UNCERTAIN) {
+      // Safety check failed (not that the draft was clean) — discard the model
+      // output and answer from the vault deterministically. Never leak.
+      console.log('clownbot:degrade', JSON.stringify({ gate: 'classifier', reason: 'uncertain' }));
+      effective = degradedTake(supplied);
+      source = 'degraded';
+    } else if (take.offLimits) {
+      // Defense in depth behind both gates — the model's own read.
       console.log('clownbot:refusal', JSON.stringify({ gate: 'model', category: null }));
       return NextResponse.json({ kind: 'refusal', message: OUT_OF_SCOPE_MESSAGE, source: 'model' });
+    } else {
+      effective = take;
     }
+  } else {
+    effective = degradedTake(supplied);
   }
 
-  const effective = take ?? degradedTake(supplied);
-
   // Only receipts we handed over may be cited — this is what makes fabricated
-  // evidence structurally impossible rather than merely discouraged.
-  const cited = take ? validateCited(take, supplied) : supplied;
+  // evidence structurally impossible rather than merely discouraged. When the
+  // model draft was discarded (Tier B UNCERTAIN), we are on the deterministic
+  // path and cite the supplied set, exactly as the keyless degraded path does.
+  const usedModel = source === 'model';
+  const cited = usedModel && take ? validateCited(take, supplied) : supplied;
 
   if (cited.length === 0 && supplied.length === 0) {
     return NextResponse.json({ kind: 'empty', message: EMPTY_RECEIPTS_MESSAGE, source });
@@ -191,7 +214,7 @@ export async function POST(req: Request): Promise<Response> {
   return NextResponse.json({
     kind: 'take',
     source,
-    degraded: take === null,
+    degraded: !usedModel,
     theoryName: named?.name ?? null,
     stance: effective.stance,
     argument: effective.argument,
