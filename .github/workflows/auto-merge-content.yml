@@ -28,6 +28,24 @@
 # CONTENT_AUTOMERGE_FREEZE to halt all of it instantly with no PR needed —
 # same pattern as SOCIAL_FREEZE.
 #
+# APP CODE (widened 2026-08-11, Wyatt — docs/decisions.md): the allowlist now
+# includes app code (apps/web/app, /components, /lib) and packages/. The gate for
+# it is FULL required CI green, not a human review: the required `build` check is
+# ONE job that runs typecheck + lint + the whole vitest suite + validate:content
+# + check:generated + check:content-inert + check:automerge-allowlist +
+# check:content-ownership + check:no-downgrade + content:coverage + build +
+# check:budget:seed. GitHub's native auto-merge (armed below) blocks until that
+# required check passes, so "green" here means every one of those passed. E2E
+# (e2e.yml) is deliberately NOT a required check (it is 100% red — #669), so it
+# does not gate — which is exactly why apps/web/app/api/ (the request/data layer)
+# is kept human via a DENY entry until #669 is fixed. If `build` is ever split
+# into parallel jobs, EACH must be added to the `protect-main` ruleset's required
+# checks, or "full green" silently narrows.
+#
+# DENY (`!`) prefixes: the allowlist supports deny lines that always beat an
+# allow, so a broad allow can flow while a specific subtree stays human. Parsed
+# into `deny_prefixes` in the enable job below.
+#
 # check-drafts job (added 2026-08-11, WS1+WS5): social/queue/**.json is
 # content by path, but a queue draft can still be low-quality in ways a
 # path allowlist can't see (wire-voice, a formula opener, an X/IG sibling
@@ -241,11 +259,24 @@ jobs:
             verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` parsed to zero entries — refusing to run an empty gate."
             exit 1
           fi
-          # Reject anything that is not a plain repo-relative path, so a stray
-          # edit can never turn into a surprise glob or shell expansion.
-          if bad=$(printf '%s\n' "$allowed" | grep -vE '^[A-Za-z0-9._/-]+$' || true); [ -n "$bad" ]; then
+          # Reject anything that is not a plain repo-relative path (an optional
+          # leading `!` marks a DENY prefix), so a stray edit can never turn into
+          # a surprise glob or shell expansion.
+          if bad=$(printf '%s\n' "$allowed" | grep -vE '^!?[A-Za-z0-9._/-]+$' || true); [ -n "$bad" ]; then
             echo "::error::$ALLOWLIST_PATH has malformed entries: $bad"
-            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` has malformed entries (must be plain repo-relative paths): $bad"
+            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` has malformed entries (must be plain repo-relative paths, optional leading \`!\`): $bad"
+            exit 1
+          fi
+          # Split into ALLOW and DENY (`!`) prefixes. A changed file must match an
+          # allow prefix AND no deny prefix — deny always wins. This is how a
+          # broad allow (e.g. `apps/web/app/`) can flow while a barred subtree
+          # (`apps/web/app/api/`, kept human while E2E is red — #669) does not.
+          # Mirrors barredPrefixes()/the deny logic in
+          # scripts/check-automerge-allowlist.mjs; keep them in step.
+          allow_prefixes=$(printf '%s\n' "$allowed" | grep -v '^!' || true)
+          deny_prefixes=$(printf '%s\n' "$allowed" | grep '^!' | sed 's/^!//' || true)
+          if [ -z "$allow_prefixes" ]; then
+            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` has only deny (\`!\`) entries and no allow prefixes — that gate can never auto-merge anything. Refusing to run it."
             exit 1
           fi
 
@@ -288,13 +319,26 @@ jobs:
           image_violations=""
           while IFS= read -r f; do
             [ -z "$f" ] && continue
+            # Deny wins: a file under any deny prefix is never auto-mergeable,
+            # even if an allow prefix also matches it.
+            denied=0
+            while IFS= read -r dp; do
+              [ -z "$dp" ] && continue
+              case "$f" in
+                "$dp"*) denied=1; break ;;
+              esac
+            done <<<"$deny_prefixes"
+            if [ "$denied" -eq 1 ]; then
+              outside="${outside}- \`${f}\` (under a deny \`!\` prefix — human-only)"$'\n'
+              continue
+            fi
             ok=0
             while IFS= read -r prefix; do
               [ -z "$prefix" ] && continue
               case "$f" in
                 "$prefix"*) ok=1; break ;;
               esac
-            done <<<"$allowed"
+            done <<<"$allow_prefixes"
             if [ "$ok" -eq 0 ]; then
               outside="${outside}- \`${f}\`"$'\n'
               continue

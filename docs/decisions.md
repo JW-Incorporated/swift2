@@ -7,6 +7,79 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Auto-merge widened to app code, gated by full CI (not human review)
+
+**Decision:** Add app code — `apps/web/app/`, `apps/web/components/`,
+`apps/web/lib/`, and `packages/` (plus their colocated tests) — to the content
+auto-merge allowlist, so those PRs land the moment the required `build` check is
+green, with **no human merge**. Keep specific paths HUMAN-ONLY via a new **deny
+(`!`) mechanism** and the `NEVER_ALLOWLIST` bar.
+
+**Why.** Wyatt, 2026-08-11: *"Remove [app code] from the exclusion list —
+honestly we're not reviewing any code."* A human-merge gate that nobody actually
+exercises is theater: it delays shipping and gives false assurance. The honest
+replacement is a machine gate that always runs — **full required CI green** —
+rather than a rubber stamp. "Full green" = the `build` required check, one job
+that runs typecheck + lint + the entire vitest suite + validate:content +
+check:generated + check:content-inert + check:automerge-allowlist +
+check:content-ownership + check:no-downgrade + content:coverage + build +
+check:budget:seed. GitHub native auto-merge blocks until that passes.
+
+**What stays human-only, and why it is NOT about code review:**
+- `.github/**`, `scripts/**`, `package.json`, lockfiles, config — the gate and
+  what CI runs. A gate that can widen itself unreviewed is not a gate
+  (`NEVER_ALLOWLIST`, unchanged). The auto-merge machinery
+  (`auto-merge-content.yml`, `content-automerge-allowlist.txt`,
+  `check-automerge-allowlist.mjs`, the NEVER list, the ruleset) can never
+  auto-widen itself.
+- `apps/web/app/api/**` — the request-handling / data layer. **Held because
+  E2E is 100% red (#669):** app-code auto-merge currently has no behavioural
+  regression net beyond unit + typecheck + build. That is adequate for view
+  components and lib, thin for request handlers. **Chose option (a): hold the
+  API routes** until #669 is green (then a one-line PR removes the deny). Not (b)
+  "widen and accept the risk" — the API layer is where an un-caught regression
+  actually hurts (data writes, external calls), and it is a small, well-bounded
+  carve-out to hold.
+- `apps/web/app/privacy/**`, `apps/web/app/terms/**`, and any legal lib — legal
+  surfaces need counsel, not a code review.
+- `supabase/migrations/**` — irreversible schema (already `NEVER_ALLOWLIST`).
+- the rest of `apps/web/public/**` — bot-picked media gets human eyes
+  (2026-07-28), except the checker-gated `apps/web/public/social/` carve-out.
+
+**The deny mechanism.** The allowlist now supports `!prefix` deny lines that
+always beat an allow. This lets a broad allow (`apps/web/app/`) flow while a
+barred subtree (`apps/web/app/api/`) stays human. The self-amendment checker was
+extended (`barredPrefixes` in `check-automerge-allowlist.mjs`): a broad allow
+that overlaps a `NEVER_ALLOWLIST` bar is permitted **only** when a deny prefix
+*fully covers* that barred area — a partial deny does not satisfy the bar, so
+nothing slips through. Deny wins at runtime (the enable job checks deny before
+allow) and is fail-safe: a denied path never auto-merges.
+
+**Alternatives considered.** (1) Positive-listing only the safe subtrees, no
+deny — fail-safe but a new page would need a human, which re-creates the theater
+the founder is removing. Rejected. (2) Widening `apps/web/**` broadly and denying
+carve-outs — rejected because it would sweep in `apps/web/public/**` (media) too;
+we allow the three code subtrees explicitly instead. (3) Widening the API routes
+now — rejected per the #669 reasoning above.
+
+**Residual risk (honest).** App code auto-merges with **E2E red (#669)**, so
+there is no full-journey regression net — only unit + typecheck + build. That
+catches most regressions in view/lib code but can miss integration/routing/
+hydration failures that only appear in a real browser. Mitigations: API routes
+(the thinnest-covered layer) are held out; the #669 fix restores the net; and the
+self-amendment paths (`.github`, `scripts`, workflows, allowlist, migrations)
+remain structurally barred, so the worst case is a *product* regression that a
+human can revert, not a compromise of the merge gate itself. Second residual: a
+NEW sensitive product path added later under a broad allow would auto-merge
+unless someone denies it — the deny/NEVER lists must be maintained; but that
+class is bounded to product code, never the gate.
+
+**Approved by:** Wyatt (CTO), 2026-08-11. Opened as its own PR, separate from the
+content-ownership lock (#1959) it shares merge machinery with. Not merged by the
+agent.
+
+---
+
 ## 2026-08-11 — Merge-machinery consolidation (#1910 + #1941) and the a11y-lane refusal
 
 **Decision:** Ship the two founder-approved merge-machinery PRs as a **single
