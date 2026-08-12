@@ -500,13 +500,20 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-89-5", label: "Calvin Harris, public", kind: "life" },
+      // Cross-links (#1719 depth pass, 2026-08-12): the relationship's public arc —
+      // its 15-month endpoint and the secret "This Is What You Came For" co-write
+      // fans only decoded after the split.
+      relatedIds: [
+        'moment:vault-1989-taylor-and-calvin-harris-split-after-15-months',
+        'moment:vault-1989-nils-sj-berg-unmasked-she-secretly-wrote-calvin-harriss-bigg',
+      ],
       title: 'Calvin Harris and Taylor go public at the Billboard Music Awards',
       snippet: 'Introduced by Ellie Goulding that February, the DJ-and-pop-star pairing went fully public a month after a first, subtler social-media hint.',
       sourceUrl: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
       thumbnailUrl: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef',
       moment: {
         context:
-          "Ellie Goulding played matchmaker at the February 2015 Elle Style Awards in London, and the two were spotted flirting at a BRIT Awards afterparty the very next night, followed by a trip to Nashville together. Harris dropped the first public hint himself that April — an Instagram post of Taylor's cats — before the paparazzi caught them holding hands leaving a HAIM show at the Troubadour.\n\nThe Billboard Music Awards that May made it unmistakable: they sat together all night, with cameras catching \"a smooch and plenty of hugs\" as she went up to collect her awards. By their one-year mark he was engraving the date — 3.6.15 — on a locket.",
+          "Ellie Goulding played matchmaker at the February 2015 Elle Style Awards in London, and the two were spotted flirting at a BRIT Awards afterparty the very next night, followed by a trip to Nashville together. Harris dropped the first public hint himself that April — an Instagram post of Taylor's cats — before the paparazzi caught them holding hands leaving a HAIM show at the Troubadour.\n\nThe Billboard Music Awards that May made it unmistakable: they sat together all night, with cameras catching \"a smooch and plenty of hugs\" as she went up to collect her awards. By their one-year mark he was engraving the date — 3.6.15 — on a locket.\n\nThe night itself was a coronation with a witness. The ceremony, held May 17, 2015, at the MGM Grand Garden Arena in Las Vegas, was where the two chose to make the relationship public: Taylor swept eight awards — among them top Billboard 200 album for 1989 — premiered the star-packed \"Bad Blood\" music video, and kissed Harris in the crowd after collecting her album prize. Their pairing quickly became a business fact as much as a tabloid one: a combined $146 million made them the world's highest-paid celebrity couple, dethroning Beyoncé and Jay-Z — and had they stayed together, the projection ran to $233 million across 2016 (Forbes).\n\nThe arc it opened would run about fifteen months, to a public — and pointed — breakup in June 2016. Only afterward did fans learn that Taylor had secretly co-written Harris's 2016 dance smash \"This Is What You Came For\" under the pen name Nils Sjöberg, a reveal that turned the relationship's end into one of the era's sharpest twists.",
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -515,6 +522,12 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/',
+          },
+          {
+            // Depth pass #1719 (2026-08-12): third source for the highest-paid-
+            // couple / earnings facts added to the narrative.
+            outlet: 'Time',
+            url: 'https://time.com/3936952/taylor-swift-calvin-harris-highest-paid/',
           },
         ],
         // Photo pass 2026-07-19 (defining-events-31-50): 3 more real,
@@ -2858,7 +2871,7 @@ export default {
             url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
             focalPoint: '46% 55%',
             credit: 'Big Machine Records / YouTube (official video still)',
-            caption: 'Swift crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
+            caption: 'Taylor crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
             kind: 'primary',
           },
         ],

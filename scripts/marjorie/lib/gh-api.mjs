@@ -15,12 +15,14 @@
 // unless the process was *booted* with `--use-env-proxy`, so a fetch-only
 // implementation silently bypasses the proxy and gets a flat 401.
 //
-// FOLLOW-UP (noted deliberately, not done here to avoid a merge conflict):
-// once #1887 lands it exports `httpsRequest()`, a proxy-aware HTTPS client.
-// Swap `directRequest()` below for it and this file loses its only weakness.
+// FOLLOW-UP DONE (#2008): `directRequest()` used a bare `fetch`, which bypasses
+// HTTPS_PROXY unless the process was booted with `--use-env-proxy` — the same
+// silent-bypass class of bug that #2008 fixed in `gh.mjs`. It now goes through
+// `httpsRequest()`, the one transport in this repo that is proxy-correct on
+// both paths.
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { resolveGh, findToken } from '../../lib/gh.mjs';
+import { resolveGh, findToken, httpsRequest } from '../../lib/gh.mjs';
 
 const execFileAsync = promisify(execFile);
 
@@ -34,7 +36,7 @@ export class GhApiError extends Error {
 }
 
 async function directRequest(path, token) {
-  const res = await fetch(`https://api.github.com${path}`, {
+  const res = await httpsRequest(`https://api.github.com${path}`, {
     headers: {
       authorization: `Bearer ${token}`,
       accept: 'application/vnd.github+json',
@@ -42,8 +44,10 @@ async function directRequest(path, token) {
       'x-github-api-version': '2022-11-28',
     },
   });
-  const text = await res.text();
-  if (!res.ok) throw new GhApiError(`GitHub REST GET ${path} → ${res.status} ${text.slice(0, 300)}`, { status: res.status, path });
+  const text = res.text ?? '';
+  if (res.status < 200 || res.status >= 300) {
+    throw new GhApiError(`GitHub REST GET ${path} → ${res.status} ${text.slice(0, 300)}`, { status: res.status, path });
+  }
   return text ? JSON.parse(text) : null;
 }
 
@@ -91,6 +95,14 @@ export async function ghApiSoft(path, fallback = null) {
   try {
     return { ok: true, data: await ghApi(path) };
   } catch (err) {
+    // A 401 IS NOT AN OPTIONAL-METRIC FAILURE. It means this runner cannot
+    // authenticate to GitHub at all, so every other collector is about to fail
+    // the same way — and softening it renders a brief full of honest-looking
+    // "unavailable" lines that still exits 0. That is exactly the silent
+    // failure #2008 is about, so credential failures stay fatal. (403 stays
+    // soft: the repo-scoped /search ban and rate limits are real, expected,
+    // per-endpoint degradations — see #1869.)
+    if (err?.status === 401) throw err;
     return { ok: false, data: fallback, error: err.message };
   }
 }

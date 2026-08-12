@@ -133,7 +133,7 @@ export default {
       claim:
         'Fans read Speak Now (2010) as Taylor answering the critics who doubted she wrote her own songs: every track on the 14-song standard edition is credited to her and her alone, with no co-writers — a point she has said was deliberate. The lone asterisk is a deluxe-only bonus, "If This Was a Movie," co-written with Martin Johnson.',
       evidence:
-        'Swift has framed the solo writing as a reaction to critics\' doubts about her songwriting, and described finishing songs on the road with no collaborator on hand: "I\'d get my best ideas at 3:00 a.m. in Arkansas, and I didn\'t have a co-writer around so I would just finish it." Released Oct. 25, 2010 and co-produced with Nathan Chapman, the standard album carries only her name in every writing credit — the claim is verifiable from the credits themselves, not a reading of the lyrics.',
+        'Taylor has framed the solo writing as a reaction to critics\' doubts about her songwriting, and described finishing songs on the road with no collaborator on hand: "I\'d get my best ideas at 3:00 a.m. in Arkansas, and I didn\'t have a co-writer around so I would just finish it." Released Oct. 25, 2010 and co-produced with Nathan Chapman, the standard album carries only her name in every writing credit — the claim is verifiable from the credits themselves, not a reading of the lyrics.',
       confidence: 'confirmed_interview',
       outcome: 'confirmed',
       relatedSlugs: ['speak-now:long-live-band-and-fans-tribute'],
@@ -148,7 +148,7 @@ export default {
       claim:
         'Fans read the Speak Now closer "Long Live" not as a romance but as a thank-you to the people who built the era with her — her band, her crew, and her audience. It is a reading Taylor confirmed, calling it "the first love song that I\'ve written to my team."',
       evidence:
-        'Introducing the song, Swift described it as being "about my band, and my producer, and all the people who have helped us build this brick by brick," and cast it as replaying a photo album of award-show and stadium moments shared with her collaborators and crowd. The royalty-and-graduation imagery is universal enough that it also reads as a graduation anthem, but her stated intent — the closing track of the 14-song standard edition — was gratitude to her team.',
+        'Introducing the song, Taylor described it as being "about my band, and my producer, and all the people who have helped us build this brick by brick," and cast it as replaying a photo album of award-show and stadium moments shared with her collaborators and crowd. The royalty-and-graduation imagery is universal enough that it also reads as a graduation anthem, but her stated intent — the closing track of the 14-song standard edition — was gratitude to her team.',
       confidence: 'confirmed_interview',
       outcome: 'confirmed',
       relatedSlugs: ['speak-now:speak-now-written-entirely-alone'],

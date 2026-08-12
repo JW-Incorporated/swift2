@@ -252,7 +252,7 @@ export function renderAlert({ findings, breaches, notEnforced = {} }, budget, wi
   const inEffect = Object.keys(LABELS).map((k) => `${k}=${budget[k] ?? '—'}`).join(' · ');
   out.push(`Budget in effect: ${inEffect}`);
   out.push('');
-  out.push('Source: `node scripts/check-work-ownership.mjs` (watchdog.yml, daily).');
+  out.push('Source: `node --use-env-proxy scripts/check-work-ownership.mjs` (watchdog.yml, daily).');
   return out.join('\n');
 }
 

@@ -3,7 +3,7 @@
 // (they carry generated ids, so re-running would otherwise duplicate them).
 //
 //   node --env-file=apps/worker/.env scripts/seed-eras.mjs
-import pg from 'pg';
+import { makeClient } from './lib/pg.mjs';
 import { eras, milestones } from '../supabase/seed/eras-data.mjs';
 
 const connectionString = process.env.SUPABASE_DB_URL;
@@ -12,7 +12,7 @@ if (!connectionString) {
   process.exit(1);
 }
 
-const client = new pg.Client({ connectionString, ssl: { rejectUnauthorized: false } });
+const client = makeClient(connectionString);
 await client.connect();
 try {
   for (const e of eras) {

@@ -159,7 +159,6 @@ export const SINGLE_OUTLET_LEGACY = new Set([
   'folklore.mjs#folklore-six-grammy-nominations',
   'lover.mjs#shes-billboards-first-ever-woman-of-the-decade',
   'midnights.mjs#midnights-knocks-morgan-wallen-off-the-top-of-the-chart',
-  'red.mjs#we-are-never-ever-getting-back-together-becomes-her-first-ev',
   'red.mjs#the-red-tour-closes-as-the-highest-grossing-country-tour-of-',
   'red.mjs#red-buys-high-watch',
   'reputation.mjs#one-nomination-for-the-years-best-selling-album',

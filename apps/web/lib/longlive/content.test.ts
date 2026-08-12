@@ -124,7 +124,10 @@ describe('CONTENT dataset invariants', () => {
     // Period moments keep their editorial labels — their dates are
     // representative placeholders, not researched days.
     expectLabel('debut-cowboy-boots', 'Spring 2007');
-    expectLabel('folklore-cardigan', 'Summer 2020');
+    // 'folklore-cardigan' (this slug's former #717 example) was removed as a
+    // duplicate stub (issue #616, 2026-07-29) — the richer "cardigan" video
+    // item it duplicated carries a real researched day (album release day),
+    // not a placeholder, so it doesn't belong in this editorial-label list.
     // #717: these three aesthetic moments carried release-adjacent placeholder
     // dates, so day-level labels implied precision nobody researched — Joey
     // moved them to editorial period labels.
