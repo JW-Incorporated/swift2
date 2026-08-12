@@ -63,6 +63,13 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 4,
           },
+          // The full record-setting episode itself, on the show's official
+          // channel — oEmbed-verified 2026-08-12 (see
+          // candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — New Heights',
+            url: 'https://www.youtube.com/watch?v=M2lX9XESvDE',
+          },
           {
             outlet: 'CNN',
             url: 'https://www.cnn.com/entertainment/live-news/new-heights-taylor-swift-album-announcement-08-13-25',
@@ -6306,6 +6313,12 @@ export default {
             accessed_at: '2026-07-10',
             reliability_score: 4,
           },
+          // The wedding-invite exchange on the BBC's own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — BBC',
+            url: 'https://www.youtube.com/watch?v=NlOdFJmkEls',
+          },
           {
             outlet: 'NBC Insider',
             url: 'https://www.nbc.com/nbc-insider/jimmy-fallon-new-heights-travis-kelce-wedding-planning-taylor-swift',
@@ -10427,6 +10440,91 @@ export default {
             reliability_score: 3,
           },
         ],
+      },
+    },
+
+    // ── YouTube-appearances research pass (2026-08-12) ──
+    // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
+    // and docs/research/2026-08-12-youtube-appearances-manifest.md.
+    {
+      year: 2025,
+      month: 10,
+      day: 6,
+      category: 'music',
+      title: 'Back on Fallon after three years — with a Super Bowl question to answer',
+      snippet:
+        'Her first US late-night appearance since 2022: ~20 minutes on the album, the engagement, and getting her masters back — plus why she isn\'t playing the 2026 Super Bowl halftime show. An extended cut aired as its own NBC special four days later.',
+      sourceUrl: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-jimmy-fallon-tonight-show-life-of-a-showgirl-1236394527/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/GzjZqH0WRwE/hqdefault.jpg',
+      moment: {
+        context:
+          'Three days after The Life of a Showgirl arrived, the Tonight Show stop anchored the US leg of the promo run. The conversation ranged from the record and the engagement to the masters buyback, and she addressed the halftime-show question directly, pointing to the Jay-Z/Roc Nation relationship that produces the show. NBC aired an extended cut as a primetime special on Oct. 10; the interview is on the show\'s official channel.',
+        sources: [
+          { outlet: 'The Hollywood Reporter', url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-jimmy-fallon-tonight-show-life-of-a-showgirl-1236394527/' },
+          { outlet: 'NBC Insider', url: 'https://www.nbc.com/nbc-insider/how-to-watch-taylor-swift-extended-tonight-show-interview' },
+          { outlet: 'YouTube — The Tonight Show Starring Jimmy Fallon', url: 'https://www.youtube.com/watch?v=GzjZqH0WRwE' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2025,
+      month: 10,
+      day: 7,
+      category: 'music',
+      title: 'The Zane Lowe interview: the Showgirl songbook, over FaceTime',
+      snippet:
+        'Apple Music\'s extended sit-down, conducted via FaceTime mid-promo-run: a song-by-song walk through the writing process behind The Life of a Showgirl.',
+      sourceUrl: 'https://www.youtube.com/watch?v=mUZ9T-hstUI',
+      thumbnailUrl: 'https://i.ytimg.com/vi/mUZ9T-hstUI/hqdefault.jpg',
+      moment: {
+        context:
+          'The Apple Music conversation slotted between the Fallon and Seth Meyers stops in release week — a long-form craft interview focused on the writing itself rather than the promo beats, conducted over FaceTime rather than in a studio. The full interview is on Apple Music\'s official channel.',
+        sources: [
+          { outlet: 'YouTube — Apple Music', url: 'https://www.youtube.com/watch?v=mUZ9T-hstUI' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2025,
+      month: 10,
+      day: 8,
+      category: 'music',
+      title: 'A sole-guest "TAY/kover" of Late Night with Seth Meyers',
+      snippet:
+        'Meyers handed her the whole episode — a sole-guest night billed as a "TAY/kover," covering the album, the engagement, and more, capping a four-stop release-week media run.',
+      sourceUrl: 'https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/Wd7S1wZqkbI/hqdefault.jpg',
+      moment: {
+        context:
+          'The last of the October late-night stops (after Graham Norton, Fallon and the Zane Lowe interview), and the most unusual format: Late Night built the entire episode around her as its only guest — a sole-guest "TAY/kover," billed that way ahead of the broadcast per Variety. The interview is on the show\'s official channel.',
+        sources: [
+          { outlet: 'Variety', url: 'https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/' },
+          { outlet: 'YouTube — Late Night with Seth Meyers', url: 'https://www.youtube.com/watch?v=Wd7S1wZqkbI' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2025,
+      month: 12,
+      day: 10,
+      category: 'music',
+      title: "First time on Colbert's couch, with a docuseries to launch",
+      snippet:
+        'Promoting The End of an Era and The Final Show two days before their Disney+ arrival, she recapped a "good year" — engaged, masters back — and gamely started ranking her own top five Taylor Swift songs.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-engagement-masters-showgirl-late-show-1235482380/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/qtyzac0JbS4/hqdefault.jpg',
+      moment: {
+        context:
+          'Her first-ever Late Show sit-down closed out 2025\'s press cycle: the engagement, the masters buyback, the Eras docuseries and concert film, and Colbert\'s parlor-game challenge to name her five favorite of her own songs — a list she only partially committed to on air. The main interview segment is on the show\'s official channel, with the rest of the conversation split across further official clips.',
+        sources: [
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-engagement-masters-showgirl-late-show-1235482380/' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-five-favorite-taytay-songs-colbert-1236134507/' },
+          { outlet: 'YouTube — The Late Show with Stephen Colbert', url: 'https://www.youtube.com/watch?v=qtyzac0JbS4' },
+        ],
+        photos: [],
       },
     },
   ],
