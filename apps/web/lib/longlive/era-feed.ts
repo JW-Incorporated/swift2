@@ -91,6 +91,22 @@ export function mergeEraFeed(moments: ContentItem[], videos: VideoNote[]): EraFe
   });
 }
 
+/**
+ * How many cards the Videos filter will actually show — i.e. what the chip's
+ * badge must say.
+ *
+ * NOT the same as the era's video-record count, which is what the rail heading
+ * and the hero jump button show (both point AT the rail, so the rail's own
+ * count is right for them). The filtered view additionally includes the
+ * moments that carry their own footage, so on tloas the rail holds 10 records
+ * while the filter shows 13 cards. A chip that promises 10 and yields 13 is a
+ * small lie told on every era, so the badge is computed from the same
+ * selection the filter uses.
+ */
+export function watchableCount(items: ContentItem[], videoFeed: VideoNote[]): number {
+  return visibleMoments(items, { tags: new Set(), videosOnly: true }).length + videoFeed.length;
+}
+
 /** The YouTube ids already embedded on curated moments in this era — the
  * de-dup key that keeps one video from appearing as both a moment card and a
  * video card in the same list. */

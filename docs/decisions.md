@@ -55,6 +55,29 @@ re-upload is never an `officialUrl`, however long it has been alive.
 widens the CHECK constraint. It is **written, not applied** — applying is a
 founder/Wyatt action (`db:*` writes to prod).
 
+**Codex review (2026-08-12), and one disagreement left open for the founders:**
+- *Enum mirrors:* consistent across all five sites. No finding.
+- *`NOT VALID` + `VALIDATE CONSTRAINT` for the migration:* **not adopted**, with
+  the reasoning written into the migration. That pattern moves a validation scan
+  out of the ACCESS EXCLUSIVE window, but `migrate.mjs` sends a file as one
+  query, so both statements would sit in the same implicit transaction and hold
+  the lock regardless — and a WIDENED predicate is a superset of the old one, so
+  no existing row can fail it. Recorded so a future narrowing migration knows it
+  *does* need the two-step.
+- *Provenance overclaim:* Codex was right that the VMA 2024 record's note
+  implied Access Hollywood owns the ceremony footage. It doesn't — MTV does.
+  The note now states only the verified fact (a broadcaster's own upload, not a
+  fan re-upload), which is what the rule actually requires.
+- *Open disagreement — the TODAY Person of the Year record:* Codex reads it as
+  mislabelled, because the event is Time's editor making an announcement rather
+  than Taylor appearing. Fair. Two defensible fixes: delete the record, or fix
+  the definition. **This change fixed the definition** — the card states exactly
+  what it is, the footage is something a fan wants, and deleting verified,
+  watchable content to protect a one-sentence definition is the worse product
+  outcome. The family is now "an era moment as it played out in someone else's
+  programming", with general commentary about her explicitly still excluded.
+  **If Joey or Wyatt disagrees, the fix is one deleted record**, not a redesign.
+
 **Approved by:** proposed by the 2026-08-12 engineering session (ENGINE lane);
 **pending Wyatt (CTO)** — schema + taxonomy sign-off, and Joey on whether the
 appearance vocabulary reads right to a fan.

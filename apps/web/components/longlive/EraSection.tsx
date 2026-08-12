@@ -45,6 +45,7 @@ import {
   mergeEraFeed,
   visibleMoments,
   visibleVideos,
+  watchableCount,
   type EraFeedEntry,
 } from '@/lib/longlive/era-feed';
 import {
@@ -177,6 +178,9 @@ export function EraSection({ era }: { era: Era }) {
     () => visibleVideos(timelineVideos, videoFeed, filter),
     [timelineVideos, videoFeed, filter],
   );
+  // What the Videos chip promises: the number of cards the filter yields, not
+  // the number of rail records (see watchableCount).
+  const watchable = useMemo(() => watchableCount(items, videoFeed), [items, videoFeed]);
   // Merge the (already filtered) moments with the (already gated) video
   // entries into one newest-first feed, keeping cross-type ordering correct
   // instead of just concatenating the two lists.
@@ -409,7 +413,7 @@ export function EraSection({ era }: { era: Era }) {
                     background color as the label inherits that guarantee
                     across all twelve palettes. TAG_COLORS can't be reused here
                     (they're specced for white text and this isn't a category). */}
-                {videoCount > 0 && (
+                {watchable > 0 && (
                   <button
                     type="button"
                     aria-pressed={videosOnly}
@@ -431,7 +435,7 @@ export function EraSection({ era }: { era: Era }) {
                       className="text-[10px] font-medium"
                       style={{ color: videosOnly ? 'var(--era-bg)' : 'var(--era-ink-soft)' }}
                     >
-                      {videoCount}
+                      {watchable}
                     </span>
                   </button>
                 )}

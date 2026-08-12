@@ -100,7 +100,13 @@ export default {
           youtubeId: 'g55D_gAoC3I',
           title: 'Taylor Swift Remembers 9/11 During VMAs Acceptance Speech',
           channel: 'Access Hollywood',
-          note: "official upload on Access Hollywood's own channel (NBCUniversal entertainment news) — oEmbed-verified 2026-08-12",
+          // States only what was verified. An earlier draft said this channel
+          // "owns" the footage — it doesn't: MTV owns the ceremony, Access
+          // Hollywood is entertainment-news coverage of it. What IS established
+          // is that the upload sits on Access Hollywood's own channel (oEmbed
+          // author_name), i.e. a broadcaster's own upload and not a fan
+          // re-upload, which is what the officialUrl rule actually requires.
+          note: "upload on Access Hollywood's own channel (NBCUniversal entertainment news), not a fan re-upload — oEmbed author_name verified 2026-08-12",
         }),
       ],
     }),

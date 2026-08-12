@@ -19,10 +19,26 @@
 --   press_event   premiere Q&A, red carpet, news-segment reveal
 --
 -- IDEMPOTENT. The original constraint was declared inline and so carries
--- Postgres's generated name `video_work_kind_check`; this drops that (and its
--- own new name) before adding, so re-running the whole migration directory in
--- filename order is safe. Widening a CHECK never invalidates existing rows —
--- every value previously allowed is still allowed.
+-- Postgres's generated name `video_work_kind_check` (see
+-- 20260708150000_videos_theories_tours_releases.sql); this drops that name AND
+-- its own new one before adding, so re-running the whole migration directory in
+-- filename order is safe.
+--
+-- ATOMICITY: scripts/migrate.mjs sends each file as ONE `client.query(sql)`, and
+-- Postgres runs a multi-statement simple query as a single implicit
+-- transaction. The drop and the add therefore commit together — the table is
+-- never left unconstrained by a partial failure.
+--
+-- WHY NOT `NOT VALID` + `VALIDATE CONSTRAINT` (raised in review, 2026-08-12):
+-- that pattern exists to move a full-table validation scan OUT of the
+-- ACCESS EXCLUSIVE lock window. It buys nothing here, for two reasons.
+--   1. Both statements would land in the SAME implicit transaction (above), so
+--      the exclusive lock is held until commit either way.
+--   2. This constraint is WIDENED: the new predicate is a strict superset of
+--      the old one, so every existing row already satisfies it by construction.
+--      The scan cannot fail, and it covers a table currently holding ~85 rows.
+-- If video_work ever grows large AND a future migration NARROWS this predicate,
+-- that one does need the two-step, in two separate migration files.
 -- ---------------------------------------------------------------------------
 
 alter table public.video_work drop constraint if exists video_work_kind_check;
