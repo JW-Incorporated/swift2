@@ -59,6 +59,18 @@ jobs:
         run: |
           git fetch --no-tags --depth=1 origin main
           npm run check:no-downgrade -- --base-ref FETCH_HEAD
+      # Voice gate (#461 / #1917 / #1918): house style is "Taylor," not "Swift."
+      # This gate used to be enforced only by Karen's scan — which went weekly
+      # on 2026-07-25 while still being described as nightly, so 19 findings
+      # landed on `main` before anyone looked. A cadence is not a gate; this is.
+      # Scans the seed files THIS PR changed (a corpus-wide block would freeze
+      # merges for authors who touched none of it, and a gate people route
+      # around enforces nothing). Editing the rule itself escalates to a
+      # full-corpus scan. Base fetched live, same idiom as check:no-downgrade.
+      - name: Voice gate on changed content
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
       - run: npm run build
       - run: npm run check:budget:seed
