@@ -5,10 +5,18 @@ import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
 import { X, Check, Copy, Share2 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { CURRENT_ERA_ID, getEra } from '@/lib/longlive/eras';
 import { getContentItem } from '@/lib/longlive/content';
 import { getThread } from '@/lib/longlive/lenses';
-import { momentShareCopy, type ShareCopy } from '@/lib/longlive/share';
+import { resolveTrackKey } from '@/lib/longlive/tracks';
+import {
+  momentShareCopy,
+  siteShareCopy,
+  theoryGuideShareCopy,
+  trackGuideShareCopy,
+  trackShareCopy,
+  type ShareCopy,
+} from '@/lib/longlive/share';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { primaryImage, type Era } from '@/lib/longlive/types';
@@ -70,6 +78,31 @@ export function ShareSheet() {
     kicker = thread.kicker;
     title = thread.title;
     subtitle = thread.what;
+  } else if (share.kind === 'track') {
+    era = getEra(share.eraId);
+    const track = resolveTrackKey(share.trackKey)?.track;
+    kicker = `${era.album}${track?.trackNumber ? ` · Track ${track.trackNumber}` : ''}`;
+    title = track?.title ?? era.album;
+    subtitle = track?.note ?? '';
+    if (track) richCopy = trackShareCopy(track, era);
+  } else if (share.kind === 'trackGuide') {
+    era = getEra(share.eraId);
+    kicker = `Track guide · ${era.yearLabel}`;
+    title = era.album;
+    subtitle = 'Every song, each with a sourced note.';
+    richCopy = trackGuideShareCopy(era);
+  } else if (share.kind === 'theoryGuide') {
+    era = getEra(share.eraId);
+    kicker = `Theories & eggs · ${era.yearLabel}`;
+    title = `${era.shortName} decoded`;
+    subtitle = 'Every egg and theory, sourced and graded.';
+    richCopy = theoryGuideShareCopy(era);
+  } else if (share.kind === 'site') {
+    era = getEra(CURRENT_ERA_ID);
+    kicker = 'The Taylor Swift time machine';
+    title = 'Long Live';
+    subtitle = 'Real-time updates on her whole life, or step back into any era.';
+    richCopy = siteShareCopy();
   } else {
     era = getEra('ttpd');
     kicker = 'Lens';
@@ -84,6 +117,10 @@ export function ShareSheet() {
     if (share.kind === 'item') return `${base}?item=${encodeURIComponent(share.itemId)}`;
     if (share.kind === 'lens') return `${base}?lens=${encodeURIComponent(share.lensId)}`;
     if (share.kind === 'era') return `${base}?era=${encodeURIComponent(share.eraId)}`;
+    if (share.kind === 'track') return `${base}?song=${encodeURIComponent(share.trackKey)}`;
+    if (share.kind === 'trackGuide') return `${base}?guide=${encodeURIComponent(share.eraId)}`;
+    if (share.kind === 'theoryGuide') return `${base}?theories=${encodeURIComponent(share.eraId)}`;
+    // share.kind === 'site' — the bare front door, no params.
     return base;
   })();
 
@@ -118,7 +155,7 @@ export function ShareSheet() {
           <span className="text-sm font-medium text-white/80">Share card</span>
           <button
             onClick={closeShare}
-            className="rounded-full bg-white/10 p-1.5 text-white/80 hover:bg-white/20"
+            className="era-icon-btn rounded-full p-1.5"
             aria-label="Close share"
           >
             <X className="h-4 w-4" />

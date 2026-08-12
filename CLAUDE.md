@@ -197,6 +197,27 @@ AI may NOT, without explicit human approval:
   performance problems. Challenge assumptions. Being agreeable is a failure
   mode.
 
+## Agent shell discipline (added 2026-08-12 after the permission-prompt flood)
+
+The project allowlist (`.claude/settings.json`) auto-approves simple, common
+commands. It matches command PREFIXES — so write commands it can see, or you
+will spray permission prompts at a founder (an audit found five parallel
+agents doing exactly this — the "doom loop"):
+
+- **One simple command per Bash call.** No `for`/`while` loops, no `$(...)`
+  substitution chains, no multi-step `&&` trains mixing listed and unlisted
+  commands. Chain only allowlisted commands, and only when necessary.
+- **Prefer the dedicated tools** (Read/Grep/Glob/Edit) over `cat`/`grep`
+  pipes — they never prompt.
+- **Prefer `node -e` over `python -c`** for one-liners: `node *` is
+  allowlisted, python is not.
+- `git merge` and `gh pr merge` ALWAYS prompt — that is the founders'
+  merge-authority gate, working as designed. Don't fight it; batch merges so
+  a founder approves once, deliberately.
+- Parallel local agent fleets multiply whatever prompts remain. Cap local
+  concurrency at 2; anything bigger belongs in cloud sessions on Wyatt's
+  account (`docs/agents/runners.md`).
+
 ## Conventions
 
 - Stack and coding standards: `docs/architecture.md` (once the stack is

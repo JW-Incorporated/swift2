@@ -1,7 +1,7 @@
 'use client';
 
-import { X } from 'lucide-react';
-import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { Share2, X } from 'lucide-react';
+import { useAppActions, useAppState, type ShareTarget } from '@/lib/longlive/store';
 import { ModeToggle } from './TopBar';
 
 /**
@@ -12,10 +12,20 @@ import { ModeToggle } from './TopBar';
  * wordmark goes home, and the Eras/Threads toggle closes the track stack before
  * switching mode so the destination is actually visible. `onClose` is the
  * overlay's own one-level dismiss (kept as the familiar X).
+ *
+ * `shareTarget` (#707): because these overlays cover the TopBar, its Share
+ * button is unreachable here — so the affordance rides in this shared chrome,
+ * the same reason home/toggle do. Opens the same ShareSheet every surface uses.
  */
-export function OverlayNav({ onClose }: { onClose: () => void }) {
+export function OverlayNav({
+  onClose,
+  shareTarget,
+}: {
+  onClose: () => void;
+  shareTarget?: ShareTarget;
+}) {
   const { mode } = useAppState();
-  const { goHome, setMode, closeTrackGuide } = useAppActions();
+  const { goHome, setMode, closeTrackGuide, openShare } = useAppActions();
   const navMode = mode === 'threads' ? 'threads' : 'era';
 
   return (
@@ -37,6 +47,17 @@ export function OverlayNav({ onClose }: { onClose: () => void }) {
             setMode(m);
           }}
         />
+        {shareTarget && (
+          <button
+            type="button"
+            onClick={() => openShare(shareTarget)}
+            aria-label="Share"
+            title="Share"
+            className="era-icon-btn grid size-11 shrink-0 place-items-center rounded-full"
+          >
+            <Share2 className="size-5" />
+          </button>
+        )}
         <button
           type="button"
           onClick={onClose}
