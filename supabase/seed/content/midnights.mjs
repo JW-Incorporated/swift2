@@ -5168,6 +5168,26 @@ export default {
       title: "The 3am edition surprise",
       snippet: "Seven extra tracks land three hours after release, a now-signature move.",
       moment: {
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-adds-seven-bonus-tracks-to-midnights-on-surprise-3am-edition-3333345',
+            source_title: 'Taylor Swift adds seven bonus tracks to \'Midnights\' on surprise \'3am\' edition',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2203564/taylor-swift-releases-seven-more-songs-on-midnights-3am-edition-parties-with-her-evil-twin-in-anti-hero-video/music',
+            source_title: 'Taylor Swift Releases Seven More Songs On Midnights (3am Edition)',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Hours after midnight, a “3am Edition” expanded the album — rewarding the fans who stayed up.",
       },
     },
@@ -5273,6 +5293,26 @@ export default {
       milestone: { id: "m-mid-1b", label: "Entire top ten", kind: "award" },
       snippet: "She becomes the first artist to monopolize the entire top ten of the Hot 100.",
       moment: {
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/marisadellatto/2022/10/31/taylor-swifts-midnights-occupies-entire-billboard-top-10-singles-chart/',
+            source_title: 'Taylor Swift\'s \'Midnights\' Occupies Entire Billboard Top 10 Singles Chart',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Euronews',
+            url: 'https://www.euronews.com/culture/2022/11/01/taylor-swift-makes-history-as-the-first-artist-to-claim-the-entire-top-10-of-the-billboard',
+            source_title: 'Taylor Swift makes history as the first artist to claim the entire top 10 of the Billboard Hot 100',
+            publisher: 'Euronews',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "The album’s dominance rewrote the record books, occupying all ten of the chart’s highest positions in a single week.",
       },
     },
@@ -5287,6 +5327,26 @@ export default {
       title: "The ticket frenzy",
       snippet: "Unprecedented demand for the Eras Tour crashes the sales system and reaches Washington.",
       moment: {
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Politics/ticketmasters-taylor-swift-ticket-fiasco-spurs-new-senate/story?id=96609996',
+            source_title: 'Ticketmaster\'s Taylor Swift ticket fiasco spurs new Senate hearing',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-fans-battle-ticket-bots-and-ticketmaster/',
+            source_title: 'Frustrated Taylor Swift fans battle ticket bots and Ticketmaster',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "The scramble for tickets became a national news story — and eventually a subject of political hearings.",
       },
     },
@@ -5304,6 +5364,27 @@ export default {
       milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
       snippet: "A concert film breaks box-office records for the format.",
       moment: {
+        sources: [
+          {
+            outlet: 'AMC Theatres',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films',
+            source_title: 'TAYLOR SWIFT | THE ERAS TOUR Concert Film Is Now the Highest Grossing Theatrical Release in History Among Concert and Documentary Films',
+            publisher: 'AMC Entertainment Holdings',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'Distributor newsroom — primary for the distribution structure and the box-office record it announces.',
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/taylor-swifts-eras-tour-becomes-highest-grossing-concert-documentary-film-in-history/',
+            source_title: 'Taylor Swift\'s \'Eras Tour\' becomes highest grossing concert & documentary film in history',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",
         // Photo pass #762 (2026-07-19): ABC News' own CDN (i.abcnewsfe.com,
         // from GMA's world-premiere story); curl 200 image/jpeg 3072x3071;

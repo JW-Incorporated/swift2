@@ -2476,6 +2476,26 @@ export default {
       snippet: "The transitional masterpiece that pointed straight at pop stardom.",
       hiddenClue: { clue: "A scarf mentioned in one song became the most-discussed accessory in pop.", payoff: "Fans still debate who kept the scarf — a mystery she has coyly refused to fully resolve." },
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-sells-12-million-copies-of-red/',
+            source_title: 'Taylor Swift sells 1.2 million copies of "Red"',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2021/11/taylor-swift-red-taylors-version-review.html',
+            source_title: 'Taylor Swift\'s Red Rerelease Proves What Fans Always Knew',
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Red is maximalist and messy on purpose — dubstep drops next to acoustic confessionals, all of it about one crimson-colored heartbreak.\n\nThe centerpiece, a ten-minute epic, would return years later as a cultural event of its own.",
       },
     },
@@ -2494,6 +2514,17 @@ export default {
       snippet: "The gleeful kiss-off lead single that announced a decisive pop pivot.",
       video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
       moment: {
+        sources: [
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
+            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "The lead single arrived with an eye-roll and a spoken-word bridge, and it shot straight to number one — her first Hot 100 chart-topper.\n\nIt signaled, unmistakably, that the country prodigy was walking toward the center of pop.",
       },
     },
@@ -2509,6 +2540,26 @@ export default {
       snippet: "A gentle promotional single about hope after heartbreak.",
       video: { youtubeId: "cMPEd8m79Hw", title: "Taylor Swift - Begin Again" },
       moment: {
+        sources: [
+          {
+            outlet: 'HuffPost',
+            url: 'https://www.huffpost.com/2012/09/24/taylor-swift-begin-again_n_1909027.html',
+            source_title: 'Taylor Swift\'s \'Begin Again\' Previewed On \'Good Morning America\'',
+            publisher: 'HuffPost',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-begin-again-preview/',
+            source_title: 'Taylor Swift Samples New Song \'Begin Again\' on \'Good Morning America\'',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
       },
     },
@@ -2524,6 +2575,27 @@ export default {
       snippet: "A dubstep-tinged drop that pushed her sound to its poppiest edge yet.",
       video: { youtubeId: "vNoKguSdy4Y", title: "Taylor Swift - I Knew You Were Trouble" },
       moment: {
+        sources: [
+          {
+            outlet: 'Saving Country Music',
+            url: 'https://savingcountrymusic.com/video-review-taylor-swifts-i-knew-you-were-trouble/',
+            source_title: 'Video Review – Taylor Swift\'s "I Knew You Were Trouble"',
+            publisher: 'Saving Country Music',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+            notes: 'A contemporaneous country-purist outlet objecting to the dubstep pivot — direct evidence for the \'scandalised country purists\' claim rather than a report of it.',
+          },
+          {
+            outlet: 'Gulf News',
+            url: 'https://gulfnews.com/entertainment/taylor-swift-opts-electronic-dubstep-on-her-new-single-1.1087391',
+            source_title: 'Taylor Swift opts electronic dubstep on her new single',
+            publisher: 'Gulf News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "The bass-heavy breakdown scandalized country purists and delighted everyone else, cementing the genre crossover.",
       },
     },
@@ -2552,6 +2624,26 @@ export default {
       title: "The circus-themed Grammy opener",
       snippet: "A theatrical performance opens the ceremony and previews the tour’s scale.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/chicago/news/taylor-swift-opens-the-grammys-circus-style/',
+            source_title: 'Taylor Swift Opens The GRAMMYs Circus-Style',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/archive/7119886/the-best-and-worst-of-the-2013-grammys/',
+            source_title: 'The Best and Worst of the 2013 Grammys',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle.",
         // Photo pass #762 (2026-07-19): E! News' own CDN (akns-images.eonline
         // .com, from E!'s night-of performance story); curl 200 image/jpeg
@@ -2595,6 +2687,27 @@ export default {
       snippet: "A folk-pop collaboration extends the album’s long single run.",
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
       moment: {
+        sources: [
+          {
+            outlet: 'Nashville Scene',
+            url: 'https://www.nashvillescene.com/music/taylor-swift-and-ed-sheerans-everything-has-changed-video-is-entirely-too-cute-fresh-vid/article_9180df09-e061-5c53-84a9-54f5de17b0da.html',
+            source_title: 'Taylor Swift and Ed Sheeran\'s \'Everything Has Changed\' Video Is Entirely Too Cute',
+            publisher: 'Nashville Scene',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
+            source_title: 'Everything Has Changed',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-11',
+            reliability_score: 2,
+            notes: 'Supplement only, for the single release date — never the load-bearing citation.',
+          },
+        ],
         context: "A tender duet kept Red on the charts deep into 2013, well over a year after release.",
         photos: [
           {

@@ -39,6 +39,15 @@ import { SLUG_TO_ERA_ID } from './lib/longlive-sync-shared.mjs';
 // Every length cap lives in ONE module — see the incident note at the top of
 // scripts/lib/content-caps.mjs. Never hard-code a cap number in this file.
 import { DB_CAPS, POLICY_CAPS } from './lib/content-caps.mjs';
+// The moment sourcing gates + the two lists of records that predate them.
+// Read the header of that file before touching either list.
+import {
+  SINGLE_OUTLET_LEGACY,
+  TWO_OUTLET_CATEGORIES,
+  UNSOURCED_LEGACY,
+  independentOutlets,
+  momentKey,
+} from './lib/sourcing-gate.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
@@ -174,6 +183,11 @@ for (const { data } of loaded) {
   }
 }
 
+// Every moment key the corpus actually contains, so a grandfather entry that
+// no longer matches anything (record deleted, or title rewritten) fails loudly
+// instead of becoming an exemption that silently applies to nothing.
+const seenMomentKeys = new Set();
+
 for (const { file, data } of loaded) {
   const fileEra = data?.eraSlug;
   const rows = data?.items;
@@ -214,8 +228,47 @@ for (const { file, data } of loaded) {
     if ((it.moment?.context ?? '').length > DB_CAPS['moment.context'])
       err(`moment.context ${it.moment.context.length} > ${DB_CAPS['moment.context']} (DB CHECK)`);
 
-    if (!(it.sourceUrl || it.moment?.sources?.length > 0))
-      warn('no sourceUrl and no moment.sources (link-first model)');
+    // --- sourcing (2026-08-11) --------------------------------------------
+    // Typed records have hard-failed with no sources since the audit; moments
+    // only ever warned, and 45 of them were shipping to production with
+    // nothing behind them on a site whose whole proposition is receipts.
+    // Both gates below are ERRORS with a shrinking grandfather list —
+    // see the long note at the top of scripts/lib/sourcing-gate.mjs.
+    const key = momentKey(file, it);
+    seenMomentKeys.add(key);
+    const hasSource = Boolean(it.sourceUrl) || it.moment?.sources?.length > 0;
+    const grandfathered = UNSOURCED_LEGACY.has(key);
+    if (!hasSource && !grandfathered)
+      err(
+        'no sourceUrl and no moment.sources — every moment needs at least one source (link-first model)',
+      );
+    else if (!hasSource)
+      warn(`no sources; grandfathered as ${key} — source it and delete that entry`);
+    // The ratchet: a listed record that HAS been sourced must leave the list,
+    // or the list quietly becomes a permanent exemption nobody rechecks.
+    if (hasSource && grandfathered)
+      err(
+        `listed in UNSOURCED_LEGACY as ${key} but now has sources — delete that entry from scripts/lib/sourcing-gate.mjs`,
+      );
+
+    // "relationship and business items need two independent outlet sources"
+    // (docs/content-ops/editorial-voice-and-pipeline.md) had no implementation
+    // anywhere until today. 143 of the 164 records in those two categories
+    // already met it; the 21 that did not are listed in SINGLE_OUTLET_LEGACY.
+    if (TWO_OUTLET_CATEGORIES.has(it.category) && hasSource) {
+      const outlets = independentOutlets(it.moment?.sources);
+      const listed = SINGLE_OUTLET_LEGACY.has(key);
+      if (outlets < 2 && !listed)
+        err(
+          `${it.category} item has ${outlets} independent outlet(s) — this category requires two (a wiki/forum/social citation never counts toward them)`,
+        );
+      else if (outlets < 2)
+        warn(`only ${outlets} independent outlet(s); grandfathered as ${key}`);
+      if (outlets >= 2 && listed)
+        err(
+          `listed in SINGLE_OUTLET_LEGACY as ${key} but now has ${outlets} independent outlets — delete that entry from scripts/lib/sourcing-gate.mjs`,
+        );
+    }
 
     // Shoppable products (moment.products — see Product in
     // apps/web/lib/longlive/types.ts). Hard errors, not warnings: a malformed
@@ -407,6 +460,24 @@ for (const { file, data } of loaded) {
         );
     }
   });
+}
+
+// The other half of the ratchet. Above, a grandfathered record that got sourced
+// is an error so the entry gets deleted. Here, an entry matching NO record is
+// an error too — otherwise deleting or retitling a record leaves behind a line
+// that looks like a live exemption, and the next reader trusts a list that has
+// quietly stopped describing the corpus.
+for (const [label, list] of [
+  ['UNSOURCED_LEGACY', UNSOURCED_LEGACY],
+  ['SINGLE_OUTLET_LEGACY', SINGLE_OUTLET_LEGACY],
+]) {
+  for (const key of list) {
+    if (seenMomentKeys.has(key)) continue;
+    console.error(
+      `ERROR scripts/lib/sourcing-gate.mjs: ${label} lists "${key}", which matches no moment — the record was deleted or retitled; delete the entry`,
+    );
+    errors += 1;
+  }
 }
 
 // ---------------------------------------------------------------------------
