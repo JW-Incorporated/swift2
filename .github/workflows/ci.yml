@@ -35,6 +35,10 @@ jobs:
       - run: npm run check:generated
       - run: npm run check:content-inert
       - run: npm run check:automerge-allowlist
+      # Content ownership lock (#1954): the manifest must parse and be
+      # well-formed. A malformed lock is caught HERE, at the PR, never at fleet
+      # runtime. An empty manifest (nothing claimed) always passes.
+      - run: npm run check:content-ownership
       # Dependency-downgrade guard (#1903): fail if any dep's highest resolved
       # version dropped below `main`. The base lockfile is fetched from the LIVE
       # base branch at build time (not the PR's stale base), so a lockfile
