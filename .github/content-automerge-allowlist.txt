@@ -3,25 +3,51 @@
 #
 # `.github/workflows/auto-merge-content.yml` reads THIS FILE (from `main`, via
 # the API — never from the PR head) and enables GitHub auto-merge only when
-# every changed path in a PR starts with one of the prefixes below. One path
-# outside the list and the PR waits for a founder. That is the fail-safe
-# direction, so keep this list narrow.
+# every changed path in a PR starts with one of the ALLOW prefixes below AND
+# none of them starts with a DENY (`!`) prefix. One path outside the allow set,
+# or one path under a deny prefix, and the PR waits for a founder. That is the
+# fail-safe direction.
 #
-# ⚠️ EDITING THIS FILE CHANGES MERGE AUTHORITY. Adding a line means bots can
-# land that path with nobody looking. Only add paths that are CONTENT: seed
-# data, or an artifact mechanically DERIVED from seed data by a sync script.
-# Never app code, never anything hand-authored, and never the rest of
-# `apps/web/public/**` (see docs/decisions.md 2026-07-28 — a bot-picked image
-# gets human eyes). ONE exception: `apps/web/public/social/`, carved out by
-# docs/decisions.md 2026-08-11 (checker-gated social images — approved by
-# Joey and Wyatt, superseding the 2026-07-28 note for this one directory
-# only). That path is a plain prefix match here same as any other entry, but
-# `.github/workflows/auto-merge-content.yml`'s `enable` job applies EXTRA
-# per-file constraints to it (must be .png/.jpg/.jpeg, ≤1.5MB, a regular git
-# blob — not a symlink/submodule) that this file has no way to express, since
-# it only ever sees paths, never file properties. A file under that prefix
-# failing those constraints still declines, same as any other non-content
-# path would.
+# ⚠️ EDITING THIS FILE CHANGES MERGE AUTHORITY. Adding an allow line means bots
+# can land that path with nobody looking.
+#
+# WIDENED 2026-08-11 (Wyatt directive — docs/decisions.md): app code
+# (`apps/web/app/`, `apps/web/components/`, `apps/web/lib/`) and shared
+# packages (`packages/`) now auto-merge too. Reasoning: a human-merge gate that
+# nobody actually exercises is theater — "honestly we're not reviewing any
+# code." The real gate for app code is FULL required CI green, not a rubber
+# stamp: the `build` check runs typecheck + lint + the whole test suite +
+# validate:content + check:generated + check:content-inert +
+# check:automerge-allowlist + check:content-ownership + check:no-downgrade +
+# content:coverage + build + check:budget:seed, all in one required job. Auto-
+# merge waits on that; a red anything blocks the merge.
+#
+# The DENY (`!`) lines below carve specific sub-paths back OUT of a broad allow —
+# they always win over an allow. They are how `apps/web/app/` can flow while
+# `apps/web/app/api/`, `/privacy`, `/terms` do not.
+#
+# STILL HUMAN-ONLY (not widened, on purpose — this is NOT about code review, it
+# is about not letting the system rewrite its own safety or ship irreversible /
+# counsel-needing changes unreviewed):
+#   - `.github/**`, `scripts/**`, `package.json`, lockfiles, config — the gate
+#     and what CI runs. A gate that can widen itself is not a gate. (Barred by
+#     NEVER_ALLOWLIST; also simply not allowed here.)
+#   - `apps/web/app/api/**` — the request-handling / data layer. Held because
+#     E2E is 100% red (#669): app-code auto-merge currently has NO behavioural
+#     regression net beyond unit + typecheck + build, which is adequate for view
+#     components but thin for request handlers. Revisit when #669 is green.
+#   - `apps/web/app/privacy/**`, `apps/web/app/terms/**` and any legal lib —
+#     legal surfaces need counsel, not a code review.
+#   - `supabase/migrations/**` — irreversible schema (already NEVER_ALLOWLIST).
+#   - the rest of `apps/web/public/**` — bot-picked media gets human eyes
+#     (2026-07-28), EXCEPT the `apps/web/public/social/` carve-out below.
+#
+# The `apps/web/public/social/` exception is checker-gated (docs/decisions.md
+# 2026-08-11): that path is a plain prefix match here same as any other entry,
+# but the `enable` job applies EXTRA per-file constraints to it (must be
+# .png/.jpg/.jpeg, ≤1.5MB, a regular git blob — not a symlink/submodule) that
+# this file has no way to express. A file under that prefix failing those
+# constraints still declines, same as any other non-content path would.
 #
 # THE SELF-AMENDMENT BAR (2026-08-11). Some paths are not a judgement call and
 # CI refuses them outright: `.github/**`, `scripts/**`, `CLAUDE.md`, `AGENTS.md`,
@@ -37,9 +63,16 @@
 #
 # Format: one path prefix per line, matched with a literal `startsWith`.
 #   - `#` starts a comment; blank lines ignored.
+#   - A leading `!` makes the line a DENY prefix: a changed file under it is
+#     NEVER auto-mergeable, even if an allow prefix also matches. Deny wins.
 #   - Directory prefixes MUST end in `/` (`docs/audits` would also match
 #     `docs/auditsX/`).
-#   - Every entry must name a path that actually exists.
+#   - Every ALLOW entry must name a path that actually exists. DENY entries need
+#     not exist yet (`!apps/web/app/terms/` is a forward-looking guard).
+#   - A broad allow that would otherwise sweep in a NEVER_ALLOWLIST-barred area
+#     is only permitted when a DENY prefix fully covers that barred area — so
+#     `apps/web/app/` is allowed BECAUSE `!apps/web/app/api/` (etc.) deny it
+#     back out. See barredPrefixes() in check-automerge-allowlist.mjs.
 #
 # `npm run check:automerge-allowlist` (CI, in `build`) enforces all of the
 # above AND that every apps/web/lib/longlive/*.generated.ts is either listed
@@ -72,3 +105,21 @@ apps/web/lib/longlive/tracks.generated.ts
 apps/web/lib/longlive/theories.generated.ts
 apps/web/lib/longlive/videos.generated.ts
 apps/web/lib/longlive/song-moods.generated.ts
+
+# ── App code (WIDENED 2026-08-11, Wyatt — docs/decisions.md). Gated by FULL
+#    required CI green (`build`), not a human. View components, client/server
+#    lib, app pages, and shared packages — plus their colocated tests. ────────
+apps/web/app/
+apps/web/components/
+apps/web/lib/
+packages/
+
+# ── DENY carve-outs (`!` wins over any allow). These reinstate the human gate
+#    for exactly the sub-paths that must NOT auto-merge even though a broad
+#    allow above covers them. ─────────────────────────────────────────────────
+# Request-handling / data layer — held while E2E is red (#669); no behavioural
+# regression net beyond unit+typecheck+build. Revisit when #669 is green.
+!apps/web/app/api/
+# Legal surfaces need counsel, not a code review.
+!apps/web/app/privacy/
+!apps/web/app/terms/
