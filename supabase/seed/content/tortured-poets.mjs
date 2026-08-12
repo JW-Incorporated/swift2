@@ -2329,7 +2329,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "Tight End University is the offseason camp Travis Kelce founded with George Kittle and Greg Olsen in 2021 — three days in Nashville where the league's tight ends train and bond, capped by the 'Tight Ends & Friends' concert at Brooklyn Bowl. At the second annual edition on June 24, 2025, Kane Brown paused his set to ask whether the crowd minded 'a really, really, really special guest,' and Taylor walked out to sing \"Shake It Off,\" sharing a microphone with Brown for the final refrains.\n\nThe one-song cameo carried more weight than its runtime: it was her first live performance anywhere since the Eras Tour closed in Vancouver on December 8, 2024 — six months of public quiet broken not at an awards show or a stadium, but at her boyfriend's charity camp in the city where her career began. After nearly two years of her showing up in his world's family suites, this was the reverse gesture made literal: his event, her stage.",
+          "Tight End University is the offseason camp Travis Kelce founded with George Kittle and Greg Olsen in 2021 — three days in Nashville where the league's tight ends train and bond, capped by the 'Tight Ends & Friends' concert at Brooklyn Bowl. At the camp's fifth edition, and the concert's second, on June 24, 2025, Kane Brown paused his set to ask whether the crowd minded 'a really, really, really special guest,' and Taylor walked out to sing \"Shake It Off\" with him — on a borrowed guitar, having told Chase Rice she would go up if she had one.\n\nThe one-song cameo carried more weight than its runtime: it was her first live performance anywhere since the Eras Tour closed in Vancouver on December 8, 2024 — six months of public quiet broken not at an awards show or a stadium, but at her boyfriend's charity camp in the city where her career began. After nearly two years of her showing up in his world's family suites, this was the reverse gesture made literal: his event, her stage.",
         sources: [
           {
             outlet: 'NFL.com',
@@ -2348,6 +2348,31 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-12',
             reliability_score: 4,
+          },
+          // Added at review 2026-08-12: carries her own account of borrowing
+          // Chase Rice's guitar, and confirms this was her first stage
+          // appearance since the Eras Tour ended. Neither NFL.com nor WSMV
+          // covers either detail.
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1419115/taylor-swifts-surprise-performance-with-kane-brown',
+            source_title: "Taylor Swift's Surprise Performance With Kane Brown",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 3,
+          },
+          // Added at review 2026-08-12: the only fetchable source that carries
+          // Kane Brown's "really, really, really special guest" tease, which
+          // the snippet quotes. NFL.com and WSMV both omit it.
+          {
+            outlet: 'Countrytown',
+            url: 'https://countrytown.com/news/taylor-swift-crashes-kane-brown-s-set-in-nashville/dBXKZmloa2o/27-06-25',
+            source_title: "Taylor Swift Crashes Kane Brown's Set In Nashville",
+            publisher: 'Countrytown',
+            source_type: 'press',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
           },
         ],
       },
