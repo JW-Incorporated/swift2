@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 78
+
+## Cruel summer? Rhode Island’s ‘Taylor Swift tax’ went into effect — who’s paying it? - The Boston Glo
+
+- first seen: 2026-08-12 10:17 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Cruel summer? Rhode Island’s ‘Taylor Swift tax’ went into effect — who’s paying it?  The Boston Globe
+- sources:
+  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMinAFBVV95cUxPcjlBTmdZVm1TZjVLVjR3WkExelFZTkUxUHJmdllyMzZscW5JTzNRS3MyXzdIQkI3RFN5eWo0QzZpLUhndnY5VjdTZy0yY253X2tYdW1Nbl9qRlRzeTBrZVVvVjdrMWJRLXRET0RlN0FiV1Z2T2JBa19yaU5VMkxTUm9JUDBzYm1KcUxtOVFmVDN1bTBNQ0VOYzZPNzM?oc=5
 
 ## Taylor Swift Makes History With This Major Career Milestone - instyle.com
 
@@ -662,54 +670,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Taylor Swift’s ‘August’ Featured in a Donald Trump Video for a Political Reason  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxPS3dzWWIyaUZUME5QRzQyS2tOQnFLRXpCTFNOR3JpWWJoR2dTdVhkMUszMHhDUmxDZGpRMUhOU0U0SmpfY0MzMlN1TDNLdjhzaUszZXc3WlA3dzJOTU1lZ3RHMFRta3JEM05qM05PQ2ZRMU96NktsSjAxQldCX1R5b0ctSjB1Q3JPbzVBd25EZDdhNzNMU25ULU53Yw?oc=5
-
-## Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts - i24NEWS
-
-- first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 12
-- summary: Taylor Swift Songs Removed From Trump Campaign, White House Social Media Posts  i24NEWS
-- sources:
-  - [unverified] i24NEWS — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMVFSUzE2MVJMb1dIS1FxOEYtQklMX1hFWmZvOGtZR3VyOEF1MlVMZTg5MmFYejFZenQ3Sm0zTG5LcFFkOUt1eDA3aXloMEpyekJyRGwwd3Q0cEtYTTEzVm1xTmt0TV9qRC1jREtCT2VvSWNob1EzLVdIaW9jVE4tV1p1RHBaaFdUVUhXdXJGMHQxYWRIX2d2RHM0aGZ4VldaSW9ZWWROZ0NWVjZsTUdqM0VNSzlUM1JkbVNWRkt1ZWJUMFRfbU42Y192a19tR1JHc2c?oc=5
-  - [unverified] Reuters — https://news.google.com/rss/articles/CBMiugFBVV95cUxQem8tQ281dWR1RWV5ZVFHX1BEQWZnNU1RaW1uZm40S0VjZzZEbGxVVHVLZkJDZjBkRzM4bUNrNVIwR0RSbDM1MFo1UVdYUV8yLXZKc1QyZEZxcFlHOGgtZzcxYk0zNzZiWlc3TExjMlU4cGhYS0tzT09feE93US1TMEh0eXlGMk12VHNRQUdkcDdmM2ZDRGhBcExEazVUOVBaTlNXc2ZZbmd4SDBxcW1kU1pFSHJZT0dqU1E?oc=5
-  - [unverified] CBC — https://news.google.com/rss/articles/CBMimwFBVV95cUxQb3BnM2Y5MVY0Vzl0WW94dnhJN1ZWN1cyRXUyVzF4QTAzOG5ncDNZUG9zbVhjakMxcmtEbFAwZ20tNFBNdDhxNXEtUlFLMXJWMTFwanFrcU91ZFRtY3c3YWZJSm50SDRPaGctaTFXdnAzQ041eGNVMThuaFZQaXUzYkhfSjBDcW52TFNPWkpFQXNCQjI5d2FURFJvVQ?oc=5
-  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMinwFBVV95cUxPc1pPb3pnTUxvN1JqNmdHTzlSbHNhbVRpQkhsUHF1cDZDOFg1d2dKcHdsR1lSdHFOV3c5ci11RjlycUNEcjVzWUtjV1BvdmxHd1ZuWlhRQWd3bkJOSXp3UTl6RS1KamNNSmlLdFBsMjNBcjBSRVplR0ZCN2p3TXdsMTk0dm0tZUFFdl8zNEhCLThQbGxsYWxBYkcteXFEQ1U?oc=5
-  - [unverified] Red Lake Nation News — https://news.google.com/rss/articles/CBMizAFBVV95cUxPZWx3X094SllZdTJVRW9DZzVzd21EVzdHQ3BNSnpLUlpnODdYS2FKQmhlQXpHcnVEMk9LVlktNTNOYy1iZVc1VFl2blh0YlJ3VWp6SWlPek1IY1J1WlBqc0pnU2ZXY0E0OWMzVVR2YmhWVW05VHczdTRiWlpZOXlKNnQzS19obDJ0NDZrRFRjbFg0X1o4bFRBR2J1Q0dpanRSaVVGaHNqYllpWmt5b2ZIelkyekdzOEFkVE41eFU2NWpZVF94R2FkUndjZVA?oc=5
-  - [unverified] Free Press Kashmir — https://news.google.com/rss/articles/CBMirwFBVV95cUxPU0wzN3Y5bFY0eHNxWklzYXJmVTVlSzd2aktGaGRETjRsQVJyOW5oRVBVb3NwWXdFWmdIQmo2MzVNbkRyRUhmX2p1S1pXUW1hTmY5eDJPb3lFTl9TN3FpWFVKQkZNZjZlUTIxWGZZbHh6LWlZek4yLUdCZUxoUE9ucVZCUktCak9Bc29JLTBXTF9zTnAzRDZ4VVY0Zms1UndfaUtIaW5xZmZSQUdGbHY40gG0AUFVX3lxTFBMRXZXMkRGbnBBVHVHYVlrYmhoNWRTd0J2ZXJWVlFrRW43TU9MR2dUelNFaEUwdElBQjFZaGx0cHE5ZS0yVTZmU0ZhV1Y5dTRmaVpUTUhDT2dHQVdFa3VHZEdEV3RJN0hJU2ZFZFJEN19OSVFrYnM4WkF1UXdid1JWNFlRZGdqWVE3ZmljdDRRendNOHpSY2o4NXBDU3UzNF91Sl9ZR21PSnp1SnRqUGduTDhObw?oc=5
-  - [unverified] CBS News — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcGhlQ1VlVzA0cExsZE5WS1otblI3Vm9vMWpmeXlnZHJPY0hhSnJRQlN1cWdsc0FtLXRBbzF0Q18zRnRaZkthaHB1d09sYy1PU3A3SVBzUTFUSWM4UnM1YzgydDdmQUZyLWZpcGtVbzVmdFd0YkdpajN5ZWVRSk1VTWl5eTNoRzFwWjNSSDF2TWhsTFpTemplT3FYWnBmc3FuOWZ1ZHpiMjFWblhhTDF5UmFvRU5GODVVbndPNDZDMVk?oc=5
-  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMitwFBVV95cUxOR1BneVdQTWJJbzNTTV9qYlJfUEEyLUhTRUhFR3pkNUhDeXI3MDdPZlFXeldDNGN0dTAxVUdYckY5cTB2aFUzMk01U2tEZ2ROTlphUVppTWljZC00NHhBc1NNWEphOW1DbUpsak8xQmRUZWI1UHc1Q2JRZUFJWEkwVlFyTnlTV0VUNE5sXzJwN2pqMi0tRlVjT2dKdmkyZjVMamFtZHBMWU5Nejh1N3hPM3NZOWpRcWc?oc=5
-  - [unverified] The Hill — https://news.google.com/rss/articles/CBMijgFBVV95cUxQNnpXZWJxZ3FLYzZWS0ZyQl9MMTVkSHdxMWVQSzY3Z29jREY3VlVZNnlwQzRHSzhoVnlvQkpIMUR4Z2FPdDRJekZ1VDBnaUNNNEJWdmh0NVQ0ODJGUGcxTHM4cnhhUmN0dVpJaTVvWnpOV0x4bDZjUEJDYzN2WS1hUWs0bnlpQWE0UkgtSXdB0gGTAUFVX3lxTE1hYWJBWTJjVnJTN3ZNY2F0MXdOR1llbW1oWDZsVnRkVEY4eDFYYmE2aTgwYlMzaEdDQlZtZHlUVnhlQmluOGVGQjNjZWtaRHRFRHdBc1pad25vNUFtd2U5aFl4RERRSHlza2hfc3ZnYm1mSlY5Y2gwS2haWmo0VlJXRC1mWVEzbEVpd1VxWURmUllXZw?oc=5
-  - [unverified] baltimoresun.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNX2dsMkRrVWRQaU4zU1F5Yk1oNFRYbWFjUVEwTGV4cGJXVEdzcG5ncWpQSEdjU2otR3VlU24yYXRvRno4aWRNR2kyY1NsUE4wdzhwUEFkQ29YWUhNVFk5a0RTYlZOVmNxOG0wWmFIV2VXLVdNR1NGajVDN1pUZ2Q2bWYtT2hUYkZjdWVuQ3ctdlpidkowdjhfUEl4X2JEUDZnNG1HT2M4SGRSejNDNG9obGl3?oc=5
-  - [unverified] 5newsonline.com — https://news.google.com/rss/articles/CBMi7wFBVV95cUxNaUZiUUJBbjVpNkNSRU5fVVFkeUFJcVBXb2Y2M1UxVTkzOW9kSVdiRVg2M2tuV1N6UWRxamdjUHQwdDRuWS1qTW5tR2ZjR1ZfV1Fhak9nWVAyUVZfRHR3cUxRN1E0VmFtUms3RzNVendaaW9BSlZld01sZkdWdWhwcU43eUhHUU55Q3lMa2owU3VUaHJZczhDQ1hCRkJSY1ViU1pBbnVZWjFIalFscEtzd1R0RUVWVU9VN1B5T05OTDUtdVN2SjZ0OVVKdHhfVUg2cVNTRkxGSXVydGF2UmtpVE1tTTRFYnpLZnpxNnBVcw?oc=5
-  - [unverified] KVUE — https://news.google.com/rss/articles/CBMi5gFBVV95cUxOdWVwVm9Ka2JodlpFdVhDSWRTbFpVc1pfMERXUUczYTltWm1GQVhRdzdEU0NyNnphdVR6WEJSaTliZV83cjQ3YjhSMldlSkxFUVRaVjVGVjhsTktucG5sLTk4QWdTVjFQdm9rcTdGcUVsLXhkeE9MX0YtY1NVb011YTBFa0RESFQyQmNmVXdMMDVtcmh0WnFMZzI5ZzZoSFFiOWl0V2Z3RHVSczhYRTBSSTVybXl1Zmwtd2dBOWtTZ2sxR3JwMkplRFJTbmI2TFlXUTdSSEc5NkNwckRFX0JBS0VvNmE4QQ?oc=5
-
-## “Not Gonna Make It All Year”: NFL World Reacts As Travis Kelce Takes Hard Hit During Chiefs Practice
-
-- first seen: 2026-08-09 09:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: “Not Gonna Make It All Year”: NFL World Reacts As Travis Kelce Takes Hard Hit During Chiefs Practice  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigAFBVV95cUxORkFiMDQ3UXRCZWpxcWltekk4SFZUZVRvNTQ4bE5USzVXdTlSN0RyaWVpUmNqZExjeGg0UU9BdlppbnVjcV9OSER1ejBMMFFOZGN5UHRPMjBnQjlEb3FXLW16ejE4Vlc2V29HS2d2Y3JMUmEwS0NWU1h6VlRoQWpaNg?oc=5
-
-## Why are Taylor Swift songs being removed from White House posts? - news.az
-
-- first seen: 2026-08-09 09:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Why are Taylor Swift songs being removed from White House posts?  news.az
-- sources:
-  - [unverified] news.az — https://news.google.com/rss/articles/CBMijAFBVV95cUxPcE5wT0JJMmNwMnRwNnl5ekcwTTdGY3I5a1lSNzZOczlaejZsQUg4MTczd3B6Nl9hUVZaOFRaeHZ5QUwtMkRIMTlrUTZfTkNCSDFIQTBVcTA1QXFFV3NMUDRmQjZsbEFSN2NscmxHQnJkYXotRHRsNnladHJzMnBUYVp1eDNOQzlndzBZLQ?oc=5
-
-## FILE PHOTO: Taylor Swift performs in Vancouver - The Daily News | Texas' Oldest Newspaper
-
-- first seen: 2026-08-09 09:52 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: FILE PHOTO: Taylor Swift performs in Vancouver  The Daily News | Texas' Oldest Newspaper
-- sources:
-  - [unverified] The Daily News | Texas' Oldest Newspaper — https://news.google.com/rss/articles/CBMi7AFBVV95cUxOSlhrcHFrMTJiRGU3ZF9qbXQxbU53X2FRWmxfZ0l1RkMzVXphSmxyS2hkc1JhS2FiYmJGVUt3VS1Rb2pYSG1obi16N25EUTU1ZExMaFdjckRYU2dZYVM0cEU5X2VXdVNkVGJ1LWRyU3hGZXJXaWVJNnAtaXN1UVVLdzlBdDBWTzJCcjhOSEpYT1BOMDd0Yk1xYmZibURNLVI0RHFiU0VyLTlSaHNwcy1oYUJzaTIxMlBnbmctQ0JNcWxEM3dYeFlINHRjQ2FnVXB1U0ZnS012MXphVzVNMEI2Qk5WS09tTTAtZDlFaw?oc=5
-
-## ‘I don’t know where his head’s at’: Travis Kelce sparks concerns for his NFL 14th season after marri
-
-- first seen: 2026-08-09 09:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: ‘I don’t know where his head’s at’: Travis Kelce sparks concerns for his NFL 14th season after marriage w  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitgJBVV95cUxNMktqS1pDLXhRRTZ1MjRSZGtjQkNaS3BFMjRMMjVzS3Q0UDlmMjRNdDJSdE9ReVBraHdRWXJ4dlNiMmdEaVlyLWtBbGF2RXRVODllQUdZdkE0QzlseHYwUjhmamQxNXRKWTdkODBadE9ndWFvU1A1QXJCRjN1c1M4LWpjSnB4SVJUd1ltaUhldms0WFhxWjhQdEFSbGZ4cVIxVDBMdXhzQ2lPX0xmTzFPeTVyUXV0ZUxtQXZVaEk4Mmc1V0dPa2xobjNyQ29KS0lqeFg4YzZVYWhyUWRabkZBcm1IVzhlVE1McmJiaXNsaDVEUWZqOFJ6N0hhTjRKRmZOREx3UUdMSE0tdjJyZjhIUlJyOWJEQmlJQ21UemNycXhXLTJRV2xxWm1iOFc0MDlqMUhtN0R30gG7AkFVX3lxTE5HdFdpemJKcmpfS0QzaTZpTXJyWWdkNWNpM1RvQVZSUUFlTUs3bXpJdkp2TFVJaFJOYktLZFo3MWIteEZIcFFtb1JfcFE2Tm1OaXZjNHJHRm9rWFREY3UwTk8wcm81Umx1S01qdUN2MzNpZTNpeV9qbDV3bXoyZ1F6b1BXeTRSbS1IX1IweWJlM2QtQ3RZMGhYazJSQlpoWmhjY0ctSkNwa3RNOGJSb2x5LVJLUlM4M0FreUkxMWlkMkw2RDFoTDYxVXdRS2xBemhUVHM3U3BWaDYtSEdtRzBVZmRqMUlqdHJTZV81QWtfX0lCaWdzNmU0cnFRNzRoZWlzVjA4VGxnV1RMYW1OWHpkZTN0SGUxQ0R0ZHIwWlVHMm04ZFhpTFNlLVR0OTIwdDY2MmlpZ2pQMm0tNA?oc=5
