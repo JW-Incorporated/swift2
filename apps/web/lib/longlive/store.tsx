@@ -13,6 +13,7 @@ import {
 import { deepLinkTarget } from './deepLink';
 import { CURRENT_ERA_ID, getEra } from './eras';
 import { THREADS } from './lenses';
+import { resolveTrackKey } from './tracks';
 import {
   emptyProgress,
   readStoredProgress,
@@ -24,7 +25,7 @@ import {
 import { pushBackEntry } from './useBackDismiss';
 import type { EraId, LensId, MotifId } from './types';
 
-export type AppMode = 'landing' | 'era' | 'threads' | 'mood';
+export type AppMode = 'landing' | 'era' | 'threads' | 'mood' | 'clownbot';
 
 interface AppState {
   mode: AppMode;
@@ -81,7 +82,15 @@ interface AppState {
 export type ShareTarget =
   | { kind: 'era'; eraId: EraId }
   | { kind: 'lens'; lensId: LensId }
-  | { kind: 'item'; itemId: string };
+  | { kind: 'item'; itemId: string }
+  // #707 — every immersive overlay is now shareable. A `track` carries the
+  // composite trackKey that reopens the song dossier (over its album guide);
+  // `trackGuide`/`theoryGuide` reopen the per-era guides; `site` is the bare
+  // front door (the landing page, which has no more specific target).
+  | { kind: 'track'; eraId: EraId; trackKey: string }
+  | { kind: 'trackGuide'; eraId: EraId }
+  | { kind: 'theoryGuide'; eraId: EraId }
+  | { kind: 'site' };
 
 /**
  * A saved position in the era stream, captured when the user leaves era mode
@@ -415,6 +424,31 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // The moment overlay reads over the era stream, not the landing page.
       setModeRaw('era');
       setOpenItemId(target.id);
+    } else if (target.kind === 'song') {
+      // The song dossier stacks on top of its album's track guide, so open
+      // both — same state openSong sets. A stale key resolves to null; drop it
+      // and fall through to the front door rather than open an empty overlay.
+      const resolved = resolveTrackKey(target.key);
+      if (resolved) {
+        setModeRaw('era');
+        setTrackGuideEraId(resolved.eraId);
+        setOpenTrackKey(target.key);
+      }
+    } else if (target.kind === 'guide') {
+      // Open the album track guide over the era stream. getEra round-trips a
+      // real id (it falls back to the newest era for a bad one); reject the
+      // fallback so a mangled ?guide= can't open the wrong album.
+      const eraId = getEra(target.eraId).id;
+      if (eraId === target.eraId) {
+        setModeRaw('era');
+        setTrackGuideEraId(eraId);
+      }
+    } else if (target.kind === 'theories') {
+      const eraId = getEra(target.eraId).id;
+      if (eraId === target.eraId) {
+        setModeRaw('era');
+        setTheoryGuideEraId(eraId);
+      }
     } else if (target.kind === 'lens') {
       openThread(target.id as LensId);
     } else {

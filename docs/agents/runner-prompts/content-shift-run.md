@@ -16,6 +16,8 @@ Steps:
 
 Hard limits (charter): seed/content files only — never app code/scripts/workflows; no fabrication ever; never merge; never close tickets; one checkout; max 2 items/run.
 
+**Ownership lock (#1954):** before authoring, read `.github/content-ownership.json`. Every era in its `claims` array is CLAIMED by a founder — do NOT author into that era's seed files (`supabase/seed/{content,theories,tracks,era-secrets}/<era>*.mjs`); choose an unclaimed era/item instead, or exit if the queue only points at claimed eras (say so in the ledger). Empty `claims`, or an absent/unreadable file, = nothing claimed = author normally; a missing lock never stops a run. This is soft compliance — the hard enforcement is the ownership gate in `auto-merge-content.yml`, which won't auto-merge a non-owner PR over a claim — but comply so those PRs never open.
+
 AMENDMENT (2026-07-12, charter amendments): stale-claim expiry 24h as per charter; an all-queues-empty exit while gates DEPTH/WORTHY are red is itself a finding — comment it on the Nils walk log (#502); reviews bound at two rounds then Marjorie's tiebreak.
 
 ## Run discipline (added 2026-07-25 — token burn)

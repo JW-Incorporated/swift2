@@ -37,6 +37,199 @@ nothing for "sometime this week" tasks).
 
 **Approved:** Joey (reported the failure and set the bar: "I need simple
 instructions"), implemented 2026-08-11.
+## 2026-08-11 — One source of truth for content length caps; restore the 31 contexts a stale cap deleted
+
+**Decision:** every content length cap now lives in `scripts/lib/content-caps.mjs`
+and nowhere else. `validate-content.mjs`, `content-coverage.mjs` and
+`content-engine/checkers/redlines.mjs` import it and hold zero cap literals.
+`scripts/lib/content-caps.test.ts` parses the migration SQL and fails if the
+table and the database disagree, and fails if any consumer re-types a cap
+number. The 31 `moment.context` fields trimmed by commit `26e9a5b` are restored
+to their pre-trim text.
+
+**Why:** the same number was hand-written in four places. On 2026-07-22 Wyatt
+raised `moment.context` 2000 -> 4000 (founder decision,
+`supabase/migrations/20260722120000_moment_context_4000.sql`) because the 2000
+ceiling had made the marquee pages come out byte-identical after a 91-ledger
+depth push. Three of the four sites moved. `redlines.mjs` kept a flat
+`FIELD_FAIL_CHARS = 2000` with no exemption, so Karen filed a P1 safety ticket
+for every context between 2000 and 4000 — content that is deliberately that
+long. PR #1727 cleared the ticket by deleting 30,562 characters across 31
+moments (44 of the 47 lines its message claims were photo/generated lines; the
+real count is 31 contexts, all in Showgirl/TTPD/Lover). That is a closed loop:
+depth engine writes long -> stale checker calls it a violation -> fixer
+truncates -> repeat. The pre-trim text was verified as pure deletion (every
+character of each trimmed version appears verbatim in the original, so nothing
+was improved along the way) and every pre-trim value is <= 3916 chars, well
+inside the real 4000 cap.
+
+**The two caps are different policies and stay separate.** The DB CHECK caps
+are column widths — exceed one and the insert fails. The redlines/coverage
+ceiling is an *anti-dump* heuristic: it is looking for pasted source text, a
+copyright and safety concern. Those stay at 2000 for every field, because a
+2000-char paste is a red line; `moment.context` alone is raised to 4000 because
+it is our own editorial prose and length is not the dump signal for it. The
+lyrics-block, verbatim-quote-span (>= 600) and private-data detectors apply to
+it unchanged — those are the checks that actually catch a paste.
+
+**Alternatives considered:** (a) just fix the 2000 in `redlines.mjs` — rejected,
+it leaves four hand-written copies and the next raise desyncs again; (b) raise
+every field to 4000 — rejected, it destroys the anti-dump intent for fields
+that have no reason to be long; (c) generate the migrations from the JS table —
+rejected, migrations are immutable history and must stay literal SQL, so the
+test asserts parity instead.
+
+**Approved by:** pending Wyatt — the restore reverses a merged content PR.
+## 2026-08-11 — Clownbot: a fourth surface, with the refusal layer built OUTSIDE the persona prompt
+
+**Decision (PENDING founder review on the posture question below).** Ship
+Clownbot — a "clowning" theory-bot surface beside Eras, Threads and Mood —
+with a deliberately unusual architecture: the model writes voice and nothing
+else, and every boundary, receipt and number is enforced in deterministic
+TypeScript around it.
+
+**The architecture, and why it is expensive to reverse:**
+
+1. **The refusal layer is independent of the persona prompt.**
+   `clownbot-safety.ts` is pure, dependency-free TypeScript with two gates — an
+   input screen that runs *before any spend*, and an output screen that runs
+   over everything the model produced and discards the whole answer on a hit.
+   Both work with no API key. Boundary enforcement therefore does not depend on
+   a prompt holding, which is the property we actually need: tone-under-pressure
+   and boundary judgement are exactly where a small model fails, and every
+   failure here is a screenshot. Reversing this (moving boundaries into the
+   prompt) would be cheap to type and very expensive to be wrong about.
+2. **The model never searches the Vault.** Retrieval is deterministic and
+   upstream; the model receives a fixed handful of receipts and may cite only
+   ids from that set. It structurally cannot invent a receipt — the same
+   guarantee that stops the Mood classifier inventing a song.
+3. **Evidence and confidence are computed, never claimed.** The model proposes
+   only a "delulu" rating. Evidence is derived from the receipts that survived
+   id-validation, and confidence is derived from both and hard-capped at 85%.
+   Clownbot is structurally incapable of telling a reader it is certain, which
+   is the documented way fan-theory accounts lose community trust.
+4. **Identity is structural, not a disclaimer.** It is branded as a clown, never
+   speaks as Taylor (enforced in the deterministic layer and red-teamed with 20
+   distinct impersonation attempts held as CI tests), and the surface carries no
+   imagery of Taylor at all.
+
+**Cost model (required by CLAUDE.md cost discipline).** Model:
+`claude-haiku-4-5` ($1/MTok in, $5/MTok out). Per turn ≈ 2.2K input + ~350
+output ≈ **$0.004**; a ~5-turn conversation ≈ **$0.02**. Daily cap 300 calls per
+warm instance ≈ **$1.20/day/instance** ceiling, above which the route degrades
+to a free deterministic receipts answer rather than failing. No prompt caching:
+Haiku 4.5's minimum cacheable prefix is 4096 tokens and ours is ~1.5K, so a
+`cache_control` marker would silently no-op — left off with a comment rather
+than shipped as decoration. Swapping to `claude-sonnet-5` is a one-constant
+change and roughly doubles cost; do it *and* add `cache_control` together.
+
+**Alternatives considered.** (a) Boundaries in the system prompt only — cheaper,
+and the failure mode is a screenshot; rejected. (b) A larger model to get
+boundary judgement "for free" — 2–3× cost for a property we can get
+deterministically at zero marginal cost; rejected. (c) Letting the model score
+its own evidence — one fewer moving part, but it makes overpromising possible,
+which is the one documented trust-killer; rejected.
+
+**Open for the founders — this is a product-posture call, not an engineering
+one.** The fandom is currently hostile to generative AI (#SwiftiesAgainstAI,
+Oct 2025). This PR takes the position that the honest move is to be loudly,
+structurally a bot with no AI imagery. The alternative postures (ship quietly;
+or don't ship a bot into this fandom at all right now) are Joey's call, not
+mine. See the PR body.
+
+**Approved by:** pending (Joey on posture, Wyatt on architecture).
+## 2026-08-11 — Product Definition of Done adopted: eight items gate the marketing push
+
+**Decision:** Joey and Wyatt (in person, 2026-08-11) defined the short-term
+product bar: no large marketing push until the eight items in
+`docs/definition-of-done.md` are complete — landing-page rethink (scroll-first
++ unmistakable nav), End Game/Blank Spaces card differentiation, Clue
+Web/Decode card differentiation, two new sections (Marketplace, Community), a
+full site-wide link-liveness pass made permanent, complete chronological video
+coverage with a Videos filter, a re-scoped "clown bot" (blocked on a fresh
+founder decision — the #36 no-go stands until then), and an era/album
+capitalization audit enforced by a checker. Wyatt reworks Marjorie's
+dashboard/brief around this list. `docs/launch-readiness.md` remains the
+historical gate record and now points to the new file.
+
+**Why:** the original launch gates are mostly closed; the founders needed a
+single agreed artifact for "what must be true before we drive real traffic,"
+owned the same way launch-readiness was — statuses move with PR links, items
+move only by founder decision.
+
+**Approved by:** Joey + Wyatt (verbal; documented at Joey's direction)
+## 2026-08-11 — Auto-merge widened to app code, gated by full CI (not human review)
+
+**Decision:** Add app code — `apps/web/app/`, `apps/web/components/`,
+`apps/web/lib/`, and `packages/` (plus their colocated tests) — to the content
+auto-merge allowlist, so those PRs land the moment the required `build` check is
+green, with **no human merge**. Keep specific paths HUMAN-ONLY via a new **deny
+(`!`) mechanism** and the `NEVER_ALLOWLIST` bar.
+
+**Why.** Wyatt, 2026-08-11: *"Remove [app code] from the exclusion list —
+honestly we're not reviewing any code."* A human-merge gate that nobody actually
+exercises is theater: it delays shipping and gives false assurance. The honest
+replacement is a machine gate that always runs — **full required CI green** —
+rather than a rubber stamp. "Full green" = the `build` required check, one job
+that runs typecheck + lint + the entire vitest suite + validate:content +
+check:generated + check:content-inert + check:automerge-allowlist +
+check:content-ownership + check:no-downgrade + content:coverage + build +
+check:budget:seed. GitHub native auto-merge blocks until that passes.
+
+**What stays human-only, and why it is NOT about code review:**
+- `.github/**`, `scripts/**`, `package.json`, lockfiles, config — the gate and
+  what CI runs. A gate that can widen itself unreviewed is not a gate
+  (`NEVER_ALLOWLIST`, unchanged). The auto-merge machinery
+  (`auto-merge-content.yml`, `content-automerge-allowlist.txt`,
+  `check-automerge-allowlist.mjs`, the NEVER list, the ruleset) can never
+  auto-widen itself.
+- `apps/web/app/api/**` — the request-handling / data layer. **Held because
+  E2E is 100% red (#669):** app-code auto-merge currently has no behavioural
+  regression net beyond unit + typecheck + build. That is adequate for view
+  components and lib, thin for request handlers. **Chose option (a): hold the
+  API routes** until #669 is green (then a one-line PR removes the deny). Not (b)
+  "widen and accept the risk" — the API layer is where an un-caught regression
+  actually hurts (data writes, external calls), and it is a small, well-bounded
+  carve-out to hold.
+- `apps/web/app/privacy/**`, `apps/web/app/terms/**`, and any legal lib — legal
+  surfaces need counsel, not a code review.
+- `supabase/migrations/**` — irreversible schema (already `NEVER_ALLOWLIST`).
+- the rest of `apps/web/public/**` — bot-picked media gets human eyes
+  (2026-07-28), except the checker-gated `apps/web/public/social/` carve-out.
+
+**The deny mechanism.** The allowlist now supports `!prefix` deny lines that
+always beat an allow. This lets a broad allow (`apps/web/app/`) flow while a
+barred subtree (`apps/web/app/api/`) stays human. The self-amendment checker was
+extended (`barredPrefixes` in `check-automerge-allowlist.mjs`): a broad allow
+that overlaps a `NEVER_ALLOWLIST` bar is permitted **only** when a deny prefix
+*fully covers* that barred area — a partial deny does not satisfy the bar, so
+nothing slips through. Deny wins at runtime (the enable job checks deny before
+allow) and is fail-safe: a denied path never auto-merges.
+
+**Alternatives considered.** (1) Positive-listing only the safe subtrees, no
+deny — fail-safe but a new page would need a human, which re-creates the theater
+the founder is removing. Rejected. (2) Widening `apps/web/**` broadly and denying
+carve-outs — rejected because it would sweep in `apps/web/public/**` (media) too;
+we allow the three code subtrees explicitly instead. (3) Widening the API routes
+now — rejected per the #669 reasoning above.
+
+**Residual risk (honest).** App code auto-merges with **E2E red (#669)**, so
+there is no full-journey regression net — only unit + typecheck + build. That
+catches most regressions in view/lib code but can miss integration/routing/
+hydration failures that only appear in a real browser. Mitigations: API routes
+(the thinnest-covered layer) are held out; the #669 fix restores the net; and the
+self-amendment paths (`.github`, `scripts`, workflows, allowlist, migrations)
+remain structurally barred, so the worst case is a *product* regression that a
+human can revert, not a compromise of the merge gate itself. Second residual: a
+NEW sensitive product path added later under a broad allow would auto-merge
+unless someone denies it — the deny/NEVER lists must be maintained; but that
+class is bounded to product code, never the gate.
+
+**Approved by:** Wyatt (CTO), 2026-08-11. Opened as its own PR, separate from the
+content-ownership lock (#1959) it shares merge machinery with. Not merged by the
+agent.
+
+---
 
 ## 2026-08-11 — Merge-machinery consolidation (#1910 + #1941) and the a11y-lane refusal
 
@@ -513,6 +706,94 @@ answer when they resurface).
 
 ---
 
+---
+
+## 2026-08-11 — Security headers: a split CSP (enforce the safe half, report-only the rest) and a permissive `img-src`
+
+**Decision (PENDING Wyatt's approval).** The app shipped with **no** security
+response headers. It now sends HSTS, `X-Content-Type-Options`,
+`X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and **two** CSP
+headers, defined in `apps/web/lib/security-headers.mjs`:
+
+1. **`Content-Security-Policy` (enforcing)** — `frame-ancestors 'none'`,
+   `base-uri 'self'`, `form-action 'self'`, `object-src 'none'`. Nothing else.
+2. **`Content-Security-Policy-Report-Only`** — the full resource policy
+   (script/style/img/font/connect/frame/worker/manifest), reporting to
+   `/api/csp-report`.
+
+**Why split.** The site is embed-heavy and hotlinks images from ~500 distinct
+third-party hosts, a set that grows with every content PR. A single enforcing
+policy is a loaded gun pointed at content: the first new image host silently
+blanks a photo, and nobody notices for a week. The split lets us have the
+controls that *cannot* break a page today, while learning what the real site
+loads before anything becomes fatal. The four enforced directives were chosen
+because none of them governs loading a resource — a unit test asserts the
+enforced policy contains no fetch directive at all, so no future content can be
+broken by it. `frame-ancestors` has to be in the enforcing header specifically:
+browsers ignore it in a report-only policy.
+
+**Why `img-src` stays permissive (`'self' data: blob: https:`) even after the
+flip.** An allowlist of ~500 hosts is a maintenance trap with a silent failure
+mode, and it buys very little — an image URL is not a code-execution vector.
+`https:` keeps the guarantee that actually matters (no plaintext image loads).
+Being honest about this beats a policy that looks strict and gets widened in a
+panic the first time a page goes blank.
+
+**What `script-src` does and does not buy.** It carries `'unsafe-inline'`,
+because Next's hydration bootstrap and the JSON-LD block are inline scripts
+whose content changes every build. Removing it needs a per-request nonce, which
+in the App Router means middleware, which opts every page out of static
+generation — a bad trade on a 100% prerendered content site. So `script-src` is
+a host allowlist, not an XSS control. Acceptable today because the app renders
+no user-supplied HTML anywhere (feedback text goes to GitHub, never back into a
+page). **If that ever changes, this directive needs the nonce.**
+
+**Not done deliberately:** `preload` on HSTS (submitting to the browser preload
+list is effectively irreversible — Wyatt's call, not a side effect of a headers
+PR), and `upgrade-insecure-requests` (no http:// subresources exist to fix, and
+content carries a few http:// source links to old archives we don't want to
+risk rewriting).
+
+**How to flip report-only → enforcing:** watch `/api/csp-report` across the era
+reader, moment detail, Taylor's Version and Mood surfaces for a quiet period,
+fold any legitimate host into the lists, then pass
+`enforceResourcePolicy: true` from `next.config.mjs`.
+
+**Alternatives considered:** (a) one enforcing policy from day one — rejected,
+silent content breakage; (b) nonce-based `script-src` via middleware — rejected,
+costs static generation for XSS protection the threat model doesn't need yet;
+(c) a real `img-src` allowlist — rejected, unmaintainable at ~500 hosts.
+
+**Approved by:** pending Wyatt.
+
+---
+
+## 2026-08-11 — Third-party embeds are click-to-load, without exception
+
+**Decision (PENDING Wyatt's approval).** Every third-party embed on the site
+mounts only after the reader opts in. YouTube (`MomentVideo`, `MoodSongCard`)
+and Spotify (`EraMedia`) already worked this way; `MomentSocialPost`
+(Instagram) and `SpotifyCompare` (two Spotify players side by side) did not,
+and now do.
+
+**Why:** an eager embed hands the visitor's IP, user-agent and referring URL to
+Instagram/Spotify before the visitor has asked for anything. `loading="lazy"`
+does not fix this — it defers the load, but any reader who scrolls to the
+component still pays, and `SpotifyCompare`'s desktop layout puts both players
+in the viewport together.
+
+**Tension this resolves.** `MomentSocialPost` was deliberately made eager on
+2026-07-21 on founder direction: *"can we see the post on our page? ... The
+intent is to have a seamless flow in the app, not just push users over to
+instagram."* That intent is preserved — the post still renders **inline, on our
+page**, and the "Open on Instagram" link stays a secondary affordance. What
+changed is that it costs one tap. **Wyatt should confirm he's happy with that
+trade**, since it partially walks back his own direction.
+
+**Approved by:** pending Wyatt.
+
+---
+
 ## 2026-08-11 — Content auto-merge scope: one allowlist file, and a CI guard that fails when it drifts
 
 **Decision (PENDING Wyatt's approval — this changes merge authority).** Three
@@ -578,6 +859,58 @@ merge-authority warning header and why this entry exists.
 as a policy change rather than a config fix.
 
 ---
+
+## 2026-08-11 — Queue exclusions are label-based and self-reporting, never hardcoded
+
+**Decision:** No agent prompt may exclude work by issue number. Exclusions are
+labels (`kevin-skip`, `cie:safety`, `cie:escalate`), every `kevin-skip` carries
+a reason and a review date in a comment on the ticket, and a deterministic daily
+sweep (`scripts/ops/unowned-sweep.mjs`) re-lists every parked ticket with its
+age. Separately, any issue opened with zero labels is auto-stamped `needs-triage`,
+which Kevin S3 now honours regardless of author.
+
+**Why:** Kevin's Stream 1 prompt subtracted a hardcoded set
+`{194,203,206,298,301,153,137,138}` from 2026-07-14 (introduced wholesale in the
+cloud-routine migration #520 with no rationale, no expiry, no tracking ticket).
+Those 8 tickets were unowned by construction — one was the PhotoDNA/NCMEC CSAM
+ticket, and five were watermarked-image fixes of a class Kevin had already fixed
+successfully elsewhere. Every scanner in the fleet pulls its queue with a filter,
+and nobody owns the complement of a union of filters: the same audit found 17
+open issues no scanner's filter reached at all. The individual tickets were never
+the bug; the silent, permanent, unreviewable exclusion was.
+
+**Alternatives considered:** (a) Just delete the 8 numbers — rejected, the next
+agent adds nine more; nothing structural changes. (b) A `--check` CI gate that
+fails `build` on any unlabeled issue — rejected, a human opening an issue must
+never turn `main` red. (c) A new triage agent — rejected, this is a deterministic
+set operation and CLAUDE.md rule 8 says codify it, not spend tokens on it.
+
+**Approved by:** Wyatt (CTO) — pending PR review.
+
+## 2026-08-11 — `needs-manual-a11y` gates the sign-off, not the build
+
+**Decision:** The label means "the *pass criterion* cannot be asserted by axe or
+a scripted probe." A fully-specified code fix is never blocked on
+assistive-technology availability: it ships, and the AT confirmation happens on a
+batched founder checklist (`docs/a11y-manual-queue.md`) run per milestone and
+before go-live. #657/#660/#1206 lose the label; #834/#835 keep it for their
+genuine residual but are buildable now.
+
+**Why:** The queue stood at 5 open, 0 ever closed, since the label was created on
+2026-07-15. All five were found by a scripted probe or a named axe rule and carry
+an exact file, line and fix — none needed AT to know what to do. The label was
+carrying three meanings at once ("AT needed to find it", "AT needed to confirm
+it", and — as Austin's fence read it — "do not build it"), so five specified
+fixes sat still for four weeks.
+
+**Alternatives considered:** (a) Charter an agent to do AT testing — rejected,
+emulating a screen reader and calling the result a pass is worse than an empty
+queue because it is not obviously empty. (b) A standing weekly AT chore —
+rejected, nobody will do it; batching per milestone amortises the expensive
+setup against a moment that already commands attention.
+
+**Approved by:** Wyatt (CTO) — pending PR review. Laura's charter edit included;
+the matching one-line Austin charter change is handed to that charter's owner.
 
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
 

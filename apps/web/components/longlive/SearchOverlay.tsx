@@ -36,6 +36,16 @@ import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
  *
  * Theming: rendered inside the era shell, so `--era-*` vars already reflect
  * the active era (or the vault palette in Threads mode) — nothing to wire.
+ *
+ * Share exemption (#707): this overlay has NO share button, deliberately.
+ * Search is a transient command palette, not a shareable destination — the
+ * query is the reader's own and lives only in this input, and every result it
+ * lists is itself a shareable surface (selecting one opens a moment/era/guide
+ * that carries its own Share button + deep link). Sharing "a search" would
+ * either leak the reader's typed query or reopen an empty box. This is the
+ * "arguably exempt — decide deliberately, don't skip silently" case the ticket
+ * called out; the decision is exempt. (The EraSelector menu and the thread-
+ * crossing overlay are exempt for the same transient-chooser reason.)
  */
 
 const TYPE_ICON: Record<SearchDocType, typeof Search> = {

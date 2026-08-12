@@ -451,7 +451,7 @@ function CrossingDetail({
         </span>
         <button
           onClick={onClose}
-          className="rounded-full p-1 text-[color:var(--era-ink-soft)] transition hover:text-[color:var(--era-ink)]"
+          className="era-icon-btn rounded-full p-1.5"
           aria-label="Close crossing detail"
         >
           <X className="h-4 w-4" />
