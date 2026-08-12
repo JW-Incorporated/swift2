@@ -10354,6 +10354,23 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo (Photo Enrichment lane, 2026-08-12): no imagery exists of the
+        // Aug. 11 announcement or the not-yet-held enshrinement gala, so the
+        // page carries a verified performance photo of the honoree herself —
+        // the songwriter the honor is about. Wikimedia's Eras Tour "Lover" set
+        // frame (already in this file on the Emmy item), re-downloaded and
+        // vision-confirmed this session: Taylor alone at the mic, left-of-centre.
+        // Caption stays honest (a tour performance, not the gala).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
+            focalPoint: '37% 62%',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'Taylor performing on the Eras Tour — the writing behind that catalog is what the Nashville Songwriters Hall of Fame honored, naming her its youngest-ever inductee in August 2026.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     // Authored 2026-08-12 (Vault Run, Content Shift lane) from intake #2025
