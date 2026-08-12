@@ -2586,7 +2586,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/f4kEl3f-ySc/hqdefault.jpg',
       moment: {
         context:
-          "Ellen was a recurring stop through Taylor's first decade — Billboard later catalogued the full run of visits, pranks and confessionals between the two. This Nov. 1, 2010 sit-down landed in the middle of Speak Now's release week, part of the promo blitz around what became a million-copy debut. The show's own channel has since collected her appearances into an in-order retrospective compilation; the standalone segment also survives as a long-lived fan archive upload.",
+          "Ellen was a recurring stop through Taylor's first decade — Billboard later catalogued the full run of visits, pranks and confessionals between the two. This Nov. 1, 2010 sit-down landed in the middle of Speak Now's release week, part of the promo blitz around what became a million-copy debut, and the couch talk came with one of Ellen's signature ambush scares.",
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-ellen-appearances-8511659/' },
           // The show's official in-order compilation of her appearances —
@@ -2609,7 +2609,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/L8-HPbEemcY/hqdefault.jpg',
       moment: {
         context:
-          'Billboard counts the mash-up among her defining American Music Awards moments. A month after the album arrived, she performed its second single with the OneRepublic interpolation woven into the back half — the same night her blunt-bangs debut got its own headlines (covered in this era\'s fashion items). No official AMA channel version has surfaced; the performance survives on YouTube as a long-lived fan archive upload.',
+          'Billboard counts the mash-up among her defining American Music Awards moments. A month after the album arrived, she performed its second single with the OneRepublic interpolation woven into the back half — the same night her blunt-bangs debut got its own headlines (covered in this era\'s fashion items).',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/awards/taylor-swift-american-music-awards-moments-amas-8544183/' },
           { outlet: 'YouTube — LadyStefani (fan archive)', url: 'https://www.youtube.com/watch?v=L8-HPbEemcY' },

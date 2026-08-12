@@ -354,7 +354,12 @@ export default {
         status: 'placeholder', checkedOn: '2026-08-12', method: 'web search + oembed',
         resolvedUrl: 'https://www.youtube.com/watch?v=nJr_8l0AEWE',
         oembedChannel: 'Taylor Swift (official — verified 200)',
-        integration: 'new:evermore (month item + videos/evermore.mjs performance entry)',
+        // Review pass: the standalone month item was dropped — Nov. 13, 2021
+        // SNL is already covered three times in evermore.mjs (the 10-minute
+        // No. 1 record item narrates the performance in depth, plus the Alaïa
+        // jumpsuit fashion item and the sketch-cameo item). Sourced onto the
+        // record item instead. The videos/ performance entry stands.
+        integration: 'enriched:evermore (the 10-minute No. 1 record item) + new videos/evermore.mjs performance entry',
         notes: 'Resolved to the official Taylor Swift channel upload "All Too Well (10 Minute Version) (Live on Saturday Night Live)" — durable.',
       },
     },

@@ -10479,7 +10479,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/mUZ9T-hstUI/hqdefault.jpg',
       moment: {
         context:
-          'A decade after her 1989-era Beats 1 conversations with Zane Lowe, the Showgirl edition slotted between Fallon and Seth Meyers in release week — a long-form craft interview focused on the writing itself rather than the promo beats. The full interview is on Apple Music\'s official channel.',
+          'The Apple Music conversation slotted between the Fallon and Seth Meyers stops in release week — a long-form craft interview focused on the writing itself rather than the promo beats, conducted over FaceTime rather than in a studio. The full interview is on Apple Music\'s official channel.',
         sources: [
           { outlet: 'YouTube — Apple Music', url: 'https://www.youtube.com/watch?v=mUZ9T-hstUI' },
         ],
