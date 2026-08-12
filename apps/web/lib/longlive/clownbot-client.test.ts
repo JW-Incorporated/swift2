@@ -86,8 +86,21 @@ describe('degradation: returns null, never throws', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
+  it('INTERIM GUARD: a key WITHOUT CLOWNBOT_SAFETY_V2=on stays inert (no spend)', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    // flag deliberately unset — a key that shows up by accident must not
+    // re-enable the model path before V2 is confirmed.
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const u = usage(10);
+    expect(await askClownbot(u, 'hi', RECEIPTS)).toBeNull();
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(u.used()).toBe(0);
+  });
+
   it('returns null once the cap is reached, without spending', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLOWNBOT_SAFETY_V2', 'on');
     const fetchSpy = vi.fn(async () => toolBody({ stance: 's' }));
     vi.stubGlobal('fetch', fetchSpy);
     const u = usage(1);
@@ -98,6 +111,7 @@ describe('degradation: returns null, never throws', () => {
 
   it('retries once then gives up, and both attempts share one reservation', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLOWNBOT_SAFETY_V2', 'on');
     const fetchSpy = vi.fn(async () => {
       throw new Error('boom');
     });
@@ -110,6 +124,7 @@ describe('degradation: returns null, never throws', () => {
 
   it('recovers on the second attempt', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLOWNBOT_SAFETY_V2', 'on');
     let calls = 0;
     vi.stubGlobal('fetch', async () => {
       calls += 1;
@@ -122,12 +137,14 @@ describe('degradation: returns null, never throws', () => {
 
   it('returns null on a non-2xx response', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLOWNBOT_SAFETY_V2', 'on');
     vi.stubGlobal('fetch', async () => ({ ok: false, status: 500 }) as unknown as Response);
     expect(await askClownbot(usage(), 'hi', RECEIPTS)).toBeNull();
   });
 
   it('returns null when the response carries no tool_use block', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLOWNBOT_SAFETY_V2', 'on');
     vi.stubGlobal('fetch', async () =>
       ({ ok: true, json: async () => ({ content: [{ type: 'text', text: 'hi' }] }) }) as unknown as Response,
     );
@@ -138,6 +155,7 @@ describe('degradation: returns null, never throws', () => {
 describe('the request shape', () => {
   it('forces the record_take tool and sends the receipts, not the vault', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLOWNBOT_SAFETY_V2', 'on');
     let captured: Record<string, unknown> = {};
     vi.stubGlobal('fetch', async (_url: string, init: RequestInit) => {
       captured = JSON.parse(String(init.body));
@@ -156,6 +174,7 @@ describe('the request shape', () => {
 
   it('tells the model honestly when there are no receipts', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLOWNBOT_SAFETY_V2', 'on');
     let captured: Record<string, unknown> = {};
     vi.stubGlobal('fetch', async (_url: string, init: RequestInit) => {
       captured = JSON.parse(String(init.body));
