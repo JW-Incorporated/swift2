@@ -280,6 +280,7 @@ Consequences for component code:
 | Clue Web | `ClueWeb` | 3 views: home (trail picker) / trail (readable) / explore (constellation) |
 | Crossings | `Crossings` | two threads on one axis; markers where they intersect |
 | Era ↔ Thread pivots | `EraSection` strip + `Crossings` links | via `openThread` / `openEra` |
+| Clownbot | `Clownbot` | 4th toggle surface (`mode === 'clownbot'`). LLM-backed "clowning" theory bot over `POST /api/clownbot`. Reads the Vault via `clownbot-receipts.ts` (deterministic retrieval — the model never searches it) and a hand-curated status-tagged rumor file, `clownbot-lore.ts` (refresh path: `docs/content-ops/clownbot-rumor-refresh.md`). **Boundaries live in `clownbot-safety.ts`, not in the persona prompt** — two deterministic gates, one pre-spend on the input and one post-generation over the model's output; both work with no API key. Never speaks as Taylor; no imagery of her on the surface. Grading (`clownbot-grade.ts`) computes evidence and confidence itself — the model only proposes a "delulu" score. Share is disabled here for the same reason as Mood. |
 
 ---
 

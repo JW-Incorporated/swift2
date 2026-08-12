@@ -7,6 +7,64 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-11 — Clownbot: a fourth surface, with the refusal layer built OUTSIDE the persona prompt
+
+**Decision (PENDING founder review on the posture question below).** Ship
+Clownbot — a "clowning" theory-bot surface beside Eras, Threads and Mood —
+with a deliberately unusual architecture: the model writes voice and nothing
+else, and every boundary, receipt and number is enforced in deterministic
+TypeScript around it.
+
+**The architecture, and why it is expensive to reverse:**
+
+1. **The refusal layer is independent of the persona prompt.**
+   `clownbot-safety.ts` is pure, dependency-free TypeScript with two gates — an
+   input screen that runs *before any spend*, and an output screen that runs
+   over everything the model produced and discards the whole answer on a hit.
+   Both work with no API key. Boundary enforcement therefore does not depend on
+   a prompt holding, which is the property we actually need: tone-under-pressure
+   and boundary judgement are exactly where a small model fails, and every
+   failure here is a screenshot. Reversing this (moving boundaries into the
+   prompt) would be cheap to type and very expensive to be wrong about.
+2. **The model never searches the Vault.** Retrieval is deterministic and
+   upstream; the model receives a fixed handful of receipts and may cite only
+   ids from that set. It structurally cannot invent a receipt — the same
+   guarantee that stops the Mood classifier inventing a song.
+3. **Evidence and confidence are computed, never claimed.** The model proposes
+   only a "delulu" rating. Evidence is derived from the receipts that survived
+   id-validation, and confidence is derived from both and hard-capped at 85%.
+   Clownbot is structurally incapable of telling a reader it is certain, which
+   is the documented way fan-theory accounts lose community trust.
+4. **Identity is structural, not a disclaimer.** It is branded as a clown, never
+   speaks as Taylor (enforced in the deterministic layer and red-teamed with 20
+   distinct impersonation attempts held as CI tests), and the surface carries no
+   imagery of Taylor at all.
+
+**Cost model (required by CLAUDE.md cost discipline).** Model:
+`claude-haiku-4-5` ($1/MTok in, $5/MTok out). Per turn ≈ 2.2K input + ~350
+output ≈ **$0.004**; a ~5-turn conversation ≈ **$0.02**. Daily cap 300 calls per
+warm instance ≈ **$1.20/day/instance** ceiling, above which the route degrades
+to a free deterministic receipts answer rather than failing. No prompt caching:
+Haiku 4.5's minimum cacheable prefix is 4096 tokens and ours is ~1.5K, so a
+`cache_control` marker would silently no-op — left off with a comment rather
+than shipped as decoration. Swapping to `claude-sonnet-5` is a one-constant
+change and roughly doubles cost; do it *and* add `cache_control` together.
+
+**Alternatives considered.** (a) Boundaries in the system prompt only — cheaper,
+and the failure mode is a screenshot; rejected. (b) A larger model to get
+boundary judgement "for free" — 2–3× cost for a property we can get
+deterministically at zero marginal cost; rejected. (c) Letting the model score
+its own evidence — one fewer moving part, but it makes overpromising possible,
+which is the one documented trust-killer; rejected.
+
+**Open for the founders — this is a product-posture call, not an engineering
+one.** The fandom is currently hostile to generative AI (#SwiftiesAgainstAI,
+Oct 2025). This PR takes the position that the honest move is to be loudly,
+structurally a bot with no AI imagery. The alternative postures (ship quietly;
+or don't ship a bot into this fandom at all right now) are Joey's call, not
+mine. See the PR body.
+
+**Approved by:** pending (Joey on posture, Wyatt on architecture).
 ## 2026-08-11 — Product Definition of Done adopted: eight items gate the marketing push
 
 **Decision:** Joey and Wyatt (in person, 2026-08-11) defined the short-term
