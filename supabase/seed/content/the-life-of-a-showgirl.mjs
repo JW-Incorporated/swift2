@@ -3802,7 +3802,12 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.realitytea.com/2026/07/20/taylor-swift-wedding-photos-out-release/',
             note: 'A gossip-newsletter claim about her release strategy. Better-sourced update 2026-07-25 (ledger #1246): Dior told The New York Times that Taylor herself will post the first wedding images to Instagram (timing unstated), and, per People, no plans for a wedding documentary or film. No official photographer of record has been named — so the official channel is her own Instagram, on her own timing.',
-            sourceTier: 'tabloid',
+            // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): the
+            // primary source is a self-published gossip newsletter, which is
+            // the `social` tier's definition — the note said as much while the
+            // field said 'tabloid'. Reality Tea is the aggregator, not the
+            // reporter, so it does not lift the tier.
+            sourceTier: 'social',
             lastCheckedOn: '2026-07-25',
           },
           {
@@ -3832,7 +3837,11 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
             note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee that went up on the day — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction — the speculative part is the arena\'s decision, so no location payload is carried.',
-            sourceTier: 'tabloid',
+            // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
+            // correction as the photo-release entry above — the note called it
+            // a gossip-newsletter tip from unnamed insiders while the field
+            // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
+            sourceTier: 'social',
             lastCheckedOn: '2026-08-02',
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md

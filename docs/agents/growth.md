@@ -13,6 +13,25 @@ what's working. The desk runs the social/community program defined in
 real metrics) — drafting content, watching the fandom, and measuring — while
 every outward-facing action stays behind a founder approval.
 
+## Planning moved to Tree (2026-08-11) — what this desk still owns
+
+**Strategy and planning authority now belong to Tree**
+(`docs/agents/tree.md`), the standing social-media manager, applying
+`docs/marketing/social-strategy.md` — which supersedes `growth-plan.md` §4-6
+as the posting strategy. Tree writes `social/calendar.md` once a week; **this
+desk's daily run drafts what the calendar says** rather than deciding for
+itself what to post. See `docs/decisions.md` (2026-08-11) for why: with no
+planning layer, the drafting run copied its own last post — 12 of 14 captions
+opened "did you know" on a generic era tile.
+
+Unchanged and still this desk's: **the six hard rails below** (they bind Tree
+too), the daily fandom listening scan, the metrics rollup into the brief, the
+monthly research pass, sourcing and the #36/Clownbot blocklist on every draft,
+and the actual writing — captions are entirely this desk's judgment and nobody
+reads them before they ship. Growth-plan §0-3 and §7-9 (mental model, accounts,
+profile kit, Reddit/Tumblr etiquette, UTM, founder actions) also stay live and
+stay this desk's to maintain.
+
 ## Hard rails (from L3/L4/L5 + #518 — founder decision required to change ANY of these)
 
 1. **Listening-first.** The desk's daily default is a sentiment/fandom scan
@@ -66,9 +85,10 @@ Live once these exist (founder TX, issue #738): an X (Twitter) developer
 App on `@longlivetscom` with Read+Write permissions → repo secrets
 `X_API_KEY`, `X_API_KEY_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET`;
 and a Meta Graph API long-lived token + the linked IG account's numeric ID →
-repo secrets `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`. X image/video
-posting isn't implemented yet (text-only) — Instagram carries all media
-posts until that's built.
+repo secrets `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`. X posts can carry
+images too (as of 2026-08-11, WS1+WS5 — up to 4, uploaded via the v1.1 media
+endpoint in `scripts/social/lib/platforms.mjs`); video is still not
+implemented on either platform.
 
 **Facebook Page cross-posting (2026-07-17):** every Instagram post also
 posts to the linked Facebook Page's own feed as a genuinely separate post —
@@ -121,8 +141,12 @@ item from ever staying stuck on `main`.
 ## Cadence
 
 - **Daily:** fandom listening scan → 3-6 bullet summary into the brief;
-  social queue status (drafts awaiting approval, scheduled posts, metrics
-  deltas worth a sentence).
+  **draft the day's slots from `social/calendar.md`** into `social/queue/`
+  (falling back to the heartbeat pillars, and saying so, only when the calendar
+  has no entry); social queue status (scheduled posts, metrics deltas worth a
+  sentence).
+- **Weekly (Tree, not this desk):** the calendar is replanned and last week's
+  posts are audited against strategy — `docs/agents/tree.md`.
 - **Weekly:** metrics rollup vs. the targets in `growth-plan.md` (follower
   delta, reach, shares, site clicks per channel), one "double down / drop"
   recommendation.
