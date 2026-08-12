@@ -32,9 +32,10 @@ month item.)
 drop → triage → route → author → check → ship
 ```
 
-1. **Drop.** Anyone or anything (today: Joey by hand; once live: the V2
-   engine's qualifying `news_story` rows too) files an `intake` issue via
-   the form. Rough is fine; a link-less drop is fine to file.
+1. **Drop.** Anyone or anything (today: Joey by hand; the `appearance-discovery`
+   workflow daily; once live: the V2 engine's qualifying `news_story` rows too)
+   files an `intake` issue via the form. Rough is fine; a link-less drop is fine
+   to file.
 2. **Triage** (content session, same day). **Amended 2026-07-20 (Wyatt) — the
    bar is no longer "is it true enough to publish".** Most Taylor news arrives
    as noise and only settles into fact weeks later, so the old bar meant the
@@ -97,6 +98,13 @@ drop → triage → route → author → check → ship
   from any source.
 - **Same-day triage** is the desk's target while drops are daily; the brief's
   Health section flags intake items older than 48h untriaged.
+- **Machine-filed drops get extra rules, not fewer.** `appearance-discovery`
+  (`.github/workflows/appearance-discovery.yml`) files `intake: YouTube
+  appearance — …` issues from curated channel RSS feeds, deterministically and
+  with zero LLM. Detection is a keyword on a video title; nobody watched the
+  video. Handling rules — oEmbed verification, dating by the event not the
+  upload, and enriching an existing moment rather than duplicating it — are in
+  `docs/agents/content-shift.md` § "YouTube appearance intake".
 
 ## Where the V2 engine fits (added 2026-07-18)
 

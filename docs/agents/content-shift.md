@@ -80,6 +80,61 @@ Phase 1), shifts author *as* the routed persona; until then, house voice.)
    indistinguishable from a quiet news day, which is how the Vault sat at
    2026-07-10 for nine days with a green fleet.
 
+## YouTube appearance intake (added 2026-08-12)
+
+`appearance-discovery` (`.github/workflows/appearance-discovery.yml`) files
+`intake` issues automatically from the RSS feeds of a curated channel list
+(`scripts/appearance-discovery/channels.mjs`). They look like any other intake
+item — title `intake: YouTube appearance — <channel>: "<title>"` — and enter the
+queue at priority 1 like the rest. These extra rules apply to them, and only to
+them.
+
+**The detection is deterministic and UNVERIFIED.** Nobody watched the video. A
+keyword matched a title. The drop is never the copy (rules of the door,
+`docs/content-ops/intake.md`) applies with full force: the issue is a lead, and
+a lead can be wrong about what the video even is.
+
+1. **Verify the video exists and is what the title claims.** Fetch
+   `https://www.youtube.com/oembed?url=<watch url>&format=json`. A non-200 means
+   the video is private, deleted, or region-blocked — comment that and close;
+   never cite a URL you could not load. Check the returned `title` and
+   `author_name` still match the issue; a channel can retitle a video between
+   detection and triage.
+2. **Place it by published date, not by vibe.** Compare the published date
+   against the era ranges in `supabase/seed/eras-data.mjs` and author into that
+   era's file. This is the one case where the "new content lands in the current
+   era" default does NOT automatically apply: the feed can surface an upload
+   about an older era (an anniversary cut, a re-release, a vault clip), and the
+   *event's* date governs, not the upload date.
+3. **ENRICH before you create — this is the important one.** Most detected
+   videos are coverage of a moment the Vault already has (an awards
+   performance, an album announcement). Search the target era file for the
+   moment first. If it exists, add the video to that moment's `sources` (and,
+   where the video IS the artifact, consider `moment.socialPost`/photos per step
+   3b) and ship that as the change. Do NOT author a second moment for an event
+   already covered — that is how the same night ends up on the page twice, and
+   the discovery lane will surface the same event from several channels on
+   purpose (GMA and TODAY both cover one announcement).
+4. **Category defaults to `music`** unless the item is plainly something else
+   from the allowed set (`sighting`, `fashion`, `relationship`, `tour`,
+   `business`, `music`, `release`, `video`).
+5. **A `videos/<era>.mjs` entry is the exception, not the rule.** Only an
+   official performance, documentary, or film — from the official channel or the
+   rights-holder's channel — may become a `videos` row, and only when it fits
+   the existing kind enum (`music_video`, `lyric_video`, `short_film`,
+   `tour_film`, `documentary`, `performance`). Do not invent a kind, and do not
+   widen the enum to fit a video: if it does not fit, it is a moment source, not
+   a video row.
+6. **A fan re-upload is NEVER a `videos` `officialUrl`.** Talk-show and awards
+   channels re-post clips they own, which is fine; a fan channel mirroring a
+   performance is not, and those links rot or get struck. If the only URL is a
+   re-upload, cite it as a moment source at most, never as the official video.
+7. **Not every detected video is content.** A title can match and still be
+   nothing worth a Vault item (a listicle, a passing mention, a reaction
+   segment). Close it with a one-line reason. Refusing is a normal outcome here
+   and costs nothing; the filter deliberately favors precision but is still just
+   keywords on a title.
+
 ## Diagnosed failure history (2026-07-19/20) — read before debugging this again
 
 **The shift has never opened a pull request.** Not once, across its whole
