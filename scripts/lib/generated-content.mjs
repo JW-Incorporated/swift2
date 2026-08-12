@@ -37,6 +37,10 @@ export const SYNC_TARGETS = [
   { sync: 'scripts/sync-longlive-tracks.mjs', out: `${GENERATED_DIR}/tracks.generated.ts` },
   { sync: 'scripts/sync-longlive-theories.mjs', out: `${GENERATED_DIR}/theories.generated.ts` },
   { sync: 'scripts/sync-longlive-videos.mjs', out: `${GENERATED_DIR}/videos.generated.ts` },
+  {
+    sync: 'scripts/sync-longlive-era-secrets.mjs',
+    out: `${GENERATED_DIR}/era-secrets.generated.ts`,
+  },
   { sync: 'scripts/sync-song-moods.mjs', out: `${GENERATED_DIR}/song-moods.generated.ts` },
 ];
 

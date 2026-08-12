@@ -285,6 +285,113 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
+      # Karen filed-what-she-found check (2026-08-11). The cadence check above
+      # sees Actions workflows; the content-lane liveness checks below see "did
+      # a PR appear". Neither can see the failure Karen actually has, which is the
+      # nastiest shape a runner failure takes: she runs, she scans perfectly,
+      # she commits a completely normal-looking run report, her PR merges — and
+      # the findings never reach a ticket.
+      #
+      # It has happened twice. 2026-07-26 (issue #528): step 5 died on
+      # `spawn gh ENOENT`, 623 filable findings discarded. 2026-08-09 (PR
+      # #1850): step 5 died on `401 Bad credentials` in the REST fallback, 597
+      # discarded (P1 49 · P2 505 · P3 43). Both runs looked healthy from
+      # outside — same report file, same PR, same merge — so ~1,220 findings
+      # were destroyed with nothing anywhere saying so.
+      #
+      # `run.mjs` now stamps every report with a machine-readable verdict
+      # (`lib/report.mjs` → `<!-- cie-filing: status=… unfiled=N -->`). This
+      # check is pure grep over the committed report: no API call, no LLM, no
+      # judgment. Three ways it fires:
+      #   - the newest report has NO marker  → the run never reached the end of
+      #     step 5 (i.e. it crashed exactly the way 07-26 and 08-09 did)
+      #   - status is not `ok`               → filing failed or was fatal
+      #   - unfiled > 0                      → findings detected and discarded
+      #
+      # MARKER_EPOCH: reports written before the stamp shipped legitimately
+      # have no marker, so they are not evidence of anything. Only reports
+      # dated on/after this are required to carry one.
+      #
+      # Staleness: Karen is a Wyatt-account cloud routine (docs/agents/runners.md,
+      # `0 9 * * *`), invisible to the Actions cadence check. 72h tolerates two
+      # consecutive misses plus report-PR merge lag (she runs 09:00 UTC; this
+      # runs 14:35 UTC, so a same-day report that hasn't merged yet just leaves
+      # yesterday's as newest — well inside the window).
+      #
+      # No new cron: this rides the existing daily 35 14 trigger, gated the same
+      # way as the other daily-only jobs, and adds nothing to the :00/:30
+      # cluster the header warns about.
+      - name: Karen filed what she found (CIE ticket-filing check)
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          MARKER_EPOCH="2026-08-12"
+          MAX_AGE_HOURS=72
+          ALERT_TITLE="Watchdog: Karen scanned but filed no tickets"
+
+          # Report filenames are YYYY-MM-DD-cie-run.md, so lexical sort is
+          # chronological. Newest wins.
+          NEWEST=$(ls docs/audits/engine/*-cie-run.md 2>/dev/null | sort | tail -1 || true)
+          if [ -z "$NEWEST" ]; then
+            echo "no CIE run reports in docs/audits/engine — nothing to check yet."
+            exit 0
+          fi
+          RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
+          AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
+          MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
+          echo "newest report: $NEWEST (${AGE_H}h old) marker: ${MARKER:-<none>}"
+
+          PROBLEM=""
+          if [ "$AGE_H" -gt "$MAX_AGE_HOURS" ]; then
+            PROBLEM="Karen's newest run report is \`$(basename "$NEWEST")\` — **${AGE_H}h old** (expected within ${MAX_AGE_HOURS}h). The nightly scan has stopped producing reports."
+          elif [ -z "$MARKER" ]; then
+            # Only meaningful once the stamp exists; older reports predate it.
+            if [ "$RUN_DATE" \> "$MARKER_EPOCH" ] || [ "$RUN_DATE" = "$MARKER_EPOCH" ]; then
+              PROBLEM="\`$(basename "$NEWEST")\` carries **no \`cie-filing\` verdict**, which means the run never reached the end of step 5 — it scanned, wrote this report, and then died before filing. That is the exact shape of the 2026-07-26 (623 findings) and 2026-08-09 (597 findings) losses."
+            else
+              echo "report predates MARKER_EPOCH ($MARKER_EPOCH) — no verdict expected."
+            fi
+          else
+            # Anchored on the leading space: a bare `grep -o 'filed=[0-9]*'`
+            # also matches the tail of `unfiled=597` and returns two values.
+            STATUS=$(echo "$MARKER" | sed -n 's/.*[[:space:]]status=\([a-z-]*\).*/\1/p')
+            UNFILED=$(echo "$MARKER" | sed -n 's/.*[[:space:]]unfiled=\([0-9]*\).*/\1/p')
+            FILED=$(echo "$MARKER" | sed -n 's/.*[[:space:]]filed=\([0-9]*\).*/\1/p')
+            if [ "$STATUS" != "ok" ] || [ "${UNFILED:-0}" -gt 0 ]; then
+              PROBLEM="\`$(basename "$NEWEST")\` reports filing status **\`${STATUS}\`** with **${UNFILED:-?} finding(s) detected and never filed** (${FILED:-0} filed). Those findings are on no ticket and in no queue."
+            fi
+          fi
+
+          if [ -z "$PROBLEM" ]; then
+            echo "Karen's newest run report ($(basename "$NEWEST")) confirms every detected finding reached the tracker, as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "karen filing OK"
+            exit 0
+          fi
+
+          {
+            echo "@sffan15-sys @wjduvall-cmd — the Content Integrity Engine detected content problems and did not turn them into tickets."
+            echo ""
+            printf '%b\n' "$PROBLEM"
+            echo ""
+            echo "**Why this matters more than it looks:** a Karen run that files nothing still commits a normal report and still merges a normal PR, so it is indistinguishable from a healthy night unless something checks this. Roughly 1,220 findings were destroyed this way across 2026-07-26 and 2026-08-09 before anyone noticed."
+            echo ""
+            echo "Check, in order:"
+            echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure."
+            echo "2. Can the runner write to GitHub at all? \`node scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
+            echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab."
+            echo ""
+            echo "Nothing is lost by re-running: the engine is idempotent and fingerprint-deduped, so \`node scripts/content-engine/run.mjs all --create\` re-derives the same findings and files whatever is still missing."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+
       # Work-ownership check (2026-08-11). Every other job in this file watches
       # whether a RUNNER is alive. None of them watch whether the WORK has an
       # owner, and that is the failure the 2026-08-11 audit actually found: on
@@ -335,43 +442,62 @@ jobs:
             exit "$STATUS"
           fi
 
-      # Content Shift liveness check (2026-07-23). Content Shift is a
-      # Wyatt-account cloud routine (docs/agents/runners.md), not a GitHub
-      # Actions workflow, so it's invisible to the cadence check above.
-      # Confirmed this session: it went silent after 2026-07-22 with zero
-      # trace anywhere (no PR, no stranded branch, no ticket comment) despite
-      # its own charter's rule 8 ("never exit silently") — that rule is
-      # LLM-prompt-compliance-dependent and had already regressed once
-      # before. This check is independent of the agent's own behavior: it
-      # only trusts objective git/gh history.
+      # Content-lane liveness checks (2026-07-23; generalised 2026-08-11).
+      # These lanes are Wyatt-account cloud routines (docs/agents/runners.md),
+      # not GitHub Actions workflows, so they are invisible to the cadence
+      # check above. Confirmed 2026-07-23: Content Shift went silent for a
+      # full day+ with zero trace anywhere (no PR, no stranded branch, no
+      # ticket comment) despite its own charter's rule 8 ("never exit
+      # silently") — that rule is LLM-prompt-compliance-dependent and had
+      # already regressed once. These checks are independent of the agent's
+      # own behavior: they only trust objective gh history.
       #
-      # Match on the PR HEAD BRANCH prefix "content-shift/", not the title or
-      # the shared `content-shift` LABEL. The label is shared with the hourly
-      # photo-enrichment worker (`content/photo-enrichment-*` branches), so a
-      # label check false-positives on it. The TITLE prefix "content(shift): "
-      # was tried first (until 2026-07-25) but false-NEGATIVED: Content Shift
-      # titles its PRs inconsistently (`content:`, `content(showgirl):`,
-      # `content(reputation):` …), so real output (#1240, #1494 on 07-24) went
-      # undetected and #1449 alarmed from 07-22 on. The branch is the reliable
-      # discriminator: Content Shift always branches `content-shift/<date>`,
-      # and no other routine uses that prefix.
+      # Match on the PR HEAD BRANCH prefix, not the title or the shared
+      # `content-shift` LABEL. The label is shared with the photo-enrichment
+      # worker (`content/photo-enrichment-*`), so a label check
+      # false-positives on it. The TITLE prefix "content(shift): " was tried
+      # first (until 2026-07-25) but false-NEGATIVED: Content Shift titles its
+      # PRs inconsistently (`content:`, `content(showgirl):` …), so real
+      # output (#1240, #1494 on 07-24) went undetected and #1449 alarmed from
+      # 07-22 on. The branch prefix is the reliable discriminator.
       #
-      # Window is 30h: Content Shift runs at 17:00/23:00 UTC, so the
-      # worst-case gap between two scheduled attempts is 18h — 30h tolerates
-      # one missed slot without false-alarming, while still catching real
-      # multi-day silence within a day and a half.
+      # WHY THIS IS NOW A LOOP (2026-08-11, Vault Run phase 4 prep). The Vault
+      # Run orchestrator (`vault/<date>`) is being brought in to replace six
+      # standalone lanes including Content Shift. When those standalone
+      # triggers are finally disabled, `content-shift/` PRs stop appearing and
+      # a check hard-keyed to that prefix would alarm every single day. Rather
+      # than flip the prefix — which would leave the still-live standalone
+      # lane unmonitored in the meantime, and silently swap what is being
+      # watched — both prefixes are watched independently, each with its own
+      # window and its own alert title so they self-heal separately.
+      #
+      # **When the standalone lanes are disabled, DELETE the content-shift/
+      # row below.** That is the whole migration: one line, not a rewrite.
+      #
+      # Windows. A lane with NO PR inside its window is considered down.
+      #   content-shift/ = 30h — runs 17:00/23:00 UTC, worst-case gap between
+      #     two scheduled attempts is 18h, so 30h tolerates one missed slot.
+      #   vault/ = 36h — runs once daily at 16:07 UTC. This watchdog job runs
+      #     at 14:35 UTC, so a healthy newest-PR age at check time is ~22.5h;
+      #     36h clears that with ~13h of slop for a late run, while a genuinely
+      #     missed day (age ~46h) still alarms. A missed day is NOT a minor
+      #     event for this lane — the orchestrator carries all six content
+      #     lanes, so one missed run is a whole-day content outage, which is
+      #     precisely what must page. Do not widen this to 48h "to be safe";
+      #     that would hide exactly the failure it exists to catch.
+      #
+      # EXPECT THIS TO FIRE. As of 2026-08-11 the Vault Run has no PR on
+      # 08-01, 08-02 or 08-08 (verified: no PR and no stranded remote branch)
+      # — roughly a 25% miss rate that nobody noticed, because the standalone
+      # lanes were still covering those days. That gap is the finding, not a
+      # false positive.
       #
       # Known, accepted limitation: a genuinely idle run (queue empty) also
-      # leaves no PR, so this can fire on a real quiet stretch, not just a
-      # dead routine. The charter treats an idle exit as itself worth
-      # surfacing ("if all three priorities are empty... that is itself a
-      # finding"), so a nudge to confirm "quiet week or actually dead?" is a
-      # reasonable, low-cost outcome either way — not a bug to engineer
-      # around. Scoped to Content Shift only for now (the one agent with
-      # directly confirmed silent failure); extending to other cloud-routine
-      # agents (Nils, Kevin, Laura, Paul Blart, Austin, Growth) is a cheap
-      # follow-up if/when they're actually observed to go dark too.
-      - name: Content Shift liveness check
+      # leaves no PR, so this can fire on a real quiet stretch rather than a
+      # dead routine. Both charters treat an idle exit as itself worth
+      # surfacing, so "quiet day or actually dead?" is a reasonable low-cost
+      # outcome either way — not a bug to engineer around.
+      - name: Content lane liveness checks
         if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -381,29 +507,41 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          WINDOW_HOURS=30
-          CUTOFF=$(date -u -d "-${WINDOW_HOURS} hours" +%Y-%m-%dT%H:%M:%SZ)
-          # gh pr list sorts newest-first by default (confirmed empirically) —
-          # 100 comfortably covers this repo's real PR volume (~8/day from
-          # this session's own observation) within a 30h window.
-          RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
-            --json headRefName,createdAt \
-            --jq "[.[] | select(.headRefName | startswith(\"content-shift/\")) | select(.createdAt >= \"$CUTOFF\")] | length")
 
-          ALERT_TITLE="Watchdog: Content Shift hasn't produced a PR in ${WINDOW_HOURS}h"
+          # check_lane <branch-prefix> <window-hours> <lane name> <cadence prose>
+          # Always returns 0: an alarming lane must not abort the step and take
+          # the other lane's check down with it. The alert issue is the signal.
+          check_lane () {
+            local PREFIX="$1" WINDOW="$2" LANE="$3" CADENCE="$4"
+            local CUTOFF RECENT ALERT_TITLE
+            CUTOFF=$(date -u -d "-${WINDOW} hours" +%Y-%m-%dT%H:%M:%SZ)
+            # gh pr list sorts newest-first by default (confirmed empirically) —
+            # 100 comfortably covers this repo's real PR volume (~8/day) within
+            # any of these windows.
+            RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
+              --json headRefName,createdAt \
+              --jq "[.[] | select(.headRefName | startswith(\"${PREFIX}\")) | select(.createdAt >= \"${CUTOFF}\")] | length")
 
-          if [ "$RECENT" -gt 0 ]; then
-            echo "Content Shift is active — $RECENT PR(s) from a 'content-shift/*' branch in the last ${WINDOW_HOURS}h." > /tmp/alert-body.md
-            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
-            echo "content shift OK ($RECENT recent PRs)"
-            exit 0
-          fi
+            ALERT_TITLE="Watchdog: ${LANE} hasn't produced a PR in ${WINDOW}h"
 
-          {
-            echo "@sffan15-sys @wjduvall-cmd — no PR from a \`content-shift/*\` branch in the last ${WINDOW_HOURS}h. Content Shift runs twice daily (17:00/23:00 UTC, docs/agents/runners.md) — this either means a genuinely quiet news cycle (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
-            echo ""
-            echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"content-shift/\"))'\` for the most recent one, and whether a \`content-shift/*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash, per docs/agents/content-shift.md's own diagnosed-failure history)."
-            echo ""
-            echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
-          } > /tmp/alert-body.md
-          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            if [ "$RECENT" -gt 0 ]; then
+              echo "${LANE} is active — ${RECENT} PR(s) from a '${PREFIX}*' branch in the last ${WINDOW}h." > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+              echo "${LANE} OK (${RECENT} recent PRs)"
+              return 0
+            fi
+
+            {
+              echo "@sffan15-sys @wjduvall-cmd — no PR from a \`${PREFIX}*\` branch in the last ${WINDOW}h. ${LANE} runs ${CADENCE} (docs/agents/runners.md) — this either means a genuinely quiet queue (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
+              echo ""
+              echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"${PREFIX}\"))'\` for the most recent one, and whether a \`${PREFIX}*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash)."
+              echo ""
+              echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "${LANE} ALARM (no PR in ${WINDOW}h)"
+            return 0
+          }
+
+          check_lane "vault/"         36 "The Vault Run"  "once daily at 16:07 UTC, carrying all six content lanes"
+          check_lane "content-shift/" 30 "Content Shift"  "twice daily at 17:00/23:00 UTC"
