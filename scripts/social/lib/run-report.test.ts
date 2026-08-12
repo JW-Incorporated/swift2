@@ -6,6 +6,8 @@ import {
   summarizeRun,
   formatReportMarkdown,
   formatAnnotations,
+  isStuck,
+  STUCK_AFTER_HOURS,
 } from './run-report.mjs';
 
 const failedX = {
@@ -161,5 +163,90 @@ describe('formatAnnotations', () => {
     const annotations = formatAnnotations([], { abortReason: 'required credentials are missing' });
     expect(annotations).toHaveLength(1);
     expect(annotations[0]).toMatch(/^::error title=social-poster: run aborted::/);
+  });
+});
+
+// --- waiting-on-deploy + stuck escalation (2026-08-11) -------------------
+const waiting = {
+  kind: OUTCOME.WAITING,
+  file: '2026-08-12-real-photo-ig.json',
+  platform: 'instagram',
+  error: 'its media is not live at https://www.longlivets.com yet — HEAD .../a.png returned 404.',
+  overdueHours: 0.5,
+};
+const stuckSkip = {
+  kind: OUTCOME.SKIPPED,
+  file: '2026-08-09-august-augustine-ig.json',
+  platform: 'instagram',
+  error: 'its media (/eras/folklore.png) is generic era-cover art already used in a recent Instagram post.',
+  overdueHours: 50,
+};
+const stuckWait = { ...waiting, file: 'stuck-wait-ig.json', overdueHours: 26 };
+
+describe('waiting outcomes', () => {
+  it('is a benign, non-blocking state while it is young', () => {
+    expect(hasBlockingFailure([waiting])).toBe(false);
+    expect(summarizeRun([waiting])).toBe('1 waiting on deploy (instagram 1)');
+  });
+
+  it('reads as holding, not failing, in the markdown', () => {
+    const md = formatReportMarkdown([waiting]);
+    expect(md).toContain('waiting on deploy');
+    expect(md).toContain('ships automatically on the first run after its image PR is merged');
+    expect(md).not.toContain('permanently failed');
+  });
+
+  it('annotates as a warning, not an error', () => {
+    const annotations = formatAnnotations([waiting]);
+    expect(annotations).toHaveLength(1);
+    expect(annotations[0]).toContain('::warning');
+    expect(annotations[0]).toContain('waiting on deploy');
+  });
+});
+
+describe('stuck escalation', () => {
+  // The class this exists for: a skip that spends no attempt can never reach
+  // social/failed/, so without this it stays invisible forever inside green
+  // runs — which is what 2026-08-09-august-augustine-ig.json did for 2 days.
+  it('turns the run red once a no-attempt block passes the threshold', () => {
+    expect(isStuck(stuckSkip)).toBe(true);
+    expect(isStuck(stuckWait)).toBe(true);
+    expect(hasBlockingFailure([stuckSkip])).toBe(true);
+    expect(hasBlockingFailure([stuckWait])).toBe(true);
+  });
+
+  it('does not escalate a block that is still inside the threshold', () => {
+    expect(isStuck({ ...stuckSkip, overdueHours: STUCK_AFTER_HOURS - 0.1 })).toBe(false);
+    expect(hasBlockingFailure([{ ...stuckSkip, overdueHours: 1 }])).toBe(false);
+  });
+
+  it('escalates exactly at the threshold', () => {
+    expect(isStuck({ ...stuckSkip, overdueHours: STUCK_AFTER_HOURS })).toBe(true);
+  });
+
+  it('never escalates a posted or retrying outcome by overdue time', () => {
+    expect(isStuck({ ...retryingX, overdueHours: 999 })).toBe(false);
+  });
+
+  it('leads the headline and the markdown with the stuck item', () => {
+    expect(summarizeRun([stuckSkip])).toContain(`1 STUCK >${STUCK_AFTER_HOURS}h`);
+    const md = formatReportMarkdown([stuckSkip]);
+    expect(md).toContain('STUCK more than');
+    expect(md).toContain('overdue 2d 2h');
+    expect(md).toContain('a human has to change the item');
+  });
+
+  it('annotates a stuck item as an error — its only possible escalation', () => {
+    const annotations = formatAnnotations([stuckSkip]);
+    expect(annotations).toHaveLength(1);
+    expect(annotations[0]).toContain('::error');
+    expect(annotations[0]).toContain('cannot unblock itself');
+  });
+
+  it('keeps stuck items out of the plain skipped/waiting sections', () => {
+    const md = formatReportMarkdown([stuckSkip, waiting]);
+    expect(md).toContain('1 item STUCK');
+    expect(md).toContain('1 waiting on deploy');
+    expect(md).not.toContain('1 skipped (left in the queue');
   });
 });

@@ -36,7 +36,7 @@ substitutes because Instagram is not on the image-host allowlist and its CDN
 URLs are signed and expiring. `moment.socialPost` embeds the real post instead.
 
 Queue is the checker, not your judgment: run
-`node scripts/content-engine/run.mjs scan --no-images` and read the
+`node --use-env-proxy scripts/content-engine/run.mjs scan --no-images` and read the
 `content.social-post-missing` findings. Take up to 3, P1 before P2.
 
 1. Find the post PERMALINK in press coverage that embeds it. Outlets embed
