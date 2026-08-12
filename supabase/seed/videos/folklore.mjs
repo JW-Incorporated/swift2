@@ -70,8 +70,23 @@ export default {
         'The Disney+ film where folklore got its liner notes out loud: Taylor, Aaron Dessner and Jack Antonoff play the album through in a woodland studio and explain it song by song — including the William Bowery reveal.',
       symbolism: null,
       easterEggs: [],
+      // The film itself is Disney+-exclusive, so there is no official full
+      // upload to point `officialUrl` at — it stays null. What DOES exist is
+      // the official trailer on Taylor's own channel (oEmbed-verified
+      // 2026-08-12, author_name "Taylor Swift"), added by the
+      // YouTube-appearances research pass so this record carries a real
+      // embeddable official asset instead of nothing.
       officialUrl: null,
-      media: [],
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=jgdFUoZzCI0',
+          oembed_fetched_at: '2026-08-12',
+          attribution: 'Taylor Swift — official YouTube channel (official trailer)',
+        },
+      ],
       sources: [
         wiki('Folklore:_The_Long_Pond_Studio_Sessions', 'Folklore: The Long Pond Studio Sessions'),
         press(
@@ -80,6 +95,16 @@ export default {
           'Teen Vogue',
           'supports the Disney+ surprise-release timing and film premise',
         ),
+        {
+          source_url: 'https://www.youtube.com/watch?v=jgdFUoZzCI0',
+          source_title: 'folklore: the long pond studio sessions | Official Trailer',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-12',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official trailer upload — verified via YouTube oEmbed 2026-08-12',
+        },
       ],
     },
   ],
