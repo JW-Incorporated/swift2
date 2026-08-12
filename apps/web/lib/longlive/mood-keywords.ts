@@ -135,7 +135,10 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
  * (see {@link scoreSong}) — a fallback vector without them still returns good
  * songs, so the lists stay short and unambiguous.
  */
-const HIGH_ENERGY = ['pumped', 'hyped', 'dancing', 'dance', 'party', 'loud', 'driving', 'blasting', 'amped', 'wild', 'unhinged', 'feral', 'buzzing', 'restless', 'sit still', 'cant sit still', 'cannot sit still', 'jittery', 'bouncing off the walls', 'vibrating'];
+// Only the NEGATED sit-still forms are high energy — "can't sit still" is
+// agitation, but "i just want to sit still" is a wish for calm, so the bare
+// phrase stays out.
+const HIGH_ENERGY = ['pumped', 'hyped', 'dancing', 'dance', 'party', 'loud', 'driving', 'blasting', 'amped', 'wild', 'unhinged', 'feral', 'buzzing', 'restless', 'cant sit still', 'cannot sit still', 'not sit still', 'couldnt sit still', 'jittery', 'bouncing off the walls', 'vibrating'];
 // 'still' removed (#1999) — it cancelled "hyped" in "can't sit still". The
 // small-hours markers 1am/2am/4am join 3am; ennui words read as low energy too.
 const LOW_ENERGY = ['tired', 'sleepy', 'quiet', 'slow', 'calm', 'cozy', 'cosy', 'mellow', 'soft', '1am', '2am', '3am', '4am', 'late night', 'exhausted', 'drained', 'worn out', 'numb', 'heavy', 'flat', 'meh', 'blah', 'bored', 'sluggish', 'listless'];
@@ -153,11 +156,24 @@ const LOW_VALENCE = ['sad', 'heartbroken', 'depressed', 'down', 'miserable', 'lo
  */
 const ANTICIPATION_KEYWORDS = [
   'hyped', 'hype', 'so hyped', 'cant wait', 'cannot wait', 'can not wait', 'counting down',
-  'countdown', 'count down', 'so ready', 'ready for this', 'cant sit still', 'cannot sit still',
-  'sit still', 'on the edge of my seat', 'losing my mind', 'freaking out', 'nervous excited',
-  'nervexcited', 'the drop', 'drop day', 'release day', 'new album', 'new era', 'ts12',
-  'the vault', 'eras tour', 'tour tickets', 'presale', 'anticipation', 'anticipating',
-  'butterflies', 'giddy', 'restless',
+  'countdown', 'count down', 'so ready', 'ready for this', 'on the edge of my seat',
+  'nervous excited', 'nervexcited', 'the drop', 'drop day', 'release day', 'new album',
+  'new era', 'ts12', 'the vault', 'eras tour', 'tour tickets', 'presale', 'anticipation',
+  'anticipating',
+];
+
+/**
+ * Anticipation SUPPORT words — agitation phrasings that mean excitement inside a
+ * hype message ("HYPED… cannot sit still") but panic or insomnia on their own
+ * ("freaking out about my exam", "so restless tonight, can't sleep"). They count
+ * toward anticipation ONLY when a core {@link ANTICIPATION_KEYWORDS} hit is
+ * already present, so anxiety is never rebranded as celebration: solo, they
+ * assert nothing here and fall through to the axis lexicon / energy hints.
+ */
+const ANTICIPATION_SUPPORT = [
+  'cant sit still', 'cannot sit still', 'not sit still', 'couldnt sit still',
+  'losing my mind', 'freaking out', 'restless', 'jittery', 'buzzing',
+  'butterflies', 'giddy',
 ];
 
 /**
@@ -196,15 +212,53 @@ const BEREAVEMENT_KEYWORDS = [
 ];
 
 /**
+ * Figurative death frames, stripped from the text BEFORE the bereavement
+ * keywords are matched. English leans on death for emphasis constantly —
+ * "sick to death of my ex", "scared to death about my exam", "love him to
+ * death", "this album will be the death of me", "i died laughing" — and every
+ * one of those contains a bare bereavement keyword ('death', 'died'). Without
+ * this strip they set the bereavement flag, force the heavy/quiet steering, and
+ * hand Ronan to someone who is annoyed at their ex — the exact #1984 failure
+ * this gate exists to close, re-opened through hyperbole. Same trade the crisis
+ * lexicon's HYPERBOLE_MARKERS make (mood-safety.ts), applied to grief.
+ *
+ * Each frame is unmistakably figurative: "…to death" is an intensifier, never a
+ * report of a death; a first-person "i died" cannot be literal (the writer is
+ * typing); "nearly/almost died" reports a survival, not a bereavement. Genuine
+ * losses keep their signal through the many frames we do NOT strip ("passed
+ * away", "funeral", "grieving", "lost my…", "death of my father" — 'death of'
+ * survives because only the self-directed 'death of me' is stripped).
+ */
+const FIGURATIVE_DEATH_FRAMES = [
+  'to death', // sick/scared/bored/worried/love you … to death
+  'death of me', // "this album will be the death of me"
+  'i died', 'we died', 'literally died', 'nearly died', 'almost died',
+  'died laughing', 'died of laughter', 'died of embarrassment', 'died of cringe',
+  'died of shame', 'died of happiness', 'died of joy', 'died of excitement',
+  'died of boredom', 'died of cuteness',
+];
+
+/** Remove every figurative death frame from an already-normalized haystack. */
+function stripFigurativeDeath(hay: string): string {
+  let out = hay;
+  for (const frame of FIGURATIVE_DEATH_FRAMES) {
+    out = out.split(` ${frame} `).join(' ');
+  }
+  return out;
+}
+
+/**
  * True when the reader's words carry an explicit bereavement/death signal. Used
  * by the route AND by {@link keywordQuery} to set {@link MoodQuery.bereavement},
  * the flag that gates the grief canon. Runs only AFTER the crisis check (see the
  * route) — it can never re-open a crisis bypass. It is intentionally allowed to
  * UNLOCK grief songs, never to force them: an ordinary bereavement query still
  * ranks the whole catalogue, the grief songs just stop being excluded.
+ * Figurative death idioms ({@link FIGURATIVE_DEATH_FRAMES}) are stripped first,
+ * so "sick to death of my ex" / "i died laughing" never unlock the grief canon.
  */
 export function hasBereavementSignal(text: string): boolean {
-  const hay = normalize(text);
+  const hay = stripFigurativeDeath(normalize(text));
   return BEREAVEMENT_KEYWORDS.some((w) => contains(hay, w));
 }
 
@@ -275,7 +329,10 @@ function contains(haystack: string, needle: string): boolean {
  * See {@link hasSignal} and the route's Block 6 branch.
  */
 export function keywordQuery(text: string): MoodQuery {
-  const hay = normalize(text);
+  // Figurative death frames are stripped here too (not just in the bereavement
+  // check): "sick TO DEATH of my ex" should match 'sick of' (anger) once the
+  // intensifier is out of the way, instead of matching nothing.
+  const hay = stripFigurativeDeath(normalize(text));
   const moods: Partial<Record<MoodAxis, number>> = {};
 
   for (const axis of MOOD_AXES) {
@@ -300,8 +357,15 @@ export function keywordQuery(text: string): MoodQuery {
   }
 
   // #1999 — anticipation/excitement. Maps to joy (the nearest asserted axis) and
-  // below forces high energy/valence. Saturates like the axis loop.
-  const anticipation = ANTICIPATION_KEYWORDS.filter((w) => contains(hay, w)).length;
+  // below forces high energy/valence. Saturates like the axis loop. Support
+  // words (agitation that reads as excitement only in a hype context) count
+  // ONLY when a core anticipation word already hit — "freaking out about my
+  // exam" must never be rebranded as celebration.
+  const anticipationCore = ANTICIPATION_KEYWORDS.filter((w) => contains(hay, w)).length;
+  const anticipation =
+    anticipationCore > 0
+      ? anticipationCore + ANTICIPATION_SUPPORT.filter((w) => contains(hay, w)).length
+      : 0;
   if (anticipation > 0) {
     moods.joy = Math.max(moods.joy ?? 0, Math.min(1, 0.6 + 0.2 * (anticipation - 1)));
   }

@@ -120,6 +120,37 @@ describe('keywordQuery', () => {
         expect(hasBereavementSignal(t)).toBe(true);
       }
     });
+
+    // Hyperbole must not re-open the gate: English uses death for emphasis
+    // constantly, and every one of these contains a bare bereavement keyword
+    // ('death' / 'died'). None of them may unlock the grief canon — that would
+    // be the #1984 failure reintroduced through an idiom.
+    const FIGURATIVE = [
+      'im sick to death of my ex',
+      'i died laughing at that meme',
+      'this album will be the death of me',
+      'love him to death but he drives me crazy',
+      'scared to death about my exam tomorrow',
+      'worried to death about my mom',
+      'bored to death at work',
+    ];
+    it.each(FIGURATIVE)('death-hyperbole %j is NOT bereavement and gets no grief song', (text) => {
+      expect(hasBereavementSignal(text)).toBe(false);
+      expect(keywordQuery(text).bereavement).toBeUndefined();
+      for (const slug of topSlugs(text, 6)) expect(BEREAVEMENT_SLUGS.has(slug)).toBe(false);
+    });
+
+    it('genuine losses keep their signal through the frames we do NOT strip', () => {
+      for (const t of ['dealing with the death of my father', 'we buried my dad last week and everything hurts']) {
+        expect(hasBereavementSignal(t)).toBe(true);
+        expect(keywordQuery(t).bereavement).toBe(true);
+      }
+    });
+
+    it('"sick to death of my ex" still reads as a feeling (anger), not a blank', () => {
+      const q = keywordQuery('im sick to death of my ex');
+      expect(q.moods.anger).toBeGreaterThan(0);
+    });
   });
 
   // #1999 — anticipation axis + the token-cancellation fix + fan vernacular.
@@ -143,6 +174,28 @@ describe('keywordQuery', () => {
       const q = keywordQuery('in my reputation villain era today');
       expect(q.moods.defiance).toBeGreaterThan(0);
       expect(matchMoods(q, { limit: 5 }).length).toBeGreaterThan(0);
+    });
+
+    // Agitation support words count only INSIDE a hype context. Solo, they are
+    // panic or insomnia, and rebranding those as celebration (joy + high
+    // valence) would hand party songs to an anxious reader.
+    it('agitation words alone are NOT anticipation — panic is not celebration', () => {
+      for (const t of ['freaking out about my exam tomorrow', 'losing my mind over this deadline', 'so restless tonight, cant sleep']) {
+        const q = keywordQuery(t);
+        expect(q.moods.joy, t).toBeUndefined();
+        expect(q.valence ?? 0, t).toBeLessThan(0.6);
+      }
+    });
+
+    it('"i just want to sit still" is a wish for calm, not high energy', () => {
+      const q = keywordQuery('i just want to sit still and breathe for a minute');
+      expect(q.energy ?? 0).toBeLessThan(0.6);
+    });
+
+    it('negated sit-still forms still read as high energy inside a hype message', () => {
+      const q = keywordQuery('could not sit still all day, so excited for ts12');
+      expect(q.energy).toBeGreaterThan(0.6);
+      expect(q.moods.joy).toBeGreaterThan(0);
     });
   });
 
