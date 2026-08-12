@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server';
 
 import { MOOD_AXES, type MoodAxis } from '../../../lib/longlive/types';
 import { matchMoods, type MoodMatch, type MoodQuery } from '../../../lib/longlive/mood-match';
-import { keywordQuery, isEmptyQuery } from '../../../lib/longlive/mood-keywords';
+import { keywordQuery, isEmptyQuery, hasSignal } from '../../../lib/longlive/mood-keywords';
 import { classifyMood } from '../../../lib/longlive/mood-client';
 import { moodUsage } from '../../../lib/longlive/mood-usage';
 import {
   CRISIS_MESSAGE,
   HEAVY_INTRO,
   REFUSAL_MESSAGE,
+  UNCLEAR_MESSAGE,
   isCrisisText,
 } from '../../../lib/longlive/mood-safety';
 
@@ -192,11 +193,29 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ kind: 'crisis' as const, message: CRISIS_MESSAGE, source: 'crisis' });
   }
 
-  // Out of scope (advice / general chatbot), or nothing to match on → Block 6.
-  const picks = isEmptyQuery(query) ? [] : matchMoods(query, { limit });
-  if (classified?.outOfScope || picks.length === 0) {
+  // Out of scope → Block 6. ONLY the model's out_of_scope flag reaches here:
+  // the approved trigger for Block 6 is "medical, legal or relationship advice,
+  // or general-chatbot use" (safety doc), and nothing else.
+  if (classified?.outOfScope) {
     console.log('mood:refusal', JSON.stringify({ source, degraded, vector: loggableVector(query) }));
     return NextResponse.json({ kind: 'refusal' as const, message: REFUSAL_MESSAGE, source });
+  }
+
+  // Nothing to match on. THIS IS NOT A REFUSAL — it means our reading failed,
+  // not that the reader asked for something we don't do.
+  //
+  // The old code was `if (classified?.outOfScope || picks.length === 0)`, and
+  // that `||` is the bug the founder hit. On the degraded path (no
+  // ANTHROPIC_API_KEY — the documented normal local/preview state) every
+  // message the hand-built keyword lexicon didn't recognise came back as
+  // "that's outside what I can help with". "I'm grumpy and everything is
+  // pissing me off" produced an empty vector, so did "I'm sad", and both got
+  // told their feeling was out of scope. Ordinary negative emotion is the
+  // product; it must never route here.
+  const picks = hasSignal(query) ? matchMoods(query, { limit }) : [];
+  if (picks.length === 0) {
+    console.log('mood:unclear', JSON.stringify({ source, degraded, vector: loggableVector(query) }));
+    return NextResponse.json({ kind: 'unclear' as const, message: UNCLEAR_MESSAGE, source });
   }
 
   return matchesResponse(query, picks, source, degraded);
