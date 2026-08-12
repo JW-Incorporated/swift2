@@ -13,20 +13,11 @@
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
-const GENERATED = [
-  'apps/web/lib/longlive/content-vault.generated.ts',
-  'apps/web/lib/longlive/tracks.generated.ts',
-  'apps/web/lib/longlive/theories.generated.ts',
-  'apps/web/lib/longlive/videos.generated.ts',
-  'apps/web/lib/longlive/song-moods.generated.ts',
-];
-const SYNCS = [
-  'scripts/sync-longlive-content.mjs',
-  'scripts/sync-longlive-tracks.mjs',
-  'scripts/sync-longlive-theories.mjs',
-  'scripts/sync-longlive-videos.mjs',
-  'scripts/sync-song-moods.mjs',
-];
+// One manifest of "which files are generated content, by which script" — also
+// read by scripts/check-automerge-allowlist.mjs, which proves the manifest
+// matches what is actually on disk and that the auto-merge gate covers all of
+// it. Do not re-list these here.
+import { GENERATED, SYNCS } from './lib/generated-content.mjs';
 
 // A build stamp legitimately changes every run — not content drift.
 //

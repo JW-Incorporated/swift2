@@ -90,10 +90,10 @@ export default {
       snippet: 'At the 52nd Grammys, 20-year-old Taylor became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
       sourceUrl: 'https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/',
       thumbnailUrl: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
-      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi'],
+      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi', 'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-'],
       moment: {
         context:
-          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
+          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."\n\nThe four went to Album of the Year and Best Country Album for Fearless, plus Best Country Song and Best Female Country Vocal Performance for "White Horse," the twice-honored Swift–Liz Rose co-write — a haul that made Fearless the most-awarded country album in Grammy history. The album had already closed 2009 as the best-selling release in the United States, and Guinness World Records still lists her as the youngest solo artist ever to win Album of the Year. The mark held for a decade, until 18-year-old Billie Eilish won for When We All Fall Asleep, Where Do We Go? in 2020. It came a little over four months after Kanye West took the microphone from her at the MTV Video Music Awards, and it was the first of four Album of the Year wins — 1989, folklore, and Midnights followed — more than any artist has won in the category, which is why a quiet January night in 2010 reads in hindsight as the start of a dynasty.',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -102,6 +102,10 @@ export default {
           {
             outlet: 'Guinness World Records',
             url: 'https://www.guinnessworldrecords.com/world-records/607151-youngest-solo-artist-to-win-album-of-the-year-at-the-grammy-awards',
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/grammy-rewind-watch-taylor-swift-win-album-year-fearless-2010/',
           },
         ],
         photos: [
@@ -2507,6 +2511,27 @@ export default {
       milestone: { id: "m-fear-1", label: "Fearless released", kind: "album" },
       snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/deep-10-taylor-swifts-fearless/',
+            source_title: 'Deep 10: Taylor Swift\'s Fearless',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Big Machine Records (via PR Newswire)',
+            url: 'https://www.prnewswire.com/news-releases/taylor-swifts-fearless-album-officially-lauded-as-most-awarded-album-in-country-music-history-88431737.html',
+            source_title: 'Taylor Swift\'s FEARLESS Album Officially Lauded as Most Awarded Album in Country Music History',
+            publisher: 'Big Machine Records',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'Label press release — primary for the award tally it lists, not an independent assessment.',
+          },
+        ],
         context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
         // Photo pass #762 (2026-07-19): freely licensed Commons live shot from
         // the album's own tour — license (CC BY-SA 2.0, alexahalasan) verified
@@ -2535,6 +2560,26 @@ export default {
       snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
       hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://content.time.com/time/specials/packages/article/0,28804,1922188_1922187_1922190,00.html',
+            source_title: 'Taylor Swift Got Kanyed — Top 10 Outrageous Kanye West Moments',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'VICE',
+            url: 'https://www.vice.com/en/article/on-this-day-in-2009-kanye-west-grabbed-the-mic-from-taylor-swift-at-the-mtv-vmas/',
+            source_title: 'On This Day in 2009, Kanye West Grabbed the Mic From Taylor Swift at the MTV VMAs',
+            publisher: 'VICE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
       },
     },

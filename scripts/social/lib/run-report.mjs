@@ -77,10 +77,21 @@ function platformBreakdown(items) {
  * Markdown report for the run page's job summary and the queue-state PR body.
  * Leads with the bad news: a reader who only sees the first line must be able
  * to tell whether anything is broken.
+ *
+ * `abortReason` (optional) marks a run that had due work but stopped before
+ * attempting any of it (missing credentials) — it replaces the headline,
+ * because "nothing due" would be a lie for such a run.
  */
-export function formatReportMarkdown(outcomes, { runUrl } = {}) {
+export function formatReportMarkdown(outcomes, { runUrl, abortReason } = {}) {
   const groups = groupOutcomes(outcomes);
-  const lines = [`**social-poster: ${summarizeRun(outcomes)}**`, ''];
+  const lines = abortReason
+    ? [
+        '**social-poster: ⛔ RUN ABORTED — nothing was attempted**',
+        '',
+        abortReason,
+        '',
+      ]
+    : [`**social-poster: ${summarizeRun(outcomes)}**`, ''];
 
   if (groups.failed.length) {
     lines.push(
@@ -116,12 +127,17 @@ export function formatReportMarkdown(outcomes, { runUrl } = {}) {
   if (groups.posted.length) {
     lines.push(`### ✅ ${groups.posted.length} posted`, '');
     for (const outcome of groups.posted) {
-      lines.push(`- \`${outcome.file}\` (${outcome.platform}) — ${outcome.url}`);
+      lines.push(
+        `- \`${outcome.file}\` (${outcome.platform}) — ${outcome.url}` +
+          (outcome.facebookError
+            ? ` — ⚠️ the Facebook Page cross-post FAILED (the ${outcome.platform} post itself is live): ${outcome.facebookError}`
+            : ''),
+      );
     }
     lines.push('');
   }
 
-  if (outcomes.length === 0) lines.push('Nothing was due this run.', '');
+  if (outcomes.length === 0 && !abortReason) lines.push('Nothing was due this run.', '');
   if (runUrl) lines.push(`[Full run log](${runUrl})`, '');
   return lines.join('\n');
 }
@@ -129,10 +145,17 @@ export function formatReportMarkdown(outcomes, { runUrl } = {}) {
 /**
  * GitHub Actions annotation lines (`::error::` / `::warning::`) so failures
  * show up on the run page and the Checks tab, not just in the raw log.
+ * A posted item whose Facebook cross-post failed gets a warning (the primary
+ * post is live, so it must not redden the run — but a Page that quietly stops
+ * accepting posts must not be invisible either). An aborted run gets an
+ * ::error:: of its own.
  */
-export function formatAnnotations(outcomes) {
+export function formatAnnotations(outcomes, { abortReason } = {}) {
   const groups = groupOutcomes(outcomes);
   return [
+    ...(abortReason
+      ? [`::error title=social-poster: run aborted::${abortReason}`]
+      : []),
     ...groups.failed.map(
       (o) =>
         `::error title=social-poster: ${o.platform} post permanently failed::${o.file} exhausted all attempts and was NOT published — ${o.error}`,
@@ -144,5 +167,11 @@ export function formatAnnotations(outcomes) {
     ...groups.skipped.map(
       (o) => `::warning title=social-poster: post skipped::${o.file} — ${o.error}`,
     ),
+    ...groups.posted
+      .filter((o) => o.facebookError)
+      .map(
+        (o) =>
+          `::warning title=social-poster: facebook cross-post failed::${o.file} posted to ${o.platform}, but the Facebook Page cross-post failed — ${o.facebookError}`,
+      ),
   ];
 }
