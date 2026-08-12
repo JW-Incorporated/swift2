@@ -161,6 +161,27 @@ describe('MILESTONES derivation (consolidation stage 2b)', () => {
     expect(byId.get('m-tloas-5')).toMatchObject({ eraId: 'tloas', date: '2026-07-03', label: 'Married at MSG', kind: 'life' });
   });
 
+  it("carries the 'fandom' kind through derivation unchanged (2026-08-11)", () => {
+    // `fandom` marks a documented fan-COMMUNITY event (see MilestoneKind in
+    // types.ts). No seeded moment carries it yet — the first one needs real
+    // sourcing from the content desk — so this proves the mechanism on a
+    // synthetic item rather than asserting against the corpus. The derivation
+    // is kind-agnostic by construction; this test is the guard that keeps it
+    // that way, and the reason a `fandom` marker cannot silently vanish.
+    const [item] = build('midnights', [
+      raw({
+        id: 'fandom-test-moment',
+        date: '2023-07-22',
+        milestone: { id: 'm-test-fandom', label: 'Test fandom milestone', kind: 'fandom' },
+      }),
+    ]);
+    expect(item.milestone).toEqual({
+      id: 'm-test-fandom',
+      label: 'Test fandom milestone',
+      kind: 'fandom',
+    });
+  });
+
   it('milestonesForEra returns date-sorted markers for a real era', () => {
     const fearless = milestonesForEra('fearless');
     // 4 as of the defining-events-31-50 pass (2026-07-19): "m-fear-0" (Fearless
