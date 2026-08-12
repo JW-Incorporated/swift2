@@ -268,6 +268,10 @@ describe('deny (`!`) prefixes', () => {
   });
 
   it('accepts a broad app allow when its barred subtrees are denied', () => {
+    // #1972: a broad `apps/web/lib/` allow now overlaps the barred vault.ts and
+    // security-headers.* files, so it needs denies fully covering them — the
+    // exact remedy the checker's error message prescribes. (The committed
+    // allowlist instead narrows the allow to `apps/web/lib/longlive/`.)
     const allowlistText = [
       'supabase/seed/',
       'apps/web/lib/longlive/a.generated.ts',
@@ -279,8 +283,30 @@ describe('deny (`!`) prefixes', () => {
       '!apps/web/app/api/',
       '!apps/web/app/privacy/',
       '!apps/web/app/terms/',
+      '!apps/web/lib/vault.ts',
+      '!apps/web/lib/security-headers.',
     ].join('\n');
     expect(appRun(allowlistText)).toEqual([]);
+  });
+
+  it('rejects re-broadening the lib allow without denying the server/security files (#1972)', () => {
+    // The regression the self-amendment bar exists for: a future PR that flips
+    // `apps/web/lib/longlive/` back to `apps/web/lib/` must fail the checker.
+    const allowlistText = [
+      'supabase/seed/',
+      'apps/web/lib/longlive/a.generated.ts',
+      'apps/web/lib/longlive/b.generated.ts',
+      'apps/web/app/',
+      'apps/web/lib/',
+      '!apps/web/app/api/',
+      '!apps/web/app/privacy/',
+      '!apps/web/app/terms/',
+    ].join('\n');
+    const problems = appRun(allowlistText);
+    expect(problems.some((p) => p.includes('apps/web/lib/vault.ts') && p.includes('NEVER'))).toBe(true);
+    expect(
+      problems.some((p) => p.includes('apps/web/lib/security-headers.') && p.includes('NEVER')),
+    ).toBe(true);
   });
 
   it('rejects the broad app allow when the deny carve-out is missing', () => {
