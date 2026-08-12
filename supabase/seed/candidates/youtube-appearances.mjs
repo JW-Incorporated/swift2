@@ -142,6 +142,11 @@ export default {
       verification: {
         status: 'verified', checkedOn: '2026-08-12', method: 'oembed',
         oembedChannel: 'tswiftfan13',
+        // Review pass: an OFFICIAL upload covering this appearance does exist
+        // after all — TheEllenShow's in-order retrospective compilation
+        // (https://www.youtube.com/watch?v=rPLRA256Rco, oEmbed-verified
+        // 2026-08-12). Added as a source alongside the fan archive, and the
+        // moment's "no official clip exists" wording was corrected.
         integration: 'new:speak-now',
         notes: 'Fan archive upload alive since 2010 — judged durable enough to link.',
       },
@@ -242,7 +247,13 @@ export default {
       verification: {
         status: 'verified', checkedOn: '2026-08-12', method: 'oembed',
         oembedChannel: 'MTV',
-        integration: 'new:lover',
+        // Review pass: this started as a new month item, but lover.mjs already
+        // had a moment whose context narrates this speech and the
+        // White-House-response threshold ("You Need to Calm Down turns a music
+        // video into an Equality Act petition"), and the VMA red carpet is
+        // already a fashion item. Enriched that record instead of adding a
+        // third moment about the same night.
+        integration: 'enriched:lover ("You Need to Calm Down turns a music video into an Equality Act petition")',
       },
     },
     {

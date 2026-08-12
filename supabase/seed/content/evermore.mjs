@@ -3419,7 +3419,7 @@ export default {
       category: 'music',
       title: 'On Kimmel, three days after evermore: how the secret held',
       snippet:
-        'Her first talk-show stop of the evermore era, days after the surprise drop and the night after turning 31 — keeping an album secret in quarantine, fan theories, and the "William Bowery" pseudonym question.',
+        'A talk-show stop days after evermore\'s surprise drop and the night after she turned 31 — keeping an album secret in quarantine, fan theories, and the "William Bowery" pseudonym question.',
       sourceUrl: 'https://www.youtube.com/watch?v=ionfV_r8s40',
       thumbnailUrl: 'https://i.ytimg.com/vi/ionfV_r8s40/hqdefault.jpg',
       moment: {

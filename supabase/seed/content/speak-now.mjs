@@ -2586,9 +2586,12 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/f4kEl3f-ySc/hqdefault.jpg',
       moment: {
         context:
-          "Ellen was a recurring stop through Taylor's first decade — Billboard later catalogued the full run of visits, pranks and confessionals between the two. This Nov. 1, 2010 sit-down landed in the middle of Speak Now's release week, part of the promo blitz around what became a million-copy debut. No official clip exists; the interview survives on YouTube as a long-lived fan archive upload.",
+          "Ellen was a recurring stop through Taylor's first decade — Billboard later catalogued the full run of visits, pranks and confessionals between the two. This Nov. 1, 2010 sit-down landed in the middle of Speak Now's release week, part of the promo blitz around what became a million-copy debut. The show's own channel has since collected her appearances into an in-order retrospective compilation; the standalone segment also survives as a long-lived fan archive upload.",
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-ellen-appearances-8511659/' },
+          // The show's official in-order compilation of her appearances —
+          // oEmbed-verified 2026-08-12 (title + author_name "TheEllenShow").
+          { outlet: 'YouTube — TheEllenShow', url: 'https://www.youtube.com/watch?v=rPLRA256Rco' },
           { outlet: 'YouTube — tswiftfan13 (fan archive)', url: 'https://www.youtube.com/watch?v=f4kEl3f-ySc' },
         ],
         photos: [],
@@ -2601,7 +2604,7 @@ export default {
       category: 'music',
       title: '"Back to December" meets "Apologize" at the 2010 AMAs',
       snippet:
-        'Her first awards-show performance of the Speak Now era: "Back to December" at the piano, folding in a passage of OneRepublic\'s "Apologize" — an apology song answering an apology song.',
+        'Her AMAs turn in the Speak Now era: "Back to December" at the piano, folding in a passage of OneRepublic\'s "Apologize" — an apology song answering an apology song.',
       sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-american-music-awards-moments-amas-8544183/',
       thumbnailUrl: 'https://i.ytimg.com/vi/L8-HPbEemcY/hqdefault.jpg',
       moment: {
