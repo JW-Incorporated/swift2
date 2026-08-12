@@ -44,3 +44,10 @@ runners. Extracting them is half the point of the Vault Run.
   is indistinguishable from a broken lane.
 - Content lanes are READ-ONLY on `docs/`, `scripts/`, `apps/` (except the two
   generated vault files) and `.github/`. Only Austin touches app code.
+- **Skip claimed eras.** Every era listed in `.github/content-ownership.json`'s
+  `claims` is off-limits — a founder is hand-authoring it. At target selection,
+  pick an unclaimed era/corpus; never write a claimed era's seed files. If a
+  lane's only candidate is a claimed era, it no-ops and logs why. The
+  orchestrator loads the manifest once and owns this; a lane only has to honor
+  it when choosing its target. (This is soft compliance; the hard lock is the
+  ownership gate in `auto-merge-content.yml`.)

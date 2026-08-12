@@ -8,6 +8,7 @@ import {
   imagesFrom,
   productsFrom,
   rumorsFrom,
+  seedItemToInput,
   significanceFrom,
   threadIdsFrom,
 } from './sync-longlive-content.mjs';
@@ -529,5 +530,52 @@ describe('socialPost survives the whole chain (issue #1074)', () => {
       socialPost: { platform: 'tiktok', shortcode: 'AAA', label: 'Not supported yet.' },
     });
     expect(buildOutputSource(byEra)).not.toContain('socialPost:');
+  });
+});
+
+describe('video survives the whole chain at either placement (issue #846)', () => {
+  // Same failure class as socialPost above, and the reason the test goes
+  // through seedItemToInput() rather than calling addItem() directly: the
+  // video type, addItem() and the serializer were ALL already correct, and 3
+  // real `moment.video` clips (the-life-of-a-showgirl.mjs) still rendered
+  // nowhere — because the seed-side CALLER read only `item.video`, never
+  // `item.moment.video`. A test on addItem()/buildOutputSource() alone passes
+  // both before and after the fix; only exercising the projection catches it.
+
+  const base = {
+    year: 2025,
+    month: 10,
+    day: 3,
+    category: 'music',
+    title: 'The Fate of Ophelia',
+    snippet: 'A snippet.',
+  };
+  const clip = { youtubeId: 'ko70cExuzZM', title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)' };
+  const emit = (item: Record<string, unknown>) => {
+    const byEra = {};
+    addItem(byEra, {}, 'the-life-of-a-showgirl', seedItemToInput(item));
+    return buildOutputSource(byEra);
+  };
+
+  it('forwards a video authored at the item level', () => {
+    expect(emit({ ...base, video: clip })).toContain('video: { youtubeId: "ko70cExuzZM"');
+  });
+
+  it('forwards a video authored on the moment (the #846 bug)', () => {
+    expect(emit({ ...base, moment: { video: clip } })).toContain('video: { youtubeId: "ko70cExuzZM"');
+  });
+
+  it('prefers the item-level video when both are present', () => {
+    const out = emit({
+      ...base,
+      video: { youtubeId: 'ITEMLEVEL', title: 'Item' },
+      moment: { video: { youtubeId: 'MOMENTLEVEL', title: 'Moment' } },
+    });
+    expect(out).toContain('youtubeId: "ITEMLEVEL"');
+    expect(out).not.toContain('MOMENTLEVEL');
+  });
+
+  it('emits no video row when neither placement has one', () => {
+    expect(emit({ ...base })).not.toContain('video:');
   });
 });
