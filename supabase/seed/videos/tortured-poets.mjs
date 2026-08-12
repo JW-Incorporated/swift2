@@ -40,6 +40,8 @@ const embed = (id) => ({
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
+import { appearance, upload } from './_appearance-helpers.mjs';
+
 export default {
   eraSlug: 'tortured-poets',
   videos: [
@@ -82,5 +84,25 @@ export default {
         ),
       ],
     },
+    // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
+    appearance({
+      slug: 'vmas-fortnight-speech-2024',
+      kind: 'award_speech',
+      title: "Accepting Best Collaboration for 'Fortnight' — 2024 VMAs",
+      releasedOn: '2024-09-11',
+      summary:
+        "Accepting Best Collaboration for 'Fortnight' with Post Malone, she stops the speech to mark the date: the anniversary of September 11.",
+      youtubeId: 'g55D_gAoC3I',
+      channel: 'Access Hollywood',
+      attribution: 'Access Hollywood — the outlet’s official YouTube channel',
+      sources: [
+        upload({
+          youtubeId: 'g55D_gAoC3I',
+          title: 'Taylor Swift Remembers 9/11 During VMAs Acceptance Speech',
+          channel: 'Access Hollywood',
+          note: "official upload on Access Hollywood's own channel (NBCUniversal entertainment news) — oEmbed-verified 2026-08-12",
+        }),
+      ],
+    }),
   ],
 };

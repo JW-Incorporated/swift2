@@ -40,6 +40,8 @@ const embed = (id) => ({
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
+import { appearance, pressSource, upload } from './_appearance-helpers.mjs';
+
 export default {
   eraSlug: 'midnights',
   videos: [
@@ -138,5 +140,66 @@ export default {
         ),
       ],
     },
+    // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
+    appearance({
+      slug: 'eras-tour-film-premiere-carpet-2023',
+      kind: 'press_event',
+      title: 'Red carpet at the Eras Tour concert-film premiere',
+      releasedOn: '2023-10-11',
+      summary:
+        'The Eras Tour film premiere at The Grove, pulled forward a day by demand: a blue floral gown, the shopping centre closed to the public, and a carpet she works slowly along the barricades.',
+      youtubeId: 'X_wHLxTOzas',
+      channel: 'Good Morning America',
+      sources: [
+        upload({
+          youtubeId: 'X_wHLxTOzas',
+          title: 'Taylor Swift hits red carpet for premiere of ‘Eras Tour’ concert film l GMA',
+          channel: 'Good Morning America',
+        }),
+        pressSource(
+          'https://www.cbsnews.com/amp/losangeles/news/the-grove-shutdown-for-taylor-swift-the-eras-tour-movie-premiere',
+          'The Grove shut down for Taylor Swift "The Eras Tour" movie premiere',
+          'CBS News',
+          'documents the venue closure and the premiere being moved up',
+        ),
+      ],
+    }),
+    appearance({
+      slug: 'time-person-of-the-year-today-2023',
+      kind: 'press_event',
+      title: "Time's Person of the Year, revealed on TODAY",
+      releasedOn: '2023-12-06',
+      summary:
+        "Time's editor-in-chief reveals the 2023 Person of the Year live on TODAY — the first person ever named for work in arts and entertainment.",
+      youtubeId: 'VeFzmqp6OaQ',
+      channel: 'TODAY',
+      sources: [
+        upload({
+          youtubeId: 'VeFzmqp6OaQ',
+          title: 'Taylor Swift named Time’s 2023 Person of the Year',
+          channel: 'TODAY',
+        }),
+      ],
+    }),
+    appearance({
+      slug: 'grammys-album-of-the-year-2024',
+      kind: 'award_speech',
+      title: 'Accepting Album of the Year for Midnights — 66th GRAMMYs',
+      releasedOn: '2024-02-04',
+      summary:
+        'A fourth Album of the Year, for Midnights: no artist in Grammy history had won it more than three times. She had already announced The Tortured Poets Department from the same stage earlier that night.',
+      youtubeId: 'Yq-q-ZCZwxc',
+      channel: 'GRAMMYS',
+      attribution: "GRAMMYs — the Recording Academy's official YouTube channel",
+      sources: [
+        upload({
+          youtubeId: 'Yq-q-ZCZwxc',
+          title:
+            "TAYLOR SWIFT Wins Album Of The Year For 'MIDNIGHTS' | 2024 GRAMMYs Acceptance Speech",
+          channel: 'GRAMMYS',
+          note: "official upload on the Recording Academy's own channel — oEmbed-verified 2026-08-12",
+        }),
+      ],
+    }),
   ],
 };
