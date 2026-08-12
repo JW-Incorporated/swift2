@@ -4758,9 +4758,9 @@ export default {
             reportedOn: '2026-07-07',
             status: 'unconfirmed',
             url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/',
-            note: 'An on-record Dior statement about the reveal mechanism, not the gown itself. Rechecked 2026-07-22: still no official photos posted. Images that circulated in mid-July were of the couple as guests at JuJu Smith-Schuster\'s July 10 wedding, not the MSG ceremony; Dior\'s fall 2026 couture-runway gown was also confirmed not to be it. Resolves when official photos surface via her Instagram, as described.',
+            note: 'An on-record Dior statement about the reveal mechanism, not the gown itself. Rechecked 2026-08-12: still no official reveal — Taylor has not posted the gown to her own Instagram, though unofficial images have circulated and bridal brands are prepping "Swift-inspired" lines off the unseen dress. Resolves when official photos surface via her Instagram, as described.',
             sourceTier: 'official',
-            lastCheckedOn: '2026-07-22',
+            lastCheckedOn: '2026-08-12',
           },
         ],
         products: [
@@ -8170,9 +8170,9 @@ export default {
             reportedOn: '2026-07-21',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-enters-cma-awards-170210895.html',
-            note: 'A ballot campaign, not a nomination: the song sits on the preliminary CMA ballot, where members may nominate any eligible work. Resolves when the CMA nominees are announced — a Single of the Year nod confirms it, being passed over debunks it. Distinct from the Oscar-race prediction above (film awards vs. country awards).',
+            note: 'A ballot campaign, not a nomination: the song sits on the preliminary CMA ballot, where members may nominate any eligible work. Rechecked 2026-08-12: CMA nominees not yet announced, so the claim stays open. Resolves when the CMA nominees are announced — a Single of the Year nod confirms it, being passed over debunks it. Distinct from the Oscar-race prediction above.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-07-22',
+            lastCheckedOn: '2026-08-12',
           },
         ],
       },
@@ -8848,9 +8848,9 @@ export default {
             reportedOn: '2026-06-29',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/taylor-swift-make-country-music-again-signs-1235586149/',
-            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan — Taylor\'s team has confirmed no such project. Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page (a new album vs. a re-recording of the 2006 debut).',
+            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan — Taylor\'s team has confirmed no such project. Rechecked 2026-08-12: still no country-album announcement. Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-07-22',
+            lastCheckedOn: '2026-08-12',
           },
         ],
       },
@@ -10243,6 +10243,137 @@ export default {
             caption:
               'Phil Collins performing at London’s Royal Albert Hall in 2017. He later told BBC Radio 2 that hearing a young Taylor sing “White Horse” “blew me away completely.”',
             kind: 'reference',
+          },
+        ],
+      },
+    },
+    // Authored 2026-08-12 (Vault Run, Content Shift lane) from intake #2027
+    // (dupes #2021/#2020/#2017). CONFIRMED — ~13 same-day outlets (AP, Variety,
+    // NBC News, Rolling Stone, People, Billboard). Distinct from the New York
+    // Songwriters Hall of Fame (June 2026, moment cross-linked below): this is
+    // the separate Nashville institution. Music category → Theo. Redlines:
+    // clean — a public career honor, no location/health/security/third-party
+    // content. Only the five confirmed inductees are named; the digest's
+    // Stapleton/Lambert were nominees, not inductees, and are deliberately
+    // omitted. Photo deliberately deferred to this session's Photo Enrichment
+    // lane, which attaches a distinct vision-verified subject photo.
+    {
+      slug: 'showgirl-nashville-songwriters-hall-of-fame',
+      significance: 'notable',
+      year: 2026,
+      month: 8,
+      day: 11,
+      category: 'music',
+      // Cross-link (#2027): her other 2026 songwriting-hall honor — the New
+      // York Songwriters Hall of Fame's youngest-woman induction that June.
+      relatedIds: ['moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame'],
+      title: 'Named to the Nashville Songwriters Hall of Fame — its youngest inductee ever, at 36',
+      snippet:
+        'On Aug. 11, 2026, the Nashville Songwriters Hall of Fame named Taylor a 2026 inductee — at 36, the youngest songwriter it has ever elected. She enters in the contemporary songwriter/artist category, in a class led by Lyle Lovett, with formal enshrinement set for the hall’s 56th-anniversary gala later this year.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-inductee-nashville-songwriters-hall-of-fame-1236832080/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Nashville Songwriters Hall of Fame named Taylor Swift a 2026 inductee on Tuesday, Aug. 11, elevating her at 36 into the youngest songwriter the institution has ever elected. She was chosen in the contemporary songwriter/artist category, part of a class led by the veteran-category honoree Lyle Lovett and rounded out by Shawn Camp, Lee Thomas Miller and Bruce Channel. The formal enshrinement is set for the organization’s 56th-anniversary gala later in the year; with Swift not present for the announcement, a message from her was read aloud by executive director Mark Ford.\n\nIt is her second songwriting-hall honor of 2026, and a separate one. In June the New York–based Songwriters Hall of Fame had made her its youngest woman ever inducted; the Nashville hall — the city’s own institution — now claims her as the youngest of any of its inductees, of any gender. The distinction lands on the story she has always told about herself. Nashville is where a teenage Swift came up as a songwriter, in the professional co-writing rooms where she learned the craft alongside veterans like Liz Rose, and a hall built to honor that city’s writers placing her at the front of its record book reads as a hometown-industry verdict on the writing underneath everything else.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-inductee-nashville-songwriters-hall-of-fame-1236832080/',
+            source_title: 'Taylor Swift Named Youngest Inductee in Nashville Songwriters Hall of Fame History',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-inducted-songwriters-hall-fame-youngster-member-history-rcna255181',
+            source_title: 'Taylor Swift inducted into Nashville Songwriters Hall of Fame as its youngest member',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/nashville-songwriters-hall-of-fame-names-its-youngest-ever-inductee/',
+            source_title: 'Nashville Songwriters Hall of Fame Names Its Youngest-Ever Inductee',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 3,
+          },
+        ],
+        // Photo (Photo Enrichment lane, 2026-08-12): no imagery exists of the
+        // Aug. 11 announcement or the not-yet-held enshrinement gala, so the
+        // page carries a verified performance photo of the honoree herself —
+        // the songwriter the honor is about. Wikimedia's Eras Tour "Lover" set
+        // frame (already in this file on the Emmy item), re-downloaded and
+        // vision-confirmed this session: Taylor alone at the mic, left-of-centre.
+        // Caption stays honest (a tour performance, not the gala).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
+            focalPoint: '37% 62%',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'Taylor performing on the Eras Tour — the writing behind that catalog is what the Nashville Songwriters Hall of Fame honored, naming her its youngest-ever inductee in August 2026.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    // Authored 2026-08-12 (Vault Run, Content Shift lane) from intake #2025
+    // (dupes #2023/#2019). CONFIRMED — Boston Globe, WPRI (Target 12), Boston 25,
+    // Bloomberg. Business category → Deb. PRIVACY: touches her Rhode Island
+    // residence, capped at town level (L1) per privacy-redlines.md — kept to
+    // "Watch Hill / Westerly," never a street, coordinates, or security detail
+    // (the Watch Hill test). Leads with the policy/culture angle; the reported
+    // ~$136k figure is public financial context, not a locator, and there is no
+    // forward-looking whereabouts. Photo deferred to Photo Enrichment (a home
+    // photo is privacy-barred; a portrait is off-topic for a tax-policy item).
+    {
+      slug: 'showgirl-rhode-island-taylor-swift-tax',
+      year: 2026,
+      month: 7,
+      day: 1,
+      category: 'business',
+      title: 'Rhode Island’s “Taylor Swift tax” takes effect — a surtax named for its most famous payer',
+      snippet:
+        'A Rhode Island surtax on high-value second homes — nicknamed the “Taylor Swift tax” after the state’s best-known seasonal homeowner — took effect July 1, 2026. It adds $2.50 per $500 of assessed value above $1M on homes not lived in at least 183 days a year, funding low-income housing; Swift is reported to owe roughly $136,000 more for 2026.',
+      sourceUrl: 'https://www.bostonglobe.com/2026/08/12/real-estate/rhode-island-taylor-swift-tax-vacation-homes/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Rhode Island’s new surtax on high-value non-primary residences took effect on July 1, 2026, and by August the coverage had settled on the nickname that had trailed it through the statehouse: the “Taylor Swift tax.” The levy adds $2.50 for every $500 of assessed value above $1 million on homes not occupied by their owner or a tenant for at least 183 days a year, with the proceeds directed to the state’s Low-Income Housing Tax Credit Fund. Rhode Island believes it is the only U.S. state to tax second homes this way, and projects it will raise roughly $24.5 million a year.\n\nThe nickname is not official, but it is apt: Swift has long kept a home in Watch Hill, in the coastal town of Westerly, and her name became the shorthand for exactly the wealthy seasonal homeowner the tax is aimed at. The Boston Globe and Bloomberg, among others, reported that she is likely to owe on the order of $136,000 more under the 2026 assessment — a figure that reads as public financial context rather than a whereabouts. Backers frame the measure as a way to point the state’s luxury second-home market at its housing shortfall; critics, including some year-round-adjacent owners caught by the 183-day line, argue it sweeps in people far removed from the celebrity the nickname evokes. Either way, a piece of Rhode Island tax law now carries Taylor’s name on the statehouse floor and in the headlines — an unusual cultural footprint for an artist who does not appear to have sought it.',
+        sources: [
+          {
+            outlet: 'The Boston Globe',
+            url: 'https://www.bostonglobe.com/2026/08/12/real-estate/rhode-island-taylor-swift-tax-vacation-homes/',
+            source_title: 'Rhode Island’s ‘Taylor Swift tax’ on vacation homes takes effect',
+            publisher: 'The Boston Globe',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Bloomberg',
+            url: 'https://www.bloomberg.com/news/articles/2026-07-01/-taylor-swift-tax-stirs-bad-blood-with-rhode-island-homeowners',
+            source_title: '‘Taylor Swift Tax’ Stirs Bad Blood With Rhode Island Homeowners',
+            publisher: 'Bloomberg',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'WPRI (Target 12)',
+            url: 'https://www.wpri.com/target-12/taylor-swift-tax-goes-into-effect-in-rhode-island-heres-how-many-could-pay/',
+            source_title: '‘Taylor Swift tax’ goes into effect in Rhode Island — here’s how many could pay',
+            publisher: 'WPRI',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 3,
           },
         ],
       },
