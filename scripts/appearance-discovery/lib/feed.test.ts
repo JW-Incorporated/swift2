@@ -77,4 +77,46 @@ describe('decodeEntities', () => {
   it('handles the named and numeric entities YouTube emits', () => {
     expect(decodeEntities('A &amp; B &lt;3 &quot;x&quot; &#39;y&#39; &#8212; &#x1F389;')).toBe(`A & B <3 "x" 'y' — 🎉`);
   });
+
+  // Codex review, 2026-08-12: fromCodePoint throws RangeError above 0x10FFFF,
+  // which would abort the whole channel over one malformed entity.
+  it('drops out-of-range numeric entities instead of throwing', () => {
+    expect(() => decodeEntities('boom &#999999999999; end')).not.toThrow();
+    expect(decodeEntities('boom &#999999999999; end')).toBe('boom  end');
+    expect(() => decodeEntities('hex &#xFFFFFFFF; end')).not.toThrow();
+  });
+});
+
+// All three from the Codex adversarial review, 2026-08-12.
+describe('parseFeed — hostile and malformed input', () => {
+  it('ignores tags hidden inside CDATA, which could otherwise forge a video id', () => {
+    const forged = `<feed><entry>
+      <yt:videoId>REALREALREA</yt:videoId>
+      <title>Real title</title>
+      <media:description><![CDATA[<yt:videoId>FORGEDFORGE</yt:videoId>]]></media:description>
+      <published>2026-08-10T00:00:00+00:00</published>
+    </entry></feed>`;
+    const { entries } = parseFeed(forged);
+    expect(entries).toHaveLength(1);
+    // The real id must win — it is both the link and the dedupe fingerprint.
+    expect(entries[0].videoId).toBe('REALREALREA');
+    expect(entries[0].url).toContain('REALREALREA');
+  });
+
+  it('collapses a repeated <entry> to one, so a feed glitch cannot double-file', () => {
+    const one = `<entry><yt:videoId>AAAAAAAAAAA</yt:videoId><title>T</title>
+      <published>2026-08-10T00:00:00+00:00</published></entry>`;
+    const { entries } = parseFeed(`<feed>${one}${one}</feed>`);
+    expect(entries).toHaveLength(1);
+  });
+
+  it('strips control characters and caps absurdly long titles', () => {
+    const nasty = `<feed><entry><yt:videoId>AAAAAAAAAAA</yt:videoId>` +
+      `<title>bad\u0007title\u0000here ${'x'.repeat(500)}</title>` +
+      `<published>2026-08-10T00:00:00+00:00</published></entry></feed>`;
+    const { entries } = parseFeed(nasty);
+    // eslint-disable-next-line no-control-regex -- the point is asserting they are gone
+    expect(entries[0].title).not.toMatch(/[\u0000-\u001f]/);
+    expect(entries[0].title.length).toBeLessThanOrEqual(300);
+  });
 });
