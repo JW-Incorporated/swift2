@@ -25,15 +25,64 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 81
+
+## Taylor Swift and Travis Kelce face first big change after getting married - en.as.com
+
+- first seen: 2026-08-12 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce face first big change after getting married  en.as.com
+- sources:
+  - [unverified] en.as.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOMm8zcnNMQ2hxeDRiZWd6Ynhkc2hOaFFVR0ZZVmpYdXJpOUt0UXRELXlBQWZZRUQ3VUM3RjAzMWJsdE5jMklvWEpKOUlDakZtNkFZUE5aWDRJdnFuQ0hJTmdvb0MwNkNPUjlkVmZQbEFSOVU3Tld0anNma081RXFsSUZydzFfVW14eUlDUzdxblQ4TjBWa3l0RWJYUmFHWFYtckpPcERXWnI3Z9IBvgFBVV95cUxQdm5raFJqemxGNV9pOWpEQ3pIdFFHaGlBaWtxdlZrV0NNTjFjTlVMTjl5eUhWMVRYRk5VN0JBNV9lc1pIVWsyMDNfZnVDQ3o1anJRRkh6YUs4MjkxNkhlQUF4UnFfbUJZdnZpSFBRSXBRcEJjbzNHNHZoVThPSjVCcTJ3NFpWc29QNHNZN0JDQThNaTJSNXhiUlRPQmhvYmdUMlN3a1BnczNPWWRkOFk3dTFrc2RIalVYNkRIV09B?oc=5
+
+## Taylor Swift & Travis Kelce Discover What Comes After the Wedding High — Insider - Yahoo
+
+- first seen: 2026-08-12 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Discover What Comes After the Wedding High — Insider  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPa2cwQkpfZVZYaEtUWHgwWUVkMGhubFY5UHlyd21XS25RLWRyZjY3Q3FNaFJJU1ozc2pWYmhGaHJzcm10Q0IxbkcwM2phTEttSFFDVGV0UEFtZTVudFdodGNDd2VpWFNwWWZ6Z1ltOVFYbVhFRmN1ZWJLZWYzWGwyV2JlZkY2Tzc0d1Jib0FyUXFXZFdTSVl3MzU0T1E5dG5oUzJ2OFF6QQ?oc=5
+
+## Trending Now | Domino's launches new pizza and Taylor Swift joins Nashville Songwriters Hall of Fame
+
+- first seen: 2026-08-12 14:24 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Trending Now | Domino's launches new pizza and Taylor Swift joins Nashville Songwriters Hall of Fame  kcentv.com
+- sources:
+  - [unverified] kcentv.com — https://news.google.com/rss/articles/CBMijgJBVV95cUxQcGliYmVraGMzdzhybXZSS01jbTltRGw0dW5DRmVDYnRtblhXYXpESGt6cTZnYWRoTG43a0NfUmhMbG5JcXJBdjFkRGVfbkptMVRxU2RianpzYXRSM2wtYmVXNERRMEZsdDNfRnZsYVBveGd6QzFSbjFBdzJyRjNNaDc5YnM4RjRlNEttUDdka0EtOFhpenh0eWdSeVRSX0xSZ1hCY1NnczZYcHVBTlB5dkhnOFpHWHFiTDBuWkFpaUVva0tHMTZQT25hNmpsZkdnMDZtVVIyalN6Y1ZrakRWbWc3TzVjYnUzQmxjWjJlNHRjNmFqQk5NYlZWUjVwRG9KZHBDNGZoS2N2VU5zMXc?oc=5
+
+## How 21st Century Pop Stars Fared at Their First Academy Awards - Billboard
+
+- first seen: 2026-08-12 14:24 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: How 21st Century Pop Stars Fared at Their First Academy Awards  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMilwFBVV95cUxPcVRtRlhtbTNiOUlHZjlVUXVnanJHN1lEQmh0QURmeDU0NzZZTkZ6ZG5rX0lhM0thRlVINS1STDd5c2tucUNBdnNFX2ZmMXUwYVp1emdIM001bTNlUFV6NXVqdWVHUW5YaTBmTnpMc1J1b2VXWWJVbTQ0RG9LM2dEUzQ4ekR2UEFzMno3LTJ4c2FfRmlLUG5n?oc=5
+
+## Travis Kelce & Taylor Swift’s Wedding Saw Brad Pitt Breaking His Sobriety — Source - Yahoo
+
+- first seen: 2026-08-12 14:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce & Taylor Swift’s Wedding Saw Brad Pitt Breaking His Sobriety — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNVm42dzMxX2VvSlVuSDhfX2FwM010MkRwUTBra0gxOGNic2dkanRuSWhaNjVnR0xQcHNtd3hvM1RZUUU3OWVBM2VLQlBTTU91NjY2UE42MXRpLWdBenctS2h4bjBtaUdmMlpJcjV4NHNIUC1wdHpCZUFCTHpkeGh4Vnh5VkZaTWtTR096ZjFha3JRMExOai1qajJxRE9PR25KOXRNcFdB?oc=5
+
+## Taylor Swift Set to Become the Youngest Songwriter Ever Inducted Into Nashville’s Hall of Fame - Yah
+
+- first seen: 2026-08-12 14:24 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Set to Become the Youngest Songwriter Ever Inducted Into Nashville’s Hall of Fame  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQM2lqNW9wdG9PaTRWTjJLVTFPVjRRRGVZSHRFQVdNR2xkVWhlSFdPdERQWEJ4QThBYzVJUFdOb2t2bmRxNnFqcHQ4S2tFN1loRk1waHNrNGZVWGk4M2hsU3QwOXRiejYwUlJMWU4tcnVBbnFieVNHTWVoYXRhX1gwM29STGhPbm5La3dRLVNzZUtSRWFaYjdTTWdJb0lldWs?oc=5
 
 ## Cruel summer? Rhode Island’s ‘Taylor Swift tax’ went into effect — who’s paying it? - The Boston Glo
 
 - first seen: 2026-08-12 10:17 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Cruel summer? Rhode Island’s ‘Taylor Swift tax’ went into effect — who’s paying it?  The Boston Globe
 - sources:
   - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMinAFBVV95cUxPcjlBTmdZVm1TZjVLVjR3WkExelFZTkUxUHJmdllyMzZscW5JTzNRS3MyXzdIQkI3RFN5eWo0QzZpLUhndnY5VjdTZy0yY253X2tYdW1Nbl9qRlRzeTBrZVVvVjdrMWJRLXRET0RlN0FiV1Z2T2JBa19yaU5VMkxTUm9JUDBzYm1KcUxtOVFmVDN1bTBNQ0VOYzZPNzM?oc=5
+  - [unverified] Boston.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxPOGdCbWRVeHlYR2JmRXBLN2R2SlFnUVVYVGJJenRQeVZTV2x4SFpadWpiQkZaTnlXb0NqdVNwLUFJSF9GSjdVRW1PN3BiVTBEZmlKa0JJVm45X0FFMDY2RUVmcmxpaWNRb0tSVXdSVE1HajN0SnZVOFh2Ykp1MDNoZ05NMXNQZWpoY0pmcjJfeVVHbnd6TlJncVRlUm5WWTJNbllEc3VJdw?oc=5
 
 ## Taylor Swift Makes History With This Major Career Milestone - instyle.com
 
@@ -62,11 +111,12 @@ Stories: 78
 ## Taylor Swift to become youngest inductee into the Nashville Songwriters Hall of Fame - Good Morning 
 
 - first seen: 2026-08-12 03:29 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift to become youngest inductee into the Nashville Songwriters Hall of Fame  Good Morning America
 - sources:
   - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQNi1TY0gzdHMzWEdHUEtfMkZfbUEzYlQxeHdIWWFrSEFoOVJycHhBX3EtM3ktNTloV0Z3cC1iYzB0bmpURlYxejB6Sks0SXJuSVk2bkFzdFFMdnlDQ2t4Y3JnNXhqdGgzYzllQzAzWF96cF9PMjh0T040MDJwSnJhVkZlUE1WX3V0YlUyR25aaHBTN2htWllZQVRWQmlLZXA4TTlJX19UcHVNcExhamJxN0p1VFpzNVF4Q3BnMEl0ZGvSAcYBQVVfeXFMUGVleUlvZEJRbmFsWEVWWEVvSGwyeE9qbzI0MHBiZW1tMUwzYTM0dzhQcHVMM0czYkVtQy03QTcxWHg2dnFuSlZDb3BzSzBiLXozRWVxckIzekdnOXBILThXNURNNzlIbkwyMEFWbnFkNEIwTmtVdXo5dG9jUllDRUE5dlduQWhud1ZPX1FqMlNvQVY2MEtOUjRidExTRlExSnJ4TVR1dUNmSkV0MmY0UGMtYUhhaWNPQndyV2xoTTZfaTRpcHVB?oc=5
   - [unverified] Everett Post — https://news.google.com/rss/articles/CBMizgFBVV95cUxOOWRRUXJBRWdlaVJJMm95Wnd1UDRyd2lZQUFQbGxOd0hxdWxiTjRsSUlEZl9qV3ZUODNZWkZrclMxN0JybzBveTU5cFZKZlc0VjZBLW1iVWNia05wa3I5UjJfUDVmd2FGaDdtWTFBM1BDd2NLRkhKdjB6aWlKMkJBanNfNDdQYUNkeXV5VGMxdE03UW1SamI5X0NSaUxYTDdGT3JoY2pjYTVGWGg3bW9tcU5qLUVUTmpJc3A0WUZEOWliWVA1WnpYc1J3WDJ3QQ?oc=5
+  - [unverified] KVUE — https://news.google.com/rss/articles/CBMi3gFBVV95cUxPUk04aUVCcDNqS2RCbDYyTXp3cXpLNkQ0c2dFNVlRdXJIOHctVGVtUTQtQkRmS2lCclNXY1daY0FJS251Y0tBS1IyUEpobmJIaEtlOFdJSWkydVljUE52QkZKMk9nclk5YXBTbERBeUowWjdRX0wtYlpYSlRBYl85cEdqdk5Hb0kxdEVHN3o0UEVfR05rMEhuVDNZOWVGeVU0bUQ0cWlIbmk3YXZoWTBkOTYzVVpnUXZEU3hPTUVwai1XU3lLQ2xpSTFXWHVSMHBxNGNZTVRQZXNUX3c2Rnc?oc=5
 
 ## ‘Toy Story 5’ soundtrack features Taylor Swift original, Randy Newman score - The Music Universe
 
@@ -143,6 +193,17 @@ Stories: 78
   - [unverified] WKYT — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOS0M0SVZwa3o4SE0wdHZVTmE0VkFzcTFKaGtJSUtrSzlMaXFNTmc2MzV0bVhWaVNoaHFwVU1obWU5My10MzJ0NDk2QVBGeHh3Wi13dVByRGJYZmMtd2h6eUNaOFh5U2dtZEVhdEgxQ3pqeVRMOHlGcC13Q2ZleDFMUVBXOGxhVXVTMXl1eUlLWS1YMGFzVGV5NzhEaWpGMks4VXlqMGJsQXhaTzDSAb8BQVVfeXFMTzdVMUxMZVhYeF9KdFVuRVlqLWNsV00wVEU2QWNjRGxBeWJ3NktOb090bnZnbktXZ0FQbTNIZVBtLTBod1h0by10TjcyU3dJSWp2SjFyRGZyaXNZYS1BMGQxZmFXWmw2djFHbHV4WkxmMmhybG9INk5YQkt1UFBhcVhPaGFRWDNKMkJoMjhfTlNUVTlhM2VuNzdWOU8xcmlCRjhqb19HUFBfdmtwS09KQnVwZE9rbExDZDBpZmg1cnc?oc=5
   - [unverified] WVIR — https://news.google.com/rss/articles/CBMirgFBVV95cUxOMzlfeGwxcW9CaDhBbzQxZ3dGMHdZQW1neVVsS0xMVWtsdFZmSm9Fc0NhSmU1Y2pZdThTU244cUloZEZrNXdib2pBbzJCS24wSXFyR2lhRDRNMkpUYjNpSTdyVnFCZW5TcjZRSHh3VmstTXYyN2U1R3hVLXRRZmhNQVRkSlMwekhycUNvU3o2LXlNeFBwX19FYU12S2gzUFYzYW92T2pYVHlaY2hhU3fSAcIBQVVfeXFMTzFuMHZ6Tzd1dGNFRVZxLTRLSGFscWFBeGpWak1jQkJkUXBSMEJ6NW5GMFVhMlljOHhpSDNOblJXckFYTXhlQ1p1Z3AzZXYtRjBZZWpHREYxN1VueU5xRlNnbk1POXhFVVEzRUI3TnZEb3pQOTJnOEZ6Qm13WEg1Y2pxakhOU0lqb1hTblRsLVdEb2hZNEVjWlhURlR0UmFjQ01TYWhOa1d3VG9aR2YteWVJdkhFV3gtdVVNa3J2ZjlIWnc?oc=5
 
+## Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Youngest Inductee Ever
+
+- first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Taylor Swift will be adding another trophy to her shelf, as the Nashville Songwriters Hall of Fame announced Tuesday that the superstar will be inducted into the hall this fall, becoming, at 36, the youngest writer ever to receive the honor. Swift sent a message to be read by Mark Ford, executive di
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-inductee-nashville-songwriters-hall-of-fame-1236832080/
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMivgFBVV95cUxPV3hOTEhOSXpEM3NkZm1naTdFWHI5VWlJTVNfdUp3WDROb2pnQ3owd2RHZXZMSXVZdnRkd2s0TThzNzY5M1diblM4UUlpOG9hc3ptQzhPTEVnT0xlalB3dVdERXJoaW1ZM0lmYlZiTFRZZnM3RVlKMTFSMWlWc0Utd05xem1DV3BkekRCUzdSS1dpdDJ4cWhFOHNvRDczZzJWOHZPZ1pVV3N0SlFhX25veC1waFBGcnlSa0xhV0x3?oc=5
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxPYmlodW1oMVhfN3FMU1o1Si1jeEVzLUtaRHdWZG0wM2xBVjdGbFRBYV9sY29ma0RVblVHTGpnRXV0aEhHNkRoMGwxSWlLRl9ZNGcxQ3U3TlUxWVU2UzdmVjJXMW1PRDU0bjd5TTNXSmVQQ202RTE3MkFjMkNuNTBBR0dyeGhtYmp1ZGdUV3NLNENxcmRBcHM4QXJ6R2Zhc1pGSDkwdkJXVQ?oc=5
+  - [unverified] Country 103.7 — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOTHlZT0loODBSaW1NVWlMTGhtT0YzNERGcUtVU3BRUzZUa1lVazFwMHAxQXdiTEREWUhPc29XMkg5N1dvaGpxVldpSE9WRlpyR1phR1U5TXMzWUxPWHdrMmx2R0EyVnY4SS1ILU1xZ3V5bkJSdHNTQ2d6c3lUWWpMX1p5XzJaajlfVlVzMWIxRS1mbVllRXJPcFh5ZWVaZXNnWXVzTGZUUGtGaW90Q2J3OEpnNHB0T3I3QmlFZWtXTG5QOXc?oc=5
+
 ## Taylor Swift Becomes Youngest-Ever Musician to Be Inducted Into 2026 Nashville Songwriters Hall of F
 
 - first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
@@ -217,16 +278,6 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Train’s Pat Monahan Reflects on the ‘Magic’ of Taylor Swift and Travis Kelce’s Wedding, Reminiscent of His Own  people.com
 - sources:
   - [unverified] people.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxOa2t5bmNzRURMbVF0aGlDVVBZNENpTDE1aE9fTUtMeWZFbk55d0pZVXRkTE5xdFN2c04tYncwWnpVS1JzcnlBdm5RV1QxWGpDTTV0SVhubWJNbzFDOWlHZHpDOXAxMXBZNktXeEhmbGNTekZxcm9rVEFKcThVamZELXJDVGJVY2k1c1djOUlvTlJxZ2F2TVRsZA?oc=5
-
-## Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Youngest Inductee Ever
-
-- first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift will be adding another trophy to her shelf, as the Nashville Songwriters Hall of Fame announced Tuesday that the superstar will be inducted into the hall this fall, becoming, at 36, the youngest writer ever to receive the honor. Swift sent a message to be read by Mark Ford, executive di
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-inductee-nashville-songwriters-hall-of-fame-1236832080/
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMivgFBVV95cUxPV3hOTEhOSXpEM3NkZm1naTdFWHI5VWlJTVNfdUp3WDROb2pnQ3owd2RHZXZMSXVZdnRkd2s0TThzNzY5M1diblM4UUlpOG9hc3ptQzhPTEVnT0xlalB3dVdERXJoaW1ZM0lmYlZiTFRZZnM3RVlKMTFSMWlWc0Utd05xem1DV3BkekRCUzdSS1dpdDJ4cWhFOHNvRDczZzJWOHZPZ1pVV3N0SlFhX25veC1waFBGcnlSa0xhV0x3?oc=5
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxPYmlodW1oMVhfN3FMU1o1Si1jeEVzLUtaRHdWZG0wM2xBVjdGbFRBYV9sY29ma0RVblVHTGpnRXV0aEhHNkRoMGwxSWlLRl9ZNGcxQ3U3TlUxWVU2UzdmVjJXMW1PRDU0bjd5TTNXSmVQQ202RTE3MkFjMkNuNTBBR0dyeGhtYmp1ZGdUV3NLNENxcmRBcHM4QXJ6R2Zhc1pGSDkwdkJXVQ?oc=5
 
 ## Taylor Swift to Be Inducted Into Nashville Songwriters Hall of Fame
 
@@ -646,27 +697,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijAFBVV95cUxOU2E5SGdHNENmTFBncEE5dnNLeFZOdGdwbExKbFZaOHhSS3NBM05nc0dscEFQTFJOZHhnQng0QnhCSDdoRDZmLUE5U2t4aWdia1N5MXgyczJmRWUtVmpyZFllVnJsVlhQU2FjR3pUVUpNM0ZDQVRISDY0N2wyeE5sNk1iQ1FzNXlGNVpMQQ?oc=5
   - [unverified] The Hockey News — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNRTQzcWdXaVhiVVg2NXF6OTB5TEtPaHVJRTM3U1lhQ1pqWTdaNzFBTVVmelNDVVhCbzBPWG5Zc2ZTeEVfaF9mRWtZZWpRT3B4TDdIaURvSFBuSWdnUTVMZ1B3elZ1a01BcWt1cThMaHNNOGhJTXpsZnRtbGkzMWozUDUtNzEwdzNLM0tiX1JaS05fQzVHWG4wZlRybzB2Tm1vclNPdC1MbmsyZ2ZkT3VZeFdDNS1rNzRzS213RVZyMzZxdXhYbXdMRXJLQUhYeG91dFE?oc=5
-
-## Taylor Swift songs removed from Trump campaign material - Yahoo
-
-- first seen: 2026-08-09 13:56 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift songs removed from Trump campaign material  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNUnZTNzZmMzM5eU83Z1BXM3BxNmFteXAwOFN5YUtiWkhVd2IzMS1nZE5pSzNtdlZQR0Npd09zUVRzSmItdjE4YUJWeGxGMWNWQ3pwSklRSU1pczh3Mk9IU3F4bUNUSG9OWU1EcU9BU19oTnJDUEd3SzdRcHJSTGZsejhpM2xSTF9nZDJ2TW90blFlVGExXzlQZ3c4N1dhTDQ?oc=5
-
-## Our Songs of Summer playlist feat. Charli XCX, Beyoncé, Taylor Swift, the Rolling Stones, and Kurt V
-
-- first seen: 2026-08-09 13:56 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Our Songs of Summer playlist feat. Charli XCX, Beyoncé, Taylor Swift, the Rolling Stones, and Kurt Vile  inquirer.com
-- sources:
-  - [unverified] inquirer.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOTmhZd1B2N1E2Y2xfRHJxejBqQU5zb05uWUQzNC1WSlVhcEMxaUoyUU1jQ2M4emt5Y1dncThhaktVYmJ1TlZpdk8wZWVQMDB4SVB4N1lyaGFKVFhldHdpbDhpc0RRV3dHbGRqRUNJbGhDMmxleDhSd2dZak0teVFTcWNHQWFDQ1loRFl1YzRSWnpfQW1jaG16azFHOEJ5OHZHUmxiWHpsTC1xWXVGclpDRkZKTGFSWjVa?oc=5
-
-## Taylor Swift’s ‘August’ Featured in a Donald Trump Video for a Political Reason - Yahoo
-
-- first seen: 2026-08-09 13:56 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘August’ Featured in a Donald Trump Video for a Political Reason  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxPS3dzWWIyaUZUME5QRzQyS2tOQnFLRXpCTFNOR3JpWWJoR2dTdVhkMUszMHhDUmxDZGpRMUhOU0U0SmpfY0MzMlN1TDNLdjhzaUszZXc3WlA3dzJOTU1lZ3RHMFRta3JEM05qM05PQ2ZRMU96NktsSjAxQldCX1R5b0ctSjB1Q3JPbzVBd25EZDdhNzNMU25ULU53Yw?oc=5
