@@ -150,7 +150,11 @@ export const OUT_OF_SCOPE_MESSAGE =
 export function normalize(text: string): string {
   return text
     .toLowerCase()
-    .normalize('NFD')
+    // NFKD, not NFD: compatibility decomposition folds fullwidth forms
+    // ("ｐｒｅｇｎａｎｔ"), circled/superscript letters, and ligatures back to
+    // ASCII before matching. NFD left fullwidth intact, so the whole
+    // word-based lexicon was blind to fullwidth text (V2 follow-up).
+    .normalize('NFKD')
     .replace(/[̀-ͯ]/g, '')
     .replace(/['’`]/g, '')
     .replace(/[^a-z0-9]+/g, ' ')
@@ -183,7 +187,11 @@ const FOLD: Readonly<Record<string, string>> = {
 export function tighten(text: string): string {
   const folded = text
     .toLowerCase()
-    .normalize('NFD')
+    // NFKD for the same reason as `normalize`: NFD does not decompose
+    // fullwidth compatibility characters, so "ｐｒｅｇｎａｎｔ" was STRIPPED as
+    // non-[a-z0-9] instead of folded — the token vanished and nothing could
+    // match it (V2 follow-up).
+    .normalize('NFKD')
     .replace(/[̀-ͯ]/g, '')
     .split('')
     .map((ch) => FOLD[ch] ?? ch)
@@ -290,7 +298,20 @@ const IMPERSONATION: Gate = {
     /\b(yes|yeah|yep) ?,? it ?(s|is) me\b/,
     /\bi ?(ve|ve been| have been| have|m|) ?been (dropping|leaving|planting|hiding|scattering) (these|those|the|my) (clues|eggs|easter eggs|hints|breadcrumbs)\b/,
   ],
-  tight: [/youare(taylor|her)/, /ur(taylor|her)\b/, /pretendyoure(taylor|her)/, /become(taylor|her)/, /taylorhere/],
+  tight: [
+    /youare(taylor|her)/,
+    /ur(taylor|her)\b/,
+    /pretendyoure(taylor|her)/,
+    /pretendtobe(taylor|her)/,
+    /become(taylor|her)/,
+    /taylorhere/,
+    // "be t-a-y-l-o-r for me" — the spelled-out name defeated the normalize
+    // pass and no tight stem covered the "be taylor …" construction. The
+    // trailing connector keeps it a command, not a substring accident
+    // (V2 follow-up).
+    /betaylor(for|now|please|and)/,
+    /justbetaylor/,
+  ],
 };
 
 /* ── official / insider / human (finding #2) ────────────────────────────────
@@ -320,6 +341,13 @@ const OFFICIAL: Gate = {
     /\bclose to (her|taylor),? i (can|know|promise|tell)\b/,
     /\bi (have|ve got|got) (the )?inside (knowledge|info|information|scoop|track|line)\b/,
     /\binside (knowledge|info|information|scoop) (on|here)\b/,
+    // Insider-as-a-person claims ("I have an insider", "my insider says",
+    // "a source close to her") — the noun form slipped past the
+    // inside-knowledge patterns above (V2 follow-up).
+    /\b(i|we) (have|ve got|got) (an|a) (insider|mole|source)\b/,
+    /\bmy (insider|mole) (says|said|tells|told|confirmed|inside)\b/,
+    /\b(a|my) source close to (her|taylor)\b/,
+    /\b(her|taylors|the) team (told|texted|dmed|confirmed (it )?to) me\b/,
     /\b(youre|you are|im|i am|basically|to) (talking to )?the source\b/,
     /\bi ?(m|am) (not )?(a )?(human|real person|person, not)\b/,
     /\bi ?(m|am) not (a |an )?(ai|bot|robot|language model|chatbot|one of those)\b/,
@@ -444,7 +472,22 @@ const SEXUALITY: Gate = {
     /\blesbisch\b/,
     /\bhomosexuell\b/,
   ],
-  tight: [/gaylor/, /kaylor/, /lesbian/, /bisexual/, /closeted/, /comingoutas/],
+  tight: [
+    /gaylor/,
+    /kaylor/,
+    /lesbian/,
+    /bisexual/,
+    /closeted/,
+    /comingoutas/,
+    // Bare "gay" is too short to match boundary-less, but the collapsed
+    // subject+orientation phrases are unambiguous — this is what catches
+    // "is taylor g4y", Cyrillic "is Tаylor gаy", and ZWJ "g‍a‍y", all of which
+    // fold perfectly in `tighten` yet had no stem to land on (V2 follow-up).
+    /is(taylor|she)(gay|queer|bi\b|alesbian)/,
+    /(taylor|she)is(gay|queer|bisexual|alesbian|inthecloset)/,
+    /shes(gay|queer|alesbian)/,
+    /hergirlfriend/,
+  ],
 };
 
 const LOCATION: Gate = {
