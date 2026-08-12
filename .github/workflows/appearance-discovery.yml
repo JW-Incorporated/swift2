@@ -1,0 +1,105 @@
+# Appearance discovery — the zero-LLM detection half of the content engine.
+#
+# Polls the public RSS feed of every channel in
+# scripts/appearance-discovery/channels.mjs, applies the deterministic
+# Taylor-relevance filter documented there, and files one `intake` issue per
+# genuinely new video. The Content Shift (docs/agents/content-shift.md §
+# "YouTube appearance intake") is the judge: it verifies, places by era, and
+# authors. This workflow never writes content and never calls a model.
+#
+# Deliberately zero AI, same family as watchdog.yml and unowned-sweep.yml:
+# detection is a mechanical job, so it runs as dumb code on a cheap schedule
+# rather than burning a session's tokens to read fifteen XML documents. The
+# only spend downstream is the Content Shift budget that already exists.
+#
+# NO NEW SECRETS: YouTube channel RSS is keyless and unauthenticated (the
+# YouTube Data API was rejected precisely because it needs a key and an
+# account — see docs/decisions.md, 2026-08-12). The only credential is the
+# built-in GITHUB_TOKEN, scoped to issues:write.
+#
+# Dedupe is STATELESS by design — no state file, no state PR, nothing that has
+# to auto-merge to be remembered (#2031 shipped duplicate IG posts exactly that
+# way). The filed issues themselves are the state, re-read every run from the
+# repo-scoped issue list; an unreadable or truncated ledger REFUSES to file
+# (#2008 filed #2017–#2027 twice by treating a failed lookup as "not filed").
+#
+# :40 avoids the :00/:30 schedule-contention cluster that watchdog.yml's
+# 2026-07-18 header documents for this repo. 13:40 UTC = 06:40 PT, comfortably
+# ahead of the Content Shift's 10:00 AM PT run so fresh intake is already
+# queued when the writer wakes up.
+name: appearance-discovery
+
+on:
+  schedule:
+    - cron: "40 13 * * *" # 06:40 PT / 13:40 UTC — daily, before the Content Shift
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        # Defaults TRUE, matching the script's own dry-run-by-default contract:
+        # a human clicking "Run workflow" to see what this lane would do should
+        # not discover the answer by having it filed. Scheduled runs are
+        # unaffected — a schedule event carries no inputs, so the step's
+        # `${DRY_RUN:-false}` fallback still files.
+        description: "Print what would be filed without filing anything"
+        type: boolean
+        default: true
+      max:
+        description: "Max issues to file this run"
+        default: "10"
+      max_age_days:
+        description: "Only consider videos published within this many days"
+        default: "30"
+
+permissions:
+  contents: read
+  issues: write
+
+# Never let two runs file the same video twice by racing the ledger read.
+concurrency:
+  group: appearance-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    # Bounded, because this job CAN hang. `withTimeout` in discover.mjs races
+    # each fetch and gives up, but racing a promise does not destroy the
+    # underlying socket (scripts/lib/gh.mjs's httpsRequest has no socket
+    # teardown — flagged separately as shared-infra work), so a stalled
+    # connection keeps a live handle and Node will not exit even after the run
+    # has printed its summary. Without this the default 6-hour ceiling applies,
+    # and because the concurrency group above does NOT cancel in progress, one
+    # hung run would sit on the group and block every following day's run. 20
+    # minutes is ~4x the observed full-sweep time and above the worst-case
+    # 14 channels x 2 attempts x 30s.
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      # Scheduled runs always file. A manual run can ask for a dry run, which
+      # makes zero GitHub calls and only reads RSS.
+      #
+      # Inputs cross into the shell as ENV VARS, never as `${{ }}` interpolated
+      # into the script text. Interpolation is textual substitution done before
+      # bash ever sees the line, so a dispatch input of `$(...)` or `; cmd` would
+      # execute with this job's GH_TOKEN (issues:write). As env vars they are
+      # inert data. The script itself re-validates them as numbers anyway.
+      - name: Discover new appearances
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          MAX: ${{ inputs.max }}
+          MAX_AGE_DAYS: ${{ inputs.max_age_days }}
+        run: |
+          set -euo pipefail
+          set -- --max "${MAX:-10}" --max-age-days "${MAX_AGE_DAYS:-30}"
+          if [ "${DRY_RUN:-false}" = "true" ]; then
+            echo "DRY RUN — no issues will be filed"
+          else
+            set -- --file "$@"
+          fi
+          node scripts/appearance-discovery/discover.mjs "$@"
