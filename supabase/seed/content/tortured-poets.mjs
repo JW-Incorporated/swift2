@@ -1724,6 +1724,44 @@ export default {
       },
     },
 
+    {
+      // Depth audit 2026-08-12 (docs/audits/2026-08-12-depth-rows-per-month.md):
+      // TTPD's `relationship` axis was the corpus's weakest weighted axis (2
+      // rows era-wide vs the flagship floor of 4) — this and the Tight End
+      // University moment below are the two rows the audit queued. Also fills
+      // 2025-03, previously a zero month. Facts verified against the cited
+      // sources, fetched this session. The "Travis filmed the speech" theory
+      // is labeled fan speculation, per its own source.
+      relatedIds: ['moment:vault-ttpd-travis-kelce-eras-tour-cast-member-for-a-night'],
+      year: 2025,
+      month: 3,
+      day: 17,
+      category: 'relationship',
+      title: 'The Wembley cameo wins them an award: Favorite Surprise Guest',
+      snippet:
+        "At the iHeartRadio Music Awards, the fan-voted Favorite Surprise Guest prize went to Travis's top-hatted Eras Tour walk-on — a trophy with both their names on it, on a night she took nine.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/2025_iHeartRadio_Music_Awards',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Nine months after Travis Kelce carried her to the couch at Wembley in a tailcoat and top hat, the bit became silverware: at the iHeartRadio Music Awards at the Dolby Theatre on March 17, 2025, the fan-voted Favorite Surprise Guest award went to his "I Can Do It With a Broken Heart" walk-on — effectively the couple\'s first shared award. It came amid a sweep for her: nine wins on the night, the most of any artist, including Artist of the Year, Pop Album of the Year for The Tortured Poets Department, Best Lyrics and Best Music Video for "Fortnight," and a one-off Tour of the Century award for the Eras Tour.\n\nShe accepted Tour of the Century in a recorded video speech, trophy in hand — and fans immediately went frame-by-frame on it: some swore a tall figure holding a phone camera was reflected in the trophy\'s mirrored surface, "like Trav did at one of her concerts." Who was behind the camera was never confirmed — People and iHeart both wrote the theory up as speculation, and it stayed that way.',
+        sources: [
+          {
+            outlet: 'People (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-fans-think-travis-193054140.html',
+          },
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2025-03-20-why-fans-think-travis-kelce-filmed-taylor-swifts-iheartradio-award-speech/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/2025_iHeartRadio_Music_Awards',
+          },
+        ],
+      },
+    },
+
     // --- Fashion/photo depth pass (2026-07-04): hotlinked photos added to
     // items above that lacked them, plus new fashion/beauty items covering
     // the TTPD-era aesthetic, red carpet looks, the engagement, and the
@@ -2270,6 +2308,71 @@ export default {
             // Travis's face upper-left, Taylor's face right of center in the LV
             // beanie; midpoint keeps both under a wide crop.
             focalPoint: '52% 40%',
+          },
+        ],
+      },
+    },
+    {
+      // Depth audit 2026-08-12: second of the two `relationship` rows the
+      // audit queued for this era (see the iHeartRadio moment above). Date
+      // fixed as Tuesday June 24, 2025 by NFL.com ("Tuesday night") against
+      // WSMV's June 25 6:53 AM report of the previous night; both fetched
+      // this session.
+      year: 2025,
+      month: 6,
+      day: 24,
+      category: 'relationship',
+      title: "She sings at his camp: a surprise 'Shake It Off' at Tight End University",
+      snippet:
+        "Kane Brown asked the Brooklyn Bowl crowd if he could bring out 'a really, really, really special guest' — and her first performance since the Eras Tour ended happened at Travis's own tight-end summit.",
+      sourceUrl: 'https://www.nfl.com/news/taylor-swift-has-surprise-performance-at-tight-end-university-in-tennessee',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "Tight End University is the offseason camp Travis Kelce founded with George Kittle and Greg Olsen in 2021 — three days in Nashville where the league's tight ends train and bond, capped by the 'Tight Ends & Friends' concert at Brooklyn Bowl. At the camp's fifth edition, and the concert's second, on June 24, 2025, Kane Brown paused his set to ask whether the crowd minded 'a really, really, really special guest,' and Taylor walked out to sing \"Shake It Off\" with him — on a borrowed guitar, having told Chase Rice she would go up if she had one.\n\nThe one-song cameo carried more weight than its runtime: it was her first live performance anywhere since the Eras Tour closed in Vancouver on December 8, 2024 — six months of public quiet broken not at an awards show or a stadium, but at her boyfriend's charity camp in the city where her career began. After nearly two years of her showing up in his world's family suites, this was the reverse gesture made literal: his event, her stage.",
+        sources: [
+          {
+            outlet: 'NFL.com',
+            url: 'https://www.nfl.com/news/taylor-swift-has-surprise-performance-at-tight-end-university-in-tennessee',
+            source_title: 'Taylor Swift has surprise performance at Tight End University in Tennessee',
+            publisher: 'NFL.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'WSMV Nashville',
+            url: 'https://www.wsmv.com/2025/06/26/taylor-swift-surprises-crowd-during-kane-browns-set-brooklyn-bowl-nashville/',
+            source_title: "Taylor Swift surprises crowd during Kane Brown's set at Brooklyn Bowl Nashville",
+            publisher: 'WSMV (NBC Nashville)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          // Added at review 2026-08-12: carries her own account of borrowing
+          // Chase Rice's guitar, and confirms this was her first stage
+          // appearance since the Eras Tour ended. Neither NFL.com nor WSMV
+          // covers either detail.
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1419115/taylor-swifts-surprise-performance-with-kane-brown',
+            source_title: "Taylor Swift's Surprise Performance With Kane Brown",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 3,
+          },
+          // Added at review 2026-08-12: the only fetchable source that carries
+          // Kane Brown's "really, really, really special guest" tease, which
+          // the snippet quotes. NFL.com and WSMV both omit it.
+          {
+            outlet: 'Countrytown',
+            url: 'https://countrytown.com/news/taylor-swift-crashes-kane-brown-s-set-in-nashville/dBXKZmloa2o/27-06-25',
+            source_title: "Taylor Swift Crashes Kane Brown's Set In Nashville",
+            publisher: 'Countrytown',
+            source_type: 'press',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
           },
         ],
       },

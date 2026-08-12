@@ -4,6 +4,9 @@
 
 import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';
 
+/** Build-time freshness stamp — emitted only by prebuild (deploy). */
+export const CONTENT_GENERATED_AT = "2026-08-12T23:13:21.243Z";
+
 type VaultRawItem = {
   id: string;
   slug?: string;
@@ -229,6 +232,19 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg", credit: "Robert Kamau/GC Images", caption: "Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun's scoop; no public photos of the couple exist from the May 2017 period this moment covers.", kind: "primary", focalPoint: "52% 24%" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/music/taylor-swift-joe-alwyn-relationship-timeline-rcna51604" }, { name: "The Week", url: "https://theweek.com/feature/briefing/1022534/taylor-swift-and-joe-alwyn-a-timeline-of-their-relationship" }],
       relatedIds: ["moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years"],
+      significance: "notable",
+    },
+    {
+      id: "vault-1989-the-denver-trial-ends-with-the-single-dollar-she-asked-for",
+      date: "2017-08-14",
+      dateLabel: "August 14, 2017",
+      title: "The Denver trial ends with the single dollar she asked for",
+      summary: "Eight jurors needed less than four hours: David Mueller assaulted and battered her at a 2013 meet-and-greet — and owed her exactly the symbolic $1 she had requested.",
+      body: ["It started at a pre-show meet-and-greet at Denver's Pepsi Center on June 2, 2013, when radio host David Mueller reached under her skirt and grabbed her during a photo. Her team reported it to his station, KYGO, which fired him. Two years later, in September 2015, Mueller sued her, blaming her for the loss of his $150,000-a-year job and seeking up to $3 million. A month after that she countersued for assault and battery — asking for exactly one dollar.", "The trial ran August 7–14, 2017 in Denver's federal courthouse before Judge William J. Martínez, in the middle of the quietest public year of her life. Her testimony made headlines for refusing every reframing Mueller's lawyer offered: \"It was a definite grab. A very long grab,\" she said, and she was not going to be made to \"feel in any way that this is my fault.\" Mid-trial, the judge threw out Mueller's claims against her personally for lack of evidence; on August 14 the six-woman, two-man jury deliberated less than four hours, found that Mueller had assaulted and battered her, rejected his remaining claims against her mother Andrea and radio liaison Frank Bell, and awarded the dollar. Her attorney Douglas Baldridge called it \"a single symbolic dollar, the value of which is immeasurable to all women in this situation.\"", "In her statement afterward she acknowledged \"the privilege that I benefit from in life, in society and in my ability to shoulder the enormous cost of defending myself,\" said her hope was \"to help those whose voices should also be heard,\" and pledged donations to organizations that help sexual assault survivors defend themselves. That December, TIME put her on its Person of the Year cover as one of the Silence Breakers — where she gave her first extended account of the case, in the year the #MeToo reckoning broke open."],
+      tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_Red_Tour_2%2C_2013.jpg/960px-Taylor_Swift_Red_Tour_2%2C_2013.jpg", credit: "Jana Zills / Wikimedia Commons (CC BY 2.0)", caption: "On the Red Tour, March 2013 — the assault happened that June at a pre-show meet-and-greet on the same tour's Denver stop.", kind: "archival", focalPoint: "45% 20%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Alfred_A._Arraj_United_States_Courthouse_%2823387332304%29.jpg/960px-Alfred_A._Arraj_United_States_Courthouse_%2823387332304%29.jpg", credit: "Paul Sableman / Wikimedia Commons (CC BY 2.0)", caption: "The Alfred A. Arraj federal courthouse in Denver, where the trial ran August 7–14, 2017 (photographed in 2015).", kind: "archival", focalPoint: "50% 30%" }],
+      sources: [{ name: "ABC News", url: "https://abcnews.com/Entertainment/jury-finds-dj-groped-taylor-swift/story?id=49206323" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-awarded-1dollar-in-groping-trial/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Taylor_Swift_sexual_assault_trial" }],
+      relatedIds: ["moment:vault-reputation-the-year-of-silence"],
       significance: "notable",
     },
     {
@@ -727,9 +743,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "October 27, 2014",
       title: "The pop reinvention",
       summary: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
-      body: ["Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world."],
+      body: ["Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world. She named it for her birth year and built it as a deliberate rebirth in the image of the decade's synthesizer records, making Max Martin her co-executive producer and cutting it with him, Shellback, Jack Antonoff, and Ryan Tedder — the country instrumentation gone entirely, on purpose.", "Any doubt about the gamble was settled in a week. 1989 opened at No. 1 on the Billboard 200 with 1.287 million copies — the first album released in 2014 to sell a million at all — and made her the first artist ever with three albums each selling a million copies in their first week, after Speak Now and Red. It went on to spend 11 weeks at No. 1, and the era it opened ran a full three years: back-to-back No. 1 singles, the highest-grossing tour of 2015, and a second Album of the Year Grammy."],
       tags: ["Music"],
-      sources: [{ name: "New Taylor Swift Album Coming In October", url: "https://www.cbsnews.com/texas/news/new-taylor-swift-album-coming-in-october", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift called '1989' her 1st 'official pop album.' Why experts say it was the right time for her to leave country music.", url: "https://www.yahoo.com/entertainment/taylor-swift-1989-first-official-pop-album-country-music-departure-130004184.html", reliability: 3, type: "reputable_press" }],
+      sources: [{ name: "New Taylor Swift Album Coming In October", url: "https://www.cbsnews.com/texas/news/new-taylor-swift-album-coming-in-october", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift called '1989' her 1st 'official pop album.' Why experts say it was the right time for her to leave country music.", url: "https://www.yahoo.com/entertainment/taylor-swift-1989-first-official-pop-album-country-music-departure-130004184.html", reliability: 3, type: "reputable_press" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)", reliability: 2, type: "wiki" }],
       milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
       relatedIds: ["moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel"],
     },
@@ -740,12 +756,13 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "August 18, 2014",
       title: "“Shake It Off” launches the era",
       summary: "A lead single announces the full pop pivot from the top of the Empire State Building.",
-      body: ["Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts."],
+      body: ["The whole pivot was announced in one afternoon. In a worldwide Yahoo/ABC livestream on August 18, 2014, from the Empire State Building's observation deck, she named the new album 1989, called it her first documented, official pop record, set the October 27 date, and dropped the lead single and its Mark Romanek-directed video on the spot. The video played the critics' harshest read of her — the awkward over-earnest dancer — for laughs, planting her mid-frame in troupes of professionals (ballet, breakdance, cheer squads) whose moves she cheerfully failed to keep up with.", "The single became just the 22nd song in Hot 100 history to debut at No. 1, her second US No. 1 overall, and held the top spot for four nonconsecutive weeks while staying in the top ten for nearly six months. Years later the RIAA certified it Diamond — ten million units — making her the first woman with both a Diamond single and a Diamond album (Fearless)."],
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg", credit: "Big Machine Records / YouTube (official video still)", caption: "Taylor crawls through a row of dancers' legs in the \"Shake It Off\" video — the lead single that opened the pop era.", kind: "primary", focalPoint: "46% 55%" }],
-      sources: [{ name: "Taylor Swift Drops 'Shake It Off' From the Empire State Building (Video)", url: "https://www.thewrap.com/taylor-swift-drops-shake-it-off-from-the-empire-state-building-video/", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift's 'Shake It Off' Debuts At No. 1", url: "https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/", reliability: 3, type: "reputable_press" }],
+      sources: [{ name: "Taylor Swift Drops 'Shake It Off' From the Empire State Building (Video)", url: "https://www.thewrap.com/taylor-swift-drops-shake-it-off-from-the-empire-state-building-video/", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift's 'Shake It Off' Debuts At No. 1", url: "https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/", reliability: 3, type: "reputable_press" }, { name: "Shake It Off — Wikipedia", url: "https://en.wikipedia.org/wiki/Shake_It_Off", reliability: 2, type: "wiki" }],
       video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
       milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
+      relatedIds: ["moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker", "moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single"],
     },
     {
       id: "vault-1989-blank-space-flips-the-narrative",
@@ -754,9 +771,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "November 10, 2014",
       title: "“Blank Space” flips the narrative",
       summary: "A self-aware satire of her own tabloid image becomes a defining smash.",
-      body: ["By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one."],
+      body: ["She has been direct about where it came from: the tabloid slideshow of her boyfriends, the serial-dater caricature she said she could either be hurt by or write from. Blank Space plays that caricature completely straight — a flirtatious woman running through lovers in a lonely mansion — and trusts the audience to hear the joke, which half of them famously didn't. Joseph Kahn's video leaned in with mascara tears, a stabbed cake, and a golf club through a vintage car, while an American Express interactive app let fans wander the mansion in 360 degrees hunting easter eggs; the app went on to win a Creative Arts Emmy.", "The joke also set a record. When Blank Space took over the Hot 100's top spot that November, the song it replaced was Shake It Off — making her the first woman in the chart's history to succeed herself at No. 1. It stayed there seven straight weeks."],
       tags: ["Music", "Lore"],
-      sources: [{ name: "Taylor Swift: Blank Space is back-to-back number 1 hit with Shake It Off. Is this her \"Imperial Moment\"?", url: "https://slate.com/culture/2014/12/taylor-swift-blank-space-is-back-to-back-number-1-hit-with-shake-it-off-is-this-her-imperial-moment.html", reliability: 4, type: "reputable_press" }],
+      sources: [{ name: "Taylor Swift: Blank Space is back-to-back number 1 hit with Shake It Off. Is this her \"Imperial Moment\"?", url: "https://slate.com/culture/2014/12/taylor-swift-blank-space-is-back-to-back-number-1-hit-with-shake-it-off-is-this-her-imperial-moment.html", reliability: 4, type: "reputable_press" }, { name: "Blank Space — Wikipedia", url: "https://en.wikipedia.org/wiki/Blank_Space", reliability: 2, type: "wiki" }],
       video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
       relatedIds: ["moment:vault-midnights-slut-turns-out-to-be-a-love-song", "moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed", "moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app"],
     },
@@ -767,9 +784,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "Late 2014",
       title: "Polaroids and pastel",
       summary: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
-      body: ["Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic."],
+      body: ["The cover said it first: an actual polaroid, cropped mid-face — lips and seagull sweater, no eyes — digitally fitted to the CD square. \"It was kind of an accident and I decided why not make that the album cover,\" she said of the shot. The instant-photo language ran through the whole package: every copy came with 13 real polaroid prints, drawn from five sets covering 65 different photos, many carrying sharpie-penned lines from the album's tracks in her handwriting — which turned the physical edition into a collectible and sent fans trading to complete the set.", "Around it she built the era's whole visual grammar: seagull sweaters, two-piece pastel sets, a crisp sky-blue minimalism styled after the decade in the title. The commitment ran deeper than an aesthetic filter — Polaroid had stopped making instant analogue film back in 2008, so the shots used revival film from the old factory's successor project. The look held so completely that a decade later the Taylor's Version rerelease could quote it from memory."],
       tags: ["Fashion"],
-      sources: [{ name: "Taylor Swift Explains Meaning Behind Cover of New Album '1989'", url: "https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609", reliability: 4, type: "reputable_press" }, { name: "Beyond 1989: Taylor Swift and Polaroids", url: "https://www.thelineofbestfit.com/features/articles/beyond-1989-taylor-swift-and-polaroids", reliability: 3, type: "reputable_press" }],
+      sources: [{ name: "Taylor Swift Explains Meaning Behind Cover of New Album '1989'", url: "https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609", reliability: 4, type: "reputable_press" }, { name: "Beyond 1989: Taylor Swift and Polaroids", url: "https://www.thelineofbestfit.com/features/articles/beyond-1989-taylor-swift-and-polaroids", reliability: 3, type: "reputable_press" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)", reliability: 2, type: "wiki" }],
       products: [{ brand: "Fashion Nova", item: "Simona Satin Mini Dress", retailer: "fashionnova.com", url: "https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue", price: "$23.98", isAlternative: true, altNote: "No single named dress -- this is the era's visual palette, not one outfit -- a current light-blue mini in the same sky-blue minimalist spirit." }],
     },
     {
@@ -779,9 +796,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "Early 2015",
       title: "The “squad” era",
       summary: "A rotating cast of famous friends becomes its own cultural storyline.",
-      body: ["Group appearances and red-carpet friendships turned her social circle into a defining 1989-era talking point."],
+      body: ["Group appearances and very public friendships turned her social circle into its own 1989-era storyline. The 1989 World Tour institutionalized it: night after night she walked unannounced guests down the catwalk — singers, models, actors, and athletes from, as she put it, every type of field — dozens of them across the tour, from Ed Sheeran and Mick Jagger to Serena Williams. When Martha Hunt, Kendall Jenner, Karlie Kloss, Gigi Hadid, and Cara Delevingne appeared together at the London Hyde Park show in the summer of 2015, the media shorthand became permanent: the squad.", "The word itself tells the story of how big it got. Slate's language column traced how #squadgoals — a term with roots in hip-hop and Black internet culture — was rebranded in 2015 around her circle of models and actresses, the caption under a thousand group photos. The squad became shorthand for the era's whole social spectacle: Fourth of July slides, VMA red-carpet formations, and eventually the backlash that helped push the next era underground."],
       tags: ["Lore"],
-      sources: [{ name: "Taylor Swift, Waka Flocka, and #squadgoals: How squad went from underdogs to queen bees.", url: "https://slate.com/human-interest/2015/07/taylor-swift-waka-flocka-and-squadgoals-how-squad-went-from-underdogs-to-queen-bees.html", reliability: 4, type: "reputable_press" }],
+      sources: [{ name: "Taylor Swift, Waka Flocka, and #squadgoals: How squad went from underdogs to queen bees.", url: "https://slate.com/human-interest/2015/07/taylor-swift-waka-flocka-and-squadgoals-how-squad-went-from-underdogs-to-queen-bees.html", reliability: 4, type: "reputable_press" }, { name: "The 1989 World Tour — Wikipedia", url: "https://en.wikipedia.org/wiki/The_1989_World_Tour", reliability: 2, type: "wiki" }],
     },
     {
       id: "vault-1989-bad-blood-short-film",
@@ -790,10 +807,10 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "May 17, 2015",
       title: "“Bad Blood” short film",
       summary: "A star-studded cinematic music video doubles as an event premiere.",
-      body: ["The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster."],
+      body: ["Reworked with a new Kendrick Lamar verse, the album track arrived as a single by way of a four-minute action movie: a Joseph Kahn-directed, neon-noir revenge fantasy that gave nearly every famous woman in her orbit a code name and a weapon — Selena Gomez, Zendaya, Hailee Steinfeld, Gigi Hadid, Cara Delevingne, Karlie Kloss, Hayley Williams, Cindy Crawford, Ellen Pompeo, and Mariska Hargitay among them. It premiered as the opening of the 2015 Billboard Music Awards on May 17 — a night she left with eight trophies — then broke Vevo's 24-hour viewing record with 20.1 million plays in its first day.", "The remix became her fourth Hot 100 No. 1 and Kendrick Lamar's first. The video kept collecting: Video of the Year and Best Collaboration at the 2015 VMAs — her first Video of the Year win — and Best Music Video at the 58th Grammys, the same night 1989 took Album of the Year."],
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg", credit: "Big Machine Records / YouTube (official video still)", caption: "A close-up from the \"Bad Blood\" video — the star-studded action-movie premiere that doubled as an awards-show event.", kind: "primary", focalPoint: "52% 48%" }],
-      sources: [{ name: "Taylor Swift \"Bad Blood\" Music Video: Billboard Awards", url: "https://time.com/3854282/taylor-swift-bad-blood-video-billboard-music-awards/", reliability: 4, type: "reputable_press" }, { name: "Billboard Music Awards 2015: Taylor Swift Dominates With 'Bad Blood' Video Premiere, 8 Wins", url: "https://abcnews.com/Entertainment/billboard-music-awards-2015-taylor-swift-dominates-bad/story?id=31114958", reliability: 4, type: "reputable_press" }],
+      sources: [{ name: "Taylor Swift \"Bad Blood\" Music Video: Billboard Awards", url: "https://time.com/3854282/taylor-swift-bad-blood-video-billboard-music-awards/", reliability: 4, type: "reputable_press" }, { name: "Billboard Music Awards 2015: Taylor Swift Dominates With 'Bad Blood' Video Premiere, 8 Wins", url: "https://abcnews.com/Entertainment/billboard-music-awards-2015-taylor-swift-dominates-bad/story?id=31114958", reliability: 4, type: "reputable_press" }, { name: "Bad Blood (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
       video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
     },
     {
@@ -803,11 +820,12 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "February 15, 2016",
       title: "Second Album of the Year",
       summary: "She becomes the first woman to win the top Grammy twice.",
-      body: ["Accepting the award, she used the moment to speak directly to young women about crediting their own work."],
+      body: ["Seven years after Fearless took the top Grammy, 1989 won Album of the Year at the 58th Grammy Awards on February 15, 2016 — making her the first woman ever to win the category twice. The night was a sweep in miniature: Best Pop Vocal Album for 1989 and Best Music Video for \"Bad Blood\" landed alongside it.", "The acceptance speech became the story. \"To all the young women, there are going to be people along the way who try to undercut your success or take credit for your accomplishments or your fame,\" she said — words the room heard, in the same season a certain rap lyric was claiming credit for making her famous, as very pointed advice about staying focused on the work. She shared the moment with Max Martin, the album's co-executive producer, telling the crowd he had deserved to be up there for 25 years."],
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg", credit: "Getty Images, via Billboard", caption: "On the 58th Grammy Awards red carpet, February 15, 2016 — the night 1989 won Album of the Year, making Taylor the first woman to win the top Grammy twice.", kind: "primary", focalPoint: "48% 20%" }],
-      sources: [{ name: "GRAMMY Rewind: Watch Taylor Swift Become The First Woman To Win Album Of The Year Twice", url: "https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/", reliability: 5, type: "awards_database" }],
+      sources: [{ name: "GRAMMY Rewind: Watch Taylor Swift Become The First Woman To Win Album Of The Year Twice", url: "https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/", reliability: 5, type: "awards_database" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)", reliability: 2, type: "wiki" }],
       milestone: { id: "m-89-3", label: "Album of the Year", kind: "award" },
+      relatedIds: ["moment:vault-1989-the-night-famous-premiered-and-she-said-no"],
     },
   ],
   "debut": [
@@ -8591,6 +8609,17 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       ],
     },
     {
+      id: "vault-ttpd-the-wembley-cameo-wins-them-an-award-favorite-surprise-guest",
+      date: "2025-03-17",
+      dateLabel: "March 17, 2025",
+      title: "The Wembley cameo wins them an award: Favorite Surprise Guest",
+      summary: "At the iHeartRadio Music Awards, the fan-voted Favorite Surprise Guest prize went to Travis's top-hatted Eras Tour walk-on — a trophy with both their names on it, on a night she took nine.",
+      body: ["Nine months after Travis Kelce carried her to the couch at Wembley in a tailcoat and top hat, the bit became silverware: at the iHeartRadio Music Awards at the Dolby Theatre on March 17, 2025, the fan-voted Favorite Surprise Guest award went to his \"I Can Do It With a Broken Heart\" walk-on — effectively the couple's first shared award. It came amid a sweep for her: nine wins on the night, the most of any artist, including Artist of the Year, Pop Album of the Year for The Tortured Poets Department, Best Lyrics and Best Music Video for \"Fortnight,\" and a one-off Tour of the Century award for the Eras Tour.", "She accepted Tour of the Century in a recorded video speech, trophy in hand — and fans immediately went frame-by-frame on it: some swore a tall figure holding a phone camera was reflected in the trophy's mirrored surface, \"like Trav did at one of her concerts.\" Who was behind the camera was never confirmed — People and iHeart both wrote the theory up as speculation, and it stayed that way."],
+      tags: ["Relationship"],
+      sources: [{ name: "People (via Yahoo)", url: "https://www.yahoo.com/entertainment/taylor-swift-fans-think-travis-193054140.html" }, { name: "iHeartRadio", url: "https://www.iheart.com/content/2025-03-20-why-fans-think-travis-kelce-filmed-taylor-swifts-iheartradio-award-speech/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/2025_iHeartRadio_Music_Awards" }],
+      relatedIds: ["moment:vault-ttpd-travis-kelce-eras-tour-cast-member-for-a-night"],
+    },
+    {
       id: "vault-ttpd-ttpds-grunge-tea-stained-aesthetic-the-album-photography",
       date: "2024-04-19",
       dateLabel: "April 19, 2024",
@@ -8699,6 +8728,16 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "ABC News", url: "https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249" }],
       relatedIds: ["moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s", "moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans", "moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play", "moment:vault-midnights-a-kiss-to-celebrate-the-afc-championship"],
       threadIds: ["the-proposal"],
+    },
+    {
+      id: "vault-ttpd-she-sings-at-his-camp-a-surprise-shake-it-off-at-tight-end-u",
+      date: "2025-06-24",
+      dateLabel: "June 24, 2025",
+      title: "She sings at his camp: a surprise 'Shake It Off' at Tight End University",
+      summary: "Kane Brown asked the Brooklyn Bowl crowd if he could bring out 'a really, really, really special guest' — and her first performance since the Eras Tour ended happened at Travis's own tight-end summit.",
+      body: ["Tight End University is the offseason camp Travis Kelce founded with George Kittle and Greg Olsen in 2021 — three days in Nashville where the league's tight ends train and bond, capped by the 'Tight Ends & Friends' concert at Brooklyn Bowl. At the camp's fifth edition, and the concert's second, on June 24, 2025, Kane Brown paused his set to ask whether the crowd minded 'a really, really, really special guest,' and Taylor walked out to sing \"Shake It Off\" with him — on a borrowed guitar, having told Chase Rice she would go up if she had one.", "The one-song cameo carried more weight than its runtime: it was her first live performance anywhere since the Eras Tour closed in Vancouver on December 8, 2024 — six months of public quiet broken not at an awards show or a stadium, but at her boyfriend's charity camp in the city where her career began. After nearly two years of her showing up in his world's family suites, this was the reverse gesture made literal: his event, her stage."],
+      tags: ["Relationship"],
+      sources: [{ name: "Taylor Swift has surprise performance at Tight End University in Tennessee", url: "https://www.nfl.com/news/taylor-swift-has-surprise-performance-at-tight-end-university-in-tennessee", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift surprises crowd during Kane Brown's set at Brooklyn Bowl Nashville", url: "https://www.wsmv.com/2025/06/26/taylor-swift-surprises-crowd-during-kane-browns-set-brooklyn-bowl-nashville/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift's Surprise Performance With Kane Brown", url: "https://www.eonline.com/news/1419115/taylor-swifts-surprise-performance-with-kane-brown", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift Crashes Kane Brown's Set In Nashville", url: "https://countrytown.com/news/taylor-swift-crashes-kane-brown-s-set-in-nashville/dBXKZmloa2o/27-06-25", reliability: 2, type: "press" }],
     },
     {
       id: "vault-ttpd-a-pink-mini-dress-for-a-saturday-night-dinner-date",
