@@ -337,7 +337,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "After the summer 2016 fallout — the leaked \"Famous\" call, Kim Kardashian's \"National Snake Day,\" the snake emojis flooding every post until Instagram tested a comment filter on her page — Taylor did the one thing nobody expected of the most-watched pop star alive: she stopped showing up. Through late 2016 and into 2017 there were no interviews, no magazine covers, no award-show appearances, no new music. The most documented woman in pop simply went quiet and let the noise run itself out without her in the frame.\n\nShe later framed the withdrawal as deliberate. \"Nobody physically saw me for a year,\" she says in the 2020 documentary Miss Americana, \"and I thought that that was what they wanted\" — a retreat that, in her telling, woke her up from \"constantly feeling that I was fighting for people's respect.\" The silence was not empty: out of view she was building the record that would answer it, reputation, which arrived November 10, 2017. The disappearance is the setup the whole era pays off — the reason the snake, when it finally slithered back onscreen that August, read as armor instead of apology.",
+          "After the summer 2016 fallout — the leaked \"Famous\" call, Kim Kardashian's \"National Snake Day,\" the snake emojis flooding every post until Instagram tested a comment filter on her page — Taylor did the one thing nobody expected of the most-watched pop star alive: she stopped showing up. Through late 2016 and into 2017 there were no interviews, no magazine covers, no award-show appearances, no new music. The most documented woman in pop simply went quiet and let the noise run itself out without her in the frame.\n\nShe later framed the withdrawal as deliberate. \"Nobody physically saw me for a year,\" she says in the 2020 documentary Miss Americana, \"and I thought that that was what they wanted\" — a retreat that, in her telling, woke her up from \"constantly feeling that I was fighting for people's respect.\" The silence was not empty: out of view she was building the record that would answer it, reputation, which arrived November 10, 2017. The disappearance is the setup the whole era pays off — the reason the snake, when it finally slithered back onscreen that August, read as armor instead of apology.\n\nThe withdrawal was near-total, but not absolute. She skipped the 2017 award-show circuit, sat for no interviews and mounted no promotion, yet the machine kept running without her at the front of it: in December 2016 she surfaced on \"I Don't Wanna Live Forever,\" a Fifty Shades Darker duet with Zayn Malik that climbed the Hot 100, and her back catalogue kept charting on its own. The point was the absence itself. With no fresh statements to react to, the narrative that had consumed her summer had nothing left to feed on — and by the time the snake slithered back that August, the terms of the conversation had quietly reset in her favor.",
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -346,6 +346,12 @@ export default {
           {
             outlet: 'Wikipedia',
             url: 'https://en.wikipedia.org/wiki/Reputation_(album)',
+          },
+          {
+            // Depth pass #1719 (2026-08-12): third source for the 2016–17
+            // withdrawal details (skipped awards, the Zayn duet) added above.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-2017-timeline-8070261/',
           },
         ],
         // Photo pass (#1238, this run): a year defined by her *not* being
@@ -381,7 +387,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "The blackout began August 18, 2017, when her Instagram, Twitter, Tumblr, and official website all went blank at once. At noon on August 21 came the first post-wipe post: a glitchy, fuzzy clip of what was eventually recognizable as a slithering snake tail, with more fragments following over the next two days — until August 23 brought the album title, the Mert & Marcus cover, and the November 10 release date.\n\nThe symbol was a pointed reclamation: after the July 2016 \"Famous\" fallout, when Kim Kardashian's \"National Snake Day\" tweet sent snake emojis flooding her accounts so heavily that Instagram tested a comment-filtering tool on her page, she made the snake the era's opening image.",
+          "The blackout began August 18, 2017, when her Instagram, Twitter, Tumblr, and official website all went blank at once. At noon on August 21 came the first post-wipe post: a glitchy, fuzzy clip of what was eventually recognizable as a slithering snake tail, with more fragments following over the next two days — until August 23 brought the album title, the Mert & Marcus cover, and the November 10 release date.\n\nThe symbol was a pointed reclamation: after the July 2016 \"Famous\" fallout, when Kim Kardashian's \"National Snake Day\" tweet sent snake emojis flooding her accounts so heavily that Instagram tested a comment-filtering tool on her page, she made the snake the era's opening image.\n\nThe teaser's mechanics were as deliberate as its symbol. The August 18 wipe hit every platform at once — Instagram, Twitter, Facebook, Tumblr and her website — and she unfollowed everyone she had been following, stripping the accounts bare. The snake then arrived in three installments: the tail first, then a squirming middle, and finally a red-eyed, open-fanged head lunging at the camera, so the full animal only assembled across the three posts. The August 23 announcement kept the same three-part cadence, adding that the lead single, \"Look What You Made Me Do,\" would land the following night. What a year earlier had been an insult hurled at her — Kim Kardashian's snake emojis — she had turned into a mark she owned outright, opening the era on her own terms. Commentators read the reclamation as a textbook act of narrative control: rather than deny the meme, she absorbed it, so the symbol used to shame her became the era's logo, the tour's animatronic set pieces, and the visual signature of a best-selling comeback.",
         sources: [
           {
             outlet: 'Refinery29',
@@ -390,6 +396,12 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-new-album-7941019/',
+          },
+          {
+            // Depth pass #1719 (2026-08-12): third source for the three-part
+            // teaser / blackout mechanics added to the narrative.
+            outlet: 'Fortune',
+            url: 'https://fortune.com/2017/08/21/taylor-swift-instagram-new-album',
           },
         ],
         // T16 photo pass (2026-07-09): the Instagram teaser frames themselves are
