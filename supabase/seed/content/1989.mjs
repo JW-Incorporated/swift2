@@ -513,7 +513,7 @@ export default {
       thumbnailUrl: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef',
       moment: {
         context:
-          "Ellie Goulding played matchmaker at the February 2015 Elle Style Awards in London, and the two were spotted flirting at a BRIT Awards afterparty the very next night, followed by a trip to Nashville together. Harris dropped the first public hint himself that April — an Instagram post of Taylor's cats — before the paparazzi caught them holding hands leaving a HAIM show at the Troubadour.\n\nThe Billboard Music Awards that May made it unmistakable: they sat together all night, with cameras catching \"a smooch and plenty of hugs\" as she went up to collect her awards. By their one-year mark he was engraving the date — 3.6.15 — on a locket.\n\nThe night itself was a coronation with a witness. The ceremony, held May 17, 2015, at the MGM Grand Garden Arena in Las Vegas, was where the two chose to make the relationship public: Taylor swept eight awards — among them top Billboard 200 album for 1989 — premiered the star-packed \"Bad Blood\" music video, and kissed Harris in the crowd after collecting her album prize. Their pairing quickly became a business fact as much as a tabloid one. Forbes named them the world's highest-paid celebrity couple at a combined $146 million, dethroning Beyoncé and Jay-Z, and later reckoned that, had they stayed together, they would have pulled in $233 million across 2016.\n\nThe arc it opened would run about fifteen months, to a public — and pointed — breakup in June 2016. Only afterward did fans learn that Taylor had secretly co-written Harris's 2016 dance smash \"This Is What You Came For\" under the pen name Nils Sjöberg, a reveal that turned the relationship's end into one of the era's sharpest twists.",
+          "Ellie Goulding played matchmaker at the February 2015 Elle Style Awards in London, and the two were spotted flirting at a BRIT Awards afterparty the very next night, followed by a trip to Nashville together. Harris dropped the first public hint himself that April — an Instagram post of Taylor's cats — before the paparazzi caught them holding hands leaving a HAIM show at the Troubadour.\n\nThe Billboard Music Awards that May made it unmistakable: they sat together all night, with cameras catching \"a smooch and plenty of hugs\" as she went up to collect her awards. By their one-year mark he was engraving the date — 3.6.15 — on a locket.\n\nThe night itself was a coronation with a witness. The ceremony, held May 17, 2015, at the MGM Grand Garden Arena in Las Vegas, was where the two chose to make the relationship public: Taylor swept eight awards — among them top Billboard 200 album for 1989 — premiered the star-packed \"Bad Blood\" music video, and kissed Harris in the crowd after collecting her album prize. Their pairing quickly became a business fact as much as a tabloid one: a combined $146 million made them the world's highest-paid celebrity couple, dethroning Beyoncé and Jay-Z — and had they stayed together, the projection ran to $233 million across 2016 (Forbes).\n\nThe arc it opened would run about fifteen months, to a public — and pointed — breakup in June 2016. Only afterward did fans learn that Taylor had secretly co-written Harris's 2016 dance smash \"This Is What You Came For\" under the pen name Nils Sjöberg, a reveal that turned the relationship's end into one of the era's sharpest twists.",
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -754,6 +754,73 @@ export default {
         // photo; no other 2017-dated couple photo passed the sourcing gates.
         // Focal point (#762): the couple walks center-frame, both faces in the upper quarter; a wide crop keeps both.
         photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.', focalPoint: '52% 24%' }],
+      },
+    },
+    {
+      // Depth audit 2026-08-12 (docs/audits/2026-08-12-depth-rows-per-month.md):
+      // the era's 14-month closing stretch carried one row and was missing this
+      // event entirely — the corpus's only prior mentions were a passing clause
+      // in a Midnights item and a candidates file. Every fact below verified
+      // against the three cited sources, fetched this session. 'notable', not
+      // 'defining': flagged as a defining-list candidate in the audit report,
+      // but that list is a founder decision (docs/decisions.md, 2026-07-19).
+      significance: 'notable',
+      relatedIds: ['moment:vault-reputation-the-year-of-silence'],
+      year: 2017,
+      month: 8,
+      day: 14,
+      category: 'business',
+      title: 'The Denver trial ends with the single dollar she asked for',
+      snippet:
+        'Eight jurors needed less than four hours: David Mueller assaulted and battered her at a 2013 meet-and-greet — and owed her exactly the symbolic $1 she had requested.',
+      sourceUrl: 'https://abcnews.com/Entertainment/jury-finds-dj-groped-taylor-swift/story?id=49206323',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "It started at a pre-show meet-and-greet at Denver's Pepsi Center on June 2, 2013, when radio host David Mueller reached under her skirt and grabbed her during a photo. Her team reported it to his station, KYGO, which fired him. Two years later, in September 2015, Mueller sued her, blaming her for the loss of his $150,000-a-year job and seeking up to $3 million. A month after that she countersued for assault and battery — asking for exactly one dollar.\n\nThe trial ran August 7–14, 2017 in Denver's federal courthouse before Judge William J. Martínez, in the middle of the quietest public year of her life. Her testimony made headlines for refusing every reframing Mueller's lawyer offered: \"It was a definite grab. A very long grab,\" she said, and she was not going to be made to \"feel in any way that this is my fault.\" Mid-trial, the judge threw out Mueller's claims against her personally for lack of evidence; on August 14 the six-woman, two-man jury deliberated less than four hours, found that Mueller had assaulted and battered her, rejected his remaining claims against her mother Andrea and radio liaison Frank Bell, and awarded the dollar. Her attorney Douglas Baldridge called it \"a single symbolic dollar, the value of which is immeasurable to all women in this situation.\"\n\nIn her statement afterward she acknowledged \"the privilege that I benefit from in life, in society and in my ability to shoulder the enormous cost of defending myself,\" said her hope was \"to help those whose voices should also be heard,\" and pledged donations to organizations that help sexual assault survivors defend themselves. That December, TIME put her on its Person of the Year cover as one of the Silence Breakers — where she gave her first extended account of the case, in the year the #MeToo reckoning broke open.",
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/jury-finds-dj-groped-taylor-swift/story?id=49206323',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-awarded-1dollar-in-groping-trial/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_sexual_assault_trial',
+          },
+        ],
+        // No photography exists from inside the courtroom (sketches only, and
+        // those are rights-encumbered), and she made no photographed public
+        // appearances around the trial — so the image is honest era context:
+        // the tour whose Denver stop's meet-and-greet this case came from.
+        // Commons file page checked this session (CC BY 2.0, author Jana
+        // Zills); curl 200 image/jpeg; downloaded + Read-viewed: she smiles
+        // mid-show in the black hat and white lace of the Red Tour staging.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_Red_Tour_2%2C_2013.jpg/960px-Taylor_Swift_Red_Tour_2%2C_2013.jpg',
+            credit: 'Jana Zills / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'On the Red Tour, March 2013 — the assault happened that June at a pre-show meet-and-greet on the same tour\'s Denver stop.',
+            kind: 'archival',
+            focalPoint: '45% 20%',
+          },
+          // Commons file page checked this session (CC BY 2.0, author Paul
+          // Sableman, Dec 2015); curl 200 image/jpeg; downloaded + Read-viewed:
+          // the courthouse name is legible on the facade. This is the actual
+          // trial venue — the U.S. District Court for the District of Colorado.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Alfred_A._Arraj_United_States_Courthouse_%2823387332304%29.jpg/960px-Alfred_A._Arraj_United_States_Courthouse_%2823387332304%29.jpg',
+            credit: 'Paul Sableman / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'The Alfred A. Arraj federal courthouse in Denver, where the trial ran August 7–14, 2017 (photographed in 2015).',
+            kind: 'archival',
+            focalPoint: '50% 30%',
+          },
+        ],
       },
     },
 
@@ -2718,14 +2785,35 @@ export default {
             accessed_at: '2026-08-11',
             reliability_score: 3,
           },
+          // Depth pass 2026-08-12 (rows-per-month audit): first-week figure,
+          // three-million-week record, 11-week Billboard 200 run, and the
+          // Martin/Shellback/Antonoff/Tedder producer roster verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/1989_(album)',
+            source_title: '1989 (album) — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
         ],
-        context: "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world.",
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 131-char
+        // caption). Every figure verified against the sources above.
+        context:
+          "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world. She named it for her birth year and built it as a deliberate rebirth in the image of the decade's synthesizer records, making Max Martin her co-executive producer and cutting it with him, Shellback, Jack Antonoff, and Ryan Tedder — the country instrumentation gone entirely, on purpose.\n\nAny doubt about the gamble was settled in a week. 1989 opened at No. 1 on the Billboard 200 with 1.287 million copies — the first album released in 2014 to sell a million at all — and made her the first artist ever with three albums each selling a million copies in their first week, after Speak Now and Red. It went on to spend 11 weeks at No. 1, and the era it opened ran a full three years: back-to-back No. 1 singles, the highest-grossing tour of 2015, and a second Album of the Year Grammy.",
       },
     },
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "1989-shake-it-off",
+      // Cross-links (depth pass 2026-08-12): the sibling moments this
+      // headline stub summarizes — the song's own story and its Diamond cert.
+      relatedIds: [
+        'moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker',
+        'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
+      ],
       year: 2014,
       month: 8,
       day: 18,
@@ -2761,14 +2849,29 @@ export default {
             accessed_at: '2026-08-11',
             reliability_score: 3,
           },
+          // Depth pass 2026-08-12 (rows-per-month audit): livestream details,
+          // Romanek video, 22nd-ever No. 1 debut, four weeks at No. 1, and
+          // the later Diamond certification verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Shake_It_Off',
+            source_title: 'Shake It Off — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
         ],
-        context: "Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.",
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 114-char
+        // caption). Every figure verified against the sources above.
+        context:
+          "The whole pivot was announced in one afternoon. In a worldwide Yahoo/ABC livestream on August 18, 2014, from the Empire State Building's observation deck, she named the new album 1989, called it her first documented, official pop record, set the October 27 date, and dropped the lead single and its Mark Romanek-directed video on the spot. The video played the critics' harshest read of her — the awkward over-earnest dancer — for laughs, planting her mid-frame in troupes of professionals (ballet, breakdance, cheer squads) whose moves she cheerfully failed to keep up with.\n\nThe single became just the 22nd song in Hot 100 history to debut at No. 1, her second US No. 1 overall, and held the top spot for four nonconsecutive weeks while staying in the top ten for nearly six months. Years later the RIAA certified it Diamond — ten million units — making her the first woman with both a Diamond single and a Diamond album (Fearless).",
         photos: [
           {
             url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
             focalPoint: '46% 55%',
             credit: 'Big Machine Records / YouTube (official video still)',
-            caption: 'Swift crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
+            caption: 'Taylor crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
             kind: 'primary',
           },
         ],
@@ -2805,8 +2908,23 @@ export default {
             accessed_at: '2026-08-11',
             reliability_score: 4,
           },
+          // Depth pass 2026-08-12 (rows-per-month audit): the succeed-herself
+          // Hot 100 record, seven-week run, Kahn video, and the AMEX
+          // interactive app's Emmy verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Blank_Space',
+            source_title: 'Blank Space — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
         ],
-        context: "By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one.",
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 112-char
+        // caption). Every figure verified against the sources above.
+        context:
+          "She has been direct about where it came from: the tabloid slideshow of her boyfriends, the serial-dater caricature she said she could either be hurt by or write from. Blank Space plays that caricature completely straight — a flirtatious woman running through lovers in a lonely mansion — and trusts the audience to hear the joke, which half of them famously didn't. Joseph Kahn's video leaned in with mascara tears, a stabbed cake, and a golf club through a vintage car, while an American Express interactive app let fans wander the mansion in 360 degrees hunting easter eggs; the app went on to win a Creative Arts Emmy.\n\nThe joke also set a record. When Blank Space took over the Hot 100's top spot that November, the song it replaced was Shake It Off — making her the first woman in the chart's history to succeed herself at No. 1. It stayed there seven straight weeks.",
       },
     },
     {
@@ -2839,8 +2957,22 @@ export default {
             accessed_at: '2026-08-11',
             reliability_score: 3,
           },
+          // Depth pass 2026-08-12 (rows-per-month audit): the 13-of-65
+          // polaroid packaging detail and the Lowfield credit verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/1989_(album)',
+            source_title: '1989 (album) — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
         ],
-        context: "Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic.",
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 77-char
+        // caption). Packaging figures verified against the sources above.
+        context:
+          "The cover said it first: an actual polaroid, cropped mid-face — lips and seagull sweater, no eyes — digitally fitted to the CD square. \"It was kind of an accident and I decided why not make that the album cover,\" she said of the shot. The instant-photo language ran through the whole package: every copy came with 13 real polaroid prints, drawn from five sets covering 65 different photos, many carrying sharpie-penned lines from the album's tracks in her handwriting — which turned the physical edition into a collectible and sent fans trading to complete the set.\n\nAround it she built the era's whole visual grammar: seagull sweaters, two-piece pastel sets, a crisp sky-blue minimalism styled after the decade in the title. The commitment ran deeper than an aesthetic filter — Polaroid had stopped making instant analogue film back in 2008, so the shots used revival film from the old factory's successor project. The look held so completely that a decade later the Taylor's Version rerelease could quote it from memory.",
         // Shop pass (2026-07-22): no single named dress -- a current
         // sky-blue mini in the era's pastel-minimalist palette.
         products: [
@@ -2877,8 +3009,22 @@ export default {
             accessed_at: '2026-08-11',
             reliability_score: 4,
           },
+          // Depth pass 2026-08-12 (rows-per-month audit): the 1989 World
+          // Tour's guest tradition and the Hyde Park lineup verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
+            source_title: 'The 1989 World Tour — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
         ],
-        context: "Group appearances and red-carpet friendships turned her social circle into a defining 1989-era talking point.",
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 109-char
+        // caption). Guest and lexicon facts verified against the sources above.
+        context:
+          "Group appearances and very public friendships turned her social circle into its own 1989-era storyline. The 1989 World Tour institutionalized it: night after night she walked unannounced guests down the catwalk — singers, models, actors, and athletes from, as she put it, every type of field — dozens of them across the tour, from Ed Sheeran and Mick Jagger to Serena Williams. When Martha Hunt, Kendall Jenner, Karlie Kloss, Gigi Hadid, and Cara Delevingne appeared together at the London Hyde Park show in the summer of 2015, the media shorthand became permanent: the squad.\n\nThe word itself tells the story of how big it got. Slate's language column traced how #squadgoals — a term with roots in hip-hop and Black internet culture — was rebranded in 2015 around her circle of models and actresses, the caption under a thousand group photos. The squad became shorthand for the era's whole social spectacle: Fourth of July slides, VMA red-carpet formations, and eventually the backlash that helped push the next era underground.",
       },
     },
     {
@@ -2912,8 +3058,22 @@ export default {
             accessed_at: '2026-08-11',
             reliability_score: 4,
           },
+          // Depth pass 2026-08-12 (rows-per-month audit): cast, Vevo record,
+          // the remix's Hot 100 No. 1, and the Grammy/VMA wins verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)',
+            source_title: 'Bad Blood (Taylor Swift song) — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
         ],
-        context: "The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.",
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 115-char
+        // caption). Every figure verified against the sources above.
+        context:
+          "Reworked with a new Kendrick Lamar verse, the album track arrived as a single by way of a four-minute action movie: a Joseph Kahn-directed, neon-noir revenge fantasy that gave nearly every famous woman in her orbit a code name and a weapon — Selena Gomez, Zendaya, Hailee Steinfeld, Gigi Hadid, Cara Delevingne, Karlie Kloss, Hayley Williams, Cindy Crawford, Ellen Pompeo, and Mariska Hargitay among them. It premiered as the opening of the 2015 Billboard Music Awards on May 17 — a night she left with eight trophies — then broke Vevo's 24-hour viewing record with 20.1 million plays in its first day.\n\nThe remix became her fourth Hot 100 No. 1 and Kendrick Lamar's first. The video kept collecting: Video of the Year and Best Collaboration at the 2015 VMAs — her first Video of the Year win — and Best Music Video at the 58th Grammys, the same night 1989 took Album of the Year.",
         photos: [
           {
             url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg',
@@ -2929,6 +3089,9 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "1989-aoty",
+      // Cross-link (depth pass 2026-08-12): the "Famous" premiere the speech
+      // was heard against.
+      relatedIds: ['moment:vault-1989-the-night-famous-premiered-and-she-said-no'],
       year: 2016,
       month: 2,
       day: 15,
@@ -2957,8 +3120,23 @@ export default {
             accessed_at: '2026-08-11',
             reliability_score: 5,
           },
+          // Depth pass 2026-08-12 (rows-per-month audit): the night's other
+          // wins (Best Pop Vocal Album; Bad Blood's Best Music Video)
+          // verified here.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/1989_(album)',
+            source_title: '1989 (album) — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-12',
+            reliability_score: 2,
+          },
         ],
-        context: "Accepting the award, she used the moment to speak directly to young women about crediting their own work.",
+        // Deepened 2026-08-12 (depth audit: era-headline item was a 105-char
+        // caption). Speech wording verified against the Grammy.com source.
+        context:
+          "Seven years after Fearless took the top Grammy, 1989 won Album of the Year at the 58th Grammy Awards on February 15, 2016 — making her the first woman ever to win the category twice. The night was a sweep in miniature: Best Pop Vocal Album for 1989 and Best Music Video for \"Bad Blood\" landed alongside it.\n\nThe acceptance speech became the story. \"To all the young women, there are going to be people along the way who try to undercut your success or take credit for your accomplishments or your fame,\" she said — words the room heard, in the same season a certain rap lyric was claiming credit for making her famous, as very pointed advice about staying focused on the work. She shared the moment with Max Martin, the album's co-executive producer, telling the crowd he had deserved to be up there for 25 years.",
         photos: [
           {
             url: "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg",

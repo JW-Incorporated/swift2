@@ -5,6 +5,11 @@
 // 2026-07-21 and 2026-08-04 (eleven X, one Instagram — #1897) while every
 // social-poster run stayed green.
 //
+// Also covers the states that deliberately spend no attempt (skipped /
+// waiting) and their escalation ladder: red at 24h overdue
+// (run-report.mjs's STUCK_AFTER_HOURS), retired to social/failed/ at 48h
+// (queue.mjs's isStaleDue).
+//
 // Drives the real post-queue.mjs against a temp SOCIAL_ROOT with `fetch`
 // stubbed. No network, no credentials: the X_*/IG_* env vars below are
 // obvious dummies and never leave the process.
@@ -34,6 +39,14 @@ async function seedQueueItem(name: string, item: Record<string, unknown>) {
 /** Recently due (1 minute ago): due, but nowhere near the 48h stale rule. */
 function justDue() {
   return new Date(Date.now() - 60_000).toISOString();
+}
+/** Due 30 hours ago — past the 24h stuck threshold, before the 48h rule. */
+function stuckDue() {
+  return new Date(Date.now() - 30 * 60 * 60 * 1000).toISOString();
+}
+/** Due 3 days ago — past the 48h staleness rule. */
+function staleDue() {
+  return new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
 }
 
 function xItem(overrides: Record<string, unknown> = {}) {
@@ -66,16 +79,18 @@ async function runPoster() {
   return mod.main();
 }
 
-type StubResponse = { ok: boolean; status: number; body: unknown };
+type StubResponse = { ok?: boolean; status?: number; body?: unknown };
 
-/** lib/platforms.mjs reads bodies via res.text() (parseResponse) and
+/** lib/platforms.mjs reads bodies via res.text() (parseResponse),
+ * lib/ig-container.mjs's status poll reads res.json(), and
  * lib/preflight.mjs looks at res.ok/status/headers — cover all of them. */
 function toFetchResponse(r: StubResponse) {
+  const body = r.body ?? {};
   return {
-    ok: r.ok,
-    status: r.status,
-    json: async () => r.body,
-    text: async () => JSON.stringify(r.body),
+    ok: r.ok ?? true,
+    status: r.status ?? 200,
+    json: async () => body,
+    text: async () => JSON.stringify(body),
     headers: { get: () => null },
   };
 }
@@ -86,16 +101,42 @@ function stubFetch(response: StubResponse) {
   return spy;
 }
 
-/** Distinct response per call, for multi-step platform flows (preflight, then
- * IG's create-container, then publish). The last entry repeats if exhausted. */
-function stubFetchSequence(responses: StubResponse[]) {
-  let i = 0;
-  const spy = vi.fn(async () => toFetchResponse(responses[Math.min(i++, responses.length - 1)]));
+/**
+ * URL-aware stub for the full Instagram flow, which is now five possible
+ * distinct calls: the deploy-lag HEAD preflight, POST /media (container),
+ * GET the container's status_code (lib/ig-container.mjs's readiness poll),
+ * POST /media_publish, and — when FB_PAGE_ID is set — POST /photos for the
+ * Facebook Page cross-post. Keyed by URL/method rather than by call order so
+ * a test asserting on one step doesn't have to know how many calls the
+ * others make (the status poll in particular may run more than once).
+ */
+function stubIgFetch(steps: {
+  preflight?: StubResponse;
+  container?: StubResponse;
+  status?: StubResponse;
+  publish?: StubResponse;
+  facebook?: StubResponse;
+} = {}) {
+  const ok = (body: unknown): StubResponse => ({ ok: true, status: 200, body });
+  const resolved = {
+    preflight: steps.preflight ?? ok({}),
+    container: steps.container ?? ok({ id: 'container-1' }),
+    status: steps.status ?? ok({ status_code: 'FINISHED' }),
+    publish: steps.publish ?? ok({ id: 'ig-post-1' }),
+    facebook: steps.facebook ?? ok({ post_id: 'fb-post-1' }),
+  };
+  const spy = vi.fn(async (url: string, init?: { method?: string }) => {
+    let step: StubResponse;
+    if (init?.method === 'HEAD') step = resolved.preflight;
+    else if (String(url).includes('/media_publish')) step = resolved.publish;
+    else if (String(url).includes('/photos')) step = resolved.facebook;
+    else if (init?.method === 'POST') step = resolved.container;
+    else step = resolved.status;
+    return toFetchResponse(step);
+  });
   vi.stubGlobal('fetch', spy);
   return spy;
 }
-
-const PREFLIGHT_OK: StubResponse = { ok: true, status: 200, body: '' };
 
 beforeEach(async () => {
   root = await mkdtemp(path.join(tmpdir(), 'social-poster-test-'));
@@ -111,6 +152,8 @@ beforeEach(async () => {
   delete process.env.SOCIAL_FREEZE;
   delete process.env.GITHUB_STEP_SUMMARY;
   delete process.env.FB_PAGE_ID;
+  delete process.env.SOCIAL_IG_POLL_TIMEOUT_MS;
+  delete process.env.SOCIAL_IG_POLL_INTERVAL_MS;
   process.exitCode = 0;
 });
 
@@ -208,14 +251,27 @@ describe('post-queue: a failed X post is reported, never swallowed', () => {
     // Still queued for the next run.
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
   });
+
+  it('reports an X item with too many images as failed rather than posting a subset', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '123' } } });
+    const five = Array.from({ length: 5 }, (_, i) => `/social/library/${i}.png`);
+    await seedQueueItem('a-x.json', xItem({ attempts: 2, media: five }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].error).toContain('X posts support at most 4 images');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
 });
 
 // The swallow was never X-specific — it lived in a platform-agnostic catch
 // block. social/failed/2026-07-27-all-too-well-scarf-metaphor-ig.json is the
 // proof it bit Instagram too: a real post killed by Meta error 9007/2207027
 // on a green run. (The container-readiness race that CAUSED that error is
-// issue #1897, deliberately not fixed here — this only asserts that when
-// Instagram fails, we hear about it.)
+// issue #1897, fixed in lib/ig-container.mjs — most of these cases assert
+// that when Instagram fails, we hear about it; the IN_PROGRESS case asserts
+// the poll itself refuses to publish an unready container.)
 describe('post-queue: an Instagram failure is reported just as loudly', () => {
   // Meta's real payload for the post we lost.
   const NOT_READY = {
@@ -231,13 +287,9 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
   };
 
   it('reddens the run when an IG publish exhausts its attempts', async () => {
-    // Media preflight passes and container creation succeeds; the publish
-    // that follows is the failure.
-    stubFetchSequence([
-      PREFLIGHT_OK,
-      { ok: true, status: 200, body: { id: 'container-1' } },
-      { ok: false, status: 400, body: NOT_READY },
-    ]);
+    // Media is live and the container reports FINISHED; the publish that
+    // follows is still the failure.
+    stubIgFetch({ publish: { ok: false, status: 400, body: NOT_READY } });
     await seedQueueItem('2026-07-27-all-too-well-scarf-metaphor-ig.json', igItem({ attempts: 2 }));
 
     const outcomes = await runPoster();
@@ -249,11 +301,7 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
   });
 
   it('names Instagram, not just X, in the run report', async () => {
-    stubFetchSequence([
-      PREFLIGHT_OK,
-      { ok: true, status: 200, body: { id: 'container-1' } },
-      { ok: false, status: 400, body: NOT_READY },
-    ]);
+    stubIgFetch({ publish: { ok: false, status: 400, body: NOT_READY } });
     await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
 
     await runPoster();
@@ -264,16 +312,28 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
   });
 
   it('surfaces a failure at the container step too, not only at publish', async () => {
-    stubFetchSequence([
-      PREFLIGHT_OK,
-      { ok: false, status: 400, body: { error: { message: 'Invalid image URL' } } },
-    ]);
+    stubIgFetch({ container: { ok: false, status: 400, body: { error: { message: 'Invalid image URL' } } } });
     await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
 
     const outcomes = await runPoster();
 
     expect(process.exitCode).toBe(1);
     expect(outcomes[0].error).toContain('Instagram media container failed');
+  });
+
+  // #1897: publishing a container Meta hasn't finished is what killed the
+  // real post above. The poll must fail the attempt instead of publishing.
+  it('never publishes a container still stuck IN_PROGRESS', async () => {
+    process.env.SOCIAL_IG_POLL_TIMEOUT_MS = '5';
+    process.env.SOCIAL_IG_POLL_INTERVAL_MS = '0';
+    const spy = stubIgFetch({ status: { body: { status_code: 'IN_PROGRESS' } } });
+    await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].error).toContain('still "IN_PROGRESS"');
+    const published = spy.mock.calls.filter(([url]) => String(url).includes('/media_publish'));
+    expect(published).toHaveLength(0);
   });
 });
 
@@ -360,15 +420,178 @@ describe('post-queue: blocked items are reported as skips, not silently deferred
   });
 });
 
+// --- the media gate, wired to the schedule --------------------------------
+// Instagram media is FETCHED by Meta from the live site, so an item whose
+// image PR hasn't merged/deployed cannot post no matter what scheduledAt
+// says. It must WAIT — visibly — not burn attempts and die.
+describe('post-queue: media that is not live yet waits instead of failing', () => {
+  it('does not publish, does not spend an attempt, and stays queued', async () => {
+    const spy = stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'waiting', platform: 'instagram' });
+    expect(outcomes[0].error).toContain('not live at');
+    // No container was ever created — no Graph write of any kind.
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'POST')).toHaveLength(0);
+    // Still queued, attempts untouched.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+    const stillQueued = JSON.parse(await readFile(path.join(root, 'social', 'queue', 'a-ig.json'), 'utf-8'));
+    expect(stillQueued.attempts).toBeUndefined();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
+  });
+
+  it('stays green while waiting — this is holding, not breaking', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem());
+
+    await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('waiting on deploy');
+    expect(report).toContain('a-ig.json');
+    expect(report).not.toContain('PERMANENTLY FAILED');
+  });
+
+  it('ships itself on the next run once the deploy lands', async () => {
+    stubIgFetch();
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'instagram' });
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual(['a-ig.json']);
+  });
+
+  it('reddens the run once the wait passes the 24h stuck threshold', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem({ scheduledAt: stuckDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].kind).toBe('waiting');
+    expect(await readFile(reportPath, 'utf-8')).toContain('STUCK more than');
+    // Still queued — loud is not the same as retired; the 48h rule does that.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+  });
+
+  it('does not preflight a text-only X item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    await runPoster();
+
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'HEAD')).toHaveLength(0);
+  });
+});
+
+// --- a no-attempt skip must not be able to hide forever -------------------
+describe('post-queue: an indefinitely-skipped item escalates', () => {
+  const eraArt = { media: ['/eras/folklore.png'], mediaKind: 'era-art' };
+
+  async function seedRecentEraArtPost() {
+    // A recent IG post using the same era tile makes the guard skip the
+    // queued one, exactly as it skipped the real 2026-08-09 item every 30
+    // minutes.
+    await writeFile(
+      path.join(root, 'social', 'posted', 'earlier-ig.json'),
+      JSON.stringify({ platform: 'instagram', media: ['/eras/folklore.png'], postedAt: '2026-08-04T19:37:29Z' }, null, 2),
+    );
+  }
+
+  it('reddens the run when the era-art guard has skipped an item past the threshold', async () => {
+    stubIgFetch();
+    await seedRecentEraArtPost();
+    await seedQueueItem('2026-08-09-august-augustine-ig.json', igItem({ ...eraArt, scheduledAt: stuckDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(process.exitCode).toBe(1);
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('STUCK more than');
+    expect(report).toContain('2026-08-09-august-augustine-ig.json');
+    expect(report).toContain('a human has to change the item');
+  });
+
+  it('stays green for a skip that is still fresh', async () => {
+    stubIgFetch();
+    await seedRecentEraArtPost();
+    await seedQueueItem('fresh-ig.json', igItem({ ...eraArt, scheduledAt: justDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('retires an item stuck past 48h to social/failed/ as a reported failure', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem({ scheduledAt: staleDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].kind).toBe('failed');
+    expect(outcomes[0].error).toContain('48h');
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-ig.json']);
+    const retired = JSON.parse(await readFile(path.join(root, 'social', 'failed', 'a-ig.json'), 'utf-8'));
+    expect(retired.failureReason).toContain('48h');
+  });
+});
+
+// --- idempotency: the 2026-07-17 triple-post class ------------------------
+// A post can genuinely succeed while its queue -> posted state-commit PR
+// never lands, so a later run finds the item still in social/queue/. It must
+// be skipped loudly, never reposted.
+describe('post-queue: an already-posted item is never reposted', () => {
+  it('skips a queue item whose campaign already has a posted record', async () => {
+    const spy = stubIgFetch();
+    await writeFile(
+      path.join(root, 'social', 'posted', 'same-campaign-ig.json'),
+      JSON.stringify(
+        { platform: 'instagram', body: 'different text, same campaign', campaign: 'test', postedAt: '2026-08-10T19:00:00Z', url: 'https://www.instagram.com/p/x' },
+        null,
+        2,
+      ),
+    );
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(outcomes[0].error).toContain('already posted');
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'POST')).toHaveLength(0);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+  });
+
+  it('skips an identical body even with no campaign tag', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    const body = 'the exact same tweet text';
+    await writeFile(
+      path.join(root, 'social', 'posted', 'earlier-x.json'),
+      JSON.stringify({ platform: 'x', body, postedAt: '2026-08-10T19:00:00Z' }, null, 2),
+    );
+    await seedQueueItem('a-x.json', xItem({ body, campaign: undefined }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(outcomes[0].error).toContain('already posted');
+  });
+});
+
 describe('post-queue: a Facebook cross-post failure is visible, but never reddens the run', () => {
   it('records facebookError on the posted outcome and warns in the report', async () => {
     process.env.FB_PAGE_ID = 'dummy-page';
-    stubFetchSequence([
-      PREFLIGHT_OK,
-      { ok: true, status: 200, body: { id: 'container-1' } },
-      { ok: true, status: 200, body: { id: 'ig-post-9' } },
-      { ok: false, status: 400, body: { error: { message: '(#200) requires pages_manage_posts' } } },
-    ]);
+    stubIgFetch({
+      publish: { ok: true, status: 200, body: { id: 'ig-post-9' } },
+      facebook: { ok: false, status: 400, body: { error: { message: '(#200) requires pages_manage_posts' } } },
+    });
     await seedQueueItem('a-ig.json', igItem());
 
     const outcomes = await runPoster();

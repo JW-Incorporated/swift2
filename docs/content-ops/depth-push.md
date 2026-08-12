@@ -54,7 +54,7 @@ You previously worked only `significance: 'defining'` moments - just 40 exist, f
 
 1. **BIG-TICKET CURRENT-ERA PAGES FIRST.** The MSG wedding, the engagement, The Life of a Showgirl release and its chart records. These must become genuinely exhaustive - Wyatt's word: super deep. If one already has a CLOSED ledger but is still thin on an axis, file a NEW ledger for the axes that remain, naming the earlier ledger you are extending.
 2. Everything else in the current era (the-life-of-a-showgirl), then TTPD, then Midnights. Recency wins.
-3. Remaining `defining` moments in any era - run `node scripts/content-engine/run.mjs scan --no-images` and read content.depth-deficit for the ranked list.
+3. Remaining `defining` moments in any era - run `node --use-env-proxy scripts/content-engine/run.mjs scan --no-images` and read content.depth-deficit for the ranked list.
 4. **SONGS** - supabase/seed/tracks/**, 244 of them. A thin song page has a one-line note and nothing else: no writing/production story, no live history, no meaning or reception, no easter eggs, no cross-links.
 5. `significance: 'notable'` moments.
 6. Albums/releases (supabase/seed/releases/) and era-secrets pools (supabase/seed/era-secrets/).
