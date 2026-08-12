@@ -920,6 +920,24 @@ export interface ReRecord {
 export interface EggSource {
   name: string;
   url: string;
+  /**
+   * The editor's provenance judgment, carried through from the seed's
+   * `reliability_score` (2026-07-08 audit §5 rubric): 5 official/primary ·
+   * 4 reputable press · 3 trade databases / verified interviews · 2 wikis and
+   * moderated fan forums · 1 unverified social.
+   *
+   * OPTIONAL and genuinely absent on citations authored before the rubric —
+   * `undefined` means "never scored", which is NOT the same as "scored low".
+   * Any consumer that renders this must treat the two differently.
+   *
+   * Nothing displays this yet, by decision (docs/decisions.md 2026-08-11): it
+   * is plumbed so the data stops being thrown away at build time and so a
+   * future citation treatment has something real to read. See that entry
+   * before wiring it to a badge.
+   */
+  reliability?: 1 | 2 | 3 | 4 | 5;
+  /** The §5 `source_type` (official | reputable_press | wiki | …), when set. */
+  type?: string;
 }
 
 /**

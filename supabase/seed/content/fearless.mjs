@@ -2511,6 +2511,27 @@ export default {
       milestone: { id: "m-fear-1", label: "Fearless released", kind: "album" },
       snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/deep-10-taylor-swifts-fearless/',
+            source_title: 'Deep 10: Taylor Swift\'s Fearless',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Big Machine Records (via PR Newswire)',
+            url: 'https://www.prnewswire.com/news-releases/taylor-swifts-fearless-album-officially-lauded-as-most-awarded-album-in-country-music-history-88431737.html',
+            source_title: 'Taylor Swift\'s FEARLESS Album Officially Lauded as Most Awarded Album in Country Music History',
+            publisher: 'Big Machine Records',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'Label press release — primary for the award tally it lists, not an independent assessment.',
+          },
+        ],
         context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
         // Photo pass #762 (2026-07-19): freely licensed Commons live shot from
         // the album's own tour — license (CC BY-SA 2.0, alexahalasan) verified
@@ -2539,6 +2560,26 @@ export default {
       snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
       hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://content.time.com/time/specials/packages/article/0,28804,1922188_1922187_1922190,00.html',
+            source_title: 'Taylor Swift Got Kanyed — Top 10 Outrageous Kanye West Moments',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'VICE',
+            url: 'https://www.vice.com/en/article/on-this-day-in-2009-kanye-west-grabbed-the-mic-from-taylor-swift-at-the-mtv-vmas/',
+            source_title: 'On This Day in 2009, Kanye West Grabbed the Mic From Taylor Swift at the MTV VMAs',
+            publisher: 'VICE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
       },
     },
