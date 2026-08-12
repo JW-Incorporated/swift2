@@ -63,7 +63,7 @@ npm run karen:file     # …same, but actually files/updates the GitHub issues
 
 The command is **`karen`** — she reviews the content and files complaints, but
 never touches anything herself. (`npm run cie` is a synonym; equivalently
-`node scripts/content-engine/run.mjs karen [--create]`.)
+`node --use-env-proxy scripts/content-engine/run.mjs karen [--create]`.)
 
 That single command runs the whole **deterministic** layer end-to-end — scan →
 prepare agent batches → ingest → write the run report → file issues — and then
@@ -93,11 +93,11 @@ JSON — nothing else changes.)
 
 ### Individual phases (if you don't want the wrapper)
 ```bash
-node scripts/content-engine/run.mjs scan [--no-images]  # deterministic checkers → findings + report
-node scripts/content-engine/run.mjs prep-batches        # scoped inputs for the agent passes
-node scripts/content-engine/run.mjs ingest              # merge deterministic + agent findings
-node scripts/content-engine/run.mjs report              # write the committed run report
-node scripts/content-engine/run.mjs issues [--create]   # dry-run, or file (idempotent via fingerprint)
+node --use-env-proxy scripts/content-engine/run.mjs scan [--no-images]  # deterministic checkers → findings + report
+node --use-env-proxy scripts/content-engine/run.mjs prep-batches        # scoped inputs for the agent passes
+node --use-env-proxy scripts/content-engine/run.mjs ingest              # merge deterministic + agent findings
+node --use-env-proxy scripts/content-engine/run.mjs report              # write the committed run report
+node --use-env-proxy scripts/content-engine/run.mjs issues [--create]   # dry-run, or file (idempotent via fingerprint)
 ```
 
 **Ticketing:** confirmed/agent-verified defects each get their own actionable

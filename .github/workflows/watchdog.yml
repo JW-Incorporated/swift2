@@ -130,7 +130,7 @@ jobs:
           workflow's propagation job relays them to the tickets they unblock.
 
           Likely cause: the Marjorie session/cron didn't run. Restart it, or run
-          \`node scripts/marjorie/assemble-brief.mjs\` for the skeleton.
+          \`node --use-env-proxy scripts/marjorie/assemble-brief.mjs\` for the skeleton.
           EOF
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
@@ -565,10 +565,10 @@ jobs:
             echo ""
             echo "Check, in order:"
             echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure."
-            echo "2. Can the runner write to GitHub at all? \`node scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
+            echo "2. Can the runner write to GitHub at all? \`node --use-env-proxy scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
             echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab."
             echo ""
-            echo "Nothing is lost by re-running: the engine is idempotent and fingerprint-deduped, so \`node scripts/content-engine/run.mjs all --create\` re-derives the same findings and files whatever is still missing."
+            echo "Nothing is lost by re-running: the engine is idempotent and fingerprint-deduped, so \`node --use-env-proxy scripts/content-engine/run.mjs all --create\` re-derives the same findings and files whatever is still missing."
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
@@ -608,7 +608,7 @@ jobs:
           ALERT_TITLE="Watchdog: work is going unowned"
           # `set -e` is deliberately off for this line: a non-zero exit IS the
           # alarm signal, not a failure of the step.
-          node scripts/check-work-ownership.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
+          node --use-env-proxy scripts/check-work-ownership.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
           STATUS=$?
           if [ "$STATUS" -eq 0 ]; then
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md

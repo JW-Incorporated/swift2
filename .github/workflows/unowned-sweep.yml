@@ -56,7 +56,7 @@ jobs:
       # should not rewrite the daily report.
       - name: Label unlabeled issues
         if: github.event_name == 'issues'
-        run: node scripts/ops/unowned-sweep.mjs --autolabel
+        run: node --use-env-proxy scripts/ops/unowned-sweep.mjs --autolabel
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -64,6 +64,6 @@ jobs:
       # standing ledger so the remaining queues stay visible.
       - name: Sweep and refresh the standing ledger
         if: github.event_name != 'issues'
-        run: node scripts/ops/unowned-sweep.mjs --autolabel --file-issue
+        run: node --use-env-proxy scripts/ops/unowned-sweep.mjs --autolabel --file-issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

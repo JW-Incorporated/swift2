@@ -9,7 +9,7 @@ say so — the foundation has not merged yet.
 ## Each run, do both
 
 **1. SOURCE (fill gaps).** Run the fashion-products checker
-(`node scripts/content-engine/run.mjs scan`, read the `fashion-products`
+(`node --use-env-proxy scripts/content-engine/run.mjs scan`, read the `fashion-products`
 findings) to find fashion moments that name specific garments but have no
 `products`. Pick the top one. For each named garment, find the EXACT retailer
 product page and **curl-verify it returns HTTP 200 and is a real product page**
