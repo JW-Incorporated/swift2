@@ -66,7 +66,8 @@ apps/web/
     ThreadsTimeline.tsx            the shared career-axis rail used by every thread
     ClueWeb.tsx                    the Easter-egg mini-app (home / trail / explore views)
     Crossings.tsx                  two-thread intersection overlay
-    ShareSheet.tsx / SiteFooter.tsx
+    ShareSheet.tsx / SiteFooter.tsx    SiteFooter also carries the /privacy + /terms links (#800)
+    LegalDocument.tsx              renders a LegalDoc as semantic markup (the /privacy + /terms routes)
   lib/longlive/
     types.ts                       ALL shared types (Era, ContentItem, threads, motifs, crossings…)
     eras.ts                        the 12 ERAS (data) + getEra() + per-era media
@@ -80,6 +81,9 @@ apps/web/
     lenses.ts                      threads, thread points, easter eggs, motifs, clue pairs, crossings
     tags.ts                        content tag metadata
     theme.ts                       EraTheme -> CSS custom properties (the re-skin pipeline)
+    legal.ts                       privacy policy + terms COPY and facts (#800). DRAFT, counsel-review-
+                                   required. **Any change to what the site collects updates this in the
+                                   SAME change** — the old policy went stale three times over.
     store.tsx                      the single React context store (state + actions)
 ```
 
@@ -280,6 +284,7 @@ Consequences for component code:
 | Clue Web | `ClueWeb` | 3 views: home (trail picker) / trail (readable) / explore (constellation) |
 | Crossings | `Crossings` | two threads on one axis; markers where they intersect |
 | Era ↔ Thread pivots | `EraSection` strip + `Crossings` links | via `openThread` / `openEra` |
+| Clownbot | `Clownbot` | 4th toggle surface (`mode === 'clownbot'`). LLM-backed "clowning" theory bot over `POST /api/clownbot`. Reads the Vault via `clownbot-receipts.ts` (deterministic retrieval — the model never searches it) and a hand-curated status-tagged rumor file, `clownbot-lore.ts` (refresh path: `docs/content-ops/clownbot-rumor-refresh.md`). **Boundaries live in `clownbot-safety.ts`, not in the persona prompt** — two deterministic gates, one pre-spend on the input and one post-generation over the model's output; both work with no API key. Never speaks as Taylor; no imagery of her on the surface. Grading (`clownbot-grade.ts`) computes evidence and confidence itself — the model only proposes a "delulu" score. Share is disabled here for the same reason as Mood. |
 
 ---
 

@@ -94,12 +94,27 @@ string) are now matched by `content.voice.ai-tell` in the same checker.
 
 ## Sourcing bar
 
-- **Minimum: one `sourceUrl` per item.** No exceptions.
+**Both rules below are enforced by `npm run validate:content` as of
+2026-08-11** (`scripts/lib/sourcing-gate.mjs`). Until then neither had any
+implementation for moments: the one-source rule was a `warn()` that 45 moments
+were quietly failing, and the two-outlet rule had no code anywhere. Each gate
+carries a grandfather list of the records that predate it; those lists can only
+shrink, and adding to one to make a build pass fails the test that guards them.
+
+- **Minimum: one source per item.** No exceptions. A `sourceUrl` or a
+  `moment.sources` entry both satisfy it; `moment.sources` is preferred,
+  because it is where provenance (`publisher`, `source_type`,
+  `reliability_score`) lives and because it stays out of the Tier 0 payload.
 - **`relationship` and `business` items need two independent outlet
   sources** — the two categories most exposed to rumor/gossip risk — before
   they're authored, not one.
 - **"Independent" = two different outlets/bylines**, not two
-  re-syndications of the same wire story.
+  re-syndications of the same wire story. The checker counts distinct
+  hostnames, so two articles from one outlet count once.
+- **A `wiki`, `fan_forum` or `social` citation never counts toward the two.**
+  This is the §5 rubric line "fan_forum|wiki|social alone never satisfy
+  sourcing for a factual claim", made mechanical. Those citations are welcome
+  as supplements — they just cannot be what carries the claim.
 - **Exception: fan theories and Easter eggs are not held to the two-source
   bar above.** This applies to any item tagged as a theory (`kind: 'theory'`
   or `'easter_egg'` in the theories pipeline, or an item explicitly

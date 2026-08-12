@@ -2597,6 +2597,26 @@ export default {
       title: "Curls, sundresses and cowboy boots",
       snippet: "The visual signature of the debut era: sunlit country-girl Americana.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/newyork/news/taylor-swifts-fashion-evolution/',
+            source_title: 'Taylor Swift\'s Fashion Evolution',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-style-eras-explained-200200209.html',
+            source_title: 'Taylor Swift\'s style eras, explained: Her fashion evolution from 2006 to now',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Ringlet curls, floaty sundresses, and well-worn cowboy boots became the uniform of the debut era — a look as handmade and earnest as the songs.",
         // Shop pass (2026-07-22): no single named pair or dress -- a
         // current cowboy boot, verified in stock, the era's recurring prop.
@@ -2635,6 +2655,26 @@ export default {
       snippet: "At 17, she becomes the youngest person to single-handedly write and perform a number-one country hit.",
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       moment: {
+        sources: [
+          {
+            outlet: 'Country Standard Time',
+            url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=1195',
+            source_title: 'Taylor Swift jumps to top of country chart, replacing Carrie Underwood',
+            publisher: 'Country Standard Time',
+            source_type: 'chart_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Country Now',
+            url: 'https://countrynow.com/remember-when-taylor-swift-released-our-song/',
+            source_title: 'Remember When Taylor Swift Released \'Our Song?\'',
+            publisher: 'Country Now',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke.",
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // MV id Jb2stN7kH28 verified via YouTube oEmbed this session
