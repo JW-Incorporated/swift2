@@ -4,12 +4,12 @@
 // Never edits supabase/seed/**, the DB, or generated files.
 //
 // Usage:
-//   node scripts/content-engine/run.mjs scan            # deterministic checkers → findings + report
-//   node scripts/content-engine/run.mjs scan --no-images# skip the network image pass (fast)
-//   node scripts/content-engine/run.mjs prep-agents     # write scoped inputs for the agent review passes
-//   node scripts/content-engine/run.mjs ingest          # merge deterministic + agent findings
-//   node scripts/content-engine/run.mjs issues          # DRY-RUN: show issues that would be filed
-//   node scripts/content-engine/run.mjs issues --create [--limit N]
+//   node --use-env-proxy scripts/content-engine/run.mjs scan            # deterministic checkers → findings + report
+//   node --use-env-proxy scripts/content-engine/run.mjs scan --no-images# skip the network image pass (fast)
+//   node --use-env-proxy scripts/content-engine/run.mjs prep-agents     # write scoped inputs for the agent review passes
+//   node --use-env-proxy scripts/content-engine/run.mjs ingest          # merge deterministic + agent findings
+//   node --use-env-proxy scripts/content-engine/run.mjs issues          # DRY-RUN: show issues that would be filed
+//   node --use-env-proxy scripts/content-engine/run.mjs issues --create [--limit N]
 import { readdirSync, existsSync } from 'node:fs';
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -575,7 +575,7 @@ async function all(opts) {
   log('Claude reads scripts/content-engine/agent/prompts/{factual,image}.md and the');
   log('batch inputs under .findings/agent-input/, writes findings to .findings/, then');
   log('you re-run this command to fold them in and file the tickets:');
-  log(`    node scripts/content-engine/run.mjs all${opts.create ? ' --create' : ' --create   # (add --create to actually file)'}`);
+  log(`    node --use-env-proxy scripts/content-engine/run.mjs all${opts.create ? ' --create' : ' --create   # (add --create to actually file)'}`);
   log('\nRead-only: no seed/DB/generated content is ever modified.');
 }
 
@@ -596,8 +596,8 @@ const cmds = {
 (cmds[cmd] ?? (async () => {
   log('Content Integrity Engine — read-only content checker → GitHub issues.\n');
   log('One command (recommended):');
-  log('  node scripts/content-engine/run.mjs all            # full pipeline, dry-run issues');
-  log('  node scripts/content-engine/run.mjs all --create   # …and file the GitHub issues\n');
+  log('  node --use-env-proxy scripts/content-engine/run.mjs all            # full pipeline, dry-run issues');
+  log('  node --use-env-proxy scripts/content-engine/run.mjs all --create   # …and file the GitHub issues\n');
   log('Deterministic phases:');
   log('  scan [--no-images] | prep-agents | prep-batches | ingest | report | issues [--create] [--limit N]\n');
   log('Agent review layer (the LLM half — see docs/agents/runner-prompts/karen-deep-review.md):');
