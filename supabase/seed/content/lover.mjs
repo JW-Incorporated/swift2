@@ -1339,9 +1339,19 @@ export default {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-cover-story-interview-billboard-women-in-music-2019-8545822/',
           },
+          // Second independent outlet on the speech itself (both Billboard
+          // links above share one host, so they count once). This is what
+          // clears the two-outlet business-category bar and earns this
+          // record's removal from SINGLE_OUTLET_LEGACY — a fan re-upload is
+          // primary footage, not an independent outlet, and must never be the
+          // citation that lifts a claim over that bar.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-scooter-braun-billboard-women-in-music-926589/',
+          },
           // The full ~15-minute speech (no official Billboard upload exists;
           // long-lived fan archive) — oEmbed-verified 2026-08-12 (see
-          // candidates/youtube-appearances.mjs).
+          // candidates/youtube-appearances.mjs). Supplementary footage only.
           {
             outlet: 'YouTube — TaylorShreya13 (fan archive)',
             url: 'https://www.youtube.com/watch?v=hyf9vJB8V3s',
