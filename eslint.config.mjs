@@ -1,11 +1,19 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
-// Web (apps/web) is linted by Next's own tooling in a later work package;
-// this root config covers the TypeScript packages + worker.
+// Web (apps/web) and mobile (apps/mobile) are linted by their own framework
+// tooling (Next / Expo); this root config covers the TypeScript packages +
+// worker + Node scripts.
 export default tseslint.config(
   {
-    ignores: ['**/node_modules/**', '**/dist/**', '**/.next/**', 'apps/web/**', '.claude/**'],
+    ignores: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/.next/**',
+      'apps/web/**',
+      'apps/mobile/**',
+      '.claude/**',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -25,6 +33,8 @@ export default tseslint.config(
         clearTimeout: 'readonly',
         AbortController: 'readonly',
         Intl: 'readonly',
+        FormData: 'readonly',
+        Blob: 'readonly',
       },
     },
   },

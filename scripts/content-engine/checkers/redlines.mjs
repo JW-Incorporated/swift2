@@ -10,9 +10,19 @@
 //                  guaranteeing nothing is missed.
 import { makeFinding } from '../lib/finding.mjs';
 import { CONFIG } from '../config.mjs';
-
-const FIELD_FAIL_CHARS = 2000;
-const QUOTE_FAIL_CHARS = 600;
+// Caps come from ONE module (scripts/lib/content-caps.mjs). This file used to
+// carry its own `const FIELD_FAIL_CHARS = 2000` and that is precisely how the
+// 2026-08-11 incident happened: the moment.context cap was raised to 4000 by
+// founder decision on 2026-07-22, three of the four cap sites moved, this one
+// didn't, and every deliberately-long marquee context became a P1 safety
+// ticket that a fixer then "fixed" by deleting the depth. Do not re-introduce
+// a local number here.
+import {
+  dumpCapFor,
+  dumpCapRationale,
+  POLICY_CAPS,
+  QUOTE_FAIL_CHARS,
+} from '../../lib/content-caps.mjs';
 
 function looksLikeLyricsBlock(text) {
   const lines = text.split('\n').map((l) => l.trim()).filter(Boolean);
@@ -63,15 +73,18 @@ export async function check(items) {
           checker: id, severity: 'P0', title: `Possible pasted lyrics in ${it.type} "${it.title}"`,
           itemRef: at, excerpt: text.slice(0, 300),
           evidence: 'Verse-like multi-line block — reads as stored lyrics (copyright red line).',
-          suggestedFix: 'Replace with an original-words summary + a link; keep only a ≤300-char snippet if load-bearing.',
+          suggestedFix: `Replace with an original-words summary + a link; keep only a ≤${POLICY_CAPS.sourceExcerpt}-char snippet if load-bearing.`,
           confidence: 0.7,
         }));
       }
-      if (text.length > FIELD_FAIL_CHARS) {
+      const fieldCap = dumpCapFor(it.type, field);
+      if (text.length > fieldCap) {
+        const why = dumpCapRationale(it.type, field);
         findings.push(makeFinding({
           checker: id, severity: 'P1', title: `Oversized field (${text.length} chars) in "${it.title}"`,
           itemRef: at, excerpt: text.slice(0, 200) + '…',
-          evidence: `Field is ${text.length} chars (> ${FIELD_FAIL_CHARS}) — reads as an article/body dump.`,
+          evidence: `Field is ${text.length} chars (> ${fieldCap}) — reads as an article/body dump.`
+            + (why ? ` Cap note: ${why}` : ''),
           suggestedFix: 'Trim to an original-words summary under the cap; link the source.', confidence: 0.85,
         }));
       }
@@ -81,7 +94,7 @@ export async function check(items) {
             checker: id, severity: 'P1', title: `Over-long verbatim quote (${span.length} chars) in "${it.title}"`,
             itemRef: at, excerpt: span.slice(0, 200) + '…',
             evidence: `Verbatim quoted span of ${span.length} chars (≥ ${QUOTE_FAIL_CHARS}) — statement/article dump.`,
-            suggestedFix: 'Cut the quote to ≤300 chars or paraphrase in original words + link.', confidence: 0.85,
+            suggestedFix: `Cut the quote to ≤${POLICY_CAPS.sourceExcerpt} chars or paraphrase in original words + link.`, confidence: 0.85,
           }));
         }
       }

@@ -22,7 +22,7 @@ export default {
       thumbnailUrl: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg',
       moment: {
         context:
-          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nBillboard's chart recap put the scale plainly: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and spent 11 nonconsecutive weeks at No. 1; only four albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, 1989 (Taylor's Version) itself, and The Life of a Showgirl.",
+          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nThe scale is almost absurd: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, per Billboard's chart recap, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and spent 11 nonconsecutive weeks at No. 1; only four albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, 1989 (Taylor's Version) itself, and The Life of a Showgirl.",
         sources: [
           {
             outlet: 'Forbes',
@@ -136,6 +136,11 @@ export default {
       },
     },
     {
+      // Fix (issue #1239): was dated 2014-09-08 — seven weeks before 1989
+      // (the album that introduced the song) and eight months before the
+      // single. Re-dated to the album's release day, the earliest date the
+      // song's own existence supports; the body/sources are about the
+      // single/feud and run through 2024 regardless of this date.
       year: 2014,
       month: 10,
       day: 27,
@@ -275,7 +280,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png',
       moment: {
         context:
-          "Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music.\n\nRolling Stone's 2019 decade-end list ranked it No. 58 among the 100 best songs of the 2010s, calling it \"the type of relieving dance floor soul purge that the best pop can be\" and arguing the bonus track was the album's real thesis — a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist.",
+          "Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music.\n\nNo. 58 among the 100 best songs of the 2010s on Rolling Stone's 2019 decade-end list — \"the type of relieving dance floor soul purge that the best pop can be,\" and by the writer's own argument, the bonus track was the album's real thesis: a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/' },
@@ -365,6 +370,82 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Wildest_Dreams_(Taylor_Swift_song)' },
         ],
         photos: [{ url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1', focalPoint: '52% 34%', credit: 'Big Machine Records' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 8,
+      category: 'music',
+      relatedIds: [
+        'moment:vault-1989-wildest-dreams-draws-colonialism-criticism-for-its-overwhelm',
+      ],
+      title: 'Scott Eastwood on Wildest Dreams: his agents said no, he said "why the hell not"',
+      snippet:
+        'Taylor\'s "Wildest Dreams" co-star later revealed his own agents tried to talk him out of the role — "Why would you go be Taylor Swift\'s boy toy?" — and that he waved them off: "Why the hell not?"',
+      sourceUrl: 'https://www.etonline.com/news/195081_scott_eastwood_advised_not_to_star_taylor_swift_wildest_dreams_video',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/7/7a/Scott_Eastwood_%28November_2025%29_%28cropped%29.jpg',
+      moment: {
+        context:
+          'Scott Eastwood played the doomed-romance co-star in the "Wildest Dreams" video — the 1989 single\'s old-Hollywood safari fantasy, shot on location in 2014 — but by his own telling, the people paid to manage his career tried to talk him out of it. "None of my agents wanted me to do it, actually," he told People in 2016. "They said, \'Oh, we don\'t want you to do that! Why would you go be Taylor Swift\'s boy toy?\' And I said, \'Why the hell not?\'" He signed on anyway, and came away a fan: he later called Taylor "a rock star" and "someone I am proud to call a friend." It is a small backstory beat, but a telling one — a reminder that a marquee Taylor Swift video, inevitable-seeming now, once read to a rising actor\'s team as a risk worth vetoing.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/news/195081_scott_eastwood_advised_not_to_star_taylor_swift_wildest_dreams_video',
+            source_title: 'Scott Eastwood Was Advised Not to Star in Taylor Swift\'s \'Wildest Dreams\' Video',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/scott-eastwood-reveals-he-was-advised-against-starring-in-taylor-swifts-wildest-dreams-video',
+            source_title: 'Scott Eastwood reveals he was advised against starring in Taylor Swift\'s \'Wildest Dreams\' video',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            // Field-order fix #762 (2026-08-09): focalPoint moved to
+            // immediately after url per the field-order rule (docs/decisions.md
+            // 2026-07-20); no values changed.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Scott_Eastwood_%28November_2025%29_%28cropped%29.jpg',
+            focalPoint: '42% 30%',
+            credit: 'Web Summit / Wikimedia Commons, CC BY 4.0',
+            caption: 'Scott Eastwood in 2025. He played Taylor\'s love interest in the 2015 "Wildest Dreams" video — a role his agents advised him to turn down.',
+            kind: 'primary',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — official video
+          // still. oEmbed-verified videoId IdneKLhsWOQ belongs to the
+          // official @TaylorSwift channel; i.ytimg.com is YouTube's own CDN;
+          // curl 200 image/jpeg 1280x720, downloaded and vision-confirmed.
+          // Shows Taylor only (in character), not Eastwood — no verifiable,
+          // sufficiently-large still of him from this video was found on any
+          // allowlisted host; storyboard frames are 120x90px, under the floor.
+          {
+            url: 'https://i.ytimg.com/vi/IdneKLhsWOQ/maxresdefault.jpg',
+            // Face right-of-center, upper third.
+            focalPoint: '63% 33%',
+            credit: 'Big Machine Records / YouTube (official "Wildest Dreams" music video still)',
+            caption: 'A close-up still from the "Wildest Dreams" music video — Taylor in character as the film-set-era actress, dark-haired for the role, reclining against patterned fabric.',
+            kind: 'archival',
+          },
+          // Photo pass #762 (2026-08-05): official "Wildest Dreams" video
+          // thumbnail — id verified via YouTube oEmbed (author "Taylor
+          // Swift"), downloaded and vision-confirmed: a tight close-up on
+          // Taylor's face, tilted, from the video Eastwood co-starred in.
+          {
+            url: 'https://i.ytimg.com/vi/IdneKLhsWOQ/hqdefault.jpg',
+            focalPoint: '58% 45%',
+            credit: 'Taylor Swift via YouTube (official video)',
+            caption: 'The official "Wildest Dreams" video — the 1950s-safari shoot Eastwood\'s own agents advised him to skip.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -530,6 +611,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Calvin Harris" moment.
+      relatedIds: ['moment:vault-1989-hand-in-hand-after-a-haim-show-at-the-troubadour-the-first-c'],
       year: 2016,
       month: 7,
       day: 14,
@@ -561,6 +644,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster — the
+      // annual Rhode Island tradition and the year it moved to Turks and
+      // Caicos — now interlink.
+      relatedIds: [
+        'moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+      ],
       year: 2016,
       month: 7,
       day: 3,
@@ -634,7 +724,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg',
       moment: {
         context:
-          'The Sun\'s May 2017 scoop reported the two had quietly been a couple for months — with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
+          'The two had quietly been a couple for months by the time The Sun\'s May 2017 scoop broke, with Taylor moving around London in disguises, "like scarves and hats," and renting a house in North London for her time in the city. The Daily Mail floated a claim that Emma Stone had made the introduction; fans have long preferred the 2016 Met Gala theory, pointing to the "Dress" lyric about his buzz cut and her bleached hair, though the two were also reportedly at the same Kings of Leon afterparty at the Bowery Hotel that October.\n\nTaylor later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: "We have been together and no one has found out for 3 months now" — placing the start around October 2016, more than half a year before The Sun\'s story landed.',
         sources: [
           {
             outlet: 'Today',
@@ -964,6 +1054,11 @@ export default {
     // and an airport look. Every photo URL hotlinked to the outlet's own CDN
     // and checked for a 2xx image response before being added.
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      relatedIds: [
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+      ],
       year: 2014,
       month: 7,
       category: 'sighting',
@@ -994,6 +1089,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Calvin Harris" pair — the first
+      // sighting and the Hiddleston relationship that followed the split —
+      // now interlink.
+      relatedIds: ['moment:vault-1989-tom-hiddleston-weeks-after-the-calvin-harris-split'],
       year: 2015,
       month: 4,
       day: 2,
@@ -1052,6 +1151,9 @@ export default {
       month: 7,
       day: 4,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Rhode Island beach kiss weeks
+      // later — the same summer, Calvin Harris to Hiddleswift.
+      relatedIds: ['moment:vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift'],
       title: 'Matching flag onesies for the Fourth of July, Calvin Harris included',
       snippet:
         'Gigi Hadid and Joe Jonas brought American-flag onesies for the whole group; Ed Sheeran, the HAIM sisters, and boyfriend Calvin Harris rounded out the guest list at the Rhode Island beach house.',
@@ -1085,6 +1187,13 @@ export default {
       month: 6,
       day: 15,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Fourth of July party weeks
+      // before (still with Calvin Harris) and the Colosseum sightseeing two
+      // weeks after — the Hiddleswift relationship's opening timeline.
+      relatedIds: [
+        'moment:vault-1989-matching-flag-onesies-for-the-fourth-of-july-calvin-harris-i',
+        'moment:vault-1989-sightseeing-at-the-colosseum-hand-in-hand-in-matching-outfit',
+      ],
       title: 'Caught kissing on a Rhode Island beach — the first Hiddleswift sighting',
       snippet:
         'Weeks after the Calvin Harris breakup, paparazzi photographed Taylor and Tom Hiddleston kissing on a beach in Westerly, Rhode Island — the candid that broke the story before either side said a word.',
@@ -1108,6 +1217,9 @@ export default {
       month: 6,
       day: 27,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Rhode Island beach kiss two
+      // weeks before — the relationship's first sighting.
+      relatedIds: ['moment:vault-1989-caught-kissing-on-a-rhode-island-beach-the-first-hiddleswift'],
       title: 'Sightseeing at the Colosseum, hand in hand, in matching outfits',
       snippet:
         "Two weeks into the relationship, Taylor and Tom Hiddleston toured Rome's Colosseum in coordinated ensembles, photographed holding hands through the cobblestone streets.",
@@ -1379,6 +1491,9 @@ export default {
         // Photo-enrichment pass (2026-07-18, #762): deliberately kept at one photo — the
         // moment is a label decision with no photographable event; era-correct archival
         // tour shot already covers it, and the only Nov-2014 news art is agency/watermarked.
+        // Re-reviewed 2026-08-01 (#762): searched again (Daniel Ek / Spotify news photos
+        // from the same week, other 1989-era press) — nothing more on-topic than the
+        // existing archival tour shot on an allowed host. Stays reviewed-sparse.
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg', credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', focalPoint: '42% 24%', caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.' }],
       },
     },
@@ -1404,6 +1519,12 @@ export default {
           },
         ],
         // Focal point (#762): tight 'Shake It Off' frame, her face fills the upper-center of the shot.
+        // Photo-enrichment pass (2026-07-27, #762): searched for a second, genuinely
+        // on-topic image (Apple Music/WWDC 2015 launch, Eddy Cue at a contemporaneous
+        // event) — nothing verifiable turned up. No free-licensed period photo of Eddy
+        // Cue exists (Wikipedia/Commons' only photo of him is SXSW 2025, a decade removed
+        // from this story, so it was rejected as unrelated filler rather than added).
+        // Kept at one photo; reviewed-sparse.
         photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum', focalPoint: '48% 30%' }],
       },
     },
@@ -1431,6 +1552,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Out of the Woods" pair — the
+      // writing-room voice memo and the video that closed the era — now
+      // interlink.
+      relatedIds: ['moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve'],
       year: 2014,
       month: 10,
       day: 14,
@@ -1530,6 +1655,9 @@ export default {
     },
     {
       slug: '1989-secret-sessions',
+      // Cross-link (vault-run 2026-08-06): the reputation Secret Sessions — the
+      // same fan-hosting tradition carried into the next era.
+      relatedIds: ['moment:vault-reputation-the-reputation-secret-sessions-500-fans-four-houses-zero-lea'],
       year: 2014,
       month: 10,
       category: 'release',
@@ -1823,7 +1951,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery — Taylor and English actor Dominic Sherwood projected onto each other, the relationship replayed in shards of broken mirror and hazy flashbacks by the sea, in the woods, and behind the wheel. Billboard called it "gorgeously shot," conceding the plot was thinner than "Blank Space" but that the atmosphere could carry a perfume ad; other critics caught echoes of True Detective\'s title sequence, Mulholland Drive, and Chris Isaak\'s "Wicked Game" video.\n\nThe art-film styling extended the pop reinvention to her videos — and the song underneath, a No. 6 Hot 100 peak at the time, has only climbed in critical standing since, routinely ranked among the finest pure pop songs in her catalog.',
+          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery — Taylor and English actor Dominic Sherwood projected onto each other, the relationship replayed in shards of broken mirror and hazy flashbacks by the sea, in the woods, and behind the wheel. "Gorgeously shot," per Billboard — the plot thinner than "Blank Space," sure, but the atmosphere alone could carry a perfume ad; other critics caught echoes of True Detective\'s title sequence, Mulholland Drive, and Chris Isaak\'s "Wicked Game" video.\n\nThe art-film styling extended the pop reinvention to her videos — and the song underneath, a No. 6 Hot 100 peak at the time, has only climbed in critical standing since, routinely ranked among the finest pure pop songs in her catalog.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1870,7 +1998,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The 24-hour total broke Nicki Minaj\'s "Anaconda" record of 19.6 million Vevo views. Joseph Kahn\'s sci-fi action treatment gave each cast member a comic-book alias — Selena Gomez as Arsyn, Karlie Kloss as Knockout, Lena Dunham as Lucky Fiori — turning the squad itself into the video\'s marketing engine.\n\nThe premiere literally opened the Billboard Music Awards broadcast from the MGM Grand. The momentum didn\'t stop at the record: Forbes counted nearly 38 million total views within four days, and by August the video had won Video of the Year at the VMAs.',
+          'The 24-hour total broke Nicki Minaj\'s "Anaconda" record of 19.6 million Vevo views. Joseph Kahn\'s sci-fi action treatment gave each cast member a comic-book alias — Selena Gomez as Arsyn, Karlie Kloss as Knockout, Lena Dunham as Lucky Fiori — turning the squad itself into the video\'s marketing engine.\n\nThe premiere literally opened the Billboard Music Awards broadcast from the MGM Grand. The momentum didn\'t stop at the record: nearly 38 million total views within four days, per Forbes, and by August the video had won Video of the Year at the VMAs.',
         sources: [
           {
             outlet: 'TIME',
@@ -2050,6 +2178,8 @@ export default {
     },
     {
       slug: '1989-out-of-the-woods-video-nye',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Out of the Woods" moment.
+      relatedIds: ['moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac'],
       year: 2015,
       month: 12,
       day: 31,
@@ -2106,7 +2236,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The gag ad — captioned #TaylorvsTreadmill — racked up more than 20 million views on Facebook and Instagram within days, boosted Apple\'s #gymflow playlist plays 325%, and put a rap song that had been out for six months back up the charts. It marked how completely the Apple relationship had flipped since the 2015 royalty standoff.\n\nBillboard reported it as the first of a planned series of Apple Music spots leaning on her self-deprecating side, and Forbes did the receipts on the "Jumpman" bump: a 431% jump in iTunes sales — likely tens of thousands of downloads — for a track that had peaked at No. 12 on the Hot 100 half a year earlier, with a fresh chart climb predicted off the exposure. Not bad for sixty seconds of face-planting in athleisure.',
+          'The gag ad — captioned #TaylorvsTreadmill — racked up more than 20 million views on Facebook and Instagram within days, boosted Apple\'s #gymflow playlist plays 325%, and put a rap song that had been out for six months back up the charts. It marked how completely the Apple relationship had flipped since the 2015 royalty standoff.\n\nIt was the first of a planned series of Apple Music spots leaning on her self-deprecating side, per Billboard, and Forbes did the receipts on the "Jumpman" bump: a 431% jump in iTunes sales — likely tens of thousands of downloads — for a track that had peaked at No. 12 on the Hot 100 half a year earlier, with a fresh chart climb predicted off the exposure. Not bad for sixty seconds of face-planting in athleisure.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2199,6 +2329,9 @@ export default {
       month: 8,
       day: 9,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the record-breaking sales week the
+      // announcement led to.
+      relatedIds: ['moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record'],
       title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
       snippet:
         'August 9, 2023, the final show of the Eras Tour\'s first U.S. leg: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',
@@ -2553,6 +2686,26 @@ export default {
       milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
       snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/texas/news/new-taylor-swift-album-coming-in-october',
+            source_title: 'New Taylor Swift Album Coming In October',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-1989-first-official-pop-album-country-music-departure-130004184.html',
+            source_title: 'Taylor Swift called \'1989\' her 1st \'official pop album.\' Why experts say it was the right time for her to leave country music.',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world.",
       },
     },
@@ -2568,10 +2721,44 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
-      snippet: "A brass-driven lead single announces the full pop pivot from a stadium stage.",
+      // Corrected 2026-08-11 with the citation added below: the debut was a
+      // Yahoo/ABC live-stream from the Empire State Building observation
+      // deck, not a stadium (TheWrap). The old wording contradicted the
+      // source this moment now cites.
+      snippet:
+        "A lead single announces the full pop pivot from the top of the Empire State Building.",
       video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
       moment: {
+        sources: [
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/taylor-swift-drops-shake-it-off-from-the-empire-state-building-video/',
+            source_title: 'Taylor Swift Drops \'Shake It Off\' From the Empire State Building (Video)',
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/',
+            source_title: 'Taylor Swift\'s \'Shake It Off\' Debuts At No. 1',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
+            focalPoint: '46% 55%',
+            credit: 'Big Machine Records / YouTube (official video still)',
+            caption: 'Swift crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -2595,6 +2782,17 @@ export default {
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
       video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
       moment: {
+        sources: [
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2014/12/taylor-swift-blank-space-is-back-to-back-number-1-hit-with-shake-it-off-is-this-her-imperial-moment.html',
+            source_title: 'Taylor Swift: Blank Space is back-to-back number 1 hit with Shake It Off. Is this her "Imperial Moment"?',
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one.",
       },
     },
@@ -2609,6 +2807,26 @@ export default {
       title: "Polaroids and pastel",
       snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       moment: {
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609',
+            source_title: 'Taylor Swift Explains Meaning Behind Cover of New Album \'1989\'',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Line of Best Fit',
+            url: 'https://www.thelineofbestfit.com/features/articles/beyond-1989-taylor-swift-and-polaroids',
+            source_title: 'Beyond 1989: Taylor Swift and Polaroids',
+            publisher: 'The Line of Best Fit',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic.",
         // Shop pass (2026-07-22): no single named dress -- a current
         // sky-blue mini in the era's pastel-minimalist palette.
@@ -2636,6 +2854,17 @@ export default {
       title: "The “squad” era",
       snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
       moment: {
+        sources: [
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/human-interest/2015/07/taylor-swift-waka-flocka-and-squadgoals-how-squad-went-from-underdogs-to-queen-bees.html',
+            source_title: 'Taylor Swift, Waka Flocka, and #squadgoals: How squad went from underdogs to queen bees.',
+            publisher: 'Slate (Lexicon Valley)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Group appearances and red-carpet friendships turned her social circle into a defining 1989-era talking point.",
       },
     },
@@ -2651,7 +2880,36 @@ export default {
       snippet: "A star-studded cinematic music video doubles as an event premiere.",
       video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/3854282/taylor-swift-bad-blood-video-billboard-music-awards/',
+            source_title: 'Taylor Swift "Bad Blood" Music Video: Billboard Awards',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/billboard-music-awards-2015-taylor-swift-dominates-bad/story?id=31114958',
+            source_title: 'Billboard Music Awards 2015: Taylor Swift Dominates With \'Bad Blood\' Video Premiere, 8 Wins',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.",
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg',
+            focalPoint: '52% 48%',
+            credit: 'Big Machine Records / YouTube (official video still)',
+            caption: 'A close-up from the "Bad Blood" video — the star-studded action-movie premiere that doubled as an awards-show event.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -2676,6 +2934,17 @@ export default {
       thumbnailUrl:
         "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/',
+            source_title: 'GRAMMY Rewind: Watch Taylor Swift Become The First Woman To Win Album Of The Year Twice',
+            publisher: 'The Recording Academy',
+            source_type: 'awards_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+        ],
         context: "Accepting the award, she used the moment to speak directly to young women about crediting their own work.",
         photos: [
           {

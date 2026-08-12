@@ -9,6 +9,10 @@ export default {
   eraSlug: 'fearless',
   items: [
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Love Story" pair — the song's
+      // story, and the single's release two months ahead of the album — now
+      // interlink.
+      relatedIds: ['moment:vault-fearless-love-story-arrives-two-months-before-the-album'],
       year: 2008,
       month: 9,
       day: 15,
@@ -25,10 +29,22 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)' },
           { outlet: 'Wide Open Country', url: 'https://www.wideopencountry.com/love-story-taylor-swift/' },
         ],
+        // Photo-enrichment pass (2026-07-30): added the official "Love Story"
+        // music-video still (YouTube id 8xg3vE8Ie_E, oEmbed-verified channel
+        // "Taylor Swift" @TaylorSwift; curl 200 image/jpeg); downloaded and
+        // vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+            focalPoint: '68% 28%',
             credit: 'Big Machine Records',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            focalPoint: '52% 45%',
+            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
+            caption: 'Still from the official "Love Story" music video.',
+            kind: 'archival',
           },
         ],
       },
@@ -52,6 +68,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
+            focalPoint: '62% 32%',
             credit: 'Big Machine Records',
           },
         ],
@@ -73,10 +90,10 @@ export default {
       snippet: 'At the 52nd Grammys, 20-year-old Taylor became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
       sourceUrl: 'https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/',
       thumbnailUrl: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
-      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi'],
+      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi', 'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-'],
       moment: {
         context:
-          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
+          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."\n\nThe four went to Album of the Year and Best Country Album for Fearless, plus Best Country Song and Best Female Country Vocal Performance for "White Horse," the twice-honored Swift–Liz Rose co-write — a haul that made Fearless the most-awarded country album in Grammy history. The album had already closed 2009 as the best-selling release in the United States, and Guinness World Records still lists her as the youngest solo artist ever to win Album of the Year. The mark held for a decade, until 18-year-old Billie Eilish won for When We All Fall Asleep, Where Do We Go? in 2020. It came a little over four months after Kanye West took the microphone from her at the MTV Video Music Awards, and it was the first of four Album of the Year wins — 1989, folklore, and Midnights followed — more than any artist has won in the category, which is why a quiet January night in 2010 reads in hindsight as the start of a dynasty.',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -85,6 +102,10 @@ export default {
           {
             outlet: 'Guinness World Records',
             url: 'https://www.guinnessworldrecords.com/world-records/607151-youngest-solo-artist-to-win-album-of-the-year-at-the-grammy-awards',
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/grammy-rewind-watch-taylor-swift-win-album-year-fearless-2010/',
           },
         ],
         photos: [
@@ -215,6 +236,10 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-fear-0", label: "Fearless Tour opens", kind: "tour" },
+      // Cross-link (Stage 3, 2026-07-30): the "Fearless Tour" opening-night
+      // pair — the sold-out crowd, and the marching-band reveal that opened
+      // the show — now interlink.
+      relatedIds: ['moment:vault-fearless-a-marching-band-reveal-to-open-the-fearless-tour'],
       title: 'The Fearless Tour opens to a sold-out crowd in 30 seconds',
       snippet:
         "Evansville, Indiana gave her the key to the city and declared it \"Taylor Swift Day\" — the start of her first-ever headlining tour.",
@@ -344,7 +369,12 @@ export default {
         '"I\'mma let you finish, but Beyoncé had one of the best videos of all time" — Kanye West interrupted her VMA speech for "You Belong With Me" in front of a live audience.',
       sourceUrl: 'https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/',
       thumbnailUrl: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
-      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
+      // Cross-link (Stage 3, 2026-07-30): + "Innocent" — the Speak Now song
+      // written to Kanye West, not about him — a direct reply to this moment.
+      relatedIds: [
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-speak-now-innocent-a-song-written-to-kanye-west-not-about-him',
+      ],
       moment: {
         context:
           'The Radio City crowd went from stunned silence to a standing ovation for Taylor; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Taylor back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
@@ -478,6 +508,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Fearless Tour" opening-night moment.
+      relatedIds: ['moment:vault-fearless-the-fearless-tour-opens-to-a-sold-out-crowd-in-30-seconds'],
       year: 2009,
       month: 4,
       day: 23,
@@ -537,7 +569,7 @@ export default {
       thumbnailUrl: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
       moment: {
         context:
-          'The Hollywood Reporter\'s VMA style retrospective logs it as a one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
+          'A one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip, per The Hollywood Reporter\'s VMA style retrospective — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
         sources: [
           {
             outlet: 'E! Online',
@@ -619,6 +651,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Reem Acra" cluster — three
+      // gowns by the same designer across three award shows — now interlink.
+      relatedIds: [
+        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
+        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
+      ],
       year: 2009,
       month: 11,
       day: 11,
@@ -928,6 +966,8 @@ export default {
       month: 1,
       day: 6,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Jenny Packham" designer cluster.
+      relatedIds: ['moment:vault-red-a-jenny-packham-lace-gown-blooms-with-red-at-the-2012-cmas'],
       title: "A Jenny Packham resort mini for the 2010 People's Choice Awards",
       snippet: 'A white Jenny Packham Resort 2010 mini dress, Christian Louboutin pumps, and Neil Lane jewelry at the Nokia Theatre.',
       sourceUrl: 'https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/',
@@ -1037,6 +1077,8 @@ export default {
         'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
         'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
         'moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner',
+        // Cross-link (Stage 3, 2026-08-10): the movie's soundtrack single.
+        'moment:vault-fearless-today-was-a-fairytale-breaks-a-download-record-in-a-week',
       ],
       moment: {
         context:
@@ -1378,6 +1420,7 @@ export default {
         photos: [
           {
             url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
+            focalPoint: '46% 20%',
             credit: 'Big Machine Records',
           },
         ],
@@ -1404,6 +1447,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            // Photo pass #762 (2026-07-31): viewed. Profile turned left, curls
+            // fanned out around her face — face sits left-of-center, upper third.
+            focalPoint: '38% 30%',
             credit: 'Big Machine Records (album cover art)',
             caption: 'Cover art for Fearless, the album that carries "The Way I Loved You."',
             kind: 'primary',
@@ -1472,7 +1518,12 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            // Photo pass #762 (2026-07-31): viewed. Same cover as the other
+            // Fearless album-track pages — face left-of-center, upper third.
+            focalPoint: '38% 30%',
             credit: 'Big Machine Records',
+            caption: 'Cover art for Fearless, the album that carries her "Untouchable" cover.',
+            kind: 'primary',
           },
         ],
       },
@@ -1661,6 +1712,8 @@ export default {
     // sources per the framework.
     {
       slug: 'love-story-single-release',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Love Story" moment.
+      relatedIds: ['moment:vault-fearless-love-story-and-the-boy-her-family-didnt-approve-of'],
       year: 2008,
       month: 9,
       day: 15,
@@ -1832,6 +1885,9 @@ export default {
       month: 1,
       day: 26,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the Valentine's Day set the
+      // soundtrack single came from.
+      relatedIds: ['moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner'],
       title: 'Today Was a Fairytale breaks a download record in a week',
       snippet:
         'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',
@@ -1999,12 +2055,14 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png',
+            focalPoint: '58% 42%',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "You Belong with Me."',
             kind: 'primary',
           },
           {
             url: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg',
+            focalPoint: '46% 22%',
             credit: 'Big Machine Records / official Taylor Swift YouTube channel',
             caption:
               'Still from the official "You Belong with Me" music video, directed by Roman White — the dance-scene arrival in a white dress.',
@@ -2026,7 +2084,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
       moment: {
         context:
-          'Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage.\n\nIn between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
+          'The sellout was near-instant — tickets moved in early 2009, per Country Standard Time — and by the time the tour reached New York that August, the show read like a coronation, per Rolling Stone\'s review — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage.\n\nIn between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
         sources: [
           {
             outlet: 'Country Standard Time',
@@ -2064,6 +2122,11 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
+            // Photo pass #762 (2026-07-31): viewed (2345x1824, wide stage
+            // shot). She's the small figure on the round stage, lower-center;
+            // the big screen carries her face upper-left-of-center — keep the
+            // crop mid-height to hold both in frame.
+            focalPoint: '36% 48%',
             credit: 'calmdownlove / Wikimedia Commons, CC BY 2.0',
             caption:
               'Performing on the Fearless Tour, 2009 — the tour whose Madison Square Garden stop sold out in about a minute.',
@@ -2118,6 +2181,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/2009_Justin_Bieber_NYC_1.JPG',
+            // Photo pass #762 (2026-07-31): viewed. Straight-on portrait,
+            // face centered horizontally, sits in the upper quarter of frame.
+            focalPoint: '46% 20%',
             credit: 'Kerosene Photography / CC BY 2.0 via Wikimedia Commons',
             caption:
               'For reference — not from the Wembley show: 15-year-old Justin Bieber at a New York in-store appearance on Sept. 1, 2009, weeks before he opened the Fearless Tour\'s UK leg.',
@@ -2281,7 +2347,7 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/2015825/rs_600x600-150925152931-600.taylor-swift-csi.jpg',
       moment: {
         context:
-          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Taylor, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — Rolling Stone said she "held her own."\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later.',
+          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Taylor, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — she "held her own," per Rolling Stone.\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later.',
         sources: [
           {
             outlet: 'E! Online',
@@ -2445,6 +2511,27 @@ export default {
       milestone: { id: "m-fear-1", label: "Fearless released", kind: "album" },
       snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/deep-10-taylor-swifts-fearless/',
+            source_title: 'Deep 10: Taylor Swift\'s Fearless',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Big Machine Records (via PR Newswire)',
+            url: 'https://www.prnewswire.com/news-releases/taylor-swifts-fearless-album-officially-lauded-as-most-awarded-album-in-country-music-history-88431737.html',
+            source_title: 'Taylor Swift\'s FEARLESS Album Officially Lauded as Most Awarded Album in Country Music History',
+            publisher: 'Big Machine Records',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'Label press release — primary for the award tally it lists, not an independent assessment.',
+          },
+        ],
         context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
         // Photo pass #762 (2026-07-19): freely licensed Commons live shot from
         // the album's own tour — license (CC BY-SA 2.0, alexahalasan) verified
@@ -2473,6 +2560,26 @@ export default {
       snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
       hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://content.time.com/time/specials/packages/article/0,28804,1922188_1922187_1922190,00.html',
+            source_title: 'Taylor Swift Got Kanyed — Top 10 Outrageous Kanye West Moments',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'VICE',
+            url: 'https://www.vice.com/en/article/on-this-day-in-2009-kanye-west-grabbed-the-mic-from-taylor-swift-at-the-mtv-vmas/',
+            source_title: 'On This Day in 2009, Kanye West Grabbed the Mic From Taylor Swift at the MTV VMAs',
+            publisher: 'VICE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
       },
     },

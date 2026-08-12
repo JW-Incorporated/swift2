@@ -64,7 +64,10 @@ export default {
     {
       significance: 'notable', // the second consecutive album to set this exact platform record (docs/decisions.md, 2026-07-19)
       relatedIds: [
-          'moment:vault-ttpd-spotifys-top-global-artist-again-26-6-billion-streams','moment:vault-midnights-midnights-breaks-spotify-in-a-single-day'],
+          'moment:vault-ttpd-spotifys-top-global-artist-again-26-6-billion-streams','moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
+          // Cross-link (Stage 3, 2026-08-10): the same album's later legal
+          // fight, years after this chart record.
+          'moment:vault-tloas-a-federal-judge-throws-out-the-tortured-poets-plagiarism-sui'],
       year: 2024,
       month: 4,
       day: 19,
@@ -598,6 +601,15 @@ export default {
       day: 7,
       category: 'sighting',
       threadIds: ['the-proposal'],
+      // Cross-link (Stage 3, 2026-08-06): same "the-proposal" thread — the
+      // Super Bowl LIX sighting the Chiefs' playoff run led to.
+      // (2026-08-10): + the Arthur Ashe and Yankee Stadium sightings on
+      // either side of it that same fall.
+      relatedIds: [
+        'moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick',
+        'moment:vault-ttpd-box-seats-at-arthur-ashe-for-the-us-open-mens-final',
+        'moment:vault-ttpd-date-night-at-yankee-stadium-for-alcs-game-1',
+      ],
       title: 'Back at Arrowhead for a Monday night win over New Orleans',
       snippet: 'A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints.',
       sourceUrl: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582',
@@ -605,7 +617,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-glitter-freckles-chiefs-game-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'The Oct. 7, 2024 Monday Night Football matchup against the Saints came in the closing days of the Eras Tour\'s two-month break, less than two weeks before the tour resumed in Miami on Oct. 18. She watched from a suite flanked by both families\' patriarchs — her father Scott Swift and Travis\'s father Ed Kelce.\n\nThe look drew nearly as much coverage as the game: a plaid, off-the-shoulder minidress with black knee-high platform boots, finished with glitter freckles scattered across her nose and cheeks — a sparkly game-day beauty flourish Billboard flagged as the night\'s standout detail.',
+          'The Oct. 7, 2024 Monday Night Football matchup against the Saints came in the closing days of the Eras Tour\'s two-month break, less than two weeks before the tour resumed in Miami on Oct. 18. She watched from a suite flanked by both families\' patriarchs — her father Scott Swift and Travis\'s father Ed Kelce.\n\nThe look drew nearly as much coverage as the game: a plaid, off-the-shoulder minidress with black knee-high platform boots, finished with glitter freckles scattered across her nose and cheeks — the night\'s standout detail, per Billboard\'s own coverage.',
         sources: [
           { outlet: 'Today', url: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582' },
           {
@@ -634,6 +646,14 @@ export default {
       day: 14,
       category: 'sighting',
       threadIds: ['the-proposal'],
+      // Cross-link (Stage 3, 2026-08-10): the Arrowhead Monday-night win one
+      // week before, same fall. (Vault Run, Cross-Link lane, 2026-08-10): + the
+      // Sept. 8 US Open final this moment's own text names — the two NYC
+      // sporting date nights of that fall, same "the-proposal" thread.
+      relatedIds: [
+        'moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans',
+        'moment:vault-ttpd-box-seats-at-arthur-ashe-for-the-us-open-mens-final',
+      ],
       title: 'Date night at Yankee Stadium for ALCS Game 1',
       snippet:
         'A bye-week baseball date: she and Travis watched the Yankees take Game 1 of the ALCS from a right-field suite, four nights before the Eras Tour restarted in Miami.',
@@ -913,9 +933,12 @@ export default {
       // Cross-links added 2026-07-24 (ledger #1310): the later Showgirl
       // title-track feature this duet prefigured, and the Miami Florence cameo
       // the page name-checks. Ids verified against content-vault.generated.
+      // (Stage 3, 2026-08-10): + the Showgirl album-arrival page (one-
+      // directional: that page is already at the ~4-link cap).
       relatedIds: [
         'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
         'moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
       ],
       snippet:
         'Night two in New Orleans: Taylor announces she\'s about to sing a song that isn\'t hers, starts strumming "Espresso" — and Sabrina Carpenter appears for a three-song mashup with "Please Please Please" and "Is It Over Now?"',
@@ -1158,7 +1181,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/11/taylor-swift-toronto-eras-tour-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'The Eras Tour\'s penultimate stop stretched across two weekends — Nov. 14–16 and 21–23, 2024 — the longest residency of the closing leg and Taylor\'s first Canadian shows since 2018. CBC\'s opening-night dispatch caught the mood of a city that had waited out the entire tour: "Toronto, we are sooo back!"\n\nBy the second weekend the crowd itself was the story: Prime Minister Justin Trudeau brought his family to the Nov. 22 show, where fan video caught him dancing to "You Don\'t Own Me" during the pre-show countdown and swapping friendship bracelets with Swifties on the concourse. Six nights, six sellouts — and then only Vancouver was left.\n\nEach night rotated a fresh surprise-song mashup: Night 1 (Nov. 14) opened with "My Boy Only Breaks His Favorite Toys" / "This Is Why We Can\'t Have Nice Things" and "False God" / "\'Tis the Damn Season," and the final night (Nov. 23) closed with "Sparks Fly" / "Message in a Bottle" and "You\'re Losing Me" / "How Did It End?" On Night 3 (Nov. 16) she brought out opener Gracie Abrams for a mashup of their duet "Us" with "Out of the Woods" — the run\'s only guest. After a standing ovation for "Champagne Problems" on the last night, Taylor teared up mid-speech — "I don\'t even know what I\'m saying anymore… I\'m just having a bit of a moment… It\'s not even the last show!" — the farewell Rolling Stone dubbed a "Bit of a Moment."\n\nUnderwritten by Rogers, the run made Taylor the first artist to play six shows at Rogers Centre. A later City of Toronto report pegged the "Swift lift" at $282M in total economic impact and $152M in direct spending — 93% of it from out-of-town visitors — across 240,000 concertgoers, with short-term-rental demand up 163% city-wide (245% around Rogers Centre) and about $39.7M in tax revenue across three levels of government.',
+          'The Eras Tour\'s penultimate stop stretched across two weekends — Nov. 14–16 and 21–23, 2024 — the longest residency of the closing leg and Taylor\'s first Canadian shows since 2018. CBC\'s opening-night dispatch caught the mood of a city that had waited out the entire tour: "Toronto, we are sooo back!"\n\nBy the second weekend the crowd itself was the story: Prime Minister Justin Trudeau brought his family to the Nov. 22 show, where fan video caught him dancing to "You Don\'t Own Me" during the pre-show countdown and swapping friendship bracelets with Swifties on the concourse. Six nights, six sellouts — and then only Vancouver was left.\n\nEach night rotated a fresh surprise-song mashup: Night 1 (Nov. 14) opened with "My Boy Only Breaks His Favorite Toys" / "This Is Why We Can\'t Have Nice Things" and "False God" / "\'Tis the Damn Season," and the final night (Nov. 23) closed with "Sparks Fly" / "Message in a Bottle" and "You\'re Losing Me" / "How Did It End?" On Night 3 (Nov. 16) she brought out opener Gracie Abrams for a mashup of their duet "Us" with "Out of the Woods" — the run\'s only guest. After a standing ovation for "Champagne Problems" on the last night, Taylor teared up mid-speech — "I don\'t even know what I\'m saying anymore… I\'m just having a bit of a moment… It\'s not even the last show!" — the farewell that earned a Rolling Stone headline: "Bit of a Moment."\n\nUnderwritten by Rogers, the run made Taylor the first artist to play six shows at Rogers Centre. A later City of Toronto report pegged the "Swift lift" at $282M in total economic impact and $152M in direct spending — 93% of it from out-of-town visitors — across 240,000 concertgoers, with short-term-rental demand up 163% city-wide (245% around Rogers Centre) and about $39.7M in tax revenue across three levels of government.',
         sources: [
           {
             outlet: 'CBC News',
@@ -1450,9 +1473,26 @@ export default {
             reportedOn: '2024-12-03',
             status: 'unconfirmed',
             url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-next-album-engagement-burning-questions-answered-excl/',
-            note: 'Forward-looking tour speculation (allowed by the redlines); no location named. As of this check (late July 2026) no tour has been announced and the source\'s "one year" window has passed — Taylor instead released The Life of a Showgirl and married Kelce — so the 2026-tour prediction looks unlikely but is not formally denied. Resolves on an official tour announcement; fades otherwise.',
+            note: 'Forward-looking tour speculation; no location. Re-checked 2026-08-05: no tour announced and the source\'s 2026 window has largely passed — Taylor released The Life of a Showgirl, married Kelce, and told BBC Radio 1 in October 2025 she was "so tired," with no plans to tour soon. Unlikely now but not formally denied; resolves on an announcement, fades otherwise.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-07-29',
+            lastCheckedOn: '2026-08-05',
+          },
+          {
+            // Rumor Desk 2026-08-03: a later, distinct data point on the same
+            // open "will she tour again?" question — the Aug. 2025 Deuxmoi
+            // report that pushed the projected start from 2026 to 2027, which
+            // directly updates the Us Weekly entry above (whose one-year window
+            // has since lapsed with no announcement). Forward-looking, no
+            // location named (an unannounced tour is L0 by default).
+            claim:
+              'A year on, the projected timing slipped: Deuxmoi reported, citing two sources, that Swift\'s next outing — a follow-up to the Eras Tour — would now start in 2027, not 2026, with 2026 "looking unlikely."',
+            reportedBy: 'Deuxmoi, via Yahoo Entertainment',
+            reportedOn: '2025-08-20',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-upcoming-tour-reportedly-132936634.html',
+            note: 'A later data point on the same open question as the Us Weekly report above, pushing the projected start from 2026 to 2027 — consistent with that earlier window lapsing with no announcement. Blind-item sourcing (Deuxmoi), carried at the lowest tier. As of this check no tour is announced. Resolves on an official tour announcement; fades otherwise. No location.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-03',
           },
         ],
       },
@@ -1489,6 +1529,10 @@ export default {
         // Photo re-check (2026-07-19, Tier 3): stays at one image — Wikimedia
         // Commons has no Rogers Centre Toronto Eras Tour category or files
         // from the November 2024 dates this $2B tally was announced against.
+        // Re-reviewed 2026-08-01 (#762): checked for a Vancouver final-show
+        // (Dec. 8, 2024) photo tied to the tour-total announcement — nothing
+        // on an outlet CDN or Commons beyond wire/Getty art already excluded.
+        // Stays reviewed-sparse at one image.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
@@ -1604,7 +1648,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/P5J7PGVYFxPyyTdzTVpya3.jpg',
       moment: {
         context:
-          'Styled by Joseph Cassell Falconer, the Feb. 9, 2025 Superdome look built Chiefs red-and-white out of luxury basics: a shell-white Saint Laurent blazer with exaggerated shoulders worn open over a white Alaïa bodysuit styled like a tank top, custom crystal-embellished Purple Brand denim shorts, white over-the-knee Paris Texas boots, and a red Givenchy Nano Voyou bag carrying the team\'s other color.\n\nThe jewelry did the sentimental work: the custom Lorraine Schwartz ruby "T" necklace — repurposed from her Grammys-week styling a week earlier — plus a Retrouvai ruby ring and a Logan Hollowell gold hand chain. Marie Claire read the sharp tailoring as a callback to the Versace blazers she wore performing "The Man" on tour; the game itself went far worse than the outfit, with Kansas City\'s three-peat bid ending 40-22.',
+          'Styled by Joseph Cassell Falconer, the Feb. 9, 2025 Superdome look built Chiefs red-and-white out of luxury basics: a shell-white Saint Laurent blazer with exaggerated shoulders worn open over a white Alaïa bodysuit styled like a tank top, custom crystal-embellished Purple Brand denim shorts, white over-the-knee Paris Texas boots, and a red Givenchy Nano Voyou bag carrying the team\'s other color.\n\nThe jewelry did the sentimental work: the custom Lorraine Schwartz ruby "T" necklace — repurposed from her Grammys-week styling a week earlier — plus a Retrouvai ruby ring and a Logan Hollowell gold hand chain. The sharp tailoring was a callback to the Versace blazers she wore performing "The Man" on tour, per Marie Claire; the game itself went far worse than the outfit, with Kansas City\'s three-peat bid ending 40-22.',
         sources: [
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-2025-super-bowl-outfit/' },
         ],
@@ -1647,6 +1691,34 @@ export default {
             price: '$599.98',
             isAlternative: true,
             altNote: 'Her exact Saint Laurent blazer is discontinued -- this is a current white double-breasted blazer with padded shoulders in a similar longline cut, in knit rather than tailored fabric.',
+          },
+        ],
+        // Rumor Desk 2026-08-03: a clean DEBUNKED lifecycle entry, seeding the
+        // recurring "will Taylor headline a Super Bowl halftime?" question onto
+        // the moment about her attending one. The claim is entirely public — the
+        // NFL's own commissioner floated it on the record, and Taylor answered
+        // it herself on national TV — so it clears the redlines (no private
+        // matter, no security/health/third-party issue) and resolves cleanly:
+        // the LX slot went to Bad Bunny and she said, on Fallon, that she turned
+        // it down. Scoped tightly to the LX cycle so the debunk is airtight; a
+        // later Super Bowl is a separate, still-open question. No location.
+        rumors: [
+          {
+            claim:
+              'With Taylor a fixture at Chiefs games, speculation recurred that she would headline the Super Bowl LX halftime show (Feb. 8, 2026). NFL commissioner Roger Goodell fanned it on the record — calling her "a special, special talent" who would be "welcome at any time" and, pressed on whether it was happening, saying "It\'s a maybe."',
+            reportedBy: 'Roger Goodell (NFL commissioner), via TODAY',
+            reportedOn: '2025-09-03',
+            status: 'debunked',
+            url: 'https://www.today.com/popculture/roger-goodell-taylor-swift-super-bowl-halftime-show-rcna228736',
+            resolution: {
+              on: '2025-10-06',
+              url: 'https://www.today.com/popculture/music/taylor-swift-explains-super-bowl-halftime-jimmy-fallon-rcna236094',
+              outlet: 'TODAY (The Tonight Show Starring Jimmy Fallon)',
+              note: 'Bad Bunny was named the LX performer; on Fallon (Oct. 6, 2025) Taylor said she turned it down — "I\'m just too locked in" on Travis\'s season, "nothing to do with Travis." A rare rumor a principal settled on the record.',
+            },
+            note: 'Public, on-record speculation — the NFL\'s own chief floated it and Taylor answered it herself, so nothing here is a private matter. Scoped to the LX cycle, now closed; whether she ever headlines a later Super Bowl is a separate, still-open question. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-03',
           },
         ],
       },
@@ -1805,7 +1877,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
       moment: {
         context:
-          'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that Marie Claire described as flowing behind her "like a Highland warrior\'s cape." Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "Reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
+          'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that flowed behind her "like a Highland warrior\'s cape" — Marie Claire\'s phrase for it. Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "Reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -2122,6 +2194,9 @@ export default {
       relatedIds: [
         'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
         'moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t',
+        // Cross-link (Stage 3, 2026-08-10): the AFC Championship win the
+        // following week, punching the Chiefs' Super Bowl ticket.
+        'moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick',
       ],
       moment: {
         context:
@@ -2154,7 +2229,16 @@ export default {
       threadIds: ['the-proposal'],
       // Cross-link (Stage 3, 2026-07-27): the follow-up Super Bowl LIX
       // sighting two weeks later, same "the-proposal" thread.
-      relatedIds: ['moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s'],
+      // (Stage 3, 2026-08-06): also links back to the Arrowhead divisional
+      // win that punched the Chiefs' Super Bowl ticket.
+      // (Stage 3, 2026-08-10): + the family-suite divisional win the week
+      // before, and the previous season's AFC Championship celebration kiss.
+      relatedIds: [
+        'moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s',
+        'moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans',
+        'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
+        'moment:vault-midnights-a-kiss-to-celebrate-the-afc-championship',
+      ],
       title: 'A confetti kiss after the Chiefs punch their Super Bowl ticket',
       snippet:
         'Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.',
@@ -2513,10 +2597,34 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            focalPoint: '50% 55%',
             credit: 'Republic Records (album cover, via Wikipedia)',
             caption: 'The Tortured Poets Department (2024) — the record that turned the end of the Joe Alwyn years into an album.',
             kind: 'primary',
-            focalPoint: '50% 40%',
+          },
+          // Photo pass #762 (2026-08-03): Wikimedia Commons, CC BY 4.0,
+          // curl-verified 200 image/jpeg, downloaded and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Taylor_Swift_TTPD_Dress.jpg',
+            focalPoint: '46% 38%',
+            credit: 'Wikithebeavr / Wikimedia Commons, CC BY 4.0',
+            caption: 'A custom Eras Tour gown printed with "Fortnight"\'s "I love you, it\'s ruining my life" — the breakup grief TTPD turned into a 31-song double album, worn live on stage.',
+            kind: 'archival',
+          },
+          // Photo pass #762 (2026-07-27): the six-and-a-half-year relationship
+          // itself had almost no on-record imagery beyond a handful of
+          // sightings — this is the best-documented one. Verified via
+          // eonline.com's own image CDN (akns-images.eonline.com, their
+          // Akamai Image Manager infrastructure, not a watermarked comp):
+          // HTTP 200 + image/jpeg, 600x600, downloaded and viewed — Swift
+          // (pale blue coat) and Alwyn (black tux) hand-in-hand leaving the
+          // cited Feb. 2019 BAFTAs after-party.
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2019110/rs_600x600-190210195541-600-taylor-swift-joe-alwyn-baftas.jpg',
+            focalPoint: '42% 28%',
+            credit: 'E! News',
+            caption: 'Swift and Alwyn leaving a BAFTAs after-party together, February 2019 — one of the few public sightings from the relationship this album grieves.',
+            kind: 'reference',
           },
         ],
       },
@@ -2568,7 +2676,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax.\n\nThe Nation\'s Stephanie Burt called it "the harshest, most dismissive, most condemnatory song that Swift has ever written," while Rolling Stone\'s Rob Sheffield ranked it among her best breakup songs. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot the week TTPD\'s 31 tracks filled the entire top 14, a first for any artist, with "Cruel Summer" charting too for 32 songs on the Hot 100 at once.',
+          'Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax.\n\nThe Nation\'s Stephanie Burt called it "the harshest, most dismissive, most condemnatory song that Swift has ever written" — and it belongs on anyone\'s list of her best breakup songs, Rolling Stone\'s Rob Sheffield included. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot the week TTPD\'s 31 tracks filled the entire top 14, a first for any artist, with "Cruel Summer" charting too for 32 songs on the Hot 100 at once.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived' },
           {
@@ -2608,6 +2716,9 @@ export default {
       month: 11,
       day: 8,
       category: 'business',
+      // Cross-link (Stage 3, 2026-08-10): the same Grammy-nominations beat,
+      // four albums earlier.
+      relatedIds: ['moment:vault-folklore-six-grammy-nominations-for-the-quarantine-album'],
       title: "Fortnight's Grammy double: nominated for both Record and Song of the Year",
       snippet:
         'Alongside TTPD\'s Album of the Year nod, "Fortnight" picked up matching Record and Song of the Year nominations and a Best Music Video nod, while "us." with Gracie Abrams landed Best Pop Duo/Group Performance — six 2025 Grammy nominations in all.',
@@ -3108,7 +3219,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor hasn\'t confirmed the subject on the record — but the reading is barely a theory: in the resurfaced clip Kelce picks "kiss" for Taylor in a game of marry-kiss-kill years before they met, and fans and outlets read "I feel like laughing in the middle of practice" as a nod to his impressions of his dad, Ed Kelce (Today itself hedges the mapping with "if the reference is indeed pointed at Kelce").\n\nWhen the song joined the Eras Tour setlist, the staging added on-stage bleachers and football-field visuals, and fans took the hint as confirmation enough. Credited to Taylor and Aaron Dessner, it sits on the Anthology\'s Dessner-led second half rather than among Jack Antonoff\'s tracks; reviewers heard the album\'s guitar-forward pop-rock outlier — Billboard called its electric-guitar arrival "an obvious back-half highlight," and critics reached for Sheryl Crow, Third Eye Blind and Avril Lavigne. It debuted and peaked at No. 24 on the Hot 100 in May 2024 — just below the record top 14 the standard tracks monopolized, part of Taylor\'s 19-of-the-top-25 showing that week.\n\nIt became a permanent part of the revamped "Female Rage" TTPD set from May 2024 and surfaced once as a surprise-song mashup with "Mary\'s Song" and "Everything Has Changed" in Amsterdam on July 6, 2024. Taylor underscored the relationship reading herself in August 2025, soundtracking her engagement announcement with the song — captioned "Your English teacher and your gym teacher are getting married" — which drove a 394% single-day streaming spike.',
+          'Taylor hasn\'t confirmed the subject on the record — but the reading is barely a theory: in the resurfaced clip Kelce picks "kiss" for Taylor in a game of marry-kiss-kill years before they met, and fans and outlets read "I feel like laughing in the middle of practice" as a nod to his impressions of his dad, Ed Kelce (Today itself hedges the mapping with "if the reference is indeed pointed at Kelce").\n\nWhen the song joined the Eras Tour setlist, the staging added on-stage bleachers and football-field visuals, and fans took the hint as confirmation enough. Credited to Taylor and Aaron Dessner, it sits on the Anthology\'s Dessner-led second half rather than among Jack Antonoff\'s tracks; reviewers heard the album\'s guitar-forward pop-rock outlier — an obvious back-half highlight (Billboard\'s words for its electric-guitar arrival), with critics reaching for Sheryl Crow, Third Eye Blind and Avril Lavigne comparisons. It debuted and peaked at No. 24 on the Hot 100 in May 2024 — just below the record top 14 the standard tracks monopolized, part of Taylor\'s 19-of-the-top-25 showing that week.\n\nIt became a permanent part of the revamped "Female Rage" TTPD set from May 2024 and surfaced once as a surprise-song mashup with "Mary\'s Song" and "Everything Has Changed" in Amsterdam on July 6, 2024. Taylor underscored the relationship reading herself in August 2025, soundtracking her engagement announcement with the song — captioned "Your English teacher and your gym teacher are getting married" — which drove a 394% single-day streaming spike.',
         sources: [
           {
             outlet: 'Today',
@@ -4037,7 +4148,7 @@ export default {
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-ttpd-4", label: "Harris endorsement", kind: "life" },
       relatedIds: [
-        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+        'moment:vault-midnights-shes-times-2023-person-of-the-year',
         'moment:vault-reputation-she-breaks-her-political-silence-and-voter-registrations-spi',
         'moment:vault-midnights-times-person-of-the-year-cover-shoot-in-three-looks',
         'moment:vault-lover-miss-americana-the-heartbreak-prince-a-high-school-built-fro',
@@ -4188,6 +4299,24 @@ export default {
             kind: 'reference',
           },
         ],
+        // Rumor Desk 2026-08-09: the structural home for the ongoing
+        // Taylor-vs-Trump thread this moment already records (the 2024 AI-fake
+        // endorsement, "I HATE TAYLOR SWIFT!"). A public political/copyright
+        // matter about her own music — no redline, no location. The removal is
+        // documented; the unconfirmed part is who issued the copyright block.
+        rumors: [
+          {
+            claim:
+              'Team Trump\'s TikTok posted Donald and Melania Trump watching fireworks — captioned "Mood because it\'s August and Donald Trump is your president," set to Taylor\'s "august" — taunting "I\'m sure @Taylor Swift is going to be super excited we used her song!" By Friday the audio was gone ("The copyright owner hasn\'t made this sound available in your country"); who pulled it stayed unconfirmed.',
+            reportedBy: 'Variety',
+            reportedOn: '2026-08-08',
+            status: 'unconfirmed',
+            url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
+            note: 'The muting is documented across outlets (Variety, Rolling Stone, Deadline, EW); what is unconfirmed is who issued the copyright block. Continues the Taylor-vs-Trump thread here — a "Father Figure" clip was similarly muted in Nov 2025. Resolves if Swift, her team, or her label confirms it acted (or it is shown to be TikTok\'s automated system); fades if no one claims it. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-09',
+          },
+        ],
       },
     },
     {
@@ -4196,6 +4325,14 @@ export default {
       month: 9,
       day: 8,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the Arrowhead Monday-night win a
+      // month later, same fall. (Vault Run, Cross-Link lane, 2026-08-10): + the
+      // Oct. 14 Yankees ALCS date night five weeks on — the pair of fall-2024
+      // NYC sporting dates, same "the-proposal" thread.
+      relatedIds: [
+        'moment:vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans',
+        'moment:vault-ttpd-date-night-at-yankee-stadium-for-alcs-game-1',
+      ],
       title: "Box seats at Arthur Ashe for the US Open men's final",
       // the-proposal thread opt-in (stage 3, 2026-07-19): the first big
       // non-football public date — a beat of the derived End Game thread.
@@ -4692,7 +4829,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed; Billboard reported a price around $360 million to Shamrock Capital, the firm that had bought the catalog from Scooter Braun\'s Ithaca Holdings in November 2020 — a price Rolling Stone put around $300 million, though Music Business Worldwide later reported Shamrock\'s outlay at $405 million. Billboard\'s analysis found Shamrock made little if any profit on the resale itself, but earned roughly $100 million over the three-plus years it owned the records. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs. The memories. The magic. The madness. Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville-based management team; a source close to the talks credited only "the partners at Shamrock Capital and Taylor\'s Nashville-based management team," adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Taylor already owned her publishing — making this a rare buyback of masters alone.\n\nIn her announcement letter she credited the ending to the success of the Eras Tour and the fans\' support for her re-recordings, saying she could finally own her music "with no strings attached." Reporting stopped short of confirming the deal ended Braun\'s 2020 earnout, but Variety noted he "no longer participates in any profit from a sale" and that Taylor\'s camp was adamant he had no part in Shamrock\'s decision to sell.\n\nTwo things the announcement made concrete. First, the buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned on Republic — and for the four albums she had re-recorded (Fearless, Red, Speak Now, 1989) she now controls both the originals and the Taylor\'s Versions, quietly ending her long campaign urging fans to stream only the re-records. Shamrock issued its own statement, calling itself "thrilled with this outcome" and "so happy for Taylor." The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled — the original Speak Now spiking roughly 430% — while the Taylor\'s Versions held steady rather than dipping, and catalog album sales rose 235% that week. Fellow artists cheered publicly, among them Selena Gomez, Phoebe Bridgers and Travis Kelce. As of mid-2026 nothing had advanced on the two unfinished re-records: the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved — its only new fragment a re-recorded "Look What You Made Me Do (Taylor\'s Version)" that surfaced in a 2025 Handmaid\'s Tale sync.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed, and the reported price depends on who you ask: around $360 million per Billboard, around $300 million per Rolling Stone, and — the highest figure floated — $405 million per Music Business Worldwide, for the catalog Shamrock Capital had bought from Scooter Braun\'s Ithaca Holdings back in November 2020. Whatever the real number, Shamrock\'s own math (per Billboard\'s later analysis) shows little if any profit on the resale itself — just roughly $100 million banked over the three-plus years it owned the records. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs. The memories. The magic. The madness. Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville-based management team; a source close to the talks credited only "the partners at Shamrock Capital and Taylor\'s Nashville-based management team," adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Taylor already owned her publishing — making this a rare buyback of masters alone.\n\nIn her announcement letter she credited the ending to the success of the Eras Tour and the fans\' support for her re-recordings, saying she could finally own her music "with no strings attached." Whether the deal ended Braun\'s 2020 earnout was never officially confirmed — though according to Variety, he "no longer participates in any profit from a sale," and Taylor\'s camp was adamant he had no part in Shamrock\'s decision to sell.\n\nTwo things the announcement made concrete. First, the buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned on Republic — and for the four albums she had re-recorded (Fearless, Red, Speak Now, 1989) she now controls both the originals and the Taylor\'s Versions, quietly ending her long campaign urging fans to stream only the re-records. Shamrock issued its own statement, calling itself "thrilled with this outcome" and "so happy for Taylor." The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled — the original Speak Now spiking roughly 430% — while the Taylor\'s Versions held steady rather than dipping, and catalog album sales rose 235% that week. Fellow artists cheered publicly, among them Selena Gomez, Phoebe Bridgers and Travis Kelce. As of mid-2026 nothing had advanced on the two unfinished re-records: the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved — its only new fragment a re-recorded "Look What You Made Me Do (Taylor\'s Version)" that surfaced in a 2025 Handmaid\'s Tale sync.',
         sources: [
           {
             outlet: 'Billboard',
@@ -5107,6 +5244,26 @@ export default {
       title: "Ink, typewriters and monochrome",
       snippet: "The most restrained visual era: black, white, and typewritten confession.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-tortured-poets-department-album-release-date-details',
+            source_title: 'Get Ready For Taylor Swift\'s \'The Tortured Poets Department\' Album Release: Everything You Need To Know',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/6971832/the-tortured-poets-department-french-manuscripts/',
+            source_title: '\'The Tortured Poets Department\' Has Stirred Up a Craze for Old French Documents',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Grayscale styling and typewriter motifs frame the era as a literary confessional.",
         // Shop pass (2026-07-22): no single named piece -- a current
         // newspaper-print mesh tee, verified in stock, turning the era's

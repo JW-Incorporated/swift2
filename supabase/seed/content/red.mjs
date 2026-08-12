@@ -28,7 +28,7 @@ export default {
       day: 30,
       category: 'business',
       significance: 'defining', // stands in for the whole Red era's arrival — no dedicated release-day item exists yet (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1'],
+      relatedIds: ['moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1', 'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week'],
       title: 'Red sells 1.2 million copies — the biggest week in a decade',
       snippet:
         "1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row.",
@@ -36,7 +36,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
       moment: {
         context:
-          "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.",
+          "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.\n\nBeyond the raw number, Red entered the Billboard 200 at No. 1 — her third studio album in a row to debut on top — and it did so almost entirely on full-price purchases at a moment the industry had already begun writing off blockbuster sales weeks. The 1.208-million total stayed the biggest week of Swift's career until she broke her own record two years later, when 1989 opened to 1.287 million in 2014, and it stood among the largest opening weeks any album had posted since the CD era's peak. It also sharpened the pattern Slate marveled at: where a strong 2012 debut meant 300,000 copies, Swift had cleared four times that, doubling the year's next-best debut and turning a release week into the kind of cultural event only a handful of artists in the world could still reliably command in a fragmenting market.",
         sources: [
           {
             outlet: 'Slate',
@@ -238,6 +238,13 @@ export default {
       month: 10,
       day: 22,
       category: 'music',
+      // Cross-link (Stage 3, 2026-07-30): + the Red Tour's Omaha opening
+      // night, which put Ed Sheeran on the road with her right after this.
+      relatedIds: [
+        'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
+        'moment:vault-red-everything-has-changed-duet',
+      ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
       snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
@@ -349,6 +356,8 @@ export default {
       month: 11,
       day: 6,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Elie Saab" designer cluster.
+      relatedIds: ['moment:vault-speak-now-a-pink-elie-saab-sequin-gown-at-the-billboard-music-awards'],
       title: 'A wine-red Elie Saab gown for a historic Pinnacle Award',
       snippet: 'A wine-colored Elie Saab gown at the CMAs, the night she became the first woman ever to receive the Pinnacle Award.',
       sourceUrl: 'https://www.refinery29.com/en-us/2013/11/56892/taylor-swift-cma-awards',
@@ -467,6 +476,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
+      relatedIds: [
+        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
+        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
+      ],
       year: 2013,
       month: 2,
       day: 10,
@@ -661,6 +675,8 @@ export default {
       month: 11,
       day: 1,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Jenny Packham" designer cluster.
+      relatedIds: ['moment:vault-fearless-a-jenny-packham-resort-mini-for-the-2010-peoples-choice-awar'],
       title: 'A Jenny Packham lace gown blooms with red at the 2012 CMAs',
       snippet:
         'A nude lace Jenny Packham gown embellished with sparkling red-and-gold rose appliques on the red carpet at the 46th CMA Awards, paired with straightened hair and bangs instead of her usual curls.',
@@ -697,6 +713,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
+      relatedIds: [
+        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
+        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
+      ],
       year: 2013,
       month: 5,
       day: 19,
@@ -798,6 +819,9 @@ export default {
       month: 11,
       day: 24,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Julien Macdonald" designer
+      // cluster.
+      relatedIds: ['moment:vault-lover-a-shimmering-green-julien-macdonald-gown-at-the-2019-amas'],
       title: 'A gold Julien Macdonald gown, altered with a hidden message',
       snippet:
         "A gold-spangled Julien Macdonald gown at the American Music Awards, tousled bedhead waves instead of a formal updo — pulled straight off the Fall 2013 runway and modified with a sheer mesh panel over the torso cutout.",
@@ -940,6 +964,15 @@ export default {
 
     // --- Sightings pass (2026-07-05) ---
     {
+      // Cross-link (Stage 3, 2026-08-06): the Times Square NYE kiss weeks
+      // later — the relationship's public confirmation, then its most-
+      // photographed moment.
+      relatedIds: [
+        'moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square',
+        // Cross-link (Stage 3, 2026-08-10): the birthday minibreak 11 days
+        // later — same relationship's opening weeks.
+        'moment:vault-red-a-birthday-minibreak-to-the-lake-district-spotted-feeding-do',
+      ],
       year: 2012,
       month: 12,
       day: 2,
@@ -985,6 +1018,13 @@ export default {
       day: 13,
       category: 'sighting',
       title: 'A birthday minibreak to the Lake District, spotted feeding doves and shopping for Beatrix Potter gifts',
+      // Cross-link (2026-08-07): "the lakes," the folklore song built on the
+      // same Lake District she actually retreated to here.
+      // (Stage 3, 2026-08-10): + the Central Park stroll 11 days before.
+      relatedIds: [
+        'moment:vault-folklore-the-lakes-the-lake-district-escape-fantasy-saved-for-the-del',
+        'moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles',
+      ],
       snippet:
         'Spotted with Harry Styles in Bowness-on-Windermere on December 10, 2012 — sightseeing, feeding white doves in the town square, and shopping at the Beatrix Potter store and a local jewelry shop.',
       sourceUrl: 'https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/',
@@ -1025,12 +1065,12 @@ export default {
       category: 'sighting',
       title: 'A Virgin Islands getaway, spotted at dinner at CocoMaya',
       snippet:
-        "Days after the Times Square kiss, fans spotted Taylor and Styles having dinner and drinks at the beachfront restaurant CocoMaya on Virgin Gorda on January 3, 2013 — a trip Us Weekly reported was a surprise for her.",
+        "Days after the Times Square kiss, fans spotted Taylor and Styles having dinner and drinks at the beachfront restaurant CocoMaya on Virgin Gorda on January 3, 2013 — a surprise trip for her, per Us Weekly.",
       sourceUrl: 'https://hollywoodlife.com/2013/01/04/harry-styles-taylor-swift-virgin-islands-vacation-gorda/',
       thumbnailUrl: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
       moment: {
         context:
-          "The pair were photographed at CocoMaya, a beach restaurant on Virgin Gorda in the British Virgin Islands, the day after arriving on the island. Fans at the restaurant posted photos of the two at dinner and drinks — the kind of low-key sighting that had defined the whole two-month relationship, from Central Park to the Lake District.\n\nThe vacation ended abruptly: reports at the time described a blowout fight, and Taylor flew home alone on January 4. E! News reported she was photographed that day leaving U.S. Customs in St. Johns with her bodyguards — five bags in tow — boarding a boat by herself, with a source saying she \"looked a bit sad and not very happy.\" One frame from that departure, sitting alone on the back of the boat in a blue dress, became the breakup's defining image — one she'd reference a decade later in \"Is It Over Now?\"",
+          "The pair were photographed at CocoMaya, a beach restaurant on Virgin Gorda in the British Virgin Islands, the day after arriving on the island. Fans at the restaurant posted photos of the two at dinner and drinks — the kind of low-key sighting that had defined the whole two-month relationship, from Central Park to the Lake District.\n\nThe vacation ended abruptly: reports at the time described a blowout fight, and Taylor flew home alone on January 4. She was photographed that day leaving U.S. Customs in St. Johns with her bodyguards — five bags in tow — boarding a boat by herself, with a source telling E! News she \"looked a bit sad and not very happy.\" One frame from that departure, sitting alone on the back of the boat in a blue dress, became the breakup's defining image — one she'd reference a decade later in \"Is It Over Now?\"",
         sources: [
           {
             outlet: 'HollywoodLife',
@@ -1160,6 +1200,17 @@ export default {
             url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together' },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `red-wanegbt` stub, which a later vault pass had sourced.
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
+            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
         ],
         // Photo-enrichment pass (2026-07-18, #762): single cover viewed — face sits top-left,
         // so the focal point pulls up-left. Added the 2013 Grammys ringmaster performance of
@@ -1333,6 +1384,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the Central Park stroll that first
+      // confirmed the relationship.
+      relatedIds: [
+        'moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles',
+      ],
       year: 2012,
       month: 12,
       day: 31,
@@ -1385,7 +1441,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The getaway in early January 2013 ended the relationship instead of cementing it: the two reportedly split after a heated argument, and Taylor left the islands early — Styles stayed on, socializing with Richard Branson — while the image of her riding alone on the back of a boat became the breakup\'s unofficial portrait. E! News reported she was photographed on January 4 leaving U.S. Customs in St. Johns with her bodyguards carrying five bags, boarding the boat alone and looking, per a source, "a bit sad and not very happy."\n\nThe whole romance had run only a few months, but it echoed for years: "Style" and "Out of the Woods" on 1989 are widely read as chronicling it, and when "Is It Over Now?" arrived on 1989 (Taylor\'s Version) in 2023, its "blue dress on a boat" line sent the decade-old departure photo viral all over again.',
+          'The getaway in early January 2013 ended the relationship instead of cementing it: the two reportedly split after a heated argument, and Taylor left the islands early — Styles stayed on, socializing with Richard Branson — while the image of her riding alone on the back of a boat became the breakup\'s unofficial portrait. She was photographed on January 4 leaving U.S. Customs in St. Johns with her bodyguards carrying five bags, boarding the boat alone and looking, per a source cited by E! News, "a bit sad and not very happy."\n\nThe whole romance had run only a few months, but it echoed for years: "Style" and "Out of the Woods" on 1989 are widely read as chronicling it, and when "Is It Over Now?" arrived on 1989 (Taylor\'s Version) in 2023, its "blue dress on a boat" line sent the decade-old departure photo viral all over again.',
         sources: [
           { outlet: 'Today', url: 'https://www.today.com/popculture/taylor-swift-harry-styles-relationship-timeline-rcna122164' },
           { outlet: 'Bustle', url: 'https://www.bustle.com/entertainment/when-did-taylor-swift-and-harry-styles-date' },
@@ -1624,6 +1680,9 @@ export default {
     },
     {
       slug: 'red-begin-again-single',
+      // Cross-link (Stage 3, 2026-08-06): the "Begin Again" cluster — the
+      // single, and its music-video companion piece.
+      relatedIds: ['moment:vault-red-begin-again-as-the-soft-landing'],
       year: 2012,
       month: 10,
       day: 1,
@@ -1725,6 +1784,12 @@ export default {
     },
     {
       slug: 'red-conor-kennedy-split',
+      // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster — how
+      // it started, over in the speak-now era.
+      relatedIds: [
+        'moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port',
+        'moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod',
+      ],
       year: 2012,
       month: 10,
       day: 25,
@@ -2427,6 +2492,26 @@ export default {
       snippet: "The transitional masterpiece that pointed straight at pop stardom.",
       hiddenClue: { clue: "A scarf mentioned in one song became the most-discussed accessory in pop.", payoff: "Fans still debate who kept the scarf — a mystery she has coyly refused to fully resolve." },
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-sells-12-million-copies-of-red/',
+            source_title: 'Taylor Swift sells 1.2 million copies of "Red"',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2021/11/taylor-swift-red-taylors-version-review.html',
+            source_title: 'Taylor Swift\'s Red Rerelease Proves What Fans Always Knew',
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Red is maximalist and messy on purpose — dubstep drops next to acoustic confessionals, all of it about one crimson-colored heartbreak.\n\nThe centerpiece, a ten-minute epic, would return years later as a cultural event of its own.",
       },
     },
@@ -2446,6 +2531,26 @@ export default {
       snippet: "A gentle promotional single about hope after heartbreak.",
       video: { youtubeId: "cMPEd8m79Hw", title: "Taylor Swift - Begin Again" },
       moment: {
+        sources: [
+          {
+            outlet: 'HuffPost',
+            url: 'https://www.huffpost.com/2012/09/24/taylor-swift-begin-again_n_1909027.html',
+            source_title: 'Taylor Swift\'s \'Begin Again\' Previewed On \'Good Morning America\'',
+            publisher: 'HuffPost',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-begin-again-preview/',
+            source_title: 'Taylor Swift Samples New Song \'Begin Again\' on \'Good Morning America\'',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
       },
     },
@@ -2461,6 +2566,27 @@ export default {
       snippet: "A dubstep-tinged drop that pushed her sound to its poppiest edge yet.",
       video: { youtubeId: "vNoKguSdy4Y", title: "Taylor Swift - I Knew You Were Trouble" },
       moment: {
+        sources: [
+          {
+            outlet: 'Saving Country Music',
+            url: 'https://savingcountrymusic.com/video-review-taylor-swifts-i-knew-you-were-trouble/',
+            source_title: 'Video Review – Taylor Swift\'s "I Knew You Were Trouble"',
+            publisher: 'Saving Country Music',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+            notes: 'A contemporaneous country-purist outlet objecting to the dubstep pivot — direct evidence for the \'scandalised country purists\' claim rather than a report of it.',
+          },
+          {
+            outlet: 'Gulf News',
+            url: 'https://gulfnews.com/entertainment/taylor-swift-opts-electronic-dubstep-on-her-new-single-1.1087391',
+            source_title: 'Taylor Swift opts electronic dubstep on her new single',
+            publisher: 'Gulf News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "The bass-heavy breakdown scandalized country purists and delighted everyone else, cementing the genre crossover.",
       },
     },
@@ -2489,6 +2615,26 @@ export default {
       title: "The circus-themed Grammy opener",
       snippet: "A theatrical performance opens the ceremony and previews the tour’s scale.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/chicago/news/taylor-swift-opens-the-grammys-circus-style/',
+            source_title: 'Taylor Swift Opens The GRAMMYs Circus-Style',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/archive/7119886/the-best-and-worst-of-the-2013-grammys/',
+            source_title: 'The Best and Worst of the 2013 Grammys',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle.",
         // Photo pass #762 (2026-07-19): E! News' own CDN (akns-images.eonline
         // .com, from E!'s night-of performance story); curl 200 image/jpeg
@@ -2520,14 +2666,48 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "red-everything-changed",
+      // Cross-link (Stage 3, 2026-08-06): the song's writing session.
+      relatedIds: [
+        "moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer",
+      ],
       year: 2013,
       month: 7,
       day: 6,
       category: "music",
       title: "“Everything Has Changed” duet",
       snippet: "A folk-pop collaboration extends the album’s long single run.",
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
       moment: {
+        sources: [
+          {
+            outlet: 'Nashville Scene',
+            url: 'https://www.nashvillescene.com/music/taylor-swift-and-ed-sheerans-everything-has-changed-video-is-entirely-too-cute-fresh-vid/article_9180df09-e061-5c53-84a9-54f5de17b0da.html',
+            source_title: 'Taylor Swift and Ed Sheeran\'s \'Everything Has Changed\' Video Is Entirely Too Cute',
+            publisher: 'Nashville Scene',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
+            source_title: 'Everything Has Changed',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-11',
+            reliability_score: 2,
+            notes: 'Supplement only, for the single release date — never the load-bearing citation.',
+          },
+        ],
         context: "A tender duet kept Red on the charts deep into 2013, well over a year after release.",
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
+            focalPoint: '45% 28%',
+            credit: 'Big Machine Records (single cover art)',
+            kind: 'primary',
+          },
+        ],
       },
     },
   ],

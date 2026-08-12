@@ -48,6 +48,10 @@ export default {
         photos: [
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1',
+            // Photo pass #762 (2026-07-31): viewed. Same frame used elsewhere
+            // in this file for this same shoot — matching that page's focal
+            // point (seated against the tree, face upper-center-right).
+            focalPoint: '52% 22%',
             credit: 'Beth Garrabrant',
             caption: 'folklore-era publicity photograph by Beth Garrabrant, shot with no styling team during lockdown.',
             kind: 'archival',
@@ -68,7 +72,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The arc runs in order: James cheats on Betty over the summer ("august," told by the other girl, who thought it was real), a friend named Inez tells Betty when school starts, and James turns up at Betty\'s party to apologize ("betty") — while "cardigan" is Betty looking back on all of it from years later. The characters are entirely invented, with names borrowed as an affectionate nod to friends\' kids.\n\nThe songs quote each other: James\'s "I dreamt of you all summer long" answers the events of "august," and Betty\'s "chase two girls, lose the one" calls the whole thing. Rolling Stone\'s review counted all three among the album\'s highlights — "the same love triangle, from all three different perspectives" — and decoding which narrator held which detail became the album\'s first fan parlor game in the hours after release.',
+          'The arc runs in order: James cheats on Betty over the summer ("august," told by the other girl, who thought it was real), a friend named Inez tells Betty when school starts, and James turns up at Betty\'s party to apologize ("betty") — while "cardigan" is Betty looking back on all of it from years later. The characters are entirely invented, with names borrowed as an affectionate nod to friends\' kids.\n\nThe songs quote each other: James\'s "I dreamt of you all summer long" answers the events of "august," and Betty\'s "chase two girls, lose the one" calls the whole thing. All three landed among Rolling Stone\'s album highlights — "the same love triangle, from all three different perspectives" — and decoding which narrator held which detail became the album\'s first fan parlor game in the hours after release.',
         sources: [
           {
             outlet: 'ScreenRant',
@@ -85,12 +89,18 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — her face
+            // rests on her knee upper-left of center, cheek to hand.
+            focalPoint: '38% 32%',
             credit: 'Republic Records',
             caption: 'Official single cover for "cardigan" — adult Betty\'s chapter of the triangle.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/3/38/Taylor_Swift_-_Betty.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the
+            // standing figure with guitar sits centered, slightly right.
+            focalPoint: '55% 55%',
             credit: 'Republic Records',
             // Image-fix pass (2026-07-10): ticket #232 — viewed the file: its
             // on-image text reads "betty — Live from the 2020 Academy of Country
@@ -134,12 +144,18 @@ export default {
             // thumbnailUrl above: 1280px render of the same Commons file,
             // verified HTTP 200 + image/jpeg and confirmed legible by eye.
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the white
+            // mansion cluster sits left-of-center, below a wide open sky.
+            focalPoint: '32% 50%',
             credit: 'Wikimedia Commons',
             caption: 'Holiday House on Watch Hill, Rhode Island — Rebekah Harkness\'s mansion, later Taylor\'s.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Rebekah_Harkness_publicity_photo.jpg',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — face is
+            // upper-left of frame, gaze turned toward camera.
+            focalPoint: '38% 32%',
             credit: 'Wikimedia Commons (public domain publicity photo)',
             caption: 'Rebekah Harkness, the "mad" widow of the song\'s first three verses.',
             kind: 'archival',
@@ -166,6 +182,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/U.S._Marines_storm_ashore_on_Guadalcanal%2C_7_August_1942_%2880-CF-112-5-3%29.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — landing
+            // craft and troops run in a horizontal band across the upper third,
+            // with a wide stretch of beach sand below.
+            focalPoint: '50% 30%',
             credit: 'U.S. Marine Corps (public domain), via Wikimedia Commons',
             caption: 'U.S. Marines coming ashore at Guadalcanal, August 1942 — the battle Taylor\'s grandfather Dean fought in and never spoke about.',
             kind: 'archival',
@@ -198,6 +218,11 @@ export default {
             // cabin silhouette, and the white-dressed performer are all clearly
             // visible at this size.
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — an
+            // ultra-wide panorama; the moon and reflection sit left-of-center,
+            // the silhouetted performer sits right-of-center. Split the
+            // difference so a crop keeps both in frame.
+            focalPoint: '55% 55%',
             credit: 'Paolo V (CC BY 2.0), via Wikimedia Commons',
             caption: 'The folklore set\'s moonlit cabin at the Eras Tour, where the album\'s songs were finally staged live.',
             kind: 'archival',
@@ -211,13 +236,16 @@ export default {
       day: 25,
       category: 'release',
       title: 'folklore: The Long Pond Studio Sessions marks her directorial debut',
+      // Cross-link (2026-08-07): the Free People velvet dress she wore filming
+      // these same sessions.
+      relatedIds: ['moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se'],
       snippet:
         'A surprise Disney+ release, filmed in a secluded Hudson Valley studio with Aaron Dessner and Jack Antonoff — her first time directing a film.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
       moment: {
         context:
-          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Taylor, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile."\n\nIt\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes; Rolling Stone\'s Rob Sheffield called it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 16 days later.',
+          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Taylor, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile."\n\nIt\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes — Rob Sheffield\'s Rolling Stone review put it best, calling it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 16 days later.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -231,6 +259,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
+            // Photo pass #762 (2026-08-04): downloaded and viewed — face fills
+            // most of the frame, upper-center and slightly right, eyes closed
+            // at the mic.
+            focalPoint: '55% 38%',
             credit: 'Disney+ (official poster)',
             caption: 'Official release poster for folklore: The Long Pond Studio Sessions.',
             kind: 'primary',
@@ -636,6 +668,13 @@ export default {
       day: 25,
       category: 'fashion',
       title: 'A Free People velvet shirt dress for the Long Pond Studio Sessions',
+      // Cross-link (2026-08-07): the sessions themselves — her directorial
+      // debut, filmed the day she wore this.
+      relatedIds: [
+        'moment:vault-folklore-folklore-the-long-pond-studio-sessions-marks-her-directorial',
+        // Cross-link (Stage 3, 2026-08-10): the "Free People" designer cluster.
+        'moment:vault-midnights-a-70s-lace-slip-dress-and-free-people-fur-coat-for-lavender-',
+      ],
       snippet:
         'For her directorial debut on Disney+, Taylor wore the Free People Lux Velvet Shirt Dress with a Tiffany & Co. bracelet — a cozy, intimate wardrobe matching the stripped-down studio set.',
       sourceUrl:
@@ -762,6 +801,11 @@ export default {
     // sourced from dedicated Wikipedia song pages, NME (citing a December
     // 2020 Entertainment Weekly interview), Billboard, and Rolling Stone.
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-a-festival-instead-of-a-tour',
+        'moment:vault-lover-lover-fest-falls-to-the-pandemic',
+      ],
       year: 2020,
       month: 7,
       day: 24,
@@ -781,6 +825,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/KaM1bCuG4xo/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — the disco
+            // ball sits upper-left, light rays sweeping down and right.
+            focalPoint: '25% 30%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The disco ball from the official "mirrorball" lyric video.',
             kind: 'archival',
@@ -846,7 +893,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Co-written and produced with Aaron Dessner, the song grew from an idea Taylor described in her folklore announcement: "a single thread that, for better or for worse, ties you to your fate." Its lyrics recall reading as a girl at Nashville\'s Centennial Park — "green was the color of the grass where I used to read at Centennial Park" — years before meeting the person the song is about; critics have read those details as tracing the path to her relationship with Joe Alwyn.\n\nNPR ranked it No. 22 on its 100 best songs of 2020, praising "all the beautiful detail, all the muscular melody and immaculately placed acoustic production details." On an album of invented characters, it was the track fans treated as the plainly happy autobiographical one — the rare folklore song where the string holds.',
+          'Co-written and produced with Aaron Dessner, the song grew from an idea Taylor described in her folklore announcement: "a single thread that, for better or for worse, ties you to your fate." Its lyrics recall reading as a girl at Nashville\'s Centennial Park — "green was the color of the grass where I used to read at Centennial Park" — years before meeting the person the song is about; critics have read those details as tracing the path to her relationship with Joe Alwyn.\n\nIt landed at No. 22 on NPR\'s 100 best songs of 2020, which praised "all the beautiful detail, all the muscular melody and immaculately placed acoustic production details." On an album of invented characters, it was the track fans treated as the plainly happy autobiographical one — the rare folklore song where the string holds.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Invisible_String' }],
         // Real-photo pass (2026-07-09): CC BY 3.0 photo of Centennial Park
         // from Wikimedia Commons, used on the song's own Wikipedia article
@@ -1011,14 +1058,14 @@ export default {
       year: 2020,
       month: 12,
       category: 'business',
-      title: 'Rolling Stone names folklore the best album of 2020',
+      title: "folklore is Rolling Stone's best album of 2020",
       snippet:
         "Topping Rolling Stone's year-end ranking of the 50 best albums of 2020, folklore was called potentially \"the definitive quarantine album.\"",
       sourceUrl: 'https://www.rollingstone.com/music/music-lists/best-albums-2020-1096814/taylor-swift-folklore-1096815/',
       thumbnailUrl: null,
       moment: {
         context:
-          "Rolling Stone put folklore at No. 1 on its year-end list of the 50 best albums of 2020, calling it potentially \"the definitive quarantine album.\"\n\nThe writeup framed the win as a creative consequence of the shutdown: without the pressure of a typical rollout, \"Swift shed the über-pop trappings of her previous album, Lover, for a project that put her once-in-a-generation songwriting talent front and center,\" with contributions from the National's Aaron Dessner and Bon Iver's Justin Vernon.",
+          "folklore is Rolling Stone's No. 1 album of 2020 — top of its year-end list of the 50 best albums, called potentially \"the definitive quarantine album.\"\n\nThe writeup framed the win as a creative consequence of the shutdown: without the pressure of a typical rollout, \"Swift shed the über-pop trappings of her previous album, Lover, for a project that put her once-in-a-generation songwriting talent front and center,\" with contributions from the National's Aaron Dessner and Bon Iver's Justin Vernon.",
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1230,7 +1277,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The song started at home: Joe Alwyn — still hidden behind the William Bowery credit — wrote the piano melody and the first verse, and Taylor cut a demo singing both the male and female parts herself. Aaron Dessner built a piano template around that demo and sent it to Justin Vernon, who liked it, wrote his own lyrics for his part, and tracked his side from April Base, his Wisconsin studio — the two never in the same room. The bridge is built as actual counterpoint, two independent melodic lines arguing over each other rather than trading bars — the structural trick everyone covers.\n\nReleased as a single on Aug. 3, 2020, it debuted at No. 6 on the Hot 100 — its peak — reached the top five in Australia, Ireland and New Zealand and the top ten in Canada and the U.K., and became Bon Iver\'s highest-charting song anywhere; it is certified Platinum by the RIAA, Platinum in the U.K., and 4× Platinum in Australia. At the 63rd Grammy Awards in March 2021 it was nominated for Best Pop Duo/Group Performance but lost to Lady Gaga and Ariana Grande\'s "Rain on Me." Taylor and Vernon still hadn\'t met in person by the time the nomination landed — the whole collaboration, like the album around it, happened over sent files.\n\nThey finally shared a stage on Oct. 26, 2022, when Taylor joined Vernon at a Bon Iver show in London for the song\'s live debut; she later played it as a surprise song on the Eras Tour\'s SoFi Stadium run on Aug. 7, 2023. Critics singled the duet out — The New York Times\' Jon Caramanica called it a "lovely, anguished duet," NPR praised its "windswept sonic landscape," and Billboard later ranked it first among Taylor\'s collaborations. The partnership didn\'t end there: five months after folklore, Vernon returned for the title track of evermore, a second Taylor–Bon Iver duet.',
+          'The song started at home: Joe Alwyn — still hidden behind the William Bowery credit — wrote the piano melody and the first verse, and Taylor cut a demo singing both the male and female parts herself. Aaron Dessner built a piano template around that demo and sent it to Justin Vernon, who liked it, wrote his own lyrics for his part, and tracked his side from April Base, his Wisconsin studio — the two never in the same room. The bridge is built as actual counterpoint, two independent melodic lines arguing over each other rather than trading bars — the structural trick everyone covers.\n\nReleased as a single on Aug. 3, 2020, it debuted at No. 6 on the Hot 100 — its peak — reached the top five in Australia, Ireland and New Zealand and the top ten in Canada and the U.K., and became Bon Iver\'s highest-charting song anywhere; it is certified Platinum by the RIAA, Platinum in the U.K., and 4× Platinum in Australia. At the 63rd Grammy Awards in March 2021 it was nominated for Best Pop Duo/Group Performance but lost to Lady Gaga and Ariana Grande\'s "Rain on Me." Taylor and Vernon still hadn\'t met in person by the time the nomination landed — the whole collaboration, like the album around it, happened over sent files.\n\nThey finally shared a stage on Oct. 26, 2022, when Taylor joined Vernon at a Bon Iver show in London for the song\'s live debut; she later played it as a surprise song on the Eras Tour\'s SoFi Stadium run on Aug. 7, 2023. Critics singled the duet out — The New York Times\' Jon Caramanica called it a "lovely, anguished duet," its "windswept sonic landscape" earned praise from NPR, and Billboard later ranked it first among Taylor\'s collaborations. The partnership didn\'t end there: five months after folklore, Vernon returned for the title track of evermore, a second Taylor–Bon Iver duet.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1382,7 +1429,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Taylor framed the character sympathetically, deserving kindness rather than blame for a romance that was never really hers. It entered the Hot 100 at No. 23 in the album\'s opening week, and the outro builds to what one critic described as a full-orchestra major-chord climax — the album\'s biggest purely musical release.\n\nIts stature only grew with time: Rolling Stone\'s Rob Sheffield ranked it fifth among all of Taylor\'s songs in his 2021 catalog ranking, calling it "the album\'s most plainly beautiful ballad," and it earned a spot in the Grammys 2021 folklore medley and the Eras Tour\'s folklore act.',
+          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Taylor framed the character sympathetically, deserving kindness rather than blame for a romance that was never really hers. It entered the Hot 100 at No. 23 in the album\'s opening week, and the outro builds to what one critic described as a full-orchestra major-chord climax — the album\'s biggest purely musical release.\n\nIts stature only grew with time: it landed fifth among all of Taylor\'s songs in Rob Sheffield\'s 2021 Rolling Stone catalog ranking, which called it "the album\'s most plainly beautiful ballad," and it earned a spot in the Grammys 2021 folklore medley and the Eras Tour\'s folklore act.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1400,6 +1447,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg/500px-Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — tall
+            // portrait crop, she's upper third of frame, mic raised, slightly
+            // left of center.
+            focalPoint: '46% 24%',
             credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
             caption: 'Performing "august" during the Eras Tour folklore act, Arlington, March 2023.',
             kind: 'archival',
@@ -1414,6 +1465,9 @@ export default {
       day: 18,
       category: 'release',
       title: 'the lakes: the Lake District escape fantasy, saved for the deluxe edition',
+      // Cross-link (2026-08-07): the real Lake District retreat behind the
+      // song — her 2012 birthday minibreak there.
+      relatedIds: ['moment:vault-red-a-birthday-minibreak-to-the-lake-district-spotted-feeding-do'],
       snippet:
         'The lone bonus track — a Windermere daydream about quitting the discourse and moving somewhere the poets went to die — arrived Aug. 18 on folklore\'s deluxe editions, three weeks after the album.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Lakes_(song)',
@@ -1524,7 +1578,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her first ACM Awards appearance in seven years was staged as minimally as the album itself: seated at the Opry with an acoustic Gibson, a single spotlight glowing behind her, one harmonica player as the entire band, in a burgundy sequined turtleneck.\n\nThe audience-free, pandemic-produced broadcast made it the world television premiere of any folklore song — Variety noted "betty" is the one track on the album that harks back to early Taylor country hits like "Love Story," which made it the natural pick for a country-stage homecoming. It stayed folklore\'s only live TV performance until the Grammys medley the following March.',
+          'Her first ACM Awards appearance in seven years was staged as minimally as the album itself: seated at the Opry with an acoustic Gibson, a single spotlight glowing behind her, one harmonica player as the entire band, in a burgundy sequined turtleneck.\n\nThe audience-free, pandemic-produced broadcast made it the world television premiere of any folklore song — and of the whole album, "betty" is the one track that harks back to early Taylor country hits like "Love Story" (as Variety pointed out), which made it the natural pick for a country-stage homecoming. It stayed folklore\'s only live TV performance until the Grammys medley the following March.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1551,6 +1605,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/orXAg5dIMa8/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — seated
+            // figure and guitar centered, slightly right, spotlight burst
+            // above and behind.
+            focalPoint: '55% 33%',
             credit: 'Taylor Swift via YouTube (official performance video)',
             caption: 'Alone in the spotlight at the Grand Ole Opry House — from the official upload of the 2020 ACM Awards performance.',
             kind: 'primary',
@@ -1561,7 +1619,12 @@ export default {
     {
       slug: 'william-bowery-is-joe',
       // Cross-link (candidate #1428): the exile duet the reveal is about.
-      relatedIds: ['moment:vault-folklore-exile-a-break-up-seen-from-both-sides-with-bon-iver-in-the-o'],
+      // Cross-link (Stage 3, 2026-07-30): + the pseudonym's return on a
+      // Midnights song.
+      relatedIds: [
+        'moment:vault-folklore-exile-a-break-up-seen-from-both-sides-with-bon-iver-in-the-o',
+        'moment:vault-midnights-william-bowery-writes-one-more-midnights-love-song',
+      ],
       year: 2020,
       month: 11,
       day: 25,
@@ -1680,6 +1743,9 @@ export default {
       month: 11,
       day: 24,
       category: 'business',
+      // Cross-link (Stage 3, 2026-08-10): the same Grammy-nominations beat,
+      // four albums later.
+      relatedIds: ['moment:vault-ttpd-fortnights-grammy-double-nominated-for-both-record-and-song-'],
       title: 'Six Grammy nominations for the quarantine album',
       snippet:
         'The Nov. 24, 2020 nominations gave the surprise album a full slate: folklore for Album of the Year and Best Pop Vocal Album, "cardigan" for Song of the Year and Best Pop Solo Performance, "exile" for Best Pop Duo/Group Performance, and her Cats ballad "Beautiful Ghosts" for visual media.',
@@ -1849,7 +1915,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The structure is the story: verses of muted, procedural regret — the parking lots, the perfume worn only for one person — then a bridge where the narrator finally erupts ("don\'t call me kid, don\'t call me baby") and the song simply stops, with no final chorus to tidy it up.\n\nRolling Stone\'s Rob Sheffield flagged the line "a drug that only worked the first few hundred times" in his album review; the Los Angeles Times called the writing more sophisticated than any of her earlier infidelity songs. It never got a single push and didn\'t need one: it peaked at No. 44 on the Hot 100 on album-cut streaming alone, and the whispered-to-shouted bridge became one of the Eras Tour folklore set\'s loudest singalongs.',
+          'The structure is the story: verses of muted, procedural regret — the parking lots, the perfume worn only for one person — then a bridge where the narrator finally erupts ("don\'t call me kid, don\'t call me baby") and the song simply stops, with no final chorus to tidy it up.\n\nThe line "a drug that only worked the first few hundred times" was the one Rob Sheffield flagged in his Rolling Stone album review; the Los Angeles Times called the writing more sophisticated than any of her earlier infidelity songs. It never got a single push and didn\'t need one: it peaked at No. 44 on the Hot 100 on album-cut streaming alone, and the whispered-to-shouted bridge became one of the Eras Tour folklore set\'s loudest singalongs.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1876,6 +1942,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/MLV2SJKWk4M/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — a
+            // symmetric rain-dark road receding into the woods, genuinely
+            // centered.
+            focalPoint: '50% 48%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The rain-dark woods of the official "illicit affairs" lyric video.',
             kind: 'archival',
@@ -1896,7 +1966,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her commentary framed it around people trying their hardest while assuming nobody notices — the kid who "got wasted like all my potential," the person white-knuckling a hard stretch — and she traced part of it to her own 2016–2017 low, when "I just felt like I was worth absolutely nothing."\n\nWritten and produced with Jack Antonoff (Joe Alwyn holds a co-producer credit), it wraps that fragility in organ, horns, and saxophone, with processed vocals that leave the effort audible. Rolling Stone\'s Rob Sheffield called it "the disturbingly witty tale of someone pouring her heart out, to keep herself from pouring more whiskey." It reached No. 39 on the Hot 100 in folklore\'s opening week.',
+          'Her commentary framed it around people trying their hardest while assuming nobody notices — the kid who "got wasted like all my potential," the person white-knuckling a hard stretch — and she traced part of it to her own 2016–2017 low, when "I just felt like I was worth absolutely nothing."\n\nWritten and produced with Jack Antonoff (Joe Alwyn holds a co-producer credit), it wraps that fragility in organ, horns, and saxophone, with processed vocals that leave the effort audible. Rob Sheffield\'s Rolling Stone review called it "the disturbingly witty tale of someone pouring her heart out, to keep herself from pouring more whiskey." It reached No. 39 on the Hot 100 in folklore\'s opening week.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1923,6 +1993,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/9bdLTPNrlEg/hqdefault.jpg',
+            // Photo pass #762 (2026-08-05): downloaded and viewed — the
+            // drive-in screen sits upper-center-right, a wide grass field
+            // filling the lower half.
+            focalPoint: '55% 35%',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The drive-in movie screen of the official "this is me trying" lyric video.',
             kind: 'archival',
@@ -2002,7 +2076,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her open letter laid out why the second sale stung like the first: Braun\'s team, she said, had required an "ironclad" NDA letting her speak only positively about him before any buy-back talks, never quoted her a price, and barred Shamrock from telling her until the deal was done. Braun\'s camp disputed that account — an ex-Ithaca staffer said there had been "multiple offers for her to purchase her masters" and that the NDA never ordered her silent, and reporting later surfaced a May 2020 email in which Braun said he wanted Taylor to own them; he had reportedly offered her the catalog for about $305 million weeks earlier.\n\nThe buyer, Shamrock Capital, is an LA media-and-entertainment investment firm founded in 1978 as Roy E. Disney\'s family office and now managing billions. Variety pegged the sale "north of $300 million" — about what Ithaca paid for all of Big Machine in 2019 — with later reporting putting Shamrock\'s price near $405 million. Shamrock offered Taylor an equity partnership and said it hoped to work with her; she declined, because Braun and Ithaca would keep profiting under the structure, and the firm publicly said it "fully respected and supported her decision."\n\nInstead she doubled down. Her Big Machine deal first allowed re-recording in November 2020, and she began within days — the campaign that produced Fearless (Taylor\'s Version) in April 2021. The re-records did their work: in its first year Fearless (Taylor\'s Version) moved roughly 1 million units to the original\'s ~242,000, eroding the value of the masters Shamrock held until she bought them back outright in May 2025.',
+          'Her open letter laid out why the second sale stung like the first: Braun\'s team, she said, had required an "ironclad" NDA letting her speak only positively about him before any buy-back talks, never quoted her a price, and barred Shamrock from telling her until the deal was done. Braun\'s camp disputed that account — an ex-Ithaca staffer said there had been "multiple offers for her to purchase her masters" and that the NDA never ordered her silent, and reporting later surfaced a May 2020 email in which Braun said he wanted Taylor to own them; he had reportedly offered her the catalog for about $305 million weeks earlier.\n\nThe buyer, Shamrock Capital, is an LA media-and-entertainment investment firm founded in 1978 as Roy E. Disney\'s family office and now managing billions. the sale came in "north of $300 million," per Variety — about what Ithaca paid for all of Big Machine in 2019 — with later reporting putting Shamrock\'s price near $405 million. Shamrock offered Taylor an equity partnership and said it hoped to work with her; she declined, because Braun and Ithaca would keep profiting under the structure, and the firm publicly said it "fully respected and supported her decision."\n\nInstead she doubled down. Her Big Machine deal first allowed re-recording in November 2020, and she began within days — the campaign that produced Fearless (Taylor\'s Version) in April 2021. The re-records did their work: in its first year Fearless (Taylor\'s Version) moved roughly 1 million units to the original\'s ~242,000, eroding the value of the masters Shamrock held until she bought them back outright in May 2025.',
         sources: [
           {
             outlet: 'Variety',
@@ -2104,7 +2178,35 @@ export default {
       milestone: { id: "m-folk-1", label: "folklore surprise drop", kind: "album" },
       snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-announces-new-surprise-album-folklore-featuring-bon-iver-nationals-aaron/',
+            source_title: 'Taylor Swift Announces New Surprise Album \'Folklore,\' Featuring Bon Iver & The National\'s Aaron Dessner',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/897193428',
+            source_title: 'With \'Folklore,\' Taylor Swift Marks Off Her Past And Enters A New Phase',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+        ],
         context: "No rollout, no singles, no warning: folklore arrived overnight and rewrote what a Taylor Swift album could be.\n\nMuted, literary, and fictional, it introduced interlocking character stories fans mapped for months.",
+        // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- checked
+        // Wikimedia Commons, official press kits and album-review outlets for
+        // a distinct release-announcement image; every verifiable candidate
+        // is already the primary photo on a richer sibling moment elsewhere
+        // in this file. Reusing one caused a corpus substance-score
+        // regression when a prior run tried it (2026-08-05, reverted). Left
+        // without a photo.
       },
     },
     // Three duplicate stubs removed here (issue #616, 2026-07-29):
@@ -2133,6 +2235,26 @@ export default {
       milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
       snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-wins-album-year-folklore-2021-grammys/',
+            source_title: 'Taylor Swift Wins Album Of The Year For \'Folklore\' | 2021 GRAMMY Awards Show',
+            publisher: 'The Recording Academy',
+            source_type: 'awards_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
+            source_title: 'Taylor Swift becomes first woman to win Album of the Year Grammy 3 times',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Taylor's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
         // Photo pass #762 (2026-07-19): lead image of Billboard's own AOTY-win
         // story (billboard.com/wp-content, EXIF copyright "2021 Recording

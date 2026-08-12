@@ -106,22 +106,70 @@ export function hostOf(url) {
 }
 
 /**
+ * The `reliability_score` rubric (2026-07-08 audit §5, mirrored in
+ * packages/shared/src/vault-types.ts): 5 official/primary · 4 reputable press ·
+ * 3 trade databases / verified interviews · 2 wikis + moderated fan forums ·
+ * 1 unverified social. Anything outside 1..5 is not a score and is dropped
+ * rather than guessed at.
+ */
+const isReliabilityScore = (v) => Number.isInteger(v) && v >= 1 && v <= 5;
+
+/**
  * Normalize citations from either the legacy `{outlet,url}` shape or the §5
- * `{source_title,publisher,source_url,…}` shape into `{name,url}`, plus the
- * item's top-level source_url. De-duped by url; drops entries without a url.
+ * `{source_title,publisher,source_url,…}` shape into the vault's citation
+ * shape, plus the item's top-level source_url. De-duped by url; drops entries
+ * without a url.
+ *
+ * `reliability` and `type` carry the editor's §5 judgment through to the built
+ * vault. Until 2026-08-11 this function flattened every citation to `{name,
+ * url}`, so ~1.1k hand-scored moment citations (and every typed record's) were
+ * authored, validated, and then thrown away at build time — the app could not
+ * tell a label newsroom from a fan wiki. Both fields are OPTIONAL and omitted
+ * when the seed never recorded one: absent must stay distinguishable from
+ * "scored low", so nothing may default them. The top-level `sourceUrl`
+ * fallback below is deliberately unscored for the same reason — a bare url
+ * carries no provenance judgment.
  */
 export function sourcesFrom(rawSources, sourceUrl) {
   const out = [];
   const seen = new Set();
-  const push = (name, url) => {
+  const push = (name, url, reliability, type) => {
     if (!url || typeof url !== 'string' || seen.has(url)) return;
     seen.add(url);
-    out.push({ name: (name && String(name).trim()) || hostOf(url), url });
+    const entry = { name: (name && String(name).trim()) || hostOf(url), url };
+    if (isReliabilityScore(reliability)) entry.reliability = reliability;
+    if (typeof type === 'string' && type.trim()) entry.type = type.trim();
+    out.push(entry);
   };
   for (const s of Array.isArray(rawSources) ? rawSources : []) {
     if (!s || typeof s !== 'object') continue;
-    push(s.name ?? s.source_title ?? s.publisher ?? s.outlet, s.url ?? s.source_url ?? s.sourceUrl);
+    push(
+      s.name ?? s.source_title ?? s.publisher ?? s.outlet,
+      s.url ?? s.source_url ?? s.sourceUrl,
+      s.reliability_score,
+      s.source_type,
+    );
   }
   push(sourceUrl ? hostOf(sourceUrl) : null, sourceUrl);
   return out;
 }
+
+/**
+ * ONE definition of how a citation is written into a *.generated.ts vault.
+ * Five call sites (content, theories, videos, and two in tracks) used to hold
+ * their own copy of `{ name: …, url: … }`, which is exactly how a field gets
+ * added to `sourcesFrom` and then silently dropped by four of the five
+ * emitters — the failure this repo has shipped three times (see the socialPost
+ * note in sync-longlive-content.mjs). Add a citation field HERE and every
+ * vault gets it.
+ */
+export function sourceLiteral(s) {
+  const parts = [`name: ${esc(s.name)}`, `url: ${esc(s.url)}`];
+  if (isReliabilityScore(s.reliability)) parts.push(`reliability: ${s.reliability}`);
+  if (s.type) parts.push(`type: ${esc(s.type)}`);
+  return `{ ${parts.join(', ')} }`;
+}
+
+/** The TypeScript type literal that `sourceLiteral` output satisfies. */
+export const SOURCE_TYPE_LITERAL =
+  '{ name: string; url: string; reliability?: 1 | 2 | 3 | 4 | 5; type?: string }';

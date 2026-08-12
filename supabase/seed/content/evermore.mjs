@@ -109,6 +109,18 @@ export default {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
           },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `evermore-no-body-no-crime` stub — backs the Eras Tour
+          // live-debut photo below.
+          {
+            outlet: 'Guitar.com',
+            url: 'https://guitar.com/news/music-news/taylor-swift-haim-no-body-no-crime/',
+            source_title: 'Watch Taylor Swift\'s live debut of No Body, No Crime with Haim',
+            publisher: 'Guitar.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
         ],
         // Photo-enrichment pass (2026-07-29): added the official lyric-video
         // still (YouTube channel "Taylor Swift", oEmbed-verified) alongside
@@ -124,6 +136,20 @@ export default {
             focalPoint: '50% 50%',
             credit: 'Republic Records / YouTube (official "no body, no crime" lyric video still)',
             kind: 'video-still',
+          },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `evermore-no-body-no-crime` stub, where photo pass #762
+          // (2026-07-31) had verified it: the song's live debut with HAIM,
+          // billboard.com's own CDN (outlet-CDN rule), curl HTTP 200 +
+          // image/jpeg, vision-confirmed — matches the Eras Tour opener
+          // detail in the context above.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/07/taylor-swift-haim-eras-tour-2023-billboard-1548.jpg',
+            focalPoint: '55% 22%',
+            credit: 'Mat Hayward/TAS23/Getty Images, via Billboard',
+            caption:
+              'Taylor Swift performs "no body, no crime" with HAIM (Este on bass, Danielle on electric guitar) at Lumen Field in Seattle, July 22, 2023 — the song\'s live debut.',
+            kind: 'primary',
           },
         ],
       },
@@ -368,7 +394,7 @@ export default {
       day: 22,
       category: 'business',
       significance: 'defining', // an unprecedented chart record for a song fans had wanted for a decade (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a'],
+      relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a', 'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1'],
       title: 'All Too Well (10 Minute Version) becomes the longest song ever to hit No. 1',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -384,7 +410,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
-          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.',
+          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.\n\nBoth the song and its parent album debuted at No. 1 in the same week — Variety called them "twin No. 1 chart debuts" — with Red (Taylor\'s Version) entering the Billboard 200 on top and the ten-minute cut bowing at No. 1 on the Hot 100, an unusually direct payoff for a track fans had spent nearly a decade asking her to release in full. The version was a "From the Vault" recording, a restored expansion of the 5:29 song from 2012\'s Red, and Swift leaned the entire promotional push on it: she performed the full ten minutes on Saturday Night Live on Nov. 13, 2021 — one of the longest musical performances in the show\'s history — premiered the self-directed short film in New York, and surprised the theater audience with an acoustic set. The record it broke had stood since January 1972, so a fifty-year-old benchmark fell to a song most listeners already knew by heart.',
         sources: [
           {
             outlet: 'Guinness World Records',
@@ -397,6 +423,10 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/chart-beat/morgan-wallen-single-week-hot-100-record-36-songs-one-thing-at-a-time-1235285241/',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2021/music/news/taylor-swift-charts-album-single-all-too-well-red-taylors-version-1235117515/',
           },
         ],
         // Image-fix pass (2026-07-10): tickets #193/#147 — old Guinness URL was
@@ -759,6 +789,9 @@ export default {
       year: 2021,
       month: 11,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): another Red (TV) release-week look,
+      // the same week.
+      relatedIds: ['moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s'],
       title: "The 'siren red' lip and cat eye that came to define the Red (TV) era",
       snippet:
         'Overlined red-liner-and-matte-lipstick "siren red" mouth, a fine-tipped black liquid cat eye, and flat-ironed, straight-across bangs — the signature beauty look of the re-release run.',
@@ -1013,6 +1046,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
+      relatedIds: [
+        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
+        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
+      ],
       year: 2021,
       month: 11,
       day: 11,
@@ -1060,6 +1098,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "David Koma" designer cluster.
+      // (2026-08-10): + the "siren red" beauty look from the same release week.
+      relatedIds: [
+        'moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi',
+        'moment:vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv',
+      ],
       year: 2021,
       month: 11,
       day: 11,
@@ -1102,6 +1146,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "David Koma" designer cluster.
+      relatedIds: [
+        'moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s',
+      ],
       year: 2021,
       month: 11,
       day: 13,
@@ -1269,7 +1317,7 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Taylor was photographed arriving at Republic Records\' post-show party at the Fleur Room in New York City on August 28, 2022.\n\nShe wore a royal blue silk mini romper by Moschino embroidered with glittery stars — which Nylon described as "channeling \'midnight\'" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip.',
+          'Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Taylor was photographed arriving at Republic Records\' post-show party at the Fleur Room in New York City on August 28, 2022.\n\nShe wore a royal blue silk mini romper by Moschino embroidered with glittery stars — a glittery nod to the album title landing months before fans would put it together, per Nylon\'s take: "channeling \'midnight\'" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip.',
         sources: [
           { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-2022-mtv-vmas-after-party-outfit' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/' },
@@ -1518,6 +1566,20 @@ export default {
             // She stands with the white guitar on the right side of the frame; her face sits upper-right.
             focalPoint: '60% 25%',
           },
+          // Photo pass #762 (2026-07-27): a second, distinct angle — the
+          // step-and-repeat arrival, not the onstage performance shot above.
+          // Verified via khak.com's own CDN (townsquare.media, the
+          // Townsquare Media radio-group infrastructure that hosts the
+          // station's own galleries — not a watermarked comp): HTTP 200 +
+          // image/webp, 1600x2400, downloaded and viewed — the "Nashville
+          // Songwriter Awards" step-and-repeat is visible behind her.
+          {
+            url: 'https://townsquare.media/site/204/files/2022/09/attachment-taylor-swift-songwriter-2.jpg',
+            focalPoint: '51% 14%',
+            credit: 'Townsquare Media',
+            caption: 'Swift on the step-and-repeat at the 2022 Nashville Songwriter Awards, where she accepted Songwriter-Artist of the Decade.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -1574,6 +1636,9 @@ export default {
       month: 6,
       day: 11,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively and Ryan
+      // Reynolds" recurring-friends cluster.
+      relatedIds: ['moment:vault-lover-blake-lively-and-ryan-reynolds-help-her-ring-in-30-at-oscar-'],
       title: "A Tribeca Q&A ends in a surprise \"All Too Well\" singalong, Blake Lively and Ryan Reynolds in the crowd",
       snippet:
         'At the Beacon Theatre for a live conversation about her short film, Taylor revealed easter eggs, talked directing ambitions, and broke into an unplanned performance of the 10-minute song — with Lively and Reynolds singing along from the audience.',
@@ -1692,6 +1757,9 @@ export default {
       month: 4,
       day: 7,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the album the vault-track format
+      // it introduced went on to define.
+      relatedIds: ['moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault'],
       title: 'Mr. Perfectly Fine opens the vault',
       snippet:
         'The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor\'s Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner\'s Instagram verdict: "It\'s not NOT a bop."',
@@ -1749,8 +1817,11 @@ export default {
     {
       slug: 'all-too-well-short-film-premiere',
       significance: 'notable', // her feature directorial debut, the artistic follow-through on the 10-minute version's record-setting run (docs/decisions.md, 2026-07-19)
+      // Cross-link (Stage 3, 2026-07-30): + the Grammy win the short film
+      // later earned.
       relatedIds: [
-          'moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins','moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever'],
+          'moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins','moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever',
+          'moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a'],
       year: 2021,
       month: 11,
       day: 12,
@@ -1829,6 +1900,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
+            focalPoint: '58% 68%',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Carolina," from the Where the Crawdads Sing soundtrack.',
             kind: 'primary',
@@ -2046,7 +2118,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/tP4TTgt4nb0/hqdefault.jpg',
       moment: {
         context:
-          'After the wedding fantasies and murder ballads, it\'s the record\'s most adult song: no villain, just two accurate memories of the same marriage refusing to cancel each other out. Aaron Dessner had composed the instrumental back in 2019; Taylor added the words just days before the album was finished — the same last-minute tradition as folklore\'s "the 1" and "hoax."\n\nThe lyrics thread references to F. Scott Fitzgerald\'s The Great Gatsby through the wreckage, and critics singled the song out immediately — Stereogum\'s Tom Breihan called it "a masterful piece of recording and songwriting." It charted at No. 54 on the Hot 100 on album-week streams alone, without ever being a single.',
+          'After the wedding fantasies and murder ballads, it\'s the record\'s most adult song: no villain, just two accurate memories of the same marriage refusing to cancel each other out. Aaron Dessner had composed the instrumental back in 2019; Taylor added the words just days before the album was finished — the same last-minute tradition as folklore\'s "the 1" and "hoax."\n\nThe lyrics thread references to F. Scott Fitzgerald\'s The Great Gatsby through the wreckage, and it\'s the kind of songwriting critics couldn\'t help singling out immediately — Stereogum critic Tom Breihan called it "a masterful piece of recording and songwriting." It charted at No. 54 on the Hot 100 on album-week streams alone, without ever being a single.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2085,6 +2157,225 @@ export default {
             // Focal point set by viewing: his face sits left of center in the
             // upper third, mic angled in from the right.
             focalPoint: '44% 28%',
+          },
+        ],
+      },
+    },
+    // evermore↔folklore parity fill (2026-07-30, content-shift, #1141): four
+    // of evermore's standard tracks had song items already, but ivy, dorothea,
+    // long story short and closure did not — and the era file dangles at two of
+    // them (the NSAI-speech item cites "ivy" as Taylor's flagship Quill lyric;
+    // "'tis the damn season" names Dorothea as a character "whose namesake
+    // track sits later on the album"). This pass authors ivy, dorothea and long
+    // story short so those hooks land somewhere. Sources: each song's Wikipedia
+    // page + Slate's evermore track-by-track (already trusted in this file, see
+    // gold rush). closure remains for a later run. Photos deferred to Photo
+    // Enrichment: no lyric-video still could be id-verified in this headless env.
+    {
+      slug: 'ivy-clandestine-affair',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: "ivy, a clandestine affair that grows like the vine it's named for",
+      snippet:
+        'A married woman drawn into a secret affair that creeps from winter into spring like ivy — and the one song Taylor later named as her flagship "Quill" lyric, the most literary pen she owns.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
+      moment: {
+        context:
+          'Track 10, and the record at its most literary: a married woman pulled into a clandestine affair that spreads from winter into spring the way ivy winds and tightens around whatever it climbs. Taylor wrote it with Aaron Dessner and Jack Antonoff, Dessner producing the folk arrangement of guitar, faint sleigh bells and banjo. Slate\'s track-by-track called it "overrun with metaphors but mostly in an enticing, thematically fitting way" — "good Swiftian dark-fairytale grist" whose tangle of images conceals "the secret… an engaged woman being drawn into a clandestine affair."\n\nIt is also the song Taylor points to when she explains her own craft. Accepting the NSAI Songwriter-Artist of the Decade honor in 2022, she sorted her lyrics into "Quill," "Fountain Pen" and "Glitter Gel Pen" pens — and named "ivy" as her flagship "Quill" lyric, the antiquated, literary register she reaches for least often and loves most. On evermore it is the purest example of that pen on the whole record.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+            source_title: 'Ivy (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-08-01, #762/#1141): official "ivy" lyric-video
+        // still. oEmbed-verified the video (9nIOx-ezlzA) is titled "Taylor
+        // Swift - ivy (Official Lyric Video)" on the @TaylorSwift channel;
+        // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 480x360,
+        // downloaded and vision-confirmed (foggy moss-roofed cottage).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
+            focalPoint: '44% 58%',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption: 'Still from the official "ivy" lyric video — a moss-roofed cottage in the fog, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'dorothea-the-one-who-stayed',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'dorothea, sung by the one who stayed behind',
+      snippet:
+        'The hometown girl who left for Hollywood, sung by the lover who stayed — the same character as "\'tis the damn season," told from the other side. The album\'s plainest act of tenderness.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Dorothea_(song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/zI4DS5GmQWE/hqdefault.jpg',
+      moment: {
+        context:
+          'Track 8, and the answer to a question the album asks earlier: who is Dorothea? She is the hometown girl who left Tupelo, Mississippi for Hollywood and never quite came back, and this song is sung by the one who stayed — happy for her success, certain he\'d always take her call. It is the same character and the same small town as "\'tis the damn season," which Taylor wrote from Dorothea\'s own point of view; together the two tracks tell one story from both ends. She wrote it with Aaron Dessner, who produced it and felt it carried folklore\'s world forward into evermore.\n\nSlate heard "a welcome lack of fuss," Taylor reaching for "her old high-school-romance-songs vocal tone to reminisce," and critics warmed to it fast — "luminous" is the word The Guardian\'s Alexis Petridis reached for on the melody. After the murder ballads and divorce songs elsewhere on the record, dorothea is its plainest act of tenderness: a love that asks for nothing back.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Dorothea_(song)',
+            source_title: 'Dorothea (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-08-01, #762/#1141): official "dorothea" lyric-video
+        // still. oEmbed-verified the video (zI4DS5GmQWE) is titled "Taylor
+        // Swift - dorothea (Official Lyric Video)" on the @TaylorSwift channel;
+        // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 480x360,
+        // downloaded and vision-confirmed (prairie field at golden hour).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/zI4DS5GmQWE/hqdefault.jpg',
+            focalPoint: '50% 48%',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption: 'Still from the official "dorothea" lyric video — a prairie at golden hour, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'long-story-short-i-survived',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'long story short — "I survived"',
+      snippet:
+        'The reputation era seen from the far side: over golden gates and pedestals she looks back at 2016 and, instead of re-litigating it, shrugs — "long story short, I survived."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Long_Story_Short_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/rqQHa2HcGtM/hqdefault.jpg',
+      moment: {
+        context:
+          'Track 12 is the reputation era seen from the far side of it. Over golden gates and pedestals, Taylor looks back at the 2016–17 stretch when she was knocked off her footing in public — and instead of re-litigating it, she shrugs it off in the refrain: "long story short, it was a bad time… long story short, I survived." She wrote it with Aaron Dessner, who also produced it.\n\nIt reframes an entire era as something to move past rather than avenge. "The best track of evermore" — Billboard\'s Jason Lipshutz\'s call; Slate, more measured, landed on the same note — "a fairly slight song but an earned valedictory address." Where reputation itself answered the backlash with armor, "long story short" answers it years later with peace.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Long_Story_Short_(Taylor_Swift_song)',
+            source_title: 'Long Story Short (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-30',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-08-01, #762/#1141): official "long story short"
+        // lyric-video still. oEmbed-verified the video (rqQHa2HcGtM) is titled
+        // "Taylor Swift - long story short (Official Lyric Video)" on the
+        // @TaylorSwift channel; i.ytimg.com is YouTube's own CDN; curl 200
+        // image/jpeg 480x360, downloaded and vision-confirmed (a coffee mug and
+        // open journal on a warm-lit desk).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/rqQHa2HcGtM/hqdefault.jpg',
+            focalPoint: '46% 60%',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption: 'Still from the official "long story short" lyric video — a coffee mug and an open journal, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    // evermore↔folklore parity fill, part 2 (2026-08-01, content-shift, #1141):
+    // completes Part A of the ticket — the fourth of the four storyless standard
+    // tracks. ivy, dorothea and long story short landed on 2026-07-30 (#1637);
+    // closure is authored here. Same sourcing pattern: the song's Wikipedia page
+    // + Slate's evermore track-by-track (already trusted in this file, see gold
+    // rush). Photo deferred to Photo Enrichment. Part B of the ticket — a native
+    // surprise-drop "defining" beat for the album's December 2020 release — is
+    // still open after this pass.
+    {
+      slug: 'closure-no-closure-needed',
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: 'music',
+      title: 'closure, the 5/4 kiss-off that turns down the tidy ending',
+      snippet:
+        'evermore\'s most experimental track: an off-kilter 5/4 song wrapped in clattering, industrial drums, where Taylor takes an olive branch from someone who wronged her and hands it straight back — "I don\'t need your closure."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+      thumbnailUrl: 'https://i.ytimg.com/vi/AIFnKqIeEdY/hqdefault.jpg',
+      moment: {
+        context:
+          'Track 14, and the strangest thing on the record. Built in an off-kilter 5/4 meter and dressed in clattering, industrial electro-rock drums lurching against a plain acoustic piano, "closure" is the song critics reach for when they call evermore experimental. Taylor wrote it with Aaron Dessner and cut it with him and co-producers BJ Burton and James McAlister; Dessner has pointed to it as the track that opened the album up — the one where they refused to set themselves any limits. Slate called it an "electroacoustic kiss-off" and, whatever it made of the words, granted that sonically it was "a real ear-cleaner" this deep into the album.\n\nThe lyric is the sharp part. Someone who wronged her has sent a letter dressed up as an olive branch, and the whole song is Taylor declining it: she\'s doing better, she knows it\'s over, and she can see the gesture is really for their peace of mind, not hers — so, pointedly, "I don\'t need your closure." Slate, less charmed by the words, filed it under her "tedious public airings of some music-industry grudge"; the other read is that refusing a hollow reconciliation is its own kind of resolution. Either way it is the rare Taylor song that turns down the tidy ending on purpose.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+            source_title: 'Closure (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-01',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-01',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-08-01, #762/#1141): official "closure" lyric-video
+        // still. oEmbed-verified the video (AIFnKqIeEdY) is titled "Taylor
+        // Swift - closure (Official Lyric Video)" on the @TaylorSwift channel;
+        // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 480x360,
+        // downloaded and vision-confirmed (aged letters and a lit candle).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/AIFnKqIeEdY/hqdefault.jpg',
+            focalPoint: '52% 46%',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption: 'Still from the official "closure" lyric video — aged letters and a single candle, via the video\'s YouTube thumbnail.',
+            kind: 'archival',
           },
         ],
       },
@@ -2170,6 +2461,8 @@ export default {
       relatedIds: [
         'moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas',
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+        // Cross-link (Stage 3, 2026-08-10): the vault-track format's debut.
+        'moment:vault-evermore-mr-perfectly-fine-opens-the-vault',
       ],
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
@@ -2293,6 +2586,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            focalPoint: '35% 28%',
             credit: 'Republic Records / Beth Garrabrant (album cover)',
             caption: "The Red (Taylor's Version) cover, revealed with the June 18, 2021 announcement.",
             kind: 'primary',
@@ -2331,6 +2625,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png',
+            focalPoint: '50% 42%',
             credit: '37d03d / Jagjaguwar (single cover art)',
             caption: 'Cover artwork for Big Red Machine\'s "Renegade," featuring Taylor Swift.',
             kind: 'primary',
@@ -2399,6 +2694,9 @@ export default {
       month: 11,
       day: 15,
       category: 'release',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively" recurring-friend
+      // cluster.
+      relatedIds: ['moment:vault-midnights-a-crescent-moon-dress-for-her-34th-birthday-with-blake-livel'],
       title: 'Blake Lively directs "I Bet You Think About Me" — wedding-cake carnage included',
       snippet:
         'The vault track got a Nov. 15, 2021 video directed by Blake Lively in her directing debut, with Miles Teller as the groom and Taylor as the red-dressed ghost of relationships past, cheerfully ruining a wedding.',
@@ -2466,6 +2764,13 @@ export default {
       month: 2,
       day: 11,
       category: 'release',
+      // Cross-link (Stage 3, 2026-07-30): + the Red Tour's Omaha opening
+      // night, which put Ed Sheeran on the road with her right after
+      // "Everything Has Changed" was written.
+      relatedIds: [
+        'moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer',
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
+      ],
       title: 'The Joker and the Queen: an Ed Sheeran duet with a nine-year Easter egg',
       snippet:
         'Out Feb. 11, 2022 — her verse added to Sheeran\'s piano ballad, with a video that reunites the two kids from 2013\'s "Everything Has Changed" video, now teenagers, finding each other again at college.',
@@ -2491,6 +2796,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png',
+            focalPoint: '50% 50%',
             credit: 'Asylum / Atlantic Records (single cover art)',
             caption: 'Cover artwork for Ed Sheeran\'s "The Joker and the Queen," featuring Taylor Swift.',
             kind: 'primary',
@@ -2814,6 +3120,67 @@ export default {
       },
     },
 
+    // Part B of #1141 (evermore↔folklore parity): the era had a Dec-11
+    // "willow leads / folklore's sister arrives" release-day card and the
+    // Dec-26 chart-double item, but no native beat for the *announcement
+    // itself* — the surprise-drop move that folklore's "Sixteen hours' notice"
+    // item gets in full. This is that beat. Dated Dec 10 (the announcement) to
+    // sit a day ahead of the Dec-11 release cluster, exactly as folklore's
+    // announcement beat sits a day ahead of its release. Verified this session
+    // (2026-08-02) against Wikipedia (Evermore album, fetched directly),
+    // Rolling Stone's announcement report, and Good Morning America (the
+    // birthday note + the simultaneous "willow" video premiere).
+    {
+      slug: 'evermore-surprise-announcement',
+      significance: 'defining', // the surprise drop repeated — proof folklore's no-rollout model was a method, not a one-off (mirrors folklore's Sixteen-hours beat)
+      year: 2020,
+      month: 12,
+      day: 10,
+      category: 'release',
+      title: "Doing the impossible twice: evermore's surprise announcement",
+      snippet:
+        '"To put it plainly, we just couldn\'t stop writing songs." Five months after folklore, a second surprise album — announced December 10, out at midnight eastern.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp',
+        'moment:vault-evermore-folklores-sister-arrives',
+      ],
+      moment: {
+        context:
+          'Five months after folklore appeared with barely a day\'s warning, Taylor did the thing that was supposed to be a one-time trick a second time. On December 10, 2020 she posted that "my 9th studio album, and folklore\'s sister record, will be out tonight at midnight eastern. It\'s called evermore." Hours later the record and the "willow" music video arrived together — no lead single, no countdown, no rollout, just the note, the cover art, the track list, and then the songs.\n\nThe note framed evermore not as leftover folklore material but as a deliberate walk further in: "To put it plainly, we just couldn\'t stop writing songs. To try and put it more poetically, it feels like we were standing on the edge of the folklorian woods and had a choice: to turn and go back or to travel further into the forest of this music. We chose to wander deeper in." The collaborators came with her — Aaron Dessner and Jack Antonoff producing, Bon Iver on the title-track duet, HAIM on "no body no crime," and the returning "William Bowery" (Joe Alwyn), with the National and Marcus Mumford in the credits.\n\nThe timing carried her own numerology. evermore landed two days before her 31st birthday, and she said so in the note: "Ever since I was 13, I\'ve been excited about turning 31 because it\'s my lucky number backwards, which is why I wanted to surprise you with this now. You\'ve all been so caring, supportive and thoughtful on my birthdays and so this time I thought I would give you something!" She added that she knew the holiday season "will be a lonely one for most of us," offering the album to anyone who, like her, turns to music to cope with missing people. What folklore had proved a surprise album *could* do, evermore proved she could do on purpose — and the double No. 1 debut that followed (told in this era\'s chart items) made it twice in a single year, a feat no artist had pulled off even once before.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-02',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-evermore-album-surprise-1101630/',
+            source_title: "Taylor Swift Announces Ninth Album 'Evermore'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-announces-surprise-9th-studio-album-evermore-74646424',
+            source_title: "Taylor Swift announces surprise 9th studio album 'evermore' to be released at midnight",
+            publisher: 'ABC / Good Morning America',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
@@ -2834,6 +3201,26 @@ export default {
       milestone: { id: "m-ever-1", label: "evermore surprise drop", kind: "album" },
       snippet: "A second surprise album in five months — warmer, rustier, and just as literary.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-albums-guide-eras-discography/',
+            source_title: 'Songbook: An Era-By-Era Breakdown Of Taylor Swift\'s Journey From Country Starlet To Pop Phenomenon',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-announces-evermore-the-surprise-sister-record-to-folklore-157598',
+            source_title: 'Taylor Swift Announces \'evermore,\' the Surprise \'Sister Record\' to \'folklore\'',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.\n\nTaylor announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\"",
         // Photo pass #762 (2026-07-19): alternate official frame of the
         // "willow" video, which premiered alongside the album at midnight —
@@ -2865,6 +3252,26 @@ export default {
       snippet: "The lead single doubles as the album's only official single release.",
       video: { youtubeId: "RsEZmictANA", title: "Taylor Swift - willow" },
       moment: {
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/watch-taylor-swifts-music-video-for-willow-2836507',
+            source_title: 'Watch Taylor Swift\'s fantastical new music video for \'Willow\'',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-brings-folklore-album-life-2021-grammys-medley-2021-grammy-awards-show/',
+            source_title: 'Taylor Swift Brings \'Folklore\' Album to Life With 2021 GRAMMYs Medley',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+        ],
         context: "\"willow\" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys.",
         // Photo pass #762 (2026-07-19): official video still — ID RsEZmictANA
         // (already cited by this entry's video field) verified via YouTube
@@ -2899,7 +3306,32 @@ export default {
       title: "The deluxe edition adds two tracks",
       snippet: "\"right where you left me\" and \"it's time to go\" arrive a month after the album.",
       moment: {
-        context: "A deluxe edition released three weeks after the original, adding \"right where you left me\" and \"it's time to go\" — both later folded into the era's standard track list on streaming.",
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-releases-digital-deluxe-edition-of-evermore-featuring-two-bonus-songs-2851027',
+            source_title: 'Stream Taylor Swift\'s deluxe edition of \'Evermore\', featuring two bonus songs',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2021/01/stream-taylor-swift-evermore-deluxe-edition-bonus-tracks/',
+            source_title: 'Taylor Swift Releases evermore Deluxe Edition Bonus Tracks "Right Where You Left Me" and "It\'s Time to Go": Stream',
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
+        // Corrected 2026-08-11: the deluxe shipped on CD and vinyl alongside
+        // the original in December; only the two bonus tracks' STREAMING
+        // release was later (2021-01-07, four weeks on). Both citations below
+        // say so, and "three weeks" also contradicted this item's own snippet.
+        context:
+          "The two deluxe-edition bonus tracks reached streaming four weeks after the original — \"right where you left me\" and \"it's time to go\", both later folded into the era's standard track list.",
         // Photo pass #762 (2026-07-19): official lyric-video still — ID
         // Ur_wAcYDnuA verified via YouTube oEmbed ("Taylor Swift - right
         // where you left me (Official Lyric Video)", author "Taylor Swift");
@@ -2927,6 +3359,26 @@ export default {
       title: "\"marjorie,\" for her grandmother",
       snippet: "A tribute built partly from archival recordings of Taylor's late grandmother, opera singer Marjorie Finlay.",
       moment: {
+        sources: [
+          {
+            outlet: 'South China Morning Post',
+            url: 'https://www.scmp.com/magazines/style/entertainment/article/3244204/who-was-taylor-swifts-opera-singer-grandma-marjorie-finlay-pop-stars-lookalike-relative-was-star',
+            source_title: 'Who was Taylor Swift\'s opera singer grandma, Marjorie Finlay?',
+            publisher: 'South China Morning Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/features/taylor-swift-grandmother-marjorie-opera-singer-evermore-vocals/',
+            source_title: 'Taylor Swift Features Grandmother\'s Opera Singing Vocals On Evermore Track \'Marjorie\'',
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "The song incorporates real vocal recordings of Marjorie Finlay, Taylor's grandmother and a professional opera singer who died in 2003 — Taylor has spoken about writing it as a way of \"bringing her back.\"",
         // Photo pass #762 (2026-07-19): official lyric-video still — ID
         // hP6QpMeSG6s verified via YouTube oEmbed ("Taylor Swift - marjorie

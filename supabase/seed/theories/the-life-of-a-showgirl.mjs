@@ -8,7 +8,7 @@ const wiki = (article, title, notes) => ({
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  accessed_at: '2026-07-08',
+  accessed_at: '2026-08-08',
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
@@ -42,6 +42,130 @@ export default {
       outcome: 'confirmed',
       relatedSlugs: ['tortured-poets:peter-pan-throughline'],
       sources: [wiki('The_Fate_of_Ophelia', 'The Fate of Ophelia')],
+    },
+    {
+      // Density pass for #686 (2026-08-11). TLOAS sat at a single easter egg
+      // (ophelia-rewrite) while every legacy era had been lifted; folklore and
+      // evermore stay with #445, so this newest era was the real gap in-lane.
+      // Interpolation = an official songwriting credit, so this is a hard,
+      // confirmed egg, not a fan read. Fact verified live 2026-08-11: the
+      // Wikipedia song article documents the George Michael co-write. Kept the
+      // titular hook out of our prose to stay well inside the lyric-quote limit.
+      slug: 'father-figure-george-michael-interpolation',
+      kind: 'easter_egg',
+      title: "Father Figure, built on George Michael's own",
+      claim:
+        'Track 4, "Father Figure," is not just named after George Michael\'s 1987 classic — it interpolates it, rebuilding the hook and melody of Michael\'s chorus inside a TS12 song. The tell is in the credits: George Michael is listed as a co-writer, a Wham!-era hitmaker folded whole into the album decades on.',
+      evidence:
+        'An interpolation re-records a song\'s musical elements rather than sampling the original master, and it shows up as a formal songwriting credit — which is exactly where this one is documented, with George Michael credited as a co-writer on "Father Figure." Coverage describes Swift\'s track as an interpolation of Michael\'s song, reusing its title-line hook and a similar melody. Reaching back into a specific catalog and crediting it in the liner metadata is the same buried-clue instinct that runs through her rollouts; here the clue is hiding in the songwriting credits themselves.',
+      confidence: 'reputable_reporting',
+      outcome: 'confirmed',
+      relatedSlugs: ['the-life-of-a-showgirl:ophelia-rewrite'],
+      sources: [
+        {
+          source_url: 'https://en.wikipedia.org/wiki/Father_Figure_(Taylor_Swift_song)',
+          source_title: 'Father Figure (Taylor Swift song)',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-08-11',
+          reliability_score: 2,
+          excerpt: null,
+          notes:
+            'Documents that the song interpolates George Michael\'s "Father Figure" (title-line hook + similar melody) and credits George Michael as a co-writer. Verified live 2026-08-11.',
+        },
+      ],
+    },
+    {
+      // Density pass for #686 (2026-08-11). The "Track 5" tradition is a
+      // Swift-acknowledged pattern, not a stretch: the fifth song is reliably
+      // the album's most emotionally raw. Critics slotted "Eldest Daughter"
+      // (confirmed track 5 here) straight into that lineage. Cross-era number/
+      // structure lore, squarely the kind of egg this ticket wants. Verified
+      // live 2026-08-11 against the song's Wikipedia article.
+      slug: 'eldest-daughter-track-five',
+      kind: 'easter_egg',
+      title: 'Eldest Daughter and the Track 5 rule',
+      claim:
+        'Swifties treat track 5 as sacred: since Fearless, the fifth song on each album is reliably her most emotionally exposed — a pattern she has spoken about and fans now brace for. On The Life of a Showgirl, track 5 is "Eldest Daughter," and reviewers immediately read it as this album\'s Track 5 confessional.',
+      evidence:
+        'The "Track 5" convention — the album\'s most vulnerable, confessional song deliberately placed fifth — is a long-documented Swift signature running through the catalog (e.g. "The Archer" on Lover, "mirrorball" on folklore). "Eldest Daughter" is the fifth track on The Life of a Showgirl, and critics placed it directly in that lineage, comparing it to "The Archer" and "mirrorball" and their shared themes of perseverance, desperation and perfectionism. The egg is structural rather than hidden-in-the-art: knowing the rule tells a listener where to look for the album\'s emotional core before pressing play.',
+      confidence: 'reputable_reporting',
+      outcome: 'confirmed',
+      relatedSlugs: ['the-life-of-a-showgirl:ophelia-rewrite'],
+      sources: [
+        {
+          source_url: 'https://en.wikipedia.org/wiki/Eldest_Daughter',
+          source_title: 'Eldest Daughter',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-08-11',
+          reliability_score: 2,
+          excerpt: null,
+          notes:
+            'Confirms "Eldest Daughter" is the fifth track on The Life of a Showgirl and that critics compared it to prior Track 5 songs ("The Archer", "mirrorball"). Verified live 2026-08-11.',
+        },
+      ],
+    },
+    {
+      // Density pass for #686 (2026-08-11). The lead-single video is documented
+      // as carrying self-referential easter eggs; that is the egg. Verified live
+      // 2026-08-11. NOTE: the source also lists a Kelce reference among the
+      // video's callbacks — deliberately EXCLUDED here to stay clear of the
+      // relationship redline; the egg is the track-to-track and Eras Tour
+      // self-references plus the Science World cameo, all about the art.
+      slug: 'ophelia-video-self-references',
+      kind: 'easter_egg',
+      title: 'The Ophelia video, hiding the rest of the album',
+      claim:
+        'The video for lead single "The Fate of Ophelia" is seeded with easter eggs — visual callbacks to other songs on The Life of a Showgirl and to moments from the Eras Tour — plus a brief cameo of Vancouver\'s Science World near the end. The rollout hid the album inside its own opening visual.',
+      evidence:
+        'Documentation of the video notes that it features easter eggs referencing other tracks from The Life of a Showgirl and moments from the Eras Tour, and that Vancouver\'s Science World makes a brief appearance near the end. Planting references to the record\'s other songs inside the first video is the same self-referential clue-laying — the album teasing itself — that has defined her visual rollouts since the reputation and Lover eras; here it runs through the era\'s very first frames.',
+      confidence: 'reputable_reporting',
+      outcome: 'confirmed',
+      relatedSlugs: ['the-life-of-a-showgirl:ophelia-rewrite'],
+      sources: [
+        {
+          source_url: 'https://en.wikipedia.org/wiki/The_Fate_of_Ophelia',
+          source_title: 'The Fate of Ophelia',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-08-11',
+          reliability_score: 2,
+          excerpt: null,
+          notes:
+            'Documents that the music video features easter eggs referencing other TLOAS tracks and Eras Tour moments, and a Science World cameo. The Kelce reference the source also lists is intentionally omitted per the privacy redlines. Verified live 2026-08-11.',
+        },
+      ],
+    },
+    {
+      // Density pass for #686 (2026-08-11). Number lore — explicitly named in
+      // the ticket as fair game. The 12-on-12 alignment is FACT (twelfth studio
+      // album, twelve-track standard edition, both verified live 2026-08-11);
+      // whether it is a deliberate wink is the fan read, so this is graded, not
+      // asserted. No relationship/announcement framing — pure numerics.
+      slug: 'ts12-twelfth-album-twelve-tracks',
+      kind: 'easter_egg',
+      title: 'TS12: the twelfth album, twelve tracks',
+      claim:
+        'The Life of a Showgirl is Taylor\'s twelfth studio album, and its standard edition runs exactly twelve tracks — the era Swifties had been counting toward and tagging "TS12" before it had a title. Fans read the twelve-on-twelfth alignment as one more of her deliberate number games.',
+      evidence:
+        'The album is her twelfth studio LP and its standard tracklist is twelve songs long — both plain, documented facts. Swift has a long, self-acknowledged history of number play (the recurring 13 motif; release dates and track counts used as planted clues), which is why fans read the twelve-on-twelfth symmetry as intentional rather than incidental. The alignment itself is verified fact; the intent behind it is the fan reading, so the egg is graded partially confirmed — the numbers line up, but Taylor has not itemized this one as a wink.',
+      confidence: 'strong_fan_consensus',
+      outcome: 'partially_confirmed',
+      relatedSlugs: ['the-life-of-a-showgirl:orange-era-clues'],
+      sources: [
+        {
+          source_url: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
+          source_title: 'The Life of a Showgirl',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-08-11',
+          reliability_score: 2,
+          excerpt: null,
+          notes:
+            'Confirms it is her twelfth studio album with a twelve-track standard edition. Verified live 2026-08-11.',
+        },
+      ],
     },
     {
       // Authored 2026-07-20 from intake #945. A fan easter-egg read of an

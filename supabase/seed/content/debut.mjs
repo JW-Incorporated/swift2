@@ -37,6 +37,56 @@ export default {
             focalPoint: '28% 38%',
             credit: 'Big Machine Records (single cover art)',
           },
+          // Photo pass #762 (2026-07-27): a live companion to the cover art —
+          // three days before this single's June 19, 2006 release. Verified
+          // via Wikimedia Commons (HTTP 200 + image/jpeg, downloaded and
+          // viewed); the file's own Commons description confirms the date
+          // and venue.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Taylor_Swift.jpg',
+            focalPoint: '50% 18%',
+            credit: 'Dwight McCann, CC BY-SA 2.5, via Wikimedia Commons',
+            caption: 'Performing at the Maverick Saloon & Grill in Santa Maria, California, June 16, 2006 — three days before "Tim McGraw" came out.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'willow-island-madison-2006',
+      year: 2006,
+      month: 8,
+      day: 4,
+      category: 'sighting',
+      title: 'A free set at Willow Island, near the bottom of the bill',
+      snippet:
+        'Six weeks after her first single, a 16-year-old played about ten of her own songs for a crowd of roughly 60 at a Madison radio-station party.',
+      sourceUrl:
+        'https://captimes.com/entertainment/music/when-taylor-swift-played-a-free-madison-show-20-years-ago/article_b4d3dfcb-4dc2-4b23-a305-5468971f8ac5.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Aug. 4, 2006: "Tim McGraw" had been at country radio for about six weeks, the debut album was still two months out, and a 16-year-old took the 4:45 p.m. Friday slot — near the bottom of a six-act national lineup — at Willow Island in Madison, Wisconsin, for country station Q106\'s free birthday party on the Brat Fest grounds. She played roughly ten of her own songs, among them "Picture to Burn," "Our Song" and "I\'d Lie," and closed on her single, to a crowd The Cap Times\' Tom Alesia puts at "60 or so." Her mother Andrea had driven her and a hired guitarist up from Nashville that morning.\n\nMadison kept a soft spot for her. On Oct. 29, 2007 — the album out, "Our Song" climbing, a Brad Paisley arena tour just ahead — she came back to the Madison Marriott West, where Q106 named her "Madison\'s choice for country music\'s best new artist" and handed her a glass statue in front of about a thousand fans. One of them, Lenora Lawrence, still has the cowboy hat Taylor signed "love love love," curled around with stars and twirls — a small souvenir of the fifteen months between a radio-park afternoon for sixty people and the awards this career was about to start collecting.',
+        sources: [
+          {
+            outlet: 'The Cap Times',
+            url: 'https://captimes.com/entertainment/music/when-taylor-swift-played-a-free-madison-show-20-years-ago/article_b4d3dfcb-4dc2-4b23-a305-5468971f8ac5.html',
+          },
+        ],
+        // No freely licensed image of the 2006 Willow Island set exists (the
+        // article's photos are outlet/contributor-credited, not reusable-host),
+        // so this stays honest era-context: a genuine, already-verified 2006
+        // public-domain appearance shot — not the Willow Island afternoon
+        // itself. Vault Run 2026-08-07 (Content Shift lane, Closes #1832).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG',
+            credit: 'Wikimedia Commons (public domain)',
+            caption:
+              'A real 2006 appearance — curly hair and a printed dress, the same first-year-signed-artist stretch as the Madison show, though not that afternoon.',
+            kind: 'archival',
+            focalPoint: '68% 35%',
+          },
         ],
       },
     },
@@ -412,7 +462,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
       moment: {
         context:
-          'Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before "Fearless" brought in gold sequins and more polish.\n\nW Magazine\'s style-evolution piece files the whole period under one figure: "the curly-haired country girl of the Taylor Swift era." The look wasn\'t incidental — it was of a piece with the music, a teenager with an acoustic guitar singing confessional country, dressed like the girl-next-door those songs were narrated by. It read as authenticity first and fashion second, which is exactly why later eras could get so much mileage out of subverting it.',
+          'Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before "Fearless" brought in gold sequins and more polish.\n\nOne figure sums up the whole period, per W Magazine\'s style-evolution piece: "the curly-haired country girl of the Taylor Swift era." The look wasn\'t incidental — it was of a piece with the music, a teenager with an acoustic guitar singing confessional country, dressed like the girl-next-door those songs were narrated by. It read as authenticity first and fashion second, which is exactly why later eras could get so much mileage out of subverting it.',
         sources: [
           { outlet: 'Who What Wear', url: 'https://www.whowhatwear.com/taylor-swift-style-eras' },
           { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
@@ -456,7 +506,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg',
       moment: {
         context:
-          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era: W Magazine\'s evolution piece literally names the period after it, "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (loosened around 2011 and fully straightened by the Red era, long before reputation\'s sleeker looks) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
+          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era — literally its name in W Magazine\'s evolution piece: "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (loosened around 2011 and fully straightened by the Red era, long before reputation\'s sleeker looks) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
         sources: [
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/beauty/hair/g12774421/taylor-swift-hair/' },
           { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
@@ -483,6 +533,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Sandi Spika" designer cluster.
+      relatedIds: ['moment:vault-debut-a-sandi-spika-drop-waist-gown-for-the-2007-acm-awards'],
       year: 2008,
       month: 2,
       day: 10,
@@ -618,6 +670,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Sandi Spika" designer cluster.
+      relatedIds: ['moment:vault-debut-a-purple-sandi-spika-gown-for-her-first-grammys'],
       year: 2007,
       month: 5,
       day: 15,
@@ -630,7 +684,7 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces',
       moment: {
         context:
-          'Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007 — the same ceremony where she performed "Tim McGraw" to Tim McGraw\'s face and then introduced herself with "Hi, I\'m Taylor." One of two Sandi Spika red-carpet gowns she wore across 2006-2008, the designer who dressed most of her earliest big nights.\n\nThe retrospectives don\'t fully agree on the dress: Nylon logs it as a custom drop-waist Sandi Spika gown, while W Magazine\'s evolution piece files her 2007 ACM look as a pink corseted Sandi Spika gown. Either way it sits right at the hinge point in her early styling — the last stretch before the more structured, corseted silhouettes took over that year\'s CMAs and the 2008 Grammys.',
+          'Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007 — the same ceremony where she performed "Tim McGraw" to Tim McGraw\'s face and then introduced herself with "Hi, I\'m Taylor." One of two Sandi Spika red-carpet gowns she wore across 2006-2008, the designer who dressed most of her earliest big nights.\n\nThe retrospectives don\'t fully agree on the dress: one calls it a custom drop-waist Sandi Spika gown, another describes her 2007 ACM look as a pink corseted Sandi Spika gown. Either way it sits right at the hinge point in her early styling — the last stretch before the more structured, corseted silhouettes took over that year\'s CMAs and the 2008 Grammys.',
         sources: [
           { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp' },
           { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
@@ -688,6 +742,10 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Rascal Flatts" pair — the
+      // diary entry the day she got the call, and the tour opening it led
+      // to — now interlink.
+      relatedIds: ['moment:vault-debut-her-first-arena-tour-opening-for-rascal-flatts-on-a-days-not'],
       year: 2006,
       month: 10,
       day: 18,
@@ -855,6 +913,10 @@ export default {
     },
     // --- Music/business/fashion/sighting depth pass 3 (2026-07-05)
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Teardrops on My Guitar" pair —
+      // who the song was about, and the single's radio-to-pop crossover —
+      // now interlink.
+      relatedIds: ['moment:vault-debut-teardrops-on-my-guitar-goes-to-radio-and-then-to-pop'],
       year: 2006,
       month: 10,
       day: 24,
@@ -878,7 +940,22 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
+            // Photo pass #762 (2026-08-09): downloaded and viewed (316x316) —
+            // her face sits in the upper-left quadrant of the cover.
+            focalPoint: '35% 25%',
             credit: 'Big Machine Records (single cover art)',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo — official video
+          // still. oEmbed-verified videoId xKCek6_dB0M belongs to the
+          // official @TaylorSwift channel; i.ytimg.com is YouTube's own CDN;
+          // curl 200 image/jpeg 640x480, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/xKCek6_dB0M/sddefault.jpg',
+            // Face sits right-of-center, upper third.
+            focalPoint: '68% 33%',
+            credit: 'Big Machine Records / YouTube (official "Teardrops on My Guitar" music video still)',
+            caption: 'A close-up still from the "Teardrops on My Guitar" video — Taylor holding the neck of an acoustic guitar as she sings.',
+            kind: 'archival',
           },
         ],
       },
@@ -890,7 +967,12 @@ export default {
       category: 'music',
       // Cross-link (candidate #1047, 2026-07-25): the grown-up Hendersonville High
       // regret ("Ruin the Friendship") rooted in the same school.
-      relatedIds: ['moment:vault-tloas-ruin-the-friendship-a-regret-from-hendersonville-high'],
+      // Cross-link (Stage 3, 2026-07-30): + the "Picture to Burn" single's
+      // own top-10 chart run.
+      relatedIds: [
+        'moment:vault-tloas-ruin-the-friendship-a-regret-from-hendersonville-high',
+        'moment:vault-debut-picture-to-burn-makes-it-four-straight-top-10s',
+      ],
       title: 'Picture to Burn, and the line rewritten for radio',
       snippet:
         "Born from an after-school outburst -- \"I hate his stupid truck that he doesn't let me drive. He's such a redneck!\" -- that became the chorus of her only anger-driven song on the debut album.",
@@ -1106,6 +1188,9 @@ export default {
     // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
     {
       significance: 'notable', // became genuine pop-culture shorthand — referenced on Ellen and in her own later lyrics, not just a private breakup (docs/decisions.md, 2026-07-19)
+      // Cross-link (Stage 3, 2026-07-30): the "Joe Jonas" pair — how the
+      // relationship began, and the phone call that ended it — now interlink.
+      relatedIds: ['moment:vault-debut-the-joe-jonas-chapter-begins'],
       year: 2008,
       month: 10,
       category: 'relationship',
@@ -1156,6 +1241,8 @@ export default {
     // the audit's additive provenance fields.
     {
       slug: 'rascal-flatts-opening-run',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Rascal Flatts" moment.
+      relatedIds: ['moment:vault-debut-her-diary-entry-the-day-she-got-the-call-to-open-for-rascal-'],
       year: 2006,
       month: 10,
       day: 17,
@@ -1593,7 +1680,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
       moment: {
         context:
-          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record (cut across Nashville studios; Robert Ellis Orrall co-produced).\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song ("Tim McGraw" hides "can\'t tell me nothin\'," "Our Song" "live in love") — a code she\'d repeat on every album booklet through 1989 (2014), starting here.\n\nIts lead single, "Tim McGraw" (June 19, 2006), was named after an established country star so an ex would think of her when he heard it; co-written with Liz Rose in a fifteen-minute after-school session, it reached No. 6 on Hot Country Songs and No. 40 on the Hot 100. Four more singles followed, and "Our Song" — which she wrote alone in the ninth grade — went to No. 1, making her the youngest person to single-handedly write and perform a Hot Country Songs chart-topper. The album existed at all because Scott Borchetta, having heard her at Nashville\'s Bluebird Café, made her the first artist signed to his new label, Big Machine, after she had walked away from an RCA development deal at 14. Reviews were warm if not rapturous (Metacritic 67; Rolling Stone called her "the Tammy Wynette of t.m.i."), and the record eventually certified 8x platinum — a debut that simply never stopped selling. Its green cover was shot by Andrew Orth, a family friend who had photographed her since before fame.',
+          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record (cut across Nashville studios; Robert Ellis Orrall co-produced).\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. She arrived, at 16, "with a fully formed idea of herself as an artist," in the words of Billboard\'s own tenth-anniversary retrospective — simply put.\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song ("Tim McGraw" hides "can\'t tell me nothin\'," "Our Song" "live in love") — a code she\'d repeat on every album booklet through 1989 (2014), starting here.\n\nIts lead single, "Tim McGraw" (June 19, 2006), was named after an established country star so an ex would think of her when he heard it; co-written with Liz Rose in a fifteen-minute after-school session, it reached No. 6 on Hot Country Songs and No. 40 on the Hot 100. Four more singles followed, and "Our Song" — which she wrote alone in the ninth grade — went to No. 1, making her the youngest person to single-handedly write and perform a Hot Country Songs chart-topper. The album existed at all because Scott Borchetta, having heard her at Nashville\'s Bluebird Café, made her the first artist signed to his new label, Big Machine, after she had walked away from an RCA development deal at 14. Reviews were warm if not rapturous (Metacritic 67; "the Tammy Wynette of t.m.i.," per Rolling Stone), and the record eventually certified 8x platinum — a debut that simply never stopped selling. Its green cover was shot by Andrew Orth, a family friend who had photographed her since before fame.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1753,11 +1840,28 @@ export default {
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-07-24',
           },
+          {
+            // Rumor Desk 2026-08-09: a more concrete signal than the earlier
+            // easter-egg reads — an inventory-restock flag — but sourced to a
+            // fan-run tracking bot and a tabloid write-up, not to Taylor. Same
+            // forward-looking debut-re-record question, fresh data point.
+            claim:
+              'A fan-run inventory bot ("Taylor Swift Store Updates") flagged ~250,000 vinyl records restocked in Swift\'s webstore warehouse — with per-unit weights suggesting multi-LP sets — which fans and tabloids read as a sign the finished re-recording of her 2006 debut could arrive around its 20th anniversary on Oct 24, 2026. A Target listing briefly showed SEO text for a "Taylor Swift 20" set.',
+            reportedBy: 'Radar Online (Alex West), via AOL',
+            reportedOn: '2026-08-07',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/taylor-swift-allegedly-restocks-250-200000000.html',
+            note: 'A more concrete signal than the easter-egg reads above, but sourced to a fan-bot and a tabloid write-up — Taylor and her team have said nothing. The re-recording is on record as finished (her May 2025 letter: "already completely re-recorded my entire debut album"); only the release is unannounced. Resolves on a debut Taylor\'s Version announcement, fades if anniversary passes empty. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-09',
+          },
         ],
       },
     },
     {
       slug: 'teardrops-single-release',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Teardrops on My Guitar" moment.
+      relatedIds: ['moment:vault-debut-teardrops-on-my-guitar-and-the-classmate-who-showed-up-in-he'],
       year: 2007,
       month: 2,
       day: 20,
@@ -1811,6 +1915,8 @@ export default {
     },
     {
       slug: 'picture-to-burn-single',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Picture to Burn" moment.
+      relatedIds: ['moment:vault-debut-picture-to-burn-and-the-line-rewritten-for-radio'],
       year: 2008,
       month: 2,
       day: 4,
@@ -1823,7 +1929,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
       moment: {
         context:
-          'Sent to country radio on Feb. 4, 2008, it peaked at No. 3 on Hot Country Songs and No. 28 on the Hot 100 — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, with "Should\'ve Said No" still to come as the fifth that May.\n\nThe Trey Fanjoy video, premiered March 14, staged the revenge fantasy with real pyrotechnics at Nashville\'s Sommet Center and cast her actual high-school best friend, Abigail Anderson, in her backup band. Billboard\'s anniversary retrospective files it as the founding document of her "woman-scorned" mode; the RIAA eventually certified it double platinum.',
+          'Sent to country radio on Feb. 4, 2008, it peaked at No. 3 on Hot Country Songs and No. 28 on the Hot 100 — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, with "Should\'ve Said No" still to come as the fifth that May.\n\nThe Trey Fanjoy video, premiered March 14, staged the revenge fantasy with real pyrotechnics at Nashville\'s Sommet Center and cast her actual high-school best friend, Abigail Anderson, in her backup band. It\'s the founding document of her "woman-scorned" mode, per Billboard\'s anniversary retrospective; the RIAA eventually certified it double platinum.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2146,6 +2252,8 @@ export default {
     },
     {
       slug: 'joe-jonas-summer-2008',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Joe Jonas" moment.
+      relatedIds: ['moment:vault-debut-joe-jonas-ends-it-in-a-27-second-phone-call'],
       year: 2008,
       month: 7,
       category: 'relationship',
@@ -2280,7 +2388,21 @@ export default {
             notes: 'carries her "they wanted to shelf me" quote and the RCA walkaway account',
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-31): freely licensed interior of Nashville's
+        // Bluebird Cafe — the listening room this moment is set in. Verified
+        // HTTP 200 + image/jpeg + downloaded and vision-confirmed this session
+        // (1380x886). Contextual venue photo, honestly captioned: the performer
+        // pictured is not Taylor.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Jamie_Meyer_at_Bluebird_Cafe%2C_Nashville.jpg',
+            focalPoint: '37% 44%',
+            credit: 'Uppsalaelle, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              "Inside the Bluebird Cafe's listening room in Nashville — the tiny, in-the-round space where a mid-set industry showcase like the November 2004 round that caught Scott Borchetta's ear plays out just feet from the crowd. (A later night at the venue; the performer pictured is not Taylor.)",
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -2475,6 +2597,26 @@ export default {
       title: "Curls, sundresses and cowboy boots",
       snippet: "The visual signature of the debut era: sunlit country-girl Americana.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/newyork/news/taylor-swifts-fashion-evolution/',
+            source_title: 'Taylor Swift\'s Fashion Evolution',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-style-eras-explained-200200209.html',
+            source_title: 'Taylor Swift\'s style eras, explained: Her fashion evolution from 2006 to now',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Ringlet curls, floaty sundresses, and well-worn cowboy boots became the uniform of the debut era — a look as handmade and earnest as the songs.",
         // Shop pass (2026-07-22): no single named pair or dress -- a
         // current cowboy boot, verified in stock, the era's recurring prop.
@@ -2513,6 +2655,26 @@ export default {
       snippet: "At 17, she becomes the youngest person to single-handedly write and perform a number-one country hit.",
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       moment: {
+        sources: [
+          {
+            outlet: 'Country Standard Time',
+            url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=1195',
+            source_title: 'Taylor Swift jumps to top of country chart, replacing Carrie Underwood',
+            publisher: 'Country Standard Time',
+            source_type: 'chart_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Country Now',
+            url: 'https://countrynow.com/remember-when-taylor-swift-released-our-song/',
+            source_title: 'Remember When Taylor Swift Released \'Our Song?\'',
+            publisher: 'Country Now',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke.",
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // MV id Jb2stN7kH28 verified via YouTube oEmbed this session
