@@ -16,7 +16,9 @@
 //      the same campaign+platform or the same body? Skip loudly, don't
 //      repost (see the 2026-07-17 triple-post note below).
 //   3. Era-art guard + same-run media dedupe (no network).
-//   4. Deploy-lag preflight (network, so checked after the free checks).
+//   4. Deploy-lag preflight (network, so checked after the free checks) —
+//      an item whose media isn't live yet WAITS: no publish, no attempt
+//      spent, ships itself on the first run after the deploy lands.
 //   5. ONLY items that pass 2-4 consume one of the MAX_POSTS_PER_RUN slots
 //      and actually get posted — a run that selects 5 due items but 3 are
 //      blocked no longer wastes its whole cap on items that never post.
@@ -50,9 +52,27 @@
 // happened; without that the failed/ move would never land and the item would
 // retry against the same wall forever.
 //
-// Environment overrides (both for tests only, never set in the workflow):
+// Two states deliberately spend NO attempt, so an item in either can never
+// reach social/failed/ through the attempts counter:
+//   - skipped  — idempotency/era-art/same-run-dedupe blocks (authoring or
+//                state problems, not transient failures).
+//   - waiting  — media not yet live on the site (lib/preflight.mjs); the
+//                item is fine, its image PR just hasn't merged/deployed.
+// Both are right, and both were invisible until 2026-08-11:
+// social/queue/2026-08-09-august-augustine-ig.json was skipped every 30
+// minutes for two days inside runs that exited 0. The escalation ladder now:
+// run-report.mjs reddens either state past STUCK_AFTER_HOURS (24h — loud
+// while the item is still recoverable), and isStaleDue (48h, step 1 above)
+// retires it to social/failed/ a day later if nothing changed.
+//
+// Environment overrides (all for tests only, never set in the workflow):
 //   SOCIAL_ROOT             — repo root to read social/** from.
 //   SOCIAL_POSTER_REPORT    — file to write the markdown report to.
+//   SOCIAL_IG_POLL_TIMEOUT_MS / SOCIAL_IG_POLL_INTERVAL_MS
+//                           — bounds for the Instagram container-readiness
+//                             poll (lib/ig-container.mjs), so a test can
+//                             exercise the timeout path in milliseconds
+//                             instead of the real 90 seconds.
 
 import { readdir, readFile, writeFile, appendFile, rm } from 'node:fs/promises';
 import path from 'node:path';
@@ -62,6 +82,7 @@ import {
   eraArtGuardReason,
   isStaleDue,
   isValidScheduledAt,
+  hoursOverdue,
   MAX_POSTS_PER_RUN,
   recentInstagramPosts,
   countPostedToday,
@@ -101,6 +122,17 @@ async function moveToFailed(failedDir, entry, failed) {
   await rm(entry.full);
 }
 
+/** Container-poll bounds, defaulted in lib/ig-container.mjs and overridable
+ * only so tests don't have to burn the real 90-second ceiling. */
+function igPollOptions() {
+  const options = {};
+  const timeoutMs = Number(process.env.SOCIAL_IG_POLL_TIMEOUT_MS);
+  const intervalMs = Number(process.env.SOCIAL_IG_POLL_INTERVAL_MS);
+  if (Number.isFinite(timeoutMs) && timeoutMs > 0) options.timeoutMs = timeoutMs;
+  if (Number.isFinite(intervalMs) && intervalMs >= 0) options.intervalMs = intervalMs;
+  return options;
+}
+
 async function postOne(item) {
   const creds = {
     apiKey: process.env.X_API_KEY,
@@ -112,7 +144,9 @@ async function postOne(item) {
   const igAccessToken = process.env.IG_ACCESS_TOKEN;
 
   if (item.platform === 'x') return postToX(item, creds, MEDIA_BASE_URL);
-  if (item.platform === 'instagram') return postToInstagram(item, { ...creds, accessToken: igAccessToken }, MEDIA_BASE_URL);
+  if (item.platform === 'instagram') {
+    return postToInstagram(item, { ...creds, accessToken: igAccessToken }, MEDIA_BASE_URL, igPollOptions());
+  }
   throw new Error(`Unknown platform "${item.platform}"`);
 }
 
@@ -182,7 +216,7 @@ async function finish(outcomes, { abortReason } = {}) {
     console.error(
       abortReason
         ? 'social-poster: exiting non-zero — the run aborted with due work it could not attempt.'
-        : 'social-poster: exiting non-zero — at least one post permanently failed and was NOT published.',
+        : 'social-poster: exiting non-zero — at least one post permanently failed and was NOT published, or has been stuck past schedule long enough that it will never post on its own.',
     );
   }
   return outcomes;
@@ -304,19 +338,40 @@ export async function main() {
       if (repeatedThisRun) blockReason = `media "${repeatedThisRun}" was already posted earlier in this same run — not reposting it again this run.`;
     }
 
-    // 4. Deploy-lag preflight (network — checked last among the free/cheap
-    // checks above, and only reached if none of them already blocked it).
-    if (!blockReason && needsMediaPreflight(item)) {
-      const preflight = await mediaUrlsReachable(mediaUrlsFor(item, MEDIA_BASE_URL));
-      if (!preflight.ok) {
-        blockReason = `media not deployed yet — ${preflight.reason} (merged but not live at ${MEDIA_BASE_URL} yet?)`;
-      }
-    }
-
     if (blockReason) {
       console.error(`social-poster: SKIPPING ${entry.file} — ${blockReason} Left in the queue, not counted as a failed attempt.`);
-      outcomes.push({ kind: OUTCOME.SKIPPED, file: entry.file, platform: item.platform, error: `${blockReason} Left in the queue, not counted as a failed attempt.` });
+      outcomes.push({
+        kind: OUTCOME.SKIPPED,
+        file: entry.file,
+        platform: item.platform,
+        error: `${blockReason} Left in the queue, not counted as a failed attempt.`,
+        overdueHours: hoursOverdue(item, now),
+      });
       continue;
+    }
+
+    // 4. Deploy-lag preflight (network — checked last among the free/cheap
+    // checks above, and only reached if none of them already blocked it).
+    // A not-yet-deployed image is a WAITING outcome, not a skip: nothing is
+    // wrong with the item, its image PR just hasn't merged/deployed, and it
+    // ships itself on the first run after the deploy lands. No publish, no
+    // Graph write, no attempt spent. See lib/preflight.mjs — and
+    // lib/run-report.mjs's isStuck for the 24h bound that stops this state
+    // from hiding forever.
+    if (needsMediaPreflight(item)) {
+      const preflight = await mediaUrlsReachable(mediaUrlsFor(item, MEDIA_BASE_URL));
+      if (!preflight.ok) {
+        const reason = `its media is not live at ${MEDIA_BASE_URL} yet — ${preflight.reason}. The platform fetches media by URL, so publishing now would fail. Waiting for the image PR to merge and deploy; no attempt spent, still queued.`;
+        console.error(`social-poster: WAITING ${entry.file} — ${reason}`);
+        outcomes.push({
+          kind: OUTCOME.WAITING,
+          file: entry.file,
+          platform: item.platform,
+          error: reason,
+          overdueHours: hoursOverdue(item, now),
+        });
+        continue;
+      }
     }
 
     // 5. Only an item that survived every check above consumes one of the

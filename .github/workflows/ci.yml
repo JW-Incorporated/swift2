@@ -32,6 +32,11 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run validate:content
+      # Schema gate for social/queue/** (2026-08-11). validate:content only
+      # ever covered supabase/seed/**, so until now the first validator a
+      # queue item met was the live platform API — see
+      # scripts/social/lib/queue-schema.mjs for the eleven X posts that cost.
+      - run: npm run validate:social
       - run: npm run check:generated
       - run: npm run check:content-inert
       - run: npm run check:automerge-allowlist

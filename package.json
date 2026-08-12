@@ -38,6 +38,7 @@
     "check:work-ownership": "node scripts/check-work-ownership.mjs",
     "check:no-downgrade": "node scripts/check-no-downgrade.mjs",
     "validate:content": "node scripts/validate-content.mjs",
+    "validate:social": "node scripts/social/validate-queue.mjs",
     "check:content-inert": "node scripts/check-content-inert.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
     "depth:months": "node scripts/depth-rows-per-month.mjs",
