@@ -10,6 +10,7 @@ import { tracksForEra } from '@/lib/longlive/tracks';
 import { eraStyle } from '@/lib/longlive/theme';
 import { OverlayNav } from './OverlayNav';
 import { trackKey } from './TrackDetail';
+import { TrackFivePill } from './TrackFivePill';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { EraId, TrackNote } from '@/lib/longlive/types';
 
@@ -60,7 +61,13 @@ export function TrackGuide() {
 
       {/* Compact era-art header */}
       <div className="relative h-[28vh] min-h-44 w-full">
-        <Image src={era.image || '/placeholder.svg'} alt="" fill priority className="object-cover" />
+        <Image
+          src={era.image || '/placeholder.svg'}
+          alt=""
+          fill
+          priority
+          className="object-cover"
+        />
         <div
           className="absolute inset-0"
           style={{
@@ -96,6 +103,9 @@ export function TrackGuide() {
 function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
   const { openTrack } = useAppActions();
   const hasDeepDive = Boolean((track.discussion && track.discussion.length > 0) || track.dossier);
+  // Derived from track position, never authored per-track (#689) — so the badge
+  // can't drift from the data. Only shows when track 5 actually has a note row.
+  const isTrackFive = track.trackNumber === 5;
 
   // The WHOLE CARD opens the song (#498: Joey — "you should be able to click
   // anywhere in the rectangle"). The card must stay an <li>, not a <button>:
@@ -123,22 +133,31 @@ function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
         {hasDeepDive ? (
           <button
             onClick={() => openTrack(trackKey(eraId, track))}
-            className="group flex w-full items-baseline justify-between gap-3 text-left"
+            className="group flex w-full items-center justify-between gap-3 text-left"
             aria-label={`${track.title} — open song dossier`}
           >
-            <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold leading-snug underline-offset-4 group-hover:underline">
-              {track.title}
-            </h2>
-            <ArrowUpRight className="h-4 w-4 shrink-0 self-center text-[color:var(--era-ink-soft)]" aria-hidden />
+            <span className="flex min-w-0 flex-wrap items-center gap-2">
+              <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold leading-snug underline-offset-4 group-hover:underline">
+                {track.title}
+              </h2>
+              {isTrackFive && <TrackFivePill />}
+            </span>
+            <ArrowUpRight
+              className="h-4 w-4 shrink-0 self-center text-[color:var(--era-ink-soft)]"
+              aria-hidden
+            />
           </button>
         ) : (
-          <div className="flex items-baseline justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
               {track.title}
             </h2>
+            {isTrackFive && <TrackFivePill />}
           </div>
         )}
-        <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{track.note}</p>
+        <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          {track.note}
+        </p>
         {track.sources && track.sources.length > 0 && (
           <p className="mt-2 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
             {track.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
