@@ -142,6 +142,15 @@ already-resident data — no backend or payload change) but it's new scope
 versus the current engineering spec's acceptance criteria and needs to be
 added there explicitly, not assumed.
 
+**Addendum 2 (Wyatt, 2026-08-11 — live-site feedback):** the filter stays
+*opt-in* (nothing is filtered until you pick a chip) but it is no longer
+*hidden*. The chips render inline and permanently in the era section's
+filter rail instead of behind a "Filter" disclosure, which cost an extra
+interaction on every single use. The "don't add a persistent filter row to
+every one of ~230 months" concern above is satisfied by the shipped layout
+regardless: the rail lives once per **era section** (12 of them), not once
+per month, and it only renders for eras that actually have tagged content.
+
 ## 5. Editorial bar (formalizes what `_example.mjs` already implies)
 
 The seed template already encodes real constraints via DB CHECK

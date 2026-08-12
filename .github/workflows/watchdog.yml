@@ -285,6 +285,56 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
+      # Work-ownership check (2026-08-11). Every other job in this file watches
+      # whether a RUNNER is alive. None of them watch whether the WORK has an
+      # owner, and that is the failure the 2026-08-11 audit actually found: on
+      # the day this shipped, 183 issues were open and 4 had an assignee, both
+      # red launch gates had been "routed" for weeks by comment to a desk whose
+      # own fence excludes their change type, and 9 non-draft PRs were more than
+      # a week old. Nothing anywhere alarmed, because routing is prose — a
+      # sentence in a thread that no runner queries.
+      #
+      # Zero AI, same shape as every other alert here: one persistent issue per
+      # condition via upsert-alert.sh, real email, self-closing when it recovers.
+      #
+      # Budgeted, not zero-thresholded. `.github/work-ownership-budget.json` is
+      # seeded at the backlog that existed when this shipped, so the alarm means
+      # "this got WORSE" rather than "the backlog still exists". An alarm that is
+      # red by construction is one nobody reads — which is the exact way #947 /
+      # #1177 / #1203 / #1224 were lost. The script's own header explains the
+      # rest, including which conditions are measured but not yet enforced.
+      #
+      # No setup-node: the script imports only node builtins plus
+      # scripts/lib/gh.mjs (also builtins-only), so the runner's preinstalled
+      # Node is enough and this step costs no `npm ci`.
+      - name: Work-ownership check (zero AI)
+        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: work is going unowned"
+          # `set -e` is deliberately off for this line: a non-zero exit IS the
+          # alarm signal, not a failure of the step.
+          node scripts/check-work-ownership.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
+          STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "work-ownership OK"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            # Any other exit code means the check itself broke (unreadable or
+            # invalid budget, a GitHub query returning fields it reasons about
+            # as null). That must not be reported as "no ownership problems".
+            echo "::error::check-work-ownership.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
       # Content Shift liveness check (2026-07-23). Content Shift is a
       # Wyatt-account cloud routine (docs/agents/runners.md), not a GitHub
       # Actions workflow, so it's invisible to the cadence check above.

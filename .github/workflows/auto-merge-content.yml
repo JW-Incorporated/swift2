@@ -28,6 +28,24 @@
 # CONTENT_AUTOMERGE_FREEZE to halt all of it instantly with no PR needed —
 # same pattern as SOCIAL_FREEZE.
 #
+# APP CODE (widened 2026-08-11, Wyatt — docs/decisions.md): the allowlist now
+# includes app code (apps/web/app, /components, /lib) and packages/. The gate for
+# it is FULL required CI green, not a human review: the required `build` check is
+# ONE job that runs typecheck + lint + the whole vitest suite + validate:content
+# + check:generated + check:content-inert + check:automerge-allowlist +
+# check:content-ownership + check:no-downgrade + content:coverage + build +
+# check:budget:seed. GitHub's native auto-merge (armed below) blocks until that
+# required check passes, so "green" here means every one of those passed. E2E
+# (e2e.yml) is deliberately NOT a required check (it is 100% red — #669), so it
+# does not gate — which is exactly why apps/web/app/api/ (the request/data layer)
+# is kept human via a DENY entry until #669 is fixed. If `build` is ever split
+# into parallel jobs, EACH must be added to the `protect-main` ruleset's required
+# checks, or "full green" silently narrows.
+#
+# DENY (`!`) prefixes: the allowlist supports deny lines that always beat an
+# allow, so a broad allow can flow while a specific subtree stays human. Parsed
+# into `deny_prefixes` in the enable job below.
+#
 # check-drafts job (added 2026-08-11, WS1+WS5): social/queue/**.json is
 # content by path, but a queue draft can still be low-quality in ways a
 # path allowlist can't see (wire-voice, a formula opener, an X/IG sibling
@@ -57,20 +75,22 @@
 #
 # Reconciled 2026-08-11 with #1902's externalized-allowlist + verdict/job-
 # summary rework (this branch and #1902 landed the same day and both touched
-# this file — see PR #1900's "Review round 2" for the merge). NOT carried
-# over from round 1: the `apps/web/public/social/` auto-merge carve-out (a
-# per-image extension/size/git-blob-type check that would have let a queue
-# item's own photo land in the same auto-merged PR). #1902 merged the SAME
-# day with an explicit, passing regression test
-# (scripts/check-automerge-allowlist.test.ts, "still refuses app code and
-# committed images") asserting that exact path must NOT auto-merge, citing
-# docs/decisions.md 2026-07-28 ("a bot-picked image gets human eyes") — a
-# real, tested, CTO-merged policy this round found no standing authority to
-# override unilaterally, despite WS1+WS5's original brief describing it as
-# already founder-approved. Flagged for Joey/Wyatt to reconcile (two
-# same-day "founder-approved" claims pointing opposite directions); not
-# resolved by this branch. A photo PR still correctly waits for a founder,
-# same as before WS1+WS5 started.
+# this file — see PR #1900's "Review round 2" for the merge).
+#
+# apps/web/public/social/ carve-out (PR #1900 round 1, reinstated in a
+# follow-up fix after #1902's same-day regression test initially blocked it —
+# see docs/decisions.md 2026-08-11): a queue item's own dedicated photo CAN
+# auto-merge in the same PR as its queue JSON, but only under
+# `apps/web/public/social/` and only when it passes the per-file constraints
+# below (.png/.jpg/.jpeg, ≤1.5MB, a regular git blob — not a symlink or
+# submodule). Every OTHER path under apps/web/public/** still waits for a
+# founder, unchanged (2026-07-28 decision) — this is a narrow, checker-gated
+# exception for exactly one already-validated directory
+# (check-drafts.mjs's own media rules run first, in the check-drafts job),
+# not a general "images are content now" policy. Approved by Joey; Wyatt
+# (verbally, relayed by Joey 2026-08-11 evening) — see docs/decisions.md for
+# the full record, including why this superseded #1902's test the same day
+# it landed.
 name: auto-merge-content
 
 on:
@@ -94,6 +114,14 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
+    # `enable` reads has_drafts to fail closed on social images (2026-08-11):
+    # a committed apps/web/public/social/** image only auto-merges when it rode
+    # in with a queue draft that check-drafts.mjs actually validated. An
+    # image-only PR (no social/queue/**.json) sets has_drafts=false and is
+    # DECLINED — otherwise the checker never runs and an image would merge
+    # ungated, the fail-OPEN direction Joey's decision explicitly forbids.
+    outputs:
+      has_drafts: ${{ steps.files.outputs.has_drafts }}
     steps:
       # Checks out the BASE ref (main) — pull_request_target's default
       # GITHUB_SHA/ref, deliberately NOT the PR head. scripts/social/
@@ -179,6 +207,9 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
           FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
           ALLOWLIST_PATH: .github/content-automerge-allowlist.txt
+          OWNERSHIP_PATH: .github/content-ownership.json
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          HAS_DRAFTS: ${{ needs.check-drafts.outputs.has_drafts }}
         run: |
           set -euo pipefail
 
@@ -230,11 +261,24 @@ jobs:
             verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` parsed to zero entries — refusing to run an empty gate."
             exit 1
           fi
-          # Reject anything that is not a plain repo-relative path, so a stray
-          # edit can never turn into a surprise glob or shell expansion.
-          if bad=$(printf '%s\n' "$allowed" | grep -vE '^[A-Za-z0-9._/-]+$' || true); [ -n "$bad" ]; then
+          # Reject anything that is not a plain repo-relative path (an optional
+          # leading `!` marks a DENY prefix), so a stray edit can never turn into
+          # a surprise glob or shell expansion.
+          if bad=$(printf '%s\n' "$allowed" | grep -vE '^!?[A-Za-z0-9._/-]+$' || true); [ -n "$bad" ]; then
             echo "::error::$ALLOWLIST_PATH has malformed entries: $bad"
-            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` has malformed entries (must be plain repo-relative paths): $bad"
+            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` has malformed entries (must be plain repo-relative paths, optional leading \`!\`): $bad"
+            exit 1
+          fi
+          # Split into ALLOW and DENY (`!`) prefixes. A changed file must match an
+          # allow prefix AND no deny prefix — deny always wins. This is how a
+          # broad allow (e.g. `apps/web/app/`) can flow while a barred subtree
+          # (`apps/web/app/api/`, kept human while E2E is red — #669) does not.
+          # Mirrors barredPrefixes()/the deny logic in
+          # scripts/check-automerge-allowlist.mjs; keep them in step.
+          allow_prefixes=$(printf '%s\n' "$allowed" | grep -v '^!' || true)
+          deny_prefixes=$(printf '%s\n' "$allowed" | grep '^!' | sed 's/^!//' || true)
+          if [ -z "$allow_prefixes" ]; then
+            verdict "BROKEN GATE" "\`$ALLOWLIST_PATH\` has only deny (\`!\`) entries and no allow prefixes — that gate can never auto-merge anything. Refusing to run it."
             exit 1
           fi
 
@@ -263,40 +307,203 @@ jobs:
             exit 0
           fi
 
+          # A path under this prefix is allowlisted by .github/content-
+          # automerge-allowlist.txt's plain prefix match, but that file only
+          # ever sees PATHS — it cannot express "and also must be a small
+          # real image, not a symlink." These per-file constraints stay here,
+          # in the workflow, applied only to this one directory.
+          IMAGE_PREFIX='apps/web/public/social/'
+          MAX_IMAGE_BYTES=1572864 # 1.5MB
+
           # Collect EVERY offending path, not just the first: seeing all of them
           # is what makes "one stray file" vs "the allowlist is stale" obvious.
           outside=""
+          image_violations=""
           while IFS= read -r f; do
             [ -z "$f" ] && continue
+            # Deny wins: a file under any deny prefix is never auto-mergeable,
+            # even if an allow prefix also matches it.
+            denied=0
+            while IFS= read -r dp; do
+              [ -z "$dp" ] && continue
+              case "$f" in
+                "$dp"*) denied=1; break ;;
+              esac
+            done <<<"$deny_prefixes"
+            if [ "$denied" -eq 1 ]; then
+              outside="${outside}- \`${f}\` (under a deny \`!\` prefix — human-only)"$'\n'
+              continue
+            fi
             ok=0
             while IFS= read -r prefix; do
               [ -z "$prefix" ] && continue
               case "$f" in
                 "$prefix"*) ok=1; break ;;
               esac
-            done <<<"$allowed"
+            done <<<"$allow_prefixes"
             if [ "$ok" -eq 0 ]; then
               outside="${outside}- \`${f}\`"$'\n'
+              continue
             fi
+
+            case "$f" in
+              "$IMAGE_PREFIX"*)
+                case "$f" in
+                  *.png|*.jpg|*.jpeg) : ;;
+                  *)
+                    image_violations="${image_violations}- \`${f}\` — not a .png/.jpg/.jpeg"$'\n'
+                    continue
+                    ;;
+                esac
+                # One call for both checks: `type` must be a regular file blob
+                # (git mode 100644/100755) — "symlink" (120000) or "submodule"
+                # (160000) are how a path could point somewhere else entirely
+                # while still matching the extension check above. `size` is
+                # the 1.5MB cap.
+                meta=$(gh api "repos/$REPO/contents/$f?ref=$SHA" --jq '{size: (.size // 0), type: (.type // "unknown")}')
+                file_type=$(echo "$meta" | jq -r '.type')
+                size=$(echo "$meta" | jq -r '.size')
+                if [ "$file_type" != "file" ]; then
+                  image_violations="${image_violations}- \`${f}\` — git blob type \`${file_type}\`, not a regular file (symlinks/submodules aren't a real image, whatever the extension says)"$'\n'
+                elif [ "$size" -gt "$MAX_IMAGE_BYTES" ]; then
+                  image_violations="${image_violations}- \`${f}\` — ${size} bytes, over the ${MAX_IMAGE_BYTES}-byte (1.5MB) cap"$'\n'
+                fi
+                ;;
+            esac
           done <<<"$files"
 
-          if [ -n "$outside" ]; then
+          if [ -n "$outside" ] || [ -n "$image_violations" ]; then
             # Print the allowlist that was actually in effect. This is the whole
             # point of the summary: a stale gate and a genuinely-mixed PR used to
             # look identical from the outside.
             in_effect=$(printf '%s\n' "$allowed" | sed 's/^/- `/; s/$/`/')
-            verdict "declined — needs a human merge" \
-          "PR #$PR touches paths outside the content allowlist, so it waits for a founder. This is the gate working as designed, not a failure.
-
-          **Paths outside the allowlist**
+            sections=""
+            if [ -n "$outside" ]; then
+              sections="${sections}**Paths outside the allowlist**
 
           ${outside}
-          **Allowlist in effect** (\`$ALLOWLIST_PATH\` @ \`$BASE_REF\`)
+          "
+            fi
+            if [ -n "$image_violations" ]; then
+              sections="${sections}**Images under \`$IMAGE_PREFIX\` that don't meet the per-file constraints** (.png/.jpg/.jpeg only, ≤ 1.5MB, must be a regular file — not a symlink/submodule)
+
+          ${image_violations}
+          "
+            fi
+            verdict "declined — needs a human merge" \
+          "PR #$PR touches a path outside the content allowlist, or an image under \`$IMAGE_PREFIX\` that fails the per-file constraints, so it waits for a founder. This is the gate working as designed, not a failure.
+
+          ${sections}**Allowlist in effect** (\`$ALLOWLIST_PATH\` @ \`$BASE_REF\`)
 
           ${in_effect}
 
-          If one of those paths *is* content, the allowlist is stale — fix \`$ALLOWLIST_PATH\`, not this workflow."
+          If a path outside the allowlist *is* content, the allowlist is stale — fix \`$ALLOWLIST_PATH\`, not this workflow."
             exit 0
+          fi
+
+          # Fail-closed gate for the apps/web/public/social/** carve-out
+          # (docs/decisions.md 2026-08-11). Those images are allowlisted, but the
+          # human look they replace is scripts/social/check-drafts.mjs — and that
+          # checker only runs when this PR also changes a social/queue/**.json
+          # draft (check-drafts' `has_drafts`). An IMAGE-ONLY PR would otherwise
+          # sail through: allowlisted by path, but validated by nothing. So if
+          # this PR commits any social image and check-drafts did NOT actually
+          # validate a draft, DECLINE — the fail-safe direction. (When a draft IS
+          # present, check-drafts is a hard `needs:` of this job, so a failing
+          # draft check skips `enable` entirely; this only adds the no-draft case.)
+          social_media=$(printf '%s\n' "$files" | grep -E '^apps/web/public/social/.*\.(png|jpg|jpeg)$' || true)
+          if [ -n "$social_media" ] && [ "${HAS_DRAFTS:-false}" != "true" ]; then
+            image_list=$(printf '%s\n' "$social_media" | sed 's/^/- `/; s/$/`/')
+            verdict "declined — image needs an accompanying draft" \
+          "PR #$PR commits social image(s) but changes no \`social/queue/**.json\` draft, so \`scripts/social/check-drafts.mjs\` never validated them. Auto-merge of \`apps/web/public/social/**\` is conditioned on that checker (docs/decisions.md 2026-08-11); an image with nothing to check waits for a human. Add the queue draft that uses the image, or merge by hand.
+
+          **Uncheckable social image(s)**
+
+          ${image_list}"
+            exit 0
+          fi
+
+          # ── CONTENT OWNERSHIP LOCK (#1954) ──────────────────────────────────
+          # A founder claims an era in .github/content-ownership.json; a PR that
+          # touches that era's seed files auto-merges ONLY if its author is the
+          # era's owner, or a human applied the `ownership-override` label.
+          # Otherwise it waits for a human merge — the fleet still runs (Layer 2),
+          # content still ships, it just isn't auto-landed over a claim.
+          #
+          # This mirrors evaluateGate()/fileEra() in
+          # scripts/check-content-ownership.mjs (unit-tested there) — keep the two
+          # in step. The manifest is read from the BASE ref (trusted), never the
+          # PR head, exactly like the allowlist above.
+          #
+          # FAIL-SAFE vs FAIL-CLOSED, deliberately different by layer:
+          #   * ABSENT manifest (404) => nothing claimed => proceed. A missing
+          #     lock must NEVER halt content (hard requirement #1). Since the file
+          #     is shipped on main, this only trips if someone deletes it.
+          #   * EMPTY claims => proceed (the no-op path, proven in the unit test).
+          #   * MALFORMED/unreadable manifest => BROKEN GATE, no auto-merge (a
+          #     human merges). Fail-closed for the GATE only; the FLEET keeps
+          #     running regardless (Layer 2), and `build`'s check-content-ownership
+          #     already fails a malformed manifest at the PR before it can land.
+          own_err="${RUNNER_TEMP:-/tmp}/ownership.err"
+          skip_ownership=0
+          if ! own_raw=$(gh api -H "Accept: application/vnd.github.raw" \
+                "repos/$REPO/contents/$OWNERSHIP_PATH?ref=$BASE_REF" 2>"$own_err"); then
+            if grep -qi 'Not Found' "$own_err"; then
+              echo "No $OWNERSHIP_PATH on '$BASE_REF' — nothing claimed, ownership lock is a no-op."
+              skip_ownership=1
+            else
+              verdict "BROKEN GATE" "Could not read \`$OWNERSHIP_PATH\` from \`$BASE_REF\`: $(cat "$own_err"). Not auto-merging until this is fixed — a human can still merge. This is a misconfiguration, not a decision."
+              exit 1
+            fi
+          fi
+
+          if [ "$skip_ownership" -eq 0 ]; then
+            if ! claim_count=$(printf '%s' "$own_raw" | jq -e '(.claims // []) | length' 2>/dev/null); then
+              verdict "BROKEN GATE" "\`$OWNERSHIP_PATH\` on \`$BASE_REF\` is not valid JSON with a \`.claims\` array — refusing to evaluate a broken lock. A human can still merge; \`build\`'s check-content-ownership will pinpoint it."
+              exit 1
+            fi
+
+            if [ "$claim_count" -gt 0 ]; then
+              # Mirrors fileEra(): supabase/seed/{content,theories,tracks,era-secrets}/<era>[.*].mjs
+              file_era() {
+                case "$1" in
+                  supabase/seed/content/*.mjs|supabase/seed/theories/*.mjs|supabase/seed/tracks/*.mjs|supabase/seed/era-secrets/*.mjs)
+                    b=${1##*/}; b=${b%.mjs}; e=${b%%.*}
+                    case "$e" in _*|'') echo "" ;; *) echo "$e" ;; esac ;;
+                  *) echo "" ;;
+                esac
+              }
+              claimed_eras=$(printf '%s' "$own_raw" | jq -r '.claims[]?.era')
+              own_override=0
+              grep -qx "ownership-override" <<<"$labels" && own_override=1
+
+              ownership_violations=""
+              while IFS= read -r f; do
+                [ -z "$f" ] && continue
+                era=$(file_era "$f")
+                [ -z "$era" ] && continue
+                grep -qx "$era" <<<"$claimed_eras" || continue   # era not claimed
+                logins=$(printf '%s' "$own_raw" | jq -r --arg e "$era" \
+                  '(.founders // {}) as $f | .claims[] | select(.era==$e) | ($f[.owner] // [])[]')
+                if grep -qx "$PR_AUTHOR" <<<"$logins"; then continue; fi   # owner edits own claim
+                owner=$(printf '%s' "$own_raw" | jq -r --arg e "$era" \
+                  '.claims[] | select(.era==$e) | .owner')
+                ownership_violations="${ownership_violations}- \`${f}\` — era \`${era}\` is claimed by \`${owner}\`"$'\n'
+              done <<<"$files"
+
+              if [ -n "$ownership_violations" ] && [ "$own_override" -eq 0 ]; then
+                verdict "declined — claimed era" \
+          "PR #$PR (author \`$PR_AUTHOR\`) touches seed files of an era CLAIMED in \`$OWNERSHIP_PATH\`, and \`$PR_AUTHOR\` is not that era's owner. It waits for a human merge so a founder's authoring isn't stomped. This is the ownership lock working as designed, not a failure.
+
+          **Claimed-era files this PR touches**
+
+          ${ownership_violations}
+          To land anyway: have the era's owner merge it, or a human applies the \`ownership-override\` label. To release the era, remove its claim from \`$OWNERSHIP_PATH\` in a (human-merged) PR."
+                exit 0
+              elif [ -n "$ownership_violations" ]; then
+                echo "PR #$PR touches a claimed era but carries \`ownership-override\` — lock waived by a human; continuing."
+              fi
+            fi
           fi
 
           # Bind the decision to the exact commit it was computed against: if
