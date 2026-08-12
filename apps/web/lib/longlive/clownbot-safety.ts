@@ -85,7 +85,8 @@ export type Redline =
  * explicitly opted into V2 (env `CLOWNBOT_SAFETY_V2=on`). That makes a key that
  * shows up by accident inert — it cannot silently enable the pre-fix behaviour.
  * A live key is only safe once the keyed live-Haiku battery has been run and
- * passed (see clownbot-live-battery in the PR). Keyless is always inert.
+ * passed (`npm run clownbot:battery`; procedure in
+ * docs/ops/clownbot-launch-gate.md). Keyless is always inert.
  */
 export const SAFETY_VERSION = 'v2' as const;
 

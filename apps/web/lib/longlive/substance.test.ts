@@ -215,12 +215,16 @@ describe('substanceScore over real vault content', () => {
   // Thin fixture repointed 2026-07-24 (ledger #1274): the Answerer enriched the
   // former fixture ("Orange sequins and feathers") with sourced provenance,
   // cross-links and the real Gucci/Bob Mackie looks, so it is no longer a valid
-  // "bare" example (as its own repoint comment predicted). Repointed to the
-  // 1989 "pop reinvention" era-vibe card — a genuinely bare aesthetic marker,
-  // and one outside the depth engine's defining-moment/current-era queue, so it
-  // should stay a stable thin stand-in rather than rotate every few weeks.
+  // "bare" example (as its own repoint comment predicted).
+  // Repointed AGAIN 2026-08-12 (depth-audit batch): the previous stand-in —
+  // the 1989 "pop reinvention" card — was one of the seven caption-level 1989
+  // headline stubs the rows-per-month audit queued, and deepening it was the
+  // point of that pass (docs/audits/2026-08-12-depth-rows-per-month.md). Now
+  // the debut "curls, sundresses and cowboy boots" era-vibe card: a genuinely
+  // bare aesthetic marker in the era the depth queues touch last, so it should
+  // stay a stable thin stand-in rather than rotate every few weeks.
   it('ranks a bare single-announcement item near the bottom', () => {
-    const thin = byId('vault-1989-the-pop-reinvention');
+    const thin = byId('vault-debut-curls-sundresses-and-cowboy-boots');
     expect(bodyChars(thin)).toBeLessThan(BODY_FLOOR_CHARS + 50);
     expect(substanceScore(thin)).toBeLessThan(0.2);
   });
@@ -229,7 +233,7 @@ describe('substanceScore over real vault content', () => {
     const meaty = substanceScore(
       byId('vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already'),
     );
-    const thin = substanceScore(byId('vault-1989-the-pop-reinvention'));
+    const thin = substanceScore(byId('vault-debut-curls-sundresses-and-cowboy-boots'));
     expect(meaty).toBeGreaterThan(thin * 4);
   });
 
@@ -301,8 +305,15 @@ describe('substanceScore over real vault content', () => {
     // the same "bound fit to one day's corpus snapshot, broken by the very
     // cleanup it was measuring" failure documented above (#1845, the sourcing
     // gate). The INTENT — the chip tier exists as a real slice — still holds
-    // with margin (7.1% vs 5%); per #1628 the durable fix is editorial-weight
-    // tiers, not corpus-relative shares.
+    // with margin; per #1628 the durable fix is editorial-weight tiers, not
+    // corpus-relative shares.
+    //
+    // The 2026-08-12 depth-audit batch is the second instance of exactly this
+    // failure mode in one day: deepening the bottom band's caption-level
+    // headline stubs (7 in 1989 alone) is the audit's stated job, and it
+    // shrinks the band that measures them again. The floor stays at 0.05 —
+    // already low enough to absorb it — rather than being re-fitted a second
+    // time to a moving snapshot.
     expect(share(0, 0.2)).toBeGreaterThan(0.05);
     expect(share(0.2, 0.3)).toBeGreaterThan(0.15);
     expect(share(0.3, 0.4)).toBeGreaterThan(0.15);
