@@ -1368,6 +1368,12 @@ export default {
             outlet: 'Grammy.com',
             url: 'https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/',
           },
+          // The full acceptance speech on the Recording Academy's own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — GRAMMYS',
+            url: 'https://www.youtube.com/watch?v=dMCAEUb0h34',
+          },
         ],
         // Photo-enrichment run 11 (2026-07-18, #762): focal point set by
         // viewing — press-room shot, three gramophones at chest height,

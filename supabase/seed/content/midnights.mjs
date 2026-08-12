@@ -742,6 +742,12 @@ export default {
             accessed_at: '2026-07-20',
             reliability_score: 4,
           },
+          // The on-air reveal segment on TODAY's own channel — oEmbed-verified
+          // 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — TODAY',
+            url: 'https://www.youtube.com/watch?v=VeFzmqp6OaQ',
+          },
           {
             outlet: 'CBC News',
             url: 'https://www.cbc.ca/news/entertainment/taylor-swift-person-of-the-year-1.7050425',
@@ -1237,6 +1243,9 @@ export default {
         sources: [
           { outlet: 'Variety', url: 'https://variety.com/2023/music/news/taylor-swift-eras-tour-premiere-the-grove-1235752172/' },
           { outlet: 'Footwear News (via Yahoo)', url: 'https://www.yahoo.com/entertainment/own-taylor-swift-eras-premiere-191558719.html' },
+          // GMA's own red-carpet segment from The Grove — oEmbed-verified
+          // 2026-08-12 (see candidates/youtube-appearances.mjs).
+          { outlet: 'YouTube — Good Morning America', url: 'https://www.youtube.com/watch?v=X_wHLxTOzas' },
         ],
         photos: [
           {
@@ -1542,6 +1551,13 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/awards/taylor-swift-grammy-2024-album-of-the-year-midnights-1235598759/',
+          },
+          // The record fourth-AOTY acceptance on the Recording Academy's own
+          // channel — oEmbed-verified 2026-08-12 (see
+          // candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — GRAMMYS',
+            url: 'https://www.youtube.com/watch?v=Yq-q-ZCZwxc',
           },
         ],
         photos: [

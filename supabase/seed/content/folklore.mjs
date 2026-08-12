@@ -255,6 +255,12 @@ export default {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-folklore-movie-disney-1095464/',
           },
+          // The official trailer on Taylor's own channel — oEmbed-verified
+          // 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — Taylor Swift',
+            url: 'https://www.youtube.com/watch?v=jgdFUoZzCI0',
+          },
         ],
         photos: [
           {

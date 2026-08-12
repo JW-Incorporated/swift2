@@ -428,6 +428,20 @@ export default {
             outlet: 'Variety',
             url: 'https://variety.com/2021/music/news/taylor-swift-charts-album-single-all-too-well-red-taylors-version-1235117515/',
           },
+          // YouTube-appearances research pass (2026-08-12): the SNL
+          // performance this context already narrates, on Taylor's own
+          // channel — oEmbed-verified. Sourced here rather than split into a
+          // separate moment; Nov. 13, 2021 SNL is already covered by this
+          // item, the Alaïa jumpsuit fashion item and the sketch-cameo item.
+          // The performance also has its own videos/evermore.mjs record.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-snl-all-too-well-10-minute-version-performance-video-9659774/',
+          },
+          {
+            outlet: 'YouTube — Taylor Swift',
+            url: 'https://www.youtube.com/watch?v=nJr_8l0AEWE',
+          },
         ],
         // Image-fix pass (2026-07-10): tickets #193/#147 — old Guinness URL was
         // a two-panel news collage (visible seam between the Red TV cover and a
@@ -1621,6 +1635,12 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-nyu-commencement-speech-full-transcript-1235072824/',
+          },
+          // The full commencement address on NYU's own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — New York University',
+            url: 'https://www.youtube.com/watch?v=OBG50aoUwlI',
           },
         ],
         photos: [
@@ -3034,6 +3054,37 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 2,
           },
+          // Two independent outlets on the announcement ITSELF. Needed: this
+          // record is `business`, and its other citations are Wikipedia (weak
+          // — contributes nothing) plus a Billboard piece about the
+          // after-party outfit, so without these the two-outlet bar would have
+          // been cleared by the YouTube link alone. `independentOutlets()`
+          // counts by host, so any youtube.com link reads as one outlet
+          // regardless of channel — it must never be what carries a claim.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/music/news/taylor-swift-announces-all-new-album-for-fall-2022-1235352890/',
+            source_title: "Taylor Swift Announces All-New Album, 'Midnights' for Fall 2022",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NPR',
+            url: 'https://www.npr.org/2022/08/28/1119845749/mtv-vmas-ready-to-host-and-honor-some-of-musics-biggest-acts',
+            source_title: 'Taylor Swift says a new album is coming, after winning the top award at the MTV VMAs',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 5,
+          },
+          // The announcement moment on Entertainment Tonight's channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — Entertainment Tonight',
+            url: 'https://www.youtube.com/watch?v=0H4Bhf-KPZ0',
+          },
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/',
@@ -3394,6 +3445,38 @@ export default {
             focalPoint: '40% 40%',
           },
         ],
+      },
+    },
+
+    // ── YouTube-appearances research pass (2026-08-12) ──
+    // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
+    // and docs/research/2026-08-12-youtube-appearances-manifest.md.
+    {
+      year: 2020,
+      month: 12,
+      day: 14,
+      category: 'music',
+      title: 'On Kimmel, three days after evermore: how the secret held',
+      snippet:
+        'A talk-show stop days after evermore\'s surprise drop and the night after she turned 31 — keeping an album secret in quarantine, fan theories, and the "William Bowery" pseudonym question.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-jimmy-kimmel-live-folklore-evermore-1104051/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/ionfV_r8s40/hqdefault.jpg',
+      moment: {
+        context:
+          'The remote sit-down with Jimmy Kimmel covered the folklore/evermore surprise-album playbook from the inside: how the second secret held, what the fans had already decoded, and the songwriting credit — "William Bowery" — which she had confirmed as Joe Alwyn three weeks earlier in the Long Pond Studio Sessions film (covered in the folklore era). The full interview is on the show\'s official channel.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-jimmy-kimmel-live-folklore-evermore-1104051/',
+            source_title: "Taylor Swift Debunks 'Woodvale' Third Album Theory on 'Kimmel'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          { outlet: 'YouTube — Jimmy Kimmel Live', url: 'https://www.youtube.com/watch?v=ionfV_r8s40' },
+        ],
+        photos: [],
       },
     },
   ],

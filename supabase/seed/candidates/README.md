@@ -26,6 +26,19 @@ deliberately adopts it.
   > curated normally. `npm run validate:content` guards `../content/` against
   > bad rows if any get copied over.
 
+- **`youtube-appearances.mjs`** — the 2026-08-12 YouTube-appearances research
+  pass: ~31 talk-show, award, podcast and red-carpet appearances, each with an
+  oEmbed verification record (live/dead, real uploading channel, resolved URL).
+
+  > ℹ️ **This one is a research ledger, not a tray of ready-to-seed items** —
+  > its shape is `{ kind, researchedOn, entries[] }`, not `{ eraSlug, items[] }`,
+  > so the "move the whole file into `../content/`" path below does **not**
+  > apply to it and it would fail `validate:content` if copied over. The
+  > entries that earned a place are already integrated into `../content/`;
+  > each entry's `verification.integration` field records whether it was
+  > `enriched:`, `new:`, or deliberately left `candidates-only`. Use it to
+  > check sourcing or to revisit an entry, not as an adoption queue.
+
 ## How Joey adopts content (opt-in)
 
 1. Open the candidate file and read through it.
