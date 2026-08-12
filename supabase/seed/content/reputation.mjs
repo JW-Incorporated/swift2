@@ -74,6 +74,10 @@ export default {
         // retrievable URLs), their chart-story art is wire/Getty-only, and no
         // Commons photo depicts the sales week itself. The album cover is the
         // artifact the 1.2M buyers bought; focal point set by eye this run.
+        // Re-reviewed 2026-08-01 (#762): searched again for a second image
+        // (Time 100 gala, TIME cover, era press) — nothing on an outlet-CDN
+        // or Commons host tied to this specific Nov. 2017 chart week. Stays
+        // reviewed-sparse at one image.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
@@ -227,30 +231,46 @@ export default {
           // All 4 below curl 200 image/jpeg, downloaded and vision-confirmed.
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956230118.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Three faces level
+            // across the upper third; Taylor is the center figure.
+            focalPoint: '50% 28%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'Camila Cabello, Taylor, and Charli XCX backstage at University of Phoenix Stadium before opening night, May 8, 2018.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956319166.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Three singers mid-song,
+            // faces in the upper fifth, Taylor centered between the other two.
+            focalPoint: '48% 20%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'The three-way "Shake It Off" that closed the opening set, Cabello and Charli XCX joining Taylor on stage.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956299498.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x635). Close crop, her
+            // face fills the top of frame, arms raised on either side.
+            focalPoint: '48% 15%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'Taylor performs opening night of the reputation Stadium Tour, May 8, 2018.',
             kind: 'archival',
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1000x636). The animatronic
+            // snake head fills the center-right of frame.
+            focalPoint: '55% 35%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'The tour\'s giant animatronic snake, "Karyn" — the mascot the reclaimed symbol became a year after the Kimye leak.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x800 downsized from
+            // 5472x3648). Taylor performs front-right on the gilded stage
+            // platform, lower-right of frame; the snake set dominates the rest.
+            focalPoint: '68% 55%',
             credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Golden snake set pieces frame the stage during "Look What You Made Me Do," Seattle, May 22, 2018.',
             kind: 'archival',
@@ -400,12 +420,18 @@ export default {
           },
           {
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '55% 35%',
             credit: 'Kevin Mazur/Getty Images for TAS, via NME',
             caption: 'The reclaimed snake\'s full-size payoff, a year later: the reputation Stadium Tour\'s animatronic mascot, fans nicknamed her Karyn.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '68% 55%',
             credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Golden snake set pieces on the reputation Stadium Tour, Seattle, May 2018 — the visual language this teaser opened.',
             kind: 'archival',
@@ -1049,7 +1075,7 @@ export default {
       thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100',
       moment: {
         context:
-          'Closing the show over "Call It What You Want" into "This Is Why We Can\'t Have Nice Things," Taylor wore a custom Jessica Jones gown styled with Christian Louboutin boots.\n\nThe block it dressed carried the night\'s thesis statement: after the final song, the stadium screens signed off with the line "and in the death of her reputation, she felt truly alive" — the sentence Billboard\'s opening-night review singled out as the show\'s "very perfect and poetic finish," and the closest thing the no-interviews era ever gave fans to an artist\'s statement.',
+          'Closing the show over "Call It What You Want" into "This Is Why We Can\'t Have Nice Things," Taylor wore a custom Jessica Jones gown styled with Christian Louboutin boots.\n\nThe block it dressed carried the night\'s thesis statement: after the final song, the stadium screens signed off with the line "and in the death of her reputation, she felt truly alive" — the sentence that became the era\'s unofficial thesis statement — the show\'s "very perfect and poetic finish," per Billboard\'s opening-night review — and the closest thing the no-interviews era ever gave fans to an artist\'s statement.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -1107,6 +1133,9 @@ export default {
       month: 5,
       day: 30,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the private Turks and Caicos
+      // Fourth of July, the same tour break's low-key stretch.
+      relatedIds: ['moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic'],
       title: 'A fish-and-chips pub date at The Flask, no red carpet in sight',
       snippet:
         'Paparazzi caught Taylor and Joe Alwyn leaving The Flask, a traditional North London pub, after fish and chips and a pint each — one of only a handful of public sightings during a deliberately private relationship.',
@@ -1147,6 +1176,14 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      relatedIds: [
+        'moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        // Cross-link (Stage 3, 2026-08-10): the low-key London pub date, same
+        // tour break.
+        'moment:vault-reputation-a-fish-and-chips-pub-date-at-the-flask-no-red-carpet-in-sigh',
+      ],
       year: 2018,
       month: 7,
       day: 4,
@@ -1251,6 +1288,7 @@ export default {
       month: 4,
       day: 22,
       category: 'sighting',
+      relatedIds: ['moment:vault-lover-the-pastel-turn-me-ends-the-reputation-black'],
       title: 'A denim-themed birthday party for Gigi Hadid — sans denim',
       snippet:
         "Taylor made a rare public appearance at best friend Gigi Hadid's 24th birthday party in New York, skipping the party's all-denim dress code for a red checkered blazer and floral dress.",
@@ -1500,7 +1538,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          "The reputation Stadium Tour's North American leg (May 8-Oct. 6, 2018) grossed $266.1 million from 2,068,399 tickets over 38 shows, breaking the U.S. touring record the Rolling Stones had held since their 2005-07 A Bigger Bang tour grossed $245 million — across 70 shows, nearly double what Taylor needed.\n\nThe margin showed up venue by venue: the run averaged $7 million and 54,432 tickets a night, and her three consecutive July dates at MetLife Stadium alone grossed $22 million on 165,654 tickets, beating the venue record she'd set there herself on The 1989 World Tour. Billboard's ledger put her total domestic gross since 2009's Fearless Tour at $687.7 million — over $140 million more than any other artist in that period.",
+          "The reputation Stadium Tour's North American leg (May 8-Oct. 6, 2018) grossed $266.1 million from 2,068,399 tickets over 38 shows, breaking the U.S. touring record the Rolling Stones had held since their 2005-07 A Bigger Bang tour grossed $245 million — across 70 shows, nearly double what Taylor needed.\n\nThe margin showed up venue by venue: the run averaged $7 million and 54,432 tickets a night, and her three consecutive July dates at MetLife Stadium alone grossed $22 million on 165,654 tickets, beating the venue record she'd set there herself on The 1989 World Tour. Her total domestic gross since 2009's Fearless Tour: $687.7 million — over $140 million more than any other artist in that period, per Billboard's own ledger.",
         sources: [
           {
             outlet: 'Billboard',
@@ -1616,10 +1654,13 @@ export default {
       slug: 'rep-lwymmd-video-youtube-record',
       significance: 'notable', // a real streaming record and the era's single most-discussed visual statement (docs/decisions.md, 2026-07-19)
       // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
-      // moment.
+      // moment. One-directional to the song-backstory moment (2026-08-03):
+      // that moment is already at the ~4-link cap, so this side carries the
+      // pointer instead of bumping a curated link there.
       relatedIds: [
         'moment:vault-reputation-the-snake-video-that-announced-reputation',
         'moment:vault-reputation-zombie-makeup-for-look-what-you-made-me-do',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       year: 2017,
       month: 8,
@@ -1815,6 +1856,9 @@ export default {
     },
     {
       slug: 'rep-secret-sessions',
+      // Cross-link (vault-run 2026-08-06): the 1989 Secret Sessions — where the
+      // living-room-listening-party tradition began.
+      relatedIds: ['moment:vault-1989-the-secret-sessions-89-fans-at-a-time-in-her-living-rooms'],
       year: 2017,
       month: 10,
       day: 13,
@@ -2262,36 +2306,55 @@ export default {
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Lucian_Grainge_at_State_of_the_Entertainment_Industry_2018.jpg',
+            // Photo pass #762 (2026-08-01): viewed (659x1200 downsized from
+            // 1007x1835). Portrait crop, face centered horizontally, upper third.
+            focalPoint: '50% 25%',
             credit: 'Luke Harold (CC0)',
             caption: 'Sir Lucian Grainge, UMG chairman/CEO, four days before the deal — one of the "incredible partners" named in her announcement.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Monte_Lipman_Headshot_Cropped.jpg',
+            // Photo pass #762 (2026-08-01): viewed (571x544). Tight headshot,
+            // face fills most of frame, centered.
+            focalPoint: '50% 40%',
             credit: 'BBscary, Wikimedia Commons (CC BY-SA 4.0)',
             caption: "Monte Lipman, Republic Records' founder and CEO, the other partner named in the announcement.",
             kind: 'reference',
           },
           {
             url: 'https://thefader-res.cloudinary.com/private_images/w_760,c_limit,f_auto,q_auto:best/GettyImages-1048415872_v1oq0t/taylor-swift-republic-records-deal-spotify-contract.jpg',
+            // Photo pass #762 (2026-08-01): viewed (760x508). Onstage performing,
+            // upper body upper-center of frame.
+            focalPoint: '48% 25%',
             credit: 'Kevin Winter/Getty Images, via The FADER',
             caption: 'A contemporary reference photo from the same period, not from the announcement itself — no photo op exists for the signing.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Umgheadquarters.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x900 downsized from
+            // 4608x3456). Building facade fills the frame, roughly centered
+            // with palm trees flanking both sides.
+            focalPoint: '50% 45%',
             credit: 'Coolcaesar, Wikimedia Commons (CC BY-SA 3.0)',
             caption: 'Universal Music Group\'s Santa Monica headquarters — the new corporate home behind the deal.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/98/Republic_Records_logo.svg',
+            // Photo pass #762 (2026-08-01): viewed. Wordmark stacked in the
+            // upper half of the mark, with bars beneath — visual weight sits high.
+            focalPoint: '50% 30%',
             credit: 'Republic Records (official logo)',
             caption: 'The Republic Records identity — the label side of the deal.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg',
+            // Photo pass #762 (2026-08-01): viewed. A circular, symmetric mark —
+            // genuinely reads best centered.
+            focalPoint: '50% 50%',
             credit: 'Spotify (public domain mark)',
             caption: 'The Spotify-equity clause — proceeds from any future UMG share sale distributed to all its artists, non-recoupable — was the deal point she called "non-negotiable."',
             kind: 'reference',
@@ -2411,6 +2474,26 @@ export default {
       snippet: "Armored, monochrome, and defiant — the sound of rebuilding on her own terms.",
       hiddenClue: { clue: "She reclaimed the snake her critics used against her.", payoff: "Turning the insult into iconography flipped the whole narrative in her favor." },
       moment: {
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/5017724/taylor-swift-reputation-explained/',
+            source_title: 'Analyzing Every Song on Taylor Swift\'s Reputation',
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/reviews/review/taylor-swift-reputation-album-review-2158267',
+            source_title: 'Taylor Swift – \'Reputation\' Review',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "After a very public year, she disappeared and returned all in black, with snakes reclaimed as armor.\n\nBeneath the hard exterior, though, reputation hides a surprisingly tender love story.",
       },
     },
@@ -2425,6 +2508,26 @@ export default {
       title: "Giant snakes, record numbers",
       snippet: "The Reputation Stadium Tour becomes the highest-grossing US tour at the time.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-breaks-own-tour-record-sold-out-reputation',
+            source_title: 'Taylor Swift Breaks Own Tour Record With Sold-Out Reputation',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Music Network',
+            url: 'https://themusicnetwork.com/news/taylor-swifts-reputation-tour-sets-new-us-record-for-highest-grossing',
+            source_title: 'Taylor Swift\'s Reputation Stadium Tour highest grossing in US history',
+            publisher: 'The Music Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Towering cobra stage design and a stadium-scale production reset expectations for her live shows.",
         // Photo pass #762 (2026-07-20): page had zero photos. Two freely
         // licensed Commons shots from the Reputation Stadium Tour itself —

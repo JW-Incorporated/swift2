@@ -59,12 +59,18 @@ export const MOOD_STARTERS: readonly MoodStarter[] = [
     // The deepest cut, and the one the safety doc says must land. NO anger
     // here: a first tuning with anger 0.5 returned Bad Blood / Better Than
     // Revenge, i.e. revenge songs. Bridge obsession is not spite — it is the
-    // cathartic key-change explosion, so it is catharsis + longing at high
-    // energy, which is what surfaces All Too Well / Out of the Woods / illicit
-    // affairs instead.
-    moods: { catharsis: 1, longing: 0.65, heartbreak: 0.55, defiance: 0.3 },
-    energy: 0.85,
-    valence: 0.35,
+    // cathartic key-change explosion, so it is catharsis + longing + heartbreak,
+    // which is what surfaces All Too Well and the other bridge-catharsis ballads.
+    //
+    // RE-PINNED (#2000): the old `defiance: 0.3` + `energy: 0.85` had drifted the
+    // chip onto the high-energy DEFIANT breakup songs (Getaway Car, Is It Over
+    // Now?, The Story of Us) and buried All Too Well at #5. Dropping defiance and
+    // easing energy to 0.6 restores All Too Well to the lead and the cathartic
+    // bridge canon behind it — and no longer trips the "heavy" wellness intro
+    // (isHeavy now treats an energetic chip as fun, not heavy).
+    moods: { catharsis: 1, longing: 0.7, heartbreak: 0.5 },
+    energy: 0.6,
+    valence: 0.3,
   },
   {
     label: 'cardigan weather',

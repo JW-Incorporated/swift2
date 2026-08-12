@@ -8,6 +8,42 @@
 export default {
   eraSlug: 'lover',
   items: [
+    // Era-ignition beat (2026-07-30, #828): the Lover timeline used to open on
+    // the June 30 masters sale — a business tragedy two singles deep — with the
+    // April pastel turn living only inside a fashion caption. This is the
+    // answering card to reputation's close (the April 22 Gigi Hadid party), and
+    // the beat the era was missing.
+    {
+      year: 2019,
+      month: 4,
+      day: 25,
+      category: 'music',
+      slug: 'lover-era-ignition-me-pastel-turn',
+      title: 'The pastel turn: ME! ends the reputation black',
+      snippet:
+        'A countdown clock, a butterfly mural repainted overnight, and an NFL-Draft-night interview with Robin Roberts — the single most legible palette flip of her career, staged across April 2019.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Me!_(song)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
+      relatedIds: [
+        'moment:vault-lover-seven-pastel-outfit-changes-in-the-me-video',
+        'moment:vault-reputation-a-denim-themed-birthday-party-for-gigi-hadid-sans-denim',
+      ],
+      moment: {
+        context:
+          'reputation had ended in black and white; Lover began in every color at once. On April 13, 2019, a countdown to midnight on April 26 appeared on her website and her feed turned to pastel skies — the snake era formally over. On April 25, street artist Kelsey Montague\'s butterfly mural in Nashville\'s Gulch was repainted with the word "Me!", the campaign hiding in plain sight on a public wall fans could pose in front of. That same day, during ABC\'s NFL Draft broadcast, she confirmed the details to Robin Roberts.\n\n"ME!", her duet with Brendon Urie of Panic! at the Disco, premiered at midnight on April 26 — written by Taylor with Joel Little and Urie, and produced by Taylor and Little. The video pulled 65.2 million views in its first 24 hours, breaking Vevo\'s single-day record; the song debuted at No. 100 on the Hot 100, then leapt to a No. 2 peak the following week. Critics read the bright palette exactly as intended: a deliberate, public exit from reputation\'s black-and-white, and the first full sight of the Lover aesthetic.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Me!_(song)' },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
+            focalPoint: '50% 50%',
+            credit: 'Republic Records (single cover art)',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
     {
       year: 2019,
       month: 9,
@@ -74,6 +110,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_The_Man.png',
+            focalPoint: '58% 28%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -81,6 +118,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "You Need to Calm Down" pair —
+      // the video's petition and the costumes in it — now interlink.
+      relatedIds: ['moment:vault-lover-rainbow-wig-western-shirt-and-a-french-fries-costume-in-you-'],
       year: 2019,
       month: 6,
       day: 17,
@@ -108,10 +148,22 @@ export default {
             url: 'https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857',
           },
         ],
+        // Photo pass (#762, 2026-08-07): added a second still — the official
+        // aerial pool shot from the same video — downloaded and vision-
+        // confirmed. Set focalPoint on both photos individually by eye.
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
+            focalPoint: '55% 30%',
             credit: 'E! News (video still)',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/Dkk9gvTmCXY/maxresdefault.jpg',
+            focalPoint: '50% 50%',
+            credit: 'Taylor Swift / YouTube (official "You Need to Calm Down" video, aerial still)',
+            caption:
+              'An aerial shot from the "You Need to Calm Down" video: Taylor floating on a yellow inner tube in a rose-ringed trailer-park pool.',
+            kind: 'archival',
           },
         ],
       },
@@ -138,6 +190,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/DixieChicksMSG062003.jpg',
+            focalPoint: '50% 32%',
             credit: 'Wasted Time R (CC BY-SA 2.5), via Wikimedia Commons',
             caption: 'The Dixie Chicks — who harmonize on "Soon You\'ll Get Better" — performing in 2003.',
             kind: 'reference',
@@ -227,6 +280,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Cruel Summer" cluster — the
+      // song's origin, the No. 1 milestone, and the four-years-later chart
+      // arc — now interlink.
+      relatedIds: [
+        'moment:vault-lover-cruel-summer-born-from-a-casual-jam-with-st-vincent-and-jack',
+        'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
+      ],
       year: 2023,
       month: 10,
       day: 28,
@@ -296,7 +356,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
       moment: {
         context:
-          'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Taylor embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
+          'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Taylor embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — the song clearances were ultimately "granted within a timely manner," per Variety — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
         sources: [
           {
             outlet: 'Billboard',
@@ -411,6 +471,7 @@ export default {
       month: 4,
       day: 26,
       category: 'fashion',
+      relatedIds: ['moment:vault-lover-the-pastel-turn-me-ends-the-reputation-black'],
       title: 'Seven pastel outfit changes in the ME! video',
       snippet:
         'Styled by Joseph Cassell Falconer, the video traded Reputation black-and-white for tulle, pastels, and bold suiting — including a Monique Lhuillier tea-length dress and a lemon-yellow power suit.',
@@ -456,6 +517,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "You Need to Calm Down" moment.
+      relatedIds: ['moment:vault-lover-you-need-to-calm-down-turns-a-music-video-into-an-equality-a'],
       year: 2019,
       month: 6,
       day: 17,
@@ -518,7 +581,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor credited the cover to "the artistic genius that is @valheria123" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era\'s videos and press cycle.\n\nEvery element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Because Swift\'s beauty choices have a history of doubling as Easter eggs, Refinery29 noted fans immediately began hunting for a hidden meaning — and, more practically, planning recreations: "All of us are going to show up with glittery heart to the tour," as one put it, back when the era was still supposed to get one.',
+          'Taylor credited the cover to "the artistic genius that is @valheria123" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era\'s videos and press cycle.\n\nEvery element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Fans immediately began hunting for a hidden meaning, the way her beauty choices have a history of doubling as Easter eggs (as Refinery29 pointed out) — and, more practically, planning recreations: "All of us are going to show up with glittery heart to the tour," as one put it, back when the era was still supposed to get one.',
         sources: [
           {
             outlet: 'Refinery29',
@@ -570,6 +633,9 @@ export default {
       month: 11,
       day: 24,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Julien Macdonald" designer
+      // cluster.
+      relatedIds: ['moment:vault-red-a-gold-julien-macdonald-gown-altered-with-a-hidden-message'],
       title: 'A shimmering green Julien Macdonald gown at the 2019 AMAs',
       snippet: 'She walked the American Music Awards red carpet in a green Julien Macdonald gown before changing into a shirt printed with the names of her old albums to perform "The Man."',
       sourceUrl: 'https://www.eonline.com/news/1095478/revisiting-taylor-swift-s-gorgeous-american-music-awards-looks',
@@ -722,7 +788,7 @@ export default {
         'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
       moment: {
         context:
-          'Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with "Me!" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie\'s $370 "Frida" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap.\n\nBillboard\'s recap called the staging "stadium-level production" jammed into a theater — pyrotechnics, smoke cannons, and spark showers — across a set that gave "You Need to Calm Down" its live debut and ran through "I Knew You Were Trouble," "Style," and "Love Story," plus acoustic takes on "Welcome to New York" and "Delicate," before a confetti-drenched "Shake It Off" closed the night with Becky G and Dua Lipa back onstage.',
+          'Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with "Me!" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie\'s $370 "Frida" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap.\n\nIt was "stadium-level production" jammed into a theater — pyrotechnics, smoke cannons, and spark showers, per Billboard\'s recap — across a set that gave "You Need to Calm Down" its live debut and ran through "I Knew You Were Trouble," "Style," and "Love Story," plus acoustic takes on "Welcome to New York" and "Delicate," before a confetti-drenched "Shake It Off" closed the night with Becky G and Dua Lipa back onstage.',
         sources: [
           {
             outlet: 'Yahoo / Footwear News',
@@ -962,6 +1028,9 @@ export default {
       month: 12,
       day: 13,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Blake Lively and Ryan
+      // Reynolds" recurring-friends cluster.
+      relatedIds: ['moment:vault-evermore-a-tribeca-q-a-ends-in-a-surprise-all-too-well-singalong-blak'],
       title: 'Blake Lively and Ryan Reynolds help her ring in 30 at Oscar Wilde',
       snippet:
         "After opening Z100's Jingle Ball, she gathered close friends — Blake Lively, Ryan Reynolds, and Gigi Hadid among them — for a 10 p.m. birthday dinner at Oscar Wilde restaurant in New York.",
@@ -1125,6 +1194,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Cruel Summer" moments.
+      relatedIds: [
+        'moment:vault-lover-cruel-summer-takes-four-years-to-become-a-no-1',
+        'moment:vault-midnights-cruel-summer-hits-no-1-four-years-after-it-came-out',
+      ],
       year: 2019,
       month: 8,
       day: 23,
@@ -1142,9 +1216,16 @@ export default {
           { outlet: 'NME', url: 'https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/cruel-summer' },
         ],
+        // Photo pass (#762, 2026-08-07): reviewed for a second photo — the
+        // only other on-topic candidate found is the generic "Lover" album
+        // template still already reused across several sibling deep-cut
+        // pages in this file (no new visual information for the reader, and
+        // the kind of reuse a prior #762 run had to revert for tanking the
+        // corpus substance-score). Skipped; left at editorial max.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
+            focalPoint: '50% 42%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1171,9 +1252,14 @@ export default {
           },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/i-forgot-that-you-existed' },
         ],
+        // Photo pass (#762, 2026-08-07): reviewed for a second photo — a
+        // deep-cut opening track with no music video or promo single, so no
+        // second verifiable image exists. Left at editorial max; focalPoint
+        // added to the existing still.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/p1cEvNn88jM/hqdefault.jpg',
+            focalPoint: '50% 60%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'I Forgot That You Existed' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -1209,9 +1295,14 @@ export default {
             url: 'https://www.songfacts.com/facts/taylor-swift/miss-americana-the-heartbreak-prince',
           },
         ],
+        // Photo pass (#762, 2026-08-07): every candidate lyric-video re-check
+        // (6 YouTube ids) came back a fan reupload, not the official channel;
+        // this is an album track with no single or dedicated video. Left at
+        // editorial max; focalPoint added to the existing still.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/Kwf7P2GNAVw/hqdefault.jpg',
+            focalPoint: '50% 45%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'Miss Americana & The Heartbreak Prince' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -1225,7 +1316,7 @@ export default {
       month: 12,
       day: 12,
       category: 'business',
-      title: "Billboard names her the first-ever Woman of the Decade",
+      title: "She's Billboard's first-ever Woman of the Decade",
       snippet:
         'Accepting the inaugural award, she said: "The pressure that could have crushed us made us into diamonds instead" — then used the speech to relitigate the Scooter Braun masters fight.',
       sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-woman-of-the-decade-speech-billboard-women-in-music-8546156/',
@@ -1319,6 +1410,14 @@ export default {
     // carry the audit's additive provenance fields.
     {
       slug: 'city-of-lover-paris',
+      // Cross-link (Stage 3, 2026-07-30): the "City of Lover" pair — the
+      // concert itself, and the special that later aired — now interlink.
+      // (Stage 3, 2026-08-06): also links Cornelia Street's same-night,
+      // same-city acoustic debut.
+      relatedIds: [
+        'moment:vault-lover-city-of-lover-finally-airs-a-concert-special-for-a-tour-that',
+        'moment:vault-lover-cornelia-street-written-alone-and-debuted-acoustic-in-paris',
+      ],
       year: 2019,
       month: 9,
       day: 9,
@@ -1360,11 +1459,32 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo pass (#762, 2026-08-07): added 2 verified Getty/Dave Hogan
+        // frames from this exact Sept 9 2019 L'Olympia show (EXIF caption
+        // confirms venue/date), served via HollywoodLife's own CDN.
+        // Downloaded and vision-confirmed; focalPoint set individually.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/d_2WyBcFbFY/hqdefault.jpg',
+            focalPoint: '58% 60%',
             credit: 'Republic Records / YouTube (official video still)',
             caption: "Onstage at L'Olympia — still from the official 'The Archer (Live From Paris)' video on Taylor Swift's YouTube channel.",
+            kind: 'archival',
+          },
+          {
+            url: 'https://i0.wp.com/media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-6.jpg',
+            focalPoint: '40% 25%',
+            credit: "Dave Hogan, via HollywoodLife",
+            caption:
+              "Taylor Swift performing at her City of Lover concert at L'Olympia, Paris, Sept. 9, 2019.",
+            kind: 'primary',
+          },
+          {
+            url: 'https://i0.wp.com/media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-7.jpg',
+            focalPoint: '50% 25%',
+            credit: "Dave Hogan, via HollywoodLife",
+            caption:
+              "Taylor Swift mid-performance at the same L'Olympia show, Sept. 9, 2019.",
             kind: 'archival',
           },
         ],
@@ -1372,6 +1492,12 @@ export default {
     },
     {
       slug: 'lover-fest-announced',
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster — its
+      // cancellation, and the mirrorball it led her to write instead.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-falls-to-the-pandemic',
+        'moment:vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap',
+      ],
       year: 2019,
       month: 9,
       day: 17,
@@ -1407,6 +1533,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/SoFi_Stadium_2021.jpg/960px-SoFi_Stadium_2021.jpg',
+            focalPoint: '50% 38%',
             credit: 'Troutfarm27 (CC BY-SA 4.0), via Wikimedia Commons',
             caption: 'Reference image: SoFi Stadium in Inglewood, the venue Lover Fest West would have opened — no Lover Fest show was ever performed.',
             kind: 'reference',
@@ -1416,6 +1543,11 @@ export default {
     },
     {
       slug: 'lover-fest-2020-cancelled',
+      // Cross-link (Stage 3, 2026-08-06): the "Lover Fest" cluster.
+      relatedIds: [
+        'moment:vault-lover-lover-fest-a-festival-instead-of-a-tour',
+        'moment:vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap',
+      ],
       year: 2020,
       month: 4,
       day: 17,
@@ -1451,6 +1583,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Gillette_Stadium_Foxboro.jpg/960px-Gillette_Stadium_Foxboro.jpg',
+            focalPoint: '60% 48%',
             credit: 'Art N. (CC BY 2.0), via Wikimedia Commons',
             caption: 'Reference image: Gillette Stadium in Foxborough, where Lover Fest East was booked for July 31 and August 1, 2020 — shows that never happened.',
             kind: 'reference',
@@ -1460,6 +1593,8 @@ export default {
     },
     {
       slug: 'cats-beautiful-ghosts',
+      // Cross-link (Stage 3, 2026-07-30): sibling "Beautiful Ghosts" moment.
+      relatedIds: ['moment:vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe'],
       year: 2019,
       month: 12,
       day: 20,
@@ -1492,9 +1627,14 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo pass (#762, 2026-08-07): searched for a second photo of
+        // Taylor in character as Bombalurina — no free-use, verifiable,
+        // non-watermarked still exists (checked Wikimedia Commons, official
+        // trailers, Wikipedia). Left at editorial max; focalPoint added.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/cf/Cats_2019_poster.jpg',
+            focalPoint: '50% 62%',
             credit: 'Universal Pictures (theatrical release poster)',
             kind: 'primary',
           },
@@ -1721,6 +1861,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Taylor_Swift_-_The_Archer.png',
+            focalPoint: '50% 50%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1899,6 +2040,9 @@ export default {
     },
     {
       slug: 'cornelia-street-live-debut',
+      // Cross-link (Stage 3, 2026-08-06): same night, same city — the City
+      // of Lover concert this acoustic debut happened at.
+      relatedIds: ['moment:vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b'],
       year: 2019,
       month: 9,
       day: 9,
@@ -1934,6 +2078,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/VikHHWrgb4Y/hqdefault.jpg',
+            focalPoint: '50% 55%',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'Cornelia Street' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -1954,7 +2099,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and Teen Vogue read her oversized black blazer and sequined pants as a last flicker of the reputation aesthetic.\n\nChoosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
+          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and her oversized black blazer and sequined pants read, per Teen Vogue, as a last flicker of the reputation aesthetic.\n\nChoosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2144,6 +2289,9 @@ export default {
     },
     {
       slug: 'beautiful-ghosts-single',
+      // Cross-link (Stage 3, 2026-07-30): the "Beautiful Ghosts" pair — the
+      // single, and its home in the Cats film — now interlink.
+      relatedIds: ['moment:vault-lover-cats-arrives-bombalurina-digital-fur-and-beautiful-ghosts'],
       year: 2019,
       month: 11,
       day: 15,
@@ -2167,11 +2315,23 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo pass (#762, 2026-08-07): added the official Vevo lyric-video
+        // still (London skyline, the dancing-cat silhouette) — genuinely
+        // distinct from the cover art. Downloaded and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/82/Taylor_Swift_-_Beautiful_Ghosts.png',
+            focalPoint: '50% 45%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/trIjpVH8h88/maxresdefault.jpg',
+            focalPoint: '48% 42%',
+            credit: "Taylor Swift / Vevo (official 'Beautiful Ghosts' lyric video still)",
+            caption:
+              'A still from the official lyric video: a nighttime London skyline with Big Ben and a dancing-cat silhouette, as the lyric "these beautiful ghosts" glows in.',
+            kind: 'archival',
           },
         ],
       },
@@ -2210,14 +2370,19 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Focal points set 2026-08-07 (#762): both images individually
+        // viewed — the cover has young Taylor and the dog left-of-center,
+        // the video still has toddler Taylor right-of-center, upper frame.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png',
+            focalPoint: '38% 45%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
           {
             url: 'https://i.ytimg.com/vi/mN3rDTAdM2o/hqdefault.jpg',
+            focalPoint: '65% 35%',
             credit: 'Republic Records / YouTube (official music video still)',
             caption: "Taylor-family home-movie footage — still from the official 'Christmas Tree Farm' video on Taylor Swift's YouTube channel.",
             kind: 'archival',
@@ -2267,6 +2432,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/69/Taylor_Swift_-_Only_the_Young.png',
+            focalPoint: '42% 32%',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -2275,6 +2441,8 @@ export default {
     },
     {
       slug: 'city-of-lover-special-airs',
+      // Cross-link (Stage 3, 2026-07-30): sibling "City of Lover" moment.
+      relatedIds: ['moment:vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b'],
       year: 2020,
       month: 5,
       day: 17,
@@ -2310,6 +2478,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — profile
+            // singing into the mic sits right of center.
+            focalPoint: '60% 42%',
             credit: 'ABC / Republic Records (broadcast promotional art)',
             kind: 'primary',
           },
@@ -2329,7 +2500,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer five-song set — "Blank Space," "ME!," an emotional "Lover," "You Need to Calm Down," and "Shake It Off" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. Rolling Stone\'s recap put the night\'s haul at more than $135,000 from tickets and Twitter activations, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
+          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer five-song set — "Blank Space," "ME!," an emotional "Lover," "You Need to Calm Down," and "Shake It Off" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. The night\'s haul topped $135,000 from tickets and Twitter activations, per Rolling Stone\'s recap, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2362,6 +2533,10 @@ export default {
         photos: [
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2019/10/GettyImages-1182186382.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the small
+            // onstage figure sits centered, low in the frame under the
+            // arched night-sky screen.
+            focalPoint: '48% 75%',
             credit: 'Getty Images, via Rolling Stone',
             caption: 'Onstage at the Hollywood Bowl for We Can Survive, October 19, 2019, backed by Lover-era night-sky visuals.',
             kind: 'archival',
@@ -2406,8 +2581,23 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shanghai-2019-billboard-1548.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — the
+            // figure occupies the right half of the frame, face upper-right.
+            focalPoint: '62% 30%',
             credit: 'Billboard',
             caption: "Onstage at Alibaba's 11.11 Countdown Gala at the Mercedes-Benz Arena in Shanghai, November 10, 2019.",
+            kind: 'archival',
+          },
+          // Photo pass #762 (2026-08-09): 2nd verified photo, a different
+          // moment from the same set. SCMP's own article + own CDN (not a
+          // third-party aggregator), curl 200 image/jpeg 1020x680, downloaded
+          // and vision-confirmed.
+          {
+            url: 'https://cdn.i-scmp.com/sites/default/files/styles/1020x680/public/d8/images/methode/2019/11/11/0223cb00-042e-11ea-a68f-66ebddf9f136_image_hires_172655.jpg?itok=uUebZMQw&v=1573464423',
+            // Centered onstage, face upper-middle of frame.
+            focalPoint: '50% 40%',
+            credit: 'AFP, via South China Morning Post',
+            caption: "Performing at Alibaba's 11.11 Countdown Gala in a silver snake-print romper, flanked by backup vocalists against a butterfly-lit LED backdrop.",
             kind: 'archival',
           },
         ],
@@ -2450,6 +2640,9 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-jingle-ball-dec-13-2019-billboard-1548.jpg?w=1024',
+            // Photo pass #762 (2026-08-08): downloaded and viewed — she
+            // stands right of the cake, face upper-right of frame.
+            focalPoint: '78% 22%',
             credit: 'Billboard',
             caption: 'The cat-decorated birthday cake onstage at Z100\'s Jingle Ball at Madison Square Garden — her 30th birthday, December 13, 2019.',
             kind: 'archival',
@@ -2665,6 +2858,27 @@ export default {
       milestone: { id: "m-lov-2", label: "Lover released", kind: "album" },
       snippet: "A pastel love letter — and the first album she would fully own.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-confirms-seventh-studio-album-lover/',
+            source_title: 'Taylor Swift Confirms Seventh Studio Album, \'Lover\'',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/753393630',
+            source_title: 'Look What They Made Her Do: Taylor Swift To Re-Record Her Catalog',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+        ],
         context: "After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere.",
         // Photo pass #762 (2026-07-19): freely licensed Commons shot from the
         // era's launch season — license (CC BY-SA 4.0, Glenn Francis/Toglenn)
@@ -2702,6 +2916,27 @@ export default {
       // photo-less rather than fabricate. Skip on future runs.
       hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
       moment: {
+        sources: [
+          {
+            outlet: 'NPR',
+            url: 'https://text.npr.org/737613627',
+            source_title: 'Taylor Swift\'s Former Label Big Machine Is Sold, Rankling The Star',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+            notes: 'NPR\'s text-only host; the canonical npr.org url timed out on every fetch attempt.',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/caitlinkelley/2019/06/30/taylor-swift-calls-scooter-braun-manipulative-after-big-machine-sells-her-catalog/',
+            source_title: 'Taylor Swift Calls Scooter Braun \'Manipulative\' After Big Machine Sells Her Catalog',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
       },
     },

@@ -10,6 +10,17 @@ shell). Trigger phrases: "run the content integrity engine", "run a CIE pass",
 or generated files. Every step is idempotent. Findings below confidence 0.5 are
 routing signals, not tickets. Do NOT merge the engine PR without explicit approval.
 
+**Before acting on ANY length finding, read `scripts/lib/content-caps.mjs`.**
+Every cap the engine enforces is defined there, once, with the decision that set
+it. In particular `moment.context` is capped at **4000**, not 2000 — Wyatt raised
+it on 2026-07-22 because the 2000 ceiling was the binding constraint on the
+marquee pages, and long context is the *point* of a defining moment. On
+2026-08-11 a stale copy of that number in `checkers/redlines.mjs` filed 31 false
+P1 "oversized field" tickets and a fixer cleared them by deleting 30,562
+characters of authored depth (PR #1727, since reverted). If a length finding
+tells you to shorten a `moment.context` below 4000, the finding is wrong —
+check the cap before you cut.
+
 ---
 
 ## 0. Setup
@@ -27,6 +38,26 @@ node scripts/content-engine/run.mjs prep-batches  # FULL corpus → .findings/ag
 `prep-batches` defaults to the whole corpus (43 factual + 15 image batches, ~28
 items each). We deliberately do NOT use `--claims-only` — claim-free narrative
 records are exactly where fabricated events hide (that filter caused a real miss).
+
+> **The agent layer is no longer manual-only (2026-08-11).** Everything below is
+> the FULL-SWEEP procedure — the whole corpus in one sitting, ~20M tokens. It is
+> still the right thing for a deliberate catch-up. But the reason every
+> `cie:fact` issue in this repo's history is dated 2026-07-10 is that this ritual
+> required a human, and for a month nobody performed it while `prep-batches` kept
+> producing batches nothing consumed. The **nightly** form is now a bounded slice
+> with committed state:
+>
+> ```bash
+> node scripts/content-engine/run.mjs review-slice   # tonight's slice, changed content first
+> # …dispatch one subagent per batch in slice/manifest.json (prompts in §2)…
+> node scripts/content-engine/run.mjs ingest && node scripts/content-engine/run.mjs issues --create
+> node scripts/content-engine/run.mjs record-review  # commit docs/audits/engine/agent-review-ledger.json
+> node scripts/content-engine/run.mjs review-status  # how much of the corpus has ever been agent-reviewed
+> ```
+>
+> Runner + budget + trigger config: `docs/agents/runner-prompts/karen-deep-review.md`
+> and `docs/agents/runners.md` → "Karen Deep". The ledger is keyed by item, not by
+> batch, so a failed batch simply returns to the front of tomorrow's queue.
 
 ## 2. Agent-review fleet (the LLM passes — you spawn these)
 Cover **every** batch under `agent-input/factual/` and `agent-input/images/`.
@@ -56,6 +87,19 @@ Cover **every** batch under `agent-input/factual/` and `agent-input/images/`.
 >    events → `fact.unconfirmed`; narrower/different source → `fact.source-grounding`;
 >    stale record → `fact.cross-check`; misquote/imprecise → `fact.slop`.
 > 5. Emit ONLY verified findings; `[]` if clean. Honest confidence.
+> Write the JSON array to exactly `scripts/content-engine/.findings/agent-<BATCH>.json`. Never edit content.
+
+### Canonical safety-agent prompt (fill in `<BATCH>`)
+> You are a CIE safety-review agent. Working root: `<repo abs path>`.
+> 1. Read `scripts/content-engine/agent/prompts/safety.md`, `agent/schema.md`, and
+>    the rubric `docs/content-ops/privacy-redlines.md` IN FULL.
+> 2. Read your batch (`safety-candidates.json` from `prep-agents`, or
+>    `agent-input/slice/safety.json` from `review-slice`).
+> 3. Each row is a KEYWORD HIT, not a finding — `redlines.candidates()` routes it
+>    here precisely because a regex cannot tell "she wrote it as a child" from a
+>    real red line. Classify each against the rubric; open the page when the
+>    excerpt is ambiguous. A false accusation is worse than a miss.
+> 4. Emit only CONFIRMED violations; `[]` is the expected output for a clean batch.
 > Write the JSON array to exactly `scripts/content-engine/.findings/agent-<BATCH>.json`. Never edit content.
 
 ### Canonical image-agent prompt (fill in `<BATCH>`)

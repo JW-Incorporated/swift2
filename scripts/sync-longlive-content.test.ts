@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
 import {
@@ -8,6 +8,7 @@ import {
   imagesFrom,
   productsFrom,
   rumorsFrom,
+  seedItemToInput,
   significanceFrom,
   threadIdsFrom,
 } from './sync-longlive-content.mjs';
@@ -96,6 +97,48 @@ describe('addItem date precision', () => {
     addItem(byEra, {}, 'debut', { ...base, title: 'Test Item 2', year: 2026, month: 7, day: 4.5 });
     expect(byEra.debut[0].dateLabel).toBe('July 2026');
     expect(byEra.debut[1].dateLabel).toBe('July 2026');
+  });
+
+  it("carries the 'fandom' milestone kind through (2026-08-11)", () => {
+    const byEra = {};
+    addItem(byEra, {}, 'midnights', {
+      ...base,
+      year: 2023,
+      month: 7,
+      day: 22,
+      milestone: { id: 'm-test-fandom', label: 'Test fandom milestone', kind: 'fandom' },
+    });
+    expect(byEra.midnights[0].milestone).toEqual({
+      id: 'm-test-fandom',
+      label: 'Test fandom milestone',
+      kind: 'fandom',
+    });
+  });
+
+  it('DROPS a milestone with an unrecognized kind — but says so on stderr', () => {
+    // Regression guard for a silent-failure mode: before 2026-08-11 an
+    // unregistered or typo'd kind removed the marker from the scrubber with
+    // no signal anywhere, so a new kind authored in seed simply vanished.
+    // The drop is still non-fatal (this script runs on every content PR);
+    // it just is no longer invisible.
+    const byEra = {};
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    try {
+      addItem(byEra, {}, 'debut', {
+        ...base,
+        year: 2026,
+        month: 7,
+        day: 3,
+        milestone: { id: 'm-bogus', label: 'Bogus', kind: 'facebook' },
+      });
+      expect(byEra.debut[0].milestone).toBeUndefined();
+      expect(warn).toHaveBeenCalledTimes(1);
+      const [message] = warn.mock.calls[0];
+      expect(message).toContain('m-bogus');
+      expect(message).toContain('"facebook"');
+    } finally {
+      warn.mockRestore();
+    }
   });
 
   it('carries a valid significance through end to end, and omits it when absent', () => {
@@ -487,5 +530,52 @@ describe('socialPost survives the whole chain (issue #1074)', () => {
       socialPost: { platform: 'tiktok', shortcode: 'AAA', label: 'Not supported yet.' },
     });
     expect(buildOutputSource(byEra)).not.toContain('socialPost:');
+  });
+});
+
+describe('video survives the whole chain at either placement (issue #846)', () => {
+  // Same failure class as socialPost above, and the reason the test goes
+  // through seedItemToInput() rather than calling addItem() directly: the
+  // video type, addItem() and the serializer were ALL already correct, and 3
+  // real `moment.video` clips (the-life-of-a-showgirl.mjs) still rendered
+  // nowhere — because the seed-side CALLER read only `item.video`, never
+  // `item.moment.video`. A test on addItem()/buildOutputSource() alone passes
+  // both before and after the fix; only exercising the projection catches it.
+
+  const base = {
+    year: 2025,
+    month: 10,
+    day: 3,
+    category: 'music',
+    title: 'The Fate of Ophelia',
+    snippet: 'A snippet.',
+  };
+  const clip = { youtubeId: 'ko70cExuzZM', title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)' };
+  const emit = (item: Record<string, unknown>) => {
+    const byEra = {};
+    addItem(byEra, {}, 'the-life-of-a-showgirl', seedItemToInput(item));
+    return buildOutputSource(byEra);
+  };
+
+  it('forwards a video authored at the item level', () => {
+    expect(emit({ ...base, video: clip })).toContain('video: { youtubeId: "ko70cExuzZM"');
+  });
+
+  it('forwards a video authored on the moment (the #846 bug)', () => {
+    expect(emit({ ...base, moment: { video: clip } })).toContain('video: { youtubeId: "ko70cExuzZM"');
+  });
+
+  it('prefers the item-level video when both are present', () => {
+    const out = emit({
+      ...base,
+      video: { youtubeId: 'ITEMLEVEL', title: 'Item' },
+      moment: { video: { youtubeId: 'MOMENTLEVEL', title: 'Moment' } },
+    });
+    expect(out).toContain('youtubeId: "ITEMLEVEL"');
+    expect(out).not.toContain('MOMENTLEVEL');
+  });
+
+  it('emits no video row when neither placement has one', () => {
+    expect(emit({ ...base })).not.toContain('video:');
   });
 });

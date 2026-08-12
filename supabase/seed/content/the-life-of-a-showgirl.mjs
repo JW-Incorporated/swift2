@@ -545,6 +545,45 @@ export default {
             kind: 'reference',
           },
         ],
+        // Rumor Desk (2026-08-01): from the moment the album arrived, its
+        // Las Vegas showgirl register set off a "will she tour / do a Vegas
+        // residency" news cycle — the two adjudicable, named claims below.
+        // First the Sphere-specific residency the venue itself denied, then the
+        // broader Vegas/tour talk still live. Tour and residency speculation is
+        // explicitly Always-OK per privacy-redlines.md: a rumored *performance*
+        // venue is the "plays Wembley" case, not a personal-whereabouts claim,
+        // so no locationSpecificity is declared.
+        rumors: [
+          {
+            claim:
+              "As The Life of a Showgirl leaned all the way into its Las Vegas imagery, The US Sun reported that Taylor's team was privately eyeing a concert residency at the Las Vegas Sphere — the venue fans had already pegged as the era's likely home.",
+            reportedBy: "The US Sun",
+            reportedOn: "2025-08-14",
+            status: "debunked",
+            url: "https://www.musictimes.com/articles/109645/20250814/taylor-swift-could-turn-las-vegas-home-life-showgirl-era-shows.htm",
+            sourceTier: "tabloid",
+            resolution: {
+              on: "2025-08-19",
+              url: "https://www.nme.com/news/music/taylor-swift-has-no-plans-to-hold-a-residency-at-the-las-vegas-sphere-3885678",
+              outlet: "NME",
+              note:
+                "A Sphere representative told Puck's Matt Belloni: 'While we love and respect Taylor Swift, we are not in conversations with her team about a residency at Sphere.' The denial addresses the Sphere specifically — broader Las Vegas talk resurfaced in April 2026 (next entry).",
+            },
+            lastCheckedOn: "2026-08-01",
+          },
+          {
+            claim:
+              "Eight months after the Sphere denial, a Daily Mail source revived the Vegas talk — saying residency discussions were 'ongoing' across several Strip venues, with Taylor 'eyeing seven dates' but 'nothing set in stone,' and her 'main focus' a full tour rather than a residency.",
+            reportedBy: "Daily Mail",
+            reportedOn: "2026-04-07",
+            status: "unconfirmed",
+            url: "https://www.realitytea.com/2026/04/07/taylor-swift-las-vegas-performance-residency/",
+            sourceTier: "tabloid",
+            lastCheckedOn: "2026-08-01",
+            note:
+              "Daily Mail insider quotes, as carried by Reality Tea. As of this check no Life of a Showgirl tour or Las Vegas residency has been officially announced. Resolves confirmed on an official announcement; fades if it goes quiet.",
+          },
+        ],
       },
     },
     {
@@ -568,7 +607,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced barely two weeks out and distributed by AMC Theatres Distribution with Variance Films domestically and Piece of Magic internationally, the roughly 89-minute event was built as a communal album drop rather than a concert film — release-day showtimes started at 3 p.m. ET, and a ticket ran the standard $12, which fans read as a nod to her 12th album (AMC never confirmed the price as a deliberate Easter egg the way the Eras film\'s $19.89 was, and $12 is also its ordinary base price). The program opened with the world premiere of the self-directed "The Fate of Ophelia" video, then behind-the-scenes footage from its shoot, then Taylor on camera talking through the record over lyric videos for its tracks.\n\nThat video was shot by Rodrigo Prieto — the Oscar-nominated cinematographer of Barbie and Killers of the Flower Moon, and of her own "Fortnight" — at the 1931 Los Angeles Theatre and a soundstage, with Eras Tour collaborators Ethan Tobman (production design) and Mandy Moore (choreography); Prieto later won an ASC Music Video Award for it. The theatrical window was only about 48 hours: the video hit YouTube on Sunday, Oct. 5 at 7 p.m. ET.\n\nTheaters leaned into the party — costumes, friendship bracelets, full-crowd singalongs to songs nobody had heard that morning; CNN\'s dispatch described aisles turned into dance floors — and audiences graded it an A+ CinemaScore, the same mark the 2023 Eras Tour film earned and one only a handful of releases a year ever get. It played the single weekend of Oct. 3–5 with no held-over showings and cleared more than $50 million worldwide — $34.1 million domestic, $16 million international — enough for AMC to call it the biggest-grossing album-debut theatrical event ever and the only album-debut cinema experience to finish a weekend at No. 1 domestically.\n\nAMC put the full global footprint at more than 8,000 cinemas across upward of 110 territories once every partner market came online, all playing the exact same run time in their own local time zone rather than a staggered international rollout. Inside the program, the commentary segments went beyond generic reflections: Taylor is shown baking sourdough bread on camera during behind-the-scenes footage, and the sequence includes a segment built around Sabrina Carpenter, framed as her having "opened" for the title track the way she opened Eras Tour shows before her own breakout — tying the film\'s structure to the same mentor/successor idea the title track\'s lyric explores. No exclusive merchandise or collectible ticket for the event has been reported. The full 89-minute program with Taylor\'s commentary has not had a confirmed home or streaming release; what did surface afterward were the pieces already built for wider release — the "Fate of Ophelia" video and the album\'s lyric videos went to YouTube shortly after the theatrical run ended, which is the extent of the program\'s life outside AMC\'s three-day window as of this writing. Its $50.1 million global weekend outdrew Beyoncé\'s "Renaissance: A Film" (roughly $21 million opening weekend in 2023) by a wide margin, though it still trails the scale of Taylor\'s own "The Eras Tour" concert film, which opened to $92.8 million domestically in 2023 — the two events aren\'t quite apples-to-apples: Eras was a full concert film with a wider multi-week run, while the Showgirl release party was a single 89-minute weekend event built around an album, not a tour.',
+          'Announced barely two weeks out and distributed by AMC Theatres Distribution with Variance Films domestically and Piece of Magic internationally, the roughly 89-minute event was built as a communal album drop rather than a concert film — release-day showtimes started at 3 p.m. ET, and a ticket ran the standard $12, which fans read as a nod to her 12th album (AMC never confirmed the price as a deliberate Easter egg the way the Eras film\'s $19.89 was, and $12 is also its ordinary base price). The program opened with the world premiere of the self-directed "The Fate of Ophelia" video, then behind-the-scenes footage from its shoot, then Taylor on camera talking through the record over lyric videos for its tracks.\n\nThat video was shot by Rodrigo Prieto — the Oscar-nominated cinematographer of Barbie and Killers of the Flower Moon, and of her own "Fortnight" — at the 1931 Los Angeles Theatre and a soundstage, with Eras Tour collaborators Ethan Tobman (production design) and Mandy Moore (choreography); Prieto later won an ASC Music Video Award for it. The theatrical window was only about 48 hours: the video hit YouTube on Sunday, Oct. 5 at 7 p.m. ET.\n\nTheaters leaned into the party — costumes, friendship bracelets, full-crowd singalongs to songs nobody had heard that morning, aisles turned into full-on dance floors (CNN caught it on camera) — and audiences graded it an A+ CinemaScore, the same mark the 2023 Eras Tour film earned and one only a handful of releases a year ever get. It played the single weekend of Oct. 3–5 with no held-over showings and cleared more than $50 million worldwide — $34.1 million domestic, $16 million international — enough for AMC to call it the biggest-grossing album-debut theatrical event ever and the only album-debut cinema experience to finish a weekend at No. 1 domestically.\n\nAMC put the full global footprint at more than 8,000 cinemas across upward of 110 territories once every partner market came online, all playing the exact same run time in their own local time zone rather than a staggered international rollout. Inside the program, the commentary segments went beyond generic reflections: Taylor is shown baking sourdough bread on camera during behind-the-scenes footage, and the sequence includes a segment built around Sabrina Carpenter, framed as her having "opened" for the title track the way she opened Eras Tour shows before her own breakout — tying the film\'s structure to the same mentor/successor idea the title track\'s lyric explores. No exclusive merchandise or collectible ticket for the event has been reported. The full 89-minute program with Taylor\'s commentary has not had a confirmed home or streaming release; what did surface afterward were the pieces already built for wider release — the "Fate of Ophelia" video and the album\'s lyric videos went to YouTube shortly after the theatrical run ended, which is the extent of the program\'s life outside AMC\'s three-day window as of this writing. Its $50.1 million global weekend outdrew Beyoncé\'s "Renaissance: A Film" (roughly $21 million opening weekend in 2023) by a wide margin, though it still trails the scale of Taylor\'s own "The Eras Tour" concert film, which opened to $92.8 million domestically in 2023 — the two events aren\'t quite apples-to-apples: Eras was a full concert film with a wider multi-week run, while the Showgirl release party was a single 89-minute weekend event built around an album, not a tour.',
         sources: [
           {
             outlet: 'CNN Business',
@@ -1171,7 +1210,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it: the standard "Sweat and Vanilla Perfume" Portofino-orange-glitter LP, the Target-exclusive "The Crowd Is Your King" pink shimmer, and six limited "first and only pressing" webstore drops — the "Shiny Bug" pair (Wintergreen & Onyx and Violet Shimmer), the "Baby, That’s Showbiz" pair (Lakeside Beach Blue Sparkle and Lovely Bouquet Golden) and the "Tiny Bubbles in Champagne" pair (Red Lipstick & Lace and Under Bright Lights Pearlescent); per-variant pressing figures were never disclosed. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.\n\nThe pure-sales week broke down as 1.76 million CDs, the 1.334 million LPs, 358,000 digital downloads and 26,000 cassettes, with zero à-la-carte track sales; Billboard estimated the album grossed roughly $135 million in seven days, vinyl priced from $34.99 and CD-plus-apparel bundles at $65–$70. Forbes was explicit that the million-vinyl week was a first "for any artist in history," and that the old 859,000 mark fell on release day itself — about 1.2 million LPs moved on day one alone.\n\nThe variant strategy that built the number drew its own documented criticism. In The Conversation, University of Bath marketing scholar Annayah Prosser argued the two-dozen-plus editions inflate the charts by design — since "every album purchased (regardless of the format or cover image) is valued" — and called vinyl\'s materials "unsustainable," noting Taylor "hasn\'t experimented with eco-friendly alternatives." A University of Glasgow study led by Prof. Matt Brennan found about a quarter of surveyed Taylor fans (26%) would consider a plastic-free release. Neither Taylor nor Republic publicly answered the sustainability or chart-inflation critiques, and per-variant pressing figures were never disclosed.',
+          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. The record didn\'t even make it to week\'s end — it fell within hours of release day (Forbes had it within a day of the numbers coming in): her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nThe number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second — the same conclusion NPR\'s deeper dive on the numbers reached. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it: the standard "Sweat and Vanilla Perfume" Portofino-orange-glitter LP, the Target-exclusive "The Crowd Is Your King" pink shimmer, and six limited "first and only pressing" webstore drops — the "Shiny Bug" pair (Wintergreen & Onyx and Violet Shimmer), the "Baby, That’s Showbiz" pair (Lakeside Beach Blue Sparkle and Lovely Bouquet Golden) and the "Tiny Bubbles in Champagne" pair (Red Lipstick & Lace and Under Bright Lights Pearlescent); per-variant pressing figures were never disclosed. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.\n\nThe pure-sales week broke down as 1.76 million CDs, the 1.334 million LPs, 358,000 digital downloads and 26,000 cassettes, with zero à-la-carte track sales; Billboard estimated the album grossed roughly $135 million in seven days, vinyl priced from $34.99 and CD-plus-apparel bundles at $65–$70. Forbes was explicit that the million-vinyl week was a first "for any artist in history," and that the old 859,000 mark fell on release day itself — about 1.2 million LPs moved on day one alone.\n\nThe variant strategy that built the number drew its own documented criticism. In The Conversation, University of Bath marketing scholar Annayah Prosser argued the two-dozen-plus editions inflate the charts by design — since "every album purchased (regardless of the format or cover image) is valued" — and called vinyl\'s materials "unsustainable," noting Taylor "hasn\'t experimented with eco-friendly alternatives." A University of Glasgow study led by Prof. Matt Brennan found about a quarter of surveyed Taylor fans (26%) would consider a plastic-free release. Neither Taylor nor Republic publicly answered the sustainability or chart-inflation critiques, and per-variant pressing figures were never disclosed.',
         sources: [
           {
             outlet: 'Forbes',
@@ -1326,7 +1365,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the Hot 100 dated Oct. 18, 2025, the chart\'s top 12 and the album\'s 12-song tracklist were the same list, in order: "The Fate of Ophelia" (No. 1), "Opalite" (2), "Elizabeth Taylor" (3), "Father Figure" (4), "Wood" (5), "Wi$h Li$t" (6), "Actually Romantic" (7), "The Life of a Showgirl" feat. Sabrina Carpenter (8), "Eldest Daughter" (9), "Cancelled!" (10), "Ruin the Friendship" (11) and "Honey" (12) — with nothing else, no other artist or song, inside the top 12. Billboard called it the first album ever to place all its songs uninterrupted from the top of the chart on down.\n\n"The Fate of Ophelia" arrived as the 1,184th No. 1 in Hot 100 history and Taylor\'s 13th career chart-topper — tying for the fourth-most ever — on 92.5 million official U.S. streams, the most for any title in a single week since streams became the metric\'s sole contributor in September 2020 — past the 76.4 million of Post Malone\'s "I Had Some Help" in 2024 — plus 38.5 million in radio-airplay impressions. The week added 10 new top-10 debuts, lifting her to 69 career top 10s, the most of any woman.\n\nShe first filled the entire top 10 with Midnights in November 2022, then outdid herself with The Tortured Poets Department\'s top-14 sweep in May 2024 — the only act ever to monopolize the top 10, now three times over. But the shape was unique. Midnights spilled 10 more debuts down to No. 45 (20 songs that week) and TTPD another 17 down to No. 55 (31 total); Showgirl\'s twelve tracks filled exactly the top 12 and stopped — a clean tracklist-equals-top-12 match possible only because she kept the album short. The yardstick before her was the Beatles\' entire top five in April 1964, which stood more than fifty years; no act held the whole top 10 until her Midnights sweep (Drake had come closest, nine of ten, in 2021). That makes her the only act to sweep the top 10 at all, and twelve-for-twelve the most complete domination the Hot 100 has recorded.',
+          'On the Hot 100 dated Oct. 18, 2025, the chart\'s top 12 and the album\'s 12-song tracklist were the same list, in order: "The Fate of Ophelia" (No. 1), "Opalite" (2), "Elizabeth Taylor" (3), "Father Figure" (4), "Wood" (5), "Wi$h Li$t" (6), "Actually Romantic" (7), "The Life of a Showgirl" feat. Sabrina Carpenter (8), "Eldest Daughter" (9), "Cancelled!" (10), "Ruin the Friendship" (11) and "Honey" (12) — with nothing else, no other artist or song, inside the top 12. It\'s the first album ever to place all its songs uninterrupted from the top of the chart on down, per Billboard\'s count.\n\n"The Fate of Ophelia" arrived as the 1,184th No. 1 in Hot 100 history and Taylor\'s 13th career chart-topper — tying for the fourth-most ever — on 92.5 million official U.S. streams, the most for any title in a single week since streams became the metric\'s sole contributor in September 2020 — past the 76.4 million of Post Malone\'s "I Had Some Help" in 2024 — plus 38.5 million in radio-airplay impressions. The week added 10 new top-10 debuts, lifting her to 69 career top 10s, the most of any woman.\n\nShe first filled the entire top 10 with Midnights in November 2022, then outdid herself with The Tortured Poets Department\'s top-14 sweep in May 2024 — the only act ever to monopolize the top 10, now three times over. But the shape was unique. Midnights spilled 10 more debuts down to No. 45 (20 songs that week) and TTPD another 17 down to No. 55 (31 total); Showgirl\'s twelve tracks filled exactly the top 12 and stopped — a clean tracklist-equals-top-12 match possible only because she kept the album short. The yardstick before her was the Beatles\' entire top five in April 1964, which stood more than fifty years; no act held the whole top 10 until her Midnights sweep (Drake had come closest, nine of ten, in 2021). That makes her the only act to sweep the top 10 at all, and twelve-for-twelve the most complete domination the Hot 100 has recorded.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1446,7 +1485,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Taylor imagined a version who instead "met someone who treated her well" and is pulled from the water. She has said she has a "fixation on Shakespeare characters that I fall in love with and I can\'t stand to see them meet a tragic demise," and named it the lead single when she announced the album on Kelce\'s New Heights podcast. The liner credits are Taylor, Max Martin and Shellback alone — no other co-writer or sample — cut at Shellback Studios and MXM Studios in Stockholm between Eras Tour dates. It debuted atop the Billboard Hot 100 — her 13th No. 1 — opening its reign on the Oct. 18, 2025 chart; it briefly slipped to No. 28 in the holiday streaming rush, then climbed back to log a 10th week on the Jan. 17, 2026 chart — 10 non-consecutive weeks in all, her longest-running No. 1, out-running "Anti-Hero"\'s eight.\n\nSwift wrote and directed the video herself, shot by cinematographer Rodrigo Prieto and choreographed by Eras Tour choreographer Mandy Moore, with Eras dancers (Jan Ravnik, Kam Saunders) returning; it premiered inside the theatrical Official Release Party of a Showgirl before its YouTube debut two days later, moving through vaudeville and showgirl tableaux — Marilyn-style stagecraft, 1960s go-go dancing, Busby Berkeley-scale synchronized-swim formations. The chorus choreography became a genuine trend, recreated by fans and by public figures from Australian PM Anthony Albanese — gamely, on Melbourne\'s Nova 100 — to India\'s Shashi Tharoor.\n\nThe single was the era\'s commercial spine: it led the Billboard Global 200 for seven weeks and set Spotify\'s single-day song-streaming record on release day. Abroad it became her longest-running UK No. 1 (seven weeks, past "Anti-Hero"\'s six) and hit No. 1 in Australia, Canada (15 weeks) and Ireland (nine); BPI and ARIA each certified it double platinum. Critics engaged the opener directly, and split on it. NPR\'s Ann Powers heard its "huge and buoyant" bass and a voice that "sounds smitten and a bit hungry," and Rolling Stone\'s Maya Georgi praised its "tantalizing" melody and "wondrous" mix — the magazine later ranked it the eighth-best song of 2025. The Shakespeare conceit drew the sharpest dissent: The New York Times\' Lindsay Zoladz felt Taylor reduced Ophelia to "just another princess waiting for her Prince Charming," The Times\' Will Hodgkinson judged the analogy "doesn\'t really work," and Stereogum\'s Tom Breihan said the song "misses the entire point" of the tragedy while still landing as engaging "writerly excess."',
+          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Taylor imagined a version who instead "met someone who treated her well" and is pulled from the water. She has said she has a "fixation on Shakespeare characters that I fall in love with and I can\'t stand to see them meet a tragic demise," and named it the lead single when she announced the album on Kelce\'s New Heights podcast. The liner credits are Taylor, Max Martin and Shellback alone — no other co-writer or sample — cut at Shellback Studios and MXM Studios in Stockholm between Eras Tour dates. It debuted atop the Billboard Hot 100 — her 13th No. 1 — opening its reign on the Oct. 18, 2025 chart; it briefly slipped to No. 28 in the holiday streaming rush, then climbed back to log a 10th week on the Jan. 17, 2026 chart — 10 non-consecutive weeks in all, her longest-running No. 1, out-running "Anti-Hero"\'s eight.\n\nSwift wrote and directed the video herself, shot by cinematographer Rodrigo Prieto and choreographed by Eras Tour choreographer Mandy Moore, with Eras dancers (Jan Ravnik, Kam Saunders) returning; it premiered inside the theatrical Official Release Party of a Showgirl before its YouTube debut two days later, moving through vaudeville and showgirl tableaux — Marilyn-style stagecraft, 1960s go-go dancing, Busby Berkeley-scale synchronized-swim formations. The chorus choreography became a genuine trend, recreated by fans and by public figures from Australian PM Anthony Albanese — gamely, on Melbourne\'s Nova 100 — to India\'s Shashi Tharoor.\n\nThe single was the era\'s commercial spine: it led the Billboard Global 200 for seven weeks and set Spotify\'s single-day song-streaming record on release day. Abroad it became her longest-running UK No. 1 (seven weeks, past "Anti-Hero"\'s six) and hit No. 1 in Australia, Canada (15 weeks) and Ireland (nine); BPI and ARIA each certified it double platinum. Critics engaged the opener directly, and split on it. NPR\'s Ann Powers heard its "huge and buoyant" bass and a voice that "sounds smitten and a bit hungry," and Maya Georgi\'s Rolling Stone review praised its "tantalizing" melody and "wondrous" mix — the magazine later ranked it the eighth-best song of 2025. The Shakespeare conceit drew the sharpest dissent: The New York Times\' Lindsay Zoladz felt Taylor reduced Ophelia to "just another princess waiting for her Prince Charming," The Times\' Will Hodgkinson judged the analogy "doesn\'t really work," and Tom Breihan\'s Stereogum review argued the song "misses the entire point" of the tragedy while still landing as engaging "writerly excess."',
         // Official MV id verified 2026-07-09 via YouTube oEmbed:
         // https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ko70cExuzZM
         // -> title "Taylor Swift - The Fate of Ophelia (Official Music Video)",
@@ -1581,6 +1620,97 @@ export default {
             kind: 'archival',
             // MV frame: showgirl headdress center frame, face upper-middle.
             focalPoint: '48% 35%',
+          },
+        ],
+      },
+    },
+    {
+      // Intake #1885 (2026-08-11): Andrew Lloyd Webber, a Pre-Raphaelite
+      // collector, publicly praised the album and its Ophelia thread on his own
+      // Instagram. Authored as a confirmed music/culture reception moment — the
+      // claim is fully self-published and adjudicable (he said it on the record).
+      // Not filed as a rumor: it is on-record commentary about her public art,
+      // no privacy redline implicated (the home he references is his, not hers,
+      // and stated by him — no location/security detail on Taylor).
+      slug: 'showgirl-andrew-lloyd-webber-ophelia-praise',
+      // Cross-links: the two Ophelia anchors this outside validation attaches to
+      // — the opening single that shares the Millais conceit and the submerged
+      // "Ophelia bathtub" cover it restages. Both ids verified to resolve.
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+      ],
+      year: 2026,
+      month: 8,
+      day: 11,
+      category: 'music',
+      title: 'Andrew Lloyd Webber hears his own Ophelia in "The Fate of Ophelia"',
+      snippet:
+        'The composer — who owns what is called the largest private collection of Pre-Raphaelite art — posted to Instagram that "The Fate of Ophelia" was the track that most intrigued him on The Life of a Showgirl, tying it to Millais\'s "Ophelia," a version of which hangs in his own home, and wondering aloud whether Taylor saw it there.',
+      sourceUrl:
+        'https://creators.yahoo.com/lifestyle/story/andrew-lloyd-webber-weighs-in-on-taylor-swifts-the-life-of-a-showgirl-album-and-art-inspiration-021518939.html',
+      thumbnailUrl: null,
+      moment: {
+        // No `socialPost` embed: the charter's Instagram-embed route is scoped
+        // to verifying a @taylorswift post, and this post is on Webber's own
+        // account. The post is cited as the primary self-published source
+        // instead, and the item renders with the Millais painting it is about.
+        context:
+          'Andrew Lloyd Webber — the Cats and Phantom composer, and one of the most serious private collectors of Pre-Raphaelite painting in the world — spent part of August 2026 as an unexpected champion of the era\'s central image. In a short video posted to his own Instagram, reported by Robin Raven for Yahoo Creators on Aug. 11, he said he had "just been listening to Taylor Swift\'s new album," called it "really, really good," and singled out one track: "the track that really intrigues me is \'The Fate of Ophelia.\'" What caught him was the lineage the whole era had been built on — the submerged album cover and its opening single both restage John Everett Millais\'s 1852 "Ophelia." "As somebody who loves the Pre-Raphaelites," he said, "this really intrigues me because I\'ve seen a picture of Taylor posing as \'Ophelia\' by Millais," closing on the movement rather than the song: "I\'m just intrigued that once again the Pre-Raphaelites are coming to the fore."\n\nThe part fans seized on was his own house. Webber owns a version of the Millais "Ophelia," and he mused — carefully, without claiming it — that Taylor might have seen it in person: "I have a version of that at home... it does actually hang in the room where we all had lunch, so maybe she did." He put no more weight on it than that "maybe." It is a suggestion of influence, not a documented one, and it sits alongside the vault\'s existing note that the Millais-cover parallel is a reading Taylor and her photographers never confirmed. What is solid is the validation itself: an outside artist of Webber\'s stature hearing the same visual thread the album was reaching for, and hearing it clearly enough to trace it back to a specific Victorian canvas.\n\nThe timing was not a coincidence. Webber was in the middle of talking about that collection publicly — he appeared onstage at the Delaware Art Museum for an interview with curator Sophie Lynford about his Pre-Raphaelite holdings, where he explained why the Victorians kept returning to Shakespeare\'s drowned girl. Ophelia "probably was the most painted legend in Victorian art," he said, "a fairly minor figure in \'Hamlet\'" who "resonated with the Victorians a lot because she was a sad, mad woman." That is the same well the era draws from — the reason a song called "The Fate of Ophelia" and a cover of a woman half-submerged in a diamond bralette read, to a collector who has spent a lifetime with these paintings, as one continuous Pre-Raphaelite echo.',
+        photos: [
+          {
+            // Andrew Lloyd Webber himself — the collector making the comment.
+            // Wikimedia Commons, CC BY-SA 2.0; downloaded and vision-confirmed
+            // this session as a solo portrait of Webber (1256x1660 PNG).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/AndrewLloydWebber3_%28cropped%29.png',
+            focalPoint: '48% 32%',
+            credit: 'Tracey Nolan (CC BY-SA 2.0, via Wikimedia Commons)',
+            caption:
+              'Andrew Lloyd Webber, whose Pre-Raphaelite collection includes a version of the Millais painting he tied "The Fate of Ophelia" to.',
+            kind: 'primary',
+          },
+          {
+            // Reused public-domain Millais "Ophelia" (Tate, 1852) — the exact
+            // painting Webber names, and the one the era's cover and lead single
+            // restage. Same allowlisted Wikimedia/Google Art Project asset the
+            // album-cover moment carries; caption re-pointed to this moment.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/94/John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg',
+            focalPoint: '52% 50%',
+            credit: 'John Everett Millais, 1852 (public domain, Google Art Project)',
+            caption:
+              'Millais\'s "Ophelia" (1852) — the Pre-Raphaelite painting Webber traced the song to, and the one he owns a version of.',
+            kind: 'archival',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Yahoo Creators (Robin Raven)',
+            url: 'https://creators.yahoo.com/lifestyle/story/andrew-lloyd-webber-weighs-in-on-taylor-swifts-the-life-of-a-showgirl-album-and-art-inspiration-021518939.html',
+            source_title:
+              "Andrew Lloyd Webber weighs in on Taylor Swift's 'The Life of a Showgirl' album and art inspiration",
+            publisher: 'Yahoo Creators',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Instagram (@andrewlloydwebber, official post)',
+            url: 'https://www.instagram.com/p/DQb5uJJgRQz/',
+            source_title: "Andrew Lloyd Webber on Taylor Swift's 'The Fate of Ophelia'",
+            publisher: 'Instagram',
+            source_type: 'social',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'WHYY',
+            url: 'https://whyy.org/articles/andrew-lloyd-webber-delaware-art-museum-pre-raphaelite/',
+            source_title:
+              'Andrew Lloyd Webber talks Pre-Raphaelite art, Taylor Swift at Delaware Art Museum',
+            publisher: 'WHYY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
           },
         ],
       },
@@ -1721,7 +1851,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At 4:06 it\'s the longest song on the album — a minor-key piano ballad in a tracklist otherwise built on Max Martin bounce. The lyric plays directly on "eldest daughter syndrome": the firstborn who calls herself the "first lamb to the slaughter," dressed up as a wolf so nobody worries. Taylor\'s own track commentary framed it as a song about the gap between the public self and the private one — "the life you show to others... and the \'you\' that only those closest know."\n\nTime read it as a deliberate turn in the track-five tradition she once described discovering by accident — the vulnerable song instinctively sequenced fifth, a slot fans treat as canon and Taylor has admitted has become a "pressurized decision." It keeps the confessional register of its predecessors while, for the first time in the tradition\'s history, landing on being taken care of rather than being wrecked: the eldest daughter gets to put the wolf costume down — the grief lineage the page threads back to "So Long, London."\n\nFor all that it stands apart on the record, its credits don\'t: like the rest of the album it\'s a Taylor / Max Martin / Shellback three-way co-write and production, the lone minor-key piano ballad on an otherwise up-tempo Max Martin set rather than a solo departure. Spotify\'s published runtimes confirm the 4:06 length is the longest of the twelve tracks (the Sabrina Carpenter–featuring title track is next at 4:01). On the Hot 100 dated Oct. 18, 2025 it both debuted and peaked at No. 9 — its slot inside the album\'s record top-12 sweep — and had slipped to No. 29 by its fourth week. No official music video was made: only the lyric/visualizer clip lives on Taylor\'s channel, and with the Eras Tour already closed in Vancouver in December 2024, she has not performed it live.\n\nCritics split sharply on it. Rolling Stone\'s Maya Georgi praised its "brutal admissions" and RTÉ\'s Sarah McIntyre called it "gorgeously vulnerable," while a cluster of reviewers made it the album\'s low point over its internet-slang lyrics — News.com.au\'s Nick Bond found lines "cringeworthy," Paste\'s Casey Epstein-Gross wrote it "collapses into secondhand embarrassment," and The A.V. Club\'s Mary Kate Carr and The New Yorker each singled it out among the weakest tracks. Several tied it to Taylor\'s earlier perseverance-and-perfectionism songs, "The Archer" and "mirrorball."',
+          'At 4:06 it\'s the longest song on the album — a minor-key piano ballad in a tracklist otherwise built on Max Martin bounce. The lyric plays directly on "eldest daughter syndrome": the firstborn who calls herself the "first lamb to the slaughter," dressed up as a wolf so nobody worries. Taylor\'s own track commentary framed it as a song about the gap between the public self and the private one — "the life you show to others... and the \'you\' that only those closest know."\n\nIt plays as a deliberate turn in the track-five tradition she once described discovering by accident — the vulnerable song instinctively sequenced fifth, a slot fans treat as canon and Taylor has admitted has become a "pressurized decision" (Time made the same read). It keeps the confessional register of its predecessors while, for the first time in the tradition\'s history, landing on being taken care of rather than being wrecked: the eldest daughter gets to put the wolf costume down — the grief lineage the page threads back to "So Long, London."\n\nFor all that it stands apart on the record, its credits don\'t: like the rest of the album it\'s a Taylor / Max Martin / Shellback three-way co-write and production, the lone minor-key piano ballad on an otherwise up-tempo Max Martin set rather than a solo departure. Spotify\'s published runtimes confirm the 4:06 length is the longest of the twelve tracks (the Sabrina Carpenter–featuring title track is next at 4:01). On the Hot 100 dated Oct. 18, 2025 it both debuted and peaked at No. 9 — its slot inside the album\'s record top-12 sweep — and had slipped to No. 29 by its fourth week. No official music video was made: only the lyric/visualizer clip lives on Taylor\'s channel, and with the Eras Tour already closed in Vancouver in December 2024, she has not performed it live.\n\nCritics split sharply on it. Maya Georgi\'s Rolling Stone review praised its "brutal admissions" and RTÉ\'s Sarah McIntyre called it "gorgeously vulnerable," while a cluster of reviewers made it the album\'s low point over its internet-slang lyrics — News.com.au\'s Nick Bond found lines "cringeworthy," Paste\'s Casey Epstein-Gross wrote it "collapses into secondhand embarrassment," and The A.V. Club\'s Mary Kate Carr and The New Yorker each singled it out among the weakest tracks. Several tied it to Taylor\'s earlier perseverance-and-perfectionism songs, "The Archer" and "mirrorball."',
         sources: [
           {
             outlet: 'Time',
@@ -1939,7 +2069,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Taylor announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Taylor wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Taylor and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Taylor had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because Billboard counts physical singles when they ship, not when fans order them. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Taylor\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Taylor plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
+          'Taylor has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Taylor announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Taylor wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Taylor and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Taylor had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because physical singles count toward the Hot 100 the week they ship, not when fans order them, per Billboard\'s methodology. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Taylor\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Taylor plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
         sources: [
           {
             outlet: 'Slate',
@@ -2084,7 +2214,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor has not named the song\'s subject — the Lang connection is fan interpretation, labeled as such, but it rests on public record: she sang at a close friend\'s funeral in 2010 and thanked "Jeff Lang" from the BMI Country Awards stage that year, saying she used to play him her songs first. Fans lined those facts up with the song\'s Hendersonville high-school setting and its final verse — the narrator getting the news of his death and singing at his grave, regretting she never kissed him and admitting "we\'ll never know why" — within hours of release.\n\nWhat elevated the theory beyond lyric forensics was the family\'s response. Lang\'s mother told The Tennessean she wished she could thank Taylor for "keeping his name alive," effectively blessing the reading without Taylor ever confirming it. The lyric\'s advice — ruin the friendship, kiss your friend while you can — lands as the album\'s quietest gut-punch, a country-storytelling move (the twist verse, the moral) smuggled onto her glossiest pop record.\n\nThe song was written and produced by Taylor with Max Martin and Shellback — Showgirl was the first album the three made with no outside collaborators, cut at Shellback\'s Stockholm studio on days off from the Eras Tour\'s European leg, as Taylor recounted on the New Heights podcast in August 2025. For all its hush it was one of the album\'s bigger hits: it debuted and peaked at No. 11 on the Hot 100 — part of Showgirl\'s unprecedented sweep of the chart\'s entire top 12 — hit No. 12 on the Global 200, and went top-20 in Australia, Canada, New Zealand and Sweden.\n\nCritics singled it out: Billboard\'s Jason Lipshutz ranked it the best song on the album, hearing a track that "bridges Swift\'s past and present as a songwriter" and calls it "a summation of her strengths." Taylor herself, at the theatrical release party, framed it plainly as a high-school regret — "It would\'ve been fine to take chances I didn\'t take. I was so disciplined in high school. It\'s very wistful and very nostalgic" — while pointedly not naming anyone, leaving the Lang reading to the fans.\n\nShe later cut a stripped "Ruin the Friendship (My Advice Version)" with new vocals, one of eight acoustic recordings sold as bonus tracks on limited-edition Showgirl CDs. The track has only an official lyric video, not a cinematic one, and — with no tour since the Eras Tour closed in December 2024 — it had not been documented performed live as of mid-2026.',
+          'Taylor has not named the song\'s subject — the Lang connection is fan interpretation, labeled as such, but it rests on public record: she sang at a close friend\'s funeral in 2010 and thanked "Jeff Lang" from the BMI Country Awards stage that year, saying she used to play him her songs first. Fans lined those facts up with the song\'s Hendersonville high-school setting and its final verse — the narrator getting the news of his death and singing at his grave, regretting she never kissed him and admitting "we\'ll never know why" — within hours of release.\n\nWhat elevated the theory beyond lyric forensics was the family\'s response. Lang\'s mother told The Tennessean she wished she could thank Taylor for "keeping his name alive," effectively blessing the reading without Taylor ever confirming it. The lyric\'s advice — ruin the friendship, kiss your friend while you can — lands as the album\'s quietest gut-punch, a country-storytelling move (the twist verse, the moral) smuggled onto her glossiest pop record.\n\nThe song was written and produced by Taylor with Max Martin and Shellback — Showgirl was the first album the three made with no outside collaborators, cut at Shellback\'s Stockholm studio on days off from the Eras Tour\'s European leg, as Taylor recounted on the New Heights podcast in August 2025. For all its hush it was one of the album\'s bigger hits: it debuted and peaked at No. 11 on the Hot 100 — part of Showgirl\'s unprecedented sweep of the chart\'s entire top 12 — hit No. 12 on the Global 200, and went top-20 in Australia, Canada, New Zealand and Sweden.\n\nCritics singled it out as the best song on the album — Billboard\'s Jason Lipshutz\'s pick, hearing a track that "bridges Swift\'s past and present as a songwriter" and calling it "a summation of her strengths." Taylor herself, at the theatrical release party, framed it plainly as a high-school regret — "It would\'ve been fine to take chances I didn\'t take. I was so disciplined in high school. It\'s very wistful and very nostalgic" — while pointedly not naming anyone, leaving the Lang reading to the fans.\n\nShe later cut a stripped "Ruin the Friendship (My Advice Version)" with new vocals, one of eight acoustic recordings sold as bonus tracks on limited-edition Showgirl CDs. The track has only an official lyric video, not a cinematic one, and — with no tour since the Eras Tour closed in December 2024 — it had not been documented performed live as of mid-2026.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2332,6 +2462,24 @@ export default {
             kind: 'reference',
             // Square frame, Charli mid-frame under falling rain, face upper-center.
             focalPoint: '48% 42%',
+          },
+        ],
+        // Rumor Desk 2026-08-11: the "who is 'Actually Romantic' about" question
+        // is classic public song-symbolism speculation (explicitly allowed by
+        // the redlines) — labeled interpretation, both principals are public
+        // artists, no location. Formalizes the prose above into a lifecycle-
+        // tracked entry. Spread away from the wedding page.
+        rumors: [
+          {
+            claim:
+              'Critics and fans near-unanimously read "Actually Romantic" as Taylor\'s answer to Charli XCX\'s 2024 "Sympathy Is a Knife," built from the "Boring Barbie" opening line, the title\'s echo of Brat\'s "Everything Is Romantic," and the two artists\' overlapping history. Taylor has never named a subject, and Charli, asked directly, declined to confirm it.',
+            reportedBy: 'Variety',
+            reportedOn: '2025-10-03',
+            status: 'unconfirmed',
+            url: 'https://variety.com/2025/music/news/taylor-swift-charli-xcx-feud-actually-romantic-timeline-showgirl-1236538041/',
+            note: 'Public song-symbolism speculation (explicitly allowed by the redlines), labeled as critic/fan interpretation — Taylor has never confirmed a subject and Charli declined to comment (Vanity Fair, October 2025). Resolves only on an on-record confirmation or denial; otherwise it stays a labeled interpretation. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-11',
           },
         ],
       },
@@ -2620,6 +2768,21 @@ export default {
             kind: 'primary',
             // Her face sits upper-right of center above the foreground crowd.
             focalPoint: '64% 28%',
+          },
+        ],
+        // Shop pass (2026-08-09): the Ganni mini dress and boots aren't
+        // identifiable to an exact retailer SKU from photos alone — the
+        // Louis Vuitton earrings are named and current. WebFetch-verified
+        // real product page + $590 price (curl blocked, 403 bot protection —
+        // luxury-site bot-blocking, same as the Etro entry in evermore.mjs).
+        products: [
+          {
+            brand: 'Louis Vuitton',
+            item: 'Louise PM Earrings',
+            retailer: 'louisvuitton.com',
+            url: 'https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396',
+            price: '$590.00',
+            inStock: true,
           },
         ],
       },
@@ -2926,7 +3089,7 @@ export default {
       thumbnailUrl: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
       moment: {
         context:
-          'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends." The tells were logistical rather than official: a large tent on the Ocean House lawn in Watch Hill, and longtime friends said to be converging on the small Rhode Island town at once. But the single-source read strained against its own evidence. The Boston Globe noted that "no definitive evidence has emerged confirming the nuptials will take place in the Ocean State," and reported that luxury planner Elizabeth Hall Events had disputed on Instagram that the weekend\'s ceremony was Taylor\'s. TMZ\'s own photos showed the tent held little more than a bare wooden dance floor — no tables or place settings — and TMZ said the wedding actually booked at the hotel that weekend was a New York City couple\'s, not Taylor\'s. When a separate rumor claimed Taylor had paid a bride to give up her date, the resort\'s Stephanie Leavitt flatly denied it: "Ocean House would not and is not allowing another party or entity to buy a wedding group out of a contracted wedding date."\n\nThe Ocean House is Watch Hill\'s Forbes Five-Star beachfront resort — a Relais & Châteaux member, an 1868 grand hotel rebuilt in 2010 — near the home Taylor has kept in the town since 2013, which is why observers folded the two together. That home is its own callback: the "holiday house" of the 2020 folklore song "the last great american dynasty," heiress Rebekah Harkness\'s former mansion, which Taylor bought in 2013 for a reported $17.75 million in cash and used for her 1989-era Fourth of July parties from 2013 to 2016. A pre-wedding weekend there would have read to fans as a personal-lore send-off, two weeks before the Madison Square Garden ceremony. But nothing ever stood it up: neither Taylor nor her team addressed it, no outlet beyond TMZ backed the bachelorette framing, and the July 3 MSG wedding overtook the rumor rather than settling it. It stands as reported in June 2026 and never confirmed or denied — a single-source sighting that has since gone quiet.',
+          'The gathering, the weekend of June 19-20, 2026, was a "bachelorette-style gathering centered around Taylor and her closest girlfriends," per TMZ. The tells were logistical rather than official: a large tent on the Ocean House lawn in Watch Hill, and longtime friends said to be converging on the small Rhode Island town at once. But the single-source read strained against its own evidence. The Boston Globe noted that "no definitive evidence has emerged confirming the nuptials will take place in the Ocean State," and reported that luxury planner Elizabeth Hall Events had disputed on Instagram that the weekend\'s ceremony was Taylor\'s. TMZ\'s own photos showed the tent held little more than a bare wooden dance floor — no tables or place settings — and the wedding actually booked at the hotel that weekend, per TMZ, was a New York City couple\'s, not Taylor\'s. When a separate rumor claimed Taylor had paid a bride to give up her date, the resort\'s Stephanie Leavitt flatly denied it: "Ocean House would not and is not allowing another party or entity to buy a wedding group out of a contracted wedding date."\n\nThe Ocean House is Watch Hill\'s Forbes Five-Star beachfront resort — a Relais & Châteaux member, an 1868 grand hotel rebuilt in 2010 — near the home Taylor has kept in the town since 2013, which is why observers folded the two together. That home is its own callback: the "holiday house" of the 2020 folklore song "the last great american dynasty," heiress Rebekah Harkness\'s former mansion, which Taylor bought in 2013 for a reported $17.75 million in cash and used for her 1989-era Fourth of July parties from 2013 to 2016. A pre-wedding weekend there would have read to fans as a personal-lore send-off, two weeks before the Madison Square Garden ceremony. But nothing ever stood it up: neither Taylor nor her team addressed it, no outlet beyond TMZ backed the bachelorette framing, and the July 3 MSG wedding overtook the rumor rather than settling it. It stands as reported in June 2026 and never confirmed or denied — a single-source sighting that has since gone quiet.',
         // Rumor Desk lifecycle re-check 2026-07-22 (CIE content.rumor-lifecycle):
         // the "Reported — not confirmed" banner still holds. Re-verified against
         // current sources this session — neither Swift nor her team ever
@@ -3028,12 +3191,12 @@ export default {
         rumors: [
           {
             claim:
-              'Page Six reported in early December 2025 that Taylor and Kelce would marry on Saturday, June 13, 2026 at the Ocean House resort in Watch Hill, Rhode Island — and that Taylor had "paid off" another bride-to-be to free up the date.',
+              'Page Six\'s version, reported in early December 2025: Taylor and Kelce would marry on Saturday, June 13, 2026 at the Ocean House resort in Watch Hill, Rhode Island — and Taylor had "paid off" another bride-to-be to free up the date.',
             reportedBy: 'Page Six (New York Post)',
             reportedOn: '2025-12-04',
             status: 'debunked',
             url: 'https://patch.com/rhode-island/across-ri/taylor-swift-paid-bride-be-get-wedding-date-ocean-house-watch-hill-page-six',
-            note: 'Debunked on several fronts. Ocean House\'s Stephanie Leavitt denied any bought-out booking, and luxury planner Tara Guérard — overseeing a different wedding there that June 13 — said Taylor "is not her bride" that weekend. The couple married at Madison Square Garden on July 3, 2026; NPR reported "tabloid reports of a ceremony there proved unfounded." Location capped at the public resort and town.',
+            note: 'Debunked on several fronts. Ocean House\'s Stephanie Leavitt denied any bought-out booking, and luxury planner Tara Guérard — overseeing a different wedding there that June 13 — said Taylor "is not her bride" that weekend. The couple married at Madison Square Garden on July 3, 2026; per NPR, "tabloid reports of a ceremony there proved unfounded." Location capped at the public resort and town.',
             sourceTier: 'tabloid',
             locationSpecificity: 'venue',
             lastCheckedOn: '2026-07-27',
@@ -3103,6 +3266,86 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 2,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1433021/taylor-swift-spends-9-hours-recording-at-electric-lady-studio-in-new-york',
+            source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20260616/77b1faf9-7865-4bb4-81e6-374c771b15d4_1781613754.jpg',
+            focalPoint: '50% 22%',
+            credit: 'E! News',
+            caption:
+              'Leaving the Electric Lady Studios area on June 15 — the overnight session that set off the TS13 speculation.',
+            kind: 'primary',
+          },
+          // Photo pass (2026-07-27): PureWow's writeup of this exact sighting
+          // (assets.purewow.com, its own CDN) captions this frame as Swift
+          // "photographed exiting a car in front of Electric Lady Studios."
+          // curl HTTP 200 + image/jpeg (1200x1412, no watermark), downloaded
+          // and vision-confirmed: the mustard-and-white knit polo, high-waisted
+          // denim, and tan tassel bag reported for the June 15-16 overnight
+          // session. A second PureWow frame from the same set (BACKGRID) was
+          // reviewed but skipped as redundant; a third, captioned identically
+          // but showing an indoor Songwriters Hall of Fame step-and-repeat, was
+          // rejected as off-moment (mislabeled stock/file art, not this outing).
+          {
+            url: 'https://assets.purewow.com/wp-content/uploads/2026/06/taylor-swift-electric-lady-studios-2026_1-1200x1412.jpg',
+            focalPoint: '60% 22%',
+            credit: 'Kyle Mazza/CNP/Shutterstock, via PureWow',
+            caption:
+              'Swift photographed exiting a car in front of Electric Lady Studios in New York, June 15, 2026 — the overnight session that started the TS13 chatter.',
+            kind: 'reference',
+          },
+        // Photo pass #762 (2026-08-09): no photo of the sighting itself
+        // exists (a "spotted" report, not a syndicated paparazzi photo) —
+        // an honestly-captioned photo of the real venue instead. curl 200
+        // image/jpeg, downloaded and vision-confirmed as the Electric Lady
+        // Studios storefront (mirrored window signage, oval entry porthole).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Electric_Lady_Studios_2013.jpg',
+            // Signage sits left-of-center, upper-middle of the frame.
+            focalPoint: '45% 35%',
+            credit: 'Jhsounds / Wikimedia Commons, CC BY-SA 3.0',
+            caption: 'Electric Lady Studios in New York\'s Greenwich Village, where Taylor was spotted for an overnight session in early June 2026 — not a photo from that night.',
+            kind: 'archival',
+          },
+        ],
+        // Rumor Desk 2026-08-11: this moment is the structural home for the
+        // "TS13 / album No. 13 is coming" speculation — forward-looking,
+        // unannounced-music rumor (explicitly allowed by the redlines), no
+        // location. Formalizes the prose above into lifecycle-tracked entries
+        // so the queue can promote them on an announcement or fade them if the
+        // signs go dark. Deliberately spread away from the wedding page.
+        rumors: [
+          {
+            claim:
+              'A Us Weekly source said in April 2026 that Taylor "does have another record in the works, but there\'s no pressure to release it anytime soon" — "still very much in the creative stages." No album No. 13 (TS13) has been announced, titled, or dated.',
+            reportedBy: 'Us Weekly (via AOL)',
+            reportedOn: '2026-04-07',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
+            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-11',
+          },
+          {
+            claim:
+              'Entertainment outlets rounded up a fan case that TS13 is imminent: Taylor was spotted at New York\'s Electric Lady Studios for a roughly 12-hour overnight session in early June 2026, and fans point to an "A13" sign in the Eras docuseries finale (where an "A12" once teased album 12) and opal earrings with 13 stones as Easter eggs. Nothing has been confirmed by Taylor or her team.',
+            reportedBy: 'Cosmopolitan (via Yahoo)',
+            reportedOn: '2026-07-21',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
+            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-11',
           },
         ],
       },
@@ -3340,7 +3583,7 @@ export default {
             // build-out itself is no longer just a pre-wedding tip.
             status: 'confirmed',
             url: 'https://www.tmz.com/2026/06/30/taylor-swift-travis-kelce-building-castle-for-wedding-celebration/',
-            note: 'Confirmed 2026-07-23: guest Jonathan Thomas, CEO of American Century Investments, told "The Compound & Friends" podcast the reception space "opened up" into "this massive castle that they built," undetectable as Madison Square Garden. Still no interior photos exist to confirm the specific staircase/"Garden Party" crate details TMZ described.',
+            note: 'Confirmed 2026-07-23: guest Jonathan Thomas, CEO of American Century Investments, told "The Compound & Friends" podcast the reception space "opened up" into "this massive castle that they built," undetectable as Madison Square Garden. Still no interior photos exist to confirm the specific staircase/"Garden Party" crate details from TMZ\'s original account.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-07-23',
             resolution: {
@@ -3359,9 +3602,9 @@ export default {
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
             note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure. (Distinct from the separately confirmed $160K+ NYC permit fee — a city-services figure, not the cost of hiring the arena.)',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-07-20: no outlet has confirmed the
+            // Lifecycle re-check 2026-08-10: still no outlet has confirmed the
             // venue-hire figure; still an unattributed estimate.
-            lastCheckedOn: '2026-07-20',
+            lastCheckedOn: '2026-08-10',
           },
           {
             claim:
@@ -3382,21 +3625,21 @@ export default {
           },
           {
             claim:
-              'Page Six reported invitations had gone to Zoë Kravitz, Ed Sheeran, the Haim sisters and Suki Waterhouse, within a rumored A-list roster running from Selena Gomez to Bradley Cooper — while Blake Lively and Karlie Kloss were reportedly out.',
+              'Page Six\'s account: invitations had gone to Zoë Kravitz, Ed Sheeran, the Haim sisters and Suki Waterhouse, within a rumored A-list roster running from Selena Gomez to Bradley Cooper — while Blake Lively and Karlie Kloss were reportedly out.',
             reportedBy: 'Page Six (via Fox News)',
             reportedOn: '2026-06-29',
             status: 'partially_confirmed',
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
             note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-07-20: no complete guest list has been
+            // Lifecycle re-check 2026-08-10: no complete guest list has been
             // published; stays partially confirmed — some names verified by
             // arrival photos, the roster as a whole never confirmed.
-            lastCheckedOn: '2026-07-20',
+            lastCheckedOn: '2026-08-10',
           },
           {
             claim:
-              'The Daily Mail reported that save-the-date invitations came bundled with non-disclosure agreements guests had to sign.',
+              'Per the Daily Mail, save-the-date invitations came bundled with non-disclosure agreements guests had to sign.',
             reportedBy: 'Daily Mail (via Hello!)',
             reportedOn: '2026-07-02',
             // Lifecycle history: originally marked 'debunked' on the strength of
@@ -3430,9 +3673,11 @@ export default {
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
             note: 'The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News. No outlet has confirmed or denied that Sheeran — who was photographed arriving as a guest — actually performed.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-07-20: still no confirmation or denial of
-            // a Sheeran performance; Nicks remains the only confirmed act.
-            lastCheckedOn: '2026-07-20',
+            // Lifecycle re-check 2026-08-10: still no confirmation or denial of
+            // a Sheeran performance; post-wedding reporting names Stevie Nicks
+            // (and, reportedly, Tim McGraw) as performers, but nothing on
+            // whether Sheeran — photographed arriving as a guest — played.
+            lastCheckedOn: '2026-08-10',
           },
           {
             claim:
@@ -3464,8 +3709,13 @@ export default {
             reportedOn: '2026-07-20',
             status: 'unconfirmed',
             url: 'https://www.realitytea.com/2026/07/20/taylor-swift-wedding-photos-out-release/',
-            note: 'A gossip-newsletter claim about her release strategy. Better-sourced update 2026-07-25 (ledger #1246): Dior told The New York Times that Taylor herself will post the first wedding images to Instagram (timing unstated), and People reported no plans for a wedding documentary or film. No official photographer of record has been named — so the official channel is her own Instagram, on her own timing.',
-            sourceTier: 'tabloid',
+            note: 'A gossip-newsletter claim about her release strategy. Better-sourced update 2026-07-25 (ledger #1246): Dior told The New York Times that Taylor herself will post the first wedding images to Instagram (timing unstated), and, per People, no plans for a wedding documentary or film. No official photographer of record has been named — so the official channel is her own Instagram, on her own timing.',
+            // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): the
+            // primary source is a self-published gossip newsletter, which is
+            // the `social` tier's definition — the note said as much while the
+            // field said 'tabloid'. Reality Tea is the aggregator, not the
+            // reporter, so it does not lift the tier.
+            sourceTier: 'social',
             lastCheckedOn: '2026-07-25',
           },
           {
@@ -3482,6 +3732,26 @@ export default {
             sourceTier: 'established',
             lastCheckedOn: '2026-07-25',
           },
+          {
+            // Added 2026-08-02 (Rumor Desk, Vault Run): a forward-looking,
+            // adjudicable claim — MSG either commemorates the wedding or it
+            // doesn't. Public-venue matter, no location finer than MSG (the
+            // documented wedding venue), no redline. Verified via the Yahoo/
+            // MLive writeup of Rob Shuter's newsletter this session.
+            claim:
+              'Madison Square Garden executives are reportedly discussing a permanent way to commemorate the July 3 wedding — in the vein of the banners, plaques and displays the arena hangs for historic runs (Billy Joel, Harry Styles) — with insiders saying "it\'s absolutely being discussed" but "no decisions have been made" (and "no one\'s proposing a statue").',
+            reportedBy: 'Rob Shuter’s Naughty But Nice (via MLive/Yahoo)',
+            reportedOn: '2026-07-30',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
+            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee that went up on the day — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction — the speculative part is the arena\'s decision, so no location payload is carried.',
+            // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
+            // correction as the photo-release entry above — the note called it
+            // a gossip-newsletter tip from unnamed insiders while the field
+            // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-02',
+          },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
           // review. A honeymoon is a private trip, not a public appearance —
@@ -3490,6 +3760,199 @@ export default {
           // what the redlines exist to keep out. Attribution does not launder
           // a privacy violation.
         ],
+      },
+    },
+    {
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'fashion',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-a-2-million-gift-to-the-families-of-new-yorks-fallen-first-r',
+      ],
+      title: 'Children\'s Mercy patients design a tribute wedding gown for Taylor',
+      snippet:
+        'Children being treated at Children\'s Mercy Hospital in Kansas City covered a blank bridal gown in drawings, signatures, well-wishes and Tortured Poets lyrics — a collective "thank you" to Taylor after her July 3 wedding, then shipped it to her.',
+      sourceUrl: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gesture came from Kansas City, and it doubled as a thank-you. Children being treated at Children\'s Mercy Hospital — one of the roughly twenty organizations the couple\'s reported $26 million in wedding-week giving reached — covered a blank wedding gown in their own drawings, handwritten messages, signatures and well-wishes, with lines from The Tortured Poets Department worked in among them. The dress was donated as a blank canvas by Savvy Bridal, a Kansas City boutique, and the finished tribute was packaged to ship to Taylor in the week after her July 3 wedding to Travis Kelce. Local and national reporting framed it plainly as the hospital\'s "thank-you card," tying it back both to the couple\'s donation and to Taylor\'s December 2024 visit to meet patients there. It sits where the era\'s two ongoing threads meet — the wedding and the philanthropy around it — and it belongs to the kids and the institution, not to any one of them: the outlets kept the story at the level of the collective project, and so do we.',
+        sources: [
+          {
+            outlet: 'KCTV5',
+            url: 'https://www.kctv5.com/2026/08/03/childrens-mercy-kids-design-wedding-gown-taylor-swift/',
+            source_title: 'Children\'s Mercy kids design wedding gown for Taylor Swift',
+            publisher: 'KCTV5',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'People (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/patients-children-mercy-hospital-design-173148603.html',
+            source_title: 'Patients at Children\'s Mercy Hospital Design a Wedding Gown for Taylor Swift',
+            publisher: 'People (via Yahoo)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+        ],
+        // Photo pass #762 (2026-08-05): People's own photo of the gown (via
+        // Yahoo's resize CDN, s.yimg.com/media.zenfs.com — the same host
+        // pattern already used across this repo). curl 200 image/jpeg,
+        // downloaded and vision-confirmed: a patient in a white tee at the
+        // mannequin, the bodice covered in marker drawings and a visible
+        // "who's afraid of little old me" TTPD lyric.
+        photos: [
+          {
+            url: 'https://s.yimg.com/lo/mysterio/api/d60389635d7ced6ee3d2d85903561f7949ac4f0bc076f79fde7541bebf672aff/lightyear_networkapi/resizefill_w384_h480%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpeople_218%2F425cb442037224d74b53cd6b33f6c2af',
+            focalPoint: '55% 45%',
+            credit: 'Children\'s Mercy, via People',
+            caption: 'A patient at the mannequin with the tribute gown — its bodice covered in drawings, signatures, and a "who\'s afraid of little old me" lyric.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-maren-morris-vows',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Maren Morris on the vows: "a closer look into their love and humor"',
+      snippet:
+        'Country singer Maren Morris, a guest at the July 3 wedding, told People the couple\'s self-written vows gave the room "a closer look into their love for each other and their sense of humor."',
+      sourceUrl:
+        'https://www.aol.com/articles/taylor-swift-travis-kelce-wedding-163000000.html',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/a/a8/Maren_Morris_2019_by_Glenn_Francis_%28cropped%29.jpg',
+      moment: {
+        context:
+          'Among the roughly 1,000 guests at Madison Square Garden on July 3 was country singer Maren Morris, and in early August she became one of the few to describe the couple\'s self-written vows on the record. Speaking to People, she kept the private lines private but named what the exchange revealed — "a closer look into their love for each other and their sense of humor" — and called witnessing it "an honor."\n\nHer account restores the lighter register the fuller guest reports had left out: those dwelt on how long and how emotional the vows ran; Morris caught the jokes the two wrote into them. Any figures on the vows\' length trace to reporting around her comments, not to Morris.',
+        // Intake #1780 (2026-08-04): re-authored after being held from the
+        // 2026-08-04 Vault Run (#1784). It was held because, dated back then as
+        // the newest TLOAS item, it rendered as a hero directly ahead of the
+        // Shania Twain item and stepped it hero->media, tripping a documented-
+        // brittle example-id assertion in feed-tiers.test.ts. The fix is
+        // editorial, not a test edit: a single named-guest quote about the vows
+        // is a wedding SUB-detail, not a defining moment, so it is right-sized
+        // to a media-tier card (one photo, ~680-char body) that sits below the
+        // hero bar and cannot displace Shania's hero slot. The fuller vows
+        // account (30-minute length, the crying) already lives on the marriage
+        // moment; this adds only Morris's on-record "sense of humor" read.
+        sources: [
+          {
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swift-travis-kelce-wedding-163000000.html',
+            source_title:
+              "Taylor Swift and Travis Kelce's Wedding Vows Offered 'a Closer Look into Their Love and Humor,' Maren Morris Says",
+            publisher: 'People (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/08/01/maren-morris-talks-taylor-swift-travis-kelce-wedding-vows/',
+            source_title: "Maren Morris Gives Insight into Taylor Swift and Travis Kelce's Vows",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'HOLA!',
+            url: 'https://www.hola.com/us/celebrities/20260802916042/taylor-swift-and-travis-kelces-wedding-vows-revealed-their-love-and-humor/',
+            source_title: "Taylor Swift and Travis Kelce's wedding vows revealed their 'love and humor'",
+            publisher: 'HOLA!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-04',
+            reliability_score: 2,
+          },
+        ],
+        // Archival portrait — the vows were described in an interview, not a
+        // photographed event, so this is the closest true visual (same pattern
+        // as the Shania item). thumbnailUrl set to this url so the sync makes it
+        // the primary image. upload.wikimedia.org (allowlisted); curl 200 +
+        // image/jpeg, 2155x2529, vision-confirmed as Maren Morris.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Maren_Morris_2019_by_Glenn_Francis_%28cropped%29.jpg',
+            credit: 'Glenn Francis / PacificProDigital.com, Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'Maren Morris at the iHeartRadio Music Awards, Los Angeles, March 2019.',
+            kind: 'archival',
+            focalPoint: '50% 22%',
+          },
+        ],
+      },
+    },
+    // --- Rumor Desk 2026-08-05 (intake: news digest). A wholly-unconfirmed,
+    // social-tier gossip claim about the newlyweds' rumored puppy — admissible
+    // because it is attributable (Deuxmoi, named), dated, and adjudicable (it
+    // resolves the day the couple confirms a dog/name and fades if it stays
+    // unaddressed). A pet is not a private individual/minor, so no redline; no
+    // location. The whole item rides a "Reported — not confirmed" banner
+    // (confidence: plausible) AND carries a lifecycle-tracked rumors[] entry so
+    // it can later be retired. Deliberately a low-substance, photo-less item
+    // (chip/text tier, never hero) so it cannot displace a hero slot.
+    {
+      slug: 'showgirl-newlyweds-rumored-dog-wendy',
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      confidence: 'plausible',
+      title: 'A rumored newlywed puppy — and a name fans traced to "The Sandlot"',
+      snippet:
+        'A month after the wedding, gossip account Deuxmoi reported the newlyweds had quietly gotten a white puppy named "Wendy" — a name fans read as a nod to Travis\'s favorite film. Neither Taylor nor Kelce has confirmed the dog or the name.',
+      sourceUrl: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In early August 2026, roughly a month after the Madison Square Garden wedding, the gossip account Deuxmoi reported that Taylor and Kelce had quietly added a white puppy to the household — and that its name is "Wendy." Entertainment outlets including Cosmopolitan and SheKnows picked the item up within the day, most flagging that it traces to a single blind item rather than to either of the principals.\n\nThe detail fans latched onto was the name: "Wendy" reads as a reference to Wendy Peffercorn, the lifeguard from the 1993 film "The Sandlot" — a movie Kelce has called a favorite and a character he has joked about a childhood crush on. It is the kind of small, sweet story that is easy to want to be true; the honest status is that it is one gossip report the couple has not addressed. Neither Taylor nor Kelce has publicly confirmed adopting a puppy or its name.',
+        sources: [
+          {
+            outlet: 'Cosmopolitan (via AOL)',
+            url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+            source_title: "Just Found Out Taylor Swift and Travis Kelce's Dog's Name, and We're Obsessed",
+            publisher: 'Cosmopolitan',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-rumored-181853069.html',
+            source_title: "Taylor Swift and Travis Kelce's Rumored Puppy Name Could Reveal a Hidden Tribute",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 2,
+          },
+        ],
+        rumors: [
+          {
+            claim:
+              'Gossip account Deuxmoi reported in early August 2026 that Taylor and Kelce had quietly gotten a white puppy named "Wendy," with fans reading the name as a nod to Wendy Peffercorn, the lifeguard in Kelce\'s oft-cited favorite film "The Sandlot."',
+            reportedBy: 'Deuxmoi (via Cosmopolitan)',
+            reportedOn: '2026-08-03',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/just-found-taylor-swift-travis-121210000.html',
+            note: 'Traces to a single Deuxmoi blind item, aggregated the same day by Cosmopolitan, SheKnows and others; carried at the social tier. Cosmopolitan/AOL: neither Taylor nor Kelce "has publicly confirmed they adopted a puppy or revealed its name." A pet, not a private individual — no redline; no location. Resolves if the couple confirms the dog and name, fades if it stays unaddressed.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-05',
+          },
+        ],
+        // Photo pass #762 (2026-08-06): re-confirms the deliberate no-photo
+        // call above. The only image circulating with this story is a
+        // Deuxmoi-branded Canva composite (a "Sandlot" still + a generic
+        // stock dog photo) — a fan-made graphic, not a real photo of the
+        // couple's actual pet. No outlet has published one. Left as-is.
       },
     },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
@@ -3571,6 +4034,12 @@ export default {
             reliability_score: 5,
           },
         ],
+        // Photo pass #762 (2026-08-01): searched for a genuine photo — the gift
+        // itself has no photo op (a private wire transfer, acknowledged only
+        // via the fund's own written thank-you), and neither TMZ, Rolling
+        // Stone, ABC7, Officer.com, nor answerthecall.org run a dedicated
+        // event photo for it. Reviewed-sparse: no fabricated stand-in added.
+        photos: [],
       },
     },
     {
@@ -3619,6 +4088,131 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/07/kylie-kelce-not-gonna-lie-screengrab-july2026-billboard-1800.jpg',
+            focalPoint: '58% 35%',
+            credit: 'Wave/Not Gonna Lie with Kylie Kelce, via Billboard',
+            caption:
+              'Kylie Kelce recording the July 23 "Not Gonna Lie" episode where she called Taylor family — "only making it official."',
+            kind: 'primary',
+          },
+        // Photo pass #762 (2026-08-09): a photo of Kylie Kelce, the subject
+        // of this beat — not a generic Taylor file photo. TODAY's own CDN
+        // (already allowlisted), curl 200 image/jpeg 1500x1000, downloaded
+        // and vision-confirmed. A second, Donna Kelce candidate was found but
+        // declined: its exact credit line could only be inferred from a
+        // companion photo on the same article, not confirmed for this frame.
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/rockcms/2026-07/kylie-kelce-webby-ky-260723-a8a747.jpg',
+            // Face upper-center-left of frame.
+            focalPoint: '49% 26%',
+            credit: 'Getty Images/The Webby Awards, via TODAY',
+            caption: 'Kylie Kelce at the 30th Annual Webby Awards in New York City, May 11, 2026 — weeks before she called Taylor and Travis\'s wedding "absolutely magical" on her podcast.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-02 from intake #1735 (Vault Run, Content Shift lane).
+      // On-record guest color about the reception raffle. Verified against
+      // Yahoo Entertainment (fetched this session), which corroborates the
+      // People exclusive with Gronkowski. The ticket's "1970s Chevelle echoes
+      // the 2023 Chiefs-Bears first-outing car" callback was NOT authored:
+      // the verified source names the Chevelle prize but carries no 2023-outing
+      // link, so the callback is cut per the no-fabrication rule. Guest-list
+      // name-drops (Brady/Cruise/etc.) also cut — reaction color, not the
+      // adjudicable raffle facts. No photo: the only image is a guest's
+      // expiring Instagram Story of a private individual, not a reusable host.
+      slug: 'showgirl-wedding-raffle-gronkowski',
+      year: 2026,
+      month: 7,
+      day: 30,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-watermarked-invitations-and-a-copyright-takedown',
+      ],
+      title: 'How the wedding raffle worked: guests earned their tickets',
+      snippet:
+        'Guest Rob Gronkowski explained the reception\'s raffle: you didn\'t just get a ticket, you had to earn it by playing games. Prizes ran from designer handbags to a 1970 Chevrolet Chevelle.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/rob-gronkowski-explains-raffles-worked-165208547.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/rob-gronkowski-explains-raffles-worked-165208547.html',
+            source_title: 'Rob Gronkowski explains how raffles worked at Taylor Swift and Travis Kelce\'s wedding',
+            publisher: 'Yahoo Entertainment (via People)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-raffles-rob-gronkowski-1236306132/',
+            source_title: 'Here\'s How Taylor Swift & Travis Kelce\'s Wedding Raffles Worked, According to Rob Gronkowski',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-02 from intake #1736 (Vault Run, Content Shift lane).
+      // Routed through the privacy-redlines rubric as leaked-material-adjacent
+      // (Codex unreachable, so the desk applied the rubric itself). The clean,
+      // publishable spine is the IP-enforcement controversy — reporting on a
+      // public takedown, the same carve-out that lets us cover the *history* of
+      // a leak without trafficking in it. Held to the three leak-independent
+      // facts: per-guest watermarking, the copyright complaint naming Taylor,
+      // Instagram's removal. The leaked invitation image is NOT reproduced or
+      // sourced, and none of its private design detail is described. No photo
+      // for exactly that reason. Watermark fact verified via AOL, the takedown
+      // via Yahoo Entertainment (both fetched this session).
+      slug: 'showgirl-wedding-invite-watermark-takedown',
+      year: 2026,
+      month: 7,
+      day: 6,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-how-the-wedding-raffle-worked-guests-earned-their-tickets',
+      ],
+      title: 'Watermarked invitations and a copyright takedown',
+      snippet:
+        'The couple\'s leak-control ran deep: each invitation carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down after a copyright complaint that named Taylor as the rights owner.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. When a guest briefly posted a photo of an invitation to Instagram, the post was removed after a copyright-infringement complaint that identified Taylor as the rights owner, with the platform warning the user about penalties for repeat violations. Screenshots had already circulated in the minutes it was up, but the takedown made the couple\'s posture explicit: the wedding\'s information was treated as their intellectual property, and enforced that way. It was the operational counterpart to all the "no photos leaked" talk — a tight, deliberate information-control effort, and the willingness to enforce it through an IP complaint.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
+            source_title: 'Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'AOL / "Real"',
+            url: 'https://www.aol.com/articles/first-look-taylor-swift-real-063110000.html',
+            source_title: 'First Look at Taylor Swift\'s Watermarked Wedding Invitation',
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
+            reliability_score: 3,
           },
         ],
       },
@@ -3746,6 +4340,16 @@ export default {
             lastCheckedOn: '2026-07-24',
           },
         ],
+        // Photo pass #762 (2026-08-02): searched for a verified on-topic photo
+        // and came up empty. The only image that actually shows a ring
+        // (Cris Carter's July 20 Instagram post) is Instagram-only — not
+        // rehostable. StyleCaster's article art is a generic May 15 file photo
+        // of the couple (no hands visible, wrong date). Harper's Bazaar's own
+        // piece never got a dedicated photo either — its body text says so
+        // outright ("still waiting for those wedding photos"). No candidate
+        // cleared the verify-first bar; left at editorial max rather than
+        // ship an off-hook stand-in.
+        photos: [],
       },
     },
     {
@@ -3831,10 +4435,22 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg',
+            focalPoint: '50% 22%',
             credit: 'Raph_PH / Wikimedia Commons, CC BY 2.0',
             caption: 'Shania Twain performing at Glastonbury Festival, June 30, 2024.',
             kind: 'archival',
-            focalPoint: '50% 22%',
+          },
+          // Photo pass #762 (2026-08-02): the actual commitment named in this
+          // moment — opening for Harry Styles's Wembley residency. Rolling
+          // Stone's own CDN; curl-verified 200 image/jpeg, downloaded and
+          // vision-confirmed (Twain mid-song in the black corset stage look
+          // reported across the residency's June/July run).
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2026/06/shania-twain-opening-for-harry-styles.jpg',
+            focalPoint: '50% 32%',
+            credit: 'Fred Thiebaud/LiveNation, via Rolling Stone',
+            caption: 'Shania Twain opening for Harry Styles at Wembley Stadium — the booking she cited as the reason she couldn\'t attend the wedding.',
+            kind: 'primary',
           },
         ],
       },
@@ -3850,6 +4466,10 @@ export default {
         // Cross-link (candidate #1294): the New Heights proposal-story episode —
         // the same Kelce-family-media-and-fame throughline.
         'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
+        // Cross-link (Stage 3, 2026-08-10): + the "Jason Kelce" cluster
+        // (his earlier sighting) and his other wedding-season commentary.
+        'moment:vault-midnights-a-frigid-divisional-round-in-buffalo-seated-with-jason-kelce',
+        'moment:vault-tloas-why-jason-kelce-cried-at-the-wedding-per-kylie-the-flower-gi',
       ],
       title: 'Jason Kelce on the new audience Taylor brought to the whole family',
       snippet:
@@ -3927,6 +4547,15 @@ export default {
             reliability_score: 3,
           },
         ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+            focalPoint: '50% 26%',
+            credit: 'All-Pro Reels / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Jason Kelce, Travis\'s brother and New Heights co-host, in his Eagles playing days. He described his family\'s fan base flipping "from large fat men to little girls" once Travis and Taylor started dating.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -3954,7 +4583,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Harper\'s Bazaar reports Taylor changed into a second gown for the reception (the house was not named).\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Taylor "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
+          'Taylor, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Taylor changed into a second gown for the reception, per Harper\'s Bazaar — the house wasn\'t named.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Taylor "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -4171,7 +4800,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor kicked off her Life of a Showgirl press run in London on The Graham Norton Show wearing a David Koma design — a black velvet mini with a crystal-embroidered halter neckline that read as a choker of jewels on camera. Marie Claire\'s close-read of the look noted it was surprisingly understated for a showgirl-era debut, letting the accessories carry the theme: drop earrings, the signature red lip, and the Artifex Fine engagement ring, on its first talk-show outing since the August proposal.\n\nThe Oct. 2 taping opened a compact, TV-first promo cycle rather than a full magazine-cover blitz: London first, then The Tonight Show Starring Jimmy Fallon and Late Night with Seth Meyers plus radio stops. The dress set the press-run template — one designer statement per couch, jewels doing the showgirl signaling — that ran through the rest of release week.\n\nThe David Koma piece itself is retail, not custom: Marie Claire identified it as the label\'s "Crystal-Embellished Halterneck Minidress," a $1,875 piece sold via Mytheresa, with DeBeers diamond drop earrings completing the jewels alongside the Artifex Fine engagement ring. It wasn\'t a new pairing — stylist Joseph Cassell Falconer has sourced David Koma little black dresses for Taylor\'s TV interviews before this appearance too — though no public comment from David Koma or the label about dressing her for this specific stop turned up in the coverage reviewed. Cassell styled the rest of the press run as well: Fallon (Oct. 6) got a Giuseppe Di Morabito crystal minidress with an asymmetric one-shoulder drape and Jimmy Choo "Claressa" platform heels, and Seth Meyers (Oct. 8) got a two-piece Wiederhoeft look — the corseted "Julie" brocade bustier and matching mini skirt — with a David Morris "Meteora" collar necklace and Aquazzura "Ce Soir" sandals. The full Graham Norton couch that Oct. 2 night also included Cillian Murphy, Jodie Turner-Smith, Greta Lee and Domhnall Gleeson, with Lewis Capaldi performing — the same lineup later cast, cameos and all, in the "Opalite" music video.',
+          'Taylor kicked off her Life of a Showgirl press run in London on The Graham Norton Show wearing a David Koma design — a black velvet mini with a crystal-embroidered halter neckline that read as a choker of jewels on camera. Surprisingly understated for a showgirl-era debut, per Marie Claire\'s close-read of the look — the accessories carried the theme instead: drop earrings, the signature red lip, and the Artifex Fine engagement ring, on its first talk-show outing since the August proposal.\n\nThe Oct. 2 taping opened a compact, TV-first promo cycle rather than a full magazine-cover blitz: London first, then The Tonight Show Starring Jimmy Fallon and Late Night with Seth Meyers plus radio stops. The dress set the press-run template — one designer statement per couch, jewels doing the showgirl signaling — that ran through the rest of release week.\n\nThe David Koma piece itself is retail, not custom: Marie Claire identified it as the label\'s "Crystal-Embellished Halterneck Minidress," a $1,875 piece sold via Mytheresa, with DeBeers diamond drop earrings completing the jewels alongside the Artifex Fine engagement ring. It wasn\'t a new pairing — stylist Joseph Cassell Falconer has sourced David Koma little black dresses for Taylor\'s TV interviews before this appearance too — though no public comment from David Koma or the label about dressing her for this specific stop turned up in the coverage reviewed. Cassell styled the rest of the press run as well: Fallon (Oct. 6) got a Giuseppe Di Morabito crystal minidress with an asymmetric one-shoulder drape and Jimmy Choo "Claressa" platform heels, and Seth Meyers (Oct. 8) got a two-piece Wiederhoeft look — the corseted "Julie" brocade bustier and matching mini skirt — with a David Morris "Meteora" collar necklace and Aquazzura "Ce Soir" sandals. The full Graham Norton couch that Oct. 2 night also included Cillian Murphy, Jodie Turner-Smith, Greta Lee and Domhnall Gleeson, with Lewis Capaldi performing — the same lineup later cast, cameos and all, in the "Opalite" music video.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -4259,6 +4888,82 @@ export default {
             url: 'https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver',
             price: '$1,200.00',
             inStock: true,
+          },
+        ],
+      },
+    },
+    // Intake #1859 (2026-08-09, Content Shift): E! News color moment — Greta
+    // Lee, a cameo in the self-directed "Opalite" video, on watching Taylor
+    // direct. Confirmed (named person, on-record to an established outlet about
+    // a documented project). Verified against Yahoo's syndication of the E!
+    // sit-down; the E! original 403s the default fetcher but returns 200 in a
+    // browser. No photo shipped now — no reusable-host still of Lee or the E!
+    // frame verified; left for Photo Enrichment / photo-sparsity to route.
+    {
+      slug: 'greta-lee-opalite-directorial-inspiration',
+      relatedIds: [
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto',
+      ],
+      year: 2026,
+      month: 8,
+      day: 7,
+      category: 'music',
+      title: "Greta Lee: the 'Opalite' shoot inspired her directorial debut",
+      snippet:
+        'Reflecting on her cameo in Taylor\'s self-directed "Opalite" video, Greta Lee told E! News that watching Taylor spin an idea into a finished film — conceived live on the Graham Norton couch — left her in awe as she readies her own turn behind the camera.',
+      sourceUrl:
+        'https://www.eonline.com/news/1434703/how-taylor-swift-inspired-greta-lee-after-opalite-music-video-collab',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Greta Lee — the "Indie Rock Goddess" among the cameos in Taylor\'s \'90s-infomercial "Opalite" video (released February 2026) — told E! News in early August 2026 that working on the clip stayed with her as she prepares to direct for the first time herself. Speaking alongside her "The Last House" co-star Wagner Moura, Lee described watching Taylor take the video from a spark to a finished film in real time. Per Lee, the concept was born on camera during a taping of The Graham Norton Show: "She just had a light bulb idea for a music video she wanted to do, and you see it happen on the actual show during the interview." Taylor then recruited that night\'s Graham Norton guests — the same couch that seated Cillian Murphy, Jodie Turner-Smith, Domhnall Gleeson and Lee, with Lewis Capaldi performing — for the video she went on to write and direct herself. What stayed with Lee was the speed and certainty of it: "I just have such a tremendous respect for that ability, to put an idea into action and to just do it like that. And as a woman, I have a lot of admiration for her." She framed it as fuel for her own turn behind the camera — her directorial debut, the horror film "The Eyes Are the Best Part." It is a rare on-record, cast\'s-eye account of Taylor\'s directing process, from a collaborator rather than a critic.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1434703/how-taylor-swift-inspired-greta-lee-after-opalite-music-video-collab',
+            source_title: 'Greta Lee Reveals the Inspiration She Got From Working Alongside Taylor Swift on "Opalite" Music Video',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+            notes: "Lee's direct quotes (the Graham Norton light-bulb idea; \"tremendous respect… to just do it like that\") and the directorial-debut framing. Original 403s the default fetcher; opens 200 in a browser.",
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-inspired-greta-lee-065900451.html',
+            source_title: 'How Taylor Swift Inspired Greta Lee After Starring in "Opalite" Video',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+            notes: 'Syndication of the same E! News interview, used to verify the quotes without the paywall/UA block.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-opalite-music-video-domhnall-gleeson-greta-lee-1236653651/',
+            source_title: "Taylor Swift's 'Opalite' Music Video Stars Domhnall Gleeson, Greta Lee",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+            notes: 'Confirms the video, its release and its cast (Lee among them), independent of the E! interview.',
+          },
+        ],
+        // Photo Enrichment (Vault Run, 2026-08-09): the moment centers on Greta
+        // Lee, so a `reference` portrait of her — a CC-licensed Wikimedia
+        // Commons file (no reusable-host still of the E! sit-down or her
+        // "Opalite" cameo exists). Verified HTTP 200 + image/jpeg (767x1063),
+        // downloaded and vision-confirmed as Greta Lee at the Berlinale 2023
+        // photocall (the "Berlinale" backdrop is visible).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/72/Greta_Lee%2C_Berlinale_2023_%28cropped%29.jpg',
+            focalPoint: '50% 34%',
+            credit: 'Elena Ternovaja, CC BY-SA 3.0, via Wikimedia Commons',
+            caption:
+              'Greta Lee at the 2023 Berlinale — a portrait of the "Opalite" cameo turned first-time director whose reflection this moment records (not from the video shoot).',
+            kind: 'reference',
           },
         ],
       },
@@ -4646,7 +5351,12 @@ export default {
       slug: 'showgirl-broncos-christmas-game',
       // Cross-link (candidate #1123): the Colts-game low-key look — the same
       // recurring game-day-styling beat of the engagement/wedding season.
-      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
+      // (Stage 3, 2026-08-10): + the previous year's Santa-costumed
+      // Christmas Day entrance at the same stadium.
+      relatedIds: [
+        'moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game',
+        'moment:vault-midnights-a-santa-costumed-entrance-for-a-christmas-day-upset',
+      ],
       year: 2025,
       month: 12,
       day: 25,
@@ -4658,7 +5368,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Taylor arrived with her parents after the 8:15 p.m. kickoff — nearly an hour into a Christmas Day game the NFL had handed to Amazon Prime, whose cameras caught her in the concourse on the way up to the suite. The red-on-red palette read as both Chiefs colors and Christmas at once.\n\nMarie Claire noted the game\'s added weight: with the Chiefs missing the playoffs for the first time since 2014, the Broncos game was expected to be Kelce\'s final appearance at Arrowhead that season, which made her family-in-tow attendance read as more than a holiday outing — a send-off to the season that had bracketed their engagement year. The Artifex Fine engagement ring, by then a fixture of every game-day sighting, rounded out the look.\n\nThe game itself was already a formality, and the timing sharpens the "missed the playoffs" note: Kansas City had been eliminated from contention the previous Sunday, in a 16–13 loss to the Chargers — the game in which Patrick Mahomes tore his left ACL — sealing the Chiefs\' first missed postseason since 2014. So the Broncos matchup was played without Mahomes or backup Gardner Minshew, with third-string quarterback Chris Oladokun starting, and Denver won 20–13 on a late Bo Nix-to-RJ Harvey touchdown. The appearance traveled well past a single fashion write-up: AP, People, ESPN, Fox Sports and Yahoo all ran game-day items built around the Amazon Prime cameras catching Taylor entering the concourse with parents Andrea and Scott Swift. The red hero piece was later identified as The Frankie Shop\'s "Zion Bomber Jacket" ($388).\n\nOn the field, Kelce led Kansas City in receiving with five catches for 36 yards on six targets — more than half the team\'s passing offense that day — but was held out of the end zone. He was miked up during the loss and was picked up telling Nix a classy message as the Broncos closed it out, a small moment outlets flagged as in keeping with a farewell-tinged night. What "expected to be his final home game" did not become fact: Kelce did not retire that offseason. On March 9, 2026, his own New Heights account announced "HE\'S BACK!!!" — he re-signed with Kansas City on a one-year deal for a 14th NFL season, so the Christmas game was not, in the end, his Arrowhead farewell. Reporting on the broadcast goes only as far as confirming the pregame concourse footage Amazon aired during the game window; no outlet has documented an in-game cutaway to Taylor\'s suite itself, a postgame interaction between her and Kelce, or any other family member (beyond Andrea and Scott) joining her there — those pieces of the "season send-off" framing remain undocumented rather than confirmed.',
+          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Taylor arrived with her parents after the 8:15 p.m. kickoff — nearly an hour into a Christmas Day game the NFL had handed to Amazon Prime, whose cameras caught her in the concourse on the way up to the suite. The red-on-red palette read as both Chiefs colors and Christmas at once.\n\nThe game carried added weight, as Marie Claire\'s coverage picked up on: with the Chiefs missing the playoffs for the first time since 2014, the Broncos game was expected to be Kelce\'s final appearance at Arrowhead that season, which made her family-in-tow attendance read as more than a holiday outing — a send-off to the season that had bracketed their engagement year. The Artifex Fine engagement ring, by then a fixture of every game-day sighting, rounded out the look.\n\nThe game itself was already a formality, and the timing sharpens the "missed the playoffs" note: Kansas City had been eliminated from contention the previous Sunday, in a 16–13 loss to the Chargers — the game in which Patrick Mahomes tore his left ACL — sealing the Chiefs\' first missed postseason since 2014. So the Broncos matchup was played without Mahomes or backup Gardner Minshew, with third-string quarterback Chris Oladokun starting, and Denver won 20–13 on a late Bo Nix-to-RJ Harvey touchdown. The appearance traveled well past a single fashion write-up: AP, People, ESPN, Fox Sports and Yahoo all ran game-day items built around the Amazon Prime cameras catching Taylor entering the concourse with parents Andrea and Scott Swift. The red hero piece was later identified as The Frankie Shop\'s "Zion Bomber Jacket" ($388).\n\nOn the field, Kelce led Kansas City in receiving with five catches for 36 yards on six targets — more than half the team\'s passing offense that day — but was held out of the end zone. He was miked up during the loss and was picked up telling Nix a classy message as the Broncos closed it out, a small moment outlets flagged as in keeping with a farewell-tinged night. What "expected to be his final home game" did not become fact: Kelce did not retire that offseason. On March 9, 2026, his own New Heights account announced "HE\'S BACK!!!" — he re-signed with Kansas City on a one-year deal for a 14th NFL season, so the Christmas game was not, in the end, his Arrowhead farewell. Reporting on the broadcast goes only as far as confirming the pregame concourse footage Amazon aired during the game window; no outlet has documented an in-game cutaway to Taylor\'s suite itself, a postgame interaction between her and Kelce, or any other family member (beyond Andrea and Scott) joining her there — those pieces of the "season send-off" framing remain undocumented rather than confirmed.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -5226,7 +5936,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
       moment: {
         context:
-          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.\n\nThe pieces have since been catalogued: the caramel Louis Vuitton Isola sandals retail at $930, the diamond-lined watch is a discontinued yellow-gold Cartier Santos Demoiselle, and the heart jewelry is by Foundrae (outlets differ on the exact piece and its price). Taylor posted the photos to Instagram herself; they carry only a "Taylor Swift" credit, with no outside photographer or stylist named. The $319.99 Polo Ralph Lauren dress then became a case study in the "Swift effect" — it sold out across Ralph Lauren\'s own site within about 20 minutes of the post, and resale listings soon climbed past $450.\n\nFashion press received the look warmly and read it the same way — understated luxury, not stadium spectacle. Marie Claire called the coordinated outfits "subdued and sweet for a late-summer proposal" and "something timeless"; Sports Illustrated praised a dress "simple, yet elegant" and "shockingly reasonable"; Who What Wear framed it as "the romantic dress trend every fashion person owns." The only mild ribbing went to Travis\'s shorts-and-loafers, not her dress.',
+          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.\n\nThe pieces have since been catalogued: the caramel Louis Vuitton Isola sandals retail at $930, the diamond-lined watch is a discontinued yellow-gold Cartier Santos Demoiselle, and the heart jewelry is by Foundrae (outlets differ on the exact piece and its price). Taylor posted the photos to Instagram herself; they carry only a "Taylor Swift" credit, with no outside photographer or stylist named. The $319.99 Polo Ralph Lauren dress then became a case study in the "Swift effect" — it sold out across Ralph Lauren\'s own site within about 20 minutes of the post, and resale listings soon climbed past $450.\n\nFashion press received the look warmly and read it the same way — understated luxury, not stadium spectacle. The coordinated outfits read, in Marie Claire\'s words, as "subdued and sweet for a late-summer proposal" and "something timeless"; Sports Illustrated praised a dress "simple, yet elegant" and "shockingly reasonable"; Who What Wear framed it as "the romantic dress trend every fashion person owns." The only mild ribbing went to Travis\'s shorts-and-loafers, not her dress.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -5853,7 +6563,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Marie Claire filed the Nov. 23, 2025 look under "fit for a low-key fan," and the color-blocking it described — sandstone, white and a flash of Chiefs red — was really a cashmere polo sweater, not a jacket: Guest in Residence\'s "Alpine Collegiate Polo" in Sandstone Combo (about $425), the red saved for its shoulders. The label is Gigi Hadid\'s, a quiet nod to her friend. She paired it with Agolde\'s Low Slung Baggy jeans (about $248) and a Sezane belt, and her ever-present red lip — the Pat McGrath Labs LiquiLust shade "Elson" she has worn through the Eras Tour — with nothing engineered for a jumbotron close-up. It was game-day dressing for someone planning to watch the game rather than be broadcast during it, which that fall was exactly the plan.\n\nThe restraint was the story. Her game-day looks had spent two seasons as a fashion beat of their own — dissected, price-tagged, sold out by Monday — and the fall 2025 stretch of quiet fits during her lowest-profile season at Arrowhead read as deliberate de-escalation. The contrast made the exceptions land harder when they came: the Miu Miu checkerboard bomber alongside Selena Gomez, and — a month later at the Dec. 25 Broncos game — a Christmas-red look her stylist Joseph Cassell Falconer built around The Frankie Shop\'s "Zion" bomber jacket (about $388).',
+          'The Nov. 23, 2025 look landed under Marie Claire\'s "fit for a low-key fan" tag, and the color-blocking it described — sandstone, white and a flash of Chiefs red — was really a cashmere polo sweater, not a jacket: Guest in Residence\'s "Alpine Collegiate Polo" in Sandstone Combo (about $425), the red saved for its shoulders. The label is Gigi Hadid\'s, a quiet nod to her friend. She paired it with Agolde\'s Low Slung Baggy jeans (about $248) and a Sezane belt, and her ever-present red lip — the Pat McGrath Labs LiquiLust shade "Elson" she has worn through the Eras Tour — with nothing engineered for a jumbotron close-up. It was game-day dressing for someone planning to watch the game rather than be broadcast during it, which that fall was exactly the plan.\n\nThe restraint was the story. Her game-day looks had spent two seasons as a fashion beat of their own — dissected, price-tagged, sold out by Monday — and the fall 2025 stretch of quiet fits during her lowest-profile season at Arrowhead read as deliberate de-escalation. The contrast made the exceptions land harder when they came: the Miu Miu checkerboard bomber alongside Selena Gomez, and — a month later at the Dec. 25 Broncos game — a Christmas-red look her stylist Joseph Cassell Falconer built around The Frankie Shop\'s "Zion" bomber jacket (about $388).',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -5960,7 +6670,7 @@ export default {
       ],
       moment: {
         context:
-          'GMA\'s exclusive first look confirmed Kelce appears in the back half of the six-episode Disney+ series, which rolled out Dec. 12, 19, and 23, 2025. His presence gave the series its relationship arc in miniature: the tour that began with him failing to hand her a friendship bracelet in July 2023 ends with him on camera inside its machinery — including the footage around his tuxedoed Wembley cameo in the "I Can Do It With a Broken Heart" bit from June 2024, the night he became briefly an Eras Tour cast member.\n\nThe docuseries also addressed the era\'s hardest moment — the cancelled Vienna shows, covered in the opening episode — making it the fullest inside account of the tour\'s final year: the terror plot, the record-breaking finale, and the relationship that started in its stands, all in one December drop.\n\nKelce\'s actual episodes (three and four, released Dec. 19) build his presence out of archival tour and rehearsal footage and recorded phone calls rather than a separate sit-down interview segment — reporting on the episodes doesn\'t describe him giving a formal talking-head interview the way Taylor does. One recurring bit outlets singled out: a phone call in which he tells her "You\'ve got teammates, I\'ve got teammates," comparing life on an NFL roster to life on tour, with Taylor making her own version of the comparison back. Andrea Swift also appears on camera in these episodes calling Kelce someone who "brings a lot of happiness" to the family. The finale (episode six, Dec. 23) goes further: Taylor reads aloud, on camera, part of a letter Kelce wrote her before the tour\'s final Vancouver shows — "my favorite one is seeing you in concert for the first time, being mesmerized and swept off my feet by a woman who doesn\'t even know me" — the series\' most direct piece of new relationship material.\n\nCritics were positive about the tone if not unanimous about the fit: Variety wrote that Taylor and Kelce "seem freakishly relaxed... like they\'re having the time of their lives" together on camera, while some fan and outlet reaction was split on whether folding the relationship into a tour documentary pulled focus from the Eras Tour itself. No outlet reporting reviewed for this page describes the Wembley cameo\'s own planning — whether it was arranged in advance or a spontaneous ask — as newly explained by the docuseries footage; that backstory remains undocumented rather than resolved.',
+          'GMA\'s exclusive first look confirmed Kelce appears in the back half of the six-episode Disney+ series, which rolled out Dec. 12, 19, and 23, 2025. His presence gave the series its relationship arc in miniature: the tour that began with him failing to hand her a friendship bracelet in July 2023 ends with him on camera inside its machinery — including the footage around his tuxedoed Wembley cameo in the "I Can Do It With a Broken Heart" bit from June 2024, the night he became briefly an Eras Tour cast member.\n\nThe docuseries also addressed the era\'s hardest moment — the cancelled Vienna shows, covered in the opening episode — making it the fullest inside account of the tour\'s final year: the terror plot, the record-breaking finale, and the relationship that started in its stands, all in one December drop.\n\nKelce\'s actual episodes (three and four, released Dec. 19) build his presence out of archival tour and rehearsal footage and recorded phone calls rather than a separate sit-down interview segment — reporting on the episodes doesn\'t describe him giving a formal talking-head interview the way Taylor does. One recurring bit outlets singled out: a phone call in which he tells her "You\'ve got teammates, I\'ve got teammates," comparing life on an NFL roster to life on tour, with Taylor making her own version of the comparison back. Andrea Swift also appears on camera in these episodes calling Kelce someone who "brings a lot of happiness" to the family. The finale (episode six, Dec. 23) goes further: Taylor reads aloud, on camera, part of a letter Kelce wrote her before the tour\'s final Vancouver shows — "my favorite one is seeing you in concert for the first time, being mesmerized and swept off my feet by a woman who doesn\'t even know me" — the series\' most direct piece of new relationship material.\n\nCritics were positive about the tone if not unanimous about the fit: on camera, Taylor and Kelce "seem freakishly relaxed... like they\'re having the time of their lives" together, per Variety, while some fan and outlet reaction was split on whether folding the relationship into a tour documentary pulled focus from the Eras Tour itself. No outlet reporting reviewed for this page describes the Wembley cameo\'s own planning — whether it was arranged in advance or a spontaneous ask — as newly explained by the docuseries footage; that backstory remains undocumented rather than resolved.',
         sources: [
           {
             outlet: 'ABC News',
@@ -6054,7 +6764,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby\'s Ultimate Christmas posted the biggest streaming week ever for a holiday album — 140.71 million on-demand streams on the chart dated Jan. 3, 2026 — and still stalled at No. 2 behind it, through 10th- and 11th-week milestones Billboard tracked one by one (104,000 units the week of Dec. 27, then a reign-peak 141,000 the week of Jan. 3, its biggest post-debut week). It ceded the top only once: on the chart dated Dec. 6, 2025, Stray Kids\' "Do It" opened at No. 1 with 295,000 units and knocked Showgirl to No. 3, before it reclaimed the summit a week later. Holding on across December is the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them dislodged it again.\n\nTwelve nonconsecutive weeks made it her second-longest No. 1 run ever, past the 11-week reigns of 1989 and Fearless and behind only The Tortured Poets Department\'s 17 weeks in 2024; at the 10-week mark she became the first woman — and third act overall — with four albums logging 10-plus weeks at No. 1. The run ended on the chart dated Jan. 17, 2026, when Morgan Wallen\'s "I\'m the Problem" returned to No. 1 (85,000 units) and Showgirl slipped to No. 2 with 72,000 — but it was still on top when Luminate crowned it 2025\'s most-consumed album, turning release-week fireworks into a season-long occupation.',
+          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby\'s Ultimate Christmas posted the biggest streaming week ever for a holiday album — 140.71 million on-demand streams on the chart dated Jan. 3, 2026 — and still stalled at No. 2 behind it, through 10th- and 11th-week milestones logged one by one, per Billboard (104,000 units the week of Dec. 27, then a reign-peak 141,000 the week of Jan. 3, its biggest post-debut week). It ceded the top only once: on the chart dated Dec. 6, 2025, Stray Kids\' "Do It" opened at No. 1 with 295,000 units and knocked Showgirl to No. 3, before it reclaimed the summit a week later. Holding on across December is the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them dislodged it again.\n\nTwelve nonconsecutive weeks made it her second-longest No. 1 run ever, past the 11-week reigns of 1989 and Fearless and behind only The Tortured Poets Department\'s 17 weeks in 2024; at the 10-week mark she became the first woman — and third act overall — with four albums logging 10-plus weeks at No. 1. The run ended on the chart dated Jan. 17, 2026, when Morgan Wallen\'s "I\'m the Problem" returned to No. 1 (85,000 units) and Showgirl slipped to No. 2 with 72,000 — but it was still on top when Luminate crowned it 2025\'s most-consumed album, turning release-week fireworks into a season-long occupation.',
         sources: [
           {
             outlet: 'Billboard',
@@ -6368,7 +7078,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The March 31, 2026 video breaks from the era\'s self-directed clips: unlike "The Fate of Ophelia" and "Opalite," it does not appear among Taylor\'s credited directorial works — her official directed-projects list carries both of those but not this one — and no director is named in the coverage. It is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer, Who\'s Afraid of Virginia Woolf?, Julia Misbehaves and Boom! among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Taylor stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Taylor video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. Taylor Nation tied the timing to the occasion — "What could you possibly get for the girl on the last day of Women\'s History Month? We have something in mind!" — but offered no reason for the platform windowing, which matched the staggered rollout of "The Fate of Ophelia" and "Opalite" and came just weeks after YouTube stopped submitting its streaming data to Billboard (Jan. 16, 2026), so YouTube plays no longer feed the Hot 100 while paid Apple Music and Spotify streams still do. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead. Rolling Stone\'s Rob Sheffield read a deep "Liz/Swift soul connection" — "both Taylors got famous as kids, grew up in public as America\'s sweetheart" — while fans divided: some hailed the effort behind a video cleared entirely from archival footage as "art," others were let down that it was "clipped together from Elizabeth Taylor movies," and a few joked the March 31 timing meant it "has to be an April Fools\' joke."',
+          'The March 31, 2026 video breaks from the era\'s self-directed clips: unlike "The Fate of Ophelia" and "Opalite," it does not appear among Taylor\'s credited directorial works — her official directed-projects list carries both of those but not this one — and no director is named in the coverage. It is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer, Who\'s Afraid of Virginia Woolf?, Julia Misbehaves and Boom! among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Taylor stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Taylor video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. Taylor Nation tied the timing to the occasion — "What could you possibly get for the girl on the last day of Women\'s History Month? We have something in mind!" — but offered no reason for the platform windowing, which matched the staggered rollout of "The Fate of Ophelia" and "Opalite" and came just weeks after YouTube stopped submitting its streaming data to Billboard (Jan. 16, 2026), so YouTube plays no longer feed the Hot 100 while paid Apple Music and Spotify streams still do. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead. There\'s a deep "Liz/Swift soul connection" in it, per Rob Sheffield\'s piece for Rolling Stone — "both Taylors got famous as kids, grew up in public as America\'s sweetheart" — while fans divided: some hailed the effort behind a video cleared entirely from archival footage as "art," others were let down that it was "clipped together from Elizabeth Taylor movies," and a few joked the March 31 timing meant it "has to be an April Fools\' joke."',
         sources: [
           {
             outlet: 'Variety',
@@ -6496,7 +7206,7 @@ export default {
       category: 'music',
       title: 'One of the 30 greatest living American songwriters — and a rare half-hour on the craft',
       snippet:
-        'The New York Times names Taylor one of the 30 greatest living American songwriters, and the accompanying sit-down is the real gift: 30 minutes on camera about nothing but the writing — the emo roots, "may the best idea win," and why decoding who a song is about is "sort of like a paternity test. That dude didn\'t write the song. I did."',
+        'One of the 30 greatest living American songwriters, per The New York Times — and the accompanying sit-down is the real gift: 30 minutes on camera about nothing but the writing — the emo roots, "may the best idea win," and why decoding who a song is about is "sort of like a paternity test. That dude didn\'t write the song. I did."',
       sourceUrl: 'https://www.youtube.com/watch?v=5B8-TJ8vsKY',
       thumbnailUrl: null,
       moment: {
@@ -6629,7 +7339,7 @@ export default {
         'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
       moment: {
         context:
-          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
+          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." Sombr, for his part, was terrified. Recounting the night to Variety that August, he called her "a goddess" and said that if he had let himself look at her "for three seconds during the performance, my mind would have completely blanked." Their friendship had begun the way many of his heroes\' do: she praised him in an interview, he sent a thank-you note, and she wrote back with a letter and a necklace. "I freaked out and fangirled," he said. The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
         sources: [
           {
             outlet: 'PBS NewsHour',
@@ -6669,6 +7379,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
+          },
+          // Added 2026-08-06 (ledger #1816): sombr's own August recollection of
+          // the tribute — the "goddess" quote and the letter-and-necklace origin
+          // of the friendship (Variety interview, via Yahoo/ABC Audio syndication).
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/sombr-recalls-performing-taylor-swift-200000773.html',
+            source_title: 'Sombr recalls performing Taylor Swift songs at her Songwriters Hall of Fame induction',
+            publisher: 'Yahoo Entertainment (ABC Audio)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
+            reliability_score: 3,
           },
           {
             outlet: 'Rolling Stone',
@@ -6729,6 +7451,8 @@ export default {
         'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
+        // Fourth link (to the other Rock Hall display item) removed with its
+        // target (issue #616 dedup): that item told this same exhibit story.
       ],
       year: 2026,
       month: 6,
@@ -6796,6 +7520,18 @@ export default {
             accessed_at: '2026-07-29',
             reliability_score: 3,
           },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `showgirl-rock-hall-ophelia-display` — the ABC Audio writeup
+          // whose embedded image is the exhibit-interior photo below.
+          {
+            outlet: 'Yahoo Entertainment (ABC Audio)',
+            url: 'https://www.yahoo.com/entertainment/music/articles/rock-roll-hall-fame-opens-163000167.html',
+            source_title: 'Rock & Roll Hall of Fame opens Taylor Swift display',
+            publisher: 'Yahoo Entertainment / ABC Audio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
         ],
         // Image-fix pass (2026-07-10, ticket #340): removed the ABC7
         // two-panel composite (display photo + AP file photo of Swift, with
@@ -6815,7 +7551,25 @@ export default {
         // a Getty Songwriters-HOF red-carpet portrait — off-moment, and a
         // third party's Getty copy — rejected on viewing. Still no direct
         // photo of the case on an approved source; deliberately one photo.
+        // Update (issue #616 dedup): the clean case photo the notes above
+        // were waiting for surfaced on the now-deleted duplicate item, where
+        // photo pass #762 (2026-08-09) verified it — the actual exhibit
+        // interior from the Yahoo/ABC Audio article this moment now cites
+        // (its own embedded image, Yahoo's Zenfs media network, an
+        // outlet-CDN precedent already used elsewhere in this codebase).
+        // curl 200 image/jpeg 630x354, downloaded and vision-confirmed:
+        // mannequins in the swimming-costume-style looks and beaded gown,
+        // under blue-lit "TAYLOR" signage. Migrated here as the primary.
         photos: [
+          {
+            url: 'https://media.zenfs.com/en/abc_audio_244/d25a082ac3d338a56032835766d248f0',
+            // Center mannequin/costume detail sits just left of center, upper-middle.
+            focalPoint: '49% 40%',
+            credit: 'Rock & Roll Hall of Fame (courtesy), via Yahoo Entertainment / ABC Audio',
+            caption:
+              'Inside the display: mannequins wear the shimmering swimming-costume-style looks and beaded gown from "The Fate of Ophelia" video, under the museum\'s blue-lit "TAYLOR" signage.',
+            kind: 'primary',
+          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
             credit: 'MusikAnimal, CC BY-SA 4.0, via Wikimedia Commons',
@@ -6835,6 +7589,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
         'moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-',
+        'moment:vault-midnights-coachella-in-a-new-heights-hat',
       ],
       year: 2026,
       month: 7,
@@ -7215,6 +7970,32 @@ export default {
             focalPoint: '50% 22%',
           },
         ],
+        // Stylist lane (Vault Run, 2026-08-09): sourcing the named garments.
+        // The exact gown — Markarian's strapless "Laila" in the pink floral-
+        // brocade colorway (~$4,115, per Marie Claire) — is past-season and no
+        // longer carried on the brand's own site; it survives only on resale/
+        // aggregator listings (reversible/lyst), which the sourcing bar
+        // excludes. Markarian DOES still list the same "Laila" silhouette in a
+        // white beaded-organza colorway on its own site (curl-verified HTTP 200
+        // this run), linked here as an isAlternative so the designer + style are
+        // shoppable without misrepresenting the price or color of the piece she
+        // actually wore. Not linked (checked, no valid page): the Cartier Love
+        // bracelet (cartier.com 403s automated verification; exact model
+        // unstated), the Larkspur & Hawk "Posy" earrings (one-of-a-kind + noted
+        // sold out — the site's only Posy listing is a DIFFERENT unique pair),
+        // and the Crap Eyewear sunglasses (exact model unidentified).
+        products: [
+          {
+            brand: 'Markarian',
+            item: 'Laila Floral Beaded Organza Strapless Gown',
+            retailer: 'markarian-nyc.com',
+            url: 'https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers',
+            price: '$7,895.00',
+            inStock: false,
+            isAlternative: true,
+            altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
+          },
+        ],
       },
     },
     {
@@ -7237,7 +8018,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor\'s original song for Toy Story 5, "I Knew It, I Knew You" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who\'s saying so. At the July 7 premiere for Disney\'s live-action Moana, Lin-Manuel Miranda — writer of "Along the Way," his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana\'s "How Far I\'ll Go" — told PEOPLE, "I love Taylor, and I love that song. I thought her song for \'Toy Story 5\' was really fun," adding that when writing for a character, "you\'re not thinking about the Oscars... you\'re thinking, \'How on earth do I pull this off? How can it feel honest and true?\'"\n\nThe song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn\'t ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn\'t closed. What\'s real right now is that two of the year\'s highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who\'d be competing against it. The Academy\'s own 99th Oscars calendar dates the process precisely: the Original Song submission deadline is Oct. 14, 2026, the shortlist is announced Dec. 15, 2026, nominations land Jan. 21, 2027, and the ceremony airs March 14, 2027.\n\nIt is the film\'s end-credit song, written from cowgirl Jessie\'s point of view — a character Taylor has said she "adored" and dressed up as as a kid — and it doubled as a return to her country roots after years of pop. Released June 5, 2026 on Walt Disney Records and produced with Antonoff, it was recorded at Electric Lady Studios in New York and Tamarind Studios in Los Angeles. Taylor has described writing and basic-tracking it in a single roughly eight-hour stretch: after an 11 a.m. screening of the finished film left her with "the songwriter zoomies," she went home, wrote the song, and by evening was playing it for Disney CEO Bob Iger — "one of the most fun days of my life." The official video, released the same day, is cut entirely from Toy Story footage tracing Jessie\'s own story: her meeting Woody, flashbacks to being outgrown by original owner Emily, and her present life with Bonnie.\n\nBeyond its two weeks at Hot 100 No. 1 (Taylor\'s 15th chart-topper there), the song also opened at No. 1 on the Global 200, Hot Country Songs and, internationally, the UK, Australian, Canadian, German, Austrian and Belgian (Flanders) charts, reaching No. 2 in Ireland; it has been certified Silver in the UK. Critics singled out the song on its own merits — The Guardian\'s Laura Snapes called it "some of Swift\'s loveliest and tightest songwriting," and Rolling Stone described it as "blissful." It extends a run of Taylor-written film songs going back to "Safe & Sound" (The Hunger Games, 2012) and including "Beautiful Ghosts" (Cats, 2019, Academy shortlisted) and "Carolina" (Where the Crawdads Sing, 2022, also shortlisted) — Taylor has never landed an actual nomination despite four Golden Globe bids, but this is her first Oscar-eligible movie song to top the Hot 100, and every prior Toy Story film has produced a Best Original Song nominee, giving this one institutional precedent the earlier songs didn\'t have.',
+          'Taylor\'s original song for Toy Story 5, "I Knew It, I Knew You" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who\'s saying so. At the July 7 premiere for Disney\'s live-action Moana, Lin-Manuel Miranda — writer of "Along the Way," his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana\'s "How Far I\'ll Go" — told PEOPLE, "I love Taylor, and I love that song. I thought her song for \'Toy Story 5\' was really fun," adding that when writing for a character, "you\'re not thinking about the Oscars... you\'re thinking, \'How on earth do I pull this off? How can it feel honest and true?\'"\n\nThe song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn\'t ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn\'t closed. What\'s real right now is that two of the year\'s highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who\'d be competing against it. The Academy\'s own 99th Oscars calendar dates the process precisely: the Original Song submission deadline is Oct. 14, 2026, the shortlist is announced Dec. 15, 2026, nominations land Jan. 21, 2027, and the ceremony airs March 14, 2027.\n\nIt is the film\'s end-credit song, written from cowgirl Jessie\'s point of view — a character Taylor has said she "adored" and dressed up as as a kid — and it doubled as a return to her country roots after years of pop. Released June 5, 2026 on Walt Disney Records and produced with Antonoff, it was recorded at Electric Lady Studios in New York and Tamarind Studios in Los Angeles. Taylor has described writing and basic-tracking it in a single roughly eight-hour stretch: after an 11 a.m. screening of the finished film left her with "the songwriter zoomies," she went home, wrote the song, and by evening was playing it for Disney CEO Bob Iger — "one of the most fun days of my life." The official video, released the same day, is cut entirely from Toy Story footage tracing Jessie\'s own story: her meeting Woody, flashbacks to being outgrown by original owner Emily, and her present life with Bonnie.\n\nBeyond its two weeks at Hot 100 No. 1 (Taylor\'s 15th chart-topper there), the song also opened at No. 1 on the Global 200, Hot Country Songs and, internationally, the UK, Australian, Canadian, German, Austrian and Belgian (Flanders) charts, reaching No. 2 in Ireland; it has been certified Silver in the UK, and it debuted at No. 1 on Billboard\'s Top Movie Songs chart. Critics singled out the song on its own merits, calling it "some of Swift\'s loveliest and tightest songwriting" (The Guardian\'s Laura Snapes) and "blissful" (Rolling Stone). It extends a run of Taylor-written film songs going back to "Safe & Sound" (The Hunger Games, 2012) and including "Beautiful Ghosts" (Cats, 2019, Academy shortlisted) and "Carolina" (Where the Crawdads Sing, 2022, also shortlisted) — Taylor has never landed an actual nomination despite four Golden Globe bids, but this is her first Oscar-eligible movie song to top the Hot 100, and every prior Toy Story film has produced a Best Original Song nominee, giving this one institutional precedent the earlier songs didn\'t have.',
         sources: [
           {
             outlet: 'Variety',
@@ -7282,6 +8063,20 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-28',
+            reliability_score: 4,
+          },
+          // Rumor Desk (2026-07-30, vault-run): confirmed chart fact folded in
+          // from the news digest — the Top Movie Songs No. 1 debut. Billboard's
+          // headline confirms it; the raw article 307-redirects to a paywall
+          // proxy, so cited to the resolved Billboard URL + the outlet's own
+          // Chart Beat headline.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-top-movie-songs-chart-1236305426/',
+            source_title: "Taylor Swift's 'I Knew It, I Knew You' Debuts at No. 1 on Top Movie Songs Chart",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-30',
             reliability_score: 4,
           },
           {
@@ -7334,6 +8129,19 @@ export default {
             // Jessie's face dead-center between the outstretched arms.
             focalPoint: '48% 35%',
           },
+          // Photo pass 2026-08-06 (vault-run): reaches 2/2. A second, distinct
+          // frame from the SAME official video (maxres2, unused elsewhere) —
+          // curl 200 image/jpeg, 1280x720, downloaded and vision-confirmed: a
+          // different scene, Jessie downcast beside Woody. Jessie is the song's
+          // narrator, so the crop is weighted to keep her face framed.
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxres2.jpg',
+            focalPoint: '34% 40%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video frame, YouTube)',
+            caption:
+              'A quieter beat from the same video: Jessie, the cowgirl whose story the song tells, downcast beside Woody.',
+            kind: 'archival',
+          },
         ],
         // Rumor Desk 2026-07-20: the moment above holds the confirmed line
         // ("not a nominee, not yet"); this separates the labeled, forward-
@@ -7347,9 +8155,9 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination: as of this report the Academy had not ruled on eligibility and nothing was shortlisted. Resolves with the shortlist and the January 2027 nominations.',
+            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Lifecycle re-check 2026-08-10: still pending, not faded — a prediction awaiting scheduled Academy dates (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026), so no eligibility ruling or shortlist exists yet. Still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-07-20',
+            lastCheckedOn: '2026-08-10',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
@@ -7369,6 +8177,149 @@ export default {
         ],
       },
     },
+    // --- Chart milestone (Content Shift, vault-run 2026-08-05, Closes #1799):
+    // the first all-country Hot 100 top five, with IKIIKY at No. 3. Verified
+    // against Variety and Rolling Stone directly. NOTE: intake #1799 listed
+    // Ella Langley's No. 1 as "You Look Like You Love Me"; the primary sources
+    // show it is "Choosin' Texas" (its 16th week at No. 1) — corrected here.
+    {
+      slug: 'showgirl-country-sweeps-hot-100-top-five',
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
+      ],
+      year: 2026,
+      month: 8,
+      day: 3,
+      category: 'music',
+      title: 'Country sweeps the Hot 100\'s entire top five for the first time — "I Knew It, I Knew You" at No. 3',
+      snippet:
+        'On the Aug. 8, 2026 Billboard Hot 100, all five of the top spots are country songs — a first in the chart\'s history. Taylor sits at No. 3 with her Toy Story 5 song "I Knew It, I Knew You," one of four acts in a sweep even the \'90s Garth-and-Shania boom never pulled off.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/country-songs-billboard-hot-100-ella-langley-stella-lefty-1236826778/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'For the first time since the Billboard Hot 100 began in 1958, every song in the chart\'s top five is a country record. On the tally dated Aug. 8, 2026, the order runs: Ella Langley\'s "Choosin\' Texas" at No. 1 (its 16th week on top), Morgan Wallen\'s "Been by Now" debuting at No. 2, Taylor\'s "I Knew It, I Knew You" at No. 3, the Langley–Wallen duet "I Can\'t Love You Anymore" at No. 4, and Stella Lefty\'s "Boston" at No. 5 — four acts, five songs, no pop or hip-hop title among them.\n\nBillboard frames it as a genre milestone rather than any one artist\'s: country had reached four of the top five during two weeks in July 2026, but never the whole top tier at once, and not even the mid-\'90s peak of Garth Brooks and Shania Twain managed a clean sweep. Taylor is one thread in it, not the headline — "I Knew It, I Knew You," her end-credits song for Toy Story 5 and her return to country roots, slipped one place to No. 3 after two weeks at No. 1 earlier in the summer, and its staying power is part of what kept the top five all-country. It is the rare chart record she shares rather than sets, and it lands her Toy Story ballad inside a first-in-history moment for the genre she started in.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/country-songs-billboard-hot-100-ella-langley-stella-lefty-1236826778/',
+            source_title: "Country Songs Take All Five Slots in the Billboard Hot 100's Top 5 for the First Time in Chart History",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/country-songs-hot-100-chart-make-history-1235603286/',
+            source_title: 'Five Country Songs Dominate Hot 100 Chart for First Time Ever',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 4,
+          },
+        ],
+        // Photo (Content Shift 2026-08-05): the official IKIIKY video thumbnail
+        // (id hDU4GB1PTxc, oEmbed-verified against @TaylorSwift elsewhere in
+        // this file). Downloaded and vision-confirmed this run: the Jessie
+        // frame. It represents Taylor's actual entry in the sweep; it also
+        // appears on the Oscar-buzz page, reused here because it is the single
+        // most on-topic verifiable asset for her song at No. 3. focalPoint set
+        // by eye — Jessie's face is centered, slightly high.
+        // Photo pass (#762, 2026-08-07): added a second, distinct still from
+        // Disney's own Toy Story 5 press page (Jessie peeking through a
+        // doorway) — downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
+            focalPoint: '48% 33%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
+            caption:
+              'A frame from the official "I Knew It, I Knew You" video — the Toy Story 5 song that held No. 3 as country songs swept the Hot 100\'s entire top five.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://thewaltdisneycompany.com/app/uploads/2026/06/TOYSTORY5-ONLINE-USE_t580-1024x550.jpg',
+            focalPoint: '57% 27%',
+            credit: 'Disney / Pixar (official Toy Story 5 press still)',
+            caption:
+              'Jessie peeking through a doorway in Toy Story 5, from Disney\'s own press page announcing Taylor Swift\'s "I Knew It, I Knew You."',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    // --- Peer/mentorship (Content Shift, vault-run 2026-08-05, Closes #1801):
+    // Gracie Abrams's on-record Rolling Stone quote crediting Taylor. Exact
+    // wording verified against the RS feature and the People/Yahoo carry.
+    {
+      slug: 'showgirl-gracie-abrams-less-precious-with-my-ego',
+      relatedIds: [
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+      ],
+      year: 2026,
+      month: 8,
+      category: 'music',
+      title: 'Gracie Abrams credits Taylor with teaching her to be "less precious with my ego"',
+      snippet:
+        'In a Rolling Stone feature, Gracie Abrams — an Eras Tour opener and a wedding guest — says watching Taylor tune out feedback taught her to hold her own work more loosely: "That\'s helped me feel less precious, with my ego."',
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-features/gracie-abrams-daughter-from-hell-upbringing-relationship-1235600799/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In an August 2026 Rolling Stone cover feature ("Gracie Abrams Built a Career on Honesty. She\'s Going Even Deeper Now"), Gracie Abrams put a name to what years of proximity to Taylor taught her. Abrams — who opened the Eras Tour across its 2023–24 run and was a guest at Taylor and Travis Kelce\'s July 2026 wedding — said she admires Taylor\'s output "not just from a place of quantity, but seemingly from a place of freedom within herself." Asked about that freedom, she reached for the idea of a songwriter learning to let go of her own precious feelings about a finished song.\n\nHer words, on record: "I think her years of experience tuning out feedback — quote, unquote — that\'s [the result of] an earned relationship one has with themselves. And that\'s helped me feel less precious, with my ego, about being like, \'Ooh, six months from now, am I not going to relate to this so much?\'" It is a small, specific piece of craft absorbed by watching rather than being taught — the working-artist version of the mentorship fans have read into the friendship since Abrams first joined the tour. It also sits beside the other Abrams thread the Vault already carries: Aaron Dessner\'s flat denial that her song "Death Wish" was ever about Taylor. The influence here is real and stated; the romance-decoding around it, less so.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/gracie-abrams-daughter-from-hell-upbringing-relationship-1235600799/',
+            source_title: "Gracie Abrams Built a Career on Honesty. She's Going Even Deeper Now",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/gracie-abrams-credits-taylor-swift-023428402.html',
+            source_title: "Gracie Abrams credits Taylor Swift with teaching her to be 'less precious with my ego'",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-05',
+            reliability_score: 3,
+          },
+        ],
+        // Photo (Content Shift 2026-08-05): a Wikimedia Commons performance shot
+        // of Gracie Abrams (Justin Higuchi, El Rey Theatre LA, 2022; CC BY 2.0).
+        // Downloaded and vision-confirmed this run: Abrams singing into a mic in
+        // an oversized dark blazer, stage-lit. License verified via the Commons
+        // API. focalPoint set by eye — her face sits upper-center-right.
+        // Photo pass (#762, 2026-08-07): added the Rolling Stone cover shot
+        // from the actual feature this page quotes — downloaded and vision-
+        // confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/be/Gracie_Abrams_%40_El_Rey_Theatre_03_05_2022_%2852297976064%29.jpg',
+            focalPoint: '55% 28%',
+            credit: 'Justin Higuchi / Wikimedia Commons, CC BY 2.0',
+            caption:
+              'Gracie Abrams performing at the El Rey Theatre in Los Angeles, 2022 — a year before she opened the Eras Tour.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2026/08/R1415_COV_Gracie-Abrams-No-Banner.jpg',
+            focalPoint: '40% 24%',
+            credit: 'Laura Jane Coulson / Rolling Stone',
+            caption:
+              'Gracie Abrams on the cover of Rolling Stone\'s September 2026 issue — the feature in which she credits Taylor with teaching her to be "less precious with my ego."',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
     {
       // Authored 2026-07-19 from intake #902. Filled a real gap: the ruling
       // landed July 6 but was never covered. Court-record outcome, so it
@@ -7382,6 +8333,9 @@ export default {
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-evermore-evermore-vs-evermore-the-theme-park-lawsuit-that-ended-in-a-',
+        // Cross-link (Stage 3, 2026-08-10): the album's Spotify chart-record
+        // debut — the same record, its legal aftermath years later.
+        'moment:vault-ttpd-tortured-poets-breaks-spotifys-single-day-record',
       ],
       year: 2026,
       month: 7,
@@ -7672,21 +8626,23 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
+            // Photo pass #762 (2026-08-03): re-viewed full-res — Taylor's full
+            // figure sits left-of-center but well below the frame's vertical
+            // midline (lots of dark stadium bowl above), not near the top.
+            focalPoint: '37% 62%',
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption:
               'The Eras Tour\'s Lover set at SoFi Stadium, August 2023 — the show whose filmed Vancouver finale earned the five nominations.',
             kind: 'archival',
-            // Wide panorama, Taylor small in the left third against a dark bowl.
-            focalPoint: '34% 40%',
           },
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2026/07/GettyImages-2166917001.jpg?w=1440&h=810&crop=1',
+            // Taylor centered, face just above the vertical midline.
+            focalPoint: '50% 36%',
             credit: 'Getty Images, via The Hollywood Reporter',
             caption:
               'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
             kind: 'archival',
-            // Taylor centered, face just above the vertical midline.
-            focalPoint: '50% 36%',
           },
         ],
       },
@@ -7802,7 +8758,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard’s Pop Airplay chart tracks spins at pop radio, and it is a slow, crowded format — a song has to be worked for months to reach the top. It debuted around No. 20 on the chart dated June 20, 2026, and roughly five weeks later, on the chart dated July 20, “I Knew It, I Knew You” climbed 12–9 into the top 10 — Taylor’s 29th career top 10 there, nearly two decades after she first appeared on the tally. It edged one place higher, to No. 8, the following week.\n\nThat number is the whole story. Only Rihanna has ever gathered more: her 30 Pop Airplay top 10s are the all-time record, and Taylor sits exactly one behind it — as of these charts she had not yet added a 30th to tie it. She already owns the format’s other headline mark, the most No. 1s in its history: she first broke that record in July 2023 and extended it to fifteen with “Opalite” on the chart dated Feb. 28, 2026. So Rihanna’s top-10 count is one of the few Pop Airplay lines she hasn’t already claimed for herself.\n\nThe song keeps refusing the tidy version of the story. It isn’t a Showgirl track: “I Knew It, I Knew You” is her original for the Toy Story 5 soundtrack, co-written and produced with Jack Antonoff, and it has crossed every format that matters — a No. 1 Hot 100 debut, a top-10 Country Airplay entry, four simultaneous Adult Contemporary top 10s the week before, and now the edge of a Pop Airplay record. A movie song built for an animated character, out-charting most artists’ actual singles.\n\nThe origin explains the oddity. Pixar approached her in 2025 for a Toy Story 5 original; she was initially uninterested, until a letter from producer Jessica Choi about the film’s female-centered story won her over. She asked to watch the film in February 2026, and — hit with what she called the “songwriter zoomies” — wrote, produced and recorded it with Antonoff inside about eight hours of the screening. It’s Jessie the cowgirl’s song, playing over the closing credits; director Andrew Stanton said it fit “like a long-lost family member,” and Pixar cut a decoy version of the film without it to keep the surprise. Walt Disney Records issued it as a single on June 5, 2026; Antonoff played nine of its fourteen instruments, and it was cut at Electric Lady Studios in New York. Critics treated it as more than a soundtrack obligation — The Guardian called it her best song in years — and by midsummer it had entered the Academy Award for Best Original Song conversation.',
+          'Billboard’s Pop Airplay chart tracks spins at pop radio, and it is a slow, crowded format — a song has to be worked for months to reach the top. It debuted around No. 20 on the chart dated June 20, 2026, and roughly five weeks later, on the chart dated July 20, “I Knew It, I Knew You” climbed 12–9 into the top 10 — Taylor’s 29th career top 10 there, nearly two decades after she first appeared on the tally. It edged one place higher, to No. 8, the following week.\n\nThat number is the whole story. Only Rihanna has ever gathered more: her 30 Pop Airplay top 10s are the all-time record, and Taylor sits exactly one behind it — as of these charts she had not yet added a 30th to tie it. She already owns the format’s other headline mark, the most No. 1s in its history: she first broke that record in July 2023 and extended it to fifteen with “Opalite” on the chart dated Feb. 28, 2026. So Rihanna’s top-10 count is one of the few Pop Airplay lines she hasn’t already claimed for herself.\n\nThe song keeps refusing the tidy version of the story. It isn’t a Showgirl track: “I Knew It, I Knew You” is her original for the Toy Story 5 soundtrack, co-written and produced with Jack Antonoff, and it has crossed every format that matters — a No. 1 Hot 100 debut, a top-10 Country Airplay entry, four simultaneous Adult Contemporary top 10s the week before, and now the edge of a Pop Airplay record. A movie song built for an animated character, out-charting most artists’ actual singles.\n\nThe origin explains the oddity. Pixar approached her in 2025 for a Toy Story 5 original; she was initially uninterested, until a letter from producer Jessica Choi about the film’s female-centered story won her over. She asked to watch the film in February 2026, and — hit with what she called the “songwriter zoomies” — wrote, produced and recorded it with Antonoff inside about eight hours of the screening. It’s Jessie the cowgirl’s song, playing over the closing credits; director Andrew Stanton said it fit “like a long-lost family member,” and Pixar cut a decoy version of the film without it to keep the surprise. Walt Disney Records issued it as a single on June 5, 2026; Antonoff played nine of its fourteen instruments, and it was cut at Electric Lady Studios in New York. Critics treated it as more than a soundtrack obligation — her best song in years, per The Guardian — and by midsummer it had entered the Academy Award for Best Original Song conversation.',
         sources: [
           {
             outlet: 'Forbes',
@@ -8118,6 +9074,39 @@ export default {
             // Three faces sit in a band across the upper third — Jason left
             // panel, Travis center, Taylor right; bias the crop high.
             focalPoint: '51% 32%',
+          },
+        ],
+        // Rumor Desk 2026-08-07 (news digest / web trace). The Vegas-coded
+        // orange rollout that opened here immediately spawned a tour rumor: an
+        // insider claim, reported by The US Sun days after this Aug 13 reveal,
+        // that Taylor's team was eyeing a Las Vegas Sphere residency. It is a
+        // clean adjudicable claim — tour/residency speculation is explicitly
+        // admissible (privacy-redlines.md, "Always OK"), and it was DEBUNKED on
+        // the record within days by the venue itself, so it ships as a resolved
+        // rumor. The venue is named only as the entity that issued the denial
+        // (same pattern as the shipped Ocean House wedding-rumor entry), and the
+        // subject is a public performance venue, not her whereabouts — no
+        // redline, no live security/doxxing risk (she is not, per the venue,
+        // going to be there). This anchors on the announcement page the rumor
+        // grew out of, not the wedding page, per the breadth directive.
+        rumors: [
+          {
+            claim:
+              'Days after the Showgirl reveal, as the era\'s Vegas-coded rollout took off, The US Sun reported an insider claim that Taylor\'s team had privately discussed Las Vegas gigs and was specifically eyeing a residency at the Sphere.',
+            reportedBy: 'The US Sun',
+            reportedOn: '2025-08-14',
+            status: 'debunked',
+            url: 'https://www.the-sun.com/entertainment/14966683/taylor-swift-las-vegas-venues-sphere-album-reveal/',
+            note: 'Debunked on the record within days: a Sphere rep told Puck\'s Matt Belloni (Aug 18, 2025) they "are not in conversations with her team about a residency at Sphere"; NME, Consequence and Just Jared carried the denial. Rigor: the denial addresses the Sphere-specific claim; the vaguer "Vegas gigs" ambition was never resolved. Tour speculation, admissible; venue named only as the denial\'s source.',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'venue',
+            lastCheckedOn: '2026-08-07',
+            resolution: {
+              on: '2025-08-18',
+              url: 'https://consequence.net/2025/08/tayor-swift-vegas-sphere-not-happening/',
+              outlet: 'Consequence (quoting the Sphere rep via Puck\'s Matt Belloni)',
+              note: 'A Sphere representative told Puck\'s Matt Belloni: "While we love and respect Taylor Swift, we are not in conversations with her team about a residency at Sphere." Reported Aug 18, 2025; the Sphere-residency version of the rumor did not hold.',
+            },
           },
         ],
       },
@@ -8540,6 +9529,27 @@ export default {
       title: "All twelve songs, all twelve top spots",
       snippet: "Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.",
       moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://billboard.substack.com/p/here-are-all-the-billboard-chart',
+            source_title: 'Here Are All the Billboard Chart Records Taylor Swift Breaks (or Extends) With \'The Life of a Showgirl\'',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'Billboard\'s own Substack. billboard.com itself now 307s to a tollbit paywall gateway that returns 402, so the main site is unfetchable and unverifiable.',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/texas/video/taylor-swift-makes-billboard-history-as-all-12-songs-from-new-album-hit-top-12/',
+            source_title: 'Taylor Swift makes Billboard history as all 12 songs from new album hit top 12',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+        ],
         context: "Led by \"The Fate of Ophelia\" at number one, the full tracklist swept the top of the Hot 100 with no other song breaking the streak.\n\nIt was the first time in the chart’s history, dating back to the 1950s, that an entire album occupied every one of its top positions uninterrupted.",
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
         // wp-content PR image 05 from the album's Mert & Marcus press set
@@ -8679,7 +9689,7 @@ export default {
       snippet: "The album’s third radio single, five months after release — Hot AC on March 9, Top 40 the next day — and, weeks later, a top-10 airplay run that made chart history.",
       video: { youtubeId: "WqbJT_vC0rs", title: "Taylor Swift - Elizabeth Taylor (Official Music Video)" },
       moment: {
-        context: "Five months after the album, \"Elizabeth Taylor\" became its third radio single, after the two Hot 100 No. 1s \"The Fate of Ophelia\" and \"Opalite.\" It impacted US hot adult contemporary (AC) radio on March 9, 2026 and contemporary hit (Top 40) radio the next day; Billboard reported it \"trending toward a debut on the March 21-dated Pop Airplay, Adult Pop Airplay and Adult Contemporary charts,\" with early adds at SiriusXM, iHeart's Z100 New York and 99.7 NOW San Francisco.\n\nRadio came first by a wide margin — the archival music video did not premiere until March 31, roughly three weeks later — so the single began its radio life well before it had a video, not alongside one. On airplay it became one of the album's biggest post-release hits, peaking at No. 7 on Pop Airplay, No. 8 on Adult Pop Airplay and No. 9 on Adult Contemporary. Its Adult Pop Airplay top-10 run made history: with \"The Fate of Ophelia\" and \"Opalite\" already in the region, Taylor became the first artist in that chart's 30-year history to hold three simultaneous top 10s — her 35th career top 10 on the format.\n\nThe \"So Glamorous Cabaret Version\" the motif points to is not a spring-2026 release: it is one of eight acoustic re-recordings Taylor cut with Max Martin and Shellback and issued Oct. 5, 2025 as bonus tracks on four limited CD editions of the album, the fourth of which paired it with an \"Original Songwriting Voice Memo.\" During the single's cycle Taylor made a non-performing special appearance at the iHeartRadio Music Awards on March 26, 2026, taking Artist of the Year among seven wins; no official reason was published for choosing \"Elizabeth Taylor\" as the third single, and no dedicated televised performance of it is documented.",
+        context: "Five months after the album, \"Elizabeth Taylor\" became its third radio single, after the two Hot 100 No. 1s \"The Fate of Ophelia\" and \"Opalite.\" It impacted US hot adult contemporary (AC) radio on March 9, 2026 and contemporary hit (Top 40) radio the next day; it was already \"trending toward a debut on the March 21-dated Pop Airplay, Adult Pop Airplay and Adult Contemporary charts,\" per Billboard, with early adds at SiriusXM, iHeart's Z100 New York and 99.7 NOW San Francisco.\n\nRadio came first by a wide margin — the archival music video did not premiere until March 31, roughly three weeks later — so the single began its radio life well before it had a video, not alongside one. On airplay it became one of the album's biggest post-release hits, peaking at No. 7 on Pop Airplay, No. 8 on Adult Pop Airplay and No. 9 on Adult Contemporary. Its Adult Pop Airplay top-10 run made history: with \"The Fate of Ophelia\" and \"Opalite\" already in the region, Taylor became the first artist in that chart's 30-year history to hold three simultaneous top 10s — her 35th career top 10 on the format.\n\nThe \"So Glamorous Cabaret Version\" the motif points to is not a spring-2026 release: it is one of eight acoustic re-recordings Taylor cut with Max Martin and Shellback and issued Oct. 5, 2025 as bonus tracks on four limited CD editions of the album, the fourth of which paired it with an \"Original Songwriting Voice Memo.\" During the single's cycle Taylor made a non-performing special appearance at the iHeartRadio Music Awards on March 26, 2026, taking Artist of the Year among seven wins; no official reason was published for choosing \"Elizabeth Taylor\" as the third single, and no dedicated televised performance of it is documented.",
         sources: [
           {
             outlet: 'Billboard',
@@ -8734,6 +9744,11 @@ export default {
         // image/jpeg, downloaded and viewed — archival Elizabeth Taylor
         // footage, distinct from the maxresdefault already used on the
         // elizabeth-taylor track pages.
+        // Photo pass #762 (2026-08-01): reaches 2/2. A second, distinct
+        // auto-generated frame from the same official video (maxres2, not
+        // used anywhere else in this file) — curl 200 image/jpeg,
+        // downloaded and vision-confirmed: a different archival scene,
+        // candlelit, ivy in the foreground.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxres3.jpg',
@@ -8744,6 +9759,490 @@ export default {
             caption:
               'The video leans on archival footage of its namesake: Elizabeth Taylor in a violet headscarf, diamond flashing, seaside.',
             kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxres2.jpg',
+            // Face is candlelit, right-of-center, ivy leaves cross the left
+            // third of frame — keep the crop weighted right.
+            focalPoint: '58% 40%',
+            credit: 'Taylor Swift / Republic Records (official "Elizabeth Taylor" video frame, YouTube)',
+            caption:
+              'A second archival scene from the video: Elizabeth Taylor half-lit behind a trellis of ivy.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    // --- Content Shift 2026-08-09. Two verified wedding-arc color items from
+    // the intake queue (#1844, #1842). Both were researched and verified on
+    // 2026-08-08 and held only for the brittle substance.test corpus assertion
+    // (#1845, since fixed); every URL and quote independently re-fetched and
+    // read this session. Each right-sized to a sub-detail card so none
+    // displaces a hero slot. (The third held item — "August" pulled from a
+    // Team Trump TikTok, #1841 — was intentionally dropped here because Rumor
+    // Desk landed the same event as a rumor in PR #1857; authoring a second
+    // confirmed moment would duplicate it. See the #1841 ledger comment.)
+    {
+      slug: 'showgirl-charles-barkley-declined-wedding',
+      year: 2026,
+      month: 8,
+      day: 7,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-shania-twain-explains-the-scheduling-conflict-that-kept-her-',
+      ],
+      title: 'Charles Barkley, invited, said no — "I don\'t go to weddings or funerals"',
+      snippet:
+        'Charles Barkley said on the record that he was invited to Taylor and Travis\'s July 3 wedding and politely declined — "I don\'t go to weddings or funerals" — while insisting he loves the Kelces and meant no slight to "the bride\'s special day."',
+      sourceUrl:
+        'https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charles-barkley-declined-invitation-to-attend-travis-kelce-taylor-swift-wedding',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Charles_Barkley_in_2026.jpg',
+      moment: {
+        context:
+          'Among the roughly 1,000 names attached to the July 3 wedding, one belonged to someone who wasn\'t there by choice: Charles Barkley. The Hall of Famer and longtime NBA analyst said on the record that he had been invited and had turned it down, politely. His reasons were pure Barkley — "I don\'t go to weddings or funerals," a preference for hanging out and playing golf over dressing up, and a wish to keep the focus where it belonged: "That\'s the bride\'s special day, let her enjoy herself."\n\nHe was careful about the affection behind the no. Barkley said he loves both Travis and Jason Kelce, has met Taylor once, and found the invitation itself "pretty special." The comments first surfaced around the wedding in early July and recirculated in an early-August digest window; either way they read as friendly color — the guest list seen from an empty seat, alongside the other invited names (Shania Twain, Ryan Seacrest, Robert Pattinson) who explained their absences on the record.',
+        sources: [
+          {
+            outlet: 'NBC Sports (Pro Football Talk)',
+            url: 'https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charles-barkley-declined-invitation-to-attend-travis-kelce-taylor-swift-wedding',
+            source_title: 'Charles Barkley declined invitation to attend Travis Kelce, Taylor Swift wedding',
+            publisher: 'NBC Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-charles-barkley-declined-1236289754/',
+            source_title: "Charles Barkley Explains Why He 'Politely Declined' Taylor Swift & Travis Kelce's Wedding Invite",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/why-charles-barkley-declined-invitation-to-travis-kelce-and-taylor-swift-s-wedding-01kx1361v120',
+            source_title: "Why Charles Barkley Declined Invitation To Travis Kelce and Taylor Swift's Wedding",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+          },
+        ],
+        // Archival portrait — Barkley's remarks were an interview, not a
+        // photographed event, so this is the closest true visual (same pattern
+        // as the Maren/Shania items). thumbnailUrl set to this url so the sync
+        // makes it the primary image. upload.wikimedia.org (allowlisted); curl
+        // 200 + image/jpeg, 1113102 bytes, re-verified live this session.
+        // Public domain (U.S. Air Force). Field-order fix #762 (2026-08-10):
+        // focalPoint moved to immediately after url; no values changed.
+        // 2nd photo (#762, 2026-08-10): Barkley on a broadcast desk, laughing —
+        // Billboard's own CDN (already allowlisted), curl 200 image/jpeg,
+        // downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Charles_Barkley_in_2026.jpg',
+            focalPoint: '52% 28%',
+            credit: 'U.S. Air Force (public domain), via Wikimedia Commons',
+            caption: 'Charles Barkley, 2026.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/07/2267126554-e1783524087210.jpg?w=1024',
+            // Face right-of-center, upper third, headset visible.
+            focalPoint: '62% 26%',
+            credit: 'Getty Images, via Billboard',
+            caption: "Charles Barkley on a broadcast desk — the TV analyst persona behind his on-record explanation of the declined wedding invite.",
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-kylie-kelce-why-jason-cried',
+      year: 2026,
+      month: 8,
+      day: 6,
+      category: 'relationship',
+      // (Stage 3, 2026-08-10): + his own "new audience" commentary, same
+      // wedding-season throughline.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-',
+      ],
+      title: 'Why Jason Kelce cried at the wedding, per Kylie: the flower girls',
+      snippet:
+        'On her podcast "Not Gonna Lie," Kylie Kelce clarified why Jason Kelce cried at Travis and Taylor\'s July 3 wedding: not the vows, but watching his own daughters serve as flower girls. She called the night "touching" and "very loving."',
+      sourceUrl:
+        'https://www.today.com/popculture/news/kylie-kelce-reacts-jason-comments-crying-travis-taylor-wedding-rcna591280',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+      moment: {
+        context:
+          'When word got out that Jason Kelce had cried at his younger brother\'s wedding — harder, he said, than he had at other family milestones — the easy reading was that watching Travis marry Taylor had undone him. On her podcast "Not Gonna Lie," Kylie Kelce set the record straight: the tears came from watching his own daughters serve as flower girls. "It was touching. It was very loving to see all of the things that were happening," she said, and admitted Jason wasn\'t the only adult in their family who cried that night — she was "guilty," too.\n\nIt is a small correction that reframes a viral moment. The emotion at the Madison Square Garden ceremony, in her telling, was as much about the Kelces\' own family as about the couple at the altar — a father watching his children in the middle of someone else\'s wedding.',
+        // Redline note (intake #1842): the Kelce daughters are minors. This
+        // clears the redline only as a family-published fact (Kylie shared it
+        // on her own podcast). Kept to the public-facing detail — his daughters
+        // served as flower girls, which moved him — with NO names, ages, or
+        // count. The item is about Jason's reaction and the wedding, not the
+        // kids. No location/security/health redline.
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/kylie-kelce-real-reason-jason-kelce-cried-travis-taylor-wedding-1236310249/',
+            source_title: "Kylie Kelce On Real, Heart-Tugging Reason Husband Jason Cried at Travis & Taylor's Wedding",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/news/kylie-kelce-reacts-jason-comments-crying-travis-taylor-wedding-rcna591280',
+            source_title: 'Kylie Kelce Shares the Moment That Made Jason So Emotional at Travis and Taylor Swift\'s Wedding',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Daily Beast',
+            url: 'https://www.thedailybeast.com/obsessed/kylie-kelce-says-jason-cried-at-travis-kelce-and-taylor-swifts-wedding/',
+            source_title: 'Kylie Kelce Says Jason Cried at Travis Kelce and Taylor Swift\'s Wedding',
+            publisher: 'The Daily Beast',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-09',
+            reliability_score: 3,
+          },
+        ],
+        // Archival portrait — Kylie's account was a podcast segment, not a
+        // photographed event, so a true visual of Jason Kelce (the subject of
+        // the moment) is the closest honest image. thumbnailUrl set to this url
+        // so the sync makes it primary. upload.wikimedia.org (allowlisted);
+        // curl 200 + image/jpeg, 183058 bytes, re-verified live this session.
+        // Field-order fix #762 (2026-08-10): focalPoint moved to immediately
+        // after url; no values changed. 2nd photo (#762, 2026-08-10): Kylie
+        // Kelce herself — the moment's actual source (her podcast comments) —
+        // Billboard's own CDN (already allowlisted), curl 200 image/jpeg,
+        // downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/JasonKelce.jpg',
+            focalPoint: '50% 24%',
+            credit: 'Joe Glorioso / All-Pro Reels, via Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Jason Kelce.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/08/P1068KQV-e1786026515917.jpg?w=1024',
+            // Face upper third, slightly left of center.
+            focalPoint: '46% 18%',
+            credit: 'Getty Images, via Billboard',
+            caption: 'Kylie Kelce — the source of the on-record correction that it was the flower girls, not the vows, that moved Jason to tears.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    // Added 2026-08-10 (Vault Run, Content Shift lane) — Closes #1872. A
+    // documented Canadian court proceeding (guilty pleas entered), squarely
+    // inside the redline carve-out for legal facts in court records / major
+    // outlets. Names verified across CP24, Global News and Billboard Canada;
+    // scale and sentencing date re-verified live this session against CP24 and
+    // CTV News. No location beyond city level; nothing cut on privacy grounds.
+    {
+      slug: 'showgirl-eras-toronto-ticket-scam-guilty-plea',
+      year: 2026,
+      month: 7,
+      day: 22,
+      category: 'business',
+      title: 'Guilty pleas in a $265K fake-ticket scam that hit 107 Toronto Eras Tour fans',
+      snippet:
+        'An Ontario couple pleaded guilty to a Facebook Marketplace scheme that sold non-existent tickets to Taylor\'s sold-out November 2024 Toronto Eras Tour shows — defrauding 107 fans of about $265,000 (CAD), some of whom paid more than a year in advance. Sentencing is set for October 6, 2026.',
+      sourceUrl:
+        'https://www.ctvnews.ca/toronto/article/ontario-couple-to-be-sentenced-in-265k-taylor-swift-ticket-scam-heres-when/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Denise Tisor and her common-law partner, David Blake, of the Hamilton–Burlington area of Ontario, took money from 107 people for tickets to one of Taylor\'s six sold-out Eras Tour nights at Toronto\'s Rogers Centre in November 2024. The tickets did not exist. Sold largely through Facebook Marketplace, the fake seats drew buyers in as early as August 2023 — more than a year before the concerts — and cost their victims a combined $265,330 (CAD). In an Ontario court in July 2026, Tisor pleaded guilty to defrauding the public and Blake pleaded guilty to possession of property obtained by crime, per CP24, CTV News and Global News.\n\nThe court heard where the money went. Between July 2023 and late November 2024, roughly $139,000 of the proceeds was placed on online gambling platforms, alongside some 350 ATM cash withdrawals totalling more than $297,000. Sentencing is scheduled for October 6, 2026.\n\nIt is one of the largest documented Eras Tour resale frauds to reach a Canadian courtroom, and a plain warning stitched into the tour\'s history: the same demand that emptied these shows in minutes is exactly what a scammer counts on. Every fake sale here happened off-platform, buyer-to-"seller," for a run of nights whose real tickets never left the official channels.',
+        sources: [
+          {
+            outlet: 'CTV News',
+            url: 'https://www.ctvnews.ca/toronto/article/ontario-couple-to-be-sentenced-in-265k-taylor-swift-ticket-scam-heres-when/',
+            source_title: "Ontario couple to be sentenced in $265K Taylor Swift ticket scam: here's when",
+            publisher: 'CTV News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CP24',
+            url: 'https://www.cp24.com/local/toronto/2026/07/22/ontario-couple-pleads-guilty-to-defrauding-victims-out-of-over-265k-in-taylor-swift-ticket-scam/',
+            source_title: 'Ontario couple pleads guilty after victims defrauded out of over $265K in Taylor Swift ticket scam',
+            publisher: 'CP24',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Global News',
+            url: 'https://globalnews.ca/news/11968687/ontario-woman-pleads-guilty-to-defrauding-taylor-swift-fans-out-of-265k-in-ticket-scam/',
+            source_title: 'Ontario woman pleads guilty to defrauding Taylor Swift fans out of $265K in ticket scam',
+            publisher: 'Global News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Money.ca',
+            url: 'https://money.ca/news/taylor-swift-fake-ticket-scam-canada',
+            source_title: 'Ontario couple pleads guilty to $265K fake Eras Tour ticket scam that defrauded 107 Canadians',
+            publisher: 'Money.ca',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 3,
+          },
+        ],
+        // No honest, subject-specific image exists for a fraud proceeding (a
+        // courthouse or generic tour shot would be decorative, not the story),
+        // so this ships text-only per content-shift.md 3b's "nothing verifiable
+        // exists" clause. The photo-sparsity checker will route it; the Photo
+        // Enrichment lane declined to force a non-honest visual.
+      },
+    },
+    // --- News catch-up (2026-08-10, Content Shift): a confirmed music/copyright
+    // event (#1841). The removals + the copyright-block message are documented
+    // fact across Variety, Billboard, Rolling Stone and Deadline; "who filed
+    // it" is left unasserted in prose (no named party claimed it), which is
+    // also carried as a lifecycle-tracked rumor on the TTPD endorsement moment.
+    // NOTE (verification against the ticket): the 2026-08-10 triage comment
+    // also claimed "The Fate of Ophelia" was pulled from an official White
+    // House TikTok; sources conflict on that one (one syndication says it
+    // "disappeared," another says it is "still soundtracked" and the removals
+    // were "selective"), so that angle is deliberately NOT authored here.
+    // Only the cleanly-corroborated Team Trump removals (August, Father Figure)
+    // are stated as fact. Text-only: no honest reusable-host image of the posts.
+    {
+      slug: 'showgirl-swift-music-pulled-from-trump-tiktoks',
+      year: 2026,
+      month: 8,
+      day: 7,
+      category: 'music',
+      relatedIds: ['moment:vault-ttpd-an-endorsement-signed-childless-cat-lady'],
+      title: 'Her music goes quiet on Team Trump’s TikTok — pulled by a copyright block',
+      snippet:
+        'In August 2026 two of Taylor’s songs — “August” and “Father Figure” — disappeared from Team Trump TikTok posts, replaced by a notice that “the copyright owner hasn’t made this sound available in your country.” No named party claimed the takedowns; Team Trump answered by reposting “Red” as “Red (Trump’s Version).”',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nReporting quickly established it wasn’t the only one. Billboard and Variety noted that a second Team Trump clip — posted back in November 2025 and set to her 2025 single “Father Figure” — had gone silent the same way. Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Swift and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Swift’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president in an Instagram post signed “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
+            source_title: "Taylor Swift Song 'August' Removed From Trump TikTok Video",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-songs-removed-trump-tiktok-posts-1236312291/',
+            source_title: "Taylor Swift's 'August,' 'Father Figure' & Other Songs Removed From Trump-Related TikTok Posts",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-removes-august-team-trump-tiktok-video-1235605878/',
+            source_title: "Taylor Swift Removes 'August' From Team Trump TikTok Video",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/taylor-swift-donald-trump-august-tik-tok-1237029309/',
+            source_title: "Taylor Swift's Music Pulled From Trump TikTok Videos; Team Trump Reposts With 'Red (Trump's Version)'",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'ted-lasso-kansas-city-nod',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'tour',
+      title: 'The Eras Tour turns up in "Ted Lasso" — as a Kansas City in-joke',
+      snippet:
+        'Apple TV\'s "Ted Lasso" returns for a fourth season with a Kansas City wink: a fictional boutique whose whole business, a shop owner explains, took off after one of Taylor\'s backup singers "floated in, bought an outfit, posted it on her Insta." The writers, an executive producer said, simply couldn\'t stop talking about the Eras Tour.',
+      sourceUrl:
+        'https://www.eonline.com/news/1434630/ted-lasso-season-4-taylor-swifts-kansas-city-eras-tour-show-shoutout',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Eras Tour surfaced in an unlikely place in the summer of 2026: an Apple TV+ comedy about an English football club. "Ted Lasso" returned for a fourth season — the premiere screened in Los Angeles on July 27, 2026, before the first episode reached the service in early August — and folded a Kansas City nod to Taylor into the script. In a scene with Rebecca Welton (Hannah Waddingham) and Keeley Jones, the owner of a fictional Kansas City boutique named "Dazzle Me Moi," set at the real Country Club Plaza shopping district, explains how the shop caught fire: one of Taylor\'s backup singers, she says, "floated in, bought an outfit, posted it on her Insta. We\'ve been poppin\' and hoppin\', and guys have been shoppin\' ever since." The store is invented; the mechanism it is spoofing — a single Taylor-adjacent post moving a local economy — is the least fictional thing in the scene.\n\nExecutive producer Jamie Lee told E! News at the LA premiere that the reference came straight out of the writers\' room\'s ongoing preoccupation with her: "The Eras Tour was happening while we [were writing]... Taylor\'s always in the mix of the conversation. It\'s kind of impossible not to talk about her because she\'s just so famously incredible." The Kansas City setting does quiet double duty. Series co-creator and star Jason Sudeikis grew up there and had taken his kids to an Eras Tour night at Arrowhead Stadium, and Kansas City is where the Taylor–Travis Kelce story began — the 2023 tour stop after which Kelce first, publicly, went looking for her with a friendship bracelet. A throwaway boutique gag, in other words, sits on top of two of the biggest cultural facts of her decade: the tour that reshaped local economies wherever it landed, and the romance it set in motion.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1434630/ted-lasso-season-4-taylor-swifts-kansas-city-eras-tour-show-shoutout',
+            source_title: "'Ted Lasso' Season 4 Includes a Sweet Nod to Taylor Swift's Kansas City Eras Tour Impact",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/entertainment/where-was-ted-lasso-season-4-filmed',
+            source_title: "'Ted Lasso' Season 4 Was Inspired By Taylor Swift's Eras Tour",
+            publisher: 'Elite Daily',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-06',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    // --- News catch-up (2026-08-10, Content Shift): a labeled low-confidence
+    // rumor (#1873). Deliberately a low-substance, photo-less item (chip/text
+    // tier, never hero) that cannot displace a hero slot — same pattern as
+    // the "Wendy" puppy rumor above. Venue-level naming (1587 Prime) only, as
+    // a public, past, concluded restaurant visit (privacy-redlines.md Ocean
+    // House / Watch Hill principle); the outlets' "under heavy guard" security
+    // framing is dropped per Never-OK #2. locationSpecificity is intentionally
+    // omitted — an unconfirmed rumor is machine-capped at 'region', and the
+    // venue lives in the claim text, not that field.
+    {
+      slug: 'showgirl-newlyweds-1587-prime-dinner-rumored',
+      year: 2026,
+      month: 8,
+      day: 9,
+      category: 'sighting',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      confidence: 'plausible',
+      title: 'A rumored first date night since training camp — dinner at Kelce’s Kansas City steakhouse',
+      snippet:
+        'On the Chiefs’ day off, gossip account Deuxmoi and circulating social-media photos placed Taylor and Travis at 1587 Prime — the Kansas City steakhouse Kelce co-owns with Patrick Mahomes — in what fans called their first public outing since he reported to training camp. No established outlet or either camp has confirmed it.',
+      sourceUrl:
+        'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, at 1587 Prime — the Kansas City steakhouse Kelce co-owns with his quarterback, Patrick Mahomes. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce nor the restaurant has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married, Kelce plays and trains in Kansas City, and 1587 Prime is his own room — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades.',
+        sources: [
+          {
+            outlet: 'heavy.com',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
+            source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
+            publisher: 'heavy.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-first-172543038.html',
+            source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-10',
+            reliability_score: 2,
+          },
+        ],
+        rumors: [
+          {
+            claim:
+              'Gossip account Deuxmoi and unverified social-media photos placed Taylor and Travis at dinner at 1587 Prime — the Kansas City steakhouse Kelce co-owns with Patrick Mahomes — on Saturday, Aug. 9, 2026, in what fans called their first public outing since Kelce reported to Chiefs training camp.',
+            reportedBy: 'Deuxmoi / heavy.com',
+            reportedOn: '2026-08-09',
+            status: 'unconfirmed',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
+            note: 'Traces to a Deuxmoi tip plus unverified social photos, aggregated by heavy.com and Yahoo; no established outlet or either camp has confirmed it (social tier). Venue-level only — a public, past, concluded restaurant visit (the Ocean House principle); no address, no security detail. Resolves if a named outlet or the couple confirms; fades if it stays a single tip.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-10',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-03 (Vault Run, Content Shift lane) from intake #1759.
+      // A confirmed, on-record public statement — not a rumor — so ≥1
+      // established outlet suffices; AOL UK was fetched and verified 200 this
+      // session, Billboard is the origin outlet, and Yahoo Entertainment
+      // corroborates. The "~2010 Songwriters Hall of Fame" detail is Collins's
+      // own recollection framing ("roughly fifteen years ago"), not a new dated
+      // event, so it is written as his memory rather than pinned to a year.
+      // Redlines: clean — a musician praising Taylor's public performance and
+      // career; no location, health, security, sexuality, minor, or third-party
+      // private-life content.
+      slug: 'phil-collins-white-horse-blown-away',
+      year: 2026,
+      month: 8,
+      day: 1,
+      category: 'music',
+      title: 'Phil Collins: Taylor’s early “White Horse” “blew me away completely”',
+      snippet:
+        'On BBC Radio 2, the Genesis frontman recalled Taylor playing “White Horse” at a Songwriters Hall of Fame event years before her fame — and said the superstardom that followed is deserved.',
+      moment: {
+        context:
+          'On BBC Radio 2’s “Tracks of My Years” with Vernon Kay, aired in early August 2026, Phil Collins reached back roughly fifteen years to the first time he saw Taylor perform — before she was a superstar, at a Songwriters Hall of Fame event where his daughter Lily introduced them. Taylor got up with a guitar and sang “White Horse,” her 2008 heartbreak ballad, and Collins said it “blew me away completely”: “not only was the song great, and the sentiment of the song really got me, but she sang it beautifully.” He added that he has “always had a soft spot for this song since then.”\n\nWatching her become, in his words, “the hugest thing in the world,” the Genesis and Grammy-laden solo hitmaker was pointedly unbegrudging about it. “It’s easy to knock someone that’s got so much success,” he said, “but I think she really deserves it” — she “kind of feels like she deserves it.” Coming from one of the best-selling artists of all time, it is the kind of legacy praise that lands as a concrete memory rather than a talking point: a specific song, a specific room, and a first impression that never wore off.',
+        sources: [
+          {
+            outlet: 'AOL UK',
+            url: 'https://www.aol.co.uk/articles/phil-collins-praises-taylor-swift-230212000.html',
+            source_title: "Phil Collins praises Taylor Swift and says she 'really deserves' huge success",
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/phil-collins-praises-taylor-swift-1236307708/',
+            source_title: "Phil Collins Recalls Being 'Blown Away' by Taylor Swift Before Her Superstardom",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/phil-collins-recalls-being-blown-090327439.html',
+            source_title: "Phil Collins Recalls Being 'Blown Away' by Taylor Swift Before Her Superstardom",
+            publisher: 'Yahoo',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-03',
+            reliability_score: 3,
+          },
+        ],
+        // Photo: no imagery exists of the ~2010 event Collins describes, so the
+        // moment carries a verified performance photo of Collins himself — the
+        // subject of the quote. Raph_PH's Royal Albert Hall 2017 shot
+        // (CC BY 2.0) curl-verified HTTP 200 image/jpeg at the 1280px thumb,
+        // downloaded and vision-confirmed: Phil Collins seated centre at the
+        // mic (his seated staging on that tour), full band behind him.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg/1280px-Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg',
+            // Collins is the seated figure at the mic, left-of-centre; keep the
+            // crop weighted there so his face survives a tight square.
+            focalPoint: '46% 42%',
+            credit: 'Raph_PH, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'Phil Collins performing at London’s Royal Albert Hall in 2017. He later told BBC Radio 2 that hearing a young Taylor sing “White Horse” “blew me away completely.”',
+            kind: 'reference',
           },
         ],
       },

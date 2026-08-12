@@ -10,8 +10,10 @@
 // domains, weak sources, media without rights-status. The script exits
 // nonzero ONLY on policy hard-fails CI must never let through:
 //   - stored full lyrics (verse-like multi-line blocks in any text field)
-//   - full article/statement dumps (any text field > 2000 chars, or a single
-//     verbatim quoted span >= 600 chars)
+//   - full article/statement dumps (any text field over its anti-dump ceiling
+//     from scripts/lib/content-caps.mjs — 2000 chars by default, 4000 for
+//     moment.context by founder decision — or a single verbatim quoted span
+//     >= QUOTE_FAIL_CHARS)
 //   - private-address / real-time-location / stalking data
 //   - a content object without a stable identity (era slug / item natural
 //     key / track natural key missing or duplicated)
@@ -20,6 +22,12 @@
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import {
+  dumpCapFor,
+  QUOTE_FAIL_CHARS,
+  QUOTE_WARN_CHARS,
+  SHALLOW_CONTEXT_CHARS,
+} from './lib/content-caps.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
@@ -94,7 +102,6 @@ const WEAK_SOURCE_HOSTS = ['fandom.com', 'reddit.com', 'tumblr.com', 'pinterest.
 // coverage — flag it for a human depth pass rather than silently shipping
 // it. Report-only, same as every other gate in this script; never a hard
 // fail, since some moments genuinely don't have more to say (yet).
-const SHALLOW_CONTEXT_CHARS = 300;
 
 // ---------------------------------------------------------------------------
 // Hard-fail detectors (2026-07-08 media policy)
@@ -108,11 +115,9 @@ function looksLikeLyricsBlock(text) {
   return lines.length >= 4 && lines.filter((l) => l.length > 0 && l.length < 60).length >= 4;
 }
 
-// Article/statement dump: any single verbatim quoted span >= 600 chars.
+// Article/statement dump: any single verbatim quoted span >= QUOTE_FAIL_CHARS.
 // (Today's longest sourced interview pull-quote is 422 chars; those are
-// REPORTED at >= 300 as excerpt-cap review items, not failed.)
-const QUOTE_FAIL_CHARS = 600;
-const QUOTE_WARN_CHARS = 300;
+// REPORTED at >= QUOTE_WARN_CHARS as excerpt-cap review items, not failed.)
 function quotedSpans(text) {
   // Walk quote marks; odd-indexed segments sit inside a quoted span.
   const segs = text.split(/["“”]/);
@@ -121,15 +126,10 @@ function quotedSpans(text) {
   return spans;
 }
 
-// Any single text field above the DB's largest cap is a body dump regardless
-// of quoting. This gate is CI defense-in-depth mirroring validate-content.mjs,
-// which caps only moment.context higher: that field's DB CHECK was raised
-// 2000 -> 4000 on 2026-07-22 (founder decision, PR #1199 +
-// supabase/migrations/20260722120000_moment_context_4000.sql). Every other
-// text field (title, snippet, track note, typed-row fields) stays at 2000.
-const FIELD_FAIL_CHARS = 2000;
-const CONTEXT_FAIL_CHARS = 4000;
-const capFor = (field) => (field === 'moment.context' ? CONTEXT_FAIL_CHARS : FIELD_FAIL_CHARS);
+// Any single text field above its anti-dump ceiling is a body dump regardless
+// of quoting. The ceilings themselves live in scripts/lib/content-caps.mjs —
+// see `dumpCapFor` there and the incident note at the top of that file. They
+// used to be re-typed in each consumer, which is how they desynced.
 
 // Private-address / real-time-location / stalking data. Precise patterns
 // only — editorial prose legitimately names streets ("Cornelia Street") and
@@ -281,7 +281,7 @@ for (const { file, fileEra, row: it } of content.rows) {
   ]) {
     if (!text) continue;
     if (looksLikeLyricsBlock(text)) hardFails.push(`${at} [${field}]: verse-like multi-line block — looks like stored lyrics`);
-    const cap = capFor(field);
+    const cap = dumpCapFor('moment', field);
     if (text.length > cap) hardFails.push(`${at} [${field}]: ${text.length} chars — article/body dump (> ${cap})`);
     for (const span of quotedSpans(text)) {
       if (span.length >= QUOTE_FAIL_CHARS) hardFails.push(`${at} [${field}]: verbatim quoted span of ${span.length} chars (>= ${QUOTE_FAIL_CHARS}) — statement/article dump`);
@@ -306,7 +306,8 @@ for (const { file, fileEra, row: t } of tracks.rows) {
   }
   const text = t.note ?? '';
   if (looksLikeLyricsBlock(text)) hardFails.push(`${at} [note]: verse-like multi-line block — looks like stored lyrics`);
-  if (text.length > FIELD_FAIL_CHARS) hardFails.push(`${at} [note]: ${text.length} chars — body dump`);
+  const noteCap = dumpCapFor('track', 'note');
+  if (text.length > noteCap) hardFails.push(`${at} [note]: ${text.length} chars — body dump (> ${noteCap})`);
   for (const hit of privateDataHits(text)) hardFails.push(`${at} [note]: private/location data — ${hit}`);
 }
 
@@ -339,7 +340,8 @@ function sweepTyped(name, rows, textFieldsOf) {
     for (const [field, text] of textFieldsOf(row)) {
       if (!text) continue;
       if (looksLikeLyricsBlock(text)) hardFails.push(`${at} [${field}]: verse-like multi-line block — looks like stored lyrics`);
-      if (text.length > FIELD_FAIL_CHARS) hardFails.push(`${at} [${field}]: ${text.length} chars — article/body dump (> ${FIELD_FAIL_CHARS})`);
+      const cap = dumpCapFor(name, field); // `name` is the corpus type: release|tour|theory|video
+      if (text.length > cap) hardFails.push(`${at} [${field}]: ${text.length} chars — article/body dump (> ${cap})`);
       for (const span of quotedSpans(text)) {
         if (span.length >= QUOTE_FAIL_CHARS) hardFails.push(`${at} [${field}]: verbatim quoted span of ${span.length} chars (>= ${QUOTE_FAIL_CHARS}) — statement/article dump`);
         else if (span.length >= QUOTE_WARN_CHARS) longExcerpts += 1;

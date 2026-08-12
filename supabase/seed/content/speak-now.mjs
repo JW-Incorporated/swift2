@@ -17,7 +17,8 @@ export default {
   items: [
     {
       year: 2010,
-      month: 10,
+      month: 11,
+      day: 3,
       category: 'business',
       title: 'Speak Now sells over a million copies in a single week',
       snippet:
@@ -29,6 +30,10 @@ export default {
         context:
           "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.\n\nIt also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
         sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-sells-over-1-million-in-record-billboard-200-debut-951902',
+          },
           {
             outlet: 'Grammy.com',
             url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
@@ -112,6 +117,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): "Innocent" is a direct reply to the
+      // 2009 VMA moment — a reader on either page would want the other.
+      relatedIds: ['moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic'],
       year: 2010,
       month: 10,
       day: 25,
@@ -169,6 +177,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
+      relatedIds: [
+        "moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice",
+        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
+        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
+      ],
       year: 2011,
       month: 11,
       day: 9,
@@ -219,6 +233,9 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): another recurring Speak Now Tour
+      // costume, the white lace 'Mean' dress.
+      relatedIds: ['moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to'],
       title: 'A gold Roberto Cavalli fringe dress for Sparks Fly, Mine, and The Story of Us',
       snippet:
         'A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album\'s songs.',
@@ -255,6 +272,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Speak Now World Tour"
+      // cluster — the tour's open and close.
+      relatedIds: ['moment:vault-speak-now-the-speak-now-world-tour-closes-out-at-123-7-million'],
       year: 2011,
       month: 2,
       day: 9,
@@ -396,7 +416,7 @@ export default {
       thumbnailUrl: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
       moment: {
         context:
-          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. Insider's CMA retrospective files it as a classic rather than a showstopper, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
+          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. A classic rather than a showstopper, per Insider's CMA retrospective, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
         sources: [
           {
             outlet: 'Yahoo Entertainment (Insider)',
@@ -465,6 +485,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
+      relatedIds: [
+        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
+        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
+      ],
       year: 2011,
       month: 1,
       day: 5,
@@ -508,6 +533,12 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the same designer's red chiffon
+      // 'Haunted' dress, and another recurring tour costume.
+      relatedIds: [
+        'moment:vault-speak-now-a-red-chiffon-susan-hilferty-dress-closes-out-haunted',
+        'moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to',
+      ],
       title: "Susan Hilferty's purple chiffon halter dress becomes the tour's signature",
       snippet:
         "A custom purple chiffon halter gown by costume designer Susan Hilferty — worn for the title track, 'Fearless,' 'Last Kiss,' and more across the Speak Now World Tour.",
@@ -548,6 +579,12 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): two more recurring Speak Now Tour
+      // costumes — the Cavalli fringe dress and Hilferty's purple halter.
+      relatedIds: [
+        'moment:vault-speak-now-a-gold-roberto-cavalli-fringe-dress-for-sparks-fly-mine-and-',
+        'moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour',
+      ],
       title: "A white lace Alice + Olivia dress for 'Mean' on the Speak Now Tour",
       snippet:
         "A custom white lace Alice + Olivia dress, worn during 'Mean' performances across the Speak Now World Tour.",
@@ -627,6 +664,9 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the same designer's purple chiffon
+      // halter, the tour's other signature Hilferty look.
+      relatedIds: ['moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour'],
       title: "A red chiffon Susan Hilferty dress closes out 'Haunted'",
       snippet:
         "Another Susan Hilferty custom piece — a red chiffon midi-length dress worn for the tour's 'Haunted' performances.",
@@ -667,6 +707,8 @@ export default {
       month: 5,
       day: 22,
       category: 'fashion',
+      // Cross-link (Stage 3, 2026-08-10): the "Elie Saab" designer cluster.
+      relatedIds: ['moment:vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award'],
       title: 'A pink Elie Saab sequin gown at the Billboard Music Awards',
       snippet:
         'A strapless Elie Saab gown covered top to bottom in pink sequins, with side-swept curls — a glamorous but still youthful red-carpet look.',
@@ -706,6 +748,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
+      relatedIds: [
+        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
+        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
+      ],
       year: 2011,
       month: 11,
       day: 20,
@@ -750,6 +797,11 @@ export default {
 
     // --- Fashion/photo depth pass #2 (2026-07-04) ---
     {
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
+      relatedIds: [
+        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
+        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
+      ],
       year: 2010,
       month: 10,
       day: 25,
@@ -833,6 +885,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-07-30): the "Zuhair Murad" cluster — three
+      // looks by the same designer across three eras — now interlink.
+      relatedIds: [
+        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
+        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
+      ],
       year: 2011,
       month: 2,
       day: 27,
@@ -1169,6 +1227,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster.
+      // (2026-08-10): + the quiet Mary Kennedy gravesite visit, same summer.
+      relatedIds: [
+        'moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port',
+        'moment:vault-red-the-conor-kennedy-summer-quietly-ends',
+        'moment:vault-speak-now-a-quiet-visit-to-mary-kennedys-gravesite',
+      ],
       year: 2012,
       month: 8,
       category: 'sighting',
@@ -1199,6 +1264,8 @@ export default {
       month: 8,
       day: 19,
       category: 'sighting',
+      // Cross-link (Stage 3, 2026-08-10): the "Conor Kennedy" cluster.
+      relatedIds: ['moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod'],
       title: "A quiet visit to Mary Kennedy's gravesite",
       snippet:
         "On August 19, 2012, Taylor joined Conor Kennedy at his mother Mary Richardson Kennedy's gravesite — one of the last photographed moments of their summer romance.",
@@ -1268,6 +1335,9 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
+      // the song, and its radio-single release.
+      relatedIds: ['moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two'],
       year: 2010,
       month: 10,
       day: 12,
@@ -1428,6 +1498,9 @@ export default {
       year: 2012,
       month: 8,
       category: 'relationship',
+      // Cross-link (Stage 3, 2026-08-10): the "Conor Kennedy" cluster — how
+      // it started, in Hyannis Port.
+      relatedIds: ['moment:vault-speak-now-first-linked-to-conor-kennedy-in-hyannis-port'],
       title: "A summer with Conor Kennedy, and Ethel Kennedy's blessing",
       snippet: 'A whirlwind romance with the 18-year-old Kennedy family member, complete with a grandmother\'s public blessing and a house bought near the family\'s Hyannis Port compound — quietly over within months.',
       sourceUrl: 'https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split',
@@ -1497,6 +1570,8 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-06): the "Speak Now World Tour" cluster.
+      relatedIds: ['moment:vault-speak-now-the-speak-now-world-tour-opens-in-singapore'],
       year: 2012,
       month: 3,
       day: 18,
@@ -1697,6 +1772,9 @@ export default {
           // shown as thumbnailUrl.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Taylor_Swift_2011_2.jpg',
+            // Photo pass #762 (2026-08-01): viewed (1200x947 downsized from
+            // 3119x2462). Seated center with the teal guitar, face upper-center.
+            focalPoint: '46% 23%',
             credit: 'dephisticate, Wikimedia Commons (CC BY 2.0)',
             caption: 'Acoustic performance beneath an illuminated tree, Prudential Center, July 2011, on the tour supporting the album.',
             kind: 'archival',
@@ -1706,6 +1784,8 @@ export default {
     },
     {
       slug: 'back-to-december-single-release',
+      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster.
+      relatedIds: ['moment:vault-speak-now-back-to-december-her-first-apology-song'],
       year: 2010,
       month: 11,
       day: 15,
@@ -2141,6 +2221,10 @@ export default {
         // Billboard Music Awards in Las Vegas that May — a different event
         // entirely — and was rejected rather than mislabeled. Genuinely
         // thin for this specific December ceremony.
+        // Re-reviewed 2026-08-01 (#762): tried justjared.com's Dec. 2, 2011
+        // "Billboard Women in Music Luncheon" gallery (the actual ceremony)
+        // but the host blocks automated fetches (403) and no mirror of that
+        // gallery exists on an approved CDN. Stays reviewed-sparse at one photo.
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',
@@ -2206,6 +2290,13 @@ export default {
     },
     {
       slug: 'conor-kennedy-first-linked',
+      // Cross-link (Stage 3, 2026-08-06): the "Conor Kennedy" cluster.
+      // (2026-08-10): + Ethel Kennedy's on-record blessing that same summer.
+      relatedIds: [
+        'moment:vault-speak-now-wading-through-the-surf-with-conor-kennedy-on-cape-cod',
+        'moment:vault-red-the-conor-kennedy-summer-quietly-ends',
+        'moment:vault-speak-now-a-summer-with-conor-kennedy-and-ethel-kennedys-blessing',
+      ],
       year: 2012,
       month: 7,
       day: 25,
@@ -2316,6 +2407,26 @@ export default {
       title: "The ballgown tour",
       snippet: "Sweeping purple gowns turn every show into a fairy tale.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/behind-the-scenes-at-a-taylor-swift-concert/',
+            source_title: 'Behind the scenes at a Taylor Swift concert (60 Minutes)',
+            publisher: 'CBS News / 60 Minutes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-speak-now-era-looks-dresses/',
+            source_title: 'Look Back at Taylor Swift\'s Iconic \'Speak Now\' World Tour Outfits',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "The Speak Now World Tour leaned fully theatrical — flowing gowns, castles, and enchantment.\n\nEach song got its own staged set piece, from the title track's wedding-crashing fantasy to \"Enchanted\"'s ballroom backdrop.",
       },
     },
@@ -2328,8 +2439,32 @@ export default {
       day: 14,
       category: "music",
       title: "\"Mean\" answers a critic",
-      snippet: "A banjo-driven single written directly about online criticism she'd received.",
+      // Corrected 2026-08-11: both citations below describe a critic's review
+      // of her 2010 GRAMMYs performance, not generalized online criticism.
+      snippet:
+        "A banjo-driven single written directly about a critic's review of her performance.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swifts-mean-takes-aim-at-her-critics/',
+            source_title: 'Taylor Swift\'s "Mean" Takes Aim at Her Critics',
+            publisher: 'CBS News',
+            source_type: 'interview',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+            source_title: 'For The Record: How Taylor Swift\'s \'Speak Now\' Changed Her Career',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+            notes: 'The Recording Academy names the critic as Bob Lefsetz. Taylor has only ever said \'this dude\' (60 Minutes, 2011) — the identification is the Academy\'s, not hers, and the copy must not attribute it to her.',
+          },
+        ],
         context: "Taylor has said \"Mean\" was written in direct response to a critical review — a rare moment of the album engaging a critic rather than an ex, and one of Speak Now's more overtly personal tracks.",
       },
     },
@@ -2344,6 +2479,26 @@ export default {
       title: "\"Enchanted,\" a fan favorite",
       snippet: "A sprawling, six-minute love-at-first-sight song that became one of the album's most enduring deep cuts.",
       moment: {
+        sources: [
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/taylor-swift-songs-essentials-midnights-anti-hero-album-all-too-well-2023-grammys-blank-space-folklore-reputation-lover-discography/',
+            source_title: 'The Taylor Swift Essentials: 13 Songs That Display Her Storytelling Prowess And Genre-Bouncing Genius',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-08-11',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/a-battle-of-taylor-swifts-songs-the-big-hits-vs-fan-favorites/',
+            source_title: 'A Battle of Taylor Swift\'s Songs: The Big Hits vs. Fan Favorites',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Never released as an official single, \"Enchanted\" nonetheless became one of Speak Now's most fan-beloved tracks — its extended, key-changing structure a favorite live moment on the Speak Now World Tour.",
       },
     },
@@ -2351,6 +2506,14 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "speak-now-taylors-version",
+      // Cross-link (Stage 3, 2026-08-06): the announcement and record-week
+      // moments for this same album, over in the midnights era.
+      relatedIds: [
+        "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
+        "moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th",
+        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
+        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
+      ],
       year: 2023,
       month: 7,
       day: 7,
@@ -2358,6 +2521,26 @@ export default {
       title: "Speak Now (Taylor's Version)",
       snippet: "The third re-recording arrives with six previously unreleased \"From the Vault\" tracks.",
       moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-speak-now-taylors-version-vault-tracks-better-than-revenge-mattress-lyric/',
+            source_title: 'Taylor Swift releases "Speak Now: Taylor\'s Version" with previously unreleased tracks and a change to a lyric',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/taylor-swift-releases-re-recorded-version-of-speak-now-its-yours-its-mine-its-ours/',
+            source_title: 'Taylor Swift Releases Re-Recorded Version of \'Speak Now\': "It\'s Yours, It\'s Mine, It\'s Ours"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 3,
+          },
+        ],
         context: "Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer.",
         // Photo pass #762 (2026-07-20): page had zero photos, and the July 2023
         // re-recording release has no red-carpet event of its own. Used a freely

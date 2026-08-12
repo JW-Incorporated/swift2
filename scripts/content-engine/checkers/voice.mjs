@@ -10,7 +10,7 @@
 //
 // This checker is the enforcement half of the three-part fix Joey asked for
 // (the doc got its explicit naming rule in the same change that added this
-// checker). Two independent findings per item:
+// checker). Three independent findings per item:
 //
 //   content.voice.surname-overuse — bare "Swift" (not part of "Taylor
 //     Swift", and not inside a direct quote) at or above the count of
@@ -26,6 +26,22 @@
 //     were documented but never checked against; this makes the existing
 //     rule real.
 //
+//   content.voice.wire-attribution — the corpus-wide manual review (2026-07-30,
+//     45-item spread sample across all 11 eras) found the surname/ai-tell
+//     rules above catch zero of the real problem: the DOMINANT register
+//     across nearly the whole sample is competent entertainment journalism,
+//     not "a fan telling a fan the tea." Its signature isn't a banned phrase,
+//     it's a sentence STRUCTURE: a named outlet as the grammatical subject of
+//     a reporting verb — "Billboard's night-one gallery logged...", "Forbes
+//     tracked...", "NPR's analysis noted...", "Marie Claire's ranking...
+//     slotted this one at No. 18." Citing a source is expected (the sourcing
+//     bar requires it); making the OUTLET the sentence's engine, repeatedly,
+//     is the wire-voice tell the doc's own before/after example contrasts
+//     against ("The butterfly jumpsuit at the 2019 VMAs — still the outfit
+//     people bring up first..." puts the FAN'S read first, the source
+//     second). Two or more such constructions in one field is the same
+//     "outnumbering" logic as surname-overuse, not a single-occurrence
+//     tripwire — one citation is normal editorial sourcing.
 // KNOWN LIMIT, by design: quote-stripping only recognizes straight and curly
 // double quotes ("…", "…"). Single-quoted dialogue is deliberately NOT
 // stripped — apostrophes in contractions ("Swift's," "wasn't") make reliable
@@ -133,7 +149,95 @@ export async function checkAiTells(items) {
   return findings;
 }
 
+// Real entertainment/news outlets that recur across the seed corpus's
+// `sources` fields — kept as a real allowlist (not a generic "any
+// capitalized phrase" guess) so this never flags a person's name or an era
+// nickname as if it were a publication.
+const OUTLETS = [
+  'Billboard', 'Forbes', 'NPR', 'Rolling Stone', 'Variety', 'Vulture',
+  'E! News', 'People', 'Us Weekly', 'The Sun', 'Page Six',
+  'Entertainment Weekly', 'Marie Claire', 'Vogue', 'GQ', 'W Magazine',
+  'Elle', 'InStyle', 'TMZ', 'Daily Mail', 'The New York Times', 'Time',
+  'USA Today', 'Associated Press', 'Reuters', 'CNN', 'BBC', 'The Wrap',
+  'Business Insider', 'Nylon', 'ABC News', 'ABC Audio', 'NBC News',
+  'The Independent', 'The Guardian', 'Pitchfork', 'Stereogum',
+  'The Hollywood Reporter', 'Vanity Fair', 'Cosmopolitan', 'Harper\'s Bazaar',
+  'Insider', 'Complex', 'MTV News', 'Teen Vogue', 'PopSugar', 'Refinery29',
+  'Johnson County Post', 'KCUR',
+];
+// A reporting verb standing right after the outlet (optionally through a
+// possessive + one describing noun, e.g. "Billboard's night-one gallery
+// logged") is the tell — the outlet's own editorial act, not a person's or
+// the item's voice, drives the sentence.
+//
+// Both tenses for every verb (2026-08-06, manual 20-item spot-check found
+// real misses): the original list only had past tense, so present-tense
+// wire framing sailed through clean — "Nylon LOGS it as...", "Rolling
+// Stone's review READ like a coronation." Same outlet-name anchor keeps
+// false positives low even with a wider verb set: the match still requires
+// a real, allowlisted outlet's proper name immediately before the verb, so
+// generic prose ("she said", "a source told") never trips it.
+// NOTE: deliberately no "cover(s/ed)" — in this corpus "Vogue cover" /
+// "Rolling Stone cover" is almost always the NOUN (a magazine cover), not
+// the verb "to cover a story," and it produced real false positives on
+// items like "Her first Vogue cover, shot by Mario Testino."
+const REPORT_VERB =
+  /(?:logs?|logged|tracks?|tracked|notes?|noted|ranks?|ranked|slots?|slotted|reports?|reported|finds?|found|calls?|called|flags?|flagged|singles? out|singled out|credits?|credited|counts?|counted|describes?|described|puts?|put|places?|placed|names?|named|reads?|read|files?|filed|writes?|wrote|says?|said|dubs?|dubbed|hails?|hailed|praises?|praised|pegs?|pegged|brands?|branded)/;
+const outletPattern = OUTLETS.map((o) => o.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+// NOT case-insensitive: outlets are always proper nouns in real prose, and
+// an 'i' flag here would let an ordinary lowercase word collide with an
+// outlet name that happens to also be a common word — e.g. "at the time
+// noted" (ordinary "time") matching "Time" (the magazine). Requiring the
+// real capitalization is what keeps this precise.
+// Gap between the outlet's possessive and the verb widened 3 -> 5 words
+// (2026-08-06, real miss): "Rolling Stone's review OF THE SHOW read" has 4
+// words in the gap ("review", "of", "the", "show") — the original 3-word cap
+// missed it. Still bounded, not unlimited, to avoid spanning into an
+// unrelated verb later in a long sentence.
+const WIRE_ATTRIBUTION = new RegExp(
+  `\\b(?:${outletPattern})(?:'s\\s+\\w+(?:[- ]\\w+){0,4})?\\s+${REPORT_VERB.source}\\b`,
+  'g',
+);
+
+export async function checkWireAttribution(items) {
+  const findings = [];
+  for (const it of items) {
+    for (const [field, text] of Object.entries(it.texts ?? {})) {
+      if (typeof text !== 'string') continue;
+      const stripped = stripQuotes(text);
+      const matches = [...stripped.matchAll(WIRE_ATTRIBUTION)];
+      // A source citation belongs in `sources`; making the outlet the
+      // sentence's own grammatical subject in the body is the wire-voice
+      // tell itself, so even one instance flags (#461 follow-up,
+      // 2026-07-30) — the manual review found this present at 1+ occurrence
+      // across nearly the whole sample, not just repeat offenders.
+      if (matches.length < 1) continue;
+
+      findings.push(
+        makeFinding({
+          checker: `${id}.wire-attribution`,
+          severity: 'P3',
+          title: 'Reads as outlet-attribution wire voice, not a fan retelling',
+          itemRef: { type: it.type, file: it.file, era: it.era, key: it.key, field },
+          excerpt: text.slice(0, 300),
+          evidence: `${matches.length} named-outlet-as-subject construction${matches.length === 1 ? '' : 's'} in \`${field}\`: ${matches
+            .map((m) => `"${m[0]}"`)
+            .join(', ')}. A source citation is expected; making the outlet the sentence's grammatical subject is the wire-service register the voice doc's own before/after contrasts against.`,
+          suggestedFix:
+            'Rewrite so the FAN\'S read leads the sentence and the citation trails it (or moves to `sources`/an inline aside) — e.g. "The butterfly jumpsuit at the 2019 VMAs — still the outfit people bring up first" rather than "Billboard\'s gallery logged the look." Keep every fact, number, date, and quote exactly as sourced; only the sentence\'s framing changes.',
+          confidence: 0.55,
+        }),
+      );
+    }
+  }
+  return findings;
+}
+
 export async function check(items) {
-  const [surname, aiTell] = await Promise.all([checkSurnameOveruse(items), checkAiTells(items)]);
-  return [...surname, ...aiTell];
+  const [surname, aiTell, wireAttribution] = await Promise.all([
+    checkSurnameOveruse(items),
+    checkAiTells(items),
+    checkWireAttribution(items),
+  ]);
+  return [...surname, ...aiTell, ...wireAttribution];
 }

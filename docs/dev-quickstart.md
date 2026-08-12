@@ -8,7 +8,7 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 
 | Path | What it is |
 |------|-----------|
-| `apps/web` | **Next.js (App Router) reader — the v1 product.** `/` currently renders the static LongLive experience (`components/longlive/`, `lib/longlive/`) — see `docs/longlive-experience.md`. The Supabase-backed `VaultReader`/`lib/vault.ts` path below still exists in-repo but is unmounted. |
+| `apps/web` | **Next.js (App Router) reader — the v1 product.** `/` renders the static LongLive experience (`components/longlive/`, `lib/longlive/`) — see `docs/longlive-experience.md`. The old unmounted `VaultReader` UI was deleted 2026-08-11; the Supabase-backed `/vault/*` HTTP routes and `lib/vault.ts` remain. |
 | `apps/mobile` | Expo / React Native app. Reuses `packages/*` **unchanged**. ⚠️ Lands with **PR #42** — may not be on `main` yet. |
 | `apps/worker` | **Not code** — just holds a gitignored `.env` (`SUPABASE_DB_URL`) that the DB scripts read. No pipeline/worker in v1. |
 | `packages/shared` | Portable types + domain/nav/snap math + budget & load state machines. **No I/O, no view code.** Also `src/news/` — dormant post-v1 news-pipeline domain behind the `@swift2/shared/news` subpath; nothing imports it (see `docs/proposals/2026-07-07-news-pipeline-architecture.md`). |
@@ -65,11 +65,14 @@ After any schema change: add a migration file, apply it, and update
 renders `<LongLive/>` (`app/page.tsx`) — the shipped era/threads reader over
 **static, in-repo mock data** (`apps/web/lib/longlive/*`). It does **not**
 read Supabase. See `docs/longlive-experience.md` before touching the site UI.
-`.env.local` / the Supabase RLS read path still exist for the older
-Vault reader components (`VaultReader.tsx`, `lib/vault.ts`, `lib/useMoment.ts`,
-`lib/useTrackGuide.ts`) described below and in `docs/architecture.md`, but
-those are **not currently mounted anywhere** (`VaultReader` has no importers) —
-dead code pending the Supabase convergence noted in `docs/longlive-experience.md`.
+`.env.local` / the Supabase RLS read path are still needed: `lib/vault.ts` and
+the `/vault/*` HTTP routes read them, and so does the `prebuild` content sync
+(`scripts/lib/longlive-sync-shared.mjs`) that generates the files the shipped
+site imports. The old **UI** that consumed those routes (`VaultReader.tsx`,
+`MomentDetail.tsx`, `TrackGuide.tsx`, `lib/useMoment.ts`, `lib/useTrackGuide.ts`,
+`lib/theme.ts`, `lib/categoryBadges.ts`) was never mounted and was **deleted on
+2026-08-11** — see `docs/decisions.md`. Nothing in the shipped UI calls the
+`/vault/*` routes today; `npm run check:budget` still does.
 
 **Mobile (Expo):**
 ```
