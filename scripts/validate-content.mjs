@@ -719,9 +719,9 @@ for (const entry of await loadTypeDir('era-secrets', 'secrets')) {
   if (!eraSlug) err('missing eraSlug (not on record or file)');
   else if (!knownEra(eraSlug)) err(`unknown eraSlug "${eraSlug}"`);
   if (!row.title) err('missing title');
-  capped(err, 'title', row.title, 200);
+  capped(err, 'title', row.title, POLICY_CAPS.eraSecretTitle);
   if (!row.secret) err('missing secret (the fact itself is required)');
-  capped(err, 'secret', row.secret, 800);
+  capped(err, 'secret', row.secret, POLICY_CAPS.eraSecretSecret);
   const sources = row.sources ?? [];
   if (!Array.isArray(sources) || sources.length === 0)
     err('no sources — every Era Secret must be sourced (hard rule; no invented trivia)');
