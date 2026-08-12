@@ -48,8 +48,8 @@ export function LandingPage() {
             alwaysShowLabels
             onChange={(m) => {
               // 'era' is a no-op here: the landing page IS the era front door,
-              // so its own tab stays selected. Threads and Mood are real jumps.
-              if (m === 'threads' || m === 'mood') setMode(m);
+              // so its own tab stays selected. The others are real jumps.
+              if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
             }}
           />
         </header>
