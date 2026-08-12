@@ -7,7 +7,9 @@ import {
   resolveYoutubeId,
   sortVideos,
   youtubeIdFrom,
+  VIDEO_KIND_VALUES,
 } from './sync-longlive-videos.mjs';
+import { VIDEO_KINDS, APPEARANCE_VIDEO_KINDS } from '@swift2/shared';
 
 const src = [{ source_url: 'https://en.wikipedia.org/wiki/Example', source_title: 'Example', publisher: 'Wikipedia' }];
 
@@ -25,6 +27,41 @@ const base = {
   media: [],
   sources: src,
 };
+
+describe('the video kind enum', () => {
+  it('mirrors packages/shared exactly — the generator silently NULLs any kind it does not know', () => {
+    // A drifted mirror is invisible: normalizeVideo degrades an unknown kind to
+    // null rather than throwing, so a value added to the shared enum but not
+    // here would ship as an unlabelled card instead of a failure.
+    expect([...VIDEO_KIND_VALUES].sort()).toEqual([...VIDEO_KINDS].sort());
+  });
+
+  it('keeps the appearance family inside the enum', () => {
+    for (const kind of APPEARANCE_VIDEO_KINDS) expect(VIDEO_KIND_VALUES.has(kind)).toBe(true);
+  });
+});
+
+describe('normalizeVideo — appearance kinds', () => {
+  it('carries every appearance kind through instead of nulling it', () => {
+    for (const kind of APPEARANCE_VIDEO_KINDS) {
+      expect(normalizeVideo({ ...base, kind })?.kind).toBe(kind);
+    }
+  });
+
+  it('still nulls a kind that is not in the enum', () => {
+    expect(normalizeVideo({ ...base, kind: 'red_carpet' })?.kind).toBeNull();
+    expect(normalizeVideo({ ...base, kind: 'talk_show' })?.kind).toBeNull();
+  });
+
+  it('resolves the embed id for an appearance the same way as for a work', () => {
+    const v = normalizeVideo({
+      ...base,
+      kind: 'interview',
+      officialUrl: 'https://www.youtube.com/watch?v=GzjZqH0WRwE',
+    });
+    expect(v?.youtubeId).toBe('GzjZqH0WRwE');
+  });
+});
 
 describe('youtubeIdFrom', () => {
   it('extracts the id from the canonical URL shapes', () => {
