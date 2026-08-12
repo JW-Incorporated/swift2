@@ -326,7 +326,7 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
   out.push('### 📈 Distance to done', '');
   out.push(...renderDoneLines(a.estimate).map((l) => `${l}`));
   out.push('');
-  out.push(`> "Done" = all 12 gates green. **[JOEY: replace with your definition — \`docs/ops/definition-of-done.md\`. Until then the gates are the proxy.]**`);
+  out.push(`> "Done" here = all 12 launch-readiness gates green — the historical proxy. Joey's product Definition of Done (2026-08-11) is the eight-item bar in \`docs/definition-of-done.md\`; the estimator keeps measuring the gates until it is repointed at that bar (\`docs/ops/definition-of-done.md\`).`);
   out.push('');
 
   // 1c — accelerants.

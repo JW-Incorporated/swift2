@@ -10,6 +10,15 @@ cap without leaving a trace.
 Kept in the repo as the reference for what the format is supposed to look
 like, and as evidence for the rebuild: compare it with issue #1882, the
 hand-built brief posted the same morning.
+
+NOTE (added at merge time, later on 2026-08-11): this is a frozen snapshot;
+several lines below were overtaken the same day and are NOT current state.
+In particular: #1889 merged (LEGAL moved 🔴→🟡, blocked on counsel not
+engineering); #1910 was closed, superseded by #1950; and Joey's product
+Definition of Done landed as docs/definition-of-done.md (#1953), so the
+"[JOEY: …]" placeholder line shown here has been replaced in the assembler
+by a pointer to that file. Do not fix these lines — the staleness is part of
+what the snapshot documents.
 -->
 
 cc @sffan15-sys @wjduvall-cmd

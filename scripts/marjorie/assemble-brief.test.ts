@@ -198,8 +198,10 @@ describe('buildBrief — two sections, nothing else', () => {
     expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('Nothing is gated on you');
   });
 
-  it('carries the [JOEY] placeholder every day until he replaces it', () => {
-    expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('[JOEY:');
+  it('names the gates as a proxy and points at Joey\'s Definition of Done every day', () => {
+    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('docs/definition-of-done.md');
+    expect(brief).toContain('proxy');
   });
 
   it('calls a day with no merges and no closes a failed org day', () => {
