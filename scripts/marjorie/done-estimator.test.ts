@@ -54,6 +54,28 @@ describe('parseGateTable', () => {
     const md = ['| # | Gate | Status | Next |', '|---|---|---|---|', '| G-D | songs | 🟢 done | none |'].join('\n');
     expect(parseGateTable(md).SONGS.status).toBe('green');
   });
+
+  it('reads the #1928 re-scored layout, where Status moved to column 2', () => {
+    // #1928 (merged 2026-08-12, while this PR was in flight) rebuilt the
+    // status table as | Gate | Status | Blocked on | What is left | Next-action
+    // issues |. A parser pinned to the legacy column indexes reads the
+    // "Blocked on" cell ("nobody"/"founder") as the status and silently drops
+    // every gate. The header row is the anchor, not a fixed index.
+    const md = [
+      '| Gate | Status | Blocked on | What is actually left | Next-action issues |',
+      '|---|---|---|---|---|',
+      '| DEPTH | 🟡 | nobody | rows-per-month audit never run | #1719, #47 |',
+      '| SCAN | 🔴 | founder | criterion unsatisfiable since the throttle | — |',
+      '| SONGS | 🟢 | nobody | Nothing — founder-verified | — |',
+    ].join('\n');
+    const parsed = parseGateTable(md);
+    expect(parsed.DEPTH.status).toBe('yellow');
+    expect(parsed.SCAN.status).toBe('red');
+    expect(parsed.SONGS.status).toBe('green');
+    // "Blocked on" is excluded; the ticket references survive into nextAction.
+    expect(parsed.DEPTH.nextAction).not.toContain('nobody');
+    expect(extractTickets(parsed.DEPTH.nextAction)).toEqual([1719, 47]);
+  });
 });
 
 describe('pointsFor', () => {

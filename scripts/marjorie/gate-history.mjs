@@ -53,8 +53,8 @@ function statusOf(cell) {
  *
  * Returns `{ GATE: { status, nextAction } }`.
  *
- * Two traps this deliberately avoids, both of which produced wrong numbers in
- * a first cut of this parser:
+ * Three traps this deliberately avoids, the first two of which produced wrong
+ * numbers in a first cut of this parser:
  *
  *  1. The file contains a SECOND table ("What each gate means") keyed by the
  *     same gate names but with only 3 columns and no status emoji. Rows with
@@ -62,20 +62,50 @@ function statusOf(cell) {
  *  2. Prose inside the *description* column routinely contains an emoji —
  *     CAMPAIGN's cell literally reads "Remaining to 🟢: footer icons". Taking
  *     "the first emoji in the row" scored CAMPAIGN as done while the file said
- *     🟡. The status is read from the fixed column index, never by search.
+ *     🟡. The status is read from a known column index, never by search.
+ *  3. The table's columns are not fixed forever: #1928 (merged 2026-08-12)
+ *     rebuilt it as | Gate | Status | Blocked on | What is left | Next-action
+ *     issues |, moving Status from column 3 to column 2. The status column is
+ *     therefore located from the nearest preceding HEADER row naming "Status",
+ *     falling back to the legacy indexes (3 = status, 4 = next action) for the
+ *     older bodies this walks through in git history, which had a misaligned
+ *     header. All non-Status/Blocked-on columns to the right of Status are
+ *     folded into `nextAction`, so ticket extraction keeps working wherever
+ *     the ticket references live.
  */
 export function parseGateTable(markdown) {
   const out = {};
+  let statusCol = 3; // legacy layout: | GATE | description | status | next action |
+  let actionCols = [4];
   for (const line of String(markdown || '').split('\n')) {
-    if (!GATE_ROW.test(line)) continue;
+    if (!GATE_ROW.test(line)) {
+      // A header row for a table that carries a Status column re-anchors the
+      // column indexes for the data rows that follow it.
+      if (/^\s*\|/.test(line)) {
+        const heads = line.split('|').map((c) => c.trim().toLowerCase());
+        const s = heads.findIndex((h) => /^status\b/.test(h));
+        if (s > 1) {
+          statusCol = s;
+          actionCols = heads
+            .map((_, i) => i)
+            .filter((i) => i > s && i < heads.length - 1 && heads[i] && !/^blocked/.test(heads[i]));
+          if (actionCols.length === 0) actionCols = [s + 1];
+        }
+      }
+      continue;
+    }
     const cells = line.split('|');
     if (cells.length < 5) continue; // the plain-meaning table, not the status table
     const raw = cells[1].trim();
     const gate = LEGACY_GATE_NAMES[raw] || raw;
     if (!GATES.includes(gate) || out[gate]) continue; // first row per gate wins
-    const status = statusOf(cells[3]);
+    const status = statusOf(cells[statusCol] ?? '');
     if (!status) continue;
-    out[gate] = { status, nextAction: (cells[4] || '').trim() };
+    const nextAction = actionCols
+      .map((i) => (cells[i] || '').trim())
+      .filter(Boolean)
+      .join(' · ');
+    out[gate] = { status, nextAction };
   }
   return out;
 }
