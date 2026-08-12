@@ -36,11 +36,11 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
   return (
     <div className="era-card relative mt-3 overflow-hidden" style={{ borderLeftWidth: '3px', borderLeftColor: color }}>
       <div className="p-4 pb-3">
-        <button onClick={onClose} className="era-btn-ghost absolute right-3 top-3 rounded p-1" aria-label="Close">
-          <X size={14} style={{ color: 'var(--era-ink-soft)' }} />
+        <button onClick={onClose} className="era-icon-btn absolute right-3 top-3 rounded-full" aria-label="Close">
+          <X size={16} />
         </button>
 
-        <div className="flex items-start gap-3 pr-6">
+        <div className="flex items-start gap-3 pr-12">
           {/* A portrait when we have one, the heart glyph otherwise. Wyatt,
               2026-07-22: "when I click on a relationship, it should have a
               picture of the guy." Not every entry gets one — a solo period has

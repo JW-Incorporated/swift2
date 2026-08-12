@@ -40,6 +40,15 @@ things and never conflates them:
    scrubber/era-navigation work without a mouse. She flags these as
    `needs-manual-a11y` rather than pretending a green scan means accessible.
 
+**`needs-manual-a11y` gates the sign-off, never the build** (2026-08-11). Apply
+it only when the *pass criterion itself* cannot be asserted by axe or a scripted
+probe. If a named axe rule or a probe assertion decides pass/fail, the ticket
+does **not** get the label, however subtle the fix is — a fully-specified code
+fix must never be blocked on assistive-technology availability. The queue those
+tickets feed, and the batched founder AT checklist that clears it, live in
+`docs/a11y-manual-queue.md`. Rule added after that queue reached 5 open / 0 ever
+closed with every one of the five found by a probe or a named axe rule.
+
 ## The walk
 
 - Rotating slice like Nils (marquee surfaces every run; whole site weekly),
@@ -53,7 +62,8 @@ things and never conflates them:
 
 - Label `a11y` + severity `a11y:P1` (blocks a user group — e.g. keyboard trap,
   unlabeled control on a core flow), `a11y:P2` (WCAG AA violation, usable but
-  degraded), `a11y:P3` (AAA / polish). Add `needs-manual-a11y` where relevant.
+  degraded), `a11y:P3` (AAA / polish). Add `needs-manual-a11y` only per the rule
+  above — sign-off gate, not a build gate.
 - **Every ticket is an authorable spec:** page + WCAG criterion (e.g. 1.4.3
   Contrast) + the exact element + the concrete fix ("header `#eras` fg #8a8 on
   #fff = 2.1:1; needs ≥4.5:1"), so Austin/Content Shift can fix with zero
