@@ -25,7 +25,48 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 83
+
+## Taylor Swift Makes History With This Major Career Milestone - instyle.com
+
+- first seen: 2026-08-12 03:29 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Makes History With This Major Career Milestone  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxNM0I2dkx6NXRqMkJIa1ItaFV1ZHVYVktvak5tRDg5OTVqUmZoLUUwWHVtSDVnM0V2Vm16Uk1ObGZ0SFlBUUh5LWxZaU5yMlozQ3NLYUh5a0dDY3dMXzIyQnMtVm5tTG5XRWFNeGVVbFVTUDFZTFZXRERpTXBqTm5OQTJDcE1JOXZqcWc?oc=5
+
+## Taylor Swift Scores Second Songwriting Hall of Fame Induction - Vulture
+
+- first seen: 2026-08-12 03:29 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Scores Second Songwriting Hall of Fame Induction  Vulture
+- sources:
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMijAFBVV95cUxQMnY5ZUtIMkh3bnZrZ3I0Y3QzTnlrZ2Fsa3haazFIRVI4TUhEaURFS2hRbHlSNEFjbGM0d3JkQlVHTmdNUVF3bDFfVVh1RUZxbTJXUmpBOEZQTXRlbnZCRl9SVExEMmZ3S3l2VHgweWxWTVpvZkw5VWMzZ3dFaElsR1lXdkEtU1h4WE11WQ?oc=5
+
+## Travis Kelce ‘Done, Over’ After Taylor Swift Wedding, NFL Scout Says - Yahoo Sports
+
+- first seen: 2026-08-12 03:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce ‘Done, Over’ After Taylor Swift Wedding, NFL Scout Says  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxOR3R2bnk3Umo2THgyRGpjNG5BNlNiMVhTbUxFXzdiUWU0dWhRN2tCbTJ6SFhrTFRiZF9yQlBQd1NldmdLanp3cV8xbzRBeFFXeWZScjktZG9iUUJqTTBFUnZoSDg3SzhOX3RobGQ2OUJVNG16ZFptdlVWbGJVWU1LX3FIQWo?oc=5
+
+## Taylor Swift to become youngest inductee into the Nashville Songwriters Hall of Fame - Good Morning 
+
+- first seen: 2026-08-12 03:29 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift to become youngest inductee into the Nashville Songwriters Hall of Fame  Good Morning America
+- sources:
+  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQNi1TY0gzdHMzWEdHUEtfMkZfbUEzYlQxeHdIWWFrSEFoOVJycHhBX3EtM3ktNTloV0Z3cC1iYzB0bmpURlYxejB6Sks0SXJuSVk2bkFzdFFMdnlDQ2t4Y3JnNXhqdGgzYzllQzAzWF96cF9PMjh0T040MDJwSnJhVkZlUE1WX3V0YlUyR25aaHBTN2htWllZQVRWQmlLZXA4TTlJX19UcHVNcExhamJxN0p1VFpzNVF4Q3BnMEl0ZGvSAcYBQVVfeXFMUGVleUlvZEJRbmFsWEVWWEVvSGwyeE9qbzI0MHBiZW1tMUwzYTM0dzhQcHVMM0czYkVtQy03QTcxWHg2dnFuSlZDb3BzSzBiLXozRWVxckIzekdnOXBILThXNURNNzlIbkwyMEFWbnFkNEIwTmtVdXo5dG9jUllDRUE5dlduQWhud1ZPX1FqMlNvQVY2MEtOUjRidExTRlExSnJ4TVR1dUNmSkV0MmY0UGMtYUhhaWNPQndyV2xoTTZfaTRpcHVB?oc=5
+  - [unverified] Everett Post — https://news.google.com/rss/articles/CBMizgFBVV95cUxOOWRRUXJBRWdlaVJJMm95Wnd1UDRyd2lZQUFQbGxOd0hxdWxiTjRsSUlEZl9qV3ZUODNZWkZrclMxN0JybzBveTU5cFZKZlc0VjZBLW1iVWNia05wa3I5UjJfUDVmd2FGaDdtWTFBM1BDd2NLRkhKdjB6aWlKMkJBanNfNDdQYUNkeXV5VGMxdE03UW1SamI5X0NSaUxYTDdGT3JoY2pjYTVGWGg3bW9tcU5qLUVUTmpJc3A0WUZEOWliWVA1WnpYc1J3WDJ3QQ?oc=5
+
+## ‘Toy Story 5’ soundtrack features Taylor Swift original, Randy Newman score - The Music Universe
+
+- first seen: 2026-08-12 03:29 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: ‘Toy Story 5’ soundtrack features Taylor Swift original, Randy Newman score  The Music Universe
+- sources:
+  - [unverified] The Music Universe — https://news.google.com/rss/articles/CBMipAFBVV95cUxOVm80TndVa1k0UVd4dC1jR2cySXcwSFp6Y1BFNHYwdy1sdlFUMWtEd09mSHFmenpEY3RZLVZPamktR0xvaHFyNE9UWWcxVnB3T2tOTHloU2k3dU5lUy0weF90WFk5SC0wd0VRQlUyejZubEdXR2xGTjdMbnJ5SzJaUU9jYWFsVjAzOWRONnZXVS1UTm0tUGdDR0RUUzl4ZDZRY1F3Vw?oc=5
 
 ## Brad Pitt Had an Unexpected Moment at Taylor Swift’s Wedding That Suddenly Makes Sense - Yahoo
 
@@ -59,14 +100,6 @@ Stories: 79
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQX09waEJ3bzhkam5qcDgzbWJSMGtORXBkaXNjVjNuT2ptUG4yeXpvLVBYT3pJQ0N3RndVZmFGY0g4VE4xaTdzS3BKay13WWJtVXdnUEJGdGlZU1ZSMG1VNGk4VGtOU0xSc3g0X1lDOTFSNGZuOGQ1VU9uYXRjR0VWSkxBUUJ0RV9ZNThVNVg5ZVpMdkdaOF82c1ZRTVVwTGhnN0p0WHFxSnUxQQ?oc=5
 
-## Taylor Swift added to Nashville Songwriter’s Hall of Fame - WKRN News 2
-
-- first seen: 2026-08-11 22:00 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift added to Nashville Songwriter’s Hall of Fame  WKRN News 2
-- sources:
-  - [unverified] WKRN News 2 — https://news.google.com/rss/articles/CBMimwFBVV95cUxONlRWeFZzeUFfZmVfRzRvejl4ZFhBMjAzR1lZYWJ6U1p1RF9YaDlFdTB4MEhKVFlkUnQyckdzYkVDRXo5aWctS3ljWC1zcUlaVjUtdlk4UWpOZDVaSFR3NzktbkRFMzJ2Y2pXR0xZR3paYlUyQmhOLXNhSHA2SkducDIyM0R0MEFfb3B3LUpCVGJaaG15T2hvSTdISdIBoAFBVV95cUxQODBURlgyYmROWFB5aHAyRkhPa1U0WVI1dHVLWFJxNm9la0lHeVQ5c1FfOTllTEJIRk1nNk44c1p0SzFOUW0zenJ3a3pNak9hd1BRYk53VzQ3bjE3NHNSWlZaVGt3U1JubFUzd0N3WkdqaWVEcHRIdmlVWWRvRkFULWE4dGNwbTVjSjJzLVNBTkNPSzVEaElBc2xRbDY2akhf?oc=5
-
 ## The Latest Update on Taylor Swift & Travis Kelce’s Marriage - StyleCaster
 
 - first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
@@ -74,6 +107,15 @@ Stories: 79
 - summary: The Latest Update on Taylor Swift & Travis Kelce’s Marriage  StyleCaster
 - sources:
   - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMipgFBVV95cUxORnFnU3hTUDdfTTM1Y0d6RV9rODFpTk9kLXV2QmlCUm9acW9UdXFEbGhPWWVhdlI2WmVtNXJVcVphUlFPVWx5N3kwNjhnSHk0MWNWZUNBRUQ1MmNjSWZMLVpaVU1RWTJQeDBSTVVPQTl3U0EzNnNnaUVuZVA5aEdnOFpWbWYxay1KMTVjYlk4bVg2WHpWeVNkUnYwU3ZHOEpRTk90bFZn?oc=5
+
+## Taylor Swift added to Nashville Songwriter’s Hall of Fame - WKRN News 2
+
+- first seen: 2026-08-11 22:00 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift added to Nashville Songwriter’s Hall of Fame  WKRN News 2
+- sources:
+  - [unverified] WKRN News 2 — https://news.google.com/rss/articles/CBMimwFBVV95cUxONlRWeFZzeUFfZmVfRzRvejl4ZFhBMjAzR1lZYWJ6U1p1RF9YaDlFdTB4MEhKVFlkUnQyckdzYkVDRXo5aWctS3ljWC1zcUlaVjUtdlk4UWpOZDVaSFR3NzktbkRFMzJ2Y2pXR0xZR3paYlUyQmhOLXNhSHA2SkducDIyM0R0MEFfb3B3LUpCVGJaaG15T2hvSTdISdIBoAFBVV95cUxQODBURlgyYmROWFB5aHAyRkhPa1U0WVI1dHVLWFJxNm9la0lHeVQ5c1FfOTllTEJIRk1nNk44c1p0SzFOUW0zenJ3a3pNak9hd1BRYk53VzQ3bjE3NHNSWlZaVGt3U1JubFUzd0N3WkdqaWVEcHRIdmlVWWRvRkFULWE4dGNwbTVjSjJzLVNBTkNPSzVEaElBc2xRbDY2akhf?oc=5
+  - [unverified] wate.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNbzlmTUVTLVJ3SFYyRW43MEpzY283bGxZSEd6b2FoQWZkU05iYUZTZzZKa0dvdVlwTG5PaW5hV2x0cG5QZDJSc2l6aERYMFRRNzZNNDFOSThsWnp1dloxWFpmYVhlS3JXMFJhUkFZa25WNjBmWkY3RzNvcm1mVVRaQzR4N1FHWnJFYS1J0gGQAUFVX3lxTE5PdnZ0NUV4WjlMNENUckVES2pZeThTSVhzcVNMN25LY2MzLXRzLWJRYUlmS0xUbHRJaGozMFBaV2pBdWtQclp4TzNhd25XdzZvRWo0U2xtUFIzUFdnUW5PeFNhS0VSZDdVN2o1elNLWl85bzdWaFhta25TRG5kQU40Z0FyRWNsaGlLdWxLTGptQw?oc=5
 
 ## Taylor Swift and Travis Kelce Hunting for Homes Near Prince Harry and Meghan — Source - Yahoo
 
@@ -86,10 +128,11 @@ Stories: 79
 ## Taylor Swift’s music has been removed from all White House social media accounts - KBTX News 3
 
 - first seen: 2026-08-11 22:00 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift’s music has been removed from all White House social media accounts  KBTX News 3
 - sources:
   - [unverified] KBTX News 3 — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOOThsS3ItN2k5MHJnWFFpLUl5REUzTDZtNVByWmp4bkMxNUViQ0NJODEwQ1cwSDdrYlh2NHAzeHVfbDdtVWVXUXBFaHl1OE53MjRLa2RLT0Qyb18yQXV0aGV0YmtTcEswSWJ4eTFkb2hWVzJ3RDBMSmhWN1R2ZHFFTGtvb0RJcmotbjkyemxxRUphd3F4cVY1RmxROExnYVBKTFBiZVpEYmliNVXSAb8BQVVfeXFMT2NwSzNjXzA1eThKM3VWM1UtM1NnVzFscURwdTh0NjBDaTFvOERxbVZJdjYtdFZaVUQ4cVlKcXpkWlBTdm9Rd3Z1c0F4Yy1yalBhWlN1dVFSTU02MXVjR3NzYWREZ3ZZRnhGUHpqT2Z6NzlWVDUyN2VLdU5nb0o2UXhqaUhaeWpkZGhJQjhzVjduX0ktVFhCeU5uUXdVa2VJSXNpUHN5Wm5aeU83VjFlR0RxVmRyRENTbnNwMFBjTG8?oc=5
+  - [unverified] WKYT — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOS0M0SVZwa3o4SE0wdHZVTmE0VkFzcTFKaGtJSUtrSzlMaXFNTmc2MzV0bVhWaVNoaHFwVU1obWU5My10MzJ0NDk2QVBGeHh3Wi13dVByRGJYZmMtd2h6eUNaOFh5U2dtZEVhdEgxQ3pqeVRMOHlGcC13Q2ZleDFMUVBXOGxhVXVTMXl1eUlLWS1YMGFzVGV5NzhEaWpGMks4VXlqMGJsQXhaTzDSAb8BQVVfeXFMTzdVMUxMZVhYeF9KdFVuRVlqLWNsV00wVEU2QWNjRGxBeWJ3NktOb090bnZnbktXZ0FQbTNIZVBtLTBod1h0by10TjcyU3dJSWp2SjFyRGZyaXNZYS1BMGQxZmFXWmw2djFHbHV4WkxmMmhybG9INk5YQkt1UFBhcVhPaGFRWDNKMkJoMjhfTlNUVTlhM2VuNzdWOU8xcmlCRjhqb19HUFBfdmtwS09KQnVwZE9rbExDZDBpZmg1cnc?oc=5
 
 ## Taylor Swift Becomes Youngest-Ever Musician to Be Inducted Into 2026 Nashville Songwriters Hall of F
 
@@ -179,7 +222,7 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 ## Taylor Swift to Be Inducted Into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Swift will join the likes of Dolly Parton, Johnny Cash, and Willie Nelson when she is honored later this year alongside Lyle Lovett
 - sources:
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdlowNUM5dVNVQTFrX0FjbkdhZ1VEcG00a1E4VUVhZXlacHBQTWZXUHU3SzFfeU42di1BcXRFOG9QN043eG8xbmRxdlUxR2w0dWY3ODJjSVhhX1FHbTdjR2t6RHE2dHAtQXlDN0F5WXJSdnpoY0FSYTRVY2NXYm1LOFdQUDg1YWVDMXBRMDRweE1NblJINmU0OEJ1SDBwZFVleWhQWGxaZnE?oc=5
@@ -188,6 +231,7 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
   - [unverified] billboard.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPazl1MnhIWmlONDZ6RXl1cmQ1cUY2dmIwZDVzeDBQaGxXdlFOVzNoc2FfUTJ2QjFWRVZOQjhPVkE3Nkl4SHB4bVhqR2hXeXl4eVBVU2hKYklWZXptTWdtZVRZa2FwUEhhQ1QxcDBkQVprOGRKQUJLcjVpQjlyNFBqTXplYWxOdEFySmlDR2dDVEIwM1FqZUVQZnU4QlJHbmJVUTJ2Q00tdnF5STR1SkxvZ3Vn?oc=5
   - [unverified] WZTV — https://news.google.com/rss/articles/CBMi9AJBVV95cUxOOW4xc1RlbkItbUcxS1NOQU91eVQ3RjJiR094OVVNVzNlVk5xc3h6dm5kem8tLUZwc0VCVjM5U0wzZDUwdzdNNmIwM001aDlNVlpJbXZfellpYXZsUW5ncnlwa3hSb2Q5eW1BakU0TDFjcU00TVJZdXlQdDItTjIyRVZ2TUI2ZjA2Tk1wSmlZbHhKNzF3eVViZUM0ZmEzWmwtRFJlMGJid0steHVPY2lmTkdFVzNqX0hPczlZLTNkcVR4amJXWE1qTTllQXpZRFJCYXhlVVl4a0QzMFdkajhOZWhaWW9nQS1ucVVtUG1NM3ZCQXZMamxISEt3SlYzZ1I5STBPeTVXZk1GelJfMmJZTU53MTR5QnFoODYzU0NxQ1JCSmcyRVl6Ni1BdXhteFljTGFzb2NKOXYzTVdhQlFyVjJKZ0pWNllKQkxFc3BlRHVsMEMwVGU1SVh4YllLNzVPSWVuVVBhYUJOMHlhcWQtN2o0UHc?oc=5
   - [unverified] Axios — https://news.google.com/rss/articles/CBMinAFBVV95cUxQVDBCQVNqNk5oYWVhTi1lMDVlTlpmSHJLeE04V0pycWJNcFc4aDRTRUF4UTNVTlRJbU5objNCVnc2OTliLXNaVFZIQ3R2Z1J2em90TFlEUWZJQ2RRdmRPZG9DVUVITjN3SDJjTHFESFlTM1ZsRk9EcmJ3NEpqZnYyWHhrMGVOZWZveXd1aTNkUVZYY2ZJcEU2QkhwMWQ?oc=5
+  - [unverified] KFOX — https://news.google.com/rss/articles/CBMilgNBVV95cUxOSkJkMzBiSlpyT19tMmhZdlVrZkctdHhtTjBONHJZT1FXMFY0TjQwWUJYVDA5T284aTdMSjFieUpnRzNHNHBoeHZIX1VobEp4RUFsRnd1VnRCNUNxSUNwbWRDQkVocFRfd2dpd01MTlVPY0RYZk5NMGNJUzdKek5mWmJkTXBmUnlOTE81SklQQ2J4a2ZMR001RXdldlZDY2RuSXpDUFFvS1B4bGszclNiSGdteV81R05JQUNGSkFQMlVCNXhTdmVGZXhfT1dPZWpVdl9mVVhQckNETlpfUy1tb2FxTnh5eHpoQU1hNW9VazRuZ1l3ek10TEdKNUNVbG84cTlXV0xKWnVkZFplLWx2YUkwOXdpOS12NUJRVTdnTDhwOVBOWmJlR1FKRGl1ODhleXhHYjkzTWpNeFY1aU5nVENOc0JyUGlhZTFFMHpEMklzS3BCUzc3bVBBUUtLeTFyWVlFX285V2JCck9YSlFMY1lQckhraDJDbE9EdjFza1A0YlB4QWpDQWwyYm5RRGtfbFc4X19n?oc=5
 
 ## Taylor Swift’s Former No. 1 Hit Mounts A Surprising Return - Forbes
 
@@ -676,11 +720,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Taylor Swift makes her music unavailable to Trump on TikTok after trolling  thenationalnews.com
 - sources:
   - [unverified] thenationalnews.com — https://news.google.com/rss/articles/CBMiywFBVV95cUxOc1FDZmNBSUF3dnFlQUg0WUNsSmNMT3hHOFpoNG42a0Ftbnd4azNlODJOTG54UUVuQ0pjQV9JdHRQZDZTRUpqT0VaaV9IQVQ3MnY3UVZZUzhzdURDWDVPSXJWM3hoVjRtdWlGams2U1F6bHd5QWViS2M4UXYzWndiZm9xbGVnNXNpNTN5eVBNaGlVXzh4ajJPUkRSWjlVRkdDbHhtYmpHT2xtSERwSzZnTTBsRGo2M0ZzVkF5RDVpMjZNb0dFUHFLY2pMUQ?oc=5
-
-## Team Trump Trolls Taylor Swift With Song Use Before Copyright Claim Brings Silence - Deadline
-
-- first seen: 2026-08-09 03:07 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Team Trump Trolls Taylor Swift With Song Use Before Copyright Claim Brings Silence  Deadline
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQLV9aaGlxOTdEQ1E5ODhOeTU4RDJyRmpOU19zY1czaDBQb0JZSjROYmNXSUhQOXpnX2hJVEpUc0c5T1JYaklURUcxdEtQekdwcTFEVEE2VHItZklhTC0zaG05Z2NSSm5IN3dkWkUyZlM3a0p4Szd5VThfQUJ0ZF9PWHhEZkdxaVBE?oc=5
