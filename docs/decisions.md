@@ -7,6 +7,61 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — P0: close the auto-merge hole that let server code auto-deploy (#1972)
+
+**Decision:** the content auto-merge gate is tightened, purely additively, so no
+file that executes server-side with secrets can auto-merge:
+
+1. The `apps/web/lib/` allow in `.github/content-automerge-allowlist.txt` is
+   narrowed to `apps/web/lib/longlive/` (the client/display subtree, where the
+   generated vault artifacts and pure view/formatting modules live). The
+   top-level `apps/web/lib/*` files — the server data layer `vault.ts`, the CSP
+   module `security-headers.mjs`, and the hooks/utils — fall back to human merge
+   by default-deny.
+2. `!apps/web/lib/longlive/mood-client.ts` is denied explicitly (it reads
+   `ANTHROPIC_API_KEY` while living among display modules).
+3. A new **content guard** (`scripts/automerge-content-guard.mjs`, run by a
+   `guard-code` job in `auto-merge-content.yml`) declines any PR whose changed
+   code contains a Next.js route handler (`route.ts`/`.tsx`/`.js` anywhere under
+   `app/`, not only `/api/`), a Server Action (`"use server"`), a `server-only`
+   import, or a read of a secret env var. A path prefix structurally cannot
+   express any of those (a `*/route.ts` suffix; content that can live in any
+   file), so this is the durable fix.
+4. `apps/web/lib/vault.ts`, `apps/web/lib/security-headers.*`,
+   `apps/web/next.config.*`, and `apps/web/middleware.*` are added to
+   `NEVER_ALLOWLIST` — they can never be re-allowlisted without a reviewed
+   change to the checker itself.
+
+**Why:** red-team finding #1972. PR #1960 widened auto-merge to app code with a
+single `!apps/web/app/api/` carve-out. That was too narrow: three real route
+handlers already live outside `/api/` (`apps/web/app/vault/{tier0,moment/[id],
+album/[slug]/tracks}/route.ts`), the server data layer and CSP module live under
+`apps/web/lib/**`, and Server Actions can live anywhere. With `main` requiring 0
+approving reviews and E2E not a required check (#669), a CI-passing PR adding a
+server route that reads secrets would auto-deploy to prod with no human — a
+prod-compromise primitive. `mood-client.ts` reading `ANTHROPIC_API_KEY` from
+inside the "display" subtree is a live example that path boundaries do not
+separate server from client here, which is why the content guard (not just a
+tighter path list) is required.
+
+**Alternatives considered:** (a) explicit client-safe allow-list vs (b) broad
+allow + per-path denies. Chose a hybrid: default-deny the top-level lib (a) for
+the clean directory split, and the content guard for what no path list can
+express. A pure path-based deny cannot cover route handlers (suffix) or Server
+Actions/secret reads (content, any location) — stated in the guard's header.
+
+**Residual (not solved here, exposure reduced):** the deeper fix is real
+per-author identity plus making E2E a required check (#669); until then app-code
+auto-merge still leans on unit+typecheck+build. A Server Component that leaks
+data without touching a known secret env var, a `server-only` import, or a
+`"use server"` directive is not caught by content signals — path default-deny
+plus the required checks are the only net there. `pull_request_target` uses the
+base-branch workflow, so this gate takes effect for PRs opened after it merges.
+
+**Approved:** Wyatt (CTO) — P0 directive.
+
+---
+
 ## 2026-08-11 — Moment sourcing becomes a hard gate, with two lists that can only shrink
 
 **Decision:** `validate-content.mjs` now ERRORS, not warns, when a moment has
