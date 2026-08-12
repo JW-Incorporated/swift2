@@ -175,7 +175,9 @@ async function main() {
   candidates.sort((a, b) => Date.parse(a.published) - Date.parse(b.published));
 
   const seedText = readSeedCorpus(root);
-  let ledger = null;
+  // Assigned on every path below; `null` means "unreadable", which planFilings
+  // turns into a refusal rather than a blind file.
+  let ledger;
   if (FILE_MODE) {
     try {
       ledger = await loadLedger();
