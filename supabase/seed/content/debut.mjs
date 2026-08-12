@@ -1846,7 +1846,7 @@ export default {
             // fan-run tracking bot and a tabloid write-up, not to Taylor. Same
             // forward-looking debut-re-record question, fresh data point.
             claim:
-              'A fan-run inventory bot ("Taylor Swift Store Updates") flagged ~250,000 vinyl records restocked in Swift\'s webstore warehouse — with per-unit weights suggesting multi-LP sets — which fans and tabloids read as a sign the finished re-recording of her 2006 debut could arrive around its 20th anniversary on Oct 24, 2026. A Target listing briefly showed SEO text for a "Taylor Swift 20" set.',
+              'A fan-run inventory bot ("Taylor Swift Store Updates") flagged ~250,000 vinyl records restocked in Taylor\'s webstore warehouse — with per-unit weights suggesting multi-LP sets — which fans and tabloids read as a sign the finished re-recording of her 2006 debut could arrive around its 20th anniversary on Oct 24, 2026. A Target listing briefly showed SEO text for a "Taylor Swift 20" set.',
             reportedBy: 'Radar Online (Alex West), via AOL',
             reportedOn: '2026-08-07',
             status: 'unconfirmed',

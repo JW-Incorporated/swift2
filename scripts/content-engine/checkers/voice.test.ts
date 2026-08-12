@@ -220,6 +220,38 @@ describe('content.voice.wire-attribution', () => {
     expect(f).toEqual([]);
   });
 
+  it('does not flag "the <Outlet> report/read/note" — a noun phrase, not the outlet as subject (real false positive, #1918)', async () => {
+    // Real corpus hit that survived every other guard: tortured-poets.mjs,
+    // "A later data point on the same open question as the Us Weekly report
+    // above" — an ordinary back-reference to an earlier rumor. A determiner
+    // in front of the outlet means the sentence is REFERRING to a piece of
+    // coverage, not letting the outlet drive the clause.
+    const f = await checkWireAttribution([
+      item({
+        context:
+          'A later data point on the same open question as the Us Weekly report above, pushing the projected start from 2026 to 2027 with no announcement since.',
+      }),
+      item({ context: 'She kept a copy of the Rolling Stone read on her tour bus for the whole of that summer leg.' }, { key: 'b' }),
+      item({ context: 'Fans still trade screenshots of that Billboard note about the vault tracks from years ago.' }, { key: 'c' }),
+    ]);
+    expect(f).toEqual([]);
+  });
+
+  it('still flags the same outlet+verb WITHOUT a determiner — the guard narrows, it does not disable', async () => {
+    const f = await checkWireAttribution([
+      item({ context: 'Us Weekly reported the follow-up tour would start in 2027, citing two people close to the production.' }),
+    ]);
+    expect(f).toHaveLength(1);
+  });
+
+  it('does not let the determiner guard swallow outlets whose own name begins with "The"', async () => {
+    const f = await checkWireAttribution([
+      item({ context: 'The Guardian called the closing night the end of an era for stadium pop as a whole.' }),
+      item({ context: 'The New York Times ranked it among the decade\'s defining concert films in its year-end wrap.' }, { key: 'b' }),
+    ]);
+    expect(f).toHaveLength(2);
+  });
+
   it('does not flag a person\'s name that happens to share a word with an outlet', async () => {
     // "Time" the magazine is in the outlet list; "time" as an ordinary noun
     // must not collide because the pattern requires a capitalized match
