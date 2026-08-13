@@ -61,7 +61,18 @@ describe('the appearance taxonomy (2026-08-12)', () => {
     expect(find('tloas', 'tonight-show-fallon-2025')?.kind).toBe('interview');
     expect(find('midnights', 'grammys-album-of-the-year-2024')?.kind).toBe('award_speech');
     expect(find('evermore', 'nyu-commencement-2022')?.kind).toBe('speech');
-    expect(find('midnights', 'time-person-of-the-year-today-2023')?.kind).toBe('press_event');
+    expect(find('midnights', 'eras-tour-film-premiere-carpet-2023')?.kind).toBe('press_event');
+  });
+
+  it('holds Joey\'s line: the Videos surface is Taylor ON SCREEN only (2026-08-12)', () => {
+    // The Time Person of the Year TODAY reveal is real, sourced, and belongs
+    // on the timeline — but the video is Time's editor-in-chief announcing
+    // the honor, not Taylor appearing. Joey overruled the wider definition:
+    // "it should only be Taylor." An announcement ABOUT her must never sit on
+    // the Videos rail, however big the news.
+    for (const v of allVideos()) {
+      expect(v.slug).not.toBe('time-person-of-the-year-today-2023');
+    }
   });
 
   it('every appearance ships with a verified embeddable upload — never a metadata-only row', () => {
