@@ -83,22 +83,108 @@ function isYouTubeThumbHost(hostname: string): boolean {
  */
 export function cardImageDuplicatesVideo(item: ContentItem, video: MomentVideo): boolean {
   if (!hasRealPrimaryImage(item)) return false;
-  const url = primaryImageRef(item)?.url;
-  if (!url) return false;
+  return youtubeFrameId(primaryImageRef(item)?.url) === video.youtubeId;
+}
+
+/**
+ * The YouTube video a url is a thumbnail FRAME of, or null for any other image.
+ *
+ * The single place this repo decides "is this picture actually a video still",
+ * extracted so the three rules built on it (the #2080 feed suppression, the
+ * deferring-card suppression below, and the detail hero promotion) cannot
+ * disagree about what counts as a frame.
+ *
+ * Matched on the id in the PATH rather than on URL equality because the vault
+ * carries the same frame at several filenames — `maxresdefault` / `maxres1` /
+ * `maxres2` / `maxres3` / `sd2` / `hqdefault` are all one video — so a
+ * URL-equality check would catch a quarter of the real cases and leave the
+ * duplication it exists to prevent. `/vi/<id>/…` and its WebP sibling
+ * `/vi_webp/<id>/…` are the same frames.
+ */
+export function youtubeFrameId(url: string | undefined): string | null {
+  if (!url) return null;
   let parsed: URL;
   try {
     parsed = new URL(url);
   } catch {
     // A relative path (the local /eras/ art and /placeholder.svg) is never a
     // YouTube frame.
-    return false;
+    return null;
   }
-  if (!isYouTubeThumbHost(parsed.hostname)) return false;
-  // `/vi/<id>/…` and its WebP sibling `/vi_webp/<id>/…` are the same frames.
-  return (
-    parsed.pathname.startsWith(`/vi/${video.youtubeId}/`) ||
-    parsed.pathname.startsWith(`/vi_webp/${video.youtubeId}/`)
-  );
+  if (!isYouTubeThumbHost(parsed.hostname)) return null;
+  const match = /^\/(?:vi|vi_webp)\/([^/]+)\//.exec(parsed.pathname);
+  return match ? match[1] : null;
+}
+
+/**
+ * Whether a feed card yields its photo slot — the ONE answer EraSection asks,
+ * covering both reasons a card's picture must not render.
+ *
+ * 1. The card OWNS the embed and its photo is a frame of that video (#2080):
+ *    the poster takes the image slot rather than printing the same frame twice.
+ *
+ * 2. The card DEFERS the embed (#2057 de-dupe: one video plays from exactly one
+ *    card) and its photo is a frame of a video it will not play. This is the
+ *    case Joey hit on tloas: "'Elizabeth Taylor' goes to radio" rendered a
+ *    hero-tier still from the Elizabeth Taylor music video with NO play control,
+ *    because the embed belongs to the earlier supercut card. A big video-looking
+ *    frame you cannot play is worse than the duplication #2080 removed — it
+ *    promises a player that does not exist. Suppressed, the card renders as what
+ *    it actually is: a story about radio airplay.
+ *
+ * Case 2 is deliberately scoped to cards that CARRY footage. A moment with no
+ * `video` of its own whose photo happens to be a frame of some era video (20 of
+ * them today — a moment about the "22" video illustrated with a still from it)
+ * is not masquerading as anything: it has no play affordance to promise and the
+ * frame is its only picture. Stripping those would delete imagery, not
+ * duplication.
+ *
+ * `knownVideoIds` is every video id the era can play (moment embeds + the
+ * Videos rail's records), so a deferring card is caught whether its photo is a
+ * frame of its OWN video or of a sibling's. Its own id is checked directly too,
+ * so the rule holds even if a caller hands over a narrower set.
+ */
+export function feedCardImageHidden(
+  item: ContentItem,
+  ownsVideo: boolean,
+  knownVideoIds: ReadonlySet<string>,
+): boolean {
+  const video = item.video;
+  if (!video) return false;
+  if (ownsVideo) return cardImageDuplicatesVideo(item, video);
+  if (!hasRealPrimaryImage(item)) return false;
+  const frame = youtubeFrameId(primaryImageRef(item)?.url);
+  if (!frame) return false;
+  return frame === video.youtubeId || knownVideoIds.has(frame);
+}
+
+/**
+ * The video promoted INTO the detail page's ~42vh hero slot, or null.
+ *
+ * Joey, 2026-08-13, on the detail pages: "it looks horrible… the site would feel
+ * much more natural if you played the video from the top." The cause is a
+ * content decision, not a layout bug: Photo Enrichment sourced video frames as
+ * photos for the moments that ARE a video, so 10 of the 16 video-carrying
+ * moments open with a still of the very footage embedded a screen further down,
+ * and 8 of those have no other photo to fall back to. The honest fix is not to
+ * hunt for a substitute picture — it is to let the thing the page is about be
+ * the thing at the top of the page.
+ *
+ * So when the hero image is a frame of the moment's own video, the hero BECOMES
+ * the click-to-load player and `detailVideoFor` yields the body slot to it.
+ * Pages whose hero is a genuinely different photo are untouched: hero stays a
+ * photo, the video stays in the body, and nothing was duplicated there anyway.
+ *
+ * Compared against `primaryImageRef` — what the hero actually renders — rather
+ * than through `cardImageDuplicatesVideo`'s `hasRealPrimaryImage` gate, which is
+ * a feed-card question. Two of the ten ("Tim McGraw" arrives, "willow" leads the
+ * era) hold their frame as a non-`primary` stand-in, so the gate would answer
+ * "no real photo" about an image the reader is looking at.
+ */
+export function heroVideoFor(item: ContentItem): MomentVideo | null {
+  const video = item.video;
+  if (!video) return null;
+  return youtubeFrameId(primaryImageRef(item)?.url) === video.youtubeId ? video : null;
 }
 
 /** The top-slot video for `MomentDetail`, with the caption to render under it. */
@@ -114,11 +200,14 @@ export interface DetailVideo {
 }
 
 /**
- * The video that renders at the TOP of a moment detail — above the article body
- * and below the confidence banner (#2051 hard requirement; the reader must meet
- * "Rumor — unconfirmed" before the media, never after).
+ * The video that renders in the BODY of a moment detail — above the article
+ * prose and below the confidence banner (#2051 hard requirement; the reader must
+ * meet "Rumor — unconfirmed" before the media, never after).
  *
- * This is the moment's OWN `item.video`, and deliberately nothing else.
+ * This is the moment's OWN `item.video`, and deliberately nothing else — and
+ * only when the hero did not already take it (see `heroVideoFor`). The two are
+ * exclusive by construction rather than by the component remembering to check,
+ * so no page can render one video twice.
  *
  * #2051 decision point 3 proposed also promoting a lone YouTube *citation* into
  * this slot (a moment whose only footage is a source link currently shows it
@@ -140,7 +229,11 @@ export interface DetailVideo {
  * first-party signal rather than on "there happens to be only one".
  */
 export function detailVideoFor(item: ContentItem): DetailVideo | null {
-  return item.video ? { video: item.video } : null;
+  if (!item.video) return null;
+  // The hero got there first. Rendering here as well is the exact duplication
+  // Joey called horrible — the same footage twice on one page, a screen apart.
+  if (heroVideoFor(item)) return null;
+  return { video: item.video };
 }
 
 /** One citation that still embeds inside the sources footnote. */
