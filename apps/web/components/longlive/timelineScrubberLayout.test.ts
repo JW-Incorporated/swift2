@@ -6,6 +6,8 @@ import {
   SCRUBBER_RAIL_CLASS,
   SCRUBBER_SCRIM_CLASS,
   SCRUBBER_SHELL_CLASS,
+  scrubberPillTransform,
+  scrubberTooltipTransform,
 } from './timelineScrubberLayout';
 
 describe('TimelineScrubber layout', () => {
@@ -27,16 +29,42 @@ describe('TimelineScrubber layout', () => {
     expect(SCRUBBER_RAIL_CLASS).not.toMatch(/\d+vh/); // svh only — no dynamic-viewport vh
   });
 
-  // Joey follow-up to #2077: on mobile the rail must sit just below the
-  // TopBar, not float centered. pt-20 (80px) clears the real rendered
+  // Joey follow-up to #2077: the rail must sit just below the TopBar by
+  // default, not float centered. pt-20 (80px) clears the real rendered
   // TopBar height (65px: h-10 icon buttons + py-3 + border-b) plus the
-  // era year label that reaches ~12px above the rail's top. Desktop keeps
-  // the centered look — that half was never questioned.
-  it('top-aligns the rail below the TopBar on mobile, centered on desktop', () => {
+  // era year label that reaches 9px above the rail's top. Centering is
+  // the exception and needs BOTH dimensions (Codex P1 on #2079): a
+  // width-only `sm:` gate re-centered short landscape phones, putting the
+  // rail's top inside the TopBar. These are string pins — geometry-level
+  // assertions (where the rail actually lands) would need render infra
+  // (jsdom + providers) the repo deliberately doesn't have.
+  it('top-aligns the rail below the TopBar; centers only when both dimensions fit', () => {
     expect(SCRUBBER_ANCHOR_CLASS).toContain('items-start');
     expect(SCRUBBER_ANCHOR_CLASS).toContain('pt-20');
-    expect(SCRUBBER_ANCHOR_CLASS).toContain('sm:items-center');
-    expect(SCRUBBER_ANCHOR_CLASS).toContain('sm:pt-0');
+    expect(SCRUBBER_ANCHOR_CLASS).toContain(
+      '[@media_(min-width:640px)_and_(min-height:620px)]:items-center',
+    );
+    expect(SCRUBBER_ANCHOR_CLASS).toContain(
+      '[@media_(min-width:640px)_and_(min-height:620px)]:pt-0',
+    );
+    // Width-only centering is the bug; make sure it cannot come back.
+    expect(SCRUBBER_ANCHOR_CLASS).not.toContain('sm:items-center');
+  });
+
+  it('keeps the rail and its endpoint adornments inside short viewports', () => {
+    expect(SCRUBBER_RAIL_CLASS).toContain('h-[min(74svh,calc(100svh-6rem))]');
+    // The cap must stay unconditional: a width-gated cap (sm:h-[74svh])
+    // would exempt exactly the short-landscape viewports that need it.
+    expect(SCRUBBER_RAIL_CLASS).not.toContain('sm:h-');
+
+    expect(scrubberPillTransform(0)).toBe('translateY(0)');
+    expect(scrubberPillTransform(50)).toBe('translateY(-50%)');
+    expect(scrubberPillTransform(100)).toBe('translateY(-100%)');
+    expect(scrubberTooltipTransform(0)).toBe('translateY(0)');
+    expect(scrubberTooltipTransform(100)).toBe('translateY(-100%)');
+
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('pillRef.current.style.transform = scrubberPillTransform(pct)');
   });
 
   // The opposite requirement for the legibility scrim (Codex P2 on #2077):
