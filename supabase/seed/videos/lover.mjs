@@ -227,7 +227,7 @@ export default {
       title: 'Miss Americana — Sundance world-premiere Q&A',
       releasedOn: '2020-01-23',
       summary:
-        'Miss Americana opens Sundance, and Swift joins director Lana Wilson on stage afterwards for the festival Q&A — days before the documentary landed on Netflix.',
+        'Miss Americana opens Sundance, and Taylor joins director Lana Wilson on stage afterwards for the festival Q&A — days before the documentary landed on Netflix.',
       youtubeId: 'JqIt0H6XqpA',
       channel: 'Scott D. Menzel',
       // NOT a re-upload, and not a broadcaster either: a film journalist's own
