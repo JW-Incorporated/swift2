@@ -125,7 +125,16 @@ shrink, and adding to one to make a build pass fails the test that guards them.
   they're authored, not one.
 - **"Independent" = two different outlets/bylines**, not two
   re-syndications of the same wire story. The checker counts distinct
-  hostnames, so two articles from one outlet count once.
+  **outlet identities** (registrable domains — `scripts/lib/sourcing-gate.mjs`,
+  issue #2036), so two articles from one outlet count once, however the
+  URLs are styled.
+- **A video-platform link (YouTube, Vimeo, Dailymotion, Twitch) is
+  evidence, never an outlet.** It satisfies the one-source minimum and is
+  welcome as a citation, but counts **zero** toward the two independent
+  outlets — an official upload is the subject's own primary source, a fan
+  re-upload is nobody's, and unknown provenance is treated like a fan
+  upload. A video can show the event happened; it cannot corroborate a
+  relationship or business claim (issue #2036).
 - **A `wiki`, `fan_forum` or `social` citation never counts toward the two.**
   This is the §5 rubric line "fan_forum|wiki|social alone never satisfy
   sourcing for a factual claim", made mechanical. Those citations are welcome
