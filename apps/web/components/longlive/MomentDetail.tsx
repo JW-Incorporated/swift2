@@ -38,7 +38,7 @@ import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { MomentSocialPost } from './MomentSocialPost';
-import { extractYouTubeId } from '@swift2/shared';
+import { detailVideoFor, footnoteVideoSources } from '@/lib/longlive/video-affordance';
 import { ZoomableImage } from './ZoomableImage';
 import { SignificanceBadge } from './SignificanceBadge';
 import {
@@ -538,6 +538,10 @@ export function MomentDetail() {
   // The "What's confirmed" header and the RumorSection must appear/disappear
   // together — one flag guards both.
   const hasRumors = (item.rumors?.length ?? 0) > 0;
+  // The video that belongs ABOVE the article, and the citations that still
+  // embed in the footnote below it — see lib/longlive/video-affordance.ts.
+  const detailVideo = detailVideoFor(item);
+  const sourceVideos = footnoteVideoSources(item);
   const hero: ImageRef | undefined = primaryImageRef(item);
   const heroUrl = hero?.url ?? '/placeholder.svg';
   const gallery = item.images.filter((img) => img !== hero);
@@ -688,6 +692,18 @@ export function MomentDetail() {
           <ConfidenceBanner confidence={item.confidence} outlet={item.sources?.[0]?.name} />
         )}
 
+        {/* The footage, ABOVE the article (#2051, Joey 2026-08-13: "when a user
+            clicks into the content they have to scroll all the way to the
+            bottom to get the video"). It used to render after the entire body
+            loop — every paragraph and every inline photo.
+
+            It sits BELOW the confidence banner deliberately and that order is
+            not negotiable: a reader must meet "Rumor — unconfirmed" before the
+            media, never after. */}
+        {detailVideo && (
+          <MomentVideo video={detailVideo.video} caption={detailVideo.caption} />
+        )}
+
         {/* With a rumor section below, the narrative gets an explicit
             "What's confirmed" header so the split is unmistakable. Without
             rumors the layout is unchanged. */}
@@ -713,8 +729,6 @@ export function MomentDetail() {
             ))}
         </div>
 
-        {item.video && <MomentVideo video={item.video} />}
-
         {/* The post the moment is about. Sits directly under the body, above
             rumors, because for a post-driven moment this IS the primary
             source — the reader should meet it before the commentary. */}
@@ -729,20 +743,21 @@ export function MomentDetail() {
             {/* A source that is a YouTube link embeds as a click-to-play facade
                 (poster thumbnail only until the reader opts in — no iframe loads
                 on mount, so this stays cheap in the feed), reusing MomentVideo.
-                The citation line below still lists every source for the record. */}
-            {item.sources.map((s, i) => {
-              const youtubeId = extractYouTubeId(s.url);
-              // A source citing the moment's own video would render it twice.
-              if (youtubeId === item.video?.youtubeId) return null;
-              return youtubeId ? (
-                <MomentVideo
-                  key={`src-vid-${s.url}-${i}`}
-                  video={{ youtubeId, title: s.name }}
-                  caption={s.name}
-                  className="mb-4"
-                />
-              ) : null;
-            })}
+                The citation line below still lists every source for the record.
+
+                Which sources land here is decided by footnoteVideoSources,
+                which drops only a citation duplicating the moment's own video
+                (it would otherwise render twice on one page). Promoting a lone
+                citation UP to the lead slot was considered and deliberately not
+                done — see detailVideoFor. */}
+            {sourceVideos.map((s, i) => (
+              <MomentVideo
+                key={`src-vid-${s.url}-${i}`}
+                video={{ youtubeId: s.youtubeId, title: s.name }}
+                caption={s.name}
+                className="mb-4"
+              />
+            ))}
             {/* Footnote-scale, academic-text style — citations belong here on
                 the expanded page, small, not competing with the article. */}
             <p className="text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
