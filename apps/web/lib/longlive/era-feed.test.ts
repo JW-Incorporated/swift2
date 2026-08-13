@@ -1,6 +1,8 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   embeddedYoutubeIds,
+  inlineVideoMomentIds,
   mergeEraFeed,
   visibleMoments,
   visibleVideos,
@@ -54,6 +56,13 @@ const ITEMS = [
   moment('m-music-with-video', '2019-06-17', ['Music'], { youtubeId: 'yt-mv-you-need', title: 'x' }),
 ];
 
+/** The tloas duplicate-embed shape (#2057): two moments, one music video. The
+ * newer beat is the one ABOUT the video; the older merely references it. */
+const DUPLICATE_EMBED_ITEMS = [
+  moment('m-premiere', '2026-03-31', ['Music'], { youtubeId: 'yt-liz', title: 'Elizabeth Taylor' }),
+  moment('m-radio', '2026-03-09', ['Music'], { youtubeId: 'yt-liz', title: 'Elizabeth Taylor' }),
+];
+
 const MUSIC_VIDEOS = [video('mv-lover', 'music_video', '2019-08-22')];
 const ALL_VIDEOS = [
   video('mv-lover', 'music_video', '2019-08-22'),
@@ -81,6 +90,64 @@ describe('visibleMoments', () => {
     expect(visibleMoments(ITEMS, filterOf(['Fashion'], true)).map((i) => i.id)).toEqual([
       'm-music-with-video',
     ]);
+  });
+
+  it('shows one card per video, not one per moment, when two moments share an embed', () => {
+    // The tloas shape (#2057): the Videos filter offered four cards for two
+    // videos. Only the newer moment of each pair survives it.
+    expect(visibleMoments(DUPLICATE_EMBED_ITEMS, filterOf([], true)).map((i) => i.id)).toEqual([
+      'm-premiere',
+    ]);
+  });
+
+  it('still shows the deferring moment in the unfiltered feed — no text is lost', () => {
+    expect(visibleMoments(DUPLICATE_EMBED_ITEMS, filterOf([])).map((i) => i.id)).toEqual([
+      'm-premiere',
+      'm-radio',
+    ]);
+  });
+});
+
+describe('inlineVideoMomentIds', () => {
+  it('gives the embed to the first moment in feed order (newest wins)', () => {
+    expect([...inlineVideoMomentIds(DUPLICATE_EMBED_ITEMS)]).toEqual(['m-premiere']);
+  });
+
+  it('is order-independent — seed order does not decide the owner', () => {
+    const reversed = [...DUPLICATE_EMBED_ITEMS].reverse();
+    expect([...inlineVideoMomentIds(reversed)]).toEqual(['m-premiere']);
+  });
+
+  it('leaves moments embedding different videos alone', () => {
+    const items = [
+      moment('m-a', '2026-03-31', ['Music'], { youtubeId: 'yt-a', title: 'A' }),
+      moment('m-b', '2026-03-09', ['Music'], { youtubeId: 'yt-b', title: 'B' }),
+    ];
+    expect([...inlineVideoMomentIds(items)].sort()).toEqual(['m-a', 'm-b']);
+  });
+
+  it('owns nothing for a moment with no footage', () => {
+    expect(inlineVideoMomentIds([moment('m-plain', '2019-08-23', ['Lore'])]).size).toBe(0);
+  });
+
+  it('re-homes the embed when a filter hides the owner', () => {
+    // Ownership is a property of the LIST, so it must be computed over the
+    // moments actually on screen. Computed era-wide instead, a tag filter that
+    // hides the owner would leave the survivor with no play control at all —
+    // a card carrying footage looking exactly like one that doesn't (#2051).
+    const items = [
+      moment('m-premiere', '2026-03-31', ['Music'], { youtubeId: 'yt-liz', title: 'Liz' }),
+      moment('m-radio', '2026-03-09', ['Music', 'Fashion'], { youtubeId: 'yt-liz', title: 'Liz' }),
+    ];
+    const visible = visibleMoments(items, filterOf(['Fashion']));
+    expect(visible.map((i) => i.id)).toEqual(['m-radio']);
+    expect([...inlineVideoMomentIds(visible)]).toEqual(['m-radio']);
+  });
+
+  it('keeps the chip badge honest — watchableCount counts cards, not embeds', () => {
+    // watchableCount runs through visibleMoments, so the de-dupe reaches the
+    // number on the Videos chip too: 2 moments sharing 1 video promise 1 card.
+    expect(watchableCount(DUPLICATE_EMBED_ITEMS, [])).toBe(1);
   });
 });
 
@@ -188,5 +255,21 @@ describe('embeddedYoutubeIds', () => {
 
   it('is empty when no moment carries a video', () => {
     expect(embeddedYoutubeIds([moment('m', '2019-01-01', ['Lore'])]).size).toBe(0);
+  });
+});
+
+describe('EraSection wires ownership to the rendered list', () => {
+  // The rule above is only true if the component hands it the moments actually
+  // on screen. There are no component tests in this suite (vitest runs in a
+  // `node` environment), so this is a source lock in the idiom of
+  // components/longlive/close-affordance.test.ts.
+  const src = readFileSync(
+    new URL('../../components/longlive/EraSection.tsx', import.meta.url),
+    'utf8',
+  );
+
+  it('derives the video owners from `visible`, never from the full era list', () => {
+    expect(src).toContain('inlineVideoMomentIds(visible)');
+    expect(src).not.toContain('inlineVideoMomentIds(items)');
   });
 });

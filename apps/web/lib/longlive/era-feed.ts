@@ -39,9 +39,64 @@ export interface EraFeedFilter {
  * case allocates nothing and referential equality holds for memo consumers.
  */
 export function visibleMoments(items: ContentItem[], filter: EraFeedFilter): ContentItem[] {
-  if (filter.videosOnly) return items.filter((it) => it.video);
+  if (filter.videosOnly) {
+    // Not `it.video` — a moment that defers its embed to an earlier card
+    // (#2057) has nothing to play, and a card that can't play has no business
+    // inside a filter called Videos. It keeps its place in the default feed.
+    const owners = inlineVideoMomentIds(items);
+    return items.filter((it) => owners.has(it.id));
+  }
   if (filter.tags.size === 0) return items;
   return items.filter((it) => itemMatchesFilter(it.tags, filter.tags));
+}
+
+/**
+ * Which moments own the inline player for their video (#2057 part 3).
+ *
+ * The #439 de-dupe stops one video appearing as both a moment card and a video
+ * card, but nothing stopped two MOMENTS embedding the same YouTube id — and
+ * tloas does it twice. "The Elizabeth Taylor video: a supercut of the real Liz"
+ * and "'Elizabeth Taylor' goes to radio" carry the same music video, as do the
+ * two Fate of Ophelia beats, so the Videos filter offered the reader four cards
+ * for two videos.
+ *
+ * The rule: the FIRST moment in feed order (newest-first, the order the reader
+ * meets them) keeps the embed; later moments carrying the same id defer to it.
+ * The reader is offered each video at the first card that could play it, and
+ * never offered it again — which is the property that was broken, stated
+ * directly. It is deliberately not an editorial judgement about which beat
+ * "deserves" the video: on tloas it gives Elizabeth Taylor to the video's own
+ * premiere beat (2026-03-31, over the radio beat) but gives Fate of Ophelia to
+ * the chart beat (2025-10-13, over the premiere two days earlier). Both are
+ * defensible; neither is inferable from the data, and inventing a ranking
+ * signal to prefer one would be guessing with extra steps.
+ *
+ * Nothing is deleted. A deferring moment keeps its card, its full text, its
+ * place in the timeline and the video in its own story detail; it just doesn't
+ * re-play a video the reader was already offered further up the same feed.
+ *
+ * A moment whose video carries no id can't be played at all, so it owns
+ * nothing — same outcome, one fewer dead control.
+ *
+ * Ownership is a property of THE LIST YOU PASS, not of the era: hand it the
+ * moments actually on screen. Computing it era-wide and then filtering would
+ * let a tag filter hide the owner and leave the survivor unplayable — a card
+ * with footage looking exactly like one without, i.e. #2051 all over again.
+ */
+export function inlineVideoMomentIds(items: ContentItem[]): Set<string> {
+  // Feed order, not seed order: mergeEraFeed sorts newest-first, so "first in
+  // feed order" is the newest. Sort is stable (ES2019), so same-day moments
+  // fall back to the order they were authored in.
+  const byFeedOrder = [...items].sort((a, b) => b.date.localeCompare(a.date));
+  const claimed = new Set<string>();
+  const owners = new Set<string>();
+  for (const item of byFeedOrder) {
+    const youtubeId = item.video?.youtubeId;
+    if (!youtubeId || claimed.has(youtubeId)) continue;
+    claimed.add(youtubeId);
+    owners.add(item.id);
+  }
+  return owners;
 }
 
 /**
@@ -101,10 +156,11 @@ export function mergeEraFeed<V extends VideoNote>(
  * NOT the same as the era's video-record count, which is what the rail heading
  * and the hero jump button show (both point AT the rail, so the rail's own
  * count is right for them). The filtered view additionally includes the
- * moments that carry their own footage, so on tloas the rail holds 10 records
- * while the filter shows 13 cards. A chip that promises 10 and yields 13 is a
- * small lie told on every era, so the badge is computed from the same
- * selection the filter uses.
+ * moments that carry their own footage, so on tloas the rail holds 9 playable
+ * records while the filter shows 10 cards. A chip that promises one number and
+ * yields another is a small lie told on every era, so the badge is computed
+ * from the same selection the filter uses — including the #2057 de-dupe, which
+ * is why this counts CARDS via visibleMoments rather than moments with a video.
  */
 export function watchableCount(items: ContentItem[], videoFeed: VideoNote[]): number {
   return visibleMoments(items, { tags: new Set(), videosOnly: true }).length + videoFeed.length;
