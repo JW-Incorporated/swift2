@@ -2,6 +2,12 @@
   "platform": "x",
   "body": "\"it literally took me just 20 minutes to write.\" taylor on \"should’ve said no,\" written two days before her debut was mastered. it became her second country no. 1 — and made her the first solo woman with five top-10 country hits off one debut.\n\nlonglivets.com/?era=debut&utm_source=x&utm_medium=social&utm_campaign=era-deep-cut",
   "scheduledAt": "2026-08-14T23:30:00Z",
-  "campaign": "heartbeat:era-deep-cut",
-  "why": "Calendar slot 2026-08-14 23:30Z X, heartbeat:era-deep-cut on debut, hook \"a real sourced quote\" first, attribution second. Every claim traces to the Vault debut item \"Should’ve Said No, written in 20 minutes\": her own \"It literally took me just 20 minutes to write,\" written alone two days before the album was mastered, released as the fifth and final single in May 2008, her second Hot Country Songs No. 1, and the first solo female artist in that chart’s history with five top-10 country hits from a debut album. The song’s subject matter is left out of the caption on purpose — the craft fact carries it and there is no need to go near a private individual. Trimmed to weighted ≤270 per X length rule."
+  "campaign": "era-deep-cut:shouldve-said-no",
+  "why": "Calendar slot 2026-08-14 23:30Z X, heartbeat:era-deep-cut on debut, hook \"a real sourced quote\" first, attribution second. Every claim traces to the Vault debut item \"Should’ve Said No, written in 20 minutes\": her own \"It literally took me just 20 minutes to write,\" written alone two days before the album was mastered, released as the fifth and final single in May 2008, her second Hot Country Songs No. 1, and the first solo female artist in that chart’s history with five top-10 country hits from a debut album. The song’s subject matter is left out of the caption on purpose — the craft fact carries it and there is no need to go near a private individual. Trimmed to weighted ≤270 per X length rule. | 2026-08-12 Taylor-photo standard (issue #2031, Joey directive): attached a real credited photograph of Taylor from the repo corpus (apps/web/lib/longlive/lenses.ts), rehosted under /social/library/photos/. Campaign renamed to a STORY-UNIQUE value: findPostedDuplicate treats same platform+campaign as an already-posted duplicate, so the old thematic bucket campaigns (heartbeat:*) would have false-skipped every post in a bucket after its first one landed. Visible credit line omitted from the body only because it would exceed X’s 280 weighted chars; the credit is recorded in mediaCredit.",
+  "media": [
+    "/social/library/photos/taylor-debut-cma-2006.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaCredit": "Peter Kramer/Getty Images",
+  "mediaSource": "https://media.gettyimages.com/id/72424326/photo/nashville-tn-singer-taylor-swift-attends-the-40th-annual-cma-awards-at-the-gaylord.jpg?s=612x612&w=0&k=20&c=FMqoljbEnk8vDoj9GV31oa5bc-XfMFv5IBBru2GpOOU="
 }

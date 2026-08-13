@@ -100,9 +100,22 @@ ${url}`;
       expect(findingFor({ ...validX, media: five }, 'media:')).toContain("exceeds x's limit of 4");
     });
 
-    it('accepts a declared era-art item and rejects an unknown mediaKind', () => {
+    it('accepts every defined mediaKind and rejects an unknown one', () => {
       expect(validateQueueItem({ ...validIg, mediaKind: 'era-art' })).toEqual([]);
+      expect(validateQueueItem({ ...validIg, mediaKind: 'site-screen' })).toEqual([]);
+      expect(validateQueueItem({ ...validIg, mediaKind: 'photo', mediaCredit: 'Someone/Getty Images', mediaSource: 'https://example.com' })).toEqual([]);
       expect(findingFor({ ...validIg, mediaKind: 'real-photo' }, 'mediaKind:')).toBeDefined();
+    });
+
+    // The Taylor-photo standard (2026-08-12): a photo always ships credited.
+    it('requires mediaCredit on mediaKind "photo"', () => {
+      expect(findingFor({ ...validIg, mediaKind: 'photo' }, 'mediaCredit:')).toBeDefined();
+      expect(findingFor({ ...validIg, mediaKind: 'photo', mediaCredit: '  ' }, 'mediaCredit:')).toBeDefined();
+    });
+
+    it('validates mediaCredit/mediaSource shape when present', () => {
+      expect(findingFor({ ...validIg, mediaCredit: 5 }, 'mediaCredit:')).toBeDefined();
+      expect(findingFor({ ...validIg, mediaSource: '' }, 'mediaSource:')).toBeDefined();
     });
 
     it('requires site-absolute paths', () => {
