@@ -387,41 +387,65 @@ describe('checkMedia', () => {
     }
   });
 
+  // A real committed corpus photo (this PR ships it) — the compliant tile.
+  const CORPUS_PHOTO = '/social/library/photos/taylor-debut-cma-2006.jpg';
+
   it('flags a non-era dedicated photo that repeats the recent-posted window', async () => {
-    const dedicated = '/social/2026-07-17-electric-lady-1.png'; // a real, committed, non-era-art file
-    const recentIg = [{ platform: 'instagram', media: [dedicated], postedAt: '2026-08-01T00:00:00Z' }];
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: [dedicated], mediaKind: 'photo', mediaCredit: 'c', mediaSource: 's' }, recentIg);
+    const recentIg = [{ platform: 'instagram', media: [CORPUS_PHOTO], postedAt: '2026-08-01T00:00:00Z' }];
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'c', mediaSource: 's' }, recentIg);
     expect(findings.some((f) => f.includes('repeats'))).toBe(true);
   });
 
+  it('flags a media path that is also scheduled in another queue item', async () => {
+    const other = { file: 'b.json', data: { platform: 'instagram', media: [CORPUS_PHOTO] } };
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'c', mediaSource: 's' }, [], [other]);
+    expect(findings.some((f) => f.includes('also scheduled in b.json'))).toBe(true);
+  });
+
   it('requires a declared mediaKind on any draft with media', async () => {
-    const dedicated = '/social/2026-07-17-electric-lady-1.png';
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: [dedicated] }, []);
-    expect(findings.some((f) => f.includes('no recognized `mediaKind`'))).toBe(true);
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO] }, []);
+    expect(findings.some((f) => f.includes('no declared `mediaKind`'))).toBe(true);
   });
 
   it('requires mediaCredit AND mediaSource on a photo tile', async () => {
-    const dedicated = '/social/2026-07-17-electric-lady-1.png';
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: [dedicated], mediaKind: 'photo' }, []);
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo' }, []);
     expect(findings.some((f) => f.includes('requires `mediaCredit`'))).toBe(true);
     expect(findings.some((f) => f.includes('requires `mediaSource`'))).toBe(true);
   });
 
-  it('accepts a credited, sourced photo tile with no findings', async () => {
-    const dedicated = '/social/2026-07-17-electric-lady-1.png';
+  it('accepts a credited, sourced corpus photo tile with no findings', async () => {
     const findings = await checkMedia(
       'a.json',
-      { platform: 'instagram', media: [dedicated], mediaKind: 'photo', mediaCredit: 'Someone/Getty Images', mediaSource: 'https://example.com/photo' },
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'Someone/Getty Images', mediaSource: 'https://example.com/photo' },
       [],
     );
     expect(findings).toEqual([]);
   });
 
-  it('site-screen tiles must live under /social/library/', async () => {
+  // PR #2043 review: the declared kinds are PATH-BOUND, so neither can be
+  // used to launder the other — a screenshot can't become a credited "photo",
+  // and a real photo can't ship uncredited as a "site-screen".
+  it('a photo tile must live under /social/library/photos/ — a screenshot cannot be declared a photo', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'photo', mediaCredit: 'Fake Person/Nowhere', mediaSource: 'https://example.com' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('must live under /social/library/photos/'))).toBe(true);
+  });
+
+  it('site-screen tiles must live under /social/library/ but NOT under the photo corpus', async () => {
     const ok = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
     expect(ok).toEqual([]);
-    const bad = await checkMedia('a.json', { platform: 'instagram', media: ['/social/2026-07-17-electric-lady-1.png'], mediaKind: 'site-screen' }, []);
-    expect(bad.some((f) => f.includes('must be a committed product screenshot'))).toBe(true);
+    for (const tile of ['/social/2026-07-17-electric-lady-1.png', CORPUS_PHOTO]) {
+      const bad = await checkMedia('a.json', { platform: 'instagram', media: [tile], mediaKind: 'site-screen' }, []);
+      expect(bad.some((f) => f.includes('must be a committed product screenshot')), tile).toBe(true);
+    }
+  });
+
+  it('mediaKind "era-art" is rejected on drafts even for a non-era tile', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'era-art' }, []);
+    expect(findings.some((f) => f.includes('no longer allowed on drafts'))).toBe(true);
   });
 
   it('flags an X draft with more than MAX_X_IMAGES', async () => {

@@ -162,6 +162,20 @@ export function validateQueueItem(item) {
       'mediaCredit: required when mediaKind is "photo" — a real photograph of Taylor ships with its photographer/agency credit, always (docs/decisions.md 2026-07-09 media policy).',
     );
   }
+  if (item.mediaKind === 'photo' && (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '')) {
+    findings.push(
+      'mediaSource: required when mediaKind is "photo" — the credit must be auditable back to where the photo came from. (Mirrors check-drafts; this gate exists for items that arrive via a path the draft checker never saw.)',
+    );
+  }
+  // A QUEUE item carrying media must declare what that media is — the
+  // undeclared default is how the Taylor-free grid happened. Applies to the
+  // queue only (validate-queue.mjs targets social/queue/); historical
+  // posted/failed records predate the standard and are never re-validated.
+  if (Array.isArray(media) && media.length > 0 && item.mediaKind === undefined) {
+    findings.push(
+      'mediaKind: required whenever `media` is present — declare "photo" (real credited photograph of Taylor) or "site-screen" (deliberate product screenshot). See social/README.md (2026-08-12 standard).',
+    );
+  }
 
   // --- optional provenance/bookkeeping fields ------------------------------
   for (const field of ['approvedAt', 'lastAttemptAt']) {

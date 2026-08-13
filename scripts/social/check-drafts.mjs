@@ -87,6 +87,10 @@ const PAIRED_LOOKING_FLOOR = 0.15;
 const ERA_ART_LOOKBACK = 10;
 const RECOGNIZED_PLATFORMS = new Set(['x', 'instagram']);
 const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
+// Where rehosted real photographs of Taylor live (the 2026-08-12 standard).
+// mediaKind "photo" is path-bound to this prefix, and "site-screen" is barred
+// from it — see the kind checks in checkMedia.
+const PHOTO_PREFIX = '/social/library/photos/';
 
 // X's own length limit — see checkLength/weightedTweetLength below for the
 // full story. HARD_LIMIT is X's real cap; anything past it gets rejected
@@ -313,7 +317,7 @@ export function checkLength(item) {
   return [];
 }
 
-export async function checkMedia(file, item, recentIgPosted) {
+export async function checkMedia(file, item, recentIgPosted, allQueueItems = []) {
   const findings = [];
   if (item.platform === 'instagram' && !item.media?.length) {
     findings.push('media: Instagram drafts require at least one image in `media`.');
@@ -354,12 +358,30 @@ export async function checkMedia(file, item, recentIgPosted) {
         `media: "${mediaPath}" repeats one of the last ${ERA_ART_LOOKBACK} posted Instagram items' media — even a dedicated photo shouldn't ship twice that soon.`,
       );
     }
+    // Queue-vs-queue: a SCHEDULED future repeat is invisible to the
+    // posted-window check above until it's too late (PR #2043 review — two
+    // queued IG items four days apart shared a screenshot and both passed).
+    const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).includes(mediaPath));
+    if (alsoQueuedIn) {
+      findings.push(
+        `media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file} — two queued items may not share media; the repeat would land inside the recent-posted window by construction.`,
+      );
+    }
   }
 
   // The tile (media[0] — what the Instagram grid and the X card actually
-  // show) must carry a DECLARED kind, and a photo must carry its credit.
+  // show) must carry a DECLARED kind, and each kind is bound to ITS OWN path
+  // prefix (PR #2043 review: without the path binding, any committed image
+  // could be laundered as a "photo" with a fabricated credit string, and a
+  // real photo declared "site-screen" would ship uncredited).
   if (item.media?.length && !isGenericEraArt(item.media[0])) {
+    const tile = String(item.media[0]);
     if (item.mediaKind === 'photo') {
+      if (!tile.startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: mediaKind "photo" tile "${tile}" must live under ${PHOTO_PREFIX} — the rehosted, credited Taylor-photo corpus. A screenshot or other asset cannot be declared a photo.`,
+        );
+      }
       if (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '') {
         findings.push('media: mediaKind "photo" requires `mediaCredit` — a real photograph of Taylor always ships with its photographer/agency credit.');
       }
@@ -367,12 +389,18 @@ export async function checkMedia(file, item, recentIgPosted) {
         findings.push('media: mediaKind "photo" requires `mediaSource` — record where the photo came from so the credit is auditable.');
       }
     } else if (item.mediaKind === 'site-screen') {
-      if (!String(item.media[0]).startsWith('/social/library/')) {
-        findings.push(`media: mediaKind "site-screen" tile "${item.media[0]}" must be a committed product screenshot under /social/library/.`);
+      if (!tile.startsWith('/social/library/') || tile.startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: mediaKind "site-screen" tile "${tile}" must be a committed product screenshot under /social/library/ (and NOT under ${PHOTO_PREFIX} — a real photo must be declared "photo" so its credit is required).`,
+        );
       }
+    } else if (item.mediaKind === 'era-art') {
+      findings.push(
+        'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo" or "site-screen".',
+      );
     } else {
       findings.push(
-        `media: draft has media but no recognized \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real credited photograph of Taylor, with mediaCredit + mediaSource) or "site-screen" (deliberate product screenshot). Undeclared media is how the account drifted to a Taylor-free grid.`,
+        `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real credited photograph of Taylor, with mediaCredit + mediaSource) or "site-screen" (deliberate product screenshot). Undeclared media is how the account drifted to a Taylor-free grid.`,
       );
     }
   }
@@ -437,7 +465,7 @@ export async function checkDraft(target, { allQueue, openerContext, recentIg }) 
     ...checkOpeners(target.file, target.data, openerContext),
     ...checkCrossPostCopy(target.file, target.data, allQueue),
     ...checkLength(target.data),
-    ...(await checkMedia(target.file, target.data, recentIg)),
+    ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
   ];
 }
 
