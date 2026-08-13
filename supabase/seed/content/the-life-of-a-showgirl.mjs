@@ -1645,10 +1645,13 @@ export default {
       // "Ophelia bathtub" cover it restages. Both ids verified to resolve.
       // Cross-link (Stage 3, 2026-08-13): + "Beautiful Ghosts," her earlier
       // co-write with Andrew Lloyd Webber.
+      // Cross-link (crosslink-opportunity, 2026-08-13): + the video itself, the
+      // artifact whose drowned-Ophelia cover is the subject Webber responded to.
       relatedIds: [
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
         'moment:vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe',
+        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
       ],
       year: 2026,
       month: 8,
