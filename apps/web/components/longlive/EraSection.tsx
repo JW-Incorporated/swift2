@@ -46,7 +46,7 @@ import {
   visibleMoments,
   visibleVideos,
   watchableCount,
-  type EraFeedEntry,
+  undatedAnchorDate,
 } from '@/lib/longlive/era-feed';
 import {
   focalPointOf,
@@ -89,13 +89,6 @@ const TIER_SPAN: Record<CardTier, string> = {
   // Pure typography breather, no image.
   text: 'md:col-span-1',
 };
-
-/** One entry in the merged, newest-first main feed: either a curated moment or
- * a video duplicated in from the era's videos rail. In the default view that
- * second case is only the dated music videos (issue #439); under the Videos
- * filter it is every video record, including undated ones. Shape + merge rules
- * live in lib/longlive/era-feed.ts. */
-type FeedEntry = EraFeedEntry;
 
 /**
  * A single era in the infinite stream. Themed locally via eraStyle so stacked
@@ -187,6 +180,11 @@ export function EraSection({ era }: { era: Era }) {
   const feedEntries = useMemo(
     () => mergeEraFeed(visible, visibleTimelineVideos),
     [visible, visibleTimelineVideos],
+  );
+  // Scroll anchor for undated cards at the tail — see undatedAnchorDate.
+  const tailAnchor = useMemo(
+    () => undatedAnchorDate(feedEntries, era.start),
+    [feedEntries, era.start],
   );
 
   // tagsPresent() keeps chip order canonical; a video-only 'Music' presence
@@ -406,6 +404,16 @@ export function EraSection({ era }: { era: Era }) {
                     — including eras whose watchable content is entirely
                     appearances rather than her own videos.
 
+                    NO COUNT BADGE, deliberately (review, 2026-08-12). Two
+                    reasons, and they point the same way: none of the sibling
+                    category chips carry one, and the hero jump button one
+                    screen up ALREADY says "Videos N" for the rail's record
+                    count. A badge here would show a different N (the filter
+                    also yields the moments carrying footage — tloas: rail 10,
+                    filter 13), so the reader would meet the same word, the
+                    same icon and two numbers. The count still decides whether
+                    this chip renders at all; it just isn't printed.
+
                     Selected colors: the era ACCENT on the era BACKGROUND is
                     the pairing every theme already guarantees for text (the
                     tokens are used that way throughout), and contrast ratio is
@@ -431,12 +439,6 @@ export function EraSection({ era }: { era: Era }) {
                       style={{ color: videosOnly ? 'var(--era-bg)' : 'var(--era-accent)' }}
                     />
                     Videos
-                    <span
-                      className="text-[10px] font-medium"
-                      style={{ color: videosOnly ? 'var(--era-bg)' : 'var(--era-ink-soft)' }}
-                    >
-                      {watchable}
-                    </span>
                   </button>
                 )}
                 {filterActive && (
@@ -478,6 +480,7 @@ export function EraSection({ era }: { era: Era }) {
                 key={`era-video-${entry.video.slug}`}
                 video={entry.video}
                 eraId={era.id}
+                undatedAnchor={tailAnchor}
               />
             ) : (
               <MomentCard
@@ -580,19 +583,30 @@ const TAG_ICON: Record<ContentTag, LucideIcon> = {
  * embeds.
  *
  * A record with no `releasedOn` (only reachable under the Videos filter) is
- * rendered WITHOUT the `data-ll-*` attributes: TimelineScrubber builds its
- * scroll anchors from those and interpolates assuming they descend in date, so
- * an undated card must be invisible to it rather than anchored at a made-up
- * date.
+ * anchored at `undatedAnchor` — see undatedAnchorDate in era-feed.ts.
+ *
+ * Leaving it unanchored was the first instinct — never invent a date — and it
+ * was wrong in a way review caught: undated records sort to the end of the
+ * filtered feed, and on debut that is 4 of 7 cards (fearless 6 of 9). An
+ * unanchored block that tall leaves TimelineScrubber interpolating across a
+ * region containing no anchors at all, so dragging maps to badly wrong dates
+ * exactly where the filter is most used. The anchor is not a fabricated claim
+ * about the video: nothing renders it, the card still reads "Date unknown".
  */
-function VideoMomentCard({ video, eraId }: { video: VideoNote; eraId: Era['id'] }) {
-  const anchorProps = video.releasedOn
-    ? {
-        'data-ll-item': `era-video-${video.slug}`,
-        'data-ll-era': eraId,
-        'data-ll-date': new Date(video.releasedOn).getTime(),
-      }
-    : {};
+function VideoMomentCard({
+  video,
+  eraId,
+  undatedAnchor,
+}: {
+  video: VideoNote;
+  eraId: Era['id'];
+  undatedAnchor: string;
+}) {
+  const anchorProps = {
+    'data-ll-item': `era-video-${video.slug}`,
+    'data-ll-era': eraId,
+    'data-ll-date': new Date(video.releasedOn ?? undatedAnchor).getTime(),
+  };
   const kindLabel = video.kind ? VIDEO_KIND_LABEL[video.kind] : 'Video';
   // Full width regardless of tier: this card carries a 16/9 YouTube facade,
   // which is unreadable squeezed into a half-width track.

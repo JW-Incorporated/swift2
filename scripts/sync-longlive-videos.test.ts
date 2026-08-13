@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
 import {
@@ -38,6 +39,21 @@ describe('the video kind enum', () => {
 
   it('keeps the appearance family inside the enum', () => {
     for (const kind of APPEARANCE_VIDEO_KINDS) expect(VIDEO_KIND_VALUES.has(kind)).toBe(true);
+  });
+
+  it('pins validate-content.mjs’s copy too — the one nothing else could catch', () => {
+    // That script runs under plain `node` (see package.json), so it cannot
+    // import the TS shared package and has to hand-copy the list. Nothing type-
+    // checks it, and drift breaks BOTH ways: add a kind upstream and the
+    // validator hard-errors a legitimate record; drop one and a seed passes
+    // validation, gets NULLed by the generator, then fails the DB CHECK at
+    // db:seed:videos time. Parsed from source because importing the module
+    // would execute the whole validation run.
+    const src = readFileSync(new URL('./validate-content.mjs', import.meta.url), 'utf8');
+    const block = /const VIDEO_KINDS = new Set\(\[([\s\S]*?)\]\)/.exec(src);
+    expect(block, 'VIDEO_KINDS literal not found in validate-content.mjs').toBeTruthy();
+    const copied = [...block![1].matchAll(/'([a-z_]+)'/g)].map((m) => m[1]);
+    expect(copied.sort()).toEqual([...VIDEO_KINDS].sort());
   });
 });
 

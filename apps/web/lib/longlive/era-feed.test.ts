@@ -5,6 +5,7 @@ import {
   visibleMoments,
   visibleVideos,
   watchableCount,
+  undatedAnchorDate,
   type EraFeedFilter,
 } from './era-feed';
 import type { ContentItem, ContentTag, VideoNote } from './types';
@@ -131,6 +132,30 @@ describe('mergeEraFeed', () => {
 
   it('is stable when there is nothing to merge', () => {
     expect(mergeEraFeed([], [])).toEqual([]);
+  });
+});
+
+describe('undatedAnchorDate', () => {
+  it('floors at the era start when every dated card is inside the era', () => {
+    const entries = mergeEraFeed(ITEMS, MUSIC_VIDEOS);
+    expect(undatedAnchorDate(entries, '2019-01-01')).toBe('2019-01-01');
+  });
+
+  it('uses the earliest dated card when one predates the era start', () => {
+    // debut is the real case: the era starts 2006-10-24 but carries a moment
+    // dated 2006-06-19, so anchoring the tail at era.start would step the
+    // anchor sequence back UP and break the scrubber's ordering assumption.
+    const entries = mergeEraFeed(ITEMS, MUSIC_VIDEOS);
+    expect(undatedAnchorDate(entries, '2019-08-01')).toBe('2019-06-17');
+  });
+
+  it('never returns a date later than any card in the feed', () => {
+    const entries = mergeEraFeed(ITEMS, ALL_VIDEOS);
+    const anchor = undatedAnchorDate(entries, '2019-12-31');
+    for (const e of entries) {
+      const date = e.kind === 'moment' ? e.item.date : e.video.releasedOn;
+      if (date) expect(anchor <= date).toBe(true);
+    }
   });
 });
 
