@@ -67,7 +67,32 @@ reference docs it points at:
 | `.claude/skills/pause/SKILL.md` | Usage-limit pause/resume protocol |
 | `.claude/commands/` | Pre-existing project slash commands (design-debate, marketing) |
 | `PLANtemplate.md` | Copy to `PLAN.md` when a task touches >~3 files |
+| `PLAN.md` | Live plan: era reader rework (5 sequenced PRs) |
 | `docs/OPERATINGMANUAL.md` | The kit's own long-form manual |
+
+## The longlive reader (`apps/web`) — read `docs/longlive-experience.md` first
+
+The whole reader is ONE client page: `app/page.tsx` → `LongLive.tsx`, with
+React context state in `lib/longlive/store.tsx`. **There are no routes for
+eras/threads/mood/clownbot** — `?item=`/`?lens=`/`?era=`/`?guide=`/`?song=` are
+read once on mount (`deepLink.ts`) and never written back.
+
+| Path (under `apps/web/`) | Responsibility |
+|---|---|
+| `lib/longlive/store.tsx` | The single state container: `mode`, `eraId`, `lensId`, overlays, era-scroll snapshot |
+| `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags |
+| `lib/longlive/era-feed.ts` | Pure feed logic: `visibleMoments`, `mergeEraFeed`, `undatedAnchorDate` |
+| `lib/longlive/feed-tiers.ts` | Card silhouette/tier scoring — visual only, never order |
+| `lib/longlive/lenses.ts` | **2473 lines.** THREADS (6 narrative galleries), EGG_NODES, CLUE_PAIRS, motifs |
+| `lib/longlive/progress.ts` | The SSR-safe localStorage pattern — copy this for any persisted UI state |
+| `lib/longlive/useBackDismiss.ts` | Module-level LIFO overlay stack; catches the OS back gesture |
+| `components/longlive/EraStream.tsx` | Scrolls all eras; its scroll listener sets the active era |
+| `components/longlive/EraSection.tsx` | **521 lines.** One era: hero, lyric, player, guide pills, filter, feed, videos rail |
+| `components/longlive/TopBar.tsx` | Sticky top bar + the 4-tab `ModeToggle`; hosts `TimelineScrubber` in era mode |
+| `components/longlive/TrackGuide.tsx` | Full-screen track-guide modal (no video playback today) |
+| `components/longlive/TheoryGuide.tsx` | Full-screen theories & eggs modal |
+| `components/longlive/ThreadsMode.tsx` | Thread gallery + thread detail |
+| `components/longlive/FeedbackButton.tsx` | Fixed bottom-right, `z-[71]`, POSTs to `/api/feedback` |
 
 ## Commands worth knowing
 
