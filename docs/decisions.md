@@ -7,6 +7,8 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 - [entry removed 2026-08-15; retained in the offline retention archive]
+
 ## 2026-08-12 — The Taylor-photo standard: the feed leads with photographs of Taylor, and an empty calendar stays empty (supersedes the 2026-08-11 image-posture ladder)
 
 **Decision:** two reversals of yesterday's social programming, both driven by
