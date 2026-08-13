@@ -7,6 +7,57 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 — One video treatment in the era feed (ends the #2051 → #2055 → #2063 iteration)
+
+**Decision:** every playable video in the era feed renders **the same way**,
+regardless of whether the card is a video record or a story moment carrying
+footage: a full-width 16:9 poster of the video's own YouTube thumbnail with one
+large centered accent play glyph, inside the card. There is one implementation —
+`VideoPoster`, exported from `components/longlive/MomentVideo.tsx` — and every
+surface renders through it. Two supporting rules fall out of it and are part of
+the decision:
+
+1. **A card that plays a video is at least `media` tier** (`withInlineVideoTiers`
+   in `feed-tiers.ts`). The `chip` tier is a ~56px dense row and the `text` tier
+   is the no-photo breather; a full-width poster on either destroys the
+   silhouette that IS that tier — and the claim it makes is wrong anyway, since
+   a moment with watchable footage is not a slight item. It is a floor, never a
+   cap: `hero` stays `hero`.
+2. **A card's own photo is suppressed when it is a frame of the video it plays**
+   (`cardImageDuplicatesVideo` in `video-affordance.ts`). 9 of the 16 moments
+   carrying `video` have an `i.ytimg.com/vi/<same id>/…` primary image, four of
+   them the identical `maxresdefault` frame the poster uses. Rendering both
+   prints the same picture twice inside one card. A photo from anywhere else
+   (album art, a press shot) is a different picture and is kept.
+
+**Why:** Joey reviewed #2063 on his phone and rejected it. #2051 established
+that a moment carrying footage looked identical to one that didn't; #2055 fixed
+that with a text pill that rendered *outside* the card border and read as "no
+video here"; #2063 moved it inside as a compact 96px thumbnail row. Each was a
+new, different way of saying "this plays". His point is that the reader should
+never have to learn a second vocabulary: the video-record cards (he pointed at
+the Colbert interview card) already say it with a big poster and a play button,
+and that is what every playable card should say. Reusing the component rather
+than copying the look is what stops the two drifting apart a fourth time.
+
+**Alternatives considered:** (a) keep the compact row for story moments and the
+big poster for records — that is precisely the two-vocabulary state being
+rejected; (b) render the poster *and* the moment's own photo everywhere — the
+literal reading of "text as today, then the poster", but on Joey's own four
+flagged cards it prints the same frame twice, reproducing in the feed the
+duplication he separately complained about on detail pages; (c) let the poster
+render inside `chip`/`text` unchanged — a 197px poster hanging off a 56px row
+reads as a broken card, not as an editorial tier.
+
+**Cost:** none at runtime. No new network calls, no iframes in prerendered HTML
+— the poster is still a plain `<img>` and YouTube's player loads only on a real
+click (the #1935 click-to-load posture).
+
+**Approved by:** Joey (product/UX call, 2026-08-13, from his phone review of
+#2063). Implemented in #2078.
+
+---
+
 ## 2026-08-13 — Playable-first timeline: visible video cards always play (supersedes today's fan-re-uploads-are-citations entry)
 
 **Decision:** if a video card is visible, it plays. A video record with no
