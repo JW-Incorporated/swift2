@@ -40,6 +40,8 @@ const embed = (id) => ({
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
+import { appearance, pressSource, upload } from './_appearance-helpers.mjs';
+
 export default {
   eraSlug: '1989',
   videos: [
@@ -186,5 +188,31 @@ export default {
         ),
       ],
     },
+    // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
+    appearance({
+      slug: 'grammys-album-of-the-year-2016',
+      kind: 'award_speech',
+      title: 'Accepting Album of the Year for 1989 — 58th GRAMMYs',
+      releasedOn: '2016-02-15',
+      summary:
+        'A second Album of the Year makes her the first woman to win it twice — and she closes with advice to any young woman watching: there will be people who try to undercut your success.',
+      youtubeId: 'dMCAEUb0h34',
+      channel: 'GRAMMYS',
+      attribution: "GRAMMYs — the Recording Academy's official YouTube channel",
+      sources: [
+        upload({
+          youtubeId: 'dMCAEUb0h34',
+          title: 'Taylor Swift | Album of the Year | 58th GRAMMYs',
+          channel: 'GRAMMYS',
+          note: "official upload on the Recording Academy's own channel — oEmbed-verified 2026-08-12",
+        }),
+        pressSource(
+          'https://time.com/4225261/2016-grammys-taylor-swift-kanye-west/',
+          "Taylor Swift's Grammys Speech",
+          'Time',
+          'reports the speech and the reaction to it',
+        ),
+      ],
+    }),
   ],
 };

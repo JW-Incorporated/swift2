@@ -26,7 +26,12 @@ import { contentForEra } from '@/lib/longlive/content';
 import { tracksForEra } from '@/lib/longlive/tracks';
 import { theoriesForEra } from '@/lib/longlive/theories';
 import { threadsInEra, getThread } from '@/lib/longlive/lenses';
-import { videosForEra, musicVideosForEra } from '@/lib/longlive/videos';
+import {
+  videosForEra,
+  musicVideosForEra,
+  eraVideoFeed,
+  VIDEO_KIND_LABEL,
+} from '@/lib/longlive/videos';
 import { formatMonthYear } from '@/lib/longlive/format';
 import { EraMedia } from './EraMedia';
 import { EraSecretCard } from './EraSecretCard';
@@ -34,7 +39,15 @@ import { EraVideos } from './EraVideos';
 import { MomentVideo } from './MomentVideo';
 import { SignificanceBadge } from './SignificanceBadge';
 import { TAG_META } from '@/lib/longlive/tags';
-import { TAG_COLORS, itemMatchesFilter, tagsPresent } from '@/lib/longlive/tagBadges';
+import { TAG_COLORS, tagsPresent } from '@/lib/longlive/tagBadges';
+import {
+  embeddedYoutubeIds,
+  mergeEraFeed,
+  visibleMoments,
+  visibleVideos,
+  watchableCount,
+  undatedAnchorDate,
+} from '@/lib/longlive/era-feed';
 import {
   focalPointOf,
   hasRealPrimaryImage,
@@ -44,9 +57,6 @@ import {
 import type { ContentItem, ContentTag, Era, LensId, VideoNote } from '@/lib/longlive/types';
 import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
 import { cn } from '@/lib/utils';
-
-/** A dated music video (see musicVideosForEra) eligible for a timeline entry. */
-type TimelineVideo = VideoNote & { releasedOn: string };
 
 /**
  * Tier -> grid footprint (#1017 part 3).
@@ -80,10 +90,6 @@ const TIER_SPAN: Record<CardTier, string> = {
   text: 'md:col-span-1',
 };
 
-/** One entry in the merged, newest-first main feed: either a curated moment
- * or a music video duplicated in from the era's videos (issue #439). */
-type FeedEntry = { kind: 'moment'; item: ContentItem } | { kind: 'video'; video: TimelineVideo };
-
 /**
  * A single era in the infinite stream. Themed locally via eraStyle so stacked
  * sections each wear their own palette, while the global chrome tracks whichever
@@ -108,6 +114,14 @@ export function EraSection({ era }: { era: Era }) {
   // row on every one of ~230 months" concern predates the era-section layout —
   // this is one row per era section, not per month.
   const [activeTags, setActiveTags] = useState<Set<ContentTag>>(new Set());
+  // The Videos filter is a SECOND AXIS, not a sixth category: category chips
+  // select moments by tag, this selects by "is there something to watch". The
+  // two are mutually exclusive rather than composable — "Fashion + Videos"
+  // would mean the intersection of a tag on moments and a property of video
+  // records, which is a set the data can't honestly produce (a video record
+  // carries no ContentTag). Picking either one clears the other, so the feed
+  // always answers exactly one question.
+  const [videosOnly, setVideosOnly] = useState(false);
   const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
   const trackCount = useMemo(() => tracksForEra(era.id).length, [era.id]);
   const theoryCount = useMemo(() => theoriesForEra(era.id).length, [era.id]);
@@ -121,10 +135,14 @@ export function EraSection({ era }: { era: Era }) {
   // gracefully (see its "Catch layout changes from filtering" handling) —
   // the scrubber's rail, drag gesture and era position are unaffected, it
   // just remeasures the (now shorter) visible content.
-  const visible = useMemo(() => {
-    if (activeTags.size === 0) return items;
-    return items.filter((it) => itemMatchesFilter(it.tags, activeTags));
-  }, [items, activeTags]);
+  //
+  // Selection itself lives in lib/longlive/era-feed.ts (pure + unit-tested);
+  // this component only wires it to state and renders the result.
+  const filter = useMemo(
+    () => ({ tags: activeTags, videosOnly }),
+    [activeTags, videosOnly],
+  );
+  const visible = useMemo(() => visibleMoments(items, filter), [items, filter]);
   // Card silhouette per item — recomputed against whatever's actually on
   // screen (so filtering doesn't reference invisible items), but a pure
   // function of that list's ids, so it's stable across re-renders.
@@ -135,33 +153,39 @@ export function EraSection({ era }: { era: Era }) {
   // below. Skip any whose youtubeId is already embedded on a curated moment
   // above (e.g. a lead-single video that's also its own narrative beat) so
   // the same video never appears twice in this same list.
-  const embeddedVideoIds = useMemo(
-    () => new Set(items.map((it) => it.video?.youtubeId).filter((id): id is string => Boolean(id))),
-    [items],
-  );
+  const embeddedVideoIds = useMemo(() => embeddedYoutubeIds(items), [items]);
   const timelineVideos = useMemo(
     () =>
       musicVideosForEra(era.id).filter((v) => !v.youtubeId || !embeddedVideoIds.has(v.youtubeId)),
     [era.id, embeddedVideoIds],
   );
-  const visibleTimelineVideos = useMemo(
-    () => (activeTags.size === 0 || activeTags.has('Music') ? timelineVideos : []),
-    [timelineVideos, activeTags],
+  // Everything watchable in this era (all kinds, including the appearances the
+  // 2026-08-12 taxonomy made representable), de-duped against the moments that
+  // already embed them. Only rendered under the Videos filter — the default
+  // feed keeps the #439 behaviour of merging in music videos alone.
+  const videoFeed = useMemo(
+    () => eraVideoFeed(era.id, embeddedVideoIds),
+    [era.id, embeddedVideoIds],
   );
-  // Merge the (already tag-filtered) moments with the (already tag-gated)
-  // video entries into one newest-first feed, keeping cross-type ordering
-  // correct instead of just concatenating the two lists.
-  const feedEntries = useMemo(() => {
-    const entries: FeedEntry[] = [
-      ...visible.map((item): FeedEntry => ({ kind: 'moment', item })),
-      ...visibleTimelineVideos.map((video): FeedEntry => ({ kind: 'video', video })),
-    ];
-    return entries.sort((a, b) => {
-      const dateA = a.kind === 'moment' ? a.item.date : a.video.releasedOn;
-      const dateB = b.kind === 'moment' ? b.item.date : b.video.releasedOn;
-      return dateB.localeCompare(dateA);
-    });
-  }, [visible, visibleTimelineVideos]);
+  const visibleTimelineVideos = useMemo(
+    () => visibleVideos(timelineVideos, videoFeed, filter),
+    [timelineVideos, videoFeed, filter],
+  );
+  // What the Videos chip promises: the number of cards the filter yields, not
+  // the number of rail records (see watchableCount).
+  const watchable = useMemo(() => watchableCount(items, videoFeed), [items, videoFeed]);
+  // Merge the (already filtered) moments with the (already gated) video
+  // entries into one newest-first feed, keeping cross-type ordering correct
+  // instead of just concatenating the two lists.
+  const feedEntries = useMemo(
+    () => mergeEraFeed(visible, visibleTimelineVideos),
+    [visible, visibleTimelineVideos],
+  );
+  // Scroll anchor for undated cards at the tail — see undatedAnchorDate.
+  const tailAnchor = useMemo(
+    () => undatedAnchorDate(feedEntries, era.start),
+    [feedEntries, era.start],
+  );
 
   // tagsPresent() keeps chip order canonical; a video-only 'Music' presence
   // (issue #439) is folded in via a synthetic tag list rather than bypassing
@@ -178,6 +202,7 @@ export function EraSection({ era }: { era: Era }) {
   );
 
   function toggleTag(tag: ContentTag) {
+    setVideosOnly(false);
     setActiveTags((prev) => {
       const next = new Set(prev);
       if (next.has(tag)) next.delete(tag);
@@ -186,9 +211,17 @@ export function EraSection({ era }: { era: Era }) {
     });
   }
 
+  function toggleVideosOnly() {
+    setActiveTags(new Set());
+    setVideosOnly((prev) => !prev);
+  }
+
   function clearTags() {
     setActiveTags(new Set());
+    setVideosOnly(false);
   }
+
+  const filterActive = activeTags.size > 0 || videosOnly;
 
   return (
     <section
@@ -307,7 +340,7 @@ export function EraSection({ era }: { era: Era }) {
           no disclosure, which is the interaction this change removes. `Clear`
           is styled as a chip too so it clears the same 24px minimum target as
           its neighbours (WCAG 2.5.8). */}
-      {presentTags.length > 0 && (
+      {(presentTags.length > 0 || videoCount > 0) && (
         <div className="border-y border-[color:var(--era-line)] bg-[color:var(--era-surface)]/40">
           <div className="mx-auto max-w-4xl px-4 py-3 md:pr-8">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -363,7 +396,52 @@ export function EraSection({ era }: { era: Era }) {
                     </button>
                   );
                 })}
-                {activeTags.size > 0 && (
+                {/* Videos: the second filter axis (see the videosOnly state).
+                    Sits in the same rail, same shape and same keyboard/press
+                    semantics as a category chip, so it's one row of options
+                    rather than a parallel control the user has to discover
+                    separately. Rendered whenever the era has any video record
+                    — including eras whose watchable content is entirely
+                    appearances rather than her own videos.
+
+                    NO COUNT BADGE, deliberately (review, 2026-08-12). Two
+                    reasons, and they point the same way: none of the sibling
+                    category chips carry one, and the hero jump button one
+                    screen up ALREADY says "Videos N" for the rail's record
+                    count. A badge here would show a different N (the filter
+                    also yields the moments carrying footage — tloas: rail 10,
+                    filter 13), so the reader would meet the same word, the
+                    same icon and two numbers. The count still decides whether
+                    this chip renders at all; it just isn't printed.
+
+                    Selected colors: the era ACCENT on the era BACKGROUND is
+                    the pairing every theme already guarantees for text (the
+                    tokens are used that way throughout), and contrast ratio is
+                    symmetric — so painting the accent as the fill and the
+                    background color as the label inherits that guarantee
+                    across all twelve palettes. TAG_COLORS can't be reused here
+                    (they're specced for white text and this isn't a category). */}
+                {watchable > 0 && (
+                  <button
+                    type="button"
+                    aria-pressed={videosOnly}
+                    onClick={toggleVideosOnly}
+                    className="inline-flex min-h-6 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition"
+                    style={{
+                      backgroundColor: videosOnly ? 'var(--era-accent)' : 'transparent',
+                      borderColor: 'var(--era-accent)',
+                      color: videosOnly ? 'var(--era-bg)' : 'var(--era-ink)',
+                    }}
+                  >
+                    <Clapperboard
+                      className="h-3.5 w-3.5"
+                      aria-hidden
+                      style={{ color: videosOnly ? 'var(--era-bg)' : 'var(--era-accent)' }}
+                    />
+                    Videos
+                  </button>
+                )}
+                {filterActive && (
                   <button
                     type="button"
                     onClick={clearTags}
@@ -402,6 +480,7 @@ export function EraSection({ era }: { era: Era }) {
                 key={`era-video-${entry.video.slug}`}
                 video={entry.video}
                 eraId={era.id}
+                undatedAnchor={tailAnchor}
               />
             ) : (
               <MomentCard
@@ -415,7 +494,9 @@ export function EraSection({ era }: { era: Era }) {
         </ol>
         {feedEntries.length === 0 && (
           <p className="py-16 text-center text-sm text-[color:var(--era-ink-soft)]">
-            No moments match that filter in this era.
+            {videosOnly
+              ? 'Nothing to watch in this era yet.'
+              : 'No moments match that filter in this era.'}
           </p>
         )}
       </div>
@@ -494,13 +575,39 @@ const TAG_ICON: Record<ContentTag, LucideIcon> = {
 };
 
 /**
- * Lightweight timeline entry for a music video duplicated in from
- * musicVideosForEra (issue #439 part 2). Deliberately thinner than
- * MomentCard's tiers — director/symbolism/easter-egg depth stays in the
- * EraVideos rail card below; this is just the date, title, and the same
- * click-to-play facade (MomentVideo) used everywhere else a video embeds.
+ * Lightweight timeline entry for a video duplicated in from the era's videos
+ * (issue #439 part 2 for music videos; every kind under the Videos filter).
+ * Deliberately thinner than MomentCard's tiers — director/symbolism/easter-egg
+ * depth stays in the EraVideos rail card below; this is just the date, title,
+ * and the same click-to-play facade (MomentVideo) used everywhere else a video
+ * embeds.
+ *
+ * A record with no `releasedOn` (only reachable under the Videos filter) is
+ * anchored at `undatedAnchor` — see undatedAnchorDate in era-feed.ts.
+ *
+ * Leaving it unanchored was the first instinct — never invent a date — and it
+ * was wrong in a way review caught: undated records sort to the end of the
+ * filtered feed, and on debut that is 4 of 7 cards (fearless 6 of 9). An
+ * unanchored block that tall leaves TimelineScrubber interpolating across a
+ * region containing no anchors at all, so dragging maps to badly wrong dates
+ * exactly where the filter is most used. The anchor is not a fabricated claim
+ * about the video: nothing renders it, the card still reads "Date unknown".
  */
-function VideoMomentCard({ video, eraId }: { video: TimelineVideo; eraId: Era['id'] }) {
+function VideoMomentCard({
+  video,
+  eraId,
+  undatedAnchor,
+}: {
+  video: VideoNote;
+  eraId: Era['id'];
+  undatedAnchor: string;
+}) {
+  const anchorProps = {
+    'data-ll-item': `era-video-${video.slug}`,
+    'data-ll-era': eraId,
+    'data-ll-date': new Date(video.releasedOn ?? undatedAnchor).getTime(),
+  };
+  const kindLabel = video.kind ? VIDEO_KIND_LABEL[video.kind] : 'Video';
   // Full width regardless of tier: this card carries a 16/9 YouTube facade,
   // which is unreadable squeezed into a half-width track.
   //
@@ -509,20 +616,15 @@ function VideoMomentCard({ video, eraId }: { video: TimelineVideo; eraId: Era['i
   // SWC parser, so it passes typecheck and tests and then fails only in the
   // browser as a blank page (2026-07-21).
   return (
-    <li
-      className="relative min-w-0 scroll-mt-28 md:col-span-2"
-      data-ll-item={`era-video-${video.slug}`}
-      data-ll-era={eraId}
-      data-ll-date={new Date(video.releasedOn).getTime()}
-    >
+    <li className="relative min-w-0 scroll-mt-28 md:col-span-2" {...anchorProps}>
       <div className="era-card block w-full rounded-2xl border p-5">
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-            {formatMonthYear(video.releasedOn)}
+            {video.releasedOn ? formatMonthYear(video.releasedOn) : 'Date unknown'}
           </span>
           <span className="flex shrink-0 items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent)]">
-            <Clapperboard className="h-3.5 w-3.5" />
-            Music video
+            <Clapperboard className="h-3.5 w-3.5" aria-hidden />
+            {kindLabel}
           </span>
         </div>
         <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
@@ -537,6 +639,7 @@ function VideoMomentCard({ video, eraId }: { video: TimelineVideo; eraId: Era['i
           <MomentVideo
             video={{ youtubeId: video.youtubeId, title: video.title }}
             caption={null}
+            playNoun={kindLabel.toLowerCase()}
             className="mt-4"
           />
         )}

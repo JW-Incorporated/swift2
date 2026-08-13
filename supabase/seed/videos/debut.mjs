@@ -40,6 +40,8 @@ const embed = (id) => ({
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
+import { appearance, pressSource, upload } from './_appearance-helpers.mjs';
+
 export default {
   eraSlug: 'debut',
   videos: [
@@ -145,5 +147,29 @@ export default {
         ),
       ],
     },
+    // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
+    appearance({
+      slug: 'ellen-first-interview-2008',
+      kind: 'interview',
+      title: 'First interview on The Ellen DeGeneres Show',
+      releasedOn: '2008-01-17',
+      summary:
+        "Eighteen years old and one album in, with 'Teardrops on My Guitar' crossing over to pop radio: her first talk-show sit-down, on a couch she would keep coming back to for the next decade.",
+      youtubeId: 'vBgiDYBCuxY',
+      channel: 'TheEllenShow',
+      sources: [
+        upload({
+          youtubeId: 'vBgiDYBCuxY',
+          title: "Taylor Swift's First Interview with Ellen!",
+          channel: 'TheEllenShow',
+        }),
+        pressSource(
+          'https://www.billboard.com/music/music-news/taylor-swift-ellen-appearances-8511659/',
+          "Taylor Swift's Best Moments on 'Ellen'",
+          'Billboard',
+          'dates the first appearance to Jan. 17, 2008 and tracks the run of return visits',
+        ),
+      ],
+    }),
   ],
 };
