@@ -10034,13 +10034,18 @@ export default {
     // fact across Variety, Billboard, Rolling Stone and Deadline; "who filed
     // it" is left unasserted in prose (no named party claimed it), which is
     // also carried as a lifecycle-tracked rumor on the TTPD endorsement moment.
-    // NOTE (verification against the ticket): the 2026-08-10 triage comment
-    // also claimed "The Fate of Ophelia" was pulled from an official White
-    // House TikTok; sources conflict on that one (one syndication says it
-    // "disappeared," another says it is "still soundtracked" and the removals
-    // were "selective"), so that angle is deliberately NOT authored here.
-    // Only the cleanly-corroborated Team Trump removals (August, Father Figure)
-    // are stated as fact. Text-only: no honest reusable-host image of the posts.
+    // NOTE (verification against the ticket): the 2026-08-10 triage claimed
+    // "The Fate of Ophelia" was pulled from an official White House TikTok;
+    // sources conflicted on that one (one syndication said it "disappeared,"
+    // the origin reports said it was "still soundtracked" and the removals were
+    // "selective"), so that specific angle is still deliberately NOT asserted.
+    // UPDATE 2026-08-13 (Content Shift, #1841 enrichment): the White-House-
+    // *account* involvement is now cleanly confirmed for a DIFFERENT, later
+    // song — "I Bet You Think About Me," muted from an official @whitehouse
+    // TikTok on Aug 12-13 (Rolling Stone, verified readable; Billboard via
+    // Yahoo). That increment is authored below; "who filed it" stays unasserted
+    // (Taylor issued no statement), consistent with the rest of the moment.
+    // Text-only: no honest reusable-host image of the posts.
     {
       slug: 'showgirl-swift-music-pulled-from-trump-tiktoks',
       year: 2026,
@@ -10048,15 +10053,15 @@ export default {
       day: 7,
       category: 'music',
       relatedIds: ['moment:vault-ttpd-an-endorsement-signed-childless-cat-lady'],
-      title: 'Her music goes quiet on Team Trump’s TikTok — pulled by a copyright block',
+      title: 'Her music keeps going quiet on Trump’s TikToks — and now the White House’s',
       snippet:
-        'In August 2026 two of Taylor’s songs — “August” and “Father Figure” — disappeared from Team Trump TikTok posts, replaced by a notice that “the copyright owner hasn’t made this sound available in your country.” No named party claimed the takedowns; Team Trump answered by reposting “Red” as “Red (Trump’s Version).”',
+        'Across August 2026 several of Taylor’s songs — “August,” “Father Figure,” and then “I Bet You Think About Me” — went silent on Team Trump and official White House TikTok posts, each replaced by a notice that “the copyright owner hasn’t made this sound available in your country.” No named party claimed the takedowns; Team Trump answered one of them by reposting “Red” as “Red (Trump’s Version).”',
       sourceUrl:
         'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nIt wasn’t the only one. A second Team Trump clip — posted back in November 2025, set to her 2025 single “Father Figure” — had already gone silent the same way (Billboard, Variety). Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Taylor and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Taylor’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president in an Instagram post signed “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
+          'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nIt wasn’t the only one. A second Team Trump clip — posted back in November 2025, set to her 2025 single “Father Figure” — had already gone silent the same way (Billboard, Variety). Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Taylor and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Taylor’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nThe pattern did not stay on the campaign account. On Wednesday, Aug. 12, the official White House TikTok — the government account, not the Team Trump campaign one — posted a montage of Trump’s day set to “I Bet You Think About Me,” her 2021 vault track from Red (Taylor’s Version), captioned “We know you think about us.” Within a few hours, early on Thursday the 13th, that audio went silent too, replaced by the same copyright notice while the song stayed playable elsewhere on TikTok (Rolling Stone, Billboard). It was the third of her songs to be blocked this way in a week, and the escalation was in whose feed it happened: the same used-then-unavailable pattern had spread from the campaign’s posts to the White House’s own. As before, no one confirmed who pushed the button — Taylor made no statement about any of the removals — so whether they came from her, her label’s rights administration, or an automated system stayed unsaid.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president in an Instagram post signed “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
         sources: [
           {
             outlet: 'Variety',
@@ -10093,6 +10098,24 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-10',
             reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-removes-song-trump-white-house-tiktok-1235607884/',
+            source_title: 'Taylor Swift Removes Yet Another Song From Yet Another White House TikTok Video',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-i-bet-you-think-about-me-removed-trump-tiktok-1236315607/',
+            source_title: "Taylor Swift's 'I Bet You Think About Me' Is Her Latest Song Removed From a Trump TikTok Post",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
           },
         ],
       },
