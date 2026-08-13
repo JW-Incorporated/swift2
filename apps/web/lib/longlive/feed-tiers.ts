@@ -135,7 +135,7 @@ export function baseTierFor(item: ContentItem): CardTier {
  *      demotion was the #1017 bug and it is gone.
  */
 /**
- * Tiers a card that plays a video inline can wear (#2078).
+ * Tiers a card that plays a video inline can wear (#2080).
  *
  * Every playable video in the feed now renders the SAME way — a full-width 16:9
  * poster with a large centered play glyph, the treatment the video-record cards

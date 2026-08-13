@@ -111,7 +111,7 @@ describe('footnoteVideoSources', () => {
 });
 
 /**
- * #2078. Photo Enrichment gave most video-carrying moments the video's own
+ * #2080. Photo Enrichment gave most video-carrying moments the video's own
  * YouTube frame as their photo — reasonably, since the moment IS the video.
  * Once every playable card grew a full-width poster, that meant the same frame
  * printed twice inside one card, which is exactly the duplication Joey flagged

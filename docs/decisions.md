@@ -54,7 +54,7 @@ reads as a broken card, not as an editorial tier.
 click (the #1935 click-to-load posture).
 
 **Approved by:** Joey (product/UX call, 2026-08-13, from his phone review of
-#2063). Implemented in #2078.
+#2063). Implemented in #2080.
 
 ---
 
