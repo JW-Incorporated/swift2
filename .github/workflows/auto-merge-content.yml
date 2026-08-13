@@ -155,7 +155,11 @@ jobs:
           # and used to fail this whole job whenever git reported a queue→
           # posted rename as removed+added. A deleted draft is nothing to
           # quality-check; only PRESENT files are validated/fetched.
-          META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | .status + "\t" + .filename')
+          # status + filename + previous_filename, @tsv-escaped like the
+          # `enable` job's enumeration (a weird filename must never split
+          # into extra fields — it feeds a destructive `rm` below).
+          META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" \
+            --jq '.[] | [.status, .filename, (.previous_filename // "")] | @tsv')
           GOT_COUNT=$(printf '%s\n' "$META" | grep -c . || true)
           WANT_COUNT=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles')
           if [ "$GOT_COUNT" -ne "$WANT_COUNT" ]; then
@@ -163,6 +167,42 @@ jobs:
             exit 1
           fi
           PRESENT=$(printf '%s\n' "$META" | awk -F'\t' '$1 != "removed" {print $2}')
+
+          # Paths the PR makes GONE must also be deleted from this base-ref
+          # checkout (2026-08-13, found on PR #2043): a rescheduled queue
+          # draft is a rename, which this API reports as status "renamed"
+          # with the old path in previous_filename when it detects the
+          # similarity (all 7 of #2043's reschedules were reported that
+          # way), or as removed+added when it doesn't — BOTH shapes must be
+          # handled. The new path is overlaid below, but the old path was
+          # still sitting in this checkout from the base ref, so
+          # check-drafts compared every rescheduled draft against its own
+          # pre-rename self and false-failed it as a "duplicate opener".
+          # Deleting the gone paths makes this working tree match the
+          # would-be merge result.
+          #
+          # SCOPED to the checker's own data inputs — social/queue/ and the
+          # media tree — and nothing else (2026-08-13, code review on PR
+          # #2048): an unscoped rm would let a PR that also touches a queue
+          # draft delete the trusted checkout's scripts (crashing the
+          # checker) or its social/posted/ history (validating drafts
+          # against emptied history). Those paths stay exactly as main has
+          # them; a PR removing ledger records is the enable job's
+          # append-only gate's problem, not a reason to blind this checker.
+          # The paths are API metadata (repo-relative strings, data only —
+          # nothing from the PR runs); the suspicious-path guard is
+          # belt-and-braces on top of that.
+          GONE=$(printf '%s\n' "$META" | awk -F'\t' \
+            '$1 == "removed" {print $2} $1 == "renamed" && $3 != "" {print $3}')
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            case "$f" in
+              social/queue/*|apps/web/public/*) : ;;
+              *) continue ;;
+            esac
+            case "$f" in /*|../*|*/../*) echo "refusing to delete suspicious path: $f" >&2; exit 1 ;; esac
+            rm -f -- "$f"
+          done <<<"$GONE"
 
           QUEUE_FILES=$(printf '%s\n' "$PRESENT" | grep -E '^social/queue/.*\.json$' || true)
           if [ -z "$QUEUE_FILES" ]; then
