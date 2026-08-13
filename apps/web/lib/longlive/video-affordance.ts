@@ -23,13 +23,21 @@ import type { ContentItem, MomentVideo } from './types';
 /**
  * The video a feed card can play inline, or null.
  *
- * Intentionally just the moment's own `video`: it is the same predicate
- * `visibleMoments(..., { videosOnly: true })` selects on, so the Videos filter
- * and the play badge can never disagree about which moments are watchable —
- * which is exactly the contradiction Joey hit (#2051, "nothing on the card tells
- * you which is which"). A YouTube *source* is promoted in the detail view (see
- * `detailVideoFor`) but not here: promoting in the feed would widen the filter's
- * selection, which is a content decision, not a playback one.
+ * Intentionally just the moment's own `video` — no wider notion of "has
+ * footage", so the Videos filter and the play affordance can never disagree
+ * about which moments are watchable, which is exactly the contradiction Joey
+ * hit (#2051, "nothing on the card tells you which is which"). A YouTube
+ * *source* is promoted in the detail view (see `detailVideoFor`) but not here:
+ * promoting in the feed would widen the filter's selection, which is a content
+ * decision, not a playback one.
+ *
+ * One caller-side qualifier since #2057: when two moments in the RENDERED list
+ * embed the same YouTube id, only the first plays it inline (the later card
+ * keeps its story and its detail-page embed). That de-dupe is not in this
+ * predicate because it is a property of the list, not of the item — see
+ * `inlineVideoMomentIds` in era-feed.ts, which both the Videos filter and
+ * EraSection's `ownsVideo` prop are derived from, over the same list, so the
+ * two still cannot disagree.
  */
 export function feedVideoFor(item: ContentItem): MomentVideo | null {
   return item.video ?? null;

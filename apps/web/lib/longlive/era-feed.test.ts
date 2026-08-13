@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   embeddedYoutubeIds,
@@ -129,6 +130,20 @@ describe('inlineVideoMomentIds', () => {
     expect(inlineVideoMomentIds([moment('m-plain', '2019-08-23', ['Lore'])]).size).toBe(0);
   });
 
+  it('re-homes the embed when a filter hides the owner', () => {
+    // Ownership is a property of the LIST, so it must be computed over the
+    // moments actually on screen. Computed era-wide instead, a tag filter that
+    // hides the owner would leave the survivor with no play control at all —
+    // a card carrying footage looking exactly like one that doesn't (#2051).
+    const items = [
+      moment('m-premiere', '2026-03-31', ['Music'], { youtubeId: 'yt-liz', title: 'Liz' }),
+      moment('m-radio', '2026-03-09', ['Music', 'Fashion'], { youtubeId: 'yt-liz', title: 'Liz' }),
+    ];
+    const visible = visibleMoments(items, filterOf(['Fashion']));
+    expect(visible.map((i) => i.id)).toEqual(['m-radio']);
+    expect([...inlineVideoMomentIds(visible)]).toEqual(['m-radio']);
+  });
+
   it('keeps the chip badge honest — watchableCount counts cards, not embeds', () => {
     // watchableCount runs through visibleMoments, so the de-dupe reaches the
     // number on the Videos chip too: 2 moments sharing 1 video promise 1 card.
@@ -240,5 +255,21 @@ describe('embeddedYoutubeIds', () => {
 
   it('is empty when no moment carries a video', () => {
     expect(embeddedYoutubeIds([moment('m', '2019-01-01', ['Lore'])]).size).toBe(0);
+  });
+});
+
+describe('EraSection wires ownership to the rendered list', () => {
+  // The rule above is only true if the component hands it the moments actually
+  // on screen. There are no component tests in this suite (vitest runs in a
+  // `node` environment), so this is a source lock in the idiom of
+  // components/longlive/close-affordance.test.ts.
+  const src = readFileSync(
+    new URL('../../components/longlive/EraSection.tsx', import.meta.url),
+    'utf8',
+  );
+
+  it('derives the video owners from `visible`, never from the full era list', () => {
+    expect(src).toContain('inlineVideoMomentIds(visible)');
+    expect(src).not.toContain('inlineVideoMomentIds(items)');
   });
 });
