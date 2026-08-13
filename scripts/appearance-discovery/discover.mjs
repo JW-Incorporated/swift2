@@ -161,13 +161,15 @@ export function readSeedIds(root) {
 /**
  * The dedupe ledger: every intake issue ever filed (open AND closed), read via
  * the repo-scoped issues list (scripts/lib/gh.mjs — never /search, #1869/#2008).
- * `complete` is authoritative only when the row count is under the limit.
+ * `complete` comes from gh.mjs's own page loop, which reports whether it
+ * reached the end of the data or stopped at a cap (#2034).
  */
 async function loadLedger() {
-  const { stdout } = await gh([
+  const res = await gh([
     'issue', 'list', '--label', INTAKE_LABEL, '--state', 'all',
     '--json', 'number,title,body', '--limit', String(LEDGER_LIMIT),
   ]);
+  const { stdout } = res;
   // Empty stdout is NOT an empty ledger. A successful "no issues" result is
   // still `[]` on stdout; genuinely blank output means the call produced
   // nothing we can interpret, and #2008's whole lesson is that an
@@ -182,20 +184,18 @@ async function loadLedger() {
     // URL only in its title, and it still means "this one is already known".
     ids: videoIdsIn(rows.flatMap((r) => [r?.title, r?.body])),
     issues: rows.length,
-    // `complete` is the truncation guard, and it is a ONE-SIDED test: hitting
-    // the limit proves truncation, but falling short does NOT prove
-    // completeness. On the gh-CLI path (what the workflow runner uses) it is
-    // exact. On scripts/lib/gh.mjs's REST fallback it is not: that path pages
-    // to ceil(limit/100), capped at 10 pages = 1000 RAW rows, and then drops
-    // pull requests post-fetch — so a truncated fetch can return fewer than
-    // LEDGER_LIMIT rows and still be missing issues, reading as complete.
+    // The truncation guard. It used to be the ONE-SIDED row-count test
+    // (`rows.length < LEDGER_LIMIT`): sound on the gh-CLI path, but wrong on
+    // scripts/lib/gh.mjs's REST fallback, which pages to ceil(limit/100)
+    // capped at 10 pages and then drops pull requests POST-fetch — so a
+    // truncated fetch could come back under the limit and still be missing
+    // issues, reading as complete.
     //
-    // Exposure today is nil (labels on PRs are not how `intake` is used; the
-    // repo has 0 intake-labeled PRs against 48 lifetime intake issues), and the
-    // near-limit warning below is the tripwire. The real fix is for gh.mjs to
-    // report whether its page loop exhausted the cap, instead of every caller
-    // inferring it from a post-filtered count — flagged for Wyatt on the PR.
-    complete: rows.length < LEDGER_LIMIT,
+    // gh.mjs now reports how its page loop ended, so this is two-sided on both
+    // transports: `complete` is true only when the API itself ran out of rows
+    // (#2034). The row count remains the fallback for a transport that could
+    // not say, and the near-limit warning below stays as a second tripwire.
+    complete: res.complete ?? rows.length < LEDGER_LIMIT,
   };
 }
 
