@@ -8,6 +8,7 @@ import {
   MEDIA_SCORE_THRESHOLD,
   assignFeedTiers,
   baseTierFor,
+  withInlineVideoTiers,
   type CardTier,
 } from './feed-tiers';
 import { substanceScore } from './substance';
@@ -391,6 +392,66 @@ describe('assignFeedTiers over REAL vault content', () => {
       const a = assignFeedTiers(items);
       const b = assignFeedTiers(items);
       for (const it of items) expect(a.get(it.id)).toBe(b.get(it.id));
+    }
+  });
+});
+
+/**
+ * #2078: one video treatment in the feed. Every playable video renders the same
+ * full-width 16:9 poster, and two tiers cannot carry one honestly — see
+ * INLINE_VIDEO_MIN_TIER. This is a FLOOR on cards that actually play.
+ */
+describe('withInlineVideoTiers', () => {
+  const tiers = (entries: [string, CardTier][]) => new Map(entries);
+
+  it('lifts a chip that plays a video to media', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'chip']]), new Set(['a']));
+    expect(out.get('a')).toBe('media');
+  });
+
+  it('lifts a text breather that plays a video to media', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'text']]), new Set(['a']));
+    expect(out.get('a')).toBe('media');
+  });
+
+  it('never demotes: a hero that plays a video stays a hero', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'hero']]), new Set(['a']));
+    expect(out.get('a')).toBe('hero');
+  });
+
+  it('leaves cards that do not play anything exactly as they were', () => {
+    const input = tiers([
+      ['a', 'chip'],
+      ['b', 'text'],
+      ['c', 'hero'],
+      ['d', 'media'],
+    ]);
+    const out = withInlineVideoTiers(input, new Set());
+    expect([...out]).toEqual([...input]);
+  });
+
+  it('skips a moment that DEFERS its video to an earlier card (#2057 de-dupe)', () => {
+    // Ownership, not `item.video`: the deferring card renders no poster, so
+    // inflating it would grow a card for a video it never shows.
+    const out = withInlineVideoTiers(tiers([['a', 'chip']]), new Set(['someone-else']));
+    expect(out.get('a')).toBe('chip');
+  });
+
+  it('does not mutate the map it was given', () => {
+    const input = tiers([['a', 'chip']]);
+    withInlineVideoTiers(input, new Set(['a']));
+    expect(input.get('a')).toBe('chip');
+  });
+
+  it('leaves no chip or text card playing a video anywhere in the real corpus', () => {
+    for (const era of ERAS) {
+      const items = contentForEra(era.id);
+      const owners = new Set(items.filter((it) => it.video).map((it) => it.id));
+      const assigned = withInlineVideoTiers(assignFeedTiers(items), owners);
+      for (const it of items) {
+        if (!it.video) continue;
+        expect(['hero', 'media']).toContain(assigned.get(it.id));
+      }
     }
   });
 });
