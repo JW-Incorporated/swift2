@@ -7,6 +7,79 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — Getty preview comps may be posted to social: a knowing acceptance of infringement exposure (#2031 / PR #2043)
+
+**Decision:** The 12 Getty-sourced photographs queued in PR #2043 may be
+rehosted in-repo and posted to X, Instagram and Facebook under our own brand
+accounts. Joey's call, made on this PR after review flagged it: *"accept the
+risk, post anyway."*
+
+**What is actually being accepted — stated plainly, not euphemistically:**
+these 12 files are **Getty Images preview comps**, not licensed downloads.
+Each was taken from a `media.gettyimages.com/id/<id>/photo/<slug>.jpg?s=612x612&w=0&k=20&c=<token>`
+URL — the watermark-free thumbnail Getty serves to unauthenticated visitors on
+its own search results — and every one of the 12 is exactly **612px on its long
+edge**, the signature of that comp. Getty's terms permit comps for layout
+evaluation and internal review only; publication is not licensed. We are
+therefore knowingly:
+
+1. taking an asset from behind a vendor's paywall preview,
+2. rehosting it on our own infrastructure, and
+3. republishing it **off-platform**, to three third-party social networks whose
+   own ToS each independently require the uploader to hold rights in what they
+   upload.
+
+Getty actively pursues exactly this pattern. The realistic downside is a DMCA
+takedown, a demand letter, or a per-image settlement demand; the realistic
+upside is that a Taylor Swift fan account stops posting a grid with no Taylor
+Swift in it. Joey judged the second worth the first. This is a **knowing
+acceptance of copyright-infringement exposure, not an oversight** — the same
+posture and the same words as the 2026-07-09 lyrics entry.
+
+**Why this needed its own entry rather than riding the 2026-07-09 photo
+policy:** the 2026-07-09 entry ("Hosting/rehosting real internet photos IS
+allowed") is genuinely permissive and does name agency photos, so PR #2043 cited
+it in good faith. But it does not cover this case on its own terms, for two
+reasons, and inferring permission silently would have made the log dishonest:
+its subject is photos appearing **on-site**, not our accounts republishing them
+on someone else's platform; and it contemplates photos found on the open web,
+not a vendor's own paid-preview asset. That entry also explicitly defers
+*"editorial-imagery licensing scope confirmed before hosting licensed assets"*
+to counsel. **That deferral still stands for every future scope question** —
+this entry authorizes these 12 images for this purpose, and nothing wider. It
+supersedes nothing.
+
+**Not covered by this decision (unchanged):** the monetization gate — nothing
+monetized ships without external IP counsel — and the no-AI-fakes and
+no-mislabelled-stand-in rules. All 13 images in #2043 were individually
+verified as genuine photographs that actually depict Taylor at the event each
+record claims.
+
+**The one carve-out:** the 13th image (`taylor-lover-eras-minneapolis-2023.jpg`,
+Michael Hicks, **CC BY 2.0** via Wikimedia) is *not* part of this risk
+acceptance and never needed to be — it is cleanly licensed. Its licence has one
+condition, attribution, and review found it shipping without a visible credit.
+That is a fixable breach of a licence we actually hold rather than a risk to
+accept, so it was fixed in #2043 before merge rather than waved through here.
+
+**Alternatives considered:** (a) ship only the CC BY 2.0 image and re-source the
+rest from Wikimedia Commons' properly-licensed Taylor corpus — rejected as too
+slow for the queue already scheduled, though it remains the right long-term
+direction for the photo corpus; (b) buy Getty social licences for the 12 —
+rejected for now on cost against a pre-revenue fan project.
+
+**Known gap this does NOT fix:** the credit line still does not render to
+viewers on most posts. `mediaCredit` is validated in CI but never read by the
+poster, so attribution reaches an audience only when an author hand-types it
+into the body — and the X 280-character cap leaves no room on the tightest
+posts. Tracked as the alt-text follow-up (X alt-text wired into
+`platforms.mjs` plus a check that the credit actually renders). Accepting
+infringement exposure while *also* not crediting the photographer is a worse
+posture than accepting it while crediting them, so this follow-up is the
+mitigation that makes the decision above defensible.
+
+**Approved by:** Joey (product), 2026-08-12, relayed on PR #2043.
+
 ## 2026-08-12 — The Videos rail is Taylor on screen only (supersedes the appearance-family wording below)
 
 **Decision:** an appearance record requires **Taylor herself as the on-screen

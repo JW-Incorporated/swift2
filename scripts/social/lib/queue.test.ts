@@ -165,27 +165,26 @@ describe('eraArtGuardReason', () => {
     expect(eraArtGuardReason(igItem('/social/2026-08-01-thing.png'), recent)).toBeNull();
   });
 
-  it('blocks era art with no mediaKind: "era-art" tag, even if never used before', () => {
+  // 2026-08-12 (the Taylor-photo standard, PR #2043): era art is banned
+  // OUTRIGHT at post time — declared, undeclared, fresh, or repeated. The
+  // old declared-fallback path is the loophole that produced 17/17 era-tile
+  // IG posts, so there is deliberately no way back through this guard.
+  it('blocks era art with no mediaKind tag, even if never used before', () => {
     const reason = eraArtGuardReason(igItem('/eras/red.png'), []);
     expect(reason).not.toBeNull();
-    expect(reason).toMatch(/undeclared/i);
+    expect(reason).toMatch(/banned outright/i);
   });
 
-  it('passes declared era art that is not among the recent posts', () => {
+  it('blocks DECLARED era art too — the declared-fallback loophole is closed', () => {
     const recent = [posted('/eras/folklore.png', '2026-08-01T00:00:00Z')];
-    expect(eraArtGuardReason(igItem('/eras/red.png', { mediaKind: 'era-art' }), recent)).toBeNull();
-  });
-
-  it('blocks declared era art that repeats within the lookback window', () => {
-    const recent = [posted('/eras/red.png', '2026-08-01T00:00:00Z')];
     const reason = eraArtGuardReason(igItem('/eras/red.png', { mediaKind: 'era-art' }), recent);
     expect(reason).not.toBeNull();
-    expect(reason).toMatch(/repeat/i);
+    expect(reason).toMatch(/banned outright/i);
   });
 
-  it('respects a custom lookback window', () => {
-    const recent = [posted('/eras/red.png', '2026-07-01T00:00:00Z'), posted('/eras/folklore.png', '2026-08-01T00:00:00Z')];
-    expect(eraArtGuardReason(igItem('/eras/red.png', { mediaKind: 'era-art' }), recent, 1)).toBeNull();
+  it('blocks era art anywhere in the media array, not just the tile', () => {
+    const item = { platform: 'instagram', media: ['/social/library/photos/taylor-debut-cma-2006.jpg', '/eras/red.png'] };
+    expect(eraArtGuardReason(item, [])).not.toBeNull();
   });
 
   it('applies to X items with era-art media too, not just Instagram', () => {
