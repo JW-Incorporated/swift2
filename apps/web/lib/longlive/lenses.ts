@@ -10,9 +10,17 @@ import { contentForThread } from './threads';
 /**
  * Presentation metadata for each Thread (formerly "Lens"). The `what` line is
  * the promise we make the instant someone opens a thread — it must answer
- * "where am I and what am I exploring?" in one breath. `hero` is mostly era art
- * so a thread feels as rich as an era; a thread whose subject IS a person can
- * carry its own photo instead. `icon` is resolved in the component.
+ * "where am I and what am I exploring?" in one breath.
+ *
+ * `hero` is a real photograph of the thread's own subject (Joey, 2026-08-13:
+ * "they should all represent their subject matter"). Era album art was the
+ * original stand-in and is now only a fallback — `love-story` keeps one behind
+ * its tile grid. Two rules that come with a photo hero: it is a local file
+ * under `public/threads/`, fetched and downscaled by
+ * `scripts/images/thread-hero.mjs`, and it carries `heroAlt` + `heroCredit`
+ * describing exactly what its source caption claims, no more.
+ *
+ * `icon` is resolved in the component.
  */
 export interface ThreadMeta {
   id: LensId;
@@ -40,6 +48,15 @@ export interface ThreadMeta {
    * (see `threadHeroCredit`).
    */
   heroCredit?: string;
+  /**
+   * The photo's Commons file page. Rendered as the credit's link, because
+   * CC BY 4.0 / CC BY-SA 4.0 §3(a)(1) ask for a URI to the licensed material
+   * "to the extent reasonably practicable" — a credit line naming a licence
+   * with no way to reach it satisfies the habit but not the condition. The
+   * Commons page is the right target: it carries the licence deed link, the
+   * full author record and the original file.
+   */
+  heroSourceUrl?: string;
 }
 
 export const THREADS: ThreadMeta[] = [
@@ -67,6 +84,8 @@ export const THREADS: ThreadMeta[] = [
     heroPosition: '50% 36%',
     heroAlt: 'Travis Kelce, smiling, in a red jacket at the White House in 2023.',
     heroCredit: 'Adam Schultz / The White House · Public domain, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Travis_Kelce_in_the_Oval_Office_of_the_White_House_on_June_5,_2023_-_P20230605AS-0902_(cropped).jpg',
   },
   {
     id: 'love-story',
@@ -84,28 +103,93 @@ export const THREADS: ThreadMeta[] = [
     title: 'The Runway',
     kicker: 'Twelve wardrobes, one story',
     what: 'Walk the runway of every era and watch the looks, colors, and silhouettes tell you who she was becoming.',
-    hero: '/eras/1989.png',
+    // A garment, not a face. The relationship threads above are a portrait and
+    // a wall of portraits, so the fashion thread earns its glance by being the
+    // only hero that is a piece of clothing — and a museum-lit gown reads as
+    // "clothes" at 350px in a way a red-carpet photo of a person does not.
+    // Same sourcing precedent as `look-evermore` below, which already cites a
+    // V&A Songbook Trail costume photo.
+    // https://commons.wikimedia.org/wiki/File:Taylor_Swift_Songbook_Trail_Bejeweled_costume_01.jpg
+    // CC0 (public-domain dedication). Downscaled to 1200px wide by
+    // `scripts/images/thread-hero.mjs`.
+    hero: '/threads/runway-bejeweled-gown.jpg',
+    // Measured with `thread-hero.mjs preview`, not guessed: the card's text
+    // block covers all but the top strip, so a centred crop of a 1200x1830
+    // portrait shows the hem. This lifts the bodice — bows, lace, gold satin —
+    // into the strip that actually reads, at both 4:3 and 16:10.
+    heroPosition: '50% 26%',
+    heroAlt: 'The gold gown Taylor Swift wore in the "Bejeweled" video, displayed on a mannequin at the V&A in London.',
+    heroCredit: '14GTR · CC0, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Taylor_Swift_Songbook_Trail_Bejeweled_costume_01.jpg',
   },
   {
     id: 'taylors-version',
     title: "Taylor's Version",
     kicker: 'Owning the masters',
     what: 'Follow the re-recording campaign, album by album, as she reclaims her life’s work one vault at a time.',
-    hero: '/eras/red.png',
+    // "All Too Well (10 Minute Version)" is the one image of this thread's
+    // subject that exists: a song that had never been released until she owned
+    // the recording, performed as the closer of the Eras Tour's Red act. A
+    // photo of a re-recorded ALBUM COVER would only say "Red"; this says she is
+    // the one singing it now.
+    // https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg
+    // CC BY 2.0 — attribution is a licence condition, and `heroCredit` renders
+    // on the thread detail. The photographer asks to be credited by his full
+    // name (Paolo Villanueva) on his Commons file pages.
+    hero: '/threads/taylors-version-all-too-well.jpg',
+    // She stands low in a tall, mostly-black frame; a centred crop would put
+    // the empty stage in the readable strip. Measured, as above.
+    heroPosition: '50% 82%',
+    heroAlt: 'Taylor Swift performing "All Too Well (10 Minute Version)" in a red sequined coat at the Eras Tour, August 2023.',
+    heroCredit: 'Paolo Villanueva · CC BY 2.0, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg',
   },
   {
     id: 'easter-eggs',
     title: 'The Clue Web',
     kicker: 'The secrets she plants',
-    what: 'Pull the threads between hidden messages, cryptic dates, and their payoffs — the game she plays with fans across eras.',
-    hero: '/eras/midnights.png',
+    // DoD item 3 (docs/definition-of-done.md): this card and The Decode below
+    // read as the same thread. The difference is scale — this one is the whole
+    // map, The Decode is one route through it — so this line now promises
+    // "everything at once" where The Decode's promises a single walkthrough.
+    what: 'The whole game at once — every clue she has planted, the motif trails that link them, and where each one landed.',
+    // The many-nodes half of item 3's "many nodes vs. two points and a gap":
+    // a stadium of light-up wristbands is a real photograph of thousands of
+    // points at once, which is what a clue web looks like. No single subject,
+    // deliberately — The Decode's hero has one.
+    // https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_Minnesota_-_acoustic_set_2.jpg
+    // CC BY 2.0.
+    hero: '/threads/clue-web-wristband-constellation.jpg',
+    // The lit tiers are the top two-thirds of the frame and the dark floor
+    // crowd is the bottom third; this keeps the lights in the readable strip.
+    heroPosition: '50% 18%',
+    heroAlt: 'A stadium of light-up wristbands turned purple around a single spotlit stage at the Eras Tour, Minneapolis, June 2023.',
+    heroCredit: 'Michael Hicks · CC BY 2.0, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_Minnesota_-_acoustic_set_2.jpg',
   },
   {
     id: 'hidden-clues',
     title: 'The Decode',
     kicker: 'One clue, one payoff',
     what: 'Take a single hidden clue and decode it — reveal the payoff it was pointing to, and watch the thread stretch across the months between them.',
-    hero: '/eras/ttpd.png',
+    // The other half of item 3: one clue, close enough to read. "13" inked on a
+    // hand is the most-decoded mark in the catalog and it is legible at
+    // thumbnail size, where the Clue Web's constellation is deliberately a
+    // field of dots. Fans' hands, not Swift's — the caption says so and so does
+    // the alt text; we never upgrade a photo's claim.
+    // https://commons.wikimedia.org/wiki/File:Fans_With_Friendship_Bracelets_at_The_Eras_Tour.png
+    // CC BY-SA 4.0.
+    hero: '/threads/decode-thirteen-on-hands.jpg',
+    // The hands are in the lower half of a portrait frame; this raises them
+    // into the strip the text block leaves uncovered. Measured, as above.
+    heroPosition: '50% 80%',
+    heroAlt: 'Fans at the Eras Tour raising hands with the number 13 inked on them, Gelsenkirchen, July 2024.',
+    heroCredit: 'Sally-Marie Böhm · CC BY-SA 4.0, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Fans_With_Friendship_Bracelets_at_The_Eras_Tour.png',
   },
 ];
 
@@ -187,6 +271,17 @@ export function threadHeroCredit(id: LensId): string | undefined {
     return `Portraits: ${tiles.map((t) => `${t.name} — ${t.credit}`).join('; ')}. Via Wikimedia Commons.`;
   }
   return getThread(id).heroCredit;
+}
+
+/**
+ * Where the credit line links to: the single photo's Commons page, or nothing
+ * for a grid hero (whose credit names several photos and so has no one target)
+ * and for the era-art fallback. Paired with `threadHeroCredit` at the render
+ * site so a licence's attribution URI actually reaches the page.
+ */
+export function threadHeroSourceUrl(id: LensId): string | undefined {
+  if (threadHeroTiles(id).length > 0) return undefined;
+  return getThread(id).heroSourceUrl;
 }
 
 /** A single dated point on a thread's career-spanning timeline. */
