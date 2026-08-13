@@ -102,11 +102,39 @@ function resolveRoot() {
   return process.env.SOCIAL_ROOT || path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 }
 
-async function readJsonDir(dir) {
+/**
+ * Reads every *.json in `dir`.
+ *
+ * `required` (2026-08-12, issue #2031) is the fail-closed switch for the
+ * posted ledger. This helper used to swallow EVERY readdir error and return
+ * `[]` — for social/queue/ that is harmless (nothing to post), but for
+ * social/posted/ it is the same class of bug as the strand that caused the
+ * Instagram triple-post: an unreadable ledger became "nothing was ever
+ * posted", the idempotency check found no duplicate, and the item shipped
+ * AGAIN. A ledger we cannot read is not an empty ledger. With `required`,
+ * an unreadable/absent directory throws, which (main() is invoked bare, so
+ * the rejection is unhandled) exits the run non-zero and RED — the loud
+ * failure #1888 asks for, and nothing posts.
+ *
+ * Note what is deliberately NOT an error: a directory that exists and holds
+ * zero records. That is a legitimate cold-start state (and every unit test's
+ * fixture root). The staleness case it cannot see — records that exist only
+ * on an unmerged state PR — is covered upstream by social-poster.yml's
+ * "refuse while a queue-state PR is open" step, not here.
+ */
+async function readJsonDir(dir, { required = false } = {}) {
   let files;
   try {
     files = (await readdir(dir)).filter((f) => f.endsWith('.json'));
-  } catch {
+  } catch (err) {
+    if (required) {
+      throw new Error(
+        `social-poster: REFUSING TO POST — the posted ledger at ${dir} could not be read (${err.code ?? err.message}). ` +
+          'Every idempotency/dedupe check reads that directory, so an unreadable ledger would look identical to "nothing has ever been posted" and this run would repost live items (issue #2031). ' +
+          'Failing closed instead. Fix the checkout/permissions and re-run.',
+        { cause: err },
+      );
+    }
     return [];
   }
   const out = [];
@@ -259,7 +287,9 @@ export async function main() {
     outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
   }
 
-  const allPosted = await readJsonDir(postedDir);
+  // `required` — fail closed. See readJsonDir's docstring and issue #2031:
+  // this read IS the dedupe source of truth, so it must never degrade to [].
+  const allPosted = await readJsonDir(postedDir, { required: true });
   const allPostedData = allPosted.map((p) => p.data);
   const postedToday = countPostedToday(allPostedData, now);
 
