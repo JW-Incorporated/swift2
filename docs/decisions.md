@@ -9,7 +9,7 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ## 2026-08-12 — Auto-merge allowlist gains `social/posted/` + `social/failed/`; the poster fails closed on a stale ledger
 
-**Decision:** two changes to the social-poster state machinery, after the
+**Decision:** the social-poster state machinery changes, after the
 2026-08-11/12 Instagram triple-post (issue #2031):
 
 1. `.github/content-automerge-allowlist.txt` gains `social/posted/` and
@@ -17,10 +17,26 @@ Format: date, decision, why, alternatives considered, who approved.
    those directories, recording "this already posted / permanently failed")
    auto-merge again the moment `build` is green, as the poster's design has
    always assumed.
-2. `social-poster.yml` refuses to post — loudly, red run — while any
+2. **The grant is append-only.** The enable job declines to a human any PR
+   that deletes, rewrites, or renames-away a record under those paths — the
+   ledger is the input to every duplicate defense, so auto-merge may only ever
+   ADD to it (review hardening on the fix PR).
+3. `social-poster.yml` refuses to post — loudly, red run — while any
    `social-poster/state-*` PR is still open, because the `social/posted/`
-   ledger the dedupe checks read from main is then known-stale. Fail closed:
-   one skipped 30-minute slot instead of N live duplicates.
+   ledger the dedupe checks read from main is then known-stale. Fail closed.
+   Honest cost accounting: in the normal case this is one skipped 30-minute
+   slot (state PRs auto-merge in minutes); a SUSTAINED strand — including one
+   caused by `CONTENT_AUTOMERGE_FREEZE`, a `hold` label, or a red `build` on a
+   state PR — halts all posting until a human merges the stuck PR. That is
+   deliberate: a halted account recovers; live IG duplicates cannot even be
+   deleted via the API. Known secondary effect: items that cross 48h overdue
+   during a long halt are retired to `social/failed/` by the staleness sweep
+   and need requeueing (recoverable; noted in issue #2040).
+4. `SOCIAL_FREEZE` is evaluated first in the workflow, so frozen runs are
+   green no-ops (not false watchdog alarms), and the enable job now runs on
+   `!cancelled()` so a failed check-drafts/guard-code can no longer skip the
+   disarm and let a stale auto-merge arm ride through — plus removed-file
+   handling so renames reported as removed+added can't 404 the draft gate.
 
 **Why:** the poster records posting state via an auto-merging PR, but the
 allowlist only ever listed `social/queue/`. Before PR #1900 that mismatch was
