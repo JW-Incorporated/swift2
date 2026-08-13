@@ -2,7 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { validateQueueItem, PLATFORM_RULES } from './queue-schema.mjs';
 
 const validX = { platform: 'x', body: 'a real tweet', scheduledAt: '2026-08-12T23:00:00Z' };
-const validIg = { platform: 'instagram', body: 'a real caption', media: ['/eras/red.png'], scheduledAt: '2026-08-12T23:00:00Z' };
+const validIg = {
+  platform: 'instagram',
+  body: 'a real caption',
+  media: ['/social/library/mood-chat-screen.png'],
+  mediaKind: 'site-screen',
+  scheduledAt: '2026-08-12T23:00:00Z',
+};
 
 const findingFor = (item: unknown, needle: string | RegExp) =>
   validateQueueItem(item).find((f) => (typeof needle === 'string' ? f.includes(needle) : needle.test(f)));
@@ -95,14 +101,37 @@ ${url}`;
 
     it('allows media on X up to the 4-image tweet cap', () => {
       expect(PLATFORM_RULES.x.media).toBe('optional');
-      expect(validateQueueItem({ ...validX, media: ['/social/library/a.png'] })).toEqual([]);
+      expect(validateQueueItem({ ...validX, media: ['/social/library/a.png'], mediaKind: 'site-screen' })).toEqual([]);
       const five = Array.from({ length: 5 }, (_, i) => `/social/${i}.png`);
       expect(findingFor({ ...validX, media: five }, 'media:')).toContain("exceeds x's limit of 4");
     });
 
-    it('accepts a declared era-art item and rejects an unknown mediaKind', () => {
+    it('accepts every defined mediaKind and rejects an unknown one', () => {
       expect(validateQueueItem({ ...validIg, mediaKind: 'era-art' })).toEqual([]);
+      expect(validateQueueItem({ ...validIg, mediaKind: 'site-screen' })).toEqual([]);
+      expect(validateQueueItem({ ...validIg, mediaKind: 'photo', mediaCredit: 'Someone/Getty Images', mediaSource: 'https://example.com' })).toEqual([]);
       expect(findingFor({ ...validIg, mediaKind: 'real-photo' }, 'mediaKind:')).toBeDefined();
+    });
+
+    // The Taylor-photo standard (2026-08-12): a photo always ships credited
+    // and auditable, and queue media always declares what it is.
+    it('requires mediaCredit AND mediaSource on mediaKind "photo"', () => {
+      expect(findingFor({ ...validIg, mediaKind: 'photo' }, 'mediaCredit:')).toBeDefined();
+      expect(findingFor({ ...validIg, mediaKind: 'photo' }, 'mediaSource:')).toBeDefined();
+      expect(findingFor({ ...validIg, mediaKind: 'photo', mediaCredit: '  ' }, 'mediaCredit:')).toBeDefined();
+      expect(findingFor({ ...validIg, mediaKind: 'photo', mediaCredit: 'c', mediaSource: 'https://x' }, 'media')).toBeUndefined();
+    });
+
+    it('requires a mediaKind whenever media is present', () => {
+      const noKind = { ...validIg, mediaKind: undefined };
+      expect(findingFor(noKind, 'mediaKind: required')).toBeDefined();
+      // text-only X items carry no media and need no kind
+      expect(validateQueueItem(validX)).toEqual([]);
+    });
+
+    it('validates mediaCredit/mediaSource shape when present', () => {
+      expect(findingFor({ ...validIg, mediaCredit: 5 }, 'mediaCredit:')).toBeDefined();
+      expect(findingFor({ ...validIg, mediaSource: '' }, 'mediaSource:')).toBeDefined();
     });
 
     it('requires site-absolute paths', () => {

@@ -7,6 +7,8 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 - [entry removed 2026-08-15; retained in the offline retention archive]
+
 ## 2026-08-12 — The Videos rail is Taylor on screen only (supersedes the appearance-family wording below)
 
 **Decision:** an appearance record requires **Taylor herself as the on-screen

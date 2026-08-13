@@ -375,27 +375,77 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('does not exist'))).toBe(true);
   });
 
-  it('flags undeclared era art (era-cover path with no mediaKind)', async () => {
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/eras/red.png'] }, []);
-    expect(findings.some((f) => f.includes('mediaKind'))).toBe(true);
+  // ── The Taylor-photo standard (2026-08-12): era tiles are banned outright,
+  //    declared or not — there is no fallback path back to the generic grid. ──
+  it('flags era art even when DECLARED — the era-tile fallback no longer exists', async () => {
+    for (const item of [
+      { platform: 'instagram', media: ['/eras/red.png'] },
+      { platform: 'instagram', media: ['/eras/red.png'], mediaKind: 'era-art' },
+    ]) {
+      const findings = await checkMedia('a.json', item, []);
+      expect(findings.some((f) => f.includes('no longer allowed')), JSON.stringify(item)).toBe(true);
+    }
   });
 
-  it('passes declared era art not in the recent-posted window', async () => {
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/eras/red.png'], mediaKind: 'era-art' }, []);
+  // A real committed corpus photo (this PR ships it) — the compliant tile.
+  const CORPUS_PHOTO = '/social/library/photos/taylor-debut-cma-2006.jpg';
+
+  it('flags a non-era dedicated photo that repeats the recent-posted window', async () => {
+    const recentIg = [{ platform: 'instagram', media: [CORPUS_PHOTO], postedAt: '2026-08-01T00:00:00Z' }];
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'c', mediaSource: 's' }, recentIg);
+    expect(findings.some((f) => f.includes('repeats'))).toBe(true);
+  });
+
+  it('flags a media path that is also scheduled in another queue item', async () => {
+    const other = { file: 'b.json', data: { platform: 'instagram', media: [CORPUS_PHOTO] } };
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'c', mediaSource: 's' }, [], [other]);
+    expect(findings.some((f) => f.includes('also scheduled in b.json'))).toBe(true);
+  });
+
+  it('requires a declared mediaKind on any draft with media', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO] }, []);
+    expect(findings.some((f) => f.includes('no declared `mediaKind`'))).toBe(true);
+  });
+
+  it('requires mediaCredit AND mediaSource on a photo tile', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo' }, []);
+    expect(findings.some((f) => f.includes('requires `mediaCredit`'))).toBe(true);
+    expect(findings.some((f) => f.includes('requires `mediaSource`'))).toBe(true);
+  });
+
+  it('accepts a credited, sourced corpus photo tile with no findings', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', mediaCredit: 'Someone/Getty Images', mediaSource: 'https://example.com/photo' },
+      [],
+    );
     expect(findings).toEqual([]);
   });
 
-  it('flags declared era art that repeats the recent-posted window', async () => {
-    const recentIg = [{ platform: 'instagram', media: ['/eras/red.png'], postedAt: '2026-08-01T00:00:00Z' }];
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/eras/red.png'], mediaKind: 'era-art' }, recentIg);
-    expect(findings.some((f) => f.includes('repeats'))).toBe(true);
+  // PR #2043 review: the declared kinds are PATH-BOUND, so neither can be
+  // used to launder the other — a screenshot can't become a credited "photo",
+  // and a real photo can't ship uncredited as a "site-screen".
+  it('a photo tile must live under /social/library/photos/ — a screenshot cannot be declared a photo', async () => {
+    const findings = await checkMedia(
+      'a.json',
+      { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'photo', mediaCredit: 'Fake Person/Nowhere', mediaSource: 'https://example.com' },
+      [],
+    );
+    expect(findings.some((f) => f.includes('must live under /social/library/photos/'))).toBe(true);
   });
 
-  it('flags a non-era dedicated photo that repeats the recent-posted window', async () => {
-    const dedicated = '/social/2026-07-17-electric-lady-1.png'; // a real, committed, non-era-art file
-    const recentIg = [{ platform: 'instagram', media: [dedicated], postedAt: '2026-08-01T00:00:00Z' }];
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: [dedicated] }, recentIg);
-    expect(findings.some((f) => f.includes('repeats'))).toBe(true);
+  it('site-screen tiles must live under /social/library/ but NOT under the photo corpus', async () => {
+    const ok = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
+    expect(ok).toEqual([]);
+    for (const tile of ['/social/2026-07-17-electric-lady-1.png', CORPUS_PHOTO]) {
+      const bad = await checkMedia('a.json', { platform: 'instagram', media: [tile], mediaKind: 'site-screen' }, []);
+      expect(bad.some((f) => f.includes('must be a committed product screenshot')), tile).toBe(true);
+    }
+  });
+
+  it('mediaKind "era-art" is rejected on drafts even for a non-era tile', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'era-art' }, []);
+    expect(findings.some((f) => f.includes('no longer allowed on drafts'))).toBe(true);
   });
 
   it('flags an X draft with more than MAX_X_IMAGES', async () => {
@@ -429,8 +479,8 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('does not exist'))).toBe(true);
   });
 
-  it('accepts a real, existing .png file with no findings', async () => {
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/eras/red.png'], mediaKind: 'era-art' }, []);
+  it('accepts a real, existing screenshot file under the declared standard', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
     expect(findings).toEqual([]);
   });
 });

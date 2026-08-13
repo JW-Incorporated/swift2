@@ -38,10 +38,13 @@
 //   - media         — IG drafts must have media; every media path must
 //                     exist under apps/web/public/, be a .png/.jpg/.jpeg
 //                     (the only formats this pipeline ever produces or
-//                     uploads to X); generic era-cover art needs
-//                     "mediaKind": "era-art" and must not repeat the last 10
-//                     posted Instagram items; non-era media must not repeat
-//                     them either.
+//                     uploads to X); media must not repeat the last 10
+//                     posted Instagram items. THE TAYLOR-PHOTO STANDARD
+//                     (2026-08-12): generic era tiles are banned outright,
+//                     and every draft with media must declare mediaKind —
+//                     "photo" (a real credited photograph of Taylor, with
+//                     mediaCredit + mediaSource) or "site-screen" (a
+//                     deliberate product screenshot under /social/library/).
 //
 // Usage:
 //   node scripts/social/check-drafts.mjs                    # checks every file in social/queue/
@@ -84,6 +87,10 @@ const PAIRED_LOOKING_FLOOR = 0.15;
 const ERA_ART_LOOKBACK = 10;
 const RECOGNIZED_PLATFORMS = new Set(['x', 'instagram']);
 const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
+// Where rehosted real photographs of Taylor live (the 2026-08-12 standard).
+// mediaKind "photo" is path-bound to this prefix, and "site-screen" is barred
+// from it — see the kind checks in checkMedia.
+const PHOTO_PREFIX = '/social/library/photos/';
 
 // X's own length limit — see checkLength/weightedTweetLength below for the
 // full story. HARD_LIMIT is X's real cap; anything past it gets rejected
@@ -310,7 +317,7 @@ export function checkLength(item) {
   return [];
 }
 
-export async function checkMedia(file, item, recentIgPosted) {
+export async function checkMedia(file, item, recentIgPosted, allQueueItems = []) {
   const findings = [];
   if (item.platform === 'instagram' && !item.media?.length) {
     findings.push('media: Instagram drafts require at least one image in `media`.');
@@ -330,17 +337,70 @@ export async function checkMedia(file, item, recentIgPosted) {
       findings.push(`media: "${mediaPath}" does not exist under apps/web/public/ — commit it in this PR.`);
       continue;
     }
+    // ── THE TAYLOR-PHOTO STANDARD (2026-08-12, Joey's call — see
+    //    social/README.md's mediaKind section). Generic era tiles are DEAD as
+    //    draft media, full stop: on 2026-08-06 ALL 17 posted IG items were
+    //    era tiles, and after the 2026-08-11/12 incident Joey's verdict was
+    //    "we are a Taylor Swift fan site whose social media has no pictures
+    //    of Taylor Swift." There is no declared-fallback path anymore —
+    //    a draft either ships a real credited photograph (mediaKind
+    //    "photo") or a deliberate product screenshot (mediaKind
+    //    "site-screen"). No tag, no merge. ──────────────────────────────────
     if (isGenericEraArt(mediaPath)) {
-      if (item.mediaKind !== 'era-art') {
-        findings.push(
-          `media: "${mediaPath}" is generic era-cover art but the draft is missing "mediaKind": "era-art" — source a real dedicated photo, or add the tag if the fallback is genuinely intended.`,
-        );
-      } else if (repeatsRecentIgMedia(mediaPath, recentIgPosted, ERA_ART_LOOKBACK)) {
-        findings.push(`media: "${mediaPath}" (declared era art) repeats one of the last ${ERA_ART_LOOKBACK} posted Instagram items.`);
-      }
-    } else if (repeatsRecentIgMedia(mediaPath, recentIgPosted, ERA_ART_LOOKBACK)) {
+      findings.push(
+        `media: "${mediaPath}" is a generic era-cover tile — era art is no longer allowed as post media at all (2026-08-12 standard). ` +
+          'Use a real credited photograph of Taylor from the sourced corpus (supabase/seed/content/** moment.photos / lenses.ts), rehosted under /social/library/photos/.',
+      );
+      continue;
+    }
+    if (repeatsRecentIgMedia(mediaPath, recentIgPosted, ERA_ART_LOOKBACK)) {
       findings.push(
         `media: "${mediaPath}" repeats one of the last ${ERA_ART_LOOKBACK} posted Instagram items' media — even a dedicated photo shouldn't ship twice that soon.`,
+      );
+    }
+    // Queue-vs-queue: a SCHEDULED future repeat is invisible to the
+    // posted-window check above until it's too late (PR #2043 review — two
+    // queued IG items four days apart shared a screenshot and both passed).
+    const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).includes(mediaPath));
+    if (alsoQueuedIn) {
+      findings.push(
+        `media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file} — two queued items may not share media; the repeat would land inside the recent-posted window by construction.`,
+      );
+    }
+  }
+
+  // The tile (media[0] — what the Instagram grid and the X card actually
+  // show) must carry a DECLARED kind, and each kind is bound to ITS OWN path
+  // prefix (PR #2043 review: without the path binding, any committed image
+  // could be laundered as a "photo" with a fabricated credit string, and a
+  // real photo declared "site-screen" would ship uncredited).
+  if (item.media?.length && !isGenericEraArt(item.media[0])) {
+    const tile = String(item.media[0]);
+    if (item.mediaKind === 'photo') {
+      if (!tile.startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: mediaKind "photo" tile "${tile}" must live under ${PHOTO_PREFIX} — the rehosted, credited Taylor-photo corpus. A screenshot or other asset cannot be declared a photo.`,
+        );
+      }
+      if (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '') {
+        findings.push('media: mediaKind "photo" requires `mediaCredit` — a real photograph of Taylor always ships with its photographer/agency credit.');
+      }
+      if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
+        findings.push('media: mediaKind "photo" requires `mediaSource` — record where the photo came from so the credit is auditable.');
+      }
+    } else if (item.mediaKind === 'site-screen') {
+      if (!tile.startsWith('/social/library/') || tile.startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: mediaKind "site-screen" tile "${tile}" must be a committed product screenshot under /social/library/ (and NOT under ${PHOTO_PREFIX} — a real photo must be declared "photo" so its credit is required).`,
+        );
+      }
+    } else if (item.mediaKind === 'era-art') {
+      findings.push(
+        'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo" or "site-screen".',
+      );
+    } else {
+      findings.push(
+        `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real credited photograph of Taylor, with mediaCredit + mediaSource) or "site-screen" (deliberate product screenshot). Undeclared media is how the account drifted to a Taylor-free grid.`,
       );
     }
   }
@@ -405,7 +465,7 @@ export async function checkDraft(target, { allQueue, openerContext, recentIg }) 
     ...checkOpeners(target.file, target.data, openerContext),
     ...checkCrossPostCopy(target.file, target.data, allQueue),
     ...checkLength(target.data),
-    ...(await checkMedia(target.file, target.data, recentIg)),
+    ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
   ];
 }
 

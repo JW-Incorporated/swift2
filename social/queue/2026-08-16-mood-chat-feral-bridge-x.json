@@ -1,7 +1,0 @@
-{
-  "platform": "x",
-  "body": "\"feral about a bridge\" is one of Mood’s ten starter chips. tap it, and:\n\ngetaway car\nis it over now?\nthe other side of the door\nthe story of us\nall too well (10 minute version)\n\nno notes.\n\nlonglivets.com/?utm_source=x&utm_medium=social&utm_campaign=mood-chat",
-  "scheduledAt": "2026-08-16T23:30:00Z",
-  "campaign": "launch:mood-chat",
-  "why": "Calendar slot 2026-08-16 23:30Z X, launch:mood-chat example-output sibling — \"the result as a plain list in ≤280, structurally different from the IG post\". Made genuinely different rather than trimmed: a different chip, a different result set, and a bare list with no one-liners, so the sibling-similarity check and X’s duplicate-content 403 both have nothing to catch. The result is real — the hand-tuned \"feral about a bridge\" vector was run against the live www.longlivets.com/api/mood endpoint on 2026-08-11 and returned Getaway Car, Is It Over Now?, The Other Side of the Door, The Story of Us, All Too Well (10 Minute Version). Chip label quoted verbatim (approved copy). All five come from scored eras. mood-starters.ts documents this chip as the set’s deepest cut — the one that signals we know you — which is why it carries the example slot on X. No media: X image posting has not landed."
-}
