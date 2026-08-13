@@ -7,6 +7,88 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — `video_work.kind` grows an APPEARANCE family; the era Videos rail gains a filter
+
+**Decision:** `VIDEO_KINDS` gains four values — `interview`, `award_speech`,
+`speech`, `press_event` — forming an "appearance" family beside the existing
+"works" family (`music_video` … `performance`). The era filter row gains a
+**Videos** chip: a second, mutually-exclusive filter axis that shows everything
+watchable in the era.
+
+**Why:** PR #2035 researched and oEmbed-verified 31 YouTube appearances and put
+them on the era timelines, but only 2 could reach the Videos surface — the enum
+described only things Taylor *made*, so a Grammy speech, a Fallon couch and a
+red carpet had nowhere honest to sit. Joey's bar for the program is that the
+appearances are "live in their appropriate place in the eras, sortable by a
+'videos' filter", and the enum was the thing in the way. 19 of the remaining 29
+now reach the rail.
+
+**Why four values, not one per venue:** a talk show, a podcast and a radio
+sit-down are the same object to a reader (`interview`); a premiere Q&A, a red
+carpet and a news-segment reveal are all publicity (`press_event`). `speech`
+stays separate from `award_speech` because a 20-minute commencement address and
+"thanks, holding a trophy" read as different records. A ten-value long tail
+(`talk_show`, `podcast`, `radio`, `red_carpet`, `news_segment`…) would have
+been authoring overhead with no reader payoff.
+
+**Alternatives considered:**
+- *Stretch `performance` to cover speeches.* Rejected — the rail would promise
+  a performance and deliver a podium. Dishonest labelling is the failure mode
+  this taxonomy exists to prevent.
+- *A separate `appearance` table/surface.* Rejected — same shape, same sourcing
+  rules, same rail; a second pipeline to maintain for no user-visible gain.
+- *One flat `appearance` kind.* Rejected — the card's only metadata line is the
+  kind label, so collapsing it loses the one word that tells a fan what they're
+  about to watch.
+- *Make Videos a sixth ContentTag.* Rejected — tags belong to moments; a video
+  record carries none, so "Fashion + Videos" would be an intersection the data
+  cannot honestly produce. Hence a separate, exclusive axis.
+
+**What did NOT change:** the `officialUrl` rule. An appearance ships only when
+the upload belongs to the channel that owns the footage (the show, network,
+awards body, or the outlet that filmed it). 10 of the 31 appearances therefore
+still cannot reach the rail — their only surviving copy is a fan archive, or no
+upload exists at all. They remain timeline moments with a source link. A fan
+re-upload is never an `officialUrl`, however long it has been alive.
+
+**Migration:** `supabase/migrations/20260812120000_video_work_appearance_kinds.sql`
+widens the CHECK constraint. It is **written, not applied** — applying is a
+founder/Wyatt action (`db:*` writes to prod).
+
+**Codex review (2026-08-12), and one disagreement left open for the founders:**
+- *Enum mirrors:* consistent across all five sites. No finding.
+- *`NOT VALID` + `VALIDATE CONSTRAINT` for the migration:* **not adopted**, with
+  the reasoning written into the migration. That pattern moves a validation scan
+  out of the ACCESS EXCLUSIVE window, but `migrate.mjs` sends a file as one
+  query, so both statements would sit in the same implicit transaction and hold
+  the lock regardless — and a WIDENED predicate is a superset of the old one, so
+  no existing row can fail it. Recorded so a future narrowing migration knows it
+  *does* need the two-step.
+- *Provenance overclaim:* Codex was right that the VMA 2024 record's note
+  implied Access Hollywood owns the ceremony footage. It doesn't — MTV does.
+  The note now states only the verified fact (a broadcaster's own upload, not a
+  fan re-upload), which is what the rule actually requires.
+- *Open disagreement — the TODAY Person of the Year record:* Codex reads it as
+  mislabelled, because the event is Time's editor making an announcement rather
+  than Taylor appearing. Fair. Two defensible fixes: delete the record, or fix
+  the definition. **This change fixed the definition** — the card states exactly
+  what it is, the footage is something a fan wants, and deleting verified,
+  watchable content to protect a one-sentence definition is the worse product
+  outcome. The family is now "an era moment as it played out in someone else's
+  programming", with general commentary about her explicitly still excluded.
+  **If Joey or Wyatt disagrees, the fix is one deleted record**, not a redesign.
+
+**Approved by:** proposed by the 2026-08-12 engineering session (ENGINE lane);
+**pending Wyatt (CTO)** — schema + taxonomy sign-off, and Joey on whether the
+appearance vocabulary reads right to a fan.
+
+**Related, same day:** the appearance *discovery* lane below finds new
+appearances going forward; this entry is what lets them be represented once
+found. The two were written by parallel sessions and are complementary — a
+discovered talk-show appearance now has a `kind` to land under.
+
+---
+
 ## 2026-08-12 — Appearance discovery: YouTube channel RSS, not the Data API
 
 **Decision:** the content engine gains a standing discovery lane that finds new

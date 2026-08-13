@@ -40,6 +40,8 @@ const embed = (id) => ({
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
+import { appearance, pressSource, upload, wikiSource } from './_appearance-helpers.mjs';
+
 export default {
   eraSlug: 'lover',
   videos: [
@@ -172,5 +174,82 @@ export default {
         ),
       ],
     },
+    // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
+    appearance({
+      slug: 'vmas-video-of-the-year-2019',
+      kind: 'award_speech',
+      title: "Accepting Video of the Year for 'You Need to Calm Down' — 2019 VMAs",
+      releasedOn: '2019-08-26',
+      summary:
+        "'You Need to Calm Down' wins Video of the Year, and she uses the podium to point back at the Equality Act petition the video ends on — noting from the stage that the White House had not responded to it.",
+      youtubeId: '8z4icNgFSPI',
+      channel: 'MTV',
+      sources: [
+        upload({
+          youtubeId: '8z4icNgFSPI',
+          title: 'Taylor Swift Wins Video of the Year | 2019 Video Music Awards',
+          channel: 'MTV',
+        }),
+        pressSource(
+          'https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech',
+          'Taylor Swift calls out White House during VMAs acceptance speech',
+          'CBS News',
+          'reports the Equality Act petition callout from the stage',
+        ),
+      ],
+    }),
+    appearance({
+      slug: 'amas-artist-of-the-decade-2019',
+      kind: 'award_speech',
+      title: 'Accepting Artist of the Decade — 2019 American Music Awards',
+      releasedOn: '2019-11-24',
+      summary:
+        'Carole King hands her Artist of the Decade — one of the wins that night that carried her to a record 29 American Music Awards.',
+      youtubeId: '0pbSQ_0qbqU',
+      channel: 'American Music Awards',
+      sources: [
+        upload({
+          youtubeId: '0pbSQ_0qbqU',
+          title: 'Taylor Swift wins the Artist of the Decade Award  I  AMAs 2019',
+          channel: 'American Music Awards',
+        }),
+        pressSource(
+          'https://www.billboard.com/music/awards/taylor-swift-artist-decade-speech-2019-amas-8544659/',
+          "Taylor Swift's Artist of the Decade Speech at the 2019 AMAs",
+          'Billboard',
+          "documents the presentation by Carole King and the night's wins",
+        ),
+      ],
+    }),
+    appearance({
+      slug: 'sundance-miss-americana-qa-2020',
+      kind: 'press_event',
+      title: 'Miss Americana — Sundance world-premiere Q&A',
+      releasedOn: '2020-01-23',
+      summary:
+        'Miss Americana opens Sundance, and Taylor joins director Lana Wilson on stage afterwards for the festival Q&A — days before the documentary landed on Netflix.',
+      youtubeId: 'JqIt0H6XqpA',
+      channel: 'Scott D. Menzel',
+      // NOT a re-upload, and not a broadcaster either: a film journalist's own
+      // recording of the public Q&A, published on his own channel. That is why
+      // it earns an officialUrl (nobody else's footage is being redistributed)
+      // but is typed `video` at reliability 3 rather than `official` 5.
+      attribution: "Scott D. Menzel — the journalist's own festival footage",
+      sources: [
+        upload({
+          youtubeId: 'JqIt0H6XqpA',
+          title: 'Taylor Swift: Miss Americana - Sundance 2020 World Premiere Q&A',
+          channel: 'Scott D. Menzel',
+          sourceType: 'video',
+          reliability: 3,
+          note: "first-party festival footage filmed and uploaded by the journalist himself (not a re-upload of anyone else's broadcast) — oEmbed-verified 2026-08-12",
+        }),
+        wikiSource(
+          'https://en.wikipedia.org/wiki/Miss_Americana',
+          'Miss Americana',
+          'anchors the Sundance opening-night premiere and the Netflix release date',
+        ),
+      ],
+    }),
   ],
 };

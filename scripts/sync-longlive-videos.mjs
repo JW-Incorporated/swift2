@@ -40,7 +40,8 @@ const VIDEO_COLS =
   'era_slug,slug,kind,title,director,released_on,related_songs,summary,easter_eggs,symbolism,official_url,media,sources';
 const MAX_ROWS = 2000;
 
-/** Mirrors VIDEO_KINDS in packages/shared/src/vault-types.ts. */
+/** Mirrors VIDEO_KINDS in packages/shared/src/vault-types.ts — works first,
+ * then the appearance family (interview/award_speech/speech/press_event). */
 export const VIDEO_KIND_VALUES = new Set([
   'music_video',
   'lyric_video',
@@ -48,6 +49,10 @@ export const VIDEO_KIND_VALUES = new Set([
   'tour_film',
   'documentary',
   'performance',
+  'interview',
+  'award_speech',
+  'speech',
+  'press_event',
 ]);
 
 const trimmed = (v) => (typeof v === 'string' ? v.trim() : '');

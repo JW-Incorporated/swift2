@@ -15,12 +15,25 @@ import type { MomentVideo as MomentVideoData } from '@/lib/longlive/types';
 export function MomentVideo({
   video,
   caption = `Official music video · ${video.title} · YouTube`,
+  playNoun = 'music video',
   className = 'mt-8',
 }: {
   video: MomentVideoData;
   /** Figcaption text; pass null to render the embed with no caption (the
    * surrounding card already names the work, e.g. EraVideos). */
   caption?: string | null;
+  /**
+   * The noun the play button announces ("Play {playNoun}: {title}").
+   *
+   * Defaults to 'music video' because that was this facade's only job until
+   * 2026-08-12. It now also carries the appearance family (interviews, award
+   * speeches, press events), and a screen-reader user meeting an interview
+   * would otherwise hear "Play music video: The Graham Norton Show" — the same
+   * misnomer the Videos rail heading was reworded to avoid, surviving in the
+   * one label a sighted user never sees. Callers rendering a video record pass
+   * its kind label; moment/track embeds keep the default.
+   */
+  playNoun?: string;
   className?: string;
 }) {
   const [playing, setPlaying] = useState(false);
@@ -46,7 +59,7 @@ export function MomentVideo({
             type="button"
             onClick={() => setPlaying(true)}
             className="group absolute inset-0 h-full w-full"
-            aria-label={`Play music video: ${video.title}`}
+            aria-label={`Play ${playNoun}: ${video.title}`}
           >
             <Image
               src={`https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`}

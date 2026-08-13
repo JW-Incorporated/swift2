@@ -78,12 +78,18 @@ const SIGNIFICANCE_VALUES = new Set(['defining', 'notable']);
 // migration CHECK constraints.
 const RELEASE_KINDS = new Set(['album', 'rerecording', 'ep', 'deluxe', 'single', 'live']);
 const VIDEO_KINDS = new Set([
+  // Works she made or headlined.
   'music_video',
   'lyric_video',
   'short_film',
   'tour_film',
   'documentary',
   'performance',
+  // Appearances — her, as herself, in someone else's programming (2026-08-12).
+  'interview',
+  'award_speech',
+  'speech',
+  'press_event',
 ]);
 const THEORY_KINDS = new Set(['easter_egg', 'theory']);
 const THEORY_CONFIDENCE = new Set([
