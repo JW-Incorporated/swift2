@@ -19,7 +19,6 @@ import {
   AlertTriangle,
   type LucideIcon,
   Clapperboard,
-  Play,
   X,
 } from 'lucide-react';
 import { useAppActions, useAppState, useProgress } from '@/lib/longlive/store';
@@ -39,7 +38,7 @@ import { formatMonthYear } from '@/lib/longlive/format';
 import { EraMedia } from './EraMedia';
 import { EraSecretCard } from './EraSecretCard';
 import { EraVideos } from './EraVideos';
-import { MomentVideo } from './MomentVideo';
+import { MomentVideo, VideoPoster } from './MomentVideo';
 import { SignificanceBadge } from './SignificanceBadge';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, tagsPresent } from '@/lib/longlive/tagBadges';
@@ -52,7 +51,7 @@ import {
   watchableCount,
   undatedAnchorDate,
 } from '@/lib/longlive/era-feed';
-import { feedVideoFor } from '@/lib/longlive/video-affordance';
+import { cardImageDuplicatesVideo, feedVideoFor } from '@/lib/longlive/video-affordance';
 import {
   focalPointOf,
   hasRealPrimaryImage,
@@ -60,7 +59,7 @@ import {
   primaryImageRef,
 } from '@/lib/longlive/types';
 import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
-import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
+import { assignFeedTiers, withInlineVideoTiers, type CardTier } from '@/lib/longlive/feed-tiers';
 import {
   TIER_BODY,
   TIER_BOX,
@@ -136,7 +135,15 @@ export function EraSection({ era }: { era: Era }) {
   // Card silhouette per item — recomputed against whatever's actually on
   // screen (so filtering doesn't reference invisible items), but a pure
   // function of that list's ids, so it's stable across re-renders.
-  const tiers = useMemo(() => assignFeedTiers(visible), [visible]);
+  //
+  // `withInlineVideoTiers` then floors the cards that actually play a video at
+  // `media` (#2080): the full-width poster every video now renders through
+  // cannot sit under a 56px `chip` row or inside the no-photo `text` breather
+  // without destroying the silhouette that IS that tier. See feed-tiers.ts.
+  const tiers = useMemo(
+    () => withInlineVideoTiers(assignFeedTiers(visible), videoOwnerIds),
+    [visible, videoOwnerIds],
+  );
 
   // Music videos duplicated into the main timeline (issue #439), dated to
   // their release date, alongside — not instead of — the EraVideos rail
@@ -645,89 +652,6 @@ function VideoMomentCard({
   );
 }
 
-/**
- * The era feed's play affordance for a MOMENT that carries footage (#2051,
- * re-shaped by #2057).
- *
- * Joey's report was that he couldn't predict which cards play: a video record
- * embeds its poster right in the feed, while a moment carrying the same kind of
- * footage looked exactly like a moment carrying none — the Videos filter would
- * return both, interleaved, with nothing on the card telling them apart. This
- * is the tell.
- *
- * #2055 shipped it as a text pill. It worked, and Joey still scrolled past four
- * of them in a row, because it rendered OUTSIDE the card's border (see
- * card-chrome.ts) and because a small ghost pill is not the vocabulary a reader
- * scans for. Both halves are fixed here: the affordance now lives inside the
- * box, and it speaks the same language as the video-record cards below it — the
- * video's own YouTube poster with a play glyph on it. A compact 16:9 thumbnail
- * rather than a full-width one, so a story card carrying footage doesn't turn
- * into a second video player and double its height.
- *
- * Constraints, all carried over from #2051:
- *  - It is a SIBLING of the card's own <button>, never nested inside it. Nested
- *    interactive elements break screen readers, and the card's job (open the
- *    story) has to survive alongside this one's job (play here).
- *  - The tap target clears 44px (#2051 AC4): the poster alone is 54px tall.
- *  - No transform/scale on hover. The site's global prefers-reduced-motion rule
- *    (globals.css) neutralizes transition DURATION, not the transform itself, so
- *    a color-only hover is the version that genuinely respects the preference
- *    rather than merely appearing to.
- *  - The poster is a plain thumbnail image, not an iframe: the #1935
- *    click-to-load posture is unchanged, nothing from YouTube's player loads
- *    until this button is pressed.
- */
-function PlayPoster({
-  video,
-  onPlay,
-}: {
-  video: { youtubeId: string; title: string };
-  onPlay: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onPlay}
-      /* Same phrasing as MomentVideo's own facade, so a screen-reader user
-         meets one consistent sentence for "there is a video here". */
-      aria-label={`Play video: ${video.title}`}
-      className="era-card-2 group/play flex w-full items-center gap-3 p-2 text-left transition hover:border-[color:var(--era-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
-    >
-      <span className="relative aspect-video w-24 shrink-0 overflow-hidden rounded-md">
-        <Image
-          src={`https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`}
-          alt=""
-          fill
-          sizes="96px"
-          className="object-cover"
-          unoptimized
-        />
-        <span aria-hidden className="absolute inset-0 bg-black/25 transition group-hover/play:bg-black/10" />
-        <span
-          aria-hidden
-          className="absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-lg"
-          style={{ backgroundColor: 'var(--era-accent)' }}
-        >
-          <Play
-            className="h-4 w-4 translate-x-px"
-            style={{ color: 'var(--era-bg)' }}
-            fill="currentColor"
-          />
-        </span>
-      </span>
-      <span className="min-w-0">
-        <span className="block text-sm font-semibold">Play video</span>
-        {/* The work's own name, so the reader knows WHAT plays before tapping —
-            the pill only ever said "Play video". Truncated: seed titles run to
-            "Taylor Swift - Elizabeth Taylor (Official Music Video)". */}
-        <span className="mt-0.5 block truncate text-xs text-[color:var(--era-ink-soft)]">
-          {video.title}
-        </span>
-      </span>
-    </button>
-  );
-}
-
 /** Date/tags/clue/seen row shared by every card tier. */
 function MomentMeta({
   item,
@@ -825,6 +749,23 @@ function TagRow({ tags }: { tags: ContentTag[] }) {
  * right here in the feed; tap anywhere else on the card and the story opens,
  * exactly as before.
  *
+ * The affordance IS `VideoPoster` — the same component the video-record cards
+ * render (#2080). One video treatment in the feed: full-width 16:9, the video's
+ * own thumbnail, one big centered accent glyph, whatever kind of card it hangs
+ * on. #2063's compact 96px "Play video" row is gone; Joey rejected it on his
+ * phone precisely because a second vocabulary for "this plays" leaves the reader
+ * still having to learn which cards do.
+ *
+ * `hideImage` is the other half of that uniformity, and it is not cosmetic: 8 of
+ * the 16 moments carrying footage have the video's OWN thumbnail as their photo
+ * (Photo Enrichment reached for it because the moment IS the video). Rendering
+ * both would print the same frame twice inside one card — for two of them the
+ * card photo is the byte-identical url the poster requests. So when the photo is a frame of
+ * the video being played, the poster takes the image slot instead of joining it,
+ * and the card lands on exactly the video-record shape Joey pointed at: text
+ * above, big poster below. A photo from anywhere else is a different picture and
+ * is kept. See `cardImageDuplicatesVideo`.
+ *
  * They are siblings INSIDE THE CARD'S BOX, which is the #2057 fix: the box is
  * drawn by the wrapper below (TIER_BOX), not by the button, so an affordance
  * rendered beside the button still lands within the border instead of floating
@@ -884,7 +825,12 @@ function MomentCard({
           play affordance below can be a SIBLING of the button and still render
           inside the border (#2057 — see card-chrome.ts). */}
       <div className={TIER_BOX[tier]} style={TIER_BOX_STYLE[tier]}>
-        <MomentCardButton item={item} tier={tier} onOpen={onOpen} />
+        <MomentCardButton
+          item={item}
+          tier={tier}
+          hideImage={video ? cardImageDuplicatesVideo(item, video) : false}
+          onOpen={onOpen}
+        />
         {video && (
           <div className={TIER_FOOTER[tier]}>
             {playing ? (
@@ -903,7 +849,7 @@ function MomentCard({
                 </button>
               </>
             ) : (
-              <PlayPoster video={video} onPlay={() => setPlaying(true)} />
+              <VideoPoster video={video} onPlay={() => setPlaying(true)} />
             )}
           </div>
         )}
@@ -921,19 +867,27 @@ function MomentCard({
  * padding but deliberately NO surface/border/radius: the box belongs to the
  * wrapper in `MomentCard`, so that whatever renders beside this button renders
  * inside the same border (#2057). Drawing a second box here would put the
- * affordance back outside one of them. */
+ * affordance back outside one of them.
+ *
+ * `hideImage` drops this button's photo block when the card's sibling
+ * `VideoPoster` is about to render the same frame (#2080) — the photo slot is
+ * yielded to the poster rather than duplicated above it. Passed in rather than
+ * derived here because the decision needs the video the SIBLING resolved
+ * (ownership included), which only `MomentCard` knows. */
 function MomentCardButton({
   item,
   tier,
+  hideImage,
   onOpen,
 }: {
   item: ContentItem;
   tier: CardTier;
+  hideImage: boolean;
   onOpen: () => void;
 }) {
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);
-  const hero = hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;
+  const hero = !hideImage && hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;
 
   // CHAPTER BREAK — rare (paced out in feed-tiers.ts), full-bleed image,
   // big serif title. Registers as an event specifically because it's rare.

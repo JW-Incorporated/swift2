@@ -122,21 +122,74 @@ describe('MomentCard renders its play affordance inside the card’s box', () =>
     expect(card.slice(endOfDiv(card, boxAt), liCloseAt).trim()).toBe('');
   });
 
-  it('uses the poster affordance, not a detached pill', () => {
-    expect(card).toContain('<PlayPoster');
+  it('uses the shared full-width poster, not a bespoke row or a detached pill', () => {
+    expect(card).toContain('<VideoPoster');
+    // #2063's compact 96px row and #2055's ghost pill, both rejected by the CEO.
+    expect(card).not.toContain('<PlayPoster');
     expect(card).not.toContain('<PlayBadge');
+  });
+
+  it('yields its photo slot to the poster when they are the same frame', () => {
+    expect(card).toContain('cardImageDuplicatesVideo(item, video)');
   });
 });
 
-describe('PlayPoster keeps the #2051 accessibility contract', () => {
-  const poster = functionSource('PlayPoster');
+/**
+ * #2080: ONE video treatment in the feed. A story moment carrying footage and a
+ * video record are two different cards, and Joey's whole complaint across #2051
+ * → #2055 → #2063 was that they did not look like they did the same thing. The
+ * lock is that they render the SAME component — a look can be copied and then
+ * drift; a component cannot.
+ */
+const ERA_SECTION_IMPORTS = ERA_SECTION.slice(0, ERA_SECTION.indexOf('export function EraSection'));
+
+describe('one video treatment in the era feed', () => {
+  it('imports the poster from the same module the video-record card embeds through', () => {
+    expect(ERA_SECTION_IMPORTS).toContain("import { MomentVideo, VideoPoster } from './MomentVideo'");
+  });
+
+  it('leaves the era feed with no second poster implementation', () => {
+    // No local component may draw a YouTube thumbnail here; the only route to
+    // one is VideoPoster/MomentVideo.
+    expect(ERA_SECTION).not.toContain('i.ytimg.com');
+  });
+
+  it('renders the video-record card through the same facade', () => {
+    expect(functionSource('VideoMomentCard')).toContain('<MomentVideo');
+  });
+});
+
+const MOMENT_VIDEO = readFileSync(
+  new URL('../../components/longlive/MomentVideo.tsx', import.meta.url),
+  'utf8',
+);
+
+/**
+ * The body of a top-level function in MomentVideo.tsx, up to the next one — or
+ * up to the next function's DOC COMMENT, whichever comes first. Stopping only at
+ * `export function` would trail MomentVideo's own doc ("the iframe is heavy")
+ * into VideoPoster's slice and make the "no iframe here" assertion unfalsifiable.
+ */
+function momentVideoSource(name: string): string {
+  const start = MOMENT_VIDEO.indexOf(`export function ${name}(`);
+  if (start === -1) throw new Error(`no exported function ${name} in MomentVideo.tsx`);
+  const ends = ['\nexport function ', '\n/**']
+    .map((marker) => MOMENT_VIDEO.indexOf(marker, start + 1))
+    .filter((at) => at !== -1);
+  return MOMENT_VIDEO.slice(start, ends.length > 0 ? Math.min(...ends) : undefined);
+}
+
+describe('VideoPoster keeps the #2051 accessibility contract', () => {
+  const poster = momentVideoSource('VideoPoster');
 
   it('is a real button that does not submit anything', () => {
     expect(poster).toContain('type="button"');
   });
 
-  it('announces the same sentence MomentVideo’s own facade uses', () => {
-    expect(poster).toContain('aria-label={`Play video: ${video.title}`}');
+  it('announces what plays, in one sentence, everywhere it renders', () => {
+    expect(poster).toContain('aria-label={`Play ${playNoun}: ${video.title}`}');
+    // The feed passes no playNoun, so a moment card must still say "Play video".
+    expect(poster).toContain("playNoun = 'video'");
   });
 
   it('shows the video’s poster rather than loading a player', () => {
@@ -146,5 +199,13 @@ describe('PlayPoster keeps the #2051 accessibility contract', () => {
 
   it('hides the decorative overlay and glyph from screen readers', () => {
     expect(poster.match(/aria-hidden/g)?.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('is full width and 16:9 — the video-record treatment, not a compact row', () => {
+    expect(poster).toContain('<VideoFrame>');
+    expect(MOMENT_VIDEO).toContain('aspect-video w-full');
+    // The #2063 row's giveaways: a fixed narrow poster and its own copy label.
+    expect(poster).not.toContain('w-24');
+    expect(poster).not.toContain('Play video</span>');
   });
 });

@@ -1,4 +1,5 @@
 import { extractYouTubeId } from '@swift2/shared';
+import { hasRealPrimaryImage, primaryImageRef } from './types';
 import type { ContentItem, MomentVideo } from './types';
 
 /**
@@ -41,6 +42,63 @@ import type { ContentItem, MomentVideo } from './types';
  */
 export function feedVideoFor(item: ContentItem): MomentVideo | null {
   return item.video ?? null;
+}
+
+/**
+ * True for a host that serves YouTube's own thumbnail files.
+ *
+ * Matched as a SUFFIX rather than an allowlist of exact names. YouTube serves
+ * the same files from `i.ytimg.com` and from the numbered shards
+ * (`i1`–`i4`/`i9.ytimg.com`), and `img.youtube.com` is the older alias. The
+ * whole job of this module's duplicate check is to stop the same frame
+ * rendering twice; a named-host list that happens to miss `i3.ytimg.com` would
+ * silently let the duplication back in on the next Photo Enrichment run, with
+ * no test failing. The vault is 100% `i.ytimg.com` today — this costs nothing
+ * now and closes the hole later.
+ */
+function isYouTubeThumbHost(hostname: string): boolean {
+  return hostname === 'ytimg.com' || hostname.endsWith('.ytimg.com') || hostname === 'img.youtube.com';
+}
+
+/**
+ * True when the card's own photo is just a frame of the very video the card is
+ * about to play — so rendering both would show the same footage twice, stacked.
+ *
+ * This is not hypothetical: 8 of the 16 moments carrying `video` today have a
+ * `https://i.ytimg.com/vi/<same id>/…jpg` primary image. Two of those are the
+ * EXACT url the poster requests (`hqdefault.jpg`); two more are
+ * `maxresdefault.jpg`, the same frame at another resolution; the remaining four
+ * are other frames of the same video. Photo Enrichment reached for the video's
+ * own thumbnail precisely because these moments ARE the video, and before #2080
+ * nothing rendered the two together.
+ *
+ * Matched on the id in the path rather than on the whole URL because of that
+ * spread: the frames differ by filename (`maxresdefault` / `maxres1` /
+ * `maxres2` / `maxres3` / `sd2` / `hqdefault`) while being the same video, so a
+ * URL-equality check would catch 2 of the 8 and leave the duplication it exists
+ * to prevent.
+ *
+ * A photo from anywhere else (album art, a press shot) is a genuinely different
+ * picture and is kept: this suppresses duplication, not imagery.
+ */
+export function cardImageDuplicatesVideo(item: ContentItem, video: MomentVideo): boolean {
+  if (!hasRealPrimaryImage(item)) return false;
+  const url = primaryImageRef(item)?.url;
+  if (!url) return false;
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    // A relative path (the local /eras/ art and /placeholder.svg) is never a
+    // YouTube frame.
+    return false;
+  }
+  if (!isYouTubeThumbHost(parsed.hostname)) return false;
+  // `/vi/<id>/…` and its WebP sibling `/vi_webp/<id>/…` are the same frames.
+  return (
+    parsed.pathname.startsWith(`/vi/${video.youtubeId}/`) ||
+    parsed.pathname.startsWith(`/vi_webp/${video.youtubeId}/`)
+  );
 }
 
 /** The top-slot video for `MomentDetail`, with the caption to render under it. */

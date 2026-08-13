@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { detailVideoFor, feedVideoFor, footnoteVideoSources } from './video-affordance';
+import {
+  cardImageDuplicatesVideo,
+  detailVideoFor,
+  feedVideoFor,
+  footnoteVideoSources,
+} from './video-affordance';
 import type { ContentItem, EggSource } from './types';
 
 const source = (name: string, url: string): EggSource => ({ name, url }) as EggSource;
@@ -102,5 +107,71 @@ describe('footnoteVideoSources', () => {
       sources: [source('Own', 'https://youtu.be/ownidownid1'), source('Clip', YT)],
     });
     expect(footnoteVideoSources(item).map((s) => s.youtubeId)).toEqual([YT_ID]);
+  });
+});
+
+/**
+ * #2080. Photo Enrichment gave most video-carrying moments the video's own
+ * YouTube frame as their photo — reasonably, since the moment IS the video.
+ * Once every playable card grew a full-width poster, that meant the same frame
+ * printed twice inside one card, which is exactly the duplication Joey flagged
+ * on the detail pages. The poster takes the image slot; it never joins it.
+ */
+describe('cardImageDuplicatesVideo', () => {
+  const video = { youtubeId: YT_ID, title: 'T' };
+  const img = (url: string) => [{ url, kind: 'primary' as const }];
+
+  it('is true for the exact poster frame', () => {
+    const item = moment({ images: img(`https://i.ytimg.com/vi/${YT_ID}/hqdefault.jpg`) });
+    expect(cardImageDuplicatesVideo(item, video)).toBe(true);
+  });
+
+  it('is true for ANOTHER frame of the same video — the real corpus case', () => {
+    // Seeds carry maxresdefault / maxres1 / maxres2 / maxres3 / sd2 of one id.
+    for (const file of ['maxresdefault.jpg', 'maxres3.jpg', 'sd2.jpg']) {
+      const item = moment({ images: img(`https://i.ytimg.com/vi/${YT_ID}/${file}`) });
+      expect(cardImageDuplicatesVideo(item, video)).toBe(true);
+    }
+  });
+
+  it('is true for the img.youtube.com alias and the WebP path', () => {
+    expect(
+      cardImageDuplicatesVideo(
+        moment({ images: img(`https://img.youtube.com/vi/${YT_ID}/0.jpg`) }),
+        video,
+      ),
+    ).toBe(true);
+    expect(
+      cardImageDuplicatesVideo(
+        moment({ images: img(`https://i.ytimg.com/vi_webp/${YT_ID}/maxresdefault.webp`) }),
+        video,
+      ),
+    ).toBe(true);
+  });
+
+  it('is false for a DIFFERENT video’s thumbnail', () => {
+    const item = moment({ images: img('https://i.ytimg.com/vi/zzzzzzzzzzz/hqdefault.jpg') });
+    expect(cardImageDuplicatesVideo(item, video)).toBe(false);
+  });
+
+  it('keeps a genuinely different photo — this suppresses duplication, not imagery', () => {
+    const item = moment({
+      images: img('https://upload.wikimedia.org/wikipedia/en/4/40/Single_cover.png'),
+    });
+    expect(cardImageDuplicatesVideo(item, video)).toBe(false);
+  });
+
+  it('is false when the only image is the era-art stand-in or nothing at all', () => {
+    expect(cardImageDuplicatesVideo(moment({ images: img('/eras/debut.png') }), video)).toBe(false);
+    expect(cardImageDuplicatesVideo(moment({ images: [] }), video)).toBe(false);
+  });
+
+  it('does not throw on a malformed image url', () => {
+    expect(cardImageDuplicatesVideo(moment({ images: img('not a url') }), video)).toBe(false);
+  });
+
+  it('is not fooled by an id that merely PREFIXES the path segment', () => {
+    const item = moment({ images: img(`https://i.ytimg.com/vi/${YT_ID}extra/hqdefault.jpg`) });
+    expect(cardImageDuplicatesVideo(item, video)).toBe(false);
   });
 });
