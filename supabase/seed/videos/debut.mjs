@@ -31,12 +31,12 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
-const embed = (id) => ({
+const embed = (id, fetchedOn = '2026-07-08') => ({
   kind: 'oembed',
   rights: 'platform_tos',
   provider: 'youtube',
   post_url: `https://www.youtube.com/watch?v=${id}`,
-  oembed_fetched_at: '2026-07-08',
+  oembed_fetched_at: fetchedOn,
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
@@ -135,8 +135,10 @@ export default {
         'Revenge fantasy: Taylor and her friend Abigail spy on the ex from a parked truck, then Taylor leads her band inside to trash his house in her imagination while Abigail keeps watch outside — the first of many satirical self-aware villain turns.',
       symbolism: null,
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title
+      // "Taylor Swift - Picture To Burn").
+      officialUrl: 'https://www.youtube.com/watch?v=yCMqcFAigRg',
+      media: [embed('yCMqcFAigRg', '2026-08-13')],
       sources: [
         wiki('Picture_to_Burn', 'Picture to Burn'),
         press(

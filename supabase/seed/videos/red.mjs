@@ -31,12 +31,12 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
-const embed = (id) => ({
+const embed = (id, fetchedOn = '2026-07-08') => ({
   kind: 'oembed',
   rights: 'platform_tos',
   provider: 'youtube',
   post_url: `https://www.youtube.com/watch?v=${id}`,
-  oembed_fetched_at: '2026-07-08',
+  oembed_fetched_at: fetchedOn,
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
@@ -134,8 +134,10 @@ export default {
         'Two grade-schoolers play out the duet\'s friendship-into-something-more — and the kicker reveals Taylor and Ed Sheeran as the parents picking them up.',
       symbolism: null,
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title "Taylor
+      // Swift - Everything Has Changed ft. Ed Sheeran") — the 2013 original.
+      officialUrl: 'https://www.youtube.com/watch?v=w1oM3kQpXRo',
+      media: [embed('w1oM3kQpXRo', '2026-08-13')],
       sources: [
         wiki('Everything_Has_Changed', 'Everything Has Changed'),
         press(
@@ -157,8 +159,12 @@ export default {
         'Shot in Paris: a slow, sunlit walk out of one story and into the possibility of another — café tables, cobblestones, and the album\'s gentlest landing.',
       symbolism: null,
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title "Taylor
+      // Swift - Begin Again"). Same id the red.mjs timeline moment already
+      // embeds, so the Videos filter de-dupes this record against the moment
+      // (eraVideoFeed) — by design; the rail still carries it.
+      officialUrl: 'https://www.youtube.com/watch?v=cMPEd8m79Hw',
+      media: [embed('cMPEd8m79Hw', '2026-08-13')],
       sources: [
         wiki('Begin_Again_(Taylor_Swift_song)', 'Begin Again (Taylor Swift song)'),
         press(
