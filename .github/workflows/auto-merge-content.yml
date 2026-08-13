@@ -164,6 +164,24 @@ jobs:
           fi
           PRESENT=$(printf '%s\n' "$META" | awk -F'\t' '$1 != "removed" {print $2}')
 
+          # Files the PR REMOVES must also be deleted from this base-ref
+          # checkout (2026-08-13, found on PR #2043): git reports a renamed
+          # file — e.g. a rescheduled queue draft — as removed(old path) +
+          # added(new path). The added half is overlaid below, but the old
+          # path was still sitting in this checkout from the base ref, so
+          # check-drafts compared every rescheduled draft against its own
+          # pre-rename self and false-failed it as a "duplicate opener".
+          # Deleting the removed paths makes this working tree match the
+          # would-be merge result. The paths are API metadata (repo-relative
+          # strings, data only — nothing from the PR runs); the guard below
+          # is belt-and-braces against a path ever escaping the checkout.
+          REMOVED=$(printf '%s\n' "$META" | awk -F'\t' '$1 == "removed" {print $2}')
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            case "$f" in /*|../*|*/../*) echo "refusing to delete suspicious path: $f" >&2; exit 1 ;; esac
+            rm -f -- "$f"
+          done <<<"$REMOVED"
+
           QUEUE_FILES=$(printf '%s\n' "$PRESENT" | grep -E '^social/queue/.*\.json$' || true)
           if [ -z "$QUEUE_FILES" ]; then
             echo "No social/queue/**.json changes in this PR — nothing to check."
