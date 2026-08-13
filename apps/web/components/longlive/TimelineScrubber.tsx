@@ -7,7 +7,12 @@ import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
 import { truncate } from '@/lib/longlive/format';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { cn } from '@/lib/utils';
-import { SCRUBBER_CONTAINER_CLASS, SCRUBBER_RAIL_CLASS } from './timelineScrubberLayout';
+import {
+  SCRUBBER_ANCHOR_CLASS,
+  SCRUBBER_RAIL_CLASS,
+  SCRUBBER_SCRIM_CLASS,
+  SCRUBBER_SHELL_CLASS,
+} from './timelineScrubberLayout';
 
 /** Reference line for "what am I reading" — header + a bit into the viewport. */
 const HEADER_OFFSET = 64;
@@ -419,258 +424,262 @@ export function TimelineScrubber() {
   void anchorsVersion;
 
   return (
-    <div className={SCRUBBER_CONTAINER_CLASS}>
-      {/* Legibility scrim */}
+    <div className={SCRUBBER_SHELL_CLASS}>
+      {/* Legibility scrim — lives on the dynamic-viewport shell, not the
+          svh anchor, so the gradient covers the whole visible height even
+          while the mobile URL bar is collapsed. */}
       <div
         aria-hidden
-        className="absolute inset-y-0 right-0 w-full"
+        className={SCRUBBER_SCRIM_CLASS}
         style={{
           background:
             'linear-gradient(to left, color-mix(in srgb, var(--era-bg) 78%, transparent), transparent)',
         }}
       />
 
-      {/* What the removed first-run popup used to say, kept as a description
-          on the control itself instead of an interstitial: assistive tech
-          announces it, and sighted users are taught the same thing without an
-          interaction by the hover/drag pill (date + nearest moment) that this
-          rail already shows the instant you touch it. */}
-      <span id={`ll-scrubber-desc-${era.id}`} className="sr-only">
-        Drag to scrub through {era.name}. The ridge bulges where the most happened.
-      </span>
+      <div className={SCRUBBER_ANCHOR_CLASS}>
+        {/* What the removed first-run popup used to say, kept as a description
+            on the control itself instead of an interstitial: assistive tech
+            announces it, and sighted users are taught the same thing without an
+            interaction by the hover/drag pill (date + nearest moment) that this
+            rail already shows the instant you touch it. */}
+        <span id={`ll-scrubber-desc-${era.id}`} className="sr-only">
+          Drag to scrub through {era.name}. The ridge bulges where the most happened.
+        </span>
 
-      <div
-        ref={railRef}
-        role="slider"
-        tabIndex={0}
-        aria-label={`${era.name} timeline scrubber`}
-        aria-describedby={`ll-scrubber-desc-${era.id}`}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={Math.round(currentPct ?? 0)}
-        aria-valuetext={pillDate != null ? fmtMonth(pillDate) : undefined}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-        onPointerEnter={() => setActive(true)}
-        onPointerLeave={() => {
-          if (!draggingRef.current) setActive(false);
-          setHoverDate(null);
-          setHoverPct(null);
-        }}
-        onKeyDown={(e) => {
-          if (currentDate == null) return;
-          const step = span / 24;
-          // Top of the rail = newest, so ArrowUp moves toward `end`. Discrete
-          // date-stepping (not a continuous drag), so deriving pct from date
-          // here is fine — no gesture to snap out from under.
-          if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            const d = Math.min(end, currentDate + step);
-            setCurrentDate(d);
-            setCurrentPct(pctForDate(d));
-            scrollToDate(d);
-          } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            const d = Math.max(start, currentDate - step);
-            setCurrentDate(d);
-            setCurrentPct(pctForDate(d));
-            scrollToDate(d);
-          }
-        }}
-        className={SCRUBBER_RAIL_CLASS}
-      >
-        {/* Activity ridge */}
-        <svg
-          aria-hidden
-          className="absolute inset-y-0"
-          style={{ right: RAIL_RIGHT, width: RIDGE_WIDTH, height: '100%' }}
-          viewBox="0 0 100 1000"
-          preserveAspectRatio="none"
-        >
-          <path
-            d={ridgePath}
-            fill="var(--era-accent)"
-            fillOpacity={active ? 0.28 : 0.18}
-            stroke="var(--era-accent)"
-            strokeOpacity={0.55}
-            strokeWidth={1.25}
-            vectorEffect="non-scaling-stroke"
-            style={{ transition: 'fill-opacity 200ms ease' }}
-          />
-        </svg>
-
-        {/* Rail line */}
         <div
-          aria-hidden
-          className="absolute inset-y-0 w-px"
-          style={{ right: RAIL_RIGHT, background: 'var(--era-line)' }}
-        />
-
-        {/* Era start / end year labels */}
-        <span
-          className={cn(
-            'absolute -top-1 text-[10px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
-            active ? 'opacity-100' : 'opacity-0',
-          )}
-          style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
+          ref={railRef}
+          role="slider"
+          tabIndex={0}
+          aria-label={`${era.name} timeline scrubber`}
+          aria-describedby={`ll-scrubber-desc-${era.id}`}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(currentPct ?? 0)}
+          aria-valuetext={pillDate != null ? fmtMonth(pillDate) : undefined}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onPointerEnter={() => setActive(true)}
+          onPointerLeave={() => {
+            if (!draggingRef.current) setActive(false);
+            setHoverDate(null);
+            setHoverPct(null);
+          }}
+          onKeyDown={(e) => {
+            if (currentDate == null) return;
+            const step = span / 24;
+            // Top of the rail = newest, so ArrowUp moves toward `end`. Discrete
+            // date-stepping (not a continuous drag), so deriving pct from date
+            // here is fine — no gesture to snap out from under.
+            if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              const d = Math.min(end, currentDate + step);
+              setCurrentDate(d);
+              setCurrentPct(pctForDate(d));
+              scrollToDate(d);
+            } else if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              const d = Math.max(start, currentDate - step);
+              setCurrentDate(d);
+              setCurrentPct(pctForDate(d));
+              scrollToDate(d);
+            }
+          }}
+          className={SCRUBBER_RAIL_CLASS}
         >
-          {era.isCurrent ? 'now' : new Date(end).getFullYear()}
-        </span>
-        <span
-          className={cn(
-            'absolute text-[10px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
-            active ? 'opacity-100' : 'opacity-0',
-          )}
-          style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
-        >
-          {new Date(start).getFullYear()}
-        </span>
-
-        {/* Item ticks */}
-        {items.map((it) => {
-          const pct = pctForDate(new Date(it.date).getTime());
-          return (
-            <span
-              key={it.id}
-              aria-hidden
-              className="absolute rounded-full"
-              style={{
-                right: RAIL_RIGHT,
-                top: `${pct}%`,
-                height: 3,
-                width: 3,
-                transform: 'translate(50%, -50%)',
-                background: 'var(--era-ink)',
-                opacity: 0.35,
-              }}
+          {/* Activity ridge */}
+          <svg
+            aria-hidden
+            className="absolute inset-y-0"
+            style={{ right: RAIL_RIGHT, width: RIDGE_WIDTH, height: '100%' }}
+            viewBox="0 0 100 1000"
+            preserveAspectRatio="none"
+          >
+            <path
+              d={ridgePath}
+              fill="var(--era-accent)"
+              fillOpacity={active ? 0.28 : 0.18}
+              stroke="var(--era-accent)"
+              strokeOpacity={0.55}
+              strokeWidth={1.25}
+              vectorEffect="non-scaling-stroke"
+              style={{ transition: 'fill-opacity 200ms ease' }}
             />
-          );
-        })}
+          </svg>
 
-        {/* Milestone markers */}
-        {milestones.map((m) => {
-          const pct = pctForDate(new Date(m.date).getTime());
-          return (
-            <div key={m.id} aria-hidden>
+          {/* Rail line */}
+          <div
+            aria-hidden
+            className="absolute inset-y-0 w-px"
+            style={{ right: RAIL_RIGHT, background: 'var(--era-line)' }}
+          />
+
+          {/* Era start / end year labels */}
+          <span
+            className={cn(
+              'absolute -top-1 text-[10px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
+              active ? 'opacity-100' : 'opacity-0',
+            )}
+            style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
+          >
+            {era.isCurrent ? 'now' : new Date(end).getFullYear()}
+          </span>
+          <span
+            className={cn(
+              'absolute text-[10px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
+              active ? 'opacity-100' : 'opacity-0',
+            )}
+            style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
+          >
+            {new Date(start).getFullYear()}
+          </span>
+
+          {/* Item ticks */}
+          {items.map((it) => {
+            const pct = pctForDate(new Date(it.date).getTime());
+            return (
               <span
-                className="absolute rounded-full ring-2"
+                key={it.id}
+                aria-hidden
+                className="absolute rounded-full"
                 style={{
                   right: RAIL_RIGHT,
                   top: `${pct}%`,
-                  height: 8,
-                  width: 8,
+                  height: 3,
+                  width: 3,
                   transform: 'translate(50%, -50%)',
-                  background: 'var(--era-accent)',
-                  // ring color via boxShadow to inherit bg
-                  boxShadow: '0 0 0 2px var(--era-bg)',
+                  background: 'var(--era-ink)',
+                  opacity: 0.35,
                 }}
               />
-              <span
-                className={cn(
-                  'absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity',
-                  active ? 'opacity-100' : 'opacity-0',
-                )}
-                style={{ right: RAIL_RIGHT + 14, top: `${pct}%`, transform: 'translateY(-50%)' }}
-              >
-                {m.label}
-              </span>
-            </div>
-          );
-        })}
+            );
+          })}
 
-        {/* "Now" tick for the current era */}
-        {nowPct != null && (
-          <span
-            aria-hidden
-            className="absolute h-3 w-3 -translate-y-1/2 translate-x-1/2 rotate-45 border border-[color:var(--era-bg)]"
-            style={{ right: RAIL_RIGHT, top: `${nowPct}%`, background: 'var(--era-ink)' }}
-            title="Now"
-          />
-        )}
+          {/* Milestone markers */}
+          {milestones.map((m) => {
+            const pct = pctForDate(new Date(m.date).getTime());
+            return (
+              <div key={m.id} aria-hidden>
+                <span
+                  className="absolute rounded-full ring-2"
+                  style={{
+                    right: RAIL_RIGHT,
+                    top: `${pct}%`,
+                    height: 8,
+                    width: 8,
+                    transform: 'translate(50%, -50%)',
+                    background: 'var(--era-accent)',
+                    // ring color via boxShadow to inherit bg
+                    boxShadow: '0 0 0 2px var(--era-bg)',
+                  }}
+                />
+                <span
+                  className={cn(
+                    'absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity',
+                    active ? 'opacity-100' : 'opacity-0',
+                  )}
+                  style={{ right: RAIL_RIGHT + 14, top: `${pct}%`, transform: 'translateY(-50%)' }}
+                >
+                  {m.label}
+                </span>
+              </div>
+            );
+          })}
 
-        {/* Handle + date pill */}
-        {currentPct != null && (
-          <>
-            <span
-              ref={handleRef}
-              className="absolute rounded-full border-2 transition-transform"
-              style={{
-                right: RAIL_RIGHT,
-                top: `${currentPct}%`,
-                height: active ? 18 : 14,
-                width: active ? 18 : 14,
-                transform: 'translate(50%, -50%)',
-                background: 'var(--era-accent)',
-                borderColor: 'var(--era-bg)',
-                boxShadow: '0 2px 10px -2px var(--era-glow)',
-              }}
-            />
-            {pillDate != null && (
-              <span
-                ref={pillRef}
-                className={cn(
-                  'absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold tabular-nums shadow-sm transition-opacity',
-                  active ? 'opacity-100' : 'opacity-90',
-                )}
-                style={{
-                  right: RAIL_RIGHT + 16,
-                  top: `${currentPct}%`,
-                  transform: 'translateY(-50%)',
-                  background: 'var(--era-surface)',
-                  borderColor: 'var(--era-line)',
-                  color: 'var(--era-ink)',
-                }}
-              >
-                {fmtMonth(pillDate)}
-              </span>
-            )}
-          </>
-        )}
-
-        {/* Hover preview: nearest content item */}
-        {showTooltip && nearestItem && hoverPct != null && (
-          <>
+          {/* "Now" tick for the current era */}
+          {nowPct != null && (
             <span
               aria-hidden
-              className="absolute h-2 w-2 rounded-full"
-              style={{
-                right: RAIL_RIGHT,
-                top: `${hoverPct}%`,
-                transform: 'translate(50%, -50%)',
-                background: 'var(--era-ink)',
-                opacity: 0.5,
-              }}
+              className="absolute h-3 w-3 -translate-y-1/2 translate-x-1/2 rotate-45 border border-[color:var(--era-bg)]"
+              style={{ right: RAIL_RIGHT, top: `${nowPct}%`, background: 'var(--era-ink)' }}
+              title="Now"
             />
-            <div
-              className="pointer-events-none absolute z-10 w-48 rounded-lg border p-2.5 shadow-lg"
-              style={{
-                right: RAIL_RIGHT + 18,
-                top: `${hoverPct}%`,
-                transform: `translateY(-50%)`,
-                background: 'var(--era-surface-2)',
-                borderColor: 'var(--era-line)',
-              }}
-            >
-              <div
-                className="text-[10px] font-semibold uppercase tracking-wider"
-                style={{ color: 'var(--era-accent)' }}
-              >
-                {nearestItem.dateLabel}
-              </div>
-              <div className="mt-0.5 text-[12px] font-medium leading-snug text-[color:var(--era-ink)]">
-                {nearestItem.title}
-              </div>
-              {nearestItem.summary && (
-                <p className="mt-1 text-[11px] leading-snug text-[color:var(--era-ink-soft)]">
-                  {truncate(nearestItem.summary, 140)}
-                </p>
-              )}
-            </div>
-          </>
-        )}
+          )}
 
+          {/* Handle + date pill */}
+          {currentPct != null && (
+            <>
+              <span
+                ref={handleRef}
+                className="absolute rounded-full border-2 transition-transform"
+                style={{
+                  right: RAIL_RIGHT,
+                  top: `${currentPct}%`,
+                  height: active ? 18 : 14,
+                  width: active ? 18 : 14,
+                  transform: 'translate(50%, -50%)',
+                  background: 'var(--era-accent)',
+                  borderColor: 'var(--era-bg)',
+                  boxShadow: '0 2px 10px -2px var(--era-glow)',
+                }}
+              />
+              {pillDate != null && (
+                <span
+                  ref={pillRef}
+                  className={cn(
+                    'absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold tabular-nums shadow-sm transition-opacity',
+                    active ? 'opacity-100' : 'opacity-90',
+                  )}
+                  style={{
+                    right: RAIL_RIGHT + 16,
+                    top: `${currentPct}%`,
+                    transform: 'translateY(-50%)',
+                    background: 'var(--era-surface)',
+                    borderColor: 'var(--era-line)',
+                    color: 'var(--era-ink)',
+                  }}
+                >
+                  {fmtMonth(pillDate)}
+                </span>
+              )}
+            </>
+          )}
+
+          {/* Hover preview: nearest content item */}
+          {showTooltip && nearestItem && hoverPct != null && (
+            <>
+              <span
+                aria-hidden
+                className="absolute h-2 w-2 rounded-full"
+                style={{
+                  right: RAIL_RIGHT,
+                  top: `${hoverPct}%`,
+                  transform: 'translate(50%, -50%)',
+                  background: 'var(--era-ink)',
+                  opacity: 0.5,
+                }}
+              />
+              <div
+                className="pointer-events-none absolute z-10 w-48 rounded-lg border p-2.5 shadow-lg"
+                style={{
+                  right: RAIL_RIGHT + 18,
+                  top: `${hoverPct}%`,
+                  transform: `translateY(-50%)`,
+                  background: 'var(--era-surface-2)',
+                  borderColor: 'var(--era-line)',
+                }}
+              >
+                <div
+                  className="text-[10px] font-semibold uppercase tracking-wider"
+                  style={{ color: 'var(--era-accent)' }}
+                >
+                  {nearestItem.dateLabel}
+                </div>
+                <div className="mt-0.5 text-[12px] font-medium leading-snug text-[color:var(--era-ink)]">
+                  {nearestItem.title}
+                </div>
+                {nearestItem.summary && (
+                  <p className="mt-1 text-[11px] leading-snug text-[color:var(--era-ink-soft)]">
+                    {truncate(nearestItem.summary, 140)}
+                  </p>
+                )}
+              </div>
+            </>
+          )}
+
+        </div>
       </div>
     </div>
   );
