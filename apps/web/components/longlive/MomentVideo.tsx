@@ -17,6 +17,7 @@ export function MomentVideo({
   caption = `Official music video · ${video.title} · YouTube`,
   playNoun = 'music video',
   className = 'mt-8',
+  startPlaying = false,
 }: {
   video: MomentVideoData;
   /** Figcaption text; pass null to render the embed with no caption (the
@@ -35,8 +36,19 @@ export function MomentVideo({
    */
   playNoun?: string;
   className?: string;
+  /**
+   * Mount the player immediately instead of the poster facade.
+   *
+   * ONLY for a caller whose own control was the user's play tap — the era-feed
+   * play badge (#2051), which would otherwise cost two taps to watch one video
+   * (badge, then the facade's own play button). The click-to-load privacy
+   * posture from #1935 is unchanged: an iframe still mounts only in response to
+   * a user gesture, just one component up. Never pass this from a render path
+   * the user did not just click.
+   */
+  startPlaying?: boolean;
 }) {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(startPlaying);
 
   return (
     <figure className={className}>
@@ -58,7 +70,7 @@ export function MomentVideo({
           <button
             type="button"
             onClick={() => setPlaying(true)}
-            className="group absolute inset-0 h-full w-full"
+            className="group absolute inset-0 h-full w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--era-accent)]"
             aria-label={`Play ${playNoun}: ${video.title}`}
           >
             <Image

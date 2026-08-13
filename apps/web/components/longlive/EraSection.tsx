@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import {
   Sparkles,
@@ -19,8 +19,10 @@ import {
   AlertTriangle,
   type LucideIcon,
   Clapperboard,
+  Play,
+  X,
 } from 'lucide-react';
-import { useAppActions, useProgress } from '@/lib/longlive/store';
+import { useAppActions, useAppState, useProgress } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
 import { tracksForEra } from '@/lib/longlive/tracks';
@@ -37,6 +39,7 @@ import { EraMedia } from './EraMedia';
 import { EraSecretCard } from './EraSecretCard';
 import { EraVideos } from './EraVideos';
 import { MomentVideo } from './MomentVideo';
+import { NoEmbedFallback } from './NoEmbedFallback';
 import { SignificanceBadge } from './SignificanceBadge';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, tagsPresent } from '@/lib/longlive/tagBadges';
@@ -48,6 +51,7 @@ import {
   watchableCount,
   undatedAnchorDate,
 } from '@/lib/longlive/era-feed';
+import { feedVideoFor, watchAffordance } from '@/lib/longlive/video-affordance';
 import {
   focalPointOf,
   hasRealPrimaryImage,
@@ -138,10 +142,7 @@ export function EraSection({ era }: { era: Era }) {
   //
   // Selection itself lives in lib/longlive/era-feed.ts (pure + unit-tested);
   // this component only wires it to state and renders the result.
-  const filter = useMemo(
-    () => ({ tags: activeTags, videosOnly }),
-    [activeTags, videosOnly],
-  );
+  const filter = useMemo(() => ({ tags: activeTags, videosOnly }), [activeTags, videosOnly]);
   const visible = useMemo(() => visibleMoments(items, filter), [items, filter]);
   // Card silhouette per item — recomputed against whatever's actually on
   // screen (so filtering doesn't reference invisible items), but a pure
@@ -608,15 +609,30 @@ function VideoMomentCard({
     'data-ll-date': new Date(video.releasedOn ?? undatedAnchor).getTime(),
   };
   const kindLabel = video.kind ? VIDEO_KIND_LABEL[video.kind] : 'Video';
-  // Full width regardless of tier: this card carries a 16/9 YouTube facade,
-  // which is unreadable squeezed into a half-width track.
+  // Total over the record (#2050): an embed when there's an official upload, a
+  // link out to the record's defining citation when there isn't. The old
+  // `{video.youtubeId && <MomentVideo/>}` had no else branch, which is exactly
+  // how a card with zero interaction shipped to the main feed on three eras.
+  const affordance = watchAffordance(video);
+  // Full width ONLY when this card carries a 16/9 YouTube facade, which is
+  // unreadable squeezed into a half-width track. A record with no embed now
+  // renders a title, a summary line and one link (see NoEmbedFallback, #2050) —
+  // giving that a double-width track would make the emptiest cards in the feed
+  // the widest, which on 1989/evermore/midnights is exactly the card the reader
+  // is least interested in.
   //
   // NB: this comment lives OUTSIDE the tag on purpose. A `//` comment in JSX
   // attribute position parses under tsc but is a hard syntax error in Next's
   // SWC parser, so it passes typecheck and tests and then fails only in the
   // browser as a blank page (2026-07-21).
   return (
-    <li className="relative min-w-0 scroll-mt-28 md:col-span-2" {...anchorProps}>
+    <li
+      className={cn(
+        'relative min-w-0 scroll-mt-28',
+        affordance.kind === 'embed' && 'md:col-span-2',
+      )}
+      {...anchorProps}
+    >
       <div className="era-card block w-full rounded-2xl border p-5">
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
@@ -635,16 +651,63 @@ function VideoMomentCard({
             {video.summary}
           </p>
         )}
-        {video.youtubeId && (
+        {affordance.kind === 'embed' ? (
           <MomentVideo
-            video={{ youtubeId: video.youtubeId, title: video.title }}
+            video={{ youtubeId: affordance.youtubeId, title: video.title }}
             caption={null}
             playNoun={kindLabel.toLowerCase()}
             className="mt-4"
           />
+        ) : (
+          <NoEmbedFallback affordance={affordance} title={video.title} />
         )}
       </div>
     </li>
+  );
+}
+
+/**
+ * The era feed's play affordance for a MOMENT that carries footage (#2051).
+ *
+ * Joey's report was that he couldn't predict which cards play: a video record
+ * embeds its poster right in the feed, while a moment carrying the same kind of
+ * footage looked exactly like a moment carrying none — the Videos filter would
+ * return both, interleaved, with nothing on the card telling them apart. This
+ * badge is the tell.
+ *
+ * Three constraints shaped it:
+ *  - It is a SIBLING of the card's own <button>, never nested inside it. Nested
+ *    interactive elements break screen readers, and the card's job (open the
+ *    story) has to survive alongside the badge's job (play here).
+ *  - `min-h-11` = the 44px minimum touch target (#2051 AC4).
+ *  - No transform/scale on hover. The site's global prefers-reduced-motion rule
+ *    (globals.css) neutralizes transition DURATION, not the transform itself, so
+ *    a color-only hover is the version that genuinely respects the preference
+ *    rather than merely appearing to.
+ */
+function PlayBadge({ title, onPlay }: { title: string; onPlay: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onPlay}
+      /* Same phrasing as MomentVideo's own facade, so a screen-reader user
+         meets one consistent sentence for "there is a video here". */
+      aria-label={`Play video: ${title}`}
+      className="era-btn-ghost mt-2 inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
+    >
+      <span
+        aria-hidden
+        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+        style={{ backgroundColor: 'var(--era-accent)' }}
+      >
+        <Play
+          className="h-3 w-3 translate-x-px"
+          style={{ color: 'var(--era-bg)' }}
+          fill="currentColor"
+        />
+      </span>
+      Play video
+    </button>
   );
 }
 
@@ -734,7 +797,88 @@ function TagRow({ tags }: { tags: ContentTag[] }) {
   );
 }
 
+/**
+ * One moment in the era feed: the card itself, plus its play affordance when
+ * the moment carries footage (#2051).
+ *
+ * The two live as SIBLINGS inside the <li> on purpose. `MomentCardButton` is a
+ * single big <button> that opens the story — that is the whole point of the
+ * #1017 editorial tiers — and the play badge cannot go inside it without
+ * nesting one interactive element in another. So: tap the badge and the video
+ * plays right here in the feed; tap anywhere else on the card and the story
+ * opens, exactly as before.
+ *
+ * Playback is one tap, not two: the badge IS the user's play gesture, so the
+ * embed mounts already playing (`startPlaying`). The #1935 click-to-load
+ * posture is intact — no iframe exists in the feed until this state flips, and
+ * only a real click flips it. The badge is then replaced by the player rather
+ * than sitting beside it, so the card never shows two play controls.
+ */
 function MomentCard({
+  item,
+  tier,
+  onOpen,
+}: {
+  item: ContentItem;
+  tier: CardTier;
+  onOpen: () => void;
+}) {
+  const video = feedVideoFor(item);
+  const [playing, setPlaying] = useState(false);
+  const { openItemId } = useAppState();
+
+  // Stop feed playback when a moment detail opens over it.
+  //
+  // MomentDetail is a `fixed inset-0 z-50` sheet rendered ALONGSIDE a still-
+  // mounted EraStream, so without this the iframe keeps playing underneath it:
+  // audible, invisible, and unreachable until the reader closes the sheet and
+  // scrolls back to find it. Tapping the card is the very next gesture after
+  // tapping its play badge, so this is the common path, not a corner case. For
+  // the same moment it also avoids two players of one video running at once.
+  useEffect(() => {
+    if (openItemId) setPlaying(false);
+  }, [openItemId]);
+
+  // `min-w-0` is required on every grid item: a grid child defaults to
+  // `min-width: auto`, which lets a long unbroken title push the track wider
+  // than its share of the container and scroll the whole page sideways.
+  // #1017 makes "the page body must never scroll horizontally" a hard
+  // requirement, and this is the line that holds it.
+  return (
+    <li
+      className={cn('relative min-w-0 scroll-mt-28', TIER_SPAN[tier])}
+      data-ll-item={item.id}
+      data-ll-era={item.eraId}
+      data-ll-date={new Date(item.date).getTime()}
+    >
+      <MomentCardButton item={item} tier={tier} onOpen={onOpen} />
+      {video &&
+        (playing ? (
+          <div className="mt-3">
+            <MomentVideo video={video} caption={null} className="" startPlaying />
+            {/* The way back out. Without it the only exits from a playing card
+                are opening the detail or leaving the era. */}
+            <button
+              type="button"
+              onClick={() => setPlaying(false)}
+              aria-label={`Hide video: ${video.title}`}
+              className="era-btn-ghost mt-2 inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
+            >
+              <X className="h-4 w-4" aria-hidden />
+              Hide video
+            </button>
+          </div>
+        ) : (
+          <PlayBadge title={video.title} onPlay={() => setPlaying(true)} />
+        ))}
+    </li>
+  );
+}
+
+/** The card body — one <button> per tier, the feed's only route into the story
+ * detail. Kept as its own component so `MomentCard` above owns exactly one
+ * thing: the relationship between that button and the play badge beside it. */
+function MomentCardButton({
   item,
   tier,
   onOpen,
@@ -746,18 +890,6 @@ function MomentCard({
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);
   const hero = hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;
-
-  // `min-w-0` is required on every grid item: a grid child defaults to
-  // `min-width: auto`, which lets a long unbroken title push the track wider
-  // than its share of the container and scroll the whole page sideways.
-  // #1017 makes "the page body must never scroll horizontally" a hard
-  // requirement, and this is the line that holds it.
-  const listItemProps = {
-    className: cn('relative min-w-0 scroll-mt-28', TIER_SPAN[tier]),
-    'data-ll-item': item.id,
-    'data-ll-era': item.eraId,
-    'data-ll-date': new Date(item.date).getTime(),
-  } as const;
 
   // CHAPTER BREAK — rare (paced out in feed-tiers.ts), full-bleed image,
   // big serif title. Registers as an event specifically because it's rare.
@@ -773,117 +905,15 @@ function MomentCard({
   // for this item," which is the guarantee the feature makes.
   if (tier === 'hero') {
     return (
-      <li {...listItemProps}>
-        <button
-          onClick={onOpen}
-          className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
-        >
-          {/* Tallest image in the feed, at twice the width of any other card:
-              16/9 across the full 2-column track is roughly 500px of picture,
-              against ~270px for the half-width media card. */}
-          {hero && (
-            <div className="relative aspect-[16/9] w-full overflow-hidden">
-              <Image
-                src={hero.url}
-                alt=""
-                fill
-                unoptimized={/^https?:\/\//.test(hero.url)}
-                className="object-cover transition duration-300 group-hover:scale-[1.03]"
-                style={{ objectPosition: focalPointOf(hero) }}
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'linear-gradient(to top, color-mix(in srgb, var(--era-surface) 88%, transparent), transparent 55%)',
-                }}
-              />
-            </div>
-          )}
-          <div className="p-6 md:p-8">
-            <MomentMeta item={item} seen={seen} />
-            <h3 className="mt-2 font-[family-name:var(--era-font)] text-balance break-words text-3xl font-semibold leading-[1.1] sm:text-4xl">
-              {item.title}
-            </h3>
-            <p className="mt-3 max-w-2xl text-pretty text-base leading-relaxed text-[color:var(--era-ink-soft)]">
-              {item.summary}
-            </p>
-            <TagRow tags={item.tags} />
-          </div>
-        </button>
-      </li>
-    );
-  }
-
-  // DENSE ROW — routine, day-to-day items. Tight, subordinate, small
-  // thumbnail if there's a real one. Several of these packed together make
-  // the next full card read as an event by contrast.
-  if (tier === 'chip') {
-    return (
-      <li {...listItemProps}>
-        <button
-          onClick={onOpen}
-          className="era-card group flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition"
-        >
-          {hero && (
-            <div className="relative size-10 shrink-0 overflow-hidden rounded-md">
-              <Image
-                src={hero.url}
-                alt=""
-                fill
-                unoptimized={/^https?:\/\//.test(hero.url)}
-                className="object-cover"
-                style={{ objectPosition: focalPointOf(hero) }}
-              />
-            </div>
-          )}
-          <div className="min-w-0 flex-1">
-            <MomentMeta item={item} seen={seen} size="compact" />
-            <h3 className="mt-0.5 truncate font-[family-name:var(--era-font)] text-[15px] font-semibold leading-snug">
-              {item.title}
-            </h3>
-          </div>
-          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
-        </button>
-      </li>
-    );
-  }
-
-  // BREATHER — deliberately no image (either none exists, or this card was
-  // chosen to break up a run of image cards), but typographically chosen,
-  // not a degraded fallback: bigger date, more air, a left accent rule.
-  if (tier === 'text') {
-    return (
-      <li {...listItemProps}>
-        <button
-          onClick={onOpen}
-          className="era-card group block w-full rounded-2xl border-l-4 py-4 pl-5 pr-5 text-left transition"
-          style={{ borderLeftColor: 'var(--era-accent)' }}
-        >
-          <MomentMeta item={item} seen={seen} />
-          <h3 className="mt-2 break-words font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
-            {item.title}
-          </h3>
-          <p className="mt-1.5 line-clamp-4 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-            {item.summary}
-          </p>
-          <TagRow tags={item.tags} />
-        </button>
-      </li>
-    );
-  }
-
-  // WORKHORSE (media) — the default: contained image + text, at half the
-  // hero's width so the hero reads as the event and this reads as the beat.
-  return (
-    <li {...listItemProps}>
       <button
         onClick={onOpen}
         className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
       >
+        {/* Tallest image in the feed, at twice the width of any other card:
+              16/9 across the full 2-column track is roughly 500px of picture,
+              against ~270px for the half-width media card. */}
         {hero && (
-          <div className="relative aspect-[16/10] w-full overflow-hidden">
+          <div className="relative aspect-[16/9] w-full overflow-hidden">
             <Image
               src={hero.url}
               alt=""
@@ -897,22 +927,116 @@ function MomentCard({
               className="absolute inset-0"
               style={{
                 background:
-                  'linear-gradient(to top, color-mix(in srgb, var(--era-surface) 85%, transparent), transparent 50%)',
+                  'linear-gradient(to top, color-mix(in srgb, var(--era-surface) 88%, transparent), transparent 55%)',
               }}
             />
           </div>
         )}
-        <div className="p-4">
+        <div className="p-6 md:p-8">
           <MomentMeta item={item} seen={seen} />
-          <h3 className="mt-2 break-words font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
+          <h3 className="mt-2 font-[family-name:var(--era-font)] text-balance break-words text-3xl font-semibold leading-[1.1] sm:text-4xl">
             {item.title}
           </h3>
-          <p className="mt-1.5 line-clamp-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          <p className="mt-3 max-w-2xl text-pretty text-base leading-relaxed text-[color:var(--era-ink-soft)]">
             {item.summary}
           </p>
           <TagRow tags={item.tags} />
         </div>
       </button>
-    </li>
+    );
+  }
+
+  // DENSE ROW — routine, day-to-day items. Tight, subordinate, small
+  // thumbnail if there's a real one. Several of these packed together make
+  // the next full card read as an event by contrast.
+  if (tier === 'chip') {
+    return (
+      <button
+        onClick={onOpen}
+        className="era-card group flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition"
+      >
+        {hero && (
+          <div className="relative size-10 shrink-0 overflow-hidden rounded-md">
+            <Image
+              src={hero.url}
+              alt=""
+              fill
+              unoptimized={/^https?:\/\//.test(hero.url)}
+              className="object-cover"
+              style={{ objectPosition: focalPointOf(hero) }}
+            />
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <MomentMeta item={item} seen={seen} size="compact" />
+          <h3 className="mt-0.5 truncate font-[family-name:var(--era-font)] text-[15px] font-semibold leading-snug">
+            {item.title}
+          </h3>
+        </div>
+        <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
+      </button>
+    );
+  }
+
+  // BREATHER — deliberately no image (either none exists, or this card was
+  // chosen to break up a run of image cards), but typographically chosen,
+  // not a degraded fallback: bigger date, more air, a left accent rule.
+  if (tier === 'text') {
+    return (
+      <button
+        onClick={onOpen}
+        className="era-card group block w-full rounded-2xl border-l-4 py-4 pl-5 pr-5 text-left transition"
+        style={{ borderLeftColor: 'var(--era-accent)' }}
+      >
+        <MomentMeta item={item} seen={seen} />
+        <h3 className="mt-2 break-words font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
+          {item.title}
+        </h3>
+        <p className="mt-1.5 line-clamp-4 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          {item.summary}
+        </p>
+        <TagRow tags={item.tags} />
+      </button>
+    );
+  }
+
+  // WORKHORSE (media) — the default: contained image + text, at half the
+  // hero's width so the hero reads as the event and this reads as the beat.
+  return (
+    <button
+      onClick={onOpen}
+      className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
+    >
+      {hero && (
+        <div className="relative aspect-[16/10] w-full overflow-hidden">
+          <Image
+            src={hero.url}
+            alt=""
+            fill
+            unoptimized={/^https?:\/\//.test(hero.url)}
+            className="object-cover transition duration-300 group-hover:scale-[1.03]"
+            style={{ objectPosition: focalPointOf(hero) }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to top, color-mix(in srgb, var(--era-surface) 85%, transparent), transparent 50%)',
+            }}
+          />
+        </div>
+      )}
+      <div className="p-4">
+        <MomentMeta item={item} seen={seen} />
+        <h3 className="mt-2 break-words font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
+          {item.title}
+        </h3>
+        <p className="mt-1.5 line-clamp-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          {item.summary}
+        </p>
+        <TagRow tags={item.tags} />
+      </div>
+    </button>
   );
 }
