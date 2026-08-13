@@ -1,4 +1,10 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "model": "opus",
+  "statusLine": {
+    "type": "command",
+    "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/statusline.sh"
+  },
   "permissions": {
     "defaultMode": "acceptEdits",
     "allow": [
@@ -76,9 +82,19 @@
       "Bash(git checkout -- *)",
       "Bash(git restore *)",
       "Bash(git clean *)",
+      "Bash(node scripts/social/post-queue.mjs*)",
+      "Bash(node scripts/social/delete-media.mjs*)",
       "Read(.env)",
       "Read(.env.*)",
+      "Read(./.env)",
+      "Read(./.env.local)",
+      "Read(./.env.*.local)",
+      "Read(./.env.development)",
+      "Read(./.env.production)",
+      "Read(./.env.staging)",
+      "Read(./.env.test)",
       "Read(**/secrets/**)",
+      "Read(./secrets/**)",
       "Write(.env)",
       "Write(.env.*)"
     ],
@@ -94,6 +110,52 @@
           {
             "type": "command",
             "command": "git fetch origin --quiet 2>nul & exit 0"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/triage.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-edit.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/checkpoint-gate.sh",
+            "timeout": 10
           }
         ]
       }
