@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 96
+
+## Rhode Island Condo—Steps From Taylor Swift’s House—Sells for a Record-Breaking $18.5 Million - Mansi
+
+- first seen: 2026-08-13 18:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Rhode Island Condo—Steps From Taylor Swift’s House—Sells for a Record-Breaking $18.5 Million  Mansion Global
+- sources:
+  - [unverified] Mansion Global — https://news.google.com/rss/articles/CBMilAFBVV95cUxPNklYQlBZYjYyM3oxZVhZdnoyNlR2cy1pelJCTk5WNDBwbl9OeU9pMENUX05xZWotM2k4dXFOWVlyX0RqeXliOWdSNWJybUR5NnNaQ2E2UGp1ZUhPLXQ1T2RnTmpWY21DOHJrUElBbFl2TnhRMGRkSnVQSGR6RURQeExJdGlhbWdINDNoN1dFcGU1ZGxZ0gGaAUFVX3lxTE1jZXpLNTJGc1V4Z0VseXNSNVQwS3VwVjlwSm44RHl0b2dnNUlvaXUwc0xSS2VhY2R4S3gwU183dDRIeFluWHJfUnRMS1R1bWVoZjVIclVzRXlZR0FGbnpETXFNZTRYMUVzX1FPMWpfZDNzWHNhcFhBWjRKOE9zTXA3b2cwamwtakVVYnA2d0VENFBZRk16WEUzNmc?oc=5
+
+## Rob Gronkowski Reveals He Played Matchmaker for Julian Edelman at Taylor Swift, Travis Kelce’s Weddi
+
+- first seen: 2026-08-13 18:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Rob Gronkowski Reveals He Played Matchmaker for Julian Edelman at Taylor Swift, Travis Kelce’s Wedding  TODAY.com
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQSTl1dzN2X21ydUF5Q0VJamc0b09zQlRBSEhLN0VyQzhYWDBWZ3l5eTZfbk5SVHpJTTV5SWw2RzZCUm9HNGluNWZkMVdKLVlDNVNGUWhvc0tDaTNCa0ZwVUw4UVRwMTVtMUNGNG1xT3dtTDZRRUprcG5yV0d4OVhmTkxaVXR1c09FR3owcnhlU2NIdjNoM21mcWRRNXNNbkNWSm80bnBJYWstMDQ?oc=5
+
+## Taylor Swift Debuts a Major Hair Change While Out in London - ELLE
+
+- first seen: 2026-08-13 18:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Debuts a Major Hair Change While Out in London  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMipAFBVV95cUxNZHdZM3d1VHZkemdUOWc3TGJzZXI3aU5SVDhFTEFZbmFSdlg2bmREWXBVNnhTRk1IaHVtZ0Z3YjViNEI5SGxNekxyU1oxNGpsSWRYcnd4X3RCajE2RHIycjdSdHpldV9STkVGQ2VZUGRSbVVPMlBua2ZXeDQtaFEzdkJPaUxrbURnUGNhWVgtaEZjNTdta0E5aFJsMnhacWNnZHlhZA?oc=5
+
+## Taylor Swift and Travis Kelce's relationship so far in key moments - BBC
+
+- first seen: 2026-08-13 18:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's relationship so far in key moments  BBC
+- sources:
+  - [unverified] BBC — https://news.google.com/rss/articles/CBMiXEFVX3lxTE4yMnotMnhBWVRNUGFTWjZ4YVFPTFNkcjNzenFnNnZRbXJncXdaYXBPeWM2MUJEZW44ZXpCVEdTMkJsWGNscFZldFdEa2E5Q201U0lYYkoyVXlhWTBq?oc=5
+
+## Taylor Swift goes full ‘Lavender Haze’ in floral mini and bejeweled bag for London night out - Page 
+
+- first seen: 2026-08-13 18:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift goes full ‘Lavender Haze’ in floral mini and bejeweled bag for London night out  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiswFBVV95cUxNVkViMzlsRDZyQVQ4cFg5ci16ZU9pcE9PSTcxQW4xR1E2b3FuZVpEVGZZWnd3LVFKSHNfOHNaOXE5aGd0bmw1Wi1JVGEzZ1VuZTRuRFpNVHkwdjJaQ0NmNjVpREpxVEtWZkh4MExFRTNoNTFEeWR4ZzgyU25XOEdJYjk1bXJhUEhMQ2Q2SlYwYzNOR2JRV3JObW9UVUhVLVFaTTVPYzdZbjNhSHpWVkw4ZE03QQ?oc=5
+
+## Taylor Swift requests another song be removed from Trump social media post - Washington Times
+
+- first seen: 2026-08-13 18:04 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift requests another song be removed from Trump social media post  Washington Times
+- sources:
+  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMitwFBVV95cUxNODBjWXY0Yk5US3RLNjNtaG5pREFyc0pIVWhBX3RQck92NHJrbW1EcUs4M3Baay0wd1NSVXhWUGh3dmRKcFk3M2lYSmFMWmtfcllPR2QyZzZKcDQ3SkRzQXBYaHNOeUhSbVFpaU5VaWN5a0VkWnRiRDN2UFNNRXVKcFZueXFwcy1DeXFNYWpUMHptamZuTzdTc295TkZfRTZ4bnBEenpKUklvc210OVRNZmRyN2ZORXM?oc=5
+
+## So ... are we ever going to see Taylor Swift and Travis Kelce’s wedding photos? - The Washington Pos
+
+- first seen: 2026-08-13 18:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: So ... are we ever going to see Taylor Swift and Travis Kelce’s wedding photos?  The Washington Post
+- sources:
+  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMitgFBVV95cUxOeGJXbWZhcVZCWTdwM0pSWExobGdIWlFTUHVUeDFEWDJndm9HclB1ZmF0SXlUeFl5SUFLWUJQTkpBaGtmQTBaZFFMdEpxSWdBeXNaOTZyODBkM2pxNVFEUFAzUUJCZE1nMFRHZkphOVh0Z2NBLURGRG85MmMzYUhRemh3aDFyYXlsUUJSUnFDSDVqN014QVFhTHpGa1k0ZDRKenlHRWZRVmJ5ODhlV0dpNXNrLVItZw?oc=5
+
+## Taylor Swift has solo night out in London as Travis Kelce returns to Chiefs practice post-wedding - 
+
+- first seen: 2026-08-13 18:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has solo night out in London as Travis Kelce returns to Chiefs practice post-wedding  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOcnlpeGNYWTVvblFCU0pzQXRUenBZVzlqWHNHVXNoWDJvX2JSVi1TUE44bE1faFk5a3AzVXotYV9BcDhnRFVrVXFUY2JVdnoyODltVmU4dnhYV3FpNURheXNMeVY0YnlGaTEyTnFScFBDdE5yaWpKTEQydHlTNThvWlZZRW02cTkzR0lGLV9HQzk3QnM5ZmxCLVdGMXdYakdwQ2RGd2YySHo1LVNFVkxsV1gwRkd4TjdRMkowMnE0eDBsdE9pZFl1Z0xZbk9HX0N2?oc=5
 
 ## Greedy Democrats are taking aim at Taylor Swift — and you’re next - New York Post
 
@@ -54,11 +118,12 @@ Stories: 93
 ## Travis Kelce makes first public comments about wedding to Taylor Swift - WBAL-TV
 
 - first seen: 2026-08-13 14:32 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Travis Kelce makes first public comments about wedding to Taylor Swift  WBAL-TV
 - sources:
   - [unverified] WBAL-TV — https://news.google.com/rss/articles/CBMiigFBVV95cUxPWlNReXdqRlhVcTRIb1hOajBmN2h3eDlSWjhxSDB1bGpkaDAwMEZKam1LRkItcURZTmZHMjZsTXBlNXVsY09IdHhTUFhnX3QycVROUzYxcjVXVlJacTFta21peGhyalAxS2pUSVNObGNJdXB4bzlaYXA4QW9wUVFFTkF6ek1Da2lDa2c?oc=5
   - [unverified] WPTZ — https://news.google.com/rss/articles/CBMihgFBVV95cUxNZnNhdnBoMXlweWtJZEU2bzBDU2NyYTRYVFM3aHpUZnpXZE9WQjhNeUFIRDJacXBUZVhtYW5Eb3ZFbWw0V3ZyWXZWVzRpRkEwaG9LWElBRFBGX0NKT2trQWlxS2JoNU45TlBEN21YM0ZJemhYazJVSXFEVVVLNVlJRzFZUnFFZw?oc=5
+  - [unverified] Gulf Coast News and Weather — https://news.google.com/rss/articles/CBMihwFBVV95cUxQcjR1cGJTendlWnBxUFJVUmMwaDVHU1daZjhnOG53QzdUVUNsWFhyYU1Ld3BqV3hJbE84MGN5NndkT3N2OWpQTG5FUm5ZeWZmX0NEOHA5X1d1RjBvdFJHYzVkbFdDV1RYb2NBXzFDemFVUnRRREU4Yl81SzZiWGk1ZUdrLTVLQzQ?oc=5
 
 ## Chiefs’ Travis Kelce was clearly touched by venue for Taylor Swift wedding - Kansas City Star
 
@@ -781,44 +846,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: At last, Taylor Swift mutes her songs on Donald Trump’s troll TikToks  Paste Magazine
 - sources:
   - [unverified] Paste Magazine — https://news.google.com/rss/articles/CBMitwFBVV95cUxPVDRJNFRNWHVqX0hjZkI0cnVCSnpTamhnVzhNWk9mOWFGLXJYRGo2clFuaWtuUjd3bmV5SFR0aUthYzJ3RUNpU0hKdDJnS3pnQ1F3SGprbFF0bkRjbG15QWhhUHpiTnVaUXdkdld2Z2NpQ3V3dFp6YXVjYW14eW5DSTNoUEkya0hfbWtSVjVpMjhzMWk2RVI4OXNQdHZ0ZGxGcmJiVkw2cVdMMGdHMENDQ254Vkx5TWc?oc=5
-
-## Taylor Swift & Travis Kelce's Cats & Dog Fighting After Wedding - StyleCaster
-
-- first seen: 2026-08-10 17:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce's Cats & Dog Fighting After Wedding  StyleCaster
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMioAFBVV95cUxPMFUzejlzT2RyaGlwNnpiX2k2RnJhNjNzT203Z3o3bThCeVM5VW5NZTBtSERSUE8tQWNIR29KbVAtaThwS2ZEdjVzZUdYeVl5R2hHRDVWZ2FtNTY1eThSMmQxX3VNaHJDLVZfczhmUGxqMHctdWdfTndrUEpkVkJJYTlZWjRfMXNGNnZ5OVZwd3RBS2dCa2R0S2d5SDV2QkVo?oc=5
-
-## Taylor Swift and Selena Gomez's affordable jewelry favorites are on sale for up to 25% off - Yahoo
-
-- first seen: 2026-08-10 17:59 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Selena Gomez's affordable jewelry favorites are on sale for up to 25% off  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi7AFBVV95cUxNUU1WRThLbzlDb2lhTU1sLXI3Vk1wa0JBV3J1T18wM2EyN2t3eWxjU2ZSVmNqejVNMlpzbEpvSC1fLVdXOW5ybDRvTDNtMmRtX3ZjMUprWG1fRkx6dEo0NW5GTTV6dE9vdm83MkVOa0tGNkstUXE0LVg4RVk4a2pXRWxtYnFqcXJrcW11V1hDQTBWNmZuNktIS1J6Y0RCMTZ1dTdteXNrdkpWbHk5aFpDTXJHd0JRT0hLVnkyQk1jaUVIVVo3ZXRfbnoxanZxQ0ZFN2luc19YZGlRQ3AtTXdyeGFvYW5aWm9nWnR3Tg?oc=5
-
-## Taylor Swift & Travis Kelce’s Family Members Reportedly Fighting After Wedding: ‘Every Newlywed Coup
-
-- first seen: 2026-08-10 17:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce’s Family Members Reportedly Fighting After Wedding: ‘Every Newlywed Couple Has an Adjustment Period’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOZFJ6NTlzbWJvVTNGR1otTFdYRVJhdzRYR0w3U082bkQzUmFQdEFzamNrVmV0NGJBZ0Jjd0Ryb01EMUlEdzB3YjR5U3EzTWRjTVNBOFVYZzByaDVPRGJPaWJkVXY4dHdyOWxXai1IcTV3UU0wMWFYdVZ3RmxKZktyY213Vy1HRlNlTUFiY0Q0c090aENRdkUyZ2dqOUh3SGw3ck9CUg?oc=5
-
-## Trump Campaign Removes Taylor Swift Songs From TikTok Videos, White House Posts Go Silent - NewsCord
-
-- first seen: 2026-08-10 17:59 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Trump Campaign Removes Taylor Swift Songs From TikTok Videos, White House Posts Go Silent  NewsCord
-- sources:
-  - [unverified] NewsCord — https://news.google.com/rss/articles/CBMi6gFBVV95cUxOZk12dU9LcmQ0Q0Nua3pIWWtNd2pYS2FvLTMwUkgya3hET0JQTm9EZDIzMlBFQWI0OGxnX2lNRXFEUDRsbU03U3pBdm9hTU10YjdLeWhYYi1mVXJTUFZmNmtHb0tnUThtTllsOUotazJNcl9kZmduZXhzOG1vc0lRakVfOXRXQ0w4X21uRjB3d1Z3Y1Y2UzZlS3U4RlplVXVLbWlaVmtuN00zQkRhN1JsRjRnNGtDV1FGb2xvS2JJMWZfQ0tFXy03RHM3Y1gxRFRraDJhLXBDQVZETmFaaHFvUzhjWnRIVUdLNkE?oc=5
-
-## Taylor Swift songs vanish from Trump, White House posts as removal questions linger - WSBT
-
-- first seen: 2026-08-10 17:59 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift songs vanish from Trump, White House posts as removal questions linger  WSBT
-- sources:
-  - [unverified] WSBT — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVzRUV1EtZ1RCWDBpU1dKZlczTHRNMWVVZHN0UWIyNEJiTmQwMDdWc09jSVVHUk9FTEVOTldUUlpTVXJsaURSVjVtbUNRS1VJc2h2bEM2MEdqQW9zd0JZU2lDUjhjbEJYd2o0ckVFMnB1SDVxMXhseVlQNWFxbUd0Y3pvdmVOYnJTMjVtQUMxODdiaUNkMllaNGc0em1odzRhaWgyaThPUU42bnlVYmpvMWNjQkFINHE0?oc=5
-  - [unverified] WXLV — https://news.google.com/rss/articles/CBMiugFBVV95cUxONkY3aFduTXBLTDZha3lwdWhNNkdsVnB2T1NSaFExdWlUMXpUckMyY2xYaENiaTdlc0lfLXNmaTNzQzRuazhFTW1RVzhmc3h5dEI0cGV3UzJCekdtNEJ0T2JadF9LSmp4Q3BlSHhBY0xaaFhXc3RQUTJKcFVxbnNwZGQ4dUdJUmlHQ3FhOUsydWVVWjZUM3JCcVl5Vl9scFVKS3BQZE90R1ZaQXhwTnRGY3lzbi1GUTg5MXc?oc=5
