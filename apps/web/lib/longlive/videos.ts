@@ -57,13 +57,16 @@ export const APPEARANCE_KINDS: ReadonlySet<VideoNoteKind> = new Set<AppearanceVi
   'press_event',
 ]);
 
-/** True when this record is an era moment as it played out inside someone
- * else's programming, rather than a work she released. Deliberately "an era
- * moment", not "Taylor appearing as herself" — the tighter phrasing excludes
- * the broadcast-reveal case (Time's Person of the Year on TODAY), and
- * APPEARANCE_VIDEO_KINDS in packages/shared/src/vault-types.ts is the
- * canonical wording this mirrors. `kind: null` (an unrecognized seed value the
- * generator degraded) counts as neither. */
+/** True when this record is Taylor herself, on screen, inside someone else's
+ * programming, rather than a work she released. Read "Taylor herself"
+ * literally — that is Joey's rule for this surface (2026-08-12: "it should
+ * only be Taylor"). An earlier pass had widened the wording to "an era moment"
+ * so a broadcast announcement about her could sit here (Time's Person of the
+ * Year, revealed on TODAY by Time's editor); that record was removed instead.
+ * If she is not the person on screen, it is a timeline moment, not an
+ * appearance. APPEARANCE_VIDEO_KINDS in packages/shared/src/vault-types.ts is
+ * the canonical wording this mirrors. `kind: null` (an unrecognized seed value
+ * the generator degraded) counts as neither. */
 export function isAppearance(v: VideoNote): boolean {
   return v.kind !== null && APPEARANCE_KINDS.has(v.kind);
 }

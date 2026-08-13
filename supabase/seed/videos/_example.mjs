@@ -15,17 +15,21 @@
 //       documentary   a documentary or studio-sessions film
 //       performance   her performing a song — live TV, awards stage, session
 //
-//     APPEARANCES — an era moment as it played out inside someone else's
+//     APPEARANCES — Taylor herself, on screen, inside someone else's
 //     programming; the video is the record of an event, not a work she
-//     released. (Usually her on someone's couch/stage/carpet; occasionally the
-//     broadcast where the news itself broke. Never general commentary about
-//     her — the bar is a specific dated event with an official upload.)
+//     released. Her on someone's couch, stage, podium or carpet. RULE ZERO
+//     (Joey, 2026-08-12: "it should only be Taylor"): if she is not the person
+//     on screen, it does not belong here, however big the news. A broadcast
+//     announcing something about her is a timeline moment — the Time Person of
+//     the Year reveal on TODAY was removed from the rail on exactly this line.
+//     The bar is a specific dated event, an official upload, and her in it.
 //       interview     a sit-down conversation: talk show, podcast, or
 //                     radio/streaming interview (Fallon, New Heights, Zane Lowe)
 //       award_speech  accepting or presenting at an awards show — a podium
 //       speech        a standalone address outside an awards show (NYU 2022)
-//       press_event   publicity appearance: premiere Q&A, red carpet, a
-//                     news-segment reveal (TODAY, GMA carpet, Sundance Q&A)
+//       press_event   publicity appearance she is present at: a premiere Q&A
+//                     or a red carpet she walks (Sundance Q&A, GMA carpet).
+//                     Never a studio segment where someone discusses her.
 //
 //     Pick by WHAT THE VIEWER SEES, not by what the event was called. A speech
 //     at a podium is never `performance`; a song sung on a talk show is
