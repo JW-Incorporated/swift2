@@ -1594,7 +1594,12 @@ export default {
       threadIds: ['the-proposal'],
       // Cross-link (Stage 3, 2026-07-27): the other Super Bowl LIX sighting
       // on the same "the-proposal" thread, two weeks earlier.
-      relatedIds: ['moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick'],
+      // Cross-link (Stage 3, 2026-08-13): + the divisional-round playoff win
+      // three weeks earlier, on the same thread.
+      relatedIds: [
+        'moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick',
+        'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
+      ],
       title: 'Booed at the Superdome, cheering for a three-peat that fell short',
       snippet: 'Back at her second straight Super Bowl to support Travis — this time drawing boos from a pro-Eagles crowd as Kansas City lost, 40–22.',
       sourceUrl: 'https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/',
@@ -2252,6 +2257,9 @@ export default {
         // Cross-link (Stage 3, 2026-08-10): the AFC Championship win the
         // following week, punching the Chiefs' Super Bowl ticket.
         'moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick',
+        // Cross-link (Stage 3, 2026-08-13): + the Super Bowl LIX game itself,
+        // three weeks later — the same "the-proposal" thread's next beat.
+        'moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s',
       ],
       moment: {
         context:
