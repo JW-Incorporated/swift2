@@ -78,6 +78,29 @@ jobs:
         with:
           node-version: "24"
 
+      # Fail CLOSED on a stale ledger (issue #2031, 2026-08-12): every dedupe /
+      # idempotency check in post-queue.mjs reads social/posted/ from this
+      # checkout of main. If a previous run's queue-state PR is still open, the
+      # ledger on main is KNOWN stale — a post recorded on that branch looks
+      # "still queued" here, and posting anyway is exactly how the 2026-08-11/12
+      # Instagram triple-post happened. Refusing costs one 30-minute slot (state
+      # PRs normally auto-merge in ~2-3 min, so the next run posts); posting on
+      # a stale ledger costs live duplicates that the IG API cannot even delete.
+      # The red run is deliberate — watchdog and the founders see a stuck state
+      # PR instead of a growing pile of duplicates.
+      - name: Refuse to post while a queue-state PR is still open (stale ledger)
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          set -euo pipefail
+          open_state=$(gh pr list --state open --limit 100 --json headRefName \
+            --jq '[.[] | select(.headRefName | startswith("social-poster/state-"))] | length')
+          if [ "$open_state" -gt 0 ]; then
+            echo "::error::social-poster: $open_state open queue-state PR(s) (branch social-poster/state-*) — the social/posted/ ledger on main is stale, so dedupe cannot be trusted. Refusing to post this run. State PRs auto-merge when green (allowlist entry social/posted/ + social/failed/, 2026-08-12); if one is stuck for more than an hour, a human should look at why — see issue #2031."
+            exit 1
+          fi
+          echo "No open queue-state PRs — ledger current, proceeding."
+
       # Exits non-zero when a post permanently failed (2026-08-11) — see the
       # "Failure surfacing" note in the header. Writes its run report to
       # $SOCIAL_POSTER_REPORT, which the commit step below puts in the PR.

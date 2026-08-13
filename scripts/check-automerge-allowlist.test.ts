@@ -399,6 +399,20 @@ describe('runtime allow/deny matching on the committed allowlist', () => {
   it('the checker-gated social image carve-out still matches (path level)', () => {
     expect(mergeable('apps/web/public/social/queue-item.png')).toBe(true);
   });
+
+  // 2026-08-12 (issue #2031): the poster's queue-state PRs rename items into
+  // social/posted/ (success) and social/failed/ (permanent failure). These
+  // MUST stay allowlisted or every success-recording state PR strands open,
+  // main keeps saying "still queued", and the next run posts the item again —
+  // the mechanism behind the 2026-08-11/12 Instagram triple-post. If this
+  // test ever fails because someone removed the entries, read that issue and
+  // docs/decisions.md 2026-08-12 before "cleaning up".
+  it('the poster state ledger (social/posted/, social/failed/) auto-merges — issue #2031 regression', () => {
+    expect(mergeable('social/posted/2026-08-12-example-x.json')).toBe(true);
+    expect(mergeable('social/failed/2026-08-12-example-x.json')).toBe(true);
+    // the queue itself was always allowlisted; keep all three lanes proven
+    expect(mergeable('social/queue/2026-08-12-example-x.json')).toBe(true);
+  });
 });
 
 // ── the real repo must pass, and the specific regression must stay fixed ──

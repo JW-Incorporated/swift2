@@ -102,6 +102,21 @@ supabase/seed/
 # ── Social queue: drafted posts (per docs/decisions.md 2026-07-25). ─────────
 social/queue/
 
+# ── Social poster state ledger (ADDED 2026-08-12 — docs/decisions.md, issue
+#    #2031). `social/posted/` and `social/failed/` are machine-written
+#    BOOKKEEPING, not content: the poster records "this item posted / failed"
+#    by renaming queue files into them via a state PR that its whole design
+#    assumes lands within minutes. These paths were missing from this list, so
+#    after PR #1900 made the enable job disarm auto-merge on every declined
+#    PR, every success-recording state PR stranded open — main kept saying
+#    "still queued" and the next run posted the item AGAIN (the 2026-08-11/12
+#    Instagram triple-post, issue #2031). Stranding these PRs is the dangerous
+#    direction: the ledger of what already went out MUST land fast. No content
+#    decision is made on these paths — the content gate stays `social/queue/`
+#    (check-drafts) upstream; these only record what the poster already did. ──
+social/posted/
+social/failed/
+
 # ── Audit reports written by the content-engine runners. ────────────────────
 docs/audits/
 
