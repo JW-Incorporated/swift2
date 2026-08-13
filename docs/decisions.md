@@ -23,8 +23,14 @@ counting URL hostnames and counts **outlet identities**:
 2. **Press outlets are identified by registrable domain** (with a small
    ccSLD table so `bbc.co.uk` ≠ `co.uk`), so `music.example.com` and
    `www.example.com` are one outlet. Strictly stricter than exact-host.
-3. **An unparseable URL counts zero** — previously `hostOf()` returned its
-   garbage input on parse failure, so a typo'd URL counted as a full outlet.
+3. **An unparseable URL, an IP-literal host, or a trailing-dot FQDN dodge
+   counts zero** — previously `hostOf()` returned its garbage input on parse
+   failure, so a typo'd URL counted as a full outlet; hosts are normalized
+   (lowercase, trailing dot stripped) BEFORE any list check so `youtube.com.`
+   cannot re-open the hole.
+4. **The subject's own web properties (taylorswift.com, taylornation.com)
+   count zero toward independence** — usable citations, never independent
+   corroboration of a claim about their owner.
 
 **Why:** issue #2036 — host-keying let any youtube.com link, including an
 anonymous fan re-upload, count as one full independent outlet, and two fan
@@ -43,6 +49,12 @@ nothing, because #2035 already re-sourced the two riders to real press.
 - *Only demote fan re-uploads, keep official as outlets.* Rejected for the
   same reason, plus provenance is only knowable from `source_type`, which
   most citations lack — the common case would silently decide the rule.
+- *Demote `source_type: official/primary` on EVERY host, not just video
+  platforms.* Rejected by measurement: the type marks institutions of record
+  (grammy.com, nyc.gov) as often as the subject's own properties, and the
+  blanket rule delists 3 records that deserve to pass (the awarding body IS
+  independent of the subject). The narrow subject-owned-host list implements
+  the defensible half mechanically.
 - *Full public-suffix list dependency for registrable domains.* Rejected:
   a new dependency for a gate script; the small table fails in the strict
   direction (an unlisted ccSLD collapses further, counting fewer, never more).

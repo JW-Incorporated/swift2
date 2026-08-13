@@ -267,7 +267,7 @@ for (const { file, data } of loaded) {
       const listed = SINGLE_OUTLET_LEGACY.has(key);
       if (outlets < 2 && !listed)
         err(
-          `${it.category} item has ${outlets} independent outlet(s) — this category requires two (a wiki/forum/social citation never counts toward them)`,
+          `${it.category} item has ${outlets} independent outlet(s) — this category requires two (wiki/forum/social citations, video-platform links like YouTube, and taylorswift.com all count ZERO toward them — issue #2036; cite real press)`,
         );
       else if (outlets < 2)
         warn(`only ${outlets} independent outlet(s); grandfathered as ${key}`);
