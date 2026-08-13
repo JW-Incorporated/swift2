@@ -21,7 +21,10 @@ import { eraStyle } from '@/lib/longlive/theme';
 import {
   THREADS,
   getThread,
+  threadHeroCredit,
+  threadHeroTiles,
 } from '@/lib/longlive/lenses';
+import type { ThreadMeta } from '@/lib/longlive/lenses';
 import type { LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
@@ -54,6 +57,73 @@ const NO_SCRUBBER_THREADS = new Set<LensId>([
   // crush this tight arc into ~15% of the rail.
   'the-proposal',
 ]);
+
+/**
+ * A thread's hero art, shared by the gallery card and the detail header so the
+ * two can never drift apart.
+ *
+ * Two shapes (Joey, 2026-08-13 — DoD item 2, "the two relationship cards must
+ * not read as the same thread"):
+ *   - **one photo** — the default. Era album art for most threads; End Game
+ *     carries an actual photo of Travis, which is the whole point of its card.
+ *   - **a grid of portraits** — when the thread's subject is a *set* of people
+ *     (`threadHeroTiles`). Blank Spaces is the wall of her past relationships,
+ *     deliberately many so no single ex reads as the face of the thread.
+ *
+ * The tiles are `alt=""` under one `role="img"` label rather than eight
+ * separate alts: a screen reader should hear "portraits of eight past
+ * partners: …", not eight consecutive "portrait of" announcements for what is
+ * visually a single piece of card art.
+ */
+function ThreadHeroArt({
+  meta,
+  className,
+  priority,
+}: {
+  meta: ThreadMeta;
+  className?: string;
+  priority?: boolean;
+}) {
+  const tiles = threadHeroTiles(meta.id);
+
+  if (tiles.length > 0) {
+    return (
+      <div
+        className={cn('absolute inset-0 grid auto-rows-fr grid-cols-4', className)}
+        role="img"
+        aria-label={`Portraits of ${tiles.length} of Taylor Swift's past partners: ${tiles
+          .map((t) => t.name)
+          .join(', ')}.`}
+      >
+        {tiles.map((tile) => (
+          // eslint-disable-next-line @next/next/no-img-element -- hotlinked
+          // Wikimedia portraits bypass the optimizer (remotePatterns covers
+          // only YouTube posters), same as the Love Story entry portraits.
+          <img
+            key={tile.id}
+            src={tile.url}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover"
+            style={{ objectPosition: '50% 22%' }}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={meta.hero || '/placeholder.svg'}
+      alt={meta.heroAlt ?? ''}
+      fill
+      priority={priority}
+      className={cn('object-cover', className)}
+      style={meta.heroPosition ? { objectPosition: meta.heroPosition } : undefined}
+    />
+  );
+}
 
 /**
  * The Threads world. Entering lands on a gallery that answers "what is this?"
@@ -112,7 +182,7 @@ function ThreadsGallery() {
                   kicker would clip against overflow-hidden. 4:3 gives the room;
                   the wider card keeps 16:10 where the blurb wraps to two. */}
               <div className="relative aspect-[4/3] sm:aspect-[16/10]">
-                <Image src={t.hero || '/placeholder.svg'} alt="" fill className="object-cover transition duration-500 group-hover:scale-105" />
+                <ThreadHeroArt meta={t} className="transition duration-500 group-hover:scale-105" />
                 {/* Light vignette only — the readable backing lives on the text
                     block itself (below), not here. */}
                 <div
@@ -200,13 +270,18 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
   const { clearLens } = useAppActions();
   const meta = getThread(threadId);
   const Icon = ICONS[threadId];
+  // Attribution is a LICENCE CONDITION on the CC BY / CC BY-SA portraits in the
+  // Blank Spaces grid, not a nicety — it has to render, not sit in the data
+  // (same rule as the Love Story entry portraits). Public-domain heroes carry
+  // one too, because saying where a photo came from is the habit here.
+  const heroCredit = threadHeroCredit(threadId);
 
   return (
     <div>
       {/* Hero header — matches the grandeur of an era hero. */}
       <header className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={meta.hero || '/placeholder.svg'} alt="" fill priority className="object-cover opacity-40" />
+          <ThreadHeroArt meta={meta} priority className="opacity-40" />
           {/* Same fix as the gallery card: the kicker, title and blurb all sit
               in the TOP half of this hero, where the old ramp was only 45%
               opaque. Raised so the whole text column has a near-solid base;
@@ -247,6 +322,14 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
           <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-[color:var(--era-ink)] sm:text-lg">
             {meta.what}
           </p>
+          {heroCredit && (
+            // Full-strength ink, not ink-soft: this sits over hero imagery,
+            // where ink-soft drops under the 4.5:1 body-text floor (WCAG 1.4.3)
+            // — the same reason the blurb above it uses ink.
+            <p className="mt-5 max-w-xl text-[11px] leading-relaxed text-[color:var(--era-ink)]">
+              {heroCredit}
+            </p>
+          )}
         </div>
       </header>
 

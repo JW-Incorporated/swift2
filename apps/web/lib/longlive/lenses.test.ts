@@ -6,7 +6,11 @@ import {
   MOTIF_BY_ID,
   RELATIONSHIPS,
   RUNWAY_LOOKS,
+  THREADS,
+  getThread,
   motifOf,
+  threadHeroCredit,
+  threadHeroTiles,
   threadPoints,
   threadsInEra,
 } from './lenses';
@@ -68,6 +72,77 @@ describe('RUNWAY_LOOKS', () => {
         expect(img.caption, `"${look.id}" image missing a caption`).toBeTruthy();
         expect(img.kind, `"${look.id}" image kind`).toBe('primary');
       }
+    }
+  });
+});
+
+// DoD item 2 (Joey, 2026-08-13): the two relationship threads were twins —
+// same hero art, both blurbs bracelet-led. These lock in that they can never
+// silently become twins again.
+describe('thread card art', () => {
+  it('gives every thread its own hero art', () => {
+    const heroes = THREADS.map((t) => (threadHeroTiles(t.id).length > 0 ? `grid:${t.id}` : t.hero));
+    expect(new Set(heroes).size, `duplicate hero art across threads: ${heroes.join(', ')}`).toBe(
+      THREADS.length,
+    );
+  });
+
+  it('opens End Game and Blank Spaces on different words', () => {
+    const endGame = getThread('the-proposal');
+    const blankSpaces = getThread('love-story');
+    expect(endGame.kicker).not.toBe(blankSpaces.kicker);
+    // The twins bug was both blurbs leading with the friendship bracelet.
+    expect(blankSpaces.what.toLowerCase()).not.toContain('bracelet');
+    // Item 2's acceptance criterion: Blank Spaces must say plainly that it is
+    // about the past relationships.
+    expect(blankSpaces.what.toLowerCase()).toContain('past relationships');
+  });
+
+  it('leads End Game with the rehosted, credited Travis photo', () => {
+    const meta = getThread('the-proposal');
+    expect(meta.hero).toBe('/threads/end-game-travis-kelce.jpg');
+    expect(meta.heroAlt, 'a photo carrying meaning needs real alt text').toBeTruthy();
+    expect(threadHeroCredit('the-proposal')).toContain('Adam Schultz');
+  });
+});
+
+describe('threadHeroTiles("love-story")', () => {
+  const tiles = threadHeroTiles('love-story');
+
+  it('is the wall of past partners — every ended relationship that has a portrait', () => {
+    const expected = RELATIONSHIPS.filter((r) => r.end !== null && r.image);
+    expect(tiles.map((t) => t.id)).toEqual(expected.map((r) => r.id));
+    expect(tiles.length, 'the grid needs enough faces to read as a list, not a couple').toBeGreaterThanOrEqual(4);
+  });
+
+  it('excludes the ongoing relationship — that one is End Game’s card', () => {
+    const ongoing = RELATIONSHIPS.filter((r) => r.end === null).map((r) => r.name);
+    expect(ongoing.length).toBeGreaterThan(0);
+    for (const name of ongoing) {
+      expect(tiles.map((t) => t.name)).not.toContain(name);
+    }
+  });
+
+  it('carries a credit and alt for every tile — attribution is a licence condition', () => {
+    for (const tile of tiles) {
+      expect(tile.url, `${tile.name} url`).toMatch(/^https:\/\//);
+      expect(tile.credit, `${tile.name} is missing a credit`).toBeTruthy();
+      expect(tile.alt, `${tile.name} is missing alt text`).toBeTruthy();
+    }
+  });
+
+  it('renders every tile credit in the one visible credit line', () => {
+    const credit = threadHeroCredit('love-story') ?? '';
+    for (const tile of tiles) {
+      expect(credit, `${tile.name} is not attributed on the thread`).toContain(tile.credit);
+      expect(credit).toContain(tile.name);
+    }
+  });
+
+  it('is empty for threads with no grid hero, so they fall back to their photo', () => {
+    for (const thread of THREADS) {
+      if (thread.id === 'love-story') continue;
+      expect(threadHeroTiles(thread.id), `${thread.id} should have no tiles`).toEqual([]);
     }
   });
 });
