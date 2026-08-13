@@ -192,10 +192,15 @@ from the X API, not a bug: the account really does have ~0 followers.
 ## Cadence
 
 - **Daily:** fandom listening scan → 3-6 bullet summary into the brief;
-  **draft the day's slots from `social/calendar.md`** into `social/queue/`
-  (falling back to the heartbeat pillars, and saying so, only when the calendar
-  has no entry); social queue status (scheduled posts, metrics deltas worth a
-  sentence).
+  **draft the day's slots from `social/calendar.md`** into `social/queue/`.
+  **A calendar gap is NOT filled** (changed 2026-08-12, issue #2031 fallout):
+  the old heartbeat-pillar fallback is how the account drifted to formulaic
+  filler on generic tiles — a fan account posting nothing is better than
+  posting slop. An empty slot stays empty, gets flagged prominently in the
+  run's PR body, and gets a `desk-coordination` issue naming the dates; the
+  only exception is a genuinely dated, sourced on-this-day Vault match for
+  that exact day. Also: social queue status (scheduled posts, metrics deltas
+  worth a sentence).
 - **Weekly (Tree, not this desk):** the calendar is replanned and last week's
   posts are audited against strategy — `docs/agents/tree.md`.
 - **Weekly:** metrics rollup vs. the targets in `growth-plan.md` (follower

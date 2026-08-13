@@ -164,23 +164,14 @@ export default {
         ),
       ],
     }),
-    appearance({
-      slug: 'time-person-of-the-year-today-2023',
-      kind: 'press_event',
-      title: "Time's Person of the Year, revealed on TODAY",
-      releasedOn: '2023-12-06',
-      summary:
-        "Time's editor-in-chief reveals the 2023 Person of the Year live on TODAY — the first person ever named for work in arts and entertainment.",
-      youtubeId: 'VeFzmqp6OaQ',
-      channel: 'TODAY',
-      sources: [
-        upload({
-          youtubeId: 'VeFzmqp6OaQ',
-          title: 'Taylor Swift named Time’s 2023 Person of the Year',
-          channel: 'TODAY',
-        }),
-      ],
-    }),
+    // The Time Person of the Year TODAY reveal (VeFzmqp6OaQ) was REMOVED from
+    // this surface on 2026-08-12 — Joey's rule for the Videos rail: "it should
+    // only be Taylor." That video is Time's editor-in-chief announcing the
+    // honor; Taylor is not on screen. An announcement ABOUT her is a timeline
+    // moment, not a watchable appearance. The honor itself lives on, fully
+    // sourced, as the content/midnights.mjs moment "She's Time's 2023 Person
+    // of the Year" (2023-12-06), which cites the same TODAY upload. Do not
+    // re-add records here unless Taylor is herself the on-screen participant.
     appearance({
       slug: 'grammys-album-of-the-year-2024',
       kind: 'award_speech',

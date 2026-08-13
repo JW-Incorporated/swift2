@@ -5491,6 +5491,27 @@ export default {
             reliability_score: 5,
           },
         ],
+        // Photos (Photo Enrichment, 2026-08-13): Wikimedia Commons, anonymous
+        // fans' wrists at real Eras Tour stops (Minneapolis 2023, Mexico City
+        // 2023) — no named individuals, per privacy-redlines §5.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/69/Eras_Tour_friendship_bracelets.jpg',
+            focalPoint: '58% 60%',
+            credit: 'Michael Hicks, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'A fan\'s wrist at an Eras Tour show, stacked with beaded bracelets traded with a stranger in her row.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/Friendship_Bracelets_MexicoCityTSTheErasTour.jpg',
+            focalPoint: '68% 75%',
+            credit: 'Ally.castillo, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Two fans compare stacks of hand-beaded friendship bracelets at the Eras Tour\'s Mexico City shows, August 2023.',
+            kind: 'reference',
+          },
+        ],
       },
     },
   ],

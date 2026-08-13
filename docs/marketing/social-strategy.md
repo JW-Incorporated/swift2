@@ -320,39 +320,57 @@ header comment.
 - **A new channel needs its own `docs/decisions.md` entry** with a channel
   policy and a crisis-stop rule (rail 3).
 
-### Media — the source ladder
+### Media — the source ladder (REWRITTEN 2026-08-12: Taylor first)
 
-Priority order. Going down a rung requires the rung above to genuinely not fit.
+Joey's verdict after the 2026-08-11/12 incident, verbatim: *"We are a Taylor
+Swift fan site whose social media has no pictures of Taylor Swift."* That ends
+the screenshot-first ladder. The grid's job is to show Taylor; the product is
+the byline. Enforced in code by `scripts/social/check-drafts.mjs` +
+`scripts/social/lib/queue-schema.mjs` (the `mediaKind` standard, see
+`social/README.md`) — this section describes the gate, it is not the gate.
 
-1. **Site screenshot** — `node scripts/social/capture-screens.mjs`. The default
-   for anything with a surface: threads, eras, moments, Mood, any feature. It's
-   ours, it's free of rights questions, and it shows the product, which is the
-   whole point of the account.
-2. **Designed card** — `node scripts/social/render-card.mjs`. For text-forward
-   posts: a quote, a number, a poll, a symbol thread, a chip spotlight.
-3. **A clearly-safe real photo** — a Vault `images[]` entry that already carries
-   a real photographer/outlet `credit` (so it has been through Karen's integrity
-   scan). Commit it as `apps/web/public/social/<YYYY-MM-DD>-<slug>.png`, or
-   reuse a vetted asset from `apps/web/public/social/library/`. Carry the credit
-   into the caption where the format allows.
-4. **Era tile** (`/eras/<id>.png`) — **last resort.** Requires
-   `mediaKind: "era-art"` on the queue item plus a written justification in
-   `why`; the checker rejects it otherwise, and the poster already blocks era art
-   reused from a recent IG post.
+1. **A real photograph of Taylor** — `mediaKind: "photo"`. THE default for
+   every post. Source it from the repo's own credited corpus —
+   `supabase/seed/content/**` `moment.photos` (1,000+ entries, url + credit)
+   and `apps/web/lib/longlive/lenses.ts` (per-era Getty/Wikimedia with
+   captions) — rehost it under `apps/web/public/social/library/photos/`
+   (≤1.5MB), record `mediaCredit` + `mediaSource` on the queue item, and put
+   the credit line in the caption whenever the platform's length budget
+   allows. Verify the download is the real image (view it — a CDN can serve a
+   placeholder to curl), and that Taylor is actually in the frame.
+2. **Site screenshot** — `mediaKind: "site-screen"`, only for posts whose
+   subject IS a product surface (a launch, a how-to). Must be a committed
+   `/social/library/` asset. On Instagram, prefer a carousel: Taylor photo as
+   the grid tile, the screenshot as slide 2 — the grid shows Taylor either
+   way.
+3. **No image at all** (X only — Instagram always requires media). A sharp
+   text-only tweet beats a decorative tile every time.
 
-**Instagram media is required; X media is conditional** — X image posting is
-landing with the social-tooling workstream. Until it does, X items ship
-text-only and a planned media source for an X slot is simply unused. Never hold
-a slot back over it.
+**Retired rungs:** the **era tile** (`/eras/<id>.png`) hard-fails the checker
+outright, declared or not — on 2026-08-06 all 17 posted IG items were era
+tiles, and the "declared fallback" loophole is how they kept shipping.
+**Designed cards** (`render-card.mjs`) are retired from the feed for the same
+reason: a typography tile is still not a picture of Taylor. The script stays
+for possible non-feed uses; re-admitting cards to the feed is a founder call.
+The card redline survives the retirement, wherever a card is ever rendered:
+**cards never reproduce lyrics** — titles, dates, numbers, and sourced quotes
+only, the same no-lyrics line the Mood starter chips hold (docs/decisions.md
+2026-07-09 lyrics entry).
 
-**Rights posture** (decision entry 2026-08-11): screenshots and cards are ours;
-real photos are limited to ones already vetted into the Vault with a credit; no
-paparazzi or private-setting shots, no watermarked images, no fan edits without
-the creator's permission, takedown-on-request without argument. **Designed cards
-never reproduce lyrics** — titles, dates, numbers, and sourced quotes only, the
-same no-lyrics redline the Mood starter chips hold. Clickability is
-priority #1 — a rights-clean but boring tile is the failure mode we are
-correcting, not the safe default.
+**Instagram media is required. X images work** (up to 4, via the v1.1 media
+endpoint since 2026-08-11) — attach a photo to X posts whenever one fits the
+story; the 280-char budget is for words, `mediaCredit` carries the credit when
+the body can't.
+
+**Rights posture** (decision entry 2026-07-09 + 2026-08-11): hosting real
+internet photos is unrestricted — embed, hotlink, or rehost, press/agency all
+fine — **with credit, always**, as a knowing accepted risk;
+takedown-on-request without argument. The hard bars: **no AI-generated
+images, ever**, and any reference/comparable stand-in must be visibly labeled
+as such (never passed off as Taylor). No watermarked images, no fan edits
+without the creator's permission. Clickability is priority #1 — a
+rights-clean but boring tile is the failure mode we corrected, not the safe
+default.
 
 ### Voice
 
@@ -391,7 +409,7 @@ against that old curve is fiction. Reset below.
 | Posts shipped vs planned | `social/posted/` vs last week's calendar | Calendar adherence; <80% means the calendar is unrealistic, not that the drafter is lazy |
 | Failed posts | `social/failed/` new files | Should be **0**. Any X failure means the sibling rule leaked |
 | Distinct opener patterns | last 14 days of posted bodies | Target ≥ 12 distinct in 14 days. This is the metric that would have caught the current failure on day 3 |
-| Media mix | queue items' `media` + `mediaKind` | Target: ≥50% screenshot, ≤10% era-art. Era-art >25% is a red flag |
+| Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are excluded — they are a legitimate rung of the ladder, not a miss): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
 | Campaign mix | `campaign` prefixes | Roughly 1 launch arc, 12 thread slots, 2-3 mood, rest heartbeat, per month |
 
 **Engagement proxy** (since no reach data exists): **followers gained per post
