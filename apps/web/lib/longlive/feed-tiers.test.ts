@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { build, contentForEra } from './content';
+import { inlineVideoMomentIds } from './era-feed';
 import { VAULT_RAW } from './content-vault.generated';
 import { ERAS } from './eras';
 import {
@@ -443,15 +444,39 @@ describe('withInlineVideoTiers', () => {
     expect(input.get('a')).toBe('chip');
   });
 
+  /**
+   * Wired the way EraSection wires it — `inlineVideoMomentIds(items)`, the same
+   * ownership set the component derives — rather than "every item with
+   * `item.video`". Those differ (a moment deferring a duplicate id is not an
+   * owner), and the naive version is also circular: assert `hero|media` over
+   * exactly the ids you just floored and the test passes on an empty vault.
+   * The `toBeGreaterThan(0)` below is what stops it going quiet — if the corpus
+   * ever stops containing a card the floor lifts, this fails instead of
+   * silently asserting nothing.
+   */
   it('leaves no chip or text card playing a video anywhere in the real corpus', () => {
+    let promoted = 0;
+    let owned = 0;
     for (const era of ERAS) {
       const items = contentForEra(era.id);
-      const owners = new Set(items.filter((it) => it.video).map((it) => it.id));
-      const assigned = withInlineVideoTiers(assignFeedTiers(items), owners);
+      const owners = inlineVideoMomentIds(items);
+      const base = assignFeedTiers(items);
+      const floored = withInlineVideoTiers(base, owners);
+      for (const id of owners) {
+        owned++;
+        if (base.get(id) !== floored.get(id)) promoted++;
+        expect(['hero', 'media']).toContain(floored.get(id));
+      }
+      // Nothing OUTSIDE the ownership set may move.
       for (const it of items) {
-        if (!it.video) continue;
-        expect(['hero', 'media']).toContain(assigned.get(it.id));
+        if (owners.has(it.id)) continue;
+        expect(floored.get(it.id)).toBe(base.get(it.id));
       }
     }
+    // Non-vacuity, not a census: the vault gains content most days, so pinning
+    // exact counts here would fail on unrelated content PRs. Today it is 16
+    // owners and 7 promotions (6 `text` + 1 `chip`).
+    expect(owned).toBeGreaterThan(0);
+    expect(promoted).toBeGreaterThan(0);
   });
 });

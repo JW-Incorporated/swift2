@@ -134,6 +134,34 @@ export function baseTierFor(item: ContentItem): CardTier {
  *      `media`. It can no longer push a substantial item to `text` — that
  *      demotion was the #1017 bug and it is gone.
  */
+export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
+  const tiers = new Map<string, CardTier>();
+  let sinceHero = Infinity;
+
+  for (const item of items) {
+    let tier = baseTierFor(item);
+
+    if (tier === 'hero') {
+      if (item.significance === 'defining' || sinceHero >= heroGapFor(item)) {
+        sinceHero = 0;
+      } else {
+        // Too close behind another hero. Step down exactly one tier — this
+        // item has a real photo and cleared the hero bar, so `media` is the
+        // honest floor. It is never demoted further, and never on any basis
+        // other than adjacency to another hero.
+        tier = 'media';
+        sinceHero += 1;
+      }
+    } else {
+      sinceHero += 1;
+    }
+
+    tiers.set(item.id, tier);
+  }
+
+  return tiers;
+}
+
 /**
  * Tiers a card that plays a video inline can wear (#2080).
  *
@@ -179,32 +207,4 @@ export function withInlineVideoTiers(
     if (tier === 'chip' || tier === 'text') out.set(id, INLINE_VIDEO_MIN_TIER);
   }
   return out;
-}
-
-export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
-  const tiers = new Map<string, CardTier>();
-  let sinceHero = Infinity;
-
-  for (const item of items) {
-    let tier = baseTierFor(item);
-
-    if (tier === 'hero') {
-      if (item.significance === 'defining' || sinceHero >= heroGapFor(item)) {
-        sinceHero = 0;
-      } else {
-        // Too close behind another hero. Step down exactly one tier — this
-        // item has a real photo and cleared the hero bar, so `media` is the
-        // honest floor. It is never demoted further, and never on any basis
-        // other than adjacency to another hero.
-        tier = 'media';
-        sinceHero += 1;
-      }
-    } else {
-      sinceHero += 1;
-    }
-
-    tiers.set(item.id, tier);
-  }
-
-  return tiers;
 }

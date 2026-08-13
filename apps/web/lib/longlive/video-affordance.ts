@@ -45,26 +45,38 @@ export function feedVideoFor(item: ContentItem): MomentVideo | null {
 }
 
 /**
- * YouTube's own thumbnail hosts. `i.ytimg.com` is what the app renders and what
- * Photo Enrichment stored on these moments; `img.youtube.com` is the older alias
- * for the same files and shows up in hand-authored seed rows.
+ * True for a host that serves YouTube's own thumbnail files.
+ *
+ * Matched as a SUFFIX rather than an allowlist of exact names. YouTube serves
+ * the same files from `i.ytimg.com` and from the numbered shards
+ * (`i1`–`i4`/`i9.ytimg.com`), and `img.youtube.com` is the older alias. The
+ * whole job of this module's duplicate check is to stop the same frame
+ * rendering twice; a named-host list that happens to miss `i3.ytimg.com` would
+ * silently let the duplication back in on the next Photo Enrichment run, with
+ * no test failing. The vault is 100% `i.ytimg.com` today — this costs nothing
+ * now and closes the hole later.
  */
-const YOUTUBE_THUMB_HOSTS = new Set(['i.ytimg.com', 'img.youtube.com', 'i9.ytimg.com']);
+function isYouTubeThumbHost(hostname: string): boolean {
+  return hostname === 'ytimg.com' || hostname.endsWith('.ytimg.com') || hostname === 'img.youtube.com';
+}
 
 /**
  * True when the card's own photo is just a frame of the very video the card is
  * about to play — so rendering both would show the same footage twice, stacked.
  *
- * This is not hypothetical: 9 of the 16 moments carrying `video` today have a
- * `https://i.ytimg.com/vi/<same id>/…jpg` primary image, four of them the exact
- * `maxresdefault` frame the poster uses at a different resolution. Photo
- * Enrichment reached for the video's own thumbnail precisely because these
- * moments ARE the video, and before #2080 nothing rendered the two together.
+ * This is not hypothetical: 8 of the 16 moments carrying `video` today have a
+ * `https://i.ytimg.com/vi/<same id>/…jpg` primary image. Two of those are the
+ * EXACT url the poster requests (`hqdefault.jpg`); two more are
+ * `maxresdefault.jpg`, the same frame at another resolution; the remaining four
+ * are other frames of the same video. Photo Enrichment reached for the video's
+ * own thumbnail precisely because these moments ARE the video, and before #2080
+ * nothing rendered the two together.
  *
- * Matched on the id in the path rather than on the whole URL because the frames
- * differ by filename (`maxresdefault` / `maxres1` / `sd2` / `hqdefault`) while
- * being the same video — a URL-equality check would miss most of them and leave
- * the duplication it exists to prevent.
+ * Matched on the id in the path rather than on the whole URL because of that
+ * spread: the frames differ by filename (`maxresdefault` / `maxres1` /
+ * `maxres2` / `maxres3` / `sd2` / `hqdefault`) while being the same video, so a
+ * URL-equality check would catch 2 of the 8 and leave the duplication it exists
+ * to prevent.
  *
  * A photo from anywhere else (album art, a press shot) is a genuinely different
  * picture and is kept: this suppresses duplication, not imagery.
@@ -81,7 +93,7 @@ export function cardImageDuplicatesVideo(item: ContentItem, video: MomentVideo):
     // YouTube frame.
     return false;
   }
-  if (!YOUTUBE_THUMB_HOSTS.has(parsed.hostname)) return false;
+  if (!isYouTubeThumbHost(parsed.hostname)) return false;
   // `/vi/<id>/…` and its WebP sibling `/vi_webp/<id>/…` are the same frames.
   return (
     parsed.pathname.startsWith(`/vi/${video.youtubeId}/`) ||

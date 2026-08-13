@@ -24,11 +24,13 @@ the decision:
    a moment with watchable footage is not a slight item. It is a floor, never a
    cap: `hero` stays `hero`.
 2. **A card's own photo is suppressed when it is a frame of the video it plays**
-   (`cardImageDuplicatesVideo` in `video-affordance.ts`). 9 of the 16 moments
-   carrying `video` have an `i.ytimg.com/vi/<same id>/…` primary image, four of
-   them the identical `maxresdefault` frame the poster uses. Rendering both
-   prints the same picture twice inside one card. A photo from anywhere else
-   (album art, a press shot) is a different picture and is kept.
+   (`cardImageDuplicatesVideo` in `video-affordance.ts`). 8 of the 16 moments
+   carrying `video` have an `i.ytimg.com/vi/<same id>/…` primary image: two are
+   the byte-identical `hqdefault.jpg` url the poster requests, two more are
+   `maxresdefault.jpg` (the same frame at another resolution), and four are
+   other frames of the same video. Rendering both prints the same footage twice
+   inside one card. A photo from anywhere else (album art, a press shot) is a
+   different picture and is kept.
 
 **Why:** Joey reviewed #2063 on his phone and rejected it. #2051 established
 that a moment carrying footage looked identical to one that didn't; #2055 fixed

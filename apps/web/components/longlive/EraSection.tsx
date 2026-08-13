@@ -756,11 +756,11 @@ function TagRow({ tags }: { tags: ContentTag[] }) {
  * phone precisely because a second vocabulary for "this plays" leaves the reader
  * still having to learn which cards do.
  *
- * `hideImage` is the other half of that uniformity, and it is not cosmetic: 9 of
+ * `hideImage` is the other half of that uniformity, and it is not cosmetic: 8 of
  * the 16 moments carrying footage have the video's OWN thumbnail as their photo
  * (Photo Enrichment reached for it because the moment IS the video). Rendering
- * both would print the same frame twice inside one card — four of them the
- * identical `maxresdefault` at two resolutions. So when the photo is a frame of
+ * both would print the same frame twice inside one card — for two of them the
+ * card photo is the byte-identical url the poster requests. So when the photo is a frame of
  * the video being played, the poster takes the image slot instead of joining it,
  * and the card lands on exactly the video-record shape Joey pointed at: text
  * above, big poster below. A photo from anywhere else is a different picture and
