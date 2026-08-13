@@ -25,7 +25,9 @@ cards to the feed is a founder call, not a drafter's. The 2026-08-11 entry's
 **rights bars survive intact** (credit always, no AI-generated images, no
 watermarks, no fan edits without permission, takedown on request) — only its
 ordering is overturned. Written out in full in `docs/marketing/social-strategy.md`
-§2; enforced by PR #2043.
+§2; enforced by PR #2043. The separate copyright question this raises — that
+the corpus these photographs come from is largely agency-owned — is decided in
+its own entry below ("Getty preview comps may be posted to social").
 
 *(2) The drafting fallback.* When `social/calendar.md` has no entry for a
 slot, Growth **no longer improvises one from the heartbeat pillars.** The slot

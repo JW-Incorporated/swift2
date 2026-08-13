@@ -354,14 +354,14 @@ Swift fan site whose social media has no pictures of Taylor Swift."* That ends
 the screenshot-first ladder. The grid's job is to show Taylor; the product is
 the byline.
 
-**Enforcement lands in PR #2043**, which teaches
-`scripts/social/lib/queue-schema.mjs` the `photo` / `site-screen` values and
-makes `scripts/social/check-drafts.mjs` reject undeclared media and era art
-outright. Until #2043 is merged the *only* value the schema accepts is
-`era-art`, and the checker still permits a declared era tile — so between
-these two merges this ladder is policy the code has not caught up to. Say so
-out loud rather than assuming the gate has your back; once #2043 lands, this
-section describes the gate and is not the gate.
+**Enforced in code since #2043** (2026-08-12):
+`scripts/social/lib/queue-schema.mjs` knows the `photo` / `site-screen`
+values, and `scripts/social/check-drafts.mjs` rejects undeclared media and era
+tiles outright — `photo` is path-bound to `/social/library/photos/` and
+requires `mediaCredit` + `mediaSource`, so a screenshot cannot be laundered as
+a credited photograph and a real photograph cannot ship uncredited. This
+section describes that gate; it is not the gate. Where the two ever disagree,
+the code is what actually ships and this file is the bug.
 
 1. **A real photograph of Taylor** — `mediaKind: "photo"`. THE default for
    every post. Source it from the repo's own credited corpus —
@@ -380,10 +380,10 @@ section describes the gate and is not the gate.
 3. **No image at all** (X only — Instagram always requires media). A sharp
    text-only tweet beats a decorative tile every time.
 
-**Retired rungs:** the **era tile** (`/eras/<id>.png`) is banned from the feed,
-and #2043 makes the checker reject it outright, declared or not — on
-2026-08-06 all 17 posted IG items were era tiles, and the "declared fallback"
-loophole is how they kept shipping.
+**Retired rungs:** the **era tile** (`/eras/<id>.png`) is banned from the feed
+and the checker rejects it outright, declared or not — on 2026-08-06 all 17
+posted IG items were era tiles, and the "declared fallback" loophole is how
+they kept shipping.
 **Designed cards** (`render-card.mjs`) are retired from the feed for the same
 reason: a typography tile is still not a picture of Taylor. The script stays
 for possible non-feed uses; re-admitting cards to the feed is a founder call.
