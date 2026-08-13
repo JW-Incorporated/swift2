@@ -206,9 +206,18 @@ describe('outlet identity is the registrable domain, and unknowns count zero', (
   it('two subdomains of one outlet are ONE identity — url styling cannot mint a second outlet', () => {
     expect(
       independentOutlets([
-        { url: 'https://music.example.com/a' },
-        { url: 'https://www.example.com/b' },
+        { url: 'https://music.newsweek.com/a' },
+        { url: 'https://www.newsweek.com/b' },
       ]),
+    ).toBe(1);
+  });
+
+  it("an outlet's own shortener or international domain is the same outlet (alias table)", () => {
+    expect(
+      independentOutlets([{ url: 'https://nyti.ms/abc' }, { url: 'https://www.nytimes.com/a' }]),
+    ).toBe(1);
+    expect(
+      independentOutlets([{ url: 'https://www.bbc.co.uk/news/a' }, { url: 'https://www.bbc.com/b' }]),
     ).toBe(1);
   });
 
@@ -264,6 +273,54 @@ describe('outlet identity is the registrable domain, and unknowns count zero', (
         { url: 'https://www.billboard.com/a' },
       ]),
     ).toBe(1);
+  });
+
+  it('a mirror, cache or shortener is a wrapper, not a second outlet (Codex review)', () => {
+    // The same Billboard article cited directly and through the Wayback
+    // Machine (or a bit.ly link) is ONE piece of corroboration, not two.
+    expect(
+      independentOutlets([
+        { url: 'https://www.billboard.com/a' },
+        { url: 'https://web.archive.org/web/2024/https://www.billboard.com/a' },
+        { url: 'https://bit.ly/3xYz' },
+        { url: 'https://news.google.com/articles/x' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('self-publishing platforms count zero — the domain cannot say who the publication is', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://fan.substack.com/p/theory' },
+        { url: 'https://medium.com/@fan/post' },
+        { url: 'https://swiftie.blogspot.com/2024/post' },
+      ]),
+    ).toBe(0);
+  });
+
+  it('non-web schemes, credentialed URLs, single-label and reserved hosts all count zero (Codex review)', () => {
+    for (const url of [
+      'file://billboard.com/a',
+      'ftp://reuters.com/a',
+      'ws://npr.org/a',
+      'https://billboard.com@evil.example/a',
+      'https://localhost/a',
+      'https://a.invalid/x',
+      'https://sources.example.com/a',
+    ]) {
+      expect(classifySource({ url }), url).toEqual({ role: 'unusable' });
+    }
+    // The exploit that motivated this: two nonexistent reserved domains used
+    // to pass the two-outlet bar outright.
+    expect(independentOutlets([{ url: 'https://a.invalid/x' }, { url: 'https://b.invalid/y' }])).toBe(0);
+  });
+
+  it('a punycode homograph of a listed host cannot sneak past as a fresh outlet', () => {
+    // 'yоutube.com' with a Cyrillic о parses to xn--yutube-wqf.com — reject
+    // all xn-- hosts rather than trying to enumerate lookalikes.
+    expect(classifySource({ url: 'https://xn--yutube-wqf.com/watch?v=x' })).toEqual({
+      role: 'unusable',
+    });
   });
 
   it('institutions of record stay outlets even when typed official — only video platforms and subject-owned hosts demote', () => {

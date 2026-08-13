@@ -59,6 +59,26 @@ nothing, because #2035 already re-sourced the two riders to real press.
   a new dependency for a gate script; the small table fails in the strict
   direction (an unlisted ccSLD collapses further, counting fewer, never more).
 
+**Codex adversarial round (same day):** confirmed the YouTube/trailing-dot/IP
+fixes and found the remaining fail-open surface — adopted: mirrors, caches,
+aggregators and shorteners (archive.org, archive.today, google.com, bit.ly…)
+and self-publishing platforms (medium, substack, blogspot, wordpress) count
+zero; non-http(s) schemes, credentialed URLs, single-label hosts,
+reserved/special-use names and punycode (xn--) hosts classify unusable; a
+small OUTLET_ALIASES table collapses an outlet's own shortener/international
+domain (nyti.ms→nytimes.com, bbc.co.uk→bbc.com); and the one-source minimum
+now requires at least one USABLE citation (measured free: 0 records ride on
+only-unusable citations). Re-measured after all of it: 13 records change
+count, still zero fall below the bar.
+
+**Left open, explicitly for Wyatt:** Codex's structural recommendation is a
+default-deny **approved-outlet registry** (only registered outlets count,
+with canonical aliases) instead of these grow-as-needed denylists — stronger
+against unknown-domain gaming (any two real-but-irrelevant domains still
+count 2 today), but it makes every new outlet a code change. Also left open:
+wire-syndication collapse and category-gaming (a business claim filed under
+`music` skips the two-outlet bar) — both pre-existing, neither mechanical.
+
 **Approved:** implemented at Joey's direction (free rein on design);
 **sourcing/threshold semantics are Wyatt's call — flagged for his sign-off in
 the PR.**

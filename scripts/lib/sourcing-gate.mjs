@@ -74,6 +74,7 @@ export const WEAK_SOURCE_TYPES = new Set(['wiki', 'fan_forum', 'social', 'fan_wi
  * exactly the "sourced entirely to Wikipedia" case this check exists to catch.
  */
 const WEAK_HOSTS = [
+  // — wikis, forums, social (the original §5 rubric set) —
   'wikipedia.org',
   'wikia.com',
   'fandom.com',
@@ -85,6 +86,29 @@ const WEAK_HOSTS = [
   'tiktok.com',
   'facebook.com',
   'quora.com',
+  // — self-publishing platforms (Codex review, 2026-08-12): the identity is
+  //   the PUBLICATION, which the domain cannot establish — a Billboard
+  //   newsletter and an anonymous fan blog share substack.com. Whoever wrote
+  //   it, the domain proves nothing, so it counts zero toward independence.
+  'medium.com',
+  'substack.com',
+  'blogspot.com',
+  'wordpress.com',
+  // — mirrors, caches, aggregators and shorteners (Codex review): they serve
+  //   someone else's content, so the domain identifies a wrapper, not a
+  //   reporter — citing an article directly AND through web.archive.org or
+  //   bit.ly must never read as two outlets. Cite the canonical URL instead.
+  'archive.org',
+  'archive.today',
+  'archive.ph',
+  'archive.is',
+  'google.com', // news.google, AMP cache, translate — all wrappers
+  'ampproject.org',
+  'bit.ly',
+  't.co',
+  'tinyurl.com',
+  'goo.gl',
+  'feedburner.com',
 ];
 
 const isWeakHost = (host) => WEAK_HOSTS.some((w) => host === w || host.endsWith(`.${w}`));
@@ -132,6 +156,17 @@ export const VIDEO_PLATFORM_HOSTS = [
   'dai.ly',
   'twitch.tv',
   'rumble.com',
+  'streamable.com',
+  'odysee.com',
+  'bitchute.com',
+  'kick.com',
+  'soundcloud.com', // audio UGC — same who-uploaded-it problem
+  // The platforms' own delivery CDNs — a link here is a raw asset, not even a
+  // watch page, and must not mint an outlet either.
+  'googlevideo.com',
+  'ytimg.com',
+  'vimeocdn.com',
+  'dmcdn.net',
 ];
 
 const isVideoPlatformHost = (host) =>
@@ -192,6 +227,32 @@ export function registrableDomain(host) {
 }
 
 /**
+ * One outlet, several registrable domains (Codex review, 2026-08-12): an
+ * outlet's international domain or its OWN link shortener must collapse into
+ * one identity, or "cite it twice, once through nyti.ms" mints a phantom
+ * second outlet. Small and code-owned like everything else here — extend it
+ * when a real double-count shows up, with the pair in the commit message.
+ */
+const OUTLET_ALIASES = new Map([
+  ['bbc.co.uk', 'bbc.com'],
+  ['nyti.ms', 'nytimes.com'],
+  ['reut.rs', 'reuters.com'],
+  ['wapo.st', 'washingtonpost.com'],
+  ['n.pr', 'npr.org'],
+  ['rol.st', 'rollingstone.com'],
+  ['cbsn.ws', 'cbsnews.com'],
+]);
+
+/**
+ * Reserved / special-use TLDs (RFC 2606, RFC 6761, .onion) plus the example
+ * second-level names: a host here exists in no public DNS an outlet could
+ * publish under. It used to classify as a full outlet — two `.invalid` hosts
+ * passed the two-outlet bar.
+ */
+const RESERVED_HOST = /(^|\.)(invalid|test|example|localhost|local|internal|onion)$/;
+const RESERVED_NAMES = new Set(['example.com', 'example.org', 'example.net']);
+
+/**
  * What a citation IS, before asking what it counts for:
  *
  *   { role: 'unusable' }                    — no object, no URL, or a URL that
@@ -220,20 +281,34 @@ export function classifySource(source) {
   // A citation with no url is not a citation. Fail closed: an unusable entry
   // must never be what lifts a claim over the two-outlet bar.
   if (!url) return { role: 'unusable' };
-  let host;
+  let parsed;
   try {
-    // Normalize BEFORE any list check: lowercase, strip the trailing dot a
-    // fully-qualified hostname may carry ('youtube.com.' is youtube.com — an
-    // extra dot must not re-open the #2036 hole), then strip 'www.'.
-    host = new URL(url).hostname.toLowerCase().replace(/\.+$/, '').replace(/^www\./, '');
+    parsed = new URL(url);
   } catch {
     return { role: 'unusable' };
   }
+  // Only the web can be a citation readers can follow: file:/ftp:/ws: URLs
+  // used to classify as outlets (Codex review). And a URL carrying
+  // credentials ('https://billboard.com@evil.example/') is visually
+  // deceptive even though the parser resolves the real host — reject it.
+  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return { role: 'unusable' };
+  if (parsed.username || parsed.password) return { role: 'unusable' };
+  // Normalize BEFORE any list check: lowercase, strip the trailing dot a
+  // fully-qualified hostname may carry ('youtube.com.' is youtube.com — an
+  // extra dot must not re-open the #2036 hole), then strip 'www.'.
+  const host = parsed.hostname.toLowerCase().replace(/\.+$/, '').replace(/^www\./, '');
   if (!host) return { role: 'unusable' };
   // An IP literal (or IPv6 bracket host) is not an organization reporting
-  // under its own identity — it identifies nobody. Fail closed.
+  // under its own identity — it identifies nobody. Fail closed. Likewise a
+  // single-label host (localhost, an intranet name), a reserved/special-use
+  // name, and a punycode (xn--) homograph — 'yоutube.com' with a Cyrillic о
+  // must not sail past every list as a fresh outlet.
   if (host.startsWith('[') || host.includes(':') || /^\d{1,3}(\.\d{1,3}){3}$/.test(host))
     return { role: 'unusable' };
+  if (!host.includes('.')) return { role: 'unusable' };
+  if (RESERVED_HOST.test(host) || RESERVED_NAMES.has(registrableDomain(host)))
+    return { role: 'unusable' };
+  if (host.split('.').some((l) => l.startsWith('xn--'))) return { role: 'unusable' };
   if (WEAK_SOURCE_TYPES.has(source.source_type) || isWeakHost(host)) return { role: 'weak' };
   if (isVideoPlatformHost(host)) {
     const t = String(source.source_type ?? '');
@@ -241,7 +316,8 @@ export function classifySource(source) {
     return { role: 'evidence', provenance };
   }
   if (isSubjectOwnedHost(host)) return { role: 'subject' };
-  return { role: 'outlet', identity: registrableDomain(host) };
+  const rd = registrableDomain(host);
+  return { role: 'outlet', identity: OUTLET_ALIASES.get(rd) ?? rd };
 }
 
 /** True when this citation cannot, on its own, carry a factual claim. */
