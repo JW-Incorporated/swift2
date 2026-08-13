@@ -69,8 +69,13 @@ describe('the appearance taxonomy (2026-08-12)', () => {
     // on the timeline — but the video is Time's editor-in-chief announcing
     // the honor, not Taylor appearing. Joey overruled the wider definition:
     // "it should only be Taylor." An announcement ABOUT her must never sit on
-    // the Videos rail, however big the news.
+    // the Videos rail, however big the news. Banned by VIDEO id, not slug —
+    // the candidates ledger still lists this upload as verified, so a future
+    // integration pass could otherwise re-add it under a fresh slug.
     for (const v of allVideos()) {
+      expect(v.youtubeId, `${v.slug} embeds the banned TODAY announcement`).not.toBe(
+        'VeFzmqp6OaQ',
+      );
       expect(v.slug).not.toBe('time-person-of-the-year-today-2023');
     }
   });

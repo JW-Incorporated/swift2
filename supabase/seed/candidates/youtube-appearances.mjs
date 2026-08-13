@@ -424,6 +424,11 @@ export default {
         status: 'verified', checkedOn: '2026-08-12', method: 'oembed',
         oembedChannel: 'TODAY',
         integration: "enriched:midnights (She's Time's 2023 Person of the Year)",
+        // NEVER a Videos-rail record (Joey, 2026-08-12: "it should only be
+        // Taylor") — the footage is Time's EIC announcing the honor, not
+        // Taylor on screen. Timeline source only; a videos.test.ts regression
+        // bans this video id from the rail.
+        videosSurface: 'banned:not-taylor-on-screen',
       },
     },
     {
