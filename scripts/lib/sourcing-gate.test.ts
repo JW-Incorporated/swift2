@@ -3,9 +3,11 @@ import {
   SINGLE_OUTLET_LEGACY,
   TWO_OUTLET_CATEGORIES,
   UNSOURCED_LEGACY,
+  classifySource,
   independentOutlets,
   isWeakSource,
   momentKey,
+  registrableDomain,
 } from './sourcing-gate.mjs';
 
 // --- the ratchet, asserted -------------------------------------------------
@@ -124,6 +126,212 @@ describe('independentOutlets', () => {
       independentOutlets([
         { url: 'https://time.com/a' },
         { source_url: 'https://www.npr.org/b' },
+      ]),
+    ).toBe(2);
+  });
+});
+
+// --- issue #2036: outlet identity, not hostname ----------------------------
+// The regression that filed the ticket: independence was keyed on URL host,
+// so any youtube.com link — including an anonymous fan re-upload — counted
+// as one full independent outlet, and two fan re-uploads counted as two.
+// Two real records were promoted over the two-outlet bar on exactly that.
+describe('video platforms are evidence, never outlets (issue #2036)', () => {
+  it('REGRESSION #2036: two fan re-uploads of the same event are zero independent outlets', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://www.youtube.com/watch?v=aaaaaaaaaaa', source_type: 'video' },
+        { url: 'https://www.youtube.com/watch?v=bbbbbbbbbbb', source_type: 'video' },
+      ]),
+    ).toBe(0);
+  });
+
+  it('REGRESSION #2036: a fan re-upload cannot be the second outlet behind a claim', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://www.billboard.com/a', publisher: 'Billboard' },
+        { url: 'https://www.youtube.com/watch?v=ccccccccccc', publisher: 'YouTube' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('an OFFICIAL-channel upload plus one press outlet is still one outlet — an official upload is the subject\'s own primary source, not independent corroboration', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://www.youtube.com/watch?v=ddddddddddd', source_type: 'official' },
+        { url: 'https://www.npr.org/a', publisher: 'NPR' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('unknown provenance counts conservatively: like a fan upload, zero', () => {
+    // No source_type at all — the common case. Never assume official.
+    expect(independentOutlets([{ url: 'https://youtu.be/eeeeeeeeeee' }])).toBe(0);
+    expect(classifySource({ url: 'https://youtu.be/eeeeeeeeeee' })).toEqual({
+      role: 'evidence',
+      provenance: 'unknown',
+    });
+  });
+
+  it('official upload and fan re-upload stay distinguishable in classification', () => {
+    expect(
+      classifySource({ url: 'https://www.youtube.com/watch?v=x', source_type: 'official' }),
+    ).toEqual({ role: 'evidence', provenance: 'official' });
+    expect(
+      classifySource({ url: 'https://www.youtube.com/watch?v=x', source_type: 'fan_archive' }),
+    ).toEqual({ role: 'evidence', provenance: 'fan' });
+  });
+
+  it('subdomains and short-link domains of a platform are the platform', () => {
+    for (const url of [
+      'https://music.youtube.com/watch?v=x',
+      'https://youtu.be/x',
+      'https://vimeo.com/12345',
+      'https://www.dailymotion.com/video/x',
+    ]) {
+      expect(classifySource({ url }).role, url).toBe('evidence');
+    }
+  });
+
+  it('a video-platform link is NOT "weak" — it satisfies the one-source minimum, it just corroborates nothing', () => {
+    // Same behavior as before #2036: the link-first model still accepts an
+    // official upload as a moment's source; only the independence count changed.
+    expect(isWeakSource({ url: 'https://www.youtube.com/watch?v=x', source_type: 'official' })).toBe(
+      false,
+    );
+  });
+});
+
+describe('outlet identity is the registrable domain, and unknowns count zero', () => {
+  it('two subdomains of one outlet are ONE identity — url styling cannot mint a second outlet', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://music.newsweek.com/a' },
+        { url: 'https://www.newsweek.com/b' },
+      ]),
+    ).toBe(1);
+  });
+
+  it("an outlet's own shortener or international domain is the same outlet (alias table)", () => {
+    expect(
+      independentOutlets([{ url: 'https://nyti.ms/abc' }, { url: 'https://www.nytimes.com/a' }]),
+    ).toBe(1);
+    expect(
+      independentOutlets([{ url: 'https://www.bbc.co.uk/news/a' }, { url: 'https://www.bbc.com/b' }]),
+    ).toBe(1);
+  });
+
+  it('keeps UK-style outlets apart: bbc.co.uk is not "co.uk"', () => {
+    expect(registrableDomain('www.bbc.co.uk')).toBe('bbc.co.uk');
+    expect(
+      independentOutlets([
+        { url: 'https://www.bbc.co.uk/news/a' },
+        { url: 'https://www.theguardian.com/b' },
+      ]),
+    ).toBe(2);
+  });
+
+  it('an unparseable URL identifies nobody and counts zero (it used to count as a full outlet)', () => {
+    expect(classifySource({ url: 'not a url at all' })).toEqual({ role: 'unusable' });
+    expect(
+      independentOutlets([{ url: 'not a url at all' }, { url: 'also::not::a::url' }]),
+    ).toBe(0);
+  });
+
+  it('a trailing-dot FQDN cannot re-open the hole: youtube.com. is youtube.com, wikipedia.org. is weak', () => {
+    // review finding on the first cut of this fix — the host must be
+    // normalized BEFORE any list membership check.
+    expect(classifySource({ url: 'https://www.youtube.com./watch?v=x' }).role).toBe('evidence');
+    expect(classifySource({ url: 'https://en.wikipedia.org./wiki/x' }).role).toBe('weak');
+  });
+
+  it("YouTube's privacy-embed domain is still YouTube", () => {
+    expect(classifySource({ url: 'https://www.youtube-nocookie.com/embed/x' }).role).toBe(
+      'evidence',
+    );
+  });
+
+  it('an empty `url` does not shadow a real `source_url` on the same citation', () => {
+    expect(independentOutlets([{ url: '', source_url: 'https://www.npr.org/a' }])).toBe(1);
+  });
+
+  it('an IP-literal host identifies no organization and counts zero', () => {
+    expect(classifySource({ url: 'http://203.0.113.5/article' })).toEqual({ role: 'unusable' });
+    expect(classifySource({ url: 'http://[2001:db8::1]/article' })).toEqual({ role: 'unusable' });
+  });
+
+  it("the subject's own site is usable but never independent: taylorswift.com + one outlet is one outlet", () => {
+    expect(classifySource({ url: 'https://www.taylorswift.com/news/x' })).toEqual({
+      role: 'subject',
+    });
+    // Not "weak" — it still satisfies the one-source minimum…
+    expect(isWeakSource({ url: 'https://www.taylorswift.com/news/x' })).toBe(false);
+    // …but it cannot be the second independent outlet behind a claim.
+    expect(
+      independentOutlets([
+        { url: 'https://store.taylorswift.com/products/x' },
+        { url: 'https://www.billboard.com/a' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('a mirror, cache or shortener is a wrapper, not a second outlet (Codex review)', () => {
+    // The same Billboard article cited directly and through the Wayback
+    // Machine (or a bit.ly link) is ONE piece of corroboration, not two.
+    expect(
+      independentOutlets([
+        { url: 'https://www.billboard.com/a' },
+        { url: 'https://web.archive.org/web/2024/https://www.billboard.com/a' },
+        { url: 'https://bit.ly/3xYz' },
+        { url: 'https://news.google.com/articles/x' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('self-publishing platforms count zero — the domain cannot say who the publication is', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://fan.substack.com/p/theory' },
+        { url: 'https://medium.com/@fan/post' },
+        { url: 'https://swiftie.blogspot.com/2024/post' },
+      ]),
+    ).toBe(0);
+  });
+
+  it('non-web schemes, credentialed URLs, single-label and reserved hosts all count zero (Codex review)', () => {
+    for (const url of [
+      'file://billboard.com/a',
+      'ftp://reuters.com/a',
+      'ws://npr.org/a',
+      'https://billboard.com@evil.example/a',
+      'https://localhost/a',
+      'https://a.invalid/x',
+      'https://sources.example.com/a',
+    ]) {
+      expect(classifySource({ url }), url).toEqual({ role: 'unusable' });
+    }
+    // The exploit that motivated this: two nonexistent reserved domains used
+    // to pass the two-outlet bar outright.
+    expect(independentOutlets([{ url: 'https://a.invalid/x' }, { url: 'https://b.invalid/y' }])).toBe(0);
+  });
+
+  it('a punycode homograph of a listed host cannot sneak past as a fresh outlet', () => {
+    // 'yоutube.com' with a Cyrillic о parses to xn--yutube-wqf.com — reject
+    // all xn-- hosts rather than trying to enumerate lookalikes.
+    expect(classifySource({ url: 'https://xn--yutube-wqf.com/watch?v=x' })).toEqual({
+      role: 'unusable',
+    });
+  });
+
+  it('institutions of record stay outlets even when typed official — only video platforms and subject-owned hosts demote', () => {
+    // grammy.com announcing a Grammy and nyc.gov announcing its ambassador
+    // are independent of the SUBJECT, which is what the two-outlet bar is
+    // about. A blanket source_type demotion measurably delists records that
+    // deserve to pass (3, as of 2026-08-12).
+    expect(
+      independentOutlets([
+        { url: 'https://www.grammy.com/news/a', source_type: 'official' },
+        { url: 'https://www.billboard.com/b' },
       ]),
     ).toBe(2);
   });
