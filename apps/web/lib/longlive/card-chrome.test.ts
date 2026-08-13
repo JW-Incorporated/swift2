@@ -129,8 +129,17 @@ describe('MomentCard renders its play affordance inside the card’s box', () =>
     expect(card).not.toContain('<PlayBadge');
   });
 
-  it('yields its photo slot to the poster when they are the same frame', () => {
-    expect(card).toContain('cardImageDuplicatesVideo(item, video)');
+  it('yields its photo slot on the decision EraSection handed down', () => {
+    // The rule itself is `feedCardImageHidden` (video-affordance.ts, unit
+    // tested there); the card must not re-derive it. It used to call
+    // `cardImageDuplicatesVideo(item, video)` inline, where `video` is null on a
+    // card that defers its embed — so a deferring card showing a still of the
+    // video it does NOT play never reached the check at all (#2081, Joey's
+    // tloas report). Taking the answer as a prop is what makes the deferring
+    // case representable, and what lets the tier be scored against the same
+    // answer before render.
+    expect(card).toContain('hideImage={hideImage}');
+    expect(card).not.toContain('cardImageDuplicatesVideo');
   });
 });
 
@@ -207,5 +216,68 @@ describe('VideoPoster keeps the #2051 accessibility contract', () => {
     // The #2063 row's giveaways: a fixed narrow poster and its own copy label.
     expect(poster).not.toContain('w-24');
     expect(poster).not.toContain('Play video</span>');
+  });
+});
+
+const MOMENT_DETAIL = readFileSync(
+  new URL('../../components/longlive/MomentDetail.tsx', import.meta.url),
+  'utf8',
+);
+
+/**
+ * #2081, FIX 2. Joey on the detail pages: "it looks horrible… the site would
+ * feel much more natural if you played the video from the top." On 10 of the 16
+ * video-carrying moments the ~42vh hero was a still of the very video embedded a
+ * screen below, because Photo Enrichment sourced frames as photos for the
+ * moments that ARE a video. The hero now plays.
+ *
+ * Structural assertions, because vitest runs in `node` with no component tests:
+ * these lock the properties a rendering test would have caught, at the only
+ * level available here.
+ */
+describe('the detail hero plays the moment’s own footage', () => {
+  it('asks the shared rule rather than re-deriving the hero decision', () => {
+    expect(MOMENT_DETAIL).toContain('heroVideoFor(item)');
+  });
+
+  it('renders the hero player through the same facade every other video uses', () => {
+    const branch = MOMENT_DETAIL.slice(
+      MOMENT_DETAIL.indexOf('{heroVideo ? ('),
+      MOMENT_DETAIL.indexOf(') : ('),
+    );
+    expect(branch).toContain('<MomentVideo video={heroVideo}');
+    // Click-to-load (#1935): the poster is a plain <img> and no iframe exists
+    // in this file at all — MomentVideo mounts one only on a real click.
+    expect(MOMENT_DETAIL).not.toContain('<iframe');
+    // A video hero PLAYS; the lightbox is for photographs. The viewer opens
+    // only from `hero`, which is undefined whenever the video took the slot.
+    expect(branch).not.toContain('openLightbox');
+  });
+
+  it('caps the player at the photo hero’s 42vh instead of letting 16:9 run away', () => {
+    // Full-bleed 16:9 is 219px tall at 390px wide and ~850px on a desktop. The
+    // width cap makes the height aspect-driven on a phone and exactly 42vh on
+    // a desktop, so both look deliberate and the page rhythm is preserved.
+    expect(MOMENT_DETAIL).toContain('max-w-[calc(42vh*16/9)]');
+  });
+
+  it('does not pull the article over a player the way it does over a photo', () => {
+    // -mt-10 lands on a photo hero's already-faded gradient; over a video it
+    // would crop the frame and sit on the player's controls.
+    expect(MOMENT_DETAIL).toContain("${heroVideo ? 'mt-4' : '-mt-10'}");
+  });
+
+  it('keeps one set of sheet controls, reachable from either hero', () => {
+    // Favorite/share/close are the way back out of a modal sheet. Defined once
+    // and rendered by both branches, so neither can lose them.
+    expect(MOMENT_DETAIL.match(/aria-label="Close"/g)).toHaveLength(1);
+    expect(MOMENT_DETAIL.match(/\{heroControls\}/g)).toHaveLength(2);
+  });
+
+  it('keeps the promoted frame out of the photo viewer too', () => {
+    // The still is off the page; swiping the gallery must not land back on it.
+    expect(MOMENT_DETAIL).toContain('const lightboxImages = heroVideo ? gallery : item.images');
+    expect(MOMENT_DETAIL).toContain('images={lightboxImages}');
+    expect(MOMENT_DETAIL).not.toContain('images={item.images}');
   });
 });
