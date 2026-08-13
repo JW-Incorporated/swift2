@@ -124,6 +124,15 @@ export function EraSection({ era }: { era: Era }) {
   // this component only wires it to state and renders the result.
   const filter = useMemo(() => ({ tags: activeTags, videosOnly }), [activeTags, videosOnly]);
   const visible = useMemo(() => visibleMoments(items, filter), [items, filter]);
+  // Which moments own their video's inline player, when two of them embed the
+  // same one (#2057). Derived from `visible`, NOT from `items`, for the same
+  // reason the tiers below are: ownership is a property of the list on screen.
+  // Over `items` a tag filter that hides the owner would leave the survivor
+  // with no play control at all — a card that carries footage looking exactly
+  // like one that doesn't, which is the #2051 bug this chain exists to close.
+  // Under the Videos filter this is a no-op: `visibleMoments` already dropped
+  // the deferring cards, so every survivor owns its video.
+  const videoOwnerIds = useMemo(() => inlineVideoMomentIds(visible), [visible]);
   // Card silhouette per item — recomputed against whatever's actually on
   // screen (so filtering doesn't reference invisible items), but a pure
   // function of that list's ids, so it's stable across re-renders.
@@ -135,11 +144,6 @@ export function EraSection({ era }: { era: Era }) {
   // above (e.g. a lead-single video that's also its own narrative beat) so
   // the same video never appears twice in this same list.
   const embeddedVideoIds = useMemo(() => embeddedYoutubeIds(items), [items]);
-  // Which moments own their video's inline player, when two moments in this era
-  // embed the same one (#2057). Same selection `visibleMoments` uses under the
-  // Videos filter, so the card that survives the filter is exactly the card
-  // that plays.
-  const videoOwnerIds = useMemo(() => inlineVideoMomentIds(items), [items]);
   const timelineVideos = useMemo(
     () => musicVideosForEra(era.id).filter((v) => !embeddedVideoIds.has(v.youtubeId)),
     [era.id, embeddedVideoIds],

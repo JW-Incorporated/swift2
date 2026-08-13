@@ -59,13 +59,18 @@ export const TIER_SPAN: Record<CardTier, string> = {
 };
 
 /** The card's visual box: surface, border, radius, image clipping. On the
- * WRAPPER, never on the button — see the module comment. */
+ * WRAPPER, never on the button — see the module comment.
+ *
+ * `transition` belongs here, with `era-card`: `.era-card:hover` (globals.css)
+ * eases border-color and box-shadow, and it has no transition of its own — the
+ * easing has always come from the Tailwind utility sitting on the same element.
+ * Leave it off and every card's hover glow snaps instead of fading. */
 export const TIER_BOX: Record<CardTier, string> = {
-  hero: 'era-card overflow-hidden rounded-2xl border',
-  media: 'era-card overflow-hidden rounded-2xl border',
+  hero: 'era-card overflow-hidden rounded-2xl border transition',
+  media: 'era-card overflow-hidden rounded-2xl border transition',
   // The breather's identity is its left accent rule rather than a full border.
-  text: 'era-card rounded-2xl border-l-4',
-  chip: 'era-card rounded-xl border',
+  text: 'era-card rounded-2xl border-l-4 transition',
+  chip: 'era-card rounded-xl border transition',
 };
 
 /** Inline styles that belong to the box (only the breather's accent rule). */
@@ -96,7 +101,14 @@ export const TIER_FOOTER: Record<CardTier, string> = {
   chip: 'px-3 pb-3 pt-0',
 };
 
-/** Classes that DRAW a box. No tier's BODY may contain one of these — if it
- * does, the card has two boxes and the affordance is outside one of them.
- * (`border-l-4` is deliberately included: it is the breather tier's box.) */
-export const BOX_DRAWING_CLASSES = ['era-card', 'border', 'border-l-4', 'rounded'] as const;
+/**
+ * Class PREFIXES that draw a box. No tier's BODY may carry a class matching one
+ * — if it does, the card has two boxes and the affordance is outside one of
+ * them, which is #2057 again.
+ *
+ * Prefixes rather than an exact list on purpose: `border-2`, `border-t`,
+ * `bg-[…]`, `shadow-lg` and `ring-1` all draw a competing surface just as well
+ * as the four classes this originally named, and a lock that misses them is a
+ * lock in name only.
+ */
+export const BOX_DRAWING_PREFIXES = [/^era-card/, /^border/, /^bg-/, /^shadow/, /^ring/, /^rounded/];

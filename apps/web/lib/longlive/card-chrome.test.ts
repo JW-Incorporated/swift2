@@ -1,9 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
-  BOX_DRAWING_CLASSES,
+  BOX_DRAWING_PREFIXES,
   TIER_BODY,
   TIER_BOX,
+  TIER_BOX_STYLE,
   TIER_FOOTER,
   TIER_SPAN,
 } from './card-chrome';
@@ -29,7 +30,7 @@ const TIERS: CardTier[] = ['hero', 'media', 'chip', 'text'];
 
 describe('per-tier chrome', () => {
   it('covers every tier', () => {
-    for (const map of [TIER_SPAN, TIER_BOX, TIER_BODY, TIER_FOOTER]) {
+    for (const map of [TIER_SPAN, TIER_BOX, TIER_BODY, TIER_FOOTER, TIER_BOX_STYLE]) {
       expect(Object.keys(map).sort()).toEqual([...TIERS].sort());
     }
   });
@@ -41,11 +42,17 @@ describe('per-tier chrome', () => {
         expect(TIER_BOX[tier]).toMatch(/\bborder(-l-4)?\b/);
       });
 
+      it('eases the .era-card hover instead of snapping it', () => {
+        // `.era-card:hover` animates border-color and box-shadow but carries no
+        // transition itself — it has to sit on the same element as this class.
+        expect(TIER_BOX[tier].split(/\s+/)).toContain('transition');
+      });
+
       it('leaves the card button with no box of its own', () => {
-        for (const cls of BOX_DRAWING_CLASSES) {
-          expect(TIER_BODY[tier].split(/\s+/)).not.toContain(cls);
-        }
-        expect(TIER_BODY[tier]).not.toMatch(/\brounded-/);
+        const offenders = TIER_BODY[tier]
+          .split(/\s+/)
+          .filter((cls) => BOX_DRAWING_PREFIXES.some((prefix) => prefix.test(cls)));
+        expect(offenders).toEqual([]);
       });
 
       it('keeps the button full width inside the box', () => {
@@ -72,9 +79,30 @@ function functionSource(name: string): string {
   return ERA_SECTION.slice(start, next === -1 ? undefined : next);
 }
 
+/**
+ * Index just past the `</div>` that closes the <div> opening at `openAt`.
+ *
+ * Counting <div>/`</div>` depth rather than reaching for `lastIndexOf('</div>')`
+ * matters: the shape this file exists to reject — the affordance lifted back
+ * out of the box in a wrapper of its own, i.e. #2055's shipped
+ * `<div className="mt-3">…</div>` — ends in a `</div>` too, and a lastIndexOf
+ * check would happily resolve to THAT one and pass with the bug restored.
+ */
+function endOfDiv(src: string, openAt: number): number {
+  const tags = /<div\b|<\/div>/g;
+  tags.lastIndex = openAt;
+  let depth = 0;
+  let tag: RegExpExecArray | null;
+  while ((tag = tags.exec(src)) !== null) {
+    depth += tag[0] === '</div>' ? -1 : 1;
+    if (depth === 0) return tag.index + tag[0].length;
+  }
+  throw new Error('unbalanced <div> in the sliced source');
+}
+
 describe('MomentCard renders its play affordance inside the card’s box', () => {
   const card = functionSource('MomentCard');
-  const boxAt = card.indexOf('TIER_BOX[tier]');
+  const boxAt = card.indexOf('<div className={TIER_BOX[tier]}');
   const footerAt = card.indexOf('TIER_FOOTER[tier]');
   const liCloseAt = card.indexOf('</li>');
 
@@ -84,12 +112,14 @@ describe('MomentCard renders its play affordance inside the card’s box', () =>
     expect(liCloseAt).toBeGreaterThan(footerAt);
   });
 
+  it('keeps the affordance INSIDE the box, not after it', () => {
+    // The assertion that would have caught #2055's placement: its badge sat
+    // after the card's box closed, in the gap before </li>.
+    expect(footerAt).toBeLessThan(endOfDiv(card, boxAt));
+  });
+
   it('closes the box immediately before the list item — nothing renders between', () => {
-    // This is the assertion that would have caught #2055's placement: the badge
-    // sat right here, after the card's box closed and before </li>.
-    const boxClose = card.lastIndexOf('</div>', liCloseAt);
-    expect(boxClose).toBeGreaterThan(footerAt);
-    expect(card.slice(boxClose + '</div>'.length, liCloseAt).trim()).toBe('');
+    expect(card.slice(endOfDiv(card, boxAt), liCloseAt).trim()).toBe('');
   });
 
   it('uses the poster affordance, not a detached pill', () => {

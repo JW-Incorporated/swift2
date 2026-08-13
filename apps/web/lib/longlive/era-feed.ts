@@ -77,6 +77,11 @@ export function visibleMoments(items: ContentItem[], filter: EraFeedFilter): Con
  *
  * A moment whose video carries no id can't be played at all, so it owns
  * nothing — same outcome, one fewer dead control.
+ *
+ * Ownership is a property of THE LIST YOU PASS, not of the era: hand it the
+ * moments actually on screen. Computing it era-wide and then filtering would
+ * let a tag filter hide the owner and leave the survivor unplayable — a card
+ * with footage looking exactly like one without, i.e. #2051 all over again.
  */
 export function inlineVideoMomentIds(items: ContentItem[]): Set<string> {
   // Feed order, not seed order: mergeEraFeed sorts newest-first, so "first in
