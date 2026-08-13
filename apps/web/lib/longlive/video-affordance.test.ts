@@ -1,29 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import {
-  detailVideoFor,
-  displayHost,
-  feedVideoFor,
-  footnoteVideoSources,
-  watchAffordance,
-} from './video-affordance';
-import { VIDEOS_RAW } from './videos.generated';
-import type { ContentItem, EggSource, VideoNote } from './types';
-
-const video = (over: Partial<VideoNote> = {}): VideoNote =>
-  ({
-    slug: 'a-video',
-    kind: 'music_video',
-    title: 'A Video',
-    director: null,
-    releasedOn: '2019-08-22',
-    relatedSongs: [],
-    summary: null,
-    easterEggs: [],
-    symbolism: null,
-    youtubeId: null,
-    sources: [],
-    ...over,
-  }) as VideoNote;
+import { detailVideoFor, feedVideoFor, footnoteVideoSources } from './video-affordance';
+import type { ContentItem, EggSource } from './types';
 
 const source = (name: string, url: string): EggSource => ({ name, url }) as EggSource;
 
@@ -43,104 +20,6 @@ const moment = (over: Partial<ContentItem> = {}): ContentItem =>
 
 const YT = 'https://www.youtube.com/watch?v=abcdefghijk';
 const YT_ID = 'abcdefghijk';
-
-describe('displayHost', () => {
-  it('returns the bare host without a www prefix', () => {
-    expect(displayHost('https://www.billboard.com/a/b')).toBe('billboard.com');
-    expect(displayHost('https://en.wikipedia.org/wiki/X')).toBe('en.wikipedia.org');
-  });
-
-  it('returns null for a URL that does not parse, so no broken link renders', () => {
-    expect(displayHost('not a url')).toBeNull();
-    expect(displayHost('')).toBeNull();
-  });
-
-  it('rejects a non-http scheme even though it parses into a host', () => {
-    // Parses fine and yields host 'evil.example' — a host-only check would put
-    // this straight into an href.
-    expect(displayHost('javascript://evil.example/%0aalert(1)')).toBeNull();
-    expect(displayHost('data:text/html,<script>alert(1)</script>')).toBeNull();
-    expect(displayHost('file:///etc/passwd')).toBeNull();
-  });
-});
-
-describe('watchAffordance', () => {
-  it('embeds when the record has an official upload', () => {
-    expect(watchAffordance(video({ youtubeId: 'xyz' }))).toEqual({
-      kind: 'embed',
-      youtubeId: 'xyz',
-    });
-  });
-
-  it('prefers the embed over a link even when sources exist', () => {
-    const v = video({
-      youtubeId: 'xyz',
-      sources: [source('Wikipedia', 'https://en.wikipedia.org/wiki/X')],
-    });
-    expect(watchAffordance(v).kind).toBe('embed');
-  });
-
-  it('links out to the first citation when there is no upload to embed', () => {
-    const v = video({
-      sources: [
-        source('Wikipedia', 'https://en.wikipedia.org/wiki/X'),
-        source('Billboard', 'https://www.billboard.com/x'),
-      ],
-    });
-    expect(watchAffordance(v)).toEqual({
-      kind: 'link',
-      url: 'https://en.wikipedia.org/wiki/X',
-      host: 'en.wikipedia.org',
-      sourceName: 'Wikipedia',
-    });
-  });
-
-  it('skips an unusable source URL rather than rendering a broken link', () => {
-    const v = video({
-      sources: [source('Broken', 'javascript'), source('Billboard', 'https://www.billboard.com/x')],
-    });
-    expect(watchAffordance(v)).toMatchObject({ kind: 'link', host: 'billboard.com' });
-  });
-
-  it('never hands a non-http scheme to an href', () => {
-    const v = video({ sources: [source('Nope', 'javascript://evil.example/%0aalert(1)')] });
-    expect(watchAffordance(v).kind).toBe('none');
-  });
-
-  it('reports "none" only when there is genuinely nothing to embed or link', () => {
-    expect(watchAffordance(video({ sources: [] })).kind).toBe('none');
-  });
-});
-
-describe('watchAffordance over the real video data (#2050 regression guard)', () => {
-  // The bug this replaces: BOTH surfaces that render a VideoNote gated their
-  // only interactive element on `youtubeId`, so all 19 records without one
-  // rendered as dead rectangles — three of them in the unfiltered era feed.
-  //
-  // This asserts the INVARIANT ("no record can be inert") rather than #721's
-  // proposed allowlist of records-missing-an-id. An allowlist restates content
-  // state in a second place and goes stale silently the moment a record is
-  // added or backfilled; the invariant is what the UI actually depends on, and
-  // it stays true whether the content gap is fixed or not.
-  const all = Object.values(VIDEOS_RAW).flat();
-
-  it('has records to check', () => {
-    expect(all.length).toBeGreaterThan(0);
-  });
-
-  it('gives every single video record something to do', () => {
-    const inert = all.filter((v) => watchAffordance(v).kind === 'none');
-    expect(inert.map((v) => v.slug)).toEqual([]);
-  });
-
-  it('still finds the records with no embed — they link out instead of dying', () => {
-    const linked = all.filter((v) => watchAffordance(v).kind === 'link');
-    // Every record without a youtubeId must resolve to a link.
-    const noEmbed = all.filter((v) => !v.youtubeId);
-    expect(linked.length).toBe(noEmbed.length);
-    expect(noEmbed.length).toBeGreaterThan(0);
-  });
-});
 
 describe('feedVideoFor', () => {
   it('is the moment’s own video, so the badge and the Videos filter agree', () => {

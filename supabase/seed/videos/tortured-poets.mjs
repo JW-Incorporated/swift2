@@ -31,12 +31,12 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
-const embed = (id) => ({
+const embed = (id, fetchedOn = '2026-07-08') => ({
   kind: 'oembed',
   rights: 'platform_tos',
   provider: 'youtube',
   post_url: `https://www.youtube.com/watch?v=${id}`,
-  oembed_fetched_at: '2026-07-08',
+  oembed_fetched_at: fetchedOn,
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
@@ -72,8 +72,10 @@ export default {
         'Built from real Eras Tour rehearsal and backstage footage: the show-must-go-on song scored by the machinery of the actual show — lifts, quick changes, and the smile snapping on at places, everyone.',
       symbolism: 'Using documentary tour footage as the "set" makes the lyric literal: the biggest tour ever staged is the broken heart\'s day job.',
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title "Taylor
+      // Swift - I Can Do It With A Broken Heart (Official Video)").
+      officialUrl: 'https://www.youtube.com/watch?v=Sl6en1NPTYM',
+      media: [embed('Sl6en1NPTYM', '2026-08-13')],
       sources: [
         wiki('I_Can_Do_It_with_a_Broken_Heart', 'I Can Do It with a Broken Heart'),
         press(

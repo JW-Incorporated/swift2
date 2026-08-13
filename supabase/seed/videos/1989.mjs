@@ -31,12 +31,12 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
-const embed = (id) => ({
+const embed = (id, fetchedOn = '2026-07-08') => ({
   kind: 'oembed',
   rights: 'platform_tos',
   provider: 'youtube',
   post_url: `https://www.youtube.com/watch?v=${id}`,
-  oembed_fetched_at: '2026-07-08',
+  oembed_fetched_at: fetchedOn,
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
@@ -132,8 +132,12 @@ export default {
         'Premiered on New Year\'s Eve: the woods literally chase Taylor — vines grab, snow buries, wolves close in — until she outruns the forest back to the beach and meets herself.',
       symbolism: 'The pursuing forest is the anxiety spiral of the lyric; arriving at her own calm self on the shore closes the loop the song leaves open.',
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // Official upload on Taylor's own channel — oEmbed-verified 2026-08-13
+      // (author_name "Taylor Swift", title "Taylor Swift - Out Of The Woods").
+      // The record shipped with no embed and rendered an unplayable card
+      // (playable-first reversal, docs/decisions.md 2026-08-13).
+      officialUrl: 'https://www.youtube.com/watch?v=JLf9q36UsBk',
+      media: [embed('JLf9q36UsBk', '2026-08-13')],
       sources: [
         wiki('Out_of_the_Woods_(song)', 'Out of the Woods (song)'),
         press(
@@ -161,8 +165,12 @@ export default {
         'A thank-you cut from 1989 World Tour footage — backstage, crowd waves, confetti — released as the era\'s victory lap for the fans who made the bonus track a hit.',
       symbolism: null,
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title
+      // "Taylor Swift - New Romantics"). Search surfaces several higher-res
+      // re-uploads of this video on fan channels; this is the one on her own
+      // channel, which is the only kind that may be an officialUrl.
+      officialUrl: 'https://www.youtube.com/watch?v=wyK7YuwUWsU',
+      media: [embed('wyK7YuwUWsU', '2026-08-13')],
       sources: [wiki('New_Romantics_(song)', 'New Romantics (song)')],
     },
     {
@@ -176,6 +184,11 @@ export default {
         'The Sydney stadium show captured for Apple Music — light-up wristbands, the catwalk, and the era\'s guest-star ritual folded into a streaming-exclusive concert film.',
       symbolism: null,
       easterEggs: [],
+      // No official upload of the work itself exists — it is an Apple Music streaming exclusive.
+      // With no embed this record is HIDDEN from every reader-facing surface
+      // rather than shown as a card that cannot play (playable-first rule,
+      // docs/decisions.md 2026-08-13). Add a verified official upload here and
+      // it comes back automatically — no code change needed.
       officialUrl: null,
       media: [],
       sources: [

@@ -3,7 +3,7 @@ import { ERAS } from './eras';
 import { EGG_NODES, motifOf } from './lenses';
 import { tracksForEra } from './tracks';
 import { theoriesForEra } from './theories';
-import { videosForEra } from './videos';
+import { allVideoRecordsForEra } from './videos';
 import type { EraId, MotifId } from './types';
 
 /**
@@ -338,7 +338,16 @@ export function buildSearchIndex(): SearchDoc[] {
         ),
       );
     }
-    for (const video of videosForEra(era.id)) {
+    // Deliberately the FULL record set, including the ones the rail hides for
+    // having no playable embed (playable-first, docs/decisions.md 2026-08-13).
+    // That rule is about not rendering a video CARD the reader can't play; a
+    // search hit is not a card, and its failure mode is the opposite one —
+    // filtering here would make the app look like it has never heard of
+    // Miss Americana or The Eras Tour film, which reads as a content gap
+    // rather than a curation choice. Safe because the target below is the ERA
+    // section, not the card: the result still lands somewhere real, on the era
+    // whose timeline covers the work.
+    for (const video of allVideoRecordsForEra(era.id)) {
       docs.push(
         makeDoc(
           'video',

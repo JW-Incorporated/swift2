@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   videosForEra,
+  allVideoRecordsForEra,
+  isPlayable,
   musicVideosForEra,
   videoForTrack,
   eraVideoFeed,
@@ -132,6 +134,89 @@ describe('the appearance taxonomy (2026-08-12)', () => {
   });
 });
 
+describe('playable-first: every rendered video card plays (Joey, 2026-08-13)', () => {
+  // Replaces #2050/#2055's "every card either plays or says why it can't".
+  // Joey reversed that: "I don't want anything on the timeline that can't be
+  // played. It just doesn't make sense to show a piece of content that a user
+  // can't view." So the invariant is no longer "nothing is inert" but the
+  // stronger "nothing is rendered unless it plays" — records without a verified
+  // embed are hidden, not shown as an unavailable state and not deleted.
+  // See docs/decisions.md, "Playable-first timeline".
+
+  it('gives every record on every reader-facing surface a real embed id', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of videosForEra(eraId)) {
+        expect(v.youtubeId, `${v.slug} would render without an embed`).toBeTruthy();
+      }
+      // The two derived surfaces inherit it rather than re-deciding.
+      for (const v of eraVideoFeed(eraId)) expect(v.youtubeId).toBeTruthy();
+      for (const v of musicVideosForEra(eraId)) expect(v.youtubeId).toBeTruthy();
+    }
+  });
+
+  it('hides an unplayable record rather than deleting it — the seed still holds it', () => {
+    // The Eras Tour film is the clearest case: a real, important, well-sourced
+    // record whose work exists only in cinemas and on Disney+. It must not
+    // render (nothing to play) and must not be lost (the research stands).
+    expect(videosForEra('midnights').map((v) => v.slug)).not.toContain(
+      'taylor-swift-the-eras-tour-film',
+    );
+    expect(allVideoRecordsForEra('midnights').map((v) => v.slug)).toContain(
+      'taylor-swift-the-eras-tour-film',
+    );
+  });
+
+  it('hides exactly the records with no embed, and no others', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      const hidden = allVideoRecordsForEra(eraId)
+        .filter((v) => !videosForEra(eraId).some((p) => p.slug === v.slug))
+        .map((v) => v.slug);
+      const unplayable = allVideoRecordsForEra(eraId)
+        .filter((v) => !v.youtubeId)
+        .map((v) => v.slug);
+      expect(hidden).toEqual(unplayable);
+    }
+  });
+
+  it('embeds the music videos that used to render as unplayable cards', () => {
+    // The 11 backfilled in the same change, each oEmbed-verified against the
+    // official "Taylor Swift" channel. If a content pass ever nulls one of
+    // these out again, it disappears from the rail — this catches that.
+    const expected: [EraId, string][] = [
+      ['1989', 'out-of-the-woods-mv'],
+      ['1989', 'new-romantics-mv'],
+      ['debut', 'picture-to-burn-mv'],
+      ['evermore', 'i-bet-you-think-about-me-mv'],
+      ['fearless', 'white-horse-mv'],
+      ['fearless', 'fifteen-mv'],
+      ['midnights', 'lavender-haze-mv'],
+      ['red', 'everything-has-changed-mv'],
+      ['red', 'begin-again-mv'],
+      ['speak-now', 'the-story-of-us-mv'],
+      ['ttpd', 'i-can-do-it-with-a-broken-heart-mv'],
+    ];
+    for (const [eraId, slug] of expected) {
+      const found = videosForEra(eraId).find((v) => v.slug === slug);
+      expect(found, `${slug} is no longer playable in ${eraId}`).toBeDefined();
+      expect(found!.youtubeId).toBeTruthy();
+    }
+  });
+
+  it('does not leak the module array to a caller that might sort it', () => {
+    const a = allVideoRecordsForEra('1989');
+    expect(allVideoRecordsForEra('1989')).not.toBe(a);
+    a.reverse();
+    expect(allVideoRecordsForEra('1989').map((v) => v.slug)).not.toEqual(a.map((v) => v.slug));
+  });
+
+  it('isPlayable rejects a null or empty id', () => {
+    const base = allVideoRecordsForEra('1989')[0];
+    expect(isPlayable(base)).toBe(true);
+    expect(isPlayable({ ...base, youtubeId: null })).toBe(false);
+    expect(isPlayable({ ...base, youtubeId: '' })).toBe(false);
+  });
+});
+
 describe('eraVideoFeed', () => {
   it('returns every video record for the era, newest-first', () => {
     const feed = eraVideoFeed('midnights');
@@ -184,9 +269,24 @@ describe('musicVideosForEra', () => {
     }
   });
 
-  it('excludes a music video with no known release date (tloas: the-fate-of-ophelia-mv)', () => {
-    const slugs = musicVideosForEra('tloas').map((v) => v.slug);
-    expect(slugs).not.toContain('the-fate-of-ophelia-mv');
+  it('includes the-fate-of-ophelia-mv now that its release date is known', () => {
+    // Was the "undated music videos stay rail-only" example until 2026-08-13,
+    // when the date was sourced from its own Wikipedia citation (YouTube
+    // release 2025-10-05, two days after the theatrical premiere).
+    //
+    // NB this asserts musicVideosForEra, which is PRE-de-dupe. It does not mean
+    // the card reaches the rendered feed: a tloas moment embeds the same id, so
+    // EraSection's embeddedVideoIds drops it downstream. Asserted at this layer
+    // on purpose — this function's contract is "dated music videos", and the
+    // de-dupe is a separate rule with its own tests below.
+    const found = musicVideosForEra('tloas').find((v) => v.slug === 'the-fate-of-ophelia-mv');
+    expect(found?.releasedOn).toBe('2025-10-05');
+  });
+
+  it('still excludes any music video that has no release date at all', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of musicVideosForEra(eraId)) expect(v.releasedOn).not.toBeNull();
+    }
   });
 
   it('excludes a non-music_video work even when it has a release date (tloas: the release-party film)', () => {

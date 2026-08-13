@@ -31,12 +31,12 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
-const embed = (id) => ({
+const embed = (id, fetchedOn = '2026-07-08') => ({
   kind: 'oembed',
   rights: 'platform_tos',
   provider: 'youtube',
   post_url: `https://www.youtube.com/watch?v=${id}`,
-  oembed_fetched_at: '2026-07-08',
+  oembed_fetched_at: fetchedOn,
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
@@ -91,8 +91,12 @@ export default {
         'The anti-fairytale companion to Love Story: a dim apartment, a phone that shouldn\'t be answered, and a breakup played in intercut apology scenes — no castle, no rescue.',
       symbolism: null,
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title "Taylor
+      // Swift - White Horse") — the 2009 original, matching this record's
+      // MTV News source. Several "official music video" results for this song
+      // are fan re-uploads; this is the copy on her own channel.
+      officialUrl: 'https://www.youtube.com/watch?v=D1Xr-JFLxik',
+      media: [embed('D1Xr-JFLxik', '2026-08-13')],
       sources: [
         wiki('White_Horse_(Taylor_Swift_song)', 'White Horse (Taylor Swift song)'),
         press(
@@ -114,8 +118,10 @@ export default {
         'A greenhouse-dream staging of freshman year: scenes bloom and dissolve around Taylor as she narrates Abigail\'s story and her own — memory rendered as a garden being planted and unplanted.',
       symbolism: null,
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title
+      // "Taylor Swift - Fifteen") — the 2009 original.
+      officialUrl: 'https://www.youtube.com/watch?v=Pb-K2tXWK4w',
+      media: [embed('Pb-K2tXWK4w', '2026-08-13')],
       sources: [
         wiki('Fifteen_(Taylor_Swift_song)', 'Fifteen (Taylor Swift song)'),
         press(
@@ -185,6 +191,11 @@ export default {
         'The first concert film: a three-part TV documentary following the Fearless Tour — 19-year-old headliner, screaming arenas, and the backstory told between stadium cuts.',
       symbolism: null,
       easterEggs: [],
+      // No official upload of the work itself exists — it is an Epix TV special / DVD release.
+      // With no embed this record is HIDDEN from every reader-facing surface
+      // rather than shown as a card that cannot play (playable-first rule,
+      // docs/decisions.md 2026-08-13). Add a verified official upload here and
+      // it comes back automatically — no code change needed.
       officialUrl: null,
       media: [],
       sources: [

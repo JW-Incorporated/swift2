@@ -7,7 +7,71 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-08-13 — Fan re-uploads are citations, never presentation (decided by Joey)
+## 2026-08-13 — Playable-first timeline: visible video cards always play (supersedes today's fan-re-uploads-are-citations entry)
+
+**Decision:** if a video card is visible, it plays. A video record with no
+verified embed is **hidden** from every reader-facing surface (era feed cards,
+the Videos rail, the Videos filter, search) rather than rendered as a metadata
+card, a link-out, or an "Not available to watch here" state. Hidden, not
+deleted: the researched record keeps its summary, symbolism, eggs and citations
+in `supabase/seed/videos/**`, and re-adding a verified upload brings the card
+back with no code change. Enforced in one place — `videosForEra()` in
+`apps/web/lib/longlive/videos.ts` — so no surface can opt out by forgetting.
+
+**Why, in Joey's words (2026-08-13, verbatim):** *"I'm reversing my decision
+about the fan re-uploads. I thought you were talking about re-uploads that were
+duplicates of already existing content. I don't want anything on the timeline
+that can't be played. It just doesn't make sense to show a piece of content
+that a user can't view. So let's fix that. Reverse my decision and get all
+pieces of content viewable, and anything that doesn't have a video either
+deleted or hidden until the content is available. I'm looking for a simple fix
+here, not a big in-depth rebuild."* Note his stated reason for reversing: he
+had understood the earlier question as being about re-uploads that **duplicate
+content we already have**, not about records whose only copy is a re-upload.
+
+**What this REVERSES from the superseded entry:**
+
+- The blanket ban on fan re-uploads as *presentation*. Presentation is now
+  governed by playability plus honest attribution, not by channel class alone.
+- PR #2055's `NoEmbedFallback` "Not available to watch here" card state, and
+  the link-out affordance behind it (`watchAffordance` / `displayHost`). Both
+  are deleted — they were built to satisfy "every card either plays or says why
+  it can't", which this decision replaces with "every card plays".
+
+**What SURVIVES the reversal, unchanged (scope guard):**
+
+- **Sourcing-gate independence (#2036 / PR #2041):** a fan re-upload still
+  counts *zero* toward source independence. This decision is about
+  presentation, never about evidentiary weight.
+- **The Videos-surface Taylor-on-screen rule (#2042):** if she is not the
+  person on screen, it is a timeline moment, not a Videos-rail record. The
+  Time Person of the Year TODAY reveal stays banned by video id.
+- **`officialUrl` still means official.** A fan archive may never be an
+  `officialUrl`. Where a fan upload is ever used as an embed, it must ride the
+  `media` oEmbed path with attribution naming the real channel and labelling it
+  a fan upload (the shape `folklore: the long pond studio sessions` already
+  uses for its official-trailer embed).
+
+**How it landed, in practice:** the reversal turned out to need *no* fan
+uploads at all. All 19 unplayable records were audited; 11 were official music
+videos that had simply shipped with `officialUrl: null`, and every one of them
+has a real upload on Taylor's own YouTube channel (each oEmbed-verified
+2026-08-13, `author_name` "Taylor Swift"). Those 11 now embed first-party. The
+remaining 8 are the tour films, documentaries and the theatrical release party,
+whose works exist only behind Netflix / Disney+ / Apple Music / DVD — no
+official upload of the work exists to embed, so they hide. Each is annotated in
+its seed file with why.
+
+**Alternatives considered:** embedding official *trailers* for the 8 hidden
+films (the shipped `folklore: the long pond studio sessions` precedent) — not
+done here, because a trailer is not the work and the ask was explicitly a
+simple fix; it is a data-only change if Joey wants those cards back. Deleting
+the 8 records outright (Joey allowed "deleted or hidden") — rejected because
+the repo rule is never to discard sourced work, and hiding is reversible.
+
+**Who approved:** Joey, 2026-08-13, verbatim above.
+
+## 2026-08-13 — Fan re-uploads are citations, never presentation (SUPERSEDED same day — see "Playable-first timeline" above) (decided by Joey)
 
 **Decision:** a fan/archive re-upload of a video may be *cited* as a source on a
 moment (a footnote link with the channel named honestly, e.g. "YouTube —

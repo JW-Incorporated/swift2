@@ -121,6 +121,11 @@ export default {
         'The Dallas stadium show, released to Netflix on New Year\'s Eve — the snake-throne era preserved in full, from the tilted stage to the Long Live/New Year\'s Day piano coda.',
       symbolism: null,
       easterEggs: [],
+      // No official upload of the work itself exists — it is a Netflix original.
+      // With no embed this record is HIDDEN from every reader-facing surface
+      // rather than shown as a card that cannot play (playable-first rule,
+      // docs/decisions.md 2026-08-13). Add a verified official upload here and
+      // it comes back automatically — no code change needed.
       officialUrl: null,
       media: [],
       sources: [
