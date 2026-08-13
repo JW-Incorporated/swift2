@@ -7,6 +7,47 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — The Videos rail is Taylor on screen only (supersedes the appearance-family wording below)
+
+**Decision:** an appearance record requires **Taylor herself as the on-screen
+participant**. A broadcast that announces something about her does not qualify,
+however big the news. One record was removed on this line: the *Time* Person of
+the Year reveal on TODAY (`time-person-of-the-year-today-2023`), which is
+Time's editor-in-chief making the announcement. The other 18 appearances on the
+rail were audited one by one and all pass — she is the person on screen in each.
+
+**Why:** the entry below left this open. Its reviewer read the record as
+mislabelled, the implementing session widened the family definition to "an era
+moment" instead of deleting it, and the entry closed by naming the escape
+hatch: "if Joey or Wyatt disagrees, the fix is one deleted record". Joey
+disagreed — **"it should only be Taylor."** So the fix is the one deleted
+record, exactly as scoped. The wider wording is withdrawn wherever it was
+written.
+
+**Why the honor is not lost:** removing a record from the Videos rail never
+deletes the underlying history. The Person of the Year moment stays in
+`supabase/seed/content/midnights.mjs` with all seven of its citations,
+including the same TODAY upload as a source link. The rail is a place to watch
+her, not the archive of what happened to her.
+
+**Alternatives considered:**
+- *Keep the record and keep the wider definition.* Rejected by the owner. A
+  rail a fan opens to see Taylor should not open on someone else talking.
+- *Ban it by slug only.* Rejected — the candidates ledger still lists that
+  upload as verified, so a later integration pass could re-add it under a fresh
+  slug and pass the test. The regression bans the **video id** under any slug
+  and any era, and the ledger entry is marked
+  `videosSurface: 'banned:not-taylor-on-screen'`.
+- *Also drop the GMA red-carpet record, as another news-branded upload.*
+  Rejected — the rule is about who is on screen, not who owns the channel. She
+  walks that carpet; GMA filmed her doing it. Flagged in review as the closest
+  remaining call, and left for the owner rather than decided quietly.
+
+**Approved by:** Joey (founder) — the rule itself, in his words. Implementation
+and the record-by-record audit: the 2026-08-12 review session.
+
+---
+
 ## 2026-08-12 — `video_work.kind` grows an APPEARANCE family; the era Videos rail gains a filter
 
 **Decision:** `VIDEO_KINDS` gains four values — `interview`, `award_speech`,
@@ -77,6 +118,10 @@ founder/Wyatt action (`db:*` writes to prod).
   outcome. The family is now "an era moment as it played out in someone else's
   programming", with general commentary about her explicitly still excluded.
   **If Joey or Wyatt disagrees, the fix is one deleted record**, not a redesign.
+  → **SUPERSEDED the same day** (see the entry above): Joey disagreed, the
+  record was deleted, and the family definition is back to Taylor herself on
+  screen. Codex's reading was the correct one. Left here unedited because the
+  reasoning is what made the escape hatch cheap to use.
 
 **Approved by:** proposed by the 2026-08-12 engineering session (ENGINE lane);
 **pending Wyatt (CTO)** — schema + taxonomy sign-off, and Joey on whether the
