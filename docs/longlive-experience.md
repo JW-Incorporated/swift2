@@ -417,7 +417,12 @@ same pipeline — use the `appearance()` helper in
 `supabase/seed/videos/_appearance-helpers.mjs` and pick the `kind` by what the
 viewer sees, not what the event was called (full semantics in
 `videos/_example.mjs`; the two families are documented on `VIDEO_KINDS` in
-`packages/shared/src/vault-types.ts`). Four rules that are not negotiable:
+`packages/shared/src/vault-types.ts`). Five rules that are not negotiable:
+- **Taylor herself must be the on-screen participant** (Joey, 2026-08-12: "it
+  should only be Taylor"). An announcement or news segment ABOUT her — however
+  big the news, however honest the card — is a timeline moment, never a
+  Videos-rail record. The Time Person of the Year TODAY reveal was removed on
+  exactly this line; a test bans its video id from the rail.
 - **Official uploads only.** The upload must belong to whoever owns the footage
   — the show, the network, the awards body, or the outlet that filmed it. A fan
   archive can be a timeline *source*; it is never an `officialUrl`. If the only
