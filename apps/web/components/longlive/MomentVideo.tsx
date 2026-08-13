@@ -39,7 +39,14 @@ function VideoFrame({ children }: { children: ReactNode }) {
  *    button (nesting interactive elements breaks screen readers);
  *  - it announces `Play {playNoun}: {title}`, so a reader knows what plays;
  *  - the whole 16:9 area is the target, comfortably past the 44px floor;
- *  - the overlay and the glyph are decorative and hidden from screen readers.
+ *  - the overlay and the glyph are decorative and hidden from screen readers;
+ *  - the hover scales are `motion-safe:` only. The site's global
+ *    prefers-reduced-motion rule (globals.css) zeroes transition DURATION but
+ *    not the transform itself, so an unguarded `group-hover:scale-*` becomes an
+ *    instant jump — worse for a reduce user than no effect at all. #2051 met
+ *    this by giving the moment-card affordance a color-only hover; now that one
+ *    component serves every surface, the variant is the way to keep that
+ *    promise here without flattening the hover for everyone else.
  *
  * Perf/privacy: this is a plain <img>, never an iframe. Nothing from YouTube's
  * player loads until the button is pressed (the #1935 click-to-load posture).
@@ -67,13 +74,13 @@ export function VideoPoster({
           alt=""
           fill
           sizes="(max-width: 672px) 100vw, 672px"
-          className="object-cover transition group-hover:scale-[1.03]"
+          className="object-cover transition motion-safe:group-hover:scale-[1.03]"
           unoptimized
         />
         <span aria-hidden className="absolute inset-0 bg-black/25 transition group-hover:bg-black/10" />
         <span
           aria-hidden
-          className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-lg transition-transform group-hover:scale-110"
+          className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-lg transition-transform motion-safe:group-hover:scale-110"
           style={{ backgroundColor: 'var(--era-accent)' }}
         >
           <Play className="h-7 w-7 translate-x-0.5" style={{ color: 'var(--era-bg)' }} fill="currentColor" />
