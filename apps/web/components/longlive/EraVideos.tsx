@@ -5,6 +5,8 @@ import { Clapperboard } from 'lucide-react';
 import { videosForEra, VIDEO_KIND_LABEL } from '@/lib/longlive/videos';
 import type { EraId, VideoNote } from '@/lib/longlive/types';
 import { MomentVideo } from './MomentVideo';
+import { NoEmbedFallback } from './NoEmbedFallback';
+import { watchAffordance } from '@/lib/longlive/video-affordance';
 
 /**
  * Per-era videos rail, rendered inside EraSection. Data is static, synced at
@@ -49,6 +51,10 @@ export function EraVideos({ eraId }: { eraId: EraId }) {
 }
 
 function VideoCard({ video }: { video: VideoNote }) {
+  // Total over the record — see watchAffordance (#2050). This card's ONLY
+  // interactive element used to be the embed, so a record with no official
+  // upload rendered as a dead rectangle.
+  const affordance = watchAffordance(video);
   const meta = [
     video.kind ? VIDEO_KIND_LABEL[video.kind] : null,
     video.director ? `Dir. ${video.director}` : null,
@@ -86,19 +92,26 @@ function VideoCard({ video }: { video: VideoNote }) {
         </ul>
       )}
 
-      {video.youtubeId && (
+      {affordance.kind === 'embed' ? (
         <MomentVideo
-          video={{ youtubeId: video.youtubeId, title: video.title }}
+          video={{ youtubeId: affordance.youtubeId, title: video.title }}
           caption={null}
           playNoun={video.kind ? VIDEO_KIND_LABEL[video.kind].toLowerCase() : 'video'}
           className="mt-4"
         />
+      ) : (
+        <NoEmbedFallback affordance={affordance} title={video.title} />
       )}
 
-      {/* Sources intentionally omitted here — this card renders directly in
-          the un-gated main feed (no click-through detail page for videos
-          yet), and citations belong on an expanded page, not the main
-          scroll, per direct product feedback. */}
+      {/* The full citation LIST is still intentionally omitted here — this card
+          renders directly in the un-gated main scroll (a video record has no
+          click-through detail page), and citations belong on an expanded page,
+          per direct product feedback.
+
+          The single link inside NoEmbedFallback above is not that list: it only
+          appears when the record has no embed, where it is the card's entire
+          interaction rather than a footnote. Without it this card was literally
+          inert — #2050. */}
     </article>
   );
 }
