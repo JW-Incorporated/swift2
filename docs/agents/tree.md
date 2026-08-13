@@ -78,7 +78,8 @@ plan.
    inside `scripts/social/check-drafts.mjs`: no banned openers, no opener-pattern
    reuse inside 14 days, and X entries on campaign days must be structurally
    different from their IG sibling. Media follows the 2026-08-12 Taylor-photo
-   standard (`social/README.md` `mediaKind`): every slot names either a real
+   standard (defined in strategy §2; `social/README.md` `mediaKind` is its
+   field schema): every slot names either a real
    credited photograph of Taylor from the repo corpus (`mediaKind: "photo"`,
    the default) or — only for a product-surface subject — a committed
    `/social/library/` screenshot (`mediaKind: "site-screen"`, ideally as a
