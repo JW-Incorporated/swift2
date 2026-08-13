@@ -65,24 +65,110 @@ concurrency:
   group: social-poster
   cancel-in-progress: false
 
+# ONE definition of the state-branch naming scheme, used by BOTH the
+# stale-ledger guard and the state-commit step below. A rename that touches
+# only one of the two would make the guard silently match nothing (fail-open) —
+# scripts/social/social-poster-workflow.test.ts asserts the literal appears
+# exactly once, here.
+env:
+  STATE_BRANCH_PREFIX: social-poster/state-
+
 jobs:
   post:
     runs-on: ubuntu-latest
     steps:
+      # SOCIAL_FREEZE first, before anything at all (2026-08-12, PR #2039
+      # review): while a founder holds the freeze, runs must be GREEN no-ops —
+      # not red stale-ledger refusals. 48 red frozen runs a day would trip
+      # watchdog's "poster is down" alarm falsely and destroy the "red means a
+      # post permanently failed" signal from 2026-08-11. post-queue.mjs checks
+      # the same variable again itself (belt and suspenders).
+      - name: Freeze check
+        id: freeze
+        env:
+          FREEZE: ${{ vars.SOCIAL_FREEZE }}
+        run: |
+          if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
+            echo "SOCIAL_FREEZE is set (\"$FREEZE\") — skipping this run entirely. Kill switch, not a fault."
+            echo "frozen=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "frozen=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v7
+        if: steps.freeze.outputs.frozen != 'true'
         with:
           # Real-user token, not the default — see the header note above.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
 
       - uses: actions/setup-node@v7
+        if: steps.freeze.outputs.frozen != 'true'
         with:
           node-version: "24"
+
+      # Fail CLOSED on a stale ledger (issue #2031, 2026-08-12): every dedupe /
+      # idempotency check in post-queue.mjs reads social/posted/ from this
+      # checkout of main. If a previous run's queue-state PR is still open, the
+      # ledger on main is KNOWN stale — a post recorded on that branch looks
+      # "still queued" here, and posting anyway is exactly how the 2026-08-11/12
+      # Instagram triple-post happened. Refusing normally costs one 30-minute
+      # slot (state PRs auto-merge in ~2-3 min); a SUSTAINED strand halts
+      # posting entirely, loudly, until a human merges the stuck PR — that is
+      # the intended trade, because posting on a stale ledger costs live
+      # duplicates the IG API cannot even delete.
+      #
+      # Mechanics (hardened per PR #2039's reviews):
+      #   - `gh api --paginate` over open base:main PRs — a `gh pr list
+      #     --limit N` window could truncate away exactly the OLD stranded PR
+      #     that matters (same class as auto-merge-content.yml's pagination
+      #     note). One length per page is emitted; awk sums them.
+      #   - `github.token`, not the PAT: read-only listing must not fail when
+      #     the PAT expires, and an API failure prints a DISTINCT error so
+      #     nobody hunts for a stale ledger that isn't there. Both paths still
+      #     fail closed.
+      #   - Branch existence is deliberately NOT the signal: 43 merged/stale
+      #     state branches currently survive on origin, so a branch check
+      #     would false-positive forever.
+      #   - KNOWN GAP (accepted, see issue #2040): a state PR CLOSED without
+      #     merging, or a pushed branch whose `gh pr create` failed, leaves a
+      #     stale ledger with no open PR — undetectable here. Never close a
+      #     state PR; merge it.
+      - name: Refuse to post while a queue-state PR is still open (stale ledger)
+        if: steps.freeze.outputs.frozen != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if ! per_page_counts=$(gh api --paginate "repos/$REPO/pulls?state=open&base=main&per_page=100" \
+              --jq "[.[] | select(.head.ref | startswith(\"$STATE_BRANCH_PREFIX\"))] | length"); then
+            echo "::error::social-poster: could not enumerate open PRs (API/auth problem — NOT a stale ledger). Failing closed; nothing was posted this run."
+            exit 1
+          fi
+          open_state=$(printf '%s\n' "$per_page_counts" | awk '{s+=$1} END {print s+0}')
+          if [ "$open_state" -gt 0 ]; then
+            echo "::error::social-poster: $open_state open queue-state PR(s) (branch ${STATE_BRANCH_PREFIX}*) — the social/posted/ ledger on main is stale, so dedupe cannot be trusted. Refusing to post this run. State PRs auto-merge when green; if one is stuck, MERGE it — never close it, its diff is the only record those posts went out. See issue #2031."
+            exit 1
+          fi
+          echo "No open queue-state PRs — ledger current."
+
+      # Close the checkout→guard race (PR #2039 review): a state PR that
+      # merged between the checkout above and the guard just now would leave
+      # this tree stale even though the guard truthfully saw zero open PRs.
+      # Fast-forwarding AFTER the guard makes the tree at least as new as the
+      # state the guard verified, in every interleaving.
+      - name: Fast-forward to current main (post-guard)
+        if: steps.freeze.outputs.frozen != 'true'
+        run: |
+          git fetch origin main
+          git merge --ff-only FETCH_HEAD
 
       # Exits non-zero when a post permanently failed (2026-08-11) — see the
       # "Failure surfacing" note in the header. Writes its run report to
       # $SOCIAL_POSTER_REPORT, which the commit step below puts in the PR.
       - name: Post due queue items
         id: post
+        if: steps.freeze.outputs.frozen != 'true'
         env:
           SOCIAL_FREEZE: ${{ vars.SOCIAL_FREEZE }}
           SOCIAL_POSTER_REPORT: ${{ runner.temp }}/social-poster-report.md
@@ -126,8 +212,8 @@ jobs:
           else
             echo "social-poster produced no report (the poster step itself crashed before reporting)." > "$BODY_FILE"
           fi
-          printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run. No content decisions are made here.\n' >> "$BODY_FILE"
-          BRANCH="social-poster/state-$(date -u +%Y%m%d%H%M%S)"
+          printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run. No content decisions are made here.\n\n⚠️ **Never CLOSE this PR — merge it.** Its diff is the only record that these posts went out; closing it leaves `main` claiming they are still queued, and the poster will refuse to run (stale-ledger guard) or, worse, repost them (issue #2031).\n' >> "$BODY_FILE"
+          BRANCH="${STATE_BRANCH_PREFIX}$(date -u +%Y%m%d%H%M%S)"
           git checkout -b "$BRANCH"
           git commit -m "social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push origin "$BRANCH"
