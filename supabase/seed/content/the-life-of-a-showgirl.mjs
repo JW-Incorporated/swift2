@@ -1643,9 +1643,12 @@ export default {
       // Cross-links: the two Ophelia anchors this outside validation attaches to
       // — the opening single that shares the Millais conceit and the submerged
       // "Ophelia bathtub" cover it restages. Both ids verified to resolve.
+      // Cross-link (Stage 3, 2026-08-13): + "Beautiful Ghosts," her earlier
+      // co-write with Andrew Lloyd Webber.
       relatedIds: [
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+        'moment:vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe',
       ],
       year: 2026,
       month: 8,
@@ -7898,10 +7901,13 @@ export default {
       // downstream of the MSG wedding — the reverse links its siblings already
       // point at were missing. Threads back to the wedding itself, the gown, and
       // the engagement ring whose band it gave the first clear public look at.
+      // Cross-link (Stage 3, 2026-08-13): + the rumored steakhouse date night
+      // three weeks earlier, the last sighting before the wedding.
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
         'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-tloas-a-rumored-first-date-night-since-training-camp-dinner-at-kel',
       ],
       title: "First sighting since the wedding: pink Markarian, at a friend's big day",
       snippet:
@@ -10143,7 +10149,12 @@ export default {
       month: 8,
       day: 9,
       category: 'sighting',
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      // Cross-link (Stage 3, 2026-08-13): + the first post-wedding sighting
+      // three weeks later.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
+      ],
       confidence: 'plausible',
       title: 'A rumored first date night since training camp — dinner at Kelce’s Kansas City steakhouse',
       snippet:
@@ -10201,6 +10212,8 @@ export default {
       // career; no location, health, security, sexuality, minor, or third-party
       // private-life content.
       slug: 'phil-collins-white-horse-blown-away',
+      // Cross-link (Stage 3, 2026-08-13): the song's 2008 single release.
+      relatedIds: ['moment:vault-fearless-white-horse-the-single-greys-anatomy-saved-for-fearless'],
       year: 2026,
       month: 8,
       day: 1,
