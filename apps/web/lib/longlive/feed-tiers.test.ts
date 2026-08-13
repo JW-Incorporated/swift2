@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { build, contentForEra } from './content';
+import { inlineVideoMomentIds } from './era-feed';
 import { VAULT_RAW } from './content-vault.generated';
 import { ERAS } from './eras';
 import {
@@ -8,6 +9,7 @@ import {
   MEDIA_SCORE_THRESHOLD,
   assignFeedTiers,
   baseTierFor,
+  withInlineVideoTiers,
   type CardTier,
 } from './feed-tiers';
 import { substanceScore } from './substance';
@@ -392,5 +394,89 @@ describe('assignFeedTiers over REAL vault content', () => {
       const b = assignFeedTiers(items);
       for (const it of items) expect(a.get(it.id)).toBe(b.get(it.id));
     }
+  });
+});
+
+/**
+ * #2080: one video treatment in the feed. Every playable video renders the same
+ * full-width 16:9 poster, and two tiers cannot carry one honestly — see
+ * INLINE_VIDEO_MIN_TIER. This is a FLOOR on cards that actually play.
+ */
+describe('withInlineVideoTiers', () => {
+  const tiers = (entries: [string, CardTier][]) => new Map(entries);
+
+  it('lifts a chip that plays a video to media', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'chip']]), new Set(['a']));
+    expect(out.get('a')).toBe('media');
+  });
+
+  it('lifts a text breather that plays a video to media', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'text']]), new Set(['a']));
+    expect(out.get('a')).toBe('media');
+  });
+
+  it('never demotes: a hero that plays a video stays a hero', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'hero']]), new Set(['a']));
+    expect(out.get('a')).toBe('hero');
+  });
+
+  it('leaves cards that do not play anything exactly as they were', () => {
+    const input = tiers([
+      ['a', 'chip'],
+      ['b', 'text'],
+      ['c', 'hero'],
+      ['d', 'media'],
+    ]);
+    const out = withInlineVideoTiers(input, new Set());
+    expect([...out]).toEqual([...input]);
+  });
+
+  it('skips a moment that DEFERS its video to an earlier card (#2057 de-dupe)', () => {
+    // Ownership, not `item.video`: the deferring card renders no poster, so
+    // inflating it would grow a card for a video it never shows.
+    const out = withInlineVideoTiers(tiers([['a', 'chip']]), new Set(['someone-else']));
+    expect(out.get('a')).toBe('chip');
+  });
+
+  it('does not mutate the map it was given', () => {
+    const input = tiers([['a', 'chip']]);
+    withInlineVideoTiers(input, new Set(['a']));
+    expect(input.get('a')).toBe('chip');
+  });
+
+  /**
+   * Wired the way EraSection wires it — `inlineVideoMomentIds(items)`, the same
+   * ownership set the component derives — rather than "every item with
+   * `item.video`". Those differ (a moment deferring a duplicate id is not an
+   * owner), and the naive version is also circular: assert `hero|media` over
+   * exactly the ids you just floored and the test passes on an empty vault.
+   * The `toBeGreaterThan(0)` below is what stops it going quiet — if the corpus
+   * ever stops containing a card the floor lifts, this fails instead of
+   * silently asserting nothing.
+   */
+  it('leaves no chip or text card playing a video anywhere in the real corpus', () => {
+    let promoted = 0;
+    let owned = 0;
+    for (const era of ERAS) {
+      const items = contentForEra(era.id);
+      const owners = inlineVideoMomentIds(items);
+      const base = assignFeedTiers(items);
+      const floored = withInlineVideoTiers(base, owners);
+      for (const id of owners) {
+        owned++;
+        if (base.get(id) !== floored.get(id)) promoted++;
+        expect(['hero', 'media']).toContain(floored.get(id));
+      }
+      // Nothing OUTSIDE the ownership set may move.
+      for (const it of items) {
+        if (owners.has(it.id)) continue;
+        expect(floored.get(it.id)).toBe(base.get(it.id));
+      }
+    }
+    // Non-vacuity, not a census: the vault gains content most days, so pinning
+    // exact counts here would fail on unrelated content PRs. Today it is 16
+    // owners and 7 promotions (6 `text` + 1 `chip`).
+    expect(owned).toBeGreaterThan(0);
+    expect(promoted).toBeGreaterThan(0);
   });
 });

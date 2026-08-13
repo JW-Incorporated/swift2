@@ -161,3 +161,50 @@ export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
 
   return tiers;
 }
+
+/**
+ * Tiers a card that plays a video inline can wear (#2080).
+ *
+ * Every playable video in the feed now renders the SAME way — a full-width 16:9
+ * poster with a large centered play glyph, the treatment the video-record cards
+ * already used (Joey, 2026-08-13, rejecting #2063's compact row). Two of the
+ * four tiers cannot carry that poster honestly:
+ *
+ *   - `chip` is a ~56px dense row whose whole identity is "a slight item". A
+ *     16:9 poster under it is roughly 4x the height of the card it hangs from,
+ *     so the silhouette that makes chips read as slight is destroyed — and the
+ *     claim was wrong anyway: a moment with watchable footage is not a sighting.
+ *   - `text` is the no-photo breather, "a beat of pure typography". A card with
+ *     a big poster on it is not that, and the breather's left-rule-only box
+ *     around a full-bleed poster reads as an unfinished card rather than a
+ *     deliberate one.
+ *
+ * So a card that plays a video is at least `media` — the workhorse box, which is
+ * exactly the box the video-record cards use. `hero` and `media` are untouched:
+ * this is a floor, never a cap, and never a demotion.
+ */
+export const INLINE_VIDEO_MIN_TIER: CardTier = 'media';
+
+/**
+ * Applies the {@link INLINE_VIDEO_MIN_TIER} floor to the cards that actually
+ * render an inline player.
+ *
+ * Keyed on OWNERSHIP, not on `item.video`: when two moments in the rendered list
+ * embed the same YouTube id only the first plays it (`inlineVideoMomentIds` in
+ * era-feed.ts), and the deferring card renders no poster at all — promoting it
+ * would inflate a card for a video it never shows.
+ *
+ * Returns a new Map; the input is left alone so `assignFeedTiers`'s own output
+ * stays inspectable (and its invariants independently assertable).
+ */
+export function withInlineVideoTiers(
+  tiers: ReadonlyMap<string, CardTier>,
+  videoOwnerIds: ReadonlySet<string>,
+): Map<string, CardTier> {
+  const out = new Map(tiers);
+  for (const id of videoOwnerIds) {
+    const tier = out.get(id);
+    if (tier === 'chip' || tier === 'text') out.set(id, INLINE_VIDEO_MIN_TIER);
+  }
+  return out;
+}
