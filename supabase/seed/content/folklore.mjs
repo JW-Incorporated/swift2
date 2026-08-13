@@ -255,6 +255,12 @@ export default {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-folklore-movie-disney-1095464/',
           },
+          // The official trailer on Taylor's own channel — oEmbed-verified
+          // 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — Taylor Swift',
+            url: 'https://www.youtube.com/watch?v=jgdFUoZzCI0',
+          },
         ],
         photos: [
           {
@@ -483,6 +489,18 @@ export default {
             isAlternative: true,
             altNote:
               'Her exact video dress is undocumented — this is a white Nap Dress from Hill House Home, the brand that popularized the style.',
+          },
+          // Merged (issue #616, 2026-07-29) from the now-deleted duplicate
+          // `folklore-cardigan` stub — the cardigan itself, complementary
+          // to the dress above rather than a repeat of it.
+          {
+            brand: 'Princess Polly',
+            item: 'Abner Cable Cardigan',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/abner-cable-cardigan-cream',
+            price: '$75.00',
+            isAlternative: true,
+            altNote: 'The official star-embroidered merch cardigan is discontinued from Taylor\'s own store -- this is a current cream cable-knit cardigan in the same cozy silhouette.',
           },
         ],
       },
@@ -2197,138 +2215,18 @@ export default {
         // without a photo.
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "folklore-cardigan",
-      year: 2020,
-      month: 8,
-      dateLabel: "Summer 2020",
-      category: "fashion",
-      title: "The cardigan and cottagecore",
-      snippet: "Grayscale knitwear and misty forests define the era’s look.",
-      video: { youtubeId: "K-a8s8OLBSE", title: "Taylor Swift - cardigan" },
-      moment: {
-        sources: [
-          {
-            outlet: 'Refinery29',
-            url: 'https://www.refinery29.com/en-us/2020/07/9931460/taylor-swift-folklore-fashion-clothing-trend',
-            source_title: 'Folklore Fashion, According To Taylor Swift',
-            publisher: 'Refinery29',
-            source_type: 'fashion_database',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Grazia',
-            url: 'https://graziadaily.co.uk/fashion/shopping/taylor-swift-folklore-style-cardigans/',
-            source_title: 'Folklore, Taylor Swift\'s New Album, Is Responsible For A Surge In Searches For Cardigans',
-            publisher: 'Grazia Daily',
-            source_type: 'fashion_database',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Cozy cardigans, braided hair, and a foggy woodland palette made cottagecore the aesthetic of 2020.\n\nThe cream cable-knit cardigan from the video, embroidered with stars, was sold as official merch and is widely credited with driving cottagecore's mainstream revival.",
-        // Shop pass (2026-07-22): the official star-embroidered merch
-        // cardigan is long discontinued from Taylor's own store (only
-        // found via resale now) -- a current cream cable-knit cardigan,
-        // verified in stock, same cozy silhouette.
-        products: [
-          {
-            brand: 'Princess Polly',
-            item: 'Abner Cable Cardigan',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/abner-cable-cardigan-cream',
-            price: '$75.00',
-            isAlternative: true,
-            altNote: 'The official star-embroidered merch cardigan is discontinued from Taylor\'s own store -- this is a current cream cable-knit cardigan in the same cozy silhouette.',
-          },
-        ],
-      },
-    },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "folklore-teenage-love-triangle",
-      year: 2020,
-      month: 7,
-      day: 25,
-      category: "music",
-      tags: ["Lore"],
-      title: "The teenage love triangle",
-      snippet: "Three songs — \"cardigan,\" \"august,\" and \"betty\" — tell one story from three points of view.",
-      moment: {
-        sources: [
-          {
-            outlet: 'TIME',
-            url: 'https://time.com/5871159/taylor-swift-folklore-explained/',
-            source_title: 'Let\'s Break Down Taylor Swift\'s Tender New Album Folklore',
-            publisher: 'TIME',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'NME',
-            url: 'https://www.nme.com/blogs/taylor-swift-new-album-folklore-hidden-references-meanings-easter-eggs-2714814',
-            source_title: 'Taylor Swift\'s new album \'Folklore\': all the hidden meanings and Easter eggs',
-            publisher: 'NME',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-        ],
-        context: "Taylor has said on record that \"cardigan,\" \"august,\" and \"betty\" form a fictional teenage love triangle, each song narrated by a different character in the story.\n\nIt set the template for folklore's fictional, novelistic approach — a sharp turn from the autobiographical framing of her earlier catalog.",
-        // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- the only
-        // candidate images (the cardigan/betty single covers) are already the
-        // primary photos on the richer sibling moment above ("A fictional
-        // teenage love triangle, told across three songs"); reusing them here
-        // caused a corpus substance-score regression when a prior run tried
-        // it (2026-08-05, reverted). Left without a photo.
-      },
-    },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "folklore-william-bowery",
-      year: 2020,
-      month: 11,
-      day: 25,
-      category: "music",
-      tags: ["Lore"],
-      title: "William Bowery revealed",
-      snippet: "The mystery co-writer credited on \"exile\" and \"betty\" is confirmed as Joe Alwyn.",
-      moment: {
-        sources: [
-          {
-            outlet: 'NME',
-            url: 'https://www.nme.com/news/music/taylor-swift-confirms-the-identity-of-folklore-song-co-writer-william-bowery-2825041',
-            source_title: 'Taylor Swift confirms the identity of \'Folklore\' song co-writer William Bowery',
-            publisher: 'NME',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-tortured-poets-department-joe-alwyn-matt-healy-who-are-they-songs-are-about/',
-            source_title: 'Taylor Swift fans speculate her songs are about Matty Healy and Joe Alwyn – who are they?',
-            publisher: 'CBS News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-        ],
-        context: "In the Disney+ special Folklore: The Long Pond Studio Sessions, Taylor revealed that \"William Bowery\" — credited as a co-writer on \"exile\" and \"betty\" — was her then-partner Joe Alwyn.\n\nThe pseudonym combines his great-grandfather's name, William Alwyn (also a musician), with the Bowery Hotel, where the two were first spotted together.",
-        // Photo pass #762 (2026-08-08): thin legacy "Lore" stub -- the same
-        // reveal is covered in full by the richer sibling moment
-        // "william-bowery-is-joe-the-long-pond-reveal" (linked from
-        // exile-bon-iver-duet), which already carries its own verified photo.
-        // Reusing that image here caused a corpus substance-score regression
-        // when a prior run tried it (2026-08-05, reverted). Left without one.
-      },
-    },
+    // Three duplicate stubs removed here (issue #616, 2026-07-29):
+    // - "folklore-cardigan" told the same cardigan/cottagecore fashion story
+    //   as the richer, sourced "cardigan" video item above; its unique
+    //   shoppable product (the cardigan itself) was merged there.
+    // - "folklore-teenage-love-triangle" told the same fictional cardigan/
+    //   august/betty love triangle as the richer, sourced item at the top of
+    //   this file, in two sentences with no sources.
+    // - "folklore-william-bowery" told the same Nov. 25, 2020 William Bowery
+    //   reveal as the richer, sourced `william-bowery-is-joe` item — whose
+    //   sourcing also corrects this stub's "Bowery Hotel" origin claim
+    //   (it's the Bowery neighborhood; fans' hotel theory was wrong), so
+    //   removing it also removes a factual error.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.

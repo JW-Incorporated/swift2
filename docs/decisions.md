@@ -7,6 +7,161 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — `video_work.kind` grows an APPEARANCE family; the era Videos rail gains a filter
+
+**Decision:** `VIDEO_KINDS` gains four values — `interview`, `award_speech`,
+`speech`, `press_event` — forming an "appearance" family beside the existing
+"works" family (`music_video` … `performance`). The era filter row gains a
+**Videos** chip: a second, mutually-exclusive filter axis that shows everything
+watchable in the era.
+
+**Why:** PR #2035 researched and oEmbed-verified 31 YouTube appearances and put
+them on the era timelines, but only 2 could reach the Videos surface — the enum
+described only things Taylor *made*, so a Grammy speech, a Fallon couch and a
+red carpet had nowhere honest to sit. Joey's bar for the program is that the
+appearances are "live in their appropriate place in the eras, sortable by a
+'videos' filter", and the enum was the thing in the way. 19 of the remaining 29
+now reach the rail.
+
+**Why four values, not one per venue:** a talk show, a podcast and a radio
+sit-down are the same object to a reader (`interview`); a premiere Q&A, a red
+carpet and a news-segment reveal are all publicity (`press_event`). `speech`
+stays separate from `award_speech` because a 20-minute commencement address and
+"thanks, holding a trophy" read as different records. A ten-value long tail
+(`talk_show`, `podcast`, `radio`, `red_carpet`, `news_segment`…) would have
+been authoring overhead with no reader payoff.
+
+**Alternatives considered:**
+- *Stretch `performance` to cover speeches.* Rejected — the rail would promise
+  a performance and deliver a podium. Dishonest labelling is the failure mode
+  this taxonomy exists to prevent.
+- *A separate `appearance` table/surface.* Rejected — same shape, same sourcing
+  rules, same rail; a second pipeline to maintain for no user-visible gain.
+- *One flat `appearance` kind.* Rejected — the card's only metadata line is the
+  kind label, so collapsing it loses the one word that tells a fan what they're
+  about to watch.
+- *Make Videos a sixth ContentTag.* Rejected — tags belong to moments; a video
+  record carries none, so "Fashion + Videos" would be an intersection the data
+  cannot honestly produce. Hence a separate, exclusive axis.
+
+**What did NOT change:** the `officialUrl` rule. An appearance ships only when
+the upload belongs to the channel that owns the footage (the show, network,
+awards body, or the outlet that filmed it). 10 of the 31 appearances therefore
+still cannot reach the rail — their only surviving copy is a fan archive, or no
+upload exists at all. They remain timeline moments with a source link. A fan
+re-upload is never an `officialUrl`, however long it has been alive.
+
+**Migration:** `supabase/migrations/20260812120000_video_work_appearance_kinds.sql`
+widens the CHECK constraint. It is **written, not applied** — applying is a
+founder/Wyatt action (`db:*` writes to prod).
+
+**Codex review (2026-08-12), and one disagreement left open for the founders:**
+- *Enum mirrors:* consistent across all five sites. No finding.
+- *`NOT VALID` + `VALIDATE CONSTRAINT` for the migration:* **not adopted**, with
+  the reasoning written into the migration. That pattern moves a validation scan
+  out of the ACCESS EXCLUSIVE window, but `migrate.mjs` sends a file as one
+  query, so both statements would sit in the same implicit transaction and hold
+  the lock regardless — and a WIDENED predicate is a superset of the old one, so
+  no existing row can fail it. Recorded so a future narrowing migration knows it
+  *does* need the two-step.
+- *Provenance overclaim:* Codex was right that the VMA 2024 record's note
+  implied Access Hollywood owns the ceremony footage. It doesn't — MTV does.
+  The note now states only the verified fact (a broadcaster's own upload, not a
+  fan re-upload), which is what the rule actually requires.
+- *Open disagreement — the TODAY Person of the Year record:* Codex reads it as
+  mislabelled, because the event is Time's editor making an announcement rather
+  than Taylor appearing. Fair. Two defensible fixes: delete the record, or fix
+  the definition. **This change fixed the definition** — the card states exactly
+  what it is, the footage is something a fan wants, and deleting verified,
+  watchable content to protect a one-sentence definition is the worse product
+  outcome. The family is now "an era moment as it played out in someone else's
+  programming", with general commentary about her explicitly still excluded.
+  **If Joey or Wyatt disagrees, the fix is one deleted record**, not a redesign.
+
+**Approved by:** proposed by the 2026-08-12 engineering session (ENGINE lane);
+**pending Wyatt (CTO)** — schema + taxonomy sign-off, and Joey on whether the
+appearance vocabulary reads right to a fan.
+
+**Related, same day:** the appearance *discovery* lane below finds new
+appearances going forward; this entry is what lets them be represented once
+found. The two were written by parallel sessions and are complementary — a
+discovered talk-show appearance now has a `kind` to land under.
+
+---
+
+## 2026-08-12 — Appearance discovery: YouTube channel RSS, not the Data API
+
+**Decision:** the content engine gains a standing discovery lane that finds new
+Taylor appearances on YouTube forever going forward, built on **public channel
+RSS** (`https://www.youtube.com/feeds/videos.xml?channel_id=<id>`), and it is
+**deterministic with zero LLM calls**.
+
+Shape: a daily GitHub Actions workflow (`appearance-discovery.yml`) polls a
+curated, committed channel list (`scripts/appearance-discovery/channels.mjs` —
+14 channels, each with a recorded reason it is watched), applies keyword
+relevance rules to video **titles**, and files one `intake` issue per new video.
+Nothing downstream changes: those issues enter the existing intake door and the
+Content Shift authors them under new handling rules in its charter.
+
+**Cost model.** Discovery is **$0 in model spend** — it is `node` reading 14 XML
+documents on a GitHub-hosted runner, in the same zero-AI family as
+`watchdog.yml` and `unowned-sweep.yml`. There is no per-user or per-request LLM
+call, so this adds nothing to runtime cost (the Vault stays static). The
+*judging* half — verify, place, author — rides the **existing Content Shift
+budget** and its existing ≤2–3 items/run cap; discovery raises queue supply, not
+the token ceiling. A per-run cap (default 10 issues) bounds how much work one
+day can inject.
+
+**Why not the YouTube Data API:** it needs an API key, which means a new
+account, a new service, and a new secret — all of which are founder-approval
+items under CLAUDE.md, and a quota to manage besides. RSS is keyless,
+unauthenticated, needs no secret beyond the built-in `GITHUB_TOKEN`, and gives
+us the ~15 most recent uploads per channel, which is everything a daily poll
+needs. Revisit only if we ever need search across all of YouTube (finding
+appearances on channels *not* on the list), which the Data API can do and RSS
+cannot. That is the known, accepted limitation: this design sees only curated
+channels, and hand-filed intake remains the door for everything else.
+
+**Why zero LLM in detection:** reading XML and matching a title is mechanical,
+and rule 8 of CLAUDE.md says codify mechanical work rather than re-executing it
+token-by-token. Spending a session's context to re-read fifteen feeds daily
+would be the most expensive possible way to do a `grep`.
+
+**Dedupe is stateless, by decision, against two same-week incidents.** The video
+id is the fingerprint. Known ids are re-derived every run from the repo-scoped
+issue list (open **and** closed `intake` issues) plus the seed corpus — never
+from persisted state.
+
+- Never GitHub's global `/search` (#1869, #2008): repo-scoped runners get 403,
+  and #2008's code read that failure as "not filed", duplicating #2017–#2027.
+  Here an unreadable **or possibly-truncated** ledger **refuses to file**. Fail
+  closed: a *transient* failure self-heals on tomorrow's run; a duplicate does
+  not. Note the one case that does **not** self-heal: the ledger counts intake
+  issues `--state all`, so the population only grows, and at `LEDGER_LIMIT`
+  (1000) the refusal becomes permanent rather than daily. The script warns from
+  80% so there is room to act; at ~48 issues today that is years out, but it is
+  a wedge, not a wobble, and it needs raising rather than waiting out.
+- Never state carried by a PR that has to auto-merge (#2031): when the merge
+  gate stranded that PR the state silently rolled back and the social poster
+  published three duplicates. So there is no state file and no state PR here at
+  all — the filed issues themselves are the memory.
+
+**Alternatives considered:** (a) YouTube Data API — rejected above; (b) a
+committed `seen.json` ledger — rejected, it is exactly #2031's failure mode and
+adds a merge dependency to a read-only job; (c) LLM relevance judging — rejected
+as cost with no precision gain over a title keyword at this recall target;
+(d) matching video *descriptions* as well as titles — implemented, then removed
+after the first live dry run: news/talk-show descriptions are segment lists and
+subscribe boilerplate, so GMA's "Rod Stewart calls off remaining tour dates"
+matched on a Pop News roundup that listed a Taylor segment. Title-only.
+
+**Approved by:** Joey (pre-approved as engine-lane work); **Wyatt owns the
+technical review and the live trigger sync** — per `docs/agents/runners.md`,
+changing runner behavior is a PR to the file, while syncing the live trigger is
+a founder-only action.
+
+---
+
 ## 2026-08-12 — P0: close the auto-merge hole that let server code auto-deploy (#1972)
 
 **Decision:** the content auto-merge gate is tightened, purely additively, so no
@@ -59,6 +214,264 @@ plus the required checks are the only net there. `pull_request_target` uses the
 base-branch workflow, so this gate takes effect for PRs opened after it merges.
 
 **Approved:** Wyatt (CTO) — P0 directive.
+
+---
+
+## 2026-08-11 — Backups: our own logical backup, not `pg_dump`; drill monthly, not nightly
+
+**Decision:** The BACKUPS launch gate (#680) is met by two layers, and the
+second one is ours: (a) whatever Supabase's plan provides — still unverified,
+see below — and (b) a **data-only logical backup** taken by
+`scripts/backup-restore-test.mjs`: NDJSON per table plus a manifest of row
+counts and order-independent content checksums, with **no `pg_dump` /
+`pg_restore` binary anywhere in the path**. Schema is restored from
+`supabase/migrations/**` in git, not from the backup artifact. The drill runs
+**monthly** in CI plus on any change to `supabase/migrations/**`, against a
+throwaway Postgres service container with no production credentials. Runbook:
+`docs/backup-restore.md`.
+
+**Why:** Three findings drove it.
+
+1. **Most of this database is not at risk.** Schema is git; content is git
+   (`supabase/seed/**`) and the live site renders from the committed generated
+   vault, not Supabase. The only state that exists nowhere else is the four
+   `news_*` tables, `news_source.last_polled_at`, and every generated `uuid`.
+   A backup story sized for "we could lose the company's content" would have
+   been wrong; the real exposure is small, and *stated*, so nobody
+   over-invests here again.
+2. **`pg_dump` is not available where this work happens.** No Postgres client
+   binaries on the dev machine, no Docker, no Supabase CLI; runners are not
+   guaranteed to have them either. This repo's entire DB toolchain already
+   speaks `pg` over the wire (`scripts/migrate.mjs`, the seeds), so the backup
+   tool speaks it too. A backup tool that cannot be run is not a backup tool.
+   The cost is real and accepted: a logical row-level dump does not capture
+   roles, grants, or extensions — those come from migrations, and if this
+   project ever adds Supabase Storage or Auth, this decision must be revisited.
+3. **Cadence is an Actions-minutes decision.** The repo hit 90% of included
+   minutes on 2026-07-27 and CI is ~77% of the spend. The drill guards against
+   migrations breaking the restore path — a weeks-scale risk — so monthly
+   (~3 min/month) plus a `paths` trigger on `supabase/migrations/**` catches
+   the actual failure mode at ~1/30th the cost of nightly.
+
+**Alternatives considered:** *Supabase PITR / branching* — rejected for now:
+paid, and unverifiable without dashboard access; it remains the right answer
+for "bad write 20 minutes ago" and is called out as a founder decision below.
+*A one-off manual restore, documented* — rejected under CLAUDE.md rule 8: a
+runbook nobody re-executes is a runbook that has already rotted, and the gate
+asks for a *tested* restore, which only stays true if it keeps being tested.
+*`pg_dump -Fc` in CI only* — rejected: it would make CI the only place the
+backup path works, which is precisely backwards for a disaster procedure.
+
+**Still open — founder decision (Wyatt):** nobody has confirmed which Supabase
+plan this project is on or whether automated daily backups / PITR are actually
+enabled for it; that needs the dashboard. On the free plan there are no
+automated backups at all, in which case layer (b) is the *entire* backup story
+and that should be an explicit, accepted risk rather than an assumption. Also
+open: one real-data drill against production (read-only source, scratch
+target) before launch — the committed drill proves the procedure, not
+production's own bytes.
+
+**Approved by:** proposed by the Build desk under #680's routing (Marjorie,
+2026-07-15, executing Joey's directive on brief #650); the two open items
+above are Wyatt's to close.
+
+---
+
+## 2026-08-11 — The queue gets a schema gate in required CI, not only a draft-time checker
+
+**Decision:** Add `npm run validate:social` (`scripts/social/validate-queue.mjs`
++ the pure `scripts/social/lib/queue-schema.mjs`), wired into CI's required
+`build` job. It parses every `social/queue/**.json` and enforces shape:
+platform enum, non-empty body, per-platform body-length caps (X's 280
+**weighted** characters — the same `weightedTweetLength` rule
+`check-drafts.mjs` uses, where an autolinked URL counts as 23 — and
+Instagram's 2,200), ISO-8601 `scheduledAt`, per-platform media rules
+(required for IG, ≤4 images for X, ≤10 for an IG carousel, site-absolute
+paths), and bookkeeping-field types.
+
+**Why:** `validate:content` covers only `supabase/seed/**`, and
+`check-drafts.mjs` (the draft-time quality gate) runs against the files a PR
+touches. Neither layer guards an item that is already sitting in the queue
+when a rule tightens, or that lands via a path that skips the draft checker —
+until now the first validator such an item ever met was the live platform API
+at post time, with three retries and then `social/failed/`. That is how
+eleven over-length X drafts died on an unexplained 403 over two weeks (the
+280-weighted-limit diagnosis and the draft-time length check landed earlier
+today — see the Tree entry below and `docs/marketing/social-strategy.md`).
+A parse check also means a truncated/malformed JSON draft fails on its own PR
+instead of crashing the poster mid-run.
+
+**Alternatives considered:** Making the poster truncate an over-length body
+automatically — rejected, silently publishing a cut-off sentence is worse
+than not publishing. Only checking PR-touched files — rejected, that is the
+layer that already existed and is kept; this gate is the backstop for items
+nobody edits. Warning instead of failing CI — rejected, a warning is what the
+previous two weeks already were.
+
+**Approved by:** Wyatt (CTO agent), pending review. If the account is
+upgraded to X Premium the 280 cap must be raised deliberately in
+`scripts/social/lib/queue-schema.mjs` (and `check-drafts.mjs`), in a PR, with
+the upgrade.
+
+---
+
+## 2026-08-11 — Not-yet-deployed media WAITS visibly; Instagram containers are polled to FINISHED
+
+**Decision:** Three coupled changes to `scripts/social/`, integrating with the
+deploy-lag preflight and 48h staleness rule that landed via PR #1900:
+
+1. **A blocked item is a first-class run-report outcome.** The poster's
+   deploy-lag preflight (media not live on the site yet) now records the item
+   as `waiting` — no publish, no Graph write, no attempt spent, still queued,
+   ships itself on the first run after the deploy lands — and every skip
+   (idempotency duplicate, era-art guard, same-run media dedupe) is a
+   `skipped` outcome, each carrying how long it has been overdue.
+2. **An escalation ladder, not a silent hold.** A `waiting`/`skipped` item
+   past 24h overdue (`STUCK_AFTER_HOURS`, lib/run-report.mjs) turns the run
+   red with an `::error::` annotation while the item is still recoverable;
+   the existing 48h `isStaleDue` rule then retires it to `social/failed/` a
+   day later if nothing changed. 24h makes it loud, 48h moves it — two rungs,
+   one mechanism each.
+3. **Instagram containers are polled to `FINISHED` before publish**
+   (`lib/ig-container.mjs`), including each carousel child and the parent —
+   issue #1897. Bounded at 90s / 3s intervals; `ERROR`/`EXPIRED` fail the
+   attempt. Retries structurally cannot fix this race (every attempt builds a
+   fresh container and publishes milliseconds later), and Meta stamps
+   `is_transient: false` on error 9007/2207027 while its own message says to
+   wait — so any future "skip retries for non-transient errors" rule must
+   exclude it (`isMediaNotReadyError()` is exported for exactly that).
+
+**Why:** The 2026-08-06 human-merge rule for `apps/web/public/**` is right,
+but the gate covered the *asset* while the clock ran on the *schedule*: an
+item whose photo was waiting on a human was still "due", burned real publish
+attempts against a 404, and died — so the drafting agent rationally stopped
+queueing real photos (21 of 22 IG posts on era art). The preflight (#1900)
+stopped the attempt-burning; this makes the wait visible, bounded, and
+self-resolving, so queueing a real photo is the safe choice again. The
+escalation exists because a no-attempt skip can never reach `social/failed/`
+through the attempts counter: `2026-08-09-august-augustine-ig.json` was
+skipped every 30 minutes for two days inside green runs while its X twin
+published fine and the founders' brief counted the day as healthy.
+
+**Alternatives considered:** Relaxing the human merge gate for images —
+rejected, the 2026-08-06 risk judgement still holds. A single threshold
+(only 48h) — rejected, the first loud signal would also be the destructive
+one; a human alerted at 24h can merge the image PR and the item still ships.
+Publishing the container without polling and retrying harder — rejected,
+the race is entirely intra-attempt (see `lib/ig-container.mjs`'s header).
+
+**Approved by:** Wyatt (CTO agent), pending review.
+
+---
+
+## 2026-08-11 — The daily metrics series carries its own gap check
+
+**Decision:** `growth-snapshot.mjs` checks `social/metrics/` for missing days
+before writing today's file, records them in the snapshot as `seriesGaps`, and
+annotates the run — `::error::` if any gap is inside the last 7 days,
+`::warning::` if all are older. It never fails the run: a historical hole must
+not stop today's snapshot from being committed.
+
+**Why:** The series had 20 files from 07-18 to 08-11 with five days missing —
+a ~25% hole in a daily series, unexplained and unalarmed. The two causes were
+completely different, which is exactly why the check has to be on continuity
+rather than on any one cause:
+
+- **07-30, 07-31** — a repo-wide GitHub Actions outage. Every scheduled
+  workflow in the repo failed in under 5 seconds with no steps run
+  (growth-snapshot, social-poster, watchdog, brief-mailer, news-worker,
+  marjorie-inbox). Nothing in this pipeline was broken.
+- **08-02, 08-03, 08-04** — the snapshot ran and **succeeded** all three days.
+  Its auto-merge PRs (#1729, #1754, #1775) then sat open for 7–9 days because
+  their required `build` check never got triggered, so the data never reached
+  `main` — the only place Marjorie's brief reads it from. They were finally
+  merged 2026-08-11T15:44Z. A green workflow whose output never lands is the
+  worse of the two: every signal said fine.
+
+**Alternatives considered:** Failing the snapshot run on a gap — rejected, it
+would block the very commit that closes the series. Alarming on the workflow's
+own success/failure — rejected, it would have caught neither cause.
+
+**Approved by:** Wyatt (CTO agent), pending review.
+
+---
+
+## 2026-08-11 — A failed social post must turn the run red; the brief counts posts per platform over 24h
+
+**Decision:** Two changes, one to delivery and one to measurement.
+
+1. `scripts/social/post-queue.mjs` now exits non-zero when an item permanently
+   fails (all 3 attempts burned, moved to `social/failed/`), emits `::error::`
+   annotations, writes an Actions job summary, and puts the per-item outcome
+   in the queue-state PR's title and body. A mid-retry attempt stays green —
+   the item is still queued — but is reported. `social-poster.yml`'s
+   state-commit step gains `if: always()` so a red run still records the
+   `failed/` move; without it the item would sit in `social/queue/` on `main`
+   and retry against the same wall forever.
+2. `social/metrics/*.json` gains `postsLast24h` (per platform + total) and the
+   Founders' Brief Growth line reports that instead of `postsToday`.
+
+**Why:** The 2026-08-11 brief read `X 0 · 0 posts today` and was taken as "the
+X poster is silently failing." Both halves of that reading were wrong in
+different, instructive ways.
+
+*Delivery.* X posting was in fact fine — six consecutive nights, 08-05 through
+08-10, each with a real tweet id in `social/posted/*-x.json`. But it HAD been
+dead: between 2026-07-21 and 2026-08-04, **eleven** X items exhausted their
+attempts against `403 {"detail":"You are not permitted to perform this
+action."}` and were binned into `social/failed/`. Every one of those
+social-poster runs finished **green** — e.g. run 30981473515, conclusion
+`success`, whose log contains "2026-08-04-mine-rush-release-x.json failed 3
+times, moved to social/failed/". The error was caught, logged to a console
+nobody reads, and the process exited 0. Two weeks of a dark channel and the
+only artifact was a queue-state PR whose body was fixed boilerplate. The
+recovery on 08-05 came with no code change either — nobody knows what X did,
+because nothing was watching. What we can control is that a post which never
+reached the timeline never again leaves a green check.
+
+*This was never X-only.* The twelfth item in `social/failed/` is
+`2026-07-27-all-too-well-scarf-metaphor-ig.json` — a real **Instagram** post,
+killed by Meta error `9007`/`2207027` ("the media is not ready for
+publishing"), just as silently. The swallow lived in `post-queue.mjs`'s
+platform-agnostic catch block, so it was never an X problem; X was simply the
+platform failing often enough to notice. That IG failure has its own root
+cause — we publish a media container without waiting for it to reach
+`FINISHED` — tracked separately as **#1897** and deliberately NOT fixed here:
+it changes the live publish path of the one channel that currently posts
+reliably, and it cannot be validated against the real Graph API from an agent
+session (no credentials, no test posts), so it should land on its own with
+attention rather than riding along in a reporting change.
+
+*Measurement.* `postsToday` counted `social/posted/**` entries whose
+`postedAt` fell on the current UTC date, but `growth-snapshot.yml` runs at
+11:05 UTC and the entire queue is scheduled for 23:00–23:20 UTC. The day's
+posts land ~12 hours after the snapshot meant to count them, so the number
+was structurally near-always 0 — every snapshot from 08-08 on reads 0 while
+the poster was shipping nightly. It also summed all platforms, so a totally
+dark X was invisible behind Instagram's cadence: the one question the number
+gets asked ("is X posting?") was the one it could not answer.
+
+**Alternatives considered.** *Redden the run on any failed attempt, not just
+permanent ones:* rejected — a half-hourly workflow that goes red on a
+transient 429 trains everyone to ignore it, which is precisely the failure
+mode being fixed. *Open a GitHub issue per failed post:* rejected for now as
+duplicative — a red run plus a titled PR is already loud, and `watchdog.yml`
+already watches run liveness. Revisit if a red run turns out not to reach
+anyone. *Move `growth-snapshot.yml` to ~01:00 UTC so "today" lines up:*
+rejected — it must run before the 12:45 UTC brief, and a rolling window is
+invariant to scheduling instead of coupled to it.
+
+**Open, needs Wyatt:** nobody has verified what the 403 window actually was.
+The discriminating check is the X developer portal for the `@longlivetscom`
+app — **User authentication settings → App permissions** must read *Read and
+Write*, and the **Usage/limits** page shows whether the monthly post cap was
+hit in that window. If permissions were flipped to Read-only, the access
+token must be regenerated after fixing them (an existing token keeps the
+scope it was minted with). Do not run this from an agent session — it is a
+credential-surface action.
+
+**Approved by:** proposed by the 2026-08-11 engineering session; Wyatt (CTO)
+signs off by merging the PR. Engineering-health change, no product surface.
 
 ---
 
@@ -609,6 +1022,9 @@ or don't ship a bot into this fandom at all right now) are Joey's call, not
 mine. See the PR body.
 
 **Approved by:** pending (Joey on posture, Wyatt on architecture).
+
+---
+
 ## 2026-08-11 — Product Definition of Done adopted: eight items gate the marketing push
 
 **Decision:** Joey and Wyatt (in person, 2026-08-11) defined the short-term
@@ -1382,6 +1798,8 @@ setup against a moment that already commands attention.
 
 **Approved by:** Wyatt (CTO) — pending PR review. Laura's charter edit included;
 the matching one-line Austin charter change is handed to that charter's owner.
+---
+
 
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
 

@@ -83,7 +83,7 @@ export function renderFilingStatus(s) {
     L.push('**This run is a FAILURE even though the scan above completed.** The findings');
     L.push('listed in this report were detected and then discarded: they are on no ticket,');
     L.push('in no queue, and nobody is going to act on them. Re-run');
-    L.push('`node scripts/content-engine/run.mjs all --create` once the cause below is fixed —');
+    L.push('`node --use-env-proxy scripts/content-engine/run.mjs all --create` once the cause below is fixed —');
     L.push('the engine is idempotent, so nothing is lost by re-running it.');
     L.push('');
     if (s.fatal) {

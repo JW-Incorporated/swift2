@@ -26,6 +26,19 @@ ticket's framing would have put a fabricated claim on the site. Check the
 primary source, and if it contradicts the ticket, correct the ticket in a
 comment and write what the source supports.
 
+## YouTube appearance intake issues
+
+Some `intake` issues are filed automatically by `appearance-discovery` (titled
+`intake: YouTube appearance — …`). They are machine-detected from a channel RSS
+feed by keyword and **nobody has watched the video**. Follow
+`docs/agents/content-shift.md` § "YouTube appearance intake" before authoring
+one — in particular: verify via YouTube oEmbed before citing the URL, place it
+by the event's date against `supabase/seed/eras-data.mjs` (not automatically the
+current era), and **enrich the existing moment instead of writing a second one**
+— several watched channels cover the same event on purpose, so duplicates are
+the expected failure here. Closing one with a one-line reason is a normal,
+acceptable outcome.
+
 ## Codex is degradable
 
 Codex is generally unreachable from this environment. That is not a reason to

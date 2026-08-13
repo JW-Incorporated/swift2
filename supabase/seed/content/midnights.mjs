@@ -742,6 +742,12 @@ export default {
             accessed_at: '2026-07-20',
             reliability_score: 4,
           },
+          // The on-air reveal segment on TODAY's own channel — oEmbed-verified
+          // 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — TODAY',
+            url: 'https://www.youtube.com/watch?v=VeFzmqp6OaQ',
+          },
           {
             outlet: 'CBC News',
             url: 'https://www.cbc.ca/news/entertainment/taylor-swift-person-of-the-year-1.7050425',
@@ -1237,6 +1243,9 @@ export default {
         sources: [
           { outlet: 'Variety', url: 'https://variety.com/2023/music/news/taylor-swift-eras-tour-premiere-the-grove-1235752172/' },
           { outlet: 'Footwear News (via Yahoo)', url: 'https://www.yahoo.com/entertainment/own-taylor-swift-eras-premiere-191558719.html' },
+          // GMA's own red-carpet segment from The Grove — oEmbed-verified
+          // 2026-08-12 (see candidates/youtube-appearances.mjs).
+          { outlet: 'YouTube — Good Morning America', url: 'https://www.youtube.com/watch?v=X_wHLxTOzas' },
         ],
         photos: [
           {
@@ -1532,7 +1541,7 @@ export default {
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
       moment: {
         context:
-          'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work."\n\nEarlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."\n\nThe trophy was handed over by Céline Dion, whose walk-on was one of her first major public appearances since revealing her stiff-person-syndrome diagnosis the year before. It was Swift\'s fourth Album of the Year, passing the three-way record she had shared with Frank Sinatra, Stevie Wonder, and Paul Simon and making her the only artist ever to win the category more than three times — the four coming for Fearless (2010), 1989 (2016), folklore (2021), and now Midnights, and capping a Grammy run that began fourteen years earlier, at 20, with Fearless. She had arrived with six nominations that night, and Midnights also won Best Pop Vocal Album — the award she used to announce The Tortured Poets Department with its April 19 date, so the record-setting Grammy ended up splitting its own evening\'s headlines with the surprise of the album that would follow it.',
+          'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work."\n\nEarlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."\n\nThe trophy was handed over by Céline Dion, whose walk-on was one of her first major public appearances since revealing her stiff-person-syndrome diagnosis the year before. It was Taylor\'s fourth Album of the Year, passing the three-way record she had shared with Frank Sinatra, Stevie Wonder, and Paul Simon and making her the only artist ever to win the category more than three times — the four coming for Fearless (2010), 1989 (2016), folklore (2021), and now Midnights, and capping a Grammy run that began fourteen years earlier, at 20, with Fearless. She had arrived with six nominations that night, and Midnights also won Best Pop Vocal Album — the award she used to announce The Tortured Poets Department with its April 19 date, so the record-setting Grammy ended up splitting its own evening\'s headlines with the surprise of the album that would follow it.',
         sources: [
           { outlet: 'Grammy.com', url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
           {
@@ -1542,6 +1551,13 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/awards/taylor-swift-grammy-2024-album-of-the-year-midnights-1235598759/',
+          },
+          // The record fourth-AOTY acceptance on the Recording Academy's own
+          // channel — oEmbed-verified 2026-08-12 (see
+          // candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — GRAMMYS',
+            url: 'https://www.youtube.com/watch?v=Yq-q-ZCZwxc',
           },
         ],
         photos: [
@@ -2995,6 +3011,10 @@ export default {
         'moment:vault-midnights-anti-hero-dominates',
       ],
       title: 'Every spot in the Hot 100 top 10, all at once',
+      // Era-timeline milestone (issue #616, 2026-07-29): moved here from the
+      // now-deleted duplicate stub `midnights-chart-record`, which told the
+      // same event in one sentence with no sources.
+      milestone: { id: "m-mid-1b", label: "Entire top ten", kind: "award" },
       snippet:
         'The week "Anti-Hero" debuted at No. 1, the other nine Midnights tracks filled out the rest of the top 10 — the first time in Hot 100 history one artist held the entire top 10 in a single week.',
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
@@ -3115,11 +3135,9 @@ export default {
     // source_type/accessed_at/reliability_score) alongside legacy {outlet,url}.
     {
       slug: 'midnights-mayhem-with-me',
-      // Cross-link (Stage 3, 2026-08-06): the "Midnights Mayhem with Me"
-      // cluster — the tracklist reveal and the mechanics behind it.
-      relatedIds: [
-        'moment:vault-midnights-midnights-mayhem-with-me-fate-a-bingo-cage-and-thirteen-ping',
-      ],
+      // Cross-link (Stage 3, 2026-08-06) removed with its target (issue
+      // #616 dedup): the other Mayhem item told the same TikTok series this
+      // item already covers end to end, so the "cluster" was a duplicate pair.
       year: 2022,
       month: 10,
       day: 7,
@@ -3911,6 +3929,13 @@ export default {
       month: 7,
       day: 22,
       category: 'tour',
+      // First `fandom` milestone (#1909): the scrubber's inaugural marker for
+      // something the fan *community* did — tens of thousands dancing in sync
+      // hard enough to register on a real seismometer — as distinct from the
+      // five kinds that mark what Taylor or her business did. Aggregate only,
+      // never a named fan (privacy-redlines §5); the moment's own outlet +
+      // seismologist sourcing already carries it.
+      milestone: { id: "m-mid-7", label: 'The "Swift Quake"', kind: "fandom" },
       title: 'The "Swift Quake": Seattle shows register as seismic activity',
       snippet:
         'Two nights at Lumen Field shook the ground like a 2.3-magnitude quake — beating the stadium\'s famous 2011 "Beast Quake," with dancing Swifties out-rumbling a Marshawn Lynch touchdown.',
@@ -5025,40 +5050,13 @@ export default {
         ],
       },
     },
-    {
-      // Cross-link (Stage 3, 2026-08-06): the "Midnights Mayhem with Me"
-      // cluster.
-      relatedIds: [
-        'moment:vault-midnights-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
-      ],
-      year: 2022,
-      month: 9,
-      day: 21,
-      category: 'music',
-      title: 'Midnights Mayhem with Me: fate, a bingo cage, and thirteen ping-pong balls',
-      snippet:
-        'No cryptic clues this time — a TikTok series where a bingo cage full of numbered balls decides which track title Taylor announces into a red phone. First ball out: 13. "Track 13 is called Mastermind." Of course it was.',
-      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'Launched at midnight ET on Sep. 21, 2022, the TikTok series ran on one gloriously lo-fi mechanic: thirteen ping-pong balls in a bingo cage — "this technologically advanced device," as Taylor put it — "to help me allow fate to decide exactly what track titles I\'m going to be announcing, and in what order." A ball drops, she lifts a red phone receiver, and a title is read out. Episode one drew ball 13 and gave the era its thesis statement: "Mastermind."\n\nThirteen episodes later the series wrapped on Oct. 7, the final titles posted an hour apart — album opener "Lavender Haze," "You\'re On Your Own, Kid," "Labyrinth," "Sweet Nothings," and "Snow On The Beach" with Lana Del Rey — completing the tracklist two weeks before release. It became the rollout\'s defining fan ritual: appointment-viewing at midnight for a lottery ball.',
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
-          },
-          {
-            outlet: 'NME',
-            url: 'https://www.nme.com/news/music/taylor-swift-midnights-album-tracklist-3314098',
-          },
-          {
-            outlet: 'Today',
-            url: 'https://www.today.com/popculture/music/taylor-swift-midnights-tracklist-song-names-rcna50738',
-          },
-        ],
-      },
-    },
+    // Duplicate removed (issue #616, 2026-07-29): this item told the exact
+    // same Midnights Mayhem with Me TikTok series (Sep. 21 launch through
+    // Oct. 7 finale, same "Mastermind" first-ball reveal) as the richer,
+    // more thoroughly sourced `midnights-mayhem-with-me` item elsewhere in
+    // this file, which already covers the full Sep. 21-Oct. 7 run end to
+    // end. No milestone, relatedIds, or hiddenClue to migrate — nothing
+    // else in this file referenced it.
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
@@ -5080,7 +5078,7 @@ export default {
         'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
         'moment:vault-midnights-the-3am-edition-surprise',
         'moment:vault-midnights-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
-        'moment:vault-midnights-every-top-ten-slot-at-once',
+        'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
       ],
       snippet: "A return to pop as a diary of midnights across her life.",
       moment: {
@@ -5212,7 +5210,7 @@ export default {
       relatedIds: [
         'moment:vault-midnights-thirteen-sleepless-nights',
         'moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
-        'moment:vault-midnights-every-top-ten-slot-at-once',
+        'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
         'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
         'moment:vault-midnights-the-anti-hero-video-and-the-scale-scene-that-got-cut',
       ],
@@ -5277,45 +5275,10 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "midnights-chart-record",
-      year: 2022,
-      month: 11,
-      day: 5,
-      category: "sighting",
-      // Cross-link (candidate #1357, 2026-07-25): the lead single that anchored the sweep.
-      relatedIds: ['moment:vault-midnights-anti-hero-dominates'],
-      title: "Every top-ten slot at once",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-mid-1b", label: "Entire top ten", kind: "award" },
-      snippet: "She becomes the first artist to monopolize the entire top ten of the Hot 100.",
-      moment: {
-        sources: [
-          {
-            outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/marisadellatto/2022/10/31/taylor-swifts-midnights-occupies-entire-billboard-top-10-singles-chart/',
-            source_title: 'Taylor Swift\'s \'Midnights\' Occupies Entire Billboard Top 10 Singles Chart',
-            publisher: 'Forbes',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Euronews',
-            url: 'https://www.euronews.com/culture/2022/11/01/taylor-swift-makes-history-as-the-first-artist-to-claim-the-entire-top-10-of-the-billboard',
-            source_title: 'Taylor Swift makes history as the first artist to claim the entire top 10 of the Billboard Hot 100',
-            publisher: 'Euronews',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-        ],
-        context: "The album’s dominance rewrote the record books, occupying all ten of the chart’s highest positions in a single week.",
-      },
-    },
+    // Duplicate stub removed (issue #616, 2026-07-29): told the same Nov. 5,
+    // 2022 all-top-10 sweep as the richer, sourced "Every spot in the Hot
+    // 100 top 10, all at once" item above in one sentence with no sources;
+    // its milestone marker (m-mid-1b) moved there.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
@@ -5471,6 +5434,61 @@ export default {
             // viewing: portrait magazine cover, Travis's hooded face fills the
             // upper-middle with eyes about a quarter down the frame.
             focalPoint: '55% 28%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'friendship-bracelets-phenomenon',
+      significance: 'notable', // the defining image of Eras Tour fan culture, fan-originated and widely documented
+      year: 2023,
+      month: 3,
+      day: 17, // Eras Tour opening night, where the lyric became a tour-wide ritual
+      category: 'tour',
+      // Second `fandom` milestone (#1909): a fan-originated ritual documented
+      // by named outlets — a practice the community built, not the artist.
+      // Aggregate, never a named fan (privacy-redlines §5).
+      milestone: { id: "m-mid-8", label: "Friendship bracelets", kind: "fandom" },
+      // Cross-links: the other Eras Tour fan-culture beats of this era.
+      relatedIds: [
+        'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
+        'moment:vault-midnights-the-senate-holds-a-ticketmaster-hearing-in-swiftie-puns',
+      ],
+      title: 'Make the friendship bracelets: a lyric becomes the Eras Tour\'s currency',
+      snippet:
+        'A single line from Taylor\'s "You\'re On Your Own, Kid" — "make the friendship bracelets, take the moment and taste it" — turned into the tour\'s ritual: fans beading names, lyrics and inside jokes to trade by the armful at every stop.',
+      sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-eras-tour-friendship-bracelets-rcna99768',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The instruction was hiding in a bridge. On "You\'re On Your Own, Kid," the Midnights track fans read as the record\'s emotional core, Taylor sings "So make the friendship bracelets / Take the moment and taste it" — a line about grabbing fleeting joy before it\'s gone. When the Eras Tour opened in March 2023, Swifties took it literally, and the beaded friendship bracelet — a summer-camp craft, revived — became the tour\'s unofficial currency: fans spelled out song titles, lyrics, cat names and memes, then swapped them with strangers in stadium concourses, plenty leaving with strands running wrist to elbow. The habit jumped the fandom\'s borders — athletes, other artists and brands started trading them too — and the retail signal was real, with one bracelet-kit seller reporting purchases up more than 900%. It endured as the single most-cited picture of Eras Tour fan culture: a communal, handmade answer to a lyric, made by the crowd rather than handed down from the stage.',
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-eras-tour-friendship-bracelets-rcna99768',
+            source_title: 'Taylor Swift Eras Tour friendship bracelets: Why fans are trading them',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/flavor-flav-taylor-swift-friendship-bracelets-fans-1235351238',
+            source_title: 'How Flavor Flav Got Pulled Into the Taylor Swift Friendship-Bracelet Craze',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'BBC Newsround',
+            url: 'https://feeds.bbci.co.uk/newsround/articles/c0xx9yj7jjpo',
+            source_title: 'Taylor Swift: Why do fans make and swap friendship bracelets?',
+            publisher: 'BBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-12',
+            reliability_score: 5,
           },
         ],
       },

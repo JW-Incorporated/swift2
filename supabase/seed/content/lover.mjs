@@ -147,6 +147,21 @@ export default {
             outlet: 'Elite Daily',
             url: 'https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857',
           },
+          // YouTube-appearances research pass (2026-08-12): this item's context
+          // already narrates the Aug. 26 VMA acceptance speech and the
+          // White-House-response threshold, so the speech is sourced here
+          // rather than split into a second moment about the same night (the
+          // era's fashion items already carry the VMA red carpet).
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech',
+          },
+          // The acceptance speech itself on MTV's own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — MTV',
+            url: 'https://www.youtube.com/watch?v=8z4icNgFSPI',
+          },
         ],
         // Photo pass (#762, 2026-08-07): added a second still — the official
         // aerial pool shot from the same video — downloaded and vision-
@@ -443,6 +458,12 @@ export default {
           {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-ama-singer-beats-michael-jackson-for-most-american-music-awards-2019-performance-artist-of-the-decade/',
+          },
+          // The Artist of the Decade acceptance on the AMAs' own channel —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — American Music Awards',
+            url: 'https://www.youtube.com/watch?v=0pbSQ_0qbqU',
           },
         ],
         photos: [
@@ -1333,6 +1354,23 @@ export default {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-cover-story-interview-billboard-women-in-music-2019-8545822/',
           },
+          // Second independent outlet on the speech itself (both Billboard
+          // links above share one host, so they count once). This is what
+          // clears the two-outlet business-category bar and earns this
+          // record's removal from SINGLE_OUTLET_LEGACY — a fan re-upload is
+          // primary footage, not an independent outlet, and must never be the
+          // citation that lifts a claim over that bar.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-scooter-braun-billboard-women-in-music-926589/',
+          },
+          // The full ~15-minute speech (no official Billboard upload exists;
+          // long-lived fan archive) — oEmbed-verified 2026-08-12 (see
+          // candidates/youtube-appearances.mjs). Supplementary footage only.
+          {
+            outlet: 'YouTube — TaylorShreya13 (fan archive)',
+            url: 'https://www.youtube.com/watch?v=hyf9vJB8V3s',
+          },
         ],
         // Photo-enrichment pass (2026-07-18, #762): added the on-stage speech
         // photo from Billboard's own story on the night (billboard.com CDN,
@@ -1690,6 +1728,13 @@ export default {
             source_type: 'primary',
             accessed_at: '2026-07-28',
             reliability_score: 4,
+          },
+          // The opening-night premiere Q&A with Swift and Lana Wilson, filmed
+          // by a film journalist at Sundance — oEmbed-verified 2026-08-12
+          // (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — Scott D. Menzel',
+            url: 'https://www.youtube.com/watch?v=JqIt0H6XqpA',
           },
           {
             outlet: 'The Washington Post',

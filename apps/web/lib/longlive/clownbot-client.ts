@@ -249,7 +249,8 @@ export async function askClownbot(
   // cannot silently re-enable the pre-fix (V1) behaviour the red team broke. A
   // live key is only safe once the keyed live-Haiku battery has been run and
   // passed AND this flag is set; until then the surface serves the free,
-  // deterministic, receipts-only degraded answer. See the PR's launch checklist.
+  // deterministic, receipts-only degraded answer. The ordered procedure —
+  // key, then battery, then flag — is docs/ops/clownbot-launch-gate.md.
   if (process.env.CLOWNBOT_SAFETY_V2 !== 'on') return null;
   if (!usage.reserve()) return null;
 

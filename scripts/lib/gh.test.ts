@@ -1,7 +1,8 @@
 import http from 'node:http';
+import net from 'node:net';
 import type { AddressInfo } from 'node:net';
 import { afterEach, describe, expect, it } from 'vitest';
-import { applyPostFilters, httpsRequest, maxPagesFor, planRest, proxyForHost, shapeHit } from './gh.mjs';
+import { applyPostFilters, fetchIsProxyAware, httpsRequest, maxPagesFor, planRest, proxyForHost, shapeHit } from './gh.mjs';
 
 // These cover the REST fallback's argv→request translation, which is the part
 // that silently does the wrong thing if it's wrong. The failure mode we're
@@ -208,5 +209,88 @@ describe('httpsRequest transits the proxy (#1869 root cause 1)', () => {
     await expect(httpsRequest('https://api.github.com/repos/x/y/issues')).rejects.toThrow();
     expect(seen).toEqual(['api.github.com:443']);
     await new Promise<void>((r) => proxy.close(() => r()));
+  });
+});
+
+describe('the CONNECT tunnel is actually USED, not merely opened (#2008)', () => {
+  // THIS IS THE TEST THAT WAS MISSING, and its absence is the whole ticket.
+  // The #1887 transport passed the test above — it *did* issue a CONNECT — and
+  // was still completely broken, because it then threw the tunnel away and
+  // connected DIRECTLY to api.github.com. `https.request({ agent: false,
+  // createConnection })` does not use the request-level createConnection: with
+  // `agent: false` Node builds a fresh https.Agent whose own (direct)
+  // createConnection wins. Direct egress skips the proxy that swaps the
+  // proxy-scoped placeholder GH_TOKEN for the real credential, so every call
+  // came back `401 Bad credentials` and Karen filed nothing for weeks.
+  //
+  // "Issued a CONNECT" is therefore worthless as an assertion. What must be
+  // true is that the request BYTES traverse the tunnel, so we assert on the
+  // bytes the proxy sees inside it.
+  const saved = { ...process.env };
+  afterEach(() => { process.env = { ...saved }; });
+
+  it('writes the request into the tunnel instead of connecting direct', async () => {
+    // Only meaningful on the tunnel path; if this process was booted
+    // proxy-aware, `httpsRequest` correctly delegates to fetch instead.
+    if (fetchIsProxyAware()) return;
+
+    // A stand-in "origin" that accepts a TCP connection and says nothing. If
+    // the client bypasses the tunnel it will talk to this directly and the
+    // proxy will see zero bytes — which is the regression.
+    const originSockets: net.Socket[] = [];
+    const origin = net.createServer((s) => { originSockets.push(s); /* accept, stay silent */ });
+    await new Promise<void>((r) => origin.listen(0, '127.0.0.1', () => r()));
+    const originPort = (origin.address() as AddressInfo).port;
+
+    let bytesThroughTunnel = 0;
+    const tunnels: net.Socket[] = [];
+    const firstBytes = Promise.withResolvers<void>();
+    const proxy = http.createServer();
+    proxy.on('connect', (_req, clientSocket) => {
+      tunnels.push(clientSocket);
+      clientSocket.write('HTTP/1.1 200 Connection Established\r\n\r\n');
+      clientSocket.on('data', (d: Buffer) => {
+        bytesThroughTunnel += d.length;
+        firstBytes.resolve();
+      });
+      clientSocket.on('error', () => { /* torn down below */ });
+    });
+    await new Promise<void>((r) => proxy.listen(0, '127.0.0.1', () => r()));
+    const proxyPort = (proxy.address() as AddressInfo).port;
+
+    process.env.HTTPS_PROXY = `http://127.0.0.1:${proxyPort}`;
+    delete process.env.NO_PROXY;
+    delete process.env.no_proxy;
+
+    // Never resolves (the tunnel is a dead end); we only care that the client
+    // committed its TLS ClientHello to the tunnel rather than dialling out.
+    const pending = httpsRequest(`https://127.0.0.1:${originPort}/repos/x/y`);
+    pending.catch(() => { /* expected: the dead-end tunnel never answers */ });
+
+    await Promise.race([
+      firstBytes.promise,
+      new Promise<void>((r) => setTimeout(r, 5000)),
+    ]);
+
+    expect(bytesThroughTunnel).toBeGreaterThan(0);
+
+    // The request is still in flight by design (the tunnel is a dead end), so
+    // tear the sockets down explicitly — `close()` alone waits for them.
+    for (const s of [...tunnels, ...originSockets]) s.destroy();
+    proxy.closeAllConnections();
+    await new Promise<void>((r) => proxy.close(() => r()));
+    await new Promise<void>((r) => origin.close(() => r()));
+  }, 20_000);
+});
+
+describe('fetchIsProxyAware reports what undici decided at bootstrap', () => {
+  it('is a boolean that a later env mutation cannot change', () => {
+    const before = fetchIsProxyAware();
+    expect(typeof before).toBe('boolean');
+    // The switch is read by undici at bootstrap. Setting it now is exactly the
+    // no-op that #1887 mistook for a fix, so the getter must not start lying.
+    process.env.NODE_USE_ENV_PROXY = '1';
+    expect(fetchIsProxyAware()).toBe(before);
+    delete process.env.NODE_USE_ENV_PROXY;
   });
 });

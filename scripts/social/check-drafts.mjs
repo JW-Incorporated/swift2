@@ -67,6 +67,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { checkSurnameOveruse, checkAiTells, checkWireAttribution } from '../content-engine/checkers/voice.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
+import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
@@ -91,10 +92,6 @@ const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
 // headroom, not an X rule — flagged as non-fatal.
 const X_WEIGHTED_LENGTH_HARD_LIMIT = 280;
 const X_WEIGHTED_LENGTH_WARN_THRESHOLD = 270;
-// twitter-text (X's own open-sourced counting library) shortens every
-// autolinked URL to a t.co link of exactly this length, regardless of the
-// original URL's actual length.
-const WEIGHTED_URL_LENGTH = 23;
 // Findings that are advisory, not fatal, are tagged with this prefix so
 // main() can tell the two apart without a richer finding-object shape (every
 // other rule family here already returns plain strings) — see checkLength
@@ -283,71 +280,14 @@ export function checkCrossPostCopy(file, item, allQueueItems) {
   return [];
 }
 
-// Matches whatever X will autolink into a t.co link: an explicit http(s)://
-// URL through to the next whitespace, OR a bare/naked domain with no scheme
-// at all (this pipeline's own links are always written this way — e.g.
-// `longlivets.com/?utm_source=x&utm_medium=social&utm_campaign=…` — and X's
-// autolinker treats a recognizable domain the same as a full URL). The bare
-// form requires one or more `label.` groups ending in a letters-only TLD
-// (2-24 chars) that sits directly against the preceding dot with no space in
-// between — the no-space requirement is deliberate cheap insurance against
-// misreading ordinary sentence punctuation as a domain (e.g. "Mr. Smith" has
-// a space after the period, so it never matches), plus an optional
-// path/query/fragment glued on with no intervening space.
-//
-// This is a pragmatic approximation of twitter-text's real (considerably
-// larger) valid-URL grammar — https://github.com/twitter/twitter-text — not
-// a byte-for-byte port. It's sized to what this pipeline actually emits
-// (bare longlivets.com links, generic http(s) links) rather than every edge
-// case X's own matcher handles (IDN domains, obscure TLDs, IPv4 literals,
-// etc.). If a future draft's link shape stops matching this regex, that's a
-// bug to fix here, not a reason to hand-wave the length rule.
-const AUTOLINK_URL_RE = /https?:\/\/\S+|\b(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,24}(?:\/\S*)?/gu;
-
-// Characters X's counter weighs as 2 instead of 1 — emoji
-// (Extended_Pictographic) and the CJK-family scripts twitter-text also
-// upweights (Han covers Chinese/Kanji, plus Hiragana/Katakana/Hangul).
-// Checked per Unicode code point (via the `for…of` loop in weightPlainText
-// below), not per UTF-16 code unit, so a surrogate-pair emoji isn't
-// accidentally counted twice over.
-const WIDE_CHAR_RE = /\p{Extended_Pictographic}|\p{Script=Han}|\p{Script=Hiragana}|\p{Script=Katakana}|\p{Script=Hangul}/u;
-
-function weightPlainText(segment) {
-  let total = 0;
-  for (const ch of segment) total += WIDE_CHAR_RE.test(ch) ? 2 : 1;
-  return total;
-}
-
-/**
- * X's "weighted" tweet length — approximates twitter-text's
- * unicodeCharacterCount + autolink-URL-collapsing algorithm
- * (https://github.com/twitter/twitter-text), NOT `body.length`. Every
- * autolinked URL (see AUTOLINK_URL_RE above) counts as exactly
- * WEIGHTED_URL_LENGTH (23) characters no matter how long it actually is;
- * most emoji and CJK-script characters count as 2 (see WIDE_CHAR_RE); every
- * other character counts as 1.
- *
- * Why this matters: `social/failed/`'s 11 X items (as of 2026-08-11) all had
- * a RAW body length of 294-373 characters and all failed with a generic 403
- * — X silently rejecting an over-280-weighted-length tweet on a non-premium
- * account. Nothing in this pipeline ever checked length against X's real
- * limit before now (a doc instruction — growth-draft.md's old "≤280
- * characters" — is not a check; see checkLength below for the actual gate).
- */
-export function weightedTweetLength(body) {
-  const text = String(body ?? '');
-  let total = 0;
-  let cursor = 0;
-  AUTOLINK_URL_RE.lastIndex = 0;
-  let match;
-  while ((match = AUTOLINK_URL_RE.exec(text))) {
-    total += weightPlainText(text.slice(cursor, match.index));
-    total += WEIGHTED_URL_LENGTH;
-    cursor = match.index + match[0].length;
-  }
-  total += weightPlainText(text.slice(cursor));
-  return total;
-}
+// The weighted-length rule itself (AUTOLINK_URL_RE, wide-char weighting,
+// weightedTweetLength) lives in lib/x-length.mjs so the CI schema gate
+// (lib/queue-schema.mjs, run on every queue file by validate-queue.mjs in
+// the required `build` job) enforces the exact same counting as this
+// draft-time checker — two independent ports of X's counting rule would
+// drift, and a drifted length rule is how the 11 social/failed/ 403s
+// happened. Re-exported here so existing importers/tests keep working.
+export { weightedTweetLength } from './lib/x-length.mjs';
 
 /**
  * X-only. HARD FAILS over X's real 280-weighted-character limit (see

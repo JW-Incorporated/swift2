@@ -42,6 +42,8 @@ const embed = (id) => ({
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
+import { appearance, pressSource, upload } from './_appearance-helpers.mjs';
+
 export default {
   eraSlug: 'the-life-of-a-showgirl',
   videos: [
@@ -131,5 +133,150 @@ export default {
         ),
       ],
     },
+    // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
+    // Era placement follows the era files, not the calendar: the New Heights
+    // and Graham Norton moments both live in this era's content even though
+    // their dates fall inside the Tortured Poets window. Splitting the video
+    // record away from its moment would put the two halves of one appearance
+    // in different eras; re-homing the moments is a content call (flagged on
+    // PR #2035), not one to make here.
+    appearance({
+      slug: 'new-heights-podcast-2025',
+      kind: 'interview',
+      title: 'New Heights — announcing The Life of a Showgirl',
+      releasedOn: '2025-08-13',
+      summary:
+        'Her first-ever podcast appearance, on Jason and Travis Kelce’s show: a mint-green briefcase opens on album No. 12, out October 3, plus buying back her masters. The livestream buckled at roughly 1.3 million concurrent viewers.',
+      youtubeId: 'M2lX9XESvDE',
+      channel: 'New Heights',
+      sources: [
+        upload({
+          youtubeId: 'M2lX9XESvDE',
+          title:
+            'Taylor Swift on Reclaiming Her Masters, Wrapping The Eras Tour, and The Life of a Showgirl | NHTV',
+          channel: 'New Heights',
+        }),
+      ],
+    }),
+    appearance({
+      slug: 'graham-norton-2025',
+      kind: 'interview',
+      title: 'The Graham Norton Show',
+      releasedOn: '2025-10-02',
+      summary:
+        'On the Graham Norton couch as The Life of a Showgirl lands: album promo that detours into wedding plans, and an invitation for the host.',
+      youtubeId: 'NlOdFJmkEls',
+      channel: 'BBC',
+      sources: [
+        upload({
+          youtubeId: 'NlOdFJmkEls',
+          title: 'Taylor Swift Invites Graham Norton To Her Wedding - BBC',
+          channel: 'BBC',
+          note: "official upload on the BBC's own channel — oEmbed-verified 2026-08-12",
+        }),
+      ],
+    }),
+    appearance({
+      slug: 'tonight-show-fallon-2025',
+      kind: 'interview',
+      title: 'The Tonight Show Starring Jimmy Fallon',
+      releasedOn: '2025-10-06',
+      summary:
+        'Roughly twenty minutes with Fallon on the new album, the engagement and regaining her masters — including why she is not playing the 2026 Super Bowl halftime show. An extended cut aired as its own special four days later.',
+      youtubeId: 'GzjZqH0WRwE',
+      channel: 'The Tonight Show Starring Jimmy Fallon',
+      sources: [
+        upload({
+          youtubeId: 'GzjZqH0WRwE',
+          title:
+            'Taylor Swift Stops by The Tonight Show | The Tonight Show Starring Jimmy Fallon',
+          channel: 'The Tonight Show Starring Jimmy Fallon',
+        }),
+        pressSource(
+          'https://www.hollywoodreporter.com/music/music-news/taylor-swift-jimmy-fallon-tonight-show-life-of-a-showgirl-1236394527/',
+          'Taylor Swift on The Tonight Show',
+          'The Hollywood Reporter',
+          'covers the interview and what she said about the album and the Super Bowl',
+        ),
+        pressSource(
+          'https://www.nbc.com/nbc-insider/how-to-watch-taylor-swift-extended-tonight-show-interview',
+          'How to Watch the Extended Taylor Swift Tonight Show Interview',
+          'NBC Insider',
+          'documents the extended cut airing as a separate special',
+        ),
+      ],
+    }),
+    appearance({
+      slug: 'zane-lowe-apple-music-2025',
+      kind: 'interview',
+      title: 'The Zane Lowe Interview — Apple Music',
+      releasedOn: '2025-10-07',
+      summary:
+        'An extended sit-down with Zane Lowe, conducted over FaceTime, on how The Life of a Showgirl was written.',
+      youtubeId: 'mUZ9T-hstUI',
+      channel: 'Apple Music',
+      sources: [
+        upload({
+          youtubeId: 'mUZ9T-hstUI',
+          title:
+            'Taylor Swift: The Life of a Showgirl and Writing Process | The Zane Lowe Interview',
+          channel: 'Apple Music',
+        }),
+      ],
+    }),
+    appearance({
+      slug: 'late-night-seth-meyers-2025',
+      kind: 'interview',
+      title: 'Late Night with Seth Meyers — the sole-guest episode',
+      releasedOn: '2025-10-08',
+      summary:
+        'A rare sole-guest episode of Late Night: the album, Travis Kelce, and a full hour built around one interview.',
+      youtubeId: 'Wd7S1wZqkbI',
+      channel: 'Late Night with Seth Meyers',
+      sources: [
+        upload({
+          youtubeId: 'Wd7S1wZqkbI',
+          title: 'Taylor Swift and Seth Talk The Life of a Showgirl, Travis Kelce and More',
+          channel: 'Late Night with Seth Meyers',
+        }),
+        pressSource(
+          'https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/',
+          'Taylor Swift Extended Interview on Late Night With Seth Meyers',
+          'Variety',
+          'documents the sole-guest format',
+        ),
+      ],
+    }),
+    appearance({
+      slug: 'late-show-colbert-2025',
+      kind: 'interview',
+      title: 'The Late Show with Stephen Colbert',
+      releasedOn: '2025-12-10',
+      summary:
+        "Her first time on Colbert's couch: The End of an Era docuseries and The Final Show film, the engagement, the masters — and a ranking of her own top five songs.",
+      youtubeId: 'qtyzac0JbS4',
+      channel: 'The Late Show with Stephen Colbert',
+      sources: [
+        upload({
+          youtubeId: 'qtyzac0JbS4',
+          title:
+            "Taylor Swift's Good Year: Engaged To The Love Of Her Life, In Control Of Her Music Masters",
+          channel: 'The Late Show with Stephen Colbert',
+          note: "official upload on the show's own channel; the full interview is split across several official clips — this is the main segment. oEmbed-verified 2026-08-12",
+        }),
+        pressSource(
+          'https://www.rollingstone.com/music/music-news/taylor-swift-engagement-masters-showgirl-late-show-1235482380/',
+          'Taylor Swift on The Late Show',
+          'Rolling Stone',
+          'covers the engagement and masters portions of the interview',
+        ),
+        pressSource(
+          'https://www.billboard.com/music/pop/taylor-swift-five-favorite-taytay-songs-colbert-1236134507/',
+          "Taylor Swift's Five Favorite Taylor Swift Songs",
+          'Billboard',
+          'documents the top-five list from the same appearance',
+        ),
+      ],
+    }),
   ],
 };

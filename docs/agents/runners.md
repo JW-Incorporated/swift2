@@ -273,6 +273,52 @@ that needs it; it stays on `/search/issues` and now fails with an error that
 names the limitation instead of a bare 403. Karen's cloud runs therefore still
 risk re-filing duplicate tickets — tracked separately from #1869.
 
+### ⚠️ Correction: fix 1 above never worked (2026-08-12, #2008)
+
+**Run repo scripts that touch GitHub as `node --use-env-proxy <script>`.**
+Every invocation site in this repo now does (`package.json` scripts,
+`.github/workflows/{watchdog,unowned-sweep}.yml`, and the runner prompts).
+
+The "explicit CONNECT tunnel" described in fix 1 opened a tunnel and then never
+used it, so **every REST call went direct to `api.github.com` anyway** — past
+the egress proxy that swaps the proxy-scoped placeholder `GH_TOKEN` for the
+real credential. Result: an unbroken run of `401 Bad credentials`, Karen's
+filing step down from 2026-08-02, and the assembler still failing in cloud
+after #1887 and #1922 both claimed to have fixed it.
+
+The Node-level cause: the request was built as
+
+```js
+https.request({ agent: false, createConnection: () => tls.connect({ socket }) })
+```
+
+With `agent: false` Node does **not** go agentless — it constructs a fresh
+`https.Agent`, and the *agent's* `createConnection` (a plain, direct
+`tls.connect`) is what runs. A request-level `createConnection` is only honoured
+when there is no agent at all, so the closure holding the tunnelled socket was
+never called.
+
+How to tell this apart from a genuinely bad token, in one command: point
+`HTTPS_PROXY` at a proxy that accepts `CONNECT` and then forwards **nothing**.
+A client that really uses the tunnel must hang. The old transport returned a
+live GitHub response; `fetch` with `--use-env-proxy` correctly timed out.
+
+What changed:
+- `httpsRequest()` prefers `fetch` when the process was booted proxy-aware (the
+  configuration verified returning 200 in cloud), and otherwise falls back to a
+  CONNECT tunnel that is genuinely used — printing a loud warning, because
+  silence is what hid this for three weeks.
+- A 401 from the REST fallback now says *"the proxy was probably bypassed"* and
+  prints whether `HTTPS_PROXY` is set and whether fetch is proxy-aware, instead
+  of a bare status.
+- `scripts/marjorie/lib/gh-api.mjs` no longer uses a bare `fetch` (same silent
+  bypass); it shares `httpsRequest()`. Its `ghApiSoft()` now **rethrows 401** —
+  a credential failure is not an unavailable metric, and softening it produced
+  a brief full of honest-looking "unavailable" lines that still exited 0.
+- `scripts/lib/gh.test.ts` asserts the request **bytes traverse the tunnel**.
+  The old test only asserted a CONNECT was *issued*, which the broken transport
+  did — that is why this shipped twice.
+
 > ⚠️ **Trigger drift to reconcile (Wyatt).** The 2026-07-26 edit below changed
 > the *live* trigger's step 3 and step 7, but never landed in
 > `runner-prompts/marjorie-brief.md` — the file still carried the pre-#1552
@@ -343,6 +389,7 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
+| appearance-discovery | `40 13 * * *` (GitHub Actions) | none | `.github/workflows/appearance-discovery.yml` + `scripts/appearance-discovery/` | repo | **Zero LLM (detection layer).** Polls 14 curated YouTube channel RSS feeds and files `intake` issues for new Taylor appearances; the Content Shift is the judge. No new secrets (channel RSS is keyless; only `GITHUB_TOKEN`). Runs 06:40 PT, ahead of the 10:00 PT Content Shift so fresh intake is queued. Stateless dedupe — no state file, no state PR (#2031), repo-scoped issue list only, never `/search` (#2008) |
 
 ## Karen Deep — trigger config for a human to create (2026-08-11)
 
