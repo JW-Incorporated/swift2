@@ -7,6 +7,70 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 — The video plays from the top of a detail page, and a card never shows a video frame it cannot play
+
+Two follow-ups to the one-video-treatment decision below, both closing the same
+gap from opposite ends: **a still of a video is not a photograph**, and the app
+had been treating it as one.
+
+**Decision 1 — a deferring card's video frame is suppressed, like an owner's.**
+The #2057 de-dupe gives a video to exactly one card (the first in feed order),
+and that stands. But the *other* card kept a frame of that video as its photo,
+with no play control, because #2080's suppression only ever compared a card's
+photo against the video that card PLAYS — and a deferring card plays none. So
+`feedCardImageHidden` (`video-affordance.ts`) now answers both cases, comparing
+against every video the era can play (`eraKnownVideoIds`), not just the card's
+own. Where suppression leaves a card with no picture, the tier is re-scored
+without one (`assignFeedTiers(items, imageSuppressedIds)`) rather than keeping an
+image silhouette it can no longer fill.
+
+Deliberately scoped to cards that CARRY footage. 20 moments hold a still of an
+era video without carrying the video (a piece about the "22" video illustrated
+with a shot from it); they promise no player, and the frame is their only
+picture, so suppressing them would delete imagery rather than duplication.
+
+**Decision 2 — a detail hero that is a frame of the moment's own video becomes
+the player.** On 10 of the 16 video-carrying moments (8 with no other photo at
+all) the ~42vh hero was a still of the very video embedded a screen below —
+Photo Enrichment sourced frames as photos precisely because those moments ARE
+the video. `heroVideoFor` promotes the video into the hero slot and
+`detailVideoFor` yields the body slot to it, so the two are exclusive by
+construction rather than by a component remembering to check. A video hero
+PLAYS; the lightbox stays for photographs, and the promoted frame leaves the
+photo viewer with it. Pages whose hero is a genuinely different photo are
+untouched: hero photo, body video, no duplication existed there.
+
+**Sizing:** a 16:9 player cannot honour a fixed 42vh band at both ends —
+full-bleed it is 219px tall at 390px and ~850px on a desktop. The player is
+aspect-driven with its width capped at `42vh*16/9`, so it fills the column on a
+phone and lands at exactly 42vh on a desktop, keeping the page rhythm identical
+to a photo page. The article's `-mt-10` overlap is dropped over a player, where
+it would crop the frame and sit on the controls.
+
+**Why:** Joey, on the detail pages — "it looks horrible… the site would feel
+much more natural if you played the video from the top" — and, on the era feed,
+the tloas card "'Elizabeth Taylor' goes to radio", a hero-sized still of the
+Elizabeth Taylor music video that does nothing when tapped. A big video-looking
+frame you cannot play is worse than the duplication #2080 removed: it promises a
+player that does not exist.
+
+**Alternatives considered:** (a) break the #2057 de-dupe so both cards play the
+video — reintroduces the exact duplication #2057 fixed; (b) hunt for substitute
+photographs for the 8 moments with no alternative — invents a sourcing project
+to avoid showing the thing the page is about; (c) suppress every video frame
+everywhere, including on the 20 moments that carry no footage — strips real
+imagery from cards that were never promising a player; (d) letterbox the player
+inside a rigid 42vh band — dead bars at both ends on a phone, where the player
+is already shorter than the slot.
+
+**Cost:** none at runtime. Still no iframe in prerendered HTML — the hero renders
+`VideoPoster` (a plain `<img>`) and mounts youtube-nocookie only on a real
+click, and the player is torn down when the sheet closes.
+
+**Approved by:** Joey (product/UX, 2026-08-13). Implemented in #2081.
+
+---
+
 ## 2026-08-13 — One video treatment in the era feed (ends the #2051 → #2055 → #2063 iteration)
 
 **Decision:** every playable video in the era feed renders **the same way**,
