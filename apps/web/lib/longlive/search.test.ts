@@ -167,6 +167,24 @@ describe('buildSearchIndex (real data)', () => {
     }
   });
 
+  it('still indexes a work whose video card is hidden for having no embed', () => {
+    // Playable-first (2026-08-13) hides 8 records from the rail/feed because no
+    // official upload of the work exists. Search deliberately still indexes
+    // them: a search hit is not a video card, and an app that returns nothing
+    // at all for "Miss Americana" reads as not knowing the work exists. The
+    // hit targets the era section, not the card, so it still lands somewhere
+    // real. Asserted on index membership rather than on a query's results,
+    // because ranking is a separate concern with its own tests.
+    const keys = new Set(index.map((d) => d.key));
+    for (const key of [
+      'video:midnights:taylor-swift-the-eras-tour-film',
+      'video:lover:miss-americana',
+      'video:reputation:reputation-stadium-tour-film',
+    ]) {
+      expect(keys.has(key), `hidden work "${key}" dropped out of the search index`).toBe(true);
+    }
+  });
+
   it('finds a known moment by a straight-quote query', () => {
     const flat = flattenGroups(searchDocs(index, 'tim mcgraw'));
     // post-migration (stage 2a): the legacy id is now the item's SLUG; the doc

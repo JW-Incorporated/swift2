@@ -32,12 +32,12 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
-const embed = (id) => ({
+const embed = (id, fetchedOn = '2026-07-08') => ({
   kind: 'oembed',
   rights: 'platform_tos',
   provider: 'youtube',
   post_url: `https://www.youtube.com/watch?v=${id}`,
-  oembed_fetched_at: '2026-07-08',
+  oembed_fetched_at: fetchedOn,
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
@@ -142,8 +142,13 @@ export default {
         'Blake Lively\'s directorial debut: Taylor crashes a pastel society wedding as the red-dressed ghost of relationships past, gleefully ruining the cake — the vault track as screwball comedy.',
       symbolism: 'She is the only thing in red in a room styled entirely in polite neutrals — the era\'s color used as a walking punchline.',
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title "Taylor
+      // Swift ft. Chris Stapleton - I Bet You Think About Me (Taylor's
+      // Version) (Official Video)"). The Taylor's Version upload is the only
+      // one that exists — the song is a From The Vault track, so there is no
+      // earlier original to prefer.
+      officialUrl: 'https://www.youtube.com/watch?v=5UMCrq-bBCg',
+      media: [embed('5UMCrq-bBCg', '2026-08-13')],
       sources: [
         wiki('I_Bet_You_Think_About_Me', 'I Bet You Think About Me'),
         press(

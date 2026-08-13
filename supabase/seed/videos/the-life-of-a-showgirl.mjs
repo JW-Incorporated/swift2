@@ -52,7 +52,19 @@ export default {
       kind: 'music_video',
       title: 'The Fate of Ophelia',
       director: 'Taylor Swift',
-      releasedOn: null,
+      // 2026-08-13: filled in from the record's own Wikipedia citation, which
+      // states the video "premiered as part of the film Taylor Swift: The
+      // Official Release Party of a Showgirl, before being released onto
+      // YouTube two days later" — the film opened 2025-10-03, so the video's
+      // own release date is 2025-10-05. (The People citation agrees on the
+      // order: it "debuts" the video AFTER the movie event.)
+      //
+      // Reader-visible effect is only the rail's sort position: the tloas
+      // moment "the-fate-of-ophelia-video-premieres" already embeds this same
+      // id, so EraSection's embeddedVideoIds de-dupe keeps this record out of
+      // the chronological feed either way. The date is filled because it was
+      // simply unknown, not to move the card.
+      releasedOn: '2025-10-05',
       relatedSongs: ['The Fate of Ophelia'],
       summary:
         'The lead single\'s video premiered as the centerpiece of the release-party theatrical event: showgirl staging that pulls Ophelia out of the water and onto the stage, inverting the Hamlet ending.',
@@ -121,6 +133,11 @@ export default {
         'Release weekend as a cinema event: the Ophelia video premiere, lyric videos, and behind-the-scenes cuts packaged into a theatrical party that topped the box office on album weekend.',
       symbolism: null,
       easterEggs: [],
+      // No official upload of the work itself exists — it is a theatrical event release.
+      // With no embed this record is HIDDEN from every reader-facing surface
+      // rather than shown as a card that cannot play (playable-first rule,
+      // docs/decisions.md 2026-08-13). Add a verified official upload here and
+      // it comes back automatically — no code change needed.
       officialUrl: null,
       media: [],
       sources: [

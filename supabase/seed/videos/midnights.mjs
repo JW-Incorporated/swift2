@@ -31,12 +31,12 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
-const embed = (id) => ({
+const embed = (id, fetchedOn = '2026-07-08') => ({
   kind: 'oembed',
   rights: 'platform_tos',
   provider: 'youtube',
   post_url: `https://www.youtube.com/watch?v=${id}`,
-  oembed_fetched_at: '2026-07-08',
+  oembed_fetched_at: fetchedOn,
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
@@ -90,8 +90,10 @@ export default {
         'The album\'s dreamiest visual: a purple fog rolls through a 70s-styled apartment, koi swim across the ceiling, and Taylor drifts from bed to a lavender field without the night ever ending.',
       symbolism: 'The all-consuming lavender cloud is the song\'s borrowed 50s idiom for being untouchably in love — weather instead of narrative.',
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title
+      // "Taylor Swift - Lavender Haze (Official Music Video)").
+      officialUrl: 'https://www.youtube.com/watch?v=h8DLofLM7No',
+      media: [embed('h8DLofLM7No', '2026-08-13')],
       sources: [
         wiki('Lavender_Haze', 'Lavender Haze'),
         press(
@@ -128,6 +130,11 @@ export default {
         'The SoFi Stadium shows cut into a theatrical event that broke the all-time concert-film box-office record — released straight to cinemas on a distribution deal negotiated with AMC itself.',
       symbolism: null,
       easterEggs: [],
+      // No official upload of the work itself exists — it is a theatrical release, then Disney+.
+      // With no embed this record is HIDDEN from every reader-facing surface
+      // rather than shown as a card that cannot play (playable-first rule,
+      // docs/decisions.md 2026-08-13). Add a verified official upload here and
+      // it comes back automatically — no code change needed.
       officialUrl: null,
       media: [],
       sources: [

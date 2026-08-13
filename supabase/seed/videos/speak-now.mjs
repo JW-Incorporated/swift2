@@ -31,12 +31,12 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
-const embed = (id) => ({
+const embed = (id, fetchedOn = '2026-07-08') => ({
   kind: 'oembed',
   rights: 'platform_tos',
   provider: 'youtube',
   post_url: `https://www.youtube.com/watch?v=${id}`,
-  oembed_fetched_at: '2026-07-08',
+  oembed_fetched_at: fetchedOn,
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
@@ -102,8 +102,10 @@ export default {
         'A library at war: two exes study tables apart as the silence gets louder, pages fly, and the "chapter" conceit of the lyric plays out in the stacks.',
       symbolism: null,
       easterEggs: [],
-      officialUrl: null,
-      media: [],
+      // oEmbed-verified 2026-08-13 (author_name "Taylor Swift", title
+      // "Taylor Swift - The Story Of Us") — the 2011 original.
+      officialUrl: 'https://www.youtube.com/watch?v=nN6VR92V70M',
+      media: [embed('nN6VR92V70M', '2026-08-13')],
       sources: [
         wiki('The_Story_of_Us_(song)', 'The Story of Us (song)'),
         press(
@@ -173,6 +175,11 @@ export default {
         'The theatrical Speak Now show — aerial ballet, the levitating balcony, the confetti-showered Love Story finale performed from a flying balcony — captured across the 2011 arena run and released as a live CD/DVD.',
       symbolism: null,
       easterEggs: [],
+      // No official upload of the work itself exists — it is a live CD/DVD release.
+      // With no embed this record is HIDDEN from every reader-facing surface
+      // rather than shown as a card that cannot play (playable-first rule,
+      // docs/decisions.md 2026-08-13). Add a verified official upload here and
+      // it comes back automatically — no code change needed.
       officialUrl: null,
       media: [],
       sources: [
