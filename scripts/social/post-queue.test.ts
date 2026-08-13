@@ -649,3 +649,87 @@ describe('post-queue: the happy path stays green', () => {
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
   });
 });
+
+// ── Fail closed on a broken posted ledger (2026-08-12, issue #2031) ─────────
+//
+// The load-bearing safety property behind the Instagram triple-post. Every
+// dedupe/idempotency check reads social/posted/ from the checkout of main, so
+// "I cannot read the ledger" and "nothing has ever been posted" MUST NOT be
+// the same answer. readJsonDir used to return [] on any readdir failure,
+// which made them identical — a run with a broken ledger would sail past
+// findPostedDuplicate and repost live items.
+//
+// Each case below CONSTRUCTS the broken state and asserts the run refuses:
+// it rejects (main() is invoked bare in the CLI arm, so an unhandled
+// rejection exits non-zero and RED — #1888's loud-failure contract) and the
+// platform is never called. The two controls at the end prove the guard did
+// not simply break posting outright.
+describe('post-queue: refuses to post on a ledger it cannot trust (issue #2031)', () => {
+  it('REFUSES when social/posted/ is missing entirely', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    await seedQueueItem('a-x.json', xItem());
+    await rm(path.join(root, 'social', 'posted'), { recursive: true, force: true });
+
+    await expect(runPoster()).rejects.toThrow(/REFUSING TO POST/);
+    expect(spy).not.toHaveBeenCalled();
+    // the item is untouched, so the next (healthy) run still ships it
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('REFUSES when social/posted/ is unreadable (not a directory)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    await seedQueueItem('a-x.json', xItem());
+    const postedDir = path.join(root, 'social', 'posted');
+    await rm(postedDir, { recursive: true, force: true });
+    // a plain file where the ledger should be: readdir fails with ENOTDIR
+    await writeFile(postedDir, 'not a directory');
+
+    await expect(runPoster()).rejects.toThrow(/REFUSING TO POST/);
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('REFUSES when a posted record is truncated/corrupt JSON', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    await seedQueueItem('a-x.json', xItem());
+    // half-written record — exactly what a killed/partial checkout leaves
+    await writeFile(
+      path.join(root, 'social', 'posted', '2026-08-12-truncated-x.json'),
+      '{"platform":"x","body":"on this day in 2010: \\"mine\\" leak',
+    );
+
+    await expect(runPoster()).rejects.toThrow();
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('CONTROL: an intact ledger already recording this post blocks it as a duplicate', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    const item = xItem();
+    await seedQueueItem('a-x.json', item);
+    await writeFile(
+      path.join(root, 'social', 'posted', '2026-08-12-already-x.json'),
+      JSON.stringify(
+        { ...item, postedAt: new Date().toISOString(), url: 'https://x.com/i/status/1' },
+        null,
+        2,
+      ) + '\n',
+    );
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(JSON.stringify(outcomes)).toMatch(/already posted/);
+  });
+
+  it('CONTROL: an intact, legitimately empty ledger still posts (cold start is not an error)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(spy).toHaveBeenCalled();
+    expect(JSON.stringify(outcomes)).toMatch(/posted/);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual(['a-x.json']);
+  });
+});
