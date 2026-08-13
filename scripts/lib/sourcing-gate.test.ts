@@ -228,6 +228,56 @@ describe('outlet identity is the registrable domain, and unknowns count zero', (
       independentOutlets([{ url: 'not a url at all' }, { url: 'also::not::a::url' }]),
     ).toBe(0);
   });
+
+  it('a trailing-dot FQDN cannot re-open the hole: youtube.com. is youtube.com, wikipedia.org. is weak', () => {
+    // review finding on the first cut of this fix — the host must be
+    // normalized BEFORE any list membership check.
+    expect(classifySource({ url: 'https://www.youtube.com./watch?v=x' }).role).toBe('evidence');
+    expect(classifySource({ url: 'https://en.wikipedia.org./wiki/x' }).role).toBe('weak');
+  });
+
+  it("YouTube's privacy-embed domain is still YouTube", () => {
+    expect(classifySource({ url: 'https://www.youtube-nocookie.com/embed/x' }).role).toBe(
+      'evidence',
+    );
+  });
+
+  it('an empty `url` does not shadow a real `source_url` on the same citation', () => {
+    expect(independentOutlets([{ url: '', source_url: 'https://www.npr.org/a' }])).toBe(1);
+  });
+
+  it('an IP-literal host identifies no organization and counts zero', () => {
+    expect(classifySource({ url: 'http://203.0.113.5/article' })).toEqual({ role: 'unusable' });
+    expect(classifySource({ url: 'http://[2001:db8::1]/article' })).toEqual({ role: 'unusable' });
+  });
+
+  it("the subject's own site is usable but never independent: taylorswift.com + one outlet is one outlet", () => {
+    expect(classifySource({ url: 'https://www.taylorswift.com/news/x' })).toEqual({
+      role: 'subject',
+    });
+    // Not "weak" — it still satisfies the one-source minimum…
+    expect(isWeakSource({ url: 'https://www.taylorswift.com/news/x' })).toBe(false);
+    // …but it cannot be the second independent outlet behind a claim.
+    expect(
+      independentOutlets([
+        { url: 'https://store.taylorswift.com/products/x' },
+        { url: 'https://www.billboard.com/a' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('institutions of record stay outlets even when typed official — only video platforms and subject-owned hosts demote', () => {
+    // grammy.com announcing a Grammy and nyc.gov announcing its ambassador
+    // are independent of the SUBJECT, which is what the two-outlet bar is
+    // about. A blanket source_type demotion measurably delists records that
+    // deserve to pass (3, as of 2026-08-12).
+    expect(
+      independentOutlets([
+        { url: 'https://www.grammy.com/news/a', source_type: 'official' },
+        { url: 'https://www.billboard.com/b' },
+      ]),
+    ).toBe(2);
+  });
 });
 
 describe('momentKey', () => {

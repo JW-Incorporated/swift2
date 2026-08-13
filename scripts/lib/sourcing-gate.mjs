@@ -125,15 +125,32 @@ const isWeakHost = (host) => WEAK_HOSTS.some((w) => host === w || host.endsWith(
  */
 export const VIDEO_PLATFORM_HOSTS = [
   'youtube.com',
+  'youtube-nocookie.com', // YouTube's privacy-embed domain — same platform
   'youtu.be',
   'vimeo.com',
   'dailymotion.com',
   'dai.ly',
   'twitch.tv',
+  'rumble.com',
 ];
 
 const isVideoPlatformHost = (host) =>
   VIDEO_PLATFORM_HOSTS.some((v) => host === v || host.endsWith(`.${v}`));
+
+/**
+ * The subject's own web properties. Real citations — an announcement on
+ * taylorswift.com can anchor a date and satisfy the one-source minimum — but
+ * self-published by the subject of every claim in this corpus, so they can
+ * never be one of the two INDEPENDENT outlets behind a relationship/business
+ * claim. (Institutions of record — grammy.com, nyc.gov — stay outlets: they
+ * are independent of the subject even when `source_type` says 'official',
+ * and a blanket type-based demotion measurably delists records that deserve
+ * to pass.)
+ */
+export const SUBJECT_OWNED_HOSTS = ['taylorswift.com', 'taylornation.com'];
+
+const isSubjectOwnedHost = (host) =>
+  SUBJECT_OWNED_HOSTS.some((v) => host === v || host.endsWith(`.${v}`));
 
 /**
  * `source_type` values the audit §5 rubric scores 5 ("official/primary").
@@ -187,28 +204,43 @@ export function registrableDomain(host) {
  *                                             primary) | 'fan' (fan_* type) |
  *                                             'unknown' (everything else —
  *                                             treated exactly like 'fan').
+ *   { role: 'subject' }                     — the subject's own web property
+ *                                             (taylorswift.com). Usable, never
+ *                                             independent.
  *   { role: 'outlet', identity }            — independent press; identity is
  *                                             the registrable domain.
  */
 export function classifySource(source) {
   if (!source || typeof source !== 'object') return { role: 'unusable' };
-  const url = source.url ?? source.source_url ?? source.sourceUrl;
+  // First non-empty of the three URL spellings — an empty `url` must not
+  // shadow a real `source_url` on the same citation.
+  const url = [source.url, source.source_url, source.sourceUrl].find(
+    (u) => typeof u === 'string' && u.trim(),
+  );
   // A citation with no url is not a citation. Fail closed: an unusable entry
   // must never be what lifts a claim over the two-outlet bar.
-  if (typeof url !== 'string' || !url.trim()) return { role: 'unusable' };
+  if (!url) return { role: 'unusable' };
   let host;
   try {
-    host = new URL(url).hostname.replace(/^www\./, '').toLowerCase();
+    // Normalize BEFORE any list check: lowercase, strip the trailing dot a
+    // fully-qualified hostname may carry ('youtube.com.' is youtube.com — an
+    // extra dot must not re-open the #2036 hole), then strip 'www.'.
+    host = new URL(url).hostname.toLowerCase().replace(/\.+$/, '').replace(/^www\./, '');
   } catch {
     return { role: 'unusable' };
   }
   if (!host) return { role: 'unusable' };
+  // An IP literal (or IPv6 bracket host) is not an organization reporting
+  // under its own identity — it identifies nobody. Fail closed.
+  if (host.startsWith('[') || host.includes(':') || /^\d{1,3}(\.\d{1,3}){3}$/.test(host))
+    return { role: 'unusable' };
   if (WEAK_SOURCE_TYPES.has(source.source_type) || isWeakHost(host)) return { role: 'weak' };
   if (isVideoPlatformHost(host)) {
     const t = String(source.source_type ?? '');
     const provenance = OFFICIAL_SOURCE_TYPES.has(t) ? 'official' : t.startsWith('fan') ? 'fan' : 'unknown';
     return { role: 'evidence', provenance };
   }
+  if (isSubjectOwnedHost(host)) return { role: 'subject' };
   return { role: 'outlet', identity: registrableDomain(host) };
 }
 
@@ -224,8 +256,9 @@ export function isWeakSource(source) {
  * (docs/content-ops/editorial-voice-and-pipeline.md), so two citations under
  * one registrable domain count once however they are named — the common
  * near-miss is two Billboard articles about the same chart week. Weak
- * sources and video-platform evidence contribute zero (see the header above:
- * an upload is footage, not reporting — issue #2036).
+ * sources, video-platform evidence and the subject's own web properties
+ * contribute zero (see the header above: an upload is footage, not
+ * reporting, and a self-publication corroborates nothing — issue #2036).
  */
 export function independentOutlets(sources) {
   const identities = new Set();
