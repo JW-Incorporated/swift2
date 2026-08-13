@@ -31,8 +31,9 @@ this to 2026-08-30.
   match. Check first, fall back second, and say which you used in the `why`.
 - **X images work** (up to 4, since 2026-08-11) — X slots carry a photo
   whenever one fits the story; text-only is the fallback, never a tile.
-- **Media follows the 2026-08-12 Taylor-photo standard** (`social/README.md`
-  `mediaKind`): the default for any slot is a real credited photograph of
+- **Media follows the 2026-08-12 Taylor-photo standard** (defined in
+  `docs/marketing/social-strategy.md` §2; `social/README.md` `mediaKind` is
+  its field schema): the default for any slot is a real credited photograph of
   Taylor (`photo`); `/social/library/` screenshots (`site-screen`) only for
   product-surface subjects, ideally as a carousel behind a photo tile. Era
   tiles and designed cards are checker-dead; "designed card" media notes in
