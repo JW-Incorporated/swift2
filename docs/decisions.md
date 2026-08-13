@@ -37,6 +37,22 @@ Format: date, decision, why, alternatives considered, who approved.
    `!cancelled()` so a failed check-drafts/guard-code can no longer skip the
    disarm and let a stale auto-merge arm ride through — plus removed-file
    handling so renames reported as removed+added can't 404 the draft gate.
+5. **The poster fails closed on its own ledger read, not just in the
+   workflow.** `post-queue.mjs`'s `readJsonDir` swallowed *every* `readdir`
+   error and returned `[]`. For `social/queue/` that is harmless (nothing to
+   post); for `social/posted/` it made "I cannot read the ledger" identical to
+   "nothing has ever been posted" — so a run with an absent or unreadable
+   ledger sailed straight past `findPostedDuplicate` and reposted live items.
+   That is the incident's own shape (a dedupe source that is unreachable at
+   check time, failing open), sitting one layer below the guard in point 3 and
+   surviving it: the workflow guard only knows about *open state PRs*, and is
+   blind to a ledger that is simply not there. The posted read is now
+   `{ required: true }` and throws; `main()` is invoked bare, so the run exits
+   non-zero and RED (#1888's loud-failure contract) with nothing posted. An
+   empty-but-present ledger stays legal — that is a real cold-start state, not
+   a fault. Regression cases in `post-queue.test.ts` construct each broken
+   state (missing dir, non-directory, truncated JSON) and assert refusal, with
+   two controls proving normal posting and normal dedupe still work.
 
 **Why:** the poster records posting state via an auto-merging PR, but the
 allowlist only ever listed `social/queue/`. Before PR #1900 that mismatch was
