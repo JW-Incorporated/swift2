@@ -285,6 +285,25 @@ is the single source for the credit line the detail header renders — it joins
 the tile credits for a grid hero and falls back to `meta.heroCredit`. Any new
 CC BY / CC BY-SA art must flow through it. `lenses.test.ts` enforces that every
 tile has a credit and that every credit reaches the rendered line.
+**The gallery card is a deliberate exception, decided 2026-08-13:** it displays
+the portraits too, but eight photographer credits do not fit a card whose text
+block already fills 246 of its 262 phone pixels, and a truncated attribution is
+worse than one a tap away — so the credit renders in full the moment the thread
+opens. That reasoning depends on a detail view existing behind the card; a
+licensed photo shown with nothing behind it must be credited in place.
+
+**Two surfaces, two a11y treatments.** A gallery card is a `<button>` whose
+accessible name is built from its contents, so `ThreadHeroArt` takes
+`decorative` there — otherwise the hero's description (eight ex-partners, or
+Travis) is announced *before* the kicker and title, and a screen-reader user
+hears the art before learning which thread the button opens. On the detail
+header the art is the page's own image and keeps its description.
+
+**Grid geometry is derived, not hard-coded.** `heroGridColumns(n)` lays the
+tiles in two rows; an odd count widens the last tile to fill the spare cell.
+Hard-coding four columns is tidy only while the data happens to hold eight
+portraits — the point of deriving the tiles is that adding a ninth should not
+need a component edit.
 
 **Two threads must never share hero art** — DoD item 2 exists because End Game
 and Blank Spaces both used `/eras/lover.png` with bracelet-led blurbs and read

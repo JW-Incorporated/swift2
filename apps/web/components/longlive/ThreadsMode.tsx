@@ -21,6 +21,7 @@ import { eraStyle } from '@/lib/longlive/theme';
 import {
   THREADS,
   getThread,
+  heroGridColumns,
   threadHeroCredit,
   threadHeroTiles,
 } from '@/lib/longlive/lenses';
@@ -70,43 +71,66 @@ const NO_SCRUBBER_THREADS = new Set<LensId>([
  *     (`threadHeroTiles`). Blank Spaces is the wall of her past relationships,
  *     deliberately many so no single ex reads as the face of the thread.
  *
- * The tiles are `alt=""` under one `role="img"` label rather than eight
- * separate alts: a screen reader should hear "portraits of eight past
- * partners: …", not eight consecutive "portrait of" announcements for what is
- * visually a single piece of card art.
+ * Within a grid hero the tiles are `alt=""` under one `role="img"` label
+ * rather than one alt each: a screen reader should hear "portraits of eight
+ * past partners: …", not eight consecutive "portrait of" announcements for
+ * what is visually a single piece of card art.
+ *
+ * `decorative` is how the gallery uses it. Each gallery card is a `<button>`
+ * whose accessible name is computed from its contents, so a described hero
+ * would read the eight ex-partners (or Travis) BEFORE the kicker and title —
+ * a screen-reader user would hear the art before learning which thread the
+ * button opens. In the gallery the art is decoration for copy that already
+ * says everything; on the detail header, where it is the page's own image and
+ * competes with nothing, it keeps its description.
  */
 function ThreadHeroArt({
   meta,
   className,
   priority,
+  decorative,
 }: {
   meta: ThreadMeta;
   className?: string;
   priority?: boolean;
+  decorative?: boolean;
 }) {
   const tiles = threadHeroTiles(meta.id);
 
   if (tiles.length > 0) {
+    const columns = heroGridColumns(tiles.length);
     return (
       <div
-        className={cn('absolute inset-0 grid auto-rows-fr grid-cols-4', className)}
-        role="img"
-        aria-label={`Portraits of ${tiles.length} of Taylor Swift's past partners: ${tiles
-          .map((t) => t.name)
-          .join(', ')}.`}
+        className={cn('absolute inset-0 grid auto-rows-fr', className)}
+        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+        {...(decorative
+          ? { 'aria-hidden': true }
+          : {
+              role: 'img',
+              'aria-label': `Portraits of ${tiles.length} of Taylor Swift's past partners: ${tiles
+                .map((t) => t.name)
+                .join(', ')}.`,
+            })}
       >
-        {tiles.map((tile) => (
-          // eslint-disable-next-line @next/next/no-img-element -- hotlinked
-          // Wikimedia portraits bypass the optimizer (remotePatterns covers
-          // only YouTube posters), same as the Love Story entry portraits.
+        {tiles.map((tile, i) => (
           <img
             key={tile.id}
             src={tile.url}
             alt=""
-            loading="lazy"
+            // The hero is above the fold on the detail header, so `priority`
+            // has to reach these too — lazy tiles there paint an empty hero
+            // and hand back the LCP the single-photo branch already protects.
+            loading={priority ? 'eager' : 'lazy'}
+            fetchPriority={priority ? 'high' : undefined}
             decoding="async"
             className="h-full w-full object-cover"
-            style={{ objectPosition: '50% 22%' }}
+            // An odd tile count leaves one empty cell in the last row; the
+            // final portrait widens to fill it, so the wall stays solid at any
+            // count rather than only at multiples of the column count.
+            style={{
+              objectPosition: '50% 22%',
+              gridColumn: i === tiles.length - 1 && tiles.length % columns !== 0 ? 'span 2' : undefined,
+            }}
           />
         ))}
       </div>
@@ -116,7 +140,7 @@ function ThreadHeroArt({
   return (
     <Image
       src={meta.hero || '/placeholder.svg'}
-      alt={meta.heroAlt ?? ''}
+      alt={decorative ? '' : (meta.heroAlt ?? '')}
       fill
       priority={priority}
       className={cn('object-cover', className)}
@@ -182,7 +206,7 @@ function ThreadsGallery() {
                   kicker would clip against overflow-hidden. 4:3 gives the room;
                   the wider card keeps 16:10 where the blurb wraps to two. */}
               <div className="relative aspect-[4/3] sm:aspect-[16/10]">
-                <ThreadHeroArt meta={t} className="transition duration-500 group-hover:scale-105" />
+                <ThreadHeroArt meta={t} decorative className="transition duration-500 group-hover:scale-105" />
                 {/* Light vignette only — the readable backing lives on the text
                     block itself (below), not here. */}
                 <div

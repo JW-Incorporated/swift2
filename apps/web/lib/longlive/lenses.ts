@@ -57,10 +57,13 @@ export const THREADS: ThreadMeta[] = [
     // Public domain (a work of a US federal government employee). Fetched from
     // the 1280px thumb and downscaled to 1200px wide, q82 mozjpeg.
     hero: '/threads/end-game-travis-kelce.jpg',
-    // Measured, not guessed: the card's text block covers its bottom ~70%, so
-    // the only unobscured strip is the top of the frame — a centred crop of a
-    // tall portrait puts his scalp there and hides his face behind the scrim.
-    // This pushes the face up into the strip.
+    // Measured in the browser at the real phone geometry (350x262 card, the
+    // 4:3 single-column case), not guessed. The text block is 246px of that
+    // 262px card — but its top 48px is a transparent-to-opaque ramp, so the
+    // strip where the photo actually reads is only the top ~60px. A centred
+    // crop of a 1200x1576 portrait puts his scalp in that strip; this pushes
+    // the face into it, and the face is legible at both 4:3 (phone) and 16:10
+    // (desktop). Re-check this value if the card's aspect or copy length moves.
     heroPosition: '50% 36%',
     heroAlt: 'Travis Kelce, smiling, in a red jacket at the White House in 2023.',
     heroCredit: 'Adam Schultz / The White House · Public domain, via Wikimedia Commons',
@@ -150,9 +153,33 @@ export function threadHeroTiles(id: LensId): ThreadHeroTile[] {
 }
 
 /**
+ * How many columns a grid hero lays its tiles out in — always two rows, so a
+ * card-shaped box gets card-shaped tiles.
+ *
+ * Derived from the tile count rather than hard-coded, because the tiles
+ * themselves are derived: hard-coding four columns is tidy only while the data
+ * happens to hold eight portraits, and the moment a ninth is added (giving
+ * Conor Kennedy a photo would do it) a fixed four-column grid becomes three
+ * rows with one face and three holes. The component pairs this with a widened
+ * last tile when the count is odd, so the wall stays solid at any count.
+ */
+export function heroGridColumns(tileCount: number): number {
+  return Math.max(1, Math.ceil(tileCount / 2));
+}
+
+/**
  * The credit line to render under a thread's hero: the tile credits when it
  * has a grid hero, otherwise the single photo's credit. Undefined for the era-
  * art heroes, which are album art and carry no photographer.
+ *
+ * Rendered on the thread DETAIL header only, deliberately. The gallery card
+ * also displays the portraits, and CC BY / CC BY-SA attribution is a licence
+ * condition wherever a work is shown — but eight photographer credits do not
+ * fit a card whose text block already fills 246 of its 262 phone pixels, and
+ * truncating an attribution is worse than placing it one tap away. So the
+ * gallery shows the art as a thumbnail and the credit renders in full the
+ * moment the thread opens. If a card ever displays a licensed photo WITHOUT a
+ * detail view behind it, that reasoning does not carry — credit it in place.
  */
 export function threadHeroCredit(id: LensId): string | undefined {
   const tiles = threadHeroTiles(id);

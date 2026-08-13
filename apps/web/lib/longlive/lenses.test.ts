@@ -8,6 +8,7 @@ import {
   RUNWAY_LOOKS,
   THREADS,
   getThread,
+  heroGridColumns,
   motifOf,
   threadHeroCredit,
   threadHeroTiles,
@@ -137,6 +138,24 @@ describe('threadHeroTiles("love-story")', () => {
       expect(credit, `${tile.name} is not attributed on the thread`).toContain(tile.credit);
       expect(credit).toContain(tile.name);
     }
+  });
+
+  // The tiles are derived from RELATIONSHIPS, so the layout has to survive the
+  // data changing — giving Conor Kennedy a portrait would make this nine.
+  it('lays out in two full rows at any tile count', () => {
+    for (let n = 2; n <= 16; n++) {
+      const columns = heroGridColumns(n);
+      const cells = columns * 2;
+      // An odd count widens the last tile by one cell; nothing else is empty.
+      const spare = cells - n;
+      expect(spare, `${n} tiles in ${columns} columns leaves ${spare} empty cells`).toBeLessThanOrEqual(1);
+      expect(spare).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  it('puts today’s eight portraits in four columns', () => {
+    expect(heroGridColumns(tiles.length)).toBe(4);
+    expect(tiles.length).toBe(8);
   });
 
   it('is empty for threads with no grid hero, so they fall back to their photo', () => {
