@@ -47,16 +47,30 @@ Three structural fixes, in priority order:
 
 ## 1. Campaign architecture
 
-Five campaigns. Every queue item belongs to exactly one, named in its
-`campaign` field with this taxonomy (so metrics group without parsing prose):
+Five campaigns. Every queue item belongs to exactly one. The names below are
+**families** — a prefix that groups metrics — and the `campaign` field on a
+queue item is never the bare family:
 
-| Campaign | `campaign` value | Share of slots |
-|---|---|---|
-| Feature launch | `launch:<feature-slug>` | 0-6 slots per launch, bursty |
-| Thread cycle | `thread:<lensId>:<angle>` | 2 slots per thread per month (12/mo) |
-| Mood beat | `mood:<format>` | 2-3 slots per month |
-| Daily heartbeat | `heartbeat:<pillar>` | everything left (~60-70%) |
-| Human reach | *(no queue item — a GitHub issue)* | 0 slots, ~15 min/week of Joey |
+| Campaign | Family | A real `campaign` value | Share of slots |
+|---|---|---|---|
+| Feature launch | `launch:<feature-slug>` | `launch:mood-chat:announce` | 0-6 slots per launch, bursty |
+| Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | 2 slots per thread per month (12/mo) |
+| Mood beat | `mood:<format>` | `mood:chip-poll:2026-09` | 2-3 slots per month |
+| Daily heartbeat | `heartbeat:<pillar>` | `heartbeat:on-this-day:red-announcement` | everything left (~60-70%) |
+| Human reach | *(no queue item — a GitHub issue)* | — | 0 slots, ~15 min/week of Joey |
+
+**Rule — every `campaign` value is story-unique** (2026-08-12, found the hard
+way in issue #2031). The poster's `findPostedDuplicate`
+(`scripts/social/lib/queue.mjs`) treats *same platform + same `campaign`* as
+proof an item already shipped, and skips it. So a value reused as a thematic
+bucket — every on-this-day post filed under `heartbeat:on-this-day`, all four
+launch-arc posts under `launch:mood-chat` — means the first post ships and
+**every later post in that bucket is silently skipped forever.** Extend the
+family with the story: one slug per story, shared only between that story's
+IG and X siblings. Metrics still group, because the family is still the
+prefix. Note the check reads the **whole** `social/posted/` history, not a
+recent window — a value reused a year later still skips, which is why the
+angle examples above carry the cycle month.
 
 ### (a) Feature launch — the coordinated push
 
@@ -70,13 +84,18 @@ borderline, the test is "could a fan notice this without being told?"
 
 **The arc — 4 posts over 8 days** (a 5th optional at +14):
 
+A launch arc is the one place where the subject genuinely *is* a product
+surface, so `site-screen` is legitimate here — but §2's ladder still governs:
+on Instagram the screenshot rides slide 2 of a carousel behind a Taylor photo
+tile, because the grid is what a visiting fan sees.
+
 | Day | Post | Platform | Job | Media |
 |---|---|---|---|---|
-| 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | Screenshot of the feature, mid-use |
-| +2 | **How-to** | IG | Literally where to tap. Assume the reader never found it. | Screenshot sequence or designed card with the tap path |
-| +4 | **Example output** | IG + X sibling | One real result the feature produced. The proof it's good. | Screenshot of that actual result |
-| +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | Card or none |
-| +14 | *(optional)* **What you did with it** | IG | Only if real replies/DMs exist to quote (with permission). Skip silently otherwise. | Screenshot or card |
+| 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: the screenshot, or the photo |
+| +2 | **How-to** | IG | Literally where to tap. Assume the reader never found it. | Photo tile + the tap-path screens as later slides |
+| +4 | **Example output** | IG + X sibling | One real result the feature produced. The proof it's good. | Photo tile + a screenshot of that actual result |
+| +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | A photo, or text-only |
+| +14 | *(optional)* **What you did with it** | IG | Only if real replies/DMs exist to quote (with permission). Skip silently otherwise. | Photo tile + the quoted reply as a screenshot |
 
 **Timing.** Day 0 is the first evening slot ≥24h after the deploy is live on
 www.longlivets.com — never before, because the announce screenshot has to be of
@@ -109,9 +128,11 @@ rotation order (most visual first, so the strongest opens each cycle):
 | 4 | **Taylor's Version** | `/?lens=taylors-version` |
 | 5 | **End Game** | `/?lens=the-proposal` |
 
-**Each window gets 2 slots:** one IG (the hero — screenshot of the thread on the
-real site) and one X (a structurally different post, never the IG caption
-truncated), placed anywhere in the window.
+**Each window gets 2 slots:** one IG (the hero) and one X (a structurally
+different post, never the IG caption truncated), placed anywhere in the
+window. The IG hero leads with a Taylor photo from the era the thread's best
+item belongs to; the thread page itself is a product surface, so a
+`/social/library/` screenshot of it earns slide 2.
 
 **The angle menu** — five angles, so a thread doesn't repeat itself for five
 months:
@@ -162,11 +183,11 @@ Mood is the most distinctive thing on the site and the hardest to link to.
 
 **Formats** (2-3 slots in one week, once a month; rotate formats month to month):
 
-| Format | `campaign` | Shape |
+| Format | Family | Shape |
 |---|---|---|
-| Chip poll | `mood:chip-poll` | X: three chips, "which one is you today", answer by tapping Mood. |
-| What it gave me | `mood:result` | IG: one chip + a screenshot of the **real** songs it returned. The strongest one — it proves the thing works. |
-| Chip of the week | `mood:chip-spotlight` | IG card of a single chip, big; caption is the fan-recognition beat ("feral about a bridge" is the deepest cut in the set and the one that says *we know you*). |
+| Chip poll | `mood:chip-poll` | X: three chips, "which one is you today", answer by tapping Mood. A photo if one fits; text-only is fine here. |
+| What it gave me | `mood:result` | IG: one chip in the caption, a Taylor photo from the era those songs come from as the tile, the **real** returned songs as slide 2. The strongest format — it proves the thing works. |
+| Chip of the week | `mood:chip-spotlight` | IG: the chip lives in the **caption**, not in the image — a Taylor photo carries the tile (match the era to the chip's mood). Caption is the fan-recognition beat ("feral about a bridge" is the deepest cut in the set and the one that says *we know you*). Rewritten 2026-08-12: this format used to be a designed typography card, and §2 retired cards from the feed. |
 
 **When a feature-launch arc is about Mood, that month's beat is absorbed into
 the arc.** Don't run both — it doubles Mood to 8 slots in a month and the grid
@@ -320,14 +341,27 @@ header comment.
 - **A new channel needs its own `docs/decisions.md` entry** with a channel
   policy and a crisis-stop rule (rail 3).
 
-### Media — the source ladder (REWRITTEN 2026-08-12: Taylor first)
+### Media — the source ladder, a.k.a. **the Taylor-photo standard (2026-08-12)**
+
+**This section is the definition.** When another doc says "the 2026-08-12
+Taylor-photo standard" — Tree's charter, the Tree and Growth runner prompts,
+`social/calendar.md` — this ladder is what it means. `social/README.md`
+carries the field-level schema (which `mediaKind` values exist, what each one
+requires); it does not get a vote on the policy.
 
 Joey's verdict after the 2026-08-11/12 incident, verbatim: *"We are a Taylor
 Swift fan site whose social media has no pictures of Taylor Swift."* That ends
 the screenshot-first ladder. The grid's job is to show Taylor; the product is
-the byline. Enforced in code by `scripts/social/check-drafts.mjs` +
-`scripts/social/lib/queue-schema.mjs` (the `mediaKind` standard, see
-`social/README.md`) — this section describes the gate, it is not the gate.
+the byline.
+
+**Enforced in code since #2043** (2026-08-12):
+`scripts/social/lib/queue-schema.mjs` knows the `photo` / `site-screen`
+values, and `scripts/social/check-drafts.mjs` rejects undeclared media and era
+tiles outright — `photo` is path-bound to `/social/library/photos/` and
+requires `mediaCredit` + `mediaSource`, so a screenshot cannot be laundered as
+a credited photograph and a real photograph cannot ship uncredited. This
+section describes that gate; it is not the gate. Where the two ever disagree,
+the code is what actually ships and this file is the bug.
 
 1. **A real photograph of Taylor** — `mediaKind: "photo"`. THE default for
    every post. Source it from the repo's own credited corpus —
@@ -346,9 +380,10 @@ the byline. Enforced in code by `scripts/social/check-drafts.mjs` +
 3. **No image at all** (X only — Instagram always requires media). A sharp
    text-only tweet beats a decorative tile every time.
 
-**Retired rungs:** the **era tile** (`/eras/<id>.png`) hard-fails the checker
-outright, declared or not — on 2026-08-06 all 17 posted IG items were era
-tiles, and the "declared fallback" loophole is how they kept shipping.
+**Retired rungs:** the **era tile** (`/eras/<id>.png`) is banned from the feed
+and the checker rejects it outright, declared or not — on 2026-08-06 all 17
+posted IG items were era tiles, and the "declared fallback" loophole is how
+they kept shipping.
 **Designed cards** (`render-card.mjs`) are retired from the feed for the same
 reason: a typography tile is still not a picture of Taylor. The script stays
 for possible non-feed uses; re-admitting cards to the feed is a founder call.
@@ -362,7 +397,8 @@ endpoint since 2026-08-11) — attach a photo to X posts whenever one fits the
 story; the 280-char budget is for words, `mediaCredit` carries the credit when
 the body can't.
 
-**Rights posture** (decision entry 2026-07-09 + 2026-08-11): hosting real
+**Rights posture** (decision entries 2026-07-09 and 2026-08-12; the
+2026-08-11 entry's *ladder* is superseded, its rights bars are not): hosting real
 internet photos is unrestricted — embed, hotlink, or rehost, press/agency all
 fine — **with credit, always**, as a knowing accepted risk;
 takedown-on-request without argument. The hard bars: **no AI-generated
