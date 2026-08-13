@@ -48,6 +48,84 @@ and the record-by-record audit: the 2026-08-12 review session.
 
 ---
 
+## 2026-08-12 — Source independence is outlet identity; video platforms are evidence, never outlets (#2036)
+
+**Decision:** `independentOutlets()` (`scripts/lib/sourcing-gate.mjs`) stops
+counting URL hostnames and counts **outlet identities**:
+
+1. **Video/UGC platform links (YouTube, youtu.be, Vimeo, Dailymotion, Twitch)
+   count ZERO toward independence, always** — including official-channel
+   uploads. A video is *evidence* that an event happened; it is not an outlet
+   reporting on it. An official upload is the subject's own primary source; a
+   fan re-upload is nobody's; unknown provenance is classified like a fan
+   upload (fail closed). Video links remain valid citations and still satisfy
+   the one-source minimum — they just can't lift a `relationship`/`business`
+   claim over the two-outlet bar.
+2. **Press outlets are identified by registrable domain** (with a small
+   ccSLD table so `bbc.co.uk` ≠ `co.uk`), so `music.example.com` and
+   `www.example.com` are one outlet. Strictly stricter than exact-host.
+3. **An unparseable URL, an IP-literal host, or a trailing-dot FQDN dodge
+   counts zero** — previously `hostOf()` returned its garbage input on parse
+   failure, so a typo'd URL counted as a full outlet; hosts are normalized
+   (lowercase, trailing dot stripped) BEFORE any list check so `youtube.com.`
+   cannot re-open the hole.
+4. **The subject's own web properties (taylorswift.com, taylornation.com)
+   count zero toward independence** — usable citations, never independent
+   corroboration of a claim about their owner.
+
+**Why:** issue #2036 — host-keying let any youtube.com link, including an
+anonymous fan re-upload, count as one full independent outlet, and two fan
+re-uploads as two. Two records were promoted over the two-outlet bar on
+exactly that on 2026-08-12, the same day the discovery lane (#2034) started
+feeding YouTube URLs into content at volume. Measured against the whole
+corpus: 168 `relationship`/`business` moments, 12 lose exactly the phantom
+YouTube "outlet", **zero fall below the bar** — the stricter rule delists
+nothing, because #2035 already re-sourced the two riders to real press.
+
+**Alternatives considered:**
+- *Count an official-channel upload as an outlet identified by channel.*
+  Rejected: official uploads are the subject's own account of the event —
+  self-published primary sources. Counting them would let "Taylor's channel +
+  one outlet" satisfy a bar that exists to require *independent* corroboration.
+- *Only demote fan re-uploads, keep official as outlets.* Rejected for the
+  same reason, plus provenance is only knowable from `source_type`, which
+  most citations lack — the common case would silently decide the rule.
+- *Demote `source_type: official/primary` on EVERY host, not just video
+  platforms.* Rejected by measurement: the type marks institutions of record
+  (grammy.com, nyc.gov) as often as the subject's own properties, and the
+  blanket rule delists 3 records that deserve to pass (the awarding body IS
+  independent of the subject). The narrow subject-owned-host list implements
+  the defensible half mechanically.
+- *Full public-suffix list dependency for registrable domains.* Rejected:
+  a new dependency for a gate script; the small table fails in the strict
+  direction (an unlisted ccSLD collapses further, counting fewer, never more).
+
+**Codex adversarial round (same day):** confirmed the YouTube/trailing-dot/IP
+fixes and found the remaining fail-open surface — adopted: mirrors, caches,
+aggregators and shorteners (archive.org, archive.today, google.com, bit.ly…)
+and self-publishing platforms (medium, substack, blogspot, wordpress) count
+zero; non-http(s) schemes, credentialed URLs, single-label hosts,
+reserved/special-use names and punycode (xn--) hosts classify unusable; a
+small OUTLET_ALIASES table collapses an outlet's own shortener/international
+domain (nyti.ms→nytimes.com, bbc.co.uk→bbc.com); and the one-source minimum
+now requires at least one USABLE citation (measured free: 0 records ride on
+only-unusable citations). Re-measured after all of it: 13 records change
+count, still zero fall below the bar.
+
+**Left open, explicitly for Wyatt:** Codex's structural recommendation is a
+default-deny **approved-outlet registry** (only registered outlets count,
+with canonical aliases) instead of these grow-as-needed denylists — stronger
+against unknown-domain gaming (any two real-but-irrelevant domains still
+count 2 today), but it makes every new outlet a code change. Also left open:
+wire-syndication collapse and category-gaming (a business claim filed under
+`music` skips the two-outlet bar) — both pre-existing, neither mechanical.
+
+**Approved:** implemented at Joey's direction (free rein on design);
+**sourcing/threshold semantics are Wyatt's call — flagged for his sign-off in
+the PR.**
+
+---
+
 ## 2026-08-12 — Auto-merge allowlist gains `social/posted/` + `social/failed/`; the poster fails closed on a stale ledger
 
 **Decision:** the social-poster state machinery changes, after the
