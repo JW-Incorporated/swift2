@@ -397,7 +397,7 @@ describe('assignFeedTiers over REAL vault content', () => {
 });
 
 /**
- * #2078: one video treatment in the feed. Every playable video renders the same
+ * #2080: one video treatment in the feed. Every playable video renders the same
  * full-width 16:9 poster, and two tiers cannot carry one honestly — see
  * INLINE_VIDEO_MIN_TIER. This is a FLOOR on cards that actually play.
  */

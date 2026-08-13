@@ -59,7 +59,7 @@ const YOUTUBE_THUMB_HOSTS = new Set(['i.ytimg.com', 'img.youtube.com', 'i9.ytimg
  * `https://i.ytimg.com/vi/<same id>/…jpg` primary image, four of them the exact
  * `maxresdefault` frame the poster uses at a different resolution. Photo
  * Enrichment reached for the video's own thumbnail precisely because these
- * moments ARE the video, and before #2078 nothing rendered the two together.
+ * moments ARE the video, and before #2080 nothing rendered the two together.
  *
  * Matched on the id in the path rather than on the whole URL because the frames
  * differ by filename (`maxresdefault` / `maxres1` / `sd2` / `hqdefault`) while

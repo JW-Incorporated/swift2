@@ -135,7 +135,7 @@ describe('MomentCard renders its play affordance inside the card’s box', () =>
 });
 
 /**
- * #2078: ONE video treatment in the feed. A story moment carrying footage and a
+ * #2080: ONE video treatment in the feed. A story moment carrying footage and a
  * video record are two different cards, and Joey's whole complaint across #2051
  * → #2055 → #2063 was that they did not look like they did the same thing. The
  * lock is that they render the SAME component — a look can be copied and then

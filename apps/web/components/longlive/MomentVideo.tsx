@@ -25,7 +25,7 @@ function VideoFrame({ children }: { children: ReactNode }) {
  * THE video affordance: a full-width 16:9 poster (the video's own YouTube
  * thumbnail) with a large centered accent play glyph.
  *
- * Exported because it is the site's ONE video treatment (#2078, Joey). Every
+ * Exported because it is the site's ONE video treatment (#2080, Joey). Every
  * playable video in the era feed renders through this component, whether the
  * card is a video record (`VideoMomentCard`) or a story moment carrying footage
  * (`MomentCard`) — reusing the component, not copying the look, is what keeps
@@ -118,7 +118,7 @@ export function MomentVideo({
    * Mount the player immediately instead of the poster facade.
    *
    * ONLY for a caller whose own control was the user's play tap — the era-feed
-   * play poster (#2051/#2078), which would otherwise cost two taps to watch one
+   * play poster (#2051/#2080), which would otherwise cost two taps to watch one
    * video (poster, then the facade's own play button). The click-to-load
    * privacy posture from #1935 is unchanged: an iframe still mounts only in
    * response to a user gesture, just one component up. Never pass this from a

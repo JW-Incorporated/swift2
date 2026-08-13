@@ -137,7 +137,7 @@ export function EraSection({ era }: { era: Era }) {
   // function of that list's ids, so it's stable across re-renders.
   //
   // `withInlineVideoTiers` then floors the cards that actually play a video at
-  // `media` (#2078): the full-width poster every video now renders through
+  // `media` (#2080): the full-width poster every video now renders through
   // cannot sit under a 56px `chip` row or inside the no-photo `text` breather
   // without destroying the silhouette that IS that tier. See feed-tiers.ts.
   const tiers = useMemo(
@@ -750,7 +750,7 @@ function TagRow({ tags }: { tags: ContentTag[] }) {
  * exactly as before.
  *
  * The affordance IS `VideoPoster` — the same component the video-record cards
- * render (#2078). One video treatment in the feed: full-width 16:9, the video's
+ * render (#2080). One video treatment in the feed: full-width 16:9, the video's
  * own thumbnail, one big centered accent glyph, whatever kind of card it hangs
  * on. #2063's compact 96px "Play video" row is gone; Joey rejected it on his
  * phone precisely because a second vocabulary for "this plays" leaves the reader
@@ -870,7 +870,7 @@ function MomentCard({
  * affordance back outside one of them.
  *
  * `hideImage` drops this button's photo block when the card's sibling
- * `VideoPoster` is about to render the same frame (#2078) — the photo slot is
+ * `VideoPoster` is about to render the same frame (#2080) — the photo slot is
  * yielded to the poster rather than duplicated above it. Passed in rather than
  * derived here because the decision needs the video the SIBLING resolved
  * (ownership included), which only `MomentCard` knows. */
