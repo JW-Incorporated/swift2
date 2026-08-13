@@ -3229,6 +3229,20 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo (Photo Enrichment, 2026-08-13): the announcement itself was a
+        // self-recorded video message (mid-COVID, no public appearance), aired
+        // on GMA the same morning — ABC's own CDN, vision-confirmed as this
+        // exact clip, not a red-carpet or studio shot.
+        photos: [
+          {
+            url: 'https://s.abcnews.com/images/GMA/201210_gma_pop1_hpMain_16x9_992.jpg?w=992',
+            focalPoint: '48% 28%',
+            credit: 'ABC / Good Morning America',
+            caption:
+              'Taylor, in a self-recorded video message that aired on Good Morning America the morning of Dec. 10, 2020, announcing evermore\'s surprise midnight release.',
+            kind: 'reference',
+          },
+        ],
       },
     },
 
