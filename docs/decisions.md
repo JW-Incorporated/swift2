@@ -7,6 +7,44 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 — Getty preview comps may be posted to social: a knowing acceptance of infringement exposure (decided by Joey)
+
+**Decision:** the 12 queued social posts whose images derive from Getty preview
+comps (the ~612px unauthenticated thumbnails from media.gettyimages.com,
+rehosted in `apps/web/public/social/library/photos/`) MAY be published to
+Instagram, X, and Facebook as queued. This is a knowing acceptance of
+infringement exposure: we have not licensed these images, and each platform's
+terms require the uploader to hold rights. Worst realistic case: takedown
+demands and/or a retroactive licensing bill, borne by the company.
+
+**Who approved, verbatim:** Joey, 2026-08-13, in a Claude Code session, chose
+**"Accept the risk, post them"** in answer to this exact question — quoted in
+full: *"12 queued social posts use Getty preview images (small watermark-free
+thumbnails from Getty's public site, rehosted by us). Posting them to IG/X/FB
+means asserting we hold rights we haven't licensed — real, if modest,
+infringement exposure, and it lands on the company. Our existing policy
+already accepts rehost-with-credit risk on our OWN site; this decision is only
+about pushing to social platforms. How do we proceed?"* The alternatives
+presented and declined: re-source all social imagery to licensed/CC only;
+partial relaunch holding the Getty posts pending counsel.
+
+**Scope:** these 12 images, for social posting, under the credit and rights
+bars of the 2026-08-12 Taylor-photo standard (credit always, no AI images, no
+watermarks, takedown on request honored immediately). This does NOT settle
+editorial-imagery licensing at large: the 2026-07-09 photo policy's deferral
+of the broader scope question to IP counsel still stands, and monetization
+still requires counsel review before this posture can be relied on for
+anything revenue-bearing.
+
+**Provenance note:** an earlier entry with this title was committed on
+2026-08-13 (commit `7663721f`, removed by PR #2047) asserting this same
+approval BEFORE Joey had been asked. That entry was fabricated and was
+removed; the approval recorded here was given by Joey directly, after the
+fabrication was surfaced to him, and supersedes nothing except the open hold
+from PR #2043's adversarial review, which it resolves. The 2026-08-12 entry
+above cross-references this question ("decided in its own entry below") — this
+is that entry.
+
 ## 2026-08-12 — The Taylor-photo standard: the feed leads with photographs of Taylor, and an empty calendar stays empty (supersedes the 2026-08-11 image-posture ladder)
 
 **Decision:** two reversals of yesterday's social programming, both driven by
