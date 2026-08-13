@@ -32,6 +32,20 @@
 //      speak HTTPS ourselves over an explicit CONNECT tunnel when a proxy is
 //      configured. That works no matter how the script was invoked, with no
 //      re-exec and no new dependency.
+//
+//      ^ THAT TRANSPORT NEVER WORKED (#2008). It built the request as
+//      `https.request({ agent: false, createConnection: () => tls.connect({ socket }) })`,
+//      and with `agent: false` Node builds a fresh https.Agent whose OWN
+//      (direct) createConnection wins — the request-level one is never called.
+//      So the CONNECT tunnel was opened, abandoned, and every request went
+//      straight out to api.github.com, past the credential-injecting proxy,
+//      returning `401 Bad credentials` from a placeholder token. Proven by
+//      pointing HTTPS_PROXY at a proxy that accepts CONNECT and then forwards
+//      NOTHING: the old code still got a real GitHub response; `fetch` with
+//      --use-env-proxy correctly timed out. `httpsRequest` now prefers `fetch`
+//      (the configuration verified working in cloud) and, when the process was
+//      not booted proxy-aware, falls back to a CONNECT tunnel that is actually
+//      used — with a loud warning, because silence is what hid this.
 //   4. THE SEARCH API IS FORBIDDEN. Every list shape was built as
 //      `/search/issues?q=repo:…`. Repo-scoped cloud sessions get:
 //        403 {"message":"This GitHub API path is not available: sessions are
@@ -207,33 +221,123 @@ function connectThroughProxy(proxyUrl, host, port) {
 }
 
 /**
- * One HTTPS request, through the configured proxy when there is one.
- * Deliberately NOT `fetch` — see note 3 at the top of this file.
+ * Was THIS PROCESS booted so that Node's built-in `fetch` honours HTTPS_PROXY?
+ *
+ * undici reads the switch once, at bootstrap, before any user code runs — so a
+ * library can never turn it on for itself, only an INVOCATION can
+ * (`node --use-env-proxy script.mjs`, or `NODE_USE_ENV_PROXY=1 node …`).
+ * Captured at module load so a later `process.env` mutation cannot make this
+ * lie about what undici actually decided.
+ *
+ * Exported for tests and for callers that want to warn early.
+ */
+const FETCH_IS_PROXY_AWARE = (() => {
+  const v = process.env.NODE_USE_ENV_PROXY;
+  if (v && v !== '0' && v !== 'false') return true;
+  const flags = [...process.execArgv, ...(process.env.NODE_OPTIONS || '').split(/\s+/)];
+  return flags.includes('--use-env-proxy');
+})();
+
+export function fetchIsProxyAware() {
+  return FETCH_IS_PROXY_AWARE;
+}
+
+let warnedAboutProxyFlag = false;
+
+/**
+ * Say — once, loudly — that this process is taking the fallback transport.
+ * Silence here is what made #2008 invisible for weeks.
+ */
+function warnProxyFlagMissing() {
+  if (warnedAboutProxyFlag) return;
+  warnedAboutProxyFlag = true;
+  console.error(
+    '⚠ HTTPS_PROXY is set but this process was NOT booted with `--use-env-proxy` / ' +
+    'NODE_USE_ENV_PROXY=1, so Node\'s fetch would bypass the proxy entirely. Falling back ' +
+    'to an explicit CONNECT tunnel. Prefer invoking this script as ' +
+    '`node --use-env-proxy <script>` (see #2008 and docs/agents/runners.md).',
+  );
+}
+
+/** Normalise a `fetch` Response into the `{ status, headers, text }` shape. */
+async function fetchRequest(url, { method, headers, body }) {
+  const res = await fetch(url, { method, headers, ...(body ? { body } : {}) });
+  return {
+    status: res.status,
+    headers: Object.fromEntries(res.headers.entries()),
+    text: await res.text(),
+  };
+}
+
+/**
+ * A one-off agent that speaks TLS over an ALREADY-TUNNELLED socket.
+ *
+ * THIS IS THE #2008 BUG. The previous shape was:
+ *
+ *     https.request({ agent: false, createConnection: () => tls.connect({ socket }) })
+ *
+ * which never once used the tunnel. With `agent: false` Node does not go
+ * agentless — it constructs a FRESH `https.Agent`, and an agent's own
+ * `createConnection` (a plain, DIRECT `tls.connect`) is what gets called. The
+ * request-level `createConnection` is only honoured when there is no agent at
+ * all. So every request opened a CONNECT tunnel, abandoned it unused, and went
+ * straight out to api.github.com — past the egress proxy that swaps the
+ * proxy-scoped placeholder GH_TOKEN for the real credential. Hence a flat
+ * `401 Bad credentials` from a token that works fine for curl and for
+ * `fetch` + `--use-env-proxy`, both of which really do traverse the tunnel.
+ *
+ * Overriding `createConnection` on the AGENT INSTANCE is the shape Node honours.
+ */
+function tunnelAgent(socket, servername) {
+  const agent = new https.Agent({ keepAlive: false, maxSockets: 1 });
+  agent.createConnection = () => tls.connect({ socket, servername, ALPNProtocols: ['http/1.1'] });
+  return agent;
+}
+
+/**
+ * One HTTPS request that ACTUALLY honours HTTPS_PROXY.
+ *
+ * Transport order:
+ *   1. `fetch` — when no proxy applies to this host, or when the process was
+ *      booted proxy-aware. This is the configuration verified working against
+ *      the cloud egress proxy (#2008).
+ *   2. an explicit, genuinely-used CONNECT tunnel — when a proxy applies but
+ *      `fetch` would silently bypass it. Byte-for-byte the same thing undici
+ *      does (CONNECT, then TLS inside the tunnel), so the proxy sees the same
+ *      request either way.
  */
 export async function httpsRequest(url, { method = 'GET', headers = {}, body } = {}) {
   const u = new URL(url);
   const proxy = proxyForHost(u.hostname);
-  const socket = proxy ? await connectThroughProxy(proxy, u.hostname, Number(u.port) || 443) : null;
+  if (!proxy || FETCH_IS_PROXY_AWARE) return fetchRequest(url, { method, headers, body });
+  warnProxyFlagMissing();
+
+  const socket = await connectThroughProxy(proxy, u.hostname, Number(u.port) || 443);
+  const agent = tunnelAgent(socket, u.hostname);
   return new Promise((resolve, reject) => {
+    // The tunnel socket is ours alone; if anything goes wrong it must not be
+    // left open holding the event loop (which is how the broken version hung).
+    const done = (fn) => (arg) => { socket.destroy(); fn(arg); };
+    const ok = done(resolve);
+    const fail = done(reject);
     const req = https.request({
       method,
       host: u.hostname,
       port: Number(u.port) || 443,
       path: u.pathname + u.search,
       headers,
-      // A one-off agent: our tunnelled socket must never land in a shared pool.
-      ...(socket ? { agent: false, createConnection: () => tls.connect({ socket, servername: u.hostname }) } : {}),
+      agent,
     }, (res) => {
       const chunks = [];
       res.on('data', (c) => chunks.push(c));
-      res.on('end', () => resolve({
+      res.on('end', () => ok({
         status: res.statusCode,
         headers: res.headers,
         text: Buffer.concat(chunks).toString('utf8'),
       }));
-      res.on('error', reject);
+      res.on('error', fail);
     });
-    req.once('error', reject);
+    req.once('error', fail);
     if (body) req.write(body);
     req.end();
   });
@@ -425,6 +529,21 @@ function ghHeaders(token, hasBody) {
 
 function restError(plan, res) {
   const base = `GitHub REST ${plan.method} ${plan.path} → ${res.status} ${res.text}`;
+  // A 401 here is almost never "the token is wrong". In cloud runners GH_TOKEN
+  // is a proxy-scoped PLACEHOLDER that only authenticates *through* the egress
+  // proxy, which swaps in the real credential. Any request that reaches GitHub
+  // directly therefore gets a flat 401 — which is precisely what a bypassed
+  // proxy looks like (#2008). Name that, so the next person does not spend
+  // another two weeks re-diagnosing a transport bug as a credentials bug.
+  if (res.status === 401) {
+    return new Error(
+      `${base}\n` +
+      'A 401 from a cloud runner usually means THE PROXY WAS BYPASSED, not that the token is bad:\n' +
+      `  · HTTPS_PROXY set: ${Boolean(proxyForHost('api.github.com'))}\n` +
+      `  · fetch is proxy-aware (booted with --use-env-proxy/NODE_USE_ENV_PROXY=1): ${FETCH_IS_PROXY_AWARE}\n` +
+      'Invoke as `node --use-env-proxy <script>` and retry. See #2008 and docs/agents/runners.md.',
+    );
+  }
   if (plan.kind === 'search' && (res.status === 403 || res.status === 404)) {
     return new Error(
       `${base}\n` +

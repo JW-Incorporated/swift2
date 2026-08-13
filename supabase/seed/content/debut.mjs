@@ -234,6 +234,9 @@ export default {
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-reacts-to-cmas-win/' },
           { outlet: 'Forbes', url: 'https://www.forbes.com/pictures/geeg45eilhf/2007-success-is-on-the/' },
           { outlet: 'The Boot', url: 'https://theboot.com/cma-awards-winners-list/' },
+          // Fan-archive footage of the win + "Our Song" performance —
+          // oEmbed-verified 2026-08-12 (see candidates/youtube-appearances.mjs).
+          { outlet: 'YouTube — lionheart33026 (fan archive)', url: 'https://www.youtube.com/watch?v=6Ak1OMIGC1c' },
         ],
         // Photo pass (2026-07-19, defining-events-31-50): 6 added. No further
         // freely licensed photo of the Nov. 7, 2007 ceremony itself was found
@@ -1056,6 +1059,12 @@ export default {
             outlet: 'Wikipedia',
             url: 'https://en.wikipedia.org/wiki/Taylor_Swift',
           },
+          // The interview itself, on Ellen's own channel — oEmbed-verified
+          // 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — TheEllenShow',
+            url: 'https://www.youtube.com/watch?v=vBgiDYBCuxY',
+          },
         ],
         photos: [
           {
@@ -1846,7 +1855,7 @@ export default {
             // fan-run tracking bot and a tabloid write-up, not to Taylor. Same
             // forward-looking debut-re-record question, fresh data point.
             claim:
-              'A fan-run inventory bot ("Taylor Swift Store Updates") flagged ~250,000 vinyl records restocked in Swift\'s webstore warehouse — with per-unit weights suggesting multi-LP sets — which fans and tabloids read as a sign the finished re-recording of her 2006 debut could arrive around its 20th anniversary on Oct 24, 2026. A Target listing briefly showed SEO text for a "Taylor Swift 20" set.',
+              'A fan-run inventory bot ("Taylor Swift Store Updates") flagged ~250,000 vinyl records restocked in Taylor\'s webstore warehouse — with per-unit weights suggesting multi-LP sets — which fans and tabloids read as a sign the finished re-recording of her 2006 debut could arrive around its 20th anniversary on Oct 24, 2026. A Target listing briefly showed SEO text for a "Taylor Swift 20" set.',
             reportedBy: 'Radar Online (Alex West), via AOL',
             reportedOn: '2026-08-07',
             status: 'unconfirmed',
@@ -2485,6 +2494,12 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-17',
             reliability_score: 3,
+          },
+          // Fan-archive footage of the performance — oEmbed-verified
+          // 2026-08-12 (see candidates/youtube-appearances.mjs).
+          {
+            outlet: 'YouTube — Taylor Swift Evolution (fan archive)',
+            url: 'https://www.youtube.com/watch?v=k3eWsix68bs',
           },
         ],
         photos: [],

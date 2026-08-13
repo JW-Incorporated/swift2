@@ -40,6 +40,8 @@ const embed = (id) => ({
   attribution: 'Taylor Swift — official YouTube channel',
 });
 
+import { appearance, upload } from './_appearance-helpers.mjs';
+
 export default {
   eraSlug: 'fearless',
   videos: [
@@ -195,5 +197,26 @@ export default {
         ),
       ],
     },
+    // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
+    appearance({
+      slug: 'grammys-album-of-the-year-2010',
+      kind: 'award_speech',
+      title: 'Accepting Album of the Year for Fearless — 52nd GRAMMYs',
+      releasedOn: '2010-01-31',
+      summary:
+        'Twenty years old, holding Album of the Year for Fearless and, at the time, the youngest artist ever to win it. She thanks her parents and producer Nathan Chapman.',
+      youtubeId: 'BFk2NjdJ1yY',
+      channel: 'GRAMMYS',
+      attribution: "GRAMMYs — the Recording Academy's official YouTube channel",
+      sources: [
+        upload({
+          youtubeId: 'BFk2NjdJ1yY',
+          title:
+            'Taylor Swift accepting the GRAMMY for Album of the Year at the 52nd GRAMMY Awards | GRAMMYs',
+          channel: 'GRAMMYS',
+          note: "official upload on the Recording Academy's own channel — oEmbed-verified 2026-08-12",
+        }),
+      ],
+    }),
   ],
 };

@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { videosForEra, musicVideosForEra, videoForTrack } from './videos';
-import type { EraId } from './types';
+import {
+  videosForEra,
+  musicVideosForEra,
+  videoForTrack,
+  eraVideoFeed,
+  isAppearance,
+  APPEARANCE_KINDS,
+  VIDEO_KIND_LABEL,
+} from './videos';
+import type { EraId, VideoNote } from './types';
 
 const ALL_ERA_IDS: EraId[] = [
   'debut',
@@ -40,6 +48,104 @@ describe('videoForTrack', () => {
         if (match) expect(match.youtubeId).toBeTruthy();
       }
     }
+  });
+});
+
+const allVideos = (): VideoNote[] => ALL_ERA_IDS.flatMap((id) => videosForEra(id));
+
+describe('the appearance taxonomy (2026-08-12)', () => {
+  it('carries the appearances that PR #2035 could not place, on the era of their moment', () => {
+    // One per new kind, spot-checked against the verified ledger
+    // (supabase/seed/candidates/youtube-appearances.mjs).
+    const find = (eraId: EraId, slug: string) => videosForEra(eraId).find((v) => v.slug === slug);
+    expect(find('tloas', 'tonight-show-fallon-2025')?.kind).toBe('interview');
+    expect(find('midnights', 'grammys-album-of-the-year-2024')?.kind).toBe('award_speech');
+    expect(find('evermore', 'nyu-commencement-2022')?.kind).toBe('speech');
+    expect(find('midnights', 'time-person-of-the-year-today-2023')?.kind).toBe('press_event');
+  });
+
+  it('every appearance ships with a verified embeddable upload — never a metadata-only row', () => {
+    // The whole point of the enum widening was to surface WATCHABLE
+    // appearances. An appearance with no official upload must stay out of the
+    // rail entirely (a fan re-upload is a timeline source, never an
+    // officialUrl), so any appearance record that reached the data without a
+    // youtubeId means that rule broke somewhere upstream.
+    for (const v of allVideos().filter(isAppearance)) {
+      expect(v.youtubeId, `${v.slug} has no embeddable upload`).toBeTruthy();
+      expect(v.sources.length, `${v.slug} has no sources`).toBeGreaterThan(0);
+    }
+  });
+
+  it('cites the exact video it embeds', () => {
+    // The seed spells the id twice — once for the embed, once in the upload
+    // citation — because the inertness grammar forbids the spread that would
+    // have let one helper derive both. This is the guard against those two
+    // drifting apart and a card citing a different video than it plays.
+    for (const v of allVideos().filter(isAppearance)) {
+      const cited = v.sources.some((s) => s.url.includes(v.youtubeId as string));
+      expect(cited, `${v.slug} does not cite the video it embeds`).toBe(true);
+    }
+  });
+
+  it('every appearance is dated, so the Videos filter can place it chronologically', () => {
+    for (const v of allVideos().filter(isAppearance)) {
+      expect(v.releasedOn, `${v.slug} is undated`).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
+  });
+
+  it('labels every kind that actually appears in the data', () => {
+    for (const v of allVideos()) {
+      if (v.kind === null) continue;
+      expect(VIDEO_KIND_LABEL[v.kind], `no label for kind ${v.kind}`).toBeTruthy();
+    }
+  });
+
+  it('does not classify her own works as appearances', () => {
+    for (const v of allVideos()) {
+      if (v.kind === 'music_video' || v.kind === 'documentary' || v.kind === 'performance') {
+        expect(isAppearance(v)).toBe(false);
+      }
+    }
+    expect(APPEARANCE_KINDS.has('music_video')).toBe(false);
+  });
+
+  it('never lets an appearance leak into the default music-video timeline merge', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of musicVideosForEra(eraId)) expect(isAppearance(v)).toBe(false);
+    }
+  });
+});
+
+describe('eraVideoFeed', () => {
+  it('returns every video record for the era, newest-first', () => {
+    const feed = eraVideoFeed('midnights');
+    expect(feed.length).toBe(videosForEra('midnights').length);
+    const dated = feed.filter((v) => v.releasedOn !== null).map((v) => v.releasedOn as string);
+    expect([...dated].sort((a, b) => b.localeCompare(a))).toEqual(dated);
+  });
+
+  it('sorts undated records after dated ones rather than dropping them', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      const feed = eraVideoFeed(eraId);
+      const firstUndated = feed.findIndex((v) => v.releasedOn === null);
+      if (firstUndated === -1) continue;
+      expect(feed.slice(firstUndated).every((v) => v.releasedOn === null)).toBe(true);
+    }
+  });
+
+  it('drops a record whose video is already embedded on a moment (no double-showing)', () => {
+    const target = eraVideoFeed('tloas').find((v) => v.youtubeId);
+    expect(target).toBeDefined();
+    const withoutIt = eraVideoFeed('tloas', new Set([target!.youtubeId!]));
+    expect(withoutIt.map((v) => v.slug)).not.toContain(target!.slug);
+    expect(withoutIt.length).toBe(eraVideoFeed('tloas').length - 1);
+  });
+
+  it('surfaces appearances that the music-video merge deliberately excludes', () => {
+    const feedSlugs = eraVideoFeed('tloas').map((v) => v.slug);
+    const timelineSlugs = musicVideosForEra('tloas').map((v) => v.slug);
+    expect(feedSlugs).toContain('late-show-colbert-2025');
+    expect(timelineSlugs).not.toContain('late-show-colbert-2025');
   });
 });
 

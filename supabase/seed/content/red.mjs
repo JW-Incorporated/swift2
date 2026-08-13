@@ -36,7 +36,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
       moment: {
         context:
-          "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.\n\nBeyond the raw number, Red entered the Billboard 200 at No. 1 — her third studio album in a row to debut on top — and it did so almost entirely on full-price purchases at a moment the industry had already begun writing off blockbuster sales weeks. The 1.208-million total stayed the biggest week of Swift's career until she broke her own record two years later, when 1989 opened to 1.287 million in 2014, and it stood among the largest opening weeks any album had posted since the CD era's peak. It also sharpened the pattern Slate marveled at: where a strong 2012 debut meant 300,000 copies, Swift had cleared four times that, doubling the year's next-best debut and turning a release week into the kind of cultural event only a handful of artists in the world could still reliably command in a fragmenting market.",
+          "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.\n\nBeyond the raw number, Red entered the Billboard 200 at No. 1 — her third studio album in a row to debut on top — and it did so almost entirely on full-price purchases at a moment the industry had already begun writing off blockbuster sales weeks. The 1.208-million total stayed the biggest week of Taylor's career until she broke her own record two years later, when 1989 opened to 1.287 million in 2014, and it stood among the largest opening weeks any album had posted since the CD era's peak. It also sharpened the pattern Slate marveled at: where a strong 2012 debut meant 300,000 copies, Taylor had cleared four times that, doubling the year's next-best debut and turning a release week into the kind of cultural event only a handful of artists in the world could still reliably command in a fragmenting market.",
         sources: [
           {
             outlet: 'Slate',
@@ -1181,6 +1181,11 @@ export default {
       day: 22,
       category: 'business',
       title: "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
+      // Era-timeline milestone + video (issue #616, 2026-07-29): moved here
+      // from the now-deleted duplicate stub `red-wanegbt`, which told the
+      // same single's chart-topping story in two sentences with no sources.
+      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
+      video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
       snippet:
         "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
       sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
@@ -1195,6 +1200,17 @@ export default {
             url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together' },
+          // Merged (issue #616 dedup) from the now-deleted duplicate
+          // `red-wanegbt` stub, which a later vault pass had sourced.
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
+            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-11',
+            reliability_score: 4,
+          },
         ],
         // Photo-enrichment pass (2026-07-18, #762): single cover viewed — face sits top-left,
         // so the focal point pulls up-left. Added the 2013 Grammys ringmaster performance of
@@ -2499,35 +2515,10 @@ export default {
         context: "Red is maximalist and messy on purpose — dubstep drops next to acoustic confessionals, all of it about one crimson-colored heartbreak.\n\nThe centerpiece, a ten-minute epic, would return years later as a cultural event of its own.",
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "red-wanegbt",
-      year: 2012,
-      month: 8,
-      day: 13,
-      category: "music",
-      title: "“We Are Never Ever Getting Back Together”",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
-      snippet: "The gleeful kiss-off lead single that announced a decisive pop pivot.",
-      video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
-      moment: {
-        sources: [
-          {
-            outlet: 'Stereogum',
-            url: 'https://stereogum.com/2247416/the-number-ones-taylor-swifts-we-are-never-ever-getting-back-together/columns/the-number-ones',
-            source_title: 'The Number Ones: Taylor Swift\'s "We Are Never Ever Getting Back Together"',
-            publisher: 'Stereogum',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-        ],
-        context: "The lead single arrived with an eye-roll and a spoken-word bridge, and it shot straight to number one — her first Hot 100 chart-topper.\n\nIt signaled, unmistakably, that the country prodigy was walking toward the center of pop.",
-      },
-    },
+    // Duplicate stub removed (issue #616, 2026-07-29): told the same "We Are
+    // Never Ever Getting Back Together" chart-topping story as the richer,
+    // sourced item above in two sentences with no sources; its milestone
+    // marker (m-red-0) and video field moved there.
     {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
@@ -2717,6 +2708,30 @@ export default {
             kind: 'primary',
           },
         ],
+      },
+    },
+
+    // ── YouTube-appearances research pass (2026-08-12) ──
+    // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
+    // and docs/research/2026-08-12-youtube-appearances-manifest.md.
+    {
+      year: 2012,
+      month: 10,
+      day: 23,
+      category: 'music',
+      title: 'Taking over Times Square on Good Morning America, one day after Red',
+      snippet:
+        'The morning after release day: a GMA concert set in Times Square, playing the new album to a crowd that already knew the words.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-whips-new-york-into-a-frenzy-on-good-morning-america-48822/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/019k5vbbqB0/hqdefault.jpg',
+      moment: {
+        context:
+          "An early-morning Times Square crowd sang along to the new album's songs the day after it went on sale — New York whipped into a frenzy, in the words of Rolling Stone's live review — with the record-setting opening week still being counted (the first-week number is covered in this era's business items).",
+        sources: [
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-whips-new-york-into-a-frenzy-on-good-morning-america-48822/' },
+          { outlet: 'YouTube — Paul Henry (fan archive)', url: 'https://www.youtube.com/watch?v=019k5vbbqB0' },
+        ],
+        photos: [],
       },
     },
   ],

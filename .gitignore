@@ -38,3 +38,14 @@ nul
 # News candidate digest — generated every cycle and published to the
 # news-digest branch, never tracked on main (see .github/workflows/news-worker.yml).
 docs/content-ops/news-candidates.md
+
+# Backup/restore drill artifacts (scripts/backup-restore-test.mjs) — dumps of
+# real data plus throwaway Postgres clusters. Never tracked.
+/.backups/
+
+# Keyed live-battery transcripts (npm run clownbot:battery -- --out=...). Run
+# artifacts: large, full of raw model output, and regenerated every run. The
+# runbook (docs/ops/clownbot-launch-gate.md) says attach them to the launch
+# thread, never commit them — this makes that the default rather than a rule
+# someone has to remember at 2am.
+clownbot-battery-*.json

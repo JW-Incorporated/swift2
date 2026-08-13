@@ -114,6 +114,11 @@ export const ALLOWLIST = {
   // cardigan ↔ willow sister-album link. Same caveats, same tracked refactor.
   'supabase/seed/tracks/folklore.mjs':
     'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
+  // Same shape — added 2026-08-12 when the depth-audit batch gave speak-now
+  // its first 12 per-song dossiers (the era was the WORTHY gate's worst at
+  // 0/23). Same caveats, same tracked refactor.
+  'supabase/seed/tracks/speak-now.mjs':
+    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
 };
 
 // The only free identifiers a value may reference (safe constants that cannot
