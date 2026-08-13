@@ -63,6 +63,14 @@ session to do feature work here should overwrite this section.
 <!-- Must NOT be re-litigated. Anything expensive to reverse belongs in
      docs/decisions.md instead — this is the short pointer list. -->
 
+- **Plans do not need a sign-off** (Joey, 2026-08-13). Write the spec/`PLAN.md`,
+  then execute. Planning is still required; only the approval step is gone.
+  Rule 5, rule 6 and § Decision authority are unaffected — product direction,
+  merges, deploys, secrets and spending are still human calls.
+- **No local-concurrency cap** (Joey, 2026-08-13). Run as many local agents as
+  the work warrants; the § Agent shell discipline command rules still bind all
+  of them, and large fleets are still better as cloud sessions on Wyatt's
+  account.
 - Merge authority is human. `git merge` / `gh pr merge` prompt by design; that
   is the founders' gate, not a bug to route around (CLAUDE.md § Agent shell
   discipline).
@@ -95,10 +103,12 @@ session to do feature work here should overwrite this section.
 ## Open threads
 
 - [ ] `MAP.md` is top-level only; deepen on first real use.
-- [ ] The kit-v3 PR is open and NOT merged — the founders are reviewing the nine
-      CLAUDE.md reconciliations topic by topic before it lands.
+- [ ] Residual wording, low priority: § Decision authority and § Roles still say
+      "approved spec". Joey's 2026-08-13 ruling removed the *sign-off gate*, not
+      the spec, and he asked for those sections to be left alone — but if the
+      phrase ever reads as a live approval requirement, reword it to "the spec".
 
 ## Next obvious step
 
-Await the founders' per-topic verdicts on the kit-v3 CLAUDE.md reconciliations,
-apply any overrides to the `kit-v3` branch, then merge.
+Kit-v3 is in. Next session: run the triage rule for real, and deepen `MAP.md`
+the first time you have to go looking for something.

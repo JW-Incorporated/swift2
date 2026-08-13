@@ -35,7 +35,10 @@ written down; ask instead.
 
 1. **Plan before building.** For any non-trivial feature, produce a short spec
    first: what it does, user-visible behavior, acceptance criteria, files
-   affected. Get human approval on the spec before writing code.
+   affected. Then execute it — the plan does not need a sign-off.
+   (2026-08-13: Joey removed the spec sign-off gate — plan, then execute.
+   Planning is still required; only the approval step is gone. Rule 5, rule 6
+   and § Decision authority are unaffected.)
 2. **Work on a branch.** Never commit directly to `main`.
 3. **Cross-review everything.** After implementing, run `/codex:review` on the
    changes and fix every finding before declaring work done. For risky or
@@ -214,9 +217,11 @@ agents doing exactly this — the "doom loop"):
 - `git merge` and `gh pr merge` ALWAYS prompt — that is the founders'
   merge-authority gate, working as designed. Don't fight it; batch merges so
   a founder approves once, deliberately.
-- Parallel local agent fleets multiply whatever prompts remain. Cap local
-  concurrency at 2; anything bigger belongs in cloud sessions on Wyatt's
-  account (`docs/agents/runners.md`).
+- Parallel local agent fleets multiply whatever prompts remain, so keep the
+  commands they run allowlist-shaped. Large fleets are still better run as
+  cloud sessions on Wyatt's account (`docs/agents/runners.md`), which keeps
+  Joey's weekly limit free. (2026-08-13: Joey removed the hard local-
+  concurrency cap of 2 — run as many local agents as the work warrants.)
 
 ## Conventions
 
@@ -239,9 +244,15 @@ adding it to this file. This document should improve weekly.
 # ORCHESTRATOR CONTRACT (kit-v3, added 2026-08-13)
 
 Everything ABOVE this line is the project's own operating manual. It **outranks
-this section wherever the two touch.** Nothing below repeals, relaxes, or
-reinterprets a rule above it — where this section looked like it was about to,
-the conflict is called out and resolved in favour of the rule above.
+this section wherever the two touch.** Nothing below quietly repeals, relaxes,
+or reinterprets a rule above it — where this section looked like it was about
+to, the conflict is called out and resolved in favour of the rule above.
+
+One exception, and it is not a quiet one: on 2026-08-13 Joey ruled that the
+kit's "plan without a sign-off" should win over the old spec-approval gate. That
+was settled by amending **rule 1 itself**, above the separator, rather than by
+overriding it down here — so the two documents still agree, and the diff shows
+the change.
 
 What this section adds is the one thing the manual above does not cover: **how a
 session decides who does each piece of work** — the orchestrator/agent split,
@@ -249,11 +260,12 @@ and the working-memory files that make a fresh session productive in 30 seconds.
 
 ## Precedence map — the nine places these two overlap
 
-Read this before the rest. In every row, the project rule wins.
+Read this before the rest. The project rule wins in every row except the first,
+where Joey ruled for the kit on 2026-08-13 and rule 1 was amended above to match.
 
 | Topic | Governing rule | What this section may still do |
 |---|---|---|
-| Workflow rules (non-negotiable) | **§Workflow rules above** | Nothing. Spec-then-approval, branch-only, Codex cross-review, test-everything, decisions logged in `docs/decisions.md` all stand unchanged. |
+| Workflow rules (non-negotiable) | **§Workflow rules above**, as amended 2026-08-13 | The one row where the kit's approach WON, by Joey's ruling: rule 1 was amended above to drop the sign-off gate, so an Opus session writes the plan and executes it. The rest of that section is untouched — branch-only, Codex cross-review, test-everything, decisions logged in `docs/decisions.md`. |
 | Never babysit your own PR | **§Never babysit your own PR above** | Nothing. No wake-ups, no polling, no `send_later`, no exceptions — this even switches OFF the `pause` skill's scheduled-resume step (see § Session / usage limits). |
 | Definition of done | **§Definition of done above** | Supply the *evidence* for it — nothing counts as done from reading code. |
 | Cost discipline | **§Cost discipline above** | Supply a mechanism (delegation, context hygiene) for its "largest waste is rework". |
@@ -261,7 +273,7 @@ Read this before the rest. In every row, the project rule wins.
 | Don't stop to ask | **§Don't stop to ask above** | Nothing. That section's list of what is yours to decide is the operative one. |
 | Decision authority | **§Decision authority above** | Nothing. Its may / may-not lists are complete and binding. |
 | Roles (modes, not agents) | **§Roles above** | Add a *delegation* axis that sits underneath the modes — a different question, not a competing answer. |
-| Agent shell discipline | **§Agent shell discipline above** | Nothing. Its shell rules and the concurrency cap of 2 bind every agent spawned under this section. |
+| Agent shell discipline | **§Agent shell discipline above** | Nothing. Its shell rules bind every agent spawned under this section. (Its hard local-concurrency cap of 2 was removed 2026-08-13 by Joey — fleet size is now a judgement call, the shell rules are not.) |
 
 ---
 
@@ -281,7 +293,7 @@ Before acting on ANY message, however casual or sloppy, classify it:
    approach. They return summaries; their exploration never lands in your context.
 3. **Mechanical work** (renames, moves, boilerplate, rote edits, well-defined
    commands) → delegate to `grunt`.
-4. **Planned implementation** (executing an approved `PLAN.md`) → delegate to
+4. **Planned implementation** (executing a written `PLAN.md`) → delegate to
    `executor`, then `reviewer` on the diff.
 5. **Judgment work** (architecture, writing `PLAN.md`, debugging after two
    strikes, resolving ambiguity, reviewing agent output) → yours. This is the
@@ -319,16 +331,17 @@ These are two different axes and they do not compete:
   as senior engineer, reviewing). That section is unchanged and still governs.
 - **The agents here = who physically executes** the work of whichever hat is on.
 
-Two hard consequences, both from rules above:
+One hard consequence, from a rule above:
 
 - **`reviewer` does NOT satisfy Workflow rule 3.** The `reviewer` agent is an
   internal check on plan fidelity before *you* accept a diff. Cross-review is
   still `/codex:review` (or `/codex:adversarial-review`), by the independent
   reviewer whose job is to disagree, and every finding is still fixed before
   work is declared done. Running `reviewer` and skipping Codex is a violation.
-- **Local concurrency stays capped at 2**, per §Agent shell discipline. The
-  delegation model here does not license a fleet; anything bigger belongs in
-  cloud sessions on Wyatt's account (`docs/agents/runners.md`).
+
+There is no cap on how many agents you may run locally (Joey removed it
+2026-08-13). Fleet size is a judgement call about the work; the shell rules in
+§Agent shell discipline still bind every one of them.
 
 ---
 
@@ -433,12 +446,18 @@ sentences. Per §Don't stop to ask above, that is a notification, not a question
 Tasks touching more than ~3 files: write `PLAN.md` first (that's your job, not
 an agent's), from `PLANtemplate.md`, then hand it to `executor`.
 
-**Approval:** Workflow rule 1 above governs and is unchanged — a non-trivial
-feature's spec gets human approval before code is written. `PLAN.md` is the
-executable form of that spec, not a way around it. (The generic kit says plans
-need no approval; that does not apply in this repo.)
+**Approval: none needed.** Write the plan, then execute it. Joey settled this on
+2026-08-13 — "an opus agent is free to write the plan, then execute" — and
+Workflow rule 1 above was amended to match, so the two agree.
 
-An approved plan is binding — for you and for the executor. If it turns out
+Planning itself is still required: `PLAN.md` is the executable form of the spec
+rule 1 asks for, not a way around it. And dropping the sign-off changes nothing
+else — rule 5 still sends genuine disagreements to the humans, rule 6 still
+demands a `docs/decisions.md` entry before anything expensive to reverse, and
+§ Decision authority still governs. Product direction, merges, deploys, secrets
+and spending remain human calls; only the plan sign-off is gone.
+
+A written plan is binding — for you and for the executor. If it turns out
 wrong, stop, rewrite it, log why in `STATE.md`, continue. Don't improvise around
 a broken plan, and don't let an agent improvise around one.
 
