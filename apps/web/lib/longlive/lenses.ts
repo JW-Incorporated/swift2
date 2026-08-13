@@ -10,8 +10,9 @@ import { contentForThread } from './threads';
 /**
  * Presentation metadata for each Thread (formerly "Lens"). The `what` line is
  * the promise we make the instant someone opens a thread — it must answer
- * "where am I and what am I exploring?" in one breath. `hero` reuses era art so
- * a thread feels as rich as an era. `icon` is resolved in the component.
+ * "where am I and what am I exploring?" in one breath. `hero` is mostly era art
+ * so a thread feels as rich as an era; a thread whose subject IS a person can
+ * carry its own photo instead. `icon` is resolved in the component.
  */
 export interface ThreadMeta {
   id: LensId;
@@ -19,21 +20,63 @@ export interface ThreadMeta {
   kicker: string;
   what: string;
   hero: string;
+  /**
+   * `object-position` for `hero`, when the default centre crop loses the
+   * subject. Era art is square and needs none; a portrait photo cropped to a
+   * 16:10 card does.
+   */
+  heroPosition?: string;
+  /**
+   * Alt text for `hero`. Omitted = the image is decorative texture behind the
+   * thread's own title/blurb (true of the era-art heroes) and renders `alt=""`.
+   * Set it when the photo carries meaning the surrounding copy doesn't.
+   */
+  heroAlt?: string;
+  /**
+   * Photographer + licence for `hero`, rendered on the thread detail. Required
+   * by licence for anything CC BY / CC BY-SA; kept for public-domain photos
+   * too because saying where a photo came from is the site's standing habit.
+   * Threads whose hero is a tile grid derive this from the tiles instead
+   * (see `threadHeroCredit`).
+   */
+  heroCredit?: string;
 }
 
 export const THREADS: ThreadMeta[] = [
   {
     id: 'the-proposal',
     title: 'End Game',
-    kicker: 'A love story, in real time',
-    what: 'Follow the story from a friendship bracelet to a garden proposal — the sourced, dated moments behind the engagement.',
-    hero: '/eras/lover.png',
+    kicker: 'It started with him asking',
+    what: 'The tight end who invited her onto his podcast — and every sourced, dated step after it, from the first game to the ring in the garden.',
+    // Joey's A1 pick (2026-08-13): End Game's card is Travis's face, so it can
+    // never read as the same thread as Blank Spaces. Rehosted rather than
+    // hotlinked because every other THREADS hero is a local file — same
+    // Commons original already vetted for `rel-kelce` below and for the social
+    // library (scripts/social/seed-library.mjs):
+    // https://commons.wikimedia.org/wiki/File:Travis_Kelce_in_the_Oval_Office_of_the_White_House_on_June_5,_2023_-_P20230605AS-0902_(cropped).jpg
+    // Public domain (a work of a US federal government employee). Fetched from
+    // the 1280px thumb and downscaled to 1200px wide, q82 mozjpeg.
+    hero: '/threads/end-game-travis-kelce.jpg',
+    // Measured in the browser at the real phone geometry (350x262 card, the
+    // 4:3 single-column case), not guessed. The text block is 246px of that
+    // 262px card — but its top 48px is a transparent-to-opaque ramp, so the
+    // strip where the photo actually reads is only the top ~60px. A centred
+    // crop of a 1200x1576 portrait puts his scalp in that strip; this pushes
+    // the face into it, and the face is legible at both 4:3 (phone) and 16:10
+    // (desktop). Re-check this value if the card's aspect or copy length moves.
+    heroPosition: '50% 36%',
+    heroAlt: 'Travis Kelce, smiling, in a red jacket at the White House in 2023.',
+    heroCredit: 'Adam Schultz / The White House · Public domain, via Wikimedia Commons',
   },
   {
     id: 'love-story',
     title: 'Blank Spaces',
-    kicker: 'The one that stuck',
-    what: 'The real love story — Travis, and the friendship bracelet that started it — while every era before him gets its own name, not this one.',
+    kicker: 'Nine names before him',
+    what: 'Her past relationships, era by era — the songs each one produced, and the quiet stretches in between.',
+    // Joey's B2 pick (2026-08-13): "the wall of names" — the card art is the
+    // grid of portraits in `threadHeroTiles('love-story')`, deliberately many
+    // so no single ex becomes "the" face. This `hero` is only the fallback if
+    // that grid is ever empty.
     hero: '/eras/lover.png',
   },
   {
@@ -68,6 +111,82 @@ export const THREADS: ThreadMeta[] = [
 
 export function getThread(id: LensId): ThreadMeta {
   return THREADS.find((t) => t.id === id) ?? THREADS[0];
+}
+
+/** One face in a thread's grid hero. */
+export interface ThreadHeroTile {
+  /** The relationship this portrait belongs to. */
+  id: string;
+  name: string;
+  url: string;
+  alt: string;
+  /** Photographer + licence — a licence condition on the CC BY / CC BY-SA ones. */
+  credit: string;
+}
+
+/**
+ * The "wall of names" hero (Joey, 2026-08-13, option B2): a thread whose
+ * subject is a *set* of people gets a grid of their portraits instead of one
+ * photo, so no single person becomes the face of the thread.
+ *
+ * Derived from `RELATIONSHIPS`, never hand-listed — the grid is the thread's
+ * own data, so adding or re-photographing a relationship updates the card for
+ * free. Two honest omissions, both structural rather than editorial:
+ *   - the ONGOING relationship is excluded (`end === null`) — Blank Spaces is
+ *     the eras *before* him, and End Game is his card;
+ *   - anyone with no portrait in the data is skipped, which today means Conor
+ *     Kennedy (deliberately unphotographed, privacy-redlines #5). That is why
+ *     the grid shows eight faces against a kicker that says nine names: the
+ *     count in the copy is the relationships, not the photographs.
+ *
+ * Returns `[]` for every other thread; callers fall back to `meta.hero`.
+ */
+export function threadHeroTiles(id: LensId): ThreadHeroTile[] {
+  if (id !== 'love-story') return [];
+  return RELATIONSHIPS.filter((r) => r.end !== null && r.image).map((r) => ({
+    id: r.id,
+    name: r.name,
+    url: r.image!.url,
+    alt: r.image!.alt,
+    credit: r.image!.credit,
+  }));
+}
+
+/**
+ * How many columns a grid hero lays its tiles out in — always two rows, so a
+ * card-shaped box gets card-shaped tiles.
+ *
+ * Derived from the tile count rather than hard-coded, because the tiles
+ * themselves are derived: hard-coding four columns is tidy only while the data
+ * happens to hold eight portraits, and the moment a ninth is added (giving
+ * Conor Kennedy a photo would do it) a fixed four-column grid becomes three
+ * rows with one face and three holes. The component pairs this with a widened
+ * last tile when the count is odd, so the wall stays solid at any count.
+ */
+export function heroGridColumns(tileCount: number): number {
+  return Math.max(1, Math.ceil(tileCount / 2));
+}
+
+/**
+ * The credit line to render under a thread's hero: the tile credits when it
+ * has a grid hero, otherwise the single photo's credit. Undefined for the era-
+ * art heroes, which are album art and carry no photographer.
+ *
+ * Rendered on the thread DETAIL header only, deliberately. The gallery card
+ * also displays the portraits, and CC BY / CC BY-SA attribution is a licence
+ * condition wherever a work is shown — but eight photographer credits do not
+ * fit a card whose text block already fills 246 of its 262 phone pixels, and
+ * truncating an attribution is worse than placing it one tap away. So the
+ * gallery shows the art as a thumbnail and the credit renders in full the
+ * moment the thread opens. If a card ever displays a licensed photo WITHOUT a
+ * detail view behind it, that reasoning does not carry — credit it in place.
+ */
+export function threadHeroCredit(id: LensId): string | undefined {
+  const tiles = threadHeroTiles(id);
+  if (tiles.length > 0) {
+    return `Portraits: ${tiles.map((t) => `${t.name} — ${t.credit}`).join('; ')}. Via Wikimedia Commons.`;
+  }
+  return getThread(id).heroCredit;
 }
 
 /** A single dated point on a thread's career-spanning timeline. */
