@@ -7,6 +7,50 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — Source independence is outlet identity; video platforms are evidence, never outlets (#2036)
+
+**Decision:** `independentOutlets()` (`scripts/lib/sourcing-gate.mjs`) stops
+counting URL hostnames and counts **outlet identities**:
+
+1. **Video/UGC platform links (YouTube, youtu.be, Vimeo, Dailymotion, Twitch)
+   count ZERO toward independence, always** — including official-channel
+   uploads. A video is *evidence* that an event happened; it is not an outlet
+   reporting on it. An official upload is the subject's own primary source; a
+   fan re-upload is nobody's; unknown provenance is classified like a fan
+   upload (fail closed). Video links remain valid citations and still satisfy
+   the one-source minimum — they just can't lift a `relationship`/`business`
+   claim over the two-outlet bar.
+2. **Press outlets are identified by registrable domain** (with a small
+   ccSLD table so `bbc.co.uk` ≠ `co.uk`), so `music.example.com` and
+   `www.example.com` are one outlet. Strictly stricter than exact-host.
+3. **An unparseable URL counts zero** — previously `hostOf()` returned its
+   garbage input on parse failure, so a typo'd URL counted as a full outlet.
+
+**Why:** issue #2036 — host-keying let any youtube.com link, including an
+anonymous fan re-upload, count as one full independent outlet, and two fan
+re-uploads as two. Two records were promoted over the two-outlet bar on
+exactly that on 2026-08-12, the same day the discovery lane (#2034) started
+feeding YouTube URLs into content at volume. Measured against the whole
+corpus: 168 `relationship`/`business` moments, 12 lose exactly the phantom
+YouTube "outlet", **zero fall below the bar** — the stricter rule delists
+nothing, because #2035 already re-sourced the two riders to real press.
+
+**Alternatives considered:**
+- *Count an official-channel upload as an outlet identified by channel.*
+  Rejected: official uploads are the subject's own account of the event —
+  self-published primary sources. Counting them would let "Taylor's channel +
+  one outlet" satisfy a bar that exists to require *independent* corroboration.
+- *Only demote fan re-uploads, keep official as outlets.* Rejected for the
+  same reason, plus provenance is only knowable from `source_type`, which
+  most citations lack — the common case would silently decide the rule.
+- *Full public-suffix list dependency for registrable domains.* Rejected:
+  a new dependency for a gate script; the small table fails in the strict
+  direction (an unlisted ccSLD collapses further, counting fewer, never more).
+
+**Approved:** implemented at Joey's direction (free rein on design);
+**sourcing/threshold semantics are Wyatt's call — flagged for his sign-off in
+the PR.**
+
 ## 2026-08-12 — `video_work.kind` grows an APPEARANCE family; the era Videos rail gains a filter
 
 **Decision:** `VIDEO_KINDS` gains four values — `interview`, `award_speech`,

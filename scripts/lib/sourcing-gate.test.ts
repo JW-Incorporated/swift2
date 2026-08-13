@@ -3,9 +3,11 @@ import {
   SINGLE_OUTLET_LEGACY,
   TWO_OUTLET_CATEGORIES,
   UNSOURCED_LEGACY,
+  classifySource,
   independentOutlets,
   isWeakSource,
   momentKey,
+  registrableDomain,
 } from './sourcing-gate.mjs';
 
 // --- the ratchet, asserted -------------------------------------------------
@@ -126,6 +128,105 @@ describe('independentOutlets', () => {
         { source_url: 'https://www.npr.org/b' },
       ]),
     ).toBe(2);
+  });
+});
+
+// --- issue #2036: outlet identity, not hostname ----------------------------
+// The regression that filed the ticket: independence was keyed on URL host,
+// so any youtube.com link — including an anonymous fan re-upload — counted
+// as one full independent outlet, and two fan re-uploads counted as two.
+// Two real records were promoted over the two-outlet bar on exactly that.
+describe('video platforms are evidence, never outlets (issue #2036)', () => {
+  it('REGRESSION #2036: two fan re-uploads of the same event are zero independent outlets', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://www.youtube.com/watch?v=aaaaaaaaaaa', source_type: 'video' },
+        { url: 'https://www.youtube.com/watch?v=bbbbbbbbbbb', source_type: 'video' },
+      ]),
+    ).toBe(0);
+  });
+
+  it('REGRESSION #2036: a fan re-upload cannot be the second outlet behind a claim', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://www.billboard.com/a', publisher: 'Billboard' },
+        { url: 'https://www.youtube.com/watch?v=ccccccccccc', publisher: 'YouTube' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('an OFFICIAL-channel upload plus one press outlet is still one outlet — an official upload is the subject\'s own primary source, not independent corroboration', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://www.youtube.com/watch?v=ddddddddddd', source_type: 'official' },
+        { url: 'https://www.npr.org/a', publisher: 'NPR' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('unknown provenance counts conservatively: like a fan upload, zero', () => {
+    // No source_type at all — the common case. Never assume official.
+    expect(independentOutlets([{ url: 'https://youtu.be/eeeeeeeeeee' }])).toBe(0);
+    expect(classifySource({ url: 'https://youtu.be/eeeeeeeeeee' })).toEqual({
+      role: 'evidence',
+      provenance: 'unknown',
+    });
+  });
+
+  it('official upload and fan re-upload stay distinguishable in classification', () => {
+    expect(
+      classifySource({ url: 'https://www.youtube.com/watch?v=x', source_type: 'official' }),
+    ).toEqual({ role: 'evidence', provenance: 'official' });
+    expect(
+      classifySource({ url: 'https://www.youtube.com/watch?v=x', source_type: 'fan_archive' }),
+    ).toEqual({ role: 'evidence', provenance: 'fan' });
+  });
+
+  it('subdomains and short-link domains of a platform are the platform', () => {
+    for (const url of [
+      'https://music.youtube.com/watch?v=x',
+      'https://youtu.be/x',
+      'https://vimeo.com/12345',
+      'https://www.dailymotion.com/video/x',
+    ]) {
+      expect(classifySource({ url }).role, url).toBe('evidence');
+    }
+  });
+
+  it('a video-platform link is NOT "weak" — it satisfies the one-source minimum, it just corroborates nothing', () => {
+    // Same behavior as before #2036: the link-first model still accepts an
+    // official upload as a moment's source; only the independence count changed.
+    expect(isWeakSource({ url: 'https://www.youtube.com/watch?v=x', source_type: 'official' })).toBe(
+      false,
+    );
+  });
+});
+
+describe('outlet identity is the registrable domain, and unknowns count zero', () => {
+  it('two subdomains of one outlet are ONE identity — url styling cannot mint a second outlet', () => {
+    expect(
+      independentOutlets([
+        { url: 'https://music.example.com/a' },
+        { url: 'https://www.example.com/b' },
+      ]),
+    ).toBe(1);
+  });
+
+  it('keeps UK-style outlets apart: bbc.co.uk is not "co.uk"', () => {
+    expect(registrableDomain('www.bbc.co.uk')).toBe('bbc.co.uk');
+    expect(
+      independentOutlets([
+        { url: 'https://www.bbc.co.uk/news/a' },
+        { url: 'https://www.theguardian.com/b' },
+      ]),
+    ).toBe(2);
+  });
+
+  it('an unparseable URL identifies nobody and counts zero (it used to count as a full outlet)', () => {
+    expect(classifySource({ url: 'not a url at all' })).toEqual({ role: 'unusable' });
+    expect(
+      independentOutlets([{ url: 'not a url at all' }, { url: 'also::not::a::url' }]),
+    ).toBe(0);
   });
 });
 
