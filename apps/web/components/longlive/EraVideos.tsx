@@ -90,6 +90,7 @@ function VideoCard({ video }: { video: VideoNote }) {
         <MomentVideo
           video={{ youtubeId: video.youtubeId, title: video.title }}
           caption={null}
+          playNoun={video.kind ? VIDEO_KIND_LABEL[video.kind].toLowerCase() : 'video'}
           className="mt-4"
         />
       )}

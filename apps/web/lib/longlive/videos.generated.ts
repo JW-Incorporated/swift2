@@ -544,7 +544,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       director: null,
       releasedOn: "2020-01-23",
       relatedSongs: [],
-      summary: "Miss Americana opens Sundance, and Swift joins director Lana Wilson on stage afterwards for the festival Q&A — days before the documentary landed on Netflix.",
+      summary: "Miss Americana opens Sundance, and Taylor joins director Lana Wilson on stage afterwards for the festival Q&A — days before the documentary landed on Netflix.",
       easterEggs: [],
       symbolism: null,
       youtubeId: "JqIt0H6XqpA",

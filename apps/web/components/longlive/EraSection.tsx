@@ -639,6 +639,7 @@ function VideoMomentCard({
           <MomentVideo
             video={{ youtubeId: video.youtubeId, title: video.title }}
             caption={null}
+            playNoun={kindLabel.toLowerCase()}
             className="mt-4"
           />
         )}
