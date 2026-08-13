@@ -54,3 +54,7 @@ clownbot-battery-*.json
 # renders used to choose a `heroPosition` by looking at it. The hero itself is
 # committed to apps/web/public/threads/; these are the working shots.
 /thread-hero-preview/
+
+# Agent scratch output (CLAUDE.md § Mechanics) — filtered command output and
+# throwaway working files. Never tracked.
+.scratch/
