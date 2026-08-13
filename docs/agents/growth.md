@@ -73,7 +73,11 @@ posts when its `scheduledAt` arrives. Those two fields survive as optional
 provenance (who/when, when a human *did* weigh in) and are no longer a gate.
 What still bounds posting is all code, not trust: per-run and daily
 per-platform caps in `scripts/social/lib/queue.mjs` (changing them is a
-normal reviewed code change) and the `SOCIAL_FREEZE` repo variable.
+normal reviewed code change), the `SOCIAL_FREEZE` repo variable, and — since
+2026-08-12 (issue #2031) — a fail-closed stale-ledger guard: the poster
+refuses to run at all while any `social-poster/state-*` queue-state PR is
+still open, because the `social/posted/` dedupe ledger on `main` is then
+known-stale and posting on it manufactures duplicates.
 
 **What this moves onto the drafting run.** With no human between the draft
 and the timeline, the Growth run's own judgment is the only editorial gate
@@ -125,8 +129,14 @@ merged/authoritative record; the two duplicate-post PRs (#767, #776) were
 closed unmerged. Cleanup attempted via `scripts/social/delete-media.mjs`
 found Instagram posts can't be deleted through the API at all (see that
 file's header) — the two duplicate Instagram posts need manual deletion in
-the app; this can't recur going forward since the PAT fix prevents a queue
-item from ever staying stuck on `main`.
+the app. The PAT fix removed that particular trigger — but the same disease
+DID recur on 2026-08-11/12 through a different strand (the auto-merge
+allowlist never covered `social/posted/`, and PR #1900's disarm-on-decline
+then stranded every success-recording state PR; see issue #2031 and
+`docs/decisions.md` 2026-08-12). The durable lesson: ANY stranded state PR
+means a stale ledger, whatever stranded it — which is why the poster now
+fails closed (refuses to post, loudly) while one is open, and why a state PR
+must always be merged, never closed.
 
 **The silent outage (2026-07-21 → 2026-08-04, found 2026-08-11):** eleven X
 queue items hit `403 {"detail":"You are not permitted to perform this
