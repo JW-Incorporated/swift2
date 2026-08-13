@@ -48,6 +48,15 @@ export interface ThreadMeta {
    * (see `threadHeroCredit`).
    */
   heroCredit?: string;
+  /**
+   * The photo's Commons file page. Rendered as the credit's link, because
+   * CC BY 4.0 / CC BY-SA 4.0 §3(a)(1) ask for a URI to the licensed material
+   * "to the extent reasonably practicable" — a credit line naming a licence
+   * with no way to reach it satisfies the habit but not the condition. The
+   * Commons page is the right target: it carries the licence deed link, the
+   * full author record and the original file.
+   */
+  heroSourceUrl?: string;
 }
 
 export const THREADS: ThreadMeta[] = [
@@ -75,6 +84,8 @@ export const THREADS: ThreadMeta[] = [
     heroPosition: '50% 36%',
     heroAlt: 'Travis Kelce, smiling, in a red jacket at the White House in 2023.',
     heroCredit: 'Adam Schultz / The White House · Public domain, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Travis_Kelce_in_the_Oval_Office_of_the_White_House_on_June_5,_2023_-_P20230605AS-0902_(cropped).jpg',
   },
   {
     id: 'love-story',
@@ -109,6 +120,8 @@ export const THREADS: ThreadMeta[] = [
     heroPosition: '50% 26%',
     heroAlt: 'The gold gown Taylor Swift wore in the "Bejeweled" video, displayed on a mannequin at the V&A in London.',
     heroCredit: '14GTR · CC0, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Taylor_Swift_Songbook_Trail_Bejeweled_costume_01.jpg',
   },
   {
     id: 'taylors-version',
@@ -130,6 +143,8 @@ export const THREADS: ThreadMeta[] = [
     heroPosition: '50% 82%',
     heroAlt: 'Taylor Swift performing "All Too Well (10 Minute Version)" in a red sequined coat at the Eras Tour, August 2023.',
     heroCredit: 'Paolo Villanueva · CC BY 2.0, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg',
   },
   {
     id: 'easter-eggs',
@@ -152,6 +167,8 @@ export const THREADS: ThreadMeta[] = [
     heroPosition: '50% 18%',
     heroAlt: 'A stadium of light-up wristbands turned purple around a single spotlit stage at the Eras Tour, Minneapolis, June 2023.',
     heroCredit: 'Michael Hicks · CC BY 2.0, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_Minnesota_-_acoustic_set_2.jpg',
   },
   {
     id: 'hidden-clues',
@@ -171,6 +188,8 @@ export const THREADS: ThreadMeta[] = [
     heroPosition: '50% 80%',
     heroAlt: 'Fans at the Eras Tour raising hands with the number 13 inked on them, Gelsenkirchen, July 2024.',
     heroCredit: 'Sally-Marie Böhm · CC BY-SA 4.0, via Wikimedia Commons',
+    heroSourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Fans_With_Friendship_Bracelets_at_The_Eras_Tour.png',
   },
 ];
 
@@ -252,6 +271,17 @@ export function threadHeroCredit(id: LensId): string | undefined {
     return `Portraits: ${tiles.map((t) => `${t.name} — ${t.credit}`).join('; ')}. Via Wikimedia Commons.`;
   }
   return getThread(id).heroCredit;
+}
+
+/**
+ * Where the credit line links to: the single photo's Commons page, or nothing
+ * for a grid hero (whose credit names several photos and so has no one target)
+ * and for the era-art fallback. Paired with `threadHeroCredit` at the render
+ * site so a licence's attribution URI actually reaches the page.
+ */
+export function threadHeroSourceUrl(id: LensId): string | undefined {
+  if (threadHeroTiles(id).length > 0) return undefined;
+  return getThread(id).heroSourceUrl;
 }
 
 /** A single dated point on a thread's career-spanning timeline. */

@@ -29,11 +29,16 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import sharp from 'sharp';
 
 const UA = 'LongLiveTS/1.0 (https://longlivets.com; hello@longlivets.com) thread-hero-sourcing';
-const HERO_DIR = 'apps/web/public/threads';
+// Anchored to the repo, never to the cwd: run from a subdirectory and a
+// cwd-relative path would happily `mkdir -p apps/web/public/threads` under
+// wherever you happened to be standing, report success, and leave the hero
+// somewhere the app never looks.
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const HERO_DIR = path.join(REPO_ROOT, 'apps/web/public/threads');
 const HERO_WIDTH = 1200; // matches the End Game hero (#2053)
 /**
  * The End Game hero is 127KB at 1200px wide, and that is the scale the rest
@@ -45,7 +50,8 @@ const HERO_WIDTH = 1200; // matches the End Game hero (#2053)
  */
 const HERO_MAX_BYTES = 150 * 1024;
 const HERO_QUALITIES = [82, 78, 74, 70, 66, 62];
-const PREVIEW_DIR = process.env.THREAD_HERO_PREVIEW_DIR ?? 'thread-hero-preview';
+const PREVIEW_DIR =
+  process.env.THREAD_HERO_PREVIEW_DIR ?? path.join(REPO_ROOT, 'thread-hero-preview');
 
 /** JPEG / PNG / WebP / GIF file signatures — anything else is not a photo. */
 const MAGIC = [
@@ -62,6 +68,11 @@ const MAGIC = [
  * leftover width/height is split by the position percentages.
  */
 export function coverWindow(srcW, srcH, boxW, boxH, posX, posY) {
+  // CSS clamps an out-of-range object-position to the edge rather than
+  // scrolling past it; without this, 120% walks the extract window off the
+  // bottom of the image and sharp dies with "bad extract area".
+  posX = Math.min(100, Math.max(0, posX));
+  posY = Math.min(100, Math.max(0, posY));
   const scale = Math.max(boxW / srcW, boxH / srcH);
   const width = Math.min(srcW, Math.round(boxW / scale));
   const height = Math.min(srcH, Math.round(boxH / scale));
@@ -84,6 +95,23 @@ export function parsePosition(value) {
   if (nums.length === 0) return [50, 50];
   if (nums.length === 1) return [nums[0], 50];
   return [nums[0], nums[1]];
+}
+
+/**
+ * Decode to upright raw pixels, and report the dimensions a browser would show.
+ *
+ * `.rotate()` applies the EXIF orientation and sharp strips EXIF on output, so
+ * without it a photo tagged "rotate 90" ships on its side. But `.metadata()`
+ * on a rotate-pending pipeline still reports the PRE-rotation width and height
+ * (verified against sharp 0.34 / libvips 8.18), so anything that measures a
+ * crop from it — `coverWindow`, the placeholder check — would be measuring the
+ * wrong axis. Materialising raw pixels is the only reading that cannot lie:
+ * `info` describes what actually came out. Raw rather than re-encoded, so the
+ * quality ladder below compresses the original once, not twice.
+ */
+async function uprightPixels(input) {
+  const pixels = await sharp(input).rotate().raw().toBuffer({ resolveWithObject: true });
+  return { pixels, width: pixels.info.width, height: pixels.info.height };
 }
 
 async function commonsMetadata(title) {
@@ -131,9 +159,9 @@ async function cmdFetch(title, basename) {
   const head = body.subarray(0, 4).toString('hex');
   const kind = MAGIC.find(([sig]) => head.startsWith(sig))?.[1];
   if (!kind) throw new Error(`Not an image (magic bytes ${head}) — got ${body.length} bytes`);
-  const probe = await sharp(body).metadata();
-  if (probe.width < HERO_WIDTH) {
-    throw new Error(`Only ${probe.width}px wide; a hero needs ${HERO_WIDTH}px (placeholder?)`);
+  const { pixels, width: srcW, height: srcH } = await uprightPixels(body);
+  if (srcW < HERO_WIDTH) {
+    throw new Error(`Only ${srcW}px wide; a hero needs ${HERO_WIDTH}px (placeholder?)`);
   }
 
   fs.mkdirSync(HERO_DIR, { recursive: true });
@@ -142,7 +170,7 @@ async function cmdFetch(title, basename) {
   let encoded;
   for (const q of HERO_QUALITIES) {
     quality = q;
-    encoded = await sharp(body)
+    encoded = await sharp(pixels.data, { raw: pixels.info })
       .resize({ width: HERO_WIDTH, withoutEnlargement: true })
       .jpeg({ quality: q, mozjpeg: true })
       .toBuffer();
@@ -163,7 +191,7 @@ async function cmdFetch(title, basename) {
         '— accept it deliberately (say so in the PR) or choose a less noisy source.',
     );
   }
-  console.log(`  source     ${probe.width}x${probe.height} ${kind} from ${meta.page}`);
+  console.log(`  source     ${srcW}x${srcH} ${kind} from ${meta.page}`);
   console.log(`  artist     ${meta.artist}`);
   console.log(`  licence    ${meta.licence}`);
   console.log(`  date       ${meta.date}`);
@@ -174,15 +202,25 @@ async function cmdPreview(file, position) {
   if (!file) throw new Error('usage: preview <image> "<object-position>"');
   const [posX, posY] = parsePosition(position);
   fs.mkdirSync(PREVIEW_DIR, { recursive: true });
-  const meta = await sharp(file).metadata();
+  // Same reason as in `fetch`: measure the crop against what the browser will
+  // actually show, which is the upright image.
+  const { pixels, width: srcW, height: srcH } = await uprightPixels(file);
   // 350x262 (4:3) is the phone card; 16:10 is the `sm:` and up card. Rendered
   // at 2x so the strip that stays uncovered is legible on screen.
   for (const [label, boxW, boxH, blockFraction] of [
     ['phone-4x3', 700, 524, 492 / 524],
     ['desktop-16x10', 700, 438, 0.72],
   ]) {
-    const win = coverWindow(meta.width, meta.height, boxW, boxH, posX, posY);
-    const base = await sharp(file).extract(win).resize(boxW, boxH).toBuffer();
+    const win = coverWindow(srcW, srcH, boxW, boxH, posX, posY);
+    // Stays raw all the way to the composite below — a raw-input pipeline
+    // returns raw pixels, so the scrim stage has to be told their shape rather
+    // than sniffing a format that isn't there.
+    const base = await sharp(pixels.data, { raw: pixels.info })
+      .extract(win)
+      .resize(boxW, boxH)
+      .raw()
+      .toBuffer();
+    const baseRaw = { width: boxW, height: boxH, channels: pixels.info.channels };
     const blockTop = Math.round(boxH * (1 - blockFraction));
     const scrims = `<svg width="${boxW}" height="${boxH}">
       <defs>
@@ -201,7 +239,7 @@ async function cmdPreview(file, position) {
       <rect y="${blockTop}" width="${boxW}" height="${boxH - blockTop}" fill="url(#textblock)"/>
     </svg>`;
     const out = path.join(PREVIEW_DIR, `${path.basename(file, path.extname(file))}-${label}.jpg`);
-    await sharp(base)
+    await sharp(base, { raw: baseRaw })
       .composite([{ input: Buffer.from(scrims) }])
       .jpeg({ quality: 90 })
       .toFile(out);
