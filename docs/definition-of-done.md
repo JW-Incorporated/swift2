@@ -27,7 +27,7 @@ CLAUDE.md's workflow — anything non-trivial gets a spec approved before code.
 |---|---|---|---|
 | 1 | Landing page rethink (scroll-first + obvious nav) | ⬜ not started | Design spec + mockups → founder approval |
 | 2 | End Game vs Blank Spaces cards differentiated | 🟡 built, awaiting Joey's device check ([#2053](https://github.com/JW-Incorporated/swift2/pull/2053)) | Joey eyeballs both cards on his phone — the last acceptance criterion |
-| 3 | Clue Web vs Decode cards differentiated | ⬜ not started | Copy + art fix (small, buildable now) |
+| 3 | Clue Web vs Decode cards differentiated | 🟡 built, awaiting Joey's eyeball ([#2062](https://github.com/JW-Incorporated/swift2/pull/2062)) | Joey checks the two cards side by side — the last acceptance criterion |
 | 4 | Marketplace + Community sections | ⬜ not started | Product spec each → founder approval → build |
 | 5 | Every link on the site works | 🟡 partial machinery exists | Full one-time AI pass + widen Karen's nightly |
 | 6 | Every video, chronological, + video filter | ⬜ not started | Sourcing spec → data model extension → build |
