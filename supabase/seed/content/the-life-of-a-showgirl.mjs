@@ -7907,7 +7907,7 @@ export default {
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
         'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-        'moment:vault-tloas-a-rumored-first-date-night-since-training-camp-dinner-at-kel',
+        'moment:vault-tloas-a-rumored-first-date-night-since-training-camp-dinner-out-in',
       ],
       title: "First sighting since the wedding: pink Markarian, at a friend's big day",
       snippet:
@@ -8189,9 +8189,9 @@ export default {
             reportedOn: '2026-07-21',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-enters-cma-awards-170210895.html',
-            note: 'A ballot campaign, not a nomination: the song sits on the preliminary CMA ballot, where members may nominate any eligible work. Rechecked 2026-08-12: CMA nominees not yet announced, so the claim stays open. Resolves when the CMA nominees are announced — a Single of the Year nod confirms it, being passed over debunks it. Distinct from the Oscar-race prediction above.',
+            note: 'A ballot campaign, not a nomination. Recheck 2026-08-13 (Tennessean\'s Bryan West, via Yahoo): it cleared the write-in round — "I Knew It, I Knew You" advanced to the CMA second ballot for Single of the Year, one of 22 recordings vying for five nominations (voting through Aug. 17). Real momentum, still not a nomination, so unconfirmed. Resolves when official nominees are named.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-12',
+            lastCheckedOn: '2026-08-13',
           },
         ],
       },
@@ -10137,14 +10137,24 @@ export default {
     // --- News catch-up (2026-08-10, Content Shift): a labeled low-confidence
     // rumor (#1873). Deliberately a low-substance, photo-less item (chip/text
     // tier, never hero) that cannot displace a hero slot — same pattern as
-    // the "Wendy" puppy rumor above. Venue-level naming (1587 Prime) only, as
-    // a public, past, concluded restaurant visit (privacy-redlines.md Ocean
-    // House / Watch Hill principle); the outlets' "under heavy guard" security
-    // framing is dropped per Never-OK #2. locationSpecificity is intentionally
-    // omitted — an unconfirmed rumor is machine-capped at 'region', and the
-    // venue lives in the claim text, not that field.
+    // the "Wendy" puppy rumor above.
+    //
+    // Rumor Desk (2026-08-13): COARSENED TO REGION. The earlier version named
+    // the specific restaurant on the theory that a "concluded restaurant visit"
+    // takes the Ocean House / Watch Hill venue-level treatment. That was wrong
+    // for THIS claim: the Ocean House principle covers a DOCUMENTED past event
+    // reported by a real outlet, and this dinner is not documented — it traces
+    // only to a Deuxmoi tip and unverified social photos (social tier, still
+    // unconfirmed). By the privacy matrix an unconfirmed/speculative claim is
+    // capped at region, whether or not it happened. Rechecked this run: still
+    // no established-outlet confirmation (the "privacy debate" and "photo ban"
+    // follow-ups are downstream of the same social material, and their "tight
+    // security" framing is Never-OK #2 — kept out). So the venue is dropped to
+    // "the Kansas City area" (where Kelce openly lives and trains) and
+    // locationSpecificity: 'region' is DECLARED, so the matrix gate actually
+    // sees the claim instead of being skipped by an omitted field (RR1).
     {
-      slug: 'showgirl-newlyweds-1587-prime-dinner-rumored',
+      slug: 'showgirl-newlyweds-first-date-night-rumored',
       year: 2026,
       month: 8,
       day: 9,
@@ -10156,15 +10166,15 @@ export default {
         'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
       ],
       confidence: 'plausible',
-      title: 'A rumored first date night since training camp — dinner at Kelce’s Kansas City steakhouse',
+      title: 'A rumored first date night since training camp — dinner out in the Kansas City area',
       snippet:
-        'On the Chiefs’ day off, gossip account Deuxmoi and circulating social-media photos placed Taylor and Travis at 1587 Prime — the Kansas City steakhouse Kelce co-owns with Patrick Mahomes — in what fans called their first public outing since he reported to training camp. No established outlet or either camp has confirmed it.',
+        'On the Chiefs’ day off, gossip account Deuxmoi and circulating social-media photos placed Taylor and Travis at dinner in the Kansas City area — in what fans called their first public outing since he reported to training camp. No established outlet or either camp has confirmed it.',
       sourceUrl:
         'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
       thumbnailUrl: null,
       moment: {
         context:
-          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, at 1587 Prime — the Kansas City steakhouse Kelce co-owns with his quarterback, Patrick Mahomes. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce nor the restaurant has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married, Kelce plays and trains in Kansas City, and 1587 Prime is his own room — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades.',
+          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, somewhere in the Kansas City area — where Kelce openly lives and trains. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married and Kelce plays and trains in Kansas City — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades.',
         sources: [
           {
             outlet: 'heavy.com',
@@ -10188,14 +10198,15 @@ export default {
         rumors: [
           {
             claim:
-              'Gossip account Deuxmoi and unverified social-media photos placed Taylor and Travis at dinner at 1587 Prime — the Kansas City steakhouse Kelce co-owns with Patrick Mahomes — on Saturday, Aug. 9, 2026, in what fans called their first public outing since Kelce reported to Chiefs training camp.',
+              'Gossip account Deuxmoi and unverified social-media photos placed Taylor and Travis at dinner in the Kansas City area on Saturday, Aug. 9, 2026, in what fans called their first public outing since Kelce reported to Chiefs training camp.',
             reportedBy: 'Deuxmoi / heavy.com',
             reportedOn: '2026-08-09',
             status: 'unconfirmed',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Traces to a Deuxmoi tip plus unverified social photos, aggregated by heavy.com and Yahoo; no established outlet or either camp has confirmed it (social tier). Venue-level only — a public, past, concluded restaurant visit (the Ocean House principle); no address, no security detail. Resolves if a named outlet or the couple confirms; fades if it stays a single tip.',
+            note: 'Deuxmoi tip plus unverified social photos via heavy.com and Yahoo; no established outlet has confirmed it (social tier). Coarsened to region — the matrix caps a speculative claim there, so the specific restaurant early aggregators named is dropped (venue-level needs a documented, confirmed visit). Rechecked 2026-08-13, still unconfirmed. Resolves on confirmation; fades otherwise.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-10',
+            locationSpecificity: 'region',
+            lastCheckedOn: '2026-08-13',
           },
         ],
       },

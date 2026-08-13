@@ -1725,6 +1725,24 @@ export default {
             sourceTier: 'established',
             lastCheckedOn: '2026-08-03',
           },
+          {
+            // Rumor Desk 2026-08-13 (news digest): the "separate, still-open
+            // question" the LX entry above flagged — the NEXT Super Bowl cycle.
+            // Same redline profile: a halftime stage is a performance venue (the
+            // "plays Wembley" case), not a personal-whereabouts claim, and the
+            // whole thing is on the public record — so no locationSpecificity.
+            // Distinct from the LX debunk: that one is settled (Bad Bunny; she
+            // said no), this one is open (no LXI performer named yet).
+            claim:
+              'After she publicly turned down the LX (2026) slot, speculation that Taylor could headline a future Super Bowl carried into 2026: with no performer yet named for Super Bowl LXI (Feb. 14, 2027, SoFi Stadium), press and fans revived the talk. She has said Jay-Z\'s Roc Nation, which produces the show, informally asked her interest — but that she won\'t perform while Travis is still an active player.',
+            reportedBy: 'The Sporting News (Autumn Hawkins, via Yahoo)',
+            reportedOn: '2026-05-20',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-finally-doing-super-203611519.html',
+            note: 'The open successor to the LX debunk above. On record: Roc Nation informally inquired, and she has repeatedly said she won\'t perform while Kelce plays (Fallon, Oct. 2025, "too locked in"). No LXI performer was named as of this check. Resolves confirmed if the NFL ever names her for a Super Bowl; stays open otherwise, fades if the talk dies. Performance venue, on-record — no location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-13',
+          },
         ],
       },
     },
