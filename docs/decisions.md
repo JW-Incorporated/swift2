@@ -7,6 +7,91 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 — The video plays from the top of a detail page, and a card never shows a video frame it cannot play
+
+Two follow-ups to the one-video-treatment decision below, both closing the same
+gap from opposite ends: **a still of a video is not a photograph**, and the app
+had been treating it as one.
+
+**Decision 1 — a deferring card's video frame is suppressed, like an owner's.**
+The #2057 de-dupe gives a video to exactly one card (the first in feed order),
+and that stands. But the *other* card kept a frame of that video as its photo,
+with no play control, because #2080's suppression only ever compared a card's
+photo against the video that card PLAYS — and a deferring card plays none. So
+`feedCardImageHidden` (`video-affordance.ts`) now answers both cases, comparing
+against every video the era can play (`eraKnownVideoIds`), not just the card's
+own — and it takes no `ownsVideo` argument, because the answer is the same on
+both sides of the de-dupe (it replaces `cardImageDuplicatesVideo`, which is
+gone). Ownership decides what REPLACES the photo — a poster, or nothing — which
+is the tier question. Where suppression leaves a card with no picture, the tier
+is re-scored without one (`assignFeedTiers(items, imageSuppressedIds)`) rather
+than keeping an image silhouette it can no longer fill; `significance` still
+outranks that, as it outranks the score.
+
+Deliberately scoped to cards that CARRY footage. 20 moments hold a still of an
+era video without carrying the video (a piece about the "22" video illustrated
+with a shot from it); they promise no player, and the frame is their only
+picture, so suppressing them would delete imagery rather than duplication.
+
+**Decision 2 — a detail hero that is a frame of the moment's own video becomes
+the player.** On 10 of the 16 video-carrying moments (8 with no other photo at
+all) the ~42vh hero was a still of the very video embedded a screen below —
+Photo Enrichment sourced frames as photos precisely because those moments ARE
+the video. `heroVideoFor` promotes the video into the hero slot and
+`detailVideoFor` yields the body slot to it, so the two are exclusive by
+construction rather than by a component remembering to check. A video hero
+PLAYS; the lightbox stays for photographs, and the promoted frame leaves the
+photo viewer with it. Pages whose hero is a genuinely different photo are
+untouched: hero photo, body video, no duplication existed there.
+
+Two carve-outs, both found in review:
+
+- **A sub-confirmed `confidence` outranks the promotion.** #2051 made it
+  non-negotiable that the reader meets "Rumor — unconfirmed" *before* the media.
+  The body slot sits under that banner; the hero sits above it. So on a rumored
+  moment the video stays in the body and the banner still leads. No vault item
+  carries both `video` and `confidence` today — which is exactly why the rule
+  belongs in code rather than in the corpus.
+- **Other frames of the same video leave the body too.** Dropping the hero's own
+  `ImageRef` by identity was not enough: "'Elizabeth Taylor' goes to radio"
+  carries `maxres3` (promoted) *and* `maxres2`, so the second was woven back into
+  the article under a player of the very footage it is a still of.
+  `imageDuplicatesPageVideo` matches on the id in the path — the same reason
+  #2080 does — and applies whether the video sits in the hero or the body. It
+  removes 2 images corpus-wide, both `archival` frames; photographs are
+  untouched.
+
+**Sizing:** a 16:9 player cannot honour a fixed 42vh band at both ends —
+full-bleed it is 219px tall at 390px and ~850px on a desktop. The player is
+aspect-driven with its width capped at `42vh*16/9`, so it fills the column on a
+phone and lands at exactly 42vh on a desktop, keeping the page rhythm identical
+to a photo page. The article's `-mt-10` overlap is dropped over a player, where
+it would crop the frame and sit on the controls.
+
+**Why:** Joey, on the detail pages — "it looks horrible… the site would feel
+much more natural if you played the video from the top" — and, on the era feed,
+the tloas card "'Elizabeth Taylor' goes to radio", a hero-sized still of the
+Elizabeth Taylor music video that does nothing when tapped. A big video-looking
+frame you cannot play is worse than the duplication #2080 removed: it promises a
+player that does not exist.
+
+**Alternatives considered:** (a) break the #2057 de-dupe so both cards play the
+video — reintroduces the exact duplication #2057 fixed; (b) hunt for substitute
+photographs for the 8 moments with no alternative — invents a sourcing project
+to avoid showing the thing the page is about; (c) suppress every video frame
+everywhere, including on the 20 moments that carry no footage — strips real
+imagery from cards that were never promising a player; (d) letterbox the player
+inside a rigid 42vh band — dead bars at both ends on a phone, where the player
+is already shorter than the slot.
+
+**Cost:** none at runtime. Still no iframe in prerendered HTML — the hero renders
+`VideoPoster` (a plain `<img>`) and mounts youtube-nocookie only on a real
+click, and the player is torn down when the sheet closes.
+
+**Approved by:** Joey (product/UX, 2026-08-13). Implemented in #2081.
+
+---
+
 ## 2026-08-13 — One video treatment in the era feed (ends the #2051 → #2055 → #2063 iteration)
 
 **Decision:** every playable video in the era feed renders **the same way**,
@@ -24,7 +109,8 @@ the decision:
    a moment with watchable footage is not a slight item. It is a floor, never a
    cap: `hero` stays `hero`.
 2. **A card's own photo is suppressed when it is a frame of the video it plays**
-   (`cardImageDuplicatesVideo` in `video-affordance.ts`). 8 of the 16 moments
+   (`cardImageDuplicatesVideo` in `video-affordance.ts` — superseded 2026-08-13
+   by `feedCardImageHidden`, see the entry above). 8 of the 16 moments
    carrying `video` have an `i.ytimg.com/vi/<same id>/…` primary image: two are
    the byte-identical `hqdefault.jpg` url the poster requests, two more are
    `maxresdefault.jpg` (the same frame at another resolution), and four are
