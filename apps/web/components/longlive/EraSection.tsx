@@ -34,12 +34,12 @@ import {
   eraVideoFeed,
   VIDEO_KIND_LABEL,
 } from '@/lib/longlive/videos';
+import type { PlayableVideoNote } from '@/lib/longlive/videos';
 import { formatMonthYear } from '@/lib/longlive/format';
 import { EraMedia } from './EraMedia';
 import { EraSecretCard } from './EraSecretCard';
 import { EraVideos } from './EraVideos';
 import { MomentVideo } from './MomentVideo';
-import { NoEmbedFallback } from './NoEmbedFallback';
 import { SignificanceBadge } from './SignificanceBadge';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, tagsPresent } from '@/lib/longlive/tagBadges';
@@ -51,14 +51,14 @@ import {
   watchableCount,
   undatedAnchorDate,
 } from '@/lib/longlive/era-feed';
-import { feedVideoFor, watchAffordance } from '@/lib/longlive/video-affordance';
+import { feedVideoFor } from '@/lib/longlive/video-affordance';
 import {
   focalPointOf,
   hasRealPrimaryImage,
   isSubConfirmed,
   primaryImageRef,
 } from '@/lib/longlive/types';
-import type { ContentItem, ContentTag, Era, LensId, VideoNote } from '@/lib/longlive/types';
+import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
 import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
 import { cn } from '@/lib/utils';
 
@@ -156,8 +156,7 @@ export function EraSection({ era }: { era: Era }) {
   // the same video never appears twice in this same list.
   const embeddedVideoIds = useMemo(() => embeddedYoutubeIds(items), [items]);
   const timelineVideos = useMemo(
-    () =>
-      musicVideosForEra(era.id).filter((v) => !v.youtubeId || !embeddedVideoIds.has(v.youtubeId)),
+    () => musicVideosForEra(era.id).filter((v) => !embeddedVideoIds.has(v.youtubeId)),
     [era.id, embeddedVideoIds],
   );
   // Everything watchable in this era (all kinds, including the appearances the
@@ -599,7 +598,7 @@ function VideoMomentCard({
   eraId,
   undatedAnchor,
 }: {
-  video: VideoNote;
+  video: PlayableVideoNote;
   eraId: Era['id'];
   undatedAnchor: string;
 }) {
@@ -609,17 +608,13 @@ function VideoMomentCard({
     'data-ll-date': new Date(video.releasedOn ?? undatedAnchor).getTime(),
   };
   const kindLabel = video.kind ? VIDEO_KIND_LABEL[video.kind] : 'Video';
-  // Total over the record (#2050): an embed when there's an official upload, a
-  // link out to the record's defining citation when there isn't. The old
-  // `{video.youtubeId && <MomentVideo/>}` had no else branch, which is exactly
-  // how a card with zero interaction shipped to the main feed on three eras.
-  const affordance = watchAffordance(video);
-  // Full width ONLY when this card carries a 16/9 YouTube facade, which is
-  // unreadable squeezed into a half-width track. A record with no embed now
-  // renders a title, a summary line and one link (see NoEmbedFallback, #2050) —
-  // giving that a double-width track would make the emptiest cards in the feed
-  // the widest, which on 1989/evermore/midnights is exactly the card the reader
-  // is least interested in.
+  // Every video record reaching this component plays: `videosForEra` hides the
+  // ones with no verified embed rather than rendering them (playable-first,
+  // docs/decisions.md 2026-08-13). That is why there is no else branch here and
+  // no `youtubeId` guard — the type says the id is present.
+  //
+  // Full width because this card always carries a 16/9 YouTube facade, which is
+  // unreadable squeezed into a half-width track.
   //
   // NB: this comment lives OUTSIDE the tag on purpose. A `//` comment in JSX
   // attribute position parses under tsc but is a hard syntax error in Next's
@@ -627,10 +622,7 @@ function VideoMomentCard({
   // browser as a blank page (2026-07-21).
   return (
     <li
-      className={cn(
-        'relative min-w-0 scroll-mt-28',
-        affordance.kind === 'embed' && 'md:col-span-2',
-      )}
+      className="relative min-w-0 scroll-mt-28 md:col-span-2"
       {...anchorProps}
     >
       <div className="era-card block w-full rounded-2xl border p-5">
@@ -651,16 +643,13 @@ function VideoMomentCard({
             {video.summary}
           </p>
         )}
-        {affordance.kind === 'embed' ? (
-          <MomentVideo
-            video={{ youtubeId: affordance.youtubeId, title: video.title }}
-            caption={null}
-            playNoun={kindLabel.toLowerCase()}
-            className="mt-4"
-          />
-        ) : (
-          <NoEmbedFallback affordance={affordance} title={video.title} />
-        )}
+        <MomentVideo
+          video={{ youtubeId: video.youtubeId, title: video.title }}
+          caption={null}
+          playNoun={kindLabel.toLowerCase()}
+          className="mt-4"
+        />
+
       </div>
     </li>
   );

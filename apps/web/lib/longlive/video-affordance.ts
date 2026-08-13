@@ -1,89 +1,24 @@
 import { extractYouTubeId } from '@swift2/shared';
-import type { ContentItem, MomentVideo, VideoNote } from './types';
+import type { ContentItem, MomentVideo } from './types';
 
 /**
  * "What can this card actually DO with its footage?" — as pure functions.
  *
  * Same boundary and same reason as era-feed.ts: vitest runs in a `node`
  * environment with no component tests in the suite, so a rule left inside
- * EraSection/EraVideos/MomentDetail is untestable by construction. Both bugs
- * this module exists for (#2050, #2051) were rules living in the view layer:
+ * EraSection/EraVideos/MomentDetail is untestable by construction. This module
+ * exists for #2051: a moment carrying footage looked identical to one that
+ * didn't, and its video rendered below the entire article (or inside the
+ * citations footnote). `feedVideoFor` / `detailVideoFor` / `footnoteVideoSources`
+ * are the three answers those surfaces need.
  *
- *  - #2050 — a video record whose `youtubeId` is null had its ONLY interactive
- *    element gated on that id in two components, so the card rendered as a dead
- *    rectangle. 19 records are in that state today; 3 sit in the unfiltered era
- *    feed. `watchAffordance` makes "what does this card offer" a total function
- *    over VideoNote, so there is no longer a branch that produces nothing.
- *  - #2051 — a moment carrying footage looked identical to one that didn't, and
- *    its video rendered below the entire article (or inside the citations
- *    footnote). `feedVideoFor` / `detailVideoFor` / `footnoteVideoSources` are
- *    the three answers those surfaces need.
+ * It used to also carry `watchAffordance` / `displayHost` / `WatchAffordance`,
+ * the "embed | link out | say nothing" resolver behind #2050's card states.
+ * Those are gone: under the playable-first rule (Joey, 2026-08-13 — see
+ * docs/decisions.md) a record with no embed is HIDDEN by `videosForEra` rather
+ * than rendered as a link-out or an "unavailable" card, so every rendered card
+ * is unconditionally an embed and there is no longer a fallback to resolve.
  */
-
-/** What a `VideoNote` card can offer the reader. Total over VideoNote — every
- * record resolves to exactly one of these, so no surface can render a card with
- * zero interaction (the #2050 bug). */
-export type WatchAffordance =
-  /** An official upload we can embed via the MomentVideo click-to-play facade. */
-  | { kind: 'embed'; youtubeId: string }
-  /** No embeddable upload, but a citation to point at — the card links out. */
-  | { kind: 'link'; url: string; host: string; sourceName: string }
-  /** Nothing to embed and nothing to link. The card must SAY so rather than
-   * render a dead rectangle. Unreachable with today's data (the generator
-   * requires >=1 source per record) — it exists so a future data shape can't
-   * silently reintroduce the inert card. */
-  | { kind: 'none' };
-
-/**
- * Hostname for display: the bare host, minus a leading `www.`.
- *
- * Deliberately NOT a prettified brand map ('en.wikipedia.org' -> 'Wikipedia').
- * A map is a maintenance surface that goes stale silently, and showing the real
- * host is the more honest thing to hand a reader about to leave the site.
- * Returns null for anything we would not put in an `href`, which is what makes
- * the caller fall through to `kind: 'none'` instead of rendering a bad link.
- *
- * The scheme check is not decoration: failing to PARSE is not the only way a
- * URL is unusable. `new URL('javascript://evil.example/%0aalert(1)')` parses
- * happily and yields a host, so a host-only check would hand that straight to
- * an `href`. Content is authored in-repo today, so this isn't reachable — but
- * this function is the gatekeeper for a link the UI renders, and gatekeepers
- * shouldn't depend on the trustworthiness of their input.
- */
-export function displayHost(url: string): string | null {
-  try {
-    const parsed = new URL(url);
-    if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return null;
-    return parsed.host.replace(/^www\./, '') || null;
-  } catch {
-    return null;
-  }
-}
-
-/**
- * What this video record offers.
- *
- * Order is deliberate: an embed beats a link (watching here beats leaving), and
- * the FIRST source wins the link because the seed convention puts the defining
- * reference first (the record's own encyclopedia/announcement entry).
- *
- * Note on `officialUrl`: #2050 suggested carrying it through the generator to
- * link out to Disney+/Netflix for the theatrical class. Checked the data — every
- * `officialUrl` in `supabase/seed/videos/**` is either null or already
- * YouTube-shaped (in which case `resolveYoutubeId` has already turned it into
- * `youtubeId`). Carrying the field through would add a column to the Tier-0
- * payload that is dead for all 19 affected records, so this uses `sources`,
- * which every record is required to have. If a real streaming URL is ever
- * authored, that is the moment to add the field.
- */
-export function watchAffordance(video: VideoNote): WatchAffordance {
-  if (video.youtubeId) return { kind: 'embed', youtubeId: video.youtubeId };
-  for (const source of video.sources ?? []) {
-    const host = displayHost(source.url);
-    if (host) return { kind: 'link', url: source.url, host, sourceName: source.name };
-  }
-  return { kind: 'none' };
-}
 
 /**
  * The video a feed card can play inline, or null.

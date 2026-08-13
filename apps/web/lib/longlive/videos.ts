@@ -9,7 +9,47 @@ import { VIDEOS_RAW } from './videos.generated';
  * embed id, and sorts by release date, so reads here are plain lookups.
  */
 
-export function videosForEra(eraId: EraId): VideoNote[] {
+/**
+ * A video record is PLAYABLE when it carries a verified embed id.
+ *
+ * This is the whole of the playable-first rule (Joey, 2026-08-13: "I don't
+ * want anything on the timeline that can't be played... anything that doesn't
+ * have a video either deleted or hidden until the content is available").
+ * Nothing is deleted — the researched record keeps its summary, symbolism,
+ * eggs and citations in the seed — it simply isn't rendered.
+ */
+export type PlayableVideoNote = VideoNote & { youtubeId: string };
+
+export function isPlayable(v: VideoNote): v is PlayableVideoNote {
+  return typeof v.youtubeId === 'string' && v.youtubeId.length > 0;
+}
+
+/**
+ * Every playable video record for an era.
+ *
+ * The filter lives HERE, at the single read point, rather than in each
+ * component: the rail (EraVideos), the era feed and its Videos filter
+ * (EraSection), the search index (search.ts) and the track pages
+ * (videoForTrack) all funnel through this function, so one filter makes the
+ * invariant true everywhere and no future surface can opt out of it by
+ * forgetting to check. That is also why the previous fix didn't hold — #2050's
+ * inert cards came from two components each deciding for themselves.
+ *
+ * Records without an embed are hidden, NOT deleted (Joey's "hidden until the
+ * content is available"): re-add a verified official upload to the seed and the
+ * card returns on the next sync with no code change. The eight records this
+ * currently hides are the tour films, documentaries and the theatrical release
+ * party, whose works exist only behind Netflix / Disney+ / Apple Music / DVD —
+ * each is annotated in supabase/seed/videos/**.
+ */
+export function videosForEra(eraId: EraId): PlayableVideoNote[] {
+  return (VIDEOS_RAW[eraId] ?? []).filter(isPlayable);
+}
+
+/** Every record for an era INCLUDING the unplayable ones. Not for rendering —
+ * this exists so data-integrity tests and content tooling can still see what
+ * the seed holds. Reader-facing code wants `videosForEra`. */
+export function allVideoRecordsForEra(eraId: EraId): VideoNote[] {
   return VIDEOS_RAW[eraId] ?? [];
 }
 
@@ -22,9 +62,10 @@ export function videosForEra(eraId: EraId): VideoNote[] {
  * rail-only for now. A video with no `releasedOn` has nowhere to sit on a
  * dated timeline, so it's excluded here (it still appears in the rail).
  */
-export function musicVideosForEra(eraId: EraId): (VideoNote & { releasedOn: string })[] {
+export function musicVideosForEra(eraId: EraId): (PlayableVideoNote & { releasedOn: string })[] {
   return videosForEra(eraId).filter(
-    (v): v is VideoNote & { releasedOn: string } => v.kind === 'music_video' && v.releasedOn != null,
+    (v): v is PlayableVideoNote & { releasedOn: string } =>
+      v.kind === 'music_video' && v.releasedOn != null,
   );
 }
 
@@ -84,17 +125,19 @@ export function isAppearance(v: VideoNote): boolean {
  * Undated records sort last rather than being dropped (unlike
  * `musicVideosForEra`, which must be datable to sit in the chronological
  * feed): in a video-only view there is no chronology to break, and dropping a
- * tour film for having no premiere date would quietly hide it from the filter
+ * video for having no premiere date would quietly hide it from the filter
  * that exists to find it.
+ *
+ * Unplayable records are already gone — `videosForEra` drops them.
  */
 export function eraVideoFeed(
   eraId: EraId,
   embeddedYoutubeIds: ReadonlySet<string> = new Set(),
-): VideoNote[] {
+): PlayableVideoNote[] {
   // `filter` already returns a fresh array, so sorting in place here cannot
   // reach VIDEOS_RAW.
   return videosForEra(eraId)
-    .filter((v) => !v.youtubeId || !embeddedYoutubeIds.has(v.youtubeId))
+    .filter((v) => !embeddedYoutubeIds.has(v.youtubeId))
     .sort((a, b) => {
       if (a.releasedOn !== null && b.releasedOn !== null && a.releasedOn !== b.releasedOn) {
         return a.releasedOn < b.releasedOn ? 1 : -1; // newest first
@@ -120,9 +163,11 @@ const normalizeTitle = (s: string): string =>
  * normalizing punctuation and parenthetical suffixes — strict on purpose, so a
  * page never embeds the wrong song's video.
  */
-export function videoForTrack(eraId: EraId, title: string): VideoNote | undefined {
+export function videoForTrack(eraId: EraId, title: string): PlayableVideoNote | undefined {
   const t = normalizeTitle(title);
   if (!t) return undefined;
-  const vids = videosForEra(eraId).filter((v) => v.youtubeId && normalizeTitle(v.title) === t);
+  // `videosForEra` already guarantees a verified embed id, which is what this
+  // function's "requires a verified youtubeId" contract asked for by hand.
+  const vids = videosForEra(eraId).filter((v) => normalizeTitle(v.title) === t);
   return vids.find((v) => v.kind === 'music_video') ?? vids.find((v) => v.kind === 'lyric_video');
 }
