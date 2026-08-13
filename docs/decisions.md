@@ -7,6 +7,69 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — The Taylor-photo standard: the feed leads with photographs of Taylor, and an empty calendar stays empty (supersedes the 2026-08-11 image-posture ladder)
+
+**Decision:** two reversals of yesterday's social programming, both driven by
+issue #2031.
+
+*(1) Media.* The four-rung ladder set on 2026-08-11 — site screenshot first,
+designed card second, vetted real photo third, era tile as a declared last
+resort — is **replaced** by a three-rung one: (1) a real credited photograph
+of Taylor (`mediaKind: "photo"`), the default for every post; (2) a committed
+`/social/library/` screenshot (`mediaKind: "site-screen"`), only when the
+post's subject *is* a product surface, and on Instagram only as a later
+carousel slide behind a photo tile; (3) text-only, X exclusively. **Era tiles
+and designed cards leave the feed entirely** — not demoted, removed.
+`render-card.mjs` and `capture-screens.mjs` stay in the tree; re-admitting
+cards to the feed is a founder call, not a drafter's. The 2026-08-11 entry's
+**rights bars survive intact** (credit always, no AI-generated images, no
+watermarks, no fan edits without permission, takedown on request) — only its
+ordering is overturned. Written out in full in `docs/marketing/social-strategy.md`
+§2; enforced by PR #2043. Image sourcing is governed by the third-party image policy entry dated 2026-08-15.
+
+*(2) The drafting fallback.* When `social/calendar.md` has no entry for a
+slot, Growth **no longer improvises one from the heartbeat pillars.** The slot
+stays empty, the gap is named at the top of the run's PR body, and a
+`desk-coordination` issue records the dates. One exception: a real, dated,
+sourced on-this-day match in the Vault for that exact day.
+
+**Why:** Joey, looking at the live profile: *"We are a Taylor Swift fan site
+whose social media has no pictures of Taylor Swift."* All 10 August Instagram
+posts shipped on `/eras/*.png`. The 2026-08-11 ladder is why — it made the
+Taylor-free option both the documented default and the cheapest one to
+execute, so an agent under time pressure took it every single time, exactly as
+written. The 2026-08-06 decision had already demoted era tiles once and the
+demotion did not hold; a rung that stays on the ladder gets climbed. Removing
+the rungs is the only version of this decision that has ever survived contact
+with a runner.
+
+The fallback reversal is the same failure viewed from upstream. The pillar
+fallback was designed as resilience — never miss a slot — but a drafter with
+no plan and a mandate to fill produces the formula it can generate fastest:
+12 of 14 captions opened "did you know", on a generic tile. Silence costs one
+empty slot; filler costs the account's credibility with the fans it is trying
+to reach, and buries the signal that Tree's weekly routine was never created.
+A fan account posting nothing is better than posting slop.
+
+**Alternatives considered:** (a) *Keep era tiles as a hard-justified escape
+hatch* — rejected; that is verbatim what 2026-08-11 already tried, and the
+justification field was filled in every time it was needed. (b) *Keep designed
+cards for text-forward posts only* — genuinely arguable, and the reason the
+script survives, but a typography card is still not a picture of Taylor and
+the feed cannot afford a second Taylor-free rung while the grid is being
+rebuilt; revisit once the grid reads right. (c) *Let the fallback draft but
+mark items `needsReview`* — rejected: nothing consumes such a flag before
+`scheduledAt`, so it would have posted anyway. (d) *Have Tree backfill on
+demand instead of failing loud* — rejected as the cause masquerading as the
+cure; Tree's routine not existing is the actual defect, and a fallback that
+papers over it is why nobody noticed for a week.
+
+**Approved by:** Joey (verbal direction on the incident, 2026-08-12)
+
+---
+
+---
+
 ## 2026-08-12 — The Videos rail is Taylor on screen only (supersedes the appearance-family wording below)
 
 **Decision:** an appearance record requires **Taylor herself as the on-screen
@@ -1625,6 +1688,12 @@ charter in this directory is written against.
 
 ## 2026-08-11 — Social image posture: screenshots and cards first, vetted real photos allowed, clickability over caution
 
+> **SUPERSEDED 2026-08-12** by "The Taylor-photo standard" at the top of this
+> log. The ladder below is no longer in force — a real photograph of Taylor is
+> now the default and era tiles and designed cards are out of the feed. The
+> **rights bars in this entry still stand**; only the ordering changed. Kept
+> for the record of what was tried and why it did not hold.
+
 **Decision:** Social images come from a four-rung ladder, in order: (1) **site
 screenshots** (`scripts/social/capture-screens.mjs`), (2) **designed cards**
 (`scripts/social/render-card.mjs`), (3) **clearly-safe real photos** — only ones
@@ -2013,6 +2082,12 @@ the matching one-line Austin charter change is handed to that charter's owner.
 
 
 ## 2026-08-06 — Instagram profile was a repeating slideshow: real-photo default, code-level guard
+
+> **SUPERSEDED 2026-08-12** by "The Taylor-photo standard" at the top of this
+> log. Demoting era art to a last resort was this entry's whole mechanism, and
+> it did not hold — the last resort was taken 17 times out of 17. Era art is
+> now banned from the feed outright. Kept as the first of the two failed
+> demotions that argued for removal.
 
 **Decision:** Fix the Growth desk's drafting instructions so Instagram posts
 default to a real, dedicated photo of what the post is about, with generic
