@@ -1,0 +1,11 @@
+{
+  "platform": "instagram",
+  "body": "that’s the whole screen. one question — \"what are you in the mood for?\" — a box that says \"however you want to say it,\" and five chips sitting underneath it.\n\ncrying in the car, cinematically. 3am and the group chat’s asleep. plotting something in a ball gown. feral about a bridge. cardigan weather.\n\ntap one, or ignore them and type your own sentence. what comes back is songs that actually fit the feeling — not a playlist someone built in 2019.\n\nand the small line under the question is the part we care about most: what you type isn’t saved. your worst night doesn’t get kept anywhere.\n\ntap Mood at the top of the page.\n\nlonglivets.com/?utm_source=instagram&utm_medium=social&utm_campaign=mood-chat",
+  "media": [
+    "/social/library/mood-chat-screen.png"
+  ],
+  "scheduledAt": "2026-08-16T23:00:00Z",
+  "campaign": "launch:mood-chat-announce",
+  "why": "Calendar slot 2026-08-12 23:00Z IG, launch:mood-chat day 0 (announce), hook \"the artifact\" — the first line describes what is literally on screen, and does not open with \"we built\" or \"introducing\". Media is the real Mood screenshot from PR #1903 (/social/library/mood-chat-screen.png), rung 1 of the media ladder. Every element is verified against that screenshot and against apps/web/lib/longlive/mood-starters.ts: the heading, the \"however you want to say it\" placeholder, the privacy line, and the five visible chips quoted VERBATIM as approved copy. Mood has no deep link, so the caption says \"tap Mood\" and the URL is the UTM-tagged home page — never a fake ?mood= URL. DEPLOY DEPENDENCY: this media path only resolves once PR #1903 merges and deploys; scheduled 2026-08-12T23:00Z, comfortably after the 15:00Z floor the founder merge gives us. | Rescheduled 2026-08-12: Joey directed that the next 10 posts each carry a real photograph of Taylor (issue #2031 fallout); this product/feature post now runs after that set. Campaign made story-unique (findPostedDuplicate matches platform+campaign). Declared mediaKind site-screen: a deliberate product screenshot for a feature post.",
+  "mediaKind": "site-screen"
+}

@@ -28,6 +28,9 @@ import { MAX_X_IMAGES } from './platforms.mjs';
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
 
+/** Declared media kinds — see the mediaKind section of validateQueueItem. */
+export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art'];
+
 /**
  * Per-platform hard limits, enforced by the platform, not by taste.
  *
@@ -131,15 +134,32 @@ export function validateQueueItem(item) {
     }
   }
 
-  // --- mediaKind ----------------------------------------------------------
-  // Only the shape is checked here; the "era art requires the tag, and even
-  // declared era art can't repeat recent posts" rule is check-drafts.mjs's
-  // (draft time) and eraArtGuardReason's (post time) — both need context
-  // (posted history / the filesystem) a pure schema check doesn't have.
-  if (item.mediaKind !== undefined && item.mediaKind !== 'era-art') {
+  // --- mediaKind + photo provenance (2026-08-12, the Taylor-photo standard) --
+  // Three declared kinds (see social/README.md's mediaKind section):
+  //   "photo"       — a real photograph of Taylor Swift, rehosted from a
+  //                   sourced corpus entry. REQUIRES `mediaCredit` (the
+  //                   photographer/agency line that ships with the post) and
+  //                   should carry `mediaSource` (where it came from).
+  //   "site-screen" — a screenshot of the product itself (feature launches).
+  //   "era-art"     — the legacy generic era tile. Still schema-valid so old
+  //                   records parse, but check-drafts.mjs HARD-FAILS any new
+  //                   or edited draft using one — the 2026-08-06..12 era-tile
+  //                   grid is what this standard exists to end.
+  // Only the shape is checked here; which kinds are ALLOWED per draft is
+  // check-drafts.mjs's context-aware call (it sees history and files).
+  if (item.mediaKind !== undefined && !MEDIA_KINDS.includes(item.mediaKind)) {
     findings.push(
-      `mediaKind: ${JSON.stringify(item.mediaKind)} is not recognized — the only defined value is "era-art" ` +
-        '(declares a deliberate era-tile choice; omit the field entirely for a real dedicated photo).',
+      `mediaKind: ${JSON.stringify(item.mediaKind)} is not recognized — defined values are ${MEDIA_KINDS.map((k) => `"${k}"`).join(', ')}.`,
+    );
+  }
+  for (const field of ['mediaCredit', 'mediaSource']) {
+    if (item[field] !== undefined && (typeof item[field] !== 'string' || item[field].trim() === '')) {
+      findings.push(`${field}: must be a non-empty string when present.`);
+    }
+  }
+  if (item.mediaKind === 'photo' && (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '')) {
+    findings.push(
+      'mediaCredit: required when mediaKind is "photo" — a real photograph of Taylor ships with its photographer/agency credit, always (docs/decisions.md 2026-07-09 media policy).',
     );
   }
 
