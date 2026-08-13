@@ -25,7 +25,48 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 93
+
+## Greedy Democrats are taking aim at Taylor Swift — and you’re next - New York Post
+
+- first seen: 2026-08-13 14:32 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Greedy Democrats are taking aim at Taylor Swift — and you’re next  New York Post
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMimwFBVV95cUxPSld5OF9pRTJMS3Rfbi1CWWN2c3JaUTJNNnVtM0lCemVUUC1td1VIdWllVGZlU2RuTGFScTZ5SzV5ODkxWkZva1FkUkttLUNqRUR2TGotb1Q4Zzd5MzNFNXBaR3d0aWdBck1pYUhsZFFhcDhqNXQ0YTFwRG01dVB6LTByZDlhem9xTEdEQWpCTkJjdXpxQUxXa1I2QQ?oc=5
+
+## Travis Kelce Just Broke His Silence On His And Taylor Swift’s “Crazy” Wedding — Here’s What He Said 
+
+- first seen: 2026-08-13 14:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Just Broke His Silence On His And Taylor Swift’s “Crazy” Wedding — Here’s What He Said  BuzzFeed
+- sources:
+  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMijgFBVV95cUxQLUdNdGR5M3RBMW9lNk9IeGF2QlBOU3hPNHZWRWc0akdEd25IQmJLT1RRQ0lXYjRORWl0WVNQT3VQLXhZc1ZUMnNmX21rd2lVRlBnYlJ0UlRfMVE5RFFaVzV4aXZheWtzenR3ZjNMcDVpbWFWVHlTZ0FvYVBtSWFEUWRkWDBjZmNlODM5bFpB?oc=5
+
+## Taylor Swift the Latest Victim of Far Left’s Demands To ‘Tax the Rich’ - The New York Sun
+
+- first seen: 2026-08-13 14:32 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift the Latest Victim of Far Left’s Demands To ‘Tax the Rich’  The New York Sun
+- sources:
+  - [unverified] The New York Sun — https://news.google.com/rss/articles/CBMingFBVV95cUxOR3JmTFZtbGZNZndPNUdkWWMxYzktUl8zZllINXk2NkRmeTh6RFZhcU5hQld0S2Utdkt1YnlJTmc2M08xNFVfdnRRZktwejU1XzR2RzNCUHRCMTU4V0JScmZad0RmaG50WnZJZ0pWZkVGeWRzMUJhbkhPeVdsYnRNYWJZOEplc1dIaU9acmtXaG95QmZXbURxemZ1bTdTQQ?oc=5
+
+## Travis Kelce makes first public comments about wedding to Taylor Swift - WBAL-TV
+
+- first seen: 2026-08-13 14:32 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce makes first public comments about wedding to Taylor Swift  WBAL-TV
+- sources:
+  - [unverified] WBAL-TV — https://news.google.com/rss/articles/CBMiigFBVV95cUxPWlNReXdqRlhVcTRIb1hOajBmN2h3eDlSWjhxSDB1bGpkaDAwMEZKam1LRkItcURZTmZHMjZsTXBlNXVsY09IdHhTUFhnX3QycVROUzYxcjVXVlJacTFta21peGhyalAxS2pUSVNObGNJdXB4bzlaYXA4QW9wUVFFTkF6ek1Da2lDa2c?oc=5
+  - [unverified] WPTZ — https://news.google.com/rss/articles/CBMihgFBVV95cUxNZnNhdnBoMXlweWtJZEU2bzBDU2NyYTRYVFM3aHpUZnpXZE9WQjhNeUFIRDJacXBUZVhtYW5Eb3ZFbWw0V3ZyWXZWVzRpRkEwaG9LWElBRFBGX0NKT2trQWlxS2JoNU45TlBEN21YM0ZJemhYazJVSXFEVVVLNVlJRzFZUnFFZw?oc=5
+
+## Chiefs’ Travis Kelce was clearly touched by venue for Taylor Swift wedding - Kansas City Star
+
+- first seen: 2026-08-13 14:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chiefs’ Travis Kelce was clearly touched by venue for Taylor Swift wedding  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNeHhJWG1Ocl9qN1l1ckI3R05TaUNYdEkxTHdPempoU0hScUFyZVRmS0J6VlAyMmxpNmVxU19pOVZnNGlLdTJLUkdZNnBXWFNIcVlXZkV3LUVRTUE4ZE1tY3dBcFVERlY4MHpzSXBOSFZmdEZYLVVQdXNxRnNJaWlNUV9Ncm4wN3dUX2pIdWc3ZzJLUdIBkgFBVV95cUxNRktkbDQ2TmphOVlFMHVhRmtJRnlNWmF2UGtYRFRtZmg1MzJGWkxSR0I5T1JxSlZIQWtjUTk1R3Q3MnNUQVpWbmZuUnZhXzhIazByUXA2cUFhcDltT0FSQ01GSXJTRWoxdnFmNDl0MDdBTkxmTGdvaC1YUzgwUnJVTWF5dG4tTzE0VE9KaUZhX3g2dw?oc=5
 
 ## Taylor Swift’s ‘I Bet You Think About Me’ Is Her Latest Song Removed From a Trump TikTok Post - Bill
 
@@ -236,7 +277,7 @@ Taylor Swift and Bad Bunny Dealt With Trump Quietly. It’s a Smart Move  Roll
 ## Travis Kelce Calls Wedding to Taylor Swift ‘Best Night of My Life’ in First Comments - People.com
 
 - first seen: 2026-08-12 18:04 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Travis Kelce Calls Wedding to Taylor Swift ‘Best Night of My Life’ in First Comments  People.com
 Travis Kelce breaks silence on Taylor Swift wedding: 'Best night of my life'  USA Today
 Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Hollywood Reporter
@@ -248,11 +289,12 @@ Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Holl
   - [unverified] KATU — https://news.google.com/rss/articles/CBMioAFBVV95cUxOLXhnU0N4dlBlcVNXSGpiaHZsbVBVNDZ2ZnJGY2NOQVVjN29iRERDcjZVT1NaTFhWSE1ZeUdYR3J5TEVvQko2U09VNFJlN3VlUXRrdDlzX0J6aXdlWUwwOFZ6V1dpZGh2Q1pjREpxSnFJLUlVQnY2alI0MU11N2NzZmNEZ3NYQm5rVk1WbVpTTmp1dkJobUZUZUY1YjZXRHU3?oc=5
   - [unverified] The Guardian — https://news.google.com/rss/articles/CBMirwFBVV95cUxPaGt6V095Z3MzeVU1ZW8ydDZiLXh4RkNPRktTTjNLM0w4b1VaMjFISEpiR2tDUnBESENROEFFUFVZaGRBNEpFYXhrUDBFajFYalhFTmhoRkQzUFdCeGJkVXI0SEVjN2lyRnROUkVRTnlpdVNZbml3eFhSR2ZqM0pueW8zSTNMbVVOMjRMRjJNeU9XLV94WmhJM3VuLW1BTE9CbTlLc2w4R2NURGpxeTFj?oc=5
   - [unverified] BBC — https://news.google.com/rss/articles/CBMiWkFVX3lxTE9UbHNXVmpRX285RTR5dm9IQU5mTWN6aEk0aTFETUJBeHRRSWR1c0NodGhSZC1VOURGb181MndTLUNqYW5fR0FrRFdXdU1sNFhIMVlvQUIwemJLdw?oc=5
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitgFBVV95cUxNeEQ3anJNTjgxSGFCV1pNdHMtd2xodklJVTBFTVNZZUlsc1ltb2JycjJ6SXdFUUx5NDBZZVNTUWlsSlRzSTU0Y2RMRjRIdjhaU2xxczNLNzJlaGdHUy0teXFKandPaFpMem9VdG5idHc5QXFfYUJTcEVjelhpdUpZNE92NFJaZ1lkV0VqbWR6cTFmX0dRNWtEM29DN21jbmNYTUdFUXZRLTM0WHlHWlVqS084MVBnZw?oc=5
 
 ## Travis Kelce opens up on Taylor Swift wedding: 'Best night of my life' - ABC News - Breaking News, L
 
 - first seen: 2026-08-12 18:04 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Travis Kelce opens up on Taylor Swift wedding: 'Best night of my life'  ABC News - Breaking News, Latest News and Videos
 - sources:
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiowFBVV95cUxNUUZ6RnJDWk9jcVFpV0ZwcmdMOGtYY0xhZUNuNWxuTm1TOERLS016NUdlMUFQNDNUdG1pNXpoLWl3bmlHS1JIZUNkSkJVNm1oYnE2Z0JsYTczZHRwTmVZa0FkX3NQUW0yNTI1OVJGSlc4YXZOXzVUeGpOb1hRVnYyQUdVNG5qNmNiZE9TWDRybllPdUc5djBrbTBfMVZpeDlfX05V0gGoAUFVX3lxTE1iQkwtVzNmdGFPLXlzMUFVOFQtb2J6bHdQQTVTQ2tLRTFyVXoyMWM1d3RKdUw5RVRhQ0VhdzIzbTN4ZmlaTmVhVC0xMG9EaHFRdXNidThrYVZJSVJ6VlZWeklWOWRuSlpPT2Nod0R0MUxDeDFxRHREa1VQVXZVbGNvWi1DV1k3YWNSU1dEbTVqcjdfb2RHenpGSm9HMzNMMF82QnR0RlhfSQ?oc=5
@@ -262,6 +304,7 @@ Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Holl
   - [unverified] ABC7 New York — https://news.google.com/rss/articles/CBMilAFBVV95cUxQdW0yX3poZnBTLTZkZV9lVTJjMFppcWozbmhyUWE5YThrNEY5SGFFM3E2eVZFZmdRaVJrcXBaSEZKekxrRmtBMVRZT0UtRnNQd2dqRHBmcGJYOERad0NNNjhlWVlBUDV4WmN1aW5GYXo5QlRXVmhpTzhZRF84SE5hTjloYUR0R2FwZlA4WGJlWVJMeFpI?oc=5
   - [unverified] NBC Sports — https://news.google.com/rss/articles/CBMixwFBVV95cUxNU1V5RWlPZjlkbFpHS2JmTUpHeHB3TG5taDNHMi1DOTJrVy1VMl9qVVFOOWMzRG9ZSWhZcjBLUFA4MzhrWWo1OFNkVUx0eVJGbEVXWkZiWjQ4dTFyRjdyakdoQXhzUV94YkFTWlZfT3ZZMm4tTnZZZ3NZNE9ndWRlVzlqYzJhMnV6a21QQ2t3NzM2NEQtNkZ0M3JERlh2SGxWOXo3NzhWdExIcWgyZ1dwMkdPenFNNHZZODdrZ1g4Y0lJX1BkckZN?oc=5
   - [unverified] ABC7 Bay Area — https://news.google.com/rss/articles/CBMilwFBVV95cUxOVndZMDg0ZzdjajNPZDBvZnQzZkhJNHFwcFhFSWNoaWpmYzJiWlh3bG1PMmZOdFkwcXFjNFVBXzlpdkNLRWthRlh4U2RZbjlGdHBGeXRJWFRiNV9PV2xXWTNBd0QzZTZrOXNONm04NHFEUEk4OFptSzdvX1A4Z1J3QUpFTS1ta2U5TE5lWW8zSG5yR1cyekdN?oc=5
+  - [unverified] NBC News — https://news.google.com/rss/articles/CBMiswFBVV95cUxNaDFnbmRVd05PSHQtVWtWSU82X0dJUmkxOGZRRHA4Y25xOUZNbEJjOEctYl81dXM4eS1tYnB0NzhEQ21QNWJ6bHJGaWFXa3hPakR1SmxGUmhjaVlfNFl3cGNfRmZnb2E3TkluNHNqQU5lblJMX0ZDYWZFWHU3b3NWZzVrODBZTUJuZ2VSTG9EeVFzcS1UaWhWeHlabDBZNGVmYjdCR2NfYTMwSXo5U3BBTHMzYw?oc=5
 
 ## Taylor Swift and Travis Kelce face first big change after getting married - en.as.com
 
@@ -460,16 +503,6 @@ Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Holl
 - sources:
   - [unverified] marca.com — https://news.google.com/rss/articles/CBMihwJBVV95cUxQdXpmM1NZUWY2Vy16eWhQOEtvTldvOGRLRFRBajRQMWRCUFhfQTZ4dzE1eDV5WVctSVVISDQ1RXJGLTZGNkpac1ZmdUZNS18tQlpuT3JKeHNCRU5DbXl6S1BQNUNBSE5LbWZqT0FvZE1FeVJPak1MNzhTUjRaOG1yTVJYVzJyNGpVRWhlTEN6ZkQ1T2tmZ2llemh2Z0J4WEdWYXVrTWdEV0o0bEx2Y2VWaVJ5R0xXQmVOUWhIaFNTY1RpWlBHSHVialFFOG5BanNDa1lmME5CRWlOYnhyYkJyRThGMHl5djdFd3M2LWRvU3NmWjdJcHY0OEtXbjBfSDFZSmR4VUt3d9IBhwJBVV95cUxNSFdMWG9Vc2dYdG5WcGtYNHV0RTJXbXpBTm9kcGNSbjhSVlpzUnN2VVlGVWJNN0toUEdteVpiZEFUblBQUWtaR3FFeWk4WlAyRmY0SmQ5cExDbVB4aXNPWVFXV0lvUDZtcThaY0I4QWpXbUtmVmp1UWtGamRvOGtnSDBZOWJGM1RkLVpESWZBeThLdmxsQ1JfVENMQUlzeUFmS0dQUEhZMlhiX05OT1RKTUNUeHJNcFd5ZUVyUTJId29tNkRQRWw3X3U5SU8wZXgzS2FYcVd3ZTUyeWpBOGE5dW40MENHMUNPQXFnZ0trdFpyWXloT1ZDTDJ2Wnk4Ml9Fb3VUYWNNTQ?oc=5
 
-## Taylor Swift Makes History With Her Nashville Songwriters Hall of Fame Induction - ELLE
-
-- first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Makes History With Her Nashville Songwriters Hall of Fame Induction  ELLE
-Taylor Swift added to Nashville Songwriter’s Hall of Fame  WKRN News 2
-Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Youngest Inductee Ever  Variety
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMixgFBVV95cUxNSHBMNUlsSFBaNnN0d2RYd2hWQzAzY0xhV2ZXeHV3Qnh3VUtRZ01JYTlkaXlKUS1DZGx2V3FzZWFJT0lUdXVZX3pqaEZKUmk4bldnTjdDcjIzVjVTTWFWZVI4bDI3aWd1cFp0dGxEQUdrNXJBUVBUM2hXYURNOGg4cS11blk3cGVhRkdQSW55ZTlWX1o5S1JjVUlETlhCQW1Jd3hoeGhyNlFGb2ZOUmM3RFFwVFNuSmF6dUphRXhuMm1TRGFBNGc?oc=5
-
 ## Taylor Swift’s ‘August’ Removed From Team Trump TikTok After Song Used in Pro-Trump Videol - Law Com
 
 - first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
@@ -558,6 +591,17 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
   - [unverified] KFOX — https://news.google.com/rss/articles/CBMilgNBVV95cUxOSkJkMzBiSlpyT19tMmhZdlVrZkctdHhtTjBONHJZT1FXMFY0TjQwWUJYVDA5T284aTdMSjFieUpnRzNHNHBoeHZIX1VobEp4RUFsRnd1VnRCNUNxSUNwbWRDQkVocFRfd2dpd01MTlVPY0RYZk5NMGNJUzdKek5mWmJkTXBmUnlOTE81SklQQ2J4a2ZMR001RXdldlZDY2RuSXpDUFFvS1B4bGszclNiSGdteV81R05JQUNGSkFQMlVCNXhTdmVGZXhfT1dPZWpVdl9mVVhQckNETlpfUy1tb2FxTnh5eHpoQU1hNW9VazRuZ1l3ek10TEdKNUNVbG84cTlXV0xKWnVkZFplLWx2YUkwOXdpOS12NUJRVTdnTDhwOVBOWmJlR1FKRGl1ODhleXhHYjkzTWpNeFY1aU5nVENOc0JyUGlhZTFFMHpEMklzS3BCUzc3bVBBUUtLeTFyWVlFX285V2JCck9YSlFMY1lQckhraDJDbE9EdjFza1A0YlB4QWpDQWwyYm5RRGtfbFc4X19n?oc=5
   - [unverified] WPXI — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQQWNmQWRRYmFUSGxyZ2NXSEJ3bjZVb05PSi1yZ3lFZk1zdUFvN04yQnFkZU85NzRwUU9KZGdJYjlsNHREZ0hUcV9PaWFtUWRpazBZVDRDWHpkemVMczh5R0poc0dWSEo0MFAyR05KZHpqQ2VaZjNVQWRvSExPWFhoZVE0dmpmUjlaZ0xSaEFiaTBFaE54ZkM2aV9YNFJVVDBxQm01MWpmaFdPY0o2YkMyTFJ6RDF1MDZlQm1wcVl3UWQxZ9IB1gFBVV95cUxQUkRpNXgxN1kwajY3aDBtTnBvN1ZTdGZlNWlUV3pwQXduWG81V25zLWNrbDhrelF3Z1E5WEl0RGdOVXVoT185eE8wc0xQTHBYNTZ6c2Fyc1ZDV0JuUU90UHpBdHREZ1pWQ3Y4bU1rdF9uMm9STXFMVEJUbUUyY0lub2ZLLVBhcVBSS3pVaU8zT3doSXdSaUlhQ3RTeUZtNXFlMDBDRHdGS3k1M2JuQ2hiQW1YMUxHRmZYVExwMGljbmhZOEJpd3MyMXNlWlB4eFpRU0dvLUZR?oc=5
   - [unverified] WBIR — https://news.google.com/rss/articles/CBMi5wFBVV95cUxON1RNNmJtSVlCZlc1emlBVnhBQndkbjgtM01OODRBREx5SGI2VjlMQW0yd0Q5cFc4SWtXOWVqdG1pRGowbVRKUzJoeHVnUkVpRzRwTlZFZWpPc0U2OTdrQXpDUHJLdUFJTkVvUnZ5RFo4aEhSanRSakpReV9oX0l5U09jQW1DUTBaVm9FSHZGdDZZdEpiemUyX0M2UmNLN05QdTFmRkhiNEo1YXJad3NNcWZNajAxMWl1NEVBR1lqMkEtcThPdWEyTjJEdGE5eXMtWmF4dXhyaHVMVlVvTDVoTk9RNnNUZTA?oc=5
+
+## Taylor Swift Makes History With Her Nashville Songwriters Hall of Fame Induction - ELLE
+
+- first seen: 2026-08-11 18:04 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Makes History With Her Nashville Songwriters Hall of Fame Induction  ELLE
+Taylor Swift added to Nashville Songwriter’s Hall of Fame  WKRN News 2
+Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Youngest Inductee Ever  Variety
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMixgFBVV95cUxNSHBMNUlsSFBaNnN0d2RYd2hWQzAzY0xhV2ZXeHV3Qnh3VUtRZ01JYTlkaXlKUS1DZGx2V3FzZWFJT0lUdXVZX3pqaEZKUmk4bldnTjdDcjIzVjVTTWFWZVI4bDI3aWd1cFp0dGxEQUdrNXJBUVBUM2hXYURNOGg4cS11blk3cGVhRkdQSW55ZTlWX1o5S1JjVUlETlhCQW1Jd3hoeGhyNlFGb2ZOUmM3RFFwVFNuSmF6dUphRXhuMm1TRGFBNGc?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNMG03UE00M3NrdmM3QnZrZWsxNUI0OHJFYS1VZkVVaFA0R19sZVJUVTN0d0d3VDA5ZG5vV29IUzZ2Q0NQRGhmZGFUVklwQkYtV2Q5a0oxbXhLUFdJeFg5bDJBMDhYT05hWmZuU1FLUnB0T0xFS1ZlM2lxWXliekRyWVV0eklKcW9qM3lUODB5ZFEtbnFUaGF5Nm5n?oc=5
 
 ## Andrew Lloyd Webber weighed in on Taylor Swift's 'The Life of a Showgirl' album and art inspiration 
 
@@ -778,59 +822,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - sources:
   - [unverified] WSBT — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVzRUV1EtZ1RCWDBpU1dKZlczTHRNMWVVZHN0UWIyNEJiTmQwMDdWc09jSVVHUk9FTEVOTldUUlpTVXJsaURSVjVtbUNRS1VJc2h2bEM2MEdqQW9zd0JZU2lDUjhjbEJYd2o0ckVFMnB1SDVxMXhseVlQNWFxbUd0Y3pvdmVOYnJTMjVtQUMxODdiaUNkMllaNGc0em1odzRhaWgyaThPUU42bnlVYmpvMWNjQkFINHE0?oc=5
   - [unverified] WXLV — https://news.google.com/rss/articles/CBMiugFBVV95cUxONkY3aFduTXBLTDZha3lwdWhNNkdsVnB2T1NSaFExdWlUMXpUckMyY2xYaENiaTdlc0lfLXNmaTNzQzRuazhFTW1RVzhmc3h5dEI0cGV3UzJCekdtNEJ0T2JadF9LSmp4Q3BlSHhBY0xaaFhXc3RQUTJKcFVxbnNwZGQ4dUdJUmlHQ3FhOUsydWVVWjZUM3JCcVl5Vl9scFVKS3BQZE90R1ZaQXhwTnRGY3lzbi1GUTg5MXc?oc=5
-
-## Taylor Swift Silently Shuts Down Donald Trump - Vanity Fair
-
-- first seen: 2026-08-10 14:23 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Silently Shuts Down Donald Trump  Vanity Fair
-- sources:
-  - [unverified] Vanity Fair — https://news.google.com/rss/articles/CBMigwFBVV95cUxNbHNrT2lHNVp0RUZqUzF2b1JwRTBoLWtFeHFBMF9EcFhjZFFyWVp2ZGI4aHlaZUpsUGJKaFR0cTJ3TzRLc1c4dmE0SzdxTzczWlFxN3QzSWhaWWVqcXRFcDIyeDdoeGhNWnRtRG1sTXJCQm9oSzgyTVpYdUFpVng3dnk1NA?oc=5
-
-## Taylor Swift songs removed from several White House TikTok videos - usatoday.com
-
-- first seen: 2026-08-10 14:23 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift songs removed from several White House TikTok videos  usatoday.com
-- sources:
-  - [unverified] usatoday.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxQRDhoTC1NZkxaSTV5LXZaMFZlWjlIUnJCMm5pczFicnY1S1BySGd1dGZrczRpWE10eEpvbEtiT0gzQjZoWGFmVmlQMHY0ZEUyYmM2VWpMV3dudndrTGlVTWNLMk1kUWw3R195MTliaXlZamI5b2hUMEp1MXBJdWZtYnNETEwwdzhZbmM2bkU1LUhKYTZBYjZxcmNhSGdjckJZWHltN25ZTWxTNFRzVF8zRy1NNFE?oc=5
-
-## Times Taylor Swift Skipped Tons Of Makeup And Looked So Different - Yahoo
-
-- first seen: 2026-08-10 14:23 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Times Taylor Swift Skipped Tons Of Makeup And Looked So Different  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikwFBVV95cUxQZ2k5cnBPMFZTaFBqSkdham43R1ZzSlJtX3UyZW10aGpYMmRNUndDWkU0ZVlYVkdocXJwYVVuUDlDLU5FRkc5amhCdW5DbUIwUjlmLXR6RjRyR1JDejVEUU1UT2JES2JCSEVuYzhJX29nLWJmSG12T0xPdGtkVUZuMTN3OUdZczdyd3dETndweEVSZ28?oc=5
-
-## ‘Taylor Swift Tax’ on homes is law in Rhode Island. Could it help solve Cape Cod’s housing crunch? -
-
-- first seen: 2026-08-10 14:23 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: ‘Taylor Swift Tax’ on homes is law in Rhode Island. Could it help solve Cape Cod’s housing crunch?  Boston 25 News
-- sources:
-  - [unverified] Boston 25 News — https://news.google.com/rss/articles/CBMi8AFBVV95cUxPWjFKMmFKN1FCNFFlNGdXdnRJbGF0ZlFnMERDRjJaVWRKMnFWOEF2ZzBTX0M5aVFxWlhjMGxYYWVjajFXZHBka0JXSFZkQjlOVTNfOU0zTTRENERmRV83ZDRFTFFjd3E0MHc1T1liUFZqMXJGV1ZxWmdTN2xNcEhEU0FlNF9yYXdiVU4xWEdsYlUyMERoZkV6X2h5WV9LaUN5dDc3X0o3aEhUZWstNTNEOGlKbmkwYnQ1d213SHZpd0ZwX2tGUkRZRUdscjBocm1qWFFSdVQ1TnFRMlN2NnpUNl9YTGJROUtUTkFlOWZrTk0?oc=5
-
-## Kim Kardashian Wants a Bigger Wedding Guest List Than Taylor Swift — Insider - Yahoo
-
-- first seen: 2026-08-10 10:34 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kim Kardashian Wants a Bigger Wedding Guest List Than Taylor Swift — Insider  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPMl9WQ2dUNkYzeUtiT256dmJzX2NtR2F2UlkzWGx6aDhOeFBqcHRMd1FTVEMwZm5yTmQzVldpcUt0MVZkZ3ZMSnpDdjVnNzVRYlhNZ01JNC1VRWptTTh4MFpwVldvd1RDSDVLTDRXRDZFNEFTV1VFQmNWa2FNQUJ1UUlZVkRlQXhPNElhX1Y5V2pPYmFXVUxXeGpySjFZa19mQ1ZWVXN6MmM?oc=5
-
-## SPOTTED: Taylor Swift and Travis Kelce Reportedly Make First Public Appearance Amid Chiefs Training 
-
-- first seen: 2026-08-10 10:34 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: SPOTTED: Taylor Swift and Travis Kelce Reportedly Make First Public Appearance Amid Chiefs Training Camp  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOdGFqeHVfem9GZmRIcUQ2Rm1LNnFpaWYtbXBZUkdIX1pXX1RENHFQUDdyV2JsbnRjMWhmLVlrLXdTdHc3bXcwWTgwdW10SEdHMWtrWFYzVGlMOFc5T05FbDk1TzdQcTBMTDRlNllHN1lvSHhmYmxENms4cEt5ZUs5XzZxN0J2VHZHbnRmVnlOdVprdjMzaVZMUktJZFFRU1JfYUFNR2ZR?oc=5
-
-## Taylor Swift Took Action Against Donald Trump Using Her Song - Yahoo
-
-- first seen: 2026-08-10 10:34 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Took Action Against Donald Trump Using Her Song  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPOVZJMFpFNmptbDFnVWhuVGdKQ29Ha0xkSVlPclM1bXNwNlZvaXljTHBURl9MZEFlam9uZ05kSWxkUE5uRm1tUk9DQ0oyVnEwR2pTQXFuU1VybDZLeUxCSUEzdjUxMzN3ZGZaU3ZmcFotc094QlUtZkNKbnNjY05nakNLanlOc2JHY0pkZm1NMU5pVDhjSEVtRzFyYWlzN0U?oc=5
