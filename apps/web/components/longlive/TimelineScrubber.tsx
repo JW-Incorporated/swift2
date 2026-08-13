@@ -7,6 +7,7 @@ import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
 import { truncate } from '@/lib/longlive/format';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { cn } from '@/lib/utils';
+import { SCRUBBER_CONTAINER_CLASS, SCRUBBER_RAIL_CLASS } from './timelineScrubberLayout';
 
 /** Reference line for "what am I reading" — header + a bit into the viewport. */
 const HEADER_OFFSET = 64;
@@ -418,7 +419,7 @@ export function TimelineScrubber() {
   void anchorsVersion;
 
   return (
-    <div className="pointer-events-none fixed inset-y-0 right-0 z-30 flex w-10 items-center justify-end sm:w-12">
+    <div className={SCRUBBER_CONTAINER_CLASS}>
       {/* Legibility scrim */}
       <div
         aria-hidden
@@ -478,7 +479,7 @@ export function TimelineScrubber() {
             scrollToDate(d);
           }
         }}
-        className="pointer-events-auto relative h-[74vh] w-full cursor-ns-resize touch-none select-none outline-none"
+        className={SCRUBBER_RAIL_CLASS}
       >
         {/* Activity ridge */}
         <svg
