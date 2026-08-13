@@ -232,6 +232,12 @@ jobs:
           node-version: "24"
       - name: Scan changed code files for server-executing content
         id: scan
+        # `bash {0}` (2026-08-12): GitHub's DEFAULT run shell is `bash -e {0}`,
+        # which silently defeated the "NOT set -e" design below — the guard
+        # script exiting 1 (server_code) killed the step red before the
+        # verdict logic ever ran, instead of producing a clean declined
+        # verdict. Seen live on PR #2039's own checks.
+        shell: bash {0}
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
