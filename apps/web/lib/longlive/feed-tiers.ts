@@ -145,6 +145,11 @@ export function baseTierFor(item: ContentItem, imageSuppressed = false): CardTie
  * promise about what the card contains, and the tier must be told when that
  * promise stops being true. Passed as a set rather than pre-filtered so the
  * SEQUENCE is intact and hero pacing still walks the real feed.
+ *
+ * It feeds the SCORE path only, and so is subject to invariants 1 and 2 above
+ * like everything else: a `defining` card is still `hero` and a `notable` card
+ * still floors at `media`, imageless or not. Suppression says a picture will not
+ * render; it does not restate how important the event was.
  */
 export function assignFeedTiers(
   items: ContentItem[],

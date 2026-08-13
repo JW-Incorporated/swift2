@@ -20,9 +20,13 @@ with no play control, because #2080's suppression only ever compared a card's
 photo against the video that card PLAYS — and a deferring card plays none. So
 `feedCardImageHidden` (`video-affordance.ts`) now answers both cases, comparing
 against every video the era can play (`eraKnownVideoIds`), not just the card's
-own. Where suppression leaves a card with no picture, the tier is re-scored
-without one (`assignFeedTiers(items, imageSuppressedIds)`) rather than keeping an
-image silhouette it can no longer fill.
+own — and it takes no `ownsVideo` argument, because the answer is the same on
+both sides of the de-dupe (it replaces `cardImageDuplicatesVideo`, which is
+gone). Ownership decides what REPLACES the photo — a poster, or nothing — which
+is the tier question. Where suppression leaves a card with no picture, the tier
+is re-scored without one (`assignFeedTiers(items, imageSuppressedIds)`) rather
+than keeping an image silhouette it can no longer fill; `significance` still
+outranks that, as it outranks the score.
 
 Deliberately scoped to cards that CARRY footage. 20 moments hold a still of an
 era video without carrying the video (a piece about the "22" video illustrated
@@ -39,6 +43,23 @@ construction rather than by a component remembering to check. A video hero
 PLAYS; the lightbox stays for photographs, and the promoted frame leaves the
 photo viewer with it. Pages whose hero is a genuinely different photo are
 untouched: hero photo, body video, no duplication existed there.
+
+Two carve-outs, both found in review:
+
+- **A sub-confirmed `confidence` outranks the promotion.** #2051 made it
+  non-negotiable that the reader meets "Rumor — unconfirmed" *before* the media.
+  The body slot sits under that banner; the hero sits above it. So on a rumored
+  moment the video stays in the body and the banner still leads. No vault item
+  carries both `video` and `confidence` today — which is exactly why the rule
+  belongs in code rather than in the corpus.
+- **Other frames of the same video leave the body too.** Dropping the hero's own
+  `ImageRef` by identity was not enough: "'Elizabeth Taylor' goes to radio"
+  carries `maxres3` (promoted) *and* `maxres2`, so the second was woven back into
+  the article under a player of the very footage it is a still of.
+  `imageDuplicatesPageVideo` matches on the id in the path — the same reason
+  #2080 does — and applies whether the video sits in the hero or the body. It
+  removes 2 images corpus-wide, both `archival` frames; photographs are
+  untouched.
 
 **Sizing:** a 16:9 player cannot honour a fixed 42vh band at both ends —
 full-bleed it is 219px tall at 390px and ~850px on a desktop. The player is
@@ -88,7 +109,8 @@ the decision:
    a moment with watchable footage is not a slight item. It is a floor, never a
    cap: `hero` stays `hero`.
 2. **A card's own photo is suppressed when it is a frame of the video it plays**
-   (`cardImageDuplicatesVideo` in `video-affordance.ts`). 8 of the 16 moments
+   (`cardImageDuplicatesVideo` in `video-affordance.ts` — superseded 2026-08-13
+   by `feedCardImageHidden`, see the entry above). 8 of the 16 moments
    carrying `video` have an `i.ytimg.com/vi/<same id>/…` primary image: two are
    the byte-identical `hqdefault.jpg` url the poster requests, two more are
    `maxresdefault.jpg` (the same frame at another resolution), and four are

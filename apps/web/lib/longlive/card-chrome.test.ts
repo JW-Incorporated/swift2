@@ -274,10 +274,24 @@ describe('the detail hero plays the moment’s own footage', () => {
     expect(MOMENT_DETAIL.match(/\{heroControls\}/g)).toHaveLength(2);
   });
 
-  it('keeps the promoted frame out of the photo viewer too', () => {
-    // The still is off the page; swiping the gallery must not land back on it.
-    expect(MOMENT_DETAIL).toContain('const lightboxImages = heroVideo ? gallery : item.images');
+  it('keeps every promoted or duplicated frame out of the photo viewer too', () => {
+    // The viewer holds what the page shows, in page order — never item.images,
+    // which still contains the frames the gallery filter dropped. Otherwise
+    // swiping out of a gallery photo lands on the still this change removes.
+    expect(MOMENT_DETAIL).toContain('const lightboxImages = hero ? [hero, ...gallery] : gallery');
     expect(MOMENT_DETAIL).toContain('images={lightboxImages}');
     expect(MOMENT_DETAIL).not.toContain('images={item.images}');
+  });
+
+  it('drops body frames of the page’s own video by id, not by object identity', () => {
+    // Identity dropped only the ImageRef the hero consumed, so a SECOND frame of
+    // the same video ("goes to radio" carries maxres3 and maxres2) came back
+    // into the body under a player of that very footage.
+    expect(MOMENT_DETAIL).toContain('!imageDuplicatesPageVideo(item, img.url)');
+  });
+
+  it('marks the hero poster as the LCP image, as the photo hero already was', () => {
+    // A `?item=` share link opens this sheet as the first paint.
+    expect(MOMENT_DETAIL).toContain('<MomentVideo video={heroVideo} className="" priority />');
   });
 });

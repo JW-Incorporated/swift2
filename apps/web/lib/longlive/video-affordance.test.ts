@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import {
-  cardImageDuplicatesVideo,
   detailVideoFor,
   feedCardImageHidden,
   feedVideoFor,
   footnoteVideoSources,
   heroVideoFor,
+  imageDuplicatesPageVideo,
   youtubeFrameId,
 } from './video-affordance';
 import { ERAS } from './eras';
@@ -118,72 +118,6 @@ describe('footnoteVideoSources', () => {
   });
 });
 
-/**
- * #2080. Photo Enrichment gave most video-carrying moments the video's own
- * YouTube frame as their photo — reasonably, since the moment IS the video.
- * Once every playable card grew a full-width poster, that meant the same frame
- * printed twice inside one card, which is exactly the duplication Joey flagged
- * on the detail pages. The poster takes the image slot; it never joins it.
- */
-describe('cardImageDuplicatesVideo', () => {
-  const video = { youtubeId: YT_ID, title: 'T' };
-  const img = (url: string) => [{ url, kind: 'primary' as const }];
-
-  it('is true for the exact poster frame', () => {
-    const item = moment({ images: img(`https://i.ytimg.com/vi/${YT_ID}/hqdefault.jpg`) });
-    expect(cardImageDuplicatesVideo(item, video)).toBe(true);
-  });
-
-  it('is true for ANOTHER frame of the same video — the real corpus case', () => {
-    // Seeds carry maxresdefault / maxres1 / maxres2 / maxres3 / sd2 of one id.
-    for (const file of ['maxresdefault.jpg', 'maxres3.jpg', 'sd2.jpg']) {
-      const item = moment({ images: img(`https://i.ytimg.com/vi/${YT_ID}/${file}`) });
-      expect(cardImageDuplicatesVideo(item, video)).toBe(true);
-    }
-  });
-
-  it('is true for the img.youtube.com alias and the WebP path', () => {
-    expect(
-      cardImageDuplicatesVideo(
-        moment({ images: img(`https://img.youtube.com/vi/${YT_ID}/0.jpg`) }),
-        video,
-      ),
-    ).toBe(true);
-    expect(
-      cardImageDuplicatesVideo(
-        moment({ images: img(`https://i.ytimg.com/vi_webp/${YT_ID}/maxresdefault.webp`) }),
-        video,
-      ),
-    ).toBe(true);
-  });
-
-  it('is false for a DIFFERENT video’s thumbnail', () => {
-    const item = moment({ images: img('https://i.ytimg.com/vi/zzzzzzzzzzz/hqdefault.jpg') });
-    expect(cardImageDuplicatesVideo(item, video)).toBe(false);
-  });
-
-  it('keeps a genuinely different photo — this suppresses duplication, not imagery', () => {
-    const item = moment({
-      images: img('https://upload.wikimedia.org/wikipedia/en/4/40/Single_cover.png'),
-    });
-    expect(cardImageDuplicatesVideo(item, video)).toBe(false);
-  });
-
-  it('is false when the only image is the era-art stand-in or nothing at all', () => {
-    expect(cardImageDuplicatesVideo(moment({ images: img('/eras/debut.png') }), video)).toBe(false);
-    expect(cardImageDuplicatesVideo(moment({ images: [] }), video)).toBe(false);
-  });
-
-  it('does not throw on a malformed image url', () => {
-    expect(cardImageDuplicatesVideo(moment({ images: img('not a url') }), video)).toBe(false);
-  });
-
-  it('is not fooled by an id that merely PREFIXES the path segment', () => {
-    const item = moment({ images: img(`https://i.ytimg.com/vi/${YT_ID}extra/hqdefault.jpg`) });
-    expect(cardImageDuplicatesVideo(item, video)).toBe(false);
-  });
-});
-
 describe('youtubeFrameId', () => {
   it('reads the id out of every thumbnail shape the vault uses', () => {
     expect(youtubeFrameId(`https://i.ytimg.com/vi/${YT_ID}/maxres3.jpg`)).toBe(YT_ID);
@@ -213,6 +147,11 @@ describe('youtubeFrameId', () => {
  * Taylor music video that does nothing when tapped. #2080 could not catch it:
  * it only ever compared a card's photo against the video that card PLAYS, and a
  * deferring card plays none.
+ *
+ * Note what is NOT a parameter here: ownership. The answer is the same on both
+ * sides of the de-dupe, so passing it in would have been a lie — see the note on
+ * the function. What ownership decides is what REPLACES the photo, which is the
+ * tier question (feed-tiers.test.ts).
  */
 describe('feedCardImageHidden', () => {
   const img = (url: string) => [{ url, kind: 'primary' as const }];
@@ -220,26 +159,40 @@ describe('feedCardImageHidden', () => {
   const video = { youtubeId: YT_ID, title: 'T' };
   const known = new Set([YT_ID, 'otherotherot']);
 
-  it('hides an OWNER’s photo that is a frame of the video its poster shows (#2080)', () => {
+  it('hides a card’s photo that is a frame of its own video — owner or deferrer', () => {
+    // #2080's case (the poster is about to show it) and #2081's (there is no
+    // poster, so nothing plays it) are one rule, not two.
     const item = moment({ video, images: img(frame(YT_ID)) });
-    expect(feedCardImageHidden(item, true, known)).toBe(true);
+    expect(feedCardImageHidden(item, known)).toBe(true);
   });
 
-  it('hides a DEFERRING card’s photo that is a frame of the video it will not play', () => {
-    const item = moment({ video, images: img(frame(YT_ID)) });
-    expect(feedCardImageHidden(item, false, known)).toBe(true);
+  it('hides every frame filename of that video, not just the poster’s url', () => {
+    for (const file of ['hqdefault.jpg', 'maxresdefault.jpg', 'maxres3.jpg', 'sd2.jpg']) {
+      const item = moment({ video, images: img(frame(YT_ID, file)) });
+      expect(feedCardImageHidden(item, known)).toBe(true);
+    }
   });
 
-  it('hides a deferring card showing a frame of some OTHER video in the era', () => {
+  it('hides a card showing a frame of some OTHER video in the era', () => {
     // The generalisation the fix asked for: the frame need not be of the card's
-    // own video, only of one the era can play.
+    // own video, only of one the era can play. Zero cases in the vault today —
+    // this is the hole a future Photo Enrichment run would otherwise reopen.
     const item = moment({ video, images: img(frame('otherotherot')) });
-    expect(feedCardImageHidden(item, false, known)).toBe(true);
+    expect(feedCardImageHidden(item, known)).toBe(true);
   });
 
-  it('keeps a deferring card’s frame of a video the app knows nothing about', () => {
+  it('keeps a frame of a video the app knows nothing about', () => {
     const item = moment({ video, images: img(frame('strangerthan')) });
-    expect(feedCardImageHidden(item, false, known)).toBe(false);
+    expect(feedCardImageHidden(item, known)).toBe(false);
+  });
+
+  it('is not fooled by an id that merely PREFIXES the path segment', () => {
+    const item = moment({ video, images: img(`https://i.ytimg.com/vi/${YT_ID}extra/0.jpg`) });
+    expect(feedCardImageHidden(item, known)).toBe(false);
+  });
+
+  it('does not throw on a malformed image url', () => {
+    expect(feedCardImageHidden(moment({ video, images: img('not a url') }), known)).toBe(false);
   });
 
   it('keeps the photo on a card with no footage at all, frame or not', () => {
@@ -248,24 +201,24 @@ describe('feedCardImageHidden', () => {
     // They promise no player, so they are not masquerading as anything, and the
     // frame is the only picture they have. Suppressing them would delete
     // imagery rather than duplication.
-    expect(feedCardImageHidden(moment({ images: img(frame(YT_ID)) }), false, known)).toBe(false);
+    expect(feedCardImageHidden(moment({ images: img(frame(YT_ID)) }), known)).toBe(false);
   });
 
   it('keeps a genuine photograph on a deferring card', () => {
     const item = moment({ video, images: img('https://upload.wikimedia.org/a/b.png') });
-    expect(feedCardImageHidden(item, false, known)).toBe(false);
+    expect(feedCardImageHidden(item, known)).toBe(false);
   });
 
   it('is false when there is no real photo to hide', () => {
-    expect(feedCardImageHidden(moment({ video, images: img('/eras/debut.png') }), false, known)).toBe(
+    expect(feedCardImageHidden(moment({ video, images: img('/eras/debut.png') }), known)).toBe(
       false,
     );
-    expect(feedCardImageHidden(moment({ video, images: [] }), false, known)).toBe(false);
+    expect(feedCardImageHidden(moment({ video, images: [] }), known)).toBe(false);
   });
 
   it('still fires on the card’s own video when the known set is empty', () => {
     const item = moment({ video, images: img(frame(YT_ID)) });
-    expect(feedCardImageHidden(item, false, new Set())).toBe(true);
+    expect(feedCardImageHidden(item, new Set())).toBe(true);
   });
 });
 
@@ -282,7 +235,7 @@ describe('feedCardImageHidden over the real vault', () => {
     const knownIds = eraKnownVideoIds(items, videosForEra(era.id));
     for (const item of items) {
       const owns = owners.has(item.id);
-      if (feedCardImageHidden(item, owns, knownIds)) suppressed.push({ id: item.id, owns });
+      if (feedCardImageHidden(item, knownIds)) suppressed.push({ id: item.id, owns });
     }
   }
   const deferring = suppressed.filter((s) => !s.owns).map((s) => s.id);
@@ -359,6 +312,76 @@ describe('heroVideoFor', () => {
     const item = moment({ video, images: img(`https://i.ytimg.com/vi/${YT_ID}/maxres1.jpg`) });
     expect(heroVideoFor(item)).toEqual(video);
     expect(detailVideoFor(item)).toBeNull();
+  });
+
+  // #2051, non-negotiable: a reader meets "Rumor — unconfirmed" BEFORE the
+  // media. The body slot sits under the banner; the hero sits above it, so
+  // promoting on a rumored moment would silently inverting that order. No vault
+  // item carries both `video` and `confidence` today — which is precisely why
+  // the rule has to live in code rather than in the corpus.
+  it('refuses the hero on a sub-confirmed moment, leaving the video under the banner', () => {
+    const images = img(`https://i.ytimg.com/vi/${YT_ID}/maxres1.jpg`);
+    for (const confidence of ['reputable_reporting', 'strong_fan_consensus', 'clowning'] as const) {
+      const item = moment({ video, images, confidence });
+      expect(heroVideoFor(item)).toBeNull();
+      expect(detailVideoFor(item)).toEqual({ video });
+    }
+  });
+
+  it('still promotes on a CONFIRMED-tier confidence', () => {
+    for (const confidence of ['official', 'confirmed_interview'] as const) {
+      const item = moment({
+        video,
+        images: img(`https://i.ytimg.com/vi/${YT_ID}/maxres1.jpg`),
+        confidence,
+      });
+      expect(heroVideoFor(item)).toEqual(video);
+    }
+  });
+});
+
+/**
+ * The hero promotion drops the ImageRef it consumed, but the OTHER frames of
+ * that same video were still woven through the body — under a player of the very
+ * footage they are stills of. "'Elizabeth Taylor' goes to radio" carries
+ * maxres3 (promoted) and maxres2 (not), one video, two files.
+ */
+describe('imageDuplicatesPageVideo', () => {
+  const video = { youtubeId: YT_ID, title: 'T' };
+
+  it('is true for any frame of the video this page plays', () => {
+    const item = moment({ video });
+    for (const file of ['maxres2.jpg', 'hqdefault.jpg', 'sd2.jpg']) {
+      expect(imageDuplicatesPageVideo(item, `https://i.ytimg.com/vi/${YT_ID}/${file}`)).toBe(true);
+    }
+  });
+
+  it('is false for a photograph, and for a frame of a different video', () => {
+    const item = moment({ video });
+    expect(imageDuplicatesPageVideo(item, 'https://upload.wikimedia.org/a/b.png')).toBe(false);
+    expect(imageDuplicatesPageVideo(item, 'https://i.ytimg.com/vi/zzzzzzzzzzz/0.jpg')).toBe(false);
+  });
+
+  it('is false on a page with no video — nothing to duplicate', () => {
+    expect(
+      imageDuplicatesPageVideo(moment(), `https://i.ytimg.com/vi/${YT_ID}/maxres2.jpg`),
+    ).toBe(false);
+  });
+
+  it('drops exactly the two archival frames in the vault, and no photographs', () => {
+    const dropped: string[] = [];
+    for (const era of ERAS) {
+      for (const item of contentForEra(era.id)) {
+        const heroImage = primaryImageRef(item);
+        for (const img of item.images) {
+          if (img !== heroImage && imageDuplicatesPageVideo(item, img.url)) dropped.push(item.id);
+        }
+      }
+    }
+    expect(dropped.sort()).toEqual([
+      'vault-tloas-elizabeth-taylor-goes-to-radio',
+      'vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+    ]);
   });
 });
 

@@ -1,5 +1,5 @@
 import { extractYouTubeId } from '@swift2/shared';
-import { hasRealPrimaryImage, primaryImageRef } from './types';
+import { hasRealPrimaryImage, isSubConfirmed, primaryImageRef } from './types';
 import type { ContentItem, MomentVideo } from './types';
 
 /**
@@ -81,11 +81,6 @@ function isYouTubeThumbHost(hostname: string): boolean {
  * A photo from anywhere else (album art, a press shot) is a genuinely different
  * picture and is kept: this suppresses duplication, not imagery.
  */
-export function cardImageDuplicatesVideo(item: ContentItem, video: MomentVideo): boolean {
-  if (!hasRealPrimaryImage(item)) return false;
-  return youtubeFrameId(primaryImageRef(item)?.url) === video.youtubeId;
-}
-
 /**
  * The YouTube video a url is a thumbnail FRAME of, or null for any other image.
  *
@@ -117,41 +112,44 @@ export function youtubeFrameId(url: string | undefined): string | null {
 }
 
 /**
- * Whether a feed card yields its photo slot — the ONE answer EraSection asks,
- * covering both reasons a card's picture must not render.
+ * Whether a feed card yields its photo slot — the ONE answer EraSection asks.
  *
- * 1. The card OWNS the embed and its photo is a frame of that video (#2080):
- *    the poster takes the image slot rather than printing the same frame twice.
+ * A card that carries footage hides a photo that is a still of any video the era
+ * can play, and the reason collapses to one sentence in both directions:
  *
- * 2. The card DEFERS the embed (#2057 de-dupe: one video plays from exactly one
- *    card) and its photo is a frame of a video it will not play. This is the
- *    case Joey hit on tloas: "'Elizabeth Taylor' goes to radio" rendered a
- *    hero-tier still from the Elizabeth Taylor music video with NO play control,
- *    because the embed belongs to the earlier supercut card. A big video-looking
- *    frame you cannot play is worse than the duplication #2080 removed — it
- *    promises a player that does not exist. Suppressed, the card renders as what
- *    it actually is: a story about radio airplay.
+ * 1. If the card OWNS the embed, its own poster is about to render that footage
+ *    (#2080) — printing the frame as well shows the same picture twice, in two
+ *    sizes, inside one card.
+ * 2. If the card DEFERS the embed (#2057: one video plays from exactly one
+ *    card), it has no play control at all. That is the case Joey hit on tloas —
+ *    "'Elizabeth Taylor' goes to radio" rendered a hero-tier still of the
+ *    Elizabeth Taylor music video with nothing to press, because the embed
+ *    belongs to the earlier supercut card. A big video-looking frame you cannot
+ *    play is worse than the duplication #2080 removed: it promises a player that
+ *    does not exist.
  *
- * Case 2 is deliberately scoped to cards that CARRY footage. A moment with no
- * `video` of its own whose photo happens to be a frame of some era video (20 of
- * them today — a moment about the "22" video illustrated with a still from it)
- * is not masquerading as anything: it has no play affordance to promise and the
- * frame is its only picture. Stripping those would delete imagery, not
- * duplication.
+ * Note there is no `ownsVideo` parameter. It was one for a while and it was a
+ * lie — the answer is the same either way, and a card whose photo is a frame of
+ * some OTHER era video is equally wrong whichever side of the de-dupe it sits
+ * on. Ownership decides what REPLACES the photo (a poster, or nothing), which is
+ * the tier question EraSection answers separately; it does not decide this.
  *
- * `knownVideoIds` is every video id the era can play (moment embeds + the
- * Videos rail's records), so a deferring card is caught whether its photo is a
- * frame of its OWN video or of a sibling's. Its own id is checked directly too,
- * so the rule holds even if a caller hands over a narrower set.
+ * Scoped to cards that CARRY footage. A moment with no `video` of its own whose
+ * photo happens to be a frame of some era video (20 of them today — a piece
+ * about the "22" video illustrated with a still from it) is not masquerading as
+ * anything: it has no play affordance to promise and the frame is usually its
+ * only picture. Stripping those would delete imagery, not duplication.
+ *
+ * `knownVideoIds` is every video id the era can play (moment embeds + the Videos
+ * rail's records). The card's own id is checked directly as well, so the rule
+ * holds even if a caller hands over a narrower set.
  */
 export function feedCardImageHidden(
   item: ContentItem,
-  ownsVideo: boolean,
   knownVideoIds: ReadonlySet<string>,
 ): boolean {
   const video = item.video;
   if (!video) return false;
-  if (ownsVideo) return cardImageDuplicatesVideo(item, video);
   if (!hasRealPrimaryImage(item)) return false;
   const frame = youtubeFrameId(primaryImageRef(item)?.url);
   if (!frame) return false;
@@ -176,15 +174,46 @@ export function feedCardImageHidden(
  * photo, the video stays in the body, and nothing was duplicated there anyway.
  *
  * Compared against `primaryImageRef` — what the hero actually renders — rather
- * than through `cardImageDuplicatesVideo`'s `hasRealPrimaryImage` gate, which is
- * a feed-card question. Two of the ten ("Tim McGraw" arrives, "willow" leads the
- * era) hold their frame as a non-`primary` stand-in, so the gate would answer
- * "no real photo" about an image the reader is looking at.
+ * than through the feed's `hasRealPrimaryImage` gate, which is a feed-card
+ * question. Two of the ten ("Tim McGraw" arrives, "willow" leads the era) hold
+ * their frame as a non-`primary` stand-in, so that gate would answer "no real
+ * photo" about an image the reader is looking at.
+ *
+ * ONE thing outranks this: a sub-confirmed `confidence`. #2051 made it
+ * non-negotiable that a reader meets "Rumor — unconfirmed" BEFORE the media,
+ * never after, which is why `detailVideoFor`'s slot sits below the banner. The
+ * hero sits ABOVE the banner — it is the top of the page — so promoting there
+ * would put the footage first and quietly invert the rule. On a rumored moment
+ * the video stays in the body where the banner still leads it. No live item hits
+ * this today (0 of the 735 vault items carry both `video` and `confidence`),
+ * which is exactly why it needs to be in code: the first one that does would
+ * otherwise ship the violation with nothing to catch it.
  */
 export function heroVideoFor(item: ContentItem): MomentVideo | null {
   const video = item.video;
   if (!video) return null;
+  if (item.confidence && isSubConfirmed(item.confidence)) return null;
   return youtubeFrameId(primaryImageRef(item)?.url) === video.youtubeId ? video : null;
+}
+
+/**
+ * True when a gallery image is a still of footage THIS PAGE plays — wherever it
+ * plays it (hero or body).
+ *
+ * The hero promotion drops the one `ImageRef` it consumed, but identity is the
+ * wrong test for the rest: "'Elizabeth Taylor' goes to radio" carries
+ * `maxres3.jpg` (promoted to the hero) and `maxres2.jpg`, two frames of the one
+ * video, so the second was woven back into the body under a player of the very
+ * footage it is a still of. Same id, different file — precisely the spread that
+ * made #2080 match on the id in the path rather than on the whole URL.
+ *
+ * Applied whether the video ended up in the hero or the body, because the reader
+ * can play it either way and a still of a playable video is not a photograph. It
+ * removes 2 images across the corpus, both `archival` frames of the video on
+ * their own page; genuine photographs are untouched.
+ */
+export function imageDuplicatesPageVideo(item: ContentItem, url: string): boolean {
+  return !!item.video && youtubeFrameId(url) === item.video.youtubeId;
 }
 
 /** The top-slot video for `MomentDetail`, with the caption to render under it. */

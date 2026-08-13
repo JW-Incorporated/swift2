@@ -146,20 +146,20 @@ export function EraSection({ era }: { era: Era }) {
     () => eraKnownVideoIds(items, videosForEra(era.id)),
     [items, era.id],
   );
-  // The cards whose photo will not render: #2080's owners whose picture is a
-  // frame of the video their poster already shows, plus the #2057 deferring
-  // cards whose picture is a frame of a video they do NOT play. The second half
-  // is Joey's tloas report — "'Elizabeth Taylor' goes to radio" opened with a
-  // hero-sized still from the Elizabeth Taylor music video and no play button,
-  // because the embed belongs to the supercut card above it. See
+  // The cards whose photo will not render: a card carrying footage whose picture
+  // is a still of a video the era plays — either the one its own poster is about
+  // to show (#2080) or one it defers to another card and so has no control for.
+  // The second half is Joey's tloas report: "'Elizabeth Taylor' goes to radio"
+  // opened with a hero-sized still from the Elizabeth Taylor music video and no
+  // play button, because the embed belongs to the supercut card above it. See
   // `feedCardImageHidden`.
   const imageHiddenIds = useMemo(() => {
     const hidden = new Set<string>();
     for (const item of visible) {
-      if (feedCardImageHidden(item, videoOwnerIds.has(item.id), knownVideoIds)) hidden.add(item.id);
+      if (feedCardImageHidden(item, knownVideoIds)) hidden.add(item.id);
     }
     return hidden;
-  }, [visible, videoOwnerIds, knownVideoIds]);
+  }, [visible, knownVideoIds]);
   // Card silhouette per item — recomputed against whatever's actually on
   // screen (so filtering doesn't reference invisible items), but a pure
   // function of that list's ids, so it's stable across re-renders.
@@ -175,6 +175,12 @@ export function EraSection({ era }: { era: Era }) {
   // "'Elizabeth Taylor' goes to radio" would keep the hero silhouette it earned
   // as a photo card and render it empty. Owners are deliberately NOT in this
   // set: their poster fills the image slot, so their tier is still honest.
+  //
+  // This lowers the SCORE-derived tiers only. `significance` still outranks it,
+  // exactly as it outranks the score (feed-tiers.ts): a 'defining' card stays
+  // `hero` and a 'notable' card keeps its `media` floor with no photo, because
+  // significance is a judgment about the event, and a missing picture is not a
+  // reason to demote one. Both tiers already render imageless today.
   const tierlessImageIds = useMemo(
     () => new Set([...imageHiddenIds].filter((id) => !videoOwnerIds.has(id))),
     [imageHiddenIds, videoOwnerIds],
