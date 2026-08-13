@@ -285,6 +285,8 @@ export default {
       relatedIds: [
         'moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp',
         'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
+        'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
+        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
       ],
       title: 'folklore makes her the first woman to win Album of the Year three times',
       snippet:
@@ -294,7 +296,7 @@ export default {
         'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
       moment: {
         context:
-          'The March 14, 2021 win — after Fearless in 2010 and 1989 in 2016 — made her the first woman with three Album of the Year Grammys, in a field that included Dua Lipa, Post Malone, HAIM, and Coldplay.\n\nAccepting at the pandemic-limited ceremony, she thanked Jack Antonoff, Aaron Dessner, and engineers Laura Sisk and Jonathan Low ("I had the best time writing songs with you in quarantine"), told Justin Vernon — whom she still had never met in person — "I\'m so excited to meet you someday," and thanked fans for meeting her in "this imaginary world that we created." It was her only win of the night from six nominations, and the one that mattered.',
+          'The March 14, 2021 win — after Fearless in 2010 and 1989 in 2016 — made her the first woman with three Album of the Year Grammys, in a field that included Dua Lipa, Post Malone, HAIM, and Coldplay.\n\nAccepting at the pandemic-limited ceremony, she thanked Jack Antonoff, Aaron Dessner, and engineers Laura Sisk and Jonathan Low ("I had the best time writing songs with you in quarantine"), told Justin Vernon — whom she still had never met in person — "I\'m so excited to meet you someday," and thanked fans for meeting her in "this imaginary world that we created." It was her only win of the night from six nominations, and the one that mattered.\n\nThe 63rd Grammys were a pandemic ceremony — staged part-indoors, part-outdoors around the Los Angeles Convention Center and hosted by Trevor Noah, with nominees seated at spaced tables rather than a packed arena. Earlier in the night Taylor gave one of the show\'s signature performances: a hushed folklore/evermore medley — "cardigan," "august," and "willow" — that opened with her perched atop a moss-covered cabin built in a fairy-lit indoor forest, then moved inside the cabin and out onto its lawn alongside the album\'s co-producers Antonoff and Dessner, the first time the three had performed the songs together before an audience. folklore had been recorded remotely during lockdown and finished 2020 as the best-selling album of the year in the United States, so its Album of the Year win doubled as the pandemic\'s defining critical statement. The three-time distinction placed her beside Frank Sinatra, Paul Simon, and Stevie Wonder — the only artists who had ever done it — and no woman before her; three years later she would pass all of them, taking a record-setting fourth with Midnights in 2024, the most Album of the Year wins by anyone in Grammy history.',
         sources: [
           {
             outlet: 'CBS News',
@@ -303,6 +305,15 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-performed-folklore-evermore-medley-2021-grammy-awards-1140876/',
+            source_title: "Watch Taylor Swift Perform a 'Folklore,' 'Evermore' Medley in the Shire at 2021 Grammy Awards",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
           },
         ],
         // Photo-enrichment run 16 (2026-07-18, #762): focal points only — the
