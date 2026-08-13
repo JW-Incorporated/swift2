@@ -46,11 +46,19 @@ export function videosForEra(eraId: EraId): PlayableVideoNote[] {
   return (VIDEOS_RAW[eraId] ?? []).filter(isPlayable);
 }
 
-/** Every record for an era INCLUDING the unplayable ones. Not for rendering —
- * this exists so data-integrity tests and content tooling can still see what
- * the seed holds. Reader-facing code wants `videosForEra`. */
+/**
+ * Every record for an era INCLUDING the unplayable ones. Not for rendering
+ * cards — this exists for the search index (a search hit is not a card; see
+ * search.ts), data-integrity tests, and content tooling. Reader-facing card
+ * surfaces want `videosForEra`.
+ *
+ * Returns a COPY: `videosForEra`'s `filter` happens to hand back a fresh array,
+ * which is what makes its callers' in-place `sort` safe, and this function
+ * would otherwise be the one path that leaks the module-level `VIDEOS_RAW`
+ * array to a caller free to sort it.
+ */
 export function allVideoRecordsForEra(eraId: EraId): VideoNote[] {
-  return VIDEOS_RAW[eraId] ?? [];
+  return [...(VIDEOS_RAW[eraId] ?? [])];
 }
 
 /**

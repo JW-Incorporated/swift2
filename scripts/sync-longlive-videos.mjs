@@ -86,7 +86,12 @@ export function youtubeIdFrom(url) {
  * The official embed id for one raw video: the seed's oEmbed-verified YouTube
  * media entry wins (that's the rights-checked reference), falling back to a
  * YouTube-shaped officialUrl. Null when the work has no official embed (e.g. a
- * theatrical tour film) — the UI then renders a metadata card, no player.
+ * theatrical tour film).
+ *
+ * A null id means the record is HIDDEN from every reader-facing surface, not
+ * rendered as a metadata card — playable-first, docs/decisions.md 2026-08-13.
+ * So if you are authoring a record and it never appears in the app, this is
+ * why: give it a verified official upload and it shows up on the next sync.
  */
 export function resolveYoutubeId({ media, officialUrl }) {
   for (const m of Array.isArray(media) ? media : []) {
