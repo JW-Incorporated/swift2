@@ -7,6 +7,36 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 — Fan re-uploads are citations, never presentation (decided by Joey)
+
+**Decision:** a fan/archive re-upload of a video may be *cited* as a source on a
+moment (a footnote link with the channel named honestly, e.g. "YouTube —
+lionheart33026 (fan archive)"), but is never *presented* as media: no top-slot
+placement on a detail page, no play badge, no inline embed, no `officialUrl`,
+no Videos-rail entry. Presented media placement is reserved for official
+first-party uploads. Concretely: when a moment's only video source is a fan
+re-upload, the link stays in the citations, and the card/detail render as
+non-video content.
+
+**Why:** three rules landed this week now form one principle, and this entry
+names it so future sessions stop re-deciding it piecemeal — (1) the Videos
+surface is official-uploads-only (`officialUrl` rule; #2042 tightened it to
+Taylor-on-screen-only); (2) a fan re-upload counts zero toward source
+independence (#2036 / PR #2041 — footage is evidence, not reporting); (3) the
+#2050/#2051 playback build deliberately DROPPED its lone-YouTube-citation
+promotion after finding 6 of 29 affected moments cite fan re-uploads — that
+drop is ratified here. Presenting a fan re-upload gives our imprimatur to a
+link that can vanish on takedown and implies a provenance we haven't verified.
+
+**Alternatives considered:** promoting any lone YouTube citation to the top of
+a detail page regardless of channel (built, then dropped in the #2050/#2051
+work); a per-case reliability threshold (rejected as unenforceable drift —
+the official/fan line is checkable by machine).
+
+**Who approved:** Joey, 2026-08-13, in chat: presented as "keep it as shipped —
+fan re-uploads stay as footnote citations; only official uploads get top
+billing," answered "I agree with your take. make that a decision."
+
 ## 2026-08-13 — Getty preview comps may be posted to social: a knowing acceptance of infringement exposure (decided by Joey)
 
 **Decision:** the 12 queued social posts whose images derive from Getty preview
