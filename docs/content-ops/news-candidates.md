@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 95
+
+## Taylor Swift’s ‘I Bet You Think About Me’ Is Her Latest Song Removed From a Trump TikTok Post - Bill
+
+- first seen: 2026-08-13 10:20 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ‘I Bet You Think About Me’ Is Her Latest Song Removed From a Trump TikTok Post  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiswFBVV95cUxQN0xXX3ZlTmpUOHp6SlZuR2pJQVI1NWsyQ2drY1JqcDU0Q0ZhaHFlVGZOUENPVFZtM3U5YW5qODRfY2ZMVUlDU041dzl0ZUltdy00cm92TXNFVlFRQU42VVQ1cUJvc2s4TEVJS0xTVlczLThGd3RiWE9lNE5vRVB4MnpORUVTU095VmxEMkNrU1lXemhQdlVtQ0ZwbmllcXMwR3lEUTRmcWVZUE9uRS1YOS02OA?oc=5
+
+## Taylor Swift is up for a 2026 CMA nomination. How voting works. - The Tennessean
+
+- first seen: 2026-08-13 10:20 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is up for a 2026 CMA nomination. How voting works.  The Tennessean
+- sources:
+  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMizwFBVV95cUxNMGdEU1F1YjJXbVRWaXhVM1RMNmowcW5SZ253b0drNm5DMGoxcjU4azZWeU1MbHdWbTR5SFpJbmN0QlowSktONXdXZDcxa2FwNXFJVUczU3JDQ1ZVQXpSNDZWTDludjJIdzBXZU16VDEtcmdjUWRuVjUyYjRHS3JhenRVTzZ2VlVJNV9lZnlPQ2liNE5kMFdsR2VXVHBZWkhuSlBLdUMtREM2SDVBWG42Sno2TEVNNUtFQ0t0UVJUM21VdTJqZW9aM1NieTJyeDQ?oc=5
+
+## Travis Kelce Just Called Taylor Swift 'My Wife' — Fans Lost It - Yahoo Sports
+
+- first seen: 2026-08-13 10:20 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Just Called Taylor Swift 'My Wife' — Fans Lost It  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxNUGtucG4zaTBHemFNSG00SW0tSVNRWTE3TFY3RmwxLVg4SUdmNzJYY1hONVRoZWQ1RjdXMVlHRnRvdFpzU1FTaFI4alZoRXNLY1V1Umg4VlJYRU8wTGZONGc1S0VaSV9qSlNjdlgyMlFxa29wdzFCb2FQdlpXZFl2eEZfUFZTaVE?oc=5
+
+## Travis Kelce finally opens up about Taylor Swift wedding. Here are four things we learnt - SMH.com.a
+
+- first seen: 2026-08-13 10:20 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce finally opens up about Taylor Swift wedding. Here are four things we learnt  SMH.com.au
+- sources:
+  - [unverified] SMH.com.au — https://news.google.com/rss/articles/CBMi4wFBVV95cUxQNWt3M3ljVGZ0UHZ5SF81cERMZ0FndGhpWmFOSGJBZmY4VElNc1ZpaUtyRXdzdmRHREVRUUptSl9ab2dnU3F4OEVpS24wVi1CT2xNdXBGcl9wSDdaUFFMbllQTDZ3dWx2VXdMU3dqVnVBaXBLRE9iWWg3RHJ2U2E2Y09OZ0lERkVEbEdiR1ZCajNJcDV2Ri1uZW5EWjlMV1htVklZUGVjMHVzbXgySEdORjdMcldOLUF5d3MyazFhbms5blNScXV2T0hPS0JhTEViMXBGQnNhOTY2RmIwUjhuWDNoNA?oc=5
+
+## Another Taylor Swift Song Has Been Pulled From A Post By The Trump Administration - ca.news.yahoo.co
+
+- first seen: 2026-08-13 10:20 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Another Taylor Swift Song Has Been Pulled From A Post By The Trump Administration  ca.news.yahoo.com
+- sources:
+  - [unverified] ca.news.yahoo.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5OTjZGTVNPSV9vLXlHN0c5d1dIOGVVVmphaHNmYW9RYndSNkRNTV9VNmZGeUdkWWdudFRzWDF0bkEtdDhRX1JRd2FWMHozZ0JSTzM1MTZCRlZCd2FkUGUzQThRVWQ1QTg2OTVtUXREaFpBTjBqS3diRjNhRWNhdw?oc=5
+
+## Taylor Swift has put her love story out there – so it’s not fair she won’t let us see her wedding dr
+
+- first seen: 2026-08-13 10:20 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has put her love story out there – so it’s not fair she won’t let us see her wedding dress | Polly Hudson  The Guardian
+- sources:
+  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNaHJaWWVGNUFrSVNnUDNEMGFreUJTdGV3WV9zMUYyUURjc3NpOGNpOTk4QlBYc1NCZDhqTmR3eGZXMW5ETndpcGxYQzFlUVhYajd0aVJ2bjFieDFNU0tKVUI5MWpPR2J3WVBscUJOWW5HSFpqRUNDaV9UOGpyWlREQ1owS1Q5ZzFHYjM4ZkZ0R1VZOXJGQ0VFVUJ3UlpUUnZzcWYyY2pmWGFCa0VVWmJJb2F1Q1hHeXlubUFGRlZpeWlfZEpCbXVxM1JEaVlIQ3hzaERIZHE1LWI2Z19p?oc=5
 
 ## Hear Kelce’s first public comments since marrying Taylor Swift - CNN
 
