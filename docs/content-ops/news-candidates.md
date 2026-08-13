@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 96
+Stories: 101
+
+## Taylor Swift Debuts Chic Haircut in First Outing Since Travis Kelce Wedding - E! News
+
+- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Debuts Chic Haircut in First Outing Since Travis Kelce Wedding  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMimwFBVV95cUxQUGxObzFNYjc1N1FWZ2JpTjVmRTFkNXJtdWlRRW9hVlZFaGxZcGEwQ0g1LV9uTlhJTklFX0t2UUtUSm4ySzUtZTEwQlBDa2p3TXVDWGx1bGtCQnVBdTlSSU1jTzNlam1rWEZaN1l3Xy1YQXQ5UWZjVmVzTWMxLVZPMkcxRmlRNWhLblVGXzRENUp2VHFPMXJjaE1taw?oc=5
+
+## Taylor Swift music pulled from TikTok videos shared by Trump team - NJ.com
+
+- first seen: 2026-08-13 21:58 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift music pulled from TikTok videos shared by Trump team  NJ.com
+- sources:
+  - [unverified] NJ.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQk9fNVNWXzJydXI4QlpPdTUwcVVTbGU4MXAtM3laMjMxdlNTT1hPWmdpTllSN1MtNDRkT2cyMlViRjBnejhEQkhmQm5rZzlCeE9xRnpENVJTYWZtT2lLdXN2WnU2Uk5qSmpRT3k3dDUxWkpUdm5ObF95TXE3Wk1pVk9rY2huRFA3eXJjQlZaYkxlaG1KRElKdV9VNmhqR2xQSTVmMWlJRVhnSlnSAb8BQVVfeXFMT1FHS2xLZm1SOVJBWHhyZXNRYkE2MEx1VXhiUXRvdlhxUkpoNV9lbHY3NUlqUDBSUzlzYWlUQ0RvS2tUaWFmNkhBZk1fRTdDWHpvQ3kxR2wzZTRGSkpXTi1aNHdiXzJnZjM0YmNoMU5ScGszMkZaYVlOeWFOVHZBNmdjWjNNQlJQVzJub2h3VUVqM2JVcXpiUDNmQjVjMjFkZEVmZjg2VUNkSFhvTFh6azE0LTlPVk0wTXRDX2FORU0?oc=5
+
+## Taylor Swift Debuts Dramatic Hair Change One Month After Her Wedding to Travis Kelce - instyle.com
+
+- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Debuts Dramatic Hair Change One Month After Her Wedding to Travis Kelce  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQUndlMllvLXNFYjlpMVBSX0toRGdxTTNUbkl5Sm42aGMtSENTVTdiWWlGWE42ZEdjWGxiNFNvUDhySm1teGo4UzBnNHphTEc1TU5TR3VhZUczc2hFWmFTY1NtdEtwTF9vaDVMZ0hid1ZQcG9VMlBYSUNoV3RBV25HaExlTTd4YkhNbUdNUlJsTWhVTU1vaGlSSE0xaEpqZDBnRzFKbGJTUDdVdzA4cnJxc0ZmNkFRYk11ZUFtUjVldzRyeldPREU2cg?oc=5
+
+## Taylor Swift tickets part of lavish lifestyle funded by Scottsdale man’s $10.7M theft - KTAR News 92
+
+- first seen: 2026-08-13 21:58 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift tickets part of lavish lifestyle funded by Scottsdale man’s $10.7M theft  KTAR News 92.3 FM
+- sources:
+  - [unverified] KTAR News 92.3 FM — https://news.google.com/rss/articles/CBMigAFBVV95cUxOMkMxMGI0cVUyYTlmeUF1ZjNuRlJ0cEUtc1IzM3pQQjEweE0wcVVvWEhsSFJUdXN5MjNLeVRLWWp2eUg3RkRPV3dpMk1vNVhJRXRNQ3NXanl2LVJ0VGJ0RGNzNDh4RW10Y0E4LUJLSkFKVzBFeVBDUXQxQUV3WGE1OA?oc=5
+
+## Taylor Swift Debuts Post-Wedding Makeover After Reports of a ‘Big Change’ in Her & Travis Kelce’s Ma
+
+- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Debuts Post-Wedding Makeover After Reports of a ‘Big Change’ in Her & Travis Kelce’s Marriage  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPOC1hdGVGeWpwaHhISGhVellfUHFUc1VyZnQ4aENWcVJteUFvcnczNTFzSkk0Zm5NOEhRVlNkbl85NXU4ZGhQNnlSX0JvYXZfc29yaVNUWDdRUFpzMHB4dmF6b2ZTV3JtZExrLUgySkNNY2lRSktPdGhTUmtYd2FUVFlCRnI1V2RNZmJVX2NUUkhja0xsSzVJb0VLYS1uZ2tHS3lpVg?oc=5
+
+## Taylor Swift Spotted Out in London in First Solo Outing Since Wedding to Travis Kelce - People.com
+
+- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Spotted Out in London in First Solo Outing Since Wedding to Travis Kelce  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxOSzdjSjlhQjV4RGtlMFp1Vk85WlFaN0lKcTdtZGVza1B2b1phT0d5T3lralpJNjZUVE9XVlpscnBCamJRYTdoSFhPZG1pWjFSbWV3Z2lqSHFTYTZ6bzBSRG9IVFMxN2Y5T0owcnFBQ081Z3FXTmEwdjc5Mzg0a1pKX0E4bkMycURjY21UM0paSWRmS1BNS1RV?oc=5
+
+## In pictures: Stars and fans celebrate Taylor Swift and Travis Kelce's wedding - BBC
+
+- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In pictures: Stars and fans celebrate Taylor Swift and Travis Kelce's wedding  BBC
+- sources:
+  - [unverified] BBC — https://news.google.com/rss/articles/CBMiXEFVX3lxTE40S3dKdy1qZHRYWU1nbkRHNER1MHFUM21hX1FQbnRycXEyd0IwcUFKSVh6OEw3QmhUUjJtSU5tRFJBaHcxU1VQZ3VtMWZVRTRjZHFrdFoxZFVfQUpN?oc=5
+
+## Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress - Marie Claire
+
+- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress  Marie Claire
+- sources:
+  - [unverified] Marie Claire — https://news.google.com/rss/articles/CBMimgFBVV95cUxNYmVfZE03RGpuX0JzZ0Y4eEdIdktTdHhidmIxal9PbHFoN0kzYmZPbUdnQ2l6RkZOUEMzTThrczlwbmxsYWhfUXlVOGFlLVJya2s4U1ZTTVpCY1dnam9hd1N3N1NpejFGM3ZHMkNSMmRwNTFWc012VEpvQnBlUDdVbjIxei1BRktNMWdkWTVKLWgxTTR5S3JJMGpn?oc=5
 
 ## Rhode Island Condo—Steps From Taylor Swift’s House—Sells for a Record-Breaking $18.5 Million - Mansi
 
@@ -342,7 +406,7 @@ Taylor Swift and Bad Bunny Dealt With Trump Quietly. It’s a Smart Move  Roll
 ## Travis Kelce Calls Wedding to Taylor Swift ‘Best Night of My Life’ in First Comments - People.com
 
 - first seen: 2026-08-12 18:04 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Travis Kelce Calls Wedding to Taylor Swift ‘Best Night of My Life’ in First Comments  People.com
 Travis Kelce breaks silence on Taylor Swift wedding: 'Best night of my life'  USA Today
 Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Hollywood Reporter
@@ -355,6 +419,7 @@ Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Holl
   - [unverified] The Guardian — https://news.google.com/rss/articles/CBMirwFBVV95cUxPaGt6V095Z3MzeVU1ZW8ydDZiLXh4RkNPRktTTjNLM0w4b1VaMjFISEpiR2tDUnBESENROEFFUFVZaGRBNEpFYXhrUDBFajFYalhFTmhoRkQzUFdCeGJkVXI0SEVjN2lyRnROUkVRTnlpdVNZbml3eFhSR2ZqM0pueW8zSTNMbVVOMjRMRjJNeU9XLV94WmhJM3VuLW1BTE9CbTlLc2w4R2NURGpxeTFj?oc=5
   - [unverified] BBC — https://news.google.com/rss/articles/CBMiWkFVX3lxTE9UbHNXVmpRX285RTR5dm9IQU5mTWN6aEk0aTFETUJBeHRRSWR1c0NodGhSZC1VOURGb181MndTLUNqYW5fR0FrRFdXdU1sNFhIMVlvQUIwemJLdw?oc=5
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMitgFBVV95cUxNeEQ3anJNTjgxSGFCV1pNdHMtd2xodklJVTBFTVNZZUlsc1ltb2JycjJ6SXdFUUx5NDBZZVNTUWlsSlRzSTU0Y2RMRjRIdjhaU2xxczNLNzJlaGdHUy0teXFKandPaFpMem9VdG5idHc5QXFfYUJTcEVjelhpdUpZNE92NFJaZ1lkV0VqbWR6cTFmX0dRNWtEM29DN21jbmNYTUdFUXZRLTM0WHlHWlVqS084MVBnZw?oc=5
+  - [unverified] ESPN — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPMXhZcVVFbVZCTFFrN3NUQnZMVGJGU2p6OExheUptX3RObzQtajBYdU9TRWhDRTJaWURjcjZ4XzVnb29zT0kzOXhkTzRUSEttRXpfSV9TNUZLNkNLY3FZdWV5TmhBd3BpZm1vYnJzN0FLVU9sUjUzaGt5c1A4VGhJMzBKSklPWU1XSlFBRjJsTkExR1NUV1dpb21xWkNLUzloRU5PWDJzOS14ZG5kWENkRXo1SlpMQmx5TFpFMVlFME1MVkxjU3BDM0tSdkFHb1RIOTZ6Tw?oc=5
 
 ## Travis Kelce opens up on Taylor Swift wedding: 'Best night of my life' - ABC News - Breaking News, L
 
@@ -822,27 +887,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Brad Pitt spotted drinking at Taylor Swift and Travis Kelce’s wedding in July before publicly admitting he is off the wagon  Page Six
 - sources:
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQRVY0aWhBWUFJSE1KVTBscmloRUZBYW9sa1RRS1hBcGV4c1FRbkUwMUhyTlNaZEFKUjBtZ0xkNXNNZm5sZnpka1JIZWEyRXg2em5YQUNwRDI1SXZTd0Jodjh5UFlUdWVyX29FZVRhV3p3ejZ0OGx4UlR0TkZ2TEkzZld1aWUybHIzWWNOSURDSEtuaXNBcGhvMDFETWljbm1rZXM1ci1rb1ZvUQ?oc=5
-
-## Someone sneaked a photo of Taylor Swift at 1587 Prime and incited privacy debate - Kansas City Star
-
-- first seen: 2026-08-10 21:55 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Someone sneaked a photo of Taylor Swift at 1587 Prime and incited privacy debate  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTFB1REdTZGZMaGdNLWRTRnJKSWFMRlhlTHVOTm1XSmEzaU54c0tmSzgwNGFUakRsSjRsbUZUNUpaaUYyenB6bFdoMHJHWVVueWZBMVNkQUZYcHBKWXE1WXJUbWxYN0I1UjdKQkNB0gFrQVVfeXFMT3pEMTFENUItQnFxWDc1UGk3QXUwSm5URVZ2ZmZZWHpkNHQtR1Q0R3ByT1pMNkNLWnE0cDBYMndMQWJCUEdmaXB3SmdWZzhNdmt5ZmROekx1aUd1V3hOX1hfcHFGM25TVW5CY2M?oc=5
-
-## Travis Kelce, Taylor Swift Reportedly Ban Restaurant Guests From Taking Photos - Yahoo Sports
-
-- first seen: 2026-08-10 21:55 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce, Taylor Swift Reportedly Ban Restaurant Guests From Taking Photos  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijgFBVV95cUxPcS00V2p5R3pQXzdYSHMxQkJpVFhocXZyMk1XLW1PYlVoSTBMOEdlR290TXVieWVOakV2UGZXX0VONnFzY3owQkoza1lPMGhOOGFhQlVyVE1rdmF2SmtLYXZ4MGxrTTA1MXpoZDNmemFPNHE2TXZ5RDFiamdlblZJMWt4azVINUFOZHpSU2RR?oc=5
-
-## At last, Taylor Swift mutes her songs on Donald Trump’s troll TikToks - Paste Magazine
-
-- first seen: 2026-08-10 21:55 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At last, Taylor Swift mutes her songs on Donald Trump’s troll TikToks  Paste Magazine
-- sources:
-  - [unverified] Paste Magazine — https://news.google.com/rss/articles/CBMitwFBVV95cUxPVDRJNFRNWHVqX0hjZkI0cnVCSnpTamhnVzhNWk9mOWFGLXJYRGo2clFuaWtuUjd3bmV5SFR0aUthYzJ3RUNpU0hKdDJnS3pnQ1F3SGprbFF0bkRjbG15QWhhUHpiTnVaUXdkdld2Z2NpQ3V3dFp6YXVjYW14eW5DSTNoUEkya0hfbWtSVjVpMjhzMWk2RVI4OXNQdHZ0ZGxGcmJiVkw2cVdMMGdHMENDQ254Vkx5TWc?oc=5
