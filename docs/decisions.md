@@ -7,6 +7,62 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-12 — Auto-merge allowlist gains `social/posted/` + `social/failed/`; the poster fails closed on a stale ledger
+
+**Decision:** two changes to the social-poster state machinery, after the
+2026-08-11/12 Instagram triple-post (issue #2031):
+
+1. `.github/content-automerge-allowlist.txt` gains `social/posted/` and
+   `social/failed/`. The poster's queue-state PRs (renames of queue items into
+   those directories, recording "this already posted / permanently failed")
+   auto-merge again the moment `build` is green, as the poster's design has
+   always assumed.
+2. `social-poster.yml` refuses to post — loudly, red run — while any
+   `social-poster/state-*` PR is still open, because the `social/posted/`
+   ledger the dedupe checks read from main is then known-stale. Fail closed:
+   one skipped 30-minute slot instead of N live duplicates.
+
+**Why:** the poster records posting state via an auto-merging PR, but the
+allowlist only ever listed `social/queue/`. Before PR #1900 that mismatch was
+masked — the poster's own `gh pr merge --auto` arm survived the "declined"
+verdict and merged the state PR anyway. #1900 (correctly, as a downgrade
+guard) made every non-enabled verdict actively disarm auto-merge, so from
+2026-08-11 19:28Z every success-recording state PR stranded open (#1951,
+#1952, #1963, #2011), `main` kept showing posted items as queued, and each
+30–90-minute run re-posted them: three identical Instagram + Facebook posts
+overnight, and a live tweet main still recorded as "retrying". The repo
+preferentially forgot successes (rename into `posted/` — declined) and
+remembered failures (retry edits inside `queue/` — allowed): the exact
+inversion that manufactures duplicates.
+
+**Merge authority rationale (this widens the allowlist, Wyatt's call):** these
+two paths are machine-written bookkeeping about actions ALREADY taken on the
+live accounts — no content decision rides on them. The content gate remains
+upstream on `social/queue/` (check-drafts + validate:social in `build`).
+Residual risk is a bot rewriting its own posting ledger — a ledger it already
+owns and writes today; the failure mode of NOT allowlisting them is the one
+that actually burned us. Approval = a founder merging the PR that carries this
+entry (the allowlist is `.github/**`, so it can never auto-merge itself).
+
+**Alternatives considered:**
+- *Revert #1900's disarm-on-decline.* Rejected — the disarm is a real
+  downgrade guard (a later bad commit must not ride an earlier arm); the
+  allowlist being incomplete was the defect.
+- *Have the poster push state directly to `main`.* Rejected — `main` is
+  branch-protected on purpose, and bots must not push to it.
+- *Stop persisting state via PR entirely (dedicated unprotected state branch,
+  or querying the platform APIs as the source of truth).* The structurally
+  stronger design — the ledger write would no longer depend on a merge gate at
+  all — but it changes every read path (`post-queue.mjs`, `check-drafts.mjs`
+  recent-history rules, the audit tooling) and is not a same-day fix. Filed as
+  a follow-up ticket (see issue #2031's thread); the fail-closed guard above
+  caps the blast radius of any future strand to one missed slot meanwhile.
+
+**Approved by:** pending founder merge (Wyatt — merge authority; Joey set
+`SOCIAL_FREEZE=true` and is holding it until this lands).
+
+---
+
 ## 2026-08-12 — `video_work.kind` grows an APPEARANCE family; the era Videos rail gains a filter
 
 **Decision:** `VIDEO_KINDS` gains four values — `interview`, `award_speech`,
