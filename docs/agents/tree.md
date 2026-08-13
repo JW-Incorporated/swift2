@@ -76,10 +76,16 @@ plan.
    exit. (`docs/agents/runners.md` § token-burn audit; `docs/agents/routine-invariants.md`.)
 4. **Plans only what the gates allow.** Every calendar entry must be draftable
    inside `scripts/social/check-drafts.mjs`: no banned openers, no opener-pattern
-   reuse inside 14 days, IG slots always carry a real media source, era art only
-   with an explicit `mediaKind: "era-art"` justification, and X entries on
-   campaign days must be structurally different from their IG sibling. A
-   calendar entry that cannot pass the checker is a planning bug.
+   reuse inside 14 days, and X entries on campaign days must be structurally
+   different from their IG sibling. Media follows the 2026-08-12 Taylor-photo
+   standard (`social/README.md` `mediaKind`): every slot names either a real
+   credited photograph of Taylor from the repo corpus (`mediaKind: "photo"`,
+   the default) or — only for a product-surface subject — a committed
+   `/social/library/` screenshot (`mediaKind: "site-screen"`, ideally as a
+   carousel behind a photo tile). Era tiles and designed cards are checker-dead
+   and may not be planned. Campaign values must be story-unique (the poster's
+   duplicate check matches platform+campaign). A calendar entry that cannot
+   pass the checker is a planning bug.
 5. **Never plans an unsupported format.** No Reels, Stories, TikTok, Threads or
    YouTube — the pipeline posts one image plus text. Those are founder-manual and
    never occupy a slot.
