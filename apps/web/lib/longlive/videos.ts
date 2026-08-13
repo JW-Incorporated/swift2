@@ -84,9 +84,10 @@ export function eraVideoFeed(
   eraId: EraId,
   embeddedYoutubeIds: ReadonlySet<string> = new Set(),
 ): VideoNote[] {
+  // `filter` already returns a fresh array, so sorting in place here cannot
+  // reach VIDEOS_RAW.
   return videosForEra(eraId)
     .filter((v) => !v.youtubeId || !embeddedYoutubeIds.has(v.youtubeId))
-    .slice()
     .sort((a, b) => {
       if (a.releasedOn !== null && b.releasedOn !== null && a.releasedOn !== b.releasedOn) {
         return a.releasedOn < b.releasedOn ? 1 : -1; // newest first

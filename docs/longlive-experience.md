@@ -417,7 +417,7 @@ same pipeline — use the `appearance()` helper in
 `supabase/seed/videos/_appearance-helpers.mjs` and pick the `kind` by what the
 viewer sees, not what the event was called (full semantics in
 `videos/_example.mjs`; the two families are documented on `VIDEO_KINDS` in
-`packages/shared/src/vault-types.ts`). Three rules that are not negotiable:
+`packages/shared/src/vault-types.ts`). Four rules that are not negotiable:
 - **Official uploads only.** The upload must belong to whoever owns the footage
   — the show, the network, the awards body, or the outlet that filmed it. A fan
   archive can be a timeline *source*; it is never an `officialUrl`. If the only

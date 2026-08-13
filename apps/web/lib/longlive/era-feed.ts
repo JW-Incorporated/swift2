@@ -107,6 +107,32 @@ export function watchableCount(items: ContentItem[], videoFeed: VideoNote[]): nu
   return visibleMoments(items, { tags: new Set(), videosOnly: true }).length + videoFeed.length;
 }
 
+/**
+ * The scroll-anchor date to stamp on undated video cards (only reachable under
+ * the Videos filter, where they sort to the end of the list).
+ *
+ * TimelineScrubber reads `data-ll-date` off rendered cards and interpolates
+ * assuming they descend down the page. Two wrong answers here:
+ *   - leave them unanchored — on debut that is 4 of 7 cards, so the scrubber
+ *     interpolates across a tall region with no anchors at all;
+ *   - stamp `era.start` — an era can contain a moment dated BEFORE its own
+ *     start (debut starts 2006-10-24 and carries "Tim McGraw arrives",
+ *     2006-06-19), so the tail would step back UP and break the ordering.
+ *
+ * So: the earliest date already present in this feed, floored by `eraStart`.
+ * The tail is then always <= every dated card above it, and the sequence stays
+ * non-increasing. Nothing renders this value — the card still reads "Date
+ * unknown" — it exists only so the scrubber has a continuous anchor list.
+ */
+export function undatedAnchorDate(entries: EraFeedEntry[], eraStart: string): string {
+  let earliest = eraStart;
+  for (const e of entries) {
+    const date = e.kind === 'moment' ? e.item.date : e.video.releasedOn;
+    if (date && date < earliest) earliest = date;
+  }
+  return earliest;
+}
+
 /** The YouTube ids already embedded on curated moments in this era — the
  * de-dup key that keeps one video from appearing as both a moment card and a
  * video card in the same list. */
