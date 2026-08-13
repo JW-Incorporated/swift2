@@ -10571,5 +10571,79 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-08-13 (Vault Run, Content Shift lane) from intake #2071.
+      // A confirmed, on-record press availability — the groom's own first
+      // account of the July 3 wedding, distinct from both the wedding moment
+      // (#1524) and the July 8 New Heights proposal-story episode. Not a
+      // reaction round-up: the principal speaking on camera. Quotes verified
+      // against Variety and Rolling Stone (the two established-tier primaries),
+      // corroborated across ABC News, The Hollywood Reporter, NBC News and
+      // Billboard (all confirmed via search this session). Redlines: clean —
+      // a public press availability at Chiefs training camp (documented past
+      // event) and an already-public wedding venue; no location, security,
+      // health, sexuality, minor, or third-party private-life content. No
+      // cleanly licensable image of the presser was found — ships text-first
+      // and photo-sparsity can route it to Photo Enrichment.
+      slug: 'kelce-first-wedding-comments-training-camp',
+      // Cross-links: the wedding this recounts, and the July 8 New Heights
+      // episode where he first told the proposal story.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
+      ],
+      year: 2026,
+      month: 8,
+      day: 12,
+      category: 'relationship',
+      title: 'Travis on the wedding, on record for the first time: “the best night of my life”',
+      snippet:
+        'Back at Chiefs training camp ahead of his 14th season, Travis gave his first public account of the July 3 MSG wedding — calling it “the best night of my life,” the Garden a “childhood dream,” and, for the first time to reporters, referring to Taylor as “my wife.”',
+      sourceUrl:
+        'https://variety.com/2026/music/news/travis-kelce-interview-taylor-swift-wedding-best-night-1236833147/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Six weeks after the Madison Square Garden wedding — an event the couple has kept almost entirely to themselves, with no interviews and no official photos — the first on-record account of the night came, fittingly, from a football podium. Speaking to reporters at Kansas City Chiefs training camp on Wednesday, Aug. 12, 2026, as he reported back for his 14th NFL season, Travis gave his first public comments on marrying Taylor. “Wedding was the best night of my life,” he said, “and I appreciate everybody who came out and celebrated and had fun with us,” calling it “a crazy night… full of a lot of celebration.”\n\nHe lingered longest on the venue. Getting married at Madison Square Garden, he said, was the realization of a “childhood dream” — “it was cool to live out my childhood dream of being in that venue, the mecca of all sports venues. To be able to get married there… we wanted a private event, and it was perfect.” He added that he had thanked the arena’s owners for letting them stage a private wedding inside it, resolving in his own words the months of “destination wedding” speculation that the Garden itself had punchlined.\n\nThe availability also produced a small first: recounting that Taylor had been back at the Garden for a Knicks playoff game while he was “stuck in training camp,” he referred to her on camera as “my wife” — the first time he had used the phrase publicly since the ceremony. The remarks were brief and did not open the wedding up any further — no ceremony play-by-play, no new guest-list color — but coming from a groom who, like his bride, had said nothing on record until now, even a few sentences read as the couple’s first authorized gloss on the night. His comments were reported across Variety, Rolling Stone, ABC News, The Hollywood Reporter, NBC News and Billboard.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/travis-kelce-interview-taylor-swift-wedding-best-night-1236833147/',
+            source_title: "Travis Kelce Speaks Out on Wedding to Taylor Swift: 'Best Night of My Life' and 'It Was Cool to Live Out My Childhood Dream' of Being in MSG",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/travis-kelce-taylor-swift-wedding-first-comments-1235607573/',
+            source_title: "Travis Kelce Describes Taylor Swift Wedding as 'Best Night of My Life'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-taylor-swift-msg-wedding-childhood-dream-1236672194/',
+            source_title: 'Travis Kelce Says Taylor Swift MSG Wedding Was "Childhood Dream"',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/travis-kelce-opens-taylor-swift-wedding-best-night/story?id=135583937',
+            source_title: "Travis Kelce opens up on Taylor Swift wedding: 'Best night of my life'",
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
   ],
 };
