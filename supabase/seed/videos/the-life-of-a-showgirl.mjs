@@ -57,8 +57,13 @@ export default {
       // Official Release Party of a Showgirl, before being released onto
       // YouTube two days later" — the film opened 2025-10-03, so the video's
       // own release date is 2025-10-05. (The People citation agrees on the
-      // order: it "debuts" the video AFTER the movie event.) Being dated makes
-      // it eligible for the main chronological timeline, not just the rail.
+      // order: it "debuts" the video AFTER the movie event.)
+      //
+      // Reader-visible effect is only the rail's sort position: the tloas
+      // moment "the-fate-of-ophelia-video-premieres" already embeds this same
+      // id, so EraSection's embeddedVideoIds de-dupe keeps this record out of
+      // the chronological feed either way. The date is filled because it was
+      // simply unknown, not to move the card.
       releasedOn: '2025-10-05',
       relatedSongs: ['The Fate of Ophelia'],
       summary:

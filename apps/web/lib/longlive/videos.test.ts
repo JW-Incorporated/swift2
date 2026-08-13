@@ -202,6 +202,13 @@ describe('playable-first: every rendered video card plays (Joey, 2026-08-13)', (
     }
   });
 
+  it('does not leak the module array to a caller that might sort it', () => {
+    const a = allVideoRecordsForEra('1989');
+    expect(allVideoRecordsForEra('1989')).not.toBe(a);
+    a.reverse();
+    expect(allVideoRecordsForEra('1989').map((v) => v.slug)).not.toEqual(a.map((v) => v.slug));
+  });
+
   it('isPlayable rejects a null or empty id', () => {
     const base = allVideoRecordsForEra('1989')[0];
     expect(isPlayable(base)).toBe(true);
@@ -265,8 +272,13 @@ describe('musicVideosForEra', () => {
   it('includes the-fate-of-ophelia-mv now that its release date is known', () => {
     // Was the "undated music videos stay rail-only" example until 2026-08-13,
     // when the date was sourced from its own Wikipedia citation (YouTube
-    // release 2025-10-05, two days after the theatrical premiere). Kept as a
-    // case here because it is the one record that changed sides.
+    // release 2025-10-05, two days after the theatrical premiere).
+    //
+    // NB this asserts musicVideosForEra, which is PRE-de-dupe. It does not mean
+    // the card reaches the rendered feed: a tloas moment embeds the same id, so
+    // EraSection's embeddedVideoIds drops it downstream. Asserted at this layer
+    // on purpose — this function's contract is "dated music videos", and the
+    // de-dupe is a separate rule with its own tests below.
     const found = musicVideosForEra('tloas').find((v) => v.slug === 'the-fate-of-ophelia-mv');
     expect(found?.releasedOn).toBe('2025-10-05');
   });
