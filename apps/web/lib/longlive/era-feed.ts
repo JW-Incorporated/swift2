@@ -200,3 +200,25 @@ export function embeddedYoutubeIds(items: ContentItem[]): Set<string> {
     items.map((it) => it.video?.youtubeId).filter((id): id is string => Boolean(id)),
   );
 }
+
+/**
+ * Every video id the era can play: the moments' own embeds plus the Videos
+ * rail's records.
+ *
+ * This is "a video the reader could meet in this era", which is the question
+ * `feedCardImageHidden` needs when deciding whether a card's photo is a still of
+ * footage that plays somewhere else on the page — a superset of
+ * `embeddedYoutubeIds`, which only knows about moments.
+ *
+ * Takes the records rather than reading `videosForEra` itself so this module
+ * stays a pure function of its arguments (the whole reason the selection rules
+ * live here and not in the component — see the header note).
+ */
+export function eraKnownVideoIds(
+  items: ContentItem[],
+  videos: readonly { youtubeId: string }[],
+): Set<string> {
+  const ids = embeddedYoutubeIds(items);
+  for (const v of videos) ids.add(v.youtubeId);
+  return ids;
+}
