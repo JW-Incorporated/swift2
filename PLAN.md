@@ -122,8 +122,29 @@ export function filterMatches(
   active: ReadonlySet<FilterId>,
 ): boolean;
 
-/** The six ids an entry belongs to, whatever kind of entry it is. */
-export function filtersForEntry(entry: EraFeedEntry): readonly FilterId[];
+/**
+ * The six ids an entry belongs to, whatever kind of entry it is.
+ *
+ * AMENDED 2026-08-13 (see § Plan amendments). The first version took only the
+ * entry and returned `item.tags` for moments and `['Videos']` for videos. That
+ * silently dropped two rules the pre-change selection code enforced, and both
+ * are restorations, not new behaviour:
+ *
+ *  1. A moment that OWNS its inline video is watchable, so it belongs under
+ *     Videos as well as its own topics. The old `videosOnly` branch selected
+ *     exactly these via `inlineVideoMomentIds`. Ownership is a property of the
+ *     list on screen, not of the era — hence the ctx argument.
+ *  2. A dated music video is Music. The old code said so directly:
+ *     `if (tags.size === 0 || tags.has('Music')) return timelineVideos`.
+ *     The topic was encoded in the selection rule rather than on the record.
+ */
+export function filtersForEntry(
+  entry: EraFeedEntry,
+  ctx: { inlineVideoOwnerIds: ReadonlySet<string> },
+): readonly FilterId[];
+// moment → ownerIds.has(id) ? [...item.tags, 'Videos'] : item.tags
+// video  → music-video kind ? ['Music', 'Videos'] : ['Videos']
+//          (do NOT invent other topics for appearance-family videos)
 ```
 
 ```ts
@@ -209,6 +230,26 @@ pushReturnPoint(p: ReturnPoint): void;
 popReturnPoint(): ReturnPoint | null;
 ```
 
+## Plan amendments
+
+Logged when the plan turned out wrong, per CLAUDE.md § Planning ("if it turns
+out wrong, stop, rewrite it, log why, continue").
+
+**2026-08-13 — `filtersForEntry` was under-specified, and anchor dating moves
+into P1.** Found while reviewing the P1 step 4–5 diff; the executor flagged
+half of it and refused to patch around the contract, which was right.
+
+- The original contract lost two shipped selection rules (see the amended
+  signature above). Fixed by giving `filtersForEntry` the inline-video owner
+  set and teaching it that a dated music video is Music.
+- Step 4 folds **every** watchable video into the default timeline — correct
+  per Joey ("videos... folded into the era timeline"), but undated video
+  records sort to the end, so every era would end in a pile of undated videos
+  until P3 landed anchor dating. A PR must be independently correct, not
+  merely small. **Steps 12 and 13's anchor work therefore moves into P1 as
+  steps 5a/5b**, before this PR opens. P3 keeps only the doorway-specific
+  work.
+
 ## Steps
 
 ### P0 — decisions (orchestrator, no code)
@@ -246,6 +287,20 @@ popReturnPoint(): ReturnPoint | null;
    after the re-render. **The user must stay in the era they were in.**
    (executor)
    - Verify: `npm test` → green; then manual check in step 6.
+5a. [ ] **Fix `filtersForEntry` to the amended contract** above: thread the
+   inline-video owner set through, and give dated music videos `Music` as well
+   as `Videos`. Update `filters.test.ts` with a case per restored rule — a
+   footage-owning moment is reachable under `{Videos}`, and a music video is
+   reachable under `{Music}`. (executor)
+   - Verify: `npm test -- filters era-feed` → green, both new cases present.
+5b. [ ] **Pull anchor dating forward** (was steps 12–13): create
+   `anchor-date.ts` + tests per the contract, and give every feed entry an
+   `anchor` so undated video records sort into the era rather than piling at
+   its end. Do NOT widen the union to thread/egg kinds yet — that stays in P3.
+   (executor)
+   - Verify: `npm test -- anchor-date era-feed` → green, including the case
+     asserting `displayDate === null` for every non-`exact` source, and a case
+     asserting no undated video lands after the era's last dated card.
 6. [ ] Write `scripts/check-filter-coverage.mjs` + its test: fails if any
    moment, video, thread item or egg that can appear in a timeline carries
    zero filter ids, and reports (does not fail on) any of the six filters
@@ -257,6 +312,16 @@ popReturnPoint(): ReturnPoint | null;
    assign the most defensible of the six; do not invent facts. (grunt, from
    the checker's output list)
    - Verify: `npm run check:filter-coverage` → exit 0.
+7a. [ ] **Videos carry no topic tags.** `VideoNote` has no `tags` field, so
+   `filtersForEntry` returns `['Videos']` and nothing else — meaning a music
+   video does not match the Music chip. Coverage still holds (every video
+   matches Videos), and this is not a regression: today Videos is a separate
+   mutually-exclusive axis, so a topic chip never showed videos either. But
+   with Videos now a peer chip it reads as a gap. Have the checker REPORT
+   videos that carry no topic tag, then decide with Joey whether to author
+   topic tags onto `VideoNote` in a follow-up. **Do not auto-assign topics to
+   videos by inference in this PR.**
+   - Verify: `npm run check:filter-coverage` → reports the count, exits 0.
 
 ### P2 — era body surgery (PR 2)
 
@@ -279,12 +344,14 @@ popReturnPoint(): ReturnPoint | null;
 
 ### P3 — timeline doorways (PR 3)
 
-12. [ ] Create `anchor-date.ts` + tests per the contract. (executor)
-    - Verify: `npm test -- anchor-date` → all pass, including the case that
-      asserts `displayDate === null` for every non-`exact` source.
-13. [ ] Widen `EraFeedEntry` to the four-kind union; thread doorways and egg
-    doorways get anchors and filter ids. Update `era-feed.test.ts`. (executor)
-    - Verify: `npm test -- era-feed` → green.
+12. [x] ~~Create `anchor-date.ts` + tests.~~ **Moved to P1 step 5b** — see
+    § Plan amendments. Nothing to do here.
+13. [ ] Widen `EraFeedEntry` to the four-kind union (`anchor-date.ts` already
+    exists by now): thread doorways and egg doorways get anchors and filter
+    ids. `filtersForEntry`'s `never` check will fail to compile until the new
+    kinds are handled — that is deliberate. Update `era-feed.test.ts`.
+    (executor)
+    - Verify: `npm test -- era-feed filters` → green.
 14. [ ] Implement `spaceDoorways()` so doorways never clump. (executor)
     - Verify: `npm test -- era-feed` → green, including a clumping case.
 15. [ ] Build `DoorwayCard.tsx` (thread + egg variants), render it from

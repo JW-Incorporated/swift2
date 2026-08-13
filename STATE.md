@@ -11,17 +11,24 @@
 (five sequenced PRs, order is load-bearing). Driven by Joey's consolidated team
 feedback on the "Time Machine Mockups" artifact, 2026-08-13.
 
-In flight: P1 steps 1–3 (global six-chip filter foundation) dispatched to an
-executor. Nothing verified yet.
+In flight: P1 steps 5a–5b (fix `filtersForEntry`, pull anchor dating forward)
+dispatched to an executor. Steps 1–5 are done, in the working tree, UNCOMMITTED.
 
 ## Last session
 
-- Changed: wrote `PLAN.md`; appended the five-decision entry to
-  `docs/decisions.md`. Both committed on `feature/era-reader-rework`.
-- Verified by: nothing yet — P0 is documentation only. First verification gate
-  is `npm test -- filters && npm run typecheck && npm run lint` at the end of
-  P1 step 3.
-- Left unfinished: everything from P1 step 1 onward.
+- Changed: `PLAN.md` + `docs/decisions.md` (committed). Then P1 steps 1–5 in
+  the working tree, uncommitted: new `lib/longlive/filters.ts` (+test) and
+  `components/longlive/FilterBar.tsx`; `store.tsx` gained the `filters` slice;
+  `EraSection.tsx` shed its per-era filter state (1086→878 lines);
+  `era-feed.ts` swapped `visibleMoments`/`visibleVideos`/`watchableCount` for
+  one `visibleFeed(entries, active)` pass; `EraStream.tsx` mounts `FilterBar`
+  and pins the active era's offset across a filter change; `TopBar.tsx` gained
+  a `data-ll-topbar` hook so the bar can measure it.
+- Verified by (re-run by me, not taken on report): `npm test -- filters` →
+  8/8. Executor also reported `era-feed` 21/21, `typecheck --workspace=
+  @swift2/web` clean, `lint` clean, full `npm test` 2530 passing with only the
+  pre-existing `satori` failure.
+- Left unfinished: P1 steps 5a–5b (in flight), 6, 7, 7a. Then P2–P5.
 
 ## Autonomous decisions — review surface
 
@@ -44,6 +51,13 @@ executor. Nothing verified yet.
 - **`TrackGuide` stays a destination, not inlined.** Joey's "track guide should
   look just like play the era looks today" reads as swapping the AFFORDANCE
   (full-width bar + play button in the vacated slot), not inlining the list.
+- **Amended the plan mid-flight rather than shipping through it** (logged in
+  `PLAN.md` § Plan amendments): `filtersForEntry` had silently dropped two
+  shipped selection rules, and anchor dating moved from P3 into P1 because
+  folding every video into the timeline without anchors piles undated videos
+  at the end of every era. A PR must be independently correct, not just small.
+- **Seeded `FilterBar`'s sticky offset at 52px** instead of 0 — it measures
+  TopBar's real height, but starting at 0 parked it over TopBar for a frame.
 
 ## Architect invocations
 
@@ -80,8 +94,16 @@ executor. Nothing verified yet.
 - **An untagged content item is invisible under any active filter** — the
   existing behaviour, tested at `tagBadges.test.ts:47`. Nothing enforces tag
   coverage today; `check:filter-coverage` (P1 step 6) is being built to.
-- **The era filter is per-`EraSection` local `useState` today**, so it resets
-  as you scroll between eras. That is the thing P1 replaces.
+- **The old filter encoded topics in SELECTION RULES, not on records.** Deleted
+  `visibleVideos` had `if (tags.size === 0 || tags.has('Music')) return
+  timelineVideos` — a dated music video was already Music content — and
+  `visibleMoments` under `videosOnly` selected footage-owning moments via
+  `inlineVideoMomentIds`. Both are restorations in step 5a, not new behaviour.
+  Only the appearance-family videos genuinely carry no topic.
+- **Two pre-existing test/typecheck failures, not ours:** `scripts/social/lib/
+  card-render.test.ts` fails on a missing `satori` package, and repo-wide
+  `npm run typecheck` fails in `apps/mobile`. Use `npm run typecheck
+  --workspace=@swift2/web`.
 - **Reader has no URL routes.** Everything is one client page (`app/page.tsx` →
   `LongLive`) with React context; `?item=`/`?lens=`/`?era=` are read ONCE on
   mount and never written back.
@@ -108,7 +130,9 @@ executor. Nothing verified yet.
 
 ## Next obvious step
 
-Await the P1 steps 1–3 executor result, verify its claims (agent-reported
-success is a claim, not a verification), then dispatch P1 steps 4–5, then the
-coverage checker in steps 6–7. Codex review (`/codex:review`) before each PR
-opens — `reviewer` does not satisfy Workflow rule 3.
+Await the P1 steps 5a–5b executor result and verify its claims directly
+(agent-reported success is a claim, not a verification — this session has
+already caught one contract bug that way). Then dispatch steps 6, 7 and 7a
+(the coverage checker + tag backfill), get the count of topic-less appearance
+videos in front of Joey, run `/codex:review`, fix every finding, and only then
+open PR 1. `reviewer` does not satisfy Workflow rule 3 — Codex does.

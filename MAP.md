@@ -80,7 +80,10 @@ read once on mount (`deepLink.ts`) and never written back.
 | Path (under `apps/web/`) | Responsibility |
 |---|---|
 | `lib/longlive/store.tsx` | The single state container: `mode`, `eraId`, `lensId`, overlays, era-scroll snapshot |
-| `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags |
+| `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags. **Does not re-export the type; import `ContentTag` from `./types`** |
+| `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry` |
+| `lib/longlive/anchor-date.ts` | Sort-key resolution for undated items. `displayDate` is null unless the date is real |
+| `components/longlive/FilterBar.tsx` | The ONE global sticky filter row. Mounted once by `EraStream`, never per era |
 | `lib/longlive/era-feed.ts` | Pure feed logic: `visibleMoments`, `mergeEraFeed`, `undatedAnchorDate` |
 | `lib/longlive/feed-tiers.ts` | Card silhouette/tier scoring — visual only, never order |
 | `lib/longlive/lenses.ts` | **2473 lines.** THREADS (6 narrative galleries), EGG_NODES, CLUE_PAIRS, motifs |
