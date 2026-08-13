@@ -150,15 +150,21 @@ jobs:
 
           # Paginated REST enumeration, not `gh pr view --json files` (caps
           # at 100 via GraphQL `files(first: 100)`) — see the header note.
-          ALL=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
-          GOT_COUNT=$(printf '%s\n' "$ALL" | grep -c . || true)
+          # Status is kept alongside each filename (2026-08-12, PR #2039
+          # review): a REMOVED file has no head-SHA content — fetching it 404s
+          # and used to fail this whole job whenever git reported a queue→
+          # posted rename as removed+added. A deleted draft is nothing to
+          # quality-check; only PRESENT files are validated/fetched.
+          META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | .status + "\t" + .filename')
+          GOT_COUNT=$(printf '%s\n' "$META" | grep -c . || true)
           WANT_COUNT=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles')
           if [ "$GOT_COUNT" -ne "$WANT_COUNT" ]; then
             echo "PR #$PR: paginated file enumeration returned $GOT_COUNT filename(s) but the PR reports $WANT_COUNT changed — failing closed rather than checking a possibly-truncated file list." >&2
             exit 1
           fi
+          PRESENT=$(printf '%s\n' "$META" | awk -F'\t' '$1 != "removed" {print $2}')
 
-          QUEUE_FILES=$(echo "$ALL" | grep -E '^social/queue/.*\.json$' || true)
+          QUEUE_FILES=$(printf '%s\n' "$PRESENT" | grep -E '^social/queue/.*\.json$' || true)
           if [ -z "$QUEUE_FILES" ]; then
             echo "No social/queue/**.json changes in this PR — nothing to check."
             echo "has_drafts=false" >> "$GITHUB_OUTPUT"
@@ -171,7 +177,7 @@ jobs:
           # also adding — as raw bytes from the PR head commit, overlaying
           # this (trusted, base-ref) checkout. `set -e` makes a fetch
           # failure loud instead of silently checking stale/missing content.
-          RELEVANT=$(echo "$ALL" | grep -E '^(social/queue/.*\.json|apps/web/public/.*\.(png|jpg|jpeg))$' || true)
+          RELEVANT=$(printf '%s\n' "$PRESENT" | grep -E '^(social/queue/.*\.json|apps/web/public/.*\.(png|jpg|jpeg))$' || true)
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             mkdir -p "$(dirname "$f")"
@@ -238,7 +244,7 @@ jobs:
           emit() { echo "verdict=$1" >> "$GITHUB_OUTPUT"; }
           fail_broken() { echo "guard-code: $1" >&2; emit broken; exit 0; }
 
-          ALL=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename') \
+          ALL=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | .status + "\t" + .filename') \
             || fail_broken "could not enumerate PR files"
           GOT=$(printf '%s\n' "$ALL" | grep -c . || true)
           WANT=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles') \
@@ -248,8 +254,11 @@ jobs:
           fi
 
           # Only code files can be server-executing; a data/seed/image PR yields
-          # none and is trivially clear.
-          CODE=$(printf '%s\n' "$ALL" | grep -E '\.(ts|tsx|js|jsx|mjs|cjs)$' || true)
+          # none and is trivially clear. REMOVED files are excluded (2026-08-12,
+          # PR #2039 review): a deleted file cannot execute, and fetching its
+          # head-SHA content 404s into a false BROKEN verdict on any PR whose
+          # rename git reports as removed+added.
+          CODE=$(printf '%s\n' "$ALL" | awk -F'\t' '$1 != "removed" {print $2}' | grep -E '\.(ts|tsx|js|jsx|mjs|cjs)$' || true)
           if [ -z "$CODE" ]; then emit ok; exit 0; fi
 
           # Overlay each changed code file's PR-head bytes onto this trusted
@@ -278,7 +287,17 @@ jobs:
     # runs with repo secrets against the BASE ref; checking out PR head code
     # here would hand those secrets to whatever the PR contains. We only ever
     # call `gh` against the API, which is the documented-safe usage.
+    #
+    # `!cancelled()` (2026-08-12, PR #2039 review): this job must run even when
+    # a needed job FAILED, because disarming a previously-armed auto-merge
+    # happens HERE. With the default needs-behavior, a failing check-drafts
+    # skipped this job entirely — and a PR the poster had already armed with
+    # `gh pr merge --auto` (its state PRs) kept that arm and merged on a green
+    # `build`, silently bypassing both the draft gate and the #1900 downgrade
+    # guard. Now a failed dependency produces an explicit non-enabled verdict,
+    # which disarms.
     if: >-
+      !cancelled() &&
       github.event.pull_request.draft == false &&
       github.event.pull_request.base.ref == 'main'
     steps:
@@ -295,6 +314,8 @@ jobs:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           HAS_DRAFTS: ${{ needs.check-drafts.outputs.has_drafts }}
           GUARD_VERDICT: ${{ needs.guard-code.outputs.verdict }}
+          CHECK_DRAFTS_RESULT: ${{ needs.check-drafts.result }}
+          GUARD_CODE_RESULT: ${{ needs.guard-code.result }}
         run: |
           set -euo pipefail
 
@@ -326,6 +347,19 @@ jobs:
           if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
             verdict "frozen" "CONTENT_AUTOMERGE_FREEZE is set (\"$FREEZE\") — not enabling auto-merge. This is the kill switch, not a fault."
             exit 0
+          fi
+
+          # This job runs even when a needed job failed (`!cancelled()` above)
+          # precisely so these two checks can DISARM a stale arm instead of the
+          # failure silently skipping the disarm (2026-08-12, PR #2039 review).
+          if [ "${CHECK_DRAFTS_RESULT:-}" != "success" ]; then
+            verdict "declined — draft checks failed or did not run" \
+          "The check-drafts job finished \`${CHECK_DRAFTS_RESULT:-<none>}\` for PR #$PR — not enabling auto-merge, and disarming any previously-armed auto-merge. A failing draft check leaves the PR for a human, as designed."
+            exit 0
+          fi
+          if [ "${GUARD_CODE_RESULT:-}" != "success" ]; then
+            verdict "BROKEN GATE" "The guard-code job finished \`${GUARD_CODE_RESULT:-<none>}\` for PR #$PR — it is designed to always succeed and report via its verdict output, so this is a misconfiguration. Not auto-merging until it is fixed; a human can still merge."
+            exit 1
           fi
 
           # The allowlist of paths a content run may touch. Single source of
@@ -380,7 +414,13 @@ jobs:
           # 100 via GraphQL `files(first: 100)`) — see the header note. A count
           # mismatch means we cannot trust the file list at all, so this is a
           # gate malfunction (BROKEN GATE), not an ordinary decline.
-          files=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
+          # status + filename + previous_filename per file (2026-08-12, PR
+          # #2039 review): the ledger-integrity check below needs to see HOW a
+          # path changed, not just that it did. @tsv escaping keeps a weird
+          # filename from splitting into extra fields.
+          files_meta=$(gh api --paginate "repos/$REPO/pulls/$PR/files" \
+            --jq '.[] | [.status, .filename, (.previous_filename // "")] | @tsv')
+          files=$(printf '%s\n' "$files_meta" | cut -f2)
           got_count=$(printf '%s\n' "$files" | grep -c . || true)
           want_count=$(gh pr view "$PR" --repo "$REPO" --json changedFiles --jq '.changedFiles')
           if [ "$got_count" -ne "$want_count" ]; then
@@ -483,6 +523,39 @@ jobs:
           ${in_effect}
 
           If a path outside the allowlist *is* content, the allowlist is stale — fix \`$ALLOWLIST_PATH\`, not this workflow."
+            exit 0
+          fi
+
+          # ── LEDGER INTEGRITY (2026-08-12, PR #2039 review) ──────────────────
+          # social/posted/ and social/failed/ are allowlisted so the poster's
+          # state PRs land (issue #2031), but that grant is APPEND-ONLY. A PR
+          # that deletes, rewrites, or renames-away a ledger record would erase
+          # the history every duplicate defense reads (findPostedDuplicate,
+          # countPostedToday, the era-art guard's recent-IG window, check-
+          # drafts' posted-opener history) — and a follow-up PR could then
+          # requeue and re-post everything. Machine state PRs only ever ADD
+          # records (a queue→posted/failed rename reports under its NEW path);
+          # anything else under those paths waits for a founder.
+          LEDGER_RE='^social/(posted|failed)/'
+          ledger_violations=""
+          while IFS="$(printf '\t')" read -r st f prev; do
+            [ -z "$f" ] && continue
+            if printf '%s' "$f" | grep -qE "$LEDGER_RE"; then
+              case "$st" in
+                removed|modified|changed)
+                  ledger_violations="${ledger_violations}- \`${f}\` — status \`${st}\`: ledger records are append-only under auto-merge; deleting or rewriting one needs a human"$'\n'
+                  ;;
+              esac
+            fi
+            if [ -n "$prev" ] && printf '%s' "$prev" | grep -qE "$LEDGER_RE"; then
+              ledger_violations="${ledger_violations}- \`${f}\` — renamed out of \`${prev}\`: moving a record out of the ledger needs a human"$'\n'
+            fi
+          done <<<"$files_meta"
+          if [ -n "$ledger_violations" ]; then
+            verdict "declined — ledger rewrite" \
+          "PR #$PR deletes, rewrites, or renames away record(s) under \`social/posted/\` / \`social/failed/\` — the posting ledger every duplicate defense reads. The poster's own state PRs never do that, so this waits for a founder. This is the append-only ledger constraint (docs/decisions.md 2026-08-12), not a failure.
+
+          ${ledger_violations}"
             exit 0
           fi
 

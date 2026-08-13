@@ -48,6 +48,94 @@ and the record-by-record audit: the 2026-08-12 review session.
 
 ---
 
+## 2026-08-12 — Auto-merge allowlist gains `social/posted/` + `social/failed/`; the poster fails closed on a stale ledger
+
+**Decision:** the social-poster state machinery changes, after the
+2026-08-11/12 Instagram triple-post (issue #2031):
+
+1. `.github/content-automerge-allowlist.txt` gains `social/posted/` and
+   `social/failed/`. The poster's queue-state PRs (renames of queue items into
+   those directories, recording "this already posted / permanently failed")
+   auto-merge again the moment `build` is green, as the poster's design has
+   always assumed.
+2. **The grant is append-only.** The enable job declines to a human any PR
+   that deletes, rewrites, or renames-away a record under those paths — the
+   ledger is the input to every duplicate defense, so auto-merge may only ever
+   ADD to it (review hardening on the fix PR).
+3. `social-poster.yml` refuses to post — loudly, red run — while any
+   `social-poster/state-*` PR is still open, because the `social/posted/`
+   ledger the dedupe checks read from main is then known-stale. Fail closed.
+   Honest cost accounting: in the normal case this is one skipped 30-minute
+   slot (state PRs auto-merge in minutes); a SUSTAINED strand — including one
+   caused by `CONTENT_AUTOMERGE_FREEZE`, a `hold` label, or a red `build` on a
+   state PR — halts all posting until a human merges the stuck PR. That is
+   deliberate: a halted account recovers; live IG duplicates cannot even be
+   deleted via the API. Known secondary effect: items that cross 48h overdue
+   during a long halt are retired to `social/failed/` by the staleness sweep
+   and need requeueing (recoverable; noted in issue #2040).
+4. `SOCIAL_FREEZE` is evaluated first in the workflow, so frozen runs are
+   green no-ops (not false watchdog alarms), and the enable job now runs on
+   `!cancelled()` so a failed check-drafts/guard-code can no longer skip the
+   disarm and let a stale auto-merge arm ride through — plus removed-file
+   handling so renames reported as removed+added can't 404 the draft gate.
+5. **The poster fails closed on its own ledger read, not just in the
+   workflow.** `post-queue.mjs`'s `readJsonDir` swallowed *every* `readdir`
+   error and returned `[]`. For `social/queue/` that is harmless (nothing to
+   post); for `social/posted/` it made "I cannot read the ledger" identical to
+   "nothing has ever been posted" — so a run with an absent or unreadable
+   ledger sailed straight past `findPostedDuplicate` and reposted live items.
+   That is the incident's own shape (a dedupe source that is unreachable at
+   check time, failing open), sitting one layer below the guard in point 3 and
+   surviving it: the workflow guard only knows about *open state PRs*, and is
+   blind to a ledger that is simply not there. The posted read is now
+   `{ required: true }` and throws; `main()` is invoked bare, so the run exits
+   non-zero and RED (#1888's loud-failure contract) with nothing posted. An
+   empty-but-present ledger stays legal — that is a real cold-start state, not
+   a fault. Regression cases in `post-queue.test.ts` construct each broken
+   state (missing dir, non-directory, truncated JSON) and assert refusal, with
+   two controls proving normal posting and normal dedupe still work.
+
+**Why:** the poster records posting state via an auto-merging PR, but the
+allowlist only ever listed `social/queue/`. Before PR #1900 that mismatch was
+masked — the poster's own `gh pr merge --auto` arm survived the "declined"
+verdict and merged the state PR anyway. #1900 (correctly, as a downgrade
+guard) made every non-enabled verdict actively disarm auto-merge, so from
+2026-08-11 19:28Z every success-recording state PR stranded open (#1951,
+#1952, #1963, #2011), `main` kept showing posted items as queued, and each
+30–90-minute run re-posted them: three identical Instagram + Facebook posts
+overnight, and a live tweet main still recorded as "retrying". The repo
+preferentially forgot successes (rename into `posted/` — declined) and
+remembered failures (retry edits inside `queue/` — allowed): the exact
+inversion that manufactures duplicates.
+
+**Merge authority rationale (this widens the allowlist, Wyatt's call):** these
+two paths are machine-written bookkeeping about actions ALREADY taken on the
+live accounts — no content decision rides on them. The content gate remains
+upstream on `social/queue/` (check-drafts + validate:social in `build`).
+Residual risk is a bot rewriting its own posting ledger — a ledger it already
+owns and writes today; the failure mode of NOT allowlisting them is the one
+that actually burned us. Approval = a founder merging the PR that carries this
+entry (the allowlist is `.github/**`, so it can never auto-merge itself).
+
+**Alternatives considered:**
+- *Revert #1900's disarm-on-decline.* Rejected — the disarm is a real
+  downgrade guard (a later bad commit must not ride an earlier arm); the
+  allowlist being incomplete was the defect.
+- *Have the poster push state directly to `main`.* Rejected — `main` is
+  branch-protected on purpose, and bots must not push to it.
+- *Stop persisting state via PR entirely (dedicated unprotected state branch,
+  or querying the platform APIs as the source of truth).* The structurally
+  stronger design — the ledger write would no longer depend on a merge gate at
+  all — but it changes every read path (`post-queue.mjs`, `check-drafts.mjs`
+  recent-history rules, the audit tooling) and is not a same-day fix. Filed as
+  a follow-up ticket (see issue #2031's thread); the fail-closed guard above
+  caps the blast radius of any future strand to one missed slot meanwhile.
+
+**Approved by:** pending founder merge (Wyatt — merge authority; Joey set
+`SOCIAL_FREEZE=true` and is holding it until this lands).
+
+---
+
 ## 2026-08-12 — `video_work.kind` grows an APPEARANCE family; the era Videos rail gains a filter
 
 **Decision:** `VIDEO_KINDS` gains four values — `interview`, `award_speech`,
