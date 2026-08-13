@@ -12,7 +12,14 @@ this to 2026-08-30.
 
 ## How to read a slot
 
-`TIME · PLATFORM · campaign:value` then — **link**, **media**, **hook**.
+`TIME · PLATFORM · campaign:family` then — **link**, **media**, **hook**.
+
+- **The campaign label is a FAMILY, never the queue item's `campaign` value**
+  (2026-08-12): the drafter mints a story-unique value under the family —
+  `on-this-day:<story-slug>`, not `heartbeat:on-this-day` — because the
+  poster's duplicate check matches platform+campaign and a reused bucket
+  value silently kills every later post in that bucket. This applies to every
+  slot block below, including 08-22 onward.
 
 - **Slot A** `15:00Z` X (11am ET / 8am PT) · **Slot B** `23:00Z` Instagram
   (7pm ET / 4pm PT) · **Slot C** `23:30Z` X (7:30pm ET / 4:30pm PT).
@@ -39,7 +46,7 @@ this to 2026-08-30.
 | State | Value |
 |---|---|
 | Cycle month | **2026-08** (`monthNumber` = 0) |
-| Thread windows this month | Decode 08-12→16 · Clue Web 08-17→21 · Runway 08-22→26 · Blank Spaces 08-27→31 |
+| Thread windows this month | Decode 08-12→16 *(moved by the 2026-08-12 override: X leg now 08-19, IG hero 08-21 — inside Clue Web's window; both queued, September's rotation state is unaffected)* · Clue Web 08-17→21 · Runway 08-22→26 · Blank Spaces 08-27→31 |
 | Thread angles this month | Decode `origin-story` · Clue Web `single-best-item` · Runway `interactive-challenge` · Blank Spaces `behind-the-data` |
 | Dropped this month | Taylor's Version + End Game — August's cycle started on the 12th and partial months don't carry over. September restarts at Decode with `monthNumber` = 1. |
 | Launch arc in flight | `launch:mood-chat` — day 0 = **2026-08-16** (moved by the 2026-08-12 override), arc runs 08-16 / 08-19 / 08-20 |
@@ -51,14 +58,17 @@ this to 2026-08-30.
 
 **OVERRIDE 2026-08-12 (Joey, issue #2031 — supersedes the 08-13 → 08-16 slots
 below):** after the triple-post incident and the Taylor-free grid, Joey directed
-that **the next 10 posts each carry a real photograph of Taylor**. The queue was
-reworked accordingly in a founder-merged PR: Aug 13–16 now runs a Taylor-photo
-set (new + upgraded items, every one `mediaKind: "photo"` with credit), the
-`launch:mood-chat` arc moved to 08-16 (announce) / 08-19 (how-to + feral-bridge)
-/ 08-20 (cardigan, photo-tile carousel), The Decode's X leg to 08-19 and its IG
-hero to 08-21, and every campaign value was made story-unique. The slot blocks
-below are kept for the record; **the queue is the truth for 08-13 → 08-21.**
-Tree's first run (Mon 08-17) should plan from 08-22 onward, photo-first.
+that **the next 10 posts each carry a real photograph of Taylor**. The queue is
+being reworked accordingly in **PR #2043** (founder-merge order: #2039 → #2011 →
+#2043 → this file's PR #2044): Aug 13–16 runs a Taylor-photo set (new + upgraded
+items, every one `mediaKind: "photo"` with credit), the `launch:mood-chat` arc
+moves to 08-16 (announce) / 08-19 (how-to + feral-bridge) / 08-20 (cardigan,
+photo-tile carousel), The Decode's X leg to 08-19 and its IG hero to 08-21, and
+every campaign value becomes story-unique. The slot blocks below are kept for
+the record; **once #2043 lands, the queue is the truth for 08-13 → 08-21** —
+Growth must NOT draft the superseded slot blocks for those dates (dates covered
+by queued items are never drafted again). Tree's first run (Mon 08-17) plans
+from 08-22 onward, photo-first, never over a queued date.
 
 ---
 

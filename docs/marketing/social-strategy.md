@@ -352,6 +352,10 @@ tiles, and the "declared fallback" loophole is how they kept shipping.
 **Designed cards** (`render-card.mjs`) are retired from the feed for the same
 reason: a typography tile is still not a picture of Taylor. The script stays
 for possible non-feed uses; re-admitting cards to the feed is a founder call.
+The card redline survives the retirement, wherever a card is ever rendered:
+**cards never reproduce lyrics** — titles, dates, numbers, and sourced quotes
+only, the same no-lyrics line the Mood starter chips hold (docs/decisions.md
+2026-07-09 lyrics entry).
 
 **Instagram media is required. X images work** (up to 4, via the v1.1 media
 endpoint since 2026-08-11) — attach a photo to X posts whenever one fits the
@@ -405,7 +409,7 @@ against that old curve is fiction. Reset below.
 | Posts shipped vs planned | `social/posted/` vs last week's calendar | Calendar adherence; <80% means the calendar is unrealistic, not that the drafter is lazy |
 | Failed posts | `social/failed/` new files | Should be **0**. Any X failure means the sibling rule leaked |
 | Distinct opener patterns | last 14 days of posted bodies | Target ≥ 12 distinct in 14 days. This is the metric that would have caught the current failure on day 3 |
-| Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
+| Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are excluded — they are a legitimate rung of the ladder, not a miss): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
 | Campaign mix | `campaign` prefixes | Roughly 1 launch arc, 12 thread slots, 2-3 mood, rest heartbeat, per month |
 
 **Engagement proxy** (since no reach data exists): **followers gained per post
