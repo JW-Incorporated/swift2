@@ -27,6 +27,18 @@ describe('TimelineScrubber layout', () => {
     expect(SCRUBBER_RAIL_CLASS).not.toMatch(/\d+vh/); // svh only — no dynamic-viewport vh
   });
 
+  // Joey follow-up to #2077: on mobile the rail must sit just below the
+  // TopBar, not float centered. pt-20 (80px) clears the real rendered
+  // TopBar height (65px: h-10 icon buttons + py-3 + border-b) plus the
+  // era year label that reaches ~12px above the rail's top. Desktop keeps
+  // the centered look — that half was never questioned.
+  it('top-aligns the rail below the TopBar on mobile, centered on desktop', () => {
+    expect(SCRUBBER_ANCHOR_CLASS).toContain('items-start');
+    expect(SCRUBBER_ANCHOR_CLASS).toContain('pt-20');
+    expect(SCRUBBER_ANCHOR_CLASS).toContain('sm:items-center');
+    expect(SCRUBBER_ANCHOR_CLASS).toContain('sm:pt-0');
+  });
+
   // The opposite requirement for the legibility scrim (Codex P2 on #2077):
   // it must cover the FULL visible viewport, including the strip below
   // 100svh that appears while the URL bar is collapsed. So the SHELL
