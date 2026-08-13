@@ -45,6 +45,7 @@ import {
   SINGLE_OUTLET_LEGACY,
   TWO_OUTLET_CATEGORIES,
   UNSOURCED_LEGACY,
+  classifySource,
   independentOutlets,
   momentKey,
 } from './lib/sourcing-gate.mjs';
@@ -251,6 +252,20 @@ for (const { file, data } of loaded) {
       );
     else if (!hasSource)
       warn(`no sources; grandfathered as ${key} — source it and delete that entry`);
+    // Having sources is not enough — at least one must be USABLE (a real,
+    // parseable web URL). Without this, `sourceUrl: 'not a url'` or a
+    // sources array of empty objects satisfies the minimum while citing
+    // nothing (Codex review of #2036; measured: no current record trips it).
+    if (hasSource) {
+      const cites = [
+        ...(it.sourceUrl ? [{ url: it.sourceUrl }] : []),
+        ...(Array.isArray(it.moment?.sources) ? it.moment.sources : []),
+      ];
+      if (cites.every((s) => classifySource(s).role === 'unusable'))
+        err(
+          'sources present but none is usable — every citation must be a real http(s) URL (see classifySource in scripts/lib/sourcing-gate.mjs)',
+        );
+    }
     // The ratchet: a listed record that HAS been sourced must leave the list,
     // or the list quietly becomes a permanent exemption nobody rechecks.
     if (hasSource && grandfathered)
@@ -267,7 +282,7 @@ for (const { file, data } of loaded) {
       const listed = SINGLE_OUTLET_LEGACY.has(key);
       if (outlets < 2 && !listed)
         err(
-          `${it.category} item has ${outlets} independent outlet(s) — this category requires two (a wiki/forum/social citation never counts toward them)`,
+          `${it.category} item has ${outlets} independent outlet(s) — this category requires two (wiki/forum/social citations, video-platform links like YouTube, and taylorswift.com all count ZERO toward them — issue #2036; cite real press)`,
         );
       else if (outlets < 2)
         warn(`only ${outlets} independent outlet(s); grandfathered as ${key}`);
