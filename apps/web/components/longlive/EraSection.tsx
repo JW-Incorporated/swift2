@@ -876,7 +876,10 @@ function MomentCard({
       data-ll-era={item.eraId}
       data-ll-date={new Date(item.date).getTime()}
     >
-      <div className={cn('relative', TIER_BOX[tier])} style={TIER_BOX_STYLE[tier]}>
+      {/* The card's visual box. It is this wrapper, not the button, so that the
+          play affordance below can be a SIBLING of the button and still render
+          inside the border (#2057 — see card-chrome.ts). */}
+      <div className={TIER_BOX[tier]} style={TIER_BOX_STYLE[tier]}>
         <MomentCardButton item={item} tier={tier} onOpen={onOpen} />
         {video && (
           <div className={TIER_FOOTER[tier]}>
