@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { build, contentForEra } from './content';
-import { inlineVideoMomentIds } from './era-feed';
+import { eraKnownVideoIds, inlineVideoMomentIds } from './era-feed';
+import { feedCardImageHidden } from './video-affordance';
+import { videosForEra } from './videos';
 import { VAULT_RAW } from './content-vault.generated';
 import { ERAS } from './eras';
 import {
@@ -61,12 +63,30 @@ const ALL_VAULT_ITEMS: ContentItem[] = (Object.keys(VAULT_RAW) as EraId[]).flatM
   build(eraId, VAULT_RAW[eraId] ?? []),
 );
 
+/**
+ * The image-suppressed ids EraSection computes for an era, derived exactly as it
+ * derives them: the cards whose photo will not render, minus the owners, whose
+ * poster fills the slot instead. Without this the "real vault" suite would be
+ * asserting tiers production no longer assigns.
+ */
+function realSuppressedIds(items: ContentItem[], eraId: EraId): Set<string> {
+  const owners = inlineVideoMomentIds(items);
+  const known = eraKnownVideoIds(items, videosForEra(eraId));
+  return new Set(
+    items
+      .filter((it) => feedCardImageHidden(it, known) && !owners.has(it.id))
+      .map((it) => it.id),
+  );
+}
+
 /** Tiers for every era, assigned over the real per-era feed sequence — the
- * same call EraSection makes (`assignFeedTiers(contentForEra(era.id))`). */
+ * same call EraSection makes, suppressed ids and all. */
 function realFeedTiers(): Map<string, CardTier> {
   const all = new Map<string, CardTier>();
   for (const era of ERAS) {
-    for (const [id, tier] of assignFeedTiers(contentForEra(era.id))) all.set(id, tier);
+    const items = contentForEra(era.id);
+    const tiers = assignFeedTiers(items, realSuppressedIds(items, era.id));
+    for (const [id, tier] of tiers) all.set(id, tier);
   }
   return all;
 }

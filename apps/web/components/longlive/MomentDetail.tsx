@@ -38,7 +38,12 @@ import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { MomentSocialPost } from './MomentSocialPost';
-import { detailVideoFor, footnoteVideoSources, heroVideoFor } from '@/lib/longlive/video-affordance';
+import {
+  detailVideoFor,
+  footnoteVideoSources,
+  heroVideoFor,
+  imageDuplicatesPageVideo,
+} from '@/lib/longlive/video-affordance';
 import { ZoomableImage } from './ZoomableImage';
 import { SignificanceBadge } from './SignificanceBadge';
 import {
@@ -554,12 +559,20 @@ export function MomentDetail() {
   const heroImage: ImageRef | undefined = primaryImageRef(item);
   const hero: ImageRef | undefined = heroVideo ? undefined : heroImage;
   const heroUrl = hero?.url ?? '/placeholder.svg';
-  const gallery = item.images.filter((img) => img !== heroImage);
-  // The photo viewer's set. A promoted frame is off the page, so it is out of
-  // the viewer too — otherwise swiping from a gallery photo would land back on
-  // the still this change exists to remove. Identical to `item.images` on every
-  // page whose hero is a photo.
-  const lightboxImages = heroVideo ? gallery : item.images;
+  // Everything the body may weave in: not the hero's own image, and not a still
+  // of footage this page plays. Identity alone is not enough — "'Elizabeth
+  // Taylor' goes to radio" carries maxres3 (promoted to the hero) AND maxres2,
+  // two frames of the one video, so the second came back into the body under a
+  // player of the very footage it is a frame of. Same id, different file, which
+  // is the spread that made this repo match on the id in the path.
+  const gallery = item.images.filter(
+    (img) => img !== heroImage && !imageDuplicatesPageVideo(item, img.url),
+  );
+  // The photo viewer holds exactly the photographs the page shows, in the order
+  // it shows them — never `item.images`, which still contains the frames dropped
+  // above. Otherwise swiping out of a gallery photo lands on the still this
+  // change exists to remove.
+  const lightboxImages = hero ? [hero, ...gallery] : gallery;
 
   // Weave the non-hero photos through the body paragraphs (#XYZ v1) instead of
   // a trailing "Gallery" block: each image lands after a paragraph, spread
@@ -661,7 +674,10 @@ export function MomentDetail() {
       {heroVideo ? (
         <div className="relative w-full px-4 pb-2 pt-16">
           <div className="mx-auto w-full max-w-[calc(42vh*16/9)]">
-            <MomentVideo video={heroVideo} className="" />
+            {/* `priority`: a `?item=` share link opens this sheet as the first
+                paint, which makes this poster the page's LCP element — the same
+                reason the photo hero below carries it. */}
+            <MomentVideo video={heroVideo} className="" priority />
           </div>
           {heroControls}
         </div>
