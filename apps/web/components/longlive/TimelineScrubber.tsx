@@ -12,6 +12,8 @@ import {
   SCRUBBER_RAIL_CLASS,
   SCRUBBER_SCRIM_CLASS,
   SCRUBBER_SHELL_CLASS,
+  scrubberPillTransform,
+  scrubberTooltipTransform,
 } from './timelineScrubberLayout';
 
 /** Reference line for "what am I reading" — header + a bit into the viewport. */
@@ -356,7 +358,10 @@ export function TimelineScrubber() {
         // the date-label text — on a throttled cadence.
         if (dragging) {
           if (handleRef.current) handleRef.current.style.top = `${pct}%`;
-          if (pillRef.current) pillRef.current.style.top = `${pct}%`;
+          if (pillRef.current) {
+            pillRef.current.style.top = `${pct}%`;
+            pillRef.current.style.transform = scrubberPillTransform(pct);
+          }
           if (anchorsRef.current.length >= 2) scrollToY(y);
           else scrollToDate(date);
         }
@@ -519,7 +524,7 @@ export function TimelineScrubber() {
           {/* Era start / end year labels */}
           <span
             className={cn(
-              'absolute -top-1 text-[10px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
+              'absolute -top-1 text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
               active ? 'opacity-100' : 'opacity-0',
             )}
             style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
@@ -528,7 +533,7 @@ export function TimelineScrubber() {
           </span>
           <span
             className={cn(
-              'absolute text-[10px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
+              'absolute text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
               active ? 'opacity-100' : 'opacity-0',
             )}
             style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
@@ -619,13 +624,13 @@ export function TimelineScrubber() {
                 <span
                   ref={pillRef}
                   className={cn(
-                    'absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold tabular-nums shadow-sm transition-opacity',
+                    'absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold leading-none tabular-nums shadow-sm transition-opacity',
                     active ? 'opacity-100' : 'opacity-90',
                   )}
                   style={{
                     right: RAIL_RIGHT + 16,
                     top: `${currentPct}%`,
-                    transform: 'translateY(-50%)',
+                    transform: scrubberPillTransform(currentPct),
                     background: 'var(--era-surface)',
                     borderColor: 'var(--era-line)',
                     color: 'var(--era-ink)',
@@ -656,7 +661,7 @@ export function TimelineScrubber() {
                 style={{
                   right: RAIL_RIGHT + 18,
                   top: `${hoverPct}%`,
-                  transform: `translateY(-50%)`,
+                  transform: scrubberTooltipTransform(hoverPct),
                   background: 'var(--era-surface-2)',
                   borderColor: 'var(--era-line)',
                 }}
