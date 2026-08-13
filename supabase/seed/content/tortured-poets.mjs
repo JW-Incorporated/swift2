@@ -1759,6 +1759,23 @@ export default {
             url: 'https://en.wikipedia.org/wiki/2025_iHeartRadio_Music_Awards',
           },
         ],
+        // Photo (Photo Enrichment, 2026-08-13): Taylor didn't attend in person
+        // (Tour of the Century was accepted by pre-recorded video; Favorite
+        // Surprise Guest is fan-voted, no acceptance segment), and no
+        // trophy/red-carpet photo of this specific award exists. The award
+        // literally IS the Wembley cameo, so re-verifying and reusing that
+        // photo (already on 'travis-wembley-stage-cameo' in this file) —
+        // honestly captioned as what won, not as an award-show photo.
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/eb18fccb-d278-4181-b394-da9653623dc3/GettyImages-2158904096_1719178517424_hpMain.jpg',
+            focalPoint: '52% 30%',
+            credit: 'Getty Images / Gareth Cattermole (via ABC News)',
+            caption:
+              'The Wembley cameo that won Favorite Surprise Guest at the 2025 iHeartRadio Music Awards — Kelce in white tie among the TTPD vaudeville cast, June 23, 2024.',
+            kind: 'reference',
+          },
+        ],
       },
     },
 
@@ -2373,6 +2390,20 @@ export default {
             source_type: 'press',
             accessed_at: '2026-08-12',
             reliability_score: 2,
+          },
+        ],
+        // Photo (Photo Enrichment, 2026-08-13): E! News's own CDN, its
+        // article JSON-LD dates and captions this exact backstage moment.
+        // (A WSMV on-stage frame was also found but rejected — hosted off an
+        // unvetted third-party CDN with no allowlist precedent.)
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250625/5a891109-de90-4fa4-977d-964e635bcea1_1750852610.jpg?fit=around%7C1200:1200&output-quality=90&crop=1200:1200;center,top',
+            focalPoint: '62% 25%',
+            credit: 'E! News (via Kane Brown\'s Instagram)',
+            caption:
+              'Backstage after the performance: Travis Kelce, Kane Brown and Taylor, June 24, 2025.',
+            kind: 'reference',
           },
         ],
       },
