@@ -127,10 +127,12 @@ defaults to the era art if omitted (see `build()` in `content.ts`).
 LensId = 'love-story'|'fashion'|'taylors-version'|'easter-eggs'
        | 'hidden-clues'|'the-proposal'
 THREADS: ThreadMeta[]   // gallery cards (title, blurb, icon, accent)
+ThreadMeta = { id, title, kicker, what, hero,
+               heroPosition?, heroAlt?, heroCredit? }
 ```
 Each thread owns its own dataset (relationships, runway looks, re-records,
 egg nodes, clue pairs, proposal beats). The **one contract** that puts a thread
-on the timeline is `threadPoints(id)` — see §5.
+on the timeline is `threadPoints(id)` — see §5. Card art: see §5.7.
 
 ### Motifs — the Clue Web trails (`lenses.ts`)
 ```ts
@@ -255,6 +257,38 @@ that bumps `eraJumpSeq` — #747), so the effect runs on mount and the initial
 `anchorId`/`count` are seeded from `jumpWindow(eraId)` rather than
 `{ eraId, 1 }` — otherwise nothing newer than the picked era ever renders and
 the user can't scroll up.
+
+### 5.7 Thread hero art comes in two shapes, and both render in two places
+`ThreadHeroArt` in `ThreadsMode.tsx` is the ONLY thing that draws a thread's
+art, and both the gallery card and the detail header call it — so a thread can
+never look like one thing in the gallery and another once opened.
+
+- **One photo** (`meta.hero`) — the default. Album art for most threads;
+  `the-proposal` carries a real photo of Travis (`/threads/…`), which is the
+  point of that card. `heroPosition` fixes the crop when centre isn't the
+  subject, `heroAlt` gives it real alt text (omit it and the image renders
+  `alt=""`, correct for decorative era art), `heroCredit` names the source.
+- **A grid of portraits** (`threadHeroTiles(id)`, non-empty) — when the
+  thread's subject is a *set* of people rather than one. `love-story` is the
+  wall of past partners, derived from `RELATIONSHIPS` (ended relationships
+  that have a portrait) so the card updates itself as the data does. The tiles
+  are `alt=""` inside one `role="img"` label — a screen reader should hear one
+  description of one piece of card art, not eight consecutive portraits.
+
+**Heroes are local files under `public/`; portraits are hotlinked Wikimedia.**
+That split is deliberate: a hero is committed art (rehost it, downscale it,
+record its Commons source in a comment), while the portraits are already
+hotlinked everywhere else the Love Story thread uses them.
+
+**Attribution is a licence condition, not a nicety.** `threadHeroCredit(id)`
+is the single source for the credit line the detail header renders — it joins
+the tile credits for a grid hero and falls back to `meta.heroCredit`. Any new
+CC BY / CC BY-SA art must flow through it. `lenses.test.ts` enforces that every
+tile has a credit and that every credit reaches the rendered line.
+
+**Two threads must never share hero art** — DoD item 2 exists because End Game
+and Blank Spaces both used `/eras/lover.png` with bracelet-led blurbs and read
+as the same thread. A test in `lenses.test.ts` locks that.
 
 ---
 
