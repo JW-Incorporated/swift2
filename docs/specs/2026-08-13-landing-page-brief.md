@@ -2,11 +2,19 @@
 
 **Date:** 2026-08-13 · **Author:** Claude (product-design session, for Joey) ·
 **Status:** DRAFT — awaiting Joey's approval. **This brief is the approval
-artifact: nothing here gets built until Joey signs off** (per
+artifact: nothing here gets built until Joey signs off on it** (per
 `docs/definition-of-done.md` item 1: "Founder-approved design BEFORE
-implementation"). It supersedes the 2026-07-15 "Choose an era becomes the
-landing page" decision **once approved** — that decision itself anticipated
-this ("holds only as the fallback if this doesn't work").
+implementation"). Approval here approves the *direction*; rendered mockups on
+real labels follow before any code (§7, D6). Once approved, this supersedes
+the 2026-07-15 "Choose an era becomes the landing page" decision — that
+decision itself anticipated this ("holds only as the fallback if this
+doesn't work").
+
+**Pressure-tested:** one Codex adversarial round ran against this brief
+(2026-08-13); six findings, all addressed — four accepted into the text, two
+partially rebutted and recorded in §9 "Contested points" per CLAUDE.md
+("disagreements surface, not settle"). A second round was skipped under the
+debate's 15-minute cap.
 
 ## TL;DR
 
@@ -14,11 +22,12 @@ The front door today is a menu: a wordmark, a four-tab toggle that is already
 at its physical limit, and twelve era tiles — no content to scroll, no photo
 of Taylor, no explanation of what a "thread" is. This brief proposes landing
 the visitor **directly in a scrollable front page built from content the site
-already has** (today's era secret, on-this-day moments, one thread item, one
-Mood chip), with a navigation rail that names all sections and has room for
-Marketplace and Community to slot in without a redesign. Three directional
-concepts are sketched; **"The Front Page" is recommended.** Five decisions for
-Joey are enumerated at the end.
+already has** (the latest sourced moment with a credited Taylor photo, the
+era secret of the day, an on-this-day match when one exists, one thread item,
+one Mood chip), with a navigation rail that names all sections and has room
+for Marketplace and Community to slot in without a redesign. Three
+directional concepts are sketched; **"The Front Page" is recommended.** Six
+decisions for Joey are enumerated in §7.
 
 ---
 
@@ -87,7 +96,7 @@ What fails, for the cold visitor the social pipeline is now sending here:
 |---|---|---|
 | **Cold, mobile, from social** (the marginal user — IG/X posts now drive here daily) | a deep link (`?item=`, `?lens=`) or the bio's bare `longlivets.com` | Proof this is a real, deep, loved thing — one specific, dated, sourced piece of content and a photo of Taylor; then a legible map: what else is here, in plain words, without tapping anything. |
 | **Cold, desktop, from search / a share** | `/` | Same as above plus crawlable substance: a page that *is* something, not a menu that might lead to something (#653). |
-| **Returning fan** | `/` from memory or the home-screen icon | The fastest path back in: what's new/today, jump to *their* era, and their reading position preserved (the era-stream scroll snapshot already does this — don't break it). |
+| **Returning fan** | `/` from memory or the home-screen icon | The fastest path back in: what's new, jump to *their* era, and their reading position preserved (the era-stream scroll snapshot already does this — don't break it). |
 
 The controlling insight: **the cold visitor doesn't need to choose — they
 need to be shown.** Choosing is the returning fan's job. Today's page serves
@@ -104,44 +113,66 @@ on 2026-08-11** (same day the DoD was written; see `docs/decisions.md`
 
 > **Eras · Threads · Mood · Clownbot · Marketplace · Community**
 
-This brief designs the navigation for six and flags the count as **Decision
-D2** — if Joey wants Clownbot demoted (folded under another section or an
-overflow), that's a one-line change to the design, but it should be chosen,
-not drifted into.
+This brief sizes the navigation for six and flags the count as **Decision
+D2** — if Joey wants Clownbot demoted (folded under another section), that's
+a one-line change to the design, but it should be chosen, not drifted into.
+(Clownbot's own *scope* remains DoD item 7's separate founder decision; its
+pill exists today regardless.)
 
-### 3.2 The navigation: a glossed pill rail, two densities
+### 3.2 The navigation: a pill rail, two densities, glosses in the blocks
 
 Replace the segmented `ModeToggle` with one component in two states:
 
 - **On the front door (expanded):** all section pills laid out in full —
-  wrapping to two rows on a narrow phone so **every section is visible
-  without any interaction** (DoD acceptance criterion, met literally). Each
-  pill carries icon + name, and on the front door only, a one-line gloss in
-  the site's voice (see §5). This is where "Threads" gets explained at first
-  touch.
-- **Inside a section (compact):** the same pills as one sticky row — icon +
-  short label, active pill highlighted (`aria-current`), 44px targets. Six
-  icon+label tabs fit 360px at compact sizing; on mobile this row lives at
-  the **bottom** of the viewport (thumb reach, the modern-feed-app
-  convention Wyatt pointed at), on desktop at the top. The wordmark always
-  returns to the front door; browser back always unwinds the nav stack —
-  entering and leaving any section never strands the user (already true via
-  `store.tsx`; the criterion carries over).
+  icon + name only, wrapping to two rows on a narrow phone so **every
+  section is visible without any interaction** (DoD acceptance criterion,
+  met literally). Six one-word pills wrap comfortably at 390px; sentence
+  glosses do NOT live inside the pills (they don't fit — Codex finding 6,
+  accepted). Instead, **each section's front-page block carries the gloss as
+  its kicker line** ("THREADS — one storyline at a time, across every era"),
+  so the explanation sits next to a real example of the thing it explains.
+  The pills and the blocks are cross-wired: tapping either enters the
+  section.
+- **Inside a section (compact):** the same pills as one sticky **top** rail
+  — icon + short label, active pill highlighted (`aria-current`), 44px
+  targets, horizontally scrollable only if a seventh section ever appears
+  (with edge-fade affordance; six fit 390px at compact sizing).
+  **Deliberately not a bottom tab bar:** a prior on-device, CTO-approved
+  test already rejected a bottom-edge control for colliding with mobile
+  browser chrome and the home indicator; the FeedbackButton is fixed
+  bottom-right; Mood's textarea raises the keyboard over the bottom edge.
+  A bottom bar could only come back via a device-tested prototype and
+  Wyatt's explicit approval (Codex finding 3, accepted — this flipped the
+  draft's recommendation).
+- The wordmark always returns to the front door; browser back always
+  unwinds the nav stack — entering and leaving any section never strands
+  the user (already true via `store.tsx`; the criterion carries over).
 
 ### 3.3 The extension contract — how Marketplace and Community slot in
 
-A top-level section, forever after, is exactly three things:
+A top-level section, forever after, registers exactly one entry in a
+**section registry**, which carries:
 
-1. **a pill** in the rail (name + icon + one-line gloss),
-2. **a feed block** on the front page (its best real item, rendered by that
-   section, linking in), and
-3. **a mode** in the store (`mode: 'marketplace' | 'community' | …`), same as
-   the four that exist.
+1. **a pill** (name + icon) for the rail,
+2. **a front-page block** (its best real item, rendered by that section,
+   linking in, gloss as kicker),
+3. **a mode + deep-link namespace** — the store mode plus URL params that
+   can address an *item inside* the section (as `?item=`/`?lens=`/`?era=` do
+   today). This matters because DoD item 4 requires item-level cross-links
+   both directions (era ↔ marketplace item); a bare mode switch can't
+   address a product or a community — the registry entry must (Codex
+   finding 5, accepted in part),
+4. **its theming, share target, and search participation** — the seams the
+   four existing sections already thread through `LongLive.tsx`/`TopBar`/
+   `ShareSheet`/`SearchOverlay`.
 
-Item 4's builders add those three things and touch nothing else. No
-redesign, no layout shift, no new navigation pattern. Until a section
-exists, its pill and block simply aren't rendered — the front page never
-shows placeholders or "coming soon."
+Item 4's builders add one registry entry and their section's own surfaces —
+no nav redesign, no layout shift on the front page. Until a section exists,
+its pill and block simply aren't rendered — the front page never shows
+placeholders or "coming soon." The *full* registry field list is
+implementation detail for the item-4 specs; what this brief locks is the
+shape: **new section = one registry entry, and the front door absorbs it
+without redesign.**
 
 ## 4. Three directional concepts
 
@@ -159,26 +190,29 @@ content is authored; every block is a doorway into the section it came from.
 │ Long Live            [share] │  compact masthead, one line of
 │ her whole life, in order     │  tagline — not a splash
 ├──────────────────────────────┤
-│ [ Eras ] [ Threads ] [ Mood ]│  expanded pill rail, wraps to
-│ [ Clownbot ] ( +Marketplace  │  two rows; every pill glossed
-│   +Community when built )    │  in one line on first touch
+│ [Eras] [Threads] [Mood]      │  expanded pill rail: icon+name,
+│ [Clownbot]                   │  wraps to two rows; every pill
+│                              │  visible, zero interaction
 ├──────────────────────────────┤
-│ ████ REAL TAYLOR PHOTO ████ │  TODAY block: the current era's
-│ The Life of a Showgirl · NOW │  latest moment — dated, sourced,
-│ <latest sourced moment>      │  credited photo → opens era mode
+│ ████ REAL TAYLOR PHOTO ████ │  LATEST FROM THE VAULT ·
+│ <credit line>                │  the newest sourced moment that
+│ oct 3, 2025 · <moment title> │  HAS a credited photo — honest
+│ → step into the era          │  date always shown (§4A rules)
 ├──────────────────────────────┤
-│ ⭑ Era secret of the day      │  dailyEraSecret() — already
+│ ⭑ ERA SECRET OF THE DAY      │  dailyEraSecret() — already
 │ <one obscure sourced fact>   │  rotates deterministically
 ├──────────────────────────────┤
-│ ON THIS DAY · aug 13, 2013   │  date-matched Vault moments
-│ <moment card>       → era    │  (falls back to nearest date)
+│ ON THIS DAY · aug 13, 2013   │  exact month/day Vault match
+│ <moment card>       → era    │  ONLY — block omitted when
+│                              │  today has no match
 ├──────────────────────────────┤
-│ FROM THE THREADS             │  one thread item, rotating
-│ The Decode · one clue, one   │  daily through the six threads
-│ payoff  <item>  → thread     │
+│ THREADS — one storyline at a │  gloss as kicker; one thread
+│ time, across every era       │  item, rotating daily through
+│ The Decode: <item> → thread  │  the six threads
 ├──────────────────────────────┤
-│ MOOD · "crying in the car,   │  one starter chip (approved
-│ cinematically" → tap Mood    │  copy, verbatim) → Mood
+│ MOOD — tell it how you feel  │  one starter chip (approved
+│ "crying in the car,          │  copy, verbatim) → Mood
+│  cinematically"   → Mood     │
 ├──────────────────────────────┤
 │ THE TWELVE ERAS              │  the existing EraGrid, kept,
 │ [tile][tile][tile][tile]     │  demoted to a block
@@ -188,24 +222,45 @@ content is authored; every block is a doorway into the section it came from.
 └──────────────────────────────┘
 ```
 
+**Freshness rules — the honesty contract** (Codex finding 1, accepted; these
+are part of the design, not polish):
+
+- The hero block is titled **"Latest from the vault"** and always shows the
+  moment's real date. It may call itself "TODAY" only when the moment is
+  genuinely recent (≤14 days old). A static site must never cosplay a
+  newsroom — the vision's "recent news" job is real but lands with the news
+  pipeline, not with this page pretending.
+- **ON THIS DAY renders only on an exact month/day match** in the Vault, and
+  is omitted entirely otherwise — never a "nearest date" stand-in labeled as
+  today.
+- The hero's selection rule is "newest moment **that has a credited real
+  photo**" — era-art fallback images never lead the front door.
+- Every block states its real date; nothing is ever labeled fresher than it
+  is. The two deterministic daily rotations (era secret, thread item) are
+  honestly framed as "of the day" — they are that.
+- Empty states: any block whose selection comes up empty is not rendered.
+  The page degrades by getting shorter, never by showing filler.
+
 - **Optimizes for:** the doom-scroll requirement, literally — the visitor is
   scrolling real content one swipe in. Teaches every section by *showing its
-  content*, not describing it. Zero new content cost: every block reads
-  existing generated data (`content.ts`, `era-secrets.ts`, `lenses.ts`,
-  `mood-starters.ts`) and the two daily-rotation mechanisms already shipped
-  (Era Secret daily cycle; the social calendar's on-this-day logic has a
-  client-side twin here). Gives social posts a warm landing: the front page
-  *is* the same kind of artifact as the posts that drove the click.
-- **Main risk:** *perceived staleness.* The site is static; blocks change
-  only on content merges plus the deterministic daily rotations. If the
-  TODAY block shows the same moment for a week, the "front page" framing
-  overpromises. Mitigations: date-stamp blocks honestly (never "breaking",
-  always "on this day" / "from the vault"), lean on the two real daily
-  rotations, and let content merges (which land continuously via auto-merge)
-  refresh the top block. Second risk: the front door becomes a seventh
-  surface to maintain — bounded by making every block a dumb selection over
-  existing data (selection rules in `lib/longlive/`, pure and tested, per
-  the era-feed precedent).
+  content* next to its gloss, not describing it in the abstract. No new
+  *content* cost: every block is a selection over existing generated data
+  (`content.ts`, `era-secrets.ts`, `lenses.ts`, `mood-starters.ts`), with
+  selection rules as pure tested functions in `lib/longlive/` (the
+  `era-feed.ts` precedent). Gives social posts a warm landing: the front
+  page is the same kind of artifact as the posts that drove the click.
+- **Main risk:** *perceived staleness* — bounded by the honesty contract
+  above, but a quiet content month still means a slow-moving hero; the
+  mitigation is honest dating, not fake motion. Second risk: *a real
+  seventh surface to build and own.* The draft's "~90% reuse" claim was
+  fair-challenged (Codex finding 2): the existing cards (`MomentCard`,
+  `EraSecretCard`, thread renderers) are file-private and coupled to their
+  surfaces, so Concept A needs **preview variants** of them plus selection
+  rules and tests — a real, if modest, build; the honest claim is "zero new
+  content, zero new data, one new presentation layer." Ownership: the front
+  page belongs to ENGINE (it's code, not authored content); its blocks can
+  never go stale editorially because they render whatever the content
+  pipeline last merged.
 
 ### Concept B — "The Time Machine"
 
@@ -218,8 +273,8 @@ the product. The era grid lives behind the Eras pill and the scrubber.
 ```
 ┌──────────────────────────────┐
 │ Long Live            [share] │
-│ [ Eras ][ Threads ][ Mood ]  │  expanded rail w/ glosses
-│ [ Clownbot ] …               │
+│ [Eras] [Threads] [Mood]      │  expanded rail (masthead only;
+│ [Clownbot]                   │  compact sticky rail after)
 ├──────────────────────────────┤
 │ THE LIFE OF A SHOWGIRL  ·NOW │  ← the real EraSection hero,
 │ ████ era hero / lyric ████  │    exactly as shipped
@@ -230,17 +285,19 @@ the product. The era grid lives behind the Eras pill and the scrubber.
 ```
 
 - **Optimizes for:** depth-first immersion — the visitor is inside the
-  site's single best surface in zero taps; almost no new UI to build or
-  maintain (a masthead + the rail); the "time machine" identity is the
-  landing experience itself.
+  site's single best surface in zero taps; the least new UI of any concept
+  (a masthead + the rail); the "time machine" identity is the landing
+  experience itself; no freshness promise to keep, because an era stream
+  never claims to be news.
 - **Main risk:** *one era is not the site.* The cold visitor sees Showgirl
-  content and may never learn that Threads/Mood/Marketplace exist — the rail
-  scrolls away with the masthead unless made sticky, and a sticky expanded
-  rail eats the immersive theming that makes era mode good. It also welds
-  "home" to "eras": back-gesture and wordmark semantics get muddier (goHome
-  lands you… where you already are?), and the era-scroll snapshot contract
-  (`§5.6` of the experience doc) has to distinguish "landed here cold" from
-  "returned here" forever after.
+  content and may never learn Threads/Mood/Marketplace exist — the expanded
+  rail scrolls away with the masthead (the compact rail persists, but
+  compact pills carry no gloss and no example). It also welds "home" to
+  "eras": wordmark/back semantics get muddier (goHome lands you… where you
+  already are?), and the era-scroll snapshot contract (experience doc §5.6)
+  must distinguish "landed cold" from "returned" forever after. **Codex's
+  counter-recommendation is a hybrid of exactly this concept — see §9,
+  contested point 1.**
 
 ### Concept C — "Twelve Doors"
 
@@ -255,38 +312,38 @@ cards for the non-era surfaces above the grid.
 - **Main risk:** *it's still a menu.* However alive the tiles get, the
   visitor still can't scroll content on arrival — it fails the DoD's
   "lands in content they can immediately scroll" criterion by construction
-  unless the definition of "content" is stretched to mean tiles. Presented
-  for completeness and as evidence the middle ground was considered, not
-  recommended.
+  unless "content" is stretched to mean tiles. Presented for completeness
+  and as evidence the middle ground was considered; not recommended.
 
 ### Recommendation — Concept A, "The Front Page"
 
 It is the only concept that satisfies every written acceptance criterion in
 DoD item 1 at once: scrollable real content on arrival, every section
-visible and glossed without interaction, and a structural slot (pill +
-block) for Marketplace and Community that makes item 4 additive instead of
-another redesign. It keeps what today's page does well (the grid, no
-splash) and fixes what it doesn't (no content, no photos, no gloss, no
-room). Concept B is the strongest *feeling* experience but teaches the
-site's breadth worst — and breadth is the stated problem. A is also the
-cheapest concept that still moves: ~90% of its blocks render components
-that already exist.
+visible without interaction *and* explained beside a live example, and a
+structural slot (registry entry: pill + block) that makes item 4 additive
+instead of another redesign. It keeps what today's page does well (the
+grid, no splash) and fixes what it doesn't (no content, no photos, no
+gloss, no room). Concept B is the strongest *feeling* experience but
+teaches the site's breadth worst — and breadth is the stated problem.
+Codex disagrees with this weighing and prefers a B hybrid; both positions
+are laid out in §9 for Joey to judge — **D1 is genuinely contested.**
 
 ## 5. Content & imagery plan
 
-- **Photography, not tiles, above the fold.** The TODAY block leads with a
+- **Photography, not tiles, above the fold.** The hero block leads with a
   real photograph of Taylor from the repo's credited corpus
   (`moment.photos`, 1,000+ entries with url + credit), credit line rendered
-  on or under the image. Era-art tiles remain the era grid's identity —
-  correct there, insufficient as the door. Hard bars carry over from the
-  photo policy (2026-08-12 + 2026-07-09 decisions): **no AI-generated
-  images ever**, no watermarked images, no uncredited use; takedown on
-  request without argument.
+  on or under the image, selection rule guaranteeing a photo-carrying
+  moment (§4A). Era-art tiles remain the era grid's identity — correct
+  there, insufficient as the door. Hard bars carry over from the photo
+  policy (2026-08-12 + 2026-07-09 decisions): **no AI-generated images
+  ever**, no watermarked images, no uncredited use; takedown on request
+  without argument.
 - **Copy register:** the site's existing voice — lowercase-warm, a fan
   telling a fan; **Taylor**, never bare "Swift"; no AI-tell phrases, none of
   the banned openers. The model is the THREADS kickers already shipped in
   `lenses.ts` ("A love story, in real time" · "The secrets she plants" ·
-  "One clue, one payoff"). Pill glosses are written in exactly that
+  "One clue, one payoff"). Block-kicker glosses are written in exactly that
   register, one line each, e.g. (draft, for Joey's edit, not final copy):
   - **Eras** — twelve chapters of her life, newest first
   - **Threads** — one storyline at a time, across every era
@@ -294,38 +351,43 @@ that already exist.
   - **Clownbot** — the theories, graded for delulu
   - **Marketplace** — the looks and the merch, era by era *(when built)*
   - **Community** — where the fans actually are *(when built)*
-- **Section blocks show real items verbatim** — a moment card is the same
-  moment card era mode renders, sourced and dated; nothing is written *for*
-  the landing page, so the no-fabrication bar is inherited rather than
-  re-policed. Rumor-tier and confidence chips render exactly as they do in
-  the feed.
-- **Thread copy dependency:** the FROM THE THREADS block displays whatever
-  card copy `lenses.ts` carries — DoD items 2/3 (differentiating the twin
-  cards) land there and this page inherits the fix automatically. This brief
-  does not solve items 2/3 and does not block on them.
+- **Section blocks show real items verbatim** — a moment preview renders
+  the same underlying data era mode renders, sourced and dated; nothing is
+  written *for* the landing page, so the no-fabrication bar is inherited
+  rather than re-policed. Rumor-tier and confidence chips render exactly as
+  they do in the feed.
+- **Thread copy dependency:** the THREADS block displays whatever card copy
+  `lenses.ts` carries — DoD items 2/3 (differentiating the twin cards) land
+  there and this page inherits the fix automatically. This brief does not
+  solve items 2/3 and does not block on them.
 
 ## 6. Acceptance criteria
 
 Mobile AND desktop, each testable:
 
 **Experience**
-1. A first-time visitor on a 390×844 viewport sees, without any interaction:
-   the wordmark, every existing top-level section pill with its one-line
-   gloss, and the start of a real, dated content block. One swipe scrolls
-   real content.
+1. A first-time visitor on a 390×844 viewport sees, without any
+   interaction: the wordmark, every existing top-level section pill, and
+   the start of a real, dated content block. One swipe scrolls real
+   content. Every section's gloss is on the page (as its block kicker)
+   within the scroll.
 2. Every pill navigates to its section; wordmark returns to the front page;
    browser back from any section returns to the previous surface (never a
    dead end, never a stranded state). Deep links (`?item=`, `?lens=`,
    `?era=`) bypass the front page exactly as today.
-3. Adding a new section (rehearsed with a stub in review, since Marketplace/
-   Community don't exist yet) requires only: a pill entry, a feed block, a
-   store mode. No layout or nav redesign. No placeholder/"coming soon" is
-   ever rendered for an unbuilt section.
-4. The TODAY block leads with a credited real photograph of Taylor; the
-   credit is visible; no AI or watermarked imagery anywhere on the page
-   (existing image checks apply).
-5. The era grid remains reachable within one scroll on the front page and
-   one tap via the Eras pill.
+3. Adding a new section (rehearsed with a stub in review, since
+   Marketplace/Community don't exist yet) requires only one section-registry
+   entry (§3.3) — no nav or layout redesign. No placeholder/"coming soon"
+   is ever rendered for an unbuilt section. The compact rail is exercised
+   with 5, 6, and 7 stub entries in review (the 7th proves the overflow
+   affordance).
+4. The hero block shows a credited real photograph of Taylor with visible
+   credit; no AI or watermarked imagery anywhere on the page. Freshness
+   honesty (§4A): dates always real and shown; "on this day" only on exact
+   match; empty blocks omitted, never filled.
+5. The era grid block's heading enters the viewport within 4 viewport
+   heights of scroll on 390×844 at default font scale, and the Eras pill
+   reaches the grid in one tap from anywhere.
 6. Returning-visitor behavior: the era-stream scroll snapshot contract
    (experience doc §5.6) still holds — a plain toggle away and back
    restores position; explicit jumps land at the top.
@@ -334,42 +396,49 @@ Mobile AND desktop, each testable:
 7. The front page adds **zero** to the Tier-0 data budget beyond selection
    over already-resident data; `npm run check:budget` stays green.
 8. No third-party iframe mounts on the front page without a click
-   (2026-08-11 click-to-load decision, no exceptions). Images below the fold
-   are lazy; the hero image is prioritized.
+   (2026-08-11 click-to-load decision, no exceptions). Images below the
+   fold are lazy; the hero image is prioritized.
 9. Mobile Lighthouse on the front page: LCP ≤ 2.5s (throttled), CLS < 0.1 —
    every block reserves its aspect ratio.
 
 **A11y (the repo's gate)**
 10. The rail is a labeled nav landmark; active section exposed via
     `aria-current`; every target ≥ 44px; icon-only compact tabs carry
-    explicit accessible names (#656 lesson); no nested interactive elements;
-    heading order is sane (one h1); visible focus throughout; daily-rotation
-    blocks are inert content, no motion without `prefers-reduced-motion`
+    explicit accessible names (#656 lesson); no nested interactive
+    elements; heading order is sane (one h1); visible focus throughout;
+    daily-rotation blocks are inert content; `prefers-reduced-motion`
     respected.
 
-**SEO / discoverability basics (#653, Nils's lens)**
-11. The front page's blocks are server-renderable text in the initial HTML
-    (the current landing is fully client-rendered — this is the single
-    biggest crawlability win available); real `<title>` + meta description +
-    OG image for `/`; the h1 is the site name, block headings are h2s.
-    (Path-based URLs per section are noted as the *next* SEO step and are
-    out of scope here — see §8.)
+**SEO / discoverability basics (#653, Nils's lens) — written as an output
+test** (Codex finding 4, accepted: `'use client'` components still
+prerender; the requirement is on the served HTML, not the architecture):
+11. Fetching `/` with JavaScript disabled yields HTML containing: the h1,
+    every rendered block's heading, at least one stable dated moment with
+    its source/credit text, the page `<title>` + meta description (already
+    supplied by layout metadata — keep them accurate), and an **OG image**
+    (the actual gap today). Client-side daily rotations are NOT required in
+    the initial HTML — the crawler sees the stable build-time fallback, and
+    that is fine; do not introduce request-time rendering for rotation.
 
 **Process**
-12. Joey verifies on his own phone before item 1 closes (the DoD's own bar).
+12. After this brief is approved, rendered mockups (390×844 + desktop, real
+    six labels, real content) go to Joey **before implementation starts**,
+    and Joey verifies the built page on his own phone before item 1 closes
+    (the DoD's own bar, twice).
 
 ## 7. Decisions for Joey — what approving this brief means
 
-Approving this brief approves D1–D5 as written unless Joey overrides them
+Approving this brief approves D1–D6 as written unless Joey overrides them
 inline. A build session should be able to implement from this section alone.
 
 | # | Decision | Recommendation | Alternatives |
 |---|---|---|---|
-| **D1** | Direction | **Concept A, "The Front Page"** (§4) | B "Time Machine" / C "Twelve Doors" |
-| **D2** | Top-level section count | **Six pills** — Clownbot stays a peer (§3.1) | Fold Clownbot under another section (say which) |
-| **D3** | Mobile nav position (compact state, inside sections) | **Bottom tab bar** on mobile, top rail on desktop (§3.2) | Top rail everywhere (closer to today) |
-| **D4** | "Threads" naming | **Keep "Threads", add the gloss** — the gloss does the explaining | Rename; candidate options if wanted: "Storylines" / "Story Arcs" (DoD says a rename is a founder call, so it's only ever offered, never done unilaterally) |
+| **D1** | Direction — **contested, see §9** | **Concept A, "The Front Page"** with the §4A freshness honesty contract | Codex recommends: Concept B hybrid (land in current era, glossed masthead). Also open: C "Twelve Doors" |
+| **D2** | Top-level section count | **Six pills** — Clownbot stays a peer (§3.1); nav sized for six, overflow affordance proven for seven | Fold Clownbot under another section (say which) |
+| **D3** | Compact nav position | **Sticky top rail, mobile and desktop** (§3.2 — bottom bar rejected on prior on-device evidence) | Bottom tab bar, only via device-tested prototype + Wyatt sign-off |
+| **D4** | "Threads" naming | **Keep "Threads", gloss does the explaining** (as block kicker) | Rename; candidates if wanted: "Storylines" / "Story Arcs" (DoD: a rename is a founder call, offered, never unilateral) |
 | **D5** | Front-door imagery | **Lead with credited real photos of Taylor** in content blocks; era art stays on the grid tiles (§5) | Era art everywhere (status quo) |
+| **D6** | Approval path | **Two-step: this brief locks direction → rendered mockups (real labels, real content, both viewports) get Joey's approval before code** | One-step (build from this brief directly — not recommended; DoD item 1 asks for mockups) |
 
 Per project convention, the approved decisions get propagated verbatim into
 the implementation ticket(s) so no build session re-asks them, and a
@@ -379,22 +448,64 @@ landing decision).
 ## 8. Out of scope — deliberately not covered here
 
 - **Marketplace and Community themselves** — item 4 gets its own specs;
-  this brief only reserves their slots (§3.3).
+  this brief only reserves their slots (§3.3). The full section-registry
+  field list is those specs' implementation detail.
 - **Thread card differentiation** (DoD items 2/3) — lands in `lenses.ts`
   independently; this page inherits it.
 - **Video playback consistency and inert cards** (#2051, #2050) — the front
-  page renders existing card components and takes whatever fix those tickets
-  land; nothing here depends on or preempts them. No video block ships on
-  the front page in v1 (avoids designing against #2051's open option).
-- **Path-based section URLs / full SEO restructure** (#653 beyond basics),
-  notifications, accounts, personalization ("your era" memory), Mood scoring
-  coverage gaps, the Clownbot scope decision (DoD item 7), and any content
-  authoring.
+  page renders existing data through preview components and takes whatever
+  fix those tickets land; nothing here depends on or preempts them. No
+  video block ships on the front page in v1 (avoids designing against
+  #2051's open option).
+- **Path-based section URLs / full SEO restructure** (#653 beyond §6.11),
+  notifications, accounts, personalization ("your era" memory), Mood
+  scoring coverage gaps, the Clownbot scope decision (DoD item 7), and any
+  content authoring.
 - **Copy finalization** — glosses and taglines in §5 are drafts for Joey's
   edit; the register is the spec, the words are placeholders.
 
-## 9. Contested points — from the design debate
+## 9. Contested points — what the debate did not settle
 
-*(This section records material disagreements from the Claude-proposes /
-Codex-attacks debate per CLAUDE.md rule 5 — surfaced, not settled. Filled in
-below after the debate run; see PR body for whether Codex was reachable.)*
+One Codex adversarial round ran 2026-08-13. Four findings were accepted and
+are already folded in above (freshness honesty §4A; top rail not bottom bar
+D3; SEO criterion as an output test §6.11; glosses moved out of pills +
+rendered-mockups gate D6). Two disagreements survive, unsettled, for Joey:
+
+**1. Concept A vs a Concept B hybrid (decision D1).**
+- *Codex's position:* A "front page" on a static site overpromises freshness
+  and adds a seventh surface with real build/test cost the draft
+  understated; Concept B lands the visitor in the site's best existing
+  surface (the era stream) with a glossed masthead, needs almost no new UI,
+  and makes no freshness promise at all. Prefer B.
+- *Claude's position (the brief's recommendation):* the stated problem is
+  breadth — "a new user may not get it" — and B teaches breadth worst: its
+  glossed masthead scrolls away one swipe in, after which the cold visitor
+  is deep in one era with no example of Threads, Mood, or anything else.
+  A's staleness risk is real but bounded by the §4A honesty contract
+  (labels never claim more freshness than the data has), while B's
+  breadth-blindness has no equivalent mitigation. The extra surface cost is
+  real and now stated honestly; it buys the only concept that meets every
+  DoD criterion.
+- *For Joey:* this is a taste-level product call — "show them everything
+  honestly dated" (A) vs "drop them into the deepest single experience"
+  (B). Pick A or B; either is buildable from this brief (B inherits the
+  same rail, glosses, freshness honesty where applicable, and registry
+  contract).
+
+**2. How much IA to lock before Marketplace/Community are specced
+(decision D2).**
+- *Codex's position:* don't approve a permanent six-section IA while
+  Marketplace, Community, and Clownbot's scope are all undecided; a
+  transient store mode can't serve item-level cross-links, so defer D2
+  until a route-capable section registry is designed against real specs.
+- *Claude's position:* deferring D2 recreates the deadlock item 1 exists to
+  break — item 4 explicitly waits on the landing page knowing its pill
+  count. The brief therefore locks only the *shape* (registry entry =
+  pill + block + mode + deep-link namespace + theming/share/search seams,
+  §3.3) and the *sizing* (six, with a proven overflow affordance for
+  seven), and leaves every registry field beyond that to the item-4 specs.
+  The deep-link requirement Codex raised is accepted and already in the
+  contract.
+- *For Joey:* approve D2 as "six slots + the contract shape" (recommended),
+  or hold the nav at four and accept that item 4's design re-opens the
+  landing page.
