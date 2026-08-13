@@ -26,14 +26,22 @@ Every run resolves each touched item to an outcome — `posted`, `retrying`, `fa
 {
   "platform": "x",
   "body": "post text, exactly as it will appear",
-  "media": ["/social/launch-hero.jpg"],
-  "mediaKind": "era-art",
+  "media": ["/social/library/photos/taylor-red-tour-ford-field-2013.jpg"],
+  "mediaKind": "photo",
+  "mediaCredit": "Photographer Name/Getty Images",
+  "mediaSource": "https://example.com/where-this-came-from",
   "scheduledAt": "2026-07-18T01:00:00Z",
   "approvedBy": "joey",
   "approvedAt": "2026-07-17T20:00:00Z",
-  "campaign": "launch-day"
+  "campaign": "launch:mood-chat:announce"
 }
 ```
+
+This example is the shape to copy. Note the two fields that are easiest to get
+wrong, both for reasons documented below: `mediaKind` is `"photo"` (era tiles
+are dead, and any draft carrying media must declare a kind), and `campaign`
+carries the story, not just its family — a bare bucket value silently kills
+every later post that reuses it.
 
 **Every field below is enforced in CI** by `npm run validate:social`
 (`scripts/social/validate-queue.mjs`), which runs in the `build` job — the
@@ -62,7 +70,7 @@ Five rule families, in order (later ones assume earlier ones passed):
 - **Voice** — reuses `scripts/content-engine/checkers/voice.mjs`'s surname-overuse, ai-tell, and wire-attribution rules against the draft's `body`.
 - **Openers** — bans a body that opens with "did you know" (case-insensitive, word-boundary matched, and normalized past any leading emoji/quote/punctuation) outright, and flags a draft whose first 6 words match the opening of anything posted in the last 14 days or any other current queue item (formula detection).
 - **Cross-post copy** — an X draft whose `body` is more than 80% similar (word-overlap coefficient, not Jaccard — see the script for why) to its Instagram sibling's `body` fails. Siblings are matched by shared `campaign`; when an X draft has no `campaign`, this falls back to the closest same-day Instagram item — a near-duplicate still fails, and even a merely-plausible-looking pair gets a "you probably meant to tag these" nudge. Near-identical siblings are what triggers X's duplicate-content 403s.
-- **Media** — Instagram drafts need `media`; every media path must be a `.png`/`.jpg`/`.jpeg` (the only formats this pipeline produces or uploads to X) and exist under `apps/web/public/`; era art needs `mediaKind: "era-art"` and can't repeat the last 10 posted Instagram items; a real dedicated photo can't either.
+- **Media** — Instagram drafts need `media`; every media path must be a `.png`/`.jpg`/`.jpeg` (the only formats this pipeline produces or uploads to X) and exist under `apps/web/public/`; every draft carrying media must declare a `mediaKind`, and `"photo"` additionally requires `mediaCredit` + `mediaSource` and a tile under `/social/library/photos/`; era tiles fail outright; and no media may repeat one of the last 10 posted Instagram items.
 
 ## Post-time guards (`scripts/social/lib/queue.mjs`, `post-queue.mjs`)
 
