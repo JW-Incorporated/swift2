@@ -240,10 +240,13 @@ export default {
       category: 'music',
       // Cross-link (Stage 3, 2026-07-30): + the Red Tour's Omaha opening
       // night, which put Ed Sheeran on the road with her right after this.
+      // Cross-link (Stage 3, 2026-08-13): + "The Last Time," the other Red
+      // duet Ed Sheeran had a hand in (he introduced Taylor to Gary Lightbody).
       relatedIds: [
         'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
         'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
         'moment:vault-red-everything-has-changed-duet',
+        'moment:vault-red-the-last-time-turns-an-on-again-off-again-relationship-into-',
       ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
       snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
@@ -1354,6 +1357,10 @@ export default {
 
     // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
     {
+      // Cross-link (Stage 3, 2026-08-13): "Everything Has Changed" — the
+      // other Red duet Ed Sheeran had a hand in (he introduced Taylor to
+      // this song's co-writer, Gary Lightbody).
+      relatedIds: ['moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer'],
       year: 2012,
       month: 10,
       day: 22,

@@ -4,9 +4,6 @@
 
 import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';
 
-/** Build-time freshness stamp — emitted only by prebuild (deploy). */
-export const CONTENT_GENERATED_AT = "2026-08-13T07:03:02.347Z";
-
 type VaultRawItem = {
   id: string;
   slug?: string;
@@ -1521,6 +1518,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/wMpqCRF7TKg/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"champagne problems\" lyric video, via the video's YouTube thumbnail.", kind: "primary", focalPoint: "46% 52%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Joe_Alwyn-2018.jpg", credit: "Greg2600, Wikimedia Commons (CC BY-SA 2.0) — Joe Alwyn, December 2018", caption: "Joe Alwyn — credited as \"William Bowery,\" he wrote the fictional turned-down proposal with her during the September 2020 Long Pond sessions.", kind: "archival", focalPoint: "50% 45%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)" }, { name: "Slate", url: "https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html" }],
+      relatedIds: ["moment:vault-evermore-the-evermore-title-tracks-bridge-written-after-the-fact-by-b", "moment:vault-evermore-on-kimmel-three-days-after-evermore-how-the-secret-held"],
     },
     {
       id: "vault-evermore-coney-island-a-duet-built-for-the-national",
@@ -1787,6 +1785,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/EXLgZZE072g/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"evermore\" lyric video, featuring Bon Iver, via the video's YouTube thumbnail.", kind: "primary", focalPoint: "50% 50%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/46/Bon_Iver_2011.jpg", credit: "danieljordahl, Wikimedia Commons (CC BY 2.0) — Justin Vernon performing with Bon Iver, November 2011", caption: "Justin Vernon on stage with Bon Iver — the multitracked falsetto that answers her in the title track's bridge, written after the song was sent to him.", kind: "archival", focalPoint: "38% 33%" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_song)" }],
+      relatedIds: ["moment:vault-evermore-champagne-problems-a-fictional-proposal-gone-wrong", "moment:vault-evermore-on-kimmel-three-days-after-evermore-how-the-secret-held"],
     },
     {
       id: "vault-evermore-tolerate-it-the-10-8-track-dessner-almost-didnt-send-her",
@@ -2231,6 +2230,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/ionfV_r8s40/hqdefault.jpg", kind: "primary" }],
       sources: [{ name: "Taylor Swift Debunks 'Woodvale' Third Album Theory on 'Kimmel'", url: "https://www.rollingstone.com/music/music-news/taylor-swift-jimmy-kimmel-live-folklore-evermore-1104051/", reliability: 4, type: "reputable_press" }, { name: "YouTube — Jimmy Kimmel Live", url: "https://www.youtube.com/watch?v=ionfV_r8s40" }],
+      relatedIds: ["moment:vault-evermore-champagne-problems-a-fictional-proposal-gone-wrong", "moment:vault-evermore-the-evermore-title-tracks-bridge-written-after-the-fact-by-b"],
     },
   ],
   "fearless": [
@@ -2664,6 +2664,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"White Horse.\"", kind: "primary", focalPoint: "65% 35%" }, { url: "https://i.ytimg.com/vi/D1Xr-JFLxik/hqdefault.jpg", credit: "Big Machine Records / YouTube (official music video still)", caption: "From the official \"White Horse\" video — the un-fairy-tale the song promises.", kind: "archival", focalPoint: "58% 30%" }],
       sources: [{ name: "White Horse (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "White Horse by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/white-horse", reliability: 2, type: "wiki" }],
+      relatedIds: ["moment:vault-tloas-phil-collins-taylors-early-white-horse-blew-me-away-complete"],
     },
     {
       id: "vault-fearless-fearless-platinum-edition-adds-six-new-songs-to-a-no-1-album",
@@ -3850,7 +3851,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/82/Taylor_Swift_-_Beautiful_Ghosts.png", credit: "Republic Records (single cover art)", kind: "primary", focalPoint: "50% 45%" }, { url: "https://i.ytimg.com/vi/trIjpVH8h88/maxresdefault.jpg", credit: "Taylor Swift / Vevo (official 'Beautiful Ghosts' lyric video still)", caption: "A still from the official lyric video: a nighttime London skyline with Big Ben and a dancing-cat silhouette, as the lyric \"these beautiful ghosts\" glows in.", kind: "archival", focalPoint: "48% 42%" }],
       sources: [{ name: "Beautiful Ghosts", url: "https://en.wikipedia.org/wiki/Beautiful_Ghosts", reliability: 2, type: "wiki" }],
-      relatedIds: ["moment:vault-lover-cats-arrives-bombalurina-digital-fur-and-beautiful-ghosts"],
+      relatedIds: ["moment:vault-lover-cats-arrives-bombalurina-digital-fur-and-beautiful-ghosts", "moment:vault-tloas-andrew-lloyd-webber-hears-his-own-ophelia-in-the-fate-of-oph"],
     },
     {
       id: "vault-lover-christmas-tree-farm-from-the-girl-who-literally-grew-up-on-o",
@@ -5181,7 +5182,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Everything_Has_Changed" }],
-      relatedIds: ["moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-", "moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha", "moment:vault-red-everything-has-changed-duet"],
+      relatedIds: ["moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-", "moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha", "moment:vault-red-everything-has-changed-duet", "moment:vault-red-the-last-time-turns-an-on-again-off-again-relationship-into-"],
     },
     {
       id: "vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha",
@@ -5478,6 +5479,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png", credit: "Big Machine Records", caption: "Official single cover for \"The Last Time\" featuring Gary Lightbody of Snow Patrol.", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)" }, { name: "NPR", url: "https://www.npr.org/2012/11/03/164186569/taylor-swift-my-confidence-is-easy-to-shake" }],
+      relatedIds: ["moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer"],
     },
     {
       id: "vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square",
@@ -6790,7 +6792,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Back_to_December" }],
-      relatedIds: ["moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two"],
+      relatedIds: ["moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two", "moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas"],
     },
     {
       id: "vault-speak-now-the-story-of-us-written-after-a-crowded-room-encounter",
@@ -6910,7 +6912,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Back to December", url: "https://en.wikipedia.org/wiki/Back_to_December", reliability: 2, type: "wiki" }],
-      relatedIds: ["moment:vault-speak-now-back-to-december-her-first-apology-song"],
+      relatedIds: ["moment:vault-speak-now-back-to-december-her-first-apology-song", "moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas"],
     },
     {
       id: "vault-speak-now-mean-the-banjo-single-goes-to-country-radio",
@@ -7127,6 +7129,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/L8-HPbEemcY/hqdefault.jpg", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/awards/taylor-swift-american-music-awards-moments-amas-8544183/" }, { name: "YouTube — LadyStefani (fan archive)", url: "https://www.youtube.com/watch?v=L8-HPbEemcY" }],
+      relatedIds: ["moment:vault-speak-now-back-to-december-her-first-apology-song", "moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two"],
     },
   ],
   "tloas": [
@@ -7282,7 +7285,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/b/b5/AndrewLloydWebber3_%28cropped%29.png", credit: "Tracey Nolan (CC BY-SA 2.0, via Wikimedia Commons)", caption: "Andrew Lloyd Webber, whose Pre-Raphaelite collection includes a version of the Millais painting he tied \"The Fate of Ophelia\" to.", kind: "primary", focalPoint: "48% 32%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/9/94/John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg", credit: "John Everett Millais, 1852 (public domain, Google Art Project)", caption: "Millais's \"Ophelia\" (1852) — the Pre-Raphaelite painting Webber traced the song to, and the one he owns a version of.", kind: "archival", focalPoint: "52% 50%" }],
       sources: [{ name: "Andrew Lloyd Webber weighs in on Taylor Swift's 'The Life of a Showgirl' album and art inspiration", url: "https://creators.yahoo.com/lifestyle/story/andrew-lloyd-webber-weighs-in-on-taylor-swifts-the-life-of-a-showgirl-album-and-art-inspiration-021518939.html", reliability: 3, type: "reputable_press" }, { name: "Andrew Lloyd Webber on Taylor Swift's 'The Fate of Ophelia'", url: "https://www.instagram.com/p/DQb5uJJgRQz/", reliability: 5, type: "social" }, { name: "Andrew Lloyd Webber talks Pre-Raphaelite art, Taylor Swift at Delaware Art Museum", url: "https://whyy.org/articles/andrew-lloyd-webber-delaware-art-museum-pre-raphaelite/", reliability: 4, type: "reputable_press" }],
-      relatedIds: ["moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-", "moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op"],
+      relatedIds: ["moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-", "moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op", "moment:vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe"],
     },
     {
       id: "vault-tloas-father-figure-rebuilds-george-michaels-1988-hit-with-his-est",
@@ -7990,7 +7993,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg", credit: "TMZ.com", caption: "Taylor in the pink Markarian gown and Travis in a black suit, arriving at JuJu Smith-Schuster's wedding.", kind: "primary", focalPoint: "50% 22%" }],
       sources: [{ name: "Taylor Swift, Travis Kelce Attend Wedding as First Outing After Marrying", url: "https://www.billboard.com/culture/lifestyle/taylor-swift-travis-kelce-wedding-nfl-juju-smith-schuster-1236292369/", reliability: 4, type: "reputable_press" }, { name: "Newlyweds Taylor Swift & Travis Kelce: See First Photos of Couple Since Wedding", url: "https://www.tmz.com/2026/07/10/taylor-swift-and-travis-kelce-seen-first-time-since-wedding/", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift's Post-Wedding Style Era Starts With a Strapless Markarian Ball Gown Constructed From Floral Brocade", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-markarian-floral-gown-wedding-dress-travis-kelce/", reliability: 4, type: "reputable_press" }, { name: "Inside NFL Star JuJu Smith-Schuster's Wedding, Attended By Newlyweds Taylor Swift and Travis Kelce", url: "https://www.yahoo.com/entertainment/celebrity/articles/inside-nfl-star-juju-smith-234309045.html", reliability: 3, type: "reputable_press" }, { name: "Giants sign WR JuJu Smith-Schuster; K Jason Sanders released", url: "https://www.giants.com/news/giants-sign-wr-juju-smith-schuster-waive-k-jason-sanders-2026-nfl-free-agency", reliability: 4, type: "official" }],
-      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep", "moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already"],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep", "moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already", "moment:vault-tloas-a-rumored-first-date-night-since-training-camp-dinner-at-kel"],
       products: [{ brand: "Markarian", item: "Laila Floral Beaded Organza Strapless Gown", retailer: "markarian-nyc.com", url: "https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers", price: "$7,895.00", inStock: false, isAlternative: true, altNote: "The pink floral-brocade \"Laila\" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian \"Laila\" style in white beaded organza, what it lists now — different color, sold out." }],
     },
     {
@@ -8307,7 +8310,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, at 1587 Prime — the Kansas City steakhouse Kelce co-owns with his quarterback, Patrick Mahomes. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.", "The honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce nor the restaurant has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married, Kelce plays and trains in Kansas City, and 1587 Prime is his own room — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades."],
       tags: ["Lore"],
       sources: [{ name: "Travis Kelce, Taylor Swift Make First Appearance Since Training Camp", url: "https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/", reliability: 2, type: "reputable_press" }, { name: "Travis Kelce, Taylor Swift Make First Appearance Since Training Camp", url: "https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-first-172543038.html", reliability: 2, type: "reputable_press" }],
-      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends"],
       confidence: "plausible",
       rumors: [
         { claim: "Gossip account Deuxmoi and unverified social-media photos placed Taylor and Travis at dinner at 1587 Prime — the Kansas City steakhouse Kelce co-owns with Patrick Mahomes — on Saturday, Aug. 9, 2026, in what fans called their first public outing since Kelce reported to Chiefs training camp.", reportedBy: "Deuxmoi / heavy.com", reportedOn: "2026-08-09", status: "unconfirmed", url: "https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/", note: "Traces to a Deuxmoi tip plus unverified social photos, aggregated by heavy.com and Yahoo; no established outlet or either camp has confirmed it (social tier). Venue-level only — a public, past, concluded restaurant visit (the Ocean House principle); no address, no security detail. Resolves if a named outlet or the couple confirms; fades if it stays a single tip.", sourceTier: "social", lastCheckedOn: "2026-08-10" },
@@ -8324,6 +8327,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg/1280px-Phil_Collins_-_Royal_Albert_Hall_-_Wednesday_7th_June_2017_PhilCollinsRAH070617-20_%2835255872705%29.jpg", credit: "Raph_PH, CC BY 2.0, via Wikimedia Commons", caption: "Phil Collins performing at London’s Royal Albert Hall in 2017. He later told BBC Radio 2 that hearing a young Taylor sing “White Horse” “blew me away completely.”", kind: "reference", focalPoint: "46% 42%" }],
       sources: [{ name: "Phil Collins praises Taylor Swift and says she 'really deserves' huge success", url: "https://www.aol.co.uk/articles/phil-collins-praises-taylor-swift-230212000.html", reliability: 3, type: "reputable_press" }, { name: "Phil Collins Recalls Being 'Blown Away' by Taylor Swift Before Her Superstardom", url: "https://www.billboard.com/music/music-news/phil-collins-praises-taylor-swift-1236307708/", reliability: 4, type: "reputable_press" }, { name: "Phil Collins Recalls Being 'Blown Away' by Taylor Swift Before Her Superstardom", url: "https://www.yahoo.com/entertainment/music/articles/phil-collins-recalls-being-blown-090327439.html", reliability: 3, type: "reputable_press" }],
+      relatedIds: ["moment:vault-fearless-white-horse-the-single-greys-anatomy-saved-for-fearless"],
     },
     {
       id: "vault-tloas-named-to-the-nashville-songwriters-hall-of-fame-its-youngest",
@@ -8680,7 +8684,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg", credit: "Getty Images", kind: "primary", focalPoint: "37% 38%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/02/taylor-swift-super-bowl-lix-2025-billboard-1548.jpg?w=1024", credit: "Jamie Squire/Getty Images via Billboard", caption: "Ice Spice and Taylor Swift at Super Bowl LIX at Caesars Superdome, Feb. 9, 2025.", kind: "archival", focalPoint: "52% 40%" }],
       sources: [{ name: "CBS News Philadelphia", url: "https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/" }, { name: "E! News", url: "https://www.eonline.com/news/1413228/super-bowl-taylor-swift-booed-on-jumbotron" }],
-      relatedIds: ["moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick"],
+      relatedIds: ["moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick", "moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play"],
       threadIds: ["the-proposal"],
     },
     {
@@ -8804,7 +8808,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg", credit: "Jamie Squire/Getty Images", kind: "primary", focalPoint: "73% 37%" }],
       sources: [{ name: "Sports Illustrated", url: "https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift" }],
-      relatedIds: ["moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb", "moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t", "moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick"],
+      relatedIds: ["moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb", "moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t", "moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick", "moment:vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s"],
       threadIds: ["the-proposal"],
     },
     {

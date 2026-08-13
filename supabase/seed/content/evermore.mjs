@@ -189,6 +189,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-13): the William Bowery pseudonym thread
+      // — the title track he wrote the bridge for, and the Kimmel interview
+      // that confirmed his identity.
+      relatedIds: [
+        'moment:vault-evermore-the-evermore-title-tracks-bridge-written-after-the-fact-by-b',
+        'moment:vault-evermore-on-kimmel-three-days-after-evermore-how-the-secret-held',
+      ],
       year: 2020,
       month: 12,
       day: 11,
@@ -1414,6 +1421,13 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-13): the William Bowery pseudonym thread
+      // — the other song he co-wrote, and the Kimmel interview that
+      // confirmed his identity.
+      relatedIds: [
+        'moment:vault-evermore-champagne-problems-a-fictional-proposal-gone-wrong',
+        'moment:vault-evermore-on-kimmel-three-days-after-evermore-how-the-secret-held',
+      ],
       year: 2020,
       month: 12,
       day: 11,
@@ -3466,6 +3480,12 @@ export default {
     // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
     // and docs/research/2026-08-12-youtube-appearances-manifest.md.
     {
+      // Cross-link (Stage 3, 2026-08-13): the William Bowery pseudonym thread
+      // — the two songs he's credited on.
+      relatedIds: [
+        'moment:vault-evermore-champagne-problems-a-fictional-proposal-gone-wrong',
+        'moment:vault-evermore-the-evermore-title-tracks-bridge-written-after-the-fact-by-b',
+      ],
       year: 2020,
       month: 12,
       day: 14,
