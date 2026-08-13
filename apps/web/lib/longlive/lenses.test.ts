@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ERAS } from './eras';
 import {
@@ -68,7 +70,9 @@ describe('RUNWAY_LOOKS', () => {
 
       for (const img of look.images) {
         expect(img.url, `"${look.id}" image url`).toMatch(/^https?:\/\//);
-        expect(img.url, `"${look.id}" image url must not be a local placeholder`).not.toMatch(/^\/(placeholder|eras)\//);
+        expect(img.url, `"${look.id}" image url must not be a local placeholder`).not.toMatch(
+          /^\/(placeholder|eras)\//,
+        );
         expect(img.credit, `"${look.id}" image missing a credit`).toBeTruthy();
         expect(img.caption, `"${look.id}" image missing a caption`).toBeTruthy();
         expect(img.kind, `"${look.id}" image kind`).toBe('primary');
@@ -105,6 +109,47 @@ describe('thread card art', () => {
     expect(meta.heroAlt, 'a photo carrying meaning needs real alt text').toBeTruthy();
     expect(threadHeroCredit('the-proposal')).toContain('Adam Schultz');
   });
+
+  // Joey, 2026-08-13: "they should all represent their subject matter." Era
+  // album art was the stand-in every thread started with; only the grid-hero
+  // thread may still carry one, as the fallback behind its tiles.
+  it('backs every thread with a photograph of its own subject, not era art', () => {
+    for (const thread of THREADS) {
+      if (threadHeroTiles(thread.id).length > 0) continue;
+      expect(thread.hero, `${thread.id} is still on era art`).toMatch(/^\/threads\//);
+    }
+  });
+
+  // A photo hero without these is a licence problem (CC BY / CC BY-SA both
+  // require attribution) and an accessibility one.
+  it('gives every photo hero real alt text and a credit', () => {
+    for (const thread of THREADS.filter((t) => t.hero.startsWith('/threads/'))) {
+      expect(thread.heroAlt, `${thread.id} has no alt text`).toBeTruthy();
+      expect(threadHeroCredit(thread.id), `${thread.id} has no credit`).toBeTruthy();
+    }
+  });
+
+  it('ships every hero file it points at', () => {
+    for (const thread of THREADS) {
+      if (!thread.hero.startsWith('/threads/')) continue;
+      const file = path.join(process.cwd(), 'apps/web/public', thread.hero);
+      expect(fs.existsSync(file), `missing hero file for ${thread.id}: ${thread.hero}`).toBe(true);
+    }
+  });
+
+  // DoD item 3: the Clue Web and The Decode read as the same thread. The
+  // difference is scale — the whole map vs. one route through it — and it has
+  // to be visible in the art AND in the first line of copy.
+  it('separates the Clue Web from The Decode in art and in words', () => {
+    const web = getThread('easter-eggs');
+    const decode = getThread('hidden-clues');
+    expect(web.hero).not.toBe(decode.hero);
+    expect(web.kicker).not.toBe(decode.kicker);
+    // "everything at once" vs. "one at a time" — the tap-decision a new user
+    // has to be able to make from the cards alone.
+    expect(web.what.toLowerCase()).toMatch(/whole|every/);
+    expect(decode.what.toLowerCase()).toMatch(/\ba single\b|\bone\b/);
+  });
 });
 
 describe('threadHeroTiles("love-story")', () => {
@@ -113,7 +158,10 @@ describe('threadHeroTiles("love-story")', () => {
   it('is the wall of past partners — every ended relationship that has a portrait', () => {
     const expected = RELATIONSHIPS.filter((r) => r.end !== null && r.image);
     expect(tiles.map((t) => t.id)).toEqual(expected.map((r) => r.id));
-    expect(tiles.length, 'the grid needs enough faces to read as a list, not a couple').toBeGreaterThanOrEqual(4);
+    expect(
+      tiles.length,
+      'the grid needs enough faces to read as a list, not a couple',
+    ).toBeGreaterThanOrEqual(4);
   });
 
   it('excludes the ongoing relationship — that one is End Game’s card', () => {
@@ -148,7 +196,10 @@ describe('threadHeroTiles("love-story")', () => {
       const cells = columns * 2;
       // An odd count widens the last tile by one cell; nothing else is empty.
       const spare = cells - n;
-      expect(spare, `${n} tiles in ${columns} columns leaves ${spare} empty cells`).toBeLessThanOrEqual(1);
+      expect(
+        spare,
+        `${n} tiles in ${columns} columns leaves ${spare} empty cells`,
+      ).toBeLessThanOrEqual(1);
       expect(spare).toBeGreaterThanOrEqual(0);
     }
   });
