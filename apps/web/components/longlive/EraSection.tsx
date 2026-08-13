@@ -45,6 +45,7 @@ import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, tagsPresent } from '@/lib/longlive/tagBadges';
 import {
   embeddedYoutubeIds,
+  inlineVideoMomentIds,
   mergeEraFeed,
   visibleMoments,
   visibleVideos,
@@ -60,39 +61,18 @@ import {
 } from '@/lib/longlive/types';
 import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
 import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
+import {
+  TIER_BODY,
+  TIER_BOX,
+  TIER_BOX_STYLE,
+  TIER_FOOTER,
+  TIER_SPAN,
+} from '@/lib/longlive/card-chrome';
 import { cn } from '@/lib/utils';
 
-/**
- * Tier -> grid footprint (#1017 part 3).
- *
- * The span vocabulary is deliberately just TWO values: full-width and
- * half-width. A richer one (thirds, sixths, NYT-style) packs badly here
- * because this feed is strictly chronological. The usual fix for the holes a
- * mixed-span grid leaves is `grid-auto-flow: dense`, and that is NOT available
- * to us: dense packing pulls later items up into earlier gaps, which would
- * both break the newest-first reading order and scramble TimelineScrubber's
- * position<->date anchors (it measures `[data-ll-item]` tops and interpolates,
- * assuming they descend in date as they descend the page).
- *
- * With only 1-cell and 2-cell spans, every half-width card pairs cleanly with
- * its neighbour and the only hole possible is a single trailing half-cell in
- * front of a full-width card — which reads as deliberate editorial air rather
- * than a broken layout.
- *
- * Below `md` this map is inert: the grid is a single column, so every card is
- * full width and the tiers separate on height and internal density instead.
- */
-const TIER_SPAN: Record<CardTier, string> = {
-  // The event. Twice the width of everything around it, and the tallest image
-  // in the feed — dominance you cannot miss while scrolling past.
-  hero: 'md:col-span-2',
-  // The workhorse. Half width, so a hero beside it is unmistakably bigger.
-  media: 'md:col-span-1',
-  // Compact dense row; two sit side by side in the space of one media card.
-  chip: 'md:col-span-1',
-  // Pure typography breather, no image.
-  text: 'md:col-span-1',
-};
+// Per-tier card chrome (grid span, box, body, footer) lives in
+// lib/longlive/card-chrome.ts — see its module comment for why the box is a
+// wrapper rather than the button itself (#2057).
 
 /**
  * A single era in the infinite stream. Themed locally via eraStyle so stacked
@@ -144,6 +124,15 @@ export function EraSection({ era }: { era: Era }) {
   // this component only wires it to state and renders the result.
   const filter = useMemo(() => ({ tags: activeTags, videosOnly }), [activeTags, videosOnly]);
   const visible = useMemo(() => visibleMoments(items, filter), [items, filter]);
+  // Which moments own their video's inline player, when two of them embed the
+  // same one (#2057). Derived from `visible`, NOT from `items`, for the same
+  // reason the tiers below are: ownership is a property of the list on screen.
+  // Over `items` a tag filter that hides the owner would leave the survivor
+  // with no play control at all — a card that carries footage looking exactly
+  // like one that doesn't, which is the #2051 bug this chain exists to close.
+  // Under the Videos filter this is a no-op: `visibleMoments` already dropped
+  // the deferring cards, so every survivor owns its video.
+  const videoOwnerIds = useMemo(() => inlineVideoMomentIds(visible), [visible]);
   // Card silhouette per item — recomputed against whatever's actually on
   // screen (so filtering doesn't reference invisible items), but a pure
   // function of that list's ids, so it's stable across re-renders.
@@ -487,6 +476,7 @@ export function EraSection({ era }: { era: Era }) {
                 key={entry.item.id}
                 item={entry.item}
                 tier={tiers.get(entry.item.id) ?? 'text'}
+                ownsVideo={videoOwnerIds.has(entry.item.id)}
                 onOpen={() => openItem(entry.item.id)}
               />
             ),
@@ -656,46 +646,84 @@ function VideoMomentCard({
 }
 
 /**
- * The era feed's play affordance for a MOMENT that carries footage (#2051).
+ * The era feed's play affordance for a MOMENT that carries footage (#2051,
+ * re-shaped by #2057).
  *
  * Joey's report was that he couldn't predict which cards play: a video record
  * embeds its poster right in the feed, while a moment carrying the same kind of
  * footage looked exactly like a moment carrying none — the Videos filter would
  * return both, interleaved, with nothing on the card telling them apart. This
- * badge is the tell.
+ * is the tell.
  *
- * Three constraints shaped it:
+ * #2055 shipped it as a text pill. It worked, and Joey still scrolled past four
+ * of them in a row, because it rendered OUTSIDE the card's border (see
+ * card-chrome.ts) and because a small ghost pill is not the vocabulary a reader
+ * scans for. Both halves are fixed here: the affordance now lives inside the
+ * box, and it speaks the same language as the video-record cards below it — the
+ * video's own YouTube poster with a play glyph on it. A compact 16:9 thumbnail
+ * rather than a full-width one, so a story card carrying footage doesn't turn
+ * into a second video player and double its height.
+ *
+ * Constraints, all carried over from #2051:
  *  - It is a SIBLING of the card's own <button>, never nested inside it. Nested
  *    interactive elements break screen readers, and the card's job (open the
- *    story) has to survive alongside the badge's job (play here).
- *  - `min-h-11` = the 44px minimum touch target (#2051 AC4).
+ *    story) has to survive alongside this one's job (play here).
+ *  - The tap target clears 44px (#2051 AC4): the poster alone is 54px tall.
  *  - No transform/scale on hover. The site's global prefers-reduced-motion rule
  *    (globals.css) neutralizes transition DURATION, not the transform itself, so
  *    a color-only hover is the version that genuinely respects the preference
  *    rather than merely appearing to.
+ *  - The poster is a plain thumbnail image, not an iframe: the #1935
+ *    click-to-load posture is unchanged, nothing from YouTube's player loads
+ *    until this button is pressed.
  */
-function PlayBadge({ title, onPlay }: { title: string; onPlay: () => void }) {
+function PlayPoster({
+  video,
+  onPlay,
+}: {
+  video: { youtubeId: string; title: string };
+  onPlay: () => void;
+}) {
   return (
     <button
       type="button"
       onClick={onPlay}
       /* Same phrasing as MomentVideo's own facade, so a screen-reader user
          meets one consistent sentence for "there is a video here". */
-      aria-label={`Play video: ${title}`}
-      className="era-btn-ghost mt-2 inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
+      aria-label={`Play video: ${video.title}`}
+      className="era-card-2 group/play flex w-full items-center gap-3 p-2 text-left transition hover:border-[color:var(--era-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
     >
-      <span
-        aria-hidden
-        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
-        style={{ backgroundColor: 'var(--era-accent)' }}
-      >
-        <Play
-          className="h-3 w-3 translate-x-px"
-          style={{ color: 'var(--era-bg)' }}
-          fill="currentColor"
+      <span className="relative aspect-video w-24 shrink-0 overflow-hidden rounded-md">
+        <Image
+          src={`https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`}
+          alt=""
+          fill
+          sizes="96px"
+          className="object-cover"
+          unoptimized
         />
+        <span aria-hidden className="absolute inset-0 bg-black/25 transition group-hover/play:bg-black/10" />
+        <span
+          aria-hidden
+          className="absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-lg"
+          style={{ backgroundColor: 'var(--era-accent)' }}
+        >
+          <Play
+            className="h-4 w-4 translate-x-px"
+            style={{ color: 'var(--era-bg)' }}
+            fill="currentColor"
+          />
+        </span>
       </span>
-      Play video
+      <span className="min-w-0">
+        <span className="block text-sm font-semibold">Play video</span>
+        {/* The work's own name, so the reader knows WHAT plays before tapping —
+            the pill only ever said "Play video". Truncated: seed titles run to
+            "Taylor Swift - Elizabeth Taylor (Official Music Video)". */}
+        <span className="mt-0.5 block truncate text-xs text-[color:var(--era-ink-soft)]">
+          {video.title}
+        </span>
+      </span>
     </button>
   );
 }
@@ -790,29 +818,41 @@ function TagRow({ tags }: { tags: ContentTag[] }) {
  * One moment in the era feed: the card itself, plus its play affordance when
  * the moment carries footage (#2051).
  *
- * The two live as SIBLINGS inside the <li> on purpose. `MomentCardButton` is a
- * single big <button> that opens the story — that is the whole point of the
- * #1017 editorial tiers — and the play badge cannot go inside it without
- * nesting one interactive element in another. So: tap the badge and the video
- * plays right here in the feed; tap anywhere else on the card and the story
- * opens, exactly as before.
+ * The two live as SIBLINGS on purpose. `MomentCardButton` is a single big
+ * <button> that opens the story — that is the whole point of the #1017
+ * editorial tiers — and the play affordance cannot go inside it without nesting
+ * one interactive element in another. So: tap the poster and the video plays
+ * right here in the feed; tap anywhere else on the card and the story opens,
+ * exactly as before.
  *
- * Playback is one tap, not two: the badge IS the user's play gesture, so the
+ * They are siblings INSIDE THE CARD'S BOX, which is the #2057 fix: the box is
+ * drawn by the wrapper below (TIER_BOX), not by the button, so an affordance
+ * rendered beside the button still lands within the border instead of floating
+ * in the gap under the card. See card-chrome.ts.
+ *
+ * Playback is one tap, not two: the poster IS the user's play gesture, so the
  * embed mounts already playing (`startPlaying`). The #1935 click-to-load
  * posture is intact — no iframe exists in the feed until this state flips, and
- * only a real click flips it. The badge is then replaced by the player rather
+ * only a real click flips it. The poster is then replaced by the player rather
  * than sitting beside it, so the card never shows two play controls.
+ *
+ * `ownsVideo` is the #2057 duplicate-embed rule: when two moments in one era
+ * embed the same YouTube id, only the first in feed order renders the player
+ * (see inlineVideoMomentIds). A later duplicate keeps every word of its own
+ * story — it just doesn't play the same video a second time.
  */
 function MomentCard({
   item,
   tier,
+  ownsVideo,
   onOpen,
 }: {
   item: ContentItem;
   tier: CardTier;
+  ownsVideo: boolean;
   onOpen: () => void;
 }) {
-  const video = feedVideoFor(item);
+  const video = ownsVideo ? feedVideoFor(item) : null;
   const [playing, setPlaying] = useState(false);
   const { openItemId } = useAppState();
 
@@ -840,33 +880,48 @@ function MomentCard({
       data-ll-era={item.eraId}
       data-ll-date={new Date(item.date).getTime()}
     >
-      <MomentCardButton item={item} tier={tier} onOpen={onOpen} />
-      {video &&
-        (playing ? (
-          <div className="mt-3">
-            <MomentVideo video={video} caption={null} className="" startPlaying />
-            {/* The way back out. Without it the only exits from a playing card
-                are opening the detail or leaving the era. */}
-            <button
-              type="button"
-              onClick={() => setPlaying(false)}
-              aria-label={`Hide video: ${video.title}`}
-              className="era-btn-ghost mt-2 inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
-            >
-              <X className="h-4 w-4" aria-hidden />
-              Hide video
-            </button>
+      {/* The card's visual box. It is this wrapper, not the button, so that the
+          play affordance below can be a SIBLING of the button and still render
+          inside the border (#2057 — see card-chrome.ts). */}
+      <div className={TIER_BOX[tier]} style={TIER_BOX_STYLE[tier]}>
+        <MomentCardButton item={item} tier={tier} onOpen={onOpen} />
+        {video && (
+          <div className={TIER_FOOTER[tier]}>
+            {playing ? (
+              <>
+                <MomentVideo video={video} caption={null} className="" startPlaying />
+                {/* The way back out. Without it the only exits from a playing
+                    card are opening the detail or leaving the era. */}
+                <button
+                  type="button"
+                  onClick={() => setPlaying(false)}
+                  aria-label={`Hide video: ${video.title}`}
+                  className="era-btn-ghost mt-2 inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
+                >
+                  <X className="h-4 w-4" aria-hidden />
+                  Hide video
+                </button>
+              </>
+            ) : (
+              <PlayPoster video={video} onPlay={() => setPlaying(true)} />
+            )}
           </div>
-        ) : (
-          <PlayBadge title={video.title} onPlay={() => setPlaying(true)} />
-        ))}
+        )}
+      </div>
     </li>
   );
 }
 
 /** The card body — one <button> per tier, the feed's only route into the story
  * detail. Kept as its own component so `MomentCard` above owns exactly one
- * thing: the relationship between that button and the play badge beside it. */
+ * thing: the relationship between that button and the play affordance beside
+ * it.
+ *
+ * Each tier's root className comes from TIER_BODY, which carries layout and
+ * padding but deliberately NO surface/border/radius: the box belongs to the
+ * wrapper in `MomentCard`, so that whatever renders beside this button renders
+ * inside the same border (#2057). Drawing a second box here would put the
+ * affordance back outside one of them. */
 function MomentCardButton({
   item,
   tier,
@@ -894,10 +949,7 @@ function MomentCardButton({
   // for this item," which is the guarantee the feature makes.
   if (tier === 'hero') {
     return (
-      <button
-        onClick={onOpen}
-        className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
-      >
+      <button onClick={onOpen} className={TIER_BODY.hero}>
         {/* Tallest image in the feed, at twice the width of any other card:
               16/9 across the full 2-column track is roughly 500px of picture,
               against ~270px for the half-width media card. */}
@@ -940,10 +992,7 @@ function MomentCardButton({
   // the next full card read as an event by contrast.
   if (tier === 'chip') {
     return (
-      <button
-        onClick={onOpen}
-        className="era-card group flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition"
-      >
+      <button onClick={onOpen} className={TIER_BODY.chip}>
         {hero && (
           <div className="relative size-10 shrink-0 overflow-hidden rounded-md">
             <Image
@@ -972,11 +1021,7 @@ function MomentCardButton({
   // not a degraded fallback: bigger date, more air, a left accent rule.
   if (tier === 'text') {
     return (
-      <button
-        onClick={onOpen}
-        className="era-card group block w-full rounded-2xl border-l-4 py-4 pl-5 pr-5 text-left transition"
-        style={{ borderLeftColor: 'var(--era-accent)' }}
-      >
+      <button onClick={onOpen} className={TIER_BODY.text}>
         <MomentMeta item={item} seen={seen} />
         <h3 className="mt-2 break-words font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
           {item.title}
@@ -992,10 +1037,7 @@ function MomentCardButton({
   // WORKHORSE (media) — the default: contained image + text, at half the
   // hero's width so the hero reads as the event and this reads as the beat.
   return (
-    <button
-      onClick={onOpen}
-      className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
-    >
+    <button onClick={onOpen} className={TIER_BODY.media}>
       {hero && (
         <div className="relative aspect-[16/10] w-full overflow-hidden">
           <Image
