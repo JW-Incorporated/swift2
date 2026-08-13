@@ -44,6 +44,17 @@ describe('coverWindow', () => {
     expect(measured.top).toBeLessThan(bottom.top);
   });
 
+  // CSS clamps an out-of-range object-position to the edge. Without the same
+  // clamp here the extract window walks off the image and sharp dies with
+  // "bad extract area" instead of rendering the edge crop.
+  it('clamps an out-of-range position to the edge instead of walking off the image', () => {
+    const over = coverWindow(1200, 1830, 700, 524, 50, 120);
+    const edge = coverWindow(1200, 1830, 700, 524, 50, 100);
+    expect(over).toEqual(edge);
+    expect(over.top + over.height).toBeLessThanOrEqual(1830);
+    expect(coverWindow(1200, 1830, 700, 524, -40, -10).top).toBe(0);
+  });
+
   it('never asks for a window bigger than the source', () => {
     for (const [w, h] of [
       [1200, 1830],

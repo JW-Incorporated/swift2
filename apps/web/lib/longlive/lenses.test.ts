@@ -13,6 +13,7 @@ import {
   heroGridColumns,
   motifOf,
   threadHeroCredit,
+  threadHeroSourceUrl,
   threadHeroTiles,
   threadPoints,
   threadsInEra,
@@ -127,6 +128,21 @@ describe('thread card art', () => {
       expect(thread.heroAlt, `${thread.id} has no alt text`).toBeTruthy();
       expect(threadHeroCredit(thread.id), `${thread.id} has no credit`).toBeTruthy();
     }
+  });
+
+  // CC BY / CC BY-SA want a URI to the licensed material, not just the
+  // photographer's name — a credit naming a licence with no way to reach it
+  // meets the habit but not the condition.
+  it('links every photo hero credit to its source page', () => {
+    for (const thread of THREADS.filter((t) => t.hero.startsWith('/threads/'))) {
+      const url = threadHeroSourceUrl(thread.id);
+      expect(url, `${thread.id} credit has nowhere to link`).toBeTruthy();
+      expect(url).toMatch(/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+    }
+  });
+
+  it('gives a grid hero no single source link, since its credit names several', () => {
+    expect(threadHeroSourceUrl('love-story')).toBeUndefined();
   });
 
   it('ships every hero file it points at', () => {

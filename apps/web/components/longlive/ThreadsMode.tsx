@@ -23,6 +23,7 @@ import {
   getThread,
   heroGridColumns,
   threadHeroCredit,
+  threadHeroSourceUrl,
   threadHeroTiles,
 } from '@/lib/longlive/lenses';
 import type { ThreadMeta } from '@/lib/longlive/lenses';
@@ -299,6 +300,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
   // (same rule as the Love Story entry portraits). Public-domain heroes carry
   // one too, because saying where a photo came from is the habit here.
   const heroCredit = threadHeroCredit(threadId);
+  const heroSourceUrl = threadHeroSourceUrl(threadId);
 
   return (
     <div>
@@ -351,7 +353,22 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
             // where ink-soft drops under the 4.5:1 body-text floor (WCAG 1.4.3)
             // — the same reason the blurb above it uses ink.
             <p className="mt-5 max-w-xl text-[11px] leading-relaxed text-[color:var(--era-ink)]">
-              {heroCredit}
+              {/* Linked, not just named: CC BY / CC BY-SA ask for a URI to the
+                  licensed material, and the Commons page carries the licence
+                  deed and the full author record. A grid hero has no single
+                  page to point at, so it stays plain text. */}
+              {heroSourceUrl ? (
+                <a
+                  href={heroSourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-dotted underline-offset-2 hover:decoration-solid"
+                >
+                  {heroCredit}
+                </a>
+              ) : (
+                heroCredit
+              )}
             </p>
           )}
         </div>
