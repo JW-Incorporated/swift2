@@ -10524,7 +10524,27 @@ export default {
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-five-favorite-taytay-songs-colbert-1236134507/' },
           { outlet: 'YouTube — The Late Show with Stephen Colbert', url: 'https://www.youtube.com/watch?v=qtyzac0JbS4' },
         ],
-        photos: [],
+        // Photos (Photo Enrichment, 2026-08-13): both from Future plc's own
+        // CDN (Marie Claire), vision-confirmed and date-matched to the Dec.
+        // 10, 2025 taping — not the YouTube thumbnail already used above.
+        photos: [
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/FEQfdzND5NdBma5LWn3y7R.png',
+            focalPoint: '80% 25%',
+            credit: 'Scott Kowalchyk/CBS, via Marie Claire',
+            caption:
+              "Taylor, in a David Koma dress for the taping, on The Late Show set ahead of her Dec. 10, 2025 interview with Stephen Colbert.",
+            kind: 'reference',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/ai5wnG4X4CsoKL76YQggZJ.jpg',
+            focalPoint: '52% 12%',
+            credit: 'XNY/Star Max/GC Images, via Marie Claire',
+            caption:
+              'Taylor arrives at the Ed Sullivan Theater on Dec. 10, 2025, before changing into the dress she wore on air for her first Late Show interview.',
+            kind: 'reference',
+          },
+        ],
       },
     },
   ],
