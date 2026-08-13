@@ -49,3 +49,8 @@ docs/content-ops/news-candidates.md
 # thread, never commit them — this makes that the default rather than a rule
 # someone has to remember at 2am.
 clownbot-battery-*.json
+
+# Thread hero crop previews (scripts/images/thread-hero.mjs preview) — throwaway
+# renders used to choose a `heroPosition` by looking at it. The hero itself is
+# committed to apps/web/public/threads/; these are the working shots.
+/thread-hero-preview/

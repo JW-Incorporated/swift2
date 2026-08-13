@@ -270,11 +270,17 @@ the user can't scroll up.
 art, and both the gallery card and the detail header call it — so a thread can
 never look like one thing in the gallery and another once opened.
 
-- **One photo** (`meta.hero`) — the default. Album art for most threads;
-  `the-proposal` carries a real photo of Travis (`/threads/…`), which is the
-  point of that card. `heroPosition` fixes the crop when centre isn't the
-  subject, `heroAlt` gives it real alt text (omit it and the image renders
-  `alt=""`, correct for decorative era art), `heroCredit` names the source.
+- **One photo** (`meta.hero`) — the default, and since 2026-08-13 it is a real
+  photograph of that thread's own subject (Joey: "they should all represent
+  their subject matter"): Travis for End Game, a Bejeweled-video gown for The
+  Runway, the "All Too Well (10 Minute Version)" performance for Taylor's
+  Version, a stadium of wristbands for The Clue Web, "13" inked on fans' hands
+  for The Decode. Era album art is now only the fallback behind a grid hero.
+  `heroPosition` fixes the crop when centre isn't the subject, `heroAlt` gives
+  it real alt text (omit it and the image renders `alt=""`, correct for
+  decorative era art), `heroCredit` names the source.
+  **Alt text and comments never claim more than the source caption does** —
+  that is why The Decode's alt says *fans'* hands, not Swift's.
 - **A grid of portraits** (`threadHeroTiles(id)`, non-empty) — when the
   thread's subject is a *set* of people rather than one. `love-story` is the
   wall of past partners, derived from `RELATIONSHIPS` (ended relationships
