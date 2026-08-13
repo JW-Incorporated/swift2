@@ -147,7 +147,7 @@ as far as it must; every task runs on the cheapest tier that does it well.
 | Debugging after two strikes; reviewing agent output | Opus |
 | Cross-cutting design with lasting consequences; plans that resist decomposition; bugs that beat two strikes AND a fresh-context agent | `architect` (Fable, escalation only, logged in STATE.md) |
 | Deep exploration, repro, approach evaluation | `researcher` (Sonnet) |
-| Executing an approved plan; CRUD, wiring, tests | `executor` (Sonnet) |
+| Executing a written plan; CRUD, wiring, tests | `executor` (Sonnet) |
 | Independent diff review | `reviewer` (Sonnet) |
 | Lookups; where-does-X-live | `scout` (Haiku) |
 | Renames, moves, mechanical edits, boilerplate | `grunt` (Haiku) |
