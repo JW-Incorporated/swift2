@@ -44,6 +44,7 @@ import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, tagsPresent } from '@/lib/longlive/tagBadges';
 import {
   embeddedYoutubeIds,
+  eraKnownVideoIds,
   inlineVideoMomentIds,
   mergeEraFeed,
   visibleMoments,
@@ -51,7 +52,7 @@ import {
   watchableCount,
   undatedAnchorDate,
 } from '@/lib/longlive/era-feed';
-import { cardImageDuplicatesVideo, feedVideoFor } from '@/lib/longlive/video-affordance';
+import { feedCardImageHidden, feedVideoFor } from '@/lib/longlive/video-affordance';
 import {
   focalPointOf,
   hasRealPrimaryImage,
@@ -132,6 +133,33 @@ export function EraSection({ era }: { era: Era }) {
   // Under the Videos filter this is a no-op: `visibleMoments` already dropped
   // the deferring cards, so every survivor owns its video.
   const videoOwnerIds = useMemo(() => inlineVideoMomentIds(visible), [visible]);
+  // Every video id this era can play — the moments' own embeds plus the Videos
+  // rail's records. It is the comparison set for the deferring-card suppression
+  // below, so a card showing a frame of a video it will not play is caught
+  // whether that video is its own or a sibling's.
+  //
+  // Era-wide (over `items`, not `visible`) on purpose: whether a picture is a
+  // still from footage the era carries is a fact about the era, not about which
+  // chips happen to be lit, so a tag filter can never make a suppressed frame
+  // blink back on.
+  const knownVideoIds = useMemo(
+    () => eraKnownVideoIds(items, videosForEra(era.id)),
+    [items, era.id],
+  );
+  // The cards whose photo will not render: #2080's owners whose picture is a
+  // frame of the video their poster already shows, plus the #2057 deferring
+  // cards whose picture is a frame of a video they do NOT play. The second half
+  // is Joey's tloas report — "'Elizabeth Taylor' goes to radio" opened with a
+  // hero-sized still from the Elizabeth Taylor music video and no play button,
+  // because the embed belongs to the supercut card above it. See
+  // `feedCardImageHidden`.
+  const imageHiddenIds = useMemo(() => {
+    const hidden = new Set<string>();
+    for (const item of visible) {
+      if (feedCardImageHidden(item, videoOwnerIds.has(item.id), knownVideoIds)) hidden.add(item.id);
+    }
+    return hidden;
+  }, [visible, videoOwnerIds, knownVideoIds]);
   // Card silhouette per item — recomputed against whatever's actually on
   // screen (so filtering doesn't reference invisible items), but a pure
   // function of that list's ids, so it's stable across re-renders.
@@ -140,9 +168,20 @@ export function EraSection({ era }: { era: Era }) {
   // `media` (#2080): the full-width poster every video now renders through
   // cannot sit under a 56px `chip` row or inside the no-photo `text` breather
   // without destroying the silhouette that IS that tier. See feed-tiers.ts.
+  //
+  // Tiers are scored against the cards' REAL contents, which for a deferring
+  // card now means "no picture": its photo is suppressed and, unlike an owner's,
+  // nothing takes the slot — no poster, because it does not play. Left unsaid,
+  // "'Elizabeth Taylor' goes to radio" would keep the hero silhouette it earned
+  // as a photo card and render it empty. Owners are deliberately NOT in this
+  // set: their poster fills the image slot, so their tier is still honest.
+  const tierlessImageIds = useMemo(
+    () => new Set([...imageHiddenIds].filter((id) => !videoOwnerIds.has(id))),
+    [imageHiddenIds, videoOwnerIds],
+  );
   const tiers = useMemo(
-    () => withInlineVideoTiers(assignFeedTiers(visible), videoOwnerIds),
-    [visible, videoOwnerIds],
+    () => withInlineVideoTiers(assignFeedTiers(visible, tierlessImageIds), videoOwnerIds),
+    [visible, videoOwnerIds, tierlessImageIds],
   );
 
   // Music videos duplicated into the main timeline (issue #439), dated to
@@ -484,6 +523,7 @@ export function EraSection({ era }: { era: Era }) {
                 item={entry.item}
                 tier={tiers.get(entry.item.id) ?? 'text'}
                 ownsVideo={videoOwnerIds.has(entry.item.id)}
+                hideImage={imageHiddenIds.has(entry.item.id)}
                 onOpen={() => openItem(entry.item.id)}
               />
             ),
@@ -764,7 +804,16 @@ function TagRow({ tags }: { tags: ContentTag[] }) {
  * the video being played, the poster takes the image slot instead of joining it,
  * and the card lands on exactly the video-record shape Joey pointed at: text
  * above, big poster below. A photo from anywhere else is a different picture and
- * is kept. See `cardImageDuplicatesVideo`.
+ * is kept.
+ *
+ * It also covers the opposite failure, which is worse: a card that DEFERS its
+ * embed (`ownsVideo` false) showing a frame of the video it will not play. On
+ * tloas that put a hero-sized still of the Elizabeth Taylor music video on
+ * "'Elizabeth Taylor' goes to radio" with no play control anywhere on it — a big
+ * video-looking picture that does nothing when tapped. Suppressed, the card is
+ * the story it always was (radio airplay), and its tier falls back to a
+ * no-photo one because that is now what it is. Both halves are decided by
+ * `feedCardImageHidden` and handed down as this one boolean.
  *
  * They are siblings INSIDE THE CARD'S BOX, which is the #2057 fix: the box is
  * drawn by the wrapper below (TIER_BOX), not by the button, so an affordance
@@ -786,11 +835,13 @@ function MomentCard({
   item,
   tier,
   ownsVideo,
+  hideImage,
   onOpen,
 }: {
   item: ContentItem;
   tier: CardTier;
   ownsVideo: boolean;
+  hideImage: boolean;
   onOpen: () => void;
 }) {
   const video = ownsVideo ? feedVideoFor(item) : null;
@@ -828,7 +879,7 @@ function MomentCard({
         <MomentCardButton
           item={item}
           tier={tier}
-          hideImage={video ? cardImageDuplicatesVideo(item, video) : false}
+          hideImage={hideImage}
           onOpen={onOpen}
         />
         {video && (
@@ -869,11 +920,12 @@ function MomentCard({
  * inside the same border (#2057). Drawing a second box here would put the
  * affordance back outside one of them.
  *
- * `hideImage` drops this button's photo block when the card's sibling
- * `VideoPoster` is about to render the same frame (#2080) — the photo slot is
- * yielded to the poster rather than duplicated above it. Passed in rather than
- * derived here because the decision needs the video the SIBLING resolved
- * (ownership included), which only `MomentCard` knows. */
+ * `hideImage` drops this button's photo block for either of the two reasons a
+ * card's picture must not render (both decided by `feedCardImageHidden`): the
+ * sibling `VideoPoster` is about to show the same frame (#2080), or the photo is
+ * a still of a video this card does not play and has no control for (#2081).
+ * Passed in rather than derived here because the decision needs the era's video
+ * set and the #2057 ownership answer, neither of which a card can see. */
 function MomentCardButton({
   item,
   tier,
