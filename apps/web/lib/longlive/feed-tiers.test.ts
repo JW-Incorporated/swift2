@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { build, contentForEra } from './content';
-import { inlineVideoMomentIds } from './era-feed';
+import { eraKnownVideoIds, inlineVideoMomentIds } from './era-feed';
+import { feedCardImageHidden } from './video-affordance';
+import { videosForEra } from './videos';
 import { VAULT_RAW } from './content-vault.generated';
 import { ERAS } from './eras';
 import {
@@ -61,12 +63,30 @@ const ALL_VAULT_ITEMS: ContentItem[] = (Object.keys(VAULT_RAW) as EraId[]).flatM
   build(eraId, VAULT_RAW[eraId] ?? []),
 );
 
+/**
+ * The image-suppressed ids EraSection computes for an era, derived exactly as it
+ * derives them: the cards whose photo will not render, minus the owners, whose
+ * poster fills the slot instead. Without this the "real vault" suite would be
+ * asserting tiers production no longer assigns.
+ */
+function realSuppressedIds(items: ContentItem[], eraId: EraId): Set<string> {
+  const owners = inlineVideoMomentIds(items);
+  const known = eraKnownVideoIds(items, videosForEra(eraId));
+  return new Set(
+    items
+      .filter((it) => feedCardImageHidden(it, known) && !owners.has(it.id))
+      .map((it) => it.id),
+  );
+}
+
 /** Tiers for every era, assigned over the real per-era feed sequence — the
- * same call EraSection makes (`assignFeedTiers(contentForEra(era.id))`). */
+ * same call EraSection makes, suppressed ids and all. */
 function realFeedTiers(): Map<string, CardTier> {
   const all = new Map<string, CardTier>();
   for (const era of ERAS) {
-    for (const [id, tier] of assignFeedTiers(contentForEra(era.id))) all.set(id, tier);
+    const items = contentForEra(era.id);
+    const tiers = assignFeedTiers(items, realSuppressedIds(items, era.id));
+    for (const [id, tier] of tiers) all.set(id, tier);
   }
   return all;
 }
@@ -478,5 +498,50 @@ describe('withInlineVideoTiers', () => {
     // owners and 7 promotions (6 `text` + 1 `chip`).
     expect(owned).toBeGreaterThan(0);
     expect(promoted).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * #2081. A card whose photo is suppressed has no picture — and unlike an owner,
+ * whose poster takes the slot, a DEFERRING card gets nothing in its place. Its
+ * tier has to be told, or it keeps the silhouette it earned as a photo card and
+ * renders it empty: on tloas, "'Elizabeth Taylor' goes to radio" was a `hero`.
+ */
+describe('assignFeedTiers with suppressed images', () => {
+  it('scores a suppressed card as the imageless card it is about to be', () => {
+    const it0 = substantial('m-suppressed');
+    expect(baseTierFor(it0)).toBe('hero');
+    expect(baseTierFor(it0, true)).toBe('text');
+  });
+
+  it('honours `significance` over suppression, exactly as it does over score', () => {
+    // 'defining' is an authoring judgment about the real world; a missing
+    // picture is not a reason to demote the event. It renders the bigger
+    // typography with no image block, which MomentCardButton already supports.
+    expect(baseTierFor(substantial('m-def', { significance: 'defining' }), true)).toBe('hero');
+    // 'notable' keeps its `media` floor for the same reason.
+    expect(baseTierFor(substantial('m-not', { significance: 'notable' }), true)).toBe('media');
+  });
+
+  it('demotes only the ids it is given', () => {
+    const items = [substantial('m-a'), substantial('m-b')];
+    const tiers = assignFeedTiers(items, new Set(['m-a']));
+    expect(tiers.get('m-a')).toBe('text');
+    expect(tiers.get('m-b')).toBe('hero');
+  });
+
+  it('defaults to suppressing nothing, so every existing caller is unchanged', () => {
+    const items = [substantial('m-a'), substantial('m-b')];
+    expect([...assignFeedTiers(items)]).toEqual([...assignFeedTiers(items, new Set())]);
+  });
+
+  it('frees the hero gap it was occupying rather than just blanking a hero', () => {
+    // The demotion runs BEFORE pacing, not after, so a suppressed card no
+    // longer spends the hero budget that would push the next real hero down to
+    // `media`. Passing a set (not a pre-filtered list) is what keeps the
+    // sequence — and therefore the spacing — honest.
+    const items = [substantial('m-first'), substantial('m-second')];
+    expect(assignFeedTiers(items).get('m-second')).toBe('media');
+    expect(assignFeedTiers(items, new Set(['m-first'])).get('m-second')).toBe('hero');
   });
 });

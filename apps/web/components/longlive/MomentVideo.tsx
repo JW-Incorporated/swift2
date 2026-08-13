@@ -54,11 +54,22 @@ function VideoFrame({ children }: { children: ReactNode }) {
 export function VideoPoster({
   video,
   playNoun = 'video',
+  priority = false,
   onPlay,
 }: {
   video: MomentVideoData;
   /** The noun the play button announces ("Play {playNoun}: {title}"). */
   playNoun?: string;
+  /**
+   * Fetch the thumbnail eagerly instead of lazily.
+   *
+   * Only for a poster that is the largest thing above the fold on arrival — the
+   * moment-detail hero (#2081), which a `?item=` share link opens as the first
+   * paint, making this poster the page's LCP element. Every poster in the era
+   * feed stays lazy: dozens are mounted at once and eager-loading them would
+   * undo the reason this is a facade at all.
+   */
+  priority?: boolean;
   onPlay: () => void;
 }) {
   return (
@@ -75,6 +86,7 @@ export function VideoPoster({
           fill
           sizes="(max-width: 672px) 100vw, 672px"
           className="object-cover transition motion-safe:group-hover:scale-[1.03]"
+          priority={priority}
           unoptimized
         />
         <span aria-hidden className="absolute inset-0 bg-black/25 transition group-hover:bg-black/10" />
@@ -103,6 +115,7 @@ export function MomentVideo({
   playNoun = 'music video',
   className = 'mt-8',
   startPlaying = false,
+  priority = false,
 }: {
   video: MomentVideoData;
   /** Figcaption text; pass null to render the embed with no caption (the
@@ -132,6 +145,8 @@ export function MomentVideo({
    * render path the user did not just click.
    */
   startPlaying?: boolean;
+  /** Passed straight to `VideoPoster` — see the note on its `priority`. */
+  priority?: boolean;
 }) {
   const [playing, setPlaying] = useState(startPlaying);
 
@@ -150,7 +165,12 @@ export function MomentVideo({
           />
         </VideoFrame>
       ) : (
-        <VideoPoster video={video} playNoun={playNoun} onPlay={() => setPlaying(true)} />
+        <VideoPoster
+          video={video}
+          playNoun={playNoun}
+          priority={priority}
+          onPlay={() => setPlaying(true)}
+        />
       )}
       {caption !== null && (
         <figcaption className="mt-2 text-center text-xs text-[color:var(--era-ink-soft)]">
