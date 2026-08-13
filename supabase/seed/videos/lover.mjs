@@ -139,6 +139,11 @@ export default {
         'The Netflix documentary that opened the vault for real: the eating-disorder disclosure, the political-silence breaking point, and the Lover sessions — Sundance premiere, then streaming.',
       symbolism: null,
       easterEggs: [],
+      // No official upload of the work itself exists — it is a Netflix original.
+      // With no embed this record is HIDDEN from every reader-facing surface
+      // rather than shown as a card that cannot play (playable-first rule,
+      // docs/decisions.md 2026-08-13). Add a verified official upload here and
+      // it comes back automatically — no code change needed.
       officialUrl: null,
       media: [],
       sources: [
@@ -162,6 +167,11 @@ export default {
         'The one-night Paris concert special that became the Lover era\'s only live document after the pandemic canceled Lover Fest — aired on ABC, intimate theater instead of stadiums.',
       symbolism: null,
       easterEggs: [],
+      // No official upload of the work itself exists — it is an ABC special, then Disney+.
+      // With no embed this record is HIDDEN from every reader-facing surface
+      // rather than shown as a card that cannot play (playable-first rule,
+      // docs/decisions.md 2026-08-13). Add a verified official upload here and
+      // it comes back automatically — no code change needed.
       officialUrl: null,
       media: [],
       sources: [
