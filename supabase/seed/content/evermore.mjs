@@ -159,6 +159,9 @@ export default {
       month: 12,
       day: 11,
       category: 'music',
+      // Cross-link (crosslink-opportunity, 2026-08-13): the song page for
+      // "marjorie" — same subject (grandmother Marjorie Finlay), same day.
+      relatedIds: ['moment:vault-evermore-marjorie-for-her-grandmother'],
       title: "marjorie, sung back by her grandmother's own voice",
       snippet: "A tribute to her grandmother, the opera singer Marjorie Finlay — and, in the outro, literally her voice.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Marjorie_(song)',
@@ -3435,6 +3438,9 @@ export default {
       day: 11,
       category: "music",
       tags: ["Lore"],
+      // Cross-link (crosslink-opportunity, 2026-08-13): the moment page that
+      // foregrounds Marjorie Finlay's own archival vocals in the outro.
+      relatedIds: ['moment:vault-evermore-marjorie-sung-back-by-her-grandmothers-own-voice'],
       title: "\"marjorie,\" for her grandmother",
       snippet: "A tribute built partly from archival recordings of Taylor's late grandmother, opera singer Marjorie Finlay.",
       moment: {
