@@ -18,9 +18,9 @@ import { itemMatchesFilter } from './tagBadges';
  */
 
 /** One entry in the merged feed: a curated moment, or a video record. */
-export type EraFeedEntry =
+export type EraFeedEntry<V extends VideoNote = VideoNote> =
   | { kind: 'moment'; item: ContentItem }
-  | { kind: 'video'; video: VideoNote };
+  | { kind: 'video'; video: V };
 
 /** The active filter state. `videosOnly` wins when both are set — the UI keeps
  * them mutually exclusive, and this stays defined rather than undefined if a
@@ -56,11 +56,11 @@ export function visibleMoments(items: ContentItem[], filter: EraFeedFilter): Con
  * Both lists arrive pre-de-duped against the moments that already embed them
  * (see `eraVideoFeed`), so the caller can't accidentally show a video twice.
  */
-export function visibleVideos(
-  timelineVideos: VideoNote[],
-  videoFeed: VideoNote[],
+export function visibleVideos<V extends VideoNote>(
+  timelineVideos: V[],
+  videoFeed: V[],
   filter: EraFeedFilter,
-): VideoNote[] {
+): V[] {
   if (filter.videosOnly) return videoFeed;
   if (filter.tags.size === 0 || filter.tags.has('Music')) return timelineVideos;
   return [];
@@ -75,10 +75,13 @@ export function visibleVideos(
  * dropped — hiding a tour film from the filter that exists to find things to
  * watch would be the wrong kind of tidy.
  */
-export function mergeEraFeed(moments: ContentItem[], videos: VideoNote[]): EraFeedEntry[] {
-  const entries: EraFeedEntry[] = [
-    ...moments.map((item): EraFeedEntry => ({ kind: 'moment', item })),
-    ...videos.map((video): EraFeedEntry => ({ kind: 'video', video })),
+export function mergeEraFeed<V extends VideoNote>(
+  moments: ContentItem[],
+  videos: V[],
+): EraFeedEntry<V>[] {
+  const entries: EraFeedEntry<V>[] = [
+    ...moments.map((item): EraFeedEntry<V> => ({ kind: 'moment', item })),
+    ...videos.map((video): EraFeedEntry<V> => ({ kind: 'video', video })),
   ];
   return entries.sort((a, b) => {
     const dateA = a.kind === 'moment' ? a.item.date : a.video.releasedOn;

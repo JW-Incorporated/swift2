@@ -3,18 +3,22 @@
 import { useMemo } from 'react';
 import { Clapperboard } from 'lucide-react';
 import { videosForEra, VIDEO_KIND_LABEL } from '@/lib/longlive/videos';
-import type { EraId, VideoNote } from '@/lib/longlive/types';
+import type { PlayableVideoNote } from '@/lib/longlive/videos';
+import type { EraId } from '@/lib/longlive/types';
 import { MomentVideo } from './MomentVideo';
-import { NoEmbedFallback } from './NoEmbedFallback';
-import { watchAffordance } from '@/lib/longlive/video-affordance';
 
 /**
  * Per-era videos rail, rendered inside EraSection. Data is static, synced at
  * build time from the Vault video_work seed/table (lib/longlive/videos.ts); no
- * runtime fetch. Works with a verified official YouTube upload embed via the
- * MomentVideo click-to-play facade (poster thumbnail only until the user opts
- * in — cheap even in the infinite scroll); works without one (e.g. theatrical
- * tour films) render as metadata cards.
+ * runtime fetch. Every card here embeds via the MomentVideo click-to-play
+ * facade (poster thumbnail only until the user opts in — cheap even in the
+ * infinite scroll).
+ *
+ * Every card PLAYS: `videosForEra` hides records with no verified embed rather
+ * than rendering them as metadata-only cards (Joey, 2026-08-13 — see
+ * docs/decisions.md "Playable-first timeline"). This component therefore has no
+ * no-embed branch to write, which is the point: the rule is enforced in the
+ * data read, not re-implemented per surface.
  *
  * Carries two families since 2026-08-12: works she made or headlined, and
  * appearances (interviews, award speeches, speeches, press events). Every
@@ -50,11 +54,7 @@ export function EraVideos({ eraId }: { eraId: EraId }) {
   );
 }
 
-function VideoCard({ video }: { video: VideoNote }) {
-  // Total over the record — see watchAffordance (#2050). This card's ONLY
-  // interactive element used to be the embed, so a record with no official
-  // upload rendered as a dead rectangle.
-  const affordance = watchAffordance(video);
+function VideoCard({ video }: { video: PlayableVideoNote }) {
   const meta = [
     video.kind ? VIDEO_KIND_LABEL[video.kind] : null,
     video.director ? `Dir. ${video.director}` : null,
@@ -92,26 +92,17 @@ function VideoCard({ video }: { video: VideoNote }) {
         </ul>
       )}
 
-      {affordance.kind === 'embed' ? (
-        <MomentVideo
-          video={{ youtubeId: affordance.youtubeId, title: video.title }}
-          caption={null}
-          playNoun={video.kind ? VIDEO_KIND_LABEL[video.kind].toLowerCase() : 'video'}
-          className="mt-4"
-        />
-      ) : (
-        <NoEmbedFallback affordance={affordance} title={video.title} />
-      )}
+      <MomentVideo
+        video={{ youtubeId: video.youtubeId, title: video.title }}
+        caption={null}
+        playNoun={video.kind ? VIDEO_KIND_LABEL[video.kind].toLowerCase() : 'video'}
+        className="mt-4"
+      />
 
-      {/* The full citation LIST is still intentionally omitted here — this card
-          renders directly in the un-gated main scroll (a video record has no
+      {/* The citation LIST is intentionally omitted here — this card renders
+          directly in the un-gated main scroll (a video record has no
           click-through detail page), and citations belong on an expanded page,
-          per direct product feedback.
-
-          The single link inside NoEmbedFallback above is not that list: it only
-          appears when the record has no embed, where it is the card's entire
-          interaction rather than a footnote. Without it this card was literally
-          inert — #2050. */}
+          per direct product feedback. */}
     </article>
   );
 }
