@@ -1777,6 +1777,9 @@ export default {
     },
     {
       slug: 'white-horse-single-release',
+      // Cross-link (Stage 3, 2026-08-13): Phil Collins's 2026 recollection of
+      // hearing the song early.
+      relatedIds: ['moment:vault-tloas-phil-collins-taylors-early-white-horse-blew-me-away-complete'],
       year: 2008,
       month: 12,
       day: 8,

@@ -2336,7 +2336,12 @@ export default {
       slug: 'beautiful-ghosts-single',
       // Cross-link (Stage 3, 2026-07-30): the "Beautiful Ghosts" pair — the
       // single, and its home in the Cats film — now interlink.
-      relatedIds: ['moment:vault-lover-cats-arrives-bombalurina-digital-fur-and-beautiful-ghosts'],
+      // Cross-link (Stage 3, 2026-08-13): + Andrew Lloyd Webber's 2026 reaction
+      // to her "Fate of Ophelia," a later collab-adjacent thread.
+      relatedIds: [
+        'moment:vault-lover-cats-arrives-bombalurina-digital-fur-and-beautiful-ghosts',
+        'moment:vault-tloas-andrew-lloyd-webber-hears-his-own-ophelia-in-the-fate-of-oph',
+      ],
       year: 2019,
       month: 11,
       day: 15,

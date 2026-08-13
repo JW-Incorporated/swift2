@@ -1337,7 +1337,11 @@ export default {
     {
       // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
       // the song, and its radio-single release.
-      relatedIds: ['moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two'],
+      // Cross-link (Stage 3, 2026-08-13): + the 2010 AMAs performance.
+      relatedIds: [
+        'moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two',
+        'moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas',
+      ],
       year: 2010,
       month: 10,
       day: 12,
@@ -1785,7 +1789,11 @@ export default {
     {
       slug: 'back-to-december-single-release',
       // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster.
-      relatedIds: ['moment:vault-speak-now-back-to-december-her-first-apology-song'],
+      // Cross-link (Stage 3, 2026-08-13): + the 2010 AMAs performance.
+      relatedIds: [
+        'moment:vault-speak-now-back-to-december-her-first-apology-song',
+        'moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas',
+      ],
       year: 2010,
       month: 11,
       day: 15,
@@ -2598,6 +2606,12 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-13): the "Back to December" cluster —
+      // the song's origin and its radio-single release.
+      relatedIds: [
+        'moment:vault-speak-now-back-to-december-her-first-apology-song',
+        'moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two',
+      ],
       year: 2010,
       month: 11,
       day: 21,
