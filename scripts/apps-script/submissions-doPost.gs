@@ -23,6 +23,19 @@
  *   submitter_note, source_page, client_hash, flags
  */
 
+/**
+ * Prefixes a leading =, +, - or @ with a single quote so Sheets treats the
+ * cell as literal text instead of evaluating it as a formula (CSV/formula
+ * injection defense). The website already does this before sending, but this
+ * script is a separate trust boundary — it may one day be called by
+ * something other than that route — so it repeats the check on every cell,
+ * not just the ones the website currently treats as user-controlled.
+ */
+function neutralizeCell_(value) {
+  var s = value === null || value === undefined ? '' : String(value);
+  return /^[=+\-@]/.test(s) ? "'" + s : s;
+}
+
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Submissions');
   if (!sheet) {
@@ -47,24 +60,25 @@ function doPost(e) {
     ).setMimeType(ContentService.MimeType.JSON);
   }
 
-  // Exact column order — must match the sheet's header row.
+  // Exact column order — must match the sheet's header row. Every cell is
+  // run through neutralizeCell_ regardless of source (see its comment).
   sheet.appendRow([
-    payload.submitted_at || '',
-    payload.section || '',
-    payload.url || '',
-    payload.domain || '',
-    payload.platform_guess || '',
-    payload.page_title || '',
-    payload.status || 'New',
-    payload.reviewed_by || '',
-    payload.added_to_site || 'No',
-    payload.live_url || '',
-    payload.duplicate_of || '',
-    payload.notes || '',
-    payload.submitter_note || '',
-    payload.source_page || '',
-    payload.client_hash || '',
-    payload.flags || '',
+    neutralizeCell_(payload.submitted_at || ''),
+    neutralizeCell_(payload.section || ''),
+    neutralizeCell_(payload.url || ''),
+    neutralizeCell_(payload.domain || ''),
+    neutralizeCell_(payload.platform_guess || ''),
+    neutralizeCell_(payload.page_title || ''),
+    neutralizeCell_(payload.status || 'New'),
+    neutralizeCell_(payload.reviewed_by || ''),
+    neutralizeCell_(payload.added_to_site || 'No'),
+    neutralizeCell_(payload.live_url || ''),
+    neutralizeCell_(payload.duplicate_of || ''),
+    neutralizeCell_(payload.notes || ''),
+    neutralizeCell_(payload.submitter_note || ''),
+    neutralizeCell_(payload.source_page || ''),
+    neutralizeCell_(payload.client_hash || ''),
+    neutralizeCell_(payload.flags || ''),
   ]);
 
   return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(

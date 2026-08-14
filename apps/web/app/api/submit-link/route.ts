@@ -4,9 +4,9 @@ import {
   domainFromUrl,
   platformGuessFromDomain,
   hashClientId,
-  clipOptionalFields,
   submitLink,
-  MAX_SECTION_LENGTH,
+  SECTIONS,
+  type Section,
   type SubmissionRecord,
 } from '../../../lib/longlive/submit-link';
 
@@ -22,25 +22,57 @@ import {
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+// Best-effort only: this keys off `x-forwarded-for`, a client-supplied header
+// that isn't authoritative behind a proxy, so it can never be a security
+// guarantee — a spoofed IP simply gets its own bucket. The honeypot field
+// above (`hp`) is the real floor against automated abuse; this limiter only
+// blunts accidental bursts (e.g. a retry loop or a slow double-click).
 const HITS = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 5;
+const SWEEP_INTERVAL_MS = 5 * 60_000;
+let lastSweep = Date.now();
+
+/** Drops every IP whose hits have all aged out of the window. Without this,
+ * an IP that hits once and never returns keeps its (eventually empty) key
+ * forever — this is what let the map grow unbounded. Runs at most once per
+ * `SWEEP_INTERVAL_MS`, not on every request. */
+function sweepExpiredHits(now: number): void {
+  for (const [ip, hits] of HITS) {
+    if (hits.every((t) => now - t >= WINDOW_MS)) HITS.delete(ip);
+  }
+}
 
 function rateLimited(ip: string): boolean {
   const now = Date.now();
+  if (now - lastSweep > SWEEP_INTERVAL_MS) {
+    sweepExpiredHits(now);
+    lastSweep = now;
+  }
   const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
   recent.push(now);
   HITS.set(ip, recent);
   return recent.length > MAX_PER_WINDOW;
 }
 
-function normalizeSection(raw: unknown): string {
+/** Test-only: exposes the rate limiter's internal map size so eviction can be
+ * verified without reaching into module internals. Never used at runtime. */
+export function __rateLimiterSizeForTests(): number {
+  return HITS.size;
+}
+
+function normalizeSection(raw: unknown): Section | null {
   const s = typeof raw === 'string' ? raw.trim().toLowerCase() : '';
-  return s.slice(0, MAX_SECTION_LENGTH);
+  return (SECTIONS as readonly string[]).includes(s) ? (s as Section) : null;
 }
 
 export async function POST(req: Request): Promise<Response> {
-  let payload: { url?: string; section?: string; note?: string; sourcePage?: string; hp?: string };
+  // Only these three fields are ever read from the body — the form sends
+  // exactly this shape (SubmitLinkForm.tsx). `note` and `sourcePage` are
+  // deliberately not accepted here: the form never sends them, so parsing
+  // them from the request was pure unused attack surface (see finding 1).
+  // `sourcePage` is derived from the validated `section` below instead.
+  let payload: { url?: string; section?: string; hp?: string };
   try {
     payload = await req.json();
   } catch {
@@ -72,7 +104,6 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const domain = domainFromUrl(validated.url);
-  const { note, sourcePage } = clipOptionalFields(payload);
 
   const record: SubmissionRecord = {
     url: validated.url,
@@ -81,8 +112,7 @@ export async function POST(req: Request): Promise<Response> {
     section,
     submittedAt: new Date().toISOString(),
     clientHash: hashClientId(ip),
-    note: note || undefined,
-    sourcePage: sourcePage || undefined,
+    sourcePage: `/${section}`,
   };
 
   // Each sink is independently optional and non-throwing (see

@@ -15,6 +15,17 @@ filter, and an email straight to your inbox. Skip either one (or both) and
 the GitHub issue still captures everything; nothing breaks and visitors
 never see an error either way.
 
+## If you already set this up before 2026-08-14
+
+The Apps Script was updated to close a formula-injection hole (a submission
+could write a live spreadsheet formula into your sheet). **If you already
+completed Part 1 below, you need to redeploy:** open the sheet's
+Extensions → Apps Script editor, delete everything, paste in the current
+contents of `scripts/apps-script/submissions-doPost.gs` again, then
+**Deploy → Manage deployments → edit the existing deployment → New version →
+Deploy**. You do not need a new URL or a new secret — this replaces the code
+behind the same web app.
+
 ## Part 1 — the Google Sheet (optional)
 
 This makes submissions land as rows in your existing sheet

