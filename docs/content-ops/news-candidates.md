@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 99
+Stories: 102
+
+## Taylor Swift by Candlelight - Duxbury Clipper
+
+- first seen: 2026-08-14 14:19 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift by Candlelight  Duxbury Clipper
+- sources:
+  - [unverified] Duxbury Clipper — https://news.google.com/rss/articles/CBMid0FVX3lxTFBoS3ZvMDdRcFkyU25SeHpVNVBudW5RaVNEZTlCY0YyN2Z2X0lYLTBjOG4yb2xybHJ0WloyNzhoTUgybEdoMXVxcF93M3ZSbTdNdE5PcHM4bXdSMnRvMG84OGdTdFNkSUFrendTNGkyTzh3cnZmbjZn?oc=5
+
+## Meet the 7 Women Who Have Been Selected for Both the Songwriters Hall of Fame & Nashville Songwriter
+
+- first seen: 2026-08-14 14:19 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Meet the 7 Women Who Have Been Selected for Both the Songwriters Hall of Fame & Nashville Songwriters Hall of Fame  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxNZnNCRFpZNjdfVlg1aExhQ0NsYi1uLUEyUWMzcnIwQVhxV2U5cTlpcEpBcGYwRnp1bVptRTlQSktQMEgxTUZtaVI4UExpYndmZzlod3htbk1wcHJLV1d1WnBhVS05Nnl3UHlfejA2Q0RJZDQ1WVBGMHJoaG93UHB1dWo3YzI4ZXY2OXhFWURUaEQ5TDJpemh3?oc=5
+
+## Taylor Swift debuts new haircut after Travis Kelce wedding – See the photo - USA Today
+
+- first seen: 2026-08-14 14:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift debuts new haircut after Travis Kelce wedding – See the photo  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMisgFBVV95cUxPdlp3Y0JxS0steWl5aGx6QXRLY0RaZjFCWWwxRWpta2gxSElWcmZya3U1TGxPMGhBTlc5WXFsVlB1M2pzeVQ0TTQ1N3ZuZFFheDJQVmRfTzBtNk5lUFZWbnZKSW1OS2NJSzBrdlN4ZEVfNlc3blQzM2lZTzNKQV9vUEh1MzVvLUN5YVRVbTYtV2h1S2ZXVW93REtCRjlHdTVRZWZZTDdrSmFMbFBmcHNHZ0lR?oc=5
 
 ## Taylor Swift Song Removed From White House TikTok Days After Trump Campaign Post Muted - Law Comment
 
