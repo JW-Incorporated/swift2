@@ -28,7 +28,7 @@ export function TopBar() {
   }
 
   return (
-    <header className="sticky top-0 z-40">
+    <header data-ll-topbar className="sticky top-0 z-40">
       {/* Peek strip / timeline lives at the very top in era mode. */}
       {mode === 'era' && <TimelineScrubber />}
 
