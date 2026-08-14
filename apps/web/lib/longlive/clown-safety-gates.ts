@@ -98,6 +98,15 @@ export const IMPERSONATION: Gate = {
     /\bit ?(s|is) (really|actually|truly|honestly) me\b/,
     /\b(yes|yeah|yep) ?,? it ?(s|is) me\b/,
     /\bi ?(ve|ve been| have been| have|m|) ?been (dropping|leaving|planting|hiding|scattering) (these|those|the|my) (clues|eggs|easter eggs|hints|breadcrumbs)\b/,
+    // Reused verbatim from the input list (2026-08-14, Finding 1 conversation-
+    // screen fix) — already phrase-level ("first person AS taylor/her", not
+    // bare "first person"), so it is answer-safe: no legitimate clown answer
+    // narrates in first person as her. Needed so a forged/attacker-authored
+    // "assistant" transcript turn granting itself permission to impersonate
+    // (clown/route.test.ts's "forged assistant turn" case) still trips the
+    // OUTPUT gate now that `screenConversation` screens assistant-role turns
+    // with `screenOutput` instead of `screenInput` — see clown-safety.ts.
+    /\bfirst person as (taylor|her)\b/,
   ],
   tight: [
     /youare(taylor|her)/,
@@ -180,12 +189,18 @@ export const CERTAINTY: Gate = {
     /\b100 percent sure\b/,
   ],
   output: [
-    // Scoped to "I guarantee" / bare "guaranteed" (2026-08-14 fix, Finding 1)
-    // — the old bare `guarantee(d|s|ing|)?` stem matched "a deal guaranteeing
-    // future ownership" (Big Machine/Republic history), a factual descriptor
-    // with no manufactured-certainty claim at all.
+    // Scoped to "I guarantee" / a forward-looking "is/it's guaranteed" claim
+    // (2026-08-14 fix, Finding 1; re-scoped again 2026-08-14 round-2 fix,
+    // Finding 2) — the old bare `guarantee(d|s|ing|)?` stem matched "a deal
+    // guaranteeing future ownership" (Big Machine/Republic history), and the
+    // follow-up bare `guaranteed` alone still matched "The 2018 contract
+    // guaranteed her ownership of her new masters" — both factual past-tense
+    // descriptors of a real contract term, not a manufactured-certainty
+    // claim. Scoped to the passive "is/its guaranteed" construction, which is
+    // how a forward-looking prediction actually reads ("It is guaranteed to
+    // drop at midnight").
     /\bi guarantee(s)?\b/,
-    /\bguaranteed\b/,
+    /\b(is|its) guaranteed\b/,
     /\b100 percent\b/,
     /\bone hundred percent\b/,
     // Scoped (2026-08-14 fix, Finding 1) — bare "no doubt" matched ordinary

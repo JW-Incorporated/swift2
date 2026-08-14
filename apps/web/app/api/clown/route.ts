@@ -175,7 +175,7 @@ export async function POST(req: Request): Promise<Response> {
 
   // PRIOR-TURN BLOCKLIST — see the header note above. Before any model spend.
   const priorTurns = sanitizeTranscript(payload.transcript);
-  const conversationHit = screenConversation(priorTurns.map((turn) => turn.text));
+  const conversationHit = screenConversation(priorTurns);
   if (conversationHit) {
     console.log('clown:refusal', JSON.stringify({ gate: 'conversation', category: conversationHit }));
     return NextResponse.json(messageAnswer([refusal(conversationHit).message]));
