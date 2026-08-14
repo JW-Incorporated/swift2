@@ -161,3 +161,9 @@ table, still in flight in a parallel step): `app/api/clown/route.ts`,
   `.git/info/exclude`. Never delete, never `git clean`.
 - `scripts/social/social-poster-workflow.test.ts.tmp` — untracked scratch owned
   by another session. Leave it exactly as-is.
+
+## Community research (2026-08-14, PR #2110)
+
+- `data/communities.json` — 30 verified Swiftie communities, 8 platforms, each with verification provenance. NOT wired into the app.
+- `data/communities-report.md` — landscape narrative, top 10, niches, and what is deliberately absent.
+- `sources.md` — every directory/thread/article mined, plus the platform blockers, so this is re-runnable.
