@@ -17,9 +17,12 @@
  * THE MODEL NEVER SEARCHES THE CORPUS. It receives a small, fixed set of
  * `ClownDoc`s retrieved deterministically upstream (`clown-retrieve.ts`) and
  * may only cite ids from that set; `clown-gate.ts` (a later step) fails the
- * whole answer if it cites anything else. It therefore structurally cannot
- * invent a source — the same guarantee `mood-client.ts` gives the song
- * catalogue and build A's `clownbot-client.ts` gave the vault.
+ * whole answer if it cites anything else — AND fails it outright if it cites
+ * nothing at all (`kind: 'ungrounded'`), since an empty `citedIds` has no bad
+ * id to invalidate and would otherwise skip the check entirely. Between the
+ * two, this module cannot get a source-free or fabricated-source take past
+ * `clown-gate.ts` to a reader — but nothing in THIS module enforces that on
+ * its own; the guarantee lives entirely in the later gate, not here.
  *
  * IT ALSO CANNOT BE THE REFUSAL LAYER. Whatever this returns is re-screened
  * by `clown-gate.ts` before a reader sees a word of it — this module does not
@@ -85,7 +88,8 @@ export interface ClownTake {
   /** ClownDoc ids it cited. `clown-gate.ts` fails the answer if any id here
    * was not in the retrieved set handed to this call. */
   citedIds: string[];
-  /** 0..5 ambition. Clamped downstream; evidence is NOT model-scored. */
+  /** 0..5 ambition, clamped and rounded to an integer by `sanitizeTake`
+   * before this type is ever populated. Evidence is NOT model-scored. */
   delulu: number;
   /** A name for the theory. May be overridden by the canonical registry (`clown-names.ts`). */
   theoryName: string | null;
@@ -110,14 +114,21 @@ export function sanitizeTake(input: unknown): ClownTake {
     .filter((id) => id.length > 0 && id.length < 200)
     .slice(0, 8);
 
-  const delulu = Number(p.delulu);
+  const rawDelulu = Number(p.delulu);
+  // 0..5 integer, always — a model take is never allowed to render a
+  // negative or a wildly out-of-range delulu score (DeluluBadge renders it
+  // raw, with no clamp of its own). `null` is NOT produced here on purpose:
+  // that value is reserved for the zero-model fallback path
+  // (clown-answer.ts's `answerFromFallback`), which legitimately has no
+  // score because nothing scored it. A model take always gets a number.
+  const delulu = Number.isFinite(rawDelulu) ? Math.min(5, Math.max(0, Math.round(rawDelulu))) : 3;
 
   return {
     stance: str(p.stance),
     argument: str(p.argument),
     counterpoint: str(p.counterpoint),
     citedIds,
-    delulu: Number.isFinite(delulu) ? delulu : 3,
+    delulu,
     theoryName: typeof p.theory_name === 'string' ? str(p.theory_name, 80) : null,
     aside: str(p.aside, 300),
     offLimits: p.off_limits === true,

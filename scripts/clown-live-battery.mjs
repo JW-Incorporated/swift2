@@ -1,3 +1,7 @@
+/* global Request */
+// `Request` is a Node 18+ built-in global that this repo's eslint config does
+// not declare for `scripts/**`. Same narrow fix as capture-clown-seed.mjs.
+//
 // Clownbot — THE MANUAL, KEYED, LIVE RED-TEAM BATTERY. Required pre-merge gate
 // per docs/decisions.md (2026-08-13, J5). NOT a CI step — it spends real money
 // against the real Anthropic API and must be run deliberately by a human before
