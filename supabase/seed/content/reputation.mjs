@@ -2076,6 +2076,10 @@ export default {
         // Instagram Story screenshot; the cited Billboard piece ran this 2010
         // file photo of the two together, used here as clearly-captioned
         // archival context. Verified HTTP 200 + image/jpeg, visually checked.
+        // Photo pass #762 (2026-08-14): no `socialPost` for the same reason —
+        // the moment itself was Taylor's Instagram *Story*, which has no
+        // permalink/shortcode and expired within 24 hours. There is nothing
+        // to embed; the archival photo above is the honest substitute.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/katy-perry-taylor-swift-2010-billboard-1548.jpg?w=600',

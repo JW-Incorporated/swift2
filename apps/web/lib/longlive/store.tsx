@@ -25,8 +25,24 @@ import {
 import { pushBackEntry } from './useBackDismiss';
 import type { FilterId } from './filters';
 import type { EraId, LensId, MotifId } from './types';
+import type { ClownAnswer } from './clown-answer';
 
 export type AppMode = 'landing' | 'era' | 'threads' | 'mood' | 'clownbot';
+
+/** One exchange in the clown bot transcript. */
+export interface ClownMessage {
+  id: string;
+  question: string;
+  answer: ClownAnswer;
+}
+
+/**
+ * How many exchanges the clown bot transcript keeps. Client-held only — zero
+ * server storage is a product promise (PLAN.md Step 11) — so this cap exists
+ * purely to bound the in-memory array, never persisted to localStorage or
+ * sessionStorage.
+ */
+const CLOWN_TRANSCRIPT_CAP = 6;
 
 interface AppState {
   mode: AppMode;
@@ -87,6 +103,13 @@ interface AppState {
   clueWebTrail: MotifId | null;
   /** Active global timeline filter chips. Empty = show everything (P1). */
   filters: ReadonlySet<FilterId>;
+  /**
+   * Clown bot transcript — client-held, capped at `CLOWN_TRANSCRIPT_CAP`
+   * exchanges, never persisted. Lives in the app store (rather than local
+   * component state) purely so it survives a mode switch away and back;
+   * a fresh page load always starts empty.
+   */
+  clownMessages: ClownMessage[];
 }
 
 export type ShareTarget =
@@ -204,6 +227,10 @@ interface AppActions {
   pushReturnPoint: (p: ReturnPoint) => void;
   /** Pop and return the most recent return point, or null if none. */
   popReturnPoint: () => ReturnPoint | null;
+  /** Append one exchange to the clown transcript, dropping the oldest past the cap. */
+  addClownMessage: (question: string, answer: ClownAnswer) => void;
+  /** Clear the clown transcript back to empty. */
+  clearClownMessages: () => void;
 }
 
 /**
@@ -313,6 +340,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [share, setShare] = useState<ShareTarget | null>(null);
   const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
   const [filters, setFilters] = useState<ReadonlySet<FilterId>>(() => new Set());
+  const [clownMessages, setClownMessages] = useState<ClownMessage[]>([]);
+
+  const addClownMessage = useCallback((question: string, answer: ClownAnswer) => {
+    setClownMessages((prev) => {
+      const next = [...prev, { id: `m-${Date.now()}`, question, answer }];
+      return next.length > CLOWN_TRANSCRIPT_CAP
+        ? next.slice(next.length - CLOWN_TRANSCRIPT_CAP)
+        : next;
+    });
+  }, []);
+  const clearClownMessages = useCallback(() => setClownMessages([]), []);
 
   // Era-stream position to restore on the next era-mode entry. Held in a ref so
   // saving/reading it never triggers a render (the stream reads it imperatively
@@ -596,6 +634,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       clearFilters,
       pushReturnPoint,
       popReturnPoint,
+      addClownMessage,
+      clearClownMessages,
     }),
     [
       setEra,
@@ -613,6 +653,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       clearFilters,
       pushReturnPoint,
       popReturnPoint,
+      addClownMessage,
+      clearClownMessages,
     ],
   );
 
@@ -634,6 +676,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       share,
       clueWebTrail,
       filters,
+      clownMessages,
     }),
     [
       mode,
@@ -652,6 +695,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       share,
       clueWebTrail,
       filters,
+      clownMessages,
     ],
   );
 

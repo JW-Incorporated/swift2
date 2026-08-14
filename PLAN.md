@@ -1,550 +1,325 @@
-# PLAN.md — Era reader rework: bottom nav, one global filter, timeline doorways
+# PLAN.md — Clownbot rebuild (title + full-width chat + two prefill columns)
 
-Source of truth for this work: Joey's consolidated team feedback (2026-08-13,
-this session) on the "Time Machine Mockups" artifact, plus his four inline
-rulings recorded in § Rulings below. Where this plan and the artifact disagree,
-the rulings win.
+Branch: `feature/clownbot-rebuild`, cut from `origin/main` @ `c3600223`.
+Working tree is an **isolated worktree** outside `Projects/` — the primary
+checkout is owned by a parallel session on `feature/era-reader-p4`. Do not
+touch the primary checkout.
+
+Source of truth, in precedence order:
+
+1. Joey's brief, this session (2026-08-13) — layout + the four rulings below.
+2. `docs/proposals/2026-08-11-clownbot.md` (spec B) and
+   `docs/proposals/2026-08-11-clownbot-implementation-plan.md`, on PR #1961.
+   This session IS the "planning session pending" that PR was parked for.
+3. `CLAUDE.md`. Where anything here appears to conflict with it, CLAUDE.md wins.
 
 ## Goal
 
-After this lands, an era reads as one continuous chronological timeline with a
-single persistent filter, and every non-timeline surface has either moved into
-that timeline or moved out of the era body entirely. Specifically: mobile
-navigation lives in a bottom tab bar (freeing the top bar to be a context
-label), the era masthead survives but collapses into the shipped compact era
-nav bar on scroll, the Spotify player is gone and Track guide takes its slot
-and its styling, Theories & eggs and Videos stop being era-body sections and
-become doorway cards scattered through the timeline at chronologically
-sensible positions, and one sticky six-chip filter governs every era at once
-instead of a fresh filter per era.
+Replace the shipped-but-gated Clownbot (build A) with the re-spec'd chat
+(build B), presented in Joey's layout: a big `clown bot` title, one
+full-width conversation box seeded with a real worked example, and beneath it
+two columns — current theories, and confirmed easter eggs — whose items
+prefill the composer on tap.
 
 ## Rulings (Joey, 2026-08-13 — do not re-litigate, do not re-ask)
 
-- **R1 — Map line: one rotating gloss line.** Not a list of all sections. One
-  section glossed at a time, deterministic daily rotation (same mechanism as
-  the shipped era-secret-of-the-day), tappable, goes where its tab goes.
-  Scales to any section count because it never gets longer.
-- **R2 — Filters: the five topic tags plus Videos. Six, and only six.**
-  Videos must be present. **The "Threads filter" idea is scrapped** — this
-  reverses the line in Joey's brief that asked for one. Instead, *every* item
-  that appears in a timeline (moment, video, thread doorway, egg doorway)
-  is categorised under one or more of the six.
-- **R3 — Clownbot keeps its tab.** Bottom nav is 4 tabs today (Eras, Threads,
-  Mood, Clownbot) and 6 at full growth (+ Marketplace, + Community). See
-  § Known risks — six labelled tabs do not fit 390px; the bar must degrade to
-  icon-only rather than break.
-- **R4 — Egg/theory doorways open that single egg's detail.** And every egg
-  detail must point back, obviously, to the thread it belongs to and make it
-  plain that a whole section is dedicated to theories and eggs.
+- **J1 — Build B, not a refit of A.** Joey's 2026-08-11 decision stands: "get
+  rid of all the old chatbot clown stuff. The items related to threads remain
+  and will actually be inputs for the bot." Build A is superseded. Salvage
+  named assets from it (§ Salvage); do not extend it.
+- **J2 — The theory column is derived from the corpus we already have.**
+  No new content authoring, no scoring engine. "Long-term we need this to be
+  auto-populated by an engine but that's phase 2 of the clownbot." Phase 2 is
+  **out of scope**; do not build toward it speculatively.
+- **J3 — Live on merge, gated on red-team.** Therefore the battery is a
+  REQUIRED CI check (§ Step 12), not a manual pre-flight. A posture that
+  depends on someone remembering to run a script is not the posture Joey
+  chose.
+- **J4 — Delulu only.** Source cards carry groundedness. Evidence and
+  Confidence meters are dropped — they restate the cards. One compact delulu
+  element sits in the answer header. Joey gave discretion here; this is the
+  call made under it.
+
+Still **not** decided, and not ours (Workflow rule 5 — surface, don't settle):
+
+- **Wyatt:** model tier (spec offers Sonnet-class like Mood, or Haiku), the
+  cap numbers (spec proposes 200 composes/day/instance), ratifying reuse of
+  the Mood route pattern, and the `docs/decisions.md` entry.
+  Build against Mood's tier; make the tier a single named constant so
+  changing it is a one-line diff. Flag all four in the PR body.
 
 ## Out of scope
 
-- Marketplace and Community themselves. This plan only sizes the nav for them.
-- Mood scoring, Clownbot scope, search, the share sheet, the landing page's
-  hero-photo selection rules, and any content authoring beyond tag backfill.
-- Converting the app to real URL routes. The reader stays one client page with
-  context state; back-to-position is built on the existing snapshot pattern,
-  not on history rewriting. (Decision + rationale in `docs/decisions.md`.)
-- `TimelineScrubber` behaviour, beyond keeping its anchors valid.
-- Desktop layout beyond what the rulings imply — desktop keeps pills in the
-  top rail, gains no bottom bar, and inherits every other change.
+- The phase-2 auto-population engine (J2).
+- Accounts, stored theories, novelty scoring, cross-user anything — issue #36's
+  no-go still stands.
+- #445 (Mastermind / Invisible Strings). Clownbot consumes its corpus once
+  shipped; it does not block on it, and this plan does not touch it.
+- The era-reader rework on `feature/era-reader-p4`. Different session, different
+  branch, no shared files.
+- Any change to `scripts/social/**`.
 
-## Phasing — five PRs, in this order
+## Salvage from build A — port, do not rewrite
 
-Order is load-bearing: P1 changes filter plumbing that P3 consumes; P2 removes
-the videos rail whose data P3 re-uses. Do not reorder.
+`clownbot-safety.ts` (719 lines) and `clownbot-battery-corpus.ts` (678 lines)
+encode red-team findings. Rewriting them re-opens whatever they closed.
 
-| Phase | PR | Lands |
+| From build A | Into | Treatment |
 |---|---|---|
-| P0 | — | `docs/decisions.md` entry (no code) |
-| P1 | 1 | Global sticky six-chip filter + coverage checker |
-| P2 | 2 | Era body surgery: player out, Track guide in, sections out |
-| P3 | 3 | Timeline doorways + anchor dating + back-to-position |
-| P4 | 4 | Mobile bottom nav, top-bar context label, feedback button |
-| P5 | 5 | Masthead rotating gloss line + tagline copy update |
+| `clownbot-safety.ts` | `clown-safety.ts` | Port phrase lists + refusal copy verbatim. Re-shape only the call signature. |
+| `clownbot-battery-corpus.ts` | `clown-battery-corpus.ts` | Port every case. Add cases; never delete one. |
+| `clownbot-ledger.ts` | `clown-board.ts` | The confirmed/debunked derivation is exactly column 2. |
+| `clownbot-lore.ts` | kept in place | 8 hand-authored items, still a retrieval input. |
+| `clownbot-names.ts` | `clown-names.ts` | 6 canonical names keep the bot's naming stable. |
+| `clownbot-usage.ts` | `clown-usage.ts` | Cap reservoir; re-point at `CLOWN_DAILY_CAP`. |
+
+**Deleted with build A:** `Clownbot.tsx`, `/api/clownbot/route.ts`,
+`clownbot-client.ts`, `clownbot-grade.ts`, `clownbot-output-classifier.ts`,
+`clownbot-prompts.ts`, `clownbot-persona.ts`, `clownbot-receipts.ts`, and their
+tests. Content inside them that is not carried forward goes to the shelf doc
+(§ Step 1) **before** deletion — no content is lost, per Joey's instruction.
 
 ## Files touched
 
-| Path | New/Edit | What changes |
-|------|----------|--------------|
-| `docs/decisions.md` | Edit | P0 entry: five decisions below |
-| `apps/web/lib/longlive/filters.ts` | **New** | `FilterId`, `ALL_FILTERS`, `filterMatches()` — pure, tested |
-| `apps/web/lib/longlive/filters.test.ts` | **New** | Unit tests for the above |
-| `apps/web/lib/longlive/store.tsx` | Edit | `filters` state + `toggleFilter`/`clearFilters`; `returnPoint` stack |
-| `apps/web/components/longlive/FilterBar.tsx` | **New** | The one sticky filter row, rendered once |
-| `apps/web/components/longlive/EraSection.tsx` | Edit | Remove local filter state, `EraMedia`, guide pills, `EraVideos`; render doorways |
-| `apps/web/components/longlive/EraStream.tsx` | Edit | Mount `FilterBar`; preserve era+offset across filter change |
-| `apps/web/components/longlive/EraMedia.tsx` | **Delete** | Spotify player removed (sole consumer was EraSection) |
-| `apps/web/components/longlive/EraVideos.tsx` | **Delete** | Era-bottom videos rail removed (sole consumer was EraSection) |
-| `apps/web/components/longlive/TrackGuide.tsx` | Edit | Gains inline per-track video playback |
-| `apps/web/components/longlive/TrackGuideBar.tsx` | **New** | Full-width entry bar in the old player slot |
-| `apps/web/components/longlive/TheoryGuide.tsx` | Edit | Reachable from egg doorways; gains the "back to thread" affordance (R4) |
-| `apps/web/lib/longlive/era-feed.ts` | Edit | Feed entry union gains `thread`/`egg`; `sortDate`/`displayDate` |
-| `apps/web/lib/longlive/era-feed.test.ts` | Edit | Cover the new kinds and anchoring |
-| `apps/web/lib/longlive/anchor-date.ts` | **New** | Anchor resolution for undated items — pure, tested |
-| `apps/web/lib/longlive/anchor-date.test.ts` | **New** | Unit tests for the above |
-| `apps/web/components/longlive/DoorwayCard.tsx` | **New** | The doorway card shape (thread + egg variants) |
-| `apps/web/components/longlive/BottomNav.tsx` | **New** | Mobile tab bar, safe-area aware |
-| `apps/web/components/longlive/TopBar.tsx` | Edit | Mobile: pills out, context label in (`Era: TLOSG` / `Thread: End Game`) |
-| `apps/web/components/longlive/FeedbackButton.tsx` | Edit | Sits above bottom nav; X dismiss persisted for the session |
-| `apps/web/components/longlive/LandingMasthead.tsx` | **New** | Rotating gloss line + updated tagline (P5) |
-| `apps/web/lib/longlive/gloss-rotation.ts` | **New** | Deterministic daily section-gloss pick — pure, tested |
-| `apps/web/lib/longlive/gloss-rotation.test.ts` | **New** | Unit tests for the above |
-| `scripts/check-filter-coverage.mjs` | **New** | Asserts every timeline item carries ≥1 filter |
-| `scripts/check-filter-coverage.test.ts` | **New** | Unit tests for the checker |
-| `package.json` | Edit | `check:filter-coverage` script |
-| `.github/workflows/ci.yml` | Edit | Run `check:filter-coverage` in `build` |
-| `docs/longlive-experience.md` | Edit | Rewrite the era-body and nav sections to match |
+| Path | New/Edit | What |
+|---|---|---|
+| `docs/decisions.md` | Edit | Entry for J1–J4 + the Wyatt-pending list. **Step 0.** |
+| `docs/proposals/2026-08-13-clownbot-shelved-content.md` | **New** | Everything from A not carried forward. |
+| `apps/web/lib/longlive/clown-index.ts` | **New** | Build the retrieval index; blocklist pre-filter at build time. |
+| `apps/web/lib/longlive/clown-retrieve.ts` | **New** | Deterministic retrieval + `detectRecencyIntent()`. |
+| `apps/web/lib/longlive/clown-blocklist.ts` | **New** | `screenTopic()`, per-category phrase lists. |
+| `apps/web/lib/longlive/clown-safety.ts` | **New** | Ported from A + crisis reuse. |
+| `apps/web/lib/longlive/clown-board.ts` | **New** | Both columns. Pure, derived, zero model. |
+| `apps/web/lib/longlive/clown-fallback.ts` | **New** | Zero-model card composer. |
+| `apps/web/lib/longlive/clown-starters.ts` | **New** | Column item → composer prefill string. |
+| `apps/web/lib/longlive/clown-names.ts` | **New** | Ported registry. |
+| `apps/web/lib/longlive/clown-seed-example.ts` | **New** | The frozen example Q&A. |
+| `apps/web/lib/longlive/clown-client.ts` | **New** | The one model call. Tier as a named constant. |
+| `apps/web/lib/longlive/clown-client-prompt.ts` | **New** | System prompt + tool schema, split out of the above for length. Added in flight. |
+| `apps/web/lib/longlive/clown-answer.ts` | **New** | `ClownAnswer` — the ONE client-facing shape, plus adapters from `ClownTake` and `FallbackAnswer`. Added in flight after two steps grew different shapes for the same thing. |
+| `apps/web/lib/longlive/clown-gate.ts` | **New** | Output re-screen. |
+| `apps/web/lib/longlive/clown-usage.ts` | **New** | Ported cap reservoir. |
+| `apps/web/app/api/clown/route.ts` | **New** | The pipeline. |
+| `apps/web/components/longlive/ClownChat.tsx` | **New** | Title + composer + transcript. |
+| `apps/web/components/longlive/ClownBoard.tsx` | **New** | The two columns. |
+| `apps/web/components/longlive/ClownItemCard.tsx` | **New** | One column item / one source card. |
+| `apps/web/lib/longlive/store.tsx` | Edit | `clown` transcript state, client-held. |
+| `apps/web/lib/longlive/share.ts` | Edit | `topbarShareTarget` union — return `null`, as mood does. |
+| `apps/web/components/longlive/TopBar.tsx` | Edit | Mode label. |
+| `apps/web/components/longlive/LongLive.tsx` | Edit | Mount `ClownChat` for `mode === 'clown'`. |
+| `.github/workflows/ci.yml` | Edit | Battery as a required check (J3). |
+| `package.json` | Edit | `clown:battery` script. |
+| `docs/definition-of-done.md` | Edit | Item 7 — flip 🔴, drop the stale "no request-path LLM" line. |
+| `docs/longlive-experience.md` | Edit | Replace the Clownbot section. |
+| `MAP.md` | Edit | Every file added/deleted. |
 
-## Interfaces / contracts
+Plus deletions of every build-A file listed in § Salvage.
 
-The executor copies these verbatim. It does not redesign them.
-
-```ts
-// apps/web/lib/longlive/filters.ts
-import type { ContentTag } from './tags';
-
-/** R2: exactly six, forever. Videos is a peer chip, not a separate axis. */
-export type FilterId = ContentTag | 'Videos';
-
-export const ALL_FILTERS: readonly FilterId[] = [
-  'Music', 'Fashion', 'Tour', 'Relationship', 'Lore', 'Videos',
-] as const;
-
-/**
- * Empty active set means "show everything".
- * A non-empty set is OR-matched against the entry's own filter ids.
- * An entry with zero filter ids can therefore never match an active
- * filter — which is exactly why check:filter-coverage exists.
- */
-export function filterMatches(
-  entryFilters: readonly FilterId[],
-  active: ReadonlySet<FilterId>,
-): boolean;
-
-/**
- * The six ids an entry belongs to, whatever kind of entry it is.
- *
- * AMENDED 2026-08-13 (see § Plan amendments). The first version took only the
- * entry and returned `item.tags` for moments and `['Videos']` for videos. That
- * silently dropped two rules the pre-change selection code enforced, and both
- * are restorations, not new behaviour:
- *
- *  1. A moment that OWNS its inline video is watchable, so it belongs under
- *     Videos as well as its own topics. The old `videosOnly` branch selected
- *     exactly these via `inlineVideoMomentIds`. Ownership is a property of the
- *     list on screen, not of the era — hence the ctx argument.
- *  2. A dated music video is Music. The old code said so directly:
- *     `if (tags.size === 0 || tags.has('Music')) return timelineVideos`.
- *     The topic was encoded in the selection rule rather than on the record.
- */
-export function filtersForEntry(
-  entry: EraFeedEntry,
-  ctx: { inlineVideoOwnerIds: ReadonlySet<string> },
-): readonly FilterId[];
-// moment → ownerIds.has(id) ? [...item.tags, 'Videos'] : item.tags
-// video  → music-video kind ? ['Music', 'Videos'] : ['Videos']
-//          (do NOT invent other topics for appearance-family videos)
-```
+## Contracts — copy verbatim, do not redesign
 
 ```ts
-// apps/web/lib/longlive/anchor-date.ts
+// apps/web/lib/longlive/clown-board.ts
+// Both columns. Pure and deterministic: same corpus in => same board out.
+// ZERO model calls — this is what keeps the columns free (J2).
 
-/** How a sort position was arrived at. Drives whether a date may be SHOWN. */
-export type AnchorSource =
-  | 'exact'          // the item has a real, authored date
-  | 'related-item'   // borrowed from a moment it references
-  | 'related-song'   // borrowed from a song/album release date
-  | 'era-scatter';   // last resort: a stable position inside the era's span
-
-// AMENDED 2026-08-13: this was 'era-midpoint', which gave EVERY undated item in
-// an era the same sort key, so they clumped together mid-era instead of being
-// spread through it. 26 of 84 video records carry no release date, so the clump
-// is real, not theoretical. Joey's instruction was to "scatter them about in
-// the timeline". `era-scatter` derives a deterministic position across
-// [eraStart, eraEnd] from a hash of the id: stable across renders and builds,
-// different per item, no clump. Still never displayed.
-
-export type Anchored = {
-  /** Always present. Sorting only. NEVER rendered as fact. */
-  sortDate: string;            // YYYY-MM-DD
-  /** Present only when `via === 'exact'`. Null means render no date. */
-  displayDate: string | null;
-  via: AnchorSource;
-};
-
-export function resolveAnchor(input: {
-  exactDate?: string | null;
-  relatedItemDate?: string | null;
-  relatedSongDate?: string | null;
-  eraStart: string;
-  eraEnd: string | null;
-  /** Stable tiebreak so equal anchors order deterministically. */
+export type BoardItem = {
   id: string;
-}): Anchored;
-```
-
-**The honesty rule, non-negotiable:** `displayDate` is null unless
-`via === 'exact'`. A synthetic anchor positions a card and is never printed as
-a date. This matches the shipped precedent — `undatedAnchorDate()` already
-feeds the scrubber an invisible anchor while the card renders a literal
-"Date unknown".
-
-```ts
-// apps/web/lib/longlive/era-feed.ts — the widened union
-export type EraFeedEntry =
-  | { kind: 'moment'; item: ContentItem;      anchor: Anchored; filters: readonly FilterId[] }
-  | { kind: 'video';  video: VideoNote;       anchor: Anchored; filters: readonly FilterId[] }
-  | { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored; filters: readonly FilterId[] }
-  | { kind: 'egg';    doorway: EggDoorway;    anchor: Anchored; filters: readonly FilterId[] };
-
-export type ThreadDoorway = {
-  threadId: LensId;
-  kicker: string;      // "THREADS — one storyline at a time, across every era"
+  /** Column 1 headline, or column 2 egg name. */
   title: string;
-  example: string;     // a real, sourced line from the thread
+  /** One line of context. Never a claim of fact for an unresolved item. */
+  blurb: string;
+  /** What tapping it puts in the composer. Authored, not generated. */
+  prompt: string;
+  /** Sort key. ISO date. */
+  date: string;
 };
 
-export type EggDoorway = {
-  eggId: string;
-  threadId: LensId | null;  // R4: what it belongs to, for the way back
-  kicker: string;           // "EGGS — the secrets she plants"
-  title: string;
-};
+/**
+ * Column 1 — "top 10 current theories".
+ * Unresolved theories + open rumors, recency-ranked, capped at 10.
+ *
+ * J2: derived from the corpus we already have. If the corpus yields fewer
+ * than 10, RETURN FEWER. Do not pad, do not invent, do not reach further
+ * back in time to fill the slot — a padded "current" list is a lie about
+ * what is current. The UI handles a short list (§ Step 8).
+ */
+export function currentTheories(now: Date): BoardItem[];
 
-/** Newest-first by anchor.sortDate, stable-tiebroken by id. */
-export function mergeEraFeed(entries: readonly EraFeedEntry[]): EraFeedEntry[];
-
-/** No two doorways within DOORWAY_MIN_GAP cards of each other. */
-export const DOORWAY_MIN_GAP = 4;
-export function spaceDoorways(feed: readonly EraFeedEntry[]): EraFeedEntry[];
+/**
+ * Column 2 — "past confirmed easter eggs".
+ * Ported from clownbot-ledger.ts: theories.generated.ts entries with
+ * outcome === 'confirmed', plus lore items with a ledger block.
+ * Confirmed only — 'debunked' is a different thing and does not belong
+ * in a column labelled "confirmed".
+ */
+export function confirmedEggs(): BoardItem[];
 ```
 
 ```ts
-// apps/web/lib/longlive/store.tsx — additions only
-type ReturnPoint = {
-  mode: Mode;
-  eraId: string;
-  itemId: string | null;
-  scrollY: number;
+// apps/web/lib/longlive/clown-seed-example.ts
+// The pre-filled worked example. Static, shipped, zero runtime cost.
+
+export type SeedExample = {
+  question: string;
+  /** A REAL answer from the live pipeline, captured once and frozen. */
+  answer: ClownAnswer;
 };
 
-// state
-filters: ReadonlySet<FilterId>;   // starts empty = everything
-// actions
-toggleFilter(id: FilterId): void;
-clearFilters(): void;
-pushReturnPoint(p: ReturnPoint): void;
-popReturnPoint(): ReturnPoint | null;
+/**
+ * HOW THIS IS PRODUCED (Step 10) — it is not hand-written:
+ *   1. Pick a question about a theory already in the corpus (J2 + Joey:
+ *      "re-use some of the existing theories we already have").
+ *   2. Run it through the real route once with a live key.
+ *   3. Paste the response verbatim.
+ * A hand-written answer here would misrepresent the bot's actual behaviour
+ * to every first-time visitor. If the pipeline cannot be run, STOP and
+ * report — do not substitute prose.
+ */
+export const SEED_EXAMPLE: SeedExample;
 ```
 
-## Plan amendments
-
-Logged when the plan turned out wrong, per CLAUDE.md § Planning ("if it turns
-out wrong, stop, rewrite it, log why, continue").
-
-**2026-08-13 — `filtersForEntry` was under-specified, and anchor dating moves
-into P1.** Found while reviewing the P1 step 4–5 diff; the executor flagged
-half of it and refused to patch around the contract, which was right.
-
-- The original contract lost two shipped selection rules (see the amended
-  signature above). Fixed by giving `filtersForEntry` the inline-video owner
-  set and teaching it that a dated music video is Music.
-- Step 4 folds **every** watchable video into the default timeline — correct
-  per Joey ("videos... folded into the era timeline"), but undated video
-  records sort to the end, so every era would end in a pile of undated videos
-  until P3 landed anchor dating. A PR must be independently correct, not
-  merely small. **Steps 12 and 13's anchor work therefore moves into P1 as
-  steps 5a/5b**, before this PR opens. P3 keeps only the doorway-specific
-  work.
-
-**2026-08-13 (2) — `era-midpoint` becomes `era-scatter`, and videos need a
-better anchor than either.** The first anchor implementation resolved every
-undated video to the era midpoint, which converts an end-of-era pile into a
-mid-era clump — not what "scatter them about in the timeline" asks for. Fixed
-by step 5c. Separately: `VideoNote` has no pointer to a moment or a track, so
-`related-item`/`related-song` never fire for a video today, and title-matching
-a music video to its track is real cross-module plumbing. That is deferred to
-P3, where Joey's "put it near some content about that song" requirement bites
-properly and doorways need the same lookup. **P1 ships scatter; P3 makes it
-smart.** Tracked as an open thread in `STATE.md`.
-
-**2026-08-13 (3) — how doorways get anchored, now that the data is known.**
-Checked before designing, rather than assumed. Three different populations,
-three different answers:
-
-- **Thread doorways** — a thread has real dated points inside an era
-  (`threadPoints()` in `lenses.ts`). Anchor on the thread's own item in that
-  era. Real date, `via: 'exact'`, and it lands genuinely near related content.
-- **Clue-web eggs (`EggNode`, 30 records)** — carry `year` at 100% coverage
-  and optional `relatedIds` that can point at `song:` / `moment:`. Anchor on
-  `relatedIds` where present, else the year. `lenses.ts:328` already converts
-  these to `${year}-06-01` markers — reuse that precedent, don't invent a
-  second one.
-- **Guide theories & eggs (`TheoryNote`)** — the population Joey's doorway
-  cards actually come from. **Has NO date, NO song pointer, NO moment
-  pointer, and its sources carry no publication date either** (`EggSource` is
-  name + url + reliability). There is nothing real to anchor to.
-
-**Decision for `TheoryNote`: `era-scatter`, and no text-matching heuristic.**
-Matching a theory's title/claim against track titles by substring would be
-exactly the "plausible but not actually verified" move that produces quiet,
-un-auditable wrongness across 12 eras — and it is the same substring matching
-banned in `track-video.ts` for the stronger reason there. Instead, an OPTIONAL
-authored `anchorHint` is added to the theory seed schema, so a human can pin
-individual theories over time and the anchor improves with content rather than
-with cleverness. Joey gave "free reign" on these judgement calls; this is that
-call, and the honest limit of it is that most theory doorways land scattered,
-not beside the song they discuss.
+```ts
+// apps/web/lib/longlive/clown-starters.ts
+/** Column item -> composer text. Pure. Chips never reach the model. */
+export function promptForItem(item: BoardItem): string;
+```
 
 ## Steps
 
-### P0 — decisions (orchestrator, no code)
+Steps 1–5 are **disjoint file sets and run in parallel.** Steps 6+ have real
+dependencies and are sequenced.
 
-0. [ ] Append a `docs/decisions.md` entry dated 2026-08-13 recording, with
-   rationale and who decided: (a) mobile bottom tab bar, **explicitly
-   overriding D3 / the prior on-device rejection recorded in
-   `docs/specs/2026-08-13-landing-page-brief.md` §3.2** — Joey's call, Wyatt
-   to be notified on the PR; (b) the Spotify era player is removed, users go
-   to Spotify in their own tab; (c) one global filter replaces per-era
-   filters; (d) synthetic anchor dates may position undated cards but may
-   never be displayed; (e) Clownbot keeps a top-level tab, so the nav is
-   sized for six.
+### Step 0 — decisions (orchestrator, no code)
+
+0. [ ] `docs/decisions.md` entry dated 2026-08-13: J1–J4 with rationale and
+   who decided, plus the four items still pending on Wyatt. Workflow rule 6
+   requires this BEFORE implementation.
    - Verify: `git diff --stat docs/decisions.md` → one file, entry present.
 
-### P1 — the global filter (PR 1)
+### Steps 1–5 — parallel
 
-1. [ ] Create `filters.ts` + `filters.test.ts` per the contract above.
-   (executor)
-   - Verify: `npm test -- filters` → all pass.
-2. [ ] Lift filter state into `store.tsx` (`filters`, `toggleFilter`,
-   `clearFilters`). Do not touch any other store slice. (executor)
-   - Verify: `npm run typecheck` → clean.
-3. [ ] Build `FilterBar.tsx`: six chips + "All", sticky directly under
-   `TopBar`, 44px targets, `aria-pressed` per chip. Mount once in
-   `EraStream.tsx`. (executor)
-   - Verify: `npm run typecheck && npm run lint` → clean.
-4. [ ] Delete the per-era chip row and `activeTags`/`videosOnly` local state
-   from `EraSection.tsx`; read from the store instead. (executor)
-   - Verify: `grep -n "useState" apps/web/components/longlive/EraSection.tsx`
-     → no `activeTags` or `videosOnly` hit.
-5. [ ] Preserve position across a filter change: in `EraStream.tsx`, before
-   applying a filter change record the active era id and the offset of its
-   section top relative to the viewport; restore it in a `useLayoutEffect`
-   after the re-render. **The user must stay in the era they were in.**
-   (executor)
-   - Verify: `npm test` → green; then manual check in step 6.
-5a. [ ] **Fix `filtersForEntry` to the amended contract** above: thread the
-   inline-video owner set through, and give dated music videos `Music` as well
-   as `Videos`. Update `filters.test.ts` with a case per restored rule — a
-   footage-owning moment is reachable under `{Videos}`, and a music video is
-   reachable under `{Music}`. (executor)
-   - Verify: `npm test -- filters era-feed` → green, both new cases present.
-5b. [ ] **Pull anchor dating forward** (was steps 12–13): create
-   `anchor-date.ts` + tests per the contract, and give every feed entry an
-   `anchor` so undated video records sort into the era rather than piling at
-   its end. Do NOT widen the union to thread/egg kinds yet — that stays in P3.
-   (executor)
-   - Verify: `npm test -- anchor-date era-feed` → green, including the case
-     asserting `displayDate === null` for every non-`exact` source, and a case
-     asserting no undated video lands after the era's last dated card.
-5c. [ ] **`era-midpoint` → `era-scatter`.** Replace the fixed-midpoint fallback
-   with a deterministic hash-of-id position across `[eraStart, eraEnd]`. Same
-   id must always yield the same date (test it); different ids in the same era
-   must yield different dates (test that too, with the real undated-video
-   count in mind — 26 records). `displayDate` stays null, as for every
-   non-exact source. (executor)
-   - Verify: `npm test -- anchor-date era-feed` → green, with a determinism
-     case and a no-clump case.
-6. [ ] Write `scripts/check-filter-coverage.mjs` + its test: fails if any
-   moment, video, thread item or egg that can appear in a timeline carries
-   zero filter ids, and reports (does not fail on) any of the six filters
-   with zero items in a given era. Wire `check:filter-coverage` into
-   `package.json` and the `build` job in `ci.yml`. (executor)
-   - Verify: `npm run check:filter-coverage` → exits non-zero listing
-     untagged items, OR exits 0 if the corpus is already clean.
-6a. [ ] **An era with zero matching items needs a designed empty state.** The
-   checker found folklore and evermore have no Tour items — correctly, since
-   neither era had a tour. With a GLOBAL filter this is now reachable: pick
-   Tour, scroll into folklore, and the era has nothing to show. The section
-   must NOT collapse to nothing — that strands the reader mid-scroll, breaks
-   "you stay in the era you're in", and removes the scrubber's anchors for
-   that era. Keep the era hero and lyric; replace the feed with one quiet,
-   specific line ("Nothing under Tour in folklore.") and leave the section's
-   scroll height intact enough for the scrubber. (executor)
-   - Verify: `npm test -- era-feed scrubber` → green, including a zero-match
-     era case.
-7. [ ] Backfill tags for every item the checker flags. **As of 2026-08-13 this
-   is a NO-OP — `check:filter-coverage` exits 0, zero offenders.** Keep the
-   step so the checker's verdict is re-read if the corpus changes. This is content work —
-   assign the most defensible of the six; do not invent facts. (grunt, from
-   the checker's output list)
-   - Verify: `npm run check:filter-coverage` → exit 0.
-7a. [ ] **Videos carry no topic tags.** `VideoNote` has no `tags` field, so
-   `filtersForEntry` returns `['Videos']` and nothing else — meaning a music
-   video does not match the Music chip. Coverage still holds (every video
-   matches Videos), and this is not a regression: today Videos is a separate
-   mutually-exclusive axis, so a topic chip never showed videos either. But
-   with Videos now a peer chip it reads as a gap. Have the checker REPORT
-   videos that carry no topic tag, then decide with Joey whether to author
-   topic tags onto `VideoNote` in a follow-up. **Do not auto-assign topics to
-   videos by inference in this PR.**
-   - Verify: `npm run check:filter-coverage` → reports the count, exits 0.
+1. [ ] **Content shelf.** Write
+   `docs/proposals/2026-08-13-clownbot-shelved-content.md` capturing, verbatim,
+   everything in build A not carried forward: `CANON`'s 3 entries,
+   `EMPTY_STATE_HEADING`/`_BODY`, `wigCountLine()`, the 9-chip rotating row and
+   its selection logic, the Evidence/Confidence meter copy and `METER_NOTE`,
+   `DEGRADED_*` copy, and the persona/disclosure strings. Note where each came
+   from. **This must land before any deletion in Step 6.** (grunt)
+   - Verify: `grep -c "" docs/proposals/2026-08-13-clownbot-shelved-content.md`
+     → non-zero; every symbol named above appears in it.
+2. [ ] **`clown-blocklist.ts` + `clown-safety.ts` + tests.** Port from
+   `clownbot-safety.ts` and `clownbot-battery-corpus.ts`. Phrase lists are
+   MIRRORED from `scripts/content-engine/config.mjs` with pointer comments both
+   ways — **never imported across the `scripts/` ↔ `apps/web` boundary**
+   (repo precedent: `hot-thin-topic.mjs`). Crisis path reuses `mood-safety.ts`'s
+   `normalizeForCrisis` and the verbatim `CRISIS_MESSAGE`. (executor)
+   - Verify: `npm test -- clown-safety clown-blocklist` → green, and every case
+     from A's battery corpus is present.
+3. [ ] **`clown-index.ts` + `clown-retrieve.ts` + tests.** Index over threads /
+   theories / rumors / moments. Blocklist pre-filter runs at INDEX BUILD time so
+   blocked material never enters the index at all. `detectRecencyIntent()` per
+   spec. (executor)
+   - Verify: `npm test -- clown-retrieve clown-index` → green, including a case
+     asserting a blocklist-tripping doc is absent from the built index.
+4. [ ] **`clown-board.ts` + `clown-names.ts` + tests.** Both columns per the
+   contract. Port the ledger derivation. (executor)
+   - Verify: `npm test -- clown-board` → green, including a determinism case
+     and a **fewer-than-10 case** asserting no padding.
+5. [ ] **`clown-fallback.ts` + `clown-starters.ts` + tests.** Deterministic card
+   composer with fixed framing lines; zero model calls. (executor)
+   - Verify: `npm test -- clown-fallback clown-starters` → green.
 
-### P2 — era body surgery (PR 2)
+### Steps 6+ — sequenced
 
-8. [ ] Remove `<EraMedia>` from `EraSection.tsx` and delete `EraMedia.tsx`.
-   (grunt)
-   - Verify: `grep -rn "EraMedia" apps/web --include=*.tsx --include=*.ts`
-     → only the `EraMedia` *type* in `types.ts` remains.
-9. [ ] Build `TrackGuideBar.tsx` — full-width bar in the slot `EraMedia`
-   vacated, carrying the same visual weight and a play button, opening
-   `TrackGuide`. Remove the old three-pill guide row. (executor)
-   - Verify: `npm run typecheck && npm run lint` → clean.
-10. [ ] Give `TrackGuide.tsx` inline per-track video playback, reusing
-    `MomentVideo`. Respect the click-to-load rule — no iframe mounts before a
-    click. (executor)
-    - Verify: `npm test -- video track-video` → green.
-    - **This is where the video→song lookup gets built**, not P3. A track has
-      no pointer to a video, so pairing them needs title matching. Build it as
-      a pure, tested `lib/longlive/track-video.ts`, because P3 needs the same
-      lookup to anchor an undated egg "near some content about that song"
-      (Joey's words) — see § Plan amendments (2). Matching must be
-      conservative: a wrong pairing puts the wrong song's video on a track,
-      which is worse than no video at all. No fuzzy/edit-distance matching.
-11. [ ] Remove `<EraVideos>` from `EraSection.tsx`, delete `EraVideos.tsx`,
-    and confirm the scrubber's end-of-era sentinel still sits after the last
-    feed card. (executor)
-    - Verify: `npm test -- scrubber` → green.
-
-### P3 — timeline doorways (PR 3)
-
-12. [x] ~~Create `anchor-date.ts` + tests.~~ **Moved to P1 step 5b** — see
-    § Plan amendments. Nothing to do here.
-13. [ ] Widen `EraFeedEntry` to the four-kind union (`anchor-date.ts` already
-    exists by now): thread doorways and egg doorways get anchors and filter
-    ids. `filtersForEntry`'s `never` check will fail to compile until the new
-    kinds are handled — that is deliberate. Update `era-feed.test.ts`.
-    (executor)
-    - Verify: `npm test -- era-feed filters` → green.
-14. [ ] Implement `spaceDoorways()` so doorways never clump. (executor)
-    - Verify: `npm test -- era-feed` → green, including a clumping case.
-14a. [ ] **Clamp a thread doorway's anchor into its era.** Found in review:
-    `threadPoints` can hand back a point dated OUTSIDE the era's nominal
-    window (love-story's relationship dates predate the era they surface in),
-    so a doorway can currently sort to the era's chronological edge — and
-    `TimelineScrubber` interpolates positions from card dates, so an
-    out-of-window date distorts that era's rail. Clamp the anchor into
-    `[eraStart, eraEnd]`. **A clamped anchor is no longer `exact`**, so its
-    `displayDate` becomes null and no date is shown — the honesty rule holds
-    without exception. Only clamp when genuinely out of range; a doorway whose
-    point falls inside the era keeps its real date. (executor)
-    - Verify: `npm test -- era-feed doorways scrubber` → green, with a case
-      for an out-of-window point and one for an in-window point.
-14b. [ ] **Collapse the `mergeEraFeed` overloads once step 15 lands.** The
-    4-arg/5-arg overload pair was scaffolding so the union could widen without
-    touching `EraSection.tsx` in a logic-only dispatch. Once the component
-    renders all four kinds, the narrow overload is dead — delete it and ship
-    ONE signature. Do not leave a dual API behind. (executor, with step 15)
-    - Verify: `grep -n "export function mergeEraFeed" apps/web/lib/longlive/era-feed.ts`
-      → exactly one signature.
-15. [ ] Build `DoorwayCard.tsx` (thread + egg variants), render it from
-    `EraSection.tsx`'s feed loop. Same card silhouette as a moment card so it
-    reads as part of the story, not an ad. (executor)
-    - Verify: `npm run typecheck && npm run lint` → clean.
-16. [ ] Back-to-position: add the `ReturnPoint` stack to `store.tsx`, push on
-    doorway tap, restore on dismiss via the existing `useBackDismiss` path.
-    (executor)
-    - Verify: `npm test` → green; manual check in the run step.
-17. [ ] **R4:** every egg detail gets a prominent, obvious link back to the
-    thread it came from, plus a line making clear a whole section is devoted
-    to theories and eggs. (executor)
-    - **`EggDoorway.threadId` is currently null for `kind === 'theory'`** —
-      only `easter_egg` maps to a thread. That fails R4 as written: Joey said
-      "**every** egg can point the user back", and "when I click on a
-      particular theory... I should be immediately educated that there's an
-      entire section dedicated to theories and eggs." A null pointer teaches
-      nobody anything.
-    - So: read what the `easter-eggs` and `hidden-clues` threads actually
-      contain, map `kind === 'theory'` to whichever genuinely fits, and REPORT
-      which you chose and why. If neither fits a given record, the detail must
-      STILL carry the "there is a whole section for this" line pointing at the
-      Threads section — the educational half of R4 is unconditional even when
-      a specific thread link isn't available.
-    - Verify: `npm run typecheck --workspace=@swift2/web` → clean; plus a test
-      asserting no theory/egg detail can render without a back-link.
-
-### P4 — mobile navigation (PR 4)
-
-18. [ ] Build `BottomNav.tsx`: mobile-only (`md:hidden`), fixed bottom,
-    `env(safe-area-inset-bottom)` padding, 44px targets, `aria-current` on
-    the active tab, 4 tabs today, degrading to icon-only at 6. (executor)
-    - Verify: `npm run typecheck && npm run lint` → clean.
-19. [ ] `TopBar.tsx`: on mobile drop the pills, render the context label —
-    `Era: TLOSG` shortened on mobile / full name on desktop, `Thread: End
-    Game` in a thread. Desktop keeps the pill rail. The masthead must still
-    collapse into this bar on scroll exactly as it does today. (executor)
-    - Verify: `npm run typecheck` → clean.
-20. [ ] `FeedbackButton.tsx`: float above the bottom nav on mobile, add an X
-    that dismisses it for the rest of the session (sessionStorage, using the
-    SSR-safe hydrate-after-mount pattern from `progress.ts`), and hide the
-    bottom nav while a text input is focused so Mood's keyboard doesn't
-    collide. (executor)
-    - Verify: `npm test` → green.
-
-### P5 — masthead (PR 5)
-
-21. [ ] `gloss-rotation.ts` + tests: deterministic daily pick of one section
-    gloss, same approach as the era-secret rotation. (executor)
-    - Verify: `npm test -- gloss-rotation` → green, including a determinism
-      test (same date in ⇒ same section out).
-22. [ ] `LandingMasthead.tsx`: keep the top portion Joey likes, update the
-    tagline copy, render the single rotating gloss line, tappable to that
-    section. (executor)
-    - Verify: `npm run typecheck && npm run lint` → clean.
-
-### Close-out
-
-23. [ ] Update `docs/longlive-experience.md` — the era-body outline, the nav
-    description, the filter contract, and the anchor-date honesty rule.
-    (executor)
-    - Verify: `grep -n "Play the era" docs/longlive-experience.md` → no hits.
-24. [ ] Full suite + the gates. (executor)
-    - Verify: `npm test && npm run typecheck && npm run lint &&
-      npm run check:generated && npm run check:filter-coverage` → all green.
-25. [ ] `/codex:review` on each PR's diff; fix every finding before the PR is
-    declared done (Workflow rule 3 — `reviewer` does not satisfy this).
-    - Verify: review returns clean.
+6. [ ] Delete every build-A file listed in § Salvage as "Deleted". Only after
+   Step 1 has landed. (grunt)
+   - Verify: `grep -rn "clownbot-" apps/web --include=*.ts --include=*.tsx`
+     → only the deliberately-kept `clownbot-lore.ts` remains.
+7. [ ] `clown-client.ts` + `clown-gate.ts` + `clown-usage.ts`. Model tier as a
+   single exported constant. Cap default per spec (200/day/instance), pending
+   Wyatt. (executor)
+   - Verify: `npm test -- clown-client clown-usage` → green.
+8. [ ] `app/api/clown/route.ts`. Stage order, non-negotiable: rate-limit →
+   kill-switch → crisis → input blocklist → retrieval → compose-or-fallback →
+   output gate. A blocked topic returns the fixed in-character redirect and
+   **the model is never consulted**. (executor)
+   - Verify: `npm test -- api/clown` → green, with cases for valid, bad-id,
+     novel-entity, blocklisted, over-cap, and no-API-key.
+9. [ ] `ClownChat.tsx` + `ClownBoard.tsx` + `ClownItemCard.tsx`.
+   - Title: `font-era`, matching the shipped page-title pattern.
+   - Composer + transcript box at the era column width (`max-w-4xl`).
+   - Placeholder "lets clown around" — a real `placeholder`, so it clears on
+     focus and is never submitted as content.
+   - Board: `grid grid-cols-1 items-start gap-5 md:grid-cols-2 md:gap-6`.
+   - Tapping an item prefills the composer; it does not auto-send.
+   - Column 1 renders gracefully at fewer than 10 items.
+   - Delulu only in the answer header (J4). Source cards beneath.
+   - Colors via era CSS tokens only. No Taylor imagery. (executor)
+   - Verify: `npm run typecheck --workspace=@swift2/web && npm run lint` clean.
+10. [ ] **Capture the seed example.** Pick a question about an existing corpus
+    theory, run it through the real route once with a live key, freeze the
+    verbatim response into `clown-seed-example.ts`. Report which theory and
+    show the captured answer. If the pipeline can't be run, STOP and report.
+    (orchestrator — needs a key, and needs judgment about which answer
+    represents the bot well)
+    - Verify: the seed renders on load with no network request.
+11. [ ] Wire-up: `store.tsx` transcript (client-held, ~6 messages, **zero
+    server storage**), `share.ts` union (`'clown'` → `null`, like mood),
+    `TopBar.tsx`, `LongLive.tsx`. (executor)
+    - Verify: `npm run typecheck --workspace=@swift2/web` clean.
+12. [ ] **Red-team battery as a required CI check (J3).** `clown:battery` in
+    `package.json` running the corpus battery against a mocked model — no API
+    key, deterministic, CI-safe. Add to the `build` job in `ci.yml`. The
+    live-key battery stays a separate manual pre-flight. (executor)
+    - Verify: `npm run clown:battery` → exit 0; `ci.yml` diff shows the step
+      inside `build`.
+13. [ ] Docs: `definition-of-done.md` item 7 (flip 🔴, remove the stale
+    "no request-path LLM" line), `docs/longlive-experience.md` Clownbot
+    section, `MAP.md`. (executor)
+    - Verify: `grep -n "no LLM in a user-request path" docs/` → no hits.
+14. [ ] Full suite + gates. (executor)
+    - Verify: `npm test && npm run typecheck --workspace=@swift2/web &&
+      npm run lint && npm run check:generated && npm run clown:battery` green.
+15. [ ] Codex review on the full diff; fix every finding before the PR is
+    declared done (Workflow rule 3 — the in-house `reviewer` does not satisfy
+    this). Contract, per CLAUDE.md as amended 2026-08-13 and
+    `docs/agents/codex.md`:
+    - `/codex:review` is **human-only** (`disable-model-invocation`). A session
+      must not run it and must not reproduce it by other means.
+    - Use the `codex:rescue` skill → `codex:codex-rescue` subagent via `Agent`.
+    - **Pass `--background`.** Without it the forwarder blocks, times out at
+      10 minutes and returns nothing, while a real review takes ~15.
+    - Read the result with `codex-companion.mjs result <job-id>`. Never trust
+      the relay's inline summary.
+    - Never hand the review back to a founder — this session deploys Codex.
+    - This is an architectural change (a request-path LLM surface shipping live
+      on merge), so prefer the **adversarial** review over the standard one.
 
 ## Known risks
 
-- **Six tabs do not fit 390px labelled.** At 4 tabs use icon + label; the bar
-  must already implement the icon-only degradation for 5–6 so Marketplace and
-  Community don't force a redesign. Test the bar with 4, 5 and 6 stub entries.
-- **Bottom bar collides with three things** — mobile browser chrome, the home
-  indicator, and Mood's keyboard. Safe-area insets handle the first two;
-  step 20 handles the third. If any collision survives on a real device, stop
-  and report — do not ship around it. This is the exact objection that got the
-  bottom bar rejected before.
-- **An untagged item is invisible under any active filter.** That is why P1
-  step 6 precedes everything else. If the checker finds a large backlog,
-  report the count and stop rather than mass-assigning tags by guesswork.
-- **Filter change must not move the user between eras.** If the offset
-  restoration in step 5 proves flaky, anchor on the era's section top rather
-  than raw `scrollY` — do not fall back to scrolling to top.
-- **`EraSection.tsx` is already 521 lines** and this plan adds to it. Split it
-  (feed loop, hero, doorway rendering) and record the split in `MAP.md`.
-  Files stay under 300 lines.
-- **The scrubber depends on feed anchors being monotonic.** Removing the
-  videos rail and adding doorways both touch that. Run `npm test -- scrubber`
-  after P2 and P3, not just at the end.
+- **Deleting build A before the shelf doc lands loses content.** Step 1 gates
+  Step 6 for exactly this reason. Joey asked explicitly that nothing be lost.
+- **Live on merge (J3) means the first real traffic has no human gate.** The CI
+  battery is the only thing standing between a bad merge and users. If the
+  battery is weakened to make CI pass, the posture is silently gone. Never
+  delete a battery case; only add.
+- **Mirror-not-import for blocklist phrases.** An import across
+  `scripts/` ↔ `apps/web` will pass locally and break the build.
+- **A padded theory column lies.** Fewer than 10 is correct output, not a bug.
+- **Two matchers, one app** (`STATE.md` trap): grep for other callers before
+  declaring any matching behaviour fixed.
+- **Model tier and caps are Wyatt's.** Building against Mood's tier is a
+  placeholder, not a decision. Keep it a one-line change.
+- `npm run typecheck` is repo-wide-red on `apps/mobile` — use
+  `--workspace=@swift2/web`.
 
 ## Do not
 
-- Don't refactor anything not listed above.
-- Don't add dependencies.
-- Don't change tests that currently pass.
-- Don't display a synthetic anchor date as if it were real.
-- Don't add a Threads filter chip (R2 scrapped it).
-- Don't convert the reader to real URL routes in this work.
+- Don't refit build A (J1).
+- Don't build toward the phase-2 engine (J2).
+- Don't rewrite the safety module or thin the battery corpus.
+- Don't import blocklist phrases across the `scripts/` boundary.
+- Don't pad the theory column.
+- Don't hand-write the seed example answer.
+- Don't touch the primary checkout or `feature/era-reader-p4`.
 - Don't proceed past a failed verification — report it and stop.
