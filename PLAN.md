@@ -63,6 +63,60 @@ These are counted, not assumed. Every design decision below rests on them.
    (clothing / vinyl / jewellery), **that field does not exist** and is another
    content task.
 
+## The design (Fable evaluation, 2026-08-14) — build from this, don't improvise
+
+Measured on the running site: **Community 7,961px with Facebook 4.6 screens
+down; Merch 15,477px as one flat list** (~25k on a phone). Desktop numbers are
+measured; mobile is projected from the single-column breakpoint (the viewport
+could not be resized — treat mobile figures as conservative estimates).
+
+**The chrome rule that makes this work — one sticky element, ever.** H1 →
+big 50/50 toggle (48px) → rich index all sit in NORMAL FLOW and scroll away.
+A single **44px rail** then pins under the TopBar, holding a compact
+Social/Merch mini-toggle + the jump chips in one row. The rail appears exactly
+when the big toggle leaves the viewport (IntersectionObserver), so there is
+never a frame showing both. Total pinned chrome ≈ 96px. **Never two sticky bars.**
+
+**The index — counts are the preview.** Chips carry their number
+(`Discord 11`, `Midnights 23`) plus a summary line (`30 communities · 8
+platforms` / `151 shoppable looks · 12 eras`), all computed from data, never
+hardcoded. Tap = jump. Numbers = depth. Deliberately NOT the filter-chip
+language: these are quiet **outline** chips (anchors), never solid-fill pills
+(filters). Scroll-spy marks the in-view section via `aria-current`.
+Social chips order by **descending count** (today's order is arbitrary
+data-file order); Merch chips order **newest era first** with an 8px dot in
+that era's own accent, read from `ERAS` theme data, not literals.
+
+**Merch organisation:** 12 era sections, newest first, each headed with a
+`13 looks` sub-line; within an era sort by moment date. Filters use the
+FilterBar language (solid-fill = filter): `All`, `In stock` (14 sold out),
+`The exact piece` (~18 — the rare, high-value bucket), and three price bands.
+**No garment-type filter** — there is no `kind` field and inferring type from
+item names misfiles things ("Flat Iron Hair Straightener" is not apparel).
+Spec `kind?` as a content task; add the chips when coverage reaches ~80%.
+Filtered-out era sections keep their header with `0 of 13 match` rather than
+vanishing.
+
+**Merch card:** horizontal row, image left (72px mobile / 88px desktop,
+lazy-loaded), text right — brand overline → item name (2-line clamp) → price.
+**Flip the badge salience:** "Similar style" is on **88% of cards**, so it is
+noise at full volume — restyle it quiet, and give the accent to the ~18
+`The exact piece` products. Keep it visible regardless (the 2026-07-20
+honesty decision). Replace the centered orange `From <moment>` with a
+left-aligned soft `Her look · <moment title>`.
+
+**Official / fan-made:** render-gate it. A source chip appears only when its
+bucket has ≥1 item, and the row only when ≥2 buckets are non-empty. **Delete
+the two "Nothing curated here yet" stubs** currently sitting at 14,721px depth.
+
+**Also worth doing** (ranked, from the evaluation): clamp community
+descriptions to 3 lines with an expander — cards average 311px and the page is
+hostile even with an index — but **never truncate flags**, they are safety
+signals; promote member count to a scannable stat and mark `verified-live`
+positively, since today only distrust is marked; add a `+ Suggest a link`
+anchor chip so the submit form is reachable from the top; order community
+groups by size; cross-link era → merch.
+
 ## Files touched
 
 | Path | Change |

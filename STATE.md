@@ -7,36 +7,38 @@
 
 **ACTIVE: merge Community + Merch into one section, redesign both.** Joey
 2026-08-14. **Drop the Merch tab** (nav → five labelled: Eras, Threads, Mood,
-Clownbot, Community), title stays "Community", **full-width 50/50 toggle** under
-it switching **Social** / **Merch**. Plus a section-jump subnav that also
-PREVIEWS what is below ("you have no idea how much is down there"), merch
-organised with era-style filters, and an image on every merch item.
+Clownbot, Community), title stays "Community", **full-width 50/50 toggle**
+switching **Social** / **Merch**, a section-jump subnav that also PREVIEWS depth,
+era-style merch filters, and an image on every merch item.
 
-**`PLAN.md` holds the scout facts and the constraints — read it, not this.** The
-Fable design evaluation is still running (a model override, NOT an architect
-escalation). **Two of Joey's six asks are blocked on CONTENT, not code, and are
-his calls: `Product` has NO image field and 0 of 151 have an image; and
-`officialStore`/`fanMade` are both empty, so those selectors would ship dead.**
+**`PLAN.md` holds the facts, the Fable design spec, and the steps — read it, not
+this.** (That spec was a model override, NOT an architect escalation.)
+
+**The image blocker may be dissolved — VERIFYING, do not act on it yet.** The
+spec claims 147/151 products can use their source MOMENT's photo (the look as
+worn) rather than a sourced product shot. **Trap:** `types.ts` warns *"every
+item has a non-empty `images`, so 'has images' alone proves nothing"* — moments
+without a real photo get an era-art stand-in and only `hasRealPrimaryImage()`
+separates them. A scout is recounting.
 
 **Nav fit is settled:** five labelled tabs FIT — 390/430px comfortably, 320px on
-~1.2px slack (proxy-measured), so 320 is probable-not-proven. **Any label longer
-than "Community" breaks 320px.**
+~1.2px slack (proxy-measured), so probable-not-proven. **Any label longer than
+"Community" breaks 320px.**
 
 **Actions is down, so work stays committed on the local branch.** The worktree's
-objects live in the real repo (`Projects\Swift2\.git`), so local commits are
-durable though Temp holds the files. Wyatt is fixing it; push when it returns.
+objects live in the real repo, so local commits are durable though Temp holds
+the files. Wyatt is fixing it; push when it returns.
 
 Shipped 2026-08-14: Community + Merch `22314d5b` (#2112) on `109e776a` (#2110);
-era reader `e8500905` (#2086); device review `ff4df4ab` (#2099); Clownbot
-`3d553340`/`b8a500a3`/`d969a29e` — confirmed live via shipped bundles.
+era reader `e8500905`; device review `ff4df4ab`; Clownbot `3d553340`/`b8a500a3`.
 
 **The submit form only files GitHub issues until Joey does three things** in
 `docs/ops/community-merch-submissions.md`: deploy the Apps Script, verify
 `longlivets.com` in Resend, add the env vars. Sheet
 `1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4` in "Swift App" — **16-column order
-fixed; both senders must match it.** Invariants: **nothing user-submitted ever
-renders** (#36), **never fetches a submitted URL** (SSRF), **a missing
-integration must never fail a submission.**
+fixed; both senders must match.** Invariants: **nothing user-submitted renders**
+(#36), **never fetches a submitted URL** (SSRF), **a missing integration must
+never fail a submission.**
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
@@ -103,20 +105,18 @@ one.** Standing, NOT spent: **"don't allow codex reviews more than 2 rounds."**
 ## Decisions that are settled
 
 - Era reader: bottom nav (overrides D3), Spotify player removed, one global
-  filter, anchor dates sort-only, Clownbot keeps its tab; Clownbot rulings J1–J7
-  (`docs/decisions.md` 2026-08-13). **Joey reversed his own brief once: there is
-  NO Threads filter chip.** Six filters forever: Music, Fashion, Tour,
-  Relationship, Lore, Videos. Plans need no sign-off; no local-concurrency cap.
-  Merge authority is human. Runners on Wyatt's account. No self-armed monitors.
+  filter, anchor dates sort-only; Clownbot rulings J1–J7 (`docs/decisions.md`
+  2026-08-13). **Joey reversed his own brief once: there is NO Threads filter
+  chip.** Six filters forever: Music, Fashion, Tour, Relationship, Lore, Videos.
+  Plans need no sign-off. Merge authority is human. No self-armed monitors.
 
 ## Known traps
 
 **The durable ones live in `docs/engineering-lessons.md` — read it before
 touching `apps/web`, the safety gates, or the community dataset.** A passing
-suite is not evidence; `apps/web` is unlinted so "lint clean" proves nothing;
-over-refusal and under-blocking pull opposite ways; a sum of heights is not a
-position; `pointer-events` inherits; two mechanisms for one fact; the dormant
-affiliate seam; user text in a spreadsheet is a formula; research blockers.
+suite is not evidence; `apps/web` is unlinted; over-refusal and under-blocking
+pull opposite ways; a sum of heights is not a position; `pointer-events`
+inherits; two mechanisms for one fact; user text in a spreadsheet is a formula.
 
 - **Joey asked for a 30-min recurring cron to "keep you going" (2026-08-14).
   RAISED, not built** — § Never babysit your own PR bans it, and it would not
