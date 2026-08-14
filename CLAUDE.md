@@ -253,6 +253,11 @@ agents doing exactly this — the "doom loop"):
 
 - Stack and coding standards: `docs/architecture.md` (once the stack is
   chosen, standards live there — keep this file about workflow)
+- **Defects that cost more than one review round: `docs/engineering-lessons.md`.**
+  Read it before touching `apps/web`, the Clownbot safety gates, or the
+  community dataset. It is where a trap goes once it outlives the sprint —
+  `STATE.md` is capped at 150 lines and pruned every checkpoint, so a lesson
+  left only there is a lesson scheduled for deletion.
 - Commit messages: short imperative summary, body explains why
 - Branch names: `feature/<short-name>`, `fix/<short-name>`
 - PR descriptions: open with a 1–2 sentence plain-language **TL;DR for

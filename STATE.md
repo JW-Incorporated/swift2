@@ -5,49 +5,44 @@
 
 ## Current focus
 
-**Community + Merch sections** — branch `feature/community-merch`, commits
-`0b347d66` (build) + `f21b9b88` (review fixes). Spec in `PLAN.md`. `origin/main`
-merged in; **PR #2110 is MERGED (`109e776a`)**, so the dataset is on main.
+**Nothing in flight.** Community + Merch **MERGED `22314d5b` (#2112)** on top of
+the dataset **MERGED `109e776a` (#2110)**. Both sections are live. Earlier the
+same day: era reader `e8500905` (#2086), device review `ff4df4ab` (#2099),
+Clownbot `3d553340` / `b8a500a3` / `d969a29e`. Clownbot was confirmed live by
+fetching the shipped JS bundles, not inferred from a green build. Rulings J1–J7
+and the 2026-08-14 entries are in `docs/decisions.md`.
 
-**Fable review: round 1 REJECT (5 findings) → all fixed → round 2 APPROVE**, all
-five re-verified by reproduction, no regressions. 2881/2881, typecheck clean.
-Joey's 2-round cap is now spent and Codex is out until Aug 19 — **no further
-review is available for this branch.**
+**The submit form does nothing useful until Joey does three things** in
+`docs/ops/community-merch-submissions.md`: deploy the Apps Script, verify
+`longlivets.com` in Resend, add the env vars. Until then submissions land only
+as GitHub issues — by design, but that is what he has today.
 
-The HIGH was **CSV/formula injection into Joey's own sheet**: the route accepted
-`note`/`sourcePage` the form never sends and passed them raw to `appendRow`. A
-value starting `= + - @` becomes a live formula firing when **Joey** opens the
-sheet; the PoC exfiltrated it via `IMPORTXML`. Fixed on both sides —
-`neutralizeCell` (route) and `neutralizeCell_` (Apps Script) are the SAME rule
-deliberately duplicated, because that webhook may one day have another caller.
-**Change one, change both.** The unused fields were deleted, not sanitised.
+Community + Merch got **two Fable rounds: REJECT (5 findings) → all fixed →
+APPROVE**, everything re-verified by reproduction, plus one LOW fixed after
+(formulas hidden behind leading whitespace). Merged at 2890/2890, typecheck
+clean. The HIGH was **CSV/formula injection into Joey's own sheet** — the route
+accepted `note`/`sourcePage` the form never sends and passed them raw to
+`appendRow`, so a value starting `= + - @` became a live formula firing when
+*Joey* opened the sheet; the PoC exfiltrated it via `IMPORTXML`. `neutralizeCell`
+(route) and `neutralizeCell_` (Apps Script) are now the SAME rule deliberately
+duplicated across a trust boundary. **Change one, change both.**
 
-Three non-negotiable properties:
+Three properties of that endpoint are non-negotiable:
 
 - **Nothing a user submits ever renders on the site.** Issue #36's no-go
   (`docs/definition-of-done.md:206-212`) forbids UGC-hosting liability.
-  Submissions go to sheet + inbox + GitHub issue; Joey curates by hand — which
-  is his own stated intent, so it costs nothing.
+  Submissions go to sheet + inbox + GitHub issue; Joey curates by hand — his own
+  stated intent, so it costs nothing.
 - **The endpoint never fetches a submitted URL** — SSRF and DoS amplifier.
 - **A missing integration must never fail a submission.** Swift2 has NO runtime
   email (mail is Python+Gmail from Actions, unreachable from a route) and NO
-  Sheets write anywhere in the tree; the Resend key is verified for
-  `4twatches.com` only. Three sinks degrade independently: GitHub issue (day
-  one), Sheet (`SUBMISSIONS_SHEET_WEBHOOK_URL`), email (`RESEND_API_KEY`).
+  Sheets write anywhere; the Resend key is verified for `4twatches.com` only.
+  Three sinks degrade independently: GitHub issue (day one), Sheet, email.
 
 **The IP rate limiter cannot be made authoritative** behind a proxy that lets
 callers set `x-forwarded-for`. Best-effort; the honeypot is the real floor.
-Do not chase a guarantee that is not available.
-
-Sheet id `1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4` in the "Swift App" Drive
-folder. **Its 16-column order is fixed and both senders must match it.** Merch
-is not empty — `shop.ts` holds 151 shop-the-look products read live off
-`CONTENT`, never re-authored.
-
-Shipped 2026-08-14: era reader `e8500905` (#2086), device review `ff4df4ab`
-(#2099), Clownbot `3d553340` / `b8a500a3` / `d969a29e`, community research
-`109e776a` (#2110). Clownbot confirmed live by fetching the shipped JS bundles,
-not inferred from a green build. Rulings J1–J7 in `docs/decisions.md`.
+Sheet id `1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4`, "Swift App" Drive
+folder — **its 16-column order is fixed and both senders must match it.**
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
@@ -55,13 +50,18 @@ not inferred from a green build. Rulings J1–J7 in `docs/decisions.md`.
   merging did not resolve them. (1) **Instagram + TikTok** — item 4b names both,
   the brief omitted them; different shape (creator accounts, not joinable
   groups), so scope was not widened unilaterally. (2) **Who owns the refresh
-  cadence** — invites rotate, groups go private; accurate 2026-08-14, decays
-  from there. (3) Ratify or veto excluding **`r/TravisAndTaylor`** as an
-  anti-fan snark board; `r/GaylorSwift` kept but flagged private since Aug 2025.
+  cadence** — invites rotate, groups go private; accurate 2026-08-14 and decays.
+  (3) Ratify or veto excluding **`r/TravisAndTaylor`** as an anti-fan snark
+  board; `r/GaylorSwift` kept but flagged private since Aug 2025.
 - **Codex out until Aug 19 2026 — Workflow rule 3 UNSATISFIED** for Clownbot AND
-  this feature. **Run Codex against merged `main` when it returns.** A
+  Community + Merch. **Run Codex against merged `main` when it returns.** A
   `reviewer` on `model: "fable"` is the authorised stand-in, required to
   REPRODUCE rather than read — which is why it finds what reading passes miss.
+- **`guard-code` + `enable` are red on EVERY code PR — issue #2113, pre-existing,
+  not yours.** The verdict is correct (an API route reading secrets is not
+  auto-mergeable); it just exits 1 under `bash -e` instead of emitting
+  `server_code`. #2108 and #2112 both merged in this state. **`build` is the
+  merge gate** — don't treat these as blocking, don't fix them in a feature PR.
 - **Wyatt owns FIVE unsettled items:** Clownbot's model tier (`claude-sonnet-5`,
   one named constant), the 200/day/instance cap, ratifying the Mood route
   pattern, signing the Clownbot decisions entry, and the era reader's bottom nav
@@ -78,16 +78,18 @@ not inferred from a green build. Rulings J1–J7 in `docs/decisions.md`.
 
 ## Merge authorization
 
-Per-workstream, never standing. Live: **"please merge when completed"** covers
-Community + Merch. All earlier grants are spent. Standing and NOT spent:
-**"don't allow codex reviews to go more than 2 rounds."**
+Per-workstream, never standing — **all current grants are now spent.** A new
+effort needs a new grant. Standing and NOT spent: **"don't allow codex reviews
+to go more than 2 rounds."**
 
 ## Autonomous decisions — review surface
 
 - Merged #2110 on standing authorisation while Joey's three questions stay open,
   because the feature branch depended on it. Questions logged, not dropped.
-- Fixed round 2's LOW (whitespace-prefixed formulas) rather than shipping it as
-  a named open finding — two lines, inside the class already being fixed.
+- Fixed round 2's LOW (whitespace-hidden formulas) rather than shipping it as a
+  named open finding — two characters, inside the class already being fixed.
+- Merged #2112 with `guard-code`/`enable` red, after confirming the same pair was
+  red on merged #2108 and that `build` was green. Filed as #2113 instead.
 
 ## Architect invocations
 
@@ -108,58 +110,22 @@ Community + Merch. All earlier grants are spent. Standing and NOT spent:
 
 ## Known traps
 
-- **A passing suite is not evidence; EXECUTION against the real corpus is.**
-  Every genuine defect this week came from running the pipeline over live data,
-  never from reading code — each time 2600+ green tests had made us confident
-  and wrong, because fixtures used the easy case. Demand a reproduction.
-- **`apps/web` IS NOT LINTED BY ANYTHING** (verified 2026-08-14): root
-  `eslint.config.mjs` ignores `apps/web/**` (line 13), `apps/web/package.json`
-  has no lint script, CI runs the root lint. **"lint clean" says nothing about
-  any component or lib module there** — typecheck and the suite are the only
-  real gates. Turning it on is its own task; bundling it into a feature PR makes
-  the diff unreviewable.
-- **Over-refusal and under-blocking pull in opposite directions in the Clownbot
-  gates. Any change to one must be tested against both.** Round 1's fix bricked
-  sessions: screening the bot's own refusal copy with input patterns meant one
-  refusal permanently killed the conversation. Both directions now pinned.
-- **`shop.ts`'s affiliate seam is DORMANT, not absent.** `isAffiliate()` returns
-  false for every retailer, `SHOP_DISCLOSURE` never renders. **The moment anyone
-  flips `isAffiliate`, disclosure MUST render** — a one-file change silently
-  carrying a compliance duty.
-- **A SUM of heights is not a POSITION.** Four fixes died here. Ask the DOM where
-  an edge IS (`getBoundingClientRect().bottom`) and recompute on scroll;
-  `measureChromeBottom()` vs `measureChromeHeight()` encodes the distinction.
-- **`pointer-events` INHERITS — a `pointer-events-none` shell does not protect
-  you.** Eleven `opacity-0` adornments were invisible AND hit-testable. **Verify
-  a control with `elementFromPoint` and a real tap**, never by checking that its
-  container moved — that mistake cost two review rounds.
-- **Two mechanisms for one fact is this repo's recurring defect** — three times
-  in one branch. Grep for other callers before declaring a fix done.
-- **Reddit blocks this environment outright** (403 on `www.` and `oauth.`,
-  WebFetch refuses the domain). Published r/TaylorSwift counts span 200k–3.8M
-  across sources fetched the same week — **aggregators are not a substitute.**
-  15 of 30 communities carry `memberCount: null` BY DESIGN; never write 0.
-  Facebook is invisible from outside a login; half of public Discord listings
-  are wrong (verify via `discord.com/api/v10/invites/<code>?with_counts=true`);
-  Amino shut down entirely 2025-12-19 and listicles still cite it.
+**The durable ones now live in `docs/engineering-lessons.md` — read it before
+touching `apps/web`, the safety gates, or the community dataset.** It carries:
+a passing suite is not evidence; `apps/web` is unlinted so "lint clean" proves
+nothing; over-refusal and under-blocking pull opposite ways; a sum of heights is
+not a position; `pointer-events` inherits; two mechanisms for one fact; the
+dormant affiliate seam; anything user-supplied reaching a spreadsheet is a
+formula; and every external-research blocker (Reddit, Facebook, Discord, Amino).
+Only session-scoped items stay below.
+
 - **Joey asked for a 30-min recurring cron to "keep you going" (2026-08-14).
   RAISED, not built** — it is what § Never babysit your own PR bans, and it would
   not have fixed the stalls (background agents already re-invoke on completion).
   **If he reaffirms, build it.** Never build it silently.
-- **Parallel sessions share this checkout** — `STATE.md`/`PLAN.md` collided twice
-  on 2026-08-14. Verify the branch right before every commit.
-- **Pre-existing failures, not yours:** `scripts/social/lib/card-render.test.ts`
-  (missing `satori`) and repo-wide `npm run typecheck` (`apps/mobile`). Use
-  `npm run typecheck --workspace=@swift2/web`. `npm run lint` may show ~630
-  errors from a `.scratch/` worktree — add `--ignore-pattern ".scratch/**"`.
-- `apps/web/next-env.d.ts` is regenerated by any dev server — leave it
-  uncommitted, never `git restore` it. `post-queue.mjs` + `delete-media.mjs` hit
-  LIVE accounts and `guard.sh` denies them. `core.autocrlf=true`.
-  `.claude/worktrees/` holds ~30 worktrees — never clean.
-- **Codex review path:** `codex:rescue` skill → `codex:codex-rescue` subagent,
-  always `--background`, then poll `codex-companion.mjs result <job-id>`.
-- **Reader has no URL routes** — one client page, React context; `?item=`,
-  `?lens=`, `?era=` read ONCE on mount, never written back.
+- `scripts/social/post-queue.mjs` + `delete-media.mjs` hit LIVE accounts and
+  `guard.sh` denies them. `core.autocrlf=true`. `.claude/worktrees/` holds ~30
+  worktrees — never clean. `social-poster-workflow.test.ts.tmp` is scratch.
 
 ## Open threads
 
@@ -171,10 +137,12 @@ Community + Merch. All earlier grants are spent. Standing and NOT spent:
 
 ## Next obvious step
 
-1. Open the Community + Merch PR and merge it (authorised, review complete).
+1. **Joey's hands, not mine:** the Apps Script / Resend / env setup in
+   `docs/ops/community-merch-submissions.md`, plus his three deferred #2110
+   questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
-   unsatisfied for Clownbot and this feature both.
+   unsatisfied for Clownbot AND Community + Merch.
 3. Hand Wyatt his five items before treating tier/caps as decided.
-4. First real-device check of the bottom nav. Never been opened on a phone.
-5. Joey's hands, not mine: the three #2110 questions, and the Apps Script /
-   Resend / env setup in `docs/ops/community-merch-submissions.md`.
+4. First real-device check of the bottom nav — six tabs in its icon-only
+   degraded state, still never opened on a phone.
+5. Issue #2113 (guard-code red on every code PR) when someone wants CI quiet.
