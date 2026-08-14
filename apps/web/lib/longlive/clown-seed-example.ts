@@ -7,13 +7,13 @@
  * uses) with a live `ANTHROPIC_API_KEY`. Nothing below is hand-written: the
  * `answer` is the route's actual JSON response body, pasted verbatim —
  * every segment, every cited source id, and the delulu value exactly as the
- * live pipeline produced them, including `theoryName: null` (this route
- * does not canonicalize theory names — `clown-names.ts`'s
- * `resolveTheoryName` is not wired into `route.ts`, so whatever the model
- * proposes, or nothing, passes straight through). Regenerating this file
- * means re-running `scripts/capture-clown-seed.mjs "what's the deal with
- * the orange doors?"` and pasting the new output — never editing the prose
- * by hand.
+ * live pipeline produced them. `theoryName` is likewise the route's real
+ * output: `route.ts` calls `resolveTheoryName()` (`clown-names.ts`) against
+ * the cited-only `sources` after the output gate, so a canonical registry
+ * match wins over whatever the model proposed — here it resolved to "The
+ * Twelve Doors". Regenerating this file means re-running
+ * `scripts/capture-clown-seed.mjs "what's the deal with the orange doors?"`
+ * and pasting the new output — never editing the prose by hand.
  *
  * QUESTION: "what's the deal with the orange doors?"
  *
@@ -40,41 +40,27 @@ export const SEED_EXAMPLE: SeedExample = {
   question: "what's the deal with the orange doors?",
   answer: {
     kind: 'take',
-    theoryName: null,
+    theoryName: 'The Twelve Doors',
     segments: [
       {
         role: 'stance',
-        text: "The twelve orange doors aren't just a promo gimmick — they're the endpoint of an \"orange era\" prediction fans were making before the album was even announced, so the doors feel like the theory being handed back to us as merch.",
+        text: 'The twelve orange doors are a real-world extension of the TLOAS orange-era branding, not a random gimmick — each door/QR code drop is basically a physical Easter egg hunt for album clues.',
       },
       {
         role: 'argument',
-        text: 'TS12 watchers were calling orange as the next era color during the TTPD stretch, reading it off glittery accents in late Eras Tour looks (theory:tloas:orange-era-clues) — then the actual promo lands as twelve orange doors in twelve cities with QR codes to clue videos (lore:orange-doors-hunt), and the album visuals confirm it with burnt-orange rhinestones and marabou feathers (moment:vault-tloas-orange-sequins-and-feathers).',
+        text: 'The 2025-10-03 orange-doors-hunt itself confirms this: twelve doors, twelve cities, each QR-coded to a stylised clue video, which lines up perfectly with the orange-and-feathers visual identity already documented in [moment:vault-tloas-orange-sequins-and-feathers].',
       },
       {
         role: 'counterpoint',
-        text: 'The orange-era theory itself is undated and unconfirmed as a real predictive call rather than retroactive pattern-matching — fans always find some color to project onto tour looks, and confirmation bias does a lot of heavy lifting here.',
+        text: 'The color-coding was called way in advance by fans reading orange accents into late Eras Tour looks per [theory:tloas:orange-era-clues], which means the doors could just be marketing catching up to what fans already guessed — less a hidden code, more a victory lap.',
       },
       {
         role: 'aside',
-        text: 'I called the color orange in my head months ago too, but so did every fan with a Pantone app and too much free time, so I get no credit and neither do you.',
+        text: 'I called the orange era in a group chat once and then immediately lost the screenshot, so honestly I have no proof I did anything but the wig knows.',
       },
     ],
     delulu: 2,
     sources: [
-      {
-        id: 'theory:tloas:orange-era-clues',
-        headline: 'The orange era, called before the announcement',
-        detail:
-          "The orange era, called before the announcement Through the TTPD stretch, TS12 watchers bet the next era's color was orange — reading glittery orange accents into late Eras Tour looks and posts. When The Life of a Showgirl arrived, the branding was orange head to toe. The album was announced on the New Heights podcast in August 2025 wrapped in glittering orange (and mint) — instantly validating months of color-watching. How much of the pre-announcement orange was planted versus pattern-matched has never been itemized, so the call is graded, not fully confirmed.",
-        status: 'reported',
-        date: 'undated',
-        sources: [
-          {
-            name: 'The Life of a Showgirl',
-            url: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
-          },
-        ],
-      },
       {
         id: 'lore:orange-doors-hunt',
         headline: 'Twelve orange doors in twelve cities',
@@ -112,6 +98,20 @@ export const SEED_EXAMPLE: SeedExample = {
           {
             name: "Bob Mackie 'Blown Away' by Taylor Swift Wearing His Design on 'Showgirl' Cover",
             url: 'https://www.billboard.com/music/pop/bob-mackie-blown-away-taylor-swift-outfit-showgirl-cover-1236101495/',
+          },
+        ],
+      },
+      {
+        id: 'theory:tloas:orange-era-clues',
+        headline: 'The orange era, called before the announcement',
+        detail:
+          "The orange era, called before the announcement Through the TTPD stretch, TS12 watchers bet the next era's color was orange — reading glittery orange accents into late Eras Tour looks and posts. When The Life of a Showgirl arrived, the branding was orange head to toe. The album was announced on the New Heights podcast in August 2025 wrapped in glittering orange (and mint) — instantly validating months of color-watching. How much of the pre-announcement orange was planted versus pattern-matched has never been itemized, so the call is graded, not fully confirmed.",
+        status: 'reported',
+        date: 'undated',
+        sources: [
+          {
+            name: 'The Life of a Showgirl',
+            url: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
           },
         ],
       },
