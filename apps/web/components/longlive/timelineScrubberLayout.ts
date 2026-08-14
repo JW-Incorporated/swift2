@@ -131,6 +131,56 @@ export function roundRailPct(pct: number): number {
   return Math.round(pct * factor) / factor;
 }
 
+/**
+ * Bottom reserve (px) baked into SCRUBBER_RAIL_CLASS's own cap
+ * (`calc(100svh - 6rem)` = 80px top offset (SCRUBBER_BASE_PT) + this 16px)
+ * — reused below so the JS clamp matches the CSS cap's intent instead of
+ * inventing a second number.
+ */
+export const SCRUBBER_RAIL_RESERVE_PX = 16;
+
+/**
+ * Caps the rail's rendered height so `paddingTop + railHeight` never runs
+ * past the viewport, matching what SCRUBBER_RAIL_CLASS's own
+ * `min(74svh, calc(100svh - 6rem))` cap already assumes: an 80px top offset
+ * (SCRUBBER_BASE_PT) baked into `pt-20`. When scrubberAnchorPaddingTop above
+ * returns something taller than that (a live-measured chrome height —
+ * finding #2, 2026-08-14), the CSS cap's baked-in 80px goes stale and the
+ * rail can run off the bottom of a short viewport (re-review finding #2,
+ * 2026-08-14 round 2 — a landscape phone at 844x390 put the rail 15px past
+ * the bottom edge). Returns `undefined` when `paddingTop` itself is
+ * `undefined` (scrubberAnchorPaddingTop deferred to the CSS default, or
+ * centered mode) — the CSS cap is already correct there and needs no
+ * override.
+ */
+export function scrubberRailMaxHeight(input: {
+  /** Whatever scrubberAnchorPaddingTop returned (undefined = CSS default). */
+  paddingTop: number | undefined;
+  /** window.innerHeight (or svh-equivalent) at measurement time. */
+  viewportHeight: number;
+}): number | undefined {
+  if (input.paddingTop == null) return undefined;
+  return Math.max(0, input.viewportHeight - input.paddingTop - SCRUBBER_RAIL_RESERVE_PX);
+}
+
+/**
+ * clip-path applied to the rail ONLY while its top is pinned to the live
+ * measured chrome height (scrubberAnchorPaddingTop returned a value) — the
+ * one case that leaves zero slack above the rail for its own overhanging
+ * adornments (era year labels, the handle, milestone dots — all use
+ * `-translate-y-1/2` and so paint a few px above the rail's own top edge by
+ * design). The old static `pt-20` had ~15px of slack that absorbed this;
+ * clamping to the exact chrome height left none, so the overhang paints
+ * visibly over the sticky FilterBar row directly above (re-review finding
+ * #3, 2026-08-14 round 2). Deliberately a `clip-path: inset()`, not
+ * `overflow-hidden` on the rail: overflow-hidden clips all four sides at
+ * the rail's own narrow (~40-48px) box, which would also hide the
+ * hover-preview tooltip — a legitimate 192px-wide card that intentionally
+ * renders far outside the rail's own width. inset()'s three non-top offsets
+ * are pushed deep negative so only the top edge ever clips.
+ */
+export const SCRUBBER_RAIL_CLIP_PATH = 'inset(0px -400px -400px -400px)';
+
 /** Keep the compact date pill inside the rail at its two hard endpoints. */
 export function scrubberPillTransform(pct: number): string {
   if (pct <= 2) return 'translateY(0)';
