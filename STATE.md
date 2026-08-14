@@ -15,91 +15,46 @@
 
 1. **Era reader rework — MERGED 2026-08-14 as `e8500905` (#2086).**
 2. **Clownbot rebuild — merged as #2087.** Rulings J1–J7 in `docs/decisions.md`.
-3. **Clownbot chat UI — IN FLIGHT on `feature/clownbot-chat-ui`** (off `ff4df4ab`).
-   Joey rejected the shipped look: the chat box "just looks like another piece
-   of content on the site. The user must immediately know it's a chatgpt type of
-   chat box." He then approved a mockup, which is now the spec —
-   scratchpad `clownbot-artifact.html`, published as an artifact.
-   Porting it: app-neutral panel chrome (NOT the era palette — that contrast is
-   the point), titlebar, right-aligned user bubble, avatar + full-width reply,
-   action row, docked pill composer, receipts as inline chips, a fullscreen
-   toggle (CSS overlay at `100dvh`, NOT the Fullscreen API — unreliable on iOS),
-   "Most recent" replacing the "Top 10" heading, and eggs grouped by era.
-   Backend behaviour is untouched; that is the NEXT piece of work.
-   - **Board half DONE and committed.** `BoardItem` gained an `era` field
-     (optional, so an existing test double in an unowned file kept compiling);
-     eggs group into 11 era buckets with **0 failing era resolution**; column 1
-     is "Most recent" with relative dates and a touch-visible "Ask clown bot →".
-     Verified: `clown-board` 27/27, full suite 2779/2779, typecheck + lint clean.
-   - **Panel half BUILT, one correction in flight.** Chrome + fullscreen
-     toggle + new `ClownMessageRow.tsx` (split for the 300-line cap).
-     Verified by me: full suite 2779/2779, typecheck + lint clean.
-     Reused the existing reference-counted `useScrollLock`; `z-50` matches the
-     codebase's overlay convention (`EraSelector`, `MomentDetail`); action-row
-     buttons are genuinely `disabled`, not fake-live.
-     **Correction sent:** the agent hit the 44px tap-target rule by making icon
-     buttons physically 44px, which inflated the titlebar and composer pill
-     past the mockup. That is the exact chunkiness Joey rejected twice —
-     visual size and hit area must be separate numbers (glyph ~32px, hit area
-     44px via padding + negative margin). Not yet re-verified.
-   - **Do NOT stage `apps/web/lib/longlive/content-vault.generated.ts`** — an
-     agent's `npm run build` regenerated its timestamp. Leaving it unstaged is
-     the clean fix; `git restore`/`checkout --` are forbidden here.
+3. **Clownbot chat UI — MERGED 2026-08-14 as `b8a500a3` (#2103).**
+   Joey rejected the shipped look twice: it "just looks like another piece of
+   content on the site. The user must immediately know it's a chatgpt type of
+   chat box." He approved a mockup (scratchpad `clownbot-artifact.html`,
+   published as an artifact) and that became the spec.
+   Shipped: app-neutral panel chrome via new `--clown-*` tokens (NOT the era
+   palette — that contrast is the whole point), right-aligned user bubble,
+   avatar + full-width reply with no bubble, action row, docked pill composer,
+   receipts as inline chips, a fullscreen toggle (CSS overlay at `100dvh`, NOT
+   the Fullscreen API — unreliable on a non-video element in iOS Safari),
+   "Most recent" replacing "Top 10", and eggs grouped into 11 eras.
+   Verified by me: 2779/2779, typecheck + lint clean, zero raw hex.
+   **Backend behaviour untouched — that is the NEXT piece of work** (Joey:
+   "After this we will do more work on the backend of the chat bot, as far as
+   how it functions"). Start with the 3/48 over-refusals below.
+   Confirmed live on prod by fetching the shipped JS bundles, not inferred
+   from a green build: `lets clown around`, `Most recent`, `Past confirmed
+   easter eggs`, `Exit full screen` all present.
+   - **Icon buttons: 28–32px visual, 44px hit area** via invisible inset
+     overlays. An earlier pass satisfied the tap-target rule by inflating the
+     buttons to 44px, which cost the chrome proportions that make it read as
+     an app. Visual size and hit area are separate numbers — do not re-merge
+     them.
+   - **Action row is genuinely `disabled`**, not fake-live: no clipboard,
+     re-ask or feedback path exists yet.
 
-**NOW: device-review round 1 on `fix/land-in-eras`** — Joey's first real-phone
-pass on the shipped reader. Three bugs, ONE PR (they are interdependent: the
-chrome-offset math consumes the filter bar's height, and both sit on the
-masthead having moved into the stream).
+**Device-review round 1 — MERGED as `ff4df4ab` (#2099).** Joey's first
+real-phone pass on the shipped reader: land in the Eras scroll (landing page
+retired, `landing` removed from `AppMode`), one-line filter row, and a live
+measured chrome height replacing a hardcoded `HEADER_OFFSET = 64`.
 
-- **Fix 1 — COMMITTED (`e2fbda2b`).** Landing page retired; visitors land in
-  the Eras scroll with the masthead on top of it. `landing` removed from
-  `AppMode` entirely. `EraGrid` survives via `EraSelector`.
-- **Fixes 2+3 — COMMITTED (`be50b85c`).** Filter row is one line (36px chips,
-  horizontal scroll, edge fade): FilterBar 113px → 49px, chrome 178px → 114px.
-  Jump offset now uses a LIVE measured chrome height with one source of truth
-  (`lib/longlive/chrome-offset.ts`), replacing `HEADER_OFFSET = 64` which was
-  duplicated in `TimelineScrubber.tsx` + `ThreadsTimeline.tsx` and unaware the
-  filter bar existed — so the scrubber's reference line had been wrong too.
-- **Round 2 fixes COMMITTED (`3dfc1292`, `1e11dca2`). Review round 3 running.
-  DO NOT MERGE until it returns APPROVE.**
-  - Masthead on fresh load: FIXED and confirmed (8+ loads, `scrollY=0`), with
-    all NINE jump paths still landing at the chrome edge — the `eraJumpSeq > 0`
-    gate did not cost a legitimate jump.
-  - Hydration: FIXED (zero errors, ~10 loads).
-  - **Videos chip took THREE attempts.** The real cause: `pointer-events`
-    INHERITS. `SCRUBBER_SHELL_CLASS` sets `none`, `SCRUBBER_RAIL_CLASS`
-    re-enables `auto`, so all 11 rail adornments inherited `auto` — invisible
-    (`opacity-0`) but hit-testable, overhanging the filter row. Attempt 1
-    clamped the rail box; attempt 2 verified the box moved, not the hit-test.
-    Now all 11 are `pointer-events-none`, locked by a source test that walks
-    the rail's JSX.
-  - Clamping also broke two things it caused: the rail overflowed a landscape
-    phone (844×390, 15px off-screen) → `scrubberRailMaxHeight`; and adornments
-    painted over the filter row → `SCRUBBER_RAIL_CLIP_PATH`.
-  - **Accepted trade-off, founder-visible:** while clamped on mobile, the top
-    year label is clipped during an active drag. Desktop unaffected.
-  - **Round 3 REJECTED it again: the chip was dead on a FRESH unscrolled load.**
-    Fix 4 (`99e1d1a9`) — the two-strike rule fired, `DEBUG.md` was written, and
-    a fresh-context agent restricted to three files found the real mechanism:
-    the clamp asked "how tall is the chrome" (65+49=114) when it needed "where
-    is the filter bar NOW". Those agree only once the bar sticks; the masthead
-    this branch added pushes it to y≈410 pre-stick. New `measureChromeBottom()`
-    reads the live `getBoundingClientRect().bottom`; padding recomputes inside
-    the rAF scroll handler. Rail top == filter-bar bottom in every state.
-    **Review round 4 running — DO NOT MERGE until it returns APPROVE.**
+Two durable lessons from that round, kept because they will bite again:
 
-  Review rounds 1 and 2 both returned REJECT; their findings are all fixed and
-  described above. Detail is in the commit messages.
-
-**MERGE AUTHORIZED for this round — Joey, 2026-08-14: "focus on fixing these.
-you have merge authority. when done ill test on my phone."** Scoped to these
-device-review fixes. He is away (school run), so nothing blocks on him.
-
-**Codex cannot review this — out of credits until Aug 19.** Use the Fable
-reviewer fallback he authorised on 2026-08-13: a `reviewer` agent with
-`model: "fable"`, required to REPRODUCE against the real corpus/browser rather
-than read code. That is what caught the two production-grade defects last
-night that three Codex rounds missed.
+- **`pointer-events` INHERITS.** Eleven invisible (`opacity-0`) scrubber rail
+  adornments stayed hit-testable and ate taps on the filter row. Took three
+  attempts because the first two moved the box without changing the hit-test.
+  Locked now by a source test that walks the rail's JSX.
+- **"How tall is the chrome" and "where is the filter bar NOW" are different
+  questions.** They agree only once the bar sticks. That mismatch survived two
+  review rounds; a fresh-context agent restricted to three files found it.
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
@@ -123,13 +78,14 @@ night that three Codex rounds missed.
   covered by tests; that is not the same thing. First device check is a real
   task, not a formality.
 
-## Merge authorization (era reader only)
+## Merge authorization
 
-**Joey, 2026-08-13: "please merge it when it's completely done. You have my
-permission."** The § Decision authority approval that gate requires, for THIS
-PR only — it does not generalise. Also his: **"do not let codex go more than 3
-rounds… spin up your own independent review agent and implement their
-feedback."** Both honoured; the Fable reviewer's four findings are fixed.
+Granted per-workstream, never standing. All three have merged, so these are
+spent — a NEW effort needs a NEW grant. Joey's own framing: era reader,
+"please merge it when it's completely done. You have my permission"; Clownbot,
+"I am giving you merge authorization"; the chat UI, "implement the current
+mockup live… I just want to get it on the site." Also standing: **"don't allow
+codex reviews to go more than 2 rounds."**
 
 ## Autonomous decisions — review surface
 
