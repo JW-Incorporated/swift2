@@ -1,12 +1,48 @@
 import { describe, expect, it } from 'vitest';
 import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { renderFilingStatus, parseFilingStatus, appendFilingStatus } from './report.mjs';
+import { join, relative } from 'node:path';
+import { renderFilingStatus, parseFilingStatus, appendFilingStatus, writeReport, parseRunProvenance } from './report.mjs';
+import { ROOT } from './corpus.mjs';
 
 // The run report is the artefact a human (and the watchdog) reads to decide
 // whether a nightly was healthy. On 2026-07-26 and 2026-08-09 it said nothing
 // at all about the ~1,220 findings that had just been discarded.
+
+describe('writeReport provenance + routing (docs/decisions.md 2026-08-14)', () => {
+  it('stamps source into a grep-able cie-run marker', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'cie-report-'));
+    const reportDir = relative(ROOT, dir);
+    const path = await writeReport([], {
+      date: '2026-08-20', itemCount: 1, imageCount: 1, checkers: ['x'],
+      source: 'scan', reportDir,
+    });
+    const text = await readFile(path, 'utf8');
+    expect(parseRunProvenance(text)).toMatchObject({ source: 'scan', date: '2026-08-20' });
+  });
+
+  it('defaults to the canonical reportsDir when no override is given', async () => {
+    // A far-future date so this can never collide with a real committed report;
+    // try/finally guarantees the write is removed even if an assertion fails.
+    const { rm } = await import('node:fs/promises');
+    const p = await writeReport([], {
+      date: '2099-01-01', itemCount: 1, imageCount: 1, checkers: ['x'], source: 'all',
+    });
+    try {
+      expect(p.replace(/\\/g, '/')).toContain('docs/audits/engine/2099-01-01-cie-run.md');
+      const text = await readFile(p, 'utf8');
+      expect(parseRunProvenance(text)).toMatchObject({ source: 'all' });
+    } finally {
+      await rm(p, { force: true });
+    }
+  });
+});
+
+describe('parseRunProvenance', () => {
+  it('returns null for a report with no marker', () => {
+    expect(parseRunProvenance('# Content Integrity Engine — run 2026-08-09\n\nTotals: 859 findings')).toBeNull();
+  });
+});
 
 describe('renderFilingStatus', () => {
   it('marks a clean run ok and states the counts', () => {

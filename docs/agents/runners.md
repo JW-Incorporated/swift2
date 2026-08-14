@@ -358,11 +358,36 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
   text is currently the only lever against self-armed check-ins; if they recur,
   remove the connector from the routines UI instead.
 
+### Cadence contradiction — Karen (found 2026-08-14, unresolved)
+
+This doc contradicts itself on Karen's cadence and has for a while:
+
+- **The overrides table below** (dated from the 2026-07-25 sustainment pass)
+  says her nightly `0 9 * * *` was overridden to **weekly** `0 9 * * 0` (Sun),
+  "still in force."
+- **The full split table further down** still lists her as **nightly**
+  `0 9 * * *`.
+
+They cannot both be true, and this repo cannot query the live trigger to
+settle it — `CronList` only sees the current session, not Wyatt's routine
+dashboard. The only evidence available from here is Karen's own PR dates:
+07-18, 07-19, 07-22, 07-26, 08-09. That is irregular around the 07-25 override
+date (tighter together before it, then a 14-day gap after — consistent with
+one missed weekly run), and **2026-08-09, her last real run, was a Sunday**.
+That evidence supports **weekly**, not nightly.
+
+**This is not fixed here — it is flagged.** Whoever controls the routine
+dashboard (Wyatt) needs to confirm which cadence is actually configured and
+correct whichever line of this doc is wrong. Until then:
+`.github/workflows/watchdog.yml`'s Karen staleness check (`STALE_DAYS=9`) is
+built assuming **weekly** is the real cadence — if nightly turns out to be
+correct instead, that threshold should shrink back down to match.
+
 ### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
-| Karen — nightly scan | weekly `0 9 * * 0` (Sun) | `trig_014HWuRmT2MFveDkPGwVDiQX` |
+| Karen — nightly scan | weekly `0 9 * * 0` (Sun) — **see cadence contradiction above** | `trig_014HWuRmT2MFveDkPGwVDiQX` |
 | Kevin — S1 Karen solver *(cloud copy only)* | weekly `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` |
 | Nils — daily walk | weekly `0 14 * * 0` | `trig_013xb8Stm7m2sB6dqGePKRtr` |
 | Stylist | weekly `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` |
@@ -384,7 +409,7 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
 | Kevin — S2 user digest | `13 15 * * *` | Fable | [`runner-prompts/kevin-stream2-digest.md`](runner-prompts/kevin-stream2-digest.md) | **Wyatt** | Daily feedback digest for human accept/reject |
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
 | Kevin — S3 comment radar | `23 1,13 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Twice daily (~6am + 6pm PT); surfaces cross-session comments — cut from hourly 2026-07-24 to reduce token burn (Wyatt) |
-| Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
+| Karen — nightly scan | `0 9 * * *` — **contradicted, see "Cadence contradiction — Karen" above; evidence supports weekly** | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
 | **Karen Deep — agent review** ⚠️ **NOT YET CREATED** — config below | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
