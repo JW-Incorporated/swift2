@@ -77,6 +77,39 @@ reference docs it points at:
 - Content gates: `npm run check:generated`, `check:content-ownership`,
   `check:voice`, `validate:content`, `validate:social`
 
+## Clown bot rebuild (build B) — new files this workstream
+
+`docs/decisions.md` 2026-08-13 "Clownbot rebuild"; `docs/longlive-experience.md`
+§7 has the surface description. Existing as of this update (checked against
+`git status --short`, not just `PLAN.md`'s aspirational table):
+
+| Path | What |
+|---|---|
+| `apps/web/lib/longlive/clown-index.ts` (+ `.test.ts`, `.integration.test.ts`, `clown-index-status.test.ts`) | Retrieval index; blocklist pre-filter at build time |
+| `apps/web/lib/longlive/clown-retrieve.ts` (+ `.test.ts`) | Deterministic retrieval + `detectRecencyIntent()` |
+| `apps/web/lib/longlive/clown-blocklist.ts` (+ `-gates.ts`, `.test.ts`) | `screenTopic()`, per-category phrase lists |
+| `apps/web/lib/longlive/clown-safety.ts` (+ `-gates.ts`, `.test.ts`) | Ported input/output safety, crisis reuse |
+| `apps/web/lib/longlive/clown-battery-corpus.ts` (+ `-attacks.ts`, `-attacks-b.ts`, `-tier-b.ts`, `.test.ts`) | Red-team corpus (53 attacks, 21 Tier B probes), ported + extended |
+| `apps/web/lib/longlive/clown-board.ts` (+ `.test.ts`) | Both prefill columns, pure/deterministic |
+| `apps/web/lib/longlive/clown-fallback.ts` (+ `.test.ts`) | Zero-model card composer |
+| `apps/web/lib/longlive/clown-starters.ts` (+ `.test.ts`) | Column item → composer prefill string |
+| `apps/web/lib/longlive/clown-names.ts` (+ `.test.ts`) | Ported name registry |
+| `apps/web/lib/longlive/clown-client.ts` (+ `-prompt.ts`, `.test.ts`) | The one model call; tier as a named constant; `CLOWN_MODEL_DISABLED` kill switch |
+| `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` — the one client-facing shape |
+| `apps/web/lib/longlive/clown-gate.ts` (+ `.test.ts`) | Output re-screen |
+| `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
+| `apps/web/components/longlive/ClownChat.tsx` | Title + composer + transcript |
+| `apps/web/components/longlive/ClownBoard.tsx` | The two columns |
+| `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
+| `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |
+| `docs/proposals/2026-08-13-clownbot-shelved-content.md` | Build-A content not carried forward |
+| `docs/ops/clown-kill-switch.md` | `CLOWN_MODEL_DISABLED` kill switch |
+
+The build-A `clownbot-*` deletions and the `store.tsx`/`LongLive.tsx` wiring
+have landed. Not yet landed as of this update (per `PLAN.md`'s "Files touched"
+table, still in flight in a parallel step): `app/api/clown/route.ts`,
+`clown-seed-example.ts`, and the `share.ts`/`TopBar.tsx` wiring.
+
 ## Dead / do-not-touch
 
 - `.claude/worktrees/` — ~30 registered git worktrees, excluded via

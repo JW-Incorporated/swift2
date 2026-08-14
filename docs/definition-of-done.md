@@ -31,7 +31,7 @@ CLAUDE.md's workflow — anything non-trivial gets a spec approved before code.
 | 4 | Marketplace + Community sections | ⬜ not started | Product spec each → founder approval → build |
 | 5 | Every link on the site works | 🟡 partial machinery exists | Full one-time AI pass + widen Karen's nightly |
 | 6 | Every video, chronological, + video filter | ⬜ not started | Sourcing spec → data model extension → build |
-| 7 | Clown bot | 🔴 blocked on scope decision | Founders re-scope vs. the #36 no-go constraints |
+| 7 | Clown bot | 🟡 build B in progress, scope decided ([`docs/decisions.md`](decisions.md), 2026-08-13) | Land the PR — Codex review, full suite, CI red-team battery required check |
 | 8 | Era/album capitalization audit | ⬜ not started | Audit + fix + add a checker so it can't regress |
 
 Legend: 🟢 done (criterion met, verified) · 🟡 moving · ⬜ not started ·
@@ -201,36 +201,28 @@ pipeline already syncs video seeds.
 timelines per the agreed tier bar, in order, all embeds playing; sourcing
 verified same as any Vault content.
 
-## 7. Clown bot — blocked on a scope decision, on purpose
+## 7. Clown bot — scope decided, build B in progress
 
 **History this line collides with:** issue **#36** (closed) wrote up the
 "clown bot" community theory board as a deliberate **no-go for v1** — it broke
-three locked constraints at once (no accounts, no notifications, no LLM in a
-user-request path per `docs/decisions.md` / `docs/architecture.md`) and
+locked constraints on accounts, stored theories and cross-user features, and
 carries real defamation/moderation risk (user-generated theories about a real
 person, AI-validated). Full write-up: `docs/marketing/feature-brief-2026-07-04.md`
-(candidate 4).
+(candidate 4). Those constraints — no accounts, no stored theories, no
+cross-user features — still stand and are unaffected by the scope decision
+below.
 
-**Now it's on the founders' DoD list — which means it needs a fresh scope
-decision, not a quiet build.** Options the decision should weigh:
+**Scope decision:** Joey ruled 2026-08-13 — see `docs/decisions.md`,
+"Clownbot rebuild — build B ships, in Joey's layout" (J1–J5). Build B is an
+editorial, retrieval-grounded chat: no accounts, no stored theories, no
+cross-user features, both prefill columns and every chip resolve with zero
+model calls, and the one request-path model call is capped, kill-switched,
+and gated on a required CI red-team battery plus a one-time live-key
+red-team pass before merge (J5).
 
-- **Editorial "clown zone" (no UGC):** build on the existing 60-entry theory
-  system (`theories.generated.ts`, confidence + outcome badges) — a curated,
-  clowning-voiced theory surface, authored by the content desks. Zero
-  accounts, zero request-path LLM, zero moderation exposure. Ships within
-  current constraints.
-- **The original interactive board (UGC + AI validation):** requires
-  reversing locked architecture decisions (accounts, moderation, LLM cost
-  model) — that's a `docs/decisions.md` entry with a cost model and a
-  moderation plan, per the standing rules.
-- Something between (e.g. submissions via the existing feedback pipe, humans
-  curate in).
-
-**Next action:** Joey + Wyatt pick a shape (15-minute decision, banked via a
-`founder-decision` issue or the next session); then it gets specced like any
-feature. **Status stays 🔴 until that decision exists** — this is the one DoD
-item where the blocker is genuinely a founder call, flagged loudly per the
-"agents get louder" directive.
+**Next action:** land the PR — Codex adversarial review, full suite green,
+CI red-team battery as a required check. **Status flips to 🟢 once merged
+and live**, per the definition of done above.
 
 ## 8. Era/album capitalization exactly as Taylor writes it
 
