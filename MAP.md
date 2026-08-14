@@ -142,7 +142,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` — the one client-facing shape |
 | `apps/web/lib/longlive/clown-gate.ts` (+ `.test.ts`) | Output re-screen |
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
-| `apps/web/components/longlive/ClownChat.tsx` | Title + composer + transcript |
+| `apps/web/components/longlive/ClownChat.tsx` | App-panel chrome (titlebar, fullscreen toggle, docked composer) + transcript |
+| `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
 | `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |

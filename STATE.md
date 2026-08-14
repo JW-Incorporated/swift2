@@ -15,6 +15,36 @@
 
 1. **Era reader rework — MERGED 2026-08-14 as `e8500905` (#2086).**
 2. **Clownbot rebuild — merged as #2087.** Rulings J1–J7 in `docs/decisions.md`.
+3. **Clownbot chat UI — IN FLIGHT on `feature/clownbot-chat-ui`** (off `ff4df4ab`).
+   Joey rejected the shipped look: the chat box "just looks like another piece
+   of content on the site. The user must immediately know it's a chatgpt type of
+   chat box." He then approved a mockup, which is now the spec —
+   scratchpad `clownbot-artifact.html`, published as an artifact.
+   Porting it: app-neutral panel chrome (NOT the era palette — that contrast is
+   the point), titlebar, right-aligned user bubble, avatar + full-width reply,
+   action row, docked pill composer, receipts as inline chips, a fullscreen
+   toggle (CSS overlay at `100dvh`, NOT the Fullscreen API — unreliable on iOS),
+   "Most recent" replacing the "Top 10" heading, and eggs grouped by era.
+   Backend behaviour is untouched; that is the NEXT piece of work.
+   - **Board half DONE and committed.** `BoardItem` gained an `era` field
+     (optional, so an existing test double in an unowned file kept compiling);
+     eggs group into 11 era buckets with **0 failing era resolution**; column 1
+     is "Most recent" with relative dates and a touch-visible "Ask clown bot →".
+     Verified: `clown-board` 27/27, full suite 2779/2779, typecheck + lint clean.
+   - **Panel half BUILT, one correction in flight.** Chrome + fullscreen
+     toggle + new `ClownMessageRow.tsx` (split for the 300-line cap).
+     Verified by me: full suite 2779/2779, typecheck + lint clean.
+     Reused the existing reference-counted `useScrollLock`; `z-50` matches the
+     codebase's overlay convention (`EraSelector`, `MomentDetail`); action-row
+     buttons are genuinely `disabled`, not fake-live.
+     **Correction sent:** the agent hit the 44px tap-target rule by making icon
+     buttons physically 44px, which inflated the titlebar and composer pill
+     past the mockup. That is the exact chunkiness Joey rejected twice —
+     visual size and hit area must be separate numbers (glyph ~32px, hit area
+     44px via padding + negative margin). Not yet re-verified.
+   - **Do NOT stage `apps/web/lib/longlive/content-vault.generated.ts`** — an
+     agent's `npm run build` regenerated its timestamp. Leaving it unstaged is
+     the clean fix; `git restore`/`checkout --` are forbidden here.
 
 **NOW: device-review round 1 on `fix/land-in-eras`** — Joey's first real-phone
 pass on the shipped reader. Three bugs, ONE PR (they are interdependent: the

@@ -20,7 +20,7 @@
 
 import { LORE } from './clownbot-lore';
 import { THEORIES_RAW } from './theories.generated';
-import { getEra } from './eras';
+import { ERAS, getEra } from './eras';
 
 export type BoardItem = {
   id: string;
@@ -32,12 +32,43 @@ export type BoardItem = {
   prompt: string;
   /** Sort key. ISO date. */
   date: string;
+  /**
+   * The era's DISPLAY NAME (`eras.ts`'s `name`), resolved by matching `date`
+   * into each era's `[start, end]` window — never invented. `undefined` when
+   * `date` falls outside every era's window; callers must omit that item
+   * from era-grouped UI rather than inventing a bucket for it.
+   */
+  era?: string;
 };
 
 const MAX_CURRENT_THEORIES = 10;
 
 function isoDate(d: Date): string {
   return d.toISOString().slice(0, 10);
+}
+
+/** Resolve a display-name era by matching `date` into an era's `[start, end]`
+ * window. Never invents a bucket — `undefined` means no era claims this date. */
+function resolveEraName(date: string): string | undefined {
+  return ERAS.find((e) => date >= e.start && date <= e.end)?.name;
+}
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/**
+ * A short, human relative date for a `BoardItem`'s `date`, matching the
+ * approved mockup's `when()` exactly: "today" (0–1 days), "N days ago"
+ * (<7 days), "N weeks ago" (<42 days), else "Mon YYYY". Pure — same inputs,
+ * same string, always. Dates are parsed at UTC midnight so the result never
+ * drifts with the host machine's timezone.
+ */
+export function relativeDate(dateIso: string, now: Date): string {
+  const d = new Date(`${dateIso}T00:00:00Z`);
+  const days = Math.round((now.getTime() - d.getTime()) / 86_400_000);
+  if (days <= 1) return 'today';
+  if (days < 7) return `${days} days ago`;
+  if (days < 42) return `${Math.round(days / 7)} weeks ago`;
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
 /** Trim editorial prose to a single line of context. Never a model call. */
@@ -80,12 +111,14 @@ export function currentTheories(now: Date): BoardItem[] {
   for (const [eraId, notes] of Object.entries(THEORIES_RAW)) {
     for (const note of notes ?? []) {
       if (note.kind !== 'theory' || note.outcome !== 'pending') continue;
+      const date = vaultTheoryDate(eraId, now);
       items.push({
         id: `theory:${eraId}:${note.slug}`,
         title: note.title,
         blurb: firstLine(note.claim),
         prompt: naturalPrompt(note.title),
-        date: vaultTheoryDate(eraId, now),
+        date,
+        era: resolveEraName(date),
       });
     }
   }
@@ -98,6 +131,7 @@ export function currentTheories(now: Date): BoardItem[] {
       blurb: firstLine(item.detail),
       prompt: item.prompts?.[0] ?? naturalPrompt(item.headline),
       date: item.date,
+      era: resolveEraName(item.date),
     });
   }
 
@@ -140,12 +174,14 @@ export function confirmedEggs(opts: ConfirmedEggsOptions = {}): BoardItem[] {
     for (const note of notes ?? []) {
       if (note.outcome !== 'confirmed') continue;
       if (eggsOnly && note.kind !== 'easter_egg') continue;
+      const date = getEra(eraId).end;
       items.push({
         id: `theory:${eraId}:${note.slug}`,
         title: note.title,
         blurb: firstLine(note.evidence ?? note.claim),
         prompt: naturalPrompt(note.title),
-        date: getEra(eraId).end,
+        date,
+        era: resolveEraName(date),
       });
     }
   }
@@ -160,6 +196,7 @@ export function confirmedEggs(opts: ConfirmedEggsOptions = {}): BoardItem[] {
       blurb: firstLine(item.detail),
       prompt: item.prompts?.[0] ?? naturalPrompt(item.headline),
       date: item.ledger.on,
+      era: resolveEraName(item.ledger.on),
     });
   }
 
