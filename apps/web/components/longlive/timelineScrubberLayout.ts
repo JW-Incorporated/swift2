@@ -39,6 +39,49 @@ export const SCRUBBER_SCRIM_CLASS = 'absolute inset-y-0 right-0 w-full';
 export const SCRUBBER_ANCHOR_CLASS =
   'absolute top-0 h-svh w-full flex items-start justify-end pt-20 [@media_(min-width:640px)_and_(min-height:620px)]:items-center [@media_(min-width:640px)_and_(min-height:620px)]:pt-0';
 
+// The centered-mode breakpoint above, restated as plain numbers (not folded
+// into a template literal) so the Tailwind arbitrary-variant class strings
+// stay literal text the build's static class scanner can find.
+// TimelineScrubber's own matchMedia clamp (adversarial review finding #2,
+// 2026-08-14 — see scrubberAnchorPaddingTop below) uses these so the two
+// conditions can never drift apart silently.
+export const SCRUBBER_CENTER_MIN_WIDTH = 640;
+export const SCRUBBER_CENTER_MIN_HEIGHT = 620;
+
+/** Matches SCRUBBER_ANCHOR_CLASS's own centered-mode breakpoint exactly. */
+export const SCRUBBER_CENTER_MEDIA_QUERY = `(min-width: ${SCRUBBER_CENTER_MIN_WIDTH}px) and (min-height: ${SCRUBBER_CENTER_MIN_HEIGHT}px)`;
+
+/** Base top offset (px) baked into SCRUBBER_ANCHOR_CLASS's `pt-20` —
+ *  TopBar-only height (see the comment above it). */
+export const SCRUBBER_BASE_PT = 80;
+
+/**
+ * Extra top padding (px) the scrubber's anchor container needs so the rail's
+ * clickable area — and its always-visible date pill — never starts
+ * underneath the sticky chrome (TopBar + FilterBar). `pt-20` only ever
+ * accounted for TopBar; FilterBar's live height was unaccounted for, so on
+ * any viewport where FilterBar renders (every mobile load) the rail's top
+ * band silently overlapped the filter chips, making the last chip
+ * unreachable — every tap on it landed on the rail or the date pill instead
+ * (adversarial review finding #2, 2026-08-14).
+ *
+ * Returns `undefined` — defer entirely to the CSS class's own value — when
+ * the measured chrome doesn't exceed the base `pt-20`, or the container is
+ * in centered mode (SCRUBBER_CENTER_MEDIA_QUERY matched), where vertical
+ * position comes from `items-center` instead of padding and no clamp is
+ * needed or wanted.
+ */
+export function scrubberAnchorPaddingTop(input: {
+  /** Live measureChromeHeight() reading — TopBar + FilterBar, or 0/TopBar-only
+   *  where FilterBar isn't mounted. */
+  chromeHeight: number;
+  /** Whether SCRUBBER_CENTER_MEDIA_QUERY currently matches. */
+  isCentered: boolean;
+}): number | undefined {
+  if (input.isCentered) return undefined;
+  return input.chromeHeight > SCRUBBER_BASE_PT ? input.chromeHeight : undefined;
+}
+
 // 74svh, capped so the endpoint adornments (leading-none year labels and
 // the date pill, hanging ~11px past the rail's ends) keep clearance on
 // short viewports: 100svh - 6rem = the 80px top offset + a 16px bottom
@@ -48,6 +91,45 @@ export const SCRUBBER_ANCHOR_CLASS =
 // short-landscape hole the anchor variant above closes.
 export const SCRUBBER_RAIL_CLASS =
   'pointer-events-auto relative h-[min(74svh,calc(100svh-6rem))] w-full cursor-ns-resize touch-none select-none outline-none';
+
+/**
+ * Grain (ms) `Date.now()` is snapped DOWN to before it's used as the current
+ * era's live upper bound. Without this, the SSR render and the client
+ * hydration render each call `Date.now()` independently — seconds or even
+ * milliseconds apart — so the current era's span (and therefore every
+ * rendered rail percentage within it) is *guaranteed* to differ by some tiny
+ * amount on every single load. Snapping both calls to the same 5-minute
+ * window means they compute the exact same integer `end`, hence the exact
+ * same span and the exact same percentages, bit-for-bit — not merely
+ * "probably close enough to round the same way" (roundRailPct below is
+ * still applied as defense in depth for the rare case a load straddles a
+ * grain boundary, adversarial review finding #3, 2026-08-14). A 5-minute
+ * stale "now" is irrelevant on a timeline spanning months.
+ */
+export const CURRENT_ERA_NOW_GRAIN_MS = 5 * 60_000;
+
+/** Pure: floors `nowMs` to the nearest `grainMs` boundary at or before it. */
+export function snapNow(nowMs: number, grainMs: number = CURRENT_ERA_NOW_GRAIN_MS): number {
+  return Math.floor(nowMs / grainMs) * grainMs;
+}
+
+/**
+ * Fixed decimal precision applied to every rail percentage before it
+ * becomes a CSS `top` value or SVG ridge coordinate — the single place a
+ * percentage is produced, so an independently-computed server vs. client
+ * value (e.g. a current-era percentage derived from `Date.now()`, evaluated
+ * microseconds apart by the SSR pass and the hydration pass) can't disagree
+ * past this many decimals and cause a hydration mismatch (adversarial
+ * review finding #3, 2026-08-14: `top: "1.14252%"` server vs.
+ * `"1.1425251289221632%"` client on every fresh load).
+ */
+export const RAIL_PCT_DECIMALS = 4;
+
+/** Pure: rounds a 0..100 rail percentage to RAIL_PCT_DECIMALS. */
+export function roundRailPct(pct: number): number {
+  const factor = 10 ** RAIL_PCT_DECIMALS;
+  return Math.round(pct * factor) / factor;
+}
 
 /** Keep the compact date pill inside the rail at its two hard endpoints. */
 export function scrubberPillTransform(pct: number): string {

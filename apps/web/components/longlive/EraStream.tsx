@@ -11,7 +11,7 @@ import { FilterBar } from './FilterBar';
 import { LandingMasthead } from './LandingMasthead';
 import { filterChangeScrollDelta } from '@/lib/longlive/era-stream-pin';
 import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
-import { jumpLandingScrollTop } from '@/lib/longlive/era-jump-landing';
+import { jumpLandingScrollTop, shouldRunEraJump } from '@/lib/longlive/era-jump-landing';
 
 /**
  * Jump-scroll timing. SETTLE is how long we keep re-correcting AFTER first
@@ -91,7 +91,14 @@ export function EraStream() {
   // mounts the stream, so the pre-seeded ref would swallow
   // the bump) — re-anchoring to the same target is idempotent, so the
   // mount-time run (and StrictMode's double-invoke of it, which cancels the
-  // first run's scroll correction) is safe to let through.
+  // first run's scroll correction) is safe to let through — EXCEPT the plain
+  // front-door mount (no restore, eraJumpSeq still its initial 0), which
+  // looks identical to a no-snapshot openEra mount but must NOT jump: the
+  // masthead sits above the current era's section, and jumping the section
+  // to the chrome scrolls straight past it — the reader never sees it
+  // (adversarial review finding #1, 2026-08-14). shouldRunEraJump
+  // (era-jump-landing.ts) carries the gate so it's covered without mounting
+  // React.
   //
   // The stream always anchors at the newest (current) era and extends back
   // just far enough to include the chosen era (see jumpWindow) — anchoring AT
@@ -101,7 +108,14 @@ export function EraStream() {
   const mountedWithoutRestore = useRef(!restore);
   const handledJumpSeq = useRef(eraJumpSeq);
   useEffect(() => {
-    if (!mountedWithoutRestore.current && handledJumpSeq.current === eraJumpSeq) return;
+    if (
+      !shouldRunEraJump({
+        hasRestore: !mountedWithoutRestore.current,
+        eraJumpSeq,
+        handledJumpSeq: handledJumpSeq.current,
+      })
+    )
+      return;
     handledJumpSeq.current = eraJumpSeq;
     const targetId = eraIdRef.current;
     const { anchorId: nextAnchorId, count: neededCount } = jumpWindow(targetId);

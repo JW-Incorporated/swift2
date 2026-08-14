@@ -10,11 +10,15 @@ import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
 import { cn } from '@/lib/utils';
 import {
   SCRUBBER_ANCHOR_CLASS,
+  SCRUBBER_CENTER_MEDIA_QUERY,
   SCRUBBER_RAIL_CLASS,
   SCRUBBER_SCRIM_CLASS,
   SCRUBBER_SHELL_CLASS,
+  roundRailPct,
+  scrubberAnchorPaddingTop,
   scrubberPillTransform,
   scrubberTooltipTransform,
+  snapNow,
   nearestAnchorExact,
   labelForDate,
   type ScrubberAnchor,
@@ -46,10 +50,13 @@ export function TimelineScrubber() {
   const start = useMemo(() => new Date(era.start).getTime(), [era.start]);
   // The current era's authored end date can sit in the future (a season/
   // year boundary); the rail's top means "now", so don't let the scrubber
-  // span into dates that haven't happened yet.
+  // span into dates that haven't happened yet. snapNow (not raw Date.now())
+  // so the SSR render and the client hydration render — which each call
+  // Date.now() independently — compute the exact same bound as long as
+  // they land in the same 5-minute window (finding #3, 2026-08-14).
   const end = useMemo(() => {
     const authoredEnd = new Date(era.end).getTime();
-    return era.isCurrent ? Math.min(authoredEnd, Date.now()) : authoredEnd;
+    return era.isCurrent ? Math.min(authoredEnd, snapNow(Date.now())) : authoredEnd;
   }, [era.end, era.isCurrent]);
   const span = Math.max(1, end - start);
 
@@ -120,6 +127,11 @@ export function TimelineScrubber() {
   // once real layout is known, instead of staying pinned to the pre-measure
   // calendar-linear fallback.
   const [anchorsVersion, setAnchorsVersion] = useState(0);
+  // Extra top padding for SCRUBBER_ANCHOR_CLASS beyond its own `pt-20`, so the
+  // rail (and its always-visible date pill) clears the live sticky chrome
+  // instead of overlapping the filter row — see scrubberAnchorPaddingTop's
+  // doc comment (adversarial review finding #2, 2026-08-14).
+  const [anchorPaddingTop, setAnchorPaddingTop] = useState<number | undefined>(undefined);
 
   // Calendar-linear fallback, used only before the DOM has been measured
   // (first paint) so ticks/milestones have *something* sane to render.
@@ -241,10 +253,13 @@ export function TimelineScrubber() {
   // Date -> rail position. Before the DOM has been measured, fall back to
   // the calendar-linear formula so first paint has something sane; once
   // anchors are known, position is linear in rendered content, not date.
+  // Rounded via roundRailPct — the single place this percentage is produced
+  // — so a server vs. client render pass can't disagree past four decimals
+  // and mismatch on hydration (finding #3, 2026-08-14).
   const pctForDate = useCallback(
     (ms: number): number => {
-      if (anchorsRef.current.length < 2) return pctForDateLinear(ms);
-      return pctForTop(topForDate(ms));
+      const raw = anchorsRef.current.length < 2 ? pctForDateLinear(ms) : pctForTop(topForDate(ms));
+      return roundRailPct(raw);
     },
     [pctForDateLinear, pctForTop, topForDate],
   );
@@ -310,6 +325,14 @@ export function TimelineScrubber() {
       return now >= start && now <= end ? pctForDate(now) : null;
     });
 
+    const mq = window.matchMedia(SCRUBBER_CENTER_MEDIA_QUERY);
+    const recomputeAnchorPadding = () => {
+      setAnchorPaddingTop(
+        scrubberAnchorPaddingTop({ chromeHeight: measureChromeHeight(), isCentered: mq.matches }),
+      );
+    };
+    recomputeAnchorPadding();
+
     const onScroll = () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(syncFromScroll);
@@ -317,25 +340,32 @@ export function TimelineScrubber() {
     const onResize = () => {
       measure();
       syncFromScroll();
+      recomputeAnchorPadding();
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
+    mq.addEventListener('change', recomputeAnchorPadding);
 
-    // Catch layout changes from filtering, image loads, era swaps.
+    // Catch layout changes from filtering, image loads, era swaps — also the
+    // FilterBar row height changing, which is what the padding above clamps
+    // the rail below.
     const ro = new ResizeObserver(() => {
       measure();
       syncFromScroll();
+      recomputeAnchorPadding();
     });
     ro.observe(document.body);
     // A follow-up measure after paint settles (fonts/images).
     const t = window.setTimeout(() => {
       measure();
       syncFromScroll();
+      recomputeAnchorPadding();
     }, 300);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
+      mq.removeEventListener('change', recomputeAnchorPadding);
       ro.disconnect();
       window.clearTimeout(t);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -482,7 +512,10 @@ export function TimelineScrubber() {
         }}
       />
 
-      <div className={SCRUBBER_ANCHOR_CLASS}>
+      <div
+        className={SCRUBBER_ANCHOR_CLASS}
+        style={anchorPaddingTop != null ? { paddingTop: anchorPaddingTop } : undefined}
+      >
         {/* What the removed first-run popup used to say, kept as a description
             on the control itself instead of an interstitial: assistive tech
             announces it, and sighted users are taught the same thing without an

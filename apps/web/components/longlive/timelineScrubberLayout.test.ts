@@ -2,12 +2,19 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
+  CURRENT_ERA_NOW_GRAIN_MS,
+  RAIL_PCT_DECIMALS,
   SCRUBBER_ANCHOR_CLASS,
+  SCRUBBER_BASE_PT,
+  SCRUBBER_CENTER_MEDIA_QUERY,
   SCRUBBER_RAIL_CLASS,
   SCRUBBER_SCRIM_CLASS,
   SCRUBBER_SHELL_CLASS,
+  roundRailPct,
+  scrubberAnchorPaddingTop,
   scrubberPillTransform,
   scrubberTooltipTransform,
+  snapNow,
   nearestAnchorExact,
   labelForDate,
   UNKNOWN_DATE_LABEL,
@@ -106,6 +113,105 @@ describe('TimelineScrubber layout', () => {
     // sizing in the component must come from the pinned constants.
     expect(src).not.toMatch(/className="[^"]*\d+vh/);
     expect(src).not.toMatch(/className="[^"]*h-svh/); // svh sizing lives in the constants
+  });
+});
+
+// Adversarial review finding #2 (2026-08-14): the last filter chip
+// ("Videos") was unreachable because the rail's `pt-20` only ever accounted
+// for TopBar, never FilterBar — on mobile the rail's clickable band (and its
+// always-visible date pill) silently overlapped the filter row, so every tap
+// on the last chip landed on the rail/pill and scrubbed the page instead.
+describe('scrubberAnchorPaddingTop (finding #2, 2026-08-14)', () => {
+  it('THE BUG, for contrast: pt-20 alone (80px) is shorter than TopBar + FilterBar', () => {
+    const topBarHeight = 65;
+    const filterBarHeight = 49; // measured, one-row chip layout
+    expect(topBarHeight + filterBarHeight).toBeGreaterThan(SCRUBBER_BASE_PT);
+  });
+
+  it('clamps the rail below the live chrome when it exceeds the base pt-20', () => {
+    expect(scrubberAnchorPaddingTop({ chromeHeight: 114, isCentered: false })).toBe(114);
+  });
+
+  it('defers to the CSS class when the live chrome fits inside pt-20', () => {
+    expect(scrubberAnchorPaddingTop({ chromeHeight: 65, isCentered: false })).toBeUndefined();
+    expect(scrubberAnchorPaddingTop({ chromeHeight: SCRUBBER_BASE_PT, isCentered: false })).toBeUndefined();
+  });
+
+  it('never clamps in centered mode — items-center governs position there, not padding', () => {
+    expect(scrubberAnchorPaddingTop({ chromeHeight: 178, isCentered: true })).toBeUndefined();
+  });
+
+  it('is wired into TimelineScrubber via the same media query as SCRUBBER_ANCHOR_CLASS', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('window.matchMedia(SCRUBBER_CENTER_MEDIA_QUERY)');
+    expect(src).toContain('scrubberAnchorPaddingTop({');
+    expect(src).toContain('anchorPaddingTop != null ? { paddingTop: anchorPaddingTop } : undefined');
+    // The media query string itself must actually match the class's own
+    // breakpoint text, so the two conditions can never silently diverge.
+    expect(SCRUBBER_ANCHOR_CLASS).toContain('min-width:640px');
+    expect(SCRUBBER_ANCHOR_CLASS).toContain('min-height:620px');
+    expect(SCRUBBER_CENTER_MEDIA_QUERY).toBe('(min-width: 640px) and (min-height: 620px)');
+  });
+});
+
+// Adversarial review finding #3 (2026-08-14): a fresh load threw two
+// hydration errors — TimelineScrubber's milestone-dot inline `top` style
+// disagreed between server and client (`"1.14252%"` vs.
+// `"1.1425251289221632%"`) because the current era's percentage is derived
+// from `Date.now()`, evaluated microseconds apart by the SSR pass and the
+// hydration pass. roundRailPct is the deterministic fix, applied at
+// pctForDate — the single place every rendered rail percentage is produced.
+describe('snapNow (finding #3, 2026-08-14)', () => {
+  it('floors to the grain boundary', () => {
+    expect(snapNow(1_000_000, 300_000)).toBe(900_000);
+    expect(snapNow(900_000, 300_000)).toBe(900_000);
+    expect(snapNow(1_199_999, 300_000)).toBe(900_000);
+  });
+
+  it('two calls milliseconds apart (SSR vs. hydration) snap to the same value in the common case', () => {
+    const ssrNow = 1_000_000_000;
+    const hydrationNow = ssrNow + 400; // realistic SSR->hydration gap
+    expect(snapNow(ssrNow)).toBe(snapNow(hydrationNow));
+  });
+
+  it('defaults to the 5-minute grain', () => {
+    expect(CURRENT_ERA_NOW_GRAIN_MS).toBe(5 * 60_000);
+    expect(snapNow(CURRENT_ERA_NOW_GRAIN_MS + 1)).toBe(CURRENT_ERA_NOW_GRAIN_MS);
+  });
+
+  it('is wired into TimelineScrubber\'s `end` bound for the current era', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('Math.min(authoredEnd, snapNow(Date.now()))');
+  });
+});
+
+describe('roundRailPct (finding #3, 2026-08-14)', () => {
+  it('THE BUG, for contrast: two floats a hair apart print very differently at full precision', () => {
+    const server = 1.14252;
+    const client = 1.1425251289221632;
+    expect(server).not.toBe(client);
+    expect(`${server}%`).not.toBe(`${client}%`);
+  });
+
+  it('rounds two near-identical floats to the same fixed-precision value', () => {
+    const server = 1.14252;
+    const client = 1.1425251289221632;
+    expect(roundRailPct(server)).toBe(roundRailPct(client));
+  });
+
+  it('rounds to RAIL_PCT_DECIMALS decimal places', () => {
+    expect(RAIL_PCT_DECIMALS).toBe(4);
+    expect(roundRailPct(1.1425251289221632)).toBe(1.1425);
+    expect(roundRailPct(0)).toBe(0);
+    expect(roundRailPct(100)).toBe(100);
+  });
+
+  it('is wired into TimelineScrubber at pctForDate, the single place a rail percentage is produced', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const pctForDateAt = src.indexOf('const pctForDate = useCallback(');
+    const roundAt = src.indexOf('return roundRailPct(raw);');
+    expect(pctForDateAt).toBeGreaterThan(-1);
+    expect(roundAt).toBeGreaterThan(pctForDateAt);
   });
 });
 
