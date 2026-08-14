@@ -47,8 +47,28 @@ describe('normalizeTrackVideoTitle', () => {
 
 describe('trackVideoFor — conservative matching', () => {
   it('matches on the curated relatedSongs pointer, not just the video title', () => {
+    const shortFilm = video({ title: 'All Too Well: The Short Film', relatedSongs: ['All Too Well (10 Minute Version)'] });
+    expect(trackVideoFor('All Too Well (10 Minute Version)', [shortFilm])).toBe(shortFilm);
+  });
+
+  // Regression for finding #4 (adversarial review, 2026-08-13): the album
+  // track "Karma" must NOT pair with "Karma (feat. Ice Spice)" — the corpus's
+  // own summary describes it as the Til Dawn edition remix with a new verse,
+  // i.e. a DIFFERENT RECORDING from the album track, exactly like
+  // "(Taylor's Version)" is. relatedSongs pointing at the base song name is
+  // not enough to bridge a recording qualifier the video's own title carries
+  // and relatedSongs drops. No video is correct here — never the wrong one.
+  it('a featured-artist/remix video must never pair with the base recording via relatedSongs alone', () => {
     const karmaVideo = video({ title: 'Karma (feat. Ice Spice)', relatedSongs: ['Karma'] });
-    expect(trackVideoFor('Karma', [karmaVideo])).toBe(karmaVideo);
+    expect(trackVideoFor('Karma', [karmaVideo])).toBeNull();
+  });
+
+  it('the same featured-artist video DOES pair when relatedSongs echoes its own qualifier', () => {
+    const karmaVideo = video({
+      title: 'Karma (feat. Ice Spice)',
+      relatedSongs: ['Karma (feat. Ice Spice)'],
+    });
+    expect(trackVideoFor('Karma (feat. Ice Spice)', [karmaVideo])).toBe(karmaVideo);
   });
 
   it('falls back to the video title when relatedSongs is empty', () => {
@@ -141,9 +161,12 @@ describe('trackVideoFor — real corpus', () => {
         if (v) paired++;
       }
     }
-    // 50 of 244 track-guide songs pair with a real video today (2026-08-13
-    // corpus). Not a hard equality on the exact number — the seed grows — but
-    // a floor that fails loudly if the matcher regresses to near-zero.
+    // 48 of 244 track-guide songs pair with a real video today (2026-08-13
+    // corpus, post-finding-#4 fix — was 50 before recording separation was
+    // enforced on the relatedSongs bridge; Karma and Fortnight's
+    // featured-artist videos correctly stopped pairing with their base album
+    // tracks). Not a hard equality on the exact number — the seed grows —
+    // but a floor that fails loudly if the matcher regresses to near-zero.
     expect(total).toBeGreaterThan(0);
     expect(paired).toBeGreaterThanOrEqual(40);
   });

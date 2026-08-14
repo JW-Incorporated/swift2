@@ -8,6 +8,9 @@ import {
 } from './check-filter-coverage.mjs';
 import { ERAS } from '../apps/web/lib/longlive/eras.ts';
 import type { ContentItem, ContentTag, VideoNote } from '../apps/web/lib/longlive/types.ts';
+import type { EraFeedEntry } from '../apps/web/lib/longlive/era-feed.ts';
+
+const ANCHOR = { sortDate: '2019-06-01', displayDate: '2019-06-01', via: 'exact' as const };
 
 const ERA = { eraId: 'lover', eraStart: '2019-01-01', eraEnd: '2019-12-31' };
 
@@ -108,6 +111,34 @@ describe('eraCoverage', () => {
     expect(r.offenders).toEqual([]);
     expect(r.zeroFilters.sort()).toEqual([...TOPIC_FILTERS, 'Videos'].sort());
     expect(r.untaggedAppearanceVideos).toBe(0);
+  });
+
+  // PLAN.md P3 step 13: doorways must carry a filter id exactly like a
+  // moment or video — the real proof the LensId→filter mapping is complete.
+  it('a thread doorway counts toward its mapped filter, never zero', () => {
+    const doorways: EraFeedEntry[] = [
+      {
+        kind: 'thread',
+        doorway: { threadId: 'fashion', kicker: 'k', title: 'The Runway', example: 'x' },
+        anchor: ANCHOR,
+      },
+    ];
+    const r = eraCoverage({ ...ERA, items: [], videoFeed: [], doorways });
+    expect(r.offenders).toEqual([]);
+    expect(r.filterCounts.Fashion).toBe(1);
+  });
+
+  it('an egg doorway always counts toward Lore', () => {
+    const doorways: EraFeedEntry[] = [
+      {
+        kind: 'egg',
+        doorway: { eggId: 'lover:e1', threadId: null, kicker: 'k', title: 'A theory' },
+        anchor: ANCHOR,
+      },
+    ];
+    const r = eraCoverage({ ...ERA, items: [], videoFeed: [], doorways });
+    expect(r.offenders).toEqual([]);
+    expect(r.filterCounts.Lore).toBe(1);
   });
 });
 

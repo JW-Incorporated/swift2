@@ -59,3 +59,58 @@ export function scrubberPillTransform(pct: number): string {
 export function scrubberTooltipTransform(pct: number): string {
   return pct < 50 ? 'translateY(0)' : 'translateY(-100%)';
 }
+
+// --- Anchor honesty (adversarial review finding #1, 2026-08-13) -----------
+//
+// TimelineScrubber measures every `[data-ll-item]` card as a rail anchor so
+// it can position the handle and interpolate a date for the pill/
+// aria-valuetext. Some of those anchors are synthetic (anchor-date.ts's
+// `era-scatter`/`clamped`/`related-*` sources) — real enough to POSITION a
+// card, never real enough to be shown or announced as a fact (the honesty
+// rule). `exact` on each measured anchor carries that distinction through
+// from `data-ll-exact` (default true — every card that can be synthetic sets
+// it explicitly), and `labelForDate` is the single choke point that turns a
+// resolved date into on-screen/AT text, so a synthetic anchor can never reach
+// either surface no matter which code path resolved it (drag, scroll-sync,
+// or the pre-measure calendar-linear fallback).
+
+export interface ScrubberAnchor {
+  date: number;
+  top: number;
+  exact: boolean;
+}
+
+/** Same "Date unknown" voice the cards themselves use for an unauthored date. */
+export const UNKNOWN_DATE_LABEL = 'Date unknown';
+
+/**
+ * Whether a resolved date (interpolated or exact) may be shown/announced:
+ * the exactness of whichever measured anchor is nearest to it BY DATE. No
+ * anchors measured yet defaults to exact so first paint (the calendar-linear
+ * fallback, before any card has been measured) isn't suppressed.
+ */
+export function nearestAnchorExact(anchors: readonly ScrubberAnchor[], target: number): boolean {
+  if (!anchors.length) return true;
+  let best = anchors[0];
+  let bestDist = Math.abs(anchors[0].date - target);
+  for (const anchor of anchors) {
+    const dist = Math.abs(anchor.date - target);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = anchor;
+    }
+  }
+  return best.exact;
+}
+
+/**
+ * The only place a resolved date becomes display/AT text. `formatted` is
+ * whatever the caller would otherwise show (e.g. `fmtMonth(ms)`) — `exact`
+ * decides whether that string is ever allowed to reach the screen. A
+ * synthetic anchor's formatted date is computed and then discarded here,
+ * never returned, which is what makes it impossible for one to leak through
+ * regardless of which caller (pill text, aria-valuetext) formats it.
+ */
+export function labelForDate(formatted: string, exact: boolean): string {
+  return exact ? formatted : UNKNOWN_DATE_LABEL;
+}

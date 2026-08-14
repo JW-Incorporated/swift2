@@ -3,6 +3,7 @@
 import { Share2 } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { EraGrid } from './EraGrid';
+import { LandingMasthead } from './LandingMasthead';
 import { ModeToggle } from './TopBar';
 
 /**
@@ -32,17 +33,13 @@ export function LandingPage() {
           <Share2 className="size-5" />
         </button>
         <header className="mb-10 flex flex-col items-center gap-6 text-center">
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--era-accent-2)]">
-              The Taylor Swift time machine
-            </p>
-            <h1 className="font-era text-5xl font-semibold tracking-tight sm:text-7xl">
-              Long&nbsp;Live
-            </h1>
-            <p className="max-w-xs text-sm text-[color:var(--era-ink-soft)] sm:max-w-sm sm:text-base">
-              Real-time updates on her whole life, or step back into any era.
-            </p>
-          </div>
+          <LandingMasthead
+            onNavigate={(m) => {
+              // Same rule as the toggle below: 'era' is a no-op because the
+              // landing page IS the era front door. The rest are real jumps.
+              if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
+            }}
+          />
           <ModeToggle
             mode="era"
             alwaysShowLabels

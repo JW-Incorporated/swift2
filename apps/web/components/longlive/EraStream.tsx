@@ -8,6 +8,7 @@ import { eraStyle } from '@/lib/longlive/theme';
 import type { Era } from '@/lib/longlive/types';
 import { EraSection } from './EraSection';
 import { FilterBar } from './FilterBar';
+import { filterChangeScrollDelta } from '@/lib/longlive/era-stream-pin';
 
 /**
  * Jump-scroll timing. SETTLE is how long we keep re-correcting AFTER first
@@ -259,7 +260,19 @@ export function EraStream() {
     if (!saved) return;
     const el = document.querySelector<HTMLElement>(`[data-ll-section="${saved.eraId}"]`);
     if (!el) return;
-    const delta = el.getBoundingClientRect().top - saved.offset;
+    const rect = el.getBoundingClientRect();
+    // filterChangeScrollDelta (era-stream-pin.ts) also clamps for the case
+    // where the filter change collapsed the active era's own feed to the
+    // short empty-state message: pinning the top alone would then leave the
+    // section's bottom above the reading reference line, silently landing
+    // the reader in the FOLLOWING era (adversarial review finding #3,
+    // 2026-08-13).
+    const delta = filterChangeScrollDelta({
+      sectionTop: rect.top,
+      sectionBottom: rect.bottom,
+      savedTop: saved.offset,
+      viewportCenter: window.innerHeight / 2,
+    });
     if (delta !== 0) window.scrollBy({ top: delta, behavior: 'auto' });
   }, [filters]);
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { Clapperboard, Heart, Mic2, Music, ScrollText, Shirt } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
@@ -51,17 +51,32 @@ const FILTER_COLOR: Record<FilterId, string> = {
  * TimelineScrubber already use for cross-component layout facts. TopBar
  * exposes `data-ll-topbar` for exactly this.
  */
-/** TopBar's shipped resting height. Only the seed value: the effect below
- *  measures the real one before the user can scroll. Starting at 0 instead
- *  would park the bar over TopBar for a frame and visibly jump on load. */
+/** SSR-render seed only — the layout effect below overwrites it with the
+ *  real measured height BEFORE the browser paints, so this number is never
+ *  actually seen (adversarial review finding #5, 2026-08-13: TopBar's mobile
+ *  contents are being edited concurrently elsewhere, so any hardcoded number
+ *  here would just go stale again — the fix is not depending on this value
+ *  being accurate, not picking a better constant). Starting at 0 instead
+ *  would park the bar over TopBar for the seed's brief existence instead of
+ *  approximately in place. */
 const TOPBAR_RESTING_HEIGHT = 52;
+
+// useLayoutEffect is a no-op with a dev warning on the server; this repo's
+// FilterBar only ever runs client-side post-hydration in practice, but the
+// isomorphic guard keeps SSR builds warning-free without changing behavior.
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export function FilterBar() {
   const { filters } = useAppState();
   const { toggleFilter, clearFilters } = useAppActions();
   const [top, setTop] = useState(TOPBAR_RESTING_HEIGHT);
 
-  useEffect(() => {
+  // Layout effect, not a plain effect: this runs synchronously after the DOM
+  // commits but BEFORE the browser paints that frame, so the real measured
+  // height replaces the seed constant before the reader's eyes ever see it —
+  // no post-paint jump, regardless of TopBar's actual (and changing) height
+  // or the reader's scroll position on load.
+  useIsomorphicLayoutEffect(() => {
     const header = document.querySelector<HTMLElement>('[data-ll-topbar]');
     if (!header) return;
     const update = () => setTop(header.getBoundingClientRect().height);

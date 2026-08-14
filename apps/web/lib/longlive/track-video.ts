@@ -42,22 +42,58 @@ export function normalizeTrackVideoTitle(title: string): string {
 }
 
 /**
+ * Recording-identifying qualifiers still present on a video's OWN title
+ * after stripping the pure-format decorations above — e.g. "(feat. Ice
+ * Spice)", "(Taylor's Version)", "(10 Minute Version)". Anything left in
+ * parentheses at this point names a DIFFERENT RECORDING, not a format.
+ */
+function recordingQualifiers(title: string): string[] {
+  let s = title.toLowerCase();
+  for (const pattern of DECORATION_PATTERNS) s = s.replace(pattern, ' ');
+  const parens = s.match(/\(([^)]*)\)/g) ?? [];
+  return parens.map((p) => p.slice(1, -1).trim()).filter(Boolean);
+}
+
+/**
  * The official video for a track's song, or null when there isn't one (no
  * match, or the track title normalizes to nothing).
  *
+ * `relatedSongs` (the seed's curated song pointer) is trusted to bridge a
+ * video whose own title reads differently from the track (e.g. "All Too
+ * Well: The Short Film" → "All Too Well (10 Minute Version)") — but ONLY
+ * when it doesn't silently drop a recording qualifier the video's own title
+ * carries. Midnights' "Karma (feat. Ice Spice)" pointed `relatedSongs` at
+ * plain "Karma": true in the "this video relates to that song" sense the
+ * seed intended, but a featured-artist recording is a DIFFERENT recording
+ * from the album track, exactly like "(Taylor's Version)" is — and this
+ * function's own invariant is recording separation (see
+ * `normalizeTrackVideoTitle`'s doc comment above). A video whose title's own
+ * qualifier isn't echoed anywhere in its `relatedSongs` entries is refused
+ * via that pointer; it can still match by an exact title equality, same as
+ * every other video. **A wrong pairing is worse than no video at all**, so
+ * this fails closed to no match rather than guessing (finding #4, review
+ * 2026-08-13).
+ *
  * On more than one match — e.g. separate music-video and lyric-video
  * records for the same song — prefers `music_video`, then `lyric_video`,
- * then the first match in the input's own order, mirroring the existing
- * preference in `videoForTrack` (videos.ts).
+ * then the first match in the input's own order. This is the ONLY
+ * song-to-video matcher in the app (finding #2, adversarial review
+ * 2026-08-13, removed the disagreeing legacy `videoForTrack` from
+ * videos.ts) — every caller, TrackGuide and TrackDetail alike, uses this.
  */
 export function trackVideoFor(trackTitle: string, videos: readonly VideoNote[]): VideoNote | null {
   const target = normalizeTrackVideoTitle(trackTitle);
   if (!target) return null;
-  const matches = videos.filter(
-    (v) =>
-      v.relatedSongs.some((song) => normalizeTrackVideoTitle(song) === target) ||
-      normalizeTrackVideoTitle(v.title) === target,
-  );
+  const matches = videos.filter((v) => {
+    if (normalizeTrackVideoTitle(v.title) === target) return true;
+    const qualifiers = recordingQualifiers(v.title);
+    if (qualifiers.length > 0) {
+      const relatedBlob = v.relatedSongs.join(' | ').toLowerCase();
+      const echoed = qualifiers.every((q) => relatedBlob.includes(q));
+      if (!echoed) return false;
+    }
+    return v.relatedSongs.some((song) => normalizeTrackVideoTitle(song) === target);
+  });
   if (matches.length === 0) return null;
   return (
     matches.find((v) => v.kind === 'music_video') ??

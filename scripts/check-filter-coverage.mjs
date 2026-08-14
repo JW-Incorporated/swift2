@@ -29,15 +29,25 @@ import {
   mergeEraFeed,
 } from '../apps/web/lib/longlive/era-feed.ts';
 import { ALL_FILTERS, filtersForEntry } from '../apps/web/lib/longlive/filters.ts';
+import { threadDoorwaysForEra, eggDoorwaysForEra } from '../apps/web/lib/longlive/doorways.ts';
 
 /** The five topic tags — ALL_FILTERS minus the Videos peer chip. */
 export const TOPIC_FILTERS = ALL_FILTERS.filter((f) => f !== 'Videos');
 
 /** One merged-feed entry's id + title, whatever kind it is. */
 function entryIdentity(entry) {
-  return entry.kind === 'moment'
-    ? { id: entry.item.id, title: entry.item.title }
-    : { id: entry.video.slug, title: entry.video.title };
+  switch (entry.kind) {
+    case 'moment':
+      return { id: entry.item.id, title: entry.item.title };
+    case 'video':
+      return { id: entry.video.slug, title: entry.video.title };
+    case 'thread':
+      return { id: `thread:${entry.doorway.threadId}`, title: entry.doorway.title };
+    case 'egg':
+      return { id: entry.doorway.eggId, title: entry.doorway.title };
+    default:
+      return { id: 'unknown', title: 'unknown' };
+  }
 }
 
 /** The exact offender line format PLAN.md step 6 asks for. */
@@ -60,8 +70,8 @@ export function formatOffender(o) {
  * Pure function of its inputs — exported so the unit tests can exercise it
  * against small fixtures instead of the full corpus.
  */
-export function eraCoverage({ eraId, eraStart, eraEnd, items, videoFeed }) {
-  const merged = mergeEraFeed(items, videoFeed, eraStart, eraEnd);
+export function eraCoverage({ eraId, eraStart, eraEnd, items, videoFeed, doorways = [] }) {
+  const merged = mergeEraFeed(items, videoFeed, eraStart, eraEnd, doorways);
   const ctx = { inlineVideoOwnerIds: inlineVideoMomentIds(items) };
 
   const offenders = [];
@@ -87,12 +97,25 @@ export function eraCoverage({ eraId, eraStart, eraEnd, items, videoFeed }) {
   return { eraId, offenders, filterCounts, zeroFilters, untaggedAppearanceVideos };
 }
 
-/** Every era's coverage, from the real, live corpus. */
+/** Every era's coverage, from the real, live corpus — moments, videos AND
+ * doorways (PLAN.md P3 step 13), so a doorway with zero filter ids is caught
+ * here exactly like an untagged moment. */
 export function collectCoverage() {
   return ERAS.map((era) => {
     const items = contentForEra(era.id);
     const videoFeed = eraVideoFeed(era.id, embeddedYoutubeIds(items));
-    return eraCoverage({ eraId: era.id, eraStart: era.start, eraEnd: era.end, items, videoFeed });
+    const doorways = [
+      ...threadDoorwaysForEra(era.id, era.start, era.end),
+      ...eggDoorwaysForEra(era.id, era.start, era.end),
+    ];
+    return eraCoverage({
+      eraId: era.id,
+      eraStart: era.start,
+      eraEnd: era.end,
+      items,
+      videoFeed,
+      doorways,
+    });
   });
 }
 

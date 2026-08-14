@@ -16,7 +16,8 @@ import {
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra, keepExploring, releasedFactValue, trackKey } from '@/lib/longlive/tracks';
-import { videoForTrack } from '@/lib/longlive/videos';
+import { videosForEra } from '@/lib/longlive/videos';
+import { trackVideoFor } from '@/lib/longlive/track-video';
 import { MomentVideo } from './MomentVideo';
 import { OverlayNav } from './OverlayNav';
 import { TrackFiveCallout } from './TrackFivePill';
@@ -67,8 +68,15 @@ export function TrackDetail() {
   const dossier = track.dossier;
   // The song's official video, matched from the era's videos rail by title
   // (#439/#440) so track pages actually embed the music video instead of
-  // hiding it in the era-level rail only.
-  const matchedVideo = videoForTrack(era.id, track.title);
+  // hiding it in the era-level rail only. Same conservative matcher
+  // TrackGuide's inline playback uses (track-video.ts) — see its doc comment
+  // for the recording-separation rule. TrackDetail previously called a
+  // separate, looser matcher (videos.ts's `videoForTrack`) whose
+  // `normalizeTitle` stripped every parenthetical including "(Taylor's
+  // Version)", so the two disagreed on which recording to play (finding #2,
+  // adversarial review 2026-08-13). `videoForTrack` is gone — there is only
+  // one matcher now.
+  const matchedVideo = trackVideoFor(track.title, videosForEra(era.id));
   // Prefer the official music video when one exists — it is the richer artifact
   // and carries its own title. Otherwise fall back to the track's OWN verified
   // youtubeId (the official audio / lyric video sourced by the Audio Curator,

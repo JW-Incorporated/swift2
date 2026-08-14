@@ -24,22 +24,35 @@ import type { Era } from '@/lib/longlive/types';
  * was wrong in a way review caught: an unanchored card leaves TimelineScrubber
  * interpolating across a region containing no anchors at all, so dragging maps
  * to badly wrong dates exactly where the filter is most used. The anchor is
- * not a fabricated claim about the video: nothing renders it, the card still
- * reads "Date unknown".
+ * not a fabricated claim about the video: `data-ll-date` positions the card,
+ * `data-ll-exact` tells TimelineScrubber whether that position may ever be
+ * shown/announced, and the card itself renders `displayDate` only, which is
+ * null (and reads "Date unknown") for anything but an authored `releasedOn`
+ * (adversarial review finding #1, 2026-08-13 — a synthetic anchor was
+ * reaching the scrubber's visible pill and `aria-valuetext`).
  */
 export function VideoMomentCard({
   video,
   eraId,
   sortDate,
+  displayDate,
 }: {
   video: PlayableVideoNote;
   eraId: Era['id'];
   sortDate: string;
+  /** Positioning only via `sortDate` above — see anchor-date.ts's honesty
+   * rule. Rendered (and exposed to the scrubber) only when non-null. */
+  displayDate: string | null;
 }) {
   const anchorProps = {
     'data-ll-item': `era-video-${video.slug}`,
     'data-ll-era': eraId,
-    'data-ll-date': new Date(video.releasedOn ?? sortDate).getTime(),
+    'data-ll-date': new Date(sortDate).getTime(),
+    // Tells TimelineScrubber whether this position's date may be shown/
+    // announced (finding #1 — a synthetic anchor was leaking into the
+    // scrubber's pill and aria-valuetext even though the card itself
+    // correctly renders "Date unknown").
+    'data-ll-exact': displayDate != null ? '1' : '0',
   };
   const kindLabel = video.kind ? VIDEO_KIND_LABEL[video.kind] : 'Video';
   // Every video record reaching this component plays: `videosForEra` hides the
@@ -62,7 +75,7 @@ export function VideoMomentCard({
       <div className="era-card block w-full rounded-2xl border p-5">
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-            {video.releasedOn ? formatMonthYear(video.releasedOn) : 'Date unknown'}
+            {displayDate ? formatMonthYear(displayDate) : 'Date unknown'}
           </span>
           <span className="flex shrink-0 items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent)]">
             <Clapperboard className="h-3.5 w-3.5" aria-hidden />
