@@ -37,9 +37,10 @@ Marjorie v1 is a **curator, not a commander**:
 | **8:00 PM** | Post the **Evening Delta** as a comment on the same issue: only what changed since 6:00 AM — newly-blocking decisions, content shipped/authored today, anything that stalls overnight unanswered. Never restate the morning brief. |
 | Between briefs | Curate new `founder-decision` issues as they arrive: dedupe, check precedent, rank by cost-of-delay. |
 
-Runner: today a scheduled Claude session on Joey's side (same pattern as
-Kevin on Wyatt's side), in **its own git worktree/clone — never a shared
-checkout**. **Model: pin to Fable (`claude-fable-5`)** — Joey's call,
+Runner: a scheduled cloud session hosted on Wyatt's Anthropic account (same as
+every runner — see [`runners.md`](runners.md); the account is whose bill, not
+whose call), in **its own git worktree/clone — never a shared checkout**.
+**Model: pin to Fable (`claude-fable-5`)** — Joey's call,
 2026-07-11: Marjorie's judgment passes always run on the most capable
 available model; set it in the runner/agent config, and if Fable is ever
 unavailable the runner may fall back but must flag the substitution in the

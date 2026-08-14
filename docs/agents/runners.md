@@ -2,16 +2,26 @@
 
 **Requirement (Joey, final form 2026-07-12): ALL scheduled agent spend runs
 on Wyatt's account** — Joey is near his weekly limit; his side spends zero
-scheduled tokens. The founder split of labor: **Joey = vision, monitoring,
-and site QA** (10× Wyatt's testing bandwidth), feeding the org through
-zero-token paths — the intake form, experience reports, brief checkboxes;
-**Wyatt's account = every runner.** Standing operational assumption (Joey,
-2026-07-11): we have effective command-line access to Wyatt's machine via
-Joey→Wyatt chat — any prompt/command Joey relays gets run there, so
-Wyatt-side setup is a paste away, never a blocker. Every scheduled runner is registered here with
-its owner; the prompt each runner executes is versioned in
-`runner-prompts/` — **the repo file is the source of truth**, and a trigger
-whose inline prompt drifts from its file is a bug.
+scheduled tokens. **This requirement SURVIVED the 2026-08-14 handoff and is
+now the main thing Wyatt still does** (`docs/decisions.md` 2026-08-14,
+`CLAUDE.md` § Ownership): he hosts the routines so their spend lands on his
+bill, and he supplies the API keys/secrets they and production need. He does
+**not** direct them, own the desks, or decide what they work on — **Joey does.**
+The `Account` column below therefore means *whose bill*, never *whose call*.
+
+**Changing a routine's cadence is Joey's, and it does not need a Wyatt-side
+paste.** The declarative fleet schedule (`docs/agents/fleet-schedule.yml`,
+checked by `scripts/check-fleet-schedule.mjs`) is the mechanism: edit the
+schedule in a PR and the reconcile routine applies it. The older standing
+assumption — that Joey relays prompts to Wyatt's machine over chat and Wyatt
+pastes them — is the **fallback** now, not the normal path. Reserve it for
+things the schedule file cannot express: creating or deleting a routine,
+rotating a secret, or repairing an account-level failure.
+
+Every scheduled runner is registered here with its owner; the prompt each
+runner executes is versioned in `runner-prompts/` — **the repo file is the
+source of truth**, and a trigger whose inline prompt drifts from its file is
+a bug.
 
 ## Token-burn audit + cost mode (2026-07-25, Wyatt — supersedes the sustainment table below)
 
@@ -371,6 +381,11 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
 
 ## The split
 
+`Account` = **whose Anthropic bill the run lands on**, and since 2026-08-14 that
+is the *only* thing it means. Every runner below is directed by Joey; Wyatt just
+hosts them. Retiming any of them is a `docs/agents/fleet-schedule.yml` edit, not
+a request to Wyatt.
+
 | Runner | Cadence (UTC) | Model | Prompt file | Account | Why this side |
 |---|---|---|---|---|---|
 | Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
@@ -463,6 +478,11 @@ The row above is the *specification*. **No routine was created by the session
 that wrote it**, deliberately: creating cloud routines is a Wyatt-account action,
 and `routine-invariants.md`'s checklist has steps (detaching the
 `Claude_Code_Remote` connector) that can only be done in the routines UI.
+
+*(Still true after the 2026-08-14 handoff: **creating** a routine is one of the
+few things that genuinely requires Wyatt, because the routines live on his
+account. Changing an existing routine's **cadence** does not — that is a
+`fleet-schedule.yml` edit. See the header of this file.)*
 
 To bring Tree live, from Wyatt's side: create a routine named
 `Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the

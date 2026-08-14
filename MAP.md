@@ -24,7 +24,7 @@ reference docs it points at:
 | `docs/roadmap.md` | Roadmap and who owns what |
 | `docs/decisions.md` | Anything expensive to reverse. Append BEFORE implementing |
 | `docs/definition-of-done.md` | The long form of CLAUDE.md § Definition of done |
-| `docs/agents/runners.md` | Scheduled runners — all on Wyatt's account |
+| `docs/agents/runners.md` | Scheduled runners — hosted on Wyatt's account (his bill), directed by Joey |
 | `docs/agents/codex.md` | How a session actually runs a Codex review (`--background`, `result <job-id>`) |
 
 ## Conventions

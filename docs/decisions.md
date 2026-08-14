@@ -7,6 +7,86 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-14 — Project handed to Joey; Wyatt keeps the routine account, the secrets, and nothing else
+
+**Decision — Joey owns this project outright, effective today.** Product and
+engineering both. He is the sole decision-maker: what gets built, whether the
+architecture is sustainable, whether a release ships, and every merge. The
+two-founder structure this repo was built around (Joey = CEO/Product, Wyatt =
+CTO/Engineering) ends here. Where any doc says "ask a founder", that now means
+Joey and only Joey.
+
+**Wyatt retains exactly three things, and they are narrow.** (1) The scheduled
+cloud routines stay hosted on his Anthropic account, so their spend lands on his
+bill instead of Joey's weekly limit — the arrangement `docs/agents/runners.md`
+has recorded since 2026-07-12, kept for the same cost reason and no other. (2)
+He supplies certain API keys and secrets, including `ANTHROPIC_API_KEY`, which
+is now live in production. (3) Cadence changes to those routines run through the
+declarative fleet schedule (`docs/agents/fleet-schedule.yml`, landing on branch
+`feat/fleet-schedule`), so Joey can retime the fleet without a Wyatt-side paste.
+Creating or deleting a routine, and rotating a secret, still need him because
+they are account-level actions. Nothing else does. The `Account` column in
+`runners.md` means *whose bill*, never *whose call*.
+
+**The lane restrictions on Joey's agents are lifted — his bots may touch any
+file in the repo.** The ENGINE/CONTENT owner split in `docs/roadmap.md`
+("ENGINE = Wyatt/code, CONTENT = Joey/seed data — don't touch the other track's
+files", mirrored in `docs/cto-role.md`'s bootup checklist) was a
+collision-avoidance device for two humans working in parallel, never a
+permission boundary, and with one owner it has nothing left to deconflict. The
+work packages and their sequencing survive as two *workstreams*; the fence is
+gone. Worth recording because it turned out to be enforced entirely by prose —
+`CLAUDE.md`, `roadmap.md` and `cto-role.md` — with no mechanical gate behind it.
+
+**What deliberately did NOT change, because none of it was about territory.**
+The auto-merge gates are blast-radius controls and they stay exactly as they
+are: the `NEVER_ALLOWLIST` self-amendment bar in
+`scripts/check-automerge-allowlist.mjs` (`.github/**`, `scripts/**`,
+`CLAUDE.md`, `docs/agents/**`, `docs/decisions.md`, migrations, lockfiles); the
+P0 #1972 server-code gate and its content backstop
+(`scripts/automerge-content-guard.mjs`); the `apps/web/app/privacy|terms` legal
+denies; Austin's scope fence; Kevin's never-auto-code Stream-3 invariant; and
+the content sourcing, privacy-redline and fabrication guards. Concentrating
+authority in one founder makes the "a bot PR must never widen its own authority"
+bar *more* load-bearing, not less — there is no second human to notice.
+
+**The era ownership lock stays too** (`.github/content-ownership.json`,
+`scripts/check-content-ownership.mjs`, #1954/#1959). It reads as an ownership
+control and is not one: it stops the automated fleet stomping a human who is
+hand-authoring an era, which is a concurrent-writer problem that survives the
+handoff intact. It is Joey's tool now — claim an era, the fleet skips it. The
+`founders` map keeps both `joey` and `wyatt` keys; `claims` stays empty, so the
+lock is dormant. With the roadmap fence gone, this lock is the *only* remaining
+mechanism preventing two writers colliding on an era file, so the docs now point
+at it explicitly where they used to point at the track split.
+
+**One behavioural fix rides along.** `watchdog.yml`'s degraded-mode relay
+treated a comment from either `sffan15-sys` or `wjduvall-cmd` on a
+`founder-decision` bank item as a founder ruling and cross-posted it to every
+affected ticket. `wjduvall-cmd` is the account the scheduled fleet comments and
+files as (`docs/agents/austin.md`: "all a11y tickets are `wjduvall-cmd`-
+authored"), so an agent's comment could be relayed as a decision. Narrowed to
+`sffan15-sys`. Post-handoff the correct set and the safe set are the same login.
+
+**Alternatives considered.** *Delete Wyatt from the docs entirely* — rejected: a
+doc that omits the one person who holds the production API key sends a stuck
+session nowhere, and the routine hosting is a real, load-bearing arrangement.
+*Keep the ENGINE/CONTENT fence as a soft convention* — rejected: it reads as
+permission, and a fence nobody is on the other side of only blocks work.
+*Rewrite historical attributions ("Wyatt, 2026-07-25") to Joey* — rejected: they
+are the authority trail for calls that were genuinely his at the time; this file
+is a record, not a roster. *Loosen the auto-merge allowlist now that one person
+approves everything* — rejected, and it is the opposite of what one owner
+implies. *Also strip `wjduvall-cmd` from `scripts/ops/unowned-sweep.mjs`'s Kevin
+S3 author fence and from the `@`-mentions in watchdog/backup alerts* — rejected:
+that fence skips the fleet's own filings rather than a person's, and Wyatt still
+wants the alerts about routines that run on his account.
+
+**Approved by:** Wyatt (CTO), 2026-08-14 — the handoff itself and its scope.
+Joey is the approver for everything from this entry forward.
+
+---
+
 ## 2026-08-13 — Era reader rework: bottom nav, one global filter, timeline doorways
 
 Five decisions, all Joey's, taken on the consolidated team review of the "Time
