@@ -26,6 +26,13 @@
    toggle (CSS overlay at `100dvh`, NOT the Fullscreen API — unreliable on iOS),
    "Most recent" replacing the "Top 10" heading, and eggs grouped by era.
    Backend behaviour is untouched; that is the NEXT piece of work.
+   - **Board half DONE and committed.** `BoardItem` gained an `era` field
+     (optional, so an existing test double in an unowned file kept compiling);
+     eggs group into 11 era buckets with **0 failing era resolution**; column 1
+     is "Most recent" with relative dates and a touch-visible "Ask clown bot →".
+     Verified: `clown-board` 27/27, full suite 2779/2779, typecheck + lint clean.
+   - **Panel half IN FLIGHT** — chrome + fullscreen toggle, plus a new
+     `ClownMessageRow.tsx`. Not yet committed or verified by me.
 
 **NOW: device-review round 1 on `fix/land-in-eras`** — Joey's first real-phone
 pass on the shipped reader. Three bugs, ONE PR (they are interdependent: the
