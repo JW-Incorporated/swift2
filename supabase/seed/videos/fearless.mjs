@@ -52,6 +52,7 @@ export default {
       director: 'Trey Fanjoy',
       releasedOn: null,
       relatedSongs: ['Love Story'],
+      tags: ['Music'],
       summary:
         'The period-piece blockbuster: a campus meet-cute dissolves into a full Regency-styled castle romance, ballgown and all, ending with the two reunited across a field — the happy ending the song writes over Romeo and Juliet.',
       symbolism:
@@ -68,6 +69,7 @@ export default {
       director: 'Roman White',
       releasedOn: null,
       relatedSongs: ['You Belong with Me'],
+      tags: ['Music'],
       summary:
         'Taylor plays both the band-tee girl next door and the brunette cheer captain across the driveway — window-sign confessions, a prom-night reveal, and the era\'s defining underdog fantasy.',
       symbolism:
@@ -87,6 +89,7 @@ export default {
       director: 'Trey Fanjoy',
       releasedOn: null,
       relatedSongs: ['White Horse'],
+      tags: ['Music'],
       summary:
         'The anti-fairytale companion to Love Story: a dim apartment, a phone that shouldn\'t be answered, and a breakup played in intercut apology scenes — no castle, no rescue.',
       symbolism: null,
@@ -114,6 +117,7 @@ export default {
       director: 'Roman White',
       releasedOn: null,
       relatedSongs: ['Fifteen'],
+      tags: ['Music'],
       summary:
         'A greenhouse-dream staging of freshman year: scenes bloom and dissolve around Taylor as she narrates Abigail\'s story and her own — memory rendered as a garden being planted and unplanted.',
       symbolism: null,
@@ -139,6 +143,7 @@ export default {
       director: null,
       releasedOn: null,
       relatedSongs: ['The Best Day'],
+      tags: ['Music'],
       summary:
         'A home-movie tribute assembled from Taylor family footage — childhood birthdays, ordinary afternoons with her mother — released as a Mother\'s Day surprise.',
       symbolism: null,
@@ -154,6 +159,7 @@ export default {
       director: null,
       releasedOn: '2010-01-01',
       relatedSongs: ['Fearless'],
+      tags: ['Music'],
       summary:
         'A live-performance-style video built from touring footage for the album\'s title track, released as its final single.',
       symbolism: null,
@@ -169,6 +175,7 @@ export default {
       director: null,
       releasedOn: '2021-04-09',
       relatedSongs: ['The Best Day (Taylor\'s Version)'],
+      tags: ['Music'],
       summary:
         'A new home-movie video built from never-before-seen family footage spanning her childhood to young adulthood, released three weeks after Fearless (Taylor\'s Version) — extending the original tribute for the re-recording era.',
       symbolism: null,
@@ -187,6 +194,7 @@ export default {
       director: null,
       releasedOn: null,
       relatedSongs: [],
+      tags: ['Tour'],
       summary:
         'The first concert film: a three-part TV documentary following the Fearless Tour — 19-year-old headliner, screaming arenas, and the backstory told between stadium cuts.',
       symbolism: null,
@@ -219,6 +227,7 @@ export default {
       youtubeId: 'BFk2NjdJ1yY',
       channel: 'GRAMMYS',
       attribution: "GRAMMYs — the Recording Academy's official YouTube channel",
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: 'BFk2NjdJ1yY',

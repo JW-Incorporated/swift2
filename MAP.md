@@ -25,6 +25,7 @@ reference docs it points at:
 | `docs/decisions.md` | Anything expensive to reverse. Append BEFORE implementing |
 | `docs/definition-of-done.md` | The long form of CLAUDE.md § Definition of done |
 | `docs/agents/runners.md` | Scheduled runners — all on Wyatt's account |
+| `docs/agents/codex.md` | How a session actually runs a Codex review (`--background`, `result <job-id>`) |
 
 ## Conventions
 
@@ -67,7 +68,48 @@ reference docs it points at:
 | `.claude/skills/pause/SKILL.md` | Usage-limit pause/resume protocol |
 | `.claude/commands/` | Pre-existing project slash commands (design-debate, marketing) |
 | `PLANtemplate.md` | Copy to `PLAN.md` when a task touches >~3 files |
+| `PLAN.md` | Live plan: era reader rework (5 sequenced PRs) |
 | `docs/OPERATINGMANUAL.md` | The kit's own long-form manual |
+
+## The longlive reader (`apps/web`) — read `docs/longlive-experience.md` first
+
+The whole reader is ONE client page: `app/page.tsx` → `LongLive.tsx`, with
+React context state in `lib/longlive/store.tsx`. **There are no routes for
+eras/threads/mood/clownbot** — `?item=`/`?lens=`/`?era=`/`?guide=`/`?song=` are
+read once on mount (`deepLink.ts`) and never written back.
+
+| Path (under `apps/web/`) | Responsibility |
+|---|---|
+| `lib/longlive/store.tsx` | The single state container: `mode`, `eraId`, `lensId`, overlays, era-scroll snapshot, `ReturnPoint` doorway back-to-position stack (`pushReturnPoint`/`popReturnPoint`) |
+| `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags. **Does not re-export the type; import `ContentTag` from `./types`** |
+| `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry`, `filterForThread` (LensId→FilterId, exhaustive) |
+| `lib/longlive/anchor-date.ts` | Sort-key resolution for undated items. `displayDate` is null unless `via === 'exact'`; `via: 'clamped'` is a real date pulled inside an era's window (P3 step 14a) |
+| `components/longlive/FilterBar.tsx` | The ONE global sticky filter row. Mounted once by `EraStream`, never per era |
+| `lib/longlive/era-feed.ts` | Pure feed logic: `EraFeedEntry` (4 kinds), `mergeEraFeed`, `visibleFeed` — one signature each (P3 step 14b). Doorway construction in `doorways.ts`, spacing in `space-doorways.ts` |
+| `lib/longlive/doorways.ts` | Builds `thread`/`egg` doorway entries (`threadDoorwaysForEra` clamps out-of-window anchors, `eggDoorwaysForEra`); `theoryThreadId` — the R4 theory→thread mapping, shared with `TheoryCard.tsx` |
+| `lib/longlive/space-doorways.ts` | `spaceDoorways`/`DOORWAY_MIN_GAP` — spreads doorways through an already-merged feed, never drops one. A displaced doorway is marked `displaced` and STOPS being a scrubber anchor |
+| `lib/longlive/scrubber-anchor-corpus.test.ts` | Locks zero date inversions across all twelve real eras. Was 44 |
+| `lib/longlive/bottom-nav-focus.ts` | Pure focus predicate for `BottomNav` — `focusout` does NOT fire on DOM removal, so this re-derives from `document.activeElement` |
+| `lib/longlive/feed-tiers.ts` | Card silhouette/tier scoring — visual only, never order |
+| `lib/longlive/lenses.ts` | **2473 lines.** THREADS (6 narrative galleries), EGG_NODES, CLUE_PAIRS, motifs |
+| `lib/longlive/progress.ts` | The SSR-safe localStorage pattern — copy this for any persisted UI state |
+| `lib/longlive/useBackDismiss.ts` | Module-level LIFO overlay stack; catches the OS back gesture |
+| `components/longlive/EraStream.tsx` | Scrolls all eras; its scroll listener sets the active era |
+| `components/longlive/EraSection.tsx` | One era's wiring: hero, lyric, feed/doorway data, doorway tap → `pushReturnPoint`. Split (P3 step 15, was 826 lines) into the files below — none over 300 |
+| `components/longlive/EraFeedList.tsx` | Renders `EraSection`'s merged feed: dispatches each `EraFeedEntry` kind to the right card component |
+| `components/longlive/MomentCard.tsx` | Moment card wrapper: box + inline video play affordance (#2057) |
+| `components/longlive/MomentCardButton.tsx` | Moment card body per tier (hero/media/chip/text) + `MomentMeta`/`TagRow` |
+| `components/longlive/VideoMomentCard.tsx` | Full-width video-record card (kind: `'video'`) |
+| `components/longlive/DoorwayCard.tsx` | Thread/egg doorway cards — same silhouette as a moment card (P3 step 15) |
+| `components/longlive/EraThreadsPivot.tsx` | The "Threads running through {era}" strip below the feed |
+| `components/longlive/TopBar.tsx` | Sticky top bar + the 4-tab `ModeToggle`; hosts `TimelineScrubber` in era mode |
+| `lib/longlive/track-video.ts` | Pairs a track with a playable video. Exact match on normalised titles — **never strip edition qualifiers** like "(Taylor's Version)" |
+| `components/longlive/TrackGuideBar.tsx` | Full-width bar under the lyric, in the retired Spotify player's slot; opens `TrackGuide` |
+| `components/longlive/TrackGuide.tsx` | Full-screen track-guide modal; plays a paired song video inline (~20% of tracks pair) |
+| `components/longlive/TheoryGuide.tsx` | Full-screen theories & eggs modal shell; scroll-to-highlight + `ReturnPoint` pop on close |
+| `components/longlive/TheoryCard.tsx` | One theory/egg card: badges, sources, R4 back-link (thread if `theoryThreadId` resolves, else the unconditional "whole section" line) |
+| `components/longlive/ThreadsMode.tsx` | Thread gallery + thread detail |
+| `components/longlive/FeedbackButton.tsx` | Fixed bottom-right, `z-[71]`, POSTs to `/api/feedback` |
 
 ## Commands worth knowing
 

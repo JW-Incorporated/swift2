@@ -52,6 +52,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2024-04-19',
       relatedSongs: ['Fortnight'],
+      tags: ['Music'],
       summary:
         'Black-and-white asylum-for-poets imagery: Taylor is committed to an asylum and later enters a room marked "The Tortured Poets Department," where Post Malone types across from her — with Dead Poets Society\'s Ethan Hawke and Josh Charles as the doctors.',
       symbolism:
@@ -68,6 +69,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: null,
       relatedSongs: ['I Can Do It with a Broken Heart'],
+      tags: ['Music', 'Tour'],
       summary:
         'Built from real Eras Tour rehearsal and backstage footage: the show-must-go-on song scored by the machinery of the actual show — lifts, quick changes, and the smile snapping on at places, everyone.',
       symbolism: 'Using documentary tour footage as the "set" makes the lyric literal: the biggest tour ever staged is the broken heart\'s day job.',
@@ -97,6 +99,7 @@ export default {
       youtubeId: 'g55D_gAoC3I',
       channel: 'Access Hollywood',
       attribution: 'Access Hollywood — the outlet’s official YouTube channel',
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: 'g55D_gAoC3I',

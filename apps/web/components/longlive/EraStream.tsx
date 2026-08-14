@@ -1,12 +1,14 @@
 'use client';
 
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { ERAS, erasBackFrom, isFirstEra, getEra, jumpWindow } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import type { Era } from '@/lib/longlive/types';
 import { EraSection } from './EraSection';
+import { FilterBar } from './FilterBar';
+import { filterChangeScrollDelta } from '@/lib/longlive/era-stream-pin';
 
 /**
  * Jump-scroll timing. SETTLE is how long we keep re-correcting AFTER first
@@ -27,7 +29,7 @@ const JUMP_SCROLL_MAX_MS = 8000;
  * theme). Scrolling past Debut lands on the origin end-cap.
  */
 export function EraStream() {
-  const { eraId, eraJumpSeq, scrubbing } = useAppState();
+  const { eraId, eraJumpSeq, scrubbing, filters } = useAppState();
   // Read the live scrubbing flag without making it an effect dependency —
   // toggling it shouldn't tear down/rebuild the scroll listener, it should
   // just change what a single already-running listener does on its next call.
@@ -178,6 +180,16 @@ export function EraStream() {
   const reachedBeginning = isFirstEra(sequence[sequence.length - 1].id);
   const sequenceKey = sequence.map((e) => e.id).join(',');
 
+  // The active era's section-top offset (relative to the viewport), kept
+  // continuously fresh by the scroll handler below — the "before" snapshot
+  // the filter-change restore effect (below) reads from. It is deliberately
+  // NOT the saveEraScroll/getEraScroll snapshot: that pair persists raw
+  // scrollY across a mode switch (a different concern, on the provider), and
+  // a filter change narrows content ABOVE the active era, so restoring raw
+  // scrollY would leave the reader on the wrong era entirely — anchoring on
+  // the era section's own top edge is what keeps them in place.
+  const activeEraOffsetRef = useRef<{ eraId: string; offset: number } | null>(null);
+
   // Promote whichever section crosses the viewport center to "active", and
   // continuously persist the stream position so a jump into Threads (and back)
   // can restore this exact spot — anchor era, appended eras, and scroll offset.
@@ -204,7 +216,10 @@ export function EraStream() {
         const r = el.getBoundingClientRect();
         if (r.top <= center && r.bottom >= center) {
           const id = el.dataset.llSection;
-          if (id) setActiveEra(id as Era['id']);
+          if (id) {
+            setActiveEra(id as Era['id']);
+            activeEraOffsetRef.current = { eraId: id, offset: r.top };
+          }
           break;
         }
       }
@@ -225,6 +240,43 @@ export function EraStream() {
     };
   }, [sequenceKey, setActiveEra, saveEraScroll]);
 
+  // A filter change must not move the user between eras: it only narrows or
+  // widens each era's own feed, so the fix is to keep the ACTIVE era's
+  // section top pinned at the same viewport offset it held right before the
+  // change, rather than falling back to any absolute scrollY (which the
+  // narrowed/widened content above the active era would invalidate).
+  //
+  // `activeEraOffsetRef` is read here, not written — by the time this effect
+  // sees a new `filters` value, the DOM has already re-rendered under it, so
+  // the ref's value is still whatever the scroll handler above last recorded
+  // BEFORE the change (that handler doesn't depend on `filters`, so a filter
+  // toggle alone never touches it). useLayoutEffect (not useEffect) so the
+  // correction lands before the browser paints the shifted layout.
+  const prevFiltersRef = useRef(filters);
+  useLayoutEffect(() => {
+    if (prevFiltersRef.current === filters) return;
+    prevFiltersRef.current = filters;
+    const saved = activeEraOffsetRef.current;
+    if (!saved) return;
+    const el = document.querySelector<HTMLElement>(`[data-ll-section="${saved.eraId}"]`);
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    // filterChangeScrollDelta (era-stream-pin.ts) also clamps for the case
+    // where the filter change collapsed the active era's own feed to the
+    // short empty-state message: pinning the top alone would then leave the
+    // section's bottom above the reading reference line, silently landing
+    // the reader in the FOLLOWING era (adversarial review finding #3,
+    // 2026-08-13).
+    const delta = filterChangeScrollDelta({
+      sectionTop: rect.top,
+      sectionBottom: rect.bottom,
+      savedTop: saved.offset,
+      viewportCenter: window.innerHeight / 2,
+      scrollY: window.scrollY,
+    });
+    if (delta !== 0) window.scrollBy({ top: delta, behavior: 'auto' });
+  }, [filters]);
+
   // Lazily append the next older era as the sentinel nears the viewport.
   const sentinelRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -243,6 +295,7 @@ export function EraStream() {
 
   return (
     <div>
+      <FilterBar />
       {sequence.map((era, i) => (
         <Fragment key={era.id}>
           {i > 0 && <EraTransition from={sequence[i - 1]} to={era} />}

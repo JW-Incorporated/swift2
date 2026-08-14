@@ -52,6 +52,7 @@ export default {
       director: 'Dave Meyers & Taylor Swift',
       releasedOn: '2019-04-26',
       relatedSongs: ['ME!'],
+      tags: ['Music'],
       summary:
         'The era-flip: a French-arguing snake bursts into pastel butterflies, and the rest is a candy-colored musical-theater fever dream with Brendon Urie — released 4/26 after a fan-tracked countdown.',
       symbolism: 'The snake-to-butterflies opening is the official handoff from reputation to Lover, staged in one cut.',
@@ -70,6 +71,7 @@ export default {
       director: 'Drew Kirsch & Taylor Swift',
       releasedOn: '2019-06-17',
       relatedSongs: ['You Need to Calm Down'],
+      tags: ['Music'],
       summary:
         'A trailer-park block party stacked with LGBTQ icons — and a mid-video Katy Perry burger-and-fries reconciliation — ending on a title card for the Equality Act petition.',
       symbolism: null,
@@ -85,6 +87,7 @@ export default {
       director: 'Drew Kirsch',
       releasedOn: '2019-08-22',
       relatedSongs: ['Lover'],
+      tags: ['Music'],
       summary:
         'A couple lives inside a dollhouse where every room is a different color and mood — an image fans never stopped decoding, especially once the Eras Tour opened with the Lover set.',
       symbolism:
@@ -101,6 +104,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2020-02-27',
       relatedSongs: ['The Man'],
+      tags: ['Music'],
       summary:
         'Her solo directorial debut: buried under prosthetics, Taylor plays "Tyler" — the swaggering executive whose every entitled move the song calls out — until the credits reveal the trick.',
       symbolism:
@@ -117,6 +121,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2019-12-06',
       relatedSongs: ['Christmas Tree Farm'],
+      tags: ['Music'],
       summary:
         'A self-directed holiday video built from real Taylor-family home footage — sledding, decorating, and Taylor unwrapping her first guitar — set on the actual Pennsylvania tree farm the song is named for.',
       symbolism: null,
@@ -135,6 +140,7 @@ export default {
       director: 'Lana Wilson',
       releasedOn: '2020-01-31',
       relatedSongs: [],
+      tags: ['Music'],
       summary:
         'The Netflix documentary that opened the vault for real: the eating-disorder disclosure, the political-silence breaking point, and the Lover sessions — Sundance premiere, then streaming.',
       symbolism: null,
@@ -163,6 +169,7 @@ export default {
       director: null,
       releasedOn: '2020-05-17',
       relatedSongs: [],
+      tags: ['Music'],
       summary:
         'The one-night Paris concert special that became the Lover era\'s only live document after the pandemic canceled Lover Fest — aired on ABC, intimate theater instead of stadiums.',
       symbolism: null,
@@ -194,6 +201,7 @@ export default {
         "'You Need to Calm Down' wins Video of the Year, and she uses the podium to point back at the Equality Act petition the video ends on — noting from the stage that the White House had not responded to it.",
       youtubeId: '8z4icNgFSPI',
       channel: 'MTV',
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: '8z4icNgFSPI',
@@ -217,6 +225,7 @@ export default {
         'Carole King hands her Artist of the Decade — one of the wins that night that carried her to a record 29 American Music Awards.',
       youtubeId: '0pbSQ_0qbqU',
       channel: 'American Music Awards',
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: '0pbSQ_0qbqU',

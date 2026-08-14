@@ -14,6 +14,9 @@ import {
   SCRUBBER_SHELL_CLASS,
   scrubberPillTransform,
   scrubberTooltipTransform,
+  nearestAnchorExact,
+  labelForDate,
+  type ScrubberAnchor,
 } from './timelineScrubberLayout';
 
 /** Reference line for "what am I reading" — header + a bit into the viewport. */
@@ -26,10 +29,7 @@ const RIDGE_WIDTH = 28;
 /** Density curve resolution. */
 const SAMPLES = 72;
 
-interface Anchor {
-  date: number;
-  top: number;
-}
+type Anchor = ScrubberAnchor;
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
@@ -80,6 +80,18 @@ export function TimelineScrubber() {
   const handleRef = useRef<HTMLSpanElement>(null);
   const pillRef = useRef<HTMLSpanElement>(null);
   const anchorsRef = useRef<Anchor[]>([]);
+  // Subset of anchorsRef with `exact: true` — the DATE curve (dateForTop
+  // below) interpolates over this, never the full anchor set. Positioning
+  // (topForDate, pctForDate, ticks/milestones/ridge) still needs every
+  // anchor, synthetic included, so a card's rendered spot on the rail stays
+  // correct; but a synthetic anchor's fabricated date must never bend what
+  // the pill/aria-valuetext read back for a nearby REAL position (adversarial
+  // review finding #3, 2026-08-13 — 42 (era, filter) combos showed a month no
+  // real content occupies). Excluding it from this list, rather than gating
+  // display on adjacent-pair exactness, is also what fixes finding #4: the
+  // interpolated date is always drawn from real anchors, so it is always
+  // honest and never needs suppressing to "Date unknown".
+  const exactAnchorsRef = useRef<Anchor[]>([]);
   const draggingRef = useRef(false);
   const rafRef = useRef<number | null>(null);
   /** Last time we committed a React state update while dragging (ms, Date.now()). */
@@ -132,8 +144,19 @@ export function TimelineScrubber() {
       .map((el) => ({
         date: Number(el.dataset.llDate),
         top: el.getBoundingClientRect().top + window.scrollY,
+        // Missing attribute defaults to exact — every card that can carry a
+        // synthetic date sets `data-ll-exact="0"` explicitly (VideoMomentCard,
+        // DoorwayCard); everything else (moments, the end-of-era sentinel) has
+        // an authored date and never opts out.
+        exact: el.dataset.llExact !== '0',
       }))
+      // A doorway `spaceDoorways` displaced omits `data-ll-date` entirely
+      // (DoorwayCard, adversarial review finding #2, 2026-08-13) — its
+      // rendered position no longer matches its date, so it must not be a
+      // rail anchor at all, not just a non-exact one.
+      .filter((a) => Number.isFinite(a.date))
       .sort((a, b) => a.top - b.top);
+    exactAnchorsRef.current = anchorsRef.current.filter((a) => a.exact);
     setAnchorsVersion((v) => v + 1);
   }, [eraId]);
 
@@ -157,10 +180,11 @@ export function TimelineScrubber() {
 
   // Document-Y -> date (inverse of the above); used both to sync the pill
   // label while free-scrolling and to read back a date from an arbitrary
-  // rail position.
+  // rail position. Interpolates over EXACT anchors only (adversarial review
+  // finding #3, 2026-08-13) — see exactAnchorsRef's doc comment above.
   const dateForTop = useCallback(
     (top: number): number => {
-      const a = anchorsRef.current;
+      const a = exactAnchorsRef.current;
       if (!a.length) return end;
       if (top <= a[0].top) return a[0].date;
       const last = a[a.length - 1];
@@ -174,6 +198,21 @@ export function TimelineScrubber() {
       return last.date;
     },
     [end],
+  );
+
+  // Whether a resolved date (from dateForTop/fromPointer above) may be shown
+  // or announced — see timelineScrubberLayout.ts's "Anchor honesty" section
+  // for the full rationale (adversarial review finding #1, 2026-08-13).
+  // Checked against the same exact-only anchor set dateForTop interpolates
+  // over (finding #3/#4, 2026-08-13): once the resolved date can only ever
+  // come from a real anchor, the nearest anchor to it is always real too, so
+  // this never falsely suppresses a genuinely honest date the way checking
+  // it against the full (real + synthetic) set could — including the exact
+  // debut-era-start tie finding #4 named (a clamped doorway sharing a real
+  // moment's date used to lose that tie and read "Date unknown").
+  const exactForDate = useCallback(
+    (target: number): boolean => nearestAnchorExact(exactAnchorsRef.current, target),
+    [],
   );
 
   // Rail position (0..100) is linear in *rendered position*, not calendar
@@ -461,7 +500,9 @@ export function TimelineScrubber() {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(currentPct ?? 0)}
-          aria-valuetext={pillDate != null ? fmtMonth(pillDate) : undefined}
+          aria-valuetext={
+            pillDate != null ? labelForDate(fmtMonth(pillDate), exactForDate(pillDate)) : undefined
+          }
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
@@ -636,7 +677,7 @@ export function TimelineScrubber() {
                     color: 'var(--era-ink)',
                   }}
                 >
-                  {fmtMonth(pillDate)}
+                  {labelForDate(fmtMonth(pillDate), exactForDate(pillDate))}
                 </span>
               )}
             </>
