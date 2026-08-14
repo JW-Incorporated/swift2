@@ -7,47 +7,62 @@
 
 ## Current focus
 
-Nothing in flight from this file's point of view. It was created by the kit-v3
-install and has not yet been used to carry a real session's state — the first
-session to do feature work here should overwrite this section.
+**Clownbot rebuild — PR #2087 open** (`feature/clownbot-rebuild` → `main`), two
+commits, plan in `PLAN.md`. Built in an ISOLATED WORKTREE outside `Projects/`
+because a parallel session owns the primary checkout on `feature/era-reader-p4`.
+
+Build A (gated, never live) deleted; build B from the #1961 re-spec ships in
+Joey's layout. Rulings J1–J7 in `docs/decisions.md` (2026-08-13).
+
+**Blocking / outstanding at checkpoint:**
+- **Codex review did NOT run** — usage limit, resets **Aug 19 2026**. Workflow
+  rule 3 is UNSATISFIED. Merging on Joey's explicit J6 authorization. Run
+  Codex against merged `main` when credits return.
+- **J5 live-key red-team battery** (`npm run clown:battery:live`) is a required
+  pre-merge gate and was still running at checkpoint.
+- **Wyatt owns four items, none settled:** model tier (`claude-sonnet-5`,
+  a single named constant), the 200/day/instance cap, ratifying the Mood route
+  pattern, and signing off the decisions entry.
 
 ## Last session
 
-- Changed: installed the kit-v3 orchestrator template (agents, hooks,
-  statusline, pause skill, `PLANtemplate.md`, `docs/OPERATINGMANUAL.md`,
-  this file and `MAP.md`); appended the orchestrator contract to `CLAUDE.md`;
-  hand-merged `.claude/settings.json`.
-- Verified by: the ROLLOUT.md smoke suite (triage JSON + category 6; guard
-  allow/deny matrix incl. the social real-send paths; checkpoint-gate
-  PAUSE.md pass-through and code-change block; statusline with and without
-  `rate_limits`; `settings.json` parses with every pre-existing hook intact).
-- Left unfinished: `MAP.md` covers the top-level layout only — deepen it the
-  first time a session has to go looking for something inside `apps/web`.
+- Changed: full Clownbot rebuild — 14 build-A files deleted (content preserved
+  verbatim first in `docs/proposals/2026-08-13-clownbot-shelved-content.md`),
+  ~25 `clown-*` modules added, `/api/clown` route, three UI components,
+  `clown:battery` wired as a REQUIRED CI check, docs + kill-switch ops page.
+- Verified by me directly, not on report: **2592 tests / 145 files green**,
+  `typecheck --workspace=@swift2/web` zero errors, `lint` clean, all 13 redline
+  categories present after the safety port, battery counts 53/21/48 intact.
+- Left unfinished: live-key battery result, Codex, merge.
 
 ## Autonomous decisions — review surface
 
 <!-- Every call made without asking, one line each. This is what a founder
      skims instead of being interrupted. Clear it after review. -->
 
-- Left `post-edit.sh` `FORMAT_CMD=""` (auto-format OFF) deliberately. ~13.7k
-  files in this repo are not prettier-clean, so formatting on save would rewrite
-  whole files on one-line edits, and formatting a `*.generated.ts` would break
-  `check:generated`. CI runs no prettier step, so there is nothing to keep
-  green. Reasons are written into the hook so nobody "fixes" it later.
-- Added `git restore` / `git checkout --` to `guard.sh` on top of the
-  settings.json denies, so "never discard uncommitted work" also holds in
-  skip-permissions sessions.
-- Made the social-poster deny parse what a command EXECUTES (walk past env
-  assignments, runners and flags to the first real program) instead of matching
-  the path as text. The regex version both missed
-  `cd scripts/social && node post-queue.mjs` and wrongly denied
-  `npx eslint scripts/social/post-queue.mjs`.
-- Exempted `--env-file=<path>` from the `.env` deny — it is the literal body of
-  `db:migrate` and every `db:seed:*` script, and it loads env into a process
-  rather than reading secrets out.
-- Disabled the `pause` skill's step-4 scheduling in this repo (CLAUDE.md and
-  the skill file both say so). "Never babysit your own PR" bans every wake-up
-  with no exceptions, so the skill's own PAUSE.md fallback is used instead.
+Clownbot rebuild, 2026-08-13 — one line each, all reported to Joey in-session:
+
+- Wrote `clown-answer.ts` myself as the ONE client-facing shape after two
+  parallel steps grew different shapes for the same thing.
+- Kept `delulu` nullable and made the badge render nothing on the fallback
+  path — a fabricated score is a judgement no one made.
+- Endorsed NOT auto-blocking `config.mjs`'s `illegalTerms` /
+  `privacySpeculationTerms` / `locationPrivacyTerms`: they are marked
+  "candidates, NOT findings", and bare `child`/`minor`/`teen` would refuse
+  ordinary biography. Legal wrongdoing is already covered by ACCUSATION.
+- Accepted `clown-safety.test.ts` at 522 lines, over the 300-line guideline —
+  splitting a red-team regression suite arbitrarily risks losing cases.
+- Fixed the fallback intro that claimed an outage on the DELIBERATE zero-model
+  path; `reason` is now required with no default.
+- Ruled that `ClownDoc` carry a real `status` rather than let the route guess
+  one from `open` — a debunked item would otherwise render as confirmed.
+- Chose the orange-doors seed over the cleaner masters-buyback capture: the
+  latter scores delulu 0 and opens a *clown* bot with "this is just fact".
+- Left the route's zero-model `chip` path built, tested and deliberately
+  UNWIRED — board taps prefill and the user sends, per Joey's UX.
+
+Kit-v3 install decisions were reviewed and pruned — each is documented in the
+hook or skill file it governs, which is the durable record.
 
 ## Architect invocations
 
@@ -110,5 +125,27 @@ session to do feature work here should overwrite this section.
 
 ## Next obvious step
 
-Kit-v3 is in. Next session: run the triage rule for real, and deepen `MAP.md`
-the first time you have to go looking for something.
+PR #2087. In order:
+
+1. Read the live-key battery result (`npm run clown:battery:live`). J5 makes it
+   a merge gate. Over-refusal on the 48 LEGIT cases counts as failure too — a
+   bot that refuses ordinary Taylor questions is broken even if it is safe.
+2. Confirm CI green, then merge. Joey authorized it (J6) — scoped to THIS
+   workstream only, not a standing grant.
+3. **Run Codex when credits return (Aug 19).** Rule 3 is unsatisfied; this is
+   a real debt, not a formality.
+4. Hand Wyatt his four items before treating tier/caps as decided.
+
+## Clownbot traps (paste into agent briefs — agents don't read this file)
+
+- **Never delete a red-team battery case; only add.** The 53/21/48 counts are
+  pinned by exact-equality assertions for exactly this reason.
+- **Blocklist phrases are MIRRORED from `scripts/content-engine/config.mjs`,
+  never imported** — a cross-boundary import passes locally, breaks the build.
+- **`status` is not derivable from `open`.** A debunked item is also
+  `open: false`. Ten real corpus items are debunked.
+- **Don't pad the theory column.** 7 items is correct output, not a bug.
+- The columns are NOT free: taps prefill, the user sends, that send hits the
+  model. Only the unwired `chip` path is zero-model.
+- `npm run typecheck` is repo-wide-red on `apps/mobile` — use
+  `--workspace=@swift2/web`.
