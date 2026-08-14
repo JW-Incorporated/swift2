@@ -30,10 +30,15 @@
  * script is a separate trust boundary — it may one day be called by
  * something other than that route — so it repeats the check on every cell,
  * not just the ones the website currently treats as user-controlled.
+ *
+ * Leading whitespace counts: Sheets ignores a whitespace-prefixed =, but a CSV
+ * export opened in Excel does not, so "\t=1+1" would come back to life one hop
+ * downstream. Keep this rule identical to neutralizeCell() in
+ * apps/web/lib/longlive/submit-link.ts — change one, change both.
  */
 function neutralizeCell_(value) {
   var s = value === null || value === undefined ? '' : String(value);
-  return /^[=+\-@]/.test(s) ? "'" + s : s;
+  return /^\s*[=+\-@]/.test(s) ? "'" + s : s;
 }
 
 function doPost(e) {
