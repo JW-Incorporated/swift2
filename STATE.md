@@ -13,12 +13,34 @@
 
 **Two efforts landed within hours of each other.**
 
-1. **Era reader rework — PR #2086**, `feature/era-reader-rework` → `main`.
-   Bottom nav on mobile, one global six-chip filter, Track guide replacing the
-   Spotify player, threads/eggs as timeline doorways, rotating masthead gloss.
-   Merge AUTHORIZED by Joey (below). Blocked only on CI after the `main` merge.
-2. **Clownbot rebuild — merged as #2087.** Build A deleted, build B from the
-   #1961 re-spec. Rulings J1–J7 in `docs/decisions.md`.
+1. **Era reader rework — MERGED 2026-08-14 as `e8500905` (#2086).**
+2. **Clownbot rebuild — merged as #2087.** Rulings J1–J7 in `docs/decisions.md`.
+
+**NOW: device-review round 1 on `fix/land-in-eras`** — Joey's first real-phone
+pass on the shipped reader. Three bugs, ONE PR (they are interdependent: the
+chrome-offset math consumes the filter bar's height, and both sit on the
+masthead having moved into the stream).
+
+- **Fix 1 — COMMITTED (`e2fbda2b`).** Landing page retired; visitors land in
+  the Eras scroll with the masthead on top of it. `landing` removed from
+  `AppMode` entirely. `EraGrid` survives via `EraSelector`.
+- **Fixes 2+3 — with an executor.** Era jump landed content UNDER 178px of
+  sticky chrome (measured live at 390px: TopBar 65 + FilterBar 113) because
+  the jump scrolls the section top to y=0 with no compensation. And the filter
+  bar wraps to two rows — hence 113px. Now: one line always, ~36px chips,
+  horizontal scroll; jump offset uses a LIVE measured chrome height with one
+  source of truth (replacing `HEADER_OFFSET = 64`, duplicated in
+  `TimelineScrubber.tsx` and `ThreadsTimeline.tsx` and not FilterBar-aware).
+
+**MERGE AUTHORIZED for this round — Joey, 2026-08-14: "focus on fixing these.
+you have merge authority. when done ill test on my phone."** Scoped to these
+device-review fixes. He is away (school run), so nothing blocks on him.
+
+**Codex cannot review this — out of credits until Aug 19.** Use the Fable
+reviewer fallback he authorised on 2026-08-13: a `reviewer` agent with
+`model: "fable"`, required to REPRODUCE against the real corpus/browser rather
+than read code. That is what caught the two production-grade defects last
+night that three Codex rounds missed.
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
