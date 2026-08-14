@@ -227,6 +227,21 @@ awaiting Joey) and in `docs/decisions.md` 2026-08-14.
   invite via `discord.com/api/v10/invites/<code>?with_counts=true`.
 - **Amino shut down entirely 2025-12-19.** Older listicles still cite it.
 
+- **`apps/web` IS NOT LINTED BY ANYTHING — verified 2026-08-14.** The root
+  `eslint.config.mjs` ignores `apps/web/**` (line 13); `apps/web/package.json`
+  has NO lint script (dev/prebuild/build/start/typecheck only); CI runs the
+  root `npm run lint`, which skips it. **So "lint clean" says nothing about
+  any component or lib module** — typecheck and the suite are the only real
+  gates on `apps/web`. Do not quote lint as verification for web code.
+  Turning it on is its own task: unknown pre-existing backlog, and bundling it
+  into a feature PR makes the diff unreviewable.
+- **`shop.ts`'s affiliate seam is DORMANT, not absent.** `isAffiliate()`
+  returns false for every retailer, `buildShopUrl()` returns the raw URL, and
+  `SHOP_DISCLOSURE` exists but never renders. So no affiliate link ships today
+  and no disclosure is required today. **The moment anyone flips `isAffiliate`,
+  disclosure MUST render or it becomes a compliance problem.** One-file change,
+  easy to make without noticing the obligation attached to it.
+
 ## Open threads
 
 - [ ] 18 → **3** appearance videos still carry no topic tag. Deliberate: their
