@@ -7,6 +7,45 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-14 — Community dataset carries per-entry verification provenance
+
+**Decision:** every record in `data/communities.json` carries a `verification`
+block — `status` (`verified-live` / `third-party-cited` / `listed-only` /
+`blocked-unverified`), `method`, `evidence_url`, `checked_at`. Verified and
+unverified entries are never flattened into one list. Where a count cannot be
+confirmed, the field is `null` — never an estimate, never an aggregator figure.
+
+**Why:** the research brief required "no hallucinated links", and each platform
+permits a different amount of truth. Discord exposes real counts via its invite
+API; Reddit blocks this environment entirely (403 on `www.` and `oauth.`);
+Facebook groups sit behind a login wall. Without per-entry provenance those
+collapse into one confident-looking list and the dataset cannot be refreshed,
+only redone.
+
+The concrete evidence this was necessary: published member counts for
+r/TaylorSwift ranged from 200k to 3.8M across sources fetched in the same week
+(19x). Of 22 candidate Discord invites, 10 were dead or resolved to a different
+server, and one directory serves its own promo invite on every page. Roughly
+half a naively-sourced version of this dataset would have been fiction.
+
+**Consequences:**
+- Yield is 30 entries, the floor of the brief's 30-80 range. That is the honest
+  number at this evidence bar; relaxing the bar roughly doubles it with fiction.
+- Facebook, predicted as the largest category, is the smallest (5). The groups
+  exist; they leave no verifiable trace from outside.
+- Reddit entries carry names and stories but NO counts. **A Reddit API app
+  would unblock this and make the dataset genuinely refreshable.**
+- `r/TravisAndTaylor` excluded as an anti-fan snark board, not a fan community.
+  `r/GaylorSwift` included but flagged as reportedly private since Aug 2025.
+
+**Open, not decided here:** (1) the spec (`docs/definition-of-done.md` item 4b)
+names Instagram and TikTok; the research brief omits them, and they are a
+different shape — creator accounts, not joinable groups. (2) The spec requires
+"an owner with a refresh cadence" and nobody owns it. This dataset is accurate
+on 2026-08-14 and decays from there.
+
+**Approved by:** pending — Joey (scope: Instagram/TikTok, refresh owner).
+
 ## 2026-08-14 — Karen's report path is hers alone, and the watchdog checks provenance
 
 **The incident.** A watchdog email reported that the 2026-08-14 Karen run
