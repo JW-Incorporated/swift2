@@ -27,6 +27,54 @@ so far".
 
 Stories: 101
 
+## Taylor Swift’s Missing Wedding Photos Offer a ‘Major Clue’ — Source - Yahoo
+
+- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Missing Wedding Photos Offer a ‘Major Clue’ — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOSFdMX2xnTDVxVk5lMjhDNzM0TWdnNlFmazFZRC1IQTV3ak1oSDl4VnJGa01BNmJZVURhMlk5WGdXZG05emtxZTg4bUstelJ6Ym5BTmhoSTRxRmJjeUxVcmE4ZVh1NDZiU3U1VzBEOGlfdVN6ektScFp6cGhXTDE4TmdvcVNLSVFBVnhsdTRLNlJUaGhCdHZtMDk1U25iRnJCdkpJTTBUek8?oc=5
+
+## Taylor Swift Dazzles in Bold Minidress for First Solo Appearance Since Marrying Travis Kelce - insty
+
+- first seen: 2026-08-14 03:29 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Dazzles in Bold Minidress for First Solo Appearance Since Marrying Travis Kelce  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxQaVlveXYtVVA4NlNlTmNGRkFDNHQ1bm9LWk9RVDhPdWJhckZjdnJRU1lQMWVwRmNZYkQxZklMa0lZZDhLRjRhVFNCem5NbGpLWC00Z3BrTGhNNzJMdDFRMVMtbk9qR3dWNml3Qi1IbnFQQ1dObU1rVXNxSDFLNnh3c1NJNFNzUE82Z29rekZLeTFMdw?oc=5
+
+## Taylor Swift rocks new haircut in first spotting since Travis Kelce wedding - Yahoo
+
+- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift rocks new haircut in first spotting since Travis Kelce wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNb1pkWndFVGFKd3ZQMHBBcEYzaVo1MWFUVEhpcWYxTnBaU004cGN2Z2RScTcwSUxQNnVTSUs5bnZrdXJjWGVZbk91M0FIYW1PaWp4dklWZjVHUHZjQTdSbUFJZDdpcEc2OHhHaVE1WXVaUTF5VXVlS19JbVAyTS1mV1dra1JzMjJRS0xoTy1BVzhDVk52Wlo4UndzUnJzZW5ndUFPcA?oc=5
+
+## Taylor Swift Changes Up Her Look with Shorter Hairstyle in London Outing One Month After Travis Kelc
+
+- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Changes Up Her Look with Shorter Hairstyle in London Outing One Month After Travis Kelce Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQaVEzV3hieWVIMUc2ZEdCN3NrbjRSNFRkNkY2YVd3bmV2akNZWjF5SlhaUk1yamRpb2dnUGZnTG1wTUczVTJ0WWprUTI2cUFtWjk2N1FNazh1Q3MydjF6SzNncU5QbGZXOUs0Y290NndnS05rNnZMV0tpS21FRWlDcTRWNWdrdUUwUnh4QXAwLVJyQXBCV2ZrNjdGMjhIdmJIdDVPbjdn?oc=5
+
+## Taylor Swift Debuts Major Hair Change on First Public Outing Since Travis Kelce Wedding - Yahoo
+
+- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Debuts Major Hair Change on First Public Outing Since Travis Kelce Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxON3d4dW54cjRlbFBtUHQtbWotbENGbFV0bHB5cndabnNLWVY5a2RpMVZkQ2t5aXlDazRLMEtqbTA3dF9PVm01dy10T0xPdmQzdEFVMDVLN01WRFl4MHRUUFEyakJwMzBzU2ozTTl1N2g1NDFhYXNxMUIzX1JmTGJqVHM3cXNnY1hJNUxadU5oU1RCUTRWanJQRTdDeHhzcGY5emc?oc=5
+
+## Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift - NBC4 Washington
+
+- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift  NBC4 Washington
+- sources:
+  - [unverified] NBC4 Washington — https://news.google.com/rss/articles/CBMilwFBVV95cUxNMDkxOThsTWFoRkctMGJ5TkJzT1R3aXFqbDZOQlAzUUJDc0tyV25nWWJUV0hyV1BCWFVDN0xGZUZVb3NKOUYzVTZvWWJoVU5HUkxnUlp0aVpxbzh4cEV4UmhOcU1lVjcxaDVHeXVSSTFnWWdfTVV3YzU1b2tTLVFmWVgybjZWbXQzdnljOGZaVllxclcxRnlJ0gGfAUFVX3lxTE1qRWFTUkx3NFI0LU9YYy1FRzFXeTFDaHlHal82OTlwZkdLOVZfaWdETHZWY0pyLUMxN3VNSUprcFpvUktLMEZJSDY0V281VXYxbWVpYWRFY0VnYWxPaXByNnpNTnZERGxsc1dBbEZ6QUpQTEVfMEw3S2FaX0Y0REFESE9sSVJXeVc2Smp6VjlUb0NET2VMMFdkN01tUDdaTQ?oc=5
+
 ## Taylor Swift Debuts Chic Haircut in First Outing Since Travis Kelce Wedding - E! News
 
 - first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
@@ -182,12 +230,13 @@ Stories: 101
 ## Travis Kelce makes first public comments about wedding to Taylor Swift - WBAL-TV
 
 - first seen: 2026-08-13 14:32 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Travis Kelce makes first public comments about wedding to Taylor Swift  WBAL-TV
 - sources:
   - [unverified] WBAL-TV — https://news.google.com/rss/articles/CBMiigFBVV95cUxPWlNReXdqRlhVcTRIb1hOajBmN2h3eDlSWjhxSDB1bGpkaDAwMEZKam1LRkItcURZTmZHMjZsTXBlNXVsY09IdHhTUFhnX3QycVROUzYxcjVXVlJacTFta21peGhyalAxS2pUSVNObGNJdXB4bzlaYXA4QW9wUVFFTkF6ek1Da2lDa2c?oc=5
   - [unverified] WPTZ — https://news.google.com/rss/articles/CBMihgFBVV95cUxNZnNhdnBoMXlweWtJZEU2bzBDU2NyYTRYVFM3aHpUZnpXZE9WQjhNeUFIRDJacXBUZVhtYW5Eb3ZFbWw0V3ZyWXZWVzRpRkEwaG9LWElBRFBGX0NKT2trQWlxS2JoNU45TlBEN21YM0ZJemhYazJVSXFEVVVLNVlJRzFZUnFFZw?oc=5
   - [unverified] Gulf Coast News and Weather — https://news.google.com/rss/articles/CBMihwFBVV95cUxQcjR1cGJTendlWnBxUFJVUmMwaDVHU1daZjhnOG53QzdUVUNsWFhyYU1Ld3BqV3hJbE84MGN5NndkT3N2OWpQTG5FUm5ZeWZmX0NEOHA5X1d1RjBvdFJHYzVkbFdDV1RYb2NBXzFDemFVUnRRREU4Yl81SzZiWGk1ZUdrLTVLQzQ?oc=5
+  - [unverified] WMUR — https://news.google.com/rss/articles/CBMihwFBVV95cUxQdGp1VzQyN1k5TnB4OVdKZTBwMURRMHJrYmc1b2Z3SXR3T2xSWVJGS1M0OVJJSW12NG9Zczk0bjBQSnZTYTNpT3JVWGkzZGN3MnF0THNXdDZvOUJ3NjkyYmxaRVh5SXAwMDVZUDJYYjFDWmk5aUpkWUlnWEJnQ1I5MkFUOVk5OXc?oc=5
 
 ## Chiefs’ Travis Kelce was clearly touched by venue for Taylor Swift wedding - Kansas City Star
 
@@ -838,52 +887,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Can politicians use whatever music they want on social media?  NBC News
 - sources:
   - [unverified] NBC News — https://news.google.com/rss/articles/CBMiywFBVV95cUxNQ2NxTXFINHg0YkVqQXp1VGMxYlh3WUJTbmVoVFJRQ2xESVY0cmcxMjk4RDA5MTJJM1ZGN0lqcFR4bWVGVGNlUlp6bTRiSjZUN240aUhSUTUtZC1UaldCdlN6TU1YVk9adGVMcHptVUwwZEd4cTNuR0VtTmJuWXdqMzZkbjkwLXg5eFRCYk1TdktrcFFveEx1VlM5Qk1oNG1ELV9fR0JBYzRsVnNtN0xodTIwLXVta1lFTXRjRlNJUTR3MUxmTVNrc18tSQ?oc=5
-
-## Taylor Swift and Bad Bunny Dealt With Trump Quietly. It’s a Smart Move
-
-- first seen: 2026-08-11 03:09 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Both superstars muted their songs from videos posted by the administration without drawing more attention to the White House
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swift-bad-bunny-trump-remove-tik-tok-songs-1235606235/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMisAFBVV95cUxQV3NFaC1oWFc4bnZaNmNCS3FnWnNvakFiME9idlcxZTRkYVNKd3ZSMXlDeFJFa1Z4WXlhZWh3TkxzeXU4Mnota3pEbGxPZVQ5RmJPM1BHbUQwTWdXS2tlNjRGVmZDYUtycEdMeUhRNVdDSGJSSjMxaThEZEg1bkJ0TjlyQ3R6X2VmbGJ5TllVaUFITkp2eTJTb0NURHBNcG81RVQxM09LWUZoV2dZcVBaSw?oc=5
-
-## Meet the man who's sold garbage from Taylor Swift's wedding & more - NBC New York
-
-- first seen: 2026-08-11 03:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Meet the man who's sold garbage from Taylor Swift's wedding & more  NBC New York
-- sources:
-  - [unverified] NBC New York — https://news.google.com/rss/articles/CBMirwFBVV95cUxPVE9zakI4ZHNOc3Q4eWd2bGFidWpWVkwxaUJRZjczcjRROTVfbHh2U1VlWHVxWWRvOWZ4SFRPNGlkcEp3ZmlYdFRwQmZNT0FOVFFxQVZQejNGcmRsT1o3a0todjB5ZXB1V1hSYU41c2llRHFrZGNQYXEzRnRTdEJsZHJJMjVFWjA5RlpMX2FHaTJSZW1lVW1KZGtaZ1hua2RfZlJYUjRsWTVkYkhRa3Bz0gG3AUFVX3lxTE14amVEZUZoUEFYajZiVXlvZW5pRHUxM0xzNWJqa2VFUldKemYtWVk2WkZGeURTZTM3UHc0akppcm9abzVLbjR4XzRhYl9vdzV0X3pmQ3F2dFJmeW9RZkJ6LWFna0hrTGVTdzhFR2VqdFRPRUc5enBvS3RZZHNMa2pjajk4Z0dqblZBWFdZUlpLYVRzb0dGSnhMTXdUQmxIQ21RaTdfM0ZuUXVYbEZ4S1pWSVFHcFN0MA?oc=5
-
-## White House And Trump Campaign Remove Taylor Swift Songs From Social Media Videos: how 19 outlets fr
-
-- first seen: 2026-08-11 03:09 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: White House And Trump Campaign Remove Taylor Swift Songs From Social Media Videos: how 19 outlets framed it  NewsCord
-- sources:
-  - [unverified] NewsCord — https://news.google.com/rss/articles/CBMi6gFBVV95cUxQclR2akNULWgxcnVVSG5MQWZtbnFlUlZQZE9sYUZJbWNhZTluZXBXajVmUHFhVzhGVTZhR0VObUZidy1VQ0VsUFVzeGFJa2lmdUtwS2x5d1JCZzg4RnAtOWhUYzdlZEx6cURMOTV2OUlJYk9DQXpSc2JsSndHcU9WUkljNm1OdzcwVGxELXk3X2NxcTRVTEtBVG9DdHRwNU5xNld5d0xFaGhERmlwZHY2alhZenM2V2g5aktRcDVBYjVpOWx3ZDlmREdIMy0wV0JFdDZCWE5EVmhvN2VNTDFOQTNBMkJPSjlRRkE?oc=5
-
-## Taylor Swift and Travis Kelce Just Quietly Hit an Important Milestone - Sports Illustrated
-
-- first seen: 2026-08-11 03:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Just Quietly Hit an Important Milestone  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMisAFBVV95cUxQNGtXandhREtkYjY4cmVFeWVwZEtIZjdOaWFNNms0VURFMjBsYk5lSXI0THlIQk5nY1pRSTAxNzJodlpHejBtTy1rOElub013SHJxMkx6dlRoVWVvZmtRazc0a2Rod2UxWTJfbVBtT2ptRm1PX2JxclFvQUVueHU5M3dZWVZCTktaOEpEbmpjdWtvNW1VWEtkN0lKSDhXb0xEdkxmOUdKdjRCVEwwdnJVRg?oc=5
-
-## Taylor Swift’s Next Move? + The Chiefs Rivalry Debate Gets Personal! | Travis + Taylor - Yahoo Sport
-
-- first seen: 2026-08-11 03:09 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Next Move? + The Chiefs Rivalry Debate Gets Personal! | Travis + Taylor  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiggFBVV95cUxPZVB0RTZQSjJyNFRudDBLU3g4M2lwbTJ5Um1KZ2tyeEJFSmxud2FpbVhmYlliMkVBXzl2a2N2V2d5SXkweXNMaHN6S01NMkFpOE9RelZaREVlZHFtd0xjcFdfU3FkNUhSYUlGUFFaelN5TFRYcjIwNzhyRGJEbVVPWll3?oc=5
-
-## Brad Pitt spotted drinking at Taylor Swift and Travis Kelce’s wedding in July before publicly admitt
-
-- first seen: 2026-08-11 03:09 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Pitt spotted drinking at Taylor Swift and Travis Kelce’s wedding in July before publicly admitting he is off the wagon  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQRVY0aWhBWUFJSE1KVTBscmloRUZBYW9sa1RRS1hBcGV4c1FRbkUwMUhyTlNaZEFKUjBtZ0xkNXNNZm5sZnpka1JIZWEyRXg2em5YQUNwRDI1SXZTd0Jodjh5UFlUdWVyX29FZVRhV3p3ejZ0OGx4UlR0TkZ2TEkzZld1aWUybHIzWWNOSURDSEtuaXNBcGhvMDFETWljbm1rZXM1ci1rb1ZvUQ?oc=5
