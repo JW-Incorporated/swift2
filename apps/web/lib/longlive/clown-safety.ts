@@ -208,16 +208,52 @@ export function screenOutput(parts: readonly (string | undefined)[]): Redline | 
   return null;
 }
 
+/** One transcript turn as `screenConversation` needs it — structurally the
+ * same shape as `clown-client.ts`'s `ClownTurn`, deliberately not imported
+ * from there (that module explicitly does not depend on this one; see its
+ * header). Callers with a `ClownTurn[]` (the route) pass it straight through. */
+export interface ConversationTurn {
+  role: 'user' | 'assistant';
+  text: string;
+}
+
+/** Exact text of every refusal this module itself hands back, so a stored
+ * refusal re-screened on the NEXT turn is recognised as our own already-safe
+ * copy rather than re-run through the gates (2026-08-14 fix, Finding 1 — see
+ * below). Exact string match only, never a heuristic: a loose match here
+ * would let an attacker smuggle content past the gate by imitating a
+ * refusal's wording. */
+const REFUSAL_TEXTS: ReadonlySet<string> = new Set(Object.values(REFUSALS));
+
 /**
  * CONVERSATION-LEVEL screen. The single-turn route calls `screenInput`; when
  * the surface gains history, pass the ordered turns here so an escalation
  * that lands on a turn the per-turn gate happens to miss is still caught at
- * the conversation level. Returns the first turn's category, or null. Ported
- * verbatim from clownbot-safety.ts.
+ * the conversation level. Returns the first turn's category, or null.
+ *
+ * 2026-08-14 fix (Finding 1, round-2 review): this used to run `screenInput`
+ * — INPUT-tuned patterns — over every stored turn regardless of who wrote
+ * it, including the bot's OWN refusal copy and its own legitimate prose.
+ * Four of the thirteen refusals tripped their own gate on re-screen (a
+ * self-tripping refusal appends more self-tripping text, and with a capped
+ * transcript that never clears, one refusal could permanently brick the
+ * session). Fixed two ways, together — switching the pattern set alone is
+ * NOT sufficient, because several refusals also trip their OWN topic's
+ * `output` patterns (they are text ABOUT the boundary they refuse, e.g. the
+ * politics refusal contains the phrase "her politics"):
+ *   - Each turn is screened with the patterns appropriate to who wrote it —
+ *     user turns (the actual jailbreak-smuggling threat this exists to stop)
+ *     keep running `screenInput`; assistant turns run `screenOutput`.
+ *   - A stored assistant turn that is an EXACT match for one of the known
+ *     `REFUSALS` strings is skipped outright — it is copy this module wrote
+ *     and already knows is safe, so re-screening it only risks a false trip.
+ *     Exact string match keeps this narrow: nothing an attacker paraphrases
+ *     can hit it.
  */
-export function screenConversation(turns: readonly string[]): Redline | null {
+export function screenConversation(turns: readonly ConversationTurn[]): Redline | null {
   for (const turn of turns) {
-    const hit = screenInput(turn);
+    if (turn.role === 'assistant' && REFUSAL_TEXTS.has(turn.text)) continue;
+    const hit = turn.role === 'assistant' ? screenOutput([turn.text]) : screenInput(turn.text);
     if (hit) return hit;
   }
   return null;
