@@ -4365,7 +4365,7 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.aol.com/articles/travis-kelce-wedding-band-nods-195810000.html',
-            note: 'An expert reading of design intent, not a confirmed fact — neither the couple nor any jeweler has named the band\'s designer, metal spec, or the reason for the gold; the width and price are estimates from photos. Resolves if the couple or the band\'s maker confirms or denies the intended nod, and a candidate to fade otherwise. ELLE\'s piece read this session via its verbatim AOL syndication. Lifecycle re-check 2026-08-14: no designer/metal reveal since — the couple has kept wedding specifics private — so still unconfirmed and live.',
+            note: 'An expert reading of design intent, not a confirmed fact — neither the couple nor any jeweler has named the band\'s designer, metal spec, or reason for the gold; width and price are photo estimates. Resolves on a maker/couple confirmation, else a fade candidate. Re-checked 2026-08-14: no reveal since (wedding specifics kept private), still unconfirmed and live.',
             sourceTier: 'established',
             lastCheckedOn: '2026-08-14',
           },
@@ -5370,7 +5370,7 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — predictions diverge: Gold Derby\'s tracker (July 8) had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record and Song of the Year. Resolves when the 69th Grammy nominations are announced (~November 2026). Forbes 403s our fetcher; read via its verbatim Yahoo News Canada syndication. Lifecycle re-check 2026-08-14: the nominations window (~Nov 2026) has not opened yet, so nothing to resolve — still unconfirmed and live.',
+            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (~Nov 2026). Re-checked 2026-08-14: that window has not opened yet, nothing to resolve — still unconfirmed and live.',
             sourceTier: 'established',
             lastCheckedOn: '2026-08-14',
           },
@@ -10753,7 +10753,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Forty-one days after marrying Travis Kelce at Madison Square Garden, Taylor made her first solo public appearance as a newlywed — a night out in London on Aug. 12, 2026. The clothes did the talking: a lilac floral minidress, the “Mini Isabelle” by the New York label Delphine (designer Tanya Taylor), worn with metallic-gold Aquazzura “Love Struck” sandals, a crystal-ombré Christian Louboutin clutch and a Cartier Santos watch.\n\nThe bigger story for fans was the hair. Taylor debuted a noticeably shorter cut — the long lengths of the Eras and Showgirl years trimmed to roughly shoulder-length and worn sleek and straight, with her signature blunt bangs kept — a change E! News was first to flag. Coming weeks after a wedding the couple has otherwise kept almost entirely to themselves, the outing read less like a red-carpet statement than a newlywed easing back into public view on her own terms, and outlets from Marie Claire to People and Page Six logged the head-to-toe change inside a day.',
+          'Forty-one days after marrying Travis Kelce at Madison Square Garden, Taylor made her first solo public appearance as a newlywed — a night out in London on Aug. 12, 2026. The clothes did the talking: a lilac floral minidress, the “Mini Isabelle” by the New York label Delphine (designer Tanya Taylor), worn with metallic-gold Aquazzura “Love Struck” sandals, a crystal-ombré Christian Louboutin clutch and a Cartier Santos watch.\n\nThe bigger story for fans was the hair. Taylor debuted a noticeably shorter cut — the long lengths of the Eras and Showgirl years trimmed to roughly shoulder-length and worn sleek and straight, with her signature blunt bangs kept — a change E! News was first to flag. Coming weeks after a wedding the couple has otherwise kept almost entirely to themselves, the outing read less like a red-carpet statement than a newlywed easing back into public view on her own terms, and within a day the head-to-toe change had been logged everywhere from Marie Claire to People and Page Six.',
         sources: [
           {
             outlet: 'Marie Claire',
