@@ -66,17 +66,24 @@ describe('per-tier chrome', () => {
   }
 });
 
-const ERA_SECTION = readFileSync(
-  new URL('../../components/longlive/EraSection.tsx', import.meta.url),
+// PLAN.md P3 step 15 split EraSection.tsx's card components out into their
+// own files — see MAP.md. `MomentCard` now lives in MomentCard.tsx,
+// `VideoMomentCard` in VideoMomentCard.tsx; both read from there.
+const MOMENT_CARD = readFileSync(
+  new URL('../../components/longlive/MomentCard.tsx', import.meta.url),
+  'utf8',
+);
+const VIDEO_MOMENT_CARD = readFileSync(
+  new URL('../../components/longlive/VideoMomentCard.tsx', import.meta.url),
   'utf8',
 );
 
-/** The body of a top-level function in EraSection, up to the next one. */
-function functionSource(name: string): string {
-  const start = ERA_SECTION.indexOf(`function ${name}(`);
-  if (start === -1) throw new Error(`no function ${name} in EraSection.tsx`);
-  const next = ERA_SECTION.indexOf('\nfunction ', start + 1);
-  return ERA_SECTION.slice(start, next === -1 ? undefined : next);
+/** The body of a top-level exported function in `src`, up to the next one. */
+function functionSource(src: string, name: string): string {
+  const start = src.indexOf(`function ${name}(`);
+  if (start === -1) throw new Error(`no function ${name} in this source`);
+  const next = src.indexOf('\nfunction ', start + 1);
+  return src.slice(start, next === -1 ? undefined : next);
 }
 
 /**
@@ -101,7 +108,7 @@ function endOfDiv(src: string, openAt: number): number {
 }
 
 describe('MomentCard renders its play affordance inside the card’s box', () => {
-  const card = functionSource('MomentCard');
+  const card = functionSource(MOMENT_CARD, 'MomentCard');
   const boxAt = card.indexOf('<div className={TIER_BOX[tier]}');
   const footerAt = card.indexOf('TIER_FOOTER[tier]');
   const liCloseAt = card.indexOf('</li>');
@@ -150,21 +157,22 @@ describe('MomentCard renders its play affordance inside the card’s box', () =>
  * lock is that they render the SAME component — a look can be copied and then
  * drift; a component cannot.
  */
-const ERA_SECTION_IMPORTS = ERA_SECTION.slice(0, ERA_SECTION.indexOf('export function EraSection'));
+const MOMENT_CARD_IMPORTS = MOMENT_CARD.slice(0, MOMENT_CARD.indexOf('export function MomentCard'));
 
 describe('one video treatment in the era feed', () => {
   it('imports the poster from the same module the video-record card embeds through', () => {
-    expect(ERA_SECTION_IMPORTS).toContain("import { MomentVideo, VideoPoster } from './MomentVideo'");
+    expect(MOMENT_CARD_IMPORTS).toContain("import { MomentVideo, VideoPoster } from './MomentVideo'");
   });
 
   it('leaves the era feed with no second poster implementation', () => {
     // No local component may draw a YouTube thumbnail here; the only route to
     // one is VideoPoster/MomentVideo.
-    expect(ERA_SECTION).not.toContain('i.ytimg.com');
+    expect(MOMENT_CARD).not.toContain('i.ytimg.com');
+    expect(VIDEO_MOMENT_CARD).not.toContain('i.ytimg.com');
   });
 
   it('renders the video-record card through the same facade', () => {
-    expect(functionSource('VideoMomentCard')).toContain('<MomentVideo');
+    expect(functionSource(VIDEO_MOMENT_CARD, 'VideoMomentCard')).toContain('<MomentVideo');
   });
 });
 

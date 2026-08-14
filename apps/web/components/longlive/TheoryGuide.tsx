@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
-import { X, Share2, Sparkles, Egg, HelpCircle, ArrowRight } from 'lucide-react';
+import { X, Share2, Sparkles } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { theoriesForEra, resolveRelatedTheory } from '@/lib/longlive/theories';
+import { theoriesForEra } from '@/lib/longlive/theories';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import type { Confidence, TheoryNote, TheoryOutcome } from '@/lib/longlive/types';
+import { TheoryCard, countLine } from './TheoryCard';
 
 /**
  * The era theories & easter eggs guide — an immersive per-era overlay (same
@@ -18,40 +18,14 @@ import type { Confidence, TheoryNote, TheoryOutcome } from '@/lib/longlive/types
  * Data is static, synced at build time from the Vault theory seed/table
  * (lib/longlive/theories.ts); no runtime fetch. Only records with a real
  * source exist in the data — never an empty placeholder.
+ *
+ * The per-theory card (badges, sources, R4 back-link) is `TheoryCard.tsx` —
+ * split out to keep this file under the 300-line cap (see MAP.md).
  */
 
-// Quiet per-tier wording for the theory guide's badges. MomentDetail no
-// longer shares this wording: since 2026-07-19 (rumor tier) it renders
-// sub-confirmed moments with its own LOUD banner labels (CONFIDENCE_BANNER —
-// "Reported — not confirmed" / "Debunked"). The divergence is intentional:
-// a theory card is framed as speculation by its whole surface, a moment page
-// is framed as fact, so the moment needs the louder language.
-const CONFIDENCE_LABEL: Record<Confidence, string> = {
-  official: 'Official',
-  confirmed_interview: 'Confirmed in interview',
-  reputable_reporting: 'Reported',
-  strong_fan_consensus: 'Fan consensus',
-  plausible: 'Plausible',
-  clowning: 'Clowning',
-  disproven: 'Disproven',
-  joke_meme: 'Joke / meme',
-};
-
-const OUTCOME_LABEL: Record<TheoryOutcome, string> = {
-  confirmed: 'Confirmed',
-  partially_confirmed: 'Partially confirmed',
-  pending: 'Pending',
-  debunked: 'Debunked',
-  abandoned: 'Abandoned',
-  unfalsifiable: 'Unfalsifiable',
-};
-
-/** Outcomes that earned the accent treatment — the payoff landed. */
-const SETTLED_OUTCOMES: ReadonlySet<TheoryOutcome> = new Set(['confirmed', 'partially_confirmed']);
-
 export function TheoryGuide() {
-  const { theoryGuideEraId, share } = useAppState();
-  const { closeTheoryGuide, openShare } = useAppActions();
+  const { theoryGuideEraId, theoryGuideHighlightSlug, share } = useAppState();
+  const { closeTheoryGuide, openShare, popReturnPoint } = useAppActions();
 
   const era = theoryGuideEraId ? getEra(theoryGuideEraId) : undefined;
   const theories = theoryGuideEraId ? theoriesForEra(theoryGuideEraId) : [];
@@ -72,6 +46,33 @@ export function TheoryGuide() {
 
   // Let the mobile back-swipe gesture close this guide instead of leaving the app.
   useBackDismiss(open, closeTheoryGuide);
+
+  // PLAN.md P3 step 16 (back-to-position): pop this overlay's ReturnPoint —
+  // pushed by an egg doorway tap right before it opened this guide — when the
+  // guide closes, however that happens (X, Escape, or the back gesture all
+  // collapse into `theoryGuideEraId` going back to null). This overlay never
+  // changes `mode`, so there is no `restoreNav` run to hook into instead —
+  // this transition IS "dismiss through the existing useBackDismiss path"
+  // for this destination.
+  const prevEraIdRef = useRef<typeof theoryGuideEraId>(null);
+  useEffect(() => {
+    const was = prevEraIdRef.current;
+    prevEraIdRef.current = theoryGuideEraId;
+    if (was && !theoryGuideEraId && typeof window !== 'undefined') {
+      const rp = popReturnPoint();
+      if (rp && rp.mode === 'era' && rp.eraId === was) {
+        window.scrollTo({ top: rp.scrollY, behavior: 'auto' });
+      }
+    }
+  }, [theoryGuideEraId, popReturnPoint]);
+
+  // R4 ("egg/theory doorways open that single egg's detail"): scroll straight
+  // to the tapped card instead of just the era's guide in general.
+  // TheoryCard renders the matching highlight ring below.
+  useEffect(() => {
+    if (!open || !theoryGuideHighlightSlug) return;
+    document.getElementById(`theory-${theoryGuideHighlightSlug}`)?.scrollIntoView({ block: 'center' });
+  }, [open, theoryGuideHighlightSlug]);
 
   if (!era || theories.length === 0) return null;
 
@@ -134,109 +135,10 @@ export function TheoryGuide() {
 
         <ol className="mt-8 space-y-4">
           {theories.map((t) => (
-            <TheoryCard key={t.slug} theory={t} />
+            <TheoryCard key={t.slug} theory={t} highlighted={t.slug === theoryGuideHighlightSlug} />
           ))}
         </ol>
       </div>
     </div>
-  );
-}
-
-function countLine(eggCount: number, theoryCount: number): string {
-  const parts: string[] = [];
-  if (eggCount > 0) parts.push(`${eggCount} documented ${eggCount === 1 ? 'Easter egg' : 'Easter eggs'}`);
-  if (theoryCount > 0) parts.push(`${theoryCount} fan ${theoryCount === 1 ? 'theory' : 'theories'}`);
-  return parts.join(' and ');
-}
-
-function TheoryCard({ theory }: { theory: TheoryNote }) {
-  const KindIcon = theory.kind === 'easter_egg' ? Egg : HelpCircle;
-  const settled = SETTLED_OUTCOMES.has(theory.outcome);
-  const { openTheoryGuide } = useAppActions();
-  const related = (theory.relatedSlugs ?? [])
-    .map(resolveRelatedTheory)
-    .filter((r): r is NonNullable<typeof r> => r !== null);
-
-  return (
-    <li className="era-card rounded-2xl border p-5">
-      {/* Kind eyebrow + the required confidence/outcome badges (Clue Web pill styling). */}
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-          <KindIcon className="h-3.5 w-3.5 text-[color:var(--era-accent)]" />
-          {theory.kind === 'easter_egg' ? 'Easter egg' : 'Fan theory'}
-        </span>
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span
-            className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wider text-[color:var(--era-ink-soft)]"
-            style={{ borderColor: 'var(--era-line)' }}
-            title="How much weight the claim carries"
-          >
-            {CONFIDENCE_LABEL[theory.confidence]}
-          </span>
-          <span
-            className="rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wider"
-            style={
-              settled
-                ? {
-                    backgroundColor: 'color-mix(in srgb, var(--era-accent) 16%, transparent)',
-                    color: 'var(--era-accent)',
-                  }
-                : {
-                    border: '1px solid var(--era-line)',
-                    color: 'var(--era-ink-soft)',
-                  }
-            }
-            title="Where the claim landed"
-          >
-            {OUTCOME_LABEL[theory.outcome]}
-          </span>
-        </div>
-      </div>
-
-      <h2 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
-        {theory.title}
-      </h2>
-      <p className="mt-1.5 text-[15px] leading-relaxed text-[color:var(--era-ink)]">{theory.claim}</p>
-      {theory.evidence && (
-        <p className="mt-2 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-          {theory.evidence}
-        </p>
-      )}
-
-      <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
-        {theory.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
-        {theory.sources.map((s, i) => (
-          <span key={`${s.url}-${i}`}>
-            {i > 0 && ', '}
-            <a
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
-            >
-              {s.name}
-            </a>
-          </span>
-        ))}
-      </p>
-
-      {related.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {related.map(({ eraId, theory: t }) => (
-            <button
-              key={`${eraId}:${t.slug}`}
-              onClick={() => openTheoryGuide(eraId)}
-              className="era-btn-ghost inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium"
-            >
-              {t.title}
-              <span className="text-[10px] text-[color:var(--era-ink-soft)]">
-                {getEra(eraId).shortName}
-              </span>
-              <ArrowRight className="h-3 w-3 text-[color:var(--era-ink-soft)]" />
-            </button>
-          ))}
-        </div>
-      )}
-    </li>
   );
 }

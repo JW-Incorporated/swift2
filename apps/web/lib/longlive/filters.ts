@@ -1,4 +1,4 @@
-import type { ContentTag } from './types';
+import type { ContentTag, LensId } from './types';
 import type { EraFeedEntry } from './era-feed';
 
 /** R2: exactly six, forever. Videos is a peer chip, not a separate axis. */
@@ -27,6 +27,31 @@ export function filterMatches(
 }
 
 /**
+ * Which of the six filters a THREADS doorway belongs under, derived from its
+ * `LensId` (PLAN.md P3 step 13). Exhaustive on purpose: a new `LensId` must
+ * fail to compile here rather than silently fall back to a default topic —
+ * the same discipline `filtersForEntry`'s own `never` check enforces below.
+ */
+export function filterForThread(id: LensId): FilterId {
+  switch (id) {
+    case 'love-story':
+    case 'the-proposal':
+      return 'Relationship';
+    case 'fashion':
+      return 'Fashion';
+    case 'taylors-version':
+      return 'Music';
+    case 'easter-eggs':
+    case 'hidden-clues':
+      return 'Lore';
+    default: {
+      const exhaustive: never = id;
+      return exhaustive;
+    }
+  }
+}
+
+/**
  * The six ids an entry belongs to, whatever kind of entry it is.
  *
  * Two restored rules, both shipped behaviour before the global-filter
@@ -42,10 +67,14 @@ export function filterMatches(
  *     record. Everything else in the video kind space (lyric videos, tour
  *     films, the appearance family) gets Videos only — no invented topics.
  *
- * `EraFeedEntry` is the two-kind union as it exists today (`moment` | `video`)
- * — step 13 of PLAN.md widens it to four kinds. The `never` check below turns
- * that widening into a compile error here rather than a silent fallthrough
- * that would leave the new kinds unfiltered.
+ * `thread`/`egg` doorways (PLAN.md P3 step 13): a thread doorway maps through
+ * `filterForThread`; an egg doorway is always Lore (theories & eggs are lore,
+ * full stop — no per-theory topic exists to read one from).
+ *
+ * `EraFeedEntry` is the four-kind union (`moment` | `video` | `thread` |
+ * `egg`). The `never` check below is the safety net step 13 relies on: it
+ * turns any future widening of the union into a compile error here rather
+ * than a silent fallthrough that would leave a new kind unfiltered.
  */
 export function filtersForEntry(
   entry: EraFeedEntry,
@@ -63,6 +92,10 @@ export function filtersForEntry(
       return entry.video.kind === 'music_video' && entry.video.releasedOn != null
         ? ['Music', 'Videos']
         : ['Videos'];
+    case 'thread':
+      return [filterForThread(entry.doorway.threadId)];
+    case 'egg':
+      return ['Lore'];
     default: {
       const exhaustive: never = entry;
       return exhaustive;

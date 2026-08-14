@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from './filters';
+import { ALL_FILTERS, filterForThread, filterMatches, filtersForEntry, type FilterId } from './filters';
 import type { EraFeedEntry } from './era-feed';
 import type { Anchored } from './anchor-date';
-import type { ContentItem, ContentTag, VideoNote } from './types';
+import type { ContentItem, ContentTag, LensId, VideoNote } from './types';
 
 // filtersForEntry doesn't read the anchor — these tests only exercise
 // filter categorisation, so every entry gets the same stub anchor.
@@ -112,5 +112,42 @@ describe('filtersForEntry', () => {
       anchor: ANCHOR,
     };
     expect(filtersForEntry(entry, noOwners)).toEqual(['Videos']);
+  });
+
+  // PLAN.md P3 step 13: a thread doorway maps through filterForThread.
+  it('a thread doorway carries its mapped filter', () => {
+    const entry: EraFeedEntry = {
+      kind: 'thread',
+      doorway: { threadId: 'fashion', kicker: 'k', title: 'The Runway', example: 'x' },
+      anchor: ANCHOR,
+    };
+    expect(filtersForEntry(entry, noOwners)).toEqual(['Fashion']);
+  });
+
+  // An egg doorway is always Lore — theories & eggs are lore, full stop.
+  it('an egg doorway is always Lore', () => {
+    const entry: EraFeedEntry = {
+      kind: 'egg',
+      doorway: { eggId: 'lover:e1', threadId: null, kicker: 'k', title: 'A theory' },
+      anchor: ANCHOR,
+    };
+    expect(filtersForEntry(entry, noOwners)).toEqual(['Lore']);
+  });
+});
+
+describe('filterForThread', () => {
+  // One case per LensId (R2) — exhaustive, since a new LensId is a compile
+  // error in filterForThread itself, not a silently-defaulted filter.
+  const CASES: [LensId, FilterId][] = [
+    ['love-story', 'Relationship'],
+    ['the-proposal', 'Relationship'],
+    ['fashion', 'Fashion'],
+    ['taylors-version', 'Music'],
+    ['easter-eggs', 'Lore'],
+    ['hidden-clues', 'Lore'],
+  ];
+
+  it.each(CASES)('%s maps to %s', (lensId, expected) => {
+    expect(filterForThread(lensId)).toBe(expected);
   });
 });
