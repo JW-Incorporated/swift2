@@ -1638,11 +1638,44 @@ export default {
         'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1',
       moment: {
         context:
-          "Styled by Joseph Cassell Falconer for Feb. 11, 2024 at Allegiant Stadium, the outfit paired a Dion Lee corset-style crop top ($720) with Area's crystal-slit black jeans ($795) — which sold out almost immediately — under a $130 vintage-style red Chiefs windbreaker from Wear by Erin Andrews, the broadcaster's team-apparel line.\n\nThe jewelry did the storytelling: over $16,000 worth, nearly all of it coded to Kelce. A custom Stephanie Gottlieb 14-karat necklace hung a diamond \"87\" pendant beside a $7,500 diamond tennis choker; ruby rings from Retrouvaí and Shala Karimi worked in the Chiefs red; and a custom Judith Leiber crystal clutch carried the 87 again. She watched from the suite with Blake Lively and Ice Spice as Kansas City won it in overtime.",
+          "Styled by Joseph Cassell Falconer for Feb. 11, 2024 at Allegiant Stadium, the outfit paired a Dion Lee corset-style crop top ($720) with Area's crystal-slit black jeans ($795) — which sold out almost immediately — under a $130 vintage-style red Chiefs windbreaker from Wear by Erin Andrews, the broadcaster's team-apparel line.\n\nThe jewelry did the storytelling: over $16,000 worth, nearly all of it coded to Kelce. A custom Stephanie Gottlieb 14-karat necklace hung a diamond \"87\" pendant beside a $7,500 diamond tennis choker; ruby rings from Retrouvaí and Shala Karimi worked in the Chiefs red; and a custom Judith Leiber crystal clutch carried the 87 again. She watched from the suite with Blake Lively and Ice Spice as Kansas City won it in overtime.\n\nThe game the outfit framed became the most-watched program in U.S. television history — an average of 123.7 million viewers, the largest single audience Nielsen had ever measured, up more than seven percent on the year before. Kansas City beat the San Francisco 49ers 25-22 in overtime, and when it ended Taylor came down from the box to meet Travis on the field, where the couple hugged and kissed surrounded by cameras; miked up in the celebration, she asked him, \"How did you do that?\" What that meant for the look was that the corset, the crystal-slit jeans, and the 87 stamped across every piece of jewelry were photographed from every angle at the center of the most-watched broadcast of the year. The red Chiefs windbreaker read on camera as plainly as the rubies did: she had dressed, top to bottom, to be seen supporting one player — and tens of millions saw it. It was a styling call that ended up in the game's record book as much as in any fashion column.",
         sources: [
           {
             outlet: 'The Hollywood Reporter',
             url: 'https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/',
+          },
+          {
+            // Added 2026-08-14 (Answerer depth pass): the 123.7M viewership /
+            // largest-audience-on-record figure. Fetched + verified this run.
+            outlet: 'Nielsen',
+            url: 'https://www.nielsen.com/news-center/2024/super-bowl-lviii-draws-123-7-million-average-viewers-largest-tv-audience-on-record/',
+            source_title: 'Super Bowl LVIII Draws 123.7 Million Average Viewers, Largest TV Audience on Record',
+            publisher: 'Nielsen',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
+          },
+          {
+            // Added 2026-08-14 (Answerer depth pass): the 25-22 overtime result
+            // and the on-field kiss. Fetched + verified this run.
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/taylor-swift-travis-kelce-celebrate-chiefs-super-bowl-win-with-a-kiss',
+            source_title: 'Taylor Swift, Travis Kelce celebrate Chiefs Super Bowl win with a kiss',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
+          },
+          {
+            // Added 2026-08-14 (Answerer depth pass): the miked-up on-field
+            // "How did you do that?" line. Fetched + verified this run.
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/nfl/2024/02/13/taylor-swift-travis-kelce-field-conversation-super-bowl',
+            source_title: "Mics Picked Up Taylor Swift and Travis Kelce's Sweet On-Field Conversation After Super Bowl Win",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
           },
         ],
         photos: [
