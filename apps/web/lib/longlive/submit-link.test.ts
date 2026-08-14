@@ -112,10 +112,24 @@ describe('neutralizeCell', () => {
     },
   );
 
+  // Sheets ignores a whitespace-prefixed =, but a CSV export opened in Excel
+  // does not — so these have to be caught here, not one hop downstream.
+  it.each(['\t=1+1', ' =2+2', '\r=4', '  \t @SUM(A1)'])(
+    'catches a formula hidden behind leading whitespace: %j',
+    (value) => {
+      expect(neutralizeCell(value)).toBe(`'${value}`);
+    },
+  );
+
   it('leaves ordinary values untouched', () => {
     expect(neutralizeCell('https://reddit.com/r/TaylorSwift')).toBe('https://reddit.com/r/TaylorSwift');
     expect(neutralizeCell('community')).toBe('community');
     expect(neutralizeCell('')).toBe('');
+    expect(neutralizeCell('  indented but harmless')).toBe('  indented but harmless');
+  });
+
+  it('does not stack quotes when applied twice', () => {
+    expect(neutralizeCell(neutralizeCell('=1+1'))).toBe("'=1+1");
   });
 });
 
