@@ -11,8 +11,8 @@ import {
 import { threadPoints } from '@/lib/longlive/lenses';
 import type { LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
+import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
 
-const HEADER_OFFSET = 64;
 const REF_RATIO = 0.3;
 /** Horizontal distance (px) of the rail line from the viewport's right edge. */
 const RAIL_RIGHT = 16;
@@ -112,7 +112,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
   const dateFromScroll = useCallback((): number | null => {
     const a = anchorsRef.current;
     if (!a.length) return null;
-    const ref = window.scrollY + HEADER_OFFSET + window.innerHeight * REF_RATIO;
+    const ref = window.scrollY + measureChromeHeight() + window.innerHeight * REF_RATIO;
     if (ref <= a[0].top) return a[0].date;
     const last = a[a.length - 1];
     if (ref >= last.top) return last.date;
@@ -132,7 +132,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
   const scrollToDate = useCallback((target: number) => {
     const a = anchorsRef.current;
     if (!a.length) return;
-    const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
+    const offset = measureChromeHeight() + window.innerHeight * REF_RATIO;
     // Some threads (e.g. Taylor's Version) render cards out of chronological
     // order, so DOM position isn't monotonic with date — interpolating
     // between neighbors can land on the wrong card. Snap to the anchor with

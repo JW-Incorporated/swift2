@@ -22,8 +22,9 @@ export const SCRUBBER_SCRIM_CLASS = 'absolute inset-y-0 right-0 w-full';
 
 // Top-aligns the rail just below the TopBar (Joey, follow-up to #2077):
 // pt-20 = 80px = the real rendered TopBar height (h-10 icon buttons +
-// py-3 + border-b = 65px; HEADER_OFFSET's 64 is that minus the border)
-// + 15px. The era year label uses leading-none and renders at -top-1
+// py-3 + border-b = 65px — the TopBar-only case of chrome-offset.ts's
+// measureChromeHeight()) + 15px. The era year label uses leading-none and
+// renders at -top-1
 // translateY(-50%), reaching 9px above the rail at the default 10px text
 // size.
 //

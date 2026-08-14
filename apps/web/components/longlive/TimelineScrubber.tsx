@@ -6,6 +6,7 @@ import { getEra } from '@/lib/longlive/eras';
 import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
 import { truncate } from '@/lib/longlive/format';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
 import { cn } from '@/lib/utils';
 import {
   SCRUBBER_ANCHOR_CLASS,
@@ -19,8 +20,8 @@ import {
   type ScrubberAnchor,
 } from './timelineScrubberLayout';
 
-/** Reference line for "what am I reading" — header + a bit into the viewport. */
-const HEADER_OFFSET = 64;
+/** Reference line for "what am I reading" — chrome (measureChromeHeight) +
+ *  a bit into the viewport. */
 const REF_RATIO = 0.3;
 /** Horizontal distance (px) of the rail line from the viewport's right edge. */
 const RAIL_RIGHT = 16;
@@ -267,13 +268,13 @@ export function TimelineScrubber() {
   // from the scroll offset (never via date), same reasoning as fromPointer.
   const fromScroll = useCallback((): { pct: number; date: number } | null => {
     if (!anchorsRef.current.length) return null;
-    const ref = window.scrollY + HEADER_OFFSET + window.innerHeight * REF_RATIO;
+    const ref = window.scrollY + measureChromeHeight() + window.innerHeight * REF_RATIO;
     return { pct: pctForTop(ref), date: dateForTop(ref) };
   }, [pctForTop, dateForTop]);
 
   // Scrolls the feed so document-Y `y` lands at the reading reference line.
   const scrollToY = useCallback((y: number) => {
-    const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
+    const offset = measureChromeHeight() + window.innerHeight * REF_RATIO;
     window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
   }, []);
 
