@@ -24,13 +24,28 @@ masthead having moved into the stream).
 - **Fix 1 — COMMITTED (`e2fbda2b`).** Landing page retired; visitors land in
   the Eras scroll with the masthead on top of it. `landing` removed from
   `AppMode` entirely. `EraGrid` survives via `EraSelector`.
-- **Fixes 2+3 — with an executor.** Era jump landed content UNDER 178px of
-  sticky chrome (measured live at 390px: TopBar 65 + FilterBar 113) because
-  the jump scrolls the section top to y=0 with no compensation. And the filter
-  bar wraps to two rows — hence 113px. Now: one line always, ~36px chips,
-  horizontal scroll; jump offset uses a LIVE measured chrome height with one
-  source of truth (replacing `HEADER_OFFSET = 64`, duplicated in
-  `TimelineScrubber.tsx` and `ThreadsTimeline.tsx` and not FilterBar-aware).
+- **Fixes 2+3 — COMMITTED (`be50b85c`).** Filter row is one line (36px chips,
+  horizontal scroll, edge fade): FilterBar 113px → 49px, chrome 178px → 114px.
+  Jump offset now uses a LIVE measured chrome height with one source of truth
+  (`lib/longlive/chrome-offset.ts`), replacing `HEADER_OFFSET = 64` which was
+  duplicated in `TimelineScrubber.tsx` + `ThreadsTimeline.tsx` and unaware the
+  filter bar existed — so the scrubber's reference line had been wrong too.
+- **Fable review: REJECT. Two HIGH defects, both browser-reproduced. Being
+  fixed now — DO NOT MERGE until re-reviewed.**
+  1. **A fresh visit still never shows the masthead** — the same bug fix 1
+     existed to solve, in a new costume. `EraStream.tsx:101-104`'s
+     `mountedWithoutRestore` gate was written when mounting could only be an
+     `openEra` jump; now that the initial mode is `'era'` it fires on the plain
+     front-door mount and scrolls past ~345px of masthead. Repro: `scrollY=296`,
+     `<h1>` at viewport top −159. Fix: gate the mount-time jump on
+     `eraJumpSeq > 0` (a fresh load is 0; every real jump bumps it).
+  2. **The "Videos" chip is 100% tap-blocked and tapping it scrubs the page**
+     (296 → 1089). The scrubber's date pill sits at y≈84–100, directly over the
+     65–114px filter bar. **A regression from OUR one-line filter row** — on
+     `main` the wrapped layout put Videos on row 2, clear of the pill. Fix:
+     clamp the rail below the sticky chrome via `measureChromeHeight()`.
+  3. MEDIUM: hydration mismatch on every load (milestone-dot % precision).
+     Pre-existing, but this branch put the scrubber on `/`, so it is ours.
 
 **MERGE AUTHORIZED for this round — Joey, 2026-08-14: "focus on fixing these.
 you have merge authority. when done ill test on my phone."** Scoped to these
@@ -113,6 +128,15 @@ lists (bare `child`/`minor`/`teen` would refuse ordinary biography) ·
   over the live vault, never by reading code — and each time 2600+ green tests
   had made us confident and wrong, because fixtures used the easy case
   (distinct dates, in-position cards). Demand a corpus reproduction.
+- **Sticky chrome and the scrubber rail fight over the same band.** The rail is
+  `pointer-events-auto` and its date pill floats at y≈84–100 — on top of the
+  filter bar. Any control placed in that band is untappable and a tap there
+  scrubs the timeline instead. Check `elementFromPoint` across a new control
+  before believing it is tappable.
+- **A fix can reintroduce the bug it fixed, one layer down.** Retiring the
+  landing page did not make the masthead visible: the era-jump correction
+  scrolled straight past it on plain load. Verify the USER-VISIBLE outcome in a
+  browser, not the mechanism you changed.
 - **Two mechanisms for one fact is this repo's recurring defect.** It appeared
   three times in one branch: two song→video matchers, two date paths, and an
   inference left running beside an authored field. Grep for other callers
