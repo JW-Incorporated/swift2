@@ -429,6 +429,25 @@ not beside the song they discuss.
     - Verify: `npm test -- era-feed filters` → green.
 14. [ ] Implement `spaceDoorways()` so doorways never clump. (executor)
     - Verify: `npm test -- era-feed` → green, including a clumping case.
+14a. [ ] **Clamp a thread doorway's anchor into its era.** Found in review:
+    `threadPoints` can hand back a point dated OUTSIDE the era's nominal
+    window (love-story's relationship dates predate the era they surface in),
+    so a doorway can currently sort to the era's chronological edge — and
+    `TimelineScrubber` interpolates positions from card dates, so an
+    out-of-window date distorts that era's rail. Clamp the anchor into
+    `[eraStart, eraEnd]`. **A clamped anchor is no longer `exact`**, so its
+    `displayDate` becomes null and no date is shown — the honesty rule holds
+    without exception. Only clamp when genuinely out of range; a doorway whose
+    point falls inside the era keeps its real date. (executor)
+    - Verify: `npm test -- era-feed doorways scrubber` → green, with a case
+      for an out-of-window point and one for an in-window point.
+14b. [ ] **Collapse the `mergeEraFeed` overloads once step 15 lands.** The
+    4-arg/5-arg overload pair was scaffolding so the union could widen without
+    touching `EraSection.tsx` in a logic-only dispatch. Once the component
+    renders all four kinds, the narrow overload is dead — delete it and ship
+    ONE signature. Do not leave a dual API behind. (executor, with step 15)
+    - Verify: `grep -n "export function mergeEraFeed" apps/web/lib/longlive/era-feed.ts`
+      → exactly one signature.
 15. [ ] Build `DoorwayCard.tsx` (thread + egg variants), render it from
     `EraSection.tsx`'s feed loop. Same card silhouette as a moment card so it
     reads as part of the story, not an ad. (executor)
@@ -440,7 +459,20 @@ not beside the song they discuss.
 17. [ ] **R4:** every egg detail gets a prominent, obvious link back to the
     thread it came from, plus a line making clear a whole section is devoted
     to theories and eggs. (executor)
-    - Verify: `npm run typecheck` → clean; visual check in the run step.
+    - **`EggDoorway.threadId` is currently null for `kind === 'theory'`** —
+      only `easter_egg` maps to a thread. That fails R4 as written: Joey said
+      "**every** egg can point the user back", and "when I click on a
+      particular theory... I should be immediately educated that there's an
+      entire section dedicated to theories and eggs." A null pointer teaches
+      nobody anything.
+    - So: read what the `easter-eggs` and `hidden-clues` threads actually
+      contain, map `kind === 'theory'` to whichever genuinely fits, and REPORT
+      which you chose and why. If neither fits a given record, the detail must
+      STILL carry the "there is a whole section for this" line pointing at the
+      Threads section — the educational half of R4 is unconditional even when
+      a specific thread link isn't available.
+    - Verify: `npm run typecheck --workspace=@swift2/web` → clean; plus a test
+      asserting no theory/egg detail can render without a back-link.
 
 ### P4 — mobile navigation (PR 4)
 
