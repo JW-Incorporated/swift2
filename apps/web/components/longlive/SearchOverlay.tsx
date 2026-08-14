@@ -282,8 +282,14 @@ export function SearchOverlay() {
           </button>
         </div>
 
-        {/* Results / states */}
-        <div id="ll-search-results" role="listbox" aria-label="Search results" className="min-h-0 overflow-y-auto overscroll-contain">
+        {/* Results / states. The listbox wraps ONLY option/group children
+            (#1206, axe `aria-required-children`): the empty hint, no-match
+            message, and show-all header are chrome, so they live in the scroll
+            container as siblings ABOVE the listbox, which mounts exactly when
+            there are results — the same condition as the input's
+            `aria-expanded`, so its `aria-controls` never points at a missing
+            id while expanded. */}
+        <div className="min-h-0 overflow-y-auto overscroll-contain">
           {showEmptyHint && (
             <div className="px-4 py-8 text-center">
               <p className="text-sm text-[color:var(--era-ink-soft)]">
@@ -325,34 +331,38 @@ export function SearchOverlay() {
             </div>
           )}
 
-          {groups.map((group) => (
-            <div key={group.type} role="group" aria-label={group.label}>
-              <p
-                role="presentation"
-                className="sticky top-0 bg-[color:var(--era-bg)]/95 px-4 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)] backdrop-blur-sm"
-              >
-                {group.label}
-                {!showAll && group.totalMatches > group.results.length && (
-                  <span className="ml-2 font-normal tracking-normal text-[color:var(--era-ink-soft)] normal-case">
-                    {group.results.length} of {group.totalMatches}
-                  </span>
-                )}
-              </p>
-              {group.results.map((result) => {
-                flatIndex += 1;
-                return (
-                  <ResultRow
-                    key={result.doc.key}
-                    result={result}
-                    isActive={flatIndex === activeIndex}
-                    index={flatIndex}
-                    onHover={setActiveIndex}
-                    onSelect={select}
-                  />
-                );
-              })}
+          {groups.length > 0 && (
+            <div id="ll-search-results" role="listbox" aria-label="Search results">
+              {groups.map((group) => (
+                <div key={group.type} role="group" aria-label={group.label}>
+                  <p
+                    role="presentation"
+                    className="sticky top-0 bg-[color:var(--era-bg)]/95 px-4 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)] backdrop-blur-sm"
+                  >
+                    {group.label}
+                    {!showAll && group.totalMatches > group.results.length && (
+                      <span className="ml-2 font-normal tracking-normal text-[color:var(--era-ink-soft)] normal-case">
+                        {group.results.length} of {group.totalMatches}
+                      </span>
+                    )}
+                  </p>
+                  {group.results.map((result) => {
+                    flatIndex += 1;
+                    return (
+                      <ResultRow
+                        key={result.doc.key}
+                        result={result}
+                        isActive={flatIndex === activeIndex}
+                        index={flatIndex}
+                        onHover={setActiveIndex}
+                        onSelect={select}
+                      />
+                    );
+                  })}
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
 
         {/* Key hints */}
