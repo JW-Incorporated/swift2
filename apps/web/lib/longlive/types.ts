@@ -853,6 +853,13 @@ export interface VideoNote {
   youtubeId: string | null;
   /** Citations backing the record. Reuses the EggSource shape; never empty. */
   sources: EggSource[];
+  /** Authored topic tags — ONLY where the record's own kind/title/
+   * relatedSongs/summary genuinely support the topic; never invented. A
+   * video with no supported topic carries no `tags` (or an empty array) and
+   * is still reachable under the structural `Videos` filter chip. Replaces
+   * the old `filtersForEntry` inference (dated music video ⇒ Music) — see
+   * docs/longlive-experience.md §5.8. */
+  tags?: ContentTag[];
 }
 
 /** Legal, embeddable streaming media attached to an era. */

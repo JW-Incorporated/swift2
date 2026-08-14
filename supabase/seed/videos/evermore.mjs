@@ -53,6 +53,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2020-12-11',
       relatedSongs: ['willow'],
+      tags: ['Music'],
       summary:
         'Picks up in the exact frame cardigan left off: from the piano, Taylor follows a golden thread through winter woods, a carnival tent, and firelit ritual circles to find the person on the other end.',
       symbolism:
@@ -69,6 +70,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2021-11-12',
       relatedSongs: ['All Too Well (10 Minute Version)'],
+      tags: ['Music'],
       summary:
         'Fifteen minutes starring Sadie Sink and Dylan O\'Brien: the whole arc of the fan-canonized breakup epic — the refrigerator-light dance, the kitchen fight, the scarf — released with Red (Taylor\'s Version) and premiered theatrically.',
       symbolism:
@@ -90,6 +92,7 @@ export default {
       director: null,
       releasedOn: '2021-11-13',
       relatedSongs: ['All Too Well (10 Minute Version)'],
+      tags: ['Music'],
       summary:
         'A rare single-song SNL musical-guest slot, one day after Red (Taylor\'s Version): the full ten minutes live on a leaf-strewn stage, short-film footage rolling behind her, snow falling by the last verse.',
       symbolism: null,
@@ -138,6 +141,7 @@ export default {
       director: 'Blake Lively',
       releasedOn: '2021-11-15',
       relatedSongs: ['I Bet You Think About Me'],
+      tags: ['Music'],
       summary:
         'Blake Lively\'s directorial debut: Taylor crashes a pastel society wedding as the red-dressed ghost of relationships past, gleefully ruining the cake — the vault track as screwball comedy.',
       symbolism: 'She is the only thing in red in a room styled entirely in polite neutrals — the era\'s color used as a walking punchline.',
@@ -169,6 +173,7 @@ export default {
         'Days after evermore arrived with no rollout: how she kept a second surprise album secret in the same year as folklore, the fan theories she reads, and the William Bowery question.',
       youtubeId: 'ionfV_r8s40',
       channel: 'Jimmy Kimmel Live',
+      tags: ['Music', 'Lore'],
       sources: [
         upload({
           youtubeId: 'ionfV_r8s40',
@@ -205,6 +210,7 @@ export default {
         "'All Too Well: The Short Film' wins Video of the Year — and she spends the end of the acceptance speech announcing a brand-new album, Midnights, arriving October 21.",
       youtubeId: '_J1dJLDrPBo',
       channel: 'MTV UK',
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: '_J1dJLDrPBo',

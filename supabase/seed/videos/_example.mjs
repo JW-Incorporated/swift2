@@ -35,6 +35,12 @@
 //     at a podium is never `performance`; a song sung on a talk show is
 //     `performance`, not `interview`. If nothing fits honestly, the record does
 //     not belong on the Videos rail — say so rather than stretching a value.
+//   - tags: OPTIONAL topic ContentTags ('Music' | 'Fashion' | 'Tour' |
+//     'Relationship' | 'Lore') — author ONLY where the record's own
+//     kind/title/relatedSongs/summary genuinely support the topic. Every
+//     video is reachable under the structural Videos filter chip regardless;
+//     do not add a tag to make a record reachable under a topic it isn't
+//     honestly about. May carry more than one where genuinely warranted.
 //   - summary: <=400 chars, hook-voiced — a line, not a shot list.
 //   - symbolism/easterEggs: DOCUMENTED readings only; label anything
 //     speculative as a theory record instead (theories/<era>.mjs).
@@ -59,6 +65,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2022-10-21',
       relatedSongs: ['Example Song'],
+      tags: ['Music'],
       summary: 'One sourced line on the video — premise, premiere, or impact.',
       symbolism: 'Documented symbolism in our words, or null.',
       easterEggs: ['One documented egg per line.'],

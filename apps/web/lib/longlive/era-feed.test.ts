@@ -41,7 +41,12 @@ const moment = (
     ...(video ? { video } : {}),
   }) as unknown as ContentItem;
 
-const video = (slug: string, kind: VideoNote['kind'], releasedOn: string | null): VideoNote =>
+const video = (
+  slug: string,
+  kind: VideoNote['kind'],
+  releasedOn: string | null,
+  tags: ContentTag[] = [],
+): VideoNote =>
   ({
     slug,
     kind,
@@ -54,6 +59,7 @@ const video = (slug: string, kind: VideoNote['kind'], releasedOn: string | null)
     symbolism: null,
     youtubeId: `yt-${slug}`,
     sources: [],
+    tags,
   }) as unknown as VideoNote;
 
 const filterOf = (ids: FilterId[]): ReadonlySet<FilterId> => new Set(ids);
@@ -100,9 +106,9 @@ const DUPLICATE_EMBED_ITEMS = [
   moment('m-radio', '2026-03-09', ['Music'], { youtubeId: 'yt-liz', title: 'Elizabeth Taylor' }),
 ];
 
-const MUSIC_VIDEOS = [video('mv-lover', 'music_video', '2019-08-22')];
+const MUSIC_VIDEOS = [video('mv-lover', 'music_video', '2019-08-22', ['Music'])];
 const ALL_VIDEOS = [
-  video('mv-lover', 'music_video', '2019-08-22'),
+  video('mv-lover', 'music_video', '2019-08-22', ['Music']),
   video('vmas-2019', 'award_speech', '2019-08-26'),
   video('amas-2019', 'award_speech', '2019-11-24'),
   video('undated-film', 'tour_film', null),
@@ -120,12 +126,12 @@ describe('visibleFeed', () => {
   });
 
   // The three concrete cases from R2: Videos is a PEER chip, OR-matched, not
-  // a second mutually-exclusive axis. `mv-lover` is a DATED MUSIC VIDEO, so
-  // per the restored rule (§ Plan amendments) it also carries 'Music'; and
-  // `m-music-with-video` OWNS an inline video, so per the other restored rule
-  // it also carries 'Videos' — both fixtures exercise the amended contract on
+  // a second mutually-exclusive axis. `mv-lover` carries an AUTHORED 'Music'
+  // tag (VideoNote.tags — filters.ts no longer infers this from kind/date);
+  // and `m-music-with-video` OWNS an inline video, so per the other restored
+  // rule it also carries 'Videos' — both fixtures exercise the contract on
   // purpose, not just the plain topic/Videos split.
-  it('with {Music} active: shows music-tagged moments AND dated music videos', () => {
+  it('with {Music} active: shows music-tagged moments AND authored-Music videos', () => {
     const entries = mergeEraFeed(ITEMS, MUSIC_VIDEOS);
     expect(entryIds(visibleFeed(entries, filterOf(['Music']))).sort()).toEqual(
       ['m-music-with-video', 'mv-lover'].sort(),

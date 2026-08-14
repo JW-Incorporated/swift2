@@ -75,7 +75,7 @@ describe('filtersForEntry', () => {
     expect(filtersForEntry(entry, noOwners)).toEqual(['Fashion', 'Tour']);
   });
 
-  it('returns Videos for a non-music video entry', () => {
+  it('returns Videos only for a video with no authored tags', () => {
     const entry: EraFeedEntry = {
       kind: 'video',
       video: { ...video('vmas'), kind: 'award_speech' },
@@ -98,20 +98,34 @@ describe('filtersForEntry', () => {
     expect(filterMatches(filtersForEntry(entry, ctx), new Set<FilterId>(['Videos']))).toBe(true);
   });
 
-  // Restored rule 2: a dated music video is Music, not just Videos.
-  it('a dated music video is reachable under {Music}', () => {
-    const entry: EraFeedEntry = { kind: 'video', video: video('mv-lover'), anchor: ANCHOR };
+  // A video's topics come from its own authored `tags`, not from an
+  // inference over kind/releasedOn (2026-08-13 — see filters.ts doc comment).
+  it('a video with an authored Music tag is reachable under {Music}', () => {
+    const entry: EraFeedEntry = {
+      kind: 'video',
+      video: { ...video('mv-lover'), tags: ['Music'] },
+      anchor: ANCHOR,
+    };
     expect(filtersForEntry(entry, noOwners)).toEqual(['Music', 'Videos']);
     expect(filterMatches(filtersForEntry(entry, noOwners), new Set<FilterId>(['Music']))).toBe(true);
   });
 
-  it('an undated music video does not get Music (no fact to anchor it)', () => {
+  it('a video with no authored tags gets no invented topic, even a music video', () => {
     const entry: EraFeedEntry = {
       kind: 'video',
-      video: { ...video('mv-undated'), releasedOn: null },
+      video: { ...video('mv-untagged'), tags: undefined },
       anchor: ANCHOR,
     };
     expect(filtersForEntry(entry, noOwners)).toEqual(['Videos']);
+  });
+
+  it('a video may carry more than one authored topic tag', () => {
+    const entry: EraFeedEntry = {
+      kind: 'video',
+      video: { ...video('mv-multi'), tags: ['Music', 'Tour'] },
+      anchor: ANCHOR,
+    };
+    expect(filtersForEntry(entry, noOwners)).toEqual(['Music', 'Tour', 'Videos']);
   });
 
   // PLAN.md P3 step 13: a thread doorway maps through filterForThread.

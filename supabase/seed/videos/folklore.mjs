@@ -50,6 +50,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2020-07-24',
       relatedSongs: ['cardigan'],
+      tags: ['Music'],
       summary:
         'Self-directed under COVID protocols and released with the surprise album: a glowing piano becomes a portal from a candlelit cabin to a mossy forest to a storm-tossed sea, and back to safety under a cardigan.',
       symbolism:
@@ -66,6 +67,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2020-11-25',
       relatedSongs: [],
+      tags: ['Music'],
       summary:
         'The Disney+ film where folklore got its liner notes out loud: Taylor, Aaron Dessner and Jack Antonoff play the album through in a woodland studio and explain it song by song — including the William Bowery reveal.',
       symbolism: null,

@@ -55,7 +55,23 @@ export const VIDEO_KIND_VALUES = new Set([
   'press_event',
 ]);
 
+/** The five topic ContentTags a video record may be authored with — mirrors
+ * VALID_TAGS in sync-longlive-content.mjs. Videos gets no entry here: it is
+ * the structural chip every video carries (filters.ts), never an authored
+ * topic. */
+export const VIDEO_TAG_VALUES = new Set(['Music', 'Fashion', 'Tour', 'Relationship', 'Lore']);
+
 const trimmed = (v) => (typeof v === 'string' ? v.trim() : '');
+
+/** Authored topic tags, filtered to known ContentTags and de-duped —
+ * unrecognized values are dropped rather than propagated into the app. */
+function tagsFrom(tags) {
+  const out = [];
+  for (const t of Array.isArray(tags) ? tags : []) {
+    if (VIDEO_TAG_VALUES.has(t) && !out.includes(t)) out.push(t);
+  }
+  return out;
+}
 
 /**
  * Extract an 11-char YouTube video ID from a canonical URL (watch?v=, youtu.be,
@@ -142,6 +158,7 @@ export function normalizeVideo(raw) {
       officialUrl: raw.officialUrl ?? raw.official_url,
     }),
     sources: resolvedSources,
+    tags: tagsFrom(raw.tags),
   };
 }
 
@@ -210,6 +227,7 @@ export function renderModule(byEra) {
       lines.push(`      youtubeId: ${v.youtubeId === null ? 'null' : esc(v.youtubeId)},`);
       const srcs = v.sources.map(sourceLiteral).join(', ');
       lines.push(`      sources: [${srcs}],`);
+      if (v.tags.length > 0) lines.push(`      tags: [${v.tags.map(esc).join(', ')}],`);
       lines.push('    },');
     }
     lines.push('  ],');

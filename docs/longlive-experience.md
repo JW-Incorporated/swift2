@@ -357,17 +357,23 @@ mutually-exclusive axis — `{Music, Videos}` active shows anything that
 matches either. An entry with zero filter ids can never match a non-empty
 active set, which is exactly why `check:filter-coverage` (below) exists.
 
-`filtersForEntry()` (`filters.ts`) decides an entry's ids and restores two
-rules the pre-rework two-branch selection code enforced (they are not new
-behaviour):
+`filtersForEntry()` (`filters.ts`) decides an entry's ids:
 1. A moment that **owns** the inline player for its embedded video (i.e. the
    first moment in feed order to embed a given `youtubeId` — see
    `inlineVideoMomentIds`) is reachable under Videos as well as its own topic
    tags. A moment that merely *defers* to another card's embed is not.
-2. A **dated** music video record is reachable under Music as well as Videos.
-   Every other video kind (lyric video, tour film, the appearance family)
-   carries Videos only — no topic is invented for a record that isn't
-   authored with one.
+2. A video's topics come from its own authored `VideoNote.tags` (optional
+   `ContentTag[]`, added 2026-08-13). Every video also carries Videos —
+   that's structural (every video is watchable), never authored. This
+   REPLACED an earlier inference ("a dated music video is Music"): two
+   mechanisms deciding the same thing was the exact defect an adversarial
+   review caught twice on this branch. 81 of 84 video records now carry at
+   least one authored topic tag, backfilled by reading each record's own
+   `kind`/`title`/`relatedSongs`/`summary` — never by inferring facts the
+   record doesn't state. The 3 left untagged (an early Ellen interview, an
+   NYU commencement speech, a Sundance Q&A) are ones whose own text was
+   genuinely too thin to support a topic honestly; they remain reachable
+   under Videos.
 
 **Anchor dating** (`anchor-date.ts`): every entry in the merged feed carries
 an `anchor` — `{ sortDate, displayDate, via }`. `sortDate` is always present
@@ -391,10 +397,10 @@ era by its own `shortName` (`emptyFeedMessage()` in `era-feed.ts`, e.g.
 **`scripts/check-filter-coverage.mjs`** walks every moment and video that can
 appear in a timeline and fails the build if any carries zero filter ids
 (`npm run check:filter-coverage`, wired into the `build` CI job). It also
-*reports* (without failing) videos that carry no topic tag — `VideoNote` has
-no `tags` field today, so a video only ever matches Videos unless it's a
-dated music video (rule 2 above); deciding whether to author topic tags onto
-`VideoNote` is a follow-up product call, not something this checker enforces.
+*reports* (without failing) appearance-family videos that carry no topic
+tag — 3 as of the 2026-08-13 backfill (rule 2 above), down from 18 before
+`VideoNote.tags` existed; a record left untagged is one whose own text
+genuinely didn't support a topic, not a gap to close by inference.
 
 ---
 
