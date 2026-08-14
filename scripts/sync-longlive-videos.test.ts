@@ -135,7 +135,17 @@ describe('normalizeVideo', () => {
       symbolism: 'The will as a metaphor for legacy and self-judgment.',
       youtubeId: 'b1kbLwvqugk',
       sources: [{ name: 'Example', url: 'https://en.wikipedia.org/wiki/Example' }],
+      tags: [],
     });
+  });
+
+  it('carries authored topic tags through, filtering out anything not a known ContentTag', () => {
+    const v = normalizeVideo({ ...base, tags: ['Music', 'Tour', 'not-a-tag'] });
+    expect(v?.tags).toEqual(['Music', 'Tour']);
+  });
+
+  it('defaults to no tags when the seed omits the field', () => {
+    expect(normalizeVideo(base)?.tags).toEqual([]);
   });
 
   it('accepts DB snake_case column names', () => {

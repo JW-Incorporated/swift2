@@ -62,10 +62,12 @@ export function filterForThread(id: LensId): FilterId {
  *     `inlineVideoMomentIds`'s output — ownership is a property of the list
  *     on screen, not of the era, hence the ctx argument (see that function's
  *     doc comment in era-feed.ts).
- *  2. A dated music video is Music, not just Videos — the old code encoded
- *     the topic in the selection rule (`visibleVideos`) rather than on the
- *     record. Everything else in the video kind space (lyric videos, tour
- *     films, the appearance family) gets Videos only — no invented topics.
+ *  2. A video's topics come from its own authored `VideoNote.tags` (added
+ *     2026-08-13, backfilled per record — see docs/longlive-experience.md
+ *     §5.8). This REPLACES the earlier inference ("a dated music video is
+ *     Music"): two mechanisms deciding the same thing was the exact defect
+ *     an adversarial review caught twice on this branch. Every video still
+ *     carries `Videos` — that is structural, not authored.
  *
  * `thread`/`egg` doorways (PLAN.md P3 step 13): a thread doorway maps through
  * `filterForThread`; an egg doorway is always Lore (theories & eggs are lore,
@@ -86,12 +88,10 @@ export function filtersForEntry(
         ? [...entry.item.tags, 'Videos']
         : entry.item.tags;
     case 'video':
-      // VideoNote carries no topic tags of its own (see types.ts) — a video
-      // record is a topic entry ONLY in this one documented case, never
-      // invented into a topic it isn't authored with.
-      return entry.video.kind === 'music_video' && entry.video.releasedOn != null
-        ? ['Music', 'Videos']
-        : ['Videos'];
+      // A video's topics are whatever was authored onto the record itself
+      // (VideoNote.tags) — never inferred here. Videos is always added: it
+      // is structural (every video is watchable), not a topic claim.
+      return [...(entry.video.tags ?? []), 'Videos'];
     case 'thread':
       return [filterForThread(entry.doorway.threadId)];
     case 'egg':

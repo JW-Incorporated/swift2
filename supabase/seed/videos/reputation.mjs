@@ -50,6 +50,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2017-08-27',
       relatedSongs: ['Look What You Made Me Do'],
+      tags: ['Music'],
       summary:
         'The VMA-premiered resurrection: zombie Taylor claws out of a grave, a snake serves tea on a throne, and the finale lines up fifteen past Taylors to bicker over which one is fake.',
       symbolism:
@@ -70,6 +71,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2017-10-26',
       relatedSongs: ['...Ready for It?'],
+      tags: ['Music'],
       summary:
         'Cyberpunk Taylor vs. Taylor: a cloaked figure walks a neon corridor to confront a caged android version of herself — the robot cracks its shell and levels the wall between them.',
       symbolism:
@@ -86,6 +88,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2018-01-12',
       relatedSongs: ['End Game'],
+      tags: ['Music'],
       summary:
         'A globe-hopping party flex — Miami boat lights, Tokyo arcades, London double-deckers — with Ed Sheeran and Future riding shotgun through the era\'s one pure hangout video.',
       symbolism: null,
@@ -101,6 +104,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2018-03-11',
       relatedSongs: ['Delicate'],
+      tags: ['Music'],
       summary:
         'Premiered at the iHeartRadio Awards: a note makes Taylor invisible mid-press-gauntlet, and she dances unwatched through a hotel — lobby, hallway, rain — until the note\'s magic runs out at a dive bar.',
       symbolism:
@@ -117,6 +121,7 @@ export default {
       director: 'Paul Dugdale',
       releasedOn: '2018-12-31',
       relatedSongs: [],
+      tags: ['Tour'],
       summary:
         'The Dallas stadium show, released to Netflix on New Year\'s Eve — the snake-throne era preserved in full, from the tilted stage to the Long Live/New Year\'s Day piano coda.',
       symbolism: null,

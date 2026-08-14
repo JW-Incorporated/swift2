@@ -18,8 +18,10 @@
 // zero filter ids. Lists each offender as "era / kind / id / title" — the
 // direct backfill list for PLAN.md step 7.
 // REPORTS ONLY (exit 0): any of the six filters with zero items in a given
-// era, and the count of appearance-family videos with no topic tag (step 7a
-// — expected today, VideoNote has no topic field; not a regression).
+// era, and the count of appearance-family videos with no topic tag. Most
+// appearance videos now carry authored `VideoNote.tags` (2026-08-13
+// backfill, see docs/longlive-experience.md §5.8); a record left untagged is
+// one whose own title/summary genuinely didn't support a topic, not a gap.
 import { ERAS } from '../apps/web/lib/longlive/eras.ts';
 import { contentForEra } from '../apps/web/lib/longlive/content.ts';
 import { eraVideoFeed, isAppearance } from '../apps/web/lib/longlive/videos.ts';
@@ -133,13 +135,13 @@ function main() {
     }
   }
 
-  // Step 7a: a "clean, quotable" line for a founder — how many appearance-
-  // family videos (interviews, award speeches, etc.) carry no topic tag.
-  // Expected today: VideoNote has no topic field, so this is every playable
-  // appearance video, not a regression. See PLAN.md step 7a.
+  // Step 7a follow-up: a "clean, quotable" line for a founder — how many
+  // appearance-family videos (interviews, award speeches, etc.) still carry
+  // no topic tag after the 2026-08-13 backfill. These are the ones whose own
+  // record was genuinely too thin to tag honestly, not an oversight.
   console.log(
     `\n${untaggedAppearanceVideos} appearance-family video(s) carry no topic tag ` +
-      `(Videos-only — VideoNote has no topic field yet).`,
+      `(Videos-only — the record's own text didn't support one).`,
   );
 
   if (offenders.length > 0) {
