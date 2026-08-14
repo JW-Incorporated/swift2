@@ -9,7 +9,7 @@ import { LandingPage } from './LandingPage';
 import { EraStream } from './EraStream';
 import { ThreadsMode } from './ThreadsMode';
 import { MoodChat } from './MoodChat';
-import { Clownbot } from './Clownbot';
+import { ClownChat } from './ClownChat';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
@@ -51,7 +51,7 @@ function Shell() {
         {onLanding ? (
           <LandingPage />
         ) : inClownbot ? (
-          <Clownbot />
+          <ClownChat />
         ) : inMood ? (
           <MoodChat />
         ) : inThreads ? (
