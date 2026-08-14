@@ -563,6 +563,13 @@ export default {
             focalPoint: '50% 20%',
           },
         ],
+        // Photo pass #762 (2026-08-14): no `socialPost` — the one Instagram
+        // post in this story ("an Instagram post of Taylor's cats") is on
+        // Calvin Harris's own account, not @taylorswift's, so it fails the
+        // embed-verification bar. No taylorswift-account post tied to the
+        // BBMAs night itself was found (her earliest located couple post with
+        // Harris is a June 10, 2015 swan-raft photo — a different date/event,
+        // not honestly usable here).
       },
     },
     {
@@ -1193,6 +1200,10 @@ export default {
           },
         ],
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201533/rs_634x1024-150403050319-634.Taylor-Swift-Calvin-Harris-JR-4315.jpg', credit: 'MEP/Splash News' }],
+        // Photo pass #762 (2026-08-14): no `socialPost` — same "Instagram post
+        // of Taylor's cats" referenced here is on Calvin Harris's own account,
+        // not @taylorswift's, so it fails the embed-verification bar. This
+        // sighting is paparazzi photography, not a social post, in any case.
       },
     },
     {
