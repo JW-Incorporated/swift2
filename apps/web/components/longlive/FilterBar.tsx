@@ -44,12 +44,16 @@ const FILTER_COLOR: Record<FilterId, string> = {
  * an "All" chip that clears the set. Mounted once by EraStream, never per
  * era, so a chip picked while scrolling stays picked across every era after.
  *
- * Sticks directly under TopBar. TopBar's own height varies (it grows a
- * TimelineScrubber row in era mode, and its padding is responsive), so rather
- * than hardcode an offset this measures TopBar's live rendered height via
- * ResizeObserver — the same imperative-DOM-measurement pattern EraStream and
- * TimelineScrubber already use for cross-component layout facts. TopBar
- * exposes `data-ll-topbar` for exactly this.
+ * Sticks directly under TopBar. TopBar's own height varies (its padding is
+ * responsive) — NOT because of TimelineScrubber, whose root is
+ * `position: fixed` (SCRUBBER_SHELL_CLASS, timelineScrubberLayout.ts) and so
+ * contributes 0 to TopBar's flow height despite rendering inside it in era
+ * mode. Rather than hardcode an offset this measures TopBar's live rendered
+ * height via ResizeObserver — the same imperative-DOM-measurement pattern
+ * EraStream and TimelineScrubber already use for cross-component layout
+ * facts. TopBar exposes `data-ll-topbar` for exactly this; this component
+ * exposes `data-ll-filterbar` in turn, so chrome-offset.ts's
+ * `measureChromeHeight()` can measure both together.
  */
 /** SSR-render seed only — the layout effect below overwrites it with the
  *  real measured height BEFORE the browser paints, so this number is never
@@ -90,52 +94,67 @@ export function FilterBar() {
 
   return (
     <div
+      data-ll-filterbar
       role="group"
       aria-label="Filter the timeline"
       className="sticky z-30 border-b border-[color:var(--era-line)] bg-[color:var(--era-bg)]/90 backdrop-blur-xl"
       style={{ top }}
     >
-      <div className="mx-auto flex max-w-4xl flex-wrap items-center gap-2 px-4 py-2 md:px-6">
-        <button
-          type="button"
-          aria-pressed={allActive}
-          onClick={clearFilters}
-          className="inline-flex min-h-11 items-center rounded-full border px-4 text-xs font-semibold transition"
-          style={{
-            backgroundColor: allActive ? 'var(--era-accent)' : 'transparent',
-            borderColor: 'var(--era-accent)',
-            color: allActive ? 'var(--era-bg)' : 'var(--era-ink)',
-          }}
-        >
-          All
-        </button>
-        {ALL_FILTERS.map((id) => {
-          const active = filters.has(id);
-          const Icon = FILTER_ICON[id];
-          const color = FILTER_COLOR[id];
-          const cue = `color-mix(in srgb, ${color} 70%, var(--era-ink))`;
-          return (
-            <button
-              key={id}
-              type="button"
-              aria-pressed={active}
-              onClick={() => toggleFilter(id)}
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border px-4 text-xs font-semibold transition"
-              style={{
-                backgroundColor: active ? color : 'transparent',
-                borderColor: active ? color : cue,
-                color: active ? '#fff' : 'var(--era-ink)',
-              }}
-            >
-              <Icon
-                className="h-3.5 w-3.5"
-                aria-hidden
-                style={{ color: active ? '#fff' : cue }}
-              />
-              {FILTER_LABEL[id]}
-            </button>
-          );
-        })}
+      {/* Relative wrapper so the edge-fade below can sit over the scrollable
+          row without adding to its height. One line, always (founder: "the
+          filters are way too big... one line always") — horizontal scroll
+          instead of wrapping, with the fade signalling there's more to the
+          right. scrollbar-none hides the mobile scrollbar chrome; the row
+          stays reachable by touch/trackpad either way. */}
+      <div className="relative">
+        <div className="mx-auto flex max-w-4xl flex-nowrap items-center gap-1.5 overflow-x-auto scrollbar-none px-4 py-1.5 md:px-6">
+          <button
+            type="button"
+            aria-pressed={allActive}
+            onClick={clearFilters}
+            className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
+            style={{
+              backgroundColor: allActive ? 'var(--era-accent)' : 'transparent',
+              borderColor: 'var(--era-accent)',
+              color: allActive ? 'var(--era-bg)' : 'var(--era-ink)',
+            }}
+          >
+            All
+          </button>
+          {ALL_FILTERS.map((id) => {
+            const active = filters.has(id);
+            const Icon = FILTER_ICON[id];
+            const color = FILTER_COLOR[id];
+            const cue = `color-mix(in srgb, ${color} 70%, var(--era-ink))`;
+            return (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => toggleFilter(id)}
+                className="inline-flex h-9 shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
+                style={{
+                  backgroundColor: active ? color : 'transparent',
+                  borderColor: active ? color : cue,
+                  color: active ? '#fff' : 'var(--era-ink)',
+                }}
+              >
+                <Icon
+                  className="h-3 w-3"
+                  aria-hidden
+                  style={{ color: active ? '#fff' : cue }}
+                />
+                {FILTER_LABEL[id]}
+              </button>
+            );
+          })}
+        </div>
+        {/* Edge-fade affordance: reads as "more chips this way" instead of a
+            hard cut, without adding a visible scrollbar on mobile. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[color:var(--era-bg)] to-transparent"
+        />
       </div>
     </div>
   );

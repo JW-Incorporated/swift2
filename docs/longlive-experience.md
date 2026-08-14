@@ -18,17 +18,19 @@ before touching anything under `apps/web/components/longlive/**` or
 ## 1. The one-paragraph mental model
 
 The app is a single client-rendered experience (`app/page.tsx` → `<LongLive/>`)
-with **three modes**:
+with **two modes**:
 
-- **Landing** (`mode: 'landing'`) — the site's front door (#684, founder
-  decision 2026-07-15): the Long Live wordmark, the Eras/Threads toggle, and
-  the twelve-era grid as a real page. Every fresh load starts here on every
-  platform; deep links (`?item=`/`?lens=`/`?era=`, routed by
-  `lib/longlive/deepLink.ts`) bypass it. `goHome` returns here, and the back
-  gesture from a first navigation lands back here via the nav stack.
 - **Era mode** (`mode: 'era'`) — a vertical, immersive scroll through the 12
   eras (`debut` → `tloas`). Each era re-skins the entire UI via CSS variables.
   This is the "timeline" the `docs/architecture.md` scrubber concept feeds.
+  It is also the site's front door (R1, PLAN.md 2026-08-14, correcting #684):
+  every fresh load starts here, on the current era, with `LandingMasthead`
+  (wordmark, tagline, rotating gloss line) mounted once above the first era
+  section — it scrolls away as the reader goes back in time and collapses
+  into the sticky `TopBar` above it. There is no separate landing page or
+  `landing` mode; deep links (`?item=`/`?lens=`/`?era=`, routed by
+  `lib/longlive/deepLink.ts`) retarget the stream, and `goHome` (the wordmark)
+  returns to the current era at the top, not a separate home screen.
 - **Threads mode** (`mode: 'threads'`) — a cross-era "vault" that reads one
   narrative *through-line* across her whole career (love story, fashion,
   re-recordings, etc.), laid on a shared 2006→now axis. Threads mode uses a
@@ -50,11 +52,12 @@ apps/web/
   app/page.tsx                     mounts <LongLive/> (the whole experience)
   components/longlive/
     LongLive.tsx                   app shell: reads mode, applies theme vars, routes to a mode
-    LandingPage.tsx                the front door: wordmark + mode toggle + era grid (#684)
-    EraGrid.tsx                    the twelve-era tile grid (shared: landing + EraSelector)
-    TopBar.tsx / EraSelector.tsx   era jump UI (TopBar hidden on the landing page)
+    LandingMasthead.tsx            wordmark + tagline + rotating gloss; mounted once by EraStream
+    EraGrid.tsx                    the twelve-era tile grid (shared: EraSelector overlay only)
+    TopBar.tsx / EraSelector.tsx   era jump UI (TopBar always renders, sticky above the masthead)
     TimelineScrubber.tsx           the morph-on-grab era scrubber (era mode)
-    EraStream.tsx                  the vertical era-by-era scroll (era mode); mounts FilterBar once
+    EraStream.tsx                  the vertical era-by-era scroll (era mode); mounts LandingMasthead
+                                    once above the sequence, then FilterBar once
     FilterBar.tsx                  the one global sticky six-chip filter row (§5.8)
     EraSection.tsx                 one era: hero + lyric + TrackGuideBar + moment grid + PIVOT strip
     EraSecretCard.tsx              the Era Secret card (#688): one sourced obscure fact per era entry
@@ -182,7 +185,7 @@ One React context. Consume via `useAppState()` (read) and `useAppActions()`
 
 State:
 ```ts
-mode: 'landing' | 'era' | 'threads'   // 'landing' = the front door (#684)
+mode: 'era' | 'threads'      // 'era' is also the front door (R1, PLAN.md 2026-08-14)
 eraId: EraId                 // active era in era mode
 eraJumpSeq: number           // bump to force a scroll-to-era
 lensId: LensId | null        // active thread, or null = threads gallery
@@ -194,7 +197,8 @@ filters: ReadonlySet<FilterId>  // global, era-independent (§5.8); empty = show
 
 Key actions (all memoized):
 - `setMode`, `setEra`, `setActiveEra`, `goHome` — `goHome` returns to the
-  landing page; `setEra` always enters era mode (it's also the deep-link path)
+  current era at the top of the stream; `setEra` always enters era mode (it's
+  also the deep-link path)
 - `setLens` / `clearLens` — pick a thread / return to the gallery
 - `openThread(id)` — **pivot from an era into a thread** (switches to threads mode)
 - `openEra(id)` — **pivot from a thread back into an era** (switches to era mode + jumps)
@@ -284,8 +288,8 @@ jumps the user to a specific era must call `clearEraScroll()` first** (as
 position. Also keep the `EraStream` jump effect idempotent: when a snapshot
 exists it keys off the `eraJumpSeq` *value* so React StrictMode's double-invoke
 in dev can't clobber a restore; when there's no snapshot the mount itself may
-*be* the jump (the landing page mounts the stream in the same `openEra` action
-that bumps `eraJumpSeq` — #747), so the effect runs on mount and the initial
+*be* the jump (switching into era mode mounts the stream in the same `openEra`
+action that bumps `eraJumpSeq` — #747), so the effect runs on mount and the initial
 `anchorId`/`count` are seeded from `jumpWindow(eraId)` rather than
 `{ eraId, 1 }` — otherwise nothing newer than the picked era ever renders and
 the user can't scroll up.
@@ -428,8 +432,8 @@ Consequences for component code:
 
 | Surface | Component | Notes |
 |---|---|---|
-| Mobile navigation | `BottomNav` | mobile-only (`md:hidden`) fixed bottom tab bar with four tabs: Eras, Threads, Mood, Clownbot. Mounted on every surface including the front door, because the front door is the main page, not a separate landing page. `lib/longlive/bottom-nav-layout.ts` — pure `layoutBottomNavTabs()` decides label-vs-icon-only for the whole bar at once: icon-only at 5+ tabs, so Marketplace and Community can arrive without a redesign; never a mixed bar. Padded with `env(safe-area-inset-bottom)` to clear the iPhone home indicator and mobile browser chrome. Unmounts entirely while a text input, textarea, or contenteditable holds focus, so Mood's keyboard never fights it. `LongLive.tsx` renders a spacer of `calc(3.5rem + env(safe-area-inset-bottom))` below the footer, `md:hidden`, because a fixed bar cannot push content — without it the last card of every surface sits under the bar. On mobile, `TopBar` shows a context label instead of the pill toggle: "Era: <short name>" in an era, "Thread: <title>" in a thread. On desktop the pill rail is unchanged and there is no bottom bar. `LandingPage.tsx`'s own `ModeToggle` is now desktop-only, so mobile does not show the same four destinations twice. `FeedbackButton` floats above the bar on mobile with an X that dismisses it for the rest of the session (sessionStorage key `ll-feedback-dismissed-v1`, read only after mount). |
-| The masthead | `LandingMasthead` | the front door's eyebrow, wordmark, and tagline, structure and styling unchanged from before, plus one rotating gloss line. Tagline: "Real-time updates on her whole life — every moment sourced and dated, back through all twelve eras." `lib/longlive/gloss-rotation.ts` — `dailyGloss(dayKey)` picks one section's gloss per day, deterministically, reusing `epochDay` from `era-secrets.ts` (the same daily-rotation mechanism, not a second one). It teaches one section at a time so the line never grows as sections are added. Sections carry a `built` flag; unbuilt ones (Marketplace, Community) can sit in the data and are never selected, so no "coming soon" surface is ever shown. |
+| Mobile navigation | `BottomNav` | mobile-only (`md:hidden`) fixed bottom tab bar with four tabs: Eras, Threads, Mood, Clownbot. Mounted on every surface including the front door, because the front door is the main page, not a separate landing page. `lib/longlive/bottom-nav-layout.ts` — pure `layoutBottomNavTabs()` decides label-vs-icon-only for the whole bar at once: icon-only at 5+ tabs, so Marketplace and Community can arrive without a redesign; never a mixed bar. Padded with `env(safe-area-inset-bottom)` to clear the iPhone home indicator and mobile browser chrome. Unmounts entirely while a text input, textarea, or contenteditable holds focus, so Mood's keyboard never fights it. `LongLive.tsx` renders a spacer of `calc(3.5rem + env(safe-area-inset-bottom))` below the footer, `md:hidden`, because a fixed bar cannot push content — without it the last card of every surface sits under the bar. On mobile, `TopBar` shows a context label instead of the pill toggle: "Era: <short name>" in an era, "Thread: <title>" in a thread. On desktop the pill rail is unchanged and there is no bottom bar. `TopBar`'s own `ModeToggle` is desktop-only, so mobile does not show the same four destinations twice. `FeedbackButton` floats above the bar on mobile with an X that dismisses it for the rest of the session (sessionStorage key `ll-feedback-dismissed-v1`, read only after mount). |
+| The masthead | `LandingMasthead` | mounted once by `EraStream`, above the first era section — the front door's eyebrow, wordmark, and tagline, structure and styling unchanged from before, plus one rotating gloss line. Tagline: "Real-time updates on her whole life — every moment sourced and dated, back through all twelve eras." `lib/longlive/gloss-rotation.ts` — `dailyGloss(dayKey)` picks one section's gloss per day, deterministically, reusing `epochDay` from `era-secrets.ts` (the same daily-rotation mechanism, not a second one). It teaches one section at a time so the line never grows as sections are added. Sections carry a `built` flag; unbuilt ones (Marketplace, Community) can sit in the data and are never selected, so no "coming soon" surface is ever shown. |
 | Era scroll | `EraStream` → `EraSection` | hero + lyric + `TrackGuideBar` + moment grid + pivot strip. There is no first-party music player in the era body — the Spotify embed component and the three-pill guide row (Track guide / Theories & eggs / Videos) were both removed 2026-08-13, and `TrackGuideBar` now sits alone in the old player's slot (decision 2, `docs/decisions.md`). **ONE video treatment (#2080):** every playable video in the feed — video record or story moment carrying `video` — renders the same `VideoPoster` (exported from `MomentVideo.tsx`): full-width 16:9, the video's own YouTube thumbnail, one large centered accent play glyph. Tapping the poster plays inline in the feed; tapping the card still opens `MomentDetail` (#2051). Three rules hold it together: (a) the poster is a DOM sibling of the card button — never nested — but sits INSIDE the card's border, because the box is drawn by a wrapper rather than by the button (`lib/longlive/card-chrome.ts`); (b) a card that plays a video is at least `media` tier (`withInlineVideoTiers`) — a full-width poster under a 56px `chip` or inside the no-photo `text` breather destroys the silhouette that IS that tier; (c) the card's own photo is suppressed when it is a frame of a video it cannot show you honestly (`feedCardImageHidden`) — either the video its own poster is about to render (#2080; Photo Enrichment gave most of these moments the video's own thumbnail, so rendering both prints the same frame twice) or, since #2081, a video it DEFERS to another card and therefore has no play control for. A moment that carries no `video` keeps its picture even if that picture is a still — it promises no player, and the frame is often its only image. When suppression leaves a card with nothing to show, its tier is re-scored as the imageless card it now is (`assignFeedTiers(items, imageSuppressedIds)`) instead of keeping an image silhouette it cannot fill. Rejected predecessors: #2055's pill outside the box read as "no video here" (#2057), and #2063's compact 96px row was a second vocabulary for the same thing — Joey rejected both on his phone. When two moments in one era embed the same `youtubeId`, only the first in feed order plays it; the later one keeps its full text and its own detail-page embed (`inlineVideoMomentIds`) |
 | Era scrubber | `TimelineScrubber` | morph-on-grab; snaps to era boundaries |
 | Moment detail | `MomentDetail` | opened via `openItem`; the video renders **above the article body** — right after the confidence banner, never below the body or inside the citations footnote (#2051; the banner stays above it so a rumor warning is met before the media). YouTube **citations** still embed in the sources footnote exactly as before (minus one duplicating `item.video`) — #2051 proposed promoting a lone citation to the top slot too, and that is deliberately NOT shipped: 6 of the 29 it would fire on are fan re-uploads, and presenting one as a page's lead media is a rights call for Joey, not a refactor (see `detailVideoFor`). **The ~42vh hero itself PLAYS when the hero image is only a still of the moment's own video** (`heroVideoFor` — 10 of the 16 video-carrying moments; Joey, 2026-08-13: "played the video from the top"). There the body embed yields to it (`detailVideoFor` returns null), and the player's width is capped at `42vh*16/9` so it fills the column on a phone and lands at exactly 42vh on desktop. **A sub-confirmed `confidence` blocks the promotion** — the hero sits above the rumor banner and #2051 requires the banner first, so a rumored moment keeps its video in the body. Any OTHER image that is a frame of the page's own video also leaves the gallery and the photo viewer (`imageDuplicatesPageVideo`; matched by id, since one video appears as `maxres2`/`maxres3`/… in the seeds). A hero that is a genuinely different photo is untouched — photo hero, body video, lightbox and all. Selection is `heroVideoFor` / `detailVideoFor` / `footnoteVideoSources` in `video-affordance.ts`, not in the component. Also shows the hidden clue; sub-confirmed `confidence` renders the loud rumor banner and `rumors` renders the "What's rumored" split (see the rumor recipe in §8) |

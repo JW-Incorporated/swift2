@@ -2,12 +2,22 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
+  CURRENT_ERA_NOW_GRAIN_MS,
+  RAIL_PCT_DECIMALS,
   SCRUBBER_ANCHOR_CLASS,
+  SCRUBBER_BASE_PT,
+  SCRUBBER_CENTER_MEDIA_QUERY,
   SCRUBBER_RAIL_CLASS,
+  SCRUBBER_RAIL_CLIP_PATH,
+  SCRUBBER_RAIL_RESERVE_PX,
   SCRUBBER_SCRIM_CLASS,
   SCRUBBER_SHELL_CLASS,
+  roundRailPct,
+  scrubberAnchorPaddingTop,
   scrubberPillTransform,
+  scrubberRailMaxHeight,
   scrubberTooltipTransform,
+  snapNow,
   nearestAnchorExact,
   labelForDate,
   UNKNOWN_DATE_LABEL,
@@ -109,6 +119,147 @@ describe('TimelineScrubber layout', () => {
   });
 });
 
+// Adversarial review finding #2 (2026-08-14): the last filter chip
+// ("Videos") was unreachable because the rail's `pt-20` only ever accounted
+// for TopBar, never FilterBar — on mobile the rail's clickable band (and its
+// always-visible date pill) silently overlapped the filter row, so every tap
+// on the last chip landed on the rail/pill and scrubbed the page instead.
+describe('scrubberAnchorPaddingTop (finding #2, 2026-08-14)', () => {
+  it('THE BUG, for contrast: pt-20 alone (80px) is shorter than TopBar + FilterBar', () => {
+    const topBarHeight = 65;
+    const filterBarHeight = 49; // measured, one-row chip layout
+    expect(topBarHeight + filterBarHeight).toBeGreaterThan(SCRUBBER_BASE_PT);
+  });
+
+  it('clamps the rail below the live chrome when it exceeds the base pt-20', () => {
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 114, isCentered: false })).toBe(114);
+  });
+
+  it('defers to the CSS class when the live chrome fits inside pt-20', () => {
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 65, isCentered: false })).toBeUndefined();
+    expect(scrubberAnchorPaddingTop({ chromeBottom: SCRUBBER_BASE_PT, isCentered: false })).toBeUndefined();
+  });
+
+  it('never clamps in centered mode — items-center governs position there, not padding', () => {
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 178, isCentered: true })).toBeUndefined();
+  });
+
+  it('is wired into TimelineScrubber via the same media query as SCRUBBER_ANCHOR_CLASS', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('window.matchMedia(SCRUBBER_CENTER_MEDIA_QUERY)');
+    expect(src).toContain('scrubberAnchorPaddingTop({');
+    expect(src).toContain('anchorPaddingTop != null ? { paddingTop: anchorPaddingTop } : undefined');
+    // The media query string itself must actually match the class's own
+    // breakpoint text, so the two conditions can never silently diverge.
+    expect(SCRUBBER_ANCHOR_CLASS).toContain('min-width:640px');
+    expect(SCRUBBER_ANCHOR_CLASS).toContain('min-height:620px');
+    expect(SCRUBBER_CENTER_MEDIA_QUERY).toBe('(min-width: 640px) and (min-height: 620px)');
+  });
+});
+
+// Fix 4 (2026-08-14, DEBUG.md): attempt 3 clamped the rail's top to
+// measureChromeHeight() — TopBar's + FilterBar's own rendered heights summed
+// (65 + 49 = 114). That sum is only the filter bar's real position once it is
+// STUCK. On a fresh load EraStream's masthead sits above the filter bar and
+// pushes its live bottom edge down to y≈361; the old summed-height clamp
+// still read 114 and let the rail span straight across the unreachable
+// "Videos" chip. scrubberAnchorPaddingTop takes whatever it's given as a
+// literal Y position, so the actual fix is upstream, in what TimelineScrubber
+// feeds it (measureChromeBottom's live getBoundingClientRect().bottom instead
+// of measureChromeHeight's summed heights) — pinned by the source check below
+// since the pure function alone can't distinguish a correct call from a
+// regression back to the old measurement.
+describe('scrubberAnchorPaddingTop clamps to a LIVE position, not a summed height (fix 4, 2026-08-14)', () => {
+  it('THE BUG, for contrast: a pre-stick masthead pushes the filter bar far past the old summed-height figure', () => {
+    const summedChromeHeight = 114; // TopBar (65) + FilterBar (49), attempt 3's number
+    const liveFilterBarBottom = 361; // measured with EraStream's masthead above it, unstuck
+    expect(liveFilterBarBottom).toBeGreaterThan(summedChromeHeight);
+  });
+
+  it('clamps to the live pre-stick position, which is far below the old summed-height figure', () => {
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 361, isCentered: false })).toBe(361);
+  });
+
+  it('settles back to the summed-height figure once the filter bar sticks (position and sum agree there)', () => {
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 114, isCentered: false })).toBe(114);
+  });
+
+  it('TimelineScrubber feeds it measureChromeBottom (a live position), not measureChromeHeight (a summed height)', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('chromeBottom: measureChromeBottom()');
+    expect(src).not.toContain('chromeHeight: measureChromeHeight()');
+  });
+
+  it('recomputes on scroll (throttled), not only on resize/layout change — the position moves every frame pre-stick', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const onScrollAt = src.indexOf('const onScroll = () => {');
+    expect(onScrollAt).toBeGreaterThan(-1);
+    const onScrollBody = src.slice(onScrollAt, src.indexOf('};', onScrollAt));
+    expect(onScrollBody).toContain('recomputeAnchorPadding()');
+  });
+});
+
+// Adversarial review finding #3 (2026-08-14): a fresh load threw two
+// hydration errors — TimelineScrubber's milestone-dot inline `top` style
+// disagreed between server and client (`"1.14252%"` vs.
+// `"1.1425251289221632%"`) because the current era's percentage is derived
+// from `Date.now()`, evaluated microseconds apart by the SSR pass and the
+// hydration pass. roundRailPct is the deterministic fix, applied at
+// pctForDate — the single place every rendered rail percentage is produced.
+describe('snapNow (finding #3, 2026-08-14)', () => {
+  it('floors to the grain boundary', () => {
+    expect(snapNow(1_000_000, 300_000)).toBe(900_000);
+    expect(snapNow(900_000, 300_000)).toBe(900_000);
+    expect(snapNow(1_199_999, 300_000)).toBe(900_000);
+  });
+
+  it('two calls milliseconds apart (SSR vs. hydration) snap to the same value in the common case', () => {
+    const ssrNow = 1_000_000_000;
+    const hydrationNow = ssrNow + 400; // realistic SSR->hydration gap
+    expect(snapNow(ssrNow)).toBe(snapNow(hydrationNow));
+  });
+
+  it('defaults to the 5-minute grain', () => {
+    expect(CURRENT_ERA_NOW_GRAIN_MS).toBe(5 * 60_000);
+    expect(snapNow(CURRENT_ERA_NOW_GRAIN_MS + 1)).toBe(CURRENT_ERA_NOW_GRAIN_MS);
+  });
+
+  it('is wired into TimelineScrubber\'s `end` bound for the current era', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('Math.min(authoredEnd, snapNow(Date.now()))');
+  });
+});
+
+describe('roundRailPct (finding #3, 2026-08-14)', () => {
+  it('THE BUG, for contrast: two floats a hair apart print very differently at full precision', () => {
+    const server = 1.14252;
+    const client = 1.1425251289221632;
+    expect(server).not.toBe(client);
+    expect(`${server}%`).not.toBe(`${client}%`);
+  });
+
+  it('rounds two near-identical floats to the same fixed-precision value', () => {
+    const server = 1.14252;
+    const client = 1.1425251289221632;
+    expect(roundRailPct(server)).toBe(roundRailPct(client));
+  });
+
+  it('rounds to RAIL_PCT_DECIMALS decimal places', () => {
+    expect(RAIL_PCT_DECIMALS).toBe(4);
+    expect(roundRailPct(1.1425251289221632)).toBe(1.1425);
+    expect(roundRailPct(0)).toBe(0);
+    expect(roundRailPct(100)).toBe(100);
+  });
+
+  it('is wired into TimelineScrubber at pctForDate, the single place a rail percentage is produced', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const pctForDateAt = src.indexOf('const pctForDate = useCallback(');
+    const roundAt = src.indexOf('return roundRailPct(raw);');
+    expect(pctForDateAt).toBeGreaterThan(-1);
+    expect(roundAt).toBeGreaterThan(pctForDateAt);
+  });
+});
+
 // Adversarial review finding #1 (2026-08-13): resolveAnchor (anchor-date.ts)
 // correctly returns `displayDate: null` for a non-exact anchor, but the value
 // was still reaching the scrubber's visible pill and `aria-valuetext` via the
@@ -207,5 +358,148 @@ describe('TimelineScrubber never displays or announces a synthetic anchor date',
     expect(uses).toHaveLength(2);
     expect(src.match(/fmtMonth\(pillDate\)/g)).toHaveLength(2);
     expect(src).toContain("exact: el.dataset.llExact !== '0'");
+  });
+});
+
+// Re-review finding #2 (2026-08-14, round 2): the first fix clamped the
+// rail's top to the live chrome height but never adjusted the rail's own
+// CSS height cap, which still assumes an 80px top offset. On a landscape
+// phone (844x390) that put the rail's bottom 15px off-screen.
+describe('scrubberRailMaxHeight (re-review finding #2, round 2)', () => {
+  it('THE BUG, for contrast: 844x390 landscape overflows without the cap', () => {
+    const paddingTop = 114; // measured TopBar + FilterBar chrome height
+    const viewportHeight = 390;
+    const cssCapHeight = Math.min(0.74 * viewportHeight, viewportHeight - 96); // SCRUBBER_RAIL_CLASS's own cap
+    expect(paddingTop + cssCapHeight).toBeGreaterThan(viewportHeight);
+  });
+
+  it('caps the rail so paddingTop + height fits the 844x390 landscape viewport', () => {
+    const paddingTop = 114;
+    const viewportHeight = 390;
+    const maxHeight = scrubberRailMaxHeight({ paddingTop, viewportHeight });
+    expect(maxHeight).toBe(viewportHeight - paddingTop - SCRUBBER_RAIL_RESERVE_PX);
+    expect(paddingTop + (maxHeight ?? 0)).toBeLessThanOrEqual(viewportHeight);
+  });
+
+  it('is a no-op when scrubberAnchorPaddingTop deferred to the CSS default', () => {
+    expect(scrubberRailMaxHeight({ paddingTop: undefined, viewportHeight: 844 })).toBeUndefined();
+  });
+
+  it('never returns negative even on an absurdly short viewport', () => {
+    expect(scrubberRailMaxHeight({ paddingTop: 114, viewportHeight: 50 })).toBe(0);
+  });
+
+  it('fits comfortably on a tall portrait phone (390x844) — the cap should not bind there', () => {
+    const paddingTop = 114;
+    const viewportHeight = 844;
+    const maxHeight = scrubberRailMaxHeight({ paddingTop, viewportHeight });
+    const cssCapHeight = Math.min(0.74 * viewportHeight, viewportHeight - 96);
+    expect(maxHeight).toBeGreaterThan(cssCapHeight); // JS cap looser than CSS cap, so CSS still governs
+  });
+
+  it('is wired into TimelineScrubber alongside scrubberAnchorPaddingTop', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('scrubberRailMaxHeight({ paddingTop, viewportHeight: window.innerHeight })');
+    expect(src).toContain('maxHeight: railMaxHeight');
+  });
+});
+
+// Re-review finding #3 (2026-08-14, round 2): with zero slack above the
+// clamped rail, its `-translate-y-1/2` adornments (handle, milestone dots,
+// year labels) paint visibly over the FilterBar row directly above.
+describe('SCRUBBER_RAIL_CLIP_PATH (re-review finding #3, round 2)', () => {
+  it('clips flush at the top edge but not the sides/bottom (so the off-rail tooltip stays visible)', () => {
+    expect(SCRUBBER_RAIL_CLIP_PATH).toMatch(/^inset\(0px /);
+    // Non-top offsets must be pushed well negative — never 0 — or the
+    // 192px-wide hover-preview tooltip (which renders outside the rail's
+    // own ~40-48px width) would be clipped away too.
+    const [, right, bottom, left] = SCRUBBER_RAIL_CLIP_PATH.match(
+      /^inset\(0px (-?\d+)px (-?\d+)px (-?\d+)px\)$/,
+    )!;
+    expect(Number(right)).toBeLessThan(-100);
+    expect(Number(bottom)).toBeLessThan(-100);
+    expect(Number(left)).toBeLessThan(-100);
+  });
+
+  it('is applied to the rail only while anchorPaddingTop is clamped', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const railStyleAt = src.indexOf('className={SCRUBBER_RAIL_CLASS}');
+    expect(railStyleAt).toBeGreaterThan(-1);
+    const nearby = src.slice(railStyleAt, railStyleAt + 300);
+    expect(nearby).toContain('anchorPaddingTop != null');
+    expect(nearby).toContain('clipPath: SCRUBBER_RAIL_CLIP_PATH');
+  });
+});
+
+// Re-review finding #1 (2026-08-14, round 2): the previous fix clamped the
+// rail's hit-box below the sticky chrome, but its CHILDREN — year/milestone
+// labels, the handle, ticks — still overflow that box and remain
+// hit-testable via `opacity-0`, which does not remove them from hit
+// testing. A tap on the "Videos" filter chip landed on one of these instead
+// and scrubbed the page. Fix: every non-interactive rail adornment gets
+// `pointer-events-none`, so the rail div itself is the only pointer-events:
+// auto element in the whole subtree.
+describe('rail adornments are pointer-events-none (re-review finding #1, round 2)', () => {
+  const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+
+  // Same balanced-<div>-counting approach scrubber-nested-interactive.test.ts
+  // uses to isolate the role="slider" element's full subtree — reused here
+  // rather than a literal closing-tag string match, which is brittle to
+  // incidental reformatting of the JSX below the rail.
+  function tagEnd(source: string, start: number): { end: number; selfClosing: boolean } {
+    let curly = 0;
+    for (let i = start; i < source.length; i++) {
+      const ch = source[i];
+      if (ch === '{') curly++;
+      else if (ch === '}') curly--;
+      else if (ch === '>' && curly === 0) {
+        return { end: i, selfClosing: source[i - 1] === '/' };
+      }
+    }
+    throw new Error('unterminated JSX tag');
+  }
+
+  function railJsx(): string {
+    const roleAt = src.indexOf('role="slider"');
+    expect(roleAt).toBeGreaterThan(-1);
+    const openStart = src.lastIndexOf('<div', roleAt);
+    expect(openStart).toBeGreaterThan(-1);
+    let depth = 0;
+    let i = openStart;
+    while (i < src.length) {
+      if (src.startsWith('<div', i)) {
+        const { end, selfClosing } = tagEnd(src, i);
+        if (!selfClosing) depth++;
+        i = end + 1;
+      } else if (src.startsWith('</div>', i)) {
+        depth--;
+        i += '</div>'.length;
+        if (depth === 0) return src.slice(openStart, i);
+      } else {
+        i++;
+      }
+    }
+    throw new Error('unbalanced <div> nesting inside the rail');
+  }
+
+  it('every absolutely-positioned span/div/svg rendered inside the rail is pointer-events-none', () => {
+    const rail = railJsx();
+    // Every element opened with `className=` inside the rail subtree — the
+    // svg ridge, the rail line, both year labels, item ticks, the milestone
+    // dot + label, the "now" tick, the handle, the pill, the hover dot, and
+    // the hover tooltip (11 total).
+    const classNameOpenings = (rail.match(/className=(?:"[^"]*"|\{[^}]*\})/g) ?? [])
+      // Excludes the rail's own opening tag (`className={SCRUBBER_RAIL_CLASS}`)
+      // — that element IS the interactive one and must stay pointer-events-auto.
+      .filter((opening) => !opening.includes('SCRUBBER_RAIL_CLASS'))
+      // Only absolutely-positioned elements can overflow the rail's own box
+      // and become hit-testable outside it — a plain-flow element nested
+      // inside an already pointer-events-none ancestor (e.g. the tooltip's
+      // inner text) inherits `none` and needs no explicit class of its own.
+      .filter((opening) => opening.includes('absolute'));
+    expect(classNameOpenings.length).toBeGreaterThanOrEqual(11);
+    for (const opening of classNameOpenings) {
+      expect(opening).toContain('pointer-events-none');
+    }
   });
 });
