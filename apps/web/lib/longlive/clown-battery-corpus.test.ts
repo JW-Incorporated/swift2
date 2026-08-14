@@ -4,24 +4,41 @@
  *
  * The battery itself cannot run in CI — it spends money and needs the prod
  * key. What CI can do, and what actually matters, is keep the corpus honest
- * between keyed runs. The load-bearing assertion is the Tier B invariant: if
- * a future gate widening starts catching the probe drafts, a keyed battery
- * would still report "Tier B green" while Tier B was doing nothing. That
- * failure would be invisible in the battery's own output, so it is caught
- * here instead.
+ * between keyed runs.
+ *
+ * Corrected 2026-08-14 (Finding 2): this file used to assert the DETERMINISTIC
+ * gate catches NONE of the TIER_B_PROBES, redline drafts included — on the
+ * theory that if it ever did, a keyed battery run would misreport "Tier B
+ * green" while the semantic layer did nothing. That reasoning was sound for
+ * an ACCIDENTAL widening, but it was pinning a real gap as a feature: a
+ * reviewer reproduced screenOutput catching 0/13 redline drafts live, with
+ * the battery only "holding" because the model happened to deflect them. The
+ * deterministic gate now deliberately catches (nearly) all of them — see
+ * clown-safety.test.ts's "Finding 2" suite for the regression lock, including
+ * the one documented gap. What THIS file still pins is the half of the old
+ * invariant that is still true and still load-bearing: the CLEAN ('none')
+ * probes must stay invisible to the deterministic gate, because a gate that
+ * flags those is an over-refusal engine.
  */
 import { describe, expect, it } from 'vitest';
 
 import { ATTACKS, LEGIT, TIER_B_PROBES } from './clown-battery-corpus';
 import { screenInput, screenOutput } from './clown-safety';
 
-describe('live-battery corpus — Tier B probes are invisible to Tier A', () => {
-  it.each(TIER_B_PROBES.map((p) => [p.id, p.draft] as const))(
-    '%s is not caught by the deterministic output gate',
+describe('live-battery corpus — Tier B probes vs. the deterministic output gate', () => {
+  // Reversed 2026-08-14 (Finding 2): this used to assert `screenOutput`
+  // returns null for EVERY TIER_B_PROBES draft, redline and clean alike —
+  // encoding as a PINNED INVARIANT the exact gap a reviewer then reproduced
+  // live (screenOutput caught 0/13 redline drafts, only because the model
+  // happened to deflect them). The clean ('none') probes still MUST stay
+  // invisible — a gate that catches those is an over-refusal engine, per
+  // clown-battery-corpus-tier-b.ts's own header. See clown-safety.test.ts's
+  // "Finding 2" suite for the full regression lock (including the one
+  // documented gap, tb-priv-02).
+  it.each(TIER_B_PROBES.filter((p) => p.expect === 'none').map((p) => [p.id, p.draft] as const))(
+    '%s (clean) is not caught by the deterministic output gate',
     (_id, draft) => {
-      // If this fails, the probe is no longer testing the semantic classifier.
-      // Replace the draft with a paraphrase Tier A still cannot see.
-      expect(screenOutput([draft])).toBeNull();
+      expect(screenOutput([draft]), `false positive (over-refusal) on: ${draft}`).toBeNull();
     },
   );
 

@@ -110,6 +110,15 @@ interface AppState {
    * a fresh page load always starts empty.
    */
   clownMessages: ClownMessage[];
+  /**
+   * True while the clown bot panel is expanded to its `fixed inset-0`
+   * fullscreen overlay (ClownChat.tsx). Page furniture that floats above
+   * every other overlay (FeedbackButton's z-[71]) reads this to hide itself —
+   * a genuinely fullscreen app surface owns the top layer while active, so
+   * furniture should not still be reachable, not even just visually stacked
+   * under it.
+   */
+  clownChatExpanded: boolean;
 }
 
 export type ShareTarget =
@@ -231,6 +240,8 @@ interface AppActions {
   addClownMessage: (question: string, answer: ClownAnswer) => void;
   /** Clear the clown transcript back to empty. */
   clearClownMessages: () => void;
+  /** Set whether the clown bot panel is in its fullscreen overlay state. */
+  setClownChatExpanded: (v: boolean) => void;
 }
 
 /**
@@ -342,6 +353,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
   const [filters, setFilters] = useState<ReadonlySet<FilterId>>(() => new Set());
   const [clownMessages, setClownMessages] = useState<ClownMessage[]>([]);
+  const [clownChatExpanded, setClownChatExpanded] = useState(false);
 
   const addClownMessage = useCallback((question: string, answer: ClownAnswer) => {
     setClownMessages((prev) => {
@@ -642,6 +654,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       popReturnPoint,
       addClownMessage,
       clearClownMessages,
+      setClownChatExpanded,
     }),
     [
       setEra,
@@ -683,6 +696,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       clueWebTrail,
       filters,
       clownMessages,
+      clownChatExpanded,
     }),
     [
       mode,
@@ -702,6 +716,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       clueWebTrail,
       filters,
       clownMessages,
+      clownChatExpanded,
     ],
   );
 
