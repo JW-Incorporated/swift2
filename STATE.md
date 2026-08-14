@@ -7,22 +7,28 @@
 
 ## Current focus
 
-Nothing in flight from this file's point of view. It was created by the kit-v3
-install and has not yet been used to carry a real session's state — the first
-session to do feature work here should overwrite this section.
+Photo Enrichment worker (issue #762) ran a scheduled 2026-08-14 pass, PR
+#2088, open against `main`, not yet merged. Next scheduled run should just
+pick up the queue again per the marker in the #762 comment — nothing else in
+flight.
 
 ## Last session
 
-- Changed: installed the kit-v3 orchestrator template (agents, hooks,
-  statusline, pause skill, `PLANtemplate.md`, `docs/OPERATINGMANUAL.md`,
-  this file and `MAP.md`); appended the orchestrator contract to `CLAUDE.md`;
-  hand-merged `.claude/settings.json`.
-- Verified by: the ROLLOUT.md smoke suite (triage JSON + category 6; guard
-  allow/deny matrix incl. the social real-send paths; checkpoint-gate
-  PAUSE.md pass-through and code-change block; statusline with and without
-  `rate_limits`; `settings.json` parses with every pre-existing hook intact).
-- Left unfinished: `MAP.md` covers the top-level layout only — deepen it the
-  first time a session has to go looking for something inside `apps/web`.
+- Changed: PR #2088 — 3 verified photos + focal points added
+  (`showgirl-wedding-raffle-gronkowski`, the Oct 2025 Fallon and Seth Meyers
+  YouTube-appearance moments); 5 of 8 `content.social-post-missing` findings
+  triaged to documented no-ops (comments left in the seed so future runs
+  don't re-research the same dead ends); `package-lock.json` metadata
+  refreshed (no version changes — this container had no `node_modules`, had
+  to run `npm install` fresh before anything content-engine-related worked).
+- Verified by: `validate:content` 0 errors, `node --check` clean, vault
+  regenerated + `check:generated` in sync, `typecheck` clean, `lint` clean
+  (no duplicate keys), vitest 2542/2542. Full details + updated `photo-done`
+  marker in the issue #762 comment thread.
+- Left unfinished: 3 `content.social-post-missing` P2 findings untouched
+  (Mr. Perfectly Fine vault, and `socialPost` gaps on two wedding pages) —
+  next run's queue. `MAP.md` still top-level only; deepen the first time a
+  session has to go looking for something inside `apps/web`.
 
 ## Autonomous decisions — review surface
 
@@ -48,6 +54,20 @@ session to do feature work here should overwrite this section.
 - Disabled the `pause` skill's step-4 scheduling in this repo (CLAUDE.md and
   the skill file both say so). "Never babysit your own PR" bans every wake-up
   with no exceptions, so the skill's own PAUSE.md fallback is used instead.
+- (2026-08-14, #762 run) Overrode a subagent's photo-verification claim: it
+  proposed a Harper's Bazaar photo as showing Kelce's wedding ring; my own
+  download + 5x zoom found only an ambiguous knuckle highlight, not a
+  confirmable band. Left the page at 0 photos rather than trust the
+  subagent's read. Lesson for future runs: always re-verify a subagent's
+  "I can see X in the image" claim yourself before it goes in the seed.
+- (2026-08-14, #762 run) Treated the marker-driven photo queue as a starting
+  point, not gospel — several queued pages had already been completed by
+  other untracked runs/lanes since the last marker update (2026-07-19).
+  Checked each candidate's actual seed state before spending research effort.
+- (2026-08-14, #762 run) Did not override existing deliberate "no stand-in
+  photo for chart-week/legal-paperwork stories" editorial comments already
+  in 4 seed entries, even though a reference image would have been
+  technically addable — respected the prior author's considered call.
 
 ## Architect invocations
 
