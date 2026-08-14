@@ -57,6 +57,14 @@ jobs:
       # well-formed. A malformed lock is caught HERE, at the PR, never at fleet
       # runtime. An empty manifest (nothing claimed) always passes.
       - run: npm run check:content-ownership
+      # Fleet schedule (docs/agents/fleet-schedule.md): the desired cadence +
+      # enabled state of the cloud routines, and the one file a non-founder
+      # edits to retune a bot. A routine on the founder's account APPLIES this
+      # file, so a bad edit would be executed against live triggers. It fails
+      # here, at the PR, instead — malformed cron, unknown columns, duplicate
+      # ids, an entry for the control plane (the auditor or the reconciler
+      # itself), or a cadence that blows the run budget.
+      - run: npm run check:fleet-schedule
       # Filter coverage (kit-v3 P1): every item that can appear on an era
       # timeline must carry at least one of the six global filter ids, or
       # R2's single sticky filter makes it permanently unreachable.

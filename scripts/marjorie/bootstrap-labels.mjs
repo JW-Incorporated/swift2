@@ -35,6 +35,11 @@ export const LABELS = [
   ['founder-decision', 'B60205', 'Needs a founder answer — banked into the daily Founders Brief'],
   ['founders-brief', '0E8A16', 'The daily Founders Brief issues (Marjorie)'],
   ['watchdog-alert', 'D93F0B', 'A scheduled cadence failed — loud by design'],
+  [
+    'fleet-reconcile',
+    'D93F0B',
+    'The standing Fleet Reconcile cadence log — one comment per run, every change the reconciler made to a live routine (docs/agents/fleet-schedule.md)',
+  ],
   ['intake', '1D76DB', 'Real-world event dropped for content authoring'],
   ['needs-sources', 'FBCA04', 'Intake item stalled on real sourcing'],
 

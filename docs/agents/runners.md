@@ -358,7 +358,31 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
   text is currently the only lever against self-armed check-ins; if they recur,
   remove the connector from the routines UI instead.
 
+### 🆕 Cadence + enabled state are now declared in `fleet-schedule.md` (2026-08-14)
+
+For the routines listed in [`fleet-schedule.md`](fleet-schedule.md), **that file
+is the source of truth for cadence and for enabled/disabled** — not the tables
+below, which stay for history and rationale. A routine on Wyatt's account (the
+**Fleet Reconciler**, registered in the split table below) reads it and
+reconciles the live triggers to it, so a cadence change is a merged pull request
+rather than a founder logging into the account the fleet bills to. This is the
+handoff mechanism: Joey owns the schedule, Wyatt's account still pays for it.
+
+Everything else about a routine — prompt, model, tools, connectors, repo binding
+— is unchanged and stays founders-only. The reconciler may change **two fields
+and nothing else**, may never create or delete a trigger, and may never touch
+itself or the Routine Auditor. See [`routine-invariants.md`](routine-invariants.md)
+for why it is the second (and last) exception to invariant 2, and what that
+costs.
+
+**If you are retuning a cadence, edit `fleet-schedule.md`.** Editing a cron in
+the tables below changes nothing that runs.
+
 ### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
+
+*(Historical record of why each throttle happened. The live value for any
+routine listed in [`fleet-schedule.md`](fleet-schedule.md) is the one in that
+file.)*
 
 | Runner | Cadence | Trigger ID |
 |---|---|---|
@@ -388,6 +412,7 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
 | **Karen Deep — agent review** ⚠️ **NOT YET CREATED** — config below | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
+| **Fleet Reconciler — cadence** ⚠️ **NOT YET CREATED** — config in the prompt file | `13 6 * * *` (proposed) — daily, ahead of the day's first runners so a merged change is live before they next fire | **Sonnet 5** | [`runner-prompts/fleet-reconcile.md`](runner-prompts/fleet-reconcile.md) | **Wyatt** | Added 2026-08-14 for the handoff: applies [`fleet-schedule.md`](fleet-schedule.md) to the live fleet so Joey can retune a bot by merging a PR, without Wyatt's account. **The second and last routine carrying `Claude_Code_Remote`** (updating a trigger requires it) — bounded to two fields, no create/delete, an allowlist file under CI, and it may never touch itself or the auditor. Read [`routine-invariants.md`](routine-invariants.md) § the second exception before editing it |
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
 | appearance-discovery | `40 13 * * *` (GitHub Actions) | none | `.github/workflows/appearance-discovery.yml` + `scripts/appearance-discovery/` | repo | **Zero LLM (detection layer).** Polls 14 curated YouTube channel RSS feeds and files `intake` issues for new Taylor appearances; the Content Shift is the judge. No new secrets (channel RSS is keyless; only `GITHUB_TOKEN`). Runs 06:40 PT, ahead of the 10:00 PT Content Shift so fresh intake is queued. Stateless dedupe — no state file, no state PR (#2031), repo-scoped issue list only, never `/search` (#2008) |
 

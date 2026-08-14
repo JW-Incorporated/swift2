@@ -88,6 +88,7 @@ export const LEDGER_LABELS = new Set([
   'kevin-radar',
   'kevin-digest',
   'routine-audit',
+  'fleet-reconcile',
   'watchdog-alert',
   'austin-built',
   LEDGER_LABEL,
