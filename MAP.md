@@ -167,3 +167,16 @@ table, still in flight in a parallel step): `app/api/clown/route.ts`,
 - `data/communities.json` — 30 verified Swiftie communities, 8 platforms, each with verification provenance. NOT wired into the app.
 - `data/communities-report.md` — landscape narrative, top 10, niches, and what is deliberately absent.
 - `sources.md` — every directory/thread/article mined, plus the platform blockers, so this is re-runnable.
+
+## Community + Merch (2026-08-14, PR pending)
+
+- `apps/web/lib/longlive/communities.ts` — types + `COMMUNITIES` + grouping helpers. Re-exports the three data files below.
+- `apps/web/lib/longlive/communities-data-{a,b,c}.ts` — the 30 entries, transcribed verbatim from `data/communities.json`. Split only for the 300-line cap; treat as one dataset. **15 of 30 have `memberCount: null` BY DESIGN** — Reddit blocks automated access. Never substitute 0.
+- `apps/web/lib/longlive/merch.ts` — merch catalogue. `shopTheLook` (151 items) is read LIVE off `CONTENT`, never re-authored. `officialStore`/`fanMade` are genuinely empty.
+- `apps/web/lib/longlive/submit-link.ts` — validation, domain/platform derivation, client-id hashing, and the three sinks. **Each sink is independently optional; a missing one must never fail a submission.**
+- `apps/web/app/api/submit-link/route.ts` — the public endpoint. Honeypot + per-IP rate limit copied from `/api/feedback`. **Never fetches the submitted URL** (SSRF).
+- `apps/web/components/longlive/CommunitySection.tsx` — directory grouped by platform. Verification badge shows only when NOT verified; flags render above descriptions.
+- `apps/web/components/longlive/MerchSection.tsx` — links out only; no cart, no checkout (item 4a standing rule).
+- `apps/web/components/longlive/SubmitLinkForm.tsx` — shared by both sections. Honeypot is off-screen, NOT `display:none`.
+- `scripts/apps-script/submissions-doPost.gs` — Apps Script for the sheet. Joey deploys it; shared-secret gated.
+- `docs/ops/community-merch-submissions.md` — Joey-facing setup: Apps Script, Resend domain, `vercel env add`.

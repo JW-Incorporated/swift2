@@ -11,9 +11,12 @@
 
 ## Current focus
 
-**IN FLIGHT: Community + Merch sections** — branch `feature/community-merch`
+**BUILT, UNDER REVIEW: Community + Merch sections** (commit `0b347d66`) — — branch `feature/community-merch`
 (off `research/communities`, so **PR #2110 merges first**). Plan in `PLAN.md`.
-Four parallel agents: data layer, submit endpoint, UI, nav wiring.
+Built by four parallel agents. Verified by me: 2861/2861, typecheck clean,
+new test files confirmed to actually run (61 tests), no secrets committed.
+**A Fable review is running — it is the ONLY review this gets** (Codex out
+until Aug 19), so rule 3 stays unsatisfied.
 **Joey authorised the merge** ("please merge when completed").
 
 Two design properties that are NOT negotiable, both load-bearing:
