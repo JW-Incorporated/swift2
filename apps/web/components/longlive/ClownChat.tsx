@@ -1,51 +1,41 @@
 'use client';
 
 /**
- * Clownbot rebuild (build B) — the reader-facing surface. PLAN.md Step 9.
+ * Clownbot rebuild (build B) — the reader-facing surface. PLAN.md Step 9,
+ * reworked per the founder's chat-panel mockup (2026-08-14): the box must
+ * instantly read as an app embedded in the page, not another block of era
+ * content ("the user must immediately know it's a chatgpt type of chat
+ * box"). The panel below uses the fixed `--clown-*` tokens (globals.css)
+ * instead of the era palette — deliberate, not a bug. Only the accent
+ * (`var(--era-accent)`) still re-themes per era, so the app still visibly
+ * belongs to Long Live.
  *
- * Layout, per the founder's brief (2026-08-13), exactly:
- *   1. Big title, "clown bot", `font-era` (the shipped page-title pattern —
- *      see MoodChat.tsx / the old Clownbot.tsx for the identical class).
- *   2. One chat box at the era column's width, pre-filled on load with a
- *      real worked example (`SEED_EXAMPLE`) so a first-time visitor sees
- *      what the bot does. Composer below it; placeholder "lets clown
- *      around" as a real `placeholder` attribute — never submitted content.
- *   3. Two columns beneath (`ClownBoard`) — tapping an item prefills the
- *      composer, never auto-sends.
- *   4. Delulu indicator only in the answer header (J4 — Evidence/Confidence
- *      meters dropped, they restated the source cards). Source cards
- *      (`ClownItemCard`) render beneath every answer.
+ * A fixed-height, three-row app panel (titlebar / scrolling stream / docked
+ * composer) — see ClownMessageRow.tsx for how one turn renders. Pre-filled
+ * on load with a real worked example (`SEED_EXAMPLE`); placeholder "lets
+ * clown around" is a real `placeholder` attribute, never submitted content.
+ * The titlebar toggle expands the panel to a `fixed inset-0` CSS overlay
+ * (never the native Fullscreen API — unreliable on iOS Safari for
+ * non-video elements). `ClownBoard` below prefills the composer on tap,
+ * never auto-sends.
  *
- * NEVER render Taylor Swift imagery on this surface (see the old
- * Clownbot.tsx's header comment — the premise "I am a bot" should not
- * decorate itself with her face) and never persist the reader's words
- * anywhere but the one POST below.
- *
- * `ClownAnswer` is the single client-facing contract (`clown-answer.ts`) that
- * both producers (the model path and the zero-model fallback path) converge
- * on. Two of its properties are load-bearing for this renderer:
- *
- *   - `segments` render in array order and every non-empty one renders — the
- *     `counterpoint` segment is where the answer argues against itself, and
- *     flattening it into one paragraph is how it stops being visible.
- *   - `delulu` is `number | null`. Null means the fallback path served this
- *     answer and nothing scored it — `DeluluBadge` is omitted entirely in
- *     that case, never defaulted to 0 or a neutral score.
+ * NEVER render Taylor Swift imagery on this surface and never persist the
+ * reader's words anywhere but the one POST below.
  */
 
-import { useCallback, useMemo, useRef, useState } from 'react';
-import { CornerDownLeft, Loader2, VenetianMask } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { CornerDownLeft, Loader2, Maximize2, Minimize2, Plus, VenetianMask } from 'lucide-react';
 import { SEED_EXAMPLE } from '@/lib/longlive/clown-seed-example';
-import type { ClownAnswer, ClownSegment } from '@/lib/longlive/clown-answer';
+import type { ClownAnswer } from '@/lib/longlive/clown-answer';
 import type { BoardItem } from '@/lib/longlive/clown-board';
 import type { ClownTurn } from '@/lib/longlive/clown-client';
 import { promptForItem } from '@/lib/longlive/clown-starters';
 import { useAppActions, useAppState, type ClownMessage } from '@/lib/longlive/store';
+import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { ClownBoard } from './ClownBoard';
-import { ClownItemCard } from './ClownItemCard';
+import { ClownMessageRow } from './ClownMessageRow';
 
 const MAX_CHARS = 300;
-const MAX_DELULU = 5;
 const INPUT_PLACEHOLDER = 'lets clown around';
 const NETWORK_ERROR = "That didn't go through. Try again in a moment?";
 
@@ -68,49 +58,6 @@ function flattenAnswer(answer: ClownAnswer): string {
   return answer.segments.map((s) => s.text).join('\n\n');
 }
 
-function DeluluBadge({ value }: { value: number }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--era-line)] px-2.5 py-1 text-xs font-semibold text-[color:var(--era-ink)]">
-      <VenetianMask className="h-3.5 w-3.5 text-[color:var(--era-accent)]" aria-hidden />
-      Delulu {value}/{MAX_DELULU}
-    </span>
-  );
-}
-
-/**
- * One prose segment. `counterpoint` gets the visual turn — a left rule and a
- * "But then again" label — so the self-argument reads as a deliberate pivot
- * rather than blending into the paragraph before it (clown-answer.ts: this is
- * the segment that keeps the bot honest, and it must stay legible).
- */
-function SegmentBlock({ segment }: { segment: ClownSegment }) {
-  switch (segment.role) {
-    case 'stance':
-      return <p className="text-lg leading-relaxed text-[color:var(--era-ink)]">{segment.text}</p>;
-    case 'argument':
-      return (
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--era-ink-soft)]">For</p>
-          <p className="mt-1 leading-relaxed text-[color:var(--era-ink)]">{segment.text}</p>
-        </div>
-      );
-    case 'counterpoint':
-      return (
-        <div className="border-l-2 border-[color:var(--era-accent)] pl-3">
-          <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--era-ink-soft)]">
-            But then again
-          </p>
-          <p className="mt-1 leading-relaxed text-[color:var(--era-ink)]">{segment.text}</p>
-        </div>
-      );
-    case 'aside':
-      return <p className="italic leading-relaxed text-[color:var(--era-ink-soft)]">{segment.text}</p>;
-    case 'plain':
-    default:
-      return <p className="whitespace-pre-line leading-relaxed text-[color:var(--era-ink)]">{segment.text}</p>;
-  }
-}
-
 export function ClownChat() {
   const [text, setText] = useState('');
   // clownMessages is the store's capped (6), memory-only, never-persisted
@@ -122,6 +69,37 @@ export function ClownChat() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Full-screen toggle — a CSS overlay, deliberately not the native
+  // Fullscreen API (requestFullscreen on a non-video element is unreliable
+  // on iOS Safari, precisely where filling the screen matters most).
+  const [expanded, setExpanded] = useState(false);
+  const expandToggleRef = useRef<HTMLButtonElement>(null);
+  const wasExpandedRef = useRef(false);
+
+  useScrollLock(expanded);
+
+  // Escape exits full screen. Listener only lives while expanded, and is
+  // torn down on every collapse/unmount via the effect's own cleanup.
+  useEffect(() => {
+    if (!expanded) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setExpanded(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [expanded]);
+
+  // Return focus to the toggle button on collapse (Escape or the button
+  // itself), so keyboard users aren't dumped at the top of the document.
+  useEffect(() => {
+    if (!expanded && wasExpandedRef.current) {
+      expandToggleRef.current?.focus();
+    }
+    wasExpandedRef.current = expanded;
+  }, [expanded]);
+
+  const toggleExpanded = useCallback(() => setExpanded((v) => !v), []);
 
   const ask = useCallback(
     async (question: string) => {
@@ -179,6 +157,18 @@ export function ClownChat() {
     });
   }, []);
 
+  const panelClassName = expanded
+    ? 'fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
+    : 'relative mt-8 flex h-[min(76vh,46rem)] w-full flex-col overflow-hidden rounded-[1.25rem] border border-[color:var(--clown-line)] bg-[color:var(--clown-bg)] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.75)]';
+
+  const titlebarClassName = `flex flex-none items-center gap-2.5 border-b border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] px-4 py-3${
+    expanded ? ' pt-[max(0.75rem,env(safe-area-inset-top))]' : ''
+  }`;
+
+  const composerWrapClassName = `flex-none bg-[color:var(--clown-bg)] px-4 pb-4 pt-3.5 sm:px-6${
+    expanded ? ' pb-[max(1rem,env(safe-area-inset-bottom))]' : ''
+  }`;
+
   return (
     <div className="mx-auto max-w-4xl px-4 pb-28 pt-10">
       <header className="text-center">
@@ -187,49 +177,82 @@ export function ClownChat() {
         </h1>
       </header>
 
-      <div className="mt-8 rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)] p-5">
-        <div className="space-y-8" aria-live="polite" aria-atomic="false" aria-busy={busy}>
+      <div className={panelClassName}>
+        {/* titlebar — instant "this is an app" signal */}
+        <div className={titlebarClassName}>
+          <span
+            aria-hidden
+            className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--clown-bg)]"
+          >
+            <VenetianMask className="h-3.5 w-3.5" aria-hidden />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-[13px] font-semibold tracking-wide text-[color:var(--clown-ink)]">
+              clown bot
+            </span>
+            <span className="block text-[11px] text-[color:var(--clown-ink-soft)]">
+              grounded in the vault &middot; never guesses
+            </span>
+          </span>
+          <span className="ml-auto inline-flex items-center gap-1.5 text-[11px] text-[color:var(--clown-ink-soft)]">
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-green-400" />
+            online
+          </span>
+          {/* 32px visual box, 44px hit area via an invisible ::before (-inset-1.5 = 6px/side) — keeps the titlebar slim. */}
+          <button
+            ref={expandToggleRef}
+            type="button"
+            onClick={toggleExpanded}
+            aria-pressed={expanded}
+            aria-label={expanded ? 'Exit full screen' : 'Expand to full screen'}
+            className="relative ml-1 inline-flex h-8 w-8 flex-none items-center justify-center rounded-lg text-[color:var(--clown-ink-soft)] transition before:absolute before:-inset-1.5 before:content-[''] hover:bg-[color:var(--clown-raised)] hover:text-[color:var(--clown-ink)]"
+          >
+            {expanded ? (
+              <Minimize2 className="h-3.5 w-3.5" aria-hidden />
+            ) : (
+              <Maximize2 className="h-3.5 w-3.5" aria-hidden />
+            )}
+          </button>
+        </div>
+
+        {/* message stream — scrolls internally */}
+        <div
+          className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-4 pt-6 sm:px-6"
+          aria-live="polite"
+          aria-atomic="false"
+          aria-busy={busy}
+        >
+          <span className="self-center text-[10px] uppercase tracking-[0.14em] text-[color:var(--clown-ink-soft)] opacity-70">
+            Example conversation
+          </span>
           {messages.map((m) => (
-            <article key={m.id}>
-              <p className="text-sm font-medium text-[color:var(--era-ink-soft)]">{m.question}</p>
-              {m.answer.theoryName && (
-                <h2 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold text-[color:var(--era-ink)]">
-                  {m.answer.theoryName}
-                </h2>
-              )}
-              {/* Explicit null check, not a falsy check — 0 is a real score and
-                  must still render; only `null` (the fallback path) omits this. */}
-              {m.answer.delulu !== null && (
-                <div className="mt-3">
-                  <DeluluBadge value={m.answer.delulu} />
-                </div>
-              )}
-              <div className="mt-3 space-y-3">
-                {m.answer.segments.map((seg, i) => (
-                  <SegmentBlock key={i} segment={seg} />
-                ))}
-              </div>
-              {m.answer.sources.length > 0 && (
-                <ul className="mt-4 space-y-3">
-                  {m.answer.sources.map((it) => (
-                    <ClownItemCard key={it.id} variant="source" item={it} />
-                  ))}
-                </ul>
-              )}
-            </article>
+            <ClownMessageRow key={m.id} message={m} />
           ))}
           {error && (
-            <p role="status" className="text-sm text-[color:var(--era-ink-soft)]">
+            <p role="status" className="text-sm text-[color:var(--clown-ink-soft)]">
               {error}
             </p>
           )}
         </div>
 
-        <form onSubmit={submit} className="mt-6">
-          <label htmlFor="clown-input" className="sr-only">
-            Ask the clown
-          </label>
-          <div className="flex items-end gap-2 rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-bg)] p-2 focus-within:border-[color:var(--era-accent)]">
+        {/* composer — docked pill */}
+        <div className={composerWrapClassName}>
+          {/* Plus/send: same 32px-visual / 44px-hit-area split as the titlebar toggle, so the pill keeps the mockup's proportions. */}
+          <form
+            onSubmit={submit}
+            className="flex items-center gap-1.5 rounded-full border border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] py-1 pl-1 pr-1 focus-within:border-[color:var(--era-accent)]"
+          >
+            <button
+              type="button"
+              disabled
+              aria-label="Add attachment"
+              className="relative flex h-8 w-8 flex-none items-center justify-center rounded-full text-[color:var(--clown-ink-soft)] before:absolute before:-inset-1.5 before:content-[''] disabled:cursor-default"
+            >
+              <Plus className="h-4 w-4" aria-hidden />
+            </button>
+            <label htmlFor="clown-input" className="sr-only">
+              Ask the clown
+            </label>
             <textarea
               id="clown-input"
               ref={textareaRef}
@@ -238,24 +261,29 @@ export function ClownChat() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) submit(e);
               }}
-              rows={2}
+              rows={1}
               placeholder={INPUT_PLACEHOLDER}
-              className="min-h-[3rem] w-full resize-none bg-transparent px-3 py-2 text-base leading-relaxed text-[color:var(--era-ink)] outline-none placeholder:text-[color:var(--era-ink-soft)]"
+              className="h-9 min-w-0 flex-1 resize-none bg-transparent px-0 py-2 text-[15px] leading-relaxed text-[color:var(--clown-ink)] outline-none placeholder:text-[color:var(--clown-ink-soft)] placeholder:opacity-60"
             />
             <button
               type="submit"
               disabled={!text.trim() || busy}
               aria-label="Send to clown bot"
-              className="mb-1 mr-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[color:var(--era-accent)] text-[color:var(--era-bg)] transition disabled:opacity-40"
+              className={`relative flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--clown-bg)] transition before:absolute before:-inset-1.5 before:content-[''] ${
+                text.trim() ? 'opacity-100' : 'opacity-[0.45]'
+              }`}
             >
               {busy ? (
-                <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
               ) : (
-                <CornerDownLeft className="h-5 w-5" aria-hidden />
+                <CornerDownLeft className="h-4 w-4" aria-hidden />
               )}
             </button>
-          </div>
-        </form>
+          </form>
+          <p className="mt-2.5 text-center text-[11px] text-[color:var(--clown-ink-soft)] opacity-80">
+            clown bot theorises from the vault. It can be wrong &mdash; that&rsquo;s the point.
+          </p>
+        </div>
       </div>
 
       <div className="mt-10">
