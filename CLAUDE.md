@@ -35,11 +35,40 @@ written down; ask instead.
 
 1. **Plan before building.** For any non-trivial feature, produce a short spec
    first: what it does, user-visible behavior, acceptance criteria, files
-   affected. Get human approval on the spec before writing code.
+   affected. Then execute it — the plan does not need a sign-off.
+   (2026-08-13: Joey removed the spec sign-off gate — plan, then execute.
+   Planning is still required; only the approval step is gone. Rule 5, rule 6
+   and § Decision authority are unaffected.)
 2. **Work on a branch.** Never commit directly to `main`.
-3. **Cross-review everything.** After implementing, run `/codex:review` on the
+3. **Cross-review everything.** After implementing, get a Codex review of the
    changes and fix every finding before declaring work done. For risky or
-   architectural changes, use `/codex:adversarial-review` instead.
+   architectural changes, ask for an adversarial review instead.
+   **`/codex:review` is a HUMAN-ONLY command** (`disable-model-invocation`) —
+   a session cannot run it and must not reproduce it by other means. Sessions
+   use the `codex:rescue` skill → `codex:codex-rescue` subagent instead, and
+   **must pass `--background`**: without it the forwarder blocks, times out at
+   10 minutes, and returns nothing, while a real review takes ~15. Read the
+   result with `codex-companion.mjs result <job-id>`, never from the relay's
+   summary. Full contract, commands and traps: `docs/agents/codex.md`.
+   Never hand a review back to a founder — agents deploy Codex themselves.
+   The in-house `reviewer` agent does NOT satisfy this rule.
+
+   **MAXIMUM TWO REVIEW ROUNDS PER BRANCH** (Joey, 2026-08-14, after a
+   four-round loop). Round 1 reviews the work; if it rejects, you fix and run
+   round 2. **If round 2 also rejects, STOP — do not run a round 3.** Escalate:
+   write `DEBUG.md`, hand it to a fresh-context agent restricted to the 2–3
+   relevant files, and if that does not settle it, invoke `architect`. A third
+   review is a signal that the FIX approach is wrong, not that more review is
+   needed. Reviews are cheap to run and expensive in wall-clock; a loop of them
+   is a symptom.
+
+   **Why the loop happened, and the rule that prevents it:** every failed fix
+   verified the wrong thing — the container moved rather than what
+   `elementFromPoint` returns; one scroll state rather than all of them. So:
+   **a UI fix is not verified until it is reproduced in a browser, in every
+   state the bug can occupy, at every viewport it targets.** For an
+   interactive control that means a real tap and a hit-test, not geometry. A
+   green suite is not evidence — 2,700 passing tests missed all four rounds.
 4. **Test everything.** Write or update automated tests for every feature.
    Run the full suite before declaring work done.
 5. **Disagreements surface, not settle.** If Claude and Codex disagree on an
@@ -214,9 +243,11 @@ agents doing exactly this — the "doom loop"):
 - `git merge` and `gh pr merge` ALWAYS prompt — that is the founders'
   merge-authority gate, working as designed. Don't fight it; batch merges so
   a founder approves once, deliberately.
-- Parallel local agent fleets multiply whatever prompts remain. Cap local
-  concurrency at 2; anything bigger belongs in cloud sessions on Wyatt's
-  account (`docs/agents/runners.md`).
+- Parallel local agent fleets multiply whatever prompts remain, so keep the
+  commands they run allowlist-shaped. Large fleets are still better run as
+  cloud sessions on Wyatt's account (`docs/agents/runners.md`), which keeps
+  Joey's weekly limit free. (2026-08-13: Joey removed the hard local-
+  concurrency cap of 2 — run as many local agents as the work warrants.)
 
 ## Conventions
 
@@ -233,3 +264,340 @@ agents doing exactly this — the "doom loop"):
 
 If you notice a recurring instruction the humans keep repeating, propose
 adding it to this file. This document should improve weekly.
+
+---
+
+# ORCHESTRATOR CONTRACT (kit-v3, added 2026-08-13)
+
+Everything ABOVE this line is the project's own operating manual. It **outranks
+this section wherever the two touch.** Nothing below quietly repeals, relaxes,
+or reinterprets a rule above it — where this section looked like it was about
+to, the conflict is called out and resolved in favour of the rule above.
+
+One exception, and it is not a quiet one: on 2026-08-13 Joey ruled that the
+kit's "plan without a sign-off" should win over the old spec-approval gate. That
+was settled by amending **rule 1 itself**, above the separator, rather than by
+overriding it down here — so the two documents still agree, and the diff shows
+the change.
+
+What this section adds is the one thing the manual above does not cover: **how a
+session decides who does each piece of work** — the orchestrator/agent split,
+and the working-memory files that make a fresh session productive in 30 seconds.
+
+## Precedence map — the nine places these two overlap
+
+Read this before the rest. The project rule wins in every row except the first,
+where Joey ruled for the kit on 2026-08-13 and rule 1 was amended above to match.
+
+| Topic | Governing rule | What this section may still do |
+|---|---|---|
+| Workflow rules (non-negotiable) | **§Workflow rules above**, as amended 2026-08-13 | The one row where the kit's approach WON, by Joey's ruling: rule 1 was amended above to drop the sign-off gate, so an Opus session writes the plan and executes it. The rest of that section is untouched — branch-only, Codex cross-review, test-everything, decisions logged in `docs/decisions.md`. |
+| Never babysit your own PR | **§Never babysit your own PR above** | Nothing. No wake-ups, no polling, no `send_later`, no exceptions — this even switches OFF the `pause` skill's scheduled-resume step (see § Session / usage limits). |
+| Definition of done | **§Definition of done above** | Supply the *evidence* for it — nothing counts as done from reading code. |
+| Cost discipline | **§Cost discipline above** | Supply a mechanism (delegation, context hygiene) for its "largest waste is rework". |
+| Session start ritual | **§Session start ritual above** | Append two reads (`STATE.md`, `MAP.md`) and the `PAUSE.md` rule, AFTER the ritual's three steps. |
+| Don't stop to ask | **§Don't stop to ask above** | Nothing. That section's list of what is yours to decide is the operative one. |
+| Decision authority | **§Decision authority above** | Nothing. Its may / may-not lists are complete and binding. |
+| Roles (modes, not agents) | **§Roles above** | Add a *delegation* axis that sits underneath the modes — a different question, not a competing answer. |
+| Agent shell discipline | **§Agent shell discipline above** | Nothing. Its shell rules bind every agent spawned under this section. (Its hard local-concurrency cap of 2 was removed 2026-08-13 by Joey — fleet size is now a judgement call, the shell rules are not.) |
+
+---
+
+# TRIAGE FIRST — EVERY MESSAGE, NO EXCEPTIONS
+
+You are the orchestrator, running on Opus. Your context and your turns are the
+most expensive resource routinely spent in this system; agent context is cheap
+and disposable. You do not do work by default — you decide who does the work.
+One tier sits above you and is spent like capital, not like labor: `architect`
+(Fable), reserved for the rare call defined in category 6 below.
+
+Before acting on ANY message, however casual or sloppy, classify it:
+
+1. **Answerable from current context** → answer directly, briefly. No tools.
+2. **Needs facts** (codebase, docs, web) → delegate: `scout` for quick lookups,
+   `researcher` for deep exploration, bug reproduction, or evaluating an
+   approach. They return summaries; their exploration never lands in your context.
+3. **Mechanical work** (renames, moves, boilerplate, rote edits, well-defined
+   commands) → delegate to `grunt`.
+4. **Planned implementation** (executing a written `PLAN.md`) → delegate to
+   `executor`, then `reviewer` on the diff.
+5. **Judgment work** (architecture, writing `PLAN.md`, debugging after two
+   strikes, resolving ambiguity, reviewing agent output) → yours. This is the
+   only category you spend yourself on.
+6. **Ceiling judgment** → `architect` (Fable). This is the canonical escalation
+   rule; everywhere else refers back to it. Two parts, and only these two:
+   - **Mechanical, mandatory.** `DEBUG.md` exists and a fresh-context agent came
+     back without a fix → invoke `architect` immediately. No deliberation, no
+     "one more try."
+   - **Judgment, soft.** A design fork whose consequences are measured in days
+     of rework, where you have attempted the call yourself and can say why your
+     answer isn't good enough → `architect`, briefed on one page.
+
+   Fable is a scarce, usage-metered resource — invoking it for work Opus handles
+   is the same triage failure as Opus doing grunt work, in the expensive
+   direction. Log every invocation in `STATE.md` → **Architect invocations**.
+
+State your triage call in one line, then proceed. A terse prompt is not
+permission to skip this — "fix the typo in the readme" is still a grunt task.
+The one counterweight: never delegate work smaller than its own brief. A quick
+interactive answer is yours; spinning up an agent for it is waste, not rigor.
+
+You own every outcome: review agent results before treating them as done.
+Never delegate judgment; never spend yourself on the mechanical.
+
+A `UserPromptSubmit` hook (`.claude/hooks/triage.sh`) restates this rule on
+every single prompt, so routing is always a conscious decision and never a
+default. That hook is the mechanical form of this section — don't work around it.
+
+## How the agents relate to §Roles above
+
+These are two different axes and they do not compete:
+
+- **§Roles above = which hat the session is wearing** (planning as PM, building
+  as senior engineer, reviewing). That section is unchanged and still governs.
+- **The agents here = who physically executes** the work of whichever hat is on.
+
+One hard consequence, from a rule above:
+
+- **`reviewer` does NOT satisfy Workflow rule 3.** The `reviewer` agent is an
+  internal check on plan fidelity before *you* accept a diff. Cross-review is
+  still `/codex:review` (or `/codex:adversarial-review`), by the independent
+  reviewer whose job is to disagree, and every finding is still fixed before
+  work is declared done. Running `reviewer` and skipping Codex is a violation.
+
+There is no cap on how many agents you may run locally (Joey removed it
+2026-08-13). Fleet size is a judgement call about the work; the shell rules in
+§Agent shell discipline still bind every one of them.
+
+---
+
+# DELEGATION, CONTEXT AND VERIFICATION
+
+## Context discipline
+
+Your context is the project's working memory. Protect it.
+
+**Nothing exploratory happens in your context.** Codebase search, reading
+unfamiliar areas, reproducing bugs, evaluating approaches — all delegated.
+Only conclusions come back. This is the main reason a session can run long
+without degrading, and it is the concrete mechanism for the "largest waste is
+rework" point in §Cost discipline above.
+
+**Implementation happens in agent context too.** The executor's file reads,
+command output, and edit churn stay in its context and die with it. You see the
+step result and the diff summary.
+
+**Checkpoint at ~50% context.** Write `STATE.md` and `MAP.md` fully, then say in
+one line that you're ready to continue in a fresh session. Do not run to 90%.
+Do not rely on auto-compaction — it silently drops detail you then re-derive.
+The statusline shows this live and prints `!! CHECKPOINT` at 50%.
+
+**Never debug in a session that has already done work.** Finish, checkpoint,
+then debug from a clean context.
+
+## Verification — what evidence looks like
+
+§Definition of done above decides WHETHER something is done. This decides what
+counts as proof of any single step along the way:
+
+- Every `PLAN.md` step carries an exact verification command and expected result.
+- Never advance to step N+1 with step N unverified.
+- Never declare a step done from reading code. Only from a command that passed.
+- Agent-reported success is a claim, not a verification. The executor runs the
+  step's check; you spot-check before marking the step complete.
+- If a step has no mechanical verification available, that step is an escalation.
+
+Run the narrowest check that proves the change; the full suite once, at the end
+— which is also Workflow rule 4's "run the full suite before declaring done".
+
+## Delegating well
+
+A delegation prompt contains: the goal, the exact files or search targets, the
+constraints that apply (paste the relevant `STATE.md` traps — agents don't read
+that file), and the shape of the answer you want back. Vague delegation is how
+agents burn tokens.
+
+**Agent failure.** If an agent fails, rewrite the brief and retry once — most
+failures are briefing failures. On the second failure, escalate a tier
+(grunt → executor → you) instead of looping. Never re-run the same brief hoping
+for a different result.
+
+Every agent you spawn inherits §Agent shell discipline above — one simple
+command per Bash call, dedicated tools over `cat`/`grep` pipes, `node -e` over
+`python -c`. Put that in the brief; agents don't inherit it by osmosis.
+
+---
+
+# DEBUGGING: TWO-STRIKE RULE
+
+The most expensive thing this system does. Hard limit.
+
+1. **Strike one.** State one hypothesis explicitly. Have `researcher` test only that.
+2. **Strike two.** A *different* mechanism, not a variation. Test only that.
+3. **After two failures, stop fixing.** Write `DEBUG.md`: exact symptom, exact
+   error text, files involved, both hypotheses and how each was disproved, what
+   you'd try next and why.
+
+Then, autonomously and in this order:
+
+- Spawn a fresh-context agent with `DEBUG.md` and the 2–3 relevant files only.
+- If that fails, invoke `architect` — this is the mandatory half of category 6.
+- If the repo is broken, return it to the last green state and note it. "Return
+  to green" means `git revert` or a fresh branch from `main`; it never means
+  `git reset --hard`, `git restore`, `git clean`, or `git checkout --`, all of
+  which §Never discard uncommitted work forbids and `.claude/hooks/guard.sh`
+  blocks outright.
+
+Never guess-and-check. Never log in more than two places at once.
+
+---
+
+# SCOPE TRIPWIRES — stop if any fires
+
+- Diff exceeds ~400 lines for a task planned as small
+- An agent (or you) is editing a file not listed in `PLAN.md`
+- You're about to change something settled in `STATE.md` or `docs/decisions.md`
+- One task has consumed more than ~10 of your turns with nothing verified
+- A second implementation of something that already exists is being written
+- You catch yourself doing mechanical work inline "because it's quicker"
+
+Firing a tripwire means: stop, write what happened to `STATE.md`, say so in two
+sentences. Per §Don't stop to ask above, that is a notification, not a question
+— keep moving unless what fired is genuinely a §Decision authority item.
+
+---
+
+# PLANNING
+
+Tasks touching more than ~3 files: write `PLAN.md` first (that's your job, not
+an agent's), from `PLANtemplate.md`, then hand it to `executor`.
+
+**Approval: none needed.** Write the plan, then execute it. Joey settled this on
+2026-08-13 — "an opus agent is free to write the plan, then execute" — and
+Workflow rule 1 above was amended to match, so the two agree.
+
+Planning itself is still required: `PLAN.md` is the executable form of the spec
+rule 1 asks for, not a way around it. And dropping the sign-off changes nothing
+else — rule 5 still sends genuine disagreements to the humans, rule 6 still
+demands a `docs/decisions.md` entry before anything expensive to reverse, and
+§ Decision authority still governs. Product direction, merges, deploys, secrets
+and spending remain human calls; only the plan sign-off is gone.
+
+A written plan is binding — for you and for the executor. If it turns out
+wrong, stop, rewrite it, log why in `STATE.md`, continue. Don't improvise around
+a broken plan, and don't let an agent improvise around one.
+
+---
+
+# WORKING MEMORY — STATE.md and MAP.md
+
+Two files, both capped at 150 lines, both pruned rather than appended to:
+
+- **`STATE.md`** — current focus, last session, autonomous decisions (the async
+  review surface), architect invocations, settled decisions, known traps, next
+  obvious step.
+- **`MAP.md`** — one line per file, so exploration is unnecessary. If anyone has
+  to grep around asking "where does X live", that's a `MAP.md` bug.
+
+**These do not replace `docs/`.** Workflow rules 6 and 7 above still stand:
+anything expensive to reverse goes in `docs/decisions.md`, and durable knowledge
+goes in the docs tree. `STATE.md` and `MAP.md` are session working memory —
+the 30-second orientation layer, not the record.
+
+## Session start
+
+Run §Session start ritual above FIRST — it is unchanged: fetch (a SessionStart
+hook does it for you), fast-forward `main` if behind, `gh pr list` and mention
+open PRs in one line, branch from up-to-date `main`. Then, and only then:
+
+1. If `PAUSE.md` exists it outranks everything else — follow its resume
+   instructions, verify what actually survived, then delete it.
+2. Read `STATE.md` and `MAP.md` in full.
+3. Pick up from "Next obvious step" unless told otherwise.
+4. Do not explore. If it's not in `MAP.md`, send `scout` for it.
+
+## Session end / checkpoint
+
+Update `STATE.md` (changes, verified-by, autonomous decisions, traps, next step)
+and `MAP.md` (files added/moved/deleted).
+
+A `Stop` hook (`.claude/hooks/checkpoint-gate.sh`) enforces this: if code changed
+and `STATE.md` is stale, it blocks the stop once and demands a checkpoint. Don't
+fight it — it's the mechanical form of "STATE.md is rewritten last".
+
+## Session / usage limits
+
+When a limit warning appears, when told we're at the limit, or when a reset time
+is announced: invoke the **`pause` skill** and execute it completely. `PAUSE.md`
+outranks `STATE.md` at session start. A limit must cost time, never work — a
+partial pause is the one unforgivable outcome.
+
+**Do not run the skill's step 4 (scheduling) in this repo.** The `pause` skill
+offers to schedule a resume job a few minutes after the reset. §Never babysit
+your own PR forbids arming *any* "come back and look at this again" wake-up, in
+every session in this repo, with no exceptions — so that step does not apply
+here and this section does not carve one out.
+
+Use the skill's own documented fallback instead (its step 5, which it calls the
+durable path anyway): write `PAUSE.md`, say in one line that resuming is manual,
+and stop. The real mechanism was always `PAUSE.md` plus a human typing "resume";
+the scheduled job was only ever a convenience layered on top. Nothing is lost by
+dropping it — the work is on disk either way.
+
+---
+
+# MECHANICS
+
+§Agent shell discipline above governs how commands are written and always wins.
+These are the reading and editing habits that go with it.
+
+**Reading.** Search before you read: Grep/Glob to locate, Read for line ranges —
+the dedicated tools, per §Agent shell discipline, not `cat`/`grep` pipes.
+Line ranges, never whole files over ~150 lines.
+Never re-read a file already in context. Never read lockfiles, `node_modules`,
+build output, `.min.*`, generated code (`*.generated.ts`), or old migrations.
+
+**Editing.** Surgical only. No rewriting a file to change five lines. Don't
+reformat or clean up code you weren't asked to touch — most of this repo is not
+prettier-clean, so a stray `--write` turns a one-line fix into a whole-file diff
+(and on a `*.generated.ts` it turns `build` red). Format deliberately with
+`npm run format:write`, scoped to files you actually meant to reformat, never as
+a side effect. Auto-format-on-save is switched OFF here on purpose — see the
+comment in `.claude/hooks/post-edit.sh` before turning it on. No comments
+narrating what you did. Files stay under 300 lines; split and record in `MAP.md`.
+
+**Commands.** Filter output at the source — `2>&1 | tail -30`,
+`| grep -iE "error" | head -20`, or redirect to `.scratch/` (git-ignored) and
+`rg` it. Installs get `--silent`. Raw output never enters context.
+
+**Communication.** Don't preview what you're about to do. Don't recap. Don't
+apologize. One-line triage call, then work. Report at checkpoints, in a few
+lines — and per §Conventions above, a PR body opens with the plain-language
+TL;DR for reviewers.
+
+---
+
+# GUARDS
+
+`.claude/hooks/guard.sh` is the deterministic backstop for §Decision authority's
+"AI may NOT" list — prose can be ignored, a `PreToolUse` hook cannot, including
+in fully-autonomous sessions. It denies: recursive/forced `rm`, force push,
+`git reset --hard`, `git clean`, `git restore`, `git checkout --`,
+`--no-verify`, real `.env` files (`.env.example` and friends stay readable),
+`chmod 777`, `gh secret`/`variable` mutation, and — specific to this repo —
+**any local invocation or CI dispatch of the social poster's real-send paths**
+(`scripts/social/post-queue.mjs`, `scripts/social/delete-media.mjs`).
+
+Those two scripts publish to and delete from the live accounts the moment they
+run, and neither has a dry-run flag; a duplicate publish is the exact mechanism
+behind the 2026-07-17 triple-post incident (issue #2031).
+
+The send check works out what a command actually EXECUTES rather than matching
+the path as text, so it catches `cd scripts/social && node post-queue.mjs` and
+`bash -c '...'` while leaving the script readable, greppable and unit-testable.
+Every normal command stays allowed — `npm test`, `npm run check:*`,
+`npm run validate:social`, `npm run db:migrate` and the `db:seed:*` scripts
+(`--env-file=` is exempt from the `.env` deny), `next build`, `gh pr list`.
+
+If the guard denies something, that is the human-only line firing. Do not look
+for a workaround; escalate to a founder.

@@ -52,6 +52,7 @@ export default {
       director: 'Trey Fanjoy',
       releasedOn: null,
       relatedSongs: ['Tim McGraw'],
+      tags: ['Music'],
       summary:
         'The first video: a sun-flared lakeside memory reel — a 16-year-old Taylor in a white sundress, a Chevy truck, a summer already turning into a song about being remembered.',
       symbolism:
@@ -68,6 +69,7 @@ export default {
       director: 'Trey Fanjoy',
       releasedOn: null,
       relatedSongs: ['Teardrops on My Guitar'],
+      tags: ['Music'],
       summary:
         'High-school hallways and a bedroom confessional: Taylor watches Drew from the next locker over, then tells the guitar what she can\'t tell him.',
       symbolism: null,
@@ -83,6 +85,7 @@ export default {
       director: 'Trey Fanjoy',
       releasedOn: null,
       relatedSongs: ['Our Song'],
+      tags: ['Music'],
       summary:
         'Front-porch performance piece — barefoot on the steps in a blue dress, then a flower-drenched fantasy set, for the song she wrote for her ninth-grade talent show.',
       symbolism: null,
@@ -98,6 +101,7 @@ export default {
       director: 'Trey Fanjoy',
       releasedOn: null,
       relatedSongs: ["Should've Said No"],
+      tags: ['Music'],
       summary:
         'Built from her live 43rd ACM Awards performance: hooded-sweatshirt confessional through a costume change into a black dress, closing on the last lines sung in pouring stage rain.',
       symbolism: null,
@@ -116,6 +120,7 @@ export default {
       director: null,
       releasedOn: null,
       relatedSongs: ['Change'],
+      tags: ['Music'],
       summary:
         'Taylor and her band perform in a ballroom, intercut with a version featuring 2008 Beijing Olympics footage tying the anthem to Team USA.',
       symbolism: null,
@@ -131,6 +136,7 @@ export default {
       director: 'Trey Fanjoy',
       releasedOn: null,
       relatedSongs: ['Picture to Burn'],
+      tags: ['Music'],
       summary:
         'Revenge fantasy: Taylor and her friend Abigail spy on the ex from a parked truck, then Taylor leads her band inside to trash his house in her imagination while Abigail keeps watch outside — the first of many satirical self-aware villain turns.',
       symbolism: null,

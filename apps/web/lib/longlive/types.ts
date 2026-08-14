@@ -824,12 +824,13 @@ export type VideoNoteKind =
 export type AppearanceVideoKind = 'interview' | 'award_speech' | 'speech' | 'press_event';
 
 /**
- * One official video/visual-media work in an era's videos rail
- * (videos.generated.ts, surfaced by EraVideos). Mirrors the DB `video_work`
- * row / `VideoWork` in packages/shared/src/vault-types.ts, reduced to what the
- * UI renders. When `youtubeId` is present the work embeds via the MomentVideo
- * click-to-play facade (official uploads only — never re-hosted); when null it
- * renders as a metadata card (e.g. a theatrical tour film).
+ * One official video/visual-media work in an era's videos
+ * (videos.generated.ts, surfaced in the era's chronological feed). Mirrors
+ * the DB `video_work` row / `VideoWork` in packages/shared/src/vault-types.ts,
+ * reduced to what the UI renders. When `youtubeId` is present the work embeds
+ * via the MomentVideo click-to-play facade (official uploads only — never
+ * re-hosted); when null it renders as a metadata card (e.g. a theatrical tour
+ * film).
  */
 export interface VideoNote {
   /** Stable kebab slug from the seed, unique per era. */
@@ -852,6 +853,13 @@ export interface VideoNote {
   youtubeId: string | null;
   /** Citations backing the record. Reuses the EggSource shape; never empty. */
   sources: EggSource[];
+  /** Authored topic tags — ONLY where the record's own kind/title/
+   * relatedSongs/summary genuinely support the topic; never invented. A
+   * video with no supported topic carries no `tags` (or an empty array) and
+   * is still reachable under the structural `Videos` filter chip. Replaces
+   * the old `filtersForEntry` inference (dated music video ⇒ Music) — see
+   * docs/longlive-experience.md §5.8. */
+  tags?: ContentTag[];
 }
 
 /** Legal, embeddable streaming media attached to an era. */

@@ -50,6 +50,7 @@ export default {
       director: null,
       releasedOn: '2012-02-13',
       relatedSongs: ['Safe & Sound'],
+      tags: ['Music'],
       summary:
         'A barefoot walk through a Watertown, Tennessee forest and cemetery in a long white gown, intercut with The Civil Wars performing by firelight — recorded for The Hunger Games soundtrack, dotted with mockingjay references.',
       symbolism: null,
@@ -68,6 +69,7 @@ export default {
       director: 'Kenny Jackson',
       releasedOn: '2013-07-03',
       relatedSongs: ['Red'],
+      tags: ['Music'],
       summary:
         'An edited concert-performance video cut from live shows in front of thousands of fans, rather than a scripted narrative — the album\'s fifth single.',
       symbolism: null,
@@ -83,6 +85,7 @@ export default {
       director: 'Declan Whitebloom',
       releasedOn: null,
       relatedSongs: ['We Are Never Ever Getting Back Together'],
+      tags: ['Music'],
       summary:
         'Styled as one continuous take through a storybook house party — pajamas, a phone call, and a band in animal costumes — for her first Hot 100 #1.',
       symbolism: null,
@@ -98,6 +101,7 @@ export default {
       director: 'Anthony Mandler',
       releasedOn: null,
       relatedSongs: ['I Knew You Were Trouble'],
+      tags: ['Music'],
       summary:
         'A two-minute spoken prologue, a desert festival, a doomed bad-boy romance told in flashback grit — the era\'s deliberate swerve from country sweetheart staging into pop cinema.',
       symbolism: 'Waking up alone in the desert bookends the story: the video opens on the aftermath and spends its runtime explaining the wreckage.',
@@ -113,6 +117,7 @@ export default {
       director: 'Anthony Mandler',
       releasedOn: null,
       relatedSongs: ['22'],
+      tags: ['Music'],
       summary:
         'Shot like a home movie of the best day off ever: real-friends hangout energy, the "not a lot going on at the moment" tee, a beach-party ending — breakfast at midnight canonized.',
       symbolism: null,
@@ -130,6 +135,7 @@ export default {
       director: 'Philip Andelman',
       releasedOn: null,
       relatedSongs: ['Everything Has Changed'],
+      tags: ['Music'],
       summary:
         'Two grade-schoolers play out the duet\'s friendship-into-something-more — and the kicker reveals Taylor and Ed Sheeran as the parents picking them up.',
       symbolism: null,
@@ -155,6 +161,7 @@ export default {
       director: 'Philip Andelman',
       releasedOn: null,
       relatedSongs: ['Begin Again'],
+      tags: ['Music'],
       summary:
         'Shot in Paris: a slow, sunlit walk out of one story and into the possibility of another — café tables, cobblestones, and the album\'s gentlest landing.',
       symbolism: null,

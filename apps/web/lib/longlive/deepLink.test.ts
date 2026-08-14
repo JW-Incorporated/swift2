@@ -4,7 +4,7 @@ import { deepLinkTarget } from './deepLink';
 const LENSES = ['love-story', 'fashion', 'easter-eggs'];
 
 describe('deepLinkTarget', () => {
-  it('returns null for a plain visit — the landing page is the front door', () => {
+  it('returns null for a plain visit — the era stream is the front door', () => {
     expect(deepLinkTarget('', LENSES)).toBeNull();
     expect(deepLinkTarget('?utm_source=share', LENSES)).toBeNull();
   });

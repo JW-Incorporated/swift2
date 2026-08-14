@@ -5,8 +5,8 @@ import { ImageResponse } from 'next/og';
 // also blocked the CAMPAIGN track's own share-card ask (#736). Next.js
 // auto-detects this file and wires it into both og:image and (absent a
 // dedicated twitter-image file) the Twitter card, no manual metadata
-// needed. Same current-era palette/copy as the landing page eyebrow+
-// subtitle (LandingPage.tsx) — not reinvented here.
+// needed. Same current-era palette/copy as the masthead eyebrow+subtitle
+// (LandingMasthead.tsx) — not reinvented here.
 export const alt = "Long Live — the Taylor Swift time machine";
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';

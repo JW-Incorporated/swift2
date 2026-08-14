@@ -52,6 +52,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2022-10-21',
       relatedSongs: ['Anti-Hero'],
+      tags: ['Music'],
       summary:
         'Self-directed release-day centerpiece: Taylor hosts a house party for her own worst selves — a giant "monster on the hill" at the dinner table, a ghost at her funeral, and heirs squabbling over her will.',
       symbolism:
@@ -68,6 +69,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2022-10-25',
       relatedSongs: ['Bejeweled'],
+      tags: ['Music'],
       summary:
         'A Cinderella retelling with Laura Dern as the wicked stepmother, HAIM as stepsisters and Dita Von Teese in the martini glass — and, by Taylor\'s own warning, packed wall-to-wall with easter eggs.',
       symbolism: null,
@@ -86,6 +88,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2023-01-27',
       relatedSongs: ['Lavender Haze'],
+      tags: ['Music'],
       summary:
         'The album\'s dreamiest visual: a purple fog rolls through a 70s-styled apartment, koi swim across the ceiling, and Taylor drifts from bed to a lavender field without the night ever ending.',
       symbolism: 'The all-consuming lavender cloud is the song\'s borrowed 50s idiom for being untouchably in love — weather instead of narrative.',
@@ -111,6 +114,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: null,
       relatedSongs: ['Karma'],
+      tags: ['Music'],
       summary:
         'Released with the Til Dawn edition remix: cosmic Taylor rides mythological karma imagery — a giant cat, a lassoed moon — with Ice Spice materializing for the new verse.',
       symbolism: null,
@@ -126,6 +130,7 @@ export default {
       director: 'Sam Wrench',
       releasedOn: '2023-10-13',
       relatedSongs: [],
+      tags: ['Tour'],
       summary:
         'The SoFi Stadium shows cut into a theatrical event that broke the all-time concert-film box-office record — released straight to cinemas on a distribution deal negotiated with AMC itself.',
       symbolism: null,
@@ -157,6 +162,11 @@ export default {
         'The Eras Tour film premiere at The Grove, pulled forward a day by demand: a blue floral gown, the shopping centre closed to the public, and a carpet she works slowly along the barricades.',
       youtubeId: 'X_wHLxTOzas',
       channel: 'Good Morning America',
+      // Fashion only. The record is a red carpet at a film premiere — the gown
+      // and the barricade walk — and says nothing about the tour itself. "Eras
+      // Tour" appearing in the event's NAME is not the record being about the
+      // tour, and a Tour filter that surfaces this returns a premiere.
+      tags: ['Fashion'],
       sources: [
         upload({
           youtubeId: 'X_wHLxTOzas',
@@ -189,6 +199,7 @@ export default {
       youtubeId: 'Yq-q-ZCZwxc',
       channel: 'GRAMMYS',
       attribution: "GRAMMYs — the Recording Academy's official YouTube channel",
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: 'Yq-q-ZCZwxc',

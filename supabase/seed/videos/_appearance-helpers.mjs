@@ -97,6 +97,10 @@ export const wikiSource = (source_url, source_title, notes) => ({
  * @param {string} [a.attribution] media credit line; defaults to the channel's
  *                                 own-channel phrasing
  * @param {object[]} a.sources     complete citation list, >=1 (hard rule)
+ * @param {string[]} [a.tags]      authored topic ContentTags — ONLY where the
+ *                                 record's own title/summary genuinely
+ *                                 supports the topic; omit (never guess) when
+ *                                 the record is too thin. Defaults to none.
  */
 export const appearance = ({
   slug,
@@ -108,6 +112,7 @@ export const appearance = ({
   channel,
   attribution,
   sources,
+  tags = [],
 }) => ({
   slug,
   kind,
@@ -130,4 +135,5 @@ export const appearance = ({
     },
   ],
   sources,
+  tags,
 });

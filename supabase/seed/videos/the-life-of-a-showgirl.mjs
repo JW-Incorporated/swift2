@@ -66,6 +66,7 @@ export default {
       // simply unknown, not to move the card.
       releasedOn: '2025-10-05',
       relatedSongs: ['The Fate of Ophelia'],
+      tags: ['Music'],
       summary:
         'The lead single\'s video premiered as the centerpiece of the release-party theatrical event: showgirl staging that pulls Ophelia out of the water and onto the stage, inverting the Hamlet ending.',
       symbolism: 'Rescue-by-love replaces the drowning — the era\'s glitter is framed as the survivable version of the tragedy.',
@@ -93,6 +94,7 @@ export default {
       director: null,
       releasedOn: '2026-01-12',
       relatedSongs: ['Opalite'],
+      tags: ['Music'],
       summary:
         'A 1990s-styled rom-com in which Taylor\'s lonely Pet Rock owner and Domhnall Gleeson\'s cactus owner are brought together by a magical "Opalite" spray — released as the era\'s second single.',
       symbolism: null,
@@ -111,6 +113,7 @@ export default {
       director: null,
       releasedOn: '2026-03-09',
       relatedSongs: ['Elizabeth Taylor'],
+      tags: ['Music'],
       summary:
         'The album\'s third single, named for the screen icon, arrives with its own official video as part of an extended single cycle five months after the album\'s release.',
       symbolism: null,
@@ -129,6 +132,7 @@ export default {
       director: null,
       releasedOn: '2025-10-03',
       relatedSongs: [],
+      tags: ['Music'],
       summary:
         'Release weekend as a cinema event: the Ophelia video premiere, lyric videos, and behind-the-scenes cuts packaged into a theatrical party that topped the box office on album weekend.',
       symbolism: null,
@@ -166,6 +170,7 @@ export default {
         'Her first-ever podcast appearance, on Jason and Travis Kelce’s show: a mint-green briefcase opens on album No. 12, out October 3, plus buying back her masters. The livestream buckled at roughly 1.3 million concurrent viewers.',
       youtubeId: 'M2lX9XESvDE',
       channel: 'New Heights',
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: 'M2lX9XESvDE',
@@ -184,6 +189,7 @@ export default {
         'On the Graham Norton couch as The Life of a Showgirl lands: album promo that detours into wedding plans, and an invitation for the host.',
       youtubeId: 'NlOdFJmkEls',
       channel: 'BBC',
+      tags: ['Music', 'Relationship'],
       sources: [
         upload({
           youtubeId: 'NlOdFJmkEls',
@@ -202,6 +208,7 @@ export default {
         'Roughly twenty minutes with Fallon on the new album, the engagement and regaining her masters — including why she is not playing the 2026 Super Bowl halftime show. An extended cut aired as its own special four days later.',
       youtubeId: 'GzjZqH0WRwE',
       channel: 'The Tonight Show Starring Jimmy Fallon',
+      tags: ['Music', 'Relationship'],
       sources: [
         upload({
           youtubeId: 'GzjZqH0WRwE',
@@ -232,6 +239,7 @@ export default {
         'An extended sit-down with Zane Lowe, conducted over FaceTime, on how The Life of a Showgirl was written.',
       youtubeId: 'mUZ9T-hstUI',
       channel: 'Apple Music',
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: 'mUZ9T-hstUI',
@@ -250,6 +258,7 @@ export default {
         'A rare sole-guest episode of Late Night: the album, Travis Kelce, and a full hour built around one interview.',
       youtubeId: 'Wd7S1wZqkbI',
       channel: 'Late Night with Seth Meyers',
+      tags: ['Music', 'Relationship'],
       sources: [
         upload({
           youtubeId: 'Wd7S1wZqkbI',
@@ -273,6 +282,7 @@ export default {
         "Her first time on Colbert's couch: The End of an Era docuseries and The Final Show film, the engagement, the masters — and a ranking of her own top five songs.",
       youtubeId: 'qtyzac0JbS4',
       channel: 'The Late Show with Stephen Colbert',
+      tags: ['Music', 'Relationship'],
       sources: [
         upload({
           youtubeId: 'qtyzac0JbS4',

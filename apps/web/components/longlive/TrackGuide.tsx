@@ -7,10 +7,13 @@ import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra } from '@/lib/longlive/tracks';
+import { videosForEra, isPlayable, VIDEO_KIND_LABEL, type PlayableVideoNote } from '@/lib/longlive/videos';
+import { trackVideoFor } from '@/lib/longlive/track-video';
 import { eraStyle } from '@/lib/longlive/theme';
 import { OverlayNav } from './OverlayNav';
 import { trackKey } from './TrackDetail';
 import { TrackFivePill } from './TrackFivePill';
+import { MomentVideo } from './MomentVideo';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { EraId, TrackNote } from '@/lib/longlive/types';
 
@@ -27,6 +30,7 @@ export function TrackGuide() {
 
   const era = trackGuideEraId ? getEra(trackGuideEraId) : undefined;
   const tracks = trackGuideEraId ? tracksForEra(trackGuideEraId) : [];
+  const videos = trackGuideEraId ? videosForEra(trackGuideEraId) : [];
   const open = Boolean(era && tracks.length > 0);
 
   useScrollLock(open);
@@ -92,7 +96,7 @@ export function TrackGuide() {
 
         <ol className="mt-8 space-y-3">
           {tracks.map((t) => (
-            <TrackRow key={`${t.trackNumber ?? 'x'}-${t.title}`} eraId={era.id} track={t} />
+            <TrackRow key={`${t.trackNumber ?? 'x'}-${t.title}`} eraId={era.id} track={t} videos={videos} />
           ))}
         </ol>
       </div>
@@ -100,12 +104,26 @@ export function TrackGuide() {
   );
 }
 
-function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
+function TrackRow({
+  eraId,
+  track,
+  videos,
+}: {
+  eraId: EraId;
+  track: TrackNote;
+  videos: readonly PlayableVideoNote[];
+}) {
   const { openTrack } = useAppActions();
   const hasDeepDive = Boolean((track.discussion && track.discussion.length > 0) || track.dossier);
   // Derived from track position, never authored per-track (#689) — so the badge
   // can't drift from the data. Only shows when track 5 actually has a note row.
   const isTrackFive = track.trackNumber === 5;
+  // The video→song lookup (lib/longlive/track-video.ts): conservative title
+  // matching against the era's playable videos, so a paired video is always
+  // actually watchable. A row with no pairing renders exactly as before —
+  // no dead control (#2051's lesson).
+  const pairedVideo = trackVideoFor(track.title, videos, track.youtubeId);
+  const playableVideo = pairedVideo && isPlayable(pairedVideo) ? pairedVideo : null;
 
   // The WHOLE CARD opens the song (#498: Joey — "you should be able to click
   // anywhere in the rectangle"). The card must stay an <li>, not a <button>:
@@ -175,6 +193,14 @@ function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
               </span>
             ))}
           </p>
+        )}
+        {playableVideo && (
+          <MomentVideo
+            video={{ youtubeId: playableVideo.youtubeId, title: playableVideo.title }}
+            caption={null}
+            playNoun={playableVideo.kind ? VIDEO_KIND_LABEL[playableVideo.kind].toLowerCase() : 'video'}
+            className="mt-3"
+          />
         )}
       </div>
     </li>

@@ -3,6 +3,7 @@
 import { ChevronDown, Compass, Search, Share2, Layers, Sparkles, VenetianMask } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getEra } from '@/lib/longlive/eras';
+import { getThread } from '@/lib/longlive/lenses';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { Button } from '@/components/ui/button';
 import { TimelineScrubber } from './TimelineScrubber';
@@ -14,21 +15,18 @@ export function TopBar() {
   const { setMode, setSelectorOpen, setSearchOpen, openShare, goHome } = useAppActions();
   const era = getEra(eraId);
 
-  // The landing page renders its own wordmark + toggle instead (#684); the
-  // shell never mounts TopBar there, this guard just narrows the type.
-  if (mode === 'landing') return null;
-
   const shareTarget = topbarShareTarget(mode, eraId, lensId);
 
+  // Home is now (R1, PLAN.md 2026-08-14): the wordmark scrolls to the top of
+  // the current era, not a separate home screen. goHome bumps eraJumpSeq,
+  // which drives EraStream's own jump-scroll correction to the target era
+  // section — no separate scroll call needed here.
   function handleHome() {
     goHome();
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
   }
 
   return (
-    <header className="sticky top-0 z-40">
+    <header data-ll-topbar className="sticky top-0 z-40">
       {/* Peek strip / timeline lives at the very top in era mode. */}
       {mode === 'era' && <TimelineScrubber />}
 
@@ -51,8 +49,11 @@ export function TopBar() {
               className="group flex min-w-0 items-center gap-1 rounded-full px-2 py-1 text-left transition-colors hover:bg-surface"
             >
               <span className="min-w-0 truncate text-sm font-medium text-ink">
-                <span className="sm:hidden">{era.shortName}</span>
-                <span className="hidden sm:inline">{era.name}</span>
+                {/* Context label (P4 step 19) — mobile shortens to the era's
+                    shortName, desktop keeps the full name, same split the era
+                    name itself already used. */}
+                <span className="sm:hidden">Era: {era.shortName}</span>
+                <span className="hidden sm:inline">Era: {era.name}</span>
               </span>
               <ChevronDown
                 className="size-3.5 shrink-0 text-ink-soft transition-transform group-hover:translate-y-0.5"
@@ -67,13 +68,23 @@ export function TopBar() {
             </button>
           ) : (
             <span className="min-w-0 truncate text-sm font-medium text-ink-soft">
-              {mode === 'mood' ? 'Mood' : mode === 'clownbot' ? 'Clownbot' : 'The Threads'}
+              {mode === 'mood'
+                ? 'Mood'
+                : mode === 'clownbot'
+                  ? 'Clownbot'
+                  : lensId
+                    ? `Thread: ${getThread(lensId).title}`
+                    : 'The Threads'}
             </span>
           )}
         </div>
 
         <div className={TOPBAR_ACTIONS_CLASS}>
-          <ModeToggle mode={mode} onChange={setMode} />
+          {/* Mobile: the bottom tab bar is now the rail (P4 step 19), so the
+              pills only render at md+. Desktop keeps them exactly as before. */}
+          <div className="hidden md:block">
+            <ModeToggle mode={mode} onChange={setMode} />
+          </div>
           <Button
             variant="surface"
             size="icon"

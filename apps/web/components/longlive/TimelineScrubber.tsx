@@ -6,10 +6,28 @@ import { getEra } from '@/lib/longlive/eras';
 import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
 import { truncate } from '@/lib/longlive/format';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { measureChromeHeight, measureChromeBottom } from '@/lib/longlive/chrome-offset';
 import { cn } from '@/lib/utils';
+import {
+  SCRUBBER_ANCHOR_CLASS,
+  SCRUBBER_CENTER_MEDIA_QUERY,
+  SCRUBBER_RAIL_CLASS,
+  SCRUBBER_RAIL_CLIP_PATH,
+  SCRUBBER_SCRIM_CLASS,
+  SCRUBBER_SHELL_CLASS,
+  roundRailPct,
+  scrubberAnchorPaddingTop,
+  scrubberPillTransform,
+  scrubberRailMaxHeight,
+  scrubberTooltipTransform,
+  snapNow,
+  nearestAnchorExact,
+  labelForDate,
+  type ScrubberAnchor,
+} from './timelineScrubberLayout';
 
-/** Reference line for "what am I reading" — header + a bit into the viewport. */
-const HEADER_OFFSET = 64;
+/** Reference line for "what am I reading" — chrome (measureChromeHeight) +
+ *  a bit into the viewport. */
 const REF_RATIO = 0.3;
 /** Horizontal distance (px) of the rail line from the viewport's right edge. */
 const RAIL_RIGHT = 16;
@@ -18,10 +36,7 @@ const RIDGE_WIDTH = 28;
 /** Density curve resolution. */
 const SAMPLES = 72;
 
-interface Anchor {
-  date: number;
-  top: number;
-}
+type Anchor = ScrubberAnchor;
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
@@ -37,10 +52,13 @@ export function TimelineScrubber() {
   const start = useMemo(() => new Date(era.start).getTime(), [era.start]);
   // The current era's authored end date can sit in the future (a season/
   // year boundary); the rail's top means "now", so don't let the scrubber
-  // span into dates that haven't happened yet.
+  // span into dates that haven't happened yet. snapNow (not raw Date.now())
+  // so the SSR render and the client hydration render — which each call
+  // Date.now() independently — compute the exact same bound as long as
+  // they land in the same 5-minute window (finding #3, 2026-08-14).
   const end = useMemo(() => {
     const authoredEnd = new Date(era.end).getTime();
-    return era.isCurrent ? Math.min(authoredEnd, Date.now()) : authoredEnd;
+    return era.isCurrent ? Math.min(authoredEnd, snapNow(Date.now())) : authoredEnd;
   }, [era.end, era.isCurrent]);
   const span = Math.max(1, end - start);
 
@@ -72,6 +90,18 @@ export function TimelineScrubber() {
   const handleRef = useRef<HTMLSpanElement>(null);
   const pillRef = useRef<HTMLSpanElement>(null);
   const anchorsRef = useRef<Anchor[]>([]);
+  // Subset of anchorsRef with `exact: true` — the DATE curve (dateForTop
+  // below) interpolates over this, never the full anchor set. Positioning
+  // (topForDate, pctForDate, ticks/milestones/ridge) still needs every
+  // anchor, synthetic included, so a card's rendered spot on the rail stays
+  // correct; but a synthetic anchor's fabricated date must never bend what
+  // the pill/aria-valuetext read back for a nearby REAL position (adversarial
+  // review finding #3, 2026-08-13 — 42 (era, filter) combos showed a month no
+  // real content occupies). Excluding it from this list, rather than gating
+  // display on adjacent-pair exactness, is also what fixes finding #4: the
+  // interpolated date is always drawn from real anchors, so it is always
+  // honest and never needs suppressing to "Date unknown".
+  const exactAnchorsRef = useRef<Anchor[]>([]);
   const draggingRef = useRef(false);
   const rafRef = useRef<number | null>(null);
   /** Last time we committed a React state update while dragging (ms, Date.now()). */
@@ -99,6 +129,16 @@ export function TimelineScrubber() {
   // once real layout is known, instead of staying pinned to the pre-measure
   // calendar-linear fallback.
   const [anchorsVersion, setAnchorsVersion] = useState(0);
+  // Extra top padding for SCRUBBER_ANCHOR_CLASS beyond its own `pt-20`, so the
+  // rail (and its always-visible date pill) clears the live sticky chrome
+  // instead of overlapping the filter row — see scrubberAnchorPaddingTop's
+  // doc comment (adversarial review finding #2, 2026-08-14).
+  const [anchorPaddingTop, setAnchorPaddingTop] = useState<number | undefined>(undefined);
+  // Caps the rail's own rendered height so it can't run past the viewport
+  // when anchorPaddingTop is clamped to a live chrome height taller than the
+  // CSS cap's baked-in assumption — see scrubberRailMaxHeight's doc comment
+  // (re-review finding #2, 2026-08-14 round 2).
+  const [railMaxHeight, setRailMaxHeight] = useState<number | undefined>(undefined);
 
   // Calendar-linear fallback, used only before the DOM has been measured
   // (first paint) so ticks/milestones have *something* sane to render.
@@ -124,8 +164,19 @@ export function TimelineScrubber() {
       .map((el) => ({
         date: Number(el.dataset.llDate),
         top: el.getBoundingClientRect().top + window.scrollY,
+        // Missing attribute defaults to exact — every card that can carry a
+        // synthetic date sets `data-ll-exact="0"` explicitly (VideoMomentCard,
+        // DoorwayCard); everything else (moments, the end-of-era sentinel) has
+        // an authored date and never opts out.
+        exact: el.dataset.llExact !== '0',
       }))
+      // A doorway `spaceDoorways` displaced omits `data-ll-date` entirely
+      // (DoorwayCard, adversarial review finding #2, 2026-08-13) — its
+      // rendered position no longer matches its date, so it must not be a
+      // rail anchor at all, not just a non-exact one.
+      .filter((a) => Number.isFinite(a.date))
       .sort((a, b) => a.top - b.top);
+    exactAnchorsRef.current = anchorsRef.current.filter((a) => a.exact);
     setAnchorsVersion((v) => v + 1);
   }, [eraId]);
 
@@ -149,10 +200,11 @@ export function TimelineScrubber() {
 
   // Document-Y -> date (inverse of the above); used both to sync the pill
   // label while free-scrolling and to read back a date from an arbitrary
-  // rail position.
+  // rail position. Interpolates over EXACT anchors only (adversarial review
+  // finding #3, 2026-08-13) — see exactAnchorsRef's doc comment above.
   const dateForTop = useCallback(
     (top: number): number => {
-      const a = anchorsRef.current;
+      const a = exactAnchorsRef.current;
       if (!a.length) return end;
       if (top <= a[0].top) return a[0].date;
       const last = a[a.length - 1];
@@ -166,6 +218,21 @@ export function TimelineScrubber() {
       return last.date;
     },
     [end],
+  );
+
+  // Whether a resolved date (from dateForTop/fromPointer above) may be shown
+  // or announced — see timelineScrubberLayout.ts's "Anchor honesty" section
+  // for the full rationale (adversarial review finding #1, 2026-08-13).
+  // Checked against the same exact-only anchor set dateForTop interpolates
+  // over (finding #3/#4, 2026-08-13): once the resolved date can only ever
+  // come from a real anchor, the nearest anchor to it is always real too, so
+  // this never falsely suppresses a genuinely honest date the way checking
+  // it against the full (real + synthetic) set could — including the exact
+  // debut-era-start tie finding #4 named (a clamped doorway sharing a real
+  // moment's date used to lose that tie and read "Date unknown").
+  const exactForDate = useCallback(
+    (target: number): boolean => nearestAnchorExact(exactAnchorsRef.current, target),
+    [],
   );
 
   // Rail position (0..100) is linear in *rendered position*, not calendar
@@ -193,10 +260,13 @@ export function TimelineScrubber() {
   // Date -> rail position. Before the DOM has been measured, fall back to
   // the calendar-linear formula so first paint has something sane; once
   // anchors are known, position is linear in rendered content, not date.
+  // Rounded via roundRailPct — the single place this percentage is produced
+  // — so a server vs. client render pass can't disagree past four decimals
+  // and mismatch on hydration (finding #3, 2026-08-14).
   const pctForDate = useCallback(
     (ms: number): number => {
-      if (anchorsRef.current.length < 2) return pctForDateLinear(ms);
-      return pctForTop(topForDate(ms));
+      const raw = anchorsRef.current.length < 2 ? pctForDateLinear(ms) : pctForTop(topForDate(ms));
+      return roundRailPct(raw);
     },
     [pctForDateLinear, pctForTop, topForDate],
   );
@@ -220,13 +290,13 @@ export function TimelineScrubber() {
   // from the scroll offset (never via date), same reasoning as fromPointer.
   const fromScroll = useCallback((): { pct: number; date: number } | null => {
     if (!anchorsRef.current.length) return null;
-    const ref = window.scrollY + HEADER_OFFSET + window.innerHeight * REF_RATIO;
+    const ref = window.scrollY + measureChromeHeight() + window.innerHeight * REF_RATIO;
     return { pct: pctForTop(ref), date: dateForTop(ref) };
   }, [pctForTop, dateForTop]);
 
   // Scrolls the feed so document-Y `y` lands at the reading reference line.
   const scrollToY = useCallback((y: number) => {
-    const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
+    const offset = measureChromeHeight() + window.innerHeight * REF_RATIO;
     window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
   }, []);
 
@@ -262,32 +332,58 @@ export function TimelineScrubber() {
       return now >= start && now <= end ? pctForDate(now) : null;
     });
 
+    const mq = window.matchMedia(SCRUBBER_CENTER_MEDIA_QUERY);
+    const recomputeAnchorPadding = () => {
+      const paddingTop = scrubberAnchorPaddingTop({
+        chromeBottom: measureChromeBottom(),
+        isCentered: mq.matches,
+      });
+      setAnchorPaddingTop(paddingTop);
+      setRailMaxHeight(scrubberRailMaxHeight({ paddingTop, viewportHeight: window.innerHeight }));
+    };
+    recomputeAnchorPadding();
+
+    // Before the filter bar sticks, its (and therefore the rail's clamp's)
+    // live position changes on every scroll frame — not just on resize/layout
+    // — so this needs the same rAF-throttled recompute as syncFromScroll,
+    // not just the resize/mq/ResizeObserver triggers below. Once stuck, the
+    // position stops changing and this settles to a no-op re-render bail.
     const onScroll = () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(syncFromScroll);
+      rafRef.current = requestAnimationFrame(() => {
+        syncFromScroll();
+        recomputeAnchorPadding();
+      });
     };
     const onResize = () => {
       measure();
       syncFromScroll();
+      recomputeAnchorPadding();
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
+    mq.addEventListener('change', recomputeAnchorPadding);
 
-    // Catch layout changes from filtering, image loads, era swaps.
+    // Catch layout changes from filtering, image loads, era swaps — also the
+    // FilterBar row height changing, which is what the padding above clamps
+    // the rail below.
     const ro = new ResizeObserver(() => {
       measure();
       syncFromScroll();
+      recomputeAnchorPadding();
     });
     ro.observe(document.body);
     // A follow-up measure after paint settles (fonts/images).
     const t = window.setTimeout(() => {
       measure();
       syncFromScroll();
+      recomputeAnchorPadding();
     }, 300);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
+      mq.removeEventListener('change', recomputeAnchorPadding);
       ro.disconnect();
       window.clearTimeout(t);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -350,7 +446,10 @@ export function TimelineScrubber() {
         // the date-label text — on a throttled cadence.
         if (dragging) {
           if (handleRef.current) handleRef.current.style.top = `${pct}%`;
-          if (pillRef.current) pillRef.current.style.top = `${pct}%`;
+          if (pillRef.current) {
+            pillRef.current.style.top = `${pct}%`;
+            pillRef.current.style.transform = scrubberPillTransform(pct);
+          }
           if (anchorsRef.current.length >= 2) scrollToY(y);
           else scrollToDate(date);
         }
@@ -418,258 +517,272 @@ export function TimelineScrubber() {
   void anchorsVersion;
 
   return (
-    <div className="pointer-events-none fixed inset-y-0 right-0 z-30 flex w-10 items-center justify-end sm:w-12">
-      {/* Legibility scrim */}
+    <div className={SCRUBBER_SHELL_CLASS}>
+      {/* Legibility scrim — lives on the dynamic-viewport shell, not the
+          svh anchor, so the gradient covers the whole visible height even
+          while the mobile URL bar is collapsed. */}
       <div
         aria-hidden
-        className="absolute inset-y-0 right-0 w-full"
+        className={SCRUBBER_SCRIM_CLASS}
         style={{
           background:
             'linear-gradient(to left, color-mix(in srgb, var(--era-bg) 78%, transparent), transparent)',
         }}
       />
 
-      {/* What the removed first-run popup used to say, kept as a description
-          on the control itself instead of an interstitial: assistive tech
-          announces it, and sighted users are taught the same thing without an
-          interaction by the hover/drag pill (date + nearest moment) that this
-          rail already shows the instant you touch it. */}
-      <span id={`ll-scrubber-desc-${era.id}`} className="sr-only">
-        Drag to scrub through {era.name}. The ridge bulges where the most happened.
-      </span>
-
       <div
-        ref={railRef}
-        role="slider"
-        tabIndex={0}
-        aria-label={`${era.name} timeline scrubber`}
-        aria-describedby={`ll-scrubber-desc-${era.id}`}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={Math.round(currentPct ?? 0)}
-        aria-valuetext={pillDate != null ? fmtMonth(pillDate) : undefined}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-        onPointerEnter={() => setActive(true)}
-        onPointerLeave={() => {
-          if (!draggingRef.current) setActive(false);
-          setHoverDate(null);
-          setHoverPct(null);
-        }}
-        onKeyDown={(e) => {
-          if (currentDate == null) return;
-          const step = span / 24;
-          // Top of the rail = newest, so ArrowUp moves toward `end`. Discrete
-          // date-stepping (not a continuous drag), so deriving pct from date
-          // here is fine — no gesture to snap out from under.
-          if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            const d = Math.min(end, currentDate + step);
-            setCurrentDate(d);
-            setCurrentPct(pctForDate(d));
-            scrollToDate(d);
-          } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            const d = Math.max(start, currentDate - step);
-            setCurrentDate(d);
-            setCurrentPct(pctForDate(d));
-            scrollToDate(d);
-          }
-        }}
-        className="pointer-events-auto relative h-[74vh] w-full cursor-ns-resize touch-none select-none outline-none"
+        className={SCRUBBER_ANCHOR_CLASS}
+        style={anchorPaddingTop != null ? { paddingTop: anchorPaddingTop } : undefined}
       >
-        {/* Activity ridge */}
-        <svg
-          aria-hidden
-          className="absolute inset-y-0"
-          style={{ right: RAIL_RIGHT, width: RIDGE_WIDTH, height: '100%' }}
-          viewBox="0 0 100 1000"
-          preserveAspectRatio="none"
-        >
-          <path
-            d={ridgePath}
-            fill="var(--era-accent)"
-            fillOpacity={active ? 0.28 : 0.18}
-            stroke="var(--era-accent)"
-            strokeOpacity={0.55}
-            strokeWidth={1.25}
-            vectorEffect="non-scaling-stroke"
-            style={{ transition: 'fill-opacity 200ms ease' }}
-          />
-        </svg>
+        {/* What the removed first-run popup used to say, kept as a description
+            on the control itself instead of an interstitial: assistive tech
+            announces it, and sighted users are taught the same thing without an
+            interaction by the hover/drag pill (date + nearest moment) that this
+            rail already shows the instant you touch it. */}
+        <span id={`ll-scrubber-desc-${era.id}`} className="sr-only">
+          Drag to scrub through {era.name}. The ridge bulges where the most happened.
+        </span>
 
-        {/* Rail line */}
         <div
-          aria-hidden
-          className="absolute inset-y-0 w-px"
-          style={{ right: RAIL_RIGHT, background: 'var(--era-line)' }}
-        />
-
-        {/* Era start / end year labels */}
-        <span
-          className={cn(
-            'absolute -top-1 text-[10px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
-            active ? 'opacity-100' : 'opacity-0',
-          )}
-          style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
+          ref={railRef}
+          role="slider"
+          tabIndex={0}
+          aria-label={`${era.name} timeline scrubber`}
+          aria-describedby={`ll-scrubber-desc-${era.id}`}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(currentPct ?? 0)}
+          aria-valuetext={
+            pillDate != null ? labelForDate(fmtMonth(pillDate), exactForDate(pillDate)) : undefined
+          }
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onPointerEnter={() => setActive(true)}
+          onPointerLeave={() => {
+            if (!draggingRef.current) setActive(false);
+            setHoverDate(null);
+            setHoverPct(null);
+          }}
+          onKeyDown={(e) => {
+            if (currentDate == null) return;
+            const step = span / 24;
+            // Top of the rail = newest, so ArrowUp moves toward `end`. Discrete
+            // date-stepping (not a continuous drag), so deriving pct from date
+            // here is fine — no gesture to snap out from under.
+            if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              const d = Math.min(end, currentDate + step);
+              setCurrentDate(d);
+              setCurrentPct(pctForDate(d));
+              scrollToDate(d);
+            } else if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              const d = Math.max(start, currentDate - step);
+              setCurrentDate(d);
+              setCurrentPct(pctForDate(d));
+              scrollToDate(d);
+            }
+          }}
+          className={SCRUBBER_RAIL_CLASS}
+          style={
+            anchorPaddingTop != null
+              ? { clipPath: SCRUBBER_RAIL_CLIP_PATH, maxHeight: railMaxHeight }
+              : undefined
+          }
         >
-          {era.isCurrent ? 'now' : new Date(end).getFullYear()}
-        </span>
-        <span
-          className={cn(
-            'absolute text-[10px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
-            active ? 'opacity-100' : 'opacity-0',
-          )}
-          style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
-        >
-          {new Date(start).getFullYear()}
-        </span>
-
-        {/* Item ticks */}
-        {items.map((it) => {
-          const pct = pctForDate(new Date(it.date).getTime());
-          return (
-            <span
-              key={it.id}
-              aria-hidden
-              className="absolute rounded-full"
-              style={{
-                right: RAIL_RIGHT,
-                top: `${pct}%`,
-                height: 3,
-                width: 3,
-                transform: 'translate(50%, -50%)',
-                background: 'var(--era-ink)',
-                opacity: 0.35,
-              }}
+          {/* Activity ridge */}
+          <svg
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0"
+            style={{ right: RAIL_RIGHT, width: RIDGE_WIDTH, height: '100%' }}
+            viewBox="0 0 100 1000"
+            preserveAspectRatio="none"
+          >
+            <path
+              d={ridgePath}
+              fill="var(--era-accent)"
+              fillOpacity={active ? 0.28 : 0.18}
+              stroke="var(--era-accent)"
+              strokeOpacity={0.55}
+              strokeWidth={1.25}
+              vectorEffect="non-scaling-stroke"
+              style={{ transition: 'fill-opacity 200ms ease' }}
             />
-          );
-        })}
+          </svg>
 
-        {/* Milestone markers */}
-        {milestones.map((m) => {
-          const pct = pctForDate(new Date(m.date).getTime());
-          return (
-            <div key={m.id} aria-hidden>
+          {/* Rail line */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 w-px"
+            style={{ right: RAIL_RIGHT, background: 'var(--era-line)' }}
+          />
+
+          {/* Era start / end year labels */}
+          <span
+            className={cn(
+              'pointer-events-none absolute -top-1 text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
+              active ? 'opacity-100' : 'opacity-0',
+            )}
+            style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
+          >
+            {era.isCurrent ? 'now' : new Date(end).getFullYear()}
+          </span>
+          <span
+            className={cn(
+              'pointer-events-none absolute text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
+              active ? 'opacity-100' : 'opacity-0',
+            )}
+            style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
+          >
+            {new Date(start).getFullYear()}
+          </span>
+
+          {/* Item ticks */}
+          {items.map((it) => {
+            const pct = pctForDate(new Date(it.date).getTime());
+            return (
               <span
-                className="absolute rounded-full ring-2"
+                key={it.id}
+                aria-hidden
+                className="pointer-events-none absolute rounded-full"
                 style={{
                   right: RAIL_RIGHT,
                   top: `${pct}%`,
-                  height: 8,
-                  width: 8,
+                  height: 3,
+                  width: 3,
                   transform: 'translate(50%, -50%)',
-                  background: 'var(--era-accent)',
-                  // ring color via boxShadow to inherit bg
-                  boxShadow: '0 0 0 2px var(--era-bg)',
+                  background: 'var(--era-ink)',
+                  opacity: 0.35,
                 }}
               />
-              <span
-                className={cn(
-                  'absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity',
-                  active ? 'opacity-100' : 'opacity-0',
-                )}
-                style={{ right: RAIL_RIGHT + 14, top: `${pct}%`, transform: 'translateY(-50%)' }}
-              >
-                {m.label}
-              </span>
-            </div>
-          );
-        })}
+            );
+          })}
 
-        {/* "Now" tick for the current era */}
-        {nowPct != null && (
-          <span
-            aria-hidden
-            className="absolute h-3 w-3 -translate-y-1/2 translate-x-1/2 rotate-45 border border-[color:var(--era-bg)]"
-            style={{ right: RAIL_RIGHT, top: `${nowPct}%`, background: 'var(--era-ink)' }}
-            title="Now"
-          />
-        )}
+          {/* Milestone markers */}
+          {milestones.map((m) => {
+            const pct = pctForDate(new Date(m.date).getTime());
+            return (
+              <div key={m.id} aria-hidden>
+                <span
+                  className="pointer-events-none absolute rounded-full ring-2"
+                  style={{
+                    right: RAIL_RIGHT,
+                    top: `${pct}%`,
+                    height: 8,
+                    width: 8,
+                    transform: 'translate(50%, -50%)',
+                    background: 'var(--era-accent)',
+                    // ring color via boxShadow to inherit bg
+                    boxShadow: '0 0 0 2px var(--era-bg)',
+                  }}
+                />
+                <span
+                  className={cn(
+                    'pointer-events-none absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity',
+                    active ? 'opacity-100' : 'opacity-0',
+                  )}
+                  style={{ right: RAIL_RIGHT + 14, top: `${pct}%`, transform: 'translateY(-50%)' }}
+                >
+                  {m.label}
+                </span>
+              </div>
+            );
+          })}
 
-        {/* Handle + date pill */}
-        {currentPct != null && (
-          <>
-            <span
-              ref={handleRef}
-              className="absolute rounded-full border-2 transition-transform"
-              style={{
-                right: RAIL_RIGHT,
-                top: `${currentPct}%`,
-                height: active ? 18 : 14,
-                width: active ? 18 : 14,
-                transform: 'translate(50%, -50%)',
-                background: 'var(--era-accent)',
-                borderColor: 'var(--era-bg)',
-                boxShadow: '0 2px 10px -2px var(--era-glow)',
-              }}
-            />
-            {pillDate != null && (
-              <span
-                ref={pillRef}
-                className={cn(
-                  'absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold tabular-nums shadow-sm transition-opacity',
-                  active ? 'opacity-100' : 'opacity-90',
-                )}
-                style={{
-                  right: RAIL_RIGHT + 16,
-                  top: `${currentPct}%`,
-                  transform: 'translateY(-50%)',
-                  background: 'var(--era-surface)',
-                  borderColor: 'var(--era-line)',
-                  color: 'var(--era-ink)',
-                }}
-              >
-                {fmtMonth(pillDate)}
-              </span>
-            )}
-          </>
-        )}
-
-        {/* Hover preview: nearest content item */}
-        {showTooltip && nearestItem && hoverPct != null && (
-          <>
+          {/* "Now" tick for the current era */}
+          {nowPct != null && (
             <span
               aria-hidden
-              className="absolute h-2 w-2 rounded-full"
-              style={{
-                right: RAIL_RIGHT,
-                top: `${hoverPct}%`,
-                transform: 'translate(50%, -50%)',
-                background: 'var(--era-ink)',
-                opacity: 0.5,
-              }}
+              className="pointer-events-none absolute h-3 w-3 -translate-y-1/2 translate-x-1/2 rotate-45 border border-[color:var(--era-bg)]"
+              style={{ right: RAIL_RIGHT, top: `${nowPct}%`, background: 'var(--era-ink)' }}
+              title="Now"
             />
-            <div
-              className="pointer-events-none absolute z-10 w-48 rounded-lg border p-2.5 shadow-lg"
-              style={{
-                right: RAIL_RIGHT + 18,
-                top: `${hoverPct}%`,
-                transform: `translateY(-50%)`,
-                background: 'var(--era-surface-2)',
-                borderColor: 'var(--era-line)',
-              }}
-            >
-              <div
-                className="text-[10px] font-semibold uppercase tracking-wider"
-                style={{ color: 'var(--era-accent)' }}
-              >
-                {nearestItem.dateLabel}
-              </div>
-              <div className="mt-0.5 text-[12px] font-medium leading-snug text-[color:var(--era-ink)]">
-                {nearestItem.title}
-              </div>
-              {nearestItem.summary && (
-                <p className="mt-1 text-[11px] leading-snug text-[color:var(--era-ink-soft)]">
-                  {truncate(nearestItem.summary, 140)}
-                </p>
-              )}
-            </div>
-          </>
-        )}
+          )}
 
+          {/* Handle + date pill */}
+          {currentPct != null && (
+            <>
+              <span
+                ref={handleRef}
+                className="pointer-events-none absolute rounded-full border-2 transition-transform"
+                style={{
+                  right: RAIL_RIGHT,
+                  top: `${currentPct}%`,
+                  height: active ? 18 : 14,
+                  width: active ? 18 : 14,
+                  transform: 'translate(50%, -50%)',
+                  background: 'var(--era-accent)',
+                  borderColor: 'var(--era-bg)',
+                  boxShadow: '0 2px 10px -2px var(--era-glow)',
+                }}
+              />
+              {pillDate != null && (
+                <span
+                  ref={pillRef}
+                  className={cn(
+                    'pointer-events-none absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold leading-none tabular-nums shadow-sm transition-opacity',
+                    active ? 'opacity-100' : 'opacity-90',
+                  )}
+                  style={{
+                    right: RAIL_RIGHT + 16,
+                    top: `${currentPct}%`,
+                    transform: scrubberPillTransform(currentPct),
+                    background: 'var(--era-surface)',
+                    borderColor: 'var(--era-line)',
+                    color: 'var(--era-ink)',
+                  }}
+                >
+                  {labelForDate(fmtMonth(pillDate), exactForDate(pillDate))}
+                </span>
+              )}
+            </>
+          )}
+
+          {/* Hover preview: nearest content item */}
+          {showTooltip && nearestItem && hoverPct != null && (
+            <>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute h-2 w-2 rounded-full"
+                style={{
+                  right: RAIL_RIGHT,
+                  top: `${hoverPct}%`,
+                  transform: 'translate(50%, -50%)',
+                  background: 'var(--era-ink)',
+                  opacity: 0.5,
+                }}
+              />
+              <div
+                className="pointer-events-none absolute z-10 w-48 rounded-lg border p-2.5 shadow-lg"
+                style={{
+                  right: RAIL_RIGHT + 18,
+                  top: `${hoverPct}%`,
+                  transform: scrubberTooltipTransform(hoverPct),
+                  background: 'var(--era-surface-2)',
+                  borderColor: 'var(--era-line)',
+                }}
+              >
+                <div
+                  className="text-[10px] font-semibold uppercase tracking-wider"
+                  style={{ color: 'var(--era-accent)' }}
+                >
+                  {nearestItem.dateLabel}
+                </div>
+                <div className="mt-0.5 text-[12px] font-medium leading-snug text-[color:var(--era-ink)]">
+                  {nearestItem.title}
+                </div>
+                {nearestItem.summary && (
+                  <p className="mt-1 text-[11px] leading-snug text-[color:var(--era-ink-soft)]">
+                    {truncate(nearestItem.summary, 140)}
+                  </p>
+                )}
+              </div>
+            </>
+          )}
+
+        </div>
       </div>
     </div>
   );
