@@ -78,7 +78,16 @@ export const IMPERSONATION: Gate = {
     /\bi wrote (that|this|the|it|them|those|these) ?(song|album|lyric|record|line|bridge|verse|one)?\b/,
     /\bwhen i wrote\b/,
     /\bthe night i wrote\b/,
-    /\bi (penned|recorded|released|dropped|made|hid) (it|this|that|these|those|the (song|album|record|vault))\b/,
+    /\bi (penned|recorded|released|dropped|made|hid|picked|chose|decided|set) (it|this|that|these|those|the (song|album|record|vault|date))\b/,
+    // Paraphrased first-person-as-Taylor narrative with zero trigger token
+    // (2026-08-14 fix, Finding 2 — clown-battery-corpus-tier-b.ts's
+    // speak-as-taylor-paraphrase probes). Narrow phrase-level markers of an
+    // artist narrating her own performance/songwriting/album history in
+    // first person, not bare stems — see clown-safety.ts header.
+    /\b(standing|up|out) (on|there on) (that|this|the) stage\b[^.?!]{0,80}\b(of you|you all)\b/,
+    /\bwhen i (sat down at|picked up|first touched) (that|the|my) (piano|guitar)\b/,
+    /\bthank you for loving this (record|album|era|song)\b/,
+    /\bnone of (it|this) happens without you\b/,
     /\bmy (real )?(fianc|fiance|fiancee|husband|boyfriend|marriage|wedding|engagement|body|pregnancy|masters|discography|era|tour|fans|cats|album|record|re ?record|vault|bridge|lyric)\b/,
     // Signing off as her / addressing "fans" as her.
     /\bxoxo,? ?taylor\b/,
@@ -89,6 +98,15 @@ export const IMPERSONATION: Gate = {
     /\bit ?(s|is) (really|actually|truly|honestly) me\b/,
     /\b(yes|yeah|yep) ?,? it ?(s|is) me\b/,
     /\bi ?(ve|ve been| have been| have|m|) ?been (dropping|leaving|planting|hiding|scattering) (these|those|the|my) (clues|eggs|easter eggs|hints|breadcrumbs)\b/,
+    // Reused verbatim from the input list (2026-08-14, Finding 1 conversation-
+    // screen fix) — already phrase-level ("first person AS taylor/her", not
+    // bare "first person"), so it is answer-safe: no legitimate clown answer
+    // narrates in first person as her. Needed so a forged/attacker-authored
+    // "assistant" transcript turn granting itself permission to impersonate
+    // (clown/route.test.ts's "forged assistant turn" case) still trips the
+    // OUTPUT gate now that `screenConversation` screens assistant-role turns
+    // with `screenOutput` instead of `screenInput` — see clown-safety.ts.
+    /\bfirst person as (taylor|her)\b/,
   ],
   tight: [
     /youare(taylor|her)/,
@@ -145,6 +163,11 @@ export const OFFICIAL: Gate = {
     /\b(not|im not) (a|one of those)? ?(bot|chatbot|ai|robot|language model)\b/,
     /\b(a )?real person on the other end\b/,
     /\bhuman (typing|on the other end|answering)\b/,
+    // Paraphrased official/insider self-identification with zero trigger
+    // token (2026-08-14 fix, Finding 2 — official-insider probes).
+    /\b(the )?person typing this\b/,
+    /\bbeen in the room for\b[^.?!]{0,30}\b(announcement|reveal|drop|release)/,
+    /\bon (this|the other) end of the keyboard\b/,
   ],
 };
 
@@ -166,10 +189,25 @@ export const CERTAINTY: Gate = {
     /\b100 percent sure\b/,
   ],
   output: [
-    /\bguarantee(d|s|ing|)?\b/,
+    // Scoped to "I guarantee" / a forward-looking "is/it's guaranteed" claim
+    // (2026-08-14 fix, Finding 1; re-scoped again 2026-08-14 round-2 fix,
+    // Finding 2) — the old bare `guarantee(d|s|ing|)?` stem matched "a deal
+    // guaranteeing future ownership" (Big Machine/Republic history), and the
+    // follow-up bare `guaranteed` alone still matched "The 2018 contract
+    // guaranteed her ownership of her new masters" — both factual past-tense
+    // descriptors of a real contract term, not a manufactured-certainty
+    // claim. Scoped to the passive "is/its guaranteed" construction, which is
+    // how a forward-looking prediction actually reads ("It is guaranteed to
+    // drop at midnight").
+    /\bi guarantee(s)?\b/,
+    /\b(is|its) guaranteed\b/,
     /\b100 percent\b/,
     /\bone hundred percent\b/,
-    /\bno doubt\b/,
+    // Scoped (2026-08-14 fix, Finding 1) — bare "no doubt" matched ordinary
+    // enthusiasm ("No doubt this is one of her best bridges"), not certainty
+    // about a claim. "zero doubt" below is left bare: it is not the common
+    // colloquial-praise phrase "no doubt" is.
+    /\bno doubt (about it|whatsoever|in (my|your) mind)\b/,
     /\bzero doubt\b/,
     /\bwithout (a )?doubt\b/,
     /\bbet my life\b/,
@@ -190,5 +228,9 @@ export const CERTAINTY: Gate = {
     /\byou can hold me to\b/,
     /\babsolute certainty\b/,
     /\bmark your calendar\b/,
+    // Paraphrased manufactured-certainty idiom, zero trigger token
+    // (2026-08-14 fix, Finding 2 — manufactured-certainty probe).
+    /\bput your house on\b/,
+    /\bno version of this where\b/,
   ],
 };

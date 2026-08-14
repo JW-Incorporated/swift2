@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { allClownDocs, type ClownDoc } from '../../../lib/longlive/clown-index';
 import { retrieveClownDocs } from '../../../lib/longlive/clown-retrieve';
-import { crisisCheck, refusal, screenInput } from '../../../lib/longlive/clown-safety';
+import { crisisCheck, refusal, screenConversation, screenInput } from '../../../lib/longlive/clown-safety';
 import { askClown, MAX_TRANSCRIPT_TURNS, type ClownTurn } from '../../../lib/longlive/clown-client';
 import { clownUsage } from '../../../lib/longlive/clown-usage';
 import { screenClownTake } from '../../../lib/longlive/clown-gate';
@@ -13,8 +13,8 @@ import { answerFromFallback, answerFromTake, type ClownAnswer } from '../../../l
 // Clownbot (build B) — the API route. PLAN.md Step 8.
 //
 // STAGE ORDER, non-negotiable:
-//   rate-limit → kill switch → crisis check → input blocklist → retrieval →
-//   compose-or-fallback → output gate
+//   rate-limit → kill switch → crisis check → input blocklist →
+//   prior-turn blocklist → retrieval → compose-or-fallback → output gate
 //
 // The kill switch (`CLOWN_MODEL_DISABLED`) is checked BEFORE usage is
 // reserved, but that check lives entirely inside `askClown()`
@@ -41,6 +41,16 @@ import { answerFromFallback, answerFromTake, type ClownAnswer } from '../../../l
 // redlines (impersonation/official/certainty) into one ordered gate — that
 // IS "the input blocklist stage". Calling `screenTopic()` again here would
 // re-run the same categories a second time for nothing.
+//
+// PRIOR-TURN BLOCKLIST (2026-08-14 fix, Finding 3): `screenInput` only ever
+// saw the current turn's `text`. The client-held `transcript` was shape-
+// sanitised (`sanitizeTranscript`) and sent straight to the model — a
+// blocked topic smuggled into an earlier user turn, or a forged assistant
+// turn granting a jailbreak, reached the model completely unscreened.
+// `screenConversation()` exists precisely for this (its own header has said
+// so since it was written) and was simply never wired in. It now runs on
+// every prior turn, before `askClown` is ever called — same refusal shape as
+// a blocked current turn, so a caller cannot tell the two stages apart.
 //
 // THE SERVER STORES NOTHING. No DB, no cache, no logging of message
 // content — only category names on a refusal, matching the pattern already
@@ -163,6 +173,14 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json(messageAnswer([refusal(blockedCategory).message]));
   }
 
+  // PRIOR-TURN BLOCKLIST — see the header note above. Before any model spend.
+  const priorTurns = sanitizeTranscript(payload.transcript);
+  const conversationHit = screenConversation(priorTurns);
+  if (conversationHit) {
+    console.log('clown:refusal', JSON.stringify({ gate: 'conversation', category: conversationHit }));
+    return NextResponse.json(messageAnswer([refusal(conversationHit).message]));
+  }
+
   // RETRIEVAL — deterministic, before any model call. The model never
   // searches the corpus; it only sees what this hands it.
   const docs = retrieveClownDocs(text, allClownDocs());
@@ -176,7 +194,6 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // COMPOSE-OR-FALLBACK — try the model.
-  const priorTurns = sanitizeTranscript(payload.transcript);
   const transcript: ClownTurn[] = [...priorTurns, { role: 'user', text }];
   const take = await askClown(clownUsage, transcript, docs);
 

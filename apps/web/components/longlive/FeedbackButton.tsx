@@ -93,10 +93,15 @@ export function FeedbackButton() {
     };
   }, [open]);
 
-  // Dismissed for the rest of this session (sessionStorage) — render nothing,
-  // not even the floating trigger. Checked after every hook above so hook
-  // order stays identical across renders.
-  if (dismissed) return null;
+  // Dismissed for the rest of this session (sessionStorage), or the clown
+  // bot chat is expanded to its own `fixed inset-0` fullscreen overlay
+  // (ClownChat.tsx) — either way, render nothing, not even the floating
+  // trigger. A genuinely fullscreen app surface owns the top layer while
+  // active; page furniture has no business floating above it, and unmounting
+  // outright (not just visually hiding it) also keeps it out of the tab
+  // order while it's invisible. Checked after every hook above so hook order
+  // stays identical across renders.
+  if (dismissed || state.clownChatExpanded) return null;
 
   /** Human-readable description of the current view for the ticket. */
   function describeView(): string {

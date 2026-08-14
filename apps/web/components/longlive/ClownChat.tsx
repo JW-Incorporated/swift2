@@ -23,17 +23,33 @@
  * reader's words anywhere but the one POST below.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CornerDownLeft, Loader2, Maximize2, Minimize2, Plus, VenetianMask } from 'lucide-react';
 import { SEED_EXAMPLE } from '@/lib/longlive/clown-seed-example';
 import type { ClownAnswer } from '@/lib/longlive/clown-answer';
 import type { BoardItem } from '@/lib/longlive/clown-board';
 import type { ClownTurn } from '@/lib/longlive/clown-client';
 import { promptForItem } from '@/lib/longlive/clown-starters';
+import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
 import { useAppActions, useAppState, type ClownMessage } from '@/lib/longlive/store';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { ClownBoard } from './ClownBoard';
 import { ClownMessageRow } from './ClownMessageRow';
+
+/**
+ * Mirrors the BottomNav clearance LongLive.tsx already reserves — `3.5rem +
+ * env(safe-area-inset-bottom)`, tied to `BottomNav.tsx`'s own rendered height
+ * (a `min-h-11` row of tab buttons plus its own safe-area padding; BottomNav
+ * sets no explicit height class of its own, so LongLive established this
+ * number as the single source of truth rather than each caller re-measuring
+ * the DOM for the same fact). `md:hidden` there — BottomNav does not render
+ * at md+, so this only applies to the mobile-viewport calc below.
+ */
+const BOTTOM_NAV_CLEARANCE = 'calc(3.5rem + env(safe-area-inset-bottom))';
+
+/** Matches the container's own `pt-3` below — kept as one literal so the
+ * mobile height calc and the padding that produces it can't drift apart. */
+const CONTAINER_TOP_PADDING = '0.75rem';
 
 const MAX_CHARS = 300;
 const INPUT_PLACEHOLDER = 'lets clown around';
@@ -64,7 +80,7 @@ export function ClownChat() {
   // transcript (store.tsx) — this component holds no transcript state of its
   // own. The seed example always renders first and never counts toward it.
   const { clownMessages } = useAppState();
-  const { addClownMessage } = useAppActions();
+  const { addClownMessage, setClownChatExpanded } = useAppActions();
   const messages = useMemo(() => [SEED_MESSAGE, ...clownMessages], [clownMessages]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -78,6 +94,38 @@ export function ClownChat() {
   const wasExpandedRef = useRef(false);
 
   useScrollLock(expanded);
+
+  // Mirror `expanded` into the shared store so page furniture that floats
+  // above every other overlay (FeedbackButton, z-[71]) can hide itself while
+  // this fullscreen surface is up — the return cleanup covers both collapsing
+  // AND unmounting (e.g. a mode switch) while still expanded, so the flag can
+  // never get stuck true.
+  useEffect(() => {
+    setClownChatExpanded(expanded);
+    return () => setClownChatExpanded(false);
+  }, [expanded, setClownChatExpanded]);
+
+  // Available height for the collapsed (non-fullscreen) panel on mobile,
+  // where there is no room to spare: viewport minus the sticky top chrome
+  // (TopBar; FilterBar never mounts here) minus the container's own top
+  // padding minus the fixed BottomNav. Re-measured on resize/reflow so a
+  // TopBar height change (breakpoint crossing, font swap) can't leave it
+  // stale. `useLayoutEffect`, not `useEffect`, so the very first client paint
+  // already reflects it — the same flash this codebase already guards
+  // against in FeedbackButton.tsx.
+  const [chromeOffsetPx, setChromeOffsetPx] = useState(0);
+  useLayoutEffect(() => {
+    const update = () => setChromeOffsetPx(measureChromeHeight());
+    update();
+    const topBar = document.querySelector<HTMLElement>('[data-ll-topbar]');
+    const ro = topBar ? new ResizeObserver(update) : undefined;
+    ro?.observe(topBar as HTMLElement);
+    window.addEventListener('resize', update);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, []);
 
   // Escape exits full screen. Listener only lives while expanded, and is
   // torn down on every collapse/unmount via the effect's own cleanup.
@@ -159,7 +207,15 @@ export function ClownChat() {
 
   const panelClassName = expanded
     ? 'fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
-    : 'relative mt-8 flex h-[min(76vh,46rem)] w-full flex-col overflow-hidden rounded-[1.25rem] border border-[color:var(--clown-line)] bg-[color:var(--clown-bg)] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.75)]';
+    : // Mobile: height comes from `--clown-panel-h` below, a measured fit
+      // under the chrome and above BottomNav so the composer lands on
+      // screen without scrolling (founder, first phone test, 2026-08-14).
+      // `md:h-[46rem]` overrides it at the desktop breakpoint, same as
+      // every other `md:` override in this file — no bottom nav there and
+      // the fixed 46rem ceiling still reads comfortably.
+      'relative flex h-[var(--clown-panel-h)] w-full flex-col overflow-hidden rounded-[1.25rem] border border-[color:var(--clown-line)] bg-[color:var(--clown-bg)] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.75)] md:h-[46rem]';
+
+  const panelStyle = { '--clown-panel-h': `calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - ${BOTTOM_NAV_CLEARANCE})` } as React.CSSProperties;
 
   const titlebarClassName = `flex flex-none items-center gap-2.5 border-b border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] px-4 py-3${
     expanded ? ' pt-[max(0.75rem,env(safe-area-inset-top))]' : ''
@@ -170,14 +226,13 @@ export function ClownChat() {
   }`;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 pb-28 pt-10">
-      <header className="text-center">
-        <h1 className="mt-5 font-[family-name:var(--era-font)] text-balance text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-          clown bot
-        </h1>
-      </header>
-
-      <div className={panelClassName}>
+    // Page-level "clown bot" title removed (founder, first phone test,
+    // 2026-08-14): the panel's own titlebar below already says "clown bot",
+    // and between the TopBar mode label and the BottomNav tab it was a
+    // fourth repetition that only pushed the panel down. pt-3 sits the panel
+    // close under TopBar — kept in sync with CONTAINER_TOP_PADDING above.
+    <div className="mx-auto max-w-4xl px-4 pb-28 pt-3">
+      <div className={panelClassName} style={panelStyle}>
         {/* titlebar — instant "this is an app" signal */}
         <div className={titlebarClassName}>
           <span
