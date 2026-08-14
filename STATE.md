@@ -11,9 +11,12 @@
 (five sequenced PRs, order is load-bearing). Driven by Joey's consolidated team
 feedback on the "Time Machine Mockups" artifact, 2026-08-13.
 
-In flight: P1 step 6a (zero-match era empty state) + the PR-1 docs slice,
-dispatched to an executor. Steps 1–7 otherwise done, in the working tree,
-UNCOMMITTED. After 6a: `/codex:review`, fix findings, open PR 1.
+**P1 is code-complete and committed** (`feat(web): one global filter for the
+whole eras timeline`). **BLOCKED on a human running `/codex:review`** — the
+plugin command is `disable-model-invocation`, so no session can run it itself;
+ask Joey and wait. Do NOT open PR 1 before the review is clean (Joey merges
+green PRs fast, so a post-open finding costs a cherry-pick follow-up). Do NOT
+arm a monitor or a self-check-in — CLAUDE.md § Never babysit your own PR.
 
 ## Last session
 
@@ -159,9 +162,11 @@ UNCOMMITTED. After 6a: `/codex:review`, fix findings, open PR 1.
 
 ## Next obvious step
 
-Await the step 6a + docs result and verify it directly (agent-reported success
-is a claim, not a verification — this session has already caught two real
-defects that way). Then `/codex:review` on the full PR-1 diff, fix every
-finding, and only then open PR 1. `reviewer` does not satisfy Workflow rule 3
-— Codex does, and Joey merges green PRs fast, so the review happens BEFORE the
-PR opens, not after. Then P2 (era body surgery), starting at step 8.
+Ask Joey to run `/codex:review` on `feature/era-reader-rework`. When findings
+come back: fix every one, then open PR 1 (TL;DR first, per § Conventions), and
+note in the body that PR 4 will need Wyatt's eyes on the bottom nav.
+
+Then P2 (era body surgery) from step 8, branched off `main` once PR 1 merges —
+NOT stacked on this branch, and not started early: P2 edits the same
+`EraSection.tsx` region, so starting before review findings land invites
+rework, which § Cost discipline calls the largest waste there is.
