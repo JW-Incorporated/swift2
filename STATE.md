@@ -22,13 +22,21 @@ and verified; steps 14a, 14b, 15, 16, 17 (anchor clamping, overload cleanup,
 are with an executor. Per-era doorway counts are 5–12 (folklore lightest,
 ttpd heaviest) — comfortable, no redesign needed.
 
-**`/codex:review` cannot be invoked by any session** — the command is
-`disable-model-invocation` and the Skill tool forbids replicating it via
-`codex-companion.mjs`. Only a human runs it; ask, don't work around it, don't
-arm a monitor waiting (§ Never babysit). Codex itself is healthy (2026-08-13:
-`ready: true`, cli 0.144.6, auth verified) but `status --all` says "No jobs
-recorded yet" — so verify a "review complete" claim against `status --all`
-rather than trusting it.
+**HOW TO GET A CODEX REVIEW — corrected 2026-08-13, an earlier note here was
+wrong and cost Joey a round trip.** The `/codex:review` SLASH COMMAND is
+`disable-model-invocation` (human-only). That does NOT mean Codex is
+unreachable: invoke the **`codex:rescue` skill**, which routes to the
+**`codex:codex-rescue` subagent** via the `Agent` tool. That is the
+agent-facing path and it satisfies Workflow rule 3. Do not hand the review
+back to a founder — Joey's expectation is that agents deploy Codex
+themselves.
+
+Gotchas on that path: `Skill(codex:codex-rescue)` does not exist and
+`Skill(codex:rescue)` from inside the command re-enters and HANGS the session
+— go through the `Agent` tool. Check `task-resume-candidate --json` first
+unless `--resume`/`--fresh` was given. Codex health 2026-08-13: `ready: true`,
+cli 0.144.6, ChatGPT auth verified. **Pull results with `codex-companion.mjs
+result <job-id>`; the subagent's inline summary is not reliable.**
 
 ## Last session
 
@@ -148,11 +156,17 @@ to be cleared once he has reviewed the PRs:
 
 ## Next obvious step
 
-Verify the steps 14a–17 result directly. Three things specifically, because
-each was a review correction the executor could under-deliver:
-`grep -n "export function mergeEraFeed"` returns exactly ONE signature (14b);
-no theory/egg detail can render without a back-link (17); every touched file
-is under 300 lines, `EraSection.tsx` included (15).
+Two things in flight, both needing verification, not trust:
+
+1. **Codex review job `task-mssb0p0c-vzzubf`** on `feature/era-reader-p2`
+   (covers PR 1 too — stacked). Pull it with `codex-companion.mjs result
+   task-mssb0p0c-vzzubf`, NOT from the subagent's summary. Fix every finding
+   before PR 2 opens; PR 1 (#2086) is already open, so a finding there is a
+   follow-up commit on its branch.
+2. **P3 steps 14a–17** with an executor. Check three things it could
+   under-deliver: `grep -n "export function mergeEraFeed"` returns exactly ONE
+   signature (14b); no theory/egg detail renders without a back-link (17);
+   every touched file under 300 lines, `EraSection.tsx` included (15).
 
 Then P4 (mobile bottom nav) from step 18, P5 (masthead) from step 21.
 
