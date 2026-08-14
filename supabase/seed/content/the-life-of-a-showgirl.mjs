@@ -10725,6 +10725,46 @@ export default {
             accessed_at: '2026-08-13',
             reliability_score: 4,
           },
+          // GMA's own video of the camp remarks — oEmbed-verified 2026-08-14
+          // (title "Travis Kelce opens up about wedding to Taylor Swift").
+          {
+            outlet: 'YouTube — Good Morning America',
+            url: 'https://www.youtube.com/watch?v=5AzDPpG3nEc',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-first-solo-outing-since-wedding-london',
+      // Cross-link: the wedding this is measured against.
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      year: 2026,
+      month: 8,
+      day: 12,
+      category: 'fashion',
+      title: 'Her first night out as a newlywed: a lavender minidress and a shorter cut in London',
+      snippet:
+        'Six weeks after the MSG wedding, Taylor stepped out solo for the first time — a lilac Delphine minidress and a noticeably shorter, sleeker cut that had fashion desks talking within a day.',
+      sourceUrl:
+        'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-lavender-mini-dress-delphine/',
+      // Text-first by necessity: a paparazzi night-out has no cleanly
+      // licensable image and no taylorswift-account post to embed. Left for
+      // photo-sparsity / social-post-missing to route if one surfaces.
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Forty-one days after marrying Travis Kelce at Madison Square Garden, Taylor made her first solo public appearance as a newlywed — a night out in London on Aug. 12, 2026. The clothes did the talking: a lilac floral minidress, the “Mini Isabelle” by the New York label Delphine (designer Tanya Taylor), worn with metallic-gold Aquazzura “Love Struck” sandals, a crystal-ombré Christian Louboutin clutch and a Cartier Santos watch.\n\nThe bigger story for fans was the hair. Taylor debuted a noticeably shorter cut — the long lengths of the Eras and Showgirl years trimmed to roughly shoulder-length and worn sleek and straight, with her signature blunt bangs kept — a change E! News was first to flag. Coming weeks after a wedding the couple has otherwise kept almost entirely to themselves, the outing read less like a red-carpet statement than a newlywed easing back into public view on her own terms, and outlets from Marie Claire to People and Page Six logged the head-to-toe change inside a day.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-lavender-mini-dress-delphine/',
+            source_title:
+              'Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
+          },
         ],
       },
     },
