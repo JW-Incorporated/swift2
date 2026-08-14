@@ -40,9 +40,18 @@ written down; ask instead.
    Planning is still required; only the approval step is gone. Rule 5, rule 6
    and § Decision authority are unaffected.)
 2. **Work on a branch.** Never commit directly to `main`.
-3. **Cross-review everything.** After implementing, run `/codex:review` on the
+3. **Cross-review everything.** After implementing, get a Codex review of the
    changes and fix every finding before declaring work done. For risky or
-   architectural changes, use `/codex:adversarial-review` instead.
+   architectural changes, ask for an adversarial review instead.
+   **`/codex:review` is a HUMAN-ONLY command** (`disable-model-invocation`) —
+   a session cannot run it and must not reproduce it by other means. Sessions
+   use the `codex:rescue` skill → `codex:codex-rescue` subagent instead, and
+   **must pass `--background`**: without it the forwarder blocks, times out at
+   10 minutes, and returns nothing, while a real review takes ~15. Read the
+   result with `codex-companion.mjs result <job-id>`, never from the relay's
+   summary. Full contract, commands and traps: `docs/agents/codex.md`.
+   Never hand a review back to a founder — agents deploy Codex themselves.
+   The in-house `reviewer` agent does NOT satisfy this rule.
 4. **Test everything.** Write or update automated tests for every feature.
    Run the full suite before declaring work done.
 5. **Disagreements surface, not settle.** If Claude and Codex disagree on an

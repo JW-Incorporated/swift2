@@ -25,6 +25,7 @@ reference docs it points at:
 | `docs/decisions.md` | Anything expensive to reverse. Append BEFORE implementing |
 | `docs/definition-of-done.md` | The long form of CLAUDE.md § Definition of done |
 | `docs/agents/runners.md` | Scheduled runners — all on Wyatt's account |
+| `docs/agents/codex.md` | How a session actually runs a Codex review (`--background`, `result <job-id>`) |
 
 ## Conventions
 
