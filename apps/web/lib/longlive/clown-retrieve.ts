@@ -84,6 +84,19 @@ export const DEFAULT_CLOWN_RETRIEVAL_LIMIT = 8;
 /** How far back a doc's `recencyDate` counts as "fresh" for a recency query. */
 const RECENCY_WINDOW_DAYS = 14;
 
+/**
+ * Letters/digits only — the compact form of a token, for comparing a
+ * hyphenated query compound against corpus text that renders the same
+ * compound with no delimiter at all (a hashtag, camelCase). `tokenize`
+ * (search.ts) preserves hyphens as-is on both sides, so "swifties-against-ai"
+ * never matches a title word like "#SwiftiesAgainstAI:" through ordinary
+ * word/prefix comparison — this is a last-resort fallback, not a
+ * replacement for it.
+ */
+function compactForm(text: string): string {
+  return text.replace(/[^a-z0-9]/g, '');
+}
+
 /** Title hits outrank body hits; whole-word beats prefix. */
 function scoreDoc(doc: ClownDoc, terms: readonly string[]): number {
   if (terms.length === 0) return 0;
@@ -92,10 +105,15 @@ function scoreDoc(doc: ClownDoc, terms: readonly string[]): number {
 
   let score = 0;
   for (const term of terms) {
+    // Only a hyphenated compound gets the compact-form fallback below — every
+    // other term's scoring is untouched.
+    const compactTerm = term.includes('-') ? compactForm(term) : '';
     if (titleWords.includes(term)) score += 12;
     else if (term.length >= 3 && titleWords.some((w) => w.startsWith(term))) score += 7;
     else if (bodyWords.includes(term)) score += 5;
     else if (term.length >= 4 && bodyWords.some((w) => w.startsWith(term))) score += 2;
+    else if (compactTerm.length >= 3 && titleWords.some((w) => compactForm(w) === compactTerm)) score += 12;
+    else if (compactTerm.length >= 3 && bodyWords.some((w) => compactForm(w) === compactTerm)) score += 5;
   }
   return score;
 }

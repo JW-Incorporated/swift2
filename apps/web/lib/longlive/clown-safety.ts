@@ -4,10 +4,27 @@
  * narrative (three harnesses, session 2026-08-11/12) — condensed here:
  *
  * Boundary judgment is exactly where a small fast model fails, and every
- * failure here is a screenshot. So boundary enforcement does not depend on
- * the persona prompt holding. This module is pure TypeScript, runs with no
- * API key, is unit-tested directly, and cannot be argued with — there is no
- * prompt for a user to talk their way around.
+ * failure here is a screenshot. Boundary enforcement is BUILT not to depend
+ * on the persona prompt holding, on both sides of the gate:
+ *   - INPUT (`screenInput`) is fully prompt-independent already.
+ *   - OUTPUT (`screenOutput`) used to silently fall back to the INPUT
+ *     patterns for any category without its own `output` list — which
+ *     over-matched the bot's own prose (an input-tuned `\bdiagnos` stem
+ *     caught "I diagnosed a whole color theory") AND under-matched real
+ *     redlines (paraphrased first-person-as-Taylor narration with zero
+ *     trigger token sailed straight through). As of 2026-08-14 every
+ *     category in `clown-safety-gates.ts` / `clown-blocklist-gates.ts` owns
+ *     a deliberate, narrow `output` list instead — see
+ *     clown-safety.test.ts's "Finding 1" / "Finding 2" suites, which are the
+ *     regression lock for both directions.
+ * That output net is NOT airtight: one class (sexuality speculation phrased
+ * with zero orientation word, e.g. "the person it's about has been three
+ * rows back at every show") is a DOCUMENTED gap — see the comment on
+ * `SEXUALITY.output` in clown-blocklist-gates.ts for why closing it
+ * deterministically risks eating legitimate lyric interpretation instead.
+ * This module is pure TypeScript, runs with no API key, is unit-tested
+ * directly, and cannot be argued with — there is no prompt for a user to
+ * talk their way around.
  *
  * WHAT THIS FILE OWNS vs. what moved out in the rebuild's split:
  *   - THIS FILE: the BEHAVIOUR redlines (impersonation, official/insider/
