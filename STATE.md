@@ -40,9 +40,24 @@ producing verdicts — its partial corpus verification was positive (49/244
 pairings stable, Fortnight pairs, Karma null, 84 records/81 tagged/3 untagged,
 generated file matches a fresh regeneration) but it never judged the HIGH.
 
-**Now: a `reviewer` agent on `model: "fable"`** — the fallback Joey authorised.
-Focused on the date-leak invariant, which has been "fixed" three times and
-leaked twice. When it reports: fix findings, then MERGE (authorised below).
+**The Fable reviewer ran and returned REJECT with 4 real findings — all now
+fixed, verified, committed and pushed.** It also PROVED the date-leak
+invariant holds, by execution: all 96 non-exact entries across 12 eras, every
+render path, all 7 filter states, 0 violations. That bug is dead.
+
+What it caught that three Codex rounds did not:
+1. `focusout` never fires when its target is REMOVED from the DOM, so
+   Escape-closing SearchOverlay left `BottomNav` unmounted **permanently**.
+2. `spaceDoorways` displaced a doorway but kept its `data-ll-date`, so
+   scrubber dates ran backwards — **44 inversions, worst 219 days**, in 9+
+   eras. Now 44 → 0, locked by `scrubber-anchor-corpus.test.ts`.
+3. Interpolation bent toward fabricated dates: the pill showed months no real
+   content occupies. Synthetic anchors are now excluded from the date curve
+   while still positioning cards.
+4. The filter pin landed exactly on the viewport centre; now +4px clear.
+
+**Waiting on CI (background job `be2c2mszf` exits when checks settle). Then
+MERGE — authorised below.**
 
 **Joey wants ONE PR** (2026-08-13). `feature/era-reader-p4` already contains
 every commit from P1–P3, so: `git push origin
@@ -210,6 +225,12 @@ the `EraVideos` deletion vs the scrubber sentinel, lazy-era races, and the
   is git-ignored, so CI (clean checkout) is unaffected. Lint the specific
   files instead of trusting the repo-wide run, and do NOT "fix" it by deleting
   another session's worktree.
+- **A passing suite is not evidence; EXECUTION against the real corpus is.**
+  Every genuine defect this session was found by running the pipeline over the
+  live vault, never by reading code — and each time, 2600+ green tests had
+  made us confident and wrong. The fixtures always used the easy case
+  (distinct dates, in-position cards). When reviewing, demand a corpus
+  reproduction, not a code-reading verdict.
 - **Two matchers, one app** — the lesson from Codex findings 2 and 4. Building
   a careful new helper does NOT retire the sloppy old one; grep for other
   callers before declaring a matching bug fixed. Same shape as the HIGH date
