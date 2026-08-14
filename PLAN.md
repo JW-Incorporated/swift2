@@ -14,12 +14,13 @@ has to be organized in some way… Taylor Swift official merch should be its own
 selector, fan-made merch should be its own selector… filters similar to the eras
 filters."
 
-## STATUS: NOT READY TO BUILD
+## STATUS: STEPS 1–5 READY. ONE OPEN QUESTION LEFT.
 
-Two of the six asks are blocked on content Joey has to supply or waive, and the
-Fable design evaluation has not landed. **Do not dispatch executors until § Open
-questions is answered.** Steps below are written so the unblocked ~70% can
-proceed independently of the blocked 30%.
+The design has landed and the image blocker is **resolved** — 150 of 156
+products can use their source moment's photo, verified by execution. **Only the
+official/fan-made selector still needs Joey**, and the design answers it well
+enough to build without him (render-gate on a non-empty bucket), so nothing is
+actually stalled. Steps 1–5 can all proceed.
 
 ---
 
@@ -29,9 +30,11 @@ These are counted, not assumed. Every design decision below rests on them.
 
 | Fact | Value | Consequence |
 |---|---|---|
-| `Product` image field | **Does not exist** | "Images on every merch item" needs a schema change AND 151 sourced images |
-| Products with an image | **0 of 151** | Not a rendering task. Cannot be built from what we have |
-| `shopTheLook` | 151 | The only populated bucket |
+| `Product` image field | **Does not exist** | No product carries its own image |
+| **`shopTheLook` products** | **156** (NOT 151 — that is the moment count) | Two agents and my first report got this wrong; 151 is `distinctMoments` |
+| **Products whose source moment has a REAL photo** | **150 of 156 (96%)** | **The image ask is UNBLOCKED** — use the moment photo (the look as worn) |
+| Products needing the fallback tile | **6** | Brand-monogram tile, never a photo that isn't the look |
+| Distinct source moments | 151 (145 real photo, 6 era-art only) | Several products share one moment |
 | `officialStore` | **0** | Selector would ship empty |
 | `fanMade` | **0** | Selector would ship empty |
 | Filterable fields on `Product` | `brand` (151 distinct), `retailer` (40+), `price?`, `inStock?` | Neither brand nor retailer is a usable filter at that cardinality |
@@ -44,16 +47,12 @@ These are counted, not assumed. Every design decision below rests on them.
 
 ## Open questions — Joey's calls, blocking the merch half
 
-1. **Merch images (blocks "images on every item").** There is no image field and
-   no images. Options, in order of my preference:
-   - **(a) Ship merch without images now**, add the field + images later. The
-     rest of the redesign lands today.
-   - **(b) Source images for all 151** — real work, and hotlinking retailer
-     images is fragile (see `curl` vs real-browser hotlink trap) and legally
-     murkier than linking out.
-   - **(c) Use each product's era as a visual** — a colour block / era mark
-     instead of a photo. Cheap, honest, ships now, looks deliberate rather than
-     broken. **My recommendation if he wants visual weight immediately.**
+1. ~~**Merch images**~~ — **RESOLVED, no longer blocking.** Verified by running
+   `hasRealPrimaryImage()` over the real catalogue (not by grep — see the
+   warning in `types.ts` that "has images alone proves nothing"): **150 of 156
+   products can show their source moment's photo**, the look as worn. Those
+   images already render in the era feed, so there is no new sourcing and no
+   hotlink risk. **6 get the brand-monogram fallback.** Build it.
 2. **Official / fan-made selectors (blocks that part of the ask).** Both buckets
    are empty. Options: **(a)** don't ship the selector until there is data;
    **(b)** ship it with an explicit empty state that says what is coming.
@@ -152,7 +151,14 @@ Steps 1–3 are unblocked and can run in parallel now. 4–5 wait on § Open que
 4. [ ] **Merch organisation + era filters** (blocked on Q3). Extract
    `filter-chips.ts` first so `FilterBar` and merch share one implementation.
    - Verify: filter counts match a hand-count of `MerchItem.source.era`.
-5. [ ] **Merch images** (blocked on Q1). Schema + rendering + fallback.
+5. [ ] **Merch images — UNBLOCKED.** Render the source moment's primary photo as
+   a 72/88px inline thumbnail, `loading="lazy"` (156 thumbnails must not block
+   the page). **Resolve it through `hasRealPrimaryImage()`, never by checking
+   `images.length`** — 6 products' moments carry only the era-art stand-in and
+   must get the brand-monogram tile instead. Never show era album art in a
+   shopping row: a picture that isn't the item reads as the item.
+   - Verify: count rendered thumbnails vs monogram tiles in a browser; expect
+     150 / 6. A mismatch means the predicate was bypassed.
 6. [ ] Orchestrator: full suite, Fable review, then hold for Actions.
 
 ## Do not

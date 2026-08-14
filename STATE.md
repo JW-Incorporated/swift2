@@ -8,18 +8,18 @@
 **ACTIVE: merge Community + Merch into one section, redesign both.** Joey
 2026-08-14. **Drop the Merch tab** (nav → five labelled: Eras, Threads, Mood,
 Clownbot, Community), title stays "Community", **full-width 50/50 toggle**
-switching **Social** / **Merch**, a section-jump subnav that also PREVIEWS depth,
-era-style merch filters, and an image on every merch item.
+switching **Social** / **Merch**, a section-jump subnav that PREVIEWS depth,
+era-style merch filters, an image on every merch item. **`PLAN.md` holds the
+facts, the Fable design spec and the steps — read it, not this.**
 
-**`PLAN.md` holds the facts, the Fable design spec, and the steps — read it, not
-this.** (That spec was a model override, NOT an architect escalation.)
-
-**The image blocker may be dissolved — VERIFYING, do not act on it yet.** The
-spec claims 147/151 products can use their source MOMENT's photo (the look as
-worn) rather than a sourced product shot. **Trap:** `types.ts` warns *"every
-item has a non-empty `images`, so 'has images' alone proves nothing"* — moments
-without a real photo get an era-art stand-in and only `hasRealPrimaryImage()`
-separates them. A scout is recounting.
+**The image blocker is RESOLVED — verified by execution, 150 of 156 products**
+can show their source moment's photo (the look as worn); 6 get a monogram tile.
+Those images already render in the era feed: no sourcing, no hotlink risk.
+**`shopTheLook` is 156 products, NOT 151 — 151 is the distinct-MOMENT count**,
+and three separate reports (both agents and my own first summary) got that
+wrong. **Resolve images via `hasRealPrimaryImage()`, never `images.length`** —
+`types.ts` warns "has images alone proves nothing", and a grep-based count
+returned a confident, wrong 151/151.
 
 **Nav fit is settled:** five labelled tabs FIT — 390/430px comfortably, 320px on
 ~1.2px slack (proxy-measured), so probable-not-proven. **Any label longer than
@@ -44,13 +44,11 @@ never fail a submission.**
 
 - **GITHUB ACTIONS IS DOWN ACCOUNT-WIDE — BILLING. Nothing can merge.** Jobs
   refuse to start: *"recent account payments have failed or your spending limit
-  needs to be increased."* Last good run `CI` 2026-08-14T21:44:44Z; everything
-  from ~21:49Z fails to start. **`build` does not run, so there is no merge
-  gate** — do not merge past it; a missing `build` is not a red one. Founder
-  fix: GitHub → Settings → Billing & plans. **Also silently down: `social-poster`
-  (posts are NOT going out) and `watchdog` — the thing that emails when a runner
-  goes dark is inside the outage.** #2110/#2112 merged on genuinely green builds
-  from before the cutoff; neither is suspect.
+  needs to be increased."* Last good run 21:44:44Z 2026-08-14; all later ones
+  fail to start. **`build` does not run, so there is no merge gate** — a missing
+  `build` is not a red one. Founder fix: Settings → Billing & plans. **Also down:
+  `social-poster` (posts are NOT going out) and `watchdog` — the alarm for a dark
+  runner is inside the outage.** #2110/#2112 merged green before the cutoff.
 - **PR #2114 is parked on that** — this checkpoint, docs only; needs only a
   re-run. **PR #2104 (older, STATE.md-only) is superseded and should be closed,
   not merged** — it predates everything since the chat-UI merge.
@@ -88,12 +86,14 @@ one.** Standing, NOT spent: **"don't allow codex reviews more than 2 rounds."**
   #2108 and `build` was green (filed #2113). Left #2104 open, not closed.
 - Fixed round 2's LOW (whitespace-hidden formulas) rather than shipping it as a
   named open finding — two characters, inside the class already being fixed.
-- Moved durable traps into `docs/engineering-lessons.md`, `CLAUDE.md` points at
-  it. The cap was unmeetable because working memory was being used as the record.
-- **A `grunt` edited the MAIN checkout** (`Documents\Claude\Projects\Swift2`,
-  branch `fix/karen-mechanics`) not its worktree, compressing the wrong base —
-  discarded; done by hand. **That tree still has an uncommitted `MAP.md` edit**
-  (not mine to discard; a no-op once #2114 lands). Make agents echo cwd first.
+- Moved durable traps into `docs/engineering-lessons.md`; `CLAUDE.md` points at
+  it. The cap was unmeetable while working memory was being used as the record.
+- **A `grunt` edited the MAIN checkout** (`fix/karen-mechanics`) not its
+  worktree, compressing the wrong base — discarded, done by hand. **That tree
+  still has an uncommitted `MAP.md` edit** (a no-op once #2114 lands). Make
+  agents echo cwd first.
+- **Counted merch image coverage myself after two agents disagreed** (147 vs
+  151, both unsound — one grepped instead of running the predicate).
 
 ## Architect invocations
 
@@ -130,16 +130,16 @@ inherits; two mechanisms for one fact; user text in a spreadsheet is a formula.
 
 ## Open threads
 
-- [ ] 3 appearance videos carry no topic tag — their own records support none;
-      folklore and evermore have no Tour content (true of the world, not a gap).
+- [ ] 3 appearance videos carry no topic tag; folklore/evermore have no Tour
+      content. Both true of the world, not gaps.
 - [ ] Theory doorways scatter rather than sitting beside the song they discuss.
       Joey accepted this 2026-08-13; an authored `anchorHint` is the fix.
 
 ## Next obvious step
 
-0. **`PLAN.md` is written but says NOT READY TO BUILD.** Fold in the Fable design
-   when it lands, get Joey's answers to its § Open questions, then dispatch
-   executors on steps 1–3 (unblocked) while 4–5 wait on him.
+0. **`PLAN.md` steps 1–5 are READY — dispatch executors.** Nothing is stalled:
+   the image blocker resolved, and the official/fan-made selector is
+   render-gated so it needs no answer to build.
 1. **Joey's hands:** the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`, plus his three #2110 questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
