@@ -466,38 +466,50 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
-      # Karen filed-what-she-found check (2026-08-11). The cadence check above
-      # sees Actions workflows; the content-lane liveness checks below see "did
-      # a PR appear". Neither can see the failure Karen actually has, which is the
-      # nastiest shape a runner failure takes: she runs, she scans perfectly,
-      # she commits a completely normal-looking run report, her PR merges — and
-      # the findings never reach a ticket.
+      # Karen filed-what-she-found check (2026-08-11; reworked 2026-08-14 after
+      # a five-day Karen outage went unnoticed — docs/decisions.md 2026-08-14).
+      # The cadence check above sees Actions workflows; the content-lane
+      # liveness checks below see "did a PR appear". Neither can see the two
+      # failure shapes Karen actually has:
       #
-      # It has happened twice. 2026-07-26 (issue #528): step 5 died on
-      # `spawn gh ENOENT`, 623 filable findings discarded. 2026-08-09 (PR
-      # #1850): step 5 died on `401 Bad credentials` in the REST fallback, 597
-      # discarded (P1 49 · P2 505 · P3 43). Both runs looked healthy from
-      # outside — same report file, same PR, same merge — so ~1,220 findings
-      # were destroyed with nothing anywhere saying so.
+      #   (a) she runs, scans perfectly, commits a normal-looking report, her
+      #       PR merges — and the findings never reach a ticket. Happened
+      #       twice: 2026-07-26 (issue #528, `spawn gh ENOENT`, 623 findings)
+      #       and 2026-08-09 (PR #1850, `401 Bad credentials`, 597 findings).
+      #   (b) she doesn't run at all, for days, and nobody notices — because
+      #       OTHER content-authoring agents run `run.mjs scan` as their own
+      #       self-check and their PRs commit that report into the exact path
+      #       Karen owns (docs/audits/engine/). The old version of this check
+      #       picked "newest file by name" and greps a marker, which cannot
+      #       tell Karen's output from an unrelated agent's — so the file kept
+      #       looking fresh while Karen was dark for five days (08-09 → 08-14).
       #
-      # `run.mjs` now stamps every report with a machine-readable verdict
-      # (`lib/report.mjs` → `<!-- cie-filing: status=… unfiled=N -->`). This
-      # check is pure grep over the committed report: no API call, no LLM, no
-      # judgment. Three ways it fires:
-      #   - the newest report has NO marker  → the run never reached the end of
-      #     step 5 (i.e. it crashed exactly the way 07-26 and 08-09 did)
-      #   - status is not `ok`               → filing failed or was fatal
-      #   - unfiled > 0                      → findings detected and discarded
+      # Fix: `docs/audits/engine/` is now Karen-exclusive (`scan()` writes to
+      # `.scratch/content-engine/` by default; only `all()` — Karen's own
+      # pipeline — writes the canonical path), and every report is stamped
+      # with which command produced it (`lib/report.mjs` →
+      # `<!-- cie-run: source=all|scan ... -->`). This check now runs three
+      # independent, zero-AI, pure-grep tests against the newest canonical
+      # report, in order:
+      #   1. STALENESS — is the newest report recent enough to be a real Karen
+      #      run? This is the check whose absence hid the five-day outage.
+      #   2. PROVENANCE — does it actually carry `source=all`? Defense in
+      #      depth for the exact incident: catches a future `scan --canonical`
+      #      or bug that puts a non-Karen report back in her path.
+      #   3. FILED-WHAT-SHE-FOUND (unchanged from 2026-08-11) — did every
+      #      detected finding reach a ticket? Correct all along, but
+      #      unreachable while check 2 could be fooled by another agent's file.
       #
-      # MARKER_EPOCH: reports written before the stamp shipped legitimately
-      # have no marker, so they are not evidence of anything. Only reports
-      # dated on/after this are required to carry one.
-      #
-      # Staleness: Karen is a Wyatt-account cloud routine (docs/agents/runners.md,
-      # `0 9 * * *`), invisible to the Actions cadence check. 72h tolerates two
-      # consecutive misses plus report-PR merge lag (she runs 09:00 UTC; this
-      # runs 14:35 UTC, so a same-day report that hasn't merged yet just leaves
-      # yesterday's as newest — well inside the window).
+      # STALE_DAYS: docs/agents/runners.md documents a cadence CONTRADICTION —
+      # its main table still lists nightly `0 9 * * *`, but a 2026-07-25
+      # override to weekly `0 9 * * 0` (Sun) is recorded as "still in force".
+      # The evidence available from THIS repo (Karen PR dates, not the live
+      # trigger dashboard) is consistent with weekly: her last run, PR #1850,
+      # landed 2026-08-09, a Sunday. 9 days = 7-day cadence + a 2-day buffer
+      # for PR-merge lag or one slow week, without tolerating a second
+      # consecutive miss going unnoticed. If the routine is confirmed nightly
+      # instead, this should shrink back down — see runners.md for the
+      # confirmation this repo cannot give itself.
       #
       # No new cron: this rides the existing daily 35 14 trigger, gated the same
       # way as the other daily-only jobs, and adds nothing to the :00/:30
@@ -512,12 +524,16 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          MARKER_EPOCH="2026-08-12"
-          MAX_AGE_HOURS=72
+          FILING_MARKER_EPOCH="2026-08-12"
+          RUN_MARKER_EPOCH="2026-08-14"
+          STALE_DAYS=9
+          STALE_HOURS=$(( STALE_DAYS * 24 ))
           ALERT_TITLE="Watchdog: Karen scanned but filed no tickets"
 
           # Report filenames are YYYY-MM-DD-cie-run.md, so lexical sort is
-          # chronological. Newest wins.
+          # chronological. Newest wins. After the 2026-08-14 fix, only Karen's
+          # own `all` run writes here at all (a bare `scan` self-check now
+          # defaults to .scratch/), so "newest" reliably means "her newest".
           NEWEST=$(ls docs/audits/engine/*-cie-run.md 2>/dev/null | sort | tail -1 || true)
           if [ -z "$NEWEST" ]; then
             echo "no CIE run reports in docs/audits/engine — nothing to check yet."
@@ -525,48 +541,71 @@ jobs:
           fi
           RUN_DATE=$(basename "$NEWEST" | cut -d- -f1-3)
           AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$RUN_DATE" +%s) ) / 3600 ))
-          MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
-          echo "newest report: $NEWEST (${AGE_H}h old) marker: ${MARKER:-<none>}"
+          RUN_MARKER=$(grep -o '<!-- cie-run:[^>]*-->' "$NEWEST" | tail -1 || true)
+          FILING_MARKER=$(grep -o '<!-- cie-filing:[^>]*-->' "$NEWEST" | tail -1 || true)
+          echo "newest report: $NEWEST (${AGE_H}h old) run-marker: ${RUN_MARKER:-<none>} filing-marker: ${FILING_MARKER:-<none>}"
 
           PROBLEM=""
-          if [ "$AGE_H" -gt "$MAX_AGE_HOURS" ]; then
-            PROBLEM="Karen's newest run report is \`$(basename "$NEWEST")\` — **${AGE_H}h old** (expected within ${MAX_AGE_HOURS}h). The nightly scan has stopped producing reports."
-          elif [ -z "$MARKER" ]; then
-            # Only meaningful once the stamp exists; older reports predate it.
-            if [ "$RUN_DATE" \> "$MARKER_EPOCH" ] || [ "$RUN_DATE" = "$MARKER_EPOCH" ]; then
-              PROBLEM="\`$(basename "$NEWEST")\` carries **no \`cie-filing\` verdict**, which means the run never reached the end of step 5 — it scanned, wrote this report, and then died before filing. That is the exact shape of the 2026-07-26 (623 findings) and 2026-08-09 (597 findings) losses."
+
+          # 1. Staleness — the real fix for the five-day outage.
+          if [ "$AGE_H" -gt "$STALE_HOURS" ]; then
+            PROBLEM="Karen's newest run report is \`$(basename "$NEWEST")\` — **${AGE_H}h old** (expected within ${STALE_DAYS} days / ${STALE_HOURS}h). She has stopped producing reports, or her report isn't reaching \`main\`."
+          fi
+
+          # 2. Provenance — only meaningful once the stamp exists; reports
+          # written before it shipped legitimately have no marker.
+          if [ -z "$PROBLEM" ] && { [ "$RUN_DATE" \> "$RUN_MARKER_EPOCH" ] || [ "$RUN_DATE" = "$RUN_MARKER_EPOCH" ]; }; then
+            if [ -z "$RUN_MARKER" ]; then
+              PROBLEM="\`$(basename "$NEWEST")\` carries **no \`cie-run\` provenance marker**, so it cannot be confirmed as a genuine Karen (\`all\`) run rather than some other command."
             else
-              echo "report predates MARKER_EPOCH ($MARKER_EPOCH) — no verdict expected."
+              RUN_SOURCE=$(echo "$RUN_MARKER" | sed -n 's/.*[[:space:]]source=\([a-z]*\).*/\1/p')
+              if [ "$RUN_SOURCE" != "all" ]; then
+                PROBLEM="\`$(basename "$NEWEST")\` was produced by \`${RUN_SOURCE:-unknown}\`, not Karen's \`all\` run. Only \`all\` should ever write to docs/audits/engine/ — something bypassed that."
+              fi
             fi
-          else
-            # Anchored on the leading space: a bare `grep -o 'filed=[0-9]*'`
-            # also matches the tail of `unfiled=597` and returns two values.
-            STATUS=$(echo "$MARKER" | sed -n 's/.*[[:space:]]status=\([a-z-]*\).*/\1/p')
-            UNFILED=$(echo "$MARKER" | sed -n 's/.*[[:space:]]unfiled=\([0-9]*\).*/\1/p')
-            FILED=$(echo "$MARKER" | sed -n 's/.*[[:space:]]filed=\([0-9]*\).*/\1/p')
-            if [ "$STATUS" != "ok" ] || [ "${UNFILED:-0}" -gt 0 ]; then
-              PROBLEM="\`$(basename "$NEWEST")\` reports filing status **\`${STATUS}\`** with **${UNFILED:-?} finding(s) detected and never filed** (${FILED:-0} filed). Those findings are on no ticket and in no queue."
+          fi
+
+          # 3. Filed-what-she-found (unchanged logic from 2026-08-11) — was
+          # always correct, was just unreachable while check 2 above could be
+          # fooled by another agent's self-check report.
+          if [ -z "$PROBLEM" ]; then
+            if [ -z "$FILING_MARKER" ]; then
+              # Only meaningful once the stamp exists; older reports predate it.
+              if [ "$RUN_DATE" \> "$FILING_MARKER_EPOCH" ] || [ "$RUN_DATE" = "$FILING_MARKER_EPOCH" ]; then
+                PROBLEM="\`$(basename "$NEWEST")\` carries **no \`cie-filing\` verdict**, which means the run never reached the end of step 5 — it scanned, wrote this report, and then died before filing. That is the exact shape of the 2026-07-26 (623 findings) and 2026-08-09 (597 findings) losses."
+              else
+                echo "report predates FILING_MARKER_EPOCH ($FILING_MARKER_EPOCH) — no verdict expected."
+              fi
+            else
+              # Anchored on the leading space: a bare `grep -o 'filed=[0-9]*'`
+              # also matches the tail of `unfiled=597` and returns two values.
+              STATUS=$(echo "$FILING_MARKER" | sed -n 's/.*[[:space:]]status=\([a-z-]*\).*/\1/p')
+              UNFILED=$(echo "$FILING_MARKER" | sed -n 's/.*[[:space:]]unfiled=\([0-9]*\).*/\1/p')
+              FILED=$(echo "$FILING_MARKER" | sed -n 's/.*[[:space:]]filed=\([0-9]*\).*/\1/p')
+              if [ "$STATUS" != "ok" ] || [ "${UNFILED:-0}" -gt 0 ]; then
+                PROBLEM="\`$(basename "$NEWEST")\` reports filing status **\`${STATUS}\`** with **${UNFILED:-?} finding(s) detected and never filed** (${FILED:-0} filed). Those findings are on no ticket and in no queue."
+              fi
             fi
           fi
 
           if [ -z "$PROBLEM" ]; then
-            echo "Karen's newest run report ($(basename "$NEWEST")) confirms every detected finding reached the tracker, as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            echo "Karen's newest run report ($(basename "$NEWEST")) is fresh, genuinely hers, and confirms every detected finding reached the tracker, as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "karen filing OK"
             exit 0
           fi
 
           {
-            echo "@sffan15-sys @wjduvall-cmd — the Content Integrity Engine detected content problems and did not turn them into tickets."
+            echo "@sffan15-sys @wjduvall-cmd — the Content Integrity Engine (Karen) has a problem."
             echo ""
             printf '%b\n' "$PROBLEM"
             echo ""
-            echo "**Why this matters more than it looks:** a Karen run that files nothing still commits a normal report and still merges a normal PR, so it is indistinguishable from a healthy night unless something checks this. Roughly 1,220 findings were destroyed this way across 2026-07-26 and 2026-08-09 before anyone noticed."
+            echo "**Why this matters more than it looks:** a stale or unreachable Karen looks identical to a healthy one from outside — same report file, same PR, same merge — unless something checks this. A five-day outage (2026-08-09 → 2026-08-14) and ~1,220 findings destroyed by two earlier filing failures (2026-07-26, 2026-08-09) both went unnoticed this way."
             echo ""
             echo "Check, in order:"
-            echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure."
+            echo "1. The report itself: [\`${NEWEST}\`](https://github.com/${REPO}/blob/main/${NEWEST}) — its 'Ticket filing' section names the exact failure, if any."
             echo "2. Can the runner write to GitHub at all? \`node --use-env-proxy scripts/content-engine/run.mjs issues --create\` from a clean checkout does the label-upsert preflight first and says so in one second."
-            echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab."
+            echo "3. Karen is a Wyatt-account cloud routine (\`docs/agents/runners.md\`), not an Actions workflow — its logs live there, not in this repo's Actions tab. If she's stale, someone with access to the routine dashboard needs to confirm she's actually enabled and firing — this repo cannot see that."
             echo ""
             echo "Nothing is lost by re-running: the engine is idempotent and fingerprint-deduped, so \`node --use-env-proxy scripts/content-engine/run.mjs all --create\` re-derives the same findings and files whatever is still missing."
           } > /tmp/alert-body.md
