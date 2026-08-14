@@ -60,6 +60,10 @@ jobs:
       # well-formed. A malformed lock is caught HERE, at the PR, never at fleet
       # runtime. An empty manifest (nothing claimed) always passes.
       - run: npm run check:content-ownership
+      # Filter coverage (kit-v3 P1): every item that can appear on an era
+      # timeline must carry at least one of the six global filter ids, or
+      # R2's single sticky filter makes it permanently unreachable.
+      - run: npm run check:filter-coverage
       # Dependency-downgrade guard (#1903): fail if any dep's highest resolved
       # version dropped below `main`. The base lockfile is fetched from the LIVE
       # base branch at build time (not the PR's stale base), so a lockfile

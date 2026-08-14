@@ -23,6 +23,7 @@ import {
   type Progress,
 } from './progress';
 import { pushBackEntry } from './useBackDismiss';
+import type { FilterId } from './filters';
 import type { EraId, LensId, MotifId } from './types';
 
 export type AppMode = 'landing' | 'era' | 'threads' | 'mood' | 'clownbot';
@@ -77,6 +78,8 @@ interface AppState {
    * Consumed (cleared) by ClueWeb once it lands there.
    */
   clueWebTrail: MotifId | null;
+  /** Active global timeline filter chips. Empty = show everything (P1). */
+  filters: ReadonlySet<FilterId>;
 }
 
 export type ShareTarget =
@@ -162,6 +165,10 @@ interface AppActions {
   setSearchOpen: (open: boolean) => void;
   openShare: (t: ShareTarget) => void;
   closeShare: () => void;
+  /** Toggle one filter chip on/off in the active set. */
+  toggleFilter: (id: FilterId) => void;
+  /** Clear all active filter chips ("All"). */
+  clearFilters: () => void;
 }
 
 /**
@@ -269,6 +276,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [share, setShare] = useState<ShareTarget | null>(null);
   const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
+  const [filters, setFilters] = useState<ReadonlySet<FilterId>>(() => new Set());
 
   // Era-stream position to restore on the next era-mode entry. Held in a ref so
   // saving/reading it never triggers a render (the stream reads it imperatively
@@ -392,6 +400,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setOpenItemId(null);
   }, []);
 
+  const toggleFilter = useCallback((id: FilterId) => {
+    setFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const clearFilters = useCallback(() => {
+    setFilters(new Set());
+  }, []);
+
   // Home is the landing page (#684) — the same front door every visitor gets.
   const goHome = useCallback(() => {
     clearEraScroll();
@@ -505,6 +526,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSearchOpen,
       openShare: setShare,
       closeShare: () => setShare(null),
+      toggleFilter,
+      clearFilters,
     }),
     [
       setEra,
@@ -518,6 +541,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       saveEraScroll,
       getEraScroll,
       clearEraScroll,
+      toggleFilter,
+      clearFilters,
     ],
   );
 
@@ -537,6 +562,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       searchOpen,
       share,
       clueWebTrail,
+      filters,
     }),
     [
       mode,
@@ -553,6 +579,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       searchOpen,
       share,
       clueWebTrail,
+      filters,
     ],
   );
 
