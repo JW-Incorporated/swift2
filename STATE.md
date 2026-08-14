@@ -11,8 +11,9 @@
 (five sequenced PRs, order is load-bearing). Driven by Joey's consolidated team
 feedback on the "Time Machine Mockups" artifact, 2026-08-13.
 
-In flight: P1 steps 5a–5b (fix `filtersForEntry`, pull anchor dating forward)
-dispatched to an executor. Steps 1–5 are done, in the working tree, UNCOMMITTED.
+In flight: P1 step 6a (zero-match era empty state) + the PR-1 docs slice,
+dispatched to an executor. Steps 1–7 otherwise done, in the working tree,
+UNCOMMITTED. After 6a: `/codex:review`, fix findings, open PR 1.
 
 ## Last session
 
@@ -24,11 +25,19 @@ dispatched to an executor. Steps 1–5 are done, in the working tree, UNCOMMITTE
   one `visibleFeed(entries, active)` pass; `EraStream.tsx` mounts `FilterBar`
   and pins the active era's offset across a filter change; `TopBar.tsx` gained
   a `data-ll-topbar` hook so the bar can measure it.
+  Then 5a–5c and 6: `filters.ts` gained the owner-set ctx and the music-video
+  rule; new `lib/longlive/anchor-date.ts` (+test) with `era-scatter`;
+  `mergeEraFeed` now takes `(moments, videos, eraStart, eraEnd)` and every
+  entry carries `anchor`; `undatedAnchorDate()` subsumed and deleted; new
+  `scripts/check-filter-coverage.mjs` (+test), wired into `package.json` and
+  `ci.yml`'s `build` job.
 - Verified by (re-run by me, not taken on report): `npm test -- filters` →
-  8/8. Executor also reported `era-feed` 21/21, `typecheck --workspace=
-  @swift2/web` clean, `lint` clean, full `npm test` 2530 passing with only the
-  pre-existing `satori` failure.
-- Left unfinished: P1 steps 5a–5b (in flight), 6, 7, 7a. Then P2–P5.
+  8/8 then 11/11; `npm run check:filter-coverage` → exit 0, "every timeline
+  item carries at least one filter id". Executor reported anchor-date 15/15,
+  era-feed 20/20, check-filter-coverage 11/11, typecheck/lint clean, full
+  suite 2558 passing with only the pre-existing `satori` failure.
+- Left unfinished: P1 step 6a + docs (in flight), then Codex review and PR 1.
+  Then P2–P5.
 
 ## Autonomous decisions — review surface
 
@@ -58,6 +67,15 @@ dispatched to an executor. Steps 1–5 are done, in the working tree, UNCOMMITTE
   at the end of every era. A PR must be independently correct, not just small.
 - **Seeded `FilterBar`'s sticky offset at 52px** instead of 0 — it measures
   TopBar's real height, but starting at 0 parked it over TopBar for a frame.
+- **Rejected the `era-midpoint` anchor fallback** in favour of a deterministic
+  per-id scatter across the era span. Midpoint gave every undated item the same
+  sort key, trading an end-of-era pile for a mid-era clump; 26 of 84 video
+  records are undated, so the clump was real. Joey asked for them scattered.
+- **Added a zero-match era empty state that the plan had missed** (step 6a).
+  A global filter makes "Tour + folklore" reachable; per-era filters never
+  could, because they reset at every era boundary. The section keeps its hero
+  and lyric rather than collapsing — collapsing would strand the reader, break
+  "stay in the era you're in", and delete that era's scrubber anchors.
 
 ## Architect invocations
 
@@ -118,6 +136,17 @@ dispatched to an executor. Steps 1–5 are done, in the working tree, UNCOMMITTE
 
 ## Open threads
 
+- [ ] **18 appearance-family videos carry no topic tag** (interviews, awards,
+      TV spots) — reachable only under Videos. `VideoNote` has no topic field
+      at all. Reported to Joey 2026-08-13; his call whether to author them.
+      Music videos are fine (they reach Music via the restored rule).
+- [ ] **Videos have no pointer to a moment or track**, so `related-item` /
+      `related-song` never fire for them and they always fall to
+      `era-scatter`. Title-matching a music video to its song is the P3 job —
+      Joey's "put it near some content about that song" needs it, and doorway
+      cards need the same lookup.
+- [ ] folklore and evermore have no Tour content. Correct — neither era had a
+      tour. Not a content gap; do not "fix" it.
 - [ ] **Wyatt has not signed off on the bottom nav** and should see PR 4. It
       overrides the on-device rejection in `docs/specs/2026-08-13-landing-page-
       brief.md` §3.2/D3. Surfaced per rule 5, not settled.
@@ -130,9 +159,9 @@ dispatched to an executor. Steps 1–5 are done, in the working tree, UNCOMMITTE
 
 ## Next obvious step
 
-Await the P1 steps 5a–5b executor result and verify its claims directly
-(agent-reported success is a claim, not a verification — this session has
-already caught one contract bug that way). Then dispatch steps 6, 7 and 7a
-(the coverage checker + tag backfill), get the count of topic-less appearance
-videos in front of Joey, run `/codex:review`, fix every finding, and only then
-open PR 1. `reviewer` does not satisfy Workflow rule 3 — Codex does.
+Await the step 6a + docs result and verify it directly (agent-reported success
+is a claim, not a verification — this session has already caught two real
+defects that way). Then `/codex:review` on the full PR-1 diff, fix every
+finding, and only then open PR 1. `reviewer` does not satisfy Workflow rule 3
+— Codex does, and Joey merges green PRs fast, so the review happens BEFORE the
+PR opens, not after. Then P2 (era body surgery), starting at step 8.

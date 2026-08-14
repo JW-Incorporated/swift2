@@ -155,7 +155,15 @@ export type AnchorSource =
   | 'exact'          // the item has a real, authored date
   | 'related-item'   // borrowed from a moment it references
   | 'related-song'   // borrowed from a song/album release date
-  | 'era-midpoint';  // last resort: the middle of the era's span
+  | 'era-scatter';   // last resort: a stable position inside the era's span
+
+// AMENDED 2026-08-13: this was 'era-midpoint', which gave EVERY undated item in
+// an era the same sort key, so they clumped together mid-era instead of being
+// spread through it. 26 of 84 video records carry no release date, so the clump
+// is real, not theoretical. Joey's instruction was to "scatter them about in
+// the timeline". `era-scatter` derives a deterministic position across
+// [eraStart, eraEnd] from a hash of the id: stable across renders and builds,
+// different per item, no clump. Still never displayed.
 
 export type Anchored = {
   /** Always present. Sorting only. NEVER rendered as fact. */
@@ -250,6 +258,17 @@ half of it and refused to patch around the contract, which was right.
   steps 5a/5b**, before this PR opens. P3 keeps only the doorway-specific
   work.
 
+**2026-08-13 (2) — `era-midpoint` becomes `era-scatter`, and videos need a
+better anchor than either.** The first anchor implementation resolved every
+undated video to the era midpoint, which converts an end-of-era pile into a
+mid-era clump — not what "scatter them about in the timeline" asks for. Fixed
+by step 5c. Separately: `VideoNote` has no pointer to a moment or a track, so
+`related-item`/`related-song` never fire for a video today, and title-matching
+a music video to its track is real cross-module plumbing. That is deferred to
+P3, where Joey's "put it near some content about that song" requirement bites
+properly and doorways need the same lookup. **P1 ships scatter; P3 makes it
+smart.** Tracked as an open thread in `STATE.md`.
+
 ## Steps
 
 ### P0 — decisions (orchestrator, no code)
@@ -301,6 +320,14 @@ half of it and refused to patch around the contract, which was right.
    - Verify: `npm test -- anchor-date era-feed` → green, including the case
      asserting `displayDate === null` for every non-`exact` source, and a case
      asserting no undated video lands after the era's last dated card.
+5c. [ ] **`era-midpoint` → `era-scatter`.** Replace the fixed-midpoint fallback
+   with a deterministic hash-of-id position across `[eraStart, eraEnd]`. Same
+   id must always yield the same date (test it); different ids in the same era
+   must yield different dates (test that too, with the real undated-video
+   count in mind — 26 records). `displayDate` stays null, as for every
+   non-exact source. (executor)
+   - Verify: `npm test -- anchor-date era-feed` → green, with a determinism
+     case and a no-clump case.
 6. [ ] Write `scripts/check-filter-coverage.mjs` + its test: fails if any
    moment, video, thread item or egg that can appear in a timeline carries
    zero filter ids, and reports (does not fail on) any of the six filters
@@ -308,7 +335,20 @@ half of it and refused to patch around the contract, which was right.
    `package.json` and the `build` job in `ci.yml`. (executor)
    - Verify: `npm run check:filter-coverage` → exits non-zero listing
      untagged items, OR exits 0 if the corpus is already clean.
-7. [ ] Backfill tags for every item the checker flags. This is content work —
+6a. [ ] **An era with zero matching items needs a designed empty state.** The
+   checker found folklore and evermore have no Tour items — correctly, since
+   neither era had a tour. With a GLOBAL filter this is now reachable: pick
+   Tour, scroll into folklore, and the era has nothing to show. The section
+   must NOT collapse to nothing — that strands the reader mid-scroll, breaks
+   "you stay in the era you're in", and removes the scrubber's anchors for
+   that era. Keep the era hero and lyric; replace the feed with one quiet,
+   specific line ("Nothing under Tour in folklore.") and leave the section's
+   scroll height intact enough for the scrubber. (executor)
+   - Verify: `npm test -- era-feed scrubber` → green, including a zero-match
+     era case.
+7. [ ] Backfill tags for every item the checker flags. **As of 2026-08-13 this
+   is a NO-OP — `check:filter-coverage` exits 0, zero offenders.** Keep the
+   step so the checker's verdict is re-read if the corpus changes. This is content work —
    assign the most defensible of the six; do not invent facts. (grunt, from
    the checker's output list)
    - Verify: `npm run check:filter-coverage` → exit 0.
