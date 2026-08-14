@@ -1645,10 +1645,13 @@ export default {
       // "Ophelia bathtub" cover it restages. Both ids verified to resolve.
       // Cross-link (Stage 3, 2026-08-13): + "Beautiful Ghosts," her earlier
       // co-write with Andrew Lloyd Webber.
+      // Cross-link (crosslink-opportunity, 2026-08-13): + the video itself, the
+      // artifact whose drowned-Ophelia cover is the subject Webber responded to.
       relatedIds: [
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
         'moment:vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe',
+        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
       ],
       year: 2026,
       month: 8,
@@ -4362,9 +4365,9 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.aol.com/articles/travis-kelce-wedding-band-nods-195810000.html',
-            note: 'An expert reading of design intent, not a confirmed fact — neither the couple nor any jeweler has named the band\'s designer, metal spec, or the reason for the gold; the width and price are estimates from photos. Resolves if the couple or the band\'s maker confirms or denies the intended nod, and a candidate to fade otherwise. ELLE\'s piece read this session via its verbatim AOL syndication.',
+            note: 'An expert reading of design intent, not a confirmed fact — neither the couple nor any jeweler has named the band\'s designer, metal spec, or reason for the gold; width and price are photo estimates. Resolves on a maker/couple confirmation, else a fade candidate. Re-checked 2026-08-14: no reveal since (wedding specifics kept private), still unconfirmed and live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-07-24',
+            lastCheckedOn: '2026-08-14',
           },
         ],
         // Photo pass #762 (2026-08-02): searched for a verified on-topic photo
@@ -5367,9 +5370,9 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — predictions diverge: Gold Derby\'s tracker (July 8) had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record and Song of the Year. Resolves when the 69th Grammy nominations are announced (~November 2026). Forbes 403s our fetcher; read via its verbatim Yahoo News Canada syndication.',
+            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (~Nov 2026). Re-checked 2026-08-14: that window has not opened yet, nothing to resolve — still unconfirmed and live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-07-24',
+            lastCheckedOn: '2026-08-14',
           },
         ],
       },
@@ -10647,6 +10650,120 @@ export default {
             caption:
               'Taylor arrives at the Ed Sullivan Theater on Dec. 10, 2025, before changing into the dress she wore on air for her first Late Show interview.',
             kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-13 (Vault Run, Content Shift lane) from intake #2071.
+      // A confirmed, on-record press availability — the groom's own first
+      // account of the July 3 wedding, distinct from both the wedding moment
+      // (#1524) and the July 8 New Heights proposal-story episode. Not a
+      // reaction round-up: the principal speaking on camera. Quotes verified
+      // against Variety and Rolling Stone (the two established-tier primaries),
+      // corroborated across ABC News, The Hollywood Reporter, NBC News and
+      // Billboard (all confirmed via search this session). Redlines: clean —
+      // a public press availability at Chiefs training camp (documented past
+      // event) and an already-public wedding venue; no location, security,
+      // health, sexuality, minor, or third-party private-life content. No
+      // cleanly licensable image of the presser was found — ships text-first
+      // and photo-sparsity can route it to Photo Enrichment.
+      slug: 'kelce-first-wedding-comments-training-camp',
+      // Cross-links: the wedding this recounts, and the July 8 New Heights
+      // episode where he first told the proposal story.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
+      ],
+      year: 2026,
+      month: 8,
+      day: 12,
+      category: 'relationship',
+      title: 'Travis on the wedding, on record for the first time: “the best night of my life”',
+      snippet:
+        'Back at Chiefs training camp ahead of his 14th season, Travis gave his first public account of the July 3 MSG wedding — calling it “the best night of my life,” the Garden a “childhood dream,” and, for the first time to reporters, referring to Taylor as “my wife.”',
+      sourceUrl:
+        'https://variety.com/2026/music/news/travis-kelce-interview-taylor-swift-wedding-best-night-1236833147/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Six weeks after the Madison Square Garden wedding — an event the couple has kept almost entirely to themselves, with no interviews and no official photos — the first on-record account of the night came, fittingly, from a football podium. Speaking to reporters at Kansas City Chiefs training camp on Wednesday, Aug. 12, 2026, as he reported back for his 14th NFL season, Travis gave his first public comments on marrying Taylor. “Wedding was the best night of my life,” he said, “and I appreciate everybody who came out and celebrated and had fun with us,” calling it “a crazy night… full of a lot of celebration.”\n\nHe lingered longest on the venue. Getting married at Madison Square Garden, he said, was the realization of a “childhood dream” — “it was cool to live out my childhood dream of being in that venue, the mecca of all sports venues. To be able to get married there… we wanted a private event, and it was perfect.” He added that he had thanked the arena’s owners for letting them stage a private wedding inside it, resolving in his own words the months of “destination wedding” speculation that the Garden itself had punchlined.\n\nThe availability also produced a small first: recounting that Taylor had been back at the Garden for a Knicks playoff game while he was “stuck in training camp,” he referred to her on camera as “my wife” — the first time he had used the phrase publicly since the ceremony. The remarks were brief and did not open the wedding up any further — no ceremony play-by-play, no new guest-list color — but coming from a groom who, like his bride, had said nothing on record until now, even a few sentences read as the couple’s first authorized gloss on the night. His comments were reported across Variety, Rolling Stone, ABC News, The Hollywood Reporter, NBC News and Billboard.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/travis-kelce-interview-taylor-swift-wedding-best-night-1236833147/',
+            source_title: "Travis Kelce Speaks Out on Wedding to Taylor Swift: 'Best Night of My Life' and 'It Was Cool to Live Out My Childhood Dream' of Being in MSG",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/travis-kelce-taylor-swift-wedding-first-comments-1235607573/',
+            source_title: "Travis Kelce Describes Taylor Swift Wedding as 'Best Night of My Life'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/travis-kelce-taylor-swift-msg-wedding-childhood-dream-1236672194/',
+            source_title: 'Travis Kelce Says Taylor Swift MSG Wedding Was "Childhood Dream"',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/travis-kelce-opens-taylor-swift-wedding-best-night/story?id=135583937',
+            source_title: "Travis Kelce opens up on Taylor Swift wedding: 'Best night of my life'",
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 4,
+          },
+          // GMA's own video of the camp remarks — oEmbed-verified 2026-08-14
+          // (title "Travis Kelce opens up about wedding to Taylor Swift").
+          {
+            outlet: 'YouTube — Good Morning America',
+            url: 'https://www.youtube.com/watch?v=5AzDPpG3nEc',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-first-solo-outing-since-wedding-london',
+      // Cross-link: the wedding this is measured against.
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      year: 2026,
+      month: 8,
+      day: 12,
+      category: 'fashion',
+      title: 'Her first night out as a newlywed: a lavender minidress and a shorter cut in London',
+      snippet:
+        'Six weeks after the MSG wedding, Taylor stepped out solo for the first time — a lilac Delphine minidress and a noticeably shorter, sleeker cut that had fashion desks talking within a day.',
+      sourceUrl:
+        'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-lavender-mini-dress-delphine/',
+      // Text-first by necessity: a paparazzi night-out has no cleanly
+      // licensable image and no taylorswift-account post to embed. Left for
+      // photo-sparsity / social-post-missing to route if one surfaces.
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Forty-one days after marrying Travis Kelce at Madison Square Garden, Taylor made her first solo public appearance as a newlywed — a night out in London on Aug. 12, 2026. The clothes did the talking: a lilac floral minidress, the “Mini Isabelle” by the New York label Delphine (designer Tanya Taylor), worn with metallic-gold Aquazzura “Love Struck” sandals, a crystal-ombré Christian Louboutin clutch and a Cartier Santos watch.\n\nThe bigger story for fans was the hair. Taylor debuted a noticeably shorter cut — the long lengths of the Eras and Showgirl years trimmed to roughly shoulder-length and worn sleek and straight, with her signature blunt bangs kept — a change E! News was first to flag. Coming weeks after a wedding the couple has otherwise kept almost entirely to themselves, the outing read less like a red-carpet statement than a newlywed easing back into public view on her own terms, and within a day the head-to-toe change had been logged everywhere from Marie Claire to People and Page Six.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-lavender-mini-dress-delphine/',
+            source_title:
+              'Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
           },
         ],
       },

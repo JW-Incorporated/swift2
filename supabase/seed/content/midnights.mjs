@@ -855,12 +855,21 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109799784%29_%28cropped%29.jpg',
       moment: {
         context:
-          'Alwyn didn\'t address it publicly for over a year. When he finally did, in a June 2024 Sunday Times Style interview, he called it "a long, loving, fully committed relationship" and said he\'d hope "anyone and everyone can empathize and understand the difficulties that come with the end" of one — adding that what felt abnormal wasn\'t the split but that "one week later, it\'s suddenly in the public domain."\n\nThe relationship had run from 2016 to early 2023 almost entirely out of frame by design: "It was never something to commodify," he said, "and I see no reason to change that now."',
+          'The split first surfaced on April 8, 2023: sources close to the couple — never a statement from either — said Taylor and Alwyn had quietly ended things weeks earlier, per Entertainment Tonight and People. The framing was uniformly gentle: the breakup was "not dramatic," and the relationship had simply "run its course." It landed at a jarring moment — days into the Eras Tour, the largest tour of her career, and not long after tabloid speculation had swung the other way, toward a rumored secret engagement. They had been together since 2016 and had guarded the relationship so completely that even Alwyn\'s creative role stayed hidden for years: he co-wrote songs on folklore and evermore under the pseudonym William Bowery, which Taylor only confirmed herself in the "long pond studio sessions" film.\n\nAlwyn didn\'t address it publicly for over a year. When he finally did, in a June 2024 Sunday Times Style interview, he called it "a long, loving, fully committed relationship" and said he\'d hope "anyone and everyone can empathize and understand the difficulties that come with the end" of one — adding that what felt abnormal wasn\'t the split but that "one week later, it\'s suddenly in the public domain."\n\nThe relationship had run from 2016 to early 2023 almost entirely out of frame by design: "It was never something to commodify," he said, "and I see no reason to change that now." Fans later read the vault track "You\'re Losing Me" — quietly surfaced in May 2023 — as the relationship\'s private eulogy, a song about a love fading while one person keeps waiting to be chosen.',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html' },
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/joe-alwyn-breaks-silence-taylor-swift-breakup-1235710711/',
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-and-joe-alwyn-break-up-after-six-years-of-dating-exclusive-202408',
+            source_title: 'Taylor Swift and Joe Alwyn Break Up After Six Years of Dating (Exclusive)',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-13',
+            reliability_score: 3,
           },
         ],
         // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): deliberately
@@ -1629,11 +1638,44 @@ export default {
         'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1',
       moment: {
         context:
-          "Styled by Joseph Cassell Falconer for Feb. 11, 2024 at Allegiant Stadium, the outfit paired a Dion Lee corset-style crop top ($720) with Area's crystal-slit black jeans ($795) — which sold out almost immediately — under a $130 vintage-style red Chiefs windbreaker from Wear by Erin Andrews, the broadcaster's team-apparel line.\n\nThe jewelry did the storytelling: over $16,000 worth, nearly all of it coded to Kelce. A custom Stephanie Gottlieb 14-karat necklace hung a diamond \"87\" pendant beside a $7,500 diamond tennis choker; ruby rings from Retrouvaí and Shala Karimi worked in the Chiefs red; and a custom Judith Leiber crystal clutch carried the 87 again. She watched from the suite with Blake Lively and Ice Spice as Kansas City won it in overtime.",
+          "Styled by Joseph Cassell Falconer for Feb. 11, 2024 at Allegiant Stadium, the outfit paired a Dion Lee corset-style crop top ($720) with Area's crystal-slit black jeans ($795) — which sold out almost immediately — under a $130 vintage-style red Chiefs windbreaker from Wear by Erin Andrews, the broadcaster's team-apparel line.\n\nThe jewelry did the storytelling: over $16,000 worth, nearly all of it coded to Kelce. A custom Stephanie Gottlieb 14-karat necklace hung a diamond \"87\" pendant beside a $7,500 diamond tennis choker; ruby rings from Retrouvaí and Shala Karimi worked in the Chiefs red; and a custom Judith Leiber crystal clutch carried the 87 again. She watched from the suite with Blake Lively and Ice Spice as Kansas City won it in overtime.\n\nThe game the outfit framed became the most-watched program in U.S. television history — an average of 123.7 million viewers, the largest single audience Nielsen had ever measured, up more than seven percent on the year before. Kansas City beat the San Francisco 49ers 25-22 in overtime, and when it ended Taylor came down from the box to meet Travis on the field, where the couple hugged and kissed surrounded by cameras; miked up in the celebration, she asked him, \"How did you do that?\" What that meant for the look was that the corset, the crystal-slit jeans, and the 87 stamped across every piece of jewelry were photographed from every angle at the center of the most-watched broadcast of the year. The red Chiefs windbreaker read on camera as plainly as the rubies did: she had dressed, top to bottom, to be seen supporting one player — and tens of millions saw it. It was a styling call that ended up in the game's record book as much as in any fashion column.",
         sources: [
           {
             outlet: 'The Hollywood Reporter',
             url: 'https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/',
+          },
+          {
+            // Added 2026-08-14 (Answerer depth pass): the 123.7M viewership /
+            // largest-audience-on-record figure. Fetched + verified this run.
+            outlet: 'Nielsen',
+            url: 'https://www.nielsen.com/news-center/2024/super-bowl-lviii-draws-123-7-million-average-viewers-largest-tv-audience-on-record/',
+            source_title: 'Super Bowl LVIII Draws 123.7 Million Average Viewers, Largest TV Audience on Record',
+            publisher: 'Nielsen',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
+          },
+          {
+            // Added 2026-08-14 (Answerer depth pass): the 25-22 overtime result
+            // and the on-field kiss. Fetched + verified this run.
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/taylor-swift-travis-kelce-celebrate-chiefs-super-bowl-win-with-a-kiss',
+            source_title: 'Taylor Swift, Travis Kelce celebrate Chiefs Super Bowl win with a kiss',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
+          },
+          {
+            // Added 2026-08-14 (Answerer depth pass): the miked-up on-field
+            // "How did you do that?" line. Fetched + verified this run.
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/nfl/2024/02/13/taylor-swift-travis-kelce-field-conversation-super-bowl',
+            source_title: "Mics Picked Up Taylor Swift and Travis Kelce's Sweet On-Field Conversation After Super Bowl Win",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
           },
         ],
         photos: [
