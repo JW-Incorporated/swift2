@@ -49,21 +49,8 @@ masthead having moved into the stream).
   - **Accepted trade-off, founder-visible:** while clamped on mobile, the top
     year label is clipped during an active drag. Desktop unaffected.
 
-- **Superseded — round 1 review (REJECT), kept for the lesson:**
-  1. **A fresh visit still never shows the masthead** — the same bug fix 1
-     existed to solve, in a new costume. `EraStream.tsx:101-104`'s
-     `mountedWithoutRestore` gate was written when mounting could only be an
-     `openEra` jump; now that the initial mode is `'era'` it fires on the plain
-     front-door mount and scrolls past ~345px of masthead. Repro: `scrollY=296`,
-     `<h1>` at viewport top −159. Fix: gate the mount-time jump on
-     `eraJumpSeq > 0` (a fresh load is 0; every real jump bumps it).
-  2. **The "Videos" chip is 100% tap-blocked and tapping it scrubs the page**
-     (296 → 1089). The scrubber's date pill sits at y≈84–100, directly over the
-     65–114px filter bar. **A regression from OUR one-line filter row** — on
-     `main` the wrapped layout put Videos on row 2, clear of the pill. Fix:
-     clamp the rail below the sticky chrome via `measureChromeHeight()`.
-  3. MEDIUM: hydration mismatch on every load (milestone-dot % precision).
-     Pre-existing, but this branch put the scrubber on `/`, so it is ours.
+  Review rounds 1 and 2 both returned REJECT; their findings are all fixed and
+  described above. Detail is in the commit messages.
 
 **MERGE AUTHORIZED for this round — Joey, 2026-08-14: "focus on fixing these.
 you have merge authority. when done ill test on my phone."** Scoped to these
