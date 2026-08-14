@@ -30,8 +30,19 @@ music-video inference in `filtersForEntry` is DELETED, not left beside it.
 Untagged appearance videos 18 → 3 (the three are deliberate: their own text
 supports no topic). `check:generated` green.
 
-**Codex round 2 came back DIRTY** — see § Codex reviews below. An executor is
-fixing it. **Do not collapse the PR until Codex round 3 is clean.**
+**ALL WORK IS PUSHED. #2086 is the single PR, CI GREEN** (build, guard-code,
+Vercel preview deployed). The stack was collapsed by fast-forwarding
+`feature/era-reader-p4` onto `feature/era-reader-rework`.
+
+**Codex is exhausted: 3 rounds, per Joey's cap.** R1 five findings (one HIGH).
+R2 three only partly fixed + four new defects. R3 FAILED at 9m52s before
+producing verdicts — its partial corpus verification was positive (49/244
+pairings stable, Fortnight pairs, Karma null, 84 records/81 tagged/3 untagged,
+generated file matches a fresh regeneration) but it never judged the HIGH.
+
+**Now: a `reviewer` agent on `model: "fable"`** — the fallback Joey authorised.
+Focused on the date-leak invariant, which has been "fixed" three times and
+leaked twice. When it reports: fix findings, then MERGE (authorised below).
 
 **Joey wants ONE PR** (2026-08-13). `feature/era-reader-p4` already contains
 every commit from P1–P3, so: `git push origin

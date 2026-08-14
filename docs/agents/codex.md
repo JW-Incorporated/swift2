@@ -6,6 +6,8 @@
 
 - **Always pass `--background`.** Without it the forwarding subagent blocks, hits its own 10-minute cap, and returns nothing — while the Codex job keeps running fine underneath. A real review of a multi-commit diff takes ~15 minutes, so the default path times out by construction.
 - **Always read results with `result <job-id>`**, never from the subagent's inline summary. The relay is not reliable; the job ledger is.
+- **`--background` means NO completion notification.** The job runs in Codex's own runtime, not as a harness-tracked agent, so nothing wakes the session when it finishes. Capture the job id from the forwarder's immediate reply and poll `status <job-id>` yourself when you next have a reason to act. Without `--background` you get a notification but the forwarder times out at 10 minutes and returns nothing — so `--background` plus polling is the only combination that works.
+- **A job can report `failed` after doing real work.** Round 3 on 2026-08-13 died at 9m52s having completed its corpus verification but before issuing verdicts. Always pull `result` on a failed job; partial findings are still findings. Treat a failed round as INCONCLUSIVE, never as clean.
 
 ## The path
 
