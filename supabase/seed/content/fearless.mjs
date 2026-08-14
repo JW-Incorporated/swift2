@@ -383,7 +383,7 @@ export default {
       ],
       moment: {
         context:
-          'The Radio City crowd went from stunned silence to a standing ovation for Taylor; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Taylor back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
+          'The Radio City crowd went from stunned silence to a standing ovation for Taylor; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Taylor back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nLost in the noise were the trophy and the performance. "You Belong with Me" had won Best Female Video, and earlier that night Taylor had turned in one of the broadcast\'s signature numbers — opening the song in a brown trench coat and black beanie inside a New York subway station, singing on through a moving subway car as she shed the coat to reveal a red cocktail dress, then finishing atop a yellow taxi once the train reached its stop. That neither the win nor a marquee performance is what anyone remembers about the evening is itself the measure of what those seconds at the microphone did.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -414,6 +414,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-28',
             reliability_score: 4,
+          },
+          {
+            // Added 2026-08-14 (Answerer depth pass): confirms the Best Female
+            // Video win and the subway/taxi VMA performance the interruption
+            // overshadowed. Fetched + verified this run.
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/You_Belong_with_Me',
+            source_title: 'You Belong with Me',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-14',
+            reliability_score: 3,
           },
         ],
         photos: [
