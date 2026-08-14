@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
+Stories: 99
+
+## Taylor Swift Song Removed From White House TikTok Days After Trump Campaign Post Muted - Law Comment
+
+- first seen: 2026-08-14 10:14 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Song Removed From White House TikTok Days After Trump Campaign Post Muted  Law Commentary
+- sources:
+  - [unverified] Law Commentary — https://news.google.com/rss/articles/CBMirwFBVV95cUxQVGdYb0dwUEZJbWRjZTNVR3hCTDRaWm51M2RKX0JXRW5NLUJwUFJIUHFDNVhOaEF3MUR4el9YRDdDNnJVaWpOQ1lTQUQ1dnVuNW1QdFctY2lqMFphNW80Z1dablo5cUczWXJIMXphOGtWRzRGR1dEVUc0MkduUVYwMmJnb1IwWFJHRGliSDlrTkYyN1kzSFFNMjFxRnRfRUkyajg1RHZJaWJGQkctd3A4?oc=5
+
+## Taylor Swift Eras as College Gymnastics Teams - College Gym News
+
+- first seen: 2026-08-14 10:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Eras as College Gymnastics Teams  College Gym News
+- sources:
+  - [unverified] College Gym News — https://news.google.com/rss/articles/CBMijAFBVV95cUxOc3FEQmFTTmF5U2w0RDctUWVrd21ZNi1EYWROd2xnd3NwcUZhRlNheGhHMm4tdmZpNzZoMlJ6QXg2b1ozRzFXZmQ1elBWOHpIall3SHV6anhpXzFvZ2VfTm0zcE9HM2NkU2I4SnB0OUF3VEpOU0V6TDB2R3NmNXh5VWs1N09yMFFCd25jeA?oc=5
+
+## Lohud.com summer intern talks community news, Taylor Swift and more - Lohud
+
+- first seen: 2026-08-14 10:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Lohud.com summer intern talks community news, Taylor Swift and more  Lohud
+- sources:
+  - [unverified] Lohud — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQaUNWYUZjLTRwaFpDTExBRFNSNmxSNUljajlvS2VTX2EyMExheGFpOTZFNWJjbE5KRXRfekcxOHQxX2dpSlBucERtN0dHdzljSllHWF8wS0kxOTVEUHd6X3BiRFdoT0hBQ09TclZqOVM5Um00eWlXSDNyMmcwSVhLTjVzdHdkMmlkSDBQdVpXSzdsTTdfYVdJQTNuOWljdC1PMWl6Nlh0c0MtWUJjdVNXRll0MTZHcWIwaVVPcnZUc1gzOHRpWDRSRA?oc=5
 
 ## Taylor Swift’s Missing Wedding Photos Offer a ‘Major Clue’ — Source - Yahoo
 
@@ -847,19 +871,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Chiefs Heiress Gracie Hunt on Faith, Fitness & Taylor Swift’s Wedding | The Riley Gaines Show  Fox News
 - sources:
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMiVkFVX3lxTE1MRUFEN3dKclJ2M2ctNC1wNzA5bFlkamxCWmZkQXpPTEVLUzRPTENvTUZFby04dVBLdi1XdlVpMU96a2puSUxjaEtZT3pvMnJQS0J6TmJB?oc=5
-
-## Taylor Swift's Trump TikTok takedowns show the White House isn't above copyright law - Creative Bloq
-
-- first seen: 2026-08-11 10:08 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Trump TikTok takedowns show the White House isn't above copyright law  Creative Bloq
-- sources:
-  - [unverified] Creative Bloq — https://news.google.com/rss/articles/CBMivgFBVV95cUxNWHdVeGNWUjZYT2FWX1lJR3RPQkx6UEpHSGhYN3VWZFd2MS1DY2hjT015RFl3TjhhM1ZLSFpDeWxwWUd6czlvdXh0SzNMaWVpM040aDdHZHFhR3RjR1cwRk56QUxnQlZYMTZWakdfSkhvMXNNcEpPd3AxazdydTlvYWQzcmhuanZEUjNYN2Y3UUxrOUVCZXVfb0FPaTJKdGt5X1o5MXVLbkxidGFocEthMkZiWlJTbGNMTVU4djVn?oc=5
-
-## Charissa Thompson explains problem she had with her dress at Taylor Swift and Travis Kelce’s wedding
-
-- first seen: 2026-08-11 10:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Charissa Thompson explains problem she had with her dress at Taylor Swift and Travis Kelce’s wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxQb1Z0cnB5YkI3Ym9yb2c1VVV4c3hucXUydnBXeDRBZVpUU3pmOXgxajMtcG1UVDNpV3RGaEtpZmZ0UEdsM0FEZzR1NzNuV0k2bURnWDlYTE9WQ29aNkcyVk5jbEtBSWxESFlrb1RwUHd5VjM3ZzBNNEtZekd0X1RVNV9LTk53dUptNDAzWUdmVG92T2UybnpPSHpkdV9QZTg4REFPdmhPRF9VcGpP?oc=5
