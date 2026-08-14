@@ -40,15 +40,19 @@ export function LandingPage() {
               if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
             }}
           />
-          <ModeToggle
-            mode="era"
-            alwaysShowLabels
-            onChange={(m) => {
-              // 'era' is a no-op here: the landing page IS the era front door,
-              // so its own tab stays selected. The others are real jumps.
-              if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
-            }}
-          />
+          {/* Desktop only. On mobile BottomNav is the rail now, and showing
+              both would put the same four destinations on screen twice. */}
+          <div className="hidden md:block">
+            <ModeToggle
+              mode="era"
+              alwaysShowLabels
+              onChange={(m) => {
+                // 'era' is a no-op here: the front door IS the era surface, so
+                // its own tab stays selected. The others are real jumps.
+                if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
+              }}
+            />
+          </div>
         </header>
 
         <div className="mb-6">
