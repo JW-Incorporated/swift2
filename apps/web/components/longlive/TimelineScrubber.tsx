@@ -12,11 +12,13 @@ import {
   SCRUBBER_ANCHOR_CLASS,
   SCRUBBER_CENTER_MEDIA_QUERY,
   SCRUBBER_RAIL_CLASS,
+  SCRUBBER_RAIL_CLIP_PATH,
   SCRUBBER_SCRIM_CLASS,
   SCRUBBER_SHELL_CLASS,
   roundRailPct,
   scrubberAnchorPaddingTop,
   scrubberPillTransform,
+  scrubberRailMaxHeight,
   scrubberTooltipTransform,
   snapNow,
   nearestAnchorExact,
@@ -132,6 +134,11 @@ export function TimelineScrubber() {
   // instead of overlapping the filter row — see scrubberAnchorPaddingTop's
   // doc comment (adversarial review finding #2, 2026-08-14).
   const [anchorPaddingTop, setAnchorPaddingTop] = useState<number | undefined>(undefined);
+  // Caps the rail's own rendered height so it can't run past the viewport
+  // when anchorPaddingTop is clamped to a live chrome height taller than the
+  // CSS cap's baked-in assumption — see scrubberRailMaxHeight's doc comment
+  // (re-review finding #2, 2026-08-14 round 2).
+  const [railMaxHeight, setRailMaxHeight] = useState<number | undefined>(undefined);
 
   // Calendar-linear fallback, used only before the DOM has been measured
   // (first paint) so ticks/milestones have *something* sane to render.
@@ -327,9 +334,12 @@ export function TimelineScrubber() {
 
     const mq = window.matchMedia(SCRUBBER_CENTER_MEDIA_QUERY);
     const recomputeAnchorPadding = () => {
-      setAnchorPaddingTop(
-        scrubberAnchorPaddingTop({ chromeHeight: measureChromeHeight(), isCentered: mq.matches }),
-      );
+      const paddingTop = scrubberAnchorPaddingTop({
+        chromeHeight: measureChromeHeight(),
+        isCentered: mq.matches,
+      });
+      setAnchorPaddingTop(paddingTop);
+      setRailMaxHeight(scrubberRailMaxHeight({ paddingTop, viewportHeight: window.innerHeight }));
     };
     recomputeAnchorPadding();
 
@@ -568,11 +578,16 @@ export function TimelineScrubber() {
             }
           }}
           className={SCRUBBER_RAIL_CLASS}
+          style={
+            anchorPaddingTop != null
+              ? { clipPath: SCRUBBER_RAIL_CLIP_PATH, maxHeight: railMaxHeight }
+              : undefined
+          }
         >
           {/* Activity ridge */}
           <svg
             aria-hidden
-            className="absolute inset-y-0"
+            className="pointer-events-none absolute inset-y-0"
             style={{ right: RAIL_RIGHT, width: RIDGE_WIDTH, height: '100%' }}
             viewBox="0 0 100 1000"
             preserveAspectRatio="none"
@@ -592,14 +607,14 @@ export function TimelineScrubber() {
           {/* Rail line */}
           <div
             aria-hidden
-            className="absolute inset-y-0 w-px"
+            className="pointer-events-none absolute inset-y-0 w-px"
             style={{ right: RAIL_RIGHT, background: 'var(--era-line)' }}
           />
 
           {/* Era start / end year labels */}
           <span
             className={cn(
-              'absolute -top-1 text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
+              'pointer-events-none absolute -top-1 text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
               active ? 'opacity-100' : 'opacity-0',
             )}
             style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
@@ -608,7 +623,7 @@ export function TimelineScrubber() {
           </span>
           <span
             className={cn(
-              'absolute text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
+              'pointer-events-none absolute text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
               active ? 'opacity-100' : 'opacity-0',
             )}
             style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
@@ -623,7 +638,7 @@ export function TimelineScrubber() {
               <span
                 key={it.id}
                 aria-hidden
-                className="absolute rounded-full"
+                className="pointer-events-none absolute rounded-full"
                 style={{
                   right: RAIL_RIGHT,
                   top: `${pct}%`,
@@ -643,7 +658,7 @@ export function TimelineScrubber() {
             return (
               <div key={m.id} aria-hidden>
                 <span
-                  className="absolute rounded-full ring-2"
+                  className="pointer-events-none absolute rounded-full ring-2"
                   style={{
                     right: RAIL_RIGHT,
                     top: `${pct}%`,
@@ -657,7 +672,7 @@ export function TimelineScrubber() {
                 />
                 <span
                   className={cn(
-                    'absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity',
+                    'pointer-events-none absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity',
                     active ? 'opacity-100' : 'opacity-0',
                   )}
                   style={{ right: RAIL_RIGHT + 14, top: `${pct}%`, transform: 'translateY(-50%)' }}
@@ -672,7 +687,7 @@ export function TimelineScrubber() {
           {nowPct != null && (
             <span
               aria-hidden
-              className="absolute h-3 w-3 -translate-y-1/2 translate-x-1/2 rotate-45 border border-[color:var(--era-bg)]"
+              className="pointer-events-none absolute h-3 w-3 -translate-y-1/2 translate-x-1/2 rotate-45 border border-[color:var(--era-bg)]"
               style={{ right: RAIL_RIGHT, top: `${nowPct}%`, background: 'var(--era-ink)' }}
               title="Now"
             />
@@ -683,7 +698,7 @@ export function TimelineScrubber() {
             <>
               <span
                 ref={handleRef}
-                className="absolute rounded-full border-2 transition-transform"
+                className="pointer-events-none absolute rounded-full border-2 transition-transform"
                 style={{
                   right: RAIL_RIGHT,
                   top: `${currentPct}%`,
@@ -699,7 +714,7 @@ export function TimelineScrubber() {
                 <span
                   ref={pillRef}
                   className={cn(
-                    'absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold leading-none tabular-nums shadow-sm transition-opacity',
+                    'pointer-events-none absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold leading-none tabular-nums shadow-sm transition-opacity',
                     active ? 'opacity-100' : 'opacity-90',
                   )}
                   style={{
@@ -722,7 +737,7 @@ export function TimelineScrubber() {
             <>
               <span
                 aria-hidden
-                className="absolute h-2 w-2 rounded-full"
+                className="pointer-events-none absolute h-2 w-2 rounded-full"
                 style={{
                   right: RAIL_RIGHT,
                   top: `${hoverPct}%`,

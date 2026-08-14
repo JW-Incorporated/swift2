@@ -8,11 +8,14 @@ import {
   SCRUBBER_BASE_PT,
   SCRUBBER_CENTER_MEDIA_QUERY,
   SCRUBBER_RAIL_CLASS,
+  SCRUBBER_RAIL_CLIP_PATH,
+  SCRUBBER_RAIL_RESERVE_PX,
   SCRUBBER_SCRIM_CLASS,
   SCRUBBER_SHELL_CLASS,
   roundRailPct,
   scrubberAnchorPaddingTop,
   scrubberPillTransform,
+  scrubberRailMaxHeight,
   scrubberTooltipTransform,
   snapNow,
   nearestAnchorExact,
@@ -313,5 +316,148 @@ describe('TimelineScrubber never displays or announces a synthetic anchor date',
     expect(uses).toHaveLength(2);
     expect(src.match(/fmtMonth\(pillDate\)/g)).toHaveLength(2);
     expect(src).toContain("exact: el.dataset.llExact !== '0'");
+  });
+});
+
+// Re-review finding #2 (2026-08-14, round 2): the first fix clamped the
+// rail's top to the live chrome height but never adjusted the rail's own
+// CSS height cap, which still assumes an 80px top offset. On a landscape
+// phone (844x390) that put the rail's bottom 15px off-screen.
+describe('scrubberRailMaxHeight (re-review finding #2, round 2)', () => {
+  it('THE BUG, for contrast: 844x390 landscape overflows without the cap', () => {
+    const paddingTop = 114; // measured TopBar + FilterBar chrome height
+    const viewportHeight = 390;
+    const cssCapHeight = Math.min(0.74 * viewportHeight, viewportHeight - 96); // SCRUBBER_RAIL_CLASS's own cap
+    expect(paddingTop + cssCapHeight).toBeGreaterThan(viewportHeight);
+  });
+
+  it('caps the rail so paddingTop + height fits the 844x390 landscape viewport', () => {
+    const paddingTop = 114;
+    const viewportHeight = 390;
+    const maxHeight = scrubberRailMaxHeight({ paddingTop, viewportHeight });
+    expect(maxHeight).toBe(viewportHeight - paddingTop - SCRUBBER_RAIL_RESERVE_PX);
+    expect(paddingTop + (maxHeight ?? 0)).toBeLessThanOrEqual(viewportHeight);
+  });
+
+  it('is a no-op when scrubberAnchorPaddingTop deferred to the CSS default', () => {
+    expect(scrubberRailMaxHeight({ paddingTop: undefined, viewportHeight: 844 })).toBeUndefined();
+  });
+
+  it('never returns negative even on an absurdly short viewport', () => {
+    expect(scrubberRailMaxHeight({ paddingTop: 114, viewportHeight: 50 })).toBe(0);
+  });
+
+  it('fits comfortably on a tall portrait phone (390x844) — the cap should not bind there', () => {
+    const paddingTop = 114;
+    const viewportHeight = 844;
+    const maxHeight = scrubberRailMaxHeight({ paddingTop, viewportHeight });
+    const cssCapHeight = Math.min(0.74 * viewportHeight, viewportHeight - 96);
+    expect(maxHeight).toBeGreaterThan(cssCapHeight); // JS cap looser than CSS cap, so CSS still governs
+  });
+
+  it('is wired into TimelineScrubber alongside scrubberAnchorPaddingTop', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('scrubberRailMaxHeight({ paddingTop, viewportHeight: window.innerHeight })');
+    expect(src).toContain('maxHeight: railMaxHeight');
+  });
+});
+
+// Re-review finding #3 (2026-08-14, round 2): with zero slack above the
+// clamped rail, its `-translate-y-1/2` adornments (handle, milestone dots,
+// year labels) paint visibly over the FilterBar row directly above.
+describe('SCRUBBER_RAIL_CLIP_PATH (re-review finding #3, round 2)', () => {
+  it('clips flush at the top edge but not the sides/bottom (so the off-rail tooltip stays visible)', () => {
+    expect(SCRUBBER_RAIL_CLIP_PATH).toMatch(/^inset\(0px /);
+    // Non-top offsets must be pushed well negative — never 0 — or the
+    // 192px-wide hover-preview tooltip (which renders outside the rail's
+    // own ~40-48px width) would be clipped away too.
+    const [, right, bottom, left] = SCRUBBER_RAIL_CLIP_PATH.match(
+      /^inset\(0px (-?\d+)px (-?\d+)px (-?\d+)px\)$/,
+    )!;
+    expect(Number(right)).toBeLessThan(-100);
+    expect(Number(bottom)).toBeLessThan(-100);
+    expect(Number(left)).toBeLessThan(-100);
+  });
+
+  it('is applied to the rail only while anchorPaddingTop is clamped', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const railStyleAt = src.indexOf('className={SCRUBBER_RAIL_CLASS}');
+    expect(railStyleAt).toBeGreaterThan(-1);
+    const nearby = src.slice(railStyleAt, railStyleAt + 300);
+    expect(nearby).toContain('anchorPaddingTop != null');
+    expect(nearby).toContain('clipPath: SCRUBBER_RAIL_CLIP_PATH');
+  });
+});
+
+// Re-review finding #1 (2026-08-14, round 2): the previous fix clamped the
+// rail's hit-box below the sticky chrome, but its CHILDREN — year/milestone
+// labels, the handle, ticks — still overflow that box and remain
+// hit-testable via `opacity-0`, which does not remove them from hit
+// testing. A tap on the "Videos" filter chip landed on one of these instead
+// and scrubbed the page. Fix: every non-interactive rail adornment gets
+// `pointer-events-none`, so the rail div itself is the only pointer-events:
+// auto element in the whole subtree.
+describe('rail adornments are pointer-events-none (re-review finding #1, round 2)', () => {
+  const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+
+  // Same balanced-<div>-counting approach scrubber-nested-interactive.test.ts
+  // uses to isolate the role="slider" element's full subtree — reused here
+  // rather than a literal closing-tag string match, which is brittle to
+  // incidental reformatting of the JSX below the rail.
+  function tagEnd(source: string, start: number): { end: number; selfClosing: boolean } {
+    let curly = 0;
+    for (let i = start; i < source.length; i++) {
+      const ch = source[i];
+      if (ch === '{') curly++;
+      else if (ch === '}') curly--;
+      else if (ch === '>' && curly === 0) {
+        return { end: i, selfClosing: source[i - 1] === '/' };
+      }
+    }
+    throw new Error('unterminated JSX tag');
+  }
+
+  function railJsx(): string {
+    const roleAt = src.indexOf('role="slider"');
+    expect(roleAt).toBeGreaterThan(-1);
+    const openStart = src.lastIndexOf('<div', roleAt);
+    expect(openStart).toBeGreaterThan(-1);
+    let depth = 0;
+    let i = openStart;
+    while (i < src.length) {
+      if (src.startsWith('<div', i)) {
+        const { end, selfClosing } = tagEnd(src, i);
+        if (!selfClosing) depth++;
+        i = end + 1;
+      } else if (src.startsWith('</div>', i)) {
+        depth--;
+        i += '</div>'.length;
+        if (depth === 0) return src.slice(openStart, i);
+      } else {
+        i++;
+      }
+    }
+    throw new Error('unbalanced <div> nesting inside the rail');
+  }
+
+  it('every absolutely-positioned span/div/svg rendered inside the rail is pointer-events-none', () => {
+    const rail = railJsx();
+    // Every element opened with `className=` inside the rail subtree — the
+    // svg ridge, the rail line, both year labels, item ticks, the milestone
+    // dot + label, the "now" tick, the handle, the pill, the hover dot, and
+    // the hover tooltip (11 total).
+    const classNameOpenings = (rail.match(/className=(?:"[^"]*"|\{[^}]*\})/g) ?? [])
+      // Excludes the rail's own opening tag (`className={SCRUBBER_RAIL_CLASS}`)
+      // — that element IS the interactive one and must stay pointer-events-auto.
+      .filter((opening) => !opening.includes('SCRUBBER_RAIL_CLASS'))
+      // Only absolutely-positioned elements can overflow the rail's own box
+      // and become hit-testable outside it — a plain-flow element nested
+      // inside an already pointer-events-none ancestor (e.g. the tooltip's
+      // inner text) inherits `none` and needs no explicit class of its own.
+      .filter((opening) => opening.includes('absolute'));
+    expect(classNameOpenings.length).toBeGreaterThanOrEqual(11);
+    for (const opening of classNameOpenings) {
+      expect(opening).toContain('pointer-events-none');
+    }
   });
 });
