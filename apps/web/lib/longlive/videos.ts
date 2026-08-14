@@ -28,8 +28,8 @@ export function isPlayable(v: VideoNote): v is PlayableVideoNote {
  * Every playable video record for an era.
  *
  * The filter lives HERE, at the single read point, rather than in each
- * component: the rail (EraVideos), the era feed and its Videos filter
- * (EraSection), the search index (search.ts) and the track pages
+ * component: the era feed and its Videos filter (EraSection), the search
+ * index (search.ts) and the track pages
  * (videoForTrack) all funnel through this function, so one filter makes the
  * invariant true everywhere and no future surface can opt out of it by
  * forgetting to check. That is also why the previous fix didn't hold — #2050's
@@ -64,11 +64,9 @@ export function allVideoRecordsForEra(eraId: EraId): VideoNote[] {
 /**
  * Music videos for an era that carry a real release date — i.e. the subset
  * that's eligible to also render as its own dated entry in the main
- * chronological timeline (EraSection), duplicating (not replacing) its card
- * in the EraVideos rail above. Scoped to `kind === 'music_video'` only, per
- * the issue #439 request; lyric videos / short films / tour films etc. stay
- * rail-only for now. A video with no `releasedOn` has nowhere to sit on a
- * dated timeline, so it's excluded here (it still appears in the rail).
+ * chronological timeline (EraSection). Scoped to `kind === 'music_video'`
+ * only, per the issue #439 request. A video with no `releasedOn` has nowhere
+ * to sit on a dated timeline, so it's excluded here.
  */
 export function musicVideosForEra(eraId: EraId): (PlayableVideoNote & { releasedOn: string })[] {
   return videosForEra(eraId).filter(
@@ -78,9 +76,8 @@ export function musicVideosForEra(eraId: EraId): (PlayableVideoNote & { released
 }
 
 /**
- * Reader-facing label per kind — the one place a kind becomes English, shared
- * by the EraVideos rail card and the Videos-filtered feed card so the same
- * record never gets two different names on two surfaces.
+ * Reader-facing label per kind — the one place a kind becomes English, so the
+ * same record never gets two different names on two surfaces.
  */
 export const VIDEO_KIND_LABEL: Record<VideoNoteKind, string> = {
   // Works she made or headlined.

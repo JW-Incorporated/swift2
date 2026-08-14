@@ -92,7 +92,9 @@ read once on mount (`deepLink.ts`) and never written back.
 | `components/longlive/EraStream.tsx` | Scrolls all eras; its scroll listener sets the active era |
 | `components/longlive/EraSection.tsx` | **521 lines.** One era: hero, lyric, player, guide pills, filter, feed, videos rail |
 | `components/longlive/TopBar.tsx` | Sticky top bar + the 4-tab `ModeToggle`; hosts `TimelineScrubber` in era mode |
-| `components/longlive/TrackGuide.tsx` | Full-screen track-guide modal (no video playback today) |
+| `lib/longlive/track-video.ts` | Pairs a track with a playable video. Exact match on normalised titles — **never strip edition qualifiers** like "(Taylor's Version)" |
+| `components/longlive/TrackGuideBar.tsx` | Full-width bar under the lyric, in the retired Spotify player's slot; opens `TrackGuide` |
+| `components/longlive/TrackGuide.tsx` | Full-screen track-guide modal; plays a paired song video inline (~20% of tracks pair) |
 | `components/longlive/TheoryGuide.tsx` | Full-screen theories & eggs modal |
 | `components/longlive/ThreadsMode.tsx` | Thread gallery + thread detail |
 | `components/longlive/FeedbackButton.tsx` | Fixed bottom-right, `z-[71]`, POSTs to `/api/feedback` |

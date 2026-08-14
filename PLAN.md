@@ -376,7 +376,14 @@ smart.** Tracked as an open thread in `STATE.md`.
 10. [ ] Give `TrackGuide.tsx` inline per-track video playback, reusing
     `MomentVideo`. Respect the click-to-load rule — no iframe mounts before a
     click. (executor)
-    - Verify: `npm test -- video` → green.
+    - Verify: `npm test -- video track-video` → green.
+    - **This is where the video→song lookup gets built**, not P3. A track has
+      no pointer to a video, so pairing them needs title matching. Build it as
+      a pure, tested `lib/longlive/track-video.ts`, because P3 needs the same
+      lookup to anchor an undated egg "near some content about that song"
+      (Joey's words) — see § Plan amendments (2). Matching must be
+      conservative: a wrong pairing puts the wrong song's video on a track,
+      which is worse than no video at all. No fuzzy/edit-distance matching.
 11. [ ] Remove `<EraVideos>` from `EraSection.tsx`, delete `EraVideos.tsx`,
     and confirm the scrubber's end-of-era sentinel still sits after the last
     feed card. (executor)
