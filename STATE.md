@@ -5,32 +5,38 @@
 
 ## Current focus
 
-**AWAITING JOEY: which nav tab to drop.** He dislikes six icon-only tabs. A
-mockup proved **five labelled tabs FIT** — worst case (five longest: Eras,
-Threads, Clownbot, Community, Merch) at 390/430px comfortably, at 320px with
-only **~1.2px slack per side**, so 320 is probable-not-proven: the agent could
-not resize the real viewport and measured a forced-width proxy, and 1.2px is
-under the Chrome-vs-iOS-Safari font variance. **The fit depends on those exact
-strings — any label longer than "Community" breaks 320px.** Then it is two
-lines: remove the entry, `BOTTOM_NAV_ICON_ONLY_THRESHOLD` 5→6 (it reads
-`entries.length >=`, so five without the bump stays icon-only).
+**ACTIVE: merge Community + Merch into one section, redesign both.** Joey
+2026-08-14. **Drop the Merch tab** (nav → five labelled: Eras, Threads, Mood,
+Clownbot, Community), title stays "Community", **full-width 50/50 toggle** under
+it switching **Social** / **Merch**. Plus a section-jump subnav that also
+PREVIEWS what is below ("you have no idea how much is down there"), merch
+organised with era-style filters, and an image on every merch item.
 
-Community + Merch **MERGED `22314d5b` (#2112)** on the dataset **`109e776a`
-(#2110)**; both live. Earlier same day: era reader `e8500905` (#2086), device
-review `ff4df4ab` (#2099), Clownbot `3d553340` / `b8a500a3` / `d969a29e` —
-confirmed live by fetching the shipped JS bundles, not from a green build.
+**`PLAN.md` holds the scout facts and the constraints — read it, not this.** The
+Fable design evaluation is still running (a model override, NOT an architect
+escalation). **Two of Joey's six asks are blocked on CONTENT, not code, and are
+his calls: `Product` has NO image field and 0 of 151 have an image; and
+`officialStore`/`fanMade` are both empty, so those selectors would ship dead.**
+
+**Nav fit is settled:** five labelled tabs FIT — 390/430px comfortably, 320px on
+~1.2px slack (proxy-measured), so 320 is probable-not-proven. **Any label longer
+than "Community" breaks 320px.**
+
+**Actions is down, so work stays committed on the local branch.** The worktree's
+objects live in the real repo (`Projects\Swift2\.git`), so local commits are
+durable though Temp holds the files. Wyatt is fixing it; push when it returns.
+
+Shipped 2026-08-14: Community + Merch `22314d5b` (#2112) on `109e776a` (#2110);
+era reader `e8500905` (#2086); device review `ff4df4ab` (#2099); Clownbot
+`3d553340`/`b8a500a3`/`d969a29e` — confirmed live via shipped bundles.
 
 **The submit form only files GitHub issues until Joey does three things** in
 `docs/ops/community-merch-submissions.md`: deploy the Apps Script, verify
-`longlivets.com` in Resend, add the env vars. By design — but that is today.
-
-It got **two Fable rounds: REJECT (5) → fixed → APPROVE**, plus one LOW after.
-The HIGH was **CSV/formula injection into Joey's own sheet**; rule and lesson in
-`docs/engineering-lessons.md` § Safety gates, endpoint invariants on its
-`MAP.md` rows. Three not to relearn: **nothing user-submitted ever renders**
-(#36), **never fetches a submitted URL** (SSRF), **a missing integration must
-never fail a submission**. Sheet `1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4`
-in "Swift App" — **16-column order fixed; both senders must match it.**
+`longlivets.com` in Resend, add the env vars. Sheet
+`1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4` in "Swift App" — **16-column order
+fixed; both senders must match it.** Invariants: **nothing user-submitted ever
+renders** (#36), **never fetches a submitted URL** (SSRF), **a missing
+integration must never fail a submission.**
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
@@ -46,7 +52,6 @@ in "Swift App" — **16-column order fixed; both senders must match it.**
 - **PR #2114 is parked on that** — this checkpoint, docs only; needs only a
   re-run. **PR #2104 (older, STATE.md-only) is superseded and should be closed,
   not merged** — it predates everything since the chat-UI merge.
-
 - **#2110 merged with three questions still unanswered** (deferred, not
   resolved): **Instagram + TikTok** scope — item 4b names both, the brief
   omitted them, different shape so not widened unilaterally; **who owns the
@@ -54,37 +59,33 @@ in "Swift App" — **16-column order fixed; both senders must match it.**
   `r/TravisAndTaylor`** (`r/GaylorSwift` kept, flagged private since Aug 2025).
 - **Codex out until Aug 19 2026 — Workflow rule 3 UNSATISFIED** for Clownbot AND
   Community + Merch. **Run Codex against merged `main` when it returns.** A
-  `reviewer` on `model: "fable"` is the stand-in, required to REPRODUCE not read
-  — which is why it finds what reading passes miss.
+  `reviewer` on `model: "fable"` is the stand-in, required to REPRODUCE not read.
 - **`guard-code` + `enable` are red on EVERY code PR — #2113, pre-existing.**
   Verdict correct, delivery broken (exits 1 under `bash -e`). #2108 and #2112
   merged so. `docs/engineering-lessons.md` § CI. Don't fix it in a feature PR.
-- **Wyatt owns FIVE unsettled items:** Clownbot's model tier (`claude-sonnet-5`,
-  one named constant), the 200/day/instance cap, ratifying the Mood route
-  pattern, signing the Clownbot decisions entry, and the era reader's bottom nav
-  (overrides `docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3).
+- **Wyatt owns FIVE unsettled items:** Clownbot's model tier (`claude-sonnet-5`),
+  the 200/day/instance cap, ratifying the Mood route pattern, signing the
+  Clownbot decisions entry, and the era reader's bottom nav (overrides
+  `docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3).
 - **The bottom nav has never been opened on a real phone.** Told twice, merged
   anyway. Correct-in-code plus passing tests is not a device check.
 - **Four overlays share the `z-50`-under-`z-[71]` FeedbackButton overlap**
   (`EraSelector`, `MomentDetail`, `TrackGuide`, `TheoryGuide`). Deliberately NOT
-  fixed — floating feedback over a reading sheet may be intentional. Joey's call.
-  (`tb-priv-02`, the other known-and-accepted gap, is in the lessons doc.)
+  fixed — Joey's call. (`tb-priv-02` is the other accepted gap; lessons doc.)
 
 ## Merge authorization
 
-Per-workstream, never standing — **all current grants are spent; a new effort
-needs a new grant.** Standing and NOT spent: **"don't allow codex reviews to go
-more than 2 rounds."**
+Per-workstream, never standing — **all grants spent; a new effort needs a new
+one.** Standing, NOT spent: **"don't allow codex reviews more than 2 rounds."**
 
 ## Autonomous decisions — review surface
 
-- Merged #2110 on standing authorisation while Joey's three questions stay open,
-  because the feature branch depended on it. Questions logged, not dropped.
+- Merged #2110 and #2112 on standing authorisation — #2110 with Joey's three
+  questions still open (the branch depended on it), #2112 with
+  `guard-code`/`enable` red after confirming the same pair was red on merged
+  #2108 and `build` was green (filed #2113). Left #2104 open, not closed.
 - Fixed round 2's LOW (whitespace-hidden formulas) rather than shipping it as a
   named open finding — two characters, inside the class already being fixed.
-- Left `PR #2104` open rather than closing it unilaterally; see above.
-- Merged #2112 with `guard-code`/`enable` red, after confirming the same pair
-  was red on merged #2108 and `build` was green. Filed #2113 instead.
 - Moved durable traps into `docs/engineering-lessons.md`, `CLAUDE.md` points at
   it. The cap was unmeetable because working memory was being used as the record.
 - **A `grunt` edited the MAIN checkout** (`Documents\Claude\Projects\Swift2`,
@@ -121,13 +122,11 @@ affiliate seam; user text in a spreadsheet is a formula; research blockers.
   RAISED, not built** — § Never babysit your own PR bans it, and it would not
   have fixed the stalls (background agents already re-invoke on completion).
   **If he reaffirms, build it.** Never build it silently.
-- `scripts/social/post-queue.mjs` + `delete-media.mjs` hit LIVE accounts and
-  `guard.sh` denies them. `core.autocrlf=true`. `.claude/worktrees/` holds ~30
-  worktrees — never clean. `social-poster-workflow.test.ts.tmp` is scratch.
+- `post-queue.mjs` + `delete-media.mjs` hit LIVE accounts; `guard.sh` denies
+  them. `core.autocrlf=true`. `.claude/worktrees/` ~30 worktrees — never clean.
 - **The dev server scaffolds `apps/web/{README,AGENTS,CLAUDE}.md`** — untracked,
-  never in git history, not work; they reappear on every dev-server run.
-  `README.md` **trips the Stop checkpoint gate every turn until a human deletes
-  it** (`rm -f` is guard-denied, correctly).
+  never in git, not work; they return on every run. `README.md` **trips the Stop
+  gate every turn until a human deletes it** (`rm -f` guard-denied, correctly).
 
 ## Open threads
 
@@ -138,8 +137,9 @@ affiliate seam; user text in a spreadsheet is a formula; research blockers.
 
 ## Next obvious step
 
-0. **Check Actions billing before planning anything** — while it is down nothing
-   merges and the social poster is silent. If still down, that is the report.
+0. **`PLAN.md` is written but says NOT READY TO BUILD.** Fold in the Fable design
+   when it lands, get Joey's answers to its § Open questions, then dispatch
+   executors on steps 1–3 (unblocked) while 4–5 wait on him.
 1. **Joey's hands:** the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`, plus his three #2110 questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
