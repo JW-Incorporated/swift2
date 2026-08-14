@@ -176,7 +176,10 @@ export default {
       day: 8,
       category: 'tour',
       significance: 'defining', // the highest-grossing US tour of all time when it closed, the tour that proved the reputation comeback (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-the-eras-tour-kicks-off-in-glendale'],
+      relatedIds: [
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        'moment:vault-reputation-the-snake-video-that-announced-reputation',
+      ],
       title: 'reputation Stadium Tour opens to a record crowd',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -188,7 +191,7 @@ export default {
         "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png",
       moment: {
         context:
-          "Opening night at University of Phoenix Stadium on May 8, 2018 grossed $7.2 million on its own, with Camila Cabello and Charli XCX opening the show — and briefly joining her on stage for a three-way \"Shake It Off.\" The 59,157 fans in the building broke a venue attendance record One Direction had held since 2014, and they broke it by 2,633 seats.\n\nIt was the first all-stadium tour of her career, launched behind an album rolled out with almost no press interviews: 53 shows across seven countries that would close six months later as the highest-grossing U.S. tour in Billboard Boxscore history.\n\nThe reclaimed snake from the album rollout got its full-size payoff on this stage: a towering animatronic serpent — fans nicknamed her Karyn — loomed over the set for \"Look What You Made Me Do\" every night of the run.",
+          "Opening night at University of Phoenix Stadium on May 8, 2018 grossed $7.2 million on its own, with Camila Cabello and Charli XCX opening the show — and briefly joining her on stage for a three-way \"Shake It Off.\" The 59,157 fans in the building broke a venue attendance record One Direction had held since 2014, and they broke it by 2,633 seats.\n\nIt was the first all-stadium tour of her career, launched behind an album rolled out with almost no press interviews: 53 shows across seven countries that would close six months later as the highest-grossing U.S. tour in Billboard Boxscore history.\n\nThe reclaimed snake from the album rollout got its full-size payoff on this stage: a towering animatronic serpent — fans nicknamed her Karyn — loomed over the set for \"Look What You Made Me Do\" every night of the run.\n\nBy the time the run closed six months later, the numbers had grown to tour-defining size: those 53 shows drew about 2.88 million people — an average of well over 50,000 a night — and grossed roughly $345.6 million worldwide. The U.S. leg alone took in around $266.1 million, enough to pass the Rolling Stones' A Bigger Bang Tour as the highest-grossing tour in North American history to that point, and the run carried the Guinness World Record for the highest-grossing tour by a female artist in 2018. Those receipts were the argument the album itself had declined to make in interviews: an era that let the snake and the stadiums do the talking answered its doubters in ticket stubs, turning a comeback nobody was sure would land into the biggest touring success of Taylor's career to that point.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour' },
           {
