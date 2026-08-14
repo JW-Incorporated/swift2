@@ -177,6 +177,24 @@ describe('TimelineScrubber never displays or announces a synthetic anchor date',
     expect(nearestAnchorExact(reordered, debutStart)).toBe(false);
   });
 
+  // Adversarial review finding #3, 2026-08-13: the DATE interpolation set
+  // (what TimelineScrubber's dateForTop/exactForDate actually search) no
+  // longer includes non-exact anchors at all — see TimelineScrubber.tsx's
+  // exactAnchorsRef. That, not a change to nearestAnchorExact itself, is
+  // what resolves the debut-era-start over-suppression above in practice:
+  // once the clamped doorway is filtered out before this function ever sees
+  // it, the tie in the test above cannot occur — only the real moment's
+  // anchor remains, so it reports exact.
+  it('reports exact once the caller excludes non-exact anchors before calling (the finding #3 fix)', () => {
+    const debutStart = new Date('2006-10-24').getTime();
+    const mixed: ScrubberAnchor[] = [
+      { date: debutStart, top: 100, exact: false }, // taylors-version doorway, clamped
+      { date: debutStart, top: 140, exact: true }, // debut's real release-day moment
+    ];
+    const exactOnly = mixed.filter((a) => a.exact);
+    expect(nearestAnchorExact(exactOnly, debutStart)).toBe(true);
+  });
+
   // Source-lock: the component's only two display surfaces for a resolved
   // date must route through labelForDate (never format a raw date directly),
   // and measure() must read data-ll-exact off the DOM rather than assuming

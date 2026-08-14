@@ -21,6 +21,16 @@ import { formatMonthYear } from '@/lib/longlive/format';
  * may ever be shown/announced (adversarial review finding #1, 2026-08-13) —
  * a thread doorway carries it when it has a real `displayDate`, an egg
  * doorway never does (era-scatter only).
+ *
+ * `isAnchor` (adversarial review finding #2, 2026-08-13): false for a
+ * doorway `spaceDoorways` displaced to satisfy the gap rule — it kept its
+ * original `sortDate` for ordering, but its rendered position no longer
+ * matches that date, so it must not vote in the scrubber's rail-anchor set
+ * (see space-doorways.ts). `data-ll-date`/`data-ll-exact` are omitted
+ * entirely in that case rather than sent with a misleading value, so
+ * TimelineScrubber's `[data-ll-item][data-ll-era]` query still finds the
+ * element (nothing else depends on that) but `measure()` skips it for
+ * having no date.
  */
 
 /** One stable icon per thread — same pairing EraSection's old pivot strip
@@ -39,6 +49,7 @@ export function ThreadDoorwayCard({
   eraId,
   sortDate,
   displayDate,
+  isAnchor,
   onOpen,
 }: {
   doorway: ThreadDoorway;
@@ -47,6 +58,8 @@ export function ThreadDoorwayCard({
   sortDate: string;
   /** Rendered only when non-null — a real, authored date. */
   displayDate: string | null;
+  /** False when `spaceDoorways` displaced this card — see the header note. */
+  isAnchor: boolean;
   onOpen: () => void;
 }) {
   const Icon = THREAD_ICONS[doorway.threadId] ?? Sparkles;
@@ -55,8 +68,8 @@ export function ThreadDoorwayCard({
       className="relative min-w-0 scroll-mt-28 md:col-span-2"
       data-ll-item={`era-thread-${eraId}-${doorway.threadId}`}
       data-ll-era={eraId}
-      data-ll-date={new Date(sortDate).getTime()}
-      data-ll-exact={displayDate != null ? '1' : '0'}
+      data-ll-date={isAnchor ? new Date(sortDate).getTime() : undefined}
+      data-ll-exact={isAnchor ? (displayDate != null ? '1' : '0') : undefined}
     >
       <button
         onClick={onOpen}
@@ -90,6 +103,7 @@ export function EggDoorwayCard({
   doorway,
   eraId,
   sortDate,
+  isAnchor,
   onOpen,
 }: {
   doorway: EggDoorway;
@@ -97,6 +111,8 @@ export function EggDoorwayCard({
   /** Positioning only — every egg doorway anchors via era-scatter (never
    * exact), so there is no displayDate to accept here at all. */
   sortDate: string;
+  /** False when `spaceDoorways` displaced this card — see the header note. */
+  isAnchor: boolean;
   onOpen: () => void;
 }) {
   const Icon = doorway.threadId ? (THREAD_ICONS[doorway.threadId] ?? Egg) : Egg;
@@ -105,8 +121,8 @@ export function EggDoorwayCard({
       className="relative min-w-0 scroll-mt-28 md:col-span-2"
       data-ll-item={`era-egg-${doorway.eggId}`}
       data-ll-era={eraId}
-      data-ll-date={new Date(sortDate).getTime()}
-      data-ll-exact="0"
+      data-ll-date={isAnchor ? new Date(sortDate).getTime() : undefined}
+      data-ll-exact={isAnchor ? '0' : undefined}
     >
       <button
         onClick={onOpen}

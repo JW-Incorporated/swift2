@@ -101,6 +101,7 @@ function renderEntry(
           eraId={era.id}
           sortDate={entry.anchor.sortDate}
           displayDate={entry.anchor.displayDate}
+          isAnchor={!entry.displaced}
           onOpen={() => onOpenDoorway(entry)}
         />
       );
@@ -111,6 +112,7 @@ function renderEntry(
           doorway={entry.doorway}
           eraId={era.id}
           sortDate={entry.anchor.sortDate}
+          isAnchor={!entry.displaced}
           onOpen={() => onOpenDoorway(entry)}
         />
       );

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { filterChangeScrollDelta } from './era-stream-pin';
+import { BOTTOM_CLAMP_OVERSHOOT_PX, filterChangeScrollDelta } from './era-stream-pin';
 
 describe('filterChangeScrollDelta', () => {
   it('is a no-op when the section top has not moved and still has plenty of content below', () => {
@@ -49,7 +49,10 @@ describe('filterChangeScrollDelta', () => {
     expect(delta).toBeLessThan(0);
     const predictedTop = 100 - delta;
     const predictedBottom = 150 - delta;
-    expect(predictedBottom).toBe(400); // bottom lands exactly on the reference line
+    // Lands past the reference line by the overshoot (finding #4,
+    // 2026-08-13), not exactly on it — see BOTTOM_CLAMP_OVERSHOOT_PX's doc
+    // comment for why landing exactly on the line is the bug.
+    expect(predictedBottom).toBe(400 + BOTTOM_CLAMP_OVERSHOOT_PX);
     expect(predictedTop).toBeLessThanOrEqual(400); // still satisfies "top <= center"
   });
 
@@ -65,15 +68,16 @@ describe('filterChangeScrollDelta', () => {
       viewportCenter: 400,
       scrollY: 1000,
     });
-    expect(delta).toBe(-360); // 40 - (-360) = 400, not a jump to page top
+    // 40 - delta === 400 + overshoot, not a jump to page top.
+    expect(delta).toBe(-(360 + BOTTOM_CLAMP_OVERSHOOT_PX));
   });
 
   // Re-review finding B (2026-08-13): the geometry-only clamp above can ask
   // for more upward scroll than the page actually has above it. Reproduced
   // with the SAME section geometry as the test above, but near the top of
-  // the page (scrollY: 100): the uncapped delta (-360) would request an
-  // absolute scroll position of 100 + -360 = -260. The result must be
-  // clamped so the requested absolute position is never negative.
+  // the page (scrollY: 100): the uncapped delta would request an absolute
+  // scroll position well below 0. The result must be clamped so the
+  // requested absolute position is never negative.
   it('clamps the delta against the caller-supplied scrollY so the requested absolute position is never negative', () => {
     const scrollY = 100;
     const delta = filterChangeScrollDelta({
@@ -83,7 +87,7 @@ describe('filterChangeScrollDelta', () => {
       viewportCenter: 400,
       scrollY,
     });
-    expect(delta).toBe(-100); // clamped: 100 + delta === 0, not -260
+    expect(delta).toBe(-100); // clamped: 100 + delta === 0, not the deeper uncapped request
     expect(scrollY + delta).toBeGreaterThanOrEqual(0);
   });
 
@@ -109,17 +113,36 @@ describe('filterChangeScrollDelta', () => {
     });
     expect(second).toBeLessThan(0);
     const finalBottom = 120 - first - second;
-    expect(finalBottom).toBe(400);
+    expect(finalBottom).toBe(400 + BOTTOM_CLAMP_OVERSHOOT_PX);
   });
 
-  it('does not clamp when the section still reaches at least the reference line', () => {
+  it('does not clamp when the section still reaches at least the (overshot) reference line', () => {
     const delta = filterChangeScrollDelta({
       sectionTop: 100,
-      sectionBottom: 401, // just barely reaches the reference line
+      sectionBottom: 400 + BOTTOM_CLAMP_OVERSHOOT_PX + 1, // just barely past it
       savedTop: 100,
       viewportCenter: 400,
       scrollY: 100,
     });
     expect(delta).toBe(0);
+  });
+
+  // Adversarial review finding #4 (2026-08-13): landing the section's bottom
+  // EXACTLY at viewportCenter left the result one `scrollBy` sub-pixel
+  // rounding away from flipping EraStream's active-era pick to the following
+  // era. The section geometry here would previously have clamped to exactly
+  // 400 — the fix must clear that line by a few pixels instead.
+  it('clamps past the reference line by BOTTOM_CLAMP_OVERSHOOT_PX, not exactly onto it', () => {
+    const delta = filterChangeScrollDelta({
+      sectionTop: 100,
+      sectionBottom: 400, // would have landed exactly on the old knife-edge
+      savedTop: 100,
+      viewportCenter: 400,
+      scrollY: 1000,
+    });
+    const predictedBottom = 400 - delta;
+    expect(BOTTOM_CLAMP_OVERSHOOT_PX).toBeGreaterThan(0);
+    expect(predictedBottom).toBe(400 + BOTTOM_CLAMP_OVERSHOOT_PX);
+    expect(predictedBottom).toBeGreaterThan(400); // clear of the line, not on it
   });
 });

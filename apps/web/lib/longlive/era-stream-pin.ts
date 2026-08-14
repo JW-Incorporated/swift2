@@ -21,7 +21,18 @@
  * `window.scrollY` — the requested absolute scroll position can never go
  * negative, which is what `window.scrollBy` would otherwise silently do for
  * the caller.
+ *
+ * The bottom-clamp target is `viewportCenter + BOTTOM_CLAMP_OVERSHOOT_PX`,
+ * not `viewportCenter` exactly (adversarial review finding #4, 2026-08-13):
+ * landing the section's bottom EXACTLY on the reference line means the
+ * post-`scrollBy` sub-pixel rounding a real browser does can put it a
+ * fraction either side of that line, which is enough to flip EraStream's
+ * active-era pick to the following era right after the clamp was meant to
+ * keep the reader in this one. A few pixels of overshoot lands the bottom
+ * clearly past the line instead of exactly on its knife-edge.
  */
+export const BOTTOM_CLAMP_OVERSHOOT_PX = 4;
+
 export function filterChangeScrollDelta(input: {
   /** The active era section's current top, in viewport coordinates
    * (`getBoundingClientRect().top`), before any correction. */
@@ -40,8 +51,9 @@ export function filterChangeScrollDelta(input: {
   const { sectionTop, sectionBottom, savedTop, viewportCenter, scrollY } = input;
   let delta = sectionTop - savedTop;
   const predictedBottom = sectionBottom - delta;
-  if (predictedBottom < viewportCenter) {
-    delta -= viewportCenter - predictedBottom;
+  const clampTarget = viewportCenter + BOTTOM_CLAMP_OVERSHOOT_PX;
+  if (predictedBottom < clampTarget) {
+    delta -= clampTarget - predictedBottom;
   }
   return Math.max(delta, -scrollY);
 }
