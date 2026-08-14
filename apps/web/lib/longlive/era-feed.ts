@@ -1,6 +1,7 @@
 import type { ContentItem, VideoNote } from './types';
 import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from './filters';
 import { resolveAnchor, type Anchored } from './anchor-date';
+import type { EggDoorway, ThreadDoorway } from './doorways';
 
 /**
  * The era feed's SELECTION rules, as pure functions.
@@ -21,12 +22,22 @@ import { resolveAnchor, type Anchored } from './anchor-date';
  * same rule instead of a branch choosing between two candidate lists.
  */
 
-/** One entry in the merged feed: a curated moment, or a video record. Every
- * entry carries an `anchor` (see anchor-date.ts) so undated records still
- * have a defensible sort position instead of piling at the end. */
+/**
+ * One entry in the merged feed: a curated moment, a video record, or a
+ * doorway into a THREADS gallery or an egg/theory detail (PLAN.md P3 step
+ * 13). Every entry carries an `anchor` (see anchor-date.ts) so undated
+ * records still have a defensible sort position instead of piling at the
+ * end. Doorway construction (`threadDoorwaysForEra`/`eggDoorwaysForEra`)
+ * lives in `doorways.ts`, not here — this file stays the merge/sort/filter
+ * logic, doorways.ts is the only module that reaches into `lenses.ts`/
+ * `theories.ts` for that data (kept the split to stay under the 300-line cap
+ * — see MAP.md).
+ */
 export type EraFeedEntry<V extends VideoNote = VideoNote> =
   | { kind: 'moment'; item: ContentItem; anchor: Anchored }
-  | { kind: 'video'; video: V; anchor: Anchored };
+  | { kind: 'video'; video: V; anchor: Anchored }
+  | { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored }
+  | { kind: 'egg'; doorway: EggDoorway; anchor: Anchored };
 
 /**
  * The merged feed (mergeEraFeed's output over every moment and every
@@ -43,6 +54,11 @@ export type EraFeedEntry<V extends VideoNote = VideoNote> =
  * has to be computed over every moment on the timeline before any filter is
  * applied, or a tag filter could hide the owner and leave a footage-carrying
  * moment unreachable under Videos (see `inlineVideoMomentIds`'s doc comment).
+ *
+ * PLAN.md P3 step 14b: this and `mergeEraFeed` used to be overloaded so a
+ * caller that never passed doorways in kept the narrower `moment | video`
+ * return type. Now that `EraSection.tsx` renders all four kinds (step 15),
+ * that caller no longer exists — one signature, over the full union.
  */
 export function visibleFeed<V extends VideoNote>(
   entries: EraFeedEntry<V>[],
@@ -104,8 +120,8 @@ export function inlineVideoMomentIds(items: ContentItem[]): Set<string> {
 }
 
 /**
- * Merge moments and videos into one newest-first feed, so cross-type ordering
- * is correct instead of two concatenated lists.
+ * Merge moments, videos and doorways into one newest-first feed, so
+ * cross-type ordering is correct instead of several concatenated lists.
  *
  * Every entry is anchored via `resolveAnchor` (anchor-date.ts) before
  * sorting. Moments always carry an authored date (`ContentItem.date` is
@@ -120,20 +136,40 @@ export function inlineVideoMomentIds(items: ContentItem[]): Set<string> {
  * anchor-date.ts's honesty rule), so an undated video card still renders
  * "Date unknown".
  *
+ * `doorways` (PLAN.md P3 step 13) are ALREADY `EraFeedEntry`-shaped with
+ * their own `anchor` — built by `threadDoorwaysForEra`/`eggDoorwaysForEra`
+ * in `doorways.ts` — so this function only needs to fold them into the same
+ * sort, not compute their anchors itself. Optional and appended last, rather
+ * than adding an `eraId` param up front, so every existing call site (this
+ * function shipped with 4 args in P1) keeps compiling unchanged; the caller
+ * that has doorways to offer passes them, everyone else gets the same
+ * two-kind feed as before. Apply `spaceDoorways` to the result before
+ * rendering — this function only merges and sorts, it does not space.
+ *
  * This SUBSUMES the old, separate `undatedAnchorDate()` — that function
  * computed its own single floor value for the scrubber's tail anchor, a
  * second, disagreeing notion of "anchor" living alongside this one. Callers
  * that need a card's scroll anchor now read `entry.anchor.sortDate` directly.
  *
  * Ties (equal `sortDate` — rare with era-scatter, but not impossible when two
- * ids hash to the same day) break on `id` — the moment's id or the video's
- * slug — so ordering is deterministic regardless of input array order.
+ * ids hash to the same day) break on a stable id per kind — the moment's id,
+ * the video's slug, or a `kind:`-prefixed doorway id — so ordering is
+ * deterministic regardless of input array order.
+ *
+ * PLAN.md P3 step 14b: `doorways` used to be optional scaffolding behind an
+ * overload pair, so a 4-arg call (no doorways) kept returning the narrower
+ * `moment | video` union and EraSection.tsx's pre-step-15 render loop kept
+ * typechecking unchanged. Step 15 now dispatches all four kinds, so that
+ * narrower caller no longer exists — one signature, over the full union.
+ * `doorways` stays optional (default `[]`) purely for callers (tests) that
+ * don't care about them, not to preserve a second return type.
  */
 export function mergeEraFeed<V extends VideoNote>(
   moments: ContentItem[],
   videos: V[],
   eraStart: string,
   eraEnd: string,
+  doorways: EraFeedEntry<V>[] = [],
 ): EraFeedEntry<V>[] {
   const entries: EraFeedEntry<V>[] = [
     ...moments.map(
@@ -150,15 +186,34 @@ export function mergeEraFeed<V extends VideoNote>(
         anchor: resolveAnchor({ exactDate: video.releasedOn, eraStart, eraEnd, id: video.slug }),
       }),
     ),
+    ...doorways,
   ];
   return entries.sort((a, b) => {
     if (a.anchor.sortDate !== b.anchor.sortDate) {
       return b.anchor.sortDate.localeCompare(a.anchor.sortDate);
     }
-    const idA = a.kind === 'moment' ? a.item.id : a.video.slug;
-    const idB = b.kind === 'moment' ? b.item.id : b.video.slug;
-    return idA.localeCompare(idB);
+    return entryTiebreakId(a).localeCompare(entryTiebreakId(b));
   });
+}
+
+/** The stable id an entry sorts on when two anchors tie — see `mergeEraFeed`.
+ * Doorway ids are prefixed so they can never collide with a moment id or
+ * video slug, which share one unprefixed string space today. */
+function entryTiebreakId<V extends VideoNote>(entry: EraFeedEntry<V>): string {
+  switch (entry.kind) {
+    case 'moment':
+      return entry.item.id;
+    case 'video':
+      return entry.video.slug;
+    case 'thread':
+      return `thread:${entry.doorway.threadId}`;
+    case 'egg':
+      return `egg:${entry.doorway.eggId}`;
+    default: {
+      const exhaustive: never = entry;
+      return exhaustive;
+    }
+  }
 }
 
 /** The YouTube ids already embedded on curated moments in this era — the

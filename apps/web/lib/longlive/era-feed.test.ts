@@ -10,6 +10,8 @@ import {
 } from './era-feed';
 import type { FilterId } from './filters';
 import type { ContentItem, ContentTag, VideoNote } from './types';
+import type { ThreadDoorway } from './doorways';
+import { spaceDoorways, DOORWAY_MIN_GAP } from './space-doorways';
 
 // Every test era spans the full 2019 calendar year. Undated videos fall back
 // to the era-scatter anchor (anchor-date.ts) — a deterministic, id-derived
@@ -60,7 +62,30 @@ const filterOf = (ids: FilterId[]): ReadonlySet<FilterId> => new Set(ids);
  * on the shape of a filtered/merged feed without a kind-by-kind switch in
  * every test. */
 const entryIds = (entries: EraFeedEntry[]): string[] =>
-  entries.map((e) => (e.kind === 'moment' ? e.item.id : e.video.slug));
+  entries.map((e) => {
+    switch (e.kind) {
+      case 'moment':
+        return e.item.id;
+      case 'video':
+        return e.video.slug;
+      case 'thread':
+        return `thread:${e.doorway.threadId}`;
+      case 'egg':
+        return `egg:${e.doorway.eggId}`;
+    }
+  });
+
+const threadEntry = (threadId: string, sortDate: string): EraFeedEntry => ({
+  kind: 'thread',
+  doorway: { threadId: threadId as ThreadDoorway['threadId'], kicker: 'k', title: threadId, example: 'x' },
+  anchor: { sortDate, displayDate: sortDate, via: 'exact' },
+});
+
+const eggEntry = (eggId: string, sortDate: string): EraFeedEntry => ({
+  kind: 'egg',
+  doorway: { eggId, threadId: null, kicker: 'k', title: eggId },
+  anchor: { sortDate, displayDate: null, via: 'era-scatter' },
+});
 
 const ITEMS = [
   moment('m-lore', '2019-08-23', ['Lore']),
@@ -197,7 +222,11 @@ describe('mergeEraFeed', () => {
     it('gives moments and dated videos an exact anchor equal to their own date', () => {
       const entries = mergeEraFeed(ITEMS, MUSIC_VIDEOS);
       for (const e of entries) {
-        const ownDate = e.kind === 'moment' ? e.item.date : e.video.releasedOn;
+        // No doorways passed in here, so only 'moment'/'video' ever occur at
+        // runtime — asserted so the widened `EraFeedEntry` union (step 13)
+        // still narrows safely below.
+        expect(e.kind === 'moment' || e.kind === 'video').toBe(true);
+        const ownDate = e.kind === 'moment' ? e.item.date : e.kind === 'video' ? e.video.releasedOn : null;
         expect(e.anchor).toEqual({ sortDate: ownDate, displayDate: ownDate, via: 'exact' });
       }
     });
@@ -229,6 +258,28 @@ describe('mergeEraFeed', () => {
       expect(new Set(undatedDates).size).toBe(2);
     });
   });
+
+  // PLAN.md P3 step 13: the optional 5th arg folds thread/egg doorways into
+  // the same newest-first sort as moments and videos.
+  describe('with doorways (step 13)', () => {
+    it('interleaves doorways into the merged feed by their own anchor, newest-first', () => {
+      const doorways = [threadEntry('fashion', '2019-08-25'), eggEntry('lover:e1', '2019-06-18')];
+      const entries = mergeEraFeedRaw(ITEMS, MUSIC_VIDEOS, ERA_START, ERA_END, doorways);
+      expect(entryIds(entries)).toEqual([
+        'm-fashion', // 2019-08-26
+        'thread:fashion', // 2019-08-25
+        'm-lore', // 2019-08-23
+        'mv-lover', // 2019-08-22
+        'egg:lover:e1', // 2019-06-18
+        'm-music-with-video', // 2019-06-17
+      ]);
+    });
+
+    it('an empty doorways list behaves exactly as the 4-arg call', () => {
+      const withEmpty = mergeEraFeedRaw(ITEMS, MUSIC_VIDEOS, ERA_START, ERA_END, []);
+      expect(entryIds(withEmpty)).toEqual(entryIds(mergeEraFeed(ITEMS, MUSIC_VIDEOS)));
+    });
+  });
 });
 
 describe('embeddedYoutubeIds', () => {
@@ -238,6 +289,80 @@ describe('embeddedYoutubeIds', () => {
 
   it('is empty when no moment carries a video', () => {
     expect(embeddedYoutubeIds([moment('m', '2019-01-01', ['Lore'])]).size).toBe(0);
+  });
+});
+
+// PLAN.md P3 step 14 — DOORWAY_MIN_GAP spacing.
+describe('spaceDoorways', () => {
+  // A run of 12 plain content cards, newest-first, real-shaped enough for
+  // entryIds to read: alternating moment/video so the fixture isn't
+  // suspiciously uniform.
+  const filler = (n: number): EraFeedEntry[] =>
+    Array.from({ length: n }, (_, i) =>
+      i % 2 === 0
+        ? { kind: 'moment', item: moment(`f${i}`, '2019-01-01', []), anchor: { sortDate: '2019-01-01', displayDate: '2019-01-01', via: 'exact' } }
+        : { kind: 'video', video: video(`f${i}`, 'music_video', '2019-01-01'), anchor: { sortDate: '2019-01-01', displayDate: '2019-01-01', via: 'exact' } },
+    );
+
+  it('leaves an already-spaced feed untouched', () => {
+    const feed = [threadEntry('t1', '2019-01-01'), ...filler(6), eggEntry('e1', '2019-01-01')];
+    expect(spaceDoorways(feed)).toEqual(feed);
+  });
+
+  it('delays a doorway that clumps within DOORWAY_MIN_GAP of the previous one', () => {
+    // Two doorways back-to-back with nothing between them, then plenty of
+    // filler — the second doorway must move to clear the 4-card gap.
+    const feed = [threadEntry('t1', '2019-01-01'), eggEntry('e1', '2019-01-01'), ...filler(8)];
+    const spaced = spaceDoorways(feed);
+    const doorwayIndexes = spaced
+      .map((e, i) => ((e.kind === 'thread' || e.kind === 'egg') ? i : -1))
+      .filter((i) => i >= 0);
+    expect(doorwayIndexes).toHaveLength(2);
+    expect(doorwayIndexes[1] - doorwayIndexes[0]).toBeGreaterThan(DOORWAY_MIN_GAP);
+    // Every doorway from the input is still present in the output.
+    expect(entryIds(spaced).filter((id) => id.startsWith('thread:') || id.startsWith('egg:')).sort()).toEqual(
+      ['egg:e1', 'thread:t1'].sort(),
+    );
+  });
+
+  it('never drops a doorway when the era is dense with doorways (best-effort spacing)', () => {
+    // 6 doorways, only 3 filler cards total — nowhere near enough room to
+    // give every doorway its own 4-card gap.
+    const doorways = Array.from({ length: 6 }, (_, i) => threadEntry(`t${i}`, '2019-01-01'));
+    const feed = [doorways[0], ...filler(1), doorways[1], ...filler(1), doorways[2], ...filler(1), doorways[3], doorways[4], doorways[5]];
+    const spaced = spaceDoorways(feed);
+    // Nothing lost: same total length, and every doorway id from the input
+    // is present in the output exactly once.
+    expect(spaced).toHaveLength(feed.length);
+    expect(entryIds(spaced).filter((id) => id.startsWith('thread:')).sort()).toEqual(
+      entryIds(feed).filter((id) => id.startsWith('thread:')).sort(),
+    );
+  });
+
+  it('never moves a doorway earlier than its original position, and never reorders two doorways', () => {
+    const doorways = Array.from({ length: 5 }, (_, i) => threadEntry(`t${i}`, '2019-01-01'));
+    const feed = [doorways[0], doorways[1], ...filler(2), doorways[2], doorways[3], doorways[4]];
+    const spaced = spaceDoorways(feed);
+    const orderInSpaced = ['t0', 't1', 't2', 't3', 't4'].map((id) =>
+      spaced.findIndex((e) => e.kind === 'thread' && e.doorway.threadId === id),
+    );
+    // Ascending — doorway-to-doorway relative order preserved.
+    for (let i = 1; i < orderInSpaced.length; i++) {
+      expect(orderInSpaced[i]).toBeGreaterThan(orderInSpaced[i - 1]);
+    }
+  });
+
+  it('is deterministic — the same input always produces the same output', () => {
+    const feed = [threadEntry('t1', '2019-01-01'), eggEntry('e1', '2019-01-01'), ...filler(3), threadEntry('t2', '2019-01-01')];
+    expect(spaceDoorways(feed)).toEqual(spaceDoorways(feed));
+  });
+
+  it('does not reorder two non-doorway cards relative to each other', () => {
+    const plain = filler(8);
+    const feed = [threadEntry('t1', '2019-01-01'), threadEntry('t2', '2019-01-01'), ...plain];
+    const spaced = spaceDoorways(feed);
+    const plainIdsInSpaced = entryIds(spaced).filter((id) => !id.startsWith('thread:') && !id.startsWith('egg:'));
+    expect(plainIdsInSpaced).toEqual(entryIds(plain));
   });
 });
 

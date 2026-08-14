@@ -15,7 +15,11 @@ export type AnchorSource =
   | 'exact' // the item has a real, authored date
   | 'related-item' // borrowed from a moment it references
   | 'related-song' // borrowed from a song/album release date
-  | 'era-scatter'; // last resort: a stable, id-derived position in the era's span
+  | 'era-scatter' // last resort: a stable, id-derived position in the era's span
+  | 'clamped'; // a real, exact date that fell outside the era's window and was
+  // pulled to the nearest boundary (PLAN.md P3 step 14a) — still a real date
+  // internally, but no longer trustworthy enough to print, so displayDate is
+  // null exactly as for every other non-exact source.
 
 export type Anchored = {
   /** Always present. Sorting only. NEVER rendered as fact. */
