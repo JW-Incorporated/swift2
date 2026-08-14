@@ -5,6 +5,8 @@
 //
 // Usage:
 //   node --use-env-proxy scripts/content-engine/run.mjs scan            # deterministic checkers → findings + report
+//     (`scan`'s report writes to .scratch/content-engine/ by default — a self-check,
+//     not Karen's run; add --canonical to write docs/audits/engine/ instead)
 //   node --use-env-proxy scripts/content-engine/run.mjs scan --no-images# skip the network image pass (fast)
 //   node --use-env-proxy scripts/content-engine/run.mjs prep-agents     # write scoped inputs for the agent review passes
 //   node --use-env-proxy scripts/content-engine/run.mjs ingest          # merge deterministic + agent findings
@@ -45,6 +47,11 @@ import * as voice from './checkers/voice.mjs';
 // byte-level resolution check in imageLiveness can't reach hosts.
 const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, duplicateContent, crosslinkOpportunity, hotThinTopic, fashionProducts, rumorLifecycle, rumorRedline, socialPostMissing, voice];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
+// docs/audits/engine/ is Karen-exclusive (docs/decisions.md 2026-08-14): a
+// bare `scan` self-check writes here instead, so other agents keep their
+// self-check without being able to clobber Karen's evidence. `--canonical` is
+// the explicit opt-in for a caller that genuinely needs the committed path.
+const SCRATCH_REPORTS_DIR = '.scratch/content-engine';
 const log = (...a) => console.log(...a);
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -91,6 +98,8 @@ async function scan(opts) {
   const reportPath = await writeReport(deduped, {
     date: today(), itemCount: items.length, imageCount: images.length,
     checkers: DET_CHECKERS.map((c) => c.id),
+    source: 'scan',
+    reportDir: opts.canonical ? undefined : SCRATCH_REPORTS_DIR,
   });
   const bySev = { P0: 0, P1: 0, P2: 0, P3: 0 };
   for (const f of deduped) bySev[f.severity]++;
@@ -419,7 +428,7 @@ async function report() {
   ].join('\n');
   const reportPath = await writeReport(filable, {
     date: today(), itemCount: items.length, imageCount: imageIndex(items).length,
-    checkers, note,
+    checkers, note, source: 'all',
   });
   log(`report → ${reportPath.replace(ROOT, '.')} (${filable.length} filable, ${routed} routed)`);
   return reportPath;
@@ -584,6 +593,7 @@ const num = (flag, dflt) => (rest.includes(flag) ? Number(rest[rest.indexOf(flag
 const opts = {
   noImages: rest.includes('--no-images'),
   claimsOnly: rest.includes('--claims-only'),
+  canonical: rest.includes('--canonical'),
   create: rest.includes('--create'),
   limit: num('--limit', Infinity),
   factualBatches: num('--factual-batches', 2),

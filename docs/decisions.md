@@ -7,6 +7,63 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-14 — Karen's report path is hers alone, and the watchdog checks provenance
+
+**The incident.** A watchdog email reported that the 2026-08-14 Karen run
+"scanned, wrote its report, then died before filing," destroying 830 findings.
+That diagnosis was wrong. Verified by `git log` on the report files themselves:
+
+| Report | Added by |
+|---|---|
+| `2026-08-14-cie-run.md` | `c0477cc9` — photo-enrichment, PR #2088 |
+| `2026-08-13-cie-run.md` | `5a4266b8` — rumor-desk, PR #2064 |
+| `2026-08-12-cie-run.md` | `87692e81` — depth-audit, PR #2028 |
+
+None of them is a Karen PR. **Karen's last actual run was PR #1850 on
+2026-08-09** — she has been dark for five days. Other content-authoring agents
+run `run.mjs scan` as a self-check and their PRs commit the report into the
+path Karen owns, so the file keeps looking fresh while nothing runs.
+
+Nothing was destroyed on 2026-08-14, because nothing was ever filed: that
+report is a byproduct of a photo PR. The 2026-08-12 report's own verdict reads
+`status=dry-run filed=25` — an agent running without `--create`, not a crash.
+
+**Decision 1 — `docs/audits/engine/<date>-cie-run.md` is Karen-exclusive.**
+A bare `scan` writes its report to a git-ignored scratch path instead. Other
+agents keep their self-check; they lose the ability to clobber Karen's
+evidence. Alternative rejected: asking each content runner not to commit the
+file — that relies on every future runner remembering, and the failure is
+silent when one forgets.
+
+**Decision 2 — the report carries its own provenance, and the watchdog reads
+it.** The engine stamps which command produced a report. The watchdog stops
+inferring health from "newest file by name contains a marker," which cannot
+distinguish Karen's output from an unrelated agent's. Alternative rejected:
+checking the adding commit's PR title — works, but is archaeology the watchdog
+should not have to do.
+
+**Decision 3 — the real alarm is "Karen has not run," not "the last report
+looks odd."** The watchdog gains a staleness check on Karen's own runs. This is
+the check whose absence let a five-day outage pass unnoticed; the existing
+freshness check was satisfied by other agents' files the entire time.
+
+**Not fixable in this repo, and not fixed by this entry:** whether Karen's
+cloud routine is enabled at all. She is a Wyatt-account routine
+(`docs/agents/runners.md`), not an Actions workflow, so her trigger is not
+visible from here — `CronList` only sees the current session. **Someone with
+access to the routine dashboard must confirm she is live.** Every fix here
+makes the next outage visible within a day; none of them restarts her.
+
+Also noted: `docs/agents/runners.md` contradicts itself on cadence — :387 says
+nightly `0 9 * * *`, :365 says a 2026-07-25 override to weekly `0 9 * * 0` is
+still in force. The PR gap since Aug 9 (a Sunday) is consistent with weekly.
+Resolved in the doc as part of this work; if weekly is wrong, the fix is a
+trigger change, not a doc change.
+
+Decided by: Claude, on Joey's instruction ("fix the mechanics of the system").
+
+---
+
 ## 2026-08-13 — Era reader rework: bottom nav, one global filter, timeline doorways
 
 Five decisions, all Joey's, taken on the consolidated team review of the "Time

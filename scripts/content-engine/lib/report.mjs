@@ -16,6 +16,16 @@ import { CONFIG } from '../config.mjs';
 // reached the end of step 5.
 export const FILING_MARKER_RE = /<!--\s*cie-filing:([^>]*?)-->/;
 
+// Provenance marker — which command produced this report. `scan` is the bare
+// self-check other content-authoring agents run before opening their own PR;
+// only `all` (Karen's own full pipeline) is meant to land in the canonical
+// docs/audits/engine/ path (see writeReport's `reportDir` override below). A
+// bare `scan` writing there is exactly how a five-day Karen outage went
+// unnoticed — the report looked fresh because someone else's self-check kept
+// refreshing it (docs/decisions.md 2026-08-14). The watchdog greps this to
+// tell Karen's own runs from anything else that might land here.
+export const RUN_MARKER_RE = /<!--\s*cie-run:([^>]*?)-->/;
+
 export async function writeReport(findings, meta) {
   const ranked = rank(findings);
   const bySev = Object.fromEntries(SEVERITY.map((s) => [s, ranked.filter((f) => f.severity === s).length]));
@@ -29,6 +39,8 @@ export async function writeReport(findings, meta) {
   L.push(`Corpus: ${meta.itemCount} items · ${meta.imageCount} distinct images (source: supabase/seed/**). Read-only run — findings only, no content changed.`);
   L.push('');
   L.push(`**Totals:** ${ranked.length} findings — P0 ${bySev.P0} · P1 ${bySev.P1} · P2 ${bySev.P2} · P3 ${bySev.P3}`);
+  L.push('');
+  L.push(`<!-- cie-run: source=${meta.source ?? 'unknown'} date=${meta.date} -->`);
   L.push('');
   if (meta.note) { L.push(meta.note); L.push(''); }
   if (escalations.length) {
@@ -47,11 +59,24 @@ export async function writeReport(findings, meta) {
   L.push('');
   L.push(`_Checkers run: ${meta.checkers.join(', ')}. Engine: scripts/content-engine._`);
 
-  const dir = join(ROOT, CONFIG.output.reportsDir);
+  // `reportDir` lets a caller override where the report lands. Default is the
+  // canonical, committed path — Karen's own. `scan()` passes a scratch
+  // override so a bare self-check can't clobber Karen's evidence (decision 1,
+  // docs/decisions.md 2026-08-14).
+  const dir = join(ROOT, meta.reportDir ?? CONFIG.output.reportsDir);
   await mkdir(dir, { recursive: true });
   const path = join(dir, `${meta.date}-cie-run.md`);
   await writeFile(path, L.join('\n'), 'utf8');
   return path;
+}
+
+/** Parse the cie-run provenance marker. Returns null when there isn't one. */
+export function parseRunProvenance(text) {
+  const m = RUN_MARKER_RE.exec(text ?? '');
+  if (!m) return null;
+  const out = {};
+  for (const [, k, v] of m[1].matchAll(/(\w+)=(\S+)/g)) out[k] = v;
+  return out;
 }
 
 /**
