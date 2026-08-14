@@ -15,8 +15,30 @@
 (off `research/communities`, so **PR #2110 merges first**). Plan in `PLAN.md`.
 Built by four parallel agents. Verified by me: 2861/2861, typecheck clean,
 new test files confirmed to actually run (61 tests), no secrets committed.
-**A Fable review is running — it is the ONLY review this gets** (Codex out
-until Aug 19), so rule 3 stays unsatisfied.
+**Fable review round 1: REJECT — all 5 findings being fixed.** It is the ONLY
+review this gets (Codex out until Aug 19), so rule 3 stays unsatisfied.
+
+- **HIGH, and the one that matters: CSV/FORMULA INJECTION into Joey's sheet.**
+  The route accepted `note`/`sourcePage` the form never sends, passed them raw
+  to the Apps Script, which `appendRow`ed them unneutralised. A value starting
+  `= + - @` becomes a LIVE FORMULA that fires when **Joey** opens the sheet —
+  the reviewer's PoC exfiltrates the sheet to an attacker's server via
+  `IMPORTXML`. **Any user string reaching a spreadsheet cell must be prefixed
+  with an apostrophe, on BOTH sides.** The unused fields are being removed
+  outright — deleting a field beats sanitising one.
+- MED: no timeout on the GitHub/Resend fetches (only the sheet had one), and
+  GitHub is the always-on sink, so a hang pins the serverless function.
+- LOW: markdown breakout in the issue body; unbounded rate-limit map;
+  `section` accepted free text instead of the two-value enum.
+
+**The IP rate limiter cannot be made authoritative** behind a proxy that lets
+callers set `x-forwarded-for`. It is best-effort; the honeypot is the real
+floor. Do not add complexity chasing a guarantee that is not available.
+
+Verified clean by EXECUTION: all 30 communities match the source JSON with all
+15 nulls preserved, merch derives from `CONTENT`, nothing user-submitted can
+reach the rendered site, honeypot fails closed, no-config path succeeds, email
+HTML escaped, no secret in the client bundle, nav wired across all six modes.
 **Joey authorised the merge** ("please merge when completed").
 
 Two design properties that are NOT negotiable, both load-bearing:
