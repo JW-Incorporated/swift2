@@ -15,17 +15,14 @@ export function TopBar() {
   const { setMode, setSelectorOpen, setSearchOpen, openShare, goHome } = useAppActions();
   const era = getEra(eraId);
 
-  // The landing page renders its own wordmark + toggle instead (#684); the
-  // shell never mounts TopBar there, this guard just narrows the type.
-  if (mode === 'landing') return null;
-
   const shareTarget = topbarShareTarget(mode, eraId, lensId);
 
+  // Home is now (R1, PLAN.md 2026-08-14): the wordmark scrolls to the top of
+  // the current era, not a separate home screen. goHome bumps eraJumpSeq,
+  // which drives EraStream's own jump-scroll correction to the target era
+  // section — no separate scroll call needed here.
   function handleHome() {
     goHome();
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
   }
 
   return (

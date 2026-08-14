@@ -1,7 +1,9 @@
 /**
- * Deep-link routing decision for the landing page (#684).
+ * Deep-link routing decision for the front door (#684; R1, PLAN.md
+ * 2026-08-14 — the front door is now the era stream itself, not a separate
+ * landing page).
  *
- * The landing page is the front door for every fresh load, but a shared URL
+ * The era stream is the front door for every fresh load, but a shared URL
  * must land the visitor on the shared thing, not the front door. This pure
  * helper decides which — kept out of the store so the precedence rules
  * (most specific wins) are unit-testable.
