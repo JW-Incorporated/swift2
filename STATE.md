@@ -39,6 +39,24 @@ feature/era-reader-p4:feature/era-reader-rework` is a fast-forward and turns
 **#2086 into the single PR**. Then `gh pr edit 2086` to retitle/rewrite the
 body for the whole rework. No force push, no closing anything.
 
+**CODEX CAPPED AT 3 ROUNDS — Joey, 2026-08-13:** "do not let codex go more
+than 3 rounds. After that, I no longer have faith in codex. At that point you
+spin up your own independent review agent and implement their feedback."
+Rounds 1 and 2 are spent, so round 3 is the last. If round 3 is dirty: fix the
+findings, then run a Claude reviewer INSTEAD of a round 4, implement it, merge.
+This is a founder override of Workflow rule 3's Codex requirement, for THIS PR
+only — it is not a standing change to rule 3.
+
+Two mitigations, because a Claude reviewer shares the blind spots of the Claude
+that wrote the code (proven this session: Codex found a HIGH that a 2600-test
+suite and this orchestrator's own review both passed):
+1. Run the reviewer with `model: "fable"` — a different model family is the
+   only real independence available. This is a MODEL OVERRIDE on a normal
+   reviewer, NOT an `architect` escalation; do not log it as one.
+2. Require it to REPRODUCE against the real corpus, not just read code. That
+   is the specific thing Codex did that our own review did not, and it is why
+   it caught what it caught.
+
 **MERGE AUTHORIZED — Joey, 2026-08-13, explicitly: "please merge it when it's
 completely done. You have my permission."** This is the § Decision authority
 approval that gate requires, for THIS PR only; it does not generalise to

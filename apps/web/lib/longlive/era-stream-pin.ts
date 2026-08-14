@@ -15,7 +15,12 @@
  * uses), the delta is reduced — scrolled further up the page — just enough
  * to keep the section's bottom at that line instead, trading top-exactness
  * for staying in the right era, which is the actual requirement. Never falls
- * back to scrolling to the top of the page.
+ * back to scrolling to the top of the page: the bottom-clamp above can ask
+ * for more upward scroll than the page has room for (re-review finding B,
+ * 2026-08-13), so the result is clamped again against the caller's own
+ * `window.scrollY` — the requested absolute scroll position can never go
+ * negative, which is what `window.scrollBy` would otherwise silently do for
+ * the caller.
  */
 export function filterChangeScrollDelta(input: {
   /** The active era section's current top, in viewport coordinates
@@ -28,12 +33,15 @@ export function filterChangeScrollDelta(input: {
   /** The reading reference line — EraStream uses the viewport's vertical
    * center, the same line its active-era detection reads. */
   viewportCenter: number;
+  /** The caller's current `window.scrollY`, so the delta can be clamped to
+   * never request a negative absolute scroll position. */
+  scrollY: number;
 }): number {
-  const { sectionTop, sectionBottom, savedTop, viewportCenter } = input;
+  const { sectionTop, sectionBottom, savedTop, viewportCenter, scrollY } = input;
   let delta = sectionTop - savedTop;
   const predictedBottom = sectionBottom - delta;
   if (predictedBottom < viewportCenter) {
     delta -= viewportCenter - predictedBottom;
   }
-  return delta;
+  return Math.max(delta, -scrollY);
 }

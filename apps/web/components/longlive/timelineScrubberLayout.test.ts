@@ -159,6 +159,24 @@ describe('TimelineScrubber never displays or announces a synthetic anchor date',
     expect(nearestAnchorExact(anchors, anchors[0].date)).toBe(true);
   });
 
+  it('nearestAnchorExact reports non-exact on a tie between a clamped doorway and a same-date exact anchor (debut geometry, re-review finding A)', () => {
+    // Real shape: debut's `taylors-version` thread point predates the era,
+    // so threadDoorwaysForEra clamps it to the era's own start (2006-10-24)
+    // with displayDate: null (via: 'clamped') — sortDate ties exactly with
+    // debut's real, exact release-day moment card. The clamp must not win
+    // the tie just because it was measured first.
+    const debutStart = new Date('2006-10-24').getTime();
+    const anchors: ScrubberAnchor[] = [
+      { date: debutStart, top: 100, exact: false }, // taylors-version doorway, clamped
+      { date: debutStart, top: 140, exact: true }, // debut's real release-day moment
+    ];
+    expect(nearestAnchorExact(anchors, debutStart)).toBe(false);
+
+    // Order-independent: the exact anchor measured first must not change it.
+    const reordered: ScrubberAnchor[] = [anchors[1], anchors[0]];
+    expect(nearestAnchorExact(reordered, debutStart)).toBe(false);
+  });
+
   // Source-lock: the component's only two display surfaces for a resolved
   // date must route through labelForDate (never format a raw date directly),
   // and measure() must read data-ll-exact off the DOM rather than assuming

@@ -272,6 +272,7 @@ export function EraStream() {
       sectionBottom: rect.bottom,
       savedTop: saved.offset,
       viewportCenter: window.innerHeight / 2,
+      scrollY: window.scrollY,
     });
     if (delta !== 0) window.scrollBy({ top: delta, behavior: 'auto' });
   }, [filters]);
