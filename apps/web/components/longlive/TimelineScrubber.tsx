@@ -6,7 +6,7 @@ import { getEra } from '@/lib/longlive/eras';
 import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
 import { truncate } from '@/lib/longlive/format';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
-import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
+import { measureChromeHeight, measureChromeBottom } from '@/lib/longlive/chrome-offset';
 import { cn } from '@/lib/utils';
 import {
   SCRUBBER_ANCHOR_CLASS,
@@ -335,7 +335,7 @@ export function TimelineScrubber() {
     const mq = window.matchMedia(SCRUBBER_CENTER_MEDIA_QUERY);
     const recomputeAnchorPadding = () => {
       const paddingTop = scrubberAnchorPaddingTop({
-        chromeHeight: measureChromeHeight(),
+        chromeBottom: measureChromeBottom(),
         isCentered: mq.matches,
       });
       setAnchorPaddingTop(paddingTop);
@@ -343,9 +343,17 @@ export function TimelineScrubber() {
     };
     recomputeAnchorPadding();
 
+    // Before the filter bar sticks, its (and therefore the rail's clamp's)
+    // live position changes on every scroll frame — not just on resize/layout
+    // — so this needs the same rAF-throttled recompute as syncFromScroll,
+    // not just the resize/mq/ResizeObserver triggers below. Once stuck, the
+    // position stops changing and this settles to a no-op re-render bail.
     const onScroll = () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(syncFromScroll);
+      rafRef.current = requestAnimationFrame(() => {
+        syncFromScroll();
+        recomputeAnchorPadding();
+      });
     };
     const onResize = () => {
       measure();

@@ -132,16 +132,16 @@ describe('scrubberAnchorPaddingTop (finding #2, 2026-08-14)', () => {
   });
 
   it('clamps the rail below the live chrome when it exceeds the base pt-20', () => {
-    expect(scrubberAnchorPaddingTop({ chromeHeight: 114, isCentered: false })).toBe(114);
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 114, isCentered: false })).toBe(114);
   });
 
   it('defers to the CSS class when the live chrome fits inside pt-20', () => {
-    expect(scrubberAnchorPaddingTop({ chromeHeight: 65, isCentered: false })).toBeUndefined();
-    expect(scrubberAnchorPaddingTop({ chromeHeight: SCRUBBER_BASE_PT, isCentered: false })).toBeUndefined();
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 65, isCentered: false })).toBeUndefined();
+    expect(scrubberAnchorPaddingTop({ chromeBottom: SCRUBBER_BASE_PT, isCentered: false })).toBeUndefined();
   });
 
   it('never clamps in centered mode — items-center governs position there, not padding', () => {
-    expect(scrubberAnchorPaddingTop({ chromeHeight: 178, isCentered: true })).toBeUndefined();
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 178, isCentered: true })).toBeUndefined();
   });
 
   it('is wired into TimelineScrubber via the same media query as SCRUBBER_ANCHOR_CLASS', () => {
@@ -154,6 +154,48 @@ describe('scrubberAnchorPaddingTop (finding #2, 2026-08-14)', () => {
     expect(SCRUBBER_ANCHOR_CLASS).toContain('min-width:640px');
     expect(SCRUBBER_ANCHOR_CLASS).toContain('min-height:620px');
     expect(SCRUBBER_CENTER_MEDIA_QUERY).toBe('(min-width: 640px) and (min-height: 620px)');
+  });
+});
+
+// Fix 4 (2026-08-14, DEBUG.md): attempt 3 clamped the rail's top to
+// measureChromeHeight() — TopBar's + FilterBar's own rendered heights summed
+// (65 + 49 = 114). That sum is only the filter bar's real position once it is
+// STUCK. On a fresh load EraStream's masthead sits above the filter bar and
+// pushes its live bottom edge down to y≈361; the old summed-height clamp
+// still read 114 and let the rail span straight across the unreachable
+// "Videos" chip. scrubberAnchorPaddingTop takes whatever it's given as a
+// literal Y position, so the actual fix is upstream, in what TimelineScrubber
+// feeds it (measureChromeBottom's live getBoundingClientRect().bottom instead
+// of measureChromeHeight's summed heights) — pinned by the source check below
+// since the pure function alone can't distinguish a correct call from a
+// regression back to the old measurement.
+describe('scrubberAnchorPaddingTop clamps to a LIVE position, not a summed height (fix 4, 2026-08-14)', () => {
+  it('THE BUG, for contrast: a pre-stick masthead pushes the filter bar far past the old summed-height figure', () => {
+    const summedChromeHeight = 114; // TopBar (65) + FilterBar (49), attempt 3's number
+    const liveFilterBarBottom = 361; // measured with EraStream's masthead above it, unstuck
+    expect(liveFilterBarBottom).toBeGreaterThan(summedChromeHeight);
+  });
+
+  it('clamps to the live pre-stick position, which is far below the old summed-height figure', () => {
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 361, isCentered: false })).toBe(361);
+  });
+
+  it('settles back to the summed-height figure once the filter bar sticks (position and sum agree there)', () => {
+    expect(scrubberAnchorPaddingTop({ chromeBottom: 114, isCentered: false })).toBe(114);
+  });
+
+  it('TimelineScrubber feeds it measureChromeBottom (a live position), not measureChromeHeight (a summed height)', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    expect(src).toContain('chromeBottom: measureChromeBottom()');
+    expect(src).not.toContain('chromeHeight: measureChromeHeight()');
+  });
+
+  it('recomputes on scroll (throttled), not only on resize/layout change — the position moves every frame pre-stick', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const onScrollAt = src.indexOf('const onScroll = () => {');
+    expect(onScrollAt).toBeGreaterThan(-1);
+    const onScrollBody = src.slice(onScrollAt, src.indexOf('};', onScrollAt));
+    expect(onScrollBody).toContain('recomputeAnchorPadding()');
   });
 });
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { measureChromeHeight, resolveChromeHeight } from './chrome-offset';
+import { measureChromeBottom, measureChromeHeight, resolveChromeHeight } from './chrome-offset';
 
 describe('resolveChromeHeight (pure)', () => {
   it('sums TopBar and FilterBar heights', () => {
@@ -22,5 +22,14 @@ describe('measureChromeHeight (DOM)', () => {
   // itself is covered by the component's own runtime behavior.
   it('returns 0 when there is no document (SSR)', () => {
     expect(measureChromeHeight()).toBe(0);
+  });
+});
+
+// Fix 4 (2026-08-14, DEBUG.md): a live position (bottom edge), not a summed
+// height — see timelineScrubberLayout.test.ts's "clamps to a LIVE position,
+// not a summed height" for why the distinction matters.
+describe('measureChromeBottom (DOM)', () => {
+  it('returns 0 when there is no document (SSR)', () => {
+    expect(measureChromeBottom()).toBe(0);
   });
 });
