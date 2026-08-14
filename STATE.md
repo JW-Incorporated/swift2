@@ -20,13 +20,20 @@ PR yet — awaiting a Codex review.
 timeline, back-to-position, R4 back-link; `EraSection.tsx` split 826 → seven
 files, all under 300. Per-era doorway counts 5–12.
 
-**P4 in flight on `feature/era-reader-p4`** with THREE executors sharing the
-tree on disjoint file sets: (a) bottom nav + TopBar context label + feedback
-button, (b) `gloss-rotation.ts`/`LandingMasthead.tsx` (new files only —
-orchestrator wires it in), (c) the five Codex fixes below.
+**P4 + P5 committed on `feature/era-reader-p4`**, along with all five Codex
+fixes and the docs. Bottom nav on EVERY surface incl. the front door (Joey:
+"the landing page IS the website"), plus the content spacer the fixed bar
+needed. All gates green: 2636 tests, typecheck, lint, `check:filter-coverage`.
 
-**MERGE ORDER IS LOAD-BEARING:** #2086 → P2 → P3 → P4. The HIGH date-leak fix
-lands on P4, so #2086 must NOT merge alone.
+In flight: (a) Codex re-review of the five fixes, (b) an executor authoring
+topic tags onto `VideoNote` (new field, end to end through the seeds + sync
+script) so the 18 appearance videos reach a topic chip.
+
+**Joey wants ONE PR** (2026-08-13). `feature/era-reader-p4` already contains
+every commit from P1–P3, so: `git push origin
+feature/era-reader-p4:feature/era-reader-rework` is a fast-forward and turns
+**#2086 into the single PR**. Then `gh pr edit 2086` to retitle/rewrite the
+body for the whole rework. No force push, no closing anything.
 
 **HOW TO GET A CODEX REVIEW (agents do this themselves — never hand it to a
 founder).** `/codex:review` the SLASH COMMAND is human-only, but Codex is
@@ -131,7 +138,17 @@ the `EraVideos` deletion vs the scrubber sentinel, lazy-era races, and the
 
 - **Two matchers, one app** — the lesson from Codex findings 2 and 4. Building
   a careful new helper does NOT retire the sloppy old one; grep for other
-  callers before declaring a matching bug fixed.
+  callers before declaring a matching bug fixed. Same shape as the HIGH date
+  leak: a correct rule in one file, bypassed by the plumbing around it.
+- **ROUTING: this session sent every dispatch to `executor`, `grunt` zero
+  times** — including steps `PLAN.md` itself tagged `(grunt)` (8: delete a
+  component + its import). Joey called it out 2026-08-13. Agent choice IS the
+  model choice (grunt=cheap, executor=mid, architect=Fable), so mis-routing is
+  a real cost error. When `grunt` was finally used for the P4/P5 docs pass it
+  did the job correctly and cheaply. Route by the plan's own tag.
+- **Read a component's props before editing it.** Added a `className` to
+  `ModeToggle` that does not exist, then had to undo it — a briefed agent
+  avoids this because the brief says "read it first".
 - **`lenses.ts` is 2473 lines, not ~238** — the landing-page brief is stale.
 - **An untagged item is invisible under any active filter**
   (`tagBadges.test.ts:47`). `check:filter-coverage` gates the build on it.
@@ -148,10 +165,15 @@ the `EraVideos` deletion vs the scrubber sentinel, lazy-era races, and the
 
 ## Open threads
 
-- [ ] **18 appearance-family videos carry no topic tag** (interviews, awards,
-      TV spots) — reachable only under Videos. `VideoNote` has no topic field
-      at all. Reported to Joey 2026-08-13; his call whether to author them.
-      Music videos are fine (they reach Music via the restored rule).
+- [x] **Video topic tags — Joey said do it properly** (2026-08-13). `VideoNote`
+      is gaining an authored `tags?: ContentTag[]`, which must REPLACE the
+      "a dated music video is Music" inference in `filtersForEntry`, not run
+      beside it — two disagreeing mechanisms is the defect Codex caught twice
+      on this branch. Author in `supabase/seed/videos/*.mjs` + the sync script;
+      never hand-edit `*.generated.ts`.
+- [x] **Scattered theory doorways: Joey is fine with them** (2026-08-13).
+      Leave as-is; do not re-open. The `anchorHint` seed field remains the
+      improvement path if it ever matters.
 - [ ] **Song pointers, settled 2026-08-13:** videos DO have one
       (`VideoNote.relatedSongs`, `types.ts:844`, all 55 music/lyric videos) —
       `track-video.ts` is the tested lookup. `TheoryNote` does NOT, and nor do
@@ -169,20 +191,16 @@ the `EraVideos` deletion vs the scrubber sentinel, lazy-era races, and the
 
 ## Next obvious step
 
-Three executors are in flight on `feature/era-reader-p4`. When they land:
-
-1. Verify each directly — this session has already caught four defects that
-   way, and Codex caught five more that verification missed.
-2. **Wire `LandingMasthead` into `LandingPage.tsx` yourself** — agent (b) was
-   told not to, to avoid colliding with agent (a).
-3. Re-run Codex on the FIX DIFF (cheap — scope it to the diff, not the
-   branch): `codex:rescue` skill → `codex:codex-rescue` subagent via `Agent`.
-   Confirm finding 1 in particular is genuinely dead, since it survived a full
-   test suite and my own review.
-4. Then open PR 2, PR 3, PR 4. Merge order #2086 → P2 → P3 → P4.
-
-Joey was offered the option of collapsing the four branches into ONE PR to
-make it a single merge — check whether he took it before opening four.
+1. Read the Codex re-review verdict (`codex-companion.mjs result <job-id>`,
+   NOT the subagent summary). Confirm finding 1 — the synthetic-date leak — is
+   dead on every path; it already survived a full suite and a human review.
+2. Review the video-tagging table row by row for accuracy before accepting it.
+   Content correctness is a product-quality call, not an agent's to self-certify
+   — check the rows the agent flags as thin especially.
+3. Fix anything either turns up, re-run the full gate.
+4. Collapse to ONE PR per the § Current focus recipe, then rewrite #2086's
+   title and body to describe the whole rework rather than just the filter.
+   Note in the body that Wyatt should see the bottom nav (it overrides D3).
 
 Branch stack, oldest first: `feature/era-reader-rework` (PR #2086, open) →
 `feature/era-reader-p2` (committed, unopened) → `feature/era-reader-p3` (in
