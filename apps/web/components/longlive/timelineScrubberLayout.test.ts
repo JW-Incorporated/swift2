@@ -8,6 +8,10 @@ import {
   SCRUBBER_SHELL_CLASS,
   scrubberPillTransform,
   scrubberTooltipTransform,
+  nearestAnchorExact,
+  labelForDate,
+  UNKNOWN_DATE_LABEL,
+  type ScrubberAnchor,
 } from './timelineScrubberLayout';
 
 describe('TimelineScrubber layout', () => {
@@ -102,5 +106,106 @@ describe('TimelineScrubber layout', () => {
     // sizing in the component must come from the pinned constants.
     expect(src).not.toMatch(/className="[^"]*\d+vh/);
     expect(src).not.toMatch(/className="[^"]*h-svh/); // svh sizing lives in the constants
+  });
+});
+
+// Adversarial review finding #1 (2026-08-13): resolveAnchor (anchor-date.ts)
+// correctly returns `displayDate: null` for a non-exact anchor, but the value
+// was still reaching the scrubber's visible pill and `aria-valuetext` via the
+// synthetic `sortDate` written into `data-ll-date` — reproduced on Midnights'
+// karma-mv, where the card said "Date unknown" but the scrubber announced a
+// month the record does not have. Positioning (data-ll-date) is allowed to
+// use a synthetic date; only display/announcement is not.
+describe('TimelineScrubber never displays or announces a synthetic anchor date', () => {
+  it('labelForDate returns the honest fallback whenever exact is false, regardless of the formatted string', () => {
+    expect(labelForDate('Apr 2023', false)).toBe(UNKNOWN_DATE_LABEL);
+    expect(labelForDate('Jan 1989', false)).toBe(UNKNOWN_DATE_LABEL);
+    expect(labelForDate('', false)).toBe(UNKNOWN_DATE_LABEL);
+  });
+
+  it('labelForDate passes the formatted string through only when exact is true', () => {
+    expect(labelForDate('Apr 2023', true)).toBe('Apr 2023');
+  });
+
+  it('nearestAnchorExact defaults to exact when nothing has been measured yet (pre-measure fallback)', () => {
+    expect(nearestAnchorExact([], Date.now())).toBe(true);
+  });
+
+  it('nearestAnchorExact reports the synthetic anchor as non-exact even when it is nearest', () => {
+    // Reproduces the karma-mv shape: one real moment, one undated video whose
+    // era-scatter anchor lands nearby. Scrubbing to right on top of the video
+    // anchor must resolve to exact=false.
+    const anchors: ScrubberAnchor[] = [
+      { date: new Date('2023-04-01').getTime(), top: 100, exact: true }, // a real moment
+      { date: new Date('2023-04-15').getTime(), top: 300, exact: false }, // karma-mv, era-scatter
+    ];
+    const karmaMvDate = anchors[1].date;
+    expect(nearestAnchorExact(anchors, karmaMvDate)).toBe(false);
+    // And the end-to-end honesty rule: whatever the caller formats that date
+    // as, it can never reach the pill/aria-valuetext.
+    const formatted = new Date(karmaMvDate).toLocaleDateString('en-US', {
+      month: 'short',
+      year: 'numeric',
+      timeZone: 'UTC',
+    });
+    expect(labelForDate(formatted, nearestAnchorExact(anchors, karmaMvDate))).toBe(UNKNOWN_DATE_LABEL);
+  });
+
+  it('nearestAnchorExact still reports exact for a position nearest a real anchor', () => {
+    const anchors: ScrubberAnchor[] = [
+      { date: new Date('2023-04-01').getTime(), top: 100, exact: true },
+      { date: new Date('2023-04-15').getTime(), top: 300, exact: false },
+    ];
+    expect(nearestAnchorExact(anchors, anchors[0].date)).toBe(true);
+  });
+
+  it('nearestAnchorExact reports non-exact on a tie between a clamped doorway and a same-date exact anchor (debut geometry, re-review finding A)', () => {
+    // Real shape: debut's `taylors-version` thread point predates the era,
+    // so threadDoorwaysForEra clamps it to the era's own start (2006-10-24)
+    // with displayDate: null (via: 'clamped') — sortDate ties exactly with
+    // debut's real, exact release-day moment card. The clamp must not win
+    // the tie just because it was measured first.
+    const debutStart = new Date('2006-10-24').getTime();
+    const anchors: ScrubberAnchor[] = [
+      { date: debutStart, top: 100, exact: false }, // taylors-version doorway, clamped
+      { date: debutStart, top: 140, exact: true }, // debut's real release-day moment
+    ];
+    expect(nearestAnchorExact(anchors, debutStart)).toBe(false);
+
+    // Order-independent: the exact anchor measured first must not change it.
+    const reordered: ScrubberAnchor[] = [anchors[1], anchors[0]];
+    expect(nearestAnchorExact(reordered, debutStart)).toBe(false);
+  });
+
+  // Adversarial review finding #3, 2026-08-13: the DATE interpolation set
+  // (what TimelineScrubber's dateForTop/exactForDate actually search) no
+  // longer includes non-exact anchors at all — see TimelineScrubber.tsx's
+  // exactAnchorsRef. That, not a change to nearestAnchorExact itself, is
+  // what resolves the debut-era-start over-suppression above in practice:
+  // once the clamped doorway is filtered out before this function ever sees
+  // it, the tie in the test above cannot occur — only the real moment's
+  // anchor remains, so it reports exact.
+  it('reports exact once the caller excludes non-exact anchors before calling (the finding #3 fix)', () => {
+    const debutStart = new Date('2006-10-24').getTime();
+    const mixed: ScrubberAnchor[] = [
+      { date: debutStart, top: 100, exact: false }, // taylors-version doorway, clamped
+      { date: debutStart, top: 140, exact: true }, // debut's real release-day moment
+    ];
+    const exactOnly = mixed.filter((a) => a.exact);
+    expect(nearestAnchorExact(exactOnly, debutStart)).toBe(true);
+  });
+
+  // Source-lock: the component's only two display surfaces for a resolved
+  // date must route through labelForDate (never format a raw date directly),
+  // and measure() must read data-ll-exact off the DOM rather than assuming
+  // every anchor is real.
+  it('TimelineScrubber routes every displayed/announced date through labelForDate', () => {
+    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const uses = src.match(/labelForDate\(fmtMonth\(pillDate\), exactForDate\(pillDate\)\)/g);
+    // Once for aria-valuetext, once for the visible pill text — no third,
+    // un-gated caller of fmtMonth(pillDate) may exist alongside them.
+    expect(uses).toHaveLength(2);
+    expect(src.match(/fmtMonth\(pillDate\)/g)).toHaveLength(2);
+    expect(src).toContain("exact: el.dataset.llExact !== '0'");
   });
 });

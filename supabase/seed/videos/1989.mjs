@@ -52,6 +52,7 @@ export default {
       director: 'Mark Romanek',
       releasedOn: '2014-08-18',
       relatedSongs: ['Shake It Off'],
+      tags: ['Music'],
       summary:
         'Dropped the day 1989 was announced: Taylor gamely flails through ballet, breakdance, twerk squads and cheer lines before the finale says the quiet part — just dance like the fans do.',
       symbolism: 'Failing every polished dance style on purpose is the thesis: the haters\' scorecard doesn\'t apply.',
@@ -67,6 +68,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2014-11-10',
       relatedSongs: ['Blank Space'],
+      tags: ['Music'],
       summary:
         'The satire that ended the "boy-crazy" narrative by playing it to the hilt: a mansion romance curdles into golf-club-to-the-sports-car mania, with Taylor grinning through the tabloid caricature.',
       symbolism:
@@ -83,6 +85,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2015-02-13',
       relatedSongs: ['Style'],
+      tags: ['Music'],
       summary:
         'No plot, all texture: shattered mirrors, projected faces, fog and headlights — the album\'s moodiest song gets a video made of double exposures instead of story.',
       symbolism: 'The broken-mirror shards and projections keep the two lovers overlapping without ever quite aligning — the never-out-of-style loop rendered literally.',
@@ -98,6 +101,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2015-05-17',
       relatedSongs: ['Bad Blood'],
+      tags: ['Music'],
       summary:
         'The squad-era action trailer: a betrayal, a training montage, and a cast of codenamed stars (Catastrophe, Arsyn, Knockout...) marching into a fireball — premiered at the Billboard Music Awards.',
       symbolism: null,
@@ -113,6 +117,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2015-08-30',
       relatedSongs: ['Wildest Dreams'],
+      tags: ['Music'],
       summary:
         'Old-Hollywood safari melodrama: two co-stars fall for each other on a 1950s film set, and the premiere ends the romance the way the song promised it would end. Proceeds went to African Parks.',
       symbolism: null,
@@ -128,6 +133,7 @@ export default {
       director: 'Joseph Kahn',
       releasedOn: '2015-12-31',
       relatedSongs: ['Out of the Woods'],
+      tags: ['Music'],
       summary:
         'Premiered on New Year\'s Eve: the woods literally chase Taylor — vines grab, snow buries, wolves close in — until she outruns the forest back to the beach and meets herself.',
       symbolism: 'The pursuing forest is the anxiety spiral of the lyric; arriving at her own calm self on the shore closes the loop the song leaves open.',
@@ -161,6 +167,7 @@ export default {
       director: 'Jonas Åkerlund',
       releasedOn: null,
       relatedSongs: ['New Romantics'],
+      tags: ['Music', 'Tour'],
       summary:
         'A thank-you cut from 1989 World Tour footage — backstage, crowd waves, confetti — released as the era\'s victory lap for the fans who made the bonus track a hit.',
       symbolism: null,
@@ -180,6 +187,7 @@ export default {
       director: 'Jonas Åkerlund',
       releasedOn: '2015-12-20',
       relatedSongs: [],
+      tags: ['Tour'],
       summary:
         'The Sydney stadium show captured for Apple Music — light-up wristbands, the catwalk, and the era\'s guest-star ritual folded into a streaming-exclusive concert film.',
       symbolism: null,
@@ -212,6 +220,7 @@ export default {
       youtubeId: 'dMCAEUb0h34',
       channel: 'GRAMMYS',
       attribution: "GRAMMYs — the Recording Academy's official YouTube channel",
+      tags: ['Music'],
       sources: [
         upload({
           youtubeId: 'dMCAEUb0h34',

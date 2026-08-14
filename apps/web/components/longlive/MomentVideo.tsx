@@ -119,7 +119,7 @@ export function MomentVideo({
 }: {
   video: MomentVideoData;
   /** Figcaption text; pass null to render the embed with no caption (the
-   * surrounding card already names the work, e.g. EraVideos). */
+   * surrounding card already names the work). */
   caption?: string | null;
   /**
    * The noun the play button announces ("Play {playNoun}: {title}").

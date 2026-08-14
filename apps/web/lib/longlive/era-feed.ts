@@ -1,5 +1,7 @@
-import type { ContentItem, ContentTag, VideoNote } from './types';
-import { itemMatchesFilter } from './tagBadges';
+import type { ContentItem, VideoNote } from './types';
+import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from './filters';
+import { resolveAnchor, type Anchored } from './anchor-date';
+import type { EggDoorway, ThreadDoorway } from './doorways';
 
 /**
  * The era feed's SELECTION rules, as pure functions.
@@ -12,42 +14,67 @@ import { itemMatchesFilter } from './tagBadges';
  * construction. The Videos filter is the acceptance criterion of this
  * feature — it does not get to be the untested part.
  *
- * Two filter axes, deliberately exclusive (see EraSection's `videosOnly`):
- *   - tags      — select MOMENTS by category
- *   - videosOnly — select by "is there something to watch here"
+ * One global filter (R2): six FilterIds — the five ContentTags plus Videos —
+ * OR-matched, Videos a peer chip rather than a second axis. mergeEraFeed
+ * merges the FULL, unfiltered moment + video lists into one newest-first
+ * feed; visibleFeed then filters that merged feed in a single pass, so
+ * "moments only", "videos only" and "moments+videos" all fall out of the
+ * same rule instead of a branch choosing between two candidate lists.
  */
-
-/** One entry in the merged feed: a curated moment, or a video record. */
-export type EraFeedEntry<V extends VideoNote = VideoNote> =
-  | { kind: 'moment'; item: ContentItem }
-  | { kind: 'video'; video: V };
-
-/** The active filter state. `videosOnly` wins when both are set — the UI keeps
- * them mutually exclusive, and this stays defined rather than undefined if a
- * future caller sets both. */
-export interface EraFeedFilter {
-  tags: ReadonlySet<ContentTag>;
-  videosOnly: boolean;
-}
 
 /**
- * The moments to render. Under the Videos filter that's only the moments that
- * carry footage of their own; otherwise it's the existing tag filter, with an
- * empty tag set meaning "everything" (filtering is off by default).
+ * One entry in the merged feed: a curated moment, a video record, or a
+ * doorway into a THREADS gallery or an egg/theory detail (PLAN.md P3 step
+ * 13). Every entry carries an `anchor` (see anchor-date.ts) so undated
+ * records still have a defensible sort position instead of piling at the
+ * end. Doorway construction (`threadDoorwaysForEra`/`eggDoorwaysForEra`)
+ * lives in `doorways.ts`, not here — this file stays the merge/sort/filter
+ * logic, doorways.ts is the only module that reaches into `lenses.ts`/
+ * `theories.ts` for that data (kept the split to stay under the 300-line cap
+ * — see MAP.md).
  *
- * Returns the input array itself when nothing is filtered out, so the common
- * case allocates nothing and referential equality holds for memo consumers.
+ * `displaced` (thread/egg only, set by `spaceDoorways`): true when
+ * `DOORWAY_MIN_GAP` spacing pushed this doorway LATER than its anchor's
+ * `sortDate` would otherwise place it — it keeps that original date for
+ * sorting purposes, but is no longer at a position the date describes, so it
+ * must not be presented to the scrubber as a rail anchor (adversarial review
+ * finding #2, 2026-08-13 — see space-doorways.ts).
  */
-export function visibleMoments(items: ContentItem[], filter: EraFeedFilter): ContentItem[] {
-  if (filter.videosOnly) {
-    // Not `it.video` — a moment that defers its embed to an earlier card
-    // (#2057) has nothing to play, and a card that can't play has no business
-    // inside a filter called Videos. It keeps its place in the default feed.
-    const owners = inlineVideoMomentIds(items);
-    return items.filter((it) => owners.has(it.id));
-  }
-  if (filter.tags.size === 0) return items;
-  return items.filter((it) => itemMatchesFilter(it.tags, filter.tags));
+export type EraFeedEntry<V extends VideoNote = VideoNote> =
+  | { kind: 'moment'; item: ContentItem; anchor: Anchored }
+  | { kind: 'video'; video: V; anchor: Anchored }
+  | { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored; displaced?: boolean }
+  | { kind: 'egg'; doorway: EggDoorway; anchor: Anchored; displaced?: boolean };
+
+/**
+ * The merged feed (mergeEraFeed's output over every moment and every
+ * watchable video record in the era), filtered against the active global
+ * filter set in one pass (R2) — the replacement for the old two-branch
+ * visibleMoments/visibleVideos.
+ *
+ * Returns the input array itself when the active set is empty ("show
+ * everything"), so the common case allocates nothing and referential
+ * equality holds for memo consumers.
+ *
+ * `entries` MUST be the era's full, unfiltered feed (exactly what
+ * `mergeEraFeed` returns) — `filtersForEntry`'s inline-video ownership rule
+ * has to be computed over every moment on the timeline before any filter is
+ * applied, or a tag filter could hide the owner and leave a footage-carrying
+ * moment unreachable under Videos (see `inlineVideoMomentIds`'s doc comment).
+ *
+ * PLAN.md P3 step 14b: this and `mergeEraFeed` used to be overloaded so a
+ * caller that never passed doorways in kept the narrower `moment | video`
+ * return type. Now that `EraSection.tsx` renders all four kinds (step 15),
+ * that caller no longer exists — one signature, over the full union.
+ */
+export function visibleFeed<V extends VideoNote>(
+  entries: EraFeedEntry<V>[],
+  active: ReadonlySet<FilterId>,
+): EraFeedEntry<V>[] {
+  if (active.size === 0) return entries;
+  const moments = entries.flatMap((e) => (e.kind === 'moment' ? [e.item] : []));
+  const ctx = { inlineVideoOwnerIds: inlineVideoMomentIds(moments) };
+  return entries.filter((e) => filterMatches(filtersForEntry(e, ctx), active));
 }
 
 /**
@@ -100,96 +127,100 @@ export function inlineVideoMomentIds(items: ContentItem[]): Set<string> {
 }
 
 /**
- * The video records to merge into the feed.
+ * Merge moments, videos and doorways into one newest-first feed, so
+ * cross-type ordering is correct instead of several concatenated lists.
  *
- * - Videos filter ON  → everything watchable in the era (`videoFeed`), which is
- *   every kind including the appearance family.
- * - Videos filter OFF → the default #439 behaviour: the dated music videos
- *   only, and only while the feed isn't filtered to some other category. A
- *   music video is 'Music'; it has no business surviving a 'Fashion' filter.
+ * Every entry is anchored via `resolveAnchor` (anchor-date.ts) before
+ * sorting. Moments always carry an authored date (`ContentItem.date` is
+ * required), so a moment's anchor is always `exact`. A video without a
+ * `releasedOn` has no exact anchor and no related-item/related-song signal
+ * available at this call site, so it falls back to `era-scatter` — a
+ * deterministic, id-derived position spread across the era's span, instead of
+ * piling at the end of the feed (the plain date-sort this replaced) or
+ * clumping mid-era (the fixed-midpoint fallback this replaced — see § Plan
+ * amendments in PLAN.md). Nothing about that fallback is ever shown:
+ * `Anchored.displayDate` is null for anything but `via: 'exact'` (see
+ * anchor-date.ts's honesty rule), so an undated video card still renders
+ * "Date unknown".
  *
- * Both lists arrive pre-de-duped against the moments that already embed them
- * (see `eraVideoFeed`), so the caller can't accidentally show a video twice.
- */
-export function visibleVideos<V extends VideoNote>(
-  timelineVideos: V[],
-  videoFeed: V[],
-  filter: EraFeedFilter,
-): V[] {
-  if (filter.videosOnly) return videoFeed;
-  if (filter.tags.size === 0 || filter.tags.has('Music')) return timelineVideos;
-  return [];
-}
-
-/**
- * Merge moments and videos into one newest-first feed, so cross-type ordering
- * is correct instead of two concatenated lists.
+ * `doorways` (PLAN.md P3 step 13) are ALREADY `EraFeedEntry`-shaped with
+ * their own `anchor` — built by `threadDoorwaysForEra`/`eggDoorwaysForEra`
+ * in `doorways.ts` — so this function only needs to fold them into the same
+ * sort, not compute their anchors itself. Optional and appended last, rather
+ * than adding an `eraId` param up front, so every existing call site (this
+ * function shipped with 4 args in P1) keeps compiling unchanged; the caller
+ * that has doorways to offer passes them, everyone else gets the same
+ * two-kind feed as before. Apply `spaceDoorways` to the result before
+ * rendering — this function only merges and sorts, it does not space.
  *
- * Undated video records sort to the end (they're only reachable under the
- * Videos filter, where there is no chronology to break) rather than being
- * dropped — hiding a tour film from the filter that exists to find things to
- * watch would be the wrong kind of tidy.
+ * This SUBSUMES the old, separate `undatedAnchorDate()` — that function
+ * computed its own single floor value for the scrubber's tail anchor, a
+ * second, disagreeing notion of "anchor" living alongside this one. Callers
+ * that need a card's scroll anchor now read `entry.anchor.sortDate` directly.
+ *
+ * Ties (equal `sortDate` — rare with era-scatter, but not impossible when two
+ * ids hash to the same day) break on a stable id per kind — the moment's id,
+ * the video's slug, or a `kind:`-prefixed doorway id — so ordering is
+ * deterministic regardless of input array order.
+ *
+ * PLAN.md P3 step 14b: `doorways` used to be optional scaffolding behind an
+ * overload pair, so a 4-arg call (no doorways) kept returning the narrower
+ * `moment | video` union and EraSection.tsx's pre-step-15 render loop kept
+ * typechecking unchanged. Step 15 now dispatches all four kinds, so that
+ * narrower caller no longer exists — one signature, over the full union.
+ * `doorways` stays optional (default `[]`) purely for callers (tests) that
+ * don't care about them, not to preserve a second return type.
  */
 export function mergeEraFeed<V extends VideoNote>(
   moments: ContentItem[],
   videos: V[],
+  eraStart: string,
+  eraEnd: string,
+  doorways: EraFeedEntry<V>[] = [],
 ): EraFeedEntry<V>[] {
   const entries: EraFeedEntry<V>[] = [
-    ...moments.map((item): EraFeedEntry<V> => ({ kind: 'moment', item })),
-    ...videos.map((video): EraFeedEntry<V> => ({ kind: 'video', video })),
+    ...moments.map(
+      (item): EraFeedEntry<V> => ({
+        kind: 'moment',
+        item,
+        anchor: resolveAnchor({ exactDate: item.date, eraStart, eraEnd, id: item.id }),
+      }),
+    ),
+    ...videos.map(
+      (video): EraFeedEntry<V> => ({
+        kind: 'video',
+        video,
+        anchor: resolveAnchor({ exactDate: video.releasedOn, eraStart, eraEnd, id: video.slug }),
+      }),
+    ),
+    ...doorways,
   ];
   return entries.sort((a, b) => {
-    const dateA = a.kind === 'moment' ? a.item.date : a.video.releasedOn;
-    const dateB = b.kind === 'moment' ? b.item.date : b.video.releasedOn;
-    if (dateA === null || dateB === null) {
-      if (dateA === dateB) return 0;
-      return dateA === null ? 1 : -1;
+    if (a.anchor.sortDate !== b.anchor.sortDate) {
+      return b.anchor.sortDate.localeCompare(a.anchor.sortDate);
     }
-    return dateB.localeCompare(dateA);
+    return entryTiebreakId(a).localeCompare(entryTiebreakId(b));
   });
 }
 
-/**
- * How many cards the Videos filter will actually show — i.e. what the chip's
- * badge must say.
- *
- * NOT the same as the era's video-record count, which is what the rail heading
- * and the hero jump button show (both point AT the rail, so the rail's own
- * count is right for them). The filtered view additionally includes the
- * moments that carry their own footage, so on tloas the rail holds 9 playable
- * records while the filter shows 10 cards. A chip that promises one number and
- * yields another is a small lie told on every era, so the badge is computed
- * from the same selection the filter uses — including the #2057 de-dupe, which
- * is why this counts CARDS via visibleMoments rather than moments with a video.
- */
-export function watchableCount(items: ContentItem[], videoFeed: VideoNote[]): number {
-  return visibleMoments(items, { tags: new Set(), videosOnly: true }).length + videoFeed.length;
-}
-
-/**
- * The scroll-anchor date to stamp on undated video cards (only reachable under
- * the Videos filter, where they sort to the end of the list).
- *
- * TimelineScrubber reads `data-ll-date` off rendered cards and interpolates
- * assuming they descend down the page. Two wrong answers here:
- *   - leave them unanchored — on debut that is 4 of 7 cards, so the scrubber
- *     interpolates across a tall region with no anchors at all;
- *   - stamp `era.start` — an era can contain a moment dated BEFORE its own
- *     start (debut starts 2006-10-24 and carries "Tim McGraw arrives",
- *     2006-06-19), so the tail would step back UP and break the ordering.
- *
- * So: the earliest date already present in this feed, floored by `eraStart`.
- * The tail is then always <= every dated card above it, and the sequence stays
- * non-increasing. Nothing renders this value — the card still reads "Date
- * unknown" — it exists only so the scrubber has a continuous anchor list.
- */
-export function undatedAnchorDate(entries: EraFeedEntry[], eraStart: string): string {
-  let earliest = eraStart;
-  for (const e of entries) {
-    const date = e.kind === 'moment' ? e.item.date : e.video.releasedOn;
-    if (date && date < earliest) earliest = date;
+/** The stable id an entry sorts on when two anchors tie — see `mergeEraFeed`.
+ * Doorway ids are prefixed so they can never collide with a moment id or
+ * video slug, which share one unprefixed string space today. */
+function entryTiebreakId<V extends VideoNote>(entry: EraFeedEntry<V>): string {
+  switch (entry.kind) {
+    case 'moment':
+      return entry.item.id;
+    case 'video':
+      return entry.video.slug;
+    case 'thread':
+      return `thread:${entry.doorway.threadId}`;
+    case 'egg':
+      return `egg:${entry.doorway.eggId}`;
+    default: {
+      const exhaustive: never = entry;
+      return exhaustive;
+    }
   }
-  return earliest;
 }
 
 /** The YouTube ids already embedded on curated moments in this era — the
@@ -199,6 +230,26 @@ export function embeddedYoutubeIds(items: ContentItem[]): Set<string> {
   return new Set(
     items.map((it) => it.video?.youtubeId).filter((id): id is string => Boolean(id)),
   );
+}
+
+/**
+ * Copy for the moment a global filter genuinely turns up nothing in an era —
+ * e.g. Tour in folklore, which never had one. That's newly reachable now that
+ * the filter is global (PLAN.md step 6a): the era section itself must NOT
+ * collapse, so this is only the feed body's replacement line — the hero and
+ * lyric above it, and the section's own height, are untouched.
+ *
+ * Names every active filter (in chip order, per ALL_FILTERS) and the era by
+ * its own `shortName` casing (folklore, TTPD, ...) rather than inventing a
+ * second label set — that's what keeps this in the site's lowercase-warm
+ * voice without any per-era special-casing here.
+ */
+export function emptyFeedMessage(active: ReadonlySet<FilterId>, eraShortName: string): string {
+  if (active.size === 0) return 'No moments in this era yet.';
+  const names = ALL_FILTERS.filter((f) => active.has(f));
+  const joined =
+    names.length === 1 ? names[0] : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
+  return `Nothing under ${joined} in ${eraShortName}.`;
 }
 
 /**

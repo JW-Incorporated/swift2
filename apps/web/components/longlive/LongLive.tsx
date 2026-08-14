@@ -19,6 +19,7 @@ import { ShareSheet } from './ShareSheet';
 import { SearchOverlay } from './SearchOverlay';
 import { SiteFooter } from './SiteFooter';
 import { FeedbackButton } from './FeedbackButton';
+import { BottomNav } from './BottomNav';
 
 function Shell() {
   const { mode, eraId } = useAppState();
@@ -61,6 +62,15 @@ function Shell() {
         )}
       </main>
       <SiteFooter />
+      {/* Clearance for the fixed BottomNav. It cannot push content itself, so
+          without this the last card of every surface — and the footer — sit
+          under the bar on mobile. Matches the bar's own height plus the same
+          safe-area inset it pads with; zero at md+, where there is no bar. */}
+      <div
+        aria-hidden
+        className="md:hidden"
+        style={{ height: 'calc(3.5rem + env(safe-area-inset-bottom))' }}
+      />
 
       {/* Overlays */}
       <EraSelector />
@@ -70,6 +80,15 @@ function Shell() {
       <MomentDetail />
       <ShareSheet />
       <SearchOverlay />
+
+      {/* Mobile tab bar (P4, R3) — desktop keeps TopBar's pill rail instead. */}
+      {/* Mounted on EVERY surface including the front door — Joey, 2026-08-13:
+          "the landing page IS the website... it's just a redesign of the main
+          page". The bar is the mobile navigation, so it does not get to be
+          absent from the first screen a visitor sees. (TopBar above stays
+          landing-exempt: that is the #684 no-chrome-on-the-front-door rule,
+          which is about the top of the page, not about navigation.) */}
+      <BottomNav />
 
       {/* Always-available issue reporter, fixed bottom-right. */}
       <FeedbackButton />

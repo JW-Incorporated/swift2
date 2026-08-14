@@ -28,12 +28,13 @@ export function isPlayable(v: VideoNote): v is PlayableVideoNote {
  * Every playable video record for an era.
  *
  * The filter lives HERE, at the single read point, rather than in each
- * component: the rail (EraVideos), the era feed and its Videos filter
- * (EraSection), the search index (search.ts) and the track pages
- * (videoForTrack) all funnel through this function, so one filter makes the
- * invariant true everywhere and no future surface can opt out of it by
- * forgetting to check. That is also why the previous fix didn't hold — #2050's
- * inert cards came from two components each deciding for themselves.
+ * component: the era feed and its Videos filter (EraSection), the search
+ * index (search.ts) and the track pages (track-video.ts's `trackVideoFor`,
+ * called with this function's output) all funnel through this function, so
+ * one filter makes the invariant true everywhere and no future surface can
+ * opt out of it by forgetting to check. That is also why the previous fix
+ * didn't hold — #2050's inert cards came from two components each deciding
+ * for themselves.
  *
  * Records without an embed are hidden, NOT deleted (Joey's "hidden until the
  * content is available"): re-add a verified official upload to the seed and the
@@ -64,11 +65,9 @@ export function allVideoRecordsForEra(eraId: EraId): VideoNote[] {
 /**
  * Music videos for an era that carry a real release date — i.e. the subset
  * that's eligible to also render as its own dated entry in the main
- * chronological timeline (EraSection), duplicating (not replacing) its card
- * in the EraVideos rail above. Scoped to `kind === 'music_video'` only, per
- * the issue #439 request; lyric videos / short films / tour films etc. stay
- * rail-only for now. A video with no `releasedOn` has nowhere to sit on a
- * dated timeline, so it's excluded here (it still appears in the rail).
+ * chronological timeline (EraSection). Scoped to `kind === 'music_video'`
+ * only, per the issue #439 request. A video with no `releasedOn` has nowhere
+ * to sit on a dated timeline, so it's excluded here.
  */
 export function musicVideosForEra(eraId: EraId): (PlayableVideoNote & { releasedOn: string })[] {
   return videosForEra(eraId).filter(
@@ -78,9 +77,8 @@ export function musicVideosForEra(eraId: EraId): (PlayableVideoNote & { released
 }
 
 /**
- * Reader-facing label per kind — the one place a kind becomes English, shared
- * by the EraVideos rail card and the Videos-filtered feed card so the same
- * record never gets two different names on two surfaces.
+ * Reader-facing label per kind — the one place a kind becomes English, so the
+ * same record never gets two different names on two surfaces.
  */
 export const VIDEO_KIND_LABEL: Record<VideoNoteKind, string> = {
   // Works she made or headlined.
@@ -157,25 +155,11 @@ export function eraVideoFeed(
     });
 }
 
-const normalizeTitle = (s: string): string =>
-  s
-    .toLowerCase()
-    .replace(/\(.*?\)/g, ' ') // drop "(Taylor's Version)", "(Music Video)", etc.
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim();
-
-/**
- * The official video for a specific song, matched by title within its era, so a
- * track page can embed it (issue #439/#440). Prefers a true music video, then a
- * lyric video; requires a verified `youtubeId`. Title match is exact after
- * normalizing punctuation and parenthetical suffixes — strict on purpose, so a
- * page never embeds the wrong song's video.
- */
-export function videoForTrack(eraId: EraId, title: string): PlayableVideoNote | undefined {
-  const t = normalizeTitle(title);
-  if (!t) return undefined;
-  // `videosForEra` already guarantees a verified embed id, which is what this
-  // function's "requires a verified youtubeId" contract asked for by hand.
-  const vids = videosForEra(eraId).filter((v) => normalizeTitle(v.title) === t);
-  return vids.find((v) => v.kind === 'music_video') ?? vids.find((v) => v.kind === 'lyric_video');
-}
+// The legacy per-song matcher (`videoForTrack`, exact-title after stripping
+// EVERY parenthetical including "(Taylor's Version)") lived here until
+// finding #2 (adversarial review, 2026-08-13): its normalization couldn't
+// tell two different recordings of the same song apart, so it disagreed with
+// track-video.ts's conservative `trackVideoFor` on which video to play (e.g.
+// Fearless's "The Best Day" dossier played the Taylor's Version video while
+// TrackGuide correctly played the original). Removed rather than fixed —
+// there is only one matcher now; see `trackVideoFor` in `track-video.ts`.

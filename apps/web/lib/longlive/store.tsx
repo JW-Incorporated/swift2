@@ -23,6 +23,7 @@ import {
   type Progress,
 } from './progress';
 import { pushBackEntry } from './useBackDismiss';
+import type { FilterId } from './filters';
 import type { EraId, LensId, MotifId } from './types';
 import type { ClownAnswer } from './clown-answer';
 
@@ -72,6 +73,13 @@ interface AppState {
   openTrackKey: string | null;
   /** Era whose theories/easter-eggs overlay is open, or null. */
   theoryGuideEraId: EraId | null;
+  /**
+   * Egg/theory slug to scroll to and highlight once TheoryGuide opens, or
+   * null. Set alongside `theoryGuideEraId` by an egg doorway tap (R4 —
+   * "egg/theory doorways open that single egg's detail") so the reader lands
+   * on the one card they tapped, not just the era's guide in general.
+   */
+  theoryGuideHighlightSlug: string | null;
   /** Whether the era selector overlay is open. */
   selectorOpen: boolean;
   /**
@@ -93,6 +101,8 @@ interface AppState {
    * Consumed (cleared) by ClueWeb once it lands there.
    */
   clueWebTrail: MotifId | null;
+  /** Active global timeline filter chips. Empty = show everything (P1). */
+  filters: ReadonlySet<FilterId>;
   /**
    * Clown bot transcript — client-held, capped at `CLOWN_TRANSCRIPT_CAP`
    * exchanges, never persisted. Lives in the app store (rather than local
@@ -124,6 +134,26 @@ export type ShareTarget =
 export interface EraScrollSnapshot {
   anchorId: EraId;
   count: number;
+  scrollY: number;
+}
+
+/**
+ * Back-to-position for a timeline doorway (PLAN.md P3 step 16 — Joey: "if a
+ * user clicks a doorway, 'back' should take them right back to the era they
+ * came from, at the spot on the timeline they came from"). Pushed by a
+ * doorway tap right before it navigates; popped when that navigation is
+ * dismissed through the existing useBackDismiss path (either `restoreNav`,
+ * for a thread doorway's mode switch, or an overlay's own close handler, for
+ * an egg doorway's TheoryGuide). A dedicated stack rather than reusing
+ * `eraScrollRef` because that ref holds exactly one CONTINUOUSLY-overwritten
+ * snapshot (EraStream's own scroll position) — doorway taps need their own
+ * LIFO history so a doorway opened from inside a doorway still unwinds in
+ * order.
+ */
+export interface ReturnPoint {
+  mode: AppMode;
+  eraId: string;
+  itemId: string | null;
   scrollY: number;
 }
 
@@ -169,8 +199,12 @@ interface AppActions {
    * guide too, so a cross-era hop lands with a consistent guide behind it.
    */
   openSong: (eraId: EraId, key: string) => void;
-  /** Open the theories/easter-eggs overlay for an era. */
-  openTheoryGuide: (id: EraId) => void;
+  /**
+   * Open the theories/easter-eggs overlay for an era. `highlightSlug`
+   * (optional) is a single egg/theory's slug to scroll to and highlight once
+   * open — set by an egg doorway tap (R4); omitted by every other caller.
+   */
+  openTheoryGuide: (id: EraId, highlightSlug?: string) => void;
   closeTheoryGuide: () => void;
   /** Save the era-stream position when leaving era mode (for later restore). */
   saveEraScroll: (snap: EraScrollSnapshot) => void;
@@ -185,6 +219,14 @@ interface AppActions {
   setSearchOpen: (open: boolean) => void;
   openShare: (t: ShareTarget) => void;
   closeShare: () => void;
+  /** Toggle one filter chip on/off in the active set. */
+  toggleFilter: (id: FilterId) => void;
+  /** Clear all active filter chips ("All"). */
+  clearFilters: () => void;
+  /** Push a doorway's origin spot onto the return-point stack (P3 step 16). */
+  pushReturnPoint: (p: ReturnPoint) => void;
+  /** Pop and return the most recent return point, or null if none. */
+  popReturnPoint: () => ReturnPoint | null;
   /** Append one exchange to the clown transcript, dropping the oldest past the cap. */
   addClownMessage: (question: string, answer: ClownAnswer) => void;
   /** Clear the clown transcript back to empty. */
@@ -291,11 +333,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [trackGuideEraId, setTrackGuideEraId] = useState<EraId | null>(null);
   const [openTrackKey, setOpenTrackKey] = useState<string | null>(null);
   const [theoryGuideEraId, setTheoryGuideEraId] = useState<EraId | null>(null);
+  const [theoryGuideHighlightSlug, setTheoryGuideHighlightSlug] = useState<string | null>(null);
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [scrubbing, setScrubbing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [share, setShare] = useState<ShareTarget | null>(null);
   const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
+  const [filters, setFilters] = useState<ReadonlySet<FilterId>>(() => new Set());
   const [clownMessages, setClownMessages] = useState<ClownMessage[]>([]);
 
   const addClownMessage = useCallback((question: string, answer: ClownAnswer) => {
@@ -320,6 +364,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
     eraScrollRef.current = null;
   }, []);
 
+  // Doorway back-to-position (P3 step 16). LIFO, held in a ref for the same
+  // reason eraScrollRef is: push/pop are imperative bookkeeping around a
+  // navigation, not something a render should ever depend on.
+  const returnPointStackRef = useRef<ReturnPoint[]>([]);
+  const pushReturnPoint = useCallback((p: ReturnPoint) => {
+    returnPointStackRef.current = [...returnPointStackRef.current, p];
+  }, []);
+  const popReturnPoint = useCallback((): ReturnPoint | null => {
+    const stack = returnPointStackRef.current;
+    if (stack.length === 0) return null;
+    const top = stack[stack.length - 1];
+    returnPointStackRef.current = stack.slice(0, -1);
+    return top;
+  }, []);
+
   // Top-level navigations (era jumps, mode switches, thread opens) are pure
   // state — without a history entry the mobile back-swipe leaves the app
   // (Joey, 2026-07-15: "swiping back still takes me out of the app on many
@@ -338,8 +397,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // Jump the era stream to the restored era — unless a scroll snapshot
     // exists (mode-switch return), which the stream restores more precisely.
     if (prev.mode === 'era' && eraScrollRef.current == null) setEraJumpSeq((n) => n + 1);
+    // Doorway back-to-position (P3 step 16): a thread doorway tap pushes a
+    // ReturnPoint immediately before the same navigation's pushNav call, so
+    // the two pop in the same LIFO order — this restoreNav run is always the
+    // one that corresponds to whatever's on top. Applied only when it
+    // actually matches what we just restored to; a mismatched (or absent —
+    // the common case, most nav isn't doorway-sourced) entry is discarded
+    // rather than risking a wrong scroll jump.
+    const rp = popReturnPoint();
+    if (rp && rp.mode === prev.mode && rp.eraId === prev.eraId && typeof window !== 'undefined') {
+      requestAnimationFrame(() => window.scrollTo({ top: rp.scrollY, behavior: 'auto' }));
+    }
     suppressNavPushRef.current = false;
-  }, []);
+  }, [popReturnPoint]);
 
   const pushNav = useCallback(() => {
     if (suppressNavPushRef.current) return;
@@ -428,6 +498,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setLensId(null);
     setCrossing({ a, b });
     setOpenItemId(null);
+  }, []);
+
+  const toggleFilter = useCallback((id: FilterId) => {
+    setFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const clearFilters = useCallback(() => {
+    setFilters(new Set());
   }, []);
 
   // Home is the landing page (#684) — the same front door every visitor gets.
@@ -530,11 +613,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setTrackGuideEraId(getEra(eraId).id);
         setOpenTrackKey(key);
       },
-      openTheoryGuide: (id: EraId) => {
+      openTheoryGuide: (id: EraId, highlightSlug?: string) => {
         setTrackGuideEraId(null);
         setTheoryGuideEraId(getEra(id).id);
+        setTheoryGuideHighlightSlug(highlightSlug ?? null);
       },
-      closeTheoryGuide: () => setTheoryGuideEraId(null),
+      closeTheoryGuide: () => {
+        setTheoryGuideEraId(null);
+        setTheoryGuideHighlightSlug(null);
+      },
       saveEraScroll,
       getEraScroll,
       clearEraScroll,
@@ -543,6 +630,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSearchOpen,
       openShare: setShare,
       closeShare: () => setShare(null),
+      toggleFilter,
+      clearFilters,
+      pushReturnPoint,
+      popReturnPoint,
       addClownMessage,
       clearClownMessages,
     }),
@@ -558,6 +649,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       saveEraScroll,
       getEraScroll,
       clearEraScroll,
+      toggleFilter,
+      clearFilters,
+      pushReturnPoint,
+      popReturnPoint,
       addClownMessage,
       clearClownMessages,
     ],
@@ -574,11 +669,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
       trackGuideEraId,
       openTrackKey,
       theoryGuideEraId,
+      theoryGuideHighlightSlug,
       selectorOpen,
       scrubbing,
       searchOpen,
       share,
       clueWebTrail,
+      filters,
       clownMessages,
     }),
     [
@@ -591,11 +688,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
       trackGuideEraId,
       openTrackKey,
       theoryGuideEraId,
+      theoryGuideHighlightSlug,
       selectorOpen,
       scrubbing,
       searchOpen,
       share,
       clueWebTrail,
+      filters,
       clownMessages,
     ],
   );

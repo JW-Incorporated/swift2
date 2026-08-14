@@ -7,6 +7,72 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 — Era reader rework: bottom nav, one global filter, timeline doorways
+
+Five decisions, all Joey's, taken on the consolidated team review of the "Time
+Machine Mockups" artifact. Recorded before implementation per Workflow rule 6.
+Implementation plan: `PLAN.md`; branch `feature/era-reader-rework`.
+
+**Decision 1 — mobile navigation moves to a bottom tab bar. This overrides a
+prior CTO-side rejection, deliberately.** `docs/specs/2026-08-13-landing-page-
+brief.md` §3.2 and D3 record that a bottom-edge control was tested on-device and
+rejected for colliding with mobile browser chrome and the home indicator, and
+that it could return only "via a device-tested prototype and Wyatt's explicit
+approval." Joey, as CEO, has now asked for it directly and unambiguously ("we
+absolutely want mobile to have the navigation you show on the bottom"), on the
+grounds that it clears up the top bar. That is a product call he is entitled to
+make, and it is taken. **Wyatt has not signed off and is to be notified on the
+PR** — per Workflow rule 5 this disagreement is surfaced, not settled quietly.
+The three known collisions are treated as build requirements, not as things to
+discover later: safe-area insets for browser chrome and the home indicator, and
+hiding the bar while a text input is focused so Mood's keyboard clears it. The
+FeedbackButton floats above the bar and gains a dismiss (below). If a collision
+survives on a real device, the plan says stop and report rather than ship
+around it. Alternative rejected: keep the sticky top rail (status quo, D3).
+
+**Decision 2 — the Spotify era player is removed.** "Play the era"
+(`EraMedia.tsx`, a click-to-load Spotify album embed) is deleted, and Track
+guide takes its slot, its full width and its play affordance. Joey's reasoning:
+"people don't want to listen to Spotify on our app — they can open a new tab
+for that," and the track guide should be the single focal point between the
+lyric and the filter, with song videos playable inside it. Consequence: the era
+page has no first-party music playback at all; this is intended. Alternative
+rejected: keep both, with the player demoted.
+
+**Decision 3 — one global filter replaces the per-era filters.** Today each
+`EraSection` owns its own `activeTags`/`videosOnly` React state, so the filter
+resets every time you scroll into a new era. It becomes a single set in the
+store, rendered once as a sticky bar, applying to every era at once and
+persisting as you move between them. Changing it must leave you in the era you
+were already in. The taxonomy is fixed at **six**: Music, Fashion, Tour,
+Relationship, Lore, Videos. Joey explicitly scrapped the "Threads gets its own
+filter" idea from his own brief; thread and egg doorway cards are instead
+categorised under the same six. Alternative rejected: an eight-chip two-axis
+row (topics + kinds), and a five-chip topics-only row that would have dropped
+the Videos filter that ships today.
+
+**Decision 4 — a synthetic anchor date may position a card but may never be
+displayed.** Threads and eggs often have no date, and the era timeline is
+strictly chronological. Undated items therefore get a resolved anchor —
+borrowed from a related moment, else a related song's release, else the era
+midpoint — used solely as a sort key. `displayDate` is null unless the date is
+genuinely authored. Joey offered "you are welcome to assign a fake date to it";
+this decision accepts the sort-key half and refuses the display half, because
+the site's standing honesty contract is that nothing is ever labelled with a
+date it does not have. This is not a new rule: `undatedAnchorDate()` already
+feeds the scrubber an invisible anchor while the card renders "Date unknown".
+
+**Decision 5 — Clownbot keeps a top-level tab, so the nav is sized for six.**
+Bottom nav is four tabs today (Eras, Threads, Mood, Clownbot) and six at full
+growth once Marketplace and Community exist. This reverses the mockup's
+proposal to fold Clownbot into the feed and drop its pill. Known cost, accepted
+with the decision: six labelled tabs do not fit a 390px phone — the bar is
+built to degrade to icon-only at five and six rather than break, and is tested
+with 4, 5 and 6 entries. Alternative rejected: three tabs now / five later,
+with Clownbot reachable only from an in-feed theory board and the footer.
+
+---
+
 ## 2026-08-13 — The video plays from the top of a detail page, and a card never shows a video frame it cannot play
 
 Two follow-ups to the one-video-treatment decision below, both closing the same

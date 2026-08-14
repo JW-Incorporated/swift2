@@ -50,6 +50,7 @@ export default {
       director: 'Roman White',
       releasedOn: null,
       relatedSongs: ['Mine'],
+      tags: ['Music'],
       summary:
         'A whole imagined lifetime in four minutes: from café glance to kids and a kitchen argument and back — the flash-forward fantasy structure the song\'s "careless man\'s careful daughter" narrates.',
       symbolism: null,
@@ -65,6 +66,7 @@ export default {
       director: 'Yoann Lemoine',
       releasedOn: null,
       relatedSongs: ['Back to December'],
+      tags: ['Music'],
       summary:
         'Snow falls indoors: Taylor writes an apology from a room slowly buried in winter while the boy she wronged moves through parallel scenes — her first video built on a single sustained visual metaphor.',
       symbolism: 'The encroaching snow literalizes the regret the lyric circles — December overtaking the room as the apology goes unanswered.',
@@ -80,6 +82,7 @@ export default {
       director: 'Declan Whitebloom',
       releasedOn: null,
       relatedSongs: ['Mean'],
+      tags: ['Music'],
       summary:
         'Banjo-vaudeville staging with a moral: the mocked kids of the verses grow up and out — into the big city, the stadium, the life the bully said they\'d never have — while the band plays a saloon set.',
       symbolism: null,
@@ -98,6 +101,7 @@ export default {
       director: 'Noble Jones',
       releasedOn: null,
       relatedSongs: ['The Story of Us'],
+      tags: ['Music'],
       summary:
         'A library at war: two exes study tables apart as the silence gets louder, pages fly, and the "chapter" conceit of the lyric plays out in the stacks.',
       symbolism: null,
@@ -123,6 +127,7 @@ export default {
       director: null,
       releasedOn: null,
       relatedSongs: ['Sparks Fly'],
+      tags: ['Music'],
       summary:
         'A live-performance video compiled from Speak Now World Tour footage, directed by Christian Lamb and released August 2011 — the album\'s fifth single.',
       symbolism: null,
@@ -138,6 +143,7 @@ export default {
       director: 'Declan Whitebloom',
       releasedOn: null,
       relatedSongs: ['Ours'],
+      tags: ['Music'],
       summary:
         'Taylor plays an office worker grinding through corporate monotony — bus commute, water-cooler small talk — until the day ends at the airport, where she reunites with her boyfriend, a soldier returning home, played by Zach Gilford.',
       symbolism: null,
@@ -153,6 +159,7 @@ export default {
       director: 'Taylor Swift',
       releasedOn: '2023-07-08',
       relatedSongs: ['I Can See You (Taylor\'s Version) (From the Vault)'],
+      tags: ['Music', 'Tour'],
       summary:
         'A vault-track heist: Joey King, Taylor Lautner, and Presley Cash break Taylor out of imprisonment in a vault — a metaphor for reclaiming her masters — premiered live at the July 7, 2023 Kansas City stop of the Eras Tour, the night Speak Now (Taylor\'s Version) dropped.',
       symbolism: 'The vault break-out literalizes the re-recording project itself: taking her art back from Big Machine.',
@@ -171,6 +178,7 @@ export default {
       director: null,
       releasedOn: '2011-11-21',
       relatedSongs: [],
+      tags: ['Tour'],
       summary:
         'The theatrical Speak Now show — aerial ballet, the levitating balcony, the confetti-showered Love Story finale performed from a flying balcony — captured across the 2011 arena run and released as a live CD/DVD.',
       symbolism: null,
