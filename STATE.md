@@ -17,14 +17,23 @@ Codex review was complete; note that `codex-companion status --all` showed
 that ledger may be per-session, but if PR 1 needs a fix it will be a
 cherry-pick follow-up.
 
-**P2 in flight on `feature/era-reader-p2`** (stacked on P1, NOT branched off
-`main` — it edits the same `EraSection.tsx` region). Steps 8, 9, 10, 11 are
-done in the working tree, uncommitted; the docs slice is with an executor.
+**P2 committed on `feature/era-reader-p2`** (stacked on P1). NOT opened as a
+PR yet — awaiting a Codex review.
+
+**P3 in flight on `feature/era-reader-p3`** (stacked on P2). Steps 13–14
+(widen the feed union to four kinds, doorway anchoring, `spaceDoorways`) are
+with an executor. Steps 15–17 (UI, back-to-position, R4 thread back-link) not
+started.
 
 **`/codex:review` cannot be invoked by any session** — the plugin command is
 `disable-model-invocation`, and the Skill tool explicitly forbids replicating
 its workflow via `codex-companion.mjs`. Only a human can run it. Ask; do not
 work around it, and do not arm a monitor waiting for it (§ Never babysit).
+**Codex itself is healthy** — `codex-companion setup --json` on 2026-08-13:
+`ready: true`, codex-cli 0.144.6, ChatGPT auth verified. But `status --all`
+says "No jobs recorded yet", so no review has ever actually run here. If a
+session is told "review complete", that claim is worth checking against
+`status --all` before trusting it.
 
 ## Last session
 
@@ -82,6 +91,13 @@ work around it, and do not arm a monitor waiting for it (§ Never babysit).
   per-id scatter across the era span. Midpoint gave every undated item the same
   sort key, trading an end-of-era pile for a mid-era clump; 26 of 84 video
   records are undated, so the clump was real. Joey asked for them scattered.
+- **Theory doorways get `era-scatter`, and NO text-matching heuristic**
+  (`PLAN.md` § Plan amendments 3). `TheoryNote` has no date, no song pointer,
+  no moment pointer, and `EggSource` carries no publication date either —
+  verified, not assumed. Matching theory text against track titles would be
+  plausible-looking, unauditable wrongness across 12 eras. An optional
+  authored `anchorHint` goes in the seed schema instead, so placement improves
+  with content rather than cleverness. Joey delegated these calls explicitly.
 - **Added a zero-match era empty state that the plan had missed** (step 6a).
   A global filter makes "Tour + folklore" reachable; per-era filters never
   could, because they reset at every era boundary. The section keeps its hero
@@ -173,12 +189,12 @@ work around it, and do not arm a monitor waiting for it (§ Never babysit).
 
 ## Next obvious step
 
-Verify the P2 docs slice, commit P2, then ask Joey to run `/codex:review` on
-`feature/era-reader-p2` before opening PR 2. PR 2 targets `feature/era-reader-
-rework` (or `main` once #2086 merges) — it is STACKED, so do not open it
-against `main` while #2086 is unmerged.
+Verify the P3 steps 13–14 result — **especially the per-era doorway counts**.
+If an era carries ~20 doorways the UI design changes, so read that number
+before dispatching steps 15–17 (DoorwayCard, back-to-position, the R4
+thread back-link on every egg detail).
 
-Then P3 (timeline doorways) from step 13. P3's first real question is whether
-eggs carry a song pointer the way videos do (`relatedSongs`) — check before
-designing the anchoring, and reuse `lib/longlive/track-video.ts` rather than
-building a second lookup.
+Branch stack, oldest first: `feature/era-reader-rework` (PR #2086, open) →
+`feature/era-reader-p2` (committed, unopened) → `feature/era-reader-p3` (in
+progress). Each targets its parent, not `main`, until #2086 merges. Ask Joey
+to run `/codex:review` per branch before opening each PR.

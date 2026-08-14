@@ -269,6 +269,34 @@ P3, where Joey's "put it near some content about that song" requirement bites
 properly and doorways need the same lookup. **P1 ships scatter; P3 makes it
 smart.** Tracked as an open thread in `STATE.md`.
 
+**2026-08-13 (3) — how doorways get anchored, now that the data is known.**
+Checked before designing, rather than assumed. Three different populations,
+three different answers:
+
+- **Thread doorways** — a thread has real dated points inside an era
+  (`threadPoints()` in `lenses.ts`). Anchor on the thread's own item in that
+  era. Real date, `via: 'exact'`, and it lands genuinely near related content.
+- **Clue-web eggs (`EggNode`, 30 records)** — carry `year` at 100% coverage
+  and optional `relatedIds` that can point at `song:` / `moment:`. Anchor on
+  `relatedIds` where present, else the year. `lenses.ts:328` already converts
+  these to `${year}-06-01` markers — reuse that precedent, don't invent a
+  second one.
+- **Guide theories & eggs (`TheoryNote`)** — the population Joey's doorway
+  cards actually come from. **Has NO date, NO song pointer, NO moment
+  pointer, and its sources carry no publication date either** (`EggSource` is
+  name + url + reliability). There is nothing real to anchor to.
+
+**Decision for `TheoryNote`: `era-scatter`, and no text-matching heuristic.**
+Matching a theory's title/claim against track titles by substring would be
+exactly the "plausible but not actually verified" move that produces quiet,
+un-auditable wrongness across 12 eras — and it is the same substring matching
+banned in `track-video.ts` for the stronger reason there. Instead, an OPTIONAL
+authored `anchorHint` is added to the theory seed schema, so a human can pin
+individual theories over time and the anchor improves with content rather than
+with cleverness. Joey gave "free reign" on these judgement calls; this is that
+call, and the honest limit of it is that most theory doorways land scattered,
+not beside the song they discuss.
+
 ## Steps
 
 ### P0 — decisions (orchestrator, no code)
