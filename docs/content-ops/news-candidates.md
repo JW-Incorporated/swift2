@@ -25,7 +25,59 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 102
+Stories: 100
+
+## Taylor Swift Breaks Record for Most Adult Pop Airplay No. 1s With ‘I Knew It, I Knew You’ - Yahoo
+
+- first seen: 2026-08-14 18:02 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Breaks Record for Most Adult Pop Airplay No. 1s With ‘I Knew It, I Knew You’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPSVM3SUFVbXZwUlJ2bUxHN0tJYmZWNU9FNTJvTllCYmhhaGNJb1NLdXNhVGk0ZVFMd2hlbnpzWFpFak9JNUtMQlYzYjZQbHdtaGZqRVkwNEZ0Skx0bE1YWEZfU01MRG8yR2dwSzY2WldrMTM3UVh6UFlyVUR3WlVjV1ZZbUdwbUk0cGI0WlljNUdfVmRfLVFJWTZtTjVDdw?oc=5
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxQckQtMExhV3VBZzJ1VGJFR3VBOTlCSXpPLVRyNmJ6cnZCRnBwUzBoZ0FPeVNZMnNfS2ZsQVQ3OE43N0dmZ1FRVDB0S2VxXy14YzB0RTBCWFdPTWxycDhGbHRWblU4di1sMExIR3gycGpoRzhrMXBBeE5MZzdrYnBOME5lNnJZTDhpNXNGdkJfV29iZFp6QUJLbHJLaFJOQnRob2dXMENqYjFUSnh1V1A5dU4zeUZadw?oc=5
+
+## Rob Gronkowski played matchmaker at Taylor Swift and Travis Kelce’s wedding for this ‘beautiful’ cel
+
+- first seen: 2026-08-14 18:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Rob Gronkowski played matchmaker at Taylor Swift and Travis Kelce’s wedding for this ‘beautiful’ celebrity  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMirgFBVV95cUxNM2FWeDBGeDZ0ZXNUdEt3MzZwZlRXcFpaS2ZVYjdyTURfYnhNWTUweEtyZ1pUNDVQWjFScXlJZEZGV1BzSGgwNW1JWU11cHR6LVRlZUxUOHFWQVF2OThOeDVuRFFhVHdILWl2T2pYeGdhcGFqWHRFS2w5VHk3TXBIeU1DbUlvdVZvRjZuYngwLWdUUHU3Z2w3QTdMVF9kbW91cXg4UGM2a05CRXlUZFE?oc=5
+
+## Taylor Swift Shows Off Her 10-Carat Diamond Ring on First Solo Outing Since Travis Kelce Wedding - i
+
+- first seen: 2026-08-14 18:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Shows Off Her 10-Carat Diamond Ring on First Solo Outing Since Travis Kelce Wedding  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPQl9hQ1BGXzZ3RlhXQ2lxX0tmS2U1ck1XZEVfVVJkdVNHNTZGVWxSRWlKazU5d3lpQ3VzbVFtOW5EdVhUcnFqOEk1UTNBVzNsMW1FbUFXY2RGeTlZc0dqWTdaRG9nZWxMbUhFVXRWelFKWTgxeWkxWVFTOFpQREF0V01rcEFMWFNGWUlGSWY4U3k2WG5uQTg5d25VU3p1c0RxVGRrRnN3?oc=5
+
+## Taylor Swift and Travis Kelce ‘Feel Really Grateful’ Post-Wedding: Source (Exclusive) - people.com
+
+- first seen: 2026-08-14 18:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce ‘Feel Really Grateful’ Post-Wedding: Source (Exclusive)  people.com
+- sources:
+  - [unverified] people.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxOOG1KN3NKcjZMOExkaEdIUEFUcVZiVHJBZF9HckF3VGJVcV9LZFdZeWgzYXpZOUJZczNlbXd1d0RPZXE5T2VIYjBNeF91eFRHSGh1M0l0SWh1VTZKaDhGZXNjNXRjOFJXbTkxMmVTdlIzTllKekpBby1Nb01wazh4bjU1eXFBT1phTHpuQWlyYzRxX2N3VlRVbllBWGhEVk5YSklrZ3FJQQ?oc=5
+
+## Taylor Swift Quietly Makes Donald Trump Decision as Travis Kelce Stays Silent - Yahoo
+
+- first seen: 2026-08-14 18:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Quietly Makes Donald Trump Decision as Travis Kelce Stays Silent  Yahoo
+Taylor Swift’s ‘I Bet You Think About Me’ Is Her Latest Song Removed From a Trump TikTok Post  Billboard
+Taylor Swift takes a quieter approach to Trump using her music on social media  cnn.com
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOWXlIaEM1TEJZeVRvcWhKbFVocVk2T0dyQXlhcUQwZnFFcFNGakh0V1dCam44UElwWlAwcHlZcFlMSkY4M0UxVV9feVZuZFZQSmNVZFVSY3dMMmt2dm1DTWt0ZUNWXy1Fek1sdlAyN0J1a255NkItTS1CMml3Z2tvN3JvLU1SbF9VZ1hIbUVqRUhibkZPYXVxVkZaZTNGMUpaTTI2ekxR?oc=5
+
+## Taylor Swift channels 'Lavender Haze' in London look, shop similar style - USA Today
+
+- first seen: 2026-08-14 18:02 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift channels 'Lavender Haze' in London look, shop similar style  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQUWlBTjROQXZCRHF3ZmZrcjFuSDc2NnJCU3ZXU2xXUEdrTzBBNDlWLTY1NG9vVEQ0SnZsMTVTNkhuNEJWcFNudFBNOVVpQkk1bF9GVVBLMWVwbTFuR0pQdlpBdi1rbHlLd0FhLTJBd1piRU92bWoxVi1WMEY4bFRLM3hXMTB1ZUdpcVJWLW1YSXkxV2xrVmdmaXlLallITkQ3N1czeHliT1Bvc09NN2xXX3RHei15S2ZGREFlVm1PeXRUbnVuMXNmRFcyc2taUG45NVE?oc=5
+  - [unverified] Las Cruces Sun-News — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQOTE0a3hiUkxVcE84aThuOUNGdEVST0NzZWlLNFFmaGZiLWpFWTN0MXNRTFdpSmlET1FPR002OUlBX1ZtLXVJWmNZcE9sVXdONTdKdmVxdjN6NnVqaXFReE1fNndDbzJ3a3V1XzdablloMExpWWJxRVNDS0ZKWGlIWWFHNUJsVmFldU95U3VGMGtkVVc3TVhhX091Z1FvYlBPd2pGNWVhQjBQUVl2Z1hLUUhib3FqREEzLU9ZR2pwTlh2RGZnZjd1aUwyVi1SRlJwSWsxLQ?oc=5
 
 ## Taylor Swift by Candlelight - Duxbury Clipper
 
@@ -829,69 +881,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMixgFBVV95cUxNSHBMNUlsSFBaNnN0d2RYd2hWQzAzY0xhV2ZXeHV3Qnh3VUtRZ01JYTlkaXlKUS1DZGx2V3FzZWFJT0lUdXVZX3pqaEZKUmk4bldnTjdDcjIzVjVTTWFWZVI4bDI3aWd1cFp0dGxEQUdrNXJBUVBUM2hXYURNOGg4cS11blk3cGVhRkdQSW55ZTlWX1o5S1JjVUlETlhCQW1Jd3hoeGhyNlFGb2ZOUmM3RFFwVFNuSmF6dUphRXhuMm1TRGFBNGc?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNMG03UE00M3NrdmM3QnZrZWsxNUI0OHJFYS1VZkVVaFA0R19sZVJUVTN0d0d3VDA5ZG5vV29IUzZ2Q0NQRGhmZGFUVklwQkYtV2Q5a0oxbXhLUFdJeFg5bDJBMDhYT05hWmZuU1FLUnB0T0xFS1ZlM2lxWXliekRyWVV0eklKcW9qM3lUODB5ZFEtbnFUaGF5Nm5n?oc=5
-
-## Andrew Lloyd Webber weighed in on Taylor Swift's 'The Life of a Showgirl' album and art inspiration 
-
-- first seen: 2026-08-11 14:24 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Andrew Lloyd Webber weighed in on Taylor Swift's 'The Life of a Showgirl' album and art inspiration  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6gFBVV95cUxNQVFuZ2t0Zk9wS1BQbnFueDNVTG9IWVZwcktuQlVWSVQ5SDZCWm5ram5sbjZVM3JyMExUZU5lTHpHMFM4VGJxSGRJQ1E4WUJ3b2VYUWN4NW5YOFhWY3RISjA0RFJRSDE1ODZQdk9UWFhNeWJ1ODV2aU1LdWM2eVdGNDVvMkJBekxtckNlcnlJdm9aTTBHRkZvZXh2VEloT0FjeDdNaVRjSFFWMWdLNU8wRW9RLVpUSG5vZWFhdnlzOWt2OFRMN3VVampZVWVpYkVLMFBVb0pRNEVjRjVCQUZ6ZzZxNkozQ29IUkE?oc=5
-
-## Taylor Swift and Travis Kelce ‘Get Back to Reality’ After Fairy Tale Wedding: ‘It’s a Big Change’ - 
-
-- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce ‘Get Back to Reality’ After Fairy Tale Wedding: ‘It’s a Big Change’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPamZGNkhlUnhrVDI3WGd6VWhwdzc1a1c5aTV3NmV4Z1g2c3NCZEJ2STR4ekVEdms3T0dRLUlZZ0UxbjRsdDZUNERlTi1jenk2b1lKQUQzLXplR1gtQ3VnS3ZWTjU2ZWd5UDhZMFVCcDJsenBoYlJXN1Q3YzBNX1FYc2FyTXk4RlVITDhldk1fcUVkc0pPempQeE8yU1ZvVkZRaFE?oc=5
-
-## Taylor Swift and Travis Kelce’s Pets Are ‘Having the Hardest Time’ Getting Along Post Wedding - Star
-
-- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce’s Pets Are ‘Having the Hardest Time’ Getting Along Post Wedding  Star Magazine
-- sources:
-  - [unverified] Star Magazine — https://news.google.com/rss/articles/CBMitwFBVV95cUxPSTMwRzItajI5Y0lWSG1SR2pKZVczZXBIZGhjUU9OSll5X0R5UmZNQU5wemFqQ2xnUlFyNmQwNjRDUFJmNXBRQW91aHZUei1JMkt0aFpSLTA2VEN6RWZ5WGxjclVma0Ezcjc3Y3BiVHZuTWN2ZEtndFA1Nzdjdk9Wa29kdEd5MTNSRm94WEpPVWlPN2NWTDNnQWlETFc3Yl80Wm1qV1ZrN2s0V09UWDhtdi03ZWNjam8?oc=5
-
-## Ahead of KC concert, Train’s lead singer gives peek into Taylor-Travis wedding ‘magic’ - Kansas City
-
-- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Ahead of KC concert, Train’s lead singer gives peek into Taylor-Travis wedding ‘magic’  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMif0FVX3lxTE80eEZuN0hyMElRdnJ6LUxGNDRHbFd0R3BscG5fWUxCbnBKUloxbFhRT0tKSVZ1azhILUIzNTkwcFFRenhLWmNRaWJmaG1rY2FZX0Nnb19TVmdCOFRoTFhWMHRrQjZfNUh0NHhzdXVzQWRYU3l0VXdVdjIyS1h5Yk3SAX9BVV95cUxOQTRWUC1Pc21jaFZ6Qm5xSWs3UDhnY2piNDhwdXIwYUk5X1FsRUJXZE5PaWYyN01jcllCVzNCRGRWTHpibkViUm5PRkk3NVVnU1pfUUpRdEVJaU1jNFZ5VGtDc0FvTnd4WTBIZlZlVFdDa0xyLU96TUgwdzZpM2Jz?oc=5
-
-## Bridal brands brace for a Taylor Swift wedding dress frenzy - The Lufkin Daily News
-
-- first seen: 2026-08-11 14:24 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bridal brands brace for a Taylor Swift wedding dress frenzy  The Lufkin Daily News
-- sources:
-  - [unverified] The Lufkin Daily News — https://news.google.com/rss/articles/CBMi7gFBVV95cUxQY254YUpEVko3NE85VG8wcGFkR3pYNXc0UzM3Z2dsOGFNbnJLY3pRcVB2X19POFlwSE91LVFjU19ydjhjV2JDcFdtOUlZd0xUMjZzWUYzaGY2dlI3YnRfUnFENmF3ZEMxQ3ZhNkp0dDNqcWQzeEtYQTdGRVN1NnlnNm9MVEQ3Sjh2VW1YTlBsUks2OGJJM3ZJOGJBZTg3clctN1NhVTU1X1kzdTB3QTYybmRGUFhrLTQ2a1RVQ1F6d0xJVzNlVWpCOFRvQWVOelNVQTdDTjEwZU0wZWFTSHo2SHhqZDVVZzB2RGhBbDJ3?oc=5
-
-## Taylor Swift wedding-dress fever puts bridal brands on high alert - Reuters
-
-- first seen: 2026-08-11 14:24 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift wedding-dress fever puts bridal brands on high alert  Reuters
-- sources:
-  - [unverified] Reuters — https://news.google.com/rss/articles/CBMirAFBVV95cUxNT2NyZ0RTTVhkaVExNzJ4d1JkVUxKY0hoOE8yckk4dkpDZGt6UVBRUDhxTm9JcEFZLXdjdzUyRldhMkNGQVFFdjBGcFQ4aHhQTjdYN29neWcwRDUxU2RMTW85bXhvRGlMVXd1d1dQcmV2WksxUWxyUjR5QnI4NWxvSTM4T1NHeF9vUlcyM2dhQW1LaUtsbmN4OUJxc3dpOFFUTDZrVVNpUGlydlJI?oc=5
-  - [unverified] The Detroit News — https://news.google.com/rss/articles/CBMirgFBVV95cUxQcGFTb1VScFk0U2kyQ09wdzVMX1ltSWJQV2pTbXlZdDFYMXBaUE1zdTkyeGJpVjBxNU52bVI1VkFPSGdEbG84MV9vMFRWaEFpY0lIV2tUc2lCVTNDeWREMFNoYmI3MFNLNkQ2X0JWbnhQcmhqQlVpZVVBTllMbTU0N21adUZnNkpEdHViWFBJQmVsSVdNdlY1dEpfTjF3czZ4Z2F0MVVjTXVCRTFUZnc?oc=5
-
-## Taylor Swift and Travis Kelce to follow in Prince Harry and Meghan Markle’s footsteps? - Yahoo
-
-- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce to follow in Prince Harry and Meghan Markle’s footsteps?  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOT0lJOWJLanJGVzRpbGU0VVh1MXN1Q0dma0xKcWYtTlBfSmxZQjZHLUtudEozQ3Uwbnd2cE1VcnE5VWlFS09leEh3cHd1NktTUC10TmljNVBKSU9Zbl9BSEN5ZUlEeDVCVUlCMjVzVFM5YnZTdExSR1VCb1g2YXJieFFsMHFGZDdjc0MzNE1sQTVVcGNKUkhoUTNrMnU0NElnbTZpVg?oc=5
-  - [unverified] HELLO! Magazine — https://news.google.com/rss/articles/CBMikwFBVV95cUxQeG92N3A1QkI1NDZnV0ZSWFdKWktaaWYtUkI0Z3d5QUNMbmhnaFNmQ2hKUjVGY1QtOFhGaTdQTGZGa1c1bnl1WXFHdW1oYTBkaDZGV1luQUVkSm8yUE5CbzBFTW54NHE2WFp0RC1ZZ1Y5enU5V1RsSWs2YnJ3aF9jR2pxbEF6LW1oT1VZdVZjUW1JTE0?oc=5
-
-## Chiefs Heiress Gracie Hunt on Faith, Fitness & Taylor Swift’s Wedding | The Riley Gaines Show - Fox 
-
-- first seen: 2026-08-11 14:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chiefs Heiress Gracie Hunt on Faith, Fitness & Taylor Swift’s Wedding | The Riley Gaines Show  Fox News
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiVkFVX3lxTE1MRUFEN3dKclJ2M2ctNC1wNzA5bFlkamxCWmZkQXpPTEVLUzRPTENvTUZFby04dVBLdi1XdlVpMU96a2puSUxjaEtZT3pvMnJQS0J6TmJB?oc=5
