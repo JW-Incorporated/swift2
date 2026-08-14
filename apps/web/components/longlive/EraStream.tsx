@@ -10,6 +10,8 @@ import { EraSection } from './EraSection';
 import { FilterBar } from './FilterBar';
 import { LandingMasthead } from './LandingMasthead';
 import { filterChangeScrollDelta } from '@/lib/longlive/era-stream-pin';
+import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
+import { jumpLandingScrollTop } from '@/lib/longlive/era-jump-landing';
 
 /**
  * Jump-scroll timing. SETTLE is how long we keep re-correcting AFTER first
@@ -154,7 +156,19 @@ export function EraStream() {
         if (Date.now() > deadline) stop();
         return;
       }
-      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      // Compensate for the sticky chrome (TopBar + FilterBar) pinned over
+      // y=0, or the section's top edge lands hidden underneath it (founder
+      // report, 2026-08-14: "our scroll goes under the filters"). Re-measured
+      // on every pass so a chrome-height change mid-settle (e.g. FilterBar's
+      // own ResizeObserver catching up) can't leave a stale offset behind.
+      window.scrollTo({
+        top: jumpLandingScrollTop({
+          sectionTop: el.getBoundingClientRect().top,
+          scrollY: window.scrollY,
+          chromeHeight: measureChromeHeight(),
+        }),
+        behavior: 'auto',
+      });
       if (!landedAt) landedAt = Date.now();
       // Settle window starts at the FIRST landing, not at the jump.
       if (Date.now() - landedAt > JUMP_SCROLL_SETTLE_MS || Date.now() > deadline) stop();
