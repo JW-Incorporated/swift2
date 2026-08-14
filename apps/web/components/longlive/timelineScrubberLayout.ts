@@ -70,16 +70,24 @@ export const SCRUBBER_BASE_PT = 80;
  * in centered mode (SCRUBBER_CENTER_MEDIA_QUERY matched), where vertical
  * position comes from `items-center` instead of padding and no clamp is
  * needed or wanted.
+ *
+ * `chromeBottom` is a live POSITION (measureChromeBottom()'s
+ * `getBoundingClientRect().bottom` on the filter bar, or the top bar when no
+ * filter bar is mounted) — not a summed height. Summed heights are only
+ * correct once every chrome piece is stacked flush against the viewport top;
+ * a live bottom position is correct whether it's stuck there yet or not, and
+ * needs no accounting for anything that renders above it (a masthead, or
+ * anything added later) because nothing here is ever summed.
  */
 export function scrubberAnchorPaddingTop(input: {
-  /** Live measureChromeHeight() reading — TopBar + FilterBar, or 0/TopBar-only
-   *  where FilterBar isn't mounted. */
-  chromeHeight: number;
+  /** Live measureChromeBottom() reading — the filter bar's (or top bar's)
+   *  current bottom edge in viewport coordinates, or 0 if neither is mounted. */
+  chromeBottom: number;
   /** Whether SCRUBBER_CENTER_MEDIA_QUERY currently matches. */
   isCentered: boolean;
 }): number | undefined {
   if (input.isCentered) return undefined;
-  return input.chromeHeight > SCRUBBER_BASE_PT ? input.chromeHeight : undefined;
+  return input.chromeBottom > SCRUBBER_BASE_PT ? input.chromeBottom : undefined;
 }
 
 // 74svh, capped so the endpoint adornments (leading-none year labels and

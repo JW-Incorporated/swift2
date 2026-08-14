@@ -43,3 +43,23 @@ export function measureChromeHeight(): number {
     filterBarHeight: filterBar ? filterBar.getBoundingClientRect().height : 0,
   });
 }
+
+/**
+ * Impure: where the sticky chrome's bottom edge actually IS right now, in
+ * viewport coordinates — the filter bar's own `getBoundingClientRect().bottom`
+ * (falling back to the top bar's when no filter bar is mounted, e.g. Threads
+ * mode). Unlike `measureChromeHeight()` above, which sums each piece's own
+ * rendered height and so is only correct once every piece is stacked flush
+ * against the viewport top, this reads a live position and stays correct
+ * whether the filter bar is stuck or not — and whatever renders above it
+ * (EraStream's masthead today, anything added later) needs no accounting
+ * here at all, because we never sum; we just ask the DOM where the edge is.
+ */
+export function measureChromeBottom(): number {
+  if (typeof document === 'undefined') return 0;
+  const filterBar = document.querySelector<HTMLElement>('[data-ll-filterbar]');
+  if (filterBar) return filterBar.getBoundingClientRect().bottom;
+  const topBar = document.querySelector<HTMLElement>('[data-ll-topbar]');
+  if (topBar) return topBar.getBoundingClientRect().bottom;
+  return 0;
+}
