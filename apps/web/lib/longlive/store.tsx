@@ -27,7 +27,7 @@ import type { FilterId } from './filters';
 import type { EraId, LensId, MotifId } from './types';
 import type { ClownAnswer } from './clown-answer';
 
-export type AppMode = 'landing' | 'era' | 'threads' | 'mood' | 'clownbot';
+export type AppMode = 'era' | 'threads' | 'mood' | 'clownbot';
 
 /** One exchange in the clown bot transcript. */
 export interface ClownMessage {
@@ -119,7 +119,7 @@ export type ShareTarget =
   // #707 — every immersive overlay is now shareable. A `track` carries the
   // composite trackKey that reopens the song dossier (over its album guide);
   // `trackGuide`/`theoryGuide` reopen the per-era guides; `site` is the bare
-  // front door (the landing page, which has no more specific target).
+  // front door (the era stream, which has no more specific target).
   | { kind: 'track'; eraId: EraId; trackKey: string }
   | { kind: 'trackGuide'; eraId: EraId }
   | { kind: 'theoryGuide'; eraId: EraId }
@@ -322,9 +322,10 @@ function ProgressProvider({ children }: { children: ReactNode }) {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  // The landing page is the site's front door (#684): every fresh load starts
-  // there; deep links (?item/?lens/?era) bypass it in the mount effect below.
-  const [mode, setModeRaw] = useState<AppMode>('landing');
+  // The era stream is the site's front door (R1, PLAN.md 2026-08-14): every
+  // fresh load starts there, on the current era; deep links (?item/?lens/?era)
+  // retarget it in the mount effect below.
+  const [mode, setModeRaw] = useState<AppMode>('era');
   const [eraId, setEraId] = useState<EraId>(CURRENT_ERA_ID);
   const [eraJumpSeq, setEraJumpSeq] = useState(0);
   const [lensId, setLensId] = useState<LensId | null>(null);
@@ -513,11 +514,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setFilters(new Set());
   }, []);
 
-  // Home is the landing page (#684) — the same front door every visitor gets.
+  // Home is now (R1, PLAN.md 2026-08-14): the current era, top of the stream
+  // — no separate front door. Mirrors setEra's re-anchor (bump eraJumpSeq) so
+  // the jump fires even when already in era mode, e.g. the OriginCap
+  // "Return to now" button, where EraStream never remounts.
   const goHome = useCallback(() => {
     clearEraScroll();
-    setModeRaw('landing');
+    setModeRaw('era');
     setEraId(CURRENT_ERA_ID);
+    setEraJumpSeq((n) => n + 1);
     setLensId(null);
     setCrossing(null);
     setSelectorOpen(false);
@@ -529,8 +534,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [clearEraScroll]);
 
   // Deep link support: a shared URL (?item=, ?lens=, or ?era=) lands the
-  // visitor on the shared target instead of the landing page. One-time
-  // read on mount — ongoing navigation stays state-only, not URL-synced.
+  // visitor on the shared target instead of the front-door era stream.
+  // One-time read on mount — ongoing navigation stays state-only, not
+  // URL-synced.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const target = deepLinkTarget(
@@ -542,7 +548,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // one — pushing a back-entry here would trap the first back gesture.
     suppressNavPushRef.current = true;
     if (target.kind === 'item') {
-      // The moment overlay reads over the era stream, not the landing page.
+      // The moment overlay reads over the era stream.
       setModeRaw('era');
       setOpenItemId(target.id);
     } else if (target.kind === 'song') {
