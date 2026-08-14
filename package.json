@@ -37,6 +37,7 @@
     "check:automerge-allowlist": "node scripts/check-automerge-allowlist.mjs",
     "check:launch-gates": "node --use-env-proxy scripts/check-launch-gates.mjs",
     "check:content-ownership": "node scripts/check-content-ownership.mjs",
+    "check:fleet-schedule": "node scripts/check-fleet-schedule.mjs",
     "check:filter-coverage": "tsx scripts/check-filter-coverage.mjs",
     "check:work-ownership": "node --use-env-proxy scripts/check-work-ownership.mjs",
     "check:no-downgrade": "node scripts/check-no-downgrade.mjs",
