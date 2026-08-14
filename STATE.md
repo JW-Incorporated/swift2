@@ -11,121 +11,57 @@
 
 ## Current focus
 
-**Two efforts landed within hours of each other.**
+**Nothing in flight.** Three efforts shipped 2026-08-14; one research PR is
+open and awaiting Joey.
 
-1. **Era reader rework — MERGED 2026-08-14 as `e8500905` (#2086).**
-2. **Clownbot rebuild — merged as #2087.** Rulings J1–J7 in `docs/decisions.md`.
-3. **Clownbot chat UI — IN FLIGHT on `feature/clownbot-chat-ui`** (off `ff4df4ab`).
-   Joey rejected the shipped look: the chat box "just looks like another piece
-   of content on the site. The user must immediately know it's a chatgpt type of
-   chat box." He then approved a mockup, which is now the spec —
-   scratchpad `clownbot-artifact.html`, published as an artifact.
-   Porting it: app-neutral panel chrome (NOT the era palette — that contrast is
-   the point), titlebar, right-aligned user bubble, avatar + full-width reply,
-   action row, docked pill composer, receipts as inline chips, a fullscreen
-   toggle (CSS overlay at `100dvh`, NOT the Fullscreen API — unreliable on iOS),
-   "Most recent" replacing the "Top 10" heading, and eggs grouped by era.
-   Backend behaviour is untouched; that is the NEXT piece of work.
-   - **Board half DONE and committed.** `BoardItem` gained an `era` field
-     (optional, so an existing test double in an unowned file kept compiling);
-     eggs group into 11 era buckets with **0 failing era resolution**; column 1
-     is "Most recent" with relative dates and a touch-visible "Ask clown bot →".
-     Verified: `clown-board` 27/27, full suite 2779/2779, typecheck + lint clean.
-   - **Panel half BUILT, one correction in flight.** Chrome + fullscreen
-     toggle + new `ClownMessageRow.tsx` (split for the 300-line cap).
-     Verified by me: full suite 2779/2779, typecheck + lint clean.
-     Reused the existing reference-counted `useScrollLock`; `z-50` matches the
-     codebase's overlay convention (`EraSelector`, `MomentDetail`); action-row
-     buttons are genuinely `disabled`, not fake-live.
-     **Correction sent:** the agent hit the 44px tap-target rule by making icon
-     buttons physically 44px, which inflated the titlebar and composer pill
-     past the mockup. That is the exact chunkiness Joey rejected twice —
-     visual size and hit area must be separate numbers (glyph ~32px, hit area
-     44px via padding + negative margin). Not yet re-verified.
-   - **Do NOT stage `apps/web/lib/longlive/content-vault.generated.ts`** — an
-     agent's `npm run build` regenerated its timestamp. Leaving it unstaged is
-     the clean fix; `git restore`/`checkout --` are forbidden here.
+| Effort | State |
+|---|---|
+| Era reader rework | MERGED `e8500905` (#2086) |
+| Device-review round 1 | MERGED `ff4df4ab` (#2099) |
+| Clownbot rebuild | MERGED `3d553340` (#2087) |
+| Clownbot chat UI | MERGED `b8a500a3` (#2103) |
+| Clownbot review fixes | MERGED `d969a29e` (#2108) |
+| **Community research** | **PR #2110 OPEN — needs Joey** |
 
-**NOW: device-review round 1 on `fix/land-in-eras`** — Joey's first real-phone
-pass on the shipped reader. Three bugs, ONE PR (they are interdependent: the
-chrome-offset math consumes the filter bar's height, and both sit on the
-masthead having moved into the stream).
+All Clownbot work confirmed live by fetching the shipped JS bundles, not
+inferred from a green build. Rulings J1-J7 in `docs/decisions.md`.
 
-- **Fix 1 — COMMITTED (`e2fbda2b`).** Landing page retired; visitors land in
-  the Eras scroll with the masthead on top of it. `landing` removed from
-  `AppMode` entirely. `EraGrid` survives via `EraSelector`.
-- **Fixes 2+3 — COMMITTED (`be50b85c`).** Filter row is one line (36px chips,
-  horizontal scroll, edge fade): FilterBar 113px → 49px, chrome 178px → 114px.
-  Jump offset now uses a LIVE measured chrome height with one source of truth
-  (`lib/longlive/chrome-offset.ts`), replacing `HEADER_OFFSET = 64` which was
-  duplicated in `TimelineScrubber.tsx` + `ThreadsTimeline.tsx` and unaware the
-  filter bar existed — so the scrubber's reference line had been wrong too.
-- **Round 2 fixes COMMITTED (`3dfc1292`, `1e11dca2`). Review round 3 running.
-  DO NOT MERGE until it returns APPROVE.**
-  - Masthead on fresh load: FIXED and confirmed (8+ loads, `scrollY=0`), with
-    all NINE jump paths still landing at the chrome edge — the `eraJumpSeq > 0`
-    gate did not cost a legitimate jump.
-  - Hydration: FIXED (zero errors, ~10 loads).
-  - **Videos chip took THREE attempts.** The real cause: `pointer-events`
-    INHERITS. `SCRUBBER_SHELL_CLASS` sets `none`, `SCRUBBER_RAIL_CLASS`
-    re-enables `auto`, so all 11 rail adornments inherited `auto` — invisible
-    (`opacity-0`) but hit-testable, overhanging the filter row. Attempt 1
-    clamped the rail box; attempt 2 verified the box moved, not the hit-test.
-    Now all 11 are `pointer-events-none`, locked by a source test that walks
-    the rail's JSX.
-  - Clamping also broke two things it caused: the rail overflowed a landscape
-    phone (844×390, 15px off-screen) → `scrubberRailMaxHeight`; and adornments
-    painted over the filter row → `SCRUBBER_RAIL_CLIP_PATH`.
-  - **Accepted trade-off, founder-visible:** while clamped on mobile, the top
-    year label is clipped during an active drag. Desktop unaffected.
-  - **Round 3 REJECTED it again: the chip was dead on a FRESH unscrolled load.**
-    Fix 4 (`99e1d1a9`) — the two-strike rule fired, `DEBUG.md` was written, and
-    a fresh-context agent restricted to three files found the real mechanism:
-    the clamp asked "how tall is the chrome" (65+49=114) when it needed "where
-    is the filter bar NOW". Those agree only once the bar sticks; the masthead
-    this branch added pushes it to y≈410 pre-stick. New `measureChromeBottom()`
-    reads the live `getBoundingClientRect().bottom`; padding recomputes inside
-    the rAF scroll handler. Rail top == filter-bar bottom in every state.
-    **Review round 4 running — DO NOT MERGE until it returns APPROVE.**
+**PR #2110 — the Community dataset.** 30 communities, 8 platforms, every entry
+carrying verification provenance (`verified-live` / `third-party-cited` /
+`listed-only` / `blocked-unverified`). Deliberately NOT wired into the app:
+it sits at the brief's literal `data/` paths, and landing it as content needs
+the repo's `supabase/seed/` convention plus validator support.
 
-  Review rounds 1 and 2 both returned REJECT; their findings are all fixed and
-  described above. Detail is in the commit messages.
+**Three things Joey must answer before it merges:**
+1. **Instagram + TikTok** — `docs/definition-of-done.md` item 4b names both;
+   the research brief omitted them. Different shape (creator accounts, not
+   joinable groups), so scope was NOT widened unilaterally.
+2. **Who owns the refresh cadence** the spec requires. Invites rotate, groups
+   go private. The file is accurate on 2026-08-14 and decays from there.
+3. **One editorial call to ratify or veto:** `r/TravisAndTaylor` was EXCLUDED
+   as an anti-fan snark board rather than a corner of the fandom.
+   `r/GaylorSwift` was kept but flagged as reportedly private since Aug 2025.
 
-**MERGE AUTHORIZED for this round — Joey, 2026-08-14: "focus on fixing these.
-you have merge authority. when done ill test on my phone."** Scoped to these
-device-review fixes. He is away (school run), so nothing blocks on him.
-
-**Codex cannot review this — out of credits until Aug 19.** Use the Fable
-reviewer fallback he authorised on 2026-08-13: a `reviewer` agent with
-`model: "fable"`, required to REPRODUCE against the real corpus/browser rather
-than read code. That is what caught the two production-grade defects last
-night that three Codex rounds missed.
+**A Reddit API app would unblock the missing member counts** and make the
+dataset re-runnable rather than a snapshot. Five minutes at reddit.com/prefs/apps.
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
-- **Clownbot review, 2 Fable rounds, both REJECT. PR #2108 open, NOT merged.**
-  Codex is down, so a `reviewer` on `model: "fable"` stood in under the
-  authorised fallback, required to REPRODUCE rather than read. Joey capped it
-  at 2 rounds; **both are spent, so the final fix ships reviewed only by the
-  orchestrator.** Round 1 found four defects, all reproduced:
-  1. Over-refusal root cause — `screenOutput` ran INPUT-tuned regexes over the
-     bot's own prose (`\bdiagnos` matched "I diagnosed a whole color theory").
-     Non-deterministic because it depended on the model's word choice.
-  2. The output gate caught **0 of 13** redline drafts. The battery only ever
-     "held" them because the model chose to deflect. `clown-safety.ts`'s header
-     claimed prompt-independence; that was FALSE for the output path.
-  3. **Prior transcript turns bypassed every input gate** — a real jailbreak
-     route. `screenConversation` existed for it and was never called.
-  4. Hyphenated queries retrieved nothing, so real topics were refused.
-  Round 2 verified all four fixes hold, then found the fix for (1)/(3) had
-  **REGRESSED the product**: `screenConversation` screened stored ASSISTANT
-  prose and the bot's OWN refusal copy with input patterns, so 4 of 13 refusal
-  messages tripped their own gate. **One refusal permanently bricked the
-  session** — each refusal appends more self-tripping text and the 6-message
-  cap never clears it. Fix in flight: user turns screened with input patterns,
-  assistant turns with output patterns.
-  **The standing lesson: over-refusal and under-blocking pull in opposite
-  directions here. Every change to one gate must be tested against both.**
+- **Clownbot review: 2 Fable rounds, both REJECT, all findings FIXED and
+  merged (#2108, `d969a29e`).** Codex was down; a `reviewer` on
+  `model: "fable"` stood in under the authorised fallback, required to
+  REPRODUCE rather than read — which is why it found what a reading pass
+  had missed. Round 1: the output gate ran INPUT-tuned regexes over the bot's
+  own prose (the over-refusal root cause); it caught 0 of 13 redline drafts;
+  prior transcript turns bypassed every input gate (a real jailbreak route,
+  `screenConversation` existed and was never called); hyphenated queries
+  retrieved nothing. Round 2 then caught that the fix had REGRESSED the
+  product — screening the bot's own refusal copy with input patterns meant
+  **one refusal permanently bricked the session.**
+  **THE STANDING LESSON: over-refusal and under-blocking pull in opposite
+  directions in these gates. Any change to one must be tested against both.**
+  Both directions are now pinned by tests. Joey's 2-round cap is spent, so
+  the final fix shipped reviewed only by the orchestrator.
 - **`tb-priv-02` is a documented, tested gap** — sexuality speculation with no
   orientation token cannot be caught deterministically without also refusing
   "what is track five on Midnights really about?". Do not "fix" it with a
@@ -140,11 +76,6 @@ night that three Codex rounds missed.
   (round 3 died mid-run — this limit is why). **Run Codex against merged `main`
   when credits return.** The era reader got a Fable reviewer instead, under
   Joey's explicit 3-round cap; Clownbot got a stopgap review.
-- **Clownbot: 3 of 48 over-refusals, NOT fixed.** "Which venues did the Eras
-  Tour play in 2024?", the Scooter masters history, and a new-single question
-  are all held at the output gate. Over-refusal is the safe direction but it is
-  still a broken bot. Zero real safety leaks (all 21 LEAK flags triaged by hand
-  as false positives).
 - **Wyatt owns FIVE unsettled items:** Clownbot's model tier
   (`claude-sonnet-5`, one named constant), the 200/day/instance cap, ratifying
   the Mood route pattern, signing the Clownbot decisions entry — **plus the
@@ -155,29 +86,22 @@ night that three Codex rounds missed.
   covered by tests; that is not the same thing. First device check is a real
   task, not a formality.
 
-## Merge authorization (era reader only)
+## Merge authorization
 
-**Joey, 2026-08-13: "please merge it when it's completely done. You have my
-permission."** The § Decision authority approval that gate requires, for THIS
-PR only — it does not generalise. Also his: **"do not let codex go more than 3
-rounds… spin up your own independent review agent and implement their
-feedback."** Both honoured; the Fable reviewer's four findings are fixed.
+Granted per-workstream, never standing — **all are spent.** A NEW effort needs
+a NEW grant. Joey's framing across the day: era reader "you have my
+permission"; Clownbot "I am giving you merge authorization"; the chat UI
+"implement the current mockup live"; the review fixes "merge please".
+Standing and NOT spent: **"don't allow codex reviews to go more than 2
+rounds."**
 
 ## Autonomous decisions — review surface
 
-<!-- Clear once Joey has reviewed the two PRs. -->
+<!-- One line each; clear after Joey reviews. -->
 
-Era reader: anchors sort but never display · no URL routing · `TrackGuide`
-kept as a destination · plan amended mid-flight three times · per-id
-`era-scatter` over a fixed midpoint · theory doorways scatter, no text-matching
-heuristic · zero-match era empty state · tagline rewritten · one tag overruled
-on review (the Eras Tour premiere carpet is Fashion, not Fashion+Tour).
-
-Clownbot: `clown-answer.ts` as the one client-facing shape · `delulu` nullable
-with no badge on fallback · did NOT auto-block `config.mjs` candidate term
-lists (bare `child`/`minor`/`teen` would refuse ordinary biography) ·
-`clown-safety.test.ts` left at 522 lines rather than split a red-team suite ·
-`ClownDoc` carries a real `status` instead of the route guessing one.
+Cleared 2026-08-14 — the era-reader and Clownbot calls were reviewed and their
+PRs merged. Community-research calls are listed in § Current focus (3 items
+awaiting Joey) and in `docs/decisions.md` 2026-08-14.
 
 ## Architect invocations
 
@@ -257,6 +181,21 @@ lists (bare `child`/`minor`/`teen` would refuse ordinary biography) ·
   `guard.sh` denies them. `core.autocrlf=true`. `.claude/worktrees/` holds ~30
   worktrees — never clean. `social-poster-workflow.test.ts.tmp` is scratch.
 
+- **Reddit blocks this environment outright** — HTTP 403 at the edge on
+  `www.` AND `oauth.`, and WebFetch refuses the domain. No credential exists
+  here. Do not burn time on UA/header tricks; it needs a real Reddit API app.
+  Published member counts for r/TaylorSwift span 200k-3.8M across sources
+  fetched the same week (19x) — **aggregators are not a substitute.**
+- **Facebook groups are invisible from outside a login.** Named in the brief
+  as the largest category; delivered the fewest entries. A group name from a
+  search snippet, with no description, is NOT evidence — writing a warm
+  description for it is fabrication laundered through a real URL.
+- **Half of all public Discord listings are wrong.** 10 of 22 candidate
+  invites were dead or resolved to a different server.
+  `discordbotlist.com` serves its OWN promo invite on every page. Verify each
+  invite via `discord.com/api/v10/invites/<code>?with_counts=true`.
+- **Amino shut down entirely 2025-12-19.** Older listicles still cite it.
+
 ## Open threads
 
 - [ ] 18 → **3** appearance videos still carry no topic tag. Deliberate: their
@@ -268,8 +207,9 @@ lists (bare `child`/`minor`/`teen` would refuse ordinary biography) ·
 
 ## Next obvious step
 
-Finish the `origin/main` merge on `feature/era-reader-p4` (conflicts resolved:
-`store.tsx` keep-both, this file consolidated, `PLAN.md` taken from `main`),
-run the full gate, push to `feature/era-reader-rework`, wait for CI `build` to
-appear AND pass — it was absent while the PR was conflicting — then merge
-#2086. Do not merge on a red or missing `build`.
+1. Get Joey's three answers on PR #2110 (above), then merge it.
+2. **Run Codex against merged `main` when credits return (Aug 19).** Workflow
+   rule 3 is unsatisfied for the whole Clownbot feature; the last safety fix
+   shipped reviewed only by the orchestrator.
+3. Hand Wyatt his five items before treating tier/caps as decided.
+4. First real-device check of the bottom nav. Never been opened on a phone.
