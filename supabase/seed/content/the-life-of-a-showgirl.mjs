@@ -8983,6 +8983,14 @@ export default {
       // Privacy redlines: clean — professional UK chart facts only, no location,
       // third parties, health, or security material. Kept deliberately light and
       // cross-linked to the 07-16 bump rather than spun up as a heavy moment.
+      // 2026-08-14 (intake #2097): folded in the Aug-11 Forbes frame as a
+      // continuation paragraph rather than a third standalone UK-chart moment
+      // (this era already carries two: the 07-16 bump and this 07-28 one —
+      // "consolidate, don't duplicate"). Verified against Forbes (Hugh McIntyre,
+      // 2026-08-11, HTTP 200, JSON-LD datePublished): "Opalite" re-enters three
+      // rankings (Downloads 83 / Sales 87 / Streaming 98) — genuinely new numbers
+      // vs. 07-28 (Sales moved 89->87; Streaming was not in the 07-28 recap;
+      // Elizabeth Taylor moved Vinyl Singles 18->26 and newly charts Physical 34).
       slug: 'showgirl-uk-singles-return-july',
       relatedIds: [
         'moment:vault-tloas-the-wedding-week-nudges-the-whole-catalog-back-up-the-uk-cha',
@@ -8999,7 +9007,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'A week after the wedding-week bump nudged her whole catalog back up Britain’s charts, the movement didn’t settle — it kept going. In the chart frame Forbes tallied on July 28, 2026, all four of Taylor’s most recent singles were charting together, two of them re-entering rankings they had been off entirely.\n\n“Elizabeth Taylor,” the third focus track from The Life of a Showgirl, came back onto the Official Vinyl Singles chart as a top-20 bestseller at No. 18 — now 13 weeks on a tally it has previously topped outright. “Opalite,” the era’s second single, returned to both the Official Singles Downloads chart (No. 83) and the Official Singles Sales chart (No. 89), two rankings it had led earlier in the year. By Forbes’s reckoning “The Fate of Ophelia” and “I Knew It, I Knew You” — her Toy Story 5 song — also turned up across multiple UK rankings the same week.\n\nThe vinyl re-entry isn’t a one-week fluke, which is the quietly remarkable part. By the Official Charts Company’s own mid-year reckoning, “Elizabeth Taylor” is the UK’s best-selling vinyl single of all of 2026 so far — roughly 16,500 copies on wax through the end of the second quarter — with “The Fate of Ophelia” and “Opalite” right behind it at Nos. 5 and 6 on that year-to-date vinyl ranking. Months after release, Showgirl is still moving physical singles in a format most catalogs left behind decades ago.\n\nAs with the wedding-week bump, the underlying primary is the Official Charts Company’s dated weekly tallies, not the live chart URLs, which roll over each week and stop showing the movement. This is the next frame in the same story: a catalog that, on attention and collectors alike, keeps climbing back.',
+          'A week after the wedding-week bump nudged her whole catalog back up Britain’s charts, the movement didn’t settle — it kept going. In the chart frame Forbes tallied on July 28, 2026, all four of Taylor’s most recent singles were charting together, two of them re-entering rankings they had been off entirely.\n\n“Elizabeth Taylor,” the third focus track from The Life of a Showgirl, came back onto the Official Vinyl Singles chart as a top-20 bestseller at No. 18 — now 13 weeks on a tally it has previously topped outright. “Opalite,” the era’s second single, returned to both the Official Singles Downloads chart (No. 83) and the Official Singles Sales chart (No. 89), two rankings it had led earlier in the year. By Forbes’s reckoning “The Fate of Ophelia” and “I Knew It, I Knew You” — her Toy Story 5 song — also turned up across multiple UK rankings the same week.\n\nThe vinyl re-entry isn’t a one-week fluke, which is the quietly remarkable part. By the Official Charts Company’s own mid-year reckoning, “Elizabeth Taylor” is the UK’s best-selling vinyl single of all of 2026 so far — roughly 16,500 copies on wax through the end of the second quarter — with “The Fate of Ophelia” and “Opalite” right behind it at Nos. 5 and 6 on that year-to-date vinyl ranking. Months after release, Showgirl is still moving physical singles in a format most catalogs left behind decades ago.\n\nTwo weeks on, the pattern held. In the chart frame Forbes tallied on August 11, 2026, “Opalite” came back onto three UK rankings at once — the Official Singles Downloads (No. 83), Official Singles Sales (No. 87) and Official Streaming (No. 98) charts — a single that has now spent 38 weeks each on the downloads and sales tallies and 42 on streaming, having topped the first two outright earlier in the year. “Elizabeth Taylor” kept climbing on physical formats the same week, up to No. 26 on the Official Vinyl Singles chart and charting at No. 34 on the Official Physical Singles ranking. The exact weekly positions move from frame to frame, but the shape holds: months after release, Showgirl’s singles keep re-entering Britain’s charts.\n\nAs with the wedding-week bump, the underlying primary is the Official Charts Company’s dated weekly tallies, not the live chart URLs, which roll over each week and stop showing the movement. This is the next frame in the same story: a catalog that, on attention and collectors alike, keeps climbing back.',
         sources: [
           {
             outlet: 'Forbes',
@@ -9032,6 +9040,18 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-28',
             reliability_score: 5,
+          },
+          {
+            // Intake #2097 — the next chart frame (Aug 11, 2026): Opalite's
+            // return to three UK rankings and Elizabeth Taylor's physical-chart
+            // climb. Verified HTTP 200 with JSON-LD datePublished 2026-08-11.
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/08/11/taylor-swifts-former-no-1-hit-mounts-a-surprising-return/',
+            source_title: 'Taylor Swift’s Former No. 1 Hit Mounts A Surprising Return',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-14',
+            reliability_score: 4,
           },
         ],
         // No photo: a chart week has no photography of its own; a stand-in shot
