@@ -220,6 +220,17 @@ describe('POST /api/clown', () => {
     expect(allText).not.toContain(hostileTake.stance);
   });
 
+  it('a take that cites nothing is rejected as ungrounded and the fallback is served', async () => {
+    const ungroundedTake = take({ citedIds: [] });
+    vi.mocked(askClown).mockResolvedValueOnce(ungroundedTake);
+    const res = await post({ text: MASTERS_QUERY }, '10.1.0.11');
+    const json = await res.json();
+    expect(json.kind).toBe('fallback');
+    expect(json.segments[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
+    const allText = json.segments.map((s: { text: string }) => s.text).join(' ');
+    expect(allText).not.toContain(ungroundedTake.stance);
+  });
+
   it('a retrieved debunked item is never presented as confirmed', async () => {
     const res = await post({ text: STAGED_CLUE_QUERY, chip: true }, '10.1.0.8');
     const json = await res.json();

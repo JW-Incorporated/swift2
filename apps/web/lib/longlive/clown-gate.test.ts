@@ -53,8 +53,18 @@ describe('screenClownTake — the citation check', () => {
     expect(screenClownTake(grounded, RETRIEVED)).toBeNull();
   });
 
-  it('passes a take that cites nothing at all', () => {
-    expect(screenClownTake(take({ citedIds: [] }), RETRIEVED)).toBeNull();
+  it('rejects a take that cites nothing at all as ungrounded', () => {
+    // Reversed 2026-08-13 (review finding, PR #2087): this used to assert
+    // `toBeNull()` — the loop over `citedIds` never runs on an empty array,
+    // so a take with zero citations skated through with no grounding check
+    // at all. That is exactly the shape the system prompt can produce: it
+    // tells the model to commit to a stance and never fence-sit, while
+    // telling it to admit honestly (not invent a source) when retrieval is
+    // thin — together those steer toward confident, citation-free prose.
+    // Letting that pass meant a reader could see confident prose backed by
+    // nothing, with zero source cards to check it against. An empty
+    // `citedIds` must fail the gate, not skip it.
+    expect(screenClownTake(take({ citedIds: [] }), RETRIEVED)).toEqual({ kind: 'ungrounded' });
   });
 
   it('fails against an empty retrieved set if anything at all was cited', () => {

@@ -84,6 +84,18 @@ describe('sanitizeTake never trusts the model', () => {
   it('reads off_limits only when literally true', () => {
     expect(sanitizeTake({ off_limits: true }).offLimits).toBe(true);
   });
+
+  it('clamps an above-range delulu score down to 5', () => {
+    expect(sanitizeTake({ delulu: 47 }).delulu).toBe(5);
+  });
+
+  it('clamps a below-range (negative) delulu score up to 0', () => {
+    expect(sanitizeTake({ delulu: -2 }).delulu).toBe(0);
+  });
+
+  it('rounds a non-integer delulu score to the nearest integer', () => {
+    expect(sanitizeTake({ delulu: 2.6 }).delulu).toBe(3);
+  });
 });
 
 describe('degradation: returns null, never throws', () => {

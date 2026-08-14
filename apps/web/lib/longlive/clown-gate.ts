@@ -21,6 +21,16 @@
  *     `validateCited()` silently filtered; this rebuild's stricter posture —
  *     PLAN.md Step 7's brief — is that a fabricated citation invalidates the
  *     take that made it, not just the one citation).
+ *
+ *     A take with ZERO cited ids is a separate failure, `kind: 'ungrounded'`,
+ *     not `kind: 'fabrication'` — there is no bad id to name, just an
+ *     unsourced take, and the two are worth telling apart in the route's
+ *     rejection log. `clown-client-prompt.ts` tells the model to commit to a
+ *     position and never fence-sit, while `buildUserMessage` in
+ *     `clown-client.ts` tells it to say so honestly rather than invent a
+ *     source when retrieval is thin — a model can satisfy both by writing
+ *     confident, citation-free prose. Without this check that prose would
+ *     reach a reader with no source cards and nothing to verify it against.
  */
 
 import { screenOutput, type Redline } from './clown-safety';
@@ -37,7 +47,8 @@ export interface GateRetrievedItem {
 
 export type GateRejection =
   | { kind: 'redline'; category: Redline }
-  | { kind: 'fabrication'; citedId: string };
+  | { kind: 'fabrication'; citedId: string }
+  | { kind: 'ungrounded' };
 
 /**
  * Re-screen a `ClownTake` before it reaches a reader.
@@ -54,6 +65,8 @@ export function screenClownTake(
   const parts = [take.stance, take.argument, take.counterpoint, take.aside, take.theoryName ?? undefined];
   const redline = screenOutput(parts);
   if (redline) return { kind: 'redline', category: redline };
+
+  if (take.citedIds.length === 0) return { kind: 'ungrounded' };
 
   const retrievedIds = new Set(retrieved.map((item) => item.id));
   for (const citedId of take.citedIds) {
