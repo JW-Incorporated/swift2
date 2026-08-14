@@ -5,7 +5,14 @@
 
 ## Current focus
 
-**Nothing in flight.** Community + Merch **MERGED `22314d5b` (#2112)** on top of
+**IN FLIGHT: a throwaway bottom-nav mockup.** Joey dislikes six icon-only tabs
+and asked whether FIVE fit WITH text. An agent tests the worst case (drop the
+shortest label, keep the five longest) via two edits — threshold 5→6, one tab
+removed — screenshots 320/390/430, then reverts. **If `bottom-nav-layout.ts` or
+the tab list shows modified, that is the mockup, NOT work to commit.** Which tab
+gets dropped is Joey's product call and is NOT decided.
+
+Community + Merch **MERGED `22314d5b` (#2112)** on top of
 the dataset **MERGED `109e776a` (#2110)**; both sections are live. Earlier the
 same day: era reader `e8500905` (#2086), device review `ff4df4ab` (#2099),
 Clownbot `3d553340` / `b8a500a3` / `d969a29e` — confirmed live by fetching the
@@ -15,16 +22,14 @@ shipped JS bundles, not inferred from a green build.
 `docs/ops/community-merch-submissions.md`: deploy the Apps Script, verify
 `longlivets.com` in Resend, add the env vars. By design — but that is today.
 
-Community + Merch got **two Fable rounds: REJECT (5 findings) → all fixed →
-APPROVE**, plus one LOW fixed after. The HIGH was **CSV/formula injection into
-Joey's own sheet**; the rule and its lesson are in `docs/engineering-lessons.md`
-§ Safety gates, the endpoint's invariants are on its `MAP.md` rows. Three that
-must not be relearned the hard way: **nothing user-submitted ever renders**
-(issue #36), **the endpoint never fetches a submitted URL** (SSRF), **a missing
-integration must never fail a submission**.
-
-Sheet id `1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4`, "Swift App" Drive
-folder — **its 16-column order is fixed and both senders must match it.**
+Community + Merch got **two Fable rounds: REJECT (5) → fixed → APPROVE**, plus one
+LOW after. The HIGH was **CSV/formula injection into Joey's own sheet**; rule and
+lesson in `docs/engineering-lessons.md` § Safety gates, endpoint invariants on
+its `MAP.md` rows. Three not to relearn the hard way: **nothing user-submitted
+ever renders** (#36), **never fetches a submitted URL** (SSRF), **a missing
+integration must never fail a submission**. Sheet id
+`1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4`, "Swift App" Drive folder —
+**its 16-column order is fixed and both senders must match it.**
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
