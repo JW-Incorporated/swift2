@@ -92,6 +92,36 @@ click, and the player is torn down when the sheet closes.
 
 ---
 
+## 2026-08-13 — Clownbot rebuild — build B ships, in Joey's layout
+
+Seven decisions from the re-spec on PR #1961 (`docs/proposals/2026-08-11-clownbot.md`):
+
+**J1 — Build B, not a refit of build A.** Decided by Joey. The re-spec supersedes the shipped-but-gated build. Rationale: Joey's 2026-08-11 ruling, "get rid of all the old chatbot clown stuff. The items related to threads remain and will actually be inputs for the bot." Build A's safety module, red-team battery corpus, ledger derivation, lore dataset and name registry are ported forward; the rest is shelved to `docs/proposals/2026-08-13-clownbot-shelved-content.md` and deleted.
+
+**J2 — The "current theories" column is derived from the existing corpus.** Decided by Joey. No new content authoring and no scoring engine. Joey: "reuse material we have for now… Long-term we need this to be auto-populated by an engine but that's phase 2 of the clownbot." Phase 2 is explicitly out of scope.
+
+**J3 — Live on merge, gated on a red-team pass.** Decided by Joey, choosing this over shipping dark behind the kill switch. Consequence: the red-team battery becomes a REQUIRED CI check in the `build` job, because a posture that depends on a human remembering to run a script is not a gate.
+
+**J4 — Delulu indicator only; Evidence and Confidence meters dropped.** Decided by Claude under discretion Joey granted. Source cards carry groundedness; three dials restate what the cards already show and fight the chat-box layout.
+
+**J5 — The live-key red-team battery must pass once before merge.** Decided by Joey, 2026-08-13, after it emerged that the CI battery can only hold 30 of 53 attack cases deterministically; the remaining 23 attacks and all 21 Tier B probes are gate-invisible by design and need a real model to exercise. Build A's second-tier semantic output classifier (`clownbot-output-classifier.ts`) was NOT carried forward into build B, so runtime output screening is deterministic-only; the compensating defences are the index-build-time blocklist pre-filter, retrieval-only grounding (the model is handed corpus items and may not invent entities), the output gate's citation validation, and the model's own `offLimits` self-report. Joey chose the one-time live-key gate over porting the classifier forward, which would have doubled per-turn model cost. Porting the classifier remains available to Wyatt if he wants runtime rather than review-time coverage.
+
+**J6 — Merge authorization granted for this work.** Decided by Joey, 2026-08-13, late session. `CLAUDE.md` § Decision authority normally reserves merging to `main` for a founder; Joey explicitly authorised this session to merge the Clownbot rebuild once CI is green, the J5 live-key battery has passed, and the Codex review is complete. This authorisation is scoped to THIS workstream only and does not generalise to other branches or future sessions — the standing rule in `CLAUDE.md` is otherwise unchanged.
+
+**J7 — Codex review is capped at two rounds.** Decided by Joey, 2026-08-13, late session. Workflow rule 3 requires every Codex finding to be fixed before work is declared done; J7 bounds how many review cycles that may take. Reconciliation: at most two review rounds run; everything actionable from both rounds is fixed; anything still outstanding after round two is written into the PR body as a named open finding rather than triggering a third round. Unresolved findings are surfaced, never silently dropped, and they do not block the merge.
+
+**Risk basis for J3 and J6:** Joey's standing instruction for this session was to finish and merge tonight, accepting that a rough or partly-working feature could go live, on the explicit basis that the site currently has zero daily users. If the user count changes, the reasoning behind both J3 (live on merge) and J6 (merge authorization) should be revisited.
+
+**Cost model:** the model call is in the request path but capped and gated, reusing the Mood Chat route pattern — the precedent the re-spec ratifies. Rate limit per IP, a per-instance daily compose cap, a kill switch, and a deterministic zero-model fallback composer so the feature still works when over cap or when the model is down. Both prefill columns and every chip resolve with ZERO model calls.
+
+**Supersedes:** `docs/definition-of-done.md` item 7's now-removed constraint ruling out a request-path model call, which was stale as of this decision.
+
+**Still PENDING on Wyatt (architecture/cost), not decided here:** (1) model tier — Sonnet-class as Mood uses, or Haiku; (2) the cap numbers, proposed at 200 composes/day/instance; (3) ratifying reuse of the Mood route pattern; (4) sign-off on this entry.
+
+**Approved by:** Joey (product call, 2026-08-13). Awaiting Wyatt (architecture/cost sign-off).
+
+---
+
 ## 2026-08-13 — One video treatment in the era feed (ends the #2051 → #2055 → #2063 iteration)
 
 **Decision:** every playable video in the era feed renders **the same way**,

@@ -31,17 +31,14 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
-      # The Clownbot launch gate proving itself. The keyed battery cannot run
-      # here — it needs the prod key and it spends — but its self-test can, and
-      # this is the only CI coverage the gate script gets: `.mts` is not matched
-      # by apps/web/tsconfig.json's `**/*.ts` include, so typecheck never sees
-      # it. Hermetic and ~2s: a stubbed transport that throws on any non-
-      # Anthropic URL, with the key/flag set in-process to dummies. It asserts
-      # the gate PASSES a clean run, FAILS a leaking one, and FAILS a dark one.
-      # If someone regresses the gate into something that cannot fail, `build`
-      # goes red here rather than on launch day. See
-      # docs/ops/clownbot-launch-gate.md.
-      - run: npm run clownbot:battery:dry
+      # Clownbot rebuild's red-team battery (J3, PLAN.md Step 12): the feature
+      # ships live on merge, gated on this check, so it runs on every PR, not
+      # on a cadence someone has to remember. Deterministic and keyless — it
+      # exercises clown-safety.ts/clown-blocklist.ts directly against the
+      # pinned corpus (53 attacks, 21 Tier B probes, 48 legit prompts) and
+      # fails loudly on any over-refusal or held-attack regression. The keyed,
+      # full-model battery stays a separate manual pre-flight.
+      - run: npm run clown:battery
       - run: npm run validate:content
       # Schema gate for social/queue/** (2026-08-11). validate:content only
       # ever covered supabase/seed/**, so until now the first validator a
