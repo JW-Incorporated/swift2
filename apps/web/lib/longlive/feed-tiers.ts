@@ -69,6 +69,9 @@ export const HERO_MIN_GAP = 4;
  */
 export const HERO_GAP_JITTER = 3;
 
+/** Shared empty default so `assignFeedTiers` allocates nothing per call. */
+const EMPTY_ID_SET: ReadonlySet<string> = new Set<string>();
+
 /** Stable, cheap string hash -> 0..(mod-1). Seeded on item id so pacing is
  * stable across renders/re-fetches (no reshuffle-flicker), never periodic. */
 function seededJitter(id: string, mod: number): number {
@@ -102,11 +105,11 @@ function heroGapFor(item: ContentItem): number {
  * real photo to build an image card out of: the era-art stand-in is not a
  * photo, so a no-photo item renders as `text` however substantial it is.
  */
-export function baseTierFor(item: ContentItem): CardTier {
+export function baseTierFor(item: ContentItem, imageSuppressed = false): CardTier {
   if (item.significance === 'defining') return 'hero';
 
   const score = substanceScore(item);
-  const hasImage = hasRealPrimaryImage(item);
+  const hasImage = hasRealPrimaryImage(item) && !imageSuppressed;
 
   if (hasImage && score >= HERO_SCORE_THRESHOLD) return 'hero';
   if (item.significance === 'notable') return 'media';
@@ -133,13 +136,30 @@ export function baseTierFor(item: ContentItem): CardTier {
  *   3. Pacing can only ever move a card DOWN ONE STEP, from `hero` to
  *      `media`. It can no longer push a substantial item to `text` — that
  *      demotion was the #1017 bug and it is gone.
+ *
+ * `imageSuppressedIds` names the cards whose photo will not render even though
+ * they have one — the deferring cards whose picture is a frame of a video they
+ * do not play (see `feedCardImageHidden`). They are scored as the imageless
+ * cards they are about to be, because the alternative is a `hero` or `media`
+ * silhouette built around a photo block that renders nothing: an image tier is a
+ * promise about what the card contains, and the tier must be told when that
+ * promise stops being true. Passed as a set rather than pre-filtered so the
+ * SEQUENCE is intact and hero pacing still walks the real feed.
+ *
+ * It feeds the SCORE path only, and so is subject to invariants 1 and 2 above
+ * like everything else: a `defining` card is still `hero` and a `notable` card
+ * still floors at `media`, imageless or not. Suppression says a picture will not
+ * render; it does not restate how important the event was.
  */
-export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
+export function assignFeedTiers(
+  items: ContentItem[],
+  imageSuppressedIds: ReadonlySet<string> = EMPTY_ID_SET,
+): Map<string, CardTier> {
   const tiers = new Map<string, CardTier>();
   let sinceHero = Infinity;
 
   for (const item of items) {
-    let tier = baseTierFor(item);
+    let tier = baseTierFor(item, imageSuppressedIds.has(item.id));
 
     if (tier === 'hero') {
       if (item.significance === 'defining' || sinceHero >= heroGapFor(item)) {
@@ -160,4 +180,51 @@ export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
   }
 
   return tiers;
+}
+
+/**
+ * Tiers a card that plays a video inline can wear (#2080).
+ *
+ * Every playable video in the feed now renders the SAME way — a full-width 16:9
+ * poster with a large centered play glyph, the treatment the video-record cards
+ * already used (Joey, 2026-08-13, rejecting #2063's compact row). Two of the
+ * four tiers cannot carry that poster honestly:
+ *
+ *   - `chip` is a ~56px dense row whose whole identity is "a slight item". A
+ *     16:9 poster under it is roughly 4x the height of the card it hangs from,
+ *     so the silhouette that makes chips read as slight is destroyed — and the
+ *     claim was wrong anyway: a moment with watchable footage is not a sighting.
+ *   - `text` is the no-photo breather, "a beat of pure typography". A card with
+ *     a big poster on it is not that, and the breather's left-rule-only box
+ *     around a full-bleed poster reads as an unfinished card rather than a
+ *     deliberate one.
+ *
+ * So a card that plays a video is at least `media` — the workhorse box, which is
+ * exactly the box the video-record cards use. `hero` and `media` are untouched:
+ * this is a floor, never a cap, and never a demotion.
+ */
+export const INLINE_VIDEO_MIN_TIER: CardTier = 'media';
+
+/**
+ * Applies the {@link INLINE_VIDEO_MIN_TIER} floor to the cards that actually
+ * render an inline player.
+ *
+ * Keyed on OWNERSHIP, not on `item.video`: when two moments in the rendered list
+ * embed the same YouTube id only the first plays it (`inlineVideoMomentIds` in
+ * era-feed.ts), and the deferring card renders no poster at all — promoting it
+ * would inflate a card for a video it never shows.
+ *
+ * Returns a new Map; the input is left alone so `assignFeedTiers`'s own output
+ * stays inspectable (and its invariants independently assertable).
+ */
+export function withInlineVideoTiers(
+  tiers: ReadonlyMap<string, CardTier>,
+  videoOwnerIds: ReadonlySet<string>,
+): Map<string, CardTier> {
+  const out = new Map(tiers);
+  for (const id of videoOwnerIds) {
+    const tier = out.get(id);
+    if (tier === 'chip' || tier === 'text') out.set(id, INLINE_VIDEO_MIN_TIER);
+  }
+  return out;
 }

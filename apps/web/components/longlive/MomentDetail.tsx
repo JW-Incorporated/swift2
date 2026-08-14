@@ -38,7 +38,12 @@ import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { MomentSocialPost } from './MomentSocialPost';
-import { detailVideoFor, footnoteVideoSources } from '@/lib/longlive/video-affordance';
+import {
+  detailVideoFor,
+  footnoteVideoSources,
+  heroVideoFor,
+  imageDuplicatesPageVideo,
+} from '@/lib/longlive/video-affordance';
 import { ZoomableImage } from './ZoomableImage';
 import { SignificanceBadge } from './SignificanceBadge';
 import {
@@ -542,9 +547,32 @@ export function MomentDetail() {
   // embed in the footnote below it — see lib/longlive/video-affordance.ts.
   const detailVideo = detailVideoFor(item);
   const sourceVideos = footnoteVideoSources(item);
-  const hero: ImageRef | undefined = primaryImageRef(item);
+  // When the hero image is only a still of this moment's own footage, the hero
+  // slot plays the footage instead (Joey, 2026-08-13: "the site would feel much
+  // more natural if you played the video from the top"). `detailVideoFor`
+  // already yielded the body slot in that case, so the page carries one player,
+  // at the top, and no duplicate thumbnail below it.
+  const heroVideo = heroVideoFor(item);
+  // The image the hero WOULD show. Still resolved when the video won the slot,
+  // because it is also the image the gallery must exclude — the promoted frame
+  // must not reappear woven through the body.
+  const heroImage: ImageRef | undefined = primaryImageRef(item);
+  const hero: ImageRef | undefined = heroVideo ? undefined : heroImage;
   const heroUrl = hero?.url ?? '/placeholder.svg';
-  const gallery = item.images.filter((img) => img !== hero);
+  // Everything the body may weave in: not the hero's own image, and not a still
+  // of footage this page plays. Identity alone is not enough — "'Elizabeth
+  // Taylor' goes to radio" carries maxres3 (promoted to the hero) AND maxres2,
+  // two frames of the one video, so the second came back into the body under a
+  // player of the very footage it is a frame of. Same id, different file, which
+  // is the spread that made this repo match on the id in the path.
+  const gallery = item.images.filter(
+    (img) => img !== heroImage && !imageDuplicatesPageVideo(item, img.url),
+  );
+  // The photo viewer holds exactly the photographs the page shows, in the order
+  // it shows them — never `item.images`, which still contains the frames dropped
+  // above. Otherwise swiping out of a gallery photo lands on the still this
+  // change exists to remove.
+  const lightboxImages = hero ? [hero, ...gallery] : gallery;
 
   // Weave the non-hero photos through the body paragraphs (#XYZ v1) instead of
   // a trailing "Gallery" block: each image lands after a paragraph, spread
@@ -562,7 +590,44 @@ export function MomentDetail() {
   const detailTitleId = `moment-detail-title-${item.id}`;
 
   // Open the full-screen photo viewer at a given image (matched by identity).
-  const openLightbox = (img: ImageRef) => setLightboxIndex(Math.max(0, item.images.indexOf(img)));
+  const openLightbox = (img: ImageRef) =>
+    setLightboxIndex(Math.max(0, lightboxImages.indexOf(img)));
+
+  // Favorite / share / close, pinned to the sheet's top-right corner. Shared by
+  // both hero branches so the three controls a reader needs to get back out of
+  // the sheet sit in exactly one place in the source, and cannot end up in one
+  // branch only. Over a video hero they clear the player: the slot's pt-16
+  // reserves their row above it on a phone, and on desktop the player is capped
+  // at 42vh*16/9 and centered, so they land in the gutter beside it.
+  const heroControls = (
+    <div className="absolute right-4 top-4 z-10 flex gap-2">
+      <button
+        onClick={() => toggleFavorite(item.id)}
+        className="era-icon-btn rounded-full p-2 backdrop-blur-md"
+        aria-pressed={isFavorite}
+        aria-label={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
+      >
+        {/* currentColor, not accent: on the inverted .era-icon-btn (#525)
+            the accent can vanish against the ink background (TTPD:
+            #e8e8e8 on #ededed). Filled-vs-outline carries the state. */}
+        <Heart className="h-5 w-5" fill={isFavorite ? 'currentColor' : 'none'} />
+      </button>
+      <button
+        onClick={() => openShare({ kind: 'item', itemId: item.id })}
+        className="era-icon-btn rounded-full p-2 backdrop-blur-md"
+        aria-label="Share this moment"
+      >
+        <Share2 className="h-5 w-5" />
+      </button>
+      <button
+        onClick={closeItem}
+        className="era-icon-btn rounded-full p-2 backdrop-blur-md"
+        aria-label="Close"
+      >
+        <X className="h-5 w-5" />
+      </button>
+    </div>
+  );
 
   return (
     // A MODAL, and now labelled as one. This sheet covers the viewport, locks
@@ -585,76 +650,88 @@ export function MomentDetail() {
       className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
       style={eraStyle(era)}
     >
-      {/* Hero image */}
-      <div className="relative h-[42vh] min-h-64 w-full">
-        <Image
-          src={heroUrl}
-          alt={hero?.caption ?? ''}
-          fill
-          priority
-          unoptimized={isRemoteUrl(heroUrl)}
-          className="object-cover"
-          style={{ objectPosition: focalPointOf(hero) }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 20%, transparent), var(--era-bg))',
-          }}
-        />
-        {/* Tap the hero to open the full-screen viewer; the overlaid controls
-            below sit later in the DOM, so they stay clickable on top. */}
-        {hero && (
-          <button
-            type="button"
-            onClick={() => openLightbox(hero)}
-            aria-label="View photo full screen"
-            className="absolute inset-0 cursor-zoom-in"
-          />
-        )}
-        {/* A hero that isn't the real photo says so, right on the image.
-            bottom-14 keeps it clear of the article, which overlaps the hero's
-            bottom 2.5rem via -mt-10. */}
-        {hero && hero.kind !== 'primary' && (
-          <div className="absolute bottom-14 left-4 z-10 flex flex-wrap items-center gap-2">
-            <ImageKindBadge kind={hero.kind} />
-            <span className="text-xs text-[color:var(--era-ink-soft)]">
-              {IMAGE_KIND_NOTE[hero.kind]}
-              {hero.credit ? ` Credit: ${hero.credit}.` : ''}
-            </span>
-          </div>
-        )}
-        <div className="absolute right-4 top-4 flex gap-2">
-          <button
-            onClick={() => toggleFavorite(item.id)}
-            className="era-icon-btn rounded-full p-2 backdrop-blur-md"
-            aria-pressed={isFavorite}
-            aria-label={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
-          >
-            {/* currentColor, not accent: on the inverted .era-icon-btn (#525)
-                the accent can vanish against the ink background (TTPD:
-                #e8e8e8 on #ededed). Filled-vs-outline carries the state. */}
-            <Heart className="h-5 w-5" fill={isFavorite ? 'currentColor' : 'none'} />
-          </button>
-          <button
-            onClick={() => openShare({ kind: 'item', itemId: item.id })}
-            className="era-icon-btn rounded-full p-2 backdrop-blur-md"
-            aria-label="Share this moment"
-          >
-            <Share2 className="h-5 w-5" />
-          </button>
-          <button
-            onClick={closeItem}
-            className="era-icon-btn rounded-full p-2 backdrop-blur-md"
-            aria-label="Close"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-      </div>
+      {/* THE HERO SLOT — a photo, or the moment's own footage.
 
-      <article className="relative z-10 mx-auto -mt-10 max-w-2xl px-5 pb-24">
+          The video branch (#2081, Joey: "it looks horrible… the site would feel
+          much more natural if you played the video from the top") is taken only
+          when the hero image would have been a still of that same video —
+          `heroVideoFor`. On those pages the photo was never a photo: Photo
+          Enrichment sourced a frame because the moment IS the video, so the
+          reader met the footage as a static picture and then again as a player a
+          screen below. Here the top of the page simply plays.
+
+          Sizing: the photo hero is a fixed 42vh band, which a 16:9 player cannot
+          honour at both ends — full-bleed 16:9 is 219px tall at 390px and 850px
+          tall on a desktop. So the player is aspect-driven and CAPPED at the
+          same 42vh by bounding its width at 42vh*16/9: on a phone it fills the
+          column, on desktop it lands at exactly 42vh tall and centers, keeping
+          the page's vertical rhythm identical to a photo page.
+
+          Click-to-load is unchanged (#1935): `MomentVideo` renders `VideoPoster`
+          — a plain <img> plus one labelled 44px+ button — and mounts the
+          youtube-nocookie iframe only on a real click. A video hero PLAYS; it
+          never opens the lightbox, which is for photographs. */}
+      {heroVideo ? (
+        <div className="relative w-full px-4 pb-2 pt-16">
+          <div className="mx-auto w-full max-w-[calc(42vh*16/9)]">
+            {/* `priority`: a `?item=` share link opens this sheet as the first
+                paint, which makes this poster the page's LCP element — the same
+                reason the photo hero below carries it. */}
+            <MomentVideo video={heroVideo} className="" priority />
+          </div>
+          {heroControls}
+        </div>
+      ) : (
+        <div className="relative h-[42vh] min-h-64 w-full">
+          <Image
+            src={heroUrl}
+            alt={hero?.caption ?? ''}
+            fill
+            priority
+            unoptimized={isRemoteUrl(heroUrl)}
+            className="object-cover"
+            style={{ objectPosition: focalPointOf(hero) }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 20%, transparent), var(--era-bg))',
+            }}
+          />
+          {/* Tap the hero to open the full-screen viewer; the overlaid controls
+              below sit later in the DOM, so they stay clickable on top. */}
+          {hero && (
+            <button
+              type="button"
+              onClick={() => openLightbox(hero)}
+              aria-label="View photo full screen"
+              className="absolute inset-0 cursor-zoom-in"
+            />
+          )}
+          {/* A hero that isn't the real photo says so, right on the image.
+              bottom-14 keeps it clear of the article, which overlaps the hero's
+              bottom 2.5rem via -mt-10. */}
+          {hero && hero.kind !== 'primary' && (
+            <div className="absolute bottom-14 left-4 z-10 flex flex-wrap items-center gap-2">
+              <ImageKindBadge kind={hero.kind} />
+              <span className="text-xs text-[color:var(--era-ink-soft)]">
+                {IMAGE_KIND_NOTE[hero.kind]}
+                {hero.credit ? ` Credit: ${hero.credit}.` : ''}
+              </span>
+            </div>
+          )}
+          {heroControls}
+        </div>
+      )}
+
+      {/* The article overlaps a PHOTO hero's bottom 2.5rem, which is where that
+          hero's gradient has already faded to --era-bg. Over a player the same
+          pull would crop the video and sit on top of its controls, so a video
+          hero gets ordinary flow spacing instead. */}
+      <article
+        className={`relative z-10 mx-auto max-w-2xl px-5 pb-24 ${heroVideo ? 'mt-4' : '-mt-10'}`}
+      >
         <span className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
           {era.name} · {item.dateLabel}
         </span>
@@ -840,7 +917,7 @@ export function MomentDetail() {
 
       {lightboxIndex !== null && (
         <MomentLightbox
-          images={item.images}
+          images={lightboxImages}
           index={lightboxIndex}
           onIndex={setLightboxIndex}
           onClose={() => setLightboxIndex(null)}

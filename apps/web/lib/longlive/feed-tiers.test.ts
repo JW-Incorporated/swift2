@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { build, contentForEra } from './content';
+import { eraKnownVideoIds, inlineVideoMomentIds } from './era-feed';
+import { feedCardImageHidden } from './video-affordance';
+import { videosForEra } from './videos';
 import { VAULT_RAW } from './content-vault.generated';
 import { ERAS } from './eras';
 import {
@@ -8,6 +11,7 @@ import {
   MEDIA_SCORE_THRESHOLD,
   assignFeedTiers,
   baseTierFor,
+  withInlineVideoTiers,
   type CardTier,
 } from './feed-tiers';
 import { substanceScore } from './substance';
@@ -59,12 +63,30 @@ const ALL_VAULT_ITEMS: ContentItem[] = (Object.keys(VAULT_RAW) as EraId[]).flatM
   build(eraId, VAULT_RAW[eraId] ?? []),
 );
 
+/**
+ * The image-suppressed ids EraSection computes for an era, derived exactly as it
+ * derives them: the cards whose photo will not render, minus the owners, whose
+ * poster fills the slot instead. Without this the "real vault" suite would be
+ * asserting tiers production no longer assigns.
+ */
+function realSuppressedIds(items: ContentItem[], eraId: EraId): Set<string> {
+  const owners = inlineVideoMomentIds(items);
+  const known = eraKnownVideoIds(items, videosForEra(eraId));
+  return new Set(
+    items
+      .filter((it) => feedCardImageHidden(it, known) && !owners.has(it.id))
+      .map((it) => it.id),
+  );
+}
+
 /** Tiers for every era, assigned over the real per-era feed sequence — the
- * same call EraSection makes (`assignFeedTiers(contentForEra(era.id))`). */
+ * same call EraSection makes, suppressed ids and all. */
 function realFeedTiers(): Map<string, CardTier> {
   const all = new Map<string, CardTier>();
   for (const era of ERAS) {
-    for (const [id, tier] of assignFeedTiers(contentForEra(era.id))) all.set(id, tier);
+    const items = contentForEra(era.id);
+    const tiers = assignFeedTiers(items, realSuppressedIds(items, era.id));
+    for (const [id, tier] of tiers) all.set(id, tier);
   }
   return all;
 }
@@ -392,5 +414,134 @@ describe('assignFeedTiers over REAL vault content', () => {
       const b = assignFeedTiers(items);
       for (const it of items) expect(a.get(it.id)).toBe(b.get(it.id));
     }
+  });
+});
+
+/**
+ * #2080: one video treatment in the feed. Every playable video renders the same
+ * full-width 16:9 poster, and two tiers cannot carry one honestly — see
+ * INLINE_VIDEO_MIN_TIER. This is a FLOOR on cards that actually play.
+ */
+describe('withInlineVideoTiers', () => {
+  const tiers = (entries: [string, CardTier][]) => new Map(entries);
+
+  it('lifts a chip that plays a video to media', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'chip']]), new Set(['a']));
+    expect(out.get('a')).toBe('media');
+  });
+
+  it('lifts a text breather that plays a video to media', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'text']]), new Set(['a']));
+    expect(out.get('a')).toBe('media');
+  });
+
+  it('never demotes: a hero that plays a video stays a hero', () => {
+    const out = withInlineVideoTiers(tiers([['a', 'hero']]), new Set(['a']));
+    expect(out.get('a')).toBe('hero');
+  });
+
+  it('leaves cards that do not play anything exactly as they were', () => {
+    const input = tiers([
+      ['a', 'chip'],
+      ['b', 'text'],
+      ['c', 'hero'],
+      ['d', 'media'],
+    ]);
+    const out = withInlineVideoTiers(input, new Set());
+    expect([...out]).toEqual([...input]);
+  });
+
+  it('skips a moment that DEFERS its video to an earlier card (#2057 de-dupe)', () => {
+    // Ownership, not `item.video`: the deferring card renders no poster, so
+    // inflating it would grow a card for a video it never shows.
+    const out = withInlineVideoTiers(tiers([['a', 'chip']]), new Set(['someone-else']));
+    expect(out.get('a')).toBe('chip');
+  });
+
+  it('does not mutate the map it was given', () => {
+    const input = tiers([['a', 'chip']]);
+    withInlineVideoTiers(input, new Set(['a']));
+    expect(input.get('a')).toBe('chip');
+  });
+
+  /**
+   * Wired the way EraSection wires it — `inlineVideoMomentIds(items)`, the same
+   * ownership set the component derives — rather than "every item with
+   * `item.video`". Those differ (a moment deferring a duplicate id is not an
+   * owner), and the naive version is also circular: assert `hero|media` over
+   * exactly the ids you just floored and the test passes on an empty vault.
+   * The `toBeGreaterThan(0)` below is what stops it going quiet — if the corpus
+   * ever stops containing a card the floor lifts, this fails instead of
+   * silently asserting nothing.
+   */
+  it('leaves no chip or text card playing a video anywhere in the real corpus', () => {
+    let promoted = 0;
+    let owned = 0;
+    for (const era of ERAS) {
+      const items = contentForEra(era.id);
+      const owners = inlineVideoMomentIds(items);
+      const base = assignFeedTiers(items);
+      const floored = withInlineVideoTiers(base, owners);
+      for (const id of owners) {
+        owned++;
+        if (base.get(id) !== floored.get(id)) promoted++;
+        expect(['hero', 'media']).toContain(floored.get(id));
+      }
+      // Nothing OUTSIDE the ownership set may move.
+      for (const it of items) {
+        if (owners.has(it.id)) continue;
+        expect(floored.get(it.id)).toBe(base.get(it.id));
+      }
+    }
+    // Non-vacuity, not a census: the vault gains content most days, so pinning
+    // exact counts here would fail on unrelated content PRs. Today it is 16
+    // owners and 7 promotions (6 `text` + 1 `chip`).
+    expect(owned).toBeGreaterThan(0);
+    expect(promoted).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * #2081. A card whose photo is suppressed has no picture — and unlike an owner,
+ * whose poster takes the slot, a DEFERRING card gets nothing in its place. Its
+ * tier has to be told, or it keeps the silhouette it earned as a photo card and
+ * renders it empty: on tloas, "'Elizabeth Taylor' goes to radio" was a `hero`.
+ */
+describe('assignFeedTiers with suppressed images', () => {
+  it('scores a suppressed card as the imageless card it is about to be', () => {
+    const it0 = substantial('m-suppressed');
+    expect(baseTierFor(it0)).toBe('hero');
+    expect(baseTierFor(it0, true)).toBe('text');
+  });
+
+  it('honours `significance` over suppression, exactly as it does over score', () => {
+    // 'defining' is an authoring judgment about the real world; a missing
+    // picture is not a reason to demote the event. It renders the bigger
+    // typography with no image block, which MomentCardButton already supports.
+    expect(baseTierFor(substantial('m-def', { significance: 'defining' }), true)).toBe('hero');
+    // 'notable' keeps its `media` floor for the same reason.
+    expect(baseTierFor(substantial('m-not', { significance: 'notable' }), true)).toBe('media');
+  });
+
+  it('demotes only the ids it is given', () => {
+    const items = [substantial('m-a'), substantial('m-b')];
+    const tiers = assignFeedTiers(items, new Set(['m-a']));
+    expect(tiers.get('m-a')).toBe('text');
+    expect(tiers.get('m-b')).toBe('hero');
+  });
+
+  it('defaults to suppressing nothing, so every existing caller is unchanged', () => {
+    const items = [substantial('m-a'), substantial('m-b')];
+    expect([...assignFeedTiers(items)]).toEqual([...assignFeedTiers(items, new Set())]);
+  });
+
+  it('frees the hero gap it was occupying rather than just blanking a hero', () => {
+    // The demotion runs BEFORE pacing, not after, so a suppressed card no
+    // longer spends the hero budget that would push the next real hero down to
+    // `media`. Passing a set (not a pre-filtered list) is what keeps the
+    // sequence — and therefore the spacing — honest.
+    const items = [substantial('m-first'), substantial('m-second')];
+    expect(assignFeedTiers(items).get('m-second')).toBe('media');
+    expect(assignFeedTiers(items, new Set(['m-first'])).get('m-second')).toBe('hero');
   });
 });

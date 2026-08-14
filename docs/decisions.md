@@ -7,6 +7,241 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-13 — Era reader rework: bottom nav, one global filter, timeline doorways
+
+Five decisions, all Joey's, taken on the consolidated team review of the "Time
+Machine Mockups" artifact. Recorded before implementation per Workflow rule 6.
+Implementation plan: `PLAN.md`; branch `feature/era-reader-rework`.
+
+**Decision 1 — mobile navigation moves to a bottom tab bar. This overrides a
+prior CTO-side rejection, deliberately.** `docs/specs/2026-08-13-landing-page-
+brief.md` §3.2 and D3 record that a bottom-edge control was tested on-device and
+rejected for colliding with mobile browser chrome and the home indicator, and
+that it could return only "via a device-tested prototype and Wyatt's explicit
+approval." Joey, as CEO, has now asked for it directly and unambiguously ("we
+absolutely want mobile to have the navigation you show on the bottom"), on the
+grounds that it clears up the top bar. That is a product call he is entitled to
+make, and it is taken. **Wyatt has not signed off and is to be notified on the
+PR** — per Workflow rule 5 this disagreement is surfaced, not settled quietly.
+The three known collisions are treated as build requirements, not as things to
+discover later: safe-area insets for browser chrome and the home indicator, and
+hiding the bar while a text input is focused so Mood's keyboard clears it. The
+FeedbackButton floats above the bar and gains a dismiss (below). If a collision
+survives on a real device, the plan says stop and report rather than ship
+around it. Alternative rejected: keep the sticky top rail (status quo, D3).
+
+**Decision 2 — the Spotify era player is removed.** "Play the era"
+(`EraMedia.tsx`, a click-to-load Spotify album embed) is deleted, and Track
+guide takes its slot, its full width and its play affordance. Joey's reasoning:
+"people don't want to listen to Spotify on our app — they can open a new tab
+for that," and the track guide should be the single focal point between the
+lyric and the filter, with song videos playable inside it. Consequence: the era
+page has no first-party music playback at all; this is intended. Alternative
+rejected: keep both, with the player demoted.
+
+**Decision 3 — one global filter replaces the per-era filters.** Today each
+`EraSection` owns its own `activeTags`/`videosOnly` React state, so the filter
+resets every time you scroll into a new era. It becomes a single set in the
+store, rendered once as a sticky bar, applying to every era at once and
+persisting as you move between them. Changing it must leave you in the era you
+were already in. The taxonomy is fixed at **six**: Music, Fashion, Tour,
+Relationship, Lore, Videos. Joey explicitly scrapped the "Threads gets its own
+filter" idea from his own brief; thread and egg doorway cards are instead
+categorised under the same six. Alternative rejected: an eight-chip two-axis
+row (topics + kinds), and a five-chip topics-only row that would have dropped
+the Videos filter that ships today.
+
+**Decision 4 — a synthetic anchor date may position a card but may never be
+displayed.** Threads and eggs often have no date, and the era timeline is
+strictly chronological. Undated items therefore get a resolved anchor —
+borrowed from a related moment, else a related song's release, else the era
+midpoint — used solely as a sort key. `displayDate` is null unless the date is
+genuinely authored. Joey offered "you are welcome to assign a fake date to it";
+this decision accepts the sort-key half and refuses the display half, because
+the site's standing honesty contract is that nothing is ever labelled with a
+date it does not have. This is not a new rule: `undatedAnchorDate()` already
+feeds the scrubber an invisible anchor while the card renders "Date unknown".
+
+**Decision 5 — Clownbot keeps a top-level tab, so the nav is sized for six.**
+Bottom nav is four tabs today (Eras, Threads, Mood, Clownbot) and six at full
+growth once Marketplace and Community exist. This reverses the mockup's
+proposal to fold Clownbot into the feed and drop its pill. Known cost, accepted
+with the decision: six labelled tabs do not fit a 390px phone — the bar is
+built to degrade to icon-only at five and six rather than break, and is tested
+with 4, 5 and 6 entries. Alternative rejected: three tabs now / five later,
+with Clownbot reachable only from an in-feed theory board and the footer.
+
+---
+
+## 2026-08-13 — The video plays from the top of a detail page, and a card never shows a video frame it cannot play
+
+Two follow-ups to the one-video-treatment decision below, both closing the same
+gap from opposite ends: **a still of a video is not a photograph**, and the app
+had been treating it as one.
+
+**Decision 1 — a deferring card's video frame is suppressed, like an owner's.**
+The #2057 de-dupe gives a video to exactly one card (the first in feed order),
+and that stands. But the *other* card kept a frame of that video as its photo,
+with no play control, because #2080's suppression only ever compared a card's
+photo against the video that card PLAYS — and a deferring card plays none. So
+`feedCardImageHidden` (`video-affordance.ts`) now answers both cases, comparing
+against every video the era can play (`eraKnownVideoIds`), not just the card's
+own — and it takes no `ownsVideo` argument, because the answer is the same on
+both sides of the de-dupe (it replaces `cardImageDuplicatesVideo`, which is
+gone). Ownership decides what REPLACES the photo — a poster, or nothing — which
+is the tier question. Where suppression leaves a card with no picture, the tier
+is re-scored without one (`assignFeedTiers(items, imageSuppressedIds)`) rather
+than keeping an image silhouette it can no longer fill; `significance` still
+outranks that, as it outranks the score.
+
+Deliberately scoped to cards that CARRY footage. 20 moments hold a still of an
+era video without carrying the video (a piece about the "22" video illustrated
+with a shot from it); they promise no player, and the frame is their only
+picture, so suppressing them would delete imagery rather than duplication.
+
+**Decision 2 — a detail hero that is a frame of the moment's own video becomes
+the player.** On 10 of the 16 video-carrying moments (8 with no other photo at
+all) the ~42vh hero was a still of the very video embedded a screen below —
+Photo Enrichment sourced frames as photos precisely because those moments ARE
+the video. `heroVideoFor` promotes the video into the hero slot and
+`detailVideoFor` yields the body slot to it, so the two are exclusive by
+construction rather than by a component remembering to check. A video hero
+PLAYS; the lightbox stays for photographs, and the promoted frame leaves the
+photo viewer with it. Pages whose hero is a genuinely different photo are
+untouched: hero photo, body video, no duplication existed there.
+
+Two carve-outs, both found in review:
+
+- **A sub-confirmed `confidence` outranks the promotion.** #2051 made it
+  non-negotiable that the reader meets "Rumor — unconfirmed" *before* the media.
+  The body slot sits under that banner; the hero sits above it. So on a rumored
+  moment the video stays in the body and the banner still leads. No vault item
+  carries both `video` and `confidence` today — which is exactly why the rule
+  belongs in code rather than in the corpus.
+- **Other frames of the same video leave the body too.** Dropping the hero's own
+  `ImageRef` by identity was not enough: "'Elizabeth Taylor' goes to radio"
+  carries `maxres3` (promoted) *and* `maxres2`, so the second was woven back into
+  the article under a player of the very footage it is a still of.
+  `imageDuplicatesPageVideo` matches on the id in the path — the same reason
+  #2080 does — and applies whether the video sits in the hero or the body. It
+  removes 2 images corpus-wide, both `archival` frames; photographs are
+  untouched.
+
+**Sizing:** a 16:9 player cannot honour a fixed 42vh band at both ends —
+full-bleed it is 219px tall at 390px and ~850px on a desktop. The player is
+aspect-driven with its width capped at `42vh*16/9`, so it fills the column on a
+phone and lands at exactly 42vh on a desktop, keeping the page rhythm identical
+to a photo page. The article's `-mt-10` overlap is dropped over a player, where
+it would crop the frame and sit on the controls.
+
+**Why:** Joey, on the detail pages — "it looks horrible… the site would feel
+much more natural if you played the video from the top" — and, on the era feed,
+the tloas card "'Elizabeth Taylor' goes to radio", a hero-sized still of the
+Elizabeth Taylor music video that does nothing when tapped. A big video-looking
+frame you cannot play is worse than the duplication #2080 removed: it promises a
+player that does not exist.
+
+**Alternatives considered:** (a) break the #2057 de-dupe so both cards play the
+video — reintroduces the exact duplication #2057 fixed; (b) hunt for substitute
+photographs for the 8 moments with no alternative — invents a sourcing project
+to avoid showing the thing the page is about; (c) suppress every video frame
+everywhere, including on the 20 moments that carry no footage — strips real
+imagery from cards that were never promising a player; (d) letterbox the player
+inside a rigid 42vh band — dead bars at both ends on a phone, where the player
+is already shorter than the slot.
+
+**Cost:** none at runtime. Still no iframe in prerendered HTML — the hero renders
+`VideoPoster` (a plain `<img>`) and mounts youtube-nocookie only on a real
+click, and the player is torn down when the sheet closes.
+
+**Approved by:** Joey (product/UX, 2026-08-13). Implemented in #2081.
+
+---
+
+## 2026-08-13 — Clownbot rebuild — build B ships, in Joey's layout
+
+Seven decisions from the re-spec on PR #1961 (`docs/proposals/2026-08-11-clownbot.md`):
+
+**J1 — Build B, not a refit of build A.** Decided by Joey. The re-spec supersedes the shipped-but-gated build. Rationale: Joey's 2026-08-11 ruling, "get rid of all the old chatbot clown stuff. The items related to threads remain and will actually be inputs for the bot." Build A's safety module, red-team battery corpus, ledger derivation, lore dataset and name registry are ported forward; the rest is shelved to `docs/proposals/2026-08-13-clownbot-shelved-content.md` and deleted.
+
+**J2 — The "current theories" column is derived from the existing corpus.** Decided by Joey. No new content authoring and no scoring engine. Joey: "reuse material we have for now… Long-term we need this to be auto-populated by an engine but that's phase 2 of the clownbot." Phase 2 is explicitly out of scope.
+
+**J3 — Live on merge, gated on a red-team pass.** Decided by Joey, choosing this over shipping dark behind the kill switch. Consequence: the red-team battery becomes a REQUIRED CI check in the `build` job, because a posture that depends on a human remembering to run a script is not a gate.
+
+**J4 — Delulu indicator only; Evidence and Confidence meters dropped.** Decided by Claude under discretion Joey granted. Source cards carry groundedness; three dials restate what the cards already show and fight the chat-box layout.
+
+**J5 — The live-key red-team battery must pass once before merge.** Decided by Joey, 2026-08-13, after it emerged that the CI battery can only hold 30 of 53 attack cases deterministically; the remaining 23 attacks and all 21 Tier B probes are gate-invisible by design and need a real model to exercise. Build A's second-tier semantic output classifier (`clownbot-output-classifier.ts`) was NOT carried forward into build B, so runtime output screening is deterministic-only; the compensating defences are the index-build-time blocklist pre-filter, retrieval-only grounding (the model is handed corpus items and may not invent entities), the output gate's citation validation, and the model's own `offLimits` self-report. Joey chose the one-time live-key gate over porting the classifier forward, which would have doubled per-turn model cost. Porting the classifier remains available to Wyatt if he wants runtime rather than review-time coverage.
+
+**J6 — Merge authorization granted for this work.** Decided by Joey, 2026-08-13, late session. `CLAUDE.md` § Decision authority normally reserves merging to `main` for a founder; Joey explicitly authorised this session to merge the Clownbot rebuild once CI is green, the J5 live-key battery has passed, and the Codex review is complete. This authorisation is scoped to THIS workstream only and does not generalise to other branches or future sessions — the standing rule in `CLAUDE.md` is otherwise unchanged.
+
+**J7 — Codex review is capped at two rounds.** Decided by Joey, 2026-08-13, late session. Workflow rule 3 requires every Codex finding to be fixed before work is declared done; J7 bounds how many review cycles that may take. Reconciliation: at most two review rounds run; everything actionable from both rounds is fixed; anything still outstanding after round two is written into the PR body as a named open finding rather than triggering a third round. Unresolved findings are surfaced, never silently dropped, and they do not block the merge.
+
+**Risk basis for J3 and J6:** Joey's standing instruction for this session was to finish and merge tonight, accepting that a rough or partly-working feature could go live, on the explicit basis that the site currently has zero daily users. If the user count changes, the reasoning behind both J3 (live on merge) and J6 (merge authorization) should be revisited.
+
+**Cost model:** the model call is in the request path but capped and gated, reusing the Mood Chat route pattern — the precedent the re-spec ratifies. Rate limit per IP, a per-instance daily compose cap, a kill switch, and a deterministic zero-model fallback composer so the feature still works when over cap or when the model is down. Both prefill columns and every chip resolve with ZERO model calls.
+
+**Supersedes:** `docs/definition-of-done.md` item 7's now-removed constraint ruling out a request-path model call, which was stale as of this decision.
+
+**Still PENDING on Wyatt (architecture/cost), not decided here:** (1) model tier — Sonnet-class as Mood uses, or Haiku; (2) the cap numbers, proposed at 200 composes/day/instance; (3) ratifying reuse of the Mood route pattern; (4) sign-off on this entry.
+
+**Approved by:** Joey (product call, 2026-08-13). Awaiting Wyatt (architecture/cost sign-off).
+
+---
+
+## 2026-08-13 — One video treatment in the era feed (ends the #2051 → #2055 → #2063 iteration)
+
+**Decision:** every playable video in the era feed renders **the same way**,
+regardless of whether the card is a video record or a story moment carrying
+footage: a full-width 16:9 poster of the video's own YouTube thumbnail with one
+large centered accent play glyph, inside the card. There is one implementation —
+`VideoPoster`, exported from `components/longlive/MomentVideo.tsx` — and every
+surface renders through it. Two supporting rules fall out of it and are part of
+the decision:
+
+1. **A card that plays a video is at least `media` tier** (`withInlineVideoTiers`
+   in `feed-tiers.ts`). The `chip` tier is a ~56px dense row and the `text` tier
+   is the no-photo breather; a full-width poster on either destroys the
+   silhouette that IS that tier — and the claim it makes is wrong anyway, since
+   a moment with watchable footage is not a slight item. It is a floor, never a
+   cap: `hero` stays `hero`.
+2. **A card's own photo is suppressed when it is a frame of the video it plays**
+   (`cardImageDuplicatesVideo` in `video-affordance.ts` — superseded 2026-08-13
+   by `feedCardImageHidden`, see the entry above). 8 of the 16 moments
+   carrying `video` have an `i.ytimg.com/vi/<same id>/…` primary image: two are
+   the byte-identical `hqdefault.jpg` url the poster requests, two more are
+   `maxresdefault.jpg` (the same frame at another resolution), and four are
+   other frames of the same video. Rendering both prints the same footage twice
+   inside one card. A photo from anywhere else (album art, a press shot) is a
+   different picture and is kept.
+
+**Why:** Joey reviewed #2063 on his phone and rejected it. #2051 established
+that a moment carrying footage looked identical to one that didn't; #2055 fixed
+that with a text pill that rendered *outside* the card border and read as "no
+video here"; #2063 moved it inside as a compact 96px thumbnail row. Each was a
+new, different way of saying "this plays". His point is that the reader should
+never have to learn a second vocabulary: the video-record cards (he pointed at
+the Colbert interview card) already say it with a big poster and a play button,
+and that is what every playable card should say. Reusing the component rather
+than copying the look is what stops the two drifting apart a fourth time.
+
+**Alternatives considered:** (a) keep the compact row for story moments and the
+big poster for records — that is precisely the two-vocabulary state being
+rejected; (b) render the poster *and* the moment's own photo everywhere — the
+literal reading of "text as today, then the poster", but on Joey's own four
+flagged cards it prints the same frame twice, reproducing in the feed the
+duplication he separately complained about on detail pages; (c) let the poster
+render inside `chip`/`text` unchanged — a 197px poster hanging off a 56px row
+reads as a broken card, not as an editorial tier.
+
+**Cost:** none at runtime. No new network calls, no iframes in prerendered HTML
+— the poster is still a plain `<img>` and YouTube's player loads only on a real
+click (the #1935 click-to-load posture).
+
+**Approved by:** Joey (product/UX call, 2026-08-13, from his phone review of
+#2063). Implemented in #2080.
+
+---
+
 ## 2026-08-13 — Playable-first timeline: visible video cards always play (supersedes today's fan-re-uploads-are-citations entry)
 
 **Decision:** if a video card is visible, it plays. A video record with no

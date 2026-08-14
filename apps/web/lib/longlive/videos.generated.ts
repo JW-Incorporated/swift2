@@ -19,6 +19,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Failing every polished dance style on purpose is the thesis: the haters' scorecard doesn't apply.",
       youtubeId: "nfWlot6h_JM",
       sources: [{ name: "Taylor Swift - Shake It Off", url: "https://www.youtube.com/watch?v=nfWlot6h_JM", reliability: 5, type: "official" }, { name: "Shake It Off", url: "https://en.wikipedia.org/wiki/Shake_It_Off", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "blank-space-mv",
@@ -32,6 +33,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "She is playing the media's version of Taylor Swift, not herself — the video is the song's joke made visible, and mainstream coverage read it exactly that way.",
       youtubeId: "e-ORhEE9VVg",
       sources: [{ name: "Taylor Swift - Blank Space", url: "https://www.youtube.com/watch?v=e-ORhEE9VVg", reliability: 5, type: "official" }, { name: "Blank Space", url: "https://en.wikipedia.org/wiki/Blank_Space", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "style-mv",
@@ -45,6 +47,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The broken-mirror shards and projections keep the two lovers overlapping without ever quite aligning — the never-out-of-style loop rendered literally.",
       youtubeId: "-CmadmM5cOk",
       sources: [{ name: "Taylor Swift - Style", url: "https://www.youtube.com/watch?v=-CmadmM5cOk", reliability: 5, type: "official" }, { name: "Style (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "bad-blood-mv",
@@ -58,6 +61,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "QcIy9NiNbmo",
       sources: [{ name: "Taylor Swift - Bad Blood ft. Kendrick Lamar", url: "https://www.youtube.com/watch?v=QcIy9NiNbmo", reliability: 5, type: "official" }, { name: "Bad Blood (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "wildest-dreams-mv",
@@ -71,6 +75,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "IdneKLhsWOQ",
       sources: [{ name: "Taylor Swift - Wildest Dreams", url: "https://www.youtube.com/watch?v=IdneKLhsWOQ", reliability: 5, type: "official" }, { name: "Wildest Dreams", url: "https://en.wikipedia.org/wiki/Wildest_Dreams", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "the-1989-world-tour-live-film",
@@ -84,6 +89,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: null,
       sources: [{ name: "The 1989 World Tour Live", url: "https://en.wikipedia.org/wiki/The_1989_World_Tour_Live", reliability: 2, type: "wiki" }, { name: "Taylor Swift '1989 World Tour Live' Concert Film Coming to Apple Music: Watch Trailer", url: "https://www.billboard.com/music/pop/taylor-swift-1989-world-tour-live-concert-film-apple-music-6805694/", reliability: 4, type: "reputable_press" }],
+      tags: ["Tour"],
     },
     {
       slug: "out-of-the-woods-mv",
@@ -97,6 +103,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The pursuing forest is the anxiety spiral of the lyric; arriving at her own calm self on the shore closes the loop the song leaves open.",
       youtubeId: "JLf9q36UsBk",
       sources: [{ name: "Out of the Woods (song)", url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)", reliability: 2, type: "wiki" }, { name: "Watch Taylor Swift's New Music Video 'Out of the Woods'", url: "https://time.com/4164964/taylor-swift-new-music-video-out-woods-watch/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift Will Close Out Her Stellar 2015 with a New Music Video", url: "https://www.vanityfair.com/hollywood/2015/12/taylor-swift-out-of-the-woods-music-video-announcement", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "grammys-album-of-the-year-2016",
@@ -110,6 +117,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "dMCAEUb0h34",
       sources: [{ name: "Taylor Swift | Album of the Year | 58th GRAMMYs", url: "https://www.youtube.com/watch?v=dMCAEUb0h34", reliability: 5, type: "official" }, { name: "Taylor Swift's Grammys Speech", url: "https://time.com/4225261/2016-grammys-taylor-swift-kanye-west/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "new-romantics-mv",
@@ -123,6 +131,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "wyK7YuwUWsU",
       sources: [{ name: "New Romantics (song)", url: "https://en.wikipedia.org/wiki/New_Romantics_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music", "Tour"],
     },
   ],
   "debut": [
@@ -151,6 +160,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "B1jYllE0T-k",
       sources: [{ name: "Taylor Swift - Change", url: "https://www.youtube.com/watch?v=B1jYllE0T-k", reliability: 5, type: "official" }, { name: "Change (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "our-song-mv",
@@ -164,6 +174,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "Jb2stN7kH28",
       sources: [{ name: "Taylor Swift - Our Song", url: "https://www.youtube.com/watch?v=Jb2stN7kH28", reliability: 5, type: "official" }, { name: "Our Song (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Our_Song_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "picture-to-burn-mv",
@@ -177,6 +188,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "yCMqcFAigRg",
       sources: [{ name: "Picture to Burn", url: "https://en.wikipedia.org/wiki/Picture_to_Burn", reliability: 2, type: "wiki" }, { name: "Video Premiere: 'Picture to Burn,' Taylor Swift", url: "https://theboot.com/video-premiere-picture-to-burn-taylor-swift/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "shouldve-said-no-mv",
@@ -190,6 +202,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "v9bxXO9fj98",
       sources: [{ name: "Should've Said No", url: "https://www.youtube.com/watch?v=v9bxXO9fj98", reliability: 5, type: "official" }, { name: "Should've Said No", url: "https://en.wikipedia.org/wiki/Should've_Said_No", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "teardrops-on-my-guitar-mv",
@@ -203,6 +216,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "xKCek6_dB0M",
       sources: [{ name: "Taylor Swift - Teardrops On My Guitar", url: "https://www.youtube.com/watch?v=xKCek6_dB0M", reliability: 5, type: "official" }, { name: "Teardrops on My Guitar", url: "https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "tim-mcgraw-mv",
@@ -216,6 +230,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Establishes the visual grammar her early videos reuse: golden-hour nostalgia, the letter/memory motif, and Taylor as narrator of her own past.",
       youtubeId: "GkD20ajVxnY",
       sources: [{ name: "Taylor Swift - Tim McGraw", url: "https://www.youtube.com/watch?v=GkD20ajVxnY", reliability: 5, type: "official" }, { name: "Tim McGraw (song)", url: "https://en.wikipedia.org/wiki/Tim_McGraw_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
   ],
   "evermore": [
@@ -231,6 +246,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The glowing thread is the \"invisible string\" made visible — the two sister-album videos form one continuous story fans treat as a diptych.",
       youtubeId: "RsEZmictANA",
       sources: [{ name: "Taylor Swift - willow (Official Music Video)", url: "https://www.youtube.com/watch?v=RsEZmictANA", reliability: 5, type: "official" }, { name: "willow (song)", url: "https://en.wikipedia.org/wiki/Willow_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "jimmy-kimmel-live-2020",
@@ -244,6 +260,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "ionfV_r8s40",
       sources: [{ name: "Taylor Swift on Turning 31, New Album, Fan Theories, Documentary & Boyfriend’s Pseudonym", url: "https://www.youtube.com/watch?v=ionfV_r8s40", reliability: 5, type: "official" }],
+      tags: ["Music", "Lore"],
     },
     {
       slug: "all-too-well-the-short-film",
@@ -257,6 +274,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The closing scene jumps years ahead to an author reading from a book titled All Too Well: the song's thesis that she keeps custody of the story by writing it.",
       youtubeId: "tollGa3S0o8",
       sources: [{ name: "Taylor Swift - All Too Well: The Short Film", url: "https://www.youtube.com/watch?v=tollGa3S0o8", reliability: 5, type: "official" }, { name: "All Too Well: The Short Film", url: "https://en.wikipedia.org/wiki/All_Too_Well:_The_Short_Film", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "all-too-well-10-min-snl-performance",
@@ -270,6 +288,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "nJr_8l0AEWE",
       sources: [{ name: "Taylor Swift - All Too Well (10 Minute Version) (Live on Saturday Night Live)", url: "https://www.youtube.com/watch?v=nJr_8l0AEWE", reliability: 5, type: "official" }, { name: "'SNL': Taylor Swift Performs \"All Too Well (10 Minute Version)\"", url: "https://www.billboard.com/music/pop/taylor-swift-snl-all-too-well-10-minute-version-performance-video-9659774/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "i-bet-you-think-about-me-mv",
@@ -283,6 +302,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "She is the only thing in red in a room styled entirely in polite neutrals — the era's color used as a walking punchline.",
       youtubeId: "5UMCrq-bBCg",
       sources: [{ name: "I Bet You Think About Me", url: "https://en.wikipedia.org/wiki/I_Bet_You_Think_About_Me", reliability: 2, type: "wiki" }, { name: "Taylor Swift to Release 'I Bet You Think About Me' Music Video Directed By Blake Lively", url: "https://www.teenvogue.com/story/taylor-swift-i-bet-you-think-about-me-music-video-blake-lively", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "nyu-commencement-2022",
@@ -309,6 +329,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "_J1dJLDrPBo",
       sources: [{ name: "Taylor Swift Announces Her New Album 'Midnights' at the 2022 VMAs | MTV News", url: "https://www.youtube.com/watch?v=_J1dJLDrPBo", reliability: 5, type: "official" }],
+      tags: ["Music"],
     },
   ],
   "fearless": [
@@ -324,6 +345,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "ptSjNWnzpjg",
       sources: [{ name: "Taylor Swift - Fearless", url: "https://www.youtube.com/watch?v=ptSjNWnzpjg", reliability: 5, type: "official" }, { name: "Fearless (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "grammys-album-of-the-year-2010",
@@ -337,6 +359,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "BFk2NjdJ1yY",
       sources: [{ name: "Taylor Swift accepting the GRAMMY for Album of the Year at the 52nd GRAMMY Awards | GRAMMYs", url: "https://www.youtube.com/watch?v=BFk2NjdJ1yY", reliability: 5, type: "official" }],
+      tags: ["Music"],
     },
     {
       slug: "the-best-day-taylors-version-mv",
@@ -350,6 +373,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "n0cde-Km05o",
       sources: [{ name: "Taylor Swift - The Best Day (Taylor's Version) (Official Music Video)", url: "https://www.youtube.com/watch?v=n0cde-Km05o", reliability: 5, type: "official" }, { name: "The Best Day (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "fifteen-mv",
@@ -363,6 +387,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "Pb-K2tXWK4w",
       sources: [{ name: "Fifteen (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Fifteen_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "Taylor Swift Flashed Back To High School For VMA-Nominated 'Fifteen'", url: "https://web.archive.org/web/20150327105811/http://www.mtv.com/news/1646390/taylor-swift-flashed-back-to-high-school-for-vma-nominated-fifteen/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "journey-to-fearless",
@@ -376,6 +401,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: null,
       sources: [{ name: "Journey to Fearless", url: "https://en.wikipedia.org/wiki/Journey_to_Fearless", reliability: 2, type: "wiki" }, { name: "Taylor Swift: Journey to Fearless", url: "https://www.shoutfactory.com/products/taylor-swift-journey-to-fearless", reliability: 4, type: "reputable_press" }],
+      tags: ["Tour"],
     },
     {
       slug: "love-story-mv",
@@ -389,6 +415,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The dual-timeline device (present-day glance, imagined past) became a signature she returned to through Wildest Dreams and beyond.",
       youtubeId: "8xg3vE8Ie_E",
       sources: [{ name: "Taylor Swift - Love Story", url: "https://www.youtube.com/watch?v=8xg3vE8Ie_E", reliability: 5, type: "official" }, { name: "Love Story (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "the-best-day-mv",
@@ -402,6 +429,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "l4_6eQm7RTQ",
       sources: [{ name: "Taylor Swift - The Best Day", url: "https://www.youtube.com/watch?v=l4_6eQm7RTQ", reliability: 5, type: "official" }, { name: "The Best Day (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "white-horse-mv",
@@ -415,6 +443,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "D1Xr-JFLxik",
       sources: [{ name: "White Horse (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "Taylor Swift Talks About 'Emotional' New Video For 'White Horse'", url: "https://web.archive.org/web/20121106152258/http://www.mtv.com/news/articles/1602728/taylor-swift-talks-about-emotional-new-video-white-horse.jhtml", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "you-belong-with-me-mv",
@@ -428,6 +457,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Casting herself as her own rival literalizes the song's point-of-view trick; the \"I love you\" window sign became one of her most-referenced images.",
       youtubeId: "VuNIsY6JdUw",
       sources: [{ name: "Taylor Swift - You Belong With Me", url: "https://www.youtube.com/watch?v=VuNIsY6JdUw", reliability: 5, type: "official" }, { name: "You Belong with Me", url: "https://en.wikipedia.org/wiki/You_Belong_with_Me", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
   ],
   "folklore": [
@@ -443,6 +473,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The piano-portal is the act of songwriting itself — climbing into the instrument to survive the wilderness and the deep water, then coming home.",
       youtubeId: "K-a8s8OLBSE",
       sources: [{ name: "Taylor Swift - cardigan", url: "https://www.youtube.com/watch?v=K-a8s8OLBSE", reliability: 5, type: "official" }, { name: "cardigan (song)", url: "https://en.wikipedia.org/wiki/Cardigan_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "folklore-long-pond-studio-sessions-film",
@@ -456,6 +487,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "jgdFUoZzCI0",
       sources: [{ name: "Folklore: The Long Pond Studio Sessions", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions", reliability: 2, type: "wiki" }, { name: "Taylor Swift Is Releasing a \"Folklore\" Special on Disney+", url: "https://www.teenvogue.com/story/taylor-swift-folklore-special-disney-plus", reliability: 4, type: "reputable_press" }, { name: "folklore: the long pond studio sessions | Official Trailer", url: "https://www.youtube.com/watch?v=jgdFUoZzCI0", reliability: 5, type: "official" }],
+      tags: ["Music"],
     },
   ],
   "lover": [
@@ -471,6 +503,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The snake-to-butterflies opening is the official handoff from reputation to Lover, staged in one cut.",
       youtubeId: "FuXNumBwDOM",
       sources: [{ name: "Taylor Swift - ME! (feat. Brendon Urie of Panic! At The Disco)", url: "https://www.youtube.com/watch?v=FuXNumBwDOM", reliability: 5, type: "official" }, { name: "ME!", url: "https://en.wikipedia.org/wiki/Me!", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "you-need-to-calm-down-mv",
@@ -484,6 +517,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "Dkk9gvTmCXY",
       sources: [{ name: "Taylor Swift - You Need To Calm Down", url: "https://www.youtube.com/watch?v=Dkk9gvTmCXY", reliability: 5, type: "official" }, { name: "You Need to Calm Down", url: "https://en.wikipedia.org/wiki/You_Need_to_Calm_Down", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "lover-mv",
@@ -497,6 +531,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The house-of-rooms was later read as a map of her discography's moods; the \"Lover house\" became load-bearing fan canon for era iconography.",
       youtubeId: "-BjZmE2gtdo",
       sources: [{ name: "Taylor Swift - Lover (Official Music Video)", url: "https://www.youtube.com/watch?v=-BjZmE2gtdo", reliability: 5, type: "official" }, { name: "Lover (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "vmas-video-of-the-year-2019",
@@ -510,6 +545,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "8z4icNgFSPI",
       sources: [{ name: "Taylor Swift Wins Video of the Year | 2019 Video Music Awards", url: "https://www.youtube.com/watch?v=8z4icNgFSPI", reliability: 5, type: "official" }, { name: "Taylor Swift calls out White House during VMAs acceptance speech", url: "https://www.cbsnews.com/detroit/news/taylor-swift-calls-out-white-house-during-vmas-acceptance-speech", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "amas-artist-of-the-decade-2019",
@@ -523,6 +559,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "0pbSQ_0qbqU",
       sources: [{ name: "Taylor Swift wins the Artist of the Decade Award  I  AMAs 2019", url: "https://www.youtube.com/watch?v=0pbSQ_0qbqU", reliability: 5, type: "official" }, { name: "Taylor Swift's Artist of the Decade Speech at the 2019 AMAs", url: "https://www.billboard.com/music/awards/taylor-swift-artist-decade-speech-2019-amas-8544659/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "christmas-tree-farm-mv",
@@ -536,6 +573,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "mN3rDTAdM2o",
       sources: [{ name: "Taylor Swift - Christmas Tree Farm", url: "https://www.youtube.com/watch?v=mN3rDTAdM2o", reliability: 5, type: "official" }, { name: "Christmas Tree Farm", url: "https://en.wikipedia.org/wiki/Christmas_Tree_Farm", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "sundance-miss-americana-qa-2020",
@@ -562,6 +600,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: null,
       sources: [{ name: "Miss Americana", url: "https://en.wikipedia.org/wiki/Miss_Americana", reliability: 2, type: "wiki" }, { name: "Taylor Swift Gets On the Right Side of History in First Trailer for Netflix's Miss Americana", url: "https://www.vanityfair.com/hollywood/2020/01/taylor-swift-netflix-miss-americana", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "the-man-mv",
@@ -575,6 +614,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The double-standard satire is the point: the same behavior reads as boss-like on a man, so she performs it as one. Her father cameos as the tennis umpire.",
       youtubeId: "AqAJLh9wuZ0",
       sources: [{ name: "Taylor Swift - The Man (Official Video)", url: "https://www.youtube.com/watch?v=AqAJLh9wuZ0", reliability: 5, type: "official" }, { name: "The Man (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "city-of-lover",
@@ -588,6 +628,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: null,
       sources: [{ name: "Taylor Swift City of Lover Concert", url: "https://en.wikipedia.org/wiki/Taylor_Swift_City_of_Lover_Concert", reliability: 2, type: "wiki" }, { name: "Listen to Taylor Swift's City of Lover Film Soundtrack", url: "https://pitchfork.com/news/listen-to-taylor-swifts-city-of-lover-film-soundtrack", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
   ],
   "midnights": [
@@ -603,6 +644,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Every setpiece literalizes a lyric: the too-big self at the table, the future reading of the will, the \"it's me, hi\" doubles — self-loathing staged as sitcom.",
       youtubeId: "b1kbLwvqugk",
       sources: [{ name: "Taylor Swift - Anti-Hero (Official Music Video)", url: "https://www.youtube.com/watch?v=b1kbLwvqugk", reliability: 5, type: "official" }, { name: "Anti-Hero (song)", url: "https://en.wikipedia.org/wiki/Anti-Hero_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "bejeweled-mv",
@@ -616,6 +658,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "b7QlX3yR2xs",
       sources: [{ name: "Taylor Swift - Bejeweled (Official Music Video)", url: "https://www.youtube.com/watch?v=b7QlX3yR2xs", reliability: 5, type: "official" }, { name: "Bejeweled (song)", url: "https://en.wikipedia.org/wiki/Bejeweled_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "lavender-haze-mv",
@@ -629,6 +672,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The all-consuming lavender cloud is the song's borrowed 50s idiom for being untouchably in love — weather instead of narrative.",
       youtubeId: "h8DLofLM7No",
       sources: [{ name: "Lavender Haze", url: "https://en.wikipedia.org/wiki/Lavender_Haze", reliability: 2, type: "wiki" }, { name: "Taylor Swift Shares New \"Lavender Haze\" Video: Watch", url: "https://pitchfork.com/news/taylor-swift-shares-new-lavender-haze-video-watch", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "eras-tour-film-premiere-carpet-2023",
@@ -642,6 +686,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "X_wHLxTOzas",
       sources: [{ name: "Taylor Swift hits red carpet for premiere of ‘Eras Tour’ concert film l GMA", url: "https://www.youtube.com/watch?v=X_wHLxTOzas", reliability: 5, type: "official" }, { name: "The Grove shut down for Taylor Swift \"The Eras Tour\" movie premiere", url: "https://www.cbsnews.com/amp/losangeles/news/the-grove-shutdown-for-taylor-swift-the-eras-tour-movie-premiere", reliability: 4, type: "reputable_press" }],
+      tags: ["Fashion"],
     },
     {
       slug: "taylor-swift-the-eras-tour-film",
@@ -655,6 +700,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: null,
       sources: [{ name: "Taylor Swift: The Eras Tour", url: "https://en.wikipedia.org/wiki/Taylor_Swift:_The_Eras_Tour", reliability: 2, type: "wiki" }, { name: "\"Taylor Swift: The Eras Tour\" Shatters Records and Becomes the Most-Watched Music Film on Disney+", url: "https://people.com/taylor-swift-the-eras-tour-most-watched-music-film-disney-plus-8611339", reliability: 4, type: "reputable_press" }],
+      tags: ["Tour"],
     },
     {
       slug: "grammys-album-of-the-year-2024",
@@ -668,6 +714,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "Yq-q-ZCZwxc",
       sources: [{ name: "TAYLOR SWIFT Wins Album Of The Year For 'MIDNIGHTS' | 2024 GRAMMYs Acceptance Speech", url: "https://www.youtube.com/watch?v=Yq-q-ZCZwxc", reliability: 5, type: "official" }],
+      tags: ["Music"],
     },
     {
       slug: "karma-mv",
@@ -681,6 +728,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "XzOvgu3GPwY",
       sources: [{ name: "Taylor Swift ft. Ice Spice - Karma (Official Music Video)", url: "https://www.youtube.com/watch?v=XzOvgu3GPwY", reliability: 5, type: "official" }, { name: "Karma (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Karma_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
   ],
   "red": [
@@ -696,6 +744,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "RzhAS_GnJIc",
       sources: [{ name: "Safe & Sound feat. The Civil Wars (The Hunger Games: Songs From District 12 And Beyond)", url: "https://www.youtube.com/watch?v=RzhAS_GnJIc", reliability: 5, type: "official" }, { name: "Safe & Sound (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "red-mv",
@@ -709,6 +758,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "Zlot0i3Zykw",
       sources: [{ name: "Taylor Swift - Red", url: "https://www.youtube.com/watch?v=Zlot0i3Zykw", reliability: 5, type: "official" }, { name: "Red (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "22-mv",
@@ -722,6 +772,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "AgFeZr5ptV8",
       sources: [{ name: "Taylor Swift - 22", url: "https://www.youtube.com/watch?v=AgFeZr5ptV8", reliability: 5, type: "official" }, { name: "22 (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/22_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "begin-again-mv",
@@ -735,6 +786,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "cMPEd8m79Hw",
       sources: [{ name: "Begin Again (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)", reliability: 2, type: "wiki" }, { name: "Taylor Swift Starts Over in Scenic 'Begin Again' Video", url: "https://tasteofcountry.com/taylor-swift-begin-again-video/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "everything-has-changed-mv",
@@ -748,6 +800,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "w1oM3kQpXRo",
       sources: [{ name: "Everything Has Changed", url: "https://en.wikipedia.org/wiki/Everything_Has_Changed", reliability: 2, type: "wiki" }, { name: "Taylor Swift, Ed Sheeran Return to Childhood in 'Everything Has Changed' Video: Watch", url: "https://www.billboard.com/music/music-news/taylor-swift-ed-sheeran-return-to-childhood-in-everything-has-changed-video-watch-1565874/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "i-knew-you-were-trouble-mv",
@@ -761,6 +814,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Waking up alone in the desert bookends the story: the video opens on the aftermath and spends its runtime explaining the wreckage.",
       youtubeId: "vNoKguSdy4Y",
       sources: [{ name: "Taylor Swift - I Knew You Were Trouble", url: "https://www.youtube.com/watch?v=vNoKguSdy4Y", reliability: 5, type: "official" }, { name: "I Knew You Were Trouble", url: "https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "we-are-never-ever-getting-back-together-mv",
@@ -774,6 +828,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "WA4iX5D9Z64",
       sources: [{ name: "Taylor Swift - We Are Never Ever Getting Back Together", url: "https://www.youtube.com/watch?v=WA4iX5D9Z64", reliability: 5, type: "official" }, { name: "We Are Never Ever Getting Back Together", url: "https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
   ],
   "reputation": [
@@ -789,6 +844,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Every set piece answers a headline from the preceding decade — the era's whole thesis is that she is burying the old narratives on camera.",
       youtubeId: "3tmd-ClpJxA",
       sources: [{ name: "Taylor Swift - Look What You Made Me Do", url: "https://www.youtube.com/watch?v=3tmd-ClpJxA", reliability: 5, type: "official" }, { name: "Look What You Made Me Do", url: "https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "ready-for-it-mv",
@@ -802,6 +858,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Widely read (and reported) as public-image Taylor confronting the real one — the naked android is the self the armor was built around.",
       youtubeId: "wIft-t-MQuE",
       sources: [{ name: "Taylor Swift - ...Ready For It?", url: "https://www.youtube.com/watch?v=wIft-t-MQuE", reliability: 5, type: "official" }, { name: "...Ready for It?", url: "https://en.wikipedia.org/wiki/...Ready_for_It%3F", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "end-game-mv",
@@ -815,6 +872,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "dfnCAmr569k",
       sources: [{ name: "Taylor Swift - End Game ft. Ed Sheeran, Future", url: "https://www.youtube.com/watch?v=dfnCAmr569k", reliability: 5, type: "official" }, { name: "End Game (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/End_Game_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "delicate-mv",
@@ -828,6 +886,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Invisibility as relief: the fame-armor drops the second nobody can see her, which is the lyric's whole ache — wanting one person to see through it on purpose.",
       youtubeId: "tCXGJQYZ9JA",
       sources: [{ name: "Taylor Swift - Delicate", url: "https://www.youtube.com/watch?v=tCXGJQYZ9JA", reliability: 5, type: "official" }, { name: "Delicate (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Delicate_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "reputation-stadium-tour-film",
@@ -841,6 +900,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: null,
       sources: [{ name: "Taylor Swift: Reputation Stadium Tour", url: "https://en.wikipedia.org/wiki/Taylor_Swift:_Reputation_Stadium_Tour", reliability: 2, type: "wiki" }, { name: "Taylor Swift's Reputation Film Shows Why She's One of the All-Time Greats", url: "https://www.rollingstone.com/music/music-live-reviews/taylor-swift-reputation-stadium-tour-netflix-movie-review-773808/", reliability: 4, type: "reputable_press" }],
+      tags: ["Tour"],
     },
   ],
   "speak-now": [
@@ -856,6 +916,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: null,
       sources: [{ name: "Speak Now World Tour", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour", reliability: 2, type: "wiki" }, { name: "Taylor Swift Announces Speak Now World Tour Live CD/DVD", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-speak-now-tour-live-cd-dvd-263669/", reliability: 4, type: "reputable_press" }],
+      tags: ["Tour"],
     },
     {
       slug: "i-can-see-you-mv",
@@ -869,6 +930,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The vault break-out literalizes the re-recording project itself: taking her art back from Big Machine.",
       youtubeId: "lVkKLf4DCn8",
       sources: [{ name: "Taylor Swift - I Can See You (Taylor's Version) (From The Vault) (Official Video)", url: "https://www.youtube.com/watch?v=lVkKLf4DCn8", reliability: 5, type: "official" }, { name: "I Can See You (song)", url: "https://en.wikipedia.org/wiki/I_Can_See_You_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music", "Tour"],
     },
     {
       slug: "back-to-december-mv",
@@ -882,6 +944,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The encroaching snow literalizes the regret the lyric circles — December overtaking the room as the apology goes unanswered.",
       youtubeId: "QUwxKWT6m7U",
       sources: [{ name: "Taylor Swift - Back To December", url: "https://www.youtube.com/watch?v=QUwxKWT6m7U", reliability: 5, type: "official" }, { name: "Back to December", url: "https://en.wikipedia.org/wiki/Back_to_December", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "mean-mv",
@@ -895,6 +958,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "jYa1eI1hpDE",
       sources: [{ name: "Taylor Swift - Mean", url: "https://www.youtube.com/watch?v=jYa1eI1hpDE", reliability: 5, type: "official" }, { name: "Mean (song)", url: "https://en.wikipedia.org/wiki/Mean_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "mine-mv",
@@ -908,6 +972,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "XPBwXKgDTdE",
       sources: [{ name: "Taylor Swift - Mine", url: "https://www.youtube.com/watch?v=XPBwXKgDTdE", reliability: 5, type: "official" }, { name: "Mine (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Mine_(Taylor_Swift_song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "ours-mv",
@@ -921,6 +986,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "LZ34LlaIk88",
       sources: [{ name: "Taylor Swift - Ours", url: "https://www.youtube.com/watch?v=LZ34LlaIk88", reliability: 5, type: "official" }, { name: "Ours (song)", url: "https://en.wikipedia.org/wiki/Ours_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "sparks-fly-mv",
@@ -934,6 +1000,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "oKar-tF__ac",
       sources: [{ name: "Taylor Swift - Sparks Fly", url: "https://www.youtube.com/watch?v=oKar-tF__ac", reliability: 5, type: "official" }, { name: "Sparks Fly (song)", url: "https://en.wikipedia.org/wiki/Sparks_Fly_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "the-story-of-us-mv",
@@ -947,6 +1014,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "nN6VR92V70M",
       sources: [{ name: "The Story of Us (song)", url: "https://en.wikipedia.org/wiki/The_Story_of_Us_(song)", reliability: 2, type: "wiki" }, { name: "Taylor Swift Tells 'The Story of Us' in New Video", url: "https://tasteofcountry.com/taylor-swift-story-of-us-video/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
   ],
   "tloas": [
@@ -962,6 +1030,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "M2lX9XESvDE",
       sources: [{ name: "Taylor Swift on Reclaiming Her Masters, Wrapping The Eras Tour, and The Life of a Showgirl | NHTV", url: "https://www.youtube.com/watch?v=M2lX9XESvDE", reliability: 5, type: "official" }],
+      tags: ["Music"],
     },
     {
       slug: "graham-norton-2025",
@@ -975,6 +1044,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "NlOdFJmkEls",
       sources: [{ name: "Taylor Swift Invites Graham Norton To Her Wedding - BBC", url: "https://www.youtube.com/watch?v=NlOdFJmkEls", reliability: 5, type: "official" }],
+      tags: ["Music", "Relationship"],
     },
     {
       slug: "the-official-release-party-of-a-showgirl",
@@ -988,6 +1058,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: null,
       sources: [{ name: "The Official Release Party of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Official_Release_Party_of_a_Showgirl", reliability: 2, type: "wiki" }, { name: "Taylor Swift Debuts The Fate of Ophelia Music Video After Premiering It at Life of a Showgirl Movie Event", url: "https://people.com/taylor-swift-the-fate-of-ophelia-music-video-11823344", reliability: 4, type: "reputable_press" }],
+      tags: ["Music"],
     },
     {
       slug: "the-fate-of-ophelia-mv",
@@ -1001,6 +1072,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Rescue-by-love replaces the drowning — the era's glitter is framed as the survivable version of the tragedy.",
       youtubeId: "ko70cExuzZM",
       sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia", reliability: 2, type: "wiki" }, { name: "Taylor Swift Debuts The Fate of Ophelia Music Video After Premiering It at Life of a Showgirl Movie Event", url: "https://people.com/taylor-swift-the-fate-of-ophelia-music-video-11823344", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift - The Fate of Ophelia (Official Music Video)", url: "https://www.youtube.com/watch?v=ko70cExuzZM", reliability: 5, type: "official" }],
+      tags: ["Music"],
     },
     {
       slug: "tonight-show-fallon-2025",
@@ -1014,6 +1086,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "GzjZqH0WRwE",
       sources: [{ name: "Taylor Swift Stops by The Tonight Show | The Tonight Show Starring Jimmy Fallon", url: "https://www.youtube.com/watch?v=GzjZqH0WRwE", reliability: 5, type: "official" }, { name: "Taylor Swift on The Tonight Show", url: "https://www.hollywoodreporter.com/music/music-news/taylor-swift-jimmy-fallon-tonight-show-life-of-a-showgirl-1236394527/", reliability: 4, type: "reputable_press" }, { name: "How to Watch the Extended Taylor Swift Tonight Show Interview", url: "https://www.nbc.com/nbc-insider/how-to-watch-taylor-swift-extended-tonight-show-interview", reliability: 4, type: "reputable_press" }],
+      tags: ["Music", "Relationship"],
     },
     {
       slug: "zane-lowe-apple-music-2025",
@@ -1027,6 +1100,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "mUZ9T-hstUI",
       sources: [{ name: "Taylor Swift: The Life of a Showgirl and Writing Process | The Zane Lowe Interview", url: "https://www.youtube.com/watch?v=mUZ9T-hstUI", reliability: 5, type: "official" }],
+      tags: ["Music"],
     },
     {
       slug: "late-night-seth-meyers-2025",
@@ -1040,6 +1114,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "Wd7S1wZqkbI",
       sources: [{ name: "Taylor Swift and Seth Talk The Life of a Showgirl, Travis Kelce and More", url: "https://www.youtube.com/watch?v=Wd7S1wZqkbI", reliability: 5, type: "official" }, { name: "Taylor Swift Extended Interview on Late Night With Seth Meyers", url: "https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music", "Relationship"],
     },
     {
       slug: "late-show-colbert-2025",
@@ -1053,6 +1128,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "qtyzac0JbS4",
       sources: [{ name: "Taylor Swift's Good Year: Engaged To The Love Of Her Life, In Control Of Her Music Masters", url: "https://www.youtube.com/watch?v=qtyzac0JbS4", reliability: 5, type: "official" }, { name: "Taylor Swift on The Late Show", url: "https://www.rollingstone.com/music/music-news/taylor-swift-engagement-masters-showgirl-late-show-1235482380/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift's Five Favorite Taylor Swift Songs", url: "https://www.billboard.com/music/pop/taylor-swift-five-favorite-taytay-songs-colbert-1236134507/", reliability: 4, type: "reputable_press" }],
+      tags: ["Music", "Relationship"],
     },
     {
       slug: "opalite-mv",
@@ -1066,6 +1142,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "1FVF-9KQiPo",
       sources: [{ name: "Taylor Swift - Opalite (Official Music Video)", url: "https://www.youtube.com/watch?v=1FVF-9KQiPo", reliability: 5, type: "official" }, { name: "Opalite (song)", url: "https://en.wikipedia.org/wiki/Opalite_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "elizabeth-taylor-mv",
@@ -1079,6 +1156,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "WqbJT_vC0rs",
       sources: [{ name: "Taylor Swift - Elizabeth Taylor (Official Music Video)", url: "https://www.youtube.com/watch?v=WqbJT_vC0rs", reliability: 5, type: "official" }, { name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
   ],
   "ttpd": [
@@ -1094,6 +1172,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "The typewriter-era styling and the institution of tortured poets literalize the album's conceit: heartbreak processed as manuscript, \"I love you, it's ruining my life\" typed instead of said.",
       youtubeId: "q3zqJs7JUCQ",
       sources: [{ name: "Taylor Swift - Fortnight (feat. Post Malone) (Official Music Video)", url: "https://www.youtube.com/watch?v=q3zqJs7JUCQ", reliability: 5, type: "official" }, { name: "Fortnight (song)", url: "https://en.wikipedia.org/wiki/Fortnight_(song)", reliability: 2, type: "wiki" }],
+      tags: ["Music"],
     },
     {
       slug: "vmas-fortnight-speech-2024",
@@ -1107,6 +1186,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: null,
       youtubeId: "g55D_gAoC3I",
       sources: [{ name: "Taylor Swift Remembers 9/11 During VMAs Acceptance Speech", url: "https://www.youtube.com/watch?v=g55D_gAoC3I", reliability: 5, type: "official" }],
+      tags: ["Music"],
     },
     {
       slug: "i-can-do-it-with-a-broken-heart-mv",
@@ -1120,6 +1200,7 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       symbolism: "Using documentary tour footage as the \"set\" makes the lyric literal: the biggest tour ever staged is the broken heart's day job.",
       youtubeId: "Sl6en1NPTYM",
       sources: [{ name: "I Can Do It with a Broken Heart", url: "https://en.wikipedia.org/wiki/I_Can_Do_It_with_a_Broken_Heart", reliability: 2, type: "wiki" }, { name: "Taylor Swift Offers Inside Look at Tour - and Confirms How She Gets Onstage - with 'I Can Do It with a Broken Heart' Video", url: "https://people.com/taylor-swift-releases-i-can-do-it-with-a-broken-heart-music-video-8698971", reliability: 4, type: "reputable_press" }],
+      tags: ["Music", "Tour"],
     },
   ],
 };

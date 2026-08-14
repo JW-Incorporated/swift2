@@ -5,11 +5,10 @@ import { AppProvider, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { eraStyle, vaultStyle, VAULT_THEME } from '@/lib/longlive/theme';
 import { TopBar } from './TopBar';
-import { LandingPage } from './LandingPage';
 import { EraStream } from './EraStream';
 import { ThreadsMode } from './ThreadsMode';
 import { MoodChat } from './MoodChat';
-import { Clownbot } from './Clownbot';
+import { ClownChat } from './ClownChat';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
@@ -19,6 +18,7 @@ import { ShareSheet } from './ShareSheet';
 import { SearchOverlay } from './SearchOverlay';
 import { SiteFooter } from './SiteFooter';
 import { FeedbackButton } from './FeedbackButton';
+import { BottomNav } from './BottomNav';
 
 function Shell() {
   const { mode, eraId } = useAppState();
@@ -26,32 +26,27 @@ function Shell() {
   const inThreads = mode === 'threads';
   const inMood = mode === 'mood';
   const inClownbot = mode === 'clownbot';
-  const onLanding = mode === 'landing';
 
-  // Keep the document theme-color in sync with the active surface. The
-  // landing page (#684) shares the current era's palette, like the selector.
+  // Keep the document theme-color in sync with the active surface.
   const themeColor = inThreads ? VAULT_THEME.bg : era.theme.bg;
   useEffect(() => {
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', themeColor);
   }, [themeColor]);
 
-  // Entering Threads or the landing page should start at the top. Era mode
-  // manages its own scroll (EraStream restores the user's previous spot, or
-  // starts at the top).
+  // Entering Threads should start at the top. Era mode manages its own
+  // scroll (EraStream restores the user's previous spot, or starts at the
+  // top, or scrolls the masthead away for an explicit jump/goHome).
   useEffect(() => {
     if (mode !== 'era') window.scrollTo({ top: 0, behavior: 'auto' });
   }, [mode]);
 
   return (
     <div className="era-shell font-sans" style={inThreads ? vaultStyle() : eraStyle(era)}>
-      {/* The landing page carries its own wordmark + toggle — no TopBar. */}
-      {!onLanding && <TopBar />}
+      <TopBar />
       <main>
-        {onLanding ? (
-          <LandingPage />
-        ) : inClownbot ? (
-          <Clownbot />
+        {inClownbot ? (
+          <ClownChat />
         ) : inMood ? (
           <MoodChat />
         ) : inThreads ? (
@@ -61,6 +56,15 @@ function Shell() {
         )}
       </main>
       <SiteFooter />
+      {/* Clearance for the fixed BottomNav. It cannot push content itself, so
+          without this the last card of every surface — and the footer — sit
+          under the bar on mobile. Matches the bar's own height plus the same
+          safe-area inset it pads with; zero at md+, where there is no bar. */}
+      <div
+        aria-hidden
+        className="md:hidden"
+        style={{ height: 'calc(3.5rem + env(safe-area-inset-bottom))' }}
+      />
 
       {/* Overlays */}
       <EraSelector />
@@ -70,6 +74,15 @@ function Shell() {
       <MomentDetail />
       <ShareSheet />
       <SearchOverlay />
+
+      {/* Mobile tab bar (P4, R3) — desktop keeps TopBar's pill rail instead. */}
+      {/* Mounted on EVERY surface including the front door — Joey, 2026-08-13:
+          "the landing page IS the website... it's just a redesign of the main
+          page". The bar is the mobile navigation, so it does not get to be
+          absent from the first screen a visitor sees. (R1, 2026-08-14: the
+          front door is now the era stream itself, TopBar included — there is
+          no more separate landing surface for either bar to be exempt from.) */}
+      <BottomNav />
 
       {/* Always-available issue reporter, fixed bottom-right. */}
       <FeedbackButton />

@@ -12,16 +12,32 @@ function headingLevels(relPath: string): number[] {
 // in ThreadsMode) — axe `heading-order`, every era and two thread surfaces.
 // The fix is a visually-hidden h2 introducing each list; these tests pin the
 // resulting source-order outline so a card redesign can't silently reopen the
-// jump. Source order is document order here: each file renders a single
-// linear layout.
+// jump.
+//
+// PLAN.md P3 step 15 split EraSection.tsx's single-file layout into several
+// components (EraFeedList's h2, the card kinds' h3s) — see MAP.md. Source
+// order is no longer document order within one file, so the outline is
+// pinned per file instead: EraSection contributes only the h1, EraFeedList
+// contributes only the h2 that must come next, and every card-kind file
+// (rendered inside EraFeedList, below its h2) contributes only h3s — none of
+// them can reopen an h1/h2 further down the tree.
 describe('heading outline has no h1 → h3 jumps (#703)', () => {
-  it('EraSection puts an h2 between the era h1 and the first card h3', () => {
-    const levels = headingLevels('./EraSection.tsx');
-    expect(levels[0]).toBe(1); // era hero
-    expect(levels[1]).toBe(2); // feed group heading
-    levels.forEach((level, i) => {
-      if (i > 0) expect(level).toBeLessThanOrEqual(levels[i - 1] + 1);
-    });
+  it('EraSection renders only the era hero h1 — the feed heading lives in EraFeedList', () => {
+    expect(headingLevels('./EraSection.tsx')).toEqual([1]);
+  });
+
+  it('EraFeedList opens the feed with its own h2, and nothing else', () => {
+    expect(headingLevels('./EraFeedList.tsx')).toEqual([2]);
+  });
+
+  it.each([
+    ['./MomentCardButton.tsx'],
+    ['./VideoMomentCard.tsx'],
+    ['./DoorwayCard.tsx'],
+  ])('%s only ever contributes h3s below EraFeedList\'s h2', (relPath) => {
+    const levels = headingLevels(relPath);
+    expect(levels.length).toBeGreaterThan(0);
+    expect(levels.every((l) => l === 3)).toBe(true);
   });
 
   it.each([
