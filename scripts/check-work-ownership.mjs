@@ -85,6 +85,7 @@ export const EXEMPT = {
   'founders-brief': 'One issue per day, closed by the next brief — a publication, not a task.',
   'watchdog-alert': 'Persistent per-condition alert; staying open IS the mechanism (scripts/watchdog/upsert-alert.sh).',
   'routine-audit': 'The single evolving Routine Audit issue (docs/agents/routine-invariants.md).',
+  'fleet-reconcile': 'The single evolving Fleet Reconcile cadence log (docs/agents/fleet-schedule.md) — one comment per run, including no-op runs.',
   'kevin-triage': "Kevin's triage digest — a queue view, not an item in the queue.",
   'kevin-digest': "Kevin's user-feedback digest — same reason.",
   'kevin-radar': "Kevin's comment radar digest — same reason.",

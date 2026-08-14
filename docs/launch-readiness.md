@@ -142,12 +142,21 @@ Scope note: the checker reads cadence words in the *meaning* and *scoreboard*
 tables only. A cadence mentioned solely in the long-form evidence rows below
 is documentation, not a claim.
 
+Source note (2026-08-14): for cloud routines the cited file is now
+`docs/agents/fleet-schedule.md` — the declared desired state that the Fleet
+Reconciler applies to the live fleet — rather than `docs/agents/runners.md`,
+which records history. So a cadence change made in the schedule file breaks
+`build` until the gate it backs is re-scored here, which is the entire point of
+rule 4. `scripts/check-fleet-schedule.mjs` enforces the same coupling from the
+other side: it fails if the schedule file and this table disagree about a
+trigger's cron, or if a routine a gate depends on is switched off.
+
 <!-- gates:cadence:start -->
 
 | Gate | Cadence the criterion claims | Runner that provides it | Registered cadence | Where that cadence is registered |
 |---|---|---|---|---|
-| SCAN | nightly | Karen — content-safety scan (`trig_014HWuRmT2MFveDkPGwVDiQX`) | `0 9 * * 0` ⚠️ weekly, below the claim since 2026-07-25 | `docs/agents/runners.md` |
-| ERRORS | nightly | Karen — content-safety scan (fills and drains the `cie` queue) | `0 9 * * 0` ⚠️ weekly, below the claim since 2026-07-25 | `docs/agents/runners.md` |
+| SCAN | nightly | Karen — content-safety scan (`trig_014HWuRmT2MFveDkPGwVDiQX`) | `0 9 * * 0` ⚠️ weekly, below the claim since 2026-07-25 | `docs/agents/fleet-schedule.md` |
+| ERRORS | nightly | Karen — content-safety scan (fills and drains the `cie` queue) | `0 9 * * 0` ⚠️ weekly, below the claim since 2026-07-25 | `docs/agents/fleet-schedule.md` |
 | ALARMS | hourly | watchdog → "Prod smoke check" step | `5 * * * *` | `.github/workflows/watchdog.yml` |
 | PLUMBING | daily | E2E synthetic monitor | `5 13 * * *` | `.github/workflows/e2e.yml` |
 
