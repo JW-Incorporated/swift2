@@ -1,6 +1,16 @@
 'use client';
 
-import { ChevronDown, Compass, Search, Share2, Layers, Sparkles, VenetianMask } from 'lucide-react';
+import {
+  ChevronDown,
+  Compass,
+  Search,
+  Share2,
+  Layers,
+  Sparkles,
+  VenetianMask,
+  Users,
+  ShoppingBag,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getEra } from '@/lib/longlive/eras';
 import { getThread } from '@/lib/longlive/lenses';
@@ -72,9 +82,13 @@ export function TopBar() {
                 ? 'Mood'
                 : mode === 'clownbot'
                   ? 'Clownbot'
-                  : lensId
-                    ? `Thread: ${getThread(lensId).title}`
-                    : 'The Threads'}
+                  : mode === 'community'
+                    ? 'Community'
+                    : mode === 'merch'
+                      ? 'Merch'
+                      : lensId
+                        ? `Thread: ${getThread(lensId).title}`
+                        : 'The Threads'}
             </span>
           )}
         </div>
@@ -114,10 +128,17 @@ export function TopBar() {
   );
 }
 
-export type ToggleMode = 'era' | 'threads' | 'mood' | 'clownbot';
+export type ToggleMode = 'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch';
 
 /** Tab order — also the indicator's translateX multiplier. */
-const TOGGLE_ORDER: readonly ToggleMode[] = ['era', 'threads', 'mood', 'clownbot'];
+const TOGGLE_ORDER: readonly ToggleMode[] = [
+  'era',
+  'threads',
+  'mood',
+  'clownbot',
+  'community',
+  'merch',
+];
 
 export function ModeToggle({
   mode,
@@ -134,10 +155,9 @@ export function ModeToggle({
   // With four labelled tabs the landing-page variant has no room for icons on
   // a narrow phone, so it goes text-only there and regains them at sm+.
   const iconClass = cn('size-3.5 md:size-4', alwaysShowLabels && 'hidden sm:block');
-  // Four surfaces now, so the sliding indicator is quarters, not thirds:
-  // container padding is p-1 (0.25rem each side), so one tab is
-  // (W - 0.5rem) / 4 === 25% - 0.125rem. Same derivation as the old
-  // 33.333% - 0.1667rem; only the divisor changed.
+  // Six surfaces now, so the sliding indicator is sixths: container padding
+  // is p-1 (0.25rem each side), so one tab is (W - 0.5rem) / 6. Same
+  // derivation as the old 25% - 0.125rem; only the divisor changed.
   const index = Math.max(0, TOGGLE_ORDER.indexOf(mode));
   return (
     <div
@@ -147,12 +167,13 @@ export function ModeToggle({
         'relative flex w-auto items-center rounded-full border border-line bg-surface p-1',
         // A fourth labelled tab overflows a 360px phone at a fixed width, so
         // the always-labelled (landing) variant is fluid up to its ideal size.
-        alwaysShowLabels ? 'w-full max-w-[352px] md:max-w-[420px]' : 'sm:w-[352px] md:w-[420px]',
+        // Fixed widths scaled 1.5x (352->528, 420->630) for the two new tabs.
+        alwaysShowLabels ? 'w-full max-w-[528px] md:max-w-[630px]' : 'sm:w-[528px] md:w-[630px]',
       )}
     >
       <span
         aria-hidden
-        className="absolute inset-y-1 w-[calc(25%-0.125rem)] rounded-full bg-accent transition-transform duration-300 ease-out"
+        className="absolute inset-y-1 w-[calc((100%-0.5rem)/6)] rounded-full bg-accent transition-transform duration-300 ease-out"
         style={{ transform: `translateX(${index * 100}%)` }}
       />
       <button
@@ -213,6 +234,34 @@ export function ModeToggle({
       >
         <VenetianMask className={iconClass} />
         <span className={labelClass}>Clownbot</span>
+      </button>
+      <button
+        role="tab"
+        aria-selected={mode === 'community'}
+        // Same reason as the others (#656, WCAG 4.1.2).
+        aria-label="Community"
+        onClick={() => onChange('community')}
+        className={cn(
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-colors md:px-3 md:text-sm',
+          mode === 'community' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+        )}
+      >
+        <Users className={iconClass} />
+        <span className={labelClass}>Community</span>
+      </button>
+      <button
+        role="tab"
+        aria-selected={mode === 'merch'}
+        // Same reason as the others (#656, WCAG 4.1.2).
+        aria-label="Merch"
+        onClick={() => onChange('merch')}
+        className={cn(
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-colors md:px-3 md:text-sm',
+          mode === 'merch' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+        )}
+      >
+        <ShoppingBag className={iconClass} />
+        <span className={labelClass}>Merch</span>
       </button>
     </div>
   );
