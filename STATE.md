@@ -25,15 +25,29 @@ fixes and the docs. Bottom nav on EVERY surface incl. the front door (Joey:
 "the landing page IS the website"), plus the content spacer the fixed bar
 needed. All gates green: 2636 tests, typecheck, lint, `check:filter-coverage`.
 
-In flight: (a) Codex re-review of the five fixes, (b) an executor authoring
-topic tags onto `VideoNote` (new field, end to end through the seeds + sync
-script) so the 18 appearance videos reach a topic chip.
+**Video topic tags DONE.** `VideoNote.tags` authored end to end; the
+music-video inference in `filtersForEntry` is DELETED, not left beside it.
+Untagged appearance videos 18 → 3 (the three are deliberate: their own text
+supports no topic). `check:generated` green.
+
+**Codex round 2 came back DIRTY** — see § Codex reviews below. An executor is
+fixing it. **Do not collapse the PR until Codex round 3 is clean.**
 
 **Joey wants ONE PR** (2026-08-13). `feature/era-reader-p4` already contains
 every commit from P1–P3, so: `git push origin
 feature/era-reader-p4:feature/era-reader-rework` is a fast-forward and turns
 **#2086 into the single PR**. Then `gh pr edit 2086` to retitle/rewrite the
 body for the whole rework. No force push, no closing anything.
+
+**MERGE AUTHORIZED — Joey, 2026-08-13, explicitly: "please merge it when it's
+completely done. You have my permission."** This is the § Decision authority
+approval that gate requires, for THIS PR only; it does not generalise to
+future work. "Completely done" = Codex clean + full suite + typecheck + lint +
+`check:generated` + `check:filter-coverage` green + CI `build` green on the
+PR. **Do not merge on a dirty Codex review** — he was told he'd rather wake to
+an unmerged green PR than a deployed broken one, and did not contradict it.
+He was also told, twice, that the bottom nav has never been seen on a real
+device; he authorised the merge anyway. Recorded, not re-litigated.
 
 **HOW TO GET A CODEX REVIEW (agents do this themselves — never hand it to a
 founder).** `/codex:review` the SLASH COMMAND is human-only, but Codex is
@@ -103,7 +117,32 @@ on P3 (clamp anchors, kill the overload scaffolding, make R4 unconditional)
 - Scheduled runners live on Wyatt's account, never Joey's.
 - No self-armed PR monitors, ever (CLAUDE.md § Never babysit your own PR).
 
-## Codex review, job `task-mssb0p0c-vzzubf` (2026-08-13, 15m20s)
+## Codex round 2, job `task-mssduf1d-erbg7z` (2026-08-13, 10m37s)
+
+**2 of 5 genuinely fixed, 3 partial, 4 NEW defects.** Verdict: the fix diff is
+not clean. Being fixed now.
+
+- **HIGH still live.** `nearestAnchorExact` only replaces an anchor on a
+  STRICTLY smaller distance, so a synthetic anchor TYING with exact anchors on
+  the same date loses — debut's clamped `taylors-version` doorway shows
+  "Oct 2006". The new test used only distinct dates. Same on reputation and
+  tloas.
+- Scroll pin can still reach page top: `era-stream-pin.ts` never receives
+  `scrollY`, so it can request a negative absolute position that clamps to 0.
+- The remix rule unpaired "Fortnight (feat. Post Malone)", which IS the album
+  recording — the TRACK seed names that very `youtubeId`. Rule: authored data
+  beats inference. Also `feat.` without parens still slips, and qualifiers are
+  searched against a JOINED `relatedSongs` blob.
+- NEW MED: the feedback dismiss X overlaps the feedback trigger on mobile
+  (`size-5` vs `.era-icon-btn`'s 44px floor) — tapping Feedback dismisses it.
+- NEW LOW ×3: no `aria-current` on the mobile landing nav; the gloss line
+  flashes Eras→pick and can reflow; a dismissed feedback button flashes back
+  on reload.
+
+Genuinely fixed: the duplicate legacy matcher (one matcher left in the app),
+and the FilterBar seed (never visible on the only mount path).
+
+## Codex round 1, job `task-mssb0p0c-vzzubf` (2026-08-13, 15m20s)
 
 Five findings on `main...feature/era-reader-p2`, all being fixed on the P4
 branch. Codex reproduced them by EXECUTING the corpus, not just reading —
@@ -136,6 +175,12 @@ the `EraVideos` deletion vs the scrubber sentinel, lazy-era races, and the
 <!-- Things that already burned tokens once. Paste the relevant ones into
      delegation prompts — agents do not read this file. -->
 
+- **`npm run lint` is polluted locally, ~630 errors, NOT ours.** Another
+  session left a git worktree at `.scratch/clownbot-corpus-worktree`; ESLint
+  then sees two `tsconfigRootDir`s and fails files nobody touched. `.scratch/`
+  is git-ignored, so CI (clean checkout) is unaffected. Lint the specific
+  files instead of trusting the repo-wide run, and do NOT "fix" it by deleting
+  another session's worktree.
 - **Two matchers, one app** — the lesson from Codex findings 2 and 4. Building
   a careful new helper does NOT retire the sloppy old one; grep for other
   callers before declaring a matching bug fixed. Same shape as the HIGH date
