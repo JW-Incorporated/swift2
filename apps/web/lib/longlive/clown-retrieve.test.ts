@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { detectRecencyIntent, retrieveClownDocs } from './clown-retrieve';
+import { allClownDocs } from './clown-index';
 import type { ClownDoc } from './clown-index';
 
 function doc(overrides: Partial<ClownDoc>): ClownDoc {
@@ -195,5 +196,42 @@ describe('retrieveClownDocs — determinism', () => {
     const fromForward = retrieveClownDocs('matching title term', forward, { now }).map((d) => d.id);
     const fromReversed = retrieveClownDocs('matching title term', reversed, { now }).map((d) => d.id);
     expect(fromForward).toEqual(fromReversed);
+  });
+});
+
+describe('retrieveClownDocs — real corpus regression (Finding 4: hyphenated compounds)', () => {
+  const NOW = new Date('2026-08-13');
+
+  // The regression lock: a document's own title must always retrieve that
+  // document. Sampled rather than exhaustive (822 real docs at the time of
+  // writing) so the test stays fast — every 30th doc is a broad, deterministic
+  // cross-section of theories/lore/moments/rumors.
+  //
+  // Docs whose title itself reads as a recency phrase (`detectRecencyIntent`,
+  // e.g. one literally containing "today") are skipped: those route through
+  // the recency ranker instead of relevance ranking by design, which is a
+  // separate, pre-existing interaction — not part of this fix — and skipping
+  // it here avoids masking a real hyphenation regression with an unrelated
+  // false failure.
+  it('a sample of real documents are retrieved by querying their own title', () => {
+    const docs = allClownDocs();
+    const sample = docs.filter((d, i) => i % 30 === 0 && !detectRecencyIntent(d.title));
+    expect(sample.length).toBeGreaterThan(10);
+    for (const d of sample) {
+      const results = retrieveClownDocs(d.title, docs, { now: NOW, limit: 50 });
+      expect(results.map((r) => r.id)).toContain(d.id);
+    }
+  });
+
+  // Finding 4's exact repro: the query hyphenates "Swifties-against-AI" as one
+  // token, but the real `lore:swifties-against-ai` doc's title renders the
+  // same compound with no delimiter at all (`#SwiftiesAgainstAI`). Before the
+  // fix, `retrieveClownDocs` returned `[]` for this query.
+  it('retrieves lore:swifties-against-ai for a natural-language query that hyphenates the compound', () => {
+    const docs = allClownDocs();
+    const results = retrieveClownDocs('Summarize the Swifties-against-AI episode neutrally.', docs, {
+      now: NOW,
+    });
+    expect(results.map((r) => r.id)).toContain('lore:swifties-against-ai');
   });
 });
