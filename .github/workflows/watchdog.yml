@@ -157,11 +157,21 @@ jobs:
           # For each open bank issue: if a FOUNDER commented in the last 25h,
           # cross-post a pointer to every ticket in its "### Affects" field.
           # Idempotence: skip if we already pointed at that founder comment.
+          #
+          # WHO COUNTS AS A FOUNDER (narrowed 2026-08-14, project handoff —
+          # docs/decisions.md). This used to accept `wjduvall-cmd` as well.
+          # That is the account the scheduled fleet pushes and comments as
+          # (see docs/agents/runners.md, docs/agents/austin.md "all a11y
+          # tickets are wjduvall-cmd-authored"), so an agent comment on a bank
+          # item could be relayed to every affected ticket as "Founder
+          # decision" — a machine's opinion laundered into a ruling. Since the
+          # handoff there is exactly one decision-maker, `sffan15-sys` (Joey),
+          # so the correct set and the safe set are now the same one login.
           SINCE=$(date -u -d '25 hours ago' +%Y-%m-%dT%H:%M:%SZ)
           for NUM in $(gh issue list --repo "$REPO" --label founder-decision \
               --state open --limit 100 --json number --jq '.[].number'); do
             COMMENT=$(gh api "repos/${REPO}/issues/${NUM}/comments" \
-              --jq "[.[] | select(.user.login == \"sffan15-sys\" or .user.login == \"wjduvall-cmd\")
+              --jq "[.[] | select(.user.login == \"sffan15-sys\")
                      | select(.created_at > \"${SINCE}\")] | last // empty")
             [ -z "$COMMENT" ] && continue
             C_URL=$(echo "$COMMENT" | jq -r '.html_url')

@@ -35,7 +35,7 @@ explicit.
    that separation as a deletion — it wasn't). Its location changed; the rule
    did not: Kevin never runs or modifies it. Per its trust model, credentialed
    unattended runs happen on trusted branches only until the content-inertness
-   CI check (#488) lands — that's Wyatt's to wire, not Kevin's.
+   CI check (#488) lands — that's an engine-side task, not Kevin's.
 4. **Validate before every commit:** `node scripts/validate-content.mjs` must
    report 0 errors and `node --check` must pass on each edited file.
 5. **Image fixes are verify-first:** never write an image URL unless it returns
@@ -111,8 +111,8 @@ anything ships, but a PR-per-ticket is too much admin. So:
 
 **Once daily**, Kevin posts/updates a single GitHub issue titled
 **`Kevin Daily Review — YYYY-MM-DD`** (labels `kevin-digest`), containing a
-compact **review list** — one block per pending user ticket. The reviewer (Joey
-or Wyatt) ticks **✅ Accept** or **❌ Reject** on each block and leaves the rest to
+compact **review list** — one block per pending user ticket. The reviewer
+(Joey) ticks **✅ Accept** or **❌ Reject** on each block and leaves the rest to
 Kevin. (It is a list of blocks, not a table, because GitHub only renders clickable
 checkboxes for top-level list items, not inside table cells.)
 
@@ -157,16 +157,20 @@ admin is **merge one `kevin/user-fixes` PR**. Everything mechanical is Kevin's.
 
 ## Stream 3 — engineering/product tickets (Joey / `sffan15-sys`): triage only, never auto-code
 
-Some collaborators — currently `sffan15-sys` (Joey) — file **engineering/product**
-tickets (bugs, features, UX, tooling, process) that change *code and features*, not
-seed content. They are often high-quality and come with root-cause + a suggested
-fix, but they are **not** Karen-shaped content corrections. **Kevin must not
-auto-code these** — an unattended content-fix loop turned loose on a back-button
-bug or a page rebuild does harm. Kevin's only job here is **triage**.
+Humans file **engineering/product** tickets (bugs, features, UX, tooling,
+process) that change *code and features*, not seed content — in practice
+`sffan15-sys` (Joey). They are often high-quality and come with root-cause + a
+suggested fix, but they are **not** Karen-shaped content corrections. **Kevin
+must not auto-code these** — an unattended content-fix loop turned loose on a
+back-button bug or a page rebuild does harm. That is a safety limit on Kevin,
+not a limit on who may work where, and it is unaffected by the 2026-08-14
+handoff. Kevin's only job here is **triage**.
 
-**Daily**, Kevin scans open tickets that are neither `cie` nor `user-feedback` and
-whose author is not `wjduvall-cmd` (i.e. Joey's), and posts/updates one issue
-**`Kevin Eng Triage — YYYY-MM-DD`** (label `kevin-triage`) that buckets each into:
+**Daily**, Kevin scans open tickets that are neither `cie` nor `user-feedback`
+and whose author is not `wjduvall-cmd` — the account the scheduled fleet runs
+on, so this fence skips the fleet's own filings rather than a person's — and
+posts/updates one issue **`Kevin Eng Triage — YYYY-MM-DD`** (label
+`kevin-triage`) that buckets each into:
 **bug** (small/pre-diagnosed) · **feature** · **major/overhaul** · **tooling/Karen**
 · **content-ops/process** · **likely-already-resolved**, each with a one-line
 tractability note and a flag for anything pre-go-live-urgent. Kevin does **not**
@@ -194,8 +198,9 @@ decision, a human acts.
 ### Stream 3 comment radar (fast poll — filed as #451)
 
 Once-daily triage is too slow for **coordination between two AI sessions**
-(Joey's and Wyatt's), which happens in comments: a review finding on an open PR,
-or an answer to a "decisions needed" item on a phased plan, can otherwise sit
+(a founder session and the scheduled fleet), which happens in comments: a review
+finding on an open PR, or an answer to a "decisions needed" item on a phased
+plan, can otherwise sit
 unread for up to a day. (This mechanism exists because we hit exactly that — a
 PR collected three more commits after a review flagged four issues, none
 addressed, because nothing re-read the comment.) So, **in addition to** the daily
@@ -218,8 +223,8 @@ triage, Kevin runs a **cheap, frequent comment radar**:
 
 | New comment is… | Kevin does (never auto-codes) |
 |---|---|
-| A **review finding on an open PR** (approve / changes-requested / a plain list of issues) | Surface it **prominently** to Wyatt: post/refresh one pinned **`Kevin Review Radar — YYYY-MM-DD`** issue (label `kevin-radar`) summarizing the finding, the PR, and a direct link, so it can't be lost while the PR keeps collecting commits. Flag actionable code review as "needs Wyatt / in-session dev pass." |
-| An **answer to an open "decisions needed" item** on a phased-plan or triage post | Update that plan/triage entry to record the decision and mark the item **ready-to-build** for Wyatt. |
+| A **review finding on an open PR** (approve / changes-requested / a plain list of issues) | Surface it **prominently**: post/refresh one pinned **`Kevin Review Radar — YYYY-MM-DD`** issue (label `kevin-radar`) summarizing the finding, the PR, and a direct link, so it can't be lost while the PR keeps collecting commits. Flag actionable code review as "needs a dev pass" — a founder session or the Build desk, whichever is next. |
+| An **answer to an open "decisions needed" item** on a phased-plan or triage post | Update that plan/triage entry to record the decision and mark the item **ready-to-build**. |
 | Anything else Stream-3 relevant | Note it in the radar issue. |
 
 **The `never auto-code Stream 3` invariant is unchanged and explicitly

@@ -1,8 +1,16 @@
-# Roadmap — Vault v1 (owner-split execution plan)
+# Roadmap — Vault v1 (execution plan)
 
 The **what/how** lives in `docs/specs/2026-07-03-vault-mvp-v1-spec.md`. This doc
-is the **who/when**, split into two tracks so Wyatt and Joey (each with their AI
-session) work in parallel toward a ship by Taylor's wedding.
+is the **who/when**.
+
+> **The two-track owner split ended 2026-08-14** (project handoff — see
+> `docs/decisions.md` and `CLAUDE.md` § Ownership). The ENGINE / CONTENT tracks
+> below were a *collision-avoidance device* for two founders working in parallel,
+> not a permission boundary, and there is now one owner: **Joey owns both tracks
+> and every file in this repo.** No session or agent is fenced to a track — take
+> the topmost unfinished work package in either table. The tracks are kept below
+> because the work packages, their sequencing and their status are still the real
+> plan of record; read them as two workstreams, not two territories.
 
 > **Known gap (as of the LongLive rewrite):** CONTENT-track authoring below
 > targets the Supabase `month_item`/`moment`/`track_note` schema, but the
@@ -16,38 +24,47 @@ session) work in parallel toward a ship by Taylor's wedding.
 
 ## ▶ How to start a session — just say "start working"
 
-Each founder's agent owns ONE track. You never need to name a work package —
-the agent reads its track, takes the topmost row not marked ✅, and begins.
+You never need to name a work package — read both tables below, take the topmost
+row not marked ✅ that fits the session's purpose, and begin.
 
-| Founder | Track | Your agent's next action |
-|---------|-------|--------------------------|
-| **Wyatt** (CTO) | **ENGINE** | review/merge the **W4 scrubber (draft #23)** after an on-device 60fps check, then **W5** (moment detail) builds on it |
-| **Joey** (CEO) | **CONTENT** | the topmost ⬜ in the Joey table below — currently **J3.5** (deepen Midnights + Tortured Poets to Active-tier before launch, per the 2026-07-04 ship-readiness bar) |
+| Workstream | Next action |
+|---------|--------------------------|
+| **ENGINE** | review/merge the **W4 scrubber (draft #23)** after an on-device 60fps check, then **W5** (moment detail) builds on it |
+| **CONTENT** | the topmost ⬜ in the content table below — currently **J3.5** (deepen Midnights + Tortured Poets to Active-tier before launch, per the 2026-07-04 ship-readiness bar) |
 
-**Agent instruction (put this in your "start working" prompt or let the agent
-infer it): "You are the {ENGINE|CONTENT} track in `docs/roadmap.md`. Take the
-topmost unchecked work package in my track and do it end-to-end to the
-Definition of Done. Don't touch the other track's files."**
+**Agent instruction: "Take the topmost unchecked work package in
+`docs/roadmap.md` and do it end-to-end to the Definition of Done."** There is no
+longer a "don't touch the other track's files" rule — that instruction was
+removed on 2026-08-14 with the handoff, and any agent may work in either
+workstream.
 
-## The no-collision boundary (why both can run at once)
+## Avoiding collisions (now that anyone may work anywhere)
 
-The tracks own **different files**, so parallel work never conflicts:
+The two workstreams still touch mostly **different files**, which is why they can
+run concurrently:
 
-- **ENGINE (Wyatt)** owns all code: `packages/**`, `apps/**`,
-  `supabase/migrations/**`, `scripts/**`.
-- **CONTENT (Joey)** owns authored data only: **`supabase/seed/content/**`**
-  (new files, one per era/category) — never code.
+- **ENGINE** work lives in `packages/**`, `apps/**`, `supabase/migrations/**`,
+  `scripts/**`.
+- **CONTENT** work lives in authored data — **`supabase/seed/**`** (one file per
+  era/corpus).
+
+That is a description of where the work happens, **not a fence**: any session may
+edit any of it. What actually prevents two writers from stomping each other on
+the same era file is the content ownership lock,
+`.github/content-ownership.json` — claim an era there and the automated fleet
+skips it and cannot auto-merge over it (`scripts/check-content-ownership.mjs`).
+Use the lock, not a territory rule.
 
 The single shared dependency, the **data contract** (four tables +
-`packages/shared` types), is already built (W1 ✅). After it, the two tracks
-only meet at integration: Joey's seed rows drop into tables Wyatt's UI already
+`packages/shared` types), is already built (W1 ✅). After it, the two
+workstreams only meet at integration: seed rows drop into tables the UI already
 renders.
 
 Every work package inherits `CLAUDE.md`'s Definition of Done (tests pass, Codex
 review clean, works mobile + desktop, no secrets) and is sized to fit a single
 Max rate-limit window.
 
-## 🛠️ Wyatt track — engine (spec steps 1–2, 4–8)
+## 🛠️ ENGINE workstream (spec steps 1–2, 4–8)
 
 | WP | What | Status |
 |----|------|--------|
@@ -63,11 +80,16 @@ Max rate-limit window.
 | **W8** | `apps/mobile`: Expo app reusing `shared`/`core` — read-only era list first, native Reanimated + Gesture Handler scrubber next | 🟡 **PR #67** (supersedes closed draft #42) — native Vault navigator + one-command EAS Android build, Expo 57 / API 36; needs rebase onto `main` + a founder device test before merge |
 | **Wh** | Data-access hardening from the architecture double-check (Codex + self audit) | ✅ (#43) — explicit Tier 0 columns, stable ordering, portable auth options, row-cap guard, url-type mappers, no error leakage. `docs/reviews/2026-07-04-architecture-double-check.md` |
 
-## ✍️ Joey track — content (spec step 3 + theming values)
+## ✍️ CONTENT workstream (spec step 3 + theming values)
 
-Joey authors **data files under `supabase/seed/content/`** (never code). Each is
-loaded by the seed runner the engine track provides. The agent should write a
-seed generator, not hand-enter rows (CLAUDE.md rule 8).
+The work packages here produce **authored data files under
+`supabase/seed/content/`**, loaded by the seed runner the ENGINE workstream
+provides. The agent should write a seed generator, not hand-enter rows
+(CLAUDE.md rule 8).
+
+The old "(never code)" restriction on this workstream was removed 2026-08-14
+with the handoff — it described a founder lane, not a property of the work.
+Whoever picks up a content package may also fix the code around it.
 
 | WP | What | Status |
 |----|------|--------|
