@@ -91,16 +91,18 @@ export const UNKNOWN_DATE_LABEL = 'Date unknown';
  */
 export function nearestAnchorExact(anchors: readonly ScrubberAnchor[], target: number): boolean {
   if (!anchors.length) return true;
-  let best = anchors[0];
   let bestDist = Math.abs(anchors[0].date - target);
+  let bestExact = anchors[0].exact;
   for (const anchor of anchors) {
     const dist = Math.abs(anchor.date - target);
     if (dist < bestDist) {
       bestDist = dist;
-      best = anchor;
+      bestExact = anchor.exact;
+    } else if (dist === bestDist) {
+      bestExact = bestExact && anchor.exact;
     }
   }
-  return best.exact;
+  return bestExact;
 }
 
 /**

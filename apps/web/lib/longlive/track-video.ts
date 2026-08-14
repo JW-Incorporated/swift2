@@ -51,12 +51,30 @@ function recordingQualifiers(title: string): string[] {
   let s = title.toLowerCase();
   for (const pattern of DECORATION_PATTERNS) s = s.replace(pattern, ' ');
   const parens = s.match(/\(([^)]*)\)/g) ?? [];
-  return parens.map((p) => p.slice(1, -1).trim()).filter(Boolean);
+  const qualifiers = parens.map((p) => p.slice(1, -1).trim()).filter(Boolean);
+  // A featured-artist credit that isn't parenthesized still names a
+  // different recording, e.g. a video titled "Karma feat. Ice Spice" with no
+  // parens at all — the parenthesized-only check above missed this entirely
+  // (re-review finding C, 2026-08-13).
+  const withoutParens = s.replace(/\([^)]*\)/g, ' ');
+  const featMatch = withoutParens.match(/\b(?:feat\.?|ft\.?|featuring)\b.*/);
+  if (featMatch) qualifiers.push(featMatch[0].trim());
+  return qualifiers;
 }
 
 /**
  * The official video for a track's song, or null when there isn't one (no
  * match, or the track title normalizes to nothing).
+ *
+ * `trackYoutubeId`, when given, is checked FIRST and wins outright: authored
+ * data beats inference (re-review finding C, 2026-08-13). "Fortnight (feat.
+ * Post Malone)" IS the original album recording — the track record itself
+ * names the video's own YouTube id — but the title/relatedSongs heuristics
+ * below reject it as a recording-qualifier mismatch, since the track's plain
+ * title doesn't echo "(feat. Post Malone)". A direct id match sidesteps that
+ * heuristic entirely. If no video carries the id, falls through to the
+ * heuristics below (a track can have a verified audio id with no matching
+ * video record at all).
  *
  * `relatedSongs` (the seed's curated song pointer) is trusted to bridge a
  * video whose own title reads differently from the track (e.g. "All Too
@@ -67,12 +85,17 @@ function recordingQualifiers(title: string): string[] {
  * seed intended, but a featured-artist recording is a DIFFERENT recording
  * from the album track, exactly like "(Taylor's Version)" is — and this
  * function's own invariant is recording separation (see
- * `normalizeTrackVideoTitle`'s doc comment above). A video whose title's own
- * qualifier isn't echoed anywhere in its `relatedSongs` entries is refused
- * via that pointer; it can still match by an exact title equality, same as
- * every other video. **A wrong pairing is worse than no video at all**, so
- * this fails closed to no match rather than guessing (finding #4, review
- * 2026-08-13).
+ * `normalizeTrackVideoTitle`'s doc comment above). The echo check runs
+ * per-entry, never against a joined blob of every `relatedSongs` string
+ * (re-review finding C, 2026-08-13): a joined blob let an UNRELATED entry's
+ * "(feat. ...)" qualifier authorize a different, plain song's bridge — e.g.
+ * `relatedSongs: ['Karma', 'Other Song (feat. Ice Spice)']` wrongly
+ * authorized the Karma bridge via the second entry. Only the SAME entry that
+ * matches this track's title may supply the echo. A video whose title's own
+ * qualifier isn't echoed by that entry is refused via the pointer; it can
+ * still match by an exact title equality, same as every other video. **A
+ * wrong pairing is worse than no video at all**, so this fails closed to no
+ * match rather than guessing (finding #4, review 2026-08-13).
  *
  * On more than one match — e.g. separate music-video and lyric-video
  * records for the same song — prefers `music_video`, then `lyric_video`,
@@ -81,18 +104,28 @@ function recordingQualifiers(title: string): string[] {
  * 2026-08-13, removed the disagreeing legacy `videoForTrack` from
  * videos.ts) — every caller, TrackGuide and TrackDetail alike, uses this.
  */
-export function trackVideoFor(trackTitle: string, videos: readonly VideoNote[]): VideoNote | null {
+export function trackVideoFor(
+  trackTitle: string,
+  videos: readonly VideoNote[],
+  trackYoutubeId?: string | null,
+): VideoNote | null {
+  if (trackYoutubeId) {
+    const authored = videos.find((v) => v.youtubeId === trackYoutubeId);
+    if (authored) return authored;
+  }
   const target = normalizeTrackVideoTitle(trackTitle);
   if (!target) return null;
   const matches = videos.filter((v) => {
     if (normalizeTrackVideoTitle(v.title) === target) return true;
     const qualifiers = recordingQualifiers(v.title);
-    if (qualifiers.length > 0) {
-      const relatedBlob = v.relatedSongs.join(' | ').toLowerCase();
-      const echoed = qualifiers.every((q) => relatedBlob.includes(q));
-      if (!echoed) return false;
+    if (qualifiers.length === 0) {
+      return v.relatedSongs.some((song) => normalizeTrackVideoTitle(song) === target);
     }
-    return v.relatedSongs.some((song) => normalizeTrackVideoTitle(song) === target);
+    return v.relatedSongs.some((song) => {
+      if (normalizeTrackVideoTitle(song) !== target) return false;
+      const lowered = song.toLowerCase();
+      return qualifiers.every((q) => lowered.includes(q));
+    });
   });
   if (matches.length === 0) return null;
   return (

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
 import { useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
@@ -62,11 +62,15 @@ export function FeedbackButton() {
   const [dismissed, setDismissed] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Hydrate after mount, never during render — the same SSR-safe pattern
-  // progress.ts's ProgressProvider uses: first paint (server AND client)
-  // always shows the button, so there's no hydration mismatch, and the real
-  // sessionStorage value swaps in once mounted.
-  useEffect(() => {
+  // Hydrate before paint, never during render — reading sessionStorage
+  // during render would break SSR (no `window`), but a plain post-paint
+  // `useEffect` let an already-dismissed session flash the trigger back on
+  // every full reload before flipping it hidden again (re-review finding G,
+  // 2026-08-13). `useLayoutEffect` still can't run on the server (SSR/first
+  // paint always renders the un-dismissed button, so no hydration mismatch),
+  // but on the client it commits before the browser paints, so a returning,
+  // already-dismissed session never actually shows the flash.
+  useLayoutEffect(() => {
     if (readDismissed()) setDismissed(true);
   }, []);
 
@@ -231,9 +235,28 @@ export function FeedbackButton() {
       )}
 
       {/* Mobile: floats above BottomNav (fixed, ~56px + safe-area-inset-bottom)
-          instead of sitting on top of it; desktop is unchanged. Wrapped so the
-          dismiss badge below can sit relative to the trigger, not the viewport. */}
-      <div className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] md:bottom-4">
+          instead of sitting on top of it; desktop is unchanged. A row, not a
+          badge overlapping the trigger: `.era-icon-btn` forces BOTH buttons
+          to a 44px floor, so a `size-5` badge absolutely positioned over the
+          icon-only mobile trigger actually covered nearly all of it — tapping
+          "Feedback" silently dismissed the widget instead of opening it
+          (re-review finding D, 2026-08-13). Laid out side by side with a gap
+          instead, so the two 44px targets never overlap. */}
+      <div className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex items-center gap-2 md:bottom-4">
+        {/* Dismisses the whole widget for the rest of the session (Joey: "it
+            shouldn't keep coming back and annoying them"), distinct from just
+            closing the compose panel. Only offered while idle; while
+            composing, the panel's own close X is the relevant control. */}
+        {!open && (
+          <button
+            type="button"
+            onClick={dismissForSession}
+            aria-label="Dismiss the feedback button for this session"
+            className="era-icon-btn rounded-full border border-line bg-bg text-ink-soft shadow"
+          >
+            <X size={16} />
+          </button>
+        )}
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
@@ -244,21 +267,6 @@ export function FeedbackButton() {
           {open ? <X size={18} /> : <MessageSquarePlus size={18} />}
           <span className="hidden sm:inline">Feedback</span>
         </button>
-        {/* A sibling of the trigger, not nested inside it — dismisses the
-            whole widget for the rest of the session (Joey: "it shouldn't keep
-            coming back and annoying them"), distinct from just closing the
-            compose panel. Only offered while idle; while composing, the
-            panel's own close X is the relevant control. */}
-        {!open && (
-          <button
-            type="button"
-            onClick={dismissForSession}
-            aria-label="Dismiss the feedback button for this session"
-            className="era-icon-btn absolute -right-1.5 -top-1.5 grid size-5 place-items-center rounded-full border border-line bg-bg text-ink-soft shadow"
-          >
-            <X size={11} />
-          </button>
-        )}
       </div>
     </>
   );

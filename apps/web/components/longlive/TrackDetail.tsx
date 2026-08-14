@@ -76,7 +76,7 @@ export function TrackDetail() {
   // Version)", so the two disagreed on which recording to play (finding #2,
   // adversarial review 2026-08-13). `videoForTrack` is gone — there is only
   // one matcher now.
-  const matchedVideo = trackVideoFor(track.title, videosForEra(era.id));
+  const matchedVideo = trackVideoFor(track.title, videosForEra(era.id), track.youtubeId);
   // Prefer the official music video when one exists — it is the richer artifact
   // and carries its own title. Otherwise fall back to the track's OWN verified
   // youtubeId (the official audio / lyric video sourced by the Audio Curator,

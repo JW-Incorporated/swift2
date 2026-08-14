@@ -157,18 +157,42 @@ describe('trackVideoFor — real corpus', () => {
       const videos = allVideoRecordsForEra(eraId);
       for (const t of tracks) {
         total++;
-        const v = trackVideoFor(t.title, videos);
+        const v = trackVideoFor(t.title, videos, t.youtubeId);
         if (v) paired++;
       }
     }
-    // 48 of 244 track-guide songs pair with a real video today (2026-08-13
-    // corpus, post-finding-#4 fix — was 50 before recording separation was
-    // enforced on the relatedSongs bridge; Karma and Fortnight's
-    // featured-artist videos correctly stopped pairing with their base album
-    // tracks). Not a hard equality on the exact number — the seed grows —
-    // but a floor that fails loudly if the matcher regresses to near-zero.
+    // 49 of 244 track-guide songs pair with a real video today (2026-08-13
+    // re-review fix — was 48 before the authored-`youtubeId` short-circuit
+    // brought Fortnight's legitimate "(feat. Post Malone)" pairing back, and
+    // 50 before recording separation was first enforced on the relatedSongs
+    // bridge, which correctly dropped Karma's featured-artist video). Not a
+    // hard equality on the exact number — the seed grows — but a floor that
+    // fails loudly if the matcher regresses to near-zero.
     expect(total).toBeGreaterThan(0);
     expect(paired).toBeGreaterThanOrEqual(40);
+  });
+
+  // Re-review finding C (2026-08-13): "Fortnight (feat. Post Malone)" IS the
+  // original album recording — the track record names the video's own
+  // youtubeId directly — so authored data must win over the title/
+  // relatedSongs heuristics that would otherwise reject the qualifier
+  // mismatch. Karma must stay unpaired: its own track record has no
+  // youtubeId naming the "(feat. Ice Spice)" video, so it falls through to
+  // the same heuristics that correctly refuse the bridge.
+  it('Fortnight pairs via its authored youtubeId; Karma stays unpaired', () => {
+    const ttpdTracks = tracksForEra('ttpd');
+    const ttpdVideos = allVideoRecordsForEra('ttpd');
+    const fortnight = ttpdTracks.find((t) => t.title === 'Fortnight');
+    expect(fortnight?.youtubeId).toBeTruthy();
+    const fortnightVideo = trackVideoFor(fortnight!.title, ttpdVideos, fortnight!.youtubeId);
+    expect(fortnightVideo?.title).toBe('Fortnight (feat. Post Malone)');
+
+    const midnightsTracks = tracksForEra('midnights');
+    const midnightsVideos = allVideoRecordsForEra('midnights');
+    const karma = midnightsTracks.find((t) => t.title === 'Karma');
+    expect(karma).toBeTruthy();
+    const karmaVideo = trackVideoFor(karma!.title, midnightsVideos, karma!.youtubeId);
+    expect(karmaVideo).toBeNull();
   });
 
   it('a track with no video anywhere in its era returns null', () => {

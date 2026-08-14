@@ -122,7 +122,7 @@ function TrackRow({
   // matching against the era's playable videos, so a paired video is always
   // actually watchable. A row with no pairing renders exactly as before —
   // no dead control (#2051's lesson).
-  const pairedVideo = trackVideoFor(track.title, videos);
+  const pairedVideo = trackVideoFor(track.title, videos, track.youtubeId);
   const playableVideo = pairedVideo && isPlayable(pairedVideo) ? pairedVideo : null;
 
   // The WHOLE CARD opens the song (#498: Joey — "you should be able to click
