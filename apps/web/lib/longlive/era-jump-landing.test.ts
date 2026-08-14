@@ -1,5 +1,34 @@
 import { describe, expect, it } from 'vitest';
-import { jumpLandingScrollTop } from './era-jump-landing';
+import { jumpLandingScrollTop, shouldRunEraJump } from './era-jump-landing';
+
+/**
+ * Regression coverage for adversarial review finding #1 (2026-08-14): a
+ * fresh visit to `/` never showed the masthead because the mount-time jump
+ * guard treated the plain front-door mount the same as a no-snapshot
+ * openEra mount and jumped the current era's section to the chrome anyway.
+ */
+describe('shouldRunEraJump', () => {
+  it('a fresh front-door mount (no restore, eraJumpSeq still 0) must NOT jump', () => {
+    expect(shouldRunEraJump({ hasRestore: false, eraJumpSeq: 0, handledJumpSeq: 0 })).toBe(false);
+  });
+
+  it('a no-snapshot openEra/deep-link mount (no restore, eraJumpSeq already bumped) must jump', () => {
+    expect(shouldRunEraJump({ hasRestore: false, eraJumpSeq: 1, handledJumpSeq: 1 })).toBe(true);
+  });
+
+  it('a real jump while already mounted (eraJumpSeq changed since last handled) must jump, restore or not', () => {
+    expect(shouldRunEraJump({ hasRestore: true, eraJumpSeq: 2, handledJumpSeq: 1 })).toBe(true);
+    expect(shouldRunEraJump({ hasRestore: false, eraJumpSeq: 2, handledJumpSeq: 1 })).toBe(true);
+  });
+
+  it('a mount that restored a snapshot does not jump on its own', () => {
+    expect(shouldRunEraJump({ hasRestore: true, eraJumpSeq: 0, handledJumpSeq: 0 })).toBe(false);
+  });
+
+  it('StrictMode double-invoke with a restored snapshot does not re-jump', () => {
+    expect(shouldRunEraJump({ hasRestore: true, eraJumpSeq: 1, handledJumpSeq: 1 })).toBe(false);
+  });
+});
 
 /**
  * Regression coverage for the founder-reported "our scroll goes under the
