@@ -6,6 +6,7 @@ import { Compass, Layers, Sparkles, VenetianMask } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAppActions, useAppState, type AppMode } from '@/lib/longlive/store';
 import { layoutBottomNavTabs, type BottomNavEntry } from '@/lib/longlive/bottom-nav-layout';
+import { shouldHideNavForFocus } from '@/lib/longlive/bottom-nav-focus';
 
 type BottomNavMode = Extract<AppMode, 'era' | 'threads' | 'mood' | 'clownbot'>;
 
@@ -24,34 +25,35 @@ const TABS: readonly Tab[] = [
   { id: 'clownbot', label: 'Clownbot', mode: 'clownbot', icon: VenetianMask },
 ];
 
-function isTextInput(el: Element | null): boolean {
-  if (!el) return false;
-  if (el instanceof HTMLTextAreaElement) return true;
-  if (el instanceof HTMLInputElement) {
-    // Only text-entry input types collide with the on-screen keyboard —
-    // buttons/checkboxes/etc. inside a card never trigger it.
-    return !['button', 'checkbox', 'radio', 'range', 'submit', 'reset', 'file', 'color'].includes(
-      el.type,
-    );
-  }
-  return (el as HTMLElement).isContentEditable === true;
-}
-
 /**
  * True while a text input, textarea, or contenteditable holds focus anywhere
  * in the app — Mood's chat box in particular. The third of the bottom bar's
  * three collisions (PLAN.md P4 step 20 / § Known risks): the on-screen
  * keyboard sits exactly where the bar does, so the bar gets out of the way
  * rather than fighting it.
+ *
+ * Stuck-flag fix (adversarial review finding #1, 2026-08-13): `focusout`
+ * never fires when its target is removed from the DOM — e.g. Escape-closing
+ * SearchOverlay or the feedback panel while their input holds focus — so
+ * `onFocusOut` alone could never clear the flag for that case; the nav
+ * stayed hidden until some unrelated input was focused and blurred. Two
+ * layers now: `onFocusOut` re-derives from `document.activeElement` (never
+ * `e.target`) for the fast path where the event does fire, and a per-frame
+ * safety-net effect below covers the DOM-removal case where no event fires
+ * at all — it keeps re-checking `document.activeElement` while hidden and
+ * clears the flag the instant it's no longer a text input.
  */
 function useTextInputFocused(): boolean {
   const [focused, setFocused] = useState(false);
   useEffect(() => {
     const onFocusIn = (e: FocusEvent) => {
-      if (isTextInput(e.target as Element | null)) setFocused(true);
+      if (shouldHideNavForFocus(e.target as Element | null)) setFocused(true);
     };
-    const onFocusOut = (e: FocusEvent) => {
-      if (isTextInput(e.target as Element | null)) setFocused(false);
+    const onFocusOut = () => {
+      // Focus has not necessarily moved yet at the moment this event fires.
+      requestAnimationFrame(() => {
+        setFocused(shouldHideNavForFocus(document.activeElement));
+      });
     };
     window.addEventListener('focusin', onFocusIn);
     window.addEventListener('focusout', onFocusOut);
@@ -60,6 +62,21 @@ function useTextInputFocused(): boolean {
       window.removeEventListener('focusout', onFocusOut);
     };
   }, []);
+
+  useEffect(() => {
+    if (!focused) return;
+    let raf: number;
+    const check = () => {
+      if (!shouldHideNavForFocus(document.activeElement)) {
+        setFocused(false);
+        return;
+      }
+      raf = requestAnimationFrame(check);
+    };
+    raf = requestAnimationFrame(check);
+    return () => cancelAnimationFrame(raf);
+  }, [focused]);
+
   return focused;
 }
 

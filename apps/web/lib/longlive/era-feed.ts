@@ -32,12 +32,19 @@ import type { EggDoorway, ThreadDoorway } from './doorways';
  * logic, doorways.ts is the only module that reaches into `lenses.ts`/
  * `theories.ts` for that data (kept the split to stay under the 300-line cap
  * — see MAP.md).
+ *
+ * `displaced` (thread/egg only, set by `spaceDoorways`): true when
+ * `DOORWAY_MIN_GAP` spacing pushed this doorway LATER than its anchor's
+ * `sortDate` would otherwise place it — it keeps that original date for
+ * sorting purposes, but is no longer at a position the date describes, so it
+ * must not be presented to the scrubber as a rail anchor (adversarial review
+ * finding #2, 2026-08-13 — see space-doorways.ts).
  */
 export type EraFeedEntry<V extends VideoNote = VideoNote> =
   | { kind: 'moment'; item: ContentItem; anchor: Anchored }
   | { kind: 'video'; video: V; anchor: Anchored }
-  | { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored }
-  | { kind: 'egg'; doorway: EggDoorway; anchor: Anchored };
+  | { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored; displaced?: boolean }
+  | { kind: 'egg'; doorway: EggDoorway; anchor: Anchored; displaced?: boolean };
 
 /**
  * The merged feed (mergeEraFeed's output over every moment and every

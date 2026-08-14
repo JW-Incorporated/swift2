@@ -370,6 +370,43 @@ describe('spaceDoorways', () => {
     const plainIdsInSpaced = entryIds(spaced).filter((id) => !id.startsWith('thread:') && !id.startsWith('egg:'));
     expect(plainIdsInSpaced).toEqual(entryIds(plain));
   });
+
+  // Adversarial review finding #2 (2026-08-13): a delayed doorway keeps its
+  // original anchor date but now renders BELOW cards it hopped over, which
+  // breaks the scrubber's "dates descend down the page" assumption. The fix
+  // marks a delayed doorway `displaced: true` so DoorwayCard can stop
+  // offering it as a rail anchor — see TimelineScrubber.tsx's `measure()`.
+  it('marks a doorway placed immediately (no queueing) as NOT displaced', () => {
+    const feed = [threadEntry('t1', '2019-01-01'), ...filler(6), eggEntry('e1', '2019-01-01')];
+    const spaced = spaceDoorways(feed);
+    for (const e of spaced) {
+      if (e.kind === 'thread' || e.kind === 'egg') expect(e.displaced).toBeFalsy();
+    }
+  });
+
+  it('marks a doorway that had to be delayed to clear the gap as displaced', () => {
+    const feed = [threadEntry('t1', '2019-01-01'), eggEntry('e1', '2019-01-01'), ...filler(8)];
+    const spaced = spaceDoorways(feed);
+    // Only one thread/egg doorway of each kind in this fixture, so kind
+    // alone identifies them.
+    const t1 = spaced.find((e) => e.kind === 'thread');
+    const e1 = spaced.find((e) => e.kind === 'egg');
+    // t1 placed immediately (nothing ahead of it) — not displaced.
+    expect(t1 && t1.kind === 'thread' ? t1.displaced : undefined).toBeFalsy();
+    // e1 had to wait for the gap — displaced.
+    expect(e1 && e1.kind === 'egg' ? e1.displaced : undefined).toBe(true);
+  });
+
+  it('marks every best-effort-tail doorway as displaced (dense-era case)', () => {
+    const doorways = Array.from({ length: 6 }, (_, i) => threadEntry(`t${i}`, '2019-01-01'));
+    const feed = [doorways[0], ...filler(1), doorways[1], ...filler(1), doorways[2], ...filler(1), doorways[3], doorways[4], doorways[5]];
+    const spaced = spaceDoorways(feed);
+    // t3/t4/t5 land in the un-spaceable tail with no gap at all — displaced.
+    for (const id of ['t3', 't4', 't5']) {
+      const e = spaced.find((e) => e.kind === 'thread' && e.doorway.threadId === id);
+      expect(e && e.kind === 'thread' ? e.displaced : undefined).toBe(true);
+    }
+  });
 });
 
 // PLAN.md step 6a: the global filter can now zero out an era that never had
