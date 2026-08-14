@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 101
+Stories: 98
 
 ## Taylor Swift’s Missing Wedding Photos Offer a ‘Major Clue’ — Source - Yahoo
 
@@ -863,27 +863,3 @@ Taylor Swift Named to the Nashville Songwriters Hall of Fame, Becoming Its Young
 - summary: Charissa Thompson explains problem she had with her dress at Taylor Swift and Travis Kelce’s wedding  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxQb1Z0cnB5YkI3Ym9yb2c1VVV4c3hucXUydnBXeDRBZVpUU3pmOXgxajMtcG1UVDNpV3RGaEtpZmZ0UEdsM0FEZzR1NzNuV0k2bURnWDlYTE9WQ29aNkcyVk5jbEtBSWxESFlrb1RwUHd5VjM3ZzBNNEtZekd0X1RVNV9LTk53dUptNDAzWUdmVG92T2UybnpPSHpkdV9QZTg4REFPdmhPRF9VcGpP?oc=5
-
-## Taylor Swift Removes Her Songs from Trump’s TikTok - Vulture
-
-- first seen: 2026-08-11 06:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Removes Her Songs from Trump’s TikTok  Vulture
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMid0FVX3lxTE5WMkE2OEZ4R19BRFRKQWRDdFJRR2JKd21NSEVCeGpOd2pwVmVRUW01X1J3RzRRVnQzanlaQl9VM0I3RG0zX1RWaE1UZm85aXVuUVAyYkd4TDktb2l2UGlTRVBIeGlsTXZQU3ZVM1BLQlFhaC1Za2g4?oc=5
-
-## Inside Taylor Swift’s Star-Studded Love Life - Yahoo
-
-- first seen: 2026-08-11 06:01 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Inside Taylor Swift’s Star-Studded Love Life  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOV0d0T2tTNkQ0OTJIUEhpUjZKWUZ3YTdYSkEtN1Q1OFZpQksxUmMyaEltYVQ5Sy1tbkJEWHNnSnlhMWpreFBwSVFrYzVNYWk5Z2xINXE4X3k3amItRldiMUNTeXJhb00tR2NtV0I3TE5SRXVMbDhoTTA0OVJOa0R6TUdaUUo1b09kOUxFTExoMWFyQzNGSXNVSERpa0h3YmFCY3dtYw?oc=5
-
-## Can politicians use whatever music they want on social media? - NBC News
-
-- first seen: 2026-08-11 06:01 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Can politicians use whatever music they want on social media?  NBC News
-- sources:
-  - [unverified] NBC News — https://news.google.com/rss/articles/CBMiywFBVV95cUxNQ2NxTXFINHg0YkVqQXp1VGMxYlh3WUJTbmVoVFJRQ2xESVY0cmcxMjk4RDA5MTJJM1ZGN0lqcFR4bWVGVGNlUlp6bTRiSjZUN240aUhSUTUtZC1UaldCdlN6TU1YVk9adGVMcHptVUwwZEd4cTNuR0VtTmJuWXdqMzZkbjkwLXg5eFRCYk1TdktrcFFveEx1VlM5Qk1oNG1ELV9fR0JBYzRsVnNtN0xodTIwLXVta1lFTXRjRlNJUTR3MUxmTVNrc18tSQ?oc=5
