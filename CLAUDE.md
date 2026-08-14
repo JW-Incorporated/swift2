@@ -5,20 +5,51 @@ Read it fully before doing any work. AGENTS.md points Codex to the same rules.
 Then read `docs/cto-role.md` — the engineering role, your authority limits,
 and the session bootup checklist on one page.
 
+## Ownership — read this first (handoff effective 2026-08-14)
+
+**Joey (`sffan15-sys`) owns this project outright.** Product AND engineering.
+He is the decision-maker for everything: what gets built, whether the
+architecture is sustainable, whether a release ships. There is no second
+founder to route a question to and no approval to wait on but his. When this
+file, a charter, or any doc says "ask a founder" or "needs founder approval",
+that means **Joey**.
+
+**Wyatt (`wjduvall-cmd`) handed the project over on 2026-08-14** and keeps
+exactly three narrow responsibilities. Nothing else about the project is his,
+and nothing waits on him:
+
+1. **Scheduled cloud routines run on his Anthropic account** (`docs/agents/
+   runners.md`) so their spend lands on his bill instead of Joey's weekly
+   limit. He hosts them; he does not direct them.
+2. **He supplies certain API keys and secrets** — `ANTHROPIC_API_KEY` (live in
+   production), and the other credentials listed as his in the runner docs.
+   A missing or rotated key is the one thing to genuinely escalate to him.
+3. **Cadence changes to those routines** go through the declarative
+   fleet-schedule mechanism (`docs/agents/fleet-schedule.yml`), so Joey can
+   retime them without a Wyatt-side paste.
+
+Anything else that a doc still routes to Wyatt is stale — treat it as Joey's
+and say so in the PR that finds it. Historical attributions in
+`docs/decisions.md` and the charters ("Wyatt, 2026-07-25") are the authority
+trail for past calls and stay as written; they are not live routing.
+
+**Joey's bots may touch anything in this repo.** The old content-lane split
+(Joey = seed data, Wyatt = code) is gone — see `docs/roadmap.md`. Agents are
+still bound by every safety gate below and by the auto-merge gates in
+`.github/`, which are about blast radius, not territory.
+
 ## The company
 
-Two human founders + AI agents. No other staff.
+One human founder + AI agents. No other staff.
 
-- **Joey — CEO / Product.** Decides what to build, whether it's valuable,
-  whether it delights users. Final call on product decisions.
-- **Wyatt — CTO / Engineering.** Decides whether architecture is sustainable,
-  code is healthy, and releases are production-ready. Final call on technical decisions.
+- **Joey — founder, owner, sole decision-maker.** Product and engineering.
+  Final call on everything.
 - **Claude Code** — planner and primary builder.
 - **Codex (via plugin)** — independent reviewer and second opinion. Its job is to disagree.
 - **Automated tests + CI** — QA. Deterministic checks, not opinions.
 
-Humans make strategic decisions. AI executes. Humans should almost never
-review code line-by-line — they review behavior and outcomes.
+The human makes strategic decisions. AI executes. Joey should almost never
+review code line-by-line — he reviews behavior and outcomes.
 
 ## The product
 
@@ -78,7 +109,7 @@ written down; ask instead.
 **Open the PR and stop.** Do not arm a `send_later`, a self-check-in, a
 Monitor, or any "come back and look at this again" wake-up, and do not
 subscribe to PR activity to wake on it. This applies to every session in this
-repo — scheduled runners, Joey's sessions, Wyatt's sessions, Codex.
+repo — scheduled runners, Joey's sessions, Codex.
 
 **Why:** an audit on 2026-07-25 found these self-armed loops were **~69% of all
 scheduled agent token spend** — ~144 cloud sessions/day whose entire output was
@@ -111,9 +142,10 @@ So: opening the PR and exiting is still correct. Just do not assume anything
 will fix a red PR for you — nothing will, beyond one Vault Run attempt. If you
 can see why it is red before you exit, fix it in that same session.
 
-This matters doubly on Joey's account: every scheduled runner is deliberately on
-Wyatt's account (`docs/agents/runners.md`) so Joey's weekly limit stays free. A
-monitor armed from a Joey session spends exactly the tokens that split protects.
+This matters doubly on Joey's account: every scheduled runner is deliberately
+hosted on Wyatt's account (`docs/agents/runners.md`) so Joey's weekly limit stays
+free. That hosting split survived the 2026-08-14 handoff for exactly this reason.
+A monitor armed from a Joey session spends exactly the tokens that split protects.
 
 ## Definition of done
 
@@ -153,15 +185,14 @@ At the start of every session (a SessionStart hook already runs
 1. Check whether local `main` is behind `origin/main`. If so, fast-forward
    it (`git checkout main && git pull --ff-only`) before starting work.
 2. Check for open PRs (`gh pr list`) and mention them to the human in one
-   line — especially PRs from the other founder awaiting review.
+   line — especially any awaiting Joey's review.
 3. Always create new branches from up-to-date `main`, never from a stale one.
 
-If the human asks to review or test the other founder's PR locally, use
-`gh pr checkout <number>`.
+If Joey asks to review or test a PR locally, use `gh pr checkout <number>`.
 
 ## Don't stop to ask
 
-The founders are non-coders. Do not ask them technical or workflow
+Joey is a non-coder. Do not ask him technical or workflow
 questions you can decide yourself — make the sensible call, state it in
 one line, and keep moving. Never sit waiting on a question mid-task.
 
@@ -172,8 +203,9 @@ granularity, which command variant to run.
 
 Only stop and ask when it's a Decision Authority item (below), a product
 question (what should it do for users?), something expensive to reverse,
-or a genuine spec gap where guessing could waste hours. Product questions
-go to Joey; architecture questions go to Wyatt.
+or a genuine spec gap where guessing could waste hours. Every one of those
+goes to Joey — product and architecture alike. The only question that goes
+to Wyatt is a missing or broken API key/secret he supplies (§ Ownership).
 
 ## Never discard uncommitted work
 
@@ -223,13 +255,13 @@ agents doing exactly this — the "doom loop"):
   pipes — they never prompt.
 - **Prefer `node -e` over `python -c`** for one-liners: `node *` is
   allowlisted, python is not.
-- `git merge` and `gh pr merge` ALWAYS prompt — that is the founders'
-  merge-authority gate, working as designed. Don't fight it; batch merges so
-  a founder approves once, deliberately.
+- `git merge` and `gh pr merge` ALWAYS prompt — that is Joey's merge-authority
+  gate, working as designed. Don't fight it; batch merges so he approves once,
+  deliberately.
 - Parallel local agent fleets multiply whatever prompts remain, so keep the
   commands they run allowlist-shaped. Large fleets are still better run as
-  cloud sessions on Wyatt's account (`docs/agents/runners.md`), which keeps
-  Joey's weekly limit free. (2026-08-13: Joey removed the hard local-
+  cloud sessions hosted on Wyatt's account (`docs/agents/runners.md`), which
+  keeps Joey's weekly limit free. (2026-08-13: Joey removed the hard local-
   concurrency cap of 2 — run as many local agents as the work warrants.)
 
 ## Conventions
@@ -240,7 +272,7 @@ agents doing exactly this — the "doom loop"):
 - Branch names: `feature/<short-name>`, `fix/<short-name>`
 - PR descriptions: open with a 1–2 sentence plain-language **TL;DR for
   reviewers** (what it does + why it matters), then a `---` divider, then the
-  detail. The founders review by outcome, not by reading the diff — make the
+  detail. Joey reviews by outcome, not by reading the diff — make the
   outcome legible in the first two lines.
 
 ## For future sessions

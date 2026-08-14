@@ -32,10 +32,12 @@
   are all held at the output gate. Over-refusal is the safe direction but it is
   still a broken bot. Zero real safety leaks (all 21 LEAK flags triaged by hand
   as false positives).
-- **Wyatt owns FIVE unsettled items:** Clownbot's model tier
-  (`claude-sonnet-5`, one named constant), the 200/day/instance cap, ratifying
-  the Mood route pattern, signing the Clownbot decisions entry — **plus the
-  era reader's bottom nav**, which overrides the on-device rejection in
+- **FIVE unsettled items — now JOEY's, not Wyatt's** (project handed to Joey
+  2026-08-14; `docs/decisions.md`, `CLAUDE.md` § Ownership). Do not wait on
+  Wyatt for any of them: Clownbot's model tier (`claude-sonnet-5`, one named
+  constant), the 200/day/instance cap, ratifying the Mood route pattern,
+  signing the Clownbot decisions entry — **plus the era reader's bottom nav**,
+  which overrides the on-device rejection in
   `docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3.
 - **The bottom nav has never been opened on a real phone.** Joey was told twice
   and authorised the merge anyway. Safe-area insets are correct in code and
@@ -81,7 +83,12 @@ lists (bare `child`/`minor`/`teen` would refuse ordinary biography) ·
   chip.** Six filters forever: Music, Fashion, Tour, Relationship, Lore, Videos.
 - Clownbot rulings J1–J7, same file.
 - Plans need no sign-off; no local-concurrency cap (Joey, 2026-08-13).
-- Merge authority is human. Scheduled runners live on Wyatt's account.
+- **Joey owns the project outright (handoff 2026-08-14).** Sole decision-maker,
+  product and engineering; his bots may touch any file. Wyatt keeps only: the
+  Anthropic account the runners are hosted on, the API keys/secrets he supplies,
+  and `fleet-schedule.yml` as the way to retime those routines.
+- Merge authority is human (Joey). Scheduled runners still run on Wyatt's
+  account — that is whose bill, not whose call.
 - No self-armed PR monitors, ever.
 
 ## Known traps

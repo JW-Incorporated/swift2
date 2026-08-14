@@ -9,6 +9,21 @@ here. A charter is a **runtime contract**: the session/service that runs the
 agent loads it and follows it exactly. Charter changes are founder-approved
 PRs — no agent may edit any charter, including its own.
 
+> **Ownership (2026-08-14 handoff).** "Founder-approved" means **Joey**
+> (`sffan15-sys`), who owns the project outright — see `CLAUDE.md`
+> § Ownership. Desks are directed by him; the scheduled ones merely *run on*
+> Wyatt's Anthropic account so their spend stays off Joey's weekly limit
+> (`runners.md`). Where a charter below says a decision or a setup step is
+> "Wyatt's", read it as **Joey's**, unless it is specifically about the
+> routines' hosting account or an API key/secret Wyatt supplies. Dated
+> attributions ("Joey's directive, 2026-07-11", "amended by Wyatt") are the
+> authority trail for past calls and stay as written.
+>
+> The charter-edit bar itself is unchanged and is **not** an ownership
+> control: `docs/agents/` is in `NEVER_ALLOWLIST`
+> (`scripts/check-automerge-allowlist.mjs`) so no bot PR can auto-merge a
+> change to what agents are permitted to do. That still holds.
+
 ## Charter sections (Kevin's doc is the original template)
 
 1. Mission + current-version scope

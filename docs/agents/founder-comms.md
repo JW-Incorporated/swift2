@@ -91,8 +91,8 @@ in an inbox.
 >       overlong entries
 >    4. [#1585](https://github.com/JW-Incorporated/swift2/pull/1585) — adds
 >       photos
-> 2. Before you start writing about any album era, tell Wyatt which one —
->    so the automated writers skip that era while you're in it.
+> 2. Before you start writing about any album era, reply here with which one —
+>    we'll claim it so the automated writers skip that era while you're in it.
 >
 > One thing to hold off on: don't start the Midnights or Tortured Poets
 > timelines until step 1 is done.

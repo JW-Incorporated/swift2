@@ -1,5 +1,5 @@
 name: Founder decision (bank item)
-description: "Any agent or founder: bank a decision that needs Joey/Wyatt. Marjorie curates these into the daily Founders' Brief."
+description: "Any agent or founder: bank a decision that needs Joey. Marjorie curates these into the daily Founders' Brief."
 title: "[decision] <one sentence: what's being decided>"
 labels: ["founder-decision"]
 body:
