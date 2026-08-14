@@ -11,8 +11,39 @@
 
 ## Current focus
 
-**Nothing in flight.** Three efforts shipped 2026-08-14; one research PR is
-open and awaiting Joey.
+**IN FLIGHT: Community + Merch sections** — branch `feature/community-merch`
+(off `research/communities`, so **PR #2110 merges first**). Plan in `PLAN.md`.
+Four parallel agents: data layer, submit endpoint, UI, nav wiring.
+**Joey authorised the merge** ("please merge when completed").
+
+Two design properties that are NOT negotiable, both load-bearing:
+
+- **Nothing a user submits ever renders on the site.** Issue #36's no-go
+  (`docs/definition-of-done.md:206-212`) forbids user-generated-content hosting
+  liability; a public form that auto-publishes walks straight into it.
+  Submissions go to Joey's sheet, inbox and a GitHub issue. He curates by hand.
+  This matches his own stated intent, so it costs nothing.
+- **The endpoint never fetches a submitted URL** — SSRF and DoS amplifier.
+  Domain and platform are derived from the string only.
+
+**Infrastructure reality (surveyed, not assumed):** Swift2 has NO runtime email
+(its mail is Python+Gmail from GitHub Actions, unreachable from a Vercel route)
+and there is NO Google Sheets write capability anywhere in the projects tree.
+The existing Resend key is verified for `4twatches.com` and cannot send as
+`@longlivets.com`. **So the endpoint has three sinks that degrade
+independently:** GitHub issue (works day one, reuses `/api/feedback`), Sheet
+(needs `SUBMISSIONS_SHEET_WEBHOOK_URL`), email (needs `RESEND_API_KEY` +
+verified domain). **A missing integration must never fail a submission.**
+
+Sheet created in Joey's "Swift App" Drive folder, id
+`1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4`. Column order is fixed and the
+route must match it.
+
+**Merch is not starting empty** — `lib/longlive/shop.ts` already holds the
+shop-the-look products, affiliate-ready. Item 4a lists affiliate DISCLOSURE as
+an open question; flagged for report.
+
+Three efforts shipped 2026-08-14; the research PR is open and awaiting Joey.
 
 | Effort | State |
 |---|---|
