@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { Compass, Layers, Sparkles, VenetianMask } from 'lucide-react';
+import { Compass, Layers, Sparkles, VenetianMask, Users, ShoppingBag } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAppActions, useAppState, type AppMode } from '@/lib/longlive/store';
 import { layoutBottomNavTabs, type BottomNavEntry } from '@/lib/longlive/bottom-nav-layout';
 import { shouldHideNavForFocus } from '@/lib/longlive/bottom-nav-focus';
 
-type BottomNavMode = Extract<AppMode, 'era' | 'threads' | 'mood' | 'clownbot'>;
+type BottomNavMode = Extract<
+  AppMode,
+  'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch'
+>;
 
 interface Tab extends BottomNavEntry {
   mode: BottomNavMode;
@@ -16,13 +19,15 @@ interface Tab extends BottomNavEntry {
 }
 
 // R3 (PLAN.md): 4 tabs today, 6 at full growth once Marketplace and Community
-// ship. Add those two here when they exist — BOTTOM_NAV_ICON_ONLY_THRESHOLD in
-// bottom-nav-layout.ts already degrades the bar to icon-only once it does.
+// ship. BOTTOM_NAV_ICON_ONLY_THRESHOLD in bottom-nav-layout.ts degrades the
+// bar to icon-only automatically once it does.
 const TABS: readonly Tab[] = [
   { id: 'era', label: 'Eras', mode: 'era', icon: Compass },
   { id: 'threads', label: 'Threads', mode: 'threads', icon: Layers },
   { id: 'mood', label: 'Mood', mode: 'mood', icon: Sparkles },
   { id: 'clownbot', label: 'Clownbot', mode: 'clownbot', icon: VenetianMask },
+  { id: 'community', label: 'Community', mode: 'community', icon: Users },
+  { id: 'merch', label: 'Merch', mode: 'merch', icon: ShoppingBag },
 ];
 
 /**

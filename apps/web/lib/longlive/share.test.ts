@@ -118,4 +118,12 @@ describe('topbarShareTarget', () => {
   it('returns null in threads mode with no thread open (gallery or crossing)', () => {
     expect(topbarShareTarget('threads', 'tloas', null)).toBeNull();
   });
+
+  it('returns null in community mode, same as mood and clownbot', () => {
+    expect(topbarShareTarget('community', 'tloas', null)).toBeNull();
+  });
+
+  it('returns null in merch mode, same as mood and clownbot', () => {
+    expect(topbarShareTarget('merch', 'tloas', null)).toBeNull();
+  });
 });

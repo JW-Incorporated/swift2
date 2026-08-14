@@ -19,6 +19,8 @@ import { SearchOverlay } from './SearchOverlay';
 import { SiteFooter } from './SiteFooter';
 import { FeedbackButton } from './FeedbackButton';
 import { BottomNav } from './BottomNav';
+import { CommunitySection } from './CommunitySection';
+import { MerchSection } from './MerchSection';
 
 function Shell() {
   const { mode, eraId } = useAppState();
@@ -26,6 +28,8 @@ function Shell() {
   const inThreads = mode === 'threads';
   const inMood = mode === 'mood';
   const inClownbot = mode === 'clownbot';
+  const inCommunity = mode === 'community';
+  const inMerch = mode === 'merch';
 
   // Keep the document theme-color in sync with the active surface.
   const themeColor = inThreads ? VAULT_THEME.bg : era.theme.bg;
@@ -51,6 +55,10 @@ function Shell() {
           <MoodChat />
         ) : inThreads ? (
           <ThreadsMode />
+        ) : inCommunity ? (
+          <CommunitySection />
+        ) : inMerch ? (
+          <MerchSection />
         ) : (
           <EraStream />
         )}
