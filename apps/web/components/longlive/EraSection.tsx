@@ -10,7 +10,6 @@ import {
   Shirt,
   RefreshCw,
   Gem,
-  ListMusic,
   Check,
   Music,
   Mic2,
@@ -24,14 +23,12 @@ import { useAppActions, useAppState, useProgress } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
 import { tracksForEra } from '@/lib/longlive/tracks';
-import { theoriesForEra } from '@/lib/longlive/theories';
 import { threadsInEra, getThread } from '@/lib/longlive/lenses';
 import { videosForEra, eraVideoFeed, VIDEO_KIND_LABEL } from '@/lib/longlive/videos';
 import type { PlayableVideoNote } from '@/lib/longlive/videos';
 import { formatMonthYear } from '@/lib/longlive/format';
-import { EraMedia } from './EraMedia';
 import { EraSecretCard } from './EraSecretCard';
-import { EraVideos } from './EraVideos';
+import { TrackGuideBar } from './TrackGuideBar';
 import { MomentVideo, VideoPoster } from './MomentVideo';
 import { SignificanceBadge } from './SignificanceBadge';
 import { TAG_META } from '@/lib/longlive/tags';
@@ -80,16 +77,13 @@ import { cn } from '@/lib/utils';
  * once by EraStream — so this section only reads the active set.
  */
 export function EraSection({ era }: { era: Era }) {
-  const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide } =
-    useAppActions();
+  const { openItem, setSelectorOpen, openThread, openTrackGuide } = useAppActions();
   // The filter is now global (R2) — one set of six FilterIds, OR-matched,
   // owned by the store and rendered once by FilterBar in EraStream. This
   // section only reads the active set; it no longer owns filter state.
   const { filters } = useAppState();
   const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
   const trackCount = useMemo(() => tracksForEra(era.id).length, [era.id]);
-  const theoryCount = useMemo(() => theoriesForEra(era.id).length, [era.id]);
-  const videoCount = useMemo(() => videosForEra(era.id).length, [era.id]);
 
   const items = useMemo(() => contentForEra(era.id), [era.id]);
   // Everything watchable in this era (all kinds, including the appearances the
@@ -236,48 +230,11 @@ export function EraSection({ era }: { era: Era }) {
               {era.intro}
             </p>
           )}
-          {era.media && <EraMedia media={era.media} />}
-
-          {/* Era guides — each only when this era has sourced records. */}
-          {(trackCount > 0 || theoryCount > 0 || videoCount > 0) && (
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
-              {trackCount > 0 && (
-                <button
-                  onClick={() => openTrackGuide(era.id)}
-                  className="era-btn-ghost inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
-                >
-                  <ListMusic className="h-4 w-4 text-[color:var(--era-accent)]" />
-                  Track guide
-                  <span className="text-xs text-[color:var(--era-ink-soft)]">
-                    {trackCount} {trackCount === 1 ? 'song' : 'songs'}
-                  </span>
-                </button>
-              )}
-              {theoryCount > 0 && (
-                <button
-                  onClick={() => openTheoryGuide(era.id)}
-                  className="era-btn-ghost inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
-                >
-                  <Sparkles className="h-4 w-4 text-[color:var(--era-accent)]" />
-                  Theories &amp; eggs
-                  <span className="text-xs text-[color:var(--era-ink-soft)]">{theoryCount}</span>
-                </button>
-              )}
-              {videoCount > 0 && (
-                <button
-                  onClick={() =>
-                    document
-                      .getElementById(`era-videos-${era.id}`)
-                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
-                  className="era-btn-ghost inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
-                >
-                  <Clapperboard className="h-4 w-4 text-[color:var(--era-accent)]" />
-                  Videos
-                  <span className="text-xs text-[color:var(--era-ink-soft)]">{videoCount}</span>
-                </button>
-              )}
-            </div>
+          {trackCount > 0 && (
+            <TrackGuideBar
+              onOpen={() => openTrackGuide(era.id)}
+              trackCount={trackCount}
+            />
           )}
         </div>
       </div>
@@ -288,8 +245,7 @@ export function EraSection({ era }: { era: Era }) {
       <EraSecretCard eraId={era.id} />
 
       {/* Chronological feed (newest-first). Music videos (issue #439) are
-          merged in alongside curated moments, dated to their release date —
-          the fuller card for each still lives in the EraVideos rail below. */}
+          merged in alongside curated moments, dated to their release date. */}
       <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         {/* Editorially-weighted grid (#1017 part 3). Card tier drives the
             number of GRID CELLS a story occupies, which is what actually makes
@@ -332,9 +288,6 @@ export function EraSection({ era }: { era: Era }) {
         )}
       </div>
 
-      {/* Official videos for the era — click-to-play embeds + metadata cards. */}
-      <EraVideos eraId={era.id} />
-
       {/* Era → Thread pivot: jump sideways into any story that runs through here. */}
       {eraThreads.length > 0 && (
         <div className="border-t border-[color:var(--era-line)]">
@@ -372,10 +325,10 @@ export function EraSection({ era }: { era: Era }) {
       {/* Scrubber end-of-content sentinel (not visible). The scrubber only
           builds its scroll anchors from [data-ll-item] elements; without this
           marker the last anchor is the last MomentCard, so dragging to the
-          bottom of the rail stops there instead of past EraVideos/the threads
-          pivot strip below. Assigning it the era's start date (<= any real
-          item's date) keeps the anchor list's date/position ordering
-          consistent for the interpolation in TimelineScrubber. */}
+          bottom of the rail stops there instead of past the threads pivot
+          strip below. Assigning it the era's start date (<= any real item's
+          date) keeps the anchor list's date/position ordering consistent for
+          the interpolation in TimelineScrubber. */}
       <div
         aria-hidden
         data-ll-item={`${era.id}__end`}
@@ -408,8 +361,7 @@ const TAG_ICON: Record<ContentTag, LucideIcon> = {
 /**
  * Lightweight timeline entry for a video duplicated in from the era's videos
  * (issue #439 part 2 for music videos; every kind under the Videos filter).
- * Deliberately thinner than MomentCard's tiers — director/symbolism/easter-egg
- * depth stays in the EraVideos rail card below; this is just the date, title,
+ * Deliberately thinner than MomentCard's tiers — this is just the date, title,
  * and the same click-to-play facade (MomentVideo) used everywhere else a video
  * embeds.
  *

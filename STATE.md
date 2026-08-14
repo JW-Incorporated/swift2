@@ -11,12 +11,20 @@
 (five sequenced PRs, order is load-bearing). Driven by Joey's consolidated team
 feedback on the "Time Machine Mockups" artifact, 2026-08-13.
 
-**P1 is code-complete and committed** (`feat(web): one global filter for the
-whole eras timeline`). **BLOCKED on a human running `/codex:review`** — the
-plugin command is `disable-model-invocation`, so no session can run it itself;
-ask Joey and wait. Do NOT open PR 1 before the review is clean (Joey merges
-green PRs fast, so a post-open finding costs a cherry-pick follow-up). Do NOT
-arm a monitor or a self-check-in — CLAUDE.md § Never babysit your own PR.
+**PR 1 is open: #2086** (`feature/era-reader-rework` → `main`). Joey said the
+Codex review was complete; note that `codex-companion status --all` showed
+"No jobs recorded yet", so no findings text was ever seen by this session —
+that ledger may be per-session, but if PR 1 needs a fix it will be a
+cherry-pick follow-up.
+
+**P2 in flight on `feature/era-reader-p2`** (stacked on P1, NOT branched off
+`main` — it edits the same `EraSection.tsx` region). Steps 8, 9, 10, 11 are
+done in the working tree, uncommitted; the docs slice is with an executor.
+
+**`/codex:review` cannot be invoked by any session** — the plugin command is
+`disable-model-invocation`, and the Skill tool explicitly forbids replicating
+its workflow via `codex-companion.mjs`. Only a human can run it. Ask; do not
+work around it, and do not arm a monitor waiting for it (§ Never babysit).
 
 ## Last session
 
@@ -143,11 +151,14 @@ arm a monitor or a self-check-in — CLAUDE.md § Never babysit your own PR.
       TV spots) — reachable only under Videos. `VideoNote` has no topic field
       at all. Reported to Joey 2026-08-13; his call whether to author them.
       Music videos are fine (they reach Music via the restored rule).
-- [ ] **Videos have no pointer to a moment or track**, so `related-item` /
-      `related-song` never fire for them and they always fall to
-      `era-scatter`. Title-matching a music video to its song is the P3 job —
-      Joey's "put it near some content about that song" needs it, and doorway
-      cards need the same lookup.
+- [ ] **CORRECTED 2026-08-13: videos DO have a song pointer.**
+      `VideoNote.relatedSongs: string[]` (`types.ts:844`) is curated in the
+      seed, and all 55 music/lyric videos carry it. An earlier claim in this
+      file and to Joey that "no video→song pointer exists" was WRONG.
+      `lib/longlive/track-video.ts` (built in P2 step 10) is the tested lookup;
+      P3 reuses it to anchor undated items near content about the same song.
+      Still unverified: whether EGGS carry an equivalent pointer — check, do
+      not assume.
 - [ ] folklore and evermore have no Tour content. Correct — neither era had a
       tour. Not a content gap; do not "fix" it.
 - [ ] **Wyatt has not signed off on the bottom nav** and should see PR 4. It
@@ -162,11 +173,12 @@ arm a monitor or a self-check-in — CLAUDE.md § Never babysit your own PR.
 
 ## Next obvious step
 
-Ask Joey to run `/codex:review` on `feature/era-reader-rework`. When findings
-come back: fix every one, then open PR 1 (TL;DR first, per § Conventions), and
-note in the body that PR 4 will need Wyatt's eyes on the bottom nav.
+Verify the P2 docs slice, commit P2, then ask Joey to run `/codex:review` on
+`feature/era-reader-p2` before opening PR 2. PR 2 targets `feature/era-reader-
+rework` (or `main` once #2086 merges) — it is STACKED, so do not open it
+against `main` while #2086 is unmerged.
 
-Then P2 (era body surgery) from step 8, branched off `main` once PR 1 merges —
-NOT stacked on this branch, and not started early: P2 edits the same
-`EraSection.tsx` region, so starting before review findings land invites
-rework, which § Cost discipline calls the largest waste there is.
+Then P3 (timeline doorways) from step 13. P3's first real question is whether
+eggs carry a song pointer the way videos do (`relatedSongs`) — check before
+designing the anchoring, and reuse `lib/longlive/track-video.ts` rather than
+building a second lookup.

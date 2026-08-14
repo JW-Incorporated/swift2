@@ -7,7 +7,7 @@ import type { ContentItem, MomentVideo } from './types';
  *
  * Same boundary and same reason as era-feed.ts: vitest runs in a `node`
  * environment with no component tests in the suite, so a rule left inside
- * EraSection/EraVideos/MomentDetail is untestable by construction. This module
+ * EraSection/MomentDetail is untestable by construction. This module
  * exists for #2051: a moment carrying footage looked identical to one that
  * didn't, and its video rendered below the entire article (or inside the
  * citations footnote). `feedVideoFor` / `detailVideoFor` / `footnoteVideoSources`
