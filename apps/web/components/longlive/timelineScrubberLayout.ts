@@ -22,8 +22,9 @@ export const SCRUBBER_SCRIM_CLASS = 'absolute inset-y-0 right-0 w-full';
 
 // Top-aligns the rail just below the TopBar (Joey, follow-up to #2077):
 // pt-20 = 80px = the real rendered TopBar height (h-10 icon buttons +
-// py-3 + border-b = 65px; HEADER_OFFSET's 64 is that minus the border)
-// + 15px. The era year label uses leading-none and renders at -top-1
+// py-3 + border-b = 65px — the TopBar-only case of chrome-offset.ts's
+// measureChromeHeight()) + 15px. The era year label uses leading-none and
+// renders at -top-1
 // translateY(-50%), reaching 9px above the rail at the default 10px text
 // size.
 //
@@ -38,6 +39,57 @@ export const SCRUBBER_SCRIM_CLASS = 'absolute inset-y-0 right-0 w-full';
 export const SCRUBBER_ANCHOR_CLASS =
   'absolute top-0 h-svh w-full flex items-start justify-end pt-20 [@media_(min-width:640px)_and_(min-height:620px)]:items-center [@media_(min-width:640px)_and_(min-height:620px)]:pt-0';
 
+// The centered-mode breakpoint above, restated as plain numbers (not folded
+// into a template literal) so the Tailwind arbitrary-variant class strings
+// stay literal text the build's static class scanner can find.
+// TimelineScrubber's own matchMedia clamp (adversarial review finding #2,
+// 2026-08-14 — see scrubberAnchorPaddingTop below) uses these so the two
+// conditions can never drift apart silently.
+export const SCRUBBER_CENTER_MIN_WIDTH = 640;
+export const SCRUBBER_CENTER_MIN_HEIGHT = 620;
+
+/** Matches SCRUBBER_ANCHOR_CLASS's own centered-mode breakpoint exactly. */
+export const SCRUBBER_CENTER_MEDIA_QUERY = `(min-width: ${SCRUBBER_CENTER_MIN_WIDTH}px) and (min-height: ${SCRUBBER_CENTER_MIN_HEIGHT}px)`;
+
+/** Base top offset (px) baked into SCRUBBER_ANCHOR_CLASS's `pt-20` —
+ *  TopBar-only height (see the comment above it). */
+export const SCRUBBER_BASE_PT = 80;
+
+/**
+ * Extra top padding (px) the scrubber's anchor container needs so the rail's
+ * clickable area — and its always-visible date pill — never starts
+ * underneath the sticky chrome (TopBar + FilterBar). `pt-20` only ever
+ * accounted for TopBar; FilterBar's live height was unaccounted for, so on
+ * any viewport where FilterBar renders (every mobile load) the rail's top
+ * band silently overlapped the filter chips, making the last chip
+ * unreachable — every tap on it landed on the rail or the date pill instead
+ * (adversarial review finding #2, 2026-08-14).
+ *
+ * Returns `undefined` — defer entirely to the CSS class's own value — when
+ * the measured chrome doesn't exceed the base `pt-20`, or the container is
+ * in centered mode (SCRUBBER_CENTER_MEDIA_QUERY matched), where vertical
+ * position comes from `items-center` instead of padding and no clamp is
+ * needed or wanted.
+ *
+ * `chromeBottom` is a live POSITION (measureChromeBottom()'s
+ * `getBoundingClientRect().bottom` on the filter bar, or the top bar when no
+ * filter bar is mounted) — not a summed height. Summed heights are only
+ * correct once every chrome piece is stacked flush against the viewport top;
+ * a live bottom position is correct whether it's stuck there yet or not, and
+ * needs no accounting for anything that renders above it (a masthead, or
+ * anything added later) because nothing here is ever summed.
+ */
+export function scrubberAnchorPaddingTop(input: {
+  /** Live measureChromeBottom() reading — the filter bar's (or top bar's)
+   *  current bottom edge in viewport coordinates, or 0 if neither is mounted. */
+  chromeBottom: number;
+  /** Whether SCRUBBER_CENTER_MEDIA_QUERY currently matches. */
+  isCentered: boolean;
+}): number | undefined {
+  if (input.isCentered) return undefined;
+  return input.chromeBottom > SCRUBBER_BASE_PT ? input.chromeBottom : undefined;
+}
+
 // 74svh, capped so the endpoint adornments (leading-none year labels and
 // the date pill, hanging ~11px past the rail's ends) keep clearance on
 // short viewports: 100svh - 6rem = the 80px top offset + a 16px bottom
@@ -47,6 +99,95 @@ export const SCRUBBER_ANCHOR_CLASS =
 // short-landscape hole the anchor variant above closes.
 export const SCRUBBER_RAIL_CLASS =
   'pointer-events-auto relative h-[min(74svh,calc(100svh-6rem))] w-full cursor-ns-resize touch-none select-none outline-none';
+
+/**
+ * Grain (ms) `Date.now()` is snapped DOWN to before it's used as the current
+ * era's live upper bound. Without this, the SSR render and the client
+ * hydration render each call `Date.now()` independently — seconds or even
+ * milliseconds apart — so the current era's span (and therefore every
+ * rendered rail percentage within it) is *guaranteed* to differ by some tiny
+ * amount on every single load. Snapping both calls to the same 5-minute
+ * window means they compute the exact same integer `end`, hence the exact
+ * same span and the exact same percentages, bit-for-bit — not merely
+ * "probably close enough to round the same way" (roundRailPct below is
+ * still applied as defense in depth for the rare case a load straddles a
+ * grain boundary, adversarial review finding #3, 2026-08-14). A 5-minute
+ * stale "now" is irrelevant on a timeline spanning months.
+ */
+export const CURRENT_ERA_NOW_GRAIN_MS = 5 * 60_000;
+
+/** Pure: floors `nowMs` to the nearest `grainMs` boundary at or before it. */
+export function snapNow(nowMs: number, grainMs: number = CURRENT_ERA_NOW_GRAIN_MS): number {
+  return Math.floor(nowMs / grainMs) * grainMs;
+}
+
+/**
+ * Fixed decimal precision applied to every rail percentage before it
+ * becomes a CSS `top` value or SVG ridge coordinate — the single place a
+ * percentage is produced, so an independently-computed server vs. client
+ * value (e.g. a current-era percentage derived from `Date.now()`, evaluated
+ * microseconds apart by the SSR pass and the hydration pass) can't disagree
+ * past this many decimals and cause a hydration mismatch (adversarial
+ * review finding #3, 2026-08-14: `top: "1.14252%"` server vs.
+ * `"1.1425251289221632%"` client on every fresh load).
+ */
+export const RAIL_PCT_DECIMALS = 4;
+
+/** Pure: rounds a 0..100 rail percentage to RAIL_PCT_DECIMALS. */
+export function roundRailPct(pct: number): number {
+  const factor = 10 ** RAIL_PCT_DECIMALS;
+  return Math.round(pct * factor) / factor;
+}
+
+/**
+ * Bottom reserve (px) baked into SCRUBBER_RAIL_CLASS's own cap
+ * (`calc(100svh - 6rem)` = 80px top offset (SCRUBBER_BASE_PT) + this 16px)
+ * — reused below so the JS clamp matches the CSS cap's intent instead of
+ * inventing a second number.
+ */
+export const SCRUBBER_RAIL_RESERVE_PX = 16;
+
+/**
+ * Caps the rail's rendered height so `paddingTop + railHeight` never runs
+ * past the viewport, matching what SCRUBBER_RAIL_CLASS's own
+ * `min(74svh, calc(100svh - 6rem))` cap already assumes: an 80px top offset
+ * (SCRUBBER_BASE_PT) baked into `pt-20`. When scrubberAnchorPaddingTop above
+ * returns something taller than that (a live-measured chrome height —
+ * finding #2, 2026-08-14), the CSS cap's baked-in 80px goes stale and the
+ * rail can run off the bottom of a short viewport (re-review finding #2,
+ * 2026-08-14 round 2 — a landscape phone at 844x390 put the rail 15px past
+ * the bottom edge). Returns `undefined` when `paddingTop` itself is
+ * `undefined` (scrubberAnchorPaddingTop deferred to the CSS default, or
+ * centered mode) — the CSS cap is already correct there and needs no
+ * override.
+ */
+export function scrubberRailMaxHeight(input: {
+  /** Whatever scrubberAnchorPaddingTop returned (undefined = CSS default). */
+  paddingTop: number | undefined;
+  /** window.innerHeight (or svh-equivalent) at measurement time. */
+  viewportHeight: number;
+}): number | undefined {
+  if (input.paddingTop == null) return undefined;
+  return Math.max(0, input.viewportHeight - input.paddingTop - SCRUBBER_RAIL_RESERVE_PX);
+}
+
+/**
+ * clip-path applied to the rail ONLY while its top is pinned to the live
+ * measured chrome height (scrubberAnchorPaddingTop returned a value) — the
+ * one case that leaves zero slack above the rail for its own overhanging
+ * adornments (era year labels, the handle, milestone dots — all use
+ * `-translate-y-1/2` and so paint a few px above the rail's own top edge by
+ * design). The old static `pt-20` had ~15px of slack that absorbed this;
+ * clamping to the exact chrome height left none, so the overhang paints
+ * visibly over the sticky FilterBar row directly above (re-review finding
+ * #3, 2026-08-14 round 2). Deliberately a `clip-path: inset()`, not
+ * `overflow-hidden` on the rail: overflow-hidden clips all four sides at
+ * the rail's own narrow (~40-48px) box, which would also hide the
+ * hover-preview tooltip — a legitimate 192px-wide card that intentionally
+ * renders far outside the rail's own width. inset()'s three non-top offsets
+ * are pushed deep negative so only the top edge ever clips.
+ */
+export const SCRUBBER_RAIL_CLIP_PATH = 'inset(0px -400px -400px -400px)';
 
 /** Keep the compact date pill inside the rail at its two hard endpoints. */
 export function scrubberPillTransform(pct: number): string {

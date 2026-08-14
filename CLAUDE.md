@@ -52,6 +52,23 @@ written down; ask instead.
    summary. Full contract, commands and traps: `docs/agents/codex.md`.
    Never hand a review back to a founder — agents deploy Codex themselves.
    The in-house `reviewer` agent does NOT satisfy this rule.
+
+   **MAXIMUM TWO REVIEW ROUNDS PER BRANCH** (Joey, 2026-08-14, after a
+   four-round loop). Round 1 reviews the work; if it rejects, you fix and run
+   round 2. **If round 2 also rejects, STOP — do not run a round 3.** Escalate:
+   write `DEBUG.md`, hand it to a fresh-context agent restricted to the 2–3
+   relevant files, and if that does not settle it, invoke `architect`. A third
+   review is a signal that the FIX approach is wrong, not that more review is
+   needed. Reviews are cheap to run and expensive in wall-clock; a loop of them
+   is a symptom.
+
+   **Why the loop happened, and the rule that prevents it:** every failed fix
+   verified the wrong thing — the container moved rather than what
+   `elementFromPoint` returns; one scroll state rather than all of them. So:
+   **a UI fix is not verified until it is reproduced in a browser, in every
+   state the bug can occupy, at every viewport it targets.** For an
+   interactive control that means a real tap and a hit-test, not geometry. A
+   green suite is not evidence — 2,700 passing tests missed all four rounds.
 4. **Test everything.** Write or update automated tests for every feature.
    Run the full suite before declaring work done.
 5. **Disagreements surface, not settle.** If Claude and Codex disagree on an

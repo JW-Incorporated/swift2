@@ -8,7 +8,10 @@ import { eraStyle } from '@/lib/longlive/theme';
 import type { Era } from '@/lib/longlive/types';
 import { EraSection } from './EraSection';
 import { FilterBar } from './FilterBar';
+import { LandingMasthead } from './LandingMasthead';
 import { filterChangeScrollDelta } from '@/lib/longlive/era-stream-pin';
+import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
+import { jumpLandingScrollTop, shouldRunEraJump } from '@/lib/longlive/era-jump-landing';
 
 /**
  * Jump-scroll timing. SETTLE is how long we keep re-correcting AFTER first
@@ -35,7 +38,7 @@ export function EraStream() {
   // just change what a single already-running listener does on its next call.
   const scrubbingRef = useRef(scrubbing);
   scrubbingRef.current = scrubbing;
-  const { setActiveEra, saveEraScroll, getEraScroll } = useAppActions();
+  const { setActiveEra, saveEraScroll, getEraScroll, setMode } = useAppActions();
 
   // If the user is returning to era mode via a plain toggle, a saved snapshot
   // tells us where they were. Read it once at first render so the stream mounts
@@ -43,12 +46,11 @@ export function EraStream() {
   const restoreRef = useRef(getEraScroll());
   const restore = restoreRef.current;
 
-  // With no snapshot, this mount may itself be an explicit jump: the landing
-  // page renders *instead of* the stream, so picking an era there (openEra)
-  // bumps eraJumpSeq in the same action that first mounts this component —
-  // the jump effect below can't see that bump as a change (#747). Seed the
-  // window the way the jump would have, so newer eras exist above the picked
-  // one from the first paint.
+  // With no snapshot, this mount may itself be an explicit jump: switching
+  // into era mode from elsewhere (openEra) bumps eraJumpSeq in the same
+  // action that first mounts this component — the jump effect below can't
+  // see that bump as a change (#747). Seed the window the way the jump would
+  // have, so newer eras exist above the picked one from the first paint.
   const initialWindow = restore ?? jumpWindow(eraId);
   const [anchorId, setAnchorId] = useState(initialWindow.anchorId);
   const [count, setCount] = useState(initialWindow.count);
@@ -85,11 +87,18 @@ export function EraStream() {
   // Keyed off the *value* of eraJumpSeq (not "has mounted") so StrictMode's
   // double-invoke of this effect can't re-trigger a jump that would clobber a
   // scroll restore. When there's no snapshot to protect, the mount itself may
-  // BE the jump (#747: openEra from the landing page bumps eraJumpSeq in the
-  // same action that mounts the stream, so the pre-seeded ref would swallow
+  // BE the jump (#747: openEra bumps eraJumpSeq in the same action that
+  // mounts the stream, so the pre-seeded ref would swallow
   // the bump) — re-anchoring to the same target is idempotent, so the
   // mount-time run (and StrictMode's double-invoke of it, which cancels the
-  // first run's scroll correction) is safe to let through.
+  // first run's scroll correction) is safe to let through — EXCEPT the plain
+  // front-door mount (no restore, eraJumpSeq still its initial 0), which
+  // looks identical to a no-snapshot openEra mount but must NOT jump: the
+  // masthead sits above the current era's section, and jumping the section
+  // to the chrome scrolls straight past it — the reader never sees it
+  // (adversarial review finding #1, 2026-08-14). shouldRunEraJump
+  // (era-jump-landing.ts) carries the gate so it's covered without mounting
+  // React.
   //
   // The stream always anchors at the newest (current) era and extends back
   // just far enough to include the chosen era (see jumpWindow) — anchoring AT
@@ -99,7 +108,14 @@ export function EraStream() {
   const mountedWithoutRestore = useRef(!restore);
   const handledJumpSeq = useRef(eraJumpSeq);
   useEffect(() => {
-    if (!mountedWithoutRestore.current && handledJumpSeq.current === eraJumpSeq) return;
+    if (
+      !shouldRunEraJump({
+        hasRestore: !mountedWithoutRestore.current,
+        eraJumpSeq,
+        handledJumpSeq: handledJumpSeq.current,
+      })
+    )
+      return;
     handledJumpSeq.current = eraJumpSeq;
     const targetId = eraIdRef.current;
     const { anchorId: nextAnchorId, count: neededCount } = jumpWindow(targetId);
@@ -154,7 +170,19 @@ export function EraStream() {
         if (Date.now() > deadline) stop();
         return;
       }
-      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      // Compensate for the sticky chrome (TopBar + FilterBar) pinned over
+      // y=0, or the section's top edge lands hidden underneath it (founder
+      // report, 2026-08-14: "our scroll goes under the filters"). Re-measured
+      // on every pass so a chrome-height change mid-settle (e.g. FilterBar's
+      // own ResizeObserver catching up) can't leave a stale offset behind.
+      window.scrollTo({
+        top: jumpLandingScrollTop({
+          sectionTop: el.getBoundingClientRect().top,
+          scrollY: window.scrollY,
+          chromeHeight: measureChromeHeight(),
+        }),
+        behavior: 'auto',
+      });
       if (!landedAt) landedAt = Date.now();
       // Settle window starts at the FIRST landing, not at the jump.
       if (Date.now() - landedAt > JUMP_SCROLL_SETTLE_MS || Date.now() > deadline) stop();
@@ -295,6 +323,20 @@ export function EraStream() {
 
   return (
     <div>
+      {/* The masthead (R1, PLAN.md 2026-08-14): mounted ONCE here, above the
+          whole sequence — never inside the map below, which repeats per era.
+          It sits above the stream's anchor (always the current/newest era,
+          see jumpWindow), scrolls away as the reader goes back in time, and
+          never returns — the sticky TopBar above it is the "compact bar" it
+          collapses into. */}
+      <header className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-5 pb-10 pt-12 text-center sm:pt-16">
+        <LandingMasthead
+          onNavigate={(m) => {
+            // 'era' is a no-op: the stream IS the era surface already.
+            if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
+          }}
+        />
+      </header>
       <FilterBar />
       {sequence.map((era, i) => (
         <Fragment key={era.id}>
@@ -358,10 +400,7 @@ function OriginCap() {
 
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <button
-            onClick={() => {
-              goHome();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onClick={goHome}
             className="inline-flex items-center gap-2 rounded-full bg-[color:var(--era-accent)] px-5 py-2.5 text-sm font-semibold text-[color:var(--era-bg)] transition hover:opacity-90"
           >
             <ArrowUp className="h-4 w-4" />

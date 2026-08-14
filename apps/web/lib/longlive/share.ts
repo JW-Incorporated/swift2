@@ -71,7 +71,7 @@ export function theoryGuideShareCopy(era: Pick<Era, 'shortName'>): ShareCopy {
   };
 }
 
-/** Share copy for the bare site front door — the landing page (#707). */
+/** Share copy for the bare site front door — the era stream (#707). */
 export function siteShareCopy(): ShareCopy {
   return {
     title: 'Long Live — the Taylor Swift time machine',
@@ -89,13 +89,10 @@ export function siteShareCopy(): ShareCopy {
  * shifts (#453).
  */
 export function topbarShareTarget(
-  mode: 'landing' | 'era' | 'threads' | 'mood' | 'clownbot',
+  mode: 'era' | 'threads' | 'mood' | 'clownbot',
   eraId: EraId,
   lensId: LensId | null,
 ): ShareTarget | null {
-  // The landing page renders no TopBar at all (#684); returning null keeps
-  // this total over AppMode anyway, so a stray call can't fabricate a target.
-  if (mode === 'landing') return null;
   // Mood chat has no shareable target by design: the only thing that
   // distinguishes one reader's view from another's is what they typed, and
   // that is exactly the thing this feature promises never to persist or

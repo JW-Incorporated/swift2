@@ -95,13 +95,6 @@ export function BottomNav() {
   const { setMode } = useAppActions();
   const inputFocused = useTextInputFocused();
   const tabs = layoutBottomNavTabs(TABS);
-  // The landing page (mode: 'landing') IS the era front door — LandingPage's
-  // own desktop toggle hardcodes `mode="era"` for exactly that reason, so no
-  // tab there ever reads as unselected. BottomNav has no 'landing' tab of its
-  // own, so without this it fell through to no `aria-current` at all on
-  // mobile while desktop showed Eras selected (re-review finding E,
-  // 2026-08-13).
-  const currentMode = mode === 'landing' ? 'era' : mode;
 
   // Unmount outright rather than visually hide — a hidden-but-present bar
   // could still eat a stray tap while the keyboard covers it.
@@ -116,7 +109,7 @@ export function BottomNav() {
       <div className="mx-auto flex max-w-4xl items-stretch justify-around">
         {tabs.map((tab) => {
           const Icon = tab.icon;
-          const active = currentMode === tab.mode;
+          const active = mode === tab.mode;
           return (
             <button
               key={tab.id}
