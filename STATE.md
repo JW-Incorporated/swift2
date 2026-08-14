@@ -11,6 +11,43 @@
 
 ## Current focus
 
+**NOW: Community section research** — branch `research/communities`, plan in
+`PLAN.md`. Joey's uploaded brief: build the curated dataset of every meaningful
+place Swifties gather, to power a new Community nav tab. Four parallel
+researchers by platform. **Not a code change — a dataset.**
+
+Three findings that reshape the brief, all confirmed:
+- **Reddit is unreachable from this environment.** 403 at the edge on
+  `www.` AND `oauth.reddit.com`; `WebFetch` refuses `reddit.com` outright; no
+  Reddit credential anywhere (checked `dongerbot`). So NO member counts and NO
+  activity for any subreddit. Pivoted to name+story+recommendation-frequency,
+  `member_count: null`. **A Reddit API app would unblock this and make the
+  dataset refreshable — offered to Joey, not yet actioned.**
+- **Facebook is the SMALLEST slice, not the largest** as the brief predicted:
+  5 entries, 12 candidates dropped. Not because the groups don't exist — they
+  leave no verifiable trace from outside. Zero corroborated era-specific,
+  vinyl, mom, teacher, UK or AU groups despite dedicated searches.
+- **Discord is the strongest slice** (11, all verified via the invite API) and
+  proves why verification was non-negotiable: of 22 candidate invites, **10
+  were dead or pointed at the wrong server**. `discordbotlist.com` serves its
+  OWN promo invite on every page; one directory labelled an invite "The Lakes"
+  when the API showed an unrelated 84-member server.
+
+**Every entry carries a `verification` block** (`verified-live` /
+`third-party-cited` / `listed-only` / `blocked-unverified`) so verified and
+unverified never blend into one confident-looking list. **Open product
+question for Joey: the spec (`docs/definition-of-done.md:136-142` item 4b)
+names Instagram and TikTok; the brief omits them. Also unanswered: who owns
+the refresh cadence the spec requires.**
+
+---
+
+**Clownbot: COMPLETE and live.** Three PRs merged 2026-08-14 — rebuild (#2087),
+chat UI (#2103), and the review fixes (#2108, `d969a29e`). Confirmed live by
+fetching the shipped JS bundles, not inferred from a green build. Rulings
+J1-J7 and the review findings are in `docs/decisions.md`. Backend behaviour was
+the named next step and #2108 delivered it.
+
 **Two efforts landed within hours of each other.**
 
 1. **Era reader rework — MERGED 2026-08-14 as `e8500905` (#2086).**
