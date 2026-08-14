@@ -8,15 +8,14 @@
 **IN FLIGHT: a throwaway bottom-nav mockup.** Joey dislikes six icon-only tabs
 and asked whether FIVE fit WITH text. An agent tests the worst case (drop the
 shortest label, keep the five longest) via two edits — threshold 5→6, one tab
-removed — screenshots 320/390/430, then reverts. **If `bottom-nav-layout.ts` or
-the tab list shows modified, that is the mockup, NOT work to commit.** Which tab
-gets dropped is Joey's product call and is NOT decided.
+removed — screenshots 320/390/430, then reverts. **A modification to
+`bottom-nav-layout.ts` or the tab list is the mockup, NOT work to commit.**
+Which tab gets dropped is Joey's product call, NOT decided.
 
-Community + Merch **MERGED `22314d5b` (#2112)** on top of
-the dataset **MERGED `109e776a` (#2110)**; both sections are live. Earlier the
-same day: era reader `e8500905` (#2086), device review `ff4df4ab` (#2099),
-Clownbot `3d553340` / `b8a500a3` / `d969a29e` — confirmed live by fetching the
-shipped JS bundles, not inferred from a green build.
+Community + Merch **MERGED `22314d5b` (#2112)** on the dataset **`109e776a`
+(#2110)**; both live. Earlier same day: era reader `e8500905` (#2086), device
+review `ff4df4ab` (#2099), Clownbot `3d553340` / `b8a500a3` / `d969a29e` —
+confirmed live by fetching the shipped JS bundles, not from a green build.
 
 **The submit form only files GitHub issues until Joey does three things** in
 `docs/ops/community-merch-submissions.md`: deploy the Apps Script, verify
@@ -37,15 +36,14 @@ integration must never fail a submission**. Sheet id
   refuse to start: *"recent account payments have failed or your spending limit
   needs to be increased."* Last good run `CI` 2026-08-14T21:44:44Z; everything
   from ~21:49Z fails to start. **`build` does not run, so there is no merge
-  gate** — do not merge past it, and do not read a missing `build` as red.
-  Fix is a founder's: GitHub → Settings → Billing & plans. **Also silently
-  down: `social-poster` (scheduled posts are NOT going out) and `watchdog`,
-  which is the thing that emails when a runner goes dark — the alarm is inside
-  the outage.** #2110 and #2112 both merged on genuinely green builds from
-  before the cutoff; neither is suspect.
+  gate** — do not merge past it, and do not read a missing `build` as red. Fix
+  is a founder's: GitHub → Settings → Billing & plans. **Also silently down:
+  `social-poster` (posts are NOT going out) and `watchdog` — the thing that
+  emails when a runner goes dark is inside the outage.** #2110 and #2112 merged
+  on genuinely green builds from before the cutoff; neither is suspect.
 - **PR #2114 is parked on that** — this checkpoint, docs only; needs only a
-  re-run. **PR #2104 (older, STATE.md-only) is superseded by it and should be
-  closed, not merged** — it predates everything since the chat-UI merge.
+  re-run. **PR #2104 (older, STATE.md-only) is superseded and should be closed,
+  not merged** — it predates everything since the chat-UI merge.
 
 - **#2110 merged with three questions still unanswered** (Joey deferred them;
   merging did not resolve them): **Instagram + TikTok** scope — item 4b names
@@ -92,17 +90,16 @@ more than 2 rounds."**
   working memory was being used as the record; this separates them.
 - **A `grunt` sent to compress `MAP.md` edited the MAIN checkout**
   (`Documents\Claude\Projects\Swift2`, branch `fix/karen-mechanics`) not its
-  worktree, compressing that branch's base — output had no Community + Merch
-  rows, so it was discarded and I compressed by hand. **That tree still has an
-  uncommitted `MAP.md` edit I did not revert** (not mine to discard; a no-op
-  once #2114 lands). Next brief: make the agent echo its resolved cwd first.
+  worktree, compressing the wrong base — discarded; I compressed by hand. **That
+  tree still has an uncommitted `MAP.md` edit I did not revert** (not mine to
+  discard; a no-op once #2114 lands). Make agents echo their cwd first.
 
 ## Architect invocations
 
-<!-- NEVER cleared. Budget <=2/week. -->
+<!-- NEVER cleared. Budget <=2/week. A `reviewer` with `model: "fable"` is a
+     MODEL OVERRIDE, not an architect escalation — do not log those here. -->
 
-- (none yet). A `reviewer` with `model: "fable"` is a MODEL OVERRIDE, NOT an
-  architect escalation — do not log those here.
+- (none yet).
 
 ## Decisions that are settled
 
@@ -111,18 +108,16 @@ more than 2 rounds."**
   (`docs/decisions.md` 2026-08-13). **Joey reversed his own brief once: there is
   NO Threads filter chip.** Six filters forever: Music, Fashion, Tour,
   Relationship, Lore, Videos. Plans need no sign-off; no local-concurrency cap.
-  Merge authority is human. Runners are on Wyatt's account. No self-armed
-  PR monitors, ever.
+  Merge authority is human. Runners on Wyatt's account. No self-armed monitors.
 
 ## Known traps
 
-**The durable ones now live in `docs/engineering-lessons.md` — read it before
+**The durable ones live in `docs/engineering-lessons.md` — read it before
 touching `apps/web`, the safety gates, or the community dataset.** A passing
 suite is not evidence; `apps/web` is unlinted so "lint clean" proves nothing;
 over-refusal and under-blocking pull opposite ways; a sum of heights is not a
 position; `pointer-events` inherits; two mechanisms for one fact; the dormant
-affiliate seam; user text reaching a spreadsheet is a formula; every
-external-research blocker. Only session-scoped items stay below.
+affiliate seam; user text in a spreadsheet is a formula; research blockers.
 
 - **Joey asked for a 30-min recurring cron to "keep you going" (2026-08-14).
   RAISED, not built** — § Never babysit your own PR bans it, and it would not
