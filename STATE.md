@@ -103,6 +103,38 @@ night that three Codex rounds missed.
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
+- **Clownbot review, 2 Fable rounds, both REJECT. PR #2108 open, NOT merged.**
+  Codex is down, so a `reviewer` on `model: "fable"` stood in under the
+  authorised fallback, required to REPRODUCE rather than read. Joey capped it
+  at 2 rounds; **both are spent, so the final fix ships reviewed only by the
+  orchestrator.** Round 1 found four defects, all reproduced:
+  1. Over-refusal root cause — `screenOutput` ran INPUT-tuned regexes over the
+     bot's own prose (`\bdiagnos` matched "I diagnosed a whole color theory").
+     Non-deterministic because it depended on the model's word choice.
+  2. The output gate caught **0 of 13** redline drafts. The battery only ever
+     "held" them because the model chose to deflect. `clown-safety.ts`'s header
+     claimed prompt-independence; that was FALSE for the output path.
+  3. **Prior transcript turns bypassed every input gate** — a real jailbreak
+     route. `screenConversation` existed for it and was never called.
+  4. Hyphenated queries retrieved nothing, so real topics were refused.
+  Round 2 verified all four fixes hold, then found the fix for (1)/(3) had
+  **REGRESSED the product**: `screenConversation` screened stored ASSISTANT
+  prose and the bot's OWN refusal copy with input patterns, so 4 of 13 refusal
+  messages tripped their own gate. **One refusal permanently bricked the
+  session** — each refusal appends more self-tripping text and the 6-message
+  cap never clears it. Fix in flight: user turns screened with input patterns,
+  assistant turns with output patterns.
+  **The standing lesson: over-refusal and under-blocking pull in opposite
+  directions here. Every change to one gate must be tested against both.**
+- **`tb-priv-02` is a documented, tested gap** — sexuality speculation with no
+  orientation token cannot be caught deterministically without also refusing
+  "what is track five on Midnights really about?". Do not "fix" it with a
+  probe-text-pinned regex; that overfits the probe, not the class.
+- **Four other overlays share the `z-50`-under-`z-[71]` FeedbackButton
+  overlap** (`EraSelector`, `MomentDetail`, `TrackGuide`, `TheoryGuide`).
+  Deliberately NOT fixed — floating feedback over a reading sheet may be
+  intentional. Joey's call, not an agent's.
+
 - **Codex is out of credits until Aug 19 2026.** Workflow rule 3 is UNSATISFIED
   for BOTH efforts. Clownbot never got a Codex round; the era reader got three
   (round 3 died mid-run — this limit is why). **Run Codex against merged `main`
