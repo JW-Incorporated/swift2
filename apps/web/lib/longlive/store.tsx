@@ -27,7 +27,7 @@ import type { FilterId } from './filters';
 import type { EraId, LensId, MotifId } from './types';
 import type { ClownAnswer } from './clown-answer';
 
-export type AppMode = 'era' | 'threads' | 'mood' | 'clownbot';
+export type AppMode = 'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch';
 
 /** One exchange in the clown bot transcript. */
 export interface ClownMessage {
