@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { confirmedEggs, currentTheories } from './clown-board';
+import { confirmedEggs, currentTheories, relativeDate } from './clown-board';
 import { LORE } from './clownbot-lore';
 import { THEORIES_RAW } from './theories.generated';
 
@@ -156,5 +156,41 @@ describe('confirmedEggs — column 2', () => {
 
   it('omitting limit stays unlimited (existing behaviour untouched)', () => {
     expect(confirmedEggs({ eggsOnly: false }).length).toBe(51);
+  });
+
+  it('resolves every confirmed egg to a real era, grouped into the corpus\'s 11 era buckets', () => {
+    const items = confirmedEggs({ eggsOnly: true });
+    const unresolved = items.filter((i) => i.era === undefined);
+    expect(unresolved.length).toBe(0);
+    const eraNames = new Set(items.map((i) => i.era));
+    expect(eraNames.size).toBe(11);
+  });
+});
+
+describe('relativeDate — column 1 card dates', () => {
+  const NOW = new Date('2026-08-14T00:00:00Z');
+
+  it('renders today for a same-day date', () => {
+    expect(relativeDate('2026-08-14', NOW)).toBe('today');
+  });
+
+  it('renders today for yesterday (mockup\'s <=1 day threshold)', () => {
+    expect(relativeDate('2026-08-13', NOW)).toBe('today');
+  });
+
+  it('renders "N days ago" under the 7-day threshold', () => {
+    expect(relativeDate('2026-08-10', NOW)).toBe('4 days ago');
+  });
+
+  it('renders "N weeks ago" under the 42-day threshold', () => {
+    expect(relativeDate('2026-07-24', NOW)).toBe('3 weeks ago');
+  });
+
+  it('falls back to "Mon YYYY" at or beyond the 42-day threshold', () => {
+    expect(relativeDate('2025-10-03', NOW)).toBe('Oct 2025');
+  });
+
+  it('is pure: same inputs, same output', () => {
+    expect(relativeDate('2025-05-30', NOW)).toBe(relativeDate('2025-05-30', new Date(NOW.getTime())));
   });
 });
