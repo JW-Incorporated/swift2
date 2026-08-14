@@ -4174,6 +4174,23 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo pass #762 (2026-08-14): the raffle itself has no dedicated
+        // photo (the one winning-ticket photo that surfaced is Jackie
+        // Tranquill's personal Instagram post, not rehostable). Rob
+        // Gronkowski is the guest this story is actually about, so an
+        // archival photo of him stands in as an honest reference rather than
+        // an unrelated Taylor/Travis stock shot — curl-verified 200 image/png
+        // on Wikimedia Commons, downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Rob_Gronkowski_after_winning_Super_Bowl_LIII%2C_February_2019.png',
+            focalPoint: '48% 22%',
+            credit: 'FOX Sports broadcast capture, via Wikimedia Commons (CC BY 3.0)',
+            caption:
+              'Reference image: Rob Gronkowski, the wedding guest who described the raffle to People — pictured in an archival February 2019 photo, not from the wedding itself.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -7774,6 +7791,10 @@ export default {
         // wedding-guest jewelry, right: the Old Mine Cut ring close-up.
         // Archival: the ring itself, from the couple's own announcement
         // carousel (ABC News' stable copy, credited as ABC credits it).
+        // Photo pass #762 (2026-08-14): no `socialPost` — the thank-you
+        // carousel is Lubeck's own Instagram, not @taylorswift's, so it fails
+        // the embed-verification bar (account must be taylorswift). The
+        // People/Yahoo syndicated photo below is the honest substitute.
         photos: [
           {
             url: 'https://media.zenfs.com/en/people_218/9c00317fa1b3074f60e013cdbc8628a6',
@@ -10046,6 +10067,11 @@ export default {
     // Yahoo). That increment is authored below; "who filed it" stays unasserted
     // (Taylor issued no statement), consistent with the rest of the moment.
     // Text-only: no honest reusable-host image of the posts.
+    // Photo pass #762 (2026-08-14): checker false-positive on `socialPost` —
+    // the only "Instagram post" in this text is the Sept. 2024 Harris
+    // endorsement, already its own separate moment; this page is entirely
+    // about TikTok posts (Team Trump, then @whitehouse), which have no
+    // Instagram permalink to embed.
     {
       slug: 'showgirl-swift-music-pulled-from-trump-tiktoks',
       year: 2026,
@@ -10511,7 +10537,22 @@ export default {
           { outlet: 'NBC Insider', url: 'https://www.nbc.com/nbc-insider/how-to-watch-taylor-swift-extended-tonight-show-interview' },
           { outlet: 'YouTube — The Tonight Show Starring Jimmy Fallon', url: 'https://www.youtube.com/watch?v=GzjZqH0WRwE' },
         ],
-        photos: [],
+        // Photo pass #762 (2026-08-14): the YouTube thumbnail above is a
+        // title-card graphic, not an actual video still. This NBC press photo
+        // (Todd Owyoung/NBC, Oct. 6, 2025 taping) is downloaded and vision-
+        // confirmed: Taylor in the silver dress, guest chair opposite Fallon's
+        // desk, the show's NYC-skyline set. Rehosted by an entertainment-news
+        // site rather than served from NBC's own CDN — flagged for review.
+        photos: [
+          {
+            url: 'https://headlineplanet.com/home/wp-content/uploads/2025/10/Taylor-Swift-Fallon-2.jpg',
+            focalPoint: '28% 30%',
+            credit: 'Todd Owyoung/NBC',
+            caption:
+              "Taylor talks with Jimmy Fallon on The Tonight Show, October 6, 2025, three days after The Life of a Showgirl's release.",
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -10550,7 +10591,23 @@ export default {
           { outlet: 'Variety', url: 'https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/' },
           { outlet: 'YouTube — Late Night with Seth Meyers', url: 'https://www.youtube.com/watch?v=Wd7S1wZqkbI' },
         ],
-        photos: [],
+        // Photo pass #762 (2026-08-14): no NBC press photo or Wikimedia
+        // Commons image found for this taping (NBC broadcast stills aren't
+        // freely licensed, so nothing on Commons). The official YouTube
+        // thumbnail is downloaded and vision-confirmed: Meyers and Taylor
+        // mid-conversation on the Late Night set, studio audience visible.
+        // It carries a permanent "TAYLOR SWIFT FULL INTERVIEW" text overlay,
+        // so it's a reference image, not a clean primary still.
+        photos: [
+          {
+            url: 'https://img.youtube.com/vi/Wd7S1wZqkbI/maxresdefault.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Late Night with Seth Meyers / NBC (YouTube video thumbnail)',
+            caption:
+              'Seth Meyers and Taylor Swift mid-conversation on the Late Night set during her sole-guest "TAY/kover" episode, October 8, 2025.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {

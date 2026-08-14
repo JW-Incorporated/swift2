@@ -4,9 +4,6 @@
 
 import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';
 
-/** Build-time freshness stamp — emitted only by prebuild (deploy). */
-export const CONTENT_GENERATED_AT = "2026-08-13T18:37:11.249Z";
-
 type VaultRawItem = {
   id: string;
   slug?: string;
@@ -7575,6 +7572,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Guest Rob Gronkowski explained the reception's raffle: you didn't just get a ticket, you had to earn it by playing games. Prizes ran from designer handbags to a 1970 Chevrolet Chevelle.",
       body: ["The July 3 reception ran a raffle, and it had a catch: you couldn't just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. \"You had to play the games in order to get the raffle tickets,\" he said, and \"It wasn't no hand-me-outs, you had to earn the raffle tickets, and that's what made it so much fun.\" Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.", "The prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple's \"T&T\" wedding logo and the word \"winner.\" It was a small, telling detail about the day's tone: even the giveaways were built to be played for rather than handed out."],
       tags: ["Relationship"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Rob_Gronkowski_after_winning_Super_Bowl_LIII%2C_February_2019.png", credit: "FOX Sports broadcast capture, via Wikimedia Commons (CC BY 3.0)", caption: "Reference image: Rob Gronkowski, the wedding guest who described the raffle to People — pictured in an archival February 2019 photo, not from the wedding itself.", kind: "reference", focalPoint: "48% 22%" }],
       sources: [{ name: "Rob Gronkowski explains how raffles worked at Taylor Swift and Travis Kelce's wedding", url: "https://www.yahoo.com/entertainment/celebrity/articles/rob-gronkowski-explains-raffles-worked-165208547.html", reliability: 3, type: "reputable_press" }, { name: "Here's How Taylor Swift & Travis Kelce's Wedding Raffles Worked, According to Rob Gronkowski", url: "https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-raffles-rob-gronkowski-1236306132/", reliability: 4, type: "reputable_press" }],
       relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-tloas-watermarked-invitations-and-a-copyright-takedown"],
     },
@@ -8377,7 +8375,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her first US late-night appearance since 2022: ~20 minutes on the album, the engagement, and getting her masters back — plus why she isn't playing the 2026 Super Bowl halftime show. An extended cut aired as its own NBC special four days later.",
       body: ["Three days after The Life of a Showgirl arrived, the Tonight Show stop anchored the US leg of the promo run. The conversation ranged from the record and the engagement to the masters buyback, and she addressed the halftime-show question directly, pointing to the Jay-Z/Roc Nation relationship that produces the show. NBC aired an extended cut as a primetime special on Oct. 10; the interview is on the show's official channel."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/GzjZqH0WRwE/hqdefault.jpg", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/GzjZqH0WRwE/hqdefault.jpg", kind: "primary" }, { url: "https://headlineplanet.com/home/wp-content/uploads/2025/10/Taylor-Swift-Fallon-2.jpg", credit: "Todd Owyoung/NBC", caption: "Taylor talks with Jimmy Fallon on The Tonight Show, October 6, 2025, three days after The Life of a Showgirl's release.", kind: "primary", focalPoint: "28% 30%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/music/music-news/taylor-swift-jimmy-fallon-tonight-show-life-of-a-showgirl-1236394527/" }, { name: "NBC Insider", url: "https://www.nbc.com/nbc-insider/how-to-watch-taylor-swift-extended-tonight-show-interview" }, { name: "YouTube — The Tonight Show Starring Jimmy Fallon", url: "https://www.youtube.com/watch?v=GzjZqH0WRwE" }],
     },
     {
@@ -8399,7 +8397,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Meyers handed her the whole episode — a sole-guest night billed as a \"TAY/kover,\" covering the album, the engagement, and more, capping a four-stop release-week media run.",
       body: ["The last of the October late-night stops (after Graham Norton, Fallon and the Zane Lowe interview), and the most unusual format: Late Night built the entire episode around her as its only guest — a sole-guest \"TAY/kover,\" billed that way ahead of the broadcast per Variety. The interview is on the show's official channel."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/Wd7S1wZqkbI/hqdefault.jpg", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/Wd7S1wZqkbI/hqdefault.jpg", kind: "primary" }, { url: "https://img.youtube.com/vi/Wd7S1wZqkbI/maxresdefault.jpg", credit: "Late Night with Seth Meyers / NBC (YouTube video thumbnail)", caption: "Seth Meyers and Taylor Swift mid-conversation on the Late Night set during her sole-guest \"TAY/kover\" episode, October 8, 2025.", kind: "reference", focalPoint: "50% 30%" }],
       sources: [{ name: "Variety", url: "https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/" }, { name: "YouTube — Late Night with Seth Meyers", url: "https://www.youtube.com/watch?v=Wd7S1wZqkbI" }],
     },
     {
