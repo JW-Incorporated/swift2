@@ -90,6 +90,7 @@ function renderEntry(
           video={entry.video}
           eraId={era.id}
           sortDate={entry.anchor.sortDate}
+          displayDate={entry.anchor.displayDate}
         />
       );
     case 'thread':

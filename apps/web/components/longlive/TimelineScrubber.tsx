@@ -14,6 +14,9 @@ import {
   SCRUBBER_SHELL_CLASS,
   scrubberPillTransform,
   scrubberTooltipTransform,
+  nearestAnchorExact,
+  labelForDate,
+  type ScrubberAnchor,
 } from './timelineScrubberLayout';
 
 /** Reference line for "what am I reading" — header + a bit into the viewport. */
@@ -26,10 +29,7 @@ const RIDGE_WIDTH = 28;
 /** Density curve resolution. */
 const SAMPLES = 72;
 
-interface Anchor {
-  date: number;
-  top: number;
-}
+type Anchor = ScrubberAnchor;
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
@@ -132,6 +132,11 @@ export function TimelineScrubber() {
       .map((el) => ({
         date: Number(el.dataset.llDate),
         top: el.getBoundingClientRect().top + window.scrollY,
+        // Missing attribute defaults to exact — every card that can carry a
+        // synthetic date sets `data-ll-exact="0"` explicitly (VideoMomentCard,
+        // DoorwayCard); everything else (moments, the end-of-era sentinel) has
+        // an authored date and never opts out.
+        exact: el.dataset.llExact !== '0',
       }))
       .sort((a, b) => a.top - b.top);
     setAnchorsVersion((v) => v + 1);
@@ -174,6 +179,14 @@ export function TimelineScrubber() {
       return last.date;
     },
     [end],
+  );
+
+  // Whether a resolved date (from dateForTop/fromPointer above) may be shown
+  // or announced — see timelineScrubberLayout.ts's "Anchor honesty" section
+  // for the full rationale (adversarial review finding #1, 2026-08-13).
+  const exactForDate = useCallback(
+    (target: number): boolean => nearestAnchorExact(anchorsRef.current, target),
+    [],
   );
 
   // Rail position (0..100) is linear in *rendered position*, not calendar
@@ -461,7 +474,9 @@ export function TimelineScrubber() {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(currentPct ?? 0)}
-          aria-valuetext={pillDate != null ? fmtMonth(pillDate) : undefined}
+          aria-valuetext={
+            pillDate != null ? labelForDate(fmtMonth(pillDate), exactForDate(pillDate)) : undefined
+          }
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
@@ -636,7 +651,7 @@ export function TimelineScrubber() {
                     color: 'var(--era-ink)',
                   }}
                 >
-                  {fmtMonth(pillDate)}
+                  {labelForDate(fmtMonth(pillDate), exactForDate(pillDate))}
                 </span>
               )}
             </>

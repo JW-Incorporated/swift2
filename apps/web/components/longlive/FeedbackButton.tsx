@@ -30,6 +30,28 @@ type Location = {
 
 const MAX = 5000;
 
+/** Session-scoped (not localStorage) — Joey: "closed for the rest of their
+ * session," not forever. Dismissing is a per-visit choice, not a permanent one. */
+const DISMISSED_KEY = 'll-feedback-dismissed-v1';
+
+function readDismissed(): boolean {
+  try {
+    if (typeof window === 'undefined') return false;
+    return window.sessionStorage.getItem(DISMISSED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function writeDismissed(): void {
+  try {
+    if (typeof window === 'undefined') return;
+    window.sessionStorage.setItem(DISMISSED_KEY, '1');
+  } catch {
+    /* private mode / quota — the dismissal just won't persist */
+  }
+}
+
 export function FeedbackButton() {
   const state = useAppState();
   const [open, setOpen] = useState(false);
@@ -37,7 +59,22 @@ export function FeedbackButton() {
   const [hp, setHp] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [dismissed, setDismissed] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Hydrate after mount, never during render — the same SSR-safe pattern
+  // progress.ts's ProgressProvider uses: first paint (server AND client)
+  // always shows the button, so there's no hydration mismatch, and the real
+  // sessionStorage value swaps in once mounted.
+  useEffect(() => {
+    if (readDismissed()) setDismissed(true);
+  }, []);
+
+  function dismissForSession() {
+    setOpen(false);
+    setDismissed(true);
+    writeDismissed();
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -51,6 +88,11 @@ export function FeedbackButton() {
       window.removeEventListener('keydown', onKey);
     };
   }, [open]);
+
+  // Dismissed for the rest of this session (sessionStorage) — render nothing,
+  // not even the floating trigger. Checked after every hook above so hook
+  // order stays identical across renders.
+  if (dismissed) return null;
 
   /** Human-readable description of the current view for the ticket. */
   function describeView(): string {
@@ -124,7 +166,9 @@ export function FeedbackButton() {
         <div
           role="dialog"
           aria-label="Send feedback"
-          className="fixed bottom-20 right-4 z-[71] w-[min(92vw,21rem)] rounded-2xl border border-line bg-surface/95 p-4 shadow-2xl backdrop-blur-md"
+          // Mobile: cleared of BottomNav (fixed, ~56px + safe-area-inset-bottom)
+          // by sitting well above it; desktop is unchanged (no bottom nav there).
+          className="fixed bottom-[calc(8.5rem+env(safe-area-inset-bottom))] right-4 z-[71] w-[min(92vw,21rem)] rounded-2xl border border-line bg-surface/95 p-4 shadow-2xl backdrop-blur-md md:bottom-20"
         >
           <div className="mb-2 flex items-start justify-between gap-2">
             <p className="text-sm font-medium text-ink">Find an issue? Report it here!</p>
@@ -186,16 +230,36 @@ export function FeedbackButton() {
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-label={open ? 'Close feedback' : 'Send feedback'}
-        aria-expanded={open}
-        className="fixed bottom-4 right-4 z-[71] inline-flex items-center gap-2 rounded-full border border-line bg-surface/90 px-4 py-3 text-sm font-medium text-ink shadow-2xl backdrop-blur-md transition-transform hover:scale-105 active:scale-95"
-      >
-        {open ? <X size={18} /> : <MessageSquarePlus size={18} />}
-        <span className="hidden sm:inline">Feedback</span>
-      </button>
+      {/* Mobile: floats above BottomNav (fixed, ~56px + safe-area-inset-bottom)
+          instead of sitting on top of it; desktop is unchanged. Wrapped so the
+          dismiss badge below can sit relative to the trigger, not the viewport. */}
+      <div className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] md:bottom-4">
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-label={open ? 'Close feedback' : 'Send feedback'}
+          aria-expanded={open}
+          className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/90 px-4 py-3 text-sm font-medium text-ink shadow-2xl backdrop-blur-md transition-transform hover:scale-105 active:scale-95"
+        >
+          {open ? <X size={18} /> : <MessageSquarePlus size={18} />}
+          <span className="hidden sm:inline">Feedback</span>
+        </button>
+        {/* A sibling of the trigger, not nested inside it — dismisses the
+            whole widget for the rest of the session (Joey: "it shouldn't keep
+            coming back and annoying them"), distinct from just closing the
+            compose panel. Only offered while idle; while composing, the
+            panel's own close X is the relevant control. */}
+        {!open && (
+          <button
+            type="button"
+            onClick={dismissForSession}
+            aria-label="Dismiss the feedback button for this session"
+            className="era-icon-btn absolute -right-1.5 -top-1.5 grid size-5 place-items-center rounded-full border border-line bg-bg text-ink-soft shadow"
+          >
+            <X size={11} />
+          </button>
+        )}
+      </div>
     </>
   );
 }

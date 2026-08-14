@@ -4,7 +4,6 @@ import {
   allVideoRecordsForEra,
   isPlayable,
   musicVideosForEra,
-  videoForTrack,
   eraVideoFeed,
   isAppearance,
   APPEARANCE_KINDS,
@@ -27,31 +26,12 @@ const ALL_ERA_IDS: EraId[] = [
   'tloas',
 ];
 
-describe('videoForTrack', () => {
-  it('matches a song to its official video by title within the era', () => {
-    const v = videoForTrack('1989', 'Shake It Off');
-    expect(v?.youtubeId).toBe('nfWlot6h_JM');
-  });
-
-  it('normalizes parenthetical suffixes when matching', () => {
-    // A track titled with a "(Taylor's Version)" suffix still finds the video.
-    const v = videoForTrack('1989', "Shake It Off (Taylor's Version)");
-    expect(v?.youtubeId).toBe('nfWlot6h_JM');
-  });
-
-  it('returns undefined for a song with no matching video', () => {
-    expect(videoForTrack('1989', 'A Song That Has No Video Whatsoever')).toBeUndefined();
-  });
-
-  it('only ever returns entries that carry a youtubeId', () => {
-    for (const eraId of ALL_ERA_IDS) {
-      for (const v of videosForEra(eraId)) {
-        const match = videoForTrack(eraId, v.title);
-        if (match) expect(match.youtubeId).toBeTruthy();
-      }
-    }
-  });
-});
+// The song-to-video matcher (formerly `videoForTrack` here) moved to
+// track-video.ts's `trackVideoFor` — see track-video.test.ts. Removed rather
+// than kept in parallel (finding #2, adversarial review 2026-08-13): its
+// `normalizeTitle` stripped every parenthetical including "(Taylor's
+// Version)", so it disagreed with the conservative matcher on which
+// recording to play.
 
 const allVideos = (): VideoNote[] => ALL_ERA_IDS.flatMap((id) => videosForEra(id));
 

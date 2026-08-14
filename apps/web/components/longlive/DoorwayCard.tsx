@@ -17,7 +17,10 @@ import { formatMonthYear } from '@/lib/longlive/format';
  * TimelineScrubber measures doorways as real rail anchors (see anchor-date.ts
  * and PLAN.md P3 step 14a — the date rendered here is only ever the honest
  * `displayDate`, never the synthetic `sortDate` a clamped/scattered anchor
- * carries).
+ * carries). `data-ll-exact` tells the scrubber whether THIS position's date
+ * may ever be shown/announced (adversarial review finding #1, 2026-08-13) —
+ * a thread doorway carries it when it has a real `displayDate`, an egg
+ * doorway never does (era-scatter only).
  */
 
 /** One stable icon per thread — same pairing EraSection's old pivot strip
@@ -53,6 +56,7 @@ export function ThreadDoorwayCard({
       data-ll-item={`era-thread-${eraId}-${doorway.threadId}`}
       data-ll-era={eraId}
       data-ll-date={new Date(sortDate).getTime()}
+      data-ll-exact={displayDate != null ? '1' : '0'}
     >
       <button
         onClick={onOpen}
@@ -102,6 +106,7 @@ export function EggDoorwayCard({
       data-ll-item={`era-egg-${doorway.eggId}`}
       data-ll-era={eraId}
       data-ll-date={new Date(sortDate).getTime()}
+      data-ll-exact="0"
     >
       <button
         onClick={onOpen}

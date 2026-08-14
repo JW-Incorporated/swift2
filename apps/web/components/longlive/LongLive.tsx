@@ -19,6 +19,7 @@ import { ShareSheet } from './ShareSheet';
 import { SearchOverlay } from './SearchOverlay';
 import { SiteFooter } from './SiteFooter';
 import { FeedbackButton } from './FeedbackButton';
+import { BottomNav } from './BottomNav';
 
 function Shell() {
   const { mode, eraId } = useAppState();
@@ -70,6 +71,9 @@ function Shell() {
       <MomentDetail />
       <ShareSheet />
       <SearchOverlay />
+
+      {/* Mobile tab bar (P4, R3) — desktop keeps TopBar's pill rail instead. */}
+      {!onLanding && <BottomNav />}
 
       {/* Always-available issue reporter, fixed bottom-right. */}
       <FeedbackButton />
