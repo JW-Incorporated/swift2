@@ -5,24 +5,23 @@
 
 ## Current focus
 
-**BUILDING: Community + Merch merge, on `feature/community-social-merch`.** Joey
-2026-08-14: *"go for it. let's get it live."* Merch tab dropped, title stays
-"Community", 50/50 Social/Merch toggle, a section-jump subnav that PREVIEWS
-depth, era-style merch filters, an image on every merch item. **`PLAN.md` holds
-the facts, the Fable design spec and the steps — read it.**
+**Community + Merch merge, `feature/community-social-merch`.** Joey 2026-08-14:
+*"go for it. let's get it live."* Merch tab dropped, title stays "Community",
+50/50 Social/Merch toggle, section-jump subnav that PREVIEWS depth, era-style
+merch filters, an image on every merch item. **`PLAN.md` holds the facts, the
+Fable design spec and the steps.**
 
-**Steps 1–2 DONE `bcc8f39e`; steps 4–5 DONE `bd7293a3`** — both verified by me
-(2910/2910, typecheck clean, `AppMode` has no `merch`, threshold 6, files <300).
-Five labelled tabs; the 150/6 photo-vs-monogram split proven by executing the
-predicate the component itself calls. **Step 3 (jump bar) running LAST** because
-it needs `merchByEra()`. **Waves are sequential on purpose** — two agents
-committing in one checkout collide, which already cost a discarded agent today.
+**ALL FIVE STEPS BUILT — `3382795e`** (`bcc8f39e` nav+shell+toggle, `bd7293a3`
+merch, `3382795e` jump bar). Verified by me: **2926/2926**, typecheck clean, no
+raw hex, all <300 lines. Browser-measured: **150 `<img>` / 6 monogram**, rail
+44px, big toggle and rail never co-visible, real taps landing via
+`elementFromPoint`, era order newest-first, `0 of 13 match` persists, no source
+row. **`FilterBar` survived its refactor** on a dark AND a light era.
 
-**UNVERIFIED IN A BROWSER — the open risk.** Neither builder rendered anything
-(one had no browser tooling and said so). The last also **refactored
-`FilterBar`** — correct, the plan forbids forking it, but it is **shipped UI on
-the main reader with NO test locking its DOM**. That regression check and the
-rendered 150/6 count are in the final agent's brief; Playwright is a devDep.
+**FABLE REVIEW ROUND 1 OF 2 RUNNING** — the only review this gets (Codex out to
+Aug 19, rule 3 otherwise unsatisfied). Pointed at the two places this branch
+could be quietly broken: `FilterBar`'s *behaviour* (not just render — no test
+locks its DOM) and `pointer-events` hit-testing under the new sticky chrome.
 
 **156 products, NOT 151 (the MOMENT count) — a moment holds a `products[]`
 array. Images resolve through `merchItemImage()` → `hasRealPrimaryImage()`,
@@ -138,9 +137,9 @@ inherits; two mechanisms for one fact; user text in a spreadsheet is a formula.
 
 ## Next obvious step
 
-0. **Review the jump-bar diff and its browser evidence.** If `FilterBar`
-   regressed, that is the priority — it is the main reader's filter row. Then
-   full suite + a Fable review (Codex out until Aug 19; 2 rounds max).
+0. **Fix whatever Fable round 1 finds, then round 2 is the LAST one.** Anything
+   unresolved after it ships as a named open finding in the PR body, never a
+   third round. Then the PR waits on Actions.
 1. **Joey's hands:** the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`, plus his three #2110 questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
