@@ -11,24 +11,24 @@
 depth, era-style merch filters, an image on every merch item. **`PLAN.md` holds
 the facts, the Fable design spec and the steps — read it.**
 
-**Steps 1–2 DONE — `bcc8f39e`, verified by me** (2893/2893, `AppMode` has no
-`merch`, threshold 6, no raw hex, files <300). Five labelled tabs; rail measured
-44px at the live topbar offset with the big toggle fully off-screen — never both.
-`?mode=merch` still resolves. **Steps 4–5 (Merch pane) running now**; the jump
-bar goes LAST because it needs `merchByEra()` to exist. **Waves are sequential
-on purpose** — two agents committing in one checkout collide, which already cost
-a discarded agent today. Contract the next agent codes against:
-`merchByEra(items?) => {eraId, eraLabel, count, items}[]`, newest era first.
+**Steps 1–2 DONE `bcc8f39e`; steps 4–5 DONE `bd7293a3`** — both verified by me
+(2910/2910, typecheck clean, `AppMode` has no `merch`, threshold 6, files <300).
+Five labelled tabs; the 150/6 photo-vs-monogram split proven by executing the
+predicate the component itself calls. **Step 3 (jump bar) running LAST** because
+it needs `merchByEra()`. **Waves are sequential on purpose** — two agents
+committing in one checkout collide, which already cost a discarded agent today.
 
-**Image blocker RESOLVED — verified by execution: 150 of 156 products** show
-their source moment's photo; 6 get a monogram tile. Those images already render
-in the era feed: no sourcing, no hotlink risk. **156 products, NOT 151 (that is
-the MOMENT count). Resolve via `hasRealPrimaryImage()`, never `images.length`.**
+**UNVERIFIED IN A BROWSER — the open risk.** Neither builder rendered anything
+(one had no browser tooling and said so). The last also **refactored
+`FilterBar`** — correct, the plan forbids forking it, but it is **shipped UI on
+the main reader with NO test locking its DOM**. That regression check and the
+rendered 150/6 count are in the final agent's brief; Playwright is a devDep.
 
-**Nav fit:** five labelled tabs FIT — 390/430px comfortably, 320px on ~1.2px
-slack (proxy-measured, probable-not-proven). **Any label longer than "Community"
-breaks 320px.** Work stays committed locally while Actions is down; the
-worktree's objects live in the real repo, so local commits are durable.
+**156 products, NOT 151 (the MOMENT count) — a moment holds a `products[]`
+array. Images resolve through `merchItemImage()` → `hasRealPrimaryImage()`,
+never `images.length`. Five labelled tabs fit, but 320px has only ~1.2px slack
+— no label may exceed "Community".** Work stays committed locally while Actions
+is down; the worktree's objects live in the real repo, so commits are durable.
 
 Shipped 2026-08-14: Community + Merch `22314d5b` (#2112) on `109e776a` (#2110);
 era reader `e8500905`; device review `ff4df4ab`; Clownbot `3d553340`/`b8a500a3`.
@@ -138,9 +138,9 @@ inherits; two mechanisms for one fact; user text in a spreadsheet is a formula.
 
 ## Next obvious step
 
-0. **Review executor 1's diff, then dispatch waves 2 and 3 in parallel.** After
-   all three land: full suite, then a Fable review (Codex is out until Aug 19,
-   so that stand-in is the only review this gets — 2 rounds max).
+0. **Review the jump-bar diff and its browser evidence.** If `FilterBar`
+   regressed, that is the priority — it is the main reader's filter row. Then
+   full suite + a Fable review (Codex out until Aug 19; 2 rounds max).
 1. **Joey's hands:** the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`, plus his three #2110 questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is

@@ -104,12 +104,8 @@ read once on mount (`deepLink.ts`) and never written back.
 ## Clown bot rebuild (build B) — new files this workstream
 
 `docs/decisions.md` 2026-08-13 "Clownbot rebuild"; `docs/longlive-experience.md`
-§7 has the surface description. Existing as of this update (checked against
-`git status --short`, not just `PLAN.md`'s aspirational table):
-
-| Path | What |
-|---|---|
-All under `apps/web/`. Most carry a sibling `.test.ts`; assume one exists.
+§7 describes the surface. All paths below are under `apps/web/`, and most carry
+a sibling `.test.ts` — assume one exists.
 
 | Path | What |
 |---|---|
@@ -128,10 +124,11 @@ All under `apps/web/`. Most carry a sibling `.test.ts`; assume one exists.
 
 ## Dead / do-not-touch
 
-- `.claude/worktrees/` — ~30 registered git worktrees, excluded via
+- `.claude/worktrees/` — ~30 registered worktrees, excluded via
   `.git/info/exclude`. Never delete, never `git clean`.
-- `scripts/social/social-poster-workflow.test.ts.tmp` — untracked scratch owned
-  by another session. Leave it exactly as-is.
+- `social-poster-workflow.test.ts.tmp` (another session's scratch) and
+  `apps/web/{README,AGENTS,CLAUDE}.md` (dev-server scaffolding) — untracked,
+  never committed. Leave exactly as-is.
 
 ## Community + Merch (2026-08-14, MERGED `109e776a` #2110 + `22314d5b` #2112)
 
@@ -141,10 +138,12 @@ All under `apps/web/`. Most carry a sibling `.test.ts`; assume one exists.
 - `apps/web/lib/longlive/merch.ts` — merch catalogue. **`shopTheLook` is 156 products across 151 moments** (a moment holds a `products[]` array — the two counts are NOT the same number, and conflating them has burned three reports). Read LIVE off `CONTENT`, never re-authored. `officialStore`/`fanMade` genuinely empty. **150 of the 156 resolve to a real source photo via `hasRealPrimaryImage()`; 6 do not — never use `images.length`.**
 - `apps/web/lib/longlive/submit-link.ts` — validation, domain/platform derivation, client-id hashing, and the three sinks. **Each sink is independently optional; a missing one must never fail a submission.** `neutralizeCell` here and `neutralizeCell_` in the Apps Script are the SAME rule deliberately duplicated — both sides of the sheet trust boundary. Change one, change both.
 - `apps/web/app/api/submit-link/route.ts` — the public endpoint. Honeypot + per-IP rate limit copied from `/api/feedback`. **Never fetches the submitted URL** (SSRF).
-- `apps/web/{lib/longlive/submit-link,app/api/submit-link/route}.test.ts` — the two suites that hold the endpoint's guarantees: neutralisation, honeypot, rate limit, abort-on-timeout, and **each sink missing individually while the submission still succeeds**. Break one of those and the feature has silently changed contract.
+- `apps/web/{lib/longlive/submit-link,app/api/submit-link/route}.test.ts` — the guarantees: neutralisation, honeypot, rate limit, abort-on-timeout, and **each sink missing individually while the submission still succeeds**. Break one and the contract changed silently.
 - `apps/web/components/longlive/CommunitySection.tsx` — **the section SHELL** since `bcc8f39e`: H1 "Community", the 50/50 toggle, and the ONE sticky 44px rail (offset from the live `data-ll-topbar` measurement, never a constant). Hosts `SocialPane` + `MerchSection` as panes. **Exactly one sticky element on this page — never add a second.**
 - `apps/web/components/longlive/SegmentedToggle.tsx` — generic segmented control (`options`/`value`/`onChange`). The repo had none; reuse this rather than writing another.
-- `apps/web/components/longlive/MerchSection.tsx` — the Merch pane. Links out only, no cart, no checkout (item 4a standing rule).
+- `apps/web/components/longlive/MerchSection.tsx` — the Merch pane: era sections newest-first, filters, image-first cards. Links out only, no cart, no checkout (item 4a).
+- `apps/web/lib/longlive/merch-filters.ts` — `merchByEra()` (contract: `{eraId, eraLabel, count, items}[]`, newest first), `merchMatchesFilter`, `parsePrice`, and **`merchItemImage()` — the ONE place image-vs-monogram is decided. It calls `hasRealPrimaryImage()`; never re-derive it from `images.length`.**
+- `apps/web/lib/longlive/filter-chips.tsx` — the shared chip row, extracted so `FilterBar` and merch use ONE implementation (forking it would have been the 4th "two mechanisms for one fact"). **`.tsx` not `.ts` — it contains JSX.** Its two `#fff` literals predate the extraction; they are hardcoded active-chip text and are the known exception to the no-raw-hex rule.
 - `apps/web/components/longlive/SubmitLinkForm.tsx` — shared by both sections. Honeypot is off-screen, NOT `display:none`. Sends only `{url, section, hp}`.
 - `scripts/apps-script/submissions-doPost.gs` — Apps Script for the sheet. Joey deploys it; shared-secret gated.
 - `docs/ops/community-merch-submissions.md` — Joey-facing setup: Apps Script, Resend domain, `vercel env add`.
