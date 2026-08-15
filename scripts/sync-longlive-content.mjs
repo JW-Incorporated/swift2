@@ -140,7 +140,7 @@ export function significanceFrom(significance) {
 /**
  * Shoppable products from the Tier-1 `moment.products` array (see Product in
  * apps/web/lib/longlive/types.ts): `[{ brand, item, retailer, url, price?,
- * inStock? }]`. Keeps only rows with all four required string fields and an
+ * inStock?, imageUrl? }]`. Keeps only rows with all four required string fields and an
  * https url (same rule validate-content.mjs enforces loudly — keep the two in
  * sync so a validate-green row can never be silently dropped here, or vice
  * versa) — validate-content.mjs errors loudly on malformed rows, this
@@ -173,6 +173,7 @@ export function productsFrom(products) {
       inStock: p.inStock === false ? false : undefined,
       isAlternative: isAlternative ? true : undefined,
       altNote: isAlternative ? p.altNote : undefined,
+      imageUrl: typeof p.imageUrl === 'string' && p.imageUrl.trim() ? p.imageUrl : undefined,
     });
   }
   return out.length ? out : undefined;
@@ -819,6 +820,7 @@ export function buildOutputSource(byEra) {
             if (p.inStock === false) parts.push('inStock: false');
             if (p.isAlternative) parts.push('isAlternative: true');
             if (p.altNote) parts.push(`altNote: ${esc(p.altNote)}`);
+            if (p.imageUrl) parts.push(`imageUrl: ${esc(p.imageUrl)}`);
             return `{ ${parts.join(', ')} }`;
           })
           .join(', ');

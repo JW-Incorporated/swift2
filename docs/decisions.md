@@ -4407,4 +4407,31 @@ practice going forward.
 
 **Approved by:** Joey
 
+## 2026-08-15 — Merch cards need a real product photo, not a paparazzi shot of Taylor wearing it
+
+**Problem:** `merchItemImage()` (`apps/web/lib/longlive/merch-filters.ts`) derived
+every merch card's image from the source moment's photo for 150 of 156
+products (the other 6 fell to a brand-initial monogram) — a shopper sees a
+picture of Taylor at an event, not the item they're about to buy.
+
+**Schema:** added `imageUrl?: string` to `Product`
+(`apps/web/lib/longlive/types.ts`) — a direct https URL to the retailer's own
+product photo, hotlinked (never downloaded/re-hosted — copyright), typically
+captured from a Shopify `/products/<handle>.json` response's `images[0].src`.
+Fully optional; nothing breaks for products without one.
+
+**Fallback honesty:** when `imageUrl` is absent, the card still shows the
+moment photo rather than going straight to the monogram, but now visibly
+labels it as the look, not the product — the same "never imply something
+untrue" principle behind the 2026-07-20 "We found something similar" alt-piece
+label above. The monogram tile only appears when neither image exists.
+
+**Capture mechanism:** extended the existing
+`scripts/content-engine/product-liveness.mjs` liveness pass (not a second
+script) — for a `/products/<handle>` URL it also fetches `<url>.json` and
+captures `images[0].src` when Shopify's product JSON parses. A `.json` 404 is
+ambiguous (not-Shopify vs delisted) and is reported as such, never conflated.
+
+**Approved by:** Joey (item #7, 2026-08-15 punch list)
+
 **Approved by:** Joey

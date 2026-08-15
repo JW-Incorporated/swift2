@@ -313,6 +313,17 @@ export interface Product {
    * soften a plain unverified guess.
    */
   altNote?: string;
+  /**
+   * Direct https URL to a photo of the ACTUAL PRODUCT being sold, hotlinked
+   * from the retailer's own CDN (e.g. captured from a Shopify
+   * `/products/<handle>.json` response's `images[0].src`) — never downloaded
+   * or re-hosted (copyright). Optional: most products don't have one yet.
+   * When present, the UI shows this instead of the source moment's photo
+   * (which is a picture of Taylor wearing the look, not the product on its
+   * own — see docs/decisions.md 2026-08-15). Omitted falls back to the
+   * moment photo (visibly labelled) or a monogram tile.
+   */
+  imageUrl?: string;
 }
 
 export interface ContentItem {

@@ -333,6 +333,7 @@ for (const { file, data } of loaded) {
           if (p.isAlternative === true && !(typeof p.altNote === 'string' && p.altNote.trim())) err(`${pAt} isAlternative:true requires a non-empty altNote explaining why this isn't the exact piece`);
           if (p.altNote != null && p.altNote.length > POLICY_CAPS.productAltNote)
             err(`${pAt} altNote ${p.altNote.length} > ${POLICY_CAPS.productAltNote}`);
+          if (p.imageUrl != null && !(typeof p.imageUrl === 'string' && /^https:\/\//.test(p.imageUrl))) err(`${pAt} imageUrl must be a non-empty https URL when present`);
         });
     }
 

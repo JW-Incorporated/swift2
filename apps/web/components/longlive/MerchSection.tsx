@@ -231,16 +231,26 @@ export function MerchCard({ item }: { item: MerchItem }) {
         aria-label={`Shop ${item.brand} ${item.item}${soldOut ? ' (sold out)' : ''}${!exactPiece ? ' (similar style, not the exact piece)' : ''} at ${item.retailer}`}
       >
         <span className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-lg md:h-[88px] md:w-[88px]">
-          {image.kind === 'photo' ? (
-            <Image
-              src={image.url}
-              alt=""
-              fill
-              unoptimized={/^https?:\/\//.test(image.url)}
-              loading="lazy"
-              sizes="(min-width: 768px) 88px, 72px"
-              className="object-cover"
-            />
+          {image.kind === 'product' || image.kind === 'moment' ? (
+            <>
+              <Image
+                src={image.url}
+                alt=""
+                fill
+                unoptimized={/^https?:\/\//.test(image.url)}
+                loading="lazy"
+                sizes="(min-width: 768px) 88px, 72px"
+                className="object-cover"
+              />
+              {image.kind === 'moment' && (
+                <span
+                  className="absolute inset-x-0 bottom-0 bg-black/60 px-1 py-0.5 text-center text-[8px] font-medium uppercase tracking-wide text-white"
+                  title="This is a photo of the look, not the product for sale"
+                >
+                  Her look, not the product
+                </span>
+              )}
+            </>
           ) : (
             <span
               className="flex h-full w-full items-center justify-center bg-[color:var(--era-surface-2)] font-[family-name:var(--era-font)] text-[28px] text-[color:var(--era-accent)]"
