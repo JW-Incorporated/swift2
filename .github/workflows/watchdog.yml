@@ -694,6 +694,105 @@ jobs:
             exit "$STATUS"
           fi
 
+      # Karen post-repair confirmation (2026-08-15, SELF-LIMITING — full
+      # design in scripts/watchdog/karen-post-repair-check.mjs's header). The
+      # standing "Karen filed what she found" step above answers "is Karen
+      # healthy" with a 9-day staleness tolerance, which is the right
+      # permanent alarm (the real cadence is still unconfirmed per
+      # docs/agents/runners.md) but too slack to answer THIS week's specific
+      # question: did the 2026-08-14/15 repair (6ec8d6ca, d51676ce) actually
+      # work? This is a clearly-scoped SIBLING rather than an edit to that
+      # step — tightening its 9-day tolerance would be wrong for the reason
+      # already documented there, and duplicating its staleness/provenance/
+      # filing ladder inline behind a second deadline is exactly the kind of
+      # bash growth CLAUDE.md's rule 8 says to pull into a tested script
+      # instead. Confirms via the strongest signal first (a merged Karen PR),
+      # falling back to the same `cie-run`/`cie-filing` markers the standing
+      # step reads, via the same parser (scripts/content-engine/lib/report.mjs)
+      # — no marker parsing is duplicated.
+      #
+      # HOW THE FOUNDER TURNS THIS OFF: it turns itself off. It only opens an
+      # alert while unconfirmed AND inside the window; it closes that alert
+      # the moment a genuine run is confirmed, and also closes it (standing
+      # down instead of nagging) once 2026-08-22 passes — at which point the
+      # standing 9-day check above is already covering the same question. To
+      # remove it immediately instead, delete this step and
+      # scripts/watchdog/karen-post-repair-check.mjs; nothing else references
+      # either.
+      #
+      # Placed after the setup-node step above (needs Node for the .mjs
+      # script) rather than next to the standing Karen step higher up, which
+      # is pure bash and runs before Node exists on this runner.
+      # `!cancelled()`, same reasoning as every step below setup-node: an
+      # unrelated earlier-step failure must not silently skip this too.
+      - name: Karen post-repair confirmation (self-limiting, remove after 2026-08-22)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: Karen post-repair still unconfirmed"
+          node --use-env-proxy scripts/watchdog/karen-post-repair-check.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
+          STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "karen-post-repair OK (confirmed, or window expired)"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            echo "::error::karen-post-repair-check.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
+      # news-worker Supabase key rotation confirmation (2026-08-15,
+      # SELF-LIMITING — full design in
+      # scripts/watchdog/news-worker-rotation-check.mjs's header).
+      # SUPABASE_SERVICE_ROLE_KEY was rotated 2026-08-15T18:31:50Z; its only
+      # consumer is news-worker.yml. The standing "Scheduled workflows
+      # healthy" cadence check above only asks "has SOMETHING succeeded
+      # within 10h" — it cannot say whether the FIRST run after the rotation
+      # specifically authenticated, and cannot distinguish an
+      # authentication-shaped failure (the rotation broke it) from an
+      # ordinary one (something else broke, unrelated to the key — worth
+      # knowing separately since news-worker is a documented no-op with zero
+      # news_source rows seeded). Sibling, not an edit, for the same reason as
+      # the Karen check above: classifying WHY a specific run failed is a
+      # different question than "did something succeed recently".
+      #
+      # HOW THE FOUNDER TURNS THIS OFF: it only ever opens an alert for the
+      # one shape it exists to catch — a confirmed authentication failure. A
+      # confirmed success, a confirmed unrelated failure, still-pending, or a
+      # window expiry (2026-08-22) all close/no-op silently — those are either
+      # good news or the standing cadence check's alarm to raise, not this
+      # one's. To remove it immediately instead, delete this step and
+      # scripts/watchdog/news-worker-rotation-check.mjs.
+      - name: news-worker rotation confirmation (self-limiting, remove after 2026-08-22)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: news-worker rotated key looks broken"
+          node --use-env-proxy scripts/watchdog/news-worker-rotation-check.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
+          STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "news-worker-rotation OK (confirmed, unrelated failure, pending, or window expired)"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            echo "::error::news-worker-rotation-check.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
       # Content-lane liveness checks (2026-07-23; generalised 2026-08-11).
       # These lanes are Wyatt-account cloud routines (docs/agents/runners.md),
       # not GitHub Actions workflows, so they are invisible to the cadence
