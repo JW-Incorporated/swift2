@@ -100,9 +100,9 @@ export default {
             reportedOn: '2025-05-30',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-taylors-version-not-releasing-1235351379/',
-            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines). The quotes are on record; the open question is whether and when a reputation re-record or its Vault tracks arrive — resolves on an official announcement, fades if the window stays empty. Distinct from the debut "Taylor\'s Version" rumor (the debut is fully re-recorded per the same letter). No location.',
+            note: 'Forward-looking, unannounced-music speculation; distinct from the debut "Taylor\'s Version" rumor. Resolves on an official announcement of a reputation re-record or Vault release. Re-checked 2026-08-15: still none announced; kept STILL LIVE rather than faded — the topic was re-fueled as recently as the Dec 2025 Dolby Atmos lyric edits (entry below), so it has not gone quiet.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-07-25',
+            lastCheckedOn: '2026-08-15',
           },
           {
             claim:
@@ -111,9 +111,9 @@ export default {
             reportedOn: '2025-09-30',
             status: 'unconfirmed',
             url: 'https://www.capitalfm.com/artists/taylor-swift/reputation-taylors-version-vault-tracks/',
-            note: 'Pure fan speculation about an unannounced tracklist, aggregated by Capital — carried at the lowest source tier. Resolves if a reputation Vault release confirms or excludes these songs, and fades if no such release materializes. No location.',
+            note: 'Pure fan speculation about an unannounced tracklist, aggregated by Capital — lowest source tier. Resolves if a reputation Vault release confirms or excludes these songs. Re-checked 2026-08-15: no such release, so the theory can\'t yet be confirmed or excluded; still-live as part of the active reputation-re-record question, not faded.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-07-25',
+            lastCheckedOn: '2026-08-15',
           },
           {
             // Rumor Desk 2026-07-27: a third, later data point on the same
