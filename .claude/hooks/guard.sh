@@ -16,7 +16,7 @@ done
 [ -z "$PYBIN" ] && exit 0  # fail open: no python, no guard — normal permissions still apply
 
 "$PYBIN" - "$input" <<'PY'
-import json, re, sys
+import json, os, re, sys, time
 
 try:
     data = json.loads(sys.argv[1])
@@ -139,6 +139,99 @@ if re.search(ENV_PATTERN[0], cmd_env):
 if executes_send_script(cmd):
     deny("running the social poster's real-send path "
          "(publishes to / deletes from the LIVE accounts)")
+
+# --- Shared-checkout session lock -------------------------------------------
+# Twice in one session two agents in this SAME working directory flipped HEAD
+# under each other (an orchestrator's `commit` landed on a different agent's
+# branch; another agent found itself mid-task on `main`). Nothing was lost,
+# partly by luck. `git worktree add` is the sanctioned fix (encouraged, never
+# blocked below) — this only stops a SECOND session from also switching
+# branches / HEAD in this exact checkout while one is already active.
+#
+# Escape hatch for a human who genuinely wants a shared checkout:
+#   CLAUDE_ALLOW_SHARED_CHECKOUT=1
+#
+# BRANCH_CHANGE_PATTERNS deliberately does not match `git worktree add` (a
+# different subcommand — "worktree", not "checkout"/"switch"/"branch" — so it
+# never collides with these patterns) and does not match `git checkout -- ` /
+# `git restore` (already denied above, before this code runs).
+BRANCH_CHANGE_PATTERNS = [
+    r"\bgit\s+checkout\b",
+    r"\bgit\s+switch\b",
+    r"\bgit\s+branch\s+(-[a-zA-Z]*[mMf][a-zA-Z]*)\b",
+]
+
+
+def changes_branch_or_head(command):
+    return any(re.search(p, command) for p in BRANCH_CHANGE_PATTERNS)
+
+
+def parse_target_branch(command):
+    """Best-effort branch name for the lock's informational `branch` field —
+    never used for a security decision, only shown to a human reading the
+    lock or a denial message."""
+    m = re.search(r"\bgit\s+(?:checkout|switch)\b([^\n;&|]*)", command)
+    args = m.group(1) if m else None
+    if args is None:
+        m = re.search(r"\bgit\s+branch\b([^\n;&|]*)", command)
+        args = m.group(1) if m else ""
+    toks = [t for t in args.split() if not t.startswith("-")]
+    return toks[-1] if toks else "?"
+
+
+if os.environ.get("CLAUDE_ALLOW_SHARED_CHECKOUT") != "1" and changes_branch_or_head(cmd):
+    session_id = data.get("session_id") or ""
+    lock_dir = os.path.join(data.get("cwd") or os.getcwd(), ".git")
+    lock_path = os.path.join(lock_dir, "claude-session.lock")
+    now = time.time()
+
+    # Sessions in this repo run long (multi-hour PLAN.md executions per
+    # CLAUDE.md, checkpointed only at ~50% context). A short TTL would
+    # false-deny a real, still-running session mid-task; a crashed session
+    # bricking the repo for a founder is the worse failure. 6 hours covers a
+    # long working session while still self-healing within the same day.
+    LOCK_TTL_SECONDS = 6 * 60 * 60
+
+    existing = None
+    try:
+        with open(lock_path, "r", encoding="utf-8") as f:
+            existing = json.load(f)
+    except Exception:
+        existing = None  # missing, unreadable, or corrupt -> no lock (fail open)
+
+    holder = existing.get("session_id") if isinstance(existing, dict) else None
+    holder_branch = existing.get("branch") if isinstance(existing, dict) else None
+    ts = existing.get("ts") if isinstance(existing, dict) else None
+    fresh = isinstance(ts, (int, float)) and (now - ts) < LOCK_TTL_SECONDS
+
+    if session_id and holder and holder != session_id and fresh:
+        print(json.dumps({"hookSpecificOutput": {
+            "hookEventName": "PreToolUse",
+            "permissionDecision": "deny",
+            "permissionDecisionReason":
+                "Blocked by guard hook: shared-checkout session lock. "
+                "Another agent session is active in this working directory "
+                f"(fresh lock at .git/claude-session.lock, holder on branch "
+                f"'{holder_branch or '?'}') — switching branches here risks "
+                "flipping HEAD under it, the exact incident this guards "
+                "against. Do this instead: create your OWN worktree outside "
+                "Documents\\Claude\\Projects\\, e.g. "
+                "`git worktree add C:\\Users\\<you>\\AppData\\Local\\Temp\\"
+                "claude-worktrees\\<branch-name> -b <branch-name>`, and work "
+                "there. Read-only inspection may stay in this checkout. If a "
+                "human genuinely wants a shared checkout, set "
+                "CLAUDE_ALLOW_SHARED_CHECKOUT=1."}}))
+        sys.exit(0)
+
+    # Allowed (no lock, own lock, or a stale/abandoned lock) -> write/refresh
+    # it. Never let this fail the command it's guarding.
+    if session_id:
+        try:
+            with open(lock_path, "w", encoding="utf-8") as f:
+                json.dump({"session_id": session_id, "ts": now,
+                           "branch": parse_target_branch(cmd)}, f)
+        except Exception:
+            pass
 
 sys.exit(0)
 PY

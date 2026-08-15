@@ -248,6 +248,15 @@ agents doing exactly this — the "doom loop"):
   cloud sessions on Wyatt's account (`docs/agents/runners.md`), which keeps
   Joey's weekly limit free. (2026-08-13: Joey removed the hard local-
   concurrency cap of 2 — run as many local agents as the work warrants.)
+- **One working directory, one branch-writing session.** Twice in one session
+  two agents sharing this checkout flipped HEAD under each other — a commit
+  landed on the wrong branch (2026-08-13 incident). Any agent that will create
+  branches or commit must run in its OWN `git worktree`, created outside
+  `Documents\Claude\Projects\` — see `docs/agents/README.md` for the exact
+  command. An orchestrator must never dispatch two branch-writing agents into
+  the same checkout. Read-only agents (inspecting, searching, reading) may
+  still share one freely. `.claude/hooks/guard.sh` enforces this with a
+  session lock; it is not just a convention.
 
 ## Conventions
 
