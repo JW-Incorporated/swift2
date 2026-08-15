@@ -9,12 +9,16 @@
  * (most specific wins) are unit-testable.
  *
  * Precedence (#707 — every immersive overlay is now shareable, so every
- * overlay needs a param that reopens it):
- *   item > song > guide > theories > lens > era
+ * overlay needs a param that reopens it; #2105 added `mode` for the five
+ * surfaces that have no more specific "thing" to address):
+ *   item > song > guide > theories > lens > mode > era
  * Most specific first: a `?song=` opens the song dossier *stacked on top of*
  * its album's track guide, so it must outrank a bare `?guide=`; both outrank
- * the era stream underneath. Exactly one param is ever present on a shared
- * URL, but the order keeps the helper total when a URL is hand-mangled.
+ * the era stream underneath. `mode` sits just above the era fallback — it
+ * addresses a whole surface (the Threads gallery, Mood, Clownbot, Community,
+ * or Merch), never anything more specific than that. Exactly one param is
+ * ever present on a shared URL, but the order keeps the helper total when a
+ * URL is hand-mangled.
  */
 
 export type DeepLinkTarget =
@@ -23,8 +27,11 @@ export type DeepLinkTarget =
   | { kind: 'guide'; eraId: string }
   | { kind: 'theories'; eraId: string }
   | { kind: 'lens'; id: string }
+  | { kind: 'mode'; mode: 'threads' | 'mood' | 'clownbot' | 'community' | 'merch' }
   | { kind: 'era'; id: string }
   | null;
+
+const MODE_VALUES = new Set(['threads', 'mood', 'clownbot', 'community', 'merch']);
 
 export function deepLinkTarget(search: string, validLensIds: readonly string[]): DeepLinkTarget {
   const params = new URLSearchParams(search);
@@ -40,6 +47,13 @@ export function deepLinkTarget(search: string, validLensIds: readonly string[]):
   if (theories) return { kind: 'theories', eraId: theories };
   const lens = params.get('lens');
   if (lens && validLensIds.includes(lens)) return { kind: 'lens', id: lens };
+  // #2105 — Threads gallery, Mood, Clownbot, Community, and Merch each carry
+  // no user input, so the whole surface (not any one thing on it) is the
+  // shareable target.
+  const mode = params.get('mode');
+  if (mode && MODE_VALUES.has(mode)) {
+    return { kind: 'mode', mode: mode as 'threads' | 'mood' | 'clownbot' | 'community' | 'merch' };
+  }
   const era = params.get('era');
   if (era) return { kind: 'era', id: era };
   return null;

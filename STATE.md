@@ -192,6 +192,34 @@ Community + Merch. All earlier grants are spent. Standing and NOT spent:
       Joey accepted this 2026-08-13; an authored `anchorHint` is the fix if it
       ever matters.
 
+## Session 2026-08-15 (Joey sole owner)
+
+**Joey: "No one else should be merging on this repo except you. Wyatt is no
+longer working on the project."** Treat merge authority as delegated to this
+session for his work; still never commit to `main` directly.
+
+- **Nav pill drift — MERGED `7bb117b4` (#2118).** The desktop indicator sat
+  right of its tab, worsening per tab (19.4px by the last one). Cause was NOT
+  the padding arithmetic I guessed: the tabs are `flex-1 basis-0` WITHOUT
+  `min-w-0`, so long labels ("Clownbot", "Community") keep a content-based
+  minimum and claim more than an even share. The indicator assumed
+  `100% / tabCount`. It now measures the active tab's own box. **Third bug this
+  week fixed by the same principle: observe where a thing IS, do not compute
+  where it ought to be** (see also `measureChromeBottom`, the scrubber rail).
+  Also folded the duplicated `useIsomorphicLayoutEffect` into
+  `lib/longlive/useIsomorphicLayoutEffect.ts` — FilterBar and TopBar had
+  separate private copies.
+- **Share on every surface — IN FLIGHT**, issue #2105, branch
+  `fix/share-every-surface`. Two calls made for the agent, do not re-open:
+  (1) extend the existing one-shot deep-link params, **do NOT add routing** —
+  the app is deliberately route-free and PR #1947 set this pattern;
+  (2) share the DESTINATION, never the conversation. `share.ts`'s refusal for
+  Mood/Clownbot is about never transmitting what a user typed, and that stays.
+  The agent must prove the produced URL is unchanged after typing into each.
+- **#2118 was merged by `sffan15-sys` automatically**, not by me — worth
+  knowing given `auto-merge-content` is meant for content-only PRs and that one
+  touched three `.tsx`/`.ts` files. Bears on #2113.
+
 ## Next obvious step
 
 0. **CI billing is CLEAR — #2116's stated blocker is gone.** It said "Actions

@@ -10,9 +10,14 @@ import { getContentItem } from '@/lib/longlive/content';
 import { getThread } from '@/lib/longlive/lenses';
 import { resolveTrackKey } from '@/lib/longlive/tracks';
 import {
+  clownbotShareCopy,
+  communityShareCopy,
+  merchShareCopy,
   momentShareCopy,
+  moodShareCopy,
   siteShareCopy,
   theoryGuideShareCopy,
+  threadsGalleryShareCopy,
   trackGuideShareCopy,
   trackShareCopy,
   type ShareCopy,
@@ -103,6 +108,36 @@ export function ShareSheet() {
     title = 'Long Live';
     subtitle = 'Real-time updates on her whole life, or step back into any era.';
     richCopy = siteShareCopy();
+  } else if (share.kind === 'threads') {
+    era = getEra(CURRENT_ERA_ID);
+    kicker = 'The Threads';
+    title = 'The stories between the eras';
+    subtitle = 'Eras move forward in time. Threads cut sideways through every chapter.';
+    richCopy = threadsGalleryShareCopy();
+  } else if (share.kind === 'mood') {
+    era = getEra(CURRENT_ERA_ID);
+    kicker = 'Long Live';
+    title = 'Mood';
+    subtitle = "Tell it how you're feeling, get back the songs that fit.";
+    richCopy = moodShareCopy();
+  } else if (share.kind === 'clownbot') {
+    era = getEra(CURRENT_ERA_ID);
+    kicker = 'Long Live';
+    title = 'Clownbot';
+    subtitle = 'An unhinged, permanently-online superfan you can chat with.';
+    richCopy = clownbotShareCopy();
+  } else if (share.kind === 'community') {
+    era = getEra(CURRENT_ERA_ID);
+    kicker = 'Long Live';
+    title = 'Fan communities';
+    subtitle = 'Where Swifties gather, grouped by platform and curated by hand.';
+    richCopy = communityShareCopy();
+  } else if (share.kind === 'merch') {
+    era = getEra(CURRENT_ERA_ID);
+    kicker = 'Long Live';
+    title = 'Merch';
+    subtitle = 'Shop the look from real moments, plus the official store and fan-made finds.';
+    richCopy = merchShareCopy();
   } else {
     era = getEra('ttpd');
     kicker = 'Lens';
@@ -120,6 +155,14 @@ export function ShareSheet() {
     if (share.kind === 'track') return `${base}?song=${encodeURIComponent(share.trackKey)}`;
     if (share.kind === 'trackGuide') return `${base}?guide=${encodeURIComponent(share.eraId)}`;
     if (share.kind === 'theoryGuide') return `${base}?theories=${encodeURIComponent(share.eraId)}`;
+    // #2105 — Threads gallery / Mood / Clownbot / Community / Merch: the
+    // surface as a destination, empty and ready. Never any user input (see
+    // share.ts).
+    if (share.kind === 'threads') return `${base}?mode=threads`;
+    if (share.kind === 'mood') return `${base}?mode=mood`;
+    if (share.kind === 'clownbot') return `${base}?mode=clownbot`;
+    if (share.kind === 'community') return `${base}?mode=community`;
+    if (share.kind === 'merch') return `${base}?mode=merch`;
     // share.kind === 'site' — the bare front door, no params.
     return base;
   })();

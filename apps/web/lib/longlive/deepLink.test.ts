@@ -39,7 +39,34 @@ describe('deepLinkTarget', () => {
     expect(deepLinkTarget('?theories=red', LENSES)).toEqual({ kind: 'theories', eraId: 'red' });
   });
 
-  it('prefers item > song > guide > theories > lens > era', () => {
+  // #2105 — Threads gallery, Mood, Clownbot, Community, and Merch: each
+  // addresses a whole surface, not any user input on it.
+  it('routes ?mode=threads to the Threads gallery', () => {
+    expect(deepLinkTarget('?mode=threads', LENSES)).toEqual({ kind: 'mode', mode: 'threads' });
+  });
+
+  it('routes ?mode=mood to Mood', () => {
+    expect(deepLinkTarget('?mode=mood', LENSES)).toEqual({ kind: 'mode', mode: 'mood' });
+  });
+
+  it('routes ?mode=clownbot to Clownbot', () => {
+    expect(deepLinkTarget('?mode=clownbot', LENSES)).toEqual({ kind: 'mode', mode: 'clownbot' });
+  });
+
+  it('routes ?mode=community to Community', () => {
+    expect(deepLinkTarget('?mode=community', LENSES)).toEqual({ kind: 'mode', mode: 'community' });
+  });
+
+  it('routes ?mode=merch to Merch', () => {
+    expect(deepLinkTarget('?mode=merch', LENSES)).toEqual({ kind: 'mode', mode: 'merch' });
+  });
+
+  it('ignores an unrecognized ?mode= value and falls through to era', () => {
+    expect(deepLinkTarget('?mode=bogus&era=red', LENSES)).toEqual({ kind: 'era', id: 'red' });
+    expect(deepLinkTarget('?mode=bogus', LENSES)).toBeNull();
+  });
+
+  it('prefers item > song > guide > theories > lens > mode > era', () => {
     expect(deepLinkTarget('?era=red&lens=fashion&item=x', LENSES)).toEqual({
       kind: 'item',
       id: 'x',
@@ -57,6 +84,16 @@ describe('deepLinkTarget', () => {
     expect(deepLinkTarget('?era=red&lens=fashion', LENSES)).toEqual({
       kind: 'lens',
       id: 'fashion',
+    });
+    // lens outranks a bare mode param.
+    expect(deepLinkTarget('?mode=threads&lens=fashion', LENSES)).toEqual({
+      kind: 'lens',
+      id: 'fashion',
+    });
+    // mode outranks the era fallback.
+    expect(deepLinkTarget('?era=red&mode=mood', LENSES)).toEqual({
+      kind: 'mode',
+      mode: 'mood',
     });
   });
 
