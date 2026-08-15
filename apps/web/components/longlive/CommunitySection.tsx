@@ -188,7 +188,7 @@ export function CommunitySection() {
 
 function SocialPane() {
   const groups = Array.from(communitiesByPlatform());
-  const chips = useMemo(() => communityGroupsToChips(groups), [groups]);
+  const chips = communityGroupsToChips(groups);
   const summaryText = communitySummary(COMMUNITIES.length, chips.length);
 
   return (

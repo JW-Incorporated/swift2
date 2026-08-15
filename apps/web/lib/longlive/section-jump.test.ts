@@ -48,9 +48,9 @@ describe('summaries', () => {
     expect(communitySummary(1, 1)).toBe('1 community · 1 platform');
   });
 
-  it('pluralizes look/era correctly', () => {
-    expect(merchSummary(156, 12)).toBe('156 shoppable looks · 12 eras');
-    expect(merchSummary(1, 1)).toBe('1 shoppable look · 1 era');
+  it('pluralizes piece/era correctly', () => {
+    expect(merchSummary(156, 12)).toBe('156 pieces · 12 eras');
+    expect(merchSummary(1, 1)).toBe('1 piece · 1 era');
   });
 });
 

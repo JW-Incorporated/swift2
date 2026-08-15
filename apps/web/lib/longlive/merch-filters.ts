@@ -125,6 +125,13 @@ export function merchMatchesFilter(item: MerchItem, active: ReadonlySet<MerchFil
 
   for (const [dim, ids] of activeByDimension) {
     if (dim === 'stock') {
+      // Deliberately asymmetric with the price band below: an unpriceable
+      // item is EXCLUDED from an active price filter (can't place it
+      // honestly), but an item with unknown stock (`inStock === undefined`)
+      // PASSES the in-stock filter rather than being excluded. Hiding
+      // everything we can't confirm in stock would silently shrink the
+      // catalogue as data quality degrades — worse than occasionally
+      // showing a since-sold-out item. Only an explicit `false` excludes.
       if (item.inStock === false) return false;
     } else if (dim === 'exact') {
       if (item.isAlternative === true) return false;

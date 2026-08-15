@@ -183,7 +183,7 @@ export function MerchSection() {
                 <p className="mt-0.5 text-xs text-[color:var(--era-ink-soft)]">
                   {filtersActive
                     ? `${matchCount} of ${group.count} match`
-                    : `${group.count} look${group.count === 1 ? '' : 's'}`}
+                    : `${group.count} piece${group.count === 1 ? '' : 's'}`}
                 </p>
                 {matchCount > 0 && (
                   <ul className="mt-3 grid grid-cols-1 items-start gap-4 md:grid-cols-2 md:gap-5">

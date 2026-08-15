@@ -46,9 +46,14 @@ export function communitySummary(totalCount: number, platformCount: number): str
 }
 
 export function merchSummary(totalCount: number, eraCount: number): string {
-  const lookWord = totalCount === 1 ? 'look' : 'looks';
+  // `totalCount` is a PRODUCT count (MERCH_CATALOGUE.shopTheLook.length /
+  // MerchEraGroup.count), NOT a moment/look count — one moment's `products[]`
+  // can hold several products, so "looks" would understate what actually
+  // renders as cards (docs/engineering-lessons.md: "a count is only as good
+  // as the method"). Always say "piece(s)" here.
+  const pieceWord = totalCount === 1 ? 'piece' : 'pieces';
   const eraWord = eraCount === 1 ? 'era' : 'eras';
-  return `${totalCount} shoppable ${lookWord} · ${eraCount} ${eraWord}`;
+  return `${totalCount} ${pieceWord} · ${eraCount} ${eraWord}`;
 }
 
 /** Descending by count, stable tie-break by label so equal counts render deterministically. */

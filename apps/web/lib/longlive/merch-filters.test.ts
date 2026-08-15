@@ -121,6 +121,12 @@ describe('merchMatchesFilter', () => {
     expect(merchMatchesFilter(base, active)).toBe(true); // undefined = purchasable
   });
 
+  it('inStock filter passes an item with unknown stock (inStock undefined) — deliberate asymmetry with price, see comment in merch-filters.ts', () => {
+    const unknownStock = { ...base, inStock: undefined };
+    const active = new Set<MerchFilterId>(['inStock']);
+    expect(merchMatchesFilter(unknownStock, active)).toBe(true);
+  });
+
   it('exactPiece filter excludes isAlternative items', () => {
     const alt = { ...base, isAlternative: true };
     const active = new Set<MerchFilterId>(['exactPiece']);

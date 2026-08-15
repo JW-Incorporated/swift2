@@ -62,6 +62,13 @@ export function SectionJumpBar({ ariaLabel, summary, chips, suggestChip, variant
     if (targets.length === 0) return;
 
     const visibleTops = new Map<string, number>();
+    // Same live measurement `jumpTo` below uses to land a scroll — never a
+    // hardcoded constant, which drifts the instant the chrome's actual
+    // height changes (docs/engineering-lessons.md: "a sum of heights is not
+    // a position"). The compact rail only exists inside CommunitySection,
+    // so this falls back to 0 there (the `rest` variant lives in normal flow).
+    const rail = document.querySelector<HTMLElement>('[data-ll-community-rail]');
+    const chromeOffset = measureChromeHeight() + (rail ? rail.getBoundingClientRect().height : 0);
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -76,7 +83,7 @@ export function SectionJumpBar({ ariaLabel, summary, chips, suggestChip, variant
       // chrome, and only counts the top ~30% of the viewport as "in view" —
       // so the active chip tracks the section nearest the reading position,
       // not merely any section that's partially on screen.
-      { rootMargin: '-96px 0px -70% 0px', threshold: 0 },
+      { rootMargin: `-${chromeOffset}px 0px -70% 0px`, threshold: 0 },
     );
     targets.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
