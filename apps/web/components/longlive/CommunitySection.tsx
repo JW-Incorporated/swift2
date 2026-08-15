@@ -1,29 +1,49 @@
 'use client';
 
 /**
- * The directory of fan communities (PLAN.md, Joey 2026-08-14) — a curated
- * list Joey builds by hand and grows with fan submissions over time, grouped
- * by platform since that's how the underlying research frames it (item 4b).
- * This is a directory page, not a chat surface: the era palette applies, not
- * ClownChat.tsx's neutral app chrome.
+ * The combined Community section (PLAN.md 2026-08-14 steps 1-2 — Joey: "we're
+ * going to drop merch from nav and combine community and merch... a 50/50
+ * split button that goes all the way across the screen"). This file now owns
+ * the section SHELL — the "Community" H1, the full-width 50/50 Social/Merch
+ * toggle, and the sticky mini-toggle rail — and mounts either the Social pane
+ * (this file's own directory content, below) or `MerchSection` depending on
+ * `communityTab` in the store. Merch no longer has its own top-level nav
+ * destination or page frame; it is a pane inside this one.
  *
- * Every entry carries an honest confidence signal. `memberCount` is `null`
- * for several entries by design (Reddit blocks automated access, so no count
- * exists) — that renders nothing, never "0" or an estimate. Anything short of
- * `verification.status === 'verified-live'` gets a quiet marker rather than
- * being presented as equally confirmed, and any real `flags` (an impersonator
- * spin-off, a subreddit that reportedly went private) render more prominently
- * than the description, since they matter more.
+ * THE CHROME RULE (non-negotiable, from the design): exactly one sticky
+ * element at a time. The H1, the big 48px toggle, and each pane's own content
+ * all sit in normal flow and scroll away. A single 44px rail then pins under
+ * the TopBar — appearing exactly when the big toggle leaves the viewport
+ * (IntersectionObserver against the toggle, with the topbar's own live height
+ * as the intersection margin so "leaves the viewport" accounts for what the
+ * sticky TopBar already covers) — so there is never a frame with both
+ * visible. The rail's jump-chips slot is left empty here for a later step
+ * (PLAN.md step 3, SectionJumpBar) to fill.
  *
- * `@/lib/longlive/communities.ts` (built in parallel by a sibling agent,
- * PLAN.md step 1) already groups by platform (`communitiesByPlatform`), each
- * group sorted by hypeScore descending, group order following first
- * appearance in the source data — this file just renders that grouping.
+ * Sticky offset reuses FilterBar's own `data-ll-topbar` ResizeObserver
+ * pattern (TopBar's height is responsive, so a hardcoded top value drifts).
+ *
+ * Every community entry carries an honest confidence signal. `memberCount` is
+ * `null` for several entries by design (Reddit blocks automated access, so no
+ * count exists) — that renders nothing, never "0" or an estimate. Anything
+ * short of `verification.status === 'verified-live'` gets a quiet marker
+ * rather than being presented as equally confirmed, and any real `flags` (an
+ * impersonator spin-off, a subreddit that reportedly went private) render
+ * more prominently than the description, since they matter more.
+ *
+ * `@/lib/longlive/communities.ts` already groups by platform
+ * (`communitiesByPlatform`), each group sorted by hypeScore descending, group
+ * order following first appearance in the source data — this file just
+ * renders that grouping.
  */
 
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AlertTriangle, ExternalLink, ShieldQuestion } from 'lucide-react';
 import { communitiesByPlatform, type Community } from '@/lib/longlive/communities';
+import { useAppActions, useAppState, type CommunityTab } from '@/lib/longlive/store';
+import { SegmentedToggle, type SegmentedToggleOption } from './SegmentedToggle';
 import { SubmitLinkForm } from './SubmitLinkForm';
+import { MerchSection } from './MerchSection';
 
 type VerificationStatus = Community['verification']['status'];
 
@@ -33,20 +53,102 @@ const VERIFICATION_LABEL: Partial<Record<VerificationStatus, string>> = {
   'blocked-unverified': 'Unconfirmed — platform blocks verification',
 };
 
+const TAB_OPTIONS: readonly SegmentedToggleOption<CommunityTab>[] = [
+  { value: 'social', label: 'Social' },
+  { value: 'merch', label: 'Merch' },
+];
+
+// SSR-render seed only, overwritten before paint — see FilterBar.tsx, whose
+// ResizeObserver pattern this mirrors.
+const TOPBAR_RESTING_HEIGHT = 52;
+
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+/** Live height of the sticky TopBar, kept in sync via ResizeObserver. */
+function useTopbarHeight(): number {
+  const [top, setTop] = useState(TOPBAR_RESTING_HEIGHT);
+  useIsomorphicLayoutEffect(() => {
+    const header = document.querySelector<HTMLElement>('[data-ll-topbar]');
+    if (!header) return;
+    const update = () => setTop(header.getBoundingClientRect().height);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(header);
+    return () => ro.disconnect();
+  }, []);
+  return top;
+}
+
 export function CommunitySection() {
+  const { communityTab: tab } = useAppState();
+  const { setCommunityTab } = useAppActions();
+  const toggleRef = useRef<HTMLDivElement>(null);
+  const [railVisible, setRailVisible] = useState(false);
+  const topbarHeight = useTopbarHeight();
+
+  // The rail appears exactly when the big toggle scrolls out from under the
+  // TopBar — never while it's still visible (never two toggles on screen).
+  useEffect(() => {
+    const el = toggleRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setRailVisible(!entry.isIntersecting),
+      { rootMargin: `-${topbarHeight}px 0px 0px 0px`, threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [topbarHeight]);
+
+  return (
+    <>
+      {railVisible && (
+        <div
+          data-ll-community-rail
+          className="sticky z-30 flex h-11 items-center gap-3 border-b border-[color:var(--era-line)] bg-[color:var(--era-bg)]/90 px-4 backdrop-blur-xl md:px-6"
+          style={{ top: topbarHeight }}
+        >
+          <SegmentedToggle
+            ariaLabel="Community section"
+            size="compact"
+            options={TAB_OPTIONS}
+            value={tab}
+            onChange={setCommunityTab}
+            className="w-auto max-w-[180px] shrink-0"
+          />
+          {/* PLAN.md step 3: the active pane's jump chips mount here. */}
+          <div className="min-w-0 flex-1 overflow-hidden" data-ll-jump-chips-slot />
+        </div>
+      )}
+
+      <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
+        <h1 className="font-[family-name:var(--era-font)] text-3xl font-semibold text-[color:var(--era-ink)]">
+          Community
+        </h1>
+
+        <div ref={toggleRef} className="mt-6">
+          <SegmentedToggle
+            ariaLabel="Community section"
+            options={TAB_OPTIONS}
+            value={tab}
+            onChange={setCommunityTab}
+          />
+        </div>
+
+        <div className="mt-8">{tab === 'merch' ? <MerchSection /> : <SocialPane />}</div>
+      </div>
+    </>
+  );
+}
+
+function SocialPane() {
   const groups = Array.from(communitiesByPlatform());
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
-      <header>
-        <h1 className="font-[family-name:var(--era-font)] text-3xl font-semibold text-[color:var(--era-ink)]">
-          Fan communities
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-          Where Swifties gather, grouped by platform. Curated by hand — this grows with fan submissions over time,
-          not all at once.
-        </p>
-      </header>
+    <>
+      <p className="max-w-2xl text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+        Where Swifties gather, grouped by platform. Curated by hand — this grows with fan submissions over time,
+        not all at once.
+      </p>
 
       {groups.length === 0 ? (
         <p className="mt-8 text-sm text-[color:var(--era-ink-soft)]">Nothing listed yet — check back soon.</p>
@@ -68,7 +170,7 @@ export function CommunitySection() {
       )}
 
       <SubmitLinkForm section="community" />
-    </div>
+    </>
   );
 }
 

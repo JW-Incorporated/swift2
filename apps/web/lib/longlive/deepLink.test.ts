@@ -67,4 +67,24 @@ describe('deepLinkTarget', () => {
     });
     expect(deepLinkTarget('?lens=not-a-thread', LENSES)).toBeNull();
   });
+
+  it('routes ?tab=merch to the Merch pane of the combined Community section', () => {
+    expect(deepLinkTarget('?tab=merch', LENSES)).toEqual({ kind: 'tab', tab: 'merch' });
+  });
+
+  it('routes ?tab=social to the Social pane', () => {
+    expect(deepLinkTarget('?tab=social', LENSES)).toEqual({ kind: 'tab', tab: 'social' });
+  });
+
+  it('routes the legacy ?mode=merch (the old six-mode nav address) to the Merch pane too', () => {
+    expect(deepLinkTarget('?mode=merch', LENSES)).toEqual({ kind: 'tab', tab: 'merch' });
+  });
+
+  it('prefers lens over tab, and tab over era', () => {
+    expect(deepLinkTarget('?tab=merch&lens=fashion', LENSES)).toEqual({
+      kind: 'lens',
+      id: 'fashion',
+    });
+    expect(deepLinkTarget('?tab=merch&era=red', LENSES)).toEqual({ kind: 'tab', tab: 'merch' });
+  });
 });

@@ -27,7 +27,14 @@ import type { FilterId } from './filters';
 import type { EraId, LensId, MotifId } from './types';
 import type { ClownAnswer } from './clown-answer';
 
-export type AppMode = 'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch';
+export type AppMode = 'era' | 'threads' | 'mood' | 'clownbot' | 'community';
+
+/**
+ * Sub-tab within the combined Community section (PLAN.md 2026-08-14 step 2 —
+ * Community and Merch fold into one section behind a 50/50 toggle instead of
+ * separate nav destinations).
+ */
+export type CommunityTab = 'social' | 'merch';
 
 /** One exchange in the clown bot transcript. */
 export interface ClownMessage {
@@ -103,6 +110,12 @@ interface AppState {
   clueWebTrail: MotifId | null;
   /** Active global timeline filter chips. Empty = show everything (P1). */
   filters: ReadonlySet<FilterId>;
+  /**
+   * Which pane the combined Community section shows — Social (the platform
+   * directory) or Merch. Deep-linkable via `?tab=merch`/legacy `?mode=merch`
+   * (deepLink.ts), read once on mount; never written back to the URL.
+   */
+  communityTab: CommunityTab;
   /**
    * Clown bot transcript — client-held, capped at `CLOWN_TRANSCRIPT_CAP`
    * exchanges, never persisted. Lives in the app store (rather than local
@@ -232,6 +245,8 @@ interface AppActions {
   toggleFilter: (id: FilterId) => void;
   /** Clear all active filter chips ("All"). */
   clearFilters: () => void;
+  /** Switch the combined Community section's active pane. */
+  setCommunityTab: (tab: CommunityTab) => void;
   /** Push a doorway's origin spot onto the return-point stack (P3 step 16). */
   pushReturnPoint: (p: ReturnPoint) => void;
   /** Pop and return the most recent return point, or null if none. */
@@ -352,6 +367,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [share, setShare] = useState<ShareTarget | null>(null);
   const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
   const [filters, setFilters] = useState<ReadonlySet<FilterId>>(() => new Set());
+  const [communityTab, setCommunityTab] = useState<CommunityTab>('social');
   const [clownMessages, setClownMessages] = useState<ClownMessage[]>([]);
   const [clownChatExpanded, setClownChatExpanded] = useState(false);
 
@@ -590,6 +606,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     } else if (target.kind === 'lens') {
       openThread(target.id as LensId);
+    } else if (target.kind === 'tab') {
+      // Old `?mode=merch` (the six-mode nav's address for the Merch tab) and
+      // the new `?tab=merch`/`?tab=social` both land on the combined
+      // Community section with that pane selected.
+      setModeRaw('community');
+      setCommunityTab(target.tab);
     } else {
       setEra(target.id as EraId);
     }
@@ -650,6 +672,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       closeShare: () => setShare(null),
       toggleFilter,
       clearFilters,
+      setCommunityTab,
       pushReturnPoint,
       popReturnPoint,
       addClownMessage,
@@ -697,6 +720,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       filters,
       clownMessages,
       clownChatExpanded,
+      communityTab,
     }),
     [
       mode,
@@ -717,6 +741,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       filters,
       clownMessages,
       clownChatExpanded,
+      communityTab,
     ],
   );
 

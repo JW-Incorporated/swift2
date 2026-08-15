@@ -1,10 +1,13 @@
 'use client';
 
 /**
- * The merch directory (PLAN.md, Joey 2026-08-14). The site links out; there
- * is no on-site payment or checkout (docs/definition-of-done.md item 4a) —
- * every card is a plain outbound link, same seam as MomentDetail's "Shop the
- * look" (buildShopUrl / isAffiliate / SHOP_DISCLOSURE from shop.ts), so the
+ * The Merch pane of the combined Community section (PLAN.md 2026-08-14 step
+ * 2 — mounted by `CommunitySection.tsx`, which owns the section's "Community"
+ * H1, the 50/50 Social/Merch toggle, and the page-level container; this
+ * component renders only its own pane content). The site links out; there is
+ * no on-site payment or checkout (docs/definition-of-done.md item 4a) — every
+ * card is a plain outbound link, same seam as MomentDetail's "Shop the look"
+ * (buildShopUrl / isAffiliate / SHOP_DISCLOSURE from shop.ts), so the
  * affiliate flip stays the one-file change that seam promises.
  *
  * `@/lib/longlive/merch.ts` (built in parallel by a sibling agent, PLAN.md
@@ -44,15 +47,10 @@ export function MerchSection() {
   const anyAffiliate = categories.some((group) => group.items.some(isAffiliate));
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
-      <header>
-        <h1 className="font-[family-name:var(--era-font)] text-3xl font-semibold text-[color:var(--era-ink)]">
-          Merch
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-          Every link here sends you to buy elsewhere — nothing checks out on this site.
-        </p>
-      </header>
+    <>
+      <p className="max-w-2xl text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+        Every link here sends you to buy elsewhere — nothing checks out on this site.
+      </p>
 
       <div className="mt-8 space-y-10">
         {categories.map((group) => (
@@ -82,7 +80,7 @@ export function MerchSection() {
       )}
 
       <SubmitLinkForm section="merch" />
-    </div>
+    </>
   );
 }
 

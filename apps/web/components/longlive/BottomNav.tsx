@@ -2,32 +2,29 @@
 
 import { useEffect, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { Compass, Layers, Sparkles, VenetianMask, Users, ShoppingBag } from 'lucide-react';
+import { Compass, Layers, Sparkles, VenetianMask, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAppActions, useAppState, type AppMode } from '@/lib/longlive/store';
 import { layoutBottomNavTabs, type BottomNavEntry } from '@/lib/longlive/bottom-nav-layout';
 import { shouldHideNavForFocus } from '@/lib/longlive/bottom-nav-focus';
 
-type BottomNavMode = Extract<
-  AppMode,
-  'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch'
->;
+type BottomNavMode = Extract<AppMode, 'era' | 'threads' | 'mood' | 'clownbot' | 'community'>;
 
 interface Tab extends BottomNavEntry {
   mode: BottomNavMode;
   icon: LucideIcon;
 }
 
-// R3 (PLAN.md): 4 tabs today, 6 at full growth once Marketplace and Community
-// ship. BOTTOM_NAV_ICON_ONLY_THRESHOLD in bottom-nav-layout.ts degrades the
-// bar to icon-only automatically once it does.
+// R3/PLAN.md 2026-08-14 step 1: five tabs at full growth — Merch folded into
+// Community as a sub-tab (the 50/50 Social/Merch toggle) rather than its own
+// nav destination, so the bar stops at five. BOTTOM_NAV_ICON_ONLY_THRESHOLD
+// in bottom-nav-layout.ts is 6, so five labelled tabs still fit.
 const TABS: readonly Tab[] = [
   { id: 'era', label: 'Eras', mode: 'era', icon: Compass },
   { id: 'threads', label: 'Threads', mode: 'threads', icon: Layers },
   { id: 'mood', label: 'Mood', mode: 'mood', icon: Sparkles },
   { id: 'clownbot', label: 'Clownbot', mode: 'clownbot', icon: VenetianMask },
   { id: 'community', label: 'Community', mode: 'community', icon: Users },
-  { id: 'merch', label: 'Merch', mode: 'merch', icon: ShoppingBag },
 ];
 
 /**

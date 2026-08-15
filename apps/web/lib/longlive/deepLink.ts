@@ -10,11 +10,16 @@
  *
  * Precedence (#707 — every immersive overlay is now shareable, so every
  * overlay needs a param that reopens it):
- *   item > song > guide > theories > lens > era
+ *   item > song > guide > theories > lens > tab > era
  * Most specific first: a `?song=` opens the song dossier *stacked on top of*
  * its album's track guide, so it must outrank a bare `?guide=`; both outrank
  * the era stream underneath. Exactly one param is ever present on a shared
  * URL, but the order keeps the helper total when a URL is hand-mangled.
+ * `tab` sits just above `era` — it's a section pick (like `era`), not an
+ * overlay stacked on top of one (PLAN.md 2026-08-14 step 2: Community and
+ * Merch folded into one section behind a 50/50 toggle; `?tab=merch` and the
+ * legacy `?mode=merch` — the old six-mode nav's address for the Merch tab —
+ * both resolve here so neither kind of link strands).
  */
 
 export type DeepLinkTarget =
@@ -23,6 +28,7 @@ export type DeepLinkTarget =
   | { kind: 'guide'; eraId: string }
   | { kind: 'theories'; eraId: string }
   | { kind: 'lens'; id: string }
+  | { kind: 'tab'; tab: 'social' | 'merch' }
   | { kind: 'era'; id: string }
   | null;
 
@@ -40,6 +46,10 @@ export function deepLinkTarget(search: string, validLensIds: readonly string[]):
   if (theories) return { kind: 'theories', eraId: theories };
   const lens = params.get('lens');
   if (lens && validLensIds.includes(lens)) return { kind: 'lens', id: lens };
+  const tab = params.get('tab');
+  const legacyMode = params.get('mode');
+  if (tab === 'merch' || legacyMode === 'merch') return { kind: 'tab', tab: 'merch' };
+  if (tab === 'social') return { kind: 'tab', tab: 'social' };
   const era = params.get('era');
   if (era) return { kind: 'era', id: era };
   return null;

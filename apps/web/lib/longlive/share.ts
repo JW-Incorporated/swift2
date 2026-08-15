@@ -89,7 +89,7 @@ export function siteShareCopy(): ShareCopy {
  * shifts (#453).
  */
 export function topbarShareTarget(
-  mode: 'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch',
+  mode: 'era' | 'threads' | 'mood' | 'clownbot' | 'community',
   eraId: EraId,
   lensId: LensId | null,
 ): ShareTarget | null {
@@ -102,11 +102,11 @@ export function topbarShareTarget(
   // reader's view is what they typed, and that is exactly what this surface
   // promises never to persist or transmit.
   if (mode === 'clownbot') return null;
-  // Community and Merch have no shareable target yet — both are curated
-  // directory pages, not a single "thing" to share. Rendered-but-disabled,
+  // Community (Social + Merch, folded into one section behind a 50/50
+  // toggle — PLAN.md 2026-08-14 step 2) has no shareable target yet: it's a
+  // curated directory, not a single "thing" to share. Rendered-but-disabled,
   // same as the other no-target modes.
   if (mode === 'community') return null;
-  if (mode === 'merch') return null;
   if (mode === 'era') return { kind: 'era', eraId };
   if (lensId != null) return { kind: 'lens', lensId };
   return null;
