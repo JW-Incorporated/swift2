@@ -5,40 +5,41 @@
 
 ## Current focus
 
-**Community + Merch merge, `feature/community-social-merch`.** Joey 2026-08-14:
-*"go for it. let's get it live."* Merch tab dropped, title stays "Community",
-50/50 Social/Merch toggle, section-jump subnav that PREVIEWS depth, era-style
-merch filters, an image on every merch item. **`PLAN.md` holds the facts, the
-Fable design spec and the steps.**
+**Community + Merch merge, `feature/community-social-merch`.** Joey: *"go for it.
+let's get it live."* Merch tab dropped, 50/50 Social/Merch toggle under the
+"Community" title, section-jump subnav that PREVIEWS depth, era-style merch
+filters, an image on every merch item. **`PLAN.md` holds the facts, the Fable
+design spec and the steps.**
 
 **ALL FIVE STEPS BUILT — `3382795e`** (`bcc8f39e` nav+shell+toggle, `bd7293a3`
 merch, `3382795e` jump bar). Verified by me: **2926/2926**, typecheck clean, no
 raw hex, all <300 lines. Browser-measured: **150 `<img>` / 6 monogram**, rail
-44px, big toggle and rail never co-visible, real taps landing via
-`elementFromPoint`, era order newest-first, `0 of 13 match` persists, no source
-row. **`FilterBar` survived its refactor** on a dark AND a light era.
+44px, toggle and rail never co-visible, real taps landing via `elementFromPoint`.
 
-**FABLE REVIEW ROUND 1 OF 2 RUNNING** — the only review this gets (Codex out to
-Aug 19, rule 3 otherwise unsatisfied). Pointed at the two places this branch
-could be quietly broken: `FilterBar`'s *behaviour* (not just render — no test
-locks its DOM) and `pointer-events` hit-testing under the new sticky chrome.
+**FABLE ROUND 1: REJECT — 4 findings being fixed. ROUND 2 IS THE LAST**; after
+it, anything unresolved ships as a named open finding in the PR body, never a
+third round. The MEDIUM was **mine**: the summary rendered "156 shoppable
+**looks**" — 156 is the PRODUCT count, 151 the look count, the exact conflation
+`docs/engineering-lessons.md` warns about, leaked from my plan into user copy.
+**Decided: keep 156, change the noun to "pieces"** — 156 is what renders as
+cards, so quoting 151 would contradict the screen. Also: `In stock` passes
+unknown-stock items (kept, but documented + pinned by a test), a hardcoded
+`-96px` scroll-spy offset vs 109px measured, and a dead `useMemo`.
+**Round 1 CLEARED the biggest risk — `FilterBar` behaves identically.**
 
 **156 products, NOT 151 (the MOMENT count) — a moment holds a `products[]`
-array. Images resolve through `merchItemImage()` → `hasRealPrimaryImage()`,
-never `images.length`. Five labelled tabs fit, but 320px has only ~1.2px slack
-— no label may exceed "Community".** Work stays committed locally while Actions
-is down; the worktree's objects live in the real repo, so commits are durable.
-
-Shipped 2026-08-14: Community + Merch `22314d5b` (#2112) on `109e776a` (#2110);
-era reader `e8500905`; device review `ff4df4ab`; Clownbot `3d553340`/`b8a500a3`.
+array. Never call products "looks". Images resolve through `merchItemImage()` →
+`hasRealPrimaryImage()`, never `images.length`. Five labelled tabs fit, but
+320px has ~1.2px slack — no label may exceed "Community".** Work stays committed
+locally while Actions is down; the worktree's objects live in the real repo.
 
 **The submit form only files GitHub issues until Joey does three things** in
 `docs/ops/community-merch-submissions.md`: deploy the Apps Script, verify
 `longlivets.com` in Resend, add the env vars. Sheet
 `1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4` in "Swift App" — **16-column order
 fixed; both senders must match.** Invariants: **nothing user-submitted renders**
-(#36), **never fetches a submitted URL** (SSRF), **a missing integration must
-never fail a submission.**
+(#36), **never fetches a submitted URL** (SSRF), **a missing integration never
+fails a submission.**
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
@@ -51,25 +52,22 @@ never fail a submission.**
   runner is inside the outage.** #2110/#2112 merged green before the cutoff.
 - **PR #2114 is parked on that** — docs only; needs only a re-run. **#2104 is
   superseded and should be closed, not merged.**
-- **#2110 merged with three questions still unanswered** (deferred, not
-  resolved): **Instagram + TikTok** scope (item 4b names both, the brief omitted
-  them — not widened unilaterally); **who owns the refresh cadence**; **ratify
-  or veto excluding `r/TravisAndTaylor`** (`r/GaylorSwift` kept but flagged).
-- **Codex out until Aug 19 2026 — Workflow rule 3 UNSATISFIED** for Clownbot AND
-  Community + Merch. **Run Codex against merged `main` when it returns.** A
-  `reviewer` on `model: "fable"` is the stand-in, required to REPRODUCE not read.
+- **#2110's three questions are still unanswered** (deferred, not resolved):
+  **Instagram + TikTok** scope; **who owns the refresh cadence**; **ratify or
+  veto excluding `r/TravisAndTaylor`**. See `data/communities-report.md`.
+- **Codex out until Aug 19 2026 — rule 3 UNSATISFIED** for Clownbot AND
+  Community + Merch. **Run it against merged `main` when it returns.** A
+  `reviewer` on `model: "fable"` stands in, required to REPRODUCE not read.
 - **`guard-code` + `enable` are red on EVERY code PR — #2113, pre-existing.**
-  Verdict correct, delivery broken (exits 1 under `bash -e`). #2108 and #2112
-  merged so. `docs/engineering-lessons.md` § CI. Don't fix it in a feature PR.
+  Verdict correct, delivery broken. `docs/engineering-lessons.md` § CI.
 - **Wyatt owns FIVE unsettled items:** Clownbot's model tier (`claude-sonnet-5`),
   the 200/day/instance cap, ratifying the Mood route pattern, signing the
   Clownbot decisions entry, and the era reader's bottom nav (overrides
-  `docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3).
+  `docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3 — now five tabs).
 - **The bottom nav has never been opened on a real phone**, and the five-tab
   change makes that check overdue. Passing tests are not a device check.
-- **Four overlays share the `z-50`-under-`z-[71]` FeedbackButton overlap**
-  (`EraSelector`, `MomentDetail`, `TrackGuide`, `TheoryGuide`) — deliberately
-  NOT fixed, Joey's call. (`tb-priv-02` is the other accepted gap.)
+- **Four overlays share the `z-50`-under-`z-[71]` FeedbackButton overlap** —
+  deliberately NOT fixed, Joey's call. (`tb-priv-02` is the other accepted gap.)
 
 ## Merge authorization
 
@@ -81,13 +79,15 @@ codex reviews more than 2 rounds."**
 ## Autonomous decisions — review surface
 
 - Merged #2110 and #2112 on standing authorisation — #2110 with Joey's three
-  questions still open (the branch depended on it), #2112 with
-  `guard-code`/`enable` red after confirming the same pair was red on merged
-  #2108 and `build` was green (filed #2113). Left #2104 open, not closed.
-- Fixed round 2's LOW (whitespace-hidden formulas) rather than shipping it as a
-  named open finding — two characters, inside the class already being fixed.
+  questions open (the branch depended on it), #2112 with `guard-code`/`enable`
+  red after confirming both were red on merged #2108 and `build` was green
+  (filed #2113). Left #2104 open, not closed.
+- Fixed the submit-endpoint LOW (whitespace-hidden formulas) rather than shipping
+  it as an open finding — two characters, inside the class already being fixed.
 - Moved durable traps into `docs/engineering-lessons.md`; `CLAUDE.md` points at
   it. The cap was unmeetable while working memory was being used as the record.
+- **Chose "156 pieces" over "151 looks"** for the merch summary: 156 is what
+  renders as cards, so the smaller true number would contradict the screen.
 - **A `grunt` edited the MAIN checkout** (`fix/karen-mechanics`) not its
   worktree, compressing the wrong base — discarded, done by hand. **That tree
   still has an uncommitted `MAP.md` edit** (a no-op once #2114 lands).
@@ -105,10 +105,10 @@ codex reviews more than 2 rounds."**
 ## Decisions that are settled
 
 - Era reader: bottom nav (overrides D3), Spotify player removed, one global
-  filter, anchor dates sort-only; Clownbot rulings J1–J7 (`docs/decisions.md`
-  2026-08-13). **Joey reversed his own brief once: NO Threads filter chip.** Six
-  filters forever: Music, Fashion, Tour, Relationship, Lore, Videos. Plans need
-  no sign-off. Merge authority is human. No self-armed monitors.
+  filter, anchor dates sort-only; Clownbot rulings J1–J7 (`docs/decisions.md`).
+  **Joey reversed his own brief once: NO Threads filter chip.** Six filters
+  forever: Music, Fashion, Tour, Relationship, Lore, Videos. Plans need no
+  sign-off. Merge authority is human. No self-armed monitors.
 
 ## Known traps
 
@@ -120,8 +120,8 @@ inherits; two mechanisms for one fact; user text in a spreadsheet is a formula.
 
 - **Joey asked for a 30-min recurring cron to "keep you going" (2026-08-14).
   RAISED, not built** — § Never babysit your own PR bans it, and it would not
-  have fixed the stalls (background agents already re-invoke on completion).
-  **If he reaffirms, build it.** Never build it silently.
+  have fixed the stalls (agents already re-invoke on completion). **If he
+  reaffirms, build it** — never silently.
 - `post-queue.mjs` + `delete-media.mjs` hit LIVE accounts; `guard.sh` denies
   them. `core.autocrlf=true`. `.claude/worktrees/` ~30 worktrees — never clean.
 - **The dev server scaffolds `apps/web/{README,AGENTS,CLAUDE}.md`** — untracked,
@@ -132,14 +132,15 @@ inherits; two mechanisms for one fact; user text in a spreadsheet is a formula.
 
 - [ ] 3 appearance videos carry no topic tag; folklore/evermore have no Tour
       content. Both true of the world, not gaps.
-- [ ] Theory doorways scatter rather than sitting beside the song they discuss.
-      Joey accepted this 2026-08-13; an authored `anchorHint` is the fix.
+- [ ] Theory doorways scatter rather than sitting beside the song they discuss;
+      Joey accepted this 2026-08-13. An authored `anchorHint` is the fix.
+- [ ] Merch has no garment-type filter — no `kind` field exists, and inferring
+      it from item names misfiles things. Authoring `kind?` is the unlock.
 
 ## Next obvious step
 
-0. **Fix whatever Fable round 1 finds, then round 2 is the LAST one.** Anything
-   unresolved after it ships as a named open finding in the PR body, never a
-   third round. Then the PR waits on Actions.
+0. **Verify the round-1 fixes, run round 2 (the LAST), then open the PR** — it
+   waits on Actions. Unresolved findings go in the PR body, not a third round.
 1. **Joey's hands:** the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`, plus his three #2110 questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
