@@ -3821,12 +3821,20 @@ export default {
         photos: [
           {
             url: 'https://s.yimg.com/lo/mysterio/api/d60389635d7ced6ee3d2d85903561f7949ac4f0bc076f79fde7541bebf672aff/lightyear_networkapi/resizefill_w384_h480%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpeople_218%2F425cb442037224d74b53cd6b33f6c2af',
+            // Re-confirmed this session (re-downloaded, re-viewed): dress centered,
+            // patient's torso left-of-frame. Value already correct.
             focalPoint: '55% 45%',
             credit: 'Children\'s Mercy, via People',
             caption: 'A patient at the mannequin with the tribute gown — its bodice covered in drawings, signatures, and a "who\'s afraid of little old me" lyric.',
             kind: 'primary',
           },
         ],
+        // Second-photo attempt this session: KCTV5 (the outlet that broke the
+        // story) is not on config.mjs's hostAllowlist. The only allowlisted
+        // syndication is this same s.yimg.com/People re-host, and its other
+        // frame from the same gallery could not be re-derived to a working URL
+        // (a candidate hash 404/401'd on direct fetch — not shipped unverified,
+        // per the no-fabricated-URL rule). Stays at one verified photo.
       },
     },
     {
@@ -3895,10 +3903,24 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Maren_Morris_2019_by_Glenn_Francis_%28cropped%29.jpg',
+            // Field-order fix + re-verified this session: tight portrait crop,
+            // eyes sit just above the vertical midline, not up at 22%.
+            focalPoint: '50% 38%',
             credit: 'Glenn Francis / PacificProDigital.com, Wikimedia Commons, CC BY-SA 4.0',
             caption: 'Maren Morris at the iHeartRadio Music Awards, Los Angeles, March 2019.',
             kind: 'archival',
-            focalPoint: '50% 22%',
+          },
+          // Photo Enrichment (2026-08-15): second archival Maren Morris portrait so
+          // the page clears the 2-photo floor. upload.wikimedia.org (allowlisted),
+          // curl 200 + image/jpeg, downloaded and vision-confirmed: Maren Morris,
+          // solo portrait, 2024 Library of Congress Gershwin Prize red carpet —
+          // distinct sourcing from the 2019 iHeartRadio photo above.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Maren_Morris_Gershwin_Prize_2024_%28cropped%29.jpg',
+            focalPoint: '48% 24%',
+            credit: 'UKinUSA (UK Embassy Washington), CC BY-SA 2.0, via Wikimedia Commons',
+            caption: 'Maren Morris at the 2024 Gershwin Prize ceremony in Washington, D.C.',
+            kind: 'archival',
           },
         ],
       },
@@ -4184,6 +4206,9 @@ export default {
         // archival photo of him stands in as an honest reference rather than
         // an unrelated Taylor/Travis stock shot — curl-verified 200 image/png
         // on Wikimedia Commons, downloaded and vision-confirmed.
+        // Photo pass #762 (2026-08-15): no `socialPost` for the same reason —
+        // the winning-ticket photo is Jackie Tranquill's own Instagram post,
+        // not @taylorswift's, so it fails the embed-verification bar.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Rob_Gronkowski_after_winning_Super_Bowl_LIII%2C_February_2019.png',
@@ -4217,6 +4242,11 @@ export default {
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-tloas-how-the-wedding-raffle-worked-guests-earned-their-tickets',
       ],
+      // Photo pass #762 (2026-08-15): no `socialPost` — the Instagram post in
+      // this story is a guest's (removed within minutes by a copyright
+      // complaint), not @taylorswift's, and it no longer exists to embed even
+      // if it were. Consistent with the no-photo call above: the leaked
+      // material itself is never reproduced or linked.
       title: 'Watermarked invitations and a copyright takedown',
       snippet:
         'The couple\'s leak-control ran deep: each invitation carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down after a copyright complaint that named Taylor as the rights owner.',
@@ -9571,14 +9601,20 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Field-order fix + re-verified this session: face is right of center,
+            // not left — was mis-set to 52% 42%.
+            focalPoint: '56% 40%',
             credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
             caption:
               'The underwater shot from the album-cover session — the imagery that fronted the biggest sales week ever measured.',
             kind: 'archival',
-            // Face slightly left of center, eyes just below the vertical midline.
-            focalPoint: '52% 42%',
           },
         ],
+        // Second-photo attempt this session: the shoot's numbered PR set (01-05)
+        // is exhausted (06 curl 404) and every distinct-frame official video still
+        // (the "Fate of Ophelia" MV, id ko70cExuzZM) is already used 3x elsewhere
+        // in this era file — adding a 4th use risks the image-overuse checker
+        // rather than adding real variety. Stays at one verified photo.
       },
     },
     {
@@ -9621,15 +9657,18 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/05-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Re-verified this session: arms raised overhead push the face to the
+            // lower-center of the frame; bias the crop down to keep it. Value
+            // already correct — only moved up to sit immediately after `url`.
+            focalPoint: '48% 58%',
             credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
             caption:
               'Crowning the showgirl: the jeweled-headdress press image from the album shoot, as all twelve tracks locked up the top twelve spots.',
             kind: 'archival',
-            // Arms raised overhead push the face to the lower-center of the
-            // frame; bias the crop down to keep it.
-            focalPoint: '48% 58%',
           },
         ],
+        // Second-photo attempt this session: same billboard PR-set/video-still
+        // overuse constraint as the debut-chart sibling page — stays at one.
       },
     },
     {
@@ -10424,13 +10463,20 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
-            focalPoint: '37% 62%',
+            // Re-verified this session: full-length figure left-of-center, face/torso
+            // in the upper third — was mis-set to 62% (down near the knees).
+            focalPoint: '37% 38%',
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption:
               'Taylor performing on the Eras Tour — the writing behind that catalog is what the Nashville Songwriters Hall of Fame honored, naming her its youngest-ever inductee in August 2026.',
             kind: 'reference',
           },
         ],
+        // Second-photo attempt this session: she was not present for the Aug 11
+        // announcement (a statement was read aloud) and the formal gala hasn't
+        // happened yet — re-confirmed via fresh press search (Variety, Axios
+        // Nashville, US News, all Aug 11-14 2026) that no appearance photo exists.
+        // Stays at one verified reference photo.
       },
     },
     // Authored 2026-08-12 (Vault Run, Content Shift lane) from intake #2025
@@ -10750,6 +10796,23 @@ export default {
           {
             outlet: 'YouTube — Good Morning America',
             url: 'https://www.youtube.com/watch?v=5AzDPpG3nEc',
+          },
+        ],
+        // Photo Enrichment (2026-08-15): page had zero photos ("no cleanly
+        // licensable image of the presser was found" note above). The GMA video
+        // already cited in sources is the presser itself — i.ytimg.com maxres
+        // still, re-verified via oEmbed this session (author "Good Morning
+        // America" / @GMA, title matches) and downloaded/vision-confirmed: Travis
+        // in his #87 camp jersey in front of the Chiefs Training Camp / Mosaic
+        // Life Care backdrop, mid-answer.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/5AzDPpG3nEc/maxresdefault.jpg',
+            focalPoint: '52% 30%',
+            credit: 'Good Morning America / YouTube',
+            caption:
+              'Travis Kelce at Chiefs training camp, Aug. 12, 2026, giving his first on-record comments on the July 3 wedding.',
+            kind: 'primary',
           },
         ],
       },

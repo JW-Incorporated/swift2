@@ -1427,14 +1427,19 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/stylus/2673339-taylor-swift-nye-2013-617-409.jpg',
+            // Field-order fix + re-verified this session: face is left of center
+            // (mic held center-frame), not near 48%.
+            focalPoint: '35% 32%',
             credit: 'Billboard',
             caption:
               'Taylor performing in Times Square earlier on New Year\'s Eve 2012 — not the midnight kiss photo itself, which exists only as blurred/watermarked paparazzi frames.',
             kind: 'reference',
-            // Mid-performance, red sequins; her singing face is high-center of the frame.
-            focalPoint: '48% 28%',
           },
         ],
+        // Second-photo attempt this session: re-confirmed the existing note —
+        // every available frame of the actual kiss is blurred/watermarked/inset;
+        // no clean second image of this specific event passed verification.
+        // Stays at one.
       },
     },
     {
