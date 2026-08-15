@@ -321,7 +321,13 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
           />
         </div>
 
-        <div className="relative mx-auto max-w-4xl px-4 pb-10 pt-12 md:pr-8">
+        <div
+          className={cn(
+            'relative mx-auto max-w-4xl px-4 pt-12',
+            heroCredit ? 'pb-6' : 'pb-10',
+            !NO_SCRUBBER_THREADS.has(threadId) && 'md:pr-8',
+          )}
+        >
           <button
             onClick={() => {
               clearLens();
@@ -349,10 +355,14 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
             {meta.what}
           </p>
           {heroCredit && (
-            // Full-strength ink, not ink-soft: this sits over hero imagery,
-            // where ink-soft drops under the 4.5:1 body-text floor (WCAG 1.4.3)
-            // — the same reason the blurb above it uses ink.
-            <p className="mt-5 max-w-xl text-[11px] leading-relaxed text-[color:var(--era-ink)]">
+            // Footnote-quiet, not a call to action: by this point in the header
+            // the background gradient (see above) has resolved to near-solid
+            // era-bg, so ink-soft still clears body-text contrast here even
+            // though the blurb above — sitting over more of the raw hero image —
+            // needs full ink. The credit is a licence condition, not a link we
+            // want users clicking, so it reads small and muted, not underlined
+            // by default.
+            <p className="mt-1.5 max-w-xl text-[10px] leading-snug text-[color:var(--era-ink-soft)]">
               {/* Linked, not just named: CC BY / CC BY-SA ask for a URI to the
                   licensed material, and the Commons page carries the licence
                   deed and the full author record. A grid hero has no single
@@ -362,7 +372,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
                   href={heroSourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline decoration-dotted underline-offset-2 hover:decoration-solid"
+                  className="underline-offset-2 hover:underline"
                 >
                   {heroCredit}
                 </a>
