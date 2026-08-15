@@ -4,46 +4,44 @@
      changelog — git holds history, docs/ holds the record. -->
 ## Current focus
 
-**Community + Merch merge, `feature/community-social-merch`.** Joey: *"go for it.
-let's get it live."* Merch tab dropped, 50/50 Social/Merch toggle under the
-"Community" title, section-jump subnav that PREVIEWS depth, era-style merch
-filters, an image on every merch item. **`PLAN.md` holds the facts, the Fable
-design spec and the steps.** **ALL FIVE STEPS BUILT** — `bcc8f39e` shell,
-`bd7293a3` merch, `3382795e` jump bar, `1e92771b` fixes; verified by me at each
-stage. Browser-measured: **150 `<img>` / 6 monogram**, rail 44px, toggle and
+**Community + Merch merge — BUILT, REVIEWED, PR #2116 OPEN.** Joey: *"go for it.
+let's get it live."* Merch tab dropped (nav → five LABELLED tabs), 50/50
+Social/Merch toggle under the "Community" title, section-jump subnav that
+PREVIEWS depth via chip counts, era-style merch filters, an image on every merch
+item. `PLAN.md` holds the facts and the Fable design spec. Commits: `bcc8f39e`
+shell, `bd7293a3` merch, `3382795e` jump bar, `1e92771b` fixes, `838407eb`
+scroll-spy. Browser-measured: **150 `<img>` / 6 monogram**, rail 44px, toggle and
 rail never co-visible, era order newest-first, no source row (buckets empty).
 
-**ROUND 1 REJECT → all 4 fixed at `1e92771b`** (2927/2927, typecheck clean).
-The MEDIUM was **mine**: "156 shoppable **looks**" — the PRODUCT-vs-MOMENT
+**Both review rounds spent: REJECT → APPROVE. #2116 CANNOT MERGE — Actions is
+down, `build` never runs, and merging past a gate that did not execute is not
+on.** 2927 tests, typecheck clean.
+
+Round 1's MEDIUM was **mine**: "156 shoppable **looks**" — the PRODUCT-vs-MOMENT
 conflation `docs/engineering-lessons.md` warns about, leaked from my plan into
 user copy. **Kept 156, changed the noun to "pieces"** — 156 is what renders as
-cards, so the true 151 would contradict the screen. Round 1 cleared `FilterBar`.
+cards, so the true 151 would contradict the screen. Round 1 cleared `FilterBar`
+(behaves identically after the shared-chip refactor).
 
-**ROUND 2: APPROVE. Both review rounds are now spent.** The hit-testing scare
-was settled by execution — **30 `elementFromPoint` tests, every rail chip at
-three scroll positions, 0 failures**; the reported DIV was not reproducible and
-the gradient is `pointer-events-none` so it structurally cannot be returned.
-
-**One real defect found and FIXED rather than shipped** (uncommitted, being
-browser-verified): the scroll-spy stored `entry.boundingClientRect.top` from
-IntersectionObserver entries and sorted those stale snapshots, so **6 of 12
-boundaries marked the next chip active ~40px early**. Now reads current tops
-from the DOM at comparison time. **The reviewer called it "pre-existing" — it is
-not; it is pre-existing to the FIX COMMIT but new on this branch, and shipping a
-known defect in new code is not the same as inheriting one.**
+Round 2's hit-testing scare was settled by execution — **30 `elementFromPoint`
+tests, every rail chip, 3 scroll positions, 0 failures**. Its one real defect is
+**FIXED, not deferred**: the scroll-spy sorted stale IntersectionObserver
+snapshots, marking the next chip active ~40px early on 6 of 12 boundaries; it
+now reads live tops, browser-verified across all 12 within 2px. **The reviewer
+called it pre-existing; it is pre-existing to the FIX COMMIT but new on this
+branch — shipping a defect in code you just wrote is not inheriting one.**
 
 **156 products, NOT 151 (the MOMENT count) — never call products "looks".
 Images resolve through `merchItemImage()` → `hasRealPrimaryImage()`, never
 `images.length`. 320px has ~1.2px nav slack — no label may exceed "Community".**
-Work stays committed locally while Actions is down.
 
 **The submit form only files GitHub issues until Joey does three things** in
 `docs/ops/community-merch-submissions.md`: deploy the Apps Script, verify
 `longlivets.com` in Resend, add the env vars. Sheet
-`1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4` in "Swift App" — **16-column order
-fixed; both senders must match.** Invariants: **nothing user-submitted renders**
-(#36), **never fetch a submitted URL** (SSRF), **a missing integration never
-fails a submission.**
+`1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4` in "Swift App" — **16 columns,
+order fixed, both senders must match.** Invariants: **nothing user-submitted
+renders** (#36), **never fetch a submitted URL** (SSRF), **a missing integration
+never fails a submission.**
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
@@ -52,10 +50,10 @@ fails a submission.**
   increased"); last good run 21:44:44Z 2026-08-14. **`build` does not run, so
   there is no merge gate** — a missing `build` is not a red one. Founder fix:
   Settings → Billing & plans (Wyatt is on it). **Also down: `social-poster`
-  (posts are NOT going out) and `watchdog` — the alarm for a dark runner is
+  (posts NOT going out) and `watchdog` — the alarm for a dark runner is itself
   inside the outage.**
-- **PR #2114 is parked on that** (docs only, needs a re-run). **#2104 is
-  superseded — close it, don't merge it.**
+- **PRs #2114 (docs) and #2116 (this feature) are both parked on it.** **#2104
+  is superseded — close it, don't merge it.**
 - **#2110's three questions are still unanswered** (deferred, not resolved):
   Instagram/TikTok scope; who owns the refresh cadence; ratify or veto excluding
   `r/TravisAndTaylor`. Detail in `data/communities-report.md`.
@@ -82,22 +80,20 @@ Community+Merch — **but Actions is down: commit locally, never merge past a
 
 - Merged #2110 and #2112 on standing authorisation — #2110 with Joey's three
   questions open (the branch depended on it), #2112 with `guard-code`/`enable`
-  red after confirming both were red on merged #2108 and `build` was green
-  (filed #2113). Left #2104 open, not closed.
-- Fixed the submit-endpoint LOW (whitespace-hidden formulas) rather than shipping
-  it as an open finding — two chars, inside the class already being fixed.
+  red after confirming both were red on merged #2108 (filed #2113).
 - **Ordered the build waves sequentially** rather than fanning out: agents
   committing in one shared checkout collide, and merchByEra had to exist first.
 - Moved durable traps into `docs/engineering-lessons.md`; `CLAUDE.md` points at
-  it. The cap was unmeetable while working memory was being used as the record.
-- **Chose "156 pieces" over "151 looks"** for the merch summary: 156 is what
-  renders as cards, so the smaller true number would contradict the screen.
+  it. The cap was unmeetable while working memory doubled as the record.
+- **Chose "156 pieces" over "151 looks"**: 156 is what renders as cards, so the
+  smaller true number would contradict the screen.
 - **A `grunt` edited the MAIN checkout** (`fix/karen-mechanics`) not its
-  worktree, compressing the wrong base — discarded, done by hand. **That tree
-  still has an uncommitted `MAP.md` edit** (a no-op once #2114 lands).
+  worktree — discarded, redone by hand. **That tree still has an uncommitted
+  `MAP.md` edit** (a no-op once #2114 lands).
 - **Counted merch image coverage myself after two agents disagreed** (147 vs
-  151, both unsound); lesson in `docs/engineering-lessons.md` § "A count is only
-  as good as the method".
+  151, both unsound); lesson in `docs/engineering-lessons.md`.
+- **Fixed round 2's scroll-spy finding instead of shipping it as an open
+  finding** — the reviewer called it pre-existing, but it was new on this branch.
 
 ## Architect invocations
 
@@ -128,7 +124,7 @@ only as good as its method.
 - `post-queue.mjs` + `delete-media.mjs` hit LIVE accounts; `guard.sh` denies
   them. `core.autocrlf=true`. `.claude/worktrees/` ~30 worktrees — never clean.
 - **The dev server scaffolds `apps/web/{README,AGENTS,CLAUDE}.md`** — untracked,
-  not work. `README.md` **trips the Stop gate every turn until a human deletes
+  not work; `README.md` **trips the Stop gate every turn until a human deletes
   it** (`rm -f` guard-denied, correctly).
 
 ## Open threads
@@ -137,14 +133,18 @@ only as good as its method.
       content. Both true of the world, not gaps.
 - [ ] Theory doorways scatter rather than sitting beside the song they discuss
       (Joey accepted this 2026-08-13); an authored `anchorHint` is the fix.
+- [ ] **#2116 open finding:** `space-y-10`'s 40px gap between era sections means
+      the active chip flips when the OUTGOING section's bottom crosses the
+      chrome line, 40px early. Fixing it means changing spacing or the selection
+      rule — a design call, not a bug.
 
 ## Next obvious step
 
-0. **When the boundary measurement lands: commit the scroll-spy fix, push, open
-   the PR.** It cannot merge until Actions returns — say so in the body.
+0. **Nothing to build. #2116 waits on Actions** — when CI returns, check it goes
+   green and merge (authorised). Do NOT re-review; both rounds are spent.
 1. **Joey's hands:** the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`, plus his three #2110 questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
    unsatisfied for Clownbot AND Community + Merch.
-3. Hand Wyatt his five items. Then the first real-device check of the bottom nav
-   — the 320px five-tab margin is too thin to settle any other way.
+3. Hand Wyatt his five items; then the first real-device bottom-nav check —
+   320px five-tab margin is too thin to settle any other way.
