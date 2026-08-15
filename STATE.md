@@ -163,6 +163,29 @@ Community + Merch. All earlier grants are spent. Standing and NOT spent:
 
 ## Open threads
 
+- [ ] **Marketplace research (Joey's brief, 2026-08-14) — BLOCKED on API keys,
+      by his choice.** Goal: curated dataset of official + viral fan-made merch.
+      Probed first rather than dispatching researchers, because every hype
+      source in the brief is unreachable: Etsy/Redbubble/TeePublic 403, Reddit
+      refused at tool level, TikTok returns an empty shell. Five agents pointed
+      at those would have invented view counts.
+      - **Tier 1 is already solved, free, no signup:**
+        `store.taylorswift.com/products.json` is an open Shopify endpoint —
+        verified live (titles, prices, variants, stock).
+      - Joey chose "get proper API access first" over browser automation or a
+        scoped-down press-only version. **Needs from him:** Reddit script app
+        (reddit.com/prefs/apps), Etsy Open API Personal App
+        (developer.etsy.com), then Awin + Amazon Associates for referral data.
+      - **Permanent ceiling, tell him before he signs up for more:** per-video
+        TikTok/Instagram view counts for accounts you don't own are NOT
+        obtainable on any legitimate path (TikTok's only such API is
+        academic/non-commercial; IG Business Discovery needs the TARGET to be a
+        Business/Creator account). `hype_evidence` should be scoped to Reddit
+        score + comments + press. Etsy listings also carry NO review count —
+        that is a second call per listing.
+      - **Must feed the EXISTING Merch surface (156 products, PR #2116 folds it
+        into Community), not a parallel dataset.** Read that PR before building.
+- [ ] **#2109 filed** — Codex cross-review owed on #2086, #2087, #2107.
 - [ ] 3 appearance videos carry no topic tag — their own records support none.
 - [ ] folklore and evermore have no Tour content. True of the world, not a gap.
 - [ ] Theory doorways scatter rather than sitting beside the song they discuss.
@@ -171,6 +194,12 @@ Community + Merch. All earlier grants are spent. Standing and NOT spent:
 
 ## Next obvious step
 
+0. **CI billing is CLEAR — #2116's stated blocker is gone.** It said "Actions
+   is down account-wide on billing, so `build` never runs"; verified 2026-08-15
+   03:45Z that its own `build` passed in 2m3s and three workflows completed
+   successfully in the preceding seven minutes. The minutes BALANCE could not be
+   read (GitHub moved that endpoint; it needs `admin:org` scope this token
+   lacks) — this is evidence that jobs run, not a quota readout.
 1. Open the Community + Merch PR and merge it (authorised, review complete).
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
    unsatisfied for Clownbot and this feature both.
