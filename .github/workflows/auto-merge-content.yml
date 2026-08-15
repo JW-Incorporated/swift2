@@ -342,8 +342,8 @@ jobs:
 
           printf '%s\n' "$CODE" | jq -R -s -c 'split("\n") | map(select(length > 0))' > /tmp/code-files.json
 
-          node scripts/automerge-content-guard.mjs --manifest /tmp/code-files.json
-          rc=$?
+          rc=0
+          node scripts/automerge-content-guard.mjs --manifest /tmp/code-files.json || rc=$?
           if [ "$rc" -eq 0 ]; then emit ok
           elif [ "$rc" -eq 1 ]; then emit server_code
           else fail_broken "guard script errored (rc=$rc)"; fi
