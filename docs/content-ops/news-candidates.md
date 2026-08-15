@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 91
+
+## Taylor Swift Wedding Guests Reportedly Angry Over Travis Kelce Behavior: ‘There’s Always 1 Rule for 
+
+- first seen: 2026-08-15 17:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Wedding Guests Reportedly Angry Over Travis Kelce Behavior: ‘There’s Always 1 Rule for Taylor’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxPTjllZWFUYmZFYjBMbThkY3A2eThLUFZEd3J5VFdidkZSdEJtcXk1dl8tSHRJUkZIdjRuT0Q4TEczRlVmWi0tWHhfV0poZkdWQy1KcjBTNkdXSktGWUlFakxMTnRrRFNLdG03VGZCbFdiY3RQT3ViWUdGVEVlR2RNdDlBeG1jemhKM3RPa3F5Q3BKVUU2ZVlhbzlhMlpLUkY0M0o0djhJdjlyYWpS?oc=5
+
+## Taylor Swift's London Haunts: The Insider's Guide - Vanity Fair
+
+- first seen: 2026-08-15 17:33 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's London Haunts: The Insider's Guide  Vanity Fair
+- sources:
+  - [unverified] Vanity Fair — https://news.google.com/rss/articles/CBMidEFVX3lxTE9zaFR2WDNfSFVQRl9rQld6UU5faTl3WnRZTkwwb0hiSkJfeHo5NGFrRDVSMjViMWQ4aXlKY1VISFpLTW9JUndwWnVER1RNakV3eXNXU0I4TWotelJ4S1VkaWh4ZkhVTmhrVjZILXRSdVhjSWRu?oc=5
+
+## Taylor Swift and Travis Kelce's relationship 'feels even more special' now that they're married - HO
+
+- first seen: 2026-08-15 17:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's relationship 'feels even more special' now that they're married  HOLA
+- sources:
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMi2wFBVV95cUxOd3ctYWc4aUJOdWhMTjRCMk1Md2xlTG56b1F4RERpRGpSUjBleDI5a0I0Q1FlQ3RfWkRLZVNCZmExcVpNdjZJVEo4LUlQVXJZOHNoRFBRbkJxM3F3V3RCbi1CMzhMQVhOUUFfX19GRTFWSHhSQktaeGZDTEJ6R1hFb2NteWlWbGdPUWgxLW9vQzBneEMzWnY1WTNXX256NGFFQ1l3M3FaZlVqU21oLVNNWWJ1QUFZYUxtR0FNRmZJYW82MFpPbGVJb2x3QUZwQkNQazkxc2RjTElPUGc?oc=5
 
 ## Will Taylor Swift be at Travis Kelce's Chiefs preseason game vs. Rams? - Yahoo Sports
 
@@ -348,11 +372,12 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 ## Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift - NBC4 Washington
 
 - first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift  NBC4 Washington
 - sources:
   - [unverified] NBC4 Washington — https://news.google.com/rss/articles/CBMilwFBVV95cUxNMDkxOThsTWFoRkctMGJ5TkJzT1R3aXFqbDZOQlAzUUJDc0tyV25nWWJUV0hyV1BCWFVDN0xGZUZVb3NKOUYzVTZvWWJoVU5HUkxnUlp0aVpxbzh4cEV4UmhOcU1lVjcxaDVHeXVSSTFnWWdfTVV3YzU1b2tTLVFmWVgybjZWbXQzdnljOGZaVllxclcxRnlJ0gGfAUFVX3lxTE1qRWFTUkx3NFI0LU9YYy1FRzFXeTFDaHlHal82OTlwZkdLOVZfaWdETHZWY0pyLUMxN3VNSUprcFpvUktLMEZJSDY0V281VXYxbWVpYWRFY0VnYWxPaXByNnpNTnZERGxsc1dBbEZ6QUpQTEVfMEw3S2FaX0Y0REFESE9sSVJXeVc2Smp6VjlUb0NET2VMMFdkN01tUDdaTQ?oc=5
   - [unverified] Central Oregon Daily — https://news.google.com/rss/articles/CBMihwJBVV95cUxOcEpjeGRsVWlabGpMR0JfT1hWTGw2WUxTQU9RaE9NZWxVcG9LNkw2RHcxbUlMVHpGaEZmY2hoT2htMWtFMFg2Q2hvbjR4MHp5TUFGRzlQVktwX2FTYUtKdEgybGlsTi1CMjN2WDBod253MW1FekJQNUlVQzlSR3FlSFdrZkQwWDJOcVYzWnFUYWRsQVhYMlZnVFJDbU1mUkdZVmZvLVo1SmZweXhLc3ZodVhCVWxMdzd5THdFazJDQzFTM0xmVi1WYWFFb3NCdXNxZ2RCU2pjaXVsZzdHWkV3c2NNYUlCT0dPR3FTZEFkM19Cb0dfdmEtSDFsbnFBZTFHRUxMTm1Gdw?oc=5
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOd0JKNUx5Q1hpS0loR0RJcGRISXR0Z2hfLUVzYWV0elFxdHZkenhEYUR6a01qTUxPZEFPVHNsVXBLNkl1S1hkYWhtUjZxTjMtV3FoMmdRREpZYUJOSVdudlVtTEk2ajRhVmphdHU4aG10QV9mWnZVaHNqN1pkMWVVWVRLejVvcktLakw3UDVkOEM3UHNKa0dnS19kTUJLV3AtcUs0RjgzNTFaN1lrYTZyUm54TENiMkh1b1VYM0JhOGY2elQ3UUdjLUZMU1VzOHNU?oc=5
 
 ## Taylor Swift Debuts Chic Haircut in First Outing Since Travis Kelce Wedding - E! News
 
@@ -763,51 +788,3 @@ Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Holl
   - [unverified] NBC Sports — https://news.google.com/rss/articles/CBMixwFBVV95cUxNU1V5RWlPZjlkbFpHS2JmTUpHeHB3TG5taDNHMi1DOTJrVy1VMl9qVVFOOWMzRG9ZSWhZcjBLUFA4MzhrWWo1OFNkVUx0eVJGbEVXWkZiWjQ4dTFyRjdyakdoQXhzUV94YkFTWlZfT3ZZMm4tTnZZZ3NZNE9ndWRlVzlqYzJhMnV6a21QQ2t3NzM2NEQtNkZ0M3JERlh2SGxWOXo3NzhWdExIcWgyZ1dwMkdPenFNNHZZODdrZ1g4Y0lJX1BkckZN?oc=5
   - [unverified] ABC7 Bay Area — https://news.google.com/rss/articles/CBMilwFBVV95cUxOVndZMDg0ZzdjajNPZDBvZnQzZkhJNHFwcFhFSWNoaWpmYzJiWlh3bG1PMmZOdFkwcXFjNFVBXzlpdkNLRWthRlh4U2RZbjlGdHBGeXRJWFRiNV9PV2xXWTNBd0QzZTZrOXNONm04NHFEUEk4OFptSzdvX1A4Z1J3QUpFTS1ta2U5TE5lWW8zSG5yR1cyekdN?oc=5
   - [unverified] NBC News — https://news.google.com/rss/articles/CBMiswFBVV95cUxNaDFnbmRVd05PSHQtVWtWSU82X0dJUmkxOGZRRHA4Y25xOUZNbEJjOEctYl81dXM4eS1tYnB0NzhEQ21QNWJ6bHJGaWFXa3hPakR1SmxGUmhjaVlfNFl3cGNfRmZnb2E3TkluNHNqQU5lblJMX0ZDYWZFWHU3b3NWZzVrODBZTUJuZ2VSTG9EeVFzcS1UaWhWeHlabDBZNGVmYjdCR2NfYTMwSXo5U3BBTHMzYw?oc=5
-
-## Taylor Swift and Travis Kelce face first big change after getting married - en.as.com
-
-- first seen: 2026-08-12 14:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce face first big change after getting married  en.as.com
-- sources:
-  - [unverified] en.as.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOMm8zcnNMQ2hxeDRiZWd6Ynhkc2hOaFFVR0ZZVmpYdXJpOUt0UXRELXlBQWZZRUQ3VUM3RjAzMWJsdE5jMklvWEpKOUlDakZtNkFZUE5aWDRJdnFuQ0hJTmdvb0MwNkNPUjlkVmZQbEFSOVU3Tld0anNma081RXFsSUZydzFfVW14eUlDUzdxblQ4TjBWa3l0RWJYUmFHWFYtckpPcERXWnI3Z9IBvgFBVV95cUxQdm5raFJqemxGNV9pOWpEQ3pIdFFHaGlBaWtxdlZrV0NNTjFjTlVMTjl5eUhWMVRYRk5VN0JBNV9lc1pIVWsyMDNfZnVDQ3o1anJRRkh6YUs4MjkxNkhlQUF4UnFfbUJZdnZpSFBRSXBRcEJjbzNHNHZoVThPSjVCcTJ3NFpWc29QNHNZN0JDQThNaTJSNXhiUlRPQmhvYmdUMlN3a1BnczNPWWRkOFk3dTFrc2RIalVYNkRIV09B?oc=5
-
-## Taylor Swift & Travis Kelce Discover What Comes After the Wedding High — Insider - Yahoo
-
-- first seen: 2026-08-12 14:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Discover What Comes After the Wedding High — Insider  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPa2cwQkpfZVZYaEtUWHgwWUVkMGhubFY5UHlyd21XS25RLWRyZjY3Q3FNaFJJU1ozc2pWYmhGaHJzcm10Q0IxbkcwM2phTEttSFFDVGV0UEFtZTVudFdodGNDd2VpWFNwWWZ6Z1ltOVFYbVhFRmN1ZWJLZWYzWGwyV2JlZkY2Tzc0d1Jib0FyUXFXZFdTSVl3MzU0T1E5dG5oUzJ2OFF6QQ?oc=5
-
-## Trending Now | Domino's launches new pizza and Taylor Swift joins Nashville Songwriters Hall of Fame
-
-- first seen: 2026-08-12 14:24 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Trending Now | Domino's launches new pizza and Taylor Swift joins Nashville Songwriters Hall of Fame  kcentv.com
-- sources:
-  - [unverified] kcentv.com — https://news.google.com/rss/articles/CBMijgJBVV95cUxQcGliYmVraGMzdzhybXZSS01jbTltRGw0dW5DRmVDYnRtblhXYXpESGt6cTZnYWRoTG43a0NfUmhMbG5JcXJBdjFkRGVfbkptMVRxU2RianpzYXRSM2wtYmVXNERRMEZsdDNfRnZsYVBveGd6QzFSbjFBdzJyRjNNaDc5YnM4RjRlNEttUDdka0EtOFhpenh0eWdSeVRSX0xSZ1hCY1NnczZYcHVBTlB5dkhnOFpHWHFiTDBuWkFpaUVva0tHMTZQT25hNmpsZkdnMDZtVVIyalN6Y1ZrakRWbWc3TzVjYnUzQmxjWjJlNHRjNmFqQk5NYlZWUjVwRG9KZHBDNGZoS2N2VU5zMXc?oc=5
-
-## How 21st Century Pop Stars Fared at Their First Academy Awards - Billboard
-
-- first seen: 2026-08-12 14:24 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: How 21st Century Pop Stars Fared at Their First Academy Awards  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMilwFBVV95cUxPcVRtRlhtbTNiOUlHZjlVUXVnanJHN1lEQmh0QURmeDU0NzZZTkZ6ZG5rX0lhM0thRlVINS1STDd5c2tucUNBdnNFX2ZmMXUwYVp1emdIM001bTNlUFV6NXVqdWVHUW5YaTBmTnpMc1J1b2VXWWJVbTQ0RG9LM2dEUzQ4ekR2UEFzMno3LTJ4c2FfRmlLUG5n?oc=5
-
-## Travis Kelce & Taylor Swift’s Wedding Saw Brad Pitt Breaking His Sobriety — Source - Yahoo
-
-- first seen: 2026-08-12 14:24 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce & Taylor Swift’s Wedding Saw Brad Pitt Breaking His Sobriety — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNVm42dzMxX2VvSlVuSDhfX2FwM010MkRwUTBra0gxOGNic2dkanRuSWhaNjVnR0xQcHNtd3hvM1RZUUU3OWVBM2VLQlBTTU91NjY2UE42MXRpLWdBenctS2h4bjBtaUdmMlpJcjV4NHNIUC1wdHpCZUFCTHpkeGh4Vnh5VkZaTWtTR096ZjFha3JRMExOai1qajJxRE9PR25KOXRNcFdB?oc=5
-
-## Taylor Swift Set to Become the Youngest Songwriter Ever Inducted Into Nashville’s Hall of Fame - Yah
-
-- first seen: 2026-08-12 14:24 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Set to Become the Youngest Songwriter Ever Inducted Into Nashville’s Hall of Fame  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQM2lqNW9wdG9PaTRWTjJLVTFPVjRRRGVZSHRFQVdNR2xkVWhlSFdPdERQWEJ4QThBYzVJUFdOb2t2bmRxNnFqcHQ4S2tFN1loRk1waHNrNGZVWGk4M2hsU3QwOXRiejYwUlJMWU4tcnVBbnFieVNHTWVoYXRhX1gwM29STGhPbm5La3dRLVNzZUtSRWFaYjdTTWdJb0lldWs?oc=5
