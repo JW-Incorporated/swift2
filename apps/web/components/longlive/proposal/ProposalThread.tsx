@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Quote } from 'lucide-react';
 import { getEra } from '@/lib/longlive/eras';
+import { useAppActions } from '@/lib/longlive/store';
 import { contentForThread } from '@/lib/longlive/threads';
 import { focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
 import type { ImageKind } from '@/lib/longlive/types';
@@ -32,6 +33,7 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
  * tight 2023-2026 arc (see docs/threads-rework-2026-07-10.md).
  */
 export function ProposalThread() {
+  const { openItem } = useAppActions();
   const beats = contentForThread('the-proposal');
   return (
     <div className="pt-8">
@@ -45,6 +47,12 @@ export function ProposalThread() {
           const source = item.sources?.[0]?.name;
           return (
             <article key={item.id} className="era-card overflow-hidden rounded-2xl border">
+              <button
+                type="button"
+                className="w-full text-left"
+                onClick={() => openItem(item.id)}
+                aria-label={`Open “${item.title}” (${era.shortName}, ${item.dateLabel})`}
+              >
               {image && (
                 <div className="relative aspect-[16/10] w-full">
                   <Image
@@ -116,6 +124,7 @@ export function ProposalThread() {
                   </p>
                 )}
               </div>
+              </button>
             </article>
           );
         })}
