@@ -46,6 +46,7 @@ permissions:
   actions: write
   contents: read
   pull-requests: read
+  checks: read
 
 jobs:
   watchdog:
@@ -235,8 +236,15 @@ jobs:
       # stayed empty and the site went stale (newest post Jul 10). A workflow
       # that is scheduled but always failing is invisible without this: it
       # produces no output to notice the absence of. Marjorie now sees it.
+      #
+      # `!cancelled()` added 2026-08-15 (P0): this step sits right after the
+      # "Prod smoke check" step above, which uses `if: always()` and `exit 1`
+      # on a real outage. A plain `if:` here is implicitly ANDed with
+      # success(), so a live prod outage was silently skipping this detection
+      # step too — the same idiom the "PRs stuck" step below already uses,
+      # applied here for the same reason.
       - name: Scheduled workflows healthy (cadence view)
-        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -514,8 +522,15 @@ jobs:
       # No new cron: this rides the existing daily 35 14 trigger, gated the same
       # way as the other daily-only jobs, and adds nothing to the :00/:30
       # cluster the header warns about.
+      #
+      # `!cancelled()` added 2026-08-15 (P0): without it this step (and
+      # work-ownership/content-lane below) implicitly AND with success(), so
+      # the "PRs stuck" step above failing outright (permissions regression,
+      # #2119) silently skipped this alarm too — the exact false-negative
+      # that hid a five-day Karen outage a second time. Same idiom as that
+      # step already uses.
       - name: Karen filed what she found (CIE ticket-filing check)
-        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -641,12 +656,18 @@ jobs:
       # relying on whatever Node the runner image happens to preinstall would
       # turn an image bump into a broken watchdog. `24` matches package.json
       # engines.
+      #
+      # `if: !cancelled()` on both this setup step and the check step below,
+      # added 2026-08-15 (P0): same reasoning as the Karen step's comment
+      # above — an unrelated earlier-step failure must not silently skip this
+      # detection step (or strand it without Node).
       - uses: actions/setup-node@v4
+        if: "!cancelled()"
         with:
           node-version: '24'
 
       - name: Work-ownership check (zero AI)
-        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -728,8 +749,11 @@ jobs:
       # dead routine. Both charters treat an idle exit as itself worth
       # surfacing, so "quiet day or actually dead?" is a reasonable low-cost
       # outcome either way — not a bug to engineer around.
+      #
+      # `!cancelled()` added 2026-08-15 (P0), same reasoning as the Karen and
+      # work-ownership steps above.
       - name: Content lane liveness checks
-        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
