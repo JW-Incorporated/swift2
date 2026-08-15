@@ -33,7 +33,7 @@ import {
   communitySummary,
   suggestLinkSectionId,
 } from '@/lib/longlive/section-jump';
-import { SectionJumpBar } from './SectionJumpBar';
+import { SectionJumpBar, SuggestLinkBanner } from './SectionJumpBar';
 import { SubmitLinkForm } from './SubmitLinkForm';
 
 type VerificationStatus = Community['verification']['status'];
@@ -61,6 +61,10 @@ export function CommunitySection() {
         </p>
       </header>
 
+      <div className="mt-5">
+        <SuggestLinkBanner id={suggestLinkSectionId('community')} label="Know a community we should add? Suggest it" />
+      </div>
+
       {chips.length > 0 && (
         <div className="mt-6">
           <SectionJumpBar
@@ -68,7 +72,6 @@ export function CommunitySection() {
             variant="rest"
             summary={summaryText}
             chips={chips}
-            suggestChip={{ id: suggestLinkSectionId('community'), label: '+ Suggest a link' }}
           />
         </div>
       )}
