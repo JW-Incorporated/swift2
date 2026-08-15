@@ -56,7 +56,13 @@ Three separate dependencies, verified 2026-08-15:
 **Worked if:** you can open Vercel → Settings → Billing for the team that serves
 longlivets.com and see your own payment method, and you are listed as Owner.
 
-**Status:** OPEN
+**Status:** DONE — 2026-08-15. **The premise above was WRONG and is retained
+only so nobody re-raises it.** Joey: "wyatt is still an owner, he's just working
+on a different project while i finish this one. We co-own his vercel team, and
+our github accounts are connected." No lapse risk, no migration needed. What
+stays true: he is not working on this project day to day, which is why #2144
+removed him from alert pings. **Lesson: shared infrastructure is not abandoned
+infrastructure — ask before escalating an ownership fact into a risk.**
 
 ---
 
@@ -100,7 +106,10 @@ tabs should now show **words under the icons**.
 
 **Worked if:** six labelled tabs, one line each, no overlap.
 
-**Status:** OPEN
+**Status:** DONE — 2026-08-15, confirmed on his phone: "there's still 6 but they
+now all have text, and honestly it looks really good with 6." This also settled
+the nav question permanently — six separate tabs, and PR #2116's merge-to-five
+was closed unmerged.
 
 ---
 
