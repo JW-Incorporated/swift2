@@ -69,7 +69,10 @@ reference docs it points at:
 | `.claude/commands/` | Pre-existing project slash commands (design-debate, marketing) |
 | `PLANtemplate.md` | Copy to `PLAN.md` when a task touches >~3 files |
 | `PLAN.md` | Live plan: era reader rework (5 sequenced PRs) |
+| `HUMAN-ACTIONS.md` | **Everything waiting on Joey.** Any session that opens it reconciles it: file non-`OPEN` items into DONE with a date, keep the number. `SKIP` is final — never re-raise |
 | `docs/OPERATINGMANUAL.md` | The kit's own long-form manual |
+| `scripts/watchdog/karen-post-repair-check.mjs` | Self-limiting: Karen ran after the repair? Auto-closes 2026-08-22 |
+| `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 
 ## The longlive reader (`apps/web`) — read `docs/longlive-experience.md` first
 
