@@ -7,6 +7,10 @@
  * This is a directory page, not a chat surface: the era palette applies, not
  * ClownChat.tsx's neutral app chrome.
  *
+ * `@/lib/longlive/section-jump.ts` groups the same `communitiesByPlatform()`
+ * data into jump chips with counts, so the page opens with a rest-state jump
+ * bar showing how much is here before scrolling.
+ *
  * Every entry carries an honest confidence signal. `memberCount` is `null`
  * for several entries by design (Reddit blocks automated access, so no count
  * exists) — that renders nothing, never "0" or an estimate. Anything short of
@@ -22,7 +26,14 @@
  */
 
 import { AlertTriangle, ExternalLink, ShieldQuestion } from 'lucide-react';
-import { communitiesByPlatform, type Community } from '@/lib/longlive/communities';
+import { COMMUNITIES, communitiesByPlatform, type Community } from '@/lib/longlive/communities';
+import {
+  communityGroupsToChips,
+  communityPlatformSectionId,
+  communitySummary,
+  suggestLinkSectionId,
+} from '@/lib/longlive/section-jump';
+import { SectionJumpBar } from './SectionJumpBar';
 import { SubmitLinkForm } from './SubmitLinkForm';
 
 type VerificationStatus = Community['verification']['status'];
@@ -35,6 +46,8 @@ const VERIFICATION_LABEL: Partial<Record<VerificationStatus, string>> = {
 
 export function CommunitySection() {
   const groups = Array.from(communitiesByPlatform());
+  const chips = communityGroupsToChips(groups);
+  const summaryText = communitySummary(COMMUNITIES.length, chips.length);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
@@ -48,12 +61,24 @@ export function CommunitySection() {
         </p>
       </header>
 
+      {chips.length > 0 && (
+        <div className="mt-6">
+          <SectionJumpBar
+            ariaLabel="Jump to platform"
+            variant="rest"
+            summary={summaryText}
+            chips={chips}
+            suggestChip={{ id: suggestLinkSectionId('community'), label: '+ Suggest a link' }}
+          />
+        </div>
+      )}
+
       {groups.length === 0 ? (
         <p className="mt-8 text-sm text-[color:var(--era-ink-soft)]">Nothing listed yet — check back soon.</p>
       ) : (
         <div className="mt-8 space-y-10">
           {groups.map(([platform, communities]) => (
-            <section key={platform} aria-label={platform}>
+            <section key={platform} id={communityPlatformSectionId(platform)} aria-label={platform}>
               <h2 className="text-sm font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)]">
                 {platform}
               </h2>
@@ -67,7 +92,9 @@ export function CommunitySection() {
         </div>
       )}
 
-      <SubmitLinkForm section="community" />
+      <div id={suggestLinkSectionId('community')}>
+        <SubmitLinkForm section="community" />
+      </div>
     </div>
   );
 }
