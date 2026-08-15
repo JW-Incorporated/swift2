@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 92
+
+## Max Greenfield Shares Sweet Memories of Taylor Swift's Kindness on 'New Girl' Set - Yahoo
+
+- first seen: 2026-08-15 05:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Max Greenfield Shares Sweet Memories of Taylor Swift's Kindness on 'New Girl' Set  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQZXNkSTk4SkZIMGtqR2x6OUtVRERveTJ5VmtKQkM2dnFSSW1Fa29uUXc0cjRCbTB5TS1IOFpWZDBZUHo4TzhGa00wa0RfWnZtREtYRlR6UzR2c0h5Y1FJZk51SWxaNzFkNWp6eGE1dTdobHdYdmxMS21vdUEwd1lwUURPWXVEX3g4bWFMbWlvdUZtQkJ5UWNYRzhIY0lXRmlK?oc=5
+
+## Taylor Swift Faces Fresh Criticism After Travis Kelce’s Wedding Leak - Yahoo
+
+- first seen: 2026-08-15 05:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Faces Fresh Criticism After Travis Kelce’s Wedding Leak  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOcV8wb21ZbEszRkRLUk1qai1fVUZBREROUHNTcjcwbUJrMVhqMUNVSS00ak5qdGhzak9BbDVTVTJzUzduMzB0S2pZMFp3Y0RrWC0wN2ExaUpYdXQzWEl1NFhHM3RaT3drWDNKZWdRTWpNUXRjajRPbGRjb0VIZVBobUpIWlR4WEc4MTYw?oc=5
 
 ## Taylor Swift, Madison Beer and Other WAGs Are Part of the NFL's Greater Plan - Sports Illustrated
 
@@ -108,14 +124,6 @@ Stories: 95
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxQeEkweXYxN0FfeENvMUtiZUZDY3ZBZ0VsX1dwdnNwelRrUjFaMlU4czF3VUM0bTYtUmJNTjZIVHdCZXlLY0NOal8wWDhPaDJydEdldGo2cHE2bVlZdk54UG9VSDZUaHhoOVFDWE1nT2V5dlh2UmVISDdRNXlsZTNXWEx4amMtYThKT212TnFWVG8ta3BWNjByRXJodkI?oc=5
 
-## Max Greenfield says Taylor Swift was a ‘better actor’ than New Girl cast during her cameo - Entertai
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Max Greenfield says Taylor Swift was a ‘better actor’ than New Girl cast during her cameo  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikgFBVV95cUxObGZpU3FmOF9pV2Q4ZlBJOUZOTGl5ZGFINzFDRV9tdWk0MW0yeTdWbG9OTHl3ZXFCcjgteXgydkpQTVRFSEQ3M3h4cVlfVGJQMzYteVhVYmRIeHFsaDNKd0FvdmdlS2RvbXZQeXVUSlBwOTJRRXZkS0FsNFp1QjY5U1paVDNfakxKWjRxcXhfRnZvdw?oc=5
-
 ## NFL confirms plans for Taylor Swift and WAGs - Yahoo Sports
 
 - first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
@@ -163,6 +171,15 @@ Stories: 95
 - summary: The NFL saw what Taylor Swift did for ratings—now they’re staging QB romance for Gen Z: Report  Fox News
 - sources:
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMisgFBVV95cUxOVWRCWW5xV3VySHI2V2J2Vmdib3lPWEp4dEs2blEwYXdqU1pRZjNoQXMxTVVQWEFpMXJZcnd2cUtRcHFndlRuMGd3R1FIRWVVc0tpYXRRRXUtRVFUZEpTZmNXRW9fYzlTVnpGN3V5LVNUNDg3Q1RZRjctVE9CRXE4SjZXamNvRlN6aEVmNXdaZW51LWxObG9uZU5Md2lrczFBYllJejYxQkpSaElSeGZudGlB?oc=5
+
+## Max Greenfield says Taylor Swift was a ‘better actor’ than New Girl cast during her cameo - Entertai
+
+- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Max Greenfield says Taylor Swift was a ‘better actor’ than New Girl cast during her cameo  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikgFBVV95cUxObGZpU3FmOF9pV2Q4ZlBJOUZOTGl5ZGFINzFDRV9tdWk0MW0yeTdWbG9OTHl3ZXFCcjgteXgydkpQTVRFSEQ3M3h4cVlfVGJQMzYteVhVYmRIeHFsaDNKd0FvdmdlS2RvbXZQeXVUSlBwOTJRRXZkS0FsNFp1QjY5U1paVDNfakxKWjRxcXhfRnZvdw?oc=5
+  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMimAFBVV95cUxNMXZrVWp2YS15UUZjTHJheHI5b296d1RlamNuZDJGMTRacVpFSlp6Qk4zbm9FQTl2Nk9VU0lpa2NRdi12aHhzc003bU5iakQ2SVRNbktHVWhaa19yUmc4Q19PbUs3cXVwZWFzZkw3RkpwR3BQLVJBc3E3eXVua0U3dXJDeEpBSUlHeDVKLXRib1k5QUZGVmJpWQ?oc=5
 
 ## Taylor Swift Breaks Record for Most Adult Pop Airplay No. 1s With ‘I Knew It, I Knew You’ - Yahoo
 
@@ -778,48 +795,3 @@ Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Holl
 - sources:
   - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMinAFBVV95cUxPcjlBTmdZVm1TZjVLVjR3WkExelFZTkUxUHJmdllyMzZscW5JTzNRS3MyXzdIQkI3RFN5eWo0QzZpLUhndnY5VjdTZy0yY253X2tYdW1Nbl9qRlRzeTBrZVVvVjdrMWJRLXRET0RlN0FiV1Z2T2JBa19yaU5VMkxTUm9JUDBzYm1KcUxtOVFmVDN1bTBNQ0VOYzZPNzM?oc=5
   - [unverified] Boston.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxPOGdCbWRVeHlYR2JmRXBLN2R2SlFnUVVYVGJJenRQeVZTV2x4SFpadWpiQkZaTnlXb0NqdVNwLUFJSF9GSjdVRW1PN3BiVTBEZmlKa0JJVm45X0FFMDY2RUVmcmxpaWNRb0tSVXdSVE1HajN0SnZVOFh2Ykp1MDNoZ05NMXNQZWpoY0pmcjJfeVVHbnd6TlJncVRlUm5WWTJNbllEc3VJdw?oc=5
-
-## Taylor Swift Makes History With This Major Career Milestone - instyle.com
-
-- first seen: 2026-08-12 03:29 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Makes History With This Major Career Milestone  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxNM0I2dkx6NXRqMkJIa1ItaFV1ZHVYVktvak5tRDg5OTVqUmZoLUUwWHVtSDVnM0V2Vm16Uk1ObGZ0SFlBUUh5LWxZaU5yMlozQ3NLYUh5a0dDY3dMXzIyQnMtVm5tTG5XRWFNeGVVbFVTUDFZTFZXRERpTXBqTm5OQTJDcE1JOXZqcWc?oc=5
-
-## Taylor Swift Scores Second Songwriting Hall of Fame Induction - Vulture
-
-- first seen: 2026-08-12 03:29 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Scores Second Songwriting Hall of Fame Induction  Vulture
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMijAFBVV95cUxQMnY5ZUtIMkh3bnZrZ3I0Y3QzTnlrZ2Fsa3haazFIRVI4TUhEaURFS2hRbHlSNEFjbGM0d3JkQlVHTmdNUVF3bDFfVVh1RUZxbTJXUmpBOEZQTXRlbnZCRl9SVExEMmZ3S3l2VHgweWxWTVpvZkw5VWMzZ3dFaElsR1lXdkEtU1h4WE11WQ?oc=5
-
-## Travis Kelce ‘Done, Over’ After Taylor Swift Wedding, NFL Scout Says - Yahoo Sports
-
-- first seen: 2026-08-12 03:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce ‘Done, Over’ After Taylor Swift Wedding, NFL Scout Says  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxOR3R2bnk3Umo2THgyRGpjNG5BNlNiMVhTbUxFXzdiUWU0dWhRN2tCbTJ6SFhrTFRiZF9yQlBQd1NldmdLanp3cV8xbzRBeFFXeWZScjktZG9iUUJqTTBFUnZoSDg3SzhOX3RobGQ2OUJVNG16ZFptdlVWbGJVWU1LX3FIQWo?oc=5
-
-## Taylor Swift to become youngest inductee into the Nashville Songwriters Hall of Fame - Good Morning 
-
-- first seen: 2026-08-12 03:29 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift to become youngest inductee into the Nashville Songwriters Hall of Fame  Good Morning America
-- sources:
-  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQNi1TY0gzdHMzWEdHUEtfMkZfbUEzYlQxeHdIWWFrSEFoOVJycHhBX3EtM3ktNTloV0Z3cC1iYzB0bmpURlYxejB6Sks0SXJuSVk2bkFzdFFMdnlDQ2t4Y3JnNXhqdGgzYzllQzAzWF96cF9PMjh0T040MDJwSnJhVkZlUE1WX3V0YlUyR25aaHBTN2htWllZQVRWQmlLZXA4TTlJX19UcHVNcExhamJxN0p1VFpzNVF4Q3BnMEl0ZGvSAcYBQVVfeXFMUGVleUlvZEJRbmFsWEVWWEVvSGwyeE9qbzI0MHBiZW1tMUwzYTM0dzhQcHVMM0czYkVtQy03QTcxWHg2dnFuSlZDb3BzSzBiLXozRWVxckIzekdnOXBILThXNURNNzlIbkwyMEFWbnFkNEIwTmtVdXo5dG9jUllDRUE5dlduQWhud1ZPX1FqMlNvQVY2MEtOUjRidExTRlExSnJ4TVR1dUNmSkV0MmY0UGMtYUhhaWNPQndyV2xoTTZfaTRpcHVB?oc=5
-  - [unverified] Everett Post — https://news.google.com/rss/articles/CBMizgFBVV95cUxOOWRRUXJBRWdlaVJJMm95Wnd1UDRyd2lZQUFQbGxOd0hxdWxiTjRsSUlEZl9qV3ZUODNZWkZrclMxN0JybzBveTU5cFZKZlc0VjZBLW1iVWNia05wa3I5UjJfUDVmd2FGaDdtWTFBM1BDd2NLRkhKdjB6aWlKMkJBanNfNDdQYUNkeXV5VGMxdE03UW1SamI5X0NSaUxYTDdGT3JoY2pjYTVGWGg3bW9tcU5qLUVUTmpJc3A0WUZEOWliWVA1WnpYc1J3WDJ3QQ?oc=5
-  - [unverified] KVUE — https://news.google.com/rss/articles/CBMi3gFBVV95cUxPUk04aUVCcDNqS2RCbDYyTXp3cXpLNkQ0c2dFNVlRdXJIOHctVGVtUTQtQkRmS2lCclNXY1daY0FJS251Y0tBS1IyUEpobmJIaEtlOFdJSWkydVljUE52QkZKMk9nclk5YXBTbERBeUowWjdRX0wtYlpYSlRBYl85cEdqdk5Hb0kxdEVHN3o0UEVfR05rMEhuVDNZOWVGeVU0bUQ0cWlIbmk3YXZoWTBkOTYzVVpnUXZEU3hPTUVwai1XU3lLQ2xpSTFXWHVSMHBxNGNZTVRQZXNUX3c2Rnc?oc=5
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE9HZUlrSXA2cG1RcEh3MGJrc2dkRGJiWmZGc3g5OU03WkNhTF9BdktBUE81cXRvRUhUdWRzZVBQSlB1QXBUbTVvZS1jVHU?oc=5
-  - [unverified] Gulf Coast News and Weather — https://news.google.com/rss/articles/CBMijgFBVV95cUxPUDY0S2FfcTRHUERlTlZuczFqdXREYlVrY1pBZzRUUVFic3hIR2g4bGU1bzl1Ymh4WUJYeEJYb1NSb3BuNVUxWmVvbTJIYUVCZW0xQnZMd0VIMjRxWlhNbkhEclItV2dFczlwZm96Ykk1UjlvVkhtbTROWC16SHNfSHVYM2FtMy1zQUpCT3hB?oc=5
-  - [unverified] wptz.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQNHU2Wk5QUWdYNWhqSlNQb1p4dnZURGtUajBxSDFTRXhqQlVpZlFhUTA4RktQTkNqU3NYNzV1YXhsZW1GSWphR2RGMnRGa3VhNDlCRFFBVFlpSU5iRjlQcDgwa2dleFE3UGZPd09pemJDdmoyMWZFank0M01rUmY2SjhlWmRjdk5RV19JSg?oc=5
-
-## ‘Toy Story 5’ soundtrack features Taylor Swift original, Randy Newman score - The Music Universe
-
-- first seen: 2026-08-12 03:29 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: ‘Toy Story 5’ soundtrack features Taylor Swift original, Randy Newman score  The Music Universe
-- sources:
-  - [unverified] The Music Universe — https://news.google.com/rss/articles/CBMipAFBVV95cUxOVm80TndVa1k0UVd4dC1jR2cySXcwSFp6Y1BFNHYwdy1sdlFUMWtEd09mSHFmenpEY3RZLVZPamktR0xvaHFyNE9UWWcxVnB3T2tOTHloU2k3dU5lUy0weF90WFk5SC0wd0VRQlUyejZubEdXR2xGTjdMbnJ5SzJaUU9jYWFsVjAzOWRONnZXVS1UTm0tUGdDR0RUUzl4ZDZRY1F3Vw?oc=5
