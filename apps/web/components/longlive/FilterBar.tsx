@@ -7,6 +7,7 @@ import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS } from '@/lib/longlive/tagBadges';
 import { ALL_FILTERS, type FilterId } from '@/lib/longlive/filters';
+import { FilterChipRow, type ChipDef } from '@/lib/longlive/filter-chips';
 
 const FILTER_ICON: Record<FilterId, LucideIcon> = {
   Music,
@@ -37,6 +38,13 @@ const FILTER_COLOR: Record<FilterId, string> = {
   Lore: TAG_COLORS.Lore,
   Videos: 'var(--era-accent)',
 };
+
+const FILTER_CHIPS: readonly ChipDef<FilterId>[] = ALL_FILTERS.map((id) => ({
+  id,
+  label: FILTER_LABEL[id],
+  icon: FILTER_ICON[id],
+  color: FILTER_COLOR[id],
+}));
 
 /**
  * The one global sticky filter row for the whole Eras timeline (R2): the five
@@ -90,13 +98,9 @@ export function FilterBar() {
     return () => ro.disconnect();
   }, []);
 
-  const allActive = filters.size === 0;
-
   return (
     <div
       data-ll-filterbar
-      role="group"
-      aria-label="Filter the timeline"
       className="sticky z-30 border-b border-[color:var(--era-line)] bg-[color:var(--era-bg)]/90 backdrop-blur-xl"
       style={{ top }}
     >
@@ -107,48 +111,15 @@ export function FilterBar() {
           right. scrollbar-none hides the mobile scrollbar chrome; the row
           stays reachable by touch/trackpad either way. */}
       <div className="relative">
-        <div className="mx-auto flex max-w-4xl flex-nowrap items-center gap-1.5 overflow-x-auto scrollbar-none px-4 py-1.5 md:px-6">
-          <button
-            type="button"
-            aria-pressed={allActive}
-            onClick={clearFilters}
-            className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
-            style={{
-              backgroundColor: allActive ? 'var(--era-accent)' : 'transparent',
-              borderColor: 'var(--era-accent)',
-              color: allActive ? 'var(--era-bg)' : 'var(--era-ink)',
-            }}
-          >
-            All
-          </button>
-          {ALL_FILTERS.map((id) => {
-            const active = filters.has(id);
-            const Icon = FILTER_ICON[id];
-            const color = FILTER_COLOR[id];
-            const cue = `color-mix(in srgb, ${color} 70%, var(--era-ink))`;
-            return (
-              <button
-                key={id}
-                type="button"
-                aria-pressed={active}
-                onClick={() => toggleFilter(id)}
-                className="inline-flex h-9 shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
-                style={{
-                  backgroundColor: active ? color : 'transparent',
-                  borderColor: active ? color : cue,
-                  color: active ? '#fff' : 'var(--era-ink)',
-                }}
-              >
-                <Icon
-                  className="h-3 w-3"
-                  aria-hidden
-                  style={{ color: active ? '#fff' : cue }}
-                />
-                {FILTER_LABEL[id]}
-              </button>
-            );
-          })}
-        </div>
+        <FilterChipRow
+          ariaLabel="Filter the timeline"
+          chips={FILTER_CHIPS}
+          active={filters}
+          onToggle={toggleFilter}
+          allLabel="All"
+          onClearAll={clearFilters}
+          className="mx-auto max-w-4xl px-4 py-1.5 md:px-6"
+        />
         {/* Edge-fade affordance: reads as "more chips this way" instead of a
             hard cut, without adding a visible scrollbar on mobile. */}
         <div
