@@ -14,9 +14,18 @@
 // Lautner acknowledged it himself in 2016). No lyric quotations. Internal
 // song:<slug> connection ids all resolve within speak-now.mjs and are
 // asserted by apps/web/lib/longlive/tracks.test.ts.
-// This wave covers the 12 priority tracks; the remaining Speak Now tracks
-// (never-grow-up, haunted, ours, if-this-was-a-movie, superman, and the
-// vault tracks) are a noted follow-up.
+// The first wave (2026-08-12) covered the 12 priority tracks. Extended
+// 2026-08-15 (issue #440, per Nils's #440 coverage matrix) with three of the
+// noted follow-ups: never-grow-up (a fan-favorite deep cut) plus two From the
+// Vault tracks, i-can-see-you and castles-crumbling. Same discipline: confirmed
+// tier = Taylor's own public statements or hard documented facts only; muse
+// readings labeled fan theories; no lyric quotations; Penske/paywalled (HTTP
+// 402) URLs discarded in favor of fetchable equivalents (Wikipedia, BuzzFeed
+// News, Songfacts, Rolling Stone UK). Deliberately NOT repeating the corpus's
+// corrected "Williams and Swift friends since their teens" claim (no source
+// supports it — see speak-now.mjs). Remaining follow-ups: haunted, ours,
+// if-this-was-a-movie, superman, and the other vault tracks (electric-touch,
+// when-emma-falls-in-love, foolish-one, timeless).
 export default {
   mine: {
     whyItMatters: [
@@ -534,6 +543,151 @@ export default {
       {
         name: "Taste of Country: Taylor Swift and Paula Fernandes Team Up for 'Long Live' Video",
         url: 'https://tasteofcountry.com/taylor-swift-long-live/',
+      },
+    ],
+  },
+
+  'never-grow-up': {
+    whyItMatters: [
+      "Never Grow Up is Speak Now's quiet emotional hinge — a fan-favorite deep cut, never a single, tucked between the album's romances and revenge songs like a held breath. It is built as a lullaby that moves through three vantage points: an adult hushing a sleeping baby, then a watchful eye on a teenager already in a hurry to leave, then Taylor alone on the first night in her own apartment. Charting only on album strength (it reached No. 84 on the Hot 100 and was certified gold in 2015), it earns its place by feeling, not numbers.",
+      'Its power is that it re-reads at every age you return to it. Taylor tied the final verse to moving out on her own for the first time — the "big city, they just dropped me off" of the lyric is her describing that actual first night alone — so the song widens as she and the listener grow: the distance between the sleeping child of verse one and the uncertain adult of verse three only gets longer. She has kept it close, folding it into the acoustic and surprise-song stretches of every tour from Speak Now through the Eras era.',
+    ],
+    meaning: {
+      confirmed: [
+        'Taylor wrote it alone and produced it with Nathan Chapman; it is track eight on Speak Now, never released as a single, and charted on album sales (No. 84 on the Hot 100) before its 2015 gold certification. It is structured as a lullaby in three perspectives — an adult to a baby, a watched teenager, and finally herself.',
+        'She has described the song as coming from not quite knowing how she felt about growing up — "it happens without you knowing it" — and tied its closing verse to moving into her own apartment for the first time in 2009, writing the loneliness of that first night away from home directly into the last scene.',
+      ],
+      supported: [
+        "Critics have long heard it as the album's throwback: a folksy, fingerpicked change of pace closer to her country-debut songwriting than to Speak Now's bigger productions, which is part of why it reads as a keepsake rather than a statement.",
+        'Retrospective reviews of the re-recording pointed to its structure as the source of its ache — the gap between the "childhood snoozing" of the opening and the "uncertain adulting" of the close has only grown more poignant as Taylor has aged into the third verse she once wrote from the threshold of.',
+      ],
+      fanTheories: [
+        "Unusually for Speak Now, there is no muse to chase here — the subject is time itself. Fan conversation centers less on who the song is about and more on how differently it lands each time a listener revisits it, which is the rare Taylor deep cut whose meaning is designed to change with the person hearing it.",
+      ],
+    },
+    connections: [
+      {
+        relatedId: 'song:the-best-day',
+        label: 'The Best Day',
+        why: "Her two great childhood-nostalgia songs bookend the leaving: The Best Day looks back from inside a family memory, Never Grow Up looks back from the doorway on the way out of it.",
+      },
+      {
+        relatedId: 'song:seven',
+        label: 'Seven',
+        why: 'The same ache revisited nine years later — Seven is an adult straining to hold onto childhood, and Never Grow Up is the earlier moment it keeps looking back toward.',
+      },
+      {
+        relatedId: 'song:long-live',
+        label: 'Long Live',
+        why: "Two sides of the album's obsession with impermanence: Long Live begs a triumphant moment to stay, Never Grow Up begs a fragile one not to end.",
+      },
+    ],
+    sources: [
+      {
+        name: 'Never Grow Up — Wikipedia',
+        url: 'https://en.wikipedia.org/wiki/Never_Grow_Up',
+      },
+      {
+        name: "Songfacts: Never Grow Up by Taylor Swift (writing background and Swift's own words)",
+        url: 'https://www.songfacts.com/facts/taylor-swift/never-grow-up',
+      },
+      {
+        name: "Rolling Stone UK: Speak Now (Taylor's Version) review",
+        url: 'https://www.rollingstone.co.uk/music/news/taylor-swift-speak-now-taylors-version-review-modern-revamp-of-a-classic-30973/',
+      },
+    ],
+  },
+
+  'i-can-see-you': {
+    whyItMatters: [
+      "I Can See You is the Speak Now vault's showpiece — not for the song alone, but for how Taylor released it. Instead of quietly dropping the video, she premiered it live from the stage on July 7, 2023, the night Speak Now (Taylor's Version) arrived, in the Kansas City stop of the Eras Tour. Musically it is the vault's outlier: a funk-and-surf-rock strut of distorted guitar and synth bass with almost nothing of the album's teenage country in it, which is exactly why critics kept singling it out.",
+      "The video turned the whole re-recording project into a caper. Taylor directed it herself and cast a heist crew that read like a fan's dream footnote: Joey King and Presley Cash reprising the roles they played in the 2011 Mean video, and Taylor Lautner — the acknowledged subject of Back to December — helping break a vault-imprisoned Taylor out. Freeing the old album from a literal vault, with an old flame in on the job, is the masters-reclamation story told as slapstick, and the good-humored public reunion with Lautner became one of the Tour's most-replayed surprises.",
+    ],
+    meaning: {
+      confirmed: [
+        'A "From the Vault" track written in the original Speak Now era and left off the 2010 album, released on July 7, 2023 with Speak Now (Taylor\'s Version); Taylor wrote it alone and produced it with Jack Antonoff — a funk/rock departure from the record\'s country songwriting.',
+        'Taylor directed the music video and premiered it live during the Eras Tour in Kansas City on the album\'s release day. Its cast acts out a heist to break her out of a vault — a play on reclaiming her masters — with Joey King and Presley Cash reprising their roles from the 2011 "Mean" video and Taylor Lautner, the confirmed subject of "Back to December," as part of the crew.',
+      ],
+      supported: [
+        "Critics treated it as the standout of the vault batch — Billboard's Jason Lipshutz called it the best of the From the Vault tracks and argued it would have been an excellent addition to the original album — even as others found the retro-pop sound a step too far from Speak Now, and that split became part of its story.",
+        'The video does the era\'s narrative work literally: casting an old collaborator and an old flame to break the artist out of a vault dramatizes the masters-reclamation project every re-recording is quietly about.',
+      ],
+      fanTheories: [
+        "Fans catalog the video's props and beats as a running metaphor for reclaiming the Speak Now masters, and read the Lautner casting as the affectionate closing note to Back to December — a reconciliation the two have played entirely in public and in good humor. Taylor has framed the video as a celebration of the re-recording, not spelled out a prop-by-prop code, so the deeper reading stays a fan one.",
+      ],
+    },
+    connections: [
+      {
+        relatedId: 'song:back-to-december',
+        label: 'Back to December',
+        why: "The vault video's headliner is the man Back to December apologizes to — the heist plays as the good-humored public coda to that song's private apology, a decade on.",
+      },
+      {
+        relatedId: 'song:mean',
+        label: 'Mean',
+        why: 'Joey King and Presley Cash return as the same characters they played in the 2011 Mean video, quietly stitching the vault clip back into the era\'s own visual history.',
+      },
+      {
+        relatedId: 'song:castles-crumbling',
+        label: 'Castles Crumbling',
+        why: 'Its sibling From the Vault track, unlocked on the same July 7, 2023 release day as part of the six-song Speak Now vault.',
+      },
+    ],
+    sources: [
+      {
+        name: 'I Can See You (Taylor Swift song) — Wikipedia',
+        url: 'https://en.wikipedia.org/wiki/I_Can_See_You_(Taylor_Swift_song)',
+      },
+      {
+        name: 'Mean (song) — Wikipedia (confirms the Joey King and Presley Cash roles reprised from the 2011 video)',
+        url: 'https://en.wikipedia.org/wiki/Mean_(song)',
+      },
+    ],
+  },
+
+  'castles-crumbling': {
+    whyItMatters: [
+      "Castles Crumbling is the Speak Now vault's marquee duet — the first recorded collaboration between Taylor and Paramore's Hayley Williams, a song written in the original Speak Now era around 2010 and held back for thirteen years before the 2023 re-recording finally opened it. It debuted at No. 31 on the Hot 100 and No. 30 on the Global 200, and reached No. 13 on Hot Country Songs — Williams's first appearance on that chart, on a duet neither of them could have released at the time.",
+      'Its subject is fame\'s vertigo: a ruler watching cheers curdle into jeers, sick with guilt about power going to her head and terrified of disappointing the crowd that built the kingdom. Written by a young star before the 2016 pile-on, its dread reads in hindsight like a prophecy — critics noted the same "castle crumbled overnight" image opens reputation\'s "Call It What You Want," so a teenage anxiety turned out to sketch the downfall narrative an entire later era would inhabit.',
+    ],
+    meaning: {
+      confirmed: [
+        'A "From the Vault" track written in the original Speak Now era and released on July 7, 2023 as track 21 of Speak Now (Taylor\'s Version), featuring Paramore\'s Hayley Williams — Taylor\'s first recorded collaboration with her. Taylor wrote it alone and produced it with Jack Antonoff; it debuted at No. 31 on the Hot 100, No. 30 on the Global 200, and No. 13 on Hot Country Songs, Williams\'s first entry on that chart.',
+        'Taylor has said she chose Williams because Williams influenced her songwriting in the Speak Now era; Williams told Coup de Main she was grateful for a song she felt "portrayed an experience that both she and Swift went through." Taylor debuted it as a solo surprise song in Santa Clara on July 28, 2023, and Williams joined her to sing it in person in London on June 23, 2024.',
+      ],
+      supported: [
+        'Rolling Stone read the track less as a literal reputation prophecy than as of a piece with "Innocent" — a gauzy survey of a ruined personal landscape shadowed by the 2009 VMAs fallout — while other outlets prized the vocal interplay, calling it a duet built on two voices wrestling with the same fear that the cheers might one day turn.',
+        'The most-remarked link is forward: reputation\'s "Call It What You Want" opens on the same "castle crumbled overnight" image this song lives inside, and fans and press treat Castles Crumbling as the early sketch of a downfall narrative Taylor would only inhabit years later.',
+      ],
+      fanTheories: [
+        "Fans pair it with Long Live as mirror images — the same crown-and-kingdom imagery pointed in opposite directions, triumph and collapse, written into the same album fourteen years apart. The mirror is a fan-and-critical reading, not one Taylor has confirmed.",
+      ],
+    },
+    connections: [
+      {
+        relatedId: 'song:long-live',
+        label: 'Long Live',
+        why: 'Its fan-canonized shadow twin: Long Live holds the crown aloft while Castles Crumbling imagines the same kingdom turning on its ruler — same castle imagery, opposite ending.',
+      },
+      {
+        relatedId: 'song:call-it-what-you-want',
+        label: 'Call It What You Want',
+        why: 'The clearest textual callback in the catalog — reputation opens "Call It What You Want" on the exact "castle crumbled overnight" image this Speak Now-era song is built around.',
+      },
+      {
+        relatedId: 'song:electric-touch',
+        label: 'Electric Touch',
+        why: 'Its sibling From the Vault track — another 2010 song finished in 2023 with a guest Taylor credits as a Speak Now-era influence (Fall Out Boy), the same basis she gave for the Williams pairing.',
+      },
+    ],
+    sources: [
+      {
+        name: 'Castles Crumbling — Wikipedia',
+        url: 'https://en.wikipedia.org/wiki/Castles_Crumbling',
+      },
+      {
+        name: "BuzzFeed News: What Taylor Swift's Vault Track 'Castles Crumbling' Is About (Stephanie Soteriou, 2023)",
+        url: 'https://www.buzzfeednews.com/article/stephaniesoteriou/taylor-swift-castles-crumbling-about-kanye-vmas-reputation',
       },
     ],
   },
