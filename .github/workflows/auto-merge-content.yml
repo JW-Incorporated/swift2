@@ -93,9 +93,36 @@
 # it landed.
 name: auto-merge-content
 
+# `paths:` (added 2026-08-15 — measured 504 runs / 14d, more often than CI
+# itself, at ~1.76 billed min/run because check-drafts + guard-code + enable
+# are three separate job invocations, each billed a minimum 1 minute even
+# though most runs finish in well under that). Sampled PRs driving the count
+# (e.g. #1924, #1890, #1931, #1822) touched ONLY scripts/, .github/workflows/,
+# package.json/lockfiles, docs/decisions.md, apps/web/lib/theme.ts,
+# apps/worker/** — paths that are structurally barred from auto-merge
+# (NEVER_ALLOWLIST in scripts/check-automerge-allowlist.mjs) or simply outside
+# it, so every one of those runs was guaranteed to decline before it started.
+# This list is a deliberately BROAD SUPERSET of
+# `.github/content-automerge-allowlist.txt`'s top-level ALLOW prefixes — it
+# only gates whether the workflow bothers to run, never a merge decision (the
+# `enable` job below still reads the real allowlist from `main` at run time,
+# unchanged). Keep it a superset if that file ever adds a new top-level
+# prefix, or a genuinely content-only PR under the new prefix just won't
+# trigger auto-merge (falls back to a human merge — safe, not silent).
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, labeled, unlabeled, ready_for_review]
+    paths:
+      - "supabase/seed/**"
+      - "social/queue/**"
+      - "social/posted/**"
+      - "social/failed/**"
+      - "docs/audits/**"
+      - "apps/web/public/social/**"
+      - "apps/web/lib/longlive/**"
+      - "apps/web/app/**"
+      - "apps/web/components/**"
+      - "packages/**"
 
 permissions:
   contents: read
@@ -108,6 +135,7 @@ concurrency:
 jobs:
   check-drafts:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: >-
       github.event.pull_request.draft == false &&
       github.event.pull_request.base.ref == 'main'
@@ -253,6 +281,7 @@ jobs:
   # routes such a PR to a human, the fail-safe direction.
   guard-code:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: >-
       github.event.pull_request.draft == false &&
       github.event.pull_request.base.ref == 'main'
@@ -322,6 +351,7 @@ jobs:
 
   enable:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: [check-drafts, guard-code]
     # NOTE: no `actions/checkout` anywhere in this job. `pull_request_target`
     # runs with repo secrets against the BASE ref; checking out PR head code
