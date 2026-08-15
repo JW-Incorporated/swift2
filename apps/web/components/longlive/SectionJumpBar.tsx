@@ -61,7 +61,13 @@ export function SectionJumpBar({ ariaLabel, summary, chips, suggestChip, variant
     const targets = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el != null);
     if (targets.length === 0) return;
 
-    const visibleTops = new Map<string, number>();
+    /* Ids only, never their tops. An IntersectionObserver entry's
+     * `boundingClientRect` is a snapshot from the frame the target crossed the
+     * threshold, so a stored top is already stale by the time a later entry is
+     * compared against it — that made 6 of 12 boundaries mark the next chip
+     * active up to ~40px early. Current positions are read from the DOM below,
+     * at the moment of the comparison. */
+    const visibleIds = new Set<string>();
     // Same live measurement `jumpTo` below uses to land a scroll — never a
     // hardcoded constant, which drifts the instant the chrome's actual
     // height changes (docs/engineering-lessons.md: "a sum of heights is not
@@ -72,12 +78,22 @@ export function SectionJumpBar({ ariaLabel, summary, chips, suggestChip, variant
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) visibleTops.set(entry.target.id, entry.boundingClientRect.top);
-          else visibleTops.delete(entry.target.id);
+          if (entry.isIntersecting) visibleIds.add(entry.target.id);
+          else visibleIds.delete(entry.target.id);
         }
-        if (visibleTops.size === 0) return;
-        const topmost = [...visibleTops.entries()].sort((a, b) => a[1] - b[1])[0];
-        setActiveId(topmost[0]);
+        if (visibleIds.size === 0) return;
+        let topmostId: string | null = null;
+        let topmostY = Number.POSITIVE_INFINITY;
+        for (const id of visibleIds) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const top = el.getBoundingClientRect().top;
+          if (top < topmostY) {
+            topmostY = top;
+            topmostId = id;
+          }
+        }
+        if (topmostId) setActiveId(topmostId);
       },
       // Shifts the "line" a target must cross to just below the sticky
       // chrome, and only counts the top ~30% of the viewport as "in view" —
