@@ -108,7 +108,7 @@ export function FilterBar() {
           right. scrollbar-none hides the mobile scrollbar chrome; the row
           stays reachable by touch/trackpad either way. */}
       <div className="relative">
-        <div className="mx-auto flex max-w-4xl flex-nowrap items-center justify-center gap-1.5 overflow-x-auto scrollbar-none px-4 py-1.5 md:px-6">
+        <div className="mx-auto flex max-w-4xl flex-nowrap items-center [justify-content:safe_center] gap-1.5 overflow-x-auto scrollbar-none px-4 py-1.5 md:px-6">
           <button
             type="button"
             aria-pressed={allActive}
