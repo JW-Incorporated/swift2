@@ -5,11 +5,11 @@
 
 ## Current focus
 
-**Joey's 12-item punch list (2026-08-15). 11 of 12 MERGED, #7 awaiting CI,
-ONLY #6 left and it is on him.** Sequenced in WAVES, not parallel: items 7–12
-all touch `MerchSection.tsx` / `CommunitySection.tsx` / `SectionJumpBar.tsx`, so
-only one writer held a contended file at a time while read-only research ran
-concurrently.
+**Joey's 12-item punch list (2026-08-15). 11 of 12 MERGED and on `main` green;
+#6 is the last one and it is IN FLIGHT.** Sequenced in WAVES, not parallel:
+items 7–12 all touch `MerchSection.tsx` / `CommunitySection.tsx` /
+`SectionJumpBar.tsx`, so only one writer held a contended file at a time while
+read-only research ran concurrently.
 
 Merged: **#1** Eras filters centered (#2147) · **#2/#3** hero credit quieted,
 gap tightened (#2151) · **#4** alignment fixed on ALL FIVE `NO_SCRUBBER_THREADS`
@@ -18,18 +18,24 @@ found something similar" + inline `altNote` (#2150) · **#9/#10/#12** one-line
 scrolling chip rows + `SuggestLinkBanner` (#2153) · **#11** Turnstile spam gate,
 INERT until keys (#2149).
 
-**#7 = PR #2154, verified by me, awaiting CI.** 156 products → **97 real product
-photos / 55 labelled moment-photo fallback / 4 monogram** (62%). Independently
-checked: 97 `imageUrl` in the seeds, 97 in the regenerated vault, all https, all
-`cdn.shopify.com` — the host I proved loads cross-origin from
-`www.longlivets.com` at 1345×1820 (not a placeholder). Shopify's open
-`/products/<handle>.json` is the source; Amazon/Nordstrom/LV/Tiffany/SSENSE/
-Revolve/Skims/Fashion Nova/Showpo/Reformation/Tecovas expose nothing equivalent
-and keep the labelled fallback.
+**#7 MERGED (#2154).** 156 products → **97 real product photos / 55 labelled
+moment-photo fallback / 4 monogram** (62%). Independently checked: 97 `imageUrl`
+in the seeds, 97 in the regenerated vault, all https, all `cdn.shopify.com` —
+the host I proved loads cross-origin from `www.longlivets.com` at 1345×1820 (not
+a placeholder). Shopify's open `/products/<handle>.json` is the source;
+Amazon/Nordstrom/LV/Tiffany/SSENSE/Revolve/Skims/Fashion Nova/Showpo/
+Reformation/Tecovas expose nothing equivalent and keep the labelled fallback.
 
-**Only #6 remains: Joey must pick a Community design direction (A/B/C) and write
-8 platform standfirst lines.** Mockup at scratchpad `community-mockup.html`;
-recommendation on record is A (Signal Board) + B's chapter headings.
+**#6 IN FLIGHT — `feature/community-signal-board`.** Joey approved my
+recommendation: **Direction A "Signal Board" + Direction B's chapter standfirst
+headings** (mockup at scratchpad `community-mockup.html`). The core fix: the
+page already collects `onlineCount`, `activityLevel`, `activityEvidence`,
+`checkedAt` and `hypeScore` and renders NONE of it — that is why it reads as 30
+identical rectangles. **I authored the 8 platform standfirst lines myself**
+(Joey never supplied them; flagged in the PR as his to rewrite) and ruled that
+cards show a quiet "checked 14 Aug" rather than presenting drifting counts as
+current. **Hard constraint: 15 of 30 entries have `memberCount: null` BY DESIGN
+— em-dash in the same optical slot, never "0", never an estimate.**
 
 **#2141's two watchdog checks fire daily and Check 1 is EXPECTED to alarm** —
 Karen has not run since 2026-08-09, so an alert means "still not enabled", NOT a
@@ -213,23 +219,29 @@ did not start.
 
 ## Next obvious step
 
-1. **Merge PR #2154 (#7 merch images) once CI is green** — already verified by
-   me (97/97 seed↔vault, all https `cdn.shopify.com`). Nothing else to check.
-2. **Device-check the punch list on a real phone.** Eleven items shipped today
-   touching the Eras, Threads, Merch and Community surfaces. Highest-value
-   checks: chip rows scroll and the FIRST chip is reachable at 360px; the
-   suggest-a-link banner reads as an invitation; merch product photos load; the
-   "Her look, not the product" label appears on fallback cards.
-3. **#6 Community redesign** — blocked on Joey choosing A/B/C and writing 8
-   platform standfirst lines. Recommendation on record: A (Signal Board) with
-   B's chapter headings.
+1. **Verify and merge `feature/community-signal-board` (#6)** — Joey authorised
+   "implement and merge". Check in a BROWSER at 360px, not from the suite: the
+   15 null-count cards show an em-dash and never "0"; r/TaylorSwift (null count,
+   `activityLevel: "unknown"`, `blocked-unverified`, 2 flags) looks deliberate;
+   all 8 standfirsts render; the `SuggestLinkBanner` and jump chips from #2153
+   still work.
+2. **Device-check the punch list on a real phone.** Twelve items shipped today
+   across the Eras, Threads, Merch and Community surfaces. Highest-value checks:
+   chip rows scroll and the FIRST chip is reachable at 360px; the suggest-a-link
+   banner reads as an invitation; merch product photos load; the "Her look, not
+   the product" label appears on fallback cards.
+3. **Triage the 8 OLDER open PRs** (#2135, #2114, #2104, #2101, #2100, #2067,
+   #2066, #1961) — none are from today's work, several look stale, and per
+   § Never babysit your own PR nothing will come back for them. Raised with
+   Joey; do not close another session's PR without his word.
 4. **Await tomorrow's watchdog run** — Check 1 should alarm (Karen still not
    enabled); Check 2 reports the first post-rotation news-worker run. Neither
    needs a session babysitting it; read the alert when it lands.
 5. **UNCONFIRMED, worth a look:** Escape appeared not to close the MomentDetail
    overlay during testing. Observed while the browser tool was misbehaving, so
    treat as a lead, NOT a finding — reproduce before filing.
-6. Joey's hands, not mine: the credits ruling (§ Blocking), #6's choice, the
-   three #2110 questions, the five decisions that lost their owner, whether
-   `auto-merge-content` should stop auto-landing UI code, and the Turnstile keys
-   (`HUMAN-ACTIONS.md` #8).
+6. Joey's hands, not mine: the credits ruling (§ Blocking), the three #2110
+   questions, the five decisions that lost their owner, whether
+   `auto-merge-content` should stop auto-landing UI code, the Turnstile keys
+   (`HUMAN-ACTIONS.md` #8), and **restarting his port-3000 dev server** — an
+   agent killed it with a stale PID (see `docs/engineering-lessons.md`).
