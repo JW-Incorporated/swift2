@@ -253,6 +253,16 @@ describe('productsFrom', () => {
   it('drops isAlternative when altNote is missing (fails closed, same as the validator hard-erroring on it)', () => {
     expect(productsFrom([{ ...dress, isAlternative: true }])?.[0].isAlternative).toBeUndefined();
   });
+
+  it('carries a well-formed imageUrl through', () => {
+    const withImage = { ...dress, imageUrl: 'https://cdn.shopify.com/some-product.jpg' };
+    expect(productsFrom([withImage])?.[0].imageUrl).toBe('https://cdn.shopify.com/some-product.jpg');
+  });
+
+  it('omits imageUrl when absent or blank', () => {
+    expect(productsFrom([dress])?.[0].imageUrl).toBeUndefined();
+    expect(productsFrom([{ ...dress, imageUrl: '  ' }])?.[0].imageUrl).toBeUndefined();
+  });
 });
 
 describe('confidenceFrom', () => {
@@ -335,6 +345,7 @@ describe('buildOutputSource', () => {
           url: 'https://www.ralphlauren.com/some-dress',
           price: '$319.99',
           inStock: false,
+          imageUrl: 'https://cdn.shopify.com/some-dress.jpg',
         },
       ],
       confidence: 'reputable_reporting',
@@ -358,7 +369,7 @@ describe('buildOutputSource', () => {
     expect(source).toContain('video: { youtubeId: "abc123", title: "A video" }');
     expect(source).toContain('relatedIds: ["moment:some-other-item"]');
     expect(source).toContain(
-      'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false }]',
+      'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false, imageUrl: "https://cdn.shopify.com/some-dress.jpg" }]',
     );
     expect(source).toContain('confidence: "reputable_reporting"');
     expect(source).toContain(

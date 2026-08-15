@@ -57,23 +57,38 @@ describe('merchByEra', () => {
 });
 
 describe('merchItemImage', () => {
-  it('resolves the real catalogue split by execution — 150 photo, 6 monogram', () => {
-    let photo = 0;
+  it('prefers the real product photo (imageUrl) when present', () => {
+    const withImage: MerchItem = {
+      brand: 'Test',
+      item: 'Test Item',
+      retailer: 'test.com',
+      url: 'https://test.com/item',
+      category: 'shop-the-look',
+      imageUrl: 'https://cdn.shopify.com/test.jpg',
+    };
+    expect(merchItemImage(withImage)).toEqual({ kind: 'product', url: 'https://cdn.shopify.com/test.jpg' });
+  });
+
+  it('resolves the real catalogue split by execution — every item is product, moment, or monogram', () => {
+    let product = 0;
+    let moment = 0;
     let monogram = 0;
     for (const item of MERCH_CATALOGUE.shopTheLook) {
       const image = merchItemImage(item);
-      if (image.kind === 'photo') photo += 1;
+      if (image.kind === 'product') product += 1;
+      else if (image.kind === 'moment') moment += 1;
       else monogram += 1;
     }
-    expect(photo).toBe(150);
-    expect(monogram).toBe(6);
-    expect(photo + monogram).toBe(156);
+    expect(product).toBe(97);
+    expect(moment).toBe(55);
+    expect(monogram).toBe(4);
+    expect(product + moment + monogram).toBe(156);
   });
 
-  it('never returns the era-art fallback path for a photo', () => {
+  it('never returns the era-art fallback path for a product or moment photo', () => {
     for (const item of MERCH_CATALOGUE.shopTheLook) {
       const image = merchItemImage(item);
-      if (image.kind === 'photo') {
+      if (image.kind === 'product' || image.kind === 'moment') {
         expect(image.url.startsWith('/eras/')).toBe(false);
       }
     }

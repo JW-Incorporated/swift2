@@ -143,18 +143,28 @@ export function merchMatchesFilter(item: MerchItem, active: ReadonlySet<MerchFil
   return true;
 }
 
-/** What a merch card should show as its image: the source moment's real
- * primary photo, or a monogram fallback when none exists. Resolved via
- * `hasRealPrimaryImage()` — never by checking `images.length`, which is
- * always non-empty and proves nothing (see types.ts's own warning). Never
- * returns the era-art stand-in: a picture that isn't the item reads as the
- * item. */
-export type MerchImage = { kind: 'photo'; url: string } | { kind: 'monogram' };
+/** What a merch card should show as its image, in preference order:
+ * 1. `product` — the retailer's own product photo (`Product.imageUrl`), the
+ *    actual item being sold. Never labelled — this is the honest case.
+ * 2. `moment` — the source moment's real primary photo, used only when no
+ *    product photo exists. This is a picture of Taylor wearing the look, NOT
+ *    the product, so the UI must visibly label it (2026-08-15,
+ *    docs/decisions.md) rather than let it pass as a product shot.
+ * 3. `monogram` — neither exists.
+ * `moment` is resolved via `hasRealPrimaryImage()` — never by checking
+ * `images.length`, which is always non-empty and proves nothing (see
+ * types.ts's own warning). Never returns the era-art stand-in: a picture
+ * that isn't the item reads as the item. */
+export type MerchImage =
+  | { kind: 'product'; url: string }
+  | { kind: 'moment'; url: string }
+  | { kind: 'monogram' };
 
 export function merchItemImage(item: MerchItem): MerchImage {
+  if (item.imageUrl) return { kind: 'product', url: item.imageUrl };
   const moment = item.source ? getContentItem(item.source.momentId) : undefined;
   if (moment && hasRealPrimaryImage(moment)) {
-    return { kind: 'photo', url: primaryImage(moment) };
+    return { kind: 'moment', url: primaryImage(moment) };
   }
   return { kind: 'monogram' };
 }
