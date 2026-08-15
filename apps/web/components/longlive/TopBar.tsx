@@ -1,5 +1,7 @@
 'use client';
 
+import { useRef, useState } from 'react';
+import { useIsomorphicLayoutEffect } from '@/lib/longlive/useIsomorphicLayoutEffect';
 import {
   ChevronDown,
   Compass,
@@ -130,16 +132,6 @@ export function TopBar() {
 
 export type ToggleMode = 'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch';
 
-/** Tab order — also the indicator's translateX multiplier. */
-const TOGGLE_ORDER: readonly ToggleMode[] = [
-  'era',
-  'threads',
-  'mood',
-  'clownbot',
-  'community',
-  'merch',
-];
-
 export function ModeToggle({
   mode,
   onChange,
@@ -155,12 +147,40 @@ export function ModeToggle({
   // With four labelled tabs the landing-page variant has no room for icons on
   // a narrow phone, so it goes text-only there and regains them at sm+.
   const iconClass = cn('size-3.5 md:size-4', alwaysShowLabels && 'hidden sm:block');
-  // Six surfaces now, so the sliding indicator is sixths: container padding
-  // is p-1 (0.25rem each side), so one tab is (W - 0.5rem) / 6. Same
-  // derivation as the old 25% - 0.125rem; only the divisor changed.
-  const index = Math.max(0, TOGGLE_ORDER.indexOf(mode));
+
+  // The tab buttons are `flex-1 basis-0` but NOT equal width in practice —
+  // they keep their default min-width:auto, so a long label (e.g.
+  // "Clownbot") claims more than an even share and its neighbours get less.
+  // A fixed fraction (`100% / tabCount`) for the sliding indicator therefore
+  // drifted further out of alignment with every tab to its right.
+  // Instead, measure the active tab's own box and copy it exactly — correct
+  // for any label widths, and for tab count changing later.
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<Partial<Record<ToggleMode, HTMLButtonElement>>>({});
+  const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    function measure() {
+      const btn = buttonRefs.current[mode];
+      if (btn) setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });
+    }
+    measure();
+    const container = containerRef.current;
+    if (!container || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [mode]);
+
+  function registerTab(m: ToggleMode) {
+    return (el: HTMLButtonElement | null) => {
+      if (el) buttonRefs.current[m] = el;
+    };
+  }
+
   return (
     <div
+      ref={containerRef}
       role="tablist"
       aria-label="Navigation mode"
       className={cn(
@@ -173,10 +193,15 @@ export function ModeToggle({
     >
       <span
         aria-hidden
-        className="absolute inset-y-1 w-[calc((100%-0.5rem)/6)] rounded-full bg-accent transition-transform duration-300 ease-out"
-        style={{ transform: `translateX(${index * 100}%)` }}
+        className="absolute inset-y-1 rounded-full bg-accent transition-[left,width] duration-300 ease-out"
+        style={
+          indicator
+            ? { left: indicator.left, width: indicator.width }
+            : { left: 0, width: 0, opacity: 0 }
+        }
       />
       <button
+        ref={registerTab('era')}
         role="tab"
         aria-selected={mode === 'era'}
         // Below `sm` the visible label is hidden (icon-only), so name the tab
@@ -193,6 +218,7 @@ export function ModeToggle({
         <span className={labelClass}>Eras</span>
       </button>
       <button
+        ref={registerTab('threads')}
         role="tab"
         aria-selected={mode === 'threads'}
         aria-label="Threads"
@@ -206,6 +232,7 @@ export function ModeToggle({
         <span className={labelClass}>Threads</span>
       </button>
       <button
+        ref={registerTab('mood')}
         role="tab"
         aria-selected={mode === 'mood'}
         // Same reason as the other two: below `sm` this is icon-only, so the
@@ -222,6 +249,7 @@ export function ModeToggle({
         <span className={labelClass}>Mood</span>
       </button>
       <button
+        ref={registerTab('clownbot')}
         role="tab"
         aria-selected={mode === 'clownbot'}
         // Same reason as the others (#656, WCAG 4.1.2).
@@ -236,6 +264,7 @@ export function ModeToggle({
         <span className={labelClass}>Clownbot</span>
       </button>
       <button
+        ref={registerTab('community')}
         role="tab"
         aria-selected={mode === 'community'}
         // Same reason as the others (#656, WCAG 4.1.2).
@@ -250,6 +279,7 @@ export function ModeToggle({
         <span className={labelClass}>Community</span>
       </button>
       <button
+        ref={registerTab('merch')}
         role="tab"
         aria-selected={mode === 'merch'}
         // Same reason as the others (#656, WCAG 4.1.2).
