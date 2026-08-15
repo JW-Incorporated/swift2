@@ -259,6 +259,43 @@ Claude review satisfies Workflow rule 3.** Use a `reviewer` on
   post-rotation news-worker run had not happened yet; if it goes red with an
   auth error that is the signal. Vercel env + local `.env` not visible here.
 
+- **Clownbot poisoning — MERGED `bb1bd3b2`.** Exemption matches byte-exact
+  server-side strings only (never a client flag); corpus poisoning 14/825 → 0;
+  battery unchanged (0 over-refusals, redlines still caught).
+- **`guard-code` verdict delivery — MERGED `90a11b4d`, closes #2113.** GitHub
+  runs steps under `bash -eo pipefail`; the step's own `set -uo pipefail` ADDS
+  `-u` but never clears `-e`, so the shell died on the guard script's non-zero
+  exit and the `rc=$?` capture plus the whole `server_code` branch never ran.
+  Now `rc=0; node … || rc=$?`. Detection logic untouched; a PR touching an API
+  route still refuses to auto-merge, now with green checks and the right
+  reason. **This is why the daily "PRs stuck on failing checks" emails were
+  false alarms.**
+
+### MOBILE NAV — founder-reported, IN FLIGHT (worktree `wt-nav`)
+
+"I still have 6 nav icons with no words." Two compounding causes, both
+confirmed:
+1. **PR #2116 was never merged** — its `build` never ran (the CI billing outage
+   when it was created, since cleared), so Merch is still a tab → 6 tabs.
+2. **`BOTTOM_NAV_ICON_ONLY_THRESHOLD = 5`** and `layoutBottomNavTabs` goes
+   icon-only at `>= threshold`. **So five tabs would ALSO be wordless** —
+   merging #2116 alone would not have fixed it. That threshold was written when
+   the nav had four tabs and was never revisited; it silently contradicts
+   #2116's own premise of "five tabs with text labels".
+
+The fix must PROVE the labels fit — "Community" is the long one — measured at
+390px AND 360px. If they do not fit, shorter labels or a width breakpoint is a
+FOUNDER call, not the agent's. Shipping clipped labels is worse than icons.
+
+### Verification checks for the two open questions (worktree `wt-checks`)
+
+Joey asked for automated confirmation that (a) Karen actually ran after the
+repair, and (b) the first post-rotation news-worker run passed. Both must FAIL
+LOUDLY — not behind a plain `if:` in a job where an earlier step can fail,
+which is the exact bug `d51676ce` fixed — and both must be self-limiting, with
+documented off-switches. A permanent nag becomes noise, which is how the real
+alarm gets ignored.
+
 **THE PATTERN OF THE DAY: three detectors that failed silently** — Karen's
 report path, the watchdog's alarm, and the guardrail's own branch parsing (it
 recorded `2>` from a shell redirect). Each looked healthy while doing nothing.
