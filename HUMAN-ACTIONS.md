@@ -18,6 +18,18 @@ forever. Saying "I did #2" in chat works just as well as editing the line.
 
 ### 1. [BLOCKING] Get the production site and CI off Wyatt's accounts — ~30–60 min
 
+> **RESOLVED 2026-08-15 — the premise below was WRONG. Filed to DONE; kept in
+> full so nobody re-raises it.** Joey: "wyatt is still an owner, he's just
+> working on a different project while i finish this one. We co-own his vercel
+> team, and our github accounts are connected." There is no lapse risk and no
+> migration to do. What remains true and is now recorded elsewhere: he is not
+> working on this project day-to-day, which is why #2144 removed him from alert
+> pings, and why the five decisions in item #5 need a new owner.
+>
+> **Lesson worth keeping: shared infrastructure is not abandoned
+> infrastructure.** "His account owns it" was read as "it will lapse" without
+> asking. Ask before escalating an ownership fact into a risk.
+
 **Why it matters:** Wyatt has left the project, but the live product still runs
 on his infrastructure. This is the single largest standing risk in the repo.
 Nothing is broken right now, and nothing will warn you before it breaks — if
@@ -56,7 +68,8 @@ Three separate dependencies, verified 2026-08-15:
 **Worked if:** you can open Vercel → Settings → Billing for the team that serves
 longlivets.com and see your own payment method, and you are listed as Owner.
 
-**Status:** OPEN
+**Status:** DONE — 2026-08-15, answered in chat. Not a real risk; see the note
+at the top of this item.
 
 ---
 
@@ -88,6 +101,12 @@ is the honest answer, not a broken check. If it does *not* fire, she ran.
 
 ### 3. [UPGRADE] Device-check the bottom nav — ~2 min
 
+> **DONE 2026-08-15.** Joey on mobile: "there's still 6 but they now all have
+> text, and honestly it looks really good with 6." Six labelled tabs confirmed
+> live. This also settled the nav question for good — see STATE.md § Current
+> focus: six separate tabs are the ruling, and PR #2116's merge-to-five is
+> rejected.
+
 **Why it matters:** the nav has been fixed three times from code, and each time
 a real phone found something the tests did not. Merged 2026-08-15 (PR #2140):
 the icon-only threshold moved 5 → 7 and labels dropped 11px → 10px, so all six
@@ -100,7 +119,7 @@ tabs should now show **words under the icons**.
 
 **Worked if:** six labelled tabs, one line each, no overlap.
 
-**Status:** OPEN
+**Status:** DONE — 2026-08-15, confirmed on his phone.
 
 ---
 

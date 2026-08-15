@@ -5,11 +5,31 @@
 
 ## Current focus
 
-**Nothing in flight.** Everything opened 2026-08-15 is merged to `main`:
-era-reader device fixes, the Karen watchdog alarm repair, the `guard-code`
-verdict fix, **#2140** (bottom nav labels: icon-only threshold 5→7, labels
-11px→10px — six LABELLED tabs) and **#2141** (the two self-limiting
-verification checks below). `main` is at `1cd5e00e`+.
+**IN FLIGHT: porting #2116's depth work onto SIX tabs.** `PLAN.md` is written
+and an `executor` is running it on `feature/merch-community-depth`, in its own
+worktree. Take the merch filters / era grouping / product images / jump bars;
+DROP the tab merge. **`PLAN.md` § TWO TRAPS is the whole risk**: that branch's
+`bottom-nav-layout.ts` carries the OLD 5-tab threshold (taking it deletes every
+nav label again) and its `STATE.md` would revert this checkpoint. Porting
+FORWARD from `main`, never rebasing #2116.
+
+**JOEY'S RULING 2026-08-15: six separate tabs, kept.** Eras, Threads, Mood,
+Clownbot, Community, Merch — device-confirmed on his phone, labels showing,
+"honestly it looks really good with 6". **#2116 merged Merch INTO Community to
+reach 5 tabs, purely because 5 was then the only way to get labels back. #2140
+(threshold 5→7) killed that premise.** So #2116 is to be CLOSED UNMERGED once
+the depth work lands separately. Do not resurrect the merge.
+
+**Correction worth keeping: #2116 never shipped.** Joey reported the depth work
+as "regressed to an older, worse form". It was never live — `mergedAt: null`.
+He was looking at the PR's Vercel PREVIEW deployment, which renders the branch.
+**A preview URL is not production; check `mergedAt` before accepting a
+regression report.**
+
+Merged 2026-08-15: era-reader device fixes, the Karen watchdog alarm repair,
+the `guard-code` verdict fix, **#2140** (nav labels: threshold 5→7, 11px→10px),
+**#2141** (two self-limiting verification checks), **#2143** (this checkpoint),
+**#2144** (departed-founder notification sweep), **#2145** (`HUMAN-ACTIONS.md`).
 
 **#2141 fires tomorrow and Check 1 is EXPECTED to alarm.** Two steps in
 `watchdog.yml`, both `if: (!cancelled()) && (…'35 14 * * *')` so an unrelated
@@ -25,9 +45,14 @@ two `.mjs` files.
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
-- **PR #2116 (`feature/community-social-merch`) is CONFLICTING with main** and
-  is checked out in ANOTHER session's worktree. Not safe to land from here —
-  rebase it from the session that owns it, or after that worktree is gone.
+- **PR #2116 is to be CLOSED UNMERGED**, after the depth port lands. It is
+  conflicting AND checked out in another session's worktree — do not rebase it,
+  the port supersedes it. Comment on it before deleting its branch.
+- **Wyatt has NOT lost access — corrected by Joey 2026-08-15.** He is still an
+  owner, working a different project; Joey CO-OWNS the Vercel team and their
+  GitHub accounts are connected. **The infra-lapse risk previously recorded here
+  was wrong.** The notification sweep (#2144) still stands — he simply is not
+  working on this project — but do NOT frame his accounts as a failure risk.
 - **#2110 merged with three questions still unanswered.** Joey deferred them;
   merging did not resolve them. (1) **Instagram + TikTok** — item 4b names both,
   the brief omitted them; different shape (creator accounts, not joinable
@@ -173,15 +198,19 @@ and ruled. Note it in a PR body if it matters; do not put it in chat again.
 
 ## Next obvious step
 
-1. **Await tomorrow's watchdog run** — Check 1 should alarm (Karen still not
+1. **Verify the depth-port executor's output against `PLAN.md`'s step 5 nav
+   proofs BEFORE anything else** — `BottomNav.tsx` diff empty vs `main`,
+   `THRESHOLD = 7`, `npm test -- bottom-nav` green. Then the device check at
+   360px and 390px, then merge.
+2. **Close #2116** with a comment: depth work landed separately, tab merge
+   rejected because #2140 removed its reason.
+3. **Await tomorrow's watchdog run** — Check 1 should alarm (Karen still not
    enabled); Check 2 reports the first post-rotation news-worker run. Neither
    needs a session babysitting it; read the alert when it lands.
-2. **PR from the departed-founder notification sweep** — verify and merge.
-3. **#2116 Community + Merch is CONFLICTING** and lives in another session's
-   worktree. Rebase from there; do not fight it from this checkout.
-4. Real-device check of the six LABELLED bottom-nav tabs (threshold 7, 10px)
-   at 360px and 390px. Code-correct and green tests are not a device check.
-5. Joey's hands, not mine: the three #2110 questions, the five formerly-Wyatt
-   items, whether `auto-merge-content` should stop auto-landing UI code, and
-   the Apps Script / Resend / env setup in
+4. **Reconcile `HUMAN-ACTIONS.md`** every session that opens it. #1 (Vercel/
+   GitHub ownership) is effectively answered — Joey co-owns the team and Wyatt
+   retains access; rewrite it rather than leaving the false lapse-risk framing.
+5. Joey's hands, not mine: the three #2110 questions, the five decisions that
+   lost their owner, whether `auto-merge-content` should stop auto-landing UI
+   code, and the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`.
