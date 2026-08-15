@@ -212,7 +212,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She had teased a mysterious 2 a.m. countdown, and delivered on it two hours after the midnight release: "It\'s a 2am surprise: The Tortured Poets Department is a secret DOUBLE album. I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."\n\nFour of the 15 Anthology tracks — "The Manuscript," "The Bolter," "The Albatross," and "The Black Dog" — had already been teased as bonus cuts scattered across physical variants; the rest were entirely new, pushing the full album past the two-hour mark. Her sign-off handed the record over: "And now the story isn\'t mine anymore... it\'s all yours."\n\nThree days before release, a Spotify pop-up at LA\'s Grove had already planted real lines from the record in plain sight — open "book" props, card-catalog drawers, a Times Square billboard — that fans photographed without knowing they were reading the actual album.',
+          'She had teased a mysterious 2 a.m. countdown, and delivered on it two hours after the midnight release: "It\'s a 2am surprise: The Tortured Poets Department is a secret DOUBLE album. I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."\n\nFour of the 15 Anthology tracks — "The Manuscript," "The Bolter," "The Albatross," and "The Black Dog" — had already been teased as bonus cuts scattered across physical variants; the rest were entirely new, pushing the full album past the two-hour mark. Her sign-off handed the record over: "And now the story isn\'t mine anymore... it\'s all yours."\n\nThree days before release, a Spotify pop-up at LA\'s Grove had already planted real lines from the record in plain sight — open "book" props, card-catalog drawers, a Times Square billboard — that fans photographed without knowing they were reading the actual album.\n\nThe scale matched the surprise. The Anthology reached streaming two hours after the standard edition, and the combined 31 tracks ran past two hours. It opened at No. 1 on the Billboard 200 with 2.61 million equivalent album units — her career best and the biggest week for any album in nine years, 1.914 million of it pure sales — and became her 14th chart-topping album, tying Jay-Z for the most among soloists. Streaming records fell within a day: it was the first album ever to pass 300 million Spotify streams in a single day, nearly doubling the 184.7 million Midnights had set, and within five days the first to top a billion Spotify streams in a week, while "Fortnight" took the platform\'s single-day song record. Its 700,000 vinyl copies sold in three days were the most any album had moved in a week.',
         sources: [
           {
             outlet: 'Billboard',
@@ -230,6 +230,24 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-19',
             reliability_score: 3,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/taylor-swift-first-week-figure-units-tortured-poets-department-1235984882/',
+            source_title: 'Taylor Swift Debuts With 2.61 Million Units for \'The Tortured Poets Department,\' the Best Number for Any Album in Nine Years',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/mollybohannon/2024/04/22/all-the-records-taylor-swifts-the-tortured-poets-department-has-broken-so-far/',
+            source_title: 'All The Records Taylor Swift\'s \'The Tortured Poets Department\' Has Broken (So Far)',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 4,
           },
         ],
         // T16 photo pass (2026-07-09): The Anthology cover from Wikipedia's

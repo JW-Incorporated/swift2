@@ -2506,7 +2506,7 @@ export default {
       ],
       moment: {
         context:
-'At the Yeezy Season 3 event at Madison Square Garden on Feb. 11, 2016 — part fashion show, part listening party for The Life of Pablo, staged with performance artist Vanessa Beecroft in front of roughly 20,000 people — West premiered "Famous" and its line about Taylor: "I feel like me and Taylor might still have sex / Why? I made that bitch famous." He insisted she had approved it in a phone call.\n\nHer spokesperson\'s statement said otherwise: "Kanye did not call for approval, but to ask Taylor to release his single \'Famous\' on her Twitter account. She declined and cautioned him about releasing a song with such a strong misogynistic message. Taylor was never made aware of the actual lyric, \'I made that bitch famous.\'"\n\nFour days later she accepted Album of the Year at the Grammys with the "there are going to be people along the way who will try to undercut your success" speech — the whole room knew who she meant. The question of what was actually said on that call would hang over the next four years.',
+'At the Yeezy Season 3 event at Madison Square Garden on Feb. 11, 2016 — part fashion show, part listening party for The Life of Pablo, staged with performance artist Vanessa Beecroft in front of roughly 20,000 people — West premiered "Famous" and its line about Taylor: "I feel like me and Taylor might still have sex / Why? I made that bitch famous." He insisted she had approved it in a phone call.\n\nHer spokesperson\'s statement said otherwise: "Kanye did not call for approval, but to ask Taylor to release his single \'Famous\' on her Twitter account. She declined and cautioned him about releasing a song with such a strong misogynistic message. Taylor was never made aware of the actual lyric, \'I made that bitch famous.\'"\n\nFour days later she accepted Album of the Year at the Grammys with the "there are going to be people along the way who will try to undercut your success" speech — the whole room knew who she meant. The question of what was actually said on that call would hang over the next four years.\n\n"Famous" arrived as track four on The Life of Pablo, which West released on Tidal on Feb. 14. He spent Feb. 12 defending the line in a fifteen-tweet run — "I did not diss Taylor Swift and I\'ve never dissed her" — and claimed he had "called Taylor and had a hour long convo with her about the line and she thought it was funny and gave her blessings," even asserting the idea was "actually something Taylor came up with." That June he escalated it visually, premiering the song\'s video with a bed of nude wax likenesses of a dozen public figures — Taylor among them — that her camp again said she had never approved.',
         sources: [
           { outlet: 'Time', url: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/' },
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/media/kanye-west-vs-taylor-swift-timeline/' },
@@ -2518,6 +2518,24 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The FADER',
+            url: 'https://www.thefader.com/2016/02/12/taylor-swift-kanye-west-pablo-famous-sex-lyric',
+            source_title: 'Kanye West And A Rep For Taylor Swift Tell Different Stories About Controversial Lyric',
+            publisher: 'The FADER',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/kanye-west-premieres-new-music-video-featuring-apparently-nude-celebrities',
+            source_title: 'Kanye West premieres new music video featuring apparently nude celebrities',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
             reliability_score: 4,
           },
         ],
