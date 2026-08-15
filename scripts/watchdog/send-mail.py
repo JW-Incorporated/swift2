@@ -16,10 +16,9 @@ Env (same as brief-mailer.yml; skips quietly if either is unset):
   MARJORIE_EMAIL      - repo variable, the sender Gmail address
   GMAIL_APP_PASSWORD  - repo secret, a 16-char App Password on that account
 
-Recipients are fixed (Joey to, Wyatt cc) to match brief-mailer.yml's
-existing "From Marjorie, To Joey, CC Wyatt" arrangement (Joey's calls,
-2026-07-11) - not parameterized, since every current caller wants the same
-two addresses.
+Recipient is fixed (Joey) to match brief-mailer.yml's
+"From Marjorie, To Joey" arrangement - not parameterized, since every
+current caller wants the same address.
 """
 import json
 import os
@@ -28,7 +27,6 @@ import smtplib
 from email.message import EmailMessage
 
 TO = "sffan15@gmail.com"
-CC = "wjduvall@gmail.com"
 
 
 def render_html_body(body_md: str, repo: str) -> str:
@@ -78,7 +76,6 @@ def main() -> int:
     msg["Subject"] = payload["subject"]
     msg["From"] = f"Marjorie (swift2 chief of staff) <{sender}>"
     msg["To"] = TO
-    msg["Cc"] = CC
     msg.set_content(
         f"{payload['body']}\n\n---\nOpen here: {payload['url']}\n"
         "(Sent by the shared watchdog/brief mailer - deterministic, no AI involved.)"
@@ -123,7 +120,7 @@ Sent by the shared watchdog/brief mailer - deterministic, no AI involved.</p>
         )
         return 1
 
-    print(f"Mailed [{payload['subject']}] To {TO}, Cc {CC}")
+    print(f"Mailed [{payload['subject']}] To {TO}")
     return 0
 
 

@@ -213,7 +213,7 @@ const line = (key, f) => {
 /** Markdown body for the persistent watchdog alert. `top` caps each list. */
 export function renderAlert({ findings, breaches, notEnforced = {} }, budget, windows, top = 15) {
   const out = [];
-  out.push('@sffan15-sys @wjduvall-cmd — work-ownership check: one or more conditions got worse.');
+  out.push('@sffan15-sys — work-ownership check: one or more conditions got worse.');
   out.push('');
   out.push('This is a zero-AI count over open issues and PRs. It compares against the committed');
   out.push(`budget in \`${BUDGET_FILE}\`, which is seeded at the backlog that existed when the check`);

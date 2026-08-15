@@ -123,7 +123,7 @@ jobs:
           # scripts/watchdog/upsert-alert.sh header for why this changed.
           ALERT_TITLE="Watchdog: no Founders' Brief"
           cat > /tmp/alert-body.md <<EOF
-          @sffan15-sys @wjduvall-cmd — Marjorie's 6:00 AM brief for ${TODAY} has not been posted (as of $(date -u +'%H:%M UTC')).
+          @sffan15-sys — Marjorie's 6:00 AM brief for ${TODAY} has not been posted (as of $(date -u +'%H:%M UTC')).
 
           Degraded mode (charter: docs/agents/marjorie.md): the decision bank still works —
           read the open [founder-decision issues](https://github.com/${REPO}/issues?q=is%3Aissue+is%3Aopen+label%3Afounder-decision)
@@ -221,7 +221,7 @@ jobs:
             exit 0
           fi
           {
-            echo "@sffan15-sys @wjduvall-cmd — one or more prod routes failed the smoke check at $(date -u +'%H:%M UTC'):"
+            echo "@sffan15-sys — one or more prod routes failed the smoke check at $(date -u +'%H:%M UTC'):"
             echo ""
             printf "%b" "$FAILURES"
             echo ""
@@ -284,7 +284,7 @@ jobs:
           fi
 
           {
-            echo "@sffan15-sys @wjduvall-cmd — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss)."
+            echo "@sffan15-sys — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss)."
             echo ""
             printf "%b" "$BROKEN"
             echo "Check the run logs: https://github.com/${REPO}/actions"
@@ -458,7 +458,7 @@ jobs:
           fi
 
           {
-            echo "@sffan15-sys @wjduvall-cmd — PR(s) open more than ${RED_AFTER_H}h are blocked on a check that nothing will retry. **This work is not shipping and no agent is coming back for it.**"
+            echo "@sffan15-sys — PR(s) open more than ${RED_AFTER_H}h are blocked on a check that nothing will retry. **This work is not shipping and no agent is coming back for it.**"
             echo ""
             cat /tmp/stuck.md
             echo ""
@@ -611,7 +611,7 @@ jobs:
           fi
 
           {
-            echo "@sffan15-sys @wjduvall-cmd — the Content Integrity Engine (Karen) has a problem."
+            echo "@sffan15-sys — the Content Integrity Engine (Karen) has a problem."
             echo ""
             printf '%b\n' "$PROBLEM"
             echo ""
@@ -886,7 +886,7 @@ jobs:
             fi
 
             {
-              echo "@sffan15-sys @wjduvall-cmd — no PR from a \`${PREFIX}*\` branch in the last ${WINDOW}h. ${LANE} runs ${CADENCE} (docs/agents/runners.md) — this either means a genuinely quiet queue (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
+              echo "@sffan15-sys — no PR from a \`${PREFIX}*\` branch in the last ${WINDOW}h. ${LANE} runs ${CADENCE} (docs/agents/runners.md) — this either means a genuinely quiet queue (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
               echo ""
               echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"${PREFIX}\"))'\` for the most recent one, and whether a \`${PREFIX}*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash)."
               echo ""

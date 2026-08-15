@@ -49,7 +49,6 @@ jobs:
 
           FOUNDERS = {
               'sffan15@gmail.com': 'Joey',
-              'wjduvall@gmail.com': 'Wyatt',
           }
           REPO = os.environ['REPO']
           user = os.environ['MARJORIE_EMAIL'].strip()

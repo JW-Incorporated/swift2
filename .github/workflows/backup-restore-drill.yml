@@ -109,7 +109,7 @@ jobs:
             exit 0
           fi
           {
-            echo "@sffan15-sys @wjduvall-cmd — the monthly backup/restore drill FAILED at $(date -u +'%H:%M UTC')."
+            echo "@sffan15-sys — the monthly backup/restore drill FAILED at $(date -u +'%H:%M UTC')."
             echo ""
             echo "This means the documented restore path in \`docs/backup-restore.md\` no longer round-trips this database's own schema + data. Launch gate BACKUPS is no longer verifiable until it is fixed."
             echo ""
