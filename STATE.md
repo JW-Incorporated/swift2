@@ -209,16 +209,51 @@ session for his work; still never commit to `main` directly.
   Also folded the duplicated `useIsomorphicLayoutEffect` into
   `lib/longlive/useIsomorphicLayoutEffect.ts` — FilterBar and TopBar had
   separate private copies.
-- **Share on every surface — IN FLIGHT**, issue #2105, branch
-  `fix/share-every-surface`. Two calls made for the agent, do not re-open:
-  (1) extend the existing one-shot deep-link params, **do NOT add routing** —
-  the app is deliberately route-free and PR #1947 set this pattern;
-  (2) share the DESTINATION, never the conversation. `share.ts`'s refusal for
-  Mood/Clownbot is about never transmitting what a user typed, and that stays.
-  The agent must prove the produced URL is unchanged after typing into each.
+- **Share on every surface — MERGED `d64060fc` (#2134), closes #2105.** All
+  seven addresses now exist: `?era=`, `?lens=`, and `?mode=threads|mood|
+  clownbot|community|merch`. Two calls made and implemented, do not re-open:
+  (1) extend the existing one-shot deep-link params, **NOT routing** — the app
+  is deliberately route-free and PR #1947 set the pattern; (2) share the
+  DESTINATION, never the conversation. **Proved, not assumed:** typing into
+  Mood and Clownbot leaves the produced URL byte-identical.
+  Community and Merch were added on a second pass — the first attempt excluded
+  them as "directory pages, not a single thing to share", which is the same
+  argument it had just rejected for the Threads gallery.
 - **#2118 was merged by `sffan15-sys` automatically**, not by me — worth
   knowing given `auto-merge-content` is meant for content-only PRs and that one
   touched three `.tsx`/`.ts` files. Bears on #2113.
+
+### The git scare — resolved, NOTHING LOST
+
+Local `main` read `ahead 1, behind 1204`. **Cause: `origin/main`'s history was
+REWRITTEN upstream.** PR #2123 exists as `f0a0642c` locally but as `cfe43725`
+on the remote — same author, message and diff, different SHA; the same
+duplicate-signature repeats at least one PR earlier. `origin/main` only gained
+34 commits in two days, so the 1204 was an orphaned lineage, not churn.
+
+Verified before believing it:
+- **Merged work survived** — `measureChromeBottom` and the TopBar indicator
+  fix are both present on current `origin/main`.
+- **My "vanished" checkpoint commit was never lost.** It is `d0803cfb`; the
+  shared checkout flipped HEAD between my `checkout -b` and my `commit`, so it
+  landed on `fix/share-every-surface` and shipped in #2134. A diagnostic agent
+  concluded it was "likely never made" because it checked the empty
+  `ops/checkpoint-*` branch and the reflog, but not the branch HEAD had moved
+  to. **Do not trust that conclusion; the commit exists.**
+
+Repair applied (non-destructive): `main` renamed to
+`main-orphaned-f0a0642c-backup`, then recreated from `origin/main`. Now 0/0.
+**Delete the backup only after confirming nothing unique is on it.**
+
+**Ahead/behind counts are unreliable repo-wide right now** — the rewrite makes
+~50 local branches show phantom counts in the hundreds. Triage by commit
+SUBJECT and diff against current `origin/main`, never by count.
+
+**GUARDRAIL WORTH ADOPTING: give each agent its own worktree OUTSIDE
+`Documents\Claude\Projects\`.** Two agents hit the branch-flip trap in one
+session. Nothing was lost either time, but partly by luck, and the diagnosis
+cost more than the guardrail would. The repo convention already says scratch
+checkouts belong outside the Projects folder.
 
 ## Next obvious step
 
