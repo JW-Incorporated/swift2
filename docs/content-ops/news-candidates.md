@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 93
+
+## Travis Kelce and Taylor Swift 'feel really grateful' after MSG wedding - Yahoo Lifestyle Canada
+
+- first seen: 2026-08-15 09:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce and Taylor Swift 'feel really grateful' after MSG wedding  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE5OYTBWSHJLTXZVR0hPdjlWMVFGU0p0bkV4eU1aUnBzVmpNV3dkY2dmVkRFNVpLb0s2LUhmYVBfaDNvZlZQLVMxSUVIRlZ6M0xsNVY3Y2tBa2NESmk4VTZsYWlIeGRUaTlLb0w3TVBVZVZMMEp4OGxqNlAxNEU?oc=5
 
 ## Max Greenfield Shares Sweet Memories of Taylor Swift's Kindness on 'New Girl' Set - Yahoo
 
@@ -324,10 +332,11 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 ## Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift - NBC4 Washington
 
 - first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift  NBC4 Washington
 - sources:
   - [unverified] NBC4 Washington — https://news.google.com/rss/articles/CBMilwFBVV95cUxNMDkxOThsTWFoRkctMGJ5TkJzT1R3aXFqbDZOQlAzUUJDc0tyV25nWWJUV0hyV1BCWFVDN0xGZUZVb3NKOUYzVTZvWWJoVU5HUkxnUlp0aVpxbzh4cEV4UmhOcU1lVjcxaDVHeXVSSTFnWWdfTVV3YzU1b2tTLVFmWVgybjZWbXQzdnljOGZaVllxclcxRnlJ0gGfAUFVX3lxTE1qRWFTUkx3NFI0LU9YYy1FRzFXeTFDaHlHal82OTlwZkdLOVZfaWdETHZWY0pyLUMxN3VNSUprcFpvUktLMEZJSDY0V281VXYxbWVpYWRFY0VnYWxPaXByNnpNTnZERGxsc1dBbEZ6QUpQTEVfMEw3S2FaX0Y0REFESE9sSVJXeVc2Smp6VjlUb0NET2VMMFdkN01tUDdaTQ?oc=5
+  - [unverified] Central Oregon Daily — https://news.google.com/rss/articles/CBMihwJBVV95cUxOcEpjeGRsVWlabGpMR0JfT1hWTGw2WUxTQU9RaE9NZWxVcG9LNkw2RHcxbUlMVHpGaEZmY2hoT2htMWtFMFg2Q2hvbjR4MHp5TUFGRzlQVktwX2FTYUtKdEgybGlsTi1CMjN2WDBod253MW1FekJQNUlVQzlSR3FlSFdrZkQwWDJOcVYzWnFUYWRsQVhYMlZnVFJDbU1mUkdZVmZvLVo1SmZweXhLc3ZodVhCVWxMdzd5THdFazJDQzFTM0xmVi1WYWFFb3NCdXNxZ2RCU2pjaXVsZzdHWkV3c2NNYUlCT0dPR3FTZEFkM19Cb0dfdmEtSDFsbnFBZTFHRUxMTm1Gdw?oc=5
 
 ## Taylor Swift Debuts Chic Haircut in First Outing Since Travis Kelce Wedding - E! News
 
