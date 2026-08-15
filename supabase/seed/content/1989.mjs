@@ -760,7 +760,7 @@ export default {
         // instead of replacing the URL, per protocol fallback for a real-but-mismatched-date
         // photo; no other 2017-dated couple photo passed the sourcing gates.
         // Focal point (#762): the couple walks center-frame, both faces in the upper quarter; a wide crop keeps both.
-        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.', focalPoint: '52% 24%' }],
+        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', focalPoint: '52% 24%', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.' }],
       },
     },
     {
