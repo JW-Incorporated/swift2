@@ -3257,6 +3257,21 @@ export default {
             credit: 'ABC / Good Morning America',
             caption:
               'Taylor, in a self-recorded video message that aired on Good Morning America the morning of Dec. 10, 2020, announcing evermore\'s surprise midnight release.',
+            kind: 'primary',
+          },
+          // Photo Enrichment (2026-08-15): second photo so the page clears the
+          // 2-photo floor. "willow" (the lead single/video) premiered alongside
+          // the album at the midnight the announcement promised — official video,
+          // id RsEZmictANA re-verified via YouTube oEmbed this session (author
+          // "Taylor Swift" / @TaylorSwift), i.ytimg.com maxres still downloaded
+          // and vision-confirmed: Taylor and the video's love interest face to
+          // face through glass, the video's central image.
+          {
+            url: 'https://i.ytimg.com/vi/RsEZmictANA/maxresdefault.jpg',
+            focalPoint: '17% 20%',
+            credit: 'YouTube / Taylor Swift',
+            caption:
+              'Still from the official "willow" music video — released alongside evermore at the midnight the Dec. 10 announcement promised.',
             kind: 'reference',
           },
         ],
