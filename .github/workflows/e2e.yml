@@ -30,6 +30,9 @@ on:
     # scheduling contention from the two */30 workflows.
     - cron: '5 13 * * *'
 
+permissions:
+  contents: read
+
 jobs:
   e2e:
     runs-on: ubuntu-latest
