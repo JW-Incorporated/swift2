@@ -220,6 +220,51 @@ session for his work; still never commit to `main` directly.
   knowing given `auto-merge-content` is meant for content-only PRs and that one
   touched three `.tsx`/`.ts` files. Bears on #2113.
 
+## 2026-08-15 — three silent detectors, all found by execution
+
+**REVIEW POLICY CHANGED (Joey, 2026-08-15): Codex is no longer required. A
+Claude review satisfies Workflow rule 3.** Use a `reviewer` on
+`model: "fable"`, required to REPRODUCE against real data or a real browser.
+**Stop raising the Codex debt** — #2109 carries the record.
+
+- **Shared-checkout guardrail — MERGED `b8b7b782`.** A session lock in
+  `guard.sh` denies a branch switch when a DIFFERENT, still-fresh session holds
+  the checkout, and the denial names the `git worktree add` escape.
+  `git worktree add` is never blocked. **Fails open** on stale/missing/corrupt
+  locks; 6h TTL; escape hatch `CLAUDE_ALLOW_SHARED_CHECKOUT=1`. Rule in
+  `CLAUDE.md` § Agent shell discipline, how-to in `docs/agents/README.md`.
+  **Practice now in force: branch-writing agents get their own worktree under
+  the temp dir, never the Projects folder.**
+- **Watchdog — MERGED `d51676ce`, this was a P0 failing live.** The Karen alarm
+  shipped 08-14 had NEVER RUN. A plain `if:` is implicitly ANDed with
+  `success()`, so an unrelated earlier step failing skipped it — and that step
+  was failing on a missing `checks: read` permission dropped by the
+  least-privilege PR #2119. **Five detection steps were skippable this way**,
+  including the scheduled-workflow cadence check, which sat behind a prod smoke
+  test that exits non-zero during a real outage — i.e. monitoring was weakest
+  exactly when it mattered. Now `checks: read` is granted and the detection
+  steps carry `!cancelled()`.
+- **Clownbot refusal poisoning — IN FLIGHT**, worktree `wt-clownbot`. Two P1s,
+  both reproduced E2E: (1) a refused user turn is re-screened, so ONE blocked
+  question refuses the next TWO — including a must-engage battery prompt;
+  (2) 7 of 825 corpus docs' fallback copy trips the gate on re-screen, so even
+  a CLEAN answer poisons the following turn. **The fix must not create an
+  exemption a caller can spoof** — match server-side strings, never a
+  client-supplied flag, and test both directions (over-refusal AND
+  under-blocking).
+- **Supabase rotation — verified fine.** Only `SUPABASE_SERVICE_ROLE_KEY`
+  rotated (GH secret 18:31:50Z); its sole consumer is the news-worker, itself a
+  documented no-op. The live site never touches Supabase — it renders from
+  `*.generated.ts`, and the Vault UI was deleted 2026-08-11. Open: the first
+  post-rotation news-worker run had not happened yet; if it goes red with an
+  auth error that is the signal. Vercel env + local `.env` not visible here.
+
+**THE PATTERN OF THE DAY: three detectors that failed silently** — Karen's
+report path, the watchdog's alarm, and the guardrail's own branch parsing (it
+recorded `2>` from a shell redirect). Each looked healthy while doing nothing.
+All three surfaced only because something EXECUTED them against real
+conditions. A green suite is not evidence; dogfood the thing you just built.
+
 ## Next obvious step
 
 0. **CI billing is CLEAR — #2116's stated blocker is gone.** It said "Actions
