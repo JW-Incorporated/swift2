@@ -27,6 +27,71 @@ so far".
 
 Stories: 95
 
+## Taylor Swift, Madison Beer and Other WAGs Are Part of the NFL's Greater Plan - Sports Illustrated
+
+- first seen: 2026-08-15 02:18 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Madison Beer and Other WAGs Are Part of the NFL's Greater Plan  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMipwFBVV95cUxNM2JqY3d0NklwdVh0UVkyX0RfMGdYTXB0VGFZOERtLWJldHFKMExuVWd3Z2JOQWNsLXRmeURSbUNkSnhuZWhZeFQ2d3dHZWg4Um5GRDVqZnlXY2gxLVNqV1lnb3VSdTFkVjVfaER6M2RvY3FzTWRJZkNOOEJMV21ic0QzRU9QRVZnT3pmRHJORklFLVNTMjR6Q0I3LXhpd2UwaUJ5SEFpQQ?oc=5
+
+## Taylor Swift declares support for Abdul El-Sayed? - The News International
+
+- first seen: 2026-08-15 02:18 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift declares support for Abdul El-Sayed?  The News International
+- sources:
+  - [unverified] The News International — https://news.google.com/rss/articles/CBMilAFBVV95cUxQMXVVa3FJN0JwalAzQ0pHbkFZTEtxT0R3MndEc1dhakdIZjRzdEZ3U1NtX0dEdE1Hcjk2Z2F3NXNyNHhvY0w1emRzbWNCTF9sZHo3MlE5djA1QkpPRm1CVDdYNmt6RTNMNnlDenU1WEdrbFhuZzZFMGNscVN1UFB0NDNTclM2V3UxT2J6QXZieURFRE1C0gGQAUFVX3lxTE9iSEF3M2FSSDV4cEppTnJMVE55VmdmLUpyYnZxeUxwNFprSlRsYlI3aUsyZkFjT21PUXFBRWpna2gzMmZLNWx4dW9iVUZfT2l3WDI0NXRncHZmVXNPa3Zkb2ptY256VEZjQVFwYThsa21ZWlpfSzhZSHZTQ1FRUTNUNGdfc2FndEdnZFhwYXVWRA?oc=5
+
+## Inside Taylor Swift and Travis Kelce’s Life as Newlyweds: ‘They Love Living Like This’ - ELLE
+
+- first seen: 2026-08-15 02:18 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Inside Taylor Swift and Travis Kelce’s Life as Newlyweds: ‘They Love Living Like This’  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMioAFBVV95cUxOblA3WmdndmhnaGRVYzlaVHI0ZVZ2NUxTOTk4bW5zc3FtWVFoaUJZUEItWndzOEQ0U0x1MkxRR3JYX0hPSGNwajFVVXI0bUtFM1FHWTF5WWFjc0p1c0pWSFJBZm1obzRBR0thTmpva2oyeDJfcnl1aFZyR1JhVllmdW9zV1kwbERaRlR3aFNqWk5LM2R4eUlhdHdtYnlPOWhi?oc=5
+
+## Denver Art Museum’s DIVA collection adds fits from new stars to its lineup - Colorado Springs Gazett
+
+- first seen: 2026-08-15 02:18 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Denver Art Museum’s DIVA collection adds fits from new stars to its lineup  Colorado Springs Gazette
+- sources:
+  - [unverified] Colorado Springs Gazette — https://news.google.com/rss/articles/CBMiqAFBVV95cUxORktDY0VQb3J5Y3E2enFIVVlaVWpENHRpYTctT0E4NVVsNVgzN28zMlY0eVBkTGFWc3FRMGRTMkdna1lEWXhfeXNmcFdHblYtTVEybkZ3MXhpX3JraVNXbU1UVFlQdFFOUlRVczF0cmllOEFUdTlCVTJmemxfazJkakV4clJBamFGa2ZFdmF1YXY4SXphaG1BMTJVZnllUHZGNWxxNWgtZHM?oc=5
+
+## Taylor Swift captured with shorter hair a month after lavish wedding - HOLA
+
+- first seen: 2026-08-15 02:18 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift captured with shorter hair a month after lavish wedding  HOLA
+- sources:
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMimAFBVV95cUxQcnNRTFJ1M2dPSC1yX2ZmOEhLY2tra1QzQ0NaSjRvQXVrRnFvTnM1MkJESUZYM0hCQ0lNM3lEWHBMN3YyT3Mwb0RrMlVkbFJ1YXRlV0dPSThkMUtuV1I5cDdwM3JlRDRPMFB6R29yNkJOdUtETUR5YjdzMWZGM0t3VnhYOVFYX1RlRUxwOU9DYVBweXprSE5aVA?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMzBuU0RVb213TTBVV3VlV19yZnQ5WnhKZ2pqcmpmRTR1LVhRUHl3QTVpaUFkZHBYSnY5c2J5VC1xS3lPRXlya3lKSTFHdTY4Q050el9FMVRnZHB6Ums1bHRUMks5X0R3VU51ZVNxandfZW85U1NCOTlnVlROX3JYanpsbG8yaXl4RkFNTFh1TFhMdXpGNlB3aVcxakl1bnBqUXdCM3ZKQQ?oc=5
+
+## Inside Taylor Swift and Travis Kelce’s private life as newlyweds - Page Six
+
+- first seen: 2026-08-15 02:18 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Inside Taylor Swift and Travis Kelce’s private life as newlyweds  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipAFBVV95cUxNQUxsNkNSMjRwcXJfQTc2MHAwT3Nyd3ZTTEZ4MTd6Wnh5cFNNNlRISkpDUHdNTVZlNkVlZS0xVGVCMndSbGdQY3o1SmJlSWg0cy1iSlBkVDdrUzZJMWprTnh3eXdjM0ltVnZUME42QkZBME94YlotLVRSVU81YXc2Z0ZIMW1FcVNMV3Z3OTJpQUJhaHZ6R0MyYTFENzluX2VUaldLcQ?oc=5
+
+## Best-Selling Author’s New Novel, Fueled by Taylor Swift, Becomes One of Amazon’s Most-Sold Books - p
+
+- first seen: 2026-08-15 02:18 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Best-Selling Author’s New Novel, Fueled by Taylor Swift, Becomes One of Amazon’s Most-Sold Books  parade.com
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxPdVBBa3Jnclh0blUxWVRGUDhDV1dzbk9lRDJMTXU0YlhLUV9qTklEZUJaZHNaVm1OMVY1QXM0NDdWNXpEcDVBZDM2d3NOVzBuVDU3RUtERkxTNHhkdGNxMWV5SkRpY2hidzN2TGNWNEc2bmlNbFRneEZacloyaU5BNElhUWxUOURWa29pOHNHQTc5VnlvUktzMXF1MEl6WjRKUUQxRExyVlBjaXVmRW5lTmVXWkVpSkU?oc=5
+
+## Everything Guests Have Said About Taylor Swift and Travis Kelce’s ‘Magical’ Wedding — Including Trav
+
+- first seen: 2026-08-15 02:18 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Everything Guests Have Said About Taylor Swift and Travis Kelce’s ‘Magical’ Wedding — Including Travis Himself  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQY3loVFJ0cGJkQTJSZm5jRjZlRmNqcDRqWGdXN3Z4dG5xem1fc3dINy1YTUpGMjIyTkZ3dUpFb212d0J1OFRXSmVhQUlqZG5WTDVua1pFanFyVTQwRnFjeHMybXNjOEZ5a01qQTNTOUN0QzZielU1SGM4UmI4aVU2NjA1cDZvR1lWMk1hZXlUMVYtVkw5eVNmZE9RZFlfV1FqMTJ2UmVvYnJVQmc?oc=5
+
 ## Max Greenfield Reveals the Question He Asked Taylor Swift When She Made Guest Cameo on ‘New Girl’ - 
 
 - first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
@@ -758,71 +823,3 @@ Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Holl
 - summary: ‘Toy Story 5’ soundtrack features Taylor Swift original, Randy Newman score  The Music Universe
 - sources:
   - [unverified] The Music Universe — https://news.google.com/rss/articles/CBMipAFBVV95cUxOVm80TndVa1k0UVd4dC1jR2cySXcwSFp6Y1BFNHYwdy1sdlFUMWtEd09mSHFmenpEY3RZLVZPamktR0xvaHFyNE9UWWcxVnB3T2tOTHloU2k3dU5lUy0weF90WFk5SC0wd0VRQlUyejZubEdXR2xGTjdMbnJ5SzJaUU9jYWFsVjAzOWRONnZXVS1UTm0tUGdDR0RUUzl4ZDZRY1F3Vw?oc=5
-
-## Brad Pitt Had an Unexpected Moment at Taylor Swift’s Wedding That Suddenly Makes Sense - Yahoo
-
-- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Pitt Had an Unexpected Moment at Taylor Swift’s Wedding That Suddenly Makes Sense  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxOTnZzdXR4X3hRUXFNbEttY0tCTl82WUhFaGpVaWh6UkJRX2hESHBIOS05dW1Vc3FXeHYxWDJ3YjJEZm9OaXdvZ3NLWE5ST0piTVctdmJ1RkQxVE02MnRITXBxaWM0U0FFV1VLeUpTZDhuN0g4TVUzM0ZVS1BuUjE1NVBlYlhEbURIdjhueHNLWlZjV0JwS3F0dUVYcFMxWUFIRldR?oc=5
-
-## Taylor Swift, others among 2026 Nashville Songwriters Hall of Fame inductees - WSMV
-
-- first seen: 2026-08-11 22:00 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, others among 2026 Nashville Songwriters Hall of Fame inductees  WSMV
-- sources:
-  - [unverified] WSMV — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOemc5cW1MN0UyRDlXYjdiUm1xMnl2QVlKSHFYaEVHUjhRRjQwTVRzaHpLeFpPaUhhZHA3cnZKZWhTZ2RBTXBMZXY3QndXR2dNbHZtTGhGREY3TWhuaWQ5VFRER1BDeHpVS0o5cGNKRTNSYzdaZkhPd3pBTDd5anlVOWlvdDdTd2MyeXJ6dWxXV1BPRDFqSzdWLW1LQ2dBcGlKQWZJUjdlT0s?oc=5
-
-## Brad Pitt Was Reportedly Drinking at Taylor Swift's Wedding - Pajiba
-
-- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Pitt Was Reportedly Drinking at Taylor Swift's Wedding  Pajiba
-- sources:
-  - [unverified] Pajiba — https://news.google.com/rss/articles/CBMilAFBVV95cUxNUGtIYnFCZVlHZWFwZVk0NUpaQzhsX2V0X3pYS1IyU2pyTlhXMU9fUlVZOFhwcXp6X1BzSzFxWGpUZC1lZ0FLcnpNUHpIYkxpR2pWcVNwbmNnc3J0Z241MHVXc280XzU4VE1iY29YdHBfQ3ljNEI2dkRudGdNWjFsamktRjhhbGJFdVNkZGZNQ3AyWXZm?oc=5
-
-## Taylor Swift & Travis Kelce Reportedly Facing ‘Reality’ of Marriage Amid Report of Their Family Figh
-
-- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Reportedly Facing ‘Reality’ of Marriage Amid Report of Their Family Fighting After Their Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQX09waEJ3bzhkam5qcDgzbWJSMGtORXBkaXNjVjNuT2ptUG4yeXpvLVBYT3pJQ0N3RndVZmFGY0g4VE4xaTdzS3BKay13WWJtVXdnUEJGdGlZU1ZSMG1VNGk4VGtOU0xSc3g0X1lDOTFSNGZuOGQ1VU9uYXRjR0VWSkxBUUJ0RV9ZNThVNVg5ZVpMdkdaOF82c1ZRTVVwTGhnN0p0WHFxSnUxQQ?oc=5
-
-## The Latest Update on Taylor Swift & Travis Kelce’s Marriage - StyleCaster
-
-- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Latest Update on Taylor Swift & Travis Kelce’s Marriage  StyleCaster
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMipgFBVV95cUxORnFnU3hTUDdfTTM1Y0d6RV9rODFpTk9kLXV2QmlCUm9acW9UdXFEbGhPWWVhdlI2WmVtNXJVcVphUlFPVWx5N3kwNjhnSHk0MWNWZUNBRUQ1MmNjSWZMLVpaVU1RWTJQeDBSTVVPQTl3U0EzNnNnaUVuZVA5aEdnOFpWbWYxay1KMTVjYlk4bVg2WHpWeVNkUnYwU3ZHOEpRTk90bFZn?oc=5
-
-## Taylor Swift added to Nashville Songwriter’s Hall of Fame - WKRN News 2
-
-- first seen: 2026-08-11 22:00 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift added to Nashville Songwriter’s Hall of Fame  WKRN News 2
-- sources:
-  - [unverified] WKRN News 2 — https://news.google.com/rss/articles/CBMimwFBVV95cUxONlRWeFZzeUFfZmVfRzRvejl4ZFhBMjAzR1lZYWJ6U1p1RF9YaDlFdTB4MEhKVFlkUnQyckdzYkVDRXo5aWctS3ljWC1zcUlaVjUtdlk4UWpOZDVaSFR3NzktbkRFMzJ2Y2pXR0xZR3paYlUyQmhOLXNhSHA2SkducDIyM0R0MEFfb3B3LUpCVGJaaG15T2hvSTdISdIBoAFBVV95cUxQODBURlgyYmROWFB5aHAyRkhPa1U0WVI1dHVLWFJxNm9la0lHeVQ5c1FfOTllTEJIRk1nNk44c1p0SzFOUW0zenJ3a3pNak9hd1BRYk53VzQ3bjE3NHNSWlZaVGt3U1JubFUzd0N3WkdqaWVEcHRIdmlVWWRvRkFULWE4dGNwbTVjSjJzLVNBTkNPSzVEaElBc2xRbDY2akhf?oc=5
-  - [unverified] wate.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNbzlmTUVTLVJ3SFYyRW43MEpzY283bGxZSEd6b2FoQWZkU05iYUZTZzZKa0dvdVlwTG5PaW5hV2x0cG5QZDJSc2l6aERYMFRRNzZNNDFOSThsWnp1dloxWFpmYVhlS3JXMFJhUkFZa25WNjBmWkY3RzNvcm1mVVRaQzR4N1FHWnJFYS1J0gGQAUFVX3lxTE5PdnZ0NUV4WjlMNENUckVES2pZeThTSVhzcVNMN25LY2MzLXRzLWJRYUlmS0xUbHRJaGozMFBaV2pBdWtQclp4TzNhd25XdzZvRWo0U2xtUFIzUFdnUW5PeFNhS0VSZDdVN2o1elNLWl85bzdWaFhta25TRG5kQU40Z0FyRWNsaGlLdWxLTGptQw?oc=5
-  - [unverified] News Channel 5 Nashville — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOQlU4NFZWZklVTWI5ci1FR3NvbjBJYWM3NjdwQ1gwcGlqYkdTOUtHQ2xaTjF1NVpTbmQ3eFY3UjBQaldIekpMTkpUbTBtMjVBQ0VYQzlmdDdHQ2Q5M3AtaUhBb2l2aU9aT0JrLVVlbW5WQXRzLTJwU3pBckduUEtHTjRIamFuNUljNGJTano4M1dabTI0akZnSGxyMU11cDYxR3Q3S2hEdzd3YTdkRGswYXVZVFBkZWE3?oc=5
-
-## Taylor Swift and Travis Kelce Hunting for Homes Near Prince Harry and Meghan — Source - Yahoo
-
-- first seen: 2026-08-11 22:00 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Hunting for Homes Near Prince Harry and Meghan — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxQbVFYTjh0bk1lQ0xYUlJ4VG5DTXhVVnZPUEpkaFEtMlhfZlNUU1UteGtUWUFBbEpFQnljRk9xNlpYdmI3ekJleExTeXUyYWQtYTlrYkh4TkdKQVBFT3RpRXlZSzBzWjBtemdpWG9Ucl90QjBFR3lRLWY1WVM5ay1WbzhjNWdGSVI5YjVOa24yYWhOMGN5US10a3ExUXRydl9BbHpaaXFR?oc=5
-
-## Taylor Swift’s music has been removed from all White House social media accounts - KBTX News 3
-
-- first seen: 2026-08-11 22:00 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift’s music has been removed from all White House social media accounts  KBTX News 3
-- sources:
-  - [unverified] KBTX News 3 — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOOThsS3ItN2k5MHJnWFFpLUl5REUzTDZtNVByWmp4bkMxNUViQ0NJODEwQ1cwSDdrYlh2NHAzeHVfbDdtVWVXUXBFaHl1OE53MjRLa2RLT0Qyb18yQXV0aGV0YmtTcEswSWJ4eTFkb2hWVzJ3RDBMSmhWN1R2ZHFFTGtvb0RJcmotbjkyemxxRUphd3F4cVY1RmxROExnYVBKTFBiZVpEYmliNVXSAb8BQVVfeXFMT2NwSzNjXzA1eThKM3VWM1UtM1NnVzFscURwdTh0NjBDaTFvOERxbVZJdjYtdFZaVUQ4cVlKcXpkWlBTdm9Rd3Z1c0F4Yy1yalBhWlN1dVFSTU02MXVjR3NzYWREZ3ZZRnhGUHpqT2Z6NzlWVDUyN2VLdU5nb0o2UXhqaUhaeWpkZGhJQjhzVjduX0ktVFhCeU5uUXdVa2VJSXNpUHN5Wm5aeU83VjFlR0RxVmRyRENTbnNwMFBjTG8?oc=5
-  - [unverified] WKYT — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOS0M0SVZwa3o4SE0wdHZVTmE0VkFzcTFKaGtJSUtrSzlMaXFNTmc2MzV0bVhWaVNoaHFwVU1obWU5My10MzJ0NDk2QVBGeHh3Wi13dVByRGJYZmMtd2h6eUNaOFh5U2dtZEVhdEgxQ3pqeVRMOHlGcC13Q2ZleDFMUVBXOGxhVXVTMXl1eUlLWS1YMGFzVGV5NzhEaWpGMks4VXlqMGJsQXhaTzDSAb8BQVVfeXFMTzdVMUxMZVhYeF9KdFVuRVlqLWNsV00wVEU2QWNjRGxBeWJ3NktOb090bnZnbktXZ0FQbTNIZVBtLTBod1h0by10TjcyU3dJSWp2SjFyRGZyaXNZYS1BMGQxZmFXWmw2djFHbHV4WkxmMmhybG9INk5YQkt1UFBhcVhPaGFRWDNKMkJoMjhfTlNUVTlhM2VuNzdWOU8xcmlCRjhqb19HUFBfdmtwS09KQnVwZE9rbExDZDBpZmg1cnc?oc=5
-  - [unverified] WVIR — https://news.google.com/rss/articles/CBMirgFBVV95cUxOMzlfeGwxcW9CaDhBbzQxZ3dGMHdZQW1neVVsS0xMVWtsdFZmSm9Fc0NhSmU1Y2pZdThTU244cUloZEZrNXdib2pBbzJCS24wSXFyR2lhRDRNMkpUYjNpSTdyVnFCZW5TcjZRSHh3VmstTXYyN2U1R3hVLXRRZmhNQVRkSlMwekhycUNvU3o2LXlNeFBwX19FYU12S2gzUFYzYW92T2pYVHlaY2hhU3fSAcIBQVVfeXFMTzFuMHZ6Tzd1dGNFRVZxLTRLSGFscWFBeGpWak1jQkJkUXBSMEJ6NW5GMFVhMlljOHhpSDNOblJXckFYTXhlQ1p1Z3AzZXYtRjBZZWpHREYxN1VueU5xRlNnbk1POXhFVVEzRUI3TnZEb3pQOTJnOEZ6Qm13WEg1Y2pxakhOU0lqb1hTblRsLVdEb2hZNEVjWlhURlR0UmFjQ01TYWhOa1d3VG9aR2YteWVJdkhFV3gtdVVNa3J2ZjlIWnc?oc=5
