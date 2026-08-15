@@ -7,41 +7,49 @@
  * This is a directory page, not a chat surface: the era palette applies, not
  * ClownChat.tsx's neutral app chrome.
  *
+ * Rebuilt 2026-08-15 to Direction A "Signal Board" (Joey's item #6 — "just
+ * looks kinda boring") plus Direction B's chapter standfirst headings, per
+ * `community-mockup.html`. The card itself lives in `CommunityCard.tsx` —
+ * split out to keep this file under the ~300-line guideline. See that file's
+ * header for what changed there (member count as visual anchor, the
+ * designed null-count state, description clamping, the verification
+ * footer). `PLATFORM_STANDFIRST` below is Direction B's contribution: one
+ * line of editorial voice under each platform heading.
+ *
  * `@/lib/longlive/section-jump.ts` groups the same `communitiesByPlatform()`
  * data into jump chips with counts, so the page opens with a rest-state jump
  * bar showing how much is here before scrolling.
  *
- * Every entry carries an honest confidence signal. `memberCount` is `null`
- * for several entries by design (Reddit blocks automated access, so no count
- * exists) — that renders nothing, never "0" or an estimate. Anything short of
- * `verification.status === 'verified-live'` gets a quiet marker rather than
- * being presented as equally confirmed, and any real `flags` (an impersonator
- * spin-off, a subreddit that reportedly went private) render more prominently
- * than the description, since they matter more.
- *
- * `@/lib/longlive/communities.ts` (built in parallel by a sibling agent,
- * PLAN.md step 1) already groups by platform (`communitiesByPlatform`), each
- * group sorted by hypeScore descending, group order following first
- * appearance in the source data — this file just renders that grouping.
+ * `@/lib/longlive/communities.ts` already groups by platform
+ * (`communitiesByPlatform`), each group sorted by hypeScore descending,
+ * group order following first appearance in the source data — this file
+ * just renders that grouping, marking the first (highest-hype) entry in
+ * each group `featured`.
  */
 
-import { AlertTriangle, ExternalLink, ShieldQuestion } from 'lucide-react';
-import { COMMUNITIES, communitiesByPlatform, type Community } from '@/lib/longlive/communities';
+import { COMMUNITIES, communitiesByPlatform, type CommunityPlatform } from '@/lib/longlive/communities';
 import {
   communityGroupsToChips,
   communityPlatformSectionId,
   communitySummary,
   suggestLinkSectionId,
 } from '@/lib/longlive/section-jump';
+import { CommunityCard } from './CommunityCard';
 import { SectionJumpBar, SuggestLinkBanner } from './SectionJumpBar';
 import { SubmitLinkForm } from './SubmitLinkForm';
 
-type VerificationStatus = Community['verification']['status'];
-
-const VERIFICATION_LABEL: Partial<Record<VerificationStatus, string>> = {
-  'third-party-cited': 'Reported by a third party — not independently verified',
-  'listed-only': 'Listed only — lowest confidence',
-  'blocked-unverified': 'Unconfirmed — platform blocks verification',
+/** Direction B's contribution to the approved design (Joey 2026-08-15):
+ *  one line of voice under each platform heading. Copy authored by the
+ *  orchestrator, not Joey — he may want to rewrite it. */
+const PLATFORM_STANDFIRST: Record<CommunityPlatform, string> = {
+  Discord: 'Where the fandom talks in real time. These servers never really go quiet.',
+  Reddit: 'Threads that run for days, and a comment section that does the research.',
+  Tumblr: 'Where the theories are born, in essay form, usually at 2am.',
+  Facebook: 'The long-running groups. Often the oldest rooms in the fandom.',
+  Forum: 'Old-school message boards, still going. Slower, deeper, properly archived.',
+  AO3: 'Fan fiction archived properly: tagged, sorted, and taken seriously.',
+  Wattpad: 'Stories written chapter by chapter, with an audience already waiting.',
+  Steam: 'An unlikely corner: Swifties gathering where the games are.',
 };
 
 export function CommunitySection() {
@@ -82,12 +90,21 @@ export function CommunitySection() {
         <div className="mt-8 space-y-10">
           {groups.map(([platform, communities]) => (
             <section key={platform} id={communityPlatformSectionId(platform)} aria-label={platform}>
-              <h2 className="text-sm font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)]">
-                {platform}
-              </h2>
-              <ul className="mt-3 grid grid-cols-1 items-start gap-5 md:grid-cols-2 md:gap-6">
-                {communities.map((c) => (
-                  <CommunityCard key={c.url} community={c} />
+              <div className="flex items-baseline gap-2.5">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)]">
+                  {platform}
+                </h2>
+                <span className="font-mono text-[11px] tabular-nums text-[color:var(--era-accent-2)]">
+                  {communities.length}
+                </span>
+                <span aria-hidden className="h-px flex-1 bg-[color:var(--era-line)]" />
+              </div>
+              <p className="mt-2 max-w-[54ch] text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+                {PLATFORM_STANDFIRST[platform]}
+              </p>
+              <ul className="mt-3 grid grid-cols-1 items-start gap-3 md:grid-cols-2 md:gap-4">
+                {communities.map((c, i) => (
+                  <CommunityCard key={c.url} community={c} featured={i === 0} />
                 ))}
               </ul>
             </section>
@@ -99,56 +116,5 @@ export function CommunitySection() {
         <SubmitLinkForm section="community" />
       </div>
     </div>
-  );
-}
-
-function CommunityCard({ community }: { community: Community }) {
-  const status = community.verification?.status;
-  const unverifiedLabel = status && status !== 'verified-live' ? VERIFICATION_LABEL[status] : undefined;
-  const flags = community.flags ?? [];
-
-  return (
-    <li className="era-card min-h-[44px] rounded-2xl border p-4">
-      <p className="text-sm font-semibold text-[color:var(--era-ink)]">{community.name}</p>
-      <p className="mt-0.5 text-xs uppercase tracking-wide text-[color:var(--era-ink-soft)]">
-        {community.niche}
-        {community.memberCount != null && ` · ${community.memberCount.toLocaleString()} members`}
-      </p>
-
-      <p className="mt-2.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{community.description}</p>
-
-      {flags.length > 0 && (
-        <div className="mt-2.5 rounded-lg border border-[color:var(--era-line)] bg-[color:var(--era-surface)] p-2.5">
-          <ul className="space-y-1">
-            {flags.map((flag, i) => (
-              <li key={i} className="flex items-start gap-1.5 text-xs leading-relaxed text-[color:var(--era-ink)]">
-                <AlertTriangle
-                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[color:var(--era-accent)]"
-                  aria-hidden="true"
-                />
-                {flag}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {unverifiedLabel && (
-        <p className="mt-2.5 flex items-start gap-1.5 text-xs text-[color:var(--era-ink-soft)]">
-          <ShieldQuestion className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-          {unverifiedLabel}
-        </p>
-      )}
-
-      <a
-        href={community.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-3 inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-[color:var(--era-accent)] underline-offset-2 hover:underline"
-      >
-        Visit
-        <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-      </a>
-    </li>
   );
 }
