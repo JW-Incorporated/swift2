@@ -26,7 +26,7 @@ Every run resolves each touched item to an outcome — `posted`, `retrying`, `fa
 {
   "platform": "x",
   "body": "post text, exactly as it will appear",
-  "media": ["/social/library/photos/taylor-red-tour-ford-field-2013.jpg"],
+  "media": ["/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg"],
   "mediaKind": "photo",
   "mediaCredit": "Photographer Name/Getty Images",
   "mediaSource": "https://example.com/where-this-came-from",

@@ -4360,4 +4360,51 @@ absence causes real pain.
 
 **Why:** Docs nobody maintains are worse than none; agents act on stale info.
 
+## 2026-08-15 — No rehosted third-party press photos, going forward; the Getty preview comps are gone from the served site
+
+**Decision:** the product no longer rehosts unlicensed third-party press
+photography as binary files under `apps/web/public/social/**`. Going forward,
+any editorial photograph of Taylor comes from one of two sources: (1) a
+properly licensed/CC-cleared image, credited and — where the license permits —
+rehosted locally, the same way `apps/web/lib/longlive/content-vault.generated.ts`
+already sources and license-captures Wikimedia and press imagery for the
+Vault; or (2) a hotlink to the source's own hosted URL, always with visible
+credit, never rehosted without a checked license. What is retired is the
+practice this repo had been running under the 2026-08-13 "knowing acceptance
+of infringement exposure" entry above: rehosting Getty's unauthenticated
+preview-comp thumbnails as local binaries and shipping them as our own asset.
+That acceptance is not revoked as a historical record of what was approved and
+why — it stands, unedited, above — but it no longer describes current
+practice.
+
+**What changed on this date:** the 12 Getty preview-comp images described in
+the 2026-08-13 entry above (`apps/web/public/social/library/photos/*.jpg`)
+were removed from HEAD. `social/posted/**` records that already shipped with
+one of these images keep their historical media path unchanged — they are an
+append-only ledger of what was actually posted, not a live index of files that
+must keep existing. Queued-but-unposted drafts referencing a removed photo
+were fixed in place (image-only carousels fell back to their remaining
+site-screen slide; image-less-capable X drafts had their media field cleared
+entirely; the one Instagram draft with no non-photo fallback was retired to
+`social/failed/` by hand, matching this repo's existing retirement pattern).
+One image already in that same directory, `taylor-lover-eras-minneapolis-2023.jpg`,
+is not a Getty preview comp — it is CC BY 2.0 (Michael Hicks, via Wikimedia
+Commons), already credited and sourced under the model this policy asks for —
+and was left in place and unchanged.
+
+**Why:** the exposure the 2026-08-13 entry knowingly accepted was never free;
+it was a bet the founders chose to hold rather than eliminate. The owner has
+now decided to stop making that bet going forward. Hotlinking with credit (or
+using cleared, license-captured images) gets the same visual coverage without
+asserting rights the product hasn't licensed.
+
+**Scope:** forward-looking only. This entry does not rewrite git history, does
+not retract the 2026-08-13 approval as a record of what was decided and by
+whom, and does not touch `social/posted/**`'s historical media references.
+Editorial-imagery licensing at large is still the 2026-07-09 entry's open
+question for IP counsel; this entry only closes the social-library rehosting
+practice going forward.
+
+**Approved by:** Joey
+
 **Approved by:** Joey
