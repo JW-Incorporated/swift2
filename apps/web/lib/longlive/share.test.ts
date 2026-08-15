@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   clownbotShareCopy,
+  communityShareCopy,
+  merchShareCopy,
   momentShareCopy,
   moodShareCopy,
   siteShareCopy,
@@ -129,6 +131,22 @@ describe('clownbotShareCopy', () => {
   });
 });
 
+describe('communityShareCopy', () => {
+  it('describes the fan-community directory, carries no user input (#2105)', () => {
+    const copy = communityShareCopy();
+    expect(copy.title).toContain('communities');
+    expect(copy.text).toContain('Long Live');
+  });
+});
+
+describe('merchShareCopy', () => {
+  it('describes the merch directory, carries no user input (#2105)', () => {
+    const copy = merchShareCopy();
+    expect(copy.title).toContain('Merch');
+    expect(copy.text).toContain('Long Live');
+  });
+});
+
 describe('topbarShareTarget', () => {
   it('shares the era in era mode', () => {
     expect(topbarShareTarget('era', 'tloas', null)).toEqual({ kind: 'era', eraId: 'tloas' });
@@ -156,11 +174,13 @@ describe('topbarShareTarget', () => {
     expect(topbarShareTarget('clownbot', 'tloas', null)).toEqual({ kind: 'clownbot' });
   });
 
-  it('returns null in community mode — no single "thing" to share yet', () => {
-    expect(topbarShareTarget('community', 'tloas', null)).toBeNull();
+  // #2105: Community and Merch are top-level tabs too, so they share the
+  // same destination-only shape as the other no-user-input surfaces.
+  it('shares the directory in community mode', () => {
+    expect(topbarShareTarget('community', 'tloas', null)).toEqual({ kind: 'community' });
   });
 
-  it('returns null in merch mode — no single "thing" to share yet', () => {
-    expect(topbarShareTarget('merch', 'tloas', null)).toBeNull();
+  it('shares the directory in merch mode', () => {
+    expect(topbarShareTarget('merch', 'tloas', null)).toEqual({ kind: 'merch' });
   });
 });

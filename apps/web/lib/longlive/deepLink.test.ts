@@ -39,8 +39,8 @@ describe('deepLinkTarget', () => {
     expect(deepLinkTarget('?theories=red', LENSES)).toEqual({ kind: 'theories', eraId: 'red' });
   });
 
-  // #2105 — Threads gallery, Mood, and Clownbot: each addresses a whole
-  // surface, not any user input on it.
+  // #2105 — Threads gallery, Mood, Clownbot, Community, and Merch: each
+  // addresses a whole surface, not any user input on it.
   it('routes ?mode=threads to the Threads gallery', () => {
     expect(deepLinkTarget('?mode=threads', LENSES)).toEqual({ kind: 'mode', mode: 'threads' });
   });
@@ -51,6 +51,14 @@ describe('deepLinkTarget', () => {
 
   it('routes ?mode=clownbot to Clownbot', () => {
     expect(deepLinkTarget('?mode=clownbot', LENSES)).toEqual({ kind: 'mode', mode: 'clownbot' });
+  });
+
+  it('routes ?mode=community to Community', () => {
+    expect(deepLinkTarget('?mode=community', LENSES)).toEqual({ kind: 'mode', mode: 'community' });
+  });
+
+  it('routes ?mode=merch to Merch', () => {
+    expect(deepLinkTarget('?mode=merch', LENSES)).toEqual({ kind: 'mode', mode: 'merch' });
   });
 
   it('ignores an unrecognized ?mode= value and falls through to era', () => {

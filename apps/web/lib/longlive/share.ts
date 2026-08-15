@@ -113,6 +113,31 @@ export function clownbotShareCopy(): ShareCopy {
 }
 
 /**
+ * Share copy for the Community directory — a curated list of fan
+ * communities, grouped by platform (CommunitySection.tsx). Carries no user
+ * input; the link just opens the directory (#2105).
+ */
+export function communityShareCopy(): ShareCopy {
+  return {
+    title: 'Fan communities — Long Live',
+    text: 'Where Swifties gather, grouped by platform and curated by hand — on Long Live.',
+  };
+}
+
+/**
+ * Share copy for the Merch directory — shop-the-look products pulled from
+ * real moments, plus the official store and fan-made finds; every link
+ * leaves the site, nothing checks out here (MerchSection.tsx). Carries no
+ * user input; the link just opens the directory (#2105).
+ */
+export function merchShareCopy(): ShareCopy {
+  return {
+    title: 'Merch — Long Live',
+    text: 'Shop the look from real moments, plus the official store and fan-made finds — on Long Live.',
+  };
+}
+
+/**
  * What the top bar's Share button shares in each navigation state.
  *
  * Mood and Clownbot (#2105): the target addresses the SURFACE, never the
@@ -124,10 +149,9 @@ export function clownbotShareCopy(): ShareCopy {
  * Threads gallery (#2105): shares the gallery itself when no thread is open.
  * An open thread still shares that specific thread (the `lens` branch below).
  *
- * Community and Merch still return null — both are curated directory pages,
- * not a single "thing" to share yet. The button stays rendered-but-disabled
- * there: if the actions group ever changes width between states, the mode
- * toggle shifts (#453).
+ * Community and Merch (#2105): each shares its directory as a destination,
+ * same shape as Mood and Clownbot — neither takes user input at all, so
+ * there is nothing to guard, just a surface to address.
  */
 export function topbarShareTarget(
   mode: 'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch',
@@ -136,8 +160,8 @@ export function topbarShareTarget(
 ): ShareTarget | null {
   if (mode === 'mood') return { kind: 'mood' };
   if (mode === 'clownbot') return { kind: 'clownbot' };
-  if (mode === 'community') return null;
-  if (mode === 'merch') return null;
+  if (mode === 'community') return { kind: 'community' };
+  if (mode === 'merch') return { kind: 'merch' };
   if (mode === 'era') return { kind: 'era', eraId };
   if (lensId != null) return { kind: 'lens', lensId };
   if (mode === 'threads') return { kind: 'threads' };

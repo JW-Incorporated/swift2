@@ -135,10 +135,14 @@ export type ShareTarget =
   | { kind: 'site' }
   // #2105 — the Threads gallery, Mood, and Clownbot are each shareable as a
   // destination (the surface itself, empty and ready), never as whatever a
-  // reader typed there — see topbarShareTarget's JSDoc for why.
+  // reader typed there — see topbarShareTarget's JSDoc for why. Community and
+  // Merch take no user input at all, but share the same destination-only
+  // shape for consistency with the other three.
   | { kind: 'threads' }
   | { kind: 'mood' }
-  | { kind: 'clownbot' };
+  | { kind: 'clownbot' }
+  | { kind: 'community' }
+  | { kind: 'merch' };
 
 /**
  * A saved position in the era stream, captured when the user leaves era mode
@@ -597,9 +601,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     } else if (target.kind === 'lens') {
       openThread(target.id as LensId);
     } else if (target.kind === 'mode') {
-      // Threads gallery / Mood / Clownbot: land on the bare surface — every
-      // other piece of state is still at its fresh-load default this early
-      // in mount, so setting the mode alone is enough (#2105).
+      // Threads gallery / Mood / Clownbot / Community / Merch: land on the
+      // bare surface — every other piece of state is still at its
+      // fresh-load default this early in mount, so setting the mode alone
+      // is enough (#2105).
       setModeRaw(target.mode);
     } else {
       setEra(target.id as EraId);
