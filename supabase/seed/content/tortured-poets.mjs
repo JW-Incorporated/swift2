@@ -2931,6 +2931,20 @@ export default {
             kind: 'archival',
             focalPoint: '53% 26%',
           },
+          // Photo Enrichment lane (Vault Run 2026-08-15): a second, distinct
+          // image — the "Fortnight" performance on the Eras Tour's Tortured
+          // Poets set, the song the Record/Song-of-the-Year nods honored. The
+          // prior "deliberately one photo" note rejected a bad collage; this is
+          // a good, on-song second. Commons file (Vixy13, CC BY 4.0); curl 200
+          // image/jpeg, 500px thumb downloaded and vision-confirmed (white
+          // staircase set, white looks, starlit backdrop).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
+            focalPoint: '50% 22%',
+            credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
+            caption: 'Performing "Fortnight" on the Eras Tour\'s Tortured Poets set — the album\'s lead single, up for both Record and Song of the Year.',
+            kind: 'archival',
+          },
         ],
       },
     },
