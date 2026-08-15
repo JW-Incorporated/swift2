@@ -5,45 +5,68 @@
 
 ## Current focus
 
-**Nothing in flight.** Everything opened 2026-08-15 is merged to `main`:
-era-reader device fixes, the Karen watchdog alarm repair, the `guard-code`
-verdict fix, **#2140** (bottom nav labels: icon-only threshold 5→7, labels
-11px→10px — six LABELLED tabs) and **#2141** (the two self-limiting
-verification checks below). `main` is at `1cd5e00e`+.
+**Joey's 12-item punch list (2026-08-15). 9 of 12 MERGED, 1 in flight, 2 on
+him.** Sequenced in waves because items 7–12 all touch `MerchSection.tsx` /
+`CommunitySection.tsx` / `SectionJumpBar.tsx` — parallel agents there collide.
 
-**#2141 fires tomorrow and Check 1 is EXPECTED to alarm.** Two steps in
-`watchdog.yml`, both `if: (!cancelled()) && (…'35 14 * * *')` so an unrelated
-earlier failure cannot silently skip them — the exact bug the Karen alarm
-repair fixed, so never "simplify" them to a plain `if:`. Check 1
-(`karen-post-repair-check.mjs`): Karen has not run since 2026-08-09 and the
-newest report in her directory was committed by the photo-enrichment PR, not
-by her — **an alert tomorrow means "still not enabled", not a bug.** Check 2
-(`news-worker-rotation-check.mjs`): first news-worker run after the
-SUPABASE_SERVICE_ROLE_KEY rotation; reads logs only if that run failed. **Both
-self-close 2026-08-22** (`WINDOW_END`); removal = delete the two steps or the
-two `.mjs` files.
+Merged: **#1** Eras filters centered (#2147) · **#4** scrubber-less thread
+alignment, fixes ALL FIVE `NO_SCRUBBER_THREADS` (#2151) · **#2/#3** hero credit
+made quiet, gap tightened (#2151) · **#5** End Game beats open MomentDetail,
+17/17 (#2148) · **#8** "We found something similar" + inline `altNote` (#2150)
+· **#11** Turnstile spam gate, INERT until keys (#2149). Plus #2146 depth port.
+
+In flight: **#9/#10/#12** — `fix/merch-community-filter-ux` (one-line scrolling
+chip rows, prominent suggest-a-link).
+
+On Joey: **#6** three Community design directions delivered as a mockup
+(scratchpad `community-mockup.html`) — he picks A/B/C and owes 8 platform
+standfirst lines. **#7** merch product images — feasibility PROVEN, see below.
+
+**#7 is unblocked and ready to scope.** Shopify's open `/products/<handle>.json`
+returns official images with no auth: **65 of 156 confirmed**, 60–70% likely.
+**I verified the hotlink question in a real browser** — a `cdn.shopify.com`
+image loaded cross-origin from `www.longlivets.com` at 1345×1820, NOT a
+placeholder. The remaining ~35% (Amazon, Nordstrom, LV, Tiffany, SSENSE,
+Revolve, Skims, Fashion Nova, Showpo, Reformation, Tecovas) have no such
+endpoint. Recommended: extend `scripts/content-engine/product-liveness.mjs` to
+capture `images[0].src` in its existing pass; fall back to the current moment
+photo LABELLED so it does not pose as a product shot. `Product` has NO image
+field today — this needs a schema change.
+
+**#2141's two watchdog checks fire daily and Check 1 is EXPECTED to alarm** —
+Karen has not run since 2026-08-09, so an alert means "still not enabled", NOT a
+broken check. Both steps use `if: (!cancelled()) && (…'35 14 * * *')` so an
+unrelated earlier failure cannot silently skip them — that was the exact bug the
+Karen alarm repair fixed, so **never "simplify" them to a plain `if:`**. Both
+self-close 2026-08-22 (`WINDOW_END`); removal = delete the two steps or the two
+`scripts/watchdog/*-check.mjs` files.
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
-- **PR #2116 (`feature/community-social-merch`) is CONFLICTING with main** and
-  is checked out in ANOTHER session's worktree. Not safe to land from here —
-  rebase it from the session that owns it, or after that worktree is gone.
-- **#2110 merged with three questions still unanswered.** Joey deferred them;
-  merging did not resolve them. (1) **Instagram + TikTok** — item 4b names both,
-  the brief omitted them; different shape (creator accounts, not joinable
-  groups), so scope was not widened unilaterally. (2) **Who owns the refresh
-  cadence** — invites rotate, groups go private; accurate 2026-08-14, decays
-  from there. (3) Ratify or veto excluding **`r/TravisAndTaylor`** as an
-  anti-fan snark board; `r/GaylorSwift` kept but flagged private since Aug 2025.
-- **Watchdog alerts still @-mention `@wjduvall-cmd`. Wyatt has left the
-  project** (Joey, 2026-08-14: "Wyatt is no longer working on the project").
-  Every alert pings a departed founder. RAISED, not fixed — it wants one sweep
-  across `watchdog.yml`, not a half-fix in the two newest steps.
-- **Wyatt's five formerly-owned items are now unowned** — Clownbot's model tier
-  (`claude-sonnet-5`, one named constant), the 200/day/instance cap, ratifying
-  the Mood route pattern, signing the Clownbot decisions entry, and the era
-  reader's bottom nav (overrides `docs/specs/2026-08-13-landing-page-brief.md`
-  §3.2/D3). **All five are Joey's call now, or they die unratified.**
+- **PR #2116 is CLOSED unmerged** — its depth work landed as #2146; its
+  merge-Merch-into-Community half was superseded by #2140's threshold change.
+  **Joey's ruling: SIX separate tabs, device-confirmed. Never re-raise the
+  merge.**
+- **CC BY / CC BY-SA credits were NOT deleted, deliberately.** Joey's items
+  #2/#3 asked to "get rid of" the Michael Hicks and Sally-Marie Böhm photo
+  credits. Visible attribution is a LICENCE CONDITION (`lenses.ts:44-58`,
+  `ThreadsMode.tsx:298-301`, `docs/decisions.md` 2026-08-15), and no
+  attributions page exists as a fallback. #2151 fixed the real complaint —
+  10px, muted, no default underline, `mt-5`→`mt-1.5`, conditional header
+  padding. **Full removal needs Joey's EXPLICIT call; it is a licence breach,
+  not a style preference.** He was told and has not yet answered.
+- **`Product` has no image field** — merch cards derive from the source
+  MOMENT's photo (150/156) or a monogram tile (6). That is why Joey called the
+  images "weird". A UI change cannot fix it; see § Current focus for the path.
+- **#2110's three questions are still unanswered** (Joey deferred, merging did
+  not resolve): Instagram + TikTok in or out; who owns refresh cadence as
+  invites rotate; ratify/veto excluding `r/TravisAndTaylor`. See
+  `HUMAN-ACTIONS.md` #7.
+- **Wyatt's five formerly-owned items are unowned** — Clownbot model tier, the
+  200/day cap, the Mood route pattern, signing the Clownbot decisions entry, and
+  the bottom nav overriding the landing-page brief §3.2/D3. `HUMAN-ACTIONS.md`
+  #5. **He retains account access** (see that file's #1) — he is simply not
+  working on this project. #2144 removed him from alert pings.
 - **`tb-priv-02` is a documented, tested gap** — sexuality speculation with no
   orientation token cannot be caught deterministically without also refusing
   "what is track five on Midnights really about?". Do not "fix" it with a regex
@@ -74,9 +97,22 @@ and ruled. Note it in a PR body if it matters; do not put it in chat again.
 - Did NOT strip `@wjduvall-cmd` from ownership-routing or bot-identity sites in
   the same PR as the notification sweep — those change behaviour, and runners
   execute on Wyatt's account. Split, with the risky half reported not guessed.
-- `auto-merge-content.yml` is landing UI CODE PRs, not just content (#2140 went
-  in unattended). Correct per its own guard, which only blocks server-executing
-  and secret-reading files. **Flagged to Joey; tightening is his call.**
+- `auto-merge-content.yml` is landing UI CODE PRs, not just content (#2140,
+  #2147, #2148 went in unattended). Correct per its own guard, which only blocks
+  server-executing and secret-reading files. **Flagged to Joey; his call.**
+- **Refused to delete the CC credits** (#2/#3) and shipped the quiet version
+  instead. Licence conditions are not mine to waive; told him plainly it needs
+  his explicit ruling.
+- Sequenced the 12-item punch list in WAVES rather than dispatching 12 agents,
+  because items 7–12 share three files. Research agents ran read-only in
+  parallel; only one writer per contended file at a time.
+- Chose the approach for #12 rather than asking ("not sure how to address this,
+  see if you can figure something out"): single-line scrolling strips with edge
+  fade, not multi-row wrapping.
+- **Called #5 broken, then corrected within the same turn.** The browser tool's
+  coordinates are in screenshot px while the page is 2048 CSS px at dpr 1.25, so
+  my clicks delivered zero events. See § Known traps — this is the second time a
+  tooling artifact nearly became a bug report.
 
 ## Architect invocations
 
@@ -97,6 +133,29 @@ and ruled. Note it in a PR body if it matters; do not put it in chat again.
 
 ## Known traps
 
+- **Centering a SCROLLABLE row needs `safe center`, never plain `justify-center`.**
+  `flex-nowrap` + `overflow-x-auto` + `justify-center` pushes overflow past BOTH
+  edges and the left part becomes permanently unreachable — a scroll container
+  cannot scroll negative. Caught before merge on the Eras chips (they overflow
+  ~440px into ~344px at 360px). Use Tailwind `[justify-content:safe_center]`;
+  `FilterBar.tsx` is the reference.
+- **THIS REPO HAS NO COMPONENT-RENDER TEST HARNESS.** `vitest.config.ts` is
+  `environment: 'node'`, no jsdom/RTL, and the glob only matches `*.test.ts`,
+  never `.tsx`. Every "interaction test" here is a STATIC SOURCE-LOCK
+  (`close-affordance.test.ts`, `scrubber-nested-interactive.test.ts`). **A green
+  suite therefore cannot prove a click works** — only a browser can. #2150 added
+  a `@` → `apps/web` alias to `vitest.config.ts` and used
+  `renderToStaticMarkup`, which is the closest thing available.
+- **The browser tool's click coordinates are in SCREENSHOT pixels, not page CSS
+  pixels.** This machine reports `devicePixelRatio: 1.25` with `innerWidth:
+  2048` while screenshots come back 1568 wide, so coordinates computed from
+  `getBoundingClientRect()` land nowhere and deliver ZERO events — not even
+  `mousedown` on `document`. `resize_window` also reports success while the page
+  keeps rendering desktop. **This cost a false "the feature is broken" call on
+  #5.** Diagnostic that settles it: if a programmatic `.click()` works and a
+  synthetic mouse click produces no `mousedown` anywhere, it is the TOOL. Prefer
+  a real dev server + Playwright (an agent did this correctly on port 3007) over
+  the in-session browser for click verification.
 - **A passing suite is not evidence; EXECUTION against the real corpus is.**
   Every genuine defect this week came from running the pipeline over live data,
   never from reading code — each time 2600+ green tests had made us confident
@@ -173,15 +232,23 @@ and ruled. Note it in a PR body if it matters; do not put it in chat again.
 
 ## Next obvious step
 
-1. **Await tomorrow's watchdog run** — Check 1 should alarm (Karen still not
+1. **Verify and merge `fix/merch-community-filter-ux` (#9/#10/#12)** — the last
+   build item. Check its 360px proof that the FIRST chip is reachable at
+   `scrollLeft = 0`; that is the safe-center regression and a green suite cannot
+   see it.
+2. **#7 merch product images** — scope it from § Current focus. Schema change +
+   extend `product-liveness.mjs`. Feasibility and hotlinking are already proven;
+   do not re-litigate them.
+3. **#6 Community redesign** — blocked on Joey choosing A/B/C and writing 8
+   platform standfirst lines. Recommendation on record: A (Signal Board) with
+   B's chapter headings.
+4. **Await tomorrow's watchdog run** — Check 1 should alarm (Karen still not
    enabled); Check 2 reports the first post-rotation news-worker run. Neither
    needs a session babysitting it; read the alert when it lands.
-2. **PR from the departed-founder notification sweep** — verify and merge.
-3. **#2116 Community + Merch is CONFLICTING** and lives in another session's
-   worktree. Rebase from there; do not fight it from this checkout.
-4. Real-device check of the six LABELLED bottom-nav tabs (threshold 7, 10px)
-   at 360px and 390px. Code-correct and green tests are not a device check.
-5. Joey's hands, not mine: the three #2110 questions, the five formerly-Wyatt
-   items, whether `auto-merge-content` should stop auto-landing UI code, and
-   the Apps Script / Resend / env setup in
-   `docs/ops/community-merch-submissions.md`.
+5. **UNCONFIRMED, worth a look:** Escape appeared not to close the MomentDetail
+   overlay during testing. Observed while the browser tool was misbehaving, so
+   treat as a lead, NOT a finding — reproduce before filing.
+6. Joey's hands, not mine: the credits ruling (§ Blocking), #6's choice, the
+   three #2110 questions, the five decisions that lost their owner, whether
+   `auto-merge-content` should stop auto-landing UI code, and the Turnstile keys
+   (`HUMAN-ACTIONS.md` #8).
