@@ -80,34 +80,66 @@ export function siteShareCopy(): ShareCopy {
 }
 
 /**
- * What the top bar's Share button shares in each navigation state. Returns
- * null in threads mode with no thread open — the plain gallery AND the
- * crossing overlay (openCrossing clears lensId) — because no share copy is
- * defined for either state (#492; whether they get their own ShareTarget
- * kind is Joey's call). The button must still RENDER there, just disabled:
- * if the actions group ever changes width between states, the mode toggle
- * shifts (#453).
+ * Share copy for the Threads landing gallery — as distinct from any one
+ * open thread, which uses momentShareCopy's sibling `lens` target (#2105).
+ */
+export function threadsGalleryShareCopy(): ShareCopy {
+  return {
+    title: 'The Threads — Long Live',
+    text: 'Eras move forward in time. Threads cut sideways, following one story through every chapter — on Long Live.',
+  };
+}
+
+/**
+ * Share copy for Mood as a destination — never a transcript. See
+ * topbarShareTarget's JSDoc for why the target carries no user input.
+ */
+export function moodShareCopy(): ShareCopy {
+  return {
+    title: 'Mood — Long Live',
+    text: "Tell it how you're feeling, get back the Taylor songs that fit — on Long Live.",
+  };
+}
+
+/**
+ * Share copy for Clownbot as a destination — never a transcript. See
+ * topbarShareTarget's JSDoc for why the target carries no user input.
+ */
+export function clownbotShareCopy(): ShareCopy {
+  return {
+    title: 'Clownbot — Long Live',
+    text: 'An unhinged, permanently-online superfan you can chat with, right on Long Live.',
+  };
+}
+
+/**
+ * What the top bar's Share button shares in each navigation state.
+ *
+ * Mood and Clownbot (#2105): the target addresses the SURFACE, never the
+ * conversation — the only thing that distinguishes one reader's view from
+ * another's is what they typed, and that is exactly the thing this feature
+ * promises never to persist or transmit. A shared link opens the surface
+ * empty and ready; it carries no user input at all.
+ *
+ * Threads gallery (#2105): shares the gallery itself when no thread is open.
+ * An open thread still shares that specific thread (the `lens` branch below).
+ *
+ * Community and Merch still return null — both are curated directory pages,
+ * not a single "thing" to share yet. The button stays rendered-but-disabled
+ * there: if the actions group ever changes width between states, the mode
+ * toggle shifts (#453).
  */
 export function topbarShareTarget(
   mode: 'era' | 'threads' | 'mood' | 'clownbot' | 'community' | 'merch',
   eraId: EraId,
   lensId: LensId | null,
 ): ShareTarget | null {
-  // Mood chat has no shareable target by design: the only thing that
-  // distinguishes one reader's view from another's is what they typed, and
-  // that is exactly the thing this feature promises never to persist or
-  // transmit. Share stays rendered-but-disabled, same as the thread gallery.
-  if (mode === 'mood') return null;
-  // Clownbot: same reasoning as Mood. The only thing distinguishing one
-  // reader's view is what they typed, and that is exactly what this surface
-  // promises never to persist or transmit.
-  if (mode === 'clownbot') return null;
-  // Community and Merch have no shareable target yet — both are curated
-  // directory pages, not a single "thing" to share. Rendered-but-disabled,
-  // same as the other no-target modes.
+  if (mode === 'mood') return { kind: 'mood' };
+  if (mode === 'clownbot') return { kind: 'clownbot' };
   if (mode === 'community') return null;
   if (mode === 'merch') return null;
   if (mode === 'era') return { kind: 'era', eraId };
   if (lensId != null) return { kind: 'lens', lensId };
+  if (mode === 'threads') return { kind: 'threads' };
   return null;
 }

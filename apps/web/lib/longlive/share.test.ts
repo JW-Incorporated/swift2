@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import {
+  clownbotShareCopy,
   momentShareCopy,
+  moodShareCopy,
   siteShareCopy,
   theoryGuideShareCopy,
+  threadsGalleryShareCopy,
   topbarShareTarget,
   trackGuideShareCopy,
   trackShareCopy,
@@ -102,6 +105,30 @@ describe('siteShareCopy', () => {
   });
 });
 
+describe('threadsGalleryShareCopy', () => {
+  it('describes the gallery, not any one thread (#2105)', () => {
+    const copy = threadsGalleryShareCopy();
+    expect(copy.title).toContain('Threads');
+    expect(copy.text).toContain('Long Live');
+  });
+});
+
+describe('moodShareCopy', () => {
+  it('describes the surface, carries no user input (#2105)', () => {
+    const copy = moodShareCopy();
+    expect(copy.title).toContain('Mood');
+    expect(copy.text).toContain('Long Live');
+  });
+});
+
+describe('clownbotShareCopy', () => {
+  it('describes the surface, carries no user input (#2105)', () => {
+    const copy = clownbotShareCopy();
+    expect(copy.title).toContain('Clownbot');
+    expect(copy.text).toContain('Long Live');
+  });
+});
+
 describe('topbarShareTarget', () => {
   it('shares the era in era mode', () => {
     expect(topbarShareTarget('era', 'tloas', null)).toEqual({ kind: 'era', eraId: 'tloas' });
@@ -114,16 +141,26 @@ describe('topbarShareTarget', () => {
     });
   });
 
-  // #492: null = render the button disabled, never hide it (see the JSDoc).
-  it('returns null in threads mode with no thread open (gallery or crossing)', () => {
-    expect(topbarShareTarget('threads', 'tloas', null)).toBeNull();
+  // #2105: the gallery itself is now a real target, not a disabled button.
+  it('shares the gallery in threads mode with no thread open', () => {
+    expect(topbarShareTarget('threads', 'tloas', null)).toEqual({ kind: 'threads' });
   });
 
-  it('returns null in community mode, same as mood and clownbot', () => {
+  // #2105: Mood and Clownbot share the surface as a destination — never the
+  // conversation, so the target carries no user input at all.
+  it('shares the surface (not the conversation) in mood mode', () => {
+    expect(topbarShareTarget('mood', 'tloas', null)).toEqual({ kind: 'mood' });
+  });
+
+  it('shares the surface (not the conversation) in clownbot mode', () => {
+    expect(topbarShareTarget('clownbot', 'tloas', null)).toEqual({ kind: 'clownbot' });
+  });
+
+  it('returns null in community mode — no single "thing" to share yet', () => {
     expect(topbarShareTarget('community', 'tloas', null)).toBeNull();
   });
 
-  it('returns null in merch mode, same as mood and clownbot', () => {
+  it('returns null in merch mode — no single "thing" to share yet', () => {
     expect(topbarShareTarget('merch', 'tloas', null)).toBeNull();
   });
 });
