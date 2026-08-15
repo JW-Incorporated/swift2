@@ -14,6 +14,7 @@
  * Pure and deterministic: same items in, same `FallbackAnswer` out. No
  * `Date.now()`, no randomness, no network.
  */
+import type { ClownDoc } from './clown-index';
 
 /** How resolved a retrieved claim is. Mirrors `LoreStatus` (clownbot-lore.ts)
  * and the vault theory corpus's `outcome` field — the two things
@@ -111,10 +112,31 @@ function formatSources(sources: ItemSource[]): string {
   return sources.map((s) => s.name).join(', ');
 }
 
-function formatItem(item: RetrievedItem): string {
+/** Exported so `clown-safety.ts` can recognise a stored fallback answer's
+ * item lines on re-screen (`isFallbackAnswerText`) using the exact same
+ * formatting this composer uses — never a re-implementation that could
+ * silently drift from what real fallback text actually looks like. */
+export function formatItem(item: RetrievedItem): string {
   const prefix = STATUS_PREFIX[item.status];
   const attribution = item.sources.length > 0 ? `${formatSources(item.sources)}, ${item.date}` : item.date;
   return `${prefix}: ${item.headline}. ${item.detail} (${attribution})`;
+}
+
+/** `ClownDoc` -> `RetrievedItem`. `status` maps straight across — it is the
+ * honesty label the source corpus already assigned; it is never re-derived
+ * from `open` or anything else here. Single source of truth for both the
+ * route (building the retrieval set the composer runs on) and
+ * `clown-safety.ts` (recognising self-authored fallback lines on re-screen)
+ * — moved here from `route.ts` so neither has to duplicate the mapping. */
+export function docToRetrievedItem(doc: ClownDoc): RetrievedItem {
+  return {
+    id: doc.id,
+    headline: doc.title,
+    detail: doc.text,
+    status: doc.status,
+    date: doc.date ?? doc.recencyDate ?? 'undated',
+    sources: doc.sources,
+  };
 }
 
 /**

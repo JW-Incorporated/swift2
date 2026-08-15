@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 
-import { allClownDocs, type ClownDoc } from '../../../lib/longlive/clown-index';
+import { allClownDocs } from '../../../lib/longlive/clown-index';
 import { retrieveClownDocs } from '../../../lib/longlive/clown-retrieve';
 import { crisisCheck, refusal, screenConversation, screenInput } from '../../../lib/longlive/clown-safety';
 import { askClown, MAX_TRANSCRIPT_TURNS, type ClownTurn } from '../../../lib/longlive/clown-client';
 import { clownUsage } from '../../../lib/longlive/clown-usage';
 import { screenClownTake } from '../../../lib/longlive/clown-gate';
 import { resolveTheoryName } from '../../../lib/longlive/clown-names';
-import { composeFallback, type RetrievedItem } from '../../../lib/longlive/clown-fallback';
+import { composeFallback, docToRetrievedItem, type RetrievedItem } from '../../../lib/longlive/clown-fallback';
 import { answerFromFallback, answerFromTake, type ClownAnswer } from '../../../lib/longlive/clown-answer';
 
 // Clownbot (build B) — the API route. PLAN.md Step 8.
@@ -89,20 +89,6 @@ function clientIp(req: Request): string {
     req.headers.get('x-real-ip') ||
     'unknown'
   );
-}
-
-/** `ClownDoc` -> `RetrievedItem`. `status` maps straight across — it is the
- * honesty label the source corpus already assigned; it is never re-derived
- * from `open` or anything else here. */
-function docToRetrievedItem(doc: ClownDoc): RetrievedItem {
-  return {
-    id: doc.id,
-    headline: doc.title,
-    detail: doc.text,
-    status: doc.status,
-    date: doc.date ?? doc.recencyDate ?? 'undated',
-    sources: doc.sources,
-  };
 }
 
 interface RawTurn {
