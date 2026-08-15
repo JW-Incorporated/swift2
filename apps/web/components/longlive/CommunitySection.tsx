@@ -37,11 +37,23 @@
  * renders that grouping.
  */
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AlertTriangle, ExternalLink, ShieldQuestion } from 'lucide-react';
-import { communitiesByPlatform, type Community } from '@/lib/longlive/communities';
+import { COMMUNITIES, communitiesByPlatform, type Community } from '@/lib/longlive/communities';
+import { getEra } from '@/lib/longlive/eras';
+import { MERCH_CATALOGUE } from '@/lib/longlive/merch';
+import { merchByEra } from '@/lib/longlive/merch-filters';
+import {
+  communityGroupsToChips,
+  communityPlatformSectionId,
+  communitySummary,
+  merchGroupsToChips,
+  merchSummary,
+  suggestLinkSectionId,
+} from '@/lib/longlive/section-jump';
 import { useAppActions, useAppState, type CommunityTab } from '@/lib/longlive/store';
 import { SegmentedToggle, type SegmentedToggleOption } from './SegmentedToggle';
+import { SectionJumpBar } from './SectionJumpBar';
 import { SubmitLinkForm } from './SubmitLinkForm';
 import { MerchSection } from './MerchSection';
 
@@ -86,6 +98,23 @@ export function CommunitySection() {
   const [railVisible, setRailVisible] = useState(false);
   const topbarHeight = useTopbarHeight();
 
+  // Compact-rail jump-chip data for both panes, computed here once (the
+  // rail is CommunitySection's own, not either pane's) from the same pure
+  // helpers each pane uses for its own rest-state bar — see section-jump.ts.
+  const socialChips = useMemo(() => communityGroupsToChips(communitiesByPlatform()), []);
+  const socialSummaryText = useMemo(
+    () => communitySummary(COMMUNITIES.length, socialChips.length),
+    [socialChips.length],
+  );
+  const merchChips = useMemo(
+    () => merchGroupsToChips(merchByEra(), (eraId) => getEra(eraId).theme.accent),
+    [],
+  );
+  const merchSummaryText = useMemo(
+    () => merchSummary(MERCH_CATALOGUE.shopTheLook.length, merchChips.length),
+    [merchChips.length],
+  );
+
   // The rail appears exactly when the big toggle scrolls out from under the
   // TopBar — never while it's still visible (never two toggles on screen).
   useEffect(() => {
@@ -115,8 +144,25 @@ export function CommunitySection() {
             onChange={setCommunityTab}
             className="w-auto max-w-[180px] shrink-0"
           />
-          {/* PLAN.md step 3: the active pane's jump chips mount here. */}
-          <div className="min-w-0 flex-1 overflow-hidden" data-ll-jump-chips-slot />
+          <div data-ll-jump-chips-slot className="min-w-0 flex-1 overflow-hidden">
+            {tab === 'merch' ? (
+              <SectionJumpBar
+                ariaLabel="Jump to merch era"
+                variant="compact"
+                summary={merchSummaryText}
+                chips={merchChips}
+                suggestChip={{ id: suggestLinkSectionId('merch'), label: '+ Suggest a link' }}
+              />
+            ) : (
+              <SectionJumpBar
+                ariaLabel="Jump to platform"
+                variant="compact"
+                summary={socialSummaryText}
+                chips={socialChips}
+                suggestChip={{ id: suggestLinkSectionId('community'), label: '+ Suggest a link' }}
+              />
+            )}
+          </div>
         </div>
       )}
 
@@ -142,6 +188,8 @@ export function CommunitySection() {
 
 function SocialPane() {
   const groups = Array.from(communitiesByPlatform());
+  const chips = useMemo(() => communityGroupsToChips(groups), [groups]);
+  const summaryText = communitySummary(COMMUNITIES.length, chips.length);
 
   return (
     <>
@@ -150,12 +198,24 @@ function SocialPane() {
         not all at once.
       </p>
 
+      {chips.length > 0 && (
+        <div className="mt-6">
+          <SectionJumpBar
+            ariaLabel="Jump to platform"
+            variant="rest"
+            summary={summaryText}
+            chips={chips}
+            suggestChip={{ id: suggestLinkSectionId('community'), label: '+ Suggest a link' }}
+          />
+        </div>
+      )}
+
       {groups.length === 0 ? (
         <p className="mt-8 text-sm text-[color:var(--era-ink-soft)]">Nothing listed yet — check back soon.</p>
       ) : (
         <div className="mt-8 space-y-10">
           {groups.map(([platform, communities]) => (
-            <section key={platform} aria-label={platform}>
+            <section key={platform} id={communityPlatformSectionId(platform)} aria-label={platform}>
               <h2 className="text-sm font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)]">
                 {platform}
               </h2>
@@ -169,7 +229,9 @@ function SocialPane() {
         </div>
       )}
 
-      <SubmitLinkForm section="community" />
+      <div id={suggestLinkSectionId('community')}>
+        <SubmitLinkForm section="community" />
+      </div>
     </>
   );
 }

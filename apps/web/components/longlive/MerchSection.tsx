@@ -33,6 +33,7 @@ import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
+import { getEra } from '@/lib/longlive/eras';
 import { buildShopUrl, isAffiliate, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { MERCH_CATALOGUE, type MerchCategory, type MerchItem } from '@/lib/longlive/merch';
 import {
@@ -43,7 +44,9 @@ import {
   MERCH_FILTER_LABEL,
   type MerchFilterId,
 } from '@/lib/longlive/merch-filters';
+import { merchEraSectionId, merchGroupsToChips, merchSummary, suggestLinkSectionId } from '@/lib/longlive/section-jump';
 import { FilterChipRow, type ChipDef } from '@/lib/longlive/filter-chips';
+import { SectionJumpBar } from './SectionJumpBar';
 import { SubmitLinkForm } from './SubmitLinkForm';
 
 const CATEGORY_LABEL: Record<MerchCategory, string> = {
@@ -101,6 +104,18 @@ export function MerchSection() {
   // section without making it vanish (below).
   const totalGroups = useMemo(() => merchByEra(visibleItems), [visibleItems]);
 
+  // The jump bar's own preview of depth — always the FULL catalogue,
+  // independent of the source/stock/price filters above (an index shows
+  // total depth, not the currently filtered view; today there's only one
+  // non-empty source bucket so the two agree in practice). Matches the
+  // baseline CommunitySection's compact rail computes for this same pane.
+  const jumpGroups = useMemo(() => merchByEra(), []);
+  const jumpChips = useMemo(
+    () => merchGroupsToChips(jumpGroups, (eraId) => getEra(eraId).theme.accent),
+    [jumpGroups],
+  );
+  const jumpSummaryText = merchSummary(MERCH_CATALOGUE.shopTheLook.length, jumpChips.length);
+
   const filteredByEra = useMemo(() => {
     const filteredItems = visibleItems.filter((item) => merchMatchesFilter(item, activeFilters));
     return new Map(merchByEra(filteredItems).map((g) => [g.eraId, g]));
@@ -114,6 +129,18 @@ export function MerchSection() {
       <p className="max-w-2xl text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
         Every link here sends you to buy elsewhere — nothing checks out on this site.
       </p>
+
+      {jumpChips.length > 0 && (
+        <div className="mt-6">
+          <SectionJumpBar
+            ariaLabel="Jump to merch era"
+            variant="rest"
+            summary={jumpSummaryText}
+            chips={jumpChips}
+            suggestChip={{ id: suggestLinkSectionId('merch'), label: '+ Suggest a link' }}
+          />
+        </div>
+      )}
 
       {nonEmptyCategories.length >= 2 && (
         <div className="mt-6">
@@ -149,7 +176,7 @@ export function MerchSection() {
             const filteredGroup = filteredByEra.get(group.eraId);
             const matchCount = filteredGroup?.items.length ?? 0;
             return (
-              <section key={group.eraId} aria-label={group.eraLabel}>
+              <section key={group.eraId} id={merchEraSectionId(group.eraId)} aria-label={group.eraLabel}>
                 <h2 className="text-sm font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)]">
                   {group.eraLabel}
                 </h2>
@@ -177,7 +204,9 @@ export function MerchSection() {
         </p>
       )}
 
-      <SubmitLinkForm section="merch" />
+      <div id={suggestLinkSectionId('merch')}>
+        <SubmitLinkForm section="merch" />
+      </div>
     </>
   );
 }
