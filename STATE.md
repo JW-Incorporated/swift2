@@ -13,24 +13,24 @@ design spec and the steps.** **ALL FIVE STEPS BUILT** — `bcc8f39e` shell,
 stage. Browser-measured: **150 `<img>` / 6 monogram**, rail 44px, toggle and
 rail never co-visible, era order newest-first, no source row (buckets empty).
 
-**ROUND 1 REJECT → all 4 fixed at `1e92771b` (2927/2927, typecheck clean, copy
-now "156 pieces"). ROUND 2 RUNNING — THE LAST**; anything unresolved after it
-ships as a named open finding in the PR body, never a third round. The MEDIUM
-was **mine**: "156 shoppable **looks**" — the PRODUCT-vs-MOMENT conflation
-`docs/engineering-lessons.md` warns about, leaked from my plan into user copy.
-**Kept 156, changed the noun** — 156 is what renders as cards, so the true 151
-would contradict the screen. **Round 1 cleared `FilterBar`** — behaves
-identically after the refactor.
+**ROUND 1 REJECT → all 4 fixed at `1e92771b`** (2927/2927, typecheck clean).
+The MEDIUM was **mine**: "156 shoppable **looks**" — the PRODUCT-vs-MOMENT
+conflation `docs/engineering-lessons.md` warns about, leaked from my plan into
+user copy. **Kept 156, changed the noun to "pieces"** — 156 is what renders as
+cards, so the true 151 would contradict the screen. Round 1 cleared `FilterBar`.
 
-**Round 2's priority is a hit-testing contradiction.** The fixing agent saw
-`elementFromPoint` return a DIV instead of a rail chip's button and dismissed it
-as out of scope; round 1 had found those chips hit-testable. That is the
-`pointer-events` class that once cost two review rounds. My read: the gradient
-it blamed is `pointer-events-none`, so hit-testing skips it and it CANNOT be
-what was returned — right conclusion, wrong reason. Being settled by measuring
-every rail chip. **The `-96px`→measured scroll-spy fix is also NOT yet
-verified** — the fixer's boundary test was noisy and it fell back to the
-constant.
+**ROUND 2: APPROVE. Both review rounds are now spent.** The hit-testing scare
+was settled by execution — **30 `elementFromPoint` tests, every rail chip at
+three scroll positions, 0 failures**; the reported DIV was not reproducible and
+the gradient is `pointer-events-none` so it structurally cannot be returned.
+
+**One real defect found and FIXED rather than shipped** (uncommitted, being
+browser-verified): the scroll-spy stored `entry.boundingClientRect.top` from
+IntersectionObserver entries and sorted those stale snapshots, so **6 of 12
+boundaries marked the next chip active ~40px early**. Now reads current tops
+from the DOM at comparison time. **The reviewer called it "pre-existing" — it is
+not; it is pre-existing to the FIX COMMIT but new on this branch, and shipping a
+known defect in new code is not the same as inheriting one.**
 
 **156 products, NOT 151 (the MOMENT count) — never call products "looks".
 Images resolve through `merchItemImage()` → `hasRealPrimaryImage()`, never
@@ -140,8 +140,8 @@ only as good as its method.
 
 ## Next obvious step
 
-0. **Act on round 2's verdict, then open the PR** — it waits on Actions.
-   Unresolved findings go in the PR body, never a third round.
+0. **When the boundary measurement lands: commit the scroll-spy fix, push, open
+   the PR.** It cannot merge until Actions returns — say so in the body.
 1. **Joey's hands:** the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`, plus his three #2110 questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
