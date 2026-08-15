@@ -5,33 +5,31 @@
 
 ## Current focus
 
-**Joey's 12-item punch list (2026-08-15). 9 of 12 MERGED, 1 in flight, 2 on
-him.** Sequenced in waves because items 7–12 all touch `MerchSection.tsx` /
-`CommunitySection.tsx` / `SectionJumpBar.tsx` — parallel agents there collide.
+**Joey's 12-item punch list (2026-08-15). 11 of 12 MERGED, #7 awaiting CI,
+ONLY #6 left and it is on him.** Sequenced in WAVES, not parallel: items 7–12
+all touch `MerchSection.tsx` / `CommunitySection.tsx` / `SectionJumpBar.tsx`, so
+only one writer held a contended file at a time while read-only research ran
+concurrently.
 
-Merged: **#1** Eras filters centered (#2147) · **#4** scrubber-less thread
-alignment, fixes ALL FIVE `NO_SCRUBBER_THREADS` (#2151) · **#2/#3** hero credit
-made quiet, gap tightened (#2151) · **#5** End Game beats open MomentDetail,
-17/17 (#2148) · **#8** "We found something similar" + inline `altNote` (#2150)
-· **#11** Turnstile spam gate, INERT until keys (#2149). Plus #2146 depth port.
+Merged: **#1** Eras filters centered (#2147) · **#2/#3** hero credit quieted,
+gap tightened (#2151) · **#4** alignment fixed on ALL FIVE `NO_SCRUBBER_THREADS`
+(#2151) · **#5** End Game beats open MomentDetail, 17/17 (#2148) · **#8** "We
+found something similar" + inline `altNote` (#2150) · **#9/#10/#12** one-line
+scrolling chip rows + `SuggestLinkBanner` (#2153) · **#11** Turnstile spam gate,
+INERT until keys (#2149).
 
-In flight: **#9/#10/#12** — `fix/merch-community-filter-ux` (one-line scrolling
-chip rows, prominent suggest-a-link).
+**#7 = PR #2154, verified by me, awaiting CI.** 156 products → **97 real product
+photos / 55 labelled moment-photo fallback / 4 monogram** (62%). Independently
+checked: 97 `imageUrl` in the seeds, 97 in the regenerated vault, all https, all
+`cdn.shopify.com` — the host I proved loads cross-origin from
+`www.longlivets.com` at 1345×1820 (not a placeholder). Shopify's open
+`/products/<handle>.json` is the source; Amazon/Nordstrom/LV/Tiffany/SSENSE/
+Revolve/Skims/Fashion Nova/Showpo/Reformation/Tecovas expose nothing equivalent
+and keep the labelled fallback.
 
-On Joey: **#6** three Community design directions delivered as a mockup
-(scratchpad `community-mockup.html`) — he picks A/B/C and owes 8 platform
-standfirst lines. **#7** merch product images — feasibility PROVEN, see below.
-
-**#7 is unblocked and ready to scope.** Shopify's open `/products/<handle>.json`
-returns official images with no auth: **65 of 156 confirmed**, 60–70% likely.
-**I verified the hotlink question in a real browser** — a `cdn.shopify.com`
-image loaded cross-origin from `www.longlivets.com` at 1345×1820, NOT a
-placeholder. The remaining ~35% (Amazon, Nordstrom, LV, Tiffany, SSENSE,
-Revolve, Skims, Fashion Nova, Showpo, Reformation, Tecovas) have no such
-endpoint. Recommended: extend `scripts/content-engine/product-liveness.mjs` to
-capture `images[0].src` in its existing pass; fall back to the current moment
-photo LABELLED so it does not pose as a product shot. `Product` has NO image
-field today — this needs a schema change.
+**Only #6 remains: Joey must pick a Community design direction (A/B/C) and write
+8 platform standfirst lines.** Mockup at scratchpad `community-mockup.html`;
+recommendation on record is A (Signal Board) + B's chapter headings.
 
 **#2141's two watchdog checks fire daily and Check 1 is EXPECTED to alarm** —
 Karen has not run since 2026-08-09, so an alert means "still not enabled", NOT a
@@ -133,29 +131,15 @@ and ruled. Note it in a PR body if it matters; do not put it in chat again.
 
 ## Known traps
 
-- **Centering a SCROLLABLE row needs `safe center`, never plain `justify-center`.**
-  `flex-nowrap` + `overflow-x-auto` + `justify-center` pushes overflow past BOTH
-  edges and the left part becomes permanently unreachable — a scroll container
-  cannot scroll negative. Caught before merge on the Eras chips (they overflow
-  ~440px into ~344px at 360px). Use Tailwind `[justify-content:safe_center]`;
-  `FilterBar.tsx` is the reference.
-- **THIS REPO HAS NO COMPONENT-RENDER TEST HARNESS.** `vitest.config.ts` is
-  `environment: 'node'`, no jsdom/RTL, and the glob only matches `*.test.ts`,
-  never `.tsx`. Every "interaction test" here is a STATIC SOURCE-LOCK
-  (`close-affordance.test.ts`, `scrubber-nested-interactive.test.ts`). **A green
-  suite therefore cannot prove a click works** — only a browser can. #2150 added
-  a `@` → `apps/web` alias to `vitest.config.ts` and used
-  `renderToStaticMarkup`, which is the closest thing available.
-- **The browser tool's click coordinates are in SCREENSHOT pixels, not page CSS
-  pixels.** This machine reports `devicePixelRatio: 1.25` with `innerWidth:
-  2048` while screenshots come back 1568 wide, so coordinates computed from
-  `getBoundingClientRect()` land nowhere and deliver ZERO events — not even
-  `mousedown` on `document`. `resize_window` also reports success while the page
-  keeps rendering desktop. **This cost a false "the feature is broken" call on
-  #5.** Diagnostic that settles it: if a programmatic `.click()` works and a
-  synthetic mouse click produces no `mousedown` anywhere, it is the TOOL. Prefer
-  a real dev server + Playwright (an agent did this correctly on port 3007) over
-  the in-session browser for click verification.
+**Five lessons from 2026-08-15 now live in `docs/engineering-lessons.md`
+§ "Lessons added 2026-08-15" — read it before UI or content-pipeline work.**
+Headlines only, so this file stays working memory: scrollable rows need
+`[justify-content:safe_center]` or the first chip is unreachable · **this repo
+has NO component-render harness, so a green suite cannot prove a click works** ·
+the vault writer can silently drop a new field (twice now) · Windows `import()`
+needs `file://` · the in-session browser tool's click coordinates are in
+screenshot px, not CSS px, and deliver zero events · never kill a process you
+did not start.
 - **A passing suite is not evidence; EXECUTION against the real corpus is.**
   Every genuine defect this week came from running the pipeline over live data,
   never from reading code — each time 2600+ green tests had made us confident
@@ -211,19 +195,16 @@ and ruled. Note it in a PR body if it matters; do not put it in chat again.
 
 ## Open threads
 
-- [ ] **Marketplace research (Joey's brief, 2026-08-14) — BLOCKED on API keys,
-      by his choice.** Curated official + viral fan-made merch dataset. Every
-      hype source in the brief is unreachable from here (Etsy/Redbubble/
-      TeePublic 403, Reddit refused at tool level, TikTok an empty shell) —
-      agents pointed at those would invent view counts. **Tier 1 is already
-      solved, free, no signup:** `store.taylorswift.com/products.json`, an open
-      Shopify endpoint verified live. **Needs from Joey:** Reddit script app,
-      Etsy Open API Personal App, then Awin + Amazon Associates.
-      **Permanent ceiling — tell him before he signs up for more:** per-video
-      TikTok/IG counts for accounts you don't own are unobtainable on any
-      legitimate path, and Etsy listings carry no review count. Scope
-      `hype_evidence` to Reddit score + comments + press. Must feed the
-      EXISTING Merch surface (156 products, #2116), not a parallel dataset.
+- [ ] **Marketplace research — BLOCKED on Joey creating API accounts, his
+      choice.** Full brief and exact signup steps in `HUMAN-ACTIONS.md` #4.
+      Every hype source is unreachable from here (Etsy/Redbubble/TeePublic 403,
+      Reddit refused at tool level, TikTok an empty shell) — agents pointed at
+      them would invent numbers. **Permanent ceiling:** per-video TikTok/IG
+      counts for accounts you don't own are unobtainable on any legitimate path;
+      Etsy carries no review count. Scope `hype_evidence` to Reddit score +
+      comments + press. Must feed the EXISTING Merch surface, not a parallel
+      dataset. **Note: the Shopify `/products/<handle>.json` technique proven in
+      #2154 may cover more of this brief than originally assumed.**
 - [ ] 3 appearance videos carry no topic tag — their own records support none.
 - [ ] folklore and evermore have no Tour content. True of the world, not a gap.
 - [ ] Theory doorways scatter rather than sitting beside the song they discuss.
@@ -232,13 +213,13 @@ and ruled. Note it in a PR body if it matters; do not put it in chat again.
 
 ## Next obvious step
 
-1. **Verify and merge `fix/merch-community-filter-ux` (#9/#10/#12)** — the last
-   build item. Check its 360px proof that the FIRST chip is reachable at
-   `scrollLeft = 0`; that is the safe-center regression and a green suite cannot
-   see it.
-2. **#7 merch product images** — scope it from § Current focus. Schema change +
-   extend `product-liveness.mjs`. Feasibility and hotlinking are already proven;
-   do not re-litigate them.
+1. **Merge PR #2154 (#7 merch images) once CI is green** — already verified by
+   me (97/97 seed↔vault, all https `cdn.shopify.com`). Nothing else to check.
+2. **Device-check the punch list on a real phone.** Eleven items shipped today
+   touching the Eras, Threads, Merch and Community surfaces. Highest-value
+   checks: chip rows scroll and the FIRST chip is reachable at 360px; the
+   suggest-a-link banner reads as an invitation; merch product photos load; the
+   "Her look, not the product" label appears on fallback cards.
 3. **#6 Community redesign** — blocked on Joey choosing A/B/C and writing 8
    platform standfirst lines. Recommendation on record: A (Signal Board) with
    B's chapter headings.

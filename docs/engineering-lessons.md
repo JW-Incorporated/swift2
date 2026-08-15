@@ -240,3 +240,77 @@ refresh.
 - **Codex review path:** the `codex:rescue` skill → `codex:codex-rescue`
   subagent, always `--background`, then poll
   `codex-companion.mjs result <job-id>`. Full contract: `docs/agents/codex.md`.
+
+## Lessons added 2026-08-15 (the 12-item punch list)
+
+### Centering a scrollable row needs `safe center`, never plain `justify-center`
+
+A `flex-nowrap` + `overflow-x-auto` container with `justify-content: center`
+pushes overflowing content past **both** edges, and the part off the left edge
+becomes permanently unreachable — a scroll container cannot scroll to a negative
+offset. The first chip simply disappears.
+
+Caught before merge on the Eras filter chips, which need roughly 440px inside a
+344px box at 360px. Use the `safe` keyword, which falls back to start-alignment
+exactly when content overflows: Tailwind arbitrary value
+`[justify-content:safe_center]`. `apps/web/components/longlive/FilterBar.tsx` is
+the reference implementation.
+
+**How to prove it:** force `scrollLeft = -50` and confirm it clamps to `0`, and
+that at `scrollLeft = 0` the first chip's left edge equals the row's left edge.
+
+### This repo has no component-render test harness
+
+`vitest.config.ts` runs `environment: 'node'` with no jsdom or Testing Library,
+and the test glob matches only `*.test.ts`, never `.tsx`. Every "interaction
+test" here is a **static source-lock** (`close-affordance.test.ts`,
+`scrubber-nested-interactive.test.ts`).
+
+**Consequence: a green suite cannot prove that a click works.** Only a browser
+can. When wiring up an interaction, a source-lock test is the most the suite can
+offer — plan on a real browser check as the actual verification. `#2150` added a
+`@` → `apps/web` alias to `vitest.config.ts` and used `renderToStaticMarkup`,
+which is the closest available substitute.
+
+### The vault writer can silently drop a new field
+
+`scripts/sync-longlive-content.mjs` serialises the generated vault field by
+field. In `#2154`, `productsFrom()` computed a new `imageUrl` correctly but the
+writer had **no line to emit it** — so 97 captured URLs would have been committed
+to the seeds and never reached the app. This is the same failure as the
+2026-07-18 `significance` incident: **twice now.**
+
+Any new `Product` / `ContentItem` field needs a writer line **and** a regression
+test. Symptom: data present in `supabase/seed/content/*.mjs` but absent from
+`content-vault.generated.ts` after `npm run sync:content`.
+
+### Windows: `import()` needs a `file://` URL, not a filesystem path
+
+`scripts/content-engine/product-liveness.mjs` passed raw paths to `import()` and
+to its `main()` guard, so on Windows it silently produced **zero output** — no
+error, just nothing. Fixed with `pathToFileURL`. If a `scripts/` entry point
+"produces nothing" on Windows, check this pattern first.
+
+### Browser-tool click coordinates are in screenshot pixels, not CSS pixels
+
+The in-session Chrome tool reports success while operating in a different
+coordinate space than the page. On this machine `devicePixelRatio` is 1.25 with
+a 2048px CSS viewport, while screenshots come back 1568px wide — so coordinates
+computed from `getBoundingClientRect()` land nowhere and deliver **zero events**,
+not even a `mousedown` on `document`. `resize_window` likewise reports success
+while the page keeps rendering desktop.
+
+This nearly turned a working feature into a false bug report.
+
+**The diagnostic that settles it:** if a programmatic `.click()` works but a
+synthetic mouse click produces no `mousedown` anywhere, the tool is at fault, not
+the code. **Prefer a real dev server plus Playwright** for click and layout
+verification — that path measured thread alignment as pixel-identical and proved
+the scroll-clamping behaviour above.
+
+### Never kill a process you did not start
+
+An agent cleaning up its own dev server ran `taskkill` with a stale PID from an
+earlier `netstat` and killed **another session's** server on port 3000. Parallel
+sessions routinely hold ports 3000/3001/3005. Start your own server on an unused
+port, and verify a PID belongs to your process immediately before killing it.
