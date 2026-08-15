@@ -5,24 +5,25 @@
 
 ## Current focus
 
-**BUILDING: Community + Merch merge, on `feature/community-social-merch`** (cut
-from `e087bd22`). Joey 2026-08-14: *"go for it. let's get it live."* Drop the
-Merch tab (nav → five labelled: Eras, Threads, Mood, Clownbot, Community), title
-stays "Community", full-width 50/50 Social/Merch toggle, a section-jump subnav
-that PREVIEWS depth, era-style merch filters, an image on every merch item.
-**`PLAN.md` holds the facts, the Fable design spec and the steps — read it.**
+**BUILDING: Community + Merch merge, on `feature/community-social-merch`.** Joey
+2026-08-14: *"go for it. let's get it live."* Merch tab dropped, title stays
+"Community", 50/50 Social/Merch toggle, a section-jump subnav that PREVIEWS
+depth, era-style merch filters, an image on every merch item. **`PLAN.md` holds
+the facts, the Fable design spec and the steps — read it.**
 
-**Executor 1 is running PLAN steps 1–2** (nav → five, store sub-tab,
-`SegmentedToggle`, shell + the single sticky rail with a chip slot). **Waves are
-deliberate:** steps 1–2 both own `store.tsx`, and two agents in one checkout
-collide — that already cost a discarded agent today. Then dispatch **in
-parallel** the Social pane (chips into the rail slot) and the Merch pane.
+**Steps 1–2 DONE — `bcc8f39e`, verified by me** (2893/2893, `AppMode` has no
+`merch`, threshold 6, no raw hex, files <300). Five labelled tabs; rail measured
+44px at the live topbar offset with the big toggle fully off-screen — never both.
+`?mode=merch` still resolves. **Steps 4–5 (Merch pane) running now**; the jump
+bar goes LAST because it needs `merchByEra()` to exist. **Waves are sequential
+on purpose** — two agents committing in one checkout collide, which already cost
+a discarded agent today. Contract the next agent codes against:
+`merchByEra(items?) => {eraId, eraLabel, count, items}[]`, newest era first.
 
-**The image blocker is RESOLVED — verified by execution: 150 of 156 products**
-show their source moment's photo; 6 get a monogram tile. Those images already
-render in the era feed: no sourcing, no hotlink risk. **`shopTheLook` is 156
-products, NOT 151 (that is the distinct-MOMENT count). Resolve images via
-`hasRealPrimaryImage()`, never `images.length`.**
+**Image blocker RESOLVED — verified by execution: 150 of 156 products** show
+their source moment's photo; 6 get a monogram tile. Those images already render
+in the era feed: no sourcing, no hotlink risk. **156 products, NOT 151 (that is
+the MOMENT count). Resolve via `hasRealPrimaryImage()`, never `images.length`.**
 
 **Nav fit:** five labelled tabs FIT — 390/430px comfortably, 320px on ~1.2px
 slack (proxy-measured, probable-not-proven). **Any label longer than "Community"
@@ -52,10 +53,9 @@ never fail a submission.**
 - **PR #2114 is parked on that** — docs only; needs only a re-run. **#2104 is
   superseded and should be closed, not merged.**
 - **#2110 merged with three questions still unanswered** (deferred, not
-  resolved): **Instagram + TikTok** scope — item 4b names both, the brief
-  omitted them, different shape so not widened unilaterally; **who owns the
-  refresh cadence** — accurate 2026-08-14, decays; **ratify or veto excluding
-  `r/TravisAndTaylor`** (`r/GaylorSwift` kept, flagged private since Aug 2025).
+  resolved): **Instagram + TikTok** scope (item 4b names both, the brief omitted
+  them — not widened unilaterally); **who owns the refresh cadence**; **ratify
+  or veto excluding `r/TravisAndTaylor`** (`r/GaylorSwift` kept but flagged).
 - **Codex out until Aug 19 2026 — Workflow rule 3 UNSATISFIED** for Clownbot AND
   Community + Merch. **Run Codex against merged `main` when it returns.** A
   `reviewer` on `model: "fable"` is the stand-in, required to REPRODUCE not read.
