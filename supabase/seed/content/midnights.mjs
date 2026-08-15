@@ -1003,12 +1003,30 @@ export default {
         'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         context:
-          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.',
+          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.\n\nThe cultural footprint was immediate. Fox\'s broadcast of the 41–10 game drew 24.3 million viewers — the most-watched program of the weekend and its strongest NFL Sunday-afternoon audience among female viewers all season — while Fanatics reported Travis\'s No. 87 jersey sales spiking nearly 400% that same day, vaulting him from 19th into the league\'s top five sellers. His Instagram following jumped by roughly 325,000 in a week, a bigger bump than his Super Bowl win the previous February had produced. A late-summer flirtation traceable to a viral friendship-bracelet aside had, in one afternoon, become the most-watched relationship in American sports.',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/lists/taylor-swift-travis-kelce-relationship-timeline/',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/tv/news/taylor-swift-boosts-nfl-sunday-ratings-most-watched-telecast-week-24-3-million-viewers-1235735230/',
+            source_title: 'Taylor Swift Appearance Boosts NFL Sunday Ratings to 24.3 Million Viewers',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NFL.com',
+            url: 'https://www.nfl.com/news/chiefs-te-travis-kelce-jersey-sales-jump-nearly-400-following-taylor-swift-appea',
+            source_title: 'Chiefs TE Travis Kelce jersey sales jump nearly 400% following Taylor Swift appearance at Arrowhead',
+            publisher: 'NFL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 4,
           },
         ],
         photos: [

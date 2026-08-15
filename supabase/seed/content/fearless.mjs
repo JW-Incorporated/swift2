@@ -2566,6 +2566,18 @@ export default {
             caption: 'On the Fearless Tour with the koi-fish Taylor guitar — the album that filled arenas, Newark, 2010.',
             focalPoint: '48% 18%',
           },
+          // Photo Enrichment lane (Vault Run 2026-08-15): a second, distinct
+          // live shot — the Fearless act of the Eras Tour, the same album's
+          // songs still opening stadiums. Commons file (Paolo Villanueva, CC
+          // BY 2.0); curl 200 image/jpeg, 500px thumb downloaded and
+          // vision-confirmed (gold fringe dress, mic, arena).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_%2853109821975%29.jpg/500px-Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_%2853109821975%29.jpg',
+            focalPoint: '46% 25%',
+            credit: 'Paolo Villanueva via Wikimedia Commons, CC BY 2.0',
+            caption: 'The Fearless act on the Eras Tour, 2023 — the gold fringe dress and the album\'s songs, still filling stadiums fifteen years on.',
+            kind: 'archival',
+          },
         ],
       },
     },

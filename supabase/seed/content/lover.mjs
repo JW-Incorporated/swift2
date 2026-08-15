@@ -2943,6 +2943,18 @@ export default {
             caption: 'Iridescent sequins at the 2019 iHeartRadio Music Awards — the pastel palette arriving weeks before "ME!".',
             focalPoint: '48% 22%',
           },
+          // Photo Enrichment lane (Vault Run 2026-08-15): a second live shot —
+          // the Lover set that opened the Eras Tour, the album's pastel palette
+          // returning to the stage. Commons file (Paolo Villanueva, CC BY 2.0);
+          // curl 200 image/jpeg, 500px thumb downloaded and vision-confirmed
+          // (pink stage, pink acoustic guitar, sparkly bodysuit).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108816372%29.jpg/500px-Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108816372%29.jpg',
+            focalPoint: '80% 42%',
+            credit: 'Paolo Villanueva via Wikimedia Commons, CC BY 2.0',
+            caption: 'The Lover set opened every night of the Eras Tour, 2023 — the pastel stage and pink guitar the album\'s color made a live language.',
+            kind: 'archival',
+          },
         ],
       },
     },

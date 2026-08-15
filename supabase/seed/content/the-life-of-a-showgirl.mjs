@@ -4162,6 +4162,10 @@ export default {
       // name-drops (Brady/Cruise/etc.) also cut — reaction color, not the
       // adjudicable raffle facts. No photo: the only image is a guest's
       // expiring Instagram Story of a private individual, not a reusable host.
+      // Enriched 2026-08-15 from intake #2130 (Vault Run): added Gronkowski's
+      // "no-gifts rule" quote (NBC Sports via NBC Boston; TODAY). The ticket's
+      // Julian Edelman matchmaking anecdote was CUT — it is about setting up
+      // Edelman with other guests, not about Taylor, so it fails the on-topic bar.
       slug: 'showgirl-wedding-raffle-gronkowski',
       year: 2026,
       month: 7,
@@ -4173,12 +4177,12 @@ export default {
       ],
       title: 'How the wedding raffle worked: guests earned their tickets',
       snippet:
-        'Guest Rob Gronkowski explained the reception\'s raffle: you didn\'t just get a ticket, you had to earn it by playing games. Prizes ran from designer handbags to a 1970 Chevrolet Chevelle.',
+        'Guest Rob Gronkowski explained the reception\'s raffle: you didn\'t just get a ticket, you had to earn it by playing games. Prizes ran from designer handbags to a 1970 Chevrolet Chevelle — and, he later added, a no-gifts rule meant the day\'s only takeaways were the ones guests played for.',
       sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/rob-gronkowski-explains-raffles-worked-165208547.html',
       thumbnailUrl: null,
       moment: {
         context:
-          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.',
+          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.\n\nA later interview added a complementary detail: there was a no-gifts rule. Asked whether he had brought the newlyweds a present, Gronkowski told NBC Sports, "Didn\'t get him anything. You weren\'t supposed to get them gifts, so it\'s a good thing I didn\'t." It fit the reception\'s whole logic — nothing was expected at the door, and the prizes worth taking home were the ones guests played for.',
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -4197,6 +4201,24 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-02',
             reliability_score: 4,
+          },
+          {
+            outlet: 'NBC Boston',
+            url: 'https://www.nbcboston.com/entertainment/entertainment-news/rob-gronkowski-travis-kelce-taylor-swift-wedding-gift/3997586/',
+            source_title: 'Rob Gronkowski on the Taylor Swift-Travis Kelce wedding gift rule',
+            publisher: 'NBC Boston',
+            source_type: 'interview',
+            accessed_at: '2026-08-15',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/rob-gronkowski-julian-edelman-taylor-swift-travis-kelce-wedding-rcna592305',
+            source_title: 'Rob Gronkowski on the Taylor Swift and Travis Kelce wedding',
+            publisher: 'TODAY',
+            source_type: 'interview',
+            accessed_at: '2026-08-15',
+            reliability_score: 3,
           },
         ],
         // Photo pass #762 (2026-08-14): the raffle itself has no dedicated
@@ -10865,6 +10887,98 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-14',
             reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-15 from intake #2131 (Vault Run, Content Shift lane).
+      // Institutional announcement (DAM press release) + Gazette report. The
+      // Gazette article 403'd to the fetcher but is a real published piece,
+      // corroborated via search. Per the release's own wording the first
+      // garment is a costume from the Life of a Showgirl TOUR, so the intake's
+      // "era look" framing was coarsened to "tour" to match the source. Lady
+      // Gaga and Prince appeared only in a third-party listicle, not the DAM
+      // release, so they are not named here. No location/redline concerns.
+      // Text-first: the only images are DAM's press assets and the garments
+      // themselves — nothing on a reusable host to vision-confirm — so a photo
+      // is left for Photo Enrichment to route if one surfaces.
+      slug: 'showgirl-diva-exhibit-denver',
+      year: 2026,
+      month: 8,
+      day: 14,
+      category: 'fashion',
+      title: 'Two of her looks join the V&A\'s "DIVA" show when it reaches Denver',
+      snippet:
+        'The V&A\'s touring "DIVA" exhibition adds two Taylor looks — a costume from the Life of a Showgirl tour and her 2023 TIME Person of the Year cover look — when it opens at the Denver Art Museum on Oct. 4, 2026, the show\'s only U.S. stop.',
+      sourceUrl:
+        'https://www.denverartmuseum.org/en/press/release/denver-art-museum-spotlights-diva-fall-2026',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Denver Art Museum announced that DIVA — the touring fashion exhibition organized by London\'s Victoria and Albert Museum — will include two of Taylor\'s garments when it opens on Oct. 4, 2026 and runs through Jan. 31, 2027. Per the museum\'s release the pieces are a costume from her Life of a Showgirl tour and the look from her 2023 TIME Person of the Year cover. Denver is the exhibition\'s only U.S. stop, and Taylor\'s pieces sit alongside looks tied to Cher, Dolly Parton, Rihanna, Marilyn Monroe and Maria Callas — the show\'s throughline being performers who used costume to build a public persona.',
+        sources: [
+          {
+            outlet: 'Denver Art Museum',
+            url: 'https://www.denverartmuseum.org/en/press/release/denver-art-museum-spotlights-diva-fall-2026',
+            source_title: 'Denver Art Museum Spotlights DIVA in Fall 2026',
+            publisher: 'Denver Art Museum',
+            source_type: 'official',
+            accessed_at: '2026-08-15',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Colorado Springs Gazette',
+            url: 'https://gazette.com/2026/08/14/denver-art-museums-diva-collection-adds-fits-from-new-stars-to-its-lineup/',
+            source_title: "Denver Art Museum's DIVA collection adds fits from new stars to its lineup",
+            publisher: 'The Gazette',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-15 from intake #2129 (Vault Run, Content Shift lane).
+      // On-record color: co-star Max Greenfield's podcast recollection of
+      // Taylor's 2013 "New Girl" cameo. Verified against TheWrap and Yahoo UK.
+      // Dated to the recollection (Aug 14, 2026) so it sorts into the current
+      // era, with the 2013 cameo described in context. No location/redline
+      // concerns. Text-first: a podcast has no rehostable image to
+      // vision-confirm, so a photo is left for Photo Enrichment.
+      slug: 'showgirl-greenfield-new-girl-cameo',
+      year: 2026,
+      month: 8,
+      day: 14,
+      category: 'sighting',
+      title: '"A better actor than all of us": a New Girl co-star on her 2013 cameo',
+      snippet:
+        'On the Therapuss podcast, "New Girl" co-star Max Greenfield recalled Taylor\'s 2013 guest turn as Elaine in the Season 2 finale — praising her on-set kindness and calling her "a better actor than all of us."',
+      sourceUrl:
+        'https://www.thewrap.com/creative-content/tv-shows/max-greenfield-taylor-swift-new-girl-cameo/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On the Aug. 14, 2026 episode of Jake Shane\'s Therapuss podcast, actor Max Greenfield looked back on Taylor\'s guest appearance on New Girl, where he played Schmidt. Taylor turned up in the 2013 Season 2 finale, "Elaine\'s Big Day," as Elaine — a wedding guest revealed to be the groom Shivrang\'s true love, who elopes with him as the ceremony comes apart. Greenfield remembered her as strikingly kind on set and, of the cast\'s acting, said flatly that "she was a better actor than all of us." He also recalled asking whether she preferred intimate rooms or arenas; she told him she wanted to play for a crowd big enough to be "filling the ocean."',
+        sources: [
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/creative-content/tv-shows/max-greenfield-taylor-swift-new-girl-cameo/',
+            source_title: "Max Greenfield says Taylor Swift was a better actor than the 'New Girl' cast",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo UK',
+            url: 'https://uk.news.yahoo.com/max-greenfield-says-taylor-swift-183220756.html',
+            source_title: 'Max Greenfield says Taylor Swift was a better actor than the New Girl cast',
+            publisher: 'Yahoo News UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-15',
+            reliability_score: 3,
           },
         ],
       },
