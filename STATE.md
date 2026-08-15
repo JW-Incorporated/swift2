@@ -5,26 +5,29 @@
 
 ## Current focus
 
-**ACTIVE: merge Community + Merch into one section, redesign both.** Joey
-2026-08-14. **Drop the Merch tab** (nav → five labelled: Eras, Threads, Mood,
-Clownbot, Community), title stays "Community", **full-width 50/50 toggle**
-switching **Social** / **Merch**, a section-jump subnav that PREVIEWS depth,
-era-style merch filters, an image on every merch item. **`PLAN.md` holds the
-facts, the Fable design spec and the steps — read it, not this.**
+**BUILDING: Community + Merch merge, on `feature/community-social-merch`** (cut
+from `e087bd22`). Joey 2026-08-14: *"go for it. let's get it live."* Drop the
+Merch tab (nav → five labelled: Eras, Threads, Mood, Clownbot, Community), title
+stays "Community", full-width 50/50 Social/Merch toggle, a section-jump subnav
+that PREVIEWS depth, era-style merch filters, an image on every merch item.
+**`PLAN.md` holds the facts, the Fable design spec and the steps — read it.**
+
+**Executor 1 is running PLAN steps 1–2** (nav → five, store sub-tab,
+`SegmentedToggle`, shell + the single sticky rail with a chip slot). **Waves are
+deliberate:** steps 1–2 both own `store.tsx`, and two agents in one checkout
+collide — that already cost a discarded agent today. Then dispatch **in
+parallel** the Social pane (chips into the rail slot) and the Merch pane.
 
 **The image blocker is RESOLVED — verified by execution: 150 of 156 products**
-show their source moment's photo (the look as worn); 6 get a monogram tile.
-Those images already render in the era feed: no sourcing, no hotlink risk.
-**`shopTheLook` is 156 products, NOT 151 — 151 is the distinct-MOMENT count.**
-**Resolve images via `hasRealPrimaryImage()`, never `images.length`.**
+show their source moment's photo; 6 get a monogram tile. Those images already
+render in the era feed: no sourcing, no hotlink risk. **`shopTheLook` is 156
+products, NOT 151 (that is the distinct-MOMENT count). Resolve images via
+`hasRealPrimaryImage()`, never `images.length`.**
 
-**Nav fit is settled:** five labelled tabs FIT — 390/430px comfortably, 320px on
-~1.2px slack (proxy-measured), so probable-not-proven. **Any label longer than
-"Community" breaks 320px.**
-
-**Actions is down, so work stays committed on the local branch.** The worktree's
-objects live in the real repo, so local commits are durable though Temp holds
-the files. Wyatt is fixing it; push when it returns.
+**Nav fit:** five labelled tabs FIT — 390/430px comfortably, 320px on ~1.2px
+slack (proxy-measured, probable-not-proven). **Any label longer than "Community"
+breaks 320px.** Work stays committed locally while Actions is down; the
+worktree's objects live in the real repo, so local commits are durable.
 
 Shipped 2026-08-14: Community + Merch `22314d5b` (#2112) on `109e776a` (#2110);
 era reader `e8500905`; device review `ff4df4ab`; Clownbot `3d553340`/`b8a500a3`.
@@ -39,16 +42,15 @@ never fail a submission.**
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
-- **GITHUB ACTIONS IS DOWN ACCOUNT-WIDE — BILLING. Nothing can merge.** Jobs
-  refuse to start: *"recent account payments have failed or your spending limit
-  needs to be increased."* Last good run 21:44:44Z 2026-08-14; all later ones
-  fail to start. **`build` does not run, so there is no merge gate** — a missing
-  `build` is not a red one. Founder fix: Settings → Billing & plans. **Also down:
+- **GITHUB ACTIONS IS DOWN ACCOUNT-WIDE — BILLING. Nothing can merge or ship.**
+  Jobs refuse to start: *"recent account payments have failed or your spending
+  limit needs to be increased."* Last good run 21:44:44Z 2026-08-14. **`build`
+  does not run, so there is no merge gate** — a missing `build` is not a red one.
+  Founder fix: Settings → Billing & plans (Wyatt is on it). **Also down:
   `social-poster` (posts are NOT going out) and `watchdog` — the alarm for a dark
   runner is inside the outage.** #2110/#2112 merged green before the cutoff.
-- **PR #2114 is parked on that** — this checkpoint, docs only; needs only a
-  re-run. **PR #2104 (older, STATE.md-only) is superseded and should be closed,
-  not merged** — it predates everything since the chat-UI merge.
+- **PR #2114 is parked on that** — docs only; needs only a re-run. **#2104 is
+  superseded and should be closed, not merged.**
 - **#2110 merged with three questions still unanswered** (deferred, not
   resolved): **Instagram + TikTok** scope — item 4b names both, the brief
   omitted them, different shape so not widened unilaterally; **who owns the
@@ -64,16 +66,18 @@ never fail a submission.**
   the 200/day/instance cap, ratifying the Mood route pattern, signing the
   Clownbot decisions entry, and the era reader's bottom nav (overrides
   `docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3).
-- **The bottom nav has never been opened on a real phone.** Told twice, merged
-  anyway. Correct-in-code plus passing tests is not a device check.
+- **The bottom nav has never been opened on a real phone**, and the five-tab
+  change makes that check overdue. Passing tests are not a device check.
 - **Four overlays share the `z-50`-under-`z-[71]` FeedbackButton overlap**
-  (`EraSelector`, `MomentDetail`, `TrackGuide`, `TheoryGuide`). Deliberately NOT
-  fixed — Joey's call. (`tb-priv-02` is the other accepted gap; lessons doc.)
+  (`EraSelector`, `MomentDetail`, `TrackGuide`, `TheoryGuide`) — deliberately
+  NOT fixed, Joey's call. (`tb-priv-02` is the other accepted gap.)
 
 ## Merge authorization
 
-Per-workstream, never standing — **all grants spent; a new effort needs a new
-one.** Standing, NOT spent: **"don't allow codex reviews more than 2 rounds."**
+Per-workstream, never standing. **LIVE: "go for it. let's get it live"** covers
+Community+Merch — **but Actions is down, so it CANNOT ship; commit locally and
+never merge past a `build` that never ran.** Standing, NOT spent: **"don't allow
+codex reviews more than 2 rounds."**
 
 ## Autonomous decisions — review surface
 
@@ -87,17 +91,15 @@ one.** Standing, NOT spent: **"don't allow codex reviews more than 2 rounds."**
   it. The cap was unmeetable while working memory was being used as the record.
 - **A `grunt` edited the MAIN checkout** (`fix/karen-mechanics`) not its
   worktree, compressing the wrong base — discarded, done by hand. **That tree
-  still has an uncommitted `MAP.md` edit** (a no-op once #2114 lands). Make
-  agents echo cwd first.
+  still has an uncommitted `MAP.md` edit** (a no-op once #2114 lands).
 - **Counted merch image coverage myself after two agents disagreed** (147 vs
-  151, both unsound). Lesson written up in `docs/engineering-lessons.md`
-  § "A count is only as good as the method" — including that `node
-  --experimental-strip-types` cannot run this repo (extensionless imports).
+  151, both unsound); lesson in `docs/engineering-lessons.md` § "A count is only
+  as good as the method".
 
 ## Architect invocations
 
-<!-- NEVER cleared. Budget <=2/week. A `reviewer` with `model: "fable"` is a
-     MODEL OVERRIDE, not an architect escalation — do not log those here. -->
+<!-- NEVER cleared. Budget <=2/week. `model: "fable"` on a normal agent is a
+     MODEL OVERRIDE, not an escalation (the design eval was one). Not logged. -->
 
 - (none yet).
 
@@ -105,9 +107,9 @@ one.** Standing, NOT spent: **"don't allow codex reviews more than 2 rounds."**
 
 - Era reader: bottom nav (overrides D3), Spotify player removed, one global
   filter, anchor dates sort-only; Clownbot rulings J1–J7 (`docs/decisions.md`
-  2026-08-13). **Joey reversed his own brief once: there is NO Threads filter
-  chip.** Six filters forever: Music, Fashion, Tour, Relationship, Lore, Videos.
-  Plans need no sign-off. Merge authority is human. No self-armed monitors.
+  2026-08-13). **Joey reversed his own brief once: NO Threads filter chip.** Six
+  filters forever: Music, Fashion, Tour, Relationship, Lore, Videos. Plans need
+  no sign-off. Merge authority is human. No self-armed monitors.
 
 ## Known traps
 
@@ -136,14 +138,13 @@ inherits; two mechanisms for one fact; user text in a spreadsheet is a formula.
 
 ## Next obvious step
 
-0. **`PLAN.md` steps 1–5 are READY — dispatch executors.** Nothing is stalled:
-   the image blocker resolved, and the official/fan-made selector is
-   render-gated so it needs no answer to build.
+0. **Review executor 1's diff, then dispatch waves 2 and 3 in parallel.** After
+   all three land: full suite, then a Fable review (Codex is out until Aug 19,
+   so that stand-in is the only review this gets — 2 rounds max).
 1. **Joey's hands:** the Apps Script / Resend / env setup in
    `docs/ops/community-merch-submissions.md`, plus his three #2110 questions.
 2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
    unsatisfied for Clownbot AND Community + Merch.
 3. Hand Wyatt his five items before treating tier/caps as decided.
-4. First real-device check of the bottom nav — never seen on a phone, and the
-   320px five-tab margin is too thin to settle any other way.
-5. #2113 (guard-code red on every code PR) when someone wants CI quiet again.
+4. First real-device check of the bottom nav — the 320px five-tab margin is too
+   thin to settle any other way. Then #2113, when someone wants CI quiet.
