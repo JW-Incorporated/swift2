@@ -5,52 +5,29 @@
 
 ## Current focus
 
-**Community + Merch sections** — branch `feature/community-merch`, commits
-`0b347d66` (build) + `f21b9b88` (review fixes). Spec in `PLAN.md`. `origin/main`
-merged in; **PR #2110 is MERGED (`109e776a`)**, so the dataset is on main.
+**Nothing in flight.** Everything opened 2026-08-15 is merged to `main`:
+era-reader device fixes, the Karen watchdog alarm repair, the `guard-code`
+verdict fix, **#2140** (bottom nav labels: icon-only threshold 5→7, labels
+11px→10px — six LABELLED tabs) and **#2141** (the two self-limiting
+verification checks below). `main` is at `1cd5e00e`+.
 
-**Fable review: round 1 REJECT (5 findings) → all fixed → round 2 APPROVE**, all
-five re-verified by reproduction, no regressions. 2881/2881, typecheck clean.
-Joey's 2-round cap is now spent and Codex is out until Aug 19 — **no further
-review is available for this branch.**
-
-The HIGH was **CSV/formula injection into Joey's own sheet**: the route accepted
-`note`/`sourcePage` the form never sends and passed them raw to `appendRow`. A
-value starting `= + - @` becomes a live formula firing when **Joey** opens the
-sheet; the PoC exfiltrated it via `IMPORTXML`. Fixed on both sides —
-`neutralizeCell` (route) and `neutralizeCell_` (Apps Script) are the SAME rule
-deliberately duplicated, because that webhook may one day have another caller.
-**Change one, change both.** The unused fields were deleted, not sanitised.
-
-Three non-negotiable properties:
-
-- **Nothing a user submits ever renders on the site.** Issue #36's no-go
-  (`docs/definition-of-done.md:206-212`) forbids UGC-hosting liability.
-  Submissions go to sheet + inbox + GitHub issue; Joey curates by hand — which
-  is his own stated intent, so it costs nothing.
-- **The endpoint never fetches a submitted URL** — SSRF and DoS amplifier.
-- **A missing integration must never fail a submission.** Swift2 has NO runtime
-  email (mail is Python+Gmail from Actions, unreachable from a route) and NO
-  Sheets write anywhere in the tree; the Resend key is verified for
-  `4twatches.com` only. Three sinks degrade independently: GitHub issue (day
-  one), Sheet (`SUBMISSIONS_SHEET_WEBHOOK_URL`), email (`RESEND_API_KEY`).
-
-**The IP rate limiter cannot be made authoritative** behind a proxy that lets
-callers set `x-forwarded-for`. Best-effort; the honeypot is the real floor.
-Do not chase a guarantee that is not available.
-
-Sheet id `1LsG6IviGhQfeEDIJ138w2kp-P06UWOTc5c3glRyEVd4` in the "Swift App" Drive
-folder. **Its 16-column order is fixed and both senders must match it.** Merch
-is not empty — `shop.ts` holds 151 shop-the-look products read live off
-`CONTENT`, never re-authored.
-
-Shipped 2026-08-14: era reader `e8500905` (#2086), device review `ff4df4ab`
-(#2099), Clownbot `3d553340` / `b8a500a3` / `d969a29e`, community research
-`109e776a` (#2110). Clownbot confirmed live by fetching the shipped JS bundles,
-not inferred from a green build. Rulings J1–J7 in `docs/decisions.md`.
+**#2141 fires tomorrow and Check 1 is EXPECTED to alarm.** Two steps in
+`watchdog.yml`, both `if: (!cancelled()) && (…'35 14 * * *')` so an unrelated
+earlier failure cannot silently skip them — the exact bug the Karen alarm
+repair fixed, so never "simplify" them to a plain `if:`. Check 1
+(`karen-post-repair-check.mjs`): Karen has not run since 2026-08-09 and the
+newest report in her directory was committed by the photo-enrichment PR, not
+by her — **an alert tomorrow means "still not enabled", not a bug.** Check 2
+(`news-worker-rotation-check.mjs`): first news-worker run after the
+SUPABASE_SERVICE_ROLE_KEY rotation; reads logs only if that run failed. **Both
+self-close 2026-08-22** (`WINDOW_END`); removal = delete the two steps or the
+two `.mjs` files.
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
+- **PR #2116 (`feature/community-social-merch`) is CONFLICTING with main** and
+  is checked out in ANOTHER session's worktree. Not safe to land from here —
+  rebase it from the session that owns it, or after that worktree is gone.
 - **#2110 merged with three questions still unanswered.** Joey deferred them;
   merging did not resolve them. (1) **Instagram + TikTok** — item 4b names both,
   the brief omitted them; different shape (creator accounts, not joinable
@@ -58,16 +35,15 @@ not inferred from a green build. Rulings J1–J7 in `docs/decisions.md`.
   cadence** — invites rotate, groups go private; accurate 2026-08-14, decays
   from there. (3) Ratify or veto excluding **`r/TravisAndTaylor`** as an
   anti-fan snark board; `r/GaylorSwift` kept but flagged private since Aug 2025.
-- **Codex out until Aug 19 2026 — Workflow rule 3 UNSATISFIED** for Clownbot AND
-  this feature. **Run Codex against merged `main` when it returns.** A
-  `reviewer` on `model: "fable"` is the authorised stand-in, required to
-  REPRODUCE rather than read — which is why it finds what reading passes miss.
-- **Wyatt owns FIVE unsettled items:** Clownbot's model tier (`claude-sonnet-5`,
-  one named constant), the 200/day/instance cap, ratifying the Mood route
-  pattern, signing the Clownbot decisions entry, and the era reader's bottom nav
-  (overrides `docs/specs/2026-08-13-landing-page-brief.md` §3.2/D3).
-- **The bottom nav has never been opened on a real phone.** Joey was told twice
-  and merged anyway. Correct-in-code plus passing tests is not a device check.
+- **Watchdog alerts still @-mention `@wjduvall-cmd`. Wyatt has left the
+  project** (Joey, 2026-08-14: "Wyatt is no longer working on the project").
+  Every alert pings a departed founder. RAISED, not fixed — it wants one sweep
+  across `watchdog.yml`, not a half-fix in the two newest steps.
+- **Wyatt's five formerly-owned items are now unowned** — Clownbot's model tier
+  (`claude-sonnet-5`, one named constant), the 200/day/instance cap, ratifying
+  the Mood route pattern, signing the Clownbot decisions entry, and the era
+  reader's bottom nav (overrides `docs/specs/2026-08-13-landing-page-brief.md`
+  §3.2/D3). **All five are Joey's call now, or they die unratified.**
 - **`tb-priv-02` is a documented, tested gap** — sexuality speculation with no
   orientation token cannot be caught deterministically without also refusing
   "what is track five on Midnights really about?". Do not "fix" it with a regex
@@ -78,16 +54,29 @@ not inferred from a green build. Rulings J1–J7 in `docs/decisions.md`.
 
 ## Merge authorization
 
-Per-workstream, never standing. Live: **"please merge when completed"** covers
-Community + Merch. All earlier grants are spent. Standing and NOT spent:
-**"don't allow codex reviews to go more than 2 rounds."**
+**Joey is the ONLY merger** (2026-08-14: "No one else should be merging on this
+repo except you. Wyatt is no longer working on the project"), delegated to this
+session for the work it produced. Standing and NOT spent: **max two review
+rounds**, never a third.
+
+**Codex is OUT, by Joey's explicit ruling** (2026-08-14): "we can ignore the
+codex reviews. use claude code review. I know that you think that's not good,
+but it's all we have right now. if that's already been done then just stop
+reminding me about it." This OVERRIDES Workflow rule 3's `/codex:review`
+requirement. A `reviewer` agent (optionally `model: "fable"`) is the sanctioned
+substitute. **Do not re-raise the missing-Codex gap with him** — he has heard it
+and ruled. Note it in a PR body if it matters; do not put it in chat again.
 
 ## Autonomous decisions — review surface
 
-- Merged #2110 on standing authorisation while Joey's three questions stay open,
-  because the feature branch depended on it. Questions logged, not dropped.
-- Fixed round 2's LOW (whitespace-prefixed formulas) rather than shipping it as
-  a named open finding — two lines, inside the class already being fixed.
+- Merged #2140 and #2141 myself under the delegated authority above, after
+  verifying each diff (additive-only, guard idiom, self-limiting window).
+- Did NOT strip `@wjduvall-cmd` from ownership-routing or bot-identity sites in
+  the same PR as the notification sweep — those change behaviour, and runners
+  execute on Wyatt's account. Split, with the risky half reported not guessed.
+- `auto-merge-content.yml` is landing UI CODE PRs, not just content (#2140 went
+  in unattended). Correct per its own guard, which only blocks server-executing
+  and secret-reading files. **Flagged to Joey; tightening is his call.**
 
 ## Architect invocations
 
@@ -135,17 +124,17 @@ Community + Merch. All earlier grants are spent. Standing and NOT spent:
   container moved — that mistake cost two review rounds.
 - **Two mechanisms for one fact is this repo's recurring defect** — three times
   in one branch. Grep for other callers before declaring a fix done.
-- **Reddit blocks this environment outright** (403 on `www.` and `oauth.`,
-  WebFetch refuses the domain). Published r/TaylorSwift counts span 200k–3.8M
-  across sources fetched the same week — **aggregators are not a substitute.**
-  15 of 30 communities carry `memberCount: null` BY DESIGN; never write 0.
-  Facebook is invisible from outside a login; half of public Discord listings
-  are wrong (verify via `discord.com/api/v10/invites/<code>?with_counts=true`);
-  Amino shut down entirely 2025-12-19 and listicles still cite it.
+- **Reddit blocks this environment outright** (403, WebFetch refuses it) and
+  published r/TaylorSwift counts span 200k–3.8M the same week — **aggregators
+  are not a substitute.** 15 of 30 communities carry `memberCount: null` BY
+  DESIGN; never write 0. Facebook is invisible outside a login; half of public
+  Discord listings are wrong (verify via
+  `discord.com/api/v10/invites/<code>?with_counts=true`).
 - **Joey asked for a 30-min recurring cron to "keep you going" (2026-08-14).
-  RAISED, not built** — it is what § Never babysit your own PR bans, and it would
-  not have fixed the stalls (background agents already re-invoke on completion).
-  **If he reaffirms, build it.** Never build it silently.
+  RAISED, not built** — it is what § Never babysit your own PR bans, and it
+  would not have fixed the stalls (background agents already re-invoke on
+  completion). He then said "stand down and turn off anything automated".
+  **Build it only if he reaffirms explicitly.** Never build it silently.
 - **Parallel sessions share this checkout** — `STATE.md`/`PLAN.md` collided twice
   on 2026-08-14. Verify the branch right before every commit.
 - **Pre-existing failures, not yours:** `scripts/social/lib/card-render.test.ts`
@@ -164,74 +153,35 @@ Community + Merch. All earlier grants are spent. Standing and NOT spent:
 ## Open threads
 
 - [ ] **Marketplace research (Joey's brief, 2026-08-14) — BLOCKED on API keys,
-      by his choice.** Goal: curated dataset of official + viral fan-made merch.
-      Probed first rather than dispatching researchers, because every hype
-      source in the brief is unreachable: Etsy/Redbubble/TeePublic 403, Reddit
-      refused at tool level, TikTok returns an empty shell. Five agents pointed
-      at those would have invented view counts.
-      - **Tier 1 is already solved, free, no signup:**
-        `store.taylorswift.com/products.json` is an open Shopify endpoint —
-        verified live (titles, prices, variants, stock).
-      - Joey chose "get proper API access first" over browser automation or a
-        scoped-down press-only version. **Needs from him:** Reddit script app
-        (reddit.com/prefs/apps), Etsy Open API Personal App
-        (developer.etsy.com), then Awin + Amazon Associates for referral data.
-      - **Permanent ceiling, tell him before he signs up for more:** per-video
-        TikTok/Instagram view counts for accounts you don't own are NOT
-        obtainable on any legitimate path (TikTok's only such API is
-        academic/non-commercial; IG Business Discovery needs the TARGET to be a
-        Business/Creator account). `hype_evidence` should be scoped to Reddit
-        score + comments + press. Etsy listings also carry NO review count —
-        that is a second call per listing.
-      - **Must feed the EXISTING Merch surface (156 products, PR #2116 folds it
-        into Community), not a parallel dataset.** Read that PR before building.
-- [ ] **#2109 filed** — Codex cross-review owed on #2086, #2087, #2107.
+      by his choice.** Curated official + viral fan-made merch dataset. Every
+      hype source in the brief is unreachable from here (Etsy/Redbubble/
+      TeePublic 403, Reddit refused at tool level, TikTok an empty shell) —
+      agents pointed at those would invent view counts. **Tier 1 is already
+      solved, free, no signup:** `store.taylorswift.com/products.json`, an open
+      Shopify endpoint verified live. **Needs from Joey:** Reddit script app,
+      Etsy Open API Personal App, then Awin + Amazon Associates.
+      **Permanent ceiling — tell him before he signs up for more:** per-video
+      TikTok/IG counts for accounts you don't own are unobtainable on any
+      legitimate path, and Etsy listings carry no review count. Scope
+      `hype_evidence` to Reddit score + comments + press. Must feed the
+      EXISTING Merch surface (156 products, #2116), not a parallel dataset.
 - [ ] 3 appearance videos carry no topic tag — their own records support none.
 - [ ] folklore and evermore have no Tour content. True of the world, not a gap.
 - [ ] Theory doorways scatter rather than sitting beside the song they discuss.
       Joey accepted this 2026-08-13; an authored `anchorHint` is the fix if it
       ever matters.
 
-## Session 2026-08-15 (Joey sole owner)
-
-**Joey: "No one else should be merging on this repo except you. Wyatt is no
-longer working on the project."** Treat merge authority as delegated to this
-session for his work; still never commit to `main` directly.
-
-- **Nav pill drift — MERGED `7bb117b4` (#2118).** The desktop indicator sat
-  right of its tab, worsening per tab (19.4px by the last one). Cause was NOT
-  the padding arithmetic I guessed: the tabs are `flex-1 basis-0` WITHOUT
-  `min-w-0`, so long labels ("Clownbot", "Community") keep a content-based
-  minimum and claim more than an even share. The indicator assumed
-  `100% / tabCount`. It now measures the active tab's own box. **Third bug this
-  week fixed by the same principle: observe where a thing IS, do not compute
-  where it ought to be** (see also `measureChromeBottom`, the scrubber rail).
-  Also folded the duplicated `useIsomorphicLayoutEffect` into
-  `lib/longlive/useIsomorphicLayoutEffect.ts` — FilterBar and TopBar had
-  separate private copies.
-- **Share on every surface — IN FLIGHT**, issue #2105, branch
-  `fix/share-every-surface`. Two calls made for the agent, do not re-open:
-  (1) extend the existing one-shot deep-link params, **do NOT add routing** —
-  the app is deliberately route-free and PR #1947 set this pattern;
-  (2) share the DESTINATION, never the conversation. `share.ts`'s refusal for
-  Mood/Clownbot is about never transmitting what a user typed, and that stays.
-  The agent must prove the produced URL is unchanged after typing into each.
-- **#2118 was merged by `sffan15-sys` automatically**, not by me — worth
-  knowing given `auto-merge-content` is meant for content-only PRs and that one
-  touched three `.tsx`/`.ts` files. Bears on #2113.
-
 ## Next obvious step
 
-0. **CI billing is CLEAR — #2116's stated blocker is gone.** It said "Actions
-   is down account-wide on billing, so `build` never runs"; verified 2026-08-15
-   03:45Z that its own `build` passed in 2m3s and three workflows completed
-   successfully in the preceding seven minutes. The minutes BALANCE could not be
-   read (GitHub moved that endpoint; it needs `admin:org` scope this token
-   lacks) — this is evidence that jobs run, not a quota readout.
-1. Open the Community + Merch PR and merge it (authorised, review complete).
-2. **Run Codex against merged `main` when credits return (Aug 19)** — rule 3 is
-   unsatisfied for Clownbot and this feature both.
-3. Hand Wyatt his five items before treating tier/caps as decided.
-4. First real-device check of the bottom nav. Never been opened on a phone.
-5. Joey's hands, not mine: the three #2110 questions, and the Apps Script /
-   Resend / env setup in `docs/ops/community-merch-submissions.md`.
+1. **Await tomorrow's watchdog run** — Check 1 should alarm (Karen still not
+   enabled); Check 2 reports the first post-rotation news-worker run. Neither
+   needs a session babysitting it; read the alert when it lands.
+2. **PR from the departed-founder notification sweep** — verify and merge.
+3. **#2116 Community + Merch is CONFLICTING** and lives in another session's
+   worktree. Rebase from there; do not fight it from this checkout.
+4. Real-device check of the six LABELLED bottom-nav tabs (threshold 7, 10px)
+   at 360px and 390px. Code-correct and green tests are not a device check.
+5. Joey's hands, not mine: the three #2110 questions, the five formerly-Wyatt
+   items, whether `auto-merge-content` should stop auto-landing UI code, and
+   the Apps Script / Resend / env setup in
+   `docs/ops/community-merch-submissions.md`.
