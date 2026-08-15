@@ -26,16 +26,24 @@ a placeholder). Shopify's open `/products/<handle>.json` is the source;
 Amazon/Nordstrom/LV/Tiffany/SSENSE/Revolve/Skims/Fashion Nova/Showpo/
 Reformation/Tecovas expose nothing equivalent and keep the labelled fallback.
 
-**#6 IN FLIGHT — `feature/community-signal-board`.** Joey approved my
+**#6 MERGED (#2158) — ALL TWELVE ITEMS ARE DONE.** Joey approved my
 recommendation: **Direction A "Signal Board" + Direction B's chapter standfirst
-headings** (mockup at scratchpad `community-mockup.html`). The core fix: the
-page already collects `onlineCount`, `activityLevel`, `activityEvidence`,
-`checkedAt` and `hypeScore` and renders NONE of it — that is why it reads as 30
-identical rectangles. **I authored the 8 platform standfirst lines myself**
-(Joey never supplied them; flagged in the PR as his to rewrite) and ruled that
-cards show a quiet "checked 14 Aug" rather than presenting drifting counts as
-current. **Hard constraint: 15 of 30 entries have `memberCount: null` BY DESIGN
-— em-dash in the same optical slot, never "0", never an estimate.**
+headings**. The fix was that the page already collected `onlineCount`,
+`activityLevel`, `activityEvidence`, `checkedAt` and `hypeScore` and rendered
+NONE of it — hence 30 identical rectangles. New `CommunityCard.tsx` (225 lines);
+`CommunitySection.tsx` down to 120.
+
+Two calls of mine inside it, both cheap to reverse if Joey dislikes them:
+- **I authored the 8 platform standfirst lines** (he never supplied them). They
+  are typed `Record<CommunityPlatform, string>`, so a new platform without copy
+  is a COMPILE ERROR, not a blank heading. His to rewrite.
+- **The featured card per group ranks by `hypeScore`, not `memberCount`** — so
+  Discord features the official Discord (99k, score 9) above Taylor Swift Fan
+  Club (144k, score 8). Curated quality over headcount; a one-line change.
+
+**Hard constraint held, browser-verified: 15 of 30 entries have `memberCount:
+null` BY DESIGN — em-dash in the same optical slot rendered 15 times, "0
+members" ZERO times.** Never write 0 or an estimate here.
 
 **#2141's two watchdog checks fire daily and Check 1 is EXPECTED to alarm** —
 Karen has not run since 2026-08-09, so an alert means "still not enabled", NOT a
@@ -219,13 +227,7 @@ did not start.
 
 ## Next obvious step
 
-1. **Verify and merge `feature/community-signal-board` (#6)** — Joey authorised
-   "implement and merge". Check in a BROWSER at 360px, not from the suite: the
-   15 null-count cards show an em-dash and never "0"; r/TaylorSwift (null count,
-   `activityLevel: "unknown"`, `blocked-unverified`, 2 flags) looks deliberate;
-   all 8 standfirsts render; the `SuggestLinkBanner` and jump chips from #2153
-   still work.
-2. **Device-check the punch list on a real phone.** Twelve items shipped today
+1. **Device-check the punch list on a real phone.** Twelve items shipped today
    across the Eras, Threads, Merch and Community surfaces. Highest-value checks:
    chip rows scroll and the FIRST chip is reachable at 360px; the suggest-a-link
    banner reads as an invitation; merch product photos load; the "Her look, not
