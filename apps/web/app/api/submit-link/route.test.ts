@@ -181,6 +181,95 @@ describe('POST /api/submit-link', () => {
     vi.useRealTimers();
   });
 
+  // Turnstile spam gate. THE ASYMMETRY BEING TESTED HERE IS THE WHOLE POINT:
+  // unset secret → behaves exactly as before Turnstile existed (fail open,
+  // matching the sinks' philosophy); set secret → verification is mandatory
+  // and fails CLOSED on any error, timeout, or bad token (the opposite of
+  // the sinks). See verifyTurnstile's doc comment in lib/longlive/submit-link.ts.
+  describe('Turnstile spam gate', () => {
+    it('behaves exactly as before Turnstile when TURNSTILE_SECRET_KEY is unset (no token needed)', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      const fetchSpy = vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ number: 10, html_url: 'http://gh/10' }), { status: 201 }),
+      );
+      vi.stubGlobal('fetch', fetchSpy);
+
+      const res = await POST(req({ url: 'https://reddit.com/r/x', section: 'community' }, '10.3.0.1'));
+      expect(res.status).toBe(200);
+      // Only the GitHub sink fetch — no siteverify call was made.
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(fetchSpy.mock.calls[0][0]).toContain('api.github.com');
+    });
+
+    it('rejects a submission with no token when TURNSTILE_SECRET_KEY is set', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      vi.stubEnv('TURNSTILE_SECRET_KEY', 'secret');
+      const fetchSpy = vi.fn();
+      vi.stubGlobal('fetch', fetchSpy);
+
+      const res = await POST(req({ url: 'https://reddit.com/r/x', section: 'community' }, '10.3.0.2'));
+      expect(res.status).toBe(400);
+      // Rejected before any sink or siteverify call.
+      expect(fetchSpy).not.toHaveBeenCalled();
+    });
+
+    it('rejects an invalid/failed token when TURNSTILE_SECRET_KEY is set', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      vi.stubEnv('TURNSTILE_SECRET_KEY', 'secret');
+      const fetchSpy = vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ success: false, 'error-codes': ['invalid-input-response'] }), { status: 200 }),
+      );
+      vi.stubGlobal('fetch', fetchSpy);
+
+      const res = await POST(
+        req({ url: 'https://reddit.com/r/x', section: 'community', token: 'bad-token' }, '10.3.0.3'),
+      );
+      expect(res.status).toBe(400);
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(fetchSpy.mock.calls[0][0]).toContain('challenges.cloudflare.com');
+    });
+
+    it('accepts a valid token when TURNSTILE_SECRET_KEY is set', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      vi.stubEnv('TURNSTILE_SECRET_KEY', 'secret');
+      const fetchSpy = vi.fn().mockImplementation((url: string) => {
+        if (url.includes('challenges.cloudflare.com')) {
+          return Promise.resolve(new Response(JSON.stringify({ success: true }), { status: 200 }));
+        }
+        return Promise.resolve(
+          new Response(JSON.stringify({ number: 11, html_url: 'http://gh/11' }), { status: 201 }),
+        );
+      });
+      vi.stubGlobal('fetch', fetchSpy);
+
+      const res = await POST(
+        req({ url: 'https://reddit.com/r/x', section: 'community', token: 'good-token' }, '10.3.0.4'),
+      );
+      expect(res.status).toBe(200);
+      expect(await res.json()).toMatchObject({ ok: true, number: 11 });
+      expect(fetchSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it('rejects (never allows) when the siteverify call itself errors', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      vi.stubEnv('TURNSTILE_SECRET_KEY', 'secret');
+      const fetchSpy = vi.fn().mockImplementation((url: string) => {
+        if (url.includes('challenges.cloudflare.com')) {
+          return Promise.reject(new Error('network down'));
+        }
+        return Promise.resolve(new Response(JSON.stringify({ number: 12 }), { status: 201 }));
+      });
+      vi.stubGlobal('fetch', fetchSpy);
+
+      const res = await POST(
+        req({ url: 'https://reddit.com/r/x', section: 'community', token: 'some-token' }, '10.3.0.5'),
+      );
+      expect(res.status).toBe(400);
+      // Only the failed siteverify call — never reached the GitHub sink.
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   it('evicts stale IPs from the rate limiter map instead of growing it forever', async () => {
     vi.useFakeTimers();
     // Pin the fake clock to the real current time — the limiter's internal

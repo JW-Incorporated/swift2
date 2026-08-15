@@ -1,13 +1,16 @@
 import { createHash } from 'node:crypto';
 
-// Validation + the three sinks for the community/merch "submit a link" form.
-// Nothing a visitor submits ever renders on the site (issue #36's no-go on
-// user-generated content hosting) — it only ever reaches Joey, via up to
-// three independently-optional channels. See docs/ops/community-merch-submissions.md.
+// Validation, the Turnstile spam gate, and the three sinks for the
+// community/merch "submit a link" form. Nothing a visitor submits ever
+// renders on the site (issue #36's no-go on user-generated content hosting)
+// — it only ever reaches Joey, via up to three independently-optional
+// channels. See docs/ops/community-merch-submissions.md.
 //
 // Each sink is best-effort: a missing or failing integration must NEVER fail
 // the visitor's submission. Callers (the route) still get an outcome per sink
 // so they can log a miss (kind only, never payload) without surfacing it.
+// `verifyTurnstile` below is the one deliberate exception to that
+// philosophy — see its doc comment.
 
 export const MAX_URL_LENGTH = 500;
 
@@ -42,6 +45,72 @@ export function validateUrl(raw: unknown): ValidateUrlResult {
   if (!parsed.hostname) return { ok: false, error: 'That doesn’t look like a valid link.' };
 
   return { ok: true, url: parsed.toString() };
+}
+
+export type TurnstileResult =
+  | { configured: false }
+  | { configured: true; ok: true }
+  | { configured: true; ok: false };
+
+/** Cloudflare Turnstile spam gate. This is DELIBERATELY THE OPPOSITE
+ * philosophy from the three sinks below (`postGitHubIssue`/`postToSheet`/
+ * `sendSubmissionEmail`), which are best-effort and must never block a
+ * submission when unconfigured or failing. A spam gate that silently no-ops
+ * on failure is worthless, so:
+ *
+ *   - `TURNSTILE_SECRET_KEY` UNSET → verification is skipped entirely; the
+ *     route behaves exactly as it did before Turnstile existed (honeypot +
+ *     rate limit only). This is what keeps the site working before Joey has
+ *     created the Cloudflare account and set the key.
+ *   - `TURNSTILE_SECRET_KEY` SET → verification is MANDATORY. A missing
+ *     token, an empty/malformed token, an expired or already-used token, a
+ *     failed challenge, or an error/timeout calling Cloudflare's own
+ *     `siteverify` endpoint ALL reject the submission. There is no
+ *     fall-through-to-allow path once a secret is configured — do not add
+ *     one to "match" the sinks' fail-open style below; that would defeat the
+ *     entire point of the gate. Fail-open is correct for an optional
+ *     notification channel; fail-closed is correct for an abuse gate. */
+export async function verifyTurnstile(token: unknown, ip: string): Promise<TurnstileResult> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.warn('submit-link: TURNSTILE_SECRET_KEY not set; spam gate disabled (honeypot + rate limit only)');
+    return { configured: false };
+  }
+  if (typeof token !== 'string' || !token) {
+    return { configured: true, ok: false };
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const body = new URLSearchParams({ secret, response: token });
+    if (ip && ip !== 'unknown') body.set('remoteip', ip);
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      signal: controller.signal,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body,
+    });
+
+    if (!res.ok) {
+      console.error('submit-link: Turnstile siteverify HTTP error', res.status);
+      return { configured: true, ok: false };
+    }
+
+    const data = (await res.json()) as { success?: boolean; 'error-codes'?: string[] };
+    if (!data.success) {
+      console.warn('submit-link: Turnstile verification failed', data['error-codes']);
+      return { configured: true, ok: false };
+    }
+    return { configured: true, ok: true };
+  } catch (err) {
+    // Fail CLOSED, not open — an endpoint error or timeout must reject the
+    // submission. See the doc comment above; do not change this to `ok: true`.
+    console.error('submit-link: Turnstile siteverify error', (err as Error).message);
+    return { configured: true, ok: false };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 /** Lowercased hostname with a leading "www." stripped. Assumes `url` already

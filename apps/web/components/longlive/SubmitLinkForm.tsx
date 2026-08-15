@@ -4,14 +4,33 @@
  * The shared "put a link and hit submit" form (PLAN.md, Joey 2026-08-14),
  * rendered at the bottom of both CommunitySection and MerchSection. POSTs to
  * `/api/submit-link` (owned by a parallel agent, PLAN.md step 2) with
- * `{ url, section, hp }`. Nothing a user submits ever renders on the site —
- * a human reviews every submission before it's added (issue #36's no-go on
- * user-generated content hosting liability) — so the success state says that
- * plainly rather than implying anything auto-publishes.
+ * `{ url, section, hp, token }`. Nothing a user submits ever renders on the
+ * site — a human reviews every submission before it's added (issue #36's
+ * no-go on user-generated content hosting liability) — so the success state
+ * says that plainly rather than implying anything auto-publishes.
+ *
+ * `token` is a Cloudflare Turnstile response token — the widget only renders
+ * (and only then is a token sent) when `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is
+ * set; otherwise this form behaves exactly as before Turnstile existed. The
+ * site key is public by design (it identifies the widget, not a secret).
+ * Server-side verification and its fail-open/fail-closed rule live in
+ * lib/longlive/submit-link.ts's `verifyTurnstile`.
  */
 
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { Check, Loader2 } from 'lucide-react';
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: Record<string, unknown>) => string;
+      remove: (widgetId: string) => void;
+    };
+  }
+}
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+const TURNSTILE_SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
 
 export interface SubmitLinkFormProps {
   section: 'community' | 'merch';
@@ -40,6 +59,7 @@ function looksLikeUrl(value: string): boolean {
 export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
   const [url, setUrl] = useState('');
   const [hp, setHp] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const copy = SECTION_COPY[section];
@@ -47,6 +67,51 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
   const statusId = `submit-link-${section}-status`;
   const trimmed = url.trim();
   const valid = looksLikeUrl(trimmed);
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | undefined>(undefined);
+
+  // Renders the Turnstile widget only when a site key is configured — inert
+  // otherwise, per lib/longlive/submit-link.ts's verifyTurnstile contract.
+  // "Managed" mode (the widget type set via data-appearance below) usually
+  // passes invisibly and only shows a checkbox when Cloudflare's risk signal
+  // is ambiguous, which is the least-annoying option that still gates bots.
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+    let cancelled = false;
+
+    function render() {
+      if (cancelled || !turnstileRef.current || !window.turnstile) return;
+      widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        appearance: 'interaction-only',
+        callback: (token: string) => setTurnstileToken(token),
+        'expired-callback': () => setTurnstileToken(''),
+        'error-callback': () => setTurnstileToken(''),
+      });
+    }
+
+    if (window.turnstile) {
+      render();
+      return () => {
+        cancelled = true;
+        if (widgetIdRef.current && window.turnstile) window.turnstile.remove(widgetIdRef.current);
+      };
+    }
+
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${TURNSTILE_SCRIPT_SRC}"]`);
+    const script = existing ?? document.createElement('script');
+    if (!existing) {
+      script.src = TURNSTILE_SCRIPT_SRC;
+      script.async = true;
+      document.head.appendChild(script);
+    }
+    script.addEventListener('load', render);
+    return () => {
+      cancelled = true;
+      script.removeEventListener('load', render);
+      if (widgetIdRef.current && window.turnstile) window.turnstile.remove(widgetIdRef.current);
+    };
+  }, []);
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -57,7 +122,7 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
       const res = await fetch('/api/submit-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: trimmed, section, hp }),
+        body: JSON.stringify({ url: trimmed, section, hp, token: turnstileToken }),
       });
       const data: { error?: string } = await res.json().catch(() => ({}));
       if (res.ok) {
@@ -122,6 +187,11 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
             {status === 'submitting' ? 'Sending…' : 'Submit'}
           </button>
         </div>
+
+        {/* Turnstile spam gate — only mounted when a site key is configured
+            (see the useEffect above); an unconfigured deployment renders
+            nothing here and the form works exactly as before Turnstile. */}
+        {TURNSTILE_SITE_KEY && <div ref={turnstileRef} className="mt-2.5" />}
 
         <div id={statusId} aria-live="polite" className="mt-2 min-h-[1.25rem] text-xs">
           {status === 'success' && (

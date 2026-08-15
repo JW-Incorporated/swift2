@@ -98,11 +98,58 @@ vercel --prod                                     # ship it
 Choose **Production** (and Preview, if asked) when each `vercel env add`
 prompts you for environments.
 
+## Part 4 — spam gate (optional, recommended)
+
+This adds a Cloudflare Turnstile check to the submission form — the "I'm
+human" checkbox Cloudflare offers, in **managed** mode, which usually passes
+invisibly and only shows a checkbox when Cloudflare's own risk signal is
+ambiguous. It runs alongside the honeypot field and rate limiter that already
+exist; none of them replace the others.
+
+**This is different from Parts 1–2 in one important way.** Skipping the sheet
+or email just means that channel doesn't get used — nothing else changes.
+Turnstile is the opposite: until you set it up, the spam gate is simply
+**off** (honeypot + rate limit only, same as today). The moment you add the
+secret key below, verification becomes **mandatory** — a submission with a
+missing, invalid, or expired token is rejected outright. There's no
+in-between state.
+
+1. Log into [dash.cloudflare.com](https://dash.cloudflare.com) (sign up free
+   if you don't have an account — no domain needs to be on Cloudflare for
+   this).
+2. Left sidebar → **Turnstile** → **Add site**.
+   - Site name: anything, e.g. `Long Live submissions`.
+   - Domain: `longlivets.com`.
+   - Widget mode: **Managed**.
+3. Cloudflare shows you two values: a **Site Key** and a **Secret Key**. Copy
+   both — you'll paste them in the terminal step below.
+4. From a terminal, in the repo, with the Vercel CLI set up (see
+   `docs/deploy.md`):
+
+   ```bash
+   vercel env add NEXT_PUBLIC_TURNSTILE_SITE_KEY   # paste the Site Key from step 3
+   vercel env add TURNSTILE_SECRET_KEY             # paste the Secret Key from step 3
+   vercel --prod                                    # ship it
+   ```
+
+   Choose **Production** (and Preview, if asked) when each `vercel env add`
+   prompts you for environments.
+
+**Worked if:** open the Community or Merch page — most of the time you'll see
+no visible change (that's the widget passing invisibly). Submit a link and
+confirm it still works and still shows up as a GitHub issue. If Cloudflare's
+risk signal is ambiguous for a given visit, a small "I'm not a robot"
+checkbox appears above the Submit button instead.
+
 ## What happens if you skip a part
 
-Nothing breaks. Visitors can always submit a link and always get a "thanks"
-message. Whatever you haven't set up just doesn't happen for that
-submission — e.g. skip Part 1 and nothing gets added to the sheet, but the
-GitHub issue is still created and (if you did Part 2) you still get the
-email. You can come back and do Parts 1/2 whenever you want; nothing needs
-to be done in a particular order or all at once.
+**Parts 1–2:** nothing breaks either way. Visitors can always submit a link
+and always get a "thanks" message. Whatever you haven't set up just doesn't
+happen for that submission — e.g. skip Part 1 and nothing gets added to the
+sheet, but the GitHub issue is still created and (if you did Part 2) you
+still get the email. You can come back and do Parts 1/2 whenever you want;
+nothing needs to be done in a particular order or all at once.
+
+**Part 4:** also safe to skip — the form and API work exactly as they do
+today, with no spam gate beyond the honeypot and rate limiter. It only
+changes behavior once you've added both env vars above.

@@ -5,6 +5,7 @@ import {
   platformGuessFromDomain,
   hashClientId,
   submitLink,
+  verifyTurnstile,
   SECTIONS,
   type Section,
   type SubmissionRecord,
@@ -18,7 +19,10 @@ import {
 // docs/ops/community-merch-submissions.md and lib/longlive/submit-link.ts.
 //
 // Shape copied from /api/feedback: per-IP burst limit + a honeypot that
-// returns 200 as if it worked, so bots learn nothing.
+// returns 200 as if it worked, so bots learn nothing. A Cloudflare Turnstile
+// check runs after those, before any sink — inert (skipped) until
+// TURNSTILE_SECRET_KEY is set, then mandatory. See verifyTurnstile's doc
+// comment in lib/longlive/submit-link.ts for the fail-open/fail-closed split.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
@@ -72,7 +76,7 @@ export async function POST(req: Request): Promise<Response> {
   // deliberately not accepted here: the form never sends them, so parsing
   // them from the request was pure unused attack surface (see finding 1).
   // `sourcePage` is derived from the validated `section` below instead.
-  let payload: { url?: string; section?: string; hp?: string };
+  let payload: { url?: string; section?: string; hp?: string; token?: string };
   try {
     payload = await req.json();
   } catch {
@@ -100,6 +104,20 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json(
       { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
       { status: 429 },
+    );
+  }
+
+  // Fail-CLOSED gate, on purpose — the opposite of the three sinks below.
+  // Unconfigured (`configured: false`) falls through and behaves exactly as
+  // before Turnstile existed. Configured-but-not-ok (missing/invalid/expired
+  // token, failed challenge, or a siteverify error/timeout) rejects here,
+  // before any sink runs. See verifyTurnstile's doc comment in
+  // lib/longlive/submit-link.ts — do not change this to fail open.
+  const turnstile = await verifyTurnstile(payload.token, ip);
+  if (turnstile.configured && !turnstile.ok) {
+    return NextResponse.json(
+      { error: 'We couldn’t verify that submission. Please reload the page and try again.' },
+      { status: 400 },
     );
   }
 

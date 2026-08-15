@@ -192,6 +192,46 @@ answer them, and the dataset ages from here.
 
 ---
 
+### 8. [UPGRADE] Turn on the spam gate for link submissions — ~10 min
+
+**Why it matters:** you asked for "a very simple captcha... the box you click
+that says I'm human" on the Community/Merch link-submission form. That's now
+built (Cloudflare Turnstile, "managed" mode — it usually passes invisibly and
+only shows a checkbox when Cloudflare's own risk signal is ambiguous). It
+ships **inert**: no Cloudflare account exists yet, so the code detects the
+missing key and skips verification entirely — the site keeps working
+normally in the meantime, exactly as it does today (honeypot + rate limiter
+only). Nothing breaks by leaving this OPEN.
+
+**Steps:**
+1. Log into `https://dash.cloudflare.com` (sign up free if you don't have an
+   account — the domain does not need to be on Cloudflare for this to work).
+2. Left sidebar → **Turnstile** → **Add site**.
+   - Site name: anything, e.g. `Long Live submissions`.
+   - Domain: `longlivets.com`.
+   - Widget mode: **Managed**.
+3. Cloudflare shows you two values: a **Site Key** and a **Secret Key**. Copy
+   both.
+4. From a terminal, in the repo, with the Vercel CLI set up (see
+   `docs/deploy.md`):
+   ```bash
+   vercel env add NEXT_PUBLIC_TURNSTILE_SITE_KEY   # paste the Site Key
+   vercel env add TURNSTILE_SECRET_KEY             # paste the Secret Key
+   vercel --prod
+   ```
+   Choose **Production** (and Preview, if asked) when each `vercel env add`
+   prompts you for environments.
+
+Full write-up: `docs/ops/community-merch-submissions.md`, Part 4.
+
+**Worked if:** open the Community or Merch page — most of the time nothing
+looks different (the widget passes invisibly). Submit a test link and
+confirm it still works and still shows up as a GitHub issue.
+
+**Status:** OPEN
+
+---
+
 ## DONE
 
 <!-- Finished items move here with a date. Numbers keep their original ID.
