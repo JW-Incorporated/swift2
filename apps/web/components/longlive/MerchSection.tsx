@@ -212,7 +212,7 @@ export function MerchSection() {
   );
 }
 
-function MerchCard({ item }: { item: MerchItem }) {
+export function MerchCard({ item }: { item: MerchItem }) {
   const { openItem } = useAppActions();
   const soldOut = item.inStock === false;
   const exactPiece = item.isAlternative !== true;
@@ -265,19 +265,26 @@ function MerchCard({ item }: { item: MerchItem }) {
                 Sold out
               </span>
             )}
-            {exactPiece ? (
+            {exactPiece && (
               <span className="inline-flex items-center gap-1 rounded-full border border-[color:var(--era-accent)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[color:var(--era-accent)]">
                 The exact piece
               </span>
-            ) : (
-              <span
-                className="inline-flex items-center gap-1 rounded-full border border-[color:var(--era-line)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[color:var(--era-ink-soft)]"
-                title={item.altNote}
-              >
-                Similar style
-              </span>
             )}
           </span>
+          {!exactPiece && (
+            <span
+              className="mt-1.5 block rounded-lg border px-2.5 py-1.5"
+              style={{ backgroundColor: 'var(--status-pending)', borderColor: 'var(--status-pending-ink)' }}
+              title={item.altNote}
+            >
+              <span className="block text-[11px] font-bold uppercase tracking-wide" style={{ color: 'var(--status-pending-ink)' }}>
+                We found something similar
+              </span>
+              {item.altNote && (
+                <span className="mt-0.5 block text-xs leading-snug text-[color:var(--era-ink)]">{item.altNote}</span>
+              )}
+            </span>
+          )}
         </span>
       </a>
 
