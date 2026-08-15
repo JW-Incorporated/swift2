@@ -3722,14 +3722,14 @@ export default {
             reportedOn: '2026-07-20',
             status: 'unconfirmed',
             url: 'https://www.realitytea.com/2026/07/20/taylor-swift-wedding-photos-out-release/',
-            note: 'A gossip-newsletter claim about her release strategy. Better-sourced update 2026-07-25 (ledger #1246): Dior told The New York Times that Taylor herself will post the first wedding images to Instagram (timing unstated), and, per People, no plans for a wedding documentary or film. No official photographer of record has been named — so the official channel is her own Instagram, on her own timing.',
+            note: 'A gossip-newsletter claim about her release strategy. Update 2026-07-25 (ledger #1246): Dior told the NYT that Taylor herself will post the first images to Instagram (timing unstated); per People, no documentary. Re-checked 2026-08-15: six weeks on, still nothing posted to any channel; press keeps speculating if/when they surface. Still live — neither released nor abandoned.',
             // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): the
             // primary source is a self-published gossip newsletter, which is
             // the `social` tier's definition — the note said as much while the
             // field said 'tabloid'. Reality Tea is the aggregator, not the
             // reporter, so it does not lift the tier.
             sourceTier: 'social',
-            lastCheckedOn: '2026-07-25',
+            lastCheckedOn: '2026-08-15',
           },
           {
             // Added 2026-07-25 (ledger #1246): the ceremony processional music.
@@ -3741,9 +3741,9 @@ export default {
             reportedOn: '2026-07-05',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-travis-kelce-walked-110045264.html',
-            note: 'The processional FORMAT (live strings, an acoustic version of one of her own songs) is corroborated across outlets, but the specific "Love Story" title rests on a single unnamed source and is unconfirmed by the couple — Wikipedia records only "an acoustic version of one of her songs." Public-facing, redline-clean.',
+            note: 'The processional FORMAT (live strings, an acoustic version of one of her own songs) is corroborated, but the specific "Love Story" title rests on a single unnamed source, unconfirmed by the couple — Wikipedia records only "an acoustic version of one of her songs." Re-checked 2026-08-15: still no confirmation or denial of the title; remains single-source, still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-07-25',
+            lastCheckedOn: '2026-08-15',
           },
           {
             // Added 2026-08-02 (Rumor Desk, Vault Run): a forward-looking,
@@ -10204,6 +10204,24 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-13',
             reliability_score: 4,
+          },
+        ],
+        // Rumor Desk 2026-08-15: the moment above documents the takedowns as
+        // fact but leaves one thing open in prose — WHO caused them. This
+        // isolates that unconfirmed causal claim as a tracked, resolvable
+        // rumor. Politically adjacent, framed neutrally and attributed to the
+        // outlets' inference, never asserted as her stated intent. No location.
+        rumors: [
+          {
+            claim:
+              'Reporting on the copyright blocks framed them as Taylor\'s own doing — her team moving to pull her recordings from the Team Trump and official White House TikTok posts — an attribution the outlets drew from TikTok\'s standard rights-holder block notice and the removals landing within hours of each post.',
+            reportedBy: 'Rolling Stone / Billboard',
+            reportedOn: '2026-08-13',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-removes-song-trump-white-house-tiktok-1235607884/',
+            note: 'Confirmed above is the RESULT — her songs replaced by TikTok\'s copyright-block notice. Unconfirmed is the CAUSE: outlets attribute it to Taylor\'s team, but that is inference from the notice and timing, not an on-record statement — no comment from her reps or the White House, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Resolves if her camp confirms.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-15',
           },
         ],
       },
