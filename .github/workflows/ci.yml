@@ -5,6 +5,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 # Actions-minutes control (2026-07-27). CI is ~77% of this repo's Actions
 # minutes — 352 runs / 474 min in the 7 days to 2026-07-27 — because every bot
 # PR costs two runs: one on the PR, one on `main` after it merges.
