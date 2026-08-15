@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 94
+
+## Will Taylor Swift be at Travis Kelce's Chiefs preseason game vs. Rams? - Yahoo Sports
+
+- first seen: 2026-08-15 13:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Will Taylor Swift be at Travis Kelce's Chiefs preseason game vs. Rams?  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxQQy1sdTdiengxS21sSWpOQUU3WHZEdHhPX0d1MWQ0OWV0eTNoak1yZEtQUjYzeFlNNlpER2dhRnFhM25fLXlrZ0l3NEFRYXlXN1lhZU95QjlLcUpOR3dNbGx1WHo1dE02a1oyMFdVVTNham5oRlJEbkJWc3ljYVNwU1QzN2JLWWJ3OFE?oc=5
+
+## All The Details Behind Taylor Swift and Travis Kelce’s Wedding - Vogue Philippines
+
+- first seen: 2026-08-15 13:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: All The Details Behind Taylor Swift and Travis Kelce’s Wedding  Vogue Philippines
+- sources:
+  - [unverified] Vogue Philippines — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQcnEybW52WW1nZW81OU11UzBtazdiOU9uVjhPRVd3ekVfMGRTRmpBYWRDNUk0bVItQ3djYmJPUmtpOWs0bkN0bTkxdDZLS24xWnY4NUZkUFVjeXhuSlN3UDdNTjRVWlhvSF9panBkSzRIdFFyY2RKYlJranV0azhURWNhNmsxQ3pZcGx3NlRmLWplRzd0Q0ZjejctdjZ4NEozYXN0WU9nbnl5ME4zZXdfeEs1ZDRWY1VRcmU0TTdPRzltTWhManVwcXB2M3BOcE43bXV3YmVzN3ZlVGY4NnR3?oc=5
 
 ## Travis Kelce and Taylor Swift 'feel really grateful' after MSG wedding - Yahoo Lifestyle Canada
 
@@ -795,12 +811,3 @@ Travis Kelce Says Taylor Swift MSG Wedding Was “Childhood Dream”  The Holl
 - summary: Taylor Swift Set to Become the Youngest Songwriter Ever Inducted Into Nashville’s Hall of Fame  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQM2lqNW9wdG9PaTRWTjJLVTFPVjRRRGVZSHRFQVdNR2xkVWhlSFdPdERQWEJ4QThBYzVJUFdOb2t2bmRxNnFqcHQ4S2tFN1loRk1waHNrNGZVWGk4M2hsU3QwOXRiejYwUlJMWU4tcnVBbnFieVNHTWVoYXRhX1gwM29STGhPbm5La3dRLVNzZUtSRWFaYjdTTWdJb0lldWs?oc=5
-
-## Cruel summer? Rhode Island’s ‘Taylor Swift tax’ went into effect — who’s paying it? - The Boston Glo
-
-- first seen: 2026-08-12 10:17 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Cruel summer? Rhode Island’s ‘Taylor Swift tax’ went into effect — who’s paying it?  The Boston Globe
-- sources:
-  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMinAFBVV95cUxPcjlBTmdZVm1TZjVLVjR3WkExelFZTkUxUHJmdllyMzZscW5JTzNRS3MyXzdIQkI3RFN5eWo0QzZpLUhndnY5VjdTZy0yY253X2tYdW1Nbl9qRlRzeTBrZVVvVjdrMWJRLXRET0RlN0FiV1Z2T2JBa19yaU5VMkxTUm9JUDBzYm1KcUxtOVFmVDN1bTBNQ0VOYzZPNzM?oc=5
-  - [unverified] Boston.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxPOGdCbWRVeHlYR2JmRXBLN2R2SlFnUVVYVGJJenRQeVZTV2x4SFpadWpiQkZaTnlXb0NqdVNwLUFJSF9GSjdVRW1PN3BiVTBEZmlKa0JJVm45X0FFMDY2RUVmcmxpaWNRb0tSVXdSVE1HajN0SnZVOFh2Ykp1MDNoZ05NMXNQZWpoY0pmcjJfeVVHbnd6TlJncVRlUm5WWTJNbllEc3VJdw?oc=5
