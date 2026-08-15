@@ -43,7 +43,7 @@ import {
 } from '@/lib/longlive/merch-filters';
 import { merchEraSectionId, merchGroupsToChips, merchSummary, suggestLinkSectionId } from '@/lib/longlive/section-jump';
 import { FilterChipRow, type ChipDef } from '@/lib/longlive/filter-chips';
-import { SectionJumpBar } from './SectionJumpBar';
+import { SectionJumpBar, SuggestLinkBanner } from './SectionJumpBar';
 import { SubmitLinkForm } from './SubmitLinkForm';
 
 const CATEGORY_LABEL: Record<MerchCategory, string> = {
@@ -131,6 +131,10 @@ export function MerchSection() {
         </p>
       </header>
 
+      <div className="mt-5">
+        <SuggestLinkBanner id={suggestLinkSectionId('merch')} label="Found something we should add? Suggest it" />
+      </div>
+
       {jumpChips.length > 0 && (
         <div className="mt-6">
           <SectionJumpBar
@@ -138,7 +142,6 @@ export function MerchSection() {
             variant="rest"
             summary={jumpSummaryText}
             chips={jumpChips}
-            suggestChip={{ id: suggestLinkSectionId('merch'), label: '+ Suggest a link' }}
           />
         </div>
       )}

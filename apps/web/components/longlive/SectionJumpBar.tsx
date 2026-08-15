@@ -12,9 +12,13 @@
  *   affordance `FilterBar` uses for its own overflowing row).
  *
  * Every content chip carries its own count — the count IS the depth preview,
- * so a chip is never rendered without one. The one deliberate exception is
- * the trailing "+ Suggest a link" action chip (`suggestChip`), which has no
- * count because it isn't a content section.
+ * so a chip is never rendered without one.
+ *
+ * "Suggest a link" is NOT a chip in this row — Joey (#10): burying it as the
+ * last chip in a scrollable 12-wide row made it read as just another filter,
+ * not an invitation. `SuggestLinkBanner` (below) is a separate, accent-styled
+ * call-to-action each page renders near its own top, reusing this file's
+ * scroll-jump offset math via `scrollToSection`.
  *
  * Deliberately NOT `filter-chips.tsx`'s solid-fill visual language (active =
  * filled) — these are quiet transparent-background outline anchors, so a
@@ -37,7 +41,6 @@ export interface SectionJumpBarProps {
   ariaLabel: string;
   summary: string;
   chips: readonly JumpChip[];
-  suggestChip: { id: string; label: string };
   variant: 'rest' | 'compact';
 }
 
@@ -49,11 +52,21 @@ function prefersReducedMotion(): boolean {
  *  section's heading isn't flush against the rail/topbar edge. */
 const JUMP_PADDING_PX = 12;
 
-export function SectionJumpBar({ ariaLabel, summary, chips, suggestChip, variant }: SectionJumpBarProps) {
+/** Shared by chip clicks below AND `SuggestLinkBanner`'s CTA — one scroll-
+ *  offset calculation, not two string templates for one fact. */
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const rail = document.querySelector<HTMLElement>('[data-ll-community-rail]');
+  const offset = measureChromeHeight() + (rail ? rail.getBoundingClientRect().height : 0) + JUMP_PADDING_PX;
+  const top = scrollTargetY(el.getBoundingClientRect().top, window.scrollY, offset);
+  window.scrollTo({ top, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+}
+
+export function SectionJumpBar({ ariaLabel, summary, chips, variant }: SectionJumpBarProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const allChips: JumpChip[] = [...chips, { id: suggestChip.id, label: suggestChip.label }];
-  const chipIds = allChips.map((c) => c.id).join('|');
+  const chipIds = chips.map((c) => c.id).join('|');
 
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') return;
@@ -130,15 +143,6 @@ export function SectionJumpBar({ ariaLabel, summary, chips, suggestChip, variant
     }
   }, [activeId, variant]);
 
-  function jumpTo(id: string) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const rail = document.querySelector<HTMLElement>('[data-ll-community-rail]');
-    const offset = measureChromeHeight() + (rail ? rail.getBoundingClientRect().height : 0) + JUMP_PADDING_PX;
-    const top = scrollTargetY(el.getBoundingClientRect().top, window.scrollY, offset);
-    window.scrollTo({ top, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
-  }
-
   if (variant === 'compact') {
     return (
       <div className="relative min-w-0 flex-1 overflow-hidden">
@@ -148,8 +152,13 @@ export function SectionJumpBar({ ariaLabel, summary, chips, suggestChip, variant
           aria-label={ariaLabel}
           className="flex flex-nowrap items-center gap-1.5 overflow-x-auto scrollbar-none"
         >
-          {allChips.map((chip) => (
-            <JumpChipButton key={chip.id} chip={chip} active={chip.id === activeId} onClick={() => jumpTo(chip.id)} />
+          {chips.map((chip) => (
+            <JumpChipButton
+              key={chip.id}
+              chip={chip}
+              active={chip.id === activeId}
+              onClick={() => scrollToSection(chip.id)}
+            />
           ))}
         </div>
         <div
@@ -163,12 +172,60 @@ export function SectionJumpBar({ ariaLabel, summary, chips, suggestChip, variant
   return (
     <div>
       <p className="text-sm text-[color:var(--era-ink-soft)]">{summary}</p>
-      <div ref={rowRef} role="group" aria-label={ariaLabel} className="mt-3 flex flex-wrap gap-2">
-        {allChips.map((chip) => (
-          <JumpChipButton key={chip.id} chip={chip} active={chip.id === activeId} onClick={() => jumpTo(chip.id)} />
-        ))}
+      <div className="relative mt-3">
+        <div
+          ref={rowRef}
+          role="group"
+          aria-label={ariaLabel}
+          className="flex flex-nowrap items-center [justify-content:safe_center] gap-2 overflow-x-auto scrollbar-none"
+        >
+          {chips.map((chip) => (
+            <JumpChipButton
+              key={chip.id}
+              chip={chip}
+              active={chip.id === activeId}
+              onClick={() => scrollToSection(chip.id)}
+            />
+          ))}
+        </div>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[color:var(--era-bg)] to-transparent"
+        />
       </div>
     </div>
+  );
+}
+
+/**
+ * The prominent "suggest a link" entry point (Joey #10) — an accent-tinted
+ * invitation each page renders near its own top, NOT another chip in the jump
+ * row above. Reuses `scrollToSection` so it lands at the same offset a jump
+ * chip would.
+ */
+export function SuggestLinkBanner({ id, label }: { id: string; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={() => scrollToSection(id)}
+      className="flex w-full items-center justify-between gap-3 rounded-2xl border-2 px-4 py-3 text-left transition"
+      style={{
+        borderColor: 'var(--era-accent)',
+        backgroundColor: 'color-mix(in srgb, var(--era-accent) 12%, transparent)',
+      }}
+    >
+      <span>
+        <span className="block text-sm font-semibold" style={{ color: 'var(--era-accent)' }}>
+          {label}
+        </span>
+        <span className="mt-0.5 block text-xs text-[color:var(--era-ink-soft)]">
+          Every suggestion helps this grow — a human reviews it before it's added.
+        </span>
+      </span>
+      <span aria-hidden className="shrink-0 text-lg font-semibold" style={{ color: 'var(--era-accent)' }}>
+        →
+      </span>
+    </button>
   );
 }
 
