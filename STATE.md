@@ -12,14 +12,11 @@ switching **Social** / **Merch**, a section-jump subnav that PREVIEWS depth,
 era-style merch filters, an image on every merch item. **`PLAN.md` holds the
 facts, the Fable design spec and the steps — read it, not this.**
 
-**The image blocker is RESOLVED — verified by execution, 150 of 156 products**
-can show their source moment's photo (the look as worn); 6 get a monogram tile.
+**The image blocker is RESOLVED — verified by execution: 150 of 156 products**
+show their source moment's photo (the look as worn); 6 get a monogram tile.
 Those images already render in the era feed: no sourcing, no hotlink risk.
-**`shopTheLook` is 156 products, NOT 151 — 151 is the distinct-MOMENT count**,
-and three separate reports (both agents and my own first summary) got that
-wrong. **Resolve images via `hasRealPrimaryImage()`, never `images.length`** —
-`types.ts` warns "has images alone proves nothing", and a grep-based count
-returned a confident, wrong 151/151.
+**`shopTheLook` is 156 products, NOT 151 — 151 is the distinct-MOMENT count.**
+**Resolve images via `hasRealPrimaryImage()`, never `images.length`.**
 
 **Nav fit is settled:** five labelled tabs FIT — 390/430px comfortably, 320px on
 ~1.2px slack (proxy-measured), so probable-not-proven. **Any label longer than
@@ -93,7 +90,9 @@ one.** Standing, NOT spent: **"don't allow codex reviews more than 2 rounds."**
   still has an uncommitted `MAP.md` edit** (a no-op once #2114 lands). Make
   agents echo cwd first.
 - **Counted merch image coverage myself after two agents disagreed** (147 vs
-  151, both unsound — one grepped instead of running the predicate).
+  151, both unsound). Lesson written up in `docs/engineering-lessons.md`
+  § "A count is only as good as the method" — including that `node
+  --experimental-strip-types` cannot run this repo (extensionless imports).
 
 ## Architect invocations
 

@@ -36,6 +36,46 @@ Corollary, which cost two review rounds on its own: **verify a control with
 `elementFromPoint` and a real tap**, never by asserting that its container
 moved.
 
+### A count is only as good as the method that produced it — demand the method
+
+On 2026-08-14 one number decided whether a feature was buildable: how many merch
+products could reuse their source moment's photo. Two agents answered
+independently and **both were wrong** — one said 147 of 151, the other 151 of
+151. The truth was **150 of 156**.
+
+The failure was method, not arithmetic. The second agent grepped the content
+vault with multiline regexes instead of running `hasRealPrimaryImage()`, whose
+own doc warns *"every item has a non-empty `images`, so 'has images' alone
+proves nothing."* A `.*?` pattern spanning array entries matches a moment whose
+real photo is a `reference` and whose `primary` is the era-art stand-in — so it
+counted stand-ins as real photos and returned a confident 100%.
+
+Both answers also inherited a units error nobody caught: `shopTheLook` holds
+**156 products across 151 moments**, because a moment carries a `products[]`
+array. "151 products" was never a real quantity, and it propagated through two
+agent reports and three of my own messages before the discrepancy surfaced it.
+
+**The rules this buys:**
+
+- **Ask how it was counted, not just what the count is.** A number without a
+  method is a rumour. Any brief asking for a figure should require the agent to
+  state how it derived it.
+- **When a predicate exists, run the predicate.** Text-matching a data file is
+  not equivalent to evaluating the function the app uses, and the difference is
+  invisible in the output.
+- **Two disagreeing agents means neither is trusted** — that is a signal to do
+  it yourself, not to send a third. A tie-breaker agent would have produced a
+  third number with no way to choose among them.
+- **Watch the units.** When two counts are suspiciously identical (151 products
+  / 151 moments), one of them is probably the other wearing a wrong label.
+
+Method note for this repo: plain `node --experimental-strip-types` cannot run
+this codebase's modules — internal imports are extensionless (`./content`) and
+node ESM will not resolve them. Use a throwaway `vitest` file instead, which
+resolves the module graph correctly, then delete it. Vitest also swallows
+`console.log` under the default reporter; throwing an `Error` containing the
+numbers is the reliable way to get them out.
+
 ### Agent-reported success is a claim
 
 Spot-check before marking a step done. A reviewer that reads code finds
