@@ -18,9 +18,12 @@ interface Tab extends BottomNavEntry {
   icon: LucideIcon;
 }
 
-// R3 (PLAN.md): 4 tabs today, 6 at full growth once Marketplace and Community
-// ship. BOTTOM_NAV_ICON_ONLY_THRESHOLD in bottom-nav-layout.ts degrades the
-// bar to icon-only automatically once it does.
+// R3 (PLAN.md): full growth at 6 tabs (Marketplace/Community shipped). All
+// six fit labelled at 390px and 360px (measured 2026-08-15, see
+// bottom-nav-layout.ts) at the 10px label size below. A 7th tab is
+// unmeasured — BOTTOM_NAV_ICON_ONLY_THRESHOLD in bottom-nav-layout.ts
+// degrades the bar to icon-only automatically if the count ever grows
+// past what's been measured.
 const TABS: readonly Tab[] = [
   { id: 'era', label: 'Eras', mode: 'era', icon: Compass },
   { id: 'threads', label: 'Threads', mode: 'threads', icon: Layers },
@@ -123,7 +126,7 @@ export function BottomNav() {
               aria-label={tab.label}
               onClick={() => setMode(tab.mode)}
               className={cn(
-                'flex min-h-11 min-w-11 flex-1 flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-semibold transition-colors',
+                'flex min-h-11 min-w-11 flex-1 flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors',
                 active ? 'text-accent' : 'text-ink-soft',
               )}
             >

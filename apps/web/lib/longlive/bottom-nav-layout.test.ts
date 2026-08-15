@@ -11,15 +11,21 @@ describe('layoutBottomNavTabs', () => {
     expect(tabs.every((t) => t.iconOnly === false)).toBe(true);
   });
 
-  it('degrades to icon-only at 5 tabs rather than overflow', () => {
+  it('keeps labels at 5 tabs', () => {
     const tabs = layoutBottomNavTabs(entries(5));
     expect(tabs).toHaveLength(5);
-    expect(tabs.every((t) => t.iconOnly === true)).toBe(true);
+    expect(tabs.every((t) => t.iconOnly === false)).toBe(true);
   });
 
-  it('stays icon-only at 6 tabs (full growth — + Marketplace, + Community)', () => {
+  it('keeps labels at 6 tabs (full growth — + Marketplace, + Community; measured 2026-08-15, all six fit labelled at 390px and 360px)', () => {
     const tabs = layoutBottomNavTabs(entries(6));
     expect(tabs).toHaveLength(6);
+    expect(tabs.every((t) => t.iconOnly === false)).toBe(true);
+  });
+
+  it('degrades to icon-only at 7 tabs rather than overflow (unmeasured beyond 6)', () => {
+    const tabs = layoutBottomNavTabs(entries(7));
+    expect(tabs).toHaveLength(7);
     expect(tabs.every((t) => t.iconOnly === true)).toBe(true);
   });
 
