@@ -169,14 +169,48 @@ def changes_branch_or_head(command):
 def parse_target_branch(command):
     """Best-effort branch name for the lock's informational `branch` field —
     never used for a security decision, only shown to a human reading the
-    lock or a denial message."""
-    m = re.search(r"\bgit\s+(?:checkout|switch)\b([^\n;&|]*)", command)
-    args = m.group(1) if m else None
-    if args is None:
-        m = re.search(r"\bgit\s+branch\b([^\n;&|]*)", command)
-        args = m.group(1) if m else ""
-    toks = [t for t in args.split() if not t.startswith("-")]
-    return toks[-1] if toks else "?"
+    lock or a denial message. Must never raise or return shell debris (a
+    redirect/pipe token isn't a branch name); falls back to "unknown"."""
+    try:
+        m = re.search(r"\bgit\s+(checkout|switch)\b(.*)", command)
+        if m:
+            subcmd, rest = m.group(1), m.group(2)
+        else:
+            m = re.search(r"\bgit\s+branch\b(.*)", command)
+            if not m:
+                return "unknown"
+            subcmd, rest = "branch", m.group(1)
+
+        # Stop tokenizing at the first shell operator/redirect — everything
+        # after `2>&1`, `|`, `&&`, `;`, `>` etc. belongs to the rest of the
+        # shell command line, not to this git invocation's arguments.
+        op_re = re.compile(r"^\d*(>{1,2}|<{1,2})|^[|&;]")
+        toks = []
+        for raw in rest.split():
+            if op_re.match(raw):
+                break
+            toks.append(raw)
+
+        non_flag = [t for t in toks if t and not t.startswith("-")]
+
+        if subcmd == "branch":
+            # -m/-M/-f: the NEW name is the last argument, whether given as
+            # one arg (`-m new`, renaming the current branch) or two
+            # (`-m old new`).
+            return non_flag[-1] if non_flag else "unknown"
+
+        # checkout/switch: `-b`/`-c`/`-B` (create-and-switch) name the new
+        # branch in the argument right after the flag — anything after THAT
+        # (e.g. a start-point) is not the branch we care about.
+        for i, t in enumerate(toks):
+            if t in ("-b", "-c", "-B") and i + 1 < len(toks):
+                candidate = toks[i + 1]
+                if candidate and not candidate.startswith("-"):
+                    return candidate
+
+        return non_flag[0] if non_flag else "unknown"
+    except Exception:
+        return "unknown"
 
 
 if os.environ.get("CLAUDE_ALLOW_SHARED_CHECKOUT") != "1" and changes_branch_or_head(cmd):
@@ -205,16 +239,19 @@ if os.environ.get("CLAUDE_ALLOW_SHARED_CHECKOUT") != "1" and changes_branch_or_h
     fresh = isinstance(ts, (int, float)) and (now - ts) < LOCK_TTL_SECONDS
 
     if session_id and holder and holder != session_id and fresh:
+        holder_desc = (f"on branch '{holder_branch}'"
+                        if holder_branch and holder_branch != "unknown"
+                        else "on a branch this hook couldn't determine")
         print(json.dumps({"hookSpecificOutput": {
             "hookEventName": "PreToolUse",
             "permissionDecision": "deny",
             "permissionDecisionReason":
                 "Blocked by guard hook: shared-checkout session lock. "
                 "Another agent session is active in this working directory "
-                f"(fresh lock at .git/claude-session.lock, holder on branch "
-                f"'{holder_branch or '?'}') — switching branches here risks "
-                "flipping HEAD under it, the exact incident this guards "
-                "against. Do this instead: create your OWN worktree outside "
+                f"(fresh lock at .git/claude-session.lock, holder {holder_desc}"
+                ") — switching branches here risks flipping HEAD under it, "
+                "the exact incident this guards against. Do this instead: "
+                "create your OWN worktree outside "
                 "Documents\\Claude\\Projects\\, e.g. "
                 "`git worktree add C:\\Users\\<you>\\AppData\\Local\\Temp\\"
                 "claude-worktrees\\<branch-name> -b <branch-name>`, and work "
