@@ -387,8 +387,10 @@ describe('checkMedia', () => {
     }
   });
 
-  // A real committed corpus photo (this PR ships it) — the compliant tile.
-  const CORPUS_PHOTO = '/social/library/photos/taylor-debut-cma-2006.jpg';
+  // A real committed corpus photo — the compliant tile. (2026-08-15: the
+  // Getty-sourced corpus was removed under the third-party image policy;
+  // this is the one CC-licensed photo left under photos/.)
+  const CORPUS_PHOTO = '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg';
 
   it('flags a non-era dedicated photo that repeats the recent-posted window', async () => {
     const recentIg = [{ platform: 'instagram', media: [CORPUS_PHOTO], postedAt: '2026-08-01T00:00:00Z' }];
