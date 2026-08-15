@@ -250,7 +250,7 @@ describe('renderAlert', () => {
   it('names each breached condition, its budget, and the oldest offenders', () => {
     const res = run({ prs: [pr({ createdAt: daysAgo(15) }), pr({ number: 101, createdAt: daysAgo(9) })] });
     const body = renderAlert(res, ZERO, WINDOWS);
-    expect(body).toContain('@sffan15-sys @wjduvall-cmd');
+    expect(body).toContain('@sffan15-sys');
     expect(body).toContain('stalePr — 2 (budget 0, over by 2)');
     expect(body).toContain('#100 — 15d old');
     expect(body).toContain(BUDGET_FILE);

@@ -130,7 +130,7 @@ function renderBody(result) {
     'window-expired': 'The one-week confirmation window has closed.',
     pending: 'No verdict yet.',
   }[result.status];
-  return `@sffan15-sys @wjduvall-cmd — ${heading}\n\n${result.reason}\n\n(This is the self-limiting post-rotation confirmation check, watchdog.yml — closes ${WINDOW_END} regardless of outcome.)\n`;
+  return `@sffan15-sys — ${heading}\n\n${result.reason}\n\n(This is the self-limiting post-rotation confirmation check, watchdog.yml — closes ${WINDOW_END} regardless of outcome.)\n`;
 }
 
 async function main() {

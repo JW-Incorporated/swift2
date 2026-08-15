@@ -132,7 +132,7 @@ function renderBody(result) {
     'window-expired': 'The one-week confirmation window has closed.',
     unconfirmed: 'Still no confirmed genuine Karen run since the repair.',
   }[result.status];
-  return `@sffan15-sys @wjduvall-cmd — ${heading}\n\n${result.reason}\n\n(This is the self-limiting post-repair confirmation check, watchdog.yml — closes ${WINDOW_END} regardless of outcome. The standing "Karen filed what she found" step above is the permanent alarm.)\n`;
+  return `@sffan15-sys — ${heading}\n\n${result.reason}\n\n(This is the self-limiting post-repair confirmation check, watchdog.yml — closes ${WINDOW_END} regardless of outcome. The standing "Karen filed what she found" step above is the permanent alarm.)\n`;
 }
 
 async function main() {
