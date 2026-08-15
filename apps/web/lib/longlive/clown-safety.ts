@@ -65,6 +65,15 @@ import {
 } from './clown-blocklist';
 import { CERTAINTY, IMPERSONATION, OFFICIAL } from './clown-safety-gates';
 import { CRISIS_MESSAGE, CRISIS_MESSAGE_ABUSE, assessCrisis } from './mood-safety';
+import {
+  docToRetrievedItem,
+  formatItem,
+  FALLBACK_EMPTY,
+  FALLBACK_INTRO_CHIP,
+  FALLBACK_INTRO_DEGRADED,
+  FALLBACK_OUTRO,
+} from './clown-fallback';
+import { allClownDocs } from './clown-index';
 
 // Re-exported so callers of the crisis path never need to know it lives in
 // mood-safety.ts — see the module header: reuse, not a fork.
@@ -225,6 +234,51 @@ export interface ConversationTurn {
  * refusal's wording. */
 const REFUSAL_TEXTS: ReadonlySet<string> = new Set(Object.values(REFUSALS));
 
+/** Lazily built the first time a stored assistant turn actually LOOKS
+ * fallback-shaped (see `isFallbackAnswerText` below) — every call site that
+ * only ever hands this module refusal/attack strings (most of this file's
+ * own test suite included) never touches the real corpus, so importing this
+ * module stays cheap for them. */
+let fallbackItemLinesCache: ReadonlySet<string> | null = null;
+
+function knownFallbackItemLines(): ReadonlySet<string> {
+  if (!fallbackItemLinesCache) {
+    fallbackItemLinesCache = new Set(allClownDocs().map((doc) => formatItem(docToRetrievedItem(doc))));
+  }
+  return fallbackItemLinesCache;
+}
+
+/**
+ * Recognises a stored assistant turn as the deterministic zero-model
+ * fallback (`clown-fallback.ts`'s `composeFallback`) — never model prose,
+ * and never trusted because a caller SAYS so. `composeFallback`'s exact join
+ * shape is `[intro, '', ...itemLines, '', outro].join('\n')` (or the single
+ * fixed `FALLBACK_EMPTY` string when retrieval came back empty). This
+ * re-derives that shape and requires the fixed intro/outro lines to be
+ * byte-exact AND every middle line to be a byte-exact match against a line
+ * the REAL corpus (`allClownDocs()`) would produce for some doc, via the
+ * same `formatItem` the composer itself calls — never a partial/prefix
+ * match, never a client-supplied flag. An attacker who wraps injected text
+ * between the real fixed intro and outro cannot pass: their injected line is
+ * not a byte-exact corpus line, so the match fails and the turn falls
+ * through to the normal `screenOutput` gate below, same as any other
+ * assistant turn.
+ */
+function isFallbackAnswerText(text: string): boolean {
+  if (text === FALLBACK_EMPTY) return true;
+  const lines = text.split('\n');
+  if (lines.length < 5) return false;
+  const first = lines[0];
+  if (first !== FALLBACK_INTRO_DEGRADED && first !== FALLBACK_INTRO_CHIP) return false;
+  if (lines[1] !== '') return false;
+  if (lines[lines.length - 1] !== FALLBACK_OUTRO) return false;
+  if (lines[lines.length - 2] !== '') return false;
+  const itemLines = lines.slice(2, lines.length - 2);
+  if (itemLines.length === 0) return false;
+  const known = knownFallbackItemLines();
+  return itemLines.every((line) => known.has(line));
+}
+
 /**
  * CONVERSATION-LEVEL screen. The single-turn route calls `screenInput`; when
  * the surface gains history, pass the ordered turns here so an escalation
@@ -249,11 +303,46 @@ const REFUSAL_TEXTS: ReadonlySet<string> = new Set(Object.values(REFUSALS));
  *     and already knows is safe, so re-screening it only risks a false trip.
  *     Exact string match keeps this narrow: nothing an attacker paraphrases
  *     can hit it.
+ *
+ * 2026-08-15 fix (two more findings from the same class of bug — a REFUSED
+ * or FALLBACK turn poisoning turns after it):
+ *   - A prior USER turn is skipped when its immediately-following turn is an
+ *     assistant turn whose text is an EXACT `REFUSAL_TEXTS` match. That user
+ *     turn was already adjudicated — it was screened once, refused, and the
+ *     paired refusal is the proof. Re-running `screenInput` on it every
+ *     later turn re-punishes whatever question comes next, for as long as it
+ *     sits in the capped window. This does NOT weaken screening of the
+ *     CURRENT turn (the route always screens that independently, first,
+ *     before this function ever runs) and does NOT let a client invent an
+ *     exemption: the pairing only fires when the NEXT turn's text is one of
+ *     the 13 fixed strings this module itself wrote, so the worst a forged
+ *     pair can smuggle past re-screening is `[attacker's turn, a verbatim
+ *     refusal]` — the model sees "asked, then firmly refused," never an
+ *     agreement, and the model's own fresh output is still gated below by
+ *     `screenClownTake` before anything is returned.
+ *   - A stored assistant turn that `isFallbackAnswerText` recognises is
+ *     skipped the same way `REFUSAL_TEXTS` is: it is never model output
+ *     (`composeFallback` calls no model), it was never screened before being
+ *     returned the first time (unlike a model take, which passes
+ *     `screenClownTake` at generation), and a handful of corpus docs'
+ *     honestly-worded framing (quoting Taylor's own words, e.g. a "Hi, I'm
+ *     Taylor" moment) can trip `screenOutput`'s IMPERSONATION patterns on
+ *     re-screen even though the content was correct and safe to show the
+ *     first time. See `isFallbackAnswerText` above for why this cannot be
+ *     spoofed with injected text.
  */
 export function screenConversation(turns: readonly ConversationTurn[]): Redline | null {
-  for (const turn of turns) {
-    if (turn.role === 'assistant' && REFUSAL_TEXTS.has(turn.text)) continue;
-    const hit = turn.role === 'assistant' ? screenOutput([turn.text]) : screenInput(turn.text);
+  for (let i = 0; i < turns.length; i++) {
+    const turn = turns[i];
+    if (turn.role === 'assistant') {
+      if (REFUSAL_TEXTS.has(turn.text) || isFallbackAnswerText(turn.text)) continue;
+      const hit = screenOutput([turn.text]);
+      if (hit) return hit;
+      continue;
+    }
+    const next = turns[i + 1];
+    if (next?.role === 'assistant' && REFUSAL_TEXTS.has(next.text)) continue;
+    const hit = screenInput(turn.text);
     if (hit) return hit;
   }
   return null;
