@@ -1,6 +1,7 @@
 'use client';
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useIsomorphicLayoutEffect } from '@/lib/longlive/useIsomorphicLayoutEffect';
 import {
   ChevronDown,
   Compass,
@@ -158,7 +159,7 @@ export function ModeToggle({
   const buttonRefs = useRef<Partial<Record<ToggleMode, HTMLButtonElement>>>({});
   const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     function measure() {
       const btn = buttonRefs.current[mode];
       if (btn) setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });

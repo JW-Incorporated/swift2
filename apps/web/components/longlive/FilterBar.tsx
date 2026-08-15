@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { Clapperboard, Heart, Mic2, Music, ScrollText, Shirt } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { useIsomorphicLayoutEffect } from '@/lib/longlive/useIsomorphicLayoutEffect';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS } from '@/lib/longlive/tagBadges';
 import { ALL_FILTERS, type FilterId } from '@/lib/longlive/filters';
@@ -65,10 +66,10 @@ const FILTER_COLOR: Record<FilterId, string> = {
  *  approximately in place. */
 const TOPBAR_RESTING_HEIGHT = 52;
 
-// useLayoutEffect is a no-op with a dev warning on the server; this repo's
-// FilterBar only ever runs client-side post-hydration in practice, but the
-// isomorphic guard keeps SSR builds warning-free without changing behavior.
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+// The isomorphic guard keeps SSR builds warning-free without changing
+// behaviour. It moved to lib/longlive/useIsomorphicLayoutEffect.ts when
+// TopBar's sliding indicator needed the same thing — one definition, not one
+// per component.
 
 export function FilterBar() {
   const { filters } = useAppState();
