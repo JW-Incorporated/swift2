@@ -24,6 +24,38 @@ verify branch before any git op) and **artifact-only interfaces** (agents
 communicate via issues/PRs/docs with their labels, never by editing another
 agent's outputs).
 
+## Shared checkout guardrail — the how-to
+
+`CLAUDE.md` § Agent shell discipline: any agent that will create branches or
+commit works in its own worktree, never in this shared checkout. Two agents
+sharing this working directory flipped HEAD under each other twice in one
+session (2026-08-13) before `.claude/hooks/guard.sh` started enforcing it —
+the hook denies a branch-changing command (`git checkout`, `git switch`,
+`git branch -m/-M/-f`) whenever a different session's lock
+(`.git/claude-session.lock`) is still fresh.
+
+To get your own checkout, from the main repo directory:
+
+```
+git worktree add "C:\Users\<you>\AppData\Local\Temp\claude-worktrees\<branch-name>" -b <branch-name>
+```
+
+- **Location: outside `Documents\Claude\Projects\`.** Under the system temp
+  dir (`%TEMP%\claude-worktrees\<branch-name>`), never inside the Projects
+  folder — a worktree created there is still a separate checkout, but keeping
+  scratch checkouts out of `Documents\Claude\Projects\` keeps that tree to
+  the repos humans actually browse.
+- **`<branch-name>`** should match the branch you're about to create (`git
+  worktree add` can create the branch for you with `-b`, as above, or check
+  out an existing one by dropping `-b`).
+- **Cleanup when done:** from the main repo directory,
+  `git worktree remove "C:\Users\<you>\AppData\Local\Temp\claude-worktrees\<branch-name>"`
+  (add `--force` only if you're certain nothing there is uncommitted and
+  wanted — never as a reflex). Merged/abandoned branches can be deleted
+  normally with `git branch -d <branch-name>` afterward.
+- Read-only agents (searching, reading, no git writes) don't need any of
+  this and may share the main checkout freely.
+
 ## Roster
 
 | Charter | Agent | Status |
