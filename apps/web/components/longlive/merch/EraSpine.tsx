@@ -13,6 +13,10 @@ export interface EraSpineEntry {
 
 const SCROLL_STEP_PX = 350;
 
+function prefersReducedMotion(): boolean {
+  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 /** A count of 0 means "nothing catalogued", not a real measurement — same
  * honesty rule as the Community page's null member counts. It renders an
  * em-dash, never "0", and the caller is expected to also disable that entry's
@@ -40,12 +44,30 @@ export function EraSpine({
   const trackRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
+  // Scrolls the TRACK's own scrollLeft, never `Element.scrollIntoView` —
+  // with `block: 'nearest'` that call also scrolls every scrollable
+  // ancestor, including the window, whenever the target isn't already
+  // intersecting the viewport at all (true on mount here: the spine sits
+  // below a hero + two sections on the Merch page), which hijacked the
+  // reader's scroll position on first load (2026-08-16, caught in browser
+  // verification: unprompted scrollY 0 → ~900px). Same fix SectionJumpBar's
+  // own compact rail already uses for identical reasons — computing the
+  // horizontal offset directly never touches the y axis, so it's safe to
+  // run on mount too.
   useEffect(() => {
-    buttonRefs.current[activeKey]?.scrollIntoView({
-      inline: 'center',
-      block: 'nearest',
-      behavior: 'smooth',
-    });
+    const track = trackRef.current;
+    const btn = buttonRefs.current[activeKey];
+    if (!track || !btn) return;
+    const btnLeft = btn.offsetLeft;
+    const btnRight = btnLeft + btn.offsetWidth;
+    const viewLeft = track.scrollLeft;
+    const viewRight = viewLeft + track.clientWidth;
+    const behavior = prefersReducedMotion() ? 'auto' : 'smooth';
+    if (btnLeft < viewLeft) {
+      track.scrollTo({ left: Math.max(0, btnLeft - 8), behavior });
+    } else if (btnRight > viewRight) {
+      track.scrollTo({ left: btnRight - track.clientWidth + 8, behavior });
+    }
   }, [activeKey]);
 
   const scrollByStep = (direction: 1 | -1) => {
