@@ -111,6 +111,35 @@ Karen alarm repair fixed, so **never "simplify" them to a plain `if:`**. Both
 self-close 2026-08-22 (`WINDOW_END`); removal = delete the two steps or the two
 `scripts/watchdog/*-check.mjs` files.
 
+## KAREN — TWO SEPARATE FAULTS, diagnosed 2026-08-16
+
+**Fault 1 (hers, WYATT-ONLY).** Karen is NOT a GitHub Action — she is a
+**scheduled Claude Code routine** on Wyatt's account, trigger
+`trig_014HWuRmT2MFveDkPGwVDiQX`, prompt `docs/agents/runner-prompts/karen-nightly.md`,
+model `claude-sonnet-5`. **No Swift2 session can see or fix her** — `CronList`
+only sees the current session. Last real run = PR **#1850**, merged
+2026-08-09T09:27:37Z (a SUNDAY, which supports the weekly `0 9 * * 0` reading in
+`docs/decisions.md:96-100` over the stale nightly line at `runners.md:412`).
+A prompt for Wyatt was delivered to Joey 2026-08-16. **Success signal: a PR
+titled `karen: nightly run report <date>`.** Her scan reads the repo checkout
+directly and does NOT use `SUPABASE_SERVICE_ROLE_KEY` — that rotation is not the
+cause. **Trap for whoever edits a routine: a PARTIAL update silently wipes the
+prompt (`events`) and repo binding (`sources`)** — GET the whole `job_config`
+and PUT it back, or use the dashboard UI (`runners.md:339-345`).
+
+**Fault 2 (OURS, and why Joey got silence).** `.github/workflows/watchdog.yml`
+runs `run:` blocks as **`bash -e {0}`**. The Karen step (~736-740) and the
+work-ownership step (~677-683) use a **non-zero exit as the ALARM SIGNAL**, then
+read `$?` on the next line — but `set -uo pipefail` does NOT clear the inherited
+`-e`, so the shell dies the instant the check exits 1 and never reaches the
+branch that opens the alert. **The comment at ~680 claiming "`set -e` is
+deliberately off for this line" is FALSE.** Proof: today's run `31953966505`
+logged `karen-post-repair: unconfirmed`, `started_at == completed_at` (~0.5s),
+concluded `failure`, and no alert issue exists at all. Fix in flight
+(`fix/watchdog-alarm-errexit`): `STATUS=0; node … || STATUS=$?`, which is a
+guarded context errexit does not fire on. **Never use bare `|| true` here — it
+discards the exit code the branch needs.**
+
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
 - **PR #2116 is CLOSED unmerged** — its depth work landed as #2146; its

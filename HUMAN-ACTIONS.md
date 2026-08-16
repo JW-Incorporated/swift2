@@ -73,20 +73,40 @@ since **2026-08-09**. The newest report in her directory was committed by an
 unrelated photo-enrichment PR, not by her, which is exactly why the old watchdog
 alarm stayed quiet — it was checking that a file existed, not that she ran.
 
-An automated check now covers this (merged 2026-08-15, PR #2141). **It is
-expected to send an alert tomorrow.** That alert means "still not enabled" — it
-is the honest answer, not a broken check. If it does *not* fire, she ran.
+**DIAGNOSED 2026-08-16 — this is WYATT'S to do, not Joey's, and here is why.**
+Karen is **not** a GitHub Action. She is a **scheduled Claude Code routine on
+Wyatt's account** (trigger `trig_014HWuRmT2MFveDkPGwVDiQX`, prompt
+`docs/agents/runner-prompts/karen-nightly.md`, model `claude-sonnet-5`). No
+Swift2 session can list or edit another account's routines, so nobody here could
+see whether she is disabled, deleted, or failing silently. Her last real run
+opened PR **#1850**, merged 2026-08-09T09:27:37Z.
 
-**Steps:**
-1. Open the scheduled-agent settings for the account that runs the routines
-   (see item #1).
-2. Confirm the Karen / Content Integrity Engine routine is **enabled** and shows
-   a next-run time.
-3. If it is disabled, enable it. If it no longer exists, say so in chat — that
-   is a rebuild, not a toggle.
+**A ready-to-paste prompt for Wyatt was delivered to Joey on 2026-08-16** — it
+carries the trigger ID, repo binding, model, and the config trap below.
 
-**Worked if:** a new file appears in `docs/audits/engine/` carrying a
-`cie-run: source=all` marker, and tomorrow's watchdog alert does not repeat.
+**The trap, if he edits the routine via the API:** a PARTIAL update silently
+wipes the prompt (`events`) and the repo binding (`sources`), leaving a routine
+that fires and does nothing. GET the whole `job_config` and PUT it back, or use
+the dashboard UI at `https://claude.ai/code/routines`, which handles it.
+
+**Ruled out, so nobody re-checks them:** her scan reads the repo checkout
+directly and does NOT depend on `SUPABASE_SERVICE_ROLE_KEY` (that rotation is
+not the cause), and the report-clobbering bug that HID this outage was already
+fixed separately.
+
+**A second, unrelated fault was found the same day and is OURS:** the watchdog
+alarm computed the right answer and then died before sending it, because
+GitHub Actions runs `bash -e` and the step used a non-zero exit as its alarm
+signal. That is why no email ever arrived. Fixed repo-side; nothing for Wyatt.
+
+**Steps (Wyatt):** paste the supplied prompt into Claude Code on his account.
+It asks him to report the routine's state BEFORE changing anything, settle a
+schedule contradiction in our docs (`runners.md:412` says nightly, `:390` and
+`decisions.md:96-100` say weekly Sundays — 2026-08-09 was a Sunday), re-enable
+or recreate as needed, confirm the GitHub connection, and trigger one run.
+
+**Worked if:** a PR titled `karen: nightly run report <date>` appears on
+`JW-Incorporated/swift2`.
 
 **Status:** OPEN
 
