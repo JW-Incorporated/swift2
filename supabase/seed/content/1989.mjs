@@ -1598,7 +1598,25 @@ export default {
         // Re-reviewed 2026-08-01 (#762): searched again (Daniel Ek / Spotify news photos
         // from the same week, other 1989-era press) — nothing more on-topic than the
         // existing archival tour shot on an allowed host. Stays reviewed-sparse.
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg', credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', focalPoint: '42% 24%', caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.' }],
+        // Photo pass #762 (2026-08-16): a second image found on an outlet CDN —
+        // Rolling Stone's own hero image for its Nov. 3, 2014 story on this exact
+        // event, not on Wikimedia Commons so the earlier Commons-only passes missed it.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg',
+            focalPoint: '42% 24%',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'archival',
+            caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2018/06/rs-173469-457813554.jpg?w=1600&h=900&crop=1',
+            focalPoint: '62% 10%',
+            credit: 'Kevin Winter/Getty Images, via Rolling Stone',
+            caption: "Performing at CBS Radio's We Can Survive concert in Los Angeles, Oct. 24, 2014 — nine days before her label pulled her catalog from Spotify.",
+            kind: 'archival',
+          },
+        ],
       },
     },
     {

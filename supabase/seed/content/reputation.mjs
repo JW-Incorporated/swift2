@@ -76,13 +76,22 @@ export default {
         // artifact the 1.2M buyers bought; focal point set by eye this run.
         // Re-reviewed 2026-08-01 (#762): searched again for a second image
         // (Time 100 gala, TIME cover, era press) — nothing on an outlet-CDN
-        // or Commons host tied to this specific Nov. 2017 chart week. Stays
-        // reviewed-sparse at one image.
+        // or Commons host tied to this specific Nov. 2017 chart week.
+        // Photo pass #762 (2026-08-16): a second image found — Billboard's own
+        // hero image for the exact article cited as this moment's sourceUrl.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
-            credit: 'Big Machine Records',
             focalPoint: '42% 35%',
+            credit: 'Big Machine Records',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-press-photo-2017-05-aa-billboard-1548.jpg',
+            focalPoint: '52% 20%',
+            credit: 'Billboard',
+            caption:
+              "Taylor Swift's reputation-era press portrait, the lead image Billboard used on its report of the album's chart-shattering debut week.",
+            kind: 'primary',
           },
         ],
         // Rumor Desk 2026-07-25: this album-identity moment is the structural

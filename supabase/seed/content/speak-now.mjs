@@ -2247,15 +2247,25 @@ export default {
         // Re-reviewed 2026-08-01 (#762): tried justjared.com's Dec. 2, 2011
         // "Billboard Women in Music Luncheon" gallery (the actual ceremony)
         // but the host blocks automated fetches (403) and no mirror of that
-        // gallery exists on an approved CDN. Stays reviewed-sparse at one photo.
+        // gallery exists on an approved CDN.
+        // Photo pass #762 (2026-08-16): a second image found — the actual
+        // Dec. 10, 2011 Billboard "Women in Music" cover itself, on Billboard's
+        // own CDN, not the Dec. 2 ceremony gallery those earlier passes chased.
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',
+            focalPoint: '52% 17%',
             credit: 'Dave Hogan/Getty Images (via Taste of Country)',
             caption:
               "On stage mid-Speak Now era with the crystal-fretted '13' guitar — the touring-and-sales year Billboard's citation leaned on.",
             kind: 'archival',
-            focalPoint: '52% 17%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/stylus/1345889-taylor-swift-woman-of-the-year-600.jpg',
+            focalPoint: '72% 20%',
+            credit: 'Billboard',
+            caption: 'The Dec. 10, 2011 Billboard cover itself, for the Women in Music issue that named her Woman of the Year.',
+            kind: 'primary',
           },
         ],
       },
