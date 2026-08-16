@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { AppProvider, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { eraStyle, vaultStyle, VAULT_THEME } from '@/lib/longlive/theme';
+import { eraStyle, vaultStyle, merchStyle, VAULT_THEME, MERCH_THEME } from '@/lib/longlive/theme';
 import { TopBar } from './TopBar';
 import { EraStream } from './EraStream';
 import { ThreadsMode } from './ThreadsMode';
@@ -32,7 +32,7 @@ function Shell() {
   const inMerch = mode === 'merch';
 
   // Keep the document theme-color in sync with the active surface.
-  const themeColor = inThreads ? VAULT_THEME.bg : era.theme.bg;
+  const themeColor = inThreads ? VAULT_THEME.bg : inMerch ? MERCH_THEME.bg : era.theme.bg;
   useEffect(() => {
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', themeColor);
@@ -46,7 +46,10 @@ function Shell() {
   }, [mode]);
 
   return (
-    <div className="era-shell font-sans" style={inThreads ? vaultStyle() : eraStyle(era)}>
+    <div
+      className="era-shell font-sans"
+      style={inThreads ? vaultStyle() : inMerch ? merchStyle() : eraStyle(era)}
+    >
       <TopBar />
       <main>
         {inClownbot ? (

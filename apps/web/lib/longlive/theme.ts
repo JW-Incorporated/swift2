@@ -28,6 +28,27 @@ export const VAULT_THEME: EraTheme = {
 };
 
 /**
+ * The Merch shop chrome theme. Shaped like an EraTheme so the app shell
+ * (TopBar, BottomNav, SiteFooter) transitions into it exactly like an era
+ * change. The `.merch-shell` `--merch-*` tokens are a separate, additional
+ * layer used only for the three section accents (gold/rose/lilac) and the
+ * page background gradients inside the merch page itself — this theme is
+ * what makes the surrounding chrome match.
+ */
+export const MERCH_THEME: EraTheme = {
+  bg: '#17102b',
+  surface: '#271b47',
+  surface2: '#2e2153',
+  ink: '#f6efe4',
+  inkSoft: '#b0a2cb',
+  line: 'rgba(246, 239, 228, 0.14)',
+  accent: '#ebc97f',
+  accent2: '#b49bee',
+  glow: 'rgba(235, 201, 127, 0.26)',
+  font: 'sans',
+};
+
+/**
  * Turn an era into the CSS custom properties consumed by globals.css.
  * Apply to the app-shell wrapper; changing it re-skins the whole UI.
  */
@@ -38,6 +59,11 @@ export function eraStyle(era: Era): CSSProperties {
 /** Turn the Threads vault palette into the CSS custom properties. */
 export function vaultStyle(): CSSProperties {
   return themeStyle(VAULT_THEME);
+}
+
+/** Turn the Merch shop palette into the CSS custom properties. */
+export function merchStyle(): CSSProperties {
+  return themeStyle(MERCH_THEME);
 }
 
 /** Shared: turn any EraTheme into the runtime CSS custom properties. */
