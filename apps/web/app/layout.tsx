@@ -1,6 +1,12 @@
 import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
-import { Inter, Playfair_Display, Special_Elite, Dancing_Script } from 'next/font/google';
+import {
+  Inter,
+  Playfair_Display,
+  Special_Elite,
+  Dancing_Script,
+  Bodoni_Moda,
+} from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
@@ -19,6 +25,13 @@ const typewriter = Special_Elite({
 const script = Dancing_Script({
   subsets: ['latin'],
   variable: '--font-script',
+  display: 'swap',
+});
+const bodoni = Bodoni_Moda({
+  subsets: ['latin'],
+  weight: ['400', '600', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-bodoni',
   display: 'swap',
 });
 
@@ -102,7 +115,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${typewriter.variable} ${script.variable} bg-bg`}
+      className={`${inter.variable} ${playfair.variable} ${typewriter.variable} ${script.variable} ${bodoni.variable} bg-bg`}
     >
       <body>
         <script

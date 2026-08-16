@@ -76,6 +76,32 @@ body {
     color 700ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* The merch page (PLAN.md R3) is a fixed identity, not another era skin — the
+   mockup's palette exists because merch is a single physical rack that never
+   changes shade when the reader picks a different era elsewhere on the site.
+   Do NOT fold these tokens into --era-* or "unify" this class away; doing so
+   silently destroys the merch page's own look. */
+.merch-shell {
+  --merch-ink: #17102b;
+  --merch-ink-2: #1f1638;
+  --merch-panel: #271b47;
+  --merch-panel-2: #2e2153;
+  --merch-line: rgba(246, 239, 228, 0.14);
+  --merch-line-strong: rgba(246, 239, 228, 0.28);
+  --merch-cream: #f6efe4;
+  --merch-muted: #b0a2cb;
+  --merch-gold: #ebc97f;
+  --merch-rose: #e4578f;
+  --merch-lilac: #b49bee;
+
+  min-height: 100dvh;
+  background:
+    radial-gradient(1100px 620px at 78% -8%, rgba(228, 87, 143, 0.18), transparent 62%),
+    radial-gradient(900px 520px at 6% 4%, rgba(180, 155, 238, 0.16), transparent 58%),
+    var(--merch-ink);
+  color: var(--merch-cream);
+}
+
 /* Era-specific heading font (serif / sans / typewriter). */
 .font-era {
   font-family: var(--era-font);
