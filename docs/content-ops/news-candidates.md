@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 80
+
+## When Taylor Swift ‘revealed’ how Russell Westbrook inspired her hit song ‘Shake It Off’ - Yahoo Spor
+
+- first seen: 2026-08-16 09:37 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: When Taylor Swift ‘revealed’ how Russell Westbrook inspired her hit song ‘Shake It Off’  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxQVElQcEVFdUJaYnB5VWNfOWZPNFFjTnhDX2RpMnZUWUhVY1ZONW9XUWd4WlZmR2pDckJ1RW9UQksxRzg2ZUdMTnk2REUzWS1jQUFVdk1rRF9UNndlRFY5SUtTSGc4YmdUOFh4R25uOFdKZXRwV0ZBNlA0T1dmUUFpTDVvUzhQTDFrSm93X3ItVUNhQQ?oc=5
 
 ## Allan Hancock College is In Its Taylor Swift Era - Noozhawk
 
@@ -671,35 +679,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 - summary: Taylor Swift has put her love story out there – so it’s not fair she won’t let us see her wedding dress | Polly Hudson  The Guardian
 - sources:
   - [unverified] The Guardian — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNaHJaWWVGNUFrSVNnUDNEMGFreUJTdGV3WV9zMUYyUURjc3NpOGNpOTk4QlBYc1NCZDhqTmR3eGZXMW5ETndpcGxYQzFlUVhYajd0aVJ2bjFieDFNU0tKVUI5MWpPR2J3WVBscUJOWW5HSFpqRUNDaV9UOGpyWlREQ1owS1Q5ZzFHYjM4ZkZ0R1VZOXJGQ0VFVUJ3UlpUUnZzcWYyY2pmWGFCa0VVWmJJb2F1Q1hHeXlubUFGRlZpeWlfZEpCbXVxM1JEaVlIQ3hzaERIZHE1LWI2Z19p?oc=5
-
-## Hear Kelce’s first public comments since marrying Taylor Swift - CNN
-
-- first seen: 2026-08-13 06:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Hear Kelce’s first public comments since marrying Taylor Swift  CNN
-- sources:
-  - [unverified] CNN — https://news.google.com/rss/articles/CBMirAFBVV95cUxNeUpBMERGMVlzSVluSW95UzN3aGd2ZUhvY2ozSUZScng2RFlzTnUtbXZ2bjJzVVBOdzdYa2ZFajhaSHowU1VuZUg0dHFrajlBVi1VRlVPc3h6MFVQTHk4TnB1c2JZM3RmRjlDeEdKYThCQ2hLTVJqbzhpcWdkMS1icXR3X3U4T0swbXdtRzBjajhSY2ZIb0IwTkRvYnFoR1FFa3lRdlVJbnNsRms0?oc=5
-
-## Blake Lively Is Done Staying Quiet About Taylor Swift Fallout — Insider - Yahoo
-
-- first seen: 2026-08-13 06:41 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively Is Done Staying Quiet About Taylor Swift Fallout — Insider  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPMXlSYnFsZ1EyTE85Q205dXlpR3ZpcE1UT1MyVE1SMThabmZxTUE3V3RYN0h5RmQ5Njk1SVdFOGtZTGlvWFB4NjUtUS15REtxWUxoTDM3ZmdiZk1rWDZ6T2RvZlMwT1R2QUExcW80TXA2WWdQelAwUU5Fa1AyZk5RWDJtamhqNGxQcllBNlRhaktPcUh2eWpOdUF2dnJmcXJXY0tJ?oc=5
-
-## Discover why Taylor Swift is making history as the youngest inductee into the Nashville Songwriters 
-
-- first seen: 2026-08-13 06:41 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Discover why Taylor Swift is making history as the youngest inductee into the Nashville Songwriters Hall of Fame. #TaylorSwift #NashvilleSongwritersHallOfFame #countrymusic  facebook.com
-- sources:
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPa3RhaDZVZGxXcTRlT2ZlQ0JzZ2xjQkR1SUQ4elc3Qm45UGl5U2dnRkpsNlllUHhkQ243ZHc3WjBjVWR1bXJ1RTZWVGJkMUkzdXZtMURYQm9tQzltNk43MlpzdW90dEN3azBSZnlmSWhReUFleTl3VWRhMEZ1ejJ1cUpHOVlNWm02Yll5bXpmWGJxT3dsMmdOdzNZVURYZkVUQlpkbkhkUm1XRC1NekM2YVZreUdzOTRrd1k0UzRBajBuWFpvX0FQVmxQWEctQ1JQQ2pNWk1remdEZw?oc=5
-
-## Travis Kelce: Chiefs Camp Offers Welcomed 'Sanctuary' After Taylor Swift Wedding - foxsports.com
-
-- first seen: 2026-08-13 06:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce: Chiefs Camp Offers Welcomed 'Sanctuary' After Taylor Swift Wedding  foxsports.com
-- sources:
-  - [unverified] foxsports.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxONnN6bmNhcUQ0TU1ydGsxR2JmS24yQTJDS05HdUZQeU5Hc09EdURJYnVlMkUydTdPVVhLYVFHZ1BFcjhJQ0d2VjA1ekZBN2JXSm9SNnN1UC1Zck1BSERzeVQ5VDg0Q1pxa1NDcy1SSjNkU2ZtZGhRNFVnLXlJcHNDUkhNbEROLUY0S3p30gGLAUFVX3lxTE83NmM1b2tlY0lmNENUejFXNXYtQmlIUklvZHdiV0ZMR3F5RmtVVV9MRTd0enBHYUQtcFJoelRzQ2c0Nmc0cnM1UWRJb19PRkFxOXNxcnNhS0RhRDVydzNUQ2tjVGdOQlVReVpvdlhPYlgzeXZLNTh5YXZHcHpfaEpRbEhySVpCakFqd3M?oc=5
