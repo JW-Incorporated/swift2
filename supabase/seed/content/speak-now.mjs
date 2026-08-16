@@ -519,6 +519,9 @@ export default {
         // Shop pass (2026-07-21): the exact 2011 J. Mendel dress is
         // discontinued -- a current Monique Lhuillier pink chiffon gown,
         // verified in stock, closest real match.
+        // Stylist re-check (2026-08-16): still a live PDP, but all sizes
+        // now show "Variant sold out or unavailable" -- flipped to
+        // inStock: false rather than removed, per the sold-out convention.
         products: [
           {
             brand: 'Monique Lhuillier',
@@ -528,6 +531,7 @@ export default {
             imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/24343-24344-PINK-CARNATION_9.jpg?v=1716498166',
             price: '$4,995.00',
             isAlternative: true,
+            inStock: false,
             altNote: 'Her exact J. Mendel dress is long discontinued -- this is a current pink chiffon gown in "Pink Carnation," same soft pink-chiffon spirit (Prada heels, Neil Lane jewels not separately sourced).',
           },
         ],

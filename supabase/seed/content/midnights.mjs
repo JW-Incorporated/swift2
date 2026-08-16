@@ -1538,6 +1538,8 @@ export default {
         // Shop pass (2026-07-22): the custom Schiaparelli ensemble was
         // never sold at retail -- a current strapless slit gown, verified
         // in stock, closest real match.
+        // Stylist re-check (2026-08-16): still a live PDP, now sold out in
+        // every size -- flipped to inStock: false.
         products: [
           {
             brand: 'Mac Duggal',
@@ -1547,6 +1549,7 @@ export default {
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56248-BlackIvory-AB.jpg?v=1773440361',
             price: '$398.00',
             isAlternative: true,
+            inStock: false,
             altNote: 'The custom Schiaparelli ensemble was never sold at retail -- this is a current strapless slit gown in a similar high-contrast shape, polka dots instead of crystals (choker not included).',
           },
         ],

@@ -10893,6 +10893,41 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Stylist run 2026-08-16: verified live retailer product pages for
+        // the dress and sandals (both currently purchasable) and the clutch
+        // (real PDP, confirmed sold out — kept per policy rather than
+        // dropped). The Cartier "Santos Demoiselle" watch named in the
+        // Marie Claire piece is a discontinued line with no current
+        // Cartier.com listing — pre-owned marketplace pages exist but are
+        // not a stable single retailer PDP for this piece, so it is
+        // skipped rather than linked to avoid mis-describing a resale
+        // listing as a first-party product page.
+        products: [
+          {
+            brand: 'Delphine',
+            item: 'Mini Isabelle Dress',
+            retailer: 'delphinenyc.com',
+            url: 'https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi',
+            price: '$995.00',
+            inStock: true,
+          },
+          {
+            brand: 'Aquazzura',
+            item: 'Love Struck Sandal 85',
+            retailer: 'aquazzura.com',
+            url: 'https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco',
+            price: '$1,710.00',
+            inStock: true,
+          },
+          {
+            brand: 'Christian Louboutin',
+            item: 'Loubi54 Ombré Crystal Embellished Clutch',
+            retailer: 'nordstrom.com',
+            url: 'https://www.nordstrom.com/s/loubi54-ombr-crystal-embellished-clutch/7693914',
+            // No price shown on the sold-out PDP — omitted rather than guessed.
+            inStock: false,
+          },
+        ],
       },
     },
     {
