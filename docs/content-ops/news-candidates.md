@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 79
+
+## Taylor Swift Breaks All-Time Adult Pop Airplay Record with 16th No. 1 Hit - Vermilion County First
+
+- first seen: 2026-08-16 17:31 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Breaks All-Time Adult Pop Airplay Record with 16th No. 1 Hit  Vermilion County First
+- sources:
+  - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNb3lXRkpWTUYyYXFfV3BTM1BwTzBYLXJWZDZ5N1BNdzA4cGRFRmxwMjdaTFhNZXlvb0tIWDMwRzRTN0NuNnNDU0lGbjB0T3lWVjRKVFVVZ1F1Um9YcjJmbVFaWENKVmhfTVZLX0hIeFFIUXF1LTRSNW1tZ2dWWlpmWDY2VzJnaXZHeTRuV2xNYjNHUGgzUUhUdTR2YjUyMWdqdGc3MkRHd3VOV3NUN0V4YlY1UmN3SXZl?oc=5
+
+## Taylor Swift and Travis Kelce Show Off Their Romantic Matching Wedding Bands While Thousands of Mile
+
+- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce Show Off Their Romantic Matching Wedding Bands While Thousands of Miles Apart  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNcmFEbnBfckNzU0F1V0t6cU9NOTJLTnhzb1gxY3M3dnRyZmgtcXRNVy1qVnh6S3Z3cDhsNUR1QW0zRE5zeGhZelVzU1ppVFNLalczYmk2QmdjXy1SelIxWkNHUFpCcXdpODFaWFZfVmxyZ0xtTHc0Y185a3hwd3dwMkhkZzVrQVF0MUt6MG5rVUpVbDhaNnhtTE4wOEd1QmdFd3RNQzVyZw?oc=5
+
+## Taylor Swift flashes wedding ring and gold band as she attends Oli Jacobs and Laura Sisk’s star-stud
+
+- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift flashes wedding ring and gold band as she attends Oli Jacobs and Laura Sisk’s star-studded nuptials solo  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMixgFBVV95cUxORWN6LUlJdmV6bEZteXEtZnJwODVpZnNtclllekkzZEFDeDVwcGwwcDVzUklicm45ZFFscVY0VW44Nko3cHE0NU5FTTdnRTNSMGFmUWdGN1J0ZW1uXzJoMl8tNXV2Nl82aVY5SW5rOWNQMVZXZ1BRZDRWNzlnX29NY19QVnk3b2ppRy16QkQwandBWmhjZUVNZVhwQ1pPNG9kMjRMLUNqOUhKbDRpbW9tc1owVThCT3B1VHVLMG90Rm94ZlhZRVE?oc=5
+
+## Taylor Swift’s “I Knew It, I Knew You” Officially Reaches #1 At Hot Adult Contemporary Radio - Headl
+
+- first seen: 2026-08-16 17:31 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s “I Knew It, I Knew You” Officially Reaches #1 At Hot Adult Contemporary Radio  Headline Planet
+- sources:
+  - [unverified] Headline Planet — https://news.google.com/rss/articles/CBMiywFBVV95cUxNa3FOSTlYRGRUR3NvOXFyYkhmY3JfZkhBdVhtUnpNUkFOV3NybTVEYTFkX2hKNExwWnp0RUZpeTBROUpnZVBPX09Oam4tZmFnMzhWUGtPWE1LNkJoVlU0dEFCaTcyY1JjcWFSdUpURnp4endlNDh1OEFONjNtWFNERFJRY3FsOE9qYTQ1NEpwcWhoR2VMMGlZZE1DM1RWaXlIV1dsdWYtSnlUYnBCNURneXQ4UDJ6cEpQZVhad1Fta20tS0xLVkQ4TTFCb9IB0AFBVV95cUxNVVZmU0Y3azQzcTRnSGFhOHZ0RGZTNGFlNW9nUzh6MGFZY1hBS3JMX0h1ZmZXdmg3MjdUNGxXRWQwNm9DejJxLWNzOG9jWUpDeEw4ZlBoQ1U3NWMyeGVrMHYxYWFGT0YxNmhlYUhSeWVTUjN2ZmNlWEJDdE5RQjZzZExuQkRNWVV1OVltRzU1ajhfVWpIS29nV0p1M3V2N0lYUTY2YmFKNUY1UU9tZXlMUm01eFowaEx4aDItNXhWZTNndlNjcTRLdDR3djFxRzIx?oc=5
+
+## Travis Kelce Flashes Wedding Ring at Arrowhead After Taylor Swift MSG Vows - Complex
+
+- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Flashes Wedding Ring at Arrowhead After Taylor Swift MSG Vows  Complex
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMimAFBVV95cUxQVi1CY2VjdUVRVTk5VE5KOUdDMk5ETlZTR0ItTk5YVEotdm9FaENUcUtFQUNSVENkZkJXSUdfcmFpM0JPWVlMaHIzOHhTaWJlbkxiTFVvYnRCTExfRDVzVEg1LU0xMms1aTNEMnNqbk1qX1VMb2Jvakx4TDZxUW15WWpYUS0zLTV2SEFQWUlRUEVnWmJwd3lvMg?oc=5
+
+## Cristiano Ronaldo, Georgina Rodriguez's Wedding Venue Revealed, How Does It Compare to Taylor Swift?
+
+- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cristiano Ronaldo, Georgina Rodriguez's Wedding Venue Revealed, How Does It Compare to Taylor Swift?  Bleacher Report
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOTjQ4czlNUXItS2pDUXI0N1pVSW5XVWJtQVVyVlNwQkdLZkpGb0gyb3VsZ0NYOGJvMTluNXJjLURPbGJ2OE93STFPRkdVMUlLdHJVYXlQZlZWeG0tYVpUemRTV3lKc2l5QjItUE4wRHkyeUk3Zl9Eb2hkWU1VaElRUlpEVkFqa2tjcmJaQWFkMC1sNENpOFJsVnVQeHRYc180SDJiVDh2ZWVxX1E1Z1ZnS241d2tTbWQ1QVNabDRJM0dsWUZWUW5EWVBuTXc4Q1JSY0pkNw?oc=5
+
+## Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pals Sabrina Carpenter,
+
+- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pals Sabrina Carpenter, Jack Antonoff  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPcFFDY0NPR2FjcVY3Uk9MaVBmN2Z0eHNaanVXSmswYzhDTnBIMnhZRElHQVEtU1JkR2JMQ3J3SWcwZURwcElSeDdQOE9Sc0dXUGdHSk9vdWdZQ3pkTTlZb3pyTWMyVy0wdWJoTExRVFdPcmxaSFVUUnJPd2hsLVBhTXRmaGVJNFpYVEt2My02RHVoaVdEZkE4MTRkUmpnWEpnQnd1RjZqeEVJNlFXRTRz?oc=5
 
 ## Taylor Swift 'abandons' Travis Kelce on their first big date since their wedding - MARCA
 
@@ -613,46 +669,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 - summary: Taylor Swift has solo night out in London as Travis Kelce returns to Chiefs practice post-wedding  Page Six
 - sources:
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOcnlpeGNYWTVvblFCU0pzQXRUenBZVzlqWHNHVXNoWDJvX2JSVi1TUE44bE1faFk5a3AzVXotYV9BcDhnRFVrVXFUY2JVdnoyODltVmU4dnhYV3FpNURheXNMeVY0YnlGaTEyTnFScFBDdE5yaWpKTEQydHlTNThvWlZZRW02cTkzR0lGLV9HQzk3QnM5ZmxCLVdGMXdYakdwQ2RGd2YySHo1LVNFVkxsV1gwRkd4TjdRMkowMnE0eDBsdE9pZFl1Z0xZbk9HX0N2?oc=5
-
-## Greedy Democrats are taking aim at Taylor Swift — and you’re next - New York Post
-
-- first seen: 2026-08-13 14:32 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Greedy Democrats are taking aim at Taylor Swift — and you’re next  New York Post
-- sources:
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMimwFBVV95cUxPSld5OF9pRTJMS3Rfbi1CWWN2c3JaUTJNNnVtM0lCemVUUC1td1VIdWllVGZlU2RuTGFScTZ5SzV5ODkxWkZva1FkUkttLUNqRUR2TGotb1Q4Zzd5MzNFNXBaR3d0aWdBck1pYUhsZFFhcDhqNXQ0YTFwRG01dVB6LTByZDlhem9xTEdEQWpCTkJjdXpxQUxXa1I2QQ?oc=5
-
-## Travis Kelce Just Broke His Silence On His And Taylor Swift’s “Crazy” Wedding — Here’s What He Said 
-
-- first seen: 2026-08-13 14:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Just Broke His Silence On His And Taylor Swift’s “Crazy” Wedding — Here’s What He Said  BuzzFeed
-- sources:
-  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMijgFBVV95cUxQLUdNdGR5M3RBMW9lNk9IeGF2QlBOU3hPNHZWRWc0akdEd25IQmJLT1RRQ0lXYjRORWl0WVNQT3VQLXhZc1ZUMnNmX21rd2lVRlBnYlJ0UlRfMVE5RFFaVzV4aXZheWtzenR3ZjNMcDVpbWFWVHlTZ0FvYVBtSWFEUWRkWDBjZmNlODM5bFpB?oc=5
-
-## Taylor Swift the Latest Victim of Far Left’s Demands To ‘Tax the Rich’ - The New York Sun
-
-- first seen: 2026-08-13 14:32 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift the Latest Victim of Far Left’s Demands To ‘Tax the Rich’  The New York Sun
-- sources:
-  - [unverified] The New York Sun — https://news.google.com/rss/articles/CBMingFBVV95cUxOR3JmTFZtbGZNZndPNUdkWWMxYzktUl8zZllINXk2NkRmeTh6RFZhcU5hQld0S2Utdkt1YnlJTmc2M08xNFVfdnRRZktwejU1XzR2RzNCUHRCMTU4V0JScmZad0RmaG50WnZJZ0pWZkVGeWRzMUJhbkhPeVdsYnRNYWJZOEplc1dIaU9acmtXaG95QmZXbURxemZ1bTdTQQ?oc=5
-
-## Travis Kelce makes first public comments about wedding to Taylor Swift - WBAL-TV
-
-- first seen: 2026-08-13 14:32 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Travis Kelce makes first public comments about wedding to Taylor Swift  WBAL-TV
-- sources:
-  - [unverified] WBAL-TV — https://news.google.com/rss/articles/CBMiigFBVV95cUxPWlNReXdqRlhVcTRIb1hOajBmN2h3eDlSWjhxSDB1bGpkaDAwMEZKam1LRkItcURZTmZHMjZsTXBlNXVsY09IdHhTUFhnX3QycVROUzYxcjVXVlJacTFta21peGhyalAxS2pUSVNObGNJdXB4bzlaYXA4QW9wUVFFTkF6ek1Da2lDa2c?oc=5
-  - [unverified] WPTZ — https://news.google.com/rss/articles/CBMihgFBVV95cUxNZnNhdnBoMXlweWtJZEU2bzBDU2NyYTRYVFM3aHpUZnpXZE9WQjhNeUFIRDJacXBUZVhtYW5Eb3ZFbWw0V3ZyWXZWVzRpRkEwaG9LWElBRFBGX0NKT2trQWlxS2JoNU45TlBEN21YM0ZJemhYazJVSXFEVVVLNVlJRzFZUnFFZw?oc=5
-  - [unverified] Gulf Coast News and Weather — https://news.google.com/rss/articles/CBMihwFBVV95cUxQcjR1cGJTendlWnBxUFJVUmMwaDVHU1daZjhnOG53QzdUVUNsWFhyYU1Ld3BqV3hJbE84MGN5NndkT3N2OWpQTG5FUm5ZeWZmX0NEOHA5X1d1RjBvdFJHYzVkbFdDV1RYb2NBXzFDemFVUnRRREU4Yl81SzZiWGk1ZUdrLTVLQzQ?oc=5
-  - [unverified] WMUR — https://news.google.com/rss/articles/CBMihwFBVV95cUxQdGp1VzQyN1k5TnB4OVdKZTBwMURRMHJrYmc1b2Z3SXR3T2xSWVJGS1M0OVJJSW12NG9Zczk0bjBQSnZTYTNpT3JVWGkzZGN3MnF0THNXdDZvOUJ3NjkyYmxaRVh5SXAwMDVZUDJYYjFDWmk5aUpkWUlnWEJnQ1I5MkFUOVk5OXc?oc=5
-
-## Chiefs’ Travis Kelce was clearly touched by venue for Taylor Swift wedding - Kansas City Star
-
-- first seen: 2026-08-13 14:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chiefs’ Travis Kelce was clearly touched by venue for Taylor Swift wedding  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNeHhJWG1Ocl9qN1l1ckI3R05TaUNYdEkxTHdPempoU0hScUFyZVRmS0J6VlAyMmxpNmVxU19pOVZnNGlLdTJLUkdZNnBXWFNIcVlXZkV3LUVRTUE4ZE1tY3dBcFVERlY4MHpzSXBOSFZmdEZYLVVQdXNxRnNJaWlNUV9Ncm4wN3dUX2pIdWc3ZzJLUdIBkgFBVV95cUxNRktkbDQ2TmphOVlFMHVhRmtJRnlNWmF2UGtYRFRtZmg1MzJGWkxSR0I5T1JxSlZIQWtjUTk1R3Q3MnNUQVpWbmZuUnZhXzhIazByUXA2cUFhcDltT0FSQ01GSXJTRWoxdnFmNDl0MDdBTkxmTGdvaC1YUzgwUnJVTWF5dG4tTzE0VE9KaUZhX3g2dw?oc=5
