@@ -122,32 +122,34 @@ export function MerchSectionRail({ sections }: { sections: readonly MerchRailSec
       className="sticky z-30 overflow-hidden border-y border-[color:var(--merch-line)] backdrop-blur-[14px]"
       style={{ top: `${railTop}px`, backgroundColor: 'color-mix(in srgb, var(--merch-ink) 86%, transparent)' }}
     >
-      <div className="grid grid-cols-3">
-        {sections.map((section) => {
-          const active = section.id === activeId;
-          return (
-            <button
-              key={section.id}
-              type="button"
-              aria-current={active ? 'true' : undefined}
-              onClick={() => scrollToSection(section.id)}
-              className={cn(
-                'flex min-w-0 items-center justify-center gap-[9px] border-b-2 px-2.5 py-[15px] text-center text-[11px] font-medium uppercase tracking-[0.2em] transition-colors',
-                active ? 'text-[color:var(--merch-cream)]' : 'text-[color:var(--merch-muted)] hover:text-[color:var(--merch-cream)]',
-                'max-[640px]:gap-1.5 max-[640px]:px-1.5 max-[640px]:py-[13px] max-[640px]:text-[10px] max-[640px]:tracking-[0.08em]',
-              )}
-              style={{ borderBottomColor: active ? section.accent : 'transparent' }}
-            >
-              <span
-                aria-hidden
-                className={cn('h-[7px] w-[7px] shrink-0 rounded-full', active ? 'opacity-100' : 'opacity-45')}
-                style={{ backgroundColor: section.accent }}
-              />
-              <span className="truncate">{section.label}</span>
-              <span className="opacity-50 max-[400px]:hidden">{section.count}</span>
-            </button>
-          );
-        })}
+      <div className="mx-auto max-w-[1180px] px-4 sm:px-6">
+        <div className="grid grid-cols-3">
+          {sections.map((section) => {
+            const active = section.id === activeId;
+            return (
+              <button
+                key={section.id}
+                type="button"
+                aria-current={active ? 'true' : undefined}
+                onClick={() => scrollToSection(section.id)}
+                className={cn(
+                  'flex min-w-0 items-center justify-center gap-[9px] border-b-2 px-2.5 py-[15px] text-center text-[11px] font-medium uppercase tracking-[0.2em] transition-colors',
+                  active ? 'text-[color:var(--merch-cream)]' : 'text-[color:var(--merch-muted)] hover:text-[color:var(--merch-cream)]',
+                  'max-[640px]:gap-1.5 max-[640px]:px-1.5 max-[640px]:py-[13px] max-[640px]:text-[10px] max-[640px]:tracking-[0.08em]',
+                )}
+                style={{ borderBottomColor: active ? section.accent : 'transparent' }}
+              >
+                <span
+                  aria-hidden
+                  className={cn('h-[7px] w-[7px] shrink-0 rounded-full', active ? 'opacity-100' : 'opacity-45')}
+                  style={{ backgroundColor: section.accent }}
+                />
+                <span className="truncate">{section.label}</span>
+                <span className="opacity-50 max-[400px]:hidden">{section.count}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
