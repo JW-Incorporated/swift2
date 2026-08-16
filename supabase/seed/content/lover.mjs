@@ -2730,7 +2730,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her Tumblr post laid out the history in one line — "For years I asked, pleaded for a chance to own my work" — and said the alternative she\'d been offered was to "sign back up to Big Machine Records and \'earn\' one album back at a time, one for every new one I turned in."\n\nShe wrote that she\'d learned of the deal "as it was announced to the world"; Scott Borchetta answered with a blog post titled "So, It\'s Time For Some Truth," claiming he had texted her the night before, which she disputed. #IStandWithTaylor trended worldwide within hours. Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.',
+          'Her Tumblr post laid out the history in one line — "For years I asked, pleaded for a chance to own my work" — and said the alternative she\'d been offered was to "sign back up to Big Machine Records and \'earn\' one album back at a time, one for every new one I turned in."\n\nShe wrote that she\'d learned of the deal "as it was announced to the world"; Scott Borchetta answered with a blog post titled "So, It\'s Time For Some Truth," claiming he had texted her the night before, which she disputed. #IStandWithTaylor trended worldwide within hours. Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.\n\nThe deal\'s paperwork tells a quieter story than the headlines did. Ithaca Holdings\' own announcement, put out through PR Newswire on the morning of June 30, disclosed no price at all — the widely-cited "over $300 million" came from press reporting, not from the release itself. It named the Carlyle Group as backing the purchase through its Carlyle Partners VI fund and staying on as a minority shareholder, with Carlyle\'s Jay Sammons joining Ithaca\'s board. Borchetta didn\'t simply cash out and walk away: he took a minority interest in the combined company and a board seat, and stayed on as Big Machine\'s president and CEO. What changed hands was every master recording of her first six albums, from her 2006 debut through reputation — the catalog she built before leaving for Republic, and the exact body of work the Taylor\'s Version project would spend the next years reclaiming.',
         sources: [
           {
             outlet: 'Variety',
@@ -2749,6 +2749,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'PR Newswire',
+            url: 'https://www.prnewswire.com/news-releases/scooter-brauns-ithaca-holdings-acquires-scott-borchettas-big-machine-label-group-300878263.html',
+            source_title: "Scooter Braun's Ithaca Holdings Acquires Scott Borchetta's Big Machine Label Group",
+            publisher: 'PR Newswire (Ithaca Holdings)',
+            source_type: 'official',
+            accessed_at: '2026-08-16',
+            reliability_score: 5,
           },
           {
             outlet: 'Wikipedia',
