@@ -10987,5 +10987,58 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-08-16 from intake #2181 (Vault Run, Content Shift lane).
+      // Chart/professional milestone; Billboard is the primary chart authority,
+      // meeting the >=1-source bar. Deliberately kept DISTINCT from the Pop
+      // Airplay top-10 item (#1133) above: this is ADULT Pop Airplay (Adult Top
+      // 40), a separate chart where Maroon 5 held the No.1 record — the prose
+      // names the distinction so the two records don't read as one. Fact
+      // independently corroborated via the Billboard headline before writing
+      // (record 16th, surpassing Maroon 5, chart debut March 1996). Dated to the
+      // Aug-14 reveal, not the post-dated Aug-22 chart, so it sorts to when the
+      // news broke rather than into the future. Clean on the privacy redlines:
+      // her own chart record, no third parties, no location or private-life
+      // detail. Text-first: a chart week has no photography of its own — same
+      // call as the sibling chart moments — so no photo.
+      slug: 'i-knew-it-i-knew-you-adult-pop-airplay-record',
+      year: 2026,
+      month: 8,
+      day: 14,
+      category: 'music',
+      title: 'A record 16th No. 1: "I Knew It, I Knew You" tops Adult Pop Airplay',
+      snippet:
+        'On the Adult Pop Airplay chart dated Aug. 22, 2026, Taylor\'s Toy Story 5 song jumps three spots to No. 1 — her 16th leader on the tally and a new all-time record, breaking a tie with Maroon 5 for the most No. 1s since the chart began in March 1996.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-adult-pop-airplay-1236315955/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Billboard\'s Adult Pop Airplay chart — the Adult Top 40 tally, tracking spins at adult-leaning pop radio — is a separate list from the Pop Airplay chart where the same song had already been chasing a record weeks earlier. On the ranking dated Aug. 22, 2026, "I Knew It, I Knew You" climbed three spots to No. 1, and the story was the count behind it: Taylor\'s 16th No. 1 on the chart, the most any artist has collected since it debuted in March 1996, breaking a tie with Maroon 5 at the top. Billboard put P!nk third all-time with 10, and Katy Perry and Ed Sheeran fourth with eight apiece.\n\nIt was one more format claimed by a song that keeps outrunning its origin — her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff, which had already logged a No. 1 Hot 100 debut and a Country Airplay top 10, and reached No. 3 on the Hot 100 the week country songs swept that chart\'s entire top five. Adult pop radio was one of the last major formats it had yet to lead.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-adult-pop-airplay-1236315955/',
+            source_title: "Taylor Swift Breaks Record for Most Adult Pop Airplay No. 1s With 'I Knew It, I Knew You'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-16',
+            reliability_score: 5,
+          },
+          {
+            // Primary: the underlying Billboard Adult Pop Airplay chart dated
+            // 2026-08-22, cited to the dated ranking rather than the live URL,
+            // which rolls over weekly and stops showing this week's ranking.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/adult-pop-songs/',
+            source_title: 'Adult Pop Airplay — chart dated Aug. 22, 2026',
+            publisher: 'Billboard',
+            source_type: 'official',
+            accessed_at: '2026-08-16',
+            reliability_score: 5,
+          },
+        ],
+      },
+    },
   ],
 };
