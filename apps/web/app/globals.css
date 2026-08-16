@@ -76,11 +76,13 @@ body {
     color 700ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* The merch page (PLAN.md R3) is a fixed identity, not another era skin — the
-   mockup's palette exists because merch is a single physical rack that never
-   changes shade when the reader picks a different era elsewhere on the site.
-   Do NOT fold these tokens into --era-* or "unify" this class away; doing so
-   silently destroys the merch page's own look. */
+/* The merch page's base palette flows through --era-* (LongLive.tsx applies
+   MERCH_THEME via themeStyle() when mode === 'merch'), so the app chrome
+   (TopBar, BottomNav, SiteFooter) transitions into it exactly like an era
+   change. These --merch-* tokens are NOT a duplicate of that mechanism — they
+   carry only the merch page's own section identity: the three section accents
+   (gold/rose/lilac) and this page's own background gradients, which have no
+   era equivalent. Do NOT fold these into --era-* or delete them. */
 .merch-shell {
   --merch-ink: #17102b;
   --merch-ink-2: #1f1638;
