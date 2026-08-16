@@ -139,7 +139,7 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
   }
 
   return (
-    <section className="era-card mt-10 rounded-2xl border p-5">
+    <section className="mt-10 rounded-2xl border border-dashed border-[color:var(--era-line)] bg-[color:var(--era-surface)]/50 p-5">
       <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold text-[color:var(--era-ink)]">
         {copy.heading}
       </h2>
@@ -181,7 +181,7 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
           <button
             type="submit"
             disabled={!valid || status === 'submitting'}
-            className="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg bg-[color:var(--era-accent)] px-5 text-sm font-medium text-[color:var(--era-bg)] transition-opacity disabled:opacity-40"
+            className="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg border border-[color:var(--era-accent)] bg-transparent px-5 text-sm font-medium text-[color:var(--era-accent)] transition-colors hover:bg-[color:var(--era-accent)]/10 disabled:opacity-40 disabled:hover:bg-transparent"
           >
             {status === 'submitting' && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
             {status === 'submitting' ? 'Sending…' : 'Submit'}

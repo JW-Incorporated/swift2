@@ -36,7 +36,6 @@ import type { ReactNode } from 'react';
 import { isAffiliate, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { MERCH_CATALOGUE } from '@/lib/longlive/merch';
 import { suggestLinkSectionId } from '@/lib/longlive/section-jump';
-import { SuggestLinkBanner } from './SectionJumpBar';
 import { SubmitLinkForm } from './SubmitLinkForm';
 import { MerchMarquee } from './merch/MerchMarquee';
 import { MerchSectionRail, type MerchRailSection } from './merch/MerchSectionRail';
@@ -133,9 +132,6 @@ export function MerchSection() {
             subtitle="One maker per listing, hand-checked before it's added. Nothing's been vetted yet — this is where those listings will live."
           />
           <MerchEmptyPanel message="We haven't vetted any fan-made shops yet — each one gets hand-checked before it's listed here." />
-          <div className="mt-6">
-            <SuggestLinkBanner id={suggestLinkSectionId('merch')} label="Know a maker we should feature? Suggest it" />
-          </div>
         </section>
 
         <section id={SECTION_STYLE} className="pt-[74px] pb-3">
