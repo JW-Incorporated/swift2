@@ -4343,7 +4343,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1986392520-EMBED-2024.jpg?w=408", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-schiaparelli-dress-2024-grammys-1236164497/" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-2024-grammys-dress-schiaparelli-1235815411/" }],
-      products: [{ brand: "Mac Duggal", item: "White Polka Dot Strapless Viscose Gown With Slit", retailer: "macduggal.com", url: "https://macduggal.com/products/56248-black-ivory", price: "$398.00", isAlternative: true, altNote: "The custom Schiaparelli ensemble was never sold at retail -- this is a current strapless slit gown in a similar high-contrast shape, polka dots instead of crystals (choker not included).", imageUrl: "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56248-BlackIvory-AB.jpg?v=1773440361" }],
+      products: [{ brand: "Mac Duggal", item: "White Polka Dot Strapless Viscose Gown With Slit", retailer: "macduggal.com", url: "https://macduggal.com/products/56248-black-ivory", price: "$398.00", inStock: false, isAlternative: true, altNote: "The custom Schiaparelli ensemble was never sold at retail -- this is a current strapless slit gown in a similar high-contrast shape, polka dots instead of crystals (choker not included).", imageUrl: "https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56248-BlackIvory-AB.jpg?v=1773440361" }],
     },
     {
       id: "vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights",
@@ -6550,7 +6550,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/37th_People%27s_Choice_Awards" }],
       relatedIds: ["moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-", "moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys"],
-      products: [{ brand: "Monique Lhuillier", item: "Sweetheart Strapless Chiffon Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/pink-chiffon-sweetheart-strapless-gown", price: "$4,995.00", isAlternative: true, altNote: "Her exact J. Mendel dress is long discontinued -- this is a current pink chiffon gown in \"Pink Carnation,\" same soft pink-chiffon spirit (Prada heels, Neil Lane jewels not separately sourced).", imageUrl: "https://cdn.shopify.com/s/files/1/0020/4842/6035/files/24343-24344-PINK-CARNATION_9.jpg?v=1716498166" }],
+      products: [{ brand: "Monique Lhuillier", item: "Sweetheart Strapless Chiffon Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/pink-chiffon-sweetheart-strapless-gown", price: "$4,995.00", inStock: false, isAlternative: true, altNote: "Her exact J. Mendel dress is long discontinued -- this is a current pink chiffon gown in \"Pink Carnation,\" same soft pink-chiffon spirit (Prada heels, Neil Lane jewels not separately sourced).", imageUrl: "https://cdn.shopify.com/s/files/1/0020/4842/6035/files/24343-24344-PINK-CARNATION_9.jpg?v=1716498166" }],
     },
     {
       id: "vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour",
@@ -8440,6 +8440,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       sources: [{ name: "Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-lavender-mini-dress-delphine/", reliability: 4, type: "reputable_press" }],
       relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
+      products: [{ brand: "Delphine", item: "Mini Isabelle Dress", retailer: "delphinenyc.com", url: "https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi", price: "$995.00" }, { brand: "Aquazzura", item: "Love Struck Sandal 85", retailer: "aquazzura.com", url: "https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco", price: "$1,710.00" }, { brand: "Christian Louboutin", item: "Loubi54 Ombré Crystal Embellished Clutch", retailer: "nordstrom.com", url: "https://www.nordstrom.com/s/loubi54-ombr-crystal-embellished-clutch/7693914", inStock: false }],
     },
     {
       id: "vault-tloas-two-of-her-looks-join-the-v-as-diva-show-when-it-reaches-den",
@@ -8826,7 +8827,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg", credit: "Matt Winkelmeyer/Getty Images for The Recording Academy", kind: "primary", focalPoint: "34% 15%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-2024-grammys-dress-schiaparelli-1235815411/" }],
-      products: [{ brand: "MESHKI", item: "Bex Strapless Slinky Maxi Dress With Split", retailer: "meshki.us", url: "https://www.meshki.us/products/bex-strapless-slinky-maxi-dress-with-split-ivory", price: "$95.00", isAlternative: true, altNote: "The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing.", imageUrl: "https://cdn.shopify.com/s/files/1/0017/7920/4211/files/MESHKI_ECOM_LAMAISON_DROP0102_OCT23_DAY02_KATIE-S45_006.jpg?v=1784499680" }],
+      products: [{ brand: "MESHKI", item: "Bex Strapless Slinky Maxi Dress With Split", retailer: "meshki.us", url: "https://www.meshki.us/products/bex-strapless-slinky-maxi-dress-with-split-ivory", price: "$95.00", inStock: false, isAlternative: true, altNote: "The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing.", imageUrl: "https://cdn.shopify.com/s/files/1/0017/7920/4211/files/MESHKI_ECOM_LAMAISON_DROP0102_OCT23_DAY02_KATIE-S45_006.jpg?v=1784499680" }],
     },
     {
       id: "vault-ttpd-a-sculptural-white-toni-mati-evski-gown-opens-the-fortnight-",
