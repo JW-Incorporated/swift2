@@ -27,6 +27,70 @@ so far".
 
 Stories: 79
 
+## Taylor Swift Flaunts New Haircut, Wedding Ring Stack at Pals Oli Jacobs and Laura Sisk’s Nuptials - 
+
+- first seen: 2026-08-16 21:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Flaunts New Haircut, Wedding Ring Stack at Pals Oli Jacobs and Laura Sisk’s Nuptials  Us Weekly
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMingFBVV95cUxNOGFhbVNKLS1GSHFZemx5ZFhuTnZwbklBYmFJVXQ2X2oySXk5TlBHMm5lT2tTSU1kQVpkZ3RiRzBDTXNpVE1PaFN6Vml4LW9renVXT2xrbGJHbXpOS2FGcmtvTE1acVZ6eWRSQ3pCb1BBdmpURjFuc0thTXV5LVNUTVpyeDJJZDh3YUl3dEs1QzkwT20zTjF6V2pSbXhvQQ?oc=5
+
+## Taylor Swift Attends English Wedding, Shows Off Massive Ring With Sabrina, Jack & More - TMZ
+
+- first seen: 2026-08-16 21:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Attends English Wedding, Shows Off Massive Ring With Sabrina, Jack & More  TMZ
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMie0FVX3lxTE5aTVBydWNndGtaMWFZREc4bkNwZmNfcy1qRkFDQlJlSjFQVjFTUFFPSlMyRFhYTWMyZW9OMTBBQmxVU3h4M3J3MkNqTFFCM2RSdEhvallENEhaZVRlMmgwTTFXSmlIWVZydGt6VEJIZnlPRzUwSVM0YzUwZw?oc=5
+
+## Taylor Swift and Travis Kelce flash wedding rings in new photos - USA Today
+
+- first seen: 2026-08-16 21:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce flash wedding rings in new photos  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMivAFBVV95cUxQeTl6cGhnSU1xZi1zdEpVSXZ3QXV5bzRpU3pqckR4MzVIX2cwZE9oU1Z5RTdUamVzV1I1ODk3N2gzY1B4eTNGR0hqT1BDaWNRcE82RENoMC1zTGw0SW5lWE1YeE5tbTRfYzRhVzdIWmxmcXB5QWlUWm5UUmFfZWUxdXJ0ZTlTMkZCUUxPTDVDaGNqMHRlVEMyRTBuSTZjTW11V2dyN1duWW03NmNaSzNSdWJya2pWTnJ4dkhfUQ?oc=5
+
+## Taylor Swift’s Chops Her Hair... for the First Time in a Decade! - harpersbazaar.com
+
+- first seen: 2026-08-16 21:32 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Chops Her Hair... for the First Time in a Decade!  harpersbazaar.com
+- sources:
+  - [unverified] harpersbazaar.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNbWlka0Rya09CeGV3aXBqVnJxSXhwZl9rMmsxVDI5Y0k0cFhlbm13dVBzLWhrMGxtWDJ0TkRaZVQ1LUlxd0ljaEdLMnUyU1cxdkNVVF85WFhfMFhVUF9oTkJSc3h1M2xLU29OakNFdVRxX1REU3oxNjBLUDBpUDVLTFMxc05oWjRpbnFST2JyRW5wU0RJTEdNaGZpTTY2YlhGQmNjYUlYU2pWUUpZX1VIZlNuc0ZRVTFBblZN?oc=5
+
+## Taylor Swift Steals the Show With New Look in Wedding Photos - heavy.com
+
+- first seen: 2026-08-16 21:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Steals the Show With New Look in Wedding Photos  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMingFBVV95cUxNdHNzZDJiZVI1eDNpVC1XQUlHWDJ5STRpWU9YTTFwU051enlJMllVMlBXa2RPdExXYi12QnBmVHdXUjBDUFFyVUo3a1g3Y1VZU2dzMk5RVjNHOVJrdWlsc285V1dSSUIzTHVlbnZ2aDM2Q2xvU2x3UkdaaG13MmVUeEozdWFoc3cxYnc3dlcxMGw5aUNRVTlnRl9Bczh1dw?oc=5
+
+## Taylor Swift Wears Navy Blue Dress Embroidered in Gold to Wedding - ELLE
+
+- first seen: 2026-08-16 21:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Wears Navy Blue Dress Embroidered in Gold to Wedding  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMikgFBVV95cUxQdWlBTWNXYlJOUHc1TlNPamRaUXNHNGtUZTh3RklzTDZOSWJHQlRhWmtwSTJ1ZlRtbFFtbzhtUHFJR3Y3QlpNMDVoODFFQm92M3J0MHkzdnVxU0VvT2poVXBxUzlKYWlrZHc2ZUJfZjhYUXowZUdWUDl3MGhFS3U4R0lBZ01idXdaTzVtNnhQaTFvdw?oc=5
+
+## Taylor Swift exudes elegance in navy tulle gown and pearls at Laura Sisk and Oli Jacobs’ wedding - P
+
+- first seen: 2026-08-16 21:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift exudes elegance in navy tulle gown and pearls at Laura Sisk and Oli Jacobs’ wedding  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMioAFBVV95cUxNQ050S0RNamhULUlLWFBHMVlya2oyaHdSdXBIMzBBb21nbXZQWHUtUVBwMURualdlZkdfUUtIaGRSWmtPdWxDaGh6ZjVVM0h3QlBxUjJJT3A4QS0yb3o1Z3NGY0wwNzFhdlZVM0VWb2NRb3hVOFRlNlNaanVpa3VJdU9BZ1FndTBRaExpTlhHTVUzT0llQ19UUHNIU0pQXzBV?oc=5
+
+## The First Up-Close Look at Taylor Swift’s Wedding Ring Is Here - cosmopolitan.com
+
+- first seen: 2026-08-16 21:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The First Up-Close Look at Taylor Swift’s Wedding Ring Is Here  cosmopolitan.com
+- sources:
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxPc2s0YmtOci1RczAzQnlac0ZoMHE2S21kSldneE54TGhXUlEyUlZSRWp1U3RkZWIxSWNOODRRUUlaZU5jMlM2Mk85U2gtQktPc1NwdUs0dEl4QlBVYjZJVXc5SkQwc0s0V1g1ak5lOXdMZ3J4aktEdzhGd3VzQy1rV2kxU1NrR29mQ014bVYwZ0RQR2VBbWtBWHUxOUNiNmZs?oc=5
+
 ## Taylor Swift Breaks All-Time Adult Pop Airplay Record with 16th No. 1 Hit - Vermilion County First
 
 - first seen: 2026-08-16 17:31 UTC | category: sighting | importance: 3
@@ -605,67 +669,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 - summary: Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress  Marie Claire
 - sources:
   - [unverified] Marie Claire — https://news.google.com/rss/articles/CBMimgFBVV95cUxNYmVfZE03RGpuX0JzZ0Y4eEdIdktTdHhidmIxal9PbHFoN0kzYmZPbUdnQ2l6RkZOUEMzTThrczlwbmxsYWhfUXlVOGFlLVJya2s4U1ZTTVpCY1dnam9hd1N3N1NpejFGM3ZHMkNSMmRwNTFWc012VEpvQnBlUDdVbjIxei1BRktNMWdkWTVKLWgxTTR5S3JJMGpn?oc=5
-
-## Rhode Island Condo—Steps From Taylor Swift’s House—Sells for a Record-Breaking $18.5 Million - Mansi
-
-- first seen: 2026-08-13 18:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Rhode Island Condo—Steps From Taylor Swift’s House—Sells for a Record-Breaking $18.5 Million  Mansion Global
-- sources:
-  - [unverified] Mansion Global — https://news.google.com/rss/articles/CBMilAFBVV95cUxPNklYQlBZYjYyM3oxZVhZdnoyNlR2cy1pelJCTk5WNDBwbl9OeU9pMENUX05xZWotM2k4dXFOWVlyX0RqeXliOWdSNWJybUR5NnNaQ2E2UGp1ZUhPLXQ1T2RnTmpWY21DOHJrUElBbFl2TnhRMGRkSnVQSGR6RURQeExJdGlhbWdINDNoN1dFcGU1ZGxZ0gGaAUFVX3lxTE1jZXpLNTJGc1V4Z0VseXNSNVQwS3VwVjlwSm44RHl0b2dnNUlvaXUwc0xSS2VhY2R4S3gwU183dDRIeFluWHJfUnRMS1R1bWVoZjVIclVzRXlZR0FGbnpETXFNZTRYMUVzX1FPMWpfZDNzWHNhcFhBWjRKOE9zTXA3b2cwamwtakVVYnA2d0VENFBZRk16WEUzNmc?oc=5
-
-## Rob Gronkowski Reveals He Played Matchmaker for Julian Edelman at Taylor Swift, Travis Kelce’s Weddi
-
-- first seen: 2026-08-13 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Rob Gronkowski Reveals He Played Matchmaker for Julian Edelman at Taylor Swift, Travis Kelce’s Wedding  TODAY.com
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQSTl1dzN2X21ydUF5Q0VJamc0b09zQlRBSEhLN0VyQzhYWDBWZ3l5eTZfbk5SVHpJTTV5SWw2RzZCUm9HNGluNWZkMVdKLVlDNVNGUWhvc0tDaTNCa0ZwVUw4UVRwMTVtMUNGNG1xT3dtTDZRRUprcG5yV0d4OVhmTkxaVXR1c09FR3owcnhlU2NIdjNoM21mcWRRNXNNbkNWSm80bnBJYWstMDQ?oc=5
-
-## Taylor Swift Debuts a Major Hair Change While Out in London - ELLE
-
-- first seen: 2026-08-13 18:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Debuts a Major Hair Change While Out in London  ELLE
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMipAFBVV95cUxNZHdZM3d1VHZkemdUOWc3TGJzZXI3aU5SVDhFTEFZbmFSdlg2bmREWXBVNnhTRk1IaHVtZ0Z3YjViNEI5SGxNekxyU1oxNGpsSWRYcnd4X3RCajE2RHIycjdSdHpldV9STkVGQ2VZUGRSbVVPMlBua2ZXeDQtaFEzdkJPaUxrbURnUGNhWVgtaEZjNTdta0E5aFJsMnhacWNnZHlhZA?oc=5
-
-## Taylor Swift and Travis Kelce's relationship so far in key moments - BBC
-
-- first seen: 2026-08-13 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's relationship so far in key moments  BBC
-- sources:
-  - [unverified] BBC — https://news.google.com/rss/articles/CBMiXEFVX3lxTE4yMnotMnhBWVRNUGFTWjZ4YVFPTFNkcjNzenFnNnZRbXJncXdaYXBPeWM2MUJEZW44ZXpCVEdTMkJsWGNscFZldFdEa2E5Q201U0lYYkoyVXlhWTBq?oc=5
-
-## Taylor Swift goes full ‘Lavender Haze’ in floral mini and bejeweled bag for London night out - Page 
-
-- first seen: 2026-08-13 18:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift goes full ‘Lavender Haze’ in floral mini and bejeweled bag for London night out  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiswFBVV95cUxNVkViMzlsRDZyQVQ4cFg5ci16ZU9pcE9PSTcxQW4xR1E2b3FuZVpEVGZZWnd3LVFKSHNfOHNaOXE5aGd0bmw1Wi1JVGEzZ1VuZTRuRFpNVHkwdjJaQ0NmNjVpREpxVEtWZkh4MExFRTNoNTFEeWR4ZzgyU25XOEdJYjk1bXJhUEhMQ2Q2SlYwYzNOR2JRV3JObW9UVUhVLVFaTTVPYzdZbjNhSHpWVkw4ZE03QQ?oc=5
-
-## Taylor Swift requests another song be removed from Trump social media post - Washington Times
-
-- first seen: 2026-08-13 18:04 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift requests another song be removed from Trump social media post  Washington Times
-- sources:
-  - [unverified] Washington Times — https://news.google.com/rss/articles/CBMitwFBVV95cUxNODBjWXY0Yk5US3RLNjNtaG5pREFyc0pIVWhBX3RQck92NHJrbW1EcUs4M3Baay0wd1NSVXhWUGh3dmRKcFk3M2lYSmFMWmtfcllPR2QyZzZKcDQ3SkRzQXBYaHNOeUhSbVFpaU5VaWN5a0VkWnRiRDN2UFNNRXVKcFZueXFwcy1DeXFNYWpUMHptamZuTzdTc295TkZfRTZ4bnBEenpKUklvc210OVRNZmRyN2ZORXM?oc=5
-
-## So ... are we ever going to see Taylor Swift and Travis Kelce’s wedding photos? - The Washington Pos
-
-- first seen: 2026-08-13 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: So ... are we ever going to see Taylor Swift and Travis Kelce’s wedding photos?  The Washington Post
-- sources:
-  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMitgFBVV95cUxOeGJXbWZhcVZCWTdwM0pSWExobGdIWlFTUHVUeDFEWDJndm9HclB1ZmF0SXlUeFl5SUFLWUJQTkpBaGtmQTBaZFFMdEpxSWdBeXNaOTZyODBkM2pxNVFEUFAzUUJCZE1nMFRHZkphOVh0Z2NBLURGRG85MmMzYUhRemh3aDFyYXlsUUJSUnFDSDVqN014QVFhTHpGa1k0ZDRKenlHRWZRVmJ5ODhlV0dpNXNrLVItZw?oc=5
-
-## Taylor Swift has solo night out in London as Travis Kelce returns to Chiefs practice post-wedding - 
-
-- first seen: 2026-08-13 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has solo night out in London as Travis Kelce returns to Chiefs practice post-wedding  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOcnlpeGNYWTVvblFCU0pzQXRUenBZVzlqWHNHVXNoWDJvX2JSVi1TUE44bE1faFk5a3AzVXotYV9BcDhnRFVrVXFUY2JVdnoyODltVmU4dnhYV3FpNURheXNMeVY0YnlGaTEyTnFScFBDdE5yaWpKTEQydHlTNThvWlZZRW02cTkzR0lGLV9HQzk3QnM5ZmxCLVdGMXdYakdwQ2RGd2YySHo1LVNFVkxsV1gwRkd4TjdRMkowMnE0eDBsdE9pZFl1Z0xZbk9HX0N2?oc=5
