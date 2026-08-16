@@ -130,6 +130,13 @@ const CRISIS_PHRASES: readonly string[] = [
   'take my own life',
   'taking my own life',
   'end it all',
+  // #2177 — the progressive 'ending it all' is deliberately NOT here. It lives
+  // in GUARDED_IDEATION below, gated on the same with/between clearers as
+  // 'want to end it', because "I'm ending it all with my gym membership
+  // tomorrow" is ordinary speech and Tier A applies no exemptions. (The bare
+  // 'end it all' above has the same collision — "I'll end it all with the gym"
+  // — but it is pre-existing behaviour on founder-gated safety code and is
+  // flagged for Joey rather than changed here.)
   'dont want to be alive',
   'do not want to be alive',
   'dont want to live',
@@ -149,6 +156,16 @@ const CRISIS_PHRASES: readonly string[] = [
   'self harm',
   'selfharm',
   'hurt myself',
+  // #2177 — 'hurting myself' was the ONE missing progressive form in this list.
+  // Every sibling pair is enumerated in both aspects ('kill'/'killing myself',
+  // 'end'/'ending my life', 'harm'/'harming myself', 'cut'/'cutting myself')
+  // because `phraseHits` appends CRISIS_INFLECTIONS to the END of the whole
+  // phrase — 'hurt myself' + 'ing' is 'hurt myselfing', never 'hurting myself'.
+  // So "I've been thinking about hurting myself" reached the matcher and came
+  // back with a HEARTBREAK SONG instead of crisis resources, in production, on
+  // both the model and keyword paths (assessCrisis runs before either).
+  // If you add a multi-word phrase here, add its progressive form too.
+  'hurting myself',
   'harm myself',
   'harming myself',
   'cut myself',
@@ -156,6 +173,12 @@ const CRISIS_PHRASES: readonly string[] = [
   'i cant go on',
   'i can not go on',
   'i give up on life',
+  // #2177 — the progressive 'giving up on life' is deliberately NOT here: it is
+  // in GUARDED_IDEATION below, because "giving up on life admin today, too
+  // tired" is exactly the exhausted-but-fine reader this feature exists for.
+  // ('i give up on life' above needs the first-person pronoun, so it does not
+  // reach "giving up on life admin" — but "I give up on life admin" does trip
+  // it. Pre-existing; flagged for Joey, not changed here.)
 
   // #1980 — passive / obfuscated ideation the old list keyed around. These are
   // still explicit risk content by a screening instrument's reading (a wish to
@@ -185,6 +208,21 @@ const CRISIS_PHRASES: readonly string[] = [
   'wish i did not exist',
   'wrote the note',
   'written the note',
+  // #2177 — KNOWN GAP, ACCEPTED DELIBERATELY. The progressive 'writing the
+  // note' is NOT listed, in either tier, and no clearer set can rescue it.
+  // The definite article does not distinguish the senses ("I'm writing the note
+  // for the wedding toast" is a previously-mentioned note, not a suicide note),
+  // and the only adjacent completion that separates the two cases would be
+  // 'for' — which is also how the disclosure reads ("writing the note for my
+  // mom"). A clearer that clears the real disclosure is worse than no phrase at
+  // all, so we take the under-block: an in-progress note written as "I'm
+  // writing the note" is not detected here. What still covers that reader:
+  // 'writing a goodbye', 'goodbye note', 'goodbye letter' below, and the
+  // past-tense 'wrote the note' / 'written the note' above.
+  // FLAGGED FOR JOEY, NOT CHANGED HERE: those two past-tense entries, plus
+  // 'wrote a note', have exactly this same false-positive shape in `main`
+  // today ("I wrote the note for the toast"). Fixing them is a separate change
+  // against founder-gated safety copy, not a drive-by in this branch.
   'wrote a note',
   'wrote a goodbye',
   'writing a goodbye',
@@ -194,12 +232,39 @@ const CRISIS_PHRASES: readonly string[] = [
   // the pills" is deliberately NOT here — it collides with ordinary medication
   // adherence ("I took the pills the doctor prescribed"), which the over-refusal
   // guard forbids us from firing on. The quantified forms have no benign reading.
+  //
+  // FLAGGED FOR JOEY, NOT CHANGED HERE (#2177): "no benign reading" is not
+  // quite true of 'took a bunch of pills' — "I took a bunch of pills for my
+  // thyroid this morning" fires today, in `main`, and has since this list was
+  // written. The present-tense forms below are guarded for exactly that
+  // collision; leaving the past-tense forms unguarded is an INCONSISTENCY we
+  // are shipping on purpose, because changing shipped crisis-path behaviour is
+  // a founder-gated decision and a separate change from fixing the regression
+  // this branch introduced.
   'took all the pills',
   'took a bunch of pills',
   'took a whole bottle of pills',
   'swallowed all the pills',
   'swallowed a bunch of pills',
   'took a bottle of pills',
+  // #2177 — the present-progressive forms, which were missing entirely. An
+  // overdose IN PROGRESS is the most urgent disclosure this list can receive,
+  // and it matched nothing before. Same quantifier discipline as the past-tense
+  // forms above: bare "taking the pills" stays out because it collides with
+  // medication adherence.
+  //
+  // Only FOUR of the six live here. The quantifier is doing the work in these:
+  // "a whole bottle" / "a bottle" is an overdose quantity in any frame, and
+  // "swallowing" is not how anyone describes taking their own prescription.
+  // The other two — 'taking all the pills' and 'taking a bunch of pills' — are
+  // in GUARDED_IDEATION below, because the PRESENT tense is precisely where the
+  // adherence collision lives: a chronic-illness reader describing today's
+  // routine says "taking a bunch of pills every morning for my thyroid", and
+  // Tier A applies no exemptions.
+  'taking a whole bottle of pills',
+  'swallowing all the pills',
+  'swallowing a bunch of pills',
+  'taking a bottle of pills',
 
   // Algospeak (follow-up to #2002, alongside the obfuscation hardening). Years
   // of typing around platform filters taught readers these euphemisms, and they
@@ -216,6 +281,25 @@ const CRISIS_PHRASES: readonly string[] = [
   'self delete',
   'self deletion',
 ] as const;
+
+/**
+ * #2177 — next words that mark a quantified pill phrase as medication adherence
+ * rather than an overdose in progress. Used by the two present-tense overdose
+ * entries in {@link GUARDED_IDEATION}.
+ *
+ * Each opens either a DOSE SCHEDULE ("every morning", "each night", "daily") or
+ * a RESTRICTIVE CLAUSE identifying a legitimate prescription ("the pills THE
+ * doctor gave me", "the pills FOR my thyroid"). A reader describing an overdose
+ * in progress does not continue this way — they say "right now", "tonight",
+ * "all of them", or nothing at all, none of which clear.
+ *
+ * Kept to the adjacent token like every other clearer here. That is a real
+ * limit, stated plainly: "taking all the pills my doctor prescribed" still
+ * fires, because 'my' is not a clearer. An over-refusal on a phrasing nobody
+ * has reported is the cheaper error than a clearer list wide enough to swallow
+ * a disclosure.
+ */
+const MEDICATION_ADHERENCE_CLEARERS: readonly string[] = ['the', 'every', 'each', 'daily', 'for'];
 
 /**
  * #1980 — ideation phrasings that also carry an ordinary, non-risk completion,
@@ -236,6 +320,28 @@ const GUARDED_IDEATION: readonly { phrase: string; clearers: readonly string[] }
   { phrase: 'ready to end it', clearers: ['with', 'between'] },
   { phrase: 'thinking about ending it', clearers: ['with', 'between'] },
   { phrase: 'thought about ending it', clearers: ['with', 'between'] },
+  // #2177 — the four progressives that were briefly put in Tier A and fired on
+  // benign speech. Each is a genuine disclosure bare ("I'm ending it all
+  // tonight", "I'm giving up on life", "I'm taking all the pills right now")
+  // and ordinary speech with one specific next word, which is exactly the shape
+  // this tier is for.
+  //
+  // 'ending it all' takes the SAME with/between clearers as its 'end it'
+  // siblings above — "I'm ending it all with my gym membership tomorrow" is a
+  // cancelled subscription, and no disclosure completes with "with".
+  { phrase: 'ending it all', clearers: ['with', 'between'] },
+  // 'giving up on life' clears only on the compound nouns that turn "life" into
+  // a chore rather than the thing itself. "Life admin" is the collocation that
+  // broke this; the other two are the same construction. Bare "I'm giving up on
+  // life" has no clearer and still fires.
+  { phrase: 'giving up on life', clearers: ['admin', 'insurance', 'drawing'] },
+  // The two present-tense overdose quantifiers that collide with medication
+  // adherence, cleared by {@link MEDICATION_ADHERENCE_CLEARERS}. Bare
+  // "I'm taking all the pills" and "I'm taking all the pills right now" still
+  // fire — only a next word that opens a dose schedule or names the
+  // prescription clears them.
+  { phrase: 'taking all the pills', clearers: MEDICATION_ADHERENCE_CLEARERS },
+  { phrase: 'taking a bunch of pills', clearers: MEDICATION_ADHERENCE_CLEARERS },
   // Algospeak ideation: fires unless aimed at someone else — "want to unalive
   // him" is the "I could kill him" of algospeak (hyperbolic anger, must-NOT-fire
   // corpus), while bare "want to unalive" is a disclosure.

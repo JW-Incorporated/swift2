@@ -54,6 +54,12 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
     'over and over', 'ruminating', 'my fault', 'it was my fault', 'all my fault',
     'everything i did wrong', 'what i did wrong', 'blaming myself', 'blame myself',
     'should have', 'shouldve', 'if only', 'wish i had done',
+    // 'hungover' / 'hanging' (UK slang for hungover, NOT for drunk) are
+    // deliberately NOT on this axis. They carry low energy and low valence,
+    // which they get from LOW_ENERGY/LOW_VALENCE below, and `hasSignal` is
+    // satisfied by either of those alone — so a bare "hungover" still returns
+    // songs without claiming the reader's heart is broken. Putting them here
+    // surfaced breakup songs for a plain hangover.
   ],
   anger: [
     'angry', 'anger', 'furious', 'rage', 'raging', 'mad', 'pissed', 'livid', 'resentful',
@@ -127,6 +133,13 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
     'a mess', 'ugly crying', 'need to cry', 'anxious', 'anxiety', 'nervous',
     'worried', 'stressed', 'on edge', 'panicking', 'overthinking', 'spiraling',
     'spiralling', 'cant switch off', 'everything at once',
+    // Intoxication and blunt-state vocabulary (fix-mood-over-refusal). "im
+    // drunk" is a valid message and used to land zero axis hits. Maps to
+    // catharsis rather than joy — it is as often maudlin as celebratory, and
+    // catharsis ("feeling everything at once") is the axis that spans both.
+    // Feral/unhinged/wired read as the same chaotic-release register.
+    'drunk', 'tipsy', 'buzzed', 'wasted', 'hammered', 'tequila',
+    'feral', 'unhinged', 'wired',
   ],
 };
 
@@ -138,12 +151,12 @@ const AXIS_KEYWORDS: Record<MoodAxis, readonly string[]> = {
 // Only the NEGATED sit-still forms are high energy — "can't sit still" is
 // agitation, but "i just want to sit still" is a wish for calm, so the bare
 // phrase stays out.
-const HIGH_ENERGY = ['pumped', 'hyped', 'dancing', 'dance', 'party', 'loud', 'driving', 'blasting', 'amped', 'wild', 'unhinged', 'feral', 'buzzing', 'restless', 'cant sit still', 'cannot sit still', 'not sit still', 'couldnt sit still', 'jittery', 'bouncing off the walls', 'vibrating'];
+const HIGH_ENERGY = ['pumped', 'hyped', 'dancing', 'dance', 'party', 'loud', 'driving', 'blasting', 'amped', 'wild', 'unhinged', 'feral', 'buzzing', 'restless', 'cant sit still', 'cannot sit still', 'not sit still', 'couldnt sit still', 'jittery', 'bouncing off the walls', 'vibrating', 'drunk', 'tipsy', 'buzzed', 'wasted', 'hammered', 'tequila', 'wired'];
 // 'still' removed (#1999) — it cancelled "hyped" in "can't sit still". The
 // small-hours markers 1am/2am/4am join 3am; ennui words read as low energy too.
-const LOW_ENERGY = ['tired', 'sleepy', 'quiet', 'slow', 'calm', 'cozy', 'cosy', 'mellow', 'soft', '1am', '2am', '3am', '4am', 'late night', 'exhausted', 'drained', 'worn out', 'numb', 'heavy', 'flat', 'meh', 'blah', 'bored', 'sluggish', 'listless'];
+const LOW_ENERGY = ['tired', 'sleepy', 'quiet', 'slow', 'calm', 'cozy', 'cosy', 'mellow', 'soft', '1am', '2am', '3am', '4am', 'late night', 'exhausted', 'drained', 'worn out', 'numb', 'heavy', 'flat', 'meh', 'blah', 'bored', 'sluggish', 'listless', 'hungover', 'hanging'];
 const HIGH_VALENCE = ['happy', 'joy', 'joyful', 'excited', 'in love', 'celebrating', 'good', 'great', 'amazing', 'winning', 'blissful', 'grateful', 'proud', 'promotion', 'promoted', 'got the job', 'good news', 'graduated', 'engaged', 'accomplished', 'nailed it'];
-const LOW_VALENCE = ['sad', 'heartbroken', 'depressed', 'down', 'miserable', 'lonely', 'crying', 'grief', 'hopeless', 'empty', 'grumpy', 'annoyed', 'frustrated', 'angry', 'awful', 'terrible', 'horrible', 'rough', 'bad day', 'worst', 'sucks', 'exhausted', 'drained', 'anxious', 'stressed', 'upset', 'bummed', 'gloomy'];
+const LOW_VALENCE = ['sad', 'heartbroken', 'depressed', 'down', 'miserable', 'lonely', 'crying', 'grief', 'hopeless', 'empty', 'grumpy', 'annoyed', 'frustrated', 'angry', 'awful', 'terrible', 'horrible', 'rough', 'bad day', 'worst', 'sucks', 'exhausted', 'drained', 'anxious', 'stressed', 'upset', 'bummed', 'gloomy', 'hungover', 'hanging'];
 
 /**
  * #1999 — the anticipation/excitement register. Deliberately NOT a ninth song

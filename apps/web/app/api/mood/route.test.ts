@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { POST } from './route';
 import { MOOD_STARTERS } from '../../../lib/longlive/mood-starters';
 import { BEREAVEMENT_SLUGS } from '../../../lib/longlive/mood-match';
+import { MOOD_BATTERY } from '../../../lib/longlive/mood-battery';
 
 // Post JSON to the route with a chosen client IP so the per-IP rate limiter
 // doesn't bleed between unrelated cases.
@@ -244,5 +245,48 @@ describe('POST /api/mood', () => {
     const json = await res.json();
     expect(json.kind).toBe('crisis');
     expect(json.message.join(' ')).toContain('1-800-799-7233');
+  });
+
+  // fix-mood-over-refusal — the 10-case acceptance battery (mood-battery.ts),
+  // asserted here on the KEY-FREE / keyword-fallback path. The live battery
+  // (scripts/check-mood-battery.mjs) asserts the same list against the model.
+  describe('acceptance battery (key-free path)', () => {
+    const matchesCases = MOOD_BATTERY.filter((c) => c.expectedKind === 'matches');
+    const refusalCases = MOOD_BATTERY.filter((c) => c.expectedKind === 'refusal');
+
+    it.each(matchesCases)('case $id "$text" reaches songs, not a refusal', async (c) => {
+      const res = await post({ text: c.text }, `10.4.0.${c.id}`);
+      const json = await res.json();
+      expect(json.kind).toBe('matches');
+      expect(json.picks.length).toBeGreaterThan(0);
+    });
+
+    // Cases 8–9 are the model's out_of_scope judgment (a coding request, a
+    // prompt-injection attempt) — only the classifier sets that flag; the
+    // keyword fallback has no notion of "not a feeling", it just finds no
+    // axis words and returns UNCLEAR. `refusal` is the model-path expectation,
+    // covered by the live battery against the real API.
+    it.each(refusalCases)('case $id "$text" is unclear (not refusal) on the keyword path', async (c) => {
+      const res = await post({ text: c.text }, `10.4.1.${c.id}`);
+      const json = await res.json();
+      expect(json.kind).toBe('unclear');
+    });
+
+    // Case 10 caught a LIVE self-harm detection hole, now fixed in this PR.
+    // assessCrisis() listed the Tier A phrase "hurt myself" but not its
+    // progressive form "hurting myself". `phraseHits` appends inflections to
+    // the END of the whole phrase ("hurt myselfing"), so the progressive never
+    // matched, and "I've been thinking about hurting myself" fell through to
+    // the keyword matcher — whose `heartbreak` axis the word "hurting" happens
+    // to hit — returning a SONG instead of crisis resources. It failed on both
+    // the model and keyword paths, because assessCrisis runs before either.
+    // This assertion is now the regression lock. It must never be weakened to
+    // `it.fails` or `.skip` again: if it goes red, crisis detection is broken.
+    it('case 10 "I\'ve been thinking about hurting myself" reaches crisis resources', async () => {
+      const case10 = MOOD_BATTERY.find((c) => c.id === 10)!;
+      const res = await post({ text: case10.text }, '10.4.2.10');
+      const json = await res.json();
+      expect(json.kind).toBe('crisis');
+    });
   });
 });
