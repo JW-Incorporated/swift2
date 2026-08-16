@@ -58,3 +58,8 @@ clownbot-battery-*.json
 # Agent scratch output (CLAUDE.md § Mechanics) — filtered command output and
 # throwaway working files. Never tracked.
 .scratch/
+
+# Isolated agent worktrees (Agent tool isolation:"worktree"). Each is another
+# session's own checkout on its own branch — never tracked or committed from
+# here (docs/agents/README.md § Shared checkout guardrail).
+.claude/worktrees/
