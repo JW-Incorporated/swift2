@@ -16,12 +16,27 @@ content; "anywhere that we have something that's better, keep that."
 `officialStore` and `fanMade` are hardcoded `[]` (lines 78-79) → honest
 placeholders. `shopTheLook` has the 156 real items → the lilac section.
 
-**Wave 1 running: FOUR PARALLEL agents, each owning ONE new file** under
-`apps/web/components/longlive/merch/` — `MerchMarquee.tsx`,
-`MerchSectionRail.tsx`, `EraSpine.tsx`, plus palette/font tokens in
-`layout.tsx` + `globals.css`. Prop contracts are FIXED in PLAN.md so they could
-be built without seeing each other. **Wave 2 is a single integrator owning
-`MerchSection.tsx`** (already 316 lines — the split is part of the work).
+**Wave 1 MERGED** — four parallel agents, each owning ONE file, prop contracts
+fixed in PLAN.md so they never saw each other's work: `MerchMarquee.tsx`
+(#2162), palette + Bodoni (#2163), `MerchSectionRail.tsx` (#2164),
+`EraSpine.tsx` (#2165). **Wave 2 = PR #2166**, one integrator owning
+`MerchSection.tsx` (428 lines changed → 165) plus new `MerchStyleSection.tsx`,
+`MerchCard.tsx`, `MerchEmptyPanel.tsx`.
+
+**A REAL BUG ONLY THE BROWSER CAUGHT, and the reason to keep verifying that
+way:** `EraSpine`'s `scrollIntoView({ block: 'nearest' })` fired ON MOUNT and
+dragged the page ~900px down before any user action (measured: `scrollY`
+0 → 912). `block: 'nearest'` scrolls EVERY scrollable ancestor including the
+window whenever the target is not already intersecting the viewport — and on
+this page the spine sits below a hero and two sections, so it never is. Fixed
+by computing the track's own `scrollLeft`, which cannot touch the y axis; the
+comment in the file explains why, so nobody reverts it. **2995 tests passed
+throughout — the suite is structurally blind to this.**
+
+**Known cosmetic quirk, deliberately not fixed in #2166:** `SuggestLinkBanner`
+is shared with `CommunitySection`, so on the merch page it inherits the current
+ERA accent rather than a `--merch-*` token. The integrator correctly refused to
+restyle a shared component unilaterally. Small follow-up.
 
 **Three rulings, in PLAN.md, do not re-litigate:**
 - **R1. The garment-type filter row is NOT buildable and must not be faked.**

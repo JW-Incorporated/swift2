@@ -179,7 +179,14 @@ table, still in flight in a parallel step): `app/api/clown/route.ts`,
 - `apps/web/lib/longlive/submit-link.ts` — validation, domain/platform derivation, client-id hashing, and the three sinks. **Each sink is independently optional; a missing one must never fail a submission.** `neutralizeCell` here and `neutralizeCell_` in the Apps Script are the SAME rule deliberately duplicated — both sides of the sheet trust boundary. Change one, change both.
 - `apps/web/app/api/submit-link/route.ts` — the public endpoint. Honeypot + per-IP rate limit copied from `/api/feedback`. **Never fetches the submitted URL** (SSRF).
 - `apps/web/components/longlive/CommunitySection.tsx` — directory grouped by platform. Verification badge shows only when NOT verified; flags render above descriptions.
-- `apps/web/components/longlive/MerchSection.tsx` — links out only; no cart, no checkout (item 4a standing rule).
+- `apps/web/components/longlive/MerchSection.tsx` — composition only (~165 lines): marquee, sticky rail, three sections, submit form. Links out only; no cart, no checkout (item 4a standing rule).
+- `apps/web/components/longlive/merch/MerchMarquee.tsx` — flashing-bulb hero. Staggered `animationDelay`; relies on `globals.css`'s blanket `prefers-reduced-motion` `!important` rule, so the animation must stay a CSS `animation` (a JS timer would escape it).
+- `apps/web/components/longlive/merch/MerchSectionRail.tsx` — sticky 3-section rail + scrollspy. Offset comes from `measureChromeBottom()` re-read on scroll/resize, NEVER a constant. Tags itself `data-ll-merchrail` but is deliberately NOT wired into `chrome-offset.ts` — nothing sticky sits below it.
+- `apps/web/components/longlive/merch/EraSpine.tsx` — era filter spine. **Never use `scrollIntoView` here**: with `block:'nearest'` it scrolls the window too and hijacked page position on mount. Scroll the track's `scrollLeft` directly. 0 → em-dash + `disabled`, never "0".
+- `apps/web/components/longlive/merch/MerchStyleSection.tsx` — the "Seen on Taylor" section: spine wiring, the REAL filters, tally, grid, pager. **No garment-type filter exists — `Product` has no `kind` field, deliberately.**
+- `apps/web/components/longlive/merch/MerchCard.tsx` — split "On Taylor | the piece" card; exact-vs-similar with `altNote` INLINE (a hover tooltip is invisible on touch — that was the bug).
+- `apps/web/components/longlive/merch/MerchEmptyPanel.tsx` — honest placeholder for the two empty buckets. Never fabricates products.
+- `.merch-shell` in `apps/web/app/globals.css` — 11 `--merch-*` tokens. Merch deliberately opts OUT of era skinning; do not "unify" it back into the nine `--era-*` vars.
 - `apps/web/components/longlive/SubmitLinkForm.tsx` — shared by both sections. Honeypot is off-screen, NOT `display:none`.
 - `scripts/apps-script/submissions-doPost.gs` — Apps Script for the sheet. Joey deploys it; shared-secret gated.
 - `docs/ops/community-merch-submissions.md` — Joey-facing setup: Apps Script, Resend domain, `vercel env add`.
