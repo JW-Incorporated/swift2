@@ -1,7 +1,0 @@
-{
-  "platform": "x",
-  "body": "ten starter chips, or type whatever you want in your own words. Mood reads the feeling and hands back five songs that fit it, each with a line on why.\n\nno account. no email. what you type is never saved.\n\nit’s the sparkle icon at the top of longlivets.com/?utm_source=x&utm_medium=social&utm_campaign=mood-chat",
-  "scheduledAt": "2026-08-16T23:30:00Z",
-  "campaign": "launch:mood-chat-announce",
-  "why": "Calendar slot 2026-08-12 23:30Z X, launch:mood-chat announce sibling, hook \"the number\" (ten chips / five songs). Written from scratch as its own post, not the Instagram caption trimmed — different vocabulary and a different entry point (mechanics + where to tap, vs. the IG post’s description of the screen), so it clears the checker’s 20% sibling-difference bar and the X duplicate-content 403 that killed 11 of 12 items in social/failed/. Facts verified in-repo: MOOD_STARTERS has exactly 10 chips; the API’s DEFAULT_LIMIT is 5 picks, each carrying a oneLiner; the chip path takes no auth and the route logs only the derived vector, never the text (apps/web/app/api/mood/route.ts). X image posting works since 2026-08-11; this announce stays text-only deliberately (the sibling IG post carries the screenshot). | Rescheduled 2026-08-12: Joey directed that the next 10 posts each carry a real photograph of Taylor (issue #2031 fallout); this product/feature post now runs after that set. Campaign made story-unique (findPostedDuplicate matches platform+campaign)."
-}
