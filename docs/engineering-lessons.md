@@ -314,3 +314,45 @@ An agent cleaning up its own dev server ran `taskkill` with a stale PID from an
 earlier `netstat` and killed **another session's** server on port 3000. Parallel
 sessions routinely hold ports 3000/3001/3005. Start your own server on an unused
 port, and verify a PID belongs to your process immediately before killing it.
+
+## Parallel-agent hazards (added 2026-08-16)
+
+### Diff a branch against `origin/main`, not against local HEAD
+
+An agent opened a PR whose three-line fix was correct but whose branch was cut
+from a `main` snapshot predating a large merge. Its diff therefore **deleted
+three newly added component files** and rewound a fourth. **All 2,995 tests
+passed** — CI only checks that a branch is internally consistent, so a stale
+base is invisible to it and invisible from the branch itself.
+
+The check that catches it: `git diff origin/main <branch> --stat`. If files you
+never mentioned appear — especially as deletions — the base is stale. Fix by
+branching afresh from `origin/main` and re-applying. Never by force-pushing a
+rebase, which the guard blocks anyway.
+
+### Agents write into the shared checkout by absolute path
+
+An agent created its worktree correctly and then edited files under
+`Documents/Claude/Projects/Swift2` regardless, because it had the primary path
+in mind. `cd` does not persist between tool calls in this harness, so every path
+must be absolute from the worktree root. Symptom: `git status` in the SHARED
+checkout shows source files nobody in this session touched.
+
+Recovery: `git stash push -m "<why>" <path>`. That is recoverable and does not
+fall foul of the ban on discarding uncommitted work. Do not delete it.
+
+### A stand-down can arrive after the agent has already finished
+
+That same agent self-corrected, committed inside its worktree and opened a PR
+before the stand-down reached it — messages are delivered at the agent's next
+tool round, so an agent that looks stuck may simply be mid-flight. **Check for
+an open PR from its branch before dispatching a replacement.** Two agents
+produced conflicting PRs for one task here before that was noticed.
+
+### The guard matches command text, so it can fire on documentation
+
+Writing this section via `node -e` was blocked because the string `git restore`
+appeared inside the prose being written. That is a false positive, not the
+human-only line firing. Use the dedicated file tools (Read/Edit/Write) for
+editing files — which is the documented preference anyway — rather than shelling
+out. Do not try to defeat the guard by obfuscating the text.

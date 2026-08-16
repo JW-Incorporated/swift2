@@ -16,12 +16,30 @@ content; "anywhere that we have something that's better, keep that."
 `officialStore` and `fanMade` are hardcoded `[]` (lines 78-79) → honest
 placeholders. `shopTheLook` has the 156 real items → the lilac section.
 
-**Wave 1 MERGED** — four parallel agents, each owning ONE file, prop contracts
-fixed in PLAN.md so they never saw each other's work: `MerchMarquee.tsx`
-(#2162), palette + Bodoni (#2163), `MerchSectionRail.tsx` (#2164),
-`EraSpine.tsx` (#2165). **Wave 2 = PR #2166**, one integrator owning
-`MerchSection.tsx` (428 lines changed → 165) plus new `MerchStyleSection.tsx`,
-`MerchCard.tsx`, `MerchEmptyPanel.tsx`.
+**SHIPPED AND COMPLETE.** Wave 1 (four parallel agents, one file each, prop
+contracts fixed in PLAN.md so they never saw each other's work): `MerchMarquee`
+(#2162), palette + Bodoni (#2163), `MerchSectionRail` (#2164), `EraSpine`
+(#2165). Wave 2 integrator (#2166). **Then Joey's six review items, all
+merged:** chrome + footer theming (#2170), rail width (#2169), suggest banner
+removed + submit strip quieted (#2171), card image fallback (#2172).
+
+**MY RULING R3 WAS WRONG AND JOEY OVERRULED IT.** I had merch opt OUT of era
+skinning via `.merch-shell`, which is exactly why the nav and footer would not
+transition — `.era-shell` wraps everything and the chrome reads `--era-*`, but
+`--merch-*` sat on an inner div they never see. **Merch is now a theme object
+(`MERCH_THEME` + `merchStyle()` in `theme.ts`) applied through the SAME
+mechanism as Threads' `VAULT_THEME`.** `--merch-*` survives only for the three
+section accents and the background gradients. Never re-separate them.
+
+**THE SPLIT CARD CAUSED A REGRESSION I SHIPPED.** The redesigned card needs TWO
+images; 59 of 156 items only ever had one, so 38% showed a bare monogram letter.
+Before the redesign those 55 showed a real photo, honestly labelled. The rewrite
+had also left `merchItemImage()` as DEAD CODE beside an inline reimplementation.
+Fixed in #2172: `merchItemImage()` is the single source again and now returns
+`split` / `product` / `moment` / `monogram`. **Split ONLY when both images
+exist.** Browser-verified: monograms 59 → 4, 247/247 images painted, 150 "Her
+look, not the product" labels (95 split halves + 55 singles; the 2 product-only
+singles correctly carry none).
 
 **A REAL BUG ONLY THE BROWSER CAUGHT, and the reason to keep verifying that
 way:** `EraSpine`'s `scrollIntoView({ block: 'nearest' })` fired ON MOUNT and
@@ -92,6 +110,35 @@ unrelated earlier failure cannot silently skip them — that was the exact bug t
 Karen alarm repair fixed, so **never "simplify" them to a plain `if:`**. Both
 self-close 2026-08-22 (`WINDOW_END`); removal = delete the two steps or the two
 `scripts/watchdog/*-check.mjs` files.
+
+## KAREN — TWO SEPARATE FAULTS, diagnosed 2026-08-16
+
+**Fault 1 (hers, WYATT-ONLY).** Karen is NOT a GitHub Action — she is a
+**scheduled Claude Code routine** on Wyatt's account, trigger
+`trig_014HWuRmT2MFveDkPGwVDiQX`, prompt `docs/agents/runner-prompts/karen-nightly.md`,
+model `claude-sonnet-5`. **No Swift2 session can see or fix her** — `CronList`
+only sees the current session. Last real run = PR **#1850**, merged
+2026-08-09T09:27:37Z (a SUNDAY, which supports the weekly `0 9 * * 0` reading in
+`docs/decisions.md:96-100` over the stale nightly line at `runners.md:412`).
+A prompt for Wyatt was delivered to Joey 2026-08-16. **Success signal: a PR
+titled `karen: nightly run report <date>`.** Her scan reads the repo checkout
+directly and does NOT use `SUPABASE_SERVICE_ROLE_KEY` — that rotation is not the
+cause. **Trap for whoever edits a routine: a PARTIAL update silently wipes the
+prompt (`events`) and repo binding (`sources`)** — GET the whole `job_config`
+and PUT it back, or use the dashboard UI (`runners.md:339-345`).
+
+**Fault 2 (OURS, and why Joey got silence).** `.github/workflows/watchdog.yml`
+runs `run:` blocks as **`bash -e {0}`**. The Karen step (~736-740) and the
+work-ownership step (~677-683) use a **non-zero exit as the ALARM SIGNAL**, then
+read `$?` on the next line — but `set -uo pipefail` does NOT clear the inherited
+`-e`, so the shell dies the instant the check exits 1 and never reaches the
+branch that opens the alert. **The comment at ~680 claiming "`set -e` is
+deliberately off for this line" is FALSE.** Proof: today's run `31953966505`
+logged `karen-post-repair: unconfirmed`, `started_at == completed_at` (~0.5s),
+concluded `failure`, and no alert issue exists at all. Fix in flight
+(`fix/watchdog-alarm-errexit`): `STATUS=0; node … || STATUS=$?`, which is a
+guarded context errexit does not fire on. **Never use bare `|| true` here — it
+discards the exit code the branch needs.**
 
 ## Blocking / outstanding — READ BEFORE STARTING ANYTHING
 
