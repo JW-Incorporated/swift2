@@ -27,6 +27,14 @@ so far".
 
 Stories: 83
 
+## Allan Hancock College is In Its Taylor Swift Era - Noozhawk
+
+- first seen: 2026-08-16 05:38 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Allan Hancock College is In Its Taylor Swift Era  Noozhawk
+- sources:
+  - [unverified] Noozhawk — https://news.google.com/rss/articles/CBMif0FVX3lxTE5nbC0yanpUMlZ6cktCZktSd2FldUhEU0YwVzF0bTIyWnBRMy1LLWZnekgxZkJfbTFfNHJ3aUxIZm1rWEg5Q3ZDUE1hci1ZZlVQUS1va2lHZmE3MjlxSjZtMWRzLWdFRWE1dnJxdWpyLVpnOVgtVHA2d2ZEZTQ5Wms?oc=5
+
 ## Travis Kelce's Wedding Band Revealed in New Photos After Marrying Taylor Swift During NFL Offseason 
 
 - first seen: 2026-08-16 02:34 UTC | category: relationship | importance: 5
@@ -339,11 +347,12 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 ## Taylor Swift channels 'Lavender Haze' in London look, shop similar style - USA Today
 
 - first seen: 2026-08-14 18:02 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift channels 'Lavender Haze' in London look, shop similar style  USA Today
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQUWlBTjROQXZCRHF3ZmZrcjFuSDc2NnJCU3ZXU2xXUEdrTzBBNDlWLTY1NG9vVEQ0SnZsMTVTNkhuNEJWcFNudFBNOVVpQkk1bF9GVVBLMWVwbTFuR0pQdlpBdi1rbHlLd0FhLTJBd1piRU92bWoxVi1WMEY4bFRLM3hXMTB1ZUdpcVJWLW1YSXkxV2xrVmdmaXlLallITkQ3N1czeHliT1Bvc09NN2xXX3RHei15S2ZGREFlVm1PeXRUbnVuMXNmRFcyc2taUG45NVE?oc=5
   - [unverified] Las Cruces Sun-News — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQOTE0a3hiUkxVcE84aThuOUNGdEVST0NzZWlLNFFmaGZiLWpFWTN0MXNRTFdpSmlET1FPR002OUlBX1ZtLXVJWmNZcE9sVXdONTdKdmVxdjN6NnVqaXFReE1fNndDbzJ3a3V1XzdablloMExpWWJxRVNDS0ZKWGlIWWFHNUJsVmFldU95U3VGMGtkVVc3TVhhX091Z1FvYlBPd2pGNWVhQjBQUVl2Z1hLUUhib3FqREEzLU9ZR2pwTlh2RGZnZjd1aUwyVi1SRlJwSWsxLQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQbTV6LXJtdVFhQ1dJc2lTem51elpCV3pyUWZzVEpqSzU3aHNTLUo1dml1cC1ERURjTU1zX2pfN0lReWhEVWdIR0JTWC1fUWhUbFBPZ1FFY0pZSmliWi13Y21nQkVFUm1PLTZyQzZKWjE5RUlmRUhvbHdRY3hJR1pJQVJpUWRuT0VBa2ZwdUVUdmc2R0trc2FQM2hKemhrZFk3STdN?oc=5
 
 ## Taylor Swift by Candlelight - Duxbury Clipper
 
@@ -694,12 +703,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 - summary: Travis Kelce: Chiefs Camp Offers Welcomed 'Sanctuary' After Taylor Swift Wedding  foxsports.com
 - sources:
   - [unverified] foxsports.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxONnN6bmNhcUQ0TU1ydGsxR2JmS24yQTJDS05HdUZQeU5Hc09EdURJYnVlMkUydTdPVVhLYVFHZ1BFcjhJQ0d2VjA1ekZBN2JXSm9SNnN1UC1Zck1BSERzeVQ5VDg0Q1pxa1NDcy1SSjNkU2ZtZGhRNFVnLXlJcHNDUkhNbEROLUY0S3p30gGLAUFVX3lxTE83NmM1b2tlY0lmNENUejFXNXYtQmlIUklvZHdiV0ZMR3F5RmtVVV9MRTd0enBHYUQtcFJoelRzQ2c0Nmc0cnM1UWRJb19PRkFxOXNxcnNhS0RhRDVydzNUQ2tjVGdOQlVReVpvdlhPYlgzeXZLNTh5YXZHcHpfaEpRbEhySVpCakFqd3M?oc=5
-
-## Taylor Swift Removes Yet Another Song From Yet Another White House TikTok Video
-
-- first seen: 2026-08-13 03:32 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The Trump-affiliated account attempted to use "I Bet You Think About Me" in latest antagonistic post
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-removes-song-trump-white-house-tiktok-1235607884/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirAFBVV95cUxQdmNsTkNMbk42SkJ1TjFMeklPWktQaDRoVE9WMVZMTHpQSUM3LWRVWjB3VWtBbWtiSDc2cjJDcHE0d1RyeXVqZFRTdHdyX3NrOU9NVE1HLVNDd0dDX1VpdGFUMGNaQUNuS2tLbHV2WGpyZ1hReUVBQVdWZ1ZHbzVQeXVSVElRb2FzcE5FV0FDWVZ1ZW5scXBTdzR2XzVFYWlta0t5YjdEcERRcVRT?oc=5
