@@ -677,10 +677,15 @@ jobs:
         run: |
           set -uo pipefail
           ALERT_TITLE="Watchdog: work is going unowned"
-          # `set -e` is deliberately off for this line: a non-zero exit IS the
-          # alarm signal, not a failure of the step.
-          node --use-env-proxy scripts/check-work-ownership.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
-          STATUS=$?
+          # GitHub Actions runs `run:` blocks as `bash -e {0}` — errexit is ON
+          # by default, and `set -uo pipefail` above does NOT clear it. A
+          # non-zero exit here IS the alarm signal, not a step failure, so a
+          # bare `cmd; STATUS=$?` would die on the `node` line before STATUS
+          # is ever assigned and this whole branch would be skipped. Putting
+          # the command on the left of `||` makes it a guarded context, so
+          # errexit does not fire and STATUS captures the real exit code.
+          STATUS=0
+          node --use-env-proxy scripts/check-work-ownership.mjs --repo "$REPO" --alert-body /tmp/alert-body.md || STATUS=$?
           if [ "$STATUS" -eq 0 ]; then
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "work-ownership OK"
@@ -736,8 +741,15 @@ jobs:
         run: |
           set -uo pipefail
           ALERT_TITLE="Watchdog: Karen post-repair still unconfirmed"
-          node --use-env-proxy scripts/watchdog/karen-post-repair-check.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
-          STATUS=$?
+          # GitHub Actions runs `run:` blocks as `bash -e {0}` — errexit is ON
+          # by default, and `set -uo pipefail` above does NOT clear it. A
+          # non-zero exit here IS the alarm signal, not a step failure, so a
+          # bare `cmd; STATUS=$?` would die on the `node` line before STATUS
+          # is ever assigned and this whole branch would be skipped. Putting
+          # the command on the left of `||` makes it a guarded context, so
+          # errexit does not fire and STATUS captures the real exit code.
+          STATUS=0
+          node --use-env-proxy scripts/watchdog/karen-post-repair-check.mjs --repo "$REPO" --alert-body /tmp/alert-body.md || STATUS=$?
           if [ "$STATUS" -eq 0 ]; then
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "karen-post-repair OK (confirmed, or window expired)"
