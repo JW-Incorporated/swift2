@@ -25,15 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 83
 
-## Is Taylor Swift attending the Chiefs game today vs Rams? Here's what we know about Travis Kelce's wi
+## Travis Kelce's Wedding Band Revealed in New Photos After Marrying Taylor Swift During NFL Offseason 
 
-- first seen: 2026-08-15 21:32 UTC | category: relationship | importance: 5
+- first seen: 2026-08-16 02:34 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Is Taylor Swift attending the Chiefs game today vs Rams? Here's what we know about Travis Kelce's wife's whereabouts | Hindustan Times  Hindustan Times
+- summary: Travis Kelce's Wedding Band Revealed in New Photos After Marrying Taylor Swift During NFL Offseason  Bleacher Report
 - sources:
-  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMijgJBVV95cUxOYkUxZWlJM0x3VnUxMUkzX25sLXkzdExVcFR2dXhhT1BBeVd6YmJna1BiVnZEQnRkNWIxcnJOQnRNZS00eHdRYmVRa0lubzFFdml0Rk5jN1lWWTRSbU50QTJQTWNnZlFJRTE0Um0xSTRSRm5JQkpwU2pBRThfcXR5VHYwRWRDZkZtUXZ3elZCVjkwdlhMX2FFdGJONGdFMlVXR182ZWdBQW4tbXpUU1ZlLXpWeVI2YXlLRERPekxYTE1naTlTSXp5MGY3M2ItSURWeVFwXzBLczYxN0RnNEJfbk1xaHdJdEc2WWdXOWR6OGxNVGJDbFp1ajA1UUdzUnloODgzU3dpeEJ4c2NBZ2fSAZMCQVVfeXFMTUl1MnpoX19QcENHVzMtYTBvbUNJVEMwQmx4Zi1wQWhESXRlTlVfUTExdTltMXJYTWFCSTBhMlJsamtlUjRrRTZGUlRldkhrYV9hV3RjaUdMOENXVGYzNVlITjF4Tm0tUjBJTjJXazBObmRNYkxORC1SOTZHeGdGSnEzOTd2aWZZX3EweVIxT0hSZ2k3bXlHN2RBTkVueXAtNlAzaGpVRUNqcEszRTkzSmVfVXZLN1M2SklWMzRScjZqNTlaUlh1Qzd6NjNYNV8yNlo0c09va0dXRFp1QURWZldJenluaGowYTV6aXpXaE9Qdk5pc3FwQ3kycV90VkVncDB6eWNITTIweFlIU3pGVDBmaVk?oc=5
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOano1cnpKT1BBZ2hCM2c2UXAzbTFzTW1GOHFLSjFmQVJKR2FZaEdZR0xRTnRzTWZfOHVjeUU3dS00eUloeVROejdmUG81NkdKWkMxUXpHcm5OYlliSktvWW5XTXR3aEh2aENXUVAxUmlRNXcxZXMyZFFSb1NZZjVYYnRjQjVXWjY5RWlIZFhhNmtaTGs5NWpSTEhyVEdULXVrWGh4SWkxN1ZLR0xkR0JlaWZSVmI0YXd3blI4Z2Y0S0VMZHQ4OXlBeGh6aGdmYWpxMm80cHVWZw?oc=5
+
+## Travis Kelce Flashes His Wedding Ring at Chiefs’ First Preseason Game, One Month After Marrying Tayl
+
+- first seen: 2026-08-16 02:34 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Flashes His Wedding Ring at Chiefs’ First Preseason Game, One Month After Marrying Taylor Swift  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxOMFItaEdkVlktWmZZckx6dEF3Q0U2emFSRkhjYzdqdlJRS2I3elJUTUs0LURuNXVFNGExYUtPQmJZeHlnTE4wZ1JIdVJYXzh3c0ozRng5NjE2dTlFWjBJLUh1UjFRcWFsOEJjZDI0QXBZY3ZEazVodFk3bjB3MTIzT2Y4blVTRDltdjhRWjYxbXRXbUU?oc=5
+
+## Travis Kelce Shows Off Wedding Ring at Chiefs Preseason Debut - E! News
+
+- first seen: 2026-08-16 02:34 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Shows Off Wedding Ring at Chiefs Preseason Debut  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOd1YxbFNfOEpuRE91RlFRekxtUGhIUXM3ajZoZ1VoM2dsdVZPLWQ3aHJqam42NU9iY01rNTh2MVNYc1VVUXIyc3h2aXBmSU15aTI5ZjdIWFYtR0RWRnNzbVdJN0s2NjZFb0F6R3dEU2FIQ2NPTVBSbW1GMDA1M1pZMmphU0IzNkJBeW5lREpnMUdXanQ5dmhwSlF4Q3ZtbFNuc2Q4cFBrRUNLZw?oc=5
 
 ## Travis Kelce proudly shows off wedding band ahead of first Chiefs game since wedding to Taylor Swift
 
@@ -66,6 +82,14 @@ Stories: 89
 - summary: ‘Looks Like His Wife Dresses Him’ — Fans Sense Taylor Swift in Travis Kelce’s Stylish Outfit for Chiefs Preseason Game 1  Yahoo Sports
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiggFBVV95cUxPaURpdU9rYm9aVUQtVWw1bnh3UXBpMkhucWkwMExwOUFxUWZnSmZIQ3VPQWVWcnJrN2ZLNEhLTEFRa2RfX04xU1JEUHE3dUtoU3JvMks5OWdOOTV2ZExteGwyN3hzVXZBS0pnZGxIbXhKVjJDbzM5UVJOLXdpSHZuckhR?oc=5
+
+## Is Taylor Swift attending the Chiefs game today vs Rams? Here's what we know about Travis Kelce's wi
+
+- first seen: 2026-08-15 21:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Is Taylor Swift attending the Chiefs game today vs Rams? Here's what we know about Travis Kelce's wife's whereabouts | Hindustan Times  Hindustan Times
+- sources:
+  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMijgJBVV95cUxOYkUxZWlJM0x3VnUxMUkzX25sLXkzdExVcFR2dXhhT1BBeVd6YmJna1BiVnZEQnRkNWIxcnJOQnRNZS00eHdRYmVRa0lubzFFdml0Rk5jN1lWWTRSbU50QTJQTWNnZlFJRTE0Um0xSTRSRm5JQkpwU2pBRThfcXR5VHYwRWRDZkZtUXZ3elZCVjkwdlhMX2FFdGJONGdFMlVXR182ZWdBQW4tbXpUU1ZlLXpWeVI2YXlLRERPekxYTE1naTlTSXp5MGY3M2ItSURWeVFwXzBLczYxN0RnNEJfbk1xaHdJdEc2WWdXOWR6OGxNVGJDbFp1ajA1UUdzUnloODgzU3dpeEJ4c2NBZ2fSAZMCQVVfeXFMTUl1MnpoX19QcENHVzMtYTBvbUNJVEMwQmx4Zi1wQWhESXRlTlVfUTExdTltMXJYTWFCSTBhMlJsamtlUjRrRTZGUlRldkhrYV9hV3RjaUdMOENXVGYzNVlITjF4Tm0tUjBJTjJXazBObmRNYkxORC1SOTZHeGdGSnEzOTd2aWZZX3EweVIxT0hSZ2k3bXlHN2RBTkVueXAtNlAzaGpVRUNqcEszRTkzSmVfVXZLN1M2SklWMzRScjZqNTlaUlh1Qzd6NjNYNV8yNlo0c09va0dXRFp1QURWZldJenluaGowYTV6aXpXaE9Qdk5pc3FwQ3kycV90VkVncDB6eWNITTIweFlIU3pGVDBmaVk?oc=5
 
 ## Taylor Swift Wedding Guests Reportedly Angry Over Travis Kelce Behavior: ‘There’s Always 1 Rule for 
 
@@ -412,12 +436,13 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 ## Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift - NBC4 Washington
 
 - first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift  NBC4 Washington
 - sources:
   - [unverified] NBC4 Washington — https://news.google.com/rss/articles/CBMilwFBVV95cUxNMDkxOThsTWFoRkctMGJ5TkJzT1R3aXFqbDZOQlAzUUJDc0tyV25nWWJUV0hyV1BCWFVDN0xGZUZVb3NKOUYzVTZvWWJoVU5HUkxnUlp0aVpxbzh4cEV4UmhOcU1lVjcxaDVHeXVSSTFnWWdfTVV3YzU1b2tTLVFmWVgybjZWbXQzdnljOGZaVllxclcxRnlJ0gGfAUFVX3lxTE1qRWFTUkx3NFI0LU9YYy1FRzFXeTFDaHlHal82OTlwZkdLOVZfaWdETHZWY0pyLUMxN3VNSUprcFpvUktLMEZJSDY0V281VXYxbWVpYWRFY0VnYWxPaXByNnpNTnZERGxsc1dBbEZ6QUpQTEVfMEw3S2FaX0Y0REFESE9sSVJXeVc2Smp6VjlUb0NET2VMMFdkN01tUDdaTQ?oc=5
   - [unverified] Central Oregon Daily — https://news.google.com/rss/articles/CBMihwJBVV95cUxOcEpjeGRsVWlabGpMR0JfT1hWTGw2WUxTQU9RaE9NZWxVcG9LNkw2RHcxbUlMVHpGaEZmY2hoT2htMWtFMFg2Q2hvbjR4MHp5TUFGRzlQVktwX2FTYUtKdEgybGlsTi1CMjN2WDBod253MW1FekJQNUlVQzlSR3FlSFdrZkQwWDJOcVYzWnFUYWRsQVhYMlZnVFJDbU1mUkdZVmZvLVo1SmZweXhLc3ZodVhCVWxMdzd5THdFazJDQzFTM0xmVi1WYWFFb3NCdXNxZ2RCU2pjaXVsZzdHWkV3c2NNYUlCT0dPR3FTZEFkM19Cb0dfdmEtSDFsbnFBZTFHRUxMTm1Gdw?oc=5
   - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOd0JKNUx5Q1hpS0loR0RJcGRISXR0Z2hfLUVzYWV0elFxdHZkenhEYUR6a01qTUxPZEFPVHNsVXBLNkl1S1hkYWhtUjZxTjMtV3FoMmdRREpZYUJOSVdudlVtTEk2ajRhVmphdHU4aG10QV9mWnZVaHNqN1pkMWVVWVRLejVvcktLakw3UDVkOEM3UHNKa0dnS19kTUJLV3AtcUs0RjgzNTFaN1lrYTZyUm54TENiMkh1b1VYM0JhOGY2elQ3UUdjLUZMU1VzOHNU?oc=5
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMizwFBVV95cUxNTWUtaDdxaDNHNmpHNldwM3c2X2k0Vmh3b2pWcDFGemR0SXdfSUtnanlfQ2JNSF81d3Q5Nk9hVGhCTnVkNUpXaWZCTmVPcDl5ODVYbzRMNkYzOUVQQlVaZlhvd2psb0YyTjh3UlNrN1ZnT1M5UVh2Vk1DQlE0MGhYSzhvbW1ONl9neVlOOFd2YXRmYWVrWktDM1hVQWVCalpkYng0enIxV2JVSUlxb011a3JabFVUNjBrWWVxd3lyTUM2Tk81RXo5MXExUmRLUE0?oc=5
 
 ## Taylor Swift Debuts Chic Haircut in First Outing Since Travis Kelce Wedding - E! News
 
@@ -678,77 +703,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 - sources:
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-removes-song-trump-white-house-tiktok-1235607884/
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirAFBVV95cUxQdmNsTkNMbk42SkJ1TjFMeklPWktQaDRoVE9WMVZMTHpQSUM3LWRVWjB3VWtBbWtiSDc2cjJDcHE0d1RyeXVqZFRTdHdyX3NrOU9NVE1HLVNDd0dDX1VpdGFUMGNaQUNuS2tLbHV2WGpyZ1hReUVBQVdWZ1ZHbzVQeXVSVElRb2FzcE5FV0FDWVZ1ZW5scXBTdzR2XzVFYWlta0t5YjdEcERRcVRT?oc=5
-
-## Scottsdale executive spent stolen millions on Taylor Swift, Super Bowl before $10.7M fraud unravels 
-
-- first seen: 2026-08-12 21:59 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Scottsdale executive spent stolen millions on Taylor Swift, Super Bowl before $10.7M fraud unravels  FOX 10 Phoenix
-- sources:
-  - [unverified] FOX 10 Phoenix — https://news.google.com/rss/articles/CBMixwFBVV95cUxOenpUNjIwWjVBa3NBTVhIVUZ2dTV3aE5XN3huekZCQm96MVpyZk14VjJwWFJpNS1VR0tkelhaSEFkWDVuNzRLaGpiSkFHTkhzRm9QR2tCUi1kdUw1LV9IMzFXN0RzbF96eWVIa2hidVVLNXA3TU14WG1qMnRQcTZYR0ZhNGpoUHJacHZHalc4cFpoM2szNzROTUNzcWVaX3cyeTVZRGNHTHl3a2VUTWYzN0tpQmlmQnZuZjROcldpbER4MkpGN0tV?oc=5
-
-## Person of the Year 2023: Taylor Swift - Time Magazine
-
-- first seen: 2026-08-12 21:59 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Person of the Year 2023: Taylor Swift  Time Magazine
-- sources:
-  - [unverified] Time Magazine — https://news.google.com/rss/articles/CBMib0FVX3lxTE5jaFNYelEzckhqeGFQVGt5eVdsMTFieEk3Rll0ZUVPSU5PdTY5YVhsaUpDRlN4ekVZWHJHc2JjSjNqcDFBNHAzWEMyR1g5azFfMkhFOUIzM1FRZ0xOTl83ekZuX2djM3M0TV9BYmZmVQ?oc=5
-
-## Travis Kelce breaks silence on Taylor Swift wedding with 8 sweet words - Yahoo
-
-- first seen: 2026-08-12 21:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce breaks silence on Taylor Swift wedding with 8 sweet words  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQOWhPbFd5bk1IbW9FLWYtUEZ0a1dmSWxDTFZKTlc5RWl5OUYyTzd4SmNORDRkQ2FSV3A5SGVHN2NiWHZHZW4tUXlsYVVqeFlHT3JBMUNmRkN2VVFoaWFnT01pUnlKNWEzUGZ5c1F2WmNrVUpQUWxITDRmTmY2LVhVSDFySTF6dmd4ZnBvUGZhcEtLNXFkdnhxQlJLVEx5VEJHVG05ODI3SQ?oc=5
-
-## Travis Kelce Gushes His ‘Perfect’ Wedding to Taylor Swift ‘Was the Best Night’ of His Life in First 
-
-- first seen: 2026-08-12 21:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Gushes His ‘Perfect’ Wedding to Taylor Swift ‘Was the Best Night’ of His Life in First Remarks  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxQbzdSRVFhWFBVQklVVEcyZTdYWmFPY2VuT1VLdEwybTRtbWNtVUZrbjJjeTN4RDNVQ3BaRzdHS1NvWndUcV9VOFh1ZFR1UWxFRUZLZFhrSmhCOWM2R3NRbkZudmpxTDhTbmxuZ0VDNkdvNkJhOEVvM0lNSUZFblVBRk14ZktFMDBMMkRwV1ZsOW9XWWw3UFlnMGQ0THprWXVxMGx2VzBGZjdwb3RWN1NR?oc=5
-
-## Travis Kelce Speaks Out on Wedding to Taylor Swift: ‘Best Night of My Life’ and ‘It Was Cool to Live
-
-- first seen: 2026-08-12 21:59 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce Speaks Out on Wedding to Taylor Swift: ‘Best Night of My Life’ and ‘It Was Cool to Live Out My Childhood Dream’ of Being in MSG  Variety
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipAFBVV95cUxNbklrbnNneGY3c0NrbDBJdjhOVVRHZzJ3OWJsVWdKbDhCQzFzVzFUYTdiQTJZSlpwVU9LRDg1NVpFTUhDczJxMG5wOS1BZWhVZ01KMGhISVRvZUI2TjBFX0NNVGpKRUdvMXhLaE9RXzFwUmdfQVlVT09aSDdzSkhFVnpiLWFOX1l4aUVaVGdvTjJhQmpmcUN5VGZuYUpVc0poYUJ6bg?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/travis-kelce-interview-taylor-swift-wedding-best-night-1236833147/
-
-## Taylor Swift Makes History as Travis Kelce Returns to Chiefs Training - Yahoo
-
-- first seen: 2026-08-12 21:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Makes History as Travis Kelce Returns to Chiefs Training  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQLUFPNG8xaE9ydnBkdUM4d2o0VUxGZENNS04xeUp1UG9icVZxbGtDWlpjMDRjejF0WDRXSDVYWERmOEg4Rlk4VlRTMVFZYUFxUVlnZHozclpwQ19tVzhfZ192R1lxQXo1Z3lWMURPZm1iTi1oWklmVzJBX19ZQVpnZEtXaGJGa1Ntc2xobHp5SlQycVpFcWs4YktfanFOZmc1?oc=5
-
-## Travis Kelce calls marrying Taylor Swift at Madison Square Garden 'the best night of my life' - foxn
-
-- first seen: 2026-08-12 21:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce calls marrying Taylor Swift at Madison Square Garden 'the best night of my life'  foxnews.com
-- sources:
-  - [unverified] foxnews.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPcjdwOHB0MVNLYzlnTFhHSHY0UXlaQW9jR0JCaS1pZmhfREpPai16Wm45bTdPaHBrdklJTF9CNmtkSjZyU0Z5YnRjN2JHVF9nVVd3VGpNNkNMSENNSEdsQmg0djFibk9Dbk9naEd0OUNQZEI4UVpGaDlwWjJWcTM0SjVVaFRyU0M4a05YTUxOS3dQLWVHN3BxeDNnRWJaZFBxbHF2eWR4endvM2xEamFiOHlB0gG3AUFVX3lxTE45R3N2bEhqSDBmTlJpbzJkZWN3UUNIZ1FzSUFrOF9QSmR3UDBOdGxLNDhlbHAzU2VzTk5rMTNsWHotUkxHcG5uWkY5YklqM0dPYUVvaHUyQlVDWWJlTWVScm9pMHR3bWZ4U3E5TDBSa0J1eWpLWmIyZ0dLSUhndFFiLURkTjl6aXc3QXNHNEdfMzdRTjBRQU5mWnUwa3BCYklNNFpsdjZaMmdYYW1QMUM4WllpdHJ6QQ?oc=5
-
-## Travis Kelce on How Marrying Taylor Swift at Madison Square Garden Fulfilled “Childhood Dream”: “Mec
-
-- first seen: 2026-08-12 21:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce on How Marrying Taylor Swift at Madison Square Garden Fulfilled “Childhood Dream”: “Mecca of All Sports Venues”  hollywoodreporter.com
-- sources:
-  - [unverified] hollywoodreporter.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUUtCdUFFM0RKVFhUZHFKWllWS0dMb3FMUkJkQW41V3NrZWN5NGlvTTkwdXNyTzVNRFg2cklXaFJWNTB6Sl9ST2F4R2d1RS1QTjdEeklrSFozRmZQbU9nY2pZaXhwVEJHb0lVZHlrb2pqVVU2WGg4MjRYY2lSYUhwdktuZ3NPMGsxdFQ1N3AyMjd5RFE1N2NiNC1FRkM0OTVIN1FfeEk2VFhZMlhMN2hPU25BZnBJYlFEQ2dEUGxOT2prdw?oc=5
-
-## Trent McDuffie discusses Taylor Swift-Travis Kelce wedding 'Inside Training Camp Live' - sports.yaho
-
-- first seen: 2026-08-12 21:59 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Trent McDuffie discusses Taylor Swift-Travis Kelce wedding 'Inside Training Camp Live'  sports.yahoo.com
-- sources:
-  - [unverified] sports.yahoo.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxObmtnQ2VvUmpIWGZOai1Td2tjN0Z5YUQzS256VnVVSjV0aHRGS08zX2hGek54RXRjTkJOSkdxdW5SajlaYUtnS0pTc1A3VVlQbzdENWxGZ2Z4R3BJOXRQSHByT1U3SGV5ZXBkanpoaF93TF9wMkJfLVVrcVhDZHN1Z0FlYThXcFhXa05SbA?oc=5
-  - [unverified] NFL.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxNWU1zVlREdlFZVks4WG5WOElLNUhsSlB0RjN6ZHhNek9CelFXSWgyakF3WkVFb1pLV09FeUh2NTNWc2VDM3RBVnZVWEVCaExsZ25PQ05vWWtXM1hxZUtoc3pjYkVXd3pIX2ZpQWMyVTBQTGZhdERfU3JTZXB4WU9yZGZUdTNSc0Y4cGpNVzRKYm81dEtvRVZvUkFxVDdOVC1acUFTZGdrNWdfUm1wVnpkQw?oc=5
