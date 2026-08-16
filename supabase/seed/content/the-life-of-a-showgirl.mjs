@@ -10907,6 +10907,24 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Shop pass (Stylist, 2026-08-16, Vault Run): the moment names one
+        // buyable garment, the Delphine "Mini Isabelle." Verified the exact
+        // retailer product page this run — curl HTTP 200, og:title "Mini
+        // Isabelle Dress", JSON price 99500 cents, "available":true, colorway
+        // slug lilac-multi matching the lilac floral minidress described. The
+        // Aquazzura sandals / Louboutin clutch / Cartier watch were not sourced
+        // this pass (no exact live product page verified), so only the dress is
+        // linked.
+        products: [
+          {
+            brand: 'Delphine',
+            item: 'Mini Isabelle Dress',
+            retailer: 'delphinenyc.com',
+            url: 'https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi',
+            price: '$995.00',
+            inStock: true,
+          },
+        ],
       },
     },
     {
