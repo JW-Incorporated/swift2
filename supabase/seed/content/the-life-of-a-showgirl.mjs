@@ -7800,6 +7800,20 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1433683/taylor-swift-travis-kelce-invited-ring-designer-kindred-lubeck-to-wedding',
       thumbnailUrl: null,
       moment: {
+        // socialPost (Photo Enrichment, 2026-08-16, Vault Run): this page is
+        // ABOUT Lubeck's post, so embed it rather than only describe it.
+        // Shortcode from the permalink E! and Yahoo both cite; verified by
+        // rendering instagram.com/p/DaanpJFgG1t/embed/captioned — the
+        // @kindredlubeck account and the exact "...changed my life forever.
+        // Congratulations T&T" caption. Embedded, not hotlinked (Instagram CDN
+        // urls are signed/expiring and the host is not on the image allowlist).
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'DaanpJFgG1t',
+          label:
+            'Kindred Lubeck\'s Instagram carousel, posted days after Taylor and Travis\'s July 3 wedding — "an evening of celebrating the incredible couple who changed my life forever."',
+          postedOn: '2026-07-06',
+        },
         context:
           'Lubeck\'s attendance closed the loop on the engagement-ring story: the jeweler who worked with Kelce on the custom Old Mine Cut design nearly a year earlier was invited to see the marriage it led to, a detail she confirmed publicly after the wedding, thanking the "incredible" couple for including her.\n\nIt was a fitting coda for the person whose work had carried an outsized share of the era\'s symbolism. Lubeck — the goldsmith, hand engraver, and vintage-jewelry specialist behind New York\'s Artifex Fine Jewelry — was catapulted from independent-studio obscurity to global attention overnight when the ring close-up hit the couple\'s August 2025 announcement post, and the invitation suggested the collaboration had been personal rather than transactional. A guest list that ran from Hugh Grant to Stevie Nicks also had room for the woman who made the ring.\n\nThe thank-you was her own: on an Instagram carousel of her wedding-night look, posted days after the July 3 wedding, Lubeck called it "an evening of celebrating the incredible couple who changed my life forever," signing off "Congratulations T&T" — the primary post E! and USA Today quoted. She came as a guest in a strapless dark-green gown and diamonds; no outlet credited that jewelry as her own Artifex work, and none has named who made the couple\'s wedding bands, so the engagement ring stays the full documented extent of her hand in the day.\n\nThe invitation capped a fast-widening year. After the August 2025 reveal, Lubeck — who learned hand-engraving from her goldsmith father in Jacksonville — took three one-of-a-kind pieces to a Sotheby\'s "Gem Drop" in late 2025, launched Artifex Bride, a first ready-to-order bridal line, in April 2026, and lent the label to a De Beers runway partnership. Order and waitlist numbers stayed private, but the arc from studio obscurity to global name ran straight through the wedding she was invited to attend.',
         sources: [
