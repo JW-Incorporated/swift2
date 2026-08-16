@@ -8441,7 +8441,6 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       sources: [{ name: "Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-lavender-mini-dress-delphine/", reliability: 4, type: "reputable_press" }],
       relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
-      products: [{ brand: "Delphine", item: "Mini Isabelle Dress", retailer: "delphinenyc.com", url: "https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi", price: "$995.00" }],
     },
     {
       id: "vault-tloas-two-of-her-looks-join-the-v-as-diva-show-when-it-reaches-den",
