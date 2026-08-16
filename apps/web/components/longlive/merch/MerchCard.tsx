@@ -3,13 +3,16 @@
 /**
  * Merch page redesign (PLAN.md, KEEP: "the split card treatment (On Taylor |
  * the piece) which our data genuinely supports"). Split card for the "Seen
- * on Taylor" grid — every `shopTheLook` item carries a `source` moment, so
- * the left half can always attempt the moment's own real photo (labelled
- * "Her look, not the product" — 2026-08-15, docs/decisions.md — never let a
- * photo of Taylor pass as the product shot) while the right half is the
- * product's own photo when the retailer supplied one, or a monogram tile
- * when it didn't. Never falls back to the moment photo on the right: that
- * would recreate the exact mislabeling the honesty rule above exists to stop.
+ * on Taylor" grid, used ONLY when both a real product photo and a real
+ * moment photo exist (fix/merch-card-image-fallback, 2026-08-15 — a split
+ * card with an empty half read as broken for the 55 moment-only items, so
+ * the layout itself is now chosen by `merchItemImage()` in merch-filters.ts:
+ * both photos → split, one photo → a single full-width image, neither → a
+ * monogram tile). The moment half/image is always labelled "Her look, not
+ * the product" (2026-08-15, docs/decisions.md — never let a photo of Taylor
+ * pass as the product shot); the product half/image never falls back to the
+ * moment photo, which would recreate the exact mislabeling that rule exists
+ * to stop.
  *
  * Keeps: real product images, "The exact piece" vs "We found something
  * similar" with the authored `altNote` rendered as visible DOM text (not a
@@ -22,7 +25,7 @@ import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
-import { hasRealPrimaryImage, primaryImage } from '@/lib/longlive/types';
+import { merchItemImage } from '@/lib/longlive/merch-filters';
 import { buildShopUrl } from '@/lib/longlive/shop';
 import type { MerchItem } from '@/lib/longlive/merch';
 
@@ -66,13 +69,21 @@ export function MerchCard({ item }: { item: MerchItem }) {
   const exactPiece = item.isAlternative !== true;
   const monogram = item.brand.charAt(0) || '?';
   const moment = item.source ? getContentItem(item.source.momentId) : undefined;
-  const onTaylorImage = moment && hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined;
+  const image = merchItemImage(item);
+  const productLabel = exactPiece ? 'The exact piece' : 'We found something similar';
 
   return (
     <li className={`border border-[color:var(--merch-line)] bg-[color:var(--merch-ink-2)]${soldOut ? ' opacity-50' : ''}`}>
-      <div className="grid grid-cols-2 gap-px bg-[color:var(--merch-line)]">
-        <MerchCardHalf label={onTaylorImage ? 'Her look, not the product' : undefined} imageUrl={onTaylorImage} monogram={monogram} />
-        <MerchCardHalf label={exactPiece ? 'The exact piece' : 'We found something similar'} imageUrl={item.imageUrl} monogram={monogram} />
+      <div className={image.kind === 'split' ? 'grid grid-cols-2 gap-px bg-[color:var(--merch-line)]' : undefined}>
+        {image.kind === 'split' && (
+          <>
+            <MerchCardHalf label="Her look, not the product" imageUrl={image.momentUrl} monogram={monogram} />
+            <MerchCardHalf label={productLabel} imageUrl={image.productUrl} monogram={monogram} />
+          </>
+        )}
+        {image.kind === 'product' && <MerchCardHalf label={productLabel} imageUrl={image.url} monogram={monogram} />}
+        {image.kind === 'moment' && <MerchCardHalf label="Her look, not the product" imageUrl={image.url} monogram={monogram} />}
+        {image.kind === 'monogram' && <MerchCardHalf label={productLabel} monogram={monogram} />}
       </div>
 
       <div className="p-4">
