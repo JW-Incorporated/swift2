@@ -7,7 +7,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import type { MerchItem } from '@/lib/longlive/merch';
-import { MerchCard } from './MerchSection';
+import { MerchCard } from './merch/MerchCard';
 
 vi.mock('@/lib/longlive/store', () => ({
   useAppActions: () => ({ openItem: vi.fn() }),
