@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 77
+
+## Taylor Swift 'abandons' Travis Kelce on their first big date since their wedding - MARCA
+
+- first seen: 2026-08-16 13:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift 'abandons' Travis Kelce on their first big date since their wedding  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2gFBVV95cUxQMXhOdUJqb3M5ZWNpbDFSNWFpWm1HNURSWlI5RVNiMnR3VVBqYldJb3hrV2F1WF9sU1MzRk54eDBsN0lkb2psamRLdk1QM1VLSzlOcExBZHhVNngtOG1IenhXM25na3NhNGZwaTJPVGJfVzJoT3c5bDExS1hQcW9INGVKVzBaR29xbXIydjR3RzFBOC1NbTZPNVpPQWRqeHdfNXB1ZDdfeHp1MlF0MzNPSXZBbEk4c2pzSnFIMldJNzBKVWFKeTFLOEduclNiRXZnT2tHZzgtUWpyd9IB2gFBVV95cUxQWTVkX1ZPUTVwY3IyVHBpRUluMVlhamZ5VzJXTjAyTzl4Y2l4WFFZekRybWtkZV9aQl9oTGNSdTZaWERUN05CSEx4Wm1XdmlCWldQSFhZX0FSbEtXNnY5bDYyb3ptV2hXVm5tZWh0b0Rvb1pwTHNQTnRyTnRUWkFDc2FHanJoMGhteGdpWFBQX2QyczFzTE5KS0doOUtETWs3WVBEdmJQMjdYU3piN3dNNjJkd1JBYWw1YTRhTVMyUk91UFV1X1ZNMVdKaVFtci0yUzRSb0JZVmlTdw?oc=5
+
+## Ariana Grande Joins Taylor Swift, Nicki Minaj And Beyoncé - Yahoo
+
+- first seen: 2026-08-16 13:40 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Ariana Grande Joins Taylor Swift, Nicki Minaj And Beyoncé  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOSkFOLWdDV1dIWUxRV0ZTemEyZF9PSDdpdlItd2NmTTE5NTVzX2VUUFhCSUhraUFaLXQ0Z0V5V2d5X01MbVJvTVp6SDkwVF9zcmJISnRsdzVqdU5TWTVSOWp4Z0RjcFlIQVJIaEEzd3phaFUxRWlxc1o0VTVPbE9xSWNoZVI5UjZJYnBSVVJMYXhtczdmcmtNV3pVOFZxMG8?oc=5
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMirgFBVV95cUxNdWNzLUtGMUp2SVRmSXUtc0kzb2ZhTXVsWHZ6aTZfVG9CTHNOQUZWMjZpWDVCbHlJa0g3cUdnMnN6dXZDNkZxbC1CUUZxTDlGV1VQUklKUTFTSVZxWVlZdGhIemFldEM3aE9OZGY5eU1lWWNnQk1zbDdZZi03bjU2WXRUQXdXR1g0RWExSE0wUUdjUDNiOUhpMU1qd3VoZEFXblpERHFNVEdHRlNOU0E?oc=5
+
+## “They Love Living Like This”: Insider Shares Insight Into Taylor Swift, Travis Kelce’s Married Life 
+
+- first seen: 2026-08-16 13:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: “They Love Living Like This”: Insider Shares Insight Into Taylor Swift, Travis Kelce’s Married Life 6 Weeks After MSG Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQY0p3Q0J3cE5ZS2dkNnFCSldOV2w4dDEyM3JuTmtISktrWHQwR2tEMU12cE5NYW90S1NwdVZBWnlwMEN4RmJNb0tUN2VrekdSZmtZNnNONFNodktxblNCejQ4RW42VU5qN2MwMWpqNnh3bDR6MFZlcDB6T3lEOWRkdC1yN0RyQ0ptZDE4alFwUjFGSHFLVFc5SHBLOXJ3TjA4VElPdV9nZw?oc=5
 
 ## When Taylor Swift ‘revealed’ how Russell Westbrook inspired her hit song ‘Shake It Off’ - Yahoo Spor
 
@@ -631,51 +656,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 - summary: Chiefs’ Travis Kelce was clearly touched by venue for Taylor Swift wedding  Kansas City Star
 - sources:
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNeHhJWG1Ocl9qN1l1ckI3R05TaUNYdEkxTHdPempoU0hScUFyZVRmS0J6VlAyMmxpNmVxU19pOVZnNGlLdTJLUkdZNnBXWFNIcVlXZkV3LUVRTUE4ZE1tY3dBcFVERlY4MHpzSXBOSFZmdEZYLVVQdXNxRnNJaWlNUV9Ncm4wN3dUX2pIdWc3ZzJLUdIBkgFBVV95cUxNRktkbDQ2TmphOVlFMHVhRmtJRnlNWmF2UGtYRFRtZmg1MzJGWkxSR0I5T1JxSlZIQWtjUTk1R3Q3MnNUQVpWbmZuUnZhXzhIazByUXA2cUFhcDltT0FSQ01GSXJTRWoxdnFmNDl0MDdBTkxmTGdvaC1YUzgwUnJVTWF5dG4tTzE0VE9KaUZhX3g2dw?oc=5
-
-## Taylor Swift’s ‘I Bet You Think About Me’ Is Her Latest Song Removed From a Trump TikTok Post - Bill
-
-- first seen: 2026-08-13 10:20 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ‘I Bet You Think About Me’ Is Her Latest Song Removed From a Trump TikTok Post  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiswFBVV95cUxQN0xXX3ZlTmpUOHp6SlZuR2pJQVI1NWsyQ2drY1JqcDU0Q0ZhaHFlVGZOUENPVFZtM3U5YW5qODRfY2ZMVUlDU041dzl0ZUltdy00cm92TXNFVlFRQU42VVQ1cUJvc2s4TEVJS0xTVlczLThGd3RiWE9lNE5vRVB4MnpORUVTU095VmxEMkNrU1lXemhQdlVtQ0ZwbmllcXMwR3lEUTRmcWVZUE9uRS1YOS02OA?oc=5
-
-## Taylor Swift is up for a 2026 CMA nomination. How voting works. - The Tennessean
-
-- first seen: 2026-08-13 10:20 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is up for a 2026 CMA nomination. How voting works.  The Tennessean
-- sources:
-  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMizwFBVV95cUxNMGdEU1F1YjJXbVRWaXhVM1RMNmowcW5SZ253b0drNm5DMGoxcjU4azZWeU1MbHdWbTR5SFpJbmN0QlowSktONXdXZDcxa2FwNXFJVUczU3JDQ1ZVQXpSNDZWTDludjJIdzBXZU16VDEtcmdjUWRuVjUyYjRHS3JhenRVTzZ2VlVJNV9lZnlPQ2liNE5kMFdsR2VXVHBZWkhuSlBLdUMtREM2SDVBWG42Sno2TEVNNUtFQ0t0UVJUM21VdTJqZW9aM1NieTJyeDQ?oc=5
-
-## Travis Kelce Just Called Taylor Swift 'My Wife' — Fans Lost It - Yahoo Sports
-
-- first seen: 2026-08-13 10:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Just Called Taylor Swift 'My Wife' — Fans Lost It  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxNUGtucG4zaTBHemFNSG00SW0tSVNRWTE3TFY3RmwxLVg4SUdmNzJYY1hONVRoZWQ1RjdXMVlHRnRvdFpzU1FTaFI4alZoRXNLY1V1Umg4VlJYRU8wTGZONGc1S0VaSV9qSlNjdlgyMlFxa29wdzFCb2FQdlpXZFl2eEZfUFZTaVE?oc=5
-
-## Travis Kelce finally opens up about Taylor Swift wedding. Here are four things we learnt - SMH.com.a
-
-- first seen: 2026-08-13 10:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce finally opens up about Taylor Swift wedding. Here are four things we learnt  SMH.com.au
-- sources:
-  - [unverified] SMH.com.au — https://news.google.com/rss/articles/CBMi4wFBVV95cUxQNWt3M3ljVGZ0UHZ5SF81cERMZ0FndGhpWmFOSGJBZmY4VElNc1ZpaUtyRXdzdmRHREVRUUptSl9ab2dnU3F4OEVpS24wVi1CT2xNdXBGcl9wSDdaUFFMbllQTDZ3dWx2VXdMU3dqVnVBaXBLRE9iWWg3RHJ2U2E2Y09OZ0lERkVEbEdiR1ZCajNJcDV2Ri1uZW5EWjlMV1htVklZUGVjMHVzbXgySEdORjdMcldOLUF5d3MyazFhbms5blNScXV2T0hPS0JhTEViMXBGQnNhOTY2RmIwUjhuWDNoNA?oc=5
-
-## Another Taylor Swift Song Has Been Pulled From A Post By The Trump Administration - ca.news.yahoo.co
-
-- first seen: 2026-08-13 10:20 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Another Taylor Swift Song Has Been Pulled From A Post By The Trump Administration  ca.news.yahoo.com
-- sources:
-  - [unverified] ca.news.yahoo.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5OTjZGTVNPSV9vLXlHN0c5d1dIOGVVVmphaHNmYW9RYndSNkRNTV9VNmZGeUdkWWdudFRzWDF0bkEtdDhRX1JRd2FWMHozZ0JSTzM1MTZCRlZCd2FkUGUzQThRVWQ1QTg2OTVtUXREaFpBTjBqS3diRjNhRWNhdw?oc=5
-
-## Taylor Swift has put her love story out there – so it’s not fair she won’t let us see her wedding dr
-
-- first seen: 2026-08-13 10:20 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has put her love story out there – so it’s not fair she won’t let us see her wedding dress | Polly Hudson  The Guardian
-- sources:
-  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNaHJaWWVGNUFrSVNnUDNEMGFreUJTdGV3WV9zMUYyUURjc3NpOGNpOTk4QlBYc1NCZDhqTmR3eGZXMW5ETndpcGxYQzFlUVhYajd0aVJ2bjFieDFNU0tKVUI5MWpPR2J3WVBscUJOWW5HSFpqRUNDaV9UOGpyWlREQ1owS1Q5ZzFHYjM4ZkZ0R1VZOXJGQ0VFVUJ3UlpUUnZzcWYyY2pmWGFCa0VVWmJJb2F1Q1hHeXlubUFGRlZpeWlfZEpCbXVxM1JEaVlIQ3hzaERIZHE1LWI2Z19p?oc=5
