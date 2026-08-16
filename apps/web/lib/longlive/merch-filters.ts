@@ -143,28 +143,35 @@ export function merchMatchesFilter(item: MerchItem, active: ReadonlySet<MerchFil
   return true;
 }
 
-/** What a merch card should show as its image, in preference order:
- * 1. `product` — the retailer's own product photo (`Product.imageUrl`), the
- *    actual item being sold. Never labelled — this is the honest case.
- * 2. `moment` — the source moment's real primary photo, used only when no
- *    product photo exists. This is a picture of Taylor wearing the look, NOT
- *    the product, so the UI must visibly label it (2026-08-15,
- *    docs/decisions.md) rather than let it pass as a product shot.
- * 3. `monogram` — neither exists.
- * `moment` is resolved via `hasRealPrimaryImage()` — never by checking
- * `images.length`, which is always non-empty and proves nothing (see
- * types.ts's own warning). Never returns the era-art stand-in: a picture
- * that isn't the item reads as the item. */
+/** What a merch card should show as its image(s), decided from which of the
+ * two possible real photos actually exist:
+ * 1. `split` — both a real product photo (`Product.imageUrl`) AND the source
+ *    moment's real primary photo exist. The card renders both side by side;
+ *    the moment half must be visibly labelled (2026-08-15, docs/decisions.md)
+ *    since it's a picture of Taylor wearing the look, not the product itself.
+ * 2. `product` — only the product photo exists. Never labelled — this is the
+ *    honest single-image case.
+ * 3. `moment` — only the moment's photo exists. This is a picture of Taylor
+ *    wearing the look, NOT the product, so the UI must visibly label it
+ *    (2026-08-15, docs/decisions.md) rather than let it pass as a product
+ *    shot. A split card with an empty half reads as broken, so this is a
+ *    single full-width image, not a half card next to a monogram.
+ * 4. `monogram` — neither exists.
+ * The moment photo is resolved via `hasRealPrimaryImage()` — never by
+ * checking `images.length`, which is always non-empty and proves nothing
+ * (see types.ts's own warning). Never returns the era-art stand-in: a
+ * picture that isn't the item reads as the item. */
 export type MerchImage =
+  | { kind: 'split'; productUrl: string; momentUrl: string }
   | { kind: 'product'; url: string }
   | { kind: 'moment'; url: string }
   | { kind: 'monogram' };
 
 export function merchItemImage(item: MerchItem): MerchImage {
-  if (item.imageUrl) return { kind: 'product', url: item.imageUrl };
   const moment = item.source ? getContentItem(item.source.momentId) : undefined;
-  if (moment && hasRealPrimaryImage(moment)) {
-    return { kind: 'moment', url: primaryImage(moment) };
-  }
+  const momentUrl = moment && hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined;
+  if (item.imageUrl && momentUrl) return { kind: 'split', productUrl: item.imageUrl, momentUrl };
+  if (item.imageUrl) return { kind: 'product', url: item.imageUrl };
+  if (momentUrl) return { kind: 'moment', url: momentUrl };
   return { kind: 'monogram' };
 }

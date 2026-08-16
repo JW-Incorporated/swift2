@@ -318,10 +318,13 @@ export interface Product {
    * from the retailer's own CDN (e.g. captured from a Shopify
    * `/products/<handle>.json` response's `images[0].src`) — never downloaded
    * or re-hosted (copyright). Optional: most products don't have one yet.
-   * When present, the UI shows this instead of the source moment's photo
-   * (which is a picture of Taylor wearing the look, not the product on its
-   * own — see docs/decisions.md 2026-08-15). Omitted falls back to the
-   * moment photo (visibly labelled) or a monogram tile.
+   * The card (see `merchItemImage()` in merch-filters.ts) picks a layout from
+   * this plus the source moment's own real photo: both present renders a
+   * split card (this photo alongside the moment's, the moment half visibly
+   * labelled — it's Taylor wearing the look, not the product on its own, see
+   * docs/decisions.md 2026-08-15); only one present renders a single
+   * full-width image (this photo unlabelled, or the moment photo labelled);
+   * neither present renders a monogram tile.
    */
   imageUrl?: string;
 }

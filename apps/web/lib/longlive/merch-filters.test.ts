@@ -69,20 +69,23 @@ describe('merchItemImage', () => {
     expect(merchItemImage(withImage)).toEqual({ kind: 'product', url: 'https://cdn.shopify.com/test.jpg' });
   });
 
-  it('resolves the real catalogue split by execution — every item is product, moment, or monogram', () => {
+  it('resolves the real catalogue split by execution — every item is split, product, moment, or monogram', () => {
+    let split = 0;
     let product = 0;
     let moment = 0;
     let monogram = 0;
     for (const item of MERCH_CATALOGUE.shopTheLook) {
       const image = merchItemImage(item);
-      if (image.kind === 'product') product += 1;
+      if (image.kind === 'split') split += 1;
+      else if (image.kind === 'product') product += 1;
       else if (image.kind === 'moment') moment += 1;
       else monogram += 1;
     }
-    expect(product).toBe(97);
+    expect(split).toBe(95);
+    expect(product).toBe(2);
     expect(moment).toBe(55);
     expect(monogram).toBe(4);
-    expect(product + moment + monogram).toBe(156);
+    expect(split + product + moment + monogram).toBe(156);
   });
 
   it('never returns the era-art fallback path for a product or moment photo', () => {
@@ -90,7 +93,21 @@ describe('merchItemImage', () => {
       const image = merchItemImage(item);
       if (image.kind === 'product' || image.kind === 'moment') {
         expect(image.url.startsWith('/eras/')).toBe(false);
+      } else if (image.kind === 'split') {
+        expect(image.productUrl.startsWith('/eras/')).toBe(false);
+        expect(image.momentUrl.startsWith('/eras/')).toBe(false);
       }
+    }
+  });
+
+  it('returns split with both real urls when the product and moment photos both exist', () => {
+    const item = MERCH_CATALOGUE.shopTheLook.find((i) => merchItemImage(i).kind === 'split');
+    expect(item).toBeDefined();
+    const image = merchItemImage(item!);
+    expect(image.kind).toBe('split');
+    if (image.kind === 'split') {
+      expect(image.productUrl.length).toBeGreaterThan(0);
+      expect(image.momentUrl.length).toBeGreaterThan(0);
     }
   });
 });
