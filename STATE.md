@@ -16,12 +16,30 @@ content; "anywhere that we have something that's better, keep that."
 `officialStore` and `fanMade` are hardcoded `[]` (lines 78-79) → honest
 placeholders. `shopTheLook` has the 156 real items → the lilac section.
 
-**Wave 1 MERGED** — four parallel agents, each owning ONE file, prop contracts
-fixed in PLAN.md so they never saw each other's work: `MerchMarquee.tsx`
-(#2162), palette + Bodoni (#2163), `MerchSectionRail.tsx` (#2164),
-`EraSpine.tsx` (#2165). **Wave 2 = PR #2166**, one integrator owning
-`MerchSection.tsx` (428 lines changed → 165) plus new `MerchStyleSection.tsx`,
-`MerchCard.tsx`, `MerchEmptyPanel.tsx`.
+**SHIPPED AND COMPLETE.** Wave 1 (four parallel agents, one file each, prop
+contracts fixed in PLAN.md so they never saw each other's work): `MerchMarquee`
+(#2162), palette + Bodoni (#2163), `MerchSectionRail` (#2164), `EraSpine`
+(#2165). Wave 2 integrator (#2166). **Then Joey's six review items, all
+merged:** chrome + footer theming (#2170), rail width (#2169), suggest banner
+removed + submit strip quieted (#2171), card image fallback (#2172).
+
+**MY RULING R3 WAS WRONG AND JOEY OVERRULED IT.** I had merch opt OUT of era
+skinning via `.merch-shell`, which is exactly why the nav and footer would not
+transition — `.era-shell` wraps everything and the chrome reads `--era-*`, but
+`--merch-*` sat on an inner div they never see. **Merch is now a theme object
+(`MERCH_THEME` + `merchStyle()` in `theme.ts`) applied through the SAME
+mechanism as Threads' `VAULT_THEME`.** `--merch-*` survives only for the three
+section accents and the background gradients. Never re-separate them.
+
+**THE SPLIT CARD CAUSED A REGRESSION I SHIPPED.** The redesigned card needs TWO
+images; 59 of 156 items only ever had one, so 38% showed a bare monogram letter.
+Before the redesign those 55 showed a real photo, honestly labelled. The rewrite
+had also left `merchItemImage()` as DEAD CODE beside an inline reimplementation.
+Fixed in #2172: `merchItemImage()` is the single source again and now returns
+`split` / `product` / `moment` / `monogram`. **Split ONLY when both images
+exist.** Browser-verified: monograms 59 → 4, 247/247 images painted, 150 "Her
+look, not the product" labels (95 split halves + 55 singles; the 2 product-only
+singles correctly carry none).
 
 **A REAL BUG ONLY THE BROWSER CAUGHT, and the reason to keep verifying that
 way:** `EraSpine`'s `scrollIntoView({ block: 'nearest' })` fired ON MOUNT and
