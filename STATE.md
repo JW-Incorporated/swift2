@@ -5,11 +5,36 @@
 
 ## Current focus
 
-**Joey's 12-item punch list (2026-08-15). 11 of 12 MERGED and on `main` green;
-#6 is the last one and it is IN FLIGHT.** Sequenced in WAVES, not parallel:
-items 7–12 all touch `MerchSection.tsx` / `CommunitySection.tsx` /
-`SectionJumpBar.tsx`, so only one writer held a contended file at a time while
-read-only research ran concurrently.
+**MERCH PAGE REDESIGN to Joey's uploaded marquee mockup (2026-08-16).**
+`PLAN.md` is the contract — read it before touching anything merch. Mockup at
+`C:/Users/Fourtys/.claude/uploads/251c92ba-8b68-437c-bca5-5bf9086c0788/dfff5d5b-longlivetsmerchmockup.html`.
+Joey: keep the colour, the feel, the flashing bulbs, the three sections and the
+navigation between them; ignore its logo/nav; placeholders where we have no
+content; "anywhere that we have something that's better, keep that."
+
+**The mapping that makes it clean:** `merch.ts:46-50` already has THREE buckets.
+`officialStore` and `fanMade` are hardcoded `[]` (lines 78-79) → honest
+placeholders. `shopTheLook` has the 156 real items → the lilac section.
+
+**Wave 1 running: FOUR PARALLEL agents, each owning ONE new file** under
+`apps/web/components/longlive/merch/` — `MerchMarquee.tsx`,
+`MerchSectionRail.tsx`, `EraSpine.tsx`, plus palette/font tokens in
+`layout.tsx` + `globals.css`. Prop contracts are FIXED in PLAN.md so they could
+be built without seeing each other. **Wave 2 is a single integrator owning
+`MerchSection.tsx`** (already 316 lines — the split is part of the work).
+
+**Three rulings, in PLAN.md, do not re-litigate:**
+- **R1. The garment-type filter row is NOT buildable and must not be faked.**
+  No `kind` field on `Product`; `merch-filters.ts:1-10` says so deliberately.
+  That row's position carries our REAL filters instead. A control that looks
+  live and does nothing is the defect we removed from this page yesterday.
+- **R2. Bodoni Moda only** (`--font-bodoni`); reuse Inter for body. Karla
+  rejected — a second new family is not worth the weight.
+- **R3. Merch is PAGE-SCOPED via `.merch-shell` and opts OUT of era skinning.**
+  Eleven `--merch-*` tokens. Never fold it back into the nine `--era-*` vars.
+
+**Previous work — Joey's 12-item punch list (2026-08-15) — ALL TWELVE MERGED.**
+Sequenced in WAVES because items 7–12 shared three files.
 
 Merged: **#1** Eras filters centered (#2147) · **#2/#3** hero credit quieted,
 gap tightened (#2151) · **#4** alignment fixed on ALL FIVE `NO_SCRUBBER_THREADS`
@@ -227,11 +252,14 @@ did not start.
 
 ## Next obvious step
 
-1. **Device-check the punch list on a real phone.** Twelve items shipped today
-   across the Eras, Threads, Merch and Community surfaces. Highest-value checks:
-   chip rows scroll and the FIRST chip is reachable at 360px; the suggest-a-link
-   banner reads as an invitation; merch product photos load; the "Her look, not
-   the product" label appears on fallback cards.
+1. **Merge Wave 1's four merch PRs, then dispatch the Wave 2 integrator** for
+   `MerchSection.tsx` per `PLAN.md` § WORK SPLIT. Joey authorised "push live
+   when it's done."
+2. **Device-check on a real phone.** The 12 punch-list items plus the merch
+   redesign. Highest-value checks: chip rows scroll and the FIRST chip is
+   reachable at 360px; merch product photos load; the "Her look, not the
+   product" label appears on fallback cards; the marquee bulbs stop animating
+   under `prefers-reduced-motion`.
 3. **Triage the 8 OLDER open PRs** (#2135, #2114, #2104, #2101, #2100, #2067,
    #2066, #1961) — none are from today's work, several look stale, and per
    § Never babysit your own PR nothing will come back for them. Raised with
