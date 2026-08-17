@@ -25,7 +25,77 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 81
+
+## New Taylor Swift Wedding Photos Officially Leak Amid Report Guests Are Angry at Her Over Travis Kelc
+
+- first seen: 2026-08-17 21:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: New Taylor Swift Wedding Photos Officially Leak Amid Report Guests Are Angry at Her Over Travis Kelce’s Behavior  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxQbzJWbkpTZnNiendmbUctTFhhN0o3ZHYwUHRRTnBGYm01X1Z5bmFKS2ZJZGFmdjRwdDJQX0FMRlVsQ18xbVFwV3J6UWtSM0hTQm96ODJ2Z05tZllaTlVyRnhWalo0LU14T2RLREUxWmxDRURHMC00Z2UxSUduNEs4cGlHbE1XelFGSWdTQUwzWGxVMkhQX1c3YkY3VGRvVkxIbG5ZNjBJTmpueDU3?oc=5
+
+## Is Taylor Swift Growing Out Her Bangs? - Yahoo
+
+- first seen: 2026-08-17 21:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Is Taylor Swift Growing Out Her Bangs?  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOLW5RdFI4ekZpRFh3TjNWX2ZFTXJ6US0tbVVSdWZzZ01RbkZyZzZ0VjNMWHNaN05qTm11S3F4NTRQay1Ld2g0ZkUzSmlfNHBVZDhjN0MwcmtWVmZ0M1FhM2VXUHljOE9memZHc0ZhcFNiaXZvdk9BOU96S1phaVdGeDRzcm5Ud1VjZ25pQ2hjLWdQSHJ0QVg0RFVFOXZxazdrVEE?oc=5
+
+## Taylor Swift returns to social media to wish pal a happy birthday - MOViN 92.5
+
+- first seen: 2026-08-17 21:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift returns to social media to wish pal a happy birthday  MOViN 92.5
+- sources:
+  - [unverified] MOViN 92.5 — https://news.google.com/rss/articles/CBMilgFBVV95cUxPcEUya2dobHpTbk45SXUwSmdyY2x4bkl4cEFyUm5RN3lLaUtycGk0aXVSVzJ5eXB1cXczNW9uV0k1bTNDWldlVF92NEstQWlMbFlKcHk1U2JtVjNwdDZvRy1pOUFGZ0xIQ2tBemxaUXJVazdSd2E0UTZsazlXd1RCLUFsMzZkVDhRRHBVOGlMSXpWaE5vb2c?oc=5
+
+## 6 Years Ago Today, Taylor Swift Made Her Return to Country Music Radio With This Aching Ballad Featu
+
+- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 6 Years Ago Today, Taylor Swift Made Her Return to Country Music Radio With This Aching Ballad Featuring a Teenage Love Triangle  American Songwriter
+- sources:
+  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMi8AFBVV95cUxPT0RYcFppTWYyVHFmdnhVaDJHSWNVanVxOTMxdmE4dHdka2ZFSW11bDdabTNBVGlTUERkTFphRTRzb0dSSGdfX2RBNXBxbGZpUE9kRUhyYl9UUVk3eXQ0YlU5QlA0aWVWWE1jaUNzZk5RV3FQcklNbmtqVGVDb3JRZDdxM09YQnZXQW1tNU9oU2s0MjYwblI1ekxLcUFWR3psU3k4N1JpeVZqZ0xrbjkzcDE4Smd1YWhxbUNaanRkaUU1R0ZRZEpXRVVYaFlsc21VamVRdl9WakRWSnR1eFRHc2t5aDU0a2FvOWQyLWhITkg?oc=5
+
+## Taylor Swift Just Gave Phoebe Bridgers’s New Album Her Stamp of Approval - Sports Illustrated Lifest
+
+- first seen: 2026-08-17 21:36 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Just Gave Phoebe Bridgers’s New Album Her Stamp of Approval  Sports Illustrated Lifestyle
+- sources:
+  - [unverified] Sports Illustrated Lifestyle — https://news.google.com/rss/articles/CBMijAFBVV95cUxOZWt5NTY0U3Y1ZnM5T2l5TGxHMktJU3p1TjRYXzVTRVp0aHl0dmRuVWNtdkNuZmRZa2Z2eDZOaFNNVEhjX2tDc296NVBhV0NzZzFrV3Z0RExhcWlqTnlKVmhzRUlERzZ2Z0FPVVEyV21xYnZDbjVCLXk0TXFzakxsMnZyeEZfcTFXMVhvaA?oc=5
+
+## Are Taylor Swift's shorter hair and lilac nails clues that we are entering a new Swifty era? - Laine
+
+- first seen: 2026-08-17 21:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Are Taylor Swift's shorter hair and lilac nails clues that we are entering a new Swifty era?  LaineyGossip
+- sources:
+  - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMitwFBVV95cUxPSmNrQ1JUQ0ZPM1RadHpHVXFONXpud2hFUlZNaW4zS1h4d21pSkM5TkZ2MGVueHVsRHM5R0lMaEZNS2NMZ2RibV82XzVNX0lva1M4SjdORER1QlduaXhCYVN6Ql95MW54MHVOT0FiQW9CZTEwM1FhMmw1dzBOUVhraUxhX3JVdG9zdHZxU3N3TWRLTDNvNFJ0dlhDSjByeTRLZ2phbVNiaVJpdTNXYkF4emgtWjhkVjg?oc=5
+
+## Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Eve
+
+- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 6
+- summary: Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Every Way’  Variety
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPc19GbmczaHVrT24ycWxFOURrWkpSOHVCaTVhT2lRdzRQWXd0dHdQVEhLcUZiVXZoWTZiZzMtTGlfb19QbjhwcFlGN2IwTF9JUzlwcUxUSTlEM29DM2JDUW1jLVlzTWpYTjdSN2ltT0lVa1ZUTUlaWDNNVUNQQ3dDTVR1WVZkNWVXa0hTdTFMX3VBOUNaQUo3Y3pEQVd4dWFvblpOd2FrcE8?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-praises-phoebe-bridgers-lost-weekend-triumph-1236836547/
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisgFBVV95cUxPc3lEOGpaTUtOVXBxdk1CRTI3cmVvdlJIdHpZQ1ZlejZmYW9QWUZZTWZHcXVNLWQ4OUMzd1F3WDB2Um5adDljS2xMU3dBMTJaU1o1c042RnREdUIyTUpYZDdxUVFMZHRQS2pFTU9PNW5kbzZjNEpGdDZEZE5Mc1pNSmYyemFROHl6MlNiVm13a00wS0h5ZEtINWVNZndNdmRqLTNJM1pXZWxYSGpoRUxkc3ZB?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNUDhiNVdfanRTc2wtZ3p0MkRQclgyalNkN19zNkxnNHc4andTNGpNUlVaSTFOc1RtdTZpU0xrNWVXQ28zRldRNy1FcWZZRFZxWFVXdjlQeXRxY3kzaGRlZE5VYXA4dXpfV2dLTVFJWmJDdXRXUi1OVGIyWWl1aUJvRmhLUURoYnpYdVQtd2ZsdTAwYTVVUk00Q0syakE3X0dHc2xqUQ?oc=5
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNVU5Cc25zbllxTkFqSDdiZU56aFF0cU1vVE5jSHl3dWtWa2QxelltU1pzSzNiR3FFQU1DUXBQVVRLejNJNks4Qkt2LU52VTdIRWs5bzRSZ0ZabTd4SG5NRFBfck10d3N1alJIVUNxV1pYck5xbFVxMW45RGkzR0ppS0xPYkNnTllZUFNaOTVNOTdKZzc0M1lOR1JLMWtUVFRnSUlFVTBmSHRQdw?oc=5
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbEktT2w4M2VucDZpMnlzZzJabVNhMjVVX0R4VzZQdEpZSHJaME15RnJtUFFOdHhvcVV1VnZucENqQ1dOLXlBa0NVSEtwRU55TEJIclZOTS1HUzRobFMyWlJSUklSazNka2syU1hVajZfQ05GNDhrbmRFV2NBa3VzU3c0V1pOTHNLSnNPdzhxSWtRWHJVeFczWngwako?oc=5
+
+## Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album - Rolling Stone
+
+- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album  Rolling Stone
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxOdlEzc2NMSU5VVkRWNHNEdmN1b0hzOVFlY0o5MjVpVnM3enNVc0N2d3RyY1VqcTFudnBZS1Y2TVJwYUxZdHRHeWhaRVFrekwzOFAwc0YzVEFyTnp4d1hLYkJQQnlZbk1VRjYxSDZULVNaU3EzSS1vbmhidGRNSTU0REFvdFFyQlYtSXN4MWlBbWFrTHZpWnFoVHN0c0FKSGVJUHRNMXdRVGFDdTFRanFUb3pOWnBRZw?oc=5
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-loves-phoebe-bridgers-new-album-lost-weekend-1235610254/
 
 ## Taylor Swift Snubs Blake Lively for Selena Gomez in Major Pact — Insider - Yahoo
 
@@ -614,56 +684,3 @@ Stories: 79
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikgFBVV95cUxObGZpU3FmOF9pV2Q4ZlBJOUZOTGl5ZGFINzFDRV9tdWk0MW0yeTdWbG9OTHl3ZXFCcjgteXgydkpQTVRFSEQ3M3h4cVlfVGJQMzYteVhVYmRIeHFsaDNKd0FvdmdlS2RvbXZQeXVUSlBwOTJRRXZkS0FsNFp1QjY5U1paVDNfakxKWjRxcXhfRnZvdw?oc=5
   - [unverified] TheWrap — https://news.google.com/rss/articles/CBMimAFBVV95cUxNMXZrVWp2YS15UUZjTHJheHI5b296d1RlamNuZDJGMTRacVpFSlp6Qk4zbm9FQTl2Nk9VU0lpa2NRdi12aHhzc003bU5iakQ2SVRNbktHVWhaa19yUmc4Q19PbUs3cXVwZWFzZkw3RkpwR3BQLVJBc3E3eXVua0U3dXJDeEpBSUlHeDVKLXRib1k5QUZGVmJpWQ?oc=5
-
-## Taylor Swift Breaks Record for Most Adult Pop Airplay No. 1s With ‘I Knew It, I Knew You’ - Yahoo
-
-- first seen: 2026-08-14 18:02 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Breaks Record for Most Adult Pop Airplay No. 1s With ‘I Knew It, I Knew You’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPSVM3SUFVbXZwUlJ2bUxHN0tJYmZWNU9FNTJvTllCYmhhaGNJb1NLdXNhVGk0ZVFMd2hlbnpzWFpFak9JNUtMQlYzYjZQbHdtaGZqRVkwNEZ0Skx0bE1YWEZfU01MRG8yR2dwSzY2WldrMTM3UVh6UFlyVUR3WlVjV1ZZbUdwbUk0cGI0WlljNUdfVmRfLVFJWTZtTjVDdw?oc=5
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxQckQtMExhV3VBZzJ1VGJFR3VBOTlCSXpPLVRyNmJ6cnZCRnBwUzBoZ0FPeVNZMnNfS2ZsQVQ3OE43N0dmZ1FRVDB0S2VxXy14YzB0RTBCWFdPTWxycDhGbHRWblU4di1sMExIR3gycGpoRzhrMXBBeE5MZzdrYnBOME5lNnJZTDhpNXNGdkJfV29iZFp6QUJLbHJLaFJOQnRob2dXMENqYjFUSnh1V1A5dU4zeUZadw?oc=5
-
-## Rob Gronkowski played matchmaker at Taylor Swift and Travis Kelce’s wedding for this ‘beautiful’ cel
-
-- first seen: 2026-08-14 18:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Rob Gronkowski played matchmaker at Taylor Swift and Travis Kelce’s wedding for this ‘beautiful’ celebrity  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMirgFBVV95cUxNM2FWeDBGeDZ0ZXNUdEt3MzZwZlRXcFpaS2ZVYjdyTURfYnhNWTUweEtyZ1pUNDVQWjFScXlJZEZGV1BzSGgwNW1JWU11cHR6LVRlZUxUOHFWQVF2OThOeDVuRFFhVHdILWl2T2pYeGdhcGFqWHRFS2w5VHk3TXBIeU1DbUlvdVZvRjZuYngwLWdUUHU3Z2w3QTdMVF9kbW91cXg4UGM2a05CRXlUZFE?oc=5
-
-## Taylor Swift Shows Off Her 10-Carat Diamond Ring on First Solo Outing Since Travis Kelce Wedding - i
-
-- first seen: 2026-08-14 18:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Shows Off Her 10-Carat Diamond Ring on First Solo Outing Since Travis Kelce Wedding  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPQl9hQ1BGXzZ3RlhXQ2lxX0tmS2U1ck1XZEVfVVJkdVNHNTZGVWxSRWlKazU5d3lpQ3VzbVFtOW5EdVhUcnFqOEk1UTNBVzNsMW1FbUFXY2RGeTlZc0dqWTdaRG9nZWxMbUhFVXRWelFKWTgxeWkxWVFTOFpQREF0V01rcEFMWFNGWUlGSWY4U3k2WG5uQTg5d25VU3p1c0RxVGRrRnN3?oc=5
-
-## Taylor Swift and Travis Kelce ‘Feel Really Grateful’ Post-Wedding: Source (Exclusive) - people.com
-
-- first seen: 2026-08-14 18:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce ‘Feel Really Grateful’ Post-Wedding: Source (Exclusive)  people.com
-- sources:
-  - [unverified] people.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxOOG1KN3NKcjZMOExkaEdIUEFUcVZiVHJBZF9HckF3VGJVcV9LZFdZeWgzYXpZOUJZczNlbXd1d0RPZXE5T2VIYjBNeF91eFRHSGh1M0l0SWh1VTZKaDhGZXNjNXRjOFJXbTkxMmVTdlIzTllKekpBby1Nb01wazh4bjU1eXFBT1phTHpuQWlyYzRxX2N3VlRVbllBWGhEVk5YSklrZ3FJQQ?oc=5
-
-## Taylor Swift Quietly Makes Donald Trump Decision as Travis Kelce Stays Silent - Yahoo
-
-- first seen: 2026-08-14 18:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Quietly Makes Donald Trump Decision as Travis Kelce Stays Silent  Yahoo
-Taylor Swift’s ‘I Bet You Think About Me’ Is Her Latest Song Removed From a Trump TikTok Post  Billboard
-Taylor Swift takes a quieter approach to Trump using her music on social media  cnn.com
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOWXlIaEM1TEJZeVRvcWhKbFVocVk2T0dyQXlhcUQwZnFFcFNGakh0V1dCam44UElwWlAwcHlZcFlMSkY4M0UxVV9feVZuZFZQSmNVZFVSY3dMMmt2dm1DTWt0ZUNWXy1Fek1sdlAyN0J1a255NkItTS1CMml3Z2tvN3JvLU1SbF9VZ1hIbUVqRUhibkZPYXVxVkZaZTNGMUpaTTI2ekxR?oc=5
-
-## Taylor Swift channels 'Lavender Haze' in London look, shop similar style - USA Today
-
-- first seen: 2026-08-14 18:02 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift channels 'Lavender Haze' in London look, shop similar style  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQUWlBTjROQXZCRHF3ZmZrcjFuSDc2NnJCU3ZXU2xXUEdrTzBBNDlWLTY1NG9vVEQ0SnZsMTVTNkhuNEJWcFNudFBNOVVpQkk1bF9GVVBLMWVwbTFuR0pQdlpBdi1rbHlLd0FhLTJBd1piRU92bWoxVi1WMEY4bFRLM3hXMTB1ZUdpcVJWLW1YSXkxV2xrVmdmaXlLallITkQ3N1czeHliT1Bvc09NN2xXX3RHei15S2ZGREFlVm1PeXRUbnVuMXNmRFcyc2taUG45NVE?oc=5
-  - [unverified] Las Cruces Sun-News — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQOTE0a3hiUkxVcE84aThuOUNGdEVST0NzZWlLNFFmaGZiLWpFWTN0MXNRTFdpSmlET1FPR002OUlBX1ZtLXVJWmNZcE9sVXdONTdKdmVxdjN6NnVqaXFReE1fNndDbzJ3a3V1XzdablloMExpWWJxRVNDS0ZKWGlIWWFHNUJsVmFldU95U3VGMGtkVVc3TVhhX091Z1FvYlBPd2pGNWVhQjBQUVl2Z1hLUUhib3FqREEzLU9ZR2pwTlh2RGZnZjd1aUwyVi1SRlJwSWsxLQ?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQbTV6LXJtdVFhQ1dJc2lTem51elpCV3pyUWZzVEpqSzU3aHNTLUo1dml1cC1ERURjTU1zX2pfN0lReWhEVWdIR0JTWC1fUWhUbFBPZ1FFY0pZSmliWi13Y21nQkVFUm1PLTZyQzZKWjE5RUlmRUhvbHdRY3hJR1pJQVJpUWRuT0VBa2ZwdUVUdmc2R0trc2FQM2hKemhrZFk3STdN?oc=5
