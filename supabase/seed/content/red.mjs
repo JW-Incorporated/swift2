@@ -1401,8 +1401,14 @@ export default {
     {
       // Cross-link (Stage 3, 2026-08-06): the Central Park stroll that first
       // confirmed the relationship.
+      // Cross-link (Stage 3, 2026-08-17): the Out of the Woods video, widely
+      // read as chronicling this relationship's end.
+      // Cross-link (Stage 3, 2026-08-17): the GMA Times Square set, same
+      // location.
       relatedIds: [
         'moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles',
+        'moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve',
+        'moment:vault-red-taking-over-times-square-on-good-morning-america-one-day-aft',
       ],
       year: 2012,
       month: 12,
@@ -2735,6 +2741,11 @@ export default {
     // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
     // and docs/research/2026-08-12-youtube-appearances-manifest.md.
     {
+      // Cross-link (Stage 3, 2026-08-17): the NYE Times Square kiss, same
+      // location.
+      relatedIds: [
+        'moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square',
+      ],
       year: 2012,
       month: 10,
       day: 23,

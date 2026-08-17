@@ -2283,7 +2283,13 @@ export default {
     {
       slug: '1989-out-of-the-woods-video-nye',
       // Cross-link (Stage 3, 2026-07-30): sibling "Out of the Woods" moment.
-      relatedIds: ['moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac'],
+      // Cross-link (Stage 3, 2026-08-17): the NYE Times Square kiss with
+      // Harry Styles that started the relationship this video is widely
+      // read as chronicling the end of.
+      relatedIds: [
+        'moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac',
+        'moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square',
+      ],
       year: 2015,
       month: 12,
       day: 31,

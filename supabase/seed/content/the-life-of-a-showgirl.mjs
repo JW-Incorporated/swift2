@@ -10688,6 +10688,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-17): the evermore-era Late Night with
+      // Seth Meyers appearance, same show across eras.
+      relatedIds: [
+        'moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s',
+      ],
       year: 2025,
       month: 10,
       day: 8,

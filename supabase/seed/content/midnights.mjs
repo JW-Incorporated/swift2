@@ -1301,6 +1301,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-17): the same WSJ. Magazine "on the
+      // record" relationship-confirmation event, told from his side.
+      relatedIds: [
+        'moment:vault-midnights-travis-confirms-it-on-the-record',
+      ],
       year: 2023,
       month: 11,
       day: 20,
@@ -5465,9 +5470,11 @@ export default {
       threadIds: ['the-proposal'],
       // Cross-links (ledger #1280, Q6): the friendship-bracelet origin beat it
       // retells, and her Nov. 11 on-stage acknowledgment it followed.
+      // Cross-link (Stage 3, 2026-08-17): the same event, told from her side.
       relatedIds: [
         'moment:vault-midnights-the-friendship-bracelet-travis-couldnt-deliver',
         'moment:vault-midnights-karma-is-the-guy-on-the-chiefs-sung-with-travis-watching',
+        'moment:vault-midnights-travis-makes-it-official-on-the-record',
       ],
       title: 'Travis confirms it, on the record',
       snippet: 'In a Nov. 20, 2023 WSJ. Magazine cover story, Travis gave his first extended sit-down about the relationship — retelling the failed friendship-bracelet meet-cute and speaking candidly about the scrutiny that came with dating her.',

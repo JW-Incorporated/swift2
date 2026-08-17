@@ -2250,6 +2250,11 @@ export default {
       month: 3,
       day: 14,
       category: "music",
+      // Cross-link (Stage 3, 2026-08-17): the richer telling of the same
+      // Grammy Album of the Year win.
+      relatedIds: [
+        "moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-",
+      ],
       title: "A third Album of the Year",
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
