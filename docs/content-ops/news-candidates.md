@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 72
+
+## Taylor Swift Cut Her Hair for the First Time in Years and Fans Cannot Agree It Happened - centraljer
+
+- first seen: 2026-08-17 09:54 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Cut Her Hair for the First Time in Years and Fans Cannot Agree It Happened  centraljersey.com
+- sources:
+  - [unverified] centraljersey.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxQTnJtY2tfSFRmVHBMSC1XOVVDbEVleVJvYWdHM1BJQlJwdHVBcmVkdVR3Z2hMbTFoNUdrRl81TlN3VHRTazNXVDBER1B3WDA5dWFDUzEzSFBGeENXMW1FRnpBYnlFVUVJSnI0dXlueEJkSWFtWW1JMVZ5UG1YeEtkZ1Fubng?oc=5
 
 ## Travis Kelce’s Recent Taylor Swift Comment Has Wedding Guest ‘Frustrated’ — Source - Yahoo
 
@@ -91,14 +99,6 @@ Stories: 71
 - sources:
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMie0FVX3lxTE5aTVBydWNndGtaMWFZREc4bkNwZmNfcy1qRkFDQlJlSjFQVjFTUFFPSlMyRFhYTWMyZW9OMTBBQmxVU3h4M3J3MkNqTFFCM2RSdEhvallENEhaZVRlMmgwTTFXSmlIWVZydGt6VEJIZnlPRzUwSVM0YzUwZw?oc=5
 
-## Taylor Swift and Travis Kelce flash wedding rings in new photos - USA Today
-
-- first seen: 2026-08-16 21:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce flash wedding rings in new photos  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMivAFBVV95cUxQeTl6cGhnSU1xZi1zdEpVSXZ3QXV5bzRpU3pqckR4MzVIX2cwZE9oU1Z5RTdUamVzV1I1ODk3N2gzY1B4eTNGR0hqT1BDaWNRcE82RENoMC1zTGw0SW5lWE1YeE5tbTRfYzRhVzdIWmxmcXB5QWlUWm5UUmFfZWUxdXJ0ZTlTMkZCUUxPTDVDaGNqMHRlVEMyRTBuSTZjTW11V2dyN1duWW03NmNaSzNSdWJya2pWTnJ4dkhfUQ?oc=5
-
 ## Taylor Swift’s Chops Her Hair... for the First Time in a Decade! - harpersbazaar.com
 
 - first seen: 2026-08-16 21:32 UTC | category: sighting | importance: 3
@@ -138,6 +138,15 @@ Stories: 71
 - summary: The First Up-Close Look at Taylor Swift’s Wedding Ring Is Here  cosmopolitan.com
 - sources:
   - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxPc2s0YmtOci1RczAzQnlac0ZoMHE2S21kSldneE54TGhXUlEyUlZSRWp1U3RkZWIxSWNOODRRUUlaZU5jMlM2Mk85U2gtQktPc1NwdUs0dEl4QlBVYjZJVXc5SkQwc0s0V1g1ak5lOXdMZ3J4aktEdzhGd3VzQy1rV2kxU1NrR29mQ014bVYwZ0RQR2VBbWtBWHUxOUNiNmZs?oc=5
+
+## Taylor Swift and Travis Kelce flash wedding rings in new photos - USA Today
+
+- first seen: 2026-08-16 21:32 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce flash wedding rings in new photos  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMivAFBVV95cUxQeTl6cGhnSU1xZi1zdEpVSXZ3QXV5bzRpU3pqckR4MzVIX2cwZE9oU1Z5RTdUamVzV1I1ODk3N2gzY1B4eTNGR0hqT1BDaWNRcE82RENoMC1zTGw0SW5lWE1YeE5tbTRfYzRhVzdIWmxmcXB5QWlUWm5UUmFfZWUxdXJ0ZTlTMkZCUUxPTDVDaGNqMHRlVEMyRTBuSTZjTW11V2dyN1duWW03NmNaSzNSdWJya2pWTnJ4dkhfUQ?oc=5
+  - [unverified] NZ Herald — https://news.google.com/rss/articles/CBMi2gFBVV95cUxOZ1g5UTRLZWtQWGFrV3VURkpCYUlnb1REZjZMUDRKcmhYMm8xNEtjZXpvTGdUSzhnSFNlNlA2WGtiY3JkMktSemF5T2FYS3N5cUFfZFNWX3hXTy0zdkxOTldaT2pBMGF5S0tXUjRvdm12YkFHLUtBWGh6OFZKTEN2amRmdDFWYzYwaEN3RC1OZjdyVURTOGNqOTB5akYzS3pMZmNuRU5OcEgzM0xqTnJyVjNGZXpZT0ZrcV8xVFd0VGhQQmw5RWpZUkhLNkNIZUhHOTBFRWVOUzNtQQ?oc=5
 
 ## Taylor Swift Breaks All-Time Adult Pop Airplay Record with 16th No. 1 Hit - Vermilion County First
 
