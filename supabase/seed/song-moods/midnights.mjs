@@ -97,8 +97,8 @@ export default {
       },
       energy: 0.75,
       valence: 0.7,
-      useCase: ['proving you can still light up a room', 'reclaiming your shine after being taken for granted', 'walking out the door and glittering anyway'],
-      oneLiner: 'Taken for granted at home, she remembers she can still light up any room and goes to prove it.',
+      useCase: ['proving you can still light up a room', 'convincing yourself you have not lost your shine', 'walking out the door and glittering anyway'],
+      oneLiner: 'Half pep talk to a partner, half proof to herself that the quiet years did not dim her shine.',
     },
     {
       slug: 'labyrinth',

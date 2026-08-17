@@ -312,13 +312,13 @@ export default {
     {
       slug: 'the-bolter',
       moods: {
-        heartbreak: 0.2, anger: 0.1, nostalgia: 0.15, joy: 0.3,
-        calm: 0.25, defiance: 0.6, longing: 0.2, catharsis: 0.4,
+        heartbreak: 0.35, anger: 0.1, nostalgia: 0.15, joy: 0.2,
+        calm: 0.2, defiance: 0.55, longing: 0.3, catharsis: 0.4,
       },
       energy: 0.45,
-      valence: 0.4,
-      useCase: ['choosing freedom over staying, again', 'owning a reputation for leaving first', 'independence that looks like fear'],
-      oneLiner: 'A character study of the woman who always runs, wearing her own flight response like a title.',
+      valence: 0.3,
+      useCase: ['leaving before you can be discarded', 'owning a reputation for running first', 'independence that is really self-protection'],
+      oneLiner: 'A character study of a woman who runs before she can be treated as disposable, wearing her own flight response like a badge.',
     },
     {
       slug: 'robin',

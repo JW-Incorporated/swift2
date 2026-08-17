@@ -7,7 +7,7 @@ export default {
         heartbreak: 0.2, anger: 0.05, nostalgia: 0.4, joy: 0.5,
         calm: 0.15, defiance: 0.4, longing: 0.55, catharsis: 0.7,
       },
-      energy: 0.75,
+      energy: 0.5,
       valence: 0.6,
       useCase: ['wanting someone like a spell', 'a pull you follow anyway'],
       oneLiner: 'Devotion bent like the tree it is named for.',
