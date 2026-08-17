@@ -33,7 +33,55 @@ starts publishing invention.
 **Landing on the SAME branch/PR (#2192), deliberately.** These five are the
 weakest entries in that very PR; enriching them makes it strictly better, and a
 separate branch would collide on the same mood seeds. Update the PR body when
-done.
+done. **Raised with Joey — if he would rather merge #2192 as-is, split this.**
+
+**A NO-LYRICS TRAP WORTH KNOWING, caught in the first report.** `the-albatross`
+contains a line critics tie to *Romeo and Juliet* ("a rose by any other name").
+**Reproducing it would breach the redline even though the words are
+Shakespeare's** — if it is in the song, it is a lyric. Describe the allusion,
+never the line. This is exactly what slips through when research and writing are
+the same pass, and is why I write the seeds rather than the researchers.
+
+**`the-albatross` findings (report 1 of 5).** NO Swift statement exists about
+what it is about — only an Instagram caption from the Sydney title reveal.
+Coleridge / *Rime of the Ancient Mariner* IS documented (Wikipedia, NBC Today,
+press) and can be stated as fact; the third-person→first-person flip is
+description. Every "who it's about" theory (Alwyn, Kelce, fame itself, Mary
+Queen of Scots) is inference, and two are mutually exclusive — mark unconfirmed.
+Mood register supports moving it well off mid-scale: defiance strong, catharsis
+concentrated in the bridge, longing moderate, heartbreak mild, energy LOW
+(Dessner folk ballad, not driving).
+
+**I WAS WRONG ABOUT THE "5 THIN SONGS" AND SO WAS THE PREMISE OF THIS TASK.**
+Measured the actual records: `the-bolter` 7.9KB, `father-figure` 7.6KB,
+`chloe-or-sam` 6.4KB, `the-albatross` 6.0KB — **all four carry a full
+`dossier`.** Only `i-look-in-peoples-windows` is genuinely sparse (1.2KB, no
+dossier). `father-figure` already has three rich paragraphs that handle the
+Borchetta question correctly ("a critics' reading of a documented business
+dispute, not a confirmed statement"). I relayed an agent's "no discussion
+paragraph" claim to Joey without checking the data. **Measure before reporting a
+content gap.**
+
+**ROOT CAUSE — MY BRIEFING FAILURE.** The scoring briefs named `note`,
+`discussion`, `facts.themes` and **omitted `dossier`**, which ~2/3 of songs
+have. Second time today that pointing an agent at the wrong material produced
+confident, well-formed, under-informed output. **`dossier` belongs in every
+content brief.**
+
+**BUT THE DAMAGE WAS SMALLER THAN I FIRST SAID — correcting my own correction.**
+The `midnights` revision found only 10 of 22 have a dossier, and most are chart
+stats, credits and live history, NOT emotional content. One real fix:
+`bejeweled`'s dossier records Swift CONFIRMING it is partly self-reassurance
+about returning to pop after folklore/evermore; the original framed it purely as
+"taken for granted at home". Text revised, axes unchanged (same emotional
+weight either way). Everything else left alone — the agent correctly refused to
+churn.
+
+**VERIFIED, and it is good news: NO authored prose is being dropped.**
+`sync-longlive-tracks.mjs:83` nulls a hand-written `discussion` that lacks
+`discussionSources`, and this repo has a history of the vault writer silently
+dropping fields — so I checked all 23 track seeds. **13 have hand-written
+discussion, 0 at risk.** The pipeline is sound; do not go hunting this again.
 
 **Previous — SCORING THE 82 UNSCORED SONGS (2026-08-17).** `PLAN.md` is the contract.
 Branch `feature/score-remaining-songs`, in the worktree at
