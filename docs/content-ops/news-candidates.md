@@ -25,7 +25,111 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 79
+
+## Taylor Swift Snubs Blake Lively for Selena Gomez in Major Pact — Insider - Yahoo
+
+- first seen: 2026-08-17 17:39 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Snubs Blake Lively for Selena Gomez in Major Pact — Insider  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPWmNpenZXNWxkOENwWGozR2dVSU5YSkZpcEZGOElfMF9vTldIQVhPMHVIVVo5eWM5ODlLSXNPV0huckR4bDhKeVE2WDEzWXh4cUJCM25TWTNrWGdKZ3k1REpyMFJkVlhsc2x3UmFRUkYwUWFYbDRnWW03b0JWaXBBT01IaEhfMnY5alJKeEM1UHVzMUNvQ18yZ3dKeVdQbHJwV3NJ?oc=5
+
+## Traffic Deaths Rise 15% on Days Major Albums Are Released, Study Finds - Gizmodo
+
+- first seen: 2026-08-17 17:39 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Traffic Deaths Rise 15% on Days Major Albums Are Released, Study Finds  Gizmodo
+- sources:
+  - [unverified] Gizmodo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOMEx4Q21DMFVWTERBU25KaHNjV1ZqNlNCcnBQY2g0TU0zMkMwZEM4VlN1N3Z6Tnh2WEV0VVJsejBzdHhscXgwQjRDaEo4N01YV1ZmTlR6ZkloWTVoUXh6Si1VbzFmMnNOd0pqQklnTEhoRTRQSlJTU2JRUjlHTGs5clJaT0Z5LTZqZHhQUExjS3lEcEZGLXZObjFybWlKOGhS?oc=5
+
+## Taylor Swift Flashes Her Updated Ring Stack With an Unconventional Megawatt Wedding Band - instyle.c
+
+- first seen: 2026-08-17 17:39 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Flashes Her Updated Ring Stack With an Unconventional Megawatt Wedding Band  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQMnZES0paaXBYdTJiSUpLaTZEeEVFU0R6LTVzdlpPTS03UkRWNzNab0dWQlI5RU5BaHNDZE13b2tnY3lMVkxQRGs1M2ZuNUlacTRDNDQzRlducEg4SnlEZldFSzZVRFZQczdSX24zODNLem5Xc0R5MXFhX09OeUdqVURfaUI3VTY1d0RWXw?oc=5
+
+## Taylor Swift Debuts a Short New Haircut — and Fans Are Sure It Means TS13 Is Coming - SNJ Today
+
+- first seen: 2026-08-17 17:39 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Debuts a Short New Haircut — and Fans Are Sure It Means TS13 Is Coming  SNJ Today
+- sources:
+  - [unverified] SNJ Today — https://news.google.com/rss/articles/CBMiakFVX3lxTE1tMktEUXdVWDIwV0p0Si15WjZzWHZkZGF6SEpCQW45eHNzcjNEWU12WVM0dUw0bklGd09kM2VIUG0zWmNXWFUtalBRQ0pBY3Q2OTQzZkEzYVVGczBSa01OMDYzaDVULUt5aGc?oc=5
+
+## Florida Orchestra Starts Season with Swifties and Pirates - symphony.org
+
+- first seen: 2026-08-17 17:39 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Florida Orchestra Starts Season with Swifties and Pirates  symphony.org
+- sources:
+  - [unverified] symphony.org — https://news.google.com/rss/articles/CBMihgFBVV95cUxNOHFCNWpxVVhEZUpjZkJVZHRkZ3I4ckJHNEN4NEtudHkzcU5DTVFJbDNDeXlMRGZacWdqcjBFUkxMUXpDb2xhbmgyM2lwZGVjRERLM0tUTG9XNDBDY3Izdm1XNEQxOUtNM0dSYmlfWFJYOG53bVlSTzROek9pZ1o1cTItNjJrQQ?oc=5
+
+## Cristiano Ronaldo’s wedding is a crucial lesson for every couple – even Taylor Swift and Travis Kelc
+
+- first seen: 2026-08-17 17:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cristiano Ronaldo’s wedding is a crucial lesson for every couple – even Taylor Swift and Travis Kelce  The Independent
+- sources:
+  - [unverified] The Independent — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNb0hTY2NDWU1xbEF2eHJ1YnRoQVY5bHRjY2Z1UkN4Q1pacGJ6NUsycTcxVkpzWE5jT1Z6TTh6ZGNKR25wTzYxVmcxTV9tTXc5ZTZCUXN2MDc5WFJKLXZONFMzRVlzV1E2Um5DSmF5d1VCeGpSdkhGblQ1R2M3TnBQV3VKM1FGa09WVDA5TTdwTklGWlItbUh4bm1xYTg4bzhJdDN3NXFEVTE?oc=5
+
+## Taylor Swift Debuts Post-Wedding Haircut - PureWow
+
+- first seen: 2026-08-17 17:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Debuts Post-Wedding Haircut  PureWow
+- sources:
+  - [unverified] PureWow — https://news.google.com/rss/articles/CBMib0FVX3lxTFAzOW0zd2h0RlR6aFVnRHlGQ1N2S3NHTjc0emRlRzAtZ2FxNmswSHZIUUJMLWJoNnVPd0QzX1JWZ0dybDMxbnh3SFVQYkNXZDdzTTV3b253Nl9ZUDcyUHJLMi1kVktyNDhaNDAwMWxhZw?oc=5
+
+## Taylor Swift Steps Out With New Haircut That Might Be Her Biggest Hair Transformation in Years - gra
+
+- first seen: 2026-08-17 17:39 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Steps Out With New Haircut That Might Be Her Biggest Hair Transformation in Years  graziamagazine.com
+- sources:
+  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMizwFBVV95cUxNNjFoMV9QdHhYNVZXVFBkZ1Q2UG5kcmZHcUJ0dzE2M2Zoc3RZS2RleTIwQXdvWGtHVUJEYmNteXV2OGV0QlZiSm1XbkJpaHkwSFc4OFNEZC1pT1lOcUowbHU4SXd0Q0lTcXdQbTV3ZWVfSFZ0ZWUtNmhwTjdmLXJFeGFCZENIRWMwbF9fSTA0bGxCc3hkRzVJSlN0MDRpNEpHZDdmS1ZkOFVRN1hhdWl5YVhfSlhfbEN5bWJzNUh5TFpEeHA4aHdkenZQaWowUmM?oc=5
+
+## Taylor Swift and Travis Kelce show off special matching wedding rings - check them out here - Someth
+
+- first seen: 2026-08-17 13:50 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce show off special matching wedding rings - check them out here  Something About Rocks
+- sources:
+  - [unverified] Something About Rocks — https://news.google.com/rss/articles/CBMivwFBVV95cUxPLTBtdldmYXNadHQ2V01POEl3NUE3dWItSHd2dFR1N0ZjZFdmZ1lnTWwtT0ZoQmk2bnUwd1ZidDZ5ZUNlY3NJT2ZzRGVMUW5xU29tTFZRdnFOaHg3eXVudmU0b2dfaGRMZTkwU0lMdzJES2NqOWlnZW50XzU4dVN3N0JZY24xZEJJOUtiTFJHRk9xODhPV2NjV2kxQjV5a3NDdGJlMEM2cHFST29HY2RxV05IdHhiZjZRWVF1M0F0dw?oc=5
+
+## Taylor Swift just attended Oli Jacobs and Laura Sisk’s wedding: what we know - South China Morning P
+
+- first seen: 2026-08-17 13:50 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift just attended Oli Jacobs and Laura Sisk’s wedding: what we know  South China Morning Post
+- sources:
+  - [unverified] South China Morning Post — https://news.google.com/rss/articles/CBMiwgFBVV95cUxNb0ZzYW1FZWdzUkFhZThnTHVEa1NzeV9iMXJFVXJVaG5jVUxTdzBCckI0NkkzLUNxNG5paG9Ma21MNEdYLWtua1hoSlNLdDdJRlNvMjZNQm4wYmFseGFlU3BaNmhGc3FRRVVIamNCMjg0b0F2TzdYTUtpOHNsa3FCUGFEOVJVS3dicDc1bkExbGR5VlpZYVFROEljUWp6VmV5UG05a2NzdWZ3MEFmWUFFMFlyNkUwc1BPUHVuS2pmR3FYUdIBwgFBVV95cUxOa1RfVnBPZm1OdWVfVGVWWVdzT2VFN3BPZl9oMlo5NHpSX2dDbmEtdG5CQTFtNVJweEJqdHJ4aDBPQVR4cDV1eWR3aEhWS0dEcVJVYkFFU1QwXzVQTTY0T2NRU2VmeFJUYWt6N2JFSm8xZTdFQWpxSGFiSDFXWmhtTU5Pb21fSG1qbDlGbC1XWEg5TnlYOGFCNzBrNHFSTVk5Y2xCc1N6cWV0blJ1ZGVKbno4bURoalFaVWh0aHd6VlZFdw?oc=5
+
+## Travis Kelce & Taylor Swift Have a ‘10-Day Rule’ for Marriage — Source - Yahoo
+
+- first seen: 2026-08-17 13:50 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce & Taylor Swift Have a ‘10-Day Rule’ for Marriage — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNOWVrYTdXMGc3WkREQ0V1dHNQUEF3V0U4LVE3a3l0UVdTaXlFSzVqTUNnUHRRaUtQSXlRdEc2elpnWGUxQXZHdUhsNENXSTZVUHY5VXdXZVZmMFl2U2ZEcVpXUExpMG1jQUNEdmVqV0V4WTZoUzk0QjY1ZnhHNndoUHk1SkU2VGpOSmFlTlY5dkl4LVBiMmxXRFotVHFkYjg?oc=5
+
+## This Taylor Swift-vibed Epiphone acoustic is over $400 off at Sweetwater - Guitar.com
+
+- first seen: 2026-08-17 13:50 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: This Taylor Swift-vibed Epiphone acoustic is over $400 off at Sweetwater  Guitar.com
+- sources:
+  - [unverified] Guitar.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQdE5NSGZCaVhsZEdJZ2dkTng5Xy1oTElIYnd3QzZrWFhWUlM1MUh0aER4M1FMbjdnRmM4aG5QbUZ2d2UzOUU2WEJFQld2ZmdOOXZYSTNkQk1wWHA3TThCOTBuUEFpWlRJaUR6ZGVXemR1SE04Q3pOZ21hTC1OQzVETVVHT0lBcE12?oc=5
+
+## Taylor Swift changed up her look with shorter hair and a $995 floral minidress one month after marry
+
+- first seen: 2026-08-17 13:50 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift changed up her look with shorter hair and a $995 floral minidress one month after marrying Travis Kelce  creators.yahoo.com
+- sources:
+  - [unverified] creators.yahoo.com — https://news.google.com/rss/articles/CBMigwJBVV95cUxQQ3hGTDdnTmZFNHVMN0duYkdkWnBxMlBfUWU1ZWh4Rmphd0NJcEFaSHBlQi1lNUNhS1hPVl9PekwtYkhORmlLTjFUQXZ0eFc2cW42U09DeThnVXlTX1pidllkQ0o5dE1pUlRDR19YdzhEVzZVX29tMnVjUjlQWjRSTlE4UmR2Uzl4WE95Sk1fV05fSVdKZkxsU2l2UDlxU3h2Z2pWUmdRQy1acGpjUTRodzZBYkUyWWZIWDlqSm9NT2p0WThWSVA1ZFUwOEk0emJhaUVONnFaenZSOGdBVEpoWVUzeld1WXF4SFp6aVhlbGItb3l1emZSQ0NVV3puRExKdnFJ?oc=5
 
 ## Taylor Swift Cut Her Hair for the First Time in Years and Fans Cannot Agree It Happened - centraljer
 
@@ -563,51 +667,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQUWlBTjROQXZCRHF3ZmZrcjFuSDc2NnJCU3ZXU2xXUEdrTzBBNDlWLTY1NG9vVEQ0SnZsMTVTNkhuNEJWcFNudFBNOVVpQkk1bF9GVVBLMWVwbTFuR0pQdlpBdi1rbHlLd0FhLTJBd1piRU92bWoxVi1WMEY4bFRLM3hXMTB1ZUdpcVJWLW1YSXkxV2xrVmdmaXlLallITkQ3N1czeHliT1Bvc09NN2xXX3RHei15S2ZGREFlVm1PeXRUbnVuMXNmRFcyc2taUG45NVE?oc=5
   - [unverified] Las Cruces Sun-News — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQOTE0a3hiUkxVcE84aThuOUNGdEVST0NzZWlLNFFmaGZiLWpFWTN0MXNRTFdpSmlET1FPR002OUlBX1ZtLXVJWmNZcE9sVXdONTdKdmVxdjN6NnVqaXFReE1fNndDbzJ3a3V1XzdablloMExpWWJxRVNDS0ZKWGlIWWFHNUJsVmFldU95U3VGMGtkVVc3TVhhX091Z1FvYlBPd2pGNWVhQjBQUVl2Z1hLUUhib3FqREEzLU9ZR2pwTlh2RGZnZjd1aUwyVi1SRlJwSWsxLQ?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQbTV6LXJtdVFhQ1dJc2lTem51elpCV3pyUWZzVEpqSzU3aHNTLUo1dml1cC1ERURjTU1zX2pfN0lReWhEVWdIR0JTWC1fUWhUbFBPZ1FFY0pZSmliWi13Y21nQkVFUm1PLTZyQzZKWjE5RUlmRUhvbHdRY3hJR1pJQVJpUWRuT0VBa2ZwdUVUdmc2R0trc2FQM2hKemhrZFk3STdN?oc=5
-
-## Taylor Swift by Candlelight - Duxbury Clipper
-
-- first seen: 2026-08-14 14:19 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift by Candlelight  Duxbury Clipper
-- sources:
-  - [unverified] Duxbury Clipper — https://news.google.com/rss/articles/CBMid0FVX3lxTFBoS3ZvMDdRcFkyU25SeHpVNVBudW5RaVNEZTlCY0YyN2Z2X0lYLTBjOG4yb2xybHJ0WloyNzhoTUgybEdoMXVxcF93M3ZSbTdNdE5PcHM4bXdSMnRvMG84OGdTdFNkSUFrendTNGkyTzh3cnZmbjZn?oc=5
-
-## Meet the 7 Women Who Have Been Selected for Both the Songwriters Hall of Fame & Nashville Songwriter
-
-- first seen: 2026-08-14 14:19 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Meet the 7 Women Who Have Been Selected for Both the Songwriters Hall of Fame & Nashville Songwriters Hall of Fame  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxNZnNCRFpZNjdfVlg1aExhQ0NsYi1uLUEyUWMzcnIwQVhxV2U5cTlpcEpBcGYwRnp1bVptRTlQSktQMEgxTUZtaVI4UExpYndmZzlod3htbk1wcHJLV1d1WnBhVS05Nnl3UHlfejA2Q0RJZDQ1WVBGMHJoaG93UHB1dWo3YzI4ZXY2OXhFWURUaEQ5TDJpemh3?oc=5
-
-## Taylor Swift debuts new haircut after Travis Kelce wedding – See the photo - USA Today
-
-- first seen: 2026-08-14 14:19 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift debuts new haircut after Travis Kelce wedding – See the photo  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMisgFBVV95cUxPdlp3Y0JxS0steWl5aGx6QXRLY0RaZjFCWWwxRWpta2gxSElWcmZya3U1TGxPMGhBTlc5WXFsVlB1M2pzeVQ0TTQ1N3ZuZFFheDJQVmRfTzBtNk5lUFZWbnZKSW1OS2NJSzBrdlN4ZEVfNlc3blQzM2lZTzNKQV9vUEh1MzVvLUN5YVRVbTYtV2h1S2ZXVW93REtCRjlHdTVRZWZZTDdrSmFMbFBmcHNHZ0lR?oc=5
-
-## Taylor Swift Song Removed From White House TikTok Days After Trump Campaign Post Muted - Law Comment
-
-- first seen: 2026-08-14 10:14 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Song Removed From White House TikTok Days After Trump Campaign Post Muted  Law Commentary
-- sources:
-  - [unverified] Law Commentary — https://news.google.com/rss/articles/CBMirwFBVV95cUxQVGdYb0dwUEZJbWRjZTNVR3hCTDRaWm51M2RKX0JXRW5NLUJwUFJIUHFDNVhOaEF3MUR4el9YRDdDNnJVaWpOQ1lTQUQ1dnVuNW1QdFctY2lqMFphNW80Z1dablo5cUczWXJIMXphOGtWRzRGR1dEVUc0MkduUVYwMmJnb1IwWFJHRGliSDlrTkYyN1kzSFFNMjFxRnRfRUkyajg1RHZJaWJGQkctd3A4?oc=5
-
-## Taylor Swift Eras as College Gymnastics Teams - College Gym News
-
-- first seen: 2026-08-14 10:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Eras as College Gymnastics Teams  College Gym News
-- sources:
-  - [unverified] College Gym News — https://news.google.com/rss/articles/CBMijAFBVV95cUxOc3FEQmFTTmF5U2w0RDctUWVrd21ZNi1EYWROd2xnd3NwcUZhRlNheGhHMm4tdmZpNzZoMlJ6QXg2b1ozRzFXZmQ1elBWOHpIall3SHV6anhpXzFvZ2VfTm0zcE9HM2NkU2I4SnB0OUF3VEpOU0V6TDB2R3NmNXh5VWs1N09yMFFCd25jeA?oc=5
-
-## Lohud.com summer intern talks community news, Taylor Swift and more - Lohud
-
-- first seen: 2026-08-14 10:14 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Lohud.com summer intern talks community news, Taylor Swift and more  Lohud
-- sources:
-  - [unverified] Lohud — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQaUNWYUZjLTRwaFpDTExBRFNSNmxSNUljajlvS2VTX2EyMExheGFpOTZFNWJjbE5KRXRfekcxOHQxX2dpSlBucERtN0dHdzljSllHWF8wS0kxOTVEUHd6X3BiRFdoT0hBQ09TclZqOVM5Um00eWlXSDNyMmcwSVhLTjVzdHdkMmlkSDBQdVpXSzdsTTdfYVdJQTNuOWljdC1PMWl6Nlh0c0MtWUJjdVNXRll0MTZHcWIwaVVPcnZUc1gzOHRpWDRSRA?oc=5
