@@ -566,3 +566,92 @@ describe('approved copy is present verbatim', () => {
     expect(UNCLEAR_MESSAGE.toLowerCase()).toContain('tell me');
   });
 });
+
+describe('#2177 — newly-added crisis phrases fire correctly', () => {
+  /**
+   * BOTH DIRECTIONS ARE LOCKED HERE ON PURPOSE. The first pass of this branch
+   * put four ambiguous progressives straight into Tier A (which applies NO
+   * exemptions) and shipped a crisis card for "I'm writing the note for the
+   * wedding toast". The must-fire list alone could not catch that, so the
+   * must-not-fire list below is the other jaw of the vice: an edit that
+   * over-blocks must go red exactly as loudly as one that under-blocks.
+   */
+  describe('MUST fire crisis on new phrases (progressive forms and method language)', () => {
+    const NEW_CRISIS_MUST_FIRE: readonly string[] = [
+      // Tier A, unconditional — no benign reading exists for any of these.
+      "I've been thinking about hurting myself",
+      'I keep hurting myself',
+      "I'm taking a whole bottle of pills",
+      "I'm swallowing all the pills",
+      "I'm swallowing a bunch of pills",
+      "I'm taking a bottle of pills",
+
+      // Guarded ideation — bare, or with a next word that is not a clearer.
+      // These are the exact phrases moved OUT of Tier A; they must still fire.
+      "I'm ending it all tonight",
+      "I'm ending it all",
+      "I'm giving up on life",
+      "I'm giving up on life, there is nothing left",
+      "I'm taking all the pills right now",
+      "I'm taking all the pills",
+      "I'm taking a bunch of pills",
+      "I'm taking a bunch of pills tonight",
+
+      // The suicide-note phrasings that survive the 'writing the note' drop
+      // (see the gap note in the must-NOT-fire block below).
+      'I wrote the note already',
+      "I'm writing a goodbye to everyone",
+      'I left a goodbye note on the table',
+    ];
+
+    it.each(NEW_CRISIS_MUST_FIRE)('fires on %j', (text) => {
+      expect(isCrisisText(text)).toBe(true);
+    });
+  });
+
+  describe('MUST NOT fire crisis (over-refusal guard)', () => {
+    /**
+     * The five sentences at the top of this list are the REGRESSION the second
+     * review round caught: every one returned the crisis card instead of songs.
+     *
+     * The fix is not a cleverer article rule — an earlier attempt claimed
+     * "writing THE note" was the suicide sense and "writing A note" the
+     * everyday one, and "writing the note for the wedding toast" disproves it;
+     * a definite article marks a previously-mentioned note, nothing more.
+     * Three of the phrases moved to GUARDED_IDEATION instead, and
+     * 'writing the note' was dropped outright.
+     *
+     * KNOWN GAP, ACCEPTED: because 'writing the note' is gone from both tiers,
+     * a bare "I'm writing the note" is NOT detected. That is deliberately not
+     * asserted here — it is an under-block we tolerate, not behaviour we want
+     * pinned, so a future proper fix does not have to delete a test to land.
+     */
+    const NEW_CRISIS_MUST_NOT_FIRE: readonly string[] = [
+      // The five reproduced regressions.
+      "I'm writing the note for the wedding toast",
+      "I'm ending it all with my gym membership tomorrow",
+      'giving up on life admin today, too tired',
+      'taking a bunch of pills every morning for my thyroid is exhausting',
+      "I'm taking all the pills the doctor gave me today, ugh so many",
+
+      // The same collisions in their other everyday shapes.
+      "I'm ending it all with him after tonight",
+      'giving up on life insurance, the whole thing is a scam',
+      'taking all the pills every morning is such a chore',
+      'taking a bunch of pills daily and I am so tired of it',
+      "I'm taking all the pills for my thyroid again",
+
+      // Pre-existing over-refusal guards, unchanged.
+      "I'm writing a note to my landlord about the rent",
+      "I'm writing a note to my mum",
+      'I took the pills the doctor prescribed',
+      "I'm taking the pills my GP gave me",
+      'im drunk',
+      'hungover and full of regret',
+    ];
+
+    it.each(NEW_CRISIS_MUST_NOT_FIRE)('does NOT fire on %j', (text) => {
+      expect(isCrisisText(text)).toBe(false);
+    });
+  });
+});
