@@ -7,5 +7,10 @@
   "scheduledAt": "2026-08-17T23:00:00Z",
   "campaign": "thread-clue-web:first-egg",
   "why": "The Clue Web window opener (calendar ledger: Clue Web runs 08-17→21). PLATFORM SWAP, disclosed: the calendar put an era-deep-cut on folklore in this 23:00Z IG slot and symbol-thread in the 23:30Z X slot; those two are swapped here because no folklore image exists in the #1903 library and /eras/folklore.png is inside the last-10 posted Instagram window (posted 2026-08-04), so it would fail the media check. Both subjects still run today, on the platform each can actually be served on — the Clue Web takes the Instagram slot with a real library asset, folklore takes the X slot where media is not required. Hook \"an honest question\", and one we would genuinely like answered; replies stay human per growth charter rail 4. Facts read off the live Clue Web screenshot in #1903: 30 eggs, 7 trails, and the three-state legend (clue planted / payoff-reveal / fan theory unconfirmed), plus the thread’s own description of hidden messages, cryptic dates and their payoffs. DEPLOY DEPENDENCY: needs #1903 deployed. | 2026-08-12 Taylor-photo standard (issue #2031, Joey directive): attached a real credited photograph of Taylor from the repo corpus (apps/web/lib/longlive/lenses.ts), rehosted under /social/library/photos/. Campaign renamed to a STORY-UNIQUE value: findPostedDuplicate treats same platform+campaign as an already-posted duplicate, so the old thematic bucket campaigns (heartbeat:*) would have false-skipped every post in a bucket after its first one landed. Upgraded to a carousel: Taylor photo as the grid tile, the product screenshot as slide 2. | 2026-08-15 third-party image policy (docs/decisions.md): the Getty-sourced photo tile (taylor-midnights-vmas-2022.jpg) was removed from the library and dropped from this item's media; it now runs on the Clue Web screenshot alone, so mediaKind moved from \"photo\" to \"site-screen\" and the now-inapplicable mediaCredit/mediaSource were removed with it.",
-  "mediaKind": "site-screen"
+  "mediaKind": "site-screen",
+  "postedAt": "2026-08-17T23:22:49.599Z",
+  "platformPostId": "18117386009294605",
+  "url": "https://www.instagram.com/longlivetscom/",
+  "facebookPostId": "1165693196635001_122107120575407187",
+  "facebookUrl": "https://www.facebook.com/1165693196635001_122107120575407187"
 }
