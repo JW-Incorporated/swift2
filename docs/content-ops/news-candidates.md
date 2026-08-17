@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 71
+
+## Travis Kelce’s Recent Taylor Swift Comment Has Wedding Guest ‘Frustrated’ — Source - Yahoo
+
+- first seen: 2026-08-17 05:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce’s Recent Taylor Swift Comment Has Wedding Guest ‘Frustrated’ — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPNGZreG02QUJTSmgyUGlOamZzbXZrVkpnZU41N0E0MmxHYVQyM19PYWhoNW5vT1FDX1RpLW51dXlJU2NSYkUtUjV2OTRzcERMYTJJUzQzSXNWOEhYRmg3a0N0aXNtbUVaWkFFV3JLT0h0cGRYTlVNMm1xd1p3QUY0cXJETU4yN0JKQ24yeG9aMEsxdEF4MmNUcTB2VjJqSko0dHcyaw?oc=5
 
 ## Taylor Swift Shows Off New Haircut at Star-Studded Wedding with Sabrina Carpenter, Jack Antonoff - E
 
@@ -594,54 +602,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
 - summary: Lohud.com summer intern talks community news, Taylor Swift and more  Lohud
 - sources:
   - [unverified] Lohud — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQaUNWYUZjLTRwaFpDTExBRFNSNmxSNUljajlvS2VTX2EyMExheGFpOTZFNWJjbE5KRXRfekcxOHQxX2dpSlBucERtN0dHdzljSllHWF8wS0kxOTVEUHd6X3BiRFdoT0hBQ09TclZqOVM5Um00eWlXSDNyMmcwSVhLTjVzdHdkMmlkSDBQdVpXSzdsTTdfYVdJQTNuOWljdC1PMWl6Nlh0c0MtWUJjdVNXRll0MTZHcWIwaVVPcnZUc1gzOHRpWDRSRA?oc=5
-
-## Taylor Swift’s Missing Wedding Photos Offer a ‘Major Clue’ — Source - Yahoo
-
-- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Missing Wedding Photos Offer a ‘Major Clue’ — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOSFdMX2xnTDVxVk5lMjhDNzM0TWdnNlFmazFZRC1IQTV3ak1oSDl4VnJGa01BNmJZVURhMlk5WGdXZG05emtxZTg4bUstelJ6Ym5BTmhoSTRxRmJjeUxVcmE4ZVh1NDZiU3U1VzBEOGlfdVN6ektScFp6cGhXTDE4TmdvcVNLSVFBVnhsdTRLNlJUaGhCdHZtMDk1U25iRnJCdkpJTTBUek8?oc=5
-
-## Taylor Swift Dazzles in Bold Minidress for First Solo Appearance Since Marrying Travis Kelce - insty
-
-- first seen: 2026-08-14 03:29 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Dazzles in Bold Minidress for First Solo Appearance Since Marrying Travis Kelce  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxQaVlveXYtVVA4NlNlTmNGRkFDNHQ1bm9LWk9RVDhPdWJhckZjdnJRU1lQMWVwRmNZYkQxZklMa0lZZDhLRjRhVFNCem5NbGpLWC00Z3BrTGhNNzJMdDFRMVMtbk9qR3dWNml3Qi1IbnFQQ1dObU1rVXNxSDFLNnh3c1NJNFNzUE82Z29rekZLeTFMdw?oc=5
-
-## Taylor Swift rocks new haircut in first spotting since Travis Kelce wedding - Yahoo
-
-- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift rocks new haircut in first spotting since Travis Kelce wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNb1pkWndFVGFKd3ZQMHBBcEYzaVo1MWFUVEhpcWYxTnBaU004cGN2Z2RScTcwSUxQNnVTSUs5bnZrdXJjWGVZbk91M0FIYW1PaWp4dklWZjVHUHZjQTdSbUFJZDdpcEc2OHhHaVE1WXVaUTF5VXVlS19JbVAyTS1mV1dra1JzMjJRS0xoTy1BVzhDVk52Wlo4UndzUnJzZW5ndUFPcA?oc=5
-
-## Taylor Swift Changes Up Her Look with Shorter Hairstyle in London Outing One Month After Travis Kelc
-
-- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Changes Up Her Look with Shorter Hairstyle in London Outing One Month After Travis Kelce Wedding  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQaVEzV3hieWVIMUc2ZEdCN3NrbjRSNFRkNkY2YVd3bmV2akNZWjF5SlhaUk1yamRpb2dnUGZnTG1wTUczVTJ0WWprUTI2cUFtWjk2N1FNazh1Q3MydjF6SzNncU5QbGZXOUs0Y290NndnS05rNnZMV0tpS21FRWlDcTRWNWdrdUUwUnh4QXAwLVJyQXBCV2ZrNjdGMjhIdmJIdDVPbjdn?oc=5
-
-## Taylor Swift Debuts Major Hair Change on First Public Outing Since Travis Kelce Wedding - Yahoo
-
-- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Debuts Major Hair Change on First Public Outing Since Travis Kelce Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxON3d4dW54cjRlbFBtUHQtbWotbENGbFV0bHB5cndabnNLWVY5a2RpMVZkQ2t5aXlDazRLMEtqbTA3dF9PVm01dy10T0xPdmQzdEFVMDVLN01WRFl4MHRUUFEyakJwMzBzU2ozTTl1N2g1NDFhYXNxMUIzX1JmTGJqVHM3cXNnY1hJNUxadU5oU1RCUTRWanJQRTdDeHhzcGY5emc?oc=5
-
-## Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift - NBC4 Washington
-
-- first seen: 2026-08-14 03:29 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Why Rob Gronkowski didn't give Travis Kelce and Taylor Swift a wedding gift  NBC4 Washington
-- sources:
-  - [unverified] NBC4 Washington — https://news.google.com/rss/articles/CBMilwFBVV95cUxNMDkxOThsTWFoRkctMGJ5TkJzT1R3aXFqbDZOQlAzUUJDc0tyV25nWWJUV0hyV1BCWFVDN0xGZUZVb3NKOUYzVTZvWWJoVU5HUkxnUlp0aVpxbzh4cEV4UmhOcU1lVjcxaDVHeXVSSTFnWWdfTVV3YzU1b2tTLVFmWVgybjZWbXQzdnljOGZaVllxclcxRnlJ0gGfAUFVX3lxTE1qRWFTUkx3NFI0LU9YYy1FRzFXeTFDaHlHal82OTlwZkdLOVZfaWdETHZWY0pyLUMxN3VNSUprcFpvUktLMEZJSDY0V281VXYxbWVpYWRFY0VnYWxPaXByNnpNTnZERGxsc1dBbEZ6QUpQTEVfMEw3S2FaX0Y0REFESE9sSVJXeVc2Smp6VjlUb0NET2VMMFdkN01tUDdaTQ?oc=5
-  - [unverified] Central Oregon Daily — https://news.google.com/rss/articles/CBMihwJBVV95cUxOcEpjeGRsVWlabGpMR0JfT1hWTGw2WUxTQU9RaE9NZWxVcG9LNkw2RHcxbUlMVHpGaEZmY2hoT2htMWtFMFg2Q2hvbjR4MHp5TUFGRzlQVktwX2FTYUtKdEgybGlsTi1CMjN2WDBod253MW1FekJQNUlVQzlSR3FlSFdrZkQwWDJOcVYzWnFUYWRsQVhYMlZnVFJDbU1mUkdZVmZvLVo1SmZweXhLc3ZodVhCVWxMdzd5THdFazJDQzFTM0xmVi1WYWFFb3NCdXNxZ2RCU2pjaXVsZzdHWkV3c2NNYUlCT0dPR3FTZEFkM19Cb0dfdmEtSDFsbnFBZTFHRUxMTm1Gdw?oc=5
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOd0JKNUx5Q1hpS0loR0RJcGRISXR0Z2hfLUVzYWV0elFxdHZkenhEYUR6a01qTUxPZEFPVHNsVXBLNkl1S1hkYWhtUjZxTjMtV3FoMmdRREpZYUJOSVdudlVtTEk2ajRhVmphdHU4aG10QV9mWnZVaHNqN1pkMWVVWVRLejVvcktLakw3UDVkOEM3UHNKa0dnS19kTUJLV3AtcUs0RjgzNTFaN1lrYTZyUm54TENiMkh1b1VYM0JhOGY2elQ3UUdjLUZMU1VzOHNU?oc=5
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMizwFBVV95cUxNTWUtaDdxaDNHNmpHNldwM3c2X2k0Vmh3b2pWcDFGemR0SXdfSUtnanlfQ2JNSF81d3Q5Nk9hVGhCTnVkNUpXaWZCTmVPcDl5ODVYbzRMNkYzOUVQQlVaZlhvd2psb0YyTjh3UlNrN1ZnT1M5UVh2Vk1DQlE0MGhYSzhvbW1ONl9neVlOOFd2YXRmYWVrWktDM1hVQWVCalpkYng0enIxV2JVSUlxb011a3JabFVUNjBrWWVxd3lyTUM2Tk81RXo5MXExUmRLUE0?oc=5
