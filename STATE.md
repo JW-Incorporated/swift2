@@ -5,10 +5,16 @@
 
 ## Current focus
 
-**MOOD BOT OVER-REFUSAL (2026-08-16).** Joey: a reader typed "im drunk" and got
-Block 6. `PLAN.md` is the contract. Branch `fix/mood-over-refusal`, built in a
-worktree at `Temp/claude-worktrees/fix-mood-over-refusal` — the guard refused
-the shared checkout because **a second session was live on `main` in it**.
+**MOOD BOT OVER-REFUSAL — SHIPPED, MERGED AND VERIFIED LIVE.** PR **#2184**,
+squash-merged as `8a0eb73a` on Joey's explicit "merge it", all checks green
+first. **Confirmed against production `www.longlivets.com/api/mood`, not
+inferred:** `"im drunk"` → `kind=matches` (Don't Blame Me / Long Live / Cruel
+Summer / Should've Said No / Change), and the self-harm case → `kind=crisis`
+with no songs.
+
+Built in a worktree at `Temp/claude-worktrees/fix-mood-over-refusal` because the
+guard refused the shared checkout — **a second session was live on `main` in
+it**, which turned out to be the social-poster runner (#2189, #2190).
 
 **THE REFUSAL IS NOT A BLOCKLIST.** Grepped: no alcohol/intoxication term exists
 in `mood-safety.ts` or `mood-keywords.ts`. Two independent causes, one per path:
@@ -464,14 +470,16 @@ did not start.
 Steps 1-3 (implement, live battery, cache measurement) are DONE and verified
 above. Remaining:
 
-1. **Commit and open the PR.** Escalation is resolved and every gate is green.
-   PR body leads with the crisis-detection hole (the serious find), then the
-   reported drunk bug, then the three accepted gaps below. **Do NOT merge —
-   Joey only.**
-2. **Kill the orphan dev server when convenient: PID 26364 on port 3100**,
-   serving from this worktree. It is MINE (I started it; `TaskStop` killed the
-   wrapper, not the child) so it is safe to `taskkill /PID 26364 /F`. **Do not
-   go PID-hunting on 3000 — that is Joey's.**
+1. **DONE — merged and verified live.** Orphan dev server (PID 26364) killed.
+   Remaining housekeeping: the worktree at
+   `Temp/claude-worktrees/fix-mood-over-refusal` still exists. Left deliberately
+   rather than run `git worktree remove` while another session held the shared
+   checkout's git metadata. Remove it when the tree is quiet.
+2. **THE BIGGEST REMAINING GAP IS NOT A BUG, IT IS MISSING CONTENT: 82 of 244
+   songs have no mood score, all of `tloas` included — no Life of a Showgirl
+   song can reach any reader.** Bigger user-visible hole than the bug that was
+   reported. Needs Joey's go-ahead; it is seed authoring
+   (`supabase/seed/song-moods/**` → `sync-song-moods.mjs`), not code.
 3. **Three gaps ship KNOWN, all documented in code comments, none hidden:**
    - `'writing the note'` was DROPPED, not guarded — no clearer separates
      "writing the note for the toast" from "writing the note for my mom". This
