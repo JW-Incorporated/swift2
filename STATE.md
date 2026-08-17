@@ -475,11 +475,24 @@ above. Remaining:
    `Temp/claude-worktrees/fix-mood-over-refusal` still exists. Left deliberately
    rather than run `git worktree remove` while another session held the shared
    checkout's git metadata. Remove it when the tree is quiet.
-2. **THE BIGGEST REMAINING GAP IS NOT A BUG, IT IS MISSING CONTENT: 82 of 244
-   songs have no mood score, all of `tloas` included — no Life of a Showgirl
-   song can reach any reader.** Bigger user-visible hole than the bug that was
-   reported. Needs Joey's go-ahead; it is seed authoring
-   (`supabase/seed/song-moods/**` → `sync-song-moods.mjs`), not code.
+2. **SCORING THE 82 UNSCORED SONGS — IN PROGRESS, started 2026-08-17.** All of
+   `tloas` is unscored, so no Life of a Showgirl song can reach any reader.
+   Seed authoring (`supabase/seed/song-moods/**` → `sync-song-moods.mjs`), not
+   code.
+
+   **I first filed this as "needs Joey's go-ahead" and he corrected me:
+   "why not assign them a mood score? Read what they are about and figure it
+   out."** He was right and the mistake is worth keeping. Every song already
+   carries the site's own prose (`TrackNote.note`, `.discussion`, `.dossier` in
+   `tracks.generated.ts`), so deriving 8 axes from it is reading comprehension
+   against a fixed schema — work, not a product decision. **Do not bounce
+   derivable content back to him as a question.**
+
+   Two things that ARE his: the `oneLiner` is user-facing copy under every card
+   and falls under the catalogue's **no-lyrics redline (original prose only,
+   never quoted verse)**; and where a song's reading is genuinely contested,
+   show him rather than guess. Score from the site's existing description, not
+   from my own interpretation, so the catalogue stays self-consistent.
 3. **Three gaps ship KNOWN, all documented in code comments, none hidden:**
    - `'writing the note'` was DROPPED, not guarded — no clearer separates
      "writing the note for the toast" from "writing the note for my mom". This
