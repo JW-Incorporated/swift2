@@ -602,14 +602,20 @@ did not start.
 
 ## Next obvious step
 
-0. **IN FLIGHT: 3 revision agents** (`ttpd`, `evermore`, `tloas`) re-reading
-   their songs WITH `dossier`, revising only where it changes the reading.
-   `midnights` already returned — 1 song revised of 22. When all land:
-   (a) `npm run sync:content` ONCE; (b) re-run the spread check per era and
-   confirm nothing collapsed; (c) re-run the matcher reachability probe;
-   (d) full suite + typecheck; (e) push to #2192 and update its body.
-   **`tloas` matters most — `father-figure` was scored from theme labels while
-   three rich paragraphs sat unread.**
+0. **DOSSIER RE-SCORE DONE AND PUSHED to #2192** (`d2a6d479`). **9 of 82 songs
+   changed, 73 confirmed and left alone** — midnights 1/22, evermore 1/17,
+   ttpd 1/31, tloas 6/12. The low ratio is the GOOD result: agents were told to
+   revise only where the dossier changes the reading and did not manufacture
+   diffs. Biggest fixes: `father-figure` (now surfaces for a cold/defiant mood,
+   which it could not before), `the-bolter` (a SUPPORTED critic reading — runs
+   before she can be discarded — that the `note` never carried), `willow`
+   (my invented 0.75), `bejeweled` + `opalite` (confirmed Swift statements the
+   theme-only reading missed), and both near-identical pairs separated on
+   evidence (`wish-list`~`honey` L1 0.20 → 0.35).
+   **Verified:** spreads held every era, all 12 eras reachable, 244/244 scored,
+   3039 tests, typecheck clean, `check:generated` in sync.
+   **STILL TO DO on #2192: update the PR body** — it does not yet mention the
+   re-score.
 1. **Then: `i-look-in-peoples-windows` is the ONLY song of the five that
    genuinely needs new prose** (1.2KB, no dossier). Research is done and sits in
    this session's agent reports — a real `discussion` + `discussionSources` in
