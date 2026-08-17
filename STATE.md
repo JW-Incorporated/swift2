@@ -5,10 +5,16 @@
 
 ## Current focus
 
-**MOOD BOT OVER-REFUSAL (2026-08-16).** Joey: a reader typed "im drunk" and got
-Block 6. `PLAN.md` is the contract. Branch `fix/mood-over-refusal`, built in a
-worktree at `Temp/claude-worktrees/fix-mood-over-refusal` — the guard refused
-the shared checkout because **a second session was live on `main` in it**.
+**MOOD BOT OVER-REFUSAL — SHIPPED, MERGED AND VERIFIED LIVE.** PR **#2184**,
+squash-merged as `8a0eb73a` on Joey's explicit "merge it", all checks green
+first. **Confirmed against production `www.longlivets.com/api/mood`, not
+inferred:** `"im drunk"` → `kind=matches` (Don't Blame Me / Long Live / Cruel
+Summer / Should've Said No / Change), and the self-harm case → `kind=crisis`
+with no songs.
+
+Built in a worktree at `Temp/claude-worktrees/fix-mood-over-refusal` because the
+guard refused the shared checkout — **a second session was live on `main` in
+it**, which turned out to be the social-poster runner (#2189, #2190).
 
 **THE REFUSAL IS NOT A BLOCKLIST.** Grepped: no alcohol/intoxication term exists
 in `mood-safety.ts` or `mood-keywords.ts`. Two independent causes, one per path:
@@ -464,14 +470,29 @@ did not start.
 Steps 1-3 (implement, live battery, cache measurement) are DONE and verified
 above. Remaining:
 
-1. **Commit and open the PR.** Escalation is resolved and every gate is green.
-   PR body leads with the crisis-detection hole (the serious find), then the
-   reported drunk bug, then the three accepted gaps below. **Do NOT merge —
-   Joey only.**
-2. **Kill the orphan dev server when convenient: PID 26364 on port 3100**,
-   serving from this worktree. It is MINE (I started it; `TaskStop` killed the
-   wrapper, not the child) so it is safe to `taskkill /PID 26364 /F`. **Do not
-   go PID-hunting on 3000 — that is Joey's.**
+1. **DONE — merged and verified live.** Orphan dev server (PID 26364) killed.
+   Remaining housekeeping: the worktree at
+   `Temp/claude-worktrees/fix-mood-over-refusal` still exists. Left deliberately
+   rather than run `git worktree remove` while another session held the shared
+   checkout's git metadata. Remove it when the tree is quiet.
+2. **SCORING THE 82 UNSCORED SONGS — IN PROGRESS, started 2026-08-17.** All of
+   `tloas` is unscored, so no Life of a Showgirl song can reach any reader.
+   Seed authoring (`supabase/seed/song-moods/**` → `sync-song-moods.mjs`), not
+   code.
+
+   **I first filed this as "needs Joey's go-ahead" and he corrected me:
+   "why not assign them a mood score? Read what they are about and figure it
+   out."** He was right and the mistake is worth keeping. Every song already
+   carries the site's own prose (`TrackNote.note`, `.discussion`, `.dossier` in
+   `tracks.generated.ts`), so deriving 8 axes from it is reading comprehension
+   against a fixed schema — work, not a product decision. **Do not bounce
+   derivable content back to him as a question.**
+
+   Two things that ARE his: the `oneLiner` is user-facing copy under every card
+   and falls under the catalogue's **no-lyrics redline (original prose only,
+   never quoted verse)**; and where a song's reading is genuinely contested,
+   show him rather than guess. Score from the site's existing description, not
+   from my own interpretation, so the catalogue stays self-consistent.
 3. **Three gaps ship KNOWN, all documented in code comments, none hidden:**
    - `'writing the note'` was DROPPED, not guarded — no clearer separates
      "writing the note for the toast" from "writing the note for my mom". This
