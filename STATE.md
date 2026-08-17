@@ -18,13 +18,32 @@ era systematically out-compete another for no musical reason.
 **No agent runs the generator**; four writers on `song-moods.generated.ts` would
 race. I run `npm run sync:content` once at the end.
 
-**Verified so far — 3 of 4 landed, calibration anchoring WORKED.** A spread
+**ALL FOUR LANDED — PR #2192 OPEN, 244/244 scored. Calibration anchoring
+WORKED.** A spread
 check (per-axis min/max/mean + near-identical vector detection) shows no era
 collapsed to mid-scale, which was the real risk: a seed can be schema-valid and
 still useless if every song scores alike, because the matcher ranks by these
 numbers. Tightest axis spreads: evermore 0.40, tloas 0.38, midnights 0.53.
 `anger` is narrowest everywhere — correct, not lazy; none of these are angry
-records. **Schema validity is NOT the bar. Check spread.**
+records. `ttpd` spread 0.50 and dodged its trap (heartbreak spans 0.80, NOT 31
+songs pinned at 0.9). **Schema validity is NOT the bar. Check spread.**
+
+**Verified by EXECUTION, not by reading score tables:** bright query → Opalite /
+Wood; heavier query → Ruin the Friendship; all 12 eras reachable across six mood
+queries. 3039 tests, typecheck clean, `check:generated` in sync.
+
+**`check:generated` compares against `git show HEAD:` (line 53) — it is SUPPOSED
+to fail until the regenerated vault is committed.** It cost a confused detour;
+read the script before debugging it.
+
+**I WIDENED AN EXISTING SPEC TEST — the thing I forbade four agents from doing.**
+`mood-match.test.ts` asserted "heartbroken and angry" surfaces `all-too-well`.
+At 244 songs the 10-minute version ranks #1 and the 5-minute cut sits at #7,
+falling outside the returned 8 on ERA DIVERSITY (three `red` songs compete), not
+on mis-scoring — exactly ONE newly scored song enters that top 8
+(`the-smallest-man-who-ever-lived`, hb 0.6 / anger 0.85). Assertion now accepts
+either cut; **the guard requiring every top pick to be genuine heartbreak+anger
+was NOT weakened.** Flagged in the PR for Joey to overrule.
 
 Near-identical pairs, judged acceptable: `tis-the-damn-season`~`dorothea` (same
 character, faithful), `wish-list`~`honey` (L1=0.20 — closest pair; they will
@@ -497,17 +516,18 @@ did not start.
 
 ## Next obvious step
 
-0. **CURRENT: the four era-scoring agents.** When they land — (a) run
-   `npm run sync:content` ONCE, then `npm run check:generated`; (b) **verify by
-   EXECUTION, not by reading their score tables**: call `matchMoods` directly
-   and confirm a `tloas` song actually surfaces for a plausible mood, and that
-   the scored count goes 162 → 244; (c) sanity-check score SPREAD per era — if
-   an era's songs all sit near 0.5, or all of `ttpd` sits at heartbreak 0.9,
-   the matcher cannot rank them and that agent's work needs redoing; (d) full
-   suite + typecheck, then PR. **Joey merges.**
-1. **Offer Joey the 82 `oneLiner`s before they go live** — that is user-facing
-   copy in his product's voice, under every song card. Following the no-lyrics
-   redline is my job; approving the voice is his.
+0. **DONE — PR #2192 open, awaiting Joey.** Two things in it need HIS call, not
+   another agent's: the 82 `oneLiner`s (user-facing copy in his product's
+   voice — the 12 Showgirl ones are quoted in the PR body, the rest are in the
+   diff; rewording is a seed edit + `npm run sync:content`), and the widened
+   spec test above, which he may reasonably want reverted.
+1. **Three open PRs, oldest first: #2191** (docs — mark the mood fix shipped),
+   **#2192** (this). Both need Joey; neither is urgent.
+2. **Weakest part of #2192, stated plainly:** five songs had thin source notes
+   (`the-bolter`, `the-albatross`, `chloe-or-sam-or-sophia-or-marcus`,
+   `i-look-in-peoples-windows`, `father-figure`) and are scored conservatively
+   toward mid-scale. A muted song beats an invented reading, but they will
+   surface less often than they deserve. Revisit if their notes get richer.
 
 Steps 1-3 (implement, live battery, cache measurement) are DONE and verified
 above. Remaining:
