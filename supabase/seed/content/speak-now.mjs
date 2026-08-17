@@ -2527,6 +2527,22 @@ export default {
           },
         ],
         context: "Never released as an official single, \"Enchanted\" nonetheless became one of Speak Now's most fan-beloved tracks — its extended, key-changing structure a favorite live moment on the Speak Now World Tour.",
+        // Photo pass #762 (2026-08-17): no single/video art exists (never an
+        // official single). Used a Speak Now World Tour performance shot from
+        // Wikimedia Commons (Sydney SuperDome, March 2012), curl-verified 200
+        // image/jpeg, downloaded and vision-confirmed (red sequin dress, ornate
+        // stage set). Caption does not claim this is the "Enchanted" segment
+        // specifically — that pairing was not independently confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
+            focalPoint: '48% 18%',
+            credit: 'Eva Rinaldi, CC BY-SA 2.0, via Wikimedia Commons',
+            caption:
+              'Taylor performing on the Speak Now World Tour (Sydney SuperDome, March 2012) — the tour where "Enchanted" became a fan-favorite live moment.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {

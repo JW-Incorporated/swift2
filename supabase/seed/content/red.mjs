@@ -2751,7 +2751,23 @@ export default {
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-whips-new-york-into-a-frenzy-on-good-morning-america-48822/' },
           { outlet: 'YouTube — Paul Henry (fan archive)', url: 'https://www.youtube.com/watch?v=019k5vbbqB0' },
         ],
-        photos: [],
+        // Photo pass #762 (2026-08-17): the Oct 23 Times Square concert itself
+        // has no rehostable image on an allowlisted host (Getty/Alamy only, both
+        // watermarked comps). Wikimedia Commons' "Taylor Swift on Good Morning
+        // America (Red album launching)" category — the same GMA broadcast week
+        // — has this Paolo Villanueva shot from the Oct 22 taping the night
+        // before; curl-verified 200 image/jpeg, downloaded and vision-confirmed
+        // (Taylor in red, GMA Red-launch appearance). Caption dates it honestly.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Taylor_Swift_GMA_2012.jpg',
+            focalPoint: '63% 42%',
+            credit: 'Paolo Villanueva, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'Taylor at the "Good Morning America" studio on Oct. 22, 2012, the night before her Times Square concert marking the Red release.',
+            kind: 'reference',
+          },
+        ],
       },
     },
   ],
