@@ -1127,9 +1127,12 @@ export default {
     {
       // Cross-link (Stage 3, 2026-08-06): the "David Koma" designer cluster.
       // (2026-08-10): + the "siren red" beauty look from the same release week.
+      // Cross-link (Stage 3, 2026-08-17): + the TLOAS-era Late Night with
+      // Seth Meyers appearance, same show across eras.
       relatedIds: [
         'moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi',
         'moment:vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv',
+        'moment:vault-tloas-a-sole-guest-tay-kover-of-late-night-with-seth-meyers',
       ],
       year: 2021,
       month: 11,

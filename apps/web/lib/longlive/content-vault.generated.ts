@@ -653,7 +653,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/JLf9q36UsBk/maxresdefault.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Mud-caked and mid-pursuit — a still from the official 'Out of the Woods' video, premiered on New Year's Rockin' Eve, Dec. 31, 2015.", kind: "archival", focalPoint: "50% 42%" }],
       sources: [{ name: "Taylor Swift 'Out of the Woods' Video Premiere Will Hit New Year's Rockin' Eve", url: "https://www.billboard.com/music/pop/taylor-swift-out-of-the-woods-premiere-new-years-rockin-eve-6820708/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift to Debut 'Out of the Woods' Music Video During 'New Year's Rockin' Eve' on ABC", url: "https://abcnews.go.com/Entertainment/taylor-swift-debut-woods-music-video-years-rockin/story?id=35897285", reliability: 4, type: "reputable_press" }],
-      relatedIds: ["moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac"],
+      relatedIds: ["moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac", "moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square"],
     },
     {
       id: "vault-1989-taylor-vs-treadmill-the-apple-music-ad-that-sold-a-drake-son",
@@ -1705,7 +1705,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg", credit: "NBC", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }],
-      relatedIds: ["moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi", "moment:vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv"],
+      relatedIds: ["moment:vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi", "moment:vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv", "moment:vault-tloas-a-sole-guest-tay-kover-of-late-night-with-seth-meyers"],
       products: [{ brand: "David Koma", item: "Crystal-Embellished Cady Mini Dress", retailer: "runwaycatalog.com", url: "https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress", price: "$1,210.00", isAlternative: true, altNote: "Her exact 2021 dress isn't currently listed anywhere verifiable — this is a current David Koma crystal-embellished mini in the same signature style.", imageUrl: "https://cdn.shopify.com/s/files/1/2432/8403/files/david-koma-crystal-embellished-cady-mini-dress-runway-catalog-7123370.jpg?v=1773156012" }],
     },
     {
@@ -2493,7 +2493,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=", credit: "Bauer-Griffin/GC Images", caption: "Together in Los Angeles on Dec. 3, 2009 — weeks before the quiet breakup.", kind: "primary", focalPoint: "50% 45%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-taylor-lautner-relationship-130738009.html" }],
-      relatedIds: ["moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner", "moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center", "moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner"],
+      relatedIds: ["moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner", "moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center", "moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner", "moment:vault-fearless-today-was-a-fairytale-breaks-a-download-record-in-a-week"],
     },
     {
       id: "vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner",
@@ -2691,7 +2691,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"Today Was a Fairytale.\"", kind: "primary", focalPoint: "67% 75%" }, { url: "https://i.ytimg.com/vi/xSWVPqnKcXQ/hqdefault.jpg", credit: "Taylor Swift via YouTube (official lyric video)", caption: "The title card of the Taylor's Version lyric video, built from the single's white-dress cover shoot.", kind: "archival", focalPoint: "50% 45%" }],
       sources: [{ name: "Today Was a Fairytale", url: "https://en.wikipedia.org/wiki/Today_Was_a_Fairytale", reliability: 2, type: "wiki" }, { name: "Today Was a Fairytale by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/today-was-a-fairytale", reliability: 2, type: "wiki" }],
-      relatedIds: ["moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner"],
+      relatedIds: ["moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner", "moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner"],
     },
     {
       id: "vault-fearless-hey-stephen-addressed-to-the-opening-act",
@@ -3294,6 +3294,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg", credit: "Recording Academy, via Billboard", caption: "Accepting Album of the Year for folklore with Laura Sisk, Jack Antonoff, and Aaron Dessner — her record third win.", kind: "archival", focalPoint: "44% 18%" }, { url: "https://www.nme.com/wp-content/uploads/2021/03/taylor-swift-grammys-2021-1.jpg", credit: "Kevin Mazur/Getty Images for The Recording Academy, via NME", caption: "Holding the Album of the Year Grammy for folklore in the press room, March 14, 2021 — her third, a first for any woman.", kind: "primary", focalPoint: "57% 25%" }],
       sources: [{ name: "Taylor Swift Wins Album Of The Year For 'Folklore' | 2021 GRAMMY Awards Show", url: "https://www.grammy.com/news/taylor-swift-wins-album-year-folklore-2021-grammys/", reliability: 5, type: "awards_database" }, { name: "Taylor Swift becomes first woman to win Album of the Year Grammy 3 times", url: "https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/", reliability: 4, type: "reputable_press" }],
       milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
+      relatedIds: ["moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-"],
     },
   ],
   "lover": [
@@ -4272,6 +4273,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://www.inquirer.com/resizer/v2/WZM56FNWJVQU4MGIKUF22L3Q2Q.jpg?auth=01fbce1493c6c84b5774b263114dc5841e2f76b4491df6f62ec647e96e55ef1a&width=760&height=507&smart=true", credit: "The Philadelphia Inquirer", kind: "primary", focalPoint: "46% 30%" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/travis-kelce-dating-taylor-swift-wsj-magazine-rcna125990" }, { name: "The Philadelphia Inquirer", url: "https://www.inquirer.com/entertainment/travis-kelce-wall-street-journal-interview-taylor-swift-20231120.html" }],
+      relatedIds: ["moment:vault-midnights-travis-confirms-it-on-the-record"],
     },
     {
       id: "vault-midnights-high-low-styling-for-the-bills-game-khaite-vintage-and-mejur",
@@ -5096,7 +5098,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778", credit: "Gregory Harris/WSJ. Magazine", caption: "The WSJ. Magazine cover interview where Travis spoke to the relationship on the record.", kind: "primary", focalPoint: "55% 28%" }],
       sources: [{ name: "How Travis Kelce Manifested the Best Year of His Life", url: "https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac", reliability: 5, type: "reputable_press" }, { name: "Travis Kelce dishes on dating Taylor Swift to WSJ. Magazine", url: "https://www.today.com/popculture/travis-kelce-dating-taylor-swift-wsj-magazine-rcna125990", reliability: 4, type: "reputable_press" }, { name: "Travis Kelce talks relationship with Taylor Swift in new Wall Street Journal interview", url: "https://www.inquirer.com/entertainment/travis-kelce-wall-street-journal-interview-taylor-swift-20231120.html", reliability: 4, type: "reputable_press" }],
-      relatedIds: ["moment:vault-midnights-the-friendship-bracelet-travis-couldnt-deliver", "moment:vault-midnights-karma-is-the-guy-on-the-chiefs-sung-with-travis-watching"],
+      relatedIds: ["moment:vault-midnights-the-friendship-bracelet-travis-couldnt-deliver", "moment:vault-midnights-karma-is-the-guy-on-the-chiefs-sung-with-travis-watching", "moment:vault-midnights-travis-makes-it-official-on-the-record"],
       threadIds: ["the-proposal"],
     },
     {
@@ -5493,7 +5495,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/stylus/2673339-taylor-swift-nye-2013-617-409.jpg", credit: "Billboard", caption: "Taylor performing in Times Square earlier on New Year's Eve 2012 — not the midnight kiss photo itself, which exists only as blurred/watermarked paparazzi frames.", kind: "primary", focalPoint: "35% 32%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/news/128673_Taylor_Swift_Harry_Styles_New_Years_Eve_Kiss" }],
-      relatedIds: ["moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles"],
+      relatedIds: ["moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles", "moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve", "moment:vault-red-taking-over-times-square-on-good-morning-america-one-day-aft"],
       significance: "notable",
     },
     {
@@ -5828,6 +5830,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/019k5vbbqB0/hqdefault.jpg", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-live-reviews/taylor-swift-whips-new-york-into-a-frenzy-on-good-morning-america-48822/" }, { name: "YouTube — Paul Henry (fan archive)", url: "https://www.youtube.com/watch?v=019k5vbbqB0" }],
+      relatedIds: ["moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square"],
     },
   ],
   "reputation": [
@@ -8404,6 +8407,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/Wd7S1wZqkbI/hqdefault.jpg", kind: "primary" }, { url: "https://img.youtube.com/vi/Wd7S1wZqkbI/maxresdefault.jpg", credit: "Late Night with Seth Meyers / NBC (YouTube video thumbnail)", caption: "Seth Meyers and Taylor Swift mid-conversation on the Late Night set during her sole-guest \"TAY/kover\" episode, October 8, 2025.", kind: "reference", focalPoint: "50% 30%" }],
       sources: [{ name: "Variety", url: "https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/" }, { name: "YouTube — Late Night with Seth Meyers", url: "https://www.youtube.com/watch?v=Wd7S1wZqkbI" }],
+      relatedIds: ["moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s"],
     },
     {
       id: "vault-tloas-first-time-on-colberts-couch-with-a-docuseries-to-launch",
