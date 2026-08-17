@@ -261,6 +261,44 @@ confirm it still works and still shows up as a GitHub issue.
 
 ---
 
+### 9. [BLOCKING] Grant the Paul Blart runner read access to Dependabot alerts — ~5 min
+
+**Why it matters:** Paul Blart's whole job is "zero CVEs sitting unseen." Right
+now he **cannot see them at all.** The token the scheduled runner uses returns
+`403 Resource not accessible by integration` on every Dependabot security-alert
+endpoint, and the 403 response literally names the missing scope:
+`X-Accepted-GitHub-Permissions: vulnerability_alerts=read`. So the weekly patrol
+can review version-bump PRs but is **blind to the actual CVE feed** — a critical
+alert could be open today and no report would show it. This is the one thing that
+makes the whole desk trustworthy, and it is off.
+
+Endpoints confirmed 403 on 2026-08-17: `dependabot/alerts`,
+`vulnerability-alerts`, `automated-security-fixes`. (`code-scanning/alerts`
+returns "Code Security must be enabled" — that's the separate CodeQL toggle, see
+issue #1894, not this item.)
+
+**Steps** (whichever backs the scheduled runner's `GITHUB_TOKEN` — likely the
+GitHub App installation, since the token is proxy-injected):
+1. GitHub → the org/repo **Settings** → **GitHub Apps** (or **Integrations**) →
+   open the app the Claude Code runner authenticates as for `JW-Incorporated/swift2`.
+2. In that app's **Permissions** → **Repository permissions**, set
+   **Dependabot alerts** to **Read-only**.
+3. Save. GitHub will ask you to **approve the new permission** for the
+   installation on this repo — approve it.
+4. If the runner instead uses a fine-grained personal access token, edit that
+   token and add repository permission **Dependabot alerts: Read-only** for
+   `JW-Incorporated/swift2`.
+
+**Worked if:** next Monday's Paul Blart patrol report shows a real
+severity-ranked alert table (even "0 open alerts") instead of a
+"cannot read — permission gap" banner. Quick check any time: the runner calling
+`GET /repos/JW-Incorporated/swift2/dependabot/alerts?state=open` returns `200`
+with a JSON array, not `403`.
+
+**Status:** OPEN
+
+---
+
 ## DONE
 
 <!-- Finished items move here with a date. Numbers keep their original ID.
