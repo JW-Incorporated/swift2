@@ -77,6 +77,14 @@ about returning to pop after folklore/evermore; the original framed it purely as
 weight either way). Everything else left alone — the agent correctly refused to
 churn.
 
+**AN EXAMPLE IN A BRIEF IS NOT NEUTRAL — it becomes data.** My scoring brief's
+worked example was `willow` with `energy: 0.75`, a number I invented to show the
+SHAPE. The agent adopted it verbatim (it said so), and the dossier pass later
+caught it: critics call willow "a graceful, low-key opener… rather than
+announcing itself as a blockbuster", so 0.75 put it at parity with
+`no-body-no-crime`, an uptempo full-band murder ballad. Revised to 0.5.
+**Use a real shipped entry as the example, never an invented one.**
+
 **VERIFIED, and it is good news: NO authored prose is being dropped.**
 `sync-longlive-tracks.mjs:83` nulls a hand-written `discussion` that lacks
 `discussionSources`, and this repo has a history of the vault writer silently
@@ -594,11 +602,25 @@ did not start.
 
 ## Next obvious step
 
-0. **DONE — PR #2192 open, awaiting Joey.** Two things in it need HIS call, not
-   another agent's: the 82 `oneLiner`s (user-facing copy in his product's
-   voice — the 12 Showgirl ones are quoted in the PR body, the rest are in the
-   diff; rewording is a seed edit + `npm run sync:content`), and the widened
-   spec test above, which he may reasonably want reverted.
+0. **IN FLIGHT: 3 revision agents** (`ttpd`, `evermore`, `tloas`) re-reading
+   their songs WITH `dossier`, revising only where it changes the reading.
+   `midnights` already returned — 1 song revised of 22. When all land:
+   (a) `npm run sync:content` ONCE; (b) re-run the spread check per era and
+   confirm nothing collapsed; (c) re-run the matcher reachability probe;
+   (d) full suite + typecheck; (e) push to #2192 and update its body.
+   **`tloas` matters most — `father-figure` was scored from theme labels while
+   three rich paragraphs sat unread.**
+1. **Then: `i-look-in-peoples-windows` is the ONLY song of the five that
+   genuinely needs new prose** (1.2KB, no dossier). Research is done and sits in
+   this session's agent reports — a real `discussion` + `discussionSources` in
+   `supabase/seed/tracks/tortured-poets.mjs`. Watch the writer credits: a
+   sheet-music source lists Dessner, Wikipedia + Rolling Stone say Antonoff and
+   Berger — **the latter wins.** No Swift statement about this song exists.
+2. **Raised with Joey, awaiting his call:** whether to expand the four
+   already-rich songs anyway. I argued against — adding words to solid entries
+   is not adding knowledge — but the research is done if he disagrees.
+3. **Still HIS on #2192:** the 82 `oneLiner`s (user-facing copy in his voice;
+   12 Showgirl ones quoted in the PR body) and the widened spec test.
 1. **Three open PRs, oldest first: #2191** (docs — mark the mood fix shipped),
    **#2192** (this). Both need Joey; neither is urgent.
 2. **Weakest part of #2192, stated plainly:** five songs had thin source notes
