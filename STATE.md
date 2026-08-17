@@ -625,8 +625,12 @@ did not start.
 2. **Raised with Joey, awaiting his call:** whether to expand the four
    already-rich songs anyway. I argued against — adding words to solid entries
    is not adding knowledge — but the research is done if he disagrees.
-3. **Still HIS on #2192:** the 82 `oneLiner`s (user-facing copy in his voice;
-   12 Showgirl ones quoted in the PR body) and the widened spec test.
+3. **The 82 `oneLiner`s are now TRACKED IN ISSUE #2193** (Joey: "we'll fix those
+   later") — deliberately NOT blocking #2192. Every line is inside the redlines;
+   this is a voice/polish pass. The issue carries the 12 Showgirl lines, the
+   four seed paths, and the edit → `sync:content` → commit-both loop.
+   **Do not re-raise it as a blocker.**
+4. **Still HIS on #2192:** only the widened `mood-match` spec test now.
 1. **Three open PRs, oldest first: #2191** (docs — mark the mood fix shipped),
    **#2192** (this). Both need Joey; neither is urgent.
 2. **Weakest part of #2192, stated plainly:** five songs had thin source notes
