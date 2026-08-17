@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 76
+
+## Taylor Swift Shows Off New Haircut at Star-Studded Wedding with Sabrina Carpenter, Jack Antonoff - E
+
+- first seen: 2026-08-17 02:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Shows Off New Haircut at Star-Studded Wedding with Sabrina Carpenter, Jack Antonoff  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMimAFBVV95cUxNR0hzTjgxcG56NEtyVGg4UjZqQy1sYlppVmdkX0xYR290dTJGZkVFTzdYdmtieGZIQ3pRS09BMjluX0daTy1YQnNPQlR1ZGNRNVFpbEtOMExZcTJxLU92S1ZvQ09naFJzNmwwamZVbWx6Nmxvb2NyUjFhZzRCMkc4UUQ4VklxaVpuTHBuQWVaM1NEVmdwcGh5cQ?oc=5
+
+## Taylor Swift and Travis Kelce flash wedding rings while thousands of miles apart - Yahoo Lifestyle C
+
+- first seen: 2026-08-17 02:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce flash wedding rings while thousands of miles apart  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTE9GRFJNU1JHbVRjZV9DUXcyT2xLMkNFVmFrbnlUUk9GUE9vcmJSLUhJX0FGdlNCM0hGRzdGWDZuV0FjZkZadGlEU295Q2M0NG5wamFQZ3l6VlljaXZRd0lqczM3ajQwTmxLQnFrQ01SeG1CWUFfVnhTa290ek5JUQ?oc=5
+
+## Travis Kelce’s Chunky Gold Wedding Ring Was the Star of His Preseason Game - harpersbazaar.com
+
+- first seen: 2026-08-17 02:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce’s Chunky Gold Wedding Ring Was the Star of His Preseason Game  harpersbazaar.com
+- sources:
+  - [unverified] harpersbazaar.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxQdmZUTnZaMk41Z282TFJRM0paemtyQ3VJZXppY2hxbzhxYUxTR0lqUjdkcWNzbmJqX3JVeG1XTFhOVG9YckhiUno1TmJUZHJ0QkFJVm1oUkxnNDhGT1c4dE1UNlVfYy1EOVFUOGxLVHN6MlRja2VJS2hRYzJSZzd5ZEJaY3Rya0RjaWE2MjFqeWZ3Tm13Z0NiVi1Qd3NRZU9IMlVZY2JEVGpjYUhYSWdQd1ZnMDI5TzF1bGRzeTQ5Z0pUX1BIMnc?oc=5
+
+## Taylor Swift Debuts Super-Short Haircut at Laura Sisk, Oli Jacobs’s Wedding - instyle.com
+
+- first seen: 2026-08-17 02:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Debuts Super-Short Haircut at Laura Sisk, Oli Jacobs’s Wedding  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxNbHNxQlZvcjAwTDNBR2wyWWk3b3J6VjhfeUsyeENwSm5aQ09iLWNxYUtwMXhUeVRSd09tdzBRbzk2Y2lPc0JHR2FJNnkzbzRRXzZyTlV1T0xZVWpuUndrYld5eEFvSFZXbEc5cGVIZnJRTlA1Qy1QUEhQbF9UbmJwcGdNTWIwaEJIZkxWZUdQT0E0RkVjTVZORFNGZm11SkxoVlhZZDdB?oc=5
+
+## Taylor Swift Wows in Tulle Wedding Guest Dress and 10-Carat Diamond Ring - instyle.com
+
+- first seen: 2026-08-17 02:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Wows in Tulle Wedding Guest Dress and 10-Carat Diamond Ring  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPcVRiQ3kwVDNIU0tMdW5zRVhCd0E2RDhMRndhbC1xbWZNOHU1UnlNM0lMVzdEOEgyRXV1TnlFZlpIcHdpTWlHQjY0RnVzX01NQV9HR3MwV25ZUzdTVDgyWkVPX0lHQm9lNDZZclNPOWE0UlFKdkJKX2VJQU5NQzJSVTljeXZrakFrZVdySUJDME53bXd2T0UzTl92S004aUIzZ21aY2dCUEM?oc=5
 
 ## Taylor Swift Flaunts New Haircut, Wedding Ring Stack at Pals Oli Jacobs and Laura Sisk’s Nuptials - 
 
@@ -605,67 +645,3 @@ Taylor Swift takes a quieter approach to Trump using her music on social media 
   - [unverified] Central Oregon Daily — https://news.google.com/rss/articles/CBMihwJBVV95cUxOcEpjeGRsVWlabGpMR0JfT1hWTGw2WUxTQU9RaE9NZWxVcG9LNkw2RHcxbUlMVHpGaEZmY2hoT2htMWtFMFg2Q2hvbjR4MHp5TUFGRzlQVktwX2FTYUtKdEgybGlsTi1CMjN2WDBod253MW1FekJQNUlVQzlSR3FlSFdrZkQwWDJOcVYzWnFUYWRsQVhYMlZnVFJDbU1mUkdZVmZvLVo1SmZweXhLc3ZodVhCVWxMdzd5THdFazJDQzFTM0xmVi1WYWFFb3NCdXNxZ2RCU2pjaXVsZzdHWkV3c2NNYUlCT0dPR3FTZEFkM19Cb0dfdmEtSDFsbnFBZTFHRUxMTm1Gdw?oc=5
   - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOd0JKNUx5Q1hpS0loR0RJcGRISXR0Z2hfLUVzYWV0elFxdHZkenhEYUR6a01qTUxPZEFPVHNsVXBLNkl1S1hkYWhtUjZxTjMtV3FoMmdRREpZYUJOSVdudlVtTEk2ajRhVmphdHU4aG10QV9mWnZVaHNqN1pkMWVVWVRLejVvcktLakw3UDVkOEM3UHNKa0dnS19kTUJLV3AtcUs0RjgzNTFaN1lrYTZyUm54TENiMkh1b1VYM0JhOGY2elQ3UUdjLUZMU1VzOHNU?oc=5
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMizwFBVV95cUxNTWUtaDdxaDNHNmpHNldwM3c2X2k0Vmh3b2pWcDFGemR0SXdfSUtnanlfQ2JNSF81d3Q5Nk9hVGhCTnVkNUpXaWZCTmVPcDl5ODVYbzRMNkYzOUVQQlVaZlhvd2psb0YyTjh3UlNrN1ZnT1M5UVh2Vk1DQlE0MGhYSzhvbW1ONl9neVlOOFd2YXRmYWVrWktDM1hVQWVCalpkYng0enIxV2JVSUlxb011a3JabFVUNjBrWWVxd3lyTUM2Tk81RXo5MXExUmRLUE0?oc=5
-
-## Taylor Swift Debuts Chic Haircut in First Outing Since Travis Kelce Wedding - E! News
-
-- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Debuts Chic Haircut in First Outing Since Travis Kelce Wedding  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMimwFBVV95cUxQUGxObzFNYjc1N1FWZ2JpTjVmRTFkNXJtdWlRRW9hVlZFaGxZcGEwQ0g1LV9uTlhJTklFX0t2UUtUSm4ySzUtZTEwQlBDa2p3TXVDWGx1bGtCQnVBdTlSSU1jTzNlam1rWEZaN1l3Xy1YQXQ5UWZjVmVzTWMxLVZPMkcxRmlRNWhLblVGXzRENUp2VHFPMXJjaE1taw?oc=5
-
-## Taylor Swift music pulled from TikTok videos shared by Trump team - NJ.com
-
-- first seen: 2026-08-13 21:58 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift music pulled from TikTok videos shared by Trump team  NJ.com
-- sources:
-  - [unverified] NJ.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQk9fNVNWXzJydXI4QlpPdTUwcVVTbGU4MXAtM3laMjMxdlNTT1hPWmdpTllSN1MtNDRkT2cyMlViRjBnejhEQkhmQm5rZzlCeE9xRnpENVJTYWZtT2lLdXN2WnU2Uk5qSmpRT3k3dDUxWkpUdm5ObF95TXE3Wk1pVk9rY2huRFA3eXJjQlZaYkxlaG1KRElKdV9VNmhqR2xQSTVmMWlJRVhnSlnSAb8BQVVfeXFMT1FHS2xLZm1SOVJBWHhyZXNRYkE2MEx1VXhiUXRvdlhxUkpoNV9lbHY3NUlqUDBSUzlzYWlUQ0RvS2tUaWFmNkhBZk1fRTdDWHpvQ3kxR2wzZTRGSkpXTi1aNHdiXzJnZjM0YmNoMU5ScGszMkZaYVlOeWFOVHZBNmdjWjNNQlJQVzJub2h3VUVqM2JVcXpiUDNmQjVjMjFkZEVmZjg2VUNkSFhvTFh6azE0LTlPVk0wTXRDX2FORU0?oc=5
-
-## Taylor Swift Debuts Dramatic Hair Change One Month After Her Wedding to Travis Kelce - instyle.com
-
-- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Debuts Dramatic Hair Change One Month After Her Wedding to Travis Kelce  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQUndlMllvLXNFYjlpMVBSX0toRGdxTTNUbkl5Sm42aGMtSENTVTdiWWlGWE42ZEdjWGxiNFNvUDhySm1teGo4UzBnNHphTEc1TU5TR3VhZUczc2hFWmFTY1NtdEtwTF9vaDVMZ0hid1ZQcG9VMlBYSUNoV3RBV25HaExlTTd4YkhNbUdNUlJsTWhVTU1vaGlSSE0xaEpqZDBnRzFKbGJTUDdVdzA4cnJxc0ZmNkFRYk11ZUFtUjVldzRyeldPREU2cg?oc=5
-
-## Taylor Swift tickets part of lavish lifestyle funded by Scottsdale man’s $10.7M theft - KTAR News 92
-
-- first seen: 2026-08-13 21:58 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift tickets part of lavish lifestyle funded by Scottsdale man’s $10.7M theft  KTAR News 92.3 FM
-- sources:
-  - [unverified] KTAR News 92.3 FM — https://news.google.com/rss/articles/CBMigAFBVV95cUxOMkMxMGI0cVUyYTlmeUF1ZjNuRlJ0cEUtc1IzM3pQQjEweE0wcVVvWEhsSFJUdXN5MjNLeVRLWWp2eUg3RkRPV3dpMk1vNVhJRXRNQ3NXanl2LVJ0VGJ0RGNzNDh4RW10Y0E4LUJLSkFKVzBFeVBDUXQxQUV3WGE1OA?oc=5
-
-## Taylor Swift Debuts Post-Wedding Makeover After Reports of a ‘Big Change’ in Her & Travis Kelce’s Ma
-
-- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Debuts Post-Wedding Makeover After Reports of a ‘Big Change’ in Her & Travis Kelce’s Marriage  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPOC1hdGVGeWpwaHhISGhVellfUHFUc1VyZnQ4aENWcVJteUFvcnczNTFzSkk0Zm5NOEhRVlNkbl85NXU4ZGhQNnlSX0JvYXZfc29yaVNUWDdRUFpzMHB4dmF6b2ZTV3JtZExrLUgySkNNY2lRSktPdGhTUmtYd2FUVFlCRnI1V2RNZmJVX2NUUkhja0xsSzVJb0VLYS1uZ2tHS3lpVg?oc=5
-
-## Taylor Swift Spotted Out in London in First Solo Outing Since Wedding to Travis Kelce - People.com
-
-- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Spotted Out in London in First Solo Outing Since Wedding to Travis Kelce  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxOSzdjSjlhQjV4RGtlMFp1Vk85WlFaN0lKcTdtZGVza1B2b1phT0d5T3lralpJNjZUVE9XVlpscnBCamJRYTdoSFhPZG1pWjFSbWV3Z2lqSHFTYTZ6bzBSRG9IVFMxN2Y5T0owcnFBQ081Z3FXTmEwdjc5Mzg0a1pKX0E4bkMycURjY21UM0paSWRmS1BNS1RV?oc=5
-
-## In pictures: Stars and fans celebrate Taylor Swift and Travis Kelce's wedding - BBC
-
-- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In pictures: Stars and fans celebrate Taylor Swift and Travis Kelce's wedding  BBC
-- sources:
-  - [unverified] BBC — https://news.google.com/rss/articles/CBMiXEFVX3lxTE40S3dKdy1qZHRYWU1nbkRHNER1MHFUM21hX1FQbnRycXEyd0IwcUFKSVh6OEw3QmhUUjJtSU5tRFJBaHcxU1VQZ3VtMWZVRTRjZHFrdFoxZFVfQUpN?oc=5
-
-## Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress - Marie Claire
-
-- first seen: 2026-08-13 21:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Newlywed Taylor Swift Trades Wedding Whites for a Little Lavender Dress  Marie Claire
-- sources:
-  - [unverified] Marie Claire — https://news.google.com/rss/articles/CBMimgFBVV95cUxNYmVfZE03RGpuX0JzZ0Y4eEdIdktTdHhidmIxal9PbHFoN0kzYmZPbUdnQ2l6RkZOUEMzTThrczlwbmxsYWhfUXlVOGFlLVJya2s4U1ZTTVpCY1dnam9hd1N3N1NpejFGM3ZHMkNSMmRwNTFWc012VEpvQnBlUDdVbjIxei1BRktNMWdkWTVKLWgxTTR5S3JJMGpn?oc=5
