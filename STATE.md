@@ -5,10 +5,46 @@
 
 ## Current focus
 
-**MOOD BOT OVER-REFUSAL (2026-08-16).** Joey: a reader typed "im drunk" and got
-Block 6. `PLAN.md` is the contract. Branch `fix/mood-over-refusal`, built in a
-worktree at `Temp/claude-worktrees/fix-mood-over-refusal` — the guard refused
-the shared checkout because **a second session was live on `main` in it**.
+**SCORING THE 82 UNSCORED SONGS (2026-08-17).** `PLAN.md` is the contract.
+Branch `feature/score-remaining-songs`, in the worktree at
+`Temp/claude-worktrees/fix-mood-over-refusal`.
+
+Four agents authoring in parallel, one era each, one NEW seed file each so
+nothing collides: `evermore` (17), `midnights` (22), `ttpd` (31), `tloas` (12).
+**All four calibrate against the SAME three real shipped entries**
+(`i-knew-you-were-trouble`, `22`, `state-of-grace`) — independent scorers drift,
+and because the matcher ranks by these numbers, drift between eras would let one
+era systematically out-compete another for no musical reason.
+**No agent runs the generator**; four writers on `song-moods.generated.ts` would
+race. I run `npm run sync:content` once at the end.
+
+**Verified so far — 3 of 4 landed, calibration anchoring WORKED.** A spread
+check (per-axis min/max/mean + near-identical vector detection) shows no era
+collapsed to mid-scale, which was the real risk: a seed can be schema-valid and
+still useless if every song scores alike, because the matcher ranks by these
+numbers. Tightest axis spreads: evermore 0.40, tloas 0.38, midnights 0.53.
+`anger` is narrowest everywhere — correct, not lazy; none of these are angry
+records. **Schema validity is NOT the bar. Check spread.**
+
+Near-identical pairs, judged acceptable: `tis-the-damn-season`~`dorothea` (same
+character, faithful), `wish-list`~`honey` (L1=0.20 — closest pair; they will
+surface together rather than compete, a quality nit not a defect).
+
+All three agents flagged CONTESTED readings instead of silently picking a side
+(`ivy`'s Dickinson angle, `bigger-than-the-whole-sky`'s unnamed subject,
+`actually-romantic`'s disputed target) and scored from what the site actually
+states. **Keep that rule: the catalogue must not assert what the site marks
+unconfirmed.**
+
+**Joey's correction that started this, worth keeping:** I filed it as needing
+his sign-off; he said *"why not assign them a mood score? Read what they are
+about and figure it out."* Right — every song already carries the site's own
+researched prose, so this is reading comprehension against a fixed schema.
+**Don't bounce derivable content back to him as a question.**
+
+**Previous focus — MOOD BOT OVER-REFUSAL — SHIPPED, MERGED, VERIFIED LIVE.**
+PR **#2184** → `8a0eb73a`. Production confirmed: `"im drunk"` → songs, self-harm
+case → crisis resources. Docs follow-up in PR **#2191** (open).
 
 **THE REFUSAL IS NOT A BLOCKLIST.** Grepped: no alcohol/intoxication term exists
 in `mood-safety.ts` or `mood-keywords.ts`. Two independent causes, one per path:
@@ -460,6 +496,18 @@ did not start.
       ever matters.
 
 ## Next obvious step
+
+0. **CURRENT: the four era-scoring agents.** When they land — (a) run
+   `npm run sync:content` ONCE, then `npm run check:generated`; (b) **verify by
+   EXECUTION, not by reading their score tables**: call `matchMoods` directly
+   and confirm a `tloas` song actually surfaces for a plausible mood, and that
+   the scored count goes 162 → 244; (c) sanity-check score SPREAD per era — if
+   an era's songs all sit near 0.5, or all of `ttpd` sits at heartbreak 0.9,
+   the matcher cannot rank them and that agent's work needs redoing; (d) full
+   suite + typecheck, then PR. **Joey merges.**
+1. **Offer Joey the 82 `oneLiner`s before they go live** — that is user-facing
+   copy in his product's voice, under every song card. Following the no-lyrics
+   redline is my job; approving the voice is his.
 
 Steps 1-3 (implement, live battery, cache measurement) are DONE and verified
 above. Remaining:

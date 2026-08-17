@@ -1,0 +1,192 @@
+export default {
+  eraSlug: 'evermore',
+  songs: [
+    {
+      slug: 'willow',
+      moods: {
+        heartbreak: 0.2, anger: 0.05, nostalgia: 0.4, joy: 0.5,
+        calm: 0.15, defiance: 0.4, longing: 0.55, catharsis: 0.7,
+      },
+      energy: 0.75,
+      valence: 0.6,
+      useCase: ['wanting someone like a spell', 'a pull you follow anyway'],
+      oneLiner: 'Devotion bent like the tree it is named for.',
+    },
+    {
+      slug: 'champagne-problems',
+      moods: {
+        heartbreak: 0.75, anger: 0.1, nostalgia: 0.35, joy: 0.05,
+        calm: 0.15, defiance: 0.1, longing: 0.4, catharsis: 0.65,
+      },
+      energy: 0.35,
+      valence: 0.15,
+      useCase: ["turning down a proposal you can't explain", 'the party that becomes the wreckage', "self-blame you can't shake"],
+      oneLiner: 'A ring declined in front of everyone, narrated by the woman blaming herself for it.',
+    },
+    {
+      slug: 'gold-rush',
+      moods: {
+        heartbreak: 0.1, anger: 0.15, nostalgia: 0.05, joy: 0.35,
+        calm: 0.1, defiance: 0.05, longing: 0.6, catharsis: 0.2,
+      },
+      energy: 0.45,
+      valence: 0.45,
+      useCase: ['crushing on someone everyone wants', 'a daydream that talks itself out of it', 'jealousy before anything even happens'],
+      oneLiner: 'A whole daydream romance starts and ends in her head before she ever risks it.',
+    },
+    {
+      slug: 'tis-the-damn-season',
+      moods: {
+        heartbreak: 0.25, anger: 0.02, nostalgia: 0.65, joy: 0.4,
+        calm: 0.3, defiance: 0.05, longing: 0.5, catharsis: 0.25,
+      },
+      energy: 0.4,
+      valence: 0.5,
+      useCase: ['a holiday fling with an old flame', 'home for christmas and tempted to stay', 'the road not taken looking warm'],
+      oneLiner: 'An old flame gets one honest weekend home for the holidays, no strings attached.',
+    },
+    {
+      slug: 'tolerate-it',
+      moods: {
+        heartbreak: 0.6, anger: 0.25, nostalgia: 0.1, joy: 0.05,
+        calm: 0.1, defiance: 0.35, longing: 0.5, catharsis: 0.6,
+      },
+      energy: 0.4,
+      valence: 0.15,
+      useCase: ['loving someone who merely permits it', 'devotion that goes unnoticed', 'quiet rebellion finally surfacing'],
+      oneLiner: 'A wife performs devotion for a husband who only tolerates it, until the quiet turns to rebellion.',
+    },
+    {
+      slug: 'no-body-no-crime',
+      moods: {
+        heartbreak: 0.2, anger: 0.5, nostalgia: 0.02, joy: 0.15,
+        calm: 0.05, defiance: 0.7, longing: 0.05, catharsis: 0.75,
+      },
+      energy: 0.75,
+      valence: 0.35,
+      useCase: ['revenge fantasy with your friends', "a cheating husband getting what's coming", 'armed female solidarity'],
+      oneLiner: 'A cheating husband, a vanished friend, and a narrator with an alibi and a boating license.',
+    },
+    {
+      slug: 'happiness',
+      moods: {
+        heartbreak: 0.45, anger: 0.15, nostalgia: 0.45, joy: 0.3,
+        calm: 0.35, defiance: 0.1, longing: 0.4, catharsis: 0.4,
+      },
+      energy: 0.25,
+      valence: 0.4,
+      useCase: ['grieving a breakup without vilifying anyone', "standing between what was and what's next", 'refusing to rewrite the good years'],
+      oneLiner: 'A divorce song written from the exact middle of grief, where both truths still hold.',
+    },
+    {
+      slug: 'dorothea',
+      moods: {
+        heartbreak: 0.2, anger: 0.02, nostalgia: 0.6, joy: 0.4,
+        calm: 0.45, defiance: 0.02, longing: 0.45, catharsis: 0.2,
+      },
+      energy: 0.35,
+      valence: 0.55,
+      useCase: ['watching an old love become famous', 'keeping the door open without bitterness', 'a hometown porch light left on'],
+      oneLiner: 'A townie watches his high-school love go famous and promises the door stays open anyway.',
+    },
+    {
+      slug: 'coney-island',
+      moods: {
+        heartbreak: 0.55, anger: 0.15, nostalgia: 0.5, joy: 0.1,
+        calm: 0.25, defiance: 0.05, longing: 0.45, catharsis: 0.3,
+      },
+      energy: 0.3,
+      valence: 0.25,
+      useCase: ['mutual neglect finally named', 'auditing every missed anniversary', 'apologies traded on a boardwalk bench'],
+      oneLiner: 'Two exes trade apologies on a boardwalk, each wondering when they became understudy.',
+    },
+    {
+      slug: 'ivy',
+      moods: {
+        heartbreak: 0.2, anger: 0.05, nostalgia: 0.1, joy: 0.45,
+        calm: 0.15, defiance: 0.5, longing: 0.65, catharsis: 0.45,
+      },
+      energy: 0.4,
+      valence: 0.5,
+      useCase: ['a forbidden love you accept cheerfully', "someone else's vines taking over your house", 'choosing ruin because it feels alive'],
+      oneLiner: "A married woman's affair told in garden metaphors, doom accepted cheerfully in the bridge.",
+    },
+    {
+      slug: 'cowboy-like-me',
+      moods: {
+        heartbreak: 0.15, anger: 0.05, nostalgia: 0.15, joy: 0.4,
+        calm: 0.2, defiance: 0.35, longing: 0.5, catharsis: 0.35,
+      },
+      energy: 0.35,
+      valence: 0.5,
+      useCase: ["falling for someone who's playing the same game", 'the one rule you never meant to break', 'kindred con artists gone soft'],
+      oneLiner: 'Two grifters who never feel anything recognize each other, and break the only rule they had.',
+    },
+    {
+      slug: 'long-story-short',
+      moods: {
+        heartbreak: 0.15, anger: 0.1, nostalgia: 0.35, joy: 0.55,
+        calm: 0.35, defiance: 0.4, longing: 0.1, catharsis: 0.6,
+      },
+      energy: 0.55,
+      valence: 0.65,
+      useCase: ['surviving public pile-on and laughing about it', 'hindsight advice to your past self', 'the bad years compressed into a happy ending'],
+      oneLiner: 'The pile-on years fast-forwarded into a montage that ends, against the odds, happily.',
+    },
+    {
+      slug: 'marjorie',
+      moods: {
+        heartbreak: 0.55, anger: 0.05, nostalgia: 0.75, joy: 0.15,
+        calm: 0.35, defiance: 0.05, longing: 0.55, catharsis: 0.5,
+      },
+      energy: 0.2,
+      valence: 0.3,
+      useCase: ["grieving a grandparent you wish you'd asked more", 'inherited advice that outlives someone', 'hearing a lost voice sing again'],
+      oneLiner: 'Grief for a grandmother braided with inherited advice and her own archival voice singing back.',
+    },
+    {
+      slug: 'closure',
+      moods: {
+        heartbreak: 0.15, anger: 0.35, nostalgia: 0.05, joy: 0.05,
+        calm: 0.2, defiance: 0.6, longing: 0.05, catharsis: 0.45,
+      },
+      energy: 0.45,
+      valence: 0.35,
+      useCase: ["declining someone else's idea of closure", 'setting a boundary instead of accepting an apology', "peace that doesn't need his ceremony"],
+      oneLiner: 'An old adversary offers tidy closure, and she declines the paperwork on her own peace.',
+    },
+    {
+      slug: 'evermore',
+      moods: {
+        heartbreak: 0.5, anger: 0.1, nostalgia: 0.35, joy: 0.25,
+        calm: 0.25, defiance: 0.15, longing: 0.3, catharsis: 0.75,
+      },
+      energy: 0.4,
+      valence: 0.35,
+      useCase: ['hitting the floor of depression and finding a way out', "assuming the pain is permanent, then it isn't", 'the storm before the thaw'],
+      oneLiner: "A November spent assuming the pain is permanent, until a tempo change proves it isn't.",
+    },
+    {
+      slug: 'right-where-you-left-me',
+      moods: {
+        heartbreak: 0.8, anger: 0.1, nostalgia: 0.5, joy: 0.05,
+        calm: 0.1, defiance: 0.05, longing: 0.65, catharsis: 0.15,
+      },
+      energy: 0.3,
+      valence: 0.1,
+      useCase: ['being stuck at the exact moment your heart broke', "everyone else's life moving on without you", 'frozen in time at the table it happened'],
+      oneLiner: 'A breakup so total she fossilizes at the table, twenty-three forever while the world moves on.',
+    },
+    {
+      slug: 'its-time-to-go',
+      moods: {
+        heartbreak: 0.35, anger: 0.15, nostalgia: 0.15, joy: 0.35,
+        calm: 0.35, defiance: 0.55, longing: 0.15, catharsis: 0.55,
+      },
+      energy: 0.35,
+      valence: 0.5,
+      useCase: ['knowing when leaving is the brave option', 'trusting your gut over sunk cost', 'starting over as the actual win'],
+      oneLiner: 'Three case studies in walking away, arguing that knowing when to leave is its own kind of winning.',
+    },
+  ],
+};

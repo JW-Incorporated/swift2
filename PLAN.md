@@ -1,141 +1,89 @@
-# PLAN.md — Mood bot: stop over-refusing intoxication and blunt moods
+# PLAN.md — Score the 82 unscored songs
 
-Branch: `fix/mood-over-refusal` off up-to-date `main`.
+Branch: `feature/score-remaining-songs` off merged `main`.
 
-## The bug, precisely
+## Why
 
-`POST /api/mood` with "im drunk" returns `kind:'refusal'` (Block 6,
-`REFUSAL_MESSAGE`). Traced to two independent causes, one per path:
+162 of 244 songs carry mood scores. The other 82 carry only `slug/title/eraId/
+youtubeId`, so the matcher can never surface them. **All of `tloas` is unscored
+— no Life of a Showgirl song can reach any reader today.**
 
-- **Model path (production, key present).** `route.ts:222` returns Block 6 when
-  and only when the model sets `out_of_scope:true`. The classifier prompt
-  (`mood-client.ts:67-95`) tells the model to set that flag for "a message that
-  is plainly not about a feeling at all". "im drunk" is a physical/emotional
-  state with no listed axis, so the model reads it as not-a-feeling. **There is
-  no blocklist entry for alcohol anywhere** — this is live model judgment.
-- **Degraded path (no key — the documented local/preview state).**
-  `keywordQuery("im drunk")` hits zero axis keywords and zero idiom seeds →
-  empty vector → `hasSignal()` false → `kind:'unclear'` (`route.ts:239`). Not a
-  refusal, but it reads as one to a user.
+Joey's ruling (2026-08-17), after I wrongly filed this as needing his sign-off:
+*"Why not assign them a mood score? Read what they are about and figure it
+out."* Every song already carries the site's own researched prose. Deriving the
+axes from it is reading comprehension against a fixed schema — work, not a
+product decision.
 
-Both must be fixed or the bug survives in one environment.
+## The gap, by era (none of these four has a seed file yet)
 
-## Architecture — read before touching anything
+| Era | Unscored | New seed file |
+|---|---|---|
+| `evermore` | 17 | `supabase/seed/song-moods/evermore.mjs` |
+| `midnights` | 22 | `supabase/seed/song-moods/midnights.mjs` |
+| `ttpd` | 31 | `supabase/seed/song-moods/ttpd.mjs` |
+| `tloas` | 12 | `supabase/seed/song-moods/tloas.mjs` |
 
-The model is a **classifier, not a writer**. One model call
-(`mood-client.ts:167`, via `classifyMood`, called once at `route.ts:200`). It
-emits 8 mood axes + `crisis` + `out_of_scope` through a **forced tool call**
-(`tool_choice: {type:'tool', name:'record_mood'}`) and is instructed "Do not add
-prose." Song selection is deterministic TypeScript (`mood-match.ts`) over
-precomputed vectors (`song-moods.generated.ts`). The sentence under each song is
-`pick.oneLiner`, precomputed catalogue prose rendered into a React card
-(`MoodSongCard.tsx:31`). The model's text never reaches the DOM.
+The other eight eras are fully scored. **One agent per era, one new file each —
+zero file contention, so all four run in parallel.**
 
-**Consequences that override parts of the original brief:**
+## The authoring contract (binding, enforced by the generator)
 
-- No catalog goes in the prompt. Selection cannot hallucinate a track — it is
-  array access over 244 real records. Do not rebuild this as catalog-in-prompt.
-- No output format to specify. The tool schema is the format.
-- No bot "voice" to write. User-facing copy lives in `mood-safety.ts`.
-- `temperature` is not set and must not be: (a) `claude-sonnet-5` rejects
-  non-default sampling params with a 400, and (b) variety in a classifier makes
-  recommendations jitter for identical input. Determinism is correct here.
+```js
+export default {
+  eraSlug: 'evermore',
+  songs: [
+    {
+      slug: 'willow',
+      moods: {
+        heartbreak: 0.2, anger: 0.05, nostalgia: 0.4, joy: 0.5,
+        calm: 0.15, defiance: 0.4, longing: 0.55, catharsis: 0.7,
+      },
+      energy: 0.75,
+      valence: 0.6,
+      useCase: ['wanting someone like a spell', 'a pull you follow anyway'],
+      oneLiner: 'Devotion bent like the tree it is named for.',
+    },
+  ],
+};
+```
 
-## Files touched
-
-| File | Change |
-|---|---|
-| `apps/web/lib/longlive/mood-prompt.ts` | **NEW.** `SYSTEM_PROMPT` moved out of code, with the permissiveness section rewritten |
-| `apps/web/lib/longlive/mood-client.ts` | Import the prompt; correct the stale `cache_control` comment |
-| `apps/web/lib/longlive/mood-keywords.ts` | Add intoxication / party / blunt-state vocabulary so the degraded path yields a vector |
-| `apps/web/lib/longlive/mood-battery.ts` | **NEW.** The 10 acceptance cases as data, with expected `kind` |
-| `apps/web/app/api/mood/route.test.ts` | Assert the battery on the key-free path |
-| `scripts/check-mood-battery.mjs` | **NEW.** Runs the battery against the live route; prints a transcript |
-| `MOODBOT.md` | **NEW.** How to add songs and re-score moods |
-
-Nothing under `clown-*`. Confirmed zero shared imports — a mood-only change
-cannot reach Clownbot except by editing the wrong file by mistake.
+- **All 8 axes required**, every one present, `0..1`, 2 decimals. An axis with
+  no presence gets a low score (0.02–0.05), not omission.
+- `energy` (0 still .. 1 driving) and `valence` (0 sad .. 1 happy) required.
+- `useCase`: 1–6 phrases, **≤60 chars each**, noun/gerund phrases.
+- `oneLiner`: required, **≤160 chars**, one sentence.
+- **NO LYRICS, EVER.** `oneLiner` and `useCase` are ORIGINAL prose. The
+  generator rejects any internal line break (`looksLikeLyric`) and the redlines
+  file a P0. This is the hardest rule in the repo's content layer.
+- **Score from the track's EXISTING researched `note` / `discussion` /
+  `facts.themes` in `tracks.generated.ts` — never invent a fact about a song to
+  justify an axis.**
 
 ## Steps
 
-**1. Branch.** `git checkout main && git pull --ff-only && git checkout -b fix/mood-over-refusal`
-*Verify:* `git rev-parse --abbrev-ref HEAD` prints `fix/mood-over-refusal`.
+**1.** Four parallel agents, one era each, creating one seed file each.
+*Verify:* each file parses and self-checks its own constraints.
 
-**2. Extract the prompt verbatim** into `mood-prompt.ts`; `mood-client.ts`
-imports it. No wording change in this step.
-*Verify:* `npm test --workspace=@swift2/web -- mood` passes unchanged.
+**2. I run the generator ONCE, after all four land** — `npm run sync:content`.
+Agents must NOT run it: four processes writing `song-moods.generated.ts`
+concurrently would race.
+*Verify:* `npm run check:generated` clean.
 
-**3. Rewrite the `out_of_scope` section.** Keep the `crisis` section as-is — it
-is already narrow, well-reasoned, and clinically grounded (`mood-safety.ts:92+`).
-The change is to `out_of_scope` only:
-- Being drunk, hungover, high, wired, exhausted, sick with nerves is a **state
-  description** and always scores.
-- Partying, exes, revenge fantasies, pettiness, messy choices, profanity, being
-  fired, crying in a car — all in scope. Half the catalogue is about these.
-- Never set `out_of_scope` because a mood is negative, unhealthy, or unflattering.
-- Reserve `out_of_scope` for: an actual request for medical/legal/financial
-  advice, or a message with no readable feeling (a factual question, a coding
-  request, an instruction aimed at the bot itself).
-- When unsure, `out_of_scope:false` and score what is there. Never refuse for
-  ambiguity — that is what `UNCLEAR_MESSAGE` is for.
-*Verify:* step 6.
+**3. Verify by EXECUTION against the real matcher**, not by reading scores.
+Confirm a Showgirl song actually surfaces for a plausible mood, and that the
+scored count goes 162 → 244.
+*Verify:* a probe calling `matchMoods` directly.
 
-**4. Add degraded-path vocabulary** to `mood-keywords.ts`: `drunk, tipsy,
-buzzed, wasted, hammered, tequila, hungover, hanging` and the blunt states
-`feral, unhinged, wired, over it, done`.
-*Judgment call, stated:* intoxication maps to **energy-high + catharsis**, not
-to joy — "im drunk" is as often maudlin as celebratory, and catharsis is the
-axis that spans both. Hungover maps to low energy + low valence.
-*Verify:* a unit test asserting `hasSignal(keywordQuery('im drunk'))` is true.
+**4.** Full suite + `npm run typecheck --workspace=@swift2/web`, then PR.
+**Joey merges.**
 
-**5. Codify the battery** (`mood-battery.ts` + route test). Cases 1–7 expect
-`matches`; 8–9 expect `refusal`; 10 expects `crisis`. Workflow rule 8 — this is
-the third time this repo has hand-run a refusal check, so it becomes a file.
-*Verify:* `npm test --workspace=@swift2/web -- mood` green.
+## Traps
 
-**6. Run the battery live** against `POST /api/mood`.
-*Trap:* Joey's dev server may own port 3000 and an agent has killed it before.
-Start on **3100** (`npm run dev --workspace=@swift2/web -- -p 3100`) and never
-kill a process this session did not start.
-*Verify:* all ten cases match expectation. Any of 1–7 returning `refusal`,
-`unclear`, a lecture, or a wellness disclaimer = step 3 is not done. **Max two
-revision rounds** (CLAUDE.md); a third means the approach is wrong, not the
-wording.
-
-**7. Measure the prompt.** `messages.count_tokens` on the final system prompt.
-`claude-sonnet-5`'s cache minimum is **1024 tokens**. If the prompt clears it,
-`cache_control` starts working and `usage.cache_read_input_tokens` goes above
-zero on the second identical call — report the real number. If it does not
-clear it, say so plainly and leave the annotated no-op in place rather than
-pretending caching is active.
-
-**8. `MOODBOT.md`** — seed → `sync-song-moods.mjs` → `check:generated`. Must
-state that `*.generated.ts` is never hand-edited.
-
-**9. Full suite + typecheck.** `npm test`, then
-`npm run typecheck --workspace=@swift2/web` (repo-wide typecheck is red on
-`apps/mobile` — pre-existing, not ours).
-
-## Out of scope — deliberately not doing
-
-- **Rebuilding the catalog into the system prompt.** Would replace a working
-  deterministic matcher with model guesswork and make hallucinated tracks
-  possible for the first time.
-- **Switching to a Haiku-class model.** The brief asks for it, and the
-  classification work would suit it — but this model call also produces the
-  `crisis` flag, which `route.ts:213` relies on as defense in depth behind the
-  keyword check. At the 200/day cap the saving is a few dollars a month, which
-  does not buy a downgrade of a safety judgment. **One-line change in
-  `mood-client.ts:32` if Joey wants it; his call, not mine.**
-- **Scoring the 82 unscored songs** (all of `tloas`/Showgirl included). A real
-  gap — the bot cannot recommend a Showgirl song to anyone — but it is content
-  authoring, not a refusal bug. Separate job.
-- **Weakening the bereavement gate** (`mood-match.ts:40-48`, issue #1984) or the
-  crisis prompt section. Both stay.
-
-## Founder gate
-
-`docs/content-ops/mood-chat-safety-language.md` gates user-facing copy.
-`REFUSAL_MESSAGE` and `UNCLEAR_MESSAGE` already read as warm redirects and I am
-**not** rewording them. If step 6 shows the copy is the problem rather than the
-routing, that goes to Joey rather than into the diff.
+- `*.generated.ts` is NEVER hand-edited. Author the seed; run the generator.
+- `check:generated` fails CI on drift, so the generated file must be committed
+  in the same change as the seeds.
+- The `oneLiner` is user-facing copy under every card. Joey may want to read
+  all 82 before they are live — offer, do not assume.
+- Where a song's reading is genuinely contested, score from the site's own
+  description rather than personal interpretation, so the catalogue stays
+  self-consistent. Flag real ambiguity rather than silently picking.
