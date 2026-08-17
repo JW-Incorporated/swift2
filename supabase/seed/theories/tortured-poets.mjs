@@ -135,7 +135,7 @@ export default {
           source_title: "Why Swifties have sniffed out and descended upon London's Black Dog pub",
           publisher: 'CBS News',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-17',
+          accessed_at: '2026-08-17',
           reliability_score: 4,
         },
       ],
