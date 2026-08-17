@@ -5,7 +5,37 @@
 
 ## Current focus
 
-**SCORING THE 82 UNSCORED SONGS (2026-08-17).** `PLAN.md` is the contract.
+**ENRICHING THE 5 THIN SONGS (2026-08-17, IN PROGRESS).** Joey, after reading
+#2192's "weakest part" note: *"dispatch agents to research those 5 songs, expand
+their source notes in the voice of a taylor swift fan, then update the website
+with that content & the mood register of it."*
+
+Targets: `the-bolter`, `the-albatross`, `chloe-or-sam-or-sophia-or-marcus`,
+`i-look-in-peoples-windows` (all `ttpd`) and `father-figure` (`tloas`). Each has
+a one-sentence `note` and no `discussion`, so each was scored toward mid-scale
+and under-surfaces.
+
+**Shape: research → write, NOT five writers.** Four of the five live in the same
+`supabase/seed/tracks/ttpd.mjs`; five agents editing it would collide. Five
+researchers run read-only in parallel; **I write the seeds myself** because each
+song needs BOTH prose and a re-score derived from that same prose — split across
+agents, the scores drift from the text they are supposed to come from.
+
+**Three rules pushed into every research brief:** no lyrics at all (absolute
+redline — easier to keep out than to strip later); documented fact and fan
+reading stay separated (these five are exactly where speculation fills a vacuum
+— a four-name title invites guessing who the names are, `father-figure` invites
+naming an industry figure, and the catalogue already marks `cassandra`'s
+snake-era reading unconfirmed rather than asserting it); and **"little is
+documented about this song" is an ACCEPTABLE answer** — padding is how a fansite
+starts publishing invention.
+
+**Landing on the SAME branch/PR (#2192), deliberately.** These five are the
+weakest entries in that very PR; enriching them makes it strictly better, and a
+separate branch would collide on the same mood seeds. Update the PR body when
+done.
+
+**Previous — SCORING THE 82 UNSCORED SONGS (2026-08-17).** `PLAN.md` is the contract.
 Branch `feature/score-remaining-songs`, in the worktree at
 `Temp/claude-worktrees/fix-mood-over-refusal`.
 
