@@ -11093,5 +11093,110 @@ export default {
         ],
       },
     },
+    {
+      slug: 'vma-2026-nine-nominations',
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+      ],
+      year: 2026,
+      month: 8,
+      day: 18,
+      category: 'music',
+      significance: 'notable',
+      title: 'Nine VMA nods — and "The Fate of Ophelia" up for Video of the Year',
+      snippet:
+        'The 2026 MTV VMA nominations dropped and Taylor pulled nine — second only to Madonna\'s eleven — led by a Video of the Year run for the self-directed "Fate of Ophelia." Win even one on Sept. 27 and she passes Beyoncé to stand alone as the most-awarded artist in VMA history.',
+      sourceUrl: 'https://apnews.com/article/2026-mtv-vma-nominations-e9ac1be3adfd613c3bc348e83543832e',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'MTV unveiled the 2026 Video Music Awards nominations on Aug. 18, and Taylor came away with nine — the year\'s second-biggest haul behind Madonna\'s eleven, with Ariana Grande and Sabrina Carpenter a step back at seven apiece. Most of Taylor\'s nods ride on "The Fate of Ophelia," the lead single she wrote and directed herself: it\'s up for Video of the Year — the night\'s marquee prize, against Madonna, Ariana Grande, Bruno Mars, Sabrina Carpenter and GENER8ION — and its craft is recognized clear across the board, with Best Direction, Best Art Direction, Best Cinematography, Best Editing, Best Choreography and Best Visual Effects all in the mix. Taylor herself is up for Artist of the Year, and the album\'s pop reach lands a Best Pop nod too.\n\nThe bigger stakes sit behind the trophy count. Taylor and Beyoncé go into the night tied atop VMA history at 30 wins each; if Taylor takes home even a single award on Sept. 27, she passes Beyoncé to become the most-awarded artist the show has ever had. That\'s a conditional, not a lock — the nominations are the fact, the record waits on the ceremony. The 2026 VMAs air live on CBS on Sunday, Sept. 27 at 7:30 p.m. ET from the Peacock Theater in Los Angeles.',
+        sources: [
+          {
+            outlet: 'AP News',
+            url: 'https://apnews.com/article/2026-mtv-vma-nominations-e9ac1be3adfd613c3bc348e83543832e',
+            source_title: 'MTV VMA nominations: Madonna leads, Taylor Swift may make history',
+            publisher: 'AP News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-18',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/2026-mtv-vma-nominations-list-madonna-video-music-awards/',
+            source_title: '2026 MTV VMA Nominations List: Madonna Leads',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+        ],
+        // Official "The Fate of Ophelia" MV thumbnail (id ko70cExuzZM, the
+        // canonical self-directed video verified via oEmbed elsewhere in this
+        // file); maxresdefault curl-verified 200 image/jpeg, 1280x720 this run.
+        // Apt here: the video is what's up for Video of the Year + six craft nods.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ko70cExuzZM/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official "The Fate of Ophelia" music video thumbnail, YouTube)',
+            caption:
+              'A frame from the self-directed "The Fate of Ophelia" video — up for Video of the Year and six craft awards at the 2026 VMAs.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'taylor-praises-phoebe-bridgers-lost-weekend',
+      year: 2026,
+      month: 8,
+      day: 17,
+      category: 'music',
+      title: 'Taylor calls Phoebe Bridgers\' "Lost Weekend" "an absolute triumph"',
+      snippet:
+        'It\'s her birthday but she gave us a gift — Taylor spent Phoebe Bridgers\' birthday gushing over her new album "Lost Weekend" in a run of Instagram Stories, calling it "an absolute triumph in every way" and signing off "Happy bday @phoebebridgers I love you!!"',
+      sourceUrl: 'https://variety.com/2026/music/news/taylor-swift-praises-phoebe-bridgers-lost-weekend-triumph-1236836547/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Aug. 17, 2026 — Phoebe Bridgers\' birthday — Taylor turned her Instagram Stories into a love letter for a friend\'s new record. Praising Bridgers\' just-released album "Lost Weekend" (out Aug. 14), Taylor wrote, "It\'s her birthday but she gave us a gift," and, "Haven\'t been able to stop listening. This album is an absolute triumph in every way." She singled out Bridgers\' writing about loss — "To write about grief with such vulnerability and detail, and to trust the listener with this much honesty" — and closed with a plain "Happy bday @phoebebridgers I love you!!"\n\nThe two go back: Taylor featured Bridgers on "Nothing New," the Red (Taylor\'s Version) vault track they sang together in 2021, and they\'ve stayed in each other\'s orbit since. The shout-out reads less like an industry co-sign than one songwriter telling another she nailed it.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-praises-phoebe-bridgers-lost-weekend-triumph-1236836547/',
+            source_title: "Taylor Swift Calls Phoebe Bridgers' New Album an 'Absolute Triumph'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-hails-phoebe-bridgers-lost-weekend-as-an-absolute-triumph-in-every-way-3963288',
+            source_title: "Taylor Swift hails Phoebe Bridgers' 'Lost Weekend' as an 'absolute triumph in every way'",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+        ],
+        // Wikimedia Commons portrait of Phoebe Bridgers (2021 Shaky Knees
+        // Festival), CC0 1.0 public domain; direct upload.wikimedia.org URL
+        // curl-verified 200 image/jpeg, 4608x3456 this run. Honest portrait,
+        // not a still from the album rollout — the endorsement was IG Stories,
+        // which expire and carry no permanent embeddable post.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/2021_Shaky_Knees_-_Phoebe_Bridgers_%2822%29_Nick_White.jpg',
+            credit: 'Nick White, via Wikimedia Commons (CC0 1.0 / public domain)',
+            caption:
+              'Phoebe Bridgers performing at the 2021 Shaky Knees Festival — a longtime friend and collaborator Taylor cheered on.',
+            kind: 'primary',
+            focalPoint: '50% 35%',
+          },
+        ],
+      },
+    },
   ],
 };
