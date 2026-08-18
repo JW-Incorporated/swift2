@@ -8468,6 +8468,18 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       sources: [{ name: "Max Greenfield says Taylor Swift was a better actor than the 'New Girl' cast", url: "https://www.thewrap.com/creative-content/tv-shows/max-greenfield-taylor-swift-new-girl-cameo/", reliability: 4, type: "reputable_press" }, { name: "Max Greenfield says Taylor Swift was a better actor than the New Girl cast", url: "https://uk.news.yahoo.com/max-greenfield-says-taylor-swift-183220756.html", reliability: 3, type: "reputable_press" }],
     },
+    {
+      id: "vault-tloas-a-navy-costarellos-gown-at-her-engineers-wedding-solo-with-t",
+      slug: "showgirl-sisk-jacobs-wedding-navy-costarellos",
+      date: "2026-08-15",
+      dateLabel: "August 15, 2026",
+      title: "A navy Costarellos gown at her engineers' wedding — solo, with the new band on show",
+      summary: "Taylor turned wedding guest for two of her longtime engineers, Laura Sisk and Oli Jacobs — solo, in a plunging navy Costarellos tulle gown threaded with gold appliqué, the new gold band from her own July wedding stacked over her engagement ring.",
+      body: ["On Saturday, Aug. 15, 2026, Taylor was a guest at one of the more low-key but meaningful weddings of her year: two of her longtime studio collaborators, recording engineers Laura Sisk and Oli Jacobs, marrying at Peter Gabriel's Real World Studios in England. Sisk has engineered a huge stretch of Taylor's catalog — 1989, Reputation, Lover, Folklore, Evermore, Midnights and The Tortured Poets Department — and Jacobs worked on Tortured Poets as well, so the guest list ran heavy on her inner musical circle, with Jack Antonoff, Sabrina Carpenter and Phoebe Bridgers all there.", "She came solo — Travis Kelce stayed stateside for the Chiefs' preseason — and the look did the talking. Taylor wore a deep-navy Costarellos \"Arcangela\" gown in sheer tulle, cut to a plunging V-neck and scattered with champagne-gold, foliage-inspired appliqué that clustered at the bodice and fanned out down the skirt, a piece reported at around $3,500. Pearls and a gold bracelet finished it, and the detail fans zeroed in on was the jewelry from home: her engagement ring stacked with the new gold wedding band from her July marriage to Kelce."],
+      tags: ["Fashion"],
+      sources: [{ name: "Taylor Swift rocks elegant navy tulle gown at pals' UK wedding", url: "https://pagesix.com/2026/08/16/style/taylor-swift-rocks-elegant-navy-tulle-gown-at-pals-uk-wedding/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift Takes Wedding Guest Dressing to Another Level in Ethereal Navy Tulle Gown at Laura Sisk and Oli Jacobs' Wedding", url: "https://www.fashiontimes.co.uk/taylor-swift-navy-tulle-gown-wedding-1762762", reliability: 3, type: "reputable_press" }, { name: "Taylor Swift Seen at Wedding in England", url: "https://www.tmz.com/2026/08/16/taylor-swift-seen-at-wedding-in-england/", reliability: 3, type: "reputable_press" }],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
+    },
   ],
   "ttpd": [
     {

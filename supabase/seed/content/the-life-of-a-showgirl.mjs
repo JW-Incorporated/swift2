@@ -11027,5 +11027,71 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-08-17 from intake #2208 (Content Shift).
+      // Verify-before-write (charter rule 4) corrected the ticket: it framed
+      // this as "Saturday, Aug 16," but Aug 16 2026 is a Sunday — Aug 15 was
+      // the Saturday, and multiple outlets (Fashion Times, theFashionSpot/AOL)
+      // date the wedding to Sat Aug 15, with coverage publishing Aug 16-17. So
+      // dated to Aug 15.
+      // Redlines: a documented, concluded public event at venue level (L2,
+      // permitted). Kept to "Real World Studios in England" — the county is
+      // OMITTED on purpose: outlets split between "Gloucestershire" and the
+      // studio's actual Wiltshire, and the intake's own location call coarsened
+      // the county out. Not a residence; no travel logistics, no security. The
+      // guests named are all public musicians in their public-facing roles.
+      // Page Six is the intake's canonical primary (unread by this environment);
+      // the written facts are corroborated by Fashion Times and TMZ, both read.
+      // Text-first: coverage photos are SplashNews (signed/expiring CDN, not
+      // rehostable) and there is no taylorswift-account post to embed — left for
+      // photo-sparsity / social-post-missing to route if a reusable image surfaces.
+      slug: 'showgirl-sisk-jacobs-wedding-navy-costarellos',
+      // Cross-link: her own wedding, the reference point for the newlywed looks.
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      year: 2026,
+      month: 8,
+      day: 15,
+      category: 'fashion',
+      title: 'A navy Costarellos gown at her engineers\' wedding — solo, with the new band on show',
+      snippet:
+        'Taylor turned wedding guest for two of her longtime engineers, Laura Sisk and Oli Jacobs — solo, in a plunging navy Costarellos tulle gown threaded with gold appliqué, the new gold band from her own July wedding stacked over her engagement ring.',
+      sourceUrl:
+        'https://pagesix.com/2026/08/16/style/taylor-swift-rocks-elegant-navy-tulle-gown-at-pals-uk-wedding/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Saturday, Aug. 15, 2026, Taylor was a guest at one of the more low-key but meaningful weddings of her year: two of her longtime studio collaborators, recording engineers Laura Sisk and Oli Jacobs, marrying at Peter Gabriel\'s Real World Studios in England. Sisk has engineered a huge stretch of Taylor\'s catalog — 1989, Reputation, Lover, Folklore, Evermore, Midnights and The Tortured Poets Department — and Jacobs worked on Tortured Poets as well, so the guest list ran heavy on her inner musical circle, with Jack Antonoff, Sabrina Carpenter and Phoebe Bridgers all there.\n\nShe came solo — Travis Kelce stayed stateside for the Chiefs\' preseason — and the look did the talking. Taylor wore a deep-navy Costarellos "Arcangela" gown in sheer tulle, cut to a plunging V-neck and scattered with champagne-gold, foliage-inspired appliqué that clustered at the bodice and fanned out down the skirt, a piece reported at around $3,500. Pearls and a gold bracelet finished it, and the detail fans zeroed in on was the jewelry from home: her engagement ring stacked with the new gold wedding band from her July marriage to Kelce.',
+        sources: [
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2026/08/16/style/taylor-swift-rocks-elegant-navy-tulle-gown-at-pals-uk-wedding/',
+            source_title: 'Taylor Swift rocks elegant navy tulle gown at pals\' UK wedding',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Fashion Times',
+            url: 'https://www.fashiontimes.co.uk/taylor-swift-navy-tulle-gown-wedding-1762762',
+            source_title:
+              'Taylor Swift Takes Wedding Guest Dressing to Another Level in Ethereal Navy Tulle Gown at Laura Sisk and Oli Jacobs\' Wedding',
+            publisher: 'Fashion Times',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-17',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/08/16/taylor-swift-seen-at-wedding-in-england/',
+            source_title: 'Taylor Swift Seen at Wedding in England',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-17',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
   ],
 };
