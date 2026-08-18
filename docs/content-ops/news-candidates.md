@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 69
+
+## Taylor Swift’s Body Language Shows Major Shift After Travis Kelce Wedding, Expert Says - Yahoo
+
+- first seen: 2026-08-18 05:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Body Language Shows Major Shift After Travis Kelce Wedding, Expert Says  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQVjlEZGk2VVdpb1NnM0VPdEZqQ0ZveHAyQ3FZSm4td2RISll6RzRMWmxNV0RXQW9MdENnWnJDUWFocC1CYTNKTzVaQk9XazZFMmdlME1FX2g2RzhoZ3FQS0pVQkVodm5lSnh3NTZObndvemZNeGQyb3g0VFh0cnB6dUh6ZGd3Z2hGMTN2akFfMWVmUkNzZ3QxWHkyZjI3QU5CcURTNg?oc=5
+
+## Why Taylor Swift and Harry Styles are linked to a rise in car crashes - The Telegraph
+
+- first seen: 2026-08-18 05:41 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Why Taylor Swift and Harry Styles are linked to a rise in car crashes  The Telegraph
+- sources:
+  - [unverified] The Telegraph — https://news.google.com/rss/articles/CBMilAFBVV95cUxNdFBwTThoQnJUNnIyOEFVQ1lsZ0lHdWZBUmRBYWpvcTdSRWNadzBUejhGWnRmcXlkVk00SXhGOXRPdWpLdEUtdXVjalFfM3dKbjUxaTVoSEFacjZIS1Q3VVZYVHJyVGhON0ptbzRRT1FHQWkxakc3eXRCbzRRTm1TMGNNMGpyZEQ0ZGEwcDhhWHNVcy1L?oc=5
+
+## A note of caution: when hit albums drop, traffic deaths rise - The Times
+
+- first seen: 2026-08-18 05:41 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A note of caution: when hit albums drop, traffic deaths rise  The Times
+- sources:
+  - [unverified] The Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxQZG5TNXAza0dHN3ZadnFyR0VLUjg2WWE5MDNPSTFXcDVRQ1NDSlgzTU9sUU9JQlJXWk1jdENmLUx1U2FqcmtMRGsxZmcyWFoyRHkteHBsMDUtbUs5UlVsT3VLLVh6MGFNdWY5cDJpejVyVmRHWEFidmtucmNHRFh0Nzc5NWxvaG5XdUxZaGc0N004QlhYVEE?oc=5
 
 ## Kylie Kelce says Taylor Swift and Travis Kelce's wedding in New York City was 'absolutely magical' -
 
@@ -107,6 +131,15 @@ Stories: 68
 - sources:
   - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMitwFBVV95cUxPSmNrQ1JUQ0ZPM1RadHpHVXFONXpud2hFUlZNaW4zS1h4d21pSkM5TkZ2MGVueHVsRHM5R0lMaEZNS2NMZ2RibV82XzVNX0lva1M4SjdORER1QlduaXhCYVN6Ql95MW54MHVOT0FiQW9CZTEwM1FhMmw1dzBOUVhraUxhX3JVdG9zdHZxU3N3TWRLTDNvNFJ0dlhDSjByeTRLZ2phbVNiaVJpdTNXYkF4emgtWjhkVjg?oc=5
 
+## Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album - Rolling Stone
+
+- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album  Rolling Stone
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxOdlEzc2NMSU5VVkRWNHNEdmN1b0hzOVFlY0o5MjVpVnM3enNVc0N2d3RyY1VqcTFudnBZS1Y2TVJwYUxZdHRHeWhaRVFrekwzOFAwc0YzVEFyTnp4d1hLYkJQQnlZbk1VRjYxSDZULVNaU3EzSS1vbmhidGRNSTU0REFvdFFyQlYtSXN4MWlBbWFrTHZpWnFoVHN0c0FKSGVJUHRNMXdRVGFDdTFRanFUb3pOWnBRZw?oc=5
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-loves-phoebe-bridgers-new-album-lost-weekend-1235610254/
+
 ## Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Eve
 
 - first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
@@ -119,15 +152,6 @@ Stories: 68
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNUDhiNVdfanRTc2wtZ3p0MkRQclgyalNkN19zNkxnNHc4andTNGpNUlVaSTFOc1RtdTZpU0xrNWVXQ28zRldRNy1FcWZZRFZxWFVXdjlQeXRxY3kzaGRlZE5VYXA4dXpfV2dLTVFJWmJDdXRXUi1OVGIyWWl1aUJvRmhLUURoYnpYdVQtd2ZsdTAwYTVVUk00Q0syakE3X0dHc2xqUQ?oc=5
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNVU5Cc25zbllxTkFqSDdiZU56aFF0cU1vVE5jSHl3dWtWa2QxelltU1pzSzNiR3FFQU1DUXBQVVRLejNJNks4Qkt2LU52VTdIRWs5bzRSZ0ZabTd4SG5NRFBfck10d3N1alJIVUNxV1pYck5xbFVxMW45RGkzR0ppS0xPYkNnTllZUFNaOTVNOTdKZzc0M1lOR1JLMWtUVFRnSUlFVTBmSHRQdw?oc=5
   - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbEktT2w4M2VucDZpMnlzZzJabVNhMjVVX0R4VzZQdEpZSHJaME15RnJtUFFOdHhvcVV1VnZucENqQ1dOLXlBa0NVSEtwRU55TEJIclZOTS1HUzRobFMyWlJSUklSazNka2syU1hVajZfQ05GNDhrbmRFV2NBa3VzU3c0V1pOTHNLSnNPdzhxSWtRWHJVeFczWngwako?oc=5
-
-## Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album - Rolling Stone
-
-- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album  Rolling Stone
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxOdlEzc2NMSU5VVkRWNHNEdmN1b0hzOVFlY0o5MjVpVnM3enNVc0N2d3RyY1VqcTFudnBZS1Y2TVJwYUxZdHRHeWhaRVFrekwzOFAwc0YzVEFyTnp4d1hLYkJQQnlZbk1VRjYxSDZULVNaU3EzSS1vbmhidGRNSTU0REFvdFFyQlYtSXN4MWlBbWFrTHZpWnFoVHN0c0FKSGVJUHRNMXdRVGFDdTFRanFUb3pOWnBRZw?oc=5
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-loves-phoebe-bridgers-new-album-lost-weekend-1235610254/
 
 ## Taylor Swift Snubs Blake Lively for Selena Gomez in Major Pact — Insider - Yahoo
 
@@ -562,19 +586,3 @@ Stories: 68
 - summary: Travis Kelce and Taylor Swift 'feel really grateful' after MSG wedding  Yahoo Lifestyle Canada
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE5OYTBWSHJLTXZVR0hPdjlWMVFGU0p0bkV4eU1aUnBzVmpNV3dkY2dmVkRFNVpLb0s2LUhmYVBfaDNvZlZQLVMxSUVIRlZ6M0xsNVY3Y2tBa2NESmk4VTZsYWlIeGRUaTlLb0w3TVBVZVZMMEp4OGxqNlAxNEU?oc=5
-
-## Max Greenfield Shares Sweet Memories of Taylor Swift's Kindness on 'New Girl' Set - Yahoo
-
-- first seen: 2026-08-15 05:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Max Greenfield Shares Sweet Memories of Taylor Swift's Kindness on 'New Girl' Set  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQZXNkSTk4SkZIMGtqR2x6OUtVRERveTJ5VmtKQkM2dnFSSW1Fa29uUXc0cjRCbTB5TS1IOFpWZDBZUHo4TzhGa00wa0RfWnZtREtYRlR6UzR2c0h5Y1FJZk51SWxaNzFkNWp6eGE1dTdobHdYdmxMS21vdUEwd1lwUURPWXVEX3g4bWFMbWlvdUZtQkJ5UWNYRzhIY0lXRmlK?oc=5
-
-## Taylor Swift Faces Fresh Criticism After Travis Kelce’s Wedding Leak - Yahoo
-
-- first seen: 2026-08-15 05:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Faces Fresh Criticism After Travis Kelce’s Wedding Leak  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOcV8wb21ZbEszRkRLUk1qai1fVUZBREROUHNTcjcwbUJrMVhqMUNVSS00ak5qdGhzak9BbDVTVTJzUzduMzB0S2pZMFp3Y0RrWC0wN2ExaUpYdXQzWEl1NFhHM3RaT3drWDNKZWdRTWpNUXRjajRPbGRjb0VIZVBobUpIWlR4WEc4MTYw?oc=5
