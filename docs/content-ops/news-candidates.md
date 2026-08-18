@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 68
+
+## Kylie Kelce says Taylor Swift and Travis Kelce's wedding in New York City was 'absolutely magical' -
+
+- first seen: 2026-08-18 02:21 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce says Taylor Swift and Travis Kelce's wedding in New York City was 'absolutely magical'  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6AFBVV95cUxQYlEtMVNzZU10T3hDVUJ3TUhsamFoYzg4cFlBSXo5c0ozemtqbWVyanVUa05DUmVXZUtBTGJVQmlLRk80bERPblNLWkNQNy1nNXdxMmduUGFYZWV4dnlFQ3RPSHlXaF9kV3pmZnFWZ18xNVpXZDlJblNyZGItVHgwMF9IamJxNmZfZVhNd1MyZ0RhNlpCeW96RFh4V0hCSFlodjYtY1pPQnJ1WU5kVjdOWUs5U3lTSUpJNGw0UlliMm5WeFUtWUV1aVdScXpuODVwZy1JdUJFRWZJNzBoTFQ1cFEtU0s2dWZR?oc=5
+
+## Even Taylor Swift Can’t Resist This Newlywed Hair Tradition - Vogue
+
+- first seen: 2026-08-18 02:21 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Even Taylor Swift Can’t Resist This Newlywed Hair Tradition  Vogue
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMia0FVX3lxTE9qZGF6ZXc1akJRbXk4dUhHZ0NEWVRTb3pYcndCbzMwNUhTR0tHZENjSmxKV1psYzAxeDdyelVhM3U3eENxYzgzNVRJWmpvX0phN2wxRUV0MFJ4V3lPbjAxdW5oVl9vcVBraERF?oc=5
+
+## Forget the matching set — Taylor and Travis just made the case for coordinated wedding bands instead
+
+- first seen: 2026-08-18 02:21 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Forget the matching set — Taylor and Travis just made the case for coordinated wedding bands instead  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi7gFBVV95cUxORE1Sb1ZvU29wc3JVTnlEa3phYzhvbmhSekFxSXRmdlAzRUdhOVpJSGhpOHBSVHRjeVppWnlkbmhOMGc5dFNwOE9rZEFjeHI1OFNPbjRFTDQzaV9pZWFjSkZFakF3R3VaZjNqV1NIVDVFNDBhV0dhWUVfajliOXliTkRLbjZHa3RJMWxVRVFncGNmRzFZaXN3M0RiUmFWdV9BMzBjMW9XNEZiUVFUdnNZWmZJMFRWdVJxLWtRbXFpWGlZZDI0WE13bmJRZG1fQlgxU1Z6UkVoZW96WW5oVy1lZUFTbU5yQ1pCR3Z4YkZR?oc=5
+
+## Every Chiefs Game Taylor Swift is Likely to Attend in 2026 - Sports Illustrated
+
+- first seen: 2026-08-18 02:21 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Every Chiefs Game Taylor Swift is Likely to Attend in 2026  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiogFBVV95cUxQX3NBUkpmbjVqWEVmMnpEMDVudXB5ejFDNFNDbnpab24yY2tZaHVjelo3Z3MxRlF3U3RKQkphaUg5TjhTNElZT3AzTzZ3U05LSWRrMU05OXB3MHN2bUR3YU1VLXVfeEVGMmVkeG9JSjU3Tl9rTHF6MllMRkdMODAzLUF4Mi10anRTX2VHWUl0UWwtQmZCaDdsTHkxYndERjM2Rmc?oc=5
 
 ## New Taylor Swift Wedding Photos Officially Leak Amid Report Guests Are Angry at Her Over Travis Kelc
 
@@ -546,141 +578,3 @@ Stories: 81
 - summary: Taylor Swift Faces Fresh Criticism After Travis Kelce’s Wedding Leak  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOcV8wb21ZbEszRkRLUk1qai1fVUZBREROUHNTcjcwbUJrMVhqMUNVSS00ak5qdGhzak9BbDVTVTJzUzduMzB0S2pZMFp3Y0RrWC0wN2ExaUpYdXQzWEl1NFhHM3RaT3drWDNKZWdRTWpNUXRjajRPbGRjb0VIZVBobUpIWlR4WEc4MTYw?oc=5
-
-## Taylor Swift, Madison Beer and Other WAGs Are Part of the NFL's Greater Plan - Sports Illustrated
-
-- first seen: 2026-08-15 02:18 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Madison Beer and Other WAGs Are Part of the NFL's Greater Plan  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMipwFBVV95cUxNM2JqY3d0NklwdVh0UVkyX0RfMGdYTXB0VGFZOERtLWJldHFKMExuVWd3Z2JOQWNsLXRmeURSbUNkSnhuZWhZeFQ2d3dHZWg4Um5GRDVqZnlXY2gxLVNqV1lnb3VSdTFkVjVfaER6M2RvY3FzTWRJZkNOOEJMV21ic0QzRU9QRVZnT3pmRHJORklFLVNTMjR6Q0I3LXhpd2UwaUJ5SEFpQQ?oc=5
-
-## Taylor Swift declares support for Abdul El-Sayed? - The News International
-
-- first seen: 2026-08-15 02:18 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift declares support for Abdul El-Sayed?  The News International
-- sources:
-  - [unverified] The News International — https://news.google.com/rss/articles/CBMilAFBVV95cUxQMXVVa3FJN0JwalAzQ0pHbkFZTEtxT0R3MndEc1dhakdIZjRzdEZ3U1NtX0dEdE1Hcjk2Z2F3NXNyNHhvY0w1emRzbWNCTF9sZHo3MlE5djA1QkpPRm1CVDdYNmt6RTNMNnlDenU1WEdrbFhuZzZFMGNscVN1UFB0NDNTclM2V3UxT2J6QXZieURFRE1C0gGQAUFVX3lxTE9iSEF3M2FSSDV4cEppTnJMVE55VmdmLUpyYnZxeUxwNFprSlRsYlI3aUsyZkFjT21PUXFBRWpna2gzMmZLNWx4dW9iVUZfT2l3WDI0NXRncHZmVXNPa3Zkb2ptY256VEZjQVFwYThsa21ZWlpfSzhZSHZTQ1FRUTNUNGdfc2FndEdnZFhwYXVWRA?oc=5
-
-## Inside Taylor Swift and Travis Kelce’s Life as Newlyweds: ‘They Love Living Like This’ - ELLE
-
-- first seen: 2026-08-15 02:18 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Inside Taylor Swift and Travis Kelce’s Life as Newlyweds: ‘They Love Living Like This’  ELLE
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMioAFBVV95cUxOblA3WmdndmhnaGRVYzlaVHI0ZVZ2NUxTOTk4bW5zc3FtWVFoaUJZUEItWndzOEQ0U0x1MkxRR3JYX0hPSGNwajFVVXI0bUtFM1FHWTF5WWFjc0p1c0pWSFJBZm1obzRBR0thTmpva2oyeDJfcnl1aFZyR1JhVllmdW9zV1kwbERaRlR3aFNqWk5LM2R4eUlhdHdtYnlPOWhi?oc=5
-
-## Denver Art Museum’s DIVA collection adds fits from new stars to its lineup - Colorado Springs Gazett
-
-- first seen: 2026-08-15 02:18 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Denver Art Museum’s DIVA collection adds fits from new stars to its lineup  Colorado Springs Gazette
-- sources:
-  - [unverified] Colorado Springs Gazette — https://news.google.com/rss/articles/CBMiqAFBVV95cUxORktDY0VQb3J5Y3E2enFIVVlaVWpENHRpYTctT0E4NVVsNVgzN28zMlY0eVBkTGFWc3FRMGRTMkdna1lEWXhfeXNmcFdHblYtTVEybkZ3MXhpX3JraVNXbU1UVFlQdFFOUlRVczF0cmllOEFUdTlCVTJmemxfazJkakV4clJBamFGa2ZFdmF1YXY4SXphaG1BMTJVZnllUHZGNWxxNWgtZHM?oc=5
-
-## Taylor Swift captured with shorter hair a month after lavish wedding - HOLA
-
-- first seen: 2026-08-15 02:18 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift captured with shorter hair a month after lavish wedding  HOLA
-- sources:
-  - [unverified] HOLA — https://news.google.com/rss/articles/CBMimAFBVV95cUxQcnNRTFJ1M2dPSC1yX2ZmOEhLY2tra1QzQ0NaSjRvQXVrRnFvTnM1MkJESUZYM0hCQ0lNM3lEWHBMN3YyT3Mwb0RrMlVkbFJ1YXRlV0dPSThkMUtuV1I5cDdwM3JlRDRPMFB6R29yNkJOdUtETUR5YjdzMWZGM0t3VnhYOVFYX1RlRUxwOU9DYVBweXprSE5aVA?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMzBuU0RVb213TTBVV3VlV19yZnQ5WnhKZ2pqcmpmRTR1LVhRUHl3QTVpaUFkZHBYSnY5c2J5VC1xS3lPRXlya3lKSTFHdTY4Q050el9FMVRnZHB6Ums1bHRUMks5X0R3VU51ZVNxandfZW85U1NCOTlnVlROX3JYanpsbG8yaXl4RkFNTFh1TFhMdXpGNlB3aVcxakl1bnBqUXdCM3ZKQQ?oc=5
-
-## Inside Taylor Swift and Travis Kelce’s private life as newlyweds - Page Six
-
-- first seen: 2026-08-15 02:18 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Inside Taylor Swift and Travis Kelce’s private life as newlyweds  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipAFBVV95cUxNQUxsNkNSMjRwcXJfQTc2MHAwT3Nyd3ZTTEZ4MTd6Wnh5cFNNNlRISkpDUHdNTVZlNkVlZS0xVGVCMndSbGdQY3o1SmJlSWg0cy1iSlBkVDdrUzZJMWprTnh3eXdjM0ltVnZUME42QkZBME94YlotLVRSVU81YXc2Z0ZIMW1FcVNMV3Z3OTJpQUJhaHZ6R0MyYTFENzluX2VUaldLcQ?oc=5
-
-## Best-Selling Author’s New Novel, Fueled by Taylor Swift, Becomes One of Amazon’s Most-Sold Books - p
-
-- first seen: 2026-08-15 02:18 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Best-Selling Author’s New Novel, Fueled by Taylor Swift, Becomes One of Amazon’s Most-Sold Books  parade.com
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxPdVBBa3Jnclh0blUxWVRGUDhDV1dzbk9lRDJMTXU0YlhLUV9qTklEZUJaZHNaVm1OMVY1QXM0NDdWNXpEcDVBZDM2d3NOVzBuVDU3RUtERkxTNHhkdGNxMWV5SkRpY2hidzN2TGNWNEc2bmlNbFRneEZacloyaU5BNElhUWxUOURWa29pOHNHQTc5VnlvUktzMXF1MEl6WjRKUUQxRExyVlBjaXVmRW5lTmVXWkVpSkU?oc=5
-
-## Everything Guests Have Said About Taylor Swift and Travis Kelce’s ‘Magical’ Wedding — Including Trav
-
-- first seen: 2026-08-15 02:18 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Everything Guests Have Said About Taylor Swift and Travis Kelce’s ‘Magical’ Wedding — Including Travis Himself  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQY3loVFJ0cGJkQTJSZm5jRjZlRmNqcDRqWGdXN3Z4dG5xem1fc3dINy1YTUpGMjIyTkZ3dUpFb212d0J1OFRXSmVhQUlqZG5WTDVua1pFanFyVTQwRnFjeHMybXNjOEZ5a01qQTNTOUN0QzZielU1SGM4UmI4aVU2NjA1cDZvR1lWMk1hZXlUMVYtVkw5eVNmZE9RZFlfV1FqMTJ2UmVvYnJVQmc?oc=5
-
-## Max Greenfield Reveals the Question He Asked Taylor Swift When She Made Guest Cameo on ‘New Girl’ - 
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Max Greenfield Reveals the Question He Asked Taylor Swift When She Made Guest Cameo on ‘New Girl’  IMDb
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiakFVX3lxTE4wcGtTelgzSHlQUHdTdUhySXpNV2YyeFpyaW5CVGxHQVBTVWVJdzY4UllNT2Q1R1VhY1Rhak1felhFeUF3NDNadW5LcGhabWlVbXdrSkFpOGw4VFljQXFKYmtSYXBaVzVlekE?oc=5
-
-## I knew it: Taylor Swift sets another chart record - Yahoo
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: I knew it: Taylor Swift sets another chart record  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxQeEkweXYxN0FfeENvMUtiZUZDY3ZBZ0VsX1dwdnNwelRrUjFaMlU4czF3VUM0bTYtUmJNTjZIVHdCZXlLY0NOal8wWDhPaDJydEdldGo2cHE2bVlZdk54UG9VSDZUaHhoOVFDWE1nT2V5dlh2UmVISDdRNXlsZTNXWEx4amMtYThKT212TnFWVG8ta3BWNjByRXJodkI?oc=5
-
-## NFL confirms plans for Taylor Swift and WAGs - Yahoo Sports
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: NFL confirms plans for Taylor Swift and WAGs  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxPVWxFZEhwSm0weXNEWGVJZ1VKdUNMNWw5eHhkZDFteG9xcUV6OTVqZXctOTVlMDVPUmFwSElHTGUySzJMbHB3ODBwSVp5bVQ0bUh1MkVsSjRIdnVlZnhrOXlzc2lOMF9TR3pHZXllOUxNcnRiQTljcl84OWhhNnMzaVJ0REhEZVE?oc=5
-
-## Taylor Swift Has a New Haircut - The Cut
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Has a New Haircut  The Cut
-- sources:
-  - [unverified] The Cut — https://news.google.com/rss/articles/CBMibEFVX3lxTFBxb0h6aEh0YTRrdGdNTzdMSkxwblhyMmNHeGdhMU1vMmZiaUhTam1qUnVQSHdJSUtvblF6Q1NhZHUtWk5falg5TUhEUzg0SzRENW5xWmF6bEU1TWVyZEhhOGw1OG1NWDAtVm9iZg?oc=5
-
-## Taylor Swift Makes Her First Post-Wedding Solo Appearance in a Lavender Haze - vogue.com
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Makes Her First Post-Wedding Solo Appearance in a Lavender Haze  vogue.com
-- sources:
-  - [unverified] vogue.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxOalRFZHJKLXZQOVBoVWtINFdGOFRVQUZ5WXBUTU5PRk1GbVpITmg5WDJ5ZE9HUFY1ZW1Tbml6X0VLVW5OY2E5VUd5eGxERDBURlU0Wmw3WW05dnlDVWlCYmxUeklXSElLRTFQZFpFcjliS1lrTkVHTXVlcTF2NTM2MEtwYw?oc=5
-
-## Explore Taylor Swift's hairstyles over the years - USA Today
-
-- first seen: 2026-08-14 21:37 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Explore Taylor Swift's hairstyles over the years  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiugFBVV95cUxQSWZfLVVGUG45TDNiODIxaXRubGFUNWNqQkhYcTVPd3pqM3FkZldCTWYwcjdMMnhMUUZNRHhEWFRHakxsczBTM0MyVW9URkw5TmlZbnZUUm1DVUltUGJtbnBWOWE1czBOZzBQOXl3cVVtb1duaUJnaFFObnpKaF9lUXZ4SDk5aU5Yd3REdkladkZySXJYUE9fSWJOeEt2X2pKTHRxVGt4UlFGNnRxVTdvNW1hWGdRZ0pzamc?oc=5
-
-## A Rhode Island Condo in Taylor Swift’s Neighborhood Just Sold for a Record $18.5 Million - Robb Repo
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: A Rhode Island Condo in Taylor Swift’s Neighborhood Just Sold for a Record $18.5 Million  Robb Report
-- sources:
-  - [unverified] Robb Report — https://news.google.com/rss/articles/CBMipgFBVV95cUxNNW91RUhIc0lJczlmVHdhbXhVamVNQm5fU3pZSUxwWGdtZV9BNm9BMnZrRjRJbjBtb0VGa2QtNU5hbEFCTFY0eWZucmg1X1ROSkd0dE90RzEzdjZZTDR6NS1ZUGdreDZ3aF8yNnllNTc1OEN6ZXZzaUZGX2psNldhTEdGcHBvSnRQRVdPQjZnWXVwd1ppN092YWFfZ0ktNk81akFLQkl3?oc=5
-
-## The NFL saw what Taylor Swift did for ratings—now they’re staging QB romance for Gen Z: Report - Fox
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: The NFL saw what Taylor Swift did for ratings—now they’re staging QB romance for Gen Z: Report  Fox News
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMisgFBVV95cUxOVWRCWW5xV3VySHI2V2J2Vmdib3lPWEp4dEs2blEwYXdqU1pRZjNoQXMxTVVQWEFpMXJZcnd2cUtRcHFndlRuMGd3R1FIRWVVc0tpYXRRRXUtRVFUZEpTZmNXRW9fYzlTVnpGN3V5LVNUNDg3Q1RZRjctVE9CRXE4SjZXamNvRlN6aEVmNXdaZW51LWxObG9uZU5Md2lrczFBYllJejYxQkpSaElSeGZudGlB?oc=5
-
-## Max Greenfield says Taylor Swift was a ‘better actor’ than New Girl cast during her cameo - Entertai
-
-- first seen: 2026-08-14 21:37 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Max Greenfield says Taylor Swift was a ‘better actor’ than New Girl cast during her cameo  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikgFBVV95cUxObGZpU3FmOF9pV2Q4ZlBJOUZOTGl5ZGFINzFDRV9tdWk0MW0yeTdWbG9OTHl3ZXFCcjgteXgydkpQTVRFSEQ3M3h4cVlfVGJQMzYteVhVYmRIeHFsaDNKd0FvdmdlS2RvbXZQeXVUSlBwOTJRRXZkS0FsNFp1QjY5U1paVDNfakxKWjRxcXhfRnZvdw?oc=5
-  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMimAFBVV95cUxNMXZrVWp2YS15UUZjTHJheHI5b296d1RlamNuZDJGMTRacVpFSlp6Qk4zbm9FQTl2Nk9VU0lpa2NRdi12aHhzc003bU5iakQ2SVRNbktHVWhaa19yUmc4Q19PbUs3cXVwZWFzZkw3RkpwR3BQLVJBc3E3eXVua0U3dXJDeEpBSUlHeDVKLXRib1k5QUZGVmJpWQ?oc=5
