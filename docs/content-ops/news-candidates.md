@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 71
+
+## Taylor Swift and Selena Gomez plan to welcome babies around the same time, become godmothers to each
+
+- first seen: 2026-08-18 09:45 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Selena Gomez plan to welcome babies around the same time, become godmothers to each othe  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiwwJBVV95cUxONUJTR20taVkzTU40b1ZSZkVnV2ZhZDZqUFFOOUdSejVETWNhajlXVmw1MkxtZ2RIcnRBdkR1QlFrSWdWaC1nM1pfVXR3ZlVmaUdYYW40eUdqakpmMGRKbTQ1THdERDRSSnJ6VlJwRjY4b3pFYk45alRSVlp2V1ZPaE9Mc1htTmRCTHQ3bC1tejBLRkpDS0ZXanc5SXZjWE4wMUotWVNZS2cweUhEaDFXcHdrbTVXQUJDNk5uZzgzdHMzNjdpUUpJbEo3bmUzZkNrQTZuazAwY0VQb2FJdUptbzNpQjU1ZF80X1Z3RjVMQnR1dHBad1RWMjVxZ2k4TU9rbDM5d1ZlTF9TeUFnUmRwdjNLSWRFNWc2NWJMRFZtS0JJb0lSdF9JTkxSd2lQeDVid3I0c0RsVGNuWDRyZ0pfOE00ONIByAJBVV95cUxPRGkwM1Qwel9fV0RldE9fRkExOERHaU0tV2RuU3lsaXNjbWsyeHYxc2J3X1RRa2YwN1NPNXc2c3JiTXZLaFNtbFMxbll6eE5kOFZQLVhqOE5yeHo2RWlXeUFQQnFSdHpDeGhPNGhMeElibUkwN29jdHFKd1RJWnpTb3REQXdyMDVza243LU1EOVRISGNlS0xBNDdIWVB0S2swRWhhR3U3OFo1SjYyVUxDeERjV3o5eGdzTWZ0M0RrYTRHbGhVZWNzR0hHNFc3TXNTS1RGSWpKMndMa3V5bzhQQVlNNGtXV3JMYmljckJDUjd1UGhadk9YdS1ZcmF0b0RwQmJ3eDg3bWNnVm5seDRtRUlNLWpOcTJiaGtQR002ZDBSblRqX3BpeG8zLVpQbGl6WEZSOFVOQVc2bDUxS1NGY2x5aTVUUmh2?oc=5
+
+## Taylor Swift & Travis Kelce Reportedly Have a 'Non-Negotiable' Rule for Their Long-Distance Marriage
+
+- first seen: 2026-08-18 09:45 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Reportedly Have a 'Non-Negotiable' Rule for Their Long-Distance Marriage  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiogFBVV95cUxQSE1OVUQ4Y3hCaldaMlJsSGN1Z1VldE9SWC01THdTd2RzRmNqWU9wQ05YMmRrUWp3Y2RpcW90bTJ2QnZhR21odGxwblFRZEY5ZXhfX2ZuZWFWd1JDaGpidThrdWozbXVEcDl2OWY5NGhUbzFJNmtST0lPS3pxWmhLX2RkVFI2MTJhd051MXFpdEcwTS1BRHdSemZYQXNBVXBSR0E?oc=5
+
+## Travis Kelce shows off wedding ring as Taylor Swift wears hers thousands of miles away - Riviera Rad
+
+- first seen: 2026-08-18 09:45 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shows off wedding ring as Taylor Swift wears hers thousands of miles away  Riviera Radio
+- sources:
+  - [unverified] Riviera Radio — https://news.google.com/rss/articles/CBMixgFBVV95cUxNaGIwdmxIcjVvQ1lUb29jbnpNWVRNX3hUOEF3Y3A0RF8xXzJsaTVabHBrZTFSLUZKa0lZSjFtVHZRQmE5MXdBLTZVZ3JrNEVydVd3MnltZjJxaDFxZzJBX0pyWkktWmFCNjNKU3haNmlOYVNWQUZXV2RiNFQtLVJfYy1JZEZmZDI0ZW9xaGc0bnJfcDRSQ1BGa0s3Z2V5d2h2R2FSeFgzR3pJYm00dUR5Q1Z1cnoxTkRpYkhWbGo1c1YySzQtTUE?oc=5
 
 ## Taylor Swift’s Body Language Shows Major Shift After Travis Kelce Wedding, Expert Says - Yahoo
 
@@ -578,11 +602,3 @@ Stories: 69
 - summary: All The Details Behind Taylor Swift and Travis Kelce’s Wedding  Vogue Philippines
 - sources:
   - [unverified] Vogue Philippines — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQcnEybW52WW1nZW81OU11UzBtazdiOU9uVjhPRVd3ekVfMGRTRmpBYWRDNUk0bVItQ3djYmJPUmtpOWs0bkN0bTkxdDZLS24xWnY4NUZkUFVjeXhuSlN3UDdNTjRVWlhvSF9panBkSzRIdFFyY2RKYlJranV0azhURWNhNmsxQ3pZcGx3NlRmLWplRzd0Q0ZjejctdjZ4NEozYXN0WU9nbnl5ME4zZXdfeEs1ZDRWY1VRcmU0TTdPRzltTWhManVwcXB2M3BOcE43bXV3YmVzN3ZlVGY4NnR3?oc=5
-
-## Travis Kelce and Taylor Swift 'feel really grateful' after MSG wedding - Yahoo Lifestyle Canada
-
-- first seen: 2026-08-15 09:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce and Taylor Swift 'feel really grateful' after MSG wedding  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE5OYTBWSHJLTXZVR0hPdjlWMVFGU0p0bkV4eU1aUnBzVmpNV3dkY2dmVkRFNVpLb0s2LUhmYVBfaDNvZlZQLVMxSUVIRlZ6M0xsNVY3Y2tBa2NESmk4VTZsYWlIeGRUaTlLb0w3TVBVZVZMMEp4OGxqNlAxNEU?oc=5
