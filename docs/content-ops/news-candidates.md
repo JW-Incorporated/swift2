@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 88
+
+## Chiefs co-owner reveals whether he attended Taylor Swift and Travis Kelce’s wedding - Entertainment 
+
+- first seen: 2026-08-18 21:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chiefs co-owner reveals whether he attended Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMinAFBVV95cUxNZi0tREwyVXBwTW5rODhlRlc1VDRES3RiU0VYcFBRWExhdDd1b1FYcE9qSy1kbVdCQ1A2eDhQdkw2aEdDWWhYVTFIWWhKSlVIYlpLckRrZnBueDdLbzR1VF9pb211NGhIZENNYVhjcXlOZUN5RVpLNk02ME9uWWxIQWVvOURWbjBfYTk3Z3ZwUUE3MVZ0NmhQcDg1aFk?oc=5
+
+## Taylor Swift's Ex-Boyfriend Lands on Russia's International Wanted List - Complex
+
+- first seen: 2026-08-18 21:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Ex-Boyfriend Lands on Russia's International Wanted List  Complex
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMimgFBVV95cUxNdUUwSmhIMlZmYlZZdmZaZ0JSUzg5MUxQam1SbXhDTUg4YlViR0QwM2Z4ZnhnLUo1b2tVZEZ2N0Yzc1psUG1wZC1RRzdvbzBDMHlpbDM0UW55MUdIUXNUMzZEQnZaMlpoUktiOWJIX1g0LUFOLWpzSlI5TFdiY0FFNWt4VzRidzlNRnh3akNySXV1aHVsQ016a0x3?oc=5
+
+## Taylor Swift Reportedly Abandons Her Godkids After Blake Lively Drama — Source - Yahoo
+
+- first seen: 2026-08-18 21:35 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Reportedly Abandons Her Godkids After Blake Lively Drama — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPem8xdmktcmJGUjBYRFNLa0I4M2RnV3J2ZGlyanp1OHpWckR6UzZsYm1uQjFLZlVZWlh0RE9NWWNUZmhZZTUxd21Lc1JGWW5uZDExMGJhYjhEUlFfVzQ3eDhyV1JCU3B3enp6NV9EcV9kdUw1bDdITGRVd0RPRWtIcm9Rc2Y3a2x3R25BR09MN29KU1pNb2RSX0w2WEdWbTZTbDI5YzVRV2ozUQ?oc=5
+
+## ‘Toy Story 5’ Launches on Fandango with Taylor Swift MV Debut - Animation Magazine
+
+- first seen: 2026-08-18 21:35 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: ‘Toy Story 5’ Launches on Fandango with Taylor Swift MV Debut  Animation Magazine
+- sources:
+  - [unverified] Animation Magazine — https://news.google.com/rss/articles/CBMipAFBVV95cUxPS0pZYnhhN3RXNXMxSm4wZVBBX1lOd20wS19pbzV6R054ZGUwQ1ZDX3lrWWZ4ekpoOEI3S29QRzJObjRzcERkVmQ2X1VpNTNjX3JMZzV5ZkRITXdNYUNWN2xnWENBM19TQV9UYV8yNEpDekF5Smx4VzZwMTZEVmRnSEVSOWZDcV9URTNqUGxDbjcxUlRwUWcxX3V0TU1IMTZYcFhscg?oc=5
 
 ## Taylor Swift earns 9 VMA noms for 'The Life of a Showgirl' songs - USA Today
 
@@ -180,6 +212,17 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - sources:
   - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOOG05SlptckN0N0xfZ2FJTGlWSjk4eEdIYm9TemlpVTg0ZEI2UnB2MHRkZXQ3dTJqWXBlUm9MUl8xQWJRZ0FiSnMtMG9KY29xamZUeEEyaEhfMVd1cjRmOUFCUUtrOUNxamRJT3RoUnFtZTVkTlFmYW91MURoQ2NoN1FoeXl5UlFYMTJFd24yWXpMc2pRUzNqdEVSemNpVUZ6aHM0?oc=5
 
+## Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift - AP News
+
+- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 4
+- summary: Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift  AP News
+- sources:
+  - [unverified] AP News — https://news.google.com/rss/articles/CBMijAFBVV95cUxNaTNId3VKUlhEQkVEOHpPMzFkWlliYWZmb2tLcGJwb1F6ZkJWejdyRnlWZ04yMEljdDhQUlRwbWFCSEJXWERWOFYwSWRNZlViZWZ0emFBOWFhUWpFcEs3b0poaEw1ajU2Y25yTDdhVnlLSXRfdU9fRzNvaDE1RVhFZ0dpanVsQW1IUHl1MQ?oc=5
+  - [unverified] Oskaloosa Herald — https://news.google.com/rss/articles/CBMigwJBVV95cUxNdmJheTlfMFNrQkZzOTRxYVA4WHV1LXIwZDlGS2ZuUkdMTXIwM3h5Vndna3QxY0VWZHlhRGVzZkE2bGRsaTJINGtOV3BlekR1UzZ5RGRuOGh1NGg1c3Z4YmdJeS05N1RaWG05Rm93YXhzSHVteUJ3RW12UEV4T2FRWDFsQVItLWYyRVVpTVRBaVRndXgxQXVWM2Jwc2lCbVE4OHhXcS1OaFBBREQzLXVGRzFJTFJJRWRyT0VncFNQWVJEOW5sMFg4bzlEYm0zYzdsYWk4R192SU9KcEwzOHRUT1BVV1VNR0JJenAzd3JUSU5tcXFsVDQxSWRFM2x1QVRjc00w?oc=5
+  - [unverified] Ottumwa Courier — https://news.google.com/rss/articles/CBMiigJBVV95cUxQZmJVNzNDbWxrRm9hTzNQSk5kU252cjhaNHh1eVRUQWs0V21sRlJfdDN4R1kzSDduMkpidnFrRUNCc3RZMzBrMnptdmFwRnNPYTMyMGNyejZ0ai03UWQycWtJSkRYUFBRWmhBRkRWemFwekZaVk15NWhyczhKc2V2c2hDRHphZkc2VTVkeFJQcHp4QTFiZ3Z3RmtTSi1fTG9UeE5HQWExMm5ibllYS0ZKSXdibDNxRlZsMkVqcFBxVWh6cjZWQm9hclMwX2NwN1hmVE84eEJkTW93dlBGNTNkSGEtd3F3dnpqckxQTnNXZlFrYWhVaUxRN1VKU1kzNzJidS1PcFprZzVtdw?oc=5
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMingFBVV95cUxPbV9mdHFzaVpBSEV2Q0NUeTRHQkdMLTVFU3BVTXBVTl9BaTNvb0l5M0VYZWx4VlJQS0JEMWZqSE5hXy1jVWk3V3F5NThRbWw0enBsR1RWZENlUjlxNjlmanhyVVFtOFZxSEJJeDh5aGV3c2VKRG12RjBPSThrUW80Y3NwNnMxMkFqbk9XMHBDUzRkakc4ekU5TmRmZzZ5Z9IBowFBVV95cUxNd1pPZGpJTW01dWoxLS1hcnFpb2pKczNXRXgyWjBuSURMQU1HaGdyZVBIVjhSYXFkTnZvUUsyMzRWV3lyQ2J2azEwNklXaHJwWWNZNGlUUXEwYU5mQ1RkTW5sblI0WlNXQXlKZmFwbXMxOG0wTDVCOWtnb19zc21SMm9aNG51SnlsbE1fLXZINFlrYjdrREZXeG1URWhzWExzWV9R?oc=5
+
 ## Taylor Swift Returns to Instagram To Praise a Celebrity & It’s Not Travis Kelce - Yahoo
 
 - first seen: 2026-08-18 13:53 UTC | category: relationship | importance: 5
@@ -187,16 +230,6 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Taylor Swift Returns to Instagram To Praise a Celebrity & It’s Not Travis Kelce  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOdWpaWjBzU0tUS2dXYXVDMjJpYUU1RW45YUxCcHpOT0NkYVFlWTlhMlVmS01RdTVhWlI3MjVYY25VZnpzUGNNRU9DVXFHZGxvQ1JQTlloTEhKMHJUVnZvaXlvd1ZFWmZBTTJTTExsbW9OQTdxUEhMLTJIQlZMQzFNdFI2RVczaGFESlJNQXdrZEpIWnN0OElQcFlNUnBfNWktcVUzazBR?oc=5
-
-## Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift - AP News
-
-- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 3
-- summary: Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift  AP News
-- sources:
-  - [unverified] AP News — https://news.google.com/rss/articles/CBMijAFBVV95cUxNaTNId3VKUlhEQkVEOHpPMzFkWlliYWZmb2tLcGJwb1F6ZkJWejdyRnlWZ04yMEljdDhQUlRwbWFCSEJXWERWOFYwSWRNZlViZWZ0emFBOWFhUWpFcEs3b0poaEw1ajU2Y25yTDdhVnlLSXRfdU9fRzNvaDE1RVhFZ0dpanVsQW1IUHl1MQ?oc=5
-  - [unverified] Oskaloosa Herald — https://news.google.com/rss/articles/CBMigwJBVV95cUxNdmJheTlfMFNrQkZzOTRxYVA4WHV1LXIwZDlGS2ZuUkdMTXIwM3h5Vndna3QxY0VWZHlhRGVzZkE2bGRsaTJINGtOV3BlekR1UzZ5RGRuOGh1NGg1c3Z4YmdJeS05N1RaWG05Rm93YXhzSHVteUJ3RW12UEV4T2FRWDFsQVItLWYyRVVpTVRBaVRndXgxQXVWM2Jwc2lCbVE4OHhXcS1OaFBBREQzLXVGRzFJTFJJRWRyT0VncFNQWVJEOW5sMFg4bzlEYm0zYzdsYWk4R192SU9KcEwzOHRUT1BVV1VNR0JJenAzd3JUSU5tcXFsVDQxSWRFM2x1QVRjc00w?oc=5
-  - [unverified] Ottumwa Courier — https://news.google.com/rss/articles/CBMiigJBVV95cUxQZmJVNzNDbWxrRm9hTzNQSk5kU252cjhaNHh1eVRUQWs0V21sRlJfdDN4R1kzSDduMkpidnFrRUNCc3RZMzBrMnptdmFwRnNPYTMyMGNyejZ0ai03UWQycWtJSkRYUFBRWmhBRkRWemFwekZaVk15NWhyczhKc2V2c2hDRHphZkc2VTVkeFJQcHp4QTFiZ3Z3RmtTSi1fTG9UeE5HQWExMm5ibllYS0ZKSXdibDNxRlZsMkVqcFBxVWh6cjZWQm9hclMwX2NwN1hmVE84eEJkTW93dlBGNTNkSGEtd3F3dnpqckxQTnNXZlFrYWhVaUxRN1VKU1kzNzJidS1PcFprZzVtdw?oc=5
 
 ## See Taylor Swift’s Hair Evolution in 10 Stunning Photos - People.com
 
@@ -302,6 +335,20 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiogFBVV95cUxQX3NBUkpmbjVqWEVmMnpEMDVudXB5ejFDNFNDbnpab24yY2tZaHVjelo3Z3MxRlF3U3RKQkphaUg5TjhTNElZT3AzTzZ3U05LSWRrMU05OXB3MHN2bUR3YU1VLXVfeEVGMmVkeG9JSjU3Tl9rTHF6MllMRkdMODAzLUF4Mi10anRTX2VHWUl0UWwtQmZCaDdsTHkxYndERjM2Rmc?oc=5
 
+## Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Eve
+
+- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 7
+- summary: Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Every Way’  Variety
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPc19GbmczaHVrT24ycWxFOURrWkpSOHVCaTVhT2lRdzRQWXd0dHdQVEhLcUZiVXZoWTZiZzMtTGlfb19QbjhwcFlGN2IwTF9JUzlwcUxUSTlEM29DM2JDUW1jLVlzTWpYTjdSN2ltT0lVa1ZUTUlaWDNNVUNQQ3dDTVR1WVZkNWVXa0hTdTFMX3VBOUNaQUo3Y3pEQVd4dWFvblpOd2FrcE8?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-praises-phoebe-bridgers-lost-weekend-triumph-1236836547/
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisgFBVV95cUxPc3lEOGpaTUtOVXBxdk1CRTI3cmVvdlJIdHpZQ1ZlejZmYW9QWUZZTWZHcXVNLWQ4OUMzd1F3WDB2Um5adDljS2xMU3dBMTJaU1o1c042RnREdUIyTUpYZDdxUVFMZHRQS2pFTU9PNW5kbzZjNEpGdDZEZE5Mc1pNSmYyemFROHl6MlNiVm13a00wS0h5ZEtINWVNZndNdmRqLTNJM1pXZWxYSGpoRUxkc3ZB?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNUDhiNVdfanRTc2wtZ3p0MkRQclgyalNkN19zNkxnNHc4andTNGpNUlVaSTFOc1RtdTZpU0xrNWVXQ28zRldRNy1FcWZZRFZxWFVXdjlQeXRxY3kzaGRlZE5VYXA4dXpfV2dLTVFJWmJDdXRXUi1OVGIyWWl1aUJvRmhLUURoYnpYdVQtd2ZsdTAwYTVVUk00Q0syakE3X0dHc2xqUQ?oc=5
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNVU5Cc25zbllxTkFqSDdiZU56aFF0cU1vVE5jSHl3dWtWa2QxelltU1pzSzNiR3FFQU1DUXBQVVRLejNJNks4Qkt2LU52VTdIRWs5bzRSZ0ZabTd4SG5NRFBfck10d3N1alJIVUNxV1pYck5xbFVxMW45RGkzR0ppS0xPYkNnTllZUFNaOTVNOTdKZzc0M1lOR1JLMWtUVFRnSUlFVTBmSHRQdw?oc=5
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbEktT2w4M2VucDZpMnlzZzJabVNhMjVVX0R4VzZQdEpZSHJaME15RnJtUFFOdHhvcVV1VnZucENqQ1dOLXlBa0NVSEtwRU55TEJIclZOTS1HUzRobFMyWlJSUklSazNka2syU1hVajZfQ05GNDhrbmRFV2NBa3VzU3c0V1pOTHNLSnNPdzhxSWtRWHJVeFczWngwako?oc=5
+  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxQM1JCc0NHbTlQdVZoZE0wSm1fT05PZG9wZEFkRnk3cUN2YnpIQ0VpNUloSDdEc0Q1NVRxWFZtalRfS29BVkZQRmdGMTZ6VzQ1T3VVTlk0bHdIWnIwRzhQVHpRNHBiQUVKdERmZHVBVlA3WXJjTjVKLUFEaDFUUHktQjlwcVhXVlVIMTZ2blZab1ZsVDJMNEVoc0g4LW9oMF9ON1A5ZUlyWElJUnZyTnNqV3BPdGhWTHNjTWc?oc=5
+
 ## Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album - Rolling Stone
 
 - first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
@@ -359,20 +406,6 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Are Taylor Swift's shorter hair and lilac nails clues that we are entering a new Swifty era?  LaineyGossip
 - sources:
   - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMitwFBVV95cUxPSmNrQ1JUQ0ZPM1RadHpHVXFONXpud2hFUlZNaW4zS1h4d21pSkM5TkZ2MGVueHVsRHM5R0lMaEZNS2NMZ2RibV82XzVNX0lva1M4SjdORER1QlduaXhCYVN6Ql95MW54MHVOT0FiQW9CZTEwM1FhMmw1dzBOUVhraUxhX3JVdG9zdHZxU3N3TWRLTDNvNFJ0dlhDSjByeTRLZ2phbVNiaVJpdTNXYkF4emgtWjhkVjg?oc=5
-
-## Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Eve
-
-- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Every Way’  Variety
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPc19GbmczaHVrT24ycWxFOURrWkpSOHVCaTVhT2lRdzRQWXd0dHdQVEhLcUZiVXZoWTZiZzMtTGlfb19QbjhwcFlGN2IwTF9JUzlwcUxUSTlEM29DM2JDUW1jLVlzTWpYTjdSN2ltT0lVa1ZUTUlaWDNNVUNQQ3dDTVR1WVZkNWVXa0hTdTFMX3VBOUNaQUo3Y3pEQVd4dWFvblpOd2FrcE8?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-praises-phoebe-bridgers-lost-weekend-triumph-1236836547/
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisgFBVV95cUxPc3lEOGpaTUtOVXBxdk1CRTI3cmVvdlJIdHpZQ1ZlejZmYW9QWUZZTWZHcXVNLWQ4OUMzd1F3WDB2Um5adDljS2xMU3dBMTJaU1o1c042RnREdUIyTUpYZDdxUVFMZHRQS2pFTU9PNW5kbzZjNEpGdDZEZE5Mc1pNSmYyemFROHl6MlNiVm13a00wS0h5ZEtINWVNZndNdmRqLTNJM1pXZWxYSGpoRUxkc3ZB?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNUDhiNVdfanRTc2wtZ3p0MkRQclgyalNkN19zNkxnNHc4andTNGpNUlVaSTFOc1RtdTZpU0xrNWVXQ28zRldRNy1FcWZZRFZxWFVXdjlQeXRxY3kzaGRlZE5VYXA4dXpfV2dLTVFJWmJDdXRXUi1OVGIyWWl1aUJvRmhLUURoYnpYdVQtd2ZsdTAwYTVVUk00Q0syakE3X0dHc2xqUQ?oc=5
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNVU5Cc25zbllxTkFqSDdiZU56aFF0cU1vVE5jSHl3dWtWa2QxelltU1pzSzNiR3FFQU1DUXBQVVRLejNJNks4Qkt2LU52VTdIRWs5bzRSZ0ZabTd4SG5NRFBfck10d3N1alJIVUNxV1pYck5xbFVxMW45RGkzR0ppS0xPYkNnTllZUFNaOTVNOTdKZzc0M1lOR1JLMWtUVFRnSUlFVTBmSHRQdw?oc=5
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbEktT2w4M2VucDZpMnlzZzJabVNhMjVVX0R4VzZQdEpZSHJaME15RnJtUFFOdHhvcVV1VnZucENqQ1dOLXlBa0NVSEtwRU55TEJIclZOTS1HUzRobFMyWlJSUklSazNka2syU1hVajZfQ05GNDhrbmRFV2NBa3VzU3c0V1pOTHNLSnNPdzhxSWtRWHJVeFczWngwako?oc=5
-  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxQM1JCc0NHbTlQdVZoZE0wSm1fT05PZG9wZEFkRnk3cUN2YnpIQ0VpNUloSDdEc0Q1NVRxWFZtalRfS29BVkZQRmdGMTZ6VzQ1T3VVTlk0bHdIWnIwRzhQVHpRNHBiQUVKdERmZHVBVlA3WXJjTjVKLUFEaDFUUHktQjlwcVhXVlVIMTZ2blZab1ZsVDJMNEVoc0g4LW9oMF9ON1A5ZUlyWElJUnZyTnNqV3BPdGhWTHNjTWc?oc=5
 
 ## Taylor Swift Snubs Blake Lively for Selena Gomez in Major Pact — Insider - Yahoo
 
@@ -719,43 +752,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Travis Kelce Shows Off Wedding Ring at Chiefs Preseason Debut  E! News
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOd1YxbFNfOEpuRE91RlFRekxtUGhIUXM3ajZoZ1VoM2dsdVZPLWQ3aHJqam42NU9iY01rNTh2MVNYc1VVUXIyc3h2aXBmSU15aTI5ZjdIWFYtR0RWRnNzbVdJN0s2NjZFb0F6R3dEU2FIQ2NPTVBSbW1GMDA1M1pZMmphU0IzNkJBeW5lREpnMUdXanQ5dmhwSlF4Q3ZtbFNuc2Q4cFBrRUNLZw?oc=5
-
-## Travis Kelce proudly shows off wedding band ahead of first Chiefs game since wedding to Taylor Swift
-
-- first seen: 2026-08-15 21:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce proudly shows off wedding band ahead of first Chiefs game since wedding to Taylor Swift  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipAFBVV95cUxNY1BJWlBySnpIZnI2Z0tWaFJ2QnlhQVlvdzZLcnRraFZlR09EeENVOVNtajgySU14NlZheFlWeUswQzZJZXJrNWNmMnN2N3NwdFlJdnhnMVdjV3RpbVhQT0lVQnlRaGkyX29GN0ZoamVsYW9kOGRWWFozQTJuLU5qUEFTQ3liOVpZTm9zTzBka0lCVC04bFg3U1dfU0M3bUFhOXQ0Rw?oc=5
-
-## Taylor Swift and Travis Kelce Wedding Guest Defends Couple Amid NDA Backlash: ‘That’s Their Choice’ 
-
-- first seen: 2026-08-15 21:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Wedding Guest Defends Couple Amid NDA Backlash: ‘That’s Their Choice’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxNQWZvMU5rRDQ3UXdrbU5lbVpuWXRMa3RYN3RwcFBaTjJMVmJsRUpUbzg1dVkxWTI5a2VURjBOMHNkSjNLbVdNR094RmlEN2FxZkxGX3R3MnptblhaUHhleDdNVDBZTGgxNkVHb29fLUxabVhBVUk4MUhEMmd3Wk9vdEF6QkEyMWExcG5pTGxrb1J0ai1ZZUE?oc=5
-
-## Taylor Swift, Lyle Lovett and more are headed for Nashville Songwriters Hall of Fame - WXXV News 25
-
-- first seen: 2026-08-15 21:32 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Lyle Lovett and more are headed for Nashville Songwriters Hall of Fame  WXXV News 25
-- sources:
-  - [unverified] WXXV News 25 — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOamRaTjVfdUNUWDJFVnAya3Y3UGFnQWl2ZVR1REN2VWRHMlJSOGpTWEFwZEtIbEdpay1iWFBmNUtwZjVYb09qSFV1NFY1NE9MbzN2bEFvWXpCdk9TZDRScnZoMGdJV202elVUTFA2dmVZT0V6Znk1Rm9hMXluYmk5elhuc1hNTGZENWV3OXhHcm12VVUtY1pCaDZuRElOamFGSE5HNTB4RzJkcUk?oc=5
-
-## ‘Looks Like His Wife Dresses Him’ — Fans Sense Taylor Swift in Travis Kelce’s Stylish Outfit for Chi
-
-- first seen: 2026-08-15 21:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: ‘Looks Like His Wife Dresses Him’ — Fans Sense Taylor Swift in Travis Kelce’s Stylish Outfit for Chiefs Preseason Game 1  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiggFBVV95cUxPaURpdU9rYm9aVUQtVWw1bnh3UXBpMkhucWkwMExwOUFxUWZnSmZIQ3VPQWVWcnJrN2ZLNEhLTEFRa2RfX04xU1JEUHE3dUtoU3JvMks5OWdOOTV2ZExteGwyN3hzVXZBS0pnZGxIbXhKVjJDbzM5UVJOLXdpSHZuckhR?oc=5
-
-## Is Taylor Swift attending the Chiefs game today vs Rams? Here's what we know about Travis Kelce's wi
-
-- first seen: 2026-08-15 21:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Is Taylor Swift attending the Chiefs game today vs Rams? Here's what we know about Travis Kelce's wife's whereabouts | Hindustan Times  Hindustan Times
-- sources:
-  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMijgJBVV95cUxOYkUxZWlJM0x3VnUxMUkzX25sLXkzdExVcFR2dXhhT1BBeVd6YmJna1BiVnZEQnRkNWIxcnJOQnRNZS00eHdRYmVRa0lubzFFdml0Rk5jN1lWWTRSbU50QTJQTWNnZlFJRTE0Um0xSTRSRm5JQkpwU2pBRThfcXR5VHYwRWRDZkZtUXZ3elZCVjkwdlhMX2FFdGJONGdFMlVXR182ZWdBQW4tbXpUU1ZlLXpWeVI2YXlLRERPekxYTE1naTlTSXp5MGY3M2ItSURWeVFwXzBLczYxN0RnNEJfbk1xaHdJdEc2WWdXOWR6OGxNVGJDbFp1ajA1UUdzUnloODgzU3dpeEJ4c2NBZ2fSAZMCQVVfeXFMTUl1MnpoX19QcENHVzMtYTBvbUNJVEMwQmx4Zi1wQWhESXRlTlVfUTExdTltMXJYTWFCSTBhMlJsamtlUjRrRTZGUlRldkhrYV9hV3RjaUdMOENXVGYzNVlITjF4Tm0tUjBJTjJXazBObmRNYkxORC1SOTZHeGdGSnEzOTd2aWZZX3EweVIxT0hSZ2k3bXlHN2RBTkVueXAtNlAzaGpVRUNqcEszRTkzSmVfVXZLN1M2SklWMzRScjZqNTlaUlh1Qzd6NjNYNV8yNlo0c09va0dXRFp1QURWZldJenluaGowYTV6aXpXaE9Qdk5pc3FwQ3kycV90VkVncDB6eWNITTIweFlIU3pGVDBmaVk?oc=5
