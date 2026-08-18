@@ -3989,6 +3989,22 @@ export default {
         // Deuxmoi-branded Canva composite (a "Sandlot" still + a generic
         // stock dog photo) — a fan-made graphic, not a real photo of the
         // couple's actual pet. No outlet has published one. Left as-is.
+        // Photo pass #762 (2026-08-18): that "no outlet has published one"
+        // call was about the Wendy-name report specifically; a real photo of
+        // this same dog exists from its July 13, 2026 public debut (TMZ/Page
+        // Six, weeks before Deuxmoi's name report) — the dog descending the
+        // couple's private jet in Palm Beach. Backgrid via TMZ, curl-verified
+        // 200 image/jpeg, downloaded and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/46/4by3/2026/07/13/46db502410134307b5c424ac4208553d_md.jpg',
+            focalPoint: '42% 48%',
+            credit: 'Backgrid, via TMZ',
+            caption:
+              'The couple\'s fluffy white puppy descending the stairs of Taylor\'s private jet in Palm Beach, July 13, 2026 — its first public sighting, weeks before Deuxmoi\'s "Wendy" name report.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
@@ -4432,7 +4448,28 @@ export default {
         // outright ("still waiting for those wedding photos"). No candidate
         // cleared the verify-first bar; left at editorial max rather than
         // ship an off-hook stand-in.
-        photos: [],
+        // Photo pass #762 (2026-08-18): the editorial-max call above is
+        // superseded — two genuinely new events since 08-02 gave clean,
+        // on-topic photos. Both curl-verified 200 image/jpeg, downloaded and
+        // vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://entertainmentnow.com/wp-content/uploads/2026/08/GettyImages-2290614692.jpg?w=461',
+            focalPoint: '48% 18%',
+            credit: 'Getty Images, via EntertainmentNow',
+            caption:
+              'Travis Kelce arriving at Arrowhead Stadium for the Chiefs\' Aug. 15, 2026 preseason opener, his gold wedding band visible on the hand holding his drink.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/eb/o/2026/08/16/eb982d6051f24feb90ed3c65dc91a4e1_lg.jpg',
+            focalPoint: '60% 18%',
+            credit: 'SplashNews.com, via TMZ',
+            caption:
+              'Taylor at Oli Jacobs and Laura Sisk\'s Aug. 15, 2026 wedding in Gloucestershire, England — the outing where clearer photos of her wedding band, worn beneath her engagement ring, first surfaced.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
