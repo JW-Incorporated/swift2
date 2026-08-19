@@ -90,9 +90,14 @@ export default {
       },
     },
     {
+      // Date corrected (#720): was 2010-10-19, a fabricated pre-release date six
+      // days before the album shipped. An undated writing anecdote about an
+      // album track, re-anchored to the album release like its sibling "Innocent"
+      // (10-25). (A three-way dedup of the Mean items — this, mean-single-release,
+      // and speak-now-mean — is a separate content call, flagged for a human.)
       year: 2010,
       month: 10,
-      day: 19,
+      day: 25,
       category: 'music',
       title: 'Mean, written straight at her critics',
       snippet: "Not a relationship song — this one's aimed straight at her critics.",
@@ -2030,9 +2035,13 @@ export default {
     },
     {
       slug: 'speak-now-title-track-origin',
+      // Date corrected (#720): was 2010-10-05, a fabricated pre-release date 20
+      // days before the album shipped. This is an undated writing anecdote whose
+      // only dated fact is the release-week Hot 100 No. 8 debut, so it anchors to
+      // the album release, matching the sibling album-track items.
       year: 2010,
       month: 10,
-      day: 5,
+      day: 25,
       category: 'music',
       title: 'Speak Now, the title track: a wedding she never crashed',
       snippet:
