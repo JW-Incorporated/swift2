@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 91
+
+## Taylor Swift Shows Off Shoulder-Length Haircut at Wedding Following July Marriage to Travis Kelce - 
+
+- first seen: 2026-08-19 17:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Shows Off Shoulder-Length Haircut at Wedding Following July Marriage to Travis Kelce  Kiss 95.1 Charlotte
+- sources:
+  - [unverified] Kiss 95.1 Charlotte — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNOXp2b09yYlNkZG5iTndJWkNydzRXNFpfMjZ1bTB4OFE2czVYVHRlWUdTWU9ybmI4dmw2Q2dPTmVuVTExMGI1U3RydXZQNnVQQ3NkRnAycldNdzJzcVpFQXdxUWZXd0xGdkpVSldudjdGQjUzLWNHRTZBWVpkNVA0NWpoZDhfNDBWX2NFOXMxSkl1SXcxNlphazdQYjAzRkhvU2JHTk5YVmpIRVktNExldFB1eDlKck5LNldyWXlnSUU4dHJFMWh0Uw?oc=5
+
+## Taylor Swift, Charli xcx, and the art of switching categories to win a Grammy - Gold Derby
+
+- first seen: 2026-08-19 17:37 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Charli xcx, and the art of switching categories to win a Grammy  Gold Derby
+- sources:
+  - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMingFBVV95cUxORkRxZnlWbWgyM3JzN1l3Y1p5aEN3akNZQlFVWmpHMnczU0trQXo4N1hDRWhpWHRIZHgxUHBnZGhkZllSS0N4VzRXTlNXdEZmRXgtbG9sMUhxUWcxSGotSFI5YjhXMS1FbzhHOU1fM3FrLVBLVFF5RGl2NFV3SjZjNFhlaVZfUm1uSUNja3RVb3JPUURLQ0hxaDFvN3lMUQ?oc=5
+
+## Phoebe Bridgers & Taylor Swift's Friendship Timeline Goes Surprisingly Deep - elitedaily.com
+
+- first seen: 2026-08-19 17:37 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Phoebe Bridgers & Taylor Swift's Friendship Timeline Goes Surprisingly Deep  elitedaily.com
+- sources:
+  - [unverified] elitedaily.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxQU0NZTm92S3JkWk96UG9hckVBazJPODlaM2xqR1lmNGRjbUFQb3pDaHBwVWh4Z0VUc0txcjdSQkxDUTZWT3ptMTlub3lEUXZxYWZsdl94eVUxaG1MeXUwaDJENEdyQk1vbnJmUjV2NGJhajdkZmVicFdhd3dVLWxRSWlMTVlmdGtsejBFWWp1RUlQN0E?oc=5
+
+## Behaving like Taylor Swift could make you happier, and science proves it - Yahoo Creators
+
+- first seen: 2026-08-19 17:37 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Behaving like Taylor Swift could make you happier, and science proves it  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUGtqY25lTnl2QXg5R2E0XzZwam9mUHlhZ3FLWURoN0xFY1R3QUY5N3NoVFE5QldoMnUteERoMS1yYlh2UVJaV1h6b2hDUkZNZS1TYzczeFZsUHBpcnhVdVpQcUJJOTRrakNQM0wyUVNIZXQ5QXBBY2Q1N1hCcm1DSTcySzduYXNjcXBNbUpKZWtzcURpU1ZySUltbGdQY3pXYnl0NkdQYU9QUzEwWEhldUt2Y0dlNmRtMG1CZTVsTjZwaGFBelg5UA?oc=5
+
+## Ring experts on favorite details of Travis Kelce & Taylor Swift wedding bands - Kansas City Star
+
+- first seen: 2026-08-19 17:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ring experts on favorite details of Travis Kelce & Taylor Swift wedding bands  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNN0FxMVVmbHE1VWUtMG5QZ0xLQ3N5bFduakFzMzhvS3FTOVFXVjVDdlhpdEFPaV9vaDZhbDNYUXVqN2ZkUWxGTWFKNl9BS2kzUVVXYU9FVEN5SG9XVWNiWkpIWkhhN2xjT04yYmo3SFZmbmt4TXp2a0pQV3VsRkU0NnhzcGx3bERfYkdEX0dHYVFud9IBkgFBVV95cUxNSTNpdTFHUnhhS1JUb2VXWlVGYVRjckE4aWxYSjYtUXdxTldoMzJYM05QRzRTNnVLRndMaXhqdzdqZVhtSEQwNUdMRFM2YVUzcjlXaGlGbnNub0lZZUxrb2gzT2lVZjVoNVRRRWVqU2tJTm5hdElTUzhhWWxyVmJCVlBCV0J6NzF4TGpkQ2lNVml5UQ?oc=5
 
 ## Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their Wedding - Yahoo
 
@@ -742,59 +782,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMivAFBVV95cUxQeTl6cGhnSU1xZi1zdEpVSXZ3QXV5bzRpU3pqckR4MzVIX2cwZE9oU1Z5RTdUamVzV1I1ODk3N2gzY1B4eTNGR0hqT1BDaWNRcE82RENoMC1zTGw0SW5lWE1YeE5tbTRfYzRhVzdIWmxmcXB5QWlUWm5UUmFfZWUxdXJ0ZTlTMkZCUUxPTDVDaGNqMHRlVEMyRTBuSTZjTW11V2dyN1duWW03NmNaSzNSdWJya2pWTnJ4dkhfUQ?oc=5
   - [unverified] NZ Herald — https://news.google.com/rss/articles/CBMi2gFBVV95cUxOZ1g5UTRLZWtQWGFrV3VURkpCYUlnb1REZjZMUDRKcmhYMm8xNEtjZXpvTGdUSzhnSFNlNlA2WGtiY3JkMktSemF5T2FYS3N5cUFfZFNWX3hXTy0zdkxOTldaT2pBMGF5S0tXUjRvdm12YkFHLUtBWGh6OFZKTEN2amRmdDFWYzYwaEN3RC1OZjdyVURTOGNqOTB5akYzS3pMZmNuRU5OcEgzM0xqTnJyVjNGZXpZT0ZrcV8xVFd0VGhQQmw5RWpZUkhLNkNIZUhHOTBFRWVOUzNtQQ?oc=5
-
-## Taylor Swift Breaks All-Time Adult Pop Airplay Record with 16th No. 1 Hit - Vermilion County First
-
-- first seen: 2026-08-16 17:31 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Breaks All-Time Adult Pop Airplay Record with 16th No. 1 Hit  Vermilion County First
-- sources:
-  - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNb3lXRkpWTUYyYXFfV3BTM1BwTzBYLXJWZDZ5N1BNdzA4cGRFRmxwMjdaTFhNZXlvb0tIWDMwRzRTN0NuNnNDU0lGbjB0T3lWVjRKVFVVZ1F1Um9YcjJmbVFaWENKVmhfTVZLX0hIeFFIUXF1LTRSNW1tZ2dWWlpmWDY2VzJnaXZHeTRuV2xNYjNHUGgzUUhUdTR2YjUyMWdqdGc3MkRHd3VOV3NUN0V4YlY1UmN3SXZl?oc=5
-
-## Taylor Swift and Travis Kelce Show Off Their Romantic Matching Wedding Bands While Thousands of Mile
-
-- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Show Off Their Romantic Matching Wedding Bands While Thousands of Miles Apart  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNcmFEbnBfckNzU0F1V0t6cU9NOTJLTnhzb1gxY3M3dnRyZmgtcXRNVy1qVnh6S3Z3cDhsNUR1QW0zRE5zeGhZelVzU1ppVFNLalczYmk2QmdjXy1SelIxWkNHUFpCcXdpODFaWFZfVmxyZ0xtTHc0Y185a3hwd3dwMkhkZzVrQVF0MUt6MG5rVUpVbDhaNnhtTE4wOEd1QmdFd3RNQzVyZw?oc=5
-
-## Taylor Swift flashes wedding ring and gold band as she attends Oli Jacobs and Laura Sisk’s star-stud
-
-- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift flashes wedding ring and gold band as she attends Oli Jacobs and Laura Sisk’s star-studded nuptials solo  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMixgFBVV95cUxORWN6LUlJdmV6bEZteXEtZnJwODVpZnNtclllekkzZEFDeDVwcGwwcDVzUklicm45ZFFscVY0VW44Nko3cHE0NU5FTTdnRTNSMGFmUWdGN1J0ZW1uXzJoMl8tNXV2Nl82aVY5SW5rOWNQMVZXZ1BRZDRWNzlnX29NY19QVnk3b2ppRy16QkQwandBWmhjZUVNZVhwQ1pPNG9kMjRMLUNqOUhKbDRpbW9tc1owVThCT3B1VHVLMG90Rm94ZlhZRVE?oc=5
-
-## Taylor Swift’s “I Knew It, I Knew You” Officially Reaches #1 At Hot Adult Contemporary Radio - Headl
-
-- first seen: 2026-08-16 17:31 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s “I Knew It, I Knew You” Officially Reaches #1 At Hot Adult Contemporary Radio  Headline Planet
-- sources:
-  - [unverified] Headline Planet — https://news.google.com/rss/articles/CBMiywFBVV95cUxNa3FOSTlYRGRUR3NvOXFyYkhmY3JfZkhBdVhtUnpNUkFOV3NybTVEYTFkX2hKNExwWnp0RUZpeTBROUpnZVBPX09Oam4tZmFnMzhWUGtPWE1LNkJoVlU0dEFCaTcyY1JjcWFSdUpURnp4endlNDh1OEFONjNtWFNERFJRY3FsOE9qYTQ1NEpwcWhoR2VMMGlZZE1DM1RWaXlIV1dsdWYtSnlUYnBCNURneXQ4UDJ6cEpQZVhad1Fta20tS0xLVkQ4TTFCb9IB0AFBVV95cUxNVVZmU0Y3azQzcTRnSGFhOHZ0RGZTNGFlNW9nUzh6MGFZY1hBS3JMX0h1ZmZXdmg3MjdUNGxXRWQwNm9DejJxLWNzOG9jWUpDeEw4ZlBoQ1U3NWMyeGVrMHYxYWFGT0YxNmhlYUhSeWVTUjN2ZmNlWEJDdE5RQjZzZExuQkRNWVV1OVltRzU1ajhfVWpIS29nV0p1M3V2N0lYUTY2YmFKNUY1UU9tZXlMUm01eFowaEx4aDItNXhWZTNndlNjcTRLdDR3djFxRzIx?oc=5
-
-## Travis Kelce Flashes Wedding Ring at Arrowhead After Taylor Swift MSG Vows - Complex
-
-- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Flashes Wedding Ring at Arrowhead After Taylor Swift MSG Vows  Complex
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMimAFBVV95cUxQVi1CY2VjdUVRVTk5VE5KOUdDMk5ETlZTR0ItTk5YVEotdm9FaENUcUtFQUNSVENkZkJXSUdfcmFpM0JPWVlMaHIzOHhTaWJlbkxiTFVvYnRCTExfRDVzVEg1LU0xMms1aTNEMnNqbk1qX1VMb2Jvakx4TDZxUW15WWpYUS0zLTV2SEFQWUlRUEVnWmJwd3lvMg?oc=5
-
-## Cristiano Ronaldo, Georgina Rodriguez's Wedding Venue Revealed, How Does It Compare to Taylor Swift?
-
-- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cristiano Ronaldo, Georgina Rodriguez's Wedding Venue Revealed, How Does It Compare to Taylor Swift?  Bleacher Report
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOTjQ4czlNUXItS2pDUXI0N1pVSW5XVWJtQVVyVlNwQkdLZkpGb0gyb3VsZ0NYOGJvMTluNXJjLURPbGJ2OE93STFPRkdVMUlLdHJVYXlQZlZWeG0tYVpUemRTV3lKc2l5QjItUE4wRHkyeUk3Zl9Eb2hkWU1VaElRUlpEVkFqa2tjcmJaQWFkMC1sNENpOFJsVnVQeHRYc180SDJiVDh2ZWVxX1E1Z1ZnS241d2tTbWQ1QVNabDRJM0dsWUZWUW5EWVBuTXc4Q1JSY0pkNw?oc=5
-
-## Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pals Sabrina Carpenter,
-
-- first seen: 2026-08-16 17:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pals Sabrina Carpenter, Jack Antonoff  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPcFFDY0NPR2FjcVY3Uk9MaVBmN2Z0eHNaanVXSmswYzhDTnBIMnhZRElHQVEtU1JkR2JMQ3J3SWcwZURwcElSeDdQOE9Sc0dXUGdHSk9vdWdZQ3pkTTlZb3pyTWMyVy0wdWJoTExRVFdPcmxaSFVUUnJPd2hsLVBhTXRmaGVJNFpYVEt2My02RHVoaVdEZkE4MTRkUmpnWEpnQnd1RjZqeEVJNlFXRTRz?oc=5
