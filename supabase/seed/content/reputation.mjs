@@ -127,7 +127,7 @@ export default {
             reportedOn: '2025-12-12',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-lyric-changes-explained-1235483070/',
-            note: 'The lyric edits are documented; the re-record tease is the unconfirmed read. The coverage cuts both ways — Taylor is on record calling reputation the one early album she thought "couldn\'t be improved upon by redoing it," while still promising its Vault tracks would one day "hatch." Resolves on an announced re-record or Vault release; fades if the window stays empty. No location. Re-checked 2026-08-19: still no reputation re-record or Vault release announced; kept STILL LIVE rather than faded — this is the same active reputation-TV question the two sibling entries were re-checked on 2026-08-15, not a claim that has gone quiet.',
+            note: 'The lyric edits are documented; the re-record tease is the unconfirmed read. Resolves on an announced reputation re-record or Vault release, fades if the window stays empty. Re-checked 2026-08-19: still nothing announced — kept STILL LIVE (not faded), the same active reputation-TV question its two sibling entries were re-checked on 2026-08-15. No location.',
             sourceTier: 'established',
             lastCheckedOn: '2026-08-19',
           },

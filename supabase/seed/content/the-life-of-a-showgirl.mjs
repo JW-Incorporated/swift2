@@ -1630,6 +1630,25 @@ export default {
             focalPoint: '48% 35%',
           },
         ],
+        // Rumor Desk 2026-08-19: "The Fate of Ophelia" led Taylor's 2026 MTV VMA
+        // haul, so the open award-chances question homes here. Award-chances/
+        // -recognition speculation is an explicitly Always-OK public-facing
+        // category (privacy-redlines.md § Always OK); the claim carries no
+        // location, whereabouts, or any other redline material — the ceremony is
+        // a televised public event and nothing is asserted about where Taylor is.
+        rumors: [
+          {
+            claim:
+              'Taylor Swift goes into the 2026 MTV VMAs as one of the year\'s most-nominated artists, with nine nominations led by "The Fate of Ophelia" (Video of the Year, Best Pop and a sweep of the technical categories) plus Artist of the Year and a Best Direction nod for "Opalite" — leaving open how many she converts to wins when the ceremony airs live on September 27, 2026.',
+            reportedBy: 'FOX 17 (Elizabeth Stanton)',
+            reportedOn: '2026-08-18',
+            status: 'unconfirmed',
+            url: 'https://fox17.com/news/entertainment/the-2026-mtv-vma-nominations-are-here-taylor-swift-madonna-lead-the-race',
+            note: 'Award-chances speculation — an Always-OK public-facing category. The nine nominations and the Sept. 27, 2026 Los Angeles ceremony date are announced fact (noms via MTV, reported by FOX 17; date corroborated by Billboard). Only the outcome is unsettled; resolves on ceremony night, 2026-09-27. No location, security, health, or private-individual content — a televised public event.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-19',
+          },
+        ],
       },
     },
     {
