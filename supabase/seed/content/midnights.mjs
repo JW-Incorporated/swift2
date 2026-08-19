@@ -1301,6 +1301,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-17): the same WSJ. Magazine "on the
+      // record" relationship-confirmation event, told from his side.
+      relatedIds: [
+        'moment:vault-midnights-travis-confirms-it-on-the-record',
+      ],
       year: 2023,
       month: 11,
       day: 20,
@@ -1538,6 +1543,8 @@ export default {
         // Shop pass (2026-07-22): the custom Schiaparelli ensemble was
         // never sold at retail -- a current strapless slit gown, verified
         // in stock, closest real match.
+        // Stylist re-check (2026-08-16): still a live PDP, now sold out in
+        // every size -- flipped to inStock: false.
         products: [
           {
             brand: 'Mac Duggal',
@@ -1547,6 +1554,7 @@ export default {
             imageUrl: 'https://cdn.shopify.com/s/files/1/0511/3783/9283/files/56248-BlackIvory-AB.jpg?v=1773440361',
             price: '$398.00',
             isAlternative: true,
+            inStock: false,
             altNote: 'The custom Schiaparelli ensemble was never sold at retail -- this is a current strapless slit gown in a similar high-contrast shape, polka dots instead of crystals (choker not included).',
           },
         ],
@@ -5462,9 +5470,11 @@ export default {
       threadIds: ['the-proposal'],
       // Cross-links (ledger #1280, Q6): the friendship-bracelet origin beat it
       // retells, and her Nov. 11 on-stage acknowledgment it followed.
+      // Cross-link (Stage 3, 2026-08-17): the same event, told from her side.
       relatedIds: [
         'moment:vault-midnights-the-friendship-bracelet-travis-couldnt-deliver',
         'moment:vault-midnights-karma-is-the-guy-on-the-chiefs-sung-with-travis-watching',
+        'moment:vault-midnights-travis-makes-it-official-on-the-record',
       ],
       title: 'Travis confirms it, on the record',
       snippet: 'In a Nov. 20, 2023 WSJ. Magazine cover story, Travis gave his first extended sit-down about the relationship — retelling the failed friendship-bracelet meet-cute and speaking candidly about the scrutiny that came with dating her.',

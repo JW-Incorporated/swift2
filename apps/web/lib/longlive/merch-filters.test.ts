@@ -11,11 +11,11 @@ import {
 } from './merch-filters';
 
 describe('merchByEra', () => {
-  it('groups every real shopTheLook product exactly once — counts sum to 156', () => {
+  it('groups every real shopTheLook product exactly once — counts sum to 159', () => {
     const groups = merchByEra();
     const total = groups.reduce((sum, g) => sum + g.items.length, 0);
     expect(total).toBe(MERCH_CATALOGUE.shopTheLook.length);
-    expect(total).toBe(156);
+    expect(total).toBe(159);
     // count is precomputed as items.length, per the contract
     for (const g of groups) expect(g.count).toBe(g.items.length);
   });
@@ -84,8 +84,8 @@ describe('merchItemImage', () => {
     expect(split).toBe(95);
     expect(product).toBe(2);
     expect(moment).toBe(55);
-    expect(monogram).toBe(4);
-    expect(split + product + moment + monogram).toBe(156);
+    expect(monogram).toBe(7);
+    expect(split + product + moment + monogram).toBe(159);
   });
 
   it('never returns the era-art fallback path for a product or moment photo', () => {

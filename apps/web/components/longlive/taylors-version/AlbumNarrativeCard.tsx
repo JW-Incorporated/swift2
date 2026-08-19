@@ -25,7 +25,7 @@ export function AlbumNarrativeCard({ album, index }: { album: ReRecord; index: n
     <article className="era-card overflow-hidden" style={{ borderLeft: `3px solid ${isPending ? 'var(--status-pending-ink)' : album.color}` }}>
       <button className="w-full text-left" onClick={() => setExpanded((x) => !x)} aria-expanded={expanded} aria-controls={`narrative-${album.id}`}>
         <div className="flex items-start gap-4 p-4">
-          <span className="mt-0.5 shrink-0 text-3xl font-bold leading-none tabular-nums" style={{ color: 'var(--era-line)' }}>
+          <span className="mt-0.5 shrink-0 text-3xl font-bold leading-none tabular-nums" style={{ color: 'var(--era-ink-soft)' }}>
             {String(index + 1).padStart(2, '0')}
           </span>
 
