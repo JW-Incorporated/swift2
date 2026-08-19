@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 92
+
+## Taylor Swift & Travis Kelce’s Long-Distance Marriage Update - StyleCaster
+
+- first seen: 2026-08-19 02:23 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce’s Long-Distance Marriage Update  StyleCaster
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiswFBVV95cUxPaDg5M2lrOGh2c19XWl9NUDVmQmtYUlF2R3plUi1Sd3hXcWVqWDJjSFpkQ3hnT24zLXBfMEZ5cXNaNGw1N1F6RHZiejF5S0JZVW9FekRlb2E5Z090WDZHX1pYRm1lckZUQm05bm9samZxQWhIR2pQLU9zRmJubnNGNFpjWFJkWDlDMWxrMTItSGRCMzJQd0tER3lTOTFOYm1Wa3VLTzNTSVFlSUtGVzduMnpiaw?oc=5
+
+## Taylor Swift Just Solved Our Wedding Guest Fashion Woes — Here’s Why Her Dress Works from Summer to 
+
+- first seen: 2026-08-19 02:23 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Just Solved Our Wedding Guest Fashion Woes — Here’s Why Her Dress Works from Summer to Fall  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxQTy1mWE45c0kwZ1BfMWJkMmdkRFo2VHVmOEhYQllEUzBsUGFDc1QzcXFhNVRpU20xYUpyZUhfdTRkYjNMMmpFUm1EX3VxaTllOTVJWWR0SGdPSFNJTmQ5NHBBU1BWeWp4M2RBMHQ0Zlk0eDRla0YxNFhRSWt1ZVQyaVNuTWt6Zw?oc=5
+
+## Who will win big at the 2026 MTV VMAs? Madonna, Taylor Swift, and more top nominees revealed. - face
+
+- first seen: 2026-08-19 02:23 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Who will win big at the 2026 MTV VMAs? Madonna, Taylor Swift, and more top nominees revealed.  facebook.com
+- sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPQVNZQThnSktiOUZqbWhCTHZURXdzU3lSVzZWVVp0UGZ0Z1BVdGd4aG9wUnpQUFdieUlVVnF3d3VuOHpQaWdqU2VOZ1MyNkY2T3Rzc0pDbGROaDJnNnRfWXdMSWhFZGN0NURyS05QUVhkOTRaVkl5Wi1vSUlFYmZ4NEwwcnJTNEx5N2RjOWlqOXQwSm9ubE11azkzdDdtNHA0b212VjRjbllTWTZWeGVvc1BKMFN4VkQ0QTZWblozQU1iNUItbm5OZGZkbzZiRnJpMHZ6V1BDNFptZw?oc=5
+
+## Opinion: Taylor Swift and Travis Kelce had their dream wedding in July, now can we stop picking it a
+
+- first seen: 2026-08-19 02:23 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Opinion: Taylor Swift and Travis Kelce had their dream wedding in July, now can we stop picking it apart?  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi8gFBVV95cUxQSFRMRmpjODlwbjZIUzJxWFJXdUI2M3k0cE5FbGFrMWZOWDNMRXF6ZzNXd0k1RGZvVklSVEJrVENHc2RSc05zVnFjWFdSQzNUNjVWWHdLT2NQLWpRY3ZmOHl0VUNSbE1pMUFXcDVPanJSd1hBcjk1SmpDaWVSQzB6QUllRnVhWmFlTndINWo0NmJ1LUhtdzdXNHNuYlFxV2d2eXFXNHNBenVuMTEzTW85OURodVBkSG5RcDhBSy11QnhVd2Z0Y09IUHBxcmVIVDF0eTNMZDVLcHExMUlMeDBCQnZsWGlUVjctYlRPWkM1dkJvdw?oc=5
 
 ## Chiefs co-owner reveals whether he attended Taylor Swift and Travis Kelce’s wedding - Entertainment 
 
@@ -112,11 +144,12 @@ Stories: 88
 ## Madonna tops Taylor Swift in nominations for MTV's Video Music Awards - Reuters
 
 - first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Madonna tops Taylor Swift in nominations for MTV's Video Music Awards  Reuters
 - sources:
   - [unverified] Reuters — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQX29pUjhTWUJ4cGcwMVVIVWhaTV9xVEZKVlRTczlHeDlnVkFDMVZ0VGlEU0J5S01uUVprdFowWVNuQWRRenBvc192MDRjZ0dGOHdKYWJwNHc3d1VGSTdDdkZYOWdpRDVmQ1d1clFEakNpTVhRcnhSMUZjVDlKLW1yREZpdGJrc3lDSV8xdGF4SWxvY2VMVHNNaThzajhoMWx1d28zR3RZc1p6dGM?oc=5
   - [unverified] upi.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNbGhQWWxnUlNTS242THhvaXlaQUxEUWJlaHlyUlI0end1bUk2b1NZaW43NGpnV0tBWXM3dU5MQ3Nkd0tQVkNRakQ0TXllRk1PNmd2OFdibTVacG5aTnFLSnlfUFZrS1pFcE5TRy14S19fc1k3WnhENUt5ZUlXR3lFZG1WNWc1aENyOFZQTnpnVURlSFdEOGM1eUxRV2NyTTl5Wk93clB3cVIyWlBIdmNB0gG0AUFVX3lxTE5TY0pOdE55amQ4Q2U1XzhpWm9aMGlEb1FNbWEtVldYLVdadXFsTm9mdVFCeFFudENWWmJLR1FrX0hiTG5pNXVFTVY3WUNBUDFPZVgwVXpqWEtoSlJsRzRiRFRBYlV5M3IyWFl0cHl0LURtSU5kWGc1UEsxdHJBQWxvQ1BkMlIxUzJ6Y0t1YnBfRjVyTEt1YWlubUx0ck42RnpubnFkSmJxYWQyclpFTVREWlE4Vw?oc=5
+  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOamhYWm1ibENWYjJrb3BjcDU2S09lTHIzVldxbzZ2TzVvZGdoZ3BZclpVSDVzUDUtbk9VdW5nZE9GMmZJM2JnMllqYlVleE9fNFNxcUxCbk5VV0N4Z1g3M0Frbkt0WlIzdlZFR21CekJ5NlV6Z3M3MDJmYlhFLXdkb1ppWHpOUUI2QzVqSjdZaHBaaGRSM0FNb1FhWVBSQjVBblZwTkpRWGvSAa4BQVVfeXFMUFYxcjZRTmFJWHFJQ2tXRGhSN1ZJM0k2bWNHai1PWmtDUUQ2UTlCRDUtdmpCNEloM2xXNG83elhUZlltd3VGOV90bnRUdUlsTGRkNl9wQVRPQUpDUVJOMkRGVmhPbjZROXFDcTF1NmtpSTJkZWhsSnZOalhkczZXUG1kV2RIMDBhQmR0YWh6XzNxSmhYM3RMUVNPWDJPX2oySXRaZ1Y1Y0psbFF2bGxn?oc=5
 
 ## Taylor Swift, Drake and Kendrick Lamar album releases linked to more deadly car crashes, study finds
 
