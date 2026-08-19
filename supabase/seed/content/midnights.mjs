@@ -4365,7 +4365,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Bloomberg pegged her net worth at $1.1 billion in October 2023, splitting it into roughly $400M in catalog value (music released since 2019), $370M from tickets and merch, $120M from streaming, $110M in real estate, and $80M in royalties. Forbes reached the same call the same month — both noting she was the first musician to get to ten figures on songs and shows alone, not on an outside empire.\n\nThat distinction was the story. Rihanna crossed a billion on Fenty Beauty, Jay-Z on spirits and art, Oprah on media — Taylor did it with no sneaker line, liquor brand, or startup portfolio. Bloomberg counted only her post-2019 masters, because she did not own the Big Machine catalog Scooter Braun had bought in 2019; the Taylor\'s Version re-recordings were her rebuilding an owned catalog from scratch, and that new-catalog value is what the estimate tallied.\n\nThe compounding engine was the Eras Tour — the first tour ever to gross $1 billion, which closed in December 2024 at $2.08 billion, double any tour in history — landing in the same October as 1989 (Taylor\'s Version) and the largest sales week of her career. Her real-estate line spanned homes in Nashville, Beverly Hills, New York and Rhode Island. The number kept climbing: Forbes had her at $1.6 billion by late 2024, passing Rihanna as the richest female musician, and near $2 billion by 2026.',
+          'Bloomberg pegged her net worth at $1.1 billion in October 2023, splitting it into roughly $400M in catalog value (music released since 2019), $370M from tickets and merch, $120M from streaming, $110M in real estate, and $80M in royalties. Forbes reached the same call the same month — both noting she was the first musician to get to ten figures on songs and shows alone, not on an outside empire.\n\nThat distinction was the story. Rihanna crossed a billion on Fenty Beauty, Jay-Z on spirits and art, Oprah on media — Taylor did it with no sneaker line, liquor brand, or startup portfolio. Bloomberg counted only her post-2019 masters, because she did not own the Big Machine catalog Scooter Braun had bought in 2019; the Taylor\'s Version re-recordings were her rebuilding an owned catalog from scratch, and that new-catalog value is what the estimate tallied.\n\nThe compounding engine was the Eras Tour — the first tour ever to gross $1 billion, which closed in December 2024 at $2.08 billion, double any tour in history — landing in the same October as 1989 (Taylor\'s Version) and the largest sales week of her career. Her real-estate line spanned homes in Nashville, Beverly Hills, New York and Rhode Island. The number kept climbing: Forbes had her at $1.6 billion by late 2024, passing Rihanna as the richest female musician, and near $2 billion by 2026.\n\nThat wealth was the ledger side of a larger peak. In December 2023 she was named Time\'s Person of the Year, an honor pinned to an economic and cultural reach the citation summed up in a line — "when the Federal Reserve mentions you as the reason economic growth is up, that\'s a big deal." The tour bore that out in hard numbers: a later national study put Eras Tour attendees\' direct U.S. consumer spending at roughly $5 billion, a figure the U.S. Travel Association suggested could top $10 billion once indirect spending was counted.',
         sources: [
           {
             outlet: 'Bloomberg',
@@ -4423,6 +4423,28 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
+          },
+          {
+            // Depth pass (Answerer, 2026-08-19): the Time Person of the Year
+            // 2023 honor and its Federal Reserve line, added to the close.
+            outlet: 'Time',
+            url: 'https://time.com/6342806/person-of-the-year-2023-taylor-swift/',
+            source_title: "Taylor Swift Is TIME's 2023 Person of the Year",
+            publisher: 'Time',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-19',
+            reliability_score: 5,
+          },
+          {
+            // Depth pass (Answerer, 2026-08-19): the ~$5B U.S. direct consumer
+            // spending study (QuestionPro) and the >$10B indirect estimate.
+            outlet: 'CNN Business',
+            url: 'https://www.cnn.com/2024/12/08/business/taylor-swift-eras-tour-economy/index.html',
+            source_title: "How Taylor Swift's Eras Tour boosted the US economy",
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-19',
+            reliability_score: 4,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed Eras Tour performance
