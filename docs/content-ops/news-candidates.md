@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 92
+
+## Sabrina Carpenter, Madonna, and Taylor Swift lead the 2026 MTV VMA nominations. Here's who else made
+
+- first seen: 2026-08-19 09:46 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Sabrina Carpenter, Madonna, and Taylor Swift lead the 2026 MTV VMA nominations. Here's who else made the list  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi9gFBVV95cUxONWZia01sSFE2ZmNhYUl6MWhVVEZCVEVPTUFFbHpSd3RsRE0wU3llMEhxUkZZZ0Q5SHFmZWdlajF6bk9DUU9KbzVHb3VMc2llV2xBbU9QN1lrRWlHb2xBMWdEd1RrUnBXUzR5R1hzNU5mU1RiTGk1cWtpb2dDRHhXU2lCYllNelpUclR6dVZQdE91M0txWFVldVhfd1VINDhCWFladUtRWUxqeThoc093M0xOLUs5M0dtc0pJVGoxcVEtdGU3eGd3TEJnRlZ1OGZRcmhQQk9PcXc0OHI5aUFudG5oWVZvMi12alNiY2tMU1gtX3RxcXc?oc=5
+
+## Fans Think Olivia Rodrigo Just Shaded Taylor Swift & Here’s Why - IMDb
+
+- first seen: 2026-08-19 09:46 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Fans Think Olivia Rodrigo Just Shaded Taylor Swift & Here’s Why  IMDb
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE92WUdoalI3TTNQdmVpYm9adjJpRWZMZmkxdC1KZDZjdS1EMm00QjA2QWNwRXFUWWlsdjQ1UF9jN2FZcTV2Z2ZFQUZrZ3B4d2ltSGdqcV85QkdYWHRvMkFGbUpRRzd2Zw?oc=5
+
+## Taylor Swift News Conflicts With Travis Kelce’s Chiefs Schedule - Yahoo Sports
+
+- first seen: 2026-08-19 09:46 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift News Conflicts With Travis Kelce’s Chiefs Schedule  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPLVBWYUtZbHdEdGF2X2p0RThoaFhNNWRJR0RmcjctRFRINTAzSTRvVFBPQlljenhnMGdzVU5USVFITkN0cXE4X2JZYlhJc01QM3JsdEpwdjNDcEJmM0F2WW1NOXJiRFVwWUdGcEcyU0FZS09EZEQtOG9NRzlTMUxVcjJ2d1cwUl92SXFB?oc=5
 
 ## Taylor Swift’s music quietly removed from Trump social media posts | CNN Politics - CNN
 
@@ -266,13 +290,14 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 ## Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift - AP News
 
 - first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift  AP News
 - sources:
   - [unverified] AP News — https://news.google.com/rss/articles/CBMijAFBVV95cUxNaTNId3VKUlhEQkVEOHpPMzFkWlliYWZmb2tLcGJwb1F6ZkJWejdyRnlWZ04yMEljdDhQUlRwbWFCSEJXWERWOFYwSWRNZlViZWZ0emFBOWFhUWpFcEs3b0poaEw1ajU2Y25yTDdhVnlLSXRfdU9fRzNvaDE1RVhFZ0dpanVsQW1IUHl1MQ?oc=5
   - [unverified] Oskaloosa Herald — https://news.google.com/rss/articles/CBMigwJBVV95cUxNdmJheTlfMFNrQkZzOTRxYVA4WHV1LXIwZDlGS2ZuUkdMTXIwM3h5Vndna3QxY0VWZHlhRGVzZkE2bGRsaTJINGtOV3BlekR1UzZ5RGRuOGh1NGg1c3Z4YmdJeS05N1RaWG05Rm93YXhzSHVteUJ3RW12UEV4T2FRWDFsQVItLWYyRVVpTVRBaVRndXgxQXVWM2Jwc2lCbVE4OHhXcS1OaFBBREQzLXVGRzFJTFJJRWRyT0VncFNQWVJEOW5sMFg4bzlEYm0zYzdsYWk4R192SU9KcEwzOHRUT1BVV1VNR0JJenAzd3JUSU5tcXFsVDQxSWRFM2x1QVRjc00w?oc=5
   - [unverified] Ottumwa Courier — https://news.google.com/rss/articles/CBMiigJBVV95cUxQZmJVNzNDbWxrRm9hTzNQSk5kU252cjhaNHh1eVRUQWs0V21sRlJfdDN4R1kzSDduMkpidnFrRUNCc3RZMzBrMnptdmFwRnNPYTMyMGNyejZ0ai03UWQycWtJSkRYUFBRWmhBRkRWemFwekZaVk15NWhyczhKc2V2c2hDRHphZkc2VTVkeFJQcHp4QTFiZ3Z3RmtTSi1fTG9UeE5HQWExMm5ibllYS0ZKSXdibDNxRlZsMkVqcFBxVWh6cjZWQm9hclMwX2NwN1hmVE84eEJkTW93dlBGNTNkSGEtd3F3dnpqckxQTnNXZlFrYWhVaUxRN1VKU1kzNzJidS1PcFprZzVtdw?oc=5
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMingFBVV95cUxPbV9mdHFzaVpBSEV2Q0NUeTRHQkdMLTVFU3BVTXBVTl9BaTNvb0l5M0VYZWx4VlJQS0JEMWZqSE5hXy1jVWk3V3F5NThRbWw0enBsR1RWZENlUjlxNjlmanhyVVFtOFZxSEJJeDh5aGV3c2VKRG12RjBPSThrUW80Y3NwNnMxMkFqbk9XMHBDUzRkakc4ekU5TmRmZzZ5Z9IBowFBVV95cUxNd1pPZGpJTW01dWoxLS1hcnFpb2pKczNXRXgyWjBuSURMQU1HaGdyZVBIVjhSYXFkTnZvUUsyMzRWV3lyQ2J2azEwNklXaHJwWWNZNGlUUXEwYU5mQ1RkTW5sblI0WlNXQXlKZmFwbXMxOG0wTDVCOWtnb19zc21SMm9aNG51SnlsbE1fLXZINFlrYjdrREZXeG1URWhzWExzWV9R?oc=5
+  - [unverified] Dailyfly News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMFNJa2JDN3NPU2Rac2RneEd5ektteGJCbHc5WkFndlNISjJuczU4bnlpZGhqLTNlOGRFSENFWVExeWczLUdTM29pR0FMSlM3bktheXlqbUhSNzBzQ3BqQjlKblVaYmdHSnNKWGRpM2ZCdFZfYXlKMExhTnQycEpMZy10RE81SzZieHFnTWNoZ3V0Z09zOHB0eTZIS3JDamVLZVBYZ2R5RnNfdw?oc=5
 
 ## Taylor Swift Returns to Instagram To Praise a Celebrity & It’s Not Travis Kelce - Yahoo
 
@@ -763,11 +788,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: “They Love Living Like This”: Insider Shares Insight Into Taylor Swift, Travis Kelce’s Married Life 6 Weeks After MSG Wedding  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQY0p3Q0J3cE5ZS2dkNnFCSldOV2w4dDEyM3JuTmtISktrWHQwR2tEMU12cE5NYW90S1NwdVZBWnlwMEN4RmJNb0tUN2VrekdSZmtZNnNONFNodktxblNCejQ4RW42VU5qN2MwMWpqNnh3bDR6MFZlcDB6T3lEOWRkdC1yN0RyQ0ptZDE4alFwUjFGSHFLVFc5SHBLOXJ3TjA4VElPdV9nZw?oc=5
-
-## When Taylor Swift ‘revealed’ how Russell Westbrook inspired her hit song ‘Shake It Off’ - Yahoo Spor
-
-- first seen: 2026-08-16 09:37 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: When Taylor Swift ‘revealed’ how Russell Westbrook inspired her hit song ‘Shake It Off’  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxQVElQcEVFdUJaYnB5VWNfOWZPNFFjTnhDX2RpMnZUWUhVY1ZONW9XUWd4WlZmR2pDckJ1RW9UQksxRzg2ZUdMTnk2REUzWS1jQUFVdk1rRF9UNndlRFY5SUtTSGc4YmdUOFh4R25uOFdKZXRwV0ZBNlA0T1dmUUFpTDVvUzhQTDFrSm93X3ItVUNhQQ?oc=5
