@@ -7,5 +7,10 @@
   "scheduledAt": "2026-08-19T23:00:00Z",
   "campaign": "launch:mood-chat-howto",
   "why": "Calendar slot 2026-08-14 23:00Z IG, launch:mood-chat day +2 (how-to), hook \"the challenge\" — \"three taps and it knows\", then the three taps literally, assuming the reader has never found the feature. Media is the designed Mood card from PR #1903 (/social/library/mood-feature.png), which the calendar explicitly allows for this slot (\"screenshot sequence or designed card\"); the real screenshot is spent on the 08-12 announce and 08-16 example, and this queue-only PR cannot commit a new capture. Tap path verified against the Mood screenshot in #1903 (compass / layers / sparkle nav order) and apps/web/components/longlive/TopBar.tsx’s ModeToggle; five picks and their oneLiners verified against apps/web/app/api/mood/route.ts (DEFAULT_LIMIT = 5) and MoodSongCard. DEPLOY DEPENDENCY: needs #1903 deployed. | Rescheduled 2026-08-12: Joey directed that the next 10 posts each carry a real photograph of Taylor (issue #2031 fallout); this product/feature post now runs after that set. Campaign made story-unique (findPostedDuplicate matches platform+campaign). Declared mediaKind site-screen: a deliberate product screenshot for a feature post.",
-  "mediaKind": "site-screen"
+  "mediaKind": "site-screen",
+  "postedAt": "2026-08-19T23:22:31.212Z",
+  "platformPostId": "18104713223221340",
+  "url": "https://www.instagram.com/longlivetscom/",
+  "facebookPostId": "1165693196635001_122107475751407187",
+  "facebookUrl": "https://www.facebook.com/1165693196635001_122107475751407187"
 }
