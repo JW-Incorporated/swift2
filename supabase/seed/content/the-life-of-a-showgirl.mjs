@@ -2951,6 +2951,9 @@ export default {
     // photo pass — added in the #762 run-6 pass (2026-07-18) below.
     {
       slug: 'stevie-knicks-nba-finals-game-4',
+      // End Game thread opt-in (#617): a courtship-year run-up beat, now on
+      // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 6,
       day: 10,
@@ -3084,6 +3087,9 @@ export default {
     },
     {
       slug: 'watch-hill-bachelorette-weekend',
+      // End Game thread opt-in (#617): a courtship-year run-up beat, now on
+      // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
+      threadIds: ['the-proposal'],
       // Cross-links: the wedding this weekend leads into (candidate #1126); the
       // Watch Hill estate the weekend was staged at — both the folklore song
       // that mythologizes it (candidate #1368) and the Red-era purchase that
@@ -4662,6 +4668,9 @@ export default {
     },
     {
       slug: 'wedding-gown-dior-anderson',
+      // End Game thread opt-in (#617): the wedding-day gown, now on the-proposal
+      // so the courtship year resolves into the wedding on the thread.
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 3,
@@ -6376,6 +6385,9 @@ export default {
     },
     {
       slug: 'showgirl-graham-norton-destination-wedding',
+      // End Game thread opt-in (#617): a courtship-year run-up beat, now on
+      // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1128): the David Koma look from the same appearance.
       relatedIds: ['moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto'],
       year: 2025,
@@ -6757,6 +6769,9 @@ export default {
     },
     {
       slug: 'end-of-an-era-kelce-episodes',
+      // End Game thread opt-in (#617): a courtship-year run-up beat, now on
+      // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
+      threadIds: ['the-proposal'],
       year: 2025,
       month: 12,
       day: 18,
