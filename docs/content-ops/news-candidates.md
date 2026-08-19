@@ -25,7 +25,25 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 90
+
+## Taylor Swift’s music quietly removed from Trump social media posts | CNN Politics - CNN
+
+- first seen: 2026-08-19 05:43 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s music quietly removed from Trump social media posts | CNN Politics  CNN
+- sources:
+  - [unverified] CNN — https://news.google.com/rss/articles/CBMid0FVX3lxTE1zY3NBaWZMVnJoa0JHUW9odWpGRXQ0dFNfajZ0cG9jVF84Q0ZUUHByeEdWZlhHUk9jaVY0Zm1PSERPUUpsM1FkRWxlVG5wemE5WkFpSnRjOHM0R1FuSk95bWU0eDJwcUk3NW4zdEQ2RjhWb2hsN3VB?oc=5
+
+## How Taylor Swift’s Contour Wedding Band Could Supercharge These 3 Bridal Jewelry Trends - ELLE
+
+- first seen: 2026-08-19 05:43 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: How Taylor Swift’s Contour Wedding Band Could Supercharge These 3 Bridal Jewelry Trends  ELLE
+Travis Kelce and Taylor Swift’s Wedding Bands Analyzed by a Jewelry Pro  TODAY.com
+Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pals Sabrina Carpenter, Jack Antonoff  People.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMipgFBVV95cUxObHRHZXV5eTFaak1CZE5RVm5xcEtFTDRJNF9aZm85ZjJPek9ZT1BYaVBHalNza00wMkllUWVlZjc2QnlReUNaRVV0VGFic1pDb19aak5qWFQyZGFiQkxwUnMtRlZNNG13Y2NiQzFBSTZDQ2xWdGthLTZRajQtNktHdzNXSGpwN250R0RYOFY2SGdBRUs1U3JOTDRSNGRrcVVDRlVaLUJR?oc=5
 
 ## Taylor Swift & Travis Kelce’s Long-Distance Marriage Update - StyleCaster
 
@@ -753,35 +771,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: When Taylor Swift ‘revealed’ how Russell Westbrook inspired her hit song ‘Shake It Off’  Yahoo Sports
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxQVElQcEVFdUJaYnB5VWNfOWZPNFFjTnhDX2RpMnZUWUhVY1ZONW9XUWd4WlZmR2pDckJ1RW9UQksxRzg2ZUdMTnk2REUzWS1jQUFVdk1rRF9UNndlRFY5SUtTSGc4YmdUOFh4R25uOFdKZXRwV0ZBNlA0T1dmUUFpTDVvUzhQTDFrSm93X3ItVUNhQQ?oc=5
-
-## Allan Hancock College is In Its Taylor Swift Era - Noozhawk
-
-- first seen: 2026-08-16 05:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Allan Hancock College is In Its Taylor Swift Era  Noozhawk
-- sources:
-  - [unverified] Noozhawk — https://news.google.com/rss/articles/CBMif0FVX3lxTE5nbC0yanpUMlZ6cktCZktSd2FldUhEU0YwVzF0bTIyWnBRMy1LLWZnekgxZkJfbTFfNHJ3aUxIZm1rWEg5Q3ZDUE1hci1ZZlVQUS1va2lHZmE3MjlxSjZtMWRzLWdFRWE1dnJxdWpyLVpnOVgtVHA2d2ZEZTQ5Wms?oc=5
-
-## Travis Kelce's Wedding Band Revealed in New Photos After Marrying Taylor Swift During NFL Offseason 
-
-- first seen: 2026-08-16 02:34 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce's Wedding Band Revealed in New Photos After Marrying Taylor Swift During NFL Offseason  Bleacher Report
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOano1cnpKT1BBZ2hCM2c2UXAzbTFzTW1GOHFLSjFmQVJKR2FZaEdZR0xRTnRzTWZfOHVjeUU3dS00eUloeVROejdmUG81NkdKWkMxUXpHcm5OYlliSktvWW5XTXR3aEh2aENXUVAxUmlRNXcxZXMyZFFSb1NZZjVYYnRjQjVXWjY5RWlIZFhhNmtaTGs5NWpSTEhyVEdULXVrWGh4SWkxN1ZLR0xkR0JlaWZSVmI0YXd3blI4Z2Y0S0VMZHQ4OXlBeGh6aGdmYWpxMm80cHVWZw?oc=5
-
-## Travis Kelce Flashes His Wedding Ring at Chiefs’ First Preseason Game, One Month After Marrying Tayl
-
-- first seen: 2026-08-16 02:34 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Flashes His Wedding Ring at Chiefs’ First Preseason Game, One Month After Marrying Taylor Swift  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxOMFItaEdkVlktWmZZckx6dEF3Q0U2emFSRkhjYzdqdlJRS2I3elJUTUs0LURuNXVFNGExYUtPQmJZeHlnTE4wZ1JIdVJYXzh3c0ozRng5NjE2dTlFWjBJLUh1UjFRcWFsOEJjZDI0QXBZY3ZEazVodFk3bjB3MTIzT2Y4blVTRDltdjhRWjYxbXRXbUU?oc=5
-
-## Travis Kelce Shows Off Wedding Ring at Chiefs Preseason Debut - E! News
-
-- first seen: 2026-08-16 02:34 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Shows Off Wedding Ring at Chiefs Preseason Debut  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOd1YxbFNfOEpuRE91RlFRekxtUGhIUXM3ajZoZ1VoM2dsdVZPLWQ3aHJqam42NU9iY01rNTh2MVNYc1VVUXIyc3h2aXBmSU15aTI5ZjdIWFYtR0RWRnNzbVdJN0s2NjZFb0F6R3dEU2FIQ2NPTVBSbW1GMDA1M1pZMmphU0IzNkJBeW5lREpnMUdXanQ5dmhwSlF4Q3ZtbFNuc2Q4cFBrRUNLZw?oc=5
