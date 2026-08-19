@@ -2635,7 +2635,7 @@ export default {
       ],
       moment: {
         context:
-          'A month after telling GQ that video of the "Famous" call existed, Kim Kardashian posted it — edited into Snapchat-length clips, on the night of July 17, 2016 — showing Taylor responding warmly as West read her parts of the song. The clips did not include the "I made that bitch famous" line, but the internet\'s verdict was instant: #TaylorSwiftIsOverParty trended worldwide and snake emojis flooded her every post.\n\nHer response drew the line she would hold for four years: "Where is the video of Kanye telling me he was going to call me \'that bitch\' in his song? It doesn\'t exist because it never happened... I would very much like to be excluded from this narrative, one that I have never asked to be a part of, since 2009."\n\nThen she withdrew from the spotlight — no red carpets, no interviews, no album cycle — for the longest stretch of her career, broken only by a handful of exceptions: a rare public sighting later that month, a previously announced headline concert at the Formula 1 U.S. Grand Prix in Austin that October — her only full show of 2016 — and a Zayn duet, "I Don\'t Wanna Live Forever," released that December for the Fifty Shades Darker soundtrack. "Nobody physically saw me for a year," she said later in Miss Americana — a characterization of how absent she felt, not a literal account. What came back in full a year later, snake-first, was reputation.',
+          'A month after telling GQ that video of the "Famous" call existed, Kim Kardashian posted it — edited into Snapchat-length clips, on the night of July 17, 2016 — showing Taylor responding warmly as West read her parts of the song. The clips did not include the "I made that bitch famous" line, but the internet\'s verdict was instant: #TaylorSwiftIsOverParty trended worldwide and snake emojis flooded her every post.\n\nHer response drew the line she would hold for four years: "Where is the video of Kanye telling me he was going to call me \'that bitch\' in his song? It doesn\'t exist because it never happened... I would very much like to be excluded from this narrative, one that I have never asked to be a part of, since 2009."\n\nThen she withdrew from the spotlight — no red carpets, no interviews, no album cycle — for the longest stretch of her career, broken only by a handful of exceptions: a rare public sighting later that month, a previously announced headline concert at the Formula 1 U.S. Grand Prix in Austin that October — her only full show of 2016 — and a Zayn duet, "I Don\'t Wanna Live Forever," released that December for the Fifty Shades Darker soundtrack. "Nobody physically saw me for a year," she said later in Miss Americana — a characterization of how absent she felt, not a literal account. What came back in full a year later, snake-first, was reputation — announced on Aug. 21, 2017 with a single cryptic clip of a snake\'s tail, posted after she wiped her social accounts clean, that reclaimed the very emoji the internet had buried her under.',
         sources: [
           {
             outlet: 'The Washington Post',
@@ -2656,6 +2656,12 @@ export default {
           {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-and-zayn-release-surprise-duet-single-for-fifty-shades-darker/',
+          },
+          {
+            // Depth pass (Answerer, 2026-08-19): sources the Aug. 21, 2017
+            // snake-tail reveal that reclaimed the emoji, added to the close.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-the-snake-history-kim-kanye-instagram-7934297/',
           },
         ],
         // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
@@ -2746,7 +2752,7 @@ export default {
       ],
       moment: {
         context:
-          'Late on the night of March 20, 2020, the unedited call — all 25 minutes of it — surfaced online, and Variety transcribed every word. The full recording showed what the 2016 Snapchat edit had left out: West never read her the "I made that bitch famous" line she was accused of approving. The conversation she\'d described in her original statement was the conversation that had actually happened.\n\nHer response, on Instagram Stories, didn\'t relitigate: the footage proved "that I was telling the truth the whole time about *that call* (you know, the one that was illegally recorded, that somebody edited and manipulated in order to frame me)" — and then, with the world a week into pandemic lockdown, she pointed followers to Feeding America and the World Health Organization instead: "If you have the ability to, please join me in donating during this crisis."\n\nFour years of "liar" and snake emojis, answered by the tape itself — the vindication reputation had been written without.',
+          'Late on the night of March 20, 2020, the unedited call — all 25 minutes of it — surfaced online, and Variety transcribed every word. The full recording showed what the 2016 Snapchat edit had left out: West never read her the "I made that bitch famous" line she was accused of approving. The conversation she\'d described in her original statement was the conversation that had actually happened.\n\nHer response, on Instagram Stories, didn\'t relitigate: the footage proved "that I was telling the truth the whole time about *that call* (you know, the one that was illegally recorded, that somebody edited and manipulated in order to frame me)" — and then, with the world a week into pandemic lockdown, she pointed followers to Feeding America and the World Health Organization instead: "If you have the ability to, please join me in donating during this crisis."\n\nFour years of "liar" and snake emojis, answered by the tape itself — the vindication reputation had been written without.\n\nIt did not settle cleanly. Days later, on March 24, Kim Kardashian pushed back on Twitter — calling the reopened dispute "very self-serving given the suffering millions of real victims are facing right now" in the first weeks of the pandemic, disputing Taylor\'s account of the call, and saying it was the last time she would address it. Taylor\'s publicist, Tree Paine, answered in kind: "this is my UNEDITED original statement. Btw, when you take parts out, that\'s editing. P.S. who did you guys piss off to leak that video?" Fans flooded Kardashian\'s replies with #KimKardashianIsOverParty and rat emojis; how the full tape leaked at all was never established.',
         sources: [
           {
             outlet: 'Variety',
@@ -2759,6 +2765,13 @@ export default {
           {
             outlet: 'NME',
             url: 'https://www.nme.com/news/music/taylor-swift-says-she-was-framed-as-2016-phone-call-with-kanye-west-leaks-online-2633977',
+          },
+          {
+            // Depth pass (Answerer, 2026-08-19): sources the March 24 2020
+            // aftermath added above — Kardashian's pushback tweets, Tree
+            // Paine's reply, and the #KimKardashianIsOverParty backlash.
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/kim-kardashian-blasts-taylor-swift-leaked-kanye-phone-call-video-1286120/',
           },
         ],
         // Photo pass 2026-07-19 (defining-events-31-50): genuinely thin —

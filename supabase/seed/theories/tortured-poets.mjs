@@ -127,7 +127,7 @@ export default {
           source_title: "What it's like inside The Black Dog, the London pub made famous by Taylor Swift",
           publisher: 'CNN',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-17',
+          accessed_at: '2026-08-16',
           reliability_score: 4,
         },
         {
@@ -135,7 +135,7 @@ export default {
           source_title: "Why Swifties have sniffed out and descended upon London's Black Dog pub",
           publisher: 'CBS News',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-17',
+          accessed_at: '2026-08-16',
           reliability_score: 4,
         },
       ],

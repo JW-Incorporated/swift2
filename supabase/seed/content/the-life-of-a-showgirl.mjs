@@ -7819,6 +7819,20 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1433683/taylor-swift-travis-kelce-invited-ring-designer-kindred-lubeck-to-wedding',
       thumbnailUrl: null,
       moment: {
+        // socialPost (Photo Enrichment, 2026-08-16, Vault Run): this page is
+        // ABOUT Lubeck's post, so embed it rather than only describe it.
+        // Shortcode from the permalink E! and Yahoo both cite; verified by
+        // rendering instagram.com/p/DaanpJFgG1t/embed/captioned — the
+        // @kindredlubeck account and the exact "...changed my life forever.
+        // Congratulations T&T" caption. Embedded, not hotlinked (Instagram CDN
+        // urls are signed/expiring and the host is not on the image allowlist).
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'DaanpJFgG1t',
+          label:
+            'Kindred Lubeck\'s Instagram carousel, posted days after Taylor and Travis\'s July 3 wedding — "an evening of celebrating the incredible couple who changed my life forever."',
+          postedOn: '2026-07-06',
+        },
         context:
           'Lubeck\'s attendance closed the loop on the engagement-ring story: the jeweler who worked with Kelce on the custom Old Mine Cut design nearly a year earlier was invited to see the marriage it led to, a detail she confirmed publicly after the wedding, thanking the "incredible" couple for including her.\n\nIt was a fitting coda for the person whose work had carried an outsized share of the era\'s symbolism. Lubeck — the goldsmith, hand engraver, and vintage-jewelry specialist behind New York\'s Artifex Fine Jewelry — was catapulted from independent-studio obscurity to global attention overnight when the ring close-up hit the couple\'s August 2025 announcement post, and the invitation suggested the collaboration had been personal rather than transactional. A guest list that ran from Hugh Grant to Stevie Nicks also had room for the woman who made the ring.\n\nThe thank-you was her own: on an Instagram carousel of her wedding-night look, posted days after the July 3 wedding, Lubeck called it "an evening of celebrating the incredible couple who changed my life forever," signing off "Congratulations T&T" — the primary post E! and USA Today quoted. She came as a guest in a strapless dark-green gown and diamonds; no outlet credited that jewelry as her own Artifex work, and none has named who made the couple\'s wedding bands, so the engagement ring stays the full documented extent of her hand in the day.\n\nThe invitation capped a fast-widening year. After the August 2025 reveal, Lubeck — who learned hand-engraving from her goldsmith father in Jacksonville — took three one-of-a-kind pieces to a Sotheby\'s "Gem Drop" in late 2025, launched Artifex Bride, a first ready-to-order bridal line, in April 2026, and lent the label to a De Beers runway partnership. Order and waitlist numbers stayed private, but the arc from studio obscurity to global name ran straight through the wedding she was invited to attend.',
         sources: [
@@ -11047,6 +11061,72 @@ export default {
       },
     },
     {
+      // Authored 2026-08-16 from intake #2181 (Vault Run, Content Shift lane).
+      // Chart/professional milestone; Billboard is the primary chart authority,
+      // meeting the >=1-source bar. Deliberately kept DISTINCT from the Pop
+      // Airplay top-10 item (#1133) above: this is ADULT Pop Airplay (Adult Top
+      // 40), a separate chart where Maroon 5 held the No.1 record — the prose
+      // names the distinction so the two records don't read as one. Fact
+      // independently corroborated via the Billboard headline before writing
+      // (record 16th, surpassing Maroon 5, chart debut March 1996). Dated to the
+      // Aug-14 reveal, not the post-dated Aug-22 chart, so it sorts to when the
+      // news broke rather than into the future. Clean on the privacy redlines:
+      // her own chart record, no third parties, no location or private-life
+      // detail. Text-first: a chart week has no photography of its own — same
+      // call as the sibling chart moments — so no photo.
+      slug: 'i-knew-it-i-knew-you-adult-pop-airplay-record',
+      year: 2026,
+      month: 8,
+      day: 14,
+      category: 'music',
+      title: 'A record 16th No. 1: "I Knew It, I Knew You" tops Adult Pop Airplay',
+      snippet:
+        'On the Adult Pop Airplay chart dated Aug. 22, 2026, Taylor\'s Toy Story 5 song jumps three spots to No. 1 — her 16th leader on the tally and a new all-time record, breaking a tie with Maroon 5 for the most No. 1s since the chart began in March 1996.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-adult-pop-airplay-1236315955/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Billboard\'s Adult Pop Airplay chart — the Adult Top 40 tally, tracking spins at adult-leaning pop radio — is a separate list from the Pop Airplay chart where the same song had already been chasing a record weeks earlier. On the ranking dated Aug. 22, 2026, "I Knew It, I Knew You" climbed three spots to No. 1, and the story was the count behind it: Taylor\'s 16th No. 1 on the chart, the most any artist has collected since it debuted in March 1996, breaking a tie with Maroon 5 at the top. Behind her, P!nk sits third all-time with 10, and Katy Perry and Ed Sheeran fourth with eight apiece.\n\nIt was one more format claimed by a song that keeps outrunning its origin — her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff, which had already logged a No. 1 Hot 100 debut and a Country Airplay top 10, and reached No. 3 on the Hot 100 the week country songs swept that chart\'s entire top five. Adult pop radio was one of the last major formats it had yet to lead. Around the same week it also reached No. 1 on a different tally — Mediabase\'s Hot AC (Hot Adult Contemporary) chart, run by a competing airplay-tracking service, topping the Aug. 9–15 period on about 5,467 spins. (The two are separate charts: on Billboard\'s own Adult Contemporary list the song peaked lower, at No. 9.)',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-adult-pop-airplay-1236315955/',
+            source_title: "Taylor Swift Breaks Record for Most Adult Pop Airplay No. 1s With 'I Knew It, I Knew You'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-16',
+            reliability_score: 5,
+          },
+          {
+            // Primary: the underlying Billboard Adult Pop Airplay chart dated
+            // 2026-08-22, cited to the dated ranking rather than the live URL,
+            // which rolls over weekly and stops showing this week's ranking.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/adult-pop-songs/',
+            source_title: 'Adult Pop Airplay — chart dated Aug. 22, 2026',
+            publisher: 'Billboard',
+            source_type: 'official',
+            accessed_at: '2026-08-16',
+            reliability_score: 5,
+          },
+          {
+            // Source for the Mediabase Hot AC No. 1 folded in above (intake
+            // #2228). A distinct chart from a competing tracking service —
+            // labeled as Mediabase, never as Billboard, per the ticket's trap.
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/08/16/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-hot-adult-contemporary-radio/',
+            source_title:
+              "Taylor Swift's \"I Knew It, I Knew You\" Officially Reaches #1 at Hot Adult Contemporary Radio",
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-19',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-08-17 from intake #2208 (Content Shift).
       // Verify-before-write (charter rule 4) corrected the ticket: it framed
       // this as "Saturday, Aug 16," but Aug 16 2026 is a Sunday — Aug 15 was
@@ -11213,6 +11293,63 @@ export default {
               'Phoebe Bridgers performing at the 2021 Shaky Knees Festival — a longtime friend and collaborator Taylor cheered on.',
             kind: 'primary',
             focalPoint: '50% 35%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-19 from intake #2243 (Vault Run, Content Shift lane).
+      // Category `video`: the news is the music video's debut, not a chart.
+      // Music/release/video items clear at >=1 source (the two-independent-
+      // outlets rule is relationship/business only), so Animation Magazine —
+      // an established, dated trade outlet — meets the bar; the official MV on
+      // Taylor's own YouTube channel is the primary artifact and is cited too.
+      // MV id verified this run via YouTube oEmbed
+      // (https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=hDU4GB1PTxc)
+      // -> title "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)",
+      // author @TaylorSwift (official channel). It is cited below as a source
+      // (the official MV is the primary artifact); the page ships text-first.
+      // NOTE (Vault Run, 2026-08-19): a `moment.video` embed was deliberately
+      // NOT added, because a new video-carrying moment trips an APP-CODE test
+      // the Vault Run may not edit — apps/web/lib/longlive/video-affordance.test.ts
+      // hard-locks the count of video-carrying moments to 16 (measured
+      // 2026-08-13). Adding this as the 17th turns `build` red. Same systemic
+      // block Austin must clear as the Stylist merch-count test: to render this
+      // MV, Austin updates that count (16 -> 17) and can restore the embed.
+      // Redline-clean: a product release and a published video, no location,
+      // security, health, or private-individual detail.
+      slug: 'i-knew-it-i-knew-you-toy-story-5-mv-debut',
+      year: 2026,
+      month: 8,
+      day: 18,
+      category: 'video',
+      title: 'The "I Knew It, I Knew You" music video debuts with Toy Story 5\'s home release',
+      snippet:
+        'Toy Story 5 hit home release on Aug. 18, and the exclusive debut of the "I Knew It, I Knew You" music video came with it — Taylor\'s original song for the film, cut to footage from the movie, before it landed on her own YouTube channel.',
+      sourceUrl:
+        'https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Aug. 18, 2026, Toy Story 5 arrived for home viewing — available to buy for $29.99 or rent for $24.99 on Fandango at Home — and Taylor\'s corner of the release was the music video. Fandango carried the exclusive debut of the clip for "I Knew It, I Knew You," her original song from the film, cut together with footage from the movie itself. It landed on her own YouTube channel soon after, titled "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)."\n\nThe song had already outrun its soundtrack origins by the time the video arrived: written and produced with Jack Antonoff, it opened at No. 1 on the Hot 100, reached the Country Airplay top 10, and ran up a string of adult-pop radio records across the summer. The video ties all of that back to where it started — Woody, Buzz and the rest — and gives the track its first proper visual after months of living on the charts. A 4K, Blu-ray and DVD physical release was set to follow on Sept. 22.',
+        sources: [
+          {
+            outlet: 'Animation Magazine',
+            url: 'https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/',
+            source_title: 'Toy Story 5 Launches on Fandango with Taylor Swift MV Debut',
+            publisher: 'Animation Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'YouTube (@TaylorSwift, official channel)',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'YouTube',
+            source_type: 'social',
+            accessed_at: '2026-08-19',
+            reliability_score: 5,
           },
         ],
       },

@@ -289,6 +289,7 @@ export default {
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
         'moment:vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas',
         'moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault',
+        'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
       ],
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -301,7 +302,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'Beyond the headline record, the numbers were era-defining: 179,000 of the 291,000 units were pure album sales — the biggest sales week for any album since folklore — and its 143 million on-demand streams gave a country album by a woman its largest streaming week ever.\n\nIt also made her the first woman in the Billboard 200\'s 65-year history to land three new No. 1 albums in under 12 months, following folklore and evermore. The Madonna tie put her at nine chart-toppers, second among women only to Barbra Streisand\'s eleven.\n\nThe six From the Vault tracks weren\'t announced in a press release: days ahead of release, she posted a 30-second video of scrambled letters, and fans decoded the full track list — Keith Urban feature included — hours before she confirmed it herself.',
+          'Beyond the headline record, the numbers were era-defining: 179,000 of the 291,000 units were pure album sales — the biggest sales week for any album since folklore — and its 143 million on-demand streams gave a country album by a woman its largest streaming week ever.\n\nIt also made her the first woman in the Billboard 200\'s 65-year history to land three new No. 1 albums in under 12 months, following folklore and evermore. The Madonna tie put her at nine chart-toppers, second among women only to Barbra Streisand\'s eleven.\n\nThe six From the Vault tracks weren\'t announced in a press release: days ahead of release, she posted a 30-second video of scrambled letters, and fans decoded the full track list — Keith Urban feature included — hours before she confirmed it herself.\n\nThe record mattered as much for what it started as for the chart line. Released April 9, 2021 — less than two years after Scooter Braun\'s Big Machine purchase took her original masters — Fearless (Taylor\'s Version) was the first of the note-for-note re-recordings she had pledged to make, and its No. 1 debut was the proof of concept the whole project needed: fans would follow her to the new versions in numbers big enough to top the chart. It rebuilt the 2008 album across 26 tracks, six of them "From the Vault" songs written in the Fearless era but never released, and brought in guests the original never had — Keith Urban on "That\'s When" and "We Were Happy," Maren Morris on "You All Over Me." Every re-recording that followed — Red, Speak Now, 1989 — measured itself against the template this one set.',
         sources: [
           {
             outlet: 'Billboard',
