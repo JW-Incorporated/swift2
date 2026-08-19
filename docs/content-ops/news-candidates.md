@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 88
+
+## Gabbriette Reveals What Married Life with Taylor Swift’s Ex Matty Healy Is Like - Yahoo
+
+- first seen: 2026-08-19 21:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Gabbriette Reveals What Married Life with Taylor Swift’s Ex Matty Healy Is Like  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxNS21qTy1kTl9aeUVQcWFBZVEzM3d1TmxLa3VDYTNoamZ4N0F2ZjJKbkthMEtJTWJ1UmZ3cWhwMGtLTHdRdGNBclZxZzZhMXF5YUg2RnNPcTk3SUtUVF9LNzNxTlIwR3NGZXZTUGJ5bVFiR25ZN2g2UE9CdDhnTXJhMWFiWjhDdjhDUjlUOHctRTJZWXdSTVU3ZXdENVo2aWR4T3Z4NzlaYmpiNmx6?oc=5
+
+## Kennedy scion who dated Taylor Swift goes on Russia’s wanted list - The Times
+
+- first seen: 2026-08-19 21:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Kennedy scion who dated Taylor Swift goes on Russia’s wanted list  The Times
+- sources:
+  - [unverified] The Times — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOTlJsUHRDR01ZVnZmZ1J3ME92bEhfbU5laXRzR0pnTkpzSTA2cTI0Z1VPVGFSbWJnckJSd1RWYWJWdmgyczdIV09PYlVLM3d2eS1CMHExUjdEaERPcEduT2RVUWxYZGRVUmhReXZueHFjWjdvZDVqbWwzLThlYS02THdqNnp0ZWFiUm1hY0x6VDJTQkk3Uk9DeWVNeF9kVDdGaGZjdFZpbTNCcUk?oc=5
+
+## Taylor Swift and Travis Kelce show off their matching wedding bands almost two months after grand we
+
+- first seen: 2026-08-19 21:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce show off their matching wedding bands almost two months after grand wedding  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE1DZ1hNZGM1MGNyM0hOTEhaaVBBTTFaaDZPR0RWN1d5TW5mZW1NQkxrRk1XT1ZaaTVfZnJRZEtSd0FPbWVWVmdUVno2X0xGMElkUTlXUmd1STlvUFdtMVdpNmdYQWNtTWx1T2w4SGMtTUQ5UUkxSExvMzRnREQ?oc=5
+
+## Taylor Swift shelter auction draws attention - The Des Moines Register
+
+- first seen: 2026-08-19 21:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shelter auction draws attention  The Des Moines Register
+- sources:
+  - [unverified] The Des Moines Register — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQazNTV1RjU0psQ0x6SG1Vb0Nfd2I5b0l4dWozTnE4QWRabTN3NDN6UjF3VTBaWHNsUjdRZFpsOGFERnVLclE1NFpMZmtURTJUYWZsSDU5NG1udThUdUtXQ0hBUWEwbGxlMUtOYXVTaG5IMG5YNFRWSWJuMXhaYVc2bi1XMUVaOEdNWEs0X193RkNUdDl3bkVkOWF2bUhUM0hvVjdrc2pVdHctOW1vSlpTUDRNOEFOdTRCZGVNZ0dpSUQ4czJTcE5vY29GZFZlaTZMQUE?oc=5
+
+## Why Movie Theaters Are Leaning on Concert Films More Than Ever — And How Artists Benefit - Billboard
+
+- first seen: 2026-08-19 21:36 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Why Movie Theaters Are Leaning on Concert Films More Than Ever — And How Artists Benefit  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMijgFBVV95cUxOY09tVXdhN21NRDBOTnN4SWJmYU9yRDQ4YllRdHh4Y05IbDYzRGg2ZklhY2l2VzVGeEhnVW5qa2NUOWt1cmVneFQxb1ZIY3Bqcmd5ejJFUEhQWTZ0anBGZW1rTm8taVMyZG1rZ0MxbzdJUlk5V3NrdW1vcmg2Vk42cVB0dTZad3NMQl96b1lB?oc=5
 
 ## Taylor Swift Shows Off Shoulder-Length Haircut at Wedding Following July Marriage to Travis Kelce - 
 
@@ -717,68 +757,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Taylor Swift Wows in Tulle Wedding Guest Dress and 10-Carat Diamond Ring  instyle.com
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPcVRiQ3kwVDNIU0tMdW5zRVhCd0E2RDhMRndhbC1xbWZNOHU1UnlNM0lMVzdEOEgyRXV1TnlFZlpIcHdpTWlHQjY0RnVzX01NQV9HR3MwV25ZUzdTVDgyWkVPX0lHQm9lNDZZclNPOWE0UlFKdkJKX2VJQU5NQzJSVTljeXZrakFrZVdySUJDME53bXd2T0UzTl92S004aUIzZ21aY2dCUEM?oc=5
-
-## Taylor Swift Flaunts New Haircut, Wedding Ring Stack at Pals Oli Jacobs and Laura Sisk’s Nuptials - 
-
-- first seen: 2026-08-16 21:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Flaunts New Haircut, Wedding Ring Stack at Pals Oli Jacobs and Laura Sisk’s Nuptials  Us Weekly
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMingFBVV95cUxNOGFhbVNKLS1GSHFZemx5ZFhuTnZwbklBYmFJVXQ2X2oySXk5TlBHMm5lT2tTSU1kQVpkZ3RiRzBDTXNpVE1PaFN6Vml4LW9renVXT2xrbGJHbXpOS2FGcmtvTE1acVZ6eWRSQ3pCb1BBdmpURjFuc0thTXV5LVNUTVpyeDJJZDh3YUl3dEs1QzkwT20zTjF6V2pSbXhvQQ?oc=5
-
-## Taylor Swift Attends English Wedding, Shows Off Massive Ring With Sabrina, Jack & More - TMZ
-
-- first seen: 2026-08-16 21:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Attends English Wedding, Shows Off Massive Ring With Sabrina, Jack & More  TMZ
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMie0FVX3lxTE5aTVBydWNndGtaMWFZREc4bkNwZmNfcy1qRkFDQlJlSjFQVjFTUFFPSlMyRFhYTWMyZW9OMTBBQmxVU3h4M3J3MkNqTFFCM2RSdEhvallENEhaZVRlMmgwTTFXSmlIWVZydGt6VEJIZnlPRzUwSVM0YzUwZw?oc=5
-
-## Taylor Swift’s Chops Her Hair... for the First Time in a Decade! - harpersbazaar.com
-
-- first seen: 2026-08-16 21:32 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Chops Her Hair... for the First Time in a Decade!  harpersbazaar.com
-- sources:
-  - [unverified] harpersbazaar.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNbWlka0Rya09CeGV3aXBqVnJxSXhwZl9rMmsxVDI5Y0k0cFhlbm13dVBzLWhrMGxtWDJ0TkRaZVQ1LUlxd0ljaEdLMnUyU1cxdkNVVF85WFhfMFhVUF9oTkJSc3h1M2xLU29OakNFdVRxX1REU3oxNjBLUDBpUDVLTFMxc05oWjRpbnFST2JyRW5wU0RJTEdNaGZpTTY2YlhGQmNjYUlYU2pWUUpZX1VIZlNuc0ZRVTFBblZN?oc=5
-
-## Taylor Swift Steals the Show With New Look in Wedding Photos - heavy.com
-
-- first seen: 2026-08-16 21:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Steals the Show With New Look in Wedding Photos  heavy.com
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMingFBVV95cUxNdHNzZDJiZVI1eDNpVC1XQUlHWDJ5STRpWU9YTTFwU051enlJMllVMlBXa2RPdExXYi12QnBmVHdXUjBDUFFyVUo3a1g3Y1VZU2dzMk5RVjNHOVJrdWlsc285V1dSSUIzTHVlbnZ2aDM2Q2xvU2x3UkdaaG13MmVUeEozdWFoc3cxYnc3dlcxMGw5aUNRVTlnRl9Bczh1dw?oc=5
-
-## Taylor Swift Wears Navy Blue Dress Embroidered in Gold to Wedding - ELLE
-
-- first seen: 2026-08-16 21:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Wears Navy Blue Dress Embroidered in Gold to Wedding  ELLE
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMikgFBVV95cUxQdWlBTWNXYlJOUHc1TlNPamRaUXNHNGtUZTh3RklzTDZOSWJHQlRhWmtwSTJ1ZlRtbFFtbzhtUHFJR3Y3QlpNMDVoODFFQm92M3J0MHkzdnVxU0VvT2poVXBxUzlKYWlrZHc2ZUJfZjhYUXowZUdWUDl3MGhFS3U4R0lBZ01idXdaTzVtNnhQaTFvdw?oc=5
-
-## Taylor Swift exudes elegance in navy tulle gown and pearls at Laura Sisk and Oli Jacobs’ wedding - P
-
-- first seen: 2026-08-16 21:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift exudes elegance in navy tulle gown and pearls at Laura Sisk and Oli Jacobs’ wedding  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMioAFBVV95cUxNQ050S0RNamhULUlLWFBHMVlya2oyaHdSdXBIMzBBb21nbXZQWHUtUVBwMURualdlZkdfUUtIaGRSWmtPdWxDaGh6ZjVVM0h3QlBxUjJJT3A4QS0yb3o1Z3NGY0wwNzFhdlZVM0VWb2NRb3hVOFRlNlNaanVpa3VJdU9BZ1FndTBRaExpTlhHTVUzT0llQ19UUHNIU0pQXzBV?oc=5
-
-## The First Up-Close Look at Taylor Swift’s Wedding Ring Is Here - cosmopolitan.com
-
-- first seen: 2026-08-16 21:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The First Up-Close Look at Taylor Swift’s Wedding Ring Is Here  cosmopolitan.com
-- sources:
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxPc2s0YmtOci1RczAzQnlac0ZoMHE2S21kSldneE54TGhXUlEyUlZSRWp1U3RkZWIxSWNOODRRUUlaZU5jMlM2Mk85U2gtQktPc1NwdUs0dEl4QlBVYjZJVXc5SkQwc0s0V1g1ak5lOXdMZ3J4aktEdzhGd3VzQy1rV2kxU1NrR29mQ014bVYwZ0RQR2VBbWtBWHUxOUNiNmZs?oc=5
-
-## Taylor Swift and Travis Kelce flash wedding rings in new photos - USA Today
-
-- first seen: 2026-08-16 21:32 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce flash wedding rings in new photos  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMivAFBVV95cUxQeTl6cGhnSU1xZi1zdEpVSXZ3QXV5bzRpU3pqckR4MzVIX2cwZE9oU1Z5RTdUamVzV1I1ODk3N2gzY1B4eTNGR0hqT1BDaWNRcE82RENoMC1zTGw0SW5lWE1YeE5tbTRfYzRhVzdIWmxmcXB5QWlUWm5UUmFfZWUxdXJ0ZTlTMkZCUUxPTDVDaGNqMHRlVEMyRTBuSTZjTW11V2dyN1duWW03NmNaSzNSdWJya2pWTnJ4dkhfUQ?oc=5
-  - [unverified] NZ Herald — https://news.google.com/rss/articles/CBMi2gFBVV95cUxOZ1g5UTRLZWtQWGFrV3VURkpCYUlnb1REZjZMUDRKcmhYMm8xNEtjZXpvTGdUSzhnSFNlNlA2WGtiY3JkMktSemF5T2FYS3N5cUFfZFNWX3hXTy0zdkxOTldaT2pBMGF5S0tXUjRvdm12YkFHLUtBWGh6OFZKTEN2amRmdDFWYzYwaEN3RC1OZjdyVURTOGNqOTB5akYzS3pMZmNuRU5OcEgzM0xqTnJyVjNGZXpZT0ZrcV8xVFd0VGhQQmw5RWpZUkhLNkNIZUhHOTBFRWVOUzNtQQ?oc=5
