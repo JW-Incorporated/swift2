@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 93
+
+## Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their Wedding - Yahoo
+
+- first seen: 2026-08-19 13:54 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxNaUo0VDhQN3hJNVB1Q3dPSzB5cHBxeVpCV280c29rNnVmaEh3MWtESnZtSHJySHhiSWNzWW1HVmZfcmlqM2xlTDBaejBManhPclliQmtsd3g3Wk9talhZME9adXhNeEh0WW1pWWFLeHdrZFByXzk3MHpISnNPclF0S09VZ184dXVmX1BMc2pxWHREUHd4Vmk4ZWhoakFZRFc1SjY1cmJQNA?oc=5
+
+## Taylor Swift souvenir for sale in DM. Bring a BIG truck I Exclusive - Yahoo
+
+- first seen: 2026-08-19 13:54 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift souvenir for sale in DM. Bring a BIG truck I Exclusive  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxPeUthOHNpYkY5bnpDSUF0SVNMa3FuZ29BODFtc0thd3QwdV8tbTQ3Tjg3YVkxcC1teHlMWFpBN1VtdEtEN1lSNHNzeWJkUEw2NEs3a2RCR3pkWHhLTzJqcGlvS2VKbGdFYzh4U3JqQTd3U0YzVjFhRnJ0TVZOQzFyTEk4bEViQ28?oc=5
+
+## We're waiting for AI models like they're Taylor Swift albums - Axios
+
+- first seen: 2026-08-19 13:54 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: We're waiting for AI models like they're Taylor Swift albums  Axios
+- sources:
+  - [unverified] Axios — https://news.google.com/rss/articles/CBMiekFVX3lxTE5fdUUxZFVhLVVWWFRUSU83ZThya2VaYnhiSUJXXzVhODZZTEdyYjNMT2JpaXhOLWJOUGt5Q3I5cE82YjVaeG9qeVJmUmJFckVvcWFXTFRXTWtOUmktME00TVRob3BwX0tFbXJtWFBGUTJsc3pTaHplcGVB?oc=5
+
+## Taylor Swift’s ties to a rise in fatal US car accidents - newatlas.com
+
+- first seen: 2026-08-19 13:54 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ties to a rise in fatal US car accidents  newatlas.com
+- sources:
+  - [unverified] newatlas.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxQM3ZlVEV5VEtQZVc4cU5qNEJKT2pHaE1JZXRMS3BNSWhTQmViWWQ4R205cWItZmEzN2gwNVBBZ29YMjBtdHpKV2ZsQTZCcmpEcEplZ2c5TlRBT2xPZm5QenpCVVgtV2N5SlhxODgzTklBZGlXNUVnbGxvRjNDVXp0d0dtMEtCSFg0ZTk3WTd0ZkthbnJsczMzLWtNcG1jcU1WandzOVUyYw?oc=5
 
 ## Sabrina Carpenter, Madonna, and Taylor Swift lead the 2026 MTV VMA nominations. Here's who else made
 
@@ -35,14 +67,6 @@ Stories: 92
 - sources:
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi9gFBVV95cUxONWZia01sSFE2ZmNhYUl6MWhVVEZCVEVPTUFFbHpSd3RsRE0wU3llMEhxUkZZZ0Q5SHFmZWdlajF6bk9DUU9KbzVHb3VMc2llV2xBbU9QN1lrRWlHb2xBMWdEd1RrUnBXUzR5R1hzNU5mU1RiTGk1cWtpb2dDRHhXU2lCYllNelpUclR6dVZQdE91M0txWFVldVhfd1VINDhCWFladUtRWUxqeThoc093M0xOLUs5M0dtc0pJVGoxcVEtdGU3eGd3TEJnRlZ1OGZRcmhQQk9PcXc0OHI5aUFudG5oWVZvMi12alNiY2tMU1gtX3RxcXc?oc=5
 
-## Fans Think Olivia Rodrigo Just Shaded Taylor Swift & Here’s Why - IMDb
-
-- first seen: 2026-08-19 09:46 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Fans Think Olivia Rodrigo Just Shaded Taylor Swift & Here’s Why  IMDb
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE92WUdoalI3TTNQdmVpYm9adjJpRWZMZmkxdC1KZDZjdS1EMm00QjA2QWNwRXFUWWlsdjQ1UF9jN2FZcTV2Z2ZFQUZrZ3B4d2ltSGdqcV85QkdYWHRvMkFGbUpRRzd2Zw?oc=5
-
 ## Taylor Swift News Conflicts With Travis Kelce’s Chiefs Schedule - Yahoo Sports
 
 - first seen: 2026-08-19 09:46 UTC | category: relationship | importance: 5
@@ -50,6 +74,15 @@ Stories: 92
 - summary: Taylor Swift News Conflicts With Travis Kelce’s Chiefs Schedule  Yahoo Sports
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPLVBWYUtZbHdEdGF2X2p0RThoaFhNNWRJR0RmcjctRFRINTAzSTRvVFBPQlljenhnMGdzVU5USVFITkN0cXE4X2JZYlhJc01QM3JsdEpwdjNDcEJmM0F2WW1NOXJiRFVwWUdGcEcyU0FZS09EZEQtOG9NRzlTMUxVcjJ2d1cwUl92SXFB?oc=5
+
+## Fans Think Olivia Rodrigo Just Shaded Taylor Swift & Here’s Why - IMDb
+
+- first seen: 2026-08-19 09:46 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Fans Think Olivia Rodrigo Just Shaded Taylor Swift & Here’s Why  IMDb
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE92WUdoalI3TTNQdmVpYm9adjJpRWZMZmkxdC1KZDZjdS1EMm00QjA2QWNwRXFUWWlsdjQ1UF9jN2FZcTV2Z2ZFQUZrZ3B4d2ltSGdqcV85QkdYWHRvMkFGbUpRRzd2Zw?oc=5
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMinwFBVV95cUxNQXU2VFg2ZkJmV01XMnhsQk5ZNzBNVnFYN1prbF9vaEoxaU96YXk1WW14V3NNdW5XUW1SMldwZ1NhUUxyQ3RnWjM3TVo2ODJPajlNcEh4UlRwM3RMYUUycXVTak9SU25yY1NBWnNwV3dxb2NPems1RkpCX3hEcVBnVVJ0WGp2VFZZZmcydC1vUXBKeUNOZ0VhU1FUSEd0RE0?oc=5
 
 ## Taylor Swift’s music quietly removed from Trump social media posts | CNN Politics - CNN
 
@@ -287,18 +320,6 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - sources:
   - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOOG05SlptckN0N0xfZ2FJTGlWSjk4eEdIYm9TemlpVTg0ZEI2UnB2MHRkZXQ3dTJqWXBlUm9MUl8xQWJRZ0FiSnMtMG9KY29xamZUeEEyaEhfMVd1cjRmOUFCUUtrOUNxamRJT3RoUnFtZTVkTlFmYW91MURoQ2NoN1FoeXl5UlFYMTJFd24yWXpMc2pRUzNqdEVSemNpVUZ6aHM0?oc=5
 
-## Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift - AP News
-
-- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 5
-- summary: Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift  AP News
-- sources:
-  - [unverified] AP News — https://news.google.com/rss/articles/CBMijAFBVV95cUxNaTNId3VKUlhEQkVEOHpPMzFkWlliYWZmb2tLcGJwb1F6ZkJWejdyRnlWZ04yMEljdDhQUlRwbWFCSEJXWERWOFYwSWRNZlViZWZ0emFBOWFhUWpFcEs3b0poaEw1ajU2Y25yTDdhVnlLSXRfdU9fRzNvaDE1RVhFZ0dpanVsQW1IUHl1MQ?oc=5
-  - [unverified] Oskaloosa Herald — https://news.google.com/rss/articles/CBMigwJBVV95cUxNdmJheTlfMFNrQkZzOTRxYVA4WHV1LXIwZDlGS2ZuUkdMTXIwM3h5Vndna3QxY0VWZHlhRGVzZkE2bGRsaTJINGtOV3BlekR1UzZ5RGRuOGh1NGg1c3Z4YmdJeS05N1RaWG05Rm93YXhzSHVteUJ3RW12UEV4T2FRWDFsQVItLWYyRVVpTVRBaVRndXgxQXVWM2Jwc2lCbVE4OHhXcS1OaFBBREQzLXVGRzFJTFJJRWRyT0VncFNQWVJEOW5sMFg4bzlEYm0zYzdsYWk4R192SU9KcEwzOHRUT1BVV1VNR0JJenAzd3JUSU5tcXFsVDQxSWRFM2x1QVRjc00w?oc=5
-  - [unverified] Ottumwa Courier — https://news.google.com/rss/articles/CBMiigJBVV95cUxQZmJVNzNDbWxrRm9hTzNQSk5kU252cjhaNHh1eVRUQWs0V21sRlJfdDN4R1kzSDduMkpidnFrRUNCc3RZMzBrMnptdmFwRnNPYTMyMGNyejZ0ai03UWQycWtJSkRYUFBRWmhBRkRWemFwekZaVk15NWhyczhKc2V2c2hDRHphZkc2VTVkeFJQcHp4QTFiZ3Z3RmtTSi1fTG9UeE5HQWExMm5ibllYS0ZKSXdibDNxRlZsMkVqcFBxVWh6cjZWQm9hclMwX2NwN1hmVE84eEJkTW93dlBGNTNkSGEtd3F3dnpqckxQTnNXZlFrYWhVaUxRN1VKU1kzNzJidS1PcFprZzVtdw?oc=5
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMingFBVV95cUxPbV9mdHFzaVpBSEV2Q0NUeTRHQkdMLTVFU3BVTXBVTl9BaTNvb0l5M0VYZWx4VlJQS0JEMWZqSE5hXy1jVWk3V3F5NThRbWw0enBsR1RWZENlUjlxNjlmanhyVVFtOFZxSEJJeDh5aGV3c2VKRG12RjBPSThrUW80Y3NwNnMxMkFqbk9XMHBDUzRkakc4ekU5TmRmZzZ5Z9IBowFBVV95cUxNd1pPZGpJTW01dWoxLS1hcnFpb2pKczNXRXgyWjBuSURMQU1HaGdyZVBIVjhSYXFkTnZvUUsyMzRWV3lyQ2J2azEwNklXaHJwWWNZNGlUUXEwYU5mQ1RkTW5sblI0WlNXQXlKZmFwbXMxOG0wTDVCOWtnb19zc21SMm9aNG51SnlsbE1fLXZINFlrYjdrREZXeG1URWhzWExzWV9R?oc=5
-  - [unverified] Dailyfly News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMFNJa2JDN3NPU2Rac2RneEd5ektteGJCbHc5WkFndlNISjJuczU4bnlpZGhqLTNlOGRFSENFWVExeWczLUdTM29pR0FMSlM3bktheXlqbUhSNzBzQ3BqQjlKblVaYmdHSnNKWGRpM2ZCdFZfYXlKMExhTnQycEpMZy10RE81SzZieHFnTWNoZ3V0Z09zOHB0eTZIS3JDamVLZVBYZ2R5RnNfdw?oc=5
-
 ## Taylor Swift Returns to Instagram To Praise a Celebrity & It’s Not Travis Kelce - Yahoo
 
 - first seen: 2026-08-18 13:53 UTC | category: relationship | importance: 5
@@ -330,6 +351,20 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Chiefs Co-Owner Hasn't Spoken to Travis Kelce Since Taylor Swift Wedding Snub  Sports Illustrated
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiuwFBVV95cUxPTDFxdGlUR1I4cFFLbHhMam9OY3ItNXBTYTljUnF3V3NyWmQyNndrQ2RnekpSTjBMWHFoMTBObjdWaFEwVDFPQzVkYmlxcGFEX1lVYUpEdGFiZTc5OUVHQmRidmxFWlI0SzlwWlJGUUxKMTZJemo5c2RwTmI0X2JVUmNvZjJKTk44QkF0UUZPQzN4NVk3M3ZvdmNQVFVjdHNQQ1owREdpWldwV0xJNDZ1cU9uZk9mRU9WVzVJ?oc=5
+
+## Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift - AP News
+
+- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 7
+- summary: Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift  AP News
+- sources:
+  - [unverified] AP News — https://news.google.com/rss/articles/CBMijAFBVV95cUxNaTNId3VKUlhEQkVEOHpPMzFkWlliYWZmb2tLcGJwb1F6ZkJWejdyRnlWZ04yMEljdDhQUlRwbWFCSEJXWERWOFYwSWRNZlViZWZ0emFBOWFhUWpFcEs3b0poaEw1ajU2Y25yTDdhVnlLSXRfdU9fRzNvaDE1RVhFZ0dpanVsQW1IUHl1MQ?oc=5
+  - [unverified] Oskaloosa Herald — https://news.google.com/rss/articles/CBMigwJBVV95cUxNdmJheTlfMFNrQkZzOTRxYVA4WHV1LXIwZDlGS2ZuUkdMTXIwM3h5Vndna3QxY0VWZHlhRGVzZkE2bGRsaTJINGtOV3BlekR1UzZ5RGRuOGh1NGg1c3Z4YmdJeS05N1RaWG05Rm93YXhzSHVteUJ3RW12UEV4T2FRWDFsQVItLWYyRVVpTVRBaVRndXgxQXVWM2Jwc2lCbVE4OHhXcS1OaFBBREQzLXVGRzFJTFJJRWRyT0VncFNQWVJEOW5sMFg4bzlEYm0zYzdsYWk4R192SU9KcEwzOHRUT1BVV1VNR0JJenAzd3JUSU5tcXFsVDQxSWRFM2x1QVRjc00w?oc=5
+  - [unverified] Ottumwa Courier — https://news.google.com/rss/articles/CBMiigJBVV95cUxQZmJVNzNDbWxrRm9hTzNQSk5kU252cjhaNHh1eVRUQWs0V21sRlJfdDN4R1kzSDduMkpidnFrRUNCc3RZMzBrMnptdmFwRnNPYTMyMGNyejZ0ai03UWQycWtJSkRYUFBRWmhBRkRWemFwekZaVk15NWhyczhKc2V2c2hDRHphZkc2VTVkeFJQcHp4QTFiZ3Z3RmtTSi1fTG9UeE5HQWExMm5ibllYS0ZKSXdibDNxRlZsMkVqcFBxVWh6cjZWQm9hclMwX2NwN1hmVE84eEJkTW93dlBGNTNkSGEtd3F3dnpqckxQTnNXZlFrYWhVaUxRN1VKU1kzNzJidS1PcFprZzVtdw?oc=5
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMingFBVV95cUxPbV9mdHFzaVpBSEV2Q0NUeTRHQkdMLTVFU3BVTXBVTl9BaTNvb0l5M0VYZWx4VlJQS0JEMWZqSE5hXy1jVWk3V3F5NThRbWw0enBsR1RWZENlUjlxNjlmanhyVVFtOFZxSEJJeDh5aGV3c2VKRG12RjBPSThrUW80Y3NwNnMxMkFqbk9XMHBDUzRkakc4ekU5TmRmZzZ5Z9IBowFBVV95cUxNd1pPZGpJTW01dWoxLS1hcnFpb2pKczNXRXgyWjBuSURMQU1HaGdyZVBIVjhSYXFkTnZvUUsyMzRWV3lyQ2J2azEwNklXaHJwWWNZNGlUUXEwYU5mQ1RkTW5sblI0WlNXQXlKZmFwbXMxOG0wTDVCOWtnb19zc21SMm9aNG51SnlsbE1fLXZINFlrYjdrREZXeG1URWhzWExzWV9R?oc=5
+  - [unverified] Dailyfly News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMFNJa2JDN3NPU2Rac2RneEd5ektteGJCbHc5WkFndlNISjJuczU4bnlpZGhqLTNlOGRFSENFWVExeWczLUdTM29pR0FMSlM3bktheXlqbUhSNzBzQ3BqQjlKblVaYmdHSnNKWGRpM2ZCdFZfYXlKMExhTnQycEpMZy10RE81SzZieHFnTWNoZ3V0Z09zOHB0eTZIS3JDamVLZVBYZ2R5RnNfdw?oc=5
+  - [unverified] Anadolu Ajansı — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDdsaHZxbFZfaGJacVlUQVZlMjYtdndGaW9aTmJMeTExb1o5RFRIRmgyc0NTSUgzOE1FUHBHZ3QzYXA0alM5XzVybWFTZ3dkd0hSdjJ1a25nY0dwRGtaYzN6QWQ1cnlHWTk3WktxZHVnTkNVM19hRkNaN25TNnpYS05yRlBjMXQxSGxVMU9jdXlpRXhnUFYwS2RDd2pVOGJ3ZUpOTlNkQnJlWmc?oc=5
+  - [unverified] 101.5 CIL-FM — https://news.google.com/rss/articles/CBMipgFBVV95cUxPTU9sbWlJbWJBakdzcTF3WlloNWtOeGxfY2hzRDZhUUhjWTRpRU02UWotZlczLUgtcHVRRDJsNzJacVdOaFRSMXNQdnJjeEVwQ2xNa3d4LThCclVuclJYNVhiZG5DZ1I3YjFBdFptbWNCNExTd2hSZUlCOUxZYW56VUc0c3otOS1nS2pENzVka0paNnpBeXV3RjBUQ2lFOGctMlhtVV9R?oc=5
 
 ## Taylor Swift and Selena Gomez plan to welcome babies around the same time, become godmothers to each
 
@@ -763,28 +798,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pals Sabrina Carpenter, Jack Antonoff  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPcFFDY0NPR2FjcVY3Uk9MaVBmN2Z0eHNaanVXSmswYzhDTnBIMnhZRElHQVEtU1JkR2JMQ3J3SWcwZURwcElSeDdQOE9Sc0dXUGdHSk9vdWdZQ3pkTTlZb3pyTWMyVy0wdWJoTExRVFdPcmxaSFVUUnJPd2hsLVBhTXRmaGVJNFpYVEt2My02RHVoaVdEZkE4MTRkUmpnWEpnQnd1RjZqeEVJNlFXRTRz?oc=5
-
-## Taylor Swift 'abandons' Travis Kelce on their first big date since their wedding - MARCA
-
-- first seen: 2026-08-16 13:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift 'abandons' Travis Kelce on their first big date since their wedding  MARCA
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2gFBVV95cUxQMXhOdUJqb3M5ZWNpbDFSNWFpWm1HNURSWlI5RVNiMnR3VVBqYldJb3hrV2F1WF9sU1MzRk54eDBsN0lkb2psamRLdk1QM1VLSzlOcExBZHhVNngtOG1IenhXM25na3NhNGZwaTJPVGJfVzJoT3c5bDExS1hQcW9INGVKVzBaR29xbXIydjR3RzFBOC1NbTZPNVpPQWRqeHdfNXB1ZDdfeHp1MlF0MzNPSXZBbEk4c2pzSnFIMldJNzBKVWFKeTFLOEduclNiRXZnT2tHZzgtUWpyd9IB2gFBVV95cUxQWTVkX1ZPUTVwY3IyVHBpRUluMVlhamZ5VzJXTjAyTzl4Y2l4WFFZekRybWtkZV9aQl9oTGNSdTZaWERUN05CSEx4Wm1XdmlCWldQSFhZX0FSbEtXNnY5bDYyb3ptV2hXVm5tZWh0b0Rvb1pwTHNQTnRyTnRUWkFDc2FHanJoMGhteGdpWFBQX2QyczFzTE5KS0doOUtETWs3WVBEdmJQMjdYU3piN3dNNjJkd1JBYWw1YTRhTVMyUk91UFV1X1ZNMVdKaVFtci0yUzRSb0JZVmlTdw?oc=5
-
-## Ariana Grande Joins Taylor Swift, Nicki Minaj And Beyoncé - Yahoo
-
-- first seen: 2026-08-16 13:40 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Ariana Grande Joins Taylor Swift, Nicki Minaj And Beyoncé  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOSkFOLWdDV1dIWUxRV0ZTemEyZF9PSDdpdlItd2NmTTE5NTVzX2VUUFhCSUhraUFaLXQ0Z0V5V2d5X01MbVJvTVp6SDkwVF9zcmJISnRsdzVqdU5TWTVSOWp4Z0RjcFlIQVJIaEEzd3phaFUxRWlxc1o0VTVPbE9xSWNoZVI5UjZJYnBSVVJMYXhtczdmcmtNV3pVOFZxMG8?oc=5
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMirgFBVV95cUxNdWNzLUtGMUp2SVRmSXUtc0kzb2ZhTXVsWHZ6aTZfVG9CTHNOQUZWMjZpWDVCbHlJa0g3cUdnMnN6dXZDNkZxbC1CUUZxTDlGV1VQUklKUTFTSVZxWVlZdGhIemFldEM3aE9OZGY5eU1lWWNnQk1zbDdZZi03bjU2WXRUQXdXR1g0RWExSE0wUUdjUDNiOUhpMU1qd3VoZEFXblpERHFNVEdHRlNOU0E?oc=5
-
-## “They Love Living Like This”: Insider Shares Insight Into Taylor Swift, Travis Kelce’s Married Life 
-
-- first seen: 2026-08-16 13:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: “They Love Living Like This”: Insider Shares Insight Into Taylor Swift, Travis Kelce’s Married Life 6 Weeks After MSG Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQY0p3Q0J3cE5ZS2dkNnFCSldOV2w4dDEyM3JuTmtISktrWHQwR2tEMU12cE5NYW90S1NwdVZBWnlwMEN4RmJNb0tUN2VrekdSZmtZNnNONFNodktxblNCejQ4RW42VU5qN2MwMWpqNnh3bDR6MFZlcDB6T3lEOWRkdC1yN0RyQ0ptZDE4alFwUjFGSHFLVFc5SHBLOXJ3TjA4VElPdV9nZw?oc=5
