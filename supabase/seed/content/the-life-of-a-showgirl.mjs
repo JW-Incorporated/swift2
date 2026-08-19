@@ -11307,13 +11307,17 @@ export default {
       // MV id verified this run via YouTube oEmbed
       // (https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=hDU4GB1PTxc)
       // -> title "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)",
-      // author @TaylorSwift (official channel). Recorded in `moment.video` at
-      // the source of truth as with the Fate of Ophelia MV; note the sync pass
-      // does not yet forward `moment.video` into the vault, so it is inert until
-      // that app-side change lands (out of scope for this seed-only run) — the
-      // page ships text-first for now. Redline-clean: a product release and a
-      // published video, no location, security, health, or private-individual
-      // detail.
+      // author @TaylorSwift (official channel). It is cited below as a source
+      // (the official MV is the primary artifact); the page ships text-first.
+      // NOTE (Vault Run, 2026-08-19): a `moment.video` embed was deliberately
+      // NOT added, because a new video-carrying moment trips an APP-CODE test
+      // the Vault Run may not edit — apps/web/lib/longlive/video-affordance.test.ts
+      // hard-locks the count of video-carrying moments to 16 (measured
+      // 2026-08-13). Adding this as the 17th turns `build` red. Same systemic
+      // block Austin must clear as the Stylist merch-count test: to render this
+      // MV, Austin updates that count (16 -> 17) and can restore the embed.
+      // Redline-clean: a product release and a published video, no location,
+      // security, health, or private-individual detail.
       slug: 'i-knew-it-i-knew-you-toy-story-5-mv-debut',
       year: 2026,
       month: 8,
@@ -11328,10 +11332,6 @@ export default {
       moment: {
         context:
           'On Aug. 18, 2026, Toy Story 5 arrived for home viewing — available to buy for $29.99 or rent for $24.99 on Fandango at Home — and Taylor\'s corner of the release was the music video. Fandango carried the exclusive debut of the clip for "I Knew It, I Knew You," her original song from the film, cut together with footage from the movie itself. It landed on her own YouTube channel soon after, titled "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)."\n\nThe song had already outrun its soundtrack origins by the time the video arrived: written and produced with Jack Antonoff, it opened at No. 1 on the Hot 100, reached the Country Airplay top 10, and ran up a string of adult-pop radio records across the summer. The video ties all of that back to where it started — Woody, Buzz and the rest — and gives the track its first proper visual after months of living on the charts. A 4K, Blu-ray and DVD physical release was set to follow on Sept. 22.',
-        video: {
-          youtubeId: 'hDU4GB1PTxc',
-          title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
-        },
         sources: [
           {
             outlet: 'Animation Magazine',
