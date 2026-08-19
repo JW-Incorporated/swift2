@@ -11087,7 +11087,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard\'s Adult Pop Airplay chart — the Adult Top 40 tally, tracking spins at adult-leaning pop radio — is a separate list from the Pop Airplay chart where the same song had already been chasing a record weeks earlier. On the ranking dated Aug. 22, 2026, "I Knew It, I Knew You" climbed three spots to No. 1, and the story was the count behind it: Taylor\'s 16th No. 1 on the chart, the most any artist has collected since it debuted in March 1996, breaking a tie with Maroon 5 at the top. Behind her, P!nk sits third all-time with 10, and Katy Perry and Ed Sheeran fourth with eight apiece.\n\nIt was one more format claimed by a song that keeps outrunning its origin — her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff, which had already logged a No. 1 Hot 100 debut and a Country Airplay top 10, and reached No. 3 on the Hot 100 the week country songs swept that chart\'s entire top five. Adult pop radio was one of the last major formats it had yet to lead.',
+          'Billboard\'s Adult Pop Airplay chart — the Adult Top 40 tally, tracking spins at adult-leaning pop radio — is a separate list from the Pop Airplay chart where the same song had already been chasing a record weeks earlier. On the ranking dated Aug. 22, 2026, "I Knew It, I Knew You" climbed three spots to No. 1, and the story was the count behind it: Taylor\'s 16th No. 1 on the chart, the most any artist has collected since it debuted in March 1996, breaking a tie with Maroon 5 at the top. Behind her, P!nk sits third all-time with 10, and Katy Perry and Ed Sheeran fourth with eight apiece.\n\nIt was one more format claimed by a song that keeps outrunning its origin — her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff, which had already logged a No. 1 Hot 100 debut and a Country Airplay top 10, and reached No. 3 on the Hot 100 the week country songs swept that chart\'s entire top five. Adult pop radio was one of the last major formats it had yet to lead. Around the same week it also reached No. 1 on a different tally — Mediabase\'s Hot AC (Hot Adult Contemporary) chart, run by a competing airplay-tracking service, topping the Aug. 9–15 period on about 5,467 spins. (The two are separate charts: on Billboard\'s own Adult Contemporary list the song peaked lower, at No. 9.)',
         sources: [
           {
             outlet: 'Billboard',
@@ -11109,6 +11109,19 @@ export default {
             source_type: 'official',
             accessed_at: '2026-08-16',
             reliability_score: 5,
+          },
+          {
+            // Source for the Mediabase Hot AC No. 1 folded in above (intake
+            // #2228). A distinct chart from a competing tracking service —
+            // labeled as Mediabase, never as Billboard, per the ticket's trap.
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/08/16/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-hot-adult-contemporary-radio/',
+            source_title:
+              "Taylor Swift's \"I Knew It, I Knew You\" Officially Reaches #1 at Hot Adult Contemporary Radio",
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-19',
+            reliability_score: 3,
           },
         ],
       },
@@ -11280,6 +11293,63 @@ export default {
               'Phoebe Bridgers performing at the 2021 Shaky Knees Festival — a longtime friend and collaborator Taylor cheered on.',
             kind: 'primary',
             focalPoint: '50% 35%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-19 from intake #2243 (Vault Run, Content Shift lane).
+      // Category `video`: the news is the music video's debut, not a chart.
+      // Music/release/video items clear at >=1 source (the two-independent-
+      // outlets rule is relationship/business only), so Animation Magazine —
+      // an established, dated trade outlet — meets the bar; the official MV on
+      // Taylor's own YouTube channel is the primary artifact and is cited too.
+      // MV id verified this run via YouTube oEmbed
+      // (https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=hDU4GB1PTxc)
+      // -> title "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)",
+      // author @TaylorSwift (official channel). Recorded in `moment.video` at
+      // the source of truth as with the Fate of Ophelia MV; note the sync pass
+      // does not yet forward `moment.video` into the vault, so it is inert until
+      // that app-side change lands (out of scope for this seed-only run) — the
+      // page ships text-first for now. Redline-clean: a product release and a
+      // published video, no location, security, health, or private-individual
+      // detail.
+      slug: 'i-knew-it-i-knew-you-toy-story-5-mv-debut',
+      year: 2026,
+      month: 8,
+      day: 18,
+      category: 'video',
+      title: 'The "I Knew It, I Knew You" music video debuts with Toy Story 5\'s home release',
+      snippet:
+        'Toy Story 5 hit home release on Aug. 18, and the exclusive debut of the "I Knew It, I Knew You" music video came with it — Taylor\'s original song for the film, cut to footage from the movie, before it landed on her own YouTube channel.',
+      sourceUrl:
+        'https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Aug. 18, 2026, Toy Story 5 arrived for home viewing — available to buy for $29.99 or rent for $24.99 on Fandango at Home — and Taylor\'s corner of the release was the music video. Fandango carried the exclusive debut of the clip for "I Knew It, I Knew You," her original song from the film, cut together with footage from the movie itself. It landed on her own YouTube channel soon after, titled "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)."\n\nThe song had already outrun its soundtrack origins by the time the video arrived: written and produced with Jack Antonoff, it opened at No. 1 on the Hot 100, reached the Country Airplay top 10, and ran up a string of adult-pop radio records across the summer. The video ties all of that back to where it started — Woody, Buzz and the rest — and gives the track its first proper visual after months of living on the charts. A 4K, Blu-ray and DVD physical release was set to follow on Sept. 22.',
+        video: {
+          youtubeId: 'hDU4GB1PTxc',
+          title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+        },
+        sources: [
+          {
+            outlet: 'Animation Magazine',
+            url: 'https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/',
+            source_title: 'Toy Story 5 Launches on Fandango with Taylor Swift MV Debut',
+            publisher: 'Animation Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'YouTube (@TaylorSwift, official channel)',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'YouTube',
+            source_type: 'social',
+            accessed_at: '2026-08-19',
+            reliability_score: 5,
           },
         ],
       },
