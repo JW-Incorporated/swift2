@@ -756,3 +756,25 @@ then re-score it in `supabase/seed/song-moods/ttpd.mjs`, then
 
 They do not need it, and keeping it would invite someone to pad already-solid
 entries. If Joey ever overrules, re-research from scratch.
+
+### SESSION CLOSED 2026-08-19 — start here
+
+Handoff prompt delivered to Joey for a fresh session in a new environment.
+Nothing is half-written: every change is committed and pushed.
+
+**State at close:** branch `feature/score-remaining-songs`, 10 ahead of
+`origin/main` and **2 behind — `git fetch origin` before anything**. Working
+tree clean apart from the three permanently-excluded files above. 3039 tests
+pass, `typecheck --workspace=@swift2/web` clean, `check:generated` in sync.
+
+**Ledger:** PR **#2184 MERGED and live in production** (the mood-bot fix).
+PR **#2192 OPEN, all checks green** (244/244 songs scored) — needs Joey, and
+carries ONE open question for him: the widened `mood-match` spec test.
+PR **#2191 OPEN** (docs checkpoint, non-urgent). Issue **#2193 OPEN** (voice
+review of the 82 `oneLiner`s — explicitly NOT a blocker).
+
+**NEXT ACTION — do NOT start the `i-look-in-peoples-windows` expansion first.**
+Tell Joey #2192 is green and waiting, and surface the spec-test question. Only
+then pick up the expansion: on a new branch off updated `main` if he has merged
+#2192, or on this branch if he has not (the related mood seeds live here, so a
+separate branch would conflict).
