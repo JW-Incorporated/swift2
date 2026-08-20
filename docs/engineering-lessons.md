@@ -455,3 +455,33 @@ as a governance decision before it was caught by a push rejection.
 Generalises past GitHub: absence-of-configuration is the hardest thing to
 prove from an API, and a negative from one endpoint is the weakest possible
 evidence for it.
+
+### Git Bash mangles `ref:path` arguments — verify with `ls-tree`, not `cat-file`
+
+Checking whether the migration had landed, this reported the file as ABSENT
+from `main`:
+
+```
+git cat-file -e origin/main:.claude/rules/ai-team-coordination.md
+-> fatal: Not a valid object name origin\main;.claude\rules\ai-team-coordination.md
+```
+
+The file was there. **MSYS2 path conversion rewrote the argument** — `/` to
+`\` and `:` to `;` — because the text after the colon looks like a POSIX path
+list. It only triggers when the path contains a slash, which is why
+`origin/main:STATE.md` worked in the same session and
+`origin/main:.claude/hooks/guard.sh` did not. **The failure mode is a false
+negative that reads exactly like a real absence.**
+
+Use a form that takes the path as a separate argument:
+
+```
+git ls-tree -r --name-only origin/main .claude/     # immune
+git show origin/main --stat -- <path>                # immune
+MSYS_NO_PATHCONV=1 git cat-file -e origin/main:<path>  # opt out explicitly
+```
+
+Same family as the 404 lesson above, and it bit twice in one session: **a
+negative result from a tool is evidence about the tool until you have ruled
+the tool out.** Confirm absence with a second, structurally different command
+before acting on it.
