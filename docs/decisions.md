@@ -7,39 +7,64 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-08-19 — `main` gets history protection only; direct push stays allowed
+## 2026-08-19 — `main` keeps its PR requirement; the "unprotected" finding was wrong
 
-**Decision (Joey, explicit).** Branch protection on `main` is limited to
-**Block force pushes** + **Restrict deletions**. The two settings that would
-end direct pushes — *Require a pull request before merging* and *Require status
-checks to pass* — are deliberately **not** enabled.
+**Correcting an entry written earlier the same day.** That entry recorded a
+decision to leave `main` with force-push/deletion protection only, so direct
+pushes would keep working. It was built on a false premise and the decision it
+described was never actually available.
 
-**Why:** Joey runs Claude Code sessions that push straight to `main` and
-considers that workflow worth keeping. His words: *"I like my claudecode to
-push to main on my projects that arent live… So I cant lose that."* The
-protection that matters to him is that `main`'s history cannot be rewritten or
-the branch deleted — the failure mode that actually loses work. Gating *what*
-lands is a separate concern he chose not to enforce mechanically.
+**The false premise.** The migration reported `main` as "completely
+unprotected", based on:
 
-**Workflow rule 2 was amended to match, by Joey, the same day.** It now reads:
-*"Never commit directly to `main` but you can push to 'main' when the branch
-work is complete."* So the rule and the ruleset now agree — work still happens
-on a branch, and landing it is a push rather than a required PR.
+```
+gh api repos/JW-Incorporated/swift2/branches/main/protection
+-> 404 {"message":"Branch not protected"}
+```
 
-`.claude/rules/ai-team-coordination.md` `REPO-004` still calls the default
-branch an integration lane and asks for branch → PR → merge. That remains the
-*documented normal path* but is now convention, enforced by nothing. Swift2 is
-also a live site (longlivets.com), which is the argument for the PR gate; it was
-put to Joey and he ruled against it knowingly.
+That endpoint only reports **classic branch protection**. `main` was — and
+is — protected by a repository **ruleset**, `protect-main` (id `18819106`,
+enforcement `active`), which that endpoint does not report. The correct query is
+`gh api repos/{owner}/{repo}/rulesets`.
 
-**Do not "fix" this** by adding *Require a pull request* or *Require status
-checks* to the ruleset. That is not a hardening improvement, it is reversing a
-ruling. If it needs revisiting, ask Joey.
+**What was actually true the whole time:**
 
-**Setup steps and the exact toggles:** `HUMAN-ACTIONS.md` #9.
+| Rule in `protect-main` | Effect |
+|---|---|
+| `pull_request`, 0 approvals | A PR is required; **direct push to `main` is blocked** |
+| `required_status_checks` → `build` | `build` must be green |
+| `non_fast_forward` | No force-pushes |
+| `deletion` | `main` cannot be deleted |
+| `bypass_actors: []` | Nobody bypasses, including admins and Actions |
 
-**Approved by:** Joey
+The corroborating evidence was in plain sight and was not checked: **every
+commit on `main` carries a `(#NNNN)` PR number.** The error was proven when a
+direct `git push origin main` of the migration was rejected with
+`Required status check "build" is expected`.
 
+**The standing decision, restated correctly.** `main` requires branch → PR →
+`build` green → merge. That is unchanged, was never changed, and matches
+`.claude/rules/ai-team-coordination.md` `REPO-004`.
+
+**Joey's stated preference is recorded but not in force here.** He said: *"I
+like my claudecode to push to main on my projects that arent live… So I cant
+lose that."* Swift2 is live (longlivets.com) and has never permitted it.
+Nothing was lost, because nothing was there to lose. Whether to relax
+`protect-main` for this repo is left open as `HUMAN-ACTIONS.md` #9, with a
+recommendation to leave it alone.
+
+**Workflow rule 2 was amended by Joey the same day** to read *"Never commit
+directly to `main` but you can push to 'main' when the branch work is
+complete."* That amendment stands as his intent, but note it does not describe
+what the repo currently permits — a push to `main` is rejected by the ruleset.
+Reconcile the wording, or the ruleset, when he next picks this up.
+
+**Method lesson, recorded in `docs/engineering-lessons.md`:** a 404 from an API
+means "not configured *this* way", never "not configured".
+
+**Approved by:** Joey (preference recorded); no ruleset change was made.
+
+---
 ---
 
 ## 2026-08-19 — AI Dev OS v3.2 is the sole orchestration authority

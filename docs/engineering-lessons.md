@@ -424,3 +424,34 @@ vectors; the card sentence is the catalogue's own `oneLiner`. There is no voice,
 no output format, and **no catalogue in the prompt** — which is structurally why
 the bot cannot hallucinate a track. A brief that assumes otherwise is wrong.
 Keep it that way.
+
+### A 404 means "not configured this way", never "not configured"
+
+The AI Dev OS migration reported `main` as "completely unprotected" on the
+strength of:
+
+```
+gh api repos/JW-Incorporated/swift2/branches/main/protection
+-> 404 {"message":"Branch not protected"}
+```
+
+`main` was protected the entire time — by a **ruleset** (`protect-main`),
+which that endpoint does not report. GitHub has two independent mechanisms
+(classic branch protection and rulesets) and the classic endpoint 404s when
+only a ruleset exists. The right query is `gh api repos/{owner}/{repo}/rulesets`.
+
+That false finding was written into `HUMAN-ACTIONS.md` and `docs/decisions.md`
+as a governance decision before it was caught by a push rejection.
+
+**The checks that would have caught it, in order of cheapness:**
+
+- **Look at the history.** Every commit on `main` carries a `(#NNNN)` PR
+  number. A branch that anyone can push to does not look like that. Evidence
+  already in the repo beats a single API probe.
+- **Ask what a 404 excludes.** It rules out one implementation, not the
+  capability. Enumerate the alternatives before concluding absence.
+- **Try the operation.** `git push` would have answered it in one command.
+
+Generalises past GitHub: absence-of-configuration is the hardest thing to
+prove from an API, and a negative from one endpoint is the weakest possible
+evidence for it.

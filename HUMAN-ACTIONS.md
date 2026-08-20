@@ -190,76 +190,66 @@ confirm it still works and still shows up as a GitHub issue.
 
 ---
 
-### 9. [BLOCKING] Turn on branch protection for `main` — ~5 min
+### 9. [UPGRADE] Decide whether `main` should keep requiring PRs — ~2 min
 
-Found during the AI Dev OS v3.2 migration (2026-08-19). **`main` is currently
-completely unprotected.** Verified, not assumed:
+**CORRECTION, 2026-08-19.** An earlier version of this item said "`main` is
+completely unprotected" and gave steps to add protection. **That was wrong.**
+`main` has been protected the whole time by an active repository **ruleset**
+named `protect-main`. The check that produced the false reading was:
 
 ```
 gh api repos/JW-Incorporated/swift2/branches/main/protection
 -> 404 {"message":"Branch not protected"}
 ```
 
-The token used has `repo` scope, so this is a real gap, not a permissions
-artifact.
+That endpoint only reports **classic branch protection**. Protection
+implemented as a **ruleset** does not appear there and returns 404 anyway. The
+correct check is:
 
-**Why it matters.** Two rules now depend on it and neither is currently
-enforced by anything but goodwill:
+```
+gh api repos/JW-Incorporated/swift2/rulesets
+gh api repos/JW-Incorporated/swift2/rulesets/18819106
+```
 
-- `CLAUDE.md` § Workflow rule 2 — "Never commit directly to `main`".
-- `.claude/rules/ai-team-coordination.md` `REPO-004` — the default branch is an
-  integration lane; no direct substantial pushes, no force-push, no deletion.
+The corroborating evidence that was in plain sight: **every commit on `main`
+carries a `(#NNNN)` PR number.** Nothing has been pushed directly to `main` in
+this repo for a long time, because nothing can be.
 
-Right now any session, any agent, or either founder can push straight to `main`
-or force-push over it. The guard hook blocks force-push *from a Claude session*,
-but nothing stops it from a plain terminal, and nothing stops a direct push at
-all. `auto-merge-content.yml` also lands PRs unattended (see item 6), which
-makes an unprotected default branch a wider blast radius than it looks.
+**What `protect-main` (id `18819106`, enforcement `active`) actually enforces:**
 
-**A session cannot do this for you** — it is a repository-settings change on
-the org's repo, which `CLAUDE.md` § Decision authority puts on the human-only
-list. It was deliberately not done automatically.
-
-**Joey's ruling, 2026-08-19 — direct push to `main` must keep working.** He
-runs Claude Code sessions that push straight to `main` and does not want that
-taken away. **This changes what to tick**; an earlier draft of this item
-recommended settings that would have blocked exactly that. Corrected below.
-
-Which toggles actually block a direct `git push origin main`:
-
-| Setting | Blocks direct push? |
+| Rule | Effect |
 |---|---|
-| Require a pull request before merging | **YES — do not tick** |
-| Require status checks to pass | **YES — do not tick.** A commit that has not already passed `build` is rejected on push |
-| Block force pushes | No — only force pushes. **Tick it** |
-| Restrict deletions | No — only branch deletion. **Tick it** |
+| `pull_request` (0 approvals required) | **A PR is required. Direct push to `main` is blocked** |
+| `required_status_checks` → `build` | `build` must be green before merge |
+| `non_fast_forward` | No force-pushes |
+| `deletion` | `main` cannot be deleted |
+| `bypass_actors: []` | **Nobody bypasses — not admins, not Actions** |
 
-Steps:
+There is also a second ruleset named `main` (id `21070803`) with enforcement
+**`disabled`**, so it currently does nothing.
 
-1. Open `https://github.com/JW-Incorporated/swift2/settings/branches`.
-2. Next to **Branch protection rules**, click **Add branch ruleset** (or
-   **Add rule** if the older UI shows).
-3. Branch name pattern: `main`
-4. Tick **only** these two:
-   - **Block force pushes**
-   - **Restrict deletions**
-5. Leave **Require a pull request before merging** and **Require status checks
-   to pass** **unticked** — either one ends direct pushes to `main`.
-6. Leave "Do not allow bypassing the above settings" **unticked** — if ticked,
-   `auto-merge-content.yml` may stop being able to land content PRs.
-7. Save.
+**So there is no gap to fix, and nothing here is blocking.** This item is now a
+decision, not a repair.
 
-**Worked if:** re-run the command at the top of this item and it returns a JSON
-protection object instead of a 404 — **and** a direct `git push origin main`
-from a session still succeeds. Both must be true.
+**The decision.** Joey said he likes Claude Code pushing straight to `main` on
+low-risk projects. In *this* repo that has never been possible, and turning it
+on means editing `protect-main`:
 
-**What this does and does not buy you.** It makes `main`'s history
-unrewritable and undeletable, which is the failure that actually loses work.
-It does **not** gate what lands there. `CLAUDE.md` Workflow rule 2 ("never
-commit directly to `main`") and `REPO-004` still ask for branch → PR → merge
-as the normal path; with this configuration that is convention, enforced by
-nothing. That is the deliberate trade Joey chose, recorded here so a later
-session does not "fix" it by adding the PR gate back.
+- **To keep things as they are (recommended):** do nothing. Work lands by
+  branch → PR → `build` green → merge, which is what every runner and
+  `auto-merge-content.yml` already do.
+- **To allow direct pushes:** open the ruleset, remove the **Require a pull
+  request before merging** rule and the **Require status checks to pass** rule,
+  and keep **Block force pushes** + **Restrict deletions**. Ruleset UI:
+  `https://github.com/JW-Incorporated/swift2/settings/rules`
+
+**Recommendation: leave it alone.** longlivets.com is live, `auto-merge-content.yml`
+lands PRs unattended, and `build` is the only thing standing between a bad
+generated-file drift and production. The PR requirement costs one extra command
+and is the reason `main` has stayed green.
+
+**Worked if:** whichever you choose, `gh api repos/JW-Incorporated/swift2/rulesets/18819106`
+reflects it, and a test PR still merges once `build` is green.
 
 **Status:** OPEN
 
