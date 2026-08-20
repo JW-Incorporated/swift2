@@ -712,3 +712,47 @@ above. Remaining:
    `auto-merge-content` should stop auto-landing UI code, the Turnstile keys
    (`HUMAN-ACTIONS.md` #8), and **restarting his port-3000 dev server** — an
    agent killed it with a stale PID (see `docs/engineering-lessons.md`).
+
+## MIGRATION HANDOFF (2026-08-19) — preserved research, do not delete unread
+
+Session ended for a migration to a new dev environment. Everything below is
+work product that would otherwise have been lost with the conversation.
+
+### The ONE unfinished task: expand `i-look-in-peoples-windows`
+
+It is the only genuinely thin song of the five Joey asked about (1.2KB record,
+NO dossier, one auto-derived discussion paragraph). The other four —
+`the-bolter`, `the-albatross`, `chloe-or-sam-or-sophia-or-marcus`,
+`father-figure` — are 6–8KB with full dossiers and **do not need expanding**;
+Joey was told this and has not overruled it.
+
+**Researched facts (checkable, use these rather than re-researching):**
+- Track 25 on *TTPD: The Anthology*, released 2024-04-19. Runtime ~2:11,
+  reported as the shortest song in her catalogue.
+- **Writers/producers: Taylor Swift, Jack Antonoff, Patrik Berger.**
+  **SOURCE CONTRADICTION — resolve this way:** a sheet-music retailer
+  (MusicaNeo) lists Aaron Dessner. Wikipedia + Rolling Stone AU both say
+  Antonoff/Berger. **Antonoff/Berger wins; do not cite the Dessner claim.**
+- Rolling Stone AU (catalogue ranking) calls it a "wistful ballad" about
+  voyeurism and longing, and links the lit-window image to the Stella Dallas /
+  "All Too Well" short-film motif. That is professional critical framing, NOT
+  Swift's own words.
+- **NO Swift statement about this song exists.** Searched; none found. Do not
+  let a fan site's confident "Taylor said…" framing slip in as fact.
+- Fan/unconfirmed only (label or omit): a Substack "windows motif across ~15
+  songs" reading; a fame-alienation reading; a link to the album's "Peter"
+  thread.
+- Emotional register: longing dominant; heartbreak and nostalgia moderate; calm
+  in texture only (spare fingerpicked ballad) but undercut by compulsion;
+  catharsis/defiance/anger/joy largely absent — the song does not resolve.
+
+**How to land it:** add a real `discussion` array + `discussionSources` to the
+`i-look-in-peoples-windows` entry in `supabase/seed/tracks/tortured-poets.mjs`,
+then re-score it in `supabase/seed/song-moods/ttpd.mjs`, then
+`npm run sync:content` and commit the regenerated vault too.
+**NO LYRICS** — original prose only; the generator rejects internal line breaks.
+
+### Research for the other four is deliberately NOT preserved
+
+They do not need it, and keeping it would invite someone to pad already-solid
+entries. If Joey ever overrules, re-research from scratch.
