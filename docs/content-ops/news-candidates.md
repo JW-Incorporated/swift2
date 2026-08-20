@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 85
+
+## Taylor Swift’s Wedding Ring Has a Hidden Romantic Detail Fans Can’t Ignore — Report - Yahoo
+
+- first seen: 2026-08-20 13:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Wedding Ring Has a Hidden Romantic Detail Fans Can’t Ignore — Report  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNd0RvWFdqN1lldU9fTGwzYW9HVjhPRmlGOHFadHZpTmt3LUFhUGhyd21lWDNGZF9zek9rdUQ0Y3dmTlRZUmJOb1NoWGppa0VjSlJKS0x0QkNjUkVfaTAzRUtsdmNsZmFoM1Y0VGVNSXlmR05adjRSNFg0bFRQenNWRGhaalF1N0ZPT1k3LTFJQjllMGU4ZVo5WmdsekVyQ3U0WUNyVg?oc=5
+
+## Taylor Swift and Travis Kelce’s Wedding Is Already Crushing the Celebrity Competition - parade.com
+
+- first seen: 2026-08-20 13:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce’s Wedding Is Already Crushing the Celebrity Competition  parade.com
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxQYXUwQ2MyQUozbWUxSUxtUERaRzhNMmxPbDVxRzlHUmpPQjRaVWM4YmZNWHJmaU9yLUNmVkFSbkZoMTRvRmZvOU5NSUp5N19qQ1k2V05JUTBPbEsyZkJOQV9JNVkzamVOdzRQaHVyakE4ckh5OG5IODhBWTBNTmpVOXVqQVVLUzlKZkVVcmRWMWE5dEp0cGhLWC1BeVpWOU1hYk41eVRGSnIxczMy?oc=5
+
+## Taylor Swift & Margot Robbie’s Murder Mystery Set To Arrive on Streaming Soon - Yahoo
+
+- first seen: 2026-08-20 13:56 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Margot Robbie’s Murder Mystery Set To Arrive on Streaming Soon  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPcGtGSXFVODFMWkgyTnVUUFZDRU9DQTY2bXNNbzlXTEFlcnl6WG1jS1RheDFRMHZ5TXN2cVA2LW91cW9qS09lNzdxMHlGY2hVWk56ZE9oZHZ0YTVvS2ZzaDBiSXVkOTg3OGlsZktsdWlTNG9SZHREc3VpS3hnRGVaRFJaYkVhZ3o3dkVTakYwNHBfWGo0T0tSdFVZemZvQ0E4Mnc?oc=5
+
+## The 5 songs Taylor Swift played to kickstart Emmy FYC campaign for Eras Tour film - Yahoo
+
+- first seen: 2026-08-20 13:56 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The 5 songs Taylor Swift played to kickstart Emmy FYC campaign for Eras Tour film  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPNTYwRFlQWjFyeEVGenNRTUNwd1pDdFU2RklTOUc1c3V3bTJUeDREdnVrZldJMEJIdDFnMURoM3UyQzJyQ0ZldXpOU05hVV9MVjJya0VJRzdOcmI1M3E5N056Q1c4REgwSnRSbjY1OVRuY0VuSGEySFlfekw5bExnQ3UtOWRycEVjYXBIVUxxSmdibGU2WnlRLQ?oc=5
+
+## Chiefs Co-Owner Daniel Hunt Says He Didn’t Snag an Invite to Travis Kelce and Taylor Swift’s Wedding
+
+- first seen: 2026-08-20 13:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chiefs Co-Owner Daniel Hunt Says He Didn’t Snag an Invite to Travis Kelce and Taylor Swift’s Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPb1NzR0JSVy1uVTlodkJPeVlrQWllVzZtN1ZWaWVJUEZKd1diRk9ERDRwZW93U05lSWZSVUt5VWZySlNXM2dab1M5X0pBTWVuOUdzY3dNUzdEWExENUVlMVVIc3VheFFCdUFtZWlsZHg4TTBXdW1OWEp1YmZjMXBYc3B4akhhV3VxaU9SQzFEbE5WUnlxVlo3UW1HN00tQ01HZUpvd1Z1MElTaFZmNjlvX3F3?oc=5
 
 ## Taylor Swift’s Photo From a Wedding With Pop Star’s Husband Raises Eyebrows - Yahoo
 
@@ -695,51 +735,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Taylor Swift Steps Out With New Haircut That Might Be Her Biggest Hair Transformation in Years  graziamagazine.com
 - sources:
   - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMizwFBVV95cUxNNjFoMV9QdHhYNVZXVFBkZ1Q2UG5kcmZHcUJ0dzE2M2Zoc3RZS2RleTIwQXdvWGtHVUJEYmNteXV2OGV0QlZiSm1XbkJpaHkwSFc4OFNEZC1pT1lOcUowbHU4SXd0Q0lTcXdQbTV3ZWVfSFZ0ZWUtNmhwTjdmLXJFeGFCZENIRWMwbF9fSTA0bGxCc3hkRzVJSlN0MDRpNEpHZDdmS1ZkOFVRN1hhdWl5YVhfSlhfbEN5bWJzNUh5TFpEeHA4aHdkenZQaWowUmM?oc=5
-
-## Taylor Swift and Travis Kelce show off special matching wedding rings - check them out here - Someth
-
-- first seen: 2026-08-17 13:50 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce show off special matching wedding rings - check them out here  Something About Rocks
-- sources:
-  - [unverified] Something About Rocks — https://news.google.com/rss/articles/CBMivwFBVV95cUxPLTBtdldmYXNadHQ2V01POEl3NUE3dWItSHd2dFR1N0ZjZFdmZ1lnTWwtT0ZoQmk2bnUwd1ZidDZ5ZUNlY3NJT2ZzRGVMUW5xU29tTFZRdnFOaHg3eXVudmU0b2dfaGRMZTkwU0lMdzJES2NqOWlnZW50XzU4dVN3N0JZY24xZEJJOUtiTFJHRk9xODhPV2NjV2kxQjV5a3NDdGJlMEM2cHFST29HY2RxV05IdHhiZjZRWVF1M0F0dw?oc=5
-
-## Taylor Swift just attended Oli Jacobs and Laura Sisk’s wedding: what we know - South China Morning P
-
-- first seen: 2026-08-17 13:50 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift just attended Oli Jacobs and Laura Sisk’s wedding: what we know  South China Morning Post
-- sources:
-  - [unverified] South China Morning Post — https://news.google.com/rss/articles/CBMiwgFBVV95cUxNb0ZzYW1FZWdzUkFhZThnTHVEa1NzeV9iMXJFVXJVaG5jVUxTdzBCckI0NkkzLUNxNG5paG9Ma21MNEdYLWtua1hoSlNLdDdJRlNvMjZNQm4wYmFseGFlU3BaNmhGc3FRRVVIamNCMjg0b0F2TzdYTUtpOHNsa3FCUGFEOVJVS3dicDc1bkExbGR5VlpZYVFROEljUWp6VmV5UG05a2NzdWZ3MEFmWUFFMFlyNkUwc1BPUHVuS2pmR3FYUdIBwgFBVV95cUxOa1RfVnBPZm1OdWVfVGVWWVdzT2VFN3BPZl9oMlo5NHpSX2dDbmEtdG5CQTFtNVJweEJqdHJ4aDBPQVR4cDV1eWR3aEhWS0dEcVJVYkFFU1QwXzVQTTY0T2NRU2VmeFJUYWt6N2JFSm8xZTdFQWpxSGFiSDFXWmhtTU5Pb21fSG1qbDlGbC1XWEg5TnlYOGFCNzBrNHFSTVk5Y2xCc1N6cWV0blJ1ZGVKbno4bURoalFaVWh0aHd6VlZFdw?oc=5
-
-## Travis Kelce & Taylor Swift Have a ‘10-Day Rule’ for Marriage — Source - Yahoo
-
-- first seen: 2026-08-17 13:50 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce & Taylor Swift Have a ‘10-Day Rule’ for Marriage — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNOWVrYTdXMGc3WkREQ0V1dHNQUEF3V0U4LVE3a3l0UVdTaXlFSzVqTUNnUHRRaUtQSXlRdEc2elpnWGUxQXZHdUhsNENXSTZVUHY5VXdXZVZmMFl2U2ZEcVpXUExpMG1jQUNEdmVqV0V4WTZoUzk0QjY1ZnhHNndoUHk1SkU2VGpOSmFlTlY5dkl4LVBiMmxXRFotVHFkYjg?oc=5
-
-## This Taylor Swift-vibed Epiphone acoustic is over $400 off at Sweetwater - Guitar.com
-
-- first seen: 2026-08-17 13:50 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: This Taylor Swift-vibed Epiphone acoustic is over $400 off at Sweetwater  Guitar.com
-- sources:
-  - [unverified] Guitar.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQdE5NSGZCaVhsZEdJZ2dkTng5Xy1oTElIYnd3QzZrWFhWUlM1MUh0aER4M1FMbjdnRmM4aG5QbUZ2d2UzOUU2WEJFQld2ZmdOOXZYSTNkQk1wWHA3TThCOTBuUEFpWlRJaUR6ZGVXemR1SE04Q3pOZ21hTC1OQzVETVVHT0lBcE12?oc=5
-
-## Taylor Swift changed up her look with shorter hair and a $995 floral minidress one month after marry
-
-- first seen: 2026-08-17 13:50 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift changed up her look with shorter hair and a $995 floral minidress one month after marrying Travis Kelce  creators.yahoo.com
-- sources:
-  - [unverified] creators.yahoo.com — https://news.google.com/rss/articles/CBMigwJBVV95cUxQQ3hGTDdnTmZFNHVMN0duYkdkWnBxMlBfUWU1ZWh4Rmphd0NJcEFaSHBlQi1lNUNhS1hPVl9PekwtYkhORmlLTjFUQXZ0eFc2cW42U09DeThnVXlTX1pidllkQ0o5dE1pUlRDR19YdzhEVzZVX29tMnVjUjlQWjRSTlE4UmR2Uzl4WE95Sk1fV05fSVdKZkxsU2l2UDlxU3h2Z2pWUmdRQy1acGpjUTRodzZBYkUyWWZIWDlqSm9NT2p0WThWSVA1ZFUwOEk0emJhaUVONnFaenZSOGdBVEpoWVUzeld1WXF4SFp6aVhlbGItb3l1emZSQ0NVV3puRExKdnFJ?oc=5
-
-## Taylor Swift Cut Her Hair for the First Time in Years and Fans Cannot Agree It Happened - centraljer
-
-- first seen: 2026-08-17 09:54 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Cut Her Hair for the First Time in Years and Fans Cannot Agree It Happened  centraljersey.com
-- sources:
-  - [unverified] centraljersey.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxQTnJtY2tfSFRmVHBMSC1XOVVDbEVleVJvYWdHM1BJQlJwdHVBcmVkdVR3Z2hMbTFoNUdrRl81TlN3VHRTazNXVDBER1B3WDA5dWFDUzEzSFBGeENXMW1FRnpBYnlFVUVJSnI0dXlueEJkSWFtWW1JMVZ5UG1YeEtkZ1Fubng?oc=5
