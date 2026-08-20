@@ -21,13 +21,16 @@ protection that matters to him is that `main`'s history cannot be rewritten or
 the branch deleted — the failure mode that actually loses work. Gating *what*
 lands is a separate concern he chose not to enforce mechanically.
 
-**The tension this creates, stated plainly so nobody re-opens it:**
-`CLAUDE.md` Workflow rule 2 says "never commit directly to `main`", and
-`.claude/rules/ai-team-coordination.md` `REPO-004` calls the default branch an
-integration lane. Both remain the *documented normal path* — branch → PR →
-merge — but with this configuration they are convention, enforced by nothing.
-Swift2 is also a live site (longlivets.com), which is the argument for the PR
-gate; it was put to Joey and he ruled against it knowingly.
+**Workflow rule 2 was amended to match, by Joey, the same day.** It now reads:
+*"Never commit directly to `main` but you can push to 'main' when the branch
+work is complete."* So the rule and the ruleset now agree — work still happens
+on a branch, and landing it is a push rather than a required PR.
+
+`.claude/rules/ai-team-coordination.md` `REPO-004` still calls the default
+branch an integration lane and asks for branch → PR → merge. That remains the
+*documented normal path* but is now convention, enforced by nothing. Swift2 is
+also a live site (longlivets.com), which is the argument for the PR gate; it was
+put to Joey and he ruled against it knowingly.
 
 **Do not "fix" this** by adding *Require a pull request* or *Require status
 checks* to the ruleset. That is not a hardening improvement, it is reversing a

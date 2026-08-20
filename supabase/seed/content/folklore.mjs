@@ -1141,6 +1141,7 @@ export default {
       relatedIds: [
         'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
         'moment:vault-evermore-folklores-sister-arrives',
+        'moment:vault-midnights-midnights-3am-edition-surprises-fans-with-7-more-songs',
       ],
       moment: {
         // The post this page is ABOUT (issue #762, Part B). Shortcode from the
@@ -1162,7 +1163,7 @@ export default {
         // claimed a reinvention without substantiating its impact, just
         // announcement mechanics — this backs the claim with real reception.
         context:
-          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — a grid of captionless black-and-white Beth Garrabrant forest photos, no warning of any kind — with the "cardigan" video dropping alongside it at midnight. The post went up the morning of July 23 and the album arrived at midnight into July 24: under a day\'s notice, nearer fourteen hours than the "sixteen" of the fan shorthand.\n\nThe "isolation" framing hid a crowd. Aaron Dessner of The National wrote and produced most of it — about 11 of the 16 tracks — Jack Antonoff the rest, Justin Vernon (Bon Iver) sang the "exile" duet, and a mystery co-writer, "William Bowery," took credit on "exile" and "betty," revealed months later in the Long Pond Studio Sessions film as Taylor\'s partner Joe Alwyn. The record was built entirely remotely, Dessner mailing instrumental sketches from his upstate Long Pond studio; even he didn\'t know who Bowery was.\n\nThe no-notice gamble paid off historically: "cardigan" debuted at No. 1 on the Hot 100 the same week folklore entered the Billboard 200 at No. 1 — the first time any artist opened atop both charts at once. folklore drew 80.6 million day-one Spotify streams (a record for a female artist) and 846,000 first-week U.S. units, aided by eight distinct deluxe editions sold only through her site. The surprise drop became the template she reused for evermore five months later.',
+          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — a grid of captionless black-and-white Beth Garrabrant forest photos, no warning of any kind — with the "cardigan" video dropping alongside it at midnight. The post went up the morning of July 23 and the album arrived at midnight into July 24: under a day\'s notice, nearer fourteen hours than the "sixteen" of the fan shorthand.\n\nThe "isolation" framing hid a crowd. Aaron Dessner of The National wrote and produced most of it — about 11 of the 16 tracks — Jack Antonoff the rest, Justin Vernon (Bon Iver) sang the "exile" duet, and a mystery co-writer, "William Bowery," took credit on "exile" and "betty," revealed months later in the Long Pond Studio Sessions film as Taylor\'s partner Joe Alwyn. The record was built entirely remotely, Dessner mailing instrumental sketches from his upstate Long Pond studio; even he didn\'t know who Bowery was.\n\nThe no-notice gamble paid off historically: "cardigan" debuted at No. 1 on the Hot 100 the same week folklore entered the Billboard 200 at No. 1 — the first time any artist opened atop both charts at once. folklore drew 80.6 million day-one Spotify streams (a record for a female artist) and 846,000 first-week U.S. units, aided by eight distinct deluxe editions sold only through her site. The surprise drop became the template she reused for evermore five months later. She closed the announcement note with a line that reads now like a thesis for the decade that followed: "My gut is telling me that if you make something you love, you should just put it out into the world."',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2250,6 +2251,11 @@ export default {
       month: 3,
       day: 14,
       category: "music",
+      // Cross-link (Stage 3, 2026-08-17): the richer telling of the same
+      // Grammy Album of the Year win.
+      relatedIds: [
+        "moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-",
+      ],
       title: "A third Album of the Year",
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.

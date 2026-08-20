@@ -1,164 +1,141 @@
-# PLAN.md — Merch page redesign to the marquee mockup
+# PLAN.md — Mood bot: stop over-refusing intoxication and blunt moods
 
-**Status:** ready. Written 2026-08-16. Source of truth for the design is Joey's
-mockup, uploaded and read in full:
-`C:/Users/Fourtys/.claude/uploads/251c92ba-8b68-437c-bca5-5bf9086c0788/dfff5d5b-longlivetsmerchmockup.html`
+Branch: `fix/mood-over-refusal` off up-to-date `main`.
 
-Joey: "I want the merch page to look like this… the color, the look and feel, the
-flashing yellow lights, the way there's three sections, the navigation between
-them. I want to keep all that… anywhere that we have something that's better,
-keep that."
+## The bug, precisely
 
-**Ignore from the mockup:** its logo and top nav (we have our own), and its
-placeholder gradient "photography".
+`POST /api/mood` with "im drunk" returns `kind:'refusal'` (Block 6,
+`REFUSAL_MESSAGE`). Traced to two independent causes, one per path:
 
-## The mapping that makes this work
+- **Model path (production, key present).** `route.ts:222` returns Block 6 when
+  and only when the model sets `out_of_scope:true`. The classifier prompt
+  (`mood-client.ts:67-95`) tells the model to set that flag for "a message that
+  is plainly not about a feeling at all". "im drunk" is a physical/emotional
+  state with no listed axis, so the model reads it as not-a-feeling. **There is
+  no blocklist entry for alcohol anywhere** — this is live model judgment.
+- **Degraded path (no key — the documented local/preview state).**
+  `keywordQuery("im drunk")` hits zero axis keywords and zero idiom seeds →
+  empty vector → `hasSignal()` false → `kind:'unclear'` (`route.ts:239`). Not a
+  refusal, but it reads as one to a user.
 
-`apps/web/lib/longlive/merch.ts:46-50` already defines THREE buckets. The
-mockup's three sections are exactly these:
+Both must be fixed or the bug survives in one environment.
 
-| Mockup section | Accent | Our bucket | State |
-|---|---|---|---|
-| From Taylor's shop | gold | `officialStore` | **EMPTY** (`merch.ts:78`) → placeholder |
-| Made by Swifties | rose | `fanMade` | **EMPTY** (`merch.ts:79`) → placeholder |
-| Seen on Taylor | lilac | `shopTheLook` | **156 real items** → the good stuff |
+## Architecture — read before touching anything
 
-Joey: "you likely don't have links for a lot of the content in the sections that
-we don't have content for, just leave placeholders for those for now."
+The model is a **classifier, not a writer**. One model call
+(`mood-client.ts:167`, via `classifyMood`, called once at `route.ts:200`). It
+emits 8 mood axes + `crisis` + `out_of_scope` through a **forced tool call**
+(`tool_choice: {type:'tool', name:'record_mood'}`) and is instructed "Do not add
+prose." Song selection is deterministic TypeScript (`mood-match.ts`) over
+precomputed vectors (`song-moods.generated.ts`). The sentence under each song is
+`pick.oneLiner`, precomputed catalogue prose rendered into a React card
+(`MoodSongCard.tsx:31`). The model's text never reaches the DOM.
 
-## THREE RULINGS — do not re-litigate, do not improvise around
+**Consequences that override parts of the original brief:**
 
-**R1. The garment-type filter row is NOT buildable and must not be faked.**
-The mockup's Outerwear/Knitwear/Dresses/Shoes/Jewelry/Bags/Eyewear row has no
-data behind it — `merch-filters.ts:1-10` states there is no `kind` field on
-`Product`, deliberately. **Do not add a disabled or decorative filter row.** A
-control that looks live and does nothing is the exact defect we removed from
-this page yesterday. Instead, that row's POSITION and STYLING carry our real,
-working filters: All / In stock / The exact piece / Under $50 / $50–200 / $200+.
+- No catalog goes in the prompt. Selection cannot hallucinate a track — it is
+  array access over 244 real records. Do not rebuild this as catalog-in-prompt.
+- No output format to specify. The tool schema is the format.
+- No bot "voice" to write. User-facing copy lives in `mood-safety.ts`.
+- `temperature` is not set and must not be: (a) `claude-sonnet-5` rejects
+  non-default sampling params with a 400, and (b) variety in a classifier makes
+  recommendations jitter for identical input. Determinism is correct here.
 
-**R2. Fonts: add Bodoni Moda only; reuse Inter for body.**
-`layout.tsx` already loads Inter, Playfair Display, Special Elite, Dancing
-Script via `next/font/google`. Bodoni Moda is the mockup's signature and is
-distinct from Playfair, so it is worth one new family. Karla is close enough to
-Inter that a second new family is not worth the weight on a mobile-first site.
-Expose as `--font-bodoni`.
+## Files touched
 
-**R3. The merch palette is PAGE-SCOPED and overrides era skinning.**
-The site re-skins per era through nine `--era-*` vars set on `.era-shell`
-(`globals.css:25-35`). The mockup is a fixed identity. Merch opts out inside its
-own wrapper. **Define these tokens once and every agent uses these exact names:**
+| File | Change |
+|---|---|
+| `apps/web/lib/longlive/mood-prompt.ts` | **NEW.** `SYSTEM_PROMPT` moved out of code, with the permissiveness section rewritten |
+| `apps/web/lib/longlive/mood-client.ts` | Import the prompt; correct the stale `cache_control` comment |
+| `apps/web/lib/longlive/mood-keywords.ts` | Add intoxication / party / blunt-state vocabulary so the degraded path yields a vector |
+| `apps/web/lib/longlive/mood-battery.ts` | **NEW.** The 10 acceptance cases as data, with expected `kind` |
+| `apps/web/app/api/mood/route.test.ts` | Assert the battery on the key-free path |
+| `scripts/check-mood-battery.mjs` | **NEW.** Runs the battery against the live route; prints a transcript |
+| `MOODBOT.md` | **NEW.** How to add songs and re-score moods |
 
-```
---merch-ink:        #17102B
---merch-ink-2:      #1F1638
---merch-panel:      #271B47
---merch-panel-2:    #2E2153
---merch-line:       rgba(246,239,228,.14)
---merch-line-strong:rgba(246,239,228,.28)
---merch-cream:      #F6EFE4
---merch-muted:      #B0A2CB
---merch-gold:       #EBC97F
---merch-rose:       #E4578F
---merch-lilac:      #B49BEE
-```
-Per-section accent is `--acc`, set on the section element (gold / rose / lilac),
-exactly as the mockup does.
+Nothing under `clown-*`. Confirmed zero shared imports — a mood-only change
+cannot reach Clownbot except by editing the wrong file by mistake.
 
-## Component contracts — these are FIXED so work can run in parallel
+## Steps
 
-Every agent builds against these signatures. Do not change them; if one is
-wrong, stop and report rather than improvising a different shape.
+**1. Branch.** `git checkout main && git pull --ff-only && git checkout -b fix/mood-over-refusal`
+*Verify:* `git rev-parse --abbrev-ref HEAD` prints `fix/mood-over-refusal`.
 
-```ts
-// components/longlive/merch/MerchMarquee.tsx
-export function MerchMarquee(props: {
-  eyebrow: string;      // "Three racks · One page"
-  title: React.ReactNode;
-  lede: string;
-  bulbCount?: number;   // default 34 per rail
-}): JSX.Element;
+**2. Extract the prompt verbatim** into `mood-prompt.ts`; `mood-client.ts`
+imports it. No wording change in this step.
+*Verify:* `npm test --workspace=@swift2/web -- mood` passes unchanged.
 
-// components/longlive/merch/MerchSectionRail.tsx
-export interface MerchRailSection { id: string; label: string; count: number; accent: string; }
-export function MerchSectionRail(props: { sections: readonly MerchRailSection[] }): JSX.Element;
+**3. Rewrite the `out_of_scope` section.** Keep the `crisis` section as-is — it
+is already narrow, well-reasoned, and clinically grounded (`mood-safety.ts:92+`).
+The change is to `out_of_scope` only:
+- Being drunk, hungover, high, wired, exhausted, sick with nerves is a **state
+  description** and always scores.
+- Partying, exes, revenge fantasies, pettiness, messy choices, profanity, being
+  fired, crying in a car — all in scope. Half the catalogue is about these.
+- Never set `out_of_scope` because a mood is negative, unhealthy, or unflattering.
+- Reserve `out_of_scope` for: an actual request for medical/legal/financial
+  advice, or a message with no readable feeling (a factual question, a coding
+  request, an instruction aimed at the bot itself).
+- When unsure, `out_of_scope:false` and score what is there. Never refuse for
+  ambiguity — that is what `UNCLEAR_MESSAGE` is for.
+*Verify:* step 6.
 
-// components/longlive/merch/EraSpine.tsx
-export interface EraSpineEntry { key: string; name: string; year: string; color: string; count: number; }
-export function EraSpine(props: {
-  entries: readonly EraSpineEntry[];
-  activeKey: string;                 // 'all' | era key
-  onSelect: (key: string) => void;
-}): JSX.Element;
-```
+**4. Add degraded-path vocabulary** to `mood-keywords.ts`: `drunk, tipsy,
+buzzed, wasted, hammered, tequila, hungover, hanging` and the blunt states
+`feral, unhinged, wired, over it, done`.
+*Judgment call, stated:* intoxication maps to **energy-high + catharsis**, not
+to joy — "im drunk" is as often maudlin as celebratory, and catharsis is the
+axis that spans both. Hungover maps to low energy + low valence.
+*Verify:* a unit test asserting `hasSignal(keywordQuery('im drunk'))` is true.
 
-## WORK SPLIT — four parallel agents, then one integrator
+**5. Codify the battery** (`mood-battery.ts` + route test). Cases 1–7 expect
+`matches`; 8–9 expect `refusal`; 10 expects `crisis`. Workflow rule 8 — this is
+the third time this repo has hand-run a refusal check, so it becomes a file.
+*Verify:* `npm test --workspace=@swift2/web -- mood` green.
 
-Wave 1 agents create NEW FILES ONLY under
-`apps/web/components/longlive/merch/`. **No two agents touch the same file.**
-None of them may edit `MerchSection.tsx` — that is the integrator's file.
+**6. Run the battery live** against `POST /api/mood`.
+*Trap:* Joey's dev server may own port 3000 and an agent has killed it before.
+Start on **3100** (`npm run dev --workspace=@swift2/web -- -p 3100`) and never
+kill a process this session did not start.
+*Verify:* all ten cases match expectation. Any of 1–7 returning `refusal`,
+`unclear`, a lecture, or a wellness disclaimer = step 3 is not done. **Max two
+revision rounds** (CLAUDE.md); a third means the approach is wrong, not the
+wording.
 
-- **A — `MerchMarquee.tsx`.** The signature hero: bordered panel, inset shadow,
-  top and bottom rails of gold bulbs that flicker on a staggered delay
-  (`@keyframes flick`, `animationDelay: i*0.11s`), eyebrow, display headline with
-  an italic gold span, lede. **Must honour `prefers-reduced-motion: reduce` by
-  disabling the animation** — the mockup already does this and it is not
-  optional.
-- **B — `MerchSectionRail.tsx`.** Sticky three-up rail with per-section accent
-  dot, active underline, and IntersectionObserver scrollspy.
-  **CRITICAL: it must call `measureChromeHeight()` / `measureChromeBottom()`
-  from `lib/longlive/chrome-offset.ts` for its sticky offset — never a
-  hardcoded constant.** That file measures `[data-ll-topbar]` and
-  `[data-ll-filterbar]` live. "A sum of heights is not a position" is a
-  documented trap in this repo; read `docs/engineering-lessons.md` first.
-- **C — `EraSpine.tsx`.** Horizontal snap-scrolling era spine: year, name,
-  count, colour bar; left/right arrow buttons; an "All eras" entry with a
-  gradient bar; active era fills with its own colour; **an era with count 0 is
-  disabled, and shows an em-dash, never "0"** (same honesty rule as the
-  Community null counts). Keyboard accessible, real `<button>`s.
-- **D — palette + font foundation.** `layout.tsx` (add Bodoni Moda per R2) and
-  `globals.css` (add the R3 tokens under a `.merch-shell` class). Nothing else.
+**7. Measure the prompt.** `messages.count_tokens` on the final system prompt.
+`claude-sonnet-5`'s cache minimum is **1024 tokens**. If the prompt clears it,
+`cache_control` starts working and `usage.cache_read_input_tokens` goes above
+zero on the second identical call — report the real number. If it does not
+clear it, say so plainly and leave the annotated no-op in place rather than
+pretending caching is active.
 
-**Wave 2 — integrator (single agent, owns `MerchSection.tsx`):** compose the
-three sections, wire the real filters into the mockup's filter-bar chrome, and
-add placeholder treatments for the two empty buckets.
+**8. `MOODBOT.md`** — seed → `sync-song-moods.mjs` → `check:generated`. Must
+state that `*.generated.ts` is never hand-edited.
 
-## KEEP — things of ours that are better than the mockup
+**9. Full suite + typecheck.** `npm test`, then
+`npm run typecheck --workspace=@swift2/web` (repo-wide typecheck is red on
+`apps/mobile` — pre-existing, not ours).
 
-The mockup is placeholder-grade in these places. Do not regress them:
+## Out of scope — deliberately not doing
 
-- **Real product images** — 97 of 156 carry `imageUrl` from Shopify. The mockup
-  uses CSS gradients. Keep ours.
-- **The "Her look, not the product" label** on fallback cards, and the split
-  card treatment (On Taylor | the piece) which our data genuinely supports.
-- **"The exact piece" vs "We found something similar"** with the authored
-  `altNote` rendered inline. The mockup's flat "Exact match / Close alternative"
-  label is weaker — keep ours, restyled to fit.
-- **The in-app "Her look" button** (`openItem(item.source.momentId)`), which
-  opens MomentDetail. The mockup links nowhere.
-- **`SuggestLinkBanner`** (shipped yesterday) — keep it; it satisfies the
-  mockup's "submit strip" intent. Restyle to the dashed-border treatment if it
-  fits.
-- **`SubmitLinkForm`** and its Turnstile gate — do not touch its logic.
-- **Real filters** per R1.
+- **Rebuilding the catalog into the system prompt.** Would replace a working
+  deterministic matcher with model guesswork and make hallucinated tracks
+  possible for the first time.
+- **Switching to a Haiku-class model.** The brief asks for it, and the
+  classification work would suit it — but this model call also produces the
+  `crisis` flag, which `route.ts:213` relies on as defense in depth behind the
+  keyword check. At the 200/day cap the saving is a few dollars a month, which
+  does not buy a downgrade of a safety judgment. **One-line change in
+  `mood-client.ts:32` if Joey wants it; his call, not mine.**
+- **Scoring the 82 unscored songs** (all of `tloas`/Showgirl included). A real
+  gap — the bot cannot recommend a Showgirl song to anyone — but it is content
+  authoring, not a refusal bug. Separate job.
+- **Weakening the bereavement gate** (`mood-match.ts:40-48`, issue #1984) or the
+  crisis prompt section. Both stay.
 
-## Placeholders for the two empty buckets
+## Founder gate
 
-Both sections must render, look deliberate, and be honest that they are not yet
-populated. **They must not fabricate products, prices, makers or links.** An
-empty-state panel in the section's accent colour explaining what will live there,
-consistent with the mockup's `.empty` treatment. Section counts in the rail show
-the real number (0), never an invented one.
-
-## Definition of done
-
-- Three sections, three accents, sticky rail navigates between them with scrollspy
-- Flashing bulbs, with `prefers-reduced-motion` honoured
-- The mockup's palette and Bodoni display type
-- Era spine filters the 156 real shop-the-look items; counts real; 0 → disabled + em-dash
-- Real filters in the type-row position; no fake controls
-- Empty buckets render honest placeholders
-- Product images, exact/similar badges, "Her look" button, SuggestLinkBanner all preserved
-- No horizontal overflow at 360px; verified in a BROWSER, not from the suite
-- `npm run typecheck --workspace=@swift2/web` clean; full `npm test` green
-- Files under ~300 lines each (MerchSection.tsx is already 316 — the split is
-  part of this work, not optional)
+`docs/content-ops/mood-chat-safety-language.md` gates user-facing copy.
+`REFUSAL_MESSAGE` and `UNCLEAR_MESSAGE` already read as warm redirects and I am
+**not** rewording them. If step 6 shows the copy is the problem rather than the
+routing, that goes to Joey rather than into the diff.

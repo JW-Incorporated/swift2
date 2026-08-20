@@ -1869,6 +1869,23 @@ export default {
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-08-09',
           },
+          {
+            // Rumor Desk 2026-08-19: a different KIND of signal than the
+            // easter-egg reads and the restock flag above — a quantified
+            // prediction-market probability with a hard year-end deadline, which
+            // makes it the cleanest-resolving entry on this forward-looking
+            // debut-re-record question. Same public-facing music rumor (allowed
+            // by the redlines); no location.
+            claim:
+              'Prediction-market bettors on Polymarket were pricing in roughly a 68% chance that Taylor would release a re-recorded Taylor\'s Version of her 2006 self-titled debut before the end of 2026.',
+            reportedBy: 'PopCulture (Anthony Farris)',
+            reportedOn: '2026-06-19',
+            status: 'unconfirmed',
+            url: 'https://popculture.com/celebrity/news/taylor-swift-spotted-at-recording-studio-amidst-new-taylors-version-speculation/',
+            note: 'A distinct signal from the easter-egg and restock reads above: a quantified betting-market probability with a hard deadline. The debut re-record is on record as finished (Taylor, May 2025); only the release is unannounced. Resolves cleanly by 2026-12-31 — a debut Taylor\'s Version out or not — otherwise fades. No location.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-08-19',
+          },
         ],
       },
     },

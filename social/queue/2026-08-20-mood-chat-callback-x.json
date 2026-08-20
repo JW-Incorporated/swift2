@@ -1,0 +1,7 @@
+{
+  "platform": "x",
+  "body": "honest question, since Mood went live: which one is you today?\n\ncrying in the car, cinematically\nplotting something in a ball gown\ncardigan weather\n\nthree of ten starter chips. reply with yours, or tap one for five songs that fit.\n\nlonglivets.com/?utm_source=x&utm_medium=social&utm_campaign=mood-chat",
+  "scheduledAt": "2026-08-20T15:00:00Z",
+  "campaign": "launch:mood-chat-callback",
+  "why": "Calendar slot 2026-08-20 15:00Z X, launch:mood-chat callback (arc's final beat, day +4), hook \"an honest question we'd actually like answered\" + an invitation to reply. The three chip labels are quoted verbatim from MOOD_STARTERS (apps/web/lib/longlive/mood-starters.ts:39,52,76 — \"APPROVED, Wyatt 2026-07-20\", never reword); \"ten starter chips\" matches the array length. Replies stay human (charter rail 4): this only invites replies, it never auto-answers. Text-only (X media optional; designed cards are checker-dead per calendar §media, so text is the correct fallback). Distinct opener from the 08-16 announce and 08-19 feral-bridge X posts; <20% word-overlap with any mood sibling. Campaign story-unique (findPostedDuplicate matches platform+campaign)."
+}

@@ -2138,6 +2138,8 @@ export default {
         // Shop pass (2026-07-22): the custom Schiaparelli Haute Couture
         // gown was never sold at retail -- a current ivory strapless
         // slinky gown, verified in stock, closest real match.
+        // Stylist re-check (2026-08-16): still a live PDP, now sold out in
+        // the ivory colorway across every size -- flipped to inStock: false.
         products: [
           {
             brand: 'MESHKI',
@@ -2147,6 +2149,7 @@ export default {
             imageUrl: 'https://cdn.shopify.com/s/files/1/0017/7920/4211/files/MESHKI_ECOM_LAMAISON_DROP0102_OCT23_DAY02_KATIE-S45_006.jpg?v=1784499680',
             price: '$95.00',
             isAlternative: true,
+            inStock: false,
             altNote: 'The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing.',
           },
         ],

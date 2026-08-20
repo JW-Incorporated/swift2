@@ -388,3 +388,39 @@ That is a line-ending artifact, not real work. **Investigate the config; never
 "clean up" by reverting files** — § Never discard uncommitted work forbids it
 and `.claude/hooks/guard.sh` blocks the commands outright. When in doubt,
 `git stash` (recoverable) rather than discarding.
+
+### A multi-word crisis phrase needs its progressive form added by hand
+
+Found by test case 10 on the mood bot, **live in production on both paths**:
+"I've been thinking about hurting myself" returned a heartbreak song instead of
+crisis resources.
+
+Cause: `phraseHits` (`apps/web/lib/longlive/mood-safety.ts`) appends inflections
+to the **end of the whole phrase**, so `'hurt myself' + 'ing'` becomes
+`'hurt myselfing'` — never `'hurting myself'`. That is why the Tier A lexicon
+enumerates both aspects as separate entries (`kill`/`killing myself`,
+`end`/`ending my life`, `harm`/`harming myself`, `cut`/`cutting myself`).
+`hurt myself` was the one entry whose progressive form was never added.
+
+**Adding a multi-word phrase to the crisis lexicon means adding its progressive
+form too — there is no stemmer that will do it for you.** Tier A only; it can
+only ever make crisis detection fire more.
+
+### Refusing less is not the same as answering — score at least one axis
+
+The mood bot's over-refusal had two independent causes (the model path's
+`out_of_scope` flag, and the degraded no-key path scoring an empty vector), but
+fixing both was still not enough: a message that passes `out_of_scope` yet
+scores no axis returns `UNCLEAR_MESSAGE`, which reads to a user as a refusal.
+
+The prompt therefore carries an explicit **"always score at least one axis"**
+rule. **Never remove it.**
+
+### The mood model is a classifier, not a writer — do not "restore" a voice
+
+One call (`mood-client.ts`), forced `record_mood` tool, "Do not add prose."
+Songs are chosen by deterministic TS (`mood-match.ts`) over precomputed
+vectors; the card sentence is the catalogue's own `oneLiner`. There is no voice,
+no output format, and **no catalogue in the prompt** — which is structurally why
+the bot cannot hallucinate a track. A brief that assumes otherwise is wrong.
+Keep it that way.

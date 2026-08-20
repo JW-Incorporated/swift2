@@ -1199,10 +1199,13 @@ export default {
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
       thumbnailUrl:
         'https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=',
+      // Cross-link (Stage 3, 2026-08-17): "Today Was a Fairytale," the song
+      // written for the Valentine's Day movie she co-starred in with him.
       relatedIds: [
         'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
         'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
         'moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner',
+        'moment:vault-fearless-today-was-a-fairytale-breaks-a-download-record-in-a-week',
       ],
       moment: {
         context:
@@ -1918,7 +1921,12 @@ export default {
       category: 'release',
       // Cross-link (Stage 3, 2026-08-10): the Valentine's Day set the
       // soundtrack single came from.
-      relatedIds: ['moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner'],
+      // Cross-link (Stage 3, 2026-08-17): the few months she and Lautner
+      // dated after meeting on that set.
+      relatedIds: [
+        'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
+        'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
+      ],
       title: 'Today Was a Fairytale breaks a download record in a week',
       snippet:
         'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',

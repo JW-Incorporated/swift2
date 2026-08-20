@@ -39,7 +39,7 @@ written down; ask instead.
    (2026-08-13: Joey removed the spec sign-off gate — plan, then execute.
    Planning is still required; only the approval step is gone. Rule 5, rule 6
    and § Decision authority are unaffected.)
-2. **Work on a branch.** Never commit directly to `main`.
+2. **Work on a branch.** Never commit directly to `main` but you can push to 'main' when the branch work is complete.
 3. **Cross-review everything.** After implementing, get a Codex review of the
    changes and fix every finding before declaring work done. For risky or
    architectural changes, ask for an adversarial review instead.

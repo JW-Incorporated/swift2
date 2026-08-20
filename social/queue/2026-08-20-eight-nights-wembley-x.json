@@ -1,0 +1,7 @@
+{
+  "platform": "x",
+  "body": "august 20, 2024: the final of eight nights at wembley — the first solo artist to play the stadium eight times on one tour. michael jackson's seven, from the 1988 bad tour, had held the record for 36 years.\n\nlonglivets.com/?item=vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever&utm_source=x&utm_medium=social&utm_campaign=on-this-day",
+  "scheduledAt": "2026-08-20T23:30:00Z",
+  "campaign": "on-this-day:eight-nights-wembley",
+  "why": "Calendar slot 2026-08-20 23:30Z X, heartbeat:on-this-day, hook \"the date\" — a genuine dated Vault match for Aug 20 (the calendar's preferred option, checked first). Every claim traces to the Vault moment vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever (supabase/seed/content/tortured-poets.mjs:567, year 2024/month 8/day 20): three June + five August nights, first solo artist to play Wembley eight times on one tour, beating Michael Jackson's seven-show 1988 Bad Tour stand that had held 36 years — sourced to The Hollywood Reporter and Wembley Stadium. Deep link ?item= verified in deepLink.ts:38 and the id in content-vault.generated.ts:8589. Text-only: the moment's photos are external Wikimedia/Getty URLs, not committed repo files, and no on-brand card asset exists — text is the correct X fallback (never an era tile). Trimmed to weighted <=280 per X length rule. Blocklist-safe (a venue/attendance record)."
+}

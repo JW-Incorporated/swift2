@@ -74,6 +74,7 @@ remains here is project policy and Swift2-specific safety only.
 | `.claude/agents/*.md` | scout, researcher, grunt — capability only, no orchestration authority |
 | `.claude/commands/` | Project slash commands (design-debate, marketing) |
 | `CLAUDE.md` | Project operating manual. Orchestration section defers to AI Dev OS |
+| `MOODBOT.md` | The mood-bot contract (landed on `main` via #2184). Durable lessons from it are in `docs/engineering-lessons.md` |
 | `HUMAN-ACTIONS.md` | **Everything waiting on Joey.** Any session that opens it reconciles it: file non-`OPEN` items into DONE with a date, keep the number. `SKIP` is final — never re-raise |
 | `docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md` | What was retired/preserved/migrated, and why |
 | `docs/handoff/2026-08-19-paused-work.md` | Read-only snapshot of the work paused at migration time |
@@ -169,6 +170,28 @@ The build-A `clownbot-*` deletions and the `store.tsx`/`LongLive.tsx` wiring
 have landed. Not yet landed as of this update (per `PLAN.md`'s "Files touched"
 table, still in flight in a parallel step): `app/api/clown/route.ts`,
 `clown-seed-example.ts`, and the `share.ts`/`TopBar.tsx` wiring.
+
+## Mood Chat — the song/feeling matcher (SEPARATE from Clownbot)
+
+Shares **zero imports** with `clown-*`; the two only mirror each other in
+comments. A mood-only change cannot reach Clownbot except by editing the wrong
+file by mistake — the names are easy to confuse.
+
+| Path | What |
+|---|---|
+| `apps/web/lib/longlive/mood-prompt.ts` | **The classifier prompt, extracted from code so wording is editable without touching request logic.** Carries the permissiveness rules and the "always score at least one axis" guarantee |
+| `apps/web/lib/longlive/mood-client.ts` | The ONE model call (`claude-sonnet-5`, forced `record_mood` tool, thinking disabled). `cache_control` present but a no-op below the 1024-token minimum |
+| `apps/web/lib/longlive/mood-match.ts` | Deterministic matcher over precomputed vectors + era diversity. **Bereavement gate at :40-48 is issue #1984 — never weaken** |
+| `apps/web/lib/longlive/mood-keywords.ts` | Degraded-path lexicon, used when no `ANTHROPIC_API_KEY` (the normal local state). **~440 lines — over the 300 cap BEFORE this workstream touched it.** Splitting it is its own task; do not bundle that into a feature PR |
+| `apps/web/lib/longlive/mood-safety.ts` | Crisis detection + all user-facing copy. **Copy is founder-gated** (`docs/content-ops/mood-chat-safety-language.md`) |
+| `apps/web/lib/longlive/mood-usage.ts` | 200/day cap, per cold start. No kill switch exists (unlike Clownbot's) |
+| `apps/web/lib/longlive/song-moods.generated.ts` | **GENERATED.** 8 axes + energy/valence. **162 of 244 songs scored — all of `tloas` is unscored, so no Showgirl song can surface** |
+| `apps/web/app/api/mood/route.ts` | The endpoint. Per-IP limit 15/60s in-process; `refusal` vs `unclear` distinction at :222 vs :239 is load-bearing |
+| `apps/web/components/longlive/MoodChat.tsx` | Free-text box; renders structured JSON, never markdown |
+| `apps/web/components/longlive/MoodSongCard.tsx` | One song card; the sentence is `pick.oneLiner`, not model prose |
+| `apps/web/lib/longlive/mood-battery.ts` | The 10 acceptance cases as typed data, imported by the route tests |
+| `scripts/check-mood-battery.mjs` | **Live** battery against a real `POST /api/mood` + real key — the only thing that exercises model judgment. `npm run dev --workspace @swift2/web -- -p 3100` first. **Port 3100, never 3000** (an agent killed Joey's server there). Case list is mirrored from `mood-battery.ts`; edit both |
+| `MOODBOT.md` | How to add songs / re-score moods |
 
 ## Dead / do-not-touch
 

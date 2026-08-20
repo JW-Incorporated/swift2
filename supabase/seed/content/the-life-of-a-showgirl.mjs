@@ -1630,6 +1630,25 @@ export default {
             focalPoint: '48% 35%',
           },
         ],
+        // Rumor Desk 2026-08-19: "The Fate of Ophelia" led Taylor's 2026 MTV VMA
+        // haul, so the open award-chances question homes here. Award-chances/
+        // -recognition speculation is an explicitly Always-OK public-facing
+        // category (privacy-redlines.md § Always OK); the claim carries no
+        // location, whereabouts, or any other redline material — the ceremony is
+        // a televised public event and nothing is asserted about where Taylor is.
+        rumors: [
+          {
+            claim:
+              'Taylor Swift goes into the 2026 MTV VMAs as one of the year\'s most-nominated artists, with nine nominations led by "The Fate of Ophelia" (Video of the Year, Best Pop and a sweep of the technical categories) plus Artist of the Year and a Best Direction nod for "Opalite" — leaving open how many she converts to wins when the ceremony airs live on September 27, 2026.',
+            reportedBy: 'FOX 17 (Elizabeth Stanton)',
+            reportedOn: '2026-08-18',
+            status: 'unconfirmed',
+            url: 'https://fox17.com/news/entertainment/the-2026-mtv-vma-nominations-are-here-taylor-swift-madonna-lead-the-race',
+            note: 'Award-chances speculation — an Always-OK public-facing category. The nine nominations and the Sept. 27, 2026 Los Angeles ceremony date are announced fact (noms via MTV, reported by FOX 17; date corroborated by Billboard). Only the outcome is unsettled; resolves on ceremony night, 2026-09-27. No location, security, health, or private-individual content — a televised public event.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-19',
+          },
+        ],
       },
     },
     {
@@ -2932,6 +2951,9 @@ export default {
     // photo pass — added in the #762 run-6 pass (2026-07-18) below.
     {
       slug: 'stevie-knicks-nba-finals-game-4',
+      // End Game thread opt-in (#617): a courtship-year run-up beat, now on
+      // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 6,
       day: 10,
@@ -3065,6 +3087,9 @@ export default {
     },
     {
       slug: 'watch-hill-bachelorette-weekend',
+      // End Game thread opt-in (#617): a courtship-year run-up beat, now on
+      // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
+      threadIds: ['the-proposal'],
       // Cross-links: the wedding this weekend leads into (candidate #1126); the
       // Watch Hill estate the weekend was staged at — both the folklore song
       // that mythologizes it (candidate #1368) and the Red-era purchase that
@@ -4643,6 +4668,9 @@ export default {
     },
     {
       slug: 'wedding-gown-dior-anderson',
+      // End Game thread opt-in (#617): the wedding-day gown, now on the-proposal
+      // so the courtship year resolves into the wedding on the thread.
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 3,
@@ -6357,6 +6385,9 @@ export default {
     },
     {
       slug: 'showgirl-graham-norton-destination-wedding',
+      // End Game thread opt-in (#617): a courtship-year run-up beat, now on
+      // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1128): the David Koma look from the same appearance.
       relatedIds: ['moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto'],
       year: 2025,
@@ -6738,6 +6769,9 @@ export default {
     },
     {
       slug: 'end-of-an-era-kelce-episodes',
+      // End Game thread opt-in (#617): a courtship-year run-up beat, now on
+      // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
+      threadIds: ['the-proposal'],
       year: 2025,
       month: 12,
       day: 18,
@@ -7800,6 +7834,20 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1433683/taylor-swift-travis-kelce-invited-ring-designer-kindred-lubeck-to-wedding',
       thumbnailUrl: null,
       moment: {
+        // socialPost (Photo Enrichment, 2026-08-16, Vault Run): this page is
+        // ABOUT Lubeck's post, so embed it rather than only describe it.
+        // Shortcode from the permalink E! and Yahoo both cite; verified by
+        // rendering instagram.com/p/DaanpJFgG1t/embed/captioned — the
+        // @kindredlubeck account and the exact "...changed my life forever.
+        // Congratulations T&T" caption. Embedded, not hotlinked (Instagram CDN
+        // urls are signed/expiring and the host is not on the image allowlist).
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'DaanpJFgG1t',
+          label:
+            'Kindred Lubeck\'s Instagram carousel, posted days after Taylor and Travis\'s July 3 wedding — "an evening of celebrating the incredible couple who changed my life forever."',
+          postedOn: '2026-07-06',
+        },
         context:
           'Lubeck\'s attendance closed the loop on the engagement-ring story: the jeweler who worked with Kelce on the custom Old Mine Cut design nearly a year earlier was invited to see the marriage it led to, a detail she confirmed publicly after the wedding, thanking the "incredible" couple for including her.\n\nIt was a fitting coda for the person whose work had carried an outsized share of the era\'s symbolism. Lubeck — the goldsmith, hand engraver, and vintage-jewelry specialist behind New York\'s Artifex Fine Jewelry — was catapulted from independent-studio obscurity to global attention overnight when the ring close-up hit the couple\'s August 2025 announcement post, and the invitation suggested the collaboration had been personal rather than transactional. A guest list that ran from Hugh Grant to Stevie Nicks also had room for the woman who made the ring.\n\nThe thank-you was her own: on an Instagram carousel of her wedding-night look, posted days after the July 3 wedding, Lubeck called it "an evening of celebrating the incredible couple who changed my life forever," signing off "Congratulations T&T" — the primary post E! and USA Today quoted. She came as a guest in a strapless dark-green gown and diamonds; no outlet credited that jewelry as her own Artifex work, and none has named who made the couple\'s wedding bands, so the engagement ring stays the full documented extent of her hand in the day.\n\nThe invitation capped a fast-widening year. After the August 2025 reveal, Lubeck — who learned hand-engraving from her goldsmith father in Jacksonville — took three one-of-a-kind pieces to a Sotheby\'s "Gem Drop" in late 2025, launched Artifex Bride, a first ready-to-order bridal line, in April 2026, and lent the label to a De Beers runway partnership. Order and waitlist numbers stayed private, but the arc from studio obscurity to global name ran straight through the wedding she was invited to attend.',
         sources: [
@@ -10688,6 +10736,11 @@ export default {
       },
     },
     {
+      // Cross-link (Stage 3, 2026-08-17): the evermore-era Late Night with
+      // Seth Meyers appearance, same show across eras.
+      relatedIds: [
+        'moment:vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s',
+      ],
       year: 2025,
       month: 10,
       day: 8,
@@ -10893,6 +10946,41 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Stylist run 2026-08-16: verified live retailer product pages for
+        // the dress and sandals (both currently purchasable) and the clutch
+        // (real PDP, confirmed sold out — kept per policy rather than
+        // dropped). The Cartier "Santos Demoiselle" watch named in the
+        // Marie Claire piece is a discontinued line with no current
+        // Cartier.com listing — pre-owned marketplace pages exist but are
+        // not a stable single retailer PDP for this piece, so it is
+        // skipped rather than linked to avoid mis-describing a resale
+        // listing as a first-party product page.
+        products: [
+          {
+            brand: 'Delphine',
+            item: 'Mini Isabelle Dress',
+            retailer: 'delphinenyc.com',
+            url: 'https://www.delphinenyc.com/products/mini-isabelle-dress-lilac-multi',
+            price: '$995.00',
+            inStock: true,
+          },
+          {
+            brand: 'Aquazzura',
+            item: 'Love Struck Sandal 85',
+            retailer: 'aquazzura.com',
+            url: 'https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco',
+            price: '$1,710.00',
+            inStock: true,
+          },
+          {
+            brand: 'Christian Louboutin',
+            item: 'Loubi54 Ombré Crystal Embellished Clutch',
+            retailer: 'nordstrom.com',
+            url: 'https://www.nordstrom.com/s/loubi54-ombr-crystal-embellished-clutch/7693914',
+            // No price shown on the sold-out PDP — omitted rather than guessed.
+            inStock: false,
+          },
+        ],
       },
     },
     {
@@ -10983,6 +11071,300 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-15',
             reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-16 from intake #2181 (Vault Run, Content Shift lane).
+      // Chart/professional milestone; Billboard is the primary chart authority,
+      // meeting the >=1-source bar. Deliberately kept DISTINCT from the Pop
+      // Airplay top-10 item (#1133) above: this is ADULT Pop Airplay (Adult Top
+      // 40), a separate chart where Maroon 5 held the No.1 record — the prose
+      // names the distinction so the two records don't read as one. Fact
+      // independently corroborated via the Billboard headline before writing
+      // (record 16th, surpassing Maroon 5, chart debut March 1996). Dated to the
+      // Aug-14 reveal, not the post-dated Aug-22 chart, so it sorts to when the
+      // news broke rather than into the future. Clean on the privacy redlines:
+      // her own chart record, no third parties, no location or private-life
+      // detail. Text-first: a chart week has no photography of its own — same
+      // call as the sibling chart moments — so no photo.
+      slug: 'i-knew-it-i-knew-you-adult-pop-airplay-record',
+      year: 2026,
+      month: 8,
+      day: 14,
+      category: 'music',
+      title: 'A record 16th No. 1: "I Knew It, I Knew You" tops Adult Pop Airplay',
+      snippet:
+        'On the Adult Pop Airplay chart dated Aug. 22, 2026, Taylor\'s Toy Story 5 song jumps three spots to No. 1 — her 16th leader on the tally and a new all-time record, breaking a tie with Maroon 5 for the most No. 1s since the chart began in March 1996.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-adult-pop-airplay-1236315955/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Billboard\'s Adult Pop Airplay chart — the Adult Top 40 tally, tracking spins at adult-leaning pop radio — is a separate list from the Pop Airplay chart where the same song had already been chasing a record weeks earlier. On the ranking dated Aug. 22, 2026, "I Knew It, I Knew You" climbed three spots to No. 1, and the story was the count behind it: Taylor\'s 16th No. 1 on the chart, the most any artist has collected since it debuted in March 1996, breaking a tie with Maroon 5 at the top. Behind her, P!nk sits third all-time with 10, and Katy Perry and Ed Sheeran fourth with eight apiece.\n\nIt was one more format claimed by a song that keeps outrunning its origin — her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff, which had already logged a No. 1 Hot 100 debut and a Country Airplay top 10, and reached No. 3 on the Hot 100 the week country songs swept that chart\'s entire top five. Adult pop radio was one of the last major formats it had yet to lead. Around the same week it also reached No. 1 on a different tally — Mediabase\'s Hot AC (Hot Adult Contemporary) chart, run by a competing airplay-tracking service, topping the Aug. 9–15 period on about 5,467 spins. (The two are separate charts: on Billboard\'s own Adult Contemporary list the song peaked lower, at No. 9.)',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-adult-pop-airplay-1236315955/',
+            source_title: "Taylor Swift Breaks Record for Most Adult Pop Airplay No. 1s With 'I Knew It, I Knew You'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-16',
+            reliability_score: 5,
+          },
+          {
+            // Primary: the underlying Billboard Adult Pop Airplay chart dated
+            // 2026-08-22, cited to the dated ranking rather than the live URL,
+            // which rolls over weekly and stops showing this week's ranking.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/adult-pop-songs/',
+            source_title: 'Adult Pop Airplay — chart dated Aug. 22, 2026',
+            publisher: 'Billboard',
+            source_type: 'official',
+            accessed_at: '2026-08-16',
+            reliability_score: 5,
+          },
+          {
+            // Source for the Mediabase Hot AC No. 1 folded in above (intake
+            // #2228). A distinct chart from a competing tracking service —
+            // labeled as Mediabase, never as Billboard, per the ticket's trap.
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/08/16/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-hot-adult-contemporary-radio/',
+            source_title:
+              "Taylor Swift's \"I Knew It, I Knew You\" Officially Reaches #1 at Hot Adult Contemporary Radio",
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-19',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-17 from intake #2208 (Content Shift).
+      // Verify-before-write (charter rule 4) corrected the ticket: it framed
+      // this as "Saturday, Aug 16," but Aug 16 2026 is a Sunday — Aug 15 was
+      // the Saturday, and multiple outlets (Fashion Times, theFashionSpot/AOL)
+      // date the wedding to Sat Aug 15, with coverage publishing Aug 16-17. So
+      // dated to Aug 15.
+      // Redlines: a documented, concluded public event at venue level (L2,
+      // permitted). Kept to "Real World Studios in England" — the county is
+      // OMITTED on purpose: outlets split between "Gloucestershire" and the
+      // studio's actual Wiltshire, and the intake's own location call coarsened
+      // the county out. Not a residence; no travel logistics, no security. The
+      // guests named are all public musicians in their public-facing roles.
+      // Page Six is the intake's canonical primary (unread by this environment);
+      // the written facts are corroborated by Fashion Times and TMZ, both read.
+      // Text-first: coverage photos are SplashNews (signed/expiring CDN, not
+      // rehostable) and there is no taylorswift-account post to embed — left for
+      // photo-sparsity / social-post-missing to route if a reusable image surfaces.
+      slug: 'showgirl-sisk-jacobs-wedding-navy-costarellos',
+      // Cross-link: her own wedding, the reference point for the newlywed looks.
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      year: 2026,
+      month: 8,
+      day: 15,
+      category: 'fashion',
+      title: 'A navy Costarellos gown at her engineers\' wedding — solo, with the new band on show',
+      snippet:
+        'Taylor turned wedding guest for two of her longtime engineers, Laura Sisk and Oli Jacobs — solo, in a plunging navy Costarellos tulle gown threaded with gold appliqué, the new gold band from her own July wedding stacked over her engagement ring.',
+      sourceUrl:
+        'https://pagesix.com/2026/08/16/style/taylor-swift-rocks-elegant-navy-tulle-gown-at-pals-uk-wedding/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Saturday, Aug. 15, 2026, Taylor was a guest at one of the more low-key but meaningful weddings of her year: two of her longtime studio collaborators, recording engineers Laura Sisk and Oli Jacobs, marrying at Peter Gabriel\'s Real World Studios in England. Sisk has engineered a huge stretch of Taylor\'s catalog — 1989, Reputation, Lover, Folklore, Evermore, Midnights and The Tortured Poets Department — and Jacobs worked on Tortured Poets as well, so the guest list ran heavy on her inner musical circle, with Jack Antonoff, Sabrina Carpenter and Phoebe Bridgers all there.\n\nShe came solo — Travis Kelce stayed stateside for the Chiefs\' preseason — and the look did the talking. Taylor wore a deep-navy Costarellos "Arcangela" gown in sheer tulle, cut to a plunging V-neck and scattered with champagne-gold, foliage-inspired appliqué that clustered at the bodice and fanned out down the skirt, a piece reported at around $3,500. Pearls and a gold bracelet finished it, and the detail fans zeroed in on was the jewelry from home: her engagement ring stacked with the new gold wedding band from her July marriage to Kelce.',
+        sources: [
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2026/08/16/style/taylor-swift-rocks-elegant-navy-tulle-gown-at-pals-uk-wedding/',
+            source_title: 'Taylor Swift rocks elegant navy tulle gown at pals\' UK wedding',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Fashion Times',
+            url: 'https://www.fashiontimes.co.uk/taylor-swift-navy-tulle-gown-wedding-1762762',
+            source_title:
+              'Taylor Swift Takes Wedding Guest Dressing to Another Level in Ethereal Navy Tulle Gown at Laura Sisk and Oli Jacobs\' Wedding',
+            publisher: 'Fashion Times',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-17',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/08/16/taylor-swift-seen-at-wedding-in-england/',
+            source_title: 'Taylor Swift Seen at Wedding in England',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-17',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'vma-2026-nine-nominations',
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+      ],
+      year: 2026,
+      month: 8,
+      day: 18,
+      category: 'music',
+      significance: 'notable',
+      title: 'Nine VMA nods — and "The Fate of Ophelia" up for Video of the Year',
+      snippet:
+        'The 2026 MTV VMA nominations dropped and Taylor pulled nine — second only to Madonna\'s eleven — led by a Video of the Year run for the self-directed "Fate of Ophelia." Win even one on Sept. 27 and she passes Beyoncé to stand alone as the most-awarded artist in VMA history.',
+      sourceUrl: 'https://apnews.com/article/2026-mtv-vma-nominations-e9ac1be3adfd613c3bc348e83543832e',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'MTV unveiled the 2026 Video Music Awards nominations on Aug. 18, and Taylor came away with nine — the year\'s second-biggest haul behind Madonna\'s eleven, with Ariana Grande and Sabrina Carpenter a step back at seven apiece. Most of Taylor\'s nods ride on "The Fate of Ophelia," the lead single she wrote and directed herself: it\'s up for Video of the Year — the night\'s marquee prize, against Madonna, Ariana Grande, Bruno Mars, Sabrina Carpenter and GENER8ION — and its craft is recognized clear across the board, with Best Direction, Best Art Direction, Best Cinematography, Best Editing, Best Choreography and Best Visual Effects all in the mix. Taylor herself is up for Artist of the Year, and the album\'s pop reach lands a Best Pop nod too.\n\nThe bigger stakes sit behind the trophy count. Taylor and Beyoncé go into the night tied atop VMA history at 30 wins each; if Taylor takes home even a single award on Sept. 27, she passes Beyoncé to become the most-awarded artist the show has ever had. That\'s a conditional, not a lock — the nominations are the fact, the record waits on the ceremony. The 2026 VMAs air live on CBS on Sunday, Sept. 27 at 7:30 p.m. ET from the Peacock Theater in Los Angeles.',
+        sources: [
+          {
+            outlet: 'AP News',
+            url: 'https://apnews.com/article/2026-mtv-vma-nominations-e9ac1be3adfd613c3bc348e83543832e',
+            source_title: 'MTV VMA nominations: Madonna leads, Taylor Swift may make history',
+            publisher: 'AP News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-18',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/2026-mtv-vma-nominations-list-madonna-video-music-awards/',
+            source_title: '2026 MTV VMA Nominations List: Madonna Leads',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+        ],
+        // Official "The Fate of Ophelia" MV thumbnail (id ko70cExuzZM, the
+        // canonical self-directed video verified via oEmbed elsewhere in this
+        // file); maxresdefault curl-verified 200 image/jpeg, 1280x720 this run.
+        // Apt here: the video is what's up for Video of the Year + six craft nods.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ko70cExuzZM/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official "The Fate of Ophelia" music video thumbnail, YouTube)',
+            caption:
+              'A frame from the self-directed "The Fate of Ophelia" video — up for Video of the Year and six craft awards at the 2026 VMAs.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'taylor-praises-phoebe-bridgers-lost-weekend',
+      year: 2026,
+      month: 8,
+      day: 17,
+      category: 'music',
+      title: 'Taylor calls Phoebe Bridgers\' "Lost Weekend" "an absolute triumph"',
+      snippet:
+        'It\'s her birthday but she gave us a gift — Taylor spent Phoebe Bridgers\' birthday gushing over her new album "Lost Weekend" in a run of Instagram Stories, calling it "an absolute triumph in every way" and signing off "Happy bday @phoebebridgers I love you!!"',
+      sourceUrl: 'https://variety.com/2026/music/news/taylor-swift-praises-phoebe-bridgers-lost-weekend-triumph-1236836547/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Aug. 17, 2026 — Phoebe Bridgers\' birthday — Taylor turned her Instagram Stories into a love letter for a friend\'s new record. Praising Bridgers\' just-released album "Lost Weekend" (out Aug. 14), Taylor wrote, "It\'s her birthday but she gave us a gift," and, "Haven\'t been able to stop listening. This album is an absolute triumph in every way." She singled out Bridgers\' writing about loss — "To write about grief with such vulnerability and detail, and to trust the listener with this much honesty" — and closed with a plain "Happy bday @phoebebridgers I love you!!"\n\nThe two go back: Taylor featured Bridgers on "Nothing New," the Red (Taylor\'s Version) vault track they sang together in 2021, and they\'ve stayed in each other\'s orbit since. The shout-out reads less like an industry co-sign than one songwriter telling another she nailed it.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-praises-phoebe-bridgers-lost-weekend-triumph-1236836547/',
+            source_title: "Taylor Swift Calls Phoebe Bridgers' New Album an 'Absolute Triumph'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-hails-phoebe-bridgers-lost-weekend-as-an-absolute-triumph-in-every-way-3963288',
+            source_title: "Taylor Swift hails Phoebe Bridgers' 'Lost Weekend' as an 'absolute triumph in every way'",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+        ],
+        // Wikimedia Commons portrait of Phoebe Bridgers (2021 Shaky Knees
+        // Festival), CC0 1.0 public domain; direct upload.wikimedia.org URL
+        // curl-verified 200 image/jpeg, 4608x3456 this run. Honest portrait,
+        // not a still from the album rollout — the endorsement was IG Stories,
+        // which expire and carry no permanent embeddable post.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/2021_Shaky_Knees_-_Phoebe_Bridgers_%2822%29_Nick_White.jpg',
+            credit: 'Nick White, via Wikimedia Commons (CC0 1.0 / public domain)',
+            caption:
+              'Phoebe Bridgers performing at the 2021 Shaky Knees Festival — a longtime friend and collaborator Taylor cheered on.',
+            kind: 'primary',
+            focalPoint: '50% 35%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-19 from intake #2243 (Vault Run, Content Shift lane).
+      // Category `video`: the news is the music video's debut, not a chart.
+      // Music/release/video items clear at >=1 source (the two-independent-
+      // outlets rule is relationship/business only), so Animation Magazine —
+      // an established, dated trade outlet — meets the bar; the official MV on
+      // Taylor's own YouTube channel is the primary artifact and is cited too.
+      // MV id verified this run via YouTube oEmbed
+      // (https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=hDU4GB1PTxc)
+      // -> title "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)",
+      // author @TaylorSwift (official channel). It is cited below as a source
+      // (the official MV is the primary artifact); the page ships text-first.
+      // NOTE (Vault Run, 2026-08-19): a `moment.video` embed was deliberately
+      // NOT added, because a new video-carrying moment trips an APP-CODE test
+      // the Vault Run may not edit — apps/web/lib/longlive/video-affordance.test.ts
+      // hard-locks the count of video-carrying moments to 16 (measured
+      // 2026-08-13). Adding this as the 17th turns `build` red. Same systemic
+      // block Austin must clear as the Stylist merch-count test: to render this
+      // MV, Austin updates that count (16 -> 17) and can restore the embed.
+      // Redline-clean: a product release and a published video, no location,
+      // security, health, or private-individual detail.
+      slug: 'i-knew-it-i-knew-you-toy-story-5-mv-debut',
+      year: 2026,
+      month: 8,
+      day: 18,
+      category: 'video',
+      title: 'The "I Knew It, I Knew You" music video debuts with Toy Story 5\'s home release',
+      snippet:
+        'Toy Story 5 hit home release on Aug. 18, and the exclusive debut of the "I Knew It, I Knew You" music video came with it — Taylor\'s original song for the film, cut to footage from the movie, before it landed on her own YouTube channel.',
+      sourceUrl:
+        'https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Aug. 18, 2026, Toy Story 5 arrived for home viewing — available to buy for $29.99 or rent for $24.99 on Fandango at Home — and Taylor\'s corner of the release was the music video. Fandango carried the exclusive debut of the clip for "I Knew It, I Knew You," her original song from the film, cut together with footage from the movie itself. It landed on her own YouTube channel soon after, titled "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)."\n\nThe song had already outrun its soundtrack origins by the time the video arrived: written and produced with Jack Antonoff, it opened at No. 1 on the Hot 100, reached the Country Airplay top 10, and ran up a string of adult-pop radio records across the summer. The video ties all of that back to where it started — Woody, Buzz and the rest — and gives the track its first proper visual after months of living on the charts. A 4K, Blu-ray and DVD physical release was set to follow on Sept. 22.',
+        sources: [
+          {
+            outlet: 'Animation Magazine',
+            url: 'https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/',
+            source_title: 'Toy Story 5 Launches on Fandango with Taylor Swift MV Debut',
+            publisher: 'Animation Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'YouTube (@TaylorSwift, official channel)',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'YouTube',
+            source_type: 'social',
+            accessed_at: '2026-08-19',
+            reliability_score: 5,
           },
         ],
       },

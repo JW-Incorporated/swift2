@@ -90,9 +90,14 @@ export default {
       },
     },
     {
+      // Date corrected (#720): was 2010-10-19, a fabricated pre-release date six
+      // days before the album shipped. An undated writing anecdote about an
+      // album track, re-anchored to the album release like its sibling "Innocent"
+      // (10-25). (A three-way dedup of the Mean items — this, mean-single-release,
+      // and speak-now-mean — is a separate content call, flagged for a human.)
       year: 2010,
       month: 10,
-      day: 19,
+      day: 25,
       category: 'music',
       title: 'Mean, written straight at her critics',
       snippet: "Not a relationship song — this one's aimed straight at her critics.",
@@ -519,6 +524,9 @@ export default {
         // Shop pass (2026-07-21): the exact 2011 J. Mendel dress is
         // discontinued -- a current Monique Lhuillier pink chiffon gown,
         // verified in stock, closest real match.
+        // Stylist re-check (2026-08-16): still a live PDP, but all sizes
+        // now show "Variant sold out or unavailable" -- flipped to
+        // inStock: false rather than removed, per the sold-out convention.
         products: [
           {
             brand: 'Monique Lhuillier',
@@ -528,6 +536,7 @@ export default {
             imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/24343-24344-PINK-CARNATION_9.jpg?v=1716498166',
             price: '$4,995.00',
             isAlternative: true,
+            inStock: false,
             altNote: 'Her exact J. Mendel dress is long discontinued -- this is a current pink chiffon gown in "Pink Carnation," same soft pink-chiffon spirit (Prada heels, Neil Lane jewels not separately sourced).',
           },
         ],
@@ -2026,9 +2035,13 @@ export default {
     },
     {
       slug: 'speak-now-title-track-origin',
+      // Date corrected (#720): was 2010-10-05, a fabricated pre-release date 20
+      // days before the album shipped. This is an undated writing anecdote whose
+      // only dated fact is the release-week Hot 100 No. 8 debut, so it anchors to
+      // the album release, matching the sibling album-track items.
       year: 2010,
       month: 10,
-      day: 5,
+      day: 25,
       category: 'music',
       title: 'Speak Now, the title track: a wedding she never crashed',
       snippet:
