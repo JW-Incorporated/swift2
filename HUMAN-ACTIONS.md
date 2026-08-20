@@ -261,6 +261,67 @@ confirm it still works and still shows up as a GitHub issue.
 
 ---
 
+### 9. [BLOCKING] Turn on branch protection for `main` — ~5 min
+
+Found during the AI Dev OS v3.2 migration (2026-08-19). **`main` is currently
+completely unprotected.** Verified, not assumed:
+
+```
+gh api repos/JW-Incorporated/swift2/branches/main/protection
+-> 404 {"message":"Branch not protected"}
+```
+
+The token used has `repo` scope, so this is a real gap, not a permissions
+artifact.
+
+**Why it matters.** Two rules now depend on it and neither is currently
+enforced by anything but goodwill:
+
+- `CLAUDE.md` § Workflow rule 2 — "Never commit directly to `main`".
+- `.claude/rules/ai-team-coordination.md` `REPO-004` — the default branch is an
+  integration lane; no direct substantial pushes, no force-push, no deletion.
+
+Right now any session, any agent, or either founder can push straight to `main`
+or force-push over it. The guard hook blocks force-push *from a Claude session*,
+but nothing stops it from a plain terminal, and nothing stops a direct push at
+all. `auto-merge-content.yml` also lands PRs unattended (see item 6), which
+makes an unprotected default branch a wider blast radius than it looks.
+
+**A session cannot do this for you** — it is a repository-settings change on
+the org's repo, which `CLAUDE.md` § Decision authority puts on the human-only
+list. It was deliberately not done automatically.
+
+Steps:
+
+1. Open `https://github.com/JW-Incorporated/swift2/settings/branches`.
+2. Next to **Branch protection rules**, click **Add branch ruleset** (or
+   **Add rule** if the older UI shows).
+3. Branch name pattern: `main`
+4. Tick these, and only these to start:
+   - **Require a pull request before merging** (approvals: `0` is fine — Joey
+     merges deliberately; the point is the PR, not ceremony)
+   - **Require status checks to pass before merging** → search for and add
+     **`build`** (the required check from `.github/workflows/ci.yml`)
+   - **Block force pushes**
+   - **Restrict deletions**
+5. Leave "Do not allow bypassing the above settings" **unticked** for now — if
+   it is ticked, `auto-merge-content.yml` may stop being able to land content
+   PRs. Revisit only if you want bypass prevention to apply to admins too.
+6. Save.
+
+**Worked if:** re-run the command at the top of this item and it returns a JSON
+protection object instead of a 404. Then open a normal PR and confirm it still
+merges once `build` is green, and that `auto-merge-content.yml` still lands a
+content PR unattended.
+
+**If auto-merge breaks after this**, the cause is almost certainly step 5 —
+untick "Do not allow bypassing", or add the workflow's actor to the bypass
+list. Do not fix it by removing the ruleset.
+
+**Status:** OPEN
+
+---
+
 ## DONE
 
 <!-- Finished items move here with a date. Numbers keep their original ID.

@@ -51,13 +51,20 @@ written down; ask instead.
    result with `codex-companion.mjs result <job-id>`, never from the relay's
    summary. Full contract, commands and traps: `docs/agents/codex.md`.
    Never hand a review back to a founder — agents deploy Codex themselves.
-   The in-house `reviewer` agent does NOT satisfy this rule.
+
+   *(2026-08-19, AI Dev OS migration: the sentence "the in-house `reviewer`
+   agent does NOT satisfy this rule" was removed because that agent no longer
+   exists — review is routed by AI Dev OS `review_convergence` /
+   `delegate_review`. Joey's later ruling that Codex is out of the loop
+   supersedes this rule's Codex requirement; see § OPEN below.)*
 
    **MAXIMUM TWO REVIEW ROUNDS PER BRANCH** (Joey, 2026-08-14, after a
    four-round loop). Round 1 reviews the work; if it rejects, you fix and run
    round 2. **If round 2 also rejects, STOP — do not run a round 3.** Escalate:
    write `DEBUG.md`, hand it to a fresh-context agent restricted to the 2–3
-   relevant files, and if that does not settle it, invoke `architect`. A third
+   relevant files, and if that does not settle it, escalate through AI Dev OS
+   (`supervisor.bounded_model_escalation`, then the Fable decision authority in
+   `decision_policy`) — the retired `architect` agent's job. A third
    review is a signal that the FIX approach is wrong, not that more review is
    needed. Reviews are cheap to run and expensive in wall-clock; a loop of them
    is a symptom.
@@ -276,284 +283,144 @@ adding it to this file. This document should improve weekly.
 
 ---
 
-# ORCHESTRATOR CONTRACT (kit-v3, added 2026-08-13)
+# ORCHESTRATION — AI Dev OS v3.2 (migrated 2026-08-19)
 
 Everything ABOVE this line is the project's own operating manual. It **outranks
-this section wherever the two touch.** Nothing below quietly repeals, relaxes,
-or reinterprets a rule above it — where this section looked like it was about
-to, the conflict is called out and resolved in favour of the rule above.
+this section wherever the two touch**, exactly as it outranked the kit-v3
+contract that used to sit here.
 
-One exception, and it is not a quiet one: on 2026-08-13 Joey ruled that the
-kit's "plan without a sign-off" should win over the old spec-approval gate. That
-was settled by amending **rule 1 itself**, above the separator, rather than by
-overriding it down here — so the two documents still agree, and the diff shows
-the change.
+What changed on 2026-08-19: the kit-v3 ORCHESTRATOR CONTRACT — which defined
+routing, delegation, model tiering, planning, working memory, debugging
+escalation, checkpointing and pause/resume *inside this file* — was retired.
+**AI Dev OS v3.2 is now the sole orchestration authority.** The full inventory,
+the reasoning, and the reversible backup are in
+`docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`.
 
-What this section adds is the one thing the manual above does not cover: **how a
-session decides who does each piece of work** — the orchestrator/agent split,
-and the working-memory files that make a fresh session productive in 30 seconds.
+## What this file no longer decides
 
-## Precedence map — the nine places these two overlap
+Do not look here, and do not reinvent locally, any of the following. They are
+owned by AI Dev OS and configured in
+`!build_systems/AI-OS/ai_dev_os_v3_2/ai-dev-os/policy/routing-policy.yaml`:
 
-Read this before the rest. The project rule wins in every row except the first,
-where Joey ruled for the kit on 2026-08-13 and rule 1 was amended above to match.
+| Concern | Owner |
+|---|---|
+| Task routing and model selection | `routing.*`, `workers.*` |
+| Agent spawning and delegation | `delegate_task` / `create_task` (MCP) |
+| Fable decision authority | `decision_policy.default_authority: fable` |
+| Task and runtime state | AI Dev OS SQLite + GitHub (see `REPO-001`) |
+| Review loops and convergence budgets | `review_convergence.*`, `delegate_review` |
+| Checkpointing, pause and resume | `session_policy.*` |
+| Supervisor and stall recovery | `supervisor.*` |
+| Team coordination | `team_coordination.*` + the shared rule below |
+| Provider health and billing safety | `provider_health.*`, `billing_safety.*` |
 
-| Topic | Governing rule | What this section may still do |
-|---|---|---|
-| Workflow rules (non-negotiable) | **§Workflow rules above**, as amended 2026-08-13 | The one row where the kit's approach WON, by Joey's ruling: rule 1 was amended above to drop the sign-off gate, so an Opus session writes the plan and executes it. The rest of that section is untouched — branch-only, Codex cross-review, test-everything, decisions logged in `docs/decisions.md`. |
-| Never babysit your own PR | **§Never babysit your own PR above** | Nothing. No wake-ups, no polling, no `send_later`, no exceptions — this even switches OFF the `pause` skill's scheduled-resume step (see § Session / usage limits). |
-| Definition of done | **§Definition of done above** | Supply the *evidence* for it — nothing counts as done from reading code. |
-| Cost discipline | **§Cost discipline above** | Supply a mechanism (delegation, context hygiene) for its "largest waste is rework". |
-| Session start ritual | **§Session start ritual above** | Append two reads (`STATE.md`, `MAP.md`) and the `PAUSE.md` rule, AFTER the ritual's three steps. |
-| Don't stop to ask | **§Don't stop to ask above** | Nothing. That section's list of what is yours to decide is the operative one. |
-| Decision authority | **§Decision authority above** | Nothing. Its may / may-not lists are complete and binding. |
-| Roles (modes, not agents) | **§Roles above** | Add a *delegation* axis that sits underneath the modes — a different question, not a competing answer. |
-| Agent shell discipline | **§Agent shell discipline above** | Nothing. Its shell rules bind every agent spawned under this section. (Its hard local-concurrency cap of 2 was removed 2026-08-13 by Joey — fleet size is now a judgement call, the shell rules are not.) |
+Its lead-behavior instructions live in `~/.claude/CLAUDE.md` (marker-delimited)
+and apply in every repo. Its task hook fires on every prompt. If the
+`ai-dev-os` MCP server is not available in a session, none of it applies —
+but this file still does.
 
----
+## The shared team rule — binding
 
-# TRIAGE FIRST — EVERY MESSAGE, NO EXCEPTIONS
+@.claude/rules/ai-team-coordination.md
 
-You are the orchestrator, running on Opus. Your context and your turns are the
-most expensive resource routinely spent in this system; agent context is cheap
-and disposable. You do not do work by default — you decide who does the work.
-One tier sits above you and is spent like capital, not like labor: `architect`
-(Fable), reserved for the rare call defined in category 6 below.
+That file is installed and kept current by `ai-dev team-bootstrap`. **Do not
+hand-edit it**; changes belong upstream in the AI Dev OS policy. It defines
+`REPO-001`…`REPO-007`: GitHub is the shared truth, substantial work registers
+as an Issue, one editing task gets one isolated branch/worktree, the default
+branch is an integration lane, overlap is checked before integration, and
+**no single mutable file is authoritative shared state**.
 
-Before acting on ANY message, however casual or sloppy, classify it:
+The last of those (`REPO-006`) is why `STATE.md`, `PLAN.md` and
+`PLANtemplate.md` are gone from the repo root. They are preserved verbatim
+under `docs/archive/kit-v3-2026-08-19/`.
 
-1. **Answerable from current context** → answer directly, briefly. No tools.
-2. **Needs facts** (codebase, docs, web) → delegate: `scout` for quick lookups,
-   `researcher` for deep exploration, bug reproduction, or evaluating an
-   approach. They return summaries; their exploration never lands in your context.
-3. **Mechanical work** (renames, moves, boilerplate, rote edits, well-defined
-   commands) → delegate to `grunt`.
-4. **Planned implementation** (executing a written `PLAN.md`) → delegate to
-   `executor`, then `reviewer` on the diff.
-5. **Judgment work** (architecture, writing `PLAN.md`, debugging after two
-   strikes, resolving ambiguity, reviewing agent output) → yours. This is the
-   only category you spend yourself on.
-6. **Ceiling judgment** → `architect` (Fable). This is the canonical escalation
-   rule; everywhere else refers back to it. Two parts, and only these two:
-   - **Mechanical, mandatory.** `DEBUG.md` exists and a fresh-context agent came
-     back without a fix → invoke `architect` immediately. No deliberation, no
-     "one more try."
-   - **Judgment, soft.** A design fork whose consequences are measured in days
-     of rework, where you have attempted the call yourself and can say why your
-     answer isn't good enough → `architect`, briefed on one page.
+## Precedence, when two rules touch
 
-   Fable is a scarce, usage-metered resource — invoking it for work Opus handles
-   is the same triage failure as Opus doing grunt work, in the expensive
-   direction. Log every invocation in `STATE.md` → **Architect invocations**.
+1. **A direct human ruling** (Joey on product, Wyatt on architecture) — always.
+2. **This file above the separator** — project policy and safety: the
+   human-only list in § Decision authority, § Never babysit your own PR,
+   § Never discard uncommitted work, § Agent shell discipline, § GUARDS.
+   AI Dev OS routing never licenses crossing one of these.
+3. **`.claude/rules/ai-team-coordination.md`** (`REPO-*`) — team coordination.
+4. **AI Dev OS global policy** — routing, models, budgets, recovery.
 
-State your triage call in one line, then proceed. A terse prompt is not
-permission to skip this — "fix the typo in the readme" is still a grunt task.
-The one counterweight: never delegate work smaller than its own brief. A quick
-interactive answer is yours; spinning up an agent for it is waste, not rigor.
+A conflict that is not resolved by that order is a `REPO-007` cross-cutting
+decision: surface it, don't pick silently.
 
-You own every outcome: review agent results before treating them as done.
-Never delegate judgment; never spend yourself on the mechanical.
+## Where the old working memory went
 
-A `UserPromptSubmit` hook (`.claude/hooks/triage.sh`) restates this rule on
-every single prompt, so routing is always a conscious decision and never a
-default. That hook is the mechanical form of this section — don't work around it.
+| Retired | Replacement |
+|---|---|
+| `STATE.md` — current focus, next step | GitHub Issues/PRs (`REPO-001`), AI Dev OS tasks |
+| `STATE.md` — known traps | `docs/engineering-lessons.md` |
+| `STATE.md` — settled decisions, merge authority | `docs/decisions.md` |
+| `STATE.md` — paused work at migration time | `docs/handoff/2026-08-19-paused-work.md` |
+| `PLAN.md` / `PLANtemplate.md` | AI Dev OS task records + task-local plans |
+| `.claude/hooks/triage.sh` | AI Dev OS `UserPromptSubmit` hook |
+| `.claude/hooks/checkpoint-gate.sh` | `session_policy.durable_state_outside_conversation` |
+| `.claude/agents/{architect,executor,reviewer}.md` | AI Dev OS routing + `delegate_review` + Fable |
+| `.claude/skills/pause/` | `session_policy.*` |
+| `docs/OPERATINGMANUAL.md` | AI Dev OS policy + `inputs/` docs |
 
-## How the agents relate to §Roles above
+`MAP.md` **stays** — a read-only codebase map is explicitly permitted by
+`REPO-006`, and it is the reason exploration is unnecessary here. Keep it
+current when files are added, moved or deleted.
 
-These are two different axes and they do not compete:
+`.claude/agents/{scout,researcher,grunt}.md` **stay** — they carry no
+orchestration authority, and `REPO-002` exempts internal read-only and
+mechanical subagents from Issue registration.
 
-- **§Roles above = which hat the session is wearing** (planning as PM, building
-  as senior engineer, reviewing). That section is unchanged and still governs.
-- **The agents here = who physically executes** the work of whichever hat is on.
+## OPEN — one conflict this migration did not settle
 
-One hard consequence, from a rule above:
+`Workflow rule 3` above requires an independent **Codex** cross-review and
+states the in-house `reviewer` agent does not satisfy it. Joey later ruled the
+opposite — *"use claude code review… then just stop reminding me about it"* —
+recorded in the archived `STATE.md` § Merge authorization, which also says not
+to re-raise it with him.
 
-- **`reviewer` does NOT satisfy Workflow rule 3.** The `reviewer` agent is an
-  internal check on plan fidelity before *you* accept a diff. Cross-review is
-  still `/codex:review` (or `/codex:adversarial-review`), by the independent
-  reviewer whose job is to disagree, and every finding is still fixed before
-  work is declared done. Running `reviewer` and skipping Codex is a violation.
-
-There is no cap on how many agents you may run locally (Joey removed it
-2026-08-13). Fleet size is a judgement call about the work; the shell rules in
-§Agent shell discipline still bind every one of them.
-
----
-
-# DELEGATION, CONTEXT AND VERIFICATION
-
-## Context discipline
-
-Your context is the project's working memory. Protect it.
-
-**Nothing exploratory happens in your context.** Codebase search, reading
-unfamiliar areas, reproducing bugs, evaluating approaches — all delegated.
-Only conclusions come back. This is the main reason a session can run long
-without degrading, and it is the concrete mechanism for the "largest waste is
-rework" point in §Cost discipline above.
-
-**Implementation happens in agent context too.** The executor's file reads,
-command output, and edit churn stay in its context and die with it. You see the
-step result and the diff summary.
-
-**Checkpoint at ~50% context.** Write `STATE.md` and `MAP.md` fully, then say in
-one line that you're ready to continue in a fresh session. Do not run to 90%.
-Do not rely on auto-compaction — it silently drops detail you then re-derive.
-The statusline shows this live and prints `!! CHECKPOINT` at 50%.
-
-**Never debug in a session that has already done work.** Finish, checkpoint,
-then debug from a clean context.
-
-## Verification — what evidence looks like
-
-§Definition of done above decides WHETHER something is done. This decides what
-counts as proof of any single step along the way:
-
-- Every `PLAN.md` step carries an exact verification command and expected result.
-- Never advance to step N+1 with step N unverified.
-- Never declare a step done from reading code. Only from a command that passed.
-- Agent-reported success is a claim, not a verification. The executor runs the
-  step's check; you spot-check before marking the step complete.
-- If a step has no mechanical verification available, that step is an escalation.
-
-Run the narrowest check that proves the change; the full suite once, at the end
-— which is also Workflow rule 4's "run the full suite before declaring done".
-
-## Delegating well
-
-A delegation prompt contains: the goal, the exact files or search targets, the
-constraints that apply (paste the relevant `STATE.md` traps — agents don't read
-that file), and the shape of the answer you want back. Vague delegation is how
-agents burn tokens.
-
-**Agent failure.** If an agent fails, rewrite the brief and retry once — most
-failures are briefing failures. On the second failure, escalate a tier
-(grunt → executor → you) instead of looping. Never re-run the same brief hoping
-for a different result.
-
-Every agent you spawn inherits §Agent shell discipline above — one simple
-command per Bash call, dedicated tools over `cat`/`grep` pipes, `node -e` over
-`python -c`. Put that in the brief; agents don't inherit it by osmosis.
-
----
-
-# DEBUGGING: TWO-STRIKE RULE
-
-The most expensive thing this system does. Hard limit.
-
-1. **Strike one.** State one hypothesis explicitly. Have `researcher` test only that.
-2. **Strike two.** A *different* mechanism, not a variation. Test only that.
-3. **After two failures, stop fixing.** Write `DEBUG.md`: exact symptom, exact
-   error text, files involved, both hypotheses and how each was disproved, what
-   you'd try next and why.
-
-Then, autonomously and in this order:
-
-- Spawn a fresh-context agent with `DEBUG.md` and the 2–3 relevant files only.
-- If that fails, invoke `architect` — this is the mandatory half of category 6.
-- If the repo is broken, return it to the last green state and note it. "Return
-  to green" means `git revert` or a fresh branch from `main`; it never means
-  `git reset --hard`, `git restore`, `git clean`, or `git checkout --`, all of
-  which §Never discard uncommitted work forbids and `.claude/hooks/guard.sh`
-  blocks outright.
-
-Never guess-and-check. Never log in more than two places at once.
+Those two are contradictory as written, and the `reviewer` agent that the
+ruling named as the substitute has itself now been retired in favour of AI Dev
+OS review routing (`review_convergence`, `delegate_review`, `deepseek_pro`).
+**A session should follow Joey's ruling** (rule 3's Codex requirement is
+superseded) and use AI Dev OS review routing. This note exists so the
+contradiction is visible in one place rather than rediscovered; per his
+instruction, do not re-raise it with him.
 
 ---
 
 # SCOPE TRIPWIRES — stop if any fires
 
+Retained project hygiene. These are Swift2 failure patterns, not orchestration:
+
 - Diff exceeds ~400 lines for a task planned as small
-- An agent (or you) is editing a file not listed in `PLAN.md`
-- You're about to change something settled in `STATE.md` or `docs/decisions.md`
-- One task has consumed more than ~10 of your turns with nothing verified
+- An agent (or you) is editing a file outside the task's declared touch set
+- You are about to change something settled in `docs/decisions.md`
+- One task has consumed more than ~10 turns with nothing verified
 - A second implementation of something that already exists is being written
+  (**two mechanisms for one fact is this repo's recurring defect** — grep for
+  other callers before declaring a fix done)
 - You catch yourself doing mechanical work inline "because it's quicker"
 
-Firing a tripwire means: stop, write what happened to `STATE.md`, say so in two
-sentences. Per §Don't stop to ask above, that is a notification, not a question
-— keep moving unless what fired is genuinely a §Decision authority item.
+Firing a tripwire means: stop, record what happened on the task, say so in two
+sentences. Per § Don't stop to ask above, that is a notification, not a
+question — keep moving unless what fired is a § Decision authority item.
 
----
+# VERIFICATION — what evidence looks like
 
-# PLANNING
+§ Definition of done above decides WHETHER something is done. This decides what
+counts as proof of any single step along the way:
 
-Tasks touching more than ~3 files: write `PLAN.md` first (that's your job, not
-an agent's), from `PLANtemplate.md`, then hand it to `executor`.
-
-**Approval: none needed.** Write the plan, then execute it. Joey settled this on
-2026-08-13 — "an opus agent is free to write the plan, then execute" — and
-Workflow rule 1 above was amended to match, so the two agree.
-
-Planning itself is still required: `PLAN.md` is the executable form of the spec
-rule 1 asks for, not a way around it. And dropping the sign-off changes nothing
-else — rule 5 still sends genuine disagreements to the humans, rule 6 still
-demands a `docs/decisions.md` entry before anything expensive to reverse, and
-§ Decision authority still governs. Product direction, merges, deploys, secrets
-and spending remain human calls; only the plan sign-off is gone.
-
-A written plan is binding — for you and for the executor. If it turns out
-wrong, stop, rewrite it, log why in `STATE.md`, continue. Don't improvise around
-a broken plan, and don't let an agent improvise around one.
-
----
-
-# WORKING MEMORY — STATE.md and MAP.md
-
-Two files, both capped at 150 lines, both pruned rather than appended to:
-
-- **`STATE.md`** — current focus, last session, autonomous decisions (the async
-  review surface), architect invocations, settled decisions, known traps, next
-  obvious step.
-- **`MAP.md`** — one line per file, so exploration is unnecessary. If anyone has
-  to grep around asking "where does X live", that's a `MAP.md` bug.
-
-**These do not replace `docs/`.** Workflow rules 6 and 7 above still stand:
-anything expensive to reverse goes in `docs/decisions.md`, and durable knowledge
-goes in the docs tree. `STATE.md` and `MAP.md` are session working memory —
-the 30-second orientation layer, not the record.
-
-## Session start
-
-Run §Session start ritual above FIRST — it is unchanged: fetch (a SessionStart
-hook does it for you), fast-forward `main` if behind, `gh pr list` and mention
-open PRs in one line, branch from up-to-date `main`. Then, and only then:
-
-1. If `PAUSE.md` exists it outranks everything else — follow its resume
-   instructions, verify what actually survived, then delete it.
-2. Read `STATE.md` and `MAP.md` in full.
-3. Pick up from "Next obvious step" unless told otherwise.
-4. Do not explore. If it's not in `MAP.md`, send `scout` for it.
-
-## Session end / checkpoint
-
-Update `STATE.md` (changes, verified-by, autonomous decisions, traps, next step)
-and `MAP.md` (files added/moved/deleted).
-
-A `Stop` hook (`.claude/hooks/checkpoint-gate.sh`) enforces this: if code changed
-and `STATE.md` is stale, it blocks the stop once and demands a checkpoint. Don't
-fight it — it's the mechanical form of "STATE.md is rewritten last".
-
-## Session / usage limits
-
-When a limit warning appears, when told we're at the limit, or when a reset time
-is announced: invoke the **`pause` skill** and execute it completely. `PAUSE.md`
-outranks `STATE.md` at session start. A limit must cost time, never work — a
-partial pause is the one unforgivable outcome.
-
-**Do not run the skill's step 4 (scheduling) in this repo.** The `pause` skill
-offers to schedule a resume job a few minutes after the reset. §Never babysit
-your own PR forbids arming *any* "come back and look at this again" wake-up, in
-every session in this repo, with no exceptions — so that step does not apply
-here and this section does not carve one out.
-
-Use the skill's own documented fallback instead (its step 5, which it calls the
-durable path anyway): write `PAUSE.md`, say in one line that resuming is manual,
-and stop. The real mechanism was always `PAUSE.md` plus a human typing "resume";
-the scheduled job was only ever a convenience layered on top. Nothing is lost by
-dropping it — the work is on disk either way.
-
----
+- Never declare a step done from reading code. Only from a command that passed.
+- Agent-reported success is a claim, not a verification. Spot-check it.
+- Run the narrowest check that proves the change; the full suite once, at the
+  end — which is also Workflow rule 4.
+- **A UI fix is not verified until it is reproduced in a browser, in every
+  state the bug can occupy, at every viewport it targets** (Workflow rule 3).
+  A green suite is not evidence — 2,700 passing tests missed four rounds.
+- **A passing suite is not evidence; execution against the real corpus is.**
+- `apps/web` **is not linted by anything** — the root config ignores it, so
+  typecheck and the suite are the only real gates. Use
+  `npm run typecheck --workspace=@swift2/web`.
 
 # MECHANICS
 

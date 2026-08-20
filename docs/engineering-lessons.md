@@ -1,10 +1,14 @@
 # Engineering lessons
 
 Defects that cost more than one review round to find, written down so the next
-session does not re-buy them. These are **durable** — unlike `STATE.md`, which is
-session working memory capped at 150 lines and pruned every checkpoint. When a
-lesson stops being about the current sprint and starts being about how this
-codebase behaves, it moves here.
+session does not re-buy them. These are **durable** — unlike live task state,
+which belongs in GitHub Issues/PRs and AI Dev OS tasks (`REPO-001`/`REPO-006`).
+When a lesson stops being about the current sprint and starts being about how
+this codebase behaves, it moves here.
+
+*(Before 2026-08-19 the transient half of this lived in a root `STATE.md`. That
+file was retired with kit-v3; see
+`docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`.)*
 
 Each entry is: what we believed, what was actually true, and the check that
 would have caught it the first time.
@@ -234,9 +238,11 @@ refresh.
 - **`apps/web/next-env.d.ts` is regenerated** by any dev server started for
   browser verification. Leave it uncommitted; never hand-edit it, never
   `git restore` it.
-- **Parallel sessions share this checkout.** `STATE.md` and `PLAN.md` collided
-  twice on 2026-08-14. Verify the branch immediately before every commit, and
-  expect `git status` to show files you never touched.
+- **Parallel sessions share this checkout.** The old root `STATE.md` and
+  `PLAN.md` collided twice on 2026-08-14 — the concrete incident behind
+  `REPO-006`'s ban on a single mutable file as shared state. Verify the branch
+  immediately before every commit, and expect `git status` to show files you
+  never touched.
 - **Codex review path:** the `codex:rescue` skill → `codex:codex-rescue`
   subagent, always `--background`, then poll
   `codex-companion.mjs result <job-id>`. Full contract: `docs/agents/codex.md`.
@@ -356,3 +362,29 @@ appeared inside the prose being written. That is a false positive, not the
 human-only line firing. Use the dedicated file tools (Read/Edit/Write) for
 editing files — which is the documented preference anyway — rather than shelling
 out. Do not try to defeat the guard by obfuscating the text.
+
+## Lessons migrated from STATE.md (2026-08-19, AI Dev OS migration)
+
+### `set -uo pipefail` does not clear an inherited `-e` — and `|| true` destroys the evidence
+
+GitHub Actions runs `run:` blocks as **`bash -e {0}`**. Two steps in
+`watchdog.yml` used a non-zero exit as the *alarm signal*, then read `$?` on
+the next line. Adding `set -uo pipefail` did **not** clear the inherited `-e`,
+so the shell died the instant the check exited 1 and never reached the branch
+that opens the alert. Joey got silence instead of an alarm. The old comment
+claiming "`set -e` is deliberately off for this line" was simply false.
+
+Fixed in #2178 with `STATUS=0; node … || STATUS=$?` — a guarded context that
+errexit does not fire on.
+
+**Never use bare `|| true` to suppress this.** It discards the exit code the
+branch needs, converting a broken alarm into a silent one. The whole point of
+the step is the code.
+
+### `core.autocrlf=true` makes files look modified with no content change
+
+On Windows this repo will show files as modified when nothing in them changed.
+That is a line-ending artifact, not real work. **Investigate the config; never
+"clean up" by reverting files** — § Never discard uncommitted work forbids it
+and `.claude/hooks/guard.sh` blocks the commands outright. When in doubt,
+`git stash` (recoverable) rather than discarding.
