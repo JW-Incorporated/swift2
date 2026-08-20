@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 86
 
 ## Taylor Swift’s Photo From a Wedding With Pop Star’s Husband Raises Eyebrows - Yahoo
 
@@ -38,10 +38,11 @@ Stories: 87
 ## Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list - Yahoo
 
 - first seen: 2026-08-20 05:43 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihgFBVV95cUxOb2NnMHFsWElrSWRndHc1QW8tVXNZbDNRNE1IUUwxYS1GcTNickstd0xmd2l3RE8wUXdjeHlIWTR3c2dVZngzQktWY3JfOXRPb1VrczBkVjR2YWx1NTFrMmI2SGtjSVdUTEJVb1AzV2ZUTG5LSXgzSmVXVDRZNEVTancyWk12QQ?oc=5
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxQNzBVeTVXc19QVzF1RUR0YTR4Z0tibUtGRHZLVGtJb01taEFOUXVKejZOYnoyUk1DbU9vTGVIY2Z4VVp2WXN4UkZQQ2tKaEMtOXFTSFpOV3RYbXFJalVIYTg1clIzMXpReGF0UzJaUmpBUmFhRlVvVm0xajNBWmp1dFhsNFNaSEZqejBBeHo4TlN5a09I?oc=5
 
 ## Exclusive | The meaning behind Taylor Swift and Travis Kelce’s ‘timeless but highly personal’ weddin
 
@@ -742,11 +743,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Taylor Swift Cut Her Hair for the First Time in Years and Fans Cannot Agree It Happened  centraljersey.com
 - sources:
   - [unverified] centraljersey.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxQTnJtY2tfSFRmVHBMSC1XOVVDbEVleVJvYWdHM1BJQlJwdHVBcmVkdVR3Z2hMbTFoNUdrRl81TlN3VHRTazNXVDBER1B3WDA5dWFDUzEzSFBGeENXMW1FRnpBYnlFVUVJSnI0dXlueEJkSWFtWW1JMVZ5UG1YeEtkZ1Fubng?oc=5
-
-## Travis Kelce’s Recent Taylor Swift Comment Has Wedding Guest ‘Frustrated’ — Source - Yahoo
-
-- first seen: 2026-08-17 05:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce’s Recent Taylor Swift Comment Has Wedding Guest ‘Frustrated’ — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPNGZreG02QUJTSmgyUGlOamZzbXZrVkpnZU41N0E0MmxHYVQyM19PYWhoNW5vT1FDX1RpLW51dXlJU2NSYkUtUjV2OTRzcERMYTJJUzQzSXNWOEhYRmg3a0N0aXNtbUVaWkFFV3JLT0h0cGRYTlVNMm1xd1p3QUY0cXJETU4yN0JKQ24yeG9aMEsxdEF4MmNUcTB2VjJqSko0dHcyaw?oc=5
