@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 90
+
+## Exclusive | The meaning behind Taylor Swift and Travis Kelce’s ‘timeless but highly personal’ weddin
+
+- first seen: 2026-08-20 02:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Exclusive | The meaning behind Taylor Swift and Travis Kelce’s ‘timeless but highly personal’ wedding rings  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMijgFBVV95cUxNZ2Nsekp1QjE5TVFkQUN5YkJJZUFDRzN3M1dobWZOa3dYVkZRNk1VMC1vYlB0NHc3S2I1ekhIaGJQNFVwVzJfRE5BV3JUZzhFM2R0ZVgyWFFxUndJLUVyR09OTVJYS2k0NHhGaWtkQmt6Y2x4dEdMejlpeDFZTFdhUUhFMkE2T2o2QTF5VDdB?oc=5
+
+## Taylor Swift Performs First Show Since Travis Kelce Wedding - Yahoo
+
+- first seen: 2026-08-20 02:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Performs First Show Since Travis Kelce Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNT0l5TXpsTHhWZi1vNUVmV285RlBkMkxDOFBpZHZfVF9kd2hwZ1NSWUU0THpIVWJHb0lHN0J6YjdYRUFLaTl3c1gyZXBvVHpnSkRKM3RsdUpYcC1aS19mR0J3dlUxdldFR1cwaE80dGVFRGRwWV84elR1RzRfNGY4TFlwNG5FUGx6Rmx2NGFrSjVtWm1YZlZqRWxVZjVYR0E?oc=5
 
 ## Gabbriette Reveals What Married Life with Taylor Swift’s Ex Matty Healy Is Like - Yahoo
 
@@ -376,14 +392,6 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - sources:
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxPNDJUUHFxSWxtdWlOeVU3RFVXY2gzSmVDWjZ4U2ZvdnhadE5sYjFRUGRsTzhHdlJ0WVpGZFdwQ0JhcW01QXNSM2pWb3pFZlR6LXowNVp1YUN2VVRtdHF4RWpob2NOSEtULXc5Z05GUzMtaUdSbllZMVpVQ014MXN2WC00Yw?oc=5
 
-## How Many Chiefs Games Will Taylor Swift Attend This Season? | Travis + Taylor - Yahoo Sports
-
-- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: How Many Chiefs Games Will Taylor Swift Attend This Season? | Travis + Taylor  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigwFBVV95cUxPMkhPRmhmdW1BWFphMWZDZjd1NFFwQ2pnOWl3UVZkbGVjbkR6UEVDUUtvdVpwbTl1bU8tbnV5aW93QXFCQVZ0ZmZuWnFGVzlHR19JS0FaVFNzR1l5Qk43aWp0UHpHSHRPRmVaeDFlR243d0RZU1BGQkh5cnNZZ3VTaEsxQQ?oc=5
-
 ## Taylor Swift Returns to Social Media With Update Very Few Saw Coming - Yahoo
 
 - first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
@@ -391,6 +399,14 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Taylor Swift Returns to Social Media With Update Very Few Saw Coming  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMzRRbkUtNzMyVTJSMjVxMjJvbHNyVXFHNlMyN0VoWG5tUlFFZmkzdTU0a2xuQ3F2dnJjeXVscER4OThBYS0tQkcxY2dyc2UySktNR19aVFF0MXhERzlaV0V3VEx0ZU0yNTZ3MjNFb3dmOFo1VzMzOTJ2a3ctTVBLaDdzbTJ5S2cwZkJ5Uk1GOXNaUE9aRTh3R3JGSG5iVldD?oc=5
+
+## How Many Chiefs Games Will Taylor Swift Attend This Season? | Travis + Taylor - Yahoo Sports
+
+- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: How Many Chiefs Games Will Taylor Swift Attend This Season? | Travis + Taylor  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigwFBVV95cUxPMkhPRmhmdW1BWFphMWZDZjd1NFFwQ2pnOWl3UVZkbGVjbkR6UEVDUUtvdVpwbTl1bU8tbnV5aW93QXFCQVZ0ZmZuWnFGVzlHR19JS0FaVFNzR1l5Qk43aWp0UHpHSHRPRmVaeDFlR243d0RZU1BGQkh5cnNZZ3VTaEsxQQ?oc=5
 
 ## Taylor Swift Puts Artist Control Back in the Spotlight - Contactmusic.com
 
