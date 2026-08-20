@@ -16,56 +16,6 @@ forever. Saying "I did #2" in chat works just as well as editing the line.
 
 ## OPEN
 
-### 1. [BLOCKING] Get the production site and CI off Wyatt's accounts — ~30–60 min
-
-**Why it matters:** Wyatt has left the project, but the live product still runs
-on his infrastructure. This is the single largest standing risk in the repo.
-Nothing is broken right now, and nothing will warn you before it breaks — if
-those accounts lapse or get closed, longlivets.com stops deploying and ~20
-scheduled agent routines stop running, and the watchdog will report the runners
-as a *quiet queue* rather than as dead.
-
-Three separate dependencies, verified 2026-08-15:
-
-- **Vercel — the live site.** `docs/deploy.md` lines 7–9: production runs
-  entirely on **Wyatt's Vercel team**, with you added as a team member. Your own
-  personal Vercel account was downgraded to Hobby and is **no longer in the
-  deploy path at all**. A merge today deployed to
-  `vercel.com/wjduvall-cmds-projects/swift2-web`.
-- **GitHub — the scheduled runners.** `docs/agents/runners.md` lines 3–11: "ALL
-  scheduled agent spend runs on Wyatt's account", covering ~20 routines
-  (Marjorie, Austin, Karen, Kevin, Nils, Laura, Paul Blart, Tree). This was
-  deliberate — it keeps your weekly limit free — so **do not just switch it off**
-  without deciding where that spend moves to.
-- **`wjduvall-cmd` is a bot identity, not just a person.** Repo automation reads
-  it to recognise its own runs. It was deliberately left in place today for that
-  reason; only his human notifications and email CC were removed.
-
-**Steps:**
-1. Go to `https://vercel.com/wjduvall-cmds-projects` → **Settings** → **Members**.
-   Confirm you are listed as **Owner**, not just Member. If you are not, have
-   Wyatt transfer ownership to you before he loses access.
-2. Vercel → **Settings** → **Billing**. Confirm the payment method on file is
-   yours, not Wyatt's. This is what actually stops the site if it lapses.
-3. Decide where scheduled agent spend should live now that there is no second
-   founder to protect a limit on. Tell a session the answer and it will update
-   `docs/agents/runners.md` and the workflows.
-4. Do **not** delete or rename the `wjduvall-cmd` GitHub account until step 3 is
-   done — automation still identifies its own runs by it.
-
-**Worked if:** you can open Vercel → Settings → Billing for the team that serves
-longlivets.com and see your own payment method, and you are listed as Owner.
-
-**Status:** DONE — 2026-08-15. **The premise above was WRONG and is retained
-only so nobody re-raises it.** Joey: "wyatt is still an owner, he's just working
-on a different project while i finish this one. We co-own his vercel team, and
-our github accounts are connected." No lapse risk, no migration needed. What
-stays true: he is not working on this project day to day, which is why #2144
-removed him from alert pings. **Lesson: shared infrastructure is not abandoned
-infrastructure — ask before escalating an ownership fact into a risk.**
-
----
-
 ### 2. [BLOCKING] Confirm Karen's cloud routine is actually enabled — ~5 min
 
 **Why it matters:** the Content Integrity Engine (Karen) has not produced a run
@@ -109,27 +59,6 @@ or recreate as needed, confirm the GitHub connection, and trigger one run.
 `JW-Incorporated/swift2`.
 
 **Status:** OPEN
-
----
-
-### 3. [UPGRADE] Device-check the bottom nav — ~2 min
-
-**Why it matters:** the nav has been fixed three times from code, and each time
-a real phone found something the tests did not. Merged 2026-08-15 (PR #2140):
-the icon-only threshold moved 5 → 7 and labels dropped 11px → 10px, so all six
-tabs should now show **words under the icons**.
-
-**Steps:**
-1. Open `https://www.longlivets.com/` on your phone. Hard-refresh.
-2. Confirm six tabs, each with a readable label, none wrapping to two lines.
-3. If your phone is narrow (360px-class), check the labels still fit.
-
-**Worked if:** six labelled tabs, one line each, no overlap.
-
-**Status:** DONE — 2026-08-15, confirmed on his phone: "there's still 6 but they
-now all have text, and honestly it looks really good with 6." This also settled
-the nav question permanently — six separate tabs, and PR #2116's merge-to-five
-was closed unmerged.
 
 ---
 
@@ -291,32 +220,46 @@ makes an unprotected default branch a wider blast radius than it looks.
 the org's repo, which `CLAUDE.md` § Decision authority puts on the human-only
 list. It was deliberately not done automatically.
 
+**Joey's ruling, 2026-08-19 — direct push to `main` must keep working.** He
+runs Claude Code sessions that push straight to `main` and does not want that
+taken away. **This changes what to tick**; an earlier draft of this item
+recommended settings that would have blocked exactly that. Corrected below.
+
+Which toggles actually block a direct `git push origin main`:
+
+| Setting | Blocks direct push? |
+|---|---|
+| Require a pull request before merging | **YES — do not tick** |
+| Require status checks to pass | **YES — do not tick.** A commit that has not already passed `build` is rejected on push |
+| Block force pushes | No — only force pushes. **Tick it** |
+| Restrict deletions | No — only branch deletion. **Tick it** |
+
 Steps:
 
 1. Open `https://github.com/JW-Incorporated/swift2/settings/branches`.
 2. Next to **Branch protection rules**, click **Add branch ruleset** (or
    **Add rule** if the older UI shows).
 3. Branch name pattern: `main`
-4. Tick these, and only these to start:
-   - **Require a pull request before merging** (approvals: `0` is fine — Joey
-     merges deliberately; the point is the PR, not ceremony)
-   - **Require status checks to pass before merging** → search for and add
-     **`build`** (the required check from `.github/workflows/ci.yml`)
+4. Tick **only** these two:
    - **Block force pushes**
    - **Restrict deletions**
-5. Leave "Do not allow bypassing the above settings" **unticked** for now — if
-   it is ticked, `auto-merge-content.yml` may stop being able to land content
-   PRs. Revisit only if you want bypass prevention to apply to admins too.
-6. Save.
+5. Leave **Require a pull request before merging** and **Require status checks
+   to pass** **unticked** — either one ends direct pushes to `main`.
+6. Leave "Do not allow bypassing the above settings" **unticked** — if ticked,
+   `auto-merge-content.yml` may stop being able to land content PRs.
+7. Save.
 
 **Worked if:** re-run the command at the top of this item and it returns a JSON
-protection object instead of a 404. Then open a normal PR and confirm it still
-merges once `build` is green, and that `auto-merge-content.yml` still lands a
-content PR unattended.
+protection object instead of a 404 — **and** a direct `git push origin main`
+from a session still succeeds. Both must be true.
 
-**If auto-merge breaks after this**, the cause is almost certainly step 5 —
-untick "Do not allow bypassing", or add the workflow's actor to the bypass
-list. Do not fix it by removing the ruleset.
+**What this does and does not buy you.** It makes `main`'s history
+unrewritable and undeletable, which is the failure that actually loses work.
+It does **not** gate what lands there. `CLAUDE.md` Workflow rule 2 ("never
+commit directly to `main`") and `REPO-004` still ask for branch → PR → merge
+as the normal path; with this configuration that is convention, enforced by
+nothing. That is the deliberate trade Joey chose, recorded here so a later
+session does not "fix" it by adding the PR gate back.
 
 **Status:** OPEN
 
@@ -326,3 +269,76 @@ list. Do not fix it by removing the ruleset.
 
 <!-- Finished items move here with a date. Numbers keep their original ID.
      Never delete — the history is how we stop re-asking. -->
+
+### 1. [BLOCKING] Get the production site and CI off Wyatt's accounts — ~30–60 min
+
+**Why it matters:** Wyatt has left the project, but the live product still runs
+on his infrastructure. This is the single largest standing risk in the repo.
+Nothing is broken right now, and nothing will warn you before it breaks — if
+those accounts lapse or get closed, longlivets.com stops deploying and ~20
+scheduled agent routines stop running, and the watchdog will report the runners
+as a *quiet queue* rather than as dead.
+
+Three separate dependencies, verified 2026-08-15:
+
+- **Vercel — the live site.** `docs/deploy.md` lines 7–9: production runs
+  entirely on **Wyatt's Vercel team**, with you added as a team member. Your own
+  personal Vercel account was downgraded to Hobby and is **no longer in the
+  deploy path at all**. A merge today deployed to
+  `vercel.com/wjduvall-cmds-projects/swift2-web`.
+- **GitHub — the scheduled runners.** `docs/agents/runners.md` lines 3–11: "ALL
+  scheduled agent spend runs on Wyatt's account", covering ~20 routines
+  (Marjorie, Austin, Karen, Kevin, Nils, Laura, Paul Blart, Tree). This was
+  deliberate — it keeps your weekly limit free — so **do not just switch it off**
+  without deciding where that spend moves to.
+- **`wjduvall-cmd` is a bot identity, not just a person.** Repo automation reads
+  it to recognise its own runs. It was deliberately left in place today for that
+  reason; only his human notifications and email CC were removed.
+
+**Steps:**
+1. Go to `https://vercel.com/wjduvall-cmds-projects` → **Settings** → **Members**.
+   Confirm you are listed as **Owner**, not just Member. If you are not, have
+   Wyatt transfer ownership to you before he loses access.
+2. Vercel → **Settings** → **Billing**. Confirm the payment method on file is
+   yours, not Wyatt's. This is what actually stops the site if it lapses.
+3. Decide where scheduled agent spend should live now that there is no second
+   founder to protect a limit on. Tell a session the answer and it will update
+   `docs/agents/runners.md` and the workflows.
+4. Do **not** delete or rename the `wjduvall-cmd` GitHub account until step 3 is
+   done — automation still identifies its own runs by it.
+
+**Worked if:** you can open Vercel → Settings → Billing for the team that serves
+longlivets.com and see your own payment method, and you are listed as Owner.
+
+**Status:** DONE — 2026-08-15. **The premise above was WRONG and is retained
+only so nobody re-raises it.** Joey: "wyatt is still an owner, he's just working
+on a different project while i finish this one. We co-own his vercel team, and
+our github accounts are connected." No lapse risk, no migration needed. What
+stays true: he is not working on this project day to day, which is why #2144
+removed him from alert pings. **Lesson: shared infrastructure is not abandoned
+infrastructure — ask before escalating an ownership fact into a risk.**
+
+---
+
+
+### 3. [UPGRADE] Device-check the bottom nav — ~2 min
+
+**Why it matters:** the nav has been fixed three times from code, and each time
+a real phone found something the tests did not. Merged 2026-08-15 (PR #2140):
+the icon-only threshold moved 5 → 7 and labels dropped 11px → 10px, so all six
+tabs should now show **words under the icons**.
+
+**Steps:**
+1. Open `https://www.longlivets.com/` on your phone. Hard-refresh.
+2. Confirm six tabs, each with a readable label, none wrapping to two lines.
+3. If your phone is narrow (360px-class), check the labels still fit.
+
+**Worked if:** six labelled tabs, one line each, no overlap.
+
+**Status:** DONE — 2026-08-15, confirmed on his phone: "there's still 6 but they
+now all have text, and honestly it looks really good with 6." This also settled
+the nav question permanently — six separate tabs, and PR #2116's merge-to-five
+was closed unmerged.
+
+---
+

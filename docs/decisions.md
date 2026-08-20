@@ -7,6 +7,38 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-19 — `main` gets history protection only; direct push stays allowed
+
+**Decision (Joey, explicit).** Branch protection on `main` is limited to
+**Block force pushes** + **Restrict deletions**. The two settings that would
+end direct pushes — *Require a pull request before merging* and *Require status
+checks to pass* — are deliberately **not** enabled.
+
+**Why:** Joey runs Claude Code sessions that push straight to `main` and
+considers that workflow worth keeping. His words: *"I like my claudecode to
+push to main on my projects that arent live… So I cant lose that."* The
+protection that matters to him is that `main`'s history cannot be rewritten or
+the branch deleted — the failure mode that actually loses work. Gating *what*
+lands is a separate concern he chose not to enforce mechanically.
+
+**The tension this creates, stated plainly so nobody re-opens it:**
+`CLAUDE.md` Workflow rule 2 says "never commit directly to `main`", and
+`.claude/rules/ai-team-coordination.md` `REPO-004` calls the default branch an
+integration lane. Both remain the *documented normal path* — branch → PR →
+merge — but with this configuration they are convention, enforced by nothing.
+Swift2 is also a live site (longlivets.com), which is the argument for the PR
+gate; it was put to Joey and he ruled against it knowingly.
+
+**Do not "fix" this** by adding *Require a pull request* or *Require status
+checks* to the ruleset. That is not a hardening improvement, it is reversing a
+ruling. If it needs revisiting, ask Joey.
+
+**Setup steps and the exact toggles:** `HUMAN-ACTIONS.md` #9.
+
+**Approved by:** Joey
+
+---
+
 ## 2026-08-19 — AI Dev OS v3.2 is the sole orchestration authority
 
 **Decision:** the kit-v3 ORCHESTRATOR CONTRACT inside `CLAUDE.md` was retired.
