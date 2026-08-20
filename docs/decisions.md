@@ -7,6 +7,148 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-19 — `main` keeps its PR requirement; the "unprotected" finding was wrong
+
+**Correcting an entry written earlier the same day.** That entry recorded a
+decision to leave `main` with force-push/deletion protection only, so direct
+pushes would keep working. It was built on a false premise and the decision it
+described was never actually available.
+
+**The false premise.** The migration reported `main` as "completely
+unprotected", based on:
+
+```
+gh api repos/JW-Incorporated/swift2/branches/main/protection
+-> 404 {"message":"Branch not protected"}
+```
+
+That endpoint only reports **classic branch protection**. `main` was — and
+is — protected by a repository **ruleset**, `protect-main` (id `18819106`,
+enforcement `active`), which that endpoint does not report. The correct query is
+`gh api repos/{owner}/{repo}/rulesets`.
+
+**What was actually true the whole time:**
+
+| Rule in `protect-main` | Effect |
+|---|---|
+| `pull_request`, 0 approvals | A PR is required; **direct push to `main` is blocked** |
+| `required_status_checks` → `build` | `build` must be green |
+| `non_fast_forward` | No force-pushes |
+| `deletion` | `main` cannot be deleted |
+| `bypass_actors: []` | Nobody bypasses, including admins and Actions |
+
+The corroborating evidence was in plain sight and was not checked: **every
+commit on `main` carries a `(#NNNN)` PR number.** The error was proven when a
+direct `git push origin main` of the migration was rejected with
+`Required status check "build" is expected`.
+
+**The standing decision, restated correctly.** `main` requires branch → PR →
+`build` green → merge. That is unchanged, was never changed, and matches
+`.claude/rules/ai-team-coordination.md` `REPO-004`.
+
+**Joey's stated preference is recorded but not in force here.** He said: *"I
+like my claudecode to push to main on my projects that arent live… So I cant
+lose that."* Swift2 is live (longlivets.com) and has never permitted it.
+Nothing was lost, because nothing was there to lose. Whether to relax
+`protect-main` for this repo is left open as `HUMAN-ACTIONS.md` #9, with a
+recommendation to leave it alone.
+
+**Workflow rule 2 was amended by Joey the same day** to read *"Never commit
+directly to `main` but you can push to 'main' when the branch work is
+complete."* That amendment stands as his intent, but note it does not describe
+what the repo currently permits — a push to `main` is rejected by the ruleset.
+Reconcile the wording, or the ruleset, when he next picks this up.
+
+**Method lesson, recorded in `docs/engineering-lessons.md`:** a 404 from an API
+means "not configured *this* way", never "not configured".
+
+**Approved by:** Joey (preference recorded); no ruleset change was made.
+
+---
+---
+
+## 2026-08-19 — AI Dev OS v3.2 is the sole orchestration authority
+
+**Decision:** the kit-v3 ORCHESTRATOR CONTRACT inside `CLAUDE.md` was retired.
+Routing, model selection, agent spawning, Fable decision authority, task and
+runtime state, review loops, checkpointing, pause/resume, supervisor/stall
+recovery and team coordination are now owned by AI Dev OS v3.2. `CLAUDE.md`
+keeps project policy, project facts and Swift2-specific safety only.
+
+**Why:** the two systems defined the same nine concerns in incompatible ways,
+and both were live simultaneously — two `UserPromptSubmit` hooks asserting
+different routing ladders, two model authorities, and a direct `REPO-006`
+violation (kit-v3 made the mutable `STATE.md` authoritative shared state; the
+shared team rule forbids exactly that). Layering was not an option.
+
+**What moved:** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
+`docs/OPERATINGMANUAL.md`, `.claude/hooks/{triage,checkpoint-gate}.sh`,
+`.claude/agents/{architect,executor,reviewer}.md` and `.claude/skills/pause/`
+were archived to `docs/archive/kit-v3-2026-08-19/`. `guard.sh`, `post-edit.sh`,
+`scout`/`researcher`/`grunt`, `MAP.md` and `HUMAN-ACTIONS.md` were kept.
+
+**Alternatives considered:** (a) run both and let precedence sort it out —
+rejected, the two hooks fire on every prompt and cannot both be authoritative;
+(b) delete kit-v3 outright — rejected, it carried real Swift2 hardening worth
+preserving. Archive-and-migrate keeps the work reversible.
+
+**Reversal:** `git checkout pre-ai-dev-os-migration-2026-08-19`, or restore
+from `~/.claude/backups/swift2-kit-v3-2026-08-19/`.
+
+**Full inventory:** `docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`.
+
+**Approved by:** Joey (migration requested directly)
+
+---
+
+## 2026-08-16 — Merch is a theme, not an opt-out
+
+*(Migrated 2026-08-19 from `STATE.md`, which flagged both of these as rulings a
+future session **will** be tempted to undo.)*
+
+**Decision:** `MERCH_THEME` + `merchStyle()` flow through the **same `--era-*`
+mechanism** as Threads' `VAULT_THEME`. `--merch-*` survives only for the three
+section accents and the background gradients.
+
+**Why:** that shared mechanism is what makes TopBar / BottomNav / SiteFooter
+transition with the page. A page-scoped palette that opts out of `--era-*`
+leaves the chrome behind — the first implementation did exactly that and Joey
+overruled it. **Never re-separate them.**
+
+**Second ruling, same session — the merch card splits ONLY when both images
+exist.** 59 of 156 items have just one photo, so an unconditional split showed
+a bare monogram on 38% of cards. `merchItemImage()` is the single source of
+that decision. Monograms went 59 → 4.
+
+**Approved by:** Joey (overruled the session's first approach)
+
+---
+
+## 2026-08-14 — Joey is the only merger; Codex is out of the review loop
+
+*(Migrated 2026-08-19 from `STATE.md` § Merge authorization, which was retired.
+Recorded here because it is a standing governance ruling, not session state.)*
+
+**Decision:** Joey is the **only** merger, delegated to a session only for the
+work that session produced. **Maximum two review rounds, never a third** —
+standing and not spent. **Codex is out of the review loop** by his explicit
+ruling: *"use claude code review… then just stop reminding me about it."*
+
+**Why:** a four-round review loop on 2026-08-14 burned wall-clock without
+converging; the third round was a signal that the fix approach was wrong, not
+that more review was needed.
+
+**Consequence, and the conflict it creates:** this **overrides Workflow rule 3**
+in `CLAUDE.md`, which requires an independent Codex cross-review. The substitute
+the ruling named — the in-house `reviewer` agent — was itself retired on
+2026-08-19; review is now routed by AI Dev OS (`review_convergence`,
+`delegate_review`, `deepseek_pro`). **Do not re-raise the missing-Codex gap
+with Joey**; he closed it explicitly.
+
+**Approved by:** Joey
+
+---
+
 ## 2026-08-14 — Community dataset carries per-entry verification provenance
 
 **Decision:** every record in `data/communities.json` carries a `verification`

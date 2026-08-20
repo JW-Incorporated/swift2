@@ -1,10 +1,14 @@
 # Engineering lessons
 
 Defects that cost more than one review round to find, written down so the next
-session does not re-buy them. These are **durable** — unlike `STATE.md`, which is
-session working memory capped at 150 lines and pruned every checkpoint. When a
-lesson stops being about the current sprint and starts being about how this
-codebase behaves, it moves here.
+session does not re-buy them. These are **durable** — unlike live task state,
+which belongs in GitHub Issues/PRs and AI Dev OS tasks (`REPO-001`/`REPO-006`).
+When a lesson stops being about the current sprint and starts being about how
+this codebase behaves, it moves here.
+
+*(Before 2026-08-19 the transient half of this lived in a root `STATE.md`. That
+file was retired with kit-v3; see
+`docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`.)*
 
 Each entry is: what we believed, what was actually true, and the check that
 would have caught it the first time.
@@ -234,9 +238,11 @@ refresh.
 - **`apps/web/next-env.d.ts` is regenerated** by any dev server started for
   browser verification. Leave it uncommitted; never hand-edit it, never
   `git restore` it.
-- **Parallel sessions share this checkout.** `STATE.md` and `PLAN.md` collided
-  twice on 2026-08-14. Verify the branch immediately before every commit, and
-  expect `git status` to show files you never touched.
+- **Parallel sessions share this checkout.** The old root `STATE.md` and
+  `PLAN.md` collided twice on 2026-08-14 — the concrete incident behind
+  `REPO-006`'s ban on a single mutable file as shared state. Verify the branch
+  immediately before every commit, and expect `git status` to show files you
+  never touched.
 - **Codex review path:** the `codex:rescue` skill → `codex:codex-rescue`
   subagent, always `--background`, then poll
   `codex-companion.mjs result <job-id>`. Full contract: `docs/agents/codex.md`.
@@ -356,3 +362,96 @@ appeared inside the prose being written. That is a false positive, not the
 human-only line firing. Use the dedicated file tools (Read/Edit/Write) for
 editing files — which is the documented preference anyway — rather than shelling
 out. Do not try to defeat the guard by obfuscating the text.
+
+## Lessons migrated from STATE.md (2026-08-19, AI Dev OS migration)
+
+### `set -uo pipefail` does not clear an inherited `-e` — and `|| true` destroys the evidence
+
+GitHub Actions runs `run:` blocks as **`bash -e {0}`**. Two steps in
+`watchdog.yml` used a non-zero exit as the *alarm signal*, then read `$?` on
+the next line. Adding `set -uo pipefail` did **not** clear the inherited `-e`,
+so the shell died the instant the check exited 1 and never reached the branch
+that opens the alert. Joey got silence instead of an alarm. The old comment
+claiming "`set -e` is deliberately off for this line" was simply false.
+
+Fixed in #2178 with `STATUS=0; node … || STATUS=$?` — a guarded context that
+errexit does not fire on.
+
+**Never use bare `|| true` to suppress this.** It discards the exit code the
+branch needs, converting a broken alarm into a silent one. The whole point of
+the step is the code.
+
+### `core.autocrlf=true` makes files look modified with no content change
+
+On Windows this repo will show files as modified when nothing in them changed.
+That is a line-ending artifact, not real work. **Investigate the config; never
+"clean up" by reverting files** — § Never discard uncommitted work forbids it
+and `.claude/hooks/guard.sh` blocks the commands outright. When in doubt,
+`git stash` (recoverable) rather than discarding.
+
+### A multi-word crisis phrase needs its progressive form added by hand
+
+Found by test case 10 on the mood bot, **live in production on both paths**:
+"I've been thinking about hurting myself" returned a heartbreak song instead of
+crisis resources.
+
+Cause: `phraseHits` (`apps/web/lib/longlive/mood-safety.ts`) appends inflections
+to the **end of the whole phrase**, so `'hurt myself' + 'ing'` becomes
+`'hurt myselfing'` — never `'hurting myself'`. That is why the Tier A lexicon
+enumerates both aspects as separate entries (`kill`/`killing myself`,
+`end`/`ending my life`, `harm`/`harming myself`, `cut`/`cutting myself`).
+`hurt myself` was the one entry whose progressive form was never added.
+
+**Adding a multi-word phrase to the crisis lexicon means adding its progressive
+form too — there is no stemmer that will do it for you.** Tier A only; it can
+only ever make crisis detection fire more.
+
+### Refusing less is not the same as answering — score at least one axis
+
+The mood bot's over-refusal had two independent causes (the model path's
+`out_of_scope` flag, and the degraded no-key path scoring an empty vector), but
+fixing both was still not enough: a message that passes `out_of_scope` yet
+scores no axis returns `UNCLEAR_MESSAGE`, which reads to a user as a refusal.
+
+The prompt therefore carries an explicit **"always score at least one axis"**
+rule. **Never remove it.**
+
+### The mood model is a classifier, not a writer — do not "restore" a voice
+
+One call (`mood-client.ts`), forced `record_mood` tool, "Do not add prose."
+Songs are chosen by deterministic TS (`mood-match.ts`) over precomputed
+vectors; the card sentence is the catalogue's own `oneLiner`. There is no voice,
+no output format, and **no catalogue in the prompt** — which is structurally why
+the bot cannot hallucinate a track. A brief that assumes otherwise is wrong.
+Keep it that way.
+
+### A 404 means "not configured this way", never "not configured"
+
+The AI Dev OS migration reported `main` as "completely unprotected" on the
+strength of:
+
+```
+gh api repos/JW-Incorporated/swift2/branches/main/protection
+-> 404 {"message":"Branch not protected"}
+```
+
+`main` was protected the entire time — by a **ruleset** (`protect-main`),
+which that endpoint does not report. GitHub has two independent mechanisms
+(classic branch protection and rulesets) and the classic endpoint 404s when
+only a ruleset exists. The right query is `gh api repos/{owner}/{repo}/rulesets`.
+
+That false finding was written into `HUMAN-ACTIONS.md` and `docs/decisions.md`
+as a governance decision before it was caught by a push rejection.
+
+**The checks that would have caught it, in order of cheapness:**
+
+- **Look at the history.** Every commit on `main` carries a `(#NNNN)` PR
+  number. A branch that anyone can push to does not look like that. Evidence
+  already in the repo beats a single API probe.
+- **Ask what a 404 excludes.** It rules out one implementation, not the
+  capability. Enumerate the alternatives before concluding absence.
+- **Try the operation.** `git push` would have answered it in one command.
+
+Generalises past GitHub: absence-of-configuration is the hardest thing to
+prove from an API, and a negative from one endpoint is the weakest possible
+evidence for it.
