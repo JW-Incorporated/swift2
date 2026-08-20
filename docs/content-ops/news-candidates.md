@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 83
+
+## Taylor Swift Fans Think She's Dropping Album After Spotting Alleged Easter Eggs - TMZ
+
+- first seen: 2026-08-20 21:38 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Fans Think She's Dropping Album After Spotting Alleged Easter Eggs  TMZ
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxPUzktcENMWTVkWlR4THByZ05UVG8xTzJkZk83b00xYnBKRHBUd3J0aG90R0hZajRraUI5V3lZd0FReWpWTnFaMk9lakJLM1RCdlZCUXNPc0lxYnBwRWk4Uk1aVzZ5VUhPbHphTDlURmlocEJmMV9hLWR1dXctaXhWUmVGaVUwTWY5TkdzU3hIWlNoUmc?oc=5
+
+## Taylor Swift Gets Dethroned in Surprise VMA Nomination Sweep - Yahoo
+
+- first seen: 2026-08-20 21:38 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Gets Dethroned in Surprise VMA Nomination Sweep  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPSll0SXBILUM3b0N4NHZCWTh1dVlWUGJvVWdUWnBibXQybVdXZF9YYklsSGJFNHdqWUd2b2pqWldTbFh6MWViMVlzLVBhOUltUS1KV09qVHd2VmZtei1WUm1KaGg4UTdmd1EyNjZvM2VsTXlBWFVjTE5nT25PU2staFhvY2hKcWxDRDc0Y3M4OWVfdWFpbkNkU01nZHFwZXVqY1VydA?oc=5
+
+## Kylie Kelce Shares Sweet Way Kids Have Bonded With "Aunt" Taylor Swift - E! News
+
+- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Shares Sweet Way Kids Have Bonded With "Aunt" Taylor Swift  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQc0VSUzNRZ2xubnRZTlZkbTNZZWotTG8xa1E5Rk5lLThZVXNmbXRldnVtcmVPZ3FQcmMyV1FjbG53WWUyLW1RM0JEY0doNVB1YUcxNWlsekNPRHBkZzVVaHBUNGNwSGozaWVzb1pMRVhkNXJmWWE3ZzlDZW45NzgzeDNPRFJmTENkTENUNHpEeFloNzhfcTh5NHNja3RRS0dLUGNXYTYzLVA?oc=5
+
+## The truth behind Taylor Swift and Travis Kelce's 'timeless' wedding rings - Yahoo
+
+- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The truth behind Taylor Swift and Travis Kelce's 'timeless' wedding rings  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQbzU4ZmU4Y3E0bWVZdlR6NW4xT28xaWxxOHlqUkZrVWJqYjkwVDdZMWtTdkF2NmxialVXQTVCLXJ5S1ZJRVpFTXNsVU9lT3E3bmQwQS1qbTlMUkRjaDFtMGZfckxhdC1XdC1qX0ZyTG1rTDRjeXNla3NncE1GU1VSSTZrb2wzREFPN1Y5cWpEclVReU53UGlSTlVZbFRJRHZfZUQ1VQ?oc=5
+
+## Kylie Kelce Reveals Taylor Swift Has a ‘Big’ Influence on Her Daughters Who Are Begging for Kittens 
+
+- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Reveals Taylor Swift Has a ‘Big’ Influence on Her Daughters Who Are Begging for Kittens  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNWksxLThLT1dEM3NzVThMaGZhbW8wT00tdWgzSjVnY3FfaXhlMTNmV0Z2dVFkZ1h6ZWpGZWtfXzlSQllyanRzelptSWxrVGR4TUpSMEhEVC1WZlFrdmNCQ1dsbHBmY25OT1U1alNBOEozVE5TelJzYjJUZmNmb0stckVvdmpBREZwU3NTLV9OQ2tlVVZ2NVc2T1hCZ1F0c0tPRnBuWg?oc=5
+
+## Kylie Kelce Refers to Taylor Swift as ‘Aunt Taylor’ for the First Time Since Her and Travis Kelce’s 
+
+- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Refers to Taylor Swift as ‘Aunt Taylor’ for the First Time Since Her and Travis Kelce’s Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQSTU5SHRZMDhhZG5vOG5kX3NxQ056TlJIQ1JSZDNjVzZCbjZpVTFVUUQ0LXhHLXF4UE1jd195WlRtbzNDcmQycWUybmVYRzhOQlVYQ1hRbm1rLXpkWHJkTGdNV3ozQXRHbnFnS0gzUFpsVjVHeXZDYURSSXVmTjIwYTU2YzJtLUlCNkozaGExQQ?oc=5
 
 ## Madonna Leads 2026 MTV VMA Nominations, Taylor Swift Is One Win From History - Men's Journal
 
@@ -663,75 +711,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Every Chiefs Game Taylor Swift is Likely to Attend in 2026  Sports Illustrated
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiogFBVV95cUxQX3NBUkpmbjVqWEVmMnpEMDVudXB5ejFDNFNDbnpab24yY2tZaHVjelo3Z3MxRlF3U3RKQkphaUg5TjhTNElZT3AzTzZ3U05LSWRrMU05OXB3MHN2bUR3YU1VLXVfeEVGMmVkeG9JSjU3Tl9rTHF6MllMRkdMODAzLUF4Mi10anRTX2VHWUl0UWwtQmZCaDdsTHkxYndERjM2Rmc?oc=5
-
-## Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Eve
-
-- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: Taylor Swift Praises Phoebe Bridgers’ New Album ‘Lost Weekend,’ Calls It an ‘Absolute Triumph in Every Way’  Variety
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPc19GbmczaHVrT24ycWxFOURrWkpSOHVCaTVhT2lRdzRQWXd0dHdQVEhLcUZiVXZoWTZiZzMtTGlfb19QbjhwcFlGN2IwTF9JUzlwcUxUSTlEM29DM2JDUW1jLVlzTWpYTjdSN2ltT0lVa1ZUTUlaWDNNVUNQQ3dDTVR1WVZkNWVXa0hTdTFMX3VBOUNaQUo3Y3pEQVd4dWFvblpOd2FrcE8?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-praises-phoebe-bridgers-lost-weekend-triumph-1236836547/
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisgFBVV95cUxPc3lEOGpaTUtOVXBxdk1CRTI3cmVvdlJIdHpZQ1ZlejZmYW9QWUZZTWZHcXVNLWQ4OUMzd1F3WDB2Um5adDljS2xMU3dBMTJaU1o1c042RnREdUIyTUpYZDdxUVFMZHRQS2pFTU9PNW5kbzZjNEpGdDZEZE5Mc1pNSmYyemFROHl6MlNiVm13a00wS0h5ZEtINWVNZndNdmRqLTNJM1pXZWxYSGpoRUxkc3ZB?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNUDhiNVdfanRTc2wtZ3p0MkRQclgyalNkN19zNkxnNHc4andTNGpNUlVaSTFOc1RtdTZpU0xrNWVXQ28zRldRNy1FcWZZRFZxWFVXdjlQeXRxY3kzaGRlZE5VYXA4dXpfV2dLTVFJWmJDdXRXUi1OVGIyWWl1aUJvRmhLUURoYnpYdVQtd2ZsdTAwYTVVUk00Q0syakE3X0dHc2xqUQ?oc=5
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNVU5Cc25zbllxTkFqSDdiZU56aFF0cU1vVE5jSHl3dWtWa2QxelltU1pzSzNiR3FFQU1DUXBQVVRLejNJNks4Qkt2LU52VTdIRWs5bzRSZ0ZabTd4SG5NRFBfck10d3N1alJIVUNxV1pYck5xbFVxMW45RGkzR0ppS0xPYkNnTllZUFNaOTVNOTdKZzc0M1lOR1JLMWtUVFRnSUlFVTBmSHRQdw?oc=5
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbEktT2w4M2VucDZpMnlzZzJabVNhMjVVX0R4VzZQdEpZSHJaME15RnJtUFFOdHhvcVV1VnZucENqQ1dOLXlBa0NVSEtwRU55TEJIclZOTS1HUzRobFMyWlJSUklSazNka2syU1hVajZfQ05GNDhrbmRFV2NBa3VzU3c0V1pOTHNLSnNPdzhxSWtRWHJVeFczWngwako?oc=5
-  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxQM1JCc0NHbTlQdVZoZE0wSm1fT05PZG9wZEFkRnk3cUN2YnpIQ0VpNUloSDdEc0Q1NVRxWFZtalRfS29BVkZQRmdGMTZ6VzQ1T3VVTlk0bHdIWnIwRzhQVHpRNHBiQUVKdERmZHVBVlA3WXJjTjVKLUFEaDFUUHktQjlwcVhXVlVIMTZ2blZab1ZsVDJMNEVoc0g4LW9oMF9ON1A5ZUlyWElJUnZyTnNqV3BPdGhWTHNjTWc?oc=5
-
-## Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album - Rolling Stone
-
-- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift Can’t Stop Listening to Phoebe Bridgers’ New Album  Rolling Stone
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxOdlEzc2NMSU5VVkRWNHNEdmN1b0hzOVFlY0o5MjVpVnM3enNVc0N2d3RyY1VqcTFudnBZS1Y2TVJwYUxZdHRHeWhaRVFrekwzOFAwc0YzVEFyTnp4d1hLYkJQQnlZbk1VRjYxSDZULVNaU3EzSS1vbmhidGRNSTU0REFvdFFyQlYtSXN4MWlBbWFrTHZpWnFoVHN0c0FKSGVJUHRNMXdRVGFDdTFRanFUb3pOWnBRZw?oc=5
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-loves-phoebe-bridgers-new-album-lost-weekend-1235610254/
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihAFBVV95cUxOTDh4MkdLSW5PWF82OXZUdkZDZnNUNGZQcTNEZE5CV3ItV2VtVEpwRmFhS2trWEh4SWR2RC1fYi1zVS04UV9UbXZnTWRCSVRiZHVsaXhKU0lVN09EODNrVXhwblNRN25Zby1mcXZZTWt4bnl1blllN3lwLVVKeHFHdHdKS0U?oc=5
-
-## New Taylor Swift Wedding Photos Officially Leak Amid Report Guests Are Angry at Her Over Travis Kelc
-
-- first seen: 2026-08-17 21:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: New Taylor Swift Wedding Photos Officially Leak Amid Report Guests Are Angry at Her Over Travis Kelce’s Behavior  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxQbzJWbkpTZnNiendmbUctTFhhN0o3ZHYwUHRRTnBGYm01X1Z5bmFKS2ZJZGFmdjRwdDJQX0FMRlVsQ18xbVFwV3J6UWtSM0hTQm96ODJ2Z05tZllaTlVyRnhWalo0LU14T2RLREUxWmxDRURHMC00Z2UxSUduNEs4cGlHbE1XelFGSWdTQUwzWGxVMkhQX1c3YkY3VGRvVkxIbG5ZNjBJTmpueDU3?oc=5
-
-## Is Taylor Swift Growing Out Her Bangs? - Yahoo
-
-- first seen: 2026-08-17 21:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Is Taylor Swift Growing Out Her Bangs?  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOLW5RdFI4ekZpRFh3TjNWX2ZFTXJ6US0tbVVSdWZzZ01RbkZyZzZ0VjNMWHNaN05qTm11S3F4NTRQay1Ld2g0ZkUzSmlfNHBVZDhjN0MwcmtWVmZ0M1FhM2VXUHljOE9memZHc0ZhcFNiaXZvdk9BOU96S1phaVdGeDRzcm5Ud1VjZ25pQ2hjLWdQSHJ0QVg0RFVFOXZxazdrVEE?oc=5
-
-## Taylor Swift returns to social media to wish pal a happy birthday - MOViN 92.5
-
-- first seen: 2026-08-17 21:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift returns to social media to wish pal a happy birthday  MOViN 92.5
-- sources:
-  - [unverified] MOViN 92.5 — https://news.google.com/rss/articles/CBMilgFBVV95cUxPcEUya2dobHpTbk45SXUwSmdyY2x4bkl4cEFyUm5RN3lLaUtycGk0aXVSVzJ5eXB1cXczNW9uV0k1bTNDWldlVF92NEstQWlMbFlKcHk1U2JtVjNwdDZvRy1pOUFGZ0xIQ2tBemxaUXJVazdSd2E0UTZsazlXd1RCLUFsMzZkVDhRRHBVOGlMSXpWaE5vb2c?oc=5
-
-## 6 Years Ago Today, Taylor Swift Made Her Return to Country Music Radio With This Aching Ballad Featu
-
-- first seen: 2026-08-17 21:36 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 6 Years Ago Today, Taylor Swift Made Her Return to Country Music Radio With This Aching Ballad Featuring a Teenage Love Triangle  American Songwriter
-- sources:
-  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMi8AFBVV95cUxPT0RYcFppTWYyVHFmdnhVaDJHSWNVanVxOTMxdmE4dHdka2ZFSW11bDdabTNBVGlTUERkTFphRTRzb0dSSGdfX2RBNXBxbGZpUE9kRUhyYl9UUVk3eXQ0YlU5QlA0aWVWWE1jaUNzZk5RV3FQcklNbmtqVGVDb3JRZDdxM09YQnZXQW1tNU9oU2s0MjYwblI1ekxLcUFWR3psU3k4N1JpeVZqZ0xrbjkzcDE4Smd1YWhxbUNaanRkaUU1R0ZRZEpXRVVYaFlsc21VamVRdl9WakRWSnR1eFRHc2t5aDU0a2FvOWQyLWhITkg?oc=5
-
-## Taylor Swift Just Gave Phoebe Bridgers’s New Album Her Stamp of Approval - Sports Illustrated Lifest
-
-- first seen: 2026-08-17 21:36 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Just Gave Phoebe Bridgers’s New Album Her Stamp of Approval  Sports Illustrated Lifestyle
-- sources:
-  - [unverified] Sports Illustrated Lifestyle — https://news.google.com/rss/articles/CBMijAFBVV95cUxOZWt5NTY0U3Y1ZnM5T2l5TGxHMktJU3p1TjRYXzVTRVp0aHl0dmRuVWNtdkNuZmRZa2Z2eDZOaFNNVEhjX2tDc296NVBhV0NzZzFrV3Z0RExhcWlqTnlKVmhzRUlERzZ2Z0FPVVEyV21xYnZDbjVCLXk0TXFzakxsMnZyeEZfcTFXMVhvaA?oc=5
-
-## Are Taylor Swift's shorter hair and lilac nails clues that we are entering a new Swifty era? - Laine
-
-- first seen: 2026-08-17 21:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Are Taylor Swift's shorter hair and lilac nails clues that we are entering a new Swifty era?  LaineyGossip
-- sources:
-  - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMitwFBVV95cUxPSmNrQ1JUQ0ZPM1RadHpHVXFONXpud2hFUlZNaW4zS1h4d21pSkM5TkZ2MGVueHVsRHM5R0lMaEZNS2NMZ2RibV82XzVNX0lva1M4SjdORER1QlduaXhCYVN6Ql95MW54MHVOT0FiQW9CZTEwM1FhMmw1dzBOUVhraUxhX3JVdG9zdHZxU3N3TWRLTDNvNFJ0dlhDSjByeTRLZ2phbVNiaVJpdTNXYkF4emgtWjhkVjg?oc=5
