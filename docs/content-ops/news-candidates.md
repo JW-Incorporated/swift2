@@ -27,6 +27,70 @@ so far".
 
 Stories: 85
 
+## Madonna Leads 2026 MTV VMA Nominations, Taylor Swift Is One Win From History - Men's Journal
+
+- first seen: 2026-08-20 17:41 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Madonna Leads 2026 MTV VMA Nominations, Taylor Swift Is One Win From History  Men's Journal
+- sources:
+  - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTVRZNWpOX3Rlb0NQTUNUaWxOZ0V2SEVrUmp2bG96bWJjcEVxYTFLdF9ZZFVQVDNJWENPeG1VVWpSaDNxLUNqWFdpcHZSSGhaTGlZYVlzejQySHhmTUF0bTUwSGxNWnhsSDA0clFLQ2xucFZMN0JkWWktb3lqZXl4ZDNUYnlXSjF1VFBGSG40M1VNVTRVUk5pcUNQdC1aZlhya3hvMFlsRE9hUzJWLUptN0VERmFfWG50?oc=5
+
+## Kylie Kelce Blames Aunt Taylor Swift for Her Daughters’ Latest Obsession - Yahoo
+
+- first seen: 2026-08-20 17:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Blames Aunt Taylor Swift for Her Daughters’ Latest Obsession  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOWFg3M3dVX1pOcEJxX0FreFdsTUhuR2FLWWVUZ0dmOENubVMzbVBNeVVsdExXay1HOVdGV2JMYTl6dk1ucXFud1N4djBSbEpfWEJYZmJjYlVmVTF2TzFGdFNLdWh0d05UM1E3TkJ0VWtIU0E0UHk2OFMzc1h0S3lwLXRqWjNhQm5qY2NveDU3azZGUk5HbmUtT3FDVldqMV9IVXc?oc=5
+
+## At Taylor Swift-Travis Kelce wedding, ex-KC MLB star got scoop on tie to Beatles - Kansas City Star
+
+- first seen: 2026-08-20 17:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At Taylor Swift-Travis Kelce wedding, ex-KC MLB star got scoop on tie to Beatles  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOdXloRWg1Y21OYkROSWVKUGxDekRTS2RLcDladUpma1lDdnJNcnRyVWY1bEg0Y0FXVXB5a0VXUDlmOWFqdXNsVjBoSFdwMzlqdEh5YXpHWkt1czJkbmxIZ3haY3BqSnRGWk03UUZjaF9leDI0a2RVV0dBTV95WFdQbnpvcGJDZWs3eklyS1JQTUp1UdIBkgFBVV95cUxQQUNMYWpGaUN6eXFxU1NPRTZLU1BjYUFzOHhQQ3h6U095OUV6ekR0REk5bjRiSDY5TkUwTk9fMko0bzBPeEFUYXJiei1naVQ2RmFnUjVwM0UxVktvUF9VemRKWXM3Z1FMMk4zSExBS1ZhdVhOQlNsTERaVzAyZkdwcGgxYVRpX28xYlVaelZXbG44Zw?oc=5
+
+## Taylor Swift’s Ex-Boyfriend Conor Kennedy Has Been Put on International Wanted List - instyle.com
+
+- first seen: 2026-08-20 17:41 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Ex-Boyfriend Conor Kennedy Has Been Put on International Wanted List  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNVFhPX3VZRVNZMjJ1dkNCN2dWTXFqaDRqRnM0MkFtSzJMZ3kwWTJLSThNYjVBQmdENkZXdzBVN1lySFVxZHNfbDBrZzF1cHlYcGNlRUNNYk02MFkxWTBEVDJnWG85R2hMRS1iNkxRMUdhM0lVaE53VnVRTWJxNXhUalk0V3ZZc0YyYUtveFY2TTdMVGVFaFkyell6V1A0R1pkalBNZjVaYzl5U05rVktWaDFkY1RwSU5XQmFUNktLSmI?oc=5
+
+## Alex Aster Listened to This Taylor Swift Song on Repeat While Writing Barbie: Dreamscape (Exclusive)
+
+- first seen: 2026-08-20 17:41 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Alex Aster Listened to This Taylor Swift Song on Repeat While Writing Barbie: Dreamscape (Exclusive)  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxONTdkcWFpQnpYN0xrR1NIdW9rclJ4LWhBZGVxa25LWVhzMU9PSFNRcUY1OWVHRzQtckRhc212Nm5RdEZtLTZIbHFJOEpzVDhHdFp2N2U1VUNXSHpTT1pobEE0UE5KWmY1eHRFV0VzNllLYTFUZW9Samgya0JsbEZQWXU5Q09DR3d2VW94OTFMNlA5TEZLTnlpcDh4NHhEMnVvOGRfVDI2QU93VVA1d0VtczVDdzNpODNfSGdOTFdzcHN2TVU?oc=5
+
+## Taylor Swift & Travis Kelce Had One Controversial Omission From Their Wedding Guest List - Yahoo
+
+- first seen: 2026-08-20 17:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Had One Controversial Omission From Their Wedding Guest List  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSXVoM0hLTXZHLTZobmN6VHFncE4zcWpOOTBjYkFLd00zU3phUlJUdHlqNTQ4Y3JaV1hJV1dPODJ6TlFVVy1ldTVuZzZYNWx4UVl2M3lRaTVscGJRMC13Rm5FY295aU44OEpHWV9iRXVpN0pZNThPdmtybXd4aTBYUzR4bkdqdEVuMVRzYnJFZThBT1hGTnJHVGhHcmF6X3pM?oc=5
+
+## Madonna Leads the 2026 VMA Nominations and Taylor Swift Is Right Behind Her - centraljersey.com
+
+- first seen: 2026-08-20 17:41 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Madonna Leads the 2026 VMA Nominations and Taylor Swift Is Right Behind Her  centraljersey.com
+- sources:
+  - [unverified] centraljersey.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPNGVfaU94NmdnQ0dydmVGUUZhUW1scTBFN01qdFdrUE01bnBBT0dnRm0tU2xxWHJSbW81Wm5PdUNrWGFJY3FhLWREV1FLbDJCNDJ1NmV4bVZVNUJYVVVUQjJaUlozWFl3YW5Rb0lFYXQ3Q2swYzZ0dFpEVWhRVEhIMDBmWUpVT2xubG1r?oc=5
+
+## How Taylor Swift Is Influencing Her New Nieces, According to Kylie Kelce - instyle.com
+
+- first seen: 2026-08-20 17:41 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: How Taylor Swift Is Influencing Her New Nieces, According to Kylie Kelce  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxPZXZBdGUwbWhqTGdodF9mRzRMUUZYT2p4QkdFMkIxMDFwMm5DUEJzX04tWmRMSTZIZWhxbGdtcC04Q0FYWVVMakFGdHF6ZVA5YkZtUDF3cUcybDBndlp3NG9GZ3hnQzFtYUJjTFloUmw2R0FRSXN6M3BuRFM5amFpX2RhME9UVGc4ZXJEeQ?oc=5
+
 ## Taylor Swift’s Wedding Ring Has a Hidden Romantic Detail Fans Can’t Ignore — Report - Yahoo
 
 - first seen: 2026-08-20 13:56 UTC | category: relationship | importance: 5
@@ -671,67 +735,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Are Taylor Swift's shorter hair and lilac nails clues that we are entering a new Swifty era?  LaineyGossip
 - sources:
   - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMitwFBVV95cUxPSmNrQ1JUQ0ZPM1RadHpHVXFONXpud2hFUlZNaW4zS1h4d21pSkM5TkZ2MGVueHVsRHM5R0lMaEZNS2NMZ2RibV82XzVNX0lva1M4SjdORER1QlduaXhCYVN6Ql95MW54MHVOT0FiQW9CZTEwM1FhMmw1dzBOUVhraUxhX3JVdG9zdHZxU3N3TWRLTDNvNFJ0dlhDSjByeTRLZ2phbVNiaVJpdTNXYkF4emgtWjhkVjg?oc=5
-
-## Taylor Swift Snubs Blake Lively for Selena Gomez in Major Pact — Insider - Yahoo
-
-- first seen: 2026-08-17 17:39 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Snubs Blake Lively for Selena Gomez in Major Pact — Insider  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPWmNpenZXNWxkOENwWGozR2dVSU5YSkZpcEZGOElfMF9vTldIQVhPMHVIVVo5eWM5ODlLSXNPV0huckR4bDhKeVE2WDEzWXh4cUJCM25TWTNrWGdKZ3k1REpyMFJkVlhsc2x3UmFRUkYwUWFYbDRnWW03b0JWaXBBT01IaEhfMnY5alJKeEM1UHVzMUNvQ18yZ3dKeVdQbHJwV3NJ?oc=5
-
-## Traffic Deaths Rise 15% on Days Major Albums Are Released, Study Finds - Gizmodo
-
-- first seen: 2026-08-17 17:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Traffic Deaths Rise 15% on Days Major Albums Are Released, Study Finds  Gizmodo
-- sources:
-  - [unverified] Gizmodo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOMEx4Q21DMFVWTERBU25KaHNjV1ZqNlNCcnBQY2g0TU0zMkMwZEM4VlN1N3Z6Tnh2WEV0VVJsejBzdHhscXgwQjRDaEo4N01YV1ZmTlR6ZkloWTVoUXh6Si1VbzFmMnNOd0pqQklnTEhoRTRQSlJTU2JRUjlHTGs5clJaT0Z5LTZqZHhQUExjS3lEcEZGLXZObjFybWlKOGhS?oc=5
-
-## Taylor Swift Flashes Her Updated Ring Stack With an Unconventional Megawatt Wedding Band - instyle.c
-
-- first seen: 2026-08-17 17:39 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Flashes Her Updated Ring Stack With an Unconventional Megawatt Wedding Band  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQMnZES0paaXBYdTJiSUpLaTZEeEVFU0R6LTVzdlpPTS03UkRWNzNab0dWQlI5RU5BaHNDZE13b2tnY3lMVkxQRGs1M2ZuNUlacTRDNDQzRlducEg4SnlEZldFSzZVRFZQczdSX24zODNLem5Xc0R5MXFhX09OeUdqVURfaUI3VTY1d0RWXw?oc=5
-
-## Taylor Swift Debuts a Short New Haircut — and Fans Are Sure It Means TS13 Is Coming - SNJ Today
-
-- first seen: 2026-08-17 17:39 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Debuts a Short New Haircut — and Fans Are Sure It Means TS13 Is Coming  SNJ Today
-- sources:
-  - [unverified] SNJ Today — https://news.google.com/rss/articles/CBMiakFVX3lxTE1tMktEUXdVWDIwV0p0Si15WjZzWHZkZGF6SEpCQW45eHNzcjNEWU12WVM0dUw0bklGd09kM2VIUG0zWmNXWFUtalBRQ0pBY3Q2OTQzZkEzYVVGczBSa01OMDYzaDVULUt5aGc?oc=5
-
-## Florida Orchestra Starts Season with Swifties and Pirates - symphony.org
-
-- first seen: 2026-08-17 17:39 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Florida Orchestra Starts Season with Swifties and Pirates  symphony.org
-- sources:
-  - [unverified] symphony.org — https://news.google.com/rss/articles/CBMihgFBVV95cUxNOHFCNWpxVVhEZUpjZkJVZHRkZ3I4ckJHNEN4NEtudHkzcU5DTVFJbDNDeXlMRGZacWdqcjBFUkxMUXpDb2xhbmgyM2lwZGVjRERLM0tUTG9XNDBDY3Izdm1XNEQxOUtNM0dSYmlfWFJYOG53bVlSTzROek9pZ1o1cTItNjJrQQ?oc=5
-
-## Cristiano Ronaldo’s wedding is a crucial lesson for every couple – even Taylor Swift and Travis Kelc
-
-- first seen: 2026-08-17 17:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cristiano Ronaldo’s wedding is a crucial lesson for every couple – even Taylor Swift and Travis Kelce  The Independent
-- sources:
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNb0hTY2NDWU1xbEF2eHJ1YnRoQVY5bHRjY2Z1UkN4Q1pacGJ6NUsycTcxVkpzWE5jT1Z6TTh6ZGNKR25wTzYxVmcxTV9tTXc5ZTZCUXN2MDc5WFJKLXZONFMzRVlzV1E2Um5DSmF5d1VCeGpSdkhGblQ1R2M3TnBQV3VKM1FGa09WVDA5TTdwTklGWlItbUh4bm1xYTg4bzhJdDN3NXFEVTE?oc=5
-
-## Taylor Swift Debuts Post-Wedding Haircut - PureWow
-
-- first seen: 2026-08-17 17:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Debuts Post-Wedding Haircut  PureWow
-- sources:
-  - [unverified] PureWow — https://news.google.com/rss/articles/CBMib0FVX3lxTFAzOW0zd2h0RlR6aFVnRHlGQ1N2S3NHTjc0emRlRzAtZ2FxNmswSHZIUUJMLWJoNnVPd0QzX1JWZ0dybDMxbnh3SFVQYkNXZDdzTTV3b253Nl9ZUDcyUHJLMi1kVktyNDhaNDAwMWxhZw?oc=5
-
-## Taylor Swift Steps Out With New Haircut That Might Be Her Biggest Hair Transformation in Years - gra
-
-- first seen: 2026-08-17 17:39 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Steps Out With New Haircut That Might Be Her Biggest Hair Transformation in Years  graziamagazine.com
-- sources:
-  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMizwFBVV95cUxNNjFoMV9QdHhYNVZXVFBkZ1Q2UG5kcmZHcUJ0dzE2M2Zoc3RZS2RleTIwQXdvWGtHVUJEYmNteXV2OGV0QlZiSm1XbkJpaHkwSFc4OFNEZC1pT1lOcUowbHU4SXd0Q0lTcXdQbTV3ZWVfSFZ0ZWUtNmhwTjdmLXJFeGFCZENIRWMwbF9fSTA0bGxCc3hkRzVJSlN0MDRpNEpHZDdmS1ZkOFVRN1hhdWl5YVhfSlhfbEN5bWJzNUh5TFpEeHA4aHdkenZQaWowUmM?oc=5
