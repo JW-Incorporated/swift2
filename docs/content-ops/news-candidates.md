@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 87
+
+## Taylor Swift’s Photo From a Wedding With Pop Star’s Husband Raises Eyebrows - Yahoo
+
+- first seen: 2026-08-20 05:43 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Photo From a Wedding With Pop Star’s Husband Raises Eyebrows  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOZ1o2LTNfT2NTS3V4eVIxMUFyRlBDRnZzZXpTYTV5VXZaa0lPR0JXOG9DWktkNUQ2TWVaenB4YVZxQVlDUUR0QW9qNHNxcXhSUi1kVlhoZ2xMamRCNmVnS1B4anR0OGFraUx1UmEyZE4tVlM5Z2ZldkVSUGhwZVN0OU14OGQ4MUlxTFZnNXN0SXlKTUQ3Nlh1UUZ3Z1U3YTBzNVE?oc=5
+
+## Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list - Yahoo
+
+- first seen: 2026-08-20 05:43 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihgFBVV95cUxOb2NnMHFsWElrSWRndHc1QW8tVXNZbDNRNE1IUUwxYS1GcTNickstd0xmd2l3RE8wUXdjeHlIWTR3c2dVZngzQktWY3JfOXRPb1VrczBkVjR2YWx1NTFrMmI2SGtjSVdUTEJVb1AzV2ZUTG5LSXgzSmVXVDRZNEVTancyWk12QQ?oc=5
 
 ## Exclusive | The meaning behind Taylor Swift and Travis Kelce’s ‘timeless but highly personal’ weddin
 
@@ -131,14 +147,6 @@ Stories: 90
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxNaUo0VDhQN3hJNVB1Q3dPSzB5cHBxeVpCV280c29rNnVmaEh3MWtESnZtSHJySHhiSWNzWW1HVmZfcmlqM2xlTDBaejBManhPclliQmtsd3g3Wk9talhZME9adXhNeEh0WW1pWWFLeHdrZFByXzk3MHpISnNPclF0S09VZ184dXVmX1BMc2pxWHREUHd4Vmk4ZWhoakFZRFc1SjY1cmJQNA?oc=5
 
-## Taylor Swift souvenir for sale in DM. Bring a BIG truck I Exclusive - Yahoo
-
-- first seen: 2026-08-19 13:54 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift souvenir for sale in DM. Bring a BIG truck I Exclusive  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxPeUthOHNpYkY5bnpDSUF0SVNMa3FuZ29BODFtc0thd3QwdV8tbTQ3Tjg3YVkxcC1teHlMWFpBN1VtdEtEN1lSNHNzeWJkUEw2NEs3a2RCR3pkWHhLTzJqcGlvS2VKbGdFYzh4U3JqQTd3U0YzVjFhRnJ0TVZOQzFyTEk4bEViQ28?oc=5
-
 ## We're waiting for AI models like they're Taylor Swift albums - Axios
 
 - first seen: 2026-08-19 13:54 UTC | category: music | importance: 5
@@ -154,6 +162,15 @@ Stories: 90
 - summary: Taylor Swift’s ties to a rise in fatal US car accidents  newatlas.com
 - sources:
   - [unverified] newatlas.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxQM3ZlVEV5VEtQZVc4cU5qNEJKT2pHaE1JZXRMS3BNSWhTQmViWWQ4R205cWItZmEzN2gwNVBBZ29YMjBtdHpKV2ZsQTZCcmpEcEplZ2c5TlRBT2xPZm5QenpCVVgtV2N5SlhxODgzTklBZGlXNUVnbGxvRjNDVXp0d0dtMEtCSFg0ZTk3WTd0ZkthbnJsczMzLWtNcG1jcU1WandzOVUyYw?oc=5
+
+## Taylor Swift souvenir for sale in DM. Bring a BIG truck I Exclusive - Yahoo
+
+- first seen: 2026-08-19 13:54 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift souvenir for sale in DM. Bring a BIG truck I Exclusive  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxPeUthOHNpYkY5bnpDSUF0SVNMa3FuZ29BODFtc0thd3QwdV8tbTQ3Tjg3YVkxcC1teHlMWFpBN1VtdEtEN1lSNHNzeWJkUEw2NEs3a2RCR3pkWHhLTzJqcGlvS2VKbGdFYzh4U3JqQTd3U0YzVjFhRnJ0TVZOQzFyTEk4bEViQ28?oc=5
+  - [unverified] The Des Moines Register — https://news.google.com/rss/articles/CBMi-gFBVV95cUxNYU1DcXc4SlRLeUppTEFTcW1HQjRBVnVrUUpxTXFVUENMOUpaQUZoUzBoMm9TMFpzNm5rWWs5bmhSZS1GQ1JOQjBKUm5oZkVaY1JVRVNqYjFhQXVuOVdVUk5DbjhrbTUtUGtpWmRRdjF1X2NMTEs2QTEwemdQQmwtUG40bkpkMmRpZGdZa2xzQ1hQcXJpQi1zYlFkUS1ENEtzaHkyUGNNOW9tdndaQzVrcGUwVlZvX1FvUVRRTzRJemkzWlVpenZma3NaU2lDZlplVHF2Y0VOU1pmVFFCZFJZWGRWMTBFRXZGUkFJUEtBRVJISU9jR1RLVWxB?oc=5
 
 ## Sabrina Carpenter, Madonna, and Taylor Swift lead the 2026 MTV VMA nominations. Here's who else made
 
@@ -733,43 +750,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Travis Kelce’s Recent Taylor Swift Comment Has Wedding Guest ‘Frustrated’ — Source  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPNGZreG02QUJTSmgyUGlOamZzbXZrVkpnZU41N0E0MmxHYVQyM19PYWhoNW5vT1FDX1RpLW51dXlJU2NSYkUtUjV2OTRzcERMYTJJUzQzSXNWOEhYRmg3a0N0aXNtbUVaWkFFV3JLT0h0cGRYTlVNMm1xd1p3QUY0cXJETU4yN0JKQ24yeG9aMEsxdEF4MmNUcTB2VjJqSko0dHcyaw?oc=5
-
-## Taylor Swift Shows Off New Haircut at Star-Studded Wedding with Sabrina Carpenter, Jack Antonoff - E
-
-- first seen: 2026-08-17 02:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Shows Off New Haircut at Star-Studded Wedding with Sabrina Carpenter, Jack Antonoff  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMimAFBVV95cUxNR0hzTjgxcG56NEtyVGg4UjZqQy1sYlppVmdkX0xYR290dTJGZkVFTzdYdmtieGZIQ3pRS09BMjluX0daTy1YQnNPQlR1ZGNRNVFpbEtOMExZcTJxLU92S1ZvQ09naFJzNmwwamZVbWx6Nmxvb2NyUjFhZzRCMkc4UUQ4VklxaVpuTHBuQWVaM1NEVmdwcGh5cQ?oc=5
-
-## Taylor Swift and Travis Kelce flash wedding rings while thousands of miles apart - Yahoo Lifestyle C
-
-- first seen: 2026-08-17 02:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce flash wedding rings while thousands of miles apart  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTE9GRFJNU1JHbVRjZV9DUXcyT2xLMkNFVmFrbnlUUk9GUE9vcmJSLUhJX0FGdlNCM0hGRzdGWDZuV0FjZkZadGlEU295Q2M0NG5wamFQZ3l6VlljaXZRd0lqczM3ajQwTmxLQnFrQ01SeG1CWUFfVnhTa290ek5JUQ?oc=5
-
-## Travis Kelce’s Chunky Gold Wedding Ring Was the Star of His Preseason Game - harpersbazaar.com
-
-- first seen: 2026-08-17 02:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce’s Chunky Gold Wedding Ring Was the Star of His Preseason Game  harpersbazaar.com
-- sources:
-  - [unverified] harpersbazaar.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxQdmZUTnZaMk41Z282TFJRM0paemtyQ3VJZXppY2hxbzhxYUxTR0lqUjdkcWNzbmJqX3JVeG1XTFhOVG9YckhiUno1TmJUZHJ0QkFJVm1oUkxnNDhGT1c4dE1UNlVfYy1EOVFUOGxLVHN6MlRja2VJS2hRYzJSZzd5ZEJaY3Rya0RjaWE2MjFqeWZ3Tm13Z0NiVi1Qd3NRZU9IMlVZY2JEVGpjYUhYSWdQd1ZnMDI5TzF1bGRzeTQ5Z0pUX1BIMnc?oc=5
-
-## Taylor Swift Debuts Super-Short Haircut at Laura Sisk, Oli Jacobs’s Wedding - instyle.com
-
-- first seen: 2026-08-17 02:33 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Debuts Super-Short Haircut at Laura Sisk, Oli Jacobs’s Wedding  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxNbHNxQlZvcjAwTDNBR2wyWWk3b3J6VjhfeUsyeENwSm5aQ09iLWNxYUtwMXhUeVRSd09tdzBRbzk2Y2lPc0JHR2FJNnkzbzRRXzZyTlV1T0xZVWpuUndrYld5eEFvSFZXbEc5cGVIZnJRTlA1Qy1QUEhQbF9UbmJwcGdNTWIwaEJIZkxWZUdQT0E0RkVjTVZORFNGZm11SkxoVlhZZDdB?oc=5
-
-## Taylor Swift Wows in Tulle Wedding Guest Dress and 10-Carat Diamond Ring - instyle.com
-
-- first seen: 2026-08-17 02:33 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Wows in Tulle Wedding Guest Dress and 10-Carat Diamond Ring  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPcVRiQ3kwVDNIU0tMdW5zRVhCd0E2RDhMRndhbC1xbWZNOHU1UnlNM0lMVzdEOEgyRXV1TnlFZlpIcHdpTWlHQjY0RnVzX01NQV9HR3MwV25ZUzdTVDgyWkVPX0lHQm9lNDZZclNPOWE0UlFKdkJKX2VJQU5NQzJSVTljeXZrakFrZVdySUJDME53bXd2T0UzTl92S004aUIzZ21aY2dCUEM?oc=5
