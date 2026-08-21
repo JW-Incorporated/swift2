@@ -1551,12 +1551,22 @@ export default {
         // Re-reviewed 2026-08-01 (#762): checked for a Vancouver final-show
         // (Dec. 8, 2024) photo tied to the tour-total announcement — nothing
         // on an outlet CDN or Commons beyond wire/Getty art already excluded.
-        // Stays reviewed-sparse at one image.
+        // Photo pass #762 (2026-08-16): a second photo WAS on an outlet CDN
+        // all along — Variety's own hero image for the cited $2B article,
+        // just not one the earlier Commons-only searches would have found.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
-            credit: 'Emma McIntyre/TAS24/Getty Images',
             focalPoint: '45% 27%',
+            credit: 'Emma McIntyre/TAS24/Getty Images',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2024/12/swift-fringe-GettyImages-2188653759.jpg?w=1000&h=667&crop=1',
+            focalPoint: '34% 24%',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management, via Variety',
+            caption:
+              "Onstage at BC Place in Vancouver on Dec. 6, 2024, two days before the tour's final show — from the same Variety story that broke the $2 billion tally.",
+            kind: 'archival',
           },
         ],
       },
