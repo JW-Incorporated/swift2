@@ -1,5 +1,12 @@
 # Proposal — Chatbots architecture: Clownbot + Mood→Song
 
+> **⚠️ 2026-08-11 — the Clownbot half of this document is SUPERSEDED.** Joey
+> directed a full re-spec: `docs/proposals/2026-08-11-clownbot.md` replaces the
+> news-pipeline-fed, pre-generated-takes design below (§2 and everything
+> Clownbot-specific in §6–§7). Do not build from this document's Clownbot
+> sections. The Mood→Song half shipped as Mood Chat
+> (`docs/proposals/2026-07-19-mood-chat.md`) and its history here stands.
+
 Owner: Wyatt (CTO). Status: **PROPOSAL — pending Wyatt (architecture, cost
 caps) and Joey (product questions in §7)**. Date: 2026-07-07.
 
