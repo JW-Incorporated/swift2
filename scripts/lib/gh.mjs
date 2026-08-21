@@ -100,6 +100,58 @@ export function maxPagesFor(limit) {
   return Math.min(Math.max(wanted, MAX_PAGES), HARD_MAX_PAGES);
 }
 
+/**
+ * How long any one HTTPS request may take before its socket is DESTROYED.
+ *
+ * Not a nicety. Without it a stalled connection — a proxy that accepts the
+ * CONNECT and then forwards nothing, an origin that never sends a response
+ * body — hangs the process forever, holding a live handle, and every scheduled
+ * runner that calls this waits out its whole workflow timeout with no output
+ * to explain why. Callers can override per request via `timeoutMs`.
+ */
+const REQUEST_TIMEOUT_MS = 30_000;
+
+/**
+ * Every list result carries how the page loop ENDED, because the row count
+ * alone cannot tell you (#2034, finding 6):
+ *
+ *   · `complete`      — TWO-SIDED proof this is the entire matching set. True
+ *                       only when the API itself ran out of rows (a short
+ *                       page). The old caller-side test, `rows.length < limit`,
+ *                       is ONE-SIDED on the REST path: post-filters
+ *                       (dropPullRequests, mergedOnly) discard rows AFTER
+ *                       paging, so a truncated fetch can return fewer rows than
+ *                       the limit and still be missing matches — reading as
+ *                       complete when it is not.
+ *   · `capExhausted`  — the page loop hit gh.mjs's OWN ceiling rather than the
+ *                       end of the data. The list is definitively truncated.
+ *                       Also warned about on stderr, once per endpoint: this
+ *                       failing silently is what hid the defect.
+ *
+ * Both are set on the gh-CLI path too, so a caller never has to know which
+ * transport it got. Anything that must not act on a partial list — a dedupe
+ * ledger above all — should refuse unless `complete === true`.
+ */
+function warnPageCapExhausted(plan, pagesFetched) {
+  const endpoint = `${plan.method} ${plan.path.split('?')[0]}`;
+  if (warnedPageCaps.has(endpoint)) return;
+  warnedPageCaps.add(endpoint);
+  console.error(
+    `⚠ gh.mjs: paging stopped at the ${pagesFetched}-page cap for ${endpoint} ` +
+    `(--limit ${plan.limit}, ${PER_PAGE}/page, hard ceiling ${HARD_MAX_PAGES} pages = ` +
+    `${HARD_MAX_PAGES * PER_PAGE} rows). THE RETURNED LIST IS TRUNCATED — rows past the ` +
+    'cap were never fetched. Treat it as partial: check `complete` on the result rather ' +
+    'than inferring completeness from a row count (#2034).',
+  );
+}
+
+const warnedPageCaps = new Set();
+
+/** For tests: forget which endpoints have already warned. */
+export function resetPageCapWarnings() {
+  warnedPageCaps.clear();
+}
+
 let resolved; // undefined = not tried, null = definitively absent, string = path
 
 /** Locate a usable `gh`, or null. Cached — the probe runs at most once. */
@@ -192,8 +244,14 @@ export function proxyForHost(host, env = process.env) {
   }
 }
 
-/** Open a TCP tunnel to host:port through an HTTP proxy via CONNECT. */
-function connectThroughProxy(proxyUrl, host, port) {
+/**
+ * Open a TCP tunnel to host:port through an HTTP proxy via CONNECT.
+ *
+ * The CONNECT itself gets the deadline too: a proxy that accepts the TCP
+ * connection and then never answers would otherwise leave this promise pending
+ * forever, holding an open socket, before the request timeout could ever apply.
+ */
+function connectThroughProxy(proxyUrl, host, port, timeoutMs = REQUEST_TIMEOUT_MS) {
   return new Promise((resolve, reject) => {
     const headers = { host: `${host}:${port}` };
     if (proxyUrl.username || proxyUrl.password) {
@@ -207,7 +265,15 @@ function connectThroughProxy(proxyUrl, host, port) {
       path: `${host}:${port}`,
       headers,
     });
+    // `req.destroy(err)` tears the proxy socket down AND surfaces as 'error'
+    // below, so the timeout leaves nothing behind.
+    const timer = setTimeout(() => {
+      req.destroy(new Error(
+        `proxy CONNECT ${host}:${port} via ${proxyUrl.host} timed out after ${timeoutMs}ms`,
+      ));
+    }, timeoutMs);
     req.once('connect', (res, socket) => {
+      clearTimeout(timer);
       if (res.statusCode !== 200) {
         socket.destroy();
         reject(new Error(`proxy CONNECT ${host}:${port} → ${res.statusCode} ${res.statusMessage || ''}`.trim()));
@@ -215,7 +281,10 @@ function connectThroughProxy(proxyUrl, host, port) {
       }
       resolve(socket);
     });
-    req.once('error', reject);
+    req.once('error', (err) => {
+      clearTimeout(timer);
+      reject(err);
+    });
     req.end();
   });
 }
@@ -259,14 +328,33 @@ function warnProxyFlagMissing() {
   );
 }
 
-/** Normalise a `fetch` Response into the `{ status, headers, text }` shape. */
-async function fetchRequest(url, { method, headers, body }) {
-  const res = await fetch(url, { method, headers, ...(body ? { body } : {}) });
-  return {
-    status: res.status,
-    headers: Object.fromEntries(res.headers.entries()),
-    text: await res.text(),
-  };
+/**
+ * Normalise a `fetch` Response into the `{ status, headers, text }` shape.
+ *
+ * `AbortSignal.timeout` covers the body read as well as the headers, so a
+ * response that starts and then stalls mid-stream is torn down too — undici
+ * destroys the underlying socket on abort, which is the whole point.
+ */
+/* global AbortSignal */ // a Node 18+ global; same pragma as check-link-liveness.mjs
+async function fetchRequest(url, { method, headers, body, timeoutMs }) {
+  try {
+    const res = await fetch(url, {
+      method,
+      headers,
+      ...(body ? { body } : {}),
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    return {
+      status: res.status,
+      headers: Object.fromEntries(res.headers.entries()),
+      text: await res.text(),
+    };
+  } catch (err) {
+    if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
+      throw new Error(`HTTPS ${method} ${url} timed out after ${timeoutMs}ms (fetch transport)`, { cause: err });
+    }
+    throw err;
+  }
 }
 
 /**
@@ -305,22 +393,41 @@ function tunnelAgent(socket, servername) {
  *      `fetch` would silently bypass it. Byte-for-byte the same thing undici
  *      does (CONNECT, then TLS inside the tunnel), so the proxy sees the same
  *      request either way.
+ *
+ * EITHER WAY THE REQUEST IS BOUNDED (#2034). A deadline that only rejects the
+ * promise is not a timeout — the socket stays open, the handle stays live, and
+ * the process hangs anyway. Both transports here destroy the connection when
+ * the deadline fires.
  */
-export async function httpsRequest(url, { method = 'GET', headers = {}, body } = {}) {
+export async function httpsRequest(url, { method = 'GET', headers = {}, body, timeoutMs = REQUEST_TIMEOUT_MS } = {}) {
   const u = new URL(url);
   const proxy = proxyForHost(u.hostname);
-  if (!proxy || FETCH_IS_PROXY_AWARE) return fetchRequest(url, { method, headers, body });
+  if (!proxy || FETCH_IS_PROXY_AWARE) return fetchRequest(url, { method, headers, body, timeoutMs });
   warnProxyFlagMissing();
 
-  const socket = await connectThroughProxy(proxy, u.hostname, Number(u.port) || 443);
+  const socket = await connectThroughProxy(proxy, u.hostname, Number(u.port) || 443, timeoutMs);
   const agent = tunnelAgent(socket, u.hostname);
   return new Promise((resolve, reject) => {
+    let req;
     // The tunnel socket is ours alone; if anything goes wrong it must not be
     // left open holding the event loop (which is how the broken version hung).
-    const done = (fn) => (arg) => { socket.destroy(); fn(arg); };
+    // The deadline routes through here for exactly that reason: destroying the
+    // socket is what ENDS the request, not merely what reports it.
+    const done = (fn) => (arg) => {
+      clearTimeout(timer);
+      req?.destroy();
+      socket.destroy();
+      fn(arg);
+    };
     const ok = done(resolve);
     const fail = done(reject);
-    const req = https.request({
+    const timer = setTimeout(() => {
+      fail(new Error(
+        `HTTPS ${method} ${url} timed out after ${timeoutMs}ms ` +
+        `(CONNECT tunnel via ${proxy.host}); socket destroyed`,
+      ));
+    }, timeoutMs);
+    req = https.request({
       method,
       host: u.hostname,
       port: Number(u.port) || 443,
@@ -555,7 +662,14 @@ function restError(plan, res) {
   return new Error(base);
 }
 
-async function rest(plan, token) {
+/**
+ * Execute a plan against the REST API.
+ *
+ * `request` is injectable purely so the page loop — and the truncation signal
+ * it produces — is testable without a network or a token. Production callers
+ * take the default.
+ */
+export async function rest(plan, token, request = httpsRequest) {
   const url = (page) => {
     const base = `https://api.github.com${plan.path}`;
     return page > 1 ? `${base}${plan.path.includes('?') ? '&' : '?'}page=${page}` : base;
@@ -564,20 +678,33 @@ async function rest(plan, token) {
   if (plan.kind === 'list') {
     const hits = [];
     const pages = maxPagesFor(plan.limit);
+    let sawFinalPage = false;
+    let pagesFetched = 0;
     for (let page = 1; page <= pages; page++) {
-      const res = await httpsRequest(url(page), { method: plan.method, headers: ghHeaders(token, false) });
+      const res = await request(url(page), { method: plan.method, headers: ghHeaders(token, false) });
       if (res.status < 200 || res.status >= 300) throw restError(plan, res);
       const batch = JSON.parse(res.text || '[]');
       hits.push(...batch);
-      // Stop as soon as we can satisfy the limit, or the API runs out. Every
-      // extra page is a request we're charged for and a second we don't have.
-      if (batch.length < PER_PAGE) break;
+      pagesFetched = page;
+      // A SHORT PAGE IS THE ONLY PROOF the API had nothing more. Record it
+      // rather than letting each caller re-derive it from a row count.
+      if (batch.length < PER_PAGE) { sawFinalPage = true; break; }
+      // Stop as soon as we can satisfy the limit. Every extra page is a request
+      // we're charged for and a second we don't have — but a satisfied limit
+      // says nothing about what lies beyond it, so `complete` stays false.
       if (applyPostFilters(hits, plan).length >= plan.limit) break;
     }
-    return { stdout: JSON.stringify(applyPostFilters(hits, plan).map((h) => shapeHit(h, plan.fields))) };
+    const capExhausted = !sawFinalPage && pagesFetched >= pages;
+    if (capExhausted) warnPageCapExhausted(plan, pagesFetched);
+    return {
+      stdout: JSON.stringify(applyPostFilters(hits, plan).map((h) => shapeHit(h, plan.fields))),
+      complete: sawFinalPage,
+      capExhausted,
+      pagesFetched,
+    };
   }
 
-  const res = await httpsRequest(url(1), {
+  const res = await request(url(1), {
     method: plan.method,
     headers: ghHeaders(token, Boolean(plan.body)),
     ...(plan.body ? { body: JSON.stringify(plan.body) } : {}),
@@ -586,7 +713,14 @@ async function rest(plan, token) {
   if (!ok && !(plan.tolerate || []).includes(res.status)) throw restError(plan, res);
   if (plan.kind === 'search') {
     const json = JSON.parse(res.text || '{}');
-    return { stdout: JSON.stringify((json.items || []).map((h) => shapeHit(h, plan.fields))) };
+    const items = json.items || [];
+    return {
+      stdout: JSON.stringify(items.map((h) => shapeHit(h, plan.fields))),
+      // /search reports the size of the full match set, so completeness here is
+      // exact rather than inferred — this call fetches page 1 only.
+      complete: typeof json.total_count === 'number' ? items.length >= json.total_count : false,
+      capExhausted: false,
+    };
   }
   if (!ok) return { stdout: '' }; // tolerated (e.g. label already exists)
   let json = {};
@@ -595,12 +729,38 @@ async function rest(plan, token) {
 }
 
 /**
+ * Completeness for a list served by the real gh CLI.
+ *
+ * gh filters server-side and returns at most `--limit` rows, so a SHORT result
+ * is proof there was nothing more — the row-count test is sound on this path
+ * (it is only the REST fallback that post-filters after paging). Computing it
+ * here means `complete` means the same thing on both transports, so callers
+ * stop branching on which one they got.
+ */
+function cliListCompleteness(args, stdout) {
+  const [a, b] = args;
+  if (!((a === 'issue' || a === 'pr') && b === 'list')) return {};
+  const limit = Math.max(1, Number(flag(args, '--limit')) || 30);
+  let rows;
+  try { rows = JSON.parse(String(stdout ?? '')); } catch { return {}; }
+  if (!Array.isArray(rows)) return {};
+  return { complete: rows.length < limit, capExhausted: false, pagesFetched: 1 };
+}
+
+/**
  * Run a gh command. Uses the CLI when present, REST when it isn't.
  * Returns `{ stdout }` so it is a drop-in for the old promisified execFile.
+ *
+ * List calls additionally carry `{ complete, capExhausted, pagesFetched }` —
+ * see the contract on `warnPageCapExhausted` above. A caller that must not act
+ * on a partial list should require `complete === true`, never a row count.
  */
 export async function gh(args, opts = {}) {
   const bin = await resolveGh();
-  if (bin) return execFileAsync(bin, args, { maxBuffer: 16 * 1024 * 1024, ...opts });
+  if (bin) {
+    const out = await execFileAsync(bin, args, { maxBuffer: 16 * 1024 * 1024, ...opts });
+    return { ...out, ...cliListCompleteness(args, out.stdout) };
+  }
 
   const token = findToken();
   const plan = planRest(args, defaultRepo());
