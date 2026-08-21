@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 87
+
+## We Finally Got a Clear Look at Taylor Swift’s Wedding Band – And the Details Are So Her - graziamaga
+
+- first seen: 2026-08-21 09:49 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: We Finally Got a Clear Look at Taylor Swift’s Wedding Band – And the Details Are So Her  graziamagazine.com
+- sources:
+  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxPOGhhRTlSYjUxNTNIdVhUNUFnbVdPQkZlckdmdFRMbks2NUNhZzdzUmdXb0lJZzdkZVdERmtsOGdJNG5xNkNLNVVxODREbHd5MXZVblUzWVBCTVJ5R21HMm5aTnB3TlI0cjJtWTNxY0tua0pzTUZDa2l0UnZnaWZjMC1hRDNzdEZGWlFVVW1NTWFOOXQzakpFSVdkbjlBUTBZRG1fX0tVUUNlRkhfMGs3eFZUaWtpdEVzU2JPdXJWZzJVdw?oc=5
+
+## Taylor Swift Fan Theories Explode After Empire State Building Turns Green - Yahoo
+
+- first seen: 2026-08-21 09:49 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Fan Theories Explode After Empire State Building Turns Green  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOOGdtVDdyb0hUZVhpYTFocE5Ra01WSWdiSG1FM2xHalY1aGFzZ05UenlYOW9ia2pzc3hnWnBqcktOX21rdzJkWXQwRXl0Qi01VERpWndYWHNVVlFEOU9VOF9DbXVLRnRzc0FPRGxEaUxzV21wYWxKcnZ5Y2hPa0J5cTlLaTNLU0lUTUZnRENqQlBlcHZyMkNhMUNIaHJLSGY1?oc=5
 
 ## Taylor Swift and Travis Kelce Didn’t Invite This Person to Their “Very Special” Wedding Despite Clos
 
@@ -729,27 +745,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
   - [unverified] Dailyfly News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMFNJa2JDN3NPU2Rac2RneEd5ektteGJCbHc5WkFndlNISjJuczU4bnlpZGhqLTNlOGRFSENFWVExeWczLUdTM29pR0FMSlM3bktheXlqbUhSNzBzQ3BqQjlKblVaYmdHSnNKWGRpM2ZCdFZfYXlKMExhTnQycEpMZy10RE81SzZieHFnTWNoZ3V0Z09zOHB0eTZIS3JDamVLZVBYZ2R5RnNfdw?oc=5
   - [unverified] Anadolu Ajansı — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDdsaHZxbFZfaGJacVlUQVZlMjYtdndGaW9aTmJMeTExb1o5RFRIRmgyc0NTSUgzOE1FUHBHZ3QzYXA0alM5XzVybWFTZ3dkd0hSdjJ1a25nY0dwRGtaYzN6QWQ1cnlHWTk3WktxZHVnTkNVM19hRkNaN25TNnpYS05yRlBjMXQxSGxVMU9jdXlpRXhnUFYwS2RDd2pVOGJ3ZUpOTlNkQnJlWmc?oc=5
   - [unverified] 101.5 CIL-FM — https://news.google.com/rss/articles/CBMipgFBVV95cUxPTU9sbWlJbWJBakdzcTF3WlloNWtOeGxfY2hzRDZhUUhjWTRpRU02UWotZlczLUgtcHVRRDJsNzJacVdOaFRSMXNQdnJjeEVwQ2xNa3d4LThCclVuclJYNVhiZG5DZ1I3YjFBdFptbWNCNExTd2hSZUlCOUxZYW56VUc0c3otOS1nS2pENzVka0paNnpBeXV3RjBUQ2lFOGctMlhtVV9R?oc=5
-
-## Taylor Swift and Selena Gomez plan to welcome babies around the same time, become godmothers to each
-
-- first seen: 2026-08-18 09:45 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Selena Gomez plan to welcome babies around the same time, become godmothers to each othe  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiwwJBVV95cUxONUJTR20taVkzTU40b1ZSZkVnV2ZhZDZqUFFOOUdSejVETWNhajlXVmw1MkxtZ2RIcnRBdkR1QlFrSWdWaC1nM1pfVXR3ZlVmaUdYYW40eUdqakpmMGRKbTQ1THdERDRSSnJ6VlJwRjY4b3pFYk45alRSVlp2V1ZPaE9Mc1htTmRCTHQ3bC1tejBLRkpDS0ZXanc5SXZjWE4wMUotWVNZS2cweUhEaDFXcHdrbTVXQUJDNk5uZzgzdHMzNjdpUUpJbEo3bmUzZkNrQTZuazAwY0VQb2FJdUptbzNpQjU1ZF80X1Z3RjVMQnR1dHBad1RWMjVxZ2k4TU9rbDM5d1ZlTF9TeUFnUmRwdjNLSWRFNWc2NWJMRFZtS0JJb0lSdF9JTkxSd2lQeDVid3I0c0RsVGNuWDRyZ0pfOE00ONIByAJBVV95cUxPRGkwM1Qwel9fV0RldE9fRkExOERHaU0tV2RuU3lsaXNjbWsyeHYxc2J3X1RRa2YwN1NPNXc2c3JiTXZLaFNtbFMxbll6eE5kOFZQLVhqOE5yeHo2RWlXeUFQQnFSdHpDeGhPNGhMeElibUkwN29jdHFKd1RJWnpTb3REQXdyMDVza243LU1EOVRISGNlS0xBNDdIWVB0S2swRWhhR3U3OFo1SjYyVUxDeERjV3o5eGdzTWZ0M0RrYTRHbGhVZWNzR0hHNFc3TXNTS1RGSWpKMndMa3V5bzhQQVlNNGtXV3JMYmljckJDUjd1UGhadk9YdS1ZcmF0b0RwQmJ3eDg3bWNnVm5seDRtRUlNLWpOcTJiaGtQR002ZDBSblRqX3BpeG8zLVpQbGl6WEZSOFVOQVc2bDUxS1NGY2x5aTVUUmh2?oc=5
-
-## Taylor Swift & Travis Kelce Reportedly Have a 'Non-Negotiable' Rule for Their Long-Distance Marriage
-
-- first seen: 2026-08-18 09:45 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Reportedly Have a 'Non-Negotiable' Rule for Their Long-Distance Marriage  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiogFBVV95cUxQSE1OVUQ4Y3hCaldaMlJsSGN1Z1VldE9SWC01THdTd2RzRmNqWU9wQ05YMmRrUWp3Y2RpcW90bTJ2QnZhR21odGxwblFRZEY5ZXhfX2ZuZWFWd1JDaGpidThrdWozbXVEcDl2OWY5NGhUbzFJNmtST0lPS3pxWmhLX2RkVFI2MTJhd051MXFpdEcwTS1BRHdSemZYQXNBVXBSR0E?oc=5
-
-## Travis Kelce shows off wedding ring as Taylor Swift wears hers thousands of miles away - Riviera Rad
-
-- first seen: 2026-08-18 09:45 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shows off wedding ring as Taylor Swift wears hers thousands of miles away  Riviera Radio
-- sources:
-  - [unverified] Riviera Radio — https://news.google.com/rss/articles/CBMixgFBVV95cUxNaGIwdmxIcjVvQ1lUb29jbnpNWVRNX3hUOEF3Y3A0RF8xXzJsaTVabHBrZTFSLUZKa0lZSjFtVHZRQmE5MXdBLTZVZ3JrNEVydVd3MnltZjJxaDFxZzJBX0pyWkktWmFCNjNKU3haNmlOYVNWQUZXV2RiNFQtLVJfYy1JZEZmZDI0ZW9xaGc0bnJfcDRSQ1BGa0s3Z2V5d2h2R2FSeFgzR3pJYm00dUR5Q1Z1cnoxTkRpYkhWbGo1c1YySzQtTUE?oc=5
