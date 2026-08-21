@@ -25,7 +25,95 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 90
+
+## ‘Taylor Swift Tax’ Draws Suit From Rhode Island Homeowners (1) - news.bloombergtax.com
+
+- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: ‘Taylor Swift Tax’ Draws Suit From Rhode Island Homeowners (1)  news.bloombergtax.com
+- sources:
+  - [unverified] news.bloombergtax.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxPcnRNZ1pVV1g4QnhkeVFfR0gtQTg5RDMtRWpKdURuMXRodkoxbVpyQXJlQnlqUnZ3Z2FXWlNpTmJ4UXJkMVhHY19ISTZNR21CdjFYeUNLQWdKMEYyUzZzS29XaFlJWS00QXA4MXRtSEM3NUhjRl9OdkI4ZXNxc2MyTXlTczJyWG9peklOZnlJN0ZWOEx3Z3BpeWhaV0VpOVl0WFoyMlB4ZzB2a3RzN0E?oc=5
+
+## Taylor Swift, Travis Kelce are married – Updates on guests and more - USA Today
+
+- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Travis Kelce are married – Updates on guests and more  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMizgFBVV95cUxOTFozNl9ZbmowZlJNRHhMclk2YUI2TnVQN3lyZGh3NlFaSE04WjJCVGplRklQd1psMGZsZmtpbXVnZFNuakRWRG5qOTRVYl96d0VTWlJZM29FcEQ3clpMUUpUR3pEZ3B1SnljU2JEZWMxbnRhaWRsS1dSQkZvYWxLR29KYVdpSmNwa19sN1R4QjhfUXVFc3N0OTlyb0h6ZmM1ZnI3Wk1pQVNQc3Bic2gwTjdCNDhuZUotNnEyWDBfQk9JSm1YYnZBYzd2akJlUQ?oc=5
+
+## Taylor Swift's new Samoyed steals the spotlight: AVMA shares tips for choosing the right dog for you
+
+- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's new Samoyed steals the spotlight: AVMA shares tips for choosing the right dog for your family  American Veterinary Medical Association
+- sources:
+  - [unverified] American Veterinary Medical Association — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQTjh5TTRKZDlvWG1BQ0pnSG1lZmZCa2l1dVE3Z1JMNUpOT2QycjFDVDVZQmprdlRRbm5BNVFsVzU1OVVybjJyaFQzOWEtWTlIc3ROVDJIOW9iazhmRGN1N1VIZ0NaRV9lNG0yYUdaS29uRlktMnJDa1NsNXR5dnJhQlg1Z1YtWEg5ODRnRElIVnotczdLOEdCbUpUTkYyZEdMREo0SF9WaTFBT1JtZGhXM2Ffb3JzaGUwT05n?oc=5
+
+## Taylor Swift's Ex-Boyfriend Conor Kennedy Wanted By Russia, Could Face 10 Years In Jail - NDTV
+
+- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Ex-Boyfriend Conor Kennedy Wanted By Russia, Could Face 10 Years In Jail  NDTV
+- sources:
+  - [unverified] NDTV — https://news.google.com/rss/articles/CBMi4AFBVV95cUxNY2wyQTRfbExLNkxMUHdCampaMGNvbkxyelBJMkw2RU84OGFtM1VmUWNYeXBUU0o4T3k5cWQ3bHZyaC0zVmx2bkRXMGFmaXZReHhNT0R6TkFtSHRsRzRkWjdHQ2tjNXhfSExnYjVFbkQ0TUZkN2ZIWkJJWXduMFUzNXlVRm96NzJOa05DbFJKUGUxOEZaMmdEbDVWU1JrWEpiNUZHemtQX0FrVEFXRUlQRllQbWtZOEV0LWVlRzFvcmdFSXQ4WVB1YVhGZ2Nfek15MlJkXzhPRGNUMW00VEJqbdIB6AFBVV95cUxQXzllc0Q4M214ZkZLYVBFMDJYVjRRS2phR1Bpd3lWS3lwRU11bDRWYV9vTFFYNF85Q0dnNHV6QVA4Ymx0dnhnR1M4YXlOS2lNeTViZXB2Uld3R1hxM19wZTNiZmZFQmIzc0xDeUNnZTNKVmxaOXhHcWFZZHdHZTh4QkpxRF84MUFnY1pESGpaMG9mczhLMndzeE1ubHU5b1ZibU91SnN4aEVtRllpQzBEM3k3ZmNCRDJVM1RlUFAtck9vVlZZaE5FTHRxczY0cFhvNFVNd2g3UVM1aHI5NndtcUxqbU16bHhM?oc=5
+
+## Gracie Abrams Officially Shuts Down Taylor Swift Rift Rumors With One Comment - E! News
+
+- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Gracie Abrams Officially Shuts Down Taylor Swift Rift Rumors With One Comment  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMivwFBVV95cUxNQ19MY0pmV2IyS2xTWmZ1V0l3dERmX01LeUg2dXZGLTN0S1pPaTZaZnVkdGxNS0dtUVJpdXBENllkODRkXzdFTmx0N2ljOGItSnA3RzdGYzRFY0xSc1dMcm1ELXBUR0x0SnZsVTFjYmJTY05vUmdlLWtFa3hPRGI3V3d3V3IyZkxWMkswT2UxeFpQWjZIVGFFcHJrWGV3c2RMTXEzWmstbWE3SUxOclgwcGE2Z21JaGRwVlFnNTZMUQ?oc=5
+
+## What Christians Can Learn from Taylor Swift’s Latest Accomplishment - Movieguide
+
+- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: What Christians Can Learn from Taylor Swift’s Latest Accomplishment  Movieguide
+- sources:
+  - [unverified] Movieguide — https://news.google.com/rss/articles/CBMiogFBVV95cUxOR05fTTRpTlRUd1FXZzlnQ2RhcnlpSEE2Q3hleWw0c2JVam1XWDBfSllFcFotbEtyeEtZVEQ2WERVVzlyajg2aVB1eG4wMGMxNGZwb084N0I1Mm1aMGF6SjZYMXhVcDZxMi1wcXYxRXNLeHVWWkdHdUdqQlg3QUpBckl6bjZHVUc2MzVkTGJSWm9tVmh1aE52Tzc4bngzcHFfNGc?oc=5
+
+## Swifties are freaking out over these supposed Easter eggs, but they shouldn’t be - Nine.com.au
+
+- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Swifties are freaking out over these supposed Easter eggs, but they shouldn’t be  Nine.com.au
+- sources:
+  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOb2IxamRRaE9uVlZTSVV6OGhzUUpKMzN3b0V4OHZoX1NsSGJ2eGF3TkxjNG1QWnlxa2RSMDdfUFBIcjJTZGFGRXIzeEkwTmE4bWRZaFlsSmVOTmVqTHlEQXlSdVBmVHI0ME5FZHJGd0l4MVhNenl6RGxyWVV1YUVKNUtDZjVsT2ZicWYzdDVONFNMT1pWQkdfZWZENnBPNVhTUVpuRTU0T05DVGdUVzMwQnJJWEwwdjJQQTB0XzF2aDR2UQ?oc=5
+
+## Taylor Swift to drop new music post-marriage to Travis Kelce? Empire State Building turns green, mys
+
+- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift to drop new music post-marriage to Travis Kelce? Empire State Building turns green, mysterio  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiygJBVV95cUxQVUJEYUhKdUozTzh1TDFjR0lUVWh4TXVMVW1ieExnTUJHRVNPMDM1cXRITFc3NkFKVE04aFZYVjlZT0FOSHRWbVVIeFNoemdSak5uNF9oOXhneGdfcW9OSWpfYjFnalRhd05lSHRVNzVkeTBoeVhqLURncUdSaXdMQUxfdmFuVDh3SkgzZ00wNHVnVTlQeEN6SEhFX3RKTG0zQW9zaFVQaUZ2RGxjbnRMN2NPaG1rcTlRc1NaR3VndVhOX2RMZUc3NzZkQW1tUUZqeU40T1B3WHhWU3BxQXFTT3dpdGdVNTh1OThkNEFRWDNqU1FMeW9jTG1adkk3SkNNNWdEOHhOclduYW1talF6YVhCQlhPQXRGZVJXbjFRUlNTbl9WbUl3d1FmbFpPak4teXlNc01Gb1ZTNE52VUhmRnVWOFlBZUNzaUHSAc8CQVVfeXFMTTdmZUJkR0w2MzZJMTlhODhpaXFfQXJEY1NNVWloNGpuRkpqd3Rkc1p5Z3EtdXlCbjRHa3dqZFpBbG5GdEd2YmNpRnpKNWZsazZPeWRXeTNRRkNPRWNWY1ZPZm1MN0pCaU5kOWdEMW96WlA3VVJCQUgtbUY4amtXQTN4b3VkLUh4d0EtSHJnb3VJRzkwV1pBRWtrV3pHN2VQTUM3R1Y5TkxoVjQ4blVvYU1zeDR5MkthRm5PemlQODk3Y1Z5Q3gtMktoQzV6TU5tUnQzSHAwakNULTc1SUc4Q1RGZnZRRmFyczAycml6bXhqcFRsX2REeHBXUWxtYmR2WU1pLVZvSFRwc09xZWxqYlBqMkZxZGZxMWNQZUd4amlGZ2RfRU55WTEzaXRLbndyYy1qaFdZNkhRYWhZd19fZmd0X2FDNExRUE1Jam1nR28?oc=5
+
+## 40 Plus Rhode Island Homeowners File Challenge to “Taylor Swift" Tax - Go Local Prov
+
+- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: 40 Plus Rhode Island Homeowners File Challenge to “Taylor Swift" Tax  Go Local Prov
+- sources:
+  - [unverified] Go Local Prov — https://news.google.com/rss/articles/CBMioAFBVV95cUxQaTRZNm9ydV9pMF9wRk5FNnhXLWJpcVBBdTZlZDYxcjdVblR0S25GMGhIYmxPZHRTZEZWdk9tRmtuV0w4STdhLU8ydW5MdFI0TlBqYVdnam1NX1Ntb1FCNDhMM1NsTTJNazB1TFJDMnc4cEpJS04zcmJDVmRYREptOVYwRnJMRTVCTW1CSm5MN1FFM3RrZ0RSejAyRndIVGNQ?oc=5
+
+## Taylor Swift clashes with Jason Kelce as she steps into her fun aunt era - MARCA
+
+- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift clashes with Jason Kelce as she steps into her fun aunt era  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMizAFBVV95cUxPTjFTRW00NUJ6azh4OU1EUXlVTmpQd0RNNjd4SjdWbldFM1JIb0NCOHV1Q25lWEprUDVqRm56RUpNVjhCV2dvb3FXQjNFLTlsMWhBdGJtN1VXWF9sMXZQS0xoWDFyQlhVRkxjS2xkSUd3Y3EzbHdmclFLVUZwejdJX2taY01ZVElsc094YW5FYnhDUDlzVTRrNS0zdnpESWJidjlDdUg1WWZXX1ZaQ0pHNzFwb0x5NXBiRFVMN1I2SjI2bmEwVURvMXRrNzA?oc=5
+
+## Taylor Swift's New York tease - Nine.com.au
+
+- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's New York tease  Nine.com.au
+- sources:
+  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMioAFBVV95cUxNZkR4bXBaWEtmeWlHWkh6UmdSR2tFTFRQYXJEd004QlpRTXZKc24ydm5NVUNhc2FMaW95YlZJS2RLWC0ySVBxWkZpcHZRZmRSTmthbWtpUGpsclFXT0w4cXZBUWU4am83SjVIRy1ENkFxN29IQV9YTEFZVUtmSVhTN3FtZ0lDRHlPREZUbUh0dzZxTUJLd1dxV2FQNGdvZEFF?oc=5
 
 ## Taylor Swift Fans Think She's Dropping Album After Spotting Alleged Easter Eggs - TMZ
 
@@ -190,11 +278,12 @@ Stories: 83
 ## Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list - Yahoo
 
 - first seen: 2026-08-20 05:43 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihgFBVV95cUxOb2NnMHFsWElrSWRndHc1QW8tVXNZbDNRNE1IUUwxYS1GcTNickstd0xmd2l3RE8wUXdjeHlIWTR3c2dVZngzQktWY3JfOXRPb1VrczBkVjR2YWx1NTFrMmI2SGtjSVdUTEJVb1AzV2ZUTG5LSXgzSmVXVDRZNEVTancyWk12QQ?oc=5
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxQNzBVeTVXc19QVzF1RUR0YTR4Z0tibUtGRHZLVGtJb01taEFOUXVKejZOYnoyUk1DbU9vTGVIY2Z4VVp2WXN4UkZQQ2tKaEMtOXFTSFpOV3RYbXFJalVIYTg1clIzMXpReGF0UzJaUmpBUmFhRlVvVm0xajNBWmp1dFhsNFNaSEZqejBBeHo4TlN5a09I?oc=5
+  - [unverified] LiveNOW from FOX — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPRWd2QkxRZWhsXy04LThtcXRjT1JpVl93dEU5VllkQ1NvaVcwTEpUdEFqUVBBWmpsczVNMEJ1aGZYbldPVXJhLVdJMV9CZ3B5TjdITFdvc0pyMGpCLUVpbHdDRlRudkhBSjdzYVJobTBlb2p2SXlkUVRHUEpuQUVKS3pfLUUyWGYyc3NYT193YVI4VklqMjdhYTVLWUVNNDdzbE1BMlVjTFdkOEU?oc=5
 
 ## Exclusive | The meaning behind Taylor Swift and Travis Kelce’s ‘timeless but highly personal’ weddin
 
@@ -679,35 +768,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: A note of caution: when hit albums drop, traffic deaths rise  The Times
 - sources:
   - [unverified] The Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxQZG5TNXAza0dHN3ZadnFyR0VLUjg2WWE5MDNPSTFXcDVRQ1NDSlgzTU9sUU9JQlJXWk1jdENmLUx1U2FqcmtMRGsxZmcyWFoyRHkteHBsMDUtbUs5UlVsT3VLLVh6MGFNdWY5cDJpejVyVmRHWEFidmtucmNHRFh0Nzc5NWxvaG5XdUxZaGc0N004QlhYVEE?oc=5
-
-## Kylie Kelce says Taylor Swift and Travis Kelce's wedding in New York City was 'absolutely magical' -
-
-- first seen: 2026-08-18 02:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce says Taylor Swift and Travis Kelce's wedding in New York City was 'absolutely magical'  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6AFBVV95cUxQYlEtMVNzZU10T3hDVUJ3TUhsamFoYzg4cFlBSXo5c0ozemtqbWVyanVUa05DUmVXZUtBTGJVQmlLRk80bERPblNLWkNQNy1nNXdxMmduUGFYZWV4dnlFQ3RPSHlXaF9kV3pmZnFWZ18xNVpXZDlJblNyZGItVHgwMF9IamJxNmZfZVhNd1MyZ0RhNlpCeW96RFh4V0hCSFlodjYtY1pPQnJ1WU5kVjdOWUs5U3lTSUpJNGw0UlliMm5WeFUtWUV1aVdScXpuODVwZy1JdUJFRWZJNzBoTFQ1cFEtU0s2dWZR?oc=5
-
-## Even Taylor Swift Can’t Resist This Newlywed Hair Tradition - Vogue
-
-- first seen: 2026-08-18 02:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Even Taylor Swift Can’t Resist This Newlywed Hair Tradition  Vogue
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMia0FVX3lxTE9qZGF6ZXc1akJRbXk4dUhHZ0NEWVRTb3pYcndCbzMwNUhTR0tHZENjSmxKV1psYzAxeDdyelVhM3U3eENxYzgzNVRJWmpvX0phN2wxRUV0MFJ4V3lPbjAxdW5oVl9vcVBraERF?oc=5
-
-## Forget the matching set — Taylor and Travis just made the case for coordinated wedding bands instead
-
-- first seen: 2026-08-18 02:21 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Forget the matching set — Taylor and Travis just made the case for coordinated wedding bands instead  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi7gFBVV95cUxORE1Sb1ZvU29wc3JVTnlEa3phYzhvbmhSekFxSXRmdlAzRUdhOVpJSGhpOHBSVHRjeVppWnlkbmhOMGc5dFNwOE9rZEFjeHI1OFNPbjRFTDQzaV9pZWFjSkZFakF3R3VaZjNqV1NIVDVFNDBhV0dhWUVfajliOXliTkRLbjZHa3RJMWxVRVFncGNmRzFZaXN3M0RiUmFWdV9BMzBjMW9XNEZiUVFUdnNZWmZJMFRWdVJxLWtRbXFpWGlZZDI0WE13bmJRZG1fQlgxU1Z6UkVoZW96WW5oVy1lZUFTbU5yQ1pCR3Z4YkZR?oc=5
-
-## Every Chiefs Game Taylor Swift is Likely to Attend in 2026 - Sports Illustrated
-
-- first seen: 2026-08-18 02:21 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Every Chiefs Game Taylor Swift is Likely to Attend in 2026  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiogFBVV95cUxQX3NBUkpmbjVqWEVmMnpEMDVudXB5ejFDNFNDbnpab24yY2tZaHVjelo3Z3MxRlF3U3RKQkphaUg5TjhTNElZT3AzTzZ3U05LSWRrMU05OXB3MHN2bUR3YU1VLXVfeEVGMmVkeG9JSjU3Tl9rTHF6MllMRkdMODAzLUF4Mi10anRTX2VHWUl0UWwtQmZCaDdsTHkxYndERjM2Rmc?oc=5
