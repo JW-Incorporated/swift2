@@ -27,6 +27,39 @@ so far".
 
 Stories: 77
 
+## 5SOS ask Taylor Swift and Travis Kelce the million-dollar question after Kansas City show - Currentl
+
+- first seen: 2026-08-21 21:35 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 5SOS ask Taylor Swift and Travis Kelce the million-dollar question after Kansas City show  Currently.com
+- sources:
+  - [unverified] Currently.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdGp6RFgyVUV5VzhWNmtmS09SNWNOYkpIdnI1NFZqNThHaXYyMzN3V2lHdlRXUGZZNFFXOUxmYXhGSXhqMXppYmxKY3dtNlQtUm1pcDc2T0N4RnRvMnJ5UFNLMFo2c1FORVlLSmNqVUVUZGQ0WHhnWFZCendFTDFjbklkY3hndw?oc=5
+
+## More than 50 Rhode Island property owners file suit over ‘Taylor Swift tax’ - WPRI.com
+
+- first seen: 2026-08-21 21:35 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: More than 50 Rhode Island property owners file suit over ‘Taylor Swift tax’  WPRI.com
+- sources:
+  - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPOVBWTjZITEM4ZUl2b3dlVVgtRU9MQlYzLXpEaGRtZHNPQjlFVGxpTUQzdVFwbktITHhiRFc5VTFQWmNCZFl6X2MyZTlkcHlGTi1RRHJLWU5RZU5Mb0I5eng3M09sVHFFeUFoakNDUFJyOFdTSWlMMXd4QzFyaWZzNDVVYmFidWxkZG9wRXFHMNIBlAFBVV95cUxOcHlEckZncEpUQ3FQVXVIdGUtZjFlZklfdlNuVUhESkpBaUk5Ql9UN2tEOGItMHNPUDZZSUtseEVzLTJVbUk0M3g3ZlNGZkxIN0M5WHlnazVPUC1tSmNCQnpDSmdvNEptS0xnWkozbGxkVllrMGNUOW40YmZsVTdpc0xGQXAtaXBIMzdsMGZMY0lNR1I2?oc=5
+
+## Kylie Kelce reveals Taylor Swift's surprising family nickname - Yahoo
+
+- first seen: 2026-08-21 21:35 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Kylie Kelce reveals Taylor Swift's surprising family nickname  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNYTYzVm5SYm9GZjA0SExoOW5rVkM4NTM2MmhJWVdwMmR3SFlwczhwb19YczNOMmt5SUppQmVJYjNTUEwtYzR3RDZWMDM1aWwtYlVnWGRSQkFnMW1yTFEzSDB4MTBlZll3MzlkY19HY21fVlNSZFMzZ3pfMERNRjJGbUJ6dmc1SEswbDc4YVBHZllEVjY5Rl9fOE90QlZ5eFRHd3ZsMVh3?oc=5
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxQYmwwaXk1ZEw0enF2SHAxNDZEcXRJNUJUZDFSYXVHeFVyQ3dTaGZOdVdlWlRTN09CeWJjUUR0X2gzZHpvRUg5VFQ5d1JTTEFhY2NXMncxRzZUVGxUTjd4T3ZFY1IwaWc0dkg3R3ZUYjFyazR4RHF6QUJicFU2MTV5YTE5OTF1TzV5dHRnb0lKWUFjd1RmUHZwdXVURGxsMDJGUlNDUi1YQzhfVTNoVkd5VnVBUXlTd1ZrMmtVd3paLXlEbTJXbno5Y3dnYw?oc=5
+
+## Caitlin Clark 'Wouldn't Mind Seeing' Taylor Swift Wear Nike Caitlin 1 Signature Shoe - Bleacher Repo
+
+- first seen: 2026-08-21 21:35 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark 'Wouldn't Mind Seeing' Taylor Swift Wear Nike Caitlin 1 Signature Shoe  Bleacher Report
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMixAFBVV95cUxPSUJPREVhS3htMFlubGJESnFWQkkzU3g3dFBIbGQ2cUtRUnJvbXRZUVBLWHlYWFd6NEV0aS1OWFdneEJOLVpDTHJ1dV9LMFAzbjVYbktIRE0tQndWd1NINklVOVF6aFJkeHBheFZwZWJxUkhSdzBHUmxNNU4ySk0tTmlkb3dWaHZYMFR6X3oxYnphaUtrVUVYSDJzTHhEdFVmakZ5Qy1Xb2tldk5fU3MtcGJwekRUVU5FX0pHQ1VIWnl3RHFr?oc=5
+
 ## Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories - Yahoo Li
 
 - first seen: 2026-08-21 17:40 UTC | category: fashion | importance: 5
@@ -75,14 +108,6 @@ Stories: 77
 - sources:
   - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiowFBVV95cUxNLW5xSjJFdExXdl8wbnVmZVI4YnhDMjlLdEhadk1QVlVCOVg4Z2tmNkZTaF9Pckt5Uk84UU9iZzN5eXNEaWNkRXQycGtfbGtpdnBNN1UzM1Vtekp3UHFtQ0ZFdm5EQW5SNjBIcE00SEZ6a0NJNU1qcGpreTB4cjExWmRSRTJ3TzVKQ2hlMDV4aktnbksxRUV2bDE2MVlSNzNHYkFn?oc=5
 
-## Ryan Fitzpatrick Shares The Surprising Thing Tom Hanks Told Him at Taylor Swift and Travis Kelce’s W
-
-- first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Ryan Fitzpatrick Shares The Surprising Thing Tom Hanks Told Him at Taylor Swift and Travis Kelce’s Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxObHFZT0RsaGdkLTRSdXlzd3R4R2liNWdUaUEydG43WWZYY19HemVpUTFVMW0ybklRY19YcG84SkRNWExfWHNsU3dteVEtSG5la0Q1QTFtTjJSQW9UdUljS0F1T09UVGpNbXBXUnlCSHl5X1RGS19JWGttb2lIWmNOd2dJZUwtendiMmdSV0tKZ25PYWdCUHpITXRTaXJaSTljdGowUG50WXBJRnFsR2hV?oc=5
-
 ## Exclusive | Taylor Swift 'deeply saddened' over Hayden Panettiere's death as stars shared surprising
 
 - first seen: 2026-08-21 17:40 UTC | category: sighting | importance: 3
@@ -106,6 +131,15 @@ Stories: 77
 - summary: Taylor Swift's ex Connor Kennedy wanted by Russia over Ukraine service  Ynetnews
 - sources:
   - [unverified] Ynetnews — https://news.google.com/rss/articles/CBMiVkFVX3lxTFBGSkIxS2oxbHlxR1dJakNUdmJsY0RqSkVDb2tOeU50SmN5ZDkwNlcwTTN6X25SWEVnMWFmeGhpS2pFd2NXLWRaSWlKb2d6RGNYQXhaaUZB?oc=5
+
+## Ryan Fitzpatrick Shares The Surprising Thing Tom Hanks Told Him at Taylor Swift and Travis Kelce’s W
+
+- first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Ryan Fitzpatrick Shares The Surprising Thing Tom Hanks Told Him at Taylor Swift and Travis Kelce’s Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxObHFZT0RsaGdkLTRSdXlzd3R4R2liNWdUaUEydG43WWZYY19HemVpUTFVMW0ybklRY19YcG84SkRNWExfWHNsU3dteVEtSG5la0Q1QTFtTjJSQW9UdUljS0F1T09UVGpNbXBXUnlCSHl5X1RGS19JWGttb2lIWmNOd2dJZUwtendiMmdSV0tKZ25PYWdCUHpITXRTaXJaSTljdGowUG50WXBJRnFsR2hV?oc=5
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZjluWkJPUjhudjNrMlpvNFFvVXA1MjljdjBNVTVhaV9fc3l4Ykphck1zMl9WN0hrNGpoYWdQVnlpR1BzYzU4MFl2QVR2UXVUR0k4YlVjVEYzZlBuZlVCQWw3UWFtaW0zWE5VMlo1SnFtenhQQzd2SzZxQ0pLZ21PaVJmdXhodTVvQ3o1RnREZEhkWEwwUEE3NlJSZDRyN1VHVkJudVlPTEhxa0VWVXo3dFFIRUMweUI0ampqcVA0LVVKbE9CcExMRnNB?oc=5
 
 ## Taylor Swift, Ukraine and Russia's Wanted List: Why Conor Kennedy Is Suddenly Global News Again - Op
 
@@ -617,35 +651,3 @@ Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pal
 - summary: Opinion: Taylor Swift and Travis Kelce had their dream wedding in July, now can we stop picking it apart?  Yahoo Creators
 - sources:
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi8gFBVV95cUxQSFRMRmpjODlwbjZIUzJxWFJXdUI2M3k0cE5FbGFrMWZOWDNMRXF6ZzNXd0k1RGZvVklSVEJrVENHc2RSc05zVnFjWFdSQzNUNjVWWHdLT2NQLWpRY3ZmOHl0VUNSbE1pMUFXcDVPanJSd1hBcjk1SmpDaWVSQzB6QUllRnVhWmFlTndINWo0NmJ1LUhtdzdXNHNuYlFxV2d2eXFXNHNBenVuMTEzTW85OURodVBkSG5RcDhBSy11QnhVd2Z0Y09IUHBxcmVIVDF0eTNMZDVLcHExMUlMeDBCQnZsWGlUVjctYlRPWkM1dkJvdw?oc=5
-
-## Chiefs co-owner reveals whether he attended Taylor Swift and Travis Kelce’s wedding - Entertainment 
-
-- first seen: 2026-08-18 21:35 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chiefs co-owner reveals whether he attended Taylor Swift and Travis Kelce’s wedding  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMinAFBVV95cUxNZi0tREwyVXBwTW5rODhlRlc1VDRES3RiU0VYcFBRWExhdDd1b1FYcE9qSy1kbVdCQ1A2eDhQdkw2aEdDWWhYVTFIWWhKSlVIYlpLckRrZnBueDdLbzR1VF9pb211NGhIZENNYVhjcXlOZUN5RVpLNk02ME9uWWxIQWVvOURWbjBfYTk3Z3ZwUUE3MVZ0NmhQcDg1aFk?oc=5
-
-## Taylor Swift's Ex-Boyfriend Lands on Russia's International Wanted List - Complex
-
-- first seen: 2026-08-18 21:35 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Ex-Boyfriend Lands on Russia's International Wanted List  Complex
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMimgFBVV95cUxNdUUwSmhIMlZmYlZZdmZaZ0JSUzg5MUxQam1SbXhDTUg4YlViR0QwM2Z4ZnhnLUo1b2tVZEZ2N0Yzc1psUG1wZC1RRzdvbzBDMHlpbDM0UW55MUdIUXNUMzZEQnZaMlpoUktiOWJIX1g0LUFOLWpzSlI5TFdiY0FFNWt4VzRidzlNRnh3akNySXV1aHVsQ016a0x3?oc=5
-
-## Taylor Swift Reportedly Abandons Her Godkids After Blake Lively Drama — Source - Yahoo
-
-- first seen: 2026-08-18 21:35 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Reportedly Abandons Her Godkids After Blake Lively Drama — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPem8xdmktcmJGUjBYRFNLa0I4M2RnV3J2ZGlyanp1OHpWckR6UzZsYm1uQjFLZlVZWlh0RE9NWWNUZmhZZTUxd21Lc1JGWW5uZDExMGJhYjhEUlFfVzQ3eDhyV1JCU3B3enp6NV9EcV9kdUw1bDdITGRVd0RPRWtIcm9Rc2Y3a2x3R25BR09MN29KU1pNb2RSX0w2WEdWbTZTbDI5YzVRV2ozUQ?oc=5
-
-## ‘Toy Story 5’ Launches on Fandango with Taylor Swift MV Debut - Animation Magazine
-
-- first seen: 2026-08-18 21:35 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: ‘Toy Story 5’ Launches on Fandango with Taylor Swift MV Debut  Animation Magazine
-- sources:
-  - [unverified] Animation Magazine — https://news.google.com/rss/articles/CBMipAFBVV95cUxPS0pZYnhhN3RXNXMxSm4wZVBBX1lOd20wS19pbzV6R054ZGUwQ1ZDX3lrWWZ4ekpoOEI3S29QRzJObjRzcERkVmQ2X1VpNTNjX3JMZzV5ZkRITXdNYUNWN2xnWENBM19TQV9UYV8yNEpDekF5Smx4VzZwMTZEVmRnSEVSOWZDcV9URTNqUGxDbjcxUlRwUWcxX3V0TU1IMTZYcFhscg?oc=5
