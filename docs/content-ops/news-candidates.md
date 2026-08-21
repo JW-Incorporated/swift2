@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 82
+
+## Taylor Swift, Ukraine and Russia's Wanted List: Why Conor Kennedy Is Suddenly Global News Again - Op
+
+- first seen: 2026-08-21 13:55 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Ukraine and Russia's Wanted List: Why Conor Kennedy Is Suddenly Global News Again  Open Magazine
+- sources:
+  - [unverified] Open Magazine — https://news.google.com/rss/articles/CBMixAFBVV95cUxPUC1QR2l4WHZlMmotd3owV3RCbEtQc1VsUDZBS29hRE5udjU0blQ3UEI5N1FjM25Wc2FYeHBkbGZXU3VoQkNoeXgwTDFfSkh6cEQzcVdXX1FnN2FiYXNCaTQ1YkoxSnpLMi1yZ19rSzFXRWhYVktOaFlkWEhfZ0xDNVdJWFQtY3ltMGlfVm9zOU5XQXpYRGpHTkFMNzc4ei1RSHJFYmh0VzFGcEJWYzFOelQ1YlY3dmZQX04yX1BwZkE1cmxz?oc=5
+
+## Go time: A Swift experience off the Strip - Las Vegas Review-Journal
+
+- first seen: 2026-08-21 13:55 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Go time: A Swift experience off the Strip  Las Vegas Review-Journal
+- sources:
+  - [unverified] Las Vegas Review-Journal — https://news.google.com/rss/articles/CBMijgFBVV95cUxQNll3cThSdUxXdmRfMlcwa3R6NFpkR2NsTTFDZVNvUDRQVC1Rb1U0WWhpWVB0RnBSeXc4MmNQbzJ6d0xmbG5NU0N3YWJUdWhHZ1NBN05xWm43U053cU5MWnIwNG1ZWUFiQU4tT3o5dHQ2dVBYYWIyNGpRMG5ySTJIOEYwaExGOEk5clkyR1Zn?oc=5
+
+## Gracie Abrams shuts down speculation of Taylor Swift feud - Yahoo Lifestyle Canada
+
+- first seen: 2026-08-21 13:55 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Gracie Abrams shuts down speculation of Taylor Swift feud  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMihAFBVV95cUxQWVJ3VkJSaF9teHR3Ulo1ZEp5ZWlWNDBrcEM2c0NicDhnQ0ZyeHJQTlB0LTl3anpONkpWMkV6SWxLdkVBR2g4Q3N1SEFINWE4OWVkT3kzYVQtcDZfZEt6WUNGRWtJVUNSX1hBcFVSaWplZG1sYWdTODUyNlV1TXZ2WF9YSUw?oc=5
 
 ## We Finally Got a Clear Look at Taylor Swift’s Wedding Band – And the Details Are So Her - graziamaga
 
@@ -675,73 +699,3 @@ Taylor Swift and Travis Kelce Show Off Their Romantic Matching Wedding Bands Whi
 Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their Wedding  Yahoo
 - sources:
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxPNDJUUHFxSWxtdWlOeVU3RFVXY2gzSmVDWjZ4U2ZvdnhadE5sYjFRUGRsTzhHdlJ0WVpGZFdwQ0JhcW01QXNSM2pWb3pFZlR6LXowNVp1YUN2VVRtdHF4RWpob2NOSEtULXc5Z05GUzMtaUdSbllZMVpVQ014MXN2WC00Yw?oc=5
-
-## Taylor Swift Returns to Social Media With Update Very Few Saw Coming - Yahoo
-
-- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Returns to Social Media With Update Very Few Saw Coming  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNMzRRbkUtNzMyVTJSMjVxMjJvbHNyVXFHNlMyN0VoWG5tUlFFZmkzdTU0a2xuQ3F2dnJjeXVscER4OThBYS0tQkcxY2dyc2UySktNR19aVFF0MXhERzlaV0V3VEx0ZU0yNTZ3MjNFb3dmOFo1VzMzOTJ2a3ctTVBLaDdzbTJ5S2cwZkJ5Uk1GOXNaUE9aRTh3R3JGSG5iVldD?oc=5
-
-## How Many Chiefs Games Will Taylor Swift Attend This Season? | Travis + Taylor - Yahoo Sports
-
-- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: How Many Chiefs Games Will Taylor Swift Attend This Season? | Travis + Taylor  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigwFBVV95cUxPMkhPRmhmdW1BWFphMWZDZjd1NFFwQ2pnOWl3UVZkbGVjbkR6UEVDUUtvdVpwbTl1bU8tbnV5aW93QXFCQVZ0ZmZuWnFGVzlHR19JS0FaVFNzR1l5Qk43aWp0UHpHSHRPRmVaeDFlR243d0RZU1BGQkh5cnNZZ3VTaEsxQQ?oc=5
-
-## Taylor Swift Puts Artist Control Back in the Spotlight - Contactmusic.com
-
-- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Puts Artist Control Back in the Spotlight  Contactmusic.com
-- sources:
-  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOOG05SlptckN0N0xfZ2FJTGlWSjk4eEdIYm9TemlpVTg0ZEI2UnB2MHRkZXQ3dTJqWXBlUm9MUl8xQWJRZ0FiSnMtMG9KY29xamZUeEEyaEhfMVd1cjRmOUFCUUtrOUNxamRJT3RoUnFtZTVkTlFmYW91MURoQ2NoN1FoeXl5UlFYMTJFd24yWXpMc2pRUzNqdEVSemNpVUZ6aHM0?oc=5
-
-## Taylor Swift Returns to Instagram To Praise a Celebrity & It’s Not Travis Kelce - Yahoo
-
-- first seen: 2026-08-18 13:53 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Returns to Instagram To Praise a Celebrity & It’s Not Travis Kelce  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOdWpaWjBzU0tUS2dXYXVDMjJpYUU1RW45YUxCcHpOT0NkYVFlWTlhMlVmS01RdTVhWlI3MjVYY25VZnpzUGNNRU9DVXFHZGxvQ1JQTlloTEhKMHJUVnZvaXlvd1ZFWmZBTTJTTExsbW9OQTdxUEhMLTJIQlZMQzFNdFI2RVczaGFESlJNQXdrZEpIWnN0OElQcFlNUnBfNWktcVUzazBR?oc=5
-
-## See Taylor Swift’s Hair Evolution in 10 Stunning Photos - People.com
-
-- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: See Taylor Swift’s Hair Evolution in 10 Stunning Photos  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE4zd2dmZ2Npd1ZrLUVudkJMdXlhbzEtTjdHVHp5YmZhV3J2QklkOU5VLWlETlVCUWQxbHBDVlZZS1labklaV2xtNHRYMjVQVFd5Sk1fNUtBN2hYR2J5bnBMM3lYcnRmUzl2UEc3c3E2SWxFLTNU?oc=5
-
-## Taylor Swift’s Wedding Ring Looks Completely Different Than We First Thought - cosmopolitan.com
-
-- first seen: 2026-08-18 13:53 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Wedding Ring Looks Completely Different Than We First Thought  cosmopolitan.com
-- sources:
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQUXhnNFdwcVY5TnpxeVVoa3RDU2JNemd1SS1Fc3F6c1dVdVVweGpjbVdCNzc3OV9TSUY1bWt5YXR6OU1ob2VKSjhIWTRmNmRZTER2TnI4Yld6MVBnLVV5MEY1RldUNzFrVFNfbTctMFhFMVFweEIyNks1UDlCS3Q3MGY4a0M5bXhDWkpHdEVSX3FmV3dKY1JBLVJMZkNxOXNXaldaazVB?oc=5
-
-## Chiefs Co-Owner Hasn't Spoken to Travis Kelce Since Taylor Swift Wedding Snub - Sports Illustrated
-
-- first seen: 2026-08-18 13:53 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chiefs Co-Owner Hasn't Spoken to Travis Kelce Since Taylor Swift Wedding Snub  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiuwFBVV95cUxPTDFxdGlUR1I4cFFLbHhMam9OY3ItNXBTYTljUnF3V3NyWmQyNndrQ2RnekpSTjBMWHFoMTBObjdWaFEwVDFPQzVkYmlxcGFEX1lVYUpEdGFiZTc5OUVHQmRidmxFWlI0SzlwWlJGUUxKMTZJemo5c2RwTmI0X2JVUmNvZjJKTk44QkF0UUZPQzN4NVk3M3ZvdmNQVFVjdHNQQ1owREdpWldwV0xJNDZ1cU9uZk9mRU9WVzVJ?oc=5
-
-## Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift - AP News
-
-- first seen: 2026-08-18 13:53 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 7
-- summary: Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift  AP News
-- sources:
-  - [unverified] AP News — https://news.google.com/rss/articles/CBMijAFBVV95cUxNaTNId3VKUlhEQkVEOHpPMzFkWlliYWZmb2tLcGJwb1F6ZkJWejdyRnlWZ04yMEljdDhQUlRwbWFCSEJXWERWOFYwSWRNZlViZWZ0emFBOWFhUWpFcEs3b0poaEw1ajU2Y25yTDdhVnlLSXRfdU9fRzNvaDE1RVhFZ0dpanVsQW1IUHl1MQ?oc=5
-  - [unverified] Oskaloosa Herald — https://news.google.com/rss/articles/CBMigwJBVV95cUxNdmJheTlfMFNrQkZzOTRxYVA4WHV1LXIwZDlGS2ZuUkdMTXIwM3h5Vndna3QxY0VWZHlhRGVzZkE2bGRsaTJINGtOV3BlekR1UzZ5RGRuOGh1NGg1c3Z4YmdJeS05N1RaWG05Rm93YXhzSHVteUJ3RW12UEV4T2FRWDFsQVItLWYyRVVpTVRBaVRndXgxQXVWM2Jwc2lCbVE4OHhXcS1OaFBBREQzLXVGRzFJTFJJRWRyT0VncFNQWVJEOW5sMFg4bzlEYm0zYzdsYWk4R192SU9KcEwzOHRUT1BVV1VNR0JJenAzd3JUSU5tcXFsVDQxSWRFM2x1QVRjc00w?oc=5
-  - [unverified] Ottumwa Courier — https://news.google.com/rss/articles/CBMiigJBVV95cUxQZmJVNzNDbWxrRm9hTzNQSk5kU252cjhaNHh1eVRUQWs0V21sRlJfdDN4R1kzSDduMkpidnFrRUNCc3RZMzBrMnptdmFwRnNPYTMyMGNyejZ0ai03UWQycWtJSkRYUFBRWmhBRkRWemFwekZaVk15NWhyczhKc2V2c2hDRHphZkc2VTVkeFJQcHp4QTFiZ3Z3RmtTSi1fTG9UeE5HQWExMm5ibllYS0ZKSXdibDNxRlZsMkVqcFBxVWh6cjZWQm9hclMwX2NwN1hmVE84eEJkTW93dlBGNTNkSGEtd3F3dnpqckxQTnNXZlFrYWhVaUxRN1VKU1kzNzJidS1PcFprZzVtdw?oc=5
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMingFBVV95cUxPbV9mdHFzaVpBSEV2Q0NUeTRHQkdMLTVFU3BVTXBVTl9BaTNvb0l5M0VYZWx4VlJQS0JEMWZqSE5hXy1jVWk3V3F5NThRbWw0enBsR1RWZENlUjlxNjlmanhyVVFtOFZxSEJJeDh5aGV3c2VKRG12RjBPSThrUW80Y3NwNnMxMkFqbk9XMHBDUzRkakc4ekU5TmRmZzZ5Z9IBowFBVV95cUxNd1pPZGpJTW01dWoxLS1hcnFpb2pKczNXRXgyWjBuSURMQU1HaGdyZVBIVjhSYXFkTnZvUUsyMzRWV3lyQ2J2azEwNklXaHJwWWNZNGlUUXEwYU5mQ1RkTW5sblI0WlNXQXlKZmFwbXMxOG0wTDVCOWtnb19zc21SMm9aNG51SnlsbE1fLXZINFlrYjdrREZXeG1URWhzWExzWV9R?oc=5
-  - [unverified] Dailyfly News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMFNJa2JDN3NPU2Rac2RneEd5ektteGJCbHc5WkFndlNISjJuczU4bnlpZGhqLTNlOGRFSENFWVExeWczLUdTM29pR0FMSlM3bktheXlqbUhSNzBzQ3BqQjlKblVaYmdHSnNKWGRpM2ZCdFZfYXlKMExhTnQycEpMZy10RE81SzZieHFnTWNoZ3V0Z09zOHB0eTZIS3JDamVLZVBYZ2R5RnNfdw?oc=5
-  - [unverified] Anadolu Ajansı — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDdsaHZxbFZfaGJacVlUQVZlMjYtdndGaW9aTmJMeTExb1o5RFRIRmgyc0NTSUgzOE1FUHBHZ3QzYXA0alM5XzVybWFTZ3dkd0hSdjJ1a25nY0dwRGtaYzN6QWQ1cnlHWTk3WktxZHVnTkNVM19hRkNaN25TNnpYS05yRlBjMXQxSGxVMU9jdXlpRXhnUFYwS2RDd2pVOGJ3ZUpOTlNkQnJlWmc?oc=5
-  - [unverified] 101.5 CIL-FM — https://news.google.com/rss/articles/CBMipgFBVV95cUxPTU9sbWlJbWJBakdzcTF3WlloNWtOeGxfY2hzRDZhUUhjWTRpRU02UWotZlczLUgtcHVRRDJsNzJacVdOaFRSMXNQdnJjeEVwQ2xNa3d4LThCclVuclJYNVhiZG5DZ1I3YjFBdFptbWNCNExTd2hSZUlCOUxZYW56VUc0c3otOS1nS2pENzVka0paNnpBeXV3RjBUQ2lFOGctMlhtVV9R?oc=5
