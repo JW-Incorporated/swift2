@@ -25,7 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 77
+
+## Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories - Yahoo Li
+
+- first seen: 2026-08-21 17:40 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMif0FVX3lxTE56SlBUcjBkWjY2V09JNXdldHRnTkFFQV9ZcjhydVFNc25takhFbTVoM1dSaFZJSHdrZnVIbHc5TGtsVzN4RzM5UDc1VGNqSUZRNmVUY1lFeUsyemI4Nm9VdE5nNHRNbktIWk5iRTRTbUhDMUhMbi1zdUt1T0I4a00?oc=5
+
+## Swifties calm down, not everything is a Taylor Swift Easter egg - Creative Bloq
+
+- first seen: 2026-08-21 17:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Swifties calm down, not everything is a Taylor Swift Easter egg  Creative Bloq
+- sources:
+  - [unverified] Creative Bloq — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQcDVnWWNFc3I4Y05rQ0Rzdy1MOFItZ28zdEg3Ung2UkdPVVdPZTE5ejcyaGVlbUh1TU11T1FUTXRYM214SGRWNU1DNmpTZkhJa3NfVUQxcXdwVnpXTzRkU2ZRM1RySTk0TUdJQ3M2VE9pYjNXWFlwSUd3R05UR3UxZVBkamd3UGdkV3o1cDd3RDhSUGdYSXdkSVFreWNIU3padjVncWptbmV1SVk?oc=5
+
+## Travis Kelce Shows Wedding Ring After Taylor Swift MSG Ceremony - Yahoo
+
+- first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Shows Wedding Ring After Taylor Swift MSG Ceremony  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPVzJFVTBSV0NpZEJvSnFMLTh0Z21aNG1ZT0hVeEhTVzRNN1hEQ2x3ZFJBRWVad2RqVEl0UUR4cHBLS2R1N2VqcVAtRmVvUGg1NWVZdXE2cWwxMWR2R1FpYzNmOC1kNlh2dDlRTnN4RkJhOGNmVHhXWW5ERzE3em5SeVhvOTNCU2tlMnk2b28zdzA3VnJRQ1NyNlJpOC1pVkpOcUZ3?oc=5
+
+## The Jason Show: Taylor Swift rumblings, Whalefall, The Cooking Mom - FOX 9 Minneapolis-St. Paul
+
+- first seen: 2026-08-21 17:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: The Jason Show: Taylor Swift rumblings, Whalefall, The Cooking Mom  FOX 9 Minneapolis-St. Paul
+- sources:
+  - [unverified] FOX 9 Minneapolis-St. Paul — https://news.google.com/rss/articles/CBMiW0FVX3lxTFBpX3kwZlBTdDVhdGYxZjBDYWNZNmZoRy1UM3NUVkVIaklkclVRaVFqVDh2Y3pUSDF4bHJuaThuUDNwVGQtalR5SXVwMmFUTDF0dnotdU1pSFdyYWfSAWBBVV95cUxOV20zMWRCdktvalctNkd3VlJEZUFfaTJ4a0RIRDluNkhrdHF0NXktNXF3MTc2enA0bjRJQnpFNHlIbVRaM21IVmRFak8taUhnMDVyRGVqTnl4M2RiNkdOd18?oc=5
+
+## Hidden Taylor Swift wedding ring details show deeply personal meaning - The Big Lead
+
+- first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Hidden Taylor Swift wedding ring details show deeply personal meaning  The Big Lead
+- sources:
+  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMingFBVV95cUxOaC1VZl9ZQkR0aGVkbUZ0eFNoSjNsTzFlX3dJOFVWa3g2dHV4aDRJRVU5Rk1qM0xYMU9XN3czcFRsSlctcndlZm5vUkpUZ3EyRmk5LUg4M2ZrbXFHdURxeU8teXNvRWtpeFBGTGxmSC12MERmSF9ET3VpVENsZE1jLXBia09IblVsaDR3UnhTc2gzZnQtVVF5UTAycVFJZw?oc=5
+
+## 'Shocked' Taylor Swift Suffers Tragic News Weeks After Travis Kelce Wedding—She's 'Deeply Saddened' 
+
+- first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'Shocked' Taylor Swift Suffers Tragic News Weeks After Travis Kelce Wedding—She's 'Deeply Saddened'  StyleCaster
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiowFBVV95cUxNLW5xSjJFdExXdl8wbnVmZVI4YnhDMjlLdEhadk1QVlVCOVg4Z2tmNkZTaF9Pckt5Uk84UU9iZzN5eXNEaWNkRXQycGtfbGtpdnBNN1UzM1Vtekp3UHFtQ0ZFdm5EQW5SNjBIcE00SEZ6a0NJNU1qcGpreTB4cjExWmRSRTJ3TzVKQ2hlMDV4aktnbksxRUV2bDE2MVlSNzNHYkFn?oc=5
+
+## Ryan Fitzpatrick Shares The Surprising Thing Tom Hanks Told Him at Taylor Swift and Travis Kelce’s W
+
+- first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ryan Fitzpatrick Shares The Surprising Thing Tom Hanks Told Him at Taylor Swift and Travis Kelce’s Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxObHFZT0RsaGdkLTRSdXlzd3R4R2liNWdUaUEydG43WWZYY19HemVpUTFVMW0ybklRY19YcG84SkRNWExfWHNsU3dteVEtSG5la0Q1QTFtTjJSQW9UdUljS0F1T09UVGpNbXBXUnlCSHl5X1RGS19JWGttb2lIWmNOd2dJZUwtendiMmdSV0tKZ25PYWdCUHpITXRTaXJaSTljdGowUG50WXBJRnFsR2hV?oc=5
+
+## Exclusive | Taylor Swift 'deeply saddened' over Hayden Panettiere's death as stars shared surprising
+
+- first seen: 2026-08-21 17:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Exclusive | Taylor Swift 'deeply saddened' over Hayden Panettiere's death as stars shared surprising connection  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi2wFBVV95cUxPWVBQalJKNVdVeGo1aDhLSW5oUnEzMzgtdUMzUHM5OVVjTVk1UlJpYjJwUE5RYVZNdDBYcS15RFZuR2xJLUVDWGFHVFJrVWRhUnVURnNOengzeU1RVlRSSzR1b1JsOTZKeDNYY0lPYXVJZnI2X2xzMFVTSDF4MWpiNDdzQ3kyRXJPWl9vRkhpc1IyTGM5NkF1RER3LWstc2lZN0FVcWk0N2tNUWhualBoOHMxTUdNMkFCOTBNOGNNVWthNmNPZDZhQVVRaGJZbUZ4WkhRSnNpeU9jSXc?oc=5
+
+## Taylor Swift Was ‘Deeply Saddened’ by Hayden Panettiere’s Death - Yahoo
+
+- first seen: 2026-08-21 17:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Was ‘Deeply Saddened’ by Hayden Panettiere’s Death  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUGdic3hhQjdHY1lOYUN5N3cyODBKWGhZWGg0TnJKTk1fZnpncDZZMWRjQU9QcWViYlJVbzEzbVl5aVE4V1ZVOTB1bUZRbEtFOHFsTWJEc3lnVXJWVHdHVlZXeVdWTHZSU3dleHFaN0dLeE1Bb2NWVzc1WWh4eXFUN0Z1MEpkT2o1QVdlVkxDUnd4aGFPZHFjcFRZeE1HX2ZSZjk0emZ4UU4?oc=5
+
+## Taylor Swift's ex Connor Kennedy wanted by Russia over Ukraine service - Ynetnews
+
+- first seen: 2026-08-21 17:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's ex Connor Kennedy wanted by Russia over Ukraine service  Ynetnews
+- sources:
+  - [unverified] Ynetnews — https://news.google.com/rss/articles/CBMiVkFVX3lxTFBGSkIxS2oxbHlxR1dJakNUdmJsY0RqSkVDb2tOeU50SmN5ZDkwNlcwTTN6X25SWEVnMWFmeGhpS2pFd2NXLWRaSWlKb2d6RGNYQXhaaUZB?oc=5
 
 ## Taylor Swift, Ukraine and Russia's Wanted List: Why Conor Kennedy Is Suddenly Global News Again - Op
 
@@ -569,133 +649,3 @@ Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pal
 - summary: ‘Toy Story 5’ Launches on Fandango with Taylor Swift MV Debut  Animation Magazine
 - sources:
   - [unverified] Animation Magazine — https://news.google.com/rss/articles/CBMipAFBVV95cUxPS0pZYnhhN3RXNXMxSm4wZVBBX1lOd20wS19pbzV6R054ZGUwQ1ZDX3lrWWZ4ekpoOEI3S29QRzJObjRzcERkVmQ2X1VpNTNjX3JMZzV5ZkRITXdNYUNWN2xnWENBM19TQV9UYV8yNEpDekF5Smx4VzZwMTZEVmRnSEVSOWZDcV9URTNqUGxDbjcxUlRwUWcxX3V0TU1IMTZYcFhscg?oc=5
-
-## Taylor Swift earns 9 VMA noms for 'The Life of a Showgirl' songs - USA Today
-
-- first seen: 2026-08-18 17:38 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift earns 9 VMA noms for 'The Life of a Showgirl' songs  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixgFBVV95cUxNS0hNWk5FZXFILVJJUWJySWhObVhTRVR3UmxpQUctZ2RUV0hxazFkTU56REd5NDhGRTJSNlVGcl9FNk1tWnFxdDg3RWRQcVJMMmJLNlBsTFJuaHpLV0JuemRJZFJwMzdLVmxwX2JpWmdZRnhOOThDUTM1VExiLXlkS21QcFhIcHoxM0czVXVybnp1QjB4cXBOaUFBbEVnSkZuR1BWMmVvZ0pHUnh1RlhCMjBORkpnd1pMc2cydG9NQzZQLWw0d1E?oc=5
-
-## VMAs 2026: Taylor Swift & Madonna Lead Nominations - TV Insider
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: VMAs 2026: Taylor Swift & Madonna Lead Nominations  TV Insider
-- sources:
-  - [unverified] TV Insider — https://news.google.com/rss/articles/CBMioAFBVV95cUxPZXJYLWhWNTNPTW9nZWFocEF2RDdWZUo3cVVaR0NBUVhYYTFkV2NzZ2lPTkYzZGQ1Qm82UTNHeGlWNlFWOFBBUDlIYXZDa1BHR1FPd3dPaUwwZ0tpX3cyd2t5blVISTZzaV95OWdybDJqRlQ5VWNwcUxXcjVTQjRCLTNNUmlpRWhvRzlMYTlFcklUUmpaQWg2OE9zRlBRZ2lQ?oc=5
-
-## Madonna and Taylor Swift Are the Pop Icons Leading the Nominees for the 2026 MTV VMAs
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Both artists will compete for Video of the Year and Artist of the Year at this year’s show
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/2026-mtv-vmas-nominees-full-list-taylor-swift-madonna-1235610787/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMisAFBVV95cUxON0JrRDdaUTdFWFIzR3oxSWtYaHZidmFScEZ3NXFuanVuNnpLQkFvSTlvV2ZiUVdkV2RGVkVtWTU4cEJWVjNMN1B5b1REYkRzRzNaZUZ1NWlYeHVUMGFxMy1ZMFdiaXJOYTlPMzNsWGtQRTdRWVRNUHNaaFVWMUtnb24xd19KY3JJamdWcEVhRlRwM09idUExc0ZyUm9kWnotYTBMUndYTVpFbTlXNXdncw?oc=5
-
-## Blondes Will Be Having More Fun at the 2026 VMAs - Vulture
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Blondes Will Be Having More Fun at the 2026 VMAs  Vulture
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMiaEFVX3lxTE04enhueC01VGg0X3NzaDFlWnNDVlE2Tm9PSnZoY3d1d2NERTFqT2pPbzZVVVJXZ18wX1lHR2lrYWlPczQ1cWpjZVhpdHNuMm9FcFV5X0JfRlg1S09UYWFGSTJOQjB6ekE1?oc=5
-
-## Can Taylor Swift Turn This Breed of Dog Into the Next Frenchie? - WSJ
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Can Taylor Swift Turn This Breed of Dog Into the Next Frenchie?  WSJ
-- sources:
-  - [unverified] WSJ — https://news.google.com/rss/articles/CBMid0FVX3lxTE8xVFQwNmQ5YThoRnVPdzNhVENmcjNIRmo1TGNCMUNvdldnMVdDM2toazVTWEM1cHlGemRpNXhUZGljcGh2ZkJtSldMX0tQSXNZN19ncHhYYzRTMTdZbml4OVhoSzl5M2xoenI5eVhyWDNBNjg0MjA0?oc=5
-
-## Madonna, Taylor Swift Lead 2026 VMA Nominations - The Hollywood Reporter
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Madonna, Taylor Swift Lead 2026 VMA Nominations  The Hollywood Reporter
-- sources:
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMirwFBVV95cUxPMlRTRnhPUVNqTWpvaENtWENiMkxlQnZHWmRHbWJjNzdXR1VMbXBOVzYtT20wQW15MlBDTHBYeTZyREsxMTRlUVRJT2JBNUpFLVdyV04xTWRsZHFPd2NtSFBSVzg3UDJRQnh3TVo5cExJY3FIdnI2YjhleGZScGs5dVJuTERpczRsLVViQzV5c2xsa3BfZE14d0lieEQ1bEt1aGNSTkJ0ZmJWODdYek5v?oc=5
-  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMigAFBVV95cUxNZnlVd2stRkdteWxSMmhTTl91QzNfc3BHaDBDOWVzcURvY0c0bVNGbFlyUUZLVlJwdzRWcDEtNG9Wa2R6VVlySXVPNHZTWERlS2tNemdGUFVydE1aX2h5bjJQam05SWZwUkFfc01xdDdQb0VMaW03ZDROZGs5LUcyYQ?oc=5
-
-## Madonna tops Taylor Swift in nominations for MTV's Video Music Awards - Reuters
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 3
-- summary: Madonna tops Taylor Swift in nominations for MTV's Video Music Awards  Reuters
-- sources:
-  - [unverified] Reuters — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQX29pUjhTWUJ4cGcwMVVIVWhaTV9xVEZKVlRTczlHeDlnVkFDMVZ0VGlEU0J5S01uUVprdFowWVNuQWRRenBvc192MDRjZ0dGOHdKYWJwNHc3d1VGSTdDdkZYOWdpRDVmQ1d1clFEakNpTVhRcnhSMUZjVDlKLW1yREZpdGJrc3lDSV8xdGF4SWxvY2VMVHNNaThzajhoMWx1d28zR3RZc1p6dGM?oc=5
-  - [unverified] upi.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNbGhQWWxnUlNTS242THhvaXlaQUxEUWJlaHlyUlI0end1bUk2b1NZaW43NGpnV0tBWXM3dU5MQ3Nkd0tQVkNRakQ0TXllRk1PNmd2OFdibTVacG5aTnFLSnlfUFZrS1pFcE5TRy14S19fc1k3WnhENUt5ZUlXR3lFZG1WNWc1aENyOFZQTnpnVURlSFdEOGM1eUxRV2NyTTl5Wk93clB3cVIyWlBIdmNB0gG0AUFVX3lxTE5TY0pOdE55amQ4Q2U1XzhpWm9aMGlEb1FNbWEtVldYLVdadXFsTm9mdVFCeFFudENWWmJLR1FrX0hiTG5pNXVFTVY3WUNBUDFPZVgwVXpqWEtoSlJsRzRiRFRBYlV5M3IyWFl0cHl0LURtSU5kWGc1UEsxdHJBQWxvQ1BkMlIxUzJ6Y0t1YnBfRjVyTEt1YWlubUx0ck42RnpubnFkSmJxYWQyclpFTVREWlE4Vw?oc=5
-  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOamhYWm1ibENWYjJrb3BjcDU2S09lTHIzVldxbzZ2TzVvZGdoZ3BZclpVSDVzUDUtbk9VdW5nZE9GMmZJM2JnMllqYlVleE9fNFNxcUxCbk5VV0N4Z1g3M0Frbkt0WlIzdlZFR21CekJ5NlV6Z3M3MDJmYlhFLXdkb1ppWHpOUUI2QzVqSjdZaHBaaGRSM0FNb1FhWVBSQjVBblZwTkpRWGvSAa4BQVVfeXFMUFYxcjZRTmFJWHFJQ2tXRGhSN1ZJM0k2bWNHai1PWmtDUUQ2UTlCRDUtdmpCNEloM2xXNG83elhUZlltd3VGOV90bnRUdUlsTGRkNl9wQVRPQUpDUVJOMkRGVmhPbjZROXFDcTF1NmtpSTJkZWhsSnZOalhkczZXUG1kV2RIMDBhQmR0YWh6XzNxSmhYM3RMUVNPWDJPX2oySXRaZ1Y1Y0psbFF2bGxn?oc=5
-
-## Taylor Swift, Drake and Kendrick Lamar album releases linked to more deadly car crashes, study finds
-
-- first seen: 2026-08-18 17:38 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Drake and Kendrick Lamar album releases linked to more deadly car crashes, study finds  nypost.com
-- sources:
-  - [unverified] nypost.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxNbU5LOUVGWE5jSU9sZjU3cGhqWDNNbUpvZzd5TWh2QTdaR2tGS09TVWc5ZDVPaFBBTGpRZFFwV0YzTXFYRUJId3JzTi10cjctTUpWa1o2eFFSMXg0eVNFeXFoT1MtOXFKaFNyeWwzU01jV0JNcUY4TjZsYUYxeENNM2hWcktBUlVJVDd6ZWk0c1dKU2l1ZzlDcA?oc=5
-
-## Taylor Swift's toughest decision: she steps down as godmother to Blake Lively's daughters and ends t
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's toughest decision: she steps down as godmother to Blake Lively's daughters and ends their friendship for good  MARCA
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMilgJBVV95cUxNMlBmV0Z5RExWNVZrUXFCRmJuZURHZEs3cTk2THZOWEFaRkFRLWl2cnAxNnpLOXRkdTRzUVN0cEktTFdDTHdqVVpEdlh2N3FMSktLZkZSLVZIZWJkdTlBZDZucUNVVTBESzFfNmswQi01VzRqQUQ3RGNmRjk0czhweC01cmxuQkI4Q0lPQTBHZVdYMmMzM1IwQ1R2NG04ZWNPUWt3MlpGNHVDbXRUMjdmbmdpWkNjSE13a0NXU0JiQ0Z1TmVvd1BoOUhhN2V4eE5WVGVVclRDT0pKSGZsOUJ3RlJBWFhFck9PTW5sRkxkcm9nS0Myckluc21GYWMwTW9ObDFZcjNNN01fODNYVFpyRS1EVFRwZ9IBlgJBVV95cUxQZm14R0RQQUY4MTRxOTdmYjBJZE9xU0dORHBLZTBiVXVxYUlIRnc0SzZJZF9ETmdYUDU2MFNfWTRoS2p0RlNucHZkSzJwSnhxU1Jjc1FmTG5oZi1jcTFPVGVmME4zSVRnVWJjcDU3UUlhMzBLeTItSTVOVEk4RGpSODFrRFdfWFZpQ0FuWkR2TC1JcFdvaS1WMmxFNXE4QnQxSWgwQkNrYkdGbUpURVNPQm5UWlpJRmJzVmkxRFdUSXdjUzloQzFGaDBNdE0xeUJHV0FQV1NaeVBXQUlOR183RlVVNjZ2MnA0aS1wZXBveXBjUXlYZUlQR0xjYzliZ0RvcjdiMVlhbWdnNDJOYTJpS3ItZlZxdw?oc=5
-
-## Stray Kids, Karol G, Taylor Swift & More: Chart Highlights - Billboard
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Stray Kids, Karol G, Taylor Swift & More: Chart Highlights  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimAFBVV95cUxPSW40ZG1oZlpfSUdzdC1UR0V4RHVlQ2Y3SWw5ZVVydEYtb3I4dFFlVWw4cEdySElzRl9IdDh3UXNYN1h1RWxBLVc0SUtscmxlQ1UwLURNZjVjT3FoaVRJR2JxcGVNNlg2U1RFOHNXY0E2dUFlanVkSml2ZnI1UHlveFRwbjhrVEh2dHJQSWpmSzhHN1d2U0R1cg?oc=5
-
-## Taylor Swift & Selena Gomez’s Baby ‘Pact’ Reportedly Exposed as Sources Reveal if the Singer Is Conc
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Selena Gomez’s Baby ‘Pact’ Reportedly Exposed as Sources Reveal if the Singer Is Concerned of Having a ‘Falling Out’ Like Blake Likely  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOUWVVV1NWQjFuM204ZmJ1Q3hmU2ZTVUpQNG9mbms5RTVJcDBxZ1p3U2ZqdW1FMlNMU3NtQzFkRzZZNHlBTVB5dFR3NElXZEdoR0hkOEV5Q3BFeFBBMDF6Y041R01JZklXeFZwWUtQbVo3Y3JXZ0h3aHlnb0hjaW41VVlKSXh6RHV3c3l0UjVHQ2xndFByZkl1OTMyWWFBd05FZVE?oc=5
-
-## OG Anunoby Reveals His ‘Favorite’ Taylor Swift Song After the Singer Celebrated His Tip-in Knicks Wi
-
-- first seen: 2026-08-18 17:38 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: OG Anunoby Reveals His ‘Favorite’ Taylor Swift Song After the Singer Celebrated His Tip-in Knicks Win (Exclusive)  people.com
-- sources:
-  - [unverified] people.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxONEJCWHFheXFTRm5YYWt3dTlTX25fUzZCSXRUTTQzbllpSlUtY0RSUnpXUEhlWXVnRGJKYUlCSWRpVXA3RkwtOWxtOVdYeGJjNU10ZzVsd3Nha21zdWNNdUVOSWtQQWxmNzhmWW5RM2xnaWtXekxUYmYtdHdxWF9zZDhGNHNXc3JlRzgzR2JPTHMycXFtRy1Oc3Z0TGZkTTBRZF83ai1RVmg2bTJleUh6dG9sU3NnTUgyTUdkV3VrWXZudG5xQXN3aQ?oc=5
-
-## Madonna Leads VMAs Nominations With 11, Followed by Taylor Swift, Sabrina Carpenter, Ariana Grande -
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Madonna Leads VMAs Nominations With 11, Followed by Taylor Swift, Sabrina Carpenter, Ariana Grande  Variety
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/madonna-leads-vmas-nominations-taylor-swift-1236837092/
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMilgFBVV95cUxOemppR3RSN3VyWmpRa01vU09MenZWSlp5WWpOUDZQa1pLcmZ6Y2F4TFc5akV5eHI5YmsydjdWaHUzNFo5eE1UUTBaNUtPSEpmel9hN1g3d0pPdktRMW5NaERJXy1RalpldktqOWxLRV9LTGlzSzN1aGJ2bmZkSnpXMVJjMzZVTDFieWlNQnRxbWFCVVBQbUE?oc=5
-
-## Madonna and Taylor Swift Lead Nominations for the 2026 MTV VMAs — See the Full List! - people.com
-
-- first seen: 2026-08-18 17:38 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Madonna and Taylor Swift Lead Nominations for the 2026 MTV VMAs — See the Full List!  people.com
-Madonna leads 2026 MTV Video Music Awards nominations, followed by Taylor Swift  AP News
-The 2026 MTV VMA nominations are here! Taylor Swift, Madonna lead the race  KOMO
-- sources:
-  - [unverified] people.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOWHdDdFYwQldEaGE4SlRBMmJIT3pSbS1BS3RWbktUTmw2UDFYZnl0WXQzUTJ3QjZiZlVHZWxaa1c3VVdsRDNaUzNtSnRzSGt4ME9hSWw2SmVxRXIyX2tkOWd2WmN1MzhtR2w3d2wzazJuaGZ0SVg2Z3BfOGdBMzBfZ2U0bmxyNlBmRXlJ?oc=5
-  - [unverified] ew.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxPUWFHcDVBRW1GOUVXV096TFlqd2UyMTBWbVlLTjdQZE1pNVpaVm1nVk12bmtiS3Z0bTBxbGFyZ2pFUmVYSWtNVTRiNTZHWXBOaFBQMnV4Q0dXOHRaY0RxVUQ3M29JLTlfa0FjTGRERFRFLTdfdk95aWRTUXVYQ0tJRXNBcWw2OGJFeFI0ZU9ZUk9wQ09QUkZz?oc=5
-
-## Travis Kelce and Taylor Swift’s Wedding Bands Analyzed by a Jewelry Pro - TODAY.com
-
-- first seen: 2026-08-18 17:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce and Taylor Swift’s Wedding Bands Analyzed by a Jewelry Pro  TODAY.com
-Taylor Swift and Travis Kelce Show Off Their Romantic Matching Wedding Bands While Thousands of Miles Apart  people.com
-Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their Wedding  Yahoo
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxPNDJUUHFxSWxtdWlOeVU3RFVXY2gzSmVDWjZ4U2ZvdnhadE5sYjFRUGRsTzhHdlJ0WVpGZFdwQ0JhcW01QXNSM2pWb3pFZlR6LXowNVp1YUN2VVRtdHF4RWpob2NOSEtULXc5Z05GUzMtaUdSbllZMVpVQ014MXN2WC00Yw?oc=5
