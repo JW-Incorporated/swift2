@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 88
+
+## Taylor Swift and Travis Kelce Didn’t Invite This Person to Their “Very Special” Wedding Despite Clos
+
+- first seen: 2026-08-21 05:45 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce Didn’t Invite This Person to Their “Very Special” Wedding Despite Close Ties  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPU05EOWRZTFJvZ2FWYzV6S3NfTHh2VVhsbDU4S2tWSEJhbHM0bDR4YlNWWG82YXZicGp5Yk5wOWQ5Yk5WQ25jV1RPZEpwLXROLU8wOTNNMzJ0UlBMeUsydE1MZnY2bWJhcENUYjJyMWRxODg0NGRSUk13ZXNmRkF2MGVkazVfZ1JZeDVTcUZ0ektVbm5sT3FLNzlEUFVtMDIyZ3BselRtSlJFalE?oc=5
 
 ## ‘Taylor Swift Tax’ Draws Suit From Rhode Island Homeowners (1) - news.bloombergtax.com
 
@@ -99,14 +107,6 @@ Stories: 90
 - sources:
   - [unverified] Go Local Prov — https://news.google.com/rss/articles/CBMioAFBVV95cUxQaTRZNm9ydV9pMF9wRk5FNnhXLWJpcVBBdTZlZDYxcjdVblR0S25GMGhIYmxPZHRTZEZWdk9tRmtuV0w4STdhLU8ydW5MdFI0TlBqYVdnam1NX1Ntb1FCNDhMM1NsTTJNazB1TFJDMnc4cEpJS04zcmJDVmRYREptOVYwRnJMRTVCTW1CSm5MN1FFM3RrZ0RSejAyRndIVGNQ?oc=5
 
-## Taylor Swift clashes with Jason Kelce as she steps into her fun aunt era - MARCA
-
-- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift clashes with Jason Kelce as she steps into her fun aunt era  MARCA
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMizAFBVV95cUxPTjFTRW00NUJ6azh4OU1EUXlVTmpQd0RNNjd4SjdWbldFM1JIb0NCOHV1Q25lWEprUDVqRm56RUpNVjhCV2dvb3FXQjNFLTlsMWhBdGJtN1VXWF9sMXZQS0xoWDFyQlhVRkxjS2xkSUd3Y3EzbHdmclFLVUZwejdJX2taY01ZVElsc094YW5FYnhDUDlzVTRrNS0zdnpESWJidjlDdUg1WWZXX1ZaQ0pHNzFwb0x5NXBiRFVMN1I2SjI2bmEwVURvMXRrNzA?oc=5
-
 ## Taylor Swift's New York tease - Nine.com.au
 
 - first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
@@ -114,6 +114,14 @@ Stories: 90
 - summary: Taylor Swift's New York tease  Nine.com.au
 - sources:
   - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMioAFBVV95cUxNZkR4bXBaWEtmeWlHWkh6UmdSR2tFTFRQYXJEd004QlpRTXZKc24ydm5NVUNhc2FMaW95YlZJS2RLWC0ySVBxWkZpcHZRZmRSTmthbWtpUGpsclFXT0w4cXZBUWU4am83SjVIRy1ENkFxN29IQV9YTEFZVUtmSVhTN3FtZ0lDRHlPREZUbUh0dzZxTUJLd1dxV2FQNGdvZEFF?oc=5
+
+## Taylor Swift clashes with Jason Kelce as she steps into her fun aunt era - MARCA
+
+- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift clashes with Jason Kelce as she steps into her fun aunt era  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMizAFBVV95cUxPTjFTRW00NUJ6azh4OU1EUXlVTmpQd0RNNjd4SjdWbldFM1JIb0NCOHV1Q25lWEprUDVqRm56RUpNVjhCV2dvb3FXQjNFLTlsMWhBdGJtN1VXWF9sMXZQS0xoWDFyQlhVRkxjS2xkSUd3Y3EzbHdmclFLVUZwejdJX2taY01ZVElsc094YW5FYnhDUDlzVTRrNS0zdnpESWJidjlDdUg1WWZXX1ZaQ0pHNzFwb0x5NXBiRFVMN1I2SjI2bmEwVURvMXRrNzA?oc=5
 
 ## Taylor Swift Fans Think She's Dropping Album After Spotting Alleged Easter Eggs - TMZ
 
@@ -278,12 +286,13 @@ Stories: 90
 ## Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list - Yahoo
 
 - first seen: 2026-08-20 05:43 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihgFBVV95cUxOb2NnMHFsWElrSWRndHc1QW8tVXNZbDNRNE1IUUwxYS1GcTNickstd0xmd2l3RE8wUXdjeHlIWTR3c2dVZngzQktWY3JfOXRPb1VrczBkVjR2YWx1NTFrMmI2SGtjSVdUTEJVb1AzV2ZUTG5LSXgzSmVXVDRZNEVTancyWk12QQ?oc=5
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxQNzBVeTVXc19QVzF1RUR0YTR4Z0tibUtGRHZLVGtJb01taEFOUXVKejZOYnoyUk1DbU9vTGVIY2Z4VVp2WXN4UkZQQ2tKaEMtOXFTSFpOV3RYbXFJalVIYTg1clIzMXpReGF0UzJaUmpBUmFhRlVvVm0xajNBWmp1dFhsNFNaSEZqejBBeHo4TlN5a09I?oc=5
   - [unverified] LiveNOW from FOX — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPRWd2QkxRZWhsXy04LThtcXRjT1JpVl93dEU5VllkQ1NvaVcwTEpUdEFqUVBBWmpsczVNMEJ1aGZYbldPVXJhLVdJMV9CZ3B5TjdITFdvc0pyMGpCLUVpbHdDRlRudkhBSjdzYVJobTBlb2p2SXlkUVRHUEpuQUVKS3pfLUUyWGYyc3NYT193YVI4VklqMjdhYTVLWUVNNDdzbE1BMlVjTFdkOEU?oc=5
+  - [unverified] FOX 10 Phoenix — https://news.google.com/rss/articles/CBMirgFBVV95cUxQSDRwZEROTm9VMUQxVUx1cWtxRmZTdzNINDJNWXY2bzZmaUI3SlV5ZDFqdkR4TkRxUE9DQzdTdGRUdHZIa2tGVW83ZGk2eWdTcTFFZDkwdWdMT0lOc01GdTg1TU5NTmZNcGZIUEJ0Y0g5TlZSWmFRbzJTcy1PVFdCdVoyTlF6WDdReS1qZEI2aFNVQ3d1dVdpcUFOX3pXeVZEeEI2dElLRi1QRUw1UHc?oc=5
 
 ## Exclusive | The meaning behind Taylor Swift and Travis Kelce’s ‘timeless but highly personal’ weddin
 
@@ -744,27 +753,3 @@ Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their W
 - summary: Travis Kelce shows off wedding ring as Taylor Swift wears hers thousands of miles away  Riviera Radio
 - sources:
   - [unverified] Riviera Radio — https://news.google.com/rss/articles/CBMixgFBVV95cUxNaGIwdmxIcjVvQ1lUb29jbnpNWVRNX3hUOEF3Y3A0RF8xXzJsaTVabHBrZTFSLUZKa0lZSjFtVHZRQmE5MXdBLTZVZ3JrNEVydVd3MnltZjJxaDFxZzJBX0pyWkktWmFCNjNKU3haNmlOYVNWQUZXV2RiNFQtLVJfYy1JZEZmZDI0ZW9xaGc0bnJfcDRSQ1BGa0s3Z2V5d2h2R2FSeFgzR3pJYm00dUR5Q1Z1cnoxTkRpYkhWbGo1c1YySzQtTUE?oc=5
-
-## Taylor Swift’s Body Language Shows Major Shift After Travis Kelce Wedding, Expert Says - Yahoo
-
-- first seen: 2026-08-18 05:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Body Language Shows Major Shift After Travis Kelce Wedding, Expert Says  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQVjlEZGk2VVdpb1NnM0VPdEZqQ0ZveHAyQ3FZSm4td2RISll6RzRMWmxNV0RXQW9MdENnWnJDUWFocC1CYTNKTzVaQk9XazZFMmdlME1FX2g2RzhoZ3FQS0pVQkVodm5lSnh3NTZObndvemZNeGQyb3g0VFh0cnB6dUh6ZGd3Z2hGMTN2akFfMWVmUkNzZ3QxWHkyZjI3QU5CcURTNg?oc=5
-
-## Why Taylor Swift and Harry Styles are linked to a rise in car crashes - The Telegraph
-
-- first seen: 2026-08-18 05:41 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Why Taylor Swift and Harry Styles are linked to a rise in car crashes  The Telegraph
-- sources:
-  - [unverified] The Telegraph — https://news.google.com/rss/articles/CBMilAFBVV95cUxNdFBwTThoQnJUNnIyOEFVQ1lsZ0lHdWZBUmRBYWpvcTdSRWNadzBUejhGWnRmcXlkVk00SXhGOXRPdWpLdEUtdXVjalFfM3dKbjUxaTVoSEFacjZIS1Q3VVZYVHJyVGhON0ptbzRRT1FHQWkxakc3eXRCbzRRTm1TMGNNMGpyZEQ0ZGEwcDhhWHNVcy1L?oc=5
-
-## A note of caution: when hit albums drop, traffic deaths rise - The Times
-
-- first seen: 2026-08-18 05:41 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A note of caution: when hit albums drop, traffic deaths rise  The Times
-- sources:
-  - [unverified] The Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxQZG5TNXAza0dHN3ZadnFyR0VLUjg2WWE5MDNPSTFXcDVRQ1NDSlgzTU9sUU9JQlJXWk1jdENmLUx1U2FqcmtMRGsxZmcyWFoyRHkteHBsMDUtbUs5UlVsT3VLLVh6MGFNdWY5cDJpejVyVmRHWEFidmtucmNHRFh0Nzc5NWxvaG5XdUxZaGc0N004QlhYVEE?oc=5
