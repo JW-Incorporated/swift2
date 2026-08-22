@@ -25,15 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 79
 
-## Tom Hanks Criticized NFL’s Ryan Fitzpatrick for ‘Faux Pas’ at Travis Kelce and Taylor Swift’s Weddin
+## Jason Kelce Fears He's on a 'Sinking Ship' as Taylor Swift Wins Over His Four Daughters - Yahoo
 
-- first seen: 2026-08-22 02:20 UTC | category: relationship | importance: 5
+- first seen: 2026-08-22 05:38 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Tom Hanks Criticized NFL’s Ryan Fitzpatrick for ‘Faux Pas’ at Travis Kelce and Taylor Swift’s Wedding  Us Weekly
+- summary: Jason Kelce Fears He's on a 'Sinking Ship' as Taylor Swift Wins Over His Four Daughters  Yahoo
 - sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiowFBVV95cUxQellUbjdvZmJCTU1xS05CU0VaZ19MWWJvb1hPMDBlN1hpbWlKMi1RZ29xdFp5OHZMczNZZE1tc0l0WWlZNDd1TC1mVVhvd2pJR0xkbzJHSnQ3TURqb1RLdlBKSU8tSkZzOExzNHV1ejZlbjZCMmRMdEtoTG9oX2MxTjhQb2tIYjB4MkhlTXZYcmhrdW1ST0ZhZmZraHlzYVZOVHNJ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijgFBVV95cUxOY3NYbTRmZVAtcGpQVS1FcXdGUkNfUHAwZXdiaGJISXFqNTNneXZEaExhZmpFQjZ6MEFHckpNbXZGdXphSzd1M3FlTTBNZzlLRVhYMHgwNklwZUlMdjl2X3BXOWs3N0l6TjR4VHlwTFg3dEZuNDVrazBOa3FyV1I0amYxcDZNaTIzb2MwOGJ3?oc=5
 
 ## Ryan Fitzpatrick, Tom Hanks and a top hat: QB shares hilarious Kelce-Swift wedding story - USA Today
 
@@ -42,14 +42,6 @@ Stories: 82
 - summary: Ryan Fitzpatrick, Tom Hanks and a top hat: QB shares hilarious Kelce-Swift wedding story  USA Today
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMivgFBVV95cUxQdFF4dXpCMmx4ellOMWQxemJibTBXWDJyRy03Y3BJdFNvVVNZc09kTVlRWXNoTTJUN3RPcEZPdmVaNXVwcm9rdUpaMml0eDZ4Wk8wcVJnTVgxQnhpdVk1TF9yTzRsS3NpVEJLZ3F2Wk5DUDRuSnk1MXpUbGhkazRnWnRzTmZpT3RRa3o4YWNpdE1CSXFaRUVDZVFjZEtqLXp6bEFDZW42a1poRjlYUnUwVGRKREhhMTJ4YlZhLTNn?oc=5
-
-## All About Taylor Swift’s Secret Show in L.A. This Week & Who Was Invited to Attend - Just Jared
-
-- first seen: 2026-08-22 02:20 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: All About Taylor Swift’s Secret Show in L.A. This Week & Who Was Invited to Attend  Just Jared
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitwFBVV95cUxNS1NsZklQc2xpUmt2MUR4NGV3WUNqanNDX25hRFdFeDE3YTZnNjY0UVNLaTVFVXU1SXhqX2VIT29Zc211WS1PTmVsSUhFSXRENHdnTDNJMkdQbDlqR0hLSldHQ09vQ3dRYUZYOWtwZzRaeVlKMU1OVDRLZ2hnWWNSUklaZEVDUFJqWl93dmNxeHRHZ1JQX1F2ZjVYMkpDZ3hRUzdUT1RxSjQ0QWxfaEhSVnZ6OF8ybVk?oc=5
 
 ## Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event - Deadline
 
@@ -67,6 +59,24 @@ Stories: 82
 - sources:
   - [unverified] Uprise RI — https://news.google.com/rss/articles/CBMidEFVX3lxTFBzTlBlc3ZWdmpCUUd0N3h3NVE5c0xSamREdDQxOXd5eFpLaFI3QURmS3ZMQ09fREVZYVl0Zl96N0xfMy1UXzMzRHhwSzlMaHBPUS1YZmxMYVV1ekl1U2o5aWJLWE1IOXMyaG05dUFYZU50Unpm?oc=5
 
+## Tom Hanks Criticized NFL’s Ryan Fitzpatrick for ‘Faux Pas’ at Travis Kelce and Taylor Swift’s Weddin
+
+- first seen: 2026-08-22 02:20 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Tom Hanks Criticized NFL’s Ryan Fitzpatrick for ‘Faux Pas’ at Travis Kelce and Taylor Swift’s Wedding  Us Weekly
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiowFBVV95cUxQellUbjdvZmJCTU1xS05CU0VaZ19MWWJvb1hPMDBlN1hpbWlKMi1RZ29xdFp5OHZMczNZZE1tc0l0WWlZNDd1TC1mVVhvd2pJR0xkbzJHSnQ3TURqb1RLdlBKSU8tSkZzOExzNHV1ejZlbjZCMmRMdEtoTG9oX2MxTjhQb2tIYjB4MkhlTXZYcmhrdW1ST0ZhZmZraHlzYVZOVHNJ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOVVVhVXpGZVV3YTFwR0tFcmlaTzlqUjQ3cnZKQ2hPRk5BQ20taWxXSUdaalE5NEpXaURPQ20xQzNPMkxibkl4dklMMUYyMnZ0ZmtQZ1BZc0M1amtCZVdEUWJLbzlHY19uczg3enM2MkRZZW1XVFR5Z3RRWkJ2RGs2NWFMSUhiZDh6NUdzak5qMnFjZ0hDdk9BR0hRNXFoVTd6?oc=5
+
+## All About Taylor Swift’s Secret Show in L.A. This Week & Who Was Invited to Attend - Just Jared
+
+- first seen: 2026-08-22 02:20 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: All About Taylor Swift’s Secret Show in L.A. This Week & Who Was Invited to Attend  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitwFBVV95cUxNS1NsZklQc2xpUmt2MUR4NGV3WUNqanNDX25hRFdFeDE3YTZnNjY0UVNLaTVFVXU1SXhqX2VIT29Zc211WS1PTmVsSUhFSXRENHdnTDNJMkdQbDlqR0hLSldHQ09vQ3dRYUZYOWtwZzRaeVlKMU1OVDRLZ2hnWWNSUklaZEVDUFJqWl93dmNxeHRHZ1JQX1F2ZjVYMkpDZ3hRUzdUT1RxSjQ0QWxfaEhSVnZ6OF8ybVk?oc=5
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE9PaXhNd1F4UGhiS1Z2ei1qdjZNdVNzSW5DWk5OTTd0TkVrbjVOcmxDUEFYcGw4ZXp0S1ViQkZvTUpiUFAyLV9WbFZaTk9SVXZsZklmVXVoU0JCeXhfZDB5NmloRmNCQQ?oc=5
+
 ## 5SOS ask Taylor Swift and Travis Kelce the million-dollar question after Kansas City show - Currentl
 
 - first seen: 2026-08-21 21:35 UTC | category: relationship | importance: 5
@@ -74,14 +84,6 @@ Stories: 82
 - summary: 5SOS ask Taylor Swift and Travis Kelce the million-dollar question after Kansas City show  Currently.com
 - sources:
   - [unverified] Currently.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdGp6RFgyVUV5VzhWNmtmS09SNWNOYkpIdnI1NFZqNThHaXYyMzN3V2lHdlRXUGZZNFFXOUxmYXhGSXhqMXppYmxKY3dtNlQtUm1pcDc2T0N4RnRvMnJ5UFNLMFo2c1FORVlLSmNqVUVUZGQ0WHhnWFZCendFTDFjbklkY3hndw?oc=5
-
-## More than 50 Rhode Island property owners file suit over ‘Taylor Swift tax’ - WPRI.com
-
-- first seen: 2026-08-21 21:35 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: More than 50 Rhode Island property owners file suit over ‘Taylor Swift tax’  WPRI.com
-- sources:
-  - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPOVBWTjZITEM4ZUl2b3dlVVgtRU9MQlYzLXpEaGRtZHNPQjlFVGxpTUQzdVFwbktITHhiRFc5VTFQWmNCZFl6X2MyZTlkcHlGTi1RRHJLWU5RZU5Mb0I5eng3M09sVHFFeUFoakNDUFJyOFdTSWlMMXd4QzFyaWZzNDVVYmFidWxkZG9wRXFHMNIBlAFBVV95cUxOcHlEckZncEpUQ3FQVXVIdGUtZjFlZklfdlNuVUhESkpBaUk5Ql9UN2tEOGItMHNPUDZZSUtseEVzLTJVbUk0M3g3ZlNGZkxIN0M5WHlnazVPUC1tSmNCQnpDSmdvNEptS0xnWkozbGxkVllrMGNUOW40YmZsVTdpc0xGQXAtaXBIMzdsMGZMY0lNR1I2?oc=5
 
 ## Kylie Kelce reveals Taylor Swift's surprising family nickname - Yahoo
 
@@ -91,6 +93,14 @@ Stories: 82
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNYTYzVm5SYm9GZjA0SExoOW5rVkM4NTM2MmhJWVdwMmR3SFlwczhwb19YczNOMmt5SUppQmVJYjNTUEwtYzR3RDZWMDM1aWwtYlVnWGRSQkFnMW1yTFEzSDB4MTBlZll3MzlkY19HY21fVlNSZFMzZ3pfMERNRjJGbUJ6dmc1SEswbDc4YVBHZllEVjY5Rl9fOE90QlZ5eFRHd3ZsMVh3?oc=5
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxQYmwwaXk1ZEw0enF2SHAxNDZEcXRJNUJUZDFSYXVHeFVyQ3dTaGZOdVdlWlRTN09CeWJjUUR0X2gzZHpvRUg5VFQ5d1JTTEFhY2NXMncxRzZUVGxUTjd4T3ZFY1IwaWc0dkg3R3ZUYjFyazR4RHF6QUJicFU2MTV5YTE5OTF1TzV5dHRnb0lKWUFjd1RmUHZwdXVURGxsMDJGUlNDUi1YQzhfVTNoVkd5VnVBUXlTd1ZrMmtVd3paLXlEbTJXbno5Y3dnYw?oc=5
+
+## More than 50 Rhode Island property owners file suit over ‘Taylor Swift tax’ - WPRI.com
+
+- first seen: 2026-08-21 21:35 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: More than 50 Rhode Island property owners file suit over ‘Taylor Swift tax’  WPRI.com
+- sources:
+  - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPOVBWTjZITEM4ZUl2b3dlVVgtRU9MQlYzLXpEaGRtZHNPQjlFVGxpTUQzdVFwbktITHhiRFc5VTFQWmNCZFl6X2MyZTlkcHlGTi1RRHJLWU5RZU5Mb0I5eng3M09sVHFFeUFoakNDUFJyOFdTSWlMMXd4QzFyaWZzNDVVYmFidWxkZG9wRXFHMNIBlAFBVV95cUxOcHlEckZncEpUQ3FQVXVIdGUtZjFlZklfdlNuVUhESkpBaUk5Ql9UN2tEOGItMHNPUDZZSUtseEVzLTJVbUk0M3g3ZlNGZkxIN0M5WHlnazVPUC1tSmNCQnpDSmdvNEptS0xnWkozbGxkVllrMGNUOW40YmZsVTdpc0xGQXAtaXBIMzdsMGZMY0lNR1I2?oc=5
 
 ## Caitlin Clark 'Wouldn't Mind Seeing' Taylor Swift Wear Nike Caitlin 1 Signature Shoe - Bleacher Repo
 
@@ -659,35 +669,3 @@ Travis Kelce and Taylor Swift’s Wedding Bands Analyzed by a Jewelry Pro  TOD
 Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pals Sabrina Carpenter, Jack Antonoff  People.
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMipgFBVV95cUxObHRHZXV5eTFaak1CZE5RVm5xcEtFTDRJNF9aZm85ZjJPek9ZT1BYaVBHalNza00wMkllUWVlZjc2QnlReUNaRVV0VGFic1pDb19aak5qWFQyZGFiQkxwUnMtRlZNNG13Y2NiQzFBSTZDQ2xWdGthLTZRajQtNktHdzNXSGpwN250R0RYOFY2SGdBRUs1U3JOTDRSNGRrcVVDRlVaLUJR?oc=5
-
-## Taylor Swift & Travis Kelce’s Long-Distance Marriage Update - StyleCaster
-
-- first seen: 2026-08-19 02:23 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce’s Long-Distance Marriage Update  StyleCaster
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiswFBVV95cUxPaDg5M2lrOGh2c19XWl9NUDVmQmtYUlF2R3plUi1Sd3hXcWVqWDJjSFpkQ3hnT24zLXBfMEZ5cXNaNGw1N1F6RHZiejF5S0JZVW9FekRlb2E5Z090WDZHX1pYRm1lckZUQm05bm9samZxQWhIR2pQLU9zRmJubnNGNFpjWFJkWDlDMWxrMTItSGRCMzJQd0tER3lTOTFOYm1Wa3VLTzNTSVFlSUtGVzduMnpiaw?oc=5
-
-## Taylor Swift Just Solved Our Wedding Guest Fashion Woes — Here’s Why Her Dress Works from Summer to 
-
-- first seen: 2026-08-19 02:23 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Just Solved Our Wedding Guest Fashion Woes — Here’s Why Her Dress Works from Summer to Fall  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxQTy1mWE45c0kwZ1BfMWJkMmdkRFo2VHVmOEhYQllEUzBsUGFDc1QzcXFhNVRpU20xYUpyZUhfdTRkYjNMMmpFUm1EX3VxaTllOTVJWWR0SGdPSFNJTmQ5NHBBU1BWeWp4M2RBMHQ0Zlk0eDRla0YxNFhRSWt1ZVQyaVNuTWt6Zw?oc=5
-
-## Who will win big at the 2026 MTV VMAs? Madonna, Taylor Swift, and more top nominees revealed. - face
-
-- first seen: 2026-08-19 02:23 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Who will win big at the 2026 MTV VMAs? Madonna, Taylor Swift, and more top nominees revealed.  facebook.com
-- sources:
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPQVNZQThnSktiOUZqbWhCTHZURXdzU3lSVzZWVVp0UGZ0Z1BVdGd4aG9wUnpQUFdieUlVVnF3d3VuOHpQaWdqU2VOZ1MyNkY2T3Rzc0pDbGROaDJnNnRfWXdMSWhFZGN0NURyS05QUVhkOTRaVkl5Wi1vSUlFYmZ4NEwwcnJTNEx5N2RjOWlqOXQwSm9ubE11azkzdDdtNHA0b212VjRjbllTWTZWeGVvc1BKMFN4VkQ0QTZWblozQU1iNUItbm5OZGZkbzZiRnJpMHZ6V1BDNFptZw?oc=5
-
-## Opinion: Taylor Swift and Travis Kelce had their dream wedding in July, now can we stop picking it a
-
-- first seen: 2026-08-19 02:23 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Opinion: Taylor Swift and Travis Kelce had their dream wedding in July, now can we stop picking it apart?  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi8gFBVV95cUxQSFRMRmpjODlwbjZIUzJxWFJXdUI2M3k0cE5FbGFrMWZOWDNMRXF6ZzNXd0k1RGZvVklSVEJrVENHc2RSc05zVnFjWFdSQzNUNjVWWHdLT2NQLWpRY3ZmOHl0VUNSbE1pMUFXcDVPanJSd1hBcjk1SmpDaWVSQzB6QUllRnVhWmFlTndINWo0NmJ1LUhtdzdXNHNuYlFxV2d2eXFXNHNBenVuMTEzTW85OURodVBkSG5RcDhBSy11QnhVd2Z0Y09IUHBxcmVIVDF0eTNMZDVLcHExMUlMeDBCQnZsWGlUVjctYlRPWkM1dkJvdw?oc=5
