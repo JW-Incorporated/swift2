@@ -27,6 +27,46 @@ so far".
 
 Stories: 85
 
+## Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding 
+
+- first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOcXlza3dxOFdGVlNoaXpZeldoRUlGU1gtMDB3ZG95cjNweXlYTndUaVZSZkVicENuOEs4cTBkcXYwdFhfTDFlZ0xBZlhCT25fS0tiOWllWGNENlZVNjlqdThGM0VleHRoTTcwN0x5NHlCVWlURG1BbVdadUxRU3VoQlkzZDNEQjdsM3ZtcUdIaHM2SUtqU1VIUXdlTXRrOE12OFNFS3Z3QWdOYmRBb2N1Z2ZfNFlJdDJP?oc=5
+
+## Taylor Swift has a disdain for Eagles’ Tush Push, an NFL rules analyst revealed - Kansas City Star
+
+- first seen: 2026-08-22 21:33 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has a disdain for Eagles’ Tush Push, an NFL rules analyst revealed  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNcndVVDJzWFF4Z0ROeVRfZUlZME9vMzVMTGRKcEQyZVJ0WWkwZGdZWWd3QVJjUkhpck55Y3BvaFFjeTR2RGNoNUhib01xSHNoYnRPeWhWci1BZnVhQ1dmXzZTU3ZucGI3c1JoS0JPN2paMThCRFNPcmYwSGNBUXlCX3g0d1YyUUNpWmkzbS1ncHhhUdIBkgFBVV95cUxNMjUtSUJwOVVoRU5OY3dfdnAybTVsME9aNEZlbF9CSjBpNmZsM1Y2Vl9icUFfbzgzRkNzcUQ1cUllcEZMRFVsVHdnMWIxUzVDbWdKNlF5VFZUd0hUbmFRc01aQ3otZ3YtV25nQ3pBS0RwdXBSMWh3VzR4WHZMWVNwR1Q5MzF4Si1CWUVBYy1rXzFwQQ?oc=5
+
+## Dean Blandino said Taylor Swift thinks the Eagles’ tush push sucks - Bleeding Green Nation
+
+- first seen: 2026-08-22 21:33 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Dean Blandino said Taylor Swift thinks the Eagles’ tush push sucks  Bleeding Green Nation
+- sources:
+  - [unverified] Bleeding Green Nation — https://news.google.com/rss/articles/CBMipgFBVV95cUxQb3lsNTZKOWJpeWthVEhkY0RFM3g0ZGwxLXR6THlpYnFaYmJXclNQQUZmMWkweFJzXzBmWVdqRmhuMzZHSG9taGEyMGdXLW5ZMjlrd3JQOGtUUWtFallTbVcyTE9hZ2k4RXlabWZ6cnk3QUpTREtGRW9rOV9ONF9ndWJMcTlsRTBqcmdxT1FHZmo5TWdjQlA0eTIzbjI0VEZNLXlUc3F3?oc=5
+
+## Taylor Swift Looks So “1989” at a Private Emmys Event - Harper's BAZAAR
+
+- first seen: 2026-08-22 21:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Looks So “1989” at a Private Emmys Event  Harper's BAZAAR
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiywFBVV95cUxQZ0ZyQktaRERFTWJXczBWQTdFLS1hLTNMQnZlRk9jRXFQN0hsQk9ya3RnUmZmb1hfcEdQYmJhVU5jcHJVdFl2Y2swV2JReHV3OVI0MmZoZm1UaEIyY2Nwc3A3YXFMcGN6bXNaeTlZOHRUZk1YUVRmVVdLNExBUFhHLWYyNG5TX2xBRzBBSWtfQk9OUlJXV2ZsWlVBWWtPNzNOakgxalByNHZ6VWZ4d1RLTkR3VEswVmRzb2U4Rm90ZzdXc1otS1BsRGVUdw?oc=5
+
+## Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp - heavy.
+
+- first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxOSmdxMXdEX2ZYbGZTZkUzOEQ2c2xOYnBhNFBaQ3hFLS1PczhpY2hZbUR1RVFXdE1abW9RdG5Ld3dUOXRnQkUyUXFkek9meHdyVVlwVFRIaDJsMFJDY283Y0lyclVFcnFOd3NOakZydjlpLUJtZ19SZWdfLTlUWjlLYW9vOG5ZaDNmdVhyTmtPTQ?oc=5
+
 ## Taylor Swift Shatters An All-Time Chart Record - Forbes
 
 - first seen: 2026-08-22 17:33 UTC | category: sighting | importance: 3
@@ -448,6 +488,14 @@ Stories: 85
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMizAFBVV95cUxPTjFTRW00NUJ6azh4OU1EUXlVTmpQd0RNNjd4SjdWbldFM1JIb0NCOHV1Q25lWEprUDVqRm56RUpNVjhCV2dvb3FXQjNFLTlsMWhBdGJtN1VXWF9sMXZQS0xoWDFyQlhVRkxjS2xkSUd3Y3EzbHdmclFLVUZwejdJX2taY01ZVElsc094YW5FYnhDUDlzVTRrNS0zdnpESWJidjlDdUg1WWZXX1ZaQ0pHNzFwb0x5NXBiRFVMN1I2SjI2bmEwVURvMXRrNzA?oc=5
 
+## Kylie Kelce Reveals Taylor Swift Has a ‘Big’ Influence on Her Daughters Who Are Begging for Kittens 
+
+- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Reveals Taylor Swift Has a ‘Big’ Influence on Her Daughters Who Are Begging for Kittens  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNWksxLThLT1dEM3NzVThMaGZhbW8wT00tdWgzSjVnY3FfaXhlMTNmV0Z2dVFkZ1h6ZWpGZWtfXzlSQllyanRzelptSWxrVGR4TUpSMEhEVC1WZlFrdmNCQ1dsbHBmY25OT1U1alNBOEozVE5TelJzYjJUZmNmb0stckVvdmpBREZwU3NTLV9OQ2tlVVZ2NVc2T1hCZ1F0c0tPRnBuWg?oc=5
+
 ## Taylor Swift Fans Think She's Dropping Album After Spotting Alleged Easter Eggs - TMZ
 
 - first seen: 2026-08-20 21:38 UTC | category: music | importance: 5
@@ -479,14 +527,6 @@ Stories: 85
 - summary: The truth behind Taylor Swift and Travis Kelce's 'timeless' wedding rings  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQbzU4ZmU4Y3E0bWVZdlR6NW4xT28xaWxxOHlqUkZrVWJqYjkwVDdZMWtTdkF2NmxialVXQTVCLXJ5S1ZJRVpFTXNsVU9lT3E3bmQwQS1qbTlMUkRjaDFtMGZfckxhdC1XdC1qX0ZyTG1rTDRjeXNla3NncE1GU1VSSTZrb2wzREFPN1Y5cWpEclVReU53UGlSTlVZbFRJRHZfZUQ1VQ?oc=5
-
-## Kylie Kelce Reveals Taylor Swift Has a ‘Big’ Influence on Her Daughters Who Are Begging for Kittens 
-
-- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Reveals Taylor Swift Has a ‘Big’ Influence on Her Daughters Who Are Begging for Kittens  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNWksxLThLT1dEM3NzVThMaGZhbW8wT00tdWgzSjVnY3FfaXhlMTNmV0Z2dVFkZ1h6ZWpGZWtfXzlSQllyanRzelptSWxrVGR4TUpSMEhEVC1WZlFrdmNCQ1dsbHBmY25OT1U1alNBOEozVE5TelJzYjJUZmNmb0stckVvdmpBREZwU3NTLV9OQ2tlVVZ2NVc2T1hCZ1F0c0tPRnBuWg?oc=5
 
 ## Kylie Kelce Refers to Taylor Swift as ‘Aunt Taylor’ for the First Time Since Her and Travis Kelce’s 
 
@@ -674,43 +714,3 @@ Stories: 85
 - summary: Why Movie Theaters Are Leaning on Concert Films More Than Ever — And How Artists Benefit  Billboard
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMijgFBVV95cUxOY09tVXdhN21NRDBOTnN4SWJmYU9yRDQ4YllRdHh4Y05IbDYzRGg2ZklhY2l2VzVGeEhnVW5qa2NUOWt1cmVneFQxb1ZIY3Bqcmd5ejJFUEhQWTZ0anBGZW1rTm8taVMyZG1rZ0MxbzdJUlk5V3NrdW1vcmg2Vk42cVB0dTZad3NMQl96b1lB?oc=5
-
-## Taylor Swift Shows Off Shoulder-Length Haircut at Wedding Following July Marriage to Travis Kelce - 
-
-- first seen: 2026-08-19 17:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Shows Off Shoulder-Length Haircut at Wedding Following July Marriage to Travis Kelce  Kiss 95.1 Charlotte
-- sources:
-  - [unverified] Kiss 95.1 Charlotte — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNOXp2b09yYlNkZG5iTndJWkNydzRXNFpfMjZ1bTB4OFE2czVYVHRlWUdTWU9ybmI4dmw2Q2dPTmVuVTExMGI1U3RydXZQNnVQQ3NkRnAycldNdzJzcVpFQXdxUWZXd0xGdkpVSldudjdGQjUzLWNHRTZBWVpkNVA0NWpoZDhfNDBWX2NFOXMxSkl1SXcxNlphazdQYjAzRkhvU2JHTk5YVmpIRVktNExldFB1eDlKck5LNldyWXlnSUU4dHJFMWh0Uw?oc=5
-
-## Taylor Swift, Charli xcx, and the art of switching categories to win a Grammy - Gold Derby
-
-- first seen: 2026-08-19 17:37 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Charli xcx, and the art of switching categories to win a Grammy  Gold Derby
-- sources:
-  - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMingFBVV95cUxORkRxZnlWbWgyM3JzN1l3Y1p5aEN3akNZQlFVWmpHMnczU0trQXo4N1hDRWhpWHRIZHgxUHBnZGhkZllSS0N4VzRXTlNXdEZmRXgtbG9sMUhxUWcxSGotSFI5YjhXMS1FbzhHOU1fM3FrLVBLVFF5RGl2NFV3SjZjNFhlaVZfUm1uSUNja3RVb3JPUURLQ0hxaDFvN3lMUQ?oc=5
-
-## Phoebe Bridgers & Taylor Swift's Friendship Timeline Goes Surprisingly Deep - elitedaily.com
-
-- first seen: 2026-08-19 17:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Phoebe Bridgers & Taylor Swift's Friendship Timeline Goes Surprisingly Deep  elitedaily.com
-- sources:
-  - [unverified] elitedaily.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxQU0NZTm92S3JkWk96UG9hckVBazJPODlaM2xqR1lmNGRjbUFQb3pDaHBwVWh4Z0VUc0txcjdSQkxDUTZWT3ptMTlub3lEUXZxYWZsdl94eVUxaG1MeXUwaDJENEdyQk1vbnJmUjV2NGJhajdkZmVicFdhd3dVLWxRSWlMTVlmdGtsejBFWWp1RUlQN0E?oc=5
-
-## Behaving like Taylor Swift could make you happier, and science proves it - Yahoo Creators
-
-- first seen: 2026-08-19 17:37 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Behaving like Taylor Swift could make you happier, and science proves it  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUGtqY25lTnl2QXg5R2E0XzZwam9mUHlhZ3FLWURoN0xFY1R3QUY5N3NoVFE5QldoMnUteERoMS1yYlh2UVJaV1h6b2hDUkZNZS1TYzczeFZsUHBpcnhVdVpQcUJJOTRrakNQM0wyUVNIZXQ5QXBBY2Q1N1hCcm1DSTcySzduYXNjcXBNbUpKZWtzcURpU1ZySUltbGdQY3pXYnl0NkdQYU9QUzEwWEhldUt2Y0dlNmRtMG1CZTVsTjZwaGFBelg5UA?oc=5
-
-## Ring experts on favorite details of Travis Kelce & Taylor Swift wedding bands - Kansas City Star
-
-- first seen: 2026-08-19 17:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Ring experts on favorite details of Travis Kelce & Taylor Swift wedding bands  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNN0FxMVVmbHE1VWUtMG5QZ0xLQ3N5bFduakFzMzhvS3FTOVFXVjVDdlhpdEFPaV9vaDZhbDNYUXVqN2ZkUWxGTWFKNl9BS2kzUVVXYU9FVEN5SG9XVWNiWkpIWkhhN2xjT04yYmo3SFZmbmt4TXp2a0pQV3VsRkU0NnhzcGx3bERfYkdEX0dHYVFud9IBkgFBVV95cUxNSTNpdTFHUnhhS1JUb2VXWlVGYVRjckE4aWxYSjYtUXdxTldoMzJYM05QRzRTNnVLRndMaXhqdzdqZVhtSEQwNUdMRFM2YVUzcjlXaGlGbnNub0lZZUxrb2gzT2lVZjVoNVRRRWVqU2tJTm5hdElTUzhhWWxyVmJCVlBCV0J6NzF4TGpkQ2lNVml5UQ?oc=5
