@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 82
+
+## Tom Hanks Criticized NFL’s Ryan Fitzpatrick for ‘Faux Pas’ at Travis Kelce and Taylor Swift’s Weddin
+
+- first seen: 2026-08-22 02:20 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tom Hanks Criticized NFL’s Ryan Fitzpatrick for ‘Faux Pas’ at Travis Kelce and Taylor Swift’s Wedding  Us Weekly
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiowFBVV95cUxQellUbjdvZmJCTU1xS05CU0VaZ19MWWJvb1hPMDBlN1hpbWlKMi1RZ29xdFp5OHZMczNZZE1tc0l0WWlZNDd1TC1mVVhvd2pJR0xkbzJHSnQ3TURqb1RLdlBKSU8tSkZzOExzNHV1ejZlbjZCMmRMdEtoTG9oX2MxTjhQb2tIYjB4MkhlTXZYcmhrdW1ST0ZhZmZraHlzYVZOVHNJ?oc=5
+
+## Ryan Fitzpatrick, Tom Hanks and a top hat: QB shares hilarious Kelce-Swift wedding story - USA Today
+
+- first seen: 2026-08-22 02:20 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ryan Fitzpatrick, Tom Hanks and a top hat: QB shares hilarious Kelce-Swift wedding story  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMivgFBVV95cUxQdFF4dXpCMmx4ellOMWQxemJibTBXWDJyRy03Y3BJdFNvVVNZc09kTVlRWXNoTTJUN3RPcEZPdmVaNXVwcm9rdUpaMml0eDZ4Wk8wcVJnTVgxQnhpdVk1TF9yTzRsS3NpVEJLZ3F2Wk5DUDRuSnk1MXpUbGhkazRnWnRzTmZpT3RRa3o4YWNpdE1CSXFaRUVDZVFjZEtqLXp6bEFDZW42a1poRjlYUnUwVGRKREhhMTJ4YlZhLTNn?oc=5
+
+## All About Taylor Swift’s Secret Show in L.A. This Week & Who Was Invited to Attend - Just Jared
+
+- first seen: 2026-08-22 02:20 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: All About Taylor Swift’s Secret Show in L.A. This Week & Who Was Invited to Attend  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitwFBVV95cUxNS1NsZklQc2xpUmt2MUR4NGV3WUNqanNDX25hRFdFeDE3YTZnNjY0UVNLaTVFVXU1SXhqX2VIT29Zc211WS1PTmVsSUhFSXRENHdnTDNJMkdQbDlqR0hLSldHQ09vQ3dRYUZYOWtwZzRaeVlKMU1OVDRLZ2hnWWNSUklaZEVDUFJqWl93dmNxeHRHZ1JQX1F2ZjVYMkpDZ3hRUzdUT1RxSjQ0QWxfaEhSVnZ6OF8ybVk?oc=5
+
+## Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event - Deadline
+
+- first seen: 2026-08-22 02:20 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event  Deadline
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMilgFBVV95cUxOclRZLUhjWkJnQk9NZ3NRQmNIZ2Mzd1FIZFZIaF9xZF82VDQ5bXQtVTktc2l6WFB3cTA4ekZfX3NaZm8zRGdQUmJfRjFma0I2c3VCYjByTElJMC01YUxqR3FzN2w1aU9jM2hiRmRUR01yUGFtYk85OTd2MmQ4VXlqSnRrOE1iemtmX2gwZzVERGlvU1F3MVE?oc=5
+
+## Owners Sue Rhode Island Over 'Taylor Swift Tax' - Uprise RI
+
+- first seen: 2026-08-22 02:20 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Owners Sue Rhode Island Over 'Taylor Swift Tax'  Uprise RI
+- sources:
+  - [unverified] Uprise RI — https://news.google.com/rss/articles/CBMidEFVX3lxTFBzTlBlc3ZWdmpCUUd0N3h3NVE5c0xSamREdDQxOXd5eFpLaFI3QURmS3ZMQ09fREVZYVl0Zl96N0xfMy1UXzMzRHhwSzlMaHBPUS1YZmxMYVV1ekl1U2o5aWJLWE1IOXMyaG05dUFYZU50Unpm?oc=5
 
 ## 5SOS ask Taylor Swift and Travis Kelce the million-dollar question after Kansas City show - Currentl
 
