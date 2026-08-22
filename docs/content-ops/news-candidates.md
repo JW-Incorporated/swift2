@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 85
+
+## Taylor Swift Shatters An All-Time Chart Record - Forbes
+
+- first seen: 2026-08-22 17:33 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Shatters An All-Time Chart Record  Forbes
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiogFBVV95cUxQNzhkVGpxNmlIdE5hMks3YmxpTkNSaXlLVnlSTDIwU3A0VzJpSkxIS2hSZWVqbjNmRTZhV290YkJVXzNEMWdPNGNCT0JWaExoX3ZfdC00ZHhpeHMxdDhwT0ZRMjQxT2FOMFpXdFNONVdCZE5NYUlHLXlaak1ZZ1h4Q0I1Q2RENWp5blp4RTR3UWVOcDd1VE4xYXY0NG0zb1RTQVE?oc=5
+
+## This NYC Dress Brand Was a Fashion-Insider Secret—Until Taylor Swift Just Wore It - Who What Wear
+
+- first seen: 2026-08-22 17:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: This NYC Dress Brand Was a Fashion-Insider Secret—Until Taylor Swift Just Wore It  Who What Wear
+- sources:
+  - [unverified] Who What Wear — https://news.google.com/rss/articles/CBMikgFBVV95cUxPbExMVERoRk1QbGI5TkxJWVd5SFJnLUU1S2tKZW5VN00wamFId0FLaEJ2X3lGSGduektfU001TlpaWkVOZ1M4LXNmTGx4eXhSaGZ5NmNGRnRTQnJKa21aZkQ1ak1aS0dCZi03RWxPbjRUdnZPSzRaazF1TjU3U3NGVXNXaGFEa0paY19IUFlNLV9RUQ?oc=5
+
+## As Andy Reid lauds Travis Kelce’s dedication, Taylor Swift steals spotlight with secret performance 
+
+- first seen: 2026-08-22 17:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: As Andy Reid lauds Travis Kelce’s dedication, Taylor Swift steals spotlight with secret performance  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigwFBVV95cUxNN3ZxdWpMelNSOFkwY29GalpUOEtydXh3cmRKVDNzdDVHY3JNLXR1alJ2dm1zNk5tQXlfTGZQN1dsMDhLRUZMbXVPcVJPVjZDWDFoY2tHcThHYjh3bWdhOEx3dUJFUjlya2lZaUdRNEo3dWtMWldYbnVKcW10Mnp0MU5mbw?oc=5
+
+## Taylor Swift Recalls Making ‘Eras Tour’ Doc in Rare L.A. Appearance Ahead of 2026 Emmys - Us Weekly
+
+- first seen: 2026-08-22 17:33 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Recalls Making ‘Eras Tour’ Doc in Rare L.A. Appearance Ahead of 2026 Emmys  Us Weekly
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipAFBVV95cUxOTFNIM0I4NkRKV1hnVlVOaUtXQWZYYjFIUldXZU5IdTc5RTJWNWZiY3p4RDFUM3c3SG1zYWNFdDl1c3hpVTA2ZkRCWVlNcG5obGlyWTR2UndPQUVaU3dhSVBEeFk0cTFLX05JeEp2Q0RSY01pckRhcDNJVkJSNE5IemJwNmUzRG9lTkJJOFNQWnI2WGl4djZab2dPckdpU1IzbG1HSA?oc=5
+
+## Taylor Swift Reportedly Set to Release 'Three New Albums' as Travis Kelce Tests 'Tough' Country Musi
+
+- first seen: 2026-08-22 17:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Reportedly Set to Release 'Three New Albums' as Travis Kelce Tests 'Tough' Country Music Industry  International Business Times
+- sources:
+  - [unverified] International Business Times — https://news.google.com/rss/articles/CBMiwAFBVV95cUxOdWlhWVVTc0pYSDVpTWNkWU9rMUkxaVkydVZSRUFQdm0yT19CN3d4Zl9Nclotdnhldzl2VExLYjNvaFRmQ2JSbmVmRkxkRTdSNTEzUFpOZXRNUm5JQjFEUl9DRDZtWk1iQjc1VTJHMTBpVGtoR2p3U282cnVrMzlxUkFCMlA3blRLU1JzYWxVdmpIR1laNVlvUkhHTjk1eHBXUm03NlJCemJuYXFBeWdDckJYTGJTWnFqei1XTUNZbTA?oc=5
+
+## Taylor Swift reveals ‘great escapism' behind tour in ‘Emmys bid' - Yahoo Lifestyle Canada
+
+- first seen: 2026-08-22 17:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift reveals ‘great escapism' behind tour in ‘Emmys bid'  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxPMXpUcVZYczNCLWdnLV9WLVR6aUFURmlvMS1TV1VaSkw0RnlycmJWQ0p1Q3NtcmxRV0Z5dDdzVFR2eTRnaktDNWlCUVVhRmxwSFU1OHdyRzY4aGp6cE1OV0F5eW9nbG41QU95SUlMU1ZQc0NDUnNzc09XbEV5MXduX0ZkTQ?oc=5
+
+## Travis Kelce and Taylor Swift Can Now Wear Matching Cartier Watches - GQ
+
+- first seen: 2026-08-22 17:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce and Taylor Swift Can Now Wear Matching Cartier Watches  GQ
+- sources:
+  - [unverified] GQ — https://news.google.com/rss/articles/CBMiYkFVX3lxTE5LajU1aEo0eDJUbDR4eHlpQ3BnNlNwak9sMGJJeGdONjRvMll5ODV1UzJjUURkbm9UbkE2eVRFcnlOakthU3VzQkVwU2Q1andfWHdoanFQVlcwTkFCR3RYU2l3?oc=5
+
+## Taylor Swift & Travis Kelce's Post-Wedding Dilemma: Where Will They Call Their 'Forever Home'? - Yah
+
+- first seen: 2026-08-22 17:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce's Post-Wedding Dilemma: Where Will They Call Their 'Forever Home'?  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQM3JORFJERkhTRGJZWFR5ZzREVE5EVWU5ZDBOYVBvbDVUS1dGdWFQNzUzOExody1WeWJDTHNMVjZQUG96ZXMyYXR4RzlLb2U3dlRjcmNLYWwzRTctMlRMM0hVVWVYd1N1d3JrUVRYbF9KdHRCQlRub1BrdUNmRjU2bVNYb2dlQjFTeS1veFNUbmYzdm1FeVg5NS02YVAzcmNhdWcw?oc=5
 
 ## Caitlin Clark has a Taylor Swift sneaker thought 'she would probably like' - Yahoo Sports
 
@@ -650,36 +714,3 @@ Stories: 81
 - summary: Ring experts on favorite details of Travis Kelce & Taylor Swift wedding bands  Kansas City Star
 - sources:
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNN0FxMVVmbHE1VWUtMG5QZ0xLQ3N5bFduakFzMzhvS3FTOVFXVjVDdlhpdEFPaV9vaDZhbDNYUXVqN2ZkUWxGTWFKNl9BS2kzUVVXYU9FVEN5SG9XVWNiWkpIWkhhN2xjT04yYmo3SFZmbmt4TXp2a0pQV3VsRkU0NnhzcGx3bERfYkdEX0dHYVFud9IBkgFBVV95cUxNSTNpdTFHUnhhS1JUb2VXWlVGYVRjckE4aWxYSjYtUXdxTldoMzJYM05QRzRTNnVLRndMaXhqdzdqZVhtSEQwNUdMRFM2YVUzcjlXaGlGbnNub0lZZUxrb2gzT2lVZjVoNVRRRWVqU2tJTm5hdElTUzhhWWxyVmJCVlBCV0J6NzF4TGpkQ2lNVml5UQ?oc=5
-
-## Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their Wedding - Yahoo
-
-- first seen: 2026-08-19 13:54 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce’s Reported Family Plans Emerge Weeks After Their Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxNaUo0VDhQN3hJNVB1Q3dPSzB5cHBxeVpCV280c29rNnVmaEh3MWtESnZtSHJySHhiSWNzWW1HVmZfcmlqM2xlTDBaejBManhPclliQmtsd3g3Wk9talhZME9adXhNeEh0WW1pWWFLeHdrZFByXzk3MHpISnNPclF0S09VZ184dXVmX1BMc2pxWHREUHd4Vmk4ZWhoakFZRFc1SjY1cmJQNA?oc=5
-
-## We're waiting for AI models like they're Taylor Swift albums - Axios
-
-- first seen: 2026-08-19 13:54 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: We're waiting for AI models like they're Taylor Swift albums  Axios
-- sources:
-  - [unverified] Axios — https://news.google.com/rss/articles/CBMiekFVX3lxTE5fdUUxZFVhLVVWWFRUSU83ZThya2VaYnhiSUJXXzVhODZZTEdyYjNMT2JpaXhOLWJOUGt5Q3I5cE82YjVaeG9qeVJmUmJFckVvcWFXTFRXTWtOUmktME00TVRob3BwX0tFbXJtWFBGUTJsc3pTaHplcGVB?oc=5
-
-## Taylor Swift’s ties to a rise in fatal US car accidents - newatlas.com
-
-- first seen: 2026-08-19 13:54 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s ties to a rise in fatal US car accidents  newatlas.com
-- sources:
-  - [unverified] newatlas.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxQM3ZlVEV5VEtQZVc4cU5qNEJKT2pHaE1JZXRMS3BNSWhTQmViWWQ4R205cWItZmEzN2gwNVBBZ29YMjBtdHpKV2ZsQTZCcmpEcEplZ2c5TlRBT2xPZm5QenpCVVgtV2N5SlhxODgzTklBZGlXNUVnbGxvRjNDVXp0d0dtMEtCSFg0ZTk3WTd0ZkthbnJsczMzLWtNcG1jcU1WandzOVUyYw?oc=5
-
-## Taylor Swift souvenir for sale in DM. Bring a BIG truck I Exclusive - Yahoo
-
-- first seen: 2026-08-19 13:54 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift souvenir for sale in DM. Bring a BIG truck I Exclusive  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxPeUthOHNpYkY5bnpDSUF0SVNMa3FuZ29BODFtc0thd3QwdV8tbTQ3Tjg3YVkxcC1teHlMWFpBN1VtdEtEN1lSNHNzeWJkUEw2NEs3a2RCR3pkWHhLTzJqcGlvS2VKbGdFYzh4U3JqQTd3U0YzVjFhRnJ0TVZOQzFyTEk4bEViQ28?oc=5
-  - [unverified] The Des Moines Register — https://news.google.com/rss/articles/CBMi-gFBVV95cUxNYU1DcXc4SlRLeUppTEFTcW1HQjRBVnVrUUpxTXFVUENMOUpaQUZoUzBoMm9TMFpzNm5rWWs5bmhSZS1GQ1JOQjBKUm5oZkVaY1JVRVNqYjFhQXVuOVdVUk5DbjhrbTUtUGtpWmRRdjF1X2NMTEs2QTEwemdQQmwtUG40bkpkMmRpZGdZa2xzQ1hQcXJpQi1zYlFkUS1ENEtzaHkyUGNNOW9tdndaQzVrcGUwVlZvX1FvUVRRTzRJemkzWlVpenZma3NaU2lDZlplVHF2Y0VOU1pmVFFCZFJZWGRWMTBFRXZGUkFJUEtBRVJISU9jR1RLVWxB?oc=5
