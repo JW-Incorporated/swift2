@@ -27,6 +27,22 @@ so far".
 
 Stories: 79
 
+## $44 Levi’s Jeans, Taylor Swift’s Skort, and 48 More Excellent Deals - New York Magazine
+
+- first seen: 2026-08-22 09:38 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: $44 Levi’s Jeans, Taylor Swift’s Skort, and 48 More Excellent Deals  New York Magazine
+- sources:
+  - [unverified] New York Magazine — https://news.google.com/rss/articles/CBMiekFVX3lxTE9TV04xZEd4OURIaENrMmR2VTE5cFc2SFZjTzllUUZoaE9BNFZhMzZHMUdDejNtVkdEZnVfbGhhSXd6YXJJZE0xcC1HZ1RMbUFKbVlmWERDYmlCZFNadkxjM2dtZXJsUllocmZLbi1CV3QwSUIzTmVpeWJB?oc=5
+
+## Blank Space: The Unofficial Taylor Swift Tribute Tour Stops in Pittsburg – KSNF/KODE - FourStatesHom
+
+- first seen: 2026-08-22 09:38 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Blank Space: The Unofficial Taylor Swift Tribute Tour Stops in Pittsburg – KSNF/KODE  FourStatesHomepage.com
+- sources:
+  - [unverified] FourStatesHomepage.com — https://news.google.com/rss/articles/CBMivwFBVV95cUxQZzNXLVZSLTEzYXR3MDNxRVJDVmU0RDFaMU1vZWNxVFlxX0VtV1RZYnhNTmNLNm9JNm9DaXRIRE1Yb3RmVDZfV25PcTlZUXZpSlFCS25faklCUVoxb0lIUkZxRFNDSFFzd0x3TGpvMGFHMi0xMHh3ZVFkMzdaNE9xbzZzaFNnT3ljSks3SzFuUDRkc3NyUlRka2ZpSmdKTmNhbWJ2bC1uWEtPREgwZ0djQmYyT0NvZjM2YWFIUkhyQQ?oc=5
+
 ## Jason Kelce Fears He's on a 'Sinking Ship' as Taylor Swift Wins Over His Four Daughters - Yahoo
 
 - first seen: 2026-08-22 05:38 UTC | category: relationship | importance: 5
@@ -142,14 +158,6 @@ Stories: 79
 - sources:
   - [unverified] FOX 9 Minneapolis-St. Paul — https://news.google.com/rss/articles/CBMiW0FVX3lxTFBpX3kwZlBTdDVhdGYxZjBDYWNZNmZoRy1UM3NUVkVIaklkclVRaVFqVDh2Y3pUSDF4bHJuaThuUDNwVGQtalR5SXVwMmFUTDF0dnotdU1pSFdyYWfSAWBBVV95cUxOV20zMWRCdktvalctNkd3VlJEZUFfaTJ4a0RIRDluNkhrdHF0NXktNXF3MTc2enA0bjRJQnpFNHlIbVRaM21IVmRFak8taUhnMDVyRGVqTnl4M2RiNkdOd18?oc=5
 
-## Hidden Taylor Swift wedding ring details show deeply personal meaning - The Big Lead
-
-- first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Hidden Taylor Swift wedding ring details show deeply personal meaning  The Big Lead
-- sources:
-  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMingFBVV95cUxOaC1VZl9ZQkR0aGVkbUZ0eFNoSjNsTzFlX3dJOFVWa3g2dHV4aDRJRVU5Rk1qM0xYMU9XN3czcFRsSlctcndlZm5vUkpUZ3EyRmk5LUg4M2ZrbXFHdURxeU8teXNvRWtpeFBGTGxmSC12MERmSF9ET3VpVENsZE1jLXBia09IblVsaDR3UnhTc2gzZnQtVVF5UTAycVFJZw?oc=5
-
 ## 'Shocked' Taylor Swift Suffers Tragic News Weeks After Travis Kelce Wedding—She's 'Deeply Saddened' 
 
 - first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
@@ -190,6 +198,15 @@ Stories: 79
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxObHFZT0RsaGdkLTRSdXlzd3R4R2liNWdUaUEydG43WWZYY19HemVpUTFVMW0ybklRY19YcG84SkRNWExfWHNsU3dteVEtSG5la0Q1QTFtTjJSQW9UdUljS0F1T09UVGpNbXBXUnlCSHl5X1RGS19JWGttb2lIWmNOd2dJZUwtendiMmdSV0tKZ25PYWdCUHpITXRTaXJaSTljdGowUG50WXBJRnFsR2hV?oc=5
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZjluWkJPUjhudjNrMlpvNFFvVXA1MjljdjBNVTVhaV9fc3l4Ykphck1zMl9WN0hrNGpoYWdQVnlpR1BzYzU4MFl2QVR2UXVUR0k4YlVjVEYzZlBuZlVCQWw3UWFtaW0zWE5VMlo1SnFtenhQQzd2SzZxQ0pLZ21PaVJmdXhodTVvQ3o1RnREZEhkWEwwUEE3NlJSZDRyN1VHVkJudVlPTEhxa0VWVXo3dFFIRUMweUI0ampqcVA0LVVKbE9CcExMRnNB?oc=5
+
+## Hidden Taylor Swift wedding ring details show deeply personal meaning - The Big Lead
+
+- first seen: 2026-08-21 17:40 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Hidden Taylor Swift wedding ring details show deeply personal meaning  The Big Lead
+- sources:
+  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMingFBVV95cUxOaC1VZl9ZQkR0aGVkbUZ0eFNoSjNsTzFlX3dJOFVWa3g2dHV4aDRJRVU5Rk1qM0xYMU9XN3czcFRsSlctcndlZm5vUkpUZ3EyRmk5LUg4M2ZrbXFHdURxeU8teXNvRWtpeFBGTGxmSC12MERmSF9ET3VpVENsZE1jLXBia09IblVsaDR3UnhTc2gzZnQtVVF5UTAycVFJZw?oc=5
+  - [unverified] Currently.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQc3ZvR3FUOFBGU2NwTXJDQ2dQSWxhQVJGdGJSVXFqSG9ROURMT3llb1AwRC1HOHoxWE5oZW9fV25RQU1ZeVdBTkpfTXJEQjdnMFFJZjdaV05leFRJWGQ3eWlYWjl0dHQ2V2ZLYmVVNTlCM1c2TGFlVDFHb0xiclBPVlNZZDlIaDNJemJr?oc=5
 
 ## Taylor Swift, Ukraine and Russia's Wanted List: Why Conor Kennedy Is Suddenly Global News Again - Op
 
@@ -651,21 +668,3 @@ Stories: 79
 - sources:
   - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE92WUdoalI3TTNQdmVpYm9adjJpRWZMZmkxdC1KZDZjdS1EMm00QjA2QWNwRXFUWWlsdjQ1UF9jN2FZcTV2Z2ZFQUZrZ3B4d2ltSGdqcV85QkdYWHRvMkFGbUpRRzd2Zw?oc=5
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMinwFBVV95cUxNQXU2VFg2ZkJmV01XMnhsQk5ZNzBNVnFYN1prbF9vaEoxaU96YXk1WW14V3NNdW5XUW1SMldwZ1NhUUxyQ3RnWjM3TVo2ODJPajlNcEh4UlRwM3RMYUUycXVTak9SU25yY1NBWnNwV3dxb2NPems1RkpCX3hEcVBnVVJ0WGp2VFZZZmcydC1vUXBKeUNOZ0VhU1FUSEd0RE0?oc=5
-
-## Taylor Swift’s music quietly removed from Trump social media posts | CNN Politics - CNN
-
-- first seen: 2026-08-19 05:43 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s music quietly removed from Trump social media posts | CNN Politics  CNN
-- sources:
-  - [unverified] CNN — https://news.google.com/rss/articles/CBMid0FVX3lxTE1zY3NBaWZMVnJoa0JHUW9odWpGRXQ0dFNfajZ0cG9jVF84Q0ZUUHByeEdWZlhHUk9jaVY0Zm1PSERPUUpsM1FkRWxlVG5wemE5WkFpSnRjOHM0R1FuSk95bWU0eDJwcUk3NW4zdEQ2RjhWb2hsN3VB?oc=5
-
-## How Taylor Swift’s Contour Wedding Band Could Supercharge These 3 Bridal Jewelry Trends - ELLE
-
-- first seen: 2026-08-19 05:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: How Taylor Swift’s Contour Wedding Band Could Supercharge These 3 Bridal Jewelry Trends  ELLE
-Travis Kelce and Taylor Swift’s Wedding Bands Analyzed by a Jewelry Pro  TODAY.com
-Newlywed Taylor Swift Debuts Her Shortest Hair in Years at U.K. Wedding with Pals Sabrina Carpenter, Jack Antonoff  People.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMipgFBVV95cUxObHRHZXV5eTFaak1CZE5RVm5xcEtFTDRJNF9aZm85ZjJPek9ZT1BYaVBHalNza00wMkllUWVlZjc2QnlReUNaRVV0VGFic1pDb19aak5qWFQyZGFiQkxwUnMtRlZNNG13Y2NiQzFBSTZDQ2xWdGthLTZRajQtNktHdzNXSGpwN250R0RYOFY2SGdBRUs1U3JOTDRSNGRrcVVDRlVaLUJR?oc=5
