@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 81
+
+## Caitlin Clark has a Taylor Swift sneaker thought 'she would probably like' - Yahoo Sports
+
+- first seen: 2026-08-22 13:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has a Taylor Swift sneaker thought 'she would probably like'  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQc2RiSTNiMTl6VC1BQ2Npalp6dXhvT0NIejdQUGlEMjBrR0czbTI4N244YjBuNDU2TVJyUnZ5RklwcDZIbTlkZFVqSE9fS3Zqa0tDNkhTcWU2ZmpNSEUtUnFNYkxuLU5ha0IyWU81NXNUVkp4QWN0V1JGSDE5WGF0OVRXTWxORXc1Vksw?oc=5
+
+## Jan 18, 2025; Kansas City, Missouri, USA; Recording artist Taylor Swift (upper middle) sits with Ind
+
+- first seen: 2026-08-22 13:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Jan 18, 2025; Kansas City, Missouri, USA; Recording artist Taylor Swift (upper middle) sits with Indiana Fever guard Caitlin Clark (upper right) during the fourth quarter of a 2025 AFC divisional round game between the Kansas City Chiefs and the Houston Tex  The Daily News | Texas' Oldest Newspaper
+- sources:
+  - [unverified] The Daily News | Texas' Oldest Newspaper — https://news.google.com/rss/articles/CBMijwJBVV95cUxNdXBKd2NOaEtEdkp2blV3MEFkdG14aFJoVnlmdkRHNDZPeTFRbVlCM1RETE5oaVFzbjZQdFB6TVd2RThQVVlMQXV1NjVvLS0yNHRvelpESkdZNVVEQ1RMTkxzY3NlOElBMllQT1FBNVgxY0hMNkgwVF9GVmw2ZUE4YkJIakdrYmx1OTBWN1dqQWp6MENZUkwtVWtBa1drc29XSmJublJRODVfQTRrWXVUaVFSM3FmdDAtUy1kNmlDQXlQOFdjTl9MWlMzY2RXZmdIeTJuMUlhaTgyMXhpRzNwWXdnZjEwT3hsMXV3Q0VBT2pOeUlLRVFpM3dmWWFHUFZYT1k3UUw4MnNQOGtBaTNr?oc=5
+
+## This Summer Has Had a Hit as Big as “Old Town Road,” Even Though You Might Never Have Heard It - Sla
+
+- first seen: 2026-08-22 13:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: This Summer Has Had a Hit as Big as “Old Town Road,” Even Though You Might Never Have Heard It  Slate
+- sources:
+  - [unverified] Slate — https://news.google.com/rss/articles/CBMirAFBVV95cUxQTzRtRlNSem5YMTBWd21BM3dpWjhmdGNDT2R2NXFpZGtkSGNFQ3RxVHRIak82ZFJEOTgyWGt3c2c0XzlJVFZtWXdULU83MmwtVUwxVGIyU2JUN0VlOWxRWWRIMVNBX3FINldLd0N3ZWxhUmxtSHQ1MzFFempPQkNHYUdzZ0g2TlBzTDF1U1M0M0J0MzY4SDVQRzI5elJhcDVkRldfMG50bF9NYmFa?oc=5
+
+## Thanks to Taylor Swift, sancerre is the wine of the summer - The Times
+
+- first seen: 2026-08-22 13:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Thanks to Taylor Swift, sancerre is the wine of the summer  The Times
+- sources:
+  - [unverified] The Times — https://news.google.com/rss/articles/CBMipwFBVV95cUxQemFteWRXejN1ZWZlODc3NnlVSG9DZUNySi1uaVU0dlpEbVpSeFo3b3BpUk1ia3dMZXJVVVB1c1hWVmtjc1JTdEstRjRzWVMwaWo5MnFWYWtRYkh5bGd6czgtTllpQlY1bmJ5Ujh1cjZPb1I4eGhPRS11OFhwSElSTm1TSUZVMTBHTFNoSG95TGNsbnFRcmZLLWE3RHJWVXVEaFZxSktVWQ?oc=5
+
+## 10 of the Biggest Celebrity Weddings of Summer 2026 - People.com
+
+- first seen: 2026-08-22 13:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 10 of the Biggest Celebrity Weddings of Summer 2026  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiakFVX3lxTE5SZnVFeEJ3VHdEUTZJWFc3QlNZRWZ6Um5aRmdLaTB6OFFySjRnb25VSC1vNGw4UUt1d0RJeXh0eVRoWkx5elpTMWdxX0lpSGoxUkpORDlkT3ZCSlBzVGxhTGtRamVldVpjV0E?oc=5
 
 ## $44 Levi’s Jeans, Taylor Swift’s Skort, and 48 More Excellent Deals - New York Magazine
 
@@ -643,28 +683,3 @@ Stories: 79
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihwFBVV95cUxPeUthOHNpYkY5bnpDSUF0SVNMa3FuZ29BODFtc0thd3QwdV8tbTQ3Tjg3YVkxcC1teHlMWFpBN1VtdEtEN1lSNHNzeWJkUEw2NEs3a2RCR3pkWHhLTzJqcGlvS2VKbGdFYzh4U3JqQTd3U0YzVjFhRnJ0TVZOQzFyTEk4bEViQ28?oc=5
   - [unverified] The Des Moines Register — https://news.google.com/rss/articles/CBMi-gFBVV95cUxNYU1DcXc4SlRLeUppTEFTcW1HQjRBVnVrUUpxTXFVUENMOUpaQUZoUzBoMm9TMFpzNm5rWWs5bmhSZS1GQ1JOQjBKUm5oZkVaY1JVRVNqYjFhQXVuOVdVUk5DbjhrbTUtUGtpWmRRdjF1X2NMTEs2QTEwemdQQmwtUG40bkpkMmRpZGdZa2xzQ1hQcXJpQi1zYlFkUS1ENEtzaHkyUGNNOW9tdndaQzVrcGUwVlZvX1FvUVRRTzRJemkzWlVpenZma3NaU2lDZlplVHF2Y0VOU1pmVFFCZFJZWGRWMTBFRXZGUkFJUEtBRVJISU9jR1RLVWxB?oc=5
-
-## Sabrina Carpenter, Madonna, and Taylor Swift lead the 2026 MTV VMA nominations. Here's who else made
-
-- first seen: 2026-08-19 09:46 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Sabrina Carpenter, Madonna, and Taylor Swift lead the 2026 MTV VMA nominations. Here's who else made the list  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi9gFBVV95cUxONWZia01sSFE2ZmNhYUl6MWhVVEZCVEVPTUFFbHpSd3RsRE0wU3llMEhxUkZZZ0Q5SHFmZWdlajF6bk9DUU9KbzVHb3VMc2llV2xBbU9QN1lrRWlHb2xBMWdEd1RrUnBXUzR5R1hzNU5mU1RiTGk1cWtpb2dDRHhXU2lCYllNelpUclR6dVZQdE91M0txWFVldVhfd1VINDhCWFladUtRWUxqeThoc093M0xOLUs5M0dtc0pJVGoxcVEtdGU3eGd3TEJnRlZ1OGZRcmhQQk9PcXc0OHI5aUFudG5oWVZvMi12alNiY2tMU1gtX3RxcXc?oc=5
-
-## Taylor Swift News Conflicts With Travis Kelce’s Chiefs Schedule - Yahoo Sports
-
-- first seen: 2026-08-19 09:46 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift News Conflicts With Travis Kelce’s Chiefs Schedule  Yahoo Sports
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPLVBWYUtZbHdEdGF2X2p0RThoaFhNNWRJR0RmcjctRFRINTAzSTRvVFBPQlljenhnMGdzVU5USVFITkN0cXE4X2JZYlhJc01QM3JsdEpwdjNDcEJmM0F2WW1NOXJiRFVwWUdGcEcyU0FZS09EZEQtOG9NRzlTMUxVcjJ2d1cwUl92SXFB?oc=5
-
-## Fans Think Olivia Rodrigo Just Shaded Taylor Swift & Here’s Why - IMDb
-
-- first seen: 2026-08-19 09:46 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: Fans Think Olivia Rodrigo Just Shaded Taylor Swift & Here’s Why  IMDb
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE92WUdoalI3TTNQdmVpYm9adjJpRWZMZmkxdC1KZDZjdS1EMm00QjA2QWNwRXFUWWlsdjQ1UF9jN2FZcTV2Z2ZFQUZrZ3B4d2ltSGdqcV85QkdYWHRvMkFGbUpRRzd2Zw?oc=5
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMinwFBVV95cUxNQXU2VFg2ZkJmV01XMnhsQk5ZNzBNVnFYN1prbF9vaEoxaU96YXk1WW14V3NNdW5XUW1SMldwZ1NhUUxyQ3RnWjM3TVo2ODJPajlNcEh4UlRwM3RMYUUycXVTak9SU25yY1NBWnNwV3dxb2NPems1RkpCX3hEcVBnVVJ0WGp2VFZZZmcydC1vUXBKeUNOZ0VhU1FUSEd0RE0?oc=5
