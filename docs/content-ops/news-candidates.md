@@ -25,15 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 81
 
-## Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding 
+## Caitlin Clark wants Taylor Swift to rep her signature Caitlin 1s - Yahoo Sports
 
-- first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
+- first seen: 2026-08-23 02:36 UTC | category: sighting | importance: 3
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding  instyle.com
+- summary: Caitlin Clark wants Taylor Swift to rep her signature Caitlin 1s  Yahoo Sports
 - sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOcXlza3dxOFdGVlNoaXpZeldoRUlGU1gtMDB3ZG95cjNweXlYTndUaVZSZkVicENuOEs4cTBkcXYwdFhfTDFlZ0xBZlhCT25fS0tiOWllWGNENlZVNjlqdThGM0VleHRoTTcwN0x5NHlCVWlURG1BbVdadUxRU3VoQlkzZDNEQjdsM3ZtcUdIaHM2SUtqU1VIUXdlTXRrOE12OFNFS3Z3QWdOYmRBb2N1Z2ZfNFlJdDJP?oc=5
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPYms2R3o2MWdhODYtd3I0ekhYUGxqR0U2QmZ2Z0o3V3hyYlRjcm5nQi1za3JDaFpnMktTYXY1SkRJeWFsME5ZYThqeUxXc2xtbktQcHVRMzh6a2ZrQVlna3ZSYlRpNlR5bUgxb1Bka2Y4ZFZTS1IwYkxyclZGYkpSX1pLcGJ5R2Ew?oc=5
+
+## Little Compton Council Wants 25% of the New 'Taylor Swift Tax' Sent Back to Town - Uprise RI
+
+- first seen: 2026-08-23 02:36 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Little Compton Council Wants 25% of the New 'Taylor Swift Tax' Sent Back to Town  Uprise RI
+- sources:
+  - [unverified] Uprise RI — https://news.google.com/rss/articles/CBMitAFBVV95cUxQaVhkTHZDUjBCNTduN1hha2tFbmhDN3FhcEpqNlpaZHBGVlVBVUEwUUZwWDcxVExLRkZaUmRCcEpqQ1QtMVpGcXdiVWppMVczRzZtMXVhcWlnUDdKd3p6MTBNdk5scVlhMGswLUdMZVU0Vm1HSDdYd1JzRk9OdXJ2THE1RTQwSW8tTnJsUVZZY1BrMXpNY3FNZy1aZFo3dEV2R0VTQ2FCeTgzaEdVS19DZWhWVEU?oc=5
+
+## Kylie Kelce Calls Taylor Swift ‘Aunt Taylor’ After Wedding and Reveals Her Influence on the Girls - 
+
+- first seen: 2026-08-23 02:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce Calls Taylor Swift ‘Aunt Taylor’ After Wedding and Reveals Her Influence on the Girls  Currently.com
+- sources:
+  - [unverified] Currently.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQNkNpemd1bkZYOE84aHlGNDUzZVVHMFp3MHV0dDFQYzYyRGd2WVFVY1FMdE44WTlqMm5BMVNnOTdieVpGZ1FMN1FzVWxyTHlQajFUa19CTGRKQ1p2dDB2RVFPMHJnanFKQW1CV1ZDb2g3OEdIdXlVWUV6RXRHVjJ5VFdZcXd4N0xf?oc=5
 
 ## Taylor Swift has a disdain for Eagles’ Tush Push, an NFL rules analyst revealed - Kansas City Star
 
@@ -66,6 +82,15 @@ Stories: 85
 - summary: Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp  heavy.com
 - sources:
   - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxOSmdxMXdEX2ZYbGZTZkUzOEQ2c2xOYnBhNFBaQ3hFLS1PczhpY2hZbUR1RVFXdE1abW9RdG5Ld3dUOXRnQkUyUXFkek9meHdyVVlwVFRIaDJsMFJDY283Y0lyclVFcnFOd3NOakZydjlpLUJtZ19SZWdfLTlUWjlLYW9vOG5ZaDNmdVhyTmtPTQ?oc=5
+
+## Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding 
+
+- first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOcXlza3dxOFdGVlNoaXpZeldoRUlGU1gtMDB3ZG95cjNweXlYTndUaVZSZkVicENuOEs4cTBkcXYwdFhfTDFlZ0xBZlhCT25fS0tiOWllWGNENlZVNjlqdThGM0VleHRoTTcwN0x5NHlCVWlURG1BbVdadUxRU3VoQlkzZDNEQjdsM3ZtcUdIaHM2SUtqU1VIUXdlTXRrOE12OFNFS3Z3QWdOYmRBb2N1Z2ZfNFlJdDJP?oc=5
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOZnYxYnozZDMxcV90NTI1THY3UjFDWUxraFpKREw0RFpsZnRNM1BTNTQtamk2OHplNEtFTXBPWFBzVERtcm1qR3RjcDVPVTJ3aGJwVFRCMnk0UTd3Yk9DeFFQX2taVVZfSmE3cXN3dnFCVWlINW52UGZZYTQ1dXpYSEs5WFMyOVhWWVcxclVLekVMRDQ5NzZ1MV9jMnFOb1Q3bFZUM0Npbzhid3R5Ylh4cjlDUGprWHVrTTQw?oc=5
 
 ## Taylor Swift Shatters An All-Time Chart Record - Forbes
 
@@ -658,59 +683,3 @@ Stories: 85
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxQNzBVeTVXc19QVzF1RUR0YTR4Z0tibUtGRHZLVGtJb01taEFOUXVKejZOYnoyUk1DbU9vTGVIY2Z4VVp2WXN4UkZQQ2tKaEMtOXFTSFpOV3RYbXFJalVIYTg1clIzMXpReGF0UzJaUmpBUmFhRlVvVm0xajNBWmp1dFhsNFNaSEZqejBBeHo4TlN5a09I?oc=5
   - [unverified] LiveNOW from FOX — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPRWd2QkxRZWhsXy04LThtcXRjT1JpVl93dEU5VllkQ1NvaVcwTEpUdEFqUVBBWmpsczVNMEJ1aGZYbldPVXJhLVdJMV9CZ3B5TjdITFdvc0pyMGpCLUVpbHdDRlRudkhBSjdzYVJobTBlb2p2SXlkUVRHUEpuQUVKS3pfLUUyWGYyc3NYT193YVI4VklqMjdhYTVLWUVNNDdzbE1BMlVjTFdkOEU?oc=5
   - [unverified] FOX 10 Phoenix — https://news.google.com/rss/articles/CBMirgFBVV95cUxQSDRwZEROTm9VMUQxVUx1cWtxRmZTdzNINDJNWXY2bzZmaUI3SlV5ZDFqdkR4TkRxUE9DQzdTdGRUdHZIa2tGVW83ZGk2eWdTcTFFZDkwdWdMT0lOc01GdTg1TU5NTmZNcGZIUEJ0Y0g5TlZSWmFRbzJTcy1PVFdCdVoyTlF6WDdReS1qZEI2aFNVQ3d1dVdpcUFOX3pXeVZEeEI2dElLRi1QRUw1UHc?oc=5
-
-## Exclusive | The meaning behind Taylor Swift and Travis Kelce’s ‘timeless but highly personal’ weddin
-
-- first seen: 2026-08-20 02:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Exclusive | The meaning behind Taylor Swift and Travis Kelce’s ‘timeless but highly personal’ wedding rings  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMijgFBVV95cUxNZ2Nsekp1QjE5TVFkQUN5YkJJZUFDRzN3M1dobWZOa3dYVkZRNk1VMC1vYlB0NHc3S2I1ekhIaGJQNFVwVzJfRE5BV3JUZzhFM2R0ZVgyWFFxUndJLUVyR09OTVJYS2k0NHhGaWtkQmt6Y2x4dEdMejlpeDFZTFdhUUhFMkE2T2o2QTF5VDdB?oc=5
-
-## Taylor Swift Performs First Show Since Travis Kelce Wedding - Yahoo
-
-- first seen: 2026-08-20 02:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Performs First Show Since Travis Kelce Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNT0l5TXpsTHhWZi1vNUVmV285RlBkMkxDOFBpZHZfVF9kd2hwZ1NSWUU0THpIVWJHb0lHN0J6YjdYRUFLaTl3c1gyZXBvVHpnSkRKM3RsdUpYcC1aS19mR0J3dlUxdldFR1cwaE80dGVFRGRwWV84elR1RzRfNGY4TFlwNG5FUGx6Rmx2NGFrSjVtWm1YZlZqRWxVZjVYR0E?oc=5
-
-## Gabbriette Reveals What Married Life with Taylor Swift’s Ex Matty Healy Is Like - Yahoo
-
-- first seen: 2026-08-19 21:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Gabbriette Reveals What Married Life with Taylor Swift’s Ex Matty Healy Is Like  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxNS21qTy1kTl9aeUVQcWFBZVEzM3d1TmxLa3VDYTNoamZ4N0F2ZjJKbkthMEtJTWJ1UmZ3cWhwMGtLTHdRdGNBclZxZzZhMXF5YUg2RnNPcTk3SUtUVF9LNzNxTlIwR3NGZXZTUGJ5bVFiR25ZN2g2UE9CdDhnTXJhMWFiWjhDdjhDUjlUOHctRTJZWXdSTVU3ZXdENVo2aWR4T3Z4NzlaYmpiNmx6?oc=5
-
-## Kennedy scion who dated Taylor Swift goes on Russia’s wanted list - The Times
-
-- first seen: 2026-08-19 21:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Kennedy scion who dated Taylor Swift goes on Russia’s wanted list  The Times
-- sources:
-  - [unverified] The Times — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOTlJsUHRDR01ZVnZmZ1J3ME92bEhfbU5laXRzR0pnTkpzSTA2cTI0Z1VPVGFSbWJnckJSd1RWYWJWdmgyczdIV09PYlVLM3d2eS1CMHExUjdEaERPcEduT2RVUWxYZGRVUmhReXZueHFjWjdvZDVqbWwzLThlYS02THdqNnp0ZWFiUm1hY0x6VDJTQkk3Uk9DeWVNeF9kVDdGaGZjdFZpbTNCcUk?oc=5
-
-## Taylor Swift and Travis Kelce show off their matching wedding bands almost two months after grand we
-
-- first seen: 2026-08-19 21:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce show off their matching wedding bands almost two months after grand wedding  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE1DZ1hNZGM1MGNyM0hOTEhaaVBBTTFaaDZPR0RWN1d5TW5mZW1NQkxrRk1XT1ZaaTVfZnJRZEtSd0FPbWVWVmdUVno2X0xGMElkUTlXUmd1STlvUFdtMVdpNmdYQWNtTWx1T2w4SGMtTUQ5UUkxSExvMzRnREQ?oc=5
-
-## Taylor Swift shelter auction draws attention - The Des Moines Register
-
-- first seen: 2026-08-19 21:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shelter auction draws attention  The Des Moines Register
-- sources:
-  - [unverified] The Des Moines Register — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQazNTV1RjU0psQ0x6SG1Vb0Nfd2I5b0l4dWozTnE4QWRabTN3NDN6UjF3VTBaWHNsUjdRZFpsOGFERnVLclE1NFpMZmtURTJUYWZsSDU5NG1udThUdUtXQ0hBUWEwbGxlMUtOYXVTaG5IMG5YNFRWSWJuMXhaYVc2bi1XMUVaOEdNWEs0X193RkNUdDl3bkVkOWF2bUhUM0hvVjdrc2pVdHctOW1vSlpTUDRNOEFOdTRCZGVNZ0dpSUQ4czJTcE5vY29GZFZlaTZMQUE?oc=5
-
-## Why Movie Theaters Are Leaning on Concert Films More Than Ever — And How Artists Benefit - Billboard
-
-- first seen: 2026-08-19 21:36 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Why Movie Theaters Are Leaning on Concert Films More Than Ever — And How Artists Benefit  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMijgFBVV95cUxOY09tVXdhN21NRDBOTnN4SWJmYU9yRDQ4YllRdHh4Y05IbDYzRGg2ZklhY2l2VzVGeEhnVW5qa2NUOWt1cmVneFQxb1ZIY3Bqcmd5ejJFUEhQWTZ0anBGZW1rTm8taVMyZG1rZ0MxbzdJUlk5V3NrdW1vcmg2Vk42cVB0dTZad3NMQl96b1lB?oc=5
