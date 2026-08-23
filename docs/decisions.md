@@ -7,6 +7,33 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-23 — kit-v3.2 orchestration layer restored, superseding the 2026-08-22 "nothing replaces it" decision
+
+**Decision:** Joey asked directly, in chat, to reinstall the kit-v3-lineage
+orchestration layer: the `architect`/`executor`/`reviewer` agents,
+`triage.sh`/`checkpoint-gate.sh` hooks, `pause`/`human-actions`/
+`debug-protocol` skills, `STATE.md`/`PLAN.md` restored as living per-session
+files, and a `CLAUDE.md` orchestration section (triage ladder, two-strike
+debug rule, context/session-limit discipline). Landed via PR #2279
+(`kit-v3.2` branch), merged 2026-08-23.
+
+**Why:** This reverses the 2026-08-22 entry below only in effect — "nothing
+replaces it" becomes "kit-v3.2 replaces it" — not in premise; that entry's
+"if ever wanted" recovery note anticipated exactly this. Joey's direct ask is
+the condition CLAUDE.md's own note required before reintroducing an
+orchestration framework. Not a third competing system: same lineage as kit-v3
+(retired 2026-08-19), picked back up because AI Dev OS's removal left nothing
+in its place.
+
+**What's different from the 2026-08-19 archive:** hooks/skills pulled fresh
+from the current kit template (v3.2, not the stale 2026-08-19 copy);
+`STATE.md`/`PLAN.md` restored empty, not with their old (already-migrated)
+content.
+
+**Approved by:** Joey (direct instruction)
+
+---
+
 ## 2026-08-22 — Decision authority loosened: AI may merge/push to `main` and deploy; HUMAN-ACTIONS.md status edits may be delegated
 
 **Decision:** removed two items from `CLAUDE.md` § Decision authority's "AI may
