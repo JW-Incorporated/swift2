@@ -1,6 +1,6 @@
 # Brief mailer — emails Marjorie's updates to the founders' real inboxes.
 # From Marjorie's own Gmail, To Joey, CC Wyatt (Joey's calls, 2026-07-11).
-# Deterministic, zero AI. Two sends per day:
+# Deterministic, zero AI. One send per day:
 #   - 12:45 UTC (~5:45 AM PDT): the Founders' Brief (issue body). Joey's
 #     requirement (2026-07-16): the email is IN HIS INBOX BY 6:00 AM. The
 #     send is anchored at 5:45 PDT for margin; Marjorie's brief trigger must
@@ -9,11 +9,13 @@
 #     see the correction below, that's no longer the whole safety net.
 #     UTC-anchored on purpose (org precedent): winter sends land an hour
 #     earlier in PST — still in the inbox by 6:00, never after.
-#   - 03:02 UTC (~8:00 PM PDT / 7:00 PM PST): the Evening Delta (latest
-#     brief comment). UTC-anchored like the morning send above — no hard
-#     deadline on this one, so the hour of winter drift is just accepted
-#     rather than compensated for. (:02, not :00 — see the scheduling note
-#     below.)
+#
+# EVENING DELTA (2026-08-23): retired as an email — Joey capped founder-facing
+# report email to 1-2 total (the morning brief + Tree's weekly report), and a
+# second daily Marjorie email blew that cap. Marjorie's 8 PM routine still
+# POSTS the delta as a GitHub comment (the journal trail is unchanged); this
+# workflow simply no longer mails it. The `delta` mode still exists behind
+# `workflow_dispatch` for manual testing — it is just not on a schedule.
 #
 # CORRECTION (2026-07-18): "cron can slip 5-15 min" above was optimistic —
 # confirmed for real that a scheduled trigger in this repo can miss its slot
@@ -42,8 +44,9 @@
 name: brief-mailer
 on:
   schedule:
-    - cron: "45 12 * * *"  # morning brief (inbox by 6:00 AM PT; see header note)
-    - cron: "2 3 * * *"    # evening delta (8:00 PM PDT / 7:00 PM PST); :02 not :00, see header note
+    - cron: "45 12 * * *"  # morning brief only (inbox by 6:00 AM PT; see header note)
+    # Evening-delta cron removed 2026-08-23 — see header note. `workflow_dispatch`
+    # with mode=delta still works for manual testing.
   workflow_dispatch:
     inputs:
       mode:
