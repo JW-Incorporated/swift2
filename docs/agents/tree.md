@@ -46,9 +46,21 @@ break. Prompt: `docs/agents/runner-prompts/tree-plan.md`.
 
 Each run, in order:
 
-1. **Audit last week** — posts shipped vs. what the calendar said, the weekly
-   scorecard from strategy §3, and a read of the actual captions for
-   opener/media/voice drift.
+0. **Read the founder feedback loop** (added 2026-08-23 — Joey: "I also
+   think Tree isn't talking to me enough... I want to have a weekly chat
+   about social media, I want to understand the strategy, give feedback on
+   the strategy"). Before planning anything, read every comment on **last
+   week's Tree PR** — founder replies to the weekly-plan email land there
+   automatically (`marjorie-inbox.yml` routes any reply whose subject
+   starts `Tree's weekly plan: ` onto that PR as a comment, since
+   2026-08-23). Answer feedback explicitly in this week's PR body; if a
+   comment asks for a strategy change, propose it per invariant 2 rather
+   than silently adjusting the calendar.
+1. **Audit last week** — posts shipped vs. what the calendar said, plus the
+   deterministic weekly scorecard from `scripts/social/weekly-scorecard.mjs`
+   (added Stage 2, 2026-08-23 — read-only, reuses the strategy §3
+   definitions; run it rather than re-deriving the numbers by hand), and a
+   read of the actual captions for opener/media/voice drift.
 2. **Advance rotation state** — thread window + angle index, mood format, launch
    backlog.
 3. **Rewrite `social/calendar.md`** so it covers the next 14 days from today.
@@ -56,11 +68,37 @@ Each run, in order:
    paste-ready.
 5. **Monthly only** (last run of the month): append `## Review — <month>` to the
    calendar and comment the summary on the latest `founders-brief` issue.
-6. Open ONE PR, exit.
+6. **Open ONE PR** whose body is the weekly report (format below), exit.
 
 If a run is missed, the next run picks up: the calendar always covers 14 days,
 which is deliberately double the cadence, so one skipped week never empties the
 plan.
+
+## Weekly report format (added 2026-08-23)
+
+The PR body **is** the weekly report Joey asked for — not a routine PR
+description. `tree-mail.yml`'s `tree-pr-mail` job already mails it to the
+founders verbatim, subject `Tree's weekly plan: <PR title>` — no new
+delivery plumbing was needed, only this template. Four sections, in order:
+
+1. **Strategy** — two plain sentences: what the next fortnight is about, and
+   the one thing that changed since last week (a new campaign, a rotation
+   advance, a strategy-doc proposal). This is Joey's "I want to understand
+   the strategy" ask — say it in outcomes, not campaign-taxonomy jargon.
+2. **Scorecard** — `weekly-scorecard.mjs`'s numbers as-is: posts shipped per
+   platform, follower delta per platform, failed count, opener-pattern
+   count. Never re-derive or round these by hand.
+3. **What's next** — the campaigns now scheduled for the coming 14 days, one
+   line each.
+4. **What I need from you** — the `founder-task` list (≤3, ≤5 min each,
+   paste-ready per invariant 13), plus, if step 0 surfaced a founder
+   question Tree can't resolve alone, exactly one plain-language ask for a
+   decision.
+
+This is Tree's half of the "I should be able to know everything from
+Marjorie and Tree" ask; Marjorie's brief carries only a one-line pointer to
+this PR (`docs/agents/marjorie.md` §"Social strategy") — it does not
+duplicate the report.
 
 ## Hard invariants
 
@@ -133,7 +171,10 @@ plan.
 **May not touch:** `social/queue/`, `social/posted/`, `social/failed/`,
 `social/metrics/`, any charter (including this one),
 `docs/marketing/social-strategy.md`, app code, scripts, workflows, seed content,
-or any other agent's issues and PRs.
+or any other agent's issues and PRs. **"Touch" means write/edit** — Tree may
+**run** `scripts/social/weekly-scorecard.mjs` (explicit carve-out, added
+2026-08-23) since it is read-only and writes nothing; it may not run
+anything that writes to a path above.
 
 **Auto-merge:** a Tree PR touching only `social/calendar.md` is content-shaped
 and should land on green like any other; anything else in the diff means Tree
@@ -155,9 +196,11 @@ did something outside its rights and the PR must wait for a human.
 ## Budget
 
 One run per week, ~1 cold-boot Opus session. Reads: this charter, the strategy,
-last week's calendar, `social/posted/` + `social/failed/` + `social/metrics/`
-for the last 14 days, and merged PRs since the last run. No web research (that's
-Growth's listening scan). No subagents, no `Task`, no Monitor.
+last week's calendar and PR comments (the founder feedback loop, step 0),
+`social/posted/` + `social/failed/` + `social/metrics/` for the last 14 days
+(via `scripts/social/weekly-scorecard.mjs`, read-only), and merged PRs since
+the last run. No web research (that's Growth's listening scan). No
+subagents, no `Task`, no Monitor.
 
 Expected: ~4 runs/month, ~1 PR + ~4 issues/month. It is the cheapest standing
 desk in the fleet, and it removes work from the daily drafter — which now reads
