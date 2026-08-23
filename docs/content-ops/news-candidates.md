@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 85
+
+## Taylor Swift ‘Shocked’ Over Death of Former Nashville Neighbor Hayden Panettiere — Source - Yahoo
+
+- first seen: 2026-08-23 09:38 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift ‘Shocked’ Over Death of Former Nashville Neighbor Hayden Panettiere — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPZHN1cldLM05aTEdoTTFDbVlfNkpxcGxsS2NBbjRnZ196STAzUEZoaUlMTy0xNGwtNDRmV3ljNGlqR1BadWpQUms2Y19namtJdWFBYXRKaUtsTzI0a1JWMWp4ZXFaaGdkOVl3cXI4YjdMZVdzRGV0YnV3Y09aWnFQb3pTSEVsWDBpTVlrdm9ZOWFLY3k3ZXYwS3R0Y09hUnFBSXJn?oc=5
+
+## Taylor Swift Shocked by Hayden Panettiere’s Sudden Death at 36: ‘Deeply Saddened’ - parade.com
+
+- first seen: 2026-08-23 09:38 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Shocked by Hayden Panettiere’s Sudden Death at 36: ‘Deeply Saddened’  parade.com
+- sources:
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxOdUtoUjdwWE5CMWNrQUppeF9QeU9lWEtvRXBXSUtIRFZ2WDBweEQyUTQxWnc5NDJZc2prZktGMjZsYmhGOXc5d0l0ZzdEYWhsUHdkUFpKN2NQRFdKSFBTWldBbm1yNk9mOFBJLWdZTGRiYzFBbkdPTTljUVhZQ08wejlGeWdUTk05VHlKcVhvcXllX2QwTHB5OVBPTjZ0Ymk4bDNv?oc=5
+
+## Jason Kelce Reveals How Taylor Swift’s Relationship With Travis Opened New Doors After NFL Retiremen
+
+- first seen: 2026-08-23 09:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce Reveals How Taylor Swift’s Relationship With Travis Opened New Doors After NFL Retirement  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQR1FTWHRyUExidWpmWWtWd3lqay03dWtIS2Z3Q0dqZlgzc0Q2eGx1c3pGaExwa254b3kzOHhxN2N5dUpBT200dTFTRFRkeVI5SXJ5WGQ4M0t0eVZXT25lc2F6UExpcVItbHpLcEVFWjBXQzFRU1U3dE5iSUl2eDVDOGVjNllMWWts?oc=5
 
 ## “Tush Push Sucks”: Taylor Swift's Blunt Take on Eagles' Controversial Play Sparked an Unlikely Frien
 
@@ -46,10 +70,11 @@ Stories: 84
 ## Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report) - Just Jar
 
 - first seen: 2026-08-23 05:40 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report)  Just Jared
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiwgFBVV95cUxNcVFsU004QnlTck93RVExZS12OVZIUE1ncWlKUTU1MTZrejVtelFqYkJtQ1lfTk8zWkZMazlhZXJkR1Rjd0FyOVdfWExXNUx0RHExNjFDNUxEdTBvMlh5X2dVVUFDTldJMWl6VGsxQVdBS2xkSXVlRTdxUlQ2NVBXS05kSzQxSEdxTVloOGlHQXlHcmJpTlRVUlJCaktLYmpqOThzYjRHa0I0d2NwVVltaDFKNThiVzE5amhOTDVZZk9QZw?oc=5
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE9HbXlud1E1elR0MXhxVmpLdFJvTGZ1SUd0S0x0czFUNHBzR3R0MWlvR2JGaUNpRUdmRElPVDRfZlRJdmR0QlhnSDJ3WkNxSHlleEUxWnJ4Z3p0R0NxUHBsdUl2aHpadw?oc=5
 
 ## Caitlin Clark wants Taylor Swift to rep her signature Caitlin 1s - Yahoo Sports
 
@@ -689,22 +714,3 @@ Stories: 84
 - summary: Chiefs Co-Owner Daniel Hunt Says He Didn’t Snag an Invite to Travis Kelce and Taylor Swift’s Wedding  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPb1NzR0JSVy1uVTlodkJPeVlrQWllVzZtN1ZWaWVJUEZKd1diRk9ERDRwZW93U05lSWZSVUt5VWZySlNXM2dab1M5X0pBTWVuOUdzY3dNUzdEWExENUVlMVVIc3VheFFCdUFtZWlsZHg4TTBXdW1OWEp1YmZjMXBYc3B4akhhV3VxaU9SQzFEbE5WUnlxVlo3UW1HN00tQ01HZUpvd1Z1MElTaFZmNjlvX3F3?oc=5
-
-## Taylor Swift’s Photo From a Wedding With Pop Star’s Husband Raises Eyebrows - Yahoo
-
-- first seen: 2026-08-20 05:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Photo From a Wedding With Pop Star’s Husband Raises Eyebrows  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOZ1o2LTNfT2NTS3V4eVIxMUFyRlBDRnZzZXpTYTV5VXZaa0lPR0JXOG9DWktkNUQ2TWVaenB4YVZxQVlDUUR0QW9qNHNxcXhSUi1kVlhoZ2xMamRCNmVnS1B4anR0OGFraUx1UmEyZE4tVlM5Z2ZldkVSUGhwZVN0OU14OGQ4MUlxTFZnNXN0SXlKTUQ3Nlh1UUZ3Z1U3YTBzNVE?oc=5
-
-## Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list - Yahoo
-
-- first seen: 2026-08-20 05:43 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift’s ex and RFK Jr.’s son Conor Kennedy put on Russia’s international wanted list  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMihgFBVV95cUxOb2NnMHFsWElrSWRndHc1QW8tVXNZbDNRNE1IUUwxYS1GcTNickstd0xmd2l3RE8wUXdjeHlIWTR3c2dVZngzQktWY3JfOXRPb1VrczBkVjR2YWx1NTFrMmI2SGtjSVdUTEJVb1AzV2ZUTG5LSXgzSmVXVDRZNEVTancyWk12QQ?oc=5
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMilAFBVV95cUxQNzBVeTVXc19QVzF1RUR0YTR4Z0tibUtGRHZLVGtJb01taEFOUXVKejZOYnoyUk1DbU9vTGVIY2Z4VVp2WXN4UkZQQ2tKaEMtOXFTSFpOV3RYbXFJalVIYTg1clIzMXpReGF0UzJaUmpBUmFhRlVvVm0xajNBWmp1dFhsNFNaSEZqejBBeHo4TlN5a09I?oc=5
-  - [unverified] LiveNOW from FOX — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPRWd2QkxRZWhsXy04LThtcXRjT1JpVl93dEU5VllkQ1NvaVcwTEpUdEFqUVBBWmpsczVNMEJ1aGZYbldPVXJhLVdJMV9CZ3B5TjdITFdvc0pyMGpCLUVpbHdDRlRudkhBSjdzYVJobTBlb2p2SXlkUVRHUEpuQUVKS3pfLUUyWGYyc3NYT193YVI4VklqMjdhYTVLWUVNNDdzbE1BMlVjTFdkOEU?oc=5
-  - [unverified] FOX 10 Phoenix — https://news.google.com/rss/articles/CBMirgFBVV95cUxQSDRwZEROTm9VMUQxVUx1cWtxRmZTdzNINDJNWXY2bzZmaUI3SlV5ZDFqdkR4TkRxUE9DQzdTdGRUdHZIa2tGVW83ZGk2eWdTcTFFZDkwdWdMT0lOc01GdTg1TU5NTmZNcGZIUEJ0Y0g5TlZSWmFRbzJTcy1PVFdCdVoyTlF6WDdReS1qZEI2aFNVQ3d1dVdpcUFOX3pXeVZEeEI2dElLRi1QRUw1UHc?oc=5
