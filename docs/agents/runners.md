@@ -325,7 +325,12 @@ What changed:
 > "requires gh — stop and exit loudly" text until this change. Per this doc's
 > own rule the FILE is the source of truth, so both steps are now corrected
 > there; the live trigger `trig_01KJLFZpKaFV6jDVshMrHG3E` should be re-synced
-> from the file. Not done here: live triggers are founders-only.
+> from the file. Not done here: this session runs under Joey's account and
+> `RemoteTrigger` only reaches triggers on the account whose token it holds —
+> a session on Wyatt's own account (or Wyatt himself) has to run the sync.
+> **Correction (2026-08-22): "live triggers are founders-only" was wrong** —
+> `RemoteTrigger` create/update/run works fine same-account; the only
+> genuinely UI-only step is detaching the `Claude_Code_Remote` connector.
 
 ### ⚠️ RemoteTrigger API footgun — read before editing any trigger
 
@@ -416,10 +421,14 @@ correct instead, that threshold should shrink back down to match.
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
 | appearance-discovery | `40 13 * * *` (GitHub Actions) | none | `.github/workflows/appearance-discovery.yml` + `scripts/appearance-discovery/` | repo | **Zero LLM (detection layer).** Polls 14 curated YouTube channel RSS feeds and files `intake` issues for new Taylor appearances; the Content Shift is the judge. No new secrets (channel RSS is keyless; only `GITHUB_TOKEN`). Runs 06:40 PT, ahead of the 10:00 PT Content Shift so fresh intake is queued. Stateless dedupe — no state file, no state PR (#2031), repo-scoped issue list only, never `/search` (#2008) |
 
-## Karen Deep — trigger config for a human to create (2026-08-11)
+## Karen Deep — trigger config to create (2026-08-11)
 
-**Not created by this change.** Live triggers are founders-only, so this is the
-exact config to paste; nothing runs until someone does.
+**Not created by this change.** Creating it requires a session (or human)
+authenticated to the target Claude account — `RemoteTrigger` create/update/run
+works fine same-account (confirmed 2026-08-22); the only genuinely UI-only step
+is detaching the `Claude_Code_Remote` connector, which the API silently
+no-ops. This is the exact config to use; nothing runs until someone with
+account access creates it.
 
 | Field | Value |
 |---|---|
@@ -485,11 +494,16 @@ real miss: claim-free narrative records are exactly where fabricated events hide
 ### Tree's routine does not exist yet — it is a Wyatt-side paste (2026-08-11)
 
 The row above is the *specification*. **No routine was created by the session
-that wrote it**, deliberately: creating cloud routines is a Wyatt-account action,
-and `routine-invariants.md`'s checklist has steps (detaching the
-`Claude_Code_Remote` connector) that can only be done in the routines UI.
+that wrote it**, deliberately: creating it requires a session authenticated to
+Wyatt's account, which the session that wrote this spec was not.
+**Correction (2026-08-22): this is not a "humans only" limitation** —
+`RemoteTrigger` create/update/run works fine same-account, confirmed against
+Joey's account the same day. The one step that genuinely is UI-only is
+`routine-invariants.md`'s connector removal (detaching `Claude_Code_Remote` —
+the API silently no-ops `mcp_connections: []`).
 
-To bring Tree live, from Wyatt's side: create a routine named
+To bring Tree live, from Wyatt's side (his account, not this repo's checkout):
+create a routine named
 `Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the
 fleet's current Opus), prompt = the **exact contents** of
 [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md), then run the

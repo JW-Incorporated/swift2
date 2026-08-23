@@ -5,10 +5,13 @@ a UI an agent cannot reach. One file, this exact name, repo root.
 
 **How to use this:** each item has a `**Status:** OPEN` line. Change that one
 word to `DONE`, `SKIP` (chose not to — add a few words why) or `BLOCKED` (tried,
-something stopped you). **Never cut, paste, or move a block** — a session
+something stopped you) yourself, or tell a session to in chat and it will write
+the edit directly (a session only does this on your explicit instruction, never
+on its own judgment). **Never cut, paste, or move a block** — a session
 reconciles this file and files finished items into DONE with a date. Item
 numbers are stable IDs, never reused or renumbered, so "#4" means the same thing
-forever. Saying "I did #2" in chat works just as well as editing the line.
+forever. Saying "I did #2" in chat works just as well as editing the line —
+a session will make the edit for you.
 
 `SKIP` is final. No session will re-raise a skipped item or re-argue it.
 

@@ -7,6 +7,41 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-22 — Decision authority loosened: AI may merge/push to `main` and deploy; HUMAN-ACTIONS.md status edits may be delegated
+
+**Decision:** removed two items from `CLAUDE.md` § Decision authority's "AI may
+NOT, without explicit human approval" list — "merge or push to `main`" and
+"deploy anything." Also amended § HUMAN-ACTIONS.md (and the matching line in
+`HUMAN-ACTIONS.md` itself): a session may now write an item's `**Status:**`
+change directly when Joey says so in chat, not only when he edits the file
+himself — a session still may not flip a status on its own judgment.
+
+**Why:** Joey's call, made in chat 2026-08-22 while working the Wyatt-account
+routine handoff (issue #2258) — he wants Claude executing this class of work
+end-to-end rather than routing every merge and every HUMAN-ACTIONS.md
+reconciliation back through him. `git merge`/`gh pr merge` still always prompt
+for approval regardless of this list (a platform tool-permission behavior, not
+governed by this file), so a live human confirmation still gates the merge
+click itself.
+
+**Not touched:** the other four Decision authority items (product direction,
+secrets/credentials/production infra, spending/account creation, data
+deletion/force-push) are unchanged. Branch protection on `main` (`build` must
+be green, no bypass actors — HUMAN-ACTIONS.md #9) is unchanged.
+
+**Also fixed the same day:** three places in `docs/agents/runners.md` claimed
+"live triggers are founders-only" / "creating cloud routines is a Wyatt-account
+action" as a hard rule. That was wrong — the `RemoteTrigger` API creates,
+updates, lists, and runs routines fine for whichever account the session is
+authenticated as (verified against Joey's account 2026-08-22 while working
+issue #2258); the actual constraints are (a) it's account-scoped, so a session
+can't touch an account it isn't authenticated as, and (b) detaching the
+`Claude_Code_Remote` connector is genuinely UI-only, since the API silently
+no-ops `mcp_connections: []`. Corrected in place rather than left to mislead
+the next session working that file.
+
+**Approved by:** Joey
+
 ## 2026-08-22 — AI Dev OS removed entirely; no orchestration framework replaces it
 
 **Decision:** Joey declared the AI Dev OS project a failure and asked for every
