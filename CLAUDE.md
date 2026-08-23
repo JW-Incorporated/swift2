@@ -56,14 +56,21 @@ product details that aren't written down; ask instead.
 
 ## Never babysit your own PR
 
-**Open the PR and stop.** No self-check-ins, Monitors, or wake-ups to revisit
-it — scheduled or human session alike (self-armed loops were ~69% of
-scheduled token spend before this rule, `docs/decisions.md` 2026-07-25).
-`build` gates every merge, `auto-merge-content.yml` lands green content PRs
-automatically, `watchdog.yml` scans daily and alerts founders on anything red
->24h — that's detection, not repair. Flag a human need once in the PR body,
-then exit; don't poll. Fix what you can see is red before you exit. Scheduled
-runners live on Wyatt's account so Joey's weekly limit stays free.
+**Land it, don't watch it.** Open the PR, then take ONE terminal action and
+exit: checks already green → merge immediately (`gh pr merge --squash
+--delete-branch`); checks still running → set auto-merge (`gh pr merge
+--squash --auto --delete-branch`) so GitHub merges it the moment they pass,
+with zero further action from you. Either way you're done in one shot — the
+banned behavior is self-check-ins, Monitors, or wake-ups to revisit a PR
+after opening it, scheduled or human session alike (self-armed loops were
+~69% of scheduled token spend before this rule, `docs/decisions.md`
+2026-07-25). `build` gates every merge, `auto-merge-content.yml` lands green
+content PRs automatically, `watchdog.yml` scans daily and alerts founders on
+anything red >24h — that's detection, not a substitute for landing your own
+work. Flag a human need once in the PR body when something genuinely needs a
+founder's eyes before it merges, then exit without merging that one. Fix
+what you can see is red before you exit. Scheduled runners live on Wyatt's
+account so Joey's weekly limit stays free.
 
 ## Definition of done
 
@@ -102,9 +109,12 @@ user-request path. New AI feature → cost model in the decision log before ship
 ## Decision authority
 
 AI may, without asking: write code, refactor, test, update docs, branch,
-commit, merge/push to `main`, recommend improvements (2026-08-22: merge/push
-and deploy removed from the "may not" list; `git merge`/`gh pr merge` still
-prompt as a platform permission, independent of this list).
+commit, merge/push to `main` — including running `git merge`/`gh pr merge`
+directly, no separate confirmation step — recommend improvements (2026-08-22:
+merge/push and deploy removed from the "may not" list; 2026-08-23: dropped the
+"still prompt as a platform permission" caveat — that was never something
+this file could govern, and in practice `gh pr merge` lands without incident;
+see `docs/decisions.md` 2026-08-23).
 
 AI may NOT without explicit approval: change product direction or add
 features outside an approved spec; touch secrets/credentials/prod infra;
@@ -126,8 +136,10 @@ see:
   trains mixing listed/unlisted commands.
 - Dedicated tools (Read/Grep/Glob/Edit) over `cat`/`grep` pipes — never prompt.
 - `node -e` over `python -c` — `node *` is allowlisted, python isn't.
-- `git merge`/`gh pr merge` always prompt — the founders' merge gate, by
-  design. Batch merges for one deliberate approval.
+- `git merge`/`gh pr merge` run like any other allowlisted command — land the
+  PR yourself per "Never babysit your own PR" above, no standing merge gate.
+  Batch multiple ready PRs into one pass rather than merging piecemeal
+  mid-task.
 - Parallel local fleets multiply prompts — keep commands allowlist-shaped, or
   run large fleets as cloud sessions on Wyatt's account. No hard concurrency cap.
 - One working dir, one branch-writing session — any branch/commit agent runs

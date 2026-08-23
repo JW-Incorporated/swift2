@@ -7,6 +7,39 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-23 — Corrected stale "merge always prompts" claim; AI lands its own PRs directly
+
+**Decision:** Rewrote three passages in `CLAUDE.md` that told sessions
+`git merge`/`gh pr merge` "always prompt" as a platform-level "founders'
+merge gate" and instructed "open the PR and stop" without merging it:
+§ "Never babysit your own PR", § Decision authority, § Agent shell
+discipline. The rule now reads: land the PR yourself in one terminal
+action — merge immediately if checks are already green, otherwise set
+`gh pr merge --auto` and exit — rather than opening it and leaving it for a
+human. The "don't babysit" intent (no self-check-ins, Monitors, or wake-ups
+to revisit a PR after opening it) is unchanged; only the "don't merge it
+yourself" part is removed.
+
+**Why:** Joey spent time last night trying to remove this restriction and
+found it still governing sessions today (2026-08-23), during the repowise
+install for Swift2 (`#2283`) — a session opened the PR and stopped short of
+merging, citing this exact text. The underlying premise was already stale:
+the 2026-08-22 entry below claims `gh pr merge` "always prompts for approval
+regardless of this list (a platform tool-permission behavior, not governed
+by this file)" — but `gh pr merge --squash --delete-branch` on `#2283` ran
+and merged with no prompt or friction. `.claude/settings.json` allowlists
+`Bash(gh pr *)` and `Bash(git merge *)` directly; there is no separate
+confirmation step left to describe as a "gate."
+
+**Not touched:** the other four Decision authority items (product direction,
+secrets/credentials/production infra, spending/account creation, data
+deletion/force-push) are unchanged. Branch protection on `main` (`build`
+must be green) is unchanged — auto-merge still waits on it.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-23)
+
+---
+
 ## 2026-08-23 — kit-v3.2 orchestration layer restored, superseding the 2026-08-22 "nothing replaces it" decision
 
 **Decision:** Joey asked directly, in chat, to reinstall the kit-v3-lineage
