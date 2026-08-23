@@ -20,14 +20,35 @@
 // tickets closed on 07-30. None of that was a writing problem — it was a
 // data problem, so the fix is here and not in the prompt.
 //
-// The brief is now two sections and nothing else:
+// ─── THE 2026-08-23 REBUILD (v3) ──────────────────────────────────────────
+// Joey, direct ask: stale (same info every day), no visibility into
+// HUMAN-ACTIONS.md or its aging, no "what happened in the last 24h", gate
+// reds never said WHY they hadn't started, gate yellows never said what
+// changed — and a yellow with no movement is itself a finding worth stating
+// every time, not just after it repeats. Designed by Fable (architect),
+// corrected after reading the real code (see PLAN.md), refined by Joey
+// mid-build. Full rationale in docs/decisions.md.
 //
-//   1 · PROGRESS TOWARD DONE — what is gated on a founder (computed against
-//       each ticket's own state, not against the last brief's checkboxes),
-//       how far away done is (computed, with its own error bars), what would
-//       make it closer, and what actually landed.
-//   2 · MAINTENANCE — one green/not-green line, then a fixed checklist. Green
-//       means stop reading.
+// The brief is now FIVE sections:
+//
+//   1 · WAITING ON YOU — founder-decision asks (unchanged logic) + open
+//       HUMAN-ACTIONS.md items with age + open founder-task issues (the
+//       standalone digest email was retired the same day; this section is
+//       now where those surface).
+//   2 · LAST 24 HOURS — org activity counts (unchanged) + new site content
+//       (real links, never a guess) + new social posts.
+//   3 · GATES — Joey's actual product Definition of Done
+//       (docs/definition-of-done.md, NOT the superseded 12-gate
+//       launch-readiness.md). Every non-green row states WHY: blocked-on
+//       for reds/not-started, and for yellows either what changed since
+//       yesterday or — every single occurrence, not just after repeats —
+//       why it hasn't.
+//   4 · SOCIAL STRATEGY — a pointer to Tree's last plan + the live strategy
+//       doc, so Joey doesn't have to go find it himself.
+//   5 · DISTANCE TO DONE + MAINTENANCE — the historical 12-gate estimator
+//       (kept as-is; re-pointing its math at the new bar is separate,
+//       deliberately not done in this pass — see PLAN.md), accelerants,
+//       and the fixed maintenance checklist.
 //
 // Requires an authenticated `gh` or a GH_TOKEN. Read-only: never writes to GitHub.
 
@@ -44,12 +65,16 @@ import { estimateDaysToDone, renderDoneLines } from './done-estimator.mjs';
 import { partitionAsks, asksInBrief, ESCALATE_AFTER } from './founder-gate.mjs';
 import { runStandingChecks, renderStandingChecks, loadRunnerCadence } from './standing-checks.mjs';
 import { collectConstraints } from './meta-constraints.mjs';
+import { readCurrentDone, readDoneHistory, changeSinceAnchor, sinceLastBrief, STATUS_ICONS } from './done-history.mjs';
+import { readOpenActions, sortForBrief, renderActionLine } from './human-actions.mjs';
+import { fetchContentShipped, renderContentShippedSection } from './content-shipped.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
 const ORG = REPO.split('/')[0];
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const METRICS_DIR = path.join(ROOT, 'social', 'metrics');
 const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
+const POSTED_DIR = path.join(ROOT, 'social', 'posted');
 const DAY_MS = 86_400_000;
 
 async function gh(args) {
@@ -160,6 +185,43 @@ export function todayLA(now = new Date()) {
   }).format(now);
 }
 
+// ─── new-in-v3 helpers (pure) ──────────────────────────────────────────────
+
+/** social/posted/*.json entries whose postedAt falls after `sinceMs`. */
+export function fetchPostedSince(sinceMs, postedDir = POSTED_DIR) {
+  let files;
+  try {
+    files = readdirSync(postedDir).filter((f) => f.endsWith('.json'));
+  } catch {
+    return [];
+  }
+  return files
+    .map((f) => {
+      try { return JSON.parse(readFileSync(path.join(postedDir, f), 'utf-8')); } catch { return null; }
+    })
+    .filter(Boolean)
+    .filter((item) => {
+      const at = new Date(item.postedAt).getTime();
+      return !Number.isNaN(at) && at > sinceMs;
+    })
+    .sort((a, b) => new Date(a.postedAt).getTime() - new Date(b.postedAt).getTime());
+}
+
+export function renderSocialPostedLine(item) {
+  const platform = item.platform === 'x' ? 'X' : item.platform === 'instagram' ? 'IG' : 'FB';
+  const snippet = String(item.body || '').replace(/\s+/g, ' ').trim().slice(0, 70);
+  const ellipsis = String(item.body || '').trim().length > 70 ? '…' : '';
+  const linkPart = item.url ? ` ([link](${item.url}))` : '';
+  return `- ${platform} · ${item.campaign || 'uncategorized'}: "${snippet}${ellipsis}"${linkPart}`;
+}
+
+/** Tree's most recent weekly-plan PR (head branch starts `tree/`), or null. */
+export function findLatestTreePR(allPRs) {
+  const treePRs = (allPRs || []).filter((p) => String(p.headRefName || '').startsWith('tree/'));
+  if (treePRs.length === 0) return null;
+  return [...treePRs].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
+}
+
 // ─── fetch ─────────────────────────────────────────────────────────────────
 
 const ISSUE_FIELDS = 'number,title,body,labels,createdAt,updatedAt,closedAt,state,url,assignees';
@@ -172,7 +234,7 @@ const PR_FIELDS = 'number,title,body,author,isDraft,reviewDecision,createdAt,upd
  * list is the #1869 failure mode) and softly for the optional ones.
  */
 export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
-  const [decisions, intake, alerts, openPRs, allPRs, allIssues, briefs] = await Promise.all([
+  const [decisions, intake, alerts, openPRs, allPRs, allIssues, briefs, founderTasks] = await Promise.all([
     gh(['issue', 'list', '--repo', repo, '--label', 'founder-decision', '--state', 'open', '--limit', '100', '--json', ISSUE_FIELDS]),
     gh(['issue', 'list', '--repo', repo, '--label', 'intake', '--state', 'open', '--limit', '100', '--json', ISSUE_FIELDS]),
     gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert', '--state', 'open', '--limit', '20', '--json', ISSUE_FIELDS]),
@@ -180,6 +242,10 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     gh(['pr', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', 'number,title,body,createdAt,updatedAt,mergedAt,headRefName,state,url']),
     gh(['issue', 'list', '--repo', repo, '--state', 'all', '--limit', '100', '--json', ISSUE_FIELDS]),
     gh(['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'all', '--limit', '14', '--json', 'number,title,body,createdAt']),
+    // Folded in 2026-08-23: the standalone founder-task digest email was
+    // retired (Joey's call) — these now surface here instead, next-morning
+    // latency, explicitly OK'd.
+    gh(['issue', 'list', '--repo', repo, '--label', 'founder-task', '--state', 'open', '--limit', '50', '--json', ISSUE_FIELDS]),
   ]);
 
   const gates = readCurrentGates();
@@ -229,11 +295,21 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
 
   const ciRuns = await ghApiSoft(`/repos/${repo}/actions/workflows/ci.yml/runs?branch=main&per_page=40`, { workflow_runs: [] });
 
+  // v3 additions — each independently soft-failing so a single bad source
+  // degrades its own section, never the whole brief.
+  const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
+
   return {
     decisions: withComments,
     askedBefore: recentlyAsked.filter(Boolean),
+    founderTasks,
     intake, alerts, openPRs, allPRs, allIssues: gateIssues, briefs,
     gates, series,
+    doneItems: readCurrentDone(),
+    doneSeries: readDoneHistory(),
+    openActions: readOpenActions({ now }),
+    contentShipped,
+    postedSince: fetchPostedSince(now - DAY_MS),
     ciRuns: ciRuns.data?.workflow_runs ?? [],
     growth: fetchGrowthSnapshot(),
     queueStatus: fetchQueueStatus(),
@@ -293,8 +369,6 @@ function olderThanADay(now, iso) {
 
 // ─── render ────────────────────────────────────────────────────────────────
 
-const GATE_ICON = { green: '🟢', yellow: '🟡', red: '🔴' };
-
 function link(n) {
   return `[#${n}](https://github.com/${REPO}/issues/${n})`;
 }
@@ -318,22 +392,30 @@ export function shortTitle(title, max = 62) {
 export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {}) {
   const a = analyse(state, { now });
   const out = [];
+  const anchorIso = new Date(now - DAY_MS).toISOString();
 
   out.push('cc @sffan15-sys @wjduvall-cmd', '');
   out.push(`# Founders' Brief — ${date}`, '');
 
-  // ── SECTION 1 ────────────────────────────────────────────────────────────
-  out.push('## 1 · Progress toward Done', '');
+  // ── SECTION 1 · WAITING ON YOU ────────────────────────────────────────
+  out.push('## 1 · Waiting on you', '');
 
-  // 1a — what is gated on a founder. First, because it is the only part of
-  // the brief that asks anything of the reader.
   const { open, escalated, resolved, phantom } = a.asks;
-  if (escalated.length === 0 && open.length === 0) {
-    out.push('**🫵 Nothing is gated on you.** No founder action is blocking any gate today.', '');
+  const actionItems = sortForBrief(state.openActions || []);
+  const founderTasks = state.founderTasks || [];
+  const totalWaiting = open.length + escalated.length + actionItems.length + founderTasks.length;
+
+  if (totalWaiting === 0) {
+    out.push('**🫵 Nothing is gated on you.** No founder action is blocking anything today.', '');
   } else {
-    out.push(`**🫵 Gated on you: ${open.length + escalated.length}**${escalated.length ? ` — ${escalated.length} overdue. Each of these needs an answer **or a close**; leaving them open is what makes this list grow.` : '.'}`, '');
+    out.push(`**🫵 Waiting on you: ${totalWaiting}**${escalated.length ? ` — ${escalated.length} overdue decision(s); each needs an answer **or a close**.` : '.'}`, '');
     for (const e of escalated) out.push(`- 🔴 ${link(e.number)} **${shortTitle(e.title)}** — ${e.escalateReason}`);
     for (const o of open) out.push(`- [ ] ${link(o.number)} **${shortTitle(o.title)}** — ${o.gateReasons[0]}, ${o.daysOpen}d old`);
+    for (const it of actionItems) out.push(renderActionLine(it));
+    for (const ft of founderTasks) {
+      const ageDays = Math.floor((now - new Date(ft.createdAt).getTime()) / DAY_MS);
+      out.push(`- [ ] ${link(ft.number)} **${shortTitle(ft.title)}** — founder-task, ${ageDays}d old`);
+    }
     out.push('');
   }
   if (resolved.length) {
@@ -342,14 +424,70 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     out.push(`**Cleared: ${resolved.length}** — ${shown}${resolved.length > 4 ? ` +${resolved.length - 4}` : ''}${phantom.length ? ` · ${leak} already closed while still on your checklist; that loop is now fixed.` : ''}`, '');
   }
 
-  // 1b — distance to done.
+  // ── SECTION 2 · LAST 24 HOURS ─────────────────────────────────────────
+  out.push('## 2 · Last 24 hours', '');
+  const hadOrgActivity = a.merged24.length > 0 || a.closed24.length > 0;
+  const contentShipped = state.contentShipped || [];
+  const postedSince = state.postedSince || [];
+  if (!hadOrgActivity && contentShipped.length === 0 && postedSince.length === 0) {
+    out.push('- Nothing merged, nothing closed, nothing new on the site or social. Per the charter\'s 2026-07-12 amendment this is a failed org day.');
+  } else {
+    if (hadOrgActivity) {
+      out.push(`- **${a.merged24.length} PRs merged · ${a.closed24.length} tickets closed · ${a.opened24.length} PRs opened.** Newest: ${a.merged24.slice(0, 3).map((p) => `#${p.number} ${p.title.replace(/^[a-z()-]+:\s*/i, '').slice(0, 42)}`).join(' · ') || '—'}`);
+    }
+    const contentLines = renderContentShippedSection(contentShipped);
+    if (contentLines) {
+      out.push('', '**New on the site:**', ...contentLines);
+    }
+    if (postedSince.length) {
+      out.push('', '**New on social:**', ...postedSince.map(renderSocialPostedLine));
+    }
+  }
+  out.push('');
+
+  // ── SECTION 3 · GATES (product Definition of Done) ───────────────────
+  out.push('## 3 · Gates — product Definition of Done', '');
+  const doneCurrent = state.doneItems || {};
+  const doneEntries = Object.entries(doneCurrent);
+  if (doneEntries.length === 0) {
+    out.push('- `docs/definition-of-done.md` did not parse — check the file exists and its table is intact.', '');
+  } else {
+    const delta = changeSinceAnchor(state.doneSeries || [], doneCurrent, anchorIso);
+    const doneGreen = doneEntries.filter(([, it]) => it.status === 'green');
+    const doneOpen = doneEntries.filter(([, it]) => it.status !== 'green');
+    if (doneOpen.length === 0) {
+      out.push('**All 8 items done.** 🎉', '');
+    } else {
+      out.push('| Item | | Since yesterday |', '|---|---|---|');
+      for (const [num, it] of doneOpen) {
+        out.push(`| ${it.title} | ${STATUS_ICONS[it.status]} | ${sinceLastBrief(Number(num), it, delta)} |`);
+      }
+      out.push('');
+    }
+    out.push(`🟢 done (${doneGreen.length}/${doneEntries.length}): ${doneGreen.map(([, it]) => it.title).join(', ') || 'none yet'}.`, '');
+  }
+  out.push('> Full detail: `docs/definition-of-done.md`.', '');
+
+  // ── SECTION 4 · SOCIAL STRATEGY ────────────────────────────────────────
+  out.push('## 4 · Social strategy', '');
+  const treePR = findLatestTreePR(state.allPRs);
+  if (treePR) {
+    const daysAgo = Math.floor((now - new Date(treePR.createdAt).getTime()) / DAY_MS);
+    out.push(`- Tree last planned ${daysAgo <= 0 ? 'today' : `${daysAgo}d ago`}: ${link(treePR.number)} ${shortTitle(treePR.title)}`);
+  } else {
+    out.push('- Tree has not opened a weekly plan PR yet.');
+  }
+  out.push('- Current plan: `social/calendar.md` · Strategy doc: `docs/marketing/social-strategy.md`');
+  out.push('');
+
+  // ── SECTION 5 · DISTANCE TO DONE + MAINTENANCE ────────────────────────
+  out.push('## 5 · Distance to done + maintenance', '');
   out.push('### 📈 Distance to done', '');
   out.push(...renderDoneLines(a.estimate).map((l) => `${l}`));
   out.push('');
-  out.push(`> "Done" here = all 12 launch-readiness gates green — the historical proxy. Joey's product Definition of Done (2026-08-11) is the eight-item bar in \`docs/definition-of-done.md\`; the estimator keeps measuring the gates until it is repointed at that bar (\`docs/ops/definition-of-done.md\`).`);
+  out.push('> This estimator still measures the 12 historical launch-readiness gates, not the Definition of Done in section 3 above — re-scoring it against the new bar is tracked separately (`PLAN.md`), not done in this pass.');
   out.push('');
 
-  // 1c — accelerants.
   const acc = accelerators(state, a);
   if (acc.length) {
     out.push('### ⚡ What would make it sooner', '');
@@ -357,38 +495,6 @@ export function buildBrief(state, { date, now = state?.now ?? Date.now() } = {})
     out.push('');
   }
 
-  // 1d — the gate table, derived from the tracker rather than retyped. The
-  // old brief hand-wrote this and drifted: it still named #669 and #736 as
-  // next actions three weeks after both were closed.
-  // Only the gates still in play get a row. The done ones get a single line —
-  // the table's job is to show what is LEFT, and four permanent 🟢 rows every
-  // morning is exactly the padding that made the old brief unreadable.
-  const done = GATES.filter((g) => state.gates[g]?.status === 'green');
-  out.push('### 📊 Gates still open', '');
-  out.push('| Gate | | Next step | Tickets |', '|---|---|---|---|');
-  for (const g of GATES) {
-    const row = state.gates[g];
-    if (!row || row.status === 'green') continue;
-    const act = a.activity[g];
-    const tickets = (act?.tickets ?? []);
-    const live = tickets.filter((t) => t.state === 'open').map((t) => `#${t.number}`);
-    const closed = tickets.filter((t) => t.state === 'closed').map((t) => `~~#${t.number}~~`);
-    const prs = (act?.openPRs ?? []).map((p) => `PR #${p.number}`);
-    const stateCell = [live.join(' ') || null, prs.join(' ') || null, closed.join(' ') || null].filter(Boolean).join(' · ') || '—';
-    out.push(`| ${g} | ${GATE_ICON[row.status]} | ${row.nextAction.replace(/\|/g, '/').replace(/\*\*/g, '').replace(/\s*·.*$/, '').slice(0, 44)} | ${stateCell} |`);
-  }
-  out.push('', `🟢 done (${done.length}): ${done.join(', ')}. Struck-through tickets are already closed — if one is still a "next step", that row is stale.`, '');
-
-  // 1e — what actually landed.
-  out.push('### 📰 Last 24 hours', '');
-  if (a.merged24.length === 0 && a.closed24.length === 0) {
-    out.push('- Nothing merged and nothing closed. Per the charter\'s 2026-07-12 amendment this is a failed org day; the stuck point is named above.');
-  } else {
-    out.push(`- **${a.merged24.length} PRs merged · ${a.closed24.length} tickets closed · ${a.opened24.length} PRs opened.** Newest: ${a.merged24.slice(0, 3).map((p) => `#${p.number} ${p.title.replace(/^[a-z()-]+:\s*/i, '').slice(0, 42)}`).join(' · ')}`);
-  }
-  out.push('');
-
-  // ── SECTION 2 ────────────────────────────────────────────────────────────
   const checks = runStandingChecks({
     openPRs: state.openPRs,
     allPRs: state.allPRs,

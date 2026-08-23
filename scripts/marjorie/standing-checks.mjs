@@ -289,11 +289,11 @@ export function runStandingChecks(input) {
 
   let punchline;
   if (green) {
-    punchline = '## 2 · Maintenance — 🟢 **all green. Nothing here needs you; stop reading.**';
+    punchline = '### 🔧 Maintenance — 🟢 **all green. Nothing here needs you; stop reading.**';
   } else if (failing.length === 0) {
-    punchline = `## 2 · Maintenance — ⚪ **${unknown.length} check(s) could not run.** Not green, because "I didn't look" is not "fine".`;
+    punchline = `### 🔧 Maintenance — ⚪ **${unknown.length} check(s) could not run.** Not green, because "I didn't look" is not "fine".`;
   } else {
-    punchline = `## 2 · Maintenance — 🔴 **${failing.length} of ${checks.length} failing: ${failing.map((c) => FAILURE_NOUN[c.id] ?? c.id).join(', ')}.**`;
+    punchline = `### 🔧 Maintenance — 🔴 **${failing.length} of ${checks.length} failing: ${failing.map((c) => FAILURE_NOUN[c.id] ?? c.id).join(', ')}.**`;
   }
   return { green, punchline, checks, failing, unknown };
 }
