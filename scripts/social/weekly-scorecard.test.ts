@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { weeklyFollowerDeltas, renderScorecard } from './weekly-scorecard.mjs';
 
-const DAY_MS = 86_400_000;
 const NOW = new Date('2026-08-23T12:00:00Z').getTime();
 
 describe('weeklyFollowerDeltas', () => {
