@@ -40,7 +40,7 @@ PYBIN=""
 for c in python3 python; do
   if command -v "$c" >/dev/null 2>&1 && "$c" -c "" >/dev/null 2>&1; then PYBIN="$c"; break; fi
 done
-[ -z "$PYBIN" ] && exit 0  # fail open: no python, no formatting
+[ -z "$PYBIN" ] && { echo "[kit] WARNING: python not found; post-edit.sh is NOT enforcing" >&2; exit 0; }  # fail open: no python, no formatting
 
 f=$("$PYBIN" -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("file_path",""))' 2>/dev/null)
 
