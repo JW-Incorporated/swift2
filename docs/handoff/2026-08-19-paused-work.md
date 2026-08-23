@@ -1,15 +1,12 @@
-# Paused work at the AI Dev OS migration — 2026-08-19
+# Paused work snapshot — 2026-08-19
 
 **Read-only snapshot.** This is the live state that `STATE.md` held at the
-moment kit-v3 was retired (see
-`docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`). It exists so the
-paused Swift2 feature work can be picked up without re-deriving anything.
+moment kit-v3 was retired (see `docs/decisions.md` 2026-08-19). It exists so
+the paused Swift2 feature work can be picked up without re-deriving anything.
 
-`REPO-006` forbids treating a mutable file as authoritative shared state, so
-**this file is a snapshot, not a working file.** Do not update it as work
-proceeds — from here on, live task state belongs in GitHub Issues/PRs and AI
-Dev OS tasks. The verbatim original is at
-`docs/archive/kit-v3-2026-08-19/STATE.md`.
+**This file is a snapshot, not a working file.** Do not update it as work
+proceeds — live task state belongs in GitHub Issues/PRs. The verbatim
+original is at `docs/archive/kit-v3-2026-08-19/STATE.md`.
 
 **The feature work below was deliberately NOT resumed by the migration.**
 

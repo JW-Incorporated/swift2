@@ -7,6 +7,37 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-22 — AI Dev OS removed entirely; no orchestration framework replaces it
+
+**Decision:** Joey declared the AI Dev OS project a failure and asked for every
+trace of it removed from Swift2. All of it is gone: the `CLAUDE.md`
+orchestration section, `.claude/rules/ai-team-coordination.md` (the
+`REPO-001`…`REPO-007` bundle), the `.gitattributes` LF pin for that rules dir,
+and `docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`. The user-level
+wiring (global `CLAUDE.md` section, `UserPromptSubmit` hook, `ai-dev-os` MCP
+server, `ai-dev` CLI) was already uninstalled at machine scope.
+
+**Nothing replaces it.** kit-v3 was **not** restored — `CLAUDE.md` above the
+separator plus GitHub Issues/PRs is the whole contract now. The useful habits
+the `REPO-*` rules encoded (branch → PR → green `build` → merge, one editing
+agent per isolated worktree, GitHub as shared truth) were already present in
+`CLAUDE.md` and survive there, not as a rules bundle.
+
+**Review routing:** the 2026-08-19 entries below say review "is now routed by
+AI Dev OS" — that routing no longer exists. Joey's 2026-08-14 ruling stands on
+its own: Claude code review of the diff before the PR opens satisfies
+cross-review; Codex stays available via `codex:rescue` for risky/architectural
+changes. Do not re-raise this with Joey.
+
+**Recovery, if ever wanted:** the deleted files are in git history (migration
+landed in `d508f1c8`, removal in this entry's PR); the kit-v3 archive stays at
+`docs/archive/kit-v3-2026-08-19/` and the pre-migration tag
+`pre-ai-dev-os-migration-2026-08-19` was left in place.
+
+**Approved by:** Joey (removal requested directly)
+
+---
+
 ## 2026-08-19 — `main` keeps its PR requirement; the "unprotected" finding was wrong
 
 **Correcting an entry written earlier the same day.** That entry recorded a
@@ -67,7 +98,7 @@ means "not configured *this* way", never "not configured".
 ---
 ---
 
-## 2026-08-19 — AI Dev OS v3.2 is the sole orchestration authority
+## 2026-08-19 — AI Dev OS v3.2 is the sole orchestration authority *(SUPERSEDED 2026-08-22 — AI Dev OS removed; see the entry above)*
 
 **Decision:** the kit-v3 ORCHESTRATOR CONTRACT inside `CLAUDE.md` was retired.
 Routing, model selection, agent spawning, Fable decision authority, task and
