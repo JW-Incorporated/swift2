@@ -226,8 +226,15 @@ export function sinceLastBrief(num, item, delta) {
   }
 
   // yellow: state whether it moved, and if not, why not — every occurrence,
-  // not just after N repeats (this is the finding, not noise).
-  if (d?.moved === null) return 'moving — no prior snapshot to compare against yet';
+  // not just after N repeats (this is the finding, not noise). Blocked-on is
+  // static data (not history-dependent), so it's always worth stating even
+  // when there's no prior snapshot to compare against — dropping it on day
+  // one is exactly the silence this whole feature exists to prevent.
+  if (d?.moved === null) {
+    return item.blockedOn
+      ? `no history yet to compare — currently blocked on ${item.blockedOn}${item.blockedOn === 'nobody' ? ' (unstaffed)' : ''}`
+      : 'no history yet to compare, and no Blocked-on value recorded';
+  }
   if (d?.statusChanged) return `moved: ${d.from ?? 'unknown'} → ${d.to} since the last brief`;
   if (d?.nextActionChanged) return 'moving — next-action ticket updated since the last brief';
   return item.blockedOn

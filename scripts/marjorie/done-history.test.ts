@@ -123,10 +123,12 @@ describe('changeSinceAnchor + sinceLastBrief', () => {
     expect(sinceLastBrief(1, current[1], {})).toBeNull();
   });
 
-  it('an item absent from every pre-anchor snapshot is reported honestly, not guessed at', () => {
+  it('an item absent from every pre-anchor snapshot is reported honestly, not guessed at -- but still states blocked-on, since that is static data, not history', () => {
     const current = { 9: { title: 'Brand new item', status: 'yellow', blockedOn: 'founder', nextAction: 'x' } };
     const delta = changeSinceAnchor(series, current, anchorIso);
     expect(delta[9].moved).toBeNull();
-    expect(sinceLastBrief(9, current[9], delta)).toMatch(/no prior snapshot/);
+    const line = sinceLastBrief(9, current[9], delta);
+    expect(line).toMatch(/no history yet/);
+    expect(line).toContain('blocked on founder');
   });
 });

@@ -40,6 +40,10 @@ const emptyState = {
   openPRs: [], allPRs: [], allIssues: [], briefs: [],
   gates: {}, series: [], ciRuns: [],
   growth: null, queueStatus: emptyQueueStatus, constraints: null,
+  // v3 additions (2026-08-23) — empty-but-present so buildBrief never sees
+  // `undefined` where it expects an array/object.
+  founderTasks: [], openActions: [], contentShipped: [], postedSince: [],
+  doneItems: {}, doneSeries: [],
 };
 
 describe('extractOptions', () => {
@@ -201,16 +205,19 @@ describe('shortTitle', () => {
   });
 });
 
-describe('buildBrief — two sections, nothing else', () => {
+describe('buildBrief — five sections (v3, 2026-08-23)', () => {
   const withGates = { ...emptyState, gates: parseTable(gateTable) };
 
-  it('leads with the founder gate, then the distance to done', () => {
+  it('leads with Waiting on you, then Last 24h, then Gates, then Social strategy, then Distance to done', () => {
     const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
     expect(brief).toContain("# Founders' Brief — 2026-07-12");
-    expect(brief).toContain('## 1 · Progress toward Done');
-    expect(brief).toContain('## 2 · Maintenance');
-    expect(brief.indexOf('Gated on you') > -1 || brief.indexOf('Nothing is gated on you') > -1).toBe(true);
-    expect(brief.indexOf('Nothing is gated on you')).toBeLessThan(brief.indexOf('Distance to done'));
+    expect(brief).toContain('## 1 · Waiting on you');
+    expect(brief).toContain('## 2 · Last 24 hours');
+    expect(brief).toContain('## 3 · Gates — product Definition of Done');
+    expect(brief).toContain('## 4 · Social strategy');
+    expect(brief).toContain('## 5 · Distance to done + maintenance');
+    const order = ['## 1 ·', '## 2 ·', '## 3 ·', '## 4 ·', '## 5 ·'].map((h) => brief.indexOf(h));
+    expect(order).toEqual([...order].sort((a, b) => a - b));
   });
 
   it('never pre-ticks a box', () => {
@@ -224,18 +231,75 @@ describe('buildBrief — two sections, nothing else', () => {
     expect(brief).not.toContain('- [x]');
   });
 
-  it('says so plainly when nothing is gated on a founder', () => {
+  it('says so plainly when nothing is waiting on the founder at all', () => {
     expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('Nothing is gated on you');
   });
 
-  it('names the gates as a proxy and points at Joey\'s Definition of Done every day', () => {
-    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
-    expect(brief).toContain('docs/definition-of-done.md');
-    expect(brief).toContain('proxy');
+  it('folds open HUMAN-ACTIONS items into Waiting on you, with age', () => {
+    const brief = buildBrief({
+      ...withGates,
+      openActions: [{ number: 4, tag: 'UPGRADE', title: 'API accounts for research', ageDays: 8 }],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('HA#4');
+    expect(brief).toContain('waiting 8d');
+    expect(brief).not.toContain('Nothing is gated on you');
   });
 
-  it('calls a day with no merges and no closes a failed org day', () => {
+  it('folds open founder-task issues into Waiting on you', () => {
+    const brief = buildBrief({
+      ...withGates,
+      founderTasks: [{ number: 1955, title: 'founder-task: paste your IG Insights', createdAt: '2026-07-11T01:00:00Z' }],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('#1955');
+    expect(brief).toContain('founder-task');
+  });
+
+  it('renders the Definition of Done table with every non-green item stating why', () => {
+    const brief = buildBrief({
+      ...withGates,
+      doneItems: {
+        1: { title: 'Landing page rethink', status: 'notstarted', blockedOn: 'nobody', nextAction: 'spec it' },
+        2: { title: 'Cards differentiated', status: 'yellow', blockedOn: 'founder', nextAction: 'Joey checks it' },
+      },
+      doneSeries: [],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('Landing page rethink');
+    expect(brief).toContain('unstaffed');
+    expect(brief).toContain('Cards differentiated');
+    expect(brief).toContain('blocked on founder');
+  });
+
+  it('points at the live definition-of-done.md and social-strategy.md, not the superseded launch-readiness.md, for the current bar', () => {
+    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('docs/definition-of-done.md');
+    expect(brief).toContain('docs/marketing/social-strategy.md');
+  });
+
+  it('the Distance-to-done estimator still names itself as the historical proxy, honestly, not silently repointed', () => {
+    const brief = buildBrief(withGates, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('12 historical launch-readiness gates');
+  });
+
+  it('calls a day with no merges, no closes, no new content, and no new posts a failed org day', () => {
     expect(buildBrief(withGates, { date: '2026-07-12', now: NOW })).toContain('failed org day');
+  });
+
+  it('does not call it a failed day when new content shipped even with zero PR/issue activity', () => {
+    const brief = buildBrief({
+      ...withGates,
+      contentShipped: [{ pr: { number: 2291, title: 'content: red era' }, files: ['supabase/seed/content/red.mjs'] }],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).not.toContain('failed org day');
+    expect(brief).toContain('New on the site');
+  });
+
+  it('reports new social posts from the last 24h', () => {
+    const brief = buildBrief({
+      ...withGates,
+      postedSince: [{ platform: 'x', body: 'a real post', campaign: 'on-this-day:x', postedAt: '2026-07-12T05:00:00Z', url: 'https://x.com/1' }],
+    }, { date: '2026-07-12', now: NOW });
+    expect(brief).toContain('New on social');
+    expect(brief).toContain('a real post');
   });
 
   it('reports posts per platform over a rolling 24h window when the snapshot has one', () => {
