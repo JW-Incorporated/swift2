@@ -19,31 +19,6 @@ a session will make the edit for you.
 
 ## OPEN
 
-### 11. [UPGRADE] Six stale duplicate routines from a July handoff — ~5 min
-
-**Why it matters:** your account already had 6 disabled routines from an
-**earlier, opposite-direction** handoff (July 2026, before things moved to
-Wyatt's account) — Content Shift, Nils, Austin ×2 (two separate crons; the
-current live version consolidated to one), Marjorie ×2. They're July-dated
-and stale (e.g. the old Content Shift trigger fires twice daily; the current
-one fires once) and every one of them ALSO currently carries
-`Claude_Code_Remote`. Item #10 created fresh, current replacements instead
-of touching these, to avoid a risky partial-update on routines nobody had
-verified in weeks.
-
-**Steps:** at `https://claude.ai/code/routines`, find the 6 (same names as
-above, no "cloud"/"(cloud)" suffix, dated 2026-07-11/12) and either delete
-them or at minimum strip Claude_Code_Remote from each (Edit → Connectors →
-× → Save) so they stop being invariant violations sitting idle. Deleting is
-fine — the current, correct versions from item #10 replace them.
-
-**Worked if:** `https://claude.ai/code/routines` shows one entry per routine
-name, not two.
-
-**Status:** OPEN
-
----
-
 ### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
 
 **Why it matters:** you asked for a curated dataset of official + viral fan-made
@@ -335,6 +310,16 @@ Original ask (2026-08-23), kept for history: a manual per-routine UI pass
 to strip the connector before enabling, since the API can't do it
 (`mcp_connections: []` returns 200 and silently keeps the connector) and
 invariant #2 required it. Superseded by removing the invariant instead.
+
+---
+
+### 11. [UPGRADE] Six stale duplicate routines from a July handoff — ~5 min
+
+**Status:** DONE — 2026-08-23. Joey: "let's kill the duplicate routines."
+Deleted all 6 via the routines UI (no API delete action exists) — Content
+Shift, Nils, Austin ×2, Marjorie ×2, all from the July 2026 opposite-
+direction handoff. Verified via a clean page read afterward: only the
+intentionally-paused Lex depth remains paused; no duplicate names left.
 
 ---
 
