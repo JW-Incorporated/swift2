@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 86
+
+## NFL Has a Strange New Problem Because of Taylor Swift - heavy.com
+
+- first seen: 2026-08-23 17:32 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: NFL Has a Strange New Problem Because of Taylor Swift  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPM1ZsMjdWYXF3Rks0NEkxUURfTlRDVFcxQUFzMEJpN29CTGpUVG9XeVlfUXY4YjA5T05reE9yeEtDaTBMWVotZmxoZlVUaVpjc1Y5MUR4Ukp5b0p3Y3NQWVhxbGxJNEtnQ2hwdWFnOG90eVhmSnAtb3hwU1JCOGlYc3Z2dkZlR3hUQjBr?oc=5
+
+## Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event - ins
+
+- first seen: 2026-08-23 17:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Shows Off Short New Haircut in Black Floral Empire Waist Slip Dress at L.A. Event  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxPQlFyN3YxbnNPUmlrLWJkclJ2aWxQRW96RDBnQnR3RHRYVm1Jd1FucGVLVWc3ZXluZ0hZZWV0STlGWHVXaU9nM1h4ZDlhQTN2cklteVVBQkRsdTlRdF9pdzR6eGZUMFI3UGdxOHV1MkFPbmc0NDMzbHlKdzBiLUxia2RPNkZ4TVlseDJzaVo2WFNrazd1MldlXzNYMzJiNEFVdHg5cDg4V3hQMDVwb3g0MQ?oc=5
+
+## Taylor Swift Left Angry After Private Travis Kelce Wedding Invite Leaks, According to Sources - Yaho
+
+- first seen: 2026-08-23 17:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Left Angry After Private Travis Kelce Wedding Invite Leaks, According to Sources  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTE9ZN2VTRUZlV2ptNG1aS1lwd3p1eW1Tc3dUV293YWtQTVZxTDRiN2lNcHJmVGZIY25yYWRWUDQ2WXFkUV9QVTUzN01QYjN3cW1HT19OSm9QX2pYQmw3WVJIVVduWVdkR3VsbmV3Q0JON0x5MXZZeHZkUWZKamptQQ?oc=5
+
+## Taylor Swift Puts a Floral Twist on the Summer Slip Dress Trend for an Event in Los Angeles - ELLE
+
+- first seen: 2026-08-23 17:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Puts a Floral Twist on the Summer Slip Dress Trend for an Event in Los Angeles  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMimgFBVV95cUxNZk5McE5udTFrNGRLdzhaV1dVbHlWaVBvUUIydWQtRXktc29TMjBYdTF6dXc5Q3oxSU1HeElGbXBLVF92MTZ3dklwNFpadXlzSnZYaS10Tzhlc3ladXlNS19BZjY5Rm5OUDhodnptTXZib0NxVVVWWUJCSTkyRzJ1eVp4OUVMSTZhQTVQMVBnLXo0QVFCV093QzB3?oc=5
 
 ## Every Photo of Taylor Swift and Travis Kelce Since Their Wedding - People.com
 
@@ -140,14 +172,6 @@ Stories: 87
 - sources:
   - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiywFBVV95cUxQZ0ZyQktaRERFTWJXczBWQTdFLS1hLTNMQnZlRk9jRXFQN0hsQk9ya3RnUmZmb1hfcEdQYmJhVU5jcHJVdFl2Y2swV2JReHV3OVI0MmZoZm1UaEIyY2Nwc3A3YXFMcGN6bXNaeTlZOHRUZk1YUVRmVVdLNExBUFhHLWYyNG5TX2xBRzBBSWtfQk9OUlJXV2ZsWlVBWWtPNzNOakgxalByNHZ6VWZ4d1RLTkR3VEswVmRzb2U4Rm90ZzdXc1otS1BsRGVUdw?oc=5
 
-## Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp - heavy.
-
-- first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp  heavy.com
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxOSmdxMXdEX2ZYbGZTZkUzOEQ2c2xOYnBhNFBaQ3hFLS1PczhpY2hZbUR1RVFXdE1abW9RdG5Ld3dUOXRnQkUyUXFkek9meHdyVVlwVFRIaDJsMFJDY283Y0lyclVFcnFOd3NOakZydjlpLUJtZ19SZWdfLTlUWjlLYW9vOG5ZaDNmdVhyTmtPTQ?oc=5
-
 ## Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding 
 
 - first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
@@ -157,6 +181,15 @@ Stories: 87
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOcXlza3dxOFdGVlNoaXpZeldoRUlGU1gtMDB3ZG95cjNweXlYTndUaVZSZkVicENuOEs4cTBkcXYwdFhfTDFlZ0xBZlhCT25fS0tiOWllWGNENlZVNjlqdThGM0VleHRoTTcwN0x5NHlCVWlURG1BbVdadUxRU3VoQlkzZDNEQjdsM3ZtcUdIaHM2SUtqU1VIUXdlTXRrOE12OFNFS3Z3QWdOYmRBb2N1Z2ZfNFlJdDJP?oc=5
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOZnYxYnozZDMxcV90NTI1THY3UjFDWUxraFpKREw0RFpsZnRNM1BTNTQtamk2OHplNEtFTXBPWFBzVERtcm1qR3RjcDVPVTJ3aGJwVFRCMnk0UTd3Yk9DeFFQX2taVVZfSmE3cXN3dnFCVWlINW52UGZZYTQ1dXpYSEs5WFMyOVhWWVcxclVLekVMRDQ5NzZ1MV9jMnFOb1Q3bFZUM0Npbzhid3R5Ylh4cjlDUGprWHVrTTQw?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPVHZRZ2NuT0t4WlVQem1BVlZsdWRmY053RU1NZmpOSFJQb0djSFNoMHZMU2NScjh1d1dXN3pVbW0xQzNmSmdwTzhuMHhreTRYMHdWa00wQVhLelcxTWZqc1UydmluSUMweTVSWWRXendOYUh1VFYyWVJ2VmR1NGFPaVk2NzY1YWQ1SnRzNmFQck40N05IU1Q3ZFdPVVVWcjFmQmxv?oc=5
+
+## Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp - heavy.
+
+- first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxOSmdxMXdEX2ZYbGZTZkUzOEQ2c2xOYnBhNFBaQ3hFLS1PczhpY2hZbUR1RVFXdE1abW9RdG5Ld3dUOXRnQkUyUXFkek9meHdyVVlwVFRIaDJsMFJDY283Y0lyclVFcnFOd3NOakZydjlpLUJtZ19SZWdfLTlUWjlLYW9vOG5ZaDNmdVhyTmtPTQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPRkluX2NIbG54NUtDR0c5R3pXYnFRemZYRjZYMUhqRVdoeDRvenBxR1E2NzJkTGNLd0FoWlRzQmZXNUs2dWEyWkNrQklMeDZJRHlpdlBkU3VwOVZFbWZjUmFVeVR0WlFLMWFPRWZjWXNsRTExVm1NQURhRmI1cFQwTllvMGQ0UVlzZGlFcWQ3U0NCOEVtcUVwSkhtWmdEOW1zdmpFZHBB?oc=5
 
 ## Taylor Swift Shatters An All-Time Chart Record - Forbes
 
@@ -690,43 +723,3 @@ Stories: 87
 - summary: How Taylor Swift Is Influencing Her New Nieces, According to Kylie Kelce  instyle.com
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxPZXZBdGUwbWhqTGdodF9mRzRMUUZYT2p4QkdFMkIxMDFwMm5DUEJzX04tWmRMSTZIZWhxbGdtcC04Q0FYWVVMakFGdHF6ZVA5YkZtUDF3cUcybDBndlp3NG9GZ3hnQzFtYUJjTFloUmw2R0FRSXN6M3BuRFM5amFpX2RhME9UVGc4ZXJEeQ?oc=5
-
-## Taylor Swift’s Wedding Ring Has a Hidden Romantic Detail Fans Can’t Ignore — Report - Yahoo
-
-- first seen: 2026-08-20 13:56 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Wedding Ring Has a Hidden Romantic Detail Fans Can’t Ignore — Report  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNd0RvWFdqN1lldU9fTGwzYW9HVjhPRmlGOHFadHZpTmt3LUFhUGhyd21lWDNGZF9zek9rdUQ0Y3dmTlRZUmJOb1NoWGppa0VjSlJKS0x0QkNjUkVfaTAzRUtsdmNsZmFoM1Y0VGVNSXlmR05adjRSNFg0bFRQenNWRGhaalF1N0ZPT1k3LTFJQjllMGU4ZVo5WmdsekVyQ3U0WUNyVg?oc=5
-
-## Taylor Swift and Travis Kelce’s Wedding Is Already Crushing the Celebrity Competition - parade.com
-
-- first seen: 2026-08-20 13:56 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce’s Wedding Is Already Crushing the Celebrity Competition  parade.com
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxQYXUwQ2MyQUozbWUxSUxtUERaRzhNMmxPbDVxRzlHUmpPQjRaVWM4YmZNWHJmaU9yLUNmVkFSbkZoMTRvRmZvOU5NSUp5N19qQ1k2V05JUTBPbEsyZkJOQV9JNVkzamVOdzRQaHVyakE4ckh5OG5IODhBWTBNTmpVOXVqQVVLUzlKZkVVcmRWMWE5dEp0cGhLWC1BeVpWOU1hYk41eVRGSnIxczMy?oc=5
-
-## Taylor Swift & Margot Robbie’s Murder Mystery Set To Arrive on Streaming Soon - Yahoo
-
-- first seen: 2026-08-20 13:56 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Margot Robbie’s Murder Mystery Set To Arrive on Streaming Soon  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPcGtGSXFVODFMWkgyTnVUUFZDRU9DQTY2bXNNbzlXTEFlcnl6WG1jS1RheDFRMHZ5TXN2cVA2LW91cW9qS09lNzdxMHlGY2hVWk56ZE9oZHZ0YTVvS2ZzaDBiSXVkOTg3OGlsZktsdWlTNG9SZHREc3VpS3hnRGVaRFJaYkVhZ3o3dkVTakYwNHBfWGo0T0tSdFVZemZvQ0E4Mnc?oc=5
-
-## The 5 songs Taylor Swift played to kickstart Emmy FYC campaign for Eras Tour film - Yahoo
-
-- first seen: 2026-08-20 13:56 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The 5 songs Taylor Swift played to kickstart Emmy FYC campaign for Eras Tour film  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPNTYwRFlQWjFyeEVGenNRTUNwd1pDdFU2RklTOUc1c3V3bTJUeDREdnVrZldJMEJIdDFnMURoM3UyQzJyQ0ZldXpOU05hVV9MVjJya0VJRzdOcmI1M3E5N056Q1c4REgwSnRSbjY1OVRuY0VuSGEySFlfekw5bExnQ3UtOWRycEVjYXBIVUxxSmdibGU2WnlRLQ?oc=5
-
-## Chiefs Co-Owner Daniel Hunt Says He Didn’t Snag an Invite to Travis Kelce and Taylor Swift’s Wedding
-
-- first seen: 2026-08-20 13:56 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chiefs Co-Owner Daniel Hunt Says He Didn’t Snag an Invite to Travis Kelce and Taylor Swift’s Wedding  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxPb1NzR0JSVy1uVTlodkJPeVlrQWllVzZtN1ZWaWVJUEZKd1diRk9ERDRwZW93U05lSWZSVUt5VWZySlNXM2dab1M5X0pBTWVuOUdzY3dNUzdEWExENUVlMVVIc3VheFFCdUFtZWlsZHg4TTBXdW1OWEp1YmZjMXBYc3B4akhhV3VxaU9SQzFEbE5WUnlxVlo3UW1HN00tQ01HZUpvd1Z1MElTaFZmNjlvX3F3?oc=5
