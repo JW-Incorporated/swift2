@@ -34,6 +34,7 @@
       "Bash(git push origin *)",
       "Bash(git remote *)",
       "Bash(git config *)",
+      "Bash(git merge *)",
       "Bash(gh pr *)",
       "Bash(gh issue *)",
       "Bash(gh repo view *)",
@@ -97,10 +98,7 @@
       "Write(.env)",
       "Write(.env.*)"
     ],
-    "ask": [
-      "Bash(git merge *)",
-      "Bash(gh pr merge *)"
-    ]
+    "ask": []
   },
   "hooks": {
     "SessionStart": [
