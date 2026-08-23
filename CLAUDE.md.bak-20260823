@@ -192,41 +192,6 @@ codebase map kept current when files are added/moved/deleted — is unchanged.
 
 ---
 
-# REPOWISE — the index answers before the repo does
-
-Repowise is a local code-intelligence index (`.repowise/` at the project
-root; MCP server with lookup tools). It exists to cut token burn: an
-indexed answer with citations costs a fraction of an agent re-reading
-raw files. Installed per project via the **`repowise-setup` skill** —
-never by hand (bare `repowise init` edits `~/.claude/settings.json`
-machine-wide and injects text into CLAUDE.md; guard.sh denies it).
-
-When `.repowise/` exists in the project:
-
-- **Route understanding questions through the index first.** You,
-  `scout`, and `researcher` prefer the repowise MCP tools
-  (`get_answer`, `get_context`, `get_symbol`, `search_codebase`,
-  `get_risk`, `get_why`) over raw `rg` + Read for "where is X / how
-  does Y work / what breaks if Z changes." Raw `rg` remains for
-  exact-string lookups and whenever an index answer smells stale — the
-  index is a cache; the code is the truth.
-- **An index citation is a claim**, same as an agent report — spot-check
-  before it drives an edit.
-- **Noisy commands:** `repowise distill <command>` in place of
-  tail/grep filters when a test or build run would spew. Interactive
-  one-shots only — the CLI has a ~6 s startup floor, so `repowise`
-  never appears inside hooks, statusline, or per-step automation; the
-  MCP server is the fast path.
-- **MAP.md is unchanged.** Repowise answers lookups; MAP.md holds
-  decisions, danger zones, and layout. Maintain both.
-- **Staleness:** after a large refactor, re-index via the
-  `repowise-setup` skill's Refresh section — never bare `init`.
-
-No `.repowise/` in the project = this section is inert; normal
-delegation rules apply.
-
----
-
 # SCOPE TRIPWIRES — stop if any fires
 
 Diff >~400 lines for a task planned small · an agent editing outside the
