@@ -215,12 +215,14 @@ create branches, commit to feature branches, recommend improvements.
 
 AI may NOT, without explicit human approval:
 
-- Merge or push to `main`
-- Deploy anything
 - Change product direction or add features outside an approved spec
 - Modify secrets, credentials, or production infrastructure
 - Spend money, create accounts, or sign up for services
 - Delete data or force-push
+
+(2026-08-22: Joey removed "merge or push to `main`" and "deploy anything" from
+this list. `git merge`/`gh pr merge` still always prompt for approval — that's
+a platform tool-permission behavior, not this list, and is unaffected.)
 
 ## Roles (modes, not separate agents)
 
@@ -417,11 +419,15 @@ time), and a concrete "Worked if:" signal.
 
 Every entry carries a `**Status:** OPEN` line. Joey changes that one word to
 `DONE`, `SKIP` (chose not to — add a few words why), or `BLOCKED` (tried,
-something stopped him). He never cuts, pastes, or moves a block. Any session
-that opens `HUMAN-ACTIONS.md` reconciles it: move every non-`OPEN` item into
-`DONE`, stamp the date, keep its number. Item numbers are stable IDs — never
-reused, never renumbered — so "#4" refers to the same thing forever, including
-after it is filed.
+something stopped him) — or tells a session to, in chat ("I did #2", "skip #7
+because...", "mark #4 blocked"), and the session writes the edit directly.
+(2026-08-22, Joey: a session may make this edit on his explicit instruction —
+never on its own judgment; it still can't decide an item is done and close it
+unasked.) He never cuts, pastes, or moves a block. Any session that opens
+`HUMAN-ACTIONS.md` reconciles it: move every non-`OPEN` item into `DONE`,
+stamp the date, keep its number. Item numbers are stable IDs — never reused,
+never renumbered — so "#4" refers to the same thing forever, including after
+it is filed.
 
 Move finished items to a `DONE` section with the date; never delete them,
 because the history is how you stop re-asking. `SKIP` is final: do not re-raise
