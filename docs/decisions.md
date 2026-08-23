@@ -7,6 +7,49 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-23 — Removed the Claude_Code_Remote-restricted-to-Auditor invariant
+
+**Decision:** Removed invariant #2 from `docs/agents/routine-invariants.md`
+("no trigger carries the `Claude_Code_Remote` connector — except the
+auditor"). All 22 routines recreated for the issue #2258 migration are
+enabled with that connector left in place, rather than requiring a manual
+per-routine UI strip first. The invariant is deleted outright, not
+"paused" or "waived for this batch" — nothing in the fleet enforces the
+one-exception rule going forward, and the Auditor's weekly check no longer
+looks for this violation.
+
+**Why:** Joey's direct instruction, in chat, after I flagged what the
+connector grants and the incident it was written to close off (below) —
+he judged the risk acceptable and asked for the rule removed rather than
+worked around. Presented as an explicit choice with the consequence named
+plainly (`AskUserQuestion`, both options previewed); he picked removal.
+
+**What this invariant was for, for whoever reads this later:** on
+2026-07-25, scheduled routines that could create new triggers via the API
+armed self-check-in loops that burned ~144 cloud sessions/day for days,
+leaving no trace in git, issues, or CI because they were explicitly
+instructed not to comment when nothing changed. `Claude_Code_Remote` is
+the connector that grants trigger-creation — the invariant made that
+failure mode structurally impossible (no routine could spawn another)
+rather than merely forbidden by prompt text. Restricting it to the
+Auditor alone (list/get only, by its own prompt's absolute limits) was
+the fix. Removing the invariant does not reintroduce the 2026-07-25
+incident directly — that required a routine's prompt to actually instruct
+self-arming — but it does remove the structural backstop: a routine whose
+prompt drifts, is edited carelessly, or is otherwise compromised can now
+call `RemoteTrigger create` and nothing stops it before invariant #3 (≤35
+enabled triggers) or a founder notices.
+
+**Not touched:** invariants #1 (no `send_later*` names), #2 (no
+`persist_session: true`), #3 (≤35 enabled), #4 (no `Task` in
+`allowed_tools`) — renumbered from #1/#3/#4/#5 but otherwise unchanged.
+The Auditor's own operating limits (list/get only, narrow `allowed_tools`,
+cheapest model) are unchanged.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-23)
+
+---
+
 ## 2026-08-23 — Corrected stale "merge always prompts" claim; AI lands its own PRs directly
 
 **Decision:** Rewrote three passages in `CLAUDE.md` that told sessions
