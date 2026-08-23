@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 87
+
+## Every Photo of Taylor Swift and Travis Kelce Since Their Wedding - People.com
+
+- first seen: 2026-08-23 13:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Every Photo of Taylor Swift and Travis Kelce Since Their Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMif0FVX3lxTFB1M2lBaVNDaFd4elpjRm5Zc2UwNmxQR1NfS25GbnVlWl90SG10elN3bGpkTXJrTkh0Nlk0YTJnWGFXRC0tVmhnX0hYcFdZMFZMSm1xY18tcVp2NHh6d1lRSDlKRy13bld2R0FlZi1KY0pfOWp5dk5CLUN5ZEdzTUk?oc=5
+
+## Leaving Travis behind? Taylor Swift swaps her newlywed life for a girls' night out with Dakota Johns
+
+- first seen: 2026-08-23 13:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Leaving Travis behind? Taylor Swift swaps her newlywed life for a girls' night out with Dakota Johnson  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi9AFBVV95cUxPZWF1cW5hUnluekVOTjhxb0xyVjVQWHJ0OWo0Z2VsM3loTUlXd20tVkNKZllJb1BYSkJEVkNoNnZ5eFFWeXA5RWFyLWhiS2d4Mzc2UWdMdWg1VjJJWlIzMl91R1ZFLUt5d2JHYV9TelZIZVctTmxkMkhzU25QLTVIUkZVaUhDTzBGOURlZ0RSSXhfc3FMTVJqWHc4WEN0b2p2RmVyRXVwZEctZTVkWnUweXdtQVlfZzRud1BOQkN6QVJkQl9EbTBidzhKc0VxMFdldkhZZ0I4WDhMX2ZERXgxU0xzd2s0U3NTRHZ1N2RQR3VDSENf0gH0AUFVX3lxTE1DU1NRNzlyMHRXWXRvZ3VtZDJKWkZRNHlHMnJPcTBJbkszMlkyb1JvcmVNVUNUMmcyMXp0TGJyR2xhUG00MmNLUDMtU3h3b1c0Tkh0NFBXR1hJZTc3N1dwY3NqdG1SRFVHd1NXMnZIS2ZZQm9ZYmF0RDZwc0RpSThLLW5QTmt5ZjNGUmVGbnJ6WGZjRVVQcW9ZSnpsUjNmNGZVaVBPX0hUa2pLTjNxY2pRNTdxTGMyblRCTzdwQml4WGlDc0s5dHBEd21uYS1HOVhlZ1cyekhod2RoZWNoZnhiZzFzeWZMMm4yMW1xX1hXNEVPZlo?oc=5
 
 ## Taylor Swift ‘Shocked’ Over Death of Former Nashville Neighbor Hayden Panettiere — Source - Yahoo
 
