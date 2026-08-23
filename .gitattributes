@@ -15,11 +15,3 @@
 # .mjs fix above; pin explicitly rather than rely on autocrlf leaving it
 # alone by chance.
 *.sh text eol=lf
-
-# AI Dev OS writes .claude/rules/*.md with LF and compares the checked-out
-# file byte-for-byte against its packaged copy (src/team/bootstrap.mjs). Under
-# core.autocrlf=true a CRLF checkout is content-identical but never byte-equal,
-# so `ai-dev team-status` reports "up to date: false" forever and invites
-# someone to re-run bootstrap or hand-edit a file the docs say not to touch.
-# Pin LF so the comparison stays meaningful.
-.claude/rules/*.md text eol=lf

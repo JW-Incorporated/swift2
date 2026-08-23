@@ -11,11 +11,10 @@
 
 ## Where the authority lives
 
-`CLAUDE.md` is the operating manual and outranks this file — for project policy
-and safety. **Orchestration** (routing, delegation, task state, review loops,
-recovery, team coordination) belongs to **AI Dev OS v3.2**, with
-`.claude/rules/ai-team-coordination.md` as the binding repo-level share. See
-§ The orchestration layer below. The durable reference docs `CLAUDE.md` points at:
+`CLAUDE.md` is the operating manual and outranks this file. There is no
+external orchestration layer — live task state and team coordination live in
+GitHub Issues/PRs (see `CLAUDE.md` § WORKING MEMORY). The durable reference
+docs `CLAUDE.md` points at:
 
 | Doc | What it settles |
 |---|---|
@@ -57,35 +56,30 @@ recovery, team coordination) belongs to **AI Dev OS v3.2**, with
 | `docs/` | All durable knowledge | Don't leave a decision only in a conversation |
 | `.github/workflows/` | CI + scheduled runners. `ci.yml` job `build` is the required check | Don't dispatch `social-poster.yml` / `social-delete-media.yml` |
 
-## The orchestration layer (AI Dev OS v3.2 — migrated 2026-08-19)
-
-Orchestration is **not** configured in this repo. It lives at the user level:
-`~/.claude/CLAUDE.md`, the global `UserPromptSubmit` hook, the `ai-dev-os` MCP
-server, and `!build_systems/AI-OS/ai_dev_os_v3_2/ai-dev-os/policy/`. What
-remains here is project policy and Swift2-specific safety only.
+## Session infrastructure (`.claude/` and the standing files)
 
 | Path | Responsibility |
 |------|----------------|
-| `.claude/rules/ai-team-coordination.md` | **Installed by `ai-dev team-bootstrap`.** `REPO-001`…`REPO-007`. Do not hand-edit — change it upstream |
-| `.claude/settings.json` | Tracked. Permissions, two hooks, statusline. **No model pin** — routing owns that |
-| `.claude/hooks/guard.sh` | `PreToolUse` (Bash) — deterministic deny list, incl. social real-send + the shared-checkout session lock (`REPO-003`) |
+| `.claude/settings.json` | Tracked. Permissions, two hooks, statusline |
+| `.claude/hooks/guard.sh` | `PreToolUse` (Bash) — deterministic deny list, incl. social real-send + the shared-checkout session lock |
 | `.claude/hooks/post-edit.sh` | `PostToolUse` (Edit/Write) — **auto-format deliberately OFF here**; read the comment before enabling |
 | `.claude/statusline.sh` | Model, context %, usage-limit gauge, branch |
 | `.claude/agents/*.md` | scout, researcher, grunt — capability only, no orchestration authority |
 | `.claude/commands/` | Project slash commands (design-debate, marketing) |
-| `CLAUDE.md` | Project operating manual. Orchestration section defers to AI Dev OS |
+| `CLAUDE.md` | Project operating manual — the whole contract |
 | `MOODBOT.md` | The mood-bot contract (landed on `main` via #2184). Durable lessons from it are in `docs/engineering-lessons.md` |
 | `HUMAN-ACTIONS.md` | **Everything waiting on Joey.** Any session that opens it reconciles it: file non-`OPEN` items into DONE with a date, keep the number. `SKIP` is final — never re-raise |
-| `docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md` | What was retired/preserved/migrated, and why |
-| `docs/handoff/2026-08-19-paused-work.md` | Read-only snapshot of the work paused at migration time |
+| `docs/handoff/2026-08-19-paused-work.md` | Read-only snapshot of the work paused at the 2026-08-19 migration |
 | `docs/archive/kit-v3-2026-08-19/` | The retired kit-v3 framework, verbatim (`STATE.md`, `PLAN.md`, hooks, agents, pause skill) |
 | `scripts/watchdog/karen-post-repair-check.mjs` | Self-limiting: Karen ran after the repair? Auto-closes 2026-08-22 |
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 
-**Retired 2026-08-19:** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
+**Retired 2026-08-19 (kit-v3):** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
 `docs/OPERATINGMANUAL.md`, `hooks/triage.sh`, `hooks/checkpoint-gate.sh`,
 `agents/{architect,executor,reviewer}.md`, `skills/pause/`. All archived, not
-deleted. Live task state now lives in GitHub Issues/PRs (`REPO-001`).
+deleted. **Removed 2026-08-22 (AI Dev OS):** `.claude/rules/`, the migration
+inventory doc, the `.gitattributes` rules pin — see `docs/decisions.md`.
+Live task state lives in GitHub Issues/PRs.
 
 ## The longlive reader (`apps/web`) — read `docs/longlive-experience.md` first
 

@@ -52,19 +52,19 @@ written down; ask instead.
    summary. Full contract, commands and traps: `docs/agents/codex.md`.
    Never hand a review back to a founder — agents deploy Codex themselves.
 
-   *(2026-08-19, AI Dev OS migration: the sentence "the in-house `reviewer`
-   agent does NOT satisfy this rule" was removed because that agent no longer
-   exists — review is routed by AI Dev OS `review_convergence` /
-   `delegate_review`. Joey's later ruling that Codex is out of the loop
-   supersedes this rule's Codex requirement; see § OPEN below.)*
+   *(Superseded in practice by Joey's standing ruling — "use claude code
+   review… then just stop reminding me about it", recorded in
+   `docs/decisions.md` 2026-08-14. Cross-review is satisfied by a Claude
+   code review of the diff before the PR opens; Codex remains available via
+   `codex:rescue` for adversarial second opinions when the change is risky
+   or architectural. Do not re-raise the Codex question with Joey.)*
 
    **MAXIMUM TWO REVIEW ROUNDS PER BRANCH** (Joey, 2026-08-14, after a
    four-round loop). Round 1 reviews the work; if it rejects, you fix and run
    round 2. **If round 2 also rejects, STOP — do not run a round 3.** Escalate:
    write `DEBUG.md`, hand it to a fresh-context agent restricted to the 2–3
-   relevant files, and if that does not settle it, escalate through AI Dev OS
-   (`supervisor.bounded_model_escalation`, then the Fable decision authority in
-   `decision_policy`) — the retired `architect` agent's job. A third
+   relevant files, and if that does not settle it, take the problem to a
+   stronger model in a fresh session with `DEBUG.md` as the brief. A third
    review is a signal that the FIX approach is wrong, not that more review is
    needed. Reviews are cheap to run and expensive in wall-clock; a loop of them
    is a symptom.
@@ -283,108 +283,33 @@ adding it to this file. This document should improve weekly.
 
 ---
 
-# ORCHESTRATION — AI Dev OS v3.2 (migrated 2026-08-19)
+# WORKING MEMORY — where things live (no orchestration framework)
 
-Everything ABOVE this line is the project's own operating manual. It **outranks
-this section wherever the two touch**, exactly as it outranked the kit-v3
-contract that used to sit here.
+There is no external orchestration layer. Two frameworks came and went —
+kit-v3 (retired 2026-08-19) and AI Dev OS v3.2 (removed 2026-08-22, Joey's
+call; see `docs/decisions.md`). Everything above this line is the whole
+contract. Do not reintroduce a root `STATE.md`/`PLAN.md`, a rules bundle, or
+any external task-routing machinery without a founder asking for it.
 
-What changed on 2026-08-19: the kit-v3 ORCHESTRATOR CONTRACT — which defined
-routing, delegation, model tiering, planning, working memory, debugging
-escalation, checkpointing and pause/resume *inside this file* — was retired.
-**AI Dev OS v3.2 is now the sole orchestration authority.** The full inventory,
-the reasoning, and the reversible backup are in
-`docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`.
+Where durable knowledge lives now:
 
-## What this file no longer decides
-
-Do not look here, and do not reinvent locally, any of the following. They are
-owned by AI Dev OS and configured in
-`!build_systems/AI-OS/ai_dev_os_v3_2/ai-dev-os/policy/routing-policy.yaml`:
-
-| Concern | Owner |
+| Kind | Where |
 |---|---|
-| Task routing and model selection | `routing.*`, `workers.*` |
-| Agent spawning and delegation | `delegate_task` / `create_task` (MCP) |
-| Fable decision authority | `decision_policy.default_authority: fable` |
-| Task and runtime state | AI Dev OS SQLite + GitHub (see `REPO-001`) |
-| Review loops and convergence budgets | `review_convergence.*`, `delegate_review` |
-| Checkpointing, pause and resume | `session_policy.*` |
-| Supervisor and stall recovery | `supervisor.*` |
-| Team coordination | `team_coordination.*` + the shared rule below |
-| Provider health and billing safety | `provider_health.*`, `billing_safety.*` |
+| Live task state, team coordination | GitHub Issues and PRs — the shared truth between Joey and Wyatt |
+| Known traps, hard-won lessons | `docs/engineering-lessons.md` |
+| Settled decisions, merge authority | `docs/decisions.md` |
+| Work paused at the 2026-08-19 migration | `docs/handoff/2026-08-19-paused-work.md` (read-only snapshot) |
+| The retired kit-v3 framework, verbatim | `docs/archive/kit-v3-2026-08-19/` |
 
-Its lead-behavior instructions live in `~/.claude/CLAUDE.md` (marker-delimited)
-and apply in every repo. Its task hook fires on every prompt. If the
-`ai-dev-os` MCP server is not available in a session, none of it applies —
-but this file still does.
+Team coordination stays simple and is already covered above: substantial work
+gets a branch and a PR off up-to-date `main` (rule 2, § Session start ritual),
+one branch-writing agent per isolated worktree (§ Agent shell discipline), and
+check open PRs for overlap before starting (§ Session start ritual). GitHub is
+authoritative for who is working on what — never a local file.
 
-## The shared team rule — binding
-
-@.claude/rules/ai-team-coordination.md
-
-That file is installed and kept current by `ai-dev team-bootstrap`. **Do not
-hand-edit it**; changes belong upstream in the AI Dev OS policy. It defines
-`REPO-001`…`REPO-007`: GitHub is the shared truth, substantial work registers
-as an Issue, one editing task gets one isolated branch/worktree, the default
-branch is an integration lane, overlap is checked before integration, and
-**no single mutable file is authoritative shared state**.
-
-The last of those (`REPO-006`) is why `STATE.md`, `PLAN.md` and
-`PLANtemplate.md` are gone from the repo root. They are preserved verbatim
-under `docs/archive/kit-v3-2026-08-19/`.
-
-## Precedence, when two rules touch
-
-1. **A direct human ruling** (Joey on product, Wyatt on architecture) — always.
-2. **This file above the separator** — project policy and safety: the
-   human-only list in § Decision authority, § Never babysit your own PR,
-   § Never discard uncommitted work, § Agent shell discipline, § GUARDS.
-   AI Dev OS routing never licenses crossing one of these.
-3. **`.claude/rules/ai-team-coordination.md`** (`REPO-*`) — team coordination.
-4. **AI Dev OS global policy** — routing, models, budgets, recovery.
-
-A conflict that is not resolved by that order is a `REPO-007` cross-cutting
-decision: surface it, don't pick silently.
-
-## Where the old working memory went
-
-| Retired | Replacement |
-|---|---|
-| `STATE.md` — current focus, next step | GitHub Issues/PRs (`REPO-001`), AI Dev OS tasks |
-| `STATE.md` — known traps | `docs/engineering-lessons.md` |
-| `STATE.md` — settled decisions, merge authority | `docs/decisions.md` |
-| `STATE.md` — paused work at migration time | `docs/handoff/2026-08-19-paused-work.md` |
-| `PLAN.md` / `PLANtemplate.md` | AI Dev OS task records + task-local plans |
-| `.claude/hooks/triage.sh` | AI Dev OS `UserPromptSubmit` hook |
-| `.claude/hooks/checkpoint-gate.sh` | `session_policy.durable_state_outside_conversation` |
-| `.claude/agents/{architect,executor,reviewer}.md` | AI Dev OS routing + `delegate_review` + Fable |
-| `.claude/skills/pause/` | `session_policy.*` |
-| `docs/OPERATINGMANUAL.md` | AI Dev OS policy + `inputs/` docs |
-
-`MAP.md` **stays** — a read-only codebase map is explicitly permitted by
-`REPO-006`, and it is the reason exploration is unnecessary here. Keep it
-current when files are added, moved or deleted.
-
-`.claude/agents/{scout,researcher,grunt}.md` **stay** — they carry no
-orchestration authority, and `REPO-002` exempts internal read-only and
-mechanical subagents from Issue registration.
-
-## OPEN — one conflict this migration did not settle
-
-`Workflow rule 3` above requires an independent **Codex** cross-review and
-states the in-house `reviewer` agent does not satisfy it. Joey later ruled the
-opposite — *"use claude code review… then just stop reminding me about it"* —
-recorded in the archived `STATE.md` § Merge authorization, which also says not
-to re-raise it with him.
-
-Those two are contradictory as written, and the `reviewer` agent that the
-ruling named as the substitute has itself now been retired in favour of AI Dev
-OS review routing (`review_convergence`, `delegate_review`, `deepseek_pro`).
-**A session should follow Joey's ruling** (rule 3's Codex requirement is
-superseded) and use AI Dev OS review routing. This note exists so the
-contradiction is visible in one place rather than rediscovered; per his
-instruction, do not re-raise it with him.
+`MAP.md` **stays** — a read-only codebase map, kept current when files are
+added, moved or deleted. `.claude/agents/{scout,researcher,grunt}.md` **stay** —
+capability helpers with no orchestration authority.
 
 ---
 
