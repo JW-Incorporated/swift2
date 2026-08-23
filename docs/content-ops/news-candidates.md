@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 81
+
+## Dean Blandino reveals Taylor Swift's frustration with famous tactic Eagles used to stop Chiefs - MAR
+
+- first seen: 2026-08-23 21:32 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Dean Blandino reveals Taylor Swift's frustration with famous tactic Eagles used to stop Chiefs  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8AFBVV95cUxNRm1scWRCLUVmVnRUWG40ajhGMUN5Wjd0V3E5TVVzV1h6dVRBMnFreC1rWXNvNHBPbk9uY1Y1QUhtbGtydjFCU2N1NjFzMUtvS2JwWFVMVnRyc0JUTl9LTlMxOUJCY3gzbC1jRW9idWl3WFR3bU00dGlpbUUzb1pHOXVpb0k2SE1oclNUYXBMYzhDS3BEckNmREJjRXdyUmc5TGlkWWpXZS12ZC1wTU9pLWU1YjV2WmE0ZlpmMUhFUmNBbFE0ZTBFSFVWMzhabkt6empRSmtudDBWalpZOUtONjhnRUxFTHZfNjZHWG1NLWjSAfABQVVfeXFMUGt3ajA0bFhqZFdWekhPT2x3UlBVWFZpd3QybXZRV1VKbmVwS2ZNQ0tJRUxQOE5nRVRhR1c5Um56TmxCMEtnRnBpMkFSaWlXaVpOZkJoMUhOYW5hTDNhVGN3aDZqZkJva1pqYWNKcUh3VFpiVHlYcDhTMG5wUE5BMDdIaWJsbEplc0tla0lnWmU0NUFqVmxOSnFJaGY2VF9qclE1Yy1YZlhRVVQwUldmTDY2OXhVaDBhNDlsRUhmYllMcXFKUW9jZ0RTRklPNjNFZWV4aHN2Z21jY1Z3NEJlcVBhX3VmcExsTko5Yy02TElo?oc=5
+
+## Designers dreaming up Taylor Swift-inspired wedding gowns - Channel 3000
+
+- first seen: 2026-08-23 21:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Designers dreaming up Taylor Swift-inspired wedding gowns  Channel 3000
+- sources:
+  - [unverified] Channel 3000 — https://news.google.com/rss/articles/CBMi-gFBVV95cUxOQW83SFcyXzdtSW8wUjlfdE52cGhueFo0NEJEbnFYTnlvMWtoZ3RyNUtYQTJ3UXhwTGoxOW9OYjVGMmxVS25DaUlGOWF3b3kwc3BJTmhRYTJURGFya0ZpUXNJc3BXVXBsZ3ZJN3VneXU3UEtZZmtZNk00di1MUlczd0VuX2ZsS0J3eVQtOWlpS01TcnhsTzRGUWhuSll3RzM4YlctbXg4LVczcFZxWkMtb0RMdmh1RGNvUE5IT0ExNkdUZk05WGRXWU9hZ254NnlibXVFQ093cm5lSG9JNV81aS02OENmNl84WndiZ3p6QkpXLXFyVXJCbXp3?oc=5
+
+## Did Travis Kelce really cheat on Taylor Swift? Truth behind viral 21-year-old Brazilian woman claim 
+
+- first seen: 2026-08-23 21:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Did Travis Kelce really cheat on Taylor Swift? Truth behind viral 21-year-old Brazilian woman claim | Hindustan Times  Hindustan Times
+- sources:
+  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMi9AFBVV95cUxQWmJxc0pGNGJVZVFOWGotRGU4R25SbjZEVkY4U3BhTHFSVkdCSzlFOFJzelpjbWlJNWJLNGtsS3Y3OXhFUmd3Q010RkRUOFBhTmxoS2R5X3lHbjJESHJVQkhtVFhiUDlRNTd5NnZwMFJvUzlTUkRMLVBpUTVJeHB4bTQtQ1FlQXV1eDhnLUhOdmtGT0w4N0RTWjZBYXMtcnltLW1kR0FqaVVIcFF6RDZaaDFPWnNoVVlxTVh0VFRBZURvQ1J3cnFFaDVGYkFSUjgzbVh2dzdRSnRycFdFaHR3QmhlUklIWE9PbERYSUxFRmo5WVhU0gH6AUFVX3lxTE5neDJtVnBWby0tMmVhVTJGbnhocnZkZlR1WUpCMUk3MjBWZXZZaEJKNXh6NFE1VzNNblZGcm4wT0hHa3RPbjQzLTZobzNYc3dzVkUtMmFZdFZZRFR5S1ZWRkg0b2xrVmhscThiWUstV09EZDFmdUZmWG0tYXhJemQxUzcxZURCUW4yT2V4d05VYTFnMENZVm1EYmF2Q2EyZmtXSGkxMG9zN2ZvSnJkaDdVT2ZrSWVVT3dKeGNLemxOUnQyblZWbHkxZlpidDFpN2RnQmsteWFWdERSVEhrTGF4YklPUFF2Uk5XdUdCLUVaX0ZHN2lhS3ZCMnc?oc=5
 
 ## NFL Has a Strange New Problem Because of Taylor Swift - heavy.com
 
@@ -659,67 +683,3 @@ Stories: 86
 - summary: Kylie Kelce Refers to Taylor Swift as ‘Aunt Taylor’ for the First Time Since Her and Travis Kelce’s Wedding  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQSTU5SHRZMDhhZG5vOG5kX3NxQ056TlJIQ1JSZDNjVzZCbjZpVTFVUUQ0LXhHLXF4UE1jd195WlRtbzNDcmQycWUybmVYRzhOQlVYQ1hRbm1rLXpkWHJkTGdNV3ozQXRHbnFnS0gzUFpsVjVHeXZDYURSSXVmTjIwYTU2YzJtLUlCNkozaGExQQ?oc=5
-
-## Madonna Leads 2026 MTV VMA Nominations, Taylor Swift Is One Win From History - Men's Journal
-
-- first seen: 2026-08-20 17:41 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Madonna Leads 2026 MTV VMA Nominations, Taylor Swift Is One Win From History  Men's Journal
-- sources:
-  - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTVRZNWpOX3Rlb0NQTUNUaWxOZ0V2SEVrUmp2bG96bWJjcEVxYTFLdF9ZZFVQVDNJWENPeG1VVWpSaDNxLUNqWFdpcHZSSGhaTGlZYVlzejQySHhmTUF0bTUwSGxNWnhsSDA0clFLQ2xucFZMN0JkWWktb3lqZXl4ZDNUYnlXSjF1VFBGSG40M1VNVTRVUk5pcUNQdC1aZlhya3hvMFlsRE9hUzJWLUptN0VERmFfWG50?oc=5
-
-## Kylie Kelce Blames Aunt Taylor Swift for Her Daughters’ Latest Obsession - Yahoo
-
-- first seen: 2026-08-20 17:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Blames Aunt Taylor Swift for Her Daughters’ Latest Obsession  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOWFg3M3dVX1pOcEJxX0FreFdsTUhuR2FLWWVUZ0dmOENubVMzbVBNeVVsdExXay1HOVdGV2JMYTl6dk1ucXFud1N4djBSbEpfWEJYZmJjYlVmVTF2TzFGdFNLdWh0d05UM1E3TkJ0VWtIU0E0UHk2OFMzc1h0S3lwLXRqWjNhQm5qY2NveDU3azZGUk5HbmUtT3FDVldqMV9IVXc?oc=5
-
-## At Taylor Swift-Travis Kelce wedding, ex-KC MLB star got scoop on tie to Beatles - Kansas City Star
-
-- first seen: 2026-08-20 17:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At Taylor Swift-Travis Kelce wedding, ex-KC MLB star got scoop on tie to Beatles  Kansas City Star
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOdXloRWg1Y21OYkROSWVKUGxDekRTS2RLcDladUpma1lDdnJNcnRyVWY1bEg0Y0FXVXB5a0VXUDlmOWFqdXNsVjBoSFdwMzlqdEh5YXpHWkt1czJkbmxIZ3haY3BqSnRGWk03UUZjaF9leDI0a2RVV0dBTV95WFdQbnpvcGJDZWs3eklyS1JQTUp1UdIBkgFBVV95cUxQQUNMYWpGaUN6eXFxU1NPRTZLU1BjYUFzOHhQQ3h6U095OUV6ekR0REk5bjRiSDY5TkUwTk9fMko0bzBPeEFUYXJiei1naVQ2RmFnUjVwM0UxVktvUF9VemRKWXM3Z1FMMk4zSExBS1ZhdVhOQlNsTERaVzAyZkdwcGgxYVRpX28xYlVaelZXbG44Zw?oc=5
-
-## Taylor Swift’s Ex-Boyfriend Conor Kennedy Has Been Put on International Wanted List - instyle.com
-
-- first seen: 2026-08-20 17:41 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Ex-Boyfriend Conor Kennedy Has Been Put on International Wanted List  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNVFhPX3VZRVNZMjJ1dkNCN2dWTXFqaDRqRnM0MkFtSzJMZ3kwWTJLSThNYjVBQmdENkZXdzBVN1lySFVxZHNfbDBrZzF1cHlYcGNlRUNNYk02MFkxWTBEVDJnWG85R2hMRS1iNkxRMUdhM0lVaE53VnVRTWJxNXhUalk0V3ZZc0YyYUtveFY2TTdMVGVFaFkyell6V1A0R1pkalBNZjVaYzl5U05rVktWaDFkY1RwSU5XQmFUNktLSmI?oc=5
-
-## Alex Aster Listened to This Taylor Swift Song on Repeat While Writing Barbie: Dreamscape (Exclusive)
-
-- first seen: 2026-08-20 17:41 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Alex Aster Listened to This Taylor Swift Song on Repeat While Writing Barbie: Dreamscape (Exclusive)  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxONTdkcWFpQnpYN0xrR1NIdW9rclJ4LWhBZGVxa25LWVhzMU9PSFNRcUY1OWVHRzQtckRhc212Nm5RdEZtLTZIbHFJOEpzVDhHdFp2N2U1VUNXSHpTT1pobEE0UE5KWmY1eHRFV0VzNllLYTFUZW9Samgya0JsbEZQWXU5Q09DR3d2VW94OTFMNlA5TEZLTnlpcDh4NHhEMnVvOGRfVDI2QU93VVA1d0VtczVDdzNpODNfSGdOTFdzcHN2TVU?oc=5
-
-## Taylor Swift & Travis Kelce Had One Controversial Omission From Their Wedding Guest List - Yahoo
-
-- first seen: 2026-08-20 17:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Had One Controversial Omission From Their Wedding Guest List  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSXVoM0hLTXZHLTZobmN6VHFncE4zcWpOOTBjYkFLd00zU3phUlJUdHlqNTQ4Y3JaV1hJV1dPODJ6TlFVVy1ldTVuZzZYNWx4UVl2M3lRaTVscGJRMC13Rm5FY295aU44OEpHWV9iRXVpN0pZNThPdmtybXd4aTBYUzR4bkdqdEVuMVRzYnJFZThBT1hGTnJHVGhHcmF6X3pM?oc=5
-
-## Madonna Leads the 2026 VMA Nominations and Taylor Swift Is Right Behind Her - centraljersey.com
-
-- first seen: 2026-08-20 17:41 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Madonna Leads the 2026 VMA Nominations and Taylor Swift Is Right Behind Her  centraljersey.com
-- sources:
-  - [unverified] centraljersey.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPNGVfaU94NmdnQ0dydmVGUUZhUW1scTBFN01qdFdrUE01bnBBT0dnRm0tU2xxWHJSbW81Wm5PdUNrWGFJY3FhLWREV1FLbDJCNDJ1NmV4bVZVNUJYVVVUQjJaUlozWFl3YW5Rb0lFYXQ3Q2swYzZ0dFpEVWhRVEhIMDBmWUpVT2xubG1r?oc=5
-
-## How Taylor Swift Is Influencing Her New Nieces, According to Kylie Kelce - instyle.com
-
-- first seen: 2026-08-20 17:41 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: How Taylor Swift Is Influencing Her New Nieces, According to Kylie Kelce  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxPZXZBdGUwbWhqTGdodF9mRzRMUUZYT2p4QkdFMkIxMDFwMm5DUEJzX04tWmRMSTZIZWhxbGdtcC04Q0FYWVVMakFGdHF6ZVA5YkZtUDF3cUcybDBndlp3NG9GZ3hnQzFtYUJjTFloUmw2R0FRSXN6M3BuRFM5amFpX2RhME9UVGc4ZXJEeQ?oc=5
