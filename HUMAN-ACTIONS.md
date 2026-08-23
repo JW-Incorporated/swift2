@@ -13,6 +13,13 @@ numbers are stable IDs, never reused or renumbered, so "#4" means the same thing
 forever. Saying "I did #2" in chat works just as well as editing the line —
 a session will make the edit for you.
 
+**`Filed:` (added 2026-08-23):** every OPEN item carries a `**Filed:**
+YYYY-MM-DD` line right under its title — the date it was first written here,
+backfilled via `git log` for items that predate this convention. Marjorie's
+morning brief reads it to show how long each OPEN item has been waiting on
+you; never remove or backdate it. DONE/SKIP items don't need one — aging
+only matters while something is still pending.
+
 `SKIP` is final. No session will re-raise a skipped item or re-argue it.
 
 ---
@@ -20,6 +27,8 @@ a session will make the edit for you.
 ## OPEN
 
 ### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
+
+**Filed:** 2026-08-15
 
 **Why it matters:** you asked for a curated dataset of official + viral fan-made
 merch. Tier 1 (the official store) is already solved and needs nothing from you.
@@ -51,6 +60,8 @@ evidence will be Reddit score + comments + press mentions.
 
 ### 5. [UPGRADE] Five product/tech decisions that lost their owner — ~10 min
 
+**Filed:** 2026-08-15
+
 **Why it matters:** these were Wyatt's calls. With him gone they are yours, or
 they ship unratified by default. None is urgent; all are cheap to answer.
 
@@ -72,6 +83,8 @@ they ship unratified by default. None is urgent; all are cheap to answer.
 
 ### 6. [UPGRADE] Should `auto-merge-content` keep auto-landing UI code? — ~2 min
 
+**Filed:** 2026-08-15
+
 **Why it matters:** PR #2140 changed two `.tsx`/`.ts` files and merged itself
 with no human involved. That is `auto-merge-content.yml` working exactly as
 written — its guard only blocks server-executing and secret-reading files, and a
@@ -89,6 +102,8 @@ surprising.
 ---
 
 ### 7. [UPGRADE] Three questions left open when #2110 merged — ~5 min
+
+**Filed:** 2026-08-15
 
 **Why it matters:** you deferred these to land the branch. Merging did not
 answer them, and the dataset ages from here.
@@ -108,6 +123,8 @@ answer them, and the dataset ages from here.
 ---
 
 ### 8. [UPGRADE] Turn on the spam gate for link submissions — ~10 min
+
+**Filed:** 2026-08-15
 
 **Why it matters:** you asked for "a very simple captcha... the box you click
 that says I'm human" on the Community/Merch link-submission form. That's now
@@ -148,6 +165,8 @@ confirm it still works and still shows up as a GitHub issue.
 ---
 
 ### 9. [UPGRADE] Decide whether `main` should keep requiring PRs — ~2 min
+
+**Filed:** 2026-08-19
 
 **CORRECTION, 2026-08-19.** An earlier version of this item said "`main` is
 completely unprotected" and gave steps to add protection. **That was wrong.**

@@ -16,19 +16,23 @@ Create the file the first time you need it. Never rename it, never invent a
 variant (`OWNER-ACTIONS.md`, `TODO-JOEY.md`) — one predictable filename is
 the whole point.
 
-**Every entry carries five things, in this order:**
+**Every entry carries six things, in this order:**
 1. **A title** with a `[BLOCKING]` or `[UPGRADE]` tag and a rough time cost.
    `[BLOCKING]` = something is genuinely stuck; `[UPGRADE]` = improves things,
    nothing halted. Be honest — inflating everything to BLOCKING trains him to
    ignore the tag.
-2. **Why**, in a sentence or two — enough to judge priority without asking.
-3. **Steps** — numbered, light. Point him in the right direction; he is
+2. **`**Filed:** YYYY-MM-DD`** — the date you're writing this item, right
+   under the title. Added 2026-08-23: Marjorie's morning brief reads this to
+   show how long each OPEN item has been waiting on Joey. Never omit it on a
+   new item; never backdate or remove it. DONE/SKIP items don't need one.
+3. **Why**, in a sentence or two — enough to judge priority without asking.
+4. **Steps** — numbered, light. Point him in the right direction; he is
    capable, he just needs the path.
-4. **Every exact value written out literally** — URLs, secret names, file
+5. **Every exact value written out literally** — URLs, secret names, file
    paths, menu labels, button text. This is what actually costs him time and
    must not be paraphrased. A wrong menu name sends him into the wrong flow;
    that has already happened once.
-5. **"Worked if:"** — one concrete, checkable signal. Not "it should work."
+6. **"Worked if:"** — one concrete, checkable signal. Not "it should work."
 
 **Conventions**
 - Newest open action at the top of an `# OPEN` section.
