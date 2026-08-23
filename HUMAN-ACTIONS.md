@@ -19,47 +19,91 @@ a session will make the edit for you.
 
 ## OPEN
 
-### 2. [BLOCKING] Confirm Karen's cloud routine is actually enabled — ~5 min
+### 10. [BLOCKING] Strip Claude_Code_Remote from 22 new routines — ~20-30 min
 
-**Why it matters:** the Content Integrity Engine (Karen) has not produced a run
-since **2026-08-09**. The newest report in her directory was committed by an
-unrelated photo-enrichment PR, not by her, which is exactly why the old watchdog
-alarm stayed quiet — it was checking that a file existed, not that she ran.
+**Why it matters:** this is the last step of the issue #2258 migration (all
+21 of Wyatt's disabled routines + 2 more discovered along the way, 23 total)
+recreated fresh on your account tonight (2026-08-23). Every one of them is
+still **disabled** and none of them can safely go live until this is done —
+`docs/agents/routine-invariants.md` invariant #2 forbids any routine except
+the Routine Auditor from holding the `Claude_Code_Remote` connector (it is
+the ability to *create new triggers* — leaving it on 21 routines is 21 extra
+paths a rogue routine could spawn another one). The API cannot strip it
+(`mcp_connections: []` returns 200 and silently keeps the connector) —
+this is UI-only, confirmed during tonight's diagnosis.
 
-**DIAGNOSED 2026-08-16 — this is WYATT'S to do, not Joey's, and here is why.**
-Karen is **not** a GitHub Action. She is a **scheduled Claude Code routine on
-Wyatt's account** (trigger `trig_014HWuRmT2MFveDkPGwVDiQX`, prompt
-`docs/agents/runner-prompts/karen-nightly.md`, model `claude-sonnet-5`). No
-Swift2 session can list or edit another account's routines, so nobody here could
-see whether she is disabled, deleted, or failing silently. Her last real run
-opened PR **#1850**, merged 2026-08-09T09:27:37Z.
+**Steps, once per routine below:** open `https://claude.ai/code/routines` →
+click the routine by name → **Edit** → **Connectors** → click the **×** on
+the **Claude_Code_Remote** chip → **Save**. (Leave every other connector
+alone — Gmail/Google_Drive/Vercel attached by default are not invariant
+violations, just unused.) **Do NOT enable the routine while you're in
+there** — a session will enable each one after a manual test-run confirms
+it actually works, per the migration plan in `PLAN.md`.
 
-**A ready-to-paste prompt for Wyatt was delivered to Joey on 2026-08-16** — it
-carries the trigger ID, repo binding, model, and the config trap below.
+**The 22 routines** (name → trigger ID; **Routine Auditor is deliberately
+NOT on this list** — it's the one routine allowed to keep the connector):
 
-**The trap, if he edits the routine via the API:** a PARTIAL update silently
-wipes the prompt (`events`) and the repo binding (`sources`), leaving a routine
-that fires and does nothing. GET the whole `job_config` and PUT it back, or use
-the dashboard UI at `https://claude.ai/code/routines`, which handles it.
+- Marjorie — 6 AM Founders' Brief → `trig_018eDoH5pWRvwGMEg58aW4f3`
+- Marjorie — 8 PM Evening Delta → `trig_01L2EG5veWBQwMowaykXAi6B`
+- Content Shift — authoring runs → `trig_01PonDFeQCL4iRNzceGyAYrm`
+- The Vault Run — all content lanes → `trig_01XKjJCfxyL2Bm24Ko4M4mWR`
+- Karen — nightly scan → `trig_01TmYaZgnecrEp9mkeV3Gq6X`
+- Kevin — S1 Karen-ticket solver (cloud) → `trig_01QEvYmKcpyDJJ8ec81aBjCV`
+- Kevin — S2 user-feedback digest (cloud) → `trig_0136mXcpmzn6mYtYoUQC3eGP`
+- Kevin — S3 eng triage (cloud) → `trig_01BRmPqZkLEcYKZhYPjypGMJ`
+- Kevin — S3 comment radar (cloud) → `trig_01LaSLx4qzbsz68E6uRLkyDd`
+- Nils — daily site walk → `trig_01WhgsVQFKMRGw2tfRg3i2rB`
+- Austin — build runs → `trig_01FE8o9vscpHts7FwsVKGMZm`
+- Laura — a11y walk → `trig_019aY4jhN6T9ZDAMve8YaRGw`
+- Paul Blart — security patrol → `trig_01Px9HckABpWC4Bq1JQomfWT`
+- Growth — daily draft → `trig_01UBvxMi2Pz7x7qnsffLHAU3`
+- Tree — weekly social plan → `trig_015YHCK6J3FwKLVn2oABUSic`
+- Answerer (sole instance) → `trig_016hygyYPEV9T7BunnTHAWbZ`
+- Lex depth (sole instance) → `trig_01BoVCT67VbeLE8sRiaYPju4` (leave
+  disabled after stripping — issue #2258 says warm spare only, no test run)
+- Rumor Desk — sourcing & lifecycle → `trig_01GS6bcMsEQjXwmyxGr7S1js`
+- Stylist — shop-link sourcing & upkeep → `trig_011BiHZqLEVHAJ4chfaYfGZH`
+- Cross-Link builder → `trig_01FxMuDtwScPFvSgvhFCxdfP`
+- News Triage — news_story to intake issues → `trig_019NuR7EpN7TA28yfmzKPAC7`
+- Photo Enrichment worker → `trig_01Srp9aSCWFAtt7AtL4avpLY`
 
-**Ruled out, so nobody re-checks them:** her scan reads the repo checkout
-directly and does NOT depend on `SUPABASE_SERVICE_ROLE_KEY` (that rotation is
-not the cause), and the report-clobbering bug that HID this outage was already
-fixed separately.
+**Also flagged, not blocking:** two of the original nine undocumented
+routines — **Audio Curator** and **Mood Chat builder** — are gone. Absent
+from Wyatt's read-only export and his full dashboard walk (including the
+un-expanded "completed" tab); his export's own reconciliation section
+confirms neither exists in the API anymore. Nothing to recreate; flagging
+so it's a known loss, not a silent gap.
 
-**A second, unrelated fault was found the same day and is OURS:** the watchdog
-alarm computed the right answer and then died before sending it, because
-GitHub Actions runs `bash -e` and the step used a non-zero exit as its alarm
-signal. That is why no email ever arrived. Fixed repo-side; nothing for Wyatt.
+**Worked if:** every routine above shows **no** Claude_Code_Remote chip
+under Connectors. Tell a session when done (or mark this `DONE` yourself) —
+it will run one manual test per routine, verify real output landed, disable
+the corresponding stale trigger on Wyatt's account, and record the new IDs
+in `docs/agents/runners.md`.
 
-**Steps (Wyatt):** paste the supplied prompt into Claude Code on his account.
-It asks him to report the routine's state BEFORE changing anything, settle a
-schedule contradiction in our docs (`runners.md:412` says nightly, `:390` and
-`decisions.md:96-100` say weekly Sundays — 2026-08-09 was a Sunday), re-enable
-or recreate as needed, confirm the GitHub connection, and trigger one run.
+**Status:** OPEN
 
-**Worked if:** a PR titled `karen: nightly run report <date>` appears on
-`JW-Incorporated/swift2`.
+---
+
+### 11. [UPGRADE] Six stale duplicate routines from a July handoff — ~5 min
+
+**Why it matters:** your account already had 6 disabled routines from an
+**earlier, opposite-direction** handoff (July 2026, before things moved to
+Wyatt's account) — Content Shift, Nils, Austin ×2 (two separate crons; the
+current live version consolidated to one), Marjorie ×2. They're July-dated
+and stale (e.g. the old Content Shift trigger fires twice daily; the current
+one fires once) and every one of them ALSO currently carries
+`Claude_Code_Remote`. Item #10 created fresh, current replacements instead
+of touching these, to avoid a risky partial-update on routines nobody had
+verified in weeks.
+
+**Steps:** at `https://claude.ai/code/routines`, find the 6 (same names as
+above, no "cloud"/"(cloud)" suffix, dated 2026-07-11/12) and either delete
+them or at minimum strip Claude_Code_Remote from each (Edit → Connectors →
+× → Save) so they stop being invariant violations sitting idle. Deleting is
+fine — the current, correct versions from item #10 replace them.
+
+**Worked if:** `https://claude.ai/code/routines` shows one entry per routine
+name, not two.
 
 **Status:** OPEN
 
@@ -313,6 +357,24 @@ infrastructure — ask before escalating an ownership fact into a risk.**
 
 ---
 
+### 2. [BLOCKING] Confirm Karen's cloud routine is actually enabled — ~5 min
+
+**Status (2026-08-23): DONE — no longer needed.** Superseded: Wyatt disabled
+his ENTIRE fleet (all 21+ routines, including this Karen trigger) on
+2026-08-21 as part of a full handoff (issue #2258) to move everything to
+Joey's account instead of chasing individual routines on Wyatt's. Karen was
+recreated fresh on Joey's account 2026-08-23 (`trig_01TmYaZgnecrEp9mkeV3Gq6X`,
+current prompt from `docs/agents/runner-prompts/karen-nightly.md`, not the
+stale trigger text that was originally flagged here) — see item #10 for
+what's left to make her (and everything else) actually live.
+
+Original diagnosis (2026-08-16), kept for history: Karen was a scheduled
+Claude Code routine on **Wyatt's** account, invisible to any Swift2 session,
+last real run 2026-08-09 (PR #1850). A ready-to-paste prompt was drafted for
+Wyatt to check/fix it directly. Overtaken by the full-fleet migration before
+Wyatt acted on it.
+
+---
 
 ### 3. [UPGRADE] Device-check the bottom nav — ~2 min
 
