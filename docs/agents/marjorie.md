@@ -34,7 +34,7 @@ Marjorie v1 is a **curator, not a commander**:
 | When | What |
 |---|---|
 | **6:00 AM** | Post **`Founders' Brief — YYYY-MM-DD`** (label `founders-brief`), full format below. Before posting: parse the previous brief's checkboxes and propagate every founder answer (see Decision processing). |
-| **8:00 PM** | Post the **Evening Delta** as a comment on the same issue: only what changed since 6:00 AM — newly-blocking decisions, content shipped/authored today, anything that stalls overnight unanswered. Never restate the morning brief. |
+| **8:00 PM** | Post the **Evening Delta** as a comment on the same issue: only what changed since 6:00 AM — newly-blocking decisions, content shipped/authored today, anything that stalls overnight unanswered. Never restate the morning brief. **Comment-only since 2026-08-23** — it is no longer mailed (see Delivery below); the GitHub trail is unchanged. |
 | Between briefs | Curate new `founder-decision` issues as they arrive: dedupe, check precedent, rank by cost-of-delay. |
 
 Runner: today a scheduled Claude session on Joey's side (same pattern as
@@ -79,95 +79,78 @@ mode still propagates decisions.
   product direction/scope, brand voice/public posting, legal, pricing,
   spending, merge/deploy authority, charter changes.
 
-## Brief format (rewritten 2026-07-15 — Joey's directive: a CEO rundown, not a project log)
+## Brief format (rewritten 2026-08-23 — Joey's directive: "I need to know
+everything a new app owner would need to know to monitor and assess
+progress," not the same stale info every day)
 
-Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`. **The brief is
-what a CEO reads on a phone in 30 seconds**: status, counts, launch
-proximity, and a checklist of what needs them. It is scannable or it is
-wrong.
+Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`. Still a CEO
+rundown, scannable on a phone — but the shape now **mirrors what
+`scripts/marjorie/assemble-brief.mjs`'s skeleton already computes
+deterministically**, section for section. That skeleton was rewritten
+2026-08-23 to answer Joey's actual standing questions (what's waiting on
+me, what happened in the last 24 hours, why hasn't a red gate started, why
+isn't a yellow gate moving) — Marjorine's judgment pass polishes framing,
+translates jargon, and flags anything worth a veto; it does not
+re-architect the section order into a different shape. The old
+"30-seconds / checklist / scoreboard / notes / plan" template is retired —
+it's what produced the staleness Joey called out.
 
 **Hard caps (violating these is a charter violation, not a style choice):**
-body ≤ 75 lines and ≤ 550 words (raised 2026-07-16 to make room for the
-Plan section — the extra budget belongs to §5, nowhere else); no paragraph
-over 2 sentences; every bullet one line. All rationale, caveats, history,
-and process narration go in the **journal comment**, never the body. Write
+body ≤ 100 lines and ≤ 800 words (raised 2026-08-23 from 75/550 to fit the
+new Waiting-on-you and Last-24-hours sections — the raw skeleton itself
+runs ~85 lines / ~970 words, so curation still has to compress, just less
+aggressively than the old template required). No paragraph over 2
+sentences; every bullet one line. All rationale, caveats, history, and
+process narration go in the **journal comment**, never the body. Write
 issue/PR numbers inside links (`[merge the Grammys payoff](url)`), never
 as bare number soup.
 
-Sections, in this order:
+Five sections, in the skeleton's order:
 
-1. **⏱️ Today in 30 seconds** — at most 5 bullets:
-   - 🚦 **Launch:** N/M gates green (Δ vs yesterday) — top blocker in ≤ 6 words
-   - ✍️ **Content:** X new pieces live · Y in review
-   - ⚙️ **Systems:** desks ran N/N ✅ · site up ✅ · anything broken named in 3 words
-   - 🫵 **Needs you:** count + total minutes
-   - 👥 **Growth** (added 2026-07-17, Joey's ask): the deterministic skeleton's
-     Health section carries a pre-formatted line from `social/metrics/`
-     (`scripts/marjorie/assemble-brief.mjs`'s `fetchGrowthSnapshot()` +
-     `formatGrowthLine()`, written daily by `growth-snapshot.yml`) —
-     follower count + delta per platform, posts published today, and a
-     `site: pending #799` placeholder until Vercel Web Analytics ships.
-     Copy that line into this bullet as-is; it's already within budget and
-     already the right shape — don't re-derive or re-word it. Also fold in
-     feedback-item counts here once that surface exists (was the reserved
-     "Users" slot this line replaces).
-   - **Rule, not just for Growth (added 2026-07-18 after a real incident):**
-     the line now also carries `queue: <n> awaiting your OK` / `approved &
-     scheduled` / `empty (nothing drafted)` — the actual count from
-     `social/queue/`, via `fetchQueueStatus()`. A brief once claimed drafts
-     were "waiting on your OK in Slack #social" while the queue was
-     genuinely empty — synthesized from what `growth.md` says SHOULD
-     happen, never checked against what was actually there. **Any claim
-     about pending social approvals — in this bullet, the checklist, or the
-     Plan table — must come from this number, not from reading growth.md's
-     description of the intended process.** If the number is 0, say "queue
-     is empty," never "drafts are waiting."
-2. **✅ Your checklist** — every founder ask as a `- [ ]` one-liner:
-   verb-first, time estimate, one link. If it needs more than one line to
-   explain, it isn't ready for the checklist — bank it instead. Decision
-   items keep A/B checkboxes (all unchecked, "(recommended)" labeled).
-   **Written for a smart non-software human (Joey, 2026-07-16: "as a
-   non-software native speaking human, these things have to make better
-   sense to me").** The test: could someone who has never used GitHub do
-   this from the line alone? Rules — no unexplained software words
-   (commit, SHA, deploy, env var, rebase, PR: translate or drop them);
-   say what to CLICK and where, not what to "do" ("open this link, copy
-   the ID shown next to 'Production', paste it as a comment" — not "paste
-   the deployed commit SHA"); say what the item accomplishes in product
-   terms ("so we can prove the live site runs the fixed code"), not in
-   gate/ticket jargon; and if an ask can't be written that way, it is not
-   a founder ask — route it to a desk instead. Before asking at all:
-   could an agent answer this itself (e.g. by probing the live site)?
-   Asks that agents can self-serve never reach the checklist.
-3. **📊 Scoreboard** — the gate table stripped to three columns: Gate ·
-   🟢🟡🔴 · next step + owner in ≤ 8 words. The Gate column uses the
-   **gate names** from launch-readiness.md's "What each gate means" table
-   (DEPTH, VOICE, SONGS, …) with the plain meaning where the word alone
-   isn't obvious — never the legacy "G-A"-style letter codes. Directly under the table, always print the legend line:
-   `🟢 done · 🟡 moving · 🔴 stalled — red rows say what they're waiting
-   on`. Under that, one line of counts: PRs merged yesterday · new content
-   pieces · open tickets by desk · *(post-launch)* feedback received.
-4. **📝 Notes** — max 5 bullets, one line each, only what a CEO must know
-   today (a risk, a decision made under standing authority, an anomaly).
-   Zero history, zero self-reference.
-5. **🗓️ The plan — today AND this week** (rewritten 2026-07-16; Joey: "I
-   don't actually know what the team is working on… I need Marjorie to
-   report the plan"). A per-desk table, plain language, three columns:
-   **Desk · working on right now · this week delivers**. The "this week"
-   cell is a concrete outcome tied to a gate or content wave ("TTPD + Red
-   dossier waves land — 34 songs", not "continues content work"). Content
-   desks additionally get one line naming exactly **which eras/waves are
-   being authored this week and what's next in the queue** — thin content
-   is Joey's top standing concern, so the content pipeline is never
-   summarized away. The weekly column is a rolling commitment: if it
-   changes vs yesterday's brief, the change is named in Notes ("pushed X
-   for Y because Z"), never silently rewritten. Founders veto any row by
-   comment before work happens.
+1. **Waiting on you** — every open founder ask in one list: escalated
+   founder-decision issues, open `HUMAN-ACTIONS.md` items (each with how
+   many days it's been open — computed from the item's `**Filed:**` date,
+   `scripts/marjorie/human-actions.mjs`), and open founder-task issues
+   (folded in here since 2026-08-23; the separate mailed founder-task
+   digest is retired). **Written for a smart non-software human** (Joey,
+   2026-07-16: "as a non-software native speaking human, these things have
+   to make better sense to me"). The test: could someone who has never
+   used GitHub act on this line alone? No unexplained software words
+   (commit, SHA, deploy, env var, rebase, PR — translate or drop them); say
+   what to CLICK and where, not what to "do"; say what the item
+   accomplishes in product terms, not gate/ticket jargon. Before listing
+   anything: could an agent answer this itself (e.g. by probing the live
+   site)? Self-serveable asks never reach this section.
+2. **Last 24 hours** — what actually happened since the last brief: PRs
+   merged/opened, tickets closed, new SITE content shipped (with a real
+   site link so Joey can look at it — `scripts/marjorie/content-shipped.mjs`,
+   mapping merged content PRs to era pages), new SOCIAL posts (with a real
+   link). Nothing here is inferred or free-recalled — every line traces to
+   a script's computed number, per this repo's standing determinism rule.
+3. **Gates — product Definition of Done** — reads `docs/definition-of-done.md`
+   (`scripts/marjorie/done-history.mjs`), **not** the superseded
+   `docs/launch-readiness.md`. Every non-green row states why: red rows
+   name who/what they're blocked on (`founder` / `agent` / `nobody` —
+   `nobody` means unstaffed, say so plainly); yellow rows state what
+   changed since yesterday's brief, or — if nothing changed — say so and
+   name the blocked-on reason. **A yellow with no movement is itself a
+   finding, every single day it's true** (Joey, 2026-08-23 refinement) —
+   never drop the line just because it repeats; repetition is the point.
+4. **Social strategy** — one line pointing at Tree's latest weekly plan PR
+   (age in days) or stating plainly that none exists yet, plus where the
+   live plan/strategy docs are (`social/calendar.md`,
+   `docs/marketing/social-strategy.md`). Full detail is Tree's job (see
+   `docs/agents/tree.md`, weekly); Marjorie's line here is a pointer, not a
+   rewrite of Tree's report.
+5. **Distance to done + maintenance** — the existing days-to-launch
+   estimator, still scored against the historical 12-gate set and flagged
+   as such (re-scoring it against the new 8-item Definition of Done is
+   tracked separately, not silently implied as already done), plus the
+   maintenance/standing-checks punchline as a `### Maintenance`
+   subsection — not its own top-level section, it collapsed into this one
+   2026-08-23 when the section count changed from 2 to 5.
 
-End with a single link line: `Full detail: journal comment below.` The
-deterministic skeleton (`scripts/marjorie/assemble-brief.mjs`) provides raw
-material in its own section order; this template supersedes that order —
-curation means compressing the skeleton into this shape, not appending to it.
+End with a single link line: `Full detail: journal comment below.`
 
 ### Delivery (Joey, 2026-07-11: briefs go to Joey with Wyatt on CC, by email)
 
@@ -183,11 +166,16 @@ curation means compressing the skeleton into this shape, not appending to it.
   2026-07-11: the chief of staff writes from her own address), To
   `sffan15@gmail.com`, CC `wjduvall@gmail.com`. Since 2026-07-15 it sends
   multipart HTML (GitHub-rendered GFM — tables and checklists arrive as
-  tables and checklists, not raw markdown), with a plain-text fallback. It mails **both** cadences:
-  the morning brief (issue body) at 12:45 UTC — anchored so it is **in
-  founder inboxes by 6:00 AM PT** (Joey, 2026-07-16), which requires the
-  brief run itself to fire at 12:00 UTC and post by ~12:40 — and the 8 PM Evening Delta (the
-  latest brief comment) at 03:50 UTC. It is live once the founders set the
+  tables and checklists, not raw markdown), with a plain-text fallback. It
+  mails the **morning brief only** (issue body) at 12:45 UTC — anchored so
+  it is **in founder inboxes by 6:00 AM PT** (Joey, 2026-07-16), which
+  requires the brief run itself to fire at 12:00 UTC and post by ~12:40.
+  **The 8 PM Evening Delta is no longer mailed** (Joey, 2026-08-23, folding
+  the founder-visibility rework into a strict ceiling of one email a day
+  from Marjorie plus one a week from Tree — see the Cadence table above):
+  `brief-mailer.yml`'s evening cron is retired, the delta still posts as a
+  GitHub comment per the Cadence table, and `workflow_dispatch` delta mode
+  still exists for manual testing. It is live once the founders set the
   `MARJORIE_EMAIL` repo variable + `GMAIL_APP_PASSWORD` secret on Marjorie's
   Gmail account (2-Step Verification on; App Password stored WITHOUT spaces —
   TX item #484). Marjorie's address is `marjorieswift00@gmail.com` —
