@@ -19,71 +19,6 @@ a session will make the edit for you.
 
 ## OPEN
 
-### 10. [BLOCKING] Strip Claude_Code_Remote from 22 new routines — ~20-30 min
-
-**Why it matters:** this is the last step of the issue #2258 migration (all
-21 of Wyatt's disabled routines + 2 more discovered along the way, 23 total)
-recreated fresh on your account tonight (2026-08-23). Every one of them is
-still **disabled** and none of them can safely go live until this is done —
-`docs/agents/routine-invariants.md` invariant #2 forbids any routine except
-the Routine Auditor from holding the `Claude_Code_Remote` connector (it is
-the ability to *create new triggers* — leaving it on 21 routines is 21 extra
-paths a rogue routine could spawn another one). The API cannot strip it
-(`mcp_connections: []` returns 200 and silently keeps the connector) —
-this is UI-only, confirmed during tonight's diagnosis.
-
-**Steps, once per routine below:** open `https://claude.ai/code/routines` →
-click the routine by name → **Edit** → **Connectors** → click the **×** on
-the **Claude_Code_Remote** chip → **Save**. (Leave every other connector
-alone — Gmail/Google_Drive/Vercel attached by default are not invariant
-violations, just unused.) **Do NOT enable the routine while you're in
-there** — a session will enable each one after a manual test-run confirms
-it actually works, per the migration plan in `PLAN.md`.
-
-**The 22 routines** (name → trigger ID; **Routine Auditor is deliberately
-NOT on this list** — it's the one routine allowed to keep the connector):
-
-- Marjorie — 6 AM Founders' Brief → `trig_018eDoH5pWRvwGMEg58aW4f3`
-- Marjorie — 8 PM Evening Delta → `trig_01L2EG5veWBQwMowaykXAi6B`
-- Content Shift — authoring runs → `trig_01PonDFeQCL4iRNzceGyAYrm`
-- The Vault Run — all content lanes → `trig_01XKjJCfxyL2Bm24Ko4M4mWR`
-- Karen — nightly scan → `trig_01TmYaZgnecrEp9mkeV3Gq6X`
-- Kevin — S1 Karen-ticket solver (cloud) → `trig_01QEvYmKcpyDJJ8ec81aBjCV`
-- Kevin — S2 user-feedback digest (cloud) → `trig_0136mXcpmzn6mYtYoUQC3eGP`
-- Kevin — S3 eng triage (cloud) → `trig_01BRmPqZkLEcYKZhYPjypGMJ`
-- Kevin — S3 comment radar (cloud) → `trig_01LaSLx4qzbsz68E6uRLkyDd`
-- Nils — daily site walk → `trig_01WhgsVQFKMRGw2tfRg3i2rB`
-- Austin — build runs → `trig_01FE8o9vscpHts7FwsVKGMZm`
-- Laura — a11y walk → `trig_019aY4jhN6T9ZDAMve8YaRGw`
-- Paul Blart — security patrol → `trig_01Px9HckABpWC4Bq1JQomfWT`
-- Growth — daily draft → `trig_01UBvxMi2Pz7x7qnsffLHAU3`
-- Tree — weekly social plan → `trig_015YHCK6J3FwKLVn2oABUSic`
-- Answerer (sole instance) → `trig_016hygyYPEV9T7BunnTHAWbZ`
-- Lex depth (sole instance) → `trig_01BoVCT67VbeLE8sRiaYPju4` (leave
-  disabled after stripping — issue #2258 says warm spare only, no test run)
-- Rumor Desk — sourcing & lifecycle → `trig_01GS6bcMsEQjXwmyxGr7S1js`
-- Stylist — shop-link sourcing & upkeep → `trig_011BiHZqLEVHAJ4chfaYfGZH`
-- Cross-Link builder → `trig_01FxMuDtwScPFvSgvhFCxdfP`
-- News Triage — news_story to intake issues → `trig_019NuR7EpN7TA28yfmzKPAC7`
-- Photo Enrichment worker → `trig_01Srp9aSCWFAtt7AtL4avpLY`
-
-**Also flagged, not blocking:** two of the original nine undocumented
-routines — **Audio Curator** and **Mood Chat builder** — are gone. Absent
-from Wyatt's read-only export and his full dashboard walk (including the
-un-expanded "completed" tab); his export's own reconciliation section
-confirms neither exists in the API anymore. Nothing to recreate; flagging
-so it's a known loss, not a silent gap.
-
-**Worked if:** every routine above shows **no** Claude_Code_Remote chip
-under Connectors. Tell a session when done (or mark this `DONE` yourself) —
-it will run one manual test per routine, verify real output landed, disable
-the corresponding stale trigger on Wyatt's account, and record the new IDs
-in `docs/agents/runners.md`.
-
-**Status:** OPEN
-
----
-
 ### 11. [UPGRADE] Six stale duplicate routines from a July handoff — ~5 min
 
 **Why it matters:** your account already had 6 disabled routines from an
@@ -373,6 +308,33 @@ Claude Code routine on **Wyatt's** account, invisible to any Swift2 session,
 last real run 2026-08-09 (PR #1850). A ready-to-paste prompt was drafted for
 Wyatt to check/fix it directly. Overtaken by the full-fleet migration before
 Wyatt acted on it.
+
+---
+
+### 10. [BLOCKING] Strip Claude_Code_Remote from 22 new routines — ~20-30 min
+
+**Status:** SKIP — Joey (2026-08-23): "this is an illogical approach. Instead
+we remove the rule in `docs/agents/routine-invariants.md` invariant #2
+forbidding any routine except the Routine Auditor from holding the
+`Claude_Code_Remote` connector. That rule doesn't make sense here."
+
+**Resolution:** removed invariant #2 instead of doing the 22-routine manual
+strip (PR #2287, full rationale in `docs/decisions.md` 2026-08-23 — flagged
+the tradeoff first: the connector grants trigger-creation, and the invariant
+existed specifically to close off the 2026-07-25 runaway-loop failure mode;
+Joey heard it and accepted the risk). All 22 routines then enabled directly
+with the connector left in place — Auditor, Marjorie ×2, Content Shift,
+Vault Run, Karen, Kevin ×4, Nils, Austin, Laura, Paul Blart, Growth, Tree,
+Answerer, Rumor Desk, Stylist, Cross-Link builder, News Triage, Photo
+Enrichment worker. Lex depth stays disabled (warm spare per issue #2258,
+never test-run). Two of the original nine undocumented routines — **Audio
+Curator** and **Mood Chat builder** — are gone for good, absent from
+Wyatt's export and his full dashboard walk; nothing to recreate.
+
+Original ask (2026-08-23), kept for history: a manual per-routine UI pass
+to strip the connector before enabling, since the API can't do it
+(`mcp_connections: []` returns 200 and silently keeps the connector) and
+invariant #2 required it. Superseded by removing the invariant instead.
 
 ---
 
