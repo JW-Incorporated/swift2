@@ -58,3 +58,6 @@ clownbot-battery-*.json
 # Agent scratch output (CLAUDE.md § Mechanics) — filtered command output and
 # throwaway working files. Never tracked.
 .scratch/
+
+# Repowise local index (repowise-setup skill) — rebuildable, never tracked.
+.repowise/
