@@ -285,33 +285,83 @@ adding it to this file. This document should improve weekly.
 
 ---
 
-# WORKING MEMORY — where things live (no orchestration framework)
+# ORCHESTRATION LAYER — kit-v3.2 (restored 2026-08-23, Joey's direct
+instruction — see `docs/decisions.md`)
 
-There is no external orchestration layer. Two frameworks came and went —
-kit-v3 (retired 2026-08-19) and AI Dev OS v3.2 (removed 2026-08-22, Joey's
-call; see `docs/decisions.md`). Everything above this line is the whole
-contract. Do not reintroduce a root `STATE.md`/`PLAN.md`, a rules bundle, or
-any external task-routing machinery without a founder asking for it.
+Two frameworks came and went before this: kit-v3 (retired 2026-08-19,
+`STATE.md`-as-shared-state conflicted with AI Dev OS's `REPO-006`) and AI Dev
+OS itself (removed 2026-08-22, declared a failure). **This is kit-v3's
+direct successor, not a third competing system** — same lineage, picked back
+up because nothing replaced it and Joey asked for it back directly. If a
+future session finds this section confusing next to the 2026-08-19/2026-08-22
+`docs/decisions.md` entries: those entries are accurate history, this section
+is what's current now, dated above. The old `REPO-006` conflict is resolved
+by AI Dev OS simply being gone — there's no second system asserting
+`STATE.md` as shared authoritative state anymore.
 
-Where durable knowledge lives now:
+`STATE.md` and `PLAN.md` are restored as living files — `STATE.md` is
+per-session working memory (150-line cap, rewritten at every checkpoint, NOT
+team-shared state), `PLAN.md` holds the one current task (written by you,
+executed by `executor`). GitHub Issues/PRs remain the shared truth between
+Joey and Wyatt per § Session start ritual above; `STATE.md` records only this
+session's own progress and decisions, never anything the other founder needs
+to see (that still goes in a PR/issue comment). `docs/engineering-lessons.md`,
+`docs/decisions.md`, and `docs/handoff/2026-08-19-paused-work.md` remain the
+durable, permanent record — `STATE.md` is disposable working memory layered
+on top, not a replacement for any of them.
 
-| Kind | Where |
-|---|---|
-| Live task state, team coordination | GitHub Issues and PRs — the shared truth between Joey and Wyatt |
-| Known traps, hard-won lessons | `docs/engineering-lessons.md` |
-| Settled decisions, merge authority | `docs/decisions.md` |
-| Work paused at the 2026-08-19 migration | `docs/handoff/2026-08-19-paused-work.md` (read-only snapshot) |
-| The retired kit-v3 framework, verbatim | `docs/archive/kit-v3-2026-08-19/` |
+## Triage first — every message, no exceptions
 
-Team coordination stays simple and is already covered above: substantial work
-gets a branch and a PR off up-to-date `main` (rule 2, § Session start ritual),
-one branch-writing agent per isolated worktree (§ Agent shell discipline), and
-check open PRs for overlap before starting (§ Session start ritual). GitHub is
-authoritative for who is working on what — never a local file.
+Classify every message before acting, state the call in one line:
 
-`MAP.md` **stays** — a read-only codebase map, kept current when files are
-added, moved or deleted. `.claude/agents/{scout,researcher,grunt}.md` **stay** —
-capability helpers with no orchestration authority.
+1. **Answerable from context** → answer directly. No tools.
+2. **Needs facts** (codebase, docs, web) → `scout` (quick lookup) or
+   `researcher` (deep dive, repro, evaluating an approach).
+3. **Mechanical work** (renames, boilerplate, rote edits) → `grunt`.
+4. **Executing `PLAN.md` steps** → `executor`. § Workflow rule 3 above
+   already requires a Claude code review of the diff before the PR opens —
+   that satisfies this category's review step. Use `reviewer` only for an
+   additional independent pass on risky/architectural changes, same as
+   `codex:rescue` above.
+5. **Judgment** (architecture, writing `PLAN.md`, debugging after two
+   strikes, ambiguity, reviewing agent output, anything § Decision
+   authority already reserves) → yours.
+6. **Ceiling judgment** → `architect` (Fable), two parts only: mandatory
+   when the debug ladder's fresh-context rungs are exhausted without a fix;
+   soft judgment for a design fork costing days of rework you've already
+   attempted yourself. Log every invocation in `STATE.md` → **Architect
+   invocations**.
+
+This restores the three agents archived alongside kit-v3 on 2026-08-19:
+`architect`, `executor`, `reviewer`. `.claude/agents/{scout,researcher,
+grunt}.md` never left.
+
+## Debugging — two-strike rule
+
+Distinct from § Workflow rule 3's review-round cap above (that's about
+Codex/Claude *review* of finished work; this is about *fixing a bug*).
+Invoke the **`debug-protocol` skill** at the start of any debugging effort:
+one hypothesis per strike, strike two is a different mechanism not a
+variation, after two failures write `DEBUG.md` and walk the ladder —
+fresh-context agent → `architect` (mandatory, no deliberation) → revert to
+green → escalate to a founder. Never guess-and-check.
+
+## Context discipline
+
+Nothing exploratory happens in your own context — delegate search,
+unfamiliar code, reproduction, evaluation; only conclusions return.
+Checkpoint `STATE.md` at ~50% context, then say you're ready for a fresh
+session.
+
+## Session limits
+
+On a usage-limit warning or an announced reset: invoke the **`pause`
+skill** and execute it completely. A limit must cost time, never work.
+
+Everything else — team coordination via GitHub Issues/PRs, one
+branch-writing agent per isolated worktree, `MAP.md` as the read-only
+codebase map — is unchanged and still governed by the sections above this
+divider.
 
 ---
 
@@ -432,3 +482,6 @@ it is filed.
 Move finished items to a `DONE` section with the date; never delete them,
 because the history is how you stop re-asking. `SKIP` is final: do not re-raise
 a skipped item, and do not re-argue the recommendation behind it.
+
+Invoke the **`human-actions` skill** whenever you create or open this file —
+same conventions as above, now also documented as a reusable skill.

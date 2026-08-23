@@ -13,7 +13,7 @@ PYBIN=""
 for c in python3 python; do
   if command -v "$c" >/dev/null 2>&1 && "$c" -c "" >/dev/null 2>&1; then PYBIN="$c"; break; fi
 done
-[ -z "$PYBIN" ] && exit 0  # fail open: no python, no guard — normal permissions still apply
+[ -z "$PYBIN" ] && { echo "[kit] WARNING: python not found; guard.sh is NOT enforcing" >&2; exit 0; }  # fail open: no python, no guard — normal permissions still apply
 
 "$PYBIN" - "$input" <<'PY'
 import json, os, re, sys, time
