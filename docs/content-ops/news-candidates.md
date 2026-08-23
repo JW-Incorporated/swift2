@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 84
+
+## “Tush Push Sucks”: Taylor Swift's Blunt Take on Eagles' Controversial Play Sparked an Unlikely Frien
+
+- first seen: 2026-08-23 05:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: “Tush Push Sucks”: Taylor Swift's Blunt Take on Eagles' Controversial Play Sparked an Unlikely Friendship With FOX Analyst Dean Blandino  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxOWkNaM296UVQ5aWRjcDhZQkFhVTJtRmZPQmV2YjJjS0ZYYjFFRWV0eG1od1NDSl83WG5fekFHbE9qVlB6Qk9TeDlsV1JyZnFxNlpjNWxLT3V5YnhiLXdKcDdVaXVuWVQtUWpIcmlSaE5KZlY1emdDdWV0ZWtMUUJ3RE5OVDc?oc=5
+
+## Kylie Kelce reveals Taylor Swift's influence on her kids - Yahoo News Canada
+
+- first seen: 2026-08-23 05:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce reveals Taylor Swift's influence on her kids  Yahoo News Canada
+- sources:
+  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMif0FVX3lxTE92X2txUlRYNWVMMi00ek5XU3Z3SzhaejBLZ0J5OENrY2x0alBQSGlYZlVlS3NZRjIxVU1rdHl0czFkNGJlaDctWUY1b0hockl1dk1UWFpjbzMyZ2xFV3hHNTRaZFVMcWZTWFhRamc0VE1hX2tfeExGWUtwWVFNYTA?oc=5
+
+## Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report) - Just Jar
+
+- first seen: 2026-08-23 05:40 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report)  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiwgFBVV95cUxNcVFsU004QnlTck93RVExZS12OVZIUE1ncWlKUTU1MTZrejVtelFqYkJtQ1lfTk8zWkZMazlhZXJkR1Rjd0FyOVdfWExXNUx0RHExNjFDNUxEdTBvMlh5X2dVVUFDTldJMWl6VGsxQVdBS2xkSXVlRTdxUlQ2NVBXS05kSzQxSEdxTVloOGlHQXlHcmJpTlRVUlJCaktLYmpqOThzYjRHa0I0d2NwVVltaDFKNThiVzE5amhOTDVZZk9QZw?oc=5
 
 ## Caitlin Clark wants Taylor Swift to rep her signature Caitlin 1s - Yahoo Sports
 
@@ -86,11 +110,12 @@ Stories: 81
 ## Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding 
 
 - first seen: 2026-08-22 21:33 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift Enjoys Girls Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding  instyle.com
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOcXlza3dxOFdGVlNoaXpZeldoRUlGU1gtMDB3ZG95cjNweXlYTndUaVZSZkVicENuOEs4cTBkcXYwdFhfTDFlZ0xBZlhCT25fS0tiOWllWGNENlZVNjlqdThGM0VleHRoTTcwN0x5NHlCVWlURG1BbVdadUxRU3VoQlkzZDNEQjdsM3ZtcUdIaHM2SUtqU1VIUXdlTXRrOE12OFNFS3Z3QWdOYmRBb2N1Z2ZfNFlJdDJP?oc=5
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOZnYxYnozZDMxcV90NTI1THY3UjFDWUxraFpKREw0RFpsZnRNM1BTNTQtamk2OHplNEtFTXBPWFBzVERtcm1qR3RjcDVPVTJ3aGJwVFRCMnk0UTd3Yk9DeFFQX2taVVZfSmE3cXN3dnFCVWlINW52UGZZYTQ1dXpYSEs5WFMyOVhWWVcxclVLekVMRDQ5NzZ1MV9jMnFOb1Q3bFZUM0Npbzhid3R5Ylh4cjlDUGprWHVrTTQw?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPVHZRZ2NuT0t4WlVQem1BVlZsdWRmY053RU1NZmpOSFJQb0djSFNoMHZMU2NScjh1d1dXN3pVbW0xQzNmSmdwTzhuMHhreTRYMHdWa00wQVhLelcxTWZqc1UydmluSUMweTVSWWRXendOYUh1VFYyWVJ2VmR1NGFPaVk2NzY1YWQ1SnRzNmFQck40N05IU1Q3ZFdPVVVWcjFmQmxv?oc=5
 
 ## Taylor Swift Shatters An All-Time Chart Record - Forbes
 
