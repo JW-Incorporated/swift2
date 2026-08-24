@@ -10431,6 +10431,23 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass #762 (2026-08-17): the scene itself is a fictional TV
+        // moment, not photographable, and premiere red-carpet galleries
+        // (Just Jared, etc.) aren't on the image-host allowlist. Used an
+        // archival Wikimedia Commons photo of Jamie Lee's EP colleague and
+        // series star Jason Sudeikis — the reference/quote source this beat is
+        // actually about — same pattern as other reference-photo pages in this
+        // file. Curl-verified 200 image/jpeg, downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Jason_Sudeikis_2011_%28cropped%29.jpg',
+            focalPoint: '48% 40%',
+            credit: 'Eva Rinaldi, CC BY-SA 2.0, via Wikimedia Commons',
+            caption:
+              'Reference image: Jason Sudeikis, "Ted Lasso" star and EP whose writers\' room wrote the Kansas City/Taylor nod — pictured in an archival 2011 photo, not from the Season 4 premiere.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     // --- News catch-up (2026-08-10, Content Shift): a labeled low-confidence
