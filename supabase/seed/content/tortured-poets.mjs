@@ -5217,18 +5217,8 @@ export default {
             // She sits center-left with the albums fanned across her lap; face in the upper quarter.
             focalPoint: '46% 30%',
           },
-          // Photo depth pass (round 2, 2026-07-19): two more frames from the
-          // same Billboard-hosted announcement shoot (sequential 03/04 in the
-          // same URL series as the two above). Each verified HTTP 200 +
-          // image/jpeg, downloaded and viewed this session.
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/05/03-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
-            credit: 'Courtesy of Taylor Swift (via Billboard)',
-            caption: 'A third frame from the announcement set: seated cross-legged with all six reclaimed albums fanned in a circle around her.',
-            kind: 'primary',
-            // Kneeling, face upper-center; albums ring the lower half of frame.
-            focalPoint: '48% 28%',
-          },
+          // Frame 04 from the same Billboard-hosted announcement shoot.
+          // Re-verified HTTP 200 + image/jpeg on 2026-08-24.
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/05/04-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
             credit: 'Courtesy of Taylor Swift (via Billboard)',
@@ -5257,9 +5247,9 @@ export default {
       snippet:
         'TTPD goes 0-for-6 at the 2025 Grammys. The image that survives the night isn\'t a loss — it\'s Taylor presenting Best Country Album to a stunned Beyoncé for Cowboy Carter, one Album of the Year titan handing the genre trophy to the other.',
       sourceUrl: 'https://www.foxnews.com/entertainment/taylor-swift-leaves-grammys-no-awards-following-record-breaking-year',
-      // Photo pass (#762 run 6, 2026-07-18): thumbnail = the Best Country Album
-      // presentation photo added below.
-      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2025/02/beyonce-grammy-awards-win-country-2025-billboard-1548.jpg?w=1024',
+      // Official Recording Academy video thumbnail, verified HTTP 200 +
+      // image/jpeg (1280x720) and visually confirmed on 2026-08-24.
+      thumbnailUrl: 'https://i.ytimg.com/vi/aGn3HgbqRC8/maxresdefault.jpg',
       moment: {
         context:
           'The Feb. 2, 2025 ceremony resolved all six nominations against her: Album of the Year went to Beyoncé\'s Cowboy Carter, "Not Like Us" swept Record of the Year, Song of the Year, and Best Music Video past "Fortnight," "Die With a Smile" took Best Pop Duo/Group Performance over "us.," and Sabrina Carpenter\'s Short n\' Sweet beat TTPD for Best Pop Vocal Album. Cameras kept finding her having a good night anyway — raising a glass when Kendrick Lamar\'s record swept, cheering when her tour opener Sabrina won.\n\nThe beat everyone kept came mid-show: Taylor presenting Best Country Album to a visibly stunned Beyoncé — her first-ever country win, from the artist whose own country-to-pop arc made her the category\'s most famous graduate. When Cowboy Carter later took Album of the Year, Taylor and Jay-Z clinked champagne glasses in the audience — a graceful coda to a night the internet had framed all week as a face-off.',
@@ -5286,28 +5276,24 @@ export default {
             url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-red-dress-grammys-1236899833/',
           },
         ],
-        // Photo pass (#762 run 6, 2026-07-18): both photos hotlinked from the
-        // outlets' own CDNs, curl-verified HTTP 200 + image/jpeg, downloaded
-        // and visually confirmed this session (the presentation moment and the
-        // red Vivienne Westwood carpet look). No watermarks.
+        // Official Recording Academy video thumbnails, verified HTTP 200 +
+        // image/jpeg (1280x720) and visually confirmed on 2026-08-24.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/02/beyonce-grammy-awards-win-country-2025-billboard-1548.jpg?w=1024',
-            credit: 'Sonja Flemming/CBS, via Billboard',
+            url: 'https://i.ytimg.com/vi/aGn3HgbqRC8/maxresdefault.jpg',
+            credit: 'Recording Academy / GRAMMYs (official acceptance video, YouTube)',
             caption:
-              'The moment everyone kept: Taylor, in red Vivienne Westwood, just after presenting Best Country Album to a stunned Beyoncé — the first Black woman to win the category.',
+              'Beyoncé accepts the Best Country Album Grammy that Taylor presented — the first Black woman to win the category.',
             kind: 'primary',
-            // Beyoncé with the trophy is center-right, Swift upper-left; faces live in the top third.
-            focalPoint: '45% 25%',
+            focalPoint: '50% 28%',
           },
           {
-            url: 'https://wwd.com/wp-content/uploads/2025/02/Taylor-Swift-Red-Vivienne-Westwood-Dress-Grammys-2025-1.jpg?w=1000',
-            credit: 'Frazer Harrison/Getty Images, via WWD',
+            url: 'https://i.ytimg.com/vi/CReGebxw4Ko/maxresdefault.jpg',
+            credit: 'Recording Academy / GRAMMYs (official fashion-cam video, YouTube)',
             caption:
               'The Red-era callback on the carpet: sparkling one-shoulder Vivienne Westwood with ruby chandelier earrings — worn to a night that ended 0-for-6.',
             kind: 'primary',
-            // Tall portrait crop; her eyes sit in the upper third, face centered.
-            focalPoint: '50% 30%',
+            focalPoint: '52% 28%',
           },
         ],
       },
@@ -5437,40 +5423,24 @@ export default {
             notes: 'Producer split: Antonoff-led standard 16, Dessner-led Anthology 15',
           },
         ],
-        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
-        // "Fortnight" MV id q3zqJs7JUCQ verified via YouTube oEmbed this
-        // session ("Taylor Swift - Fortnight (feat. Post Malone) (Official
-        // Music Video)", author @TaylorSwift); maxres1 frame (1280x720)
-        // curl-verified 200 image/jpeg, downloaded and viewed — the
-        // black-and-white asylum close-up, distinct from the maxresdefault
-        // already used on the Fortnight single page. The Wikipedia album
-        // cover render is only 300px (below the 400px floor), so the
-        // lead-single frame carries the album's monochrome aesthetic instead.
+        // Official Taylor Swift lyric-video thumbnails, verified HTTP 200 +
+        // image/jpeg (1280x720) and visually confirmed on 2026-08-24.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxres1.jpg',
-            credit: 'Taylor Swift / Republic Records (official "Fortnight" video frame, YouTube)',
+            url: 'https://i.ytimg.com/vi/RQMz4JDbtmI/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official title-track lyric video, YouTube)',
             caption:
-              'The album’s black-and-white world, distilled: Taylor in the "Fortnight" video that arrived with TTPD on release night.',
+              'The album’s monochrome “department” visual, from the official title-track lyric video.',
             kind: 'primary',
-            // Stark close-up; her eyes sit in the upper third, face centered.
-            focalPoint: '47% 35%',
+            focalPoint: '50% 48%',
           },
           {
-            // Salvaged 2026-07-19 from photo-enrichment PR #887, which was
-            // otherwise superseded by a racing run: the album's OWN package
-            // photography (Beth Garrabrant), which suits the album page
-            // better than a music-video frame. Billboard's CDN, photographer
-            // in the filename; re-verified 200 image/jpeg (774KB) this
-            // session. The en-wiki cover render was rejected at 300px
-            // (under the 400px floor).
-            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Albatross-billboard-1548.jpg',
-            credit: 'Beth Garrabrant / Republic Records, via Billboard',
+            url: 'https://i.ytimg.com/vi/4wOsiM2T_xc/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official “The Albatross” lyric video, YouTube)',
             caption:
-              'The album package’s gray seaside portrait — the era’s black-and-white, ink-stained mood in one frame.',
+              'The black-and-gray title card from the official “The Albatross” lyric video.',
             kind: 'primary',
-            // Face upper-center-left against the flat gray sky.
-            focalPoint: '45% 28%',
+            focalPoint: '50% 50%',
           },
         ],
       },
