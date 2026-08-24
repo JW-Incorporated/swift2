@@ -1,4 +1,4 @@
-import type { VideoNote } from './types';
+import type { MomentVideo, VideoNote } from './types';
 
 /**
  * Pairs a track guide song to the official video that plays it, so
@@ -133,4 +133,29 @@ export function trackVideoFor(
     matches.find((v) => v.kind === 'lyric_video') ??
     matches[0]
   );
+}
+
+/**
+ * The video a track's own page actually plays (issue #771): the official
+ * music/lyric video when `trackVideoFor` finds one, else the track's own
+ * verified audio/lyric `youtubeId` — never nothing, when either exists.
+ *
+ * Without the fallback, a track page could only ever play the ~49 songs with
+ * a matched music video, while the remaining tracks each carry their own
+ * verified, playable id that reached the generated vault and rendered
+ * nowhere (found 2026-07-20 while browser-verifying playback). Extracted out
+ * of `TrackDetail` so this resolution — the actual behavior issue #771
+ * complains a track page is missing — is unit-testable, matching the same
+ * boundary `video-affordance.ts` draws for `MomentDetail` (vitest runs
+ * component-free, so a rule left inside a component is untestable by
+ * construction).
+ */
+export function resolvedTrackVideo(
+  track: { title: string; youtubeId?: string | null },
+  videos: readonly VideoNote[],
+): MomentVideo | null {
+  const matched = trackVideoFor(track.title, videos, track.youtubeId);
+  if (matched?.youtubeId) return { youtubeId: matched.youtubeId, title: matched.title };
+  if (track.youtubeId) return { youtubeId: track.youtubeId, title: track.title };
+  return null;
 }
