@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 50
+Stories: 46
 
 ## Completely Betrayed: Taylor Swift freaked out after guest leaked private wedding invitation - MARCA
 
@@ -402,36 +402,3 @@ Stories: 50
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitwFBVV95cUxNS1NsZklQc2xpUmt2MUR4NGV3WUNqanNDX25hRFdFeDE3YTZnNjY0UVNLaTVFVXU1SXhqX2VIT29Zc211WS1PTmVsSUhFSXRENHdnTDNJMkdQbDlqR0hLSldHQ09vQ3dRYUZYOWtwZzRaeVlKMU1OVDRLZ2hnWWNSUklaZEVDUFJqWl93dmNxeHRHZ1JQX1F2ZjVYMkpDZ3hRUzdUT1RxSjQ0QWxfaEhSVnZ6OF8ybVk?oc=5
   - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE9PaXhNd1F4UGhiS1Z2ei1qdjZNdVNzSW5DWk5OTTd0TkVrbjVOcmxDUEFYcGw4ZXp0S1ViQkZvTUpiUFAyLV9WbFZaTk9SVXZsZklmVXVoU0JCeXhfZDB5NmloRmNCQQ?oc=5
-
-## 5SOS ask Taylor Swift and Travis Kelce the million-dollar question after Kansas City show - Currentl
-
-- first seen: 2026-08-21 21:35 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 5SOS ask Taylor Swift and Travis Kelce the million-dollar question after Kansas City show  Currently.com
-- sources:
-  - [unverified] Currently.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxNdGp6RFgyVUV5VzhWNmtmS09SNWNOYkpIdnI1NFZqNThHaXYyMzN3V2lHdlRXUGZZNFFXOUxmYXhGSXhqMXppYmxKY3dtNlQtUm1pcDc2T0N4RnRvMnJ5UFNLMFo2c1FORVlLSmNqVUVUZGQ0WHhnWFZCendFTDFjbklkY3hndw?oc=5
-
-## Kylie Kelce reveals Taylor Swift's surprising family nickname - Yahoo
-
-- first seen: 2026-08-21 21:35 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Kylie Kelce reveals Taylor Swift's surprising family nickname  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNYTYzVm5SYm9GZjA0SExoOW5rVkM4NTM2MmhJWVdwMmR3SFlwczhwb19YczNOMmt5SUppQmVJYjNTUEwtYzR3RDZWMDM1aWwtYlVnWGRSQkFnMW1yTFEzSDB4MTBlZll3MzlkY19HY21fVlNSZFMzZ3pfMERNRjJGbUJ6dmc1SEswbDc4YVBHZllEVjY5Rl9fOE90QlZ5eFRHd3ZsMVh3?oc=5
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiywFBVV95cUxQYmwwaXk1ZEw0enF2SHAxNDZEcXRJNUJUZDFSYXVHeFVyQ3dTaGZOdVdlWlRTN09CeWJjUUR0X2gzZHpvRUg5VFQ5d1JTTEFhY2NXMncxRzZUVGxUTjd4T3ZFY1IwaWc0dkg3R3ZUYjFyazR4RHF6QUJicFU2MTV5YTE5OTF1TzV5dHRnb0lKWUFjd1RmUHZwdXVURGxsMDJGUlNDUi1YQzhfVTNoVkd5VnVBUXlTd1ZrMmtVd3paLXlEbTJXbno5Y3dnYw?oc=5
-
-## More than 50 Rhode Island property owners file suit over ‘Taylor Swift tax’ - WPRI.com
-
-- first seen: 2026-08-21 21:35 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: More than 50 Rhode Island property owners file suit over ‘Taylor Swift tax’  WPRI.com
-- sources:
-  - [unverified] WPRI.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPOVBWTjZITEM4ZUl2b3dlVVgtRU9MQlYzLXpEaGRtZHNPQjlFVGxpTUQzdVFwbktITHhiRFc5VTFQWmNCZFl6X2MyZTlkcHlGTi1RRHJLWU5RZU5Mb0I5eng3M09sVHFFeUFoakNDUFJyOFdTSWlMMXd4QzFyaWZzNDVVYmFidWxkZG9wRXFHMNIBlAFBVV95cUxOcHlEckZncEpUQ3FQVXVIdGUtZjFlZklfdlNuVUhESkpBaUk5Ql9UN2tEOGItMHNPUDZZSUtseEVzLTJVbUk0M3g3ZlNGZkxIN0M5WHlnazVPUC1tSmNCQnpDSmdvNEptS0xnWkozbGxkVllrMGNUOW40YmZsVTdpc0xGQXAtaXBIMzdsMGZMY0lNR1I2?oc=5
-
-## Caitlin Clark 'Wouldn't Mind Seeing' Taylor Swift Wear Nike Caitlin 1 Signature Shoe - Bleacher Repo
-
-- first seen: 2026-08-21 21:35 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark 'Wouldn't Mind Seeing' Taylor Swift Wear Nike Caitlin 1 Signature Shoe  Bleacher Report
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMixAFBVV95cUxPSUJPREVhS3htMFlubGJESnFWQkkzU3g3dFBIbGQ2cUtRUnJvbXRZUVBLWHlYWFd6NEV0aS1OWFdneEJOLVpDTHJ1dV9LMFAzbjVYbktIRE0tQndWd1NINklVOVF6aFJkeHBheFZwZWJxUkhSdzBHUmxNNU4ySk0tTmlkb3dWaHZYMFR6X3oxYnphaUtrVUVYSDJzTHhEdFVmakZ5Qy1Xb2tldk5fU3MtcGJwekRUVU5FX0pHQ1VIWnl3RHFr?oc=5
