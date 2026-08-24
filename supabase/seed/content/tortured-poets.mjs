@@ -2099,7 +2099,7 @@ export default {
             // futurecdn render of the sharp Getty full-length — the Lorraine
             // Schwartz "T" thigh chain and red Casadei heels the snippet calls
             // out are clearly visible. Downloaded and vision-confirmed.
-            url: 'https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf-1200-80.jpg',
             credit: 'Getty Images via Marie Claire',
             caption: 'The full look on the carpet: the one-shoulder mini with the diamond thigh chain dangling its single "T".',
             // Focal point set by viewing: full-length portrait pose, face high
@@ -2139,7 +2139,7 @@ export default {
         'A custom off-white Schiaparelli Haute Couture gown by Daniel Roseberry — draped silk crepe with corset-style lacing at the back and a thigh-high slit — worn on the 2024 Grammys red carpet hours before revealing the new album.',
       sourceUrl: 'https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/',
       thumbnailUrl:
-        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
+        'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
       moment: {
         context:
           'Adapted from a look in Schiaparelli\'s Fall 2023 ready-to-wear collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony.\n\nTaylor paired it with opera-length gloves, black Giuseppe Zanotti sandals, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
@@ -2155,12 +2155,11 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
-            credit: 'Matt Winkelmeyer/Getty Images for The Recording Academy',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // full-length carpet shot, the white train sweeping right; face high
-            // in the upper-left quadrant.
-            focalPoint: '34% 15%',
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
+            credit: 'Robyn Beck/AFP via Getty Images',
+            // Image-fix pass 2026-08-24: viewed the replacement from the cited
+            // Hollywood Reporter story; Swift is centered with her face high.
+            focalPoint: '44% 18%',
           },
         ],
         // Shop pass (2026-07-22): the custom Schiaparelli Haute Couture
@@ -2192,7 +2191,7 @@ export default {
       snippet:
         'The video\'s opening scene puts her in Australian designer Toni Matičevski\'s "Candescence" gown from his Spring/Summer 2024 collection — crisp pearl-white cotton gathered at the hip into a high-low, sculptural silhouette.',
       sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-toni-maticevski-gown-fortnight-music-video-1236321522/',
-      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
+      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg',
       moment: {
         context:
           'The "Candescence" gown, from Matičevski\'s Spring 2024 collection, is engineered like sculpture: a strapless bodice with internal boning and a rounded, collar-skimming neckline, in crisp pearl-white crinkled cotton gathered asymmetrically at the hip into a high-low skirt. It surfaces in the video\'s most-teased beat — Taylor hurling an object at a glass pane — and WWD framed the bridal-coded silhouette as the romantic counterweight to the video\'s asylum gothic.\n\nThe gown is one of several distinct costume changes across the "Fortnight" video\'s different vignettes — a separate look from the black Elena Velez/Unttld gothic ensemble already covered elsewhere in this era, and from the Celine-designed piece in the video\'s rain-soaked finale.',
@@ -2204,7 +2203,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
+            url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg',
             credit: 'Republic Records',
             // Image-fix pass (2026-07-10): #345 — vision-confirmed this is a studio/lookbook shot
             // of the correct gown on a runway/lookbook model (not Swift); searched WWD, YouTube's
@@ -2256,7 +2255,7 @@ export default {
       // cited source below); curl-verified HTTP 200 image/png and vision-confirmed single-frame,
       // no watermark/collage, matching the "plum Popflex Active skort" described in the context.
       thumbnailUrl:
-        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
+        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
       moment: {
         context:
           'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.\n\nFor Popflex founder Cassey Ho — the Blogilates creator who designs the line — the placement was surreal: she wrote that her heart pounded and her team\'s Slack "blew up" as she stood frozen in front of the TV counting her own designs onscreen, with Popflex pieces (including the viral lavender Pirouette skort and the Twirl skort) appearing four separate times in the video.',
@@ -2274,7 +2273,7 @@ export default {
           {
             // Image-fix pass (2026-07-10): #346 — replaced the Eras Tour stage-costume photo (see
             // thumbnailUrl note above) with the same verified Blogilates video screenshot.
-            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The plum Popflex Active skort from the video\'s backstage rehearsal footage.',
             // Photo pass #762 (2026-07-19): viewed — mid-dance on the marked rehearsal floor,
@@ -2326,7 +2325,7 @@ export default {
         'Sat between her parents Scott and Andrea for the Jan. 18 divisional-round game at Arrowhead, with Caitlin Clark — personally invited by Travis — a row back and Ed Kelce also in the suite.',
       sourceUrl: 'https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift',
       thumbnailUrl:
-        'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+        'https://images2.minutemediacdn.com/image/upload/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
       relatedIds: [
         'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
         'moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t',
@@ -2348,7 +2347,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+            url: 'https://images2.minutemediacdn.com/image/upload/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
             credit: 'Jamie Squire/Getty Images',
             // Photo pass #762 (2026-07-19): viewed — suite window above the crowd; Swift's face
             // sits right-of-center behind the glass, Scott Swift mid-frame.
