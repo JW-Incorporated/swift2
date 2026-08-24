@@ -94,7 +94,7 @@ export default {
           source_title: "Easter Eggs In Taylor Swift's 'The Man' Video Are Everywhere",
           publisher: 'Marie Claire',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-17',
+          accessed_at: '2026-08-24',
           reliability_score: 4,
           excerpt: null,
           notes: null,

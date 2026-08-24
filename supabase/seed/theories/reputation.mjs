@@ -108,8 +108,8 @@ export default {
       claim:
         "The final 40 seconds of 'Look What You Made Me Do' line up a squabbling crowd of past Taylors — the personas from every earlier scene and era — who bicker in the words her own critics used, ending with the 2009 VMAs version snapping 'I would very much like to be excluded from this narrative,' met by a collective 'SHUT UP!'",
       evidence:
-        "Each figure is a resurrected version of herself — the 'You Belong With Me' Junior Jewels tee, the 2014 Met Gala look, the snake-throne queen, zombie-Taylor from the video's own graveyard — and their lines quote real jabs ('There she goes playing the victim again,' 'Stop making that surprised face, it's so annoying'). The closing quote lifts verbatim from the statement she posted during the 2016 phone-call controversy, so the gag turns her most-mocked moments into a chorus she talks back to. Documented in the frame-by-frame decoder guides the week the video premiered at the 2017 VMAs.",
-      confidence: 'reputable_reporting',
+        "Each figure is a resurrected version of herself — the 'You Belong With Me' Junior Jewels tee, the 2014 Met Gala look, the snake-throne queen, zombie-Taylor from the video's own graveyard — and their lines quote real jabs ('There she goes playing the victim again,' 'Stop making that surprised face, it's so annoying'). The closing quote lifts verbatim from the statement she posted during the 2016 phone-call controversy, so the gag turns her most-mocked moments into a chorus she talks back to. Video director Joseph Kahn later confirmed that the ending was conceived around having all the Taylors talk to one another, and that the video's deeper messages came from Taylor.",
+      confidence: 'confirmed_interview',
       outcome: 'confirmed',
       relatedSlugs: ['reputation:snake-reclamation', 'reputation:lwymmd-nils-sjoberg-gravestone'],
       sources: [
@@ -132,6 +132,17 @@ export default {
           reliability_score: 4,
           excerpt: null,
           notes: 'the canonical references list cataloguing the past-selves that appear in the video',
+        },
+        {
+          source_url:
+            'https://www.etonline.com/director-joseph-kahn-shares-secrets-behind-taylor-swifts-most-iconic-music-videos-exclusive-112418',
+          source_title: "Director Joseph Kahn Shares Secrets Behind Taylor Swift's Most Iconic Music Videos",
+          publisher: 'Entertainment Tonight',
+          source_type: 'reputable_press',
+          accessed_at: '2026-08-24',
+          reliability_score: 4,
+          excerpt: null,
+          notes: 'direct interview with the video director confirming that the ending was conceived as the different Taylors talking to each other',
         },
       ],
     },
