@@ -2918,7 +2918,7 @@ export default {
             focalPoint: '50% 45%',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/The_Eras_Tour_The_Tortured_Poets_Department_Performance.png/960px-The_Eras_Tour_The_Tortured_Poets_Department_Performance.png',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/The_Eras_Tour_The_Tortured_Poets_Department_Performance.png',
             credit: 'Sally-Marie Böhm, CC BY-SA 4.0, via Wikimedia Commons',
             caption: 'The song\'s Tortured Poets set staging on the Eras Tour — Taylor and dancer Jan Ravnik on the hydraulic platforms (Gelsenkirchen, July 2024).',
             kind: 'archival',
@@ -2955,31 +2955,18 @@ export default {
             url: 'https://www.capitalfm.com/news/music/taylor-swift-grammys-nominations-2025/',
           },
         ],
-        // Photo pass (2026-07-18, #762): the prior 480×360 hqdefault still
-        // duplicated (at lower res) the same MV frame already used full-size
-        // on the "Fortnight opens the album" page — replaced with the Getty
-        // Toronto show photo from the cited Billboard nominations-reaction
-        // story (distinct file from the Toronto photo on the AOTY-nomination
-        // page). Downloaded + vision-confirmed. Deliberately one photo: the
-        // only other candidate found (Capital FM's hero) is a stitched
-        // archive collage from earlier ceremonies, rejected as off-event.
+        // Commons CC BY 4.0 photos of the TTPD and "Fortnight" Eras Tour
+        // staging. File metadata and live image responses verified 2026-08-24.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/11/Taylor-Swift-_-The-Eras-Tour-Toronto-ON-345-billboard-1548.jpg?w=1024',
-            credit: 'Getty Images (via Billboard)',
-            caption: 'In Toronto the night the 2025 Grammy nominations landed: "you guys got this album nominated for six Grammys."',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Taylor_Swift_TTPD_Dress.jpg/1280px-Taylor_Swift_TTPD_Dress.jpg',
+            credit: 'Wikithebeavr via Wikimedia Commons, CC BY 4.0',
+            caption: 'Performing the Tortured Poets set on the Eras Tour, the album nominated for six Grammys.',
             kind: 'archival',
             focalPoint: '53% 26%',
           },
-          // Photo Enrichment lane (Vault Run 2026-08-15): a second, distinct
-          // image — the "Fortnight" performance on the Eras Tour's Tortured
-          // Poets set, the song the Record/Song-of-the-Year nods honored. The
-          // prior "deliberately one photo" note rejected a bad collage; this is
-          // a good, on-song second. Commons file (Vixy13, CC BY 4.0); curl 200
-          // image/jpeg, 500px thumb downloaded and vision-confirmed (white
-          // staircase set, white looks, starlit backdrop).
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight_2.jpg/1280px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight_2.jpg',
             focalPoint: '50% 22%',
             credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
             caption: 'Performing "Fortnight" on the Eras Tour\'s Tortured Poets set — the album\'s lead single, up for both Record and Song of the Year.',
@@ -3099,9 +3086,8 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the chart-topping album's cover from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
-        // Photo pass (2026-07-18, #762): + Beth Garrabrant album-shoot
-        // portrait ("The Black Dog") from Billboard's own chart story for
-        // this debut (its hero image). Downloaded + vision-confirmed.
+        // The public-domain TTPD wordmark provides a stable second image for
+        // the album's chart debut. Metadata and live response verified 2026-08-24.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
@@ -3111,9 +3097,9 @@ export default {
             focalPoint: '50% 55%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Black-Dog-billboard-1548.jpg?w=1024',
-            credit: 'Beth Garrabrant (via Billboard)',
-            caption: 'From the TTPD album shoot — the era imagery that fronted Billboard\'s coverage of the 2.61 million-unit debut.',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/The_Tortured_Poets_Department_logo.png',
+            credit: 'Republic Records via Wikimedia Commons',
+            caption: 'The Tortured Poets Department wordmark — the album behind the 2.61 million-unit debut.',
             kind: 'archival',
             focalPoint: '45% 22%',
           },
@@ -3202,18 +3188,18 @@ export default {
             notes: 'Held the top nine of the Global 200 — near-monopoly, not a full top-14',
           },
         ],
-        // T16 photo pass (2026-07-09): the No. 1 single's cover art from
-        // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        // The CC0 Fortnight costume display at the V&A provides a stable image
+        // tied to the single that led the chart sweep. Verified 2026-08-24.
         // Photo pass (2026-07-18, #762): + the Swift/Post Malone MV frame
         // Billboard ran with its own top-14 chart story — a different frame
         // from the ytimg maxres still on the "Fortnight opens the album"
         // page. Downloaded + vision-confirmed.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Taylor_Swift_-_Fortnight.png',
-            credit: 'Republic Records',
-            caption: 'Single artwork for "Fortnight," which led the historic top-14 sweep from No. 1.',
-            kind: 'primary',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Taylor_Swift_Songbook_Trail_Fortnight_display_03.jpg/1280px-Taylor_Swift_Songbook_Trail_Fortnight_display_03.jpg',
+            credit: '14GTR via Wikimedia Commons, CC0',
+            caption: 'The "Fortnight" video ensemble on display at the V&A — from the single that led the historic top-14 sweep.',
+            kind: 'archival',
             focalPoint: '50% 55%',
           },
           {
