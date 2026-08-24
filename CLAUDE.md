@@ -6,12 +6,16 @@ before doing any work. AGENTS.md points Codex here too. Then read
 
 ## The company
 
-Two human founders + AI agents, no other staff. **Joey — CEO/Product**: what
-to build, final call on product. **Wyatt — CTO/Engineering**: architecture,
-code health, release-readiness, final call on technical decisions. **Claude
-Code** — planner/builder. **Codex** — independent reviewer, job is to
-disagree. **Tests + CI** — deterministic QA, not opinions. Humans decide
-strategy and review behavior/outcomes, not diffs; AI executes.
+Two founders (both owners) + AI agents, no other staff. **Joey — CEO**: the
+sole active decision-maker — makes every founder-level call, product AND
+engineering. **Wyatt** remains an owner but no longer takes actions or makes
+decisions on this project; **do not route any call to him** — where older docs
+say "ask Wyatt" or "Wyatt decides," that means Joey now. **Claude Code** —
+planner/builder; makes every *reversible* call itself without asking (see
+Decision authority). **Codex** — independent reviewer, job is to disagree.
+**Tests + CI** — deterministic QA, not opinions. Joey decides strategy and the
+rare irreversible call and reviews behavior/outcomes, not diffs; AI executes
+and owns everything reversible.
 
 ## The product
 
@@ -101,11 +105,13 @@ already produced. A routine going dark must never make the site stale.
   && git pull --ff-only`); check `gh pr list`, flag the other founder's open
   PRs in one line; branch only from up-to-date `main`. Use
   `gh pr checkout <n>` to review/test a founder's PR locally.
-- **Don't stop to ask.** Founders are non-coders — decide technical/workflow
-  calls yourself (foreground vs background review, naming, refactor order,
-  commit granularity) and state the call in one line. Stop only for a
-  Decision Authority item, a product question (→ Joey), an architecture
-  question (→ Wyatt), something expensive to reverse, or a genuine spec gap.
+- **Don't stop to ask.** Joey is a non-coder — decide technical/workflow calls
+  yourself (foreground vs background review, naming, refactor order, commit
+  granularity, and architecture/design calls that a later change can undo) and
+  state the call in one line. The test is reversibility, not seniority: if a
+  git revert, a redeploy, or a follow-up PR can undo it, it is yours to make.
+  Stop only for a genuinely irreversible or expensive-to-reverse call, a
+  product-direction question (→ Joey), or a genuine spec gap.
 - **Never discard uncommitted work.** No `git restore`/`checkout --`/`clean`/
   `reset --hard` unless explicitly told to throw work away. Tree looks wrongly
   "modified" everywhere → suspect line-ending/filemode config, fix the
@@ -113,17 +119,26 @@ already produced. A routine going dark must never make the site stale.
 
 ## Decision authority
 
+**The line is reversibility, not seniority (2026-08-24, Joey).** Almost nothing
+is truly irreversible. If a `git revert`, a redeploy, or a follow-up change can
+undo it, the AI makes the call itself — no asking, no waiting. Founder sign-off
+is reserved for the genuinely irreversible. Joey is the only founder who makes
+calls; Wyatt is an owner but takes no actions and makes no decisions here.
+
 AI may, without asking: write code, refactor, test, update docs, branch,
 commit, merge/push to `main` — including running `git merge`/`gh pr merge`
-directly, no separate confirmation step — recommend improvements (2026-08-22:
-merge/push and deploy removed from the "may not" list; 2026-08-23: dropped the
-"still prompt as a platform permission" caveat — that was never something
-this file could govern, and in practice `gh pr merge` lands without incident;
-see `docs/decisions.md` 2026-08-23).
+directly, no separate confirmation step — deploy, and make architecture,
+data-model, naming, and workflow calls that a later change can undo — recommend
+improvements (2026-08-22: merge/push and deploy removed from the "may not"
+list; 2026-08-23: dropped the "still prompt as a platform permission" caveat —
+that was never something this file could govern, and in practice `gh pr merge`
+lands without incident; see `docs/decisions.md` 2026-08-23).
 
-AI may NOT without explicit approval: change product direction or add
-features outside an approved spec; touch secrets/credentials/prod infra;
-spend money/create accounts/sign up for services; delete data or force-push.
+AI may NOT without Joey's explicit approval — the short list of the actually
+irreversible: change product direction or add features outside an approved
+spec; touch secrets/credentials/prod infra; spend money/create accounts/sign up
+for services; delete data or force-push. Anything not on this list is
+reversible by default — make the call and state it in one line.
 
 ## Roles
 
@@ -307,3 +322,22 @@ unreachable UI click, or a guard-denied action goes in `HUMAN-ACTIONS.md` at
 the project root, the moment you identify it. Full conventions (status
 values, numbering, `SKIP` is final) live in the **`human-actions` skill** —
 invoke it whenever you create or open that file.
+
+## Every work request lands in one of two funnels — never email (2026-08-24, #3146)
+
+A request for a change — from a founder, from an agent's brief (e.g. Tree's
+weekly mailer), from anyone — must land where the team already looks, not in an
+inbox nobody monitors as a queue. Two funnels, no third:
+
+1. **A GitHub issue** — for anything the fleet can do. Issues are the shared
+   source of truth and the fleet triages them automatically, so an issue gets
+   worked without a founder relaying it. This is the default.
+2. **`HUMAN-ACTIONS.md`** — for the subset that genuinely needs Joey's own
+   hands (login, payment, approval, a UI click, a guard-denied action). This is
+   Joey's single action pane: the one place he checks for what only he can do
+   and how to do it.
+
+If you receive a change request over any other channel (an email quoted to you,
+a chat aside), your first action is to file it into the right funnel so it is
+not lost — an issue if the fleet can act, a `HUMAN-ACTIONS.md` entry if only
+Joey can. Do not leave a work item living only in conversation.

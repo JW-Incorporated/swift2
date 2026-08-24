@@ -7,6 +7,41 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-24 — Single active decision-maker (Joey); authority line is reversibility, not seniority; every work request funnels to issues or HUMAN-ACTIONS.md
+
+**Decision.** (1) Joey is the sole active founder-level decision-maker for this
+project, product and engineering alike. Wyatt remains an owner but takes no
+actions and makes no decisions here; all forward-looking "ask Wyatt / Wyatt
+decides" language is removed from the governing docs (`CLAUDE.md`,
+`docs/cto-role.md`). Historical `(Wyatt, <date>)` attributions in this log and
+elsewhere are left intact as factual record. (2) The decision-authority line is
+now **reversibility, not seniority**: almost nothing is truly irreversible, so
+the AI makes any reversible call itself (architecture, data model, naming,
+merging, deploying — anything a `git revert`/redeploy/follow-up can undo), and
+founder sign-off is reserved for the short irreversible list (secrets/prod
+infra, spending money, product direction, deleting data, force-push). (3) Every
+change request — from a founder, an agent brief like Tree's mailer, or anyone —
+funnels into a GitHub issue (fleet picks it up) or `HUMAN-ACTIONS.md` (owner-only
+actions), never a mailbox; `HUMAN-ACTIONS.md` is Joey's single action pane
+(issue #3146).
+
+**Why.** The two-human-founder / human-CTO model the docs encoded no longer
+matches reality — Wyatt is disengaged, and routing calls to him stalls work.
+Consolidating decisions on Joey and pushing the reversible majority onto the AI
+keeps velocity high while preserving founder control over the few calls that
+actually can't be undone. The funnel rule closes the gap Tree's 2026-08-24 brief
+exposed: an engineering request arriving over email that no queue monitors.
+
+**Alternatives considered.** Keep the CTO role vacant-but-named (rejected — it
+just reintroduces a decision bottleneck); leave merge/deploy on the may-not
+list (rejected — already dropped 2026-08-22/23 and both are reversible); capture
+Tree's asks ad hoc in chat (rejected — that is exactly the lost-in-the-inbox
+failure being fixed).
+
+**Approved by:** Joey, in chat, 2026-08-24.
+
+---
+
 ## 2026-08-24 — Knowledge engine vendor picks: GNews free tier + engineered daily cap; Tumblr consumer-key-only, no OAuth
 
 **Context:** PLAN.md Stage 6 (fan adapters). The 2026-08-23 kickoff entry

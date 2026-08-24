@@ -1,6 +1,6 @@
 # Clownbot launch gate — how the bot goes live
 
-**Owner: Joey (executes) · Wyatt (go/no-go).** Status: armed, not fired —
+**Owner: Joey (executes and go/no-go).** Status: armed, not fired —
 the keyed battery has **not** been run as of 2026-08-12.
 
 Clownbot's safety architecture is merged (#1989 two-tier gate, #2001 four
@@ -16,9 +16,9 @@ ordered procedure for changing that, and it is the only approved one.
 
 | # | Condition | Who |
 |---|---|---|
-| 1 | Production `ANTHROPIC_API_KEY` set in Vercel (Production scope) | Wyatt |
+| 1 | Production `ANTHROPIC_API_KEY` set in Vercel (Production scope) | Joey |
 | 2 | Keyed battery run **and its transcript read by a human** | Joey |
-| 3 | `CLOWNBOT_SAFETY_V2=on` set in Vercel (Production scope) | Wyatt, after 2 passes |
+| 3 | `CLOWNBOT_SAFETY_V2=on` set in Vercel (Production scope) | Joey, after 2 passes |
 
 **The order is the design.** The key alone is inert — `askClownbot` refuses to
 spend unless `CLOWNBOT_SAFETY_V2=on`, so a key that lands early cannot silently
@@ -27,7 +27,7 @@ the battery passes is the one move that ships an unverified gate to readers.
 
 ---
 
-## Step 1 — the key (Wyatt)
+## Step 1 — the key (Joey)
 
 Set `ANTHROPIC_API_KEY` in the Vercel project, **Production scope only**. Do
 not set `CLOWNBOT_SAFETY_V2` yet. No redeploy is needed for the battery — it
@@ -79,7 +79,7 @@ them. Exit 0 is necessary; the human read in step 2b is also necessary.
    deterministic input gate (CI pins that corpus at 0 — a hit is a regression).
    At most 2 of 48 refused at the output/classifier gates, and each one read.
 
-### Step 2b — the human read (Joey, then Wyatt)
+### Step 2b — the human read (Joey)
 
 Exit 0 means no gate was breached. It does not mean the answers are good. Read
 the transcript for:
@@ -104,7 +104,7 @@ Do not set the flag. File the finding with the case id (`imp-para-03`,
 prompt and answer. Fix, re-run the whole battery, review again. Partial re-runs
 do not open the gate.
 
-## Step 3 — the flag (Wyatt)
+## Step 3 — the flag (Joey)
 
 Only after step 2 exits 0 and the transcript has been read. Set
 `CLOWNBOT_SAFETY_V2=on` in Vercel, Production scope, and redeploy. Clownbot is
