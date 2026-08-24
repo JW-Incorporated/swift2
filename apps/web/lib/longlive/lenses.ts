@@ -432,7 +432,10 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2008-07-01',
     end: '2008-10-15',
     eraIds: ['debut', 'fearless'],
-    songs: ['Forever & Always', 'The Way I Loved You'],
+    songs: [
+      { title: 'Forever & Always', relatedId: 'song:forever-and-always' },
+      { title: 'The Way I Loved You', relatedId: 'song:the-way-i-loved-you' },
+    ],
     // Sources: Jonas ended it via a 27-second phone call, later confirmed by
     // Swift on The Ellen DeGeneres Show; she said the breakup coincided with
     // his next relationship (Camilla Belle). "Forever & Always" is the
@@ -450,7 +453,7 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2009-09-01',
     end: '2009-12-01',
     eraIds: ['fearless'],
-    songs: ['Back to December'],
+    songs: [{ title: 'Back to December', relatedId: 'song:back-to-december' }],
     // Sources: met filming Valentine's Day (2009); consistently spotted
     // together Sept-Nov 2009 (VMAs, hockey games); "Back to December" is
     // Swift's own on-record apology song about this relationship.
@@ -468,7 +471,7 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2009-12-01',
     end: '2010-02-01',
     eraIds: ['fearless'],
-    songs: ['Dear John'],
+    songs: [{ title: 'Dear John', relatedId: 'song:dear-john' }],
     // Sources: reported as an official couple from Dec 2009; end date is
     // genuinely imprecise in public reporting (some outlets cite a Feb 2010
     // split; Mayer publicly presented Swift an award with warm remarks in
@@ -487,7 +490,14 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2010-10-01',
     end: '2011-01-01',
     eraIds: ['fearless', 'speak-now'],
-    songs: ['All Too Well (10 Minute Version)', 'The Moment I Knew', 'We Are Never Ever Getting Back Together'],
+    songs: [
+      { title: 'All Too Well (10 Minute Version)', relatedId: 'song:all-too-well-10-minute-version' },
+      { title: 'The Moment I Knew', relatedId: 'song:the-moment-i-knew' },
+      {
+        title: 'We Are Never Ever Getting Back Together',
+        relatedId: 'song:we-are-never-ever-getting-back-together',
+      },
+    ],
     // Sources: spotted together backstage at SNL Oct 2010; split confirmed
     // early Jan 2011. "All Too Well" is Swift's own on-record most personal
     // song, per her introduction to it at multiple Eras Tour shows.
@@ -517,7 +527,11 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2012-12-01',
     end: '2013-01-07',
     eraIds: ['red'],
-    songs: ['Style', 'Out of the Woods', 'I Know Places'],
+    songs: [
+      { title: 'Style', relatedId: 'song:style' },
+      { title: 'Out of the Woods', relatedId: 'song:out-of-the-woods' },
+      { title: 'I Know Places', relatedId: 'song:i-know-places' },
+    ],
     // Sources: first photographed together early Dec 2012; breakup reported
     // Jan 7 2013 during a British Virgin Islands trip. Songs are all 1989
     // tracks (fed directly into that album's sessions).
@@ -535,7 +549,7 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2015-03-01',
     end: '2016-06-01',
     eraIds: ['1989'],
-    songs: ['This Is What You Came For'],
+    songs: [{ title: 'This Is What You Came For' }],
     // Sources: first public confirmation ~late March 2015 (Wikipedia-cited
     // timeline); breakup reported by People June 1 2016, confirmed by CNN
     // June 2-3 2016. Swift's uncredited co-writing credit on "This Is What
@@ -554,7 +568,7 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2016-06-15',
     end: '2016-09-06',
     eraIds: ['1989', 'reputation'],
-    songs: ['Getaway Car'],
+    songs: [{ title: 'Getaway Car', relatedId: 'song:getaway-car' }],
     // Sources: first publicly documented June 15 2016 (The Sun published
     // photos); split reported by People/Us Weekly Sept 6 2016.
     // https://www.billboard.com/music/pop/taylor-swift-tom-hiddleston-relationship-timeline-7424146/
@@ -571,7 +585,14 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2016-11-12',
     end: '2023-04-08',
     eraIds: ['reputation', 'lover', 'folklore', 'evermore', 'midnights'],
-    songs: ['Call It What You Want', 'Lover', 'cardigan', 'exile', 'champagne problems', 'Sweet Nothing'],
+    songs: [
+      { title: 'Call It What You Want', relatedId: 'song:call-it-what-you-want' },
+      { title: 'Lover', relatedId: 'song:lover' },
+      { title: 'cardigan', relatedId: 'song:cardigan' },
+      { title: 'exile', relatedId: 'song:exile' },
+      { title: 'champagne problems', relatedId: 'song:champagne-problems' },
+      { title: 'Sweet Nothing', relatedId: 'song:sweet-nothing' },
+    ],
     // Sources: start date is the least-precise in this dataset — the first
     // solid public sighting was Swift attending Alwyn's "Billy Lynn's Long
     // Halftime Walk" premiere Nov 12 2016 (used here); some fan-reconstructed
@@ -597,7 +618,11 @@ export const RELATIONSHIPS: Relationship[] = [
     start: '2023-09-24',
     end: null,
     eraIds: ['midnights', 'ttpd', 'tloas'],
-    songs: ['Karma (feat. Ice Spice)', 'Is It Over Now? (Taylor’s Version)', 'So High School'],
+    songs: [
+      { title: 'Karma (feat. Ice Spice)', relatedId: 'song:karma' },
+      { title: 'Is It Over Now? (Taylor’s Version)', relatedId: 'song:is-it-over-now' },
+      { title: 'So High School', relatedId: 'song:so-high-school' },
+    ],
     // Sources: Kelce publicly invited Swift via his "New Heights" podcast in
     // July 2023 after a friendship-bracelet mishap at an Eras Tour show;
     // Swift told TIME "by the time I went to that first game, we were a
@@ -621,7 +646,11 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
     start: '2006-01-01',
     end: '2008-07-01',
     eraIds: ['debut'],
-    songs: ['Tim McGraw', 'Our Song', 'Teardrops on My Guitar'],
+    songs: [
+      { title: 'Tim McGraw', relatedId: 'song:tim-mcgraw' },
+      { title: 'Our Song', relatedId: 'song:our-song' },
+      { title: 'Teardrops on My Guitar', relatedId: 'song:teardrops-on-my-guitar' },
+    ],
     note: 'Rising as a teenage songwriter — writing about love mostly from the outside looking in, before any of it was public.',
   },
   {
@@ -629,7 +658,10 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
     start: '2008-10-15',
     end: '2009-09-01',
     eraIds: ['debut', 'fearless'],
-    songs: ['You Belong with Me', 'The Best Day'],
+    songs: [
+      { title: 'You Belong with Me', relatedId: 'song:you-belong-with-me' },
+      { title: 'The Best Day', relatedId: 'song:the-best-day' },
+    ],
     note: 'Channeled the Jonas breakup into Fearless, which became the most-awarded country album in history.',
   },
   {
@@ -637,7 +669,10 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
     start: '2010-02-01',
     end: '2010-10-01',
     eraIds: ['fearless', 'speak-now'],
-    songs: ['Mine', 'Speak Now'],
+    songs: [
+      { title: 'Mine', relatedId: 'song:mine' },
+      { title: 'Speak Now', relatedId: 'song:speak-now' },
+    ],
     note: 'Wrote all of Speak Now solo — a deliberate statement of authorship after whispers that others wrote her hits.',
   },
   {
@@ -645,7 +680,11 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
     start: '2011-01-01',
     end: '2012-07-01',
     eraIds: ['speak-now'],
-    songs: ['Mean', 'Long Live', 'Enchanted'],
+    songs: [
+      { title: 'Mean', relatedId: 'song:mean' },
+      { title: 'Long Live', relatedId: 'song:long-live' },
+      { title: 'Enchanted', relatedId: 'song:enchanted' },
+    ],
     note: 'The Speak Now World Tour, fully solo.',
   },
   {
@@ -653,7 +692,10 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
     start: '2012-10-01',
     end: '2012-12-01',
     eraIds: ['speak-now', 'red'],
-    songs: ['22', 'Begin Again'],
+    songs: [
+      { title: '22', relatedId: 'song:22' },
+      { title: 'Begin Again', relatedId: 'song:begin-again' },
+    ],
     note: 'The Red rollout — finishing the album that reinvented her sound.',
   },
   {
@@ -661,7 +703,11 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
     start: '2013-01-07',
     end: '2015-03-01',
     eraIds: ['red', '1989'],
-    songs: ['Shake It Off', 'Blank Space', 'Bad Blood'],
+    songs: [
+      { title: 'Shake It Off', relatedId: 'song:shake-it-off' },
+      { title: 'Blank Space', relatedId: 'song:blank-space' },
+      { title: 'Bad Blood', relatedId: 'song:bad-blood' },
+    ],
     note: 'The "squad" era — peak pop, moving to New York, becoming untouchable.',
   },
   {
@@ -677,7 +723,11 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
     start: '2023-04-08',
     end: '2023-09-24',
     eraIds: ['midnights'],
-    songs: ['The Smallest Man Who Ever Lived', 'loml', 'So Long, London'],
+    songs: [
+      { title: 'The Smallest Man Who Ever Lived', relatedId: 'song:the-smallest-man-who-ever-lived' },
+      { title: 'loml', relatedId: 'song:loml' },
+      { title: 'So Long, London', relatedId: 'song:so-long-london' },
+    ],
     note: 'Five months — the Eras Tour already mid-run, The Tortured Poets Department already being written.',
   },
 ];

@@ -908,6 +908,13 @@ export interface RelationshipImage {
   alt: string;
 }
 
+/** A song named by a relationship/solo chapter, optionally linked to its track-guide entry. */
+export interface LoveStorySong {
+  title: string;
+  /** Omitted when the song is not present in Long Live's track guide. */
+  relatedId?: `song:${string}`;
+}
+
 export interface Relationship {
   id: string;
   name: string;
@@ -918,7 +925,7 @@ export interface Relationship {
   /** null = ongoing / open-ended. */
   end: string | null;
   eraIds: EraId[];
-  songs: string[];
+  songs: LoveStorySong[];
   note: string;
   /** Cross-type links (see RelatedId for the id convention). */
   relatedIds?: RelatedId[];
@@ -938,7 +945,7 @@ export interface SinglePeriod {
   eraIds: EraId[];
   note: string;
   /** Songs associated with what she was writing/releasing during this stretch. */
-  songs?: string[];
+  songs?: LoveStorySong[];
 }
 
 export interface RunwayLook {
