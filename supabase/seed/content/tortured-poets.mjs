@@ -1494,7 +1494,7 @@ export default {
             url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-next-album-engagement-burning-questions-answered-excl/',
             note: 'Forward-looking tour speculation; no location. Re-checked 2026-08-05: no tour announced and the source\'s 2026 window has largely passed — Taylor released The Life of a Showgirl, married Kelce, and told BBC Radio 1 in October 2025 she was "so tired," with no plans to tour soon. Unlikely now but not formally denied; resolves on an announcement, fades otherwise.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-05',
+            lastCheckedOn: '2026-08-24',
           },
           {
             // Rumor Desk 2026-08-03: a later, distinct data point on the same
@@ -1511,7 +1511,7 @@ export default {
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-upcoming-tour-reportedly-132936634.html',
             note: 'A later data point on the same open question as the Us Weekly report above, pushing the projected start from 2026 to 2027 — consistent with that earlier window lapsing with no announcement. Blind-item sourcing (Deuxmoi), carried at the lowest tier. As of this check no tour is announced. Resolves on an official tour announcement; fades otherwise. No location.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-03',
+            lastCheckedOn: '2026-08-24',
           },
         ],
       },
