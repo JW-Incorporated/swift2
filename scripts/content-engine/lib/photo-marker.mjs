@@ -102,14 +102,21 @@ export function serializeMarker(keys) {
  * the marker from thousands of chars to just the editorial-max decisions.
  */
 export function reviewedSparseKeys(items, recoveredKeys) {
-  const byKey = new Map(items.map((it) => [it.key, it]));
+  // Keyed on MOMENTS only. `key` is only unique within a content type — a
+  // theory or track can legitimately share a slug with a moment (e.g. both
+  // titled "eldest-daughter-track-five") — so indexing every item type in one
+  // Map let a same-keyed theory shadow the moment and silently drop a real,
+  // reviewed <2-photo decision from the marker every run (found 2026-08-18,
+  // #762). Filtering to moments before building the Map keeps the lookup
+  // type-safe the way `buildQueue` below already is.
+  const byKey = new Map(items.filter((it) => it.type === 'moment').map((it) => [it.key, it]));
   const keep = [];
   for (const key of new Set(recoveredKeys)) {
     const it = byKey.get(key);
     // Keep a recovered key when it maps to a moment that is NOT objectively
     // done (a deliberate <2-photo / 0-photo editorial-max decision). Keys that
     // no longer resolve to a moment are dropped (stale/renamed).
-    if (it && it.type === 'moment' && !isPhotoDone(it)) keep.push(key);
+    if (it && !isPhotoDone(it)) keep.push(key);
   }
   return keep;
 }
