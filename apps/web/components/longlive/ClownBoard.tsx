@@ -30,6 +30,8 @@
 
 import { useMemo, useState } from 'react';
 import { confirmedEggs, currentTheories, type BoardItem } from '@/lib/longlive/clown-board';
+import { useLiveTheories } from '@/lib/longlive/use-live-theories';
+import { sortByHeatDesc } from '@/lib/longlive/live-theories';
 import { ClownItemCard } from './ClownItemCard';
 
 const THEORIES_HEADING = 'Most recent';
@@ -79,6 +81,23 @@ export function ClownBoard({ onSelect }: ClownBoardProps) {
   // hydration mismatch (currentTheories clamps era-end dates to `now`).
   const now = useMemo(() => new Date(), []);
   const theories = useMemo(() => currentTheories(now), [now]);
+  // Knowledge-engine Stage 7: `live_theory` rows, hottest first, rendered as
+  // an additional live block above the static "Most recent" list — pure
+  // data render, zero model calls (J2). Empty when the fetch fails or (the
+  // real state tonight) nothing has been promoted to a live theory yet, so
+  // the static column's own behavior is untouched either way.
+  const liveBoard = useLiveTheories(true);
+  const liveBoardItems = useMemo<BoardItem[]>(
+    () =>
+      sortByHeatDesc(liveBoard.theories).map((t) => ({
+        id: `livetheory:${t.id}`,
+        title: t.name,
+        blurb: t.claim,
+        prompt: `Make the case: what's actually going on with ${t.name}?`,
+        date: t.lastSeenOn,
+      })),
+    [liveBoard.theories],
+  );
   const allEggs = useMemo(() => confirmedEggs({ eggsOnly: true }), []);
   // Only era-resolved eggs are ever shown or counted, so the "N decoded" /
   // "Show all N" numbers always match what's on screen (see header comment).
@@ -101,6 +120,19 @@ export function ClownBoard({ onSelect }: ClownBoardProps) {
           </span>
         </header>
         <p className="mt-1.5 text-[13px] leading-relaxed text-[color:var(--era-ink-soft)]">{THEORIES_SUB}</p>
+        {liveBoardItems.length > 0 && (
+          <>
+            <p className="mt-4 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[color:var(--era-accent)]">
+              <PulseDot />
+              Live from the knowledge engine
+            </p>
+            <ul className="mt-2 space-y-2.5">
+              {liveBoardItems.map((item, i) => (
+                <ClownItemCard key={item.id} variant="live" item={item} onSelect={onSelect} now={now} pulse={i === 0} />
+              ))}
+            </ul>
+          </>
+        )}
         {theories.length > 0 ? (
           <ul className="mt-4 space-y-2.5">
             {theories.map((item, i) => (
