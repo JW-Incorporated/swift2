@@ -83,13 +83,13 @@ describe('currentTheories — column 1', () => {
 });
 
 describe('confirmedEggs — column 2', () => {
-  it('is confirmed only: no debunked or clowned entry ever appears', () => {
+  it('contains only confirmed planted-and-decoded easter eggs', () => {
     const items = confirmedEggs();
-    expect(items.length).toBe(51);
+    expect(items.length).toBe(37);
 
     for (const [eraId, notes] of Object.entries(THEORIES_RAW)) {
       for (const note of notes ?? []) {
-        if (note.outcome === 'debunked') {
+        if (note.outcome !== 'confirmed' || note.kind !== 'easter_egg') {
           expect(items.some((i) => i.id === `theory:${eraId}:${note.slug}`)).toBe(false);
         }
       }
@@ -102,14 +102,16 @@ describe('confirmedEggs — column 2', () => {
     }
   });
 
-  it('includes the Twelve-Twelve Cipher lore confirmation (a real ledger-backed confirmed egg)', () => {
+  it('keeps #1998 prediction/common-reading examples out of the decoded-egg count', () => {
     const items = confirmedEggs();
-    expect(items.some((i) => i.id === 'lore:tloas-countdown-announcement')).toBe(true);
+    expect(items.some((i) => i.id === 'theory:debut:a-place-in-this-world-mission-statement')).toBe(false);
+    expect(items.some((i) => i.id === 'theory:folklore:william-bowery')).toBe(false);
+    expect(items.some((i) => i.id === 'lore:tloas-countdown-announcement')).toBe(false);
   });
 
-  it('never includes the Super Bowl clowning — that is a debunk, not a confirm', () => {
+  it('still includes #1998\'s booklet example in the honestly labelled decoded-egg column', () => {
     const items = confirmedEggs();
-    expect(items.some((i) => i.id === 'lore:superbowl-lx-swiftie-theory')).toBe(false);
+    expect(items.some((i) => i.id === 'theory:1989:1989-lowercase-liner-codes')).toBe(true);
   });
 
   it('every item carries a non-empty title, blurb, prompt and ISO date', () => {
@@ -130,21 +132,13 @@ describe('confirmedEggs — column 2', () => {
     expect(JSON.stringify(confirmedEggs())).toBe(JSON.stringify(confirmedEggs()));
   });
 
-  it('eggsOnly: true returns only planted-and-decoded easter eggs', () => {
-    for (const item of confirmedEggs({ eggsOnly: true })) {
+  it('returns only planted-and-decoded easter eggs', () => {
+    for (const item of confirmedEggs()) {
       expect(item.id.startsWith('theory:')).toBe(true);
       const [, eraId, slug] = item.id.split(':');
       const note = (THEORIES_RAW[eraId as keyof typeof THEORIES_RAW] ?? []).find((n) => n.slug === slug);
       expect(note?.kind).toBe('easter_egg');
     }
-  });
-
-  it('eggsOnly narrows the corpus: default and eggsOnly counts differ', () => {
-    const all = confirmedEggs();
-    const eggsOnly = confirmedEggs({ eggsOnly: true });
-    expect(all.length).toBe(51);
-    expect(eggsOnly.length).toBe(37);
-    expect(eggsOnly.length).toBeLessThan(all.length);
   });
 
   it('limit caps the list to the most recent confirmations, newest first', () => {
@@ -154,12 +148,12 @@ describe('confirmedEggs — column 2', () => {
     expect(capped).toEqual(all.slice(0, 5));
   });
 
-  it('omitting limit stays unlimited (existing behaviour untouched)', () => {
-    expect(confirmedEggs({ eggsOnly: false }).length).toBe(51);
+  it('omitting limit stays unlimited', () => {
+    expect(confirmedEggs().length).toBe(37);
   });
 
   it('resolves every confirmed egg to a real era, grouped into the corpus\'s 11 era buckets', () => {
-    const items = confirmedEggs({ eggsOnly: true });
+    const items = confirmedEggs();
     const unresolved = items.filter((i) => i.era === undefined);
     expect(unresolved.length).toBe(0);
     const eraNames = new Set(items.map((i) => i.era));

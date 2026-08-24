@@ -152,6 +152,24 @@ function unit(n: number): number {
 const ENERGY_VALENCE_WEIGHT = 0.5;
 
 /**
+ * Editorial energy/valence prototypes for an otherwise-unrefined single mood
+ * axis. The catalogue already authors these two secondary dimensions for every
+ * scored song; using them only when primary scores tie prevents a flat axis
+ * from falling through to alphabetical slug order (#2000). Explicit reader
+ * energy/valence always wins, and multi-axis queries need no inferred profile.
+ */
+const AXIS_TIE_PROFILES: Record<MoodAxis, { energy: number; valence: number }> = {
+  heartbreak: { energy: 0.35, valence: 0.15 },
+  anger: { energy: 0.8, valence: 0.15 },
+  nostalgia: { energy: 0.35, valence: 0.5 },
+  joy: { energy: 0.75, valence: 0.85 },
+  calm: { energy: 0.2, valence: 0.7 },
+  defiance: { energy: 0.75, valence: 0.65 },
+  longing: { energy: 0.4, valence: 0.3 },
+  catharsis: { energy: 0.65, valence: 0.35 },
+};
+
+/**
  * Floor applied to a song's axis score inside the geometric mean. A song that
  * scores an exact 0 on a weakly-wanted axis should be gently penalised, not
  * annihilated — without this, one 0 zeroes the whole product regardless of how
@@ -202,12 +220,23 @@ export function scoreSong(query: MoodQuery, song: ScoredSong): number {
   return denom === 0 ? 0 : total / denom;
 }
 
+/** Authored secondary fit used only to order exact primary-score ties. */
+function singleAxisTieScore(query: MoodQuery, song: ScoredSong): number {
+  if (query.energy !== undefined || query.valence !== undefined) return 0;
+  const asserted = MOOD_AXES.filter((axis) => unit(query.moods[axis] ?? 0) > 0);
+  if (asserted.length !== 1) return 0;
+  const profile = AXIS_TIE_PROFILES[asserted[0]];
+  const energyFit = 1 - Math.abs(song.energy - profile.energy);
+  const valenceFit = 1 - Math.abs(song.valence - profile.valence);
+  return (energyFit + valenceFit) / 2;
+}
+
 /**
  * Rank the catalogue against a mood query and return the top matches.
  *
- * Pure and synchronous. Ties in raw score are broken by slug so the output is
- * fully deterministic (the same query always yields the same order — a
- * property the unit tests rely on). The era-diversity pass runs greedily: each
+ * Pure and synchronous. Single-axis ties in raw score are broken by proximity
+ * to that axis's authored energy/valence profile, then by slug, so the output
+ * is meaningful and fully deterministic. The era-diversity pass runs greedily: each
  * round it re-scores remaining candidates with a penalty for eras already
  * picked and takes the current best, so a much-stronger song still wins its
  * slot while merely-comparable songs make room for other eras.
@@ -226,9 +255,16 @@ export function matchMoods(query: MoodQuery, options: MatchOptions = {}): MoodMa
 
   const ranked = scoredSongs(catalogue)
     .filter((song) => allowBereavement || !BEREAVEMENT_SLUGS.has(song.slug))
-    .map((song) => ({ song, score: scoreSong(query, song) }))
+    .map((song) => ({
+      song,
+      score: scoreSong(query, song),
+      tieScore: singleAxisTieScore(query, song),
+    }))
     .filter((entry) => entry.score > 0)
-    .sort((a, b) => b.score - a.score || a.song.slug.localeCompare(b.song.slug));
+    .sort(
+      (a, b) =>
+        b.score - a.score || b.tieScore - a.tieScore || a.song.slug.localeCompare(b.song.slug),
+    );
 
   const picks: MoodMatch[] = [];
   const perEra = new Map<EraId, number>();

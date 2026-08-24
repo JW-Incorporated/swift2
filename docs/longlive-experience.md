@@ -448,6 +448,23 @@ Consequences for component code:
 | Era ↔ Thread pivots | `EraSection` strip + `Crossings` links | via `openThread` / `openEra` |
 | Clown bot | `ClownChat` + `ClownBoard` | 4th toggle surface (`mode === 'clown'`). Build B (`docs/decisions.md` 2026-08-13, J1–J7) — a big `clown bot` title (`font-era`, the shipped page-title pattern), one full-width chat box that stays blank until the reader sends a first message (a small "Try our chat bot — ask a question below" line in the empty stream, no pre-filled example conversation), and beneath it `ClownBoard`'s two prefill columns: "What we're clowning on" (open theories, recency-ranked, no padding to a fixed count) and "Past confirmed easter eggs" (ledger-derived). Tapping a column item, or a starter chip, prefills the composer (`clown-starters.ts`) without auto-sending — the reader still hits send. Every column item and chip resolves with **zero model calls**; only sending a composed message reaches `POST /api/clown`. Answers show a compact delulu-only indicator in the header (J4 — Evidence/Confidence meters were dropped as redundant with the source cards) with source cards beneath it. Retrieval is deterministic and grounded — the model is handed corpus docs and may not invent entities (`clown-retrieve.ts`/`clown-index.ts`, blocklist-filtered at index build time). A disabled or over-cap model falls back to a deterministic, zero-model card composer (`clown-fallback.ts`) — see `docs/ops/clown-kill-switch.md`. Never speaks as Taylor; no imagery of her on the surface. Share is disabled here for the same reason as Mood. |
 
+**Clownboard honesty invariant (#1998):** `confirmedEggs()` means exactly
+confirmed records whose authored `kind` is `easter_egg`. Confirmed fan
+predictions, common readings, and lore-ledger verdicts never enter the decoded
+count, and the rebuilt surface exposes no aggregate "called/clowned" accuracy
+stat. The column copy says "Planted, decoded, then confirmed" so an egg is not
+presented as a prediction the bot successfully called.
+
+**Mood matching invariants (#1999/#2000):** the keyword fallback understands
+Swiftie era framing (`reputation`/`villain era`), hype/anticipation language,
+and negated sit-still phrases as high energy. When an otherwise-unrefined
+single mood axis gives several songs the same primary score, `mood-match.ts`
+uses the catalogue's authored energy/valence dimensions as the secondary
+signal before the final deterministic slug fallback. The hand-tuned `feral
+about a bridge` starter remains pinned to the cathartic bridge set led by All
+Too Well (10 Minute Version), and energetic starter vectors do not receive the
+heavy-heartbreak intro.
+
 ---
 
 ## 8. Recipes
