@@ -4527,7 +4527,7 @@ export default {
             kind: 'reference',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Linsey_Davis_at_BookExpo_%2805437%29_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Linsey_Davis_at_BookExpo_%2805437%29.jpg/1280px-Linsey_Davis_at_BookExpo_%2805437%29.jpg',
             focalPoint: '54% 22%',
             credit: 'Rhododendrites, Wikimedia Commons (CC BY-SA 4.0)',
             caption: 'Linsey Davis, the debate\'s other co-moderator.',
@@ -4672,29 +4672,21 @@ export default {
             inStock: false,
           },
         ],
-        // T16 photo pass (2026-07-09): AP photo from ABC News' coverage of
-        // this outing, on ABC's own CDN. Verified HTTP 200 + image/jpeg;
-        // visually confirmed (both couples in the Arthur Ashe box).
+        // CIE image-liveness repair (2026-08-24): Getty frames from Just
+        // Jared's event gallery, verified live and visually confirmed.
         photos: [
           {
-            url: 'https://i.abcnewsfe.com/a/667ac5d8-cb5f-48cd-9230-89ea434a7644/Taylor-Travis-Patrick-Brittany-USOpen-1-ap-jm-240908_1725821927016_hpMain_16x9.jpg?w=1600',
-            credit: 'AP (via ABC News)',
+            url: 'https://cdn01.justjared.com/wp-content/uploads/2024/09/taylor-travis-us-open1/taylor-swift-travis-kelce-us-open-mahomes-2024-10.jpg',
+            credit: 'Getty Images (via Just Jared)',
             caption: 'Taylor, Brittany Mahomes, Travis Kelce, and Patrick Mahomes in the box at Arthur Ashe Stadium, Sept. 8, 2024.',
             kind: 'primary',
-            // Photo pass #762 (2026-07-19): viewed — the two couples' faces cluster around the
-            // center of the frame; this keeps all four in a wide crop.
-            focalPoint: '55% 42%',
+            focalPoint: '53% 37%',
           },
-          // Photo pass #762 (2026-07-19): second frame from the same cited ABC News story's own
-          // CDN — the Reuters photo embedded in the article body ("-rt-" in the filename, vs the
-          // AP "-ap-" lead above). curl 200 image/jpeg 1500x952; Read-viewed: Swift clapping in
-          // the red gingham dress between Kelce (Gucci bucket hat) and the Mahomeses — clearly a
-          // different moment from the AP hug frame, no watermark.
           {
-            url: 'https://i.abcnewsfe.com/a/1fc501ac-ba55-40eb-b3ce-02983fbfa66f/Taylor-Travis-Patrick-Brittany-USOpen-1-rt-jm-240908_1725822057337_hpEmbed_11x7.jpg?w=1500',
-            credit: 'Reuters (via ABC News)',
-            caption: 'Applauding the final from the box — Kelce, Taylor, and the Mahomeses reacting to the match.',
-            focalPoint: '47% 42%',
+            url: 'https://cdn01.justjared.com/wp-content/uploads/2024/09/taylor-travis-us-open1/taylor-swift-travis-kelce-us-open-mahomes-2024-16.jpg',
+            credit: 'Getty Images (via Just Jared)',
+            caption: 'Taylor and Travis watching the men\'s final from their Arthur Ashe Stadium box.',
+            focalPoint: '50% 35%',
           },
         ],
       },
@@ -4788,30 +4780,22 @@ export default {
             notes: 'The 30–30 Beyoncé tie survived the 2025 ceremony; Swift lost her lone 2025 nod (Artist of the Year) to Lady Gaga',
           },
         ],
-        // T16 photo pass (2026-07-09): Getty ceremony photo from Rolling
-        // Stone's own records coverage (first source above). Verified HTTP
-        // 200 + image/jpeg; visually confirmed (Moon Person in hand, onstage).
-        // Photo-enrichment run 11 (2026-07-18, #762): added Billboard's frame
-        // of the Best Collaboration acceptance from the same night — a
-        // distinct outfit-and-podium moment from the silver-dress VOTY frame.
-        // Verified HTTP 200 + image/jpeg, downloaded and vision-confirmed.
-        // Focal points set per image by viewing.
+        // CIE image-liveness repair (2026-08-24): ceremony frames from
+        // allowlisted YouTube thumbnails, verified live and visually confirmed.
         photos: [
           {
-            url: 'https://www.rollingstone.com/wp-content/uploads/2024/09/taylor-record-for-VOY-awards.jpg?resize=1600%2C900',
-            credit: 'Getty Images (via Rolling Stone)',
-            caption: 'Accepting one of seven Moon Persons at the 2024 VMAs on Sept. 11, 2024 — including a record third straight Video of the Year.',
+            url: 'https://i.ytimg.com/vi/OpK6oFpUxg4/maxresdefault.jpg',
+            credit: 'MTV footage (via Page Six / YouTube)',
+            caption: 'Accepting Video of the Year for "Fortnight" with Post Malone and the video team at the 2024 VMAs.',
             kind: 'primary',
-            // Mid-laugh at the mic; face upper-center-left, trophy mid-frame.
-            focalPoint: '48% 20%',
+            focalPoint: '55% 32%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/09/taylor-swift-best-collab-mtv-vmas-2024-billboard-1548.jpg?w=1024',
-            credit: 'Getty Images (via Billboard)',
-            caption: 'Accepting Best Collaboration for "Fortnight" in the plaid corset look — one of the seven wins that tied Beyoncé\'s all-time VMAs record.',
+            url: 'https://i.ytimg.com/vi/rT7DjJel1SU/maxresdefault.jpg',
+            credit: 'MTV (via YouTube)',
+            caption: 'During the Best Collaboration acceptance for "Fortnight" — one of the seven wins that tied Beyoncé\'s all-time VMAs record.',
             kind: 'archival',
-            // Face high, slightly left of center; Moon Person at chest height.
-            focalPoint: '47% 18%',
+            focalPoint: '50% 28%',
           },
         ],
       },
