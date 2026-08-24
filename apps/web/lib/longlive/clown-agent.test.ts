@@ -335,3 +335,108 @@ describe('onStep fires progressively, including the seed', () => {
     expect(steps).toEqual([{ tool: 'search', input: { query: 'x' }, summary: EMPTY_SEED.summary }]);
   });
 });
+
+// Codex review fix, HUMAN-ACTIONS.md #15 item 2: `reserveUserBudget` must
+// only ever be invoked once the key/kill-switch check AND the global cap
+// have both already passed — never before, so a request that was always
+// going to degrade on one of those never consumes the caller's per-user
+// daily allowance.
+describe('reserveUserBudget — only reserved once a model call is actually about to happen', () => {
+  it('no API key: the callback is never invoked', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', '');
+    const reserveUserBudget = vi.fn(async () => true);
+    const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, undefined, reserveUserBudget);
+    expect(result.take).toBeNull();
+    expect(result.overUserCap).toBeUndefined();
+    expect(reserveUserBudget).not.toHaveBeenCalled();
+  });
+
+  it('kill switch on: the callback is never invoked', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLOWN_MODEL_DISABLED', '1');
+    const reserveUserBudget = vi.fn(async () => true);
+    await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, undefined, reserveUserBudget);
+    expect(reserveUserBudget).not.toHaveBeenCalled();
+  });
+
+  it('over the global daily cap: the callback is never invoked', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    const reserveUserBudget = vi.fn(async () => true);
+    await runClownAgent(usage(0), turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, undefined, reserveUserBudget);
+    expect(reserveUserBudget).not.toHaveBeenCalled();
+  });
+
+  it('malformed transcript: the callback is never invoked', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    const reserveUserBudget = vi.fn(async () => true);
+    await runClownAgent(usage(), [], EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, undefined, reserveUserBudget);
+    expect(reserveUserBudget).not.toHaveBeenCalled();
+  });
+
+  it('key present, under cap: the callback IS invoked exactly once, before the model is called', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    const order: string[] = [];
+    const reserveUserBudget = vi.fn(async () => {
+      order.push('reserve');
+      return true;
+    });
+    vi.stubGlobal('fetch', vi.fn(async () => {
+      order.push('model-call');
+      return toolUseResponse([takeBlock()]);
+    }));
+    await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, undefined, reserveUserBudget);
+    expect(reserveUserBudget).toHaveBeenCalledTimes(1);
+    expect(order).toEqual(['reserve', 'model-call']);
+  });
+
+  it('over the caller\'s own cap: degrades with overUserCap:true, no model call, no retry', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const reserveUserBudget = vi.fn(async () => false);
+    const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, undefined, reserveUserBudget);
+    expect(result.take).toBeNull();
+    expect(result.overUserCap).toBe(true);
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(reserveUserBudget).toHaveBeenCalledTimes(1);
+  });
+
+  it('no callback given at all (no session resolved): behaves exactly as before this fix, no overUserCap', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubGlobal('fetch', vi.fn(async () => toolUseResponse([takeBlock()])));
+    const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' });
+    expect(result.take).not.toBeNull();
+    expect(result.overUserCap).toBeUndefined();
+  });
+});
+
+// Codex review fix, HUMAN-ACTIONS.md #15 item 2: "the rolling summary is
+// computed but never fed back to the model."
+describe('priorSummary — fed to the model as an extra system block', () => {
+  it('no priorSummary: the system prompt is the single cached block, unchanged', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    let captured: Record<string, unknown> = {};
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
+      captured = JSON.parse(String(init.body));
+      return toolUseResponse([takeBlock()]);
+    }));
+    await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' });
+    expect(captured.system).toHaveLength(1);
+    expect((captured.system as { cache_control?: unknown }[])[0].cache_control).toEqual({ type: 'ephemeral' });
+  });
+
+  it('a priorSummary is appended as a second, uncached system block containing its text', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    let captured: Record<string, unknown> = {};
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
+      captured = JSON.parse(String(init.body));
+      return toolUseResponse([takeBlock()]);
+    }));
+    await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, 'she folded three albums into one paragraph');
+    const system = captured.system as { text: string; cache_control?: unknown }[];
+    expect(system).toHaveLength(2);
+    expect(system[0].cache_control).toEqual({ type: 'ephemeral' });
+    expect(system[1].cache_control).toBeUndefined();
+    expect(system[1].text).toContain('she folded three albums into one paragraph');
+  });
+});

@@ -36,6 +36,18 @@
  *
  * Reuses `clown-client.ts`'s wire primitive (`callAnthropicMessages`) and
  * model/kill-switch/key gating (`clownModelKey`) — no new model client.
+ *
+ * PER-USER RESERVATION ORDERING (Codex review fix, HUMAN-ACTIONS.md #15 item
+ * 2): `route.ts` used to reserve the caller's per-user daily budget
+ * (`clown-memory.ts`) BEFORE this function's own key/kill-switch/global-cap
+ * checks below, so a request that degraded on one of those never spent any
+ * model budget but still consumed the user's daily allowance. The route now
+ * only resolves the session up front (needed synchronously for the
+ * `x-clown-session` response header) and hands the actual reservation in as
+ * `reserveUserBudget`, called from here — after `clownModelKey()` and
+ * `usage.reserve()` (global) both already passed, right before the first
+ * model request is built — so it only ever fires once a model call is
+ * genuinely about to happen.
  */
 import {
   CLOWN_MODEL,
@@ -82,14 +94,21 @@ export const AGENT_MAX_TOKENS = 2_500;
 const ABSOLUTE_MAX_ROUNDS = AGENT_MAX_TOOL_CALLS + 4;
 
 export interface AgentRunResult {
-  /** `null` on every degraded state (no key, kill switch, over cap, or every
-   * attempt failed) — same null-means-degrade contract as `askClown`. */
+  /** `null` on every degraded state (no key, kill switch, over cap, over the
+   * caller's per-user cap, or every attempt failed) — same null-means-degrade
+   * contract as `askClown`. */
   take: ClownTake | null;
   investigation: InvestigationStep[];
   /** Every citable doc surfaced across the whole run, keyed by id. The route
    * validates `take.citedIds` and builds `sources` against this, exactly as
    * it already validates against the plain retrieved-docs array today. */
   pool: Map<string, RetrievedItem>;
+  /** `true` only when `reserveUserBudget` was given AND reported the caller
+   * over their per-user daily cap — lets the route give that one degraded
+   * state its own distinct response copy ("come back tomorrow") instead of
+   * the generic fallback every other degraded state gets. Absent (not just
+   * `false`) for every other outcome. */
+  overUserCap?: boolean;
 }
 
 function degraded(investigation: InvestigationStep[], pool: Map<string, RetrievedItem>): AgentRunResult {
@@ -113,6 +132,17 @@ function addToPool(pool: Map<string, RetrievedItem>, items: readonly RetrievedIt
  * threaded through every model call and every tool dispatch this loop
  * makes, so nothing it awaits can outlive the 20s wall budget regardless of
  * where the hang happens.
+ *
+ * `priorSummary` (PLAN.md Stage 11 fix, HUMAN-ACTIONS.md #15 item 2:
+ * "persisted memory is write-only") — the caller's rolling conversation
+ * summary from `clown-memory.ts`'s `loadClownHistory`, when one exists. Fed
+ * to the model as an extra, uncached `system` block (never mixed into
+ * `messages`, so it never has to fake alternating user/assistant roles) —
+ * see the `system` array below.
+ *
+ * `reserveUserBudget`, when given, is called ONCE, right here (see this
+ * module's own header for why it lives at this exact point and not in
+ * `route.ts` before this function is even called).
  */
 export async function runClownAgent(
   usage: ClownUsage,
@@ -122,6 +152,8 @@ export async function runClownAgent(
   onStep?: (step: InvestigationStep) => void,
   clock: () => number = Date.now,
   signal?: AbortSignal,
+  priorSummary?: string,
+  reserveUserBudget?: () => Promise<boolean>,
 ): Promise<AgentRunResult> {
   const pool = new Map<string, RetrievedItem>();
   addToPool(pool, seed.items);
@@ -137,8 +169,22 @@ export async function runClownAgent(
 
   if (!usage.reserve()) return degraded(investigation, pool);
 
+  // PER-USER RESERVATION (see this module's header) — only reached once the
+  // key/kill-switch check and the global cap above both already passed, so
+  // a request that was always going to degrade on one of those never
+  // touches the caller's per-user allowance.
+  if (reserveUserBudget && !(await reserveUserBudget())) {
+    return { take: null, investigation, pool, overUserCap: true };
+  }
+
   const messages: AgentMessage[] = buildInitialMessages(capped, seed);
   const tools = [...CLOWN_READ_TOOLS, CLOWN_TAKE_TOOL];
+  const system = priorSummary
+    ? [
+        { type: 'text' as const, text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' as const } },
+        { type: 'text' as const, text: `EARLIER IN THIS CONVERSATION (summarized, from a previous message or session):\n${priorSummary}` },
+      ]
+    : [{ type: 'text' as const, text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' as const } }];
   const startedAt = clock();
   let toolCallCount = 0;
   let tokenTotal = 0;
@@ -196,7 +242,7 @@ export async function runClownAgent(
           model: CLOWN_MODEL,
           max_tokens: MAX_TOKENS,
           thinking: THINKING,
-          system: [{ type: 'text', text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
+          system,
           tools,
           tool_choice: toolChoice,
           messages,
