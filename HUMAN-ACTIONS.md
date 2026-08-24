@@ -95,18 +95,49 @@ with it. Neither blocks tonight's build.
    only once a model call is genuinely about to be attempted. **Still hold
    off flipping the toggle until item #14's two new migrations are applied**
    (same batch as the rest of that item) — the code fix alone doesn't apply
-   the migration or flip the toggle for you. Once both are done, the RLS
-   policies still want a look under a REAL anonymous session (item #14's
-   Stage 11 addendum) — that's the one thing that genuinely can't be proven
-   without the toggle being live. Full original findings: PR #2319's Codex
-   review, session `01a03390-be51-79b0-8bb7-ec53b398c20b`; this fix's own
-   review is pending on PR #2325 — opened but not merged, since this
-   executor had no Agent/Skill tools to run `codex:rescue` itself.
+   the migration or flip the toggle for you.
 
-**Worked if:** you tell me the Reddit outcome in chat. Once item #14's
-migrations (including the two new ones from this fix) are applied, flip the
-Supabase toggle and give the RLS behavior a real look — nothing further is
-blocking that at the code level.
+   **Update (2026-08-24, PR #2325 merged) — I ran that pending Codex review
+   myself before merging. Correcting the fix branch's own self-report above,
+   which claimed more than the independent review confirmed: still do NOT
+   flip the toggle, real issues remain.** Genuinely fixed and independently
+   verified: the SECURITY DEFINER grant scoping (item #14), and the fold RPC
+   is now provably atomic for its stated claim (a forced mid-call error
+   rolls back both the delete and the update together — tested against a
+   real ephemeral Postgres, not just asserted). Real issues still open:
+   - **New this round, not present before**: loaded conversation history
+     (rolling summary + recent turns) is fed into the model's system prompt
+     without going through `screenConversation` the way the client-supplied
+     transcript is — stored user text becomes elevated-trust context an
+     attacker's own prior turn could poison. Needs the same screening pass
+     applied to `loadClownHistory`'s output before `clown-agent.ts` uses it.
+   - `clown-memory.ts`'s `getConversation`/`loadClownHistory` don't catch
+     fetch/JSON failures, so once real sessions exist a Supabase hiccup
+     would 500 the live chat route instead of degrading to no-memory —
+     confirmed this can't fire TODAY (I verified `resolveClownSession` is
+     fully try/caught and Supabase itself rejects every signup attempt
+     while the toggle is off, so `memorySession` is null on every request
+     right now, meaning `loadClownHistory` is never actually called yet) —
+     but it needs a try/catch before the toggle flips.
+   - The session token lives only in a `ClownChat` component ref, so
+     switching modes or reloading loses it — each return visit mints a
+     fresh anonymous identity, which also resets the per-user daily cap.
+     Needs to move to something that survives remount (the app's existing
+     `store.tsx`, or `localStorage`).
+   - A request that gets denied for being over the per-user cap still
+     consumes the shared global reservation before returning the denial —
+     minor, but real.
+   - The fold RPC doesn't verify the turns it deletes actually belong to
+     the conversation it's updating, and doesn't check affected-row counts.
+   None of this is live-exploitable today — confirmed directly, not
+   assumed, since every path requires a resolved anonymous session and
+   Supabase itself is the gate keeping that null. But it means the toggle
+   genuinely isn't ready to flip yet. Full findings: PR #2325's review,
+   Codex session `01a033dd-7645-7373-827e-c22739c7e943`.
+
+**Worked if:** you tell me the Reddit outcome in chat. Hold the Supabase
+toggle until a future session addresses the items above — tell me to
+prioritize it if you want it sooner, same as before.
 
 **Status:** OPEN
 
