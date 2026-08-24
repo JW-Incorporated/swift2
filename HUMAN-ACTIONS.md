@@ -79,6 +79,20 @@ the real credential.
 `20260901000000_knowledge_engine.sql` cleanly against production, and running
 it a second time is a clean no-op (no errors, no duplicate objects).
 
+**Addendum (Stage 4, canonical sync):** same root cause hits
+`scripts/sync-clown-knowledge.mjs`/`scripts/knowledge-coverage.mjs`, which
+also need `SUPABASE_DB_URL` to write/read `knowledge_doc`/`egg_ledger`/
+`symbol_lexicon`/`technique`. Both degrade gracefully instead of crashing
+`npm run sync:content` (build every row from real seed data, log a clear
+skip message, exit 0) when the credential isn't reachable — same as this
+item's Stage 2 note. Verified for real anyway: applied all 17 migrations +
+ran the sync script twice against a real ephemeral local Postgres
+(`embedded-postgres`, same mechanism as this item's Stage 2 verification) —
+1061 `knowledge_doc` / 37 `egg_ledger` / 52 `symbol_lexicon` rows, identical
+row counts and ids on both runs (genuine upsert idempotency), `technique`
+stayed at 0 rows throughout. Not a new item — same fix (step 1 above) closes
+this too.
+
 **Status:** OPEN
 
 ---
