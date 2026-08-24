@@ -1968,7 +1968,7 @@ export default {
           // distinct from the display_05 crop above (display_05 is the only other Songbook file
           // used in this seed, so no cross-page duplicate).
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg/960px-Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg',
             credit: '14GTR / Wikimedia Commons (CC0)',
             caption:
               "The full Fortnight stop on the V&A's Songbook Trail: the Elena Velez gown staged on a plinth of antique books, with the typewriter and neon wiring completing the scene.",
@@ -2002,7 +2002,7 @@ export default {
       snippet:
         'A custom Christian Dior look from the Resort 2025 collection — plaid bustier, open cape-like skirt, thigh-high Stuart Weitzman boots, and lace-up gloves. Fans called it "Reputation"-coded.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg',
       moment: {
         context:
           'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that flowed behind her "like a Highland warrior\'s cape" — Marie Claire\'s phrase for it. Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "Reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
@@ -2018,14 +2018,14 @@ export default {
         ],
         photos: [
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg',
             credit: 'Getty Images',
             // Photo pass #762 (2026-07-19): viewed — landscape close-up against the neon "20"
             // stage sign, face left-of-center in the upper third.
             focalPoint: '46% 30%',
           },
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd-1200-80.jpg',
             credit: 'Getty Images',
             // Photo pass #762 (2026-07-19): viewed — full-length carpet shot, face high in frame.
             focalPoint: '52% 15%',
@@ -2058,7 +2058,7 @@ export default {
         'A one-shoulder sequined red minidress with a Lorraine Schwartz thigh chain spelling "T" — for Travis — plus Casadei heels.',
       sourceUrl: 'https://www.eonline.com/news/1412664/grammys-2025-taylor-swift-red-carpet-fashion-moment',
       thumbnailUrl:
-        'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
+        'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/1240x1860/4ae6b2706602461f95e8f081252d5450/gettyimages-2197310399.jpg',
       moment: {
         context:
           'The custom one-shoulder Vivienne Westwood mini read as a message: Chiefs red, worn Feb. 2 at Crypto.com Arena exactly one week before Kansas City\'s Super Bowl LIX matchup with the Eagles, with the Lorraine Schwartz diamond thigh chain dangling a single "T" fans immediately read as Travis, absent while he prepared for the game.\n\nCasadei heels finished the look as she carried six nominations into the night, including her record seventh Album of the Year nod for The Tortured Poets Department.',
@@ -2074,7 +2074,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
+            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/1240x1860/4ae6b2706602461f95e8f081252d5450/gettyimages-2197310399.jpg',
             credit: 'Getty Images',
             // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
             // full-length red-carpet pose in the red Westwood mini; face high,
@@ -2087,7 +2087,7 @@ export default {
             // earrings, red lip, the draped one-shoulder bodice. Downloaded and
             // vision-confirmed against the same MusiCares Fire Relief backdrop
             // as the existing CBS full-length.
-            url: 'https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV-1200-80.jpg',
             credit: 'Getty Images via Marie Claire',
             caption: 'The details up close: ruby chandelier earrings and the draped, corseted Westwood bodice.',
             // Focal point set by viewing: landscape close-up, face left of
