@@ -101,6 +101,15 @@ interface AppState {
    * Consumed (cleared) by ClueWeb once it lands there.
    */
   clueWebTrail: MotifId | null;
+  /**
+   * Pending video-card scroll target, set by `openVideo` (search's video
+   * results — #652) as the exact `data-ll-item` value (`era-video-<slug>`)
+   * to scroll to once it mounts in the era stream. EraStream consumes
+   * (clears) it after a bounded poll; a video with no standalone card
+   * (unplayable, or embedded inline in a moment — see search.ts) times out
+   * and leaves the reader on the era, same as before this field existed.
+   */
+  pendingVideoAnchor: string | null;
   /** Active global timeline filter chips. Empty = show everything (P1). */
   filters: ReadonlySet<FilterId>;
   /**
@@ -218,6 +227,14 @@ interface AppActions {
    * guide too, so a cross-era hop lands with a consistent guide behind it.
    */
   openSong: (eraId: EraId, key: string) => void;
+  /**
+   * Jump to an era and scroll to one video's own card once it mounts
+   * (search's video results — #652). Falls back to landing on the era, same
+   * as before, if that video has no standalone card to scroll to.
+   */
+  openVideo: (eraId: EraId, videoId: string) => void;
+  /** Consume the pending video scroll target (called by EraStream once handled). */
+  clearPendingVideoAnchor: () => void;
   /**
    * Open the theories/easter-eggs overlay for an era. `highlightSlug`
    * (optional) is a single egg/theory's slug to scroll to and highlight once
@@ -361,6 +378,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [share, setShare] = useState<ShareTarget | null>(null);
   const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
+  const [pendingVideoAnchor, setPendingVideoAnchor] = useState<string | null>(null);
   const [filters, setFilters] = useState<ReadonlySet<FilterId>>(() => new Set());
   const [clownMessages, setClownMessages] = useState<ClownMessage[]>([]);
   const [clownChatExpanded, setClownChatExpanded] = useState(false);
@@ -647,6 +665,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setTrackGuideEraId(getEra(eraId).id);
         setOpenTrackKey(key);
       },
+      openVideo: (eraId: EraId, videoId: string) => {
+        openEra(eraId);
+        // Ensures the target video's card is actually in the filtered feed —
+        // an active filter unrelated to the video's own tags would otherwise
+        // hide the very card we're about to scroll for.
+        clearFilters();
+        setPendingVideoAnchor(`era-video-${videoId}`);
+      },
+      clearPendingVideoAnchor: () => setPendingVideoAnchor(null),
       openTheoryGuide: (id: EraId, highlightSlug?: string) => {
         setTrackGuideEraId(null);
         setTheoryGuideEraId(getEra(id).id);
@@ -710,6 +737,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       searchOpen,
       share,
       clueWebTrail,
+      pendingVideoAnchor,
       filters,
       clownMessages,
       clownChatExpanded,
@@ -730,6 +758,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       searchOpen,
       share,
       clueWebTrail,
+      pendingVideoAnchor,
       filters,
       clownMessages,
       clownChatExpanded,
