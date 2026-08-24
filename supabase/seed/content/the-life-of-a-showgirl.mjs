@@ -3993,6 +3993,21 @@ export default {
             accessed_at: '2026-08-04',
             reliability_score: 2,
           },
+          // Answerer depth pass (Vault Run 2026-08-24, hot-thin-topic #1720):
+          // adds a strong (reliability 4) outlet to a page whose Morris quote
+          // otherwise rested on People-via-AOL/TMZ/HOLA. Billboard's guests-
+          // revealed vows roundup corroborates the surrounding context this
+          // moment leans on (guests describing the vows on the record).
+          // Verified via web search this session; no new claim added.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-vows-1236287859/',
+            source_title: "Taylor Swift & Travis Kelce's Wedding Vows: What Guests Have Revealed",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
         ],
         // Archival portrait — the vows were described in an interview, not a
         // photographed event, so this is the closest true visual (same pattern
