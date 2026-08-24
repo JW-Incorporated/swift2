@@ -50,11 +50,13 @@ function screenAll(strings: readonly string[]): { ok: boolean; categories: strin
   return { ok: categories.size === 0, categories: [...categories] };
 }
 
-/** live_theory carries no redline_ok column (migration's own RLS comment:
- * "theories only ever derive from already-screened content") — so unlike
- * current_item/fan_signal, a theory that fails the screen must never be
- * upserted at all, not written-but-unservable. Screen BEFORE calling
- * upsertLiveTheory, never after. */
+/** Unlike current_item/fan_signal (written-but-unservable on a failed
+ * screen), a live_theory that fails the screen must never be upserted at
+ * all — screen BEFORE calling upsertLiveTheory, never after. live_theory
+ * does carry redline_ok (20260903000000_live_theory_redline.sql), but it
+ * exists as schema-level defense in depth for OTHER future writers; this
+ * path's own safety comes from never writing a failing row in the first
+ * place, so upsertLiveTheory always sets redline_ok: true. */
 export function theoryPassesScreen(theory: ExtractedTheory): boolean {
   return screenAll([theory.name, theory.claim]).ok;
 }
@@ -198,6 +200,7 @@ export async function upsertLiveTheory(
       symbols,
       heat: 1,
       expires_at: theoryExpiresAt,
+      redline_ok: true,
     })
     .select('id')
     .single();
