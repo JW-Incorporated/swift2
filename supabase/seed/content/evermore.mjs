@@ -2216,9 +2216,10 @@ export default {
     // them (the NSAI-speech item cites "ivy" as Taylor's flagship Quill lyric;
     // "'tis the damn season" names Dorothea as a character "whose namesake
     // track sits later on the album"). This pass authors ivy, dorothea and long
-    // story short so those hooks land somewhere. Sources: each song's Wikipedia
-    // page + Slate's evermore track-by-track (already trusted in this file, see
-    // gold rush). closure remains for a later run. Photos deferred to Photo
+    // story short so those hooks land somewhere. Sources: Wikipedia's evermore
+    // coverage (or the song page where one exists) + Slate's track-by-track
+    // (already trusted in this file, see gold rush). closure remains for a later
+    // run. Photos deferred to Photo
     // Enrichment: no lyric-video still could be id-verified in this headless env.
     {
       slug: 'ivy-clandestine-affair',
@@ -2229,7 +2230,7 @@ export default {
       title: "ivy, a clandestine affair that grows like the vine it's named for",
       snippet:
         'A married woman drawn into a secret affair that creeps from winter into spring like ivy — and the one song Taylor later named as her flagship "Quill" lyric, the most literary pen she owns.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
       thumbnailUrl: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
       moment: {
         context:
@@ -2237,11 +2238,11 @@ export default {
         sources: [
           {
             outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Ivy_(Taylor_Swift_song)',
-            source_title: 'Ivy (Taylor Swift song)',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-07-30',
+            accessed_at: '2026-08-24',
             reliability_score: 2,
           },
           {
@@ -2251,6 +2252,15 @@ export default {
             publisher: 'Slate',
             source_type: 'reputable_press',
             accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-nsai-songwriter-artist-decade-award-2022-speech-all-too-well-3314076',
+            source_title: "Taylor Swift wins NSAI's Songwriter-Artist of the Decade Award",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
             reliability_score: 4,
           },
         ],
@@ -2388,7 +2398,7 @@ export default {
       title: 'closure, the 5/4 kiss-off that turns down the tidy ending',
       snippet:
         'evermore\'s most experimental track: an off-kilter 5/4 song wrapped in clattering, industrial drums, where Taylor takes an olive branch from someone who wronged her and hands it straight back — "I don\'t need your closure."',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
       thumbnailUrl: 'https://i.ytimg.com/vi/AIFnKqIeEdY/hqdefault.jpg',
       moment: {
         context:
@@ -2396,11 +2406,11 @@ export default {
         sources: [
           {
             outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Closure_(Taylor_Swift_song)',
-            source_title: 'Closure (Taylor Swift song)',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-08-01',
+            accessed_at: '2026-08-24',
             reliability_score: 2,
           },
           {
