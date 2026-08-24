@@ -169,7 +169,6 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/components/longlive/ClownChatComposer.tsx` | Docked composer pill (textarea/send), split out of ClownChat.tsx (300-line cap) |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
 | `apps/web/lib/longlive/useChromeOffset.ts` | Live sticky-chrome height hook, split out of ClownChat.tsx (300-line cap) — wraps `chrome-offset.ts`'s `measureChromeHeight` |
-| `apps/web/lib/longlive/clown-session-storage.ts` (+ `.test.ts`) | HUMAN-ACTIONS.md #15 item 3: localStorage-backed session-token persistence (mirrors `progress.ts`'s pattern) so the token survives a `ClownChat` remount or page reload |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
 | `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |
@@ -207,7 +206,7 @@ changing any existing call site's behaviour.
 | `apps/web/lib/longlive/clown-agent-caps.ts` (+ tested via `clown-agent.test.ts`) | Pure per-round cap arithmetic (tool-call budget / token headroom / wall clock → next `tool_choice`), split out of `clown-agent.ts` (300-line cap) |
 | `apps/web/lib/longlive/clown-agent-tools.ts` (+ `.test.ts`) | The 7 read tools' executors, DB-first with `clown-index.ts` as the no-DB-unreachable fallback (search only); `resolveScopeSignal` for the route's pre-loop scope check |
 | `apps/web/lib/longlive/clown-predictions.ts` (+ `.test.ts`) | PLAN.md Stage 11: `persistPrediction` writes `bot_prediction` for real when a memory session resolves; no-ops when it doesn't (today's real state) |
-| `apps/web/lib/longlive/clown-session.ts` (+ `.test.ts`) | PLAN.md Stage 11: Supabase anonymous-auth session resolution (raw `fetch()` over Auth/PostgREST, no SDK dep) — `resolveClownSession` degrades to `null` when the "Allow anonymous sign-ins" toggle is off (today's state, `HUMAN-ACTIONS.md` #15 item 2) |
+| `apps/web/lib/longlive/clown-session.ts` (+ `.test.ts`) | PLAN.md Stage 11: Supabase anonymous-auth session resolution (raw `fetch()` over Auth/PostgREST, no SDK dep) — `resolveClownSession` degrades to `null` when the "Allow anonymous sign-ins" toggle is off (today's state, `HUMAN-ACTIONS.md` #15 item 2); session persistence is an `HttpOnly; Secure; SameSite=Strict` cookie (`readSessionCookie`/`buildSessionCookieHeader`), not `localStorage` (round-4 architect redesign; the prior `clown-session-storage.ts` localStorage approach was deleted) |
 | `apps/web/lib/longlive/clown-memory.ts` (+ `.test.ts`) | PLAN.md Stage 11: conversation continuation, rolling summary (truncate-and-fold past 20 turns), per-user daily cap (`usage_daily(scope='clown-chat:<uid>')`, 200/day — same number as `clown-usage.ts`'s existing cap) |
 | `apps/web/lib/longlive/clown-pins.ts` (+ `.test.ts`) | PLAN.md Stage 11: `clown_pinned_theory` pin/unpin/list — library only, no route wired to it yet |
 | `apps/web/lib/longlive/clown-stream.ts` (+ `.test.ts`) | Client-side NDJSON stream reader, shared by `ClownChat.tsx` |

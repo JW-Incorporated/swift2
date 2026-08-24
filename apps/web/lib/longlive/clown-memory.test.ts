@@ -286,6 +286,47 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
     expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
   });
 
+  // Codex review round 4, item 2: a well-formed-JSON-but-wrong-shape body
+  // (e.g. `{}` instead of `[]`) must NOT be classified as "confirmed empty"
+  // — only a genuine empty array proves no row exists. Anything else is an
+  // unexpected-shape read failure, which must abort as a no-op the same way
+  // a network error or malformed JSON already does, never fall through to
+  // the upsert path and risk resetting an existing user's conversation.
+  it('does not create a conversation when the lookup read returns a non-array body — degrades to no-op', async () => {
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json({});
+      return json({}, 200);
+    });
+
+    await recordClownMemory(
+      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
+      fetchSpy as unknown as typeof fetch,
+    );
+
+    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
+  });
+
+  // Same principle, different malformed shape: an array whose element
+  // doesn't parse as a valid row (no `id`) is neither "found" nor a genuine
+  // empty array — it must also degrade to "error", not "empty".
+  it('does not create a conversation when the lookup read returns an array of unexpected shape — degrades to no-op', async () => {
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{}]);
+      return json({}, 200);
+    });
+
+    await recordClownMemory(
+      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
+      fetchSpy as unknown as typeof fetch,
+    );
+
+    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
+  });
+
   it('continues the most recent existing conversation instead of creating a new one', async () => {
     const calls: Array<{ url: string; init: RequestInit }> = [];
     const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {

@@ -259,7 +259,7 @@ export async function POST(req: Request): Promise<Response> {
     if (historyHit) {
       clearTimeout(deadlineTimer);
       console.log('clown:refusal', JSON.stringify({ gate: 'history', category: historyHit }));
-      return NextResponse.json(messageAnswer([refusal(historyHit).message]));
+      return NextResponse.json(messageAnswer([refusal(historyHit).message]), sessionHeaders ? { headers: sessionHeaders } : undefined);
     }
   }
 

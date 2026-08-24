@@ -136,12 +136,14 @@ async function getConversation(session: ClownSession, fetchImpl: typeof fetch, s
     const getUrl = `${env.supabaseUrl}/rest/v1/clown_conversation?select=id,summary&user_id=eq.${session.userId}&order=last_active_at.desc&limit=1`;
     const getRes = await fetchImpl(getUrl, { headers: clownAuthHeaders(env, session), signal });
     if (!getRes.ok) return { status: 'error' };
-    const rows = (await getRes.json()) as Array<{ id?: unknown; summary?: unknown }>;
-    const row = Array.isArray(rows) ? rows[0] : undefined;
+    const rows = (await getRes.json()) as unknown;
+    if (!Array.isArray(rows)) return { status: 'error' };
+    if (rows.length === 0) return { status: 'empty' };
+    const row = rows[0] as { id?: unknown; summary?: unknown };
     if (row && typeof row.id === 'string') {
       return { status: 'found', conversation: { id: row.id, summary: typeof row.summary === 'string' ? row.summary : '' } };
     }
-    return { status: 'empty' };
+    return { status: 'error' };
   } catch {
     warnMemoryReadUnavailable('getConversation fetch/json failed');
     return { status: 'error' };
