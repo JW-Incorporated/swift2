@@ -2538,18 +2538,6 @@ export default {
             // portrait frame.
             focalPoint: '53% 12%',
           },
-          // Photo pass #762 (2026-07-19): second frame of the same June 28, 2025 outing from the
-          // cited E! News article's own CDN (akns-images.eonline.com, the article's lead image,
-          // captioned "Taylor Swift and Travis Kelce in NYC"). curl 200 image/jpeg 1200x1200;
-          // Read-viewed: the couple hand in hand — same pink Balmain mini with gold buttons, same
-          // construction-fence backdrop — single frame, no watermark. E! exposes no photographer
-          // byline on this image, so the credit stays at the outlet level.
-          {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250630/a3a86034-2ab6-49c1-bc30-2f5ade7cf52b_1751297982.jpg',
-            credit: 'Via E! News',
-            caption: 'Hand in hand with Travis on the way into dinner, June 28, 2025.',
-            focalPoint: '70% 28%',
-          },
         ],
         // Stylist source pass (2026-07-21): the headline pieces of this look, linked
         // to live retailer product pages (curl HTTP 200 + read-verified).
@@ -2614,7 +2602,7 @@ export default {
         // the outlet-own-CDN rule. Deliberately left at one photo.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg/960px-Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
             credit: 'Kj1595 via Wikimedia Commons, CC BY-SA 4.0',
             caption: 'Reference image: Arrowhead Stadium (2019 file photo). No photos of Taylor surfaced from this game — she attended unseen, confirmed by a source to E!.',
             kind: 'reference',
@@ -2656,16 +2644,16 @@ export default {
         // HTTP 200 + image/jpeg; visually confirmed (saucer + beam onstage).
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg/960px-Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/29/Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg',
             credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
             caption: 'The "Down Bad" staging in the Eras Tour\'s TTPD set (Paris, May 2024): a flying saucer beams its light down on the abandoned narrator.',
             kind: 'archival',
             focalPoint: '29% 50%',
           },
           // Photo pass #762 run 10 (2026-07-18): official lyric-video still, video id
-          // oEmbed-verified against @TaylorSwift this run; 1280x720 maxres render.
+          // oEmbed-verified against @TaylorSwift this run; 1280x720 maxres WebP render.
           {
-            url: 'https://i.ytimg.com/vi/EVbtjaWXQVg/maxresdefault.jpg',
+            url: 'https://i.ytimg.com/vi_webp/EVbtjaWXQVg/maxresdefault.webp',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Down Bad" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
@@ -2701,11 +2689,11 @@ export default {
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
         // Photo pass #762 run 10 (2026-07-18): upgraded 480x360 hqdefault -> 1280x720
-        // maxres (same video). Deliberately one photo: studio track never performed
+        // maxres WebP (same video). Deliberately one photo: studio track never performed
         // solo live; no distinct on-topic image exists on an approved CDN.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/CCUr2pNJft4/maxresdefault.jpg',
+            url: 'https://i.ytimg.com/vi_webp/CCUr2pNJft4/maxresdefault.webp',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "So Long, London" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
