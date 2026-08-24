@@ -82,6 +82,16 @@ news digest:
 AIM FOR BREADTH — spread across several moments and eras rather than piling more
 onto the wedding page, which already carries the most.
 
+**C. Refresh Clownbot's no-DB fallback.** The knowledge engine is Clownbot's
+primary live source, but `apps/web/lib/longlive/clownbot-lore.ts` remains the
+load-bearing fallback when the database is unreachable. It is not refreshed by
+editing Vault `rumors` entries. On every due run, independently sweep every
+open (`rumor` / `reported`) lore item, update its `lastCheckedOn`, resolution,
+and citations as warranted, add genuinely prompt-worthy current items from the
+same sourced queue, and bump `LORE_UPDATED_ON`. Run
+`apps/web/lib/longlive/clownbot-lore.test.ts` before committing. A run that
+touches Vault rumors but skips this fallback sweep is incomplete.
+
 ## If a source will not fetch
 
 Retry with a browser User-Agent before calling it unverifiable — many outlets

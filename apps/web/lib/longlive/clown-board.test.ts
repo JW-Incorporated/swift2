@@ -4,14 +4,14 @@ import { confirmedEggs, currentTheories, relativeDate } from './clown-board';
 import { LORE } from './clownbot-lore';
 import { THEORIES_RAW } from './theories.generated';
 
-const NOW = new Date('2026-08-13T12:00:00Z');
+const NOW = new Date('2026-08-24T12:00:00Z');
 
 describe('currentTheories — column 1', () => {
   it('never pads: fewer than 10 in the corpus means fewer than 10 returned', () => {
     const items = currentTheories(NOW);
     // Real corpus, real count — asserted exactly so a future change to the
     // corpus fails this test loudly instead of silently padding.
-    expect(items.length).toBe(7);
+    expect(items.length).toBe(9);
     expect(items.length).toBeLessThan(10);
   });
 
