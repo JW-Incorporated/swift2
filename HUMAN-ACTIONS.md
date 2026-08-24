@@ -329,6 +329,18 @@ had no `apps/worker/.env`. All three migrations below need one
 `npm run db:migrate` run from a checkout that has the real env file — do
 them together, one command, once `main` has all three.
 
+**Update 2026-08-24 — no longer reddening CI, still BLOCKING the feature.**
+`news-worker.yml` had been crashing every 4h (exit 1) on the resulting
+schema-cache errors (`resolved_tier`, `symbol_lexicon`, `news_story.extracted_at`),
+which paged daily via watchdog.yml's cadence check. `apps/worker/src/index.ts`
+now classifies "schema not yet migrated" errors (`/schema cache|does not exist/`)
+as a degraded no-op that keeps the Action green — matching the worker's
+documented "zero sources = no-op usefully" posture — while any *genuine* error
+still fails the job. This removes the CI noise but does **not** substitute for
+this item: the Current tier stays empty and the knowledge engine cannot ingest
+until these migrations are applied. Once `npm run db:migrate` runs, the worker's
+same calls succeed and it resumes real work automatically.
+
 **Why it matters:** Stage 2 of the knowledge-engine build (`PLAN.md`) asked me
 to test `create extension vector` against the real Supabase project first,
 then apply `supabase/migrations/20260901000000_knowledge_engine.sql` with

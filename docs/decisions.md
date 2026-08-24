@@ -4875,3 +4875,66 @@ corpus.
 overnight, 2026-08-23 22:01 PDT); architecture calls within it made under
 existing Decision Authority (CLAUDE.md: AI may write code, refactor,
 document decisions for non-money, non-infra-credential calls without asking).
+
+---
+
+## 2026-08-24 — Watchdog alarm remediation: six alerts fixed at the architecture level
+
+Six watchdog/brief-mailer alerts fired at once (Joey forwarded them). Root-caused
+and fixed persistently so each stops re-firing, rather than muting:
+
+1. **Knowledge-engine current-tier "stale" (freshness check crashed).**
+   `scripts/knowledge-freshness.mjs` imported the worker's `@supabase/supabase-js`
+   client at module load, but `watchdog.yml` runs it with no `npm ci` (it is
+   deliberately dependency-free) → `ERR_MODULE_NOT_FOUND` crash reported as
+   exit 1 → false daily page. Rewrote it to query PostgREST via the built-in
+   `fetch` — zero third-party deps — and to exit 2 (skip, not alarm) when the
+   `knowledge_doc` table is absent (pre-migration) or creds are unset.
+
+2. **news-worker failing every 4h (email 6) + current tier genuinely empty
+   (email 1's real cause).** The worker crashed (exit 1) on schema-cache errors
+   for columns/tables from unapplied knowledge-engine migrations
+   (`resolved_tier`, `symbol_lexicon`, `news_story.extracted_at`). Applying
+   those needs `SUPABASE_DB_URL` (a direct Postgres connection), which is not a
+   repo secret and cannot be added by an agent (guard-denied) — it stays
+   HUMAN-ACTIONS #14 (Wyatt, `npm run db:migrate`). To stop the daily CI noise
+   while that is pending, `apps/worker/src/index.ts` now treats
+   `/schema cache|does not exist/` errors as a degraded no-op (job stays green,
+   matching the worker's "zero sources = no-op usefully" design) while genuine
+   errors still fail. Those PostgREST codes fire only when an object is truly
+   absent, so once migrated the same calls succeed and real failures resurface —
+   no masking.
+
+3. **Content Shift lane liveness alarm (email 3).** The standalone Content Shift
+   cloud routine was deleted when it was folded into the Vault Run
+   (HUMAN-ACTIONS #11 / PR #2289), so `content-shift/*` branches can no longer
+   appear and the `check_lane "content-shift/"` in watchdog.yml alarmed daily.
+   Deleted that one line — the exact migration the check's own comment
+   prescribed for this moment. The `vault/` lane check stays.
+
+4. **Karen / CIE stale 255h (email 4) — the architecture fix.** Karen ran only
+   as a Wyatt-account Claude routine and went dark 10+ days unseen. Per CLAUDE.md
+   "Freshness on Actions, judgment on routines," the deterministic half (detect
+   + file tickets) moved to a new GitHub Action `.github/workflows/cie-scan.yml`
+   (`run.mjs all --no-images --create`, twice weekly, zero LLM, `GITHUB_TOKEN` +
+   `SOCIAL_POSTER_PAT` to land the report PR on protected `main` — same pattern
+   as growth-snapshot.yml). CIE report freshness no longer depends on a founder's
+   Claude login; the routine is now needed only for the AI `Karen Deep` review.
+
+5. **PR #2175 stuck on `build` 8 days (email 5).** Its branch was 52 commits
+   behind with a stale generated vault (`check:generated` red). Re-applied its
+   four context-field trims cleanly on current `main` (#3160, green) and closed
+   #2175 as superseded.
+
+6. **"FB group export never closed" (email 2) — false positive.** watchdog.yml's
+   skip-guard `grep -q "slug:"` matched the `{ slug: 'example-group-slug' }`
+   EXAMPLE in a doc comment, so it never took the intended skip branch while
+   `FB_GROUPS_CHECKLIST` is `[]` (HUMAN-ACTIONS #16 still open). Replaced it with
+   a real array-length check via `node -e` (import the module), and the skip
+   branch now closes any standing alert so the pre-configuration state self-heals.
+
+Approved under existing Decision Authority (CLAUDE.md: AI may write code,
+refactor, fix CI/workflows, document decisions for non-money, non-credential
+calls). The one credential-gated piece — applying the DB migrations — remains
+HUMAN-ACTIONS #14 (Wyatt); the worker/freshness degrade above is what stops the
+alarms in the meantime without masking a real regression.

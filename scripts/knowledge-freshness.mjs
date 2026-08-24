@@ -4,27 +4,34 @@
 // should be < 24h.
 //
 // Uses the SAME `SUPABASE_URL`/`SUPABASE_SERVICE_ROLE_KEY` credential the
-// worker already reads (`apps/worker/src/db/client.ts`) — already a real
-// GitHub Actions secret pair (`news-worker.yml`), so this needs no new
-// secret and no HUMAN-ACTIONS item. Degrades to a clear skip, never a crash,
-// when unset — same pattern as every other DB-dependent script tonight.
+// worker already reads — already a real GitHub Actions secret pair
+// (`news-worker.yml`), so this needs no new secret and no HUMAN-ACTIONS item.
 //
-// REPORT, NOT A HARD FAIL (deliberate choice, see .github/workflows/
-// watchdog.yml's own "Facebook export freshness" / cadence-check steps for
-// the precedent): a real ingestion cadence takes hours to prove itself out —
-// the Current tier has ZERO rows until Stage 3's extract stage has a live
-// `ANTHROPIC_API_KEY` (HUMAN-ACTIONS.md #13, still open) and runs at least
-// once. Hard-failing `build` on this would block every PR merge in this repo
-// on an ops step no PR touches. This script's own exit code still
-// distinguishes stale (1) from fresh (0) from skip/no-data (2) so a human
-// or a script CAN gate on it deliberately — `watchdog.yml` is where that
-// happens, via the standing open/close-an-issue pattern every other
-// freshness check there already uses, not a `build`-blocking step.
+// ZERO DEPENDENCIES ON PURPOSE (rewritten 2026-08-24). This used to
+// `import { createWorkerDbClient } from '../apps/worker/src/db/client.ts'`,
+// which pulls in `@supabase/supabase-js`. watchdog.yml runs this step with NO
+// `npm ci` (it is deliberately dependency-free — see its header), so that
+// import threw `ERR_MODULE_NOT_FOUND` at module-load time, BEFORE the graceful
+// env-check below ever ran — the crash was reported as exit 1 → a false
+// "current tier is stale" page every single day. A one-row freshness read has
+// no business dragging in the whole worker DB client; it now hits the
+// PostgREST REST endpoint directly with the built-in `fetch`, so it runs
+// unchanged in the dependency-free watchdog and degrades to a clean skip
+// (exit 2) whenever the table is absent (pre-migration) or the creds are
+// unset — never a crash.
+//
+// REPORT, NOT A HARD FAIL (deliberate choice): a real ingestion cadence takes
+// hours to prove itself out — the Current tier has ZERO rows (indeed no
+// `knowledge_doc` table at all) until the Stage 1/2 migrations are applied
+// (HUMAN-ACTIONS.md #14) and the extract stage runs at least once. Exit codes:
+// 0 = fresh, 1 = genuinely stale, 2 = skip/no-data/no-table/no-creds (not an
+// alarm). `watchdog.yml` maps 2 to "close the alert", so a pre-ingestion or
+// pre-migration state never pages.
 //
 //   node scripts/knowledge-freshness.mjs
 //   node scripts/knowledge-freshness.mjs --max-age-hours 24
 
-import { createWorkerDbClient } from '../apps/worker/src/db/client.ts';
+/* global AbortSignal */
 
 const ARGV = process.argv.slice(2);
 function flagValue(name) {
@@ -36,8 +43,18 @@ function flagValue(name) {
 }
 const MAX_AGE_HOURS = flagValue('max-age-hours') ? Number(flagValue('max-age-hours')) : 24;
 
+// A schema-absent signal means the table/column isn't migrated yet — a
+// pre-migration state (HUMAN-ACTIONS.md #14), not staleness. Same shape the
+// worker treats as a degraded no-op.
+function isSchemaAbsent(status, bodyText) {
+  if (status === 404) return true;
+  return /schema cache|does not exist|PGRST205|PGRST204|relation .* does not exist/i.test(bodyText);
+}
+
 async function main() {
-  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
     console.log(
       'knowledge-freshness: SKIPPING — SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set ' +
         '(expected in apps/worker/.env locally, or the news-worker GitHub Actions secrets in CI). ' +
@@ -46,20 +63,44 @@ async function main() {
     return 2;
   }
 
-  const db = createWorkerDbClient();
-  const { data, error } = await db
-    .from('knowledge_doc')
-    .select('updated_at')
-    .eq('tier', 'current')
-    .order('updated_at', { ascending: false })
-    .limit(1);
+  const endpoint =
+    `${url.replace(/\/$/, '')}/rest/v1/knowledge_doc` +
+    '?select=updated_at&tier=eq.current&order=updated_at.desc&limit=1';
 
-  if (error) {
-    console.error(`knowledge-freshness: query failed — ${error.message}`);
+  let res;
+  try {
+    res = await fetch(endpoint, {
+      headers: { apikey: key, Authorization: `Bearer ${key}` },
+      signal: AbortSignal.timeout(20000),
+    });
+  } catch (err) {
+    console.log(`knowledge-freshness: SKIPPING — query request failed (${err.message}). Nothing to page on.`);
     return 2;
   }
 
-  if (!data || data.length === 0) {
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    if (isSchemaAbsent(res.status, body)) {
+      console.log(
+        "knowledge-freshness: SKIPPING — the knowledge_doc table (or its tier column) isn't present yet. " +
+          'Expected until the Stage 1/2 migrations are applied (HUMAN-ACTIONS.md #14, `npm run db:migrate`). ' +
+          'Not itself evidence of staleness.',
+      );
+      return 2;
+    }
+    console.log(`knowledge-freshness: SKIPPING — query returned HTTP ${res.status}: ${body.slice(0, 200)}`);
+    return 2;
+  }
+
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    console.log('knowledge-freshness: SKIPPING — could not parse the query response.');
+    return 2;
+  }
+
+  if (!Array.isArray(data) || data.length === 0) {
     console.log(
       "knowledge-freshness: no tier='current' rows exist yet — expected until the extract stage has a live " +
         'ANTHROPIC_API_KEY (HUMAN-ACTIONS.md #13) and runs at least once. Not itself evidence of staleness.',

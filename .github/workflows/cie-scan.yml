@@ -1,0 +1,106 @@
+# Content Integrity Engine — DETERMINISTIC scan + ticket filing, on Actions.
+#
+# WHY THIS EXISTS (2026-08-24). Karen — the CIE — ran only as a Wyatt-account
+# Claude cloud routine. It went dark for 10+ days (newest report 2026-08-14)
+# and nobody noticed until watchdog.yml's staleness check paged, because this
+# repo cannot see that routine's dashboard. That is exactly the failure mode
+# CLAUDE.md's standing rule addresses: "Freshness on Actions, judgment on
+# routines — a scheduled GitHub Action keeps the data current and never depends
+# on a founder's Claude account being logged in; a Claude routine only ever
+# adds judgment on top of data an Action already produced."
+#
+# So the DETERMINISTIC half of Karen — detect findings from the seed corpus and
+# file/dedupe the GitHub tickets — now lives here, where it runs on GitHub's
+# own reliable scheduler with only a GITHUB_TOKEN. `run.mjs all` makes no LLM
+# call and needs no ANTHROPIC/OPENAI/SUPABASE credential (the corpus is the
+# seed .mjs files on disk). The AI "Karen Deep" review layer (`review-slice`)
+# stays a routine — that is the judgment half, and it reads the findings this
+# Action produces. See docs/agents/runners.md.
+#
+# --no-images: skips the network image-liveness/moderation probes so the run is
+# fast and deterministic and never reddens on a flaky external image host — the
+# same trade-off watchdog.yml already makes when it runs `scan --no-images`.
+# Broken-image findings remain the Deep routine's concern.
+#
+# CADENCE: twice weekly (Sun + Wed). watchdog.yml's Karen staleness check
+# tolerates 9 days (7-day design + 2-day buffer); a single weekly cron is one
+# point of failure inside that window if GitHub drops or delays a scheduled run
+# under load, so a ~3-4-day spacing keeps a fresh report well inside 9 days even
+# when one run slips. Offset off :00/:30 per watchdog.yml's scheduling-
+# contention note.
+#
+# WRITING THE REPORT TO PROTECTED main. `main` is branch-protected (PR + a
+# required `build` check), so this commits the report the same way
+# growth-snapshot.yml / social-poster.yml do: a throwaway branch + an
+# auto-merging PR opened with SOCIAL_POSTER_PAT (a real user's fine-grained
+# PAT). The built-in GITHUB_TOKEN deliberately cannot trigger `build` on a PR
+# it opens, so a token-opened PR would never merge — the PAT does not have that
+# restriction. The report path docs/audits/engine/** is already in
+# auto-merge-content.yml's allowlist, and this workflow also arms --auto itself.
+name: cie-scan
+on:
+  schedule:
+    - cron: "9 9 * * 0,3"
+  workflow_dispatch:
+
+concurrency:
+  group: cie-scan
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # Checkout with the PAT so the report PR below is opened as a real user
+      # and therefore triggers the required `build` check (see header).
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - run: npm ci
+
+      # Deterministic detection + ticket filing. `all --create` writes
+      # docs/audits/engine/<date>-cie-run.md (stamped source=all + a cie-filing
+      # verdict, both of which watchdog.yml's Karen check requires) and files
+      # every finding as a GitHub issue, deduped against existing tickets by
+      # fingerprint. Filed as github-actions[bot] via the built-in token —
+      # least privilege, issues:write only.
+      - name: Run CIE deterministic scan + file tickets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/content-engine/run.mjs all --no-images --create
+
+      # Commit the report via a PAT-opened auto-merging PR (main is protected).
+      - name: Commit run report (via PR — main is branch-protected)
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Scope the add to the report only — never the transient .findings/
+          # scan artifacts run.mjs also writes.
+          git add docs/audits/engine
+          if git diff --cached --quiet; then
+            echo "No new CIE report to commit (unexpected — all --create always writes today's report)."
+            exit 0
+          fi
+          STAMP=$(date -u +%Y%m%d%H%M%S)
+          BRANCH="cie-scan/${STAMP}"
+          git checkout -b "$BRANCH"
+          git commit -m "cie: deterministic scan report $(date -u +%Y-%m-%d) (automated)"
+          git push origin "$BRANCH"
+          gh pr create --title "cie: scan report $(date -u +%Y-%m-%d)" \
+            --body "Automated deterministic Content Integrity Engine run (\`run.mjs all --no-images --create\`). Findings filed as tickets; this PR carries only the run report. No content decisions are made here." \
+            --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --squash --auto --delete-branch
