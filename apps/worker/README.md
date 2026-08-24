@@ -1,8 +1,8 @@
 # @swift2/worker — News/Current pipeline (V2, issue #468)
 
-One-shot: ingest → cluster/dedupe → classify/rank → verify → store. Run once,
-exit — no resident process. Scheduled hourly by
-`.github/workflows/news-worker.yml`.
+One-shot: ingest → cluster/dedupe → classify/rank → verify → store → extract/
+screen/write (Current tier). Run once, exit — no resident process. Scheduled
+by `.github/workflows/news-worker.yml`.
 
 Full design: `docs/proposals/2026-07-07-news-pipeline-architecture.md`.
 What's actually decided vs. still open: `docs/decisions.md`, 2026-07-18 entry
@@ -20,9 +20,18 @@ npm run news --workspace @swift2/worker
 - `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` — this project's existing
   Supabase project, a different credential shape than `SUPABASE_DB_URL`
   (which the `db:migrate`/`db:seed:*` scripts already use via `pg` directly).
-- `OPENAI_API_KEY` — optional. Unset means the pipeline runs entirely on the
-  deterministic rule-based classifier — that's the expected state today; no
-  key has been provisioned yet (founder TX item).
+- `OPENAI_API_KEY` — optional. Unset means the classify stage runs entirely on
+  the deterministic rule-based classifier.
+- `ANTHROPIC_API_KEY` — optional, extract stage only (`src/extract/`). Set as
+  a repo secret (`HUMAN-ACTIONS.md` #13, DONE) but **not yet added to
+  `news-worker.yml`'s env block** — PLAN.md Stage 3 shipped the extract
+  code complete but deliberately left the workflow file untouched (that's a
+  later stage's job, alongside the `knowledge-engine.yml` rename). Until that
+  env var is wired through, scheduled runs skip the extract stage the same
+  way they'd skip classify with no `OPENAI_API_KEY`: unset means null,
+  cluster stays unextracted, retried next cycle — the designed degraded-but-
+  functional path, not an error. Works locally today if you set it in
+  `apps/worker/.env`.
 
 ## What ships in this pass
 
@@ -47,6 +56,16 @@ npm run news --workspace @swift2/worker
   ingest and re-tiered from `packages/shared/src/news/outlet-tiers.ts`'s
   domain→tier map (`src/sources/resolve-google-news.ts`); unresolved items
   stay `unverified`.
+- Extract stage (`src/extract/`, PLAN.md Stage 3): one Haiku 4.5 call per new
+  cluster (`news_story.extracted_at is null`), forced `record_knowledge` tool
+  call, screened through `packages/shared/src/redline.ts`'s `screenTopic()`,
+  written to `current_item`/`fan_signal`/`live_theory` (theory-match dedup:
+  name similarity + symbol overlap ≥0.5), projected into
+  `knowledge_doc tier='current'`. Capped at 150 calls/run, 600/day
+  (`usage_daily(scope='extract')`) — over cap defers the cluster to next run,
+  never drops it. Run-summary poster (`scripts/knowledge-engine/
+  run-summary.mjs`) exists but isn't called by the workflow yet (see
+  `ANTHROPIC_API_KEY` note above).
 
 ## What's explicitly NOT in this pass (see the architecture proposal §9)
 

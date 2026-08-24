@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
-import { ERAS, erasBackFrom, isFirstEra, getEra, jumpWindow } from '@/lib/longlive/eras';
+import { ERAS, erasBackFrom, isFirstEra, getEra, jumpWindow, CURRENT_ERA_ID } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import type { Era } from '@/lib/longlive/types';
 import { EraSection } from './EraSection';
@@ -12,6 +12,7 @@ import { LandingMasthead } from './LandingMasthead';
 import { filterChangeScrollDelta } from '@/lib/longlive/era-stream-pin';
 import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
 import { jumpLandingScrollTop, shouldRunEraJump } from '@/lib/longlive/era-jump-landing';
+import { useCurrentItems } from '@/lib/longlive/use-current-items';
 
 /**
  * Jump-scroll timing. SETTLE is how long we keep re-correcting AFTER first
@@ -39,6 +40,10 @@ export function EraStream() {
   const scrubbingRef = useRef(scrubbing);
   scrubbingRef.current = scrubbing;
   const { setActiveEra, saveEraScroll, getEraScroll, setMode } = useAppActions();
+  // PLAN.md Stage 5: the current era's live current_item rows, fetched once
+  // here (not per EraSection) so the masthead's "Updated Nh ago" line and
+  // the current era's feed entries read the exact same fetch.
+  const currentItems = useCurrentItems(CURRENT_ERA_ID);
 
   // If the user is returning to era mode via a plain toggle, a saved snapshot
   // tells us where they were. Read it once at first render so the stream mounts
@@ -335,13 +340,14 @@ export function EraStream() {
             // 'era' is a no-op: the stream IS the era surface already.
             if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
           }}
+          currentItems={currentItems}
         />
       </header>
       <FilterBar />
       {sequence.map((era, i) => (
         <Fragment key={era.id}>
           {i > 0 && <EraTransition from={sequence[i - 1]} to={era} />}
-          <EraSection era={era} />
+          <EraSection era={era} currentItems={era.id === CURRENT_ERA_ID ? currentItems : undefined} />
         </Fragment>
       ))}
 

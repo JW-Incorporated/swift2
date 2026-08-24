@@ -73,10 +73,17 @@ export function filterForThread(id: LensId): FilterId {
  * `filterForThread`; an egg doorway is always Lore (theories & eggs are lore,
  * full stop — no per-theory topic exists to read one from).
  *
- * `EraFeedEntry` is the four-kind union (`moment` | `video` | `thread` |
- * `egg`). The `never` check below is the safety net step 13 relies on: it
- * turns any future widening of the union into a compile error here rather
- * than a silent fallthrough that would leave a new kind unfiltered.
+ * `current` (PLAN.md Stage 5): a live `current_item` row carries its own
+ * `tags` (the migration's own comment: "the 5 ContentTags; drives
+ * FilterBar") — filtered against `ALL_FILTERS` defensively, since that
+ * column is DB-sourced (worker-written, not authored here) rather than
+ * typed as `ContentTag[]` at the source.
+ *
+ * `EraFeedEntry` is the five-kind union (`moment` | `video` | `thread` |
+ * `egg` | `current`). The `never` check below is the safety net step 13
+ * relies on: it turns any future widening of the union into a compile error
+ * here rather than a silent fallthrough that would leave a new kind
+ * unfiltered.
  */
 export function filtersForEntry(
   entry: EraFeedEntry,
@@ -96,6 +103,10 @@ export function filtersForEntry(
       return [filterForThread(entry.doorway.threadId)];
     case 'egg':
       return ['Lore'];
+    case 'current': {
+      const known = new Set<FilterId>(ALL_FILTERS);
+      return entry.item.tags.filter((t): t is FilterId => known.has(t as FilterId));
+    }
     default: {
       const exhaustive: never = entry;
       return exhaustive;

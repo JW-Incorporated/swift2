@@ -21,7 +21,7 @@ describe('apiUsageDailyDb', () => {
     const usageDb = apiUsageDailyDb(db, 'gnews');
     const count = await usageDb.todaysCallCount();
     expect(count).toBe(42);
-    expect(db.from).toHaveBeenCalledWith('api_usage_daily');
+    expect(db.from).toHaveBeenCalledWith('usage_daily');
     expect(db.eq1).toHaveBeenCalledWith('scope', 'gnews');
   });
 
@@ -35,14 +35,14 @@ describe('apiUsageDailyDb', () => {
     const db = fakeSupabase(0);
     const usageDb = apiUsageDailyDb(db, 'gnews');
     await usageDb.incrementToday();
-    expect(db.rpc).toHaveBeenCalledWith('increment_api_usage_daily', { p_scope: 'gnews' });
+    expect(db.rpc).toHaveBeenCalledWith('increment_usage_daily', { p_scope: 'gnews' });
   });
 
   it('a different scope stays isolated from another scope\'s counter', async () => {
     const db = fakeSupabase(5);
     await apiUsageDailyDb(db, 'gnews').incrementToday();
     await apiUsageDailyDb(db, 'some-other-vendor').incrementToday();
-    expect(db.rpc).toHaveBeenNthCalledWith(1, 'increment_api_usage_daily', { p_scope: 'gnews' });
-    expect(db.rpc).toHaveBeenNthCalledWith(2, 'increment_api_usage_daily', { p_scope: 'some-other-vendor' });
+    expect(db.rpc).toHaveBeenNthCalledWith(1, 'increment_usage_daily', { p_scope: 'gnews' });
+    expect(db.rpc).toHaveBeenNthCalledWith(2, 'increment_usage_daily', { p_scope: 'some-other-vendor' });
   });
 });

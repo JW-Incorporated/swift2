@@ -95,6 +95,9 @@ export interface CurrentItem {
   lastCheckedOn: string;
   /** ISO 8601 timestamp. */
   expiresAt: string;
+  /** ISO 8601 timestamp — ingest/edit recency; drives the site's "Updated
+   * Nh ago" masthead line (PLAN.md Stage 5). */
+  updatedAt: string;
   redlineOk: boolean;
 }
 
@@ -222,4 +225,13 @@ export interface KnowledgeDoc {
   /** ISO 8601 timestamp, when applicable. */
   expiresAt?: string;
   redlineOk: boolean;
+}
+
+/** One week's activity count for a symbol — `symbol_activity` materialized
+ * view (PLAN.md Stage 9's `symbolActivity(symbol)` retrieval). */
+export interface SymbolActivity {
+  symbol: string;
+  /** ISO date (YYYY-MM-DD) — the week's start (`date_trunc('week', ...)`). */
+  week: string;
+  n: number;
 }
