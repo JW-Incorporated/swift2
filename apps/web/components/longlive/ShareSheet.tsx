@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
+import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import Image from 'next/image';
 import { X, Check, Copy, Share2 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
@@ -32,8 +33,10 @@ export function ShareSheet() {
   const { share } = useAppState();
   const { closeShare } = useAppActions();
   const [copied, setCopied] = useState(false);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   useScrollLock(Boolean(share));
+  useFocusTrap(Boolean(share), dialogRef);
 
   useEffect(() => {
     setCopied(false);
@@ -190,6 +193,8 @@ export function ShareSheet() {
       onClick={closeShare}
     >
       <div
+        ref={dialogRef}
+        tabIndex={-1}
         className="w-full max-w-sm"
         onClick={(e) => e.stopPropagation()}
         style={eraStyle(era)}

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
+import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import Image from 'next/image';
 import { X, Share2, Sparkles } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
@@ -33,6 +34,7 @@ export function TheoryGuide() {
   const era = theoryGuideEraId ? getEra(theoryGuideEraId) : undefined;
   const theories = theoryGuideEraId ? theoriesForEra(theoryGuideEraId) : [];
   const open = Boolean(era && theories.length > 0);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   // Knowledge-engine Stage 7: `live_theory` has no `era_id` to filter by
   // server-side, so only the current era's guide fetches it — every other
@@ -50,6 +52,7 @@ export function TheoryGuide() {
   );
 
   useScrollLock(open);
+  useFocusTrap(open, dialogRef);
 
   // Close on Escape — unless the share sheet is layered on top; that overlay
   // owns Escape until it closes itself.
@@ -99,6 +102,8 @@ export function TheoryGuide() {
 
   return (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
       style={eraStyle(era)}
       role="dialog"
