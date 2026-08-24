@@ -8,12 +8,14 @@
  * it must call `record_take`. Three HARD caps, enforced in control flow, not
  * left to the prompt:
  *   - `AGENT_MAX_TOOL_CALLS` tool calls, `record_take` included (Codex
- *     review BLOCKER 1). Enforced BOTH between rounds (the next call's
- *     `tool_choice` is forced to `record_take` once the cap is reached) AND
- *     WITHIN a round: a single response can legally contain many
- *     simultaneous `tool_use` blocks, so any block beyond the remaining
- *     budget is never dispatched and never added back into the
- *     conversation — the model is credited only for what actually ran.
+ *     review BLOCKER 1). Enforced BOTH between rounds (the READ budget is
+ *     one slot short of the cap, so the call that would otherwise be the
+ *     cap-th read is forced to `record_take` instead — total tool calls
+ *     never exceed the cap, not cap + 1) AND WITHIN a round: a single
+ *     response can legally contain many simultaneous `tool_use` blocks, so
+ *     any block beyond the remaining budget is never dispatched and never
+ *     added back into the conversation — the model is credited only for
+ *     what actually ran.
  *   - `AGENT_MAX_WALL_MS` of cumulative wall time off a SINGLE deadline
  *     (Codex review BLOCKER 2) shared with the route's pre-loop scope
  *     search, via an `AbortSignal` threaded through every async call in
@@ -24,7 +26,10 @@
  *     not an estimate. Checked WITH a headroom margin (Codex review
  *     BLOCKER 3): the loop forces `record_take` once spent-so-far plus one
  *     more call's worst-case output would already meet the cap, not only
- *     after a round has already blown past it.
+ *     after a round has already blown past it. If spend is already AT or
+ *     OVER the cap outright (not just tight), no further call is made at
+ *     all — unlike a tool-call count, a token overshoot already happened and
+ *     can't be bounded after the fact by forcing one more call.
  * Once any cap is hit, the NEXT call's `tool_choice` is forced to
  * `record_take` — the model gets one last chance to commit with whatever it
  * has gathered.
@@ -47,16 +52,15 @@ import { CLOWN_READ_TOOLS, CLOWN_SYSTEM_PROMPT, CLOWN_TAKE_TOOL } from './clown-
 import type { ClownUsage } from './clown-usage';
 import type { InvestigationStep } from './clown-answer';
 import type { RetrievedItem } from './clown-fallback';
+import type { ToolCallResult } from './clown-agent-tools';
 import {
-  toolChatter,
-  toolDateMath,
-  toolPrecedents,
-  toolRecent,
-  toolSearch,
-  toolSymbolActivity,
-  toolTrack,
-  type ToolCallResult,
-} from './clown-agent-tools';
+  buildInitialMessages,
+  executeReadTool,
+  extractToolUseBlocks,
+  formatToolResultForPrompt,
+  type AgentContentBlock,
+  type AgentMessage,
+} from './clown-agent-prompt';
 
 /** Thinking OFF — same rationale as `clown-client.ts`'s own `THINKING`
  * constant (not exported from there, so redeclared here rather than adding
@@ -88,154 +92,12 @@ export interface AgentRunResult {
   pool: Map<string, RetrievedItem>;
 }
 
-interface AgentContentBlock {
-  type: 'text' | 'tool_use' | 'tool_result';
-  text?: string;
-  id?: string;
-  name?: string;
-  input?: unknown;
-  tool_use_id?: string;
-  content?: string;
-}
-
-interface AgentMessage {
-  role: 'user' | 'assistant';
-  content: string | AgentContentBlock[];
-}
-
 function degraded(investigation: InvestigationStep[], pool: Map<string, RetrievedItem>): AgentRunResult {
   return { take: null, investigation, pool };
 }
 
 function addToPool(pool: Map<string, RetrievedItem>, items: readonly RetrievedItem[]): void {
   for (const item of items) pool.set(item.id, item);
-}
-
-/** Shared item formatter for both the seed context and every subsequent
- * `tool_result` (Codex review MAJOR 8) — without this, the loop's later
- * rounds sent back only a count-style summary, never the actual retrieved
- * data, so the model had nothing real to cite or reason from after the
- * seed search. */
-function formatItemsForPrompt(items: readonly RetrievedItem[]): string {
-  return items
-    .slice(0, 8)
-    .map((item) => `[${item.id}] (${item.date}) ${item.headline} — ${item.detail.replace(/\s+/g, ' ').trim().slice(0, 240)}`)
-    .join('\n');
-}
-
-function formatSeedForPrompt(seed: ToolCallResult): string {
-  if (seed.items.length === 0) return '(no results)';
-  return formatItemsForPrompt(seed.items);
-}
-
-/** Every subsequent read-tool's `tool_result` content — the actual
- * retrieved data (id/date/headline/detail, truncated), not just the
- * one-line summary already shown in the investigation trail. Tools that
- * never add to the citable pool (`symbol_activity`, `date_math`) have no
- * items to append, so this degrades to the summary alone for those. */
-function formatToolResultForPrompt(result: ToolCallResult): string {
-  if (result.items.length === 0) return result.summary;
-  return [result.summary, formatItemsForPrompt(result.items)].join('\n');
-}
-
-function buildSeedText(text: string, seed: ToolCallResult): string {
-  return [
-    'AN INITIAL SEARCH HAS ALREADY RUN FOR YOU (does not count against your investigation budget):',
-    formatSeedForPrompt(seed),
-    '',
-    'You may call more tools before committing (precedents/recent/chatter/symbol_activity/track/date_math, or search again). Cite ONLY ids exactly as written, from something you have actually seen in a tool result — never invent one.',
-    '',
-    'READER SAID:',
-    text,
-  ].join('\n');
-}
-
-function buildInitialMessages(transcript: readonly ClownTurn[], seed: ToolCallResult): AgentMessage[] {
-  const lastIndex = transcript.length - 1;
-  return transcript.map((turn, i) => ({
-    role: turn.role,
-    content: i === lastIndex ? buildSeedText(turn.text, seed) : turn.text,
-  }));
-}
-
-function str(value: unknown, max: number): string {
-  if (typeof value !== 'string') return '';
-  return value.replace(/\s+/g, ' ').trim().slice(0, max);
-}
-
-function num(value: unknown, fallback: number, min: number, max: number): number {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return fallback;
-  return Math.min(max, Math.max(min, Math.round(n)));
-}
-
-interface ToolDispatch {
-  input: Record<string, unknown>;
-  result: ToolCallResult;
-}
-
-/** Never trusts the model's tool input shape — same discipline as
- * `sanitizeTake`. Returns `null` for an unrecognised tool or a missing
- * required argument; the caller reports that honestly in the tool_result
- * rather than silently skipping the call (still counts against budget —
- * a model that keeps calling badly-shaped tools must not evade the cap). */
-async function executeReadTool(name: string, rawInput: unknown, signal?: AbortSignal): Promise<ToolDispatch | null> {
-  const p = (rawInput ?? {}) as Record<string, unknown>;
-  switch (name) {
-    case 'search': {
-      const query = str(p.query, 200);
-      if (!query) return null;
-      return { input: { query }, result: await toolSearch(query, signal) };
-    }
-    case 'precedents': {
-      const symbol = str(p.symbol, 100);
-      if (!symbol) return null;
-      return { input: { symbol }, result: await toolPrecedents(symbol, signal) };
-    }
-    case 'recent': {
-      const days = num(p.days, 7, 1, 90);
-      return { input: { days }, result: await toolRecent(days, signal) };
-    }
-    case 'chatter': {
-      const topic = str(p.topic, 100);
-      if (!topic) return null;
-      return { input: { topic }, result: await toolChatter(topic, signal) };
-    }
-    case 'symbol_activity': {
-      const symbol = str(p.symbol, 100);
-      if (!symbol) return null;
-      return { input: { symbol }, result: await toolSymbolActivity(symbol, signal) };
-    }
-    case 'track': {
-      const title = str(p.title, 200);
-      if (!title) return null;
-      return { input: { title }, result: await toolTrack(title, signal) };
-    }
-    case 'date_math': {
-      const phrase = str(p.phrase, 50);
-      if (!phrase) return null;
-      return { input: { phrase }, result: await toolDateMath(phrase) };
-    }
-    default:
-      return null;
-  }
-}
-
-interface RawToolUseBlock {
-  id: string;
-  name: string;
-  input: unknown;
-}
-
-function extractToolUseBlocks(raw: unknown): RawToolUseBlock[] {
-  const content = (raw as { content?: unknown })?.content;
-  if (!Array.isArray(content)) return [];
-  return content
-    .filter(
-      (b): b is { type: 'tool_use'; id: string; name: string; input: unknown } =>
-        Boolean(b) && typeof b === 'object' && (b as { type?: string }).type === 'tool_use',
-    )
-    .map((b) => ({ id: b.id, name: b.name, input: b.input }));
 }
 
 /**
@@ -292,6 +154,14 @@ export async function runClownAgent(
     // here with nothing more to do.
     if (signal?.aborted) return degraded(investigation, pool);
 
+    // Combined six-call/token gate (DEBUG.md third-pass hypothesis), computed
+    // BEFORE this call is requested rather than accounted for after it
+    // returns: once the token budget is already spent outright (not merely
+    // tight), there is no way to bound an unplanned overshoot the way a
+    // tool-call count can be — so that case gets NO further model call at
+    // all, full stop, rather than one more forced attempt.
+    if (tokenTotal >= AGENT_MAX_TOKENS) return degraded(investigation, pool);
+
     // Clamped at 0, never negative — once wall time is already spent this
     // still lets the model attempt ONE forced `record_take` call (the "one
     // last chance to commit" the module is built around) rather than
@@ -303,13 +173,19 @@ export async function runClownAgent(
     // moment its deadline timer fires, independent of this arithmetic.
     const remainingWallMs = Math.max(0, AGENT_MAX_WALL_MS - (clock() - startedAt));
 
-    // Headroom margin (Codex review BLOCKER 3): force `record_take` once
-    // spent-so-far plus one more call's worst-case output would already
+    // Six-call cap: `record_take` is itself one of the `AGENT_MAX_TOOL_CALLS`
+    // tool calls, never an extra one on top of it — so the READ budget this
+    // check gates is one slot short of the cap. The call that would
+    // otherwise be the cap-th READ call is forced to `record_take` instead,
+    // keeping the total (reads + take) at exactly the cap, never cap + 1.
+    const sixCallBudgetReached = toolCallCount >= AGENT_MAX_TOOL_CALLS - 1;
+    // Token headroom margin (Codex review BLOCKER 3): force `record_take`
+    // once spent-so-far plus one more call's worst-case output would already
     // meet the token cap, not only once a round has already blown past it
     // — `tokenTotal` alone being under the cap does not mean another full
     // round safely fits under it.
-    const tokenBudgetExhausted = tokenTotal + MAX_TOKENS >= AGENT_MAX_TOKENS;
-    const capsExhausted = toolCallCount >= AGENT_MAX_TOOL_CALLS || tokenBudgetExhausted || remainingWallMs <= 0;
+    const tokenHeadroomExhausted = tokenTotal + MAX_TOKENS >= AGENT_MAX_TOKENS;
+    const capsExhausted = sixCallBudgetReached || tokenHeadroomExhausted || remainingWallMs <= 0;
     const toolChoice = capsExhausted ? ({ type: 'tool', name: CLOWN_TAKE_TOOL.name } as const) : ({ type: 'auto' } as const);
 
     let response;

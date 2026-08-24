@@ -189,6 +189,16 @@ describe('hasRelevantTopic — recency language never substitutes for a real mat
   it('a recency-phrased query DOES resolve when it also names something real', () => {
     expect(hasRelevantTopic('any fresh rumor this week', CORPUS)).toBe(true);
   });
+
+  it('"today" lexically colliding with a real Vault track title ("Today Was a Fairytale…") still does not resolve scope, against the real corpus (DEBUG.md third-pass repro)', () => {
+    // The synthetic CORPUS above never reproduced this — none of its docs
+    // are titled with a recency word. The real Vault corpus has a moment
+    // literally titled "Today Was a Fairytale breaks a download record in a
+    // week", which the old plain-lexical `hasRelevantTopic` scored as an
+    // exact title-word hit (score 12, threshold 8) purely off "today" — a
+    // temporal word, not a real topic word for this query.
+    expect(hasRelevantTopic('what should I cook today', allClownDocs())).toBe(false);
+  });
 });
 
 describe('retrieveClownDocs — determinism', () => {

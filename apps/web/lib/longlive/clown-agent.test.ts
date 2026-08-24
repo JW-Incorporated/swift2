@@ -183,7 +183,7 @@ describe('read tools dispatch and feed the investigation trail + pool', () => {
 });
 
 describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
-  it(`tool-call cap: the (${AGENT_MAX_TOOL_CALLS + 1})th call is forced to record_take`, async () => {
+  it(`tool-call cap: total model calls never exceed ${AGENT_MAX_TOOL_CALLS} (record_take included, not an extra call on top)`, async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
 
@@ -193,42 +193,42 @@ describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
       call += 1;
       const body = JSON.parse(String(init.body));
       captured.push(body);
-      if (call <= AGENT_MAX_TOOL_CALLS) {
-        return toolUseResponse([{ id: `t${call}`, name: 'precedents', input: { symbol: `s${call}` } }]);
-      }
-      return toolUseResponse([takeBlock()]);
+      // A real Anthropic API honours a forced `tool_choice` — it can only
+      // return the named tool. Simulate that constraint here rather than
+      // returning read blocks regardless of what was requested.
+      if (body.tool_choice?.type === 'tool') return toolUseResponse([takeBlock()]);
+      return toolUseResponse([{ id: `t${call}`, name: 'precedents', input: { symbol: `s${call}` } }]);
     }));
 
     const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' });
-    expect(toolPrecedents).toHaveBeenCalledTimes(AGENT_MAX_TOOL_CALLS);
+    expect(call).toBeLessThanOrEqual(AGENT_MAX_TOOL_CALLS);
+    // `record_take` is one of the `AGENT_MAX_TOOL_CALLS` tool calls, not an
+    // extra one beyond it — the read budget is one slot short of the cap.
+    expect(toolPrecedents).toHaveBeenCalledTimes(AGENT_MAX_TOOL_CALLS - 1);
     expect(result.take).not.toBeNull();
-    // The call immediately after the cap is reached must be forced.
-    const forcedCallBody = captured[AGENT_MAX_TOOL_CALLS];
-    expect(forcedCallBody.tool_choice).toEqual({ type: 'tool', name: 'record_take' });
+    // The last call made is the one forced to record_take.
+    expect(captured[captured.length - 1].tool_choice).toEqual({ type: 'tool', name: 'record_take' });
   });
 
-  it('token budget cap: cumulative usage across calls forces the next call to record_take', async () => {
+  it('token budget cap: no further call is made once cumulative usage already exceeds the budget outright', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
 
-    let call = 0;
-    const captured: Record<string, unknown>[] = [];
-    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
-      call += 1;
-      const body = JSON.parse(String(init.body));
-      captured.push(body);
-      if (call === 1) {
-        // Single call already exceeds the whole budget.
-        return toolUseResponse(
-          [{ id: 't1', name: 'precedents', input: { symbol: 'a' } }],
-          { input_tokens: AGENT_MAX_TOKENS, output_tokens: 10 },
-        );
-      }
-      return toolUseResponse([takeBlock()]);
-    }));
+    // Single call already exceeds the whole budget outright, not merely
+    // insufficient headroom for one more — there is no way to bound an
+    // unplanned overshoot after the fact, so no second call may be made at
+    // all, not even a forced `record_take` one.
+    const fetchSpy = vi.fn(async () =>
+      toolUseResponse(
+        [{ id: 't1', name: 'precedents', input: { symbol: 'a' } }],
+        { input_tokens: AGENT_MAX_TOKENS, output_tokens: 10 },
+      ),
+    );
+    vi.stubGlobal('fetch', fetchSpy);
 
-    await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' });
-    expect(captured[1].tool_choice).toEqual({ type: 'tool', name: 'record_take' });
+    const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' });
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(result.take).toBeNull();
   });
 
   it('wall-clock cap: an injected clock past the ceiling forces the next call to record_take', async () => {
