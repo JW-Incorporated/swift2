@@ -32,3 +32,26 @@ describe('FeedbackButton — re-review finding G (dismissed state flashed back o
     expect(src).not.toMatch(/const \[dismissed, setDismissed\] = useState\(readDismissed\(\)\)/);
   });
 });
+
+describe('FeedbackButton — #835 (outcomes silent to screen readers)', () => {
+  it('wraps the submit outcome in a persistent live region', () => {
+    expect(src).toContain('role="status"');
+    expect(src).toContain('aria-live="polite"');
+    // The region itself has to stay mounted across the status swap — it
+    // can't be inside the ternary it wraps.
+    const liveRegionAt = src.indexOf('role="status"');
+    const ternaryAt = src.indexOf("status === 'sent' ?");
+    expect(liveRegionAt).toBeGreaterThan(-1);
+    expect(liveRegionAt).toBeLessThan(ternaryAt);
+  });
+
+  it('gives the error message its own assertive role', () => {
+    expect(src).toMatch(/role="alert"[\s\S]{0,40}className="mt-2 text-xs text-red-400"/);
+  });
+
+  it('gives the textarea a real accessible name, not just a placeholder', () => {
+    expect(src).toContain('Describe the issue');
+    expect(src).toMatch(/<label htmlFor=\{textareaId\}/);
+    expect(src).toMatch(/<textarea\s+id=\{textareaId\}/);
+  });
+});

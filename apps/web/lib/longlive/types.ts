@@ -206,6 +206,10 @@ export interface EraTheme {
   accent2: string;
   glow: string;
   font: EraFont;
+  /** Accent color for small text (<18px), where `accent` alone can't reach
+   *  WCAG AA's 4.5:1 against `surface`/`bg` — set only on themes that need
+   *  it; falls back to `accent` (#659). */
+  accentText?: string;
 }
 
 /**
