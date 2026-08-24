@@ -108,6 +108,59 @@ describe('scanContent — server execution markers', () => {
   });
 });
 
+describe('scanContent — destructured process.env reads (#3180)', () => {
+  it('flags a destructure of a secret-shaped name', () => {
+    expect(scanContent('const { ANTHROPIC_API_KEY } = process.env;').length).toBeGreaterThan(0);
+  });
+
+  it('flags a destructure UNCONDITIONALLY, even a non-secret-shaped name', () => {
+    // Per #3180: naming a variable in a way that doesn't look like a secret
+    // is still suspicious via this path, so it is flagged regardless.
+    expect(scanContent('const { NODE_ENV } = process.env;').length).toBeGreaterThan(0);
+  });
+
+  it('flags let/var destructures too, and across multiple lines', () => {
+    expect(scanContent('let { FOO } = process.env;').length).toBeGreaterThan(0);
+    expect(scanContent('var { FOO } = process.env;').length).toBeGreaterThan(0);
+    expect(scanContent('const {\n  FOO,\n  BAR,\n} = process.env;').length).toBeGreaterThan(0);
+  });
+
+  it('does NOT flag an unrelated destructure', () => {
+    expect(scanContent('const { a, b } = someOtherObject;')).toEqual([]);
+  });
+});
+
+describe('scanContent — process.env read via an import alias (#3180)', () => {
+  it('flags a secret-shaped name read through an aliased `env` import', () => {
+    const content = "import { env } from 'node:process';\nconst k = env.ANTHROPIC_API_KEY;";
+    expect(scanContent(content).length).toBeGreaterThan(0);
+  });
+
+  it('flags a secret-shaped name read through a renamed alias', () => {
+    const content = "import { env as nodeEnv } from 'node:process';\nconst k = nodeEnv.SUPABASE_SERVICE_ROLE_KEY;";
+    expect(scanContent(content).length).toBeGreaterThan(0);
+  });
+
+  it('flags a bracket-form read through the alias', () => {
+    const content = "import { env } from 'process';\nconst k = env['X_API_KEY'];";
+    expect(scanContent(content).length).toBeGreaterThan(0);
+  });
+
+  it('flags a destructure off the aliased import, unconditionally', () => {
+    const content = "import { env } from 'node:process';\nconst { NODE_ENV } = env;";
+    expect(scanContent(content).length).toBeGreaterThan(0);
+  });
+
+  it('does NOT flag the import alone, or a non-secret member read off it', () => {
+    expect(scanContent("import { env } from 'node:process';")).toEqual([]);
+    expect(scanContent("import { env } from 'node:process';\nconst u = env.NEXT_PUBLIC_SUPABASE_URL;")).toEqual([]);
+  });
+
+  it('does NOT flag an unrelated `env` identifier that was never imported from process', () => {
+    expect(scanContent('const env = getSomeConfig();\nconst k = env.ANTHROPIC_API_KEY;')).toEqual([]);
+  });
+});
+
 describe('scanFile / scanFiles', () => {
   it('a pure view component and a client-safe lib module are clear', () => {
     expect(scanFile({ path: 'apps/web/components/longlive/Foo.tsx', content: 'export const Foo = () => null;' })).toEqual([]);
