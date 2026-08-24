@@ -19,6 +19,61 @@ a session will make the edit for you.
 
 ## OPEN
 
+### 14. [BLOCKING] No `apps/worker/.env` in the knowledge-engine migration worktree — pgvector untested, migration unverified against prod
+
+**Why it matters:** Stage 2 of the knowledge-engine build (`PLAN.md`) asked me
+to test `create extension vector` against the real Supabase project first,
+then apply `supabase/migrations/20260901000000_knowledge_engine.sql` with
+`npm run db:migrate` and verify it's idempotent by running it twice — against
+production. `apps/worker/.env` (the file holding `SUPABASE_DB_URL`) does not
+exist anywhere in this worktree (`%TEMP%\claude-worktrees\
+knowledge-engine-02-migration`), and `SUPABASE_DB_URL` isn't set as an
+ambient environment variable either — I checked both. `git worktree add`
+only copies git-tracked files; `apps/worker/.env` is gitignored, so it never
+existed here even though it's presumably present in your main checkout. The
+guard also correctly denies me from reading/copying a real `.env` file
+directly, so I can't self-serve this even if the file were reachable.
+
+**What I did instead, so this doesn't block the whole stage (per my
+instructions):** wrote the full migration SQL, WITHOUT the proposal's
+`embedding vector(1024)` column / `hnsw` index (safe default — matches the
+already-ratified stance in `docs/decisions.md` 2026-08-23 that the embedding
+column stays effectively unused until a vendor is picked anyway). Verified
+the migration's SQL is syntactically correct and genuinely idempotent by
+running it twice against a real (ephemeral, local, NOT production)
+Postgres via the `embedded-postgres` package — same mechanism
+`scripts/backup-restore-test.mjs --cluster ephemeral` already uses in this
+repo. Both passes applied clean. I also probed `create extension vector` on
+that same local Postgres: **not available** there (the embedded distribution
+doesn't ship the extension's binary) — this does NOT tell us whether
+pgvector is available on the actual Supabase project; Supabase almost always
+ships it, but per `PLAN.md`'s own ground-truth note this was explicitly
+supposed to be verified, not assumed, and I have no way to verify it without
+the real credential.
+
+**Steps:**
+1. Either run `npm run db:migrate` yourself from a checkout that has
+   `apps/worker/.env` (this PR's branch, once merged, or checked out
+   locally) — the migration is ready to apply as-is — or hand a session
+   `apps/worker/.env` in a worktree that needs DB access (copying a
+   gitignored env file between your own checkouts isn't a secret leak, just
+   a step no session can do to itself under the current guard).
+2. While you're at it: `psql "$SUPABASE_DB_URL" -c "create extension if not
+   exists vector;"` (or let a session with the env file run it) tells us
+   definitively whether pgvector is available on this project's plan tier.
+   If it works, a fast-follow migration can add `knowledge_doc.embedding
+   vector(1024)` + the `hnsw` index — retrieval stays FTS-only until then,
+   which was already the plan pending an embedding vendor pick anyway
+   (`HUMAN-ACTIONS.md` #12 item 2).
+
+**Worked if:** `npm run db:migrate` (with `apps/worker/.env` present) applies
+`20260901000000_knowledge_engine.sql` cleanly against production, and running
+it a second time is a clean no-op (no errors, no duplicate objects).
+
+**Status:** OPEN
+
+---
+
 ### 11. [UPGRADE] Six stale duplicate routines from a July handoff — ~5 min
 
 **Why it matters:** your account already had 6 disabled routines from an
