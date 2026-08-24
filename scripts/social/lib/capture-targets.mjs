@@ -10,6 +10,11 @@ export const VIEWPORTS = {
   // needing a real high-DPI display.
   mobile: { width: 390, height: 844, deviceScaleFactor: 2 },
   desktop: { width: 1280, height: 800, deviceScaleFactor: 2 },
+  // Instagram-portrait feed frame: 540x675 CSS @2x -> exactly 1080x1350, a
+  // 4:5 ratio (0.8) that sits at the safe edge of Instagram's accepted
+  // 0.8-1.91 window. The `mobile` preset's 390x844 (ratio 0.462) is rejected
+  // by Instagram outright — this is the preset to capture IG feed images with.
+  'ig-portrait': { width: 540, height: 675, deviceScaleFactor: 2 },
 };
 
 /**
