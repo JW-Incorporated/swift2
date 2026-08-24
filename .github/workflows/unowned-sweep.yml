@@ -46,13 +46,13 @@ jobs:
   sweep:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # 24, not 22: the steps below pass `--use-env-proxy` (#2008), which only
       # exists on Node >= 24. Node does not ignore an unknown CLI flag — it
       # exits 9 with `bad option` before running the script — so on 22 both
       # steps below would fail outright. 24 also matches package.json engines.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
 

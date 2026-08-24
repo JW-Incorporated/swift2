@@ -13,6 +13,51 @@ its owner; the prompt each runner executes is versioned in
 `runner-prompts/` — **the repo file is the source of truth**, and a trigger
 whose inline prompt drifts from its file is a bug.
 
+## Live trigger IDs (verified 2026-08-23, post-migration #2258)
+
+**This table supersedes every trigger ID quoted elsewhere in this file.**
+Everything below it is the historical record of how the fleet got here — real,
+but describing IDs from before the routine migration (issue #2258, all 23
+routines recreated after the prior account's routines were lost). Read via
+`RemoteTrigger action:list` (confirmed broken cursor pagination — it repeats
+page 1 forever, so the API alone under-counts) cross-checked against the
+`claude.ai/code/routines` UI, which is authoritative. All UTC. Model column
+is from a live `get` where fetched this pass; elsewhere see the Model
+tiering table below (not re-verified per-trigger this pass — flag if it
+drifts).
+
+| Routine | Trigger ID | Cadence (UTC) | Enabled | Model |
+|---|---|---|---|---|
+| Photo Enrichment worker | `trig_01Srp9aSCWFAtt7AtL4avpLY` | `21 6 * * *` | ✅ | — |
+| News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ✅ | — |
+| Cross-Link builder | `trig_01FxMuDtwScPFvSgvhFCxdfP` | `51 9 * * 1,4` | ✅ | — |
+| Stylist — shop-link sourcing & upkeep | `trig_011BiHZqLEVHAJ4chfaYfGZH` | `33 16 * * 0` | ✅ | — |
+| Rumor Desk — sourcing & lifecycle | `trig_01GS6bcMsEQjXwmyxGr7S1js` | `47 14 */2 * *` | ✅ | — |
+| Lex depth (sole instance) | `trig_01BoVCT67VbeLE8sRiaYPju4` | `20 */2 * * *` | ⛔ **disabled** (warm spare, intentional) | — |
+| Answerer (sole instance) | `trig_016hygyYPEV9T7BunnTHAWbZ` | `50 13 * * *` | ✅ | — |
+| Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ✅ | Opus |
+| Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ✅ | — |
+| Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ✅ | — |
+| Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * *` | ✅ | — |
+| Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ✅ | — |
+| Nils — daily site walk | `trig_01WhgsVQFKMRGw2tfRg3i2rB` | `0 14 * * 0` | ✅ | — |
+| Kevin — S3 comment radar (cloud) | `trig_01LaSLx4qzbsz68E6uRLkyDd` | `23 1,13 * * *` | ✅ | — |
+| Kevin — S3 eng triage (cloud) | `trig_01BRmPqZkLEcYKZhYPjypGMJ` | `43 15 * * *` | ✅ | — |
+| Kevin — S2 user-feedback digest (cloud) | `trig_0136mXcpmzn6mYtYoUQC3eGP` | `13 15 * * *` | ✅ | — |
+| Kevin — S1 Karen-ticket solver (cloud) | `trig_01QEvYmKcpyDJJ8ec81aBjCV` | `17 11 * * 0` | ✅ | — |
+| Karen — nightly scan | `trig_01TmYaZgnecrEp9mkeV3Gq6X` | `0 9 * * 0` | ✅ | — |
+| The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ✅ | — |
+| Content Shift — authoring runs | `trig_01PonDFeQCL4iRNzceGyAYrm` | `0 17 * * *` | ✅ | — |
+| Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ✅ | `claude-opus-4-8` |
+| Marjorie — 8 PM Evening Delta | `trig_01L2EG5veWBQwMowaykXAi6B` | `0 3 * * *` | ✅ (comment-only since 2026-08-23, not mailed — `docs/agents/marjorie.md` § Delivery) | `claude-fable-5` |
+| Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ✅ | `claude-haiku-4-5-20251001` |
+| swift2 Getty purge — GitHub GC watch | `trig_018QuJozjMr1bYMPcqgKUmvL` | `0 3,15 * * *` | ✅ (self-retiring one-shot watchdog, not part of the standing fleet — created 2026-08-15, unrelated to #2258) | `claude-sonnet-5` |
+
+**23 Swift2 routines total, 22 enabled** (Lex depth intentionally paused).
+`bedrock nightly audit` also lives in this account's routine list but is a
+different project (per `~/Projects/CLAUDE.md`'s ownership table) — excluded
+here on purpose, not missed.
+
 ## Token-burn audit + cost mode (2026-07-25, Wyatt — supersedes the sustainment table below)
 
 An audit of the LIVE routine list (not this doc) found **97 routines** where
@@ -325,7 +370,12 @@ What changed:
 > "requires gh — stop and exit loudly" text until this change. Per this doc's
 > own rule the FILE is the source of truth, so both steps are now corrected
 > there; the live trigger `trig_01KJLFZpKaFV6jDVshMrHG3E` should be re-synced
-> from the file. Not done here: live triggers are founders-only.
+> from the file. Not done here: this session runs under Joey's account and
+> `RemoteTrigger` only reaches triggers on the account whose token it holds —
+> a session on Wyatt's own account (or Wyatt himself) has to run the sync.
+> **Correction (2026-08-22): "live triggers are founders-only" was wrong** —
+> `RemoteTrigger` create/update/run works fine same-account; the only
+> genuinely UI-only step is detaching the `Claude_Code_Remote` connector.
 
 ### ⚠️ RemoteTrigger API footgun — read before editing any trigger
 
@@ -353,6 +403,10 @@ survives. Remove it from the routines UI if prompt text ever proves insufficient
   variants of "fill a missing field".
 - Apply the remaining model downgrades in the table above.
 - Register the nine unregistered runners here, each with a prompt FILE.
+  (Partial, 2026-08-23: all 23 live trigger IDs are now recorded in the
+  "Live trigger IDs" table above — the still-missing piece is a
+  `runner-prompts/*.md` file for each of the nine whose prompt exists only
+  inline in the trigger.)
 - **Note:** clearing `mcp_connections` via the RemoteTrigger API is silently
   ignored — the meta connector survives an update that sets it to `[]`. Prompt
   text is currently the only lever against self-armed check-ins; if they recur,
@@ -416,10 +470,14 @@ correct instead, that threshold should shrink back down to match.
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
 | appearance-discovery | `40 13 * * *` (GitHub Actions) | none | `.github/workflows/appearance-discovery.yml` + `scripts/appearance-discovery/` | repo | **Zero LLM (detection layer).** Polls 14 curated YouTube channel RSS feeds and files `intake` issues for new Taylor appearances; the Content Shift is the judge. No new secrets (channel RSS is keyless; only `GITHUB_TOKEN`). Runs 06:40 PT, ahead of the 10:00 PT Content Shift so fresh intake is queued. Stateless dedupe — no state file, no state PR (#2031), repo-scoped issue list only, never `/search` (#2008) |
 
-## Karen Deep — trigger config for a human to create (2026-08-11)
+## Karen Deep — trigger config to create (2026-08-11)
 
-**Not created by this change.** Live triggers are founders-only, so this is the
-exact config to paste; nothing runs until someone does.
+**Not created by this change.** Creating it requires a session (or human)
+authenticated to the target Claude account — `RemoteTrigger` create/update/run
+works fine same-account (confirmed 2026-08-22); the only genuinely UI-only step
+is detaching the `Claude_Code_Remote` connector, which the API silently
+no-ops. This is the exact config to use; nothing runs until someone with
+account access creates it.
 
 | Field | Value |
 |---|---|
@@ -485,11 +543,16 @@ real miss: claim-free narrative records are exactly where fabricated events hide
 ### Tree's routine does not exist yet — it is a Wyatt-side paste (2026-08-11)
 
 The row above is the *specification*. **No routine was created by the session
-that wrote it**, deliberately: creating cloud routines is a Wyatt-account action,
-and `routine-invariants.md`'s checklist has steps (detaching the
-`Claude_Code_Remote` connector) that can only be done in the routines UI.
+that wrote it**, deliberately: creating it requires a session authenticated to
+Wyatt's account, which the session that wrote this spec was not.
+**Correction (2026-08-22): this is not a "humans only" limitation** —
+`RemoteTrigger` create/update/run works fine same-account, confirmed against
+Joey's account the same day. The one step that genuinely is UI-only is
+`routine-invariants.md`'s connector removal (detaching `Claude_Code_Remote` —
+the API silently no-ops `mcp_connections: []`).
 
-To bring Tree live, from Wyatt's side: create a routine named
+To bring Tree live, from Wyatt's side (his account, not this repo's checkout):
+create a routine named
 `Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the
 fleet's current Opus), prompt = the **exact contents** of
 [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md), then run the

@@ -82,8 +82,8 @@ const FP_MARKER = /cie-fp:([0-9a-f]{6,64})/g;
  * One bulk read of every `cie` issue body → the set of fingerprints already on
  * the tracker.
  *
- * `complete` is the load-bearing bit. When the transport returned FEWER rows
- * than we asked for, we hold the entire `cie` history, so a miss is proof the
+ * `complete` is the load-bearing bit. When the transport reports it reached the
+ * END OF THE DATA, we hold the entire `cie` history, so a miss is proof the
  * finding was never filed — no per-fingerprint lookup needed. That matters in
  * cloud runners, where `existsByFp`'s `/search/issues` call is 403-forbidden
  * (repo-scoped sessions, #1869): without a complete prefetch, every genuinely
@@ -94,11 +94,16 @@ const FP_MARKER = /cie-fp:([0-9a-f]{6,64})/g;
  */
 export async function loadKnownFingerprints(limit = 1000) {
   try {
-    const { stdout } = await gh(['issue', 'list', '--label', PFX, '--state', 'all', '--json', 'number,body', '--limit', String(limit)]);
-    const rows = JSON.parse(stdout || '[]');
+    const res = await gh(['issue', 'list', '--label', PFX, '--state', 'all', '--json', 'number,body', '--limit', String(limit)]);
+    const rows = JSON.parse(res.stdout || '[]');
     const fps = new Set();
     for (const r of rows) for (const m of String(r?.body ?? '').matchAll(FP_MARKER)) fps.add(m[1]);
-    return { fps, issues: rows.length, complete: rows.length < limit };
+    // gh.mjs now reports whether its page loop reached the end of the data.
+    // Prefer that over the row count: on the REST path post-filters drop rows
+    // AFTER paging, so a truncated fetch can come back under the limit and
+    // still be missing issues (#2034). The count stays as the fallback for a
+    // transport that could not say.
+    return { fps, issues: rows.length, complete: res.complete ?? rows.length < limit };
   } catch (e) {
     // Not fatal: every candidate simply falls through to its own lookup below.
     return { fps: null, issues: 0, complete: false, error: errText(e) };

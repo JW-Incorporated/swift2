@@ -12,6 +12,7 @@ import { EraSecretCard } from './EraSecretCard';
 import { TrackGuideBar } from './TrackGuideBar';
 import { EraFeedList } from './EraFeedList';
 import { EraThreadsPivot } from './EraThreadsPivot';
+import { CurrentItemDetail } from './CurrentItemDetail';
 import {
   embeddedYoutubeIds,
   eraKnownVideoIds,
@@ -20,12 +21,14 @@ import {
   visibleFeed,
   type EraFeedEntry,
 } from '@/lib/longlive/era-feed';
+import { useEraCurrentFeed } from '@/lib/longlive/use-era-current-feed';
 import { threadDoorwaysForEra, eggDoorwaysForEra } from '@/lib/longlive/doorways';
 import { spaceDoorways } from '@/lib/longlive/space-doorways';
 import { feedCardImageHidden } from '@/lib/longlive/video-affordance';
 import type { Era } from '@/lib/longlive/types';
 import type { PlayableVideoNote } from '@/lib/longlive/videos';
 import { assignFeedTiers, withInlineVideoTiers } from '@/lib/longlive/feed-tiers';
+import type { CurrentItem } from '@swift2/shared';
 
 /**
  * A single era in the infinite stream. Themed locally via eraStyle so stacked
@@ -44,9 +47,23 @@ import { assignFeedTiers, withInlineVideoTiers } from '@/lib/longlive/feed-tiers
  * (the video-record card), `DoorwayCard.tsx` (thread/egg doorway cards), and
  * `EraFeedList.tsx` (the four-kind render dispatch). Recorded in MAP.md.
  */
-export function EraSection({ era }: { era: Era }) {
+export function EraSection({
+  era,
+  currentItems = [],
+}: {
+  era: Era;
+  /** Current era's live `current_item` rows (Stage 5); ignored elsewhere. */
+  currentItems?: CurrentItem[];
+}) {
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide, pushReturnPoint } =
     useAppActions();
+  // Stage 5 — live entries + overlay state (use-era-current-feed.ts).
+  const { liveEntries, openCurrentItem, setOpenCurrentItem } = useEraCurrentFeed(
+    era.id,
+    era.start,
+    era.end,
+    currentItems,
+  );
   // The filter is now global (R2) — one set of six FilterIds, OR-matched,
   // owned by the store and rendered once by FilterBar in EraStream. This
   // section only reads the active set; it no longer owns filter state.
@@ -75,16 +92,13 @@ export function EraSection({ era }: { era: Era }) {
     ],
     [era.id, era.start, era.end],
   );
-  // Merge EVERY moment, EVERY watchable video and EVERY doorway into one
-  // unfiltered, newest-first feed, space the doorways so they never clump
-  // (spaceDoorways), then filter in a single pass (R2 — Videos is a peer
-  // chip, not a second axis).
-  //
-  // Selection itself lives in lib/longlive/era-feed.ts (pure + unit-tested);
-  // this component only wires it to the store and renders the result.
+  // Merge EVERY moment, video, doorway and live current-item into one
+  // unfiltered, newest-first feed, space the doorways (spaceDoorways —
+  // 'current' entries pass through untouched), then filter in one pass (R2).
+  // Selection itself lives in lib/longlive/era-feed.ts (pure + unit-tested).
   const mergedFeed = useMemo(
-    () => spaceDoorways(mergeEraFeed(items, videoFeed, era.start, era.end, doorwayEntries)),
-    [items, videoFeed, era.start, era.end, doorwayEntries],
+    () => spaceDoorways(mergeEraFeed(items, videoFeed, era.start, era.end, [...doorwayEntries, ...liveEntries])),
+    [items, videoFeed, era.start, era.end, doorwayEntries, liveEntries],
   );
   const feedEntries = useMemo(() => visibleFeed(mergedFeed, filters), [mergedFeed, filters]);
   // The filtered feed's moment items — everything downstream that reasons
@@ -264,7 +278,10 @@ export function EraSection({ era }: { era: Era }) {
         filters={filters}
         onOpenItem={openItem}
         onOpenDoorway={handleOpenDoorway}
+        onOpenCurrentItem={setOpenCurrentItem}
       />
+
+      <CurrentItemDetail item={openCurrentItem} era={era} onClose={() => setOpenCurrentItem(null)} />
 
       <EraThreadsPivot era={era} eraThreads={eraThreads} onOpenThread={openThread} />
 

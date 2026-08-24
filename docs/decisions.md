@@ -7,6 +7,211 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-24 — Knowledge engine vendor picks: GNews free tier + engineered daily cap; Tumblr consumer-key-only, no OAuth
+
+**Context:** PLAN.md Stage 6 (fan adapters). The 2026-08-23 kickoff entry
+left both vendor calls deferred to `HUMAN-ACTIONS.md` #12 items 1 and 4;
+Joey answered both live in chat 2026-08-23 22:31 PDT (recorded in that
+item's DONE note) — this entry logs the technical decision each answer
+implies, per rule 6, not a repeat of the chat exchange itself.
+
+**Decision 1 — GNews free tier, not the paid Business tier the original
+proposal recommended.** The free tier's 100-req/day hard vendor cap is
+sufficient at this pipeline's actual cadence (6 scheduled runs/day, 1+
+query per run) as long as usage is engineered around, not merely
+estimated: `apps/worker/src/sources/gnews.ts` reserves budget through a
+real durable counter (`api-usage-daily.ts`, a generalized, `scope`-keyed
+sibling of `classify/usage-store.ts`'s existing `news_llm_usage`-backed
+`UsageStore` — same class, reused, not forked) hard-stopped at 80/day
+(`GNEWS_DAILY_CAP`), leaving real margin for retries and a failed run
+without ever touching the vendor's actual 100 ceiling. If real usage
+patterns later show the free tier is genuinely too thin, upgrading is a
+one-line env/cap change, not a re-architecture.
+
+**Decision 2 — Tumblr ships consumer-key-only, no OAuth token exchange.**
+`TUMBLR_CONSUMER_API_KEY` (a real repo secret as of 2026-08-23) is enough
+for the two public read-only endpoints this adapter needs (`/v2/tagged`,
+`/v2/blog/<id>/posts`) — neither requires user authorization.
+`TUMBLR_SECRET_API_KEY` (also set) is reserved for a future OAuth flow
+that would be needed only for endpoints this build doesn't use (posting,
+private/authenticated reads); building that exchange now would be
+unused surface area for no present capability gain.
+
+**Approved by:** Joey, in chat, 2026-08-23 22:31 PDT (`HUMAN-ACTIONS.md`
+#12 DONE note); this entry is the technical decision record rule 6
+requires, filed alongside the Stage 6 build that implements it.
+
+---
+
+## 2026-08-23 — Removed the Claude_Code_Remote-restricted-to-Auditor invariant
+
+**Decision:** Removed invariant #2 from `docs/agents/routine-invariants.md`
+("no trigger carries the `Claude_Code_Remote` connector — except the
+auditor"). All 22 routines recreated for the issue #2258 migration are
+enabled with that connector left in place, rather than requiring a manual
+per-routine UI strip first. The invariant is deleted outright, not
+"paused" or "waived for this batch" — nothing in the fleet enforces the
+one-exception rule going forward, and the Auditor's weekly check no longer
+looks for this violation.
+
+**Why:** Joey's direct instruction, in chat, after I flagged what the
+connector grants and the incident it was written to close off (below) —
+he judged the risk acceptable and asked for the rule removed rather than
+worked around. Presented as an explicit choice with the consequence named
+plainly (`AskUserQuestion`, both options previewed); he picked removal.
+
+**What this invariant was for, for whoever reads this later:** on
+2026-07-25, scheduled routines that could create new triggers via the API
+armed self-check-in loops that burned ~144 cloud sessions/day for days,
+leaving no trace in git, issues, or CI because they were explicitly
+instructed not to comment when nothing changed. `Claude_Code_Remote` is
+the connector that grants trigger-creation — the invariant made that
+failure mode structurally impossible (no routine could spawn another)
+rather than merely forbidden by prompt text. Restricting it to the
+Auditor alone (list/get only, by its own prompt's absolute limits) was
+the fix. Removing the invariant does not reintroduce the 2026-07-25
+incident directly — that required a routine's prompt to actually instruct
+self-arming — but it does remove the structural backstop: a routine whose
+prompt drifts, is edited carelessly, or is otherwise compromised can now
+call `RemoteTrigger create` and nothing stops it before invariant #3 (≤35
+enabled triggers) or a founder notices.
+
+**Not touched:** invariants #1 (no `send_later*` names), #2 (no
+`persist_session: true`), #3 (≤35 enabled), #4 (no `Task` in
+`allowed_tools`) — renumbered from #1/#3/#4/#5 but otherwise unchanged.
+The Auditor's own operating limits (list/get only, narrow `allowed_tools`,
+cheapest model) are unchanged.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-23)
+
+---
+
+## 2026-08-23 — Corrected stale "merge always prompts" claim; AI lands its own PRs directly
+
+**Decision:** Rewrote three passages in `CLAUDE.md` that told sessions
+`git merge`/`gh pr merge` "always prompt" as a platform-level "founders'
+merge gate" and instructed "open the PR and stop" without merging it:
+§ "Never babysit your own PR", § Decision authority, § Agent shell
+discipline. The rule now reads: land the PR yourself in one terminal
+action — merge immediately if checks are already green, otherwise set
+`gh pr merge --auto` and exit — rather than opening it and leaving it for a
+human. The "don't babysit" intent (no self-check-ins, Monitors, or wake-ups
+to revisit a PR after opening it) is unchanged; only the "don't merge it
+yourself" part is removed.
+
+**Why:** Joey spent time last night trying to remove this restriction and
+found it still governing sessions today (2026-08-23), during the repowise
+install for Swift2 (`#2283`) — a session opened the PR and stopped short of
+merging, citing this exact text. The underlying premise was already stale:
+the 2026-08-22 entry below claims `gh pr merge` "always prompts for approval
+regardless of this list (a platform tool-permission behavior, not governed
+by this file)" — but `gh pr merge --squash --delete-branch` on `#2283` ran
+and merged with no prompt or friction. `.claude/settings.json` allowlists
+`Bash(gh pr *)` and `Bash(git merge *)` directly; there is no separate
+confirmation step left to describe as a "gate."
+
+**Not touched:** the other four Decision authority items (product direction,
+secrets/credentials/production infra, spending/account creation, data
+deletion/force-push) are unchanged. Branch protection on `main` (`build`
+must be green) is unchanged — auto-merge still waits on it.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-23)
+
+---
+
+## 2026-08-23 — kit-v3.2 orchestration layer restored, superseding the 2026-08-22 "nothing replaces it" decision
+
+**Decision:** Joey asked directly, in chat, to reinstall the kit-v3-lineage
+orchestration layer: the `architect`/`executor`/`reviewer` agents,
+`triage.sh`/`checkpoint-gate.sh` hooks, `pause`/`human-actions`/
+`debug-protocol` skills, `STATE.md`/`PLAN.md` restored as living per-session
+files, and a `CLAUDE.md` orchestration section (triage ladder, two-strike
+debug rule, context/session-limit discipline). Landed via PR #2279
+(`kit-v3.2` branch), merged 2026-08-23.
+
+**Why:** This reverses the 2026-08-22 entry below only in effect — "nothing
+replaces it" becomes "kit-v3.2 replaces it" — not in premise; that entry's
+"if ever wanted" recovery note anticipated exactly this. Joey's direct ask is
+the condition CLAUDE.md's own note required before reintroducing an
+orchestration framework. Not a third competing system: same lineage as kit-v3
+(retired 2026-08-19), picked back up because AI Dev OS's removal left nothing
+in its place.
+
+**What's different from the 2026-08-19 archive:** hooks/skills pulled fresh
+from the current kit template (v3.2, not the stale 2026-08-19 copy);
+`STATE.md`/`PLAN.md` restored empty, not with their old (already-migrated)
+content.
+
+**Approved by:** Joey (direct instruction)
+
+---
+
+## 2026-08-22 — Decision authority loosened: AI may merge/push to `main` and deploy; HUMAN-ACTIONS.md status edits may be delegated
+
+**Decision:** removed two items from `CLAUDE.md` § Decision authority's "AI may
+NOT, without explicit human approval" list — "merge or push to `main`" and
+"deploy anything." Also amended § HUMAN-ACTIONS.md (and the matching line in
+`HUMAN-ACTIONS.md` itself): a session may now write an item's `**Status:**`
+change directly when Joey says so in chat, not only when he edits the file
+himself — a session still may not flip a status on its own judgment.
+
+**Why:** Joey's call, made in chat 2026-08-22 while working the Wyatt-account
+routine handoff (issue #2258) — he wants Claude executing this class of work
+end-to-end rather than routing every merge and every HUMAN-ACTIONS.md
+reconciliation back through him. `git merge`/`gh pr merge` still always prompt
+for approval regardless of this list (a platform tool-permission behavior, not
+governed by this file), so a live human confirmation still gates the merge
+click itself.
+
+**Not touched:** the other four Decision authority items (product direction,
+secrets/credentials/production infra, spending/account creation, data
+deletion/force-push) are unchanged. Branch protection on `main` (`build` must
+be green, no bypass actors — HUMAN-ACTIONS.md #9) is unchanged.
+
+**Also fixed the same day:** three places in `docs/agents/runners.md` claimed
+"live triggers are founders-only" / "creating cloud routines is a Wyatt-account
+action" as a hard rule. That was wrong — the `RemoteTrigger` API creates,
+updates, lists, and runs routines fine for whichever account the session is
+authenticated as (verified against Joey's account 2026-08-22 while working
+issue #2258); the actual constraints are (a) it's account-scoped, so a session
+can't touch an account it isn't authenticated as, and (b) detaching the
+`Claude_Code_Remote` connector is genuinely UI-only, since the API silently
+no-ops `mcp_connections: []`. Corrected in place rather than left to mislead
+the next session working that file.
+
+**Approved by:** Joey
+
+## 2026-08-22 — AI Dev OS removed entirely; no orchestration framework replaces it
+
+**Decision:** Joey declared the AI Dev OS project a failure and asked for every
+trace of it removed from Swift2. All of it is gone: the `CLAUDE.md`
+orchestration section, `.claude/rules/ai-team-coordination.md` (the
+`REPO-001`…`REPO-007` bundle), the `.gitattributes` LF pin for that rules dir,
+and `docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`. The user-level
+wiring (global `CLAUDE.md` section, `UserPromptSubmit` hook, `ai-dev-os` MCP
+server, `ai-dev` CLI) was already uninstalled at machine scope.
+
+**Nothing replaces it.** kit-v3 was **not** restored — `CLAUDE.md` above the
+separator plus GitHub Issues/PRs is the whole contract now. The useful habits
+the `REPO-*` rules encoded (branch → PR → green `build` → merge, one editing
+agent per isolated worktree, GitHub as shared truth) were already present in
+`CLAUDE.md` and survive there, not as a rules bundle.
+
+**Review routing:** the 2026-08-19 entries below say review "is now routed by
+AI Dev OS" — that routing no longer exists. Joey's 2026-08-14 ruling stands on
+its own: Claude code review of the diff before the PR opens satisfies
+cross-review; Codex stays available via `codex:rescue` for risky/architectural
+changes. Do not re-raise this with Joey.
+
+**Recovery, if ever wanted:** the deleted files are in git history (migration
+landed in `d508f1c8`, removal in this entry's PR); the kit-v3 archive stays at
+`docs/archive/kit-v3-2026-08-19/` and the pre-migration tag
+`pre-ai-dev-os-migration-2026-08-19` was left in place.
+
+**Approved by:** Joey (removal requested directly)
+
+---
+
 ## 2026-08-19 — `main` keeps its PR requirement; the "unprotected" finding was wrong
 
 **Correcting an entry written earlier the same day.** That entry recorded a
@@ -67,7 +272,7 @@ means "not configured *this* way", never "not configured".
 ---
 ---
 
-## 2026-08-19 — AI Dev OS v3.2 is the sole orchestration authority
+## 2026-08-19 — AI Dev OS v3.2 is the sole orchestration authority *(SUPERSEDED 2026-08-22 — AI Dev OS removed; see the entry above)*
 
 **Decision:** the kit-v3 ORCHESTRATOR CONTRACT inside `CLAUDE.md` was retired.
 Routing, model selection, agent spawning, Fable decision authority, task and
@@ -891,8 +1096,12 @@ upload exists at all. They remain timeline moments with a source link. A fan
 re-upload is never an `officialUrl`, however long it has been alive.
 
 **Migration:** `supabase/migrations/20260812120000_video_work_appearance_kinds.sql`
-widens the CHECK constraint. It is **written, not applied** — applying is a
-founder/Wyatt action (`db:*` writes to prod).
+widens the CHECK constraint. **Applied to production on 2026-08-13** by Wyatt
+(applying is a founder/Wyatt action — `db:*` writes to prod). Verified in prod
+at the time of application: the migration is recorded as applied; the superseded
+`time-person-of-the-year-today-2023` record is gone (0 rows); and the new kinds
+are in use across 84 `video_work` rows — `interview` 8, `award_speech` 7,
+`press_event` 2, `speech` 1, alongside the pre-existing `performance` 3.
 
 **Codex review (2026-08-12), and one disagreement left open for the founders:**
 - *Enum mirrors:* consistent across all five sites. No finding.
@@ -922,8 +1131,10 @@ founder/Wyatt action (`db:*` writes to prod).
   reasoning is what made the escape hatch cheap to use.
 
 **Approved by:** proposed by the 2026-08-12 engineering session (ENGINE lane);
-**pending Wyatt (CTO)** — schema + taxonomy sign-off, and Joey on whether the
-appearance vocabulary reads right to a fan.
+**approved by Wyatt (CTO) on 2026-08-13** — schema sign-off given in a Claude
+Code session, and the migration is now applied to production (see **Migration**
+above for the verification). Joey's read on whether the appearance vocabulary
+lands for a fan is separate and not part of this sign-off.
 
 **Related, same day:** the appearance *discovery* lane below finds new
 appearances going forward; this entry is what lets them be represented once
@@ -4577,3 +4788,90 @@ ambiguous (not-Shopify vs delisted) and is reported as such, never conflated.
 **Approved by:** Joey (item #7, 2026-08-15 punch list)
 
 **Approved by:** Joey
+
+## 2026-08-23 — Knowledge engine kickoff: architecture decisions logged before build (proposal §10)
+
+**Context:** `docs/proposals/2026-08-23-knowledge-engine.md` (Fable), overnight
+autonomous build authorized directly by Joey. Rule 6 requires expensive-to-
+reverse decisions logged before implementation. Corrected against actual repo
+state first (a ground-truth audit found several of the proposal's claimed
+file paths don't exist as described — see the "corrections" bullet below).
+
+**Decisions ratified/made (proposal §10 items 1, 3, 4, 8; item 6 partial):**
+
+1. **Current tier is a first-class, reader-visible Supabase store**, read at
+   request time via Next.js ISR for the current era only; the Vault stays
+   static/CDN-cached exactly as `architecture.md` requires. One new store
+   (`current_item`, `fan_signal`, `live_theory`, `symbol_activity`,
+   `knowledge_doc`), two tiers (`vault`/`current`), every surface (site, mobile
+   via `packages/core`, Clownbot) reads the same tables.
+2. **Ingestion runs on GitHub Actions with API keys, never a Claude routine.**
+   The extract stage (structured, our-words summarization of a clustered
+   story) runs on **Anthropic (Haiku 4.5)**, matching Clownbot's existing
+   vendor (`apps/web/lib/longlive/clown-client.ts` already calls
+   `api.anthropic.com`) rather than adding a second vendor. This is additive,
+   not a replacement — `apps/worker/src/classify/openai-client.ts` (OpenAI,
+   the existing raw-item relevance classifier) is untouched; extract is a new
+   downstream stage on the clustered output.
+3. **Google News**: ratifying Joey's 2026-08-23 call already recorded in the
+   proposal body (§4.2) — drop it as primary, replace with publisher tag
+   feeds (free, citable, backbone) + official-surface diffs (free,
+   deterministic) as the immediate build; a licensed recall API (GNews or
+   Perigon, real monthly cost) is parked pending Joey's pick
+   (`HUMAN-ACTIONS.md` #12). Google News stays running unmodified until the
+   replacement's one-week shadow recall test passes 95%.
+4. **Fan-platform posture**: Bluesky (free, no key) and Reddit-via-RSS
+   (free, interim, disclosed — §4.4's posture, already a founder call in the
+   proposal body) build now; Tumblr waits on a free-but-account-gated API key
+   (`HUMAN-ACTIONS.md` #12); X stays pay-per-use and capped, built later once
+   budget is set; TikTok never; every fan source aggregate-only, hashed
+   author, no comment bodies beyond what a public RSS already exposes.
+6. **Clownbot conversation persistence** (retention 180d, no IPs, Supabase
+   anonymous auth): schema and code land now, but the write path stays
+   feature-flagged off until "Allow anonymous sign-ins" is toggled in the
+   Supabase dashboard (`HUMAN-ACTIONS.md` #12 item 5) — an agent can't reach
+   that toggle.
+8. **"Freshness on Actions, judgment on routines"** is now a standing rule —
+   added to `CLAUDE.md` § Cost discipline in the same change that makes this
+   decision. A routine going dark (as the Content Shift/Rumor Desk migration
+   already has, per the proposal's diagnosis) must never make the site stale.
+
+**Deferred, logged but not decided** (both are proposal §10 item 7 and part
+of item 3 — real recurring cost, need Joey's pick): embedding vendor (Voyage
+vs. OpenAI) and the licensed news API (GNews vs. Perigon vs. accept the risk).
+`HUMAN-ACTIONS.md` #12 carries both. Until an embedding vendor is chosen,
+`knowledge_doc.embedding` stays null and retrieval is FTS-only (`tsv` column)
+— degraded, not broken.
+
+**Corrections to the proposal's claimed current state**, found by a
+ground-truth audit before writing PLAN.md (so PLAN.md reflects reality, not
+the proposal's guesses): `packages/shared/src/redline.ts` does not exist —
+the real screening code is `apps/web/lib/longlive/clown-safety.ts` +
+`clown-blocklist.ts`, already wired into `apps/api/clown/route.ts` (the
+proposal's audit items 0a/0b were already resolved, not open gaps).
+`scripts/sync-clown-knowledge.mjs` doesn't exist (greenfield, not a rename).
+`packages/core/src/knowledge/` doesn't exist yet (greenfield). No
+`ANTHROPIC_API_KEY` repo secret exists for the worker (`gh secret list`
+confirmed) — blocks a live extract-stage run until added
+(`HUMAN-ACTIONS.md` #13). No pgvector precedent anywhere in
+`supabase/migrations/` — genuinely greenfield, `create extension vector`
+untested in this project. `apps/mobile` reads Supabase live via
+`@swift2/core`; `apps/web` reads the generated Vault TS — the "one engine
+feeds every surface" goal is true going forward for the *Current* tier (both
+read the same new tables) but does not retroactively unify how the Vault
+itself is read by web vs. mobile; that's a larger, separate migration, out of
+scope here.
+
+**Not decided here, explicitly deferred to a human session per the proposal's
+own rule (§9 issue 5):** the `technique` table's actual content
+(`techniques.mjs` seed, 7–10 records) — the proposal states this must be
+"written in a frontier-model session with a human — not an autonomous run."
+Overnight work builds the schema, the sync scaffolding, and the coverage
+audit script; it does not author technique records claiming a stylistic
+pattern without Joey (or Wyatt) in the loop to check them against the actual
+corpus.
+
+**Approved by:** Joey (direct instruction to build the full proposal
+overnight, 2026-08-23 22:01 PDT); architecture calls within it made under
+existing Decision Authority (CLAUDE.md: AI may write code, refactor,
+document decisions for non-money, non-infra-credential calls without asking).

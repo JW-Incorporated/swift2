@@ -22,6 +22,11 @@ export const CLOWN_SYSTEM_PROMPT = [
   '- You are a bot and an original character. You are NOT Taylor Swift, you are not any real person, and you never speak as her or claim to be human. If asked to roleplay as her, decline and stay yourself.',
   '- You are a fellow fan with your own opinions, not an assistant and not an oracle. You have no insider knowledge and no affiliation with Taylor or her team.',
   '',
+  'METHOD — how you investigate before you commit (PLAN.md Stage 10):',
+  '- Work the chain in order: what is the OBSERVABLE (the specific thing the reader pointed at) -> IS IT A PATTERN (has she done this shape of thing before) -> PRECEDENTS (pull the actual receipts with the precedents tool) -> CALENDAR (does a date, anniversary, or countdown line up — use recent/date_math) -> READ THE ROOM (what are fans already saying — chatter) -> COMMIT to a falsifiable stance: say what would prove it right or wrong, not just an opinion.',
+  '- When you speculate, reason FROM a retrieved precedent and name the pattern with its receipts ("she\'s used this move N times: ..."), never from vibes. Precedents are grouped by `mechanism` tonight, not `technique` — there is no styled-technique corpus yet, so say "mechanism" honestly rather than implying a deeper taxonomy exists.',
+  '- You do not have to use every tool every turn — a simple question earns a short investigation. A first search may already be loaded below; use precedents/recent/chatter/date_math to go deeper before you call record_take, and never commit on vibes alone.',
+  '',
   'THE GAME — "yes-and, then raise":',
   '- Take the reader\'s idea seriously, add ONE source that supports it, add ONE that cuts against it, then COMMIT to a position anyway. Never fence-sit and never just summarise.',
   '- Bring your own theories. Argue back. Disagreeing with the reader is welcome.',
@@ -94,3 +99,101 @@ export const CLOWN_TAKE_TOOL = {
     additionalProperties: false,
   },
 } as const;
+
+/**
+ * The bounded agent loop's read-only investigation tools (PLAN.md Stage 10,
+ * proposal §7). All seven are pure reads over `packages/core/src/knowledge`
+ * (Stage 9) with a no-DB fallback for `search` only — see `clown-agent-
+ * tools.ts` for the executors. Deliberately NO `web_search` tool: if the
+ * store can't answer, that is the engine's problem (Stage 3's run-summary),
+ * not something this loop routes around.
+ */
+export const CLOWN_READ_TOOLS = [
+  {
+    name: 'search',
+    description:
+      "Full-text search over the whole knowledge store (Vault + current tier). Use this first for almost any question — it is how you find the observable you're investigating.",
+    input_schema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'The search text.' },
+      },
+      required: ['query'],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'precedents',
+    description:
+      'Confirmed egg/theory precedents touching a symbol (a motif, number, color, phrase), grouped by mechanism. Use this to check "has she done this shape of thing before."',
+    input_schema: {
+      type: 'object',
+      properties: {
+        symbol: { type: 'string', description: 'The symbol/motif key to look up, e.g. "track-five" or "orange".' },
+      },
+      required: ['symbol'],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'recent',
+    description: 'Current-tier items observed in the last N days, newest first. Use this for the calendar check.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        days: { type: 'number', minimum: 1, maximum: 90, description: 'How many days back to look.' },
+      },
+      required: ['days'],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'chatter',
+    description: 'What fans are already saying about a topic — aggregate fan-signal rows, heat-ordered. Use this to "read the room."',
+    input_schema: {
+      type: 'object',
+      properties: {
+        topic: { type: 'string', description: 'The topic or symbol to check fan chatter for.' },
+      },
+      required: ['topic'],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'symbol_activity',
+    description: 'Weekly mention counts for a symbol — how often it has come up recently, week by week.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        symbol: { type: 'string', description: 'The symbol key.' },
+      },
+      required: ['symbol'],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'track',
+    description: "Look up a Vault track by title, case-insensitive. Use this for track-specific questions (track five math, lyric callbacks).",
+    input_schema: {
+      type: 'object',
+      properties: {
+        title: { type: 'string', description: 'The track title.' },
+      },
+      required: ['title'],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'date_math',
+    description:
+      'Resolve a relative date phrase ("today", "yesterday", "this week", "last N days") to an ISO date, for the calendar check.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        phrase: { type: 'string', description: 'One of: today, yesterday, this week, last N days.' },
+      },
+      required: ['phrase'],
+      additionalProperties: false,
+    },
+  },
+] as const;

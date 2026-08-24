@@ -145,14 +145,29 @@ export function docToRetrievedItem(doc: ClownDoc): RetrievedItem {
  * `reason` is required, not defaulted — see `FallbackReason` above for why a
  * default would let a future caller silently get the wrong framing.
  *
- * Same items + reason in, same `FallbackAnswer` out — no hidden state, no clock.
+ * `totalAvailable` (Codex review MAJOR 10) is optional and ONLY meaningful
+ * when the caller has already truncated `items` from a larger pool (the
+ * agent loop's degraded path can accumulate hundreds of rows across an
+ * investigation) — when it's greater than `items.length`, an honest note is
+ * appended naming how many more were found but left out. Omitted or equal
+ * to `items.length`, nothing is appended — every existing caller composing
+ * its full item list untruncated is unaffected.
+ *
+ * Same items + reason + totalAvailable in, same `FallbackAnswer` out — no
+ * hidden state, no clock.
  */
-export function composeFallback(items: RetrievedItem[], reason: FallbackReason): FallbackAnswer {
+export function composeFallback(
+  items: RetrievedItem[],
+  reason: FallbackReason,
+  totalAvailable?: number,
+): FallbackAnswer {
   if (items.length === 0) {
     return { text: FALLBACK_EMPTY, items: [] };
   }
   const intro = reason === 'degraded' ? FALLBACK_INTRO_DEGRADED : FALLBACK_INTRO_CHIP;
   const lines = items.map(formatItem);
-  const text = [intro, '', ...lines, '', FALLBACK_OUTRO].join('\n');
+  const remaining = totalAvailable !== undefined ? totalAvailable - items.length : 0;
+  const moreNote = remaining > 0 ? [`(+ ${remaining} more the investigation turned up, trimmed here for length)`] : [];
+  const text = [intro, '', ...lines, ...moreNote, '', FALLBACK_OUTRO].join('\n');
   return { text, items };
 }

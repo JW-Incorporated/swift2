@@ -1,0 +1,52 @@
+# Facebook groups weekly export reminder — the human half of the fan-signal
+# pipeline (proposal §4.7, PLAN.md Stage 6). Facebook has no API for groups
+# an account doesn't administer and prohibits *automated* collection, so
+# this stays a human task, once a week, ~30 minutes — the workflow only
+# files the reminder issue and its checklist, never touches Facebook itself.
+#
+# Zero AI, same family as appearance-discovery.yml/watchdog.yml: filing a
+# dated reminder issue is a mechanical job on a cheap schedule, not a
+# judgment call worth a session's tokens.
+#
+# NO NEW SECRETS: only the built-in GITHUB_TOKEN, scoped to issues:write.
+name: fb-export-reminder
+
+on:
+  schedule:
+    - cron: "0 16 * * 0" # 09:00 PT Sunday (PDT, UTC-7) / 16:00 UTC — see proposal §4.7
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print the issue that would be filed/updated without calling GitHub"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+# One reminder issue per week — never let two runs race a duplicate.
+concurrency:
+  group: fb-export-reminder
+  cancel-in-progress: false
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      # Scheduled runs always file/update. A manual dispatch defaults to a
+      # dry run so a human clicking "Run workflow" to see what this would do
+      # doesn't discover the answer by having it filed — same contract as
+      # appearance-discovery.yml.
+      - name: File this week's export reminder
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
+        run: node scripts/knowledge-fb-export-reminder.mjs

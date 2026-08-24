@@ -6,6 +6,7 @@ export * from './vault-nav';
 export * from './vault-budget';
 export * from './moment-load';
 export * from './youtube';
+export * from './current-types';
 
 /**
  * The aspects of Taylor's life the Vault classifies content into.

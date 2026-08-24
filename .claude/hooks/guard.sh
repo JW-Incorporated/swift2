@@ -13,7 +13,7 @@ PYBIN=""
 for c in python3 python; do
   if command -v "$c" >/dev/null 2>&1 && "$c" -c "" >/dev/null 2>&1; then PYBIN="$c"; break; fi
 done
-[ -z "$PYBIN" ] && exit 0  # fail open: no python, no guard — normal permissions still apply
+[ -z "$PYBIN" ] && { echo "[kit] WARNING: python not found; guard.sh is NOT enforcing" >&2; exit 0; }  # fail open: no python, no guard — normal permissions still apply
 
 "$PYBIN" - "$input" <<'PY'
 import json, os, re, sys, time
@@ -39,6 +39,7 @@ PATTERNS = [
     (r"--no-verify\b", "verification bypass (--no-verify)"),
     (r"\bchmod\s+(-R\s+)?777\b", "chmod 777"),
     (r"\bgh\s+(secret|variable)\s+(set|delete)\b", "gh secret/variable mutation"),
+    (r"\brepowise\s+init(?!.*--no-editor-setup)", "bare repowise init (edits ~/.claude/settings.json machine-wide — use the repowise-setup skill instead)"),
 
     # --- swift2-specific, below this line ---
 

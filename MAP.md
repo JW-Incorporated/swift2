@@ -11,11 +11,10 @@
 
 ## Where the authority lives
 
-`CLAUDE.md` is the operating manual and outranks this file — for project policy
-and safety. **Orchestration** (routing, delegation, task state, review loops,
-recovery, team coordination) belongs to **AI Dev OS v3.2**, with
-`.claude/rules/ai-team-coordination.md` as the binding repo-level share. See
-§ The orchestration layer below. The durable reference docs `CLAUDE.md` points at:
+`CLAUDE.md` is the operating manual and outranks this file. There is no
+external orchestration layer — live task state and team coordination live in
+GitHub Issues/PRs (see `CLAUDE.md` § WORKING MEMORY). The durable reference
+docs `CLAUDE.md` points at:
 
 | Doc | What it settles |
 |---|---|
@@ -57,35 +56,30 @@ recovery, team coordination) belongs to **AI Dev OS v3.2**, with
 | `docs/` | All durable knowledge | Don't leave a decision only in a conversation |
 | `.github/workflows/` | CI + scheduled runners. `ci.yml` job `build` is the required check | Don't dispatch `social-poster.yml` / `social-delete-media.yml` |
 
-## The orchestration layer (AI Dev OS v3.2 — migrated 2026-08-19)
-
-Orchestration is **not** configured in this repo. It lives at the user level:
-`~/.claude/CLAUDE.md`, the global `UserPromptSubmit` hook, the `ai-dev-os` MCP
-server, and `!build_systems/AI-OS/ai_dev_os_v3_2/ai-dev-os/policy/`. What
-remains here is project policy and Swift2-specific safety only.
+## Session infrastructure (`.claude/` and the standing files)
 
 | Path | Responsibility |
 |------|----------------|
-| `.claude/rules/ai-team-coordination.md` | **Installed by `ai-dev team-bootstrap`.** `REPO-001`…`REPO-007`. Do not hand-edit — change it upstream |
-| `.claude/settings.json` | Tracked. Permissions, two hooks, statusline. **No model pin** — routing owns that |
-| `.claude/hooks/guard.sh` | `PreToolUse` (Bash) — deterministic deny list, incl. social real-send + the shared-checkout session lock (`REPO-003`) |
+| `.claude/settings.json` | Tracked. Permissions, two hooks, statusline |
+| `.claude/hooks/guard.sh` | `PreToolUse` (Bash) — deterministic deny list, incl. social real-send + the shared-checkout session lock |
 | `.claude/hooks/post-edit.sh` | `PostToolUse` (Edit/Write) — **auto-format deliberately OFF here**; read the comment before enabling |
 | `.claude/statusline.sh` | Model, context %, usage-limit gauge, branch |
 | `.claude/agents/*.md` | scout, researcher, grunt — capability only, no orchestration authority |
 | `.claude/commands/` | Project slash commands (design-debate, marketing) |
-| `CLAUDE.md` | Project operating manual. Orchestration section defers to AI Dev OS |
+| `CLAUDE.md` | Project operating manual — the whole contract |
 | `MOODBOT.md` | The mood-bot contract (landed on `main` via #2184). Durable lessons from it are in `docs/engineering-lessons.md` |
 | `HUMAN-ACTIONS.md` | **Everything waiting on Joey.** Any session that opens it reconciles it: file non-`OPEN` items into DONE with a date, keep the number. `SKIP` is final — never re-raise |
-| `docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md` | What was retired/preserved/migrated, and why |
-| `docs/handoff/2026-08-19-paused-work.md` | Read-only snapshot of the work paused at migration time |
+| `docs/handoff/2026-08-19-paused-work.md` | Read-only snapshot of the work paused at the 2026-08-19 migration |
 | `docs/archive/kit-v3-2026-08-19/` | The retired kit-v3 framework, verbatim (`STATE.md`, `PLAN.md`, hooks, agents, pause skill) |
 | `scripts/watchdog/karen-post-repair-check.mjs` | Self-limiting: Karen ran after the repair? Auto-closes 2026-08-22 |
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 
-**Retired 2026-08-19:** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
+**Retired 2026-08-19 (kit-v3):** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
 `docs/OPERATINGMANUAL.md`, `hooks/triage.sh`, `hooks/checkpoint-gate.sh`,
 `agents/{architect,executor,reviewer}.md`, `skills/pause/`. All archived, not
-deleted. Live task state now lives in GitHub Issues/PRs (`REPO-001`).
+deleted. **Removed 2026-08-22 (AI Dev OS):** `.claude/rules/`, the migration
+inventory doc, the `.gitattributes` rules pin — see `docs/decisions.md`.
+Live task state lives in GitHub Issues/PRs.
 
 ## The longlive reader (`apps/web`) — read `docs/longlive-experience.md` first
 
@@ -101,8 +95,18 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry`, `filterForThread` (LensId→FilterId, exhaustive) |
 | `lib/longlive/anchor-date.ts` | Sort-key resolution for undated items. `displayDate` is null unless `via === 'exact'`; `via: 'clamped'` is a real date pulled inside an era's window (P3 step 14a) |
 | `components/longlive/FilterBar.tsx` | The ONE global sticky filter row. Mounted once by `EraStream`, never per era |
-| `lib/longlive/era-feed.ts` | Pure feed logic: `EraFeedEntry` (4 kinds), `mergeEraFeed`, `visibleFeed` — one signature each (P3 step 14b). Doorway construction in `doorways.ts`, spacing in `space-doorways.ts` |
+| `lib/longlive/era-feed.ts` | Pure feed logic: `EraFeedEntry` (5 kinds — Stage 5 added `current`), `mergeEraFeed`, `visibleFeed` — one signature each (P3 step 14b). Doorway construction in `doorways.ts`, spacing in `space-doorways.ts`, live-item construction in `current-feed.ts` |
 | `lib/longlive/doorways.ts` | Builds `thread`/`egg` doorway entries (`threadDoorwaysForEra` clamps out-of-window anchors, `eggDoorwaysForEra`); `theoryThreadId` — the R4 theory→thread mapping, shared with `TheoryCard.tsx` |
+| `lib/longlive/current-feed.ts` | Knowledge-engine Stage 5: `currentFeedEntries` (builds the `current` `EraFeedEntry` kind from `current_item` rows), `outletFor`, `CURRENT_ITEM_STATUS_COPY`, `summarizeCurrentActivity` (masthead line) |
+| `lib/longlive/use-current-items.ts` | Client hook: fetches the current era's live rows from `/vault/current/[eraId]`, fails soft to `[]` |
+| `lib/current.ts` | Server-side Current-tier loader (`loadCurrentItems`) — mirrors `lib/vault.ts`'s env detection, no v0-preview fallback |
+| `app/vault/current/[eraId]/route.ts` | The Current tier's one read route — `packages/core/src/knowledge`, ISR `revalidate: 900` |
+| `lib/longlive/live-theories.ts` (+ `.test.ts`) | Knowledge-engine Stage 7: `sortByHeatDesc`, `matchFanSignal` (theory_ids, else symbol overlap), `fansAreSayingLine` — pure, no I/O |
+| `lib/longlive/use-live-theories.ts` | Client hook: fetches `live_theory`/`fan_signal` from `/vault/live-theories`, fails soft to `{theories:[],signals:[]}` |
+| `lib/live-theories-data.ts` | Server-side `live_theory`/`fan_signal` loader — raw `fetch()` against Supabase's REST endpoint (not `@supabase/supabase-js`, not in `apps/web`'s deps), deliberately outside `packages/core/src/knowledge/` (file-disjoint from Stage 9's concurrent work there) |
+| `app/vault/live-theories/route.ts` | Stage 7's one read route for both boards below, ISR `revalidate: 900` |
+| `components/longlive/LiveTheoryCard.tsx` | One live `live_theory` card in `TheoryGuide` — dashed-provisional border, heat pill, "fans are saying" line |
+| `app/api/intake/route.ts` | "Help us verify" (`CurrentItemDetail.tsx`) files a GitHub `intake`-labeled issue — shape copied from `/api/feedback/route.ts` |
 | `lib/longlive/space-doorways.ts` | `spaceDoorways`/`DOORWAY_MIN_GAP` — spreads doorways through an already-merged feed, never drops one. A displaced doorway is marked `displaced` and STOPS being a scrubber anchor |
 | `lib/longlive/scrubber-anchor-corpus.test.ts` | Locks zero date inversions across all twelve real eras. Was 44 |
 | `lib/longlive/bottom-nav-focus.ts` | Pure focus predicate for `BottomNav` — `focusout` does NOT fire on DOM removal, so this re-derives from `document.activeElement` |
@@ -115,6 +119,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/chrome-offset.ts` | `measureChromeHeight()` — the one place that measures live TopBar + FilterBar height; every jump/scroll/scrubber offset goes through it instead of a hardcoded constant |
 | `components/longlive/EraSection.tsx` | One era's wiring: hero, lyric, feed/doorway data, doorway tap → `pushReturnPoint`. Split (P3 step 15, was 826 lines) into the files below — none over 300 |
 | `components/longlive/EraFeedList.tsx` | Renders `EraSection`'s merged feed: dispatches each `EraFeedEntry` kind to the right card component |
+| `components/longlive/CurrentItemCard.tsx` | Live `current_item` feed card (kind: `'current'`) — dashed-unconfirmed border, "Live · reported by X" chip |
+| `components/longlive/CurrentItemDetail.tsx` | Live item's detail overlay — mandatory dashed rumor banner + "Help us verify" (POSTs `/api/intake`). State owned locally by `EraSection`, not the shared store |
 | `components/longlive/MomentCard.tsx` | Moment card wrapper: box + inline video play affordance (#2057) |
 | `components/longlive/MomentCardButton.tsx` | Moment card body per tier (hero/media/chip/text) + `MomentMeta`/`TagRow` |
 | `components/longlive/VideoMomentCard.tsx` | Full-width video-record card (kind: `'video'`) |
@@ -149,7 +155,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-retrieve.ts` (+ `.test.ts`) | Deterministic retrieval + `detectRecencyIntent()` |
 | `apps/web/lib/longlive/clown-blocklist.ts` (+ `-gates.ts`, `.test.ts`) | `screenTopic()`, per-category phrase lists |
 | `apps/web/lib/longlive/clown-safety.ts` (+ `-gates.ts`, `.test.ts`) | Ported input/output safety, crisis reuse |
-| `apps/web/lib/longlive/clown-battery-corpus.ts` (+ `-attacks.ts`, `-attacks-b.ts`, `-tier-b.ts`, `.test.ts`) | Red-team corpus (53 attacks, 21 Tier B probes), ported + extended |
+| `apps/web/lib/longlive/clown-battery-corpus.ts` (+ `-attacks.ts`, `-attacks-b.ts`, `-tier-b.ts`, `.test.ts`) | Red-team corpus (61 attacks, 23 Tier B probes as of Stage 12), ported + extended |
 | `apps/web/lib/longlive/clown-board.ts` (+ `.test.ts`) | Both prefill columns, pure/deterministic |
 | `apps/web/lib/longlive/clown-fallback.ts` (+ `.test.ts`) | Zero-model card composer |
 | `apps/web/lib/longlive/clown-starters.ts` (+ `.test.ts`) | Column item → composer prefill string |
@@ -160,16 +166,71 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
 | `apps/web/components/longlive/ClownChat.tsx` | App-panel chrome (titlebar, fullscreen toggle, docked composer) + transcript |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
-| `apps/web/components/longlive/ClownBoard.tsx` | The two columns |
+| `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
 | `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |
 | `docs/proposals/2026-08-13-clownbot-shelved-content.md` | Build-A content not carried forward |
 | `docs/ops/clown-kill-switch.md` | `CLOWN_MODEL_DISABLED` kill switch |
 
-The build-A `clownbot-*` deletions and the `store.tsx`/`LongLive.tsx` wiring
-have landed. Not yet landed as of this update (per `PLAN.md`'s "Files touched"
-table, still in flight in a parallel step): `app/api/clown/route.ts`,
-`clown-seed-example.ts`, and the `share.ts`/`TopBar.tsx` wiring.
+The build-A `clownbot-*` deletions, the `store.tsx`/`LongLive.tsx` wiring,
+`app/api/clown/route.ts`, `clown-seed-example.ts`, and the
+`share.ts`/`TopBar.tsx` wiring have all landed.
+
+`apps/web/lib/longlive/clownbot-lore.ts` (+ `.test.ts`) — the hand-authored,
+sourced rumor/lore corpus — is still live and still load-bearing: it's one of
+three inputs `clown-index.ts`'s `buildClownDocs()` folds together (with
+`theories.generated.ts` and `content.ts`), and that compile-time index is the
+documented no-DB fallback the knowledge-engine build (Stage 9) deliberately
+kept unmodified. It was **not** migrated/retired by the knowledge-engine
+build, despite the original proposal's §3 plan to fold its 8 items into
+`current_item`/`live_theory` — see `docs/decisions.md` and the Stage 13 PR
+for why that didn't happen.
+
+## Clownbot agent loop (PLAN.md Stage 10, proposal §7) — new files
+
+Inserts a bounded, streamed tool loop into the existing route's
+compose-or-fallback stage. Consumes Stage 9's `packages/core/src/knowledge`
+retrieval library; also touches it additively (every `KnowledgeDataSource`
+method — `search`/`precedents`/`recent`/`chatter`/`symbolActivity`/`track` —
+gained an optional trailing `signal?: AbortSignal` so the loop's shared
+wall-clock deadline aborts an in-flight DB read, not just abandons it), never
+changing any existing call site's behaviour.
+
+| Path | What |
+|---|---|
+| `apps/web/lib/longlive/clown-agent.ts` (+ `.test.ts`) | The bounded loop's control flow (`runClownAgent`) — ≤6 tool calls / ≤20s / ≤2,500 tokens, all enforced BEFORE a call is requested, not after; forces `record_take` once any cap trips |
+| `apps/web/lib/longlive/clown-agent-prompt.ts` | Message-shape plumbing split out of `clown-agent.ts` (300-line cap): seed-prompt building, `tool_result` formatting, read-tool dispatch, `tool_use` block extraction — no cap/budget logic |
+| `apps/web/lib/longlive/clown-agent-tools.ts` (+ `.test.ts`) | The 7 read tools' executors, DB-first with `clown-index.ts` as the no-DB-unreachable fallback (search only); `resolveScopeSignal` for the route's pre-loop scope check |
+| `apps/web/lib/longlive/clown-predictions.ts` (+ `.test.ts`) | PLAN.md Stage 11: `persistPrediction` writes `bot_prediction` for real when a memory session resolves; no-ops when it doesn't (today's real state) |
+| `apps/web/lib/longlive/clown-session.ts` (+ `.test.ts`) | PLAN.md Stage 11: Supabase anonymous-auth session resolution (raw `fetch()` over Auth/PostgREST, no SDK dep) — `resolveClownSession` degrades to `null` when the "Allow anonymous sign-ins" toggle is off (today's state, `HUMAN-ACTIONS.md` #15 item 2) |
+| `apps/web/lib/longlive/clown-memory.ts` (+ `.test.ts`) | PLAN.md Stage 11: conversation continuation, rolling summary (truncate-and-fold past 20 turns), per-user daily cap (`usage_daily(scope='clown-chat:<uid>')`, 200/day — same number as `clown-usage.ts`'s existing cap) |
+| `apps/web/lib/longlive/clown-pins.ts` (+ `.test.ts`) | PLAN.md Stage 11: `clown_pinned_theory` pin/unpin/list — library only, no route wired to it yet |
+| `apps/web/lib/longlive/clown-stream.ts` (+ `.test.ts`) | Client-side NDJSON stream reader, shared by `ClownChat.tsx` |
+| `apps/web/lib/longlive/clown-route-helpers.ts` | `route.ts` plumbing split out (300-line cap): rate limiting, transcript sanitisation, the fixed-copy answer shape, the NDJSON stream producer (server side of `clown-stream.ts`) |
+| `apps/web/lib/longlive/clown-chat-helpers.ts` | Pure helpers split out of `ClownChat.tsx` (300-line cap) |
+| `apps/web/lib/longlive/clown-client.ts` | Unchanged behaviour, now also exports `callAnthropicMessages`/`clownModelKey` — the shared wire primitive `clown-agent.ts` reuses (no second model client) |
+| `apps/web/lib/longlive/clown-client-prompt.ts` | Gains the method block + `CLOWN_READ_TOOLS` schemas; `CLOWN_TAKE_TOOL` unchanged |
+| `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` widened with `investigation: InvestigationStep[]` (`[]` for every non-loop producer) |
+
+`ClownChat.tsx`/`ClownMessageRow.tsx` were already over the 300-line
+guideline before this stage (350/153 lines); the stream-consumption and
+investigation-trail rendering added here pushed `ClownChat.tsx` to 365 —
+noted, not further split this PR (see the Stage 10 PR body for the call).
+
+## Clownbot eval harness (PLAN.md Stage 12, proposal §7 eval bullet) — new files
+
+Not wired into CI (each needs a live key and/or a live, writable DB) —
+degrades to a clear skip, matching the pattern of the other DB-dependent
+scripts this build added. Battery corpus additions (tool-result injection,
+the 2026-08-16 brief's 11 acceptance cases) live in the existing
+`clown-battery-corpus*.ts` files above, not new files.
+
+| Path | What |
+|---|---|
+| `scripts/knowledge-engine/clown-eval.mjs` (`npm run clown:eval`) | Retro battery over confirmed `egg_ledger` precedents with the write-up doc hidden — target top-3 hit rate ≥60%; also runs the grounding check (below) on every cited id |
+| `apps/web/lib/longlive/clown-grounding.ts` (+ `.test.ts`) | Pure `groundCitations()` — confirms every cited id exists and is `redline_ok=true`; CI-safe on its own, driven with real DB rows by `clown-eval.mjs` |
+| `apps/web/lib/longlive/clown-agent-injection.test.ts` | Agent-loop-level regression for the tool-result injection surface — mocked malicious `tool_result` content, asserts it stays confined to the data channel and that a resulting fabricated citation is still caught |
+| `scripts/knowledge-freshness.mjs` (`npm run knowledge:freshness`) | `max(updated_at) tier='current'` < 24h SLO — report-only, wired into `watchdog.yml`, never blocks `build` |
 
 ## Mood Chat — the song/feeling matcher (SEPARATE from Clownbot)
 

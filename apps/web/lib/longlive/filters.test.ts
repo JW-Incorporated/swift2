@@ -3,6 +3,7 @@ import { ALL_FILTERS, filterForThread, filterMatches, filtersForEntry, type Filt
 import type { EraFeedEntry } from './era-feed';
 import type { Anchored } from './anchor-date';
 import type { ContentItem, ContentTag, LensId, VideoNote } from './types';
+import type { CurrentItem } from '@swift2/shared';
 
 // filtersForEntry doesn't read the anchor — these tests only exercise
 // filter categorisation, so every entry gets the same stub anchor.
@@ -36,7 +37,7 @@ const video = (slug: string): VideoNote =>
 
 describe('ALL_FILTERS', () => {
   it('is exactly the five topic tags plus Videos, six total (R2)', () => {
-    expect(ALL_FILTERS).toEqual(['Music', 'Fashion', 'Tour', 'Relationship', 'Lore', 'Videos']);
+    expect(ALL_FILTERS).toEqual(['Music', 'Videos', 'Fashion', 'Tour', 'Relationship', 'Lore']);
   });
 });
 
@@ -143,6 +144,26 @@ describe('filtersForEntry', () => {
     const entry: EraFeedEntry = {
       kind: 'egg',
       doorway: { eggId: 'lover:e1', threadId: null, kicker: 'k', title: 'A theory' },
+      anchor: ANCHOR,
+    };
+    expect(filtersForEntry(entry, noOwners)).toEqual(['Lore']);
+  });
+
+  // PLAN.md Stage 5: a current_item's `tags` are DB-sourced (worker-written,
+  // not authored here) — filtered against ALL_FILTERS defensively.
+  it('a current item carries its own valid tags', () => {
+    const entry: EraFeedEntry = {
+      kind: 'current',
+      item: { tags: ['Fashion', 'Tour'] } as unknown as CurrentItem,
+      anchor: ANCHOR,
+    };
+    expect(filtersForEntry(entry, noOwners)).toEqual(['Fashion', 'Tour']);
+  });
+
+  it('a current item drops any tag outside the known six, rather than crashing', () => {
+    const entry: EraFeedEntry = {
+      kind: 'current',
+      item: { tags: ['Lore', 'not-a-real-tag'] } as unknown as CurrentItem,
       anchor: ANCHOR,
     };
     expect(filtersForEntry(entry, noOwners)).toEqual(['Lore']);

@@ -1654,9 +1654,12 @@ export default {
       category: 'fashion',
       significance: 'defining', // the single biggest mainstream-crossover moment of the relationship, watched by ~123M people (docs/decisions.md, 2026-07-19)
       threadIds: ['the-proposal'],
+      // Cross-link (crosslink-opportunity, 2026-08-24): the wedding gown, same
+      // narrative thread — its own text discusses this sighting.
       relatedIds: [
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
         'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
       ],
       title: 'Super Bowl LVIII: a sheer corset, Area jeans, and his number in rubies',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES

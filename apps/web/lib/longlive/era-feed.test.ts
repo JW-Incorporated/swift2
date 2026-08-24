@@ -12,6 +12,7 @@ import type { FilterId } from './filters';
 import type { ContentItem, ContentTag, VideoNote } from './types';
 import type { ThreadDoorway } from './doorways';
 import { spaceDoorways, DOORWAY_MIN_GAP } from './space-doorways';
+import type { CurrentItem } from '@swift2/shared';
 
 // Every test era spans the full 2019 calendar year. Undated videos fall back
 // to the era-scatter anchor (anchor-date.ts) — a deterministic, id-derived
@@ -78,6 +79,8 @@ const entryIds = (entries: EraFeedEntry[]): string[] =>
         return `thread:${e.doorway.threadId}`;
       case 'egg':
         return `egg:${e.doorway.eggId}`;
+      case 'current':
+        return `current:${e.item.id}`;
     }
   });
 
@@ -286,6 +289,36 @@ describe('mergeEraFeed', () => {
       expect(entryIds(withEmpty)).toEqual(entryIds(mergeEraFeed(ITEMS, MUSIC_VIDEOS)));
     });
   });
+
+  // PLAN.md Stage 5: current-item entries (built by current-feed.ts's
+  // currentFeedEntries) are ALREADY EraFeedEntry-shaped with their own exact
+  // anchor, so they fold into the same 5th-arg slot doorways use — no change
+  // to mergeEraFeed's signature.
+  describe('with current-item entries (Stage 5)', () => {
+    const currentEntry = (id: string, observedOn: string): EraFeedEntry => ({
+      kind: 'current',
+      item: { id, observedOn } as unknown as CurrentItem,
+      anchor: { sortDate: observedOn, displayDate: observedOn, via: 'exact' },
+    });
+
+    it('interleaves current items with moments/videos by observedOn, newest-first', () => {
+      const extras = [currentEntry('ci-1', '2019-08-27'), currentEntry('ci-2', '2019-06-01')];
+      const entries = mergeEraFeedRaw(ITEMS, MUSIC_VIDEOS, ERA_START, ERA_END, extras);
+      expect(entryIds(entries)).toEqual([
+        'current:ci-1', // 2019-08-27
+        'm-fashion', // 2019-08-26
+        'm-lore', // 2019-08-23
+        'mv-lover', // 2019-08-22
+        'm-music-with-video', // 2019-06-17
+        'current:ci-2', // 2019-06-01
+      ]);
+    });
+
+    it('a vault-only feed (no current items) is unaffected', () => {
+      const entries = mergeEraFeedRaw(ITEMS, MUSIC_VIDEOS, ERA_START, ERA_END, []);
+      expect(entryIds(entries)).toEqual(entryIds(mergeEraFeed(ITEMS, MUSIC_VIDEOS)));
+    });
+  });
 });
 
 describe('embeddedYoutubeIds', () => {
@@ -423,13 +456,13 @@ describe('emptyFeedMessage', () => {
 
   it('joins two active filters naturally', () => {
     expect(emptyFeedMessage(filterOf(['Tour', 'Videos']), 'evermore')).toBe(
-      'Nothing under Tour and Videos in evermore.',
+      'Nothing under Videos and Tour in evermore.',
     );
   });
 
   it('joins three+ active filters in ALL_FILTERS chip order, regardless of Set insertion order', () => {
     expect(emptyFeedMessage(filterOf(['Videos', 'Lore', 'Music']), 'evermore')).toBe(
-      'Nothing under Music, Lore and Videos in evermore.',
+      'Nothing under Music, Videos and Lore in evermore.',
     );
   });
 

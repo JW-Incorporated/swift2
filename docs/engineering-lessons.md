@@ -2,13 +2,13 @@
 
 Defects that cost more than one review round to find, written down so the next
 session does not re-buy them. These are **durable** — unlike live task state,
-which belongs in GitHub Issues/PRs and AI Dev OS tasks (`REPO-001`/`REPO-006`).
+which belongs in GitHub Issues/PRs.
 When a lesson stops being about the current sprint and starts being about how
 this codebase behaves, it moves here.
 
 *(Before 2026-08-19 the transient half of this lived in a root `STATE.md`. That
-file was retired with kit-v3; see
-`docs/migrations/2026-08-19-ai-dev-os-v3.2-inventory.md`.)*
+file was retired with kit-v3; see `docs/decisions.md` 2026-08-19 and
+2026-08-22.)*
 
 Each entry is: what we believed, what was actually true, and the check that
 would have caught it the first time.
@@ -363,7 +363,7 @@ human-only line firing. Use the dedicated file tools (Read/Edit/Write) for
 editing files — which is the documented preference anyway — rather than shelling
 out. Do not try to defeat the guard by obfuscating the text.
 
-## Lessons migrated from STATE.md (2026-08-19, AI Dev OS migration)
+## Lessons migrated from STATE.md (2026-08-19)
 
 ### `set -uo pipefail` does not clear an inherited `-e` — and `|| true` destroys the evidence
 
@@ -427,8 +427,8 @@ Keep it that way.
 
 ### A 404 means "not configured this way", never "not configured"
 
-The AI Dev OS migration reported `main` as "completely unprotected" on the
-strength of:
+The 2026-08-19 migration audit reported `main` as "completely unprotected" on
+the strength of:
 
 ```
 gh api repos/JW-Incorporated/swift2/branches/main/protection

@@ -118,6 +118,46 @@ function scoreDoc(doc: ClownDoc, terms: readonly string[]): number {
   return score;
 }
 
+/**
+ * Every word that makes up a `RECENCY_PHRASES` entry, tokenised the same way
+ * a query is — derived, not hand-duplicated, so it can never drift out of
+ * sync with the phrase list above.
+ */
+const RECENCY_TERMS: ReadonlySet<string> = new Set(RECENCY_PHRASES.flatMap((phrase) => tokenize(phrase)));
+
+/**
+ * `meaningfulTerms`, minus any word that is ALSO recency vocabulary — the
+ * genuinely different mechanism scope resolution needs (DEBUG.md third-pass
+ * hypothesis): a word doing double duty as a temporal signal (e.g. "today")
+ * must never ALSO be the thing that resolves topical scope on its own. A
+ * plain lexical/title-score check alone cannot tell "what should I cook
+ * today" apart from a real ask about a track literally titled "Today Was a
+ * Fairytale…" — both produce the same title-word hit. Stripping recency
+ * words from the candidate term set BEFORE scoring closes that gap: "today"
+ * can never itself be the term that clears the relevance threshold here,
+ * only a genuine topic word can. `meaningfulTerms`/`relevanceRank` stay
+ * untouched for every other caller (`retrieveClownDocs`'s own recency
+ * shortcut is legitimate and unaffected).
+ */
+function topicTerms(query: string): string[] {
+  return meaningfulTerms(query).filter((term) => !RECENCY_TERMS.has(term));
+}
+
+/**
+ * Pure relevance check, deliberately bypassing the recency-intent shortcut
+ * below — used by scope resolution (`clown-agent-tools.ts`'s
+ * `resolveScopeSignal`, Codex review MAJOR 6) so recency language
+ * ("today"/"currently"/"right now"/etc.) can never resolve scope on its
+ * own: it must co-occur with an actual NON-recency term overlap, never
+ * substitute for one — see `topicTerms` above. `retrieveClownDocs` itself is
+ * UNCHANGED — its recency shortcut still legitimately surfaces "what's new"
+ * style questions with no other topic word for chip taps and the agent's
+ * own `search` tool.
+ */
+export function hasRelevantTopic(query: string, docs: readonly ClownDoc[]): boolean {
+  return relevanceRank(docs, topicTerms(query), 1).length > 0;
+}
+
 /** Plain lexical ranking. Empty when no term clears the threshold — never padded. */
 function relevanceRank(docs: readonly ClownDoc[], terms: readonly string[], limit: number): ClownDoc[] {
   if (terms.length === 0) return [];

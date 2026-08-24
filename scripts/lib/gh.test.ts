@@ -1,8 +1,11 @@
 import http from 'node:http';
 import net from 'node:net';
 import type { AddressInfo } from 'node:net';
-import { afterEach, describe, expect, it } from 'vitest';
-import { applyPostFilters, fetchIsProxyAware, httpsRequest, maxPagesFor, planRest, proxyForHost, shapeHit } from './gh.mjs';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import {
+  applyPostFilters, fetchIsProxyAware, httpsRequest, maxPagesFor, planRest,
+  proxyForHost, resetPageCapWarnings, rest, shapeHit,
+} from './gh.mjs';
 
 // These cover the REST fallback's argv→request translation, which is the part
 // that silently does the wrong thing if it's wrong. The failure mode we're
@@ -293,4 +296,161 @@ describe('fetchIsProxyAware reports what undici decided at bootstrap', () => {
     expect(fetchIsProxyAware()).toBe(before);
     delete process.env.NODE_USE_ENV_PROXY;
   });
+});
+
+describe('a truncated list says so (#2034 finding 6)', () => {
+  // The defect: the page loop stopped at its cap and returned the rows it had,
+  // with nothing to distinguish that from "this is everything". Callers were
+  // left inferring completeness from `rows.length < limit`, which is ONE-SIDED
+  // on this path — post-filters drop rows AFTER paging, so a truncated fetch
+  // can come back under the limit and still be missing matches. A dedupe
+  // ledger that reads that as complete files duplicates, which is #2008's
+  // failure mode wearing a different hat.
+  const page = (n: number) => Array.from({ length: n }, (_, i) => ({ number: i + 1, title: 't', body: 'b' }));
+  const ok = (rows: unknown[]) => ({ status: 200, headers: {}, text: JSON.stringify(rows) });
+
+  afterEach(() => { resetPageCapWarnings(); });
+
+  it('reports complete when the API itself runs out of rows', async () => {
+    const plan = planRest(['issue', 'list', '--limit', '500'], REPO);
+    const res = await rest(plan, 'tok', async () => ok(page(7)));
+    expect(res.complete).toBe(true);
+    expect(res.capExhausted).toBe(false);
+    expect(res.pagesFetched).toBe(1);
+  });
+
+  it('reports capExhausted — and warns — when the page ceiling is what stopped the crawl', async () => {
+    // Every page full, every row a PR, so `dropPullRequests` discards all of
+    // them: the limit is never satisfied and the loop runs to the cap. This is
+    // exactly the shape that reads as complete under a row-count test — the
+    // caller sees 0 rows, far below its limit of 1000.
+    const prs = () => ok(Array.from({ length: 100 }, (_, i) => ({ number: i, pull_request: {} })));
+    const plan = planRest(['issue', 'list', '--limit', '1000'], REPO);
+    const warnings: string[] = [];
+    const spy = vi.spyOn(console, 'error').mockImplementation((m) => { warnings.push(String(m)); });
+    const res = await rest(plan, 'tok', async () => prs());
+    spy.mockRestore();
+
+    expect(JSON.parse(res.stdout)).toEqual([]);          // a row count of 0…
+    expect(res.complete).toBe(false);                    // …that is NOT completeness
+    expect(res.capExhausted).toBe(true);
+    expect(res.pagesFetched).toBe(maxPagesFor(1000));
+    expect(warnings.join('\n')).toMatch(/TRUNCATED/);
+  });
+
+  it('does not claim completeness merely because the caller\'s limit was satisfied', async () => {
+    // Stopping early because we have enough rows is a cost optimisation, not
+    // evidence about what lies past them.
+    const plan = planRest(['issue', 'list', '--limit', '30'], REPO);
+    const res = await rest(plan, 'tok', async () => ok(page(100)));
+    expect(JSON.parse(res.stdout)).toHaveLength(30);
+    expect(res.complete).toBe(false);
+    expect(res.capExhausted).toBe(false);
+  });
+
+  it('warns once per endpoint, so a paging run cannot bury its own output', async () => {
+    const plan = planRest(['issue', 'list', '--limit', '1000'], REPO);
+    const prs = () => ok(Array.from({ length: 100 }, (_, i) => ({ number: i, pull_request: {} })));
+    const warnings: string[] = [];
+    const spy = vi.spyOn(console, 'error').mockImplementation((m) => { warnings.push(String(m)); });
+    await rest(plan, 'tok', async () => prs());
+    await rest(plan, 'tok', async () => prs());
+    spy.mockRestore();
+    expect(warnings).toHaveLength(1);
+  });
+});
+
+describe('a stalled request is destroyed, not merely abandoned (#2034)', () => {
+  // A deadline that only rejects the promise is not a timeout: the socket stays
+  // open, the handle stays live, and the process hangs anyway. So each test
+  // asserts BOTH that the call rejects AND that the server saw its connection
+  // torn down.
+  const saved = { ...process.env };
+  afterEach(() => { process.env = { ...saved }; });
+
+  it('tears down a fetch-transport request whose origin never responds', async () => {
+    delete process.env.HTTPS_PROXY;
+    delete process.env.https_proxy;
+    delete process.env.HTTP_PROXY;
+    delete process.env.http_proxy;
+
+    const closed = Promise.withResolvers<void>();
+    // Accept the request, send nothing, ever.
+    const origin = http.createServer((req) => { req.socket.on('close', () => closed.resolve()); });
+    await new Promise<void>((r) => origin.listen(0, '127.0.0.1', () => r()));
+    const { port } = origin.address() as AddressInfo;
+
+    await expect(httpsRequest(`http://127.0.0.1:${port}/x`, { timeoutMs: 250 }))
+      .rejects.toThrow(/timed out after 250ms/);
+    // The proof the timeout is real: the server's socket actually closed.
+    await closed.promise;
+
+    origin.closeAllConnections();
+    await new Promise<void>((r) => origin.close(() => r()));
+  }, 15_000);
+
+  it('destroys the CONNECT tunnel when the proxy accepts and then forwards nothing', async () => {
+    // Only meaningful on the tunnel path; booted proxy-aware, httpsRequest
+    // correctly delegates to fetch (covered above).
+    if (fetchIsProxyAware()) return;
+
+    // Keep every tunnel socket: an upgraded CONNECT socket is detached from the
+    // server, so `closeAllConnections()` cannot see it and `close()` would wait
+    // on it forever. Teardown destroys them by hand, as the #2008 test does.
+    const tunnels: net.Socket[] = [];
+    const proxy = http.createServer();
+    proxy.on('connect', (_req, clientSocket) => {
+      tunnels.push(clientSocket);
+      clientSocket.write('HTTP/1.1 200 Connection Established\r\n\r\n');
+      clientSocket.on('error', () => { /* torn down by the timeout */ });
+      // …and then nothing: the TLS handshake inside the tunnel never completes.
+    });
+    await new Promise<void>((r) => proxy.listen(0, '127.0.0.1', () => r()));
+    const proxyPort = (proxy.address() as AddressInfo).port;
+
+    process.env.HTTPS_PROXY = `http://127.0.0.1:${proxyPort}`;
+    delete process.env.NO_PROXY;
+    delete process.env.no_proxy;
+
+    // Count OUR end of the tunnel directly. The peer's `close` is not usable
+    // here: a CONNECT-upgraded server socket is detached from the HTTP parser
+    // and does not reliably observe the client going away, so asserting on it
+    // would pass whether or not the socket was destroyed. Live handles pointed
+    // at the proxy port are unambiguous — and the assertion is sensitive: this
+    // reads 1 while the request is in flight.
+    const liveToProxy = () => (process as unknown as {
+      _getActiveHandles(): { remotePort?: number; destroyed?: boolean }[];
+    })._getActiveHandles().filter((h) => h?.remotePort === proxyPort && !h.destroyed).length;
+
+    await expect(httpsRequest('https://api.github.com/repos/x/y', { timeoutMs: 250 }))
+      .rejects.toThrow(/timed out after 250ms/);
+    // The point of the fix: rejecting is not enough — before this, the socket
+    // stayed open and the handle leaked.
+    expect(liveToProxy()).toBe(0);
+
+    for (const s of tunnels) s.destroy();
+    proxy.closeAllConnections();
+    await new Promise<void>((r) => proxy.close(() => r()));
+  }, 15_000);
+
+  it('bounds the CONNECT itself, not just the request inside the tunnel', async () => {
+    if (fetchIsProxyAware()) return;
+
+    // A proxy that accepts the TCP connection and never answers the CONNECT.
+    // Without a deadline here the promise never settles at all.
+    const sockets: net.Socket[] = [];
+    const dead = net.createServer((s) => { sockets.push(s); });
+    await new Promise<void>((r) => dead.listen(0, '127.0.0.1', () => r()));
+    const { port } = dead.address() as AddressInfo;
+
+    process.env.HTTPS_PROXY = `http://127.0.0.1:${port}`;
+    delete process.env.NO_PROXY;
+    delete process.env.no_proxy;
+
+    await expect(httpsRequest('https://api.github.com/repos/x/y', { timeoutMs: 250 }))
+      .rejects.toThrow(/CONNECT .* timed out after 250ms/);
+
+    for (const s of sockets) s.destroy();
+    await new Promise<void>((r) => dead.close(() => r()));
+  }, 15_000);
 });

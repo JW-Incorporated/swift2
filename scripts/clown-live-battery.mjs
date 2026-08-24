@@ -110,10 +110,13 @@ const CONCURRENCY = flagValue('concurrency') ? Number(flagValue('concurrency')) 
 /* ── try to drive the real route; fall back to the composed pipeline ────── */
 
 const ROUTE_PATH = '../apps/web/app/api/clown/route.ts';
+const STREAM_PATH = '../apps/web/lib/longlive/clown-stream.ts';
 let routeModule = null;
+let readClownStream = null;
 try {
   routeModule = await import(ROUTE_PATH);
   if (typeof routeModule.POST !== 'function') routeModule = null;
+  ({ readClownStream } = await import(STREAM_PATH));
 } catch {
   routeModule = null;
 }
@@ -170,9 +173,18 @@ async function runViaRoute(text) {
   if (res.status === 429) {
     return { stage: 'not-observed', finalText: '(unexpectedly rate-limited by the route)', calledModel: false };
   }
+  // The route's deterministic (non-loop) paths return a plain JSON body; the
+  // agent-loop path returns newline-delimited `ClownStreamEvent`s (PLAN.md
+  // Stage 10 — `ndjsonResponse`/`readClownStream`). Both are read the same
+  // way here: collect events, take the last `answer` event's payload — this
+  // is exactly what the real client does (`clown-stream.ts`), so the battery
+  // observes what a browser would actually receive either way.
   let body = null;
   try {
-    body = await res.json();
+    const events = [];
+    await readClownStream(res, (event) => events.push(event));
+    const answerEvent = [...events].reverse().find((e) => e.type === 'answer');
+    body = answerEvent ? answerEvent.answer : null;
   } catch {
     // fall through with body === null
   }

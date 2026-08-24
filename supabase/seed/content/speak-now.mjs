@@ -2260,15 +2260,25 @@ export default {
         // Re-reviewed 2026-08-01 (#762): tried justjared.com's Dec. 2, 2011
         // "Billboard Women in Music Luncheon" gallery (the actual ceremony)
         // but the host blocks automated fetches (403) and no mirror of that
-        // gallery exists on an approved CDN. Stays reviewed-sparse at one photo.
+        // gallery exists on an approved CDN.
+        // Photo pass #762 (2026-08-16): a second image found — the actual
+        // Dec. 10, 2011 Billboard "Women in Music" cover itself, on Billboard's
+        // own CDN, not the Dec. 2 ceremony gallery those earlier passes chased.
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',
+            focalPoint: '52% 17%',
             credit: 'Dave Hogan/Getty Images (via Taste of Country)',
             caption:
               "On stage mid-Speak Now era with the crystal-fretted '13' guitar — the touring-and-sales year Billboard's citation leaned on.",
             kind: 'archival',
-            focalPoint: '52% 17%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/stylus/1345889-taylor-swift-woman-of-the-year-600.jpg',
+            focalPoint: '72% 20%',
+            credit: 'Billboard',
+            caption: 'The Dec. 10, 2011 Billboard cover itself, for the Women in Music issue that named her Woman of the Year.',
+            kind: 'primary',
           },
         ],
       },
@@ -2536,6 +2546,22 @@ export default {
           },
         ],
         context: "Never released as an official single, \"Enchanted\" nonetheless became one of Speak Now's most fan-beloved tracks — its extended, key-changing structure a favorite live moment on the Speak Now World Tour.",
+        // Photo pass #762 (2026-08-17): no single/video art exists (never an
+        // official single). Used a Speak Now World Tour performance shot from
+        // Wikimedia Commons (Sydney SuperDome, March 2012), curl-verified 200
+        // image/jpeg, downloaded and vision-confirmed (red sequin dress, ornate
+        // stage set). Caption does not claim this is the "Enchanted" segment
+        // specifically — that pairing was not independently confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
+            focalPoint: '48% 18%',
+            credit: 'Eva Rinaldi, CC BY-SA 2.0, via Wikimedia Commons',
+            caption:
+              'Taylor performing on the Speak Now World Tour (Sydney SuperDome, March 2012) — the tour where "Enchanted" became a fan-favorite live moment.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {

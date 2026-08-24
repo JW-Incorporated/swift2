@@ -6,16 +6,26 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
 
 ## Steps
 
+0. **Read the founder feedback loop, before anything else** (added
+   2026-08-23). Find last week's Tree PR (`gh pr list --search "head:tree/"
+   --state all --limit 1 --json number,title,comments,url`) and read every
+   comment on it. Founder replies to the weekly-plan email land there
+   automatically (`marjorie-inbox.yml` routes any reply whose subject
+   starts `Tree's weekly plan: ` onto that PR). If a founder asked a
+   question or gave feedback, answer it explicitly in this week's PR body
+   under "What's next" or "What I need from you" (step 9) — never let a
+   founder comment go unacknowledged for two weeks running.
+
 1. **Read, in this order:** `docs/agents/tree.md` (your contract), `docs/marketing/social-strategy.md` (the strategy you apply — campaign definitions, slot grammar, hook rules, metrics), the current `social/calendar.md` (last week's plan + the ledger), and `docs/agents/growth.md` (the six hard rails, which bind you too). Skim `docs/decisions.md` for anything social dated since your last run.
 
 2. **Crisis-stop check, before anything else.** If a founder has said "stop posting" anywhere you can see (brief comments, issues, PR comments), or the repo variable `SOCIAL_FREEZE` is set: do the audit, plan NOTHING new, write the halt at the top of `social/calendar.md`, and say so in the PR body. Do not resume on your own judgment — a founder lifts it.
 
-3. **Audit the last 7 days.** Gather:
-   - `social/posted/` — everything actually shipped. Read the real caption bodies, not just filenames.
+3. **Audit the last 7 days.** Run `node --use-env-proxy scripts/social/weekly-scorecard.mjs` (read-only, added Stage 2 2026-08-23) for the deterministic numbers: posts shipped per platform, follower delta per platform, failed count, distinct opener-pattern count over the last 14 days. Use its output as-is in the report (step 9) — never re-derive or round these by hand. Then, on top of that:
+   - `social/posted/` — read the real caption bodies, not just filenames.
    - `social/failed/` — anything new. **Target is zero.** A new X failure almost always means an IG/X sibling pair was too similar (X 403s on near-duplicates) — name the pair.
-   - `social/metrics/*.json` — follower counts per platform, `postsToday`.
    - Last week's calendar — what you planned.
-   Then compute the weekly scorecard exactly as strategy §3 defines it: follower delta per platform, posts shipped vs planned, failed count, distinct opener patterns in the last 14 days (target ≥12), media mix (2026-08-12 target, computed over MEDIA-CARRYING posts only — text-only X posts are a legitimate ladder rung, never counted against the mix: ≥70% `photo` — real photographs of Taylor — with `site-screen` only on launch/thread posts; ANY era-art or undeclared media shipping means a broken gate, flag it as an incident not a style miss), campaign mix. Also read the captions with your own judgment: did any pillar name leak into copy? Did two posts open the same way? Does the Instagram grid, looked at as a grid, actually show Taylor Swift — would a fan landing on the profile know instantly whose fan page this is? Joey judges this account by screenshot, not by metric.
+   - Media mix (2026-08-12 target, computed over MEDIA-CARRYING posts only — text-only X posts are a legitimate ladder rung, never counted against the mix: ≥70% `photo` — real photographs of Taylor — with `site-screen` only on launch/thread posts; ANY era-art or undeclared media shipping means a broken gate, flag it as an incident not a style miss), campaign mix.
+   Also read the captions with your own judgment: did any pillar name leak into copy? Did two posts open the same way? Does the Instagram grid, looked at as a grid, actually show Taylor Swift — would a fan landing on the profile know instantly whose fan page this is? Joey judges this account by screenshot, not by metric.
 
 4. **Detect new feature launches.** List user-visible PRs merged since your last run (`gh pr list --state merged --search "merged:>=<date>"`). A user-visible ship is one a fan could notice without being told — not refactors, content backfills, or infra. If one exists and no arc is in flight, schedule its 4-post arc per strategy §1(a), day 0 no earlier than 24h after it is live on www.longlivets.com. If no new ship landed, take the next item off the push-worthy backlog in strategy §1(a). **Never schedule an arc for unshipped work** (the Android app #1815 is the standing example).
 
@@ -37,7 +47,13 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
 
 8. **Monthly only** (last run of the calendar month): append `## Review — <month>` to `social/calendar.md` per strategy §3 — scorecard month over month, the Insights posts the founder pasted and what they had in common, exactly one "double down" and one "drop" named specifically, and the advanced rotation state. Post the same summary as ONE comment on the most recent `founders-brief` issue (`gh issue list --label founders-brief --state all --limit 1`).
 
-9. **Open ONE PR** — branch `tree/<date>`, label `growth`. Body: TL;DR in two plain sentences (what next fortnight is about + the one thing that changed), then `---`, then the scorecard, the audit findings, the campaigns now scheduled, and anything you want a founder to decide. Then exit.
+9. **Open ONE PR** — branch `tree/<date>`, label `growth`. The body **is** the weekly report (`docs/agents/tree.md` § Weekly report format) — this is what mails to the founders verbatim, subject `Tree's weekly plan: <PR title>`, so it has to stand alone as a report, not a routine diff description. Four sections, in this order, each with its own heading:
+   1. **Strategy** — two parts: *This fortnight* (two plain sentences — what the next fortnight is about, and the one thing that changed since last week), and *Where we stand* (~4 sentences pulled from `docs/marketing/social-strategy.md` §3: what the growth strategy is, how it's measured, a compact stat line of current followers vs. the next target date, and when it's next reviewed).
+   2. **Scorecard** — `weekly-scorecard.mjs`'s numbers verbatim (step 3).
+   3. **What's next** — the campaigns now scheduled, one line each.
+   4. **What I need from you** — the `founder-task` list from step 7, plus, if step 0 surfaced a founder question you couldn't resolve alone, exactly one plain-language ask.
+   **One problem = one paragraph:** any single issue (a bug, a missed target, a blocker) gets exactly ONE compact paragraph (~150 words max) — what's wrong, the impact, the plan, and only if true, one ask under section 4 — placed wherever it naturally sits above. Never split one root cause across multiple sections re-explaining itself (the failure mode in PR #2197: one Instagram aspect-ratio bug spread across three separate blocks).
+   Then exit.
 
 ## Hard limits (charter)
 

@@ -461,6 +461,24 @@ export default {
             focalPoint: '49% 30%',
           },
         ],
+        // Rumor Desk (2026-08-17): the segment's name became a trademark filing,
+        // which set off "is there an actual musical coming" speculation — one
+        // attributed, adjudicable claim on that. A business/trademark matter, no
+        // location, no redline.
+        rumors: [
+          {
+            claim:
+              "Weeks after christening the Eras Tour's TTPD section 'Female Rage: The Musical,' Taylor's company TAS Rights Management filed a U.S. trademark for that exact phrase in May 2024 — covering musical and stage uses — fueling unconfirmed speculation about an actual stage or Broadway production. Taylor has only ever used it as the segment's nickname.",
+            reportedBy: "NBC News",
+            reportedOn: "2024-05-14",
+            status: "unconfirmed",
+            url: "https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-trademarks-female-rage-musical-rcna152147",
+            sourceTier: "established",
+            lastCheckedOn: "2026-08-17",
+            note:
+              "The trademark filing is documented fact; the 'is a musical coming' read is the unconfirmed part. Re-checked Aug 2026: no production announced and the mark not abandoned. Resolves if a titled stage production is announced; fades if the trademark lapses unused. No location.",
+          },
+        ],
       },
     },
 
@@ -1551,12 +1569,22 @@ export default {
         // Re-reviewed 2026-08-01 (#762): checked for a Vancouver final-show
         // (Dec. 8, 2024) photo tied to the tour-total announcement — nothing
         // on an outlet CDN or Commons beyond wire/Getty art already excluded.
-        // Stays reviewed-sparse at one image.
+        // Photo pass #762 (2026-08-16): a second photo WAS on an outlet CDN
+        // all along — Variety's own hero image for the cited $2B article,
+        // just not one the earlier Commons-only searches would have found.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
-            credit: 'Emma McIntyre/TAS24/Getty Images',
             focalPoint: '45% 27%',
+            credit: 'Emma McIntyre/TAS24/Getty Images',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2024/12/swift-fringe-GettyImages-2188653759.jpg?w=1000&h=667&crop=1',
+            focalPoint: '34% 24%',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management, via Variety',
+            caption:
+              "Onstage at BC Place in Vancouver on Dec. 6, 2024, two days before the tour's final show — from the same Variety story that broke the $2 billion tally.",
+            kind: 'archival',
           },
         ],
       },
@@ -3804,10 +3832,13 @@ export default {
       // reciprocal TTPD Taylor/Travis crossover — the "So High School" moment
       // (she wrote the song about him; here he steps into her show).
       threadIds: ['the-proposal'],
+      // Cross-link (crosslink-opportunity, 2026-08-24): the wedding gown, same
+      // narrative thread — its own text discusses this cameo.
       relatedIds: [
         'moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes',
         'moment:vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever',
         'moment:vault-tloas-travis-joins-the-docuseries-for-its-final-episodes',
+        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
       ],
       title: 'Travis Kelce, Eras Tour cast member for a night',
       snippet:

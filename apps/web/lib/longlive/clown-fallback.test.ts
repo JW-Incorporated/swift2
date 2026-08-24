@@ -100,4 +100,23 @@ describe('composeFallback', () => {
       expect(text).not.toContain(FALLBACK_INTRO_CHIP);
     });
   });
+
+  describe('totalAvailable — notes a truncated pool honestly (Codex review MAJOR 10)', () => {
+    it('appends a note naming how many more were found when the caller already truncated', () => {
+      const { text } = composeFallback([CONFIRMED], 'degraded', 5);
+      expect(text).toContain('+ 4 more');
+      expect(text.endsWith(FALLBACK_OUTRO)).toBe(true);
+    });
+
+    it('appends nothing when totalAvailable matches items.length', () => {
+      const withTotal = composeFallback([CONFIRMED], 'degraded', 1);
+      const without = composeFallback([CONFIRMED], 'degraded');
+      expect(withTotal.text).toEqual(without.text);
+    });
+
+    it('appends nothing when totalAvailable is omitted (every existing caller)', () => {
+      const { text } = composeFallback([CONFIRMED, RUMOR], 'degraded');
+      expect(text).not.toContain('more');
+    });
+  });
 });

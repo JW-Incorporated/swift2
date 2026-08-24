@@ -1,0 +1,7 @@
+{
+  "platform": "x",
+  "body": "the alphabet-print romper she wore to the 2014 vmas got remembered as just quirky red-era taylor. look again — that outfit was 1989 arriving early, two months before the pop reinvention was official.\n\nlonglivets.com/?item=vault-red-a-mary-katrantzou-romper-signals-the-turn-toward-1989&utm_source=x&utm_medium=social&utm_campaign=on-this-day",
+  "scheduledAt": "2026-08-24T15:00:00Z",
+  "campaign": "on-this-day:red-vma-romper-1989-pivot",
+  "why": "Calendar 2026-08-24 15:00Z X, heartbeat:on-this-day, hook 'the contradiction'. Real dated Aug-24 Vault match (preferred over the speak-now fallback): supabase/seed/content/red.mjs id vault-red-a-mary-katrantzou-romper-signals-the-turn-toward-1989 — at the 2014 VMAs (Aug 24, 2014) she wore a Mary Katrantzou alphabet-print romper, read in retrospect as an early visual signal of the 1989 pop pivot (1989 released Oct 27, 2014). Source cited in seed: Red Carpet Fashion Awards. Chose red over the equally-dated reputation LWYMMD match to honor the ledger's era steer (reputation is stacked x2 recently, 'lean on red'). Contradiction hook: a whimsical romper filed as red-era whimsy was actually 1989 showing up early. Text-only: the moment's photos are external press images, not committed repo files, and rehosted press photos are retired (docs/decisions.md 2026-08-15) — text is the correct rung. Deep link /?item=<id> confirmed (deepLink.ts reads bare item param). Blocklist-safe (fashion/craft). Campaign story-unique (findPostedDuplicate matches platform+campaign)."
+}

@@ -18,6 +18,11 @@ async function main() {
     newStories: result.newStories,
     storiesClassified: result.storiesClassified,
     storiesVerified: result.storiesVerified,
+    clustersConsidered: result.extract.clustersConsidered,
+    extracted: result.extract.extracted,
+    screenedOut: result.extract.screenedOut,
+    skipped: result.extract.skipped,
+    deferred: result.extract.deferred,
     errorCount: result.errors.length,
   });
   for (const err of result.errors) console.error(`news-worker: ${err}`);

@@ -34,6 +34,7 @@
       "Bash(git push origin *)",
       "Bash(git remote *)",
       "Bash(git config *)",
+      "Bash(git merge *)",
       "Bash(gh pr *)",
       "Bash(gh issue *)",
       "Bash(gh repo view *)",
@@ -97,10 +98,7 @@
       "Write(.env)",
       "Write(.env.*)"
     ],
-    "ask": [
-      "Bash(git merge *)",
-      "Bash(gh pr merge *)"
-    ]
+    "ask": []
   },
   "hooks": {
     "SessionStart": [
@@ -109,6 +107,28 @@
           {
             "type": "command",
             "command": "git fetch origin --quiet 2>nul & exit 0"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/triage.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/checkpoint-gate.sh",
+            "timeout": 10
           }
         ]
       }

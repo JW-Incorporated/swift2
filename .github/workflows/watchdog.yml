@@ -661,7 +661,7 @@ jobs:
       # added 2026-08-15 (P0): same reasoning as the Karen step's comment
       # above — an unrelated earlier-step failure must not silently skip this
       # detection step (or strand it without Node).
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: "!cancelled()"
         with:
           node-version: '24'
@@ -911,3 +911,104 @@ jobs:
 
           check_lane "vault/"         36 "The Vault Run"  "once daily at 16:07 UTC, carrying all six content lanes"
           check_lane "content-shift/" 30 "Content Shift"  "twice daily at 17:00/23:00 UTC"
+
+      # Facebook export freshness (proposal §4.7, PLAN.md Stage 6).
+      # fb-export-reminder.yml files a fresh "FB group export due — week of
+      # <date>" issue every Sunday; Joey closes it once he's run
+      # `npm run knowledge:fb-upload`. STALE_DAYS=9 mirrors the Karen
+      # staleness check above: 7-day cadence + a 2-day buffer, without
+      # tolerating a second consecutive miss going unnoticed. Skipped
+      # entirely (not an alarm) while HUMAN-ACTIONS.md #16 is still open —
+      # `fb-groups-checklist.mjs` ships empty until Joey adds real groups,
+      # so there is nothing yet for a real export to close.
+      - name: Facebook export freshness
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          STALE_DAYS=9
+          ALERT_TITLE="Watchdog: no FB group export closed in 9 days"
+
+          if ! grep -q "slug:" scripts/knowledge/fb-groups-checklist.mjs 2>/dev/null; then
+            echo "no groups configured in fb-groups-checklist.mjs yet (HUMAN-ACTIONS.md #16) — nothing to check."
+            exit 0
+          fi
+
+          LATEST_CLOSED=$(gh issue list --repo "$REPO" --state closed --search "\"FB group export due\" in:title" \
+            --json title,closedAt --jq 'map(select(.title | startswith("FB group export due"))) | sort_by(.closedAt) | last // empty')
+
+          if [ -z "$LATEST_CLOSED" ]; then
+            echo "@sffan15-sys — no \"FB group export due\" issue has ever been closed. If fb-export-reminder.yml only started recently this is expected until the first one lands; if groups have been configured a while, the weekly export task (proposal §4.7) may have stalled." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export ALARM (none ever closed)"
+            exit 0
+          fi
+
+          CLOSED_AT=$(echo "$LATEST_CLOSED" | jq -r '.closedAt')
+          AGE_DAYS=$(( ( $(date -u +%s) - $(date -u -d "$CLOSED_AT" +%s) ) / 86400 ))
+
+          if [ "$AGE_DAYS" -gt "$STALE_DAYS" ]; then
+            echo "@sffan15-sys — the last \"FB group export due\" issue closed ${AGE_DAYS} days ago (expected within ${STALE_DAYS}). The weekly export task (proposal §4.7) may have stalled — \`npm run knowledge:fb-upload\` is the last step once this week's pages are saved." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export ALARM (${AGE_DAYS}d since last close)"
+          else
+            echo "FB export OK — closed ${AGE_DAYS}d ago." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export OK (${AGE_DAYS}d)"
+          fi
+
+      # Knowledge engine freshness SLO (PLAN.md Stage 12, proposal §7 eval
+      # bullet item 2): `max(updated_at) where tier='current'` in
+      # `knowledge_doc` should be < 24h. REPORT, NOT A HARD FAIL — see
+      # scripts/knowledge-freshness.mjs's own header for why this is a
+      # watchdog alert (self-healing, non-blocking) rather than a `build`
+      # gate: a real ingestion cadence takes hours to prove itself, and the
+      # Current tier has zero rows until Stage 3's extract stage has a live
+      # ANTHROPIC_API_KEY (HUMAN-ACTIONS.md #13) — that pre-ingestion state
+      # is expected, not itself an alarm (exit code 2 below, treated the same
+      # as a healthy close, not an open). Reuses the SAME SUPABASE_URL/
+      # SUPABASE_SERVICE_ROLE_KEY secrets news-worker.yml already has — no
+      # new secret, no HUMAN-ACTIONS item.
+      - name: Knowledge engine freshness (current tier < 24h)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: knowledge engine current-tier data is stale"
+          # See the work-ownership step above for why STATUS is captured this
+          # way rather than a bare `cmd; STATUS=$?` under errexit.
+          STATUS=0
+          OUTPUT=$(node scripts/knowledge-freshness.mjs 2>&1) || STATUS=$?
+          echo "$OUTPUT"
+          if [ "$STATUS" -eq 0 ]; then
+            echo "$OUTPUT" > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "knowledge-freshness OK"
+          elif [ "$STATUS" -eq 2 ]; then
+            # No secret configured, or genuinely zero current-tier rows yet
+            # (expected pre-ingestion) — informational, not an alarm.
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "knowledge-freshness SKIPPED (no secret or no data yet — not an alarm)"
+          else
+            {
+              echo "@sffan15-sys — the knowledge engine's Current tier hasn't refreshed within its 24h SLO:"
+              echo ""
+              echo "$OUTPUT"
+              echo ""
+              echo "This does not block any merge (report-only per PLAN.md Stage 12). Check \`knowledge-engine.yml\` / \`news-worker.yml\`'s last runs: https://github.com/${REPO}/actions"
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "knowledge-freshness ALARM (stale)"
+          fi

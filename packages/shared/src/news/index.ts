@@ -7,5 +7,7 @@
 
 export * from './news-types';
 export * from './similarity';
+export * from './cross-outlet-similarity';
 export * from './cluster';
 export * from './credibility';
+export * from './outlet-tiers';

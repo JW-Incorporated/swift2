@@ -26,11 +26,13 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CornerDownLeft, Loader2, Maximize2, Minimize2, Plus, VenetianMask } from 'lucide-react';
 import { SEED_EXAMPLE } from '@/lib/longlive/clown-seed-example';
-import type { ClownAnswer } from '@/lib/longlive/clown-answer';
+import type { ClownAnswer, InvestigationStep } from '@/lib/longlive/clown-answer';
 import type { BoardItem } from '@/lib/longlive/clown-board';
 import type { ClownTurn } from '@/lib/longlive/clown-client';
 import { promptForItem } from '@/lib/longlive/clown-starters';
 import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
+import { flattenAnswer, investigationLabel, nextSessionToken, withSessionHeader } from '@/lib/longlive/clown-chat-helpers';
+import { readClownStream } from '@/lib/longlive/clown-stream';
 import { useAppActions, useAppState, type ClownMessage } from '@/lib/longlive/store';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { ClownBoard } from './ClownBoard';
@@ -66,13 +68,6 @@ const SEED_MESSAGE: ClownMessage = {
   answer: SEED_EXAMPLE.answer,
 };
 
-/** A prior answer, flattened to plain text for the transcript sent to
- * `/api/clown` — the route passes earlier turns straight through to the
- * model as-is (clown-client.ts's `buildMessages`), so this is the one place
- * a `ClownAnswer`'s segments collapse back into a single utterance. */
-function flattenAnswer(answer: ClownAnswer): string {
-  return answer.segments.map((s) => s.text).join('\n\n');
-}
 
 export function ClownChat() {
   const [text, setText] = useState('');
@@ -84,7 +79,21 @@ export function ClownChat() {
   const messages = useMemo(() => [SEED_MESSAGE, ...clownMessages], [clownMessages]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // The agent loop's live trail (PLAN.md Stage 10) — reset per ask, cleared
+  // once the final answer lands (it is rendered from `message.answer.
+  // investigation` after that, not from this transient state).
+  const [investigating, setInvestigating] = useState<InvestigationStep | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // PLAN.md Stage 11 fix (Codex review, HUMAN-ACTIONS.md #15 item 2): the
+  // route reads/returns an opaque `x-clown-session` token so a returning
+  // caller's server-side identity (conversation/memory/per-user cap)
+  // persists across messages — this component previously never captured or
+  // resent it, so every message signed up a fresh anonymous identity. A
+  // ref, not state: it never drives a render, only what the next `fetch`
+  // sends, and (like `clownMessages`) is deliberately in-memory only — a
+  // page reload starting a fresh identity is fine, matching the transcript
+  // itself never being persisted (see `store.tsx`'s header).
+  const sessionTokenRef = useRef<string | null>(null);
 
   // Full-screen toggle — a CSS overlay, deliberately not the native
   // Fullscreen API (requestFullscreen on a non-video element is unreliable
@@ -153,6 +162,7 @@ export function ClownChat() {
     async (question: string) => {
       setBusy(true);
       setError(null);
+      setInvestigating(null);
       try {
         // PRIOR turns only, from the store's clownMessages — never SEED_MESSAGE
         // (a shipped fixture, not something this visitor said) and never the
@@ -169,16 +179,31 @@ export function ClownChat() {
         // and tested but is not wired up here on purpose.
         const res = await fetch('/api/clown', {
           method: 'POST',
-          headers: { 'content-type': 'application/json' },
+          headers: withSessionHeader({ 'content-type': 'application/json' }, sessionTokenRef.current),
           body: JSON.stringify({ text: question, transcript }),
         });
         if (!res.ok) throw new Error(String(res.status));
-        const answer: ClownAnswer = await res.json();
+        // Capture the round-tripped session id (present whenever a session
+        // resolved server-side, absent otherwise — see route.ts) for the
+        // NEXT message in this same conversation.
+        sessionTokenRef.current = nextSessionToken(sessionTokenRef.current, res.headers.get('x-clown-session'));
+        // PLAN.md Stage 10: the route streams the agent loop's investigation
+        // trail as it happens, then exactly one final answer event — every
+        // deterministic (non-loop) response still arrives as a single event
+        // under this same reader, so this replaces the old `res.json()` for
+        // every path, not just the loop's.
+        let answer: ClownAnswer | null = null;
+        await readClownStream(res, (event) => {
+          if (event.type === 'investigation') setInvestigating(event.step);
+          else answer = event.answer;
+        });
+        if (!answer) throw new Error('no answer event in stream');
         addClownMessage(question, answer);
         setText('');
       } catch {
         setError(NETWORK_ERROR);
       } finally {
+        setInvestigating(null);
         setBusy(false);
       }
     },
@@ -283,6 +308,11 @@ export function ClownChat() {
           {messages.map((m) => (
             <ClownMessageRow key={m.id} message={m} />
           ))}
+          {busy && investigating && (
+            <p role="status" className="text-xs italic text-[color:var(--clown-ink-soft)] opacity-80">
+              {investigationLabel(investigating)}
+            </p>
+          )}
           {error && (
             <p role="status" className="text-sm text-[color:var(--clown-ink-soft)]">
               {error}

@@ -39,6 +39,24 @@ describe('screenClownTake — the content re-screen', () => {
   });
 });
 
+describe('screenClownTake — required prose must be real, not blank (Codex review MAJOR 5)', () => {
+  it('rejects a take with a valid citation but a blank stance', () => {
+    expect(screenClownTake(take({ stance: '   ' }), RETRIEVED)).toEqual({ kind: 'empty-prose' });
+  });
+
+  it('rejects a take with a blank argument', () => {
+    expect(screenClownTake(take({ argument: '' }), RETRIEVED)).toEqual({ kind: 'empty-prose' });
+  });
+
+  it('rejects a take with a blank counterpoint', () => {
+    expect(screenClownTake(take({ counterpoint: '\n\t ' }), RETRIEVED)).toEqual({ kind: 'empty-prose' });
+  });
+
+  it('does not require aside or theory_name to be non-blank — only the three required fields', () => {
+    expect(screenClownTake(take({ aside: '', theoryName: null }), RETRIEVED)).toBeNull();
+  });
+});
+
 describe('screenClownTake — the citation check', () => {
   it('fails the whole answer on a fabricated citation id (not in the retrieved set)', () => {
     const fabricated = take({ citedIds: ['lore:masters-buyback', 'lore:this-was-never-retrieved'] });

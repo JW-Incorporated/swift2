@@ -1,15 +1,18 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
 import { X, Share2, Sparkles } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
-import { getEra } from '@/lib/longlive/eras';
+import { CURRENT_ERA_ID, getEra } from '@/lib/longlive/eras';
 import { theoriesForEra } from '@/lib/longlive/theories';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { useLiveTheories } from '@/lib/longlive/use-live-theories';
+import { fansAreSayingLine, matchFanSignal, sortByHeatDesc } from '@/lib/longlive/live-theories';
 import { TheoryCard, countLine } from './TheoryCard';
+import { LiveTheoryCard } from './LiveTheoryCard';
 
 /**
  * The era theories & easter eggs guide — an immersive per-era overlay (same
@@ -30,6 +33,21 @@ export function TheoryGuide() {
   const era = theoryGuideEraId ? getEra(theoryGuideEraId) : undefined;
   const theories = theoryGuideEraId ? theoriesForEra(theoryGuideEraId) : [];
   const open = Boolean(era && theories.length > 0);
+
+  // Knowledge-engine Stage 7: `live_theory` has no `era_id` to filter by
+  // server-side, so only the current era's guide fetches it — every other
+  // era opts out entirely rather than showing live chatter it can't
+  // attribute to itself (same "current era only" precedent Stage 5 set for
+  // `current_item`, see `use-era-current-feed.ts`).
+  const liveBoard = useLiveTheories(theoryGuideEraId === CURRENT_ERA_ID);
+  const liveTheoryCards = useMemo(
+    () =>
+      sortByHeatDesc(liveBoard.theories).map((theory) => {
+        const signal = matchFanSignal(theory, liveBoard.signals);
+        return { theory, fansAreSaying: signal ? fansAreSayingLine(signal) : undefined };
+      }),
+    [liveBoard.theories, liveBoard.signals],
+  );
 
   useScrollLock(open);
 
@@ -132,6 +150,19 @@ export function TheoryGuide() {
           {countLine(eggCount, theoryCount)} — every one sourced and graded, so you always know
           what&apos;s confirmed and what&apos;s still clowning.
         </p>
+
+        {liveTheoryCards.length > 0 && (
+          <>
+            <h2 className="mt-8 text-[11px] font-semibold uppercase tracking-[0.3em] text-[color:var(--era-ink-soft)]">
+              Live right now
+            </h2>
+            <ol className="mt-4 space-y-4">
+              {liveTheoryCards.map(({ theory, fansAreSaying }) => (
+                <LiveTheoryCard key={theory.id} theory={theory} fansAreSaying={fansAreSaying} />
+              ))}
+            </ol>
+          </>
+        )}
 
         <ol className="mt-8 space-y-4">
           {theories.map((t) => (

@@ -39,8 +39,22 @@ export const VERIFICATION_STATUSES = [
 ] as const;
 export type VerificationStatus = (typeof VERIFICATION_STATUSES)[number];
 
-/** Ingestion adapter types this worker can be configured with. */
-export const SOURCE_TYPES = ['rss', 'reddit', 'x', 'youtube', 'bluesky', 'google_news'] as const;
+/**
+ * Ingestion adapter types this worker can be configured with. Keep in sync
+ * by hand with news_source's source_type CHECK constraint — `reddit_rss`,
+ * `tumblr`, `gnews` added by the 20260901010000 migration (PLAN.md Stage 6).
+ */
+export const SOURCE_TYPES = [
+  'rss',
+  'reddit',
+  'x',
+  'youtube',
+  'bluesky',
+  'google_news',
+  'reddit_rss',
+  'tumblr',
+  'gnews',
+] as const;
 export type SourceType = (typeof SOURCE_TYPES)[number];
 
 /**
@@ -79,18 +93,32 @@ export interface NormalizedNewsItem {
 }
 
 /**
- * Similarity provider contract for dedup clustering. The default (and so far
- * only) implementation is lexical (free, deterministic); an embedding-based
- * provider could slot in behind the same interface if evidence ever demands it.
+ * Everything a similarity provider needs about an item to compute a
+ * signature — title-only providers (lexical) ignore the extra fields;
+ * cross-outlet providers need url/snippet/publishedAt too (canonical URL
+ * match, cheap-embedding cosine within a time window, entity+date overlap).
+ */
+export interface SimilarityInput {
+  title: string;
+  snippet?: string;
+  url?: string;
+  publishedAt?: string;
+}
+
+/**
+ * Similarity provider contract for dedup clustering. Two implementations:
+ * `LexicalSimilarityProvider` (title-only shingle Jaccard, still used for
+ * same-outlet near-duplicate titles) and `CrossOutletSimilarityProvider`
+ * (canonical URL / cheap-embedding cosine / entity+date — proposal §4.1).
  */
 export interface SimilarityProvider {
   readonly name: string;
   /**
-   * Compute a canonical similarity signature for a title. `subjectTerms`
+   * Compute a canonical similarity signature for an item. `subjectTerms`
    * (e.g. "Taylor Swift") are stripped — every story mentions the subject, so
    * those tokens carry no clustering signal.
    */
-  computeKey(title: string, subjectTerms?: string[]): string;
+  computeKey(item: SimilarityInput, subjectTerms?: string[]): string;
   /** Similarity of two signatures in [0, 1]. */
   similarity(keyA: string, keyB: string): number;
 }

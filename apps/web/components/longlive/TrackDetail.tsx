@@ -311,7 +311,8 @@ function FactsCard({ facts }: { facts: TrackFacts }) {
       facts.singleReleaseDate ? `Released ${formatFullDate(facts.singleReleaseDate)}` : 'Yes',
     ]);
   }
-  if (rows.length === 0 && !facts.themes?.length) return null;
+  if (facts.themes?.length) rows.push(['Themes', facts.themes.join(', ')]);
+  if (rows.length === 0) return null;
 
   return (
     <div className="era-card mt-6 rounded-2xl border p-5">
@@ -325,19 +326,6 @@ function FactsCard({ facts }: { facts: TrackFacts }) {
           </div>
         ))}
       </dl>
-      {facts.themes && facts.themes.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {facts.themes.map((theme) => (
-            <span
-              key={theme}
-              className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wider text-[color:var(--era-ink-soft)]"
-              style={{ borderColor: 'var(--era-line)' }}
-            >
-              {theme}
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

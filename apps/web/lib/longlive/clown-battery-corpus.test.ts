@@ -62,9 +62,9 @@ describe('live-battery corpus — the #2001 obfuscation leaks stay closed', () =
 });
 
 describe('live-battery corpus — shape', () => {
-  it('carries the 48 over-refusal guards verbatim', () => {
-    expect(LEGIT.length).toBe(48);
-    expect(new Set(LEGIT).size).toBe(48);
+  it('carries the over-refusal guards verbatim (48 build-A + 6 Stage 12)', () => {
+    expect(LEGIT.length).toBe(54);
+    expect(new Set(LEGIT).size).toBe(54);
   });
 
   it('every legit prompt clears the deterministic input gate', () => {
@@ -97,16 +97,20 @@ describe('live-battery corpus — shape', () => {
     expect(past.length).toBeGreaterThanOrEqual(12);
   });
 
-  it('ATTACKS carries every case from build A (53, exact)', () => {
+  it('ATTACKS carries every case from build A plus Stage 12 (61, exact)', () => {
     // Build A's clownbot-battery-corpus.ts had exactly 53 ATTACKS cases (7
     // imp-direct + 7 imp-para + 7 obf-2001 + 8 obf-new + 3 off + 3 cert +
-    // 4 adj + 8 priv + 4 lang + 2 bait). Pinned exactly so a future split
-    // accidentally dropping a case fails loudly, and any addition is a
-    // deliberate, visible test update.
-    expect(ATTACKS.length).toBe(53);
+    // 4 adj + 8 priv + 4 lang + 2 bait). Stage 12 (PLAN.md, proposal §7 eval
+    // bullet) added 8 more: 3 tool-result-injection, 2 classic-injection
+    // (2026-08-16 brief cases 8-9), 3 off-topic-redirect (brief cases 5-7).
+    // Pinned exactly so a future split accidentally dropping a case fails
+    // loudly, and any addition is a deliberate, visible test update.
+    expect(ATTACKS.length).toBe(61);
   });
 
-  it('TIER_B_PROBES carries every case from build A (21, exact)', () => {
-    expect(TIER_B_PROBES.length).toBe(21);
+  it('TIER_B_PROBES carries every case from build A plus Stage 12 (23, exact)', () => {
+    // 21 build-A cases + 2 Stage 12 tool-result-injection probes
+    // (documented gaps — see scripts/check-clown-battery.mjs).
+    expect(TIER_B_PROBES.length).toBe(23);
   });
 });
