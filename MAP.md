@@ -246,7 +246,9 @@ file by mistake — the names are easy to confuse.
 | `apps/web/lib/longlive/mood-keywords.ts` | Degraded-path lexicon, used when no `ANTHROPIC_API_KEY` (the normal local state). **~440 lines — over the 300 cap BEFORE this workstream touched it.** Splitting it is its own task; do not bundle that into a feature PR |
 | `apps/web/lib/longlive/mood-safety.ts` | Crisis detection + all user-facing copy. **Copy is founder-gated** (`docs/content-ops/mood-chat-safety-language.md`) |
 | `apps/web/lib/longlive/mood-usage.ts` | 200/day cap, per cold start. No kill switch exists (unlike Clownbot's) |
-| `apps/web/lib/longlive/song-moods.generated.ts` | **GENERATED.** 8 axes + energy/valence. **162 of 244 songs scored — all of `tloas` is unscored, so no Showgirl song can surface** |
+| `supabase/seed/song-moods/*.mjs` | **HAND-AUTHORED SOURCE**, one file per era. `_example.mjs` is the template, `README.md` the rules. All 8 axes required per song, `useCase` ≤60 chars each, `oneLiner` ≤160. **NO LYRICS EVER** — the generator rejects any line break and it is a P0 redline |
+| `scripts/sync-song-moods.mjs` | Merges track seeds + mood seeds → the generated catalogue. Validates ranges, lengths, slugs; fails the build on a bad entry. Run via `npm run sync:content`, checked by `npm run check:generated` |
+| `apps/web/lib/longlive/song-moods.generated.ts` | **GENERATED, never hand-edited.** 8 axes + energy/valence per song |
 | `apps/web/app/api/mood/route.ts` | The endpoint. Per-IP limit 15/60s in-process; `refusal` vs `unclear` distinction at :222 vs :239 is load-bearing |
 | `apps/web/components/longlive/MoodChat.tsx` | Free-text box; renders structured JSON, never markdown |
 | `apps/web/components/longlive/MoodSongCard.tsx` | One song card; the sentence is `pick.oneLiner`, not model prose |
