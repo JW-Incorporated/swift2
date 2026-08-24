@@ -94,10 +94,11 @@ export default {
           source_title: 'Taylor Swift Speaks Out About Believing Sexual Assault Victims on Anniversary of Her Trial Verdict',
           publisher: 'Time',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-17',
+          accessed_at: '2026-08-24',
           reliability_score: 4,
           excerpt: null,
-          notes: 'anchors the underlying facts: the $1 verdict and the fans-holding-dollar-bills anniversary',
+          notes:
+            'Anchors the underlying facts: the $1 verdict and the fans-holding-dollar-bills anniversary. Re-checked 2026-08-24; it does not confirm the music-video interpretation.',
         },
       ],
     },
@@ -153,11 +154,22 @@ export default {
       claim:
         "In 'Look What You Made Me Do,' the arm of Taylor's throne and the columns flanking it are carved with 'Et Tu, Brute?' — Caesar's dying words to the friend who helped stab him — while a snake slithers up to pour her a cup of tea.",
       evidence:
-        "The Latin tag frames the era's betrayal theme in one prop: Julius Caesar realizing his ally Brutus was among his assassins. Paired with the tea-pouring snake — a literal 'serving tea' pun that also reclaims the snake-emoji pile-on — the throne scene reads as the album's thesis staged as set design. Named in the frame-by-frame decoder guides that ran the week the video premiered.",
-      confidence: 'reputable_reporting',
+        "The inscription and tea-pouring snake are directly visible in Taylor's official music video. The Latin tag frames the era's betrayal theme in one prop: Julius Caesar realizing his ally Brutus was among his assassins. Paired with the tea-pouring snake — a literal 'serving tea' pun that also reclaims the snake-emoji pile-on — the throne scene reads as the album's thesis staged as set design. Named in the frame-by-frame decoder guides that ran the week the video premiered.",
+      confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: ['reputation:snake-reclamation'],
       sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=3tmd-ClpJxA',
+          source_title: 'Taylor Swift - Look What You Made Me Do',
+          publisher: 'Taylor Swift / YouTube',
+          source_type: 'official',
+          accessed_at: '2026-08-24',
+          reliability_score: 5,
+          excerpt: null,
+          notes:
+            'Official music video; the throne arm and flanking columns visibly carry "Et Tu, Brute?" while a snake pours tea.',
+        },
         {
           source_url: 'https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/',
           source_title: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed",
@@ -197,10 +209,11 @@ export default {
           source_title: "What Does Taylor Swift's 'Reputation' Album Cover Art Mean?",
           publisher: 'Bustle',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-24',
+          accessed_at: '2026-08-24',
           reliability_score: 3,
           excerpt: null,
-          notes: 'notes that on close inspection the newsprint "simply says Taylor Swift repeatedly," read as reclaiming her narrative',
+          notes:
+            'Re-checked 2026-08-24: confirms that the newsprint repeats "Taylor Swift," but explicitly frames reclaiming or mocking the press as interpretation, not official intent.',
         },
         {
           source_url: 'https://www.papermag.com/taylor-swifts-new-album-cover-for-reputation-is-headline-making',
