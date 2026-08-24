@@ -1073,11 +1073,11 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
-      relatedIds: [
-        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
-        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moment.
+      // (issue #722, 2026-08-24: the Vanity Fair Oscar-party look was routed
+      // off the Speak Now timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb'],
       year: 2021,
       month: 11,
       day: 11,

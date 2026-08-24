@@ -360,7 +360,9 @@ export default {
       day: 6,
       category: 'fashion',
       // Cross-link (Stage 3, 2026-08-10): the "Elie Saab" designer cluster.
-      relatedIds: ['moment:vault-speak-now-a-pink-elie-saab-sequin-gown-at-the-billboard-music-awards'],
+      // (issue #722, 2026-08-24: the sibling Billboard Awards look was
+      // routed off the Speak Now timeline into the Runway thread, so that
+      // leg of the cluster no longer resolves to a moment id.)
       title: 'A wine-red Elie Saab gown for a historic Pinnacle Award',
       snippet: 'A wine-colored Elie Saab gown at the CMAs, the night she became the first woman ever to receive the Pinnacle Award.',
       sourceUrl: 'https://www.refinery29.com/en-us/2013/11/56892/taylor-swift-cma-awards',
@@ -481,10 +483,10 @@ export default {
     },
     {
       // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
-      relatedIds: [
-        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
-        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
-      ],
+      // (issue #722, 2026-08-24: the sibling People's Choice look was routed
+      // off the Speak Now timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-'],
       year: 2013,
       month: 2,
       day: 10,
@@ -681,7 +683,9 @@ export default {
       day: 1,
       category: 'fashion',
       // Cross-link (Stage 3, 2026-08-10): the "Jenny Packham" designer cluster.
-      relatedIds: ['moment:vault-fearless-a-jenny-packham-resort-mini-for-the-2010-peoples-choice-awar'],
+      // (issue #722, 2026-08-24: the sibling People's Choice look was routed
+      // off the Fearless timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
       title: 'A Jenny Packham lace gown blooms with red at the 2012 CMAs',
       snippet:
         'A nude lace Jenny Packham gown embellished with sparkling red-and-gold rose appliques on the red carpet at the 46th CMA Awards, paired with straightened hair and bangs instead of her usual curls.',
@@ -719,11 +723,11 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moments.
-      relatedIds: [
-        'moment:vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party',
-        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Zuhair Murad" moment.
+      // (issue #722, 2026-08-24: the sibling Vanity Fair Oscar-party look was
+      // routed off the Speak Now timeline into the Runway thread, so that
+      // leg of the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show'],
       year: 2013,
       month: 5,
       day: 19,
