@@ -7,7 +7,7 @@
 // Good enough to cluster the common case — one event reported by many outlets
 // with overlapping headline vocabulary.
 
-import type { SimilarityProvider } from './news-types';
+import type { SimilarityInput, SimilarityProvider } from './news-types';
 
 /** Common English function words — carry no clustering signal. */
 const STOPWORDS = new Set<string>([
@@ -27,12 +27,12 @@ const STOPWORDS = new Set<string>([
 export class LexicalSimilarityProvider implements SimilarityProvider {
   readonly name = 'lexical';
 
-  computeKey(title: string, subjectTerms: string[] = []): string {
+  computeKey(item: SimilarityInput, subjectTerms: string[] = []): string {
     const drop = new Set(STOPWORDS);
     for (const term of subjectTerms) {
       for (const word of tokenize(term)) drop.add(word);
     }
-    const tokens = tokenize(title).filter((t) => !drop.has(t));
+    const tokens = tokenize(item.title).filter((t) => !drop.has(t));
     // Dedupe + sort so the key is a canonical, comparable signature.
     return [...new Set(tokens)].sort().join(' ');
   }
@@ -49,13 +49,16 @@ function stripHtml(text: string): string {
     .replace(/&[a-z#0-9]+;/gi, ' ');
 }
 
-function tokenize(text: string): string[] {
+/** Exported so `CrossOutletSimilarityProvider` (cross-outlet-similarity.ts) reuses the same stopword-aware tokenizer instead of forking one. */
+export function tokenize(text: string): string[] {
   return stripHtml(text)
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, ' ')
     .split(/\s+/)
     .filter((t) => t.length >= 2);
 }
+
+export { STOPWORDS };
 
 function toTokenSet(key: string): Set<string> {
   return new Set(key.split(' ').filter((t) => t.length > 0));

@@ -5,39 +5,44 @@ const provider = new LexicalSimilarityProvider();
 
 describe('LexicalSimilarityProvider.computeKey', () => {
   it('produces a canonical (deduped, sorted) signature', () => {
-    expect(provider.computeKey('Album Announces New Album')).toBe('album announces new');
+    expect(provider.computeKey({ title: 'Album Announces New Album' })).toBe(
+      'album announces new',
+    );
   });
 
   it('is case- and punctuation-insensitive', () => {
-    expect(provider.computeKey('SHOWGIRL: The Tour!!')).toBe(
-      provider.computeKey('showgirl the tour'),
+    expect(provider.computeKey({ title: 'SHOWGIRL: The Tour!!' })).toBe(
+      provider.computeKey({ title: 'showgirl the tour' }),
     );
   });
 
   it('drops stopwords', () => {
-    expect(provider.computeKey('the and of a an')).toBe('');
+    expect(provider.computeKey({ title: 'the and of a an' })).toBe('');
   });
 
   it('strips subject terms so they carry no clustering signal', () => {
-    const key = provider.computeKey('Taylor Swift announces stadium dates', ['Taylor Swift']);
+    const key = provider.computeKey(
+      { title: 'Taylor Swift announces stadium dates' },
+      ['Taylor Swift'],
+    );
     expect(key).not.toContain('taylor');
     expect(key).not.toContain('swift');
     expect(key).toContain('stadium');
   });
 
   it('strips HTML tags and entities from feed-provided titles', () => {
-    expect(provider.computeKey('<b>Eras</b> tour &amp; tickets')).toBe(
-      provider.computeKey('Eras tour tickets'),
+    expect(provider.computeKey({ title: '<b>Eras</b> tour &amp; tickets' })).toBe(
+      provider.computeKey({ title: 'Eras tour tickets' }),
     );
   });
 
   it('drops single-character tokens', () => {
-    expect(provider.computeKey('x tour')).toBe('tour');
+    expect(provider.computeKey({ title: 'x tour' })).toBe('tour');
   });
 });
 
 describe('LexicalSimilarityProvider.similarity', () => {
-  const key = (title: string) => provider.computeKey(title, ['Taylor Swift']);
+  const key = (title: string) => provider.computeKey({ title }, ['Taylor Swift']);
 
   it('scores identical signatures 1', () => {
     const k = key('announces new album at midnight');

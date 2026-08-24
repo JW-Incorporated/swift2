@@ -37,7 +37,10 @@ describe('clusterBatch', () => {
       {
         id: 'story-1',
         similarityKeys: [
-          provider.computeKey('Taylor Swift announces Eras Tour London dates', OPTS.subjectTerms),
+          provider.computeKey(
+            { title: 'Taylor Swift announces Eras Tour London dates' },
+            OPTS.subjectTerms,
+          ),
         ],
       },
     ];
@@ -50,7 +53,7 @@ describe('clusterBatch', () => {
 
   it('starts a new story when nothing clears the threshold', () => {
     const existing: ExistingStory[] = [
-      { id: 'story-1', similarityKeys: [provider.computeKey('vinyl chart record broken')] },
+      { id: 'story-1', similarityKeys: [provider.computeKey({ title: 'vinyl chart record broken' })] },
     ];
     const items = [item('a', 'Taylor Swift surprise set at folk festival')];
     const result = clusterBatch(items, existing, provider, OPTS);
@@ -87,7 +90,7 @@ describe('clusterBatch', () => {
     const items = [item('a', 'Taylor Swift announces new single')];
     const result = clusterBatch(items, [], provider, OPTS);
     expect(result.assignments[0]?.similarityKey).toBe(
-      provider.computeKey('Taylor Swift announces new single', OPTS.subjectTerms),
+      provider.computeKey({ title: 'Taylor Swift announces new single' }, OPTS.subjectTerms),
     );
   });
 
