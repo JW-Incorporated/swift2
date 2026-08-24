@@ -14,9 +14,9 @@
  * current). Each card carries a relative date and, on the newest item only,
  * a pulsing dot.
  *
- * Column 2, "Past confirmed easter eggs" — `confirmedEggs({ eggsOnly: true })`,
- * `eggsOnly: true` per founder ruling (real eggs only, not confirmed
- * theories). Grouped by era (`clown-board.ts`'s `BoardItem.era`, resolved by
+ * Column 2, "Past confirmed easter eggs" — `confirmedEggs()` (real eggs
+ * only, never confirmed predictions/common readings). Grouped by era
+ * (`clown-board.ts`'s `BoardItem.era`, resolved by
  * matching each item's date into an era's `[start, end]` window). An item
  * whose date resolves to no era is omitted from the grouped display rather
  * than invented a bucket for it — it also never counts toward the "N
@@ -37,7 +37,7 @@ import { ClownItemCard } from './ClownItemCard';
 const THEORIES_HEADING = 'Most recent';
 const THEORIES_SUB = "What the fandom is clowning on right now. Unresolved by definition.";
 const EGGS_HEADING = 'Past confirmed easter eggs';
-const EGGS_SUB = 'Called, then proven. Grouped by the era they came from.';
+const EGGS_SUB = 'Planted, decoded, then confirmed. Grouped by the era they came from.';
 const COLLAPSED_EGG_COUNT = 10;
 
 export interface ClownBoardProps {
@@ -98,7 +98,7 @@ export function ClownBoard({ onSelect }: ClownBoardProps) {
       })),
     [liveBoard.theories],
   );
-  const allEggs = useMemo(() => confirmedEggs({ eggsOnly: true }), []);
+  const allEggs = useMemo(() => confirmedEggs(), []);
   // Only era-resolved eggs are ever shown or counted, so the "N decoded" /
   // "Show all N" numbers always match what's on screen (see header comment).
   const groupableEggs = useMemo(() => allEggs.filter((item) => item.era !== undefined), [allEggs]);
