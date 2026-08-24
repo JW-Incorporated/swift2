@@ -28,26 +28,3 @@ const TOOL_LABEL: Record<string, string> = {
 export function investigationLabel(step: InvestigationStep): string {
   return `${TOOL_LABEL[step.tool] ?? `running ${step.tool}`}…`;
 }
-
-/**
- * Session round-trip (Codex review fix, PLAN.md Stage 11, HUMAN-ACTIONS.md
- * #15 item 2): `route.ts` reads/returns an opaque `x-clown-session` header
- * so a caller's server-side identity persists across messages in the same
- * conversation — this component previously never captured or resent it, so
- * every message signed up a fresh anonymous identity. Pulled out as pure
- * functions (rather than inlined in `ask()`) so the round-trip logic itself
- * is directly testable without a DOM/React harness, which this repo has
- * none of for components (`ClownChat.tsx`'s own header note on browser
- * verification still applies to the rendered behavior).
- */
-export function withSessionHeader(headers: Record<string, string>, sessionToken: string | null): Record<string, string> {
-  return sessionToken ? { ...headers, 'x-clown-session': sessionToken } : headers;
-}
-
-/** The token to hold for the NEXT request: the response's own header value
- * when present, else whatever was already held (a response that carried no
- * header — e.g. the toggle is off — must not erase a token from earlier in
- * the same conversation). */
-export function nextSessionToken(previous: string | null, responseHeaderValue: string | null): string | null {
-  return responseHeaderValue ?? previous;
-}

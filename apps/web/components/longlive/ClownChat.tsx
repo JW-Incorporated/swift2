@@ -30,8 +30,7 @@ import type { BoardItem } from '@/lib/longlive/clown-board';
 import type { ClownTurn } from '@/lib/longlive/clown-client';
 import { promptForItem } from '@/lib/longlive/clown-starters';
 import { useChromeOffset } from '@/lib/longlive/useChromeOffset';
-import { flattenAnswer, investigationLabel, nextSessionToken, withSessionHeader } from '@/lib/longlive/clown-chat-helpers';
-import { readStoredClownSessionToken, writeStoredClownSessionToken } from '@/lib/longlive/clown-session-storage';
+import { flattenAnswer, investigationLabel } from '@/lib/longlive/clown-chat-helpers';
 import { readClownStream } from '@/lib/longlive/clown-stream';
 import { useAppActions, useAppState, type ClownMessage } from '@/lib/longlive/store';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
@@ -83,22 +82,6 @@ export function ClownChat() {
   // investigation` after that, not from this transient state).
   const [investigating, setInvestigating] = useState<InvestigationStep | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  // PLAN.md Stage 11 fix (Codex review, HUMAN-ACTIONS.md #15 item 2): the
-  // route reads/returns an opaque `x-clown-session` token so a returning
-  // caller's server-side identity (conversation/memory/per-user cap)
-  // persists across messages — this component previously never captured or
-  // resent it, so every message signed up a fresh anonymous identity. A
-  // ref, not state: it never drives a render, only what the next `fetch`
-  // sends. Hydrated from `clown-session-storage.ts` on mount and written
-  // back on every change (HUMAN-ACTIONS.md #15 item 3 fix) — unlike
-  // `clownMessages` (deliberately in-memory only, see `store.tsx`'s header),
-  // the token itself carries no message content, just an opaque identity, so
-  // it survives a mode-switch remount or a page reload the same way any
-  // other client-side UI state in this app does (`progress.ts`'s pattern).
-  const sessionTokenRef = useRef<string | null>(null);
-  useEffect(() => {
-    sessionTokenRef.current = readStoredClownSessionToken();
-  }, []);
 
   // Full-screen toggle — a CSS overlay, deliberately not the native
   // Fullscreen API (requestFullscreen on a non-video element is unreliable
@@ -167,17 +150,17 @@ export function ClownChat() {
         // reader hits send, per the founder's brief it's a normal question and
         // gets the full model treatment). The route's chip path stays built
         // and tested but is not wired up here on purpose.
+        // Session continuity (architect-directed redesign, HUMAN-ACTIONS.md
+        // #15 round 4): the route's server-side identity now round-trips via
+        // an `HttpOnly` cookie the browser sends/receives automatically on
+        // this same-origin `fetch` — no client-side token capture or storage
+        // needed at all.
         const res = await fetch('/api/clown', {
           method: 'POST',
-          headers: withSessionHeader({ 'content-type': 'application/json' }, sessionTokenRef.current),
+          headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ text: question, transcript }),
         });
         if (!res.ok) throw new Error(String(res.status));
-        // Capture the round-tripped session id (present whenever a session
-        // resolved server-side, absent otherwise — see route.ts) for the
-        // NEXT message in this same conversation.
-        sessionTokenRef.current = nextSessionToken(sessionTokenRef.current, res.headers.get('x-clown-session'));
-        writeStoredClownSessionToken(sessionTokenRef.current);
         // PLAN.md Stage 10: the route streams the agent loop's investigation
         // trail as it happens, then exactly one final answer event — every
         // deterministic (non-loop) response still arrives as a single event

@@ -58,13 +58,31 @@ export class MoodUsage {
     return true;
   }
 
+  /** The day key the CURRENT reservation window belongs to — call this
+   * immediately after a successful `reserve()` and hold onto the result, so
+   * a later `release()` can name exactly which day's counter it means to
+   * give a slot back to (HUMAN-ACTIONS.md #15 round 4, day-keyed release
+   * fix — see `release()`'s own note). */
+  reservedDay(): string {
+    return this.day;
+  }
+
   /** Give back one reserved slot — for a reservation that turns out to have
    * been wasted (e.g. Clownbot's per-user cap denies the request AFTER the
-   * shared global slot was already taken; HUMAN-ACTIONS.md #15 item 4). A
-   * no-op once the window has already rolled over (nothing to give back to
-   * a stale day), and never drops the count below 0. */
-  release(): void {
-    if (dayKey(this.now()) !== this.day) return;
+   * shared global slot was already taken; HUMAN-ACTIONS.md #15 item 4).
+   * `day` is the caller's OWN reservation's day key (`reservedDay()`,
+   * captured at reservation time), not "today" inferred at release time —
+   * a reservation taken right before midnight and released right after,
+   * once some OTHER caller's `reserve()` has already rolled this window
+   * forward to the new day, must stay a no-op against the stale day rather
+   * than decrementing the new day's live count (the bug this fixes: the
+   * old `release()` inferred "today" via the clock at release time, which
+   * could match the counter's already-rolled `this.day` and silently
+   * decrement someone else's live reservation instead of leaving it alone).
+   * A no-op when `day` no longer matches the counter's current window, and
+   * never drops the count below 0. */
+  release(day: string): void {
+    if (day !== this.day) return;
     if (this.count > 0) this.count -= 1;
   }
 

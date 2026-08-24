@@ -74,12 +74,38 @@ function buildSeedText(text: string, seed: ToolCallResult): string {
   ].join('\n');
 }
 
-export function buildInitialMessages(transcript: readonly ClownTurn[], seed: ToolCallResult): AgentMessage[] {
+const CONVERSATION_MEMORY_CLOSE_TAG = '</conversation_memory>';
+
+/** Wraps a stored rolling summary for the model — demoted into the first
+ * user message's content rather than promoted into a system block
+ * (architect-directed redesign, HUMAN-ACTIONS.md #15 round 4: a system
+ * block reads as trusted framing; user-message content, tagged plainly as a
+ * record of an earlier conversation, does not). Strips any literal
+ * `</conversation_memory>` substring first — the one cheap, mandatory
+ * mitigation against a stored summary trying to break out of its own tag
+ * and inject a fresh, unwrapped instruction block. */
+export function wrapConversationMemory(summary: string): string {
+  const sanitized = summary.split(CONVERSATION_MEMORY_CLOSE_TAG).join('');
+  return `<conversation_memory>${sanitized}</conversation_memory>`;
+}
+
+/** `priorSummary`, when given, is prepended (wrapped, see
+ * `wrapConversationMemory`) into the content of the FIRST user-role message
+ * in `transcript` — never a system block. */
+export function buildInitialMessages(
+  transcript: readonly ClownTurn[],
+  seed: ToolCallResult,
+  priorSummary?: string,
+): AgentMessage[] {
   const lastIndex = transcript.length - 1;
-  return transcript.map((turn, i) => ({
-    role: turn.role,
-    content: i === lastIndex ? buildSeedText(turn.text, seed) : turn.text,
-  }));
+  const firstUserIndex = transcript.findIndex((t) => t.role === 'user');
+  return transcript.map((turn, i) => {
+    const content = i === lastIndex ? buildSeedText(turn.text, seed) : turn.text;
+    return {
+      role: turn.role,
+      content: priorSummary && i === firstUserIndex ? `${wrapConversationMemory(priorSummary)}\n\n${content}` : content,
+    };
+  });
 }
 
 function str(value: unknown, max: number): string {

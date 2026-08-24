@@ -43,7 +43,7 @@
  * checks below, so a request that degraded on one of those never spent any
  * model budget but still consumed the user's daily allowance. The route now
  * only resolves the session up front (needed synchronously for the
- * `x-clown-session` response header) and hands the actual reservation in as
+ * `Set-Cookie` response header) and hands the actual reservation in as
  * `reserveUserBudget`, called from here — after `clownModelKey()` and
  * `usage.reserve()` (global) both already passed, right before the first
  * model request is built — so it only ever fires once a model call is
@@ -134,10 +134,13 @@ function addToPool(pool: Map<string, RetrievedItem>, items: readonly RetrievedIt
  *
  * `priorSummary` (PLAN.md Stage 11 fix, HUMAN-ACTIONS.md #15 item 2:
  * "persisted memory is write-only") — the caller's rolling conversation
- * summary from `clown-memory.ts`'s `loadClownHistory`, when one exists. Fed
- * to the model as an extra, uncached `system` block (never mixed into
- * `messages`, so it never has to fake alternating user/assistant roles) —
- * see the `system` array below.
+ * summary from `clown-memory.ts`'s `loadClownHistory`, when one exists.
+ * DEMOTED into the first user-role message's content, wrapped in
+ * `<conversation_memory>` tags (architect-directed redesign, HUMAN-ACTIONS.md
+ * #15 round 4) — never promoted into a system block, which reads to the
+ * model as trusted framing rather than a plain record of an earlier
+ * conversation. See `clown-agent-prompt.ts`'s `buildInitialMessages`/
+ * `wrapConversationMemory` for exactly how.
  *
  * `reserveUserBudget`, when given, is called ONCE, right here (see this
  * module's own header for why it lives at this exact point and not in
@@ -167,6 +170,15 @@ export async function runClownAgent(
   if (capped.length === 0 || capped[capped.length - 1].role !== 'user') return degraded(investigation, pool);
 
   if (!usage.reserve()) return degraded(investigation, pool);
+  // Captured immediately after a successful reservation (HUMAN-ACTIONS.md
+  // #15 round 4, day-keyed release fix) — `release()` below must give back
+  // budget from the SAME day's window it was reserved from, not whatever
+  // day happens to be "today" when release fires. Without this, a
+  // reservation taken just before midnight and released just after (once
+  // some other request's own `reserve()` call has already rolled the
+  // window forward) would decrement the NEW day's live counter instead of
+  // being a no-op against the stale one.
+  const reservationDay = usage.reservedDay();
 
   // PER-USER RESERVATION (see this module's header) — only reached once the
   // key/kill-switch check and the global cap above both already passed, so
@@ -179,18 +191,13 @@ export async function runClownAgent(
     // ends up spending a model call — give that global slot back rather
     // than letting a user-cap denial quietly waste shared budget another
     // caller could have used today.
-    usage.release();
+    usage.release(reservationDay);
     return { take: null, investigation, pool, overUserCap: true };
   }
 
-  const messages: AgentMessage[] = buildInitialMessages(capped, seed);
+  const messages: AgentMessage[] = buildInitialMessages(capped, seed, priorSummary);
   const tools = [...CLOWN_READ_TOOLS, CLOWN_TAKE_TOOL];
-  const system = priorSummary
-    ? [
-        { type: 'text' as const, text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' as const } },
-        { type: 'text' as const, text: `EARLIER IN THIS CONVERSATION (summarized, from a previous message or session):\n${priorSummary}` },
-      ]
-    : [{ type: 'text' as const, text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' as const } }];
+  const system = [{ type: 'text' as const, text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' as const } }];
   const startedAt = clock();
   let toolCallCount = 0;
   let tokenTotal = 0;

@@ -175,6 +175,53 @@ with it. Neither blocks tonight's build.
    `codex:rescue` review comes back clean (same category of risk as every
    prior pass — schema + the live chat route's context-assembly logic).
 
+   **Update (2026-08-24, same branch `fix/clown-sessions-final-hardening`,
+   fourth pass) — architect (Fable) escalation after round 3's own
+   `codex:rescue` review found recurring trust-boundary gaps; implementing
+   Fable's decided design, not another incremental fix:**
+   1. **Session credential moved from a client-visible token to an
+      `HttpOnly; Secure; SameSite=Strict; Path=/api/clown` cookie**
+      (`clown_session`) — round 3's `x-clown-session` header/localStorage
+      approach handed the raw Supabase access+refresh token pair to client
+      JS; the client now never sees it at all, the browser's cookie jar
+      handles persistence and same-origin resend with zero client code.
+      `clown-session-storage.ts` (the round-3 localStorage module) is
+      deleted outright, along with its test and the now-dead
+      `withSessionHeader`/`nextSessionToken` helpers.
+   2. **The stored conversation summary is demoted into the first
+      user-role message** (wrapped in `<conversation_memory>` tags, with a
+      literal `</conversation_memory>` stripped from the stored text first
+      against a tag-breakout attempt), never promoted into a system block —
+      round 3's second system block is removed. Fold-time screening
+      (`clown-memory.ts`'s `maintainRollingSummary`) is now per-turn and
+      role-aware (mirrors `screenConversation`'s dispatch), silently
+      dropping a turn that fails its own screen from what gets folded
+      rather than surfacing a refusal (round 3's regression). The route's
+      own `screenInput` pass over the folded summary text is removed —
+      replaced by the fold-time screening above; the route's
+      `screenConversation` pass over loaded TURNS is unchanged.
+   3. **Schema fix:** `clown_conversation` now carries `unique (user_id)`
+      (`20260908000000_clown_conversation_unique.sql`, with a dedupe step
+      for any pre-existing duplicate rows) — one conversation per user is
+      the actual identity model. Conversation creation is now a PostgREST
+      upsert (`on_conflict=user_id`, `resolution=merge-duplicates`) with a
+      fresh `expires_at`, so an EXPIRED row (still physically present under
+      RLS) is recoverable instead of permanently blocking creation.
+      `getConversation` now distinguishes a confirmed-empty read from a
+      failed one; only confirmed-empty falls through to creation — a read
+      failure degrades to no-memory instead of risking a duplicate
+      conversation. Also fixed the day-keyed `MoodUsage.release()` bug
+      (a per-user cap reservation taken before midnight, released after,
+      could decrement the wrong day's counter).
+   Verified: `npm run typecheck --workspace=@swift2/web` clean, full suite
+   green (216 files / 3543 tests), and the new migration checked against a
+   real ephemeral Postgres — idempotent across all 27 migrations applied
+   twice, dedupe keeps the most-recently-active row, the unique constraint
+   is live, and the upsert recovers from an expired-row collision (reset
+   summary + fresh `expires_at`, no duplicate row). **Still do NOT flip the
+   toggle** — `codex:rescue` review of this round is still warranted and has
+   not yet run (see the PR itself for status).
+
 **Worked if:** you tell me the Reddit outcome in chat. Hold the Supabase
 toggle until a future session addresses the items above — tell me to
 prioritize it if you want it sooner, same as before.
