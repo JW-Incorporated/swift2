@@ -4996,11 +4996,13 @@ export default {
         ],
         // Rumor Desk 2026-07-21: the commission itself is confirmed (above), but
         // HOW/WHEN the gown is unveiled is a separate, still-open claim. This is
-        // an official-tier statement (a Dior spokesperson, on the record to the
-        // NYT), distinct from the tabloid "holding the photos back" rumor on the
-        // MSG-wedding page. Adjudicable: it resolves the moment official photos
-        // appear — confirmed if they arrive via her own Instagram as described.
-        // No location (an Instagram reveal pins down nothing physical).
+        // an established-tier report (a Dior spokesperson, on the record to the
+        // NYT — Dior speaking is not Taylor or her team speaking, so it is not
+        // official tier per rumor-redlines.mjs's EXEMPT_TIER; retiered 2026-08-24,
+        // #1965), distinct from the tabloid "holding the photos back" rumor on
+        // the MSG-wedding page. Adjudicable: it resolves the moment official
+        // photos appear — confirmed if they arrive via her own Instagram as
+        // described. No location (an Instagram reveal pins down nothing physical).
         rumors: [
           {
             claim:
@@ -5010,7 +5012,7 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/',
             note: 'An on-record Dior statement about the reveal mechanism, not the gown itself. Rechecked 2026-08-12: still no official reveal — Taylor has not posted the gown to her own Instagram, though unofficial images have circulated and bridal brands are prepping "Swift-inspired" lines off the unseen dress. Resolves when official photos surface via her Instagram, as described.',
-            sourceTier: 'official',
+            sourceTier: 'established',
             lastCheckedOn: '2026-08-12',
           },
         ],
