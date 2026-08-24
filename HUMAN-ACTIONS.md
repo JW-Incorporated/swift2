@@ -366,13 +366,38 @@ with it. Neither blocks tonight's build.
    real ephemeral Postgres — idempotent across all 27 migrations applied
    twice, dedupe keeps the most-recently-active row, the unique constraint
    is live, and the upsert recovers from an expired-row collision (reset
-   summary + fresh `expires_at`, no duplicate row). **Still do NOT flip the
-   toggle** — `codex:rescue` review of this round is still warranted and has
-   not yet run (see the PR itself for status).
+   summary + fresh `expires_at`, no duplicate row).
 
-**Worked if:** you tell me the Reddit outcome in chat. Hold the Supabase
-toggle until a future session addresses the items above — tell me to
-prioritize it if you want it sooner, same as before.
+   **RESOLVED, 2026-08-24 12:10 PDT — PR #2328 merged, this whole thread is
+   closed out.** Two more `codex:rescue` rounds ran on the architect's
+   design (5 review rounds total across this item's history): round 4
+   confirmed the architecture itself is sound (both harder pieces — cookie
+   session, demoted summary — fully held) and found 3 small mechanical
+   gaps (one response path missing its cookie header, an over-loose
+   "confirmed empty" check that could wrongly reset real data, a stale doc
+   line); a narrow fix closed those; a final round 5 review confirmed both
+   real claims genuinely FIXED with real regression tests, no remaining
+   system-role summary path anywhere, no defect in either of the two
+   latest migrations. What's left is cosmetic, not functional, noted for
+   whoever's next through this file: a missing test assertion on the
+   cookie header for one specific response branch (the code is right, the
+   test just doesn't check it — `route.test.ts`'s loaded-history-refusal
+   case), one line of leftover historical wording in `MAP.md`, and a
+   non-blocking note that user/assistant turn-pair writes aren't
+   transactional (a partial failure could store one side of an exchange
+   without the other — flagged non-blocking by the reviewer itself).
+
+   **Anonymous-auth toggle: safe to flip whenever you're ready.** The
+   session credential the toggle would start minting is now
+   `HttpOnly`/never client-visible, stored conversation history can't
+   reach the model with elevated trust, and conversation identity/rate-
+   limit accounting are both correct. Nothing left blocking it — do this
+   at the same time as item #14's migration batch, since the schema this
+   depends on isn't live until those apply.
+
+**Worked if:** you tell me the Reddit outcome in chat. Once item #14's
+migrations are applied, flip the Supabase toggle whenever you like — the
+code is ready.
 
 **Status:** OPEN
 
