@@ -145,11 +145,16 @@ new tab for that"). See §5.5 and §7.
 ### ContentItem — a "moment" within an era (`content.ts`)
 ```ts
 ContentItem = { id, eraId, date (YYYY-MM-DD), title, blurb, tags: ContentTag[],
-                image, hiddenClue?, video?: MomentVideo }
+                images: ImageRef[], hiddenClue?, video?: MomentVideo }
 ContentTag = 'Music'|'Fashion'|'Tour'|'Relationship'|'Lore'
 ```
-Authoring order doesn't matter — the UI sorts chronologically. `image`
-defaults to the era art if omitted (see `build()` in `content.ts`).
+Authoring order doesn't matter — the UI sorts chronologically. `images`
+defaults to the era art if omitted (see `build()` in `content.ts`). Each
+`ImageRef` may carry `focalPoint` (a CSS `object-position`, such as
+`'50% 25%'`). Every surface that cover-crops an `ImageRef` must apply
+`focalPointOf(image)`; reducing the ref to its URL drops the authored crop.
+Unset focal points deliberately remain centered. Full-photo `object-contain`
+viewers do not apply focal positioning because they do not crop.
 
 ### Threads / lenses (`lenses.ts`)
 ```ts
