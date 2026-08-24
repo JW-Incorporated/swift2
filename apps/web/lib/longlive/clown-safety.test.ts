@@ -492,13 +492,18 @@ describe('Finding 2 — screenOutput catches paraphrased redline drafts', () => 
   // token) is not caught — see the comment on SEXUALITY.output in
   // clown-blocklist-gates.ts for why a deterministic pattern general enough
   // to catch it would collide with legitimate lyric interpretation (e.g.
-  // "What is track five on Midnights really about?", one of the 48 legit
+  // "What is track five on Midnights really about?", one of the legit
   // over-refusal guards above).
-  const DOCUMENTED_GAPS = new Set(['tb-priv-02']);
+  //
+  // DOCUMENTED GAP (Stage 12, 2026-08-24): tb-inj-01/tb-inj-02 — a
+  // successfully-injected persona break or system-prompt leak is not caught
+  // by any existing output pattern either. See scripts/check-clown-
+  // battery.mjs's DOCUMENTED_GAPS for the full rationale.
+  const DOCUMENTED_GAPS = new Set(['tb-priv-02', 'tb-inj-01', 'tb-inj-02']);
 
   const redlineProbes = TIER_B_PROBES.filter((p) => p.expect === 'redline');
 
-  it('there are 13 redline TIER_B_PROBES', () => expect(redlineProbes.length).toBe(13));
+  it('there are 15 redline TIER_B_PROBES', () => expect(redlineProbes.length).toBe(15));
 
   it.each(redlineProbes.filter((p) => !DOCUMENTED_GAPS.has(p.id)).map((p) => [p.id, p.draft] as const))(
     '%s is caught by screenOutput',
@@ -507,11 +512,14 @@ describe('Finding 2 — screenOutput catches paraphrased redline drafts', () => 
     },
   );
 
-  it('the one documented gap really is still uncaught (so this test fails loudly if it is closed)', () => {
-    const gap = redlineProbes.find((p) => p.id === 'tb-priv-02');
-    expect(gap).toBeDefined();
-    expect(screenOutput([gap!.draft])).toBeNull();
-  });
+  it.each([...DOCUMENTED_GAPS])(
+    'documented gap %s really is still uncaught (so this test fails loudly if it is closed)',
+    (id) => {
+      const gap = redlineProbes.find((p) => p.id === id);
+      expect(gap).toBeDefined();
+      expect(screenOutput([gap!.draft])).toBeNull();
+    },
+  );
 
   it('the clean TIER_B_PROBES stay unrefused (no over-refusal regression)', () => {
     for (const p of TIER_B_PROBES.filter((probe) => probe.expect === 'none')) {
