@@ -437,7 +437,10 @@ describe('checkMedia', () => {
   });
 
   it('site-screen tiles must live under /social/library/ but NOT under the photo corpus', async () => {
-    const ok = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
+    // Use an in-range 1080x1350 asset: as of 2026-08-24 the checker also gates
+    // Instagram aspect ratio, and the tall *-screen.png captures (780x1688)
+    // now fail that gate — so they can't double as the "valid path" fixture.
+    const ok = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
     expect(ok).toEqual([]);
     for (const tile of ['/social/2026-07-17-electric-lady-1.png', CORPUS_PHOTO]) {
       const bad = await checkMedia('a.json', { platform: 'instagram', media: [tile], mediaKind: 'site-screen' }, []);
@@ -482,7 +485,29 @@ describe('checkMedia', () => {
   });
 
   it('accepts a real, existing screenshot file under the declared standard', async () => {
-    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
+    // 1080x1350 in-range asset (see the aspect-ratio note above; the tall
+    // *-screen.png captures now correctly fail the Instagram aspect gate).
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
     expect(findings).toEqual([]);
+  });
+
+  // ── Instagram aspect-ratio gate (2026-08-24). Instagram rejects a feed image
+  //    outside ~0.8–1.91 (width/height) at publish time; catch it at draft
+  //    time. Nine days of IG posts (15–23 Aug 2026) died on exactly this —
+  //    tall 780x1688 site screenshots (ratio 0.462) — with nothing inspecting
+  //    image shape (social/calendar.md). X has no such limit. ──
+  it('flags an Instagram image outside the accepted aspect-ratio range', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
+    expect(findings.some((f) => f.includes("outside Instagram's accepted") && f.includes('780x1688'))).toBe(true);
+  });
+
+  it('accepts an in-range 1080x1350 Instagram image (aspect gate passes)', async () => {
+    const findings = await checkMedia('a.json', { platform: 'instagram', media: ['/social/library/thread-fashion-intro.png'], mediaKind: 'site-screen' }, []);
+    expect(findings.some((f) => f.includes('aspect'))).toBe(false);
+  });
+
+  it('does NOT apply the aspect-ratio gate to X drafts', async () => {
+    const findings = await checkMedia('a.json', { platform: 'x', media: ['/social/library/mood-chat-screen.png'], mediaKind: 'site-screen' }, []);
+    expect(findings.some((f) => f.includes('aspect'))).toBe(false);
   });
 });
