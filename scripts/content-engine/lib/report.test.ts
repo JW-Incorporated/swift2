@@ -38,6 +38,36 @@ describe('writeReport provenance + routing (docs/decisions.md 2026-08-14)', () =
   });
 });
 
+describe('writeReport — same-date runs never overwrite each other (#489)', () => {
+  it('gives a second run on the same date a distinct, time-suffixed filename', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'cie-report-'));
+    const reportDir = relative(ROOT, dir);
+    const first = await writeReport([], {
+      date: '2026-08-20', itemCount: 1, imageCount: 1, checkers: ['x'], source: 'scan', reportDir,
+    });
+    const second = await writeReport([], {
+      date: '2026-08-20', itemCount: 2, imageCount: 2, checkers: ['x'], source: 'scan', reportDir, time: '143022',
+    });
+    expect(second).not.toBe(first);
+    expect(second.replace(/\\/g, '/')).toMatch(/2026-08-20-143022-cie-run\.md$/);
+    // Neither write clobbered the other — each still carries its own content.
+    const firstText = await readFile(first, 'utf8');
+    const secondText = await readFile(second, 'utf8');
+    expect(firstText).toContain('Corpus: 1 items');
+    expect(secondText).toContain('Corpus: 2 items');
+  });
+
+  it('a third same-date run does not collide with the second either', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'cie-report-'));
+    const reportDir = relative(ROOT, dir);
+    const meta = { date: '2026-08-21', itemCount: 1, imageCount: 1, checkers: ['x'], source: 'scan', reportDir, time: '090000' };
+    const first = await writeReport([], meta);
+    const second = await writeReport([], meta);
+    const third = await writeReport([], meta);
+    expect(new Set([first, second, third]).size).toBe(3);
+  });
+});
+
 describe('parseRunProvenance', () => {
   it('returns null for a report with no marker', () => {
     expect(parseRunProvenance('# Content Integrity Engine — run 2026-08-09\n\nTotals: 859 findings')).toBeNull();
