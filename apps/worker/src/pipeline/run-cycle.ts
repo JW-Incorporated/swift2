@@ -17,6 +17,7 @@ import { classifyByKeywords, type ClassifyResult } from '../classify/rule-based'
 import { classifyWithLLM } from '../classify/openai-client';
 import { UsageStore, supabaseUsageDb } from '../classify/usage-store';
 import { resolveGoogleNewsItem } from '../sources/resolve-google-news';
+import { runExtractStage, type ExtractStageResult } from '../extract/run-extract-stage';
 
 const SUBJECT_TERMS = ['taylor swift', 'taylor', 'swift'];
 // CrossOutletSimilarityProvider.similarity() is binary (1/0, see its module
@@ -34,6 +35,7 @@ export interface CycleResult {
   newStories: number;
   storiesClassified: number;
   storiesVerified: number;
+  extract: ExtractStageResult;
   errors: string[];
 }
 
@@ -45,6 +47,16 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
     newStories: 0,
     storiesClassified: 0,
     storiesVerified: 0,
+    extract: {
+      clustersConsidered: 0,
+      extracted: 0,
+      screenedOut: 0,
+      skipped: 0,
+      deferred: 0,
+      theoriesUpserted: 0,
+      abandonedTheories: 0,
+      errors: [],
+    },
     errors,
   };
 
@@ -279,6 +291,14 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
         errors.push(`classify failed for story ${story.id}: ${(err as Error).message}`);
       }
     }
+  }
+
+  // ---- 4. EXTRACT / SCREEN / WRITE ------------------------------------------
+  try {
+    result.extract = await runExtractStage(db);
+    errors.push(...result.extract.errors);
+  } catch (err) {
+    errors.push(`extract stage failed: ${(err as Error).message}`);
   }
 
   return result;
