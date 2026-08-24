@@ -2962,7 +2962,12 @@ export default {
       // tee's payoff is Stevie Nicks singing at the MSG wedding reception in this
       // same building 23 days later — the page carried no relatedIds. Target id
       // verified in-seed. (A crosslink-candidate for the pair is filed separately.)
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      // Cross-link (crosslink-opportunity, 2026-08-24): the Watch Hill
+      // bachelorette weekend, same thread and 9 days apart.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-a-tented-lawn-in-rhode-island-two-weeks-before-the-wedding',
+      ],
       title: '"Stevie Knicks" courtside: the Garden, three weeks before the wedding',
       snippet:
         'Courtside for NBA Finals Game 4 with Este and Alana Haim, in homemade Knicks-pun tees — hers reads "Stevie Knicks" — Taylor watches New York erase a 29-point deficit and steal it on a put-back with 1.2 seconds left. Three weeks later, same building: the wedding.',
@@ -3094,10 +3099,13 @@ export default {
       // Watch Hill estate the weekend was staged at — both the folklore song
       // that mythologizes it (candidate #1368) and the Red-era purchase that
       // put it in her hands (candidate #1369).
+      // Cross-link (crosslink-opportunity, 2026-08-24): the Stevie Knicks NBA
+      // Finals sighting, same thread and 9 days apart.
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-folklore-the-last-great-american-dynasty-and-the-widow-she-found-in-h',
         'moment:vault-red-she-buys-high-watch-the-watch-hill-mansion-in-cash',
+        'moment:vault-tloas-stevie-knicks-courtside-the-garden-three-weeks-before-the-we',
       ],
       year: 2026,
       month: 6,
@@ -4686,7 +4694,14 @@ export default {
       confidence: 'official',
       // Cross-link (candidate #1023): the gown reportedly references Elizabeth
       // Taylor's 1950 bridal look, and track two is named for her.
-      relatedIds: ['moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album'],
+      // Cross-link (crosslink-opportunity, 2026-08-24): the Super Bowl LVIII
+      // sighting and the Wembley cameo — same narrative thread, one moment's
+      // text discusses the other's subject.
+      relatedIds: [
+        'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+        'moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in',
+        'moment:vault-ttpd-travis-kelce-eras-tour-cast-member-for-a-night',
+      ],
       title: 'The wedding gown: a custom Dior Haute Couture, styled by Joseph Cassell',
       snippet:
         "Jonathan Anderson's first celebrity couture bridal commission at Dior — a custom gown reportedly drawing on Elizabeth Taylor's 1950 wedding dress, worn with custom Christian Louboutin shoes and Cartier jewelry.",
@@ -6389,7 +6404,12 @@ export default {
       // the-proposal so the Aug 2025 -> Jul 2026 stretch renders as beats.
       threadIds: ['the-proposal'],
       // Cross-link (candidate #1128): the David Koma look from the same appearance.
-      relatedIds: ['moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto'],
+      // Cross-link (crosslink-opportunity, 2026-08-24): the engagement
+      // announcement this Graham Norton appearance follows up on.
+      relatedIds: [
+        'moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto',
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+      ],
       year: 2025,
       month: 10,
       day: 2,
@@ -8150,9 +8170,12 @@ export default {
       // Cross-links (candidates #1059/#1290): the same song's other pages — the
       // Adult Contemporary four-in-the-top-10 record it co-holds, and its Pop
       // Airplay chart run — reverse links; the forward links already exist.
+      // Cross-link (crosslink-opportunity, 2026-08-24): + its Adult Pop Airplay
+      // No. 1 record, the same song's other chart milestone.
       relatedIds: [
         'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
       ],
       year: 2026,
       month: 7,
@@ -8331,10 +8354,13 @@ export default {
     // show it is "Choosin' Texas" (its 16th week at No. 1) — corrected here.
     {
       slug: 'showgirl-country-sweeps-hot-100-top-five',
+      // Cross-link (crosslink-opportunity, 2026-08-24): + its Adult Pop Airplay
+      // No. 1 record, the same song's other chart milestone.
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
       ],
       year: 2026,
       month: 8,
@@ -8889,9 +8915,12 @@ export default {
       slug: 'i-knew-it-i-knew-you-pop-airplay-top-ten',
       // Cross-link (candidate #1291): the four-in-the-AC-top-10 record it feeds.
       // Cross-link (candidate #1290): the same song's Oscar-buzz page.
+      // Cross-link (crosslink-opportunity, 2026-08-24): + its Adult Pop Airplay
+      // No. 1 record — the same song's next chart milestone.
       relatedIds: [
         'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
       ],
       year: 2026,
       month: 7,
@@ -11090,6 +11119,13 @@ export default {
       // detail. Text-first: a chart week has no photography of its own — same
       // call as the sibling chart moments — so no photo.
       slug: 'i-knew-it-i-knew-you-adult-pop-airplay-record',
+      // Cross-link (crosslink-opportunity, 2026-08-24): the same song's other
+      // chart-milestone pages, plus its music video debut four days later.
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+      ],
       year: 2026,
       month: 8,
       day: 14,
@@ -11209,8 +11245,13 @@ export default {
     },
     {
       slug: 'vma-2026-nine-nominations',
+      // Cross-link (crosslink-opportunity, 2026-08-24): the self-directed video
+      // itself, up for Video of the Year, and the Webber reaction to it — the
+      // same-song pages "The Fate of Ophelia" already links back to.
       relatedIds: [
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
+        'moment:vault-tloas-andrew-lloyd-webber-hears-his-own-ophelia-in-the-fate-of-oph',
       ],
       year: 2026,
       month: 8,
@@ -11334,6 +11375,12 @@ export default {
       // Redline-clean: a product release and a published video, no location,
       // security, health, or private-individual detail.
       slug: 'i-knew-it-i-knew-you-toy-story-5-mv-debut',
+      // Cross-link (crosslink-opportunity, 2026-08-24): the chart record it
+      // follows and the piece that started the song's press narrative.
+      relatedIds: [
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
       year: 2026,
       month: 8,
       day: 18,

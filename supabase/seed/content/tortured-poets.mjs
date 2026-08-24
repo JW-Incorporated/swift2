@@ -3804,10 +3804,13 @@ export default {
       // reciprocal TTPD Taylor/Travis crossover — the "So High School" moment
       // (she wrote the song about him; here he steps into her show).
       threadIds: ['the-proposal'],
+      // Cross-link (crosslink-opportunity, 2026-08-24): the wedding gown, same
+      // narrative thread — its own text discusses this cameo.
       relatedIds: [
         'moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes',
         'moment:vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever',
         'moment:vault-tloas-travis-joins-the-docuseries-for-its-final-episodes',
+        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
       ],
       title: 'Travis Kelce, Eras Tour cast member for a night',
       snippet:
