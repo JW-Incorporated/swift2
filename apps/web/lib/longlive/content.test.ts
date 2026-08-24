@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { CONTENT, MILESTONES, build, milestonesForEra, type RawItem } from './content';
 import { formatMonthYear } from './format';
 import {
+  focalPointOf,
   hasRealPrimaryImage,
   isEraArtFallback,
   primaryImage,
@@ -59,6 +60,11 @@ describe('build() image normalization', () => {
 });
 
 describe('primary image helpers', () => {
+  it('uses an authored focal point and otherwise preserves center-cropping', () => {
+    expect(focalPointOf({ focalPoint: '72% 24%' })).toBe('72% 24%');
+    expect(focalPointOf(undefined)).toBe('50% 50%');
+  });
+
   it('primaryImageRef prefers the primary entry regardless of order', () => {
     const [item] = build('red', [
       raw({

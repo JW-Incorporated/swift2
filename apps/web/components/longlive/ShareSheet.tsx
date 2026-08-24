@@ -24,7 +24,7 @@ import {
 } from '@/lib/longlive/share';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import { primaryImage, type Era } from '@/lib/longlive/types';
+import { focalPointOf, primaryImageRef, type Era, type ImageRef } from '@/lib/longlive/types';
 
 const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 
@@ -60,7 +60,7 @@ export function ShareSheet() {
   /** Rich moment share copy (T12); null falls back to `${title} — ${subtitle}`. */
   let richCopy: ShareCopy | null = null;
   /** Card imagery — the moment's primary photo for item shares, era art otherwise. */
-  let cardImage: string | undefined;
+  let cardImage: ImageRef | undefined;
 
   if (share.kind === 'item') {
     const item = getContentItem(share.itemId);
@@ -70,7 +70,7 @@ export function ShareSheet() {
     subtitle = item?.summary ?? '';
     if (item) {
       richCopy = momentShareCopy(item, era);
-      cardImage = primaryImage(item);
+      cardImage = primaryImageRef(item);
     }
   } else if (share.kind === 'era') {
     era = getEra(share.eraId);
@@ -214,11 +214,12 @@ export function ShareSheet() {
         <div className="overflow-hidden rounded-3xl border border-[color:var(--era-line)] bg-[color:var(--era-bg)] shadow-2xl">
           <div className="relative aspect-[4/5]">
             <Image
-              src={cardImage || era.image || '/placeholder.svg'}
+              src={cardImage?.url || era.image || '/placeholder.svg'}
               alt=""
               fill
-              unoptimized={isRemoteUrl(cardImage || era.image || '')}
+              unoptimized={isRemoteUrl(cardImage?.url || era.image || '')}
               className="object-cover opacity-60"
+              style={{ objectPosition: focalPointOf(cardImage) }}
             />
             <div
               className="absolute inset-0"
