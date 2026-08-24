@@ -191,44 +191,6 @@ unapplied against production as of this merge, not 3 or 4 — same fix
 
 ---
 
-### 11. [UPGRADE] Six stale duplicate routines from a July handoff — ~5 min
-
-**Why it matters:** your account already had 6 disabled routines from an
-**earlier, opposite-direction** handoff (July 2026, before things moved to
-Wyatt's account) — Content Shift, Nils, Austin ×2 (two separate crons; the
-current live version consolidated to one), Marjorie ×2. They're July-dated
-and stale (e.g. the old Content Shift trigger fires twice daily; the current
-one fires once) and every one of them ALSO currently carries
-`Claude_Code_Remote`. Item #10 created fresh, current replacements instead
-of touching these, to avoid a risky partial-update on routines nobody had
-verified in weeks.
-
-**REFINED 2026-08-23 22:31 PDT** — Joey tried the original instructions:
-every routine shows as active, and there's no creation date in the details
-view, so neither of my original signals (disabled state, July date) exist
-in that UI. Use this instead, it doesn't depend on either:
-
-**Steps:** at `https://claude.ai/code/routines`, for each duplicate name
-(Content Shift, Nils, Austin ×2/3, Marjorie ×2+), open **each** copy's
-prompt/instructions text (not just the schedule). Every current, correct
-routine's prompt was rewritten in the 2026-08-22/23 migration to start by
-telling the agent to **read its charter file first** — e.g. "read
-`docs/agents/content-shift.md`" / `nils.md` / `marjorie.md` / `austin.md`.
-The 6 stale July routines predate that convention entirely — their prompt
-text will be old inline instructions with no charter-file reference at all.
-That difference should be visible the moment you open either copy's edit
-view, no dates or enabled/disabled state needed. Delete the one **without**
-the charter-file reference, or at minimum strip Claude_Code_Remote from it
-(Edit → Connectors → × → Save) so it stops being an idle duplicate.
-
-**Worked if:** `https://claude.ai/code/routines` shows one entry per routine
-name, not two, and every remaining one's prompt references reading a
-charter file from `docs/agents/`.
-
-**Status:** OPEN
-
----
-
 ### 4. [UPGRADE] API accounts for the marketplace research — ~20 min
 
 **Filed:** 2026-08-15
@@ -566,6 +528,12 @@ Deleted all 6 via the routines UI (no API delete action exists) — Content
 Shift, Nils, Austin ×2, Marjorie ×2, all from the July 2026 opposite-
 direction handoff. Verified via a clean page read afterward: only the
 intentionally-paused Lex depth remains paused; no duplicate names left.
+
+**Reconciliation note (2026-08-24):** this DONE record and a stale OPEN
+copy of the same item (with a since-superseded "REFINED" instruction set)
+existed in the file simultaneously, likely from a parallel branch's merge
+against `main` picking up both versions during tonight's overnight build.
+Removed the stale OPEN duplicate; this DONE entry is authoritative.
 
 ---
 
