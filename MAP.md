@@ -172,10 +172,19 @@ read once on mount (`deepLink.ts`) and never written back.
 | `docs/proposals/2026-08-13-clownbot-shelved-content.md` | Build-A content not carried forward |
 | `docs/ops/clown-kill-switch.md` | `CLOWN_MODEL_DISABLED` kill switch |
 
-The build-A `clownbot-*` deletions and the `store.tsx`/`LongLive.tsx` wiring
-have landed. Not yet landed as of this update (per `PLAN.md`'s "Files touched"
-table, still in flight in a parallel step): `app/api/clown/route.ts`,
-`clown-seed-example.ts`, and the `share.ts`/`TopBar.tsx` wiring.
+The build-A `clownbot-*` deletions, the `store.tsx`/`LongLive.tsx` wiring,
+`app/api/clown/route.ts`, `clown-seed-example.ts`, and the
+`share.ts`/`TopBar.tsx` wiring have all landed.
+
+`apps/web/lib/longlive/clownbot-lore.ts` (+ `.test.ts`) — the hand-authored,
+sourced rumor/lore corpus — is still live and still load-bearing: it's one of
+three inputs `clown-index.ts`'s `buildClownDocs()` folds together (with
+`theories.generated.ts` and `content.ts`), and that compile-time index is the
+documented no-DB fallback the knowledge-engine build (Stage 9) deliberately
+kept unmodified. It was **not** migrated/retired by the knowledge-engine
+build, despite the original proposal's §3 plan to fold its 8 items into
+`current_item`/`live_theory` — see `docs/decisions.md` and the Stage 13 PR
+for why that didn't happen.
 
 ## Clownbot agent loop (PLAN.md Stage 10, proposal §7) — new files
 

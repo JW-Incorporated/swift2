@@ -151,6 +151,35 @@ which requires only a documented re-check that found nothing.
 | `sourceTier` | `official \| established \| tabloid \| social`. Drives how loudly we present it; a Deuxmoi blind item and a Reuters report are not the same claim. |
 | `locationSpecificity` | `region \| city \| venue`, declared when a claim carries location, so the matrix is machine-checkable rather than vibes. |
 
+### The automated ingestion path (knowledge engine, added 2026-08-23)
+
+The `RumorNote` fields above are hand-authored, attached to a Vault moment.
+The knowledge engine (`docs/proposals/2026-08-23-knowledge-engine.md`, PLAN.md
+Stages 2-4) is this same "label the chaos honestly, resolve it over time"
+posture, applied to what the worker ingests automatically, in its own
+Supabase tables (`supabase/migrations/20260901000000_knowledge_engine.sql`)
+— a separate data world from `content.ts`'s `RumorNote`s, joined only via
+`current_item.promoted_to` once something is authored into the Vault
+(`intake.md`'s "Update (2026-08-23)" section has the full promotion flow):
+
+| Table | What it holds | Real, shipped state |
+|---|---|---|
+| `current_item` | The generalized "sighting" — anything observable and sourced. `status` (`rumor`/`reported`/`confirmed`/`debunked`/`faded` — the same lifecycle shape as `RumorStatus` above, one more terminal state for symmetry with `faded`), `confidence`, `source_tier`, `sources` (jsonb, ≥1 publisher URL), `heat`, `promoted_to`. The row the current era's live feed renders (`docs/longlive-experience.md` §7) and Content Shift's fastest promotion queue (`docs/agents/content-shift.md` queue source 0). |
+| `fan_signal` | Aggregate-only fan chatter — never an individual, never a comment body beyond what a public RSS already exposes. `platform`, `community`, `topic`, `volume`, `heat`, `sample_urls` (≤3 public permalinks). Read by the Threads/eggs and Clownbot boards, never Vault-promotable. |
+| `live_theory` | Theories in play (fan/bot/site origin). `claim`, `status`, `outcome` (the `TheoryOutcome` union), `evidence_ids` (`knowledge_doc` ids), `heat`, `resolution` (required once `outcome != pending`). Rumor Desk's lifecycle queue reads this alongside `current_item` (`docs/agents/runner-prompts/vault-lanes/4-rumor-desk.md`); a deterministic resolution-proposal path is designed but blocked on the embeddings pipeline (target state, not live). Also never Vault-promotable — it stays live-only. |
+| `egg_ledger` | Confirmed hint→reveal precedent pairs, built from the Vault by the canonical sync (`scripts/sync-clown-knowledge.mjs`, PLAN.md Stage 4), grown by promotion. `mechanism`, `lag_days` (generated column), `confirmed`, `outcome`. Real counts as of Stage 4: 37 rows. |
+| `symbol_lexicon` | The controlled vocabulary of named symbols/motifs (`key`, `label`, `aliases`, `category`, `linked_eras`), same sync source. Real count as of Stage 4: 52 rows. |
+| `technique` | THE METHODOLOGY LAYER — "how Taylor plants eggs," patterns not instances. Schema shipped in Stage 2; **deliberately empty** — `docs/decisions.md` 2026-08-23 defers authoring `techniques.mjs` (7-10 records) to a frontier-model session with a human, not an autonomous run. Every consumer (`scripts/knowledge-coverage.mjs`, Clownbot's `precedents()` grouping) is built and tested to degrade gracefully on zero rows, not fabricate content to fill the table. |
+| `knowledge_doc` | The one retrieval index both tiers (`vault`/`current`) project into — what Clownbot's DB-backed retrieval (`packages/core/src/knowledge`) searches. FTS-only (`tsv` column) today; ships without the proposal's `vector(1024)` embedding column because `create extension vector` was never verified against the real Supabase project this session (`HUMAN-ACTIONS.md` #14). Real count as of Stage 4: 1061 rows. |
+
+RLS on every table above: service role writes, anon/authenticated reads
+scoped to `redline_ok = true and (expires_at is null or expires_at > now())`
+(`live_theory` has no `redline_ok` column — theories only ever derive from
+already-screened content — so its policy is expiry-only; `egg_ledger`/
+`symbol_lexicon`/`technique` are curated precedent data built from confirmed
+Vault material, not raw ingest, so they read publicly like the rest of the
+Vault).
+
 ## Enforcement (defense in depth, unchanged shape)
 
 | Layer | Change |
