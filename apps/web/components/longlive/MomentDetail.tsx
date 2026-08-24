@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
+import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
@@ -342,6 +343,11 @@ function MomentLightbox({
 }) {
   const img = images[index];
   const count = images.length;
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  // Always active while mounted — the parent only renders this component
+  // between openLightbox() and onClose(), so mount/unmount already is the
+  // open/close lifecycle (mirrors the Escape effect below).
+  useFocusTrap(true, dialogRef);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -364,6 +370,8 @@ function MomentLightbox({
   // also makes this immune to any future ancestor gaining a transform/filter.
   const viewer = (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       className="fixed inset-0 z-[80] flex flex-col bg-black/95 detail-enter"
       role="dialog"
       aria-modal="true"
@@ -508,6 +516,9 @@ export function MomentDetail() {
   // Only if the id actually resolves — a stale/bad ?item= deep link
   // shouldn't lock scrolling on a modal that never renders.
   useScrollLock(item != null);
+  // Focus moves into the sheet on open, is trapped inside it, and returns to
+  // the trigger card on close (#657) — scrollRef doubles as the dialog root.
+  useFocusTrap(item != null, scrollRef);
 
   useEffect(() => {
     setRevealed(false);
@@ -647,6 +658,7 @@ export function MomentDetail() {
       role="dialog"
       aria-modal="true"
       aria-labelledby={detailTitleId}
+      tabIndex={-1}
       className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
       style={eraStyle(era)}
     >
