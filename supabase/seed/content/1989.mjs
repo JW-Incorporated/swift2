@@ -536,6 +536,11 @@ export default {
         // person, honestly captioned as such rather than implying they're
         // from 2015; the third is Harris's own period-accurate 2015 press
         // photo (Sony BMG, CC BY 3.0).
+        // Photo pass #762 (2026-08-21): no `socialPost` — the "Instagram post
+        // of Taylor's cats" the context mentions is on Calvin Harris's own
+        // account, not @taylorswift's, so it fails the embed-verification bar
+        // (same call already recorded on the Troubadour-sighting page for the
+        // same post).
         photos: [
           // Focal point (#762): the pair sit side-by-side laughing, both faces in the upper third.
           { url: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef', credit: 'Kevin Mazur/BMA2015/WireImage', focalPoint: '50% 30%' },

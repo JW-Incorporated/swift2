@@ -1841,6 +1841,10 @@ export default {
         // CDN, not a Getty comp) Swift/Turner side-by-side from the same
         // article that covers the Instagram-Story exchange this moment
         // describes.
+        // Photo pass #762 (2026-08-21): no `socialPost` — both posts this page
+        // describes (Turner's reaction, Taylor's repost) were Instagram
+        // Stories, which have no permalink and expired within 24 hours;
+        // nothing exists to embed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',

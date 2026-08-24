@@ -4412,6 +4412,14 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass #762 (2026-08-21): reviewed, added none. The one image
+        // this story is actually about — the watermarked invitation itself —
+        // was taken down and is never reproduced here (leaked-material
+        // redline, consistent with the socialPost call above). A generic
+        // wedding-invitation stock photo would misrepresent this specific,
+        // traceable, no-longer-public item as if it were shown; skipped
+        // rather than shipped as a misleading stand-in.
+        photos: [],
       },
     },
     {
@@ -8170,6 +8178,11 @@ export default {
         // barriers around MSG on July 2, 2026. Verified 2026-07-17: HTTP 200,
         // image/jpeg, 1920x1080, downloaded and viewed — police-department
         // signage, barriers, and event trucks outside the Garden.
+        // Photo pass #762 (2026-08-21): searched for a second image of Mayor
+        // Mamdani's press conference itself — only watermarked wire-photo
+        // comps (Getty/UPI) turned up, none on an allowed CDN, and none
+        // confirmably tied to this specific presser rather than a general
+        // file photo. Left at one photo rather than ship an unverifiable one.
         photos: [
           {
             url: 'https://cdn.abcotvs.com/dip/images/19437803_070226-wabc-msg-no-parking-ap-img.jpg',
@@ -10873,6 +10886,21 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass #762 (2026-08-21): Taylor's own dress is unseen by design,
+        // so the honest photo is the industry response itself — Reuters' own
+        // Aug. 6, 2026 photo of a Jenny Yoo bridal-boutique designer at work
+        // (via Yahoo's CDN), curl-verified 200 image/jpeg, downloaded and
+        // vision-confirmed: a designer fitting a gown on a dress form.
+        photos: [
+          {
+            url: 'https://s.yimg.com/lo/mysterio/api/8292974dd07576d876a36ce3c5fe9193d52935c3aac9a1c3bcd1101c1723513c/lightyear_networkapi/resizefill_w800_h533%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Freuters.com%2F805696683447315f20cf1188cbfef786',
+            focalPoint: '58% 35%',
+            credit: 'Jeenah Moon/Reuters, via Yahoo',
+            caption:
+              'A designer works on a gown at the Jenny Yoo bridal boutique in New York, Aug. 6, 2026 — the kind of trend-watching the still-unseen Dior dress has set off industry-wide.',
+            kind: 'reference',
+          },
+        ],
       },
     },
 
@@ -11126,9 +11154,10 @@ export default {
         'Six weeks after the MSG wedding, Taylor stepped out solo for the first time — a lilac Delphine minidress and a noticeably shorter, sleeker cut that had fashion desks talking within a day.',
       sourceUrl:
         'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-lavender-mini-dress-delphine/',
-      // Text-first by necessity: a paparazzi night-out has no cleanly
-      // licensable image and no taylorswift-account post to embed. Left for
-      // photo-sparsity / social-post-missing to route if one surfaces.
+      // Photo pass #762 (2026-08-21): the "no cleanly licensable image" call
+      // below is superseded — Page Six's own paparazzi photo (via Yahoo's
+      // CDN) surfaced this session, curl-verified 200 image/jpeg, downloaded
+      // and vision-confirmed.
       thumbnailUrl: null,
       moment: {
         context:
@@ -11143,6 +11172,16 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-14',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://s.yimg.com/lo/mysterio/api/5cd08d923da5e9fc7ecc92c5aef97cca9ce51c890ab090605e3510634a153f1d/lightyear_networkapi/resizefill_w976%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2Fe2c30699edcf6deecd13fe00d14ce7a4.jpg',
+            focalPoint: '78% 15%',
+            credit: 'Page Six, via Yahoo',
+            caption:
+              'Taylor leaving Annabel\'s in London, Aug. 12, 2026, in the lavender Delphine minidress — her first solo outing since the wedding, and the debut of her shorter cut.',
+            kind: 'primary',
           },
         ],
         // Stylist run 2026-08-16: verified live retailer product pages for
@@ -11345,6 +11384,20 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass #762 (2026-08-21): official MV thumbnail (same asset used
+        // on the Oscar-conversation moment for this song), curl-verified 200
+        // image/jpeg, downloaded and vision-confirmed this session — Jessie the
+        // cowgirl, the character the song is written for.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
+            focalPoint: '50% 32%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
+            caption:
+              'A frame from the official "I Knew It, I Knew You" video — the Toy Story 5 song that became her 16th Adult Pop Airplay No. 1, an all-time record.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -11411,6 +11464,20 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass #762 (2026-08-21): TMZ's own reception photo, curl-verified
+        // 200 image/jpeg, downloaded and vision-confirmed — the navy Costarellos
+        // gown with gold floral appliqué, pearl necklace, mid-conversation with
+        // another guest.
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/eb/o/2026/08/16/eb982d6051f24feb90ed3c65dc91a4e1_lg.jpg',
+            focalPoint: '58% 22%',
+            credit: 'SplashNews.com, via TMZ',
+            caption:
+              'Taylor at Laura Sisk and Oli Jacobs\' Aug. 15, 2026 wedding in Gloucestershire, England, in the navy Costarellos "Arcangela" gown.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -11460,6 +11527,11 @@ export default {
         // canonical self-directed video verified via oEmbed elsewhere in this
         // file); maxresdefault curl-verified 200 image/jpeg, 1280x720 this run.
         // Apt here: the video is what's up for Video of the Year + six craft nods.
+        // Photo pass #762 (2026-08-21): searched for a second image — Taylor
+        // was not present for the Aug. 18 nominations announcement (no red
+        // carpet, no press event), and the only fresh imagery is Madonna/other
+        // nominees' coverage, off-topic for this page. Stays reviewed-sparse
+        // at one photo.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/ko70cExuzZM/maxresdefault.jpg',

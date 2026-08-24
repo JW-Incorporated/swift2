@@ -83,8 +83,8 @@ describe('merchItemImage', () => {
     }
     expect(split).toBe(95);
     expect(product).toBe(2);
-    expect(moment).toBe(55);
-    expect(monogram).toBe(7);
+    expect(moment).toBe(58);
+    expect(monogram).toBe(4);
     expect(split + product + moment + monogram).toBe(159);
   });
 
