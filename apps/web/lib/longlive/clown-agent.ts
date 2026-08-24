@@ -7,16 +7,24 @@
  * model may call any of the seven read tools (`clown-agent-tools.ts`) before
  * it must call `record_take`. Three HARD caps, enforced in control flow, not
  * left to the prompt:
- *   - `AGENT_MAX_TOOL_CALLS` read-tool calls (record_take itself doesn't
- *     count — the loop cannot finish without it, so counting it against its
- *     own budget would be self-defeating).
- *   - `AGENT_MAX_WALL_MS` of cumulative loop time, checked BETWEEN rounds
- *     (this does not abort an in-flight request early — the same honest
- *     framing `mood-usage.ts` uses for its own per-instance limitation: a
- *     hard cap on when a NEW round may start, not a guaranteed abort mid-call).
+ *   - `AGENT_MAX_TOOL_CALLS` tool calls, `record_take` included (Codex
+ *     review BLOCKER 1). Enforced BOTH between rounds (the next call's
+ *     `tool_choice` is forced to `record_take` once the cap is reached) AND
+ *     WITHIN a round: a single response can legally contain many
+ *     simultaneous `tool_use` blocks, so any block beyond the remaining
+ *     budget is never dispatched and never added back into the
+ *     conversation — the model is credited only for what actually ran.
+ *   - `AGENT_MAX_WALL_MS` of cumulative wall time off a SINGLE deadline
+ *     (Codex review BLOCKER 2) shared with the route's pre-loop scope
+ *     search, via an `AbortSignal` threaded through every async call in
+ *     this loop (model calls, tool/DB reads) so an in-flight call is
+ *     actually aborted once the deadline passes, not just abandoned.
  *   - `AGENT_MAX_TOKENS` cumulative input+output tokens, read from the
  *     Anthropic API's own `usage` block on every response — real accounting,
- *     not an estimate.
+ *     not an estimate. Checked WITH a headroom margin (Codex review
+ *     BLOCKER 3): the loop forces `record_take` once spent-so-far plus one
+ *     more call's worst-case output would already meet the cap, not only
+ *     after a round has already blown past it.
  * Once any cap is hit, the NEXT call's `tool_choice` is forced to
  * `record_take` — the model gets one last chance to commit with whatever it
  * has gathered.
@@ -28,6 +36,7 @@ import {
   CLOWN_MODEL,
   MAX_TOKENS,
   MAX_TRANSCRIPT_TURNS,
+  REQUEST_TIMEOUT_MS,
   callAnthropicMessages,
   clownModelKey,
   sanitizeTake,
@@ -102,12 +111,31 @@ function addToPool(pool: Map<string, RetrievedItem>, items: readonly RetrievedIt
   for (const item of items) pool.set(item.id, item);
 }
 
-function formatSeedForPrompt(seed: ToolCallResult): string {
-  if (seed.items.length === 0) return '(no results)';
-  return seed.items
+/** Shared item formatter for both the seed context and every subsequent
+ * `tool_result` (Codex review MAJOR 8) — without this, the loop's later
+ * rounds sent back only a count-style summary, never the actual retrieved
+ * data, so the model had nothing real to cite or reason from after the
+ * seed search. */
+function formatItemsForPrompt(items: readonly RetrievedItem[]): string {
+  return items
     .slice(0, 8)
     .map((item) => `[${item.id}] (${item.date}) ${item.headline} — ${item.detail.replace(/\s+/g, ' ').trim().slice(0, 240)}`)
     .join('\n');
+}
+
+function formatSeedForPrompt(seed: ToolCallResult): string {
+  if (seed.items.length === 0) return '(no results)';
+  return formatItemsForPrompt(seed.items);
+}
+
+/** Every subsequent read-tool's `tool_result` content — the actual
+ * retrieved data (id/date/headline/detail, truncated), not just the
+ * one-line summary already shown in the investigation trail. Tools that
+ * never add to the citable pool (`symbol_activity`, `date_math`) have no
+ * items to append, so this degrades to the summary alone for those. */
+function formatToolResultForPrompt(result: ToolCallResult): string {
+  if (result.items.length === 0) return result.summary;
+  return [result.summary, formatItemsForPrompt(result.items)].join('\n');
 }
 
 function buildSeedText(text: string, seed: ToolCallResult): string {
@@ -151,37 +179,37 @@ interface ToolDispatch {
  * required argument; the caller reports that honestly in the tool_result
  * rather than silently skipping the call (still counts against budget —
  * a model that keeps calling badly-shaped tools must not evade the cap). */
-async function executeReadTool(name: string, rawInput: unknown): Promise<ToolDispatch | null> {
+async function executeReadTool(name: string, rawInput: unknown, signal?: AbortSignal): Promise<ToolDispatch | null> {
   const p = (rawInput ?? {}) as Record<string, unknown>;
   switch (name) {
     case 'search': {
       const query = str(p.query, 200);
       if (!query) return null;
-      return { input: { query }, result: await toolSearch(query) };
+      return { input: { query }, result: await toolSearch(query, signal) };
     }
     case 'precedents': {
       const symbol = str(p.symbol, 100);
       if (!symbol) return null;
-      return { input: { symbol }, result: await toolPrecedents(symbol) };
+      return { input: { symbol }, result: await toolPrecedents(symbol, signal) };
     }
     case 'recent': {
       const days = num(p.days, 7, 1, 90);
-      return { input: { days }, result: await toolRecent(days) };
+      return { input: { days }, result: await toolRecent(days, signal) };
     }
     case 'chatter': {
       const topic = str(p.topic, 100);
       if (!topic) return null;
-      return { input: { topic }, result: await toolChatter(topic) };
+      return { input: { topic }, result: await toolChatter(topic, signal) };
     }
     case 'symbol_activity': {
       const symbol = str(p.symbol, 100);
       if (!symbol) return null;
-      return { input: { symbol }, result: await toolSymbolActivity(symbol) };
+      return { input: { symbol }, result: await toolSymbolActivity(symbol, signal) };
     }
     case 'track': {
       const title = str(p.title, 200);
       if (!title) return null;
-      return { input: { title }, result: await toolTrack(title) };
+      return { input: { title }, result: await toolTrack(title, signal) };
     }
     case 'date_math': {
       const phrase = str(p.phrase, 50);
@@ -217,6 +245,12 @@ function extractToolUseBlocks(raw: unknown): RawToolUseBlock[] {
  * given, fires the moment each investigation step is known (including the
  * seed) — the route uses this to stream the trail to the reader live,
  * rather than buffering the whole run and flushing it at the end.
+ *
+ * `signal` (Codex review BLOCKER 2) is the route's single request-wide
+ * deadline — the SAME `AbortSignal` used for its pre-loop scope search —
+ * threaded through every model call and every tool dispatch this loop
+ * makes, so nothing it awaits can outlive the 20s wall budget regardless of
+ * where the hang happens.
  */
 export async function runClownAgent(
   usage: ClownUsage,
@@ -225,6 +259,7 @@ export async function runClownAgent(
   seedInput: Record<string, unknown>,
   onStep?: (step: InvestigationStep) => void,
   clock: () => number = Date.now,
+  signal?: AbortSignal,
 ): Promise<AgentRunResult> {
   const pool = new Map<string, RetrievedItem>();
   addToPool(pool, seed.items);
@@ -251,23 +286,48 @@ export async function runClownAgent(
   while (true) {
     round += 1;
     if (round > ABSOLUTE_MAX_ROUNDS) return degraded(investigation, pool);
-    const capsExhausted =
-      toolCallCount >= AGENT_MAX_TOOL_CALLS ||
-      tokenTotal >= AGENT_MAX_TOKENS ||
-      clock() - startedAt >= AGENT_MAX_WALL_MS;
+    // The shared deadline can fire mid-call (via `callAnthropicMessages`'s
+    // abort listener) or between rounds — checking it here catches both: a
+    // round that was already in flight when the deadline passed lands back
+    // here with nothing more to do.
+    if (signal?.aborted) return degraded(investigation, pool);
+
+    // Clamped at 0, never negative — once wall time is already spent this
+    // still lets the model attempt ONE forced `record_take` call (the "one
+    // last chance to commit" the module is built around) rather than
+    // silently degrading with nothing tried; `Math.min` below then gives
+    // that call an effectively-immediate timeout, so it fails fast into the
+    // existing retry/degrade path instead of getting a full fresh timeout
+    // window. The real hard ceiling on total wall time is the route's own
+    // `signal`, which aborts any in-flight call (this one included) the
+    // moment its deadline timer fires, independent of this arithmetic.
+    const remainingWallMs = Math.max(0, AGENT_MAX_WALL_MS - (clock() - startedAt));
+
+    // Headroom margin (Codex review BLOCKER 3): force `record_take` once
+    // spent-so-far plus one more call's worst-case output would already
+    // meet the token cap, not only once a round has already blown past it
+    // — `tokenTotal` alone being under the cap does not mean another full
+    // round safely fits under it.
+    const tokenBudgetExhausted = tokenTotal + MAX_TOKENS >= AGENT_MAX_TOKENS;
+    const capsExhausted = toolCallCount >= AGENT_MAX_TOOL_CALLS || tokenBudgetExhausted || remainingWallMs <= 0;
     const toolChoice = capsExhausted ? ({ type: 'tool', name: CLOWN_TAKE_TOOL.name } as const) : ({ type: 'auto' } as const);
 
     let response;
     try {
-      response = await callAnthropicMessages(apiKey, {
-        model: CLOWN_MODEL,
-        max_tokens: MAX_TOKENS,
-        thinking: THINKING,
-        system: [{ type: 'text', text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
-        tools,
-        tool_choice: toolChoice,
-        messages,
-      });
+      response = await callAnthropicMessages(
+        apiKey,
+        {
+          model: CLOWN_MODEL,
+          max_tokens: MAX_TOKENS,
+          thinking: THINKING,
+          system: [{ type: 'text', text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
+          tools,
+          tool_choice: toolChoice,
+          messages,
+        },
+        Math.min(REQUEST_TIMEOUT_MS, remainingWallMs),
+        signal,
+      );
     } catch {
       failedAttempts += 1;
       if (failedAttempts >= 2) return degraded(investigation, pool);
@@ -278,14 +338,34 @@ export async function runClownAgent(
     const toolUseBlocks = extractToolUseBlocks(response.raw);
     const takeBlock = toolUseBlocks.find((b) => b.name === CLOWN_TAKE_TOOL.name);
     if (takeBlock) {
+      // Counted too (Codex review BLOCKER 1) — the loop cannot finish
+      // without calling it, but the advertised cap covers every tool call
+      // made, this one included, not just the read tools before it.
+      toolCallCount += 1;
       return { take: sanitizeTake(takeBlock.input), investigation, pool };
     }
 
-    const readBlocks = toolUseBlocks.filter((b) => b.name !== CLOWN_TAKE_TOOL.name);
-    if (readBlocks.length === 0) {
+    const readBlocksAll = toolUseBlocks.filter((b) => b.name !== CLOWN_TAKE_TOOL.name);
+    if (readBlocksAll.length === 0) {
       // No tool_use at all (e.g. a stray text-only reply) — nothing to
       // dispatch and nothing to learn from; treat as a failed attempt
       // rather than spinning forever.
+      failedAttempts += 1;
+      if (failedAttempts >= 2) return degraded(investigation, pool);
+      continue;
+    }
+
+    // HARD CAP within the round too (Codex review BLOCKER 1): a single
+    // response can legally contain many simultaneous tool_use blocks, so
+    // the between-round check above is not enough on its own — anything
+    // beyond the remaining budget is dropped from the reconstructed
+    // conversation entirely, never dispatched and never counted twice.
+    const budgetRemaining = Math.max(0, AGENT_MAX_TOOL_CALLS - toolCallCount);
+    const readBlocks = readBlocksAll.slice(0, budgetRemaining);
+    if (readBlocks.length === 0) {
+      // Every read block in this response was already over budget (should
+      // only be reachable if the budget was exhausted exactly as this
+      // response landed) — same "nothing to learn from" treatment.
       failedAttempts += 1;
       if (failedAttempts >= 2) return degraded(investigation, pool);
       continue;
@@ -301,7 +381,7 @@ export async function runClownAgent(
 
     for (const block of readBlocks) {
       toolCallCount += 1;
-      const dispatch = await executeReadTool(block.name, block.input);
+      const dispatch = await executeReadTool(block.name, block.input, signal);
       if (!dispatch) {
         resultBlocks.push({ type: 'tool_result', tool_use_id: block.id, content: 'Unrecognised tool or missing required argument.' });
         const step: InvestigationStep = { tool: block.name, input: (block.input ?? {}) as Record<string, unknown>, summary: 'call failed — bad input' };
@@ -310,7 +390,10 @@ export async function runClownAgent(
         continue;
       }
       addToPool(pool, dispatch.result.items);
-      resultBlocks.push({ type: 'tool_result', tool_use_id: block.id, content: dispatch.result.summary });
+      // The actual retrieved data, not just the summary (Codex review
+      // MAJOR 8) — without this the model has nothing real to cite from
+      // after the seed search.
+      resultBlocks.push({ type: 'tool_result', tool_use_id: block.id, content: formatToolResultForPrompt(dispatch.result) });
       const step: InvestigationStep = { tool: block.name, input: dispatch.input, summary: dispatch.result.summary };
       investigation.push(step);
       onStep?.(step);

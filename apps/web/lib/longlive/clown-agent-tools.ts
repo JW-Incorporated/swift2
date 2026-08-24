@@ -22,7 +22,7 @@ import type { CurrentItem, EggLedgerEntry, FanSignal, KnowledgeDoc } from '@swif
 
 import { allClownDocs } from './clown-index';
 import { docToRetrievedItem, type ItemSource, type ItemStatus, type RetrievedItem } from './clown-fallback';
-import { retrieveClownDocs } from './clown-retrieve';
+import { hasRelevantTopic, retrieveClownDocs } from './clown-retrieve';
 
 /** One tool call's result: the citable docs it surfaced (added to the
  * shared pool `record_take` may cite from) and a one-line human summary for
@@ -133,11 +133,11 @@ function countLabel(n: number, noun: string): string {
  * A DB result that comes back reachable-but-empty is reported as empty,
  * never padded from the compile-time corpus.
  */
-export async function toolSearch(query: string): Promise<ToolCallResult> {
+export async function toolSearch(query: string, signal?: AbortSignal): Promise<ToolCallResult> {
   const client = knowledgeClient();
   if (client) {
     try {
-      const docs = await client.search(query);
+      const docs = await client.search(query, undefined, signal);
       const items = docs.map(knowledgeDocToItem);
       return { items, summary: `${countLabel(items.length, 'result')} for "${query}"` };
     } catch {
@@ -149,11 +149,11 @@ export async function toolSearch(query: string): Promise<ToolCallResult> {
   return { items, summary: `${countLabel(items.length, 'result')} for "${query}" (no-DB fallback)` };
 }
 
-export async function toolPrecedents(symbol: string): Promise<ToolCallResult> {
+export async function toolPrecedents(symbol: string, signal?: AbortSignal): Promise<ToolCallResult> {
   const client = knowledgeClient();
   if (!client) return { items: [], summary: `precedents unavailable for "${symbol}" (no DB configured)` };
   try {
-    const groups = await client.precedents(symbol);
+    const groups = await client.precedents(symbol, signal);
     const items = groups.flatMap((g) => g.entries.map(eggLedgerEntryToItem));
     if (groups.length === 0) return { items, summary: `no precedents found for "${symbol}"` };
     const mechanisms = groups.map((g) => g.mechanism).join(', ');
@@ -163,11 +163,11 @@ export async function toolPrecedents(symbol: string): Promise<ToolCallResult> {
   }
 }
 
-export async function toolRecent(days: number): Promise<ToolCallResult> {
+export async function toolRecent(days: number, signal?: AbortSignal): Promise<ToolCallResult> {
   const client = knowledgeClient();
   if (!client) return { items: [], summary: `recent items unavailable (no DB configured)` };
   try {
-    const rows = await client.recent(days);
+    const rows = await client.recent(days, signal);
     const items = rows.map(currentItemToItem);
     return { items, summary: `${countLabel(items.length, 'item')} observed in the last ${days} day(s)` };
   } catch {
@@ -175,11 +175,11 @@ export async function toolRecent(days: number): Promise<ToolCallResult> {
   }
 }
 
-export async function toolChatter(topic: string): Promise<ToolCallResult> {
+export async function toolChatter(topic: string, signal?: AbortSignal): Promise<ToolCallResult> {
   const client = knowledgeClient();
   if (!client) return { items: [], summary: `chatter unavailable for "${topic}" (no DB configured)` };
   try {
-    const rows = await client.chatter(topic);
+    const rows = await client.chatter(topic, signal);
     const items = rows.map(fanSignalToItem);
     return { items, summary: `${countLabel(items.length, 'chatter signal')} for "${topic}"` };
   } catch {
@@ -189,11 +189,11 @@ export async function toolChatter(topic: string): Promise<ToolCallResult> {
 
 /** `symbol_activity` rows are weekly counts, not citable claims — never
  * added to the citable pool, only summarised narratively for the model. */
-export async function toolSymbolActivity(symbol: string): Promise<ToolCallResult> {
+export async function toolSymbolActivity(symbol: string, signal?: AbortSignal): Promise<ToolCallResult> {
   const client = knowledgeClient();
   if (!client) return { items: [], summary: `symbol activity unavailable for "${symbol}" (no DB configured)` };
   try {
-    const rows = await client.symbolActivity(symbol);
+    const rows = await client.symbolActivity(symbol, signal);
     if (rows.length === 0) return { items: [], summary: `no recorded activity for "${symbol}"` };
     const weeks = rows
       .slice(0, 6)
@@ -205,11 +205,11 @@ export async function toolSymbolActivity(symbol: string): Promise<ToolCallResult
   }
 }
 
-export async function toolTrack(title: string): Promise<ToolCallResult> {
+export async function toolTrack(title: string, signal?: AbortSignal): Promise<ToolCallResult> {
   const client = knowledgeClient();
   if (!client) return { items: [], summary: `track lookup unavailable for "${title}" (no DB configured)` };
   try {
-    const doc = await client.track(title);
+    const doc = await client.track(title, signal);
     if (!doc) return { items: [], summary: `no track found matching "${title}"` };
     return { items: [knowledgeDocToItem(doc)], summary: `found track "${doc.title}"` };
   } catch {
@@ -238,18 +238,41 @@ export async function toolDateMath(phrase: string): Promise<ToolCallResult> {
  * from content that has always lived in the Vault/lore corpus. In scope
  * when EITHER surfaces anything; out of scope only when both come back
  * empty.
+ *
+ * Codex review MAJOR 6: a query merely containing recency language
+ * ("today"/"currently"/"right now"/etc.) with NO real topic word must never
+ * resolve scope on its own — `toolSearch`'s no-DB fallback and the
+ * compile-time corpus below both go through `retrieveClownDocs`, whose
+ * recency shortcut surfaces open items regardless of whether the rest of
+ * the query means anything ("what should I cook today" would otherwise
+ * resolve in-scope purely because SOME open theory exists). A result that
+ * came from that shortcut (`toolSearch`'s own "(no-DB fallback)" summary
+ * marker, or the `legacyDocs` check below, which is the same shortcut) must
+ * additionally clear `hasRelevantTopic` — a genuine, recency-blind term
+ * match — before it can resolve scope. A real, reachable DB hit needs no
+ * such extra check: FTS relevance there is never the recency shortcut.
  */
-export async function resolveScopeSignal(query: string): Promise<{ inScope: boolean; result: ToolCallResult }> {
-  const dbResult = await toolSearch(query);
-  if (dbResult.items.length > 0) return { inScope: true, result: dbResult };
+export async function resolveScopeSignal(
+  query: string,
+  signal?: AbortSignal,
+): Promise<{ inScope: boolean; result: ToolCallResult }> {
+  const dbResult = await toolSearch(query, signal);
+  if (dbResult.items.length > 0) {
+    const usedNoDbFallback = dbResult.summary.includes('no-DB fallback');
+    if (!usedNoDbFallback || hasRelevantTopic(query, allClownDocs())) {
+      return { inScope: true, result: dbResult };
+    }
+  }
 
-  const legacyDocs = retrieveClownDocs(query, allClownDocs());
-  if (legacyDocs.length > 0) {
-    const items = legacyDocs.map(docToRetrievedItem);
-    return {
-      inScope: true,
-      result: { items, summary: `${countLabel(items.length, 'result')} for "${query}"` },
-    };
+  if (hasRelevantTopic(query, allClownDocs())) {
+    const legacyDocs = retrieveClownDocs(query, allClownDocs());
+    if (legacyDocs.length > 0) {
+      const items = legacyDocs.map(docToRetrievedItem);
+      return {
+        inScope: true,
+        result: { items, summary: `${countLabel(items.length, 'result')} for "${query}"` },
+      };
+    }
   }
 
   return { inScope: false, result: dbResult };

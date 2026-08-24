@@ -271,4 +271,41 @@ describe('resolveScopeSignal — two independent clauses, in scope if EITHER res
     const { inScope } = await resolveScopeSignal('what is a good pasta recipe');
     expect(inScope).toBe(false);
   });
+
+  describe('recency language never substitutes for a real topic match (Codex review MAJOR 6)', () => {
+    const OPEN_UNRELATED_DOC = {
+      id: 'rumor:open-unrelated',
+      kind: 'rumor',
+      title: 'An unrelated open rumor',
+      text: 'A pending item with no connection to any specific query terms used in this test.',
+      date: null,
+      recencyDate: new Date().toISOString().slice(0, 10),
+      open: true,
+      status: 'rumor',
+      sources: [],
+      eraId: null,
+    };
+
+    // No Supabase env stubbed in this describe block, so `toolSearch` always
+    // falls through to the no-DB compile-time corpus (`retrieveClownDocs`)
+    // — exactly the path whose recency shortcut used to leak into scope
+    // resolution.
+    beforeEach(() => {
+      fixtures.DOCS.push(OPEN_UNRELATED_DOC as unknown as (typeof fixtures.DOCS)[number]);
+    });
+
+    afterEach(() => {
+      fixtures.DOCS.pop();
+    });
+
+    it('a recency-phrased, off-topic query stays out of scope even though an open item exists', async () => {
+      const { inScope } = await resolveScopeSignal('what should I cook today');
+      expect(inScope).toBe(false);
+    });
+
+    it('the same recency phrasing DOES resolve in scope once it also names a real topic', async () => {
+      const { inScope } = await resolveScopeSignal('tell me about the masters buyback today');
+      expect(inScope).toBe(true);
+    });
+  });
 });

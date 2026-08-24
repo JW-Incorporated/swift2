@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { detectRecencyIntent, retrieveClownDocs } from './clown-retrieve';
+import { detectRecencyIntent, hasRelevantTopic, retrieveClownDocs } from './clown-retrieve';
 import { allClownDocs } from './clown-index';
 import type { ClownDoc } from './clown-index';
 
@@ -158,6 +158,36 @@ describe('retrieveClownDocs — recency intent', () => {
     ];
     const results = retrieveClownDocs('this week', staleCorpus, { now: NOW });
     expect(results.map((r) => r.id)).toEqual(['rumor:in-window', 'rumor:stale']);
+  });
+});
+
+describe('hasRelevantTopic — recency language never substitutes for a real match (Codex review MAJOR 6)', () => {
+  const NOW = new Date('2026-08-13T00:00:00.000Z');
+  const CORPUS: ClownDoc[] = [
+    doc({
+      id: 'rumor:fresh-1',
+      kind: 'rumor',
+      title: 'A fresh open rumor',
+      text: 'Reported two days ago, still unconfirmed.',
+      open: true,
+      recencyDate: '2026-08-11',
+    }),
+  ];
+
+  it('a bare recency phrase, with no other topic word, still fails a strict relevance check', () => {
+    // `retrieveClownDocs` itself legitimately surfaces the open rumor for
+    // this exact query (recency shortcut, unchanged) — `hasRelevantTopic`
+    // deliberately does not, because it never looks at recency at all.
+    expect(retrieveClownDocs('what are we clowning on this week', CORPUS, { now: NOW }).length).toBeGreaterThan(0);
+    expect(hasRelevantTopic('what are we clowning on this week', CORPUS)).toBe(false);
+  });
+
+  it('an off-topic recency-phrased query never resolves as a real topic match', () => {
+    expect(hasRelevantTopic('what should I cook today', CORPUS)).toBe(false);
+  });
+
+  it('a recency-phrased query DOES resolve when it also names something real', () => {
+    expect(hasRelevantTopic('any fresh rumor this week', CORPUS)).toBe(true);
   });
 });
 

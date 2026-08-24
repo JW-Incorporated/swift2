@@ -18,6 +18,7 @@ import type { ClownSegment, InvestigationStep } from '@/lib/longlive/clown-answe
 import { investigationLabel } from '@/lib/longlive/clown-chat-helpers';
 import type { RetrievedItem } from '@/lib/longlive/clown-fallback';
 import type { ClownMessage } from '@/lib/longlive/store';
+import { STATUS_LABEL } from './ClownItemCard';
 
 const MAX_DELULU = 5;
 
@@ -50,8 +51,10 @@ function SegmentBlock({ segment }: { segment: ClownSegment }) {
 }
 
 /** A citation, compacted to a bordered inline pill — a receipt, not a
- * paragraph. `status` drives only the dot: accent means `confirmed`, muted
- * means anything else. */
+ * paragraph. The dot is still a quick accent/muted read, but the status
+ * TEXT (Confirmed/Debunked/Reported/Rumor) is what actually distinguishes
+ * the four states — a dot alone made debunked/reported/rumor visually
+ * identical (Codex review MAJOR 7). */
 function SourceChip({ item }: { item: RetrievedItem }) {
   const isConfirmed = item.status === 'confirmed';
   return (
@@ -64,6 +67,9 @@ function SourceChip({ item }: { item: RetrievedItem }) {
             : 'h-[5px] w-[5px] flex-none rounded-full bg-[color:var(--clown-ink-soft)] opacity-60'
         }
       />
+      <span className="font-semibold uppercase tracking-wide text-[10px] text-[color:var(--clown-ink-soft)]">
+        {STATUS_LABEL[item.status]}
+      </span>
       <span className="font-medium text-[color:var(--clown-ink)]">{item.headline}</span>
       <span>&middot; {item.date}</span>
     </span>

@@ -138,7 +138,9 @@ describe('read tools dispatch and feed the investigation trail + pool', () => {
     expect(result.pool.get('egg:1')).toEqual(item);
     expect(result.investigation.map((s) => s.tool)).toEqual(['search', 'precedents']);
     expect(onStep).toHaveBeenCalledTimes(2);
-    expect(toolPrecedents).toHaveBeenCalledWith('track-five');
+    // `signal` (Codex review BLOCKER 2) is now threaded through as a second
+    // argument, `undefined` when the caller passes none.
+    expect(toolPrecedents).toHaveBeenCalledWith('track-five', undefined);
   });
 
   it('multiple tool_use blocks in one turn are all dispatched and each counts toward the budget', async () => {
@@ -249,6 +251,78 @@ describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
       return t;
     };
     await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, clock);
+    expect(captured[1].tool_choice).toEqual({ type: 'tool', name: 'record_take' });
+  });
+
+  it('an already-aborted signal degrades immediately, before any network call (Codex review BLOCKER 2)', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const controller = new AbortController();
+    controller.abort();
+    const result = await runClownAgent(
+      usage(),
+      turns('hi'),
+      EMPTY_SEED,
+      { query: 'x' },
+      undefined,
+      undefined,
+      controller.signal,
+    );
+    expect(result.take).toBeNull();
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('a single response with MORE tool_use blocks than the remaining budget only dispatches up to the cap, in-round (Codex review BLOCKER 1)', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
+
+    let call = 0;
+    vi.stubGlobal('fetch', vi.fn(async () => {
+      call += 1;
+      if (call === 1) {
+        // One single response returns MORE simultaneous tool_use blocks
+        // than the entire budget — the old between-rounds-only check let
+        // every one of these execute and jump the count well past the cap.
+        return toolUseResponse(
+          Array.from({ length: AGENT_MAX_TOOL_CALLS + 3 }, (_, i) => ({
+            id: `t${i}`,
+            name: 'precedents',
+            input: { symbol: `s${i}` },
+          })),
+        );
+      }
+      return toolUseResponse([takeBlock()]);
+    }));
+
+    const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' });
+    expect(toolPrecedents).toHaveBeenCalledTimes(AGENT_MAX_TOOL_CALLS);
+    expect(result.take).not.toBeNull();
+  });
+
+  it('token headroom: insufficient budget for another full round forces the NEXT call, before the cap is technically exceeded (Codex review BLOCKER 3)', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
+
+    let call = 0;
+    const captured: Record<string, unknown>[] = [];
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
+      call += 1;
+      const body = JSON.parse(String(init.body));
+      captured.push(body);
+      if (call === 1) {
+        // Leaves headroom under the raw cap (2500 - 100 = 2400 < 2500), but
+        // NOT enough for another call's worst-case output (MAX_TOKENS =
+        // 1024) to safely fit under it.
+        return toolUseResponse(
+          [{ id: 't1', name: 'precedents', input: { symbol: 'a' } }],
+          { input_tokens: AGENT_MAX_TOKENS - 100, output_tokens: 0 },
+        );
+      }
+      return toolUseResponse([takeBlock()]);
+    }));
+
+    await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' });
     expect(captured[1].tool_choice).toEqual({ type: 'tool', name: 'record_take' });
   });
 });

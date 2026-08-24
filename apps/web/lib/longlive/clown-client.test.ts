@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { askClown, CLOWN_MODEL, sanitizeTake, type ClownTurn } from './clown-client';
+import { askClown, callAnthropicMessages, CLOWN_MODEL, sanitizeTake, type ClownTurn } from './clown-client';
 import { ClownUsage } from './clown-usage';
 import type { ClownDoc } from './clown-index';
 
@@ -200,6 +200,40 @@ describe('degradation: returns null, never throws', () => {
     await vi.advanceTimersByTimeAsync(30_000);
     await expect(promise).resolves.toBeNull();
     expect(fetchSpy).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('callAnthropicMessages — external signal (Codex review BLOCKER 2)', () => {
+  it('an already-aborted external signal aborts the fetch immediately', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        (_url: string, init: RequestInit) =>
+          new Promise((_resolve, reject) => {
+            if (init.signal?.aborted) reject(new Error('aborted'));
+            else init.signal?.addEventListener('abort', () => reject(new Error('aborted')));
+          }),
+      ),
+    );
+    const controller = new AbortController();
+    controller.abort();
+    await expect(callAnthropicMessages('k', { model: 'x' }, 9_000, controller.signal)).rejects.toThrow();
+  });
+
+  it('aborting the external signal mid-flight cancels the underlying fetch, not just the caller', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        (_url: string, init: RequestInit) =>
+          new Promise((_resolve, reject) => {
+            init.signal?.addEventListener('abort', () => reject(new Error('aborted')));
+          }),
+      ),
+    );
+    const controller = new AbortController();
+    const promise = callAnthropicMessages('k', { model: 'x' }, 9_000, controller.signal);
+    controller.abort();
+    await expect(promise).rejects.toThrow();
   });
 });
 

@@ -217,13 +217,29 @@ export interface AnthropicCallResult {
  * Pulled out of `attempt` below as a pure extraction: `askClown`'s own
  * request shape and behaviour are unchanged.
  */
+/**
+ * `signal` (Codex review BLOCKER 2, Clownbot agent loop) lets a caller with
+ * its own wall-clock deadline (`clown-agent.ts`'s loop, via the route's
+ * single request-wide `AbortController`) actually cancel an in-flight
+ * request rather than just abandoning the promise and letting it keep
+ * running server-side — this local controller's own `timeoutMs` timer and
+ * the external `signal` both feed the SAME `fetch` abort, whichever fires
+ * first. `askClown` (below) never passes one, so its own behaviour is
+ * unchanged.
+ */
 export async function callAnthropicMessages(
   apiKey: string,
   body: Record<string, unknown>,
   timeoutMs: number = REQUEST_TIMEOUT_MS,
+  signal?: AbortSignal,
 ): Promise<AnthropicCallResult> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const onExternalAbort = () => controller.abort();
+  if (signal) {
+    if (signal.aborted) controller.abort();
+    else signal.addEventListener('abort', onExternalAbort);
+  }
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -243,6 +259,7 @@ export async function callAnthropicMessages(
     return { raw: json, usage: { inputTokens, outputTokens } };
   } finally {
     clearTimeout(timer);
+    signal?.removeEventListener('abort', onExternalAbort);
   }
 }
 

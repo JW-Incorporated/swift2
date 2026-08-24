@@ -10,7 +10,7 @@ import { resolveTheoryName } from '../../../lib/longlive/clown-names';
 import { composeFallback, docToRetrievedItem, type RetrievedItem } from '../../../lib/longlive/clown-fallback';
 import { answerFromFallback, answerFromTake, type ClownAnswer, type InvestigationStep } from '../../../lib/longlive/clown-answer';
 import { resolveScopeSignal } from '../../../lib/longlive/clown-agent-tools';
-import { runClownAgent } from '../../../lib/longlive/clown-agent';
+import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 
 // Clownbot (build B) — the API route. PLAN.md Step 8; agent loop added
@@ -89,6 +89,12 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const MAX_TEXT = 600; // a question, not an essay — well above the composer's 300-char UI cap
+
+// A degraded loop can accumulate hundreds of rows across its investigation
+// (Codex review MAJOR 10) — cap what actually gets composed into the
+// fallback response to a small, presentable number; `composeFallback`'s
+// `totalAvailable` note tells the reader honestly that more was found.
+const DEGRADED_ITEM_CAP = 8;
 
 // Best-effort per-instance per-IP rate limit — same style as
 // apps/web/app/api/mood/route.ts. Serverless instances are ephemeral, so
@@ -233,10 +239,20 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json(answerFromFallback(composeFallback(items, 'chip')));
   }
 
+  // SINGLE SHARED DEADLINE (Codex review BLOCKER 2) — one wall-clock budget
+  // for BOTH the scope check below and the agent loop that may follow it,
+  // via one `AbortController` threaded through every async call either
+  // makes. Created here, not inside `runClownAgent`, so a hung pre-loop
+  // scope search counts against the same 20s the loop itself is bound by,
+  // rather than getting an unbounded head start on it.
+  const deadlineController = new AbortController();
+  const deadlineTimer = setTimeout(() => deadlineController.abort(), AGENT_MAX_WALL_MS);
+
   // SCOPE CHECK — fast-path retrieval short-circuit (PLAN.md Stage 10 req
   // 3), NOT a new blocklist layer. Runs before the model is ever consulted.
-  const scope = await resolveScopeSignal(text);
+  const scope = await resolveScopeSignal(text, deadlineController.signal);
   if (!scope.inScope) {
+    clearTimeout(deadlineTimer);
     console.log('clown:out-of-scope', JSON.stringify({ length: text.length }));
     return NextResponse.json(messageAnswer([OUT_OF_SCOPE_MESSAGE]));
   }
@@ -247,44 +263,61 @@ export async function POST(req: Request): Promise<Response> {
   const transcript: ClownTurn[] = [...priorTurns, { role: 'user', text }];
 
   return ndjsonResponse(async (emit) => {
-    const run = await runClownAgent(clownUsage, transcript, scope.result, { query: text }, (step) =>
-      emit({ type: 'investigation', step }),
-    );
+    try {
+      const run = await runClownAgent(
+        clownUsage,
+        transcript,
+        scope.result,
+        { query: text },
+        (step) => emit({ type: 'investigation', step }),
+        undefined,
+        deadlineController.signal,
+      );
 
-    if (run.take) {
-      // OUTPUT GATE — discard the model answer on any redline or fabricated
-      // citation; never return ungated model prose.
-      const pooledItems = [...run.pool.values()];
-      const rejection = screenClownTake(run.take, pooledItems);
-      if (!rejection) {
-        const sources = run.take.citedIds
-          .map((id) => run.pool.get(id))
-          .filter((item): item is RetrievedItem => item !== undefined);
-        // The canonical registry (clown-names.ts) beats whatever the model
-        // coined — deterministic reuse, no cross-session storage needed. Fed
-        // the receipts the take actually stands on (the validated cited
-        // sources above), not the wider retrieved set, matching the
-        // resolver's own "the receipts an answer stands on decide its name"
-        // contract. Falls through to the model's own proposal, or null,
-        // when nothing canonical matches — never invented, never a default.
-        const resolvedName = resolveTheoryName(text, sources, run.take.theoryName);
-        const finalTake = { ...run.take, theoryName: resolvedName?.name ?? null };
-        const answer = answerFromTake(finalTake, sources, run.investigation);
-        // Best-effort — never awaited into the response path; see
-        // clown-predictions.ts for exactly what "best-effort" degrades to.
-        void persistPrediction({ question: text, take: finalTake, sources }).catch(() => {});
-        emit({ type: 'answer', answer });
-        return;
+      if (run.take) {
+        // OUTPUT GATE — discard the model answer on any redline, fabricated
+        // citation, or blank required prose; never return ungated model
+        // prose.
+        const pooledItems = [...run.pool.values()];
+        const rejection = screenClownTake(run.take, pooledItems);
+        if (!rejection) {
+          const sources = run.take.citedIds
+            .map((id) => run.pool.get(id))
+            .filter((item): item is RetrievedItem => item !== undefined);
+          // The canonical registry (clown-names.ts) beats whatever the model
+          // coined — deterministic reuse, no cross-session storage needed. Fed
+          // the receipts the take actually stands on (the validated cited
+          // sources above), not the wider retrieved set, matching the
+          // resolver's own "the receipts an answer stands on decide its name"
+          // contract. Falls through to the model's own proposal, or null,
+          // when nothing canonical matches — never invented, never a default.
+          const resolvedName = resolveTheoryName(text, sources, run.take.theoryName);
+          const finalTake = { ...run.take, theoryName: resolvedName?.name ?? null };
+          const answer = answerFromTake(finalTake, sources, run.investigation);
+          // Best-effort — never awaited into the response path; see
+          // clown-predictions.ts for exactly what "best-effort" degrades to.
+          void persistPrediction({ question: text, take: finalTake, sources }).catch(() => {});
+          emit({ type: 'answer', answer });
+          return;
+        }
+        console.log('clown:gate-reject', JSON.stringify({ kind: rejection.kind }));
       }
-      console.log('clown:gate-reject', JSON.stringify({ kind: rejection.kind }));
-    }
 
-    // DEGRADE — no key, kill switch, over cap, timeout, every attempt
-    // failed, or the take failed the output gate. Never an apology; the
-    // fallback is the primary design here. Composed from every citable doc
-    // the loop actually surfaced (the pool), not just the seed — a run that
-    // investigated deeply before degrading still hands back what it found.
-    const fallbackItems = [...run.pool.values()];
-    emit({ type: 'answer', answer: answerFromFallback(composeFallback(fallbackItems, 'degraded')) });
+      // DEGRADE — no key, kill switch, over cap, timeout, every attempt
+      // failed, or the take failed the output gate. Never an apology; the
+      // fallback is the primary design here. Composed from every citable doc
+      // the loop actually surfaced (the pool), not just the seed — a run
+      // that investigated deeply before degrading still hands back what it
+      // found, capped to a small presentable number (Codex review MAJOR 10)
+      // rather than dumping the entire accumulated pool.
+      const pooledItems = [...run.pool.values()];
+      const fallbackItems = pooledItems.slice(0, DEGRADED_ITEM_CAP);
+      emit({
+        type: 'answer',
+        answer: answerFromFallback(composeFallback(fallbackItems, 'degraded', pooledItems.length)),
+      });
+    } finally {
+      clearTimeout(deadlineTimer);
+    }
   });
 }

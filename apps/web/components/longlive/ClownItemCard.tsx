@@ -32,7 +32,10 @@ import { Check } from 'lucide-react';
 import { relativeDate, type BoardItem } from '@/lib/longlive/clown-board';
 import type { ItemStatus, RetrievedItem } from '@/lib/longlive/clown-fallback';
 
-const STATUS_LABEL: Record<ItemStatus, string> = {
+/** Exported so `ClownMessageRow.tsx`'s `SourceChip` (a chat message's cited
+ * sources) can render the same full status text this card does, instead of
+ * a binary confirmed/non-confirmed dot (Codex review MAJOR 7). */
+export const STATUS_LABEL: Record<ItemStatus, string> = {
   confirmed: 'Confirmed',
   debunked: 'Debunked',
   reported: 'Reported',

@@ -95,6 +95,7 @@ const fixtures = vi.hoisted(() => {
 
 vi.mock('../../../lib/longlive/clown-agent', () => ({
   runClownAgent: vi.fn(),
+  AGENT_MAX_WALL_MS: 20_000,
 }));
 
 vi.mock('../../../lib/longlive/clown-index', async () => {
@@ -532,6 +533,29 @@ describe('POST /api/clown', () => {
       const json = await finalAnswer(res);
       expect(json.kind).toBe('fallback');
       expect((json.sources as { id: string }[])[0].id).toBe('lore:extra');
+    });
+
+    it('a degraded run with a large pool is capped to a small presentable number, not the whole accumulated pool (Codex review MAJOR 10)', async () => {
+      const bigPool = new Map(
+        Array.from({ length: 20 }, (_, i) => {
+          const item = {
+            id: `lore:extra-${i}`,
+            headline: `Extra find ${i}`,
+            detail: 'd',
+            status: 'reported' as const,
+            date: '2026-01-01',
+            sources: [],
+          };
+          return [item.id, item] as const;
+        }),
+      );
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: null, pool: bigPool }));
+      const res = await post({ text: MASTERS_QUERY }, '10.3.0.5');
+      const json = await finalAnswer(res);
+      expect(json.kind).toBe('fallback');
+      expect((json.sources as { id: string }[]).length).toBeLessThan(20);
+      const allText = (json.segments as { text: string }[]).map((s) => s.text).join(' ');
+      expect(allText).toContain('more');
     });
   });
 });

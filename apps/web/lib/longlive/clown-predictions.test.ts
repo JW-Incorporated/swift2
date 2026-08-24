@@ -28,37 +28,26 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe('persistPrediction', () => {
-  it('no-ops silently when Supabase env is not configured', async () => {
+describe('persistPrediction — no-ops until bot_prediction exists (Codex review MAJOR 9)', () => {
+  it('never fires a network call when Supabase env is not configured', async () => {
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
     await persistPrediction({ question: 'q', take: fixtureTake(), sources: [] });
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
-  it('posts to bot_prediction when env is configured', async () => {
+  it('never fires a doomed POST even when Supabase env IS configured — bot_prediction is Stage 11\'s table', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
-    const fetchSpy = vi.fn().mockResolvedValue({ ok: true });
+    const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
     await persistPrediction({ question: 'q', take: fixtureTake(), sources: [] });
-    expect(fetchSpy).toHaveBeenCalledTimes(1);
-    const [url, init] = fetchSpy.mock.calls[0];
-    expect(String(url)).toContain('/rest/v1/bot_prediction');
-    expect(JSON.parse(String(init.body))).toMatchObject({ theory_name: 'The Thing', delulu: 2 });
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
-  it('degrades silently (logs, never throws) when the table does not exist yet', async () => {
+  it('resolves cleanly (never throws), regardless of env', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 404 }));
-    await expect(persistPrediction({ question: 'q', take: fixtureTake(), sources: [] })).resolves.toBeUndefined();
-  });
-
-  it('degrades silently on a network error', async () => {
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
-    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
-    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network down')));
     await expect(persistPrediction({ question: 'q', take: fixtureTake(), sources: [] })).resolves.toBeUndefined();
   });
 });

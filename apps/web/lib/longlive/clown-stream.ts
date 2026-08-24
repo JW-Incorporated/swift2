@@ -12,10 +12,36 @@ import type { ClownAnswer, InvestigationStep } from './clown-answer';
 
 export type ClownStreamEvent = { type: 'investigation'; step: InvestigationStep } | { type: 'answer'; answer: ClownAnswer };
 
+/**
+ * Every deterministic (non-loop) route path — crisis/refusal/chip/scope
+ * redirect — returns the route's top-level `ClownAnswer` shape directly via
+ * a plain `NextResponse.json(...)`, NOT wrapped in a `ClownStreamEvent`
+ * envelope (see `route.ts`'s `messageAnswer`/chip-tap paths). Codex review
+ * BLOCKER 4: casting every parsed line straight to `ClownStreamEvent`
+ * (`event.answer`) silently produced `undefined` for those responses,
+ * rendering as a generic network error in the UI even though the server
+ * computed the correct message. Discriminate on shape instead of trusting
+ * the cast.
+ */
+function isStreamEvent(value: unknown): value is ClownStreamEvent {
+  if (!value || typeof value !== 'object') return false;
+  const type = (value as { type?: unknown }).type;
+  return type === 'investigation' || type === 'answer';
+}
+
+function isClownAnswer(value: unknown): value is ClownAnswer {
+  if (!value || typeof value !== 'object') return false;
+  const v = value as { kind?: unknown; segments?: unknown };
+  return (v.kind === 'take' || v.kind === 'fallback') && Array.isArray(v.segments);
+}
+
 function parseLine(line: string): ClownStreamEvent | null {
   const trimmed = line.trim();
   if (!trimmed) return null;
-  return JSON.parse(trimmed) as ClownStreamEvent;
+  const parsed: unknown = JSON.parse(trimmed);
+  if (isStreamEvent(parsed)) return parsed;
+  if (isClownAnswer(parsed)) return { type: 'answer', answer: parsed };
+  return null;
 }
 
 /**

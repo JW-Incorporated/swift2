@@ -118,6 +118,20 @@ function scoreDoc(doc: ClownDoc, terms: readonly string[]): number {
   return score;
 }
 
+/**
+ * Pure relevance check, deliberately bypassing the recency-intent shortcut
+ * below — used by scope resolution (`clown-agent-tools.ts`'s
+ * `resolveScopeSignal`, Codex review MAJOR 6) so recency language
+ * ("today"/"currently"/"right now"/etc.) can never resolve scope on its
+ * own: it must co-occur with an actual term overlap, never substitute for
+ * one. `retrieveClownDocs` itself is UNCHANGED — its recency shortcut still
+ * legitimately surfaces "what's new" style questions with no other topic
+ * word for chip taps and the agent's own `search` tool.
+ */
+export function hasRelevantTopic(query: string, docs: readonly ClownDoc[]): boolean {
+  return relevanceRank(docs, meaningfulTerms(query), 1).length > 0;
+}
+
 /** Plain lexical ranking. Empty when no term clears the threshold — never padded. */
 function relevanceRank(docs: readonly ClownDoc[], terms: readonly string[], limit: number): ClownDoc[] {
   if (terms.length === 0) return [];
