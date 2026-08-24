@@ -155,7 +155,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-retrieve.ts` (+ `.test.ts`) | Deterministic retrieval + `detectRecencyIntent()` |
 | `apps/web/lib/longlive/clown-blocklist.ts` (+ `-gates.ts`, `.test.ts`) | `screenTopic()`, per-category phrase lists |
 | `apps/web/lib/longlive/clown-safety.ts` (+ `-gates.ts`, `.test.ts`) | Ported input/output safety, crisis reuse |
-| `apps/web/lib/longlive/clown-battery-corpus.ts` (+ `-attacks.ts`, `-attacks-b.ts`, `-tier-b.ts`, `.test.ts`) | Red-team corpus (53 attacks, 21 Tier B probes), ported + extended |
+| `apps/web/lib/longlive/clown-battery-corpus.ts` (+ `-attacks.ts`, `-attacks-b.ts`, `-tier-b.ts`, `.test.ts`) | Red-team corpus (61 attacks, 23 Tier B probes as of Stage 12), ported + extended |
 | `apps/web/lib/longlive/clown-board.ts` (+ `.test.ts`) | Both prefill columns, pure/deterministic |
 | `apps/web/lib/longlive/clown-fallback.ts` (+ `.test.ts`) | Zero-model card composer |
 | `apps/web/lib/longlive/clown-starters.ts` (+ `.test.ts`) | Column item → composer prefill string |
@@ -204,6 +204,21 @@ changing any existing call site's behaviour.
 guideline before this stage (350/153 lines); the stream-consumption and
 investigation-trail rendering added here pushed `ClownChat.tsx` to 365 —
 noted, not further split this PR (see the Stage 10 PR body for the call).
+
+## Clownbot eval harness (PLAN.md Stage 12, proposal §7 eval bullet) — new files
+
+Not wired into CI (each needs a live key and/or a live, writable DB) —
+degrades to a clear skip, matching the pattern of the other DB-dependent
+scripts this build added. Battery corpus additions (tool-result injection,
+the 2026-08-16 brief's 11 acceptance cases) live in the existing
+`clown-battery-corpus*.ts` files above, not new files.
+
+| Path | What |
+|---|---|
+| `scripts/knowledge-engine/clown-eval.mjs` (`npm run clown:eval`) | Retro battery over confirmed `egg_ledger` precedents with the write-up doc hidden — target top-3 hit rate ≥60%; also runs the grounding check (below) on every cited id |
+| `apps/web/lib/longlive/clown-grounding.ts` (+ `.test.ts`) | Pure `groundCitations()` — confirms every cited id exists and is `redline_ok=true`; CI-safe on its own, driven with real DB rows by `clown-eval.mjs` |
+| `apps/web/lib/longlive/clown-agent-injection.test.ts` | Agent-loop-level regression for the tool-result injection surface — mocked malicious `tool_result` content, asserts it stays confined to the data channel and that a resulting fabricated citation is still caught |
+| `scripts/knowledge-freshness.mjs` (`npm run knowledge:freshness`) | `max(updated_at) tier='current'` < 24h SLO — report-only, wired into `watchdog.yml`, never blocks `build` |
 
 ## Mood Chat — the song/feeling matcher (SEPARATE from Clownbot)
 
