@@ -44,23 +44,49 @@ Endpoints confirmed 403 on 2026-08-17: `dependabot/alerts`,
 returns "Code Security must be enabled" — that's the separate CodeQL toggle, see
 issue #1894, not this item.)
 
-**Steps** (whichever backs the scheduled runner's `GITHUB_TOKEN` — likely the
-GitHub App installation, since the token is proxy-injected):
-1. GitHub → the org/repo **Settings** → **GitHub Apps** (or **Integrations**) →
-   open the app the Claude Code runner authenticates as for `JW-Incorporated/swift2`.
-2. In that app's **Permissions** → **Repository permissions**, set
-   **Dependabot alerts** to **Read-only**.
-3. Save. GitHub will ask you to **approve the new permission** for the
-   installation on this repo — approve it.
-4. If the runner instead uses a fine-grained personal access token, edit that
-   token and add repository permission **Dependabot alerts: Read-only** for
-   `JW-Incorporated/swift2`.
+**Correction, 2026-08-24 — the original steps below were wrong, sorry for the
+runaround.** You tried them and found none of your 4 installed GitHub Apps
+(Claude, Vercel, Slack, Supabase) show anything about Dependabot when opened.
+That's not you missing a menu — **it's genuinely not there to find.** Paul
+Blart is a Claude Code cloud routine, so its GitHub access runs through the
+`Claude` app itself (Anthropic's own GitHub App). A GitHub App's installer
+can only grant permissions the app's own manifest requests; you can't add a
+scope to someone else's app from the installed-apps screen, no matter which
+of the 4 you click. `X-Accepted-GitHub-Permissions: vulnerability_alerts=read`
+was real, but the fix isn't a checkbox anywhere in that UI.
 
-**Worked if:** next Monday's Paul Blart patrol report shows a real
-severity-ranked alert table (even "0 open alerts") instead of a
-"cannot read — permission gap" banner. Quick check any time: the runner calling
-`GET /repos/JW-Incorporated/swift2/dependabot/alerts?state=open` returns `200`
-with a JSON array, not `403`.
+**The actual fix, now built** (`.github/workflows/dependabot-alerts-snapshot.yml`
++ `scripts/dependabot-alerts-snapshot.mjs`, PR pending): a GitHub Actions
+workflow — which unlike a routine CAN use a dedicated repo secret — fetches
+the open alerts once a week and publishes them into one persistent tracking
+issue titled "Dependabot alerts — automated snapshot," which Paul Blart's
+routine now reads instead (`docs/agents/runner-prompts/paul-blart-run.md`
+updated). This needs one thing from you: a fine-grained PAT, scoped to just
+this repo, with exactly the one permission that was missing.
+
+**Steps:**
+1. Go to `https://github.com/settings/personal-access-tokens/new`.
+2. **Token name**: something identifiable, e.g. `swift2-dependabot-alerts-read`.
+3. **Resource owner**: `JW-Incorporated`.
+4. **Repository access**: **Only select repositories** → `swift2`.
+5. **Permissions** → **Repository permissions** → find **Dependabot alerts**
+   → set to **Read-only**. (Nothing else needs a permission — leave every
+   other row at "No access.")
+6. **Generate token**, copy the value (starts `github_pat_...`).
+7. From a terminal, in the repo: `gh secret set DEPENDABOT_ALERTS_PAT --repo
+   JW-Incorporated/swift2` and paste the value when prompted (or `--body`
+   with the value piped in, never typed where it could land in shell
+   history) — same pattern as `HUMAN-ACTIONS.md` #13's `ANTHROPIC_API_KEY`
+   earlier. I can't run this myself — `gh secret set` is guard-denied,
+   human-only on purpose.
+
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows
+`DEPENDABOT_ALERTS_PAT` (value stays hidden either way), and the next Monday
+21:00 UTC run of `dependabot-alerts-snapshot.yml` updates the tracking issue
+with either a real severity-ranked table or "0 open alerts" — not the
+"PAT not configured yet" notice. You can also trigger it manually anytime via
+**Actions → dependabot-alerts-snapshot → Run workflow** (uncheck "dry run"
+to actually publish).
 
 **Status:** OPEN
 
