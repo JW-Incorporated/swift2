@@ -456,13 +456,13 @@ describe('emptyFeedMessage', () => {
 
   it('joins two active filters naturally', () => {
     expect(emptyFeedMessage(filterOf(['Tour', 'Videos']), 'evermore')).toBe(
-      'Nothing under Tour and Videos in evermore.',
+      'Nothing under Videos and Tour in evermore.',
     );
   });
 
   it('joins three+ active filters in ALL_FILTERS chip order, regardless of Set insertion order', () => {
     expect(emptyFeedMessage(filterOf(['Videos', 'Lore', 'Music']), 'evermore')).toBe(
-      'Nothing under Music, Lore and Videos in evermore.',
+      'Nothing under Music, Videos and Lore in evermore.',
     );
   });
 

@@ -37,7 +37,7 @@ const video = (slug: string): VideoNote =>
 
 describe('ALL_FILTERS', () => {
   it('is exactly the five topic tags plus Videos, six total (R2)', () => {
-    expect(ALL_FILTERS).toEqual(['Music', 'Fashion', 'Tour', 'Relationship', 'Lore', 'Videos']);
+    expect(ALL_FILTERS).toEqual(['Music', 'Videos', 'Fashion', 'Tour', 'Relationship', 'Lore']);
   });
 });
 
