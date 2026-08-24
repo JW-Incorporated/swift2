@@ -910,7 +910,12 @@ jobs:
           }
 
           check_lane "vault/"         36 "The Vault Run"  "once daily at 16:07 UTC, carrying all six content lanes"
-          check_lane "content-shift/" 30 "Content Shift"  "twice daily at 17:00/23:00 UTC"
+          # content-shift/ lane REMOVED 2026-08-24: the standalone Content Shift
+          # cloud routine was deleted (HUMAN-ACTIONS.md #11, PR #2289 — "deleted
+          # all 6 via the routines UI") when it was consolidated into the Vault
+          # Run, so a `content-shift/*` branch can no longer appear and this
+          # check alarmed every single day. This is the one-line migration the
+          # 2026-08-11 comment above prescribed for exactly this moment.
 
       # Facebook export freshness (proposal §4.7, PLAN.md Stage 6).
       # fb-export-reminder.yml files a fresh "FB group export due — week of
@@ -934,8 +939,20 @@ jobs:
           STALE_DAYS=9
           ALERT_TITLE="Watchdog: no FB group export closed in 9 days"
 
-          if ! grep -q "slug:" scripts/knowledge/fb-groups-checklist.mjs 2>/dev/null; then
+          # Real array-length check, not a text grep (fixed 2026-08-24). The
+          # old `grep -q "slug:"` matched the EXAMPLE in this file's doc comment
+          # (`{ slug: 'example-group-slug', ... }`), so the skip branch never
+          # fired even though FB_GROUPS_CHECKLIST is `[]` — and the step then
+          # alarmed "none ever closed", the precise pre-configuration state it
+          # was built to stay quiet through while HUMAN-ACTIONS.md #16 is open.
+          # Importing the module and reading the real array length is immune to
+          # comments and reformatting. On skip we now also CLOSE any standing
+          # alert, so this state self-heals instead of stranding an open one.
+          GROUP_COUNT=$(node -e "import('./scripts/knowledge/fb-groups-checklist.mjs').then(m => process.stdout.write(String((m.FB_GROUPS_CHECKLIST || []).length))).catch(() => process.stdout.write('0'))" 2>/dev/null || echo 0)
+          if [ "${GROUP_COUNT:-0}" -eq 0 ]; then
             echo "no groups configured in fb-groups-checklist.mjs yet (HUMAN-ACTIONS.md #16) — nothing to check."
+            echo "No FB groups configured yet (HUMAN-ACTIONS.md #16) — nothing to export or close, so nothing to alarm on." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             exit 0
           fi
 

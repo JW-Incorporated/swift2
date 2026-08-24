@@ -437,6 +437,22 @@ correct whichever line of this doc is wrong. Until then:
 built assuming **weekly** is the real cadence — if nightly turns out to be
 correct instead, that threshold should shrink back down to match.
 
+**Update 2026-08-24 — the cadence contradiction no longer gates FRESHNESS.**
+Karen's routine went dark ~2026-08-14 → 08-24 (10+ days, no reports) and the
+staleness check paged. Per CLAUDE.md's "Freshness on Actions, judgment on
+routines" rule, the **deterministic** half of Karen — detect findings from the
+seed corpus and file/dedupe the GitHub tickets — is now a GitHub Action,
+`.github/workflows/cie-scan.yml` (`run.mjs all --no-images --create`, twice
+weekly Sun+Wed, zero LLM, only `GITHUB_TOKEN` + the existing `SOCIAL_POSTER_PAT`
+to land the report PR on protected `main`). That makes CIE report freshness
+independent of Wyatt's Claude login and of this cadence question entirely. The
+Wyatt routine is now only needed for the **judgment** half — `Karen Deep — agent
+review` (fabricated events/quotes, wrong-subject images, safety) — which reads
+the findings the Action produces. Follow-up for the routine dashboard: trim the
+`Karen — nightly scan` routine to the Deep-review pass only (it no longer needs
+to run the deterministic scan the Action now owns). The `STALE_DAYS=9` check
+stays as the backstop for the Action itself.
+
 ### Cadence overrides still in force (from the 2026-07-25 sustainment pass)
 
 | Runner | Cadence | Trigger ID |
