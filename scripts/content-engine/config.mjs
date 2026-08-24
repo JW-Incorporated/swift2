@@ -65,6 +65,10 @@ export const CONFIG = {
     'forbes.com', 'www.forbes.com', 'imageio.forbes.com',
     'apnews.com', 'dims.apnews.com',
     'today.com', 'media-cldnry.s-nbcnews.com',
+    // Our own Supabase storage bucket — owned infrastructure, not a
+    // third-party hotlink, so it carries none of the "unvetted host" risk
+    // this allowlist exists for (2026-08-24, issue #1968 hardening pass).
+    'zpllkavmkkjnxpedhotv.supabase.co',
   ],
 
   // ── Text safety pre-filters (deterministic screens that route to review) ──

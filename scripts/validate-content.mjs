@@ -50,6 +50,8 @@ import {
   momentKey,
 } from './lib/sourcing-gate.mjs';
 import { blockingRumorRedlineViolations } from './lib/rumor-redlines.mjs';
+import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
+import { CONFIG } from './content-engine/config.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
@@ -196,6 +198,10 @@ for (const { data } of loaded) {
 // instead of becoming an exemption that silently applies to nothing.
 const seenMomentKeys = new Set();
 
+// Every off-allowlist photo host the corpus actually uses, for the
+// PHOTO_HOST_LEGACY ratchet below (scripts/lib/photo-host-gate.mjs).
+const seenPhotoHosts = new Set();
+
 for (const { file, data } of loaded) {
   const fileEra = data?.eraSlug;
   const rows = data?.items;
@@ -290,6 +296,33 @@ for (const { file, data } of loaded) {
         err(
           `listed in SINGLE_OUTLET_LEGACY as ${key} but now has ${outlets} independent outlets — delete that entry from scripts/lib/sourcing-gate.mjs`,
         );
+    }
+
+    // --- photo host allowlist (2026-08-24, issue #1968) --------------------
+    // CONFIG.hostAllowlist was enforced only in image-liveness.mjs, a
+    // post-hoc Karen finding that never blocked a merge — a photo hotlinked
+    // from an attacker-controlled host reached the seed and the live page
+    // with nothing to stop it. This is the blocking gate: any photo host that
+    // is neither on CONFIG.hostAllowlist nor grandfathered in
+    // PHOTO_HOST_LEGACY (scripts/lib/photo-host-gate.mjs) is a hard error.
+    const photoUrls = [
+      ...(it.thumbnailUrl ? [it.thumbnailUrl] : []),
+      ...(it.moment?.photos ?? []).map((p) => p?.url).filter(Boolean),
+    ];
+    for (const url of photoUrls) {
+      const host = photoHostOf(url);
+      if (!host) {
+        err(`photo url "${url}" is not a parseable URL`);
+        continue;
+      }
+      if (CONFIG.hostAllowlist.includes(host)) continue;
+      if (PHOTO_HOST_LEGACY.has(host)) {
+        seenPhotoHosts.add(host);
+        continue;
+      }
+      err(
+        `photo host "${host}" is not on CONFIG.hostAllowlist and not grandfathered in PHOTO_HOST_LEGACY (scripts/lib/photo-host-gate.mjs) — vet the host and add it to one of those lists, or re-source the photo from a reputable host`,
+      );
     }
 
     // Shoppable products (moment.products — see Product in
@@ -520,6 +553,17 @@ for (const [label, list] of [
     );
     errors += 1;
   }
+}
+
+// Same ratchet for PHOTO_HOST_LEGACY: a listed host no photo in the corpus
+// uses any more must be removed, or the list quietly stops describing the
+// corpus (scripts/lib/photo-host-gate.mjs).
+for (const host of PHOTO_HOST_LEGACY) {
+  if (seenPhotoHosts.has(host)) continue;
+  console.error(
+    `ERROR scripts/lib/photo-host-gate.mjs: PHOTO_HOST_LEGACY lists "${host}", which no photo in the corpus uses — delete the entry`,
+  );
+  errors += 1;
 }
 
 // ---------------------------------------------------------------------------
