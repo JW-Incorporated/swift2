@@ -70,25 +70,53 @@ with it. Neither blocks tonight's build.
 2. **Supabase anonymous auth** — Clownbot's server-side conversation memory
    needs "Allow anonymous sign-ins" toggled on in the Supabase dashboard
    (Authentication → Providers). I can't reach that toggle. **Update
-   (PLAN.md Stage 11):** the schema (`clown_conversation`/`clown_turn`/
-   `bot_prediction`/`clown_pinned_theory`, `supabase/migrations/
-   20260904000000_clown_sessions.sql`) and the code (session resolution,
-   conversation continuity + rolling summary, per-user daily cap, prediction
-   persistence) are now built and tested — every write path already attempts
-   real anonymous sign-in and genuinely fails closed (one log line, then
-   degrades to today's stateless behavior) because this toggle is still off.
-   Nothing changes for a reader until it's flipped.
+   (PLAN.md Stage 11, PR #2319):** the schema (`clown_conversation`/
+   `clown_turn`/`bot_prediction`/`clown_pinned_theory`, `supabase/
+   migrations/20260904000000_clown_sessions.sql`) and the code (session
+   resolution, conversation continuity + rolling summary, per-user daily
+   cap, prediction persistence) are built and tested — every write path
+   genuinely fails closed to today's stateless behavior while this toggle
+   is off, confirmed by both the tests and an independent Codex review.
+   **DO NOT flip this toggle yet — that same Codex review found real bugs
+   that only activate once it's on** (currently inert, zero effect on
+   readers): the client never round-trips the session id the route
+   returns, so every message would sign up a fresh anonymous identity —
+   conversations, the per-user 200/day cap, and predictions would all
+   fragment across one-use sessions instead of persisting; the rolling-
+   summary fold (delete old turns + patch the summary) isn't transactional
+   and can silently lose or duplicate history on a partial failure; and
+   persisted memory is currently write-only — nothing loads it back in on
+   reload. None of this is a reason not to flip the toggle eventually, but
+   flipping it today would ship all three broken. Full findings: PR
+   #2319's Codex review, session `01a03390-be51-79b0-8bb7-ec53b398c20b`.
+   Fixing these is a fresh session's job, not tonight's.
 
-**Worked if:** you tell me the Reddit outcome in chat and/or flip the
-Supabase toggle.
+**Worked if:** you tell me the Reddit outcome in chat. Hold off flipping
+the Supabase toggle until the item above is resolved by a future session
+— tell me to prioritize that fix if you want it sooner.
 
 **Status:** OPEN
 
 ---
 
-### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 9 migrations unapplied against prod, pgvector untested
+### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 10 migrations unapplied against prod, pgvector untested, one real security gap to close first
 
 **Filed:** 2026-08-23
+
+**Security finding, close before or in the same session as applying these
+(2026-08-24, Codex review of PR #2319):** `increment_usage_daily` (from
+`20260902000000_usage_daily.sql`, used by Stage 3/6/11's daily caps) is a
+`SECURITY DEFINER` function that takes a caller-controlled scope string
+and, once applied, will be callable by anyone holding the site's public
+anon key (embedded client-side by design) via Supabase's auto-generated
+REST RPC endpoint — nothing in the migration revokes its default `PUBLIC`
+execute grant. That means any caller could invoke it directly with a
+known scope (`extract`, `gnews`, `clown-chat:<uid>`, etc.) and poison an
+unrelated rate limit. **Fix**: add `revoke execute on function
+increment_usage_daily from public;` + an explicit `grant execute ... to
+service_role` (or equivalent least-privilege grant) in a small follow-up
+migration before or immediately after applying the batch below — a
+future session's job, flagging here so it isn't applied blind.
 
 **Update:** Stage 1 (worker fixes, PR #2300) hit the identical gap for the
 same reason — two more migrations
