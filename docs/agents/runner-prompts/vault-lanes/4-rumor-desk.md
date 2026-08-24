@@ -50,12 +50,25 @@ whenever you coarsened a location.
 
 ## Each run, do both
 
-**A. Lifecycle queue.** `node --use-env-proxy scripts/content-engine/run.mjs scan --no-images`,
-read `content.rumor-lifecycle` findings (never-checked / gone-quiet / overdue).
-CONFIRMED → status `confirmed` + `resolution { on, url, outlet, note }`;
-DEBUNKED → same shape; STILL LIVE → leave status, set `lastCheckedOn` to today;
-GONE QUIET (45d+, no confirmation or denial) → status `faded`. The citation is
-REQUIRED on confirmed/debunked — `validate-content` hard-errors without it.
+**A. Lifecycle queue** (source changed 2026-08-23, knowledge engine Stage 8,
+proposal §6). Was: `node --use-env-proxy scripts/content-engine/run.mjs scan
+--no-images`, reading `content.rumor-lifecycle` findings by scanning Vault
+seed files. Now: query `current_item`/`live_theory` directly instead of
+scanning seeds — `current_item` rows where `last_checked_on + 14 days <
+now()`, `live_theory` rows where `last_seen_on + 14 days < now()` (the
+merged Stage 2 schema names the column `last_seen_on` on `live_theory`, not
+`last_checked_on` — the two tables don't share a column name here, use the
+real one per table). Same dispositions as before: CONFIRMED → status
+`confirmed` + `resolution { on, url, outlet, note }`; DEBUNKED → same shape;
+STILL LIVE → leave status, bump `last_checked_on` (`current_item`) or
+`last_seen_on` (`live_theory`) to today; GONE QUIET (45d+, no confirmation
+or denial) → status `faded` (`current_item`) or `abandoned` (`live_theory`,
+matching the extract stage's own 45d-quiet rule). The citation is REQUIRED
+on confirmed/debunked exactly as today — `validate-content` hard-errors
+without it on seed-file rumors, and the same requirement carries to
+`current_item`/`live_theory` resolutions (see "Deterministic resolution
+proposals" below — that section's engine-written proposals don't loosen
+this, a human still has to tick one before it applies).
 
 **BE RIGOROUS ABOUT WHAT ACTUALLY DEBUNKS WHAT.** A claim that invitations
 carried NDAs was once marked debunked because Graham Norton said HE had signed
@@ -85,3 +98,24 @@ After the orchestrator syncs, confirm your `sourceTier` / `lastCheckedOn` /
 `apps/web/lib/longlive/content-vault.generated.ts`. A serializer bug dropped
 exactly those fields for a full day (fixed in #948). If they are missing, say so
 loudly rather than reporting invisible data as shipped.
+
+## Deterministic resolution proposals (target state, proposal §6)
+
+The engine itself can propose a resolution, deterministically: a
+`live_theory` whose claim is ≥0.7 cosine to an `official`-tier `current_item`
+from the last 24h → the engine writes a proposed `resolution` into a review
+issue. **Blocked tonight** — the embedding vendor is chosen (OpenAI,
+`text-embedding-3-large`, `dimensions: 1024`, `HUMAN-ACTIONS.md` #12, DONE
+2026-08-23) but the embeddings pipeline that would populate
+`knowledge_doc.embedding` and compute the cosine score is not yet built
+(knowledge-engine Stage 9 territory) — retrieval and this check stay
+FTS-only until it lands. This is an engineering gap, not a pending human
+decision; no new `HUMAN-ACTIONS.md` item needed for it.
+
+This does not change Rumor Desk's job today. Once it exists: **a human still
+ticks the proposed resolution before `knowledge-resolve.yml` applies it —
+bots never self-adjudicate.** That is the rumor pipeline's posture already
+(the citation requirement above) and stays exactly as strict here — Rumor
+Desk itself must never auto-apply one of these proposals on the strength of
+the cosine score alone, same as it never marks something confirmed today
+without a citation a human/checker can trace.

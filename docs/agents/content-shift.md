@@ -10,6 +10,16 @@ Phase 1), shifts author *as* the routed persona; until then, house voice.)
 
 ## Queue priority (deterministic, checked in order)
 
+0. **Current-tier promotions** (`current_item` rows, added 2026-08-23 —
+   knowledge engine Stage 8, proposal §6). Query: `current_item` where
+   `status` in (`reported`, `confirmed`) and `source_tier` in (`official`,
+   `established`) and `promoted_to` is null and `heat >= 0.5`, ordered by
+   `heat` descending. Checked FIRST, ahead of Intake — the row already
+   carries our-words copy, publisher sources, tags, a `social_post`/
+   `image_url`, and a redline pass from the extract stage, so it is the
+   fastest, cheapest-to-verify path from ingestion to the Vault. See
+   "Current-tier promotion" below for the run mechanics and the throughput
+   rule that replaces the 2-item cap for this source only.
 1. **Intake** (`intake` label) with sources attached or findable — Joey's
    daily drops. Same-day is the target.
 2. **Experience tickets** (`experience`, Nils) in severity order — thin
@@ -135,6 +145,49 @@ a lead can be wrong about what the video even is.
    and costs nothing; the filter deliberately favors precision but is still just
    keywords on a title.
 
+## Current-tier promotion (added 2026-08-23, knowledge engine Stage 8)
+
+Queue source (0) rows come from the knowledge engine's Actions-run ingest/
+extract pipeline (`apps/worker/src/extract/`), not from a human or another
+routine — the research, our-words summarization, source citations, and
+redline pass already happened upstream, deterministically, before the row
+ever reaches this queue. **The agent's job on one of these rows is narrower
+than steps 2-3 above, not the same research-then-write loop:**
+
+1. **Verify** — sanity-check the row's `sources`, `tags`, and copy against
+   the linked publisher URL(s), the way you would any other fact; the
+   upstream redline pass and source-tier filter (`official`/`established`
+   only) mean this is a confirmation pass, not a from-scratch source hunt.
+2. **Place** — same era-by-date rules as the rest of this charter (the
+   current era by default; an older era only when the row's `observed_on`
+   documents a past event, same reasoning as the YouTube-appearance rule
+   above).
+3. **Set confidence** per the standard `Confidence` scale (`types.ts`).
+4. **Author the seed row** — `slug`, `year`/`month`/`day`, `sources` — same
+   seed-file discipline as every other item (step 3 above): fan-editor
+   voice, no fabrication, a picture per step 3b when one is verifiable.
+5. **Set `promoted_to`** on the source `current_item` row to the new seed
+   slug, so it stops being re-offered by this query and the site's dashed
+   "Live" treatment yields to the promoted Vault entry.
+
+Same PR path, same auto-merge, same gates as every other item this charter
+authors — this is not a new workflow, just a new, cheaper queue source
+feeding the existing one.
+
+**Throughput for this source only:** the flat "≤2 items/run" cap under
+Throttles below does not apply here. That cap exists to bound the cost of
+*researching* an item, and for queue source (0) that research already
+happened upstream, deterministically, before the row reached this queue.
+Instead: the query's own `heat >= 0.5` floor (the extract stage's own
+screening threshold, proposal §6) plus a WIP limit of 5 — no more than 5
+`current_item` rows may be claimed (a branch/PR open against them,
+`promoted_to` still null) at once. The limit counts `current_item` rows,
+not `content-shift`-labeled PRs — the 2026-07-19 removal of a PR-count WIP
+limit (below, under Throttles) doesn't apply here: that limit broke because
+the `content-shift` label is shared with the unrelated photo-enrichment
+bot's PRs, inflating the count with work this charter never did. Counting
+rows in this new table sidesteps that collision entirely.
+
 ## Diagnosed failure history (2026-07-19/20) — read before debugging this again
 
 **The shift has never opened a pull request.** Not once, across its whole
@@ -166,8 +219,12 @@ Two lessons that outlive this bug:
 
 ## Throttles
 
-≤2 items authored per run (quality over volume); per-run token budget;
-never touches an item a human is visibly working.
+≤2 items authored per run **from queue sources 1–4** (quality over volume —
+these require real research each run); per-run token budget; never touches
+an item a human is visibly working. Queue source (0) (current-tier
+promotions) runs under its own heat threshold + WIP limit instead — see
+"Current-tier promotion" above; that 2-item cap was protecting research
+cost, and source (0)'s research already happened upstream.
 
 **Removed 2026-07-19 (Wyatt): the "≥3 open `content-shift` PRs blocks new
 runs" WIP limit.** It borrowed Austin's pattern, but it does not transfer:

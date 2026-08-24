@@ -9,6 +9,13 @@ Undocumented runner (issue #2258 §3b) — no standalone prompt file existed in 
 - **allowed_tools:** Bash, Read, Write, Edit, Glob, Grep, WebSearch, WebFetch
 - **mcp_connections:** Gmail (connector_uuid `e8ea9bdc-2989-4880-aa90-7877f51ce5a4` — REFERENCE ONLY, do not reuse, account-bound). No Claude_Code_Remote.
 
+**Update (2026-08-23, knowledge engine Stage 8):** the block below predates
+the knowledge-engine promotion queue — see
+`docs/agents/runner-prompts/vault-lanes/4-rumor-desk.md` for the current
+lifecycle-queue mechanics (`current_item`/`live_theory` queries replacing the
+seed scan, deterministic resolution proposals) that apply whenever this
+routine resumes. Left untouched below for provenance.
+
 ## Full prompt (verbatim, from Wyatt's trigger export)
 
 ```
