@@ -1481,6 +1481,8 @@ export default {
             kind: 'primary',
             focalPoint: '35% 55%',
           },
+          // Re-verified HTTP 200 + image/jpeg on 2026-08-24 (#3043 — the CIE
+          // flag was a transient probe failure, not hotlink-rot).
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-ttpd-ae-241208-28a3c3.jpg',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
@@ -1488,6 +1490,8 @@ export default {
             kind: 'primary',
             focalPoint: '55% 40%',
           },
+          // Re-verified HTTP 200 + image/jpeg on 2026-08-24 (#3044 — the CIE
+          // flag was a transient probe failure, not hotlink-rot).
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-1989-2-ae-241208-a3754a.jpg',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
@@ -1545,7 +1549,7 @@ export default {
       snippet: 'A final tally of $2,077,618,725 across 10.17 million tickets — roughly double the previous all-time tour record.',
       sourceUrl: 'https://www.forbes.com/sites/maryroeloffs/2024/12/09/taylor-swifts-eras-tour-grossed-2-billion-double-any-other-tour-in-history-report-says/',
       thumbnailUrl:
-        'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
+        'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg',
       moment: {
         context:
           'Her production company confirmed the totals to The New York Times: 10,168,008 tickets across 149 shows on five continents, at an average of $204 a seat — roughly double the previous all-time record, Coldplay\'s $1 billion Music of the Spheres run, which needed more dates to get there.\n\nThe figure counts tickets only; merchandise, the record-grossing concert film, and the Eras Tour Book all sit outside the tally. Pollstar had already estimated the tour crossed the billion-dollar line in November 2023 — the second billion took barely a year more.',
@@ -1572,14 +1576,16 @@ export default {
         // Photo pass #762 (2026-08-16): a second photo WAS on an outlet CDN
         // all along — Variety's own hero image for the cited $2B article,
         // just not one the earlier Commons-only searches would have found.
+        // Rotted transform query strings dropped (2026-08-24, #3045/#3046):
+        // publisher originals resolve fine without them.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg',
             focalPoint: '45% 27%',
             credit: 'Emma McIntyre/TAS24/Getty Images',
           },
           {
-            url: 'https://variety.com/wp-content/uploads/2024/12/swift-fringe-GettyImages-2188653759.jpg?w=1000&h=667&crop=1',
+            url: 'https://variety.com/wp-content/uploads/2024/12/swift-fringe-GettyImages-2188653759.jpg',
             focalPoint: '34% 24%',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management, via Variety',
             caption:
@@ -1612,6 +1618,8 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the nominated album's cover from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        // Re-verified HTTP 200 + image/png on 2026-08-24 (#3047 — the CIE
+        // flag was a transient probe failure, not hotlink-rot).
         // Photo pass (2026-07-18, #762): + Getty Toronto show photo from the
         // cited Billboard nominations-reaction story (she reacted to the six
         // nods from the Toronto stage that night). Downloaded + vision-confirmed.
