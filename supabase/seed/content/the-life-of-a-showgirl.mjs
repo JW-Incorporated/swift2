@@ -3993,6 +3993,21 @@ export default {
             accessed_at: '2026-08-04',
             reliability_score: 2,
           },
+          // Answerer depth pass (Vault Run 2026-08-24, hot-thin-topic #1720):
+          // adds a strong (reliability 4) outlet to a page whose Morris quote
+          // otherwise rested on People-via-AOL/TMZ/HOLA. Billboard's guests-
+          // revealed vows roundup corroborates the surrounding context this
+          // moment leans on (guests describing the vows on the record).
+          // Verified via web search this session; no new claim added.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-vows-1236287859/',
+            source_title: "Taylor Swift & Travis Kelce's Wedding Vows: What Guests Have Revealed",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
         ],
         // Archival portrait — the vows were described in an interview, not a
         // photographed event, so this is the closest true visual (same pattern
@@ -7620,7 +7635,12 @@ export default {
       category: 'music',
       // Cross-link (candidate #1045): the NYT 30-greatest-songwriters interview
       // that opened the same 2026 craft-canonization spring.
-      relatedIds: ['moment:vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar'],
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the Grammy
+      // Museum Songwriters-Wing retrospective that August — same craft thread.
+      relatedIds: [
+        'moment:vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+      ],
       title: 'The youngest woman in the Songwriters Hall of Fame',
       snippet:
         'At 36, Taylor becomes the youngest woman ever inducted into the Songwriters Hall of Fame — only Stevie Wonder got there younger. Steven Spielberg handles the surprise introduction, and Travis and both moms watch from her table, three weeks before the wedding.',
@@ -8972,6 +8992,116 @@ export default {
             caption:
               'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
             kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-24 (Vault Run, Content Shift lane) from intake #3151.
+      // Confirmed on-record appearance + performance: named public venue
+      // (Grammy Museum), named interviewer, dated, invite-list reported by
+      // multiple outlets (Just Jared, heavy.com) and verified via web search.
+      // The exact setlist was NOT disclosed by any outlet, so no songs are
+      // named here — "a few songs" is as far as the record goes. Grammy Museum
+      // is a public venue and this is a documented past event (L2), no redline
+      // material.
+      slug: 'showgirl-grammy-museum-icon-sessions-retrospective',
+      year: 2026,
+      month: 8,
+      day: 18,
+      category: 'music',
+      title: 'A secret Grammy Museum show: the Icon Sessions 20-year retrospective',
+      snippet:
+        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in Los Angeles — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. Recording Academy CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed a few songs for the roughly 100 guests.',
+      sourceUrl:
+        'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
+      thumbnailUrl: null,
+      significance: 'notable',
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the 2026
+      // songwriting-craft cluster — this Recording Academy Songwriters &
+      // Composers Wing retrospective sits beside her two songwriting-hall
+      // honors that same year (Nashville SHOF, Aug 11; the New York
+      // Songwriters Hall of Fame, June 11).
+      relatedIds: [
+        'moment:vault-tloas-named-to-the-nashville-songwriters-hall-of-fame-its-youngest',
+        'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+      ],
+      moment: {
+        context:
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance of a few songs for the small crowd — even as the specifics stayed inside the room. No setlist was released, and none is invented here; what is on the record is that she performed, not what. The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what surfaced came from the guests themselves rather than any official recording.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
+            source_title: "All About Taylor Swift's Secret Show in L.A. This Week & Who Was Invited to Attend",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'heavy.com',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-secret-show-travis-kelce/',
+            source_title: 'Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp',
+            publisher: 'heavy.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-24 (Vault Run, Content Shift lane) from intake #3150.
+      // Confirmed on-record public appearance tied to a real awards campaign,
+      // reported by multiple established outlets (Deadline, Us Weekly) and
+      // verified via web search; the five-song setlist was reported by
+      // culture.org. Distinct from the July 8 nominations moment
+      // (showgirl-eras-tour-film-emmy-nominations) — this is the campaign
+      // appearance, not the nods themselves. VENUE COARSENED on purpose: the
+      // reported "Ross House" could not be confirmed as a public venue vs. a
+      // private residence, so per the intake's own redline note and the
+      // residence cap it is written at city level only ("a private FYC event
+      // in Los Angeles"), never named. The widely-covered slip-dress fashion
+      // angle is left for the fashion lane/persona; only the appearance and
+      // performance are authored here.
+      slug: 'showgirl-eras-tour-film-emmy-fyc-appearance',
+      year: 2026,
+      month: 8,
+      day: 20,
+      category: 'tour',
+      title: 'A rare LA appearance — and five songs — for the Eras Tour film’s Emmy campaign',
+      snippet:
+        'On Aug. 20, 2026 Taylor turned up at a private Emmy For-Your-Consideration event in Los Angeles to back “The Eras Tour: The Final Show,” its Disney+ concert film. She reflected on the tour alongside director Glenn Weiss — calling it “a source of great escapism” — and played five songs on the Eras Tour piano for roughly 50 Emmy voters, with no press admitted.',
+      sourceUrl:
+        'https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/',
+      thumbnailUrl: null,
+      significance: 'notable',
+      relatedIds: [
+        'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+      ],
+      moment: {
+        context:
+          'Six weeks after the concert film of her tour’s last night pulled five Emmy nominations, Taylor showed up to campaign for it in person. On Aug. 20, 2026 she made a rare appearance at a private For-Your-Consideration event in Los Angeles — the kind of small, no-press voters’ gathering the awards season runs on — in support of Taylor Swift: The Eras Tour: The Final Show and its craft nominees, chief among them director Glenn Weiss. About 50 Emmy voters were in the room; no media were admitted and no recording devices were allowed, so what left the event were her remarks and a setlist, carried out secondhand.\n\nHer reflection turned on a single idea: escapism. The Eras Tour, she said, “was such a phenomenon because of so many factors, but one that I know is really important is that it was a source of great escapism for the people who were there.” She framed the film as an attempt to keep that feeling intact, describing the conversations she and Weiss had about how to preserve the experience — the sense of “relaxation and freedom” for the fans in the stadium — so that the thing that made the concert special survived the translation to screen.\n\nThen she played, as reported, five songs on the Eras Tour piano — opening with the new single “I Knew It, I Knew You,” then “August,” “All Too Well” and “Cardigan,” and closing on “Champagne Problems.” It was a quiet, deliberate piece of awards-season stagecraft from an artist who rarely works a voters’ room: the film competes for Outstanding Variety Special (Pre-Recorded) on the primetime telecast, with Weiss double-nominated for his direction, and the appearance put the person the nominations attach to in front of the people casting the ballots.',
+        sources: [
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/',
+            source_title: "Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'culture.org',
+            url: 'https://culture.org/archive/taylor-swift-joins-emmy-campaign-for-eras-tour-film/',
+            source_title: 'Taylor Swift Joins Emmy Campaign for Eras Tour Film, Performing Five Songs for Voters',
+            publisher: 'culture.org',
+            source_type: 'press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
           },
         ],
       },
@@ -10708,7 +10838,12 @@ export default {
       category: 'music',
       // Cross-link (#2027): her other 2026 songwriting-hall honor — the New
       // York Songwriters Hall of Fame's youngest-woman induction that June.
-      relatedIds: ['moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame'],
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the Grammy
+      // Museum Songwriters-Wing retrospective a week later — same craft thread.
+      relatedIds: [
+        'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+      ],
       title: 'Named to the Nashville Songwriters Hall of Fame — its youngest inductee ever, at 36',
       snippet:
         'On Aug. 11, 2026, the Nashville Songwriters Hall of Fame named Taylor a 2026 inductee — at 36, the youngest songwriter it has ever elected. She enters in the contemporary songwriter/artist category, in a class led by Lyle Lovett, with formal enshrinement set for the hall’s 56th-anniversary gala later this year.',

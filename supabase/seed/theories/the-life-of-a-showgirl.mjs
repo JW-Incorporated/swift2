@@ -198,11 +198,11 @@ export default {
             "Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories",
           publisher: 'Just Jared',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-20',
+          accessed_at: '2026-08-24',
           reliability_score: 3,
           excerpt: null,
           notes:
-            'Bradley Stern, 2026-07-20. Names the three tracks/colors and the two fan theories; UA-blocked to a raw fetch, corroborated via search + geo.tv.',
+            'Bradley Stern, 2026-07-20. Names the three tracks/colors and the two fan theories; UA-blocked to a raw fetch, corroborated via search + geo.tv. Re-checked 2026-08-24 (Vault Run rumor lifecycle): status verified still pending — no re-recording/new-era announcement or debunk has landed since; the fresher Aug 20 ESB "green TS" signal is the same open hunt, not a resolution.',
         },
         {
           source_url:
@@ -249,11 +249,11 @@ export default {
             "Aaron Dessner Sets the Record Straight on Gracie Abrams' 'Death Wish': It's 'Definitely Not' About Taylor Swift",
           publisher: 'Billboard',
           source_type: 'reputable_press',
-          accessed_at: '2026-07-25',
+          accessed_at: '2026-08-24',
           reliability_score: 4,
           excerpt: null,
           notes:
-            'The July 21, 2026 interview carrying Dessner\'s "Yeah, definitely not" and the "friend\'s ex" origin. Billboard 307-redirects to a paywall proxy on a raw fetch; quote confirmed via the NME and E! reads below plus search.',
+            'The July 21, 2026 interview carrying Dessner\'s "Yeah, definitely not" and the "friend\'s ex" origin. Billboard 307-redirects to a paywall proxy on a raw fetch; quote confirmed via the NME and E! reads below plus search. Re-checked 2026-08-24 (Vault Run rumor lifecycle): the debunk stands unchanged — no reversal; Wikipedia\'s "Death Wish" article carries the same "about a friend\'s narcissist ex" origin.',
         },
         {
           source_url:
