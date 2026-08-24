@@ -147,6 +147,14 @@ export function ModeToggle({
   // With four labelled tabs the landing-page variant has no room for icons on
   // a narrow phone, so it goes text-only there and regains them at sm+.
   const iconClass = cn('size-3.5 md:size-4', alwaysShowLabels && 'hidden sm:block');
+  // #1991: below `sm` this instance (rendered as-is inside OverlayNav,
+  // squeezed alongside the wordmark + share/close buttons) stays icon-only —
+  // six always-visible labels don't fit that shared row's real width budget
+  // (~150px on a 375px phone) even stacked. `aria-label` (#656) plus the
+  // `title` tooltip on each tab cover screen readers and hover disambiguation
+  // (the VenetianMask/Clownbot icon in particular); the tap targets and font
+  // size below are bumped regardless (`py-2.5`/`text-xs`, from `py-1.5`/
+  // `text-[11px]`) since that's a pure height change with no width cost.
 
   // The tab buttons are `flex-1 basis-0` but NOT equal width in practice —
   // they keep their default min-width:auto, so a long label (e.g.
@@ -208,9 +216,10 @@ export function ModeToggle({
         // explicitly — otherwise a screen reader announces an unlabeled button
         // on mobile (#656, WCAG 4.1.2).
         aria-label="Eras"
+        title="Eras"
         onClick={() => onChange('era')}
         className={cn(
-          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-colors md:px-3 md:text-sm',
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
           mode === 'era' ? 'text-bg' : 'text-ink-soft hover:text-ink',
         )}
       >
@@ -222,9 +231,10 @@ export function ModeToggle({
         role="tab"
         aria-selected={mode === 'threads'}
         aria-label="Threads"
+        title="Threads"
         onClick={() => onChange('threads')}
         className={cn(
-          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-colors md:px-3 md:text-sm',
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
           mode === 'threads' ? 'text-bg' : 'text-ink-soft hover:text-ink',
         )}
       >
@@ -239,9 +249,10 @@ export function ModeToggle({
         // tab needs an explicit name or a screen reader announces an unlabeled
         // button (#656, WCAG 4.1.2).
         aria-label="Mood"
+        title="Mood"
         onClick={() => onChange('mood')}
         className={cn(
-          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-colors md:px-3 md:text-sm',
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
           mode === 'mood' ? 'text-bg' : 'text-ink-soft hover:text-ink',
         )}
       >
@@ -254,9 +265,10 @@ export function ModeToggle({
         aria-selected={mode === 'clownbot'}
         // Same reason as the others (#656, WCAG 4.1.2).
         aria-label="Clownbot"
+        title="Clownbot"
         onClick={() => onChange('clownbot')}
         className={cn(
-          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-colors md:px-3 md:text-sm',
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
           mode === 'clownbot' ? 'text-bg' : 'text-ink-soft hover:text-ink',
         )}
       >
@@ -269,9 +281,10 @@ export function ModeToggle({
         aria-selected={mode === 'community'}
         // Same reason as the others (#656, WCAG 4.1.2).
         aria-label="Community"
+        title="Community"
         onClick={() => onChange('community')}
         className={cn(
-          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-colors md:px-3 md:text-sm',
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
           mode === 'community' ? 'text-bg' : 'text-ink-soft hover:text-ink',
         )}
       >
@@ -284,9 +297,10 @@ export function ModeToggle({
         aria-selected={mode === 'merch'}
         // Same reason as the others (#656, WCAG 4.1.2).
         aria-label="Merch"
+        title="Merch"
         onClick={() => onChange('merch')}
         className={cn(
-          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1.5 text-[11px] font-semibold transition-colors md:px-3 md:text-sm',
+          'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
           mode === 'merch' ? 'text-bg' : 'text-ink-soft hover:text-ink',
         )}
       >

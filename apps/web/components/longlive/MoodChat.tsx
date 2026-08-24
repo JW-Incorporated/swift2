@@ -50,6 +50,7 @@ export function MoodChat() {
   const [error, setError] = useState<string | null>(null);
   const [rotation, setRotation] = useState(0);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const starters = useMemo(() => visibleStarters(rotation), [rotation]);
   /** Once there's an answer, the starters stop being the way in. */
@@ -73,8 +74,17 @@ export function MoodChat() {
       // usually already in view — scroll only when it isn't, and never yank the
       // input off-screen (`block: 'nearest'`, not 'start'). Screen readers get
       // the answer from the live region regardless of scroll position.
+      //
+      // #1991: this used to target `resultsRef` (the whole answer block), but
+      // a `matches` result with several stacked song cards makes that block
+      // taller than the viewport — 'nearest' then aligns its top edge to the
+      // viewport top, scrolling the input (which sits above it) off-screen.
+      // Targeting the form instead keeps a fixed-height anchor: 'nearest' is
+      // still a no-op when the box is already visible, and when it isn't, the
+      // scroll brings the box (and the answer starting right below it) into
+      // view regardless of how tall the answer itself is.
       requestAnimationFrame(() =>
-        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }),
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }),
       );
     } catch {
       setError("That didn't go through. Try again in a moment?");
@@ -119,7 +129,7 @@ export function MoodChat() {
         </p>
       </header>
 
-      <form onSubmit={submitText} className="mt-8">
+      <form ref={formRef} onSubmit={submitText} className="mt-8 scroll-mt-24">
         {/* Honeypot — bots fill hidden fields; the API treats a filled `hp` as a
             no-op. Not a label a human ever sees, hence aria-hidden. */}
         <input type="text" name="hp" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />

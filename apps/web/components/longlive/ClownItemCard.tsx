@@ -117,14 +117,14 @@ export function ClownItemCard(props: ClownItemCardProps) {
       <p className="mt-2 font-medium text-[color:var(--era-ink)]">{item.headline}</p>
       <p className="mt-1 leading-relaxed text-[color:var(--era-ink-soft)]">{item.detail}</p>
       {item.sources.length > 0 && (
-        <p className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
+        <p className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1">
           {item.sources.map((s) => (
             <a
               key={s.url}
               href={s.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block py-1 text-xs text-[color:var(--era-accent)] underline underline-offset-2"
+              className="inline-block py-1.5 text-xs text-[color:var(--era-accent)] underline underline-offset-2"
             >
               {s.name}
             </a>
