@@ -43,6 +43,22 @@ export interface ClownSegment {
   text: string;
 }
 
+/**
+ * One tool call the agent loop (clown-agent.ts, PLAN.md Stage 10) made while
+ * investigating a question, in the order it happened. Rendered to the reader
+ * so the trail is transparent, not just internal telemetry — "what the bot
+ * looked up and found." Always `[]` for the fallback/chip/degraded/refusal
+ * producers below: nothing investigated, nothing to show.
+ */
+export interface InvestigationStep {
+  /** The tool name, exactly as sent on the wire (e.g. 'search', 'precedents'). */
+  tool: string;
+  /** The arguments the model supplied, already validated. */
+  input: Record<string, unknown>;
+  /** One line, our words: what the call found. Never the raw row payload. */
+  summary: string;
+}
+
 export interface ClownAnswer {
   /** Which path produced this. Drives nothing user-visible except analytics. */
   kind: 'take' | 'fallback';
@@ -60,6 +76,8 @@ export interface ClownAnswer {
   delulu: number | null;
   /** The corpus items this answer is allowed to have leaned on. */
   sources: RetrievedItem[];
+  /** The agent loop's tool-call trail, in order. `[]` for every non-loop producer. */
+  investigation: InvestigationStep[];
 }
 
 /** Drop empty/whitespace-only segments so the bubble never renders a blank row. */
@@ -78,6 +96,7 @@ function compact(segments: ClownSegment[]): ClownSegment[] {
 export function answerFromTake(
   take: ClownTake,
   sources: RetrievedItem[],
+  investigation: InvestigationStep[] = [],
 ): ClownAnswer {
   return {
     kind: 'take',
@@ -90,6 +109,7 @@ export function answerFromTake(
     ]),
     delulu: take.delulu,
     sources,
+    investigation,
   };
 }
 
@@ -106,5 +126,6 @@ export function answerFromFallback(fallback: FallbackAnswer): ClownAnswer {
     segments: compact([{ role: 'plain', text: fallback.text }]),
     delulu: null,
     sources: fallback.items,
+    investigation: [],
   };
 }

@@ -40,6 +40,9 @@ export const SEED_EXAMPLE: SeedExample = {
   question: "what's the deal with the orange doors?",
   answer: {
     kind: 'take',
+    // Captured before the agent loop (PLAN.md Stage 10) existed — no
+    // investigation trail to show for this frozen example.
+    investigation: [],
     theoryName: 'The Twelve Doors',
     segments: [
       {

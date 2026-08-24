@@ -172,6 +172,28 @@ have landed. Not yet landed as of this update (per `PLAN.md`'s "Files touched"
 table, still in flight in a parallel step): `app/api/clown/route.ts`,
 `clown-seed-example.ts`, and the `share.ts`/`TopBar.tsx` wiring.
 
+## Clownbot agent loop (PLAN.md Stage 10, proposal §7) — new files
+
+Inserts a bounded, streamed tool loop into the existing route's
+compose-or-fallback stage. Consumes Stage 9's `packages/core/src/knowledge`
+retrieval library; does not modify it.
+
+| Path | What |
+|---|---|
+| `apps/web/lib/longlive/clown-agent.ts` (+ `.test.ts`) | The bounded loop (`runClownAgent`) — ≤6 tool calls / ≤20s / ≤2,500 tokens, all enforced in control flow; forces `record_take` once any cap trips |
+| `apps/web/lib/longlive/clown-agent-tools.ts` (+ `.test.ts`) | The 7 read tools' executors, DB-first with `clown-index.ts` as the no-DB-unreachable fallback (search only); `resolveScopeSignal` for the route's pre-loop scope check |
+| `apps/web/lib/longlive/clown-predictions.ts` (+ `.test.ts`) | Best-effort `bot_prediction` persist (Stage 11's table — degrades silently if absent) |
+| `apps/web/lib/longlive/clown-stream.ts` (+ `.test.ts`) | Client-side NDJSON stream reader, shared by `ClownChat.tsx` |
+| `apps/web/lib/longlive/clown-chat-helpers.ts` | Pure helpers split out of `ClownChat.tsx` (300-line cap) |
+| `apps/web/lib/longlive/clown-client.ts` | Unchanged behaviour, now also exports `callAnthropicMessages`/`clownModelKey` — the shared wire primitive `clown-agent.ts` reuses (no second model client) |
+| `apps/web/lib/longlive/clown-client-prompt.ts` | Gains the method block + `CLOWN_READ_TOOLS` schemas; `CLOWN_TAKE_TOOL` unchanged |
+| `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` widened with `investigation: InvestigationStep[]` (`[]` for every non-loop producer) |
+
+`ClownChat.tsx`/`ClownMessageRow.tsx` were already over the 300-line
+guideline before this stage (350/153 lines); the stream-consumption and
+investigation-trail rendering added here pushed `ClownChat.tsx` to 365 —
+noted, not further split this PR (see the Stage 10 PR body for the call).
+
 ## Mood Chat — the song/feeling matcher (SEPARATE from Clownbot)
 
 Shares **zero imports** with `clown-*`; the two only mirror each other in

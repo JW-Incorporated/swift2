@@ -55,11 +55,13 @@ export const CLOWN_MODEL = 'claude-sonnet-5';
  */
 const CLOWN_MODEL_DISABLED_ENV = 'CLOWN_MODEL_DISABLED';
 
-const ANTHROPIC_VERSION = '2023-06-01';
-const MAX_TOKENS = 1_024;
+/** Exported so `clown-agent.ts` (PLAN.md Stage 10) can build its own request
+ * bodies against the same wire contract without a second constant. */
+export const ANTHROPIC_VERSION = '2023-06-01';
+export const MAX_TOKENS = 1_024;
 // Slightly higher than Mood Chat's 8s — this call composes prose across up
 // to MAX_TRANSCRIPT_TURNS turns, not a single short vector classification.
-const REQUEST_TIMEOUT_MS = 9_000;
+export const REQUEST_TIMEOUT_MS = 9_000;
 
 /** Thinking OFF, explicitly — same rationale as mood-client.ts: on
  * claude-sonnet-5 adaptive thinking is ON when the field is omitted, and
@@ -190,9 +192,38 @@ function buildMessages(transcript: readonly ClownTurn[], docs: readonly ClownDoc
   }));
 }
 
-async function attempt(apiKey: string, messages: readonly WireMessage[]): Promise<ClownTake> {
+/** Anthropic `usage` block, normalised to camelCase — same field either
+ * caller needs: `askClown` ignores it, `clown-agent.ts`'s loop sums it
+ * toward its own token budget. */
+export interface AnthropicCallUsage {
+  inputTokens: number;
+  outputTokens: number;
+}
+
+export interface AnthropicCallResult {
+  /** The full parsed response body — the caller extracts what it needs
+   * (`extractToolInput` here; `clown-agent.ts` also reads `stop_reason`). */
+  raw: unknown;
+  usage: AnthropicCallUsage;
+}
+
+/**
+ * THE shared wire primitive — one POST to the Messages API, timeout +
+ * abort, no retry (callers own their own retry policy; `attempt` below
+ * keeps `askClown`'s existing one-retry behaviour). Exported so
+ * `clown-agent.ts`'s multi-turn tool loop sends requests through the exact
+ * same transport (headers, endpoint, timeout) rather than standing up a
+ * second model client — PLAN.md Stage 10's "don't add a new model client."
+ * Pulled out of `attempt` below as a pure extraction: `askClown`'s own
+ * request shape and behaviour are unchanged.
+ */
+export async function callAnthropicMessages(
+  apiKey: string,
+  body: Record<string, unknown>,
+  timeoutMs: number = REQUEST_TIMEOUT_MS,
+): Promise<AnthropicCallResult> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -202,23 +233,32 @@ async function attempt(apiKey: string, messages: readonly WireMessage[]): Promis
         'anthropic-version': ANTHROPIC_VERSION,
         'content-type': 'application/json',
       },
-      body: JSON.stringify({
-        model: CLOWN_MODEL,
-        max_tokens: MAX_TOKENS,
-        thinking: THINKING,
-        system: [{ type: 'text', text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
-        tools: [CLOWN_TAKE_TOOL],
-        tool_choice: { type: 'tool', name: CLOWN_TAKE_TOOL.name },
-        messages,
-      }),
+      body: JSON.stringify(body),
     });
-    if (!res.ok) throw new Error(`anthropic clown failed (${res.status})`);
-    const toolInput = extractToolInput(await res.json());
-    if (toolInput === null) throw new Error('anthropic clown: no tool_use block');
-    return sanitizeTake(toolInput);
+    if (!res.ok) throw new Error(`anthropic call failed (${res.status})`);
+    const json = await res.json();
+    const rawUsage = (json as { usage?: { input_tokens?: unknown; output_tokens?: unknown } } | null)?.usage;
+    const inputTokens = typeof rawUsage?.input_tokens === 'number' ? rawUsage.input_tokens : 0;
+    const outputTokens = typeof rawUsage?.output_tokens === 'number' ? rawUsage.output_tokens : 0;
+    return { raw: json, usage: { inputTokens, outputTokens } };
   } finally {
     clearTimeout(timer);
   }
+}
+
+async function attempt(apiKey: string, messages: readonly WireMessage[]): Promise<ClownTake> {
+  const { raw } = await callAnthropicMessages(apiKey, {
+    model: CLOWN_MODEL,
+    max_tokens: MAX_TOKENS,
+    thinking: THINKING,
+    system: [{ type: 'text', text: CLOWN_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
+    tools: [CLOWN_TAKE_TOOL],
+    tool_choice: { type: 'tool', name: CLOWN_TAKE_TOOL.name },
+    messages,
+  });
+  const toolInput = extractToolInput(raw);
+  if (toolInput === null) throw new Error('anthropic clown: no tool_use block');
+  return sanitizeTake(toolInput);
 }
 
 /**
@@ -232,14 +272,27 @@ async function attempt(apiKey: string, messages: readonly WireMessage[]): Promis
  * — that is what the sources block is attached to. Never logs the transcript
  * text; this module receives it and forgets it.
  */
+/**
+ * The one place that reads the API key and the kill switch. Returns the key
+ * when the model is allowed to spend, `null` when it is not (no key, or the
+ * kill switch is on) — never throws. Exported so `clown-agent.ts` gates the
+ * SAME two checks, in the SAME order, rather than re-deriving them; the
+ * env-var name itself stays private to this module either way.
+ */
+export function clownModelKey(): string | null {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return null;
+  if (process.env[CLOWN_MODEL_DISABLED_ENV] === '1') return null;
+  return apiKey;
+}
+
 export async function askClown(
   usage: ClownUsage,
   transcript: readonly ClownTurn[],
   docs: readonly ClownDoc[],
 ): Promise<ClownTake | null> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = clownModelKey();
   if (!apiKey) return null;
-  if (process.env[CLOWN_MODEL_DISABLED_ENV] === '1') return null;
 
   const capped = transcript.slice(-MAX_TRANSCRIPT_TURNS);
   if (capped.length === 0 || capped[capped.length - 1].role !== 'user') return null;

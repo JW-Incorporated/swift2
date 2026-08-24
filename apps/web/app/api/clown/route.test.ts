@@ -2,6 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { ClownDoc } from '../../../lib/longlive/clown-index';
 import type { ClownTake } from '../../../lib/longlive/clown-client';
+import type { AgentRunResult } from '../../../lib/longlive/clown-agent';
+import { docToRetrievedItem } from '../../../lib/longlive/clown-fallback';
 
 /**
  * Fixtures live inside `vi.hoisted()` because `vi.mock()` factories are
@@ -9,13 +11,19 @@ import type { ClownTake } from '../../../lib/longlive/clown-client';
  * from a factory would be a temporal-dead-zone error at import time (same
  * pattern as clown-index.test.ts).
  *
- * `askClown` is mocked directly rather than exercised end-to-end (no real
- * network, no API key) — it already has its own unit tests
- * (clown-client.test.ts) covering the key/kill-switch/cap logic this route
- * only needs to treat as an opaque "take, or null" contract.
+ * `runClownAgent` (clown-agent.ts, PLAN.md Stage 10) is mocked directly
+ * rather than exercised end-to-end (no real network, no API key) — its own
+ * bounds/forced-record_take/degrade behaviour is covered by
+ * `clown-agent.test.ts`; this route only needs to treat it as an opaque
+ * `AgentRunResult` contract, same discipline the pre-Stage-10 route used for
+ * `askClown`.
  *
- * `allClownDocs` is mocked to a small fixed corpus so retrieval is
- * deterministic and independent of the real, evolving content corpus.
+ * `allClownDocs` is mocked to a small fixed corpus so the scope check and
+ * the chip-tap path's retrieval are deterministic and independent of the
+ * real, evolving content corpus. No Supabase env is set in this test file,
+ * so `resolveScopeSignal`'s DB-first search transparently falls through to
+ * this same mocked corpus (`clown-agent-tools.ts`'s no-DB-configured path)
+ * — no separate DB mock needed for the scope check to see these fixtures.
  */
 const fixtures = vi.hoisted(() => {
   const CONFIRMED_DOC = {
@@ -85,9 +93,8 @@ const fixtures = vi.hoisted(() => {
   };
 });
 
-vi.mock('../../../lib/longlive/clown-client', () => ({
-  askClown: vi.fn(),
-  MAX_TRANSCRIPT_TURNS: 6,
+vi.mock('../../../lib/longlive/clown-agent', () => ({
+  runClownAgent: vi.fn(),
 }));
 
 vi.mock('../../../lib/longlive/clown-index', async () => {
@@ -98,8 +105,8 @@ vi.mock('../../../lib/longlive/clown-index', async () => {
 });
 
 import { POST } from './route';
-import { askClown } from '../../../lib/longlive/clown-client';
-import { CRISIS_MESSAGE, REFUSALS } from '../../../lib/longlive/clown-safety';
+import { runClownAgent } from '../../../lib/longlive/clown-agent';
+import { CRISIS_MESSAGE, OUT_OF_SCOPE_MESSAGE, REFUSALS } from '../../../lib/longlive/clown-safety';
 import { FALLBACK_INTRO_CHIP, FALLBACK_INTRO_DEGRADED } from '../../../lib/longlive/clown-fallback';
 
 const CONFIRMED_DOC = fixtures.CONFIRMED_DOC as unknown as ClownDoc;
@@ -122,6 +129,27 @@ function post(body: unknown, ip = '10.0.0.1'): Promise<Response> {
   );
 }
 
+/** Reads a route response as its final `ClownAnswer` — works for BOTH a
+ * plain unstreamed `NextResponse.json(...)` (every deterministic path) AND
+ * the agent-loop's NDJSON stream (parses every line, returns the last
+ * event's `.answer`), so existing tests written against `res.json()` for
+ * the deterministic paths are untouched and only the loop-path tests below
+ * switch to this helper. */
+async function finalAnswer(res: Response): Promise<Record<string, unknown>> {
+  const text = await res.text();
+  const lines = text.trim().split('\n').filter(Boolean);
+  const parsed = lines.map((line) => JSON.parse(line));
+  const last = parsed[parsed.length - 1];
+  return (last.answer ?? last) as Record<string, unknown>;
+}
+
+/** Every investigation-typed event in a loop response, in order. */
+async function investigationSteps(res: Response): Promise<Record<string, unknown>[]> {
+  const text = await res.text();
+  const lines = text.trim().split('\n').filter(Boolean);
+  return lines.map((line) => JSON.parse(line)).filter((e) => e.type === 'investigation');
+}
+
 function take(overrides: Partial<ClownTake> = {}): ClownTake {
   return {
     stance: 'My ride-or-die theory is that the masters buyback closed the loop.',
@@ -136,8 +164,19 @@ function take(overrides: Partial<ClownTake> = {}): ClownTake {
   };
 }
 
+/** A mocked `AgentRunResult` — `pool` defaults to every fixture doc so a
+ * test's `citedIds` resolves without each call site building its own Map. */
+function agentRun(overrides: Partial<AgentRunResult> = {}): AgentRunResult {
+  return {
+    take: take(),
+    investigation: [],
+    pool: new Map(fixtures.DOCS.map((d) => [d.id, docToRetrievedItem(d as unknown as ClownDoc)])),
+    ...overrides,
+  };
+}
+
 beforeEach(() => {
-  vi.mocked(askClown).mockReset();
+  vi.mocked(runClownAgent).mockReset();
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
 
@@ -147,32 +186,32 @@ afterEach(() => {
 
 describe('POST /api/clown', () => {
   it('valid query: a clean model take renders with its cited sources', async () => {
-    vi.mocked(askClown).mockResolvedValueOnce(take());
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
     const res = await post({ text: MASTERS_QUERY }, '10.1.0.1');
     expect(res.status).toBe(200);
-    const json = await res.json();
+    const json = await finalAnswer(res);
     expect(json.kind).toBe('take');
     expect(json.theoryName).toBe('The Buyback Bow');
     expect(json.delulu).toBe(3);
-    expect(json.sources).toHaveLength(1);
-    expect(json.sources[0].id).toBe(CONFIRMED_DOC.id);
-    expect(json.segments.some((s: { role: string }) => s.role === 'counterpoint')).toBe(true);
+    expect((json.sources as unknown[])).toHaveLength(1);
+    expect((json.sources as { id: string }[])[0].id).toBe(CONFIRMED_DOC.id);
+    expect((json.segments as { role: string }[]).some((s) => s.role === 'counterpoint')).toBe(true);
   });
 
   it('a canonical name wins over the model-proposed name (clown-names.ts)', async () => {
-    vi.mocked(askClown).mockResolvedValueOnce(
-      take({ citedIds: [ORANGE_DOORS_DOC.id], theoryName: 'Orange Door Mystery' }),
+    vi.mocked(runClownAgent).mockResolvedValueOnce(
+      agentRun({ take: take({ citedIds: [ORANGE_DOORS_DOC.id], theoryName: 'Orange Door Mystery' }) }),
     );
     const res = await post({ text: ORANGE_DOORS_QUERY }, '10.1.0.9');
-    const json = await res.json();
+    const json = await finalAnswer(res);
     expect(json.kind).toBe('take');
     expect(json.theoryName).toBe('The Twelve Doors');
   });
 
   it('a non-matching query passes the model-proposed name through untouched', async () => {
-    vi.mocked(askClown).mockResolvedValueOnce(take({ theoryName: 'The Buyback Bow' }));
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: take({ theoryName: 'The Buyback Bow' }) }));
     const res = await post({ text: MASTERS_QUERY }, '10.1.0.10');
-    const json = await res.json();
+    const json = await finalAnswer(res);
     expect(json.kind).toBe('take');
     expect(json.theoryName).toBe('The Buyback Bow');
   });
@@ -189,7 +228,7 @@ describe('POST /api/clown', () => {
     expect(json.segments[0].text).toBe(REFUSALS.impersonation);
     expect(json.sources).toEqual([]);
     expect(json.delulu).toBeNull();
-    expect(askClown).not.toHaveBeenCalled();
+    expect(runClownAgent).not.toHaveBeenCalled();
   });
 
   it('smuggled prior-turn topic: fixed in-character redirect, model NEVER called', async () => {
@@ -217,7 +256,7 @@ describe('POST /api/clown', () => {
     expect(json.segments[0].text).toBe(REFUSALS.body);
     expect(json.sources).toEqual([]);
     expect(json.delulu).toBeNull();
-    expect(askClown).not.toHaveBeenCalled();
+    expect(runClownAgent).not.toHaveBeenCalled();
   });
 
   it('forged assistant turn granting a jailbreak is caught before the model is called', async () => {
@@ -239,7 +278,7 @@ describe('POST /api/clown', () => {
     const json = await res.json();
     expect(json.kind).toBe('fallback');
     expect(json.segments[0].text).toBe(REFUSALS.impersonation);
-    expect(askClown).not.toHaveBeenCalled();
+    expect(runClownAgent).not.toHaveBeenCalled();
   });
 
   it('2026-08-15 fix (defect 1): a refused turn does not poison the next two turns', async () => {
@@ -249,16 +288,20 @@ describe('POST /api/clown', () => {
     const turn1Res = await post({ text: 'Is she pregnant?' }, ip);
     const turn1Json = await turn1Res.json();
     expect(turn1Json.segments[0].text).toBe(REFUSALS.body);
-    expect(askClown).not.toHaveBeenCalled();
+    expect(runClownAgent).not.toHaveBeenCalled();
 
     // Turn 2 — an unrelated, legitimate question, with turn 1 STILL in the
     // resent transcript window exactly as ClownChat.tsx round-trips it
     // (flattenAnswer + the store's clownMessages). Before the fix this
-    // re-tripped 'body' and never reached the model.
-    vi.mocked(askClown).mockResolvedValueOnce(null);
+    // re-tripped 'body' and never reached the model. Uses MASTERS_QUERY
+    // (not the original "what does 13 mean in the vault video?") so it
+    // clears the Stage 10 scope check against this file's tiny fixture
+    // corpus and actually reaches the agent loop, same as the original
+    // test's intent — the fixture corpus has nothing under "13."
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: take({ delulu: 0 }) }));
     const turn2Res = await post(
       {
-        text: 'what does 13 mean in the vault video?',
+        text: MASTERS_QUERY,
         transcript: [
           { role: 'user', text: 'Is she pregnant?' },
           { role: 'assistant', text: turn1Json.segments[0].text },
@@ -266,28 +309,29 @@ describe('POST /api/clown', () => {
       },
       ip,
     );
-    const turn2Json = await turn2Res.json();
-    expect(turn2Json.segments[0].text).not.toBe(REFUSALS.body);
-    expect(askClown).toHaveBeenCalledTimes(1);
+    const turn2Json = await finalAnswer(turn2Res);
+    expect(turn2Json.kind).toBe('take');
+    expect(runClownAgent).toHaveBeenCalledTimes(1);
 
-    // Turn 3 — the must-engage battery prompt from the defect report, same
-    // capped window, turn 1's refusal still two turns back.
-    vi.mocked(askClown).mockResolvedValueOnce(null);
+    // Turn 3 — a second legitimate question, same capped window, turn 1's
+    // refusal still two turns back. Uses ORANGE_DOORS_QUERY for the same
+    // in-scope-fixture reason as turn 2 above.
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: take({ citedIds: [ORANGE_DOORS_DOC.id] }) }));
     const turn3Res = await post(
       {
-        text: 'grade my countdown theory',
+        text: ORANGE_DOORS_QUERY,
         transcript: [
           { role: 'user', text: 'Is she pregnant?' },
           { role: 'assistant', text: turn1Json.segments[0].text },
-          { role: 'user', text: 'what does 13 mean in the vault video?' },
-          { role: 'assistant', text: turn2Json.segments[0].text },
+          { role: 'user', text: MASTERS_QUERY },
+          { role: 'assistant', text: (turn2Json.segments as { text: string }[]).map((s) => s.text).join('\n\n') },
         ],
       },
       ip,
     );
-    const turn3Json = await turn3Res.json();
-    expect(turn3Json.segments[0].text).not.toBe(REFUSALS.body);
-    expect(askClown).toHaveBeenCalledTimes(2);
+    const turn3Json = await finalAnswer(turn3Res);
+    expect(turn3Json.kind).toBe('take');
+    expect(runClownAgent).toHaveBeenCalledTimes(2);
   });
 
   it('2026-08-15 fix (defect 1): a genuinely new blocked turn is still refused after an earlier refusal', async () => {
@@ -303,7 +347,7 @@ describe('POST /api/clown', () => {
     );
     const json = await res.json();
     expect(json.segments[0].text).toBe(REFUSALS.impersonation);
-    expect(askClown).not.toHaveBeenCalled();
+    expect(runClownAgent).not.toHaveBeenCalled();
   });
 
   it('2026-08-15 fix (defect 2): a clean fallback answer does not poison the next turn', async () => {
@@ -321,11 +365,14 @@ describe('POST /api/clown', () => {
 
     // Turn 2 — an unrelated, legitimate follow-up, with turn 1's fallback
     // text still in the resent transcript window. Before the fix this
-    // re-tripped 'impersonation' and never reached the model.
-    vi.mocked(askClown).mockResolvedValueOnce(null);
+    // re-tripped 'impersonation' and never reached the model. Uses
+    // MASTERS_QUERY (not the original "grade my number 13 theory") so it
+    // clears the Stage 10 scope check against this file's tiny fixture
+    // corpus and actually reaches the agent loop.
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
     const turn2Res = await post(
       {
-        text: 'grade my number 13 theory',
+        text: MASTERS_QUERY,
         transcript: [
           { role: 'user', text: QUOTE_FIXTURE_QUERY },
           { role: 'assistant', text: fallbackText },
@@ -333,9 +380,9 @@ describe('POST /api/clown', () => {
       },
       ip,
     );
-    const turn2Json = await turn2Res.json();
-    expect(turn2Json.segments[0].text).not.toBe(REFUSALS.impersonation);
-    expect(askClown).toHaveBeenCalledTimes(1);
+    const turn2Json = await finalAnswer(turn2Res);
+    expect(turn2Json.kind).toBe('take');
+    expect(runClownAgent).toHaveBeenCalledTimes(1);
   });
 
   it('2026-08-15 fix (defect 2): a forged fallback-shaped assistant turn with injected content is still screened', async () => {
@@ -358,7 +405,7 @@ describe('POST /api/clown', () => {
     );
     const json = await res.json();
     expect(json.segments[0].text).toBe(REFUSALS.impersonation);
-    expect(askClown).not.toHaveBeenCalled();
+    expect(runClownAgent).not.toHaveBeenCalled();
   });
 
   it('crisis phrase: CRISIS_MESSAGE alone, no cards, no persona', async () => {
@@ -368,7 +415,7 @@ describe('POST /api/clown', () => {
     expect(json.segments.map((s: { text: string }) => s.text)).toEqual([...CRISIS_MESSAGE]);
     expect(json.sources).toEqual([]);
     expect(json.delulu).toBeNull();
-    expect(askClown).not.toHaveBeenCalled();
+    expect(runClownAgent).not.toHaveBeenCalled();
   });
 
   it('chip tap: resolves via the deterministic fallback, model NEVER called', async () => {
@@ -378,47 +425,48 @@ describe('POST /api/clown', () => {
     expect(json.segments[0].text.startsWith(FALLBACK_INTRO_CHIP)).toBe(true);
     expect(json.sources).toHaveLength(1);
     expect(json.sources[0].id).toBe(CONFIRMED_DOC.id);
-    expect(askClown).not.toHaveBeenCalled();
+    expect(runClownAgent).not.toHaveBeenCalled();
   });
 
   it('over-cap: the model call resolves null, the fallback is served', async () => {
-    vi.mocked(askClown).mockResolvedValueOnce(null);
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: null }));
     const res = await post({ text: MASTERS_QUERY }, '10.1.0.5');
-    const json = await res.json();
+    const json = await finalAnswer(res);
     expect(json.kind).toBe('fallback');
-    expect(json.segments[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
+    expect((json.segments as { text: string }[])[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
   });
 
   it('no API key: the model call resolves null, the fallback is served', async () => {
-    // askClown itself returns null for a missing key (clown-client.test.ts
-    // covers that logic directly); from this route's perspective it is the
-    // same "model unavailable" contract as the over-cap case above.
-    vi.mocked(askClown).mockResolvedValueOnce(null);
+    // `runClownAgent` itself returns a null `take` for a missing key
+    // (clown-agent.test.ts covers that logic directly); from this route's
+    // perspective it is the same "model unavailable" contract as the
+    // over-cap case above.
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: null }));
     const res = await post({ text: MASTERS_QUERY }, '10.1.0.6');
-    const json = await res.json();
+    const json = await finalAnswer(res);
     expect(json.kind).toBe('fallback');
-    expect(json.segments[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
+    expect((json.segments as { text: string }[])[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
   });
 
   it('a fabricated citation discards the model prose and serves the fallback', async () => {
     const hostileTake = take({ citedIds: ['not-a-real-id'] });
-    vi.mocked(askClown).mockResolvedValueOnce(hostileTake);
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: hostileTake }));
     const res = await post({ text: MASTERS_QUERY }, '10.1.0.7');
-    const json = await res.json();
+    const json = await finalAnswer(res);
     expect(json.kind).toBe('fallback');
-    expect(json.segments[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
-    const allText = json.segments.map((s: { text: string }) => s.text).join(' ');
+    expect((json.segments as { text: string }[])[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
+    const allText = (json.segments as { text: string }[]).map((s) => s.text).join(' ');
     expect(allText).not.toContain(hostileTake.stance);
   });
 
   it('a take that cites nothing is rejected as ungrounded and the fallback is served', async () => {
     const ungroundedTake = take({ citedIds: [] });
-    vi.mocked(askClown).mockResolvedValueOnce(ungroundedTake);
+    vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: ungroundedTake }));
     const res = await post({ text: MASTERS_QUERY }, '10.1.0.11');
-    const json = await res.json();
+    const json = await finalAnswer(res);
     expect(json.kind).toBe('fallback');
-    expect(json.segments[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
-    const allText = json.segments.map((s: { text: string }) => s.text).join(' ');
+    expect((json.segments as { text: string }[])[0].text.startsWith(FALLBACK_INTRO_DEGRADED)).toBe(true);
+    const allText = (json.segments as { text: string }[]).map((s) => s.text).join(' ');
     expect(allText).not.toContain(ungroundedTake.stance);
   });
 
@@ -430,5 +478,60 @@ describe('POST /api/clown', () => {
     expect(json.sources[0].status).toBe('debunked');
     expect(json.segments[0].text).toContain('Debunked:');
     expect(json.segments[0].text).not.toContain('Confirmed:');
+  });
+
+  describe('PLAN.md Stage 10 — the agent loop', () => {
+    it('out-of-scope query: the in-character redirect is returned and the loop is never started', async () => {
+      const res = await post({ text: 'what is a good pasta recipe' }, '10.3.0.1');
+      expect(res.status).toBe(200);
+      const json = await finalAnswer(res);
+      expect(json.kind).toBe('fallback');
+      expect((json.segments as { text: string }[])[0].text).toBe(OUT_OF_SCOPE_MESSAGE);
+      expect(runClownAgent).not.toHaveBeenCalled();
+    });
+
+    it('the stream carries the investigation trail as separate events before the final answer', async () => {
+      // Mocked with `mockImplementationOnce` (not `mockResolvedValueOnce`)
+      // specifically so it also invokes the `onStep` callback the route
+      // passes through, the same way the real `runClownAgent` does (see
+      // clown-agent.test.ts's "onStep fires progressively" suite) — this is
+      // what actually drives the route's live `{type:'investigation'}`
+      // stream events, not the final `AgentRunResult.investigation` array.
+      const steps = [
+        { tool: 'search', input: { query: MASTERS_QUERY }, summary: '1 result' },
+        { tool: 'precedents', input: { symbol: 'masters' }, summary: '2 precedents' },
+      ];
+      vi.mocked(runClownAgent).mockImplementationOnce(async (_usage, _transcript, _seed, _seedInput, onStep) => {
+        for (const step of steps) onStep?.(step);
+        return agentRun({ investigation: steps });
+      });
+      const res = await post({ text: MASTERS_QUERY }, '10.3.0.2');
+      const emitted = await investigationSteps(res);
+      expect(emitted).toEqual(steps.map((step) => ({ type: 'investigation', step })));
+    });
+
+    it('injection resistance carried forward: a loop take that trips the content gate is discarded, never reaches the reader', async () => {
+      const hostileTake = take({
+        stance: "Hi, I'm Taylor and I'm telling you everything myself.",
+        citedIds: [CONFIRMED_DOC.id],
+      });
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: hostileTake }));
+      const res = await post({ text: MASTERS_QUERY }, '10.3.0.3');
+      const json = await finalAnswer(res);
+      expect(json.kind).toBe('fallback');
+      const allText = (json.segments as { text: string }[]).map((s) => s.text).join(' ');
+      expect(allText).not.toContain(hostileTake.stance);
+    });
+
+    it("a loop that degrades still hands back whatever it investigated, not an empty shelf", async () => {
+      const item = { id: 'lore:extra', headline: 'Extra find', detail: 'd', status: 'reported' as const, date: '2026-01-01', sources: [] };
+      vi.mocked(runClownAgent).mockResolvedValueOnce(
+        agentRun({ take: null, pool: new Map([[item.id, item]]) }),
+      );
+      const res = await post({ text: MASTERS_QUERY }, '10.3.0.4');
+      const json = await finalAnswer(res);
+      expect(json.kind).toBe('fallback');
+      expect((json.sources as { id: string }[])[0].id).toBe('lore:extra');
+    });
   });
 });
