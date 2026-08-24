@@ -8,7 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   clusterBatch,
   computeVerificationStatus,
-  LexicalSimilarityProvider,
+  CrossOutletSimilarityProvider,
   type ClusterableItem,
   type ExistingStory,
 } from '@swift2/shared/news';
@@ -16,9 +16,14 @@ import { getAdapter } from '../sources/registry';
 import { classifyByKeywords, type ClassifyResult } from '../classify/rule-based';
 import { classifyWithLLM } from '../classify/openai-client';
 import { UsageStore, supabaseUsageDb } from '../classify/usage-store';
+import { resolveGoogleNewsItem } from '../sources/resolve-google-news';
 
 const SUBJECT_TERMS = ['taylor swift', 'taylor', 'swift'];
-const SIMILARITY_THRESHOLD = 0.5; // Orbit's proven starting point
+// CrossOutletSimilarityProvider.similarity() is binary (1/0, see its module
+// doc) — replaces the old lexical-shingle threshold of 0.5, which only
+// caught near-identical titles and missed the same event covered by
+// different outlets in different words (proposal §4.1.1).
+const SIMILARITY_THRESHOLD = 1;
 const CLUSTER_WINDOW_HOURS = 72; // Orbit's rolling window for the lexical pass
 const MAX_UNCLUSTERED_PER_CYCLE = 200;
 const MAX_UNCLASSIFIED_PER_CYCLE = 50;
@@ -69,7 +74,17 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
         config: source.config ?? {},
       });
       if (items.length > 0) {
-        const rows = items.map((item) => ({
+        // Aggregator items carry an opaque redirect URL and no per-item
+        // outlet identity — resolve to the real publisher before storing so
+        // the item can be attributed/re-tiered instead of staying uncitable
+        // forever (proposal §4.1.2). One bad redirect must not drop the
+        // item, so resolution failures fall back to the item unresolved
+        // (resolveGoogleNewsItem never throws).
+        const resolvedItems =
+          source.source_type === 'google_news'
+            ? await Promise.all(items.map((item) => resolveGoogleNewsItem(item)))
+            : items;
+        const rows = resolvedItems.map((item) => ({
           source_id: source.id,
           external_id: item.externalId,
           url: item.url,
@@ -80,6 +95,7 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
           image_url: item.imageUrl ?? null,
           publisher: item.publisher ?? null,
           publisher_url: item.publisherUrl ?? null,
+          resolved_tier: 'resolvedTier' in item ? item.resolvedTier : null,
         }));
         const { error: upsertError } = await db
           .from('news_raw_item')
@@ -130,7 +146,7 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
         ([id, similarityKeys]) => ({ id, similarityKeys }),
       );
 
-      const similarity = new LexicalSimilarityProvider();
+      const similarity = new CrossOutletSimilarityProvider();
       const clusterable: (ClusterableItem & { url: string; snippet: string; imageUrl?: string })[] =
         unclustered.map((r) => ({
           id: r.id,
@@ -278,7 +294,7 @@ async function recordStorySource(
   try {
     const { data: fullItem, error: itemError } = await db
       .from('news_raw_item')
-      .select('source_id, url, publisher, news_source(name, tier)')
+      .select('source_id, url, publisher, resolved_tier, news_source(name, tier)')
       .eq('id', rawItem.id)
       .maybeSingle();
     if (itemError || !fullItem) throw new Error(itemError?.message ?? 'raw item not found');
@@ -295,6 +311,14 @@ async function recordStorySource(
     const outletName = (fullItem as unknown as { publisher: string | null }).publisher?.trim()
       || sourceMeta.name;
 
+    // resolved_tier overrides the source's static tier for items an
+    // aggregator feed (Google News) resolved to a real publisher domain
+    // (proposal §4.1.2). Unresolved items get resolved_tier='unverified'
+    // by resolveGoogleNewsItem, so they stay uncitable-looking rather than
+    // inheriting whatever the feed's own tier happens to be.
+    const tier =
+      (fullItem as unknown as { resolved_tier: string | null }).resolved_tier ?? sourceMeta.tier;
+
     const { data: existing } = await db
       .from('news_story_source')
       .select('id')
@@ -308,7 +332,7 @@ async function recordStorySource(
       raw_item_id: rawItem.id,
       outlet_name: outletName,
       url: fullItem.url,
-      tier: sourceMeta.tier,
+      tier,
     });
     if (insertError) throw new Error(insertError.message);
     // source_count itself is set by recomputeVerification's full recount

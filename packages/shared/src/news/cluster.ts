@@ -18,6 +18,10 @@ export interface ClusterableItem {
   title: string;
   /** ISO timestamp; the earliest item becomes a new story's representative. */
   publishedAt?: string;
+  /** Canonical link out to the item — cross-outlet URL-match signal. */
+  url?: string;
+  /** Short teaser — feeds the cheap-embedding cosine signal alongside title. */
+  snippet?: string;
 }
 
 /** A recent story to match new items against. */
@@ -82,7 +86,7 @@ export function clusterBatch<T extends ClusterableItem>(
   let newStoryCount = 0;
 
   for (const item of ordered) {
-    const key = provider.computeKey(item.title, options.subjectTerms);
+    const key = provider.computeKey(item, options.subjectTerms);
 
     // Best match across existing stories AND new stories formed so far.
     let best: { story: WorkStory; score: number } | undefined;

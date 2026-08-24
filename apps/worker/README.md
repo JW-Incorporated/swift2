@@ -33,9 +33,20 @@ npm run news --workspace @swift2/worker
   separate pass (each has real auth/ToS/cost tradeoffs to work through).
 - Full cluster → classify → verify stages, all stage-isolated (one bad feed
   or one LLM hiccup never aborts the cycle).
-- Zero `news_source` rows are seeded yet — the worker will run and do
-  nothing useful until at least one source is inserted. That's a data change
-  (`INSERT INTO news_source`), never a deploy.
+- `news_source` is seeded with 10 publisher tag/topic feeds + Google News
+  search (`supabase/migrations/20260719180000_news_sources_seed.sql`,
+  `20260719190000_news_source_google_news.sql`,
+  `20260823010000_news_sources_seed_wave2.sql`) — run `npm run db:migrate`
+  to apply. Validation: `docs/audits/2026-08-23-news-source-feed-validation.md`
+  (`node scripts/validate-news-source-feeds.mjs` to re-check).
+- Clustering matches cross-outlet coverage of the same event, not just
+  near-identical titles: canonical URL match, cheap-embedding cosine within
+  48h, or shared named entity + date
+  (`packages/shared/src/news/cross-outlet-similarity.ts`).
+- Google News redirect links are resolved to the real publisher URL at
+  ingest and re-tiered from `packages/shared/src/news/outlet-tiers.ts`'s
+  domain→tier map (`src/sources/resolve-google-news.ts`); unresolved items
+  stay `unverified`.
 
 ## What's explicitly NOT in this pass (see the architecture proposal §9)
 

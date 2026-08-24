@@ -79,18 +79,32 @@ export interface NormalizedNewsItem {
 }
 
 /**
- * Similarity provider contract for dedup clustering. The default (and so far
- * only) implementation is lexical (free, deterministic); an embedding-based
- * provider could slot in behind the same interface if evidence ever demands it.
+ * Everything a similarity provider needs about an item to compute a
+ * signature — title-only providers (lexical) ignore the extra fields;
+ * cross-outlet providers need url/snippet/publishedAt too (canonical URL
+ * match, cheap-embedding cosine within a time window, entity+date overlap).
+ */
+export interface SimilarityInput {
+  title: string;
+  snippet?: string;
+  url?: string;
+  publishedAt?: string;
+}
+
+/**
+ * Similarity provider contract for dedup clustering. Two implementations:
+ * `LexicalSimilarityProvider` (title-only shingle Jaccard, still used for
+ * same-outlet near-duplicate titles) and `CrossOutletSimilarityProvider`
+ * (canonical URL / cheap-embedding cosine / entity+date — proposal §4.1).
  */
 export interface SimilarityProvider {
   readonly name: string;
   /**
-   * Compute a canonical similarity signature for a title. `subjectTerms`
+   * Compute a canonical similarity signature for an item. `subjectTerms`
    * (e.g. "Taylor Swift") are stripped — every story mentions the subject, so
    * those tokens carry no clustering signal.
    */
-  computeKey(title: string, subjectTerms?: string[]): string;
+  computeKey(item: SimilarityInput, subjectTerms?: string[]): string;
   /** Similarity of two signatures in [0, 1]. */
   similarity(keyA: string, keyB: string): number;
 }
