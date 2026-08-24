@@ -2620,7 +2620,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          "Released Nov. 11, 2008 on Big Machine Records, Fearless opened at No. 1 on the Billboard 200 with 592,000 first-week copies — the first of what became eleven non-consecutive weeks at the top, a decade-long chart record covered separately in this era's later coverage. NPR's Ken Tucker, reviewing the album that same release window, confirmed its debut atop Billboard's country albums chart too — an early signal the record would cross over well past a country audience.\n\nThe album went on to become the most-awarded country album in history and, thirteen years later, the first LP Swift would re-record top to bottom as Fearless (Taylor's Version) — the release that proved the whole re-recording project could work commercially.",
+          "Released Nov. 11, 2008 on Big Machine Records, Fearless opened at No. 1 on the Billboard 200 with 592,000 first-week copies — the first of what became eleven non-consecutive weeks at the top, a decade-long chart record covered separately in this era's later coverage. NPR's Ken Tucker, reviewing the album that same release window, confirmed its debut atop Billboard's country albums chart too — an early signal the record would cross over well past a country audience.\n\nThe album went on to become the most-awarded country album in history and, thirteen years later, the first LP Taylor would re-record top to bottom as Fearless (Taylor's Version) — the release that proved the whole re-recording project could work commercially.",
         sources: [
           {
             outlet: 'Billboard',
