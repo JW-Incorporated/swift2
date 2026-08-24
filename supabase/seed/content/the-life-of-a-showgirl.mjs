@@ -3202,13 +3202,13 @@ export default {
       moment: {
         context:
           'The gathering, the weekend of June 19-20, 2026, was a "bachelorette-style gathering centered around Taylor and her closest girlfriends," per TMZ. The tells were logistical rather than official: a large tent on the Ocean House lawn in Watch Hill, and longtime friends said to be converging on the small Rhode Island town at once. But the single-source read strained against its own evidence. The Boston Globe noted that "no definitive evidence has emerged confirming the nuptials will take place in the Ocean State," and reported that luxury planner Elizabeth Hall Events had disputed on Instagram that the weekend\'s ceremony was Taylor\'s. TMZ\'s own photos showed the tent held little more than a bare wooden dance floor, and the wedding actually booked at the hotel that weekend, per TMZ, was a New York City couple\'s. When a separate rumor claimed Taylor had paid a bride to give up her date, the resort\'s Stephanie Leavitt flatly denied it.\n\nThe Ocean House is Watch Hill\'s Forbes Five-Star beachfront resort, near the home Taylor has kept in the town since 2013, which is why observers folded the two together. That home is its own callback: the "holiday house" of the 2020 folklore song "the last great american dynasty," heiress Rebekah Harkness\'s former mansion, which Taylor bought in 2013 for a reported $17.75 million in cash. A pre-wedding weekend there would have read to fans as a personal-lore send-off, two weeks before the Madison Square Garden ceremony. But nothing ever stood it up: neither Taylor nor her team addressed it, no outlet beyond TMZ backed the bachelorette framing, and the July 3 MSG wedding overtook the rumor rather than settling it. It stands as reported in June 2026 and never confirmed or denied — a single-source sighting that has since gone quiet.',
-        // Rumor Desk lifecycle re-check 2026-07-22 (CIE content.rumor-lifecycle):
+        // Rumor Desk lifecycle re-check 2026-08-24 (CIE content.rumor-lifecycle):
         // the "Reported — not confirmed" banner still holds. Re-verified against
         // current sources this session — neither Swift nor her team ever
         // confirmed the bachelorette weekend, and nothing surfaced post-wedding
         // to settle it; it stays single-camp TMZ/tabloid reporting. accessed_at
-        // added below to record that someone actually looked (the distinction the
-        // banner rests on), per the finding's suggested fix.
+        // refreshed below to record that someone actually looked (the distinction
+        // the banner rests on), per the finding's suggested fix.
         sources: [
           {
             outlet: 'TMZ',
@@ -3216,7 +3216,7 @@ export default {
             source_title: 'Taylor Swift Bachelorette Party Buzz Grows in Rhode Island as Girlfriends Arrive',
             publisher: 'TMZ',
             source_type: 'reputable_press',
-            accessed_at: '2026-07-22',
+            accessed_at: '2026-08-24',
             reliability_score: 3,
           },
           // Ledger #1367 (2026-07-25): corroborating context that keeps this a
