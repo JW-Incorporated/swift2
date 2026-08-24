@@ -39,6 +39,8 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
 
   const isRel = entry.kind === 'relationship';
   const color = entryColor(entry);
+  const soloContext = entry.kind === 'single' ? entry.context : undefined;
+  const soloSources = entry.kind === 'single' ? entry.sources : undefined;
   // Only relationships carry a portrait, and only when the subject is a public
   // figure. Most are CC BY-SA, so the credit line below is a licence condition,
   // not a nicety.
@@ -114,6 +116,24 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
           <p className="text-sm leading-relaxed" style={{ color: isRel ? 'var(--era-ink)' : 'var(--era-ink-soft)' }}>
             {entry.note}
           </p>
+          {soloContext && (
+            <p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--era-ink)' }}>
+              {soloContext}
+            </p>
+          )}
+          {soloSources && soloSources.length > 0 && (
+            <p className="mt-3 text-[10px] leading-relaxed" style={{ color: 'var(--era-ink-soft)', opacity: 0.8 }}>
+              {soloSources.length > 1 ? 'Sources:' : 'Source:'}{' '}
+              {soloSources.map((source, index) => (
+                <span key={source.url}>
+                  {index > 0 && ', '}
+                  <a href={source.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-[color:var(--era-ink)]">
+                    {source.name}
+                  </a>
+                </span>
+              ))}
+            </p>
+          )}
         </section>
 
         {entry.songs && entry.songs.length > 0 && (
