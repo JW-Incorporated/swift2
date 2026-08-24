@@ -1338,14 +1338,14 @@ export default {
       month: 7,
       day: 6,
       category: 'sighting',
-      title: 'Matching outfits through LAX, hours before a flight to Australia',
+      title: 'Matching outfits in Los Angeles before flying to Australia',
       snippet:
-        'Navy jackets for both of them — Taylor in a blue plaid skirt, Tom in a white v-neck tee — as they moved through Los Angeles International Airport the morning of a flight to Australia.',
+        'Navy jackets for both of them — Taylor in a blue plaid skirt, Tom in a white v-neck tee — photographed together in Los Angeles before leaving for Australia.',
       sourceUrl: 'https://www.hellomagazine.com/celebrities/2016070732300/taylor-swift-tom-hiddleston-matching-outfits-airport/',
       thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/a6f6cfa25b82-taylor-a.jpg',
       moment: {
         context:
-          'On July 6, 2016, Taylor and Hiddleston were photographed moving through LAX in coordinating navy jackets — she in a blue plaid skirt with flats, he in a white v-neck T-shirt — with his arm around her as they made their way through the terminal.\n\nThey were bound for Australia, where Hiddleston was filming, and touched down still wearing the same matching looks the next day.',
+          'On July 6, 2016, Taylor and Hiddleston were photographed together in Los Angeles in coordinating navy jackets — she in a blue plaid skirt with flats, he in a white v-neck T-shirt — with his arm around her, before leaving for Australia.\n\nThey were bound for Australia, where Hiddleston was filming, and touched down still wearing the same matching looks the next day.',
         sources: [
           {
             outlet: 'Hello!',
