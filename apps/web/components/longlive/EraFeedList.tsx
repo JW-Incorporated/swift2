@@ -1,6 +1,7 @@
 'use client';
 
 import { emptyFeedMessage, type EraFeedEntry } from '@/lib/longlive/era-feed';
+import type { RenderFeedEntry } from '@/lib/longlive/era-feed-clusters';
 import type { FilterId } from '@/lib/longlive/filters';
 import type { Era } from '@/lib/longlive/types';
 import type { PlayableVideoNote } from '@/lib/longlive/videos';
@@ -10,6 +11,7 @@ import { MomentCard } from './MomentCard';
 import { VideoMomentCard } from './VideoMomentCard';
 import { ThreadDoorwayCard, EggDoorwayCard } from './DoorwayCard';
 import { CurrentItemCard } from './CurrentItemCard';
+import { ClusterCard } from './ClusterCard';
 
 // Split out of EraSection.tsx (PLAN.md P3 step 15 — "EraSection.tsx must come
 // DOWN, not up"; split recorded in MAP.md). The four-kind dispatch that used
@@ -36,7 +38,7 @@ export function EraFeedList({
   onOpenDoorway,
   onOpenCurrentItem,
 }: {
-  entries: EraFeedEntry<PlayableVideoNote>[];
+  entries: RenderFeedEntry<PlayableVideoNote>[];
   era: Era;
   tiers: Map<string, CardTier>;
   videoOwnerIds: Set<string>;
@@ -67,7 +69,7 @@ export function EraFeedList({
 }
 
 function renderEntry(
-  entry: EraFeedEntry<PlayableVideoNote>,
+  entry: RenderFeedEntry<PlayableVideoNote>,
   ctx: {
     era: Era;
     tiers: Map<string, CardTier>;
@@ -80,6 +82,19 @@ function renderEntry(
 ) {
   const { era, tiers, videoOwnerIds, imageHiddenIds, onOpenItem, onOpenDoorway, onOpenCurrentItem } = ctx;
   switch (entry.kind) {
+    case 'cluster':
+      return (
+        <ClusterCard
+          key={`era-cluster-${era.id}-${entry.anchor.sortDate}`}
+          items={entry.items}
+          sortDate={entry.anchor.sortDate}
+          eraId={era.id}
+          tiers={tiers}
+          videoOwnerIds={videoOwnerIds}
+          imageHiddenIds={imageHiddenIds}
+          onOpenItem={onOpenItem}
+        />
+      );
     case 'moment':
       return (
         <MomentCard
