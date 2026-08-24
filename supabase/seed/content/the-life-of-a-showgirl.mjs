@@ -590,7 +590,7 @@ export default {
             status: "unconfirmed",
             url: "https://www.realitytea.com/2026/04/07/taylor-swift-las-vegas-performance-residency/",
             sourceTier: "tabloid",
-            lastCheckedOn: "2026-08-01",
+            lastCheckedOn: "2026-08-24",
             note:
               "Daily Mail insider quotes, as carried by Reality Tea. As of this check no Life of a Showgirl tour or Las Vegas residency has been officially announced. Resolves confirmed on an official announcement; fades if it goes quiet.",
           },
@@ -11618,10 +11618,12 @@ export default {
       // security, health, or private-individual detail.
       slug: 'i-knew-it-i-knew-you-toy-story-5-mv-debut',
       // Cross-link (crosslink-opportunity, 2026-08-24): the chart record it
-      // follows and the piece that started the song's press narrative.
+      // follows, the piece that started the song's press narrative, and the
+      // Hot 100 country sweep the same single anchored.
       relatedIds: [
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
       ],
       year: 2026,
       month: 8,
