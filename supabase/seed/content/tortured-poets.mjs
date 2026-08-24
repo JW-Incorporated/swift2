@@ -4909,7 +4909,7 @@ export default {
         // image by viewing.
         photos: [
           {
-            url: 'https://variety.com/wp-content/uploads/2024/12/targetbook.png?w=1000',
+            url: 'https://variety.com/wp-content/uploads/2024/12/targetbook.png',
             credit: 'Target (via Variety)',
             caption: 'The Eras Tour Book — 256 pages, $39.99, Target-exclusive, and 2024\'s biggest new-release print debut.',
             kind: 'primary',
@@ -4917,7 +4917,7 @@ export default {
             focalPoint: '48% 42%',
           },
           {
-            url: 'https://www.rollingstone.com/wp-content/uploads/2024/12/eras-tour-book-copies.jpg?crop=0px%2C0px%2C1798px%2C1014px&resize=1600%2C900',
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/12/eras-tour-book-copies.jpg',
             credit: 'via Rolling Stone',
             caption: 'Shrink-wrapped copies in the Target aisle over Thanksgiving weekend 2024, when 814,000 sold in two days.',
             kind: 'archival',
@@ -5197,7 +5197,7 @@ export default {
         // confirmed (Swift seated with the six LPs fanned out).
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg',
             credit: 'Courtesy of Taylor Swift (via Billboard)',
             caption: 'The photo released with the May 30, 2025 announcement: Taylor with the six albums she bought back from Shamrock Capital.',
             kind: 'primary',
@@ -5209,7 +5209,7 @@ export default {
           // LP in hand). Verified HTTP 200 + image/jpeg, downloaded and
           // visually confirmed.
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/05/01-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/01-taylor-swift-with-albums-2025-billboard-1548.jpg',
             credit: 'Courtesy of Taylor Swift (via Billboard)',
             caption:
               'A second frame from the announcement set: reading the sleeves of the reclaimed records, reputation in hand.',
@@ -5220,7 +5220,7 @@ export default {
           // Frame 04 from the same Billboard-hosted announcement shoot.
           // Re-verified HTTP 200 + image/jpeg on 2026-08-24.
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2025/05/04-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/04-taylor-swift-with-albums-2025-billboard-1548.jpg',
             credit: 'Courtesy of Taylor Swift (via Billboard)',
             caption: 'A closer frame from the same shoot, hands resting on the reclaimed sleeves.',
             kind: 'primary',
