@@ -11795,5 +11795,69 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-08-24 (Vault Run, Content Shift lane) from intake #3152.
+      // Rumor container: a Deuxmoi blind item re-reported by named outlets but
+      // never independently confirmed and carrying no photo of either woman, so
+      // it lands as a low-confidence sighting, not confirmed narrative.
+      // Redlines: the members'-club venue Deuxmoi named is CUT and the claim is
+      // capped at region per the location matrix (unresolved rumor); the tip's
+      // reported glimpse of a security presence is omitted outright (security
+      // arrangements are never-OK). Two public figures on a public-facing friend
+      // outing — no private-individual, health, or relationship-prognosis content.
+      slug: 'showgirl-dakota-johnson-la-girls-night-rumored',
+      year: 2026,
+      month: 8,
+      day: 21,
+      category: 'sighting',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
+      confidence: 'plausible',
+      title: 'A rumored girls’ night out with Dakota Johnson in Los Angeles',
+      snippet:
+        'Gossip account Deuxmoi reported that Taylor spent a Friday night out with longtime friend Dakota Johnson in Los Angeles on Aug. 21, 2026 — read by fans as her first low-key girls’ night since the wedding, with Travis away at Chiefs training camp. Neither woman appears in a photo, and no established outlet or either camp has confirmed it.',
+      sourceUrl:
+        'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'With Travis Kelce away at Chiefs training camp — about seven weeks after the couple’s July wedding — Taylor was reported to have slipped out for a Friday-night catch-up with Dakota Johnson, a friend of more than a decade, somewhere in Los Angeles on Aug. 21, 2026. Fans framed it as her first proper girls’ night since becoming a newlywed.\n\nThe sourcing is thin and worth naming plainly. The report originated with the gossip account Deuxmoi and was picked up as a “report” by outlets including Just Jared and InStyle — all of them tracing back to that single blind item rather than confirming it independently. Neither Taylor nor Dakota appears in any photograph from the night, and neither has said a word about it. It is an easy-to-believe item that fits what is already known — the two have been close for years, and Taylor’s husband is in-season and out of town — without any of that making it confirmed. If a named outlet or either camp verifies the outing, the Rumor Desk can promote it; if it stays a lone social tip, it fades.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
+            source_title: 'Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report)',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'InStyle via Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-enjoys-girls-night-224937070.html',
+            source_title: 'Taylor Swift Enjoys Girls’ Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding',
+            publisher: 'InStyle',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 2,
+          },
+        ],
+        rumors: [
+          {
+            claim:
+              'Gossip account Deuxmoi reported that Taylor had a girls’ night out with Dakota Johnson in Los Angeles on Friday, Aug. 21, 2026 — her first such reported outing since the wedding, with Travis Kelce away at Chiefs training camp.',
+            reportedBy: 'Deuxmoi / Just Jared',
+            reportedOn: '2026-08-21',
+            status: 'unconfirmed',
+            url: 'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
+            note: 'Deuxmoi blind item, re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Coarsened to region per the matrix; the members’-club venue named in the reports is dropped and the tip’s security detail omitted per the redlines. Resolves on confirmation; fades otherwise.',
+            sourceTier: 'social',
+            locationSpecificity: 'region',
+            lastCheckedOn: '2026-08-24',
+          },
+        ],
+      },
+    },
   ],
 };

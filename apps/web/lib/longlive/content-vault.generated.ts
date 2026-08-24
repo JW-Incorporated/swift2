@@ -8583,6 +8583,22 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "Toy Story 5 Launches on Fandango with Taylor Swift MV Debut", url: "https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/", reliability: 4, type: "reputable_press" }, { name: "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)", url: "https://www.youtube.com/watch?v=hDU4GB1PTxc", reliability: 5, type: "social" }],
       relatedIds: ["moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl", "moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom", "moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti"],
     },
+    {
+      id: "vault-tloas-a-rumored-girls-night-out-with-dakota-johnson-in-los-angeles",
+      slug: "showgirl-dakota-johnson-la-girls-night-rumored",
+      date: "2026-08-21",
+      dateLabel: "August 21, 2026",
+      title: "A rumored girls’ night out with Dakota Johnson in Los Angeles",
+      summary: "Gossip account Deuxmoi reported that Taylor spent a Friday night out with longtime friend Dakota Johnson in Los Angeles on Aug. 21, 2026 — read by fans as her first low-key girls’ night since the wedding, with Travis away at Chiefs training camp. Neither woman appears in a photo, and no established outlet or either camp has confirmed it.",
+      body: ["With Travis Kelce away at Chiefs training camp — about seven weeks after the couple’s July wedding — Taylor was reported to have slipped out for a Friday-night catch-up with Dakota Johnson, a friend of more than a decade, somewhere in Los Angeles on Aug. 21, 2026. Fans framed it as her first proper girls’ night since becoming a newlywed.", "The sourcing is thin and worth naming plainly. The report originated with the gossip account Deuxmoi and was picked up as a “report” by outlets including Just Jared and InStyle — all of them tracing back to that single blind item rather than confirming it independently. Neither Taylor nor Dakota appears in any photograph from the night, and neither has said a word about it. It is an easy-to-believe item that fits what is already known — the two have been close for years, and Taylor’s husband is in-season and out of town — without any of that making it confirmed. If a named outlet or either camp verifies the outing, the Rumor Desk can promote it; if it stays a lone social tip, it fades."],
+      tags: ["Lore"],
+      sources: [{ name: "Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report)", url: "https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/", reliability: 2, type: "reputable_press" }, { name: "Taylor Swift Enjoys Girls’ Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding", url: "https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-enjoys-girls-night-224937070.html", reliability: 2, type: "reputable_press" }],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
+      confidence: "plausible",
+      rumors: [
+        { claim: "Gossip account Deuxmoi reported that Taylor had a girls’ night out with Dakota Johnson in Los Angeles on Friday, Aug. 21, 2026 — her first such reported outing since the wedding, with Travis Kelce away at Chiefs training camp.", reportedBy: "Deuxmoi / Just Jared", reportedOn: "2026-08-21", status: "unconfirmed", url: "https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/", note: "Deuxmoi blind item, re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Coarsened to region per the matrix; the members’-club venue named in the reports is dropped and the tip’s security detail omitted per the redlines. Resolves on confirmation; fades otherwise.", sourceTier: "social", lastCheckedOn: "2026-08-24", locationSpecificity: "region" },
+      ],
+    },
   ],
   "ttpd": [
     {
