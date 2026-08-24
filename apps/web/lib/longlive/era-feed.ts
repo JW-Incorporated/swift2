@@ -2,6 +2,7 @@ import type { ContentItem, VideoNote } from './types';
 import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from './filters';
 import { resolveAnchor, type Anchored } from './anchor-date';
 import type { EggDoorway, ThreadDoorway } from './doorways';
+import type { CurrentItem } from '@swift2/shared';
 
 /**
  * The era feed's SELECTION rules, as pure functions.
@@ -39,12 +40,20 @@ import type { EggDoorway, ThreadDoorway } from './doorways';
  * sorting purposes, but is no longer at a position the date describes, so it
  * must not be presented to the scrubber as a rail anchor (adversarial review
  * finding #2, 2026-08-13 — see space-doorways.ts).
+ *
+ * `current` (PLAN.md Stage 5, knowledge-engine proposal issue 6): a live
+ * `current_item` row for the current era only — built by
+ * `currentFeedEntries` (current-feed.ts) from data fetched at request time
+ * (ISR, `/vault/current/[eraId]`), not from the build-time Vault. Always
+ * anchors `via: 'exact'` (`observedOn` is a real, authored date), so it is
+ * never a `spaceDoorways` candidate and never `displaced`.
  */
 export type EraFeedEntry<V extends VideoNote = VideoNote> =
   | { kind: 'moment'; item: ContentItem; anchor: Anchored }
   | { kind: 'video'; video: V; anchor: Anchored }
   | { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored; displaced?: boolean }
-  | { kind: 'egg'; doorway: EggDoorway; anchor: Anchored; displaced?: boolean };
+  | { kind: 'egg'; doorway: EggDoorway; anchor: Anchored; displaced?: boolean }
+  | { kind: 'current'; item: CurrentItem; anchor: Anchored };
 
 /**
  * The merged feed (mergeEraFeed's output over every moment and every
@@ -216,6 +225,8 @@ function entryTiebreakId<V extends VideoNote>(entry: EraFeedEntry<V>): string {
       return `thread:${entry.doorway.threadId}`;
     case 'egg':
       return `egg:${entry.doorway.eggId}`;
+    case 'current':
+      return `current:${entry.item.id}`;
     default: {
       const exhaustive: never = entry;
       return exhaustive;
