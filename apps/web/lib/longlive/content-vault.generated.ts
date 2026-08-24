@@ -1451,8 +1451,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     {
       id: "vault-debut-our-song-hits-number-one",
       slug: "debut-our-song",
-      date: "2007-09-08",
-      dateLabel: "September 8, 2007",
+      date: "2007-12-22",
+      dateLabel: "December 22, 2007",
       title: "“Our Song” hits number one",
       summary: "At 17, she becomes the youngest person to single-handedly write and perform a number-one country hit.",
       body: ["A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke."],

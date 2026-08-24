@@ -2681,9 +2681,15 @@ export default {
         'moment:vault-debut-our-song-becomes-her-first-no-1',
         'moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards',
       ],
+      // Date corrected (#720): was 2007-09-08, which predates even the
+      // single's Sept 10, 2007 radio release and conflicted with the
+      // sibling card's real chart date. Re-dated to match the No. 1 date
+      // (Billboard Hot Country Songs, Dec 22, 2007) so this card and
+      // vault-debut-our-song-becomes-her-first-no-1 agree, and the
+      // m-debut-2 milestone lands on the correct date.
       year: 2007,
-      month: 9,
-      day: 8,
+      month: 12,
+      day: 22,
       category: "music",
       title: "“Our Song” hits number one",
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
