@@ -3,3 +3,4 @@
 
 export * from './vault';
 export * from './map';
+export * from './current-map';
