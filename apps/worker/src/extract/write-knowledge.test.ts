@@ -125,7 +125,7 @@ describe('upsertLiveTheory', () => {
     });
     // second call (insert) needs its own chain — override .from to alternate
     let call = 0;
-    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation((table: string) => {
+    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => {
       call++;
       if (call === 1) return chain({ data: [], error: null });
       return chain({ data: { id: 'theory-new' }, error: null });
