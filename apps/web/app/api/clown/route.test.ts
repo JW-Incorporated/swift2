@@ -98,6 +98,18 @@ vi.mock('../../../lib/longlive/clown-agent', () => ({
   AGENT_MAX_WALL_MS: 20_000,
 }));
 
+// PLAN.md Stage 11 — mocked at the module boundary, same discipline as
+// `clown-agent`: this route only needs to treat `reserveUserDailyBudget`/
+// `recordClownMemory` as an opaque contract. `clown-memory.ts`'s own real
+// fetch-based behavior (toggle on/off, the per-user cap, rolling summary) is
+// covered by `clown-memory.test.ts`/`clown-session.test.ts`. Default mirrors
+// today's real deployed state — auth unavailable, no persistence — so every
+// pre-Stage-11 test in this file is unaffected without editing any of them.
+vi.mock('../../../lib/longlive/clown-memory', () => ({
+  reserveUserDailyBudget: vi.fn(async () => ({ ok: true, session: null })),
+  recordClownMemory: vi.fn(async () => {}),
+}));
+
 vi.mock('../../../lib/longlive/clown-index', async () => {
   const actual = await vi.importActual<typeof import('../../../lib/longlive/clown-index')>(
     '../../../lib/longlive/clown-index',
@@ -107,6 +119,8 @@ vi.mock('../../../lib/longlive/clown-index', async () => {
 
 import { POST } from './route';
 import { runClownAgent } from '../../../lib/longlive/clown-agent';
+import { reserveUserDailyBudget, recordClownMemory } from '../../../lib/longlive/clown-memory';
+import { encodeSessionToken, type ClownSession } from '../../../lib/longlive/clown-session';
 import { CRISIS_MESSAGE, OUT_OF_SCOPE_MESSAGE, REFUSALS } from '../../../lib/longlive/clown-safety';
 import { FALLBACK_INTRO_CHIP, FALLBACK_INTRO_DEGRADED } from '../../../lib/longlive/clown-fallback';
 
@@ -120,11 +134,11 @@ const STAGED_CLUE_QUERY = 'tell me about the staged snake clue';
 const ORANGE_DOORS_QUERY = 'tell me about the orange doors theory';
 const QUOTE_FIXTURE_QUERY = 'tell me about the hi im taylor debut fixture';
 
-function post(body: unknown, ip = '10.0.0.1'): Promise<Response> {
+function post(body: unknown, ip = '10.0.0.1', extraHeaders: Record<string, string> = {}): Promise<Response> {
   return POST(
     new Request('http://localhost/api/clown', {
       method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-forwarded-for': ip },
+      headers: { 'content-type': 'application/json', 'x-forwarded-for': ip, ...extraHeaders },
       body: JSON.stringify(body),
     }),
   );
@@ -178,6 +192,10 @@ function agentRun(overrides: Partial<AgentRunResult> = {}): AgentRunResult {
 
 beforeEach(() => {
   vi.mocked(runClownAgent).mockReset();
+  vi.mocked(reserveUserDailyBudget).mockReset();
+  vi.mocked(reserveUserDailyBudget).mockResolvedValue({ ok: true, session: null });
+  vi.mocked(recordClownMemory).mockReset();
+  vi.mocked(recordClownMemory).mockResolvedValue(undefined);
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
 
@@ -556,6 +574,65 @@ describe('POST /api/clown', () => {
       expect((json.sources as { id: string }[]).length).toBeLessThan(20);
       const allText = (json.segments as { text: string }[]).map((s) => s.text).join(' ');
       expect(allText).toContain('more');
+    });
+  });
+
+  describe('PLAN.md Stage 11 — memory (toggle off is the real deployed state tonight)', () => {
+    const FIXTURE_SESSION: ClownSession = { userId: 'user-1', accessToken: 'access-1', refreshToken: 'refresh-1' };
+
+    it('toggle OFF: a clean take still renders normally, no session header on the response, memory call carries session:null (real no-op — see clown-memory.test.ts)', async () => {
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.1');
+      const json = await finalAnswer(res);
+      expect(json.kind).toBe('take');
+      expect(res.headers.get('x-clown-session')).toBeNull();
+      expect(recordClownMemory).toHaveBeenCalledTimes(1);
+      expect(vi.mocked(recordClownMemory).mock.calls[0][0].session).toBeNull();
+    });
+
+    it('an out-of-scope query never reaches memory resolution at all (unaffected by this stage)', async () => {
+      const res = await post({ text: 'what is a good pasta recipe' }, '10.4.0.2');
+      expect(res.status).toBe(200);
+      expect(reserveUserDailyBudget).not.toHaveBeenCalled();
+      expect(recordClownMemory).not.toHaveBeenCalled();
+    });
+
+    it('toggle ON (mocked auth success): a clean take records memory and the response carries a session header', async () => {
+      vi.mocked(reserveUserDailyBudget).mockResolvedValueOnce({ ok: true, session: FIXTURE_SESSION });
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.3');
+      const json = await finalAnswer(res);
+      expect(json.kind).toBe('take');
+      expect(res.headers.get('x-clown-session')).toBe(encodeSessionToken(FIXTURE_SESSION));
+      expect(recordClownMemory).toHaveBeenCalledTimes(1);
+      const call = vi.mocked(recordClownMemory).mock.calls[0][0];
+      expect(call.session).toEqual(FIXTURE_SESSION);
+      expect(call.question).toBe(MASTERS_QUERY);
+    });
+
+    it('an incoming x-clown-session header is decoded and passed through to reserveUserDailyBudget', async () => {
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      const token = { accessToken: 'old-access', refreshToken: 'old-refresh' };
+      await post({ text: MASTERS_QUERY }, '10.4.0.4', { 'x-clown-session': encodeSessionToken(token) });
+      expect(vi.mocked(reserveUserDailyBudget).mock.calls[0][0]).toEqual(token);
+    });
+
+    it('over-cap: the model is never called and a fixed limit message is returned instead', async () => {
+      vi.mocked(reserveUserDailyBudget).mockResolvedValueOnce({ ok: false, session: FIXTURE_SESSION });
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.5');
+      expect(res.status).toBe(200);
+      const json = await finalAnswer(res);
+      expect(json.kind).toBe('fallback');
+      expect(runClownAgent).not.toHaveBeenCalled();
+      expect(recordClownMemory).not.toHaveBeenCalled();
+    });
+
+    it('a degraded (no take) run never records memory either — only the successful gated take path does', async () => {
+      vi.mocked(reserveUserDailyBudget).mockResolvedValueOnce({ ok: true, session: FIXTURE_SESSION });
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: null }));
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.6');
+      await finalAnswer(res);
+      expect(recordClownMemory).not.toHaveBeenCalled();
     });
   });
 });

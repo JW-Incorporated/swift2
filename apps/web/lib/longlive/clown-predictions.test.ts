@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { persistPrediction } from './clown-predictions';
 import type { ClownTake } from './clown-client';
+import type { ClownSession } from './clown-session';
 
 function fixtureTake(overrides: Partial<ClownTake> = {}): ClownTake {
   return {
@@ -17,6 +18,8 @@ function fixtureTake(overrides: Partial<ClownTake> = {}): ClownTake {
   };
 }
 
+const FIXTURE_SESSION: ClownSession = { userId: 'user-1', accessToken: 'access-1', refreshToken: 'refresh-1' };
+
 beforeEach(() => {
   vi.unstubAllEnvs();
   vi.spyOn(console, 'log').mockImplementation(() => {});
@@ -28,26 +31,49 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe('persistPrediction — no-ops until bot_prediction exists (Codex review MAJOR 9)', () => {
-  it('never fires a network call when Supabase env is not configured', async () => {
-    const fetchSpy = vi.fn();
-    vi.stubGlobal('fetch', fetchSpy);
-    await persistPrediction({ question: 'q', take: fixtureTake(), sources: [] });
-    expect(fetchSpy).not.toHaveBeenCalled();
-  });
-
-  it('never fires a doomed POST even when Supabase env IS configured — bot_prediction is Stage 11\'s table', async () => {
+describe('persistPrediction — PLAN.md Stage 11, wired for real', () => {
+  it('never fires a network call when session is null (auth unavailable — toggle off)', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
-    await persistPrediction({ question: 'q', take: fixtureTake(), sources: [] });
+    await persistPrediction({ session: null, question: 'q', take: fixtureTake(), sources: [] });
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
-  it('resolves cleanly (never throws), regardless of env', async () => {
+  it('never fires a network call when Supabase env is not configured, even with a session', async () => {
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    await persistPrediction({ session: FIXTURE_SESSION, question: 'q', take: fixtureTake(), sources: [] });
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('POSTs bot_prediction with the session access token and pending status when a session resolves', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
-    await expect(persistPrediction({ question: 'q', take: fixtureTake(), sources: [] })).resolves.toBeUndefined();
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+    vi.stubGlobal('fetch', fetchSpy);
+    await persistPrediction({ session: FIXTURE_SESSION, question: 'what about the eggs', take: fixtureTake(), sources: [] });
+
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchSpy.mock.calls[0];
+    expect(url).toBe('https://example.supabase.co/rest/v1/bot_prediction');
+    expect(init.headers.Authorization).toBe('Bearer access-1');
+    const body = JSON.parse(init.body);
+    expect(body.user_id).toBe('user-1');
+    expect(body.status).toBe('pending');
+    expect(body.claim).toBe('a stance');
+    expect(body.cited_ids).toEqual(['lore:x']);
+    expect(body.delulu).toBe(2);
+    expect(body.symbols).toEqual([]);
+  });
+
+  it('resolves cleanly (never throws) even when the write fails', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network down')));
+    await expect(
+      persistPrediction({ session: FIXTURE_SESSION, question: 'q', take: fixtureTake(), sources: [] }),
+    ).rejects.toThrow();
   });
 });
