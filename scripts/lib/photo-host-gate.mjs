@@ -42,7 +42,6 @@ export const PHOTO_HOST_LEGACY = new Set([
   'cdn.hercampus.com',
   'cdn.i-scmp.com',
   'cdn.nba.com',
-  'cdn.sanity.io',
   'cdn.shopify.com',
   'cdn01.justjared.com',
   'cloudfront-us-east-1.images.arcpublishing.com',

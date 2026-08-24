@@ -3204,10 +3204,9 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the No. 1 single's cover art from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
-        // Photo pass (2026-07-18, #762): + the Swift/Post Malone MV frame
-        // Billboard ran with its own top-14 chart story — a different frame
-        // from the ytimg maxres still on the "Fortnight opens the album"
-        // page. Downloaded + vision-confirmed.
+        // Image-liveness repair (2026-08-24): the broken Billboard frame was
+        // replaced with the official video's 1280×720 YouTube thumbnail.
+        // Range-fetch verified and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Taylor_Swift_-_Fortnight.png',
@@ -3217,9 +3216,9 @@ export default {
             focalPoint: '50% 55%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/04/taylor-swift-post-malone-fortnight-music-video-still-billboard-1548.jpg?w=1024',
-            credit: 'Taylor Swift / Republic Records (via Billboard)',
-            caption: 'Taylor and Post Malone in the "Fortnight" video — the No. 1 that led a chart-history first.',
+            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Official "Fortnight" video still — the No. 1 that led a chart-history first.',
             kind: 'archival',
             focalPoint: '50% 38%',
           },
@@ -3327,7 +3326,7 @@ export default {
         // and a Taylor Nation email — no creditable still on an approved CDN.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/oaBJlKXBvjk/maxresdefault.jpg',
+            url: 'https://img.youtube.com/vi/oaBJlKXBvjk/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "thanK you aIMee" lyric video, stray capitals intact.',
             kind: 'archival',
@@ -3407,25 +3406,24 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
-        // Photo pass (2026-07-18, #762): render upgraded from 480×360
-        // hqdefault to the same video's 1280×720 maxresdefault (HTTP-checked
-        // + viewed). + the Swift/Welch polaroid that fronted Holler's Miami
-        // "Florida!!!" duet story — Holler's own metadata credits the photo
-        // to Taylor Swift. Downloaded + vision-confirmed.
+        // Image-liveness repair (2026-08-24): the official lyric-video still
+        // now uses YouTube's alternate allowlisted thumbnail host. The broken
+        // Holler image was replaced with Rolling Stone's 1600×900 Miami
+        // performance photo. Both were range-fetched and vision-confirmed.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/uEssK8o3jKg/maxresdefault.jpg',
+            url: 'https://img.youtube.com/vi/uEssK8o3jKg/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Florida!!! (feat. Florence + The Machine)" lyric video.',
             kind: 'archival',
             focalPoint: '50% 60%',
           },
           {
-            url: 'https://cdn.sanity.io/images/o6uq28nb/production/e92e7a8463fee4535c9c538f067276de0a77c9c3-2048x2011.jpg?w=1200',
-            credit: 'Taylor Swift (via Holler)',
-            caption: 'Taylor and Florence Welch — the collaborators behind the album\'s biggest-sounding song.',
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
+            credit: 'John Shearer/TAS24/Getty Images for TAS Rights Management',
+            caption: 'Taylor and Florence Welch perform "Florida!!!" at Hard Rock Stadium in Miami, Oct. 18, 2024.',
             kind: 'archival',
-            focalPoint: '47% 27%',
+            focalPoint: '50% 30%',
           },
         ],
       },
@@ -3504,11 +3502,9 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
-        // Photo pass (2026-07-18, #762): render upgraded from 480×360
-        // hqdefault to the same video's 1280×720 maxresdefault (HTTP-checked
-        // + viewed). + a Commons CC BY 2.0 portrait of Travis Kelce, the
-        // song's widely read subject, as a reference image (license
-        // API-verified; same pattern as the Hendersonville reference photo).
+        // Image-liveness repair (2026-08-24): the dead 2021 Commons URL was
+        // replaced with a live public-domain U.S. Air Force portrait crop.
+        // Commons metadata and a range fetch verified the file.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/maxresdefault.jpg',
@@ -3518,9 +3514,9 @@ export default {
             focalPoint: '43% 45%',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Travis_Kelce_2021.jpg',
-            credit: 'Erik Drost, CC BY 2.0, via Wikimedia Commons',
-            caption: 'Travis Kelce — the song\'s widely read subject, down to the resurfaced marry-kiss-kill clip.',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Travis_kelce_2017_training_camp_%28cropped%29.jpg',
+            credit: 'U.S. Air Force Master Sgt. April Wickes, public domain, via Wikimedia Commons',
+            caption: 'Travis Kelce at Chiefs training camp in 2017 — the song\'s widely read subject.',
             kind: 'reference',
             focalPoint: '50% 38%',
           },
