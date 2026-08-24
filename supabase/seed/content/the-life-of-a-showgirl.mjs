@@ -6502,9 +6502,16 @@ export default {
         // each verified HTTP 200 + image/jpeg, downloaded and viewed —
         // solo couch shot, smiling shot with the engagement ring visible,
         // and the full guest lineup with Norton.
+        // Photo pass #762 (2026-08-16): all four focal points set this session
+        // after downloading and individually viewing each image — deliberately
+        // distinct values per the project's "never apply one value to all
+        // images" rule (see below for per-image visual reasoning).
         photos: [
           {
             url: 'https://cdn.mos.cms.futurecdn.net/oGZmWZYsJXLBXALnDQk7X4.jpg',
+            // Full-length seated portrait, tall crop — face centered horizontally
+            // but confined to the top ~20% of the frame.
+            focalPoint: '50% 20%',
             credit: 'Alamy, via Marie Claire',
             caption:
               'On the Graham Norton Show couch in the black David Koma dress, Oct. 2, 2025 — the appearance where she called the wedding "huge" and ruled out a small guest list.',
@@ -6512,6 +6519,9 @@ export default {
           },
           {
             url: 'https://cdn.mos.cms.futurecdn.net/PJsDTgPm4oKabghVVGKLNM-1920-80.jpg',
+            // Tight laughing headshot, landscape — face already fills most of the
+            // frame, centered, eyes/mouth just above vertical center.
+            focalPoint: '50% 45%',
             credit: 'Alamy, via Marie Claire',
             caption:
               'On the Graham Norton Show couch, Oct. 2, 2025 — the appearance where she called the wedding "huge" and ruled out a small guest list.',
@@ -6519,6 +6529,9 @@ export default {
           },
           {
             url: 'https://cdn.mos.cms.futurecdn.net/WaJNJAWscy5SEzxxRpSQQm.jpg',
+            // Same seated-to-knees composition as the primary photo — face
+            // centered horizontally, confined to the top ~18-20% of the frame.
+            focalPoint: '50% 18%',
             credit: 'Alamy, via Marie Claire',
             caption:
               'Mid-interview at the taping — the Artifex engagement ring visible on her hand while the wedding talk happened.',
@@ -6526,6 +6539,9 @@ export default {
           },
           {
             url: 'https://cdn.mos.cms.futurecdn.net/ZitCnEiHQVnUnBmHPedDZB.jpg',
+            // Full-couch group shot — Taylor is leftmost of six seated guests,
+            // face ~12% in from the left edge; a center crop would lose her.
+            focalPoint: '12% 34%',
             credit: 'Alamy, via Marie Claire',
             caption:
               "The full couch: Taylor with Graham Norton and fellow guests Cillian Murphy, Greta Lee, Jodie Turner-Smith, Domhnall Gleeson, and Lewis Capaldi.",
@@ -7456,12 +7472,20 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/5B8-TJ8vsKY/maxresdefault.jpg',
+            // Taylor mid-gesture on the right, face upper-right; title text left.
+            focalPoint: '62% 38%',
             credit: 'The New York Times / Popcast (official interview thumbnail, YouTube)',
             caption:
               'The Times\' half-hour sit-down on nothing but the songwriting, published with its 30-greatest-living-American-songwriters list.',
             kind: 'primary',
-            // Taylor mid-gesture on the right, face upper-right; title text left.
-            focalPoint: '62% 38%',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2026/04/tay.jpg',
+            focalPoint: '50% 38%',
+            credit: 'Phillip Faraone/Getty Images for iHeartRadio, via Variety',
+            caption:
+              'Taylor at the 2026 iHeartRadio Music Awards, March 26, 2026 — about a month before the NYT songwriters list and interview ran.',
+            kind: 'sighting',
           },
         ],
       },
@@ -7818,6 +7842,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/LnpmnyCIbNQ/maxresdefault.jpg',
+            // Jason, Tom Brady and Travis span the frame in the upper half; a
+            // large title card fills the bottom third.
+            focalPoint: '50% 30%',
             credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
             caption:
               'The season-finale episode itself — Jason, guest Tom Brady, and a newly married Travis, in the first New Heights released after the wedding, where the proposal story finally got told.',
@@ -7825,6 +7852,9 @@ export default {
           },
           {
             url: 'https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg',
+            // Three faces cluster in the top quarter of the frame, holding the
+            // album vinyl at chest height below.
+            focalPoint: '50% 25%',
             credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
             caption:
               'Archival: the August 2025 Taylor Swift episode of New Heights — the same show, and the same desk, where Kelce finally told the proposal story eleven months later.',
@@ -10592,12 +10622,22 @@ export default {
               'Taylor performing on the Eras Tour — the writing behind that catalog is what the Nashville Songwriters Hall of Fame honored, naming her its youngest-ever inductee in August 2026.',
             kind: 'reference',
           },
+          {
+            url: 'https://variety.com/wp-content/uploads/2024/12/taylorguitar-GettyImages-2184874504.jpg',
+            focalPoint: '46% 20%',
+            credit: 'Emma McIntyre/TAS24/Getty Images for TAS Rights Management, via Variety',
+            caption:
+              "Taylor performing on the Eras Tour in Toronto in November 2024 — the photo Variety used to illustrate its report naming her the Nashville hall's youngest-ever inductee.",
+            kind: 'reference',
+          },
         ],
         // Second-photo attempt this session: she was not present for the Aug 11
         // announcement (a statement was read aloud) and the formal gala hasn't
         // happened yet — re-confirmed via fresh press search (Variety, Axios
-        // Nashville, US News, all Aug 11-14 2026) that no appearance photo exists.
-        // Stays at one verified reference photo.
+        // Nashville, US News, all Aug 11-14 2026) that no photo of that specific
+        // announcement exists. Photo pass #762 (2026-08-16): added a second,
+        // honestly-captioned Eras Tour performance photo instead (not of the
+        // announcement itself) from Variety's own report on the honor.
       },
     },
     // Authored 2026-08-12 (Vault Run, Content Shift lane) from intake #2025
