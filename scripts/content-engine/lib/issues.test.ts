@@ -1,4 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 // Every test here guards ONE failure mode: the engine reporting success while
 // findings it detected never reached the tracker. That has happened twice for
@@ -10,9 +13,14 @@ const ghMock = vi.hoisted(() => vi.fn());
 vi.mock('../../lib/gh.mjs', () => ({ gh: ghMock }));
 
 const { createIssues, ensureLabels, rollupFingerprint, errText } = await import('./issues.mjs');
-const { fingerprint } = await import('./finding.mjs');
+const { fingerprint, legacyFingerprint } = await import('./finding.mjs');
 
 afterEach(() => ghMock.mockReset());
+
+// A fresh temp file per test that needs one — createIssues persists a local
+// fingerprint cache (#487) next to `.findings/`, and tests must never read or
+// write the real repo copy of that file, or leak state between test cases.
+const freshFpCachePath = () => join(mkdtempSync(join(tmpdir(), 'cie-fpcache-')), 'filed-fingerprints.json');
 
 const finding = (over = {}) => ({
   checker: 'image.host-reputation',
@@ -55,13 +63,15 @@ describe('rollup identity', () => {
     // The bug: `fingerprint({... excerpt: `${fs.length}` })`. 9 items one night
     // and 10 the next produced two different identities for the same standing
     // defect class, which is how image.host-reputation ended up with 5 open
-    // rollups (#137, #647, #815, #883, #1723).
-    const nine = fingerprint({
+    // rollups (#137, #647, #815, #883, #1723). legacyFingerprint is the exact
+    // pre-#487 algorithm this bug shipped under; the current fingerprint()
+    // no longer hashes the raw excerpt at all (see lib/finding.test.ts).
+    const nine = legacyFingerprint({
       checker: 'content.image-overuse',
       itemRef: { key: 'rollup' },
       excerpt: '9',
     });
-    const ten = fingerprint({
+    const ten = legacyFingerprint({
       checker: 'content.image-overuse',
       itemRef: { key: 'rollup' },
       excerpt: '10',
@@ -79,8 +89,10 @@ describe('rollup identity', () => {
   it('reproduces the real collision the old scheme allowed', () => {
     // #1716 and #813 are both open and both carry cie-fp:e4dc909b86b64e19 —
     // identical fingerprints, filed twice, because existsByFp() failed open.
+    // legacyFingerprint must keep reproducing this exact value forever so the
+    // grandfathering lookup in createIssues still recognizes both issues.
     expect(
-      fingerprint({ checker: 'content.image-overuse', itemRef: { key: 'rollup' }, excerpt: '9' }),
+      legacyFingerprint({ checker: 'content.image-overuse', itemRef: { key: 'rollup' }, excerpt: '9' }),
     ).toBe('e4dc909b86b64e19');
   });
 });
@@ -94,7 +106,7 @@ describe('dedupe lookup fails CLOSED', () => {
           : truncatedPrefetch(), // possibly-truncated prefetch → the search must run, and it errors
       'issue create': () => 'https://github.com/x/y/issues/1',
     });
-    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false, fpCachePath: freshFpCachePath() });
 
     expect(res.created).toHaveLength(0);
     expect(res.unfiled).toHaveLength(1);
@@ -105,7 +117,7 @@ describe('dedupe lookup fails CLOSED', () => {
 
   it('files normally when the check says "not present"', async () => {
     route({ 'issue list': () => [], 'issue create': () => 'https://github.com/x/y/issues/7' });
-    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false, fpCachePath: freshFpCachePath() });
     expect(res.created).toHaveLength(1);
     expect(res.unfiled).toHaveLength(0);
   });
@@ -115,7 +127,7 @@ describe('dedupe lookup fails CLOSED', () => {
       'issue list': (args) => (args.includes('--search') ? [{ number: 5 }] : truncatedPrefetch()),
       'issue create': () => new Error('should never be called'),
     });
-    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false, fpCachePath: freshFpCachePath() });
     expect(res.created).toHaveLength(0);
     expect(res.skipped).toBe(1);
     expect(res.unfiled).toHaveLength(0);
@@ -132,7 +144,7 @@ describe('fingerprint prefetch', () => {
         return [{ number: 1, body: `something\n<!-- cie-fp:${fp} -->` }];
       },
     });
-    const res = await createIssues([f], { dryRun: false });
+    const res = await createIssues([f], { dryRun: false, fpCachePath: freshFpCachePath() });
     expect(res.skipped).toBe(1);
     expect(res.created).toHaveLength(0);
   });
@@ -148,7 +160,7 @@ describe('fingerprint prefetch', () => {
         return truncatedPrefetch(['<!-- cie-fp:0000000000000000 -->']); // other issues, at the limit
       },
     });
-    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false, fpCachePath: freshFpCachePath() });
     expect(searched).toBe(1);
     expect(res.skipped).toBe(1); // the search found it; the truncated prefetch had not
   });
@@ -164,7 +176,7 @@ describe('fingerprint prefetch', () => {
           : [{ number: 1, body: '<!-- cie-fp:0000000000000000 -->' }], // short of the limit → complete
       'issue create': () => 'https://github.com/x/y/issues/11',
     });
-    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false, fpCachePath: freshFpCachePath() });
     expect(res.created).toHaveLength(1);
     expect(res.unfiled).toHaveLength(0);
     expect(ghMock.mock.calls.filter((c) => c[0].includes('--search'))).toHaveLength(0);
@@ -175,9 +187,70 @@ describe('fingerprint prefetch', () => {
       'issue list': (args) => (args.includes('--search') ? [] : new Error('prefetch exploded')),
       'issue create': () => 'https://github.com/x/y/issues/3',
     });
-    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false, fpCachePath: freshFpCachePath() });
     expect(res.created).toHaveLength(1);
     expect(res.unfiled).toHaveLength(0);
+  });
+});
+
+describe('legacy fingerprint grandfathering (#487)', () => {
+  it('recognizes an issue filed under the pre-#487 scheme as already filed', async () => {
+    const f = finding({ severity: 'P1' });
+    const legacyFp = legacyFingerprint(f);
+    // The prefetch scans real issue bodies verbatim — an old issue carries the
+    // OLD-scheme marker, never the new one. Only the legacy lookup can match it.
+    route({
+      'issue list': (args) => {
+        if (args.includes('--search')) return new Error('must not reach the per-finding search');
+        return [{ number: 42, body: `pre-#487 finding\n<!-- cie-fp:${legacyFp} -->` }];
+      },
+    });
+    const res = await createIssues([f], { dryRun: false, fpCachePath: freshFpCachePath() });
+    expect(res.skipped).toBe(1);
+    expect(res.created).toHaveLength(0);
+  });
+
+  it('falls back to a legacy /search lookup when the prefetch is truncated', async () => {
+    const f = finding({ severity: 'P1' });
+    const fp = fingerprint(f);
+    const legacyFp = legacyFingerprint(f);
+    const searched: string[] = [];
+    route({
+      'issue list': (args) => {
+        if (args.includes('--search')) {
+          const term = args[args.indexOf('--search') + 1];
+          searched.push(term);
+          return term.includes(legacyFp) ? [{ number: 5 }] : [];
+        }
+        return truncatedPrefetch(); // possibly-truncated → both lookups must run
+      },
+      'issue create': () => new Error('should never be called — legacy match found'),
+    });
+    const res = await createIssues([f], { dryRun: false, fpCachePath: freshFpCachePath() });
+    expect(res.skipped).toBe(1);
+    expect(searched).toContain(`cie-fp:${fp} in:body`);
+    expect(searched).toContain(`cie-fp:${legacyFp} in:body`);
+  });
+});
+
+describe('local fingerprint cache (#487 — GitHub search-index lag)', () => {
+  it('a fingerprint confirmed filed this run is never re-searched for a second finding sharing it', async () => {
+    const cachePath = freshFpCachePath();
+    const f = finding({ severity: 'P1' });
+    route({ 'issue list': () => [], 'issue create': () => 'https://github.com/x/y/issues/9' });
+    const first = await createIssues([f], { dryRun: false, fpCachePath: cachePath });
+    expect(first.created).toHaveLength(1);
+
+    // A second, separate createIssues() call (simulating a quick re-run) with
+    // a prefetch that has NOT caught up yet (GitHub search-index lag) — the
+    // local cache from the first run must still catch it without a network call.
+    route({
+      'issue list': (args) => (args.includes('--search') ? new Error('must not reach /search — cache should hit first') : truncatedPrefetch()),
+      'issue create': () => new Error('should never be called — cache should skip'),
+    });
+    const second = await createIssues([f], { dryRun: false, fpCachePath: cachePath });
+    expect(second.created).toHaveLength(0);
+    expect(second.skipped).toBe(1);
   });
 });
 
@@ -194,7 +267,7 @@ describe('create failures are counted, never swallowed', () => {
         finding({ severity: 'P1', title: 'a', excerpt: 'a' }),
         finding({ severity: 'P1', title: 'b', excerpt: 'b' }),
       ],
-      { dryRun: false },
+      { dryRun: false, fpCachePath: freshFpCachePath() },
     );
     expect(res.created).toHaveLength(1);
     expect(res.unfiled).toHaveLength(1);

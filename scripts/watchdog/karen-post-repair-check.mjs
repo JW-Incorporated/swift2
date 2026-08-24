@@ -110,11 +110,13 @@ export function evaluate({ prs, newestReport, now = new Date(), since = REPAIR_S
 }
 
 /** Newest `docs/audits/engine/*-cie-run.md` report, or null. Filenames are
- * `YYYY-MM-DD-cie-run.md`, so lexical sort is chronological. */
+ * `YYYY-MM-DD-cie-run.md`, optionally with a `-HHMMSS` (and a `-N` tiebreaker)
+ * suffix when a second run lands on the same date (#489) — lexical sort stays
+ * chronological within a date either way. */
 export function readNewestReport(dir = REPORTS_DIR) {
   let files;
   try {
-    files = readdirSync(dir).filter((f) => /^\d{4}-\d{2}-\d{2}-cie-run\.md$/.test(f)).sort();
+    files = readdirSync(dir).filter((f) => /^\d{4}-\d{2}-\d{2}(-\d+)*-cie-run\.md$/.test(f)).sort();
   } catch {
     return null;
   }

@@ -1,5 +1,6 @@
 // Run report writer — a human-readable snapshot of a CIE run. Committed to
 // docs/audits/engine/ so runs are diffable over time.
+import { existsSync } from 'node:fs';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ROOT } from './corpus.mjs';
@@ -65,7 +66,18 @@ export async function writeReport(findings, meta) {
   // docs/decisions.md 2026-08-14).
   const dir = join(ROOT, meta.reportDir ?? CONFIG.output.reportsDir);
   await mkdir(dir, { recursive: true });
-  const path = join(dir, `${meta.date}-cie-run.md`);
+  // A second run on the same calendar date used to silently overwrite the
+  // first run's report (#489). The plain `<date>-cie-run.md` name still wins
+  // when it's free (keeps the common single-run-a-day filename lexically
+  // sortable against every prior committed report); only a same-date collision
+  // falls through to a time-suffixed name, so every run's audit trail survives.
+  let name = `${meta.date}-cie-run.md`;
+  if (existsSync(join(dir, name))) {
+    const time = meta.time ?? new Date().toISOString().slice(11, 19).replace(/:/g, '');
+    name = `${meta.date}-${time}-cie-run.md`;
+    for (let n = 2; existsSync(join(dir, name)); n++) name = `${meta.date}-${time}-${n}-cie-run.md`;
+  }
+  const path = join(dir, name);
   await writeFile(path, L.join('\n'), 'utf8');
   return path;
 }

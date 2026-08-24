@@ -52,11 +52,45 @@ export function makeFinding(f) {
 }
 
 /**
+ * Excerpt → a small stable word set for fingerprinting. Whitespace, case,
+ * punctuation, word order, and short boundary words (articles/pronouns, ≤3
+ * chars) never affect it — a checker/agent capturing a marginally different
+ * window around the same span, or requoting it verbatim in a different
+ * shape, still lands on the same set. It is NOT immune to the window
+ * dropping or picking up a genuinely different significant (>3-char) word,
+ * but that is a much narrower failure mode than hashing the raw excerpt text
+ * verbatim, which minted a new fingerprint on almost any reslicing (#487).
+ */
+function excerptFingerprint(excerpt) {
+  const words = String(excerpt ?? '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w.length > 3);
+  return [...new Set(words)].sort().slice(0, 12).join(',');
+}
+
+/**
  * Stable fingerprint for dedup + idempotent issue creation. Same checker + same
- * item + same excerpt => same fingerprint => the issue writer won't open a
- * duplicate on a re-run. Deliberately excludes evidence/fix (those may reword).
+ * item + same field + same significant words in the excerpt => same fingerprint
+ * => the issue writer won't open a duplicate on a re-run, even when the exact
+ * excerpt window/wording shifts slightly between runs (#487). Deliberately
+ * excludes evidence/fix (those may reword).
  */
 export function fingerprint(f) {
+  const basis = [f.checker, f.itemRef?.type, f.itemRef?.key ?? f.itemRef?.file, f.itemRef?.field, excerptFingerprint(f.excerpt)]
+    .map((x) => String(x ?? ''))
+    .join('||');
+  return createHash('sha1').update(basis).digest('hex').slice(0, 16);
+}
+
+/**
+ * The pre-#487 fingerprint algorithm — hashed the raw excerpt verbatim. Kept
+ * byte-for-byte (never change this one) so dedupe lookups can still recognize
+ * the issues already filed under this scheme; used only for existence checks,
+ * never for filing new tickets (those always get the new `fingerprint()`).
+ */
+export function legacyFingerprint(f) {
   const basis = [f.checker, f.itemRef?.type, f.itemRef?.key ?? f.itemRef?.file, f.itemRef?.field, f.excerpt]
     .map((x) => String(x ?? ''))
     .join('||');
