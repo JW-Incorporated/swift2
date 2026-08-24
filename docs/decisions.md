@@ -7,6 +7,42 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-24 — Knowledge engine vendor picks: GNews free tier + engineered daily cap; Tumblr consumer-key-only, no OAuth
+
+**Context:** PLAN.md Stage 6 (fan adapters). The 2026-08-23 kickoff entry
+left both vendor calls deferred to `HUMAN-ACTIONS.md` #12 items 1 and 4;
+Joey answered both live in chat 2026-08-23 22:31 PDT (recorded in that
+item's DONE note) — this entry logs the technical decision each answer
+implies, per rule 6, not a repeat of the chat exchange itself.
+
+**Decision 1 — GNews free tier, not the paid Business tier the original
+proposal recommended.** The free tier's 100-req/day hard vendor cap is
+sufficient at this pipeline's actual cadence (6 scheduled runs/day, 1+
+query per run) as long as usage is engineered around, not merely
+estimated: `apps/worker/src/sources/gnews.ts` reserves budget through a
+real durable counter (`api-usage-daily.ts`, a generalized, `scope`-keyed
+sibling of `classify/usage-store.ts`'s existing `news_llm_usage`-backed
+`UsageStore` — same class, reused, not forked) hard-stopped at 80/day
+(`GNEWS_DAILY_CAP`), leaving real margin for retries and a failed run
+without ever touching the vendor's actual 100 ceiling. If real usage
+patterns later show the free tier is genuinely too thin, upgrading is a
+one-line env/cap change, not a re-architecture.
+
+**Decision 2 — Tumblr ships consumer-key-only, no OAuth token exchange.**
+`TUMBLR_CONSUMER_API_KEY` (a real repo secret as of 2026-08-23) is enough
+for the two public read-only endpoints this adapter needs (`/v2/tagged`,
+`/v2/blog/<id>/posts`) — neither requires user authorization.
+`TUMBLR_SECRET_API_KEY` (also set) is reserved for a future OAuth flow
+that would be needed only for endpoints this build doesn't use (posting,
+private/authenticated reads); building that exchange now would be
+unused surface area for no present capability gain.
+
+**Approved by:** Joey, in chat, 2026-08-23 22:31 PDT (`HUMAN-ACTIONS.md`
+#12 DONE note); this entry is the technical decision record rule 6
+requires, filed alongside the Stage 6 build that implements it.
+
+---
+
 ## 2026-08-23 — Removed the Claude_Code_Remote-restricted-to-Auditor invariant
 
 **Decision:** Removed invariant #2 from `docs/agents/routine-invariants.md`

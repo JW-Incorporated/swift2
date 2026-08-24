@@ -39,8 +39,22 @@ export const VERIFICATION_STATUSES = [
 ] as const;
 export type VerificationStatus = (typeof VERIFICATION_STATUSES)[number];
 
-/** Ingestion adapter types this worker can be configured with. */
-export const SOURCE_TYPES = ['rss', 'reddit', 'x', 'youtube', 'bluesky', 'google_news'] as const;
+/**
+ * Ingestion adapter types this worker can be configured with. Keep in sync
+ * by hand with news_source's source_type CHECK constraint — `reddit_rss`,
+ * `tumblr`, `gnews` added by the 20260901010000 migration (PLAN.md Stage 6).
+ */
+export const SOURCE_TYPES = [
+  'rss',
+  'reddit',
+  'x',
+  'youtube',
+  'bluesky',
+  'google_news',
+  'reddit_rss',
+  'tumblr',
+  'gnews',
+] as const;
 export type SourceType = (typeof SOURCE_TYPES)[number];
 
 /**

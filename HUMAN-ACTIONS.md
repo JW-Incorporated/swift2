@@ -26,6 +26,34 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 16. [UPGRADE] Facebook groups checklist ships empty — needs your real group list, and your first real export to trust the parser
+
+**Filed:** 2026-08-24
+
+**Why it matters:** `scripts/knowledge/fb-groups-checklist.mjs`
+(`fb-export-reminder.yml`'s Sunday reminder, PLAN.md Stage 6) ships with
+zero groups — only you know which Facebook groups you're actually in and
+want tracked, so this was not guessed. The reminder issue itself still
+files every Sunday and says so plainly rather than silently doing nothing.
+
+1. **Add your groups** to `scripts/knowledge/fb-groups-checklist.mjs` —
+   each entry is `{ slug: 'short-hyphenated-id', label: 'Group Name' }`.
+   Start with 3–5 (that week's issue is the checklist).
+2. **First real export**: `facebook-groups-parser.ts`'s HTML extraction
+   (`role="article"` blocks, `aria-label` author names) was written against
+   Facebook's documented accessibility markup, not a real saved export — no
+   Facebook account/group was available to verify it against, and creating
+   one is outside what an agent may do unattended. Run your first weekly
+   export through it once you have one; if it parses to 0 posts on real
+   content, tell me and I'll retune the extraction against that real file.
+
+**Worked if:** the checklist file has real entries and at least one real
+export has been parsed without silently returning 0 posts.
+
+**Status:** OPEN
+
+---
+
 ### 15. [UPGRADE] Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle
 
 **Filed:** 2026-08-23
@@ -52,7 +80,7 @@ Supabase toggle.
 
 ---
 
-### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 3 migrations unapplied against prod, pgvector untested
+### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 8 migrations unapplied against prod, pgvector untested
 
 **Filed:** 2026-08-23
 
@@ -128,6 +156,15 @@ row counts and ids on both runs (genuine upsert idempotency), `technique`
 stayed at 0 rows throughout. Not a new item — same fix (step 1 above) closes
 this too.
 
+**Addendum (Stage 6, fan adapters):** another migration,
+`20260901010000_knowledge_engine_fan_adapters.sql`, widens
+`news_source.source_type` to admit `reddit_rss`/`tumblr`/`gnews`
+(`bluesky` was already allowed) and adds `api_usage_daily` (a generic
+scoped daily-call counter — first consumer: `gnews.ts`'s free-tier cap).
+Same root cause, same fix: verified idempotent (applied twice) against a
+real ephemeral local Postgres, not yet applied to production. Run it
+together with the rest when you run step 1 above.
+
 **Addendum (2A, live_theory redline fast-follow):** a retroactive Codex
 review of `20260901000000_knowledge_engine.sql` (task-mt6t7akh-a22733) found
 `live_theory` had no `redline_ok` column/RLS gate, unlike `current_item`/
@@ -141,8 +178,14 @@ both times — then, still on that local cluster, confirmed the RLS gate
 itself works: inserted one `redline_ok=true` and one `redline_ok=false`
 `live_theory` row, granted `SELECT` to a non-owner role (simulating
 Supabase's `anon`/`authenticated` default grant), and confirmed only the
-`redline_ok=true` row was visible under RLS. Now 4 migrations unapplied
-against prod, not 3 — same fix (step 1 above) closes this too.
+`redline_ok=true` row was visible under RLS.
+
+**Running total (reconciled across stages):** counting every addendum
+above plus Stage 3's own `usage_daily.sql` /
+`news_story_extracted_at.sql` / `refresh_symbol_activity.sql` (landed on
+`main` but never logged here by that stage), **8 migrations** are
+unapplied against production as of this merge, not 3 or 4 — same fix
+(step 1 above) closes all of them in one `npm run db:migrate` run.
 
 **Status:** OPEN
 

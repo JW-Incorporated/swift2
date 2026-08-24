@@ -46,6 +46,7 @@
     "check:voice": "node scripts/check-voice.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
     "knowledge:coverage": "node scripts/knowledge-coverage.mjs",
+    "knowledge:fb-upload": "node --env-file=apps/worker/.env scripts/knowledge-fb-upload.mjs",
     "depth:months": "node scripts/depth-rows-per-month.mjs",
     "karen": "node --use-env-proxy scripts/content-engine/run.mjs all",
     "karen:file": "node --use-env-proxy scripts/content-engine/run.mjs all --create",
