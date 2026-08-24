@@ -113,12 +113,13 @@ export function FilterBar() {
             type="button"
             aria-pressed={allActive}
             onClick={clearFilters}
-            className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
+            className="ll-filter-chip inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
             style={{
-              backgroundColor: allActive ? 'var(--era-accent)' : 'transparent',
-              borderColor: 'var(--era-accent)',
-              color: allActive ? 'var(--era-bg)' : 'var(--era-ink)',
-            }}
+              '--chip-cue': 'var(--era-accent)',
+              '--chip-bg': allActive ? 'var(--era-accent)' : 'transparent',
+              '--chip-border': 'var(--era-accent)',
+              '--chip-fg': allActive ? 'var(--era-bg)' : 'var(--era-ink)',
+            } as React.CSSProperties}
           >
             All
           </button>
@@ -133,12 +134,13 @@ export function FilterBar() {
                 type="button"
                 aria-pressed={active}
                 onClick={() => toggleFilter(id)}
-                className="inline-flex h-9 shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
+                className="ll-filter-chip inline-flex h-9 shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
                 style={{
-                  backgroundColor: active ? color : 'transparent',
-                  borderColor: active ? color : cue,
-                  color: active ? '#fff' : 'var(--era-ink)',
-                }}
+                  '--chip-cue': cue,
+                  '--chip-bg': active ? color : 'transparent',
+                  '--chip-border': active ? color : cue,
+                  '--chip-fg': active ? '#fff' : 'var(--era-ink)',
+                } as React.CSSProperties}
               >
                 <Icon
                   className="h-3 w-3"

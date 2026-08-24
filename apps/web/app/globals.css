@@ -268,6 +268,21 @@ body {
   background: color-mix(in srgb, var(--era-ink) 82%, var(--era-bg));
 }
 
+/* Eras timeline filter pills (FilterBar.tsx). Colors are per-chip and
+   computed in JS (a fixed hue per topic tag, the era accent for "All"/
+   Videos) — passed in as custom properties so this one rule's :hover can
+   still override an inline background/border, which a plain external
+   :hover selector never could (inline style specificity always wins). */
+.ll-filter-chip {
+  background-color: var(--chip-bg);
+  border-color: var(--chip-border);
+  color: var(--chip-fg);
+}
+.ll-filter-chip:hover:not([aria-pressed='true']) {
+  background-color: color-mix(in srgb, var(--chip-cue) 16%, transparent);
+  border-color: var(--chip-cue);
+}
+
 /* Thin, era-tinted scrollbars. */
 .era-shell ::-webkit-scrollbar {
   width: 10px;
