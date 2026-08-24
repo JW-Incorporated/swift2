@@ -59,18 +59,21 @@ export interface KnowledgeDataSource {
    * for that event, so a promoted row must never double up in the feed.
    */
   getCurrentItems(eraId: string): Promise<CurrentItem[]>;
-  /** FTS-only hybrid search over `knowledge_doc` (proposal §7). */
-  search(query: string, filters?: KnowledgeSearchFilters): Promise<KnowledgeDoc[]>;
+  /** FTS-only hybrid search over `knowledge_doc` (proposal §7). `signal`
+   * (Codex review BLOCKER 2, Clownbot agent loop) aborts the underlying
+   * PostgREST fetch when the caller's wall-clock budget runs out — never
+   * left to keep running server-side once abandoned. */
+  search(query: string, filters?: KnowledgeSearchFilters, signal?: AbortSignal): Promise<KnowledgeDoc[]>;
   /** Confirmed egg/theory precedents touching `symbol`, grouped by `mechanism`. */
-  precedents(symbol: string): Promise<PrecedentGroup[]>;
+  precedents(symbol: string, signal?: AbortSignal): Promise<PrecedentGroup[]>;
   /** `current_item` rows observed in the last `days` days, newest first. */
-  recent(days: number): Promise<CurrentItem[]>;
+  recent(days: number, signal?: AbortSignal): Promise<CurrentItem[]>;
   /** `fan_signal` rows matching `topic` (topic text or symbol overlap), heat-ordered. */
-  chatter(topic: string): Promise<FanSignal[]>;
+  chatter(topic: string, signal?: AbortSignal): Promise<FanSignal[]>;
   /** Weekly activity counts for `symbol` from the `symbol_activity` materialized view. */
-  symbolActivity(symbol: string): Promise<SymbolActivity[]>;
+  symbolActivity(symbol: string, signal?: AbortSignal): Promise<SymbolActivity[]>;
   /** A Vault track's `knowledge_doc` row by title (case-insensitive), or null if none. */
-  track(title: string): Promise<KnowledgeDoc | null>;
+  track(title: string, signal?: AbortSignal): Promise<KnowledgeDoc | null>;
 }
 
 const CURRENT_ITEM_COLS =
@@ -98,9 +101,9 @@ export async function getCurrentItems(db: SupabaseClient, eraId: string): Promis
  * explicit `redline_ok = true` (RLS already scopes anon reads this way, same
  * as `getCurrentItems` relies on implicitly, but PLAN.md Stage 9 calls this
  * filter out explicitly, so it's stated here rather than only left to policy). */
-export async function getRecentItems(db: SupabaseClient, days: number): Promise<CurrentItem[]> {
+export async function getRecentItems(db: SupabaseClient, days: number, signal?: AbortSignal): Promise<CurrentItem[]> {
   const cutoff = dateMath().daysAgo(days);
-  const { data, error } = await db
+  let query_ = db
     .from('current_item')
     .select(CURRENT_ITEM_COLS)
     .gte('observed_on', cutoff)
@@ -108,6 +111,8 @@ export async function getRecentItems(db: SupabaseClient, days: number): Promise<
     .is('promoted_to', null)
     .order('observed_on', { ascending: false })
     .limit(CURRENT_ITEM_MAX_ROWS);
+  if (signal) query_ = query_.abortSignal(signal);
+  const { data, error } = await query_;
 
   if (error) throw new Error(`recent: ${error.message}`);
   return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem);
@@ -127,6 +132,7 @@ export async function searchKnowledgeDocs(
   db: SupabaseClient,
   query: string,
   filters: KnowledgeSearchFilters = {},
+  signal?: AbortSignal,
 ): Promise<KnowledgeDoc[]> {
   let builder = db.from('knowledge_doc').select(KNOWLEDGE_DOC_COLS);
   const trimmed = query.trim();
@@ -135,7 +141,9 @@ export async function searchKnowledgeDocs(
   if (filters.eraId) builder = builder.eq('era_id', filters.eraId);
   if (filters.symbols && filters.symbols.length > 0) builder = builder.overlaps('symbols', filters.symbols);
 
-  const { data, error } = await builder.order('updated_at', { ascending: false }).limit(KNOWLEDGE_DOC_MAX_ROWS);
+  let query_ = builder.order('updated_at', { ascending: false }).limit(KNOWLEDGE_DOC_MAX_ROWS);
+  if (signal) query_ = query_.abortSignal(signal);
+  const { data, error } = await query_;
   if (error) throw new Error(`search: ${error.message}`);
   return ((data ?? []) as KnowledgeDocRow[]).map(mapKnowledgeDoc);
 }
@@ -149,13 +157,15 @@ const EGG_LEDGER_MAX_ROWS = 200;
  * on purpose — `technique` has zero rows tonight (PLAN.md Stage 4 note,
  * docs/decisions.md 2026-08-23), so this degrades to one ungrouped bucket
  * per mechanism actually seen; it never crashes or fabricates a join. */
-export async function getPrecedents(db: SupabaseClient, symbol: string): Promise<PrecedentGroup[]> {
-  const { data, error } = await db
+export async function getPrecedents(db: SupabaseClient, symbol: string, signal?: AbortSignal): Promise<PrecedentGroup[]> {
+  let query_ = db
     .from('egg_ledger')
     .select(EGG_LEDGER_COLS)
     .contains('symbols', [symbol])
     .order('hint_date', { ascending: false })
     .limit(EGG_LEDGER_MAX_ROWS);
+  if (signal) query_ = query_.abortSignal(signal);
+  const { data, error } = await query_;
   if (error) throw new Error(`precedents: ${error.message}`);
 
   const entries = ((data ?? []) as EggLedgerRow[]).map(mapEggLedgerEntry);
@@ -175,21 +185,24 @@ const FAN_SIGNAL_MAX_ROWS = 200;
 /** `fan_signal` rows matching `topic` — either a text match on `topic` or a
  * symbol-overlap match (chatter tagged with `topic` as a symbol key), merged
  * and deduped by id, heat-ordered. */
-export async function getChatter(db: SupabaseClient, topic: string): Promise<FanSignal[]> {
-  const [byTopic, bySymbol] = await Promise.all([
-    db
-      .from('fan_signal')
-      .select(FAN_SIGNAL_COLS)
-      .ilike('topic', `%${topic}%`)
-      .order('heat', { ascending: false })
-      .limit(FAN_SIGNAL_MAX_ROWS),
-    db
-      .from('fan_signal')
-      .select(FAN_SIGNAL_COLS)
-      .contains('symbols', [topic])
-      .order('heat', { ascending: false })
-      .limit(FAN_SIGNAL_MAX_ROWS),
-  ]);
+export async function getChatter(db: SupabaseClient, topic: string, signal?: AbortSignal): Promise<FanSignal[]> {
+  let byTopicQuery = db
+    .from('fan_signal')
+    .select(FAN_SIGNAL_COLS)
+    .ilike('topic', `%${topic}%`)
+    .order('heat', { ascending: false })
+    .limit(FAN_SIGNAL_MAX_ROWS);
+  let bySymbolQuery = db
+    .from('fan_signal')
+    .select(FAN_SIGNAL_COLS)
+    .contains('symbols', [topic])
+    .order('heat', { ascending: false })
+    .limit(FAN_SIGNAL_MAX_ROWS);
+  if (signal) {
+    byTopicQuery = byTopicQuery.abortSignal(signal);
+    bySymbolQuery = bySymbolQuery.abortSignal(signal);
+  }
+  const [byTopic, bySymbol] = await Promise.all([byTopicQuery, bySymbolQuery]);
   if (byTopic.error) throw new Error(`chatter (topic): ${byTopic.error.message}`);
   if (bySymbol.error) throw new Error(`chatter (symbols): ${bySymbol.error.message}`);
 
@@ -203,13 +216,15 @@ export async function getChatter(db: SupabaseClient, topic: string): Promise<Fan
 const SYMBOL_ACTIVITY_COLS = 'symbol,week,n';
 const SYMBOL_ACTIVITY_MAX_ROWS = 200;
 
-export async function getSymbolActivity(db: SupabaseClient, symbol: string): Promise<SymbolActivity[]> {
-  const { data, error } = await db
+export async function getSymbolActivity(db: SupabaseClient, symbol: string, signal?: AbortSignal): Promise<SymbolActivity[]> {
+  let query_ = db
     .from('symbol_activity')
     .select(SYMBOL_ACTIVITY_COLS)
     .eq('symbol', symbol)
     .order('week', { ascending: false })
     .limit(SYMBOL_ACTIVITY_MAX_ROWS);
+  if (signal) query_ = query_.abortSignal(signal);
+  const { data, error } = await query_;
   if (error) throw new Error(`symbolActivity: ${error.message}`);
   return ((data ?? []) as SymbolActivityRow[]).map(mapSymbolActivity);
 }
@@ -219,14 +234,16 @@ export async function getSymbolActivity(db: SupabaseClient, symbol: string): Pro
  * `scripts/lib/knowledge-rows.mjs`'s `buildTrackDoc`) by title, case-
  * insensitive. Title alone isn't guaranteed unique across eras, so this
  * takes the first match rather than erroring on more than one row. */
-export async function getTrack(db: SupabaseClient, title: string): Promise<KnowledgeDoc | null> {
-  const { data, error } = await db
+export async function getTrack(db: SupabaseClient, title: string, signal?: AbortSignal): Promise<KnowledgeDoc | null> {
+  let query_ = db
     .from('knowledge_doc')
     .select(KNOWLEDGE_DOC_COLS)
     .eq('kind', 'track')
     .eq('tier', 'vault')
     .ilike('title', title)
     .limit(1);
+  if (signal) query_ = query_.abortSignal(signal);
+  const { data, error } = await query_;
   if (error) throw new Error(`track: ${error.message}`);
   const row = ((data ?? []) as KnowledgeDocRow[])[0];
   return row ? mapKnowledgeDoc(row) : null;
@@ -239,11 +256,12 @@ export function createKnowledgeClient(config: KnowledgeClientConfig): KnowledgeD
 
   return {
     getCurrentItems: (eraId: string) => getCurrentItems(supabase, eraId),
-    search: (query: string, filters?: KnowledgeSearchFilters) => searchKnowledgeDocs(supabase, query, filters),
-    precedents: (symbol: string) => getPrecedents(supabase, symbol),
-    recent: (days: number) => getRecentItems(supabase, days),
-    chatter: (topic: string) => getChatter(supabase, topic),
-    symbolActivity: (symbol: string) => getSymbolActivity(supabase, symbol),
-    track: (title: string) => getTrack(supabase, title),
+    search: (query: string, filters?: KnowledgeSearchFilters, signal?: AbortSignal) =>
+      searchKnowledgeDocs(supabase, query, filters, signal),
+    precedents: (symbol: string, signal?: AbortSignal) => getPrecedents(supabase, symbol, signal),
+    recent: (days: number, signal?: AbortSignal) => getRecentItems(supabase, days, signal),
+    chatter: (topic: string, signal?: AbortSignal) => getChatter(supabase, topic, signal),
+    symbolActivity: (symbol: string, signal?: AbortSignal) => getSymbolActivity(supabase, symbol, signal),
+    track: (title: string, signal?: AbortSignal) => getTrack(supabase, title, signal),
   };
 }

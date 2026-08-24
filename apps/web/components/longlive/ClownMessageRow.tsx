@@ -12,10 +12,13 @@
  * a real score and must render; see clown-answer.ts).
  */
 
-import { Copy, RotateCcw, ThumbsUp, VenetianMask } from 'lucide-react';
-import type { ClownSegment } from '@/lib/longlive/clown-answer';
+import { ChevronDown, Copy, RotateCcw, Search, ThumbsUp, VenetianMask } from 'lucide-react';
+import { useState } from 'react';
+import type { ClownSegment, InvestigationStep } from '@/lib/longlive/clown-answer';
+import { investigationLabel } from '@/lib/longlive/clown-chat-helpers';
 import type { RetrievedItem } from '@/lib/longlive/clown-fallback';
 import type { ClownMessage } from '@/lib/longlive/store';
+import { STATUS_LABEL } from './ClownItemCard';
 
 const MAX_DELULU = 5;
 
@@ -48,8 +51,10 @@ function SegmentBlock({ segment }: { segment: ClownSegment }) {
 }
 
 /** A citation, compacted to a bordered inline pill — a receipt, not a
- * paragraph. `status` drives only the dot: accent means `confirmed`, muted
- * means anything else. */
+ * paragraph. The dot is still a quick accent/muted read, but the status
+ * TEXT (Confirmed/Debunked/Reported/Rumor) is what actually distinguishes
+ * the four states — a dot alone made debunked/reported/rumor visually
+ * identical (Codex review MAJOR 7). */
 function SourceChip({ item }: { item: RetrievedItem }) {
   const isConfirmed = item.status === 'confirmed';
   return (
@@ -62,9 +67,47 @@ function SourceChip({ item }: { item: RetrievedItem }) {
             : 'h-[5px] w-[5px] flex-none rounded-full bg-[color:var(--clown-ink-soft)] opacity-60'
         }
       />
+      <span className="font-semibold uppercase tracking-wide text-[10px] text-[color:var(--clown-ink-soft)]">
+        {STATUS_LABEL[item.status]}
+      </span>
       <span className="font-medium text-[color:var(--clown-ink)]">{item.headline}</span>
       <span>&middot; {item.date}</span>
     </span>
+  );
+}
+
+/**
+ * PLAN.md Stage 10 — the agent loop's tool-call trail, rendered
+ * transparently: what the bot looked up and found, collapsed by default so
+ * it doesn't compete with the answer itself. `[]` for every non-loop
+ * producer (crisis/blocklist/scope-redirect/chip/degraded) — this renders
+ * nothing for those, matching how sources already render nothing when empty.
+ */
+function InvestigationTrail({ steps }: { steps: InvestigationStep[] }) {
+  const [open, setOpen] = useState(false);
+  if (steps.length === 0) return null;
+  return (
+    <div className="mt-3 text-xs text-[color:var(--clown-ink-soft)]">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="inline-flex items-center gap-1 font-medium"
+      >
+        <Search className="h-3 w-3" aria-hidden />
+        what I looked up ({steps.length})
+        <ChevronDown className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden />
+      </button>
+      {open && (
+        <ul className="mt-1.5 space-y-1 pl-4">
+          {steps.map((step, i) => (
+            <li key={i} className="list-disc">
+              {investigationLabel(step)} — {step.summary}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -138,6 +181,7 @@ export function ClownMessageRow({ message }: { message: ClownMessage }) {
               ))}
             </div>
           )}
+          <InvestigationTrail steps={message.answer.investigation} />
           {/* gap-4 (16px) so the buttons' invisible 44px hit areas (each
               extending 8px past the 28px box) meet edge-to-edge instead of
               overlapping — visual spacing stays tight, tap zones don't. */}

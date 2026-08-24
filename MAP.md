@@ -177,6 +177,34 @@ have landed. Not yet landed as of this update (per `PLAN.md`'s "Files touched"
 table, still in flight in a parallel step): `app/api/clown/route.ts`,
 `clown-seed-example.ts`, and the `share.ts`/`TopBar.tsx` wiring.
 
+## Clownbot agent loop (PLAN.md Stage 10, proposal §7) — new files
+
+Inserts a bounded, streamed tool loop into the existing route's
+compose-or-fallback stage. Consumes Stage 9's `packages/core/src/knowledge`
+retrieval library; also touches it additively (every `KnowledgeDataSource`
+method — `search`/`precedents`/`recent`/`chatter`/`symbolActivity`/`track` —
+gained an optional trailing `signal?: AbortSignal` so the loop's shared
+wall-clock deadline aborts an in-flight DB read, not just abandons it), never
+changing any existing call site's behaviour.
+
+| Path | What |
+|---|---|
+| `apps/web/lib/longlive/clown-agent.ts` (+ `.test.ts`) | The bounded loop's control flow (`runClownAgent`) — ≤6 tool calls / ≤20s / ≤2,500 tokens, all enforced BEFORE a call is requested, not after; forces `record_take` once any cap trips |
+| `apps/web/lib/longlive/clown-agent-prompt.ts` | Message-shape plumbing split out of `clown-agent.ts` (300-line cap): seed-prompt building, `tool_result` formatting, read-tool dispatch, `tool_use` block extraction — no cap/budget logic |
+| `apps/web/lib/longlive/clown-agent-tools.ts` (+ `.test.ts`) | The 7 read tools' executors, DB-first with `clown-index.ts` as the no-DB-unreachable fallback (search only); `resolveScopeSignal` for the route's pre-loop scope check |
+| `apps/web/lib/longlive/clown-predictions.ts` (+ `.test.ts`) | `persistPrediction` is currently a no-op (logs and returns) — `bot_prediction` (Stage 11's table) doesn't exist yet; the intended insert shape is documented in-file, unreachable until Stage 11 wires real auth/RLS for it |
+| `apps/web/lib/longlive/clown-stream.ts` (+ `.test.ts`) | Client-side NDJSON stream reader, shared by `ClownChat.tsx` |
+| `apps/web/lib/longlive/clown-route-helpers.ts` | `route.ts` plumbing split out (300-line cap): rate limiting, transcript sanitisation, the fixed-copy answer shape, the NDJSON stream producer (server side of `clown-stream.ts`) |
+| `apps/web/lib/longlive/clown-chat-helpers.ts` | Pure helpers split out of `ClownChat.tsx` (300-line cap) |
+| `apps/web/lib/longlive/clown-client.ts` | Unchanged behaviour, now also exports `callAnthropicMessages`/`clownModelKey` — the shared wire primitive `clown-agent.ts` reuses (no second model client) |
+| `apps/web/lib/longlive/clown-client-prompt.ts` | Gains the method block + `CLOWN_READ_TOOLS` schemas; `CLOWN_TAKE_TOOL` unchanged |
+| `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` widened with `investigation: InvestigationStep[]` (`[]` for every non-loop producer) |
+
+`ClownChat.tsx`/`ClownMessageRow.tsx` were already over the 300-line
+guideline before this stage (350/153 lines); the stream-consumption and
+investigation-trail rendering added here pushed `ClownChat.tsx` to 365 —
+noted, not further split this PR (see the Stage 10 PR body for the call).
+
 ## Mood Chat — the song/feeling matcher (SEPARATE from Clownbot)
 
 Shares **zero imports** with `clown-*`; the two only mirror each other in

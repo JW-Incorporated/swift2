@@ -48,7 +48,8 @@ export interface GateRetrievedItem {
 export type GateRejection =
   | { kind: 'redline'; category: Redline }
   | { kind: 'fabrication'; citedId: string }
-  | { kind: 'ungrounded' };
+  | { kind: 'ungrounded' }
+  | { kind: 'empty-prose' };
 
 /**
  * Re-screen a `ClownTake` before it reaches a reader.
@@ -65,6 +66,17 @@ export function screenClownTake(
   const parts = [take.stance, take.argument, take.counterpoint, take.aside, take.theoryName ?? undefined];
   const redline = screenOutput(parts);
   if (redline) return { kind: 'redline', category: redline };
+
+  // Codex review MAJOR 5: `sanitizeTake` sanitizes an invalid/missing
+  // required string down to `''` rather than throwing, so a take with a
+  // perfectly valid citation but a blank stance/argument/counterpoint used
+  // to sail through this gate with nothing but the citation check —
+  // stripping to no prose at all downstream (`clown-answer.ts`'s `compact`)
+  // while still counting as a "clean" take. The three REQUIRED fields
+  // (`CLOWN_TAKE_TOOL.input_schema.required`) must carry real prose, not
+  // whitespace, before anything else is checked.
+  const requiredProse = [take.stance, take.argument, take.counterpoint];
+  if (requiredProse.some((field) => field.trim().length === 0)) return { kind: 'empty-prose' };
 
   if (take.citedIds.length === 0) return { kind: 'ungrounded' };
 
