@@ -26,6 +26,114 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 20. [UPGRADE] Register a DMCA agent with the U.S. Copyright Office — ~15 min + a small filing fee
+
+**Filed:** 2026-08-24
+
+**Why it matters:** Joey decided (2026-08-24, in chat) to register a DMCA
+agent. `apps/web/lib/longlive/legal.ts`'s takedown-notice section (PR #2332)
+now says "we are in the process of registering" — that line needs to become
+"is registered" once this is actually done, so don't leave this open long.
+This needs your own identity/account and a payment method — no agent can do
+it for you.
+
+**Steps:**
+1. Go to `https://dmca.copyright.gov` and create/sign in to a U.S. Copyright
+   Office account.
+2. Start a new **"Designation of Agent to Receive Notification of Claimed
+   Infringement"** filing.
+3. Fill in: Service Provider Name → `JW Labs LLC` (also list `Long Live` /
+   `longlivets.com` as an alternate name if the form asks for one). Agent
+   name/title → whoever should actually receive DMCA notices (you, or a
+   role). Agent contact → use `legal@longlivets.com` (PR #2332) so it
+   matches the published policy. Public contact address → same
+   postal-address call as item #19/legal.ts (currently omitted per counsel;
+   the Copyright Office may require a real one for this specific filing —
+   check the form).
+4. Pay the filing fee (check the current amount on the site — it's changed
+   before, don't trust a number from an old source) and submit.
+5. Tell a session once it's filed — the confirmation gives you the agent's
+   registration number, which is worth recording in `docs/decisions.md`.
+
+**Worked if:** `dmca.copyright.gov`'s public agent directory shows JW Labs
+LLC / Long Live with a live registration, and `legal.ts`'s DMCA line is
+updated to say "is registered."
+
+**Status:** OPEN
+
+---
+
+### 19. [BLOCKING] 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call
+
+**Filed:** 2026-08-24
+
+**Why it matters:** issue #935 (filed 2026-07-20, never surfaced to you — this
+is separate from the 2026-08-15 decision that retired 12 *social-library*
+JPGs; that decision didn't touch this batch). 17 `media.gettyimages.com`
+comp-image URLs are hotlinked 33 times across 4 era content files
+(`supabase/seed/content/fearless.mjs`, `speak-now.mjs`, `debut.mjs`,
+`reputation.mjs`), confirmed still present today, plus 2 more recently added
+in `supabase/seed/candidates/00-orbit.mjs`. This is the same class of rights
+exposure the 2026-08-15 decision was written to close — it just never
+reached this batch. Tied to the #800 LEGAL launch gate.
+
+**Steps:**
+1. Decide (with counsel, same lawyer who cleared #800's other items):
+   license these 17 for real use, or retire them the same way the 12
+   social-library images were retired 2026-08-15.
+2. Tell a session which — either path is mechanical once decided (swap for
+   licensed/CC images, or strip the hotlinks per the existing retirement
+   pattern).
+
+**Worked if:** `grep -r "gettyimages.com" supabase/seed/` returns nothing, or
+returns only licensed/counsel-approved uses.
+
+**Status:** OPEN
+
+---
+
+### 18. [UPGRADE] Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt
+
+**Filed:** 2026-08-24
+
+**Why it matters:** issue #725 — production `month_item`/`track_note`/
+`theory`/`video_work` tables are stale against `supabase/seed/**`. The issue
+itself says this isn't urgent — it only matters before the Android device
+test (item #17 below), so bundle them.
+
+**Steps:**
+1. Whoever has `apps/worker/.env` (`SUPABASE_DB_URL` — Wyatt) runs `npm run
+   db:seed:content`, `db:seed:tracks`, `db:seed:theories`, `db:seed:videos`.
+
+**Worked if:** production content matches the current seed files.
+
+**Status:** OPEN
+
+---
+
+### 17. [UPGRADE] Android — real-device test is the only thing left before Play Store — ~15 min, needs Wyatt
+
+**Filed:** 2026-08-24
+
+**Why it matters:** issue #530. Engineering is done — two draft PRs (#42,
+#67) hold a working Expo/EAS build plus the shipping checklist. The only
+remaining blocker is running it on a real Android phone, which needs
+Wyatt's account/hardware. `docs/definition-of-done.md` row 8's "#1815 —
+unshipped" note is stale; #1815 is a merged PR, not the actual tracker — the
+live tracker is #530.
+
+**Steps:**
+1. Wyatt installs the EAS build from #67's checklist on a real Android
+   phone and runs through it.
+2. Report back pass/fail; if it passes, the Play Store submission steps are
+   already written in #67.
+
+**Worked if:** #530 closes with a real-device pass recorded.
+
+**Status:** OPEN
+
+---
+
 ### 16. [UPGRADE] Facebook groups checklist ships empty — needs your real group list, and your first real export to trust the parser
 
 **Filed:** 2026-08-24
