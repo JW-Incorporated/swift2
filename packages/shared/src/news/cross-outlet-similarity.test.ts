@@ -154,6 +154,60 @@ describe('CrossOutletSimilarityProvider.similarity — signal 3: shared entities
   });
 });
 
+describe('CrossOutletSimilarityProvider — regression, issue #915 (Healy/Shaq/Paisley)', () => {
+  // #915 measured the OLD LexicalSimilarityProvider (title-only Jaccard, since
+  // replaced by this provider per cross-outlet-similarity.ts's own module doc)
+  // against three real event groups and found lowering its threshold alone
+  // would be wrong: the Shaq "trio" is three genuinely distinct statements
+  // (must NOT cluster) while Healy/Paisley are each one event covered
+  // repeatedly (MUST cluster). Re-run here against the provider that actually
+  // ships today, asserting both directions per the issue's own ask.
+
+  it('does NOT cluster the Shaq trio — three distinct statements, not one event (exact headlines from #915)', () => {
+    const items = [
+      item('a', "Shaq says he didn't get an invite", { publishedAt: '2026-08-15T10:00:00Z' }),
+      item('b', 'Shaq shared a 4-word message to the newlyweds', { publishedAt: '2026-08-15T14:00:00Z' }),
+      item('c', "Shaquille O'Neal jokingly thanks them for not inviting him", {
+        publishedAt: '2026-08-15T18:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(3);
+  });
+
+  it('clusters the Healy marriage coverage — one event, four outlets', () => {
+    const items = [
+      item('a', 'Matty Healy marries Gabbriette Bechtel in surprise ceremony', {
+        publishedAt: '2026-08-10T09:00:00Z',
+      }),
+      item('b', '1975 frontman Matty Healy weds model Gabbriette Bechtel', {
+        publishedAt: '2026-08-10T12:00:00Z',
+      }),
+      item('c', "Matty Healy, Taylor Swift's ex, ties the knot with Gabbriette Bechtel", {
+        publishedAt: '2026-08-10T15:00:00Z',
+      }),
+      item('d', 'Gabbriette Bechtel and Matty Healy are officially married', {
+        publishedAt: '2026-08-10T20:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(1);
+  });
+
+  it('clusters the Brad Paisley pair — one event, two outlets', () => {
+    const items = [
+      item('a', 'Brad Paisley performs surprise set at star-studded wedding', {
+        publishedAt: '2026-08-12T11:00:00Z',
+      }),
+      item('b', 'Country star Brad Paisley plays surprise wedding set for A-list couple', {
+        publishedAt: '2026-08-12T22:00:00Z',
+      }),
+    ];
+    const result = clusterBatch(items, [], provider, OPTS);
+    expect(result.newStoryCount).toBe(1);
+  });
+});
+
 describe('CrossOutletSimilarityProvider — cross-story assignment via ExistingStory', () => {
   it('attaches a new item to an existing story on canonical URL match', () => {
     const existing: ExistingStory[] = [
