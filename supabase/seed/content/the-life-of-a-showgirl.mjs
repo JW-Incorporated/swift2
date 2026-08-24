@@ -7635,7 +7635,12 @@ export default {
       category: 'music',
       // Cross-link (candidate #1045): the NYT 30-greatest-songwriters interview
       // that opened the same 2026 craft-canonization spring.
-      relatedIds: ['moment:vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar'],
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the Grammy
+      // Museum Songwriters-Wing retrospective that August — same craft thread.
+      relatedIds: [
+        'moment:vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+      ],
       title: 'The youngest woman in the Songwriters Hall of Fame',
       snippet:
         'At 36, Taylor becomes the youngest woman ever inducted into the Songwriters Hall of Fame — only Stevie Wonder got there younger. Steven Spielberg handles the surprise introduction, and Travis and both moms watch from her table, three weeks before the wedding.',
@@ -9012,6 +9017,15 @@ export default {
         'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
       thumbnailUrl: null,
       significance: 'notable',
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the 2026
+      // songwriting-craft cluster — this Recording Academy Songwriters &
+      // Composers Wing retrospective sits beside her two songwriting-hall
+      // honors that same year (Nashville SHOF, Aug 11; the New York
+      // Songwriters Hall of Fame, June 11).
+      relatedIds: [
+        'moment:vault-tloas-named-to-the-nashville-songwriters-hall-of-fame-its-youngest',
+        'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+      ],
       moment: {
         context:
           'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance of a few songs for the small crowd — even as the specifics stayed inside the room. No setlist was released, and none is invented here; what is on the record is that she performed, not what. The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what surfaced came from the guests themselves rather than any official recording.',
@@ -10824,7 +10838,12 @@ export default {
       category: 'music',
       // Cross-link (#2027): her other 2026 songwriting-hall honor — the New
       // York Songwriters Hall of Fame's youngest-woman induction that June.
-      relatedIds: ['moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame'],
+      // Cross-link (Vault Run 2026-08-24, crosslink-opportunity): the Grammy
+      // Museum Songwriters-Wing retrospective a week later — same craft thread.
+      relatedIds: [
+        'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+      ],
       title: 'Named to the Nashville Songwriters Hall of Fame — its youngest inductee ever, at 36',
       snippet:
         'On Aug. 11, 2026, the Nashville Songwriters Hall of Fame named Taylor a 2026 inductee — at 36, the youngest songwriter it has ever elected. She enters in the contemporary songwriter/artist category, in a class led by Lyle Lovett, with formal enshrinement set for the hall’s 56th-anniversary gala later this year.',
