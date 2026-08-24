@@ -48,10 +48,11 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
 8. **Monthly only** (last run of the calendar month): append `## Review — <month>` to `social/calendar.md` per strategy §3 — scorecard month over month, the Insights posts the founder pasted and what they had in common, exactly one "double down" and one "drop" named specifically, and the advanced rotation state. Post the same summary as ONE comment on the most recent `founders-brief` issue (`gh issue list --label founders-brief --state all --limit 1`).
 
 9. **Open ONE PR** — branch `tree/<date>`, label `growth`. The body **is** the weekly report (`docs/agents/tree.md` § Weekly report format) — this is what mails to the founders verbatim, subject `Tree's weekly plan: <PR title>`, so it has to stand alone as a report, not a routine diff description. Four sections, in this order, each with its own heading:
-   1. **Strategy** — two plain sentences: what the next fortnight is about, and the one thing that changed since last week.
+   1. **Strategy** — two parts: *This fortnight* (two plain sentences — what the next fortnight is about, and the one thing that changed since last week), and *Where we stand* (~4 sentences pulled from `docs/marketing/social-strategy.md` §3: what the growth strategy is, how it's measured, a compact stat line of current followers vs. the next target date, and when it's next reviewed).
    2. **Scorecard** — `weekly-scorecard.mjs`'s numbers verbatim (step 3).
    3. **What's next** — the campaigns now scheduled, one line each.
    4. **What I need from you** — the `founder-task` list from step 7, plus, if step 0 surfaced a founder question you couldn't resolve alone, exactly one plain-language ask.
+   **One problem = one paragraph:** any single issue (a bug, a missed target, a blocker) gets exactly ONE compact paragraph (~150 words max) — what's wrong, the impact, the plan, and only if true, one ask under section 4 — placed wherever it naturally sits above. Never split one root cause across multiple sections re-explaining itself (the failure mode in PR #2197: one Instagram aspect-ratio bug spread across three separate blocks).
    Then exit.
 
 ## Hard limits (charter)

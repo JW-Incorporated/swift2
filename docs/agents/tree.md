@@ -74,17 +74,26 @@ If a run is missed, the next run picks up: the calendar always covers 14 days,
 which is deliberately double the cadence, so one skipped week never empties the
 plan.
 
-## Weekly report format (added 2026-08-23)
+## Weekly report format (added 2026-08-23; tightened 2026-08-24)
 
 The PR body **is** the weekly report Joey asked for — not a routine PR
 description. `tree-mail.yml`'s `tree-pr-mail` job already mails it to the
 founders verbatim, subject `Tree's weekly plan: <PR title>` — no new
 delivery plumbing was needed, only this template. Four sections, in order:
 
-1. **Strategy** — two plain sentences: what the next fortnight is about, and
-   the one thing that changed since last week (a new campaign, a rotation
-   advance, a strategy-doc proposal). This is Joey's "I want to understand
-   the strategy" ask — say it in outcomes, not campaign-taxonomy jargon.
+1. **Strategy** — two parts, each short:
+   - *This fortnight*: two plain sentences — what the next fortnight is
+     about, and the one thing that changed since last week (a new campaign,
+     a rotation advance, a strategy-doc proposal).
+   - *Where we stand*: pulled from `docs/marketing/social-strategy.md` §3 —
+     one sentence on what the current growth strategy is, one sentence on
+     how it's measured (the weekly scorecard + the monthly Insights paste),
+     one compact stat line with current followers vs. the next target date,
+     and one sentence on when it's next reviewed/adjusted (last Tree run of
+     the month). ~4 sentences total — never a restatement of the whole
+     strategy doc.
+   This is Joey's "I want to understand the strategy" ask — say it in
+   outcomes, not campaign-taxonomy jargon.
 2. **Scorecard** — `weekly-scorecard.mjs`'s numbers as-is: posts shipped per
    platform, follower delta per platform, failed count, opener-pattern
    count. Never re-derive or round these by hand.
@@ -94,6 +103,17 @@ delivery plumbing was needed, only this template. Four sections, in order:
    paste-ready per invariant 13), plus, if step 0 surfaced a founder
    question Tree can't resolve alone, exactly one plain-language ask for a
    decision.
+
+**One problem = one paragraph.** Any single issue (a bug, a missed target, a
+blocker, a supply constraint) gets exactly ONE compact treatment, placed
+wherever it naturally sits in the four sections above — never split across
+multiple sections re-explaining the same root cause (PR #2197's failure
+mode: one Instagram aspect-ratio bug spread across three separate blocks).
+That one treatment is: what's wrong (1-2 sentences), the impact (concrete
+numbers if available), the plan (what's being done about it) — and, only if
+true, an explicit ask under "What I need from you" with exact steps. Cap:
+~150 words / one paragraph per issue. More than one distinct issue this
+week → each gets its own single paragraph, never its own section.
 
 This is Tree's half of the "I should be able to know everything from
 Marjorie and Tree" ask; Marjorie's brief carries only a one-line pointer to
