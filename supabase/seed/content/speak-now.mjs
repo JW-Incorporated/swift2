@@ -183,15 +183,18 @@ export default {
     },
     {
       // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
-      relatedIds: [
-        "moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice",
-        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
-        'moment:vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice',
-      ],
+      // (issue #722, 2026-08-24: the sibling People's Choice look was routed
+      // off this timeline into the Runway thread, so that leg of the
+      // cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys'],
       year: 2011,
       month: 11,
       day: 9,
-      category: 'fashion',
+      // Recategorized fashion -> business (issue #722, 2026-08-24): the
+      // gown is incidental — the real content is the second CMA
+      // Entertainer of the Year win, a real milestone with no other
+      // dedicated timeline card.
+      category: 'business',
       title: 'A dove-grey J. Mendel gown for her second Entertainer of the Year win',
       snippet:
         'A dove-grey J. Mendel gown with a billowing train, held up the whole walk to the stage for her second CMA Entertainer of the Year award.',
@@ -230,50 +233,6 @@ export default {
             price: '$695.00',
             isAlternative: true,
             altNote: 'Her 2011 J. Mendel gown is long discontinued -- a current made-to-order dove-grey sequin gown in the same formal register.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): another recurring Speak Now Tour
-      // costume, the white lace 'Mean' dress.
-      relatedIds: ['moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to'],
-      title: 'A gold Roberto Cavalli fringe dress for Sparks Fly, Mine, and The Story of Us',
-      snippet:
-        'A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album\'s songs.',
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg',
-      moment: {
-        context:
-          "One dress, three songs: Femestella logs the Roberto Cavalli gold ombré sequin fringe mini as the tour's recurring look for 'Sparks Fly,' 'Mine,' and 'The Story of Us,' always paired with the same Everybody Fargo black knee-high boots.\n\nThat made it the workhorse of a show built around nine costume changes — while Susan Hilferty's custom chiffon gowns carried the fairy-tale numbers, the fringe was the up-tempo uniform, cut to catch arena light and movement.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg',
-            // Singing at the mic; her face sits in the upper-left third.
-            focalPoint: '42% 20%',
-            credit: 'Eva Rinaldi / Wikimedia Commons',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact tour costume is undocumented --
-        // a current, verified in-stock gold fringe mini in the same spirit.
-        products: [
-          {
-            brand: '12th Tribe',
-            item: 'Ophelia Gold Fringe Mini Dress',
-            retailer: '12thtribe.com',
-            url: 'https://www.12thtribe.com/products/ophelia-gold-fringe-mini-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0747/5039/files/OpheliaGoldFringeMiniDress_BeauPearlStatementChainBelt_4.jpg?v=1773967205',
-            price: '$114.00',
-            isAlternative: true,
-            altNote: 'The exact Roberto Cavalli tour costume is undocumented beyond this description -- a current gold fringe mini in the same silhouette (Everybody Fargo boots not separately sourced).',
           },
         ],
       },
@@ -414,48 +373,6 @@ export default {
     {
       year: 2010,
       month: 11,
-      day: 10,
-      category: 'fashion',
-      title: 'A red Monique Lhuillier gown at the 2010 CMA Awards',
-      snippet:
-        'A strapless red sweetheart gown with waist ruching and a thigh-high slit — a bolder red-carpet turn the same month Speak Now took over the charts.',
-      sourceUrl: 'https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html',
-      thumbnailUrl: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
-      moment: {
-        context:
-          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. A classic rather than a showstopper, per Insider's CMA retrospective, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
-        sources: [
-          {
-            outlet: 'Yahoo Entertainment (Insider)',
-            url: 'https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html',
-          },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' },
-        ],
-        photos: [
-          {
-            url: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
-            credit: 'Larry Busacca/Getty Images',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2010 gown is discontinued -- a
-        // current Monique Lhuillier gown, verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Monique Lhuillier',
-            item: 'Poppy Jacquard Column Gown',
-            retailer: 'moniquelhuillier.com',
-            url: 'https://moniquelhuillier.com/products/poppy-jacquard-column-gown',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/26110-298-POPPY_00594.jpg?v=1763141815',
-            price: '$5,995.00',
-            isAlternative: true,
-            altNote: 'Her exact 2010 gown is long discontinued -- this is a current Monique Lhuillier gown in the same red-orange "Poppy" family, a column silhouette rather than a sweetheart slit gown.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2010,
-      month: 11,
       day: 21,
       category: 'fashion',
       title: 'Blunt bangs debut at the 2010 American Music Awards',
@@ -494,287 +411,19 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "J. Mendel" designer cluster.
-      relatedIds: [
-        'moment:vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-',
-        'moment:vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys',
-      ],
-      year: 2011,
-      month: 1,
-      day: 5,
-      category: 'fashion',
-      title: "A curly updo and J. Mendel pink chiffon at the People's Choice Awards",
-      snippet:
-        "A loose curly updo with a J. Mendel pink chiffon dress, Prada heels, and Neil Lane jewels — peak Speak Now-era red carpet styling.",
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg',
-      moment: {
-        context:
-          "The look was peak Speak Now-era red carpet: a pink J. Mendel chiffon dress with a loose, curly updo, Prada heels, and Neil Lane jewels — soft, romantic styling that matched the album's fairy-tale visual register.\n\nShe wore it to the 37th People's Choice Awards at the Nokia Theatre in Los Angeles on January 5, 2011, where she won Favorite Country Artist — a fan-voted trophy landing barely two months into the album's chart run. She was also nominated for Favorite Female Artist that night, a category that went to Katy Perry.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/37th_People%27s_Choice_Awards' },
-        ],
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg',
-            credit: 'Femestella',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2011 J. Mendel dress is
-        // discontinued -- a current Monique Lhuillier pink chiffon gown,
-        // verified in stock, closest real match.
-        // Stylist re-check (2026-08-16): still a live PDP, but all sizes
-        // now show "Variant sold out or unavailable" -- flipped to
-        // inStock: false rather than removed, per the sold-out convention.
-        products: [
-          {
-            brand: 'Monique Lhuillier',
-            item: 'Sweetheart Strapless Chiffon Gown',
-            retailer: 'moniquelhuillier.com',
-            url: 'https://moniquelhuillier.com/products/pink-chiffon-sweetheart-strapless-gown',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/24343-24344-PINK-CARNATION_9.jpg?v=1716498166',
-            price: '$4,995.00',
-            isAlternative: true,
-            inStock: false,
-            altNote: 'Her exact J. Mendel dress is long discontinued -- this is a current pink chiffon gown in "Pink Carnation," same soft pink-chiffon spirit (Prada heels, Neil Lane jewels not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): the same designer's red chiffon
-      // 'Haunted' dress, and another recurring tour costume.
-      relatedIds: [
-        'moment:vault-speak-now-a-red-chiffon-susan-hilferty-dress-closes-out-haunted',
-        'moment:vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to',
-      ],
-      title: "Susan Hilferty's purple chiffon halter dress becomes the tour's signature",
-      snippet:
-        "A custom purple chiffon halter gown by costume designer Susan Hilferty — worn for the title track, 'Fearless,' 'Last Kiss,' and more across the Speak Now World Tour.",
-      sourceUrl: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/',
-      thumbnailUrl:
-        'https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp',
-      moment: {
-        context:
-          "Hilferty is credited as costume designer on the Speak Now World Tour; the purple halter became one of the era's most recognizable looks, reused across multiple songs in the setlist.\n\nHer studio's own archive of the tour pairs the original costume sketches with performance photographs — a rare look at a stage wardrobe built by a theatrical costume designer rather than assembled by a stylist, which is exactly why the show's dresses read like characters. Femestella calls the purple chiffon halter 'perhaps one of her most iconic looks' from the tour.",
-        sources: [
-          { outlet: 'Susan Hilferty (official)', url: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/' },
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-        ],
-        photos: [
-          {
-            url: 'https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp',
-            credit: 'Susan Hilferty (costume designer)',
-          },
-        ],
-        // Shop pass (2026-07-21): a one-of-a-kind custom stage costume has
-        // no retail equivalent -- a current purple gown, verified in
-        // stock, in the same color family.
-        products: [
-          {
-            brand: 'Sherri Hill',
-            item: '55304 One-Shoulder Ombre Sequin Gown',
-            retailer: 'formalapproach.com',
-            url: 'https://www.formalapproach.com/products/sherri-hill-55304-dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0068/3507/7184/products/sherri-hill-55304-purple-ombre-50858-homecoming-dresses-images.jpg?v=1654541933',
-            price: '$698.00',
-            isAlternative: true,
-            altNote: 'Hilferty\'s halter gown was a one-of-a-kind custom stage costume, never sold -- this is a current gown in Purple Ombre, same color family, though sequined rather than plain chiffon.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): two more recurring Speak Now Tour
-      // costumes — the Cavalli fringe dress and Hilferty's purple halter.
-      relatedIds: [
-        'moment:vault-speak-now-a-gold-roberto-cavalli-fringe-dress-for-sparks-fly-mine-and-',
-        'moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour',
-      ],
-      title: "A white lace Alice + Olivia dress for 'Mean' on the Speak Now Tour",
-      snippet:
-        "A custom white lace Alice + Olivia dress, worn during 'Mean' performances across the Speak Now World Tour.",
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg',
-      moment: {
-        context:
-          "Femestella notes the custom white lace dress 'took the stage any time Taylor Swift sang' the song on tour.\n\nThe costume matched the number's register: 'Mean' was the banjo-led, fiddle-and-mandolin track critics tagged as the most country thing on Speak Now, and mid-tour the underdog single became a double Grammy winner — Best Country Song and Best Country Solo Performance, both won in February 2012 while the tour was still on the road.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
-        ],
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg',
-            credit: 'Femestella',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact custom Alice + Olivia stage
-        // piece has no retail listing -- a current white lace mini,
-        // verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Princess Polly',
-            item: 'Hailees Lace Strapless Mini Dress',
-            retailer: 'us.princesspolly.com',
-            url: 'https://us.princesspolly.com/products/hendrie-lace-mini-dress-white',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0061/8627/0804/files/1_afe48ad8-1095-4b7c-a3e0-c85234438620.jpg?v=1753158491',
-            price: '$15.00',
-            isAlternative: true,
-            altNote: 'The exact custom Alice + Olivia stage piece was never sold at retail -- this is a current white lace mini dress in the same general spirit.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      title: "A red sequin Theia slip dress for 'Better Than Revenge'",
-      snippet:
-        "A Theia red sequin slip dress with black knee-high boots, worn for the tour's 'Better Than Revenge' performances.",
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
-      moment: {
-        context:
-          "Femestella IDs it as a Theia red sequin slip, worn with the same Everybody Fargo black knee-high boots she paired with the gold Cavalli fringe — the tour's up-tempo footwear of choice.\n\nIn a show of nine costume changes otherwise dominated by chiffon and fairy-tale ballgowns, the slinky red sequin for the album's angriest song was the deliberate exception.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
-            credit: 'Eva Rinaldi / Wikimedia Commons',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact Theia tour piece is undocumented
-        // beyond this description -- a current red sequin slip, verified
-        // in stock, closest real match.
-        products: [
-          {
-            brand: 'Showpo',
-            item: 'Finn Mini Dress (Plunge Neck Sheer Sequin Dress)',
-            retailer: 'showpo.com',
-            url: 'https://www.showpo.com/nights-in-vegas-dress-in-wine-sequin.html',
-            price: '$66.00',
-            isAlternative: true,
-            altNote: 'The exact Theia tour piece is undocumented beyond this description -- a current red sequin slip dress in the same silhouette (Everybody Fargo boots not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 2,
-      day: 9,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): the same designer's purple chiffon
-      // halter, the tour's other signature Hilferty look.
-      relatedIds: ['moment:vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour'],
-      title: "A red chiffon Susan Hilferty dress closes out 'Haunted'",
-      snippet:
-        "Another Susan Hilferty custom piece — a red chiffon midi-length dress worn for the tour's 'Haunted' performances.",
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl:
-        'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg',
-      moment: {
-        context:
-          "Hilferty — the tour's credited costume designer, whose studio archive pairs her original sketches with performance shots — built 'Haunted' its own red chiffon midi, the darker counterpart to the purple halter gown she designed for the show's fairy-tale stretch.\n\nTwo custom pieces from the same hand doing opposite jobs: one dress for the era's romance, one for its ghosts.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          { outlet: 'Susan Hilferty (official)', url: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/' },
-        ],
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg',
-            credit: 'Femestella',
-          },
-        ],
-        // Shop pass (2026-07-21): a one-of-a-kind custom stage costume has
-        // no retail equivalent -- a current red-toned gown, verified in
-        // stock, in the same color family.
-        products: [
-          {
-            brand: 'Monique Lhuillier',
-            item: 'Poppy Jacquard Column Gown',
-            retailer: 'moniquelhuillier.com',
-            url: 'https://moniquelhuillier.com/products/poppy-jacquard-column-gown',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0020/4842/6035/files/26110-298-POPPY_00594.jpg?v=1763141815',
-            price: '$5,995.00',
-            isAlternative: true,
-            altNote: 'Hilferty\'s red chiffon midi was a one-of-a-kind custom stage costume, never sold -- this is a current red-orange gown in the same color family, a floor-length column rather than a midi.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2011,
-      month: 5,
-      day: 22,
-      category: 'fashion',
-      // Cross-link (Stage 3, 2026-08-10): the "Elie Saab" designer cluster.
-      relatedIds: ['moment:vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award'],
-      title: 'A pink Elie Saab sequin gown at the Billboard Music Awards',
-      snippet:
-        'A strapless Elie Saab gown covered top to bottom in pink sequins, with side-swept curls — a glamorous but still youthful red-carpet look.',
-      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
-      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg',
-      moment: {
-        context:
-          "Worn May 22, 2011 — a night she left with two trophies, including the country artist award, presented by Train's Pat Monahan, over a field of Lady Antebellum, Jason Aldean, Zac Brown Band, and Kenny Chesney.\n\nAccepting, she reached back to the ceremonies she grew up watching: 'I used to watch the Billboard Awards and see my heroes like Shania Twain and Faith Hill win these, and now... I'm just having the best time doing this.' Femestella logs the gown as Elie Saab, worn with Lorraine Schwartz jewelry.",
-        sources: [
-          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
-          {
-            outlet: 'Taste of Country',
-            url: 'https://tasteofcountry.com/taylor-swift-billboard-music-awards-2011-country-artist-of-the-year/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg',
-            credit: 'Femestella',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2011 Elie Saab gown is
-        // discontinued and the brand's current site has no clean matching
-        // listing -- a current made-to-order pink sequin gown, closest
-        // verified in-stock match.
-        products: [
-          {
-            brand: 'WonderlandByLilian',
-            item: 'Elegant Pink Sequin Evening Gown',
-            retailer: 'wonderlandbylilian.com',
-            url: 'https://wonderlandbylilian.com/products/elegant-pink-sequin-evening-gown-and-embellished-gown-designer-sequin-gown-and-pink-sequin-dress-plus-size',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0550/3919/7262/files/elegant-pink-sequin-evening-gown-and-embellished-gown-designer-sequin-gown-and-pink-sequin-dress-plus-size-584732.webp?v=1717548573',
-            price: '$699.00',
-            isAlternative: true,
-            altNote: 'Her exact 2011 Elie Saab gown is discontinued -- this is a current made-to-order pink sequin gown in the same strapless, top-to-bottom sequin spirit (Lorraine Schwartz jewelry not separately sourced).',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
-      relatedIds: [
-        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
-        'moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moment.
+      // (issue #722, 2026-08-24: the sibling 2009 CMA-sweep look was routed
+      // off the Fearless timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover'],
       year: 2011,
       month: 11,
       day: 20,
-      category: 'fashion',
+      // Recategorized fashion -> business (issue #722, 2026-08-24): the
+      // gown is incidental — the real content is the 2011 AMAs 3-category
+      // sweep (her second Artist of the Year), a real milestone with no
+      // other dedicated timeline card.
+      category: 'business',
       title: 'A gold Reem Acra gown and side ponytail at the American Music Awards',
       snippet:
         'A sparkly gold strapless Reem Acra beaded gown paired with a side ponytail at the 2011 AMAs, where she was up for Artist of the Year.',
@@ -816,11 +465,11 @@ export default {
 
     // --- Fashion/photo depth pass #2 (2026-07-04) ---
     {
-      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moments.
-      relatedIds: [
-        'moment:vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma',
-        'moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi',
-      ],
+      // Cross-link (Stage 3, 2026-07-30): sibling "Reem Acra" moment.
+      // (issue #722, 2026-08-24: the sibling 2009 CMA-sweep look was routed
+      // off the Fearless timeline into the Runway thread, so that leg of
+      // the cluster no longer resolves to a moment id.)
+      relatedIds: ['moment:vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi'],
       year: 2010,
       month: 10,
       day: 25,
@@ -901,61 +550,6 @@ export default {
             price: '$659.00',
             isAlternative: true,
             altNote: 'No designer was ever named for this cover look -- this is a current made-to-order light-blue sequin dress in the same shimmery spirit.',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-07-30): the "Zuhair Murad" cluster — three
-      // looks by the same designer across three eras — now interlink.
-      relatedIds: [
-        'moment:vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb',
-        'moment:vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show',
-      ],
-      year: 2011,
-      month: 2,
-      day: 27,
-      category: 'fashion',
-      title: 'A gold Zuhair Murad minidress at the Vanity Fair Oscar party',
-      snippet:
-        'A beaded gold strapless Zuhair Murad minidress with a corset back, gold Jimmy Choo platform sandals and clutch, and pinned-back hair at the Vanity Fair Oscars after-party.',
-      sourceUrl: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/',
-      // Image-fix pass (2026-07-10): townsquare.media URL now serves a dead 'Taste of Country' logo
-      // placeholder (curl-verified content-type image/jpeg but pixels show the logo, not Taylor).
-      // Replaced with a verified Getty Images photo (id 109489184, HTTP 200, image/jpeg, visually
-      // confirmed: Taylor in the gold beaded strapless Zuhair Murad minidress at the 2011 Vanity
-      // Fair Oscar Party, Sunset Tower, Feb 27 2011).
-      thumbnailUrl: 'https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=',
-      moment: {
-        context:
-          'Worn February 27, 2011 at the Sunset Tower Hotel party, one of her earliest red-carpet turns in Zuhair Murad — a designer she\'d return to repeatedly through 2012.\n\nShe skipped the Academy Awards ceremony itself and went straight to the after-party, where Taste of Country reported she spent the night catching up with friends Emma Stone and Selena Gomez. The beaded gold minidress — corset back, matching gold platforms and clutch — previewed a designer relationship with a payoff already scheduled: a year later she walked the 2012 Grammys red carpet in gold Zuhair Murad Couture on the night "Mean" won twice.',
-        sources: [
-          { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/' },
-        ],
-        photos: [
-          {
-            // Image-fix pass (2026-07-10): old townsquare.media URL was a dead hotlink serving a
-            // 'Taste of Country' logo placeholder, not a photo. Replaced with Getty Images id
-            // 109489184 (curl-verified HTTP 200 image/jpeg; Read-viewed: matches caption exactly —
-            // gold beaded strapless Zuhair Murad minidress, Vanity Fair Oscar Party red carpet).
-            url: 'https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=',
-            credit: 'Jon Kopaloff/Getty Images',
-            caption: 'Arriving at the Vanity Fair Oscar Party at Sunset Tower, February 27, 2011, in the gold Zuhair Murad minidress.',
-            kind: 'primary',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2011 Zuhair Murad minidress is
-        // discontinued -- a current gold sequin mini, verified in stock,
-        // closest real match.
-        products: [
-          {
-            brand: 'Fashion Nova',
-            item: 'Staying Golden Sequin Mini Dress',
-            retailer: 'fashionnova.com',
-            url: 'https://www.fashionnova.com/products/staying-golden-sequin-mini-dress-gold',
-            price: '$42.99',
-            isAlternative: true,
-            altNote: 'Her exact Zuhair Murad minidress is long discontinued -- this is a current gold sequin mini in the same beaded-gold spirit (Jimmy Choo platforms not separately sourced).',
           },
         ],
       },
@@ -1053,52 +647,6 @@ export default {
             price: '$1,695.00',
             isAlternative: true,
             altNote: 'The exact editorial pieces from this shoot are undocumented -- this is a current piece from Rodarte, one of the three houses (with Jil Sander and Rag & Bone) the shoot pulled from.',
-          },
-        ],
-      },
-    },
-    {
-      year: 2012,
-      month: 2,
-      day: 12,
-      category: 'fashion',
-      title: 'A gold Zuhair Murad Couture gown on the 2012 Grammys red carpet',
-      snippet:
-        'A gold Zuhair Murad Couture gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt with a short train — worn on the red carpet before her banjo-driven "Mean" performance.',
-      sourceUrl: 'https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/',
-      thumbnailUrl:
-        'https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg',
-      moment: {
-        context:
-          'Pulled from Zuhair Murad\'s haute couture line — a gold gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt trailing a short train — it was her second gold Murad inside a year, after the Vanity Fair Oscar-party minidress the previous February.\n\nThe night made the dress a footnote: "Mean" won Best Country Song and Best Country Solo Performance, and she performed it live at the ceremony, banjo in hand, altering a lyric mid-song to reference winning at the Grammys — closing the loop on a track written straight back at her critics.',
-        sources: [
-          {
-            outlet: 'Style Darling Daily',
-            url: 'https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/',
-          },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
-        ],
-        photos: [
-          {
-            url: 'https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg',
-            // Full-length red-carpet portrait; face is high in frame.
-            focalPoint: '52% 13%',
-            credit: 'Style Darling Daily',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact haute couture gown was never
-        // sold at retail -- a current gold mermaid gown, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'COLORS Dress',
-            item: 'Sequin Mermaid Evening Gown',
-            retailer: 'shop.simon.com',
-            url: 'https://shop.simon.com/products/sequin-mermaid-evening-gown-in-gold-turquoise',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0291/4536/6588/files/3808f67a690a4eb59f90c3800d2a6c67.jpg?v=1776389435',
-            price: '$170.00',
-            isAlternative: true,
-            altNote: 'Her Zuhair Murad Couture gown was a one-of-a-kind piece, never sold at retail -- this is a current gold mermaid sequin gown in the same silhouette.',
           },
         ],
       },
