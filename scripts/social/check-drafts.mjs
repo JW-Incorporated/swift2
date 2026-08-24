@@ -68,6 +68,7 @@ import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { checkSurnameOveruse, checkAiTells, checkWireAttribution } from '../content-engine/checkers/voice.mjs';
+import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
@@ -91,6 +92,15 @@ const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
 // mediaKind "photo" is path-bound to this prefix, and "site-screen" is barred
 // from it — see the kind checks in checkMedia.
 const PHOTO_PREFIX = '/social/library/photos/';
+// Instagram rejects a feed image whose aspect ratio (width/height) falls
+// outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
+// 2207009 / code 36003, "the aspect ratio is not supported". X has no such
+// limit, so this gate is Instagram-only. Nine days of IG posts (15–23 Aug
+// 2026) died silently on this: eight/nine 780x1688 site screenshots (ratio
+// 0.462) were queued and rejected while nothing inspected image shape
+// (social/calendar.md). 1080x1350 = exactly 0.8 and publishes.
+const IG_MIN_ASPECT_RATIO = 0.8;
+const IG_MAX_ASPECT_RATIO = 1.91;
 
 // X's own length limit — see checkLength/weightedTweetLength below for the
 // full story. HARD_LIMIT is X's real cap; anything past it gets rejected
@@ -336,6 +346,29 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     if (!(await fileExists(full))) {
       findings.push(`media: "${mediaPath}" does not exist under apps/web/public/ — commit it in this PR.`);
       continue;
+    }
+    // Instagram rejects images outside its aspect-ratio window at publish time,
+    // three days after the draft merged — catch it now, at write time, for IG
+    // drafts only (X has no such limit). See IG_MIN/MAX_ASPECT_RATIO above.
+    if (item.platform === 'instagram') {
+      let meta;
+      try {
+        meta = imageMeta(await readFile(full));
+      } catch {
+        meta = null;
+      }
+      if (!meta || !meta.width || !meta.height) {
+        findings.push(
+          `media: "${mediaPath}" — could not read image dimensions to verify Instagram's aspect-ratio limit (${IG_MIN_ASPECT_RATIO}–${IG_MAX_ASPECT_RATIO}, width/height). Re-export a standard PNG/JPEG at 1080x1350.`,
+        );
+      } else {
+        const ratio = meta.width / meta.height;
+        if (ratio < IG_MIN_ASPECT_RATIO || ratio > IG_MAX_ASPECT_RATIO) {
+          findings.push(
+            `media: "${mediaPath}" is ${meta.width}x${meta.height} (aspect ${ratio.toFixed(3)}), outside Instagram's accepted ${IG_MIN_ASPECT_RATIO}–${IG_MAX_ASPECT_RATIO} range — Instagram rejects it with "the aspect ratio is not supported". Re-export at 1080x1350 (portrait 4:5) or another in-range size.`,
+          );
+        }
+      }
     }
     // ── THE TAYLOR-PHOTO STANDARD (2026-08-12, Joey's call — see
     //    social/README.md's mediaKind section). Generic era tiles are DEAD as
