@@ -6,11 +6,11 @@ export type FilterId = ContentTag | 'Videos';
 
 export const ALL_FILTERS: readonly FilterId[] = [
   'Music',
+  'Videos',
   'Fashion',
   'Tour',
   'Relationship',
   'Lore',
-  'Videos',
 ] as const;
 
 /**
