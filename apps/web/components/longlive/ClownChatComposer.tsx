@@ -6,12 +6,14 @@
  * CLAUDE.md's 300-line guideline, flagged as a LOW finding in
  * HUMAN-ACTIONS.md #15) — same pattern this file already follows for
  * `ClownBoard`/`ClownMessageRow`. Pure presentational + the one local
- * concern that's genuinely composer-only (the `MAX_CHARS` clamp on typing);
- * all state (`text`, `busy`) and the submit handler still live in
+ * concern that's genuinely composer-only (the `MAX_CHARS` clamp on typing
+ * and the auto-resize via `useAutoResizeTextarea`, `clown-chat-ui.ts`); all
+ * other state (`text`, `busy`) and the submit handler still live in
  * `ClownChat.tsx`.
  */
 import { CornerDownLeft, Loader2, Plus } from 'lucide-react';
 import type { RefObject } from 'react';
+import { useAutoResizeTextarea } from '@/lib/longlive/clown-chat-ui';
 
 const MAX_CHARS = 300;
 const INPUT_PLACEHOLDER = 'lets clown around';
@@ -26,6 +28,8 @@ export interface ClownChatComposerProps {
 }
 
 export function ClownChatComposer({ className, text, setText, submit, busy, textareaRef }: ClownChatComposerProps) {
+  useAutoResizeTextarea(textareaRef, text);
+
   return (
     <div className={className}>
       {/* Plus/send: same 32px-visual / 44px-hit-area split as the titlebar toggle, so the pill keeps the mockup's proportions. */}
@@ -54,7 +58,10 @@ export function ClownChatComposer({ className, text, setText, submit, busy, text
           }}
           rows={1}
           placeholder={INPUT_PLACEHOLDER}
-          className="h-9 min-w-0 flex-1 resize-none bg-transparent px-0 py-2 text-[15px] leading-relaxed text-[color:var(--clown-ink)] outline-none placeholder:text-[color:var(--clown-ink-soft)] placeholder:opacity-60"
+          // h-9 is the single-line baseline before useAutoResizeTextarea
+          // above runs; max-h keeps that same MAX_TEXTAREA_HEIGHT_PX cap as a
+          // CSS backstop if JS is ever slow to attach.
+          className="h-9 max-h-[136px] min-w-0 flex-1 resize-none bg-transparent px-0 py-2 text-[15px] leading-relaxed text-[color:var(--clown-ink)] outline-none placeholder:text-[color:var(--clown-ink-soft)] placeholder:opacity-60"
         />
         <button
           type="submit"

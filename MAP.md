@@ -166,7 +166,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
 | `apps/web/components/longlive/ClownChat.tsx` | App-panel shell — state, the `ask()` fetch/stream loop, layout — fullscreen toggle + docked composer split out below (300-line cap, HUMAN-ACTIONS.md #15 LOW finding) |
 | `apps/web/components/longlive/ClownChatTitlebar.tsx` | Titlebar (avatar/label/online dot/expand toggle), split out of ClownChat.tsx (300-line cap) |
-| `apps/web/components/longlive/ClownChatComposer.tsx` | Docked composer pill (textarea/send), split out of ClownChat.tsx (300-line cap) |
+| `apps/web/components/longlive/ClownChatComposer.tsx` | Docked composer pill (textarea/send), split out of ClownChat.tsx (300-line cap); textarea auto-grows via `useAutoResizeTextarea` |
+| `apps/web/lib/longlive/clown-chat-ui.ts` | `useAutoResizeTextarea` / `useStickToBottomScroll` — the composer's grow-to-fit and the stream's stick-to-bottom-unless-scrolled-up auto-scroll |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
 | `apps/web/lib/longlive/useChromeOffset.ts` | Live sticky-chrome height hook, split out of ClownChat.tsx (300-line cap) — wraps `chrome-offset.ts`'s `measureChromeHeight` |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |

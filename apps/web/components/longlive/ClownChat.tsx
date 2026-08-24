@@ -11,20 +11,20 @@
  * belongs to Long Live.
  *
  * A fixed-height, three-row app panel (titlebar / scrolling stream / docked
- * composer) — see ClownMessageRow.tsx for how one turn renders. Pre-filled
- * on load with a real worked example (`SEED_EXAMPLE`); placeholder "lets
- * clown around" is a real `placeholder` attribute, never submitted content.
- * The titlebar toggle expands the panel to a `fixed inset-0` CSS overlay
- * (never the native Fullscreen API — unreliable on iOS Safari for
- * non-video elements). `ClownBoard` below prefills the composer on tap,
- * never auto-sends.
+ * composer) — see ClownChatTitlebar.tsx, ClownChatComposer.tsx and
+ * ClownMessageRow.tsx for how the titlebar, composer and one transcript turn
+ * each render. Empty on load until the reader sends a first message
+ * (EMPTY_STATE_TEXT); placeholder "lets clown around" is a real
+ * `placeholder` attribute, never submitted content. The titlebar toggle
+ * expands the panel to a `fixed inset-0` CSS overlay (never the native
+ * Fullscreen API — unreliable on iOS Safari for non-video elements).
+ * `ClownBoard` below prefills the composer on tap, never auto-sends.
  *
  * NEVER render Taylor Swift imagery on this surface and never persist the
  * reader's words anywhere but the one POST below.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { SEED_EXAMPLE } from '@/lib/longlive/clown-seed-example';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ClownAnswer, InvestigationStep } from '@/lib/longlive/clown-answer';
 import type { BoardItem } from '@/lib/longlive/clown-board';
 import type { ClownTurn } from '@/lib/longlive/clown-client';
@@ -32,7 +32,8 @@ import { promptForItem } from '@/lib/longlive/clown-starters';
 import { useChromeOffset } from '@/lib/longlive/useChromeOffset';
 import { flattenAnswer, investigationLabel } from '@/lib/longlive/clown-chat-helpers';
 import { readClownStream } from '@/lib/longlive/clown-stream';
-import { useAppActions, useAppState, type ClownMessage } from '@/lib/longlive/store';
+import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { useStickToBottomScroll } from '@/lib/longlive/clown-chat-ui';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { ClownBoard } from './ClownBoard';
 import { ClownChatComposer } from './ClownChatComposer';
@@ -55,26 +56,16 @@ const BOTTOM_NAV_CLEARANCE = 'calc(3.5rem + env(safe-area-inset-bottom))';
 const CONTAINER_TOP_PADDING = '0.75rem';
 
 const NETWORK_ERROR = "That didn't go through. Try again in a moment?";
-
-/**
- * Always the first bubble, and never part of the store's capped transcript —
- * it's a static shipped example, not something the reader sent or the model
- * answered live (see clown-seed-example.ts).
- */
-const SEED_MESSAGE: ClownMessage = {
-  id: 'seed',
-  question: SEED_EXAMPLE.question,
-  answer: SEED_EXAMPLE.answer,
-};
+const EMPTY_STATE_TEXT = 'Try our chat bot — ask a question below.';
 
 export function ClownChat() {
   const [text, setText] = useState('');
   // clownMessages is the store's capped (6), memory-only, never-persisted
   // transcript (store.tsx) — this component holds no transcript state of its
-  // own. The seed example always renders first and never counts toward it.
+  // own.
   const { clownMessages } = useAppState();
   const { addClownMessage, setClownChatExpanded } = useAppActions();
-  const messages = useMemo(() => [SEED_MESSAGE, ...clownMessages], [clownMessages]);
+  const messages = clownMessages;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // The agent loop's live trail (PLAN.md Stage 10) — reset per ask, cleared
@@ -82,6 +73,7 @@ export function ClownChat() {
   // investigation` after that, not from this transient state).
   const [investigating, setInvestigating] = useState<InvestigationStep | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const streamRef = useRef<HTMLDivElement>(null);
 
   // Full-screen toggle — a CSS overlay, deliberately not the native
   // Fullscreen API (requestFullscreen on a non-video element is unreliable
@@ -91,6 +83,11 @@ export function ClownChat() {
   const wasExpandedRef = useRef(false);
 
   useScrollLock(expanded);
+
+  // Scrolls the stream to the newest content — a new turn, a streamed
+  // investigation step, or an error — but only when the reader was already
+  // near the bottom.
+  useStickToBottomScroll(streamRef, [messages, investigating, error]);
 
   // Mirror `expanded` into the shared store so page furniture that floats
   // above every other overlay (FeedbackButton, z-[71]) can hide itself while
@@ -137,8 +134,7 @@ export function ClownChat() {
       setError(null);
       setInvestigating(null);
       try {
-        // PRIOR turns only, from the store's clownMessages — never SEED_MESSAGE
-        // (a shipped fixture, not something this visitor said) and never the
+        // PRIOR turns only, from the store's clownMessages — never the
         // question being sent now (the route appends that itself; sending it
         // here too would double it in the model's eyes).
         const transcript: ClownTurn[] = clownMessages.flatMap((m) => [
@@ -242,17 +238,19 @@ export function ClownChat() {
 
         {/* message stream — scrolls internally */}
         <div
+          ref={streamRef}
           className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-4 pt-6 sm:px-6"
           aria-live="polite"
           aria-atomic="false"
           aria-busy={busy}
         >
-          <span className="self-center text-[10px] uppercase tracking-[0.14em] text-[color:var(--clown-ink-soft)] opacity-70">
-            Example conversation
-          </span>
-          {messages.map((m) => (
-            <ClownMessageRow key={m.id} message={m} />
-          ))}
+          {messages.length === 0 ? (
+            <p className="self-center text-center text-[13px] text-[color:var(--clown-ink-soft)] opacity-70">
+              {EMPTY_STATE_TEXT}
+            </p>
+          ) : (
+            messages.map((m) => <ClownMessageRow key={m.id} message={m} />)
+          )}
           {busy && investigating && (
             <p role="status" className="text-xs italic text-[color:var(--clown-ink-soft)] opacity-80">
               {investigationLabel(investigating)}
