@@ -1003,12 +1003,20 @@ export default {
         'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         context:
-          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.\n\nThe cultural footprint was immediate. Fox\'s broadcast of the 41–10 game drew 24.3 million viewers — the most-watched program of the weekend and its strongest NFL Sunday-afternoon audience among female viewers all season — while Fanatics reported Travis\'s No. 87 jersey sales spiking nearly 400% that same day, vaulting him from 19th into the league\'s top five sellers. His Instagram following jumped by roughly 325,000 in a week, a bigger bump than his Super Bowl win the previous February had produced. A late-summer flirtation traceable to a viral friendship-bracelet aside had, in one afternoon, become the most-watched relationship in American sports.',
+          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nThe full Sept. 24 look was a white Dôen tank, Ksubi denim shorts, New Balance 550 sneakers in Chiefs colors, and a red-and-white New Era Chiefs windbreaker. Marie Claire, ranking every game-day outfit she\'d worn since, put this one last at No. 23 — not as an insult, but because it was the baseline: "an outfit every NFL fan has worn to an early-season game at one time or another, with a few trendy additions."\n\nThat was also exactly why it landed. The pieces were fan-accessible and instantly shoppable rather than designer-flexing — a deliberate first impression for a debut in someone else\'s arena, before her game-day wardrobe leveled up into custom pieces, four-figure jewelry stacks, and the Kristin Juszczyk puffer that earned its own NFL deal.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.\n\nThe cultural footprint was immediate. Fox\'s broadcast of the 41–10 game drew 24.3 million viewers — the most-watched program of the weekend and its strongest NFL Sunday-afternoon audience among female viewers all season — while Fanatics reported Travis\'s No. 87 jersey sales spiking nearly 400% that same day, vaulting him from 19th into the league\'s top five sellers. His Instagram following jumped by roughly 325,000 in a week, a bigger bump than his Super Bowl win the previous February had produced. A late-summer flirtation traceable to a viral friendship-bracelet aside had, in one afternoon, become the most-watched relationship in American sports.',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/lists/taylor-swift-travis-kelce-relationship-timeline/',
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/',
           },
           {
             outlet: 'Variety',
@@ -1033,6 +1041,7 @@ export default {
           {
             url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
             credit: 'CNN',
+            caption: 'Taylor watches from the Arrowhead suite in the white Dôen tank from her first Chiefs game, with the New Era windbreaker draped over her arm.',
             focalPoint: '36% 16%',
           },
           // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
@@ -1087,43 +1096,8 @@ export default {
             kind: 'primary',
           },
         ],
-      },
-    },
-    {
-      year: 2023,
-      month: 9,
-      day: 24,
-      category: 'fashion',
-      title: 'Game-day debut: a Doen tank, denim shorts, and a Chiefs windbreaker',
-      snippet:
-        'No designer red carpet moment — her first Arrowhead look was Doen, denim, New Balance sneakers, and a New Era Chiefs windbreaker.',
-      sourceUrl: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
-      thumbnailUrl:
-        'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
-      moment: {
-        context:
-          "The full Sept. 24, 2023 look: a white Dôen tank, Ksubi denim shorts, New Balance 550 sneakers in Chiefs colors, and a red-and-white New Era Chiefs windbreaker. Marie Claire, ranking every game-day outfit she'd worn since, put this one dead last at No. 23 — not as an insult, but because it was the baseline: \"an outfit every NFL fan has worn to an early-season game at one time or another, with a few trendy additions.\"\n\nThat was also exactly why it landed. The pieces were fan-accessible and instantly shoppable rather than designer-flexing — a deliberate first impression for a debut in someone else's arena, before her game-day wardrobe leveled up into custom pieces, four-figure jewelry stacks, and the Kristin Juszczyk puffer that earned its own NFL deal.",
-        sources: [
-          {
-            outlet: 'WWD',
-            url: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
-          },
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
-            credit: 'CNN',
-            caption: 'The white Dôen tank and Chiefs windbreaker draped over her arm, in the Arrowhead suite on Sept. 24, 2023.',
-            kind: 'fashion',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact seasonal Dôen tank is
-        // discontinued -- a current same-brand tank, verified in stock,
-        // closest real match.
+        // The exact seasonal Dôen tank is discontinued; this is a current
+        // same-brand alternative verified in stock.
         products: [
           {
             brand: 'DÔEN',
