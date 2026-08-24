@@ -119,3 +119,42 @@ turning into an intake drop, exactly like Joey eyeballing the news does
 today — it doesn't change what happens once something *is* dropped. The
 same voice, sourcing bar, no-fabrication rule, and Codex review apply
 whether the lead came from Joey, ChatGPT, Claude, or the engine.
+
+## Update (2026-08-23) — the knowledge engine replaces the digest-reading step
+
+The paragraph above describes the pre-knowledge-engine state, where a human
+(or a content session) read the `news-candidates.md` digest and decided what
+was worth an intake drop. That digest-reading step is gone for anything the
+worker can extract cleanly. The real flow now (`docs/proposals/2026-08-23-
+knowledge-engine.md`, PLAN.md Stages 3/8):
+
+1. The worker clusters raw items into a `news_story`, same as before.
+2. A new **extract stage** (`apps/worker/src/extract/`) makes one Haiku call
+   per new cluster, screens it through the redline module, and writes a
+   `current_item` row directly — our-words headline/summary/detail, sources,
+   tags, `status` (`rumor`/`reported`/`confirmed`/`debunked`/`faded`), and a
+   `heat` score. This is the row the current era's live feed renders
+   (`docs/longlive-experience.md` §7) — it does **not** wait for a human to
+   drop it.
+3. **Content Shift's queue** (`docs/agents/content-shift.md`) now checks
+   `current_item` FIRST, ahead of hand-filed `intake` issues: any row with
+   `status` in (`reported`, `confirmed`), `source_tier` in (`official`,
+   `established`), `promoted_to is null`, and `heat >= 0.5` is a
+   cheaper-to-verify queue source than a from-scratch research pass, because
+   the copy and redline screen already happened upstream. Promotion sets
+   `promoted_to` on the `current_item` row (hides it from the live feed,
+   keeps it for the bot's provenance) and authors a normal Vault seed row —
+   same PR path, same gates, same auto-merge as any other item.
+4. **The manual door in the rules above still exists and still matters** —
+   for anything the worker doesn't cluster cleanly (a fan-only signal, a
+   lower-confidence `current_item` a reader wants double-checked), a reader
+   can file a real `intake`-labeled GitHub issue by tapping "Help us verify
+   this" on a live item's detail overlay (`CurrentItemDetail.tsx` → `POST
+   /api/intake` → `app/api/intake/route.ts`), which goes through the normal
+   triage/route/author/check flow above like any other drop. Joey's own
+   by-hand drops are unchanged.
+
+`fan_signal`/`live_theory` rows (chatter and in-play theories) do **not**
+promote through this door — they stay live-only, read by the Threads/eggs
+board and Clownbot (`docs/content-ops/rumor-pipeline.md` § Data model). Only
+`current_item` (an observable, sourced sighting) is Vault-promotable.
