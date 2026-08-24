@@ -81,7 +81,10 @@ export function messageAnswer(lines: readonly string[]): ClownAnswer {
  * header note) still parses fine under a plain `res.json()`, since
  * `JSON.parse` tolerates trailing whitespace, but those paths don't use this
  * helper at all; only the loop path does. */
-export function ndjsonResponse(run: (emit: (event: ClownStreamEvent) => void) => Promise<void>): Response {
+export function ndjsonResponse(
+  run: (emit: (event: ClownStreamEvent) => void) => Promise<void>,
+  extraHeaders?: Record<string, string>,
+): Response {
   const encoder = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
@@ -99,5 +102,11 @@ export function ndjsonResponse(run: (emit: (event: ClownStreamEvent) => void) =>
       }
     },
   });
-  return new Response(stream, { headers: { 'content-type': 'application/x-ndjson; charset=utf-8' } });
+  // PLAN.md Stage 11: `extraHeaders` carries `x-clown-session` back to the
+  // reader when a memory session resolved, so a future client can resend it
+  // for continuity (see `clown-session.ts`'s header) — undefined/empty for
+  // every request where it didn't (today's real state).
+  return new Response(stream, {
+    headers: { 'content-type': 'application/x-ndjson; charset=utf-8', ...extraHeaders },
+  });
 }

@@ -12,6 +12,8 @@ import { answerFromFallback, answerFromTake } from '../../../lib/longlive/clown-
 import { resolveScopeSignal } from '../../../lib/longlive/clown-agent-tools';
 import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
+import { reserveUserDailyBudget, recordClownMemory } from '../../../lib/longlive/clown-memory';
+import { decodeSessionToken, encodeSessionToken } from '../../../lib/longlive/clown-session';
 import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitizeTranscript } from '../../../lib/longlive/clown-route-helpers';
 
 // Clownbot (build B) — the API route. PLAN.md Step 8; agent loop added
@@ -67,14 +69,17 @@ import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitiz
 // every prior turn, before the model is ever called — same refusal shape as
 // a blocked current turn, so a caller cannot tell the two stages apart.
 //
-// THE SERVER STORES NOTHING beyond the one best-effort `bot_prediction`
-// write attempt (PLAN.md Stage 10 req 1; the table is Stage 11's, may not
-// exist yet, and the write degrades silently either way — see
-// `clown-predictions.ts`). No message content is otherwise logged — only
-// category names on a refusal/rejection, matching the pattern already used
-// elsewhere in this app (mood-chat's route). The client holds the
-// transcript (~`MAX_TRANSCRIPT_TURNS` messages) and resends it every call;
-// this route reads it, forgets it.
+// MEMORY (PLAN.md Stage 11): the server persists a `bot_prediction` row and
+// a folded conversation/turn history ONLY when an anonymous-auth session
+// resolves (`clown-memory.ts`/`clown-session.ts`) — today's real state is
+// that it never resolves (HUMAN-ACTIONS.md #15 item 2), so the server stores
+// nothing beyond the existing best-effort `bot_prediction` attempt either
+// way. Every write is best-effort and degrades silently. No message content
+// is otherwise logged — only category names on a refusal/rejection, matching
+// the pattern already used elsewhere in this app (mood-chat's route). The
+// client still holds the transcript (~`MAX_TRANSCRIPT_TURNS` messages) and
+// resends it every call; this route reads it, forgets it — memory is an
+// ADDITIONAL, separately-gated store, not a replacement for that.
 //
 // STREAMING (new, PLAN.md Stage 10 req 1): only the agent-loop path streams.
 // Every deterministic path (crisis, blocklist, chip, scope redirect) still
@@ -167,6 +172,22 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json(messageAnswer([OUT_OF_SCOPE_MESSAGE]));
   }
 
+  // MEMORY (PLAN.md Stage 11) — attempts an anonymous-auth session BEFORE
+  // the model spend, same relative position as the global daily cap's own
+  // `usage.reserve()` inside `runClownAgent`. `session` is `null` in every
+  // degraded state (no Supabase env, no client token, or — today's real
+  // state — anonymous sign-ins not yet toggled on; HUMAN-ACTIONS.md #15
+  // item 2) and every downstream memory call already treats `null` as
+  // "skip, no persistence" — this never blocks a reply on its own.
+  const incomingSessionToken = decodeSessionToken(req.headers.get('x-clown-session'));
+  const budget = await reserveUserDailyBudget(incomingSessionToken, undefined, deadlineController.signal);
+  if (!budget.ok) {
+    clearTimeout(deadlineTimer);
+    return NextResponse.json(messageAnswer(["That's today's clowning limit for you — come back tomorrow for more."]));
+  }
+  const memorySession = budget.session;
+  const sessionHeaders = memorySession ? { 'x-clown-session': encodeSessionToken(memorySession) } : undefined;
+
   // AGENT LOOP — streamed. `scope.result` (the search that just proved this
   // question is in scope) is reused as the loop's free seed context rather
   // than spending one of its own bounded tool calls repeating it.
@@ -206,7 +227,14 @@ export async function POST(req: Request): Promise<Response> {
           const answer = answerFromTake(finalTake, sources, run.investigation);
           // Best-effort — never awaited into the response path; see
           // clown-predictions.ts for exactly what "best-effort" degrades to.
-          void persistPrediction({ question: text, take: finalTake, sources }).catch(() => {});
+          void persistPrediction({ session: memorySession, question: text, take: finalTake, sources }).catch(() => {});
+          // PLAN.md Stage 11 — same best-effort posture; no-ops entirely
+          // when memorySession is null (see clown-memory.ts).
+          void recordClownMemory({
+            session: memorySession,
+            question: text,
+            answerText: `${finalTake.stance} ${finalTake.argument}`.trim(),
+          }).catch(() => {});
           emit({ type: 'answer', answer });
           return;
         }
@@ -229,5 +257,5 @@ export async function POST(req: Request): Promise<Response> {
     } finally {
       clearTimeout(deadlineTimer);
     }
-  });
+  }, sessionHeaders);
 }

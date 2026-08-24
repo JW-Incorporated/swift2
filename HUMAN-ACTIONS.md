@@ -69,9 +69,15 @@ with it. Neither blocks tonight's build.
    feeds, ~36 req/day, disclosed) as the long-term posture.
 2. **Supabase anonymous auth** — Clownbot's server-side conversation memory
    needs "Allow anonymous sign-ins" toggled on in the Supabase dashboard
-   (Authentication → Providers). I can't reach that toggle. Until it's on,
-   Clownbot's DB retrieval and agent loop still ship, just without
-   persisted per-user chat history/predictions.
+   (Authentication → Providers). I can't reach that toggle. **Update
+   (PLAN.md Stage 11):** the schema (`clown_conversation`/`clown_turn`/
+   `bot_prediction`/`clown_pinned_theory`, `supabase/migrations/
+   20260904000000_clown_sessions.sql`) and the code (session resolution,
+   conversation continuity + rolling summary, per-user daily cap, prediction
+   persistence) are now built and tested — every write path already attempts
+   real anonymous sign-in and genuinely fails closed (one log line, then
+   degrades to today's stateless behavior) because this toggle is still off.
+   Nothing changes for a reader until it's flipped.
 
 **Worked if:** you tell me the Reddit outcome in chat and/or flip the
 Supabase toggle.
@@ -80,7 +86,7 @@ Supabase toggle.
 
 ---
 
-### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 8 migrations unapplied against prod, pgvector untested
+### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 9 migrations unapplied against prod, pgvector untested
 
 **Filed:** 2026-08-23
 
@@ -180,10 +186,28 @@ itself works: inserted one `redline_ok=true` and one `redline_ok=false`
 Supabase's `anon`/`authenticated` default grant), and confirmed only the
 `redline_ok=true` row was visible under RLS.
 
+**Addendum (Stage 11, sessions/memory):** one more migration,
+`supabase/migrations/20260904000000_clown_sessions.sql`
+(`clown_conversation`/`clown_turn`/`bot_prediction`/`clown_pinned_theory` —
+`usage_daily` reused with a new scope, not a new table). Same root cause,
+same fix. Verified for real: applied all 23 migrations twice against a real
+ephemeral local Postgres, clean idempotent re-apply both times — but this
+one needed one extra step the others didn't: vanilla Postgres has no `auth`
+schema (that's Supabase's own GoTrue service, not anything a migration in
+this repo creates), so I stubbed a minimal `auth.users(id uuid)` table and
+an `auth.uid() returns uuid` function locally just to prove the DDL/FK/RLS-
+policy SQL itself is valid Postgres syntax against a real FK target. That
+stub is NOT a substitute for testing against the actual Supabase project —
+the real `auth.uid()` returning a genuine anonymous-auth JWT's user id, and
+therefore whether the RLS policies actually scope reads/writes correctly for
+a real anonymous session, can only be verified once both this migration is
+applied AND the toggle in item #15/2 is flipped. Flag this for a look once
+both are true, not just the migration alone.
+
 **Running total (reconciled across stages):** counting every addendum
 above plus Stage 3's own `usage_daily.sql` /
 `news_story_extracted_at.sql` / `refresh_symbol_activity.sql` (landed on
-`main` but never logged here by that stage), **8 migrations** are
+`main` but never logged here by that stage), **9 migrations** are
 unapplied against production as of this merge, not 3 or 4 — same fix
 (step 1 above) closes all of them in one `npm run db:migrate` run.
 

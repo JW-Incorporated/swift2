@@ -1,46 +1,58 @@
 /**
  * Clownbot agent loop (PLAN.md Stage 10) — best-effort prediction persist.
+ * PLAN.md Stage 11 wires this for real: `bot_prediction` now exists
+ * (`supabase/migrations/20260904000000_clown_sessions.sql`), RLS scoped so
+ * the `authenticated` (anonymous-auth) user may insert/read only their own
+ * rows (`clown-session.ts`'s header — no service-role key is ever reached
+ * for from `apps/web`).
  *
- * `bot_prediction` is PLAN.md Stage 11's table, not this stage's — as of
- * this writing it does not exist in `supabase/migrations/**` (grep
- * confirmed; only `usage_daily` has landed from that group), and even once
- * it does, Stage 2's migration note says Current-tier tables are RLS "anon
- * read-only, service role writes" — this anon-key insert would very likely
- * keep failing harmlessly until Stage 11 wires real auth/RLS for it. Never
- * reach for a service-role key from a public, anonymous request path to
- * work around that — that would bypass RLS entirely for every table this
- * key can see, not just this one insert.
- *
- * Codex review MAJOR 9: firing that doomed POST anyway, on every single
- * successful answer, wasted a real network round trip for a write that was
- * always going to fail — this function now short-circuits to a clear,
- * greppable no-op log instead. The intended-shape write (kept here,
- * unreachable, as the concrete contract Stage 11 wires up for real) stays
- * documented below rather than deleted outright.
+ * Same graceful-degrade posture as the rest of this stage: a `null` session
+ * (auth unavailable — today's real state, HUMAN-ACTIONS.md #15 item 2)
+ * no-ops the write entirely rather than firing a doomed anon-key POST
+ * (Codex review MAJOR 9 on the pre-Stage-11 version of this file).
  */
 import type { ClownTake } from './clown-client';
 import type { RetrievedItem } from './clown-fallback';
+import type { ClownSession } from './clown-session';
+import { clownAuthHeaders, clownMemoryEnv } from './clown-session';
 
 export interface PersistPredictionInput {
+  session: ClownSession | null;
   question: string;
   take: ClownTake;
   sources: readonly RetrievedItem[];
 }
 
+const MAX_QUESTION = 600;
+
 /**
- * Best-effort. Never throws, never blocks the response — the caller should
- * not `await` this on the response's critical path (fire-and-forget with a
- * `.catch()` is the intended usage; see `route.ts`).
+ * Best-effort — never blocks the response. A network/HTTP failure DOES
+ * reject; the caller never `await`s this on the response's critical path
+ * (fire-and-forget with a `.catch(() => {})` is the intended usage; see
+ * `route.ts`), so a rejection here is swallowed there, not here.
  *
- * No-ops until `bot_prediction` (PLAN.md Stage 11) exists — see header.
- * Stage 11 replaces this body with the real insert (shape: `question`,
- * `stance`/`theory_name`/`delulu`/`cited_ids` off `input.take`, `source_ids`
- * off `input.sources`, against `env.supabaseUrl`'s `/rest/v1/bot_prediction`
- * once real auth/RLS lands for it) rather than adding a second function.
+ * Writes `claim` (the falsifiable position — `take.stance`), `theory_name`,
+ * `cited_ids`, `delulu`, and `status: 'pending'` — enough structure for a
+ * future resolution pass (Stage 8/promotion) to act on, per this stage's
+ * brief. `symbols` has no source on `ClownTake`/`RetrievedItem` today, so it
+ * ships `[]` — the column exists for that future pass to populate.
  */
 export async function persistPrediction(input: PersistPredictionInput): Promise<void> {
-  console.log(
-    'clown:prediction-persist-pending-stage-11',
-    JSON.stringify({ questionLength: input.question.length, citedIds: input.take.citedIds.length }),
-  );
+  if (!input.session) return;
+  const env = clownMemoryEnv();
+  if (!env) return;
+  await fetch(`${env.supabaseUrl}/rest/v1/bot_prediction`, {
+    method: 'POST',
+    headers: { ...clownAuthHeaders(env, input.session), 'content-type': 'application/json' },
+    body: JSON.stringify({
+      user_id: input.session.userId,
+      question: input.question.slice(0, MAX_QUESTION),
+      claim: input.take.stance.slice(0, MAX_QUESTION) || input.question.slice(0, MAX_QUESTION),
+      theory_name: input.take.theoryName,
+      symbols: [],
+      cited_ids: input.take.citedIds,
+      delulu: input.take.delulu,
+      status: 'pending',
+    }),
+  });
 }
