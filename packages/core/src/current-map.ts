@@ -18,6 +18,7 @@ import type {
   LiveTheoryOrigin,
   LocationLevel,
   SourceTier,
+  SymbolActivity,
   SymbolLexiconEntry,
   Technique,
   TechniqueReliability,
@@ -310,4 +311,14 @@ export function mapKnowledgeDoc(row: KnowledgeDocRow): KnowledgeDoc {
     ...(row.expires_at ? { expiresAt: row.expires_at } : {}),
     redlineOk: row.redline_ok,
   };
+}
+
+export interface SymbolActivityRow {
+  symbol: string;
+  week: string;
+  n: number;
+}
+
+export function mapSymbolActivity(row: SymbolActivityRow): SymbolActivity {
+  return { symbol: row.symbol, week: row.week, n: row.n };
 }

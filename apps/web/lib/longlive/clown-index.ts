@@ -1,6 +1,14 @@
 /**
  * Clownbot (build B) — retrieval index over the existing corpora.
  *
+ * KNOWLEDGE ENGINE STATUS (PLAN.md Stage 9, docs/decisions.md 2026-08-23):
+ * `knowledge_doc` (via `packages/core/src/knowledge`'s `search`/`precedents`/
+ * `recent`/`chatter`/`symbolActivity`/`track`) is now the one retrieval
+ * index — this compile-time `ClownDoc[]` is the no-DB fallback only, not the
+ * primary path. Kept as-is on purpose (not restructured): it's what the chat
+ * route falls back to if the DB is unreachable, same content, unmodified.
+ *
+
  * `buildClownDocs()` is pure: it folds threads/theories (theories.generated.ts),
  * rumors/lore (clownbot-lore.ts), and Vault moments — plus each moment's own
  * `rumors` block (content.ts) — into one flat `ClownDoc[]`. The model never

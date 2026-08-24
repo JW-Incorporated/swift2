@@ -226,3 +226,12 @@ export interface KnowledgeDoc {
   expiresAt?: string;
   redlineOk: boolean;
 }
+
+/** One week's activity count for a symbol — `symbol_activity` materialized
+ * view (PLAN.md Stage 9's `symbolActivity(symbol)` retrieval). */
+export interface SymbolActivity {
+  symbol: string;
+  /** ISO date (YYYY-MM-DD) — the week's start (`date_trunc('week', ...)`). */
+  week: string;
+  n: number;
+}
