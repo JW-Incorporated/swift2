@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 66
+
+## Completely Betrayed: Taylor Swift freaked out after guest leaked private wedding invitation - MARCA
+
+- first seen: 2026-08-24 02:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Completely Betrayed: Taylor Swift freaked out after guest leaked private wedding invitation  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi6gFBVV95cUxNZDdBYWl1cXp0bzdoZ1BfQUI5WjNvRHJrYkZEaHpjdU1IN3paMV9ta0pwZDZWeVVfRmRZOFp3b3FJc0g2ckpybGRpMi1JQlpEWGxOcXB5N3BaSW8yczFRT244OGhxeElKNm05RkU4OXFyQTZWZENRMzBaVGlmNTlsaWNabGFlMnllNnZIUnJDcVVhaVQtME5SZTdKc3d4WEdIdmhCRUNISnlNZk1mUk5IRThoS0lfekJ4VVJVbkNTaDZmTW9CSEE5Ni0zV1l1QnMxbktMejB1cjQ2NWllT2VRd21hWmgxOVo3bWfSAeoBQVVfeXFMTzBGXzZBZmhKRTJHLW9Ld29RUlZTeVE2R3Q3cE9FMzZkUHRfazFFOWVMM20xdFdvTm4zWmhkR2Zaem1EUUdXRDhnRjEtMXlsY0lpRk9qU0VFX1JvYVJTS1RRUTBSaFJtVlZvRGRDYjRJY2k5Wk90YmxUYUFnbXBsNkNLUlhneG9SUHpETzFzMFZob3BVMWVPYUptTHQ2cVB6ZjdBR0dTRm9RZEtobnhsS0lKUjBKVmFKeVdBakpSZzFyMERrZ3VSX2tqSE9mb3dxbEE5a3NUTU92RWhVTFR1eGtJNms5b3VqSzJ3?oc=5
+
+## NFL Is Reportedly Dealing With An Unexpected Taylor Swift Problem - Yahoo Sports
+
+- first seen: 2026-08-24 02:36 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: NFL Is Reportedly Dealing With An Unexpected Taylor Swift Problem  Yahoo Sports
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikwFBVV95cUxQS1o2VkJCc3JNZzdaeGFVeTVFdnd0TXZrMUUyVG5YeVR6bVJHQmNRQjBpRmJ3RGQzWjQyTlItczB3VnlUdjREYWhhLTlWakRkUE1ySjhGaXNfaDNLUThER3ZNQUQ4TGVQd0dWcTBzQlNNT1hYZ19adnJLRGstMFlaaHJtS3A3UjZPbkt2eFowZkpXdEk?oc=5
 
 ## Dean Blandino reveals Taylor Swift's frustration with famous tactic Eagles used to stop Chiefs - MAR
 
@@ -35,14 +51,6 @@ Stories: 81
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8AFBVV95cUxNRm1scWRCLUVmVnRUWG40ajhGMUN5Wjd0V3E5TVVzV1h6dVRBMnFreC1rWXNvNHBPbk9uY1Y1QUhtbGtydjFCU2N1NjFzMUtvS2JwWFVMVnRyc0JUTl9LTlMxOUJCY3gzbC1jRW9idWl3WFR3bU00dGlpbUUzb1pHOXVpb0k2SE1oclNUYXBMYzhDS3BEckNmREJjRXdyUmc5TGlkWWpXZS12ZC1wTU9pLWU1YjV2WmE0ZlpmMUhFUmNBbFE0ZTBFSFVWMzhabkt6empRSmtudDBWalpZOUtONjhnRUxFTHZfNjZHWG1NLWjSAfABQVVfeXFMUGt3ajA0bFhqZFdWekhPT2x3UlBVWFZpd3QybXZRV1VKbmVwS2ZNQ0tJRUxQOE5nRVRhR1c5Um56TmxCMEtnRnBpMkFSaWlXaVpOZkJoMUhOYW5hTDNhVGN3aDZqZkJva1pqYWNKcUh3VFpiVHlYcDhTMG5wUE5BMDdIaWJsbEplc0tla0lnWmU0NUFqVmxOSnFJaGY2VF9qclE1Yy1YZlhRVVQwUldmTDY2OXhVaDBhNDlsRUhmYllMcXFKUW9jZ0RTRklPNjNFZWV4aHN2Z21jY1Z3NEJlcVBhX3VmcExsTko5Yy02TElo?oc=5
 
-## Designers dreaming up Taylor Swift-inspired wedding gowns - Channel 3000
-
-- first seen: 2026-08-23 21:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Designers dreaming up Taylor Swift-inspired wedding gowns  Channel 3000
-- sources:
-  - [unverified] Channel 3000 — https://news.google.com/rss/articles/CBMi-gFBVV95cUxOQW83SFcyXzdtSW8wUjlfdE52cGhueFo0NEJEbnFYTnlvMWtoZ3RyNUtYQTJ3UXhwTGoxOW9OYjVGMmxVS25DaUlGOWF3b3kwc3BJTmhRYTJURGFya0ZpUXNJc3BXVXBsZ3ZJN3VneXU3UEtZZmtZNk00di1MUlczd0VuX2ZsS0J3eVQtOWlpS01TcnhsTzRGUWhuSll3RzM4YlctbXg4LVczcFZxWkMtb0RMdmh1RGNvUE5IT0ExNkdUZk05WGRXWU9hZ254NnlibXVFQ093cm5lSG9JNV81aS02OENmNl84WndiZ3p6QkpXLXFyVXJCbXp3?oc=5
-
 ## Did Travis Kelce really cheat on Taylor Swift? Truth behind viral 21-year-old Brazilian woman claim 
 
 - first seen: 2026-08-23 21:32 UTC | category: relationship | importance: 5
@@ -50,6 +58,16 @@ Stories: 81
 - summary: Did Travis Kelce really cheat on Taylor Swift? Truth behind viral 21-year-old Brazilian woman claim | Hindustan Times  Hindustan Times
 - sources:
   - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMi9AFBVV95cUxQWmJxc0pGNGJVZVFOWGotRGU4R25SbjZEVkY4U3BhTHFSVkdCSzlFOFJzelpjbWlJNWJLNGtsS3Y3OXhFUmd3Q010RkRUOFBhTmxoS2R5X3lHbjJESHJVQkhtVFhiUDlRNTd5NnZwMFJvUzlTUkRMLVBpUTVJeHB4bTQtQ1FlQXV1eDhnLUhOdmtGT0w4N0RTWjZBYXMtcnltLW1kR0FqaVVIcFF6RDZaaDFPWnNoVVlxTVh0VFRBZURvQ1J3cnFFaDVGYkFSUjgzbVh2dzdRSnRycFdFaHR3QmhlUklIWE9PbERYSUxFRmo5WVhU0gH6AUFVX3lxTE5neDJtVnBWby0tMmVhVTJGbnhocnZkZlR1WUpCMUk3MjBWZXZZaEJKNXh6NFE1VzNNblZGcm4wT0hHa3RPbjQzLTZobzNYc3dzVkUtMmFZdFZZRFR5S1ZWRkg0b2xrVmhscThiWUstV09EZDFmdUZmWG0tYXhJemQxUzcxZURCUW4yT2V4d05VYTFnMENZVm1EYmF2Q2EyZmtXSGkxMG9zN2ZvSnJkaDdVT2ZrSWVVT3dKeGNLemxOUnQyblZWbHkxZlpidDFpN2RnQmsteWFWdERSVEhrTGF4YklPUFF2Uk5XdUdCLUVaX0ZHN2lhS3ZCMnc?oc=5
+
+## Designers dreaming up Taylor Swift-inspired wedding gowns - Channel 3000
+
+- first seen: 2026-08-23 21:32 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Designers dreaming up Taylor Swift-inspired wedding gowns  Channel 3000
+- sources:
+  - [unverified] Channel 3000 — https://news.google.com/rss/articles/CBMi-gFBVV95cUxOQW83SFcyXzdtSW8wUjlfdE52cGhueFo0NEJEbnFYTnlvMWtoZ3RyNUtYQTJ3UXhwTGoxOW9OYjVGMmxVS25DaUlGOWF3b3kwc3BJTmhRYTJURGFya0ZpUXNJc3BXVXBsZ3ZJN3VneXU3UEtZZmtZNk00di1MUlczd0VuX2ZsS0J3eVQtOWlpS01TcnhsTzRGUWhuSll3RzM4YlctbXg4LVczcFZxWkMtb0RMdmh1RGNvUE5IT0ExNkdUZk05WGRXWU9hZ254NnlibXVFQ093cm5lSG9JNV81aS02OENmNl84WndiZ3p6QkpXLXFyVXJCbXp3?oc=5
+  - [unverified] Lee News Central — https://news.google.com/rss/articles/CBMijwJBVV95cUxPeGxmbUlNM3NicVFyVW1xLUdKbW9qeDdvamwyWTJRczIyTHR3S2thY0dlRkREX0hRcVBvcGhyQlU1ODhKaUZHWDFfWG9GV1phOHl4Tk96Sk9wb3BuZEZUa3pWRFRyZFB6dlBtQWh1M1pCMEc4RGxyN1BrcDdzeVRxNUp4Ujl5ZzdTdElnN0ZUUmU2d3Y0U2dDa2JQeWk4VVVGUEt6eXlrWVR2enIxT3c0OW44TVdyWEpxT29oRmhwZTk2aUZTODZPYmQ4ekZOZkRqOVNCR0NCOFA0YlM1cUxscFc4a3A4YnVzaDF1U1V5V3RZa2k2bFVjdjBZcGh6RnI4UHVObk9EWnFIclVCRHRr?oc=5
+  - [unverified] The Pantagraph — https://news.google.com/rss/articles/CBMiugFBVV95cUxNWmpjLVpsZklGcDVNbkZCSjAzU3dJdmllRklNcXFFVVJsU1Rad0l6WEZrRm9sYnVkaEZJMTBYY2FVa2ZJM1puM2xmbU9qd1FYa29HV1Q0VU1QNnlRTHZqTUpFNWM2a1BNd2EyT3duSWN2S3AzSTlRMnBoeGRzOGxJTWR2MXRaZkVxSmdFVXJIbDFBQmJ3T0QyRnduV2FyT0ZiSHpWeTRPM1A0LWl1bWRvUzR1d3FVanZQNlE?oc=5
 
 ## NFL Has a Strange New Problem Because of Taylor Swift - heavy.com
 
@@ -547,139 +565,3 @@ Stories: 81
 - summary: Taylor Swift and Travis Kelce Didn’t Invite This Person to Their “Very Special” Wedding Despite Close Ties  instyle.com
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPU05EOWRZTFJvZ2FWYzV6S3NfTHh2VVhsbDU4S2tWSEJhbHM0bDR4YlNWWG82YXZicGp5Yk5wOWQ5Yk5WQ25jV1RPZEpwLXROLU8wOTNNMzJ0UlBMeUsydE1MZnY2bWJhcENUYjJyMWRxODg0NGRSUk13ZXNmRkF2MGVkazVfZ1JZeDVTcUZ0ektVbm5sT3FLNzlEUFVtMDIyZ3BselRtSlJFalE?oc=5
-
-## ‘Taylor Swift Tax’ Draws Suit From Rhode Island Homeowners (1) - news.bloombergtax.com
-
-- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: ‘Taylor Swift Tax’ Draws Suit From Rhode Island Homeowners (1)  news.bloombergtax.com
-- sources:
-  - [unverified] news.bloombergtax.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxPcnRNZ1pVV1g4QnhkeVFfR0gtQTg5RDMtRWpKdURuMXRodkoxbVpyQXJlQnlqUnZ3Z2FXWlNpTmJ4UXJkMVhHY19ISTZNR21CdjFYeUNLQWdKMEYyUzZzS29XaFlJWS00QXA4MXRtSEM3NUhjRl9OdkI4ZXNxc2MyTXlTczJyWG9peklOZnlJN0ZWOEx3Z3BpeWhaV0VpOVl0WFoyMlB4ZzB2a3RzN0E?oc=5
-
-## Taylor Swift, Travis Kelce are married – Updates on guests and more - USA Today
-
-- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, Travis Kelce are married – Updates on guests and more  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMizgFBVV95cUxOTFozNl9ZbmowZlJNRHhMclk2YUI2TnVQN3lyZGh3NlFaSE04WjJCVGplRklQd1psMGZsZmtpbXVnZFNuakRWRG5qOTRVYl96d0VTWlJZM29FcEQ3clpMUUpUR3pEZ3B1SnljU2JEZWMxbnRhaWRsS1dSQkZvYWxLR29KYVdpSmNwa19sN1R4QjhfUXVFc3N0OTlyb0h6ZmM1ZnI3Wk1pQVNQc3Bic2gwTjdCNDhuZUotNnEyWDBfQk9JSm1YYnZBYzd2akJlUQ?oc=5
-
-## Taylor Swift's new Samoyed steals the spotlight: AVMA shares tips for choosing the right dog for you
-
-- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's new Samoyed steals the spotlight: AVMA shares tips for choosing the right dog for your family  American Veterinary Medical Association
-- sources:
-  - [unverified] American Veterinary Medical Association — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQTjh5TTRKZDlvWG1BQ0pnSG1lZmZCa2l1dVE3Z1JMNUpOT2QycjFDVDVZQmprdlRRbm5BNVFsVzU1OVVybjJyaFQzOWEtWTlIc3ROVDJIOW9iazhmRGN1N1VIZ0NaRV9lNG0yYUdaS29uRlktMnJDa1NsNXR5dnJhQlg1Z1YtWEg5ODRnRElIVnotczdLOEdCbUpUTkYyZEdMREo0SF9WaTFBT1JtZGhXM2Ffb3JzaGUwT05n?oc=5
-
-## Taylor Swift's Ex-Boyfriend Conor Kennedy Wanted By Russia, Could Face 10 Years In Jail - NDTV
-
-- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Ex-Boyfriend Conor Kennedy Wanted By Russia, Could Face 10 Years In Jail  NDTV
-- sources:
-  - [unverified] NDTV — https://news.google.com/rss/articles/CBMi4AFBVV95cUxNY2wyQTRfbExLNkxMUHdCampaMGNvbkxyelBJMkw2RU84OGFtM1VmUWNYeXBUU0o4T3k5cWQ3bHZyaC0zVmx2bkRXMGFmaXZReHhNT0R6TkFtSHRsRzRkWjdHQ2tjNXhfSExnYjVFbkQ0TUZkN2ZIWkJJWXduMFUzNXlVRm96NzJOa05DbFJKUGUxOEZaMmdEbDVWU1JrWEpiNUZHemtQX0FrVEFXRUlQRllQbWtZOEV0LWVlRzFvcmdFSXQ4WVB1YVhGZ2Nfek15MlJkXzhPRGNUMW00VEJqbdIB6AFBVV95cUxQXzllc0Q4M214ZkZLYVBFMDJYVjRRS2phR1Bpd3lWS3lwRU11bDRWYV9vTFFYNF85Q0dnNHV6QVA4Ymx0dnhnR1M4YXlOS2lNeTViZXB2Uld3R1hxM19wZTNiZmZFQmIzc0xDeUNnZTNKVmxaOXhHcWFZZHdHZTh4QkpxRF84MUFnY1pESGpaMG9mczhLMndzeE1ubHU5b1ZibU91SnN4aEVtRllpQzBEM3k3ZmNCRDJVM1RlUFAtck9vVlZZaE5FTHRxczY0cFhvNFVNd2g3UVM1aHI5NndtcUxqbU16bHhM?oc=5
-
-## Gracie Abrams Officially Shuts Down Taylor Swift Rift Rumors With One Comment - E! News
-
-- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Gracie Abrams Officially Shuts Down Taylor Swift Rift Rumors With One Comment  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMivwFBVV95cUxNQ19MY0pmV2IyS2xTWmZ1V0l3dERmX01LeUg2dXZGLTN0S1pPaTZaZnVkdGxNS0dtUVJpdXBENllkODRkXzdFTmx0N2ljOGItSnA3RzdGYzRFY0xSc1dMcm1ELXBUR0x0SnZsVTFjYmJTY05vUmdlLWtFa3hPRGI3V3d3V3IyZkxWMkswT2UxeFpQWjZIVGFFcHJrWGV3c2RMTXEzWmstbWE3SUxOclgwcGE2Z21JaGRwVlFnNTZMUQ?oc=5
-
-## What Christians Can Learn from Taylor Swift’s Latest Accomplishment - Movieguide
-
-- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: What Christians Can Learn from Taylor Swift’s Latest Accomplishment  Movieguide
-- sources:
-  - [unverified] Movieguide — https://news.google.com/rss/articles/CBMiogFBVV95cUxOR05fTTRpTlRUd1FXZzlnQ2RhcnlpSEE2Q3hleWw0c2JVam1XWDBfSllFcFotbEtyeEtZVEQ2WERVVzlyajg2aVB1eG4wMGMxNGZwb084N0I1Mm1aMGF6SjZYMXhVcDZxMi1wcXYxRXNLeHVWWkdHdUdqQlg3QUpBckl6bjZHVUc2MzVkTGJSWm9tVmh1aE52Tzc4bngzcHFfNGc?oc=5
-
-## Swifties are freaking out over these supposed Easter eggs, but they shouldn’t be - Nine.com.au
-
-- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Swifties are freaking out over these supposed Easter eggs, but they shouldn’t be  Nine.com.au
-- sources:
-  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOb2IxamRRaE9uVlZTSVV6OGhzUUpKMzN3b0V4OHZoX1NsSGJ2eGF3TkxjNG1QWnlxa2RSMDdfUFBIcjJTZGFGRXIzeEkwTmE4bWRZaFlsSmVOTmVqTHlEQXlSdVBmVHI0ME5FZHJGd0l4MVhNenl6RGxyWVV1YUVKNUtDZjVsT2ZicWYzdDVONFNMT1pWQkdfZWZENnBPNVhTUVpuRTU0T05DVGdUVzMwQnJJWEwwdjJQQTB0XzF2aDR2UQ?oc=5
-
-## Taylor Swift to drop new music post-marriage to Travis Kelce? Empire State Building turns green, mys
-
-- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift to drop new music post-marriage to Travis Kelce? Empire State Building turns green, mysterio  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiygJBVV95cUxQVUJEYUhKdUozTzh1TDFjR0lUVWh4TXVMVW1ieExnTUJHRVNPMDM1cXRITFc3NkFKVE04aFZYVjlZT0FOSHRWbVVIeFNoemdSak5uNF9oOXhneGdfcW9OSWpfYjFnalRhd05lSHRVNzVkeTBoeVhqLURncUdSaXdMQUxfdmFuVDh3SkgzZ00wNHVnVTlQeEN6SEhFX3RKTG0zQW9zaFVQaUZ2RGxjbnRMN2NPaG1rcTlRc1NaR3VndVhOX2RMZUc3NzZkQW1tUUZqeU40T1B3WHhWU3BxQXFTT3dpdGdVNTh1OThkNEFRWDNqU1FMeW9jTG1adkk3SkNNNWdEOHhOclduYW1talF6YVhCQlhPQXRGZVJXbjFRUlNTbl9WbUl3d1FmbFpPak4teXlNc01Gb1ZTNE52VUhmRnVWOFlBZUNzaUHSAc8CQVVfeXFMTTdmZUJkR0w2MzZJMTlhODhpaXFfQXJEY1NNVWloNGpuRkpqd3Rkc1p5Z3EtdXlCbjRHa3dqZFpBbG5GdEd2YmNpRnpKNWZsazZPeWRXeTNRRkNPRWNWY1ZPZm1MN0pCaU5kOWdEMW96WlA3VVJCQUgtbUY4amtXQTN4b3VkLUh4d0EtSHJnb3VJRzkwV1pBRWtrV3pHN2VQTUM3R1Y5TkxoVjQ4blVvYU1zeDR5MkthRm5PemlQODk3Y1Z5Q3gtMktoQzV6TU5tUnQzSHAwakNULTc1SUc4Q1RGZnZRRmFyczAycml6bXhqcFRsX2REeHBXUWxtYmR2WU1pLVZvSFRwc09xZWxqYlBqMkZxZGZxMWNQZUd4amlGZ2RfRU55WTEzaXRLbndyYy1qaFdZNkhRYWhZd19fZmd0X2FDNExRUE1Jam1nR28?oc=5
-
-## 40 Plus Rhode Island Homeowners File Challenge to “Taylor Swift" Tax - Go Local Prov
-
-- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: 40 Plus Rhode Island Homeowners File Challenge to “Taylor Swift" Tax  Go Local Prov
-- sources:
-  - [unverified] Go Local Prov — https://news.google.com/rss/articles/CBMioAFBVV95cUxQaTRZNm9ydV9pMF9wRk5FNnhXLWJpcVBBdTZlZDYxcjdVblR0S25GMGhIYmxPZHRTZEZWdk9tRmtuV0w4STdhLU8ydW5MdFI0TlBqYVdnam1NX1Ntb1FCNDhMM1NsTTJNazB1TFJDMnc4cEpJS04zcmJDVmRYREptOVYwRnJMRTVCTW1CSm5MN1FFM3RrZ0RSejAyRndIVGNQ?oc=5
-
-## Taylor Swift's New York tease - Nine.com.au
-
-- first seen: 2026-08-21 02:36 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's New York tease  Nine.com.au
-- sources:
-  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMioAFBVV95cUxNZkR4bXBaWEtmeWlHWkh6UmdSR2tFTFRQYXJEd004QlpRTXZKc24ydm5NVUNhc2FMaW95YlZJS2RLWC0ySVBxWkZpcHZRZmRSTmthbWtpUGpsclFXT0w4cXZBUWU4am83SjVIRy1ENkFxN29IQV9YTEFZVUtmSVhTN3FtZ0lDRHlPREZUbUh0dzZxTUJLd1dxV2FQNGdvZEFF?oc=5
-
-## Taylor Swift clashes with Jason Kelce as she steps into her fun aunt era - MARCA
-
-- first seen: 2026-08-21 02:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift clashes with Jason Kelce as she steps into her fun aunt era  MARCA
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMizAFBVV95cUxPTjFTRW00NUJ6azh4OU1EUXlVTmpQd0RNNjd4SjdWbldFM1JIb0NCOHV1Q25lWEprUDVqRm56RUpNVjhCV2dvb3FXQjNFLTlsMWhBdGJtN1VXWF9sMXZQS0xoWDFyQlhVRkxjS2xkSUd3Y3EzbHdmclFLVUZwejdJX2taY01ZVElsc094YW5FYnhDUDlzVTRrNS0zdnpESWJidjlDdUg1WWZXX1ZaQ0pHNzFwb0x5NXBiRFVMN1I2SjI2bmEwVURvMXRrNzA?oc=5
-
-## Kylie Kelce Reveals Taylor Swift Has a ‘Big’ Influence on Her Daughters Who Are Begging for Kittens 
-
-- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Reveals Taylor Swift Has a ‘Big’ Influence on Her Daughters Who Are Begging for Kittens  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNWksxLThLT1dEM3NzVThMaGZhbW8wT00tdWgzSjVnY3FfaXhlMTNmV0Z2dVFkZ1h6ZWpGZWtfXzlSQllyanRzelptSWxrVGR4TUpSMEhEVC1WZlFrdmNCQ1dsbHBmY25OT1U1alNBOEozVE5TelJzYjJUZmNmb0stckVvdmpBREZwU3NTLV9OQ2tlVVZ2NVc2T1hCZ1F0c0tPRnBuWg?oc=5
-
-## Taylor Swift Fans Think She's Dropping Album After Spotting Alleged Easter Eggs - TMZ
-
-- first seen: 2026-08-20 21:38 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Fans Think She's Dropping Album After Spotting Alleged Easter Eggs  TMZ
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikwFBVV95cUxPUzktcENMWTVkWlR4THByZ05UVG8xTzJkZk83b00xYnBKRHBUd3J0aG90R0hZajRraUI5V3lZd0FReWpWTnFaMk9lakJLM1RCdlZCUXNPc0lxYnBwRWk4Uk1aVzZ5VUhPbHphTDlURmlocEJmMV9hLWR1dXctaXhWUmVGaVUwTWY5TkdzU3hIWlNoUmc?oc=5
-
-## Taylor Swift Gets Dethroned in Surprise VMA Nomination Sweep - Yahoo
-
-- first seen: 2026-08-20 21:38 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Gets Dethroned in Surprise VMA Nomination Sweep  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPSll0SXBILUM3b0N4NHZCWTh1dVlWUGJvVWdUWnBibXQybVdXZF9YYklsSGJFNHdqWUd2b2pqWldTbFh6MWViMVlzLVBhOUltUS1KV09qVHd2VmZtei1WUm1KaGg4UTdmd1EyNjZvM2VsTXlBWFVjTE5nT25PU2staFhvY2hKcWxDRDc0Y3M4OWVfdWFpbkNkU01nZHFwZXVqY1VydA?oc=5
-
-## Kylie Kelce Shares Sweet Way Kids Have Bonded With "Aunt" Taylor Swift - E! News
-
-- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Shares Sweet Way Kids Have Bonded With "Aunt" Taylor Swift  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQc0VSUzNRZ2xubnRZTlZkbTNZZWotTG8xa1E5Rk5lLThZVXNmbXRldnVtcmVPZ3FQcmMyV1FjbG53WWUyLW1RM0JEY0doNVB1YUcxNWlsekNPRHBkZzVVaHBUNGNwSGozaWVzb1pMRVhkNXJmWWE3ZzlDZW45NzgzeDNPRFJmTENkTENUNHpEeFloNzhfcTh5NHNja3RRS0dLUGNXYTYzLVA?oc=5
-
-## The truth behind Taylor Swift and Travis Kelce's 'timeless' wedding rings - Yahoo
-
-- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The truth behind Taylor Swift and Travis Kelce's 'timeless' wedding rings  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQbzU4ZmU4Y3E0bWVZdlR6NW4xT28xaWxxOHlqUkZrVWJqYjkwVDdZMWtTdkF2NmxialVXQTVCLXJ5S1ZJRVpFTXNsVU9lT3E3bmQwQS1qbTlMUkRjaDFtMGZfckxhdC1XdC1qX0ZyTG1rTDRjeXNla3NncE1GU1VSSTZrb2wzREFPN1Y5cWpEclVReU53UGlSTlVZbFRJRHZfZUQ1VQ?oc=5
-
-## Kylie Kelce Refers to Taylor Swift as ‘Aunt Taylor’ for the First Time Since Her and Travis Kelce’s 
-
-- first seen: 2026-08-20 21:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce Refers to Taylor Swift as ‘Aunt Taylor’ for the First Time Since Her and Travis Kelce’s Wedding  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQSTU5SHRZMDhhZG5vOG5kX3NxQ056TlJIQ1JSZDNjVzZCbjZpVTFVUUQ0LXhHLXF4UE1jd195WlRtbzNDcmQycWUybmVYRzhOQlVYQ1hRbm1rLXpkWHJkTGdNV3ozQXRHbnFnS0gzUFpsVjVHeXZDYURSSXVmTjIwYTU2YzJtLUlCNkozaGExQQ?oc=5
