@@ -100,7 +100,8 @@ with it. Neither blocks tonight's build.
    Stage 11 addendum) — that's the one thing that genuinely can't be proven
    without the toggle being live. Full original findings: PR #2319's Codex
    review, session `01a03390-be51-79b0-8bb7-ec53b398c20b`; this fix's own
-   review is pending (see the PR this fix branch opens).
+   review is pending on PR #2325 — opened but not merged, since this
+   executor had no Agent/Skill tools to run `codex:rescue` itself.
 
 **Worked if:** you tell me the Reddit outcome in chat. Once item #14's
 migrations (including the two new ones from this fix) are applied, flip the
