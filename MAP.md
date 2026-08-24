@@ -95,8 +95,13 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry`, `filterForThread` (LensId→FilterId, exhaustive) |
 | `lib/longlive/anchor-date.ts` | Sort-key resolution for undated items. `displayDate` is null unless `via === 'exact'`; `via: 'clamped'` is a real date pulled inside an era's window (P3 step 14a) |
 | `components/longlive/FilterBar.tsx` | The ONE global sticky filter row. Mounted once by `EraStream`, never per era |
-| `lib/longlive/era-feed.ts` | Pure feed logic: `EraFeedEntry` (4 kinds), `mergeEraFeed`, `visibleFeed` — one signature each (P3 step 14b). Doorway construction in `doorways.ts`, spacing in `space-doorways.ts` |
+| `lib/longlive/era-feed.ts` | Pure feed logic: `EraFeedEntry` (5 kinds — Stage 5 added `current`), `mergeEraFeed`, `visibleFeed` — one signature each (P3 step 14b). Doorway construction in `doorways.ts`, spacing in `space-doorways.ts`, live-item construction in `current-feed.ts` |
 | `lib/longlive/doorways.ts` | Builds `thread`/`egg` doorway entries (`threadDoorwaysForEra` clamps out-of-window anchors, `eggDoorwaysForEra`); `theoryThreadId` — the R4 theory→thread mapping, shared with `TheoryCard.tsx` |
+| `lib/longlive/current-feed.ts` | Knowledge-engine Stage 5: `currentFeedEntries` (builds the `current` `EraFeedEntry` kind from `current_item` rows), `outletFor`, `CURRENT_ITEM_STATUS_COPY`, `summarizeCurrentActivity` (masthead line) |
+| `lib/longlive/use-current-items.ts` | Client hook: fetches the current era's live rows from `/vault/current/[eraId]`, fails soft to `[]` |
+| `lib/current.ts` | Server-side Current-tier loader (`loadCurrentItems`) — mirrors `lib/vault.ts`'s env detection, no v0-preview fallback |
+| `app/vault/current/[eraId]/route.ts` | The Current tier's one read route — `packages/core/src/knowledge`, ISR `revalidate: 900` |
+| `app/api/intake/route.ts` | "Help us verify" (`CurrentItemDetail.tsx`) files a GitHub `intake`-labeled issue — shape copied from `/api/feedback/route.ts` |
 | `lib/longlive/space-doorways.ts` | `spaceDoorways`/`DOORWAY_MIN_GAP` — spreads doorways through an already-merged feed, never drops one. A displaced doorway is marked `displaced` and STOPS being a scrubber anchor |
 | `lib/longlive/scrubber-anchor-corpus.test.ts` | Locks zero date inversions across all twelve real eras. Was 44 |
 | `lib/longlive/bottom-nav-focus.ts` | Pure focus predicate for `BottomNav` — `focusout` does NOT fire on DOM removal, so this re-derives from `document.activeElement` |
@@ -109,6 +114,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/chrome-offset.ts` | `measureChromeHeight()` — the one place that measures live TopBar + FilterBar height; every jump/scroll/scrubber offset goes through it instead of a hardcoded constant |
 | `components/longlive/EraSection.tsx` | One era's wiring: hero, lyric, feed/doorway data, doorway tap → `pushReturnPoint`. Split (P3 step 15, was 826 lines) into the files below — none over 300 |
 | `components/longlive/EraFeedList.tsx` | Renders `EraSection`'s merged feed: dispatches each `EraFeedEntry` kind to the right card component |
+| `components/longlive/CurrentItemCard.tsx` | Live `current_item` feed card (kind: `'current'`) — dashed-unconfirmed border, "Live · reported by X" chip |
+| `components/longlive/CurrentItemDetail.tsx` | Live item's detail overlay — mandatory dashed rumor banner + "Help us verify" (POSTs `/api/intake`). State owned locally by `EraSection`, not the shared store |
 | `components/longlive/MomentCard.tsx` | Moment card wrapper: box + inline video play affordance (#2057) |
 | `components/longlive/MomentCardButton.tsx` | Moment card body per tier (hero/media/chip/text) + `MomentMeta`/`TagRow` |
 | `components/longlive/VideoMomentCard.tsx` | Full-width video-record card (kind: `'video'`) |

@@ -95,6 +95,9 @@ export interface CurrentItem {
   lastCheckedOn: string;
   /** ISO 8601 timestamp. */
   expiresAt: string;
+  /** ISO 8601 timestamp — ingest/edit recency; drives the site's "Updated
+   * Nh ago" masthead line (PLAN.md Stage 5). */
+  updatedAt: string;
   redlineOk: boolean;
 }
 

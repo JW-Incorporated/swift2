@@ -34,6 +34,7 @@ describe('Current-tier row mappers', () => {
       promoted_to: null,
       last_checked_on: '2026-08-23',
       expires_at: '2026-11-21T00:00:00.000Z',
+      updated_at: '2026-08-23T12:00:00.000Z',
       redline_ok: true,
     });
     expect(item.storyId).toBeUndefined();
@@ -42,6 +43,7 @@ describe('Current-tier row mappers', () => {
     expect(item.locationLevel).toBe('city');
     expect(item.imageUrl).toBeUndefined();
     expect(item.symbols).toEqual(['13']);
+    expect(item.updatedAt).toBe('2026-08-23T12:00:00.000Z');
     expect(item.redlineOk).toBe(true);
   });
 

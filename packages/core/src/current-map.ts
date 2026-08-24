@@ -61,6 +61,7 @@ export interface CurrentItemRow {
   promoted_to: string | null;
   last_checked_on: string;
   expires_at: string;
+  updated_at: string;
   redline_ok: boolean;
 }
 
@@ -98,6 +99,7 @@ export function mapCurrentItem(row: CurrentItemRow): CurrentItem {
     ...(row.promoted_to ? { promotedTo: row.promoted_to } : {}),
     lastCheckedOn: row.last_checked_on,
     expiresAt: row.expires_at,
+    updatedAt: row.updated_at,
     redlineOk: row.redline_ok,
   };
 }
