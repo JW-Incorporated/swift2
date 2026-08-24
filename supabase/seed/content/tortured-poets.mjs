@@ -3504,14 +3504,14 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
-        // Photo pass (2026-07-18, #762): render upgraded from 480×360
-        // hqdefault to the same video's 1280×720 maxresdefault (HTTP-checked
-        // + viewed). + a Commons CC BY 2.0 portrait of Travis Kelce, the
+        // Photo pass (2026-08-24): the same official video's 640×480
+        // sddefault frame is live after the maxresdefault transform rotted
+        // (HTTP-checked + viewed). + a Commons CC BY 2.0 portrait of Travis Kelce, the
         // song's widely read subject, as a reference image (license
         // API-verified; same pattern as the Hendersonville reference photo).
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/maxresdefault.jpg',
+            url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/sddefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "So High School" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
@@ -3625,14 +3625,14 @@ export default {
         // distinctive roof. Note the CDN serves browser user-agents only.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/06/Taylor-Swift-_-The-Eras-Tour-Edinburgh-Scotland-02-2024-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/06/Taylor-Swift-_-The-Eras-Tour-Edinburgh-Scotland-02-2024-billboard-1548.jpg',
             credit: 'Getty Images (via Billboard)',
             caption: 'The folklore set at Murrayfield Stadium, Edinburgh, during the record-breaking June 2024 stand.',
             kind: 'archival',
             focalPoint: '52% 25%',
           },
           {
-            url: 'https://image.cnbcfm.com/api/v1/image/107428490-1718277585941-gettyimages-2156561216-_gc10806_lnvlarov.jpeg?v=1733316726&w=1480&h=833',
+            url: 'https://image.cnbcfm.com/api/v1/image/107428490-1718277585941-gettyimages-2156561216-_gc10806_lnvlarov.jpeg',
             credit: 'Getty Images (via CNBC)',
             caption: 'Playing to a record Murrayfield crowd — each of the three nights topped the Scottish stadium attendance record the last had just set.',
             kind: 'archival',
@@ -3803,7 +3803,7 @@ export default {
         // fringe dress, crystal guitar). Focal points set per image by viewing.
         photos: [
           {
-            url: 'https://i.abcnewsfe.com/a/93f66532-3cd0-4fd1-8a10-52594110c859/taylor-swift-nc-jt-240615_1718457109716_hpMain_16x9.jpg?w=1600',
+            url: 'https://i.abcnewsfe.com/a/93f66532-3cd0-4fd1-8a10-52594110c859/taylor-swift-nc-jt-240615_1718457109716_hpMain_16x9.jpg',
             credit: 'ABC News',
             caption: 'Onstage during the June 2024 Anfield stand in Liverpool, where show 100 doubled as the end-date announcement.',
             kind: 'archival',
@@ -3811,7 +3811,7 @@ export default {
             focalPoint: '45% 25%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/06/taylor-swift-liverpool-night-1-2024-billboard-1548.jpg?w=1024',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/06/taylor-swift-liverpool-night-1-2024-billboard-1548.jpg',
             credit: 'Getty Images (via Billboard)',
             caption: 'The Fearless set on June 13, 2024 at Anfield — night one of the Liverpool stand, and the Eras Tour\'s 100th show.',
             kind: 'primary',
