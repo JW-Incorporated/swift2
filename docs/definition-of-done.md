@@ -13,26 +13,30 @@ of done" about the product or the marketing push, they mean this file.
 
 **Relationship to `docs/launch-readiness.md`:** that file tracked the original
 launch gates (most now 🟢) and Marjorie's brief reads it. This list is the
-successor bar. **Wyatt is reworking Marjorie's dashboard/brief to focus on
-these items plus a few others** — until that lands, Marjorie keeps reading
-launch-readiness.md, which now points here.
+successor bar. **2026-08-23: Marjorie's brief now reads THIS file** — the
+rework Wyatt was assigned never landed, and the gap was blocking exactly the
+"why isn't this moving" reporting Joey asked for. `launch-readiness.md`
+stays as the historical record; nothing here changes it.
 
 Rules, same as launch-readiness: statuses update freely with a PR link; items
 are added/removed only by founder decision. Each item below inherits
 CLAUDE.md's workflow — anything non-trivial gets a spec approved before code.
+**Every non-green item names who it's blocked on** — `founder`, `agent`, or
+`nobody` (same vocabulary as launch-readiness.md rule 3 — `nobody` means
+unstaffed, not stuck, and it's the most actionable answer this table has).
 
 ## Status at a glance
 
-| # | Item | Status | Next action |
-|---|---|---|---|
-| 1 | Landing page rethink (scroll-first + obvious nav) | ⬜ not started | Design spec + mockups → founder approval |
-| 2 | End Game vs Blank Spaces cards differentiated | 🟡 built, awaiting Joey's device check ([#2053](https://github.com/JW-Incorporated/swift2/pull/2053)) | Joey eyeballs both cards on his phone — the last acceptance criterion |
-| 3 | Clue Web vs Decode cards differentiated | 🟡 built, awaiting Joey's eyeball ([#2062](https://github.com/JW-Incorporated/swift2/pull/2062)) | Joey checks the two cards side by side — the last acceptance criterion |
-| 4 | Marketplace + Community sections | ⬜ not started | Product spec each → founder approval → build |
-| 5 | Every link on the site works | 🟡 partial machinery exists | Full one-time AI pass + widen Karen's nightly |
-| 6 | Every video, chronological, + video filter | ⬜ not started | Sourcing spec → data model extension → build |
-| 7 | Clown bot | 🟡 build B in progress, scope decided ([`docs/decisions.md`](decisions.md), 2026-08-13) | Land the PR — Codex review, full suite, CI red-team battery required check |
-| 8 | Era/album capitalization audit | ⬜ not started | Audit + fix + add a checker so it can't regress |
+| # | Item | Status | Blocked on | Next action |
+|---|---|---|---|---|
+| 1 | Landing page rethink (scroll-first + obvious nav) | ⬜ not started | nobody | Design spec + mockups → founder approval |
+| 2 | End Game vs Blank Spaces cards differentiated | 🟡 built, awaiting Joey's device check ([#2053](https://github.com/JW-Incorporated/swift2/pull/2053)) | founder | Joey eyeballs both cards on his phone — the last acceptance criterion |
+| 3 | Clue Web vs Decode cards differentiated | 🟡 built, awaiting Joey's eyeball ([#2062](https://github.com/JW-Incorporated/swift2/pull/2062)) | founder | Joey checks the two cards side by side — the last acceptance criterion |
+| 4 | Marketplace + Community sections | ⬜ not started | nobody | Product spec each → founder approval → build |
+| 5 | Every link on the site works | 🟡 partial machinery exists | agent | Full one-time AI pass + widen Karen's nightly |
+| 6 | Every video, chronological, + video filter | ⬜ not started | nobody | Sourcing spec → data model extension → build |
+| 7 | Clown bot | 🟡 build B in progress, scope decided ([`docs/decisions.md`](decisions.md), 2026-08-13) | agent | Land the PR — Codex review, full suite, CI red-team battery required check |
+| 8 | Era/album capitalization audit | ⬜ not started | nobody | Audit + fix + add a checker so it can't regress |
 
 Legend: 🟢 done (criterion met, verified) · 🟡 moving · ⬜ not started ·
 🔴 blocked, says on what.
@@ -259,5 +263,7 @@ checker live in `DET_CHECKERS`; a deliberately-miscased test fixture fails CI.
   sufficient). Items 1, 4, 6 need founder-approved specs first. Item 5 is
   runnable now on existing machinery. Item 7 is blocked on a founder decision
   by design.
-- Wyatt owns the Marjorie dashboard/brief rework to track this list; until
-  then, status changes here need a PR link like any gate file.
+- **2026-08-23:** Marjorie's brief now reads this file directly (see the
+  relationship note above) — status changes here need a PR link like any
+  gate file, same as before, but they now show up in the brief the next
+  morning instead of going unreported.

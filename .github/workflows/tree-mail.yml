@@ -25,6 +25,14 @@
 #      would not have prevented it, and it breaks as more desks legitimately
 #      file founder tasks.)
 #
+# RETIRED (2026-08-23): the digest SWEEP's mail send is off. Joey capped
+# founder-facing report email at 1-2 total (morning brief + Tree's weekly
+# report) and this stand-alone digest was a third. Open `founder-task` issues
+# now surface in Marjorie's morning brief instead (next-morning latency,
+# Joey's call — these are "~15 min sometime this week" asks, not urgent).
+# The job below still RUNS on schedule so `founder-mailed` bookkeeping stays
+# current for any tooling that reads it, but its mail-send step is gated off.
+#
 # Delivery path unchanged: scripts/watchdog/send-mail.py — the exact mailer
 # the Founders' Brief and watchdog alerts already use; From Marjorie, To Joey,
 # CC Wyatt; skips quietly if the mail secrets are unset.
@@ -44,11 +52,8 @@ name: tree-mail
 on:
   pull_request:
     types: [opened]
-  schedule:
-    # Sweep for unmailed founder-task issues. */3h keeps worst-case latency
-    # at 3 h while adding only ~8 short runs/day to the Actions-minutes
-    # budget (see ci.yml's minutes note). Offset minute to dodge cron rushes.
-    - cron: '17 */3 * * *'
+  # Digest sweep's schedule removed 2026-08-23 — see the RETIRED note above.
+  # `workflow_dispatch` still runs the digest job manually for testing.
   workflow_dispatch:
 
 permissions:

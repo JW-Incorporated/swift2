@@ -8,6 +8,15 @@
 # (and the delta gets mailed back — so a reply genuinely reaches her, and
 # her answer genuinely comes back to the founder's inbox).
 #
+# TREE ROUTING (2026-08-23): tree-mail.yml's `tree-pr-mail` job sends Tree's
+# weekly report with subject "Tree's weekly plan: <PR title>" — a reply to
+# that email is strategy feedback for TREE, not Marjorie, and posting it on
+# a brief issue would strand it somewhere Tree's Monday run never reads. A
+# reply whose subject carries that prefix is instead posted on Tree's own
+# PR (found by title search, open or closed — the PR may already be merged
+# by the time a founder replies), same DKIM/idempotency guarantees as the
+# brief path below.
+#
 # Deterministic, zero AI. Safety properties:
 #   - Only mail whose From is a founder address AND whose Gmail
 #     Authentication-Results carry dkim=pass is relayed; everything else is
@@ -68,12 +77,23 @@ jobs:
                   lines.append(ln)
               return '\n'.join(lines).strip()
 
+          TREE_PREFIX = "Tree's weekly plan: "
+
           def target_issue(subject):
               m = re.search(r'Founders. Brief — (\d{4}-\d{2}-\d{2})', subject)
               q = f'"Founders\' Brief — {m.group(1)}" in:title' if m else ''
               args = ['issue', 'list', '--repo', REPO, '--label', 'founders-brief',
                       '--state', 'all', '--limit', '1', '--json', 'number']
               if q: args += ['--search', q]
+              out = json.loads(gh(*args))
+              return out[0]['number'] if out else None
+
+          def target_tree_pr(pr_title):
+              # Open or closed — Tree's PR may already be merged by the time a
+              # founder replies days later. Title search, not branch name: the
+              # mail payload only ever carried the PR's title (tree-mail.yml).
+              args = ['pr', 'list', '--repo', REPO, '--state', 'all', '--limit', '1',
+                      '--search', f'"{pr_title}" in:title', '--json', 'number']
               out = json.loads(gh(*args))
               return out[0]['number'] if out else None
 
@@ -95,24 +115,33 @@ jobs:
                   print('ignored (empty after quote-stripping)'); continue
               subject = msg.get('Subject', '(no subject)')
               msg_id = msg.get('Message-ID', '').strip() or f'no-id-{num.decode()}'
-              issue = target_issue(subject)
-              if not issue:
-                  print(f'no brief issue found for: {subject}'); continue
-              already = gh('api', f'repos/{REPO}/issues/{issue}/comments',
+
+              is_tree = subject.startswith(TREE_PREFIX)
+              if is_tree:
+                  target = target_tree_pr(subject[len(TREE_PREFIX):].strip())
+                  kind, cmd = 'PR', ['pr', 'comment']
+              else:
+                  target = target_issue(subject)
+                  kind, cmd = 'issue', ['issue', 'comment']
+              if not target:
+                  print(f'no {"Tree PR" if is_tree else "brief issue"} found for: {subject}'); continue
+
+              already = gh('api', f'repos/{REPO}/issues/{target}/comments',
                            '--jq', f'[.[] | select(.body | contains("{msg_id}"))] | length')
               if already.strip() != '0':
                   M.store(num, '+FLAGS', '\\Seen'); continue
               who = FOUNDERS[from_addr]
+              recipient = 'Tree (its next Monday run reads this)' if is_tree else "Marjorie's next run"
               comment = (
                   f'📧 **Reply from {who}** (relayed from email, DKIM-verified · re: {subject})\n\n'
                   f'{body}\n\n'
-                  f'---\n_Relayed by marjorie-inbox.yml. Founder conversation for Marjorie\'s next run — '
+                  f'---\n_Relayed by marjorie-inbox.yml. Founder conversation for {recipient} — '
                   f'per the charter, relayed email never carries decision authority for the '
                   f'high-blast-radius set; those need a founder-authored comment/checkbox here on GitHub._\n'
                   f'<!-- relay-id: {msg_id} -->'
               )
-              gh('issue', 'comment', str(issue), '--repo', REPO, '--body-file', '-', input=comment)
+              gh(*cmd, str(target), '--repo', REPO, '--body-file', '-', input=comment)
               M.store(num, '+FLAGS', '\\Seen')
-              print(f'relayed {who} → #{issue}')
+              print(f'relayed {who} → {kind} #{target}')
           M.logout()
           PY
