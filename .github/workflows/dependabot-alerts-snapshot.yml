@@ -1,0 +1,54 @@
+# Publishes open Dependabot alerts into one persistent tracking issue, so
+# Paul Blart's weekly patrol (a Claude Code cloud routine) can read them
+# without calling the Dependabot alerts API itself — that call 403s from
+# inside the routine because the GitHub App backing Claude Code's
+# connection to the account doesn't request the `vulnerability_alerts`
+# permission, and that's not something an installer can add (HUMAN-ACTIONS
+# #21). This workflow uses a dedicated fine-grained PAT instead, scoped to
+# exactly this one read.
+#
+# Runs an hour before Paul Blart's Monday patrol (docs/agents/runners.md,
+# trig_01Px9HckABpWC4Bq1JQomfWT, 22:20 UTC Monday) so the snapshot is fresh
+# when the routine reads it.
+name: dependabot-alerts-snapshot
+
+on:
+  schedule:
+    - cron: "0 21 * * 1" # 21:00 UTC Monday — an hour ahead of Paul Blart's patrol
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print the issue body that would be published without calling GitHub"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+# One snapshot issue, edited in place — never let two runs race an edit.
+concurrency:
+  group: dependabot-alerts-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      # Scheduled runs always publish. A manual dispatch defaults to a dry
+      # run so a human clicking "Run workflow" to see the output doesn't
+      # discover it by having the tracking issue edited — same contract as
+      # fb-export-reminder.yml.
+      - name: Fetch and publish the Dependabot alerts snapshot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPENDABOT_ALERTS_PAT: ${{ secrets.DEPENDABOT_ALERTS_PAT }}
+          DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
+        run: node scripts/dependabot-alerts-snapshot.mjs
