@@ -51,10 +51,11 @@ describe('legal documents — draft safety', () => {
     // The whole point of the gate. If someone flips LEGAL_STATUS without
     // filling in the entity, jurisdiction, contact addresses, and effective
     // date, this fails loudly instead of publishing a policy full of holes.
+    // (All blanks were filled 2026-08-24, so a zero count no longer implies
+    // 'approved' — LEGAL_STATUS still requires its own docs/decisions.md
+    // sign-off entry to flip, independent of blank count.)
     if (LEGAL_STATUS === 'approved') {
       expect(legalPlaceholders()).toEqual([]);
-    } else {
-      expect(legalPlaceholders().length).toBeGreaterThan(0);
     }
   });
 
@@ -80,25 +81,24 @@ describe('legal documents — draft safety', () => {
     expect(banner).toContain('not legal advice');
   });
 
-  it('records the founder-supplied entity name verbatim', () => {
-    // Wyatt supplied the operating entity on 2026-08-12. It is the one fact no
-    // longer a blank — everything else below must still be.
+  it('records the founder-supplied facts verbatim', () => {
+    // Wyatt supplied the operating entity on 2026-08-12; Joey supplied the
+    // remaining five in chat on 2026-08-24. None of these are guesses — every
+    // value here was given by a founder, not invented by an agent.
     expect(LEGAL_FACTS.entity).toBe('JW Labs LLC');
-    expect(hasPlaceholder(LEGAL_FACTS.entity)).toBe(false);
-  });
-
-  it('leaves every fact a human must supply as a tracked blank, not a guess', () => {
-    // Regression guard for the failure mode this whole ticket exists to avoid:
-    // an agent inventing a company name, a governing law, or a contact address.
-    // (`entity` left this list on 2026-08-12 — founder-supplied, see above.)
+    expect(LEGAL_FACTS.jurisdiction).toContain('California');
+    expect(LEGAL_FACTS.privacyEmail).toBe('privacy@longlivets.com');
+    expect(LEGAL_FACTS.legalEmail).toBe('legal@longlivets.com');
+    expect(LEGAL_FACTS.effectiveDate).toBe('August 24, 2026');
     for (const key of [
+      'entity',
       'jurisdiction',
       'privacyEmail',
       'legalEmail',
       'postalAddress',
       'effectiveDate',
     ] as const) {
-      expect(hasPlaceholder(LEGAL_FACTS[key]), `${key} must stay a [FOUNDERS:] blank`).toBe(true);
+      expect(hasPlaceholder(LEGAL_FACTS[key]), `${key} should no longer be a blank`).toBe(false);
     }
   });
 });
