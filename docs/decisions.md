@@ -1096,8 +1096,12 @@ upload exists at all. They remain timeline moments with a source link. A fan
 re-upload is never an `officialUrl`, however long it has been alive.
 
 **Migration:** `supabase/migrations/20260812120000_video_work_appearance_kinds.sql`
-widens the CHECK constraint. It is **written, not applied** — applying is a
-founder/Wyatt action (`db:*` writes to prod).
+widens the CHECK constraint. **Applied to production on 2026-08-13** by Wyatt
+(applying is a founder/Wyatt action — `db:*` writes to prod). Verified in prod
+at the time of application: the migration is recorded as applied; the superseded
+`time-person-of-the-year-today-2023` record is gone (0 rows); and the new kinds
+are in use across 84 `video_work` rows — `interview` 8, `award_speech` 7,
+`press_event` 2, `speech` 1, alongside the pre-existing `performance` 3.
 
 **Codex review (2026-08-12), and one disagreement left open for the founders:**
 - *Enum mirrors:* consistent across all five sites. No finding.
@@ -1127,8 +1131,10 @@ founder/Wyatt action (`db:*` writes to prod).
   reasoning is what made the escape hatch cheap to use.
 
 **Approved by:** proposed by the 2026-08-12 engineering session (ENGINE lane);
-**pending Wyatt (CTO)** — schema + taxonomy sign-off, and Joey on whether the
-appearance vocabulary reads right to a fan.
+**approved by Wyatt (CTO) on 2026-08-13** — schema sign-off given in a Claude
+Code session, and the migration is now applied to production (see **Migration**
+above for the verification). Joey's read on whether the appearance vocabulary
+lands for a fan is separate and not part of this sign-off.
 
 **Related, same day:** the appearance *discovery* lane below finds new
 appearances going forward; this entry is what lets them be represented once
