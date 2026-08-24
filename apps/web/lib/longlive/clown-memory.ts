@@ -19,6 +19,16 @@ import type { ClownSession } from './clown-session';
 import { clownAuthHeaders, clownMemoryEnv } from './clown-session';
 import type { ClownTurn } from './clown-client';
 import { MAX_TRANSCRIPT_TURNS } from './clown-client';
+import { screenTurn } from './clown-safety';
+
+/** 180 days — matches the retention policy already decided for
+ * `clown_conversation`/`clown_turn` (docs/decisions.md 2026-08-23 item 6,
+ * `20260904000000_clown_sessions.sql`'s `expires_at` column default). Set
+ * explicitly on `getOrCreateConversation`'s upsert so a conflict against an
+ * already-EXPIRED row (RLS hides it at read time, but the physical row still
+ * exists and would otherwise collide) gets a fresh window, not the stale
+ * expired one the conflicting row already carried. */
+const CONVERSATION_RETENTION_MS = 180 * 24 * 60 * 60 * 1000;
 
 /** Composes/day per authenticated anonymous user (PLAN.md Stage 11).
  * Deliberately the SAME number as `clown-usage.ts`'s `CLOWN_DAILY_CAP`
@@ -41,7 +51,7 @@ export const CLOWN_USER_DAILY_CAP = 200;
  * `clownModelKey()` and `usage.reserve()` (global) checks pass and before
  * building the first model request — the route only resolves the SESSION
  * up front (`clown-session.ts`'s `resolveClownSession`, needed synchronously
- * for the `x-clown-session` response header) and hands this function to the
+ * for the `Set-Cookie` response header) and hands this function to the
  * loop as a callback, never calling it directly itself.
  *
  * RPC call returns the post-increment count directly (see
@@ -72,33 +82,110 @@ interface ConversationRef {
   summary: string;
 }
 
-/** Read-only: the caller's most recently active conversation, or `null` when
- * none exists yet / the read fails — never creates one (see
- * `getOrCreateConversation` for the write-capable wrapper). Shared by
- * `loadClownHistory` (a pure read) and `getOrCreateConversation` (which
- * falls back to creating one) so there is exactly one query for "find my
- * latest conversation" rather than two near-identical ones. */
-async function getConversation(session: ClownSession, fetchImpl: typeof fetch, signal?: AbortSignal): Promise<ConversationRef | null> {
-  const env = clownMemoryEnv();
-  if (!env) return null;
-  const getUrl = `${env.supabaseUrl}/rest/v1/clown_conversation?select=id,summary&user_id=eq.${session.userId}&order=last_active_at.desc&limit=1`;
-  const getRes = await fetchImpl(getUrl, { headers: clownAuthHeaders(env, session), signal });
-  if (!getRes.ok) return null;
-  const rows = (await getRes.json()) as Array<{ id?: unknown; summary?: unknown }>;
-  const row = Array.isArray(rows) ? rows[0] : undefined;
-  if (row && typeof row.id === 'string') return { id: row.id, summary: typeof row.summary === 'string' ? row.summary : '' };
-  return null;
+/** One warn per warm instance (same "best-effort per-instance" posture as
+ * `clown-session.ts`'s `warnedAuthUnavailable`) — a Supabase timeout/abort/
+ * malformed-response on the READ path degrades to "no memory" silently on
+ * every request but this one, rather than a log line per chat message. */
+let warnedMemoryReadUnavailable = false;
+
+/** Test-only reset — mirrors `clown-session.ts`'s
+ * `resetClownSessionWarningForTests` for the same reason: the only way to
+ * exercise the "warns exactly once" behavior deterministically across
+ * multiple `it()` blocks. */
+export function resetClownMemoryReadWarningForTests(): void {
+  warnedMemoryReadUnavailable = false;
 }
 
+function warnMemoryReadUnavailable(reason: string): void {
+  if (warnedMemoryReadUnavailable) return;
+  warnedMemoryReadUnavailable = true;
+  console.log('clown:memory-read-unavailable', JSON.stringify({ reason }));
+}
+
+/** `getConversation`'s outcome — distinguishes "confirmed empty, no row
+ * exists" (`empty`) from "the read itself failed" (`error`, a rejected
+ * fetch or malformed JSON) so callers can tell the two apart (HUMAN-ACTIONS.md
+ * #15 round 4: `getOrCreateConversation` must only ever create a row on
+ * confirmed-empty — creating one after a mere READ FAILURE risks a
+ * duplicate/extra conversation the caller may already have, once the read
+ * that would have found it eventually succeeds). */
+type ConversationLookup =
+  | { status: 'found'; conversation: ConversationRef }
+  | { status: 'empty' }
+  | { status: 'error' };
+
+/** Read-only: the caller's most recently active conversation, confirmed
+ * absent, or a failed read — never creates one (see `getOrCreateConversation`
+ * for the write-capable wrapper). Shared by `loadClownHistory` (a pure read)
+ * and `getOrCreateConversation` (which falls back to creating one on
+ * confirmed-empty only) so there is exactly one query for "find my latest
+ * conversation" rather than two near-identical ones.
+ *
+ * Fails closed the same way `resolveClownSession` already does (Codex
+ * review, HUMAN-ACTIONS.md #15 item 2): a rejected fetch (timeout, abort) or
+ * malformed JSON body used to escape uncaught into `loadClownHistory`'s own
+ * caller (`route.ts`'s `POST`, which does NOT wrap this read path in a
+ * `.catch()` the way it does the write-side `recordClownMemory`) — a
+ * Supabase hiccup would 500 the live chat route instead of degrading to
+ * no-memory. Caught here, once, and degraded to `{ status: 'error' }` —
+ * never thrown. */
+async function getConversation(session: ClownSession, fetchImpl: typeof fetch, signal?: AbortSignal): Promise<ConversationLookup> {
+  const env = clownMemoryEnv();
+  if (!env) return { status: 'error' };
+  try {
+    const getUrl = `${env.supabaseUrl}/rest/v1/clown_conversation?select=id,summary&user_id=eq.${session.userId}&order=last_active_at.desc&limit=1`;
+    const getRes = await fetchImpl(getUrl, { headers: clownAuthHeaders(env, session), signal });
+    if (!getRes.ok) return { status: 'error' };
+    const rows = (await getRes.json()) as unknown;
+    if (!Array.isArray(rows)) return { status: 'error' };
+    if (rows.length === 0) return { status: 'empty' };
+    const row = rows[0] as { id?: unknown; summary?: unknown };
+    if (row && typeof row.id === 'string') {
+      return { status: 'found', conversation: { id: row.id, summary: typeof row.summary === 'string' ? row.summary : '' } };
+    }
+    return { status: 'error' };
+  } catch {
+    warnMemoryReadUnavailable('getConversation fetch/json failed');
+    return { status: 'error' };
+  }
+}
+
+/**
+ * Write-capable wrapper: read the caller's most recent conversation, or
+ * create one when — and only when — that read CONFIRMED none exists.
+ * On a read FAILURE (`status: 'error'`), this aborts as a best-effort no-op
+ * (returns `null`, degrading to no-memory for this request) rather than
+ * risking a duplicate conversation once the underlying read issue clears
+ * (HUMAN-ACTIONS.md #15 round 4).
+ *
+ * Creation is a PostgREST UPSERT (`on_conflict=user_id`,
+ * `resolution=merge-duplicates`), not a plain insert — `clown_conversation`
+ * now carries a `unique (user_id)` constraint
+ * (`20260908000000_clown_conversation_unique.sql`), so a plain insert would
+ * permanently fail for any user whose prior row has EXPIRED: RLS hides an
+ * expired row at read time (the confirmed-empty branch above), but the
+ * physical row still exists and collides on insert. The upsert recovers
+ * from that collision by resetting `summary`/`expires_at` on the existing
+ * row instead of erroring.
+ */
 async function getOrCreateConversation(session: ClownSession, fetchImpl: typeof fetch): Promise<ConversationRef | null> {
   const env = clownMemoryEnv();
   if (!env) return null;
-  const existing = await getConversation(session, fetchImpl);
-  if (existing) return existing;
-  const postRes = await fetchImpl(`${env.supabaseUrl}/rest/v1/clown_conversation`, {
+  const lookup = await getConversation(session, fetchImpl);
+  if (lookup.status === 'found') return lookup.conversation;
+  if (lookup.status === 'error') return null;
+  const postRes = await fetchImpl(`${env.supabaseUrl}/rest/v1/clown_conversation?on_conflict=user_id`, {
     method: 'POST',
-    headers: { ...clownAuthHeaders(env, session), 'content-type': 'application/json', Prefer: 'return=representation' },
-    body: JSON.stringify({ user_id: session.userId }),
+    headers: {
+      ...clownAuthHeaders(env, session),
+      'content-type': 'application/json',
+      Prefer: 'resolution=merge-duplicates,return=representation',
+    },
+    body: JSON.stringify({
+      user_id: session.userId,
+      summary: '',
+      expires_at: new Date(Date.now() + CONVERSATION_RETENTION_MS).toISOString(),
+    }),
   });
   if (!postRes.ok) return null;
   const created = (await postRes.json()) as unknown;
@@ -128,7 +215,11 @@ export interface LoadedClownHistory {
  * `store.tsx` never persists `clownMessages`) meant the model started from
  * nothing even though the server had a full history for that user.
  * Degrades to `null` for every no-session/no-conversation-yet/network-
- * failure state, same posture as every other function here.
+ * failure state, same posture as every other function here. Never throws
+ * (Codex review, HUMAN-ACTIONS.md #15 item 2) — a rejected fetch or
+ * malformed JSON on the recent-turns lookup is caught the same way
+ * `getConversation` above catches its own, so a Supabase hiccup degrades
+ * `route.ts`'s `POST` to no-memory instead of an unhandled exception.
  */
 export async function loadClownHistory(
   session: ClownSession | null,
@@ -138,18 +229,24 @@ export async function loadClownHistory(
   if (!session) return null;
   const env = clownMemoryEnv();
   if (!env) return null;
-  const conversation = await getConversation(session, fetchImpl, signal);
-  if (!conversation) return null;
-  const listUrl = `${env.supabaseUrl}/rest/v1/clown_turn?select=role,text&conversation_id=eq.${conversation.id}&order=created_at.desc&limit=${MAX_TRANSCRIPT_TURNS}`;
-  const listRes = await fetchImpl(listUrl, { headers: clownAuthHeaders(env, session), signal });
-  if (!listRes.ok) return { summary: conversation.summary, turns: [] };
-  const rows = (await listRes.json()) as Array<{ role?: unknown; text?: unknown }>;
-  const turns: ClownTurn[] = Array.isArray(rows)
-    ? rows
-        .filter((r): r is { role: 'user' | 'assistant'; text: string } => (r.role === 'user' || r.role === 'assistant') && typeof r.text === 'string')
-        .reverse() // DESC (most recent first) over the wire → chronological order for the model
-    : [];
-  return { summary: conversation.summary, turns };
+  const lookup = await getConversation(session, fetchImpl, signal);
+  if (lookup.status !== 'found') return null;
+  const conversation = lookup.conversation;
+  try {
+    const listUrl = `${env.supabaseUrl}/rest/v1/clown_turn?select=role,text&conversation_id=eq.${conversation.id}&order=created_at.desc&limit=${MAX_TRANSCRIPT_TURNS}`;
+    const listRes = await fetchImpl(listUrl, { headers: clownAuthHeaders(env, session), signal });
+    if (!listRes.ok) return { summary: conversation.summary, turns: [] };
+    const rows = (await listRes.json()) as Array<{ role?: unknown; text?: unknown }>;
+    const turns: ClownTurn[] = Array.isArray(rows)
+      ? rows
+          .filter((r): r is { role: 'user' | 'assistant'; text: string } => (r.role === 'user' || r.role === 'assistant') && typeof r.text === 'string')
+          .reverse() // DESC (most recent first) over the wire → chronological order for the model
+      : [];
+    return { summary: conversation.summary, turns };
+  } catch {
+    warnMemoryReadUnavailable('loadClownHistory fetch/json failed');
+    return null;
+  }
 }
 
 const MAX_TURN_TEXT = 4000;
@@ -226,7 +323,18 @@ async function maintainRollingSummary(
   let newSummary: string | null = null;
   if (turns.length > KEEP_RECENT_TURNS) {
     const toFold = turns.slice(0, turns.length - KEEP_RECENT_TURNS);
-    const folded = toFold.map((t) => `${t.role}: ${t.text}`).join(' / ');
+    // FOLD-TIME SCREEN (architect-directed redesign, HUMAN-ACTIONS.md #15
+    // round 4) — per turn, role-aware (`screenTurn`: user turns via
+    // `screenInput`, assistant turns via `screenOutput`, the exact dispatch
+    // `screenConversation` already uses). A turn that fails its own screen
+    // is silently dropped from what gets folded into `summary` — NOT
+    // surfaced as a user-facing refusal (round 3's regression was turning a
+    // fold-time hit into a chat refusal; this is deliberately not that).
+    // Eviction from `clown_turn` still happens for every turn in `toFold`
+    // regardless of whether it passed — this only affects what text
+    // survives into the rolling summary.
+    const safeToFold = toFold.filter((t) => screenTurn({ role: t.role as 'user' | 'assistant', text: t.text }) === null);
+    const folded = safeToFold.map((t) => `${t.role}: ${t.text}`).join(' / ');
     newSummary = `${conversation.summary} ${folded}`.trim().slice(-MAX_SUMMARY_CHARS);
     deleteTurnIds = toFold.map((t) => t.id);
   }

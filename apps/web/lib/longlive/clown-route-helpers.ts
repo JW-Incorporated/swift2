@@ -102,10 +102,11 @@ export function ndjsonResponse(
       }
     },
   });
-  // PLAN.md Stage 11: `extraHeaders` carries `x-clown-session` back to the
-  // reader when a memory session resolved, so a future client can resend it
-  // for continuity (see `clown-session.ts`'s header) — undefined/empty for
-  // every request where it didn't (today's real state).
+  // PLAN.md Stage 11: `extraHeaders` carries the `Set-Cookie` session cookie
+  // back to the reader when a memory session resolved, so the browser
+  // resends it automatically for continuity (see `clown-session.ts`'s
+  // header) — undefined/empty for every request where it didn't (today's
+  // real state).
   return new Response(stream, {
     headers: { 'content-type': 'application/x-ndjson; charset=utf-8', ...extraHeaders },
   });

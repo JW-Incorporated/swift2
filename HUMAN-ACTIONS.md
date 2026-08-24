@@ -283,6 +283,93 @@ with it. Neither blocks tonight's build.
    genuinely isn't ready to flip yet. Full findings: PR #2325's review,
    Codex session `01a033dd-7645-7373-827e-c22739c7e943`.
 
+   **Update (2026-08-24, fix branch `fix/clown-sessions-final-hardening`) —
+   all 5 remaining findings from PR #2325's review are now fixed, third
+   pass:** loaded conversation history (rolling summary + recent turns) now
+   runs through `screenConversation`/`screenInput` in `route.ts` before ever
+   reaching the agent loop, the same gate the client-supplied transcript
+   already goes through — a stored turn/summary that would fail the screen
+   now gets the same fixed refusal, model never called (tested: a blocked
+   turn and a blocked summary each caught before `runClownAgent`).
+   `clown-memory.ts`'s `getConversation`/`loadClownHistory` now catch
+   rejected fetches and malformed JSON, degrading to `null` instead of
+   throwing into `route.ts`'s `POST` — same fails-closed discipline
+   `resolveClownSession` already follows, including a warn-once log (tested:
+   a rejected fetch and a malformed-JSON response on both the conversation
+   lookup and the recent-turns lookup all resolve to `null`, never throw).
+   The session token now persists via `clown-session-storage.ts`
+   (localStorage, mirroring `progress.ts`'s existing pattern) instead of
+   living only in a `ClownChat` component ref, so it survives a mode-switch
+   remount or a page reload (tested: write-then-independent-read round-trip,
+   simulating a fresh mount). A user-cap denial in `clown-agent.ts` now
+   calls a new `MoodUsage.release()` to give back the shared global
+   reservation it had already taken, so a cap-denied request no longer
+   wastes shared budget (tested: `usage.used()` is 0 after a denial, 1 after
+   a call that actually proceeds). `fold_clown_conversation` has a v2
+   migration (`20260907000000_clown_fold_conversation_v2.sql`) scoping its
+   delete by `conversation_id` too (not just the turn ids) and raising when
+   the update affects zero rows — verified against a real ephemeral local
+   Postgres: idempotent across all 26 migrations applied twice, a turn
+   genuinely owned by the caller but belonging to a DIFFERENT conversation
+   survives a fold scoped to the right one, and a fold against a
+   nonexistent/invisible conversation id raises instead of silently
+   succeeding. Also made a genuine attempt at the LOW file-length finding:
+   `ClownChat.tsx` 387→301 lines (`ClownChatTitlebar.tsx`/
+   `ClownChatComposer.tsx`/`useChromeOffset.ts` split out) and
+   `clown-agent.ts` 334→311 lines (`clown-agent-caps.ts` +
+   `clown-agent-prompt.ts`'s new `dispatchReadBlocks`) — both land just
+   above the 300-line guideline, not under it, noted honestly rather than
+   fragmenting further. **Still do NOT flip the toggle** until this branch's
+   `codex:rescue` review comes back clean (same category of risk as every
+   prior pass — schema + the live chat route's context-assembly logic).
+
+   **Update (2026-08-24, same branch `fix/clown-sessions-final-hardening`,
+   fourth pass) — architect (Fable) escalation after round 3's own
+   `codex:rescue` review found recurring trust-boundary gaps; implementing
+   Fable's decided design, not another incremental fix:**
+   1. **Session credential moved from a client-visible token to an
+      `HttpOnly; Secure; SameSite=Strict; Path=/api/clown` cookie**
+      (`clown_session`) — round 3's `x-clown-session` header/localStorage
+      approach handed the raw Supabase access+refresh token pair to client
+      JS; the client now never sees it at all, the browser's cookie jar
+      handles persistence and same-origin resend with zero client code.
+      `clown-session-storage.ts` (the round-3 localStorage module) is
+      deleted outright, along with its test and the now-dead
+      `withSessionHeader`/`nextSessionToken` helpers.
+   2. **The stored conversation summary is demoted into the first
+      user-role message** (wrapped in `<conversation_memory>` tags, with a
+      literal `</conversation_memory>` stripped from the stored text first
+      against a tag-breakout attempt), never promoted into a system block —
+      round 3's second system block is removed. Fold-time screening
+      (`clown-memory.ts`'s `maintainRollingSummary`) is now per-turn and
+      role-aware (mirrors `screenConversation`'s dispatch), silently
+      dropping a turn that fails its own screen from what gets folded
+      rather than surfacing a refusal (round 3's regression). The route's
+      own `screenInput` pass over the folded summary text is removed —
+      replaced by the fold-time screening above; the route's
+      `screenConversation` pass over loaded TURNS is unchanged.
+   3. **Schema fix:** `clown_conversation` now carries `unique (user_id)`
+      (`20260908000000_clown_conversation_unique.sql`, with a dedupe step
+      for any pre-existing duplicate rows) — one conversation per user is
+      the actual identity model. Conversation creation is now a PostgREST
+      upsert (`on_conflict=user_id`, `resolution=merge-duplicates`) with a
+      fresh `expires_at`, so an EXPIRED row (still physically present under
+      RLS) is recoverable instead of permanently blocking creation.
+      `getConversation` now distinguishes a confirmed-empty read from a
+      failed one; only confirmed-empty falls through to creation — a read
+      failure degrades to no-memory instead of risking a duplicate
+      conversation. Also fixed the day-keyed `MoodUsage.release()` bug
+      (a per-user cap reservation taken before midnight, released after,
+      could decrement the wrong day's counter).
+   Verified: `npm run typecheck --workspace=@swift2/web` clean, full suite
+   green (216 files / 3543 tests), and the new migration checked against a
+   real ephemeral Postgres — idempotent across all 27 migrations applied
+   twice, dedupe keeps the most-recently-active row, the unique constraint
+   is live, and the upsert recovers from an expired-row collision (reset
+   summary + fresh `expires_at`, no duplicate row). **Still do NOT flip the
+   toggle** — `codex:rescue` review of this round is still warranted and has
+   not yet run (see the PR itself for status).
+
 **Worked if:** you tell me the Reddit outcome in chat. Hold the Supabase
 toggle until a future session addresses the items above — tell me to
 prioritize it if you want it sooner, same as before.

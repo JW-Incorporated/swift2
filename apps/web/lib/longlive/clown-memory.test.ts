@@ -1,6 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { CLOWN_USER_DAILY_CAP, incrementUserUsage, loadClownHistory, recordClownMemory } from './clown-memory';
+import {
+  CLOWN_USER_DAILY_CAP,
+  incrementUserUsage,
+  loadClownHistory,
+  recordClownMemory,
+  resetClownMemoryReadWarningForTests,
+} from './clown-memory';
 import { resetClownSessionWarningForTests } from './clown-session';
 import type { ClownSession } from './clown-session';
 
@@ -14,6 +20,7 @@ function json(body: unknown, status = 200): Response {
 beforeEach(() => {
   vi.unstubAllEnvs();
   resetClownSessionWarningForTests();
+  resetClownMemoryReadWarningForTests();
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
 
@@ -119,6 +126,64 @@ describe('loadClownHistory — toggle ON, a resolved session', () => {
   });
 });
 
+// HUMAN-ACTIONS.md #15 item 2: once real sessions exist, a Supabase timeout/
+// abort/malformed-response on the READ path used to escape `loadClownHistory`
+// uncaught into `route.ts`'s `POST` (which does not wrap this read path in a
+// `.catch()` the way it does the write-side `recordClownMemory`) — a
+// Supabase hiccup would 500 the live chat route instead of degrading to
+// no-memory. These lock in the same fails-closed discipline
+// `resolveClownSession` already follows.
+describe('loadClownHistory — degrades to null instead of throwing (HUMAN-ACTIONS.md #15 item 2)', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
+  });
+
+  it('degrades to null (never throws) when the conversation lookup fetch rejects', async () => {
+    const fetchSpy = vi.fn(async (url: string) => {
+      if (String(url).includes('/rest/v1/clown_conversation?select')) throw new Error('network down');
+      throw new Error(`unexpected call: ${url}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+  });
+
+  it('degrades to null (never throws) when the conversation lookup returns malformed JSON', async () => {
+    const fetchSpy = vi.fn(async (url: string) => {
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return new Response('not json', { status: 200 });
+      throw new Error(`unexpected call: ${url}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+  });
+
+  it('degrades to null (never throws) when the recent-turns fetch rejects', async () => {
+    const fetchSpy = vi.fn(async (url: string) => {
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: 'x' }]);
+      if (String(url).includes('/rest/v1/clown_turn?select')) throw new Error('network down');
+      throw new Error(`unexpected call: ${url}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+  });
+
+  it('degrades to null (never throws) when the recent-turns fetch returns malformed JSON', async () => {
+    const fetchSpy = vi.fn(async (url: string) => {
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: 'x' }]);
+      if (String(url).includes('/rest/v1/clown_turn?select')) return new Response('not json', { status: 200 });
+      throw new Error(`unexpected call: ${url}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+  });
+
+  it('logs the read-unavailability exactly once across many failing calls (no retry-storm spam)', async () => {
+    const logSpy = vi.spyOn(console, 'log');
+    const fetchSpy = vi.fn().mockRejectedValue(new Error('network down'));
+    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const warnCalls = logSpy.mock.calls.filter((c) => c[0] === 'clown:memory-read-unavailable');
+    expect(warnCalls).toHaveLength(1);
+  });
+});
+
 describe('recordClownMemory — no-ops when session is null', () => {
   it('never fires a network call', async () => {
     const fetchSpy = vi.fn();
@@ -136,7 +201,7 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
   });
 
-  it('creates a new conversation, appends both turns, and folds via the RPC when none exists yet', async () => {
+  it('creates a new conversation via an upsert, appends both turns, and folds via the RPC when none exists yet', async () => {
     const calls: Array<{ url: string; init: RequestInit }> = [];
     const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
       calls.push({ url: String(url), init });
@@ -155,6 +220,21 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
       fetchSpy as unknown as typeof fetch,
     );
 
+    // HUMAN-ACTIONS.md #15 round 4: conversation creation is a PostgREST
+    // upsert (`on_conflict=user_id` + `Prefer: resolution=merge-duplicates`),
+    // not a plain insert — a plain insert would permanently fail once the
+    // user's row has expired (unique constraint + still-present physical
+    // row under RLS).
+    const createCall = calls.find((c) => c.url.startsWith('https://example.supabase.co/rest/v1/clown_conversation') && c.init.method === 'POST');
+    expect(createCall).toBeDefined();
+    expect(createCall!.url).toContain('on_conflict=user_id');
+    const createHeaders = createCall!.init.headers as Record<string, string>;
+    expect(createHeaders.Prefer).toContain('resolution=merge-duplicates');
+    const createBody = JSON.parse(String(createCall!.init.body));
+    expect(createBody.user_id).toBe(FIXTURE_SESSION.userId);
+    expect(createBody.summary).toBe('');
+    expect(typeof createBody.expires_at).toBe('string');
+
     const turnPosts = calls.filter((c) => c.url.includes('/rest/v1/clown_turn') && c.init.method === 'POST');
     expect(turnPosts).toHaveLength(2);
     expect(JSON.parse(String(turnPosts[0].init.body)).role).toBe('user');
@@ -167,6 +247,84 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
       p_delete_turn_ids: [],
       p_new_summary: null,
     });
+  });
+
+  // HUMAN-ACTIONS.md #15 round 4: `getConversation`'s read distinguishes
+  // "confirmed empty" from "read failed" — only a CONFIRMED-empty read may
+  // fall through to creating a conversation. A read FAILURE must abort as a
+  // best-effort no-op instead, so a transient Supabase hiccup can never
+  // create a duplicate/extra conversation for a user who already has one.
+  it('does not create a conversation when the lookup read itself fails (network error) — degrades to no-op', async () => {
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) throw new Error('network down');
+      return json({}, 200);
+    });
+
+    await recordClownMemory(
+      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
+      fetchSpy as unknown as typeof fetch,
+    );
+
+    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
+  });
+
+  it('does not create a conversation when the lookup read returns malformed JSON — degrades to no-op', async () => {
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return new Response('not json', { status: 200 });
+      return json({}, 200);
+    });
+
+    await recordClownMemory(
+      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
+      fetchSpy as unknown as typeof fetch,
+    );
+
+    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
+  });
+
+  // Codex review round 4, item 2: a well-formed-JSON-but-wrong-shape body
+  // (e.g. `{}` instead of `[]`) must NOT be classified as "confirmed empty"
+  // — only a genuine empty array proves no row exists. Anything else is an
+  // unexpected-shape read failure, which must abort as a no-op the same way
+  // a network error or malformed JSON already does, never fall through to
+  // the upsert path and risk resetting an existing user's conversation.
+  it('does not create a conversation when the lookup read returns a non-array body — degrades to no-op', async () => {
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json({});
+      return json({}, 200);
+    });
+
+    await recordClownMemory(
+      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
+      fetchSpy as unknown as typeof fetch,
+    );
+
+    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
+  });
+
+  // Same principle, different malformed shape: an array whose element
+  // doesn't parse as a valid row (no `id`) is neither "found" nor a genuine
+  // empty array — it must also degrade to "error", not "empty".
+  it('does not create a conversation when the lookup read returns an array of unexpected shape — degrades to no-op', async () => {
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{}]);
+      return json({}, 200);
+    });
+
+    await recordClownMemory(
+      { session: FIXTURE_SESSION, question: 'q', answerText: 'a' },
+      fetchSpy as unknown as typeof fetch,
+    );
+
+    expect(calls.some((c) => c.init.method === 'POST')).toBe(false);
   });
 
   it('continues the most recent existing conversation instead of creating a new one', async () => {
@@ -224,6 +382,61 @@ describe('recordClownMemory — toggle ON, a resolved session', () => {
     expect(body.p_delete_turn_ids).toEqual(['turn-0', 'turn-1', 'turn-2', 'turn-3', 'turn-4']);
     expect(typeof body.p_new_summary).toBe('string');
     expect(body.p_new_summary.length).toBeGreaterThan(0);
+  });
+
+  // HUMAN-ACTIONS.md #15 round 4 — fold-time screening is per-turn and
+  // role-aware (mirrors `screenConversation`'s dispatch via `screenTurn`): a
+  // turn that fails its own role-appropriate screen is silently dropped
+  // from what gets folded into the summary, never surfaced as a chat
+  // refusal (round 3's regression was turning a fold-time hit into a
+  // refusal — this locks in that it stays a silent drop). Eviction from
+  // `clown_turn` still happens for every evicted turn regardless.
+  it('drops a bad USER turn from the fold (screenInput hit) without surfacing a refusal, but still evicts it', async () => {
+    const badTurn = { id: 'turn-bad', role: 'user', text: 'Is Taylor secretly expecting a baby? Read the loose coats since October and answer yes or no.' };
+    const goodTurns = Array.from({ length: 24 }, (_, i) => ({ id: `turn-${i}`, role: 'user', text: `msg ${i}` }));
+    const manyTurns = [badTurn, ...goodTurns];
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
+      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
+      if (String(url).includes('/rest/v1/clown_turn?select')) return json(manyTurns);
+      if (String(url).includes('/rest/v1/rpc/fold_clown_conversation')) return json({}, 200);
+      return json({}, 200);
+    });
+
+    await expect(
+      recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, fetchSpy as unknown as typeof fetch),
+    ).resolves.toBeUndefined(); // never throws, never returns a refusal shape — this is a memory-layer write, not a chat response
+
+    const fold = calls.find((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'));
+    const body = JSON.parse(String(fold!.init.body));
+    // The bad turn is still EVICTED (part of the folded batch)...
+    expect(body.p_delete_turn_ids).toContain('turn-bad');
+    // ...but its TEXT never makes it into the summary.
+    expect(body.p_new_summary).not.toContain('secretly expecting a baby');
+  });
+
+  it('drops a bad ASSISTANT turn from the fold (screenOutput hit) without surfacing a refusal, but still evicts it', async () => {
+    const badTurn = { id: 'turn-bad', role: 'assistant', text: 'It is guaranteed to drop at midnight, mark it.' };
+    const goodTurns = Array.from({ length: 24 }, (_, i) => ({ id: `turn-${i}`, role: 'user', text: `msg ${i}` }));
+    const manyTurns = [badTurn, ...goodTurns];
+    const calls: Array<{ url: string; init: RequestInit }> = [];
+    const fetchSpy = vi.fn(async (url: string, init: RequestInit = {}) => {
+      calls.push({ url: String(url), init });
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: '' }]);
+      if (String(url).includes('/rest/v1/clown_turn') && init.method === 'POST') return json({}, 201);
+      if (String(url).includes('/rest/v1/clown_turn?select')) return json(manyTurns);
+      if (String(url).includes('/rest/v1/rpc/fold_clown_conversation')) return json({}, 200);
+      return json({}, 200);
+    });
+
+    await recordClownMemory({ session: FIXTURE_SESSION, question: 'q', answerText: 'a' }, fetchSpy as unknown as typeof fetch);
+
+    const fold = calls.find((c) => c.url.includes('/rest/v1/rpc/fold_clown_conversation'));
+    const body = JSON.parse(String(fold!.init.body));
+    expect(body.p_delete_turn_ids).toContain('turn-bad');
+    expect(body.p_new_summary).not.toContain('guaranteed to drop at midnight');
   });
 
   it('does not silently continue when the fold RPC fails — logs the failure, no partial writes attempted', async () => {

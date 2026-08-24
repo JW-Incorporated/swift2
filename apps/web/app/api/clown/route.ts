@@ -13,7 +13,13 @@ import { resolveScopeSignal } from '../../../lib/longlive/clown-agent-tools';
 import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
-import { decodeSessionToken, encodeSessionToken, resolveClownSession } from '../../../lib/longlive/clown-session';
+import {
+  buildSessionCookieHeader,
+  decodeSessionToken,
+  encodeSessionToken,
+  readSessionCookie,
+  resolveClownSession,
+} from '../../../lib/longlive/clown-session';
 import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitizeTranscript } from '../../../lib/longlive/clown-route-helpers';
 
 // Clownbot (build B) — the API route. PLAN.md Step 8; agent loop added
@@ -96,7 +102,10 @@ import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitiz
 // are used as-is rather than duplicating context. The rolling summary,
 // covering whatever was folded away before either window, is passed to
 // `runClownAgent` either way — see its own header for how it reaches the
-// model.
+// model. LOADED HISTORY IS SCREENED before any of this (HUMAN-ACTIONS.md
+// #15 item 1 fix, below) — a stored turn or summary carries the same
+// elevated-trust risk the client-supplied transcript does, and skipped this
+// gate entirely before this fix.
 //
 // STREAMING (new, PLAN.md Stage 10 req 1): only the agent-loop path streams.
 // Every deterministic path (crisis, blocklist, chip, scope redirect) still
@@ -190,8 +199,8 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // MEMORY — resolves an anonymous-auth session BEFORE the model spend
-  // (needed synchronously for the `x-clown-session` response header below),
-  // but does NOT reserve the caller's per-user budget here — that happens
+  // (needed synchronously for the `Set-Cookie` response header below), but
+  // does NOT reserve the caller's per-user budget here — that happens
   // inside `runClownAgent`, only once it already knows a model call is
   // about to be attempted (Codex review fix, HUMAN-ACTIONS.md #15 item 2;
   // see `clown-agent.ts`'s header for why). `session` is `null` in every
@@ -199,9 +208,22 @@ export async function POST(req: Request): Promise<Response> {
   // state — anonymous sign-ins not yet toggled on; HUMAN-ACTIONS.md #15
   // item 2) and every downstream memory call already treats `null` as
   // "skip, no persistence" — this never blocks a reply on its own.
-  const incomingSessionToken = decodeSessionToken(req.headers.get('x-clown-session'));
+  //
+  // COOKIE, NOT A CLIENT-VISIBLE TOKEN (architect-directed redesign,
+  // HUMAN-ACTIONS.md #15 round 4): the round-3 `x-clown-session` header/
+  // localStorage token handed the raw Supabase access+refresh token pair to
+  // client JS — the client never needs to see or handle it at all. The
+  // session now round-trips via an `HttpOnly; Secure; SameSite=Strict`
+  // cookie scoped to this route (`clown-session.ts`'s `readSessionCookie`/
+  // `buildSessionCookieHeader`); the browser resends it automatically on
+  // same-origin `fetch`, and a forged/invalid cookie just fails the refresh
+  // exchange inside `resolveClownSession` (falls through to null/fresh-
+  // signup) — no signing, no HMAC, no new env var needed.
+  const incomingSessionToken = decodeSessionToken(readSessionCookie(req.headers.get('cookie')));
   const memorySession = await resolveClownSession(incomingSessionToken, undefined, deadlineController.signal);
-  const sessionHeaders = memorySession ? { 'x-clown-session': encodeSessionToken(memorySession) } : undefined;
+  const sessionHeaders = memorySession
+    ? { 'Set-Cookie': buildSessionCookieHeader(encodeSessionToken(memorySession)) }
+    : undefined;
   const reserveUserBudget = memorySession
     ? () => incrementUserUsage(memorySession, undefined, deadlineController.signal)
     : undefined;
@@ -213,6 +235,33 @@ export async function POST(req: Request): Promise<Response> {
     memorySession && priorTurns.length === 0
       ? await loadClownHistory(memorySession, undefined, deadlineController.signal)
       : null;
+
+  // LOADED-HISTORY SCREEN (HUMAN-ACTIONS.md #15 item 1 fix) — a stored turn
+  // reaching this point originated from some earlier user message; without
+  // this it becomes elevated-trust context the model would otherwise trust
+  // unconditionally (it never passed the CLIENT-transcript screen above,
+  // because it never arrived as a client transcript). The loaded turns are
+  // turn objects, so they go through the exact same `screenConversation` the
+  // client transcript does above. Same refusal shape either way — a caller
+  // cannot tell this screen apart from the client-transcript one.
+  //
+  // The rolling SUMMARY is deliberately NOT screened here (architect-
+  // directed redesign, HUMAN-ACTIONS.md #15 round 4) — round 3's role-blind
+  // `screenInput` over the folded summary text is replaced by per-turn,
+  // role-aware screening at FOLD TIME (`clown-memory.ts`'s
+  // `maintainRollingSummary`), which drops a bad turn from what gets folded
+  // in the first place rather than re-screening the already-folded text
+  // here. The summary itself reaches the model demoted into the first user
+  // message, wrapped in `<conversation_memory>` tags (`clown-agent.ts`) —
+  // never promoted into a system block.
+  if (loadedHistory) {
+    const historyHit = screenConversation(loadedHistory.turns);
+    if (historyHit) {
+      clearTimeout(deadlineTimer);
+      console.log('clown:refusal', JSON.stringify({ gate: 'history', category: historyHit }));
+      return NextResponse.json(messageAnswer([refusal(historyHit).message]), sessionHeaders ? { headers: sessionHeaders } : undefined);
+    }
+  }
 
   // AGENT LOOP — streamed. `scope.result` (the search that just proved this
   // question is in scope) is reused as the loop's free seed context rather
