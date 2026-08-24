@@ -17,7 +17,7 @@ import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra, keepExploring, releasedFactValue, trackKey } from '@/lib/longlive/tracks';
 import { videosForEra } from '@/lib/longlive/videos';
-import { trackVideoFor } from '@/lib/longlive/track-video';
+import { resolvedTrackVideo } from '@/lib/longlive/track-video';
 import { MomentVideo } from './MomentVideo';
 import { OverlayNav } from './OverlayNav';
 import { TrackFiveCallout } from './TrackFivePill';
@@ -66,32 +66,12 @@ export function TrackDetail() {
   if (!era || !track) return null;
 
   const dossier = track.dossier;
-  // The song's official video, matched from the era's videos rail by title
-  // (#439/#440) so track pages actually embed the music video instead of
-  // hiding it in the era-level rail only. Same conservative matcher
-  // TrackGuide's inline playback uses (track-video.ts) — see its doc comment
-  // for the recording-separation rule. TrackDetail previously called a
-  // separate, looser matcher (videos.ts's `videoForTrack`) whose
-  // `normalizeTitle` stripped every parenthetical including "(Taylor's
-  // Version)", so the two disagreed on which recording to play (finding #2,
-  // adversarial review 2026-08-13). `videoForTrack` is gone — there is only
-  // one matcher now.
-  const matchedVideo = trackVideoFor(track.title, videosForEra(era.id), track.youtubeId);
-  // Prefer the official music video when one exists — it is the richer artifact
-  // and carries its own title. Otherwise fall back to the track's OWN verified
-  // youtubeId (the official audio / lyric video sourced by the Audio Curator,
-  // every one oEmbed-checked against an official channel).
-  //
-  // Without that fallback the page could only ever play the ~44 songs with a
-  // music video, while 213 tracks carried a verified, playable id that reached
-  // the generated vault and then rendered nowhere — the exact complaint that
-  // started the audio work ("only being able to link to a handful of songs is
-  // lame"). Found 2026-07-20 while browser-verifying playback.
-  const video = matchedVideo?.youtubeId
-    ? { youtubeId: matchedVideo.youtubeId, title: matchedVideo.title }
-    : track.youtubeId
-      ? { youtubeId: track.youtubeId, title: track.title }
-      : undefined;
+  // The song's playable video (issue #771): the official video matched from
+  // the era's videos rail by title (#439/#440), else the track's own
+  // verified audio/lyric `youtubeId` — see `resolvedTrackVideo`'s doc comment
+  // in track-video.ts for the fallback rationale and the matcher's
+  // recording-separation rule.
+  const video = resolvedTrackVideo(track, videosForEra(era.id)) ?? undefined;
   // The dossier backs whyItMatters/meaning/live/voices; the narrative
   // discussion keeps its own citation list. Merged (de-duped by url) into one
   // source line at the foot of the page.

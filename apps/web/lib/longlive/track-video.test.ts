@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeTrackVideoTitle, trackVideoFor } from './track-video';
+import { normalizeTrackVideoTitle, resolvedTrackVideo, trackVideoFor } from './track-video';
 import { tracksForEra } from './tracks';
-import { allVideoRecordsForEra } from './videos';
+import { allVideoRecordsForEra, videosForEra } from './videos';
 import type { VideoNote, VideoNoteKind } from './types';
 
 function video(overrides: Partial<VideoNote> & { title: string }): VideoNote {
@@ -170,6 +170,41 @@ describe('trackVideoFor — real corpus', () => {
     // fails loudly if the matcher regresses to near-zero.
     expect(total).toBeGreaterThan(0);
     expect(paired).toBeGreaterThanOrEqual(40);
+  });
+
+  // Issue #771 ("missing youtube embeds on track pages"): TrackDetail resolves
+  // `resolvedTrackVideo` against the era's PLAYABLE videos (`videosForEra`,
+  // same call TrackDetail makes), never the unfiltered list above — this is
+  // the actual coverage a reader hits. Every track carries its own verified
+  // audio/lyric `youtubeId` as of 2026-07-20, so this is a floor of 100%, not
+  // just "greater than zero": a track resolving to null here is a real
+  // regression of #771's fix, not content the seed hasn't caught up on yet.
+  it('every track resolves a playable video via resolvedTrackVideo — none regress to no embed', () => {
+    const ERAS = [
+      'debut',
+      'fearless',
+      'speak-now',
+      'red',
+      '1989',
+      'reputation',
+      'lover',
+      'folklore',
+      'evermore',
+      'midnights',
+      'ttpd',
+      'tloas',
+    ] as const;
+    const unresolved: string[] = [];
+    let total = 0;
+    for (const eraId of ERAS) {
+      const videos = videosForEra(eraId);
+      for (const t of tracksForEra(eraId)) {
+        total++;
+        if (!resolvedTrackVideo(t, videos)) unresolved.push(`${eraId}: ${t.title}`);
+      }
+    }
+    expect(total).toBeGreaterThan(0);
+    expect(unresolved).toEqual([]);
   });
 
   // Re-review finding C (2026-08-13): "Fortnight (feat. Post Malone)" IS the
