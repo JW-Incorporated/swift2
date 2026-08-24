@@ -193,9 +193,14 @@ export function ShareSheet() {
         className="w-full max-w-sm"
         onClick={(e) => e.stopPropagation()}
         style={eraStyle(era)}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="share-sheet-title"
       >
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-sm font-medium text-white/80">Share card</span>
+          <span id="share-sheet-title" className="text-sm font-medium text-white/80">
+            Share card
+          </span>
           <button
             onClick={closeShare}
             className="era-icon-btn rounded-full p-1.5"
