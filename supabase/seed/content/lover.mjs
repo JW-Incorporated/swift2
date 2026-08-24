@@ -21,8 +21,9 @@ export default {
       slug: 'lover-era-ignition-me-pastel-turn',
       title: 'The pastel turn: ME! ends the reputation black',
       snippet:
-        'A countdown clock, a butterfly mural repainted overnight, and an NFL-Draft-night interview with Robin Roberts — the single most legible palette flip of her career, staged across April 2019.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Me!_(song)',
+        'A pastel countdown, a commissioned butterfly mural, and an NFL-Draft-night interview with Robin Roberts — the single most legible palette flip of her career, staged across April 2019.',
+      sourceUrl:
+        'https://pitchfork.com/news/taylor-swift-to-release-new-song-and-video-me-tonight/',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Me%21.png',
       relatedIds: [
         'moment:vault-lover-seven-pastel-outfit-changes-in-the-me-video',
@@ -30,9 +31,45 @@ export default {
       ],
       moment: {
         context:
-          'reputation had ended in black and white; Lover began in every color at once. On April 13, 2019, a countdown to midnight on April 26 appeared on her website and her feed turned to pastel skies — the snake era formally over. On April 25, street artist Kelsey Montague\'s butterfly mural in Nashville\'s Gulch was repainted with the word "Me!", the campaign hiding in plain sight on a public wall fans could pose in front of. That same day, during ABC\'s NFL Draft broadcast, she confirmed the details to Robin Roberts.\n\n"ME!", her duet with Brendon Urie of Panic! at the Disco, premiered at midnight on April 26 — written by Taylor with Joel Little and Urie, and produced by Taylor and Little. The video pulled 65.2 million views in its first 24 hours, breaking Vevo\'s single-day record; the song debuted at No. 100 on the Hot 100, then leapt to a No. 2 peak the following week. Critics read the bright palette exactly as intended: a deliberate, public exit from reputation\'s black-and-white, and the first full sight of the Lover aesthetic.',
+          'reputation had ended in black and white; Lover announced itself in pastels. On April 13, 2019, a countdown debuted on Taylor\'s Instagram and website, ticking toward April 26 while a run of colorful posts kept repeating the date. On April 25, Taylor made a surprise appearance at the butterfly mural she had commissioned from street artist Kelsey Montague in Nashville\'s Gulch. Hearts, flowers, rainbows, and cats filled the wings; Montague added "ME!" between them as fans watched. Taylor sent the crowd to ABC for her next clue: a live chat with Robin Roberts that night.\n\nDuring the 2019 NFL Draft broadcast, Taylor discussed the new single with Roberts. On April 26, "ME!" arrived with a candy-colored video and Brendon Urie of Panic! at the Disco — her first new music since reputation, and an immediate visual break from that era. The video amassed 65.2 million Vevo views in its first 24 hours, setting the platform\'s single-day record. The palette flip was no longer tucked inside a teaser: this was the Lover era\'s public opening scene.',
         sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Me!_(song)' },
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/arts-entertainment/2019/04/17/taylor-swifts-guessing-games-about-her-music-started-off-savvy-now-theyre-essential/',
+            source_title:
+              'Taylor Swift\'s guessing games about her music started off as savvy. Now they\'re essential.',
+            publisher: 'The Washington Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'MusicRow',
+            url: 'https://musicrow.com/2019/04/taylor-swift-makes-surprise-appearance-at-nashville-mural/',
+            source_title: 'Taylor Swift Makes Surprise Appearance At Nashville Mural',
+            publisher: 'MusicRow',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Pitchfork',
+            url: 'https://pitchfork.com/news/taylor-swift-to-release-new-song-and-video-me-tonight/',
+            source_title: 'Taylor Swift Releases New Song and Video "ME!": Watch',
+            publisher: 'Pitchfork',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/112534-most-viewed-vevo-video-in-24-hours',
+            source_title: 'Most viewed VEVO video in 24 hours',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-08-24',
+            reliability_score: 5,
+          },
         ],
         photos: [
           {
