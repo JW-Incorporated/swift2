@@ -88,15 +88,22 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
     [crossings, end, span], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
-  // Which point indices participate in a crossing, so we can emphasize them.
-  const { crossedA, crossedB } = useMemo(() => {
+  // Which point indices participate in a crossing, so we can emphasize them
+  // and — since #655 — jump a dot's tap straight to that crossing's detail.
+  const { crossedA, crossedB, crossingByA, crossingByB } = useMemo(() => {
     const ca = new Set<string>();
     const cb = new Set<string>();
-    for (const c of crossings) {
-      ca.add(`${c.a.date}-${c.a.label}`);
-      cb.add(`${c.b.date}-${c.b.label}`);
-    }
-    return { crossedA: ca, crossedB: cb };
+    const byA = new Map<string, number>();
+    const byB = new Map<string, number>();
+    crossings.forEach((c, i) => {
+      const keyA = `${c.a.date}-${c.a.label}`;
+      const keyB = `${c.b.date}-${c.b.label}`;
+      ca.add(keyA);
+      cb.add(keyB);
+      if (!byA.has(keyA)) byA.set(keyA, i);
+      if (!byB.has(keyB)) byB.set(keyB, i);
+    });
+    return { crossedA: ca, crossedB: cb, crossingByA: byA, crossingByB: byB };
   }, [crossings]);
 
   const eraBands = useMemo(
@@ -226,53 +233,96 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
               );
             })}
 
-            {/* Lane A points */}
+            {/* Lane A points — real buttons (#655): a crossed point opens its
+                crossing detail, an uncrossed one opens the point's own thread. */}
             {pointsA.map((p, i) => {
               const era = getEra(p.eraId);
               const top = pct(new Date(p.date).getTime());
-              const crossed = crossedA.has(`${p.date}-${p.label}`);
+              const key = `${p.date}-${p.label}`;
+              const crossed = crossedA.has(key);
+              const crossingIndex = crossingByA.get(key);
               return (
-                <span
+                <button
                   key={`a-${p.date}-${i}`}
-                  aria-hidden
-                  className="absolute rounded-full"
+                  type="button"
                   title={p.label}
+                  aria-label={crossingIndex != null ? `Crossing: ${p.label}` : `${p.label} — open ${metaA.title}`}
+                  onClick={() => {
+                    if (crossingIndex != null) {
+                      setSelected(crossingIndex);
+                      return;
+                    }
+                    openThread(a);
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                  }}
+                  className="absolute rounded-full transition-transform hover:scale-125"
                   style={{
                     left: `${LANE_A_X}%`,
                     top: `${top}%`,
-                    height: crossed ? 11 : 7,
-                    width: crossed ? 11 : 7,
+                    height: Math.max(crossed ? 11 : 7, 24),
+                    width: Math.max(crossed ? 11 : 7, 24),
                     transform: 'translate(-50%, -50%)',
-                    background: era.theme.accent,
-                    opacity: crossed ? 1 : 0.5,
-                    boxShadow: crossed ? '0 0 0 2px var(--era-bg)' : 'none',
+                    background: 'transparent',
                   }}
-                />
+                >
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                    style={{
+                      height: crossed ? 11 : 7,
+                      width: crossed ? 11 : 7,
+                      background: era.theme.accent,
+                      opacity: crossed ? 1 : 0.5,
+                      boxShadow: crossed ? '0 0 0 2px var(--era-bg)' : 'none',
+                    }}
+                  />
+                </button>
               );
             })}
 
-            {/* Lane B points */}
+            {/* Lane B points — same tappable shape as lane A. */}
             {pointsB.map((p, i) => {
               const era = getEra(p.eraId);
               const top = pct(new Date(p.date).getTime());
-              const crossed = crossedB.has(`${p.date}-${p.label}`);
+              const key = `${p.date}-${p.label}`;
+              const crossed = crossedB.has(key);
+              const crossingIndex = crossingByB.get(key);
               return (
-                <span
+                <button
                   key={`b-${p.date}-${i}`}
-                  aria-hidden
-                  className="absolute rounded-full"
+                  type="button"
                   title={p.label}
+                  aria-label={crossingIndex != null ? `Crossing: ${p.label}` : `${p.label} — open ${metaB.title}`}
+                  onClick={() => {
+                    if (crossingIndex != null) {
+                      setSelected(crossingIndex);
+                      return;
+                    }
+                    openThread(b);
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                  }}
+                  className="absolute rounded-full transition-transform hover:scale-125"
                   style={{
                     left: `${LANE_B_X}%`,
                     top: `${top}%`,
-                    height: crossed ? 11 : 7,
-                    width: crossed ? 11 : 7,
+                    height: Math.max(crossed ? 11 : 7, 24),
+                    width: Math.max(crossed ? 11 : 7, 24),
                     transform: 'translate(-50%, -50%)',
-                    background: era.theme.accent,
-                    opacity: crossed ? 1 : 0.5,
-                    boxShadow: crossed ? '0 0 0 2px var(--era-bg)' : 'none',
+                    background: 'transparent',
                   }}
-                />
+                >
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                    style={{
+                      height: crossed ? 11 : 7,
+                      width: crossed ? 11 : 7,
+                      background: era.theme.accent,
+                      opacity: crossed ? 1 : 0.5,
+                      boxShadow: crossed ? '0 0 0 2px var(--era-bg)' : 'none',
+                    }}
+                  />
+                </button>
               );
             })}
 
@@ -477,9 +527,16 @@ function CrossingDetail({
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
             {metaATitle}
           </div>
-          <div className="mt-0.5 font-[family-name:var(--era-font)] text-lg leading-snug text-[color:var(--era-ink)]">
+          <button
+            onClick={() => {
+              onOpenThread(threadA);
+              window.scrollTo({ top: 0, behavior: 'auto' });
+            }}
+            aria-label={`Open ${metaATitle}: ${crossing.a.label}`}
+            className="mt-0.5 block w-full text-left font-[family-name:var(--era-font)] text-lg leading-snug text-[color:var(--era-ink)] underline decoration-[color:var(--era-line)] decoration-1 underline-offset-4 transition hover:decoration-[color:var(--era-accent)]"
+          >
             {crossing.a.label}
-          </div>
+          </button>
         </div>
         <div className="flex items-center gap-2 text-[color:var(--era-ink-soft)]">
           <span className="h-px flex-1 bg-[color:var(--era-line)]" />
@@ -490,9 +547,16 @@ function CrossingDetail({
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
             {metaBTitle}
           </div>
-          <div className="mt-0.5 font-[family-name:var(--era-font)] text-lg leading-snug text-[color:var(--era-ink)]">
+          <button
+            onClick={() => {
+              onOpenThread(threadB);
+              window.scrollTo({ top: 0, behavior: 'auto' });
+            }}
+            aria-label={`Open ${metaBTitle}: ${crossing.b.label}`}
+            className="mt-0.5 block w-full text-left font-[family-name:var(--era-font)] text-lg leading-snug text-[color:var(--era-ink)] underline decoration-[color:var(--era-line)] decoration-1 underline-offset-4 transition hover:decoration-[color:var(--era-accent)]"
+          >
             {crossing.b.label}
-          </div>
+          </button>
         </div>
       </div>
 
