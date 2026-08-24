@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT } from './content';
+import { resolveTrackKey } from './tracks';
 import {
   MAX_RESULTS_PER_TYPE,
   buildSearchIndex,
@@ -162,7 +163,7 @@ describe('buildSearchIndex (real data)', () => {
 
   it('covers every content type', () => {
     const types = new Set(index.map((d) => d.type));
-    for (const t of ['era', 'moment', 'egg', 'track', 'theory', 'video'] as SearchDocType[]) {
+    for (const t of ['era', 'moment', 'egg', 'track', 'theory', 'video', 'thread'] as SearchDocType[]) {
       expect(types.has(t), `index missing type "${t}"`).toBe(true);
     }
   });
@@ -207,6 +208,48 @@ describe('buildSearchIndex (real data)', () => {
       expect(d.snippet.length).toBeGreaterThan(0);
       expect(d.bodyNorm.length).toBeGreaterThan(0);
     }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Search dead-ends (#652): a result must reach its actual target, not just
+// somewhere near it.
+// ---------------------------------------------------------------------------
+describe('#652 deep-link targets', () => {
+  const index = buildSearchIndex();
+
+  it('song results carry a resolvable track key, not just the era track guide', () => {
+    const groups = searchDocs(index, 'cardigan');
+    const trackGroup = groups.find((g) => g.type === 'track');
+    expect(trackGroup).toBeDefined();
+    for (const r of trackGroup!.results) {
+      expect(r.doc.target.kind).toBe('track');
+      if (r.doc.target.kind === 'track') {
+        expect(resolveTrackKey(r.doc.target.trackKey)).not.toBeNull();
+      }
+    }
+  });
+
+  it('video results carry the specific videoId, not just the bare era', () => {
+    const groups = searchDocs(index, 'shake it off');
+    const videoGroup = groups.find((g) => g.type === 'video');
+    expect(videoGroup).toBeDefined();
+    for (const r of videoGroup!.results) {
+      expect(r.doc.target.kind).toBe('video');
+      if (r.doc.target.kind === 'video') {
+        expect(r.doc.target.videoId.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it('indexes threads by title, targeting openThread', () => {
+    const blankSpaces = searchDocs(index, 'blank spaces').find((g) => g.type === 'thread');
+    expect(blankSpaces).toBeDefined();
+    expect(blankSpaces!.results[0].doc.target).toEqual({ kind: 'thread', lensId: 'love-story' });
+
+    const endGame = searchDocs(index, 'end game').find((g) => g.type === 'thread');
+    expect(endGame).toBeDefined();
+    expect(endGame!.results[0].doc.target).toEqual({ kind: 'thread', lensId: 'the-proposal' });
   });
 });
 
