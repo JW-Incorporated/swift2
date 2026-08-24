@@ -12,8 +12,8 @@ import { answerFromFallback, answerFromTake } from '../../../lib/longlive/clown-
 import { resolveScopeSignal } from '../../../lib/longlive/clown-agent-tools';
 import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
-import { reserveUserDailyBudget, recordClownMemory } from '../../../lib/longlive/clown-memory';
-import { decodeSessionToken, encodeSessionToken } from '../../../lib/longlive/clown-session';
+import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
+import { decodeSessionToken, encodeSessionToken, resolveClownSession } from '../../../lib/longlive/clown-session';
 import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitizeTranscript } from '../../../lib/longlive/clown-route-helpers';
 
 // Clownbot (build B) — the API route. PLAN.md Step 8; agent loop added
@@ -39,10 +39,12 @@ import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitiz
 // The kill switch (`CLOWN_MODEL_DISABLED`) is checked BEFORE usage is
 // reserved, but that check lives entirely inside `runClownAgent()`
 // (clown-agent.ts, via `clown-client.ts`'s shared `clownModelKey()`) — it
-// reads the API key, then the kill switch, then reserves budget, in that
-// order, and degrades (a null `take`) for every degraded state (no key,
-// kill switch on, over cap, timeout, or every attempt failing). This route
-// does not duplicate that check.
+// reads the API key, then the kill switch, then reserves budget (global,
+// then — Codex review fix, HUMAN-ACTIONS.md #15 item 2 — the caller's own
+// per-user budget, via the `reserveUserBudget` callback this route hands
+// it), in that order, and degrades (a null `take`) for every degraded state
+// (no key, kill switch on, over cap, over the caller's own cap, timeout, or
+// every attempt failing). This route does not duplicate that check.
 //
 // CRISIS is a THIRD PRODUCER of `ClownAnswer` (clown-answer.ts's header says
 // "three producers converge here" but only names two — the model take and
@@ -80,6 +82,21 @@ import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitiz
 // client still holds the transcript (~`MAX_TRANSCRIPT_TURNS` messages) and
 // resends it every call; this route reads it, forgets it — memory is an
 // ADDITIONAL, separately-gated store, not a replacement for that.
+//
+// MEMORY LOAD (Codex review fix, HUMAN-ACTIONS.md #15 item 2: "persisted
+// memory is write-only"): when a session resolves AND the client's own
+// transcript is empty (a fresh page load, or the conversation's first
+// message — `store.tsx` never persists `clownMessages` to localStorage, so
+// a reload always starts the client transcript over even though the server
+// has a full history), the caller's stored conversation is loaded
+// (`clown-memory.ts`'s `loadClownHistory`) and its recent turns stand in for
+// the client transcript so the model still has continuity. When the client
+// DOES already hold turns (continuing within the same page load), those
+// already mirror what `recordClownMemory` persisted this session, so they
+// are used as-is rather than duplicating context. The rolling summary,
+// covering whatever was folded away before either window, is passed to
+// `runClownAgent` either way — see its own header for how it reaches the
+// model.
 //
 // STREAMING (new, PLAN.md Stage 10 req 1): only the agent-loop path streams.
 // Every deterministic path (crisis, blocklist, chip, scope redirect) still
@@ -172,26 +189,36 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json(messageAnswer([OUT_OF_SCOPE_MESSAGE]));
   }
 
-  // MEMORY (PLAN.md Stage 11) — attempts an anonymous-auth session BEFORE
-  // the model spend, same relative position as the global daily cap's own
-  // `usage.reserve()` inside `runClownAgent`. `session` is `null` in every
+  // MEMORY — resolves an anonymous-auth session BEFORE the model spend
+  // (needed synchronously for the `x-clown-session` response header below),
+  // but does NOT reserve the caller's per-user budget here — that happens
+  // inside `runClownAgent`, only once it already knows a model call is
+  // about to be attempted (Codex review fix, HUMAN-ACTIONS.md #15 item 2;
+  // see `clown-agent.ts`'s header for why). `session` is `null` in every
   // degraded state (no Supabase env, no client token, or — today's real
   // state — anonymous sign-ins not yet toggled on; HUMAN-ACTIONS.md #15
   // item 2) and every downstream memory call already treats `null` as
   // "skip, no persistence" — this never blocks a reply on its own.
   const incomingSessionToken = decodeSessionToken(req.headers.get('x-clown-session'));
-  const budget = await reserveUserDailyBudget(incomingSessionToken, undefined, deadlineController.signal);
-  if (!budget.ok) {
-    clearTimeout(deadlineTimer);
-    return NextResponse.json(messageAnswer(["That's today's clowning limit for you — come back tomorrow for more."]));
-  }
-  const memorySession = budget.session;
+  const memorySession = await resolveClownSession(incomingSessionToken, undefined, deadlineController.signal);
   const sessionHeaders = memorySession ? { 'x-clown-session': encodeSessionToken(memorySession) } : undefined;
+  const reserveUserBudget = memorySession
+    ? () => incrementUserUsage(memorySession, undefined, deadlineController.signal)
+    : undefined;
+
+  // MEMORY LOAD — see the header note above. Only pulled when the client's
+  // own transcript is empty; otherwise the client transcript already covers
+  // the same recent-turn window.
+  const loadedHistory =
+    memorySession && priorTurns.length === 0
+      ? await loadClownHistory(memorySession, undefined, deadlineController.signal)
+      : null;
 
   // AGENT LOOP — streamed. `scope.result` (the search that just proved this
   // question is in scope) is reused as the loop's free seed context rather
   // than spending one of its own bounded tool calls repeating it.
-  const transcript: ClownTurn[] = [...priorTurns, { role: 'user', text }];
+  const effectiveTurns = priorTurns.length > 0 ? priorTurns : (loadedHistory?.turns ?? []);
+  const transcript: ClownTurn[] = [...effectiveTurns, { role: 'user', text }];
 
   return ndjsonResponse(async (emit) => {
     try {
@@ -203,7 +230,14 @@ export async function POST(req: Request): Promise<Response> {
         (step) => emit({ type: 'investigation', step }),
         undefined,
         deadlineController.signal,
+        loadedHistory?.summary || undefined,
+        reserveUserBudget,
       );
+
+      if (run.overUserCap) {
+        emit({ type: 'answer', answer: messageAnswer(["That's today's clowning limit for you — come back tomorrow for more."]) });
+        return;
+      }
 
       if (run.take) {
         // OUTPUT GATE — discard the model answer on any redline, fabricated
@@ -241,13 +275,15 @@ export async function POST(req: Request): Promise<Response> {
         console.log('clown:gate-reject', JSON.stringify({ kind: rejection.kind }));
       }
 
-      // DEGRADE — no key, kill switch, over cap, timeout, every attempt
-      // failed, or the take failed the output gate. Never an apology; the
-      // fallback is the primary design here. Composed from every citable doc
-      // the loop actually surfaced (the pool), not just the seed — a run
-      // that investigated deeply before degrading still hands back what it
-      // found, capped to a small presentable number (Codex review MAJOR 10)
-      // rather than dumping the entire accumulated pool.
+      // DEGRADE — no key, kill switch, over the global cap, timeout, every
+      // attempt failed, or the take failed the output gate (the caller's own
+      // per-user cap is handled separately above, before this point). Never
+      // an apology; the fallback is the primary design here. Composed from
+      // every citable doc the loop actually surfaced (the pool), not just
+      // the seed — a run that investigated deeply before degrading still
+      // hands back what it found, capped to a small presentable number
+      // (Codex review MAJOR 10) rather than dumping the entire accumulated
+      // pool.
       const pooledItems = [...run.pool.values()];
       const fallbackItems = pooledItems.slice(0, DEGRADED_ITEM_CAP);
       emit({

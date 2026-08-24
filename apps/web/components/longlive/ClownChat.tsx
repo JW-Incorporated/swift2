@@ -31,7 +31,7 @@ import type { BoardItem } from '@/lib/longlive/clown-board';
 import type { ClownTurn } from '@/lib/longlive/clown-client';
 import { promptForItem } from '@/lib/longlive/clown-starters';
 import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
-import { flattenAnswer, investigationLabel } from '@/lib/longlive/clown-chat-helpers';
+import { flattenAnswer, investigationLabel, nextSessionToken, withSessionHeader } from '@/lib/longlive/clown-chat-helpers';
 import { readClownStream } from '@/lib/longlive/clown-stream';
 import { useAppActions, useAppState, type ClownMessage } from '@/lib/longlive/store';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
@@ -84,6 +84,16 @@ export function ClownChat() {
   // investigation` after that, not from this transient state).
   const [investigating, setInvestigating] = useState<InvestigationStep | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // PLAN.md Stage 11 fix (Codex review, HUMAN-ACTIONS.md #15 item 2): the
+  // route reads/returns an opaque `x-clown-session` token so a returning
+  // caller's server-side identity (conversation/memory/per-user cap)
+  // persists across messages — this component previously never captured or
+  // resent it, so every message signed up a fresh anonymous identity. A
+  // ref, not state: it never drives a render, only what the next `fetch`
+  // sends, and (like `clownMessages`) is deliberately in-memory only — a
+  // page reload starting a fresh identity is fine, matching the transcript
+  // itself never being persisted (see `store.tsx`'s header).
+  const sessionTokenRef = useRef<string | null>(null);
 
   // Full-screen toggle — a CSS overlay, deliberately not the native
   // Fullscreen API (requestFullscreen on a non-video element is unreliable
@@ -169,10 +179,14 @@ export function ClownChat() {
         // and tested but is not wired up here on purpose.
         const res = await fetch('/api/clown', {
           method: 'POST',
-          headers: { 'content-type': 'application/json' },
+          headers: withSessionHeader({ 'content-type': 'application/json' }, sessionTokenRef.current),
           body: JSON.stringify({ text: question, transcript }),
         });
         if (!res.ok) throw new Error(String(res.status));
+        // Capture the round-tripped session id (present whenever a session
+        // resolved server-side, absent otherwise — see route.ts) for the
+        // NEXT message in this same conversation.
+        sessionTokenRef.current = nextSessionToken(sessionTokenRef.current, res.headers.get('x-clown-session'));
         // PLAN.md Stage 10: the route streams the agent loop's investigation
         // trail as it happens, then exactly one final answer event — every
         // deterministic (non-loop) response still arrives as a single event

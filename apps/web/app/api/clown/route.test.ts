@@ -99,16 +99,35 @@ vi.mock('../../../lib/longlive/clown-agent', () => ({
 }));
 
 // PLAN.md Stage 11 — mocked at the module boundary, same discipline as
-// `clown-agent`: this route only needs to treat `reserveUserDailyBudget`/
-// `recordClownMemory` as an opaque contract. `clown-memory.ts`'s own real
-// fetch-based behavior (toggle on/off, the per-user cap, rolling summary) is
-// covered by `clown-memory.test.ts`/`clown-session.test.ts`. Default mirrors
-// today's real deployed state — auth unavailable, no persistence — so every
-// pre-Stage-11 test in this file is unaffected without editing any of them.
+// `clown-agent`: this route only needs to treat `incrementUserUsage`/
+// `loadClownHistory`/`recordClownMemory` as an opaque contract. `clown-
+// memory.ts`'s own real fetch-based behavior (toggle on/off, the per-user
+// cap, rolling summary) is covered by `clown-memory.test.ts`/`clown-
+// session.test.ts`. Defaults mirror today's real deployed state — auth
+// unavailable, no persistence — so every pre-Stage-11 test in this file is
+// unaffected without editing any of them. `runClownAgent` (mocked above) now
+// owns the actual per-user reservation TIMING (Codex review fix,
+// HUMAN-ACTIONS.md #15 item 2) — this route only resolves the session and
+// hands a callback in, so `incrementUserUsage` itself is only ever exercised
+// indirectly here, by invoking the callback `runClownAgent` was called with.
 vi.mock('../../../lib/longlive/clown-memory', () => ({
-  reserveUserDailyBudget: vi.fn(async () => ({ ok: true, session: null })),
+  incrementUserUsage: vi.fn(async () => true),
+  loadClownHistory: vi.fn(async () => null),
   recordClownMemory: vi.fn(async () => {}),
 }));
+
+// `resolveClownSession` is mocked (no Supabase env is set in this test file,
+// so the real implementation would return null every time via its own
+// no-network-call fast path — fine for "toggle off" tests, but the
+// "toggle on" tests below need to simulate a resolved session without a
+// real network call). `encodeSessionToken`/`decodeSessionToken` stay real —
+// pure, synchronous, and directly asserted on below.
+vi.mock('../../../lib/longlive/clown-session', async () => {
+  const actual = await vi.importActual<typeof import('../../../lib/longlive/clown-session')>(
+    '../../../lib/longlive/clown-session',
+  );
+  return { ...actual, resolveClownSession: vi.fn(async () => null) };
+});
 
 vi.mock('../../../lib/longlive/clown-index', async () => {
   const actual = await vi.importActual<typeof import('../../../lib/longlive/clown-index')>(
@@ -119,8 +138,8 @@ vi.mock('../../../lib/longlive/clown-index', async () => {
 
 import { POST } from './route';
 import { runClownAgent } from '../../../lib/longlive/clown-agent';
-import { reserveUserDailyBudget, recordClownMemory } from '../../../lib/longlive/clown-memory';
-import { encodeSessionToken, type ClownSession } from '../../../lib/longlive/clown-session';
+import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
+import { encodeSessionToken, resolveClownSession, type ClownSession } from '../../../lib/longlive/clown-session';
 import { CRISIS_MESSAGE, OUT_OF_SCOPE_MESSAGE, REFUSALS } from '../../../lib/longlive/clown-safety';
 import { FALLBACK_INTRO_CHIP, FALLBACK_INTRO_DEGRADED } from '../../../lib/longlive/clown-fallback';
 
@@ -192,8 +211,12 @@ function agentRun(overrides: Partial<AgentRunResult> = {}): AgentRunResult {
 
 beforeEach(() => {
   vi.mocked(runClownAgent).mockReset();
-  vi.mocked(reserveUserDailyBudget).mockReset();
-  vi.mocked(reserveUserDailyBudget).mockResolvedValue({ ok: true, session: null });
+  vi.mocked(resolveClownSession).mockReset();
+  vi.mocked(resolveClownSession).mockResolvedValue(null);
+  vi.mocked(incrementUserUsage).mockReset();
+  vi.mocked(incrementUserUsage).mockResolvedValue(true);
+  vi.mocked(loadClownHistory).mockReset();
+  vi.mocked(loadClownHistory).mockResolvedValue(null);
   vi.mocked(recordClownMemory).mockReset();
   vi.mocked(recordClownMemory).mockResolvedValue(undefined);
   vi.spyOn(console, 'log').mockImplementation(() => {});
@@ -593,12 +616,12 @@ describe('POST /api/clown', () => {
     it('an out-of-scope query never reaches memory resolution at all (unaffected by this stage)', async () => {
       const res = await post({ text: 'what is a good pasta recipe' }, '10.4.0.2');
       expect(res.status).toBe(200);
-      expect(reserveUserDailyBudget).not.toHaveBeenCalled();
+      expect(resolveClownSession).not.toHaveBeenCalled();
       expect(recordClownMemory).not.toHaveBeenCalled();
     });
 
     it('toggle ON (mocked auth success): a clean take records memory and the response carries a session header', async () => {
-      vi.mocked(reserveUserDailyBudget).mockResolvedValueOnce({ ok: true, session: FIXTURE_SESSION });
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
       vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
       const res = await post({ text: MASTERS_QUERY }, '10.4.0.3');
       const json = await finalAnswer(res);
@@ -610,29 +633,70 @@ describe('POST /api/clown', () => {
       expect(call.question).toBe(MASTERS_QUERY);
     });
 
-    it('an incoming x-clown-session header is decoded and passed through to reserveUserDailyBudget', async () => {
+    it('an incoming x-clown-session header is decoded and passed through to resolveClownSession', async () => {
       vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
       const token = { accessToken: 'old-access', refreshToken: 'old-refresh' };
       await post({ text: MASTERS_QUERY }, '10.4.0.4', { 'x-clown-session': encodeSessionToken(token) });
-      expect(vi.mocked(reserveUserDailyBudget).mock.calls[0][0]).toEqual(token);
+      expect(vi.mocked(resolveClownSession).mock.calls[0][0]).toEqual(token);
     });
 
-    it('over-cap: the model is never called and a fixed limit message is returned instead', async () => {
-      vi.mocked(reserveUserDailyBudget).mockResolvedValueOnce({ ok: false, session: FIXTURE_SESSION });
+    it('over-cap: runClownAgent reports overUserCap and a fixed limit message is returned, memory is never recorded', async () => {
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: null, overUserCap: true }));
       const res = await post({ text: MASTERS_QUERY }, '10.4.0.5');
       expect(res.status).toBe(200);
       const json = await finalAnswer(res);
       expect(json.kind).toBe('fallback');
-      expect(runClownAgent).not.toHaveBeenCalled();
+      expect((json.segments as { text: string }[]).some((s) => s.text.includes('clowning limit'))).toBe(true);
       expect(recordClownMemory).not.toHaveBeenCalled();
     });
 
     it('a degraded (no take) run never records memory either — only the successful gated take path does', async () => {
-      vi.mocked(reserveUserDailyBudget).mockResolvedValueOnce({ ok: true, session: FIXTURE_SESSION });
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
       vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun({ take: null }));
       const res = await post({ text: MASTERS_QUERY }, '10.4.0.6');
       await finalAnswer(res);
       expect(recordClownMemory).not.toHaveBeenCalled();
+    });
+
+    // Codex review fix, HUMAN-ACTIONS.md #15 item 2 (reservation ordering):
+    // the route no longer reserves the caller's per-user budget itself
+    // (`clown-agent.test.ts` covers the real ordering inside `runClownAgent`
+    // — key/kill-switch/global-cap all checked first). This route's own job
+    // is just to resolve the session up front and wire it into
+    // `runClownAgent` as a callback that, when eventually invoked, calls
+    // `incrementUserUsage` for THAT session — never calling it itself.
+    it('a resolved session is handed to runClownAgent as a reserveUserBudget callback, not called directly by the route', async () => {
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      await post({ text: MASTERS_QUERY }, '10.4.0.7');
+      expect(incrementUserUsage).not.toHaveBeenCalled();
+      const reserveCallback = vi.mocked(runClownAgent).mock.calls[0][8] as (() => Promise<boolean>) | undefined;
+      expect(reserveCallback).toBeInstanceOf(Function);
+      await reserveCallback?.();
+      expect(incrementUserUsage).toHaveBeenCalledTimes(1);
+      expect(vi.mocked(incrementUserUsage).mock.calls[0][0]).toEqual(FIXTURE_SESSION);
+    });
+
+    it('no session resolved: runClownAgent receives no reserveUserBudget callback at all', async () => {
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      await post({ text: MASTERS_QUERY }, '10.4.0.8');
+      expect(vi.mocked(runClownAgent).mock.calls[0][8]).toBeUndefined();
+    });
+
+    it('a loaded conversation summary is passed through to runClownAgent when the client transcript is empty', async () => {
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
+      vi.mocked(loadClownHistory).mockResolvedValueOnce({ summary: 'earlier folded turns', turns: [] });
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      await post({ text: MASTERS_QUERY }, '10.4.0.9');
+      expect(vi.mocked(runClownAgent).mock.calls[0][7]).toBe('earlier folded turns');
+    });
+
+    it('a non-empty client transcript skips the history load entirely', async () => {
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      await post({ text: MASTERS_QUERY, transcript: [{ role: 'user', text: 'earlier question' }] }, '10.4.0.10');
+      expect(loadClownHistory).not.toHaveBeenCalled();
     });
   });
 });

@@ -77,23 +77,35 @@ with it. Neither blocks tonight's build.
    cap, prediction persistence) are built and tested — every write path
    genuinely fails closed to today's stateless behavior while this toggle
    is off, confirmed by both the tests and an independent Codex review.
-   **DO NOT flip this toggle yet — that same Codex review found real bugs
-   that only activate once it's on** (currently inert, zero effect on
-   readers): the client never round-trips the session id the route
-   returns, so every message would sign up a fresh anonymous identity —
-   conversations, the per-user 200/day cap, and predictions would all
-   fragment across one-use sessions instead of persisting; the rolling-
-   summary fold (delete old turns + patch the summary) isn't transactional
-   and can silently lose or duplicate history on a partial failure; and
-   persisted memory is currently write-only — nothing loads it back in on
-   reload. None of this is a reason not to flip the toggle eventually, but
-   flipping it today would ship all three broken. Full findings: PR
-   #2319's Codex review, session `01a03390-be51-79b0-8bb7-ec53b398c20b`.
-   Fixing these is a fresh session's job, not tonight's.
+   **Update (2026-08-24, fix branch `fix/clown-sessions-codex-findings`):**
+   that Codex review's three bugs — the client never round-tripping the
+   session id, the rolling-summary fold not being transactional, and
+   persisted memory being write-only — are now fixed (see item #14's
+   addendum for the migration, and this branch's diff for the code):
+   `ClownChat.tsx` now captures the `x-clown-session` response header and
+   resends it on the next message; the fold is one atomic RPC call
+   (`fold_clown_conversation`, item #14's addendum) instead of two
+   independent requests; and the route now loads the stored rolling summary
+   + recent turns back into the model's context on a returning conversation
+   (`clown-memory.ts`'s new `loadClownHistory`) instead of only ever
+   writing. A fourth issue the same review round found — the per-user daily
+   reservation firing before the route even knew whether a model call would
+   happen (kill-switch/missing-key/global-cap misses still consumed the
+   user's allowance) — is fixed too, moved inside `runClownAgent` to fire
+   only once a model call is genuinely about to be attempted. **Still hold
+   off flipping the toggle until item #14's two new migrations are applied**
+   (same batch as the rest of that item) — the code fix alone doesn't apply
+   the migration or flip the toggle for you. Once both are done, the RLS
+   policies still want a look under a REAL anonymous session (item #14's
+   Stage 11 addendum) — that's the one thing that genuinely can't be proven
+   without the toggle being live. Full original findings: PR #2319's Codex
+   review, session `01a03390-be51-79b0-8bb7-ec53b398c20b`; this fix's own
+   review is pending (see the PR this fix branch opens).
 
-**Worked if:** you tell me the Reddit outcome in chat. Hold off flipping
-the Supabase toggle until the item above is resolved by a future session
-— tell me to prioritize that fix if you want it sooner.
+**Worked if:** you tell me the Reddit outcome in chat. Once item #14's
+migrations (including the two new ones from this fix) are applied, flip the
+Supabase toggle and give the RLS behavior a real look — nothing further is
+blocking that at the code level.
 
 **Status:** OPEN
 
@@ -103,20 +115,30 @@ the Supabase toggle until the item above is resolved by a future session
 
 **Filed:** 2026-08-23
 
-**Security finding, close before or in the same session as applying these
-(2026-08-24, Codex review of PR #2319):** `increment_usage_daily` (from
+**Security finding — FIXED IN CODE (2026-08-24, fix branch
+`fix/clown-sessions-codex-findings`), still needs applying like every other
+migration below:** `increment_usage_daily` (from
 `20260902000000_usage_daily.sql`, used by Stage 3/6/11's daily caps) is a
 `SECURITY DEFINER` function that takes a caller-controlled scope string
-and, once applied, will be callable by anyone holding the site's public
-anon key (embedded client-side by design) via Supabase's auto-generated
-REST RPC endpoint — nothing in the migration revokes its default `PUBLIC`
-execute grant. That means any caller could invoke it directly with a
-known scope (`extract`, `gnews`, `clown-chat:<uid>`, etc.) and poison an
-unrelated rate limit. **Fix**: add `revoke execute on function
-increment_usage_daily from public;` + an explicit `grant execute ... to
-service_role` (or equivalent least-privilege grant) in a small follow-up
-migration before or immediately after applying the batch below — a
-future session's job, flagging here so it isn't applied blind.
+and, once applied, would have been callable by anyone holding the site's
+public anon key (embedded client-side by design) via Supabase's
+auto-generated REST RPC endpoint — nothing in the original migration
+revoked its default `PUBLIC` execute grant. A new migration,
+`supabase/migrations/20260905000000_usage_daily_grants.sql`, closes this:
+`revoke execute ... from public` + explicit grants to only the two roles
+that actually call it (`authenticated` — the web app's anonymous-auth
+sessions; `service_role` — the worker). It also re-creates the function to
+check, for an `authenticated` caller specifically, that the scope it's
+asking to touch is its OWN `clown-chat:<uid>` scope — granting to
+`authenticated` alone would otherwise reopen nearly the same hole, since
+Supabase hands that role to every anonymous sign-in (i.e. every site
+visitor, once the toggle below is on). Verified for real: applied
+alongside every other migration twice against a real ephemeral local
+Postgres, confirmed `PUBLIC` has no execute grant, `authenticated`/
+`service_role` do, an authenticated caller can increment its own
+`clown-chat:` scope but is rejected touching `extract`, and `service_role`
+can still touch any scope. Same fix (step 1 below) applies it — nothing
+extra needed.
 
 **Update:** Stage 1 (worker fixes, PR #2300) hit the identical gap for the
 same reason — two more migrations
@@ -232,10 +254,32 @@ a real anonymous session, can only be verified once both this migration is
 applied AND the toggle in item #15/2 is flipped. Flag this for a look once
 both are true, not just the migration alone.
 
+**Addendum (2026-08-24, Codex review fix pass on PR #2319, fix branch
+`fix/clown-sessions-codex-findings`):** two more migrations closing the
+findings this item and item #15/2 documented —
+`supabase/migrations/20260905000000_usage_daily_grants.sql` (the
+`increment_usage_daily` grant-scoping fix, see this item's top section) and
+`supabase/migrations/20260906000000_clown_fold_conversation.sql` (a new
+`fold_clown_conversation` RPC so the rolling-summary fold's delete + summary
+patch happen as one atomic transaction instead of two independent
+requests — item #15/2's third finding). Same root cause, same fix. Verified
+for real: applied all 25 migrations twice against a real ephemeral local
+Postgres (same `auth.users`/`auth.uid()` stub as the Stage 11 addendum
+above), clean idempotent re-apply both times; then, on that same local
+cluster, exercised both new functions directly under simulated
+`authenticated`/`service_role` sessions (real `SET LOCAL role` + a stubbed
+JWT claim inside an explicit transaction, mirroring how PostgREST actually
+scopes a request) — confirmed the grant scoping (item #14 top) and, for the
+fold RPC, confirmed a call wrapped in a transaction that's then rolled back
+leaves BOTH the summary patch and the turn deletion undone together (proof
+the two writes are genuinely one atomic unit), and that a forced mid-call
+error (a malformed delete-target id) aborts the whole call rather than
+leaving the summary patch to land on its own.
+
 **Running total (reconciled across stages):** counting every addendum
 above plus Stage 3's own `usage_daily.sql` /
 `news_story_extracted_at.sql` / `refresh_symbol_activity.sql` (landed on
-`main` but never logged here by that stage), **9 migrations** are
+`main` but never logged here by that stage), **11 migrations** are
 unapplied against production as of this merge, not 3 or 4 — same fix
 (step 1 above) closes all of them in one `npm run db:migrate` run.
 
