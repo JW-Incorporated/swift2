@@ -164,8 +164,12 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` — the one client-facing shape |
 | `apps/web/lib/longlive/clown-gate.ts` (+ `.test.ts`) | Output re-screen |
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
-| `apps/web/components/longlive/ClownChat.tsx` | App-panel chrome (titlebar, fullscreen toggle, docked composer) + transcript |
+| `apps/web/components/longlive/ClownChat.tsx` | App-panel shell — state, the `ask()` fetch/stream loop, layout — fullscreen toggle + docked composer split out below (300-line cap, HUMAN-ACTIONS.md #15 LOW finding) |
+| `apps/web/components/longlive/ClownChatTitlebar.tsx` | Titlebar (avatar/label/online dot/expand toggle), split out of ClownChat.tsx (300-line cap) |
+| `apps/web/components/longlive/ClownChatComposer.tsx` | Docked composer pill (textarea/send), split out of ClownChat.tsx (300-line cap) |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
+| `apps/web/lib/longlive/useChromeOffset.ts` | Live sticky-chrome height hook, split out of ClownChat.tsx (300-line cap) — wraps `chrome-offset.ts`'s `measureChromeHeight` |
+| `apps/web/lib/longlive/clown-session-storage.ts` (+ `.test.ts`) | HUMAN-ACTIONS.md #15 item 3: localStorage-backed session-token persistence (mirrors `progress.ts`'s pattern) so the token survives a `ClownChat` remount or page reload |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
 | `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |
@@ -199,7 +203,8 @@ changing any existing call site's behaviour.
 | Path | What |
 |---|---|
 | `apps/web/lib/longlive/clown-agent.ts` (+ `.test.ts`) | The bounded loop's control flow (`runClownAgent`) — ≤6 tool calls / ≤20s / ≤2,500 tokens, all enforced BEFORE a call is requested, not after; forces `record_take` once any cap trips |
-| `apps/web/lib/longlive/clown-agent-prompt.ts` | Message-shape plumbing split out of `clown-agent.ts` (300-line cap): seed-prompt building, `tool_result` formatting, read-tool dispatch, `tool_use` block extraction — no cap/budget logic |
+| `apps/web/lib/longlive/clown-agent-prompt.ts` | Message-shape plumbing split out of `clown-agent.ts` (300-line cap): seed-prompt building, `tool_result` formatting, read-tool dispatch (`executeReadTool`, `dispatchReadBlocks`), `tool_use` block extraction — no cap/budget logic |
+| `apps/web/lib/longlive/clown-agent-caps.ts` (+ tested via `clown-agent.test.ts`) | Pure per-round cap arithmetic (tool-call budget / token headroom / wall clock → next `tool_choice`), split out of `clown-agent.ts` (300-line cap) |
 | `apps/web/lib/longlive/clown-agent-tools.ts` (+ `.test.ts`) | The 7 read tools' executors, DB-first with `clown-index.ts` as the no-DB-unreachable fallback (search only); `resolveScopeSignal` for the route's pre-loop scope check |
 | `apps/web/lib/longlive/clown-predictions.ts` (+ `.test.ts`) | PLAN.md Stage 11: `persistPrediction` writes `bot_prediction` for real when a memory session resolves; no-ops when it doesn't (today's real state) |
 | `apps/web/lib/longlive/clown-session.ts` (+ `.test.ts`) | PLAN.md Stage 11: Supabase anonymous-auth session resolution (raw `fetch()` over Auth/PostgREST, no SDK dep) — `resolveClownSession` degrades to `null` when the "Allow anonymous sign-ins" toggle is off (today's state, `HUMAN-ACTIONS.md` #15 item 2) |
@@ -214,8 +219,14 @@ changing any existing call site's behaviour.
 
 `ClownChat.tsx`/`ClownMessageRow.tsx` were already over the 300-line
 guideline before this stage (350/153 lines); the stream-consumption and
-investigation-trail rendering added here pushed `ClownChat.tsx` to 365 —
-noted, not further split this PR (see the Stage 10 PR body for the call).
+investigation-trail rendering, plus two further Stage 11 fix rounds, pushed
+`ClownChat.tsx` to 387 and `clown-agent.ts` to 334 (HUMAN-ACTIONS.md #15 LOW
+finding). Split further in the #15 third-pass fix: `ClownChat.tsx` →
+`ClownChatTitlebar.tsx` + `ClownChatComposer.tsx` + `useChromeOffset.ts`
+(387 → 301 lines); `clown-agent.ts` → `clown-agent-caps.ts` +
+`clown-agent-prompt.ts`'s new `dispatchReadBlocks` (334 → 311 lines). Both
+land just above the 300-line guideline, not under it — noted honestly
+rather than fragmenting further at the cost of readability.
 
 ## Clownbot eval harness (PLAN.md Stage 12, proposal §7 eval bullet) — new files
 

@@ -135,6 +135,46 @@ with it. Neither blocks tonight's build.
    genuinely isn't ready to flip yet. Full findings: PR #2325's review,
    Codex session `01a033dd-7645-7373-827e-c22739c7e943`.
 
+   **Update (2026-08-24, fix branch `fix/clown-sessions-final-hardening`) —
+   all 5 remaining findings from PR #2325's review are now fixed, third
+   pass:** loaded conversation history (rolling summary + recent turns) now
+   runs through `screenConversation`/`screenInput` in `route.ts` before ever
+   reaching the agent loop, the same gate the client-supplied transcript
+   already goes through — a stored turn/summary that would fail the screen
+   now gets the same fixed refusal, model never called (tested: a blocked
+   turn and a blocked summary each caught before `runClownAgent`).
+   `clown-memory.ts`'s `getConversation`/`loadClownHistory` now catch
+   rejected fetches and malformed JSON, degrading to `null` instead of
+   throwing into `route.ts`'s `POST` — same fails-closed discipline
+   `resolveClownSession` already follows, including a warn-once log (tested:
+   a rejected fetch and a malformed-JSON response on both the conversation
+   lookup and the recent-turns lookup all resolve to `null`, never throw).
+   The session token now persists via `clown-session-storage.ts`
+   (localStorage, mirroring `progress.ts`'s existing pattern) instead of
+   living only in a `ClownChat` component ref, so it survives a mode-switch
+   remount or a page reload (tested: write-then-independent-read round-trip,
+   simulating a fresh mount). A user-cap denial in `clown-agent.ts` now
+   calls a new `MoodUsage.release()` to give back the shared global
+   reservation it had already taken, so a cap-denied request no longer
+   wastes shared budget (tested: `usage.used()` is 0 after a denial, 1 after
+   a call that actually proceeds). `fold_clown_conversation` has a v2
+   migration (`20260907000000_clown_fold_conversation_v2.sql`) scoping its
+   delete by `conversation_id` too (not just the turn ids) and raising when
+   the update affects zero rows — verified against a real ephemeral local
+   Postgres: idempotent across all 26 migrations applied twice, a turn
+   genuinely owned by the caller but belonging to a DIFFERENT conversation
+   survives a fold scoped to the right one, and a fold against a
+   nonexistent/invisible conversation id raises instead of silently
+   succeeding. Also made a genuine attempt at the LOW file-length finding:
+   `ClownChat.tsx` 387→301 lines (`ClownChatTitlebar.tsx`/
+   `ClownChatComposer.tsx`/`useChromeOffset.ts` split out) and
+   `clown-agent.ts` 334→311 lines (`clown-agent-caps.ts` +
+   `clown-agent-prompt.ts`'s new `dispatchReadBlocks`) — both land just
+   above the 300-line guideline, not under it, noted honestly rather than
+   fragmenting further. **Still do NOT flip the toggle** until this branch's
+   `codex:rescue` review comes back clean (same category of risk as every
+   prior pass — schema + the live chat route's context-assembly logic).
+
 **Worked if:** you tell me the Reddit outcome in chat. Hold the Supabase
 toggle until a future session addresses the items above — tell me to
 prioritize it if you want it sooner, same as before.

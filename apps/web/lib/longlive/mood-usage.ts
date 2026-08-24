@@ -58,6 +58,16 @@ export class MoodUsage {
     return true;
   }
 
+  /** Give back one reserved slot — for a reservation that turns out to have
+   * been wasted (e.g. Clownbot's per-user cap denies the request AFTER the
+   * shared global slot was already taken; HUMAN-ACTIONS.md #15 item 4). A
+   * no-op once the window has already rolled over (nothing to give back to
+   * a stale day), and never drops the count below 0. */
+  release(): void {
+    if (dayKey(this.now()) !== this.day) return;
+    if (this.count > 0) this.count -= 1;
+  }
+
   /** Calls reserved in the current window — for logging/observability only. */
   used(): number {
     // Reconcile the window first so a read after midnight reports 0, not stale.

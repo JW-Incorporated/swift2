@@ -72,22 +72,55 @@ interface ConversationRef {
   summary: string;
 }
 
+/** One warn per warm instance (same "best-effort per-instance" posture as
+ * `clown-session.ts`'s `warnedAuthUnavailable`) — a Supabase timeout/abort/
+ * malformed-response on the READ path degrades to "no memory" silently on
+ * every request but this one, rather than a log line per chat message. */
+let warnedMemoryReadUnavailable = false;
+
+/** Test-only reset — mirrors `clown-session.ts`'s
+ * `resetClownSessionWarningForTests` for the same reason: the only way to
+ * exercise the "warns exactly once" behavior deterministically across
+ * multiple `it()` blocks. */
+export function resetClownMemoryReadWarningForTests(): void {
+  warnedMemoryReadUnavailable = false;
+}
+
+function warnMemoryReadUnavailable(reason: string): void {
+  if (warnedMemoryReadUnavailable) return;
+  warnedMemoryReadUnavailable = true;
+  console.log('clown:memory-read-unavailable', JSON.stringify({ reason }));
+}
+
 /** Read-only: the caller's most recently active conversation, or `null` when
  * none exists yet / the read fails — never creates one (see
  * `getOrCreateConversation` for the write-capable wrapper). Shared by
  * `loadClownHistory` (a pure read) and `getOrCreateConversation` (which
  * falls back to creating one) so there is exactly one query for "find my
- * latest conversation" rather than two near-identical ones. */
+ * latest conversation" rather than two near-identical ones.
+ *
+ * Fails closed the same way `resolveClownSession` already does (Codex
+ * review, HUMAN-ACTIONS.md #15 item 2): a rejected fetch (timeout, abort) or
+ * malformed JSON body used to escape uncaught into `loadClownHistory`'s own
+ * caller (`route.ts`'s `POST`, which does NOT wrap this read path in a
+ * `.catch()` the way it does the write-side `recordClownMemory`) — a
+ * Supabase hiccup would 500 the live chat route instead of degrading to
+ * no-memory. Caught here, once, and degraded to `null` — never thrown. */
 async function getConversation(session: ClownSession, fetchImpl: typeof fetch, signal?: AbortSignal): Promise<ConversationRef | null> {
   const env = clownMemoryEnv();
   if (!env) return null;
-  const getUrl = `${env.supabaseUrl}/rest/v1/clown_conversation?select=id,summary&user_id=eq.${session.userId}&order=last_active_at.desc&limit=1`;
-  const getRes = await fetchImpl(getUrl, { headers: clownAuthHeaders(env, session), signal });
-  if (!getRes.ok) return null;
-  const rows = (await getRes.json()) as Array<{ id?: unknown; summary?: unknown }>;
-  const row = Array.isArray(rows) ? rows[0] : undefined;
-  if (row && typeof row.id === 'string') return { id: row.id, summary: typeof row.summary === 'string' ? row.summary : '' };
-  return null;
+  try {
+    const getUrl = `${env.supabaseUrl}/rest/v1/clown_conversation?select=id,summary&user_id=eq.${session.userId}&order=last_active_at.desc&limit=1`;
+    const getRes = await fetchImpl(getUrl, { headers: clownAuthHeaders(env, session), signal });
+    if (!getRes.ok) return null;
+    const rows = (await getRes.json()) as Array<{ id?: unknown; summary?: unknown }>;
+    const row = Array.isArray(rows) ? rows[0] : undefined;
+    if (row && typeof row.id === 'string') return { id: row.id, summary: typeof row.summary === 'string' ? row.summary : '' };
+    return null;
+  } catch {
+    warnMemoryReadUnavailable('getConversation fetch/json failed');
+    return null;
+  }
 }
 
 async function getOrCreateConversation(session: ClownSession, fetchImpl: typeof fetch): Promise<ConversationRef | null> {
@@ -128,7 +161,11 @@ export interface LoadedClownHistory {
  * `store.tsx` never persists `clownMessages`) meant the model started from
  * nothing even though the server had a full history for that user.
  * Degrades to `null` for every no-session/no-conversation-yet/network-
- * failure state, same posture as every other function here.
+ * failure state, same posture as every other function here. Never throws
+ * (Codex review, HUMAN-ACTIONS.md #15 item 2) — a rejected fetch or
+ * malformed JSON on the recent-turns lookup is caught the same way
+ * `getConversation` above catches its own, so a Supabase hiccup degrades
+ * `route.ts`'s `POST` to no-memory instead of an unhandled exception.
  */
 export async function loadClownHistory(
   session: ClownSession | null,
@@ -140,16 +177,21 @@ export async function loadClownHistory(
   if (!env) return null;
   const conversation = await getConversation(session, fetchImpl, signal);
   if (!conversation) return null;
-  const listUrl = `${env.supabaseUrl}/rest/v1/clown_turn?select=role,text&conversation_id=eq.${conversation.id}&order=created_at.desc&limit=${MAX_TRANSCRIPT_TURNS}`;
-  const listRes = await fetchImpl(listUrl, { headers: clownAuthHeaders(env, session), signal });
-  if (!listRes.ok) return { summary: conversation.summary, turns: [] };
-  const rows = (await listRes.json()) as Array<{ role?: unknown; text?: unknown }>;
-  const turns: ClownTurn[] = Array.isArray(rows)
-    ? rows
-        .filter((r): r is { role: 'user' | 'assistant'; text: string } => (r.role === 'user' || r.role === 'assistant') && typeof r.text === 'string')
-        .reverse() // DESC (most recent first) over the wire → chronological order for the model
-    : [];
-  return { summary: conversation.summary, turns };
+  try {
+    const listUrl = `${env.supabaseUrl}/rest/v1/clown_turn?select=role,text&conversation_id=eq.${conversation.id}&order=created_at.desc&limit=${MAX_TRANSCRIPT_TURNS}`;
+    const listRes = await fetchImpl(listUrl, { headers: clownAuthHeaders(env, session), signal });
+    if (!listRes.ok) return { summary: conversation.summary, turns: [] };
+    const rows = (await listRes.json()) as Array<{ role?: unknown; text?: unknown }>;
+    const turns: ClownTurn[] = Array.isArray(rows)
+      ? rows
+          .filter((r): r is { role: 'user' | 'assistant'; text: string } => (r.role === 'user' || r.role === 'assistant') && typeof r.text === 'string')
+          .reverse() // DESC (most recent first) over the wire → chronological order for the model
+      : [];
+    return { summary: conversation.summary, turns };
+  } catch {
+    warnMemoryReadUnavailable('loadClownHistory fetch/json failed');
+    return null;
+  }
 }
 
 const MAX_TURN_TEXT = 4000;

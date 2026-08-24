@@ -67,12 +67,11 @@ import type { RetrievedItem } from './clown-fallback';
 import type { ToolCallResult } from './clown-agent-tools';
 import {
   buildInitialMessages,
-  executeReadTool,
+  dispatchReadBlocks,
   extractToolUseBlocks,
-  formatToolResultForPrompt,
-  type AgentContentBlock,
   type AgentMessage,
 } from './clown-agent-prompt';
+import { computeCapState } from './clown-agent-caps';
 
 /** Thinking OFF — same rationale as `clown-client.ts`'s own `THINKING`
  * constant (not exported from there, so redeclared here rather than adding
@@ -174,6 +173,13 @@ export async function runClownAgent(
   // a request that was always going to degrade on one of those never
   // touches the caller's per-user allowance.
   if (reserveUserBudget && !(await reserveUserBudget())) {
+    // Codex review fix, HUMAN-ACTIONS.md #15 item 4: `usage.reserve()` above
+    // already consumed one slot of the shared GLOBAL budget before this
+    // per-user check could even run. A request that gets denied here never
+    // ends up spending a model call — give that global slot back rather
+    // than letting a user-cap denial quietly waste shared budget another
+    // caller could have used today.
+    usage.release();
     return { take: null, investigation, pool, overUserCap: true };
   }
 
@@ -219,20 +225,17 @@ export async function runClownAgent(
     // moment its deadline timer fires, independent of this arithmetic.
     const remainingWallMs = Math.max(0, AGENT_MAX_WALL_MS - (clock() - startedAt));
 
-    // Six-call cap: `record_take` is itself one of the `AGENT_MAX_TOOL_CALLS`
-    // tool calls, never an extra one on top of it — so the READ budget this
-    // check gates is one slot short of the cap. The call that would
-    // otherwise be the cap-th READ call is forced to `record_take` instead,
-    // keeping the total (reads + take) at exactly the cap, never cap + 1.
-    const sixCallBudgetReached = toolCallCount >= AGENT_MAX_TOOL_CALLS - 1;
-    // Token headroom margin (Codex review BLOCKER 3): force `record_take`
-    // once spent-so-far plus one more call's worst-case output would already
-    // meet the token cap, not only once a round has already blown past it
-    // — `tokenTotal` alone being under the cap does not mean another full
-    // round safely fits under it.
-    const tokenHeadroomExhausted = tokenTotal + MAX_TOKENS >= AGENT_MAX_TOKENS;
-    const capsExhausted = sixCallBudgetReached || tokenHeadroomExhausted || remainingWallMs <= 0;
-    const toolChoice = capsExhausted ? ({ type: 'tool', name: CLOWN_TAKE_TOOL.name } as const) : ({ type: 'auto' } as const);
+    // Cap arithmetic (tool-call budget + token headroom + wall clock) lives
+    // in `clown-agent-caps.ts` — split out for file-length hygiene, see that
+    // module's header. Pure function of the counters below; no behavior
+    // change from the inline version it replaced.
+    const { toolChoice } = computeCapState({
+      toolCallCount,
+      tokenTotal,
+      remainingWallMs,
+      maxToolCalls: AGENT_MAX_TOOL_CALLS,
+      maxTokens: AGENT_MAX_TOKENS,
+    });
 
     let response;
     try {
@@ -293,33 +296,14 @@ export async function runClownAgent(
       continue;
     }
 
-    const assistantBlocks: AgentContentBlock[] = readBlocks.map((b) => ({
-      type: 'tool_use',
-      id: b.id,
-      name: b.name,
-      input: b.input,
-    }));
-    const resultBlocks: AgentContentBlock[] = [];
-
-    for (const block of readBlocks) {
-      toolCallCount += 1;
-      const dispatch = await executeReadTool(block.name, block.input, signal);
-      if (!dispatch) {
-        resultBlocks.push({ type: 'tool_result', tool_use_id: block.id, content: 'Unrecognised tool or missing required argument.' });
-        const step: InvestigationStep = { tool: block.name, input: (block.input ?? {}) as Record<string, unknown>, summary: 'call failed — bad input' };
-        investigation.push(step);
-        onStep?.(step);
-        continue;
-      }
-      addToPool(pool, dispatch.result.items);
-      // The actual retrieved data, not just the summary (Codex review
-      // MAJOR 8) — without this the model has nothing real to cite from
-      // after the seed search.
-      resultBlocks.push({ type: 'tool_result', tool_use_id: block.id, content: formatToolResultForPrompt(dispatch.result) });
-      const step: InvestigationStep = { tool: block.name, input: dispatch.input, summary: dispatch.result.summary };
-      investigation.push(step);
-      onStep?.(step);
-    }
+    // Dispatch + content-block building lives in `clown-agent-prompt.ts`'s
+    // `dispatchReadBlocks` — split out for file-length hygiene, see that
+    // module's header. Every block here is processed unconditionally
+    // (success or a reported bad-input failure), so the budget counter is
+    // credited by the whole batch size, matching the inline version this
+    // replaced.
+    toolCallCount += readBlocks.length;
+    const { assistantBlocks, resultBlocks } = await dispatchReadBlocks(readBlocks, pool, investigation, onStep, signal);
 
     messages.push({ role: 'assistant', content: assistantBlocks });
     messages.push({ role: 'user', content: resultBlocks });

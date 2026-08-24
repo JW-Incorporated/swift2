@@ -8,6 +8,7 @@
  */
 import type { ClownTurn } from './clown-client';
 import type { RetrievedItem } from './clown-fallback';
+import type { InvestigationStep } from './clown-answer';
 import {
   toolChatter,
   toolDateMath,
@@ -144,10 +145,66 @@ export async function executeReadTool(name: string, rawInput: unknown, signal?: 
   }
 }
 
-interface RawToolUseBlock {
+export interface RawToolUseBlock {
   id: string;
   name: string;
   input: unknown;
+}
+
+export interface DispatchOutcome {
+  assistantBlocks: AgentContentBlock[];
+  resultBlocks: AgentContentBlock[];
+}
+
+/**
+ * Dispatch a batch of already-budget-capped read-tool calls (clown-agent.ts
+ * decides how many of a round's blocks fit the remaining budget; this just
+ * executes what it was handed) and build both halves of the next turn's
+ * content blocks — the assistant's own `tool_use` echo and the paired
+ * `tool_result`s. Mutates `pool`/`investigation` in place and fires `onStep`
+ * per call, same as the inline version this replaces in `clown-agent.ts`'s
+ * own loop — split out purely for file-length hygiene (MAP.md; CLAUDE.md's
+ * 300-line guideline, flagged as a LOW finding in HUMAN-ACTIONS.md #15).
+ * Every block in `readBlocks` is processed unconditionally (success or a
+ * reported bad-input failure), so the caller can credit its own tool-call
+ * counter by `readBlocks.length` after this resolves, exactly as the inline
+ * version did per-block.
+ */
+export async function dispatchReadBlocks(
+  readBlocks: readonly RawToolUseBlock[],
+  pool: Map<string, RetrievedItem>,
+  investigation: InvestigationStep[],
+  onStep: ((step: InvestigationStep) => void) | undefined,
+  signal: AbortSignal | undefined,
+): Promise<DispatchOutcome> {
+  const assistantBlocks: AgentContentBlock[] = readBlocks.map((b) => ({
+    type: 'tool_use',
+    id: b.id,
+    name: b.name,
+    input: b.input,
+  }));
+  const resultBlocks: AgentContentBlock[] = [];
+
+  for (const block of readBlocks) {
+    const dispatch = await executeReadTool(block.name, block.input, signal);
+    if (!dispatch) {
+      resultBlocks.push({ type: 'tool_result', tool_use_id: block.id, content: 'Unrecognised tool or missing required argument.' });
+      const step: InvestigationStep = { tool: block.name, input: (block.input ?? {}) as Record<string, unknown>, summary: 'call failed — bad input' };
+      investigation.push(step);
+      onStep?.(step);
+      continue;
+    }
+    for (const item of dispatch.result.items) pool.set(item.id, item);
+    // The actual retrieved data, not just the summary (Codex review
+    // MAJOR 8) — without this the model has nothing real to cite from
+    // after the seed search.
+    resultBlocks.push({ type: 'tool_result', tool_use_id: block.id, content: formatToolResultForPrompt(dispatch.result) });
+    const step: InvestigationStep = { tool: block.name, input: dispatch.input, summary: dispatch.result.summary };
+    investigation.push(step);
+    onStep?.(step);
+  }
+
+  return { assistantBlocks, resultBlocks };
 }
 
 export function extractToolUseBlocks(raw: unknown): RawToolUseBlock[] {

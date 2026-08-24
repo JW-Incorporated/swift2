@@ -96,7 +96,10 @@ import { MAX_TEXT, clientIp, messageAnswer, ndjsonResponse, rateLimited, sanitiz
 // are used as-is rather than duplicating context. The rolling summary,
 // covering whatever was folded away before either window, is passed to
 // `runClownAgent` either way — see its own header for how it reaches the
-// model.
+// model. LOADED HISTORY IS SCREENED before any of this (HUMAN-ACTIONS.md
+// #15 item 1 fix, below) — a stored turn or summary carries the same
+// elevated-trust risk the client-supplied transcript does, and skipped this
+// gate entirely before this fix.
 //
 // STREAMING (new, PLAN.md Stage 10 req 1): only the agent-loop path streams.
 // Every deterministic path (crisis, blocklist, chip, scope redirect) still
@@ -213,6 +216,28 @@ export async function POST(req: Request): Promise<Response> {
     memorySession && priorTurns.length === 0
       ? await loadClownHistory(memorySession, undefined, deadlineController.signal)
       : null;
+
+  // LOADED-HISTORY SCREEN (HUMAN-ACTIONS.md #15 item 1 fix) — a stored turn
+  // or rolling summary reaching this point originated from some earlier user
+  // message; without this it becomes elevated-trust context the model would
+  // otherwise trust unconditionally (it never passed the CLIENT-transcript
+  // screen above, because it never arrived as a client transcript). The
+  // rolling summary is a plain concatenation of both roles' text
+  // (`clown-memory.ts`'s `maintainRollingSummary`), so it is screened with
+  // `screenInput` — the same single-string entry point a lone turn's text
+  // goes through — rather than `screenConversation`, which expects turn
+  // objects. The loaded turns themselves ARE turn objects, so they go
+  // through the exact same `screenConversation` the client transcript does
+  // above. Same refusal shape either way — a caller cannot tell this screen
+  // apart from the client-transcript one.
+  if (loadedHistory) {
+    const historyHit = (loadedHistory.summary ? screenInput(loadedHistory.summary) : null) ?? screenConversation(loadedHistory.turns);
+    if (historyHit) {
+      clearTimeout(deadlineTimer);
+      console.log('clown:refusal', JSON.stringify({ gate: 'history', category: historyHit }));
+      return NextResponse.json(messageAnswer([refusal(historyHit).message]));
+    }
+  }
 
   // AGENT LOOP — streamed. `scope.result` (the search that just proved this
   // question is in scope) is reused as the loop's free seed context rather

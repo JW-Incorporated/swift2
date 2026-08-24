@@ -1,6 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { CLOWN_USER_DAILY_CAP, incrementUserUsage, loadClownHistory, recordClownMemory } from './clown-memory';
+import {
+  CLOWN_USER_DAILY_CAP,
+  incrementUserUsage,
+  loadClownHistory,
+  recordClownMemory,
+  resetClownMemoryReadWarningForTests,
+} from './clown-memory';
 import { resetClownSessionWarningForTests } from './clown-session';
 import type { ClownSession } from './clown-session';
 
@@ -14,6 +20,7 @@ function json(body: unknown, status = 200): Response {
 beforeEach(() => {
   vi.unstubAllEnvs();
   resetClownSessionWarningForTests();
+  resetClownMemoryReadWarningForTests();
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
 
@@ -116,6 +123,64 @@ describe('loadClownHistory — toggle ON, a resolved session', () => {
       { role: 'user', text: 'q2' },
       { role: 'assistant', text: 'a2' },
     ]);
+  });
+});
+
+// HUMAN-ACTIONS.md #15 item 2: once real sessions exist, a Supabase timeout/
+// abort/malformed-response on the READ path used to escape `loadClownHistory`
+// uncaught into `route.ts`'s `POST` (which does not wrap this read path in a
+// `.catch()` the way it does the write-side `recordClownMemory`) — a
+// Supabase hiccup would 500 the live chat route instead of degrading to
+// no-memory. These lock in the same fails-closed discipline
+// `resolveClownSession` already follows.
+describe('loadClownHistory — degrades to null instead of throwing (HUMAN-ACTIONS.md #15 item 2)', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon-key');
+  });
+
+  it('degrades to null (never throws) when the conversation lookup fetch rejects', async () => {
+    const fetchSpy = vi.fn(async (url: string) => {
+      if (String(url).includes('/rest/v1/clown_conversation?select')) throw new Error('network down');
+      throw new Error(`unexpected call: ${url}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+  });
+
+  it('degrades to null (never throws) when the conversation lookup returns malformed JSON', async () => {
+    const fetchSpy = vi.fn(async (url: string) => {
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return new Response('not json', { status: 200 });
+      throw new Error(`unexpected call: ${url}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+  });
+
+  it('degrades to null (never throws) when the recent-turns fetch rejects', async () => {
+    const fetchSpy = vi.fn(async (url: string) => {
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: 'x' }]);
+      if (String(url).includes('/rest/v1/clown_turn?select')) throw new Error('network down');
+      throw new Error(`unexpected call: ${url}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+  });
+
+  it('degrades to null (never throws) when the recent-turns fetch returns malformed JSON', async () => {
+    const fetchSpy = vi.fn(async (url: string) => {
+      if (String(url).includes('/rest/v1/clown_conversation?select')) return json([{ id: 'conv-1', summary: 'x' }]);
+      if (String(url).includes('/rest/v1/clown_turn?select')) return new Response('not json', { status: 200 });
+      throw new Error(`unexpected call: ${url}`);
+    });
+    await expect(loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch)).resolves.toBeNull();
+  });
+
+  it('logs the read-unavailability exactly once across many failing calls (no retry-storm spam)', async () => {
+    const logSpy = vi.spyOn(console, 'log');
+    const fetchSpy = vi.fn().mockRejectedValue(new Error('network down'));
+    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    await loadClownHistory(FIXTURE_SESSION, fetchSpy as unknown as typeof fetch);
+    const warnCalls = logSpy.mock.calls.filter((c) => c[0] === 'clown:memory-read-unavailable');
+    expect(warnCalls).toHaveLength(1);
   });
 });
 

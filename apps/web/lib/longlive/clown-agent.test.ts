@@ -401,6 +401,30 @@ describe('reserveUserBudget — only reserved once a model call is actually abou
     expect(reserveUserBudget).toHaveBeenCalledTimes(1);
   });
 
+  // HUMAN-ACTIONS.md #15 item 4: `usage.reserve()` (the shared GLOBAL
+  // in-memory reservation) already ran before `reserveUserBudget` is even
+  // checked, so a request denied for being over the caller's OWN cap used
+  // to consume one slot of shared budget for a model call that never
+  // actually happened. The reservation must be given back on that denial.
+  it("over the caller's own cap: gives back the shared global reservation it already took", async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubGlobal('fetch', vi.fn());
+    const clownUsage = usage();
+    const reserveUserBudget = vi.fn(async () => false);
+    const result = await runClownAgent(clownUsage, turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, undefined, reserveUserBudget);
+    expect(result.overUserCap).toBe(true);
+    expect(clownUsage.used()).toBe(0);
+  });
+
+  it('key present, under cap: the global reservation IS kept when a model call actually proceeds', async () => {
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubGlobal('fetch', vi.fn(async () => toolUseResponse([takeBlock()])));
+    const clownUsage = usage();
+    const reserveUserBudget = vi.fn(async () => true);
+    await runClownAgent(clownUsage, turns('hi'), EMPTY_SEED, { query: 'x' }, undefined, undefined, undefined, undefined, reserveUserBudget);
+    expect(clownUsage.used()).toBe(1);
+  });
+
   it('no callback given at all (no session resolved): behaves exactly as before this fix, no overUserCap', async () => {
     vi.stubEnv('ANTHROPIC_API_KEY', 'k');
     vi.stubGlobal('fetch', vi.fn(async () => toolUseResponse([takeBlock()])));
