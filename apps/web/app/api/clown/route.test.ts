@@ -92,7 +92,6 @@ const fixtures = vi.hoisted(() => {
     DOCS: [CONFIRMED_DOC, DEBUNKED_DOC, ORANGE_DOORS_DOC, QUOTE_FIXTURE_DOC],
   };
 });
-
 vi.mock('../../../lib/longlive/clown-agent', () => ({
   runClownAgent: vi.fn(),
   AGENT_MAX_WALL_MS: 20_000,
@@ -142,6 +141,7 @@ import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../.
 import { encodeSessionToken, resolveClownSession, type ClownSession } from '../../../lib/longlive/clown-session';
 import { CRISIS_MESSAGE, OUT_OF_SCOPE_MESSAGE, REFUSALS } from '../../../lib/longlive/clown-safety';
 import { FALLBACK_INTRO_CHIP, FALLBACK_INTRO_DEGRADED } from '../../../lib/longlive/clown-fallback';
+import { CLOWNING_DEFINITION } from '../../../lib/longlive/clown-explain';
 
 const CONFIRMED_DOC = fixtures.CONFIRMED_DOC as unknown as ClownDoc;
 const DEBUNKED_DOC = fixtures.DEBUNKED_DOC as unknown as ClownDoc;
@@ -227,6 +227,18 @@ afterEach(() => {
 });
 
 describe('POST /api/clown', () => {
+  it('answers "what is clowning?" deterministically before the agent loop (#1987)', async () => {
+    const res = await post({ text: 'what is clowning?' }, '10.1.0.1987');
+    expect(res.status).toBe(200);
+    const json = await res.json();
+    expect(json.kind).toBe('fallback');
+    expect(json.segments).toEqual([{ role: 'plain', text: CLOWNING_DEFINITION }]);
+    expect(json.sources).toEqual([]);
+    expect(json.investigation).toEqual([]);
+    expect(runClownAgent).not.toHaveBeenCalled();
+    expect(resolveClownSession).not.toHaveBeenCalled();
+  });
+
   it('valid query: a clean model take renders with its cited sources', async () => {
     vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
     const res = await post({ text: MASTERS_QUERY }, '10.1.0.1');

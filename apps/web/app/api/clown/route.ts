@@ -11,6 +11,7 @@ import { docToRetrievedItem, composeFallback, type RetrievedItem } from '../../.
 import { answerFromFallback, answerFromTake } from '../../../lib/longlive/clown-answer';
 import { resolveScopeSignal } from '../../../lib/longlive/clown-agent-tools';
 import { AGENT_MAX_WALL_MS, runClownAgent } from '../../../lib/longlive/clown-agent';
+import { explainClownQuestion } from '../../../lib/longlive/clown-explain';
 import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
 import {
@@ -168,6 +169,13 @@ export async function POST(req: Request): Promise<Response> {
   if (conversationHit) {
     console.log('clown:refusal', JSON.stringify({ gate: 'conversation', category: conversationHit }));
     return NextResponse.json(messageAnswer([refusal(conversationHit).message]));
+  }
+
+  // JARGON / PRODUCT EXPLAINERS — newcomer questions are deterministic,
+  // source-free, and never spend a model call or start a persisted session.
+  const explanation = explainClownQuestion(text);
+  if (explanation) {
+    return NextResponse.json(messageAnswer([explanation.text]));
   }
 
   // CHIP TAPS — the request marks itself as originating from a prefill

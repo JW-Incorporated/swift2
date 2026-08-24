@@ -38,6 +38,7 @@ import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { ClownBoard } from './ClownBoard';
 import { ClownChatComposer } from './ClownChatComposer';
 import { ClownChatTitlebar } from './ClownChatTitlebar';
+import { ClownEmptyState } from './ClownEmptyState';
 import { ClownMessageRow } from './ClownMessageRow';
 
 /**
@@ -200,6 +201,11 @@ export function ClownChat() {
     });
   }, []);
 
+  const handleStarterSelect = useCallback((prompt: string) => {
+    setText(prompt);
+    requestAnimationFrame(() => textareaRef.current?.focus({ preventScroll: true }));
+  }, []);
+
   const panelClassName = expanded
     ? 'fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
     : // Mobile: height comes from `--clown-panel-h` below, a measured fit
@@ -245,9 +251,7 @@ export function ClownChat() {
           aria-busy={busy}
         >
           {messages.length === 0 ? (
-            <p className="self-center text-center text-[13px] text-[color:var(--clown-ink-soft)] opacity-70">
-              {EMPTY_STATE_TEXT}
-            </p>
+            <ClownEmptyState intro={EMPTY_STATE_TEXT} onSelect={handleStarterSelect} />
           ) : (
             messages.map((m) => <ClownMessageRow key={m.id} message={m} />)
           )}
