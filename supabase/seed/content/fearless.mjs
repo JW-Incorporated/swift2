@@ -2600,6 +2600,57 @@ export default {
       },
     },
     {
+      // Added 2026-08-24 (issue #719, item 2): the release itself as a news
+      // event — the debut number lived only 4 months downstream (the
+      // 2009-03-14 "11 weeks" item) with no dated release-day beat of its own.
+      significance: 'notable', // the debut that seeds the record-run item four months later (docs/decisions.md, 2026-07-19)
+      year: 2008,
+      month: 11,
+      day: 11,
+      category: 'business',
+      // Cross-link (issue #719, item 3): the album's 2021 re-record — the
+      // era page is titled "Fearless (Taylor's Version)" but the TV content
+      // lives, correctly, in evermore.mjs's chronological window; this is
+      // the missing forward link from a fearless surface.
+      relatedIds: ['moment:vault-evermore-fearless-taylors-version-26-songs-six-from-the-vault'],
+      title: 'Fearless arrives and debuts at No. 1 on the Billboard 200',
+      snippet:
+        "Her second album opens at No. 1 with 592,000 first-week copies — the first of eleven non-consecutive weeks she'd spend at the top.",
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-fearless-flies-at-no-1-with-592000-1301317/',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      moment: {
+        context:
+          "Released Nov. 11, 2008 on Big Machine Records, Fearless opened at No. 1 on the Billboard 200 with 592,000 first-week copies — the first of what became eleven non-consecutive weeks at the top, a decade-long chart record covered separately in this era's later coverage. NPR's Ken Tucker, reviewing the album that same release window, confirmed its debut atop Billboard's country albums chart too — an early signal the record would cross over well past a country audience.\n\nThe album went on to become the most-awarded country album in history and, thirteen years later, the first LP Swift would re-record top to bottom as Fearless (Taylor's Version) — the release that proved the whole re-recording project could work commercially.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swifts-fearless-flies-at-no-1-with-592000-1301317/',
+            source_title: "Taylor Swift's Fearless Flies At No. 1 With 592,000",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-08-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NPR',
+            url: 'https://www.npr.org/2008/12/04/97800838/taylor-swifts-fearless-follow-up-album',
+            source_title: "Taylor Swift's 'Fearless' Follow-Up Album",
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            credit: 'Big Machine Records',
+            focalPoint: '40% 32%',
+          },
+        ],
+      },
+    },
+    {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "fearless-vmas",
