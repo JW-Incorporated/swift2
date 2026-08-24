@@ -26,9 +26,44 @@ only matters while something is still pending.
 
 ## OPEN
 
-### 14. [BLOCKING] No `apps/worker/.env` in the knowledge-engine migration worktree — pgvector untested, migration unverified against prod
+### 15. [UPGRADE] Two knowledge-engine calls still open after #12 — Reddit Data API status, Supabase anonymous-auth toggle
 
 **Filed:** 2026-08-23
+
+**Why it matters:** you answered 3 of #12's 5 items in chat tonight (GNews
+free-tier yes, embedding vendor = OpenAI, Tumblr key set) and marked #12
+DONE — carrying the last 2 forward here so they don't quietly vanish along
+with it. Neither blocks tonight's build.
+
+1. **Reddit Data API** — proposal says you have a request in flight and a
+   meeting this week. Tell me the outcome (approved / pending / no) and
+   I'll either wire the OAuth adapter or keep the RSS-only interim (≤6
+   feeds, ~36 req/day, disclosed) as the long-term posture.
+2. **Supabase anonymous auth** — Clownbot's server-side conversation memory
+   needs "Allow anonymous sign-ins" toggled on in the Supabase dashboard
+   (Authentication → Providers). I can't reach that toggle. Until it's on,
+   Clownbot's DB retrieval and agent loop still ship, just without
+   persisted per-user chat history/predictions.
+
+**Worked if:** you tell me the Reddit outcome in chat and/or flip the
+Supabase toggle.
+
+**Status:** OPEN
+
+---
+
+### 14. [BLOCKING] No `apps/worker/.env` in knowledge-engine worktrees — 3 migrations unapplied against prod, pgvector untested
+
+**Filed:** 2026-08-23
+
+**Update:** Stage 1 (worker fixes, PR #2300) hit the identical gap for the
+same reason — two more migrations
+(`20260823010000_news_sources_seed_wave2.sql`,
+`20260823020000_news_raw_item_resolved_tier.sql`) are written and merged to
+`main` but not yet applied against production, because that worktree also
+had no `apps/worker/.env`. All three migrations below need one
+`npm run db:migrate` run from a checkout that has the real env file — do
+them together, one command, once `main` has all three.
 
 **Why it matters:** Stage 2 of the knowledge-engine build (`PLAN.md`) asked me
 to test `create extension vector` against the real Supabase project first,
@@ -78,6 +113,44 @@ the real credential.
 **Worked if:** `npm run db:migrate` (with `apps/worker/.env` present) applies
 `20260901000000_knowledge_engine.sql` cleanly against production, and running
 it a second time is a clean no-op (no errors, no duplicate objects).
+
+**Status:** OPEN
+
+---
+
+### 11. [UPGRADE] Six stale duplicate routines from a July handoff — ~5 min
+
+**Why it matters:** your account already had 6 disabled routines from an
+**earlier, opposite-direction** handoff (July 2026, before things moved to
+Wyatt's account) — Content Shift, Nils, Austin ×2 (two separate crons; the
+current live version consolidated to one), Marjorie ×2. They're July-dated
+and stale (e.g. the old Content Shift trigger fires twice daily; the current
+one fires once) and every one of them ALSO currently carries
+`Claude_Code_Remote`. Item #10 created fresh, current replacements instead
+of touching these, to avoid a risky partial-update on routines nobody had
+verified in weeks.
+
+**REFINED 2026-08-23 22:31 PDT** — Joey tried the original instructions:
+every routine shows as active, and there's no creation date in the details
+view, so neither of my original signals (disabled state, July date) exist
+in that UI. Use this instead, it doesn't depend on either:
+
+**Steps:** at `https://claude.ai/code/routines`, for each duplicate name
+(Content Shift, Nils, Austin ×2/3, Marjorie ×2+), open **each** copy's
+prompt/instructions text (not just the schedule). Every current, correct
+routine's prompt was rewritten in the 2026-08-22/23 migration to start by
+telling the agent to **read its charter file first** — e.g. "read
+`docs/agents/content-shift.md`" / `nils.md` / `marjorie.md` / `austin.md`.
+The 6 stale July routines predate that convention entirely — their prompt
+text will be old inline instructions with no charter-file reference at all.
+That difference should be visible the moment you open either copy's edit
+view, no dates or enabled/disabled state needed. Delete the one **without**
+the charter-file reference, or at minimum strip Claude_Code_Remote from it
+(Edit → Connectors → × → Save) so it stops being an idle duplicate.
+
+**Worked if:** `https://claude.ai/code/routines` shows one entry per routine
+name, not two, and every remaining one's prompt references reading a
+charter file from `docs/agents/`.
 
 **Status:** OPEN
 
@@ -292,6 +365,30 @@ reflects it, and a test PR still merges once `build` is green.
 
 <!-- Finished items move here with a date. Numbers keep their original ID.
      Never delete — the history is how we stop re-asking. -->
+
+### 13. [UPGRADE] Add `ANTHROPIC_API_KEY` as a worker repo secret — ~2 min
+
+**Status:** DONE — 2026-08-23 22:31 PDT, Joey: `gh secret set
+ANTHROPIC_API_KEY --repo JW-Incorporated/swift2`. Unblocks the knowledge
+engine's extract stage's live run (`PLAN.md` Stage 3).
+
+---
+
+### 12. [UPGRADE] Vendor/account decisions for the knowledge engine build — ~20 min total
+
+**Status:** DONE — 2026-08-23 22:31 PDT, Joey answered 3 of 5 in chat: (1)
+Google News replacement = **GNews free tier** (100 req/day), engineered
+around via a hard daily cap well under the limit at the 6-runs/day ingest
+cadence — no paid tier needed; (2) embedding vendor = **OpenAI**
+(`text-embedding-3-large`, `dimensions: 1024` to match the schema),
+`OPENAI_API_KEY` set as a repo secret; (4) Tumblr = both
+`TUMBLR_CONSUMER_API_KEY` and `TUMBLR_SECRET_API_KEY` set as repo secrets,
+unblocking the `tumblr` adapter. Items 3 (Reddit Data API approval status)
+and 5 (Supabase anonymous-auth toggle) were not addressed and are **not**
+lost — carried forward as new item #15, treating Joey's DONE edit on this
+item as authoritative rather than reopening it.
+
+---
 
 ### 1. [BLOCKING] Get the production site and CI off Wyatt's accounts — ~30–60 min
 

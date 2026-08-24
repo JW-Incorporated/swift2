@@ -4746,3 +4746,90 @@ ambiguous (not-Shopify vs delisted) and is reported as such, never conflated.
 **Approved by:** Joey (item #7, 2026-08-15 punch list)
 
 **Approved by:** Joey
+
+## 2026-08-23 — Knowledge engine kickoff: architecture decisions logged before build (proposal §10)
+
+**Context:** `docs/proposals/2026-08-23-knowledge-engine.md` (Fable), overnight
+autonomous build authorized directly by Joey. Rule 6 requires expensive-to-
+reverse decisions logged before implementation. Corrected against actual repo
+state first (a ground-truth audit found several of the proposal's claimed
+file paths don't exist as described — see the "corrections" bullet below).
+
+**Decisions ratified/made (proposal §10 items 1, 3, 4, 8; item 6 partial):**
+
+1. **Current tier is a first-class, reader-visible Supabase store**, read at
+   request time via Next.js ISR for the current era only; the Vault stays
+   static/CDN-cached exactly as `architecture.md` requires. One new store
+   (`current_item`, `fan_signal`, `live_theory`, `symbol_activity`,
+   `knowledge_doc`), two tiers (`vault`/`current`), every surface (site, mobile
+   via `packages/core`, Clownbot) reads the same tables.
+2. **Ingestion runs on GitHub Actions with API keys, never a Claude routine.**
+   The extract stage (structured, our-words summarization of a clustered
+   story) runs on **Anthropic (Haiku 4.5)**, matching Clownbot's existing
+   vendor (`apps/web/lib/longlive/clown-client.ts` already calls
+   `api.anthropic.com`) rather than adding a second vendor. This is additive,
+   not a replacement — `apps/worker/src/classify/openai-client.ts` (OpenAI,
+   the existing raw-item relevance classifier) is untouched; extract is a new
+   downstream stage on the clustered output.
+3. **Google News**: ratifying Joey's 2026-08-23 call already recorded in the
+   proposal body (§4.2) — drop it as primary, replace with publisher tag
+   feeds (free, citable, backbone) + official-surface diffs (free,
+   deterministic) as the immediate build; a licensed recall API (GNews or
+   Perigon, real monthly cost) is parked pending Joey's pick
+   (`HUMAN-ACTIONS.md` #12). Google News stays running unmodified until the
+   replacement's one-week shadow recall test passes 95%.
+4. **Fan-platform posture**: Bluesky (free, no key) and Reddit-via-RSS
+   (free, interim, disclosed — §4.4's posture, already a founder call in the
+   proposal body) build now; Tumblr waits on a free-but-account-gated API key
+   (`HUMAN-ACTIONS.md` #12); X stays pay-per-use and capped, built later once
+   budget is set; TikTok never; every fan source aggregate-only, hashed
+   author, no comment bodies beyond what a public RSS already exposes.
+6. **Clownbot conversation persistence** (retention 180d, no IPs, Supabase
+   anonymous auth): schema and code land now, but the write path stays
+   feature-flagged off until "Allow anonymous sign-ins" is toggled in the
+   Supabase dashboard (`HUMAN-ACTIONS.md` #12 item 5) — an agent can't reach
+   that toggle.
+8. **"Freshness on Actions, judgment on routines"** is now a standing rule —
+   added to `CLAUDE.md` § Cost discipline in the same change that makes this
+   decision. A routine going dark (as the Content Shift/Rumor Desk migration
+   already has, per the proposal's diagnosis) must never make the site stale.
+
+**Deferred, logged but not decided** (both are proposal §10 item 7 and part
+of item 3 — real recurring cost, need Joey's pick): embedding vendor (Voyage
+vs. OpenAI) and the licensed news API (GNews vs. Perigon vs. accept the risk).
+`HUMAN-ACTIONS.md` #12 carries both. Until an embedding vendor is chosen,
+`knowledge_doc.embedding` stays null and retrieval is FTS-only (`tsv` column)
+— degraded, not broken.
+
+**Corrections to the proposal's claimed current state**, found by a
+ground-truth audit before writing PLAN.md (so PLAN.md reflects reality, not
+the proposal's guesses): `packages/shared/src/redline.ts` does not exist —
+the real screening code is `apps/web/lib/longlive/clown-safety.ts` +
+`clown-blocklist.ts`, already wired into `apps/api/clown/route.ts` (the
+proposal's audit items 0a/0b were already resolved, not open gaps).
+`scripts/sync-clown-knowledge.mjs` doesn't exist (greenfield, not a rename).
+`packages/core/src/knowledge/` doesn't exist yet (greenfield). No
+`ANTHROPIC_API_KEY` repo secret exists for the worker (`gh secret list`
+confirmed) — blocks a live extract-stage run until added
+(`HUMAN-ACTIONS.md` #13). No pgvector precedent anywhere in
+`supabase/migrations/` — genuinely greenfield, `create extension vector`
+untested in this project. `apps/mobile` reads Supabase live via
+`@swift2/core`; `apps/web` reads the generated Vault TS — the "one engine
+feeds every surface" goal is true going forward for the *Current* tier (both
+read the same new tables) but does not retroactively unify how the Vault
+itself is read by web vs. mobile; that's a larger, separate migration, out of
+scope here.
+
+**Not decided here, explicitly deferred to a human session per the proposal's
+own rule (§9 issue 5):** the `technique` table's actual content
+(`techniques.mjs` seed, 7–10 records) — the proposal states this must be
+"written in a frontier-model session with a human — not an autonomous run."
+Overnight work builds the schema, the sync scaffolding, and the coverage
+audit script; it does not author technique records claiming a stylistic
+pattern without Joey (or Wyatt) in the loop to check them against the actual
+corpus.
+
+**Approved by:** Joey (direct instruction to build the full proposal
+overnight, 2026-08-23 22:01 PDT); architecture calls within it made under
+existing Decision Authority (CLAUDE.md: AI may write code, refactor,
+document decisions for non-money, non-infra-credential calls without asking).
