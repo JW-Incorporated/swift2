@@ -66,29 +66,27 @@ export const LEGAL_FACTS = {
    * derivable from the repo, so it is a founder-supplied fact, not a guess.
    */
   entity: 'JW Labs LLC',
-  /** Where the entity is formed / whose law governs. Not determinable from the repo. */
-  jurisdiction: FOUNDERS(
-    'governing law + venue (e.g. "the State of ___, USA") and the entity\'s state/country of formation',
-  ),
   /**
-   * Contact for privacy questions and rights requests. The retired privacy
-   * page published `wjduvall@gmail.com` (a founder's personal Gmail). Publishing
-   * a personal inbox on a public policy page is a founder call, not an
-   * engineering one — and a role alias is easier to hand to counsel later.
+   * Where the entity is formed / whose law governs. Founder-supplied
+   * 2026-08-24 (Joey, in chat): California.
    */
-  privacyEmail: FOUNDERS(
-    'contact address for privacy questions and data requests — the retired page used wjduvall@gmail.com (a personal Gmail); recommend a role alias such as privacy@longlivets.com',
-  ),
-  /** Where rights-holders send takedown notices. */
-  legalEmail: FOUNDERS(
-    'contact address for copyright/trademark takedown notices — recommend a dedicated alias such as legal@longlivets.com, separate from the privacy address',
-  ),
-  /** Postal address. Many takedown regimes expect one; none exists in the repo. */
-  postalAddress: FOUNDERS(
-    "a postal address for legal notices, or counsel's advice that one may be omitted for an unincorporated project",
-  ),
-  /** The date these pages take effect — set on the day counsel signs off. */
-  effectiveDate: FOUNDERS('effective date — set this on the day counsel signs off, not before'),
+  jurisdiction: 'the State of California, USA — JW Labs LLC is formed under California law',
+  /**
+   * Contact for privacy questions and rights requests. Founder-approved
+   * 2026-08-24 (Joey): use the suggested role alias. The retired privacy
+   * page published a founder's personal Gmail; this replaces it.
+   */
+  privacyEmail: 'privacy@longlivets.com',
+  /** Where rights-holders send takedown notices. Founder-approved 2026-08-24 (Joey). */
+  legalEmail: 'legal@longlivets.com',
+  /**
+   * Postal address. Founder call 2026-08-24 (Joey): omit per counsel's
+   * advice rather than publish one at this project stage.
+   */
+  postalAddress:
+    "not published at this project's stage, per counsel's advice — write to the email addresses above instead",
+  /** The date these pages take effect. Founder-set 2026-08-24 (Joey): today, counsel already signed off. */
+  effectiveDate: 'August 24, 2026',
   /** Feedback destination, verified: apps/web/app/api/feedback/route.ts:155. */
   feedbackRepo: 'JW-Incorporated/swift2',
 } as const;
@@ -343,10 +341,13 @@ export const PRIVACY_POLICY: LegalDoc = {
           text: 'This policy describes the Long Live website. A companion mobile app exists in development but has not been released in any app store. If and when it is, its data handling will be described here — or in its own policy — before it ships, and its store data-safety disclosures will be made to match.',
         },
         {
+          // Founder call 2026-08-24 (Joey): "fill it in with something
+          // standard" rather than leave the internal engineering reminder
+          // as reader-facing prose. Before either store submission, whoever
+          // ships the app must still re-verify this against
+          // apps/mobile/docs/privacy-and-data-safety.md's current claims.
           kind: 'p',
-          text: FOUNDERS(
-            'before submitting the mobile app to either store, re-verify its data handling against this page. The engineering notes at apps/mobile/docs/privacy-and-data-safety.md still say "the apps collect nothing" and advise answering "No collection" on both store forms — that was true on 2026-07-08 and is no longer true of the website. Lying on a store data-safety form is removal-grade.',
-          ),
+          text: "Before this app is submitted to either app store, its data-safety disclosures will be re-verified against the website's current data handling described above and updated to match.",
         },
       ],
     },
@@ -401,10 +402,12 @@ export const PRIVACY_POLICY: LegalDoc = {
           text: `If you believe a child has sent us personal information through the feedback box, write to ${LEGAL_FACTS.privacyEmail} and we will delete it.`,
         },
         {
+          // Founder/counsel determination 2026-08-24 (Joey): confirmed not
+          // directed to children under 13 under COPPA. Revisit if the
+          // product later adds anything that changes that (an age gate,
+          // marketing aimed at a younger audience, etc.).
           kind: 'p',
-          text: FOUNDERS(
-            'counsel must settle the minors question before launch: a Taylor Swift fan site plausibly draws a significant under-13 audience, and there is no age gate. Does that make the site "directed to children" under COPPA (and does the UK Age Appropriate Design Code / GDPR-K apply)? If yes, this section is wrong as written and product changes — an age gate, or turning off free-text input — follow. This is a legal call, not an engineering one.',
-          ),
+          text: 'We have determined, with counsel, that Long Live is not "directed to children" under COPPA.',
         },
       ],
     },
@@ -561,10 +564,12 @@ export const TERMS_OF_USE: LegalDoc = {
           text: 'We will remove or disable access to properly identified material promptly. If you believe your material was removed by mistake, write to the same address and say why.',
         },
         {
+          // Founder call 2026-08-24 (Joey): register a DMCA agent. Filing
+          // itself needs Joey's own Copyright Office account/payment — see
+          // HUMAN-ACTIONS.md. Update this line to say "is registered" once
+          // that filing is actually complete — do not claim it early.
           kind: 'p',
-          text: FOUNDERS(
-            'this site does not publish user-submitted content, so DMCA safe-harbour protection is not what is doing the work here — but counsel should confirm whether registering a DMCA agent with the U.S. Copyright Office is still worth doing, and must revisit it before the site ever accepts fan submissions or public comments (the repo already flags a registered agent as a precondition for accepting user-generated content)',
-          ),
+          text: 'We are in the process of registering a designated DMCA agent with the U.S. Copyright Office to receive these notices.',
         },
         {
           kind: 'p',
