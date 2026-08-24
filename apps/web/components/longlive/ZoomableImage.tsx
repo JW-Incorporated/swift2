@@ -40,6 +40,9 @@ const DOUBLE_TAP_SLOP = 30;
 const TAP_MOVE_SLOP = 12;
 /** A press held longer than this is not a tap. */
 const TAP_MAX_MS = 250;
+/** Px the +/- keys step the zoom-in/out buttons already use as a factor;
+ *  arrow-key pan moves this many CSS px per keypress while zoomed. */
+const PAN_STEP = 40;
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
@@ -295,6 +298,34 @@ export function ZoomableImage({
     return () => container.removeEventListener('wheel', onWheel);
   }, [setTransform, wheelZoom]);
 
+  // Keyboard zoom + pan (#834) — only where the on-screen +/- buttons are
+  // offered (the fullscreen lightbox), matching that surface's interaction
+  // model. `+`/`-` (or `=`/`_`, the unshifted keys) mirror the buttons;
+  // arrow keys pan while zoomed in, `stopImmediatePropagation` on those so
+  // the lightbox's own arrow-key gallery paging (also a window listener)
+  // doesn't fire for the same keypress. At 1× arrow keys are left alone —
+  // there is nothing to pan, so they page the gallery as usual.
+  useEffect(() => {
+    if (!controls) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        zoomByStep(1.6);
+      } else if (e.key === '-' || e.key === '_') {
+        e.preventDefault();
+        zoomByStep(1 / 1.6);
+      } else if (scaleRef.current > 1 && e.key.startsWith('Arrow')) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const dx = e.key === 'ArrowLeft' ? PAN_STEP : e.key === 'ArrowRight' ? -PAN_STEP : 0;
+        const dy = e.key === 'ArrowUp' ? PAN_STEP : e.key === 'ArrowDown' ? -PAN_STEP : 0;
+        setTransform(scaleRef.current, translateRef.current.x + dx, translateRef.current.y + dy);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [controls, zoomByStep, setTransform]);
+
   return (
     <div
       ref={containerRef}
@@ -328,6 +359,7 @@ export function ZoomableImage({
             type="button"
             onClick={() => zoomByStep(1 / 1.6)}
             aria-label="Zoom out"
+            aria-keyshortcuts="-"
             className="grid size-9 place-items-center rounded-full text-white/90 hover:bg-white/15"
           >
             <Minus className="size-4" />
@@ -336,6 +368,7 @@ export function ZoomableImage({
             type="button"
             onClick={() => zoomByStep(1.6)}
             aria-label="Zoom in"
+            aria-keyshortcuts="+"
             className="grid size-9 place-items-center rounded-full text-white/90 hover:bg-white/15"
           >
             <Plus className="size-4" />

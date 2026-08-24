@@ -270,11 +270,11 @@ export function LoveStoryThread() {
                   zIndex: isRel ? 2 : 1,
                 }}
               >
-                {isRel && widthPct > 6 && (
-                  <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 truncate px-1 text-center text-[9px] font-semibold leading-none" style={{ color: '#fff' }}>
-                    {entry.name.split(' ')[0]}
-                  </span>
-                )}
+                {/* Name label moved below the band (see the labels row after
+                    this container) — white-on-accent here measured as low as
+                    2.18:1 in some era/relationship combinations, since the
+                    accent is a per-relationship color composited over
+                    whichever era surface is currently active (#659). */}
               </div>
             );
           })}
@@ -329,6 +329,27 @@ export function LoveStoryThread() {
             className="absolute inset-0 cursor-pointer select-none focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 sm:hidden"
             style={{ zIndex: 3, outlineColor: 'var(--era-ink)', touchAction: 'pan-y' }}
           />
+        </div>
+
+        {/* Name labels, one per wide-enough relationship segment — moved out
+            of the colored band (#659: white text on the band's per-relationship
+            accent color measured as low as 2.18:1 depending on which era
+            surface is active). `--era-ink` on `--era-surface`/`--era-bg` is a
+            themed-design invariant (always >12:1, see eras.ts), so rendering
+            the label here instead is contrast-safe across all 12 eras. */}
+        <div aria-hidden="true" className="relative h-3.5">
+          {positioned.map(({ entry, startPct, widthPct }) => {
+            if (entry.kind !== 'relationship' || widthPct <= 6) return null;
+            return (
+              <span
+                key={entry.id}
+                className="absolute top-0 truncate px-1 text-center text-[9px] font-semibold leading-none"
+                style={{ left: `${startPct}%`, width: `${widthPct}%`, color: 'var(--era-ink)' }}
+              >
+                {entry.name.split(' ')[0]}
+              </span>
+            );
+          })}
         </div>
 
         {/* Names what the pointer/keyboard is currently over, so a two-month

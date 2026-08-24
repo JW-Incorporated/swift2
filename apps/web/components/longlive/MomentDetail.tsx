@@ -334,11 +334,16 @@ function MomentLightbox({
   index,
   onIndex,
   onClose,
+  title,
 }: {
   images: ImageRef[];
   index: number;
   onIndex: (i: number) => void;
   onClose: () => void;
+  /** Falls into the lightbox image's alt text when a photo has no caption —
+   *  in here the photo is the dialog's sole content, so it can't go nameless
+   *  the way an inline card's cropped thumbnail can (#834). */
+  title: string;
 }) {
   const img = images[index];
   const count = images.length;
@@ -420,7 +425,7 @@ function MomentLightbox({
         <ZoomableImage
           key={img.url}
           src={img.url}
-          alt={img.caption ?? ''}
+          alt={img.caption ?? `Photo — ${title}`}
           unoptimized={isRemoteUrl(img.url)}
           fit="contain"
           frameClassName="h-full w-full"
@@ -753,7 +758,8 @@ export function MomentDetail() {
               key={t}
               className="rounded-full px-2.5 py-0.5 text-xs font-medium"
               style={{
-                backgroundColor: `hsl(${TAG_META[t].hue} / 0.16)`,
+                // 10% (down from 16%) — see tags.ts (#659).
+                backgroundColor: `hsl(${TAG_META[t].hue} / 0.1)`,
                 color: `hsl(${TAG_META[t].hue})`,
               }}
             >
@@ -921,6 +927,7 @@ export function MomentDetail() {
           index={lightboxIndex}
           onIndex={setLightboxIndex}
           onClose={() => setLightboxIndex(null)}
+          title={item.title}
         />
       )}
     </div>
