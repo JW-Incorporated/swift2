@@ -661,7 +661,7 @@ jobs:
       # added 2026-08-15 (P0): same reasoning as the Karen step's comment
       # above — an unrelated earlier-step failure must not silently skip this
       # detection step (or strand it without Node).
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: "!cancelled()"
         with:
           node-version: '24'
