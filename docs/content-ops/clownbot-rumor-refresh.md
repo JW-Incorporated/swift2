@@ -1,6 +1,6 @@
 # Clownbot — the rumor/lore file and how it gets refreshed
 
-**Status:** v1, 2026-08-11. Owner: whoever runs the Rumor Desk.
+**Status:** v2, 2026-08-24. Owner: the scheduled Rumor Desk lane.
 Source of truth for the file itself: `apps/web/lib/longlive/clownbot-lore.ts`.
 Binding above this doc: `docs/content-ops/privacy-redlines.md`.
 
@@ -59,6 +59,20 @@ is instant credibility death. That is the whole reason the field exists.
 
 ## The refresh path
 
+The scheduled owner is `docs/agents/runner-prompts/vault-lanes/4-rumor-desk.md`
+(every other day through the Vault Run). Before #1997, that lane updated Vault
+seed `rumors` and the knowledge-engine lifecycle queue but never named this
+file, so `clownbot-lore.ts` had no refresh trigger at all. The lane now carries
+an explicit fallback sweep, and a regression test fails if that connection is
+removed.
+
+The primary live path is separate and mechanical: `.github/workflows/news-worker.yml`
+runs every four hours and writes `current_item` / `fan_signal` / `live_theory`.
+Clownbot reads those rows first; this file is the no-DB fallback. Production
+must have the knowledge-engine migrations applied for those writes to occur
+(tracked in `HUMAN-ACTIONS.md` #14). A scheduled Action run that only publishes
+the candidate digest has not refreshed the live store.
+
 The news cycle moves in **hours**, not weeks. The file is designed for same-day
 updates and for being honest when it has not had one.
 
@@ -113,17 +127,16 @@ that item must have sources, and every prompt must contain a stance/job verb.
 
 ## Staleness is shown, never hidden
 
-`loreFreshness()` reports the sweep date, its age in days, and how many live
-items sit inside the 14-day window. The surface prints all of it — and when the
-live count is zero it says so plainly rather than presenting evergreens as
-news. A bot that looks live while running on four-month-old lore is exactly the
-credibility failure this design is avoiding.
+`loreFreshness()` reports the sweep date, its age in days, and how many open
+items were rechecked inside the 14-day window. An old unresolved claim can
+still be live after a current verification; using its original report date
+made every later sweep invisible (#1997). The surface prints all of it — and
+when the live count is zero it says so plainly rather than presenting
+evergreens as news. A bot that looks live while running on four-month-old lore
+is exactly the credibility failure this design is avoiding.
 
 ## Deferred
 
-- **Automating the sweep.** A Rumor-Desk routine could draft the diff for human
-  approval. Not built: the failure mode of an unattended bot writing rumors
-  into a fan product is worse than the cost of a weekly manual pass.
 - **Merging with `RumorNote`.** The Vault already has a per-moment `rumors[]`
   with a richer status vocabulary. Unifying them is a real simplification and a
   real migration; not worth blocking v1 on.

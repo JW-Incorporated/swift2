@@ -62,8 +62,8 @@ export interface LoreItem {
   tags?: string[];
 }
 
-/** The date a human last swept this whole file. Surfaced to the reader. */
-export const LORE_UPDATED_ON = '2026-08-11';
+/** The date an editorial sweep last checked this file. Surfaced to the reader. */
+export const LORE_UPDATED_ON = '2026-08-24';
 
 /** A rumor/reported item older than this is no longer "live" for prompts. */
 export const FRESH_WINDOW_DAYS = 14;
@@ -102,8 +102,8 @@ export const LORE: readonly LoreItem[] = [
     id: 'rep-tv-debut-tv',
     status: 'rumor',
     date: '2025-05-30',
-    lastCheckedOn: '2026-08-11',
-    headline: 'Reputation (Taylor\'s Version) and the debut re-record: still unreleased',
+    lastCheckedOn: '2026-08-24',
+    headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
     detail:
       'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of Reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
     sources: [
@@ -115,9 +115,13 @@ export const LORE: readonly LoreItem[] = [
         name: 'Billboard',
         url: 'https://www.billboard.com/music/music-news/reputation-taylors-version-taylor-swift-will-she-release-it-1235985800/',
       },
+      {
+        name: 'Associated Press',
+        url: 'https://apnews.com/article/672dc24782f5b0f04c864a6fd86665d8',
+      },
     ],
     prompts: [
-      'Decode this: she said she hasn\'t re-recorded a quarter of REPUTATION. She said nothing about the debut. What does that omission mean?',
+      "Decode this: she said she hasn't re-recorded a quarter of REPUTATION. She said nothing about the debut. What does that omission mean?",
       'Rank the odds: Reputation TV, debut TV, or neither ever. Commit to a number.',
     ],
     evergreen: true,
@@ -138,7 +142,7 @@ export const LORE: readonly LoreItem[] = [
       },
     ],
     prompts: [
-      'The countdown hit zero at 12:12 on 8/12 for album 12. Draft the case that the number twelve is now a permanent part of her cipher — or tell me I\'m reaching.',
+      "The countdown hit zero at 12:12 on 8/12 for album 12. Draft the case that the number twelve is now a permanent part of her cipher — or tell me I'm reaching.",
       'Rank her announcement methods by how hard they made us work. Countdown, podcast, liner note, orange door — take a side.',
     ],
     ledger: {
@@ -178,10 +182,10 @@ export const LORE: readonly LoreItem[] = [
     id: 'swifties-against-ai',
     status: 'reported',
     date: '2025-10-09',
-    lastCheckedOn: '2026-08-11',
+    lastCheckedOn: '2026-08-24',
     headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
     detail:
-      'Fans spotted artefacts in the orange-door promo videos — a bartender\'s finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.',
+      "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
     sources: [
       {
         name: 'NBC News',
@@ -191,6 +195,10 @@ export const LORE: readonly LoreItem[] = [
         name: 'PetaPixel',
         url: 'https://petapixel.com/2025/10/09/taylor-swift-accused-of-using-ai-for-life-of-a-showgirl-promo-videos/',
       },
+      {
+        name: 'WIRED',
+        url: 'https://www.wired.com/story/taylor-swift-swifties-against-ai-viral/',
+      },
     ],
     prompts: [
       'The orange-door videos and #SwiftiesAgainstAI — take a side, and be honest about what a bot is doing in this argument.',
@@ -199,13 +207,63 @@ export const LORE: readonly LoreItem[] = [
     tags: ['ai', 'promo', 'fandom'],
   },
   {
+    id: 'green-ts-next-era',
+    status: 'reported',
+    date: '2026-08-20',
+    lastCheckedOn: '2026-08-24',
+    headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
+    detail:
+      'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, Reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
+    sources: [
+      {
+        name: 'Us Weekly',
+        url: 'https://www.usmagazine.com/entertainment/news/is-taylor-swift-teasing-her-13th-album-fan-theories-clues/',
+      },
+      {
+        name: 'Creative Bloq',
+        url: 'https://www.creativebloq.com/design/branding/swifties-calm-down-not-everything-is-a-taylor-swift-easter-egg',
+      },
+      {
+        name: 'CinemaBlend',
+        url: 'https://www.cinemablend.com/streaming-news/the-empire-state-building-trolled-swifties-as-they-freaked-out-over-taylor-swift-taylors-version',
+      },
+    ],
+    prompts: [
+      'Green TS logo, green Empire State Building, and a 20th anniversary coming: debut, Reputation, TS13, or pure trolling? Pick one.',
+    ],
+    tags: ['re-records', 'ts13', 'easter-eggs'],
+  },
+  {
+    id: 'ts13-lilac-cipher',
+    status: 'reported',
+    date: '2026-08-21',
+    lastCheckedOn: '2026-08-24',
+    headline: 'The lilac TS13 cipher is back in circulation',
+    detail:
+      'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
+    sources: [
+      {
+        name: 'Us Weekly',
+        url: 'https://www.usmagazine.com/entertainment/news/is-taylor-swift-teasing-her-13th-album-fan-theories-clues/',
+      },
+      {
+        name: 'Elle',
+        url: 'https://www.elle.com/culture/music/a71338882/taylor-swift-13th-album-easter-eggs-explained/',
+      },
+    ],
+    prompts: [
+      'Lavender dress, lilac thirteenth-floor button, TS13: build the strongest version of the color theory, then tell me where it breaks.',
+    ],
+    tags: ['ts13', 'color-coding', 'easter-eggs'],
+  },
+  {
     id: 'engagement-announcement',
     status: 'confirmed',
     date: '2025-08-26',
     lastCheckedOn: '2026-08-11',
     headline: '"Your English teacher and your gym teacher are getting married"',
     detail:
-      'Taylor and Travis Kelce announced their engagement on Instagram on 26 August 2025 with that caption. The post broke Instagram\'s record for fastest to a million likes. Included here because they published it themselves — canon-level fact only; this file carries no relationship speculation, prognosis, or private detail beyond what the two of them posted.',
+      "Taylor and Travis Kelce announced their engagement on Instagram on 26 August 2025 with that caption. The post broke Instagram's record for fastest to a million likes. Included here because they published it themselves — canon-level fact only; this file carries no relationship speculation, prognosis, or private detail beyond what the two of them posted.",
     sources: [
       {
         name: 'NFL.com',
@@ -225,7 +283,7 @@ export const LORE: readonly LoreItem[] = [
     lastCheckedOn: '2026-08-11',
     headline: 'Super Bowl LX halftime was Bad Bunny',
     detail:
-      'Bad Bunny headlined the Super Bowl LX halftime show at Levi\'s Stadium on 8 February 2026, with guests including Lady Gaga and Ricky Martin — the first halftime show performed primarily in Spanish. It was, notably, not Taylor Swift.',
+      "Bad Bunny headlined the Super Bowl LX halftime show at Levi's Stadium on 8 February 2026, with guests including Lady Gaga and Ricky Martin — the first halftime show performed primarily in Spanish. It was, notably, not Taylor Swift.",
     sources: [
       {
         name: 'ABC News',
@@ -237,7 +295,7 @@ export const LORE: readonly LoreItem[] = [
       },
     ],
     prompts: [
-      'Bad Bunny played Levi\'s Stadium in February 2026 and so did the Eras Tour. Tell me why that is not a clue, because I still think it is.',
+      "Bad Bunny played Levi's Stadium in February 2026 and so did the Eras Tour. Tell me why that is not a clue, because I still think it is.",
     ],
     tags: ['superbowl'],
   },
@@ -248,7 +306,7 @@ export const LORE: readonly LoreItem[] = [
     lastCheckedOn: '2026-08-11',
     headline: 'The Super Bowl LX theory, and how thoroughly it died',
     detail:
-      'Through late 2025 the fandom assembled a genuinely impressive board for Taylor headlining Super Bowl LX: Levi\'s Stadium had hosted an Eras Tour show, the 49ers\' mascot is Sourdough Sam, and every outfit was read as a hint. Then Bad Bunny walked out on 8 February 2026. The receipts were real. The conclusion was not. This is the house exhibit for how clowning works.',
+      "Through late 2025 the fandom assembled a genuinely impressive board for Taylor headlining Super Bowl LX: Levi's Stadium had hosted an Eras Tour show, the 49ers' mascot is Sourdough Sam, and every outfit was read as a hint. Then Bad Bunny walked out on 8 February 2026. The receipts were real. The conclusion was not. This is the house exhibit for how clowning works.",
     sources: [
       {
         name: 'Newsweek',
@@ -261,7 +319,7 @@ export const LORE: readonly LoreItem[] = [
     ],
     ledger: {
       theory:
-        'That the Levi\'s Stadium / Sourdough Sam / show-number-47 trail meant Taylor was headlining the Super Bowl LX halftime show',
+        "That the Levi's Stadium / Sourdough Sam / show-number-47 trail meant Taylor was headlining the Super Bowl LX halftime show",
       verdict: 'clowned',
       on: '2026-02-08',
     },
@@ -294,7 +352,7 @@ export interface LoreFreshness {
   ageDays: number;
   /** True once the sweep is older than the fresh window. */
   stale: boolean;
-  /** Live (rumor|reported) items dated inside the fresh window. */
+  /** Open items whose status was checked inside the fresh window. */
   liveCount: number;
 }
 
@@ -308,7 +366,7 @@ export function loreFreshness(now: Date): LoreFreshness {
   const liveCount = LORE.filter(
     (item) =>
       (item.status === 'rumor' || item.status === 'reported') &&
-      daysBetween(item.date, now) <= FRESH_WINDOW_DAYS,
+      daysBetween(item.lastCheckedOn, now) <= FRESH_WINDOW_DAYS,
   ).length;
   return {
     updatedOn: LORE_UPDATED_ON,

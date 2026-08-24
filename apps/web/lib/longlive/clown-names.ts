@@ -27,7 +27,7 @@
 
 export interface CanonicalName {
   name: string;
-  /** Receipt ids that, if cited, pin this name. */
+  /** Receipt ids that pin this name only when the receipt is dominant. */
   receiptIds?: readonly string[];
   /** Normalised substrings in the reader's question that pin this name. */
   keywords?: readonly string[];
@@ -42,7 +42,14 @@ export const NAME_REGISTRY: readonly CanonicalName[] = [
   {
     name: 'Debutation',
     receiptIds: ['lore:rep-tv-debut-tv'],
-    keywords: ['rep tv', 'reputation tv', 'debut tv', 'taylors version of reputation', 're-record', 'rerecord'],
+    keywords: [
+      'rep tv',
+      'reputation tv',
+      'debut tv',
+      'taylors version of reputation',
+      're-record',
+      'rerecord',
+    ],
   },
   {
     name: 'The Sourdough Fiasco',
@@ -57,12 +64,19 @@ export const NAME_REGISTRY: readonly CanonicalName[] = [
   {
     name: 'The Machine Question',
     receiptIds: ['lore:swifties-against-ai'],
-    keywords: ['ai', 'generative', 'swifties against ai', 'artificial intelligence'],
+    keywords: [
+      'ai',
+      'generative',
+      'swifties against ai',
+      'swiftiesagainstai',
+      'artificial intelligence',
+      'orange door videos',
+    ],
   },
   {
     name: 'The Twelve-Twelve Cipher',
     receiptIds: ['lore:tloas-countdown-announcement'],
-    keywords: ['countdown', '12 12', '1212', 'twelve'],
+    keywords: ['countdown', '12 12', '1212', 'twelve', 'numerology'],
   },
   {
     name: 'The evermore Hill',
@@ -73,7 +87,13 @@ export const NAME_REGISTRY: readonly CanonicalName[] = [
       'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
     ],
     // Narrow on purpose: the hill is the *comparison*, not any evermore mention.
-    keywords: ['evermore hill', 'evermore vs folklore', 'evermore is better', 'evermore better than folklore', 'better than folklore'],
+    keywords: [
+      'evermore hill',
+      'evermore vs folklore',
+      'evermore is better',
+      'evermore better than folklore',
+      'better than folklore',
+    ],
   },
 ];
 
@@ -96,33 +116,39 @@ export function resolveTheoryName(
   receipts: readonly NamedReceipt[],
   modelProposed: unknown,
 ): { name: string; canonical: boolean } | null {
-  const citedIds = new Set(receipts.map((r) => r.id));
   const q = ` ${normalizeQuery(question)} `;
+  const dominantReceiptId = receipts[0]?.id;
 
-  // 1) STRONGEST signal — the theory whose OWN receipts were actually cited.
-  //    Pick the entry with the most cited-receipt overlap, not the first in the
-  //    registry: this is why a take citing the AI receipt now surfaces as "The
-  //    Machine Question" instead of everything collapsing to "Debutation"
-  //    (#1996). The receipts the answer stands on decide its name.
-  let best: { name: string; overlap: number } | null = null;
+  // Only the first cited receipt may pin a name; supporting receipts do not
+  // define the take. Score every entry before choosing so overlapping phrases
+  // resolve by specificity instead of registry order (#1996).
+  let best: { name: string; score: number } | null = null;
+  let tied = false;
   for (const entry of NAME_REGISTRY) {
-    const overlap = entry.receiptIds?.filter((id) => citedIds.has(id)).length ?? 0;
-    if (overlap > 0 && (best === null || overlap > best.overlap)) {
-      best = { name: entry.name, overlap };
+    let score = dominantReceiptId && entry.receiptIds?.includes(dominantReceiptId) ? 2 : 0;
+    for (const keyword of entry.keywords ?? []) {
+      const normalized = normalizeQuery(keyword);
+      if (normalized && q.includes(` ${normalized} `)) {
+        score += 1 + normalized.split(' ').length;
+      }
+    }
+    if (score > 0 && (best === null || score > best.score)) {
+      best = { name: entry.name, score };
+      tied = false;
+    } else if (score > 0 && best?.score === score) {
+      tied = true;
     }
   }
-  if (best) return { name: best.name, canonical: true };
+  if (best && !tied) return { name: best.name, canonical: true };
 
-  // 2) Otherwise the reader's own wording pins a canonical theory.
-  for (const entry of NAME_REGISTRY) {
-    if (entry.keywords?.some((k) => q.includes(` ${k} `))) {
-      return { name: entry.name, canonical: true };
-    }
-  }
-
+  // Equal evidence is ambiguous. Use the model's bounded proposal instead of
+  // quietly restoring first-entry-wins behavior.
   if (typeof modelProposed === 'string') {
     // Trim to something that reads as a name, not a sentence.
-    const cleaned = modelProposed.replace(/\s+/g, ' ').trim().replace(/[.!?]+$/, '');
+    const cleaned = modelProposed
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/[.!?]+$/, '');
     if (cleaned.length >= 3 && cleaned.length <= 60) return { name: cleaned, canonical: false };
   }
 
