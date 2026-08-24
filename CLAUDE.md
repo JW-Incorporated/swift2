@@ -89,6 +89,11 @@ Biggest waste either way is rework — spec first, small PRs, rule 8.
 **Runtime cost:** Vault stays static, no per-user LLM calls; any product LLM
 call is worker-side, hard-capped, rule-based fallback, never in a
 user-request path. New AI feature → cost model in the decision log before ship.
+**Freshness on Actions, judgment on routines** (2026-08-23, knowledge-engine
+kickoff): a scheduled GitHub Action keeps the site/bot's data current and
+never depends on a founder's Claude account being logged in; a Claude routine
+only ever adds judgment (promotion, lifecycle calls) on top of data an Action
+already produced. A routine going dark must never make the site stale.
 
 ## Operating habits
 
