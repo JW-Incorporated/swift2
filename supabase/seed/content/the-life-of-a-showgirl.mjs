@@ -553,14 +553,17 @@ export default {
             kind: 'reference',
           },
         ],
-        // Rumor Desk (2026-08-01): from the moment the album arrived, its
-        // Las Vegas showgirl register set off a "will she tour / do a Vegas
-        // residency" news cycle — the two adjudicable, named claims below.
-        // First the Sphere-specific residency the venue itself denied, then the
-        // broader Vegas/tour talk still live. Tour and residency speculation is
-        // explicitly Always-OK per privacy-redlines.md: a rumored *performance*
-        // venue is the "plays Wembley" case, not a personal-whereabouts claim,
-        // so no locationSpecificity is declared.
+        // Rumor Desk (2026-08-01, extended 2026-08-17): from the moment the
+        // album arrived, its Las Vegas showgirl register set off a "will she
+        // tour / do a Vegas residency" news cycle — the three adjudicable, named
+        // claims below, tracked over a year. First the Sphere-specific residency
+        // the venue itself denied, then the broader Vegas/tour talk, then a July
+        // 2026 report of a billion-dollar residency said to be in talks. Tour
+        // and residency speculation is explicitly Always-OK per
+        // privacy-redlines.md: a rumored *performance* venue is the "plays
+        // Wembley" case, not a personal-whereabouts claim, and the metro-level
+        // figures below stay at region granularity, so no locationSpecificity
+        // is declared.
         rumors: [
           {
             claim:
@@ -590,6 +593,18 @@ export default {
             lastCheckedOn: "2026-08-24",
             note:
               "Daily Mail insider quotes, as carried by Reality Tea. As of this check no Life of a Showgirl tour or Las Vegas residency has been officially announced. Resolves confirmed on an official announcement; fades if it goes quiet.",
+          },
+          {
+            claim:
+              "A month on, TicketNews — citing Rob Shuter's 'Naughty But Nice' newsletter — reported Taylor was weighing a concert residency insiders valued at up to $1 billion, with venues in two different metro areas said to be competing for it. Neither Taylor nor her reps confirmed anything.",
+            reportedBy: "TicketNews (citing Rob Shuter's Naughty But Nice newsletter)",
+            reportedOn: "2026-07-08",
+            status: "unconfirmed",
+            url: "https://www.ticketnews.com/2026/07/report-taylor-swift-could-be-considering-billion-dollar-concert-residency/",
+            sourceTier: "tabloid",
+            lastCheckedOn: "2026-08-17",
+            note:
+              "A gossip-newsletter tip carried by the ticketing trade press; the billion-dollar figure is insider speculation, not a disclosed deal. The underlying report named specific competing arenas, coarsened here to 'two metro areas' per the location matrix since nothing is announced. Resolves confirmed on an official residency announcement; fades if the talk goes quiet.",
           },
         ],
       },
@@ -2076,6 +2091,24 @@ export default {
             focalPoint: '52% 25%',
           },
         ],
+        // Rumor Desk (2026-08-17): the album's lone feature is the vault's
+        // natural home for "who does she collaborate with next" — one attributed,
+        // adjudicable, unannounced-collaboration claim on that. Unannounced music
+        // is explicitly Always-OK per privacy-redlines.md. No location.
+        rumors: [
+          {
+            claim:
+              "The album's lone feature kept the 'who will Taylor work with next' question alive. One name fans have watched since March 2025: SZA, who told Rolling Stone she'd offered to write with Taylor and that Taylor 'was open to it.' More than a year on, no Taylor–SZA track has been announced or released.",
+            reportedBy: "Rolling Stone",
+            reportedOn: "2025-03-21",
+            status: "unconfirmed",
+            url: "https://www.rollingstone.com/music/music-news/sza-taylor-swift-collaboration-kendrick-lamar-superbowl-1235301403/",
+            sourceTier: "established",
+            lastCheckedOn: "2026-08-17",
+            note:
+              "SZA's own on-record comment about a possible collaboration — an unannounced-music question, explicitly Always-OK. Re-checked Aug 2026: still no announced or released Taylor–SZA track. Resolves on a credited release or a public denial; fades if it stays talk. No location.",
+          },
+        ],
       },
     },
     {
@@ -2710,6 +2743,38 @@ export default {
             kind: 'archival',
             // Taylor seated at the piano, left third, face upper left.
             focalPoint: '34% 24%',
+          },
+        ],
+        // Rumor Desk (2026-08-17): with the Eras Tour now closed on film, the
+        // open question became "when does she tour again" — two attributed,
+        // adjudicable data points on that, both weak-tier and clearly labeled.
+        // The fact of a future tour is Always-OK; the European claim is held at
+        // region granularity (a continent, no country or city) per the matrix.
+        rumors: [
+          {
+            claim:
+              "As the Eras Tour's filmed finale arrived, fan accounts claimed Taylor was 'in talks' for European dates on a future tour. Reality Tea, aggregating the chatter in late July 2026, noted Taylor herself had said she wasn't touring 'any time soon' — leaving the timing unsettled.",
+            reportedBy: "Reality Tea",
+            reportedOn: "2026-07-30",
+            status: "unconfirmed",
+            url: "https://www.realitytea.com/2026/07/30/taylor-swift-tour-date-2027-rumors-fans-react/",
+            sourceTier: "social",
+            locationSpecificity: "region",
+            lastCheckedOn: "2026-08-17",
+            note:
+              "Fan-account speculation, not a reported booking, carried by a gossip aggregator. Location kept at region level (a continent, no country or city) per the matrix. Resolves confirmed on any official European tour date; fades if it stays chatter.",
+          },
+          {
+            claim:
+              "Nearly a year earlier, the blind-item account Deuxmoi told followers an insider said Taylor's next tour 'will actually start in 2027 now,' with a 2026 tour looking 'unlikely.' The post carried its own disclaimer that the tip was not independently confirmed.",
+            reportedBy: "Deuxmoi",
+            reportedOn: "2025-08-29",
+            status: "unconfirmed",
+            url: "https://www.deuxmoi.world/news/taylor-swift-stuns-super-bowl-2026-2027-tour",
+            sourceTier: "social",
+            lastCheckedOn: "2026-08-17",
+            note:
+              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent.",
           },
         ],
       },
@@ -4022,6 +4087,22 @@ export default {
         // Deuxmoi-branded Canva composite (a "Sandlot" still + a generic
         // stock dog photo) — a fan-made graphic, not a real photo of the
         // couple's actual pet. No outlet has published one. Left as-is.
+        // Photo pass #762 (2026-08-18): that "no outlet has published one"
+        // call was about the Wendy-name report specifically; a real photo of
+        // this same dog exists from its July 13, 2026 public debut (TMZ/Page
+        // Six, weeks before Deuxmoi's name report) — the dog descending the
+        // couple's private jet in Palm Beach. Backgrid via TMZ, curl-verified
+        // 200 image/jpeg, downloaded and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/46/4by3/2026/07/13/46db502410134307b5c424ac4208553d_md.jpg',
+            focalPoint: '42% 48%',
+            credit: 'Backgrid, via TMZ',
+            caption:
+              'The couple\'s fluffy white puppy descending the stairs of Taylor\'s private jet in Palm Beach, July 13, 2026 — its first public sighting, weeks before Deuxmoi\'s "Wendy" name report.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
@@ -4465,7 +4546,28 @@ export default {
         // outright ("still waiting for those wedding photos"). No candidate
         // cleared the verify-first bar; left at editorial max rather than
         // ship an off-hook stand-in.
-        photos: [],
+        // Photo pass #762 (2026-08-18): the editorial-max call above is
+        // superseded — two genuinely new events since 08-02 gave clean,
+        // on-topic photos. Both curl-verified 200 image/jpeg, downloaded and
+        // vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://entertainmentnow.com/wp-content/uploads/2026/08/GettyImages-2290614692.jpg?w=461',
+            focalPoint: '48% 18%',
+            credit: 'Getty Images, via EntertainmentNow',
+            caption:
+              'Travis Kelce arriving at Arrowhead Stadium for the Chiefs\' Aug. 15, 2026 preseason opener, his gold wedding band visible on the hand holding his drink.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/eb/o/2026/08/16/eb982d6051f24feb90ed3c65dc91a4e1_lg.jpg',
+            focalPoint: '60% 18%',
+            credit: 'SplashNews.com, via TMZ',
+            caption:
+              'Taylor at Oli Jacobs and Laura Sisk\'s Aug. 15, 2026 wedding in Gloucestershire, England — the outing where clearer photos of her wedding band, worn beneath her engagement ring, first surfaced.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -5469,6 +5571,17 @@ export default {
             note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (~Nov 2026). Re-checked 2026-08-14: that window has not opened yet, nothing to resolve — still unconfirmed and live.',
             sourceTier: 'established',
             lastCheckedOn: '2026-08-14',
+          },
+          {
+            claim:
+              'Billboard\'s Paul Grein, in a July 2026 awards forecast, projected that a 2027 Album of the Year nomination for The Life of a Showgirl would be Taylor\'s eighth nod in that category — which Billboard framed as the most of any solo artist in Grammy history. Nominations post Nov. 16, 2026.',
+            reportedBy: 'Billboard (Paul Grein)',
+            reportedOn: '2026-07-17',
+            status: 'unconfirmed',
+            url: 'https://www.billboard.com/music/awards/grammy-predictions-2027-general-field-categories-1236295942/',
+            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-08-17',
           },
         ],
       },
@@ -10392,6 +10505,23 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-06',
             reliability_score: 3,
+          },
+        ],
+        // Photo pass #762 (2026-08-17): the scene itself is a fictional TV
+        // moment, not photographable, and premiere red-carpet galleries
+        // (Just Jared, etc.) aren't on the image-host allowlist. Used an
+        // archival Wikimedia Commons photo of Jamie Lee's EP colleague and
+        // series star Jason Sudeikis — the reference/quote source this beat is
+        // actually about — same pattern as other reference-photo pages in this
+        // file. Curl-verified 200 image/jpeg, downloaded and vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Jason_Sudeikis_2011_%28cropped%29.jpg',
+            focalPoint: '48% 40%',
+            credit: 'Eva Rinaldi, CC BY-SA 2.0, via Wikimedia Commons',
+            caption:
+              'Reference image: Jason Sudeikis, "Ted Lasso" star and EP whose writers\' room wrote the Kansas City/Taylor nod — pictured in an archival 2011 photo, not from the Season 4 premiere.',
+            kind: 'reference',
           },
         ],
       },

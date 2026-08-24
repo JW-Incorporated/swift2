@@ -96,6 +96,17 @@ describe('reviewedSparseKeys keeps only not-yet-done sparse pages', () => {
     const kept = reviewedSparseKeys(items, [COMMA_KEY, 'sparse-one', 'sparse-zero', 'ghost-key']);
     expect(kept.sort()).toEqual(['sparse-one', 'sparse-zero'].sort());
   });
+
+  it('does not let a same-keyed non-moment (theory/track) shadow a real sparse moment (2026-08-18, #762)', () => {
+    // A theory sharing a moment's slug used to win the key->item Map (loaded
+    // after moments in loadCorpus), so the `it.type === 'moment'` guard failed
+    // and a genuinely reviewed <2-photo moment was silently dropped every run.
+    const shadowed = [
+      moment({ key: 'shared-slug', raw: { moment: { photos: [{ url: 'a', focalPoint: '1' }] } } }), // 1 photo
+      { type: 'theory', key: 'shared-slug', title: 'Same slug, different content type' },
+    ];
+    expect(reviewedSparseKeys(shadowed, ['shared-slug'])).toEqual(['shared-slug']);
+  });
 });
 
 describe('buildQueue', () => {
