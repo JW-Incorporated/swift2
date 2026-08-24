@@ -33,9 +33,9 @@ unstaffed, not stuck, and it's the most actionable answer this table has).
 | 2 | End Game vs Blank Spaces cards differentiated | 🟡 built, awaiting Joey's device check ([#2053](https://github.com/JW-Incorporated/swift2/pull/2053)) | founder | Joey eyeballs both cards on his phone — the last acceptance criterion |
 | 3 | Clue Web vs Decode cards differentiated | 🟡 built, awaiting Joey's eyeball ([#2062](https://github.com/JW-Incorporated/swift2/pull/2062)) | founder | Joey checks the two cards side by side — the last acceptance criterion |
 | 4 | Marketplace + Community sections | ⬜ not started | nobody | Product spec each → founder approval → build |
-| 5 | Every link on the site works | 🟡 partial machinery exists | agent | Full one-time AI pass + widen Karen's nightly |
+| 5 | Every link on the site works | 🟡 engineering work not yet done — Karen's nightly link-liveness check (`scripts/check-link-liveness.mjs`) already covers source URLs; shop/product links aren't in that sweep yet and no single full-site pass has ever run | agent | Widen Karen's nightly to shop/product links + run one full-site pass |
 | 6 | Every video, chronological, + video filter | ⬜ not started | nobody | Sourcing spec → data model extension → build |
-| 7 | Clown bot | 🟡 build B in progress, scope decided ([`docs/decisions.md`](decisions.md), 2026-08-13) | agent | Land the PR — Codex review, full suite, CI red-team battery required check |
+| 7 | Clown bot | 🟡 chat feature live and shipped. Memory/session feature: architecture decided after a 3-round review stall (`DEBUG.md`), one bounded fix PR in progress — do NOT flip the Supabase anon-auth toggle until it lands ([`HUMAN-ACTIONS.md`](../HUMAN-ACTIONS.md) #15) | agent | Land the memory fix PR, then flip the Supabase toggle |
 | 8 | Era/album capitalization audit | ⬜ not started | nobody | Audit + fix + add a checker so it can't regress |
 
 Legend: 🟢 done (criterion met, verified) · 🟡 moving · ⬜ not started ·
