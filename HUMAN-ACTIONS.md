@@ -128,6 +128,22 @@ row counts and ids on both runs (genuine upsert idempotency), `technique`
 stayed at 0 rows throughout. Not a new item — same fix (step 1 above) closes
 this too.
 
+**Addendum (2A, live_theory redline fast-follow):** a retroactive Codex
+review of `20260901000000_knowledge_engine.sql` (task-mt6t7akh-a22733) found
+`live_theory` had no `redline_ok` column/RLS gate, unlike `current_item`/
+`fan_signal`. Fixed in a new migration,
+`supabase/migrations/20260903000000_live_theory_redline.sql` — same root
+cause hits this worktree too (guard denies reading `apps/worker/.env` here
+as well, confirmed directly). Verified for real: applied all 21 migrations
+twice against a real ephemeral local Postgres (`embedded-postgres`, same
+mechanism as this item's other verifications) — clean idempotent re-apply
+both times — then, still on that local cluster, confirmed the RLS gate
+itself works: inserted one `redline_ok=true` and one `redline_ok=false`
+`live_theory` row, granted `SELECT` to a non-owner role (simulating
+Supabase's `anon`/`authenticated` default grant), and confirmed only the
+`redline_ok=true` row was visible under RLS. Now 4 migrations unapplied
+against prod, not 3 — same fix (step 1 above) closes this too.
+
 **Status:** OPEN
 
 ---

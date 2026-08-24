@@ -134,6 +134,24 @@ describe('upsertLiveTheory', () => {
     expect(result.id).toBe('theory-new');
   });
 
+  it('sets redline_ok: true on the inserted row — theoryPassesScreen already gated this call, so a live_theory row is only ever written once it has passed', async () => {
+    const db = fakeDb(() => chain({ data: [], error: null }));
+    let call = 0;
+    let insertedRow: Record<string, unknown> | undefined;
+    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => {
+      call++;
+      if (call === 1) return chain({ data: [], error: null }); // select: no existing rows
+      const c = chain({ data: { id: 'theory-new' }, error: null }) as Record<string, unknown>;
+      c.insert = (row: Record<string, unknown>) => {
+        insertedRow = row;
+        return c;
+      };
+      return c;
+    });
+    await upsertLiveTheory(db, { name: 'Brand New Theory', claim: 'Something new' }, ['owl'], '2026-08-23');
+    expect(insertedRow?.redline_ok).toBe(true);
+  });
+
   it('bumps an existing matching theory instead of inserting a duplicate', async () => {
     const db = fakeDb(() => chain({ error: null }));
     let call = 0;
