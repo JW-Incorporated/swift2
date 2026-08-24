@@ -8977,6 +8977,107 @@ export default {
       },
     },
     {
+      // Authored 2026-08-24 (Vault Run, Content Shift lane) from intake #3151.
+      // Confirmed on-record appearance + performance: named public venue
+      // (Grammy Museum), named interviewer, dated, invite-list reported by
+      // multiple outlets (Just Jared, heavy.com) and verified via web search.
+      // The exact setlist was NOT disclosed by any outlet, so no songs are
+      // named here — "a few songs" is as far as the record goes. Grammy Museum
+      // is a public venue and this is a documented past event (L2), no redline
+      // material.
+      slug: 'showgirl-grammy-museum-icon-sessions-retrospective',
+      year: 2026,
+      month: 8,
+      day: 18,
+      category: 'music',
+      title: 'A secret Grammy Museum show: the Icon Sessions 20-year retrospective',
+      snippet:
+        'On Aug. 18, 2026, Taylor sat for an invite-only career retrospective at the Grammy Museum in Los Angeles — “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” staged for the Recording Academy’s Songwriters & Composers Wing. Recording Academy CEO Harvey Mason Jr. led a career-spanning Q&A, and she performed a few songs for the roughly 100 guests.',
+      sourceUrl:
+        'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
+      thumbnailUrl: null,
+      significance: 'notable',
+      moment: {
+        context:
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets — roughly 100 members were invited into the room. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance of a few songs for the small crowd — even as the specifics stayed inside the room. No setlist was released, and none is invented here; what is on the record is that she performed, not what. The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what surfaced came from the guests themselves rather than any official recording.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/08/21/all-about-taylor-swifts-secret-show-in-l-a-this-week-who-was-invited-to-attend/',
+            source_title: "All About Taylor Swift's Secret Show in L.A. This Week & Who Was Invited to Attend",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'heavy.com',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-secret-show-travis-kelce/',
+            source_title: 'Taylor Swift Performs Intimate Secret Show in LA While Travis Kelce Is Stuck at Chiefs Camp',
+            publisher: 'heavy.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-08-24 (Vault Run, Content Shift lane) from intake #3150.
+      // Confirmed on-record public appearance tied to a real awards campaign,
+      // reported by multiple established outlets (Deadline, Us Weekly) and
+      // verified via web search; the five-song setlist was reported by
+      // culture.org. Distinct from the July 8 nominations moment
+      // (showgirl-eras-tour-film-emmy-nominations) — this is the campaign
+      // appearance, not the nods themselves. VENUE COARSENED on purpose: the
+      // reported "Ross House" could not be confirmed as a public venue vs. a
+      // private residence, so per the intake's own redline note and the
+      // residence cap it is written at city level only ("a private FYC event
+      // in Los Angeles"), never named. The widely-covered slip-dress fashion
+      // angle is left for the fashion lane/persona; only the appearance and
+      // performance are authored here.
+      slug: 'showgirl-eras-tour-film-emmy-fyc-appearance',
+      year: 2026,
+      month: 8,
+      day: 20,
+      category: 'tour',
+      title: 'A rare LA appearance — and five songs — for the Eras Tour film’s Emmy campaign',
+      snippet:
+        'On Aug. 20, 2026 Taylor turned up at a private Emmy For-Your-Consideration event in Los Angeles to back “The Eras Tour: The Final Show,” its Disney+ concert film. She reflected on the tour alongside director Glenn Weiss — calling it “a source of great escapism” — and played five songs on the Eras Tour piano for roughly 50 Emmy voters, with no press admitted.',
+      sourceUrl:
+        'https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/',
+      thumbnailUrl: null,
+      significance: 'notable',
+      relatedIds: [
+        'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+      ],
+      moment: {
+        context:
+          'Six weeks after the concert film of her tour’s last night pulled five Emmy nominations, Taylor showed up to campaign for it in person. On Aug. 20, 2026 she made a rare appearance at a private For-Your-Consideration event in Los Angeles — the kind of small, no-press voters’ gathering the awards season runs on — in support of Taylor Swift: The Eras Tour: The Final Show and its craft nominees, chief among them director Glenn Weiss. About 50 Emmy voters were in the room; no media were admitted and no recording devices were allowed, so what left the event were her remarks and a setlist, carried out secondhand.\n\nHer reflection turned on a single idea: escapism. The Eras Tour, she said, “was such a phenomenon because of so many factors, but one that I know is really important is that it was a source of great escapism for the people who were there.” She framed the film as an attempt to keep that feeling intact, describing the conversations she and Weiss had about how to preserve the experience — the sense of “relaxation and freedom” for the fans in the stadium — so that the thing that made the concert special survived the translation to screen.\n\nThen she played, as reported, five songs on the Eras Tour piano — opening with the new single “I Knew It, I Knew You,” then “August,” “All Too Well” and “Cardigan,” and closing on “Champagne Problems.” It was a quiet, deliberate piece of awards-season stagecraft from an artist who rarely works a voters’ room: the film competes for Outstanding Variety Special (Pre-Recorded) on the primetime telecast, with Weiss double-nominated for his direction, and the appearance put the person the nominations attach to in front of the people casting the ballots.',
+        sources: [
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/08/taylor-swift-eras-tour-final-show-emmy-nominations-1237047840/',
+            source_title: "Taylor Swift Talks 'Eras Tour: The Final Show' At Emmy Event",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'culture.org',
+            url: 'https://culture.org/archive/taylor-swift-joins-emmy-campaign-for-eras-tour-film/',
+            source_title: 'Taylor Swift Joins Emmy Campaign for Eras Tour Film, Performing Five Songs for Voters',
+            publisher: 'culture.org',
+            source_type: 'press',
+            accessed_at: '2026-08-24',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-07-20 from intake #903. Public philanthropy — clears the
       // two-outlet bar for business items (Billboard + RTTNews, independent),
       // and the privacy redlines cleanly (a public charitable act, city-level
