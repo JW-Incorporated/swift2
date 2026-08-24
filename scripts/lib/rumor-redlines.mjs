@@ -64,8 +64,20 @@
 // pattern that caught the first also caught the second. It is semantics, so it
 // stays with the semantic layer (redlines.candidates → `location-privacy`).
 // See the residual-risk section of docs/content-ops/privacy-redlines.md.
+//
+// RR5 (#1965) — `sourceTier` was, before this rule, self-declared with no
+// check against reality: RR2 only catches 19 NAMED blind-item accounts
+// overstating their tier, so any other source — an arbitrary blog, a
+// look-alike domain (`reuters-daily.co`), a seeded wiki/forum page — could
+// claim `established` or `official` and no rule fired. RR5 checks
+// `established`/`official` against the real allowlist in
+// scripts/lib/reputable-sources.mjs instead of trusting the claim, and RR4's
+// `official` exemption below is now conditioned on the same domain check —
+// an unverifiable `official` tier fails closed rather than disabling RR4.
 
 /** Statuses that make a claim settled — a documented event, not speculation. */
+import { isOfficialDomain, isEstablishedDomain, isEstablishedName } from './reputable-sources.mjs';
+
 const RESOLVED = new Set(['confirmed', 'debunked']);
 
 /**
@@ -185,6 +197,38 @@ function primarySource(reportedBy) {
 }
 
 /**
+ * The "via X" carrier in a `reportedBy` string, if present — the outlet that
+ * actually carried/published the piece, distinct from `primarySource()`.
+ * Needed because some entries name a PERSON as the primary attribution
+ * ("Roger Goodell (NFL commissioner), via TODAY") — the newsroom that can
+ * earn a tier is the carrier, not the speaker.
+ */
+function viaSource(reportedBy) {
+  const m = String(reportedBy ?? '').match(/\bvia\s+([^,()]+)/i);
+  return m ? m[1].toLowerCase().replace(/[).]+$/, '').trim() : '';
+}
+
+/**
+ * True when the cited url or the reportedBy attribution supports at least
+ * `established` tier by real provenance (scripts/lib/reputable-sources.mjs)
+ * — a name/domain on the allowlist, not the authoring agent's own say-so
+ * (#1965).
+ */
+function domainSupportsEstablished(rumor) {
+  if (isEstablishedDomain(rumor.url)) return true;
+  return isEstablishedName(primarySource(rumor.reportedBy)) || isEstablishedName(viaSource(rumor.reportedBy));
+}
+
+/**
+ * True when the cited url resolves to Taylor's own verified domain — the
+ * only thing that can earn `official` tier (#1965 hardening fix #2: an
+ * unverifiable `official` tier fails closed rather than being trusted).
+ */
+function domainSupportsOfficial(rumor) {
+  return isOfficialDomain(rumor.url);
+}
+
+/**
  * Rule catalogue. `blocking` decides which binding a rule gets:
  *   blocking: true  → validate-content.mjs hard-fails CI (the merge never happens)
  *   blocking: false → Karen files a P0/P1 ticket (surfaced, judged by a person)
@@ -205,6 +249,7 @@ export const RUMOR_REDLINE_RULES = {
   RR2: { id: 'RR2', blocking: true, severity: 'P1', label: 'sourceTier laundering' },
   RR3: { id: 'RR3', blocking: true, severity: 'P1', label: 'sourceTier absent' },
   RR4: { id: 'RR4', blocking: true, severity: 'P0', label: 'redline category asserted at speculative provenance' },
+  RR5: { id: 'RR5', blocking: true, severity: 'P1', label: 'sourceTier not backed by a reputable-source allowlist' },
 };
 
 /**
@@ -308,6 +353,49 @@ export function rumorRedlineViolations(rumor, ctx = {}) {
     });
   }
 
+  // ── RR5 — sourceTier not backed by a reputable-source allowlist ──────────
+  //
+  // RR2 catches a NAMED blind-item account overstating its tier — a 19-name
+  // denylist. It does nothing for the much larger surface: any source not on
+  // that list — an arbitrary blog, a look-alike domain (reuters-daily.co), a
+  // seeded wiki/forum page — could claim `established` or `official` and RR2
+  // never fired (#1965). This is the allowlist half: `established`/`official`
+  // must be earned by a real domain or outlet name
+  // (scripts/lib/reputable-sources.mjs), not asserted by the authoring agent.
+  // `official` is domain-only — no press outlet earns it by reporting ON
+  // Taylor, only a citation that resolves to her own channel does.
+  if (tier === 'official' && !domainSupportsOfficial(rumor)) {
+    out.push({
+      rule: 'RR5',
+      severity: RUMOR_REDLINE_RULES.RR5.severity,
+      blocking: true,
+      title: 'sourceTier "official" not backed by an official domain',
+      excerpt: `url: ${rumor.url}`,
+      evidence:
+        'sourceTier is "official" but the cited url does not resolve to a verified official domain ' +
+        '(scripts/lib/reputable-sources.mjs OFFICIAL_DOMAINS). No press outlet earns "official" by reporting ' +
+        'ON Taylor — only a citation to her own channel does. An unverifiable official tier fails closed.',
+      fix:
+        "Cite a url on Taylor's own domain and keep sourceTier: 'official', or retier to 'established' (or " +
+        'lower) to match the outlet that actually reported it.',
+    });
+  } else if (tier === 'established' && !domainSupportsEstablished(rumor)) {
+    out.push({
+      rule: 'RR5',
+      severity: RUMOR_REDLINE_RULES.RR5.severity,
+      blocking: true,
+      title: 'sourceTier "established" not backed by an allowlisted domain or outlet',
+      excerpt: `reportedBy: ${rumor.reportedBy}; url: ${rumor.url}`,
+      evidence:
+        'sourceTier is "established" but neither the cited url\'s host nor the reportedBy attribution matches ' +
+        'the reputable-source allowlist (scripts/lib/reputable-sources.mjs). A tier is a claim about REAL ' +
+        "provenance, not the authoring agent's read of the page — an allowlist miss caps the claim at 'tabloid'.",
+      fix:
+        "Set sourceTier: 'tabloid' (or 'social' if the primary source is a blind item), or cite a url/outlet " +
+        'that is actually on the reputable-source allowlist.',
+    });
+  }
+
   // ── RR4 — redline category asserted at speculative provenance ────────────
   //
   // THE KEY RULE, and the one that needs its logic stated plainly, because it is
@@ -337,7 +425,15 @@ export function rumorRedlineViolations(rumor, ctx = {}) {
   // author writes "no address, no security detail" to explain why an entry is
   // clean, and reading it is how a checker ends up flagging an entry for saying
   // it is safe. The note still reaches the agent layer via redlines.candidates().
-  if (!resolved && tier !== EXEMPT_TIER && claim) {
+  //
+  // officialVerified (#1965 hardening fix #2): the EXEMPT_TIER check used to
+  // trust a declared `official` tier outright, which meant an authoring agent
+  // (or an injection persuading one) could set sourceTier: 'official' and
+  // disable this entire rule for a redline claim. It now also requires the
+  // cited url to resolve to a verified official domain — an unverifiable
+  // `official` tier fails closed and RR4 still runs.
+  const officialVerified = tier === EXEMPT_TIER && domainSupportsOfficial(rumor);
+  if (!resolved && !officialVerified && claim) {
     for (const [category, terms] of Object.entries(COMPILED)) {
       const hit = terms.find(({ re }) => re.test(claim));
       if (!hit) continue;

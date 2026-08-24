@@ -106,10 +106,19 @@ describe('RR4 — redline category asserted at speculative provenance', () => {
     expect(rules(speculative('An anonymous post says he is accused of sexual misconduct.'))).toContain('RR4');
   });
 
-  it('is silent at OFFICIAL tier — the Always-OK self-disclosure exception', () => {
+  it('is silent at OFFICIAL tier when the citation is actually verified — the Always-OK self-disclosure exception', () => {
     // The corpus legitimately carries health material Taylor disclosed herself.
-    // That is official-tier by construction, and it must never be accused.
-    expect(rules(clean({ claim: 'Taylor said her mother had been diagnosed with cancer.', sourceTier: 'official' }))).not.toContain('RR4');
+    // That is official-tier by construction, and it must never be accused —
+    // but only once the url proves it (#1965 hardening fix #2).
+    expect(
+      rules(
+        clean({
+          claim: 'Taylor said her mother had been diagnosed with cancer.',
+          url: 'https://www.taylorswift.com/news/a-statement',
+          sourceTier: 'official',
+        }),
+      ),
+    ).not.toContain('RR4');
   });
 
   it('is silent on a DEBUNKED claim — reporting that a rumor was false is admissible', () => {
@@ -152,6 +161,60 @@ describe('RR4 — redline category asserted at speculative provenance', () => {
 
   it('blocks', () => {
     expect(blockingRumorRedlineViolations(speculative('Insiders say she is pregnant.'))).toHaveLength(1);
+  });
+
+  it('now fires on an unresolved OFFICIAL-tier redline claim when the citation is unverifiable — the #1965 laundering path', () => {
+    // Before RR5/the officialVerified fix, setting sourceTier: 'official' on a
+    // fabricated or look-alike-domain citation disabled RR4 entirely for a
+    // redline claim. It no longer does: an unverifiable official tier fails
+    // closed and RR4 still runs.
+    const laundered = clean({
+      claim: "Taylor's team confirmed she was hospitalized after a health scare.",
+      reportedBy: "Taylor's Team (exclusive)",
+      url: 'https://taylorswift-news.co/statement',
+      sourceTier: 'official',
+    });
+    expect(rules(laundered)).toContain('RR4');
+  });
+});
+
+describe('RR5 — sourceTier not backed by a reputable-source allowlist (#1965)', () => {
+  it('fires when established is claimed by an unlisted domain and an unrecognized outlet name', () => {
+    expect(
+      rules(clean({ reportedBy: 'Daily Scoop Blog', url: 'https://daily-scoop-blog.example/post', sourceTier: 'established' })),
+    ).toContain('RR5');
+  });
+
+  it('fires when official is claimed via a look-alike domain, not a citation to taylorswift.com', () => {
+    expect(
+      rules(clean({ reportedBy: "Taylor's Team (exclusive)", url: 'https://taylorswift-news.co/statement', sourceTier: 'official' })),
+    ).toContain('RR5');
+  });
+
+  it('is silent when established is backed by an allowlisted direct-publisher domain', () => {
+    expect(rules(clean({ reportedBy: 'A wire report', url: 'https://www.reuters.com/lifestyle/x', sourceTier: 'established' }))).not.toContain(
+      'RR5',
+    );
+  });
+
+  it('is silent when established is backed by a real outlet name carried through an aggregator url — the corpus convention', () => {
+    // Matches the real corpus pattern: AOL hosts a real newsroom's piece, and
+    // reportedBy (not the url host) names the actual outlet.
+    expect(
+      rules(clean({ reportedBy: 'ELLE (Alyssa Bailey)', url: 'https://www.aol.com/articles/x', sourceTier: 'established' })),
+    ).not.toContain('RR5');
+  });
+
+  it('is silent when official is backed by a real taylorswift.com citation', () => {
+    expect(
+      rules(clean({ reportedBy: 'Taylor Swift (via taylorswift.com)', url: 'https://www.taylorswift.com/news/x', sourceTier: 'official' })),
+    ).not.toContain('RR5');
+  });
+
+  it('blocks — a fabricated allowlist claim gets a mechanical remedy (retier or re-cite)', () => {
+    expect(
+      blockingRumorRedlineViolations(clean({ reportedBy: 'Daily Scoop Blog', url: 'https://daily-scoop-blog.example/post', sourceTier: 'established' })),
+    ).toHaveLength(1);
   });
 });
 
