@@ -11,21 +11,20 @@
  * belongs to Long Live.
  *
  * A fixed-height, three-row app panel (titlebar / scrolling stream / docked
- * composer) — see ClownMessageRow.tsx for how one turn renders. Pre-filled
- * on load with a real worked example (`SEED_EXAMPLE`); placeholder "lets
- * clown around" is a real `placeholder` attribute, never submitted content.
- * The titlebar toggle expands the panel to a `fixed inset-0` CSS overlay
- * (never the native Fullscreen API — unreliable on iOS Safari for
- * non-video elements). `ClownBoard` below prefills the composer on tap,
- * never auto-sends.
+ * composer) — see ClownChatTitlebar.tsx, ClownChatComposer.tsx and
+ * ClownMessageRow.tsx for how the titlebar, composer and one transcript turn
+ * each render. Empty on load until the reader sends a first message
+ * (EMPTY_STATE_TEXT); placeholder "lets clown around" is a real
+ * `placeholder` attribute, never submitted content. The titlebar toggle
+ * expands the panel to a `fixed inset-0` CSS overlay (never the native
+ * Fullscreen API — unreliable on iOS Safari for non-video elements).
+ * `ClownBoard` below prefills the composer on tap, never auto-sends.
  *
  * NEVER render Taylor Swift imagery on this surface and never persist the
  * reader's words anywhere but the one POST below.
  */
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { CornerDownLeft, Loader2, Maximize2, Minimize2, Plus, VenetianMask } from 'lucide-react';
-import { SEED_EXAMPLE } from '@/lib/longlive/clown-seed-example';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { ClownAnswer, InvestigationStep } from '@/lib/longlive/clown-answer';
 import type { BoardItem } from '@/lib/longlive/clown-board';
 import type { ClownTurn } from '@/lib/longlive/clown-client';
@@ -33,9 +32,12 @@ import { promptForItem } from '@/lib/longlive/clown-starters';
 import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
 import { flattenAnswer, investigationLabel, nextSessionToken, withSessionHeader } from '@/lib/longlive/clown-chat-helpers';
 import { readClownStream } from '@/lib/longlive/clown-stream';
-import { useAppActions, useAppState, type ClownMessage } from '@/lib/longlive/store';
+import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { useStickToBottomScroll } from '@/lib/longlive/clown-chat-ui';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { ClownBoard } from './ClownBoard';
+import { ClownChatComposer } from './ClownChatComposer';
+import { ClownChatTitlebar } from './ClownChatTitlebar';
 import { ClownMessageRow } from './ClownMessageRow';
 
 /**
@@ -53,30 +55,17 @@ const BOTTOM_NAV_CLEARANCE = 'calc(3.5rem + env(safe-area-inset-bottom))';
  * mobile height calc and the padding that produces it can't drift apart. */
 const CONTAINER_TOP_PADDING = '0.75rem';
 
-const MAX_CHARS = 300;
-const INPUT_PLACEHOLDER = 'lets clown around';
 const NETWORK_ERROR = "That didn't go through. Try again in a moment?";
-
-/**
- * Always the first bubble, and never part of the store's capped transcript —
- * it's a static shipped example, not something the reader sent or the model
- * answered live (see clown-seed-example.ts).
- */
-const SEED_MESSAGE: ClownMessage = {
-  id: 'seed',
-  question: SEED_EXAMPLE.question,
-  answer: SEED_EXAMPLE.answer,
-};
-
+const EMPTY_STATE_TEXT = 'Try our chat bot — ask a question below.';
 
 export function ClownChat() {
   const [text, setText] = useState('');
   // clownMessages is the store's capped (6), memory-only, never-persisted
   // transcript (store.tsx) — this component holds no transcript state of its
-  // own. The seed example always renders first and never counts toward it.
+  // own.
   const { clownMessages } = useAppState();
   const { addClownMessage, setClownChatExpanded } = useAppActions();
-  const messages = useMemo(() => [SEED_MESSAGE, ...clownMessages], [clownMessages]);
+  const messages = clownMessages;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // The agent loop's live trail (PLAN.md Stage 10) — reset per ask, cleared
@@ -84,6 +73,7 @@ export function ClownChat() {
   // investigation` after that, not from this transient state).
   const [investigating, setInvestigating] = useState<InvestigationStep | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const streamRef = useRef<HTMLDivElement>(null);
   // PLAN.md Stage 11 fix (Codex review, HUMAN-ACTIONS.md #15 item 2): the
   // route reads/returns an opaque `x-clown-session` token so a returning
   // caller's server-side identity (conversation/memory/per-user cap)
@@ -103,6 +93,11 @@ export function ClownChat() {
   const wasExpandedRef = useRef(false);
 
   useScrollLock(expanded);
+
+  // Scrolls the stream to the newest content — a new turn, a streamed
+  // investigation step, or an error — but only when the reader was already
+  // near the bottom.
+  useStickToBottomScroll(streamRef, [messages, investigating, error]);
 
   // Mirror `expanded` into the shared store so page furniture that floats
   // above every other overlay (FeedbackButton, z-[71]) can hide itself while
@@ -164,8 +159,7 @@ export function ClownChat() {
       setError(null);
       setInvestigating(null);
       try {
-        // PRIOR turns only, from the store's clownMessages — never SEED_MESSAGE
-        // (a shipped fixture, not something this visitor said) and never the
+        // PRIOR turns only, from the store's clownMessages — never the
         // question being sent now (the route appends that itself; sending it
         // here too would double it in the model's eyes).
         const transcript: ClownTurn[] = clownMessages.flatMap((m) => [
@@ -242,14 +236,6 @@ export function ClownChat() {
 
   const panelStyle = { '--clown-panel-h': `calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - ${BOTTOM_NAV_CLEARANCE})` } as React.CSSProperties;
 
-  const titlebarClassName = `flex flex-none items-center gap-2.5 border-b border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] px-4 py-3${
-    expanded ? ' pt-[max(0.75rem,env(safe-area-inset-top))]' : ''
-  }`;
-
-  const composerWrapClassName = `flex-none bg-[color:var(--clown-bg)] px-4 pb-4 pt-3.5 sm:px-6${
-    expanded ? ' pb-[max(1rem,env(safe-area-inset-bottom))]' : ''
-  }`;
-
   return (
     // Page-level "clown bot" title removed (founder, first phone test,
     // 2026-08-14): the panel's own titlebar below already says "clown bot",
@@ -258,56 +244,23 @@ export function ClownChat() {
     // close under TopBar — kept in sync with CONTAINER_TOP_PADDING above.
     <div className="mx-auto max-w-4xl px-4 pb-28 pt-3">
       <div className={panelClassName} style={panelStyle}>
-        {/* titlebar — instant "this is an app" signal */}
-        <div className={titlebarClassName}>
-          <span
-            aria-hidden
-            className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--clown-bg)]"
-          >
-            <VenetianMask className="h-3.5 w-3.5" aria-hidden />
-          </span>
-          <span className="min-w-0">
-            <span className="block text-[13px] font-semibold tracking-wide text-[color:var(--clown-ink)]">
-              clown bot
-            </span>
-            <span className="block text-[11px] text-[color:var(--clown-ink-soft)]">
-              grounded in the vault &middot; never guesses
-            </span>
-          </span>
-          <span className="ml-auto inline-flex items-center gap-1.5 text-[11px] text-[color:var(--clown-ink-soft)]">
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-green-400" />
-            online
-          </span>
-          {/* 32px visual box, 44px hit area via an invisible ::before (-inset-1.5 = 6px/side) — keeps the titlebar slim. */}
-          <button
-            ref={expandToggleRef}
-            type="button"
-            onClick={toggleExpanded}
-            aria-pressed={expanded}
-            aria-label={expanded ? 'Exit full screen' : 'Expand to full screen'}
-            className="relative ml-1 inline-flex h-8 w-8 flex-none items-center justify-center rounded-lg text-[color:var(--clown-ink-soft)] transition before:absolute before:-inset-1.5 before:content-[''] hover:bg-[color:var(--clown-raised)] hover:text-[color:var(--clown-ink)]"
-          >
-            {expanded ? (
-              <Minimize2 className="h-3.5 w-3.5" aria-hidden />
-            ) : (
-              <Maximize2 className="h-3.5 w-3.5" aria-hidden />
-            )}
-          </button>
-        </div>
+        <ClownChatTitlebar expanded={expanded} onToggleExpanded={toggleExpanded} expandToggleRef={expandToggleRef} />
 
         {/* message stream — scrolls internally */}
         <div
+          ref={streamRef}
           className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-4 pt-6 sm:px-6"
           aria-live="polite"
           aria-atomic="false"
           aria-busy={busy}
         >
-          <span className="self-center text-[10px] uppercase tracking-[0.14em] text-[color:var(--clown-ink-soft)] opacity-70">
-            Example conversation
-          </span>
-          {messages.map((m) => (
-            <ClownMessageRow key={m.id} message={m} />
-          ))}
+          {messages.length === 0 ? (
+            <p className="self-center text-center text-[13px] text-[color:var(--clown-ink-soft)] opacity-70">
+              {EMPTY_STATE_TEXT}
+            </p>
+          ) : (
+            messages.map((m) => <ClownMessageRow key={m.id} message={m} />)
+          )}
           {busy && investigating && (
             <p role="status" className="text-xs italic text-[color:var(--clown-ink-soft)] opacity-80">
               {investigationLabel(investigating)}
@@ -320,55 +273,14 @@ export function ClownChat() {
           )}
         </div>
 
-        {/* composer — docked pill */}
-        <div className={composerWrapClassName}>
-          {/* Plus/send: same 32px-visual / 44px-hit-area split as the titlebar toggle, so the pill keeps the mockup's proportions. */}
-          <form
-            onSubmit={submit}
-            className="flex items-center gap-1.5 rounded-full border border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] py-1 pl-1 pr-1 focus-within:border-[color:var(--era-accent)]"
-          >
-            <button
-              type="button"
-              disabled
-              aria-label="Add attachment"
-              className="relative flex h-8 w-8 flex-none items-center justify-center rounded-full text-[color:var(--clown-ink-soft)] before:absolute before:-inset-1.5 before:content-[''] disabled:cursor-default"
-            >
-              <Plus className="h-4 w-4" aria-hidden />
-            </button>
-            <label htmlFor="clown-input" className="sr-only">
-              Ask the clown
-            </label>
-            <textarea
-              id="clown-input"
-              ref={textareaRef}
-              value={text}
-              onChange={(e) => setText(e.target.value.slice(0, MAX_CHARS))}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) submit(e);
-              }}
-              rows={1}
-              placeholder={INPUT_PLACEHOLDER}
-              className="h-9 min-w-0 flex-1 resize-none bg-transparent px-0 py-2 text-[15px] leading-relaxed text-[color:var(--clown-ink)] outline-none placeholder:text-[color:var(--clown-ink-soft)] placeholder:opacity-60"
-            />
-            <button
-              type="submit"
-              disabled={!text.trim() || busy}
-              aria-label="Send to clown bot"
-              className={`relative flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--clown-bg)] transition before:absolute before:-inset-1.5 before:content-[''] ${
-                text.trim() ? 'opacity-100' : 'opacity-[0.45]'
-              }`}
-            >
-              {busy ? (
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
-              ) : (
-                <CornerDownLeft className="h-4 w-4" aria-hidden />
-              )}
-            </button>
-          </form>
-          <p className="mt-2.5 text-center text-[11px] text-[color:var(--clown-ink-soft)] opacity-80">
-            clown bot theorises from the vault. It can be wrong &mdash; that&rsquo;s the point.
-          </p>
-        </div>
+        <ClownChatComposer
+          expanded={expanded}
+          text={text}
+          setText={setText}
+          submit={submit}
+          busy={busy}
+          textareaRef={textareaRef}
+        />
       </div>
 
       <div className="mt-10">

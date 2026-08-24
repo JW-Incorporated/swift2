@@ -164,7 +164,10 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` — the one client-facing shape |
 | `apps/web/lib/longlive/clown-gate.ts` (+ `.test.ts`) | Output re-screen |
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
-| `apps/web/components/longlive/ClownChat.tsx` | App-panel chrome (titlebar, fullscreen toggle, docked composer) + transcript |
+| `apps/web/components/longlive/ClownChat.tsx` | App-panel shell (fullscreen toggle, message stream, empty state) + the ask/submit flow |
+| `apps/web/components/longlive/ClownChatTitlebar.tsx` | The panel's titlebar (split out of ClownChat.tsx, 300-line cap) |
+| `apps/web/components/longlive/ClownChatComposer.tsx` | The docked composer, incl. the auto-resizing textarea (split out of ClownChat.tsx, 300-line cap) |
+| `apps/web/lib/longlive/clown-chat-ui.ts` | `useAutoResizeTextarea` / `useStickToBottomScroll` — the composer's grow-to-fit and the stream's stick-to-bottom-unless-scrolled-up auto-scroll |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
