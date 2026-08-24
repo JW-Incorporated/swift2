@@ -290,7 +290,7 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
     const fp = fingerprint(f);
     const legacyFp = legacyFingerprint(f);
     const labels = [PFX, `${PFX}:${f.severity}`];
-    if (f.checker.startsWith('safety.')) labels.push(`${PFX}:safety`);
+    if (f.checker.startsWith('safety.') && (f.severity === 'P0' || f.escalate)) labels.push(`${PFX}:safety`);
     if (f.checker.startsWith('image.')) labels.push(`${PFX}:image`);
     if (f.checker.startsWith('fact.')) labels.push(`${PFX}:fact`);
     if (f.escalate) labels.push(`${PFX}:escalate`);

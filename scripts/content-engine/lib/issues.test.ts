@@ -14,6 +14,8 @@ vi.mock('../../lib/gh.mjs', () => ({ gh: ghMock }));
 
 const { createIssues, ensureLabels, rollupFingerprint, errText } = await import('./issues.mjs');
 const { fingerprint, legacyFingerprint } = await import('./finding.mjs');
+const { CONFIG } = await import('../config.mjs');
+const PFX = CONFIG.output.issueLabelPrefix;
 
 afterEach(() => ghMock.mockReset());
 
@@ -307,6 +309,38 @@ describe('ensureLabels — the write preflight', () => {
       return { stdout: '' };
     });
     await expect(ensureLabels()).resolves.toHaveLength(1);
+  });
+});
+
+describe('safety label — gated by severity/escalate, not checker-name prefix (#1920)', () => {
+  it('labels a P0 safety.* finding cie:safety', async () => {
+    route({ 'issue list': () => [], 'issue create': () => 'https://github.com/x/y/issues/20' });
+    await createIssues(
+      [finding({ checker: 'safety.redline', severity: 'P0' })],
+      { dryRun: false, fpCachePath: freshFpCachePath() },
+    );
+    const createArgs = ghMock.mock.calls.find((c) => c[0][0] === 'issue' && c[0][1] === 'create')[0];
+    expect(createArgs).toContain(`${PFX}:safety`);
+  });
+
+  it('does NOT label a P1 safety.redline formatting finding cie:safety, so it never lands in the founder-escalation queue', async () => {
+    route({ 'issue list': () => [], 'issue create': () => 'https://github.com/x/y/issues/21' });
+    await createIssues(
+      [finding({ checker: 'safety.redline', severity: 'P1', title: 'Oversized field (3604 chars)' })],
+      { dryRun: false, fpCachePath: freshFpCachePath() },
+    );
+    const createArgs = ghMock.mock.calls.find((c) => c[0][0] === 'issue' && c[0][1] === 'create')[0];
+    expect(createArgs).not.toContain(`${PFX}:safety`);
+  });
+
+  it('still labels a P1 safety.* finding cie:safety when explicitly escalated', async () => {
+    route({ 'issue list': () => [], 'issue create': () => 'https://github.com/x/y/issues/22' });
+    await createIssues(
+      [finding({ checker: 'safety.redline', severity: 'P1', escalate: true })],
+      { dryRun: false, fpCachePath: freshFpCachePath() },
+    );
+    const createArgs = ghMock.mock.calls.find((c) => c[0][0] === 'issue' && c[0][1] === 'create')[0];
+    expect(createArgs).toContain(`${PFX}:safety`);
   });
 });
 
