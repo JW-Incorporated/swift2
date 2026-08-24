@@ -88,6 +88,7 @@ export function TrackDetail() {
       aria-label={`${track.title} — song detail`}
     >
       <OverlayNav
+        era={era}
         onClose={closeTrack}
         // track resolved from openTrackKey above, so this rebuilds the same key
         // (typed string, unlike the nullable openTrackKey from the store).
