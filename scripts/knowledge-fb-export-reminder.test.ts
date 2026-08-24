@@ -1,0 +1,38 @@
+import { describe, expect, it } from 'vitest';
+import { isoDate, issueTitle, issueBody } from './knowledge-fb-export-reminder.mjs';
+
+describe('isoDate', () => {
+  it('formats as YYYY-MM-DD', () => {
+    expect(isoDate(new Date('2026-08-23T16:00:00Z'))).toBe('2026-08-23');
+  });
+});
+
+describe('issueTitle', () => {
+  it('is date-scoped, one issue per week', () => {
+    expect(issueTitle('2026-08-23')).toBe('FB group export due — week of 2026-08-23');
+  });
+});
+
+describe('issueBody', () => {
+  it('flags a missing checklist rather than silently listing nothing', () => {
+    const body = issueBody([]);
+    expect(body).toMatch(/No groups configured yet/);
+    expect(body).toMatch(/fb-groups-checklist\.mjs/);
+    expect(body).toMatch(/HUMAN-ACTIONS\.md #16/);
+  });
+
+  it('lists every configured group as a checklist item', () => {
+    const body = issueBody([
+      { slug: 'group-a', label: 'Group A' },
+      { slug: 'group-b', label: 'Group B' },
+    ]);
+    expect(body).toContain('- [ ] Group A (`group-a`)');
+    expect(body).toContain('- [ ] Group B (`group-b`)');
+  });
+
+  it('mentions the owner and references the upload command', () => {
+    const body = issueBody([]);
+    expect(body).toMatch(/@sffan15-sys/);
+    expect(body).toMatch(/npm run knowledge:fb-upload/);
+  });
+});

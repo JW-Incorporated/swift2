@@ -911,3 +911,53 @@ jobs:
 
           check_lane "vault/"         36 "The Vault Run"  "once daily at 16:07 UTC, carrying all six content lanes"
           check_lane "content-shift/" 30 "Content Shift"  "twice daily at 17:00/23:00 UTC"
+
+      # Facebook export freshness (proposal §4.7, PLAN.md Stage 6).
+      # fb-export-reminder.yml files a fresh "FB group export due — week of
+      # <date>" issue every Sunday; Joey closes it once he's run
+      # `npm run knowledge:fb-upload`. STALE_DAYS=9 mirrors the Karen
+      # staleness check above: 7-day cadence + a 2-day buffer, without
+      # tolerating a second consecutive miss going unnoticed. Skipped
+      # entirely (not an alarm) while HUMAN-ACTIONS.md #16 is still open —
+      # `fb-groups-checklist.mjs` ships empty until Joey adds real groups,
+      # so there is nothing yet for a real export to close.
+      - name: Facebook export freshness
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          STALE_DAYS=9
+          ALERT_TITLE="Watchdog: no FB group export closed in 9 days"
+
+          if ! grep -q "slug:" scripts/knowledge/fb-groups-checklist.mjs 2>/dev/null; then
+            echo "no groups configured in fb-groups-checklist.mjs yet (HUMAN-ACTIONS.md #16) — nothing to check."
+            exit 0
+          fi
+
+          LATEST_CLOSED=$(gh issue list --repo "$REPO" --state closed --search "\"FB group export due\" in:title" \
+            --json title,closedAt --jq 'map(select(.title | startswith("FB group export due"))) | sort_by(.closedAt) | last // empty')
+
+          if [ -z "$LATEST_CLOSED" ]; then
+            echo "@sffan15-sys — no \"FB group export due\" issue has ever been closed. If fb-export-reminder.yml only started recently this is expected until the first one lands; if groups have been configured a while, the weekly export task (proposal §4.7) may have stalled." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export ALARM (none ever closed)"
+            exit 0
+          fi
+
+          CLOSED_AT=$(echo "$LATEST_CLOSED" | jq -r '.closedAt')
+          AGE_DAYS=$(( ( $(date -u +%s) - $(date -u -d "$CLOSED_AT" +%s) ) / 86400 ))
+
+          if [ "$AGE_DAYS" -gt "$STALE_DAYS" ]; then
+            echo "@sffan15-sys — the last \"FB group export due\" issue closed ${AGE_DAYS} days ago (expected within ${STALE_DAYS}). The weekly export task (proposal §4.7) may have stalled — \`npm run knowledge:fb-upload\` is the last step once this week's pages are saved." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export ALARM (${AGE_DAYS}d since last close)"
+          else
+            echo "FB export OK — closed ${AGE_DAYS}d ago." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "FB export OK (${AGE_DAYS}d)"
+          fi
