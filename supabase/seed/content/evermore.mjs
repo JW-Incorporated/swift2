@@ -2477,6 +2477,10 @@ export default {
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
         // Cross-link (Stage 3, 2026-08-10): the vault-track format's debut.
         'moment:vault-evermore-mr-perfectly-fine-opens-the-vault',
+        // Cross-link (issue #719, item 3): back to the original 2008 release
+        // on a fearless surface — this era page is titled "Fearless
+        // (Taylor's Version)" but carried no link to the actual TV story.
+        'moment:vault-fearless-fearless-arrives-and-debuts-at-no-1-on-the-billboard-200',
       ],
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
