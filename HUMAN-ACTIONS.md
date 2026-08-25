@@ -613,7 +613,18 @@ above plus Stage 3's own `usage_daily.sql` /
 unapplied against production as of this merge, not 3 or 4 — same fix
 (step 1 above) closes all of them in one `npm run db:migrate` run.
 
-**Status:** OPEN
+**Done 2026-08-24 (Joey):** ran `npm run db:migrate` from a checkout with
+`apps/worker/.env` set up — all 27 migrations applied clean, then ran it a
+second time with zero errors (the script re-runs every file unconditionally
+by design, so a clean second pass IS the idempotency proof — no
+"relation already exists"-style failures). Production is caught up; the
+knowledge engine, clown-sessions, and the `increment_usage_daily`
+grant-scoping security fix are all live. `psql` wasn't available locally
+for the optional pgvector check, so a small script
+(`scripts/check-pgvector.mjs`, PR #3235) was added as a psql-free
+alternative — separate, non-blocking follow-up.
+
+**Status:** DONE
 
 ---
 
