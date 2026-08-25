@@ -5064,3 +5064,29 @@ item... — see that file for current status) are engineering-scope questions
 for whoever implements this, not re-opened by this entry.
 
 **Approved by:** Joey, in chat, 2026-08-25 06:38 PDT.
+
+## 2026-08-25 — Detection-triggered social auto-post: confirmed live, not staged; email on every send
+
+**Context:** the "auto-stage social posts on official-upload detection"
+recommendation (2026-08-25 architect review + Joey's earlier "I want both,
+auto-stage and notify") ran into a real finding during implementation: this
+repo's social queue has had NO per-item founder-approval gate since
+2026-07-25 (`social/README.md`, `scripts/social/lib/queue.mjs`) — a file
+dropped in `social/queue/` with a near-term `scheduledAt` posts live on the
+next `social-poster.yml` cycle, no human review. "Auto-stage" as a
+safe-sounding middle ground doesn't exist in the current pipeline.
+
+**Decision:** Joey confirmed directly — no review gate wanted. Detection-
+triggered posts (official YouTube uploads, etc.) go straight into the
+existing queue mechanism exactly like every other social draft and post
+automatically on their scheduled time, same as today's Content Shift
+drafts. No new approval step, no new safety gate.
+
+**Also decided:** an email notification fires on every social post that
+actually goes out (not just failures — see the separate `social-poster.yml`
+failure-alert fix landing the same night), with a link to each platform the
+post reached. Joey's words: "I dont mind more emails for social" — this is
+an explicit, deliberate exception to the 2026-08-23 1-2/day founder-email
+cap, scoped only to social-post notifications.
+
+**Approved by:** Joey, in chat, 2026-08-25 06:49 PDT.
