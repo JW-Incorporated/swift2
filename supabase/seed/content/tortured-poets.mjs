@@ -2524,6 +2524,24 @@ export default {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night',
           },
+          {
+            outlet: 'ELLE',
+            url: 'https://www.elle.com/culture/celebrities/a65243131/taylor-swift-balmain-white-minidress-nyc-travis-kelce/',
+            source_title: 'Taylor Swift Wears Pink and White Balmain Minidress on NYC Date With Travis Kelce',
+            publisher: 'ELLE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: "Harper's Bazaar",
+            url: 'https://www.harpersbazaar.com/celebrity/latest/a65251820/taylor-swift-pink-balmain-dress-sentimental-jewelry-date-travis-kelce-nyc/',
+            source_title: 'Taylor Swift Is Preppy in a Pink Tweed Balmain Dress for Date Night With Travis Kelce',
+            publisher: "Harper's Bazaar",
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
         ],
         // Image-fix pass (2026-07-10): #361 — removed the bdcd54... photo (vision-confirmed a
         // two-panel collage behind TMZ's black grunge divider, the junk-collage pattern the
@@ -2597,6 +2615,33 @@ export default {
           {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1422599/taylor-swift-travis-kelce-at-patrick-mahomes-30th-birthday-party',
+          },
+          {
+            outlet: 'ELLE',
+            url: 'https://www.elle.com/culture/celebrities/a66093360/how-taylor-swift-snuck-into-travis-kelce-philadelphia-eagles-game/',
+            source_title: "How Taylor Swift Snuck Into Travis Kelce's Philadelphia Eagles Game",
+            publisher: 'ELLE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Kansas City Star',
+            url: 'https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article312128876.html',
+            source_title: "Taylor Swift's fans loved her classic look at Patrick Mahomes' birthday party",
+            publisher: 'Kansas City Star',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Instagram (@kanebrown, official post)',
+            url: 'https://www.instagram.com/p/DOpLxWRjBAx/',
+            source_title: "Kane Brown's photo from Patrick Mahomes' 30th birthday party",
+            publisher: 'Instagram',
+            source_type: 'social',
+            accessed_at: '2026-08-24',
+            reliability_score: 5,
           },
         ],
         // T16 photo pass (2026-07-09): no photo of Swift exists from this
