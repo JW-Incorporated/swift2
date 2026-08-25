@@ -210,6 +210,12 @@ jobs:
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          # send-mail.py shells out to `gh api markdown` to render the email
+          # body — same as every other caller (brief-mailer.yml, watchdog.yml)
+          # — and needs a token for that. Missing here on first landing
+          # (2026-08-25) made every run's notify step fail with `gh` exit 4
+          # (auth required), even though the post itself succeeded.
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           NOTIFY_FILE="${{ runner.temp }}/social-poster-notify.json"
