@@ -1854,6 +1854,14 @@ export default {
               'The Wembley cameo that won Favorite Surprise Guest at the 2025 iHeartRadio Music Awards — Kelce in white tie among the TTPD vaudeville cast, June 23, 2024.',
             kind: 'reference',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a real photo of the two
+            // together at the March 17 2025 iHeartRadio Music Awards itself.
+            url: 'https://i.abcnewsfe.com/a/a4f153c7-b859-4f68-81b3-31d32dde44cf/taylor-travis_1774576414070_hpMain_16x9.jpg?w=992',
+            credit: 'Kevin Mazur/Getty Images for iHeartRadio',
+            caption: 'Taylor Swift and Travis Kelce together at the 2025 iHeartRadio Music Awards, March 17, 2025, where their Wembley cameo won Favorite Surprise Guest.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -2493,6 +2501,14 @@ export default {
               'Backstage after the performance: Travis Kelce, Kane Brown and Taylor, June 24, 2025.',
             kind: 'reference',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a real still from the
+            // performance itself, not just the backstage aftermath.
+            url: 'https://i.ytimg.com/vi/ZgxmtNVeex8/maxresdefault.jpg',
+            credit: 'YouTube — "Taylor Swift - Shake It Off (with Kane Brown) (Live at TEU)"',
+            caption: 'Taylor Swift performing a surprise "Shake It Off" with Kane Brown at the Tight Ends & Friends / Tight End University concert, Brooklyn Bowl Nashville, June 24, 2025.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -2657,6 +2673,50 @@ export default {
             kind: 'reference',
             focalPoint: '50% 45%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): TMZ's own CDN re-hosting
+            // (not a raw Instagram hotlink) clears the outlet-own-CDN bar the
+            // prior note above required.
+            url: 'https://imagez.tmz.com/image/6c/4by3/2025/09/16/6c7d014afbfa48a9a60b29d86fbc092d_md.jpg',
+            credit: 'Kane Brown / Instagram, via TMZ',
+            caption: 'Kane Brown\'s Instagram photo of himself with Taylor Swift and Travis Kelce at Patrick Mahomes\' 30th birthday party, September 2025.',
+            kind: 'reference',
+          },
+        ],
+        // Shop pass (#884, 2026-08-25): both SIMKHAI pieces verified live on
+        // Revolve (in-browser — Revolve blocks curl/WebFetch), currently
+        // marked down and sold out. The Gucci pumps she wore were "dark red"
+        // Ottavia platform pumps; that colorway's only live listing
+        // (Net-a-Porter) is blocked by bot protection and Bergdorf's page
+        // wouldn't render, so this is the same Ottavia style in the
+        // verified-live Black colorway as the nearest in-stock alternative.
+        products: [
+          {
+            brand: 'SIMKHAI',
+            item: 'Poppy Vest in Sand Plaid',
+            retailer: 'revolve.com',
+            url: 'https://www.revolve.com/simkhai-poppy-vest-in-sand-plaid/dp/JSKI-WO47/',
+            price: '$222.00',
+            inStock: false,
+          },
+          {
+            brand: 'SIMKHAI',
+            item: 'Payton Wrap Mini Skirt in Sand Plaid',
+            retailer: 'revolve.com',
+            url: 'https://www.revolve.com/simkhai-payton-wrap-mini-skirt-in-sand-plaid/dp/JSKI-WQ100/',
+            price: '$241.00',
+            inStock: false,
+          },
+          {
+            brand: 'Gucci',
+            item: 'Ottavia Leather Platform Loafer Pumps',
+            retailer: 'neimanmarcus.com',
+            url: 'https://www.neimanmarcus.com/p/gucci-ottavia-leather-platform-loafer-pumps-prod274440624',
+            price: '$1,560.00',
+            inStock: true,
+            isAlternative: true,
+            altNote: 'Same Ottavia style; she wore it in "dark red" (Rosso Ancora) — that colorway\'s listings are blocked by bot protection everywhere checked, so this is the verified-live Black colorway.',
+          },
         ],
       },
     },
@@ -2748,6 +2808,13 @@ export default {
             kind: 'archival',
             focalPoint: '48% 49%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
+            caption: 'Taylor Swift performing at the Eras Tour, Wembley Stadium, London, August 19, 2024.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -2784,6 +2851,13 @@ export default {
             caption: 'Still from the official "loml" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
             focalPoint: '50% 50%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): the song's named co-writer/producer.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
+            credit: 'Wikimedia Commons / Kim Metso (CC BY-SA 4.0)',
+            caption: 'Aaron Dessner, "loml"\'s co-writer and producer, performing at Way Out West festival, Gothenburg, 2014.',
+            kind: 'reference',
           },
         ],
       },
@@ -2915,6 +2989,14 @@ export default {
             caption: 'Still from the official "I Can Fix Him (No Really I Can)" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
             focalPoint: '50% 38%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): the song's producer, at
+            // one of the same studios cited in this item's own context.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Antonoff_at_Electric_Lady_Studios_2023_%28cropped%29.jpg',
+            credit: 'Wikimedia Commons / Alex Lockett (CC BY-SA 4.0)',
+            caption: 'Jack Antonoff, the song\'s producer, at Electric Lady Studios, 2023.',
+            kind: 'reference',
           },
         ],
       },
@@ -3361,6 +3443,17 @@ export default {
             caption: 'Still from the official "thanK you aIMee" lyric video, stray capitals intact.',
             kind: 'archival',
             focalPoint: '50% 46%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a fresh search found a real,
+            // live still of the Wembley "thanK you aIMee"/"Mean" mashup itself —
+            // fan-recorded, but on i.ytimg.com (an allowlisted host), distinct
+            // from the official lyric-video still above. The prior note's
+            // "no creditable still" finding no longer holds after this pass.
+            url: 'https://i.ytimg.com/vi/tGHlsfhIq4Q/maxresdefault.jpg',
+            credit: 'YouTube (fan recording)',
+            caption: 'Taylor Swift performing the live "thanK you aIMee"/"Mean" mashup at Wembley Stadium, June 22, 2024.',
+            kind: 'archival',
           },
         ],
       },
@@ -4831,6 +4924,20 @@ export default {
             focalPoint: '50% 28%',
           },
         ],
+        // Shop pass (#884, 2026-08-25): the Dior tartan carpet look was a
+        // custom red-carpet piece (no product page exists — skipped per the
+        // sourcing rule). The Monse mid-show change is real RTW; its page is
+        // delisted from monse.com but still resolves live on Amazon Luxury,
+        // currently unavailable.
+        products: [
+          {
+            brand: 'Monse',
+            item: 'Harness Tapestry Dress — Alien Multi Print',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/MONSE-Harness-Tapestry-Dress-Alien/dp/B0FB9MHTDS',
+            inStock: false,
+          },
+        ],
       },
     },
     {
@@ -5088,7 +5195,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed, and the reported price depends on who you ask: around $360 million per Billboard, around $300 million per Rolling Stone, and — the highest figure floated — $405 million per Music Business Worldwide, for the catalog Shamrock Capital had bought from Scooter Braun\'s Ithaca Holdings in November 2020. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs... Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville management team, a source adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned — quietly ending her long campaign urging fans to stream only the re-records. The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled. As of mid-2026 the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed, and the reported price depends on who you ask: around $360 million per Billboard, around $300 million per Rolling Stone, and — the highest figure floated — $405 million per Music Business Worldwide, for the catalog Shamrock Capital had bought from Scooter Braun\'s Ithaca Holdings in November 2020. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs... Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville management team, a source adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned — quietly ending her long campaign urging fans to stream only the re-records. The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled. On the two unfinished re-records the letter was candid: of Reputation she wrote, "Full transparency: I haven\'t even re-recorded a quarter of it," explaining the album "was so specific to that time in my life" that she "kept hitting a stopping point" trying to remake it, and said both it and the debut "can still have their moments to re-emerge when the time is right." As of mid-2026 the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved.',
         sources: [
           {
             outlet: 'Billboard',
@@ -5507,6 +5614,20 @@ export default {
             price: '$25.90',
             isAlternative: true,
             altNote: 'No single retail original is named -- this newspaper-print tee turns the typewritten motif into clothing, though its beige-multicolor print isn\'t the restrained monochrome styling.',
+          },
+        ],
+        // Photo pass (issue #1721, 2026-08-25): page had zero photos.
+        photos: [
+          {
+            // Photo pass (issue #1721, 2026-08-25): page had zero photos. (An
+            // album-cover photo was tried first, but combined with this pass's
+            // other additions it pushed that image's reuse past
+            // content.image-overuse's >3-moments threshold, so this Eras Tour
+            // gown from the same era is used instead.)
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Taylor_Swift_TTPD_Dress.jpg',
+            credit: 'Wikithebeavr / Wikimedia Commons, CC BY 4.0',
+            caption: 'A custom Eras Tour gown from The Tortured Poets Department era.',
+            kind: 'reference',
           },
         ],
       },

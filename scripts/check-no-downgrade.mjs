@@ -105,8 +105,12 @@ function nameFromKey(key) {
 
 /**
  * Map every dependency NAME to the HIGHEST concrete version present in a
- * lockfile-v3 `packages` object. Unparseable/missing versions are collected
- * separately so the caller can decide whether to treat them as a broken gate.
+ * lockfile-v3 `packages` object. Dependencies embedded inside another
+ * package's published tarball (`inBundle: true`) are ignored: npm did not
+ * resolve those copies, and treating one as the remaining project resolution
+ * after an unrelated top-level copy is removed creates a false downgrade.
+ * Unparseable/missing versions are collected separately so the caller can
+ * decide whether to treat them as a broken gate.
  *
  * @param {object} lock  parsed package-lock.json
  * @returns {{versions: Map<string,string>, unparsed: {name:string, version:string}[]}}
@@ -119,6 +123,8 @@ export function parseLockVersions(lock) {
   const unparsed = [];
   for (const [key, meta] of Object.entries(lock.packages)) {
     if (key === '') continue; // the root project
+    // Fixed inside a published tarball, not resolved by npm.
+    if (meta && meta.inBundle === true) continue;
     const name = nameFromKey(key);
     if (!name) continue; // local workspace, not a registry dependency
     const version = meta && meta.version;

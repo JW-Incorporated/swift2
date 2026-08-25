@@ -2293,6 +2293,11 @@ export default {
             // Face fills the center of the frame, eyes just above the midline.
             focalPoint: '53% 40%',
           },
+          // Photo pass (issue #1721, 2026-08-25): a second photo of Taylor
+          // from the debut era was tried here, but combined with this pass's
+          // other additions it pushed that image's reuse past
+          // content.image-overuse's >3-moments threshold — reverted rather
+          // than force an overused image through.
         ],
       },
     },

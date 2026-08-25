@@ -181,6 +181,49 @@ export default {
       sources: [wiki('New_Romantics_(song)', 'New Romantics (song)')],
     },
     {
+      // Not a 1989 album track — a ZAYN/Taylor Swift duet for the Fifty Shades
+      // Darker soundtrack, released between 1989 and reputation with no album
+      // era of its own. Wikipedia describes it as "her first original song
+      // since her 2014 studio album, 1989" — filed here as the contemporaneous
+      // era at release, same precedent as 'Safe & Sound' (a Hunger Games
+      // soundtrack single) being filed under Red in supabase/seed/videos/red.mjs.
+      slug: 'i-dont-wanna-live-forever-mv',
+      kind: 'music_video',
+      title: "I Don't Wanna Live Forever",
+      director: null,
+      releasedOn: '2017-01-27',
+      relatedSongs: ["I Don't Wanna Live Forever"],
+      tags: ['Music'],
+      summary:
+        'A ZAYN/Taylor Swift duet written for the Fifty Shades Darker soundtrack — her first original song since 1989 — released December 2016, with its official video following in January 2017.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=7F37r50VUTQ',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=7F37r50VUTQ',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'ZAYN — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=7F37r50VUTQ',
+          source_title: "ZAYN, Taylor Swift - I Don't Wanna Live Forever (Fifty Shades Darker)",
+          publisher: 'ZAYN (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload, uploaded on ZAYN\'s channel rather than Taylor\'s own — this is a featured duet, not a Taylor Swift-headlined release',
+        },
+        wiki('I_Don%27t_Wanna_Live_Forever', "I Don't Wanna Live Forever", 'confirms release dates, soundtrack context, and "first original song since 1989" framing'),
+      ],
+    },
+    {
       slug: 'the-1989-world-tour-live-film',
       kind: 'tour_film',
       title: 'The 1989 World Tour Live',

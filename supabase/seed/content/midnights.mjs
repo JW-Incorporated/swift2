@@ -4210,6 +4210,13 @@ export default {
             focalPoint: '50% 42%',
             kind: 'archival',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://www.inquirer.com/resizer/v2/Y5IH6SQ6VVD7JACZSYPDMZ5GW4.jpg?auth=0edda7cec059e02fce2e4d6ff7d1a5d1003350113244e27ee4c8ffe0fc7e28f6&width=760&height=507&smart=true',
+            credit: 'The Philadelphia Inquirer',
+            caption: 'Taylor Swift performing at the Eras Tour\'s Lincoln Financial Field opening night, Philadelphia, May 12, 2023 — the same three-show run credited in the Beige Book.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -5460,6 +5467,13 @@ export default {
             credit: 'Via ABC News',
             caption: 'The world premiere at The Grove, Oct. 11, 2023 — where she announced the film would open a day early.',
             focalPoint: '52% 22%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2023/10/Taylor-Swift-arrived-at-Taylor-Swift-The-Eras-Tour-getty-H-2023.jpg?w=1296&h=730&crop=1',
+            credit: 'Getty Images / The Hollywood Reporter',
+            caption: 'Taylor Swift on the red carpet at the "Taylor Swift: The Eras Tour" concert film world premiere, AMC The Grove 14, Los Angeles, October 11, 2023.',
+            kind: 'reference',
           },
         ],
       },

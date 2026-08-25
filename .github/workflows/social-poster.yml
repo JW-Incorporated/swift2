@@ -52,6 +52,17 @@
 # in the queue-state PR's title and body. The state-commit step runs with
 # `if: always()` so a red run still records what happened — see its comment.
 #
+# Founder success email (2026-08-25, docs/decisions.md same date). Joey,
+# explicit exception to the founder-email cap, scoped to social only: email
+# on EVERY post that actually goes live, not just failures — "I dont mind
+# more emails for social". post-queue.mjs writes a mail-ready payload
+# (SOCIAL_POSTER_NOTIFY) with a real per-platform post link whenever at
+# least one item posted this run; the "Notify founder of successful posts"
+# step below just forwards it through scripts/watchdog/send-mail.py, the
+# same delivery path watchdog.yml and brief-mailer.yml already use. Separate
+# from the failure surfacing above — that reddens the run and alerts via
+# watchdog; this only ever reports good news, one email per run that had one.
+#
 # Failure EMAIL (2026-08-25, traced from a real incident — 2026-08-24's
 # Midnights/Anti-Hero item died to an X 403 "duplicate content" error and
 # nobody heard about it, issue #3282). A red run alone wasn't reaching Joey:
@@ -62,9 +73,11 @@
 # closes that gap directly, reusing the exact send path already proven for
 # the Founders' Brief and watchdog alerts (scripts/watchdog/send-mail.py,
 # GMAIL_APP_PASSWORD + MARJORIE_EMAIL — provisioned since issue #484, no new
-# secret) instead of inventing a second one. This covers FAILURES only — a
-# separate success-notification email (Joey: "I dont mind more emails for
-# social") is being added independently.
+# secret) instead of inventing a second one. This one covers FAILURES only —
+# genuinely independent of the success email above: different trigger
+# (steps.post.outcome == 'failure' vs. a written SOCIAL_POSTER_NOTIFY
+# payload), so a run with both a success and a permanent failure sends both
+# emails, and a run with only one sends only that one.
 name: social-poster
 on:
   schedule:
@@ -186,6 +199,7 @@ jobs:
         env:
           SOCIAL_FREEZE: ${{ vars.SOCIAL_FREEZE }}
           SOCIAL_POSTER_REPORT: ${{ runner.temp }}/social-poster-report.md
+          SOCIAL_POSTER_NOTIFY: ${{ runner.temp }}/social-poster-notify.json
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
@@ -194,6 +208,32 @@ jobs:
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
         run: node scripts/social/post-queue.mjs
+
+      # Founder success email (2026-08-25, docs/decisions.md same date):
+      # Joey wants an email on every post that actually goes live, not just
+      # failures — explicit exception to the founder-email cap, scoped to
+      # social only ("I dont mind more emails for social"). post-queue.mjs
+      # writes SOCIAL_POSTER_NOTIFY only when at least one item posted this
+      # run, so a "nothing due"/all-failed run sends no mail — this step just
+      # forwards whatever's there through the same mailer watchdog.yml uses
+      # (scripts/watchdog/send-mail.py), never a new send path. Runs whenever
+      # the poster actually ran, same condition as the state-commit step
+      # below, so a post that landed still gets its email even if a
+      # different item in the same run permanently failed.
+      - name: Notify founder of successful posts
+        if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
+        env:
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          NOTIFY_FILE="${{ runner.temp }}/social-poster-notify.json"
+          if [ -s "$NOTIFY_FILE" ]; then
+            python3 scripts/watchdog/send-mail.py "$NOTIFY_FILE"
+          else
+            echo "No successful posts this run — nothing to email."
+          fi
 
       # `if: always()` is load-bearing, not defensive: the step above now
       # fails the job when an item permanently failed, and that is exactly the

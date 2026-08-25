@@ -67,6 +67,14 @@ configured: `https://code.claude.com/docs/en/claude-code-on-the-web`.
 longer reports an egress block, and actually adds/rejects real candidates
 instead of a 0/0/0 no-op.
 
+**Update (2026-08-25, later firing):** this run had working egress —
+`example.com`, `billboard.com`, and `instagram.com` all reachable — and
+shipped PR #3296 with real photo/focalPoint work (see the run's comment on
+#762). That matches the "worked if" signal above. Leaving Status as OPEN
+since one good run isn't proof the underlying policy was changed on purpose
+rather than being transiently available; a founder call is still the way to
+close this out for good.
+
 **Status:** OPEN
 
 ---
@@ -178,10 +186,9 @@ it for you.
 LLC / Long Live with a live registration, and `legal.ts`'s DMCA line is
 updated to say "is registered."
 
-**Status:** OPEN
+**Status:** DONE
 
 ---
-
 
 ### 18. [UPGRADE] Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt
 
@@ -198,7 +205,7 @@ test (item #17 below), so bundle them.
 
 **Worked if:** production content matches the current seed files.
 
-**Status:** OPEN
+**Status:** DONE
 
 ---
 
@@ -692,7 +699,7 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
-**Status:** OPEN
+**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
 
 ---
 

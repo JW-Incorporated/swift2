@@ -9,20 +9,31 @@
 // there is no state file and why dedupe fails closed), and files one `intake`
 // issue per genuinely new video. The existing content engine (Content Shift —
 // see docs/agents/content-shift.md § "YouTube appearance intake") is the
-// judge: it verifies, places by era, and authors. This script never writes
-// content and never calls a model.
+// judge: it verifies, places by era, and authors — the slow lane. This
+// script never calls a model and never claims anything about a video's
+// CONTENT.
+//
+// FAST LANE (added 2026-08-25, docs/decisions.md "Detection-triggered social
+// auto-post"): alongside that intake issue, FILE mode also stages a
+// templated social/queue/*.json draft (lib/social-draft.mjs) — a caption
+// that only ever restates RSS metadata (title/channel/URL), never a claim
+// about content. The workflow's own git step commits it via a PR; it posts
+// live on schedule same as any other queue draft (no approval gate, per that
+// decision) once it clears the real content gate (check-drafts.mjs).
 //
 // Usage:
 //   node scripts/appearance-discovery/discover.mjs                # DRY RUN (default): print, no gh calls
-//   node scripts/appearance-discovery/discover.mjs --file         # actually file issues (needs GH_TOKEN or gh auth)
+//   node scripts/appearance-discovery/discover.mjs --file         # actually file issues + stage drafts (needs GH_TOKEN or gh auth)
 //   node scripts/appearance-discovery/discover.mjs --file --max 10 --max-age-days 30
 //
-// Dry-run makes NO GitHub calls at all (network use is only the RSS fetches),
-// so it is safe anywhere and is what the tests and reviewers exercise.
+// Dry-run makes NO GitHub calls at all (network use is only the RSS fetches)
+// and writes no files, so it is safe anywhere and is what the tests and
+// reviewers exercise.
 //
 // Exit code: non-zero when any channel failed to fetch/parse, when filing was
-// refused (dedupe fail-closed), or when any issue create failed — loud beats
-// quiet (see runners.md: a silent no-op is indistinguishable from a broken run).
+// refused (dedupe fail-closed), when any issue create failed, or when a
+// social draft failed to build — loud beats quiet (see runners.md: a silent
+// no-op is indistinguishable from a broken run).
 import { readdirSync, readFileSync, writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -32,6 +43,7 @@ import { CHANNELS, feedUrl } from './channels.mjs';
 import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
 import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
+import { buildSocialDraft } from './lib/social-draft.mjs';
 
 const INTAKE_LABEL = 'intake';
 // Matches the label as it already exists on the repo — the upsert is a no-op
@@ -328,7 +340,9 @@ async function main() {
   for (const c of plan.toFile) console.log(`  ${FILE_MODE ? 'FILE' : 'would file'} [${c.rule}] ${c.videoId} — ${issueTitle(c)}`);
 
   let filed = 0;
+  let staged = 0;
   const createFailures = [];
+  const draftFailures = [];
   if (plan.refuse) {
     console.error(`REFUSED to file: ${plan.refuse}`);
   } else if (FILE_MODE && plan.toFile.length) {
@@ -341,6 +355,34 @@ async function main() {
       } catch (e) {
         createFailures.push(`${c.videoId}: ${String(e?.stderr || e?.message || e).slice(0, 300)}`);
         console.error(`  FAILED to file ${c.videoId}: ${e.message}`);
+        continue; // no fast-lane draft for a video whose slow-lane lead didn't even file
+      }
+      // Fast lane (docs/decisions.md 2026-08-25, "Detection-triggered social
+      // auto-post"): stage a social/queue/ draft alongside the intake issue.
+      // Never blocks or undoes the issue that already filed — a bad draft is
+      // loud, not fatal, same "loud beats quiet" posture as everything else
+      // in this script. The workflow's own git step (appearance-discovery.yml)
+      // commits whatever lands here via a PR; check-drafts.mjs is the real
+      // content gate before it can ever post.
+      try {
+        const { filename, item } = buildSocialDraft(c);
+        writeFileSync(join(root, 'social', 'queue', filename), `${JSON.stringify(item, null, 2)}\n`, 'utf8');
+        staged++;
+        console.log(`  staged social/queue/${filename}`);
+      } catch (e) {
+        draftFailures.push(`${c.videoId}: ${e.message}`);
+        console.error(`  FAILED to stage social draft for ${c.videoId}: ${e.message}`);
+      }
+    }
+  } else if (!FILE_MODE) {
+    // Dry run: preview what the fast lane would stage, without touching the
+    // filesystem or gh — buildSocialDraft is pure, so this is a free preview.
+    for (const c of plan.toFile) {
+      try {
+        const { filename } = buildSocialDraft(c);
+        console.log(`  would stage social/queue/${filename}`);
+      } catch (e) {
+        console.log(`  would FAIL to stage a social draft for ${c.videoId}: ${e.message}`);
       }
     }
   }
@@ -348,12 +390,13 @@ async function main() {
   console.log(
     `summary: ${CHANNELS.length - failures.length}/${CHANNELS.length} channels ok, ${totalEntries} entries, ` +
     `${candidates.length} relevant+fresh, ${plan.toFile.length} ${FILE_MODE ? 'to file' : 'would file'}, ` +
-    `${plan.skipped.length} skipped, ${filed} filed${plan.refuse ? ', REFUSED (fail closed)' : ''}`,
+    `${plan.skipped.length} skipped, ${filed} filed, ${staged} staged${plan.refuse ? ', REFUSED (fail closed)' : ''}`,
   );
   if (failures.length) console.error(`channel failures:\n  ${failures.join('\n  ')}`);
   if (createFailures.length) console.error(`create failures:\n  ${createFailures.join('\n  ')}`);
+  if (draftFailures.length) console.error(`social draft failures:\n  ${draftFailures.join('\n  ')}`);
 
-  if (failures.length || createFailures.length || plan.refuse) process.exitCode = 1;
+  if (failures.length || createFailures.length || draftFailures.length || plan.refuse) process.exitCode = 1;
 }
 
 main().catch((e) => {

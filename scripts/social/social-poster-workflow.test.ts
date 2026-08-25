@@ -64,6 +64,27 @@ describe('social-poster.yml — stale-ledger guard (issue #2031)', () => {
   });
 });
 
+describe('social-poster.yml — founder success email (2026-08-25 decision)', () => {
+  const wf = read('.github/workflows/social-poster.yml');
+
+  it('routes SOCIAL_POSTER_NOTIFY through the shared mailer, not a new send path', () => {
+    // Must reuse scripts/watchdog/send-mail.py — the same proven delivery
+    // path watchdog.yml/brief-mailer.yml already use — never invent a
+    // second way to send mail from this repo.
+    expect(wf).toContain('SOCIAL_POSTER_NOTIFY');
+    expect(wf).toContain('scripts/watchdog/send-mail.py');
+  });
+
+  it('the notify step runs whenever the poster ran, even if the run also failed', () => {
+    const postAt = wf.indexOf('id: post');
+    // The header comment mentions this step by name too, so search for the
+    // step itself (- name: ...) starting after the posting step's id.
+    const notifyAt = wf.indexOf('- name: Notify founder of successful posts', postAt);
+    expect(notifyAt).toBeGreaterThan(postAt);
+    expect(wf).toContain("if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')");
+  });
+});
+
 describe('auto-merge-content.yml — #2031 hardening', () => {
   const wf = read('.github/workflows/auto-merge-content.yml');
 
