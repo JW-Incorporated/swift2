@@ -21,7 +21,7 @@ export default {
       snippet:
         "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
       moment: {
         context:
           "She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved.\n\nThe whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\"",
@@ -35,16 +35,11 @@ export default {
         // vision-confirmed.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
-            focalPoint: '68% 28%',
-            credit: 'Big Machine Records',
-          },
-          {
             url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
             focalPoint: '52% 45%',
             credit: 'Big Machine Records / official Taylor Swift YouTube channel',
             caption: 'Still from the official "Love Story" music video.',
-            kind: 'archival',
+            kind: 'primary',
           },
         ],
       },
@@ -57,7 +52,8 @@ export default {
       title: "Fifteen, written for her best friend Abigail",
       snippet: "A freshman-year memory, built around one line about her best friend Abigail's heartbreak.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Fifteen_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_en_Fifteen_cantando.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original',
       moment: {
         context:
           'The whole song grew backwards from one line — "Abigail gave everything she had to a boy who changed his mind" — which Taylor has said she wrote first, building everything else around it. Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail\'s answer: "If one girl can kind of learn from it or connect to a song like that, it\'s totally worth it."\n\nRecording it wrecked Taylor anyway — she\'s admitted she cried in the studio, "the things that make me cry are when the people I love have gone through pain and I\'ve seen it" — and when Roman White shot the surreal green-screen garden video, Abigail appeared in it as herself.',
@@ -67,9 +63,11 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
-            focalPoint: '62% 32%',
-            credit: 'Big Machine Records',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_en_Fifteen_cantando.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original',
+            focalPoint: '68% 34%',
+            credit: 'Flickr user 11001344@N02 (CC BY 2.0), via Wikimedia Commons',
+            caption: 'Performing "Fifteen" on the Fearless Tour in June 2009.',
+            kind: 'primary',
           },
         ],
       },
@@ -115,13 +113,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            credit: 'Big Machine Records',
-            // Focal point set 2026-07-18 by viewing (300x300): profile facing
-            // left-of-center, wind-blown curls filling the right half.
-            focalPoint: '40% 32%',
-          },
           // Photo pass #762 (2026-07-18): still from the Recording Academy's
           // official GRAMMY Rewind upload of this exact win — Swift at the
           // mic with the gramophone, "13" inked on her waving hand. oEmbed-
@@ -696,7 +687,7 @@ export default {
       snippet: 'A set romance that became real, then ended quietly by December — Lautner later confirmed on the record that she was the one who ended it.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
       thumbnailUrl:
-        'https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=',
+        'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
       // Cross-link (Stage 3, 2026-08-17): "Today Was a Fairytale," the song
       // written for the Valentine's Day movie she co-starred in with him.
       relatedIds: [
@@ -718,15 +709,10 @@ export default {
             url: 'https://www.yahoo.com/entertainment/taylor-swift-taylor-lautner-relationship-130738009.html',
           },
         ],
-        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
-        // baked-in watermark; replaced with an unwatermarked Getty candid of
-        // the couple from the same Dec. 3, 2009 outing. Verified HTTP 200 +
-        // image/jpeg and visually confirmed (both Taylors together) this
-        // session.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=',
-            credit: 'Bauer-Griffin/GC Images',
+            url: 'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
+            credit: 'FameFlynet/Backgrid, via People',
             caption:
               'Together in Los Angeles on Dec. 3, 2009 — weeks before the quiet breakup.',
             kind: 'primary',
@@ -842,7 +828,7 @@ export default {
       snippet: "A live 'Half of My Heart' at Z100's Jingle Ball, obvious onstage chemistry, a 12-year age gap — and rumors that became a real, brief relationship.",
       sourceUrl: 'https://www.billboard.com/music/music-news/john-mayer-taylor-swift-duet-half-of-my-heart-performance-1235291747/',
       thumbnailUrl:
-        'https://media.gettyimages.com/id/94673660/photo/z100s-jingle-ball-2009-presented-by-h-m-show.jpg?s=594x594&w=0&k=20&c=E59rBFYnR4Ncd9xBGTWP2Z7eMj8WOUs75Hy4l1odmC8=',
+        'https://i.ytimg.com/vi/U8k_Paf4E14/maxresdefault.jpg',
       moment: {
         context:
           'Mayer, then 31, had invited 19-year-old Taylor to sing on "Half of My Heart" while he was still finishing Battle Studies, and their live duet at Z100\'s Jingle Ball made the chemistry public. The romance the rumors predicted did happen — and was over within a couple of months.\n\nThe real aftermath arrived on her next album: "Dear John" called out the age gap directly, and Mayer fired back in a 2012 Rolling Stone interview, calling it "cheap songwriting" and "a really lousy thing to do."',
@@ -860,16 +846,12 @@ export default {
             url: 'https://www.justjaredjr.com/2009/12/12/taylor-swift-jingles-all-the-way/',
           },
         ],
-        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
-        // baked-in watermark; replaced with an unwatermarked Getty photo of
-        // the same duet. Verified HTTP 200 + image/jpeg and visually
-        // confirmed (Swift and Mayer sharing the MSG stage) this session.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/94673660/photo/z100s-jingle-ball-2009-presented-by-h-m-show.jpg?s=594x594&w=0&k=20&c=E59rBFYnR4Ncd9xBGTWP2Z7eMj8WOUs75Hy4l1odmC8=',
+            url: 'https://i.ytimg.com/vi/U8k_Paf4E14/maxresdefault.jpg',
             // Both singers' faces sit in the top third; bias upward to keep them.
             focalPoint: '48% 24%',
-            credit: 'Kevin Mazur/WireImage',
+            credit: 'Still from Samantha Faigen\'s Dec. 11, 2009 concert footage, via YouTube',
             caption:
               'Onstage with John Mayer for the "Half of My Heart" duet at Z100\'s Jingle Ball, Madison Square Garden, Dec. 11, 2009.',
             kind: 'primary',
@@ -947,16 +929,18 @@ export default {
       snippet: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
       sourceUrl: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry",
       thumbnailUrl:
-        "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
+        'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
       moment: {
         context:
           'She\'s said the inspiration was an ex-boyfriend whose lies took a while to surface: "He came across as Prince Charming [...] who had a lot of secrets that he didn\'t tell me about." The situation became a "breaking point" where she felt she had to walk away before getting hurt further.\n\nShe wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You%27re_Not_Sorry' }],
         photos: [
           {
-            url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
-            focalPoint: '46% 20%',
-            credit: 'Big Machine Records',
+            url: 'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
+            focalPoint: '50% 45%',
+            credit: "Fearless Tour performance still, via Taylor Swift's Tour Extras on YouTube",
+            caption: 'Performing the "You\'re Not Sorry" piano mashup on the Fearless Tour.',
+            kind: 'primary',
           },
         ],
       },
@@ -970,23 +954,21 @@ export default {
       snippet: 'She met a guy who seemed perfect on paper — then wrote a song, with country outlaw John Rich, about missing an ex who wasn\'t.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+        'https://i.ytimg.com/vi/IY43emg0W6Y/hqdefault.jpg',
       moment: {
         context:
           'Taylor was inspired after meeting someone who seemed like the ideal partner but didn\'t feel as exciting as a more toxic ex. She brought the idea to a writing session with John Rich, saying he related "because he is that complicated, frustrating messy guy in his relationships."\n\nShe called the collaboration "just so cool" and Rich "an incredible writer"; he, in turn, was impressed by her songwriting and connection with her audience at her age.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You' }],
-        // T16 photo pass (2026-07-09): the song is an album track with no
-        // single artwork or video, so this is the parent album's cover art
-        // from the Wikipedia article's stable upload.wikimedia.org copy —
-        // verified HTTP 200 + image/png this session.
+        // Issue #743: replaced generic album art with a verified still from
+        // an actual Fearless Tour performance of this song.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+            url: 'https://i.ytimg.com/vi/IY43emg0W6Y/hqdefault.jpg',
             // Photo pass #762 (2026-07-31): viewed. Profile turned left, curls
             // fanned out around her face — face sits left-of-center, upper third.
-            focalPoint: '38% 30%',
-            credit: 'Big Machine Records (album cover art)',
-            caption: 'Cover art for Fearless, the album that carries "The Way I Loved You."',
+            focalPoint: '42% 46%',
+            credit: "Fearless Tour performance still, via Taylor Swift's Tour Extras on YouTube",
+            caption: 'Performing "The Way I Loved You" on the Fearless Tour.',
             kind: 'primary',
           },
         ],
@@ -1042,7 +1024,7 @@ export default {
       title: "Untouchable, the one Fearless song she didn't write alone from scratch",
       snippet: 'A cover of a Luna Halo rock song her label president introduced her to — reworked into a stripped-down country-pop bonus track.',
       sourceUrl: 'https://theboot.com/taylor-swift-untouchable/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/7uQ5gCqASaY/hqdefault.jpg',
       moment: {
         context:
           'Taylor discovered Luna Halo\'s "Untouchable" when her label president gave her the band\'s album, then debuted a stripped-down cover during a 2008 "Stripped" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition.\n\nLuna Halo\'s Nathan Barlowe on her pick: "She could have chosen any cover in the world, but that\'s what she chose."',
@@ -1052,12 +1034,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            // Photo pass #762 (2026-07-31): viewed. Same cover as the other
-            // Fearless album-track pages — face left-of-center, upper third.
-            focalPoint: '38% 30%',
-            credit: 'Big Machine Records',
-            caption: 'Cover art for Fearless, the album that carries her "Untouchable" cover.',
+            url: 'https://i.ytimg.com/vi/7uQ5gCqASaY/hqdefault.jpg',
+            focalPoint: '50% 42%',
+            credit: 'Taylor Swift official artist channel / YouTube',
+            caption: 'Performing "Untouchable" for Clear Channel Stripped in 2008.',
             kind: 'primary',
           },
         ],
@@ -1072,7 +1052,8 @@ export default {
       title: 'Fearless spends 11 weeks at No. 1 — a record for the whole decade',
       snippet: 'Eleven non-consecutive weeks atop the Billboard 200: the longest run for a female country album, and for any album released in the 2000s.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg/500px-Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg',
       moment: {
         context:
           'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there.\n\nThe number kept its stature inside her own catalog for a while, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — before TTPD pushed on to 17 weeks, the 11-week mark her teenage self set was the one to catch for 15 years.',
@@ -1084,13 +1065,6 @@ export default {
           },
         ],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            credit: 'Big Machine Records',
-            // Focal point set 2026-07-18 by viewing (300x300): profile facing
-            // left-of-center, wind-blown curls filling the right half.
-            focalPoint: '40% 32%',
-          },
           // Photo pass #762 (2026-07-18): Commons shot from the Fearless
           // Tour's Portland stop, EXIF-dated May 16, 2009 — taken inside the
           // very spring the album was logging its record 11 weeks at No. 1
@@ -1102,7 +1076,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg/500px-Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg',
             credit: 'calmdownlove, Wikimedia Commons (CC BY 2.0) — Fearless Tour, Portland, May 16, 2009 (archival, era context)',
             caption: 'On the Fearless Tour in Portland, May 2009 — mid-victory-lap for an album spending its eleventh week at No. 1 that spring.',
-            kind: 'archival',
+            kind: 'primary',
             // Focal point set by viewing: tall frame; she stands center-left,
             // face upper-left quadrant beneath the raised fist.
             focalPoint: '32% 24%',
@@ -1118,7 +1092,7 @@ export default {
       title: 'The best-selling album in America — for all of 2009',
       snippet: '3.217 million copies sold in the US in 2009 alone, making 20-year-old Taylor the youngest artist — and only female country act — with a calendar-year best-seller.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Taylor_Swift_Fearless_Tour_02.jpg',
       moment: {
         context:
           'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Taylor, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.\n\nIt also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
@@ -1130,15 +1104,10 @@ export default {
         // sparkling violet dress). Per-image focal points set by eye.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
-            credit: 'Big Machine Records',
-            focalPoint: '35% 35%',
-          },
-          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Taylor_Swift_Fearless_Tour_02.jpg',
             credit: 'WEZL (CC BY 2.0), via Wikimedia Commons',
             caption: 'On the Fearless Tour in April 2010, just after Fearless closed 2009 as America\'s best-selling album.',
-            kind: 'archival',
+            kind: 'primary',
             focalPoint: '35% 30%',
           },
         ],
@@ -1536,26 +1505,16 @@ export default {
             reliability_score: 2,
           },
         ],
-        // T16 photo pass (2026-07-09): cover art from the Wikipedia article's
-        // stable upload.wikimedia.org copy; video still is the thumbnail of the
-        // official upload — video id VuNIsY6JdUw verified via YouTube oEmbed
-        // this session (title "Taylor Swift - You Belong With Me", channel
-        // @TaylorSwift). Both URLs verified HTTP 200 + image content-type.
+        // Official video id VuNIsY6JdUw was verified via YouTube oEmbed
+        // (title "Taylor Swift - You Belong With Me", channel @TaylorSwift).
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png',
-            focalPoint: '58% 42%',
-            credit: 'Big Machine Records (single cover art)',
-            caption: 'Single cover art for "You Belong with Me."',
-            kind: 'primary',
-          },
           {
             url: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg',
             focalPoint: '46% 22%',
             credit: 'Big Machine Records / official Taylor Swift YouTube channel',
             caption:
               'Still from the official "You Belong with Me" music video, directed by Roman White — the dance-scene arrival in a white dress.',
-            kind: 'archival',
+            kind: 'primary',
           },
         ],
       },
@@ -1766,7 +1725,7 @@ export default {
         'The week ending Feb. 28, 2009, "Love Story" hit No. 1 on Billboard\'s Pop Songs chart — the first country crossover ever to do it.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
+        'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
       moment: {
         context:
           'Country songs had crossed to pop radio for decades without finishing the climb — Shania Twain\'s "You\'re Still the One" had set the previous high-water mark at No. 3 in 1998.\n\n"Love Story" went all the way the week ending Feb. 28, 2009, on top of a No. 4 Hot 100 peak and two weeks atop Hot Country Songs — the data point that made the eventual pop pivot look less like a risk than a formality.',
@@ -1790,9 +1749,8 @@ export default {
             reliability_score: 3,
           },
         ],
-        // T16 photo pass (2026-07-09): the song that crossed over — its cover
-        // art, from the Wikipedia article's stable upload.wikimedia.org copy.
-        // Verified HTTP 200 + image/png this session.
+        // Issue #743: the official music-video still replaces generic single
+        // art on this non-release moment.
         // Photo-enrichment run 16 (2026-07-18, #762): added a clearly-labeled
         // CC BY 3.0 Commons reference photo of Shania Twain, whose "You're
         // Still the One" held the previous country-crossover high (No. 3,
@@ -1801,11 +1759,11 @@ export default {
         // confirmed. Per-image focal points set by eye.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
-            credit: 'Big Machine Records (single cover art)',
-            caption: 'Single cover art for "Love Story," the first country song to top Billboard\'s pop-radio chart.',
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
+            caption: 'Still from the official "Love Story" music video.',
             kind: 'primary',
-            focalPoint: '70% 30%',
+            focalPoint: '52% 45%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/ShaniaTwain1.jpg',
