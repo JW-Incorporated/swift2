@@ -223,6 +223,46 @@ export function formatReportMarkdown(outcomes, { runUrl, abortReason } = {}) {
 }
 
 /**
+ * Email payload for a "posts went live" notification (2026-08-25,
+ * docs/decisions.md same date — Joey: an email on every successful post,
+ * not just failures, explicit exception to the founder-email cap, scoped to
+ * social only). Returns `null` when nothing posted this run, so the caller
+ * can skip sending mail entirely rather than mailing an empty notice.
+ *
+ * Deliberately separate from formatReportMarkdown: that report is the
+ * everything-that-happened artifact (failures, retries, skips, waits) for
+ * the job summary and the queue-state PR body. This is the founder-facing
+ * good-news email, so it only ever lists posted items — a permanent failure
+ * elsewhere in the same run still gets its own loud ::error:: annotation and
+ * red run (see formatAnnotations), never buried in a "success" email.
+ *
+ * Each posted item links its own platform post directly — not just "a post
+ * was made" — plus the Facebook Page cross-post link when that also
+ * succeeded (crosspostToFacebook in post-queue.mjs), or a one-line note when
+ * it didn't (the primary post is still live either way).
+ */
+export function formatPostedNotification(outcomes, { runUrl } = {}) {
+  const posted = groupOutcomes(outcomes).posted;
+  if (posted.length === 0) return null;
+
+  const subject = `social-poster: ${posted.length} post${posted.length === 1 ? '' : 's'} went live (${platformBreakdown(posted)})`;
+
+  const lines = [`**${posted.length} social post${posted.length === 1 ? '' : 's'} went live:**`, ''];
+  for (const outcome of posted) {
+    lines.push(`- **${outcome.platform}** — [view post](${outcome.url})`);
+    if (outcome.facebookUrl) {
+      lines.push(`  - Also cross-posted to Facebook: [view post](${outcome.facebookUrl})`);
+    } else if (outcome.facebookError) {
+      lines.push(`  - ⚠️ Facebook Page cross-post failed (this post itself is still live): ${outcome.facebookError}`);
+    }
+  }
+  lines.push('');
+  if (runUrl) lines.push(`[Full run log](${runUrl})`, '');
+
+  return { subject, body: lines.join('\n') };
+}
+
+/**
  * GitHub Actions annotation lines (`::error::` / `::warning::`) so failures
  * show up on the run page and the Checks tab, not just in the raw log.
  * A posted item whose Facebook cross-post failed gets a warning (the primary
