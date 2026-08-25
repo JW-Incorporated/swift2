@@ -656,9 +656,10 @@ evidence will be Reddit score + comments + press mentions.
 
 **Progress (2026-08-24):** Etsy Open API done — `ETSY_KEYSTRING` and
 `ETSY_SHARED_SECRET` are saved (values never seen by any session, key names
-only). Reddit script app (step 1) still needed before the marketplace-
-research work can start — no code exists yet to consume either credential,
-this was just registering the account/keys ahead of that build.
+only). Awin (step 3, referral revenue) also done — `AWIN_API` saved, same
+way. Reddit script app (step 1) still needed before the marketplace-
+research work can start — no code exists yet to consume any of these
+credentials, this was just registering accounts/keys ahead of that build.
 
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
