@@ -1973,6 +1973,11 @@ export default {
       // event — the debut number lived only 4 months downstream (the
       // 2009-03-14 "11 weeks" item) with no dated release-day beat of its own.
       significance: 'notable', // the debut that seeds the record-run item four months later (docs/decisions.md, 2026-07-19)
+      // Explicit slug: this moment legitimately carries the official album
+      // cover (Big Machine Records credit), same as the other release-artwork
+      // moments below — needed so content.test.ts's release-artwork allowlist
+      // can recognize it instead of flagging it as a stray Wikipedia image.
+      slug: 'fearless-billboard-no-1-debut',
       year: 2008,
       month: 11,
       day: 11,

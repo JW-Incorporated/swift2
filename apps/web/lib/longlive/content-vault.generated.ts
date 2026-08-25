@@ -2577,6 +2577,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     },
     {
       id: "vault-fearless-fearless-arrives-and-debuts-at-no-1-on-the-billboard-200",
+      slug: "fearless-billboard-no-1-debut",
       date: "2008-11-11",
       dateLabel: "November 11, 2008",
       title: "Fearless arrives and debuts at No. 1 on the Billboard 200",
