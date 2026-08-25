@@ -88,10 +88,14 @@ describe('merchItemImage', () => {
     // single-source fashion/wardrobe timeline cards from the founding eras
     // also removed their `products` entries — a real, intended composition
     // shift; product and monogram counts are unaffected.
+    // 48 -> 49 moment / 4 -> 3 monogram (issue #1721, 2026-08-25): a
+    // photo-sparsity pass gave a previously zero-photo moment its first real
+    // photo, so its shop-the-look product's image now resolves via the
+    // moment fallback instead of the blank monogram placeholder.
     expect(split).toBe(74);
     expect(product).toBe(2);
-    expect(moment).toBe(48);
-    expect(monogram).toBe(4);
+    expect(moment).toBe(49);
+    expect(monogram).toBe(3);
     expect(split + product + moment + monogram).toBe(128);
   });
 

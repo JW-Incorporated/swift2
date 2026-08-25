@@ -3302,6 +3302,13 @@ export default {
             kind: 'archival',
             focalPoint: '60% 25%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png',
+            credit: 'Republic Records / Beth Garrabrant',
+            caption: 'Official evermore album cover art.',
+            kind: 'primary',
+          },
         ],
       },
     },
@@ -3349,6 +3356,15 @@ export default {
             caption: 'The glass-box scene from the self-directed "willow" video.',
             kind: 'archival',
             focalPoint: '45% 20%',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25): verified live via the
+            // content-engine's own probe() despite requiring no special
+            // headers in that check.
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2021214/rs_1200x1200-210314182056-1200.-taylor-swift-performance-2021-grammy-awards-red-carpet-fashion.jpg',
+            credit: 'E! News / Getty Images',
+            caption: '"willow" performed live for the first time at the 2021 Grammy Awards, March 14, 2021.',
+            kind: 'archival',
           },
         ],
       },
@@ -3409,6 +3425,13 @@ export default {
             kind: 'archival',
             focalPoint: '52% 55%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://consequence.net/wp-content/uploads/2021/01/streaming-taylor-swift-evermore-deluxe-bonus-tracks.jpg?quality=80',
+            credit: 'Beth Garrabrant / Consequence',
+            caption: 'Taylor Swift in an evermore-era promotional photo, used to announce the deluxe edition\'s two bonus tracks.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -3461,6 +3484,13 @@ export default {
             kind: 'archival',
             focalPoint: '40% 40%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/bac8a4aab69b-screenshot-2025-04-17-091133.png',
+            credit: 'HELLO! Magazine',
+            caption: 'A black-and-white studio portrait of Marjorie Finlay, Taylor Swift\'s grandmother and a professional opera singer, from the early 1950s.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -3499,7 +3529,15 @@ export default {
           },
           { outlet: 'YouTube — Jimmy Kimmel Live', url: 'https://www.youtube.com/watch?v=ionfV_r8s40' },
         ],
-        photos: [],
+        // Photo pass (issue #1721, 2026-08-25).
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2020/12/Kimmtaylor.jpg?w=1600&h=900&crop=1',
+            credit: 'Rolling Stone / ABC',
+            caption: 'Taylor Swift\'s December 14, 2020 remote appearance on Jimmy Kimmel Live discussing the folklore/evermore surprise albums.',
+            kind: 'reference',
+          },
+        ],
       },
     },
   ],
