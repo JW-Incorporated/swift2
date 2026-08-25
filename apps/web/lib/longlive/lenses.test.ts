@@ -58,9 +58,13 @@ describe('RUNWAY_LOOKS', () => {
     }
   });
 
-  it('has 2-3 real, credited photos per era (30 total) — no placeholders', () => {
+  it('has 2-3 real, credited photos per look (39 total) — no placeholders', () => {
+    // 39 = the original 30 (12 eras, one look each) + 9 from the three new
+    // second looks debut/fearless/speak-now got (issue #722 walk-15,
+    // 2026-08-25, 3 photos each) — RUNWAY_LOOKS can carry more than one look
+    // per era now, so this counts looks, not eras.
     const total = RUNWAY_LOOKS.reduce((n, look) => n + look.images.length, 0);
-    expect(total, 'total photo count across all eras').toBe(30);
+    expect(total, 'total photo count across all looks').toBe(39);
 
     for (const look of RUNWAY_LOOKS) {
       expect(
