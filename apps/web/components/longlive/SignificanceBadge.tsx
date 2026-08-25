@@ -34,7 +34,9 @@ export function SignificanceBadge({
       className={[
         'inline-flex items-center gap-1 rounded-full font-semibold uppercase tracking-widest',
         size === 'detail' ? 'px-2 py-1 text-xs' : 'px-1.5 py-0.5 text-[10px]',
-        defining ? 'text-white' : 'border text-[color:var(--era-accent)]',
+        defining
+          ? 'text-[color:var(--era-accent-fg)]'
+          : 'border text-[color:var(--era-accent-text)]',
       ].join(' ')}
       style={
         defining ? { backgroundColor: 'var(--era-accent)' } : { borderColor: 'var(--era-accent)' }
