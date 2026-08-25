@@ -7,6 +7,34 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-25 — Social caption register: from lowercase-warm-detached to "a fan in love, out loud"
+
+**Decision:** the social voice's *register* changes — captions must read as
+first-person fan reaction first, fact second (lead with the feeling, then
+the one concrete detail that earns it), with exclamation points,
+caps-for-emphasis, and up to 1-2 emoji welcome. The test: if a caption could
+be read aloud by a documentary narrator without sounding wrong, it's in the
+old voice and needs a rewrite. Everything else about the voice is
+unchanged and stays binding: sourcing is absolute (never invent a stat,
+quote, or event), the `#36`/Clownbot blocklist, Taylor never bare "Swift",
+no AI-tell phrases, never speak as Taylor or her team. Landed in
+`docs/marketing/social-strategy.md` §Voice, `docs/agents/runner-prompts/growth-draft.md`
+§Voice, and `docs/agents/runner-prompts/tree-plan.md` step 3's caption-judgment
+check (added: "does every caption sound like a fan in love with Taylor, not
+a historian? Detached-clever is drift.").
+
+**Why:** the prior register ("lowercase-warm... a fan telling a fan, not a
+brand announcing") had drifted toward flat, detached-clever copy that reads
+closer to a museum placard than a fan account. Joey's direct call: fans gush,
+and the account should sound like it.
+
+**Alternatives considered:** none — this is a voice/tone correction, not a
+new mechanism; no sourcing, blocklist, or attribution rule changes.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25).
+
+---
+
 ## 2026-08-24 — Retired the last 6 live `media.gettyimages.com` comp URLs from seed content; replaced with real, verified, non-Getty images
 
 **Decision:** the 6 remaining `media.gettyimages.com` comp-image URLs still
