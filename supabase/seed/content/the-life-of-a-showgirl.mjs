@@ -3410,7 +3410,13 @@ export default {
             source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
             publisher: 'E! News',
             source_type: 'reputable_press',
-            accessed_at: '2026-07-26',
+            // Rumor Desk re-check 2026-08-25 (lifecycle finding: 30d-stale
+            // "not confirmed" banner): re-verified the moment's status against
+            // current reporting — the late-Aug Grammy Museum "next album"
+            // speculation (see the new rumor entry below) confirms no album 13
+            // or re-record has been announced, so the banner stays and this
+            // records that someone looked.
+            accessed_at: '2026-08-25',
             reliability_score: 4,
           },
         ],
@@ -3471,7 +3477,7 @@ export default {
             url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
             note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-11',
+            lastCheckedOn: '2026-08-25',
           },
           {
             claim:
@@ -3482,7 +3488,27 @@ export default {
             url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
             note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-11',
+            lastCheckedOn: '2026-08-25',
+          },
+          // Rumor Desk 2026-08-25 (news-digest, first-seen 2026-08-25): a
+          // distinct next-project thread from the TS13 tips above — this one
+          // points specifically at the DEBUT re-record, off a fan color read of
+          // the dress at the Grammy Museum retrospective. reportedOn is the
+          // digest first-seen date; the cluster (Yahoo, InStyle, IBTimes UK,
+          // Newsweek) all published around the late-Aug appearance. Yahoo and
+          // IBTimes are egress-blocked for direct fetch this session, so the
+          // claim and the debut-specific reading were verified via WebSearch
+          // corroboration across those outlets rather than a direct fetch.
+          {
+            claim:
+              "As Taylor gave a rare career-retrospective interview at the Grammy Museum in late August 2026, fans read the seafoam-green Dôen gown she wore as an Easter egg teasing a re-recording of her 2006 self-titled debut — \"Taylor Swift (Taylor's Version)\" — citing the green and teal shades long tied to that album. No debut re-recording has been announced, titled, or dated.",
+            reportedBy: 'Yahoo Entertainment',
+            reportedOn: '2026-08-25',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
+            note: "A fan color-symbolism reading carried by entertainment outlets, not a report of any plan — the underlying source is Swiftie easter-egg speculation, so it rides at tabloid tier. Distinct from the TS13 (new album No. 13) tips above: this one points at the debut re-record specifically. Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if it goes quiet. No location.",
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-08-25',
           },
         ],
       },
