@@ -9,42 +9,6 @@ export default {
   eraSlug: 'fearless',
   items: [
     {
-      // Cross-link (Stage 3, 2026-07-30): the "Love Story" pair — the song's
-      // story, and the single's release two months ahead of the album — now
-      // interlink.
-      relatedIds: ['moment:vault-fearless-love-story-arrives-two-months-before-the-album'],
-      year: 2008,
-      month: 9,
-      day: 15,
-      category: 'music',
-      title: "Love Story, and the boy her family didn't approve of",
-      snippet:
-        "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
-      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
-      moment: {
-        context:
-          "She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved.\n\nThe whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\"",
-        sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)' },
-          { outlet: 'Wide Open Country', url: 'https://www.wideopencountry.com/love-story-taylor-swift/' },
-        ],
-        // Photo-enrichment pass (2026-07-30): added the official "Love Story"
-        // music-video still (YouTube id 8xg3vE8Ie_E, oEmbed-verified channel
-        // "Taylor Swift" @TaylorSwift; curl 200 image/jpeg); downloaded and
-        // vision-confirmed.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
-            focalPoint: '52% 45%',
-            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
-            caption: 'Still from the official "Love Story" music video.',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
-    {
       year: 2008,
       month: 11,
       day: 11,
@@ -88,7 +52,7 @@ export default {
       snippet: 'At the 52nd Grammys, 20-year-old Taylor became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
       sourceUrl: 'https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/',
       thumbnailUrl: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
-      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi', 'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-'],
+      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi', 'moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-'],
       moment: {
         context:
           'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."\n\nThe four went to Album of the Year and Best Country Album for Fearless, plus Best Country Song and Best Female Country Vocal Performance for "White Horse," her twice-honored co-write with Liz Rose — a haul that made Fearless the most-awarded country album in Grammy history. The album had already closed 2009 as the best-selling release in the United States, and Guinness World Records still lists her as the youngest solo artist ever to win Album of the Year. The mark held for a decade, until 18-year-old Billie Eilish won for When We All Fall Asleep, Where Do We Go? in 2020. It came a little over four months after Kanye West took the microphone from her at the MTV Video Music Awards, and it was the first of four Album of the Year wins — 1989, folklore, and Midnights followed — more than any artist has won in the category, which is why a quiet January night in 2010 reads in hindsight as the start of a dynasty.',
@@ -934,32 +898,6 @@ export default {
         ],
       },
     },
-    // --- Music/business/tour depth pass (2026-07-05)
-    {
-      year: 2008,
-      month: 10,
-      day: 28,
-      category: 'music',
-      title: "You're Not Sorry, and the ex-boyfriend who felt like Prince Charming",
-      snippet: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
-      sourceUrl: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry",
-      thumbnailUrl:
-        'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
-      moment: {
-        context:
-          'She\'s said the inspiration was an ex-boyfriend whose lies took a while to surface: "He came across as Prince Charming [...] who had a lot of secrets that he didn\'t tell me about." The situation became a "breaking point" where she felt she had to walk away before getting hurt further.\n\nShe wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You%27re_Not_Sorry' }],
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/hNiMWIwAr3k/hqdefault.jpg',
-            focalPoint: '50% 45%',
-            credit: "Fearless Tour performance still, via Taylor Swift's Tour Extras on YouTube",
-            caption: 'Performing the "You\'re Not Sorry" piano mashup on the Fearless Tour.',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
     {
       year: 2008,
       month: 11,
@@ -1180,66 +1118,6 @@ export default {
             credit: 'Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0',
             caption: 'Performing at the same Gillette Stadium show, June 5, 2010.',
             kind: 'archival',
-          },
-        ],
-      },
-    },
-
-
-    // --- Deep timeline fill (2026-07-08, content/deep-a): the era's singles
-    // and reissue (release was empty), song origin stories, tour lore, the
-    // 2009 CMA sweep, and her acting/SNL firsts. Every claim verified against
-    // its cited source this session; business items carry two independent
-    // sources per the framework.
-    {
-      slug: 'love-story-single-release',
-      // Cross-link (Stage 3, 2026-07-30): sibling "Love Story" moment.
-      relatedIds: ['moment:vault-fearless-love-story-and-the-boy-her-family-didnt-approve-of'],
-      year: 2008,
-      month: 9,
-      day: 15,
-      category: 'release',
-      title: 'Love Story arrives two months before the album',
-      snippet:
-        'Sept. 15, 2008: the lead single from Fearless goes out to country radio ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
-      moment: {
-        context:
-          'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009).\n\nThe long tail is the real story: roughly 18 million copies sold worldwide make it one of the best-selling singles ever released, and its 6.2 million US copies still stand as her biggest-selling song at home — a lead single that outsold everything the superstar decade that followed produced.',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-            source_title: 'Love Story (Taylor Swift song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Wide Open Country',
-            url: 'https://www.wideopencountry.com/love-story-taylor-swift/',
-            source_title: "'Love Story': The Story Behind The Classic Taylor Swift Song",
-            publisher: 'Wide Open Country',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-09',
-            reliability_score: 3,
-          },
-        ],
-        // Photo-enrichment run 16 (2026-07-18, #762): added a still from the
-        // official "Love Story" music video, which premiered Sept. 12, 2008,
-        // days before the single's radio release — video id verified via
-        // YouTube oEmbed (title "Taylor Swift - Love Story", channel
-        // @TaylorSwift); thumbnail verified HTTP 200 + image/jpeg, downloaded
-        // and visually confirmed. Per-image focal points set by eye.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
-            credit: 'Big Machine Records / YouTube (official music video still)',
-            caption: 'The sepia close-up from the official "Love Story" video, which premiered days before the single went to country radio.',
-            kind: 'archival',
-            focalPoint: '48% 40%',
           },
         ],
       },
@@ -2080,6 +1958,95 @@ export default {
           },
         ],
         context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
+      },
+    },
+
+    {
+      // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
+      // the song, and its radio-single release.
+      // Cross-link (Stage 3, 2026-08-13): + the 2010 AMAs performance.
+      relatedIds: [
+        'moment:vault-speak-now-back-to-december-goes-to-radio-as-single-two',
+        'moment:vault-speak-now-back-to-december-meets-apologize-at-the-2010-amas',
+      ],
+      year: 2010,
+      month: 10,
+      day: 12,
+      category: 'music',
+      title: 'Back to December, her first apology song',
+      snippet:
+        '"Guys get what they deserve in my songs, and if they deserve an apology, they should get one" — her first-ever apology track, later confirmed by Taylor Lautner as being about him.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
+      moment: {
+        context:
+          'In interviews before Speak Now\'s release, Taylor explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that."\n\nIt was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+
+    // --- Deep timeline fill (2026-07-08, content/deep-a): the era's full
+    // singles run + live album + Hunger Games one-off (release was empty),
+    // tour depth, the awards year, and the relationships' documented starts.
+    // Every claim verified against its cited source this session; business
+    // and relationship items carry two independent sources per the framework.
+    {
+      slug: 'mine-rush-release',
+      year: 2010,
+      month: 8,
+      day: 4,
+      category: 'release',
+      title: 'Mine leaks, so the label ships it 12 days early',
+      snippet:
+        'An unauthorized MP3 of "Mine" hit the internet in early August 2010 — Big Machine answered by rushing the lead single to radio and iTunes on Aug. 4, twelve days ahead of schedule.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
+      thumbnailUrl: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
+      moment: {
+        context:
+          'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.\n\nThe numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Taylor and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
+            source_title: "Taylor Swift's 'Mine' Single Leaks",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Mine_(Taylor_Swift_song)',
+            source_title: 'Mine (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/',
+            source_title: 'Taylor Swift Rush Releases "Mine" to Radio After Internet Leak',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: "Still from the official 'Mine' music video, via the video's YouTube thumbnail.",
+            kind: 'archival',
+          },
+        ],
       },
     },
   ],

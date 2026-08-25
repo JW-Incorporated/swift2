@@ -210,5 +210,25 @@ export default {
         }),
       ],
     }),
+
+    {
+      slug: 'i-can-see-you-mv',
+      kind: 'music_video',
+      title: 'I Can See You',
+      director: 'Taylor Swift',
+      releasedOn: '2023-07-08',
+      relatedSongs: ['I Can See You (Taylor\'s Version) (From the Vault)'],
+      tags: ['Music', 'Tour'],
+      summary:
+        'A vault-track heist: Joey King, Taylor Lautner, and Presley Cash break Taylor out of imprisonment in a vault — a metaphor for reclaiming her masters — premiered live at the July 7, 2023 Kansas City stop of the Eras Tour, the night Speak Now (Taylor\'s Version) dropped.',
+      symbolism: 'The vault break-out literalizes the re-recording project itself: taking her art back from Big Machine.',
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=lVkKLf4DCn8',
+      media: [embed('lVkKLf4DCn8')],
+      sources: [
+        yt('lVkKLf4DCn8', "Taylor Swift - I Can See You (Taylor's Version) (From The Vault) (Official Video)"),
+        wiki('I_Can_See_You_(song)', 'I Can See You (song)'),
+      ],
+    },
   ],
 };

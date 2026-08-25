@@ -123,15 +123,13 @@ describe('trackVideoFor — real corpus', () => {
   });
 
   it('does not conflate the Fearless "The Best Day" with its Taylor\'s Version re-record video', () => {
-    // The fearless era carries BOTH a "The Best Day" video and a
-    // "The Best Day (Taylor's Version)" video (same era bucket) — proof this
-    // exact wrong-direction pairing is a real, not hypothetical, risk.
-    const videos = allVideoRecordsForEra('fearless');
-    const titles = videos.map((v) => v.title);
-    expect(titles).toContain('The Best Day');
-    expect(titles).toContain("The Best Day (Taylor's Version)");
+    const fearlessVideos = allVideoRecordsForEra('fearless');
+    const evermoreVideos = allVideoRecordsForEra('evermore');
+    expect(fearlessVideos.map((v) => v.title)).toContain('The Best Day');
+    expect(fearlessVideos.map((v) => v.title)).not.toContain("The Best Day (Taylor's Version)");
+    expect(evermoreVideos.map((v) => v.title)).toContain("The Best Day (Taylor's Version)");
 
-    const match = trackVideoFor('The Best Day', videos);
+    const match = trackVideoFor('The Best Day', [...fearlessVideos, ...evermoreVideos]);
     expect(match?.title).toBe('The Best Day');
   });
 

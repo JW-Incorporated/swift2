@@ -84,7 +84,7 @@ export const NAME_REGISTRY: readonly CanonicalName[] = [
     // and folklore's Album of the Year win as the honest counterpoint.
     receiptIds: [
       'moment:vault-evermore-folklores-sister-arrives',
-      'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+      'moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
     ],
     // Narrow on purpose: the hill is the *comparison*, not any evermore mention.
     keywords: [

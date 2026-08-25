@@ -89,53 +89,6 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-07-27): the "Shake It Off" cluster — its
-      // meaning, the era-launch milestone, its Diamond certification, and the
-      // Stonewall Pride surprise performance — now interlink.
-      relatedIds: [
-        'moment:vault-1989-shake-it-off-launches-the-era',
-        'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
-        'moment:vault-lover-a-surprise-shake-it-off-at-the-stonewall-inn-for-prides-50th',
-      ],
-      year: 2014,
-      month: 8,
-      day: 18,
-      category: 'music',
-      title: 'Shake It Off, and the pivot from victim to punchline-maker',
-      snippet: 'The tonal opposite of Mean — critics get a shrug and a wink instead of a wound.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Shake_It_Off',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg',
-      moment: {
-        context:
-          "In her Rolling Stone cover story that fall, she spelled out the shift: \"Mean\" had answered critics \"from kind of a victimized perspective,\" while years of having \"every part of my life dissected — my choices, my actions, my words, my body, my style, my music\" taught her a different response: \"you can either let it break you, or you can get really good at dodging punches.\"\n\nWritten and produced with Max Martin and Shellback — she pictured it as the song that drags reluctant dancers onto the floor at a wedding — it dropped the same day as the album-announcement livestream and entered the Hot 100 at No. 1, just the 22nd song ever to debut on top. Four nonconsecutive weeks at No. 1 later, it was on its way to becoming her first Diamond-certified single.",
-        sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' },
-          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/' },
-        ],
-        // Focal point 2026-07-20 (by eye): reference frame from the "Shake It
-        // Off" video — a vertical crop with Taylor's face near the top.
-        // Photo pass (2026-07-20, #762): 2nd verified frame from the same
-        // official video (id nfWlot6h_JM, oEmbed author "Taylor Swift";
-        // maxresdefault curl-verified 200 image/jpeg, downloaded and viewed).
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg',
-            focalPoint: '48% 16%',
-            credit: 'Big Machine Records',
-            caption: 'A frame from the "Shake It Off" video — the all-black look on the bare white soundstage.',
-            kind: 'archival',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/maxresdefault.jpg',
-            focalPoint: '50% 46%',
-            credit: 'Taylor Swift / Big Machine Records, via YouTube',
-            caption: 'The hip-hop dance-crew scene from the same official "Shake It Off" video — the self-deprecating punchline in motion.',
-            kind: 'archival',
-          },
-        ],
-      },
-    },
-    {
       // Fix (issue #1239): was dated 2014-09-08 — seven weeks before 1989
       // (the album that introduced the song) and eight months before the
       // single. Re-dated to the album's release day, the earliest date the
@@ -658,7 +611,7 @@ export default {
       // annual Rhode Island tradition and the year it moved to Turks and
       // Caicos — now interlink.
       relatedIds: [
-        'moment:vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
         'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
       ],
       year: 2016,
@@ -762,7 +715,7 @@ export default {
       // 'defining': flagged as a defining-list candidate in the audit report,
       // but that list is a founder decision (docs/decisions.md, 2026-07-19).
       significance: 'notable',
-      relatedIds: ['moment:vault-reputation-the-year-of-silence'],
+      relatedIds: ['moment:vault-1989-the-year-of-silence'],
       year: 2017,
       month: 8,
       day: 14,
@@ -1128,47 +1081,6 @@ export default {
         ],
       },
     },
-
-    // --- Sightings depth pass (2026-07-05): candid, real-world public-
-    // appearance moments per the founder's request — squad outings, July 4th
-    // Rhode Island parties, Calvin Harris/Tom Hiddleston dating-era candids,
-    // and an airport look. Every photo URL hotlinked to the outlet's own CDN
-    // and checked for a 2xx image response before being added.
-    {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
-      relatedIds: [
-        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
-        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
-      ],
-      year: 2014,
-      month: 7,
-      category: 'sighting',
-      title: 'A rain-soaked Fourth of July family portrait in Rhode Island',
-      snippet:
-        "Emma Stone, Lena Dunham, and a Slip 'N Slide built to fight the rain — the first of what became an annual squad tradition at her Rhode Island beach house.",
-      sourceUrl: 'https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos',
-      thumbnailUrl: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2014/07/swift-king/taylor-swift-emma-stone-fourth-of-july-weekend-04.jpg',
-      moment: {
-        context:
-          "Taylor hosted Emma Stone, Jaime King, Ingrid Michaelson, Jessica Stam, Jessica Szohr, and Girls creator Lena Dunham, among others, for the 2014 holiday weekend at her Rhode Island house.\n\nRain didn't stop the group — they built a giant Slip 'N Slide, baked an American-flag cake, and posed for a group \"family portrait\" that Dunham photobombed with a mock scowl and a raised middle finger. \"When the 4th of July gives you nonstop rain, make a giant slip n slide,\" Taylor captioned one photo. Dunham called the weekend her personal Coachella.",
-        sources: [
-          {
-            outlet: 'E! Online',
-            url: 'https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos',
-          },
-          {
-            outlet: 'E! Online',
-            url: 'https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide',
-          },
-        ],
-        // Image-fix pass (2026-07-10): #173 — old photo was a Slip 'N Slide action shot
-        // (a guest on an inflatable turtle), not the posed "family portrait." Swapped for
-        // Just Jared's actual full-resolution group couch photo from the same weekend (curl-
-        // verified 200/image-jpeg, downloaded and visually confirmed the full posed squad,
-        // Taylor included, on a couch — matching the moment's "family portrait" description).
-        photos: [{ url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2014/07/swift-king/taylor-swift-emma-stone-fourth-of-july-weekend-04.jpg', credit: 'Just Jared', kind: 'archival', caption: "The posed \"family portrait\" from the rain-soaked July 2014 Rhode Island weekend." }],
-      },
-    },
     {
       // Cross-link (Stage 3, 2026-07-30): the "Calvin Harris" pair — the first
       // sighting and the Hiddleston relationship that followed the split —
@@ -1360,7 +1272,7 @@ export default {
       relatedIds: [
         'moment:vault-1989-the-night-famous-premiered-and-she-said-no',
         'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
-        'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+        'moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
         'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
       ],
       moment: {
@@ -1462,94 +1374,6 @@ export default {
             credit: 'Getty Images for NARAS, via Teen Vogue',
             caption: 'A separate detail frame shows the metallic platform sandals worn with Taylor\'s 2016 Grammy look.',
             kind: 'primary',
-          },
-        ],
-      },
-    },
-    {
-      // Cross-link (Stage 3, 2026-07-27): sibling "Shake It Off" moments.
-      relatedIds: [
-        'moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker',
-        'moment:vault-1989-shake-it-off-launches-the-era',
-        'moment:vault-lover-a-surprise-shake-it-off-at-the-stonewall-inn-for-prides-50th',
-      ],
-      year: 2020,
-      month: 3,
-      day: 13,
-      category: 'business',
-      title: '"Shake It Off" becomes her first Diamond-certified single',
-      snippet:
-        'Crossing 10 million units in the U.S. made her the first female artist in history to hold both a Diamond-certified single and a Diamond-certified album.',
-      sourceUrl: 'https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/',
-      thumbnailUrl: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960',
-      moment: {
-        context:
-          'The RIAA certified "Shake It Off" Diamond on March 13, 2020, for surpassing 10 million combined sales-and-streaming units — her first single to reach that tier, following Fearless\'s Diamond album certification in December 2017.\n\nAt the time, 1989\'s other singles stood at 8x Platinum ("Blank Space") and 6x Platinum ("Bad Blood"), with "Wildest Dreams" at 4x Platinum and the album itself certified 9x Platinum.',
-        sources: [
-          {
-            outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/',
-          },
-          {
-            outlet: 'Headline Planet',
-            url: 'https://headlineplanet.com/home/2020/03/14/taylor-swifts-shake-it-off-earns-diamond-certification-in-us-lover-album-reaches-2x-platinum/',
-          },
-          {
-            outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/hughmcintyre/2023/10/10/taylor-swifts-1989-songs-ranked/',
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): added the ballerina frame from the
-        // official Shake It Off video (id oEmbed-verified against @TaylorSwift; 480px frame,
-        // downloaded and visually confirmed). Per-image focal points set by viewing each image.
-        photos: [
-          {
-            url: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960',
-            credit: 'Forbes',
-            focalPoint: '45% 24%',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hq2.jpg',
-            credit: 'Big Machine Records / Taylor Swift via YouTube',
-            kind: 'archival',
-            focalPoint: '52% 48%',
-            caption: "The swan-tutu ballerina scene from the official 'Shake It Off' video — the single that, six years on, became her first Diamond-certified song.",
-          },
-        ],
-      },
-    },
-    {
-      year: 2025,
-      month: 9,
-      day: 30,
-      category: 'business',
-      title: '1989 itself goes Diamond, joining Fearless as her second 10-million-unit album',
-      snippet:
-        'Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.',
-      sourceUrl: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
-      moment: {
-        context:
-          'The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) almost eleven years after release, and making it Taylor\'s second Diamond album after Fearless (certified in December 2017).\n\nThe company is thin: only 31 albums by women or female-fronted acts have ever gone Diamond, and the double puts her alongside Madonna, Whitney Houston, Mariah Carey, Celine Dion, Shania Twain, Britney Spears, Adele, and The Chicks among the women with more than one — with Twain and Houston leading at three apiece.',
-        sources: [
-          { outlet: 'AOL', url: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html' },
-          { outlet: 'RIAA Gold & Platinum Database', url: 'https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989' },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): added GabboT's Ford Field shot of the
-        // 1989 World Tour (Commons license API-verified CC BY-SA 2.0; downloaded and
-        // visually confirmed the 1989-era look). Focal points set per image by viewing.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
-            credit: 'Big Machine Records',
-            focalPoint: '50% 38%',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_003_%28cropped%29.jpg',
-            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
-            kind: 'archival',
-            focalPoint: '46% 10%',
-            caption: 'Performing "Welcome to New York" at Ford Field in Detroit, May 30, 2015 — the era whose album crossed the Diamond line a decade later.',
           },
         ],
       },
@@ -1663,107 +1487,10 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-07-30): the "Out of the Woods" pair — the
-      // writing-room voice memo and the video that closed the era — now
-      // interlink.
-      relatedIds: ['moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve'],
-      year: 2014,
-      month: 10,
-      day: 14,
-      category: 'music',
-      title: 'Out of the Woods: a voice memo written to Jack Antonoff\'s track mid-flight',
-      snippet:
-        'She called it the song that "best represents" the album — built around a real snowmobile accident and twenty stitches she\'d kept out of the tabloids.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)',
-      thumbnailUrl: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
-      moment: {
-        context:
-          "Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Taylor on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.\n\nThe bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time.",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)' }],
-        // Photo-enrichment pass (2026-07-18, #762): added the blizzard frame from the
-        // official Out of the Woods video (id oEmbed-verified against @TaylorSwift;
-        // downloaded and visually confirmed). Focal points set per image by viewing.
-        // Karen #877 fix (2026-07-19): same frame upgraded hq2 (480x360, 6KB)
-        // -> maxres2 (1280x720); downloaded and vision-confirmed identical.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
-            credit: 'Big Machine Records / Taylor Swift via YouTube',
-            kind: 'archival',
-            focalPoint: '48% 42%',
-            caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.",
-          },
-        ],
-      },
-    },
-
-    // --- Deep timeline fill (2026-07-08): release/tour depth for an era that
-    // had 0 release items, plus the rollout, fan-culture, and business moments
-    // the era is famous for. New items carry the audit's additive provenance
-    // fields (slug + publisher/source_type/accessed_at/reliability_score
-    // alongside legacy {outlet,url}), same convention as
-    // the-life-of-a-showgirl.mjs. Every claim verified against its cited
-    // source via search on 2026-07-08; no fabrication. Photos deliberately
-    // omitted where no already-verified image URL exists.
-    {
-      slug: '1989-announced-yahoo-livestream',
-      year: 2014,
-      month: 8,
-      day: 18,
-      category: 'release',
-      title: 'A Yahoo livestream announces 1989 — her "first documented, official pop album"',
-      snippet:
-        'August 18, 2014: a worldwide livestream reveals the album title, the October 27 date, the Polaroid cover — and drops "Shake It Off" plus its video the same day.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/1989_(album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
-      moment: {
-        context:
-          'On the livestream she declared the record her first documented, official pop album, formally closing the country chapter the Red era had already strained — a pivot her own label resisted. Big Machine\'s Scott Borchetta, hearing the finished album, asked her to add country tracks with fiddle; she refused, reasoning that "if you chase two rabbits, you lose them both," and the label settled for not promoting it to country radio at all.\n\nMax Martin came aboard as co-executive producer to keep the synth-pop palette cohesive, "Shake It Off" dropped the same day and entered the Hot 100 at No. 1, and naming the album for her birth year — fronted by a Polaroid crop that cut off her face — set the visual language for everything that followed.',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/1989_(album)',
-            source_title: '1989 (album)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Shake_It_Off',
-            source_title: 'Shake It Off',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): added the signature frame from the
-        // Shake It Off video, which dropped the same day as this livestream (id
-        // oEmbed-verified against @TaylorSwift; downloaded and visually confirmed).
-        // Album-cover focalPoint matches the same image on the 2025 Diamond item.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
-            credit: 'Big Machine Records',
-            focalPoint: '50% 38%',
-          },
-          {
-            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/maxresdefault.jpg',
-            credit: 'Big Machine Records / Taylor Swift via YouTube',
-            kind: 'archival',
-            focalPoint: '50% 48%',
-            caption: "The 'Shake It Off' video's most-talked-about scene — the single and video dropped the same day as the livestream reveal.",
-          },
-        ],
-      },
-    },
-    {
       slug: '1989-secret-sessions',
       // Cross-link (vault-run 2026-08-06): the reputation Secret Sessions — the
       // same fan-hosting tradition carried into the next era.
-      relatedIds: ['moment:vault-reputation-the-reputation-secret-sessions-500-fans-four-houses-zero-lea'],
+      relatedIds: ['moment:vault-1989-the-reputation-secret-sessions-500-fans-four-houses-zero-lea'],
       year: 2014,
       month: 10,
       category: 'release',
@@ -1802,60 +1529,6 @@ export default {
             credit: 'Taylor Swift via YouTube',
             kind: 'archival',
             caption: "Hugging a fan at a session — a still from the official '1989 Secret Sessions, Behind The Scenes!' video on Taylor's own channel (Oct. 2014).",
-          },
-        ],
-      },
-    },
-    {
-      slug: '1989-welcome-to-new-york-schools',
-      year: 2014,
-      month: 10,
-      day: 20,
-      category: 'music',
-      title: 'Welcome to New York, with the proceeds going to the city\'s schools',
-      snippet:
-        'The synth-drenched opener that announced the move to New York — and whose sales she donated to New York City public schools.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'Track one of 1989 doubled as a mission statement for the era\'s move from Nashville to Manhattan — she\'d relocated in April 2014, and put the song first to mark the city as a formative influence on the record\'s "wide-eyed optimism." She wrote and produced it with Ryan Tedder, who programmed the first draft on a Juno-106 synth in about three hours.\n\nActual New Yorkers were split — critics called the portrait idealized, one noting it skipped the subway rats and closet-sized bedrooms — but the charity piece was concrete: in February 2015 the Department of Education confirmed a $50,000 donation from the single\'s sales, more than a first-year NYC public school teacher\'s starting salary at the time.',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)',
-            source_title: 'Welcome to New York (song)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-09',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/music-news/taylor-swift-donated-50k-new-york-public-schools-welcome-to-new-york-6480453/',
-            source_title: "Taylor Swift Donated $50k to NYC Public Schools From 'Welcome to New York' Sales",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-09',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'NYC & Company',
-            url: 'https://www.business.nyctourism.com/press-media/press-releases/nyc-company-announces-taylor-swift-as-new-york-citys-global-welcome-ambassa',
-            source_title: "NYC & Company Announces Taylor Swift as New York City's Global Welcome Ambassador",
-            publisher: 'NYC Tourism + Conventions',
-            source_type: 'official',
-            accessed_at: '2026-07-08',
-            reliability_score: 5,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg/960px-Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg',
-            focalPoint: '52% 16%',
-            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
-            kind: 'archival',
-            caption: "On the 1989 World Tour at Ford Field in Detroit, May 30, 2015 — the show opened every night with 'Welcome to New York' against a mock Manhattan skyline.",
           },
         ],
       },
@@ -2297,7 +1970,7 @@ export default {
       // Harry Styles that started the relationship this video is widely
       // read as chronicling the end of.
       relatedIds: [
-        'moment:vault-1989-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac',
+        'moment:vault-red-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac',
         'moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square',
       ],
       year: 2015,
@@ -2443,65 +2116,6 @@ export default {
         ],
       },
     },
-    {
-      slug: '1989-taylors-version-announced',
-      year: 2023,
-      month: 8,
-      day: 9,
-      category: 'release',
-      // Cross-link (Stage 3, 2026-08-10): the record-breaking sales week the
-      // announcement led to.
-      relatedIds: ['moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record'],
-      title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
-      snippet:
-        'August 9, 2023, the final show of the Eras Tour\'s first U.S. leg: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',
-      sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'Fans clocked the Easter egg immediately: blue variants of the Speak Now, folklore, and 1989 act costumes across the night, capped by the reveal and a long-awaited "New Romantics" as a surprise song. The crowd of 70,000 at the sixth SoFi show turned the announcement into the loudest moment of the U.S. leg.\n\nThe date was its own Easter egg — Oct. 27, 2023, nine years to the day after the original album. "Instead of telling you about it, I think I\'ll just sort of show you," she said before the screens flipped 1989 blue. The surprise-song set doubled down: "New Romantics" on guitar (the last 1989 track she hadn\'t yet played on the tour) and "New Year\'s Day" on piano, plus an onstage thank-you to fans for making the re-recordings matter: "It was so generous of you to care about something that I cared about."',
-        sources: [
-          {
-            outlet: 'Variety',
-            url: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
-            source_title: "Taylor Swift Reveals '1989 (Taylor's Version)' Is Coming at L.A. Tour Finale",
-            publisher: 'Variety',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-la-recap-night-6-best-moments-sofi-stadium/',
-            source_title: "6 Best Moments From Night 6 of Taylor Swift's Eras Tour at LA's SoFi Stadium",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-        ],
-        // Photo-enrichment pass (2026-07-18, #762): added the 1989 act from the same
-        // Aug. 9, 2023 SoFi show (Commons API-verified CC BY 2.0, Paolo Villanueva,
-        // EXIF-dated 2023-08-09; downloaded and visually confirmed the blue sparkle
-        // 1989 set). Focal points set per image by viewing.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg/960px-Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg',
-            credit: 'Paolo V / Wikimedia Commons, CC BY 2.0',
-            kind: 'primary',
-            focalPoint: '62% 45%',
-            caption: 'Onstage at SoFi Stadium on Aug. 9, 2023 — the night of the 1989 (Taylor\'s Version) announcement — during the Midnights act.',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109741404%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109741404%29.jpg',
-            credit: 'Paolo Villanueva / Wikimedia Commons, CC BY 2.0',
-            kind: 'primary',
-            focalPoint: '72% 56%',
-            caption: 'The 1989 act at SoFi that same night — one of the not-so-subtle blue hints dropped across the show before the screens flipped.',
-          },
-        ],
-      },
-    },
 
     // --- The July 2016 rupture arc (2026-07-16, #695): the era's actual
     // ending — "Famous," the Snapchat receipts, and the 2020 full-call
@@ -2637,9 +2251,9 @@ export default {
       thumbnailUrl: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
       relatedIds: [
         'moment:vault-1989-the-night-famous-premiered-and-she-said-no',
-        'moment:vault-1989-the-full-call-leaks-and-she-was-telling-the-truth',
-        'moment:vault-reputation-the-snake-video-that-announced-reputation',
-        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-lover-the-full-call-leaks-and-she-was-telling-the-truth',
+        'moment:vault-1989-the-snake-video-that-announced-reputation',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
         'moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic',
         'moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix',
       ],
@@ -2742,82 +2356,6 @@ export default {
         ],
       },
     },
-    {
-      year: 2020,
-      month: 3,
-      day: 20,
-      category: 'music',
-      significance: 'defining', // the four-year saga's actual resolution — vindication on tape (docs/decisions.md, 2026-07-19)
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-89-6", label: "Full call leaks", kind: "life" },
-      title: 'The full call leaks, and she was telling the truth',
-      snippet:
-        'Four years after the Snapchat clips, the full 25-minute "Famous" call leaks — and the "that bitch" line is nowhere in it. He never read it to her. Her response points everyone to Feeding America instead.',
-      sourceUrl: 'https://variety.com/2020/music/news/taylor-swift-kanye-west-phone-call-leaks-read-full-transcript-1203541363/',
-      thumbnailUrl: null,
-      relatedIds: [
-        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
-        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
-      ],
-      moment: {
-        context:
-          'Late on the night of March 20, 2020, the unedited call — all 25 minutes of it — surfaced online, and Variety transcribed every word. The full recording showed what the 2016 Snapchat edit had left out: West never read her the "I made that bitch famous" line she was accused of approving. The conversation she\'d described in her original statement was the conversation that had actually happened.\n\nHer response, on Instagram Stories, didn\'t relitigate: the footage proved "that I was telling the truth the whole time about *that call* (you know, the one that was illegally recorded, that somebody edited and manipulated in order to frame me)" — and then, with the world a week into pandemic lockdown, she pointed followers to Feeding America and the World Health Organization instead: "If you have the ability to, please join me in donating during this crisis."\n\nFour years of "liar" and snake emojis, answered by the tape itself — the vindication reputation had been written without.\n\nIt did not settle cleanly. Days later, on March 24, Kim Kardashian pushed back on Twitter — calling the reopened dispute "very self-serving given the suffering millions of real victims are facing right now" in the first weeks of the pandemic, disputing Taylor\'s account of the call, and saying it was the last time she would address it. Taylor\'s publicist, Tree Paine, answered in kind: "this is my UNEDITED original statement. Btw, when you take parts out, that\'s editing. P.S. who did you guys piss off to leak that video?" Fans flooded Kardashian\'s replies with #KimKardashianIsOverParty and rat emojis; how the full tape leaked at all was never established.',
-        sources: [
-          {
-            outlet: 'Variety',
-            url: 'https://variety.com/2020/music/news/taylor-swift-kanye-west-phone-call-leaks-read-full-transcript-1203541363/',
-          },
-          {
-            outlet: 'Global News',
-            url: 'https://globalnews.ca/news/6717438/taylor-swift-kanye-west-full-leaked-phone-call/',
-          },
-          {
-            outlet: 'NME',
-            url: 'https://www.nme.com/news/music/taylor-swift-says-she-was-framed-as-2016-phone-call-with-kanye-west-leaks-online-2633977',
-          },
-          {
-            // Depth pass (Answerer, 2026-08-19): sources the March 24 2020
-            // aftermath added above — Kardashian's pushback tweets, Tree
-            // Paine's reply, and the #KimKardashianIsOverParty backlash.
-            outlet: 'The Hollywood Reporter',
-            url: 'https://www.hollywoodreporter.com/news/general-news/kim-kardashian-blasts-taylor-swift-leaked-kanye-phone-call-video-1286120/',
-          },
-        ],
-        // Photo pass 2026-07-19 (defining-events-31-50): genuinely thin —
-        // this is a March 2020 pandemic-lockdown, Instagram-Stories-only
-        // event with no public appearance or press photo op of its own.
-        // 3 real, verified reference photos: the most recent public sighting
-        // of both parties before the leak, none claiming to depict the leak
-        // itself.
-        photos: [
-          {
-            url: 'https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556',
-            credit: 'Deseret News',
-            caption: 'Taylor at the "Miss Americana" Sundance premiere, Jan. 23, 2020 — her last major public appearance before the leak and the pandemic lockdown that followed weeks later.',
-            kind: 'reference',
-            // Over-the-shoulder pose; her face sits upper-left of center.
-            focalPoint: '40% 25%',
-          },
-          {
-            url: 'https://hollywoodlife.com/wp-content/uploads/2020/03/taylor-swift-kimye-full-phone-call-leaked-rex-ftr-1-1.jpg',
-            credit: 'Rex, via HollywoodLife',
-            caption: 'A composite of both parties around this period: Taylor at Sundance, West and Kardashian at a 2020 event.',
-            kind: 'reference',
-            // Left/right split composite; all faces read in the upper band.
-            focalPoint: '50% 22%',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Kim_Kardashian_and_Kanye_West_at_the_Met_Gala_in_2019.png',
-            credit: 'Cosmopolitan UK, Wikimedia Commons (CC BY 3.0)',
-            caption: 'Kardashian and West in 2019, the year before the full call surfaced.',
-            kind: 'reference',
-            // Two faces center-frame, West a touch higher than Kardashian.
-            focalPoint: '46% 40%',
-          },
-        ],
-      },
-    },
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
@@ -2873,79 +2411,6 @@ export default {
         // caption). Every figure verified against the sources above.
         context:
           "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world. She named it for her birth year and built it as a deliberate rebirth in the image of the decade's synthesizer records, making Max Martin her co-executive producer and cutting it with him, Shellback, Jack Antonoff, and Ryan Tedder — the country instrumentation gone entirely, on purpose.\n\nAny doubt about the gamble was settled in a week. 1989 opened at No. 1 on the Billboard 200 with 1.287 million copies — the first album released in 2014 to sell a million at all — and made her the first artist ever with three albums each selling a million copies in their first week, after Speak Now and Red. It went on to spend 11 weeks at No. 1, and the era it opened ran a full three years: back-to-back No. 1 singles, the highest-grossing tour of 2015, and a second Album of the Year Grammy.",
-      },
-    },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "1989-shake-it-off",
-      // Cross-links (depth pass 2026-08-12): the sibling moments this
-      // headline stub summarizes — the song's own story and its Diamond cert.
-      relatedIds: [
-        'moment:vault-1989-shake-it-off-and-the-pivot-from-victim-to-punchline-maker',
-        'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
-      ],
-      year: 2014,
-      month: 8,
-      day: 18,
-      category: "music",
-      title: "“Shake It Off” launches the era",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
-      // Corrected 2026-08-11 with the citation added below: the debut was a
-      // Yahoo/ABC live-stream from the Empire State Building observation
-      // deck, not a stadium (TheWrap). The old wording contradicted the
-      // source this moment now cites.
-      snippet:
-        "A lead single announces the full pop pivot from the top of the Empire State Building.",
-      video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
-      moment: {
-        sources: [
-          {
-            outlet: 'TheWrap',
-            url: 'https://www.thewrap.com/taylor-swift-drops-shake-it-off-from-the-empire-state-building-video/',
-            source_title: 'Taylor Swift Drops \'Shake It Off\' From the Empire State Building (Video)',
-            publisher: 'TheWrap',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/',
-            source_title: 'Taylor Swift\'s \'Shake It Off\' Debuts At No. 1',
-            publisher: 'Forbes',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-          // Depth pass 2026-08-12 (rows-per-month audit): livestream details,
-          // Romanek video, 22nd-ever No. 1 debut, four weeks at No. 1, and
-          // the later Diamond certification verified here.
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Shake_It_Off',
-            source_title: 'Shake It Off — Wikipedia',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-08-12',
-            reliability_score: 2,
-          },
-        ],
-        // Deepened 2026-08-12 (depth audit: era-headline item was a 114-char
-        // caption). Every figure verified against the sources above.
-        context:
-          "The whole pivot was announced in one afternoon. In a worldwide Yahoo/ABC livestream on August 18, 2014, from the Empire State Building's observation deck, she named the new album 1989, called it her first documented, official pop record, set the October 27 date, and dropped the lead single and its Mark Romanek-directed video on the spot. The video played the critics' harshest read of her — the awkward over-earnest dancer — for laughs, planting her mid-frame in troupes of professionals (ballet, breakdance, cheer squads) whose moves she cheerfully failed to keep up with.\n\nThe single became just the 22nd song in Hot 100 history to debut at No. 1, her second US No. 1 overall, and held the top spot for four nonconsecutive weeks while staying in the top ten for nearly six months. Years later the RIAA certified it Diamond — ten million units — making her the first woman with both a Diamond single and a Diamond album (Fearless).",
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
-            focalPoint: '46% 55%',
-            credit: 'Big Machine Records / YouTube (official video still)',
-            caption: 'Taylor crawls through a row of dancers\' legs in the "Shake It Off" video — the lead single that opened the pop era.',
-            kind: 'primary',
-          },
-        ],
       },
     },
     {
@@ -3216,6 +2681,589 @@ export default {
             caption:
               "On the 58th Grammy Awards red carpet, February 15, 2016 — the night 1989 won Album of the Year, making Taylor the first woman to win the top Grammy twice.",
             kind: "primary",
+          },
+        ],
+      },
+    },
+
+    {
+      year: 2017,
+      month: 8,
+      day: 24,
+      category: 'music',
+      title: 'Look What You Made Me Do, and the phone call it started with',
+      snippet: 'By her own account, it began as a poem about deciding who she could trust.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+      relatedIds: [
+          'moment:vault-ttpd-thank-you-aimee-the-capitalization-does-the-talking',
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-lover-the-full-call-leaks-and-she-was-telling-the-truth',
+        // Diss-lineage thread (ledger #1530): the Showgirl "answer-record" that
+        // reviewers read as her latest entry in this same feud-song tradition.
+        'moment:vault-tloas-actually-romantic-the-diss-track-she-frames-as-a-compliment',
+      ],
+      moment: {
+        context:
+          "Released August 24, 2017 — one day after the album announcement — it began, by her account, as a poem about realizing she could only trust a few people. Jack Antonoff co-wrote and co-produced, and Right Said Fred earned writing credits for the \"I'm Too Sexy\" interpolation carrying the chorus.\n\nThe bridge stages a phone call announcing that the old Taylor \"can't come to the phone right now\" because she's dead — and she later told Rolling Stone the device played on \"a stupid phone call I shouldn't have picked up\": the 2016 Kanye West call at the center of the Kim Kardashian \"Famous\" fallout. The single ended Despacito's 16-week run at No. 1 on the Hot 100 with the largest sales-and-streaming week of 2017.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2017,
+      month: 8,
+      day: 17,
+      category: 'music',
+      significance: 'defining', // reputation's pivot: the deliberate year-long disappearance the album answers, anchored on the eve of the Aug-18 blackout that ended it (#1238)
+      relatedIds: [
+        // The re-emergence that ended the silence…
+        'moment:vault-1989-the-snake-video-that-announced-reputation',
+        // …and the July 2016 pile-on (told in the 1989 era) that caused it.
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+      ],
+      title: 'The year of silence',
+      snippet:
+        'After the summer 2016 pile-on, the most-watched woman in pop did the one thing no one expected — she vanished, and stayed gone for roughly a year.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "After the summer 2016 fallout — the leaked \"Famous\" call, Kim Kardashian's \"National Snake Day,\" the snake emojis flooding every post until Instagram tested a comment filter on her page — Taylor did the one thing nobody expected of the most-watched pop star alive: she stopped showing up. Through late 2016 and into 2017 there were no interviews, no magazine covers, no award-show appearances, no new music. The most documented woman in pop simply went quiet and let the noise run itself out without her in the frame.\n\nShe later framed the withdrawal as deliberate. \"Nobody physically saw me for a year,\" she says in the 2020 documentary Miss Americana, \"and I thought that that was what they wanted\" — a retreat that, in her telling, woke her up from \"constantly feeling that I was fighting for people's respect.\" The silence was not empty: out of view she was building the record that would answer it, reputation, which arrived November 10, 2017. The disappearance is the setup the whole era pays off — the reason the snake, when it finally slithered back onscreen that August, read as armor instead of apology.\n\nThe withdrawal was near-total, but not absolute. She skipped the 2017 award-show circuit, sat for no interviews and mounted no promotion, yet the machine kept running without her at the front of it: in December 2016 she surfaced on \"I Don't Wanna Live Forever,\" a Fifty Shades Darker duet with Zayn Malik that climbed the Hot 100, and her back catalogue kept charting on its own. The point was the absence itself. With no fresh statements to react to, the narrative that had consumed her summer had nothing left to feed on — and by the time the snake slithered back that August, the terms of the conversation had quietly reset in her favor.",
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Reputation_(album)',
+          },
+          {
+            // Depth pass #1719 (2026-08-12): third source for the 2016–17
+            // withdrawal details (skipped awards, the Zayn duet) added above.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-2017-timeline-8070261/',
+          },
+        ],
+        // Photo pass (#1238, this run): a year defined by her *not* being
+        // photographed has no honest representative image — the same reasoning
+        // the snake-teaser item below records for its social-only window. Ship
+        // text; let the photo-sparsity checker route it to Photo Enrichment
+        // rather than force an off-subject or misrepresenting crop (charter 3b).
+        photos: [],
+      },
+    },
+    {
+      year: 2017,
+      month: 8,
+      day: 21,
+      category: 'release',
+      significance: 'defining', // the visual rebirth after the Kimye-leak silence; reputation's whole aesthetic starts here (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        // The year-long silence this reveal ended (#1238).
+        'moment:vault-1989-the-year-of-silence',
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        // Cross-link (candidate #1027): the Showgirl portraits — Mert & Marcus's
+        // first Swift shoot since this reputation cover reveal.
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+      ],
+      title: 'The snake video that announced reputation',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-rep-0", label: "Snake video drops", kind: "life" },
+      snippet:
+        'She wiped her social media clean, then reappeared three days later with a slithering snake video — a reclaimed symbol before the album title and Nov. 10 release date dropped.',
+      sourceUrl: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "The blackout began August 18, 2017, when her Instagram, Twitter, Tumblr, and official website all went blank at once. At noon on August 21 came the first post-wipe post: a glitchy, fuzzy clip of what was eventually recognizable as a slithering snake tail, with more fragments following over the next two days — until August 23 brought the album title, the Mert & Marcus cover, and the November 10 release date.\n\nThe symbol was a pointed reclamation: after the July 2016 \"Famous\" fallout, when Kim Kardashian's \"National Snake Day\" tweet sent snake emojis flooding her accounts so heavily that Instagram tested a comment-filtering tool on her page, she made the snake the era's opening image.\n\nThe teaser's mechanics were as deliberate as its symbol. The August 18 wipe hit every platform at once — Instagram, Twitter, Facebook, Tumblr and her website — and she unfollowed everyone she had been following, stripping the accounts bare. The snake then arrived in three installments: the tail first, then a squirming middle, and finally a red-eyed, open-fanged head lunging at the camera, so the full animal only assembled across the three posts. The August 23 announcement kept the same three-part cadence, adding that the lead single, \"Look What You Made Me Do,\" would land the following night. What a year earlier had been an insult hurled at her — Kim Kardashian's snake emojis — she had turned into a mark she owned outright, opening the era on her own terms. Commentators read the reclamation as a textbook act of narrative control: rather than deny the meme, she absorbed it, so the symbol used to shame her became the era's logo, the tour's animatronic set pieces, and the visual signature of a best-selling comeback.",
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-new-album-7941019/',
+          },
+          {
+            // Depth pass #1719 (2026-08-12): third source for the three-part
+            // teaser / blackout mechanics added to the narrative.
+            outlet: 'Fortune',
+            url: 'https://fortune.com/2017/08/21/taylor-swift-instagram-new-album',
+          },
+        ],
+        // T16 photo pass (2026-07-09): the Instagram teaser frames themselves are
+        // unhostable-quality glitch fragments; the Mert & Marcus cover revealed on
+        // August 23 is the artifact the teasers built to. Wikipedia's stable
+        // upload.wikimedia.org copy, verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): re-checked — the snake
+        // clip still lives only in Instagram embeds (UPI 403s, CBS/Billboard
+        // embed rather than host a frame), so the T16 judgment stands and the
+        // page stays at one image. Focal point set by eye this run.
+        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): re-challenged
+        // a third time — CBS News and Billboard's own teaser-story pages
+        // still only embed the Instagram clips rather than host a frame
+        // (confirmed again this pass). Genuinely no photographable content
+        // exists for this specific 3-day, social-only teaser window: no
+        // press photography, no hostable video frame. Added the tour's later
+        // full-size snake payoff (already verified for the Stadium Tour
+        // item, reused here under the checker's 3-use limit) rather than
+        // leave this at one image, but did not force fabricated or
+        // low-confidence sourcing to hit a photo count on a story this thin.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
+            credit: 'Big Machine Records',
+            caption: 'The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.',
+            kind: 'archival',
+            focalPoint: '42% 35%',
+          },
+          {
+            url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956288820-1.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '55% 35%',
+            credit: 'Kevin Mazur/Getty Images for TAS, via NME',
+            caption: 'The reclaimed snake\'s full-size payoff, a year later: the reputation Stadium Tour\'s animatronic mascot, fans nicknamed her Karyn.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            // Photo pass #762 (2026-08-01): same frame as the Stadium Tour
+            // page above — matching that page's focal point for consistency.
+            focalPoint: '68% 55%',
+            credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Golden snake set pieces on the reputation Stadium Tour, Seattle, May 2018 — the visual language this teaser opened.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      year: 2017,
+      month: 11,
+      day: 9,
+      category: 'music',
+      title: "New Year's Day closes reputation on a quiet, acoustic note",
+      snippet: 'After an album about scandal and revenge, the final track is a piano ballad about who does the dishes the morning after.',
+      sourceUrl: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)",
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written and produced with Jack Antonoff, it got the era\'s first televised moment: a living-room performance taped at her Rhode Island home during a secret session, fans swaying around the piano, aired mid-episode during ABC\'s Scandal on November 9, 2017 — hours before the album dropped at midnight.\n\nSent to country radio weeks later, it became her first entry on a Billboard country chart since 2013. Her reasoning for the song itself: "I think there\'s something even more romantic about who\'s gonna deal with you on New Year\'s Day. Who\'s willing to give you Advil and clean up the house? I think that states more of a permanence."',
+        sources: [
+          { outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)" },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-new-years-day-video-live-scandal-8031153/',
+          },
+        ],
+        // T16 photo pass (2026-07-09): Wikimedia Commons, CC BY-SA 2.0, author
+        // Ronald Woan — license verified on the file page this session; the song
+        // lived on the tour as the piano mashup this photo captures.
+        // Photo-enrichment pass (2026-07-18, #762): added two ABC stills of the
+        // actual televised moment this item describes — the candlelit Rhode
+        // Island living-room performance aired during Scandal — from ABC News's
+        // own article on the premiere (s.abcnews.com, allowed CDN). Both
+        // curl-verified 200 + image/jpeg, downloaded and vision-confirmed
+        // (grand piano, candles, ABC bug, ring of fans) this run.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
+            caption: "At the reputation piano in Seattle, May 22, 2018 — on tour the song was performed as a “Long Live / New Year's Day” piano mashup.",
+            kind: 'archival',
+            focalPoint: '48% 20%',
+          },
+          {
+            url: 'https://s.abcnews.com/images/Entertainment/gma-tay-swift-piano-abc-hb-171109_16x9_992.jpg',
+            credit: 'ABC',
+            caption:
+              'The candlelit living-room performance taped at her Rhode Island home, aired during Scandal on November 9, 2017 — 100 hand-picked fans around the piano.',
+            kind: 'primary',
+            focalPoint: '72% 35%',
+          },
+          {
+            url: 'https://s.abcnews.com/images/Entertainment/gma-tay-swift-piano03-abc-hb-171109_16x9_992.jpg',
+            credit: 'ABC',
+            caption: 'At the piano mid-performance in the ABC broadcast, the night before reputation dropped.',
+            kind: 'primary',
+            focalPoint: '40% 42%',
+          },
+        ],
+      },
+    },
+    {
+      year: 2017,
+      month: 8,
+      day: 27,
+      category: 'fashion',
+      // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
+      // moments. ("...and the phone call it started with" already sits at
+      // the 4-link rail cap with other curated links, so this points only
+      // at the video-record moment; not modifying that page's existing set.)
+      relatedIds: [
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-1989-the-look-what-you-made-me-do-video-shatters-youtubes-24-hour',
+      ],
+      title: 'Zombie makeup for Look What You Made Me Do',
+      snippet:
+        'The grave-crawling zombie look that opens the video was created by Bill Corso — the makeup artist behind Deadpool\'s scarred face — confirmed on record by director Joseph Kahn.',
+      sourceUrl: 'https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          'Director Joseph Kahn confirmed via Twitter that special-makeup artist Bill Corso — who did Ryan Reynolds\' scarred prosthetic look in "Deadpool" — created zombie Taylor for the opening graveyard scene, a look deliberately pitched as the antithesis of her earlier, more polished eras.\n\nThe video was a seven-month build overall, conceived in January and shot over five days in Los Angeles that May, and the practical effects didn\'t stop at the makeup: the diamonds she bathes in were real, supplied by jeweler Neil Lane and valued at over $12 million.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing',
+          },
+        ],
+        // T-img pass (2026-07-10): swapped the video's bathtub-scene YouTube
+        // thumbnail for Billboard's behind-the-scenes zombie-transformation
+        // photo — verified HTTP 200 + image/jpeg and eyeballed this session;
+        // it actually shows the graveyard zombie makeup the moment is about.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
+            // Face left-of-center at mid-height in this landscape frame.
+            focalPoint: '42% 40%',
+            credit: 'Billboard',
+            caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.",
+            kind: 'archival',
+          },
+        ],
+        // Shop pass (2026-07-22): a makeup/SFX look, not a garment --
+        // offering a real zombie SFX kit rather than forcing a clothing
+        // link onto a beauty item.
+        products: [
+          {
+            brand: 'Mehron',
+            item: 'Zombie Professional Makeup Kit',
+            retailer: 'jestpaint.com',
+            url: 'https://jestpaint.com/products/mehron-premium-makeup-kit-new-zombie-professional-makeup-kit-kmp-ez',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0030/9316/8186/products/KMP-Z-2__82482.1644251720-NewProfessioalZombiemakeupkit.jpg?v=1654884380',
+            price: '$20.19',
+            isAlternative: true,
+            altNote: 'Bill Corso\'s bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2017,
+      month: 11,
+      day: 3,
+      category: 'music',
+      title: 'Call It What You Want closes the arc: rebellion, then falling in love',
+      snippet:
+        "\"It starts with...rebellion, or anger, or angst...and then falling in love, and realizing you settle into what your priorities are\" — her own map of reputation, with this song as the landing point.",
+      sourceUrl:
+        'https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 14, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."\n\nFans got it a week before the album: released November 3, 2017 as the rollout\'s final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Taylor in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album\'s back half describes.',
+        sources: [
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Call_It_What_You_Want_(Taylor_Swift_song)',
+          },
+        ],
+        // T16 photo pass (2026-07-09): single art via Wikimedia Commons (file
+        // page license: Public domain — text-only artwork below the threshold
+        // of originality). Verified HTTP 200 + image/jpeg and visually checked.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Taylor_Swift_-_Call_It_What_You_Want.jpg',
+            credit: 'Big Machine Records, via Wikimedia Commons',
+            caption: 'Single art for "Call It What You Want," released November 3, 2017 — the handwritten title on kraft paper.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+
+    // --- Deep timeline fill (2026-07-08): rollout, tour, business, and
+    // relationship depth — the era's biggest business stories (the political
+    // post, the UMG deal) were missing entirely. New items carry the audit's
+    // additive provenance fields (slug + publisher/source_type/accessed_at/
+    // reliability_score alongside legacy {outlet,url}), same convention as
+    // the-life-of-a-showgirl.mjs. Every claim verified against its cited
+    // source via search on 2026-07-08; no fabrication. Photos deliberately
+    // omitted where no already-verified image URL exists.
+    {
+      slug: 'rep-lwymmd-video-youtube-record',
+      significance: 'notable', // a real streaming record and the era's single most-discussed visual statement (docs/decisions.md, 2026-07-19)
+      // Cross-link (Stage 3, 2026-07-27): sibling "Look What You Made Me Do"
+      // moment. One-directional to the song-backstory moment (2026-08-03):
+      // that moment is already at the ~4-link cap, so this side carries the
+      // pointer instead of bumping a curated link there.
+      relatedIds: [
+        'moment:vault-1989-the-snake-video-that-announced-reputation',
+        'moment:vault-1989-zombie-makeup-for-look-what-you-made-me-do',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+      ],
+      year: 2017,
+      month: 8,
+      day: 27,
+      category: 'release',
+      title: 'The Look What You Made Me Do video shatters YouTube\'s 24-hour record',
+      snippet:
+        'Premiered at the VMAs on August 27, 2017, then racked up 43.2 million views in a day — past Psy, past Adele — averaging 30,000 views a minute.',
+      sourceUrl: 'https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+      moment: {
+        context:
+          'Joseph Kahn\'s video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy\'s "Gentleman" (36 million YouTube views) and Adele\'s "Hello" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day Spotify streams and fastest-selling digital single.\n\nThe records stacked up across platforms at once: hourly viewing peaked above 3 million, the lyric video set YouTube\'s first-day record for that format, and the single took Spotify\'s global first-24-hours streaming mark too. The stage for all of it was pointed — the video premiered at the MTV Video Music Awards, the same show where the 2009 interruption that opens this whole story had happened eight years earlier.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/',
+            source_title: "Taylor Swift's 'Look What You Made Me Do' Smashes YouTube's 24-Hour Record",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-psy-youtube-24-hour-streams-record/',
+            source_title: "Taylor Swift's 'Look What You Made Me Do' Sets YouTube 24-Hour Streams Record",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18, #762): added a frame of the video
+        // this record is about — the bathtub-of-diamonds scene from Joseph
+        // Kahn's LWYMMD video. Video id 3tmd-ClpJxA verified via YouTube
+        // oEmbed this run: title "Taylor Swift - Look What You Made Me Do",
+        // channel @TaylorSwift (official); maxresdefault 404s so this uses
+        // hqdefault, same pattern as the vault's other official stills.
+        // Downloaded and vision-confirmed this run.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+            credit: 'Big Machine Records',
+            focalPoint: '65% 42%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption:
+              "The bathtub-of-diamonds scene from Joseph Kahn's video — the clip that pulled 43.2 million views in its first 24 hours.",
+            kind: 'archival',
+            focalPoint: '64% 40%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'rep-ready-for-it-college-football',
+      year: 2017,
+      month: 9,
+      day: 2,
+      category: 'release',
+      title: '...Ready for It? debuts inside a college football broadcast',
+      snippet:
+        'The album\'s opener premiered September 2, 2017, soundtracking a hype promo for Alabama vs. Florida State on ABC — reputation\'s second single, delivered to a stadium audience before pop radio got it.',
+      sourceUrl: 'https://variety.com/2017/music/news/taylor-swift-teases-ready-for-it-espn-football-1202546044/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The minute-long clip scored footage of the teams taking the field during the ABC/ESPN broadcast, with the full song hitting streaming that night and radio the next morning.\n\nThe album\'s opening track became its second single officially on October 24, 2017, peaking at No. 4 on the Hot 100, and Joseph Kahn\'s video — a human Taylor dueling her own cyborg double inside a neon compound — followed on October 26. Dropping a pop single through a football telecast read very differently six years later, once the NFL became part of her story.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2017/music/news/taylor-swift-teases-ready-for-it-espn-football-1202546044/',
+            source_title: "Taylor Swift Teases New Song 'Ready For It' on ESPN College Football",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/ca/news/877508/taylor-swift-teases-brand-new-song-ready-for-it-during-college-football-game',
+            source_title: 'Taylor Swift Releases New Song "...Ready For It?" After Teasing It During College Football Game',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/...Ready_for_It%3F',
+            source_title: '...Ready for It?',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
+            reliability_score: 2,
+          },
+        ],
+        // T16 photo pass (2026-07-09): official music-video still. Video id
+        // wIft-t-MQuE verified via YouTube oEmbed this session — title "Taylor
+        // Swift - ...Ready For It?", channel @TaylorSwift (official). The
+        // Wikipedia single art for this track is the BloodPop Remix cover, so
+        // the video still is the more honest image for the original song.
+        // Photo-enrichment pass (2026-07-18, #762): no still of the ABC
+        // broadcast promo itself exists outside the telecast, so the second
+        // image is the song's other life — opening every reputation Stadium
+        // Tour show. Commons CC BY-SA 2.0 (Ronald Woan, Seattle, May 22,
+        // 2018), license verified on the file page; downloaded and
+        // vision-confirmed this run.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/wIft-t-MQuE/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: "From Joseph Kahn's \"...Ready for It?\" video, released October 26, 2017 — human Taylor eye to eye with her cyborg double.",
+            kind: 'archival',
+            focalPoint: '54% 50%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Ready_for_It.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'Performing "...Ready for It?" — the show opener on the reputation Stadium Tour — in Seattle, May 22, 2018.',
+            kind: 'archival',
+            focalPoint: '48% 14%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'rep-gorgeous-baby-voice',
+      year: 2017,
+      month: 10,
+      day: 20,
+      category: 'music',
+      title: 'Gorgeous opens with a baby saying the title — Blake and Ryan\'s daughter',
+      snippet:
+        'Released October 20, 2017: the giddy track five preview of the album\'s softer side, with a liner-notes credit fans obsessed over — "baby intro voice" by James Reynolds, Blake Lively and Ryan Reynolds\' daughter.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The third track released ahead of reputation swapped the vengeful lead-single mode for flustered crush comedy, and it debuted at No. 13 on the Hot 100 — proof the rollout\'s pull didn\'t depend on a revenge narrative.\n\nThe one-word cameo came about after Taylor played a demo for Lively and Reynolds and their toddler kept repeating "gorgeous" — the credit made her the youngest name in the album\'s liner notes, and the kind of decodable detail (which friend? whose baby?) that kept fans treating every liner-note line of this era as a puzzle.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)',
+            source_title: 'Gorgeous (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2017/10/20/taylor-swift-drops-new-single-gorgeous-from-upcoming-album-reputation/',
+            source_title: "Taylor Swift Drops New Single 'Gorgeous' From Upcoming Album 'Reputation'",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // T16 photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy (exact filename from the article HTML).
+        // Verified HTTP 200 + image/png and visually checked this session.
+        // Photo-enrichment pass (2026-07-18, #762): added the official lyric
+        // video's frame — the reputation-era newsprint portrait with the
+        // handwritten "Gorgeous" scrawl. Video id EUoe7cf0HYw verified via
+        // YouTube oEmbed this run: title "Taylor Swift - Gorgeous (Lyric
+        // Video)", channel @TaylorSwift (official). Downloaded and
+        // vision-confirmed this run. Cover-art focal genuinely centered
+        // (text-only wordmark) — looked, not defaulted.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/71/Gorgeous_Taylor.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover art for "Gorgeous," released October 20, 2017.',
+            kind: 'primary',
+            focalPoint: '50% 50%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/EUoe7cf0HYw/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'From the official "Gorgeous" lyric video — the album\'s newsprint visual language, released with the single on October 20, 2017.',
+            kind: 'archival',
+            focalPoint: '63% 38%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'rep-secret-sessions',
+      // Cross-link (vault-run 2026-08-06): the 1989 Secret Sessions — where the
+      // living-room-listening-party tradition began.
+      relatedIds: ['moment:vault-1989-the-secret-sessions-89-fans-at-a-time-in-her-living-rooms'],
+      year: 2017,
+      month: 10,
+      day: 13,
+      category: 'release',
+      title: 'The reputation Secret Sessions: 500 fans, four houses, zero leaks',
+      snippet:
+        'London on October 13, Rhode Island on the 18th and 19th, LA on the 22nd, Nashville on the 25th — she played reputation to 500 hand-picked fans in her own homes, and not one song leaked.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Reviving the 1989 rollout ritual, Taylor selected fans from social media herself and talked through each track before playing it. For an album rolled out with almost no press interviews, the living-room listening parties were the promotional strategy.\n\nABC\'s cameras got the only outside look: behind-the-scenes footage that aired on Good Morning America on November 7, 2017, three days before release, showing her dancing through a candle-lit living room of fans. The secrecy ran both ways — one attendee told ABC News they\'d "left the country in secret" to fly in from Ireland without telling friends, and a Rhode Island guest summed up the pitch of the whole exercise: "she just felt like my best friend."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/',
+            source_title: "Taylor Swift 'Reputation' Secret Sessions: Fans Listen to Album in London",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/Entertainment/exclusive-1st-inside-taylor-swifts-secret-sessions-reputation/story?id=50973344',
+            source_title: "Exclusive 1st look inside Taylor Swift's secret sessions for 'Reputation'",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        // T16 photo pass (2026-07-09): frame from the cited ABC News exclusive
+        // (their behind-the-scenes footage of a session). Verified HTTP 200 +
+        // image/jpeg and visually confirmed (Swift dancing in a living room of
+        // fans) this session.
+        photos: [
+          {
+            url: 'https://s.abcnews.com/images/Entertainment/taylor-swift-2-ht-mem-171107_16x9_992.jpg',
+            credit: 'ABC News',
+            caption: "Inside a reputation Secret Session, from the behind-the-scenes footage ABC aired on November 7, 2017.",
+            kind: 'archival',
           },
         ],
       },

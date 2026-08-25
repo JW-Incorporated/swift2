@@ -29,7 +29,7 @@ export default {
       // and the record-shattering debut week that followed.
       relatedIds: [
           'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
-          'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+          'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
         'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
@@ -196,7 +196,7 @@ export default {
         'moment:vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati',
         // Cross-link (candidate #1027): Mert & Marcus's first Swift shoot since
         // reputation, whose cover debuted in the snake-video reveal.
-        'moment:vault-reputation-the-snake-video-that-announced-reputation',
+        'moment:vault-1989-the-snake-video-that-announced-reputation',
       ],
       title: 'The showgirl portraits: Mert and Marcus, rhinestones, and an Ophelia bathtub cover',
       snippet:
@@ -1769,7 +1769,7 @@ export default {
       // masters/Big Machine story critics read the song as retelling from the
       // patron's side.
       relatedIds: [
-          'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+          'moment:vault-reputation-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
       ],
@@ -2421,7 +2421,7 @@ export default {
         'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
         // Diss-lineage thread (ledger #1530): her signature "answer-record"
         // predecessor, itself the anchor of the reputation feud-song thread.
-        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       year: 2025,
       month: 10,
@@ -3541,9 +3541,9 @@ export default {
       relatedIds: [
           'moment:vault-tloas-stevie-knicks-courtside-the-garden-three-weeks-before-the-we',
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
+        'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-ttpd-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
         'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
         'moment:vault-tloas-wedding-plans-teased-from-a-british-chat-show-couch',
         'moment:vault-tloas-new-york-city-confirms-the-price-tag-on-taylors-wedding-over',
@@ -4611,7 +4611,7 @@ export default {
       day: 20,
       category: 'relationship',
       relatedIds: [
-          'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+          'moment:vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
       ],
@@ -5989,550 +5989,6 @@ export default {
         ],
       },
     },
-    {
-      slug: 'showgirl-engagement-announcement',
-      // Pull-quote for the derived End Game thread card (stage 3, 2026-07-19).
-      pullQuote: '“Your English teacher and your gym teacher are getting married.”',
-      significance: 'defining', // the direct precursor to the wedding, one of the most-repeated cultural moments of 2025 (docs/decisions.md, 2026-07-19)
-      threadIds: ['the-proposal'],
-      relatedIds: [
-          'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
-        'moment:vault-midnights-the-game-the-world-decided-made-it-official',
-        'moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in',
-        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
-        // Engagement cluster completed (2026-07-21, depth ledger #987 Q8):
-        // its direct Showgirl siblings — the ring, the look, the New Heights
-        // proposal story, and the ring-designer wedding-invite sequel.
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
-        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
-        'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
-      ],
-      year: 2025,
-      month: 8,
-      day: 26,
-      category: 'relationship',
-      title: '"Your English teacher and your gym teacher are getting married": the engagement, announced on Instagram',
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-tloas-1b", label: "Engagement announced", kind: "life" },
-      snippet:
-        'Two weeks after the New Heights album reveal, Taylor and Travis announced their engagement in a joint Instagram post — a garden proposal, an Old Mine Cut diamond in yellow gold, and a caption that became the year\'s most-repeated line.',
-      sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
-      thumbnailUrl:
-        'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
-      moment: {
-        // The post this page is ABOUT (issue #762 Part B). Shortcode taken
-        // from the permalink Variety, Rolling Stone, THR, CNN and Today all
-        // embed, and verified by rendering instagram.com/p/DN02niAXMM-/embed/
-        // captioned: the taylorswift verified account, caption "Your English
-        // teacher and your gym teacher are getting married 🧨", the garden-
-        // proposal carousel. Embedded rather than hotlinked because Instagram
-        // CDN urls are signed/expiring and the host is not on the allowlist.
-        socialPost: {
-          platform: 'instagram',
-          shortcode: 'DN02niAXMM-',
-          label:
-            'The engagement announcement itself: a garden-proposal carousel, captioned "Your English teacher and your gym teacher are getting married 🧨."',
-          postedOn: '2025-08-26',
-        },
-        context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Taylor used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Taylor\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Taylor in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at his home in Leawood, Kansas (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). Ed Kelce misspoke the location in his first TV interview, naming Lee\'s Summit, Missouri; Kansas City\'s own NPR station, KCUR, ran a correction the next day confirming Leawood once fans geolocated the photos to Kelce\'s house. On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Taylor detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Leawood backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Taylor\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
-        // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
-        // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
-        // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
-        // CDN URLs are signed/ephemeral and were skipped on purpose. Each URL
-        // verified HTTP 200 + image/jpeg this session. Supersedes the old
-        // no-embed note; the IG permalink stays cited as the primary source.
-        sources: [
-          {
-            outlet: 'Instagram (@taylorswift, official joint post)',
-            url: 'https://www.instagram.com/p/DN02niAXMM-/',
-            source_title: 'Taylor Swift & Travis Kelce engagement announcement (joint post)',
-            publisher: 'Instagram',
-            source_type: 'social',
-            accessed_at: '2026-07-09',
-            reliability_score: 5,
-          },
-          {
-            outlet: 'ABC News',
-            url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
-            source_title: 'Taylor Swift, Travis Kelce are married: See their relationship timeline',
-            publisher: 'ABC News',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Yahoo Lifestyle',
-            url: 'https://www.yahoo.com/lifestyle/article/a-look-back-at-taylor-swifts-one-of-a-kind-vintage-inspired-engagement-ring-from-travis-kelce-194728425.html',
-            source_title: "Taylor Swift's engagement ring from Travis Kelce is one of a kind, vintage-inspired and really expensive",
-            publisher: 'Yahoo Lifestyle',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 3,
-          },
-          // Carat-range reconciliation (2026-07-13, ticket #615 item 3): this
-          // item said "7 to 10 carats" while the TTPD ring item said "8 to
-          // 15" — the site contradicted itself. Unified both to the full
-          // documented spread: named-expert estimates run from 7-8 carats
-          // (Lauren B. Shmueli, Simone Kendle via Today) through ~8 (Benjamin
-          // Khordipour via Fortune) up to 10-15 (Deborah Villepigue via
-          // Forbes). Today source added below as the low-end anchor.
-          {
-            outlet: 'Today',
-            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776',
-            source_title: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses",
-            publisher: 'Today',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-13',
-            reliability_score: 4,
-          },
-          // Location correction (2026-07-30, ticket #615): Ed Kelce misspoke
-          // the proposal city as Lee's Summit, Missouri in his first TV
-          // interview; KCUR (Kansas City's NPR station) ran the correction
-          // the next day confirming Leawood, Kansas once fans geolocated the
-          // photos. Body text updated to match; KCUR added as the source.
-          {
-            outlet: 'KCUR',
-            url: 'https://www.kcur.org/arts-life/2025-08-27/taylor-swift-travis-kelce-proposal-leawood-lees-summit-engagement',
-            source_title: 'Travis Kelce proposed to Taylor Swift in Leawood, not Lee\'s Summit',
-            publisher: 'KCUR (Kansas City NPR)',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-30',
-            reliability_score: 5,
-          },
-          // Depth ledger #987 (2026-07-21): Instagram records, the proposal
-          // timing/setting, and named on-the-record reactions.
-          {
-            outlet: 'The Hollywood Reporter',
-            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/taylor-swift-travis-kelce-engagement-instagram-record-1236354963/',
-            source_title: "Taylor Swift and Travis Kelce's Engagement Post Breaks Instagram Record",
-            publisher: 'The Hollywood Reporter',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'CNN',
-            url: 'https://www.cnn.com/2025/08/26/entertainment/taylor-swift-travis-kelce-engagement',
-            source_title: 'Taylor Swift and Travis Kelce are engaged',
-            publisher: 'CNN',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Today',
-            url: 'https://www.today.com/popculture/live-blog/taylor-swift-travis-kelce-engagement-live-updates-rcna227298',
-            source_title: 'Taylor Swift, Travis Kelce Announce Engagement: See the Ring, Photos, Celeb Reactions',
-            publisher: 'Today',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          // Depth ledger #1468 (2026-07-25): the production/provenance of the
-          // proposal scene — Swift's Graham Norton account (the secret-garden
-          // build, the hidden tour photographer), Ed Kelce on the florists
-          // hiding, the florist-catalogued flowers + cost, and the caption's
-          // documented meme afterlife.
-          {
-            outlet: 'TMZ',
-            url: 'https://www.tmz.com/2025/10/03/taylor-swift-travis-kelce-proposal-graham-norton-show/',
-            source_title: "Taylor Swift Details Travis Kelce Proposal on 'The Graham Norton Show'",
-            publisher: 'TMZ',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-25',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'HGTV',
-            url: 'https://www.hgtv.com/outdoors/gardens/what-to-know-about-taylor-swifts-engagement-garden',
-            source_title: "Taylor Swift's Engagement Garden's Secret Meaning Behind Flowers and Plants",
-            publisher: 'HGTV',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-25',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'AOL',
-            url: 'https://www.aol.com/taylor-swift-travis-kelce-engagement-205620651.html',
-            source_title: 'Kansas City florist analyzes Taylor Swift and Travis Kelce dreamy proposal flowers',
-            publisher: 'AOL',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-25',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Know Your Meme',
-            url: 'https://knowyourmeme.com/memes/your-english-teacher-and-your-gym-teacher-are-getting-married',
-            source_title: 'Your English Teacher and Your Gym Teacher Are Getting Married',
-            publisher: 'Know Your Meme',
-            source_type: 'reference',
-            accessed_at: '2026-07-25',
-            reliability_score: 2,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The proposal, from the couple\'s official announcement post: Kelce and Taylor beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.',
-            kind: 'primary',
-            // Focal points below set 2026-07-18 (photo-enrichment run 2, #762)
-            // by downloading and viewing each frame. The couple stands mid-frame,
-            // slightly right of center in the wide garden scene.
-            focalPoint: '52% 50%',
-          },
-          {
-            // 2026-07-18: the wide garden-staging carousel shot on ABC's CDN;
-            // verified 200 + image/jpeg and vision-confirmed. The couple sit low
-            // in a tall frame, so the focal point anchors down to keep them.
-            url: 'https://i.abcnewsfe.com/a/826038ad-f638-4da8-9501-08748f22125b/swift-kelce-engagement-02-ht-jef-250826_1756229507971_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The scale of the staging: the couple beneath the floral arch and a flower-ringed chandelier deep in the garden — Taylor in a striped summer dress, Kelce in navy.',
-            kind: 'primary',
-            focalPoint: '50% 64%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'From the same carousel: the couple embrace among the garden flowers, the new ring visible on Taylor\'s hand.',
-            kind: 'primary',
-            // Foreheads-together close-up; both faces sit upper-center.
-            focalPoint: '47% 30%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.',
-            kind: 'primary',
-            // The diamond itself sits dead-center, slightly above middle.
-            focalPoint: '50% 42%',
-          },
-          // Photo depth pass (round 2, 2026-07-19): the carousel ran five
-          // photos total (per context above); the gallery previously had
-          // frames 1/2/4/5 (hpMain, 02, 04, 05) but was missing frame 03 —
-          // found via ABC News' engagement-ring story, same CDN. Also added:
-          // the couple's first public sighting since the announcement,
-          // wearing the ring, two days later at a college football game.
-          // Both verified HTTP 200 + image/jpeg, downloaded and viewed this
-          // session.
-          {
-            url: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The missing frame from the carousel: the embrace right after the proposal, the new ring visible on Taylor\'s hand as she holds Kelce.',
-            kind: 'primary',
-            // Embracing couple fill the upper-center of a tall garden frame.
-            focalPoint: '48% 35%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/7896331b-7a75-44df-9649-74b77732d132/swift-kelce-01-gty-jef-250829_1756467997339_hpMain.jpg',
-            credit: 'Jamie Squire/Getty Images, via ABC News',
-            caption:
-              'Their first public sighting since the engagement: Taylor with Travis and Jason Kelce in a suite at Arrowhead Stadium for a Cincinnati Bearcats-Nebraska Cornhuskers game, Aug. 28, 2025 — two days after the announcement.',
-            kind: 'archival',
-            // The group sits mid-frame; Swift is right-of-center, face upper-middle.
-            focalPoint: '62% 55%',
-          },
-        ],
-      },
-    },
-    // --- The ring, deepened (2026-07-18, curiosity→answer pilot / Lex): moved
-    // out of tortured-poets.mjs (wrong era — this is an Aug 2025 Showgirl-era
-    // event) and consolidated with the announcement, then deepened per the
-    // founder's list: the goldsmith's story, the "shown Travis her work"
-    // provenance, celebrity-ring carat comparisons, and labeled cost/size
-    // rumors. Every claim verified against its cited source this session; the
-    // photos are the same rights-cleared ABC copies of the couple's official
-    // post used by the announcement item. Open item Lex logged and the
-    // Answerer could NOT close this pass: a rights-cleared portrait of Lubeck
-    // and a photo of the specific earlier Artifex piece Taylor showed Travis —
-    // no clean, unwatermarked source found, so none was added.
-    {
-      slug: 'showgirl-engagement-ring',
-      threadIds: ['the-proposal'],
-      relatedIds: [
-          'moment:vault-tloas-clearer-looks-at-both-wedding-bands-finally-surface',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
-        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
-        // Cluster completed (2026-07-21, depth ledger #989 Q7): the look worn
-        // in the same photos, the New Heights proposal story, and the sequel
-        // about this same designer being invited to the wedding.
-        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
-        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
-        'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
-      ],
-      year: 2025,
-      month: 8,
-      day: 26,
-      category: 'fashion',
-      title: 'The ring: an old mine diamond from a goldsmith Taylor already admired',
-      snippet:
-        'A custom old mine–cut diamond in hand-engraved yellow gold by New York goldsmith Kindred Lubeck of Artifex Fine Jewelry — whose vintage work Taylor had admired, and shown Travis, more than a year before he proposed.',
-      sourceUrl:
-        'https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand',
-      thumbnailUrl:
-        'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
-      moment: {
-        context:
-          'Travis did not walk into a jeweler and point at a case. He worked directly with Kindred Lubeck — the hand-engraver behind New York\'s Artifex Fine Jewelry — on a ring Taylor never had to spec, because he already knew the name: she had shown him Lubeck\'s vintage work admiringly more than a year before he proposed. Her verdict: "I didn\'t know what I would want, but he did somehow."\n\nLubeck, 30, is a newcomer with a craftsman\'s pedigree — the daughter of a working goldsmith, a Florida State psychology grad who took an engraving class in 2021 and got, in her words, "totally hooked." Artifex is built on hand-engraved gold and antique stones: "Hand engraving allows me to leave a piece of myself in every ring," she says, "transforming each gemstone into something that carries a story."\n\nThe stone is an old mine brilliant cut — an antique geometry from the 1700s–1800s, squarer than a modern round with a higher crown and a softer, candlelit sparkle — set in a yellow-gold band with her signature engraved arches. No carat weight was ever disclosed, so the sizes are estimates: appraisers ranged from about 7–8 carats (jewelers surveyed by Today) through a ~8–10 consensus up to 10–15, with Forbes calling 13 "very possible" — Taylor\'s signature number — at an estimated ~$650,000, and others guessing $1 million and up. That lands it below the carat monsters of celebrity lore — Kim Kardashian\'s 15- and 20-carat rings, Beyoncé\'s ~18-carat emerald cut, Elizabeth Taylor\'s 33-carat Burton diamond — and notable instead for its antique cut over its size.\n\nThe ring made Lubeck famous overnight; within months she staged a rare Sotheby\'s "Gem Drop" capsule of one-of-a-kind rings — "the chance," she said, "to bring that level of care and creativity to a larger audience." That capsule — "The Gem Drop: Kindred & Jogani," bidding Nov. 10–13 — held three one-of-a-kind rings (a 4-carat old-mine diamond, an 8-carat cognac diamond and a 5-carat blue sapphire) estimated at up to $300,000.',
-        sources: [
-          {
-            outlet: 'Complex',
-            url: 'https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand',
-            source_title: "Taylor Swift's Engagement Ring Designer Launches Her Own Brand",
-            publisher: 'Complex',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'TODAY',
-            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-jeweler-kindred-lubeck-interview-rcna238142',
-            source_title: "EXCLUSIVE: Taylor Swift's Jeweler Kindred Lubeck Talks Engagement Ring",
-            publisher: 'TODAY',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'South China Morning Post',
-            url: 'https://www.scmp.com/magazines/style/people/celebrities/article/3323318/meet-kindred-lubeck-who-designed-taylor-swifts-engagement-ring',
-            source_title: "Meet Kindred Lubeck, who designed Taylor Swift's engagement ring",
-            publisher: 'SCMP',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/celebrity-style/kindred-lubeck-artifex-sothebys-gem-drop-taylor-swift-engagement-ring/',
-            source_title: "Kindred Lubeck Is Holding a Rare Auction for Her One-of-a-Kind Pieces With Sotheby's",
-            publisher: 'Marie Claire',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 4,
-          },
-          // Depth ledger #989 (2026-07-21): the Gem Drop capsule specifics —
-          // three rings, the stones, dates and estimate.
-          {
-            outlet: "L'Officiel USA",
-            url: 'https://www.lofficielusa.com/fashion/artifex-auction-sothebys-expensive-gems-diamonds-rings',
-            source_title: "Artifex Makes Its Auction Debut With Sotheby's",
-            publisher: "L'Officiel USA",
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/maryroeloffs/2025/08/27/taylor-swifts-engagement-ring-may-be-13-carats-expert-says-and-is-worth-an-estimated-650000/',
-            source_title: "Taylor Swift's Engagement Ring May Be 13 Carats, Expert Says",
-            publisher: 'Forbes',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'TODAY',
-            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776',
-            source_title: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses",
-            publisher: 'TODAY',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-18',
-            reliability_score: 4,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The ring in close-up from the announcement carousel: the old mine brilliant-cut diamond in hand-engraved yellow gold, designed by Kindred Lubeck of Artifex Fine Jewelry.',
-            kind: 'primary',
-            // The stone sits dead-center, slightly above the middle of the frame.
-            focalPoint: '50% 42%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The new ring on Taylor\'s hand as the couple embrace among the garden flowers, from the same official post.',
-            kind: 'primary',
-            focalPoint: '47% 30%',
-          },
-          {
-            url: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
-            credit: 'via @taylorswift/Instagram (ABC News)',
-            caption:
-              'The ring visible on Taylor\'s hand as she holds Kelce right after the proposal — the embrace frame from the carousel.',
-            kind: 'primary',
-            focalPoint: '48% 35%',
-          },
-        ],
-        products: [
-          {
-            brand: 'M. Pope and Co',
-            item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
-            retailer: 'mpopeandco.com',
-            url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
-            price: '$3,250.00',
-            isAlternative: true,
-            altNote: 'The real ring is a one-of-one Artifex Fine Jewelry commission by Kindred Lubeck -- this is a real vintage old mine-cut diamond in a yellow-gold setting, not the actual ring.',
-          },
-        ],
-      },
-    },
-    // The engagement OUTFIT angle (2026-07-18, dedup/consolidation): moved out
-    // of tortured-poets.mjs (wrong era) and retitled from "Engagement photos"
-    // — which promised the photo set — to "The engagement look," so it reads as
-    // the distinct fashion facet it is, alongside the announcement (the news)
-    // and the ring (the jewelry). Its photos and sources are the fashion-desk
-    // coverage (Marie Claire / L'Officiel), different from the announcement's.
-    {
-      slug: 'showgirl-engagement-look',
-      threadIds: ['the-proposal'],
-      relatedIds: [
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-      ],
-      year: 2025,
-      month: 8,
-      day: 26,
-      category: 'fashion',
-      title: 'The engagement look: a Polo Ralph Lauren dress in the garden',
-      snippet:
-        'A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.',
-      sourceUrl:
-        'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
-      moment: {
-        context:
-          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.\n\nThe pieces have since been catalogued: the caramel Louis Vuitton Isola sandals retail at $930, the diamond-lined watch is a discontinued yellow-gold Cartier Santos Demoiselle, and the heart jewelry is by Foundrae (outlets differ on the exact piece and its price). Taylor posted the photos to Instagram herself; they carry only a "Taylor Swift" credit, with no outside photographer or stylist named. The $319.99 Polo Ralph Lauren dress then became a case study in the "Swift effect" — it sold out across Ralph Lauren\'s own site within about 20 minutes of the post, and resale listings soon climbed past $450.\n\nFashion press received the look warmly and read it the same way — understated luxury, not stadium spectacle. The coordinated outfits read, in Marie Claire\'s words, as "subdued and sweet for a late-summer proposal" and "something timeless"; Sports Illustrated praised a dress "simple, yet elegant" and "shockingly reasonable"; Who What Wear framed it as "the romantic dress trend every fashion person owns." The only mild ribbing went to Travis\'s shorts-and-loafers, not her dress.',
-        sources: [
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
-          },
-          {
-            outlet: 'L\'Officiel',
-            url: 'https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details',
-          },
-          // Depth ledger #1005 (2026-07-21): piece-level ID (sandal price,
-          // Santos Demoiselle watch, Foundrae heart jewelry) and the sellout.
-          {
-            // Detailed outfit archive (Sarah Chapelle) identifying the watch as
-            // a Cartier Santos Demoiselle and the heart jewelry as Foundrae.
-            outlet: 'Taylor Swift Style',
-            url: 'https://www.taylorswiftstyle.com/post-grid/tntengagement-082625',
-            source_title: 'Announcing her engagement',
-            publisher: 'TaylorSwiftStyle.com (Sarah Chapelle)',
-            source_type: 'fashion_database',
-            accessed_at: '2026-07-21',
-            reliability_score: 3,
-          },
-          {
-            // The dress selling out on Ralph Lauren's own site (~20 minutes).
-            outlet: 'ABC7',
-            url: 'https://abc7.com/post/taylor-swifts-engagement-dress-sells-ralph-lauren-website/17664252/',
-            source_title: "Taylor Swift's engagement dress sells out on Ralph Lauren website",
-            publisher: 'ABC7 / KABC',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          {
-            // The "Swift effect" sellout and the resale climb past retail.
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/product-recommendations/style/taylor-swift-engagement-dress-brand-buy-online-1235415820/',
-            source_title: "Taylor Swift's Engagement Dress Is Sold Out Almost Everywhere",
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-21',
-            reliability_score: 4,
-          },
-          // Depth ledger #1005 (2026-07-22): fashion-press reception of the look
-          // itself (the Q7 gap). Marie Claire (already cited above) carries the
-          // "subdued and sweet"/"timeless" read; these two add the corroborating
-          // verdicts. No reputable engagement-look-vs-other-looks comparison was
-          // findable, so that narrower sub-angle stays unanswered.
-          {
-            outlet: 'Sports Illustrated',
-            url: 'https://www.si.com/onsi/athlete-lifestyle/fashion/taylor-swift-elegant-travis-kelce-engagement-fit-is-shockingly-affordable',
-            source_title: "Taylor Swift's Elegant, Travis Kelce Engagement Fit Is Shockingly Affordable",
-            publisher: 'Sports Illustrated (On SI)',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-22',
-            reliability_score: 3,
-          },
-          {
-            outlet: 'Who What Wear',
-            url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-engagement-striped-dress',
-            source_title: 'Taylor Swift Just Got Engaged in the Romantic Dress Trend Every Fashion Person Owns',
-            publisher: 'Who What Wear',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-22',
-            reliability_score: 3,
-          },
-        ],
-        photos: [
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
-            credit: 'Taylor Swift',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // close embrace, her hand on his cheek; the two faces meet just
-            // above center frame.
-            focalPoint: '50% 30%',
-          },
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg',
-            credit: 'Taylor Swift',
-            // Focal point set 2026-07-18 (run 7) by viewing: wide garden scene,
-            // the couple small at center under the floral arch, faces near mid-frame.
-            focalPoint: '52% 46%',
-          },
-        ],
-        // Shop-the-look pilot (2026-07-19, feat/shoppable-links — grafted here
-        // in merge review: the worker authored these on the old TTPD copy of
-        // this moment, which was relocated to this era before its PR landed).
-        products: [
-          {
-            brand: 'Polo Ralph Lauren',
-            item: 'Striped Silk-Blend Dress (1932 Stripe White & Black)',
-            retailer: 'revolve.com',
-            // Verified 2026-07-19: live single-product page (builder verified
-            // via rendered fetch; independently corroborated in review via
-            // search — same product listed at Neiman Marcus/Bloomingdale's).
-            // Shows $398, "Sold Out" in all sizes — hence inStock: false.
-            // Named as the exact engagement dress by Rolling Stone / PureWow.
-            // Ralph Lauren's own page sits behind a PerimeterX wall, so the
-            // verified Revolve page is the link.
-            url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
-            price: '$398',
-            inStock: false,
-          },
-          // NOT added, per the never-fabricate/never-dead-link rule
-          // (2026-07-19 verification pass):
-          //   - Louis Vuitton "LV Isola Sandal" (exact model per WWD): every
-          //     LV domain answers HTTP 403 to verification, and LV sells
-          //     first-party only — no verifiable page exists from CI.
-          //   - Cartier diamond watch (a Santos Demoiselle per Esquire):
-          //     discontinued ~2014, no cartier.com product page; linking the
-          //     current Panthère would be a wrong-product substitution.
-          // Having any products dequeues this moment from the
-          // fashion-products checker (by design — the two unlinkable items
-          // genuinely have no product pages, so re-queueing would waste
-          // Stylist runs). The Stylist's MAINTAIN pass re-checks existing
-          // product moments and can add these if pages ever surface.
-        ],
-      },
-    },
     // --- Deep timeline fill (2026-07-08, content/deep-d): song stories, the
     // album's chart marathon, the Kelce arc between engagement and wedding,
     // and the era's 2026 chapters. Every claim verified against its cited
@@ -6759,7 +6215,7 @@ export default {
       // announcement this Graham Norton appearance follows up on.
       relatedIds: [
         'moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
       ],
       year: 2025,
       month: 10,
@@ -8247,8 +7703,8 @@ export default {
       // announcement whose close-up made Lubeck famous, and the wedding she
       // was invited to. A crosslink-candidate issue covers the ring pair.
       relatedIds: [
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
-        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-ttpd-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
       ],
       title: 'The ring designer gets a wedding invite of her own',
@@ -8475,7 +7931,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
-        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
         'moment:vault-tloas-a-rumored-first-date-night-since-training-camp-dinner-out-in',
       ],
       title: "First sighting since the wedding: pink Markarian, at a friend's big day",

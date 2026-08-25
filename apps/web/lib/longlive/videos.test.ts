@@ -289,6 +289,14 @@ describe('findVideoEraId', () => {
     expect(findVideoEraId('icon-sessions-grammy-museum-medley')).toBe('tloas');
   });
 
+  it.each([
+    ['the-best-day-taylors-version-mv', 'evermore'],
+    ['mr-perfectly-fine-taylors-version-lyric-video', 'evermore'],
+    ['i-can-see-you-mv', 'midnights'],
+  ] as const)('places %s by its Taylor\'s Version publish date', (slug, eraId) => {
+    expect(findVideoEraId(slug)).toBe(eraId);
+  });
+
   it('returns null for a slug that matches no video anywhere', () => {
     expect(findVideoEraId('not-a-real-video-slug')).toBeNull();
   });

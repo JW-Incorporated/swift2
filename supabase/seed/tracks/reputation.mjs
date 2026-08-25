@@ -233,7 +233,7 @@ const TRACKS = [
         ],
         connections: [
           {
-            relatedId: 'moment:vault-reputation-the-snake-video-that-announced-reputation',
+            relatedId: 'moment:vault-1989-the-snake-video-that-announced-reputation',
             label: 'The snake video that announced reputation',
             why: "Delicate is the private answer to the era this rollout launched — the same 'reputation' the album weaponizes on the outside is what she assumes has ruined her chances on the inside.",
           },
@@ -317,17 +317,17 @@ const TRACKS = [
         ],
         connections: [
           {
-            relatedId: 'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+            relatedId: 'moment:vault-1989-look-what-you-made-me-do-and-the-phone-call-it-started-with',
             label: 'Look What You Made Me Do — and the phone call it started with',
             why: "The song's own origin moment: the 2016 phone-call fallout it answers, and the 'old Taylor is dead' framing it launched.",
           },
           {
-            relatedId: 'moment:vault-reputation-the-look-what-you-made-me-do-video-shatters-youtubes-24-hour',
+            relatedId: 'moment:vault-1989-the-look-what-you-made-me-do-video-shatters-youtubes-24-hour',
             label: 'The Look What You Made Me Do video shatters YouTube’s 24-hour record',
             why: 'The record-breaking premiere gets its own page — the 43.2M-view debut this single set.',
           },
           {
-            relatedId: 'moment:vault-reputation-the-snake-video-that-announced-reputation',
+            relatedId: 'moment:vault-1989-the-snake-video-that-announced-reputation',
             label: 'The snake video that announced reputation',
             why: 'The rollout this single launched — the reclaimed-snake teasers that broke the silence before the album.',
           },

@@ -145,6 +145,9 @@ read once on mount (`deepLink.ts`) and never written back.
 - Build: `npm run build`
 - Content gates: `npm run check:generated`, `check:content-ownership`,
   `check:voice`, `validate:content`, `validate:social`
+- Era-date regression: `scripts/era-date-audit.test.ts` checks every authored
+  content/theory era file against `supabase/seed/eras-data.mjs` and snapshots
+  the documented no-range/campaign exceptions.
 
 ## Clown bot rebuild (build B) — new files this workstream
 

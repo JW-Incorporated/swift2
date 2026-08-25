@@ -17,7 +17,7 @@ export const ERA_SECRETS_RAW: Partial<Record<EraId, EraSecret[]>> = {
       slug: "1989-65-polaroids",
       title: "Sixty-five Polaroids, five albums deep",
       secret: "Every 1989 CD came with 13 Polaroids of Taylor, lyrics scrawled in marker along the bottom. What most fans never clocked: there were 65 different Polaroids in circulation, packed in five random sets of 13 — completing the collection meant buying the album five times over.",
-      deeperLink: "moment:vault-1989-a-yahoo-livestream-announces-1989-her-first-documented-offic",
+      deeperLink: "moment:vault-red-a-yahoo-livestream-announces-1989-her-first-documented-offic",
       sources: [{ name: "1989 (album)", url: "https://en.wikipedia.org/wiki/1989_(album)" }, { name: "Beyond 1989: Taylor Swift and Polaroids", url: "https://www.thelineofbestfit.com/features/articles/beyond-1989-taylor-swift-and-polaroids" }],
     },
     {
@@ -327,7 +327,7 @@ export const ERA_SECRETS_RAW: Partial<Record<EraId, EraSecret[]>> = {
       slug: "rep-magazines-two-poems",
       title: "She published poetry, and half the fandom missed it",
       secret: "The Target-exclusive reputation magazines carried two original Taylor poems — \"Why She Disappeared\" and \"If You're Anything Like Me\" — plus her paintings and handwritten lyrics. For an era with essentially no press interviews, the poems were the closest thing to an explanation she ever gave.",
-      deeperLink: "moment:vault-reputation-the-reputation-secret-sessions-500-fans-four-houses-zero-lea",
+      deeperLink: "moment:vault-1989-the-reputation-secret-sessions-500-fans-four-houses-zero-lea",
       sources: [{ name: "Taylor Swift Explains Her Disappearance in Heartbreaking Poem", url: "https://www.eonline.com/news/893003/taylor-swift-explains-disappearance-in-poem-in-target-magazine-reputation-bundle" }, { name: "Taylor Swift's 'Reputation' Poem Meanings Make Having Vulnerabilities Seem Like A Blessing", url: "https://www.bustle.com/p/taylor-swifts-reputation-poem-meanings-make-having-vulnerabilities-seem-like-a-blessing-3344701" }],
     },
     {

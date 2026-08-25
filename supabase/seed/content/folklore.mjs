@@ -276,179 +276,6 @@ export default {
         ],
       },
     },
-    {
-      year: 2021,
-      month: 3,
-      day: 14,
-      category: 'business',
-      significance: 'defining', // a historic Grammy record on its own, and the middle link in her eventual record 4 (docs/decisions.md, 2026-07-19)
-      relatedIds: [
-        'moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp',
-        'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
-        'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
-        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
-      ],
-      title: 'folklore makes her the first woman to win Album of the Year three times',
-      snippet:
-        'A third Grammy for Album of the Year — joining Frank Sinatra, Paul Simon, and Stevie Wonder as the only artists ever to do it three times.',
-      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
-      thumbnailUrl:
-        'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
-      moment: {
-        context:
-          'The March 14, 2021 win — after Fearless in 2010 and 1989 in 2016 — made her the first woman with three Album of the Year Grammys, in a field that included Dua Lipa, Post Malone, HAIM, and Coldplay.\n\nAccepting at the pandemic-limited ceremony, she thanked Jack Antonoff, Aaron Dessner, and engineers Laura Sisk and Jonathan Low ("I had the best time writing songs with you in quarantine"), told Justin Vernon — whom she still had never met in person — "I\'m so excited to meet you someday," and thanked fans for meeting her in "this imaginary world that we created." It was her only win of the night from six nominations, and the one that mattered.\n\nThe 63rd Grammys were a pandemic ceremony — staged part-indoors, part-outdoors around the Los Angeles Convention Center and hosted by Trevor Noah, with nominees seated at spaced tables rather than a packed arena. Earlier in the night Taylor gave one of the show\'s signature performances: a hushed folklore/evermore medley — "cardigan," "august," and "willow" — that opened with her perched atop a moss-covered cabin built in a fairy-lit indoor forest, then moved inside the cabin and out onto its lawn alongside the album\'s co-producers Antonoff and Dessner, the first time the three had performed the songs together before an audience. folklore had been recorded remotely during lockdown and finished 2020 as the best-selling album of the year in the United States, so its Album of the Year win doubled as the pandemic\'s defining critical statement. The three-time distinction placed her beside Frank Sinatra, Paul Simon, and Stevie Wonder — the only artists who had ever done it — and no woman before her; three years later she would pass all of them, taking a record-setting fourth with Midnights in 2024, the most Album of the Year wins by anyone in Grammy history.',
-        sources: [
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/',
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-performed-folklore-evermore-medley-2021-grammy-awards-1140876/',
-            source_title: "Watch Taylor Swift Perform a 'Folklore,' 'Evermore' Medley in the Shire at 2021 Grammy Awards",
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-13',
-            reliability_score: 4,
-          },
-        ],
-        // Photo-enrichment run 16 (2026-07-18, #762): focal points only — the
-        // page already carries two distinct verified photos. Both downloaded
-        // and viewed this session; values set per image, by eye.
-        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 4 more real,
-        // verified photos of the people and performance the context text
-        // names directly. Stopped at 6, not 7+ — the folklore cover art
-        // (the obvious 7th) is already used on 4 other items in this file,
-        // at the image-overuse checker's limit; several other candidate
-        // outlet CDNs 404'd or resolved through an unrecognized mirror
-        // domain this pass declined to trust rather than hotlink blind.
-        photos: [
-          {
-            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
-            credit: 'Kevin Mazur/Getty Images for The Recording Academy',
-            caption: 'At the 63rd Grammy Awards, March 14, 2021, where folklore won Album of the Year.',
-            kind: 'primary',
-            focalPoint: '53% 22%',
-          },
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg?w=942&h=628&crop=1',
-            credit: 'Kevin Winter/Getty Images for The Recording Academy',
-            caption: 'Accepting the Album of the Year Grammy — her third, a first for any woman.',
-            kind: 'primary',
-            focalPoint: '45% 25%',
-          },
-          {
-            url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg',
-            focalPoint: '57% 42%',
-            credit: 'Getty Images for The Recording Academy, via Billboard',
-            caption: 'Jack Antonoff, Taylor, and Aaron Dessner perform the folklore/evermore medley earlier the same night.',
-            kind: 'archival',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Antonoff_at_Electric_Lady_Studios_2023_%28cropped%29.jpg',
-            focalPoint: '48% 25%',
-            credit: 'Alex Lockett, Wikimedia Commons (CC BY-SA 4.0)',
-            caption: "Jack Antonoff, whom Taylor thanked first in her acceptance speech — folklore's co-producer.",
-            kind: 'reference',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
-            focalPoint: '55% 22%',
-            credit: 'Kim Metso (Slackernrrd), Wikimedia Commons (CC BY-SA 4.0)',
-            caption: 'Aaron Dessner of The National, folklore\'s other co-producer, thanked in the same speech.',
-            kind: 'reference',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Primavera19_-6_%2848986116446%29_%28cropped%29.jpg',
-            focalPoint: '48% 33%',
-            credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
-            caption: 'Justin Vernon (Bon Iver), whom Taylor told "I\'m so excited to meet you someday" — the two had never met in person despite co-writing "exile."',
-            kind: 'reference',
-          },
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Guests_at_the_2026_Met_Gala_435_%28Blake_Lively%29.jpg',
-            focalPoint: '48% 20%',
-            credit: 'SWinxy, Wikimedia Commons (CC BY 4.0)',
-            caption: 'Blake Lively, whom Taylor thanked in the same speech alongside Ryan Reynolds and their children — James, Inez, and Betty each lend their names to folklore songs.',
-            kind: 'reference',
-          },
-        ],
-      },
-    },
-    {
-      year: 2021,
-      month: 3,
-      day: 14,
-      category: 'fashion',
-      title: 'A custom Etro gown for the folklore/evermore medley',
-      snippet:
-        'A blue-and-gold Etro gown for a Grammy-night medley of "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff.',
-      sourceUrl: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
-      // Image-fix pass (2026-07-10): ticket #227 — the shefinds.com image was
-      // the January 2020 Sundance red-carpet look (SUNDANCE step-and-repeat
-      // visible in frame), wrong event/year/outfit for this record. Replaced
-      // with Billboard's photo of the actual 2021 Grammys folklore/evermore
-      // medley performance (moss-covered cabin staging, Jack Antonoff on
-      // guitar, Swift in the gold/blue Etro gown) — verified HTTP 200 +
-      // image/jpeg, downloaded and confirmed by eye, credit line from the
-      // Billboard article caption.
-      thumbnailUrl:
-        'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1',
-      moment: {
-        context:
-          'The floor-length blue-and-gold Etro gown — high slit, seventies lines — was built for the night\'s most theatrical staging: a moss-covered cabin on a woodland hillside set, where she moved through "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff. Etro posted a sketch of the design after the show.\n\nIt was one half of a two-look night: on the red carpet she wore a custom floral Oscar de la Renta mini with botanical appliqués tacked on individually — plus a matching mask — a look Oscar de la Renta itself billed as "Floral Folklore."',
-        sources: [
-          {
-            outlet: 'SheFinds',
-            url: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/',
-          },
-        ],
-        photos: [
-          {
-            // Image-fix pass (2026-07-10): ticket #227 — same replacement as
-            // thumbnailUrl above (see comment there for verification detail).
-            url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1',
-            credit: 'TAS Rights Management 2021, via Getty Images / Billboard',
-            caption: 'The custom Etro gown during the folklore medley staging at the 2021 Grammys.',
-            kind: 'primary',
-            // Focal point set by viewing (photo pass #762, 2026-07-19): wide
-            // cabin-set stage shot, Swift standing in the lit doorway right
-            // of center, her face just above the vertical midline.
-            focalPoint: '59% 42%',
-          },
-          // Photo pass #762 (2026-07-19): stays at 1 photo — the cited
-          // Billboard article's only other asset is a "Billboard News"
-          // branded video still, and it shows the Oscar de la Renta
-          // red-carpet mini, not this page's Etro performance gown
-          // (downloaded and viewed to check). The SheFinds image was already
-          // rejected as wrong-event by ticket #227.
-        ],
-        // Shop pass (2026-07-20): the gown was custom-built for this
-        // performance — no product page exists — offering Etro's current
-        // long silk gown, verified live in-browser (curl/WebFetch are
-        // blocked on etro.com).
-        products: [
-          {
-            brand: 'Etro',
-            item: 'Peau D\'Ange Silk Maxi Dress with Flower and Bee Motif',
-            retailer: 'etro.com',
-            url: 'https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html',
-            price: '$2,880.00',
-            isAlternative: true,
-            altNote:
-              'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
-          },
-        ],
-      },
-    },
 
     // --- Fashion/photo depth pass (2026-07-04)
     {
@@ -1113,164 +940,6 @@ export default {
             caption: 'The lead art of Rolling Stone\'s 50 Best Albums of 2020 list — Taylor, top right, above the field she topped.',
             kind: 'archival',
             focalPoint: '78% 28%',
-          },
-        ],
-      },
-    },
-
-    // --- Thin-era top-up (2026-07-08, audit rollout PR 2): release items,
-    // remaining song stories, the era's business wavetops, and the one real,
-    // sourced relationship moment (the William Bowery reveal). Tour and
-    // sighting stay genuinely empty — no touring happened and the 2026-07-05
-    // sightings research pass (above) confirmed ~zero candid sightings.
-    // New items carry the audit's additive provenance fields.
-    {
-      slug: 'folklore-sixteen-hour-announcement',
-      significance: 'defining', // the pandemic-era reinvention that reshaped how she releases music (docs/decisions.md, 2026-07-19)
-      year: 2020,
-      month: 7,
-      day: 23,
-      category: 'release',
-      title: 'Sixteen hours\' notice: the announcement that invented the surprise era',
-      snippet:
-        '"Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID happen" — posted the morning of July 23, 2020. The album arrived at midnight.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
-      thumbnailUrl: null,
-      relatedIds: [
-        'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
-        'moment:vault-evermore-folklores-sister-arrives',
-        'moment:vault-midnights-midnights-3am-edition-surprises-fans-with-7-more-songs',
-      ],
-      moment: {
-        // The post this page is ABOUT (issue #762, Part B). Shortcode from the
-        // permalink TODAY embeds; verified by rendering
-        // instagram.com/p/CC-9usjDzUw/embed/captioned: the taylorswift verified
-        // account and the exact "Most of the things I had planned this summer…"
-        // announcement caption (the sibling CC--BUtDjav post is the separate
-        // deluxe-editions post and was deliberately not used). Embedded rather
-        // than hotlinked — Instagram CDN urls are signed/expiring and the host
-        // is not on the image allowlist.
-        socialPost: {
-          platform: 'instagram',
-          shortcode: 'CC-9usjDzUw',
-          label:
-            'The surprise announcement post: black-and-white forest photos captioned "Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID" — folklore, out at midnight.',
-          postedOn: '2020-07-23',
-        },
-        // Third paragraph added 2026-07-19 (found in review): the item
-        // claimed a reinvention without substantiating its impact, just
-        // announcement mechanics — this backs the claim with real reception.
-        context:
-          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — a grid of captionless black-and-white Beth Garrabrant forest photos, no warning of any kind — with the "cardigan" video dropping alongside it at midnight. The post went up the morning of July 23 and the album arrived at midnight into July 24: under a day\'s notice, nearer fourteen hours than the "sixteen" of the fan shorthand.\n\nThe "isolation" framing hid a crowd. Aaron Dessner of The National wrote and produced most of it — about 11 of the 16 tracks — Jack Antonoff the rest, Justin Vernon (Bon Iver) sang the "exile" duet, and a mystery co-writer, "William Bowery," took credit on "exile" and "betty," revealed months later in the Long Pond Studio Sessions film as Taylor\'s partner Joe Alwyn. The record was built entirely remotely, Dessner mailing instrumental sketches from his upstate Long Pond studio; even he didn\'t know who Bowery was.\n\nThe no-notice gamble paid off historically: "cardigan" debuted at No. 1 on the Hot 100 the same week folklore entered the Billboard 200 at No. 1 — the first time any artist opened atop both charts at once. folklore drew 80.6 million day-one Spotify streams (a record for a female artist) and 846,000 first-week U.S. units, aided by eight distinct deluxe editions sold only through her site. The surprise drop became the template she reused for evermore five months later. She closed the announcement note with a line that reads now like a thesis for the decade that followed: "My gut is telling me that if you make something you love, you should just put it out into the world."',
-        sources: [
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
-            source_title: 'Folklore (Taylor Swift album)',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-08',
-            reliability_score: 2,
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-folklore-surprise-album-1033102/',
-            source_title: 'Taylor Swift Finally Abandoned the Traditional Album Rollout',
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-19',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Rolling Stone',
-            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
-            source_title: "Taylor Swift's 'Folklore': Rob Sheffield Reviews the Album",
-            publisher: 'Rolling Stone',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-19',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/pro/taylor-swift-cardigan-folklore-debut-number-one/',
-            source_title: "Taylor Swift Is 1st Artist to Open Atop Hot 100 & Billboard 200 in Same Week",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Guinness World Records',
-            url: 'https://www.guinnessworldrecords.com/news/2020/7/taylor-swift-breaks-24-hour-streaming-record-on-spotify-for-8th-album-folklore-625253',
-            source_title: 'Taylor Swift breaks 24-hour streaming record on Spotify for folklore',
-            publisher: 'Guinness World Records',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Capital FM',
-            url: 'https://www.capitalfm.com/artists/taylor-swift/william-bowery-joe-alwyn-folklore-exile/',
-            source_title: 'Taylor Swift confirms Joe Alwyn is mystery folklore writer William Bowery',
-            publisher: 'Capital FM',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 3,
-          },
-        ],
-        // Real-photo pass (2026-07-09): official album cover — the image the
-        // announcement itself revealed. Stable upload.wikimedia.org copy,
-        // verified HTTP 200 + image/png this session.
-        // Photo-enrichment run 17 (2026-07-18, #762): focal point only. No
-        // verifiable distinct second image — the nine-photo Instagram grid IS
-        // the cover image already shown here, and the outlet stills found for
-        // the announcement stories are logo-branded video frames (rejected).
-        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): re-challenged
-        // per Joey's direction — this pool grew to 6 across the earlier
-        // 10-defining-events pass. A 7th was searched for again this pass
-        // (Long Pond Studio Sessions stills, the evermore/folklore cover-art
-        // cross-link) but every option found was either a text-only PD logo
-        // with no real photographic content, or an image already at the
-        // overuse checker's 4-use cap in its own era file. Genuinely thin
-        // past 6 for this specific announcement-mechanics story.
-        photos: [
-          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
-          // real, verified photos from the actual announcement post and the
-          // Beth Garrabrant forest shoot that introduced the album.
-          {
-            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=1000',
-            focalPoint: '48% 22%',
-            credit: 'Taylor Swift/Instagram, via The Guardian',
-            caption: 'The black-and-white forest montage Taylor posted with the July 23 surprise announcement for folklore.',
-            kind: 'primary',
-          },
-          {
-            url: 'https://i.guim.co.uk/img/media/74cae4f3a285b8a8638cfbc76355b2f0c0db29c5/0_54_1737_1385/master/1737.jpg?crop=none&dpr=1&s=none&width=465',
-            focalPoint: '40% 30%',
-            credit: 'Beth Garrabrant/Stoke PR, via The Guardian',
-            caption: 'A Beth Garrabrant black-and-white portrait from the forest shoot used to introduce folklore.',
-            kind: 'primary',
-          },
-          {
-            url: 'https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg',
-            focalPoint: '35% 30%',
-            credit: 'Beth Garrabrant, via Vanity Fair',
-            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Taylor in the album\'s woodland setting.',
-            kind: 'primary',
-          },
-          {
-            url: 'https://media.vanityfair.com/photos/5f22f28283d239dce41f81b1/master/w_2560%2Cc_limit/Screenshot%25202020-07-30%2520at%252012.16.56%2520PM.png',
-            focalPoint: '53% 24%',
-            credit: 'Taylor Swift/YouTube, via Vanity Fair',
-            caption: 'A frame from the self-directed "cardigan" video, released at midnight alongside folklore.',
-            kind: 'primary',
-          },
-          {
-            url: 'https://i.guim.co.uk/img/media/6f8132a91d5eaf50614417ced6bee7903341fd46/0_0_1482_1958/master/1482.jpg?crop=none&dpr=1&s=none&width=465',
-            focalPoint: '52% 22%',
-            credit: 'TAS Rights Management, via The Guardian',
-            caption: 'Taylor wears the signature knit cardigan in a release-period promotional image for the video and album.',
-            kind: 'primary',
           },
         ],
       },
@@ -2079,7 +1748,7 @@ export default {
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-folk-3", label: "Masters sold to Shamrock", kind: "business" },
       relatedIds: [
-        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-reputation-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
       ],
       title: 'Her masters get sold again — this time to Shamrock Capital, for about $300 million',
@@ -2222,82 +1891,93 @@ export default {
         // without a photo.
       },
     },
-    // Three duplicate stubs removed here (issue #616, 2026-07-29):
-    // - "folklore-cardigan" told the same cardigan/cottagecore fashion story
-    //   as the richer, sourced "cardigan" video item above; its unique
-    //   shoppable product (the cardigan itself) was merged there.
-    // - "folklore-teenage-love-triangle" told the same fictional cardigan/
-    //   august/betty love triangle as the richer, sourced item at the top of
-    //   this file, in two sentences with no sources.
-    // - "folklore-william-bowery" told the same Nov. 25, 2020 William Bowery
-    //   reveal as the richer, sourced `william-bowery-is-joe` item — whose
-    //   sourcing also corrects this stub's "Bowery Hotel" origin claim
-    //   (it's the Bowery neighborhood; fans' hotel theory was wrong), so
-    //   removing it also removes a factual error.
+
+
+    // Part B of #1141 (evermore↔folklore parity): the era had a Dec-11
+    // "willow leads / folklore's sister arrives" release-day card and the
+    // Dec-26 chart-double item, but no native beat for the *announcement
+    // itself* — the surprise-drop move that folklore's "Sixteen hours' notice"
+    // item gets in full. This is that beat. Dated Dec 10 (the announcement) to
+    // sit a day ahead of the Dec-11 release cluster, exactly as folklore's
+    // announcement beat sits a day ahead of its release. Verified this session
+    // (2026-08-02) against Wikipedia (Evermore album, fetched directly),
+    // Rolling Stone's announcement report, and Good Morning America (the
+    // birthday note + the simultaneous "willow" video premiere).
     {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "folklore-aoty",
-      year: 2021,
-      month: 3,
-      day: 14,
-      category: "music",
-      // Cross-link (Stage 3, 2026-08-17): the richer telling of the same
-      // Grammy Album of the Year win.
+      slug: 'evermore-surprise-announcement',
+      significance: 'defining', // the surprise drop repeated — proof folklore's no-rollout model was a method, not a one-off (mirrors folklore's Sixteen-hours beat)
+      year: 2020,
+      month: 12,
+      day: 10,
+      category: 'release',
+      title: "Doing the impossible twice: evermore's surprise announcement",
+      snippet:
+        '"To put it plainly, we just couldn\'t stop writing songs." Five months after folklore, a second surprise album — announced December 10, out at midnight eastern.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+      thumbnailUrl: null,
       relatedIds: [
-        "moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-",
+        'moment:vault-lover-sixteen-hours-notice-the-announcement-that-invented-the-surp',
+        'moment:vault-evermore-folklores-sister-arrives',
       ],
-      title: "A third Album of the Year",
-      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
-      // now come from these markers — legacy id kept for stability.
-      milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
-      snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       moment: {
+        context:
+          'Five months after folklore appeared with barely a day\'s warning, Taylor did the thing that was supposed to be a one-time trick a second time. On December 10, 2020 she posted that "my 9th studio album, and folklore\'s sister record, will be out tonight at midnight eastern. It\'s called evermore." Hours later the record and the "willow" music video arrived together — no lead single, no countdown, no rollout, just the note, the cover art, the track list, and then the songs.\n\nThe note framed evermore not as leftover folklore material but as a deliberate walk further in: "To put it plainly, we just couldn\'t stop writing songs. To try and put it more poetically, it feels like we were standing on the edge of the folklorian woods and had a choice: to turn and go back or to travel further into the forest of this music. We chose to wander deeper in." The collaborators came with her — Aaron Dessner and Jack Antonoff producing, Bon Iver on the title-track duet, HAIM on "no body no crime," and the returning "William Bowery" (Joe Alwyn), with the National and Marcus Mumford in the credits.\n\nThe timing carried her own numerology. evermore landed two days before her 31st birthday, and she said so in the note: "Ever since I was 13, I\'ve been excited about turning 31 because it\'s my lucky number backwards, which is why I wanted to surprise you with this now. You\'ve all been so caring, supportive and thoughtful on my birthdays and so this time I thought I would give you something!" She added that she knew the holiday season "will be a lonely one for most of us," offering the album to anyone who, like her, turns to music to cope with missing people. What folklore had proved a surprise album *could* do, evermore proved she could do on purpose — and the double No. 1 debut that followed (told in this era\'s chart items) made it twice in a single year, a feat no artist had pulled off even once before.',
         sources: [
           {
-            outlet: 'The Recording Academy',
-            url: 'https://www.grammy.com/news/taylor-swift-wins-album-year-folklore-2021-grammys/',
-            source_title: 'Taylor Swift Wins Album Of The Year For \'Folklore\' | 2021 GRAMMY Awards Show',
-            publisher: 'The Recording Academy',
-            source_type: 'awards_database',
-            accessed_at: '2026-08-11',
-            reliability_score: 5,
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(album)',
+            source_title: 'Evermore (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-08-02',
+            reliability_score: 2,
           },
           {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
-            source_title: 'Taylor Swift becomes first woman to win Album of the Year Grammy 3 times',
-            publisher: 'CBS News',
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-evermore-album-surprise-1101630/',
+            source_title: "Taylor Swift Announces Ninth Album 'Evermore'",
+            publisher: 'Rolling Stone',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
+            accessed_at: '2026-08-02',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-announces-surprise-9th-studio-album-evermore-74646424',
+            source_title: "Taylor Swift announces surprise 9th studio album 'evermore' to be released at midnight",
+            publisher: 'ABC / Good Morning America',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-02',
             reliability_score: 4,
           },
         ],
-        context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Taylor's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
-        // Photo pass #762 (2026-07-19): lead image of Billboard's own AOTY-win
-        // story (billboard.com/wp-content, EXIF copyright "2021 Recording
-        // Academy"); curl 200 image/jpeg 1548x1024; Read-viewed: Swift in the
-        // floral Oscar de la Renta dress accepting the award onstage with
-        // Laura Sisk, Jack Antonoff, and Aaron Dessner holding the gramophone.
+        // Photo (Photo Enrichment, 2026-08-13): the announcement itself was a
+        // self-recorded video message (mid-COVID, no public appearance), aired
+        // on GMA the same morning — ABC's own CDN, vision-confirmed as this
+        // exact clip, not a red-carpet or studio shot.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg',
-            credit: 'Recording Academy, via Billboard',
-            caption: 'Accepting Album of the Year for folklore with Laura Sisk, Jack Antonoff, and Aaron Dessner — her record third win.',
-            focalPoint: '44% 18%',
-          },
-          {
-            // Salvaged 2026-07-19 from photo-enrichment PR #886 (otherwise
-            // superseded by a racing run): the press-room shot from NME's own
-            // report on this win — a distinct frame from the onstage
-            // acceptance above. Re-verified 200 image/jpeg (548KB,
-            // 2000x1270, unwatermarked); credit per the article.
-            url: 'https://www.nme.com/wp-content/uploads/2021/03/taylor-swift-grammys-2021-1.jpg',
-            credit: 'Kevin Mazur/Getty Images for The Recording Academy, via NME',
-            caption: 'Holding the Album of the Year Grammy for folklore in the press room, March 14, 2021 — her third, a first for any woman.',
+            url: 'https://s.abcnews.com/images/GMA/201210_gma_pop1_hpMain_16x9_992.jpg?w=992',
+            focalPoint: '48% 28%',
+            credit: 'ABC / Good Morning America',
+            caption:
+              'Taylor, in a self-recorded video message that aired on Good Morning America the morning of Dec. 10, 2020, announcing evermore\'s surprise midnight release.',
             kind: 'primary',
-            // Face upper right of center.
-            focalPoint: '57% 25%',
+          },
+          // Photo Enrichment (2026-08-15): second photo so the page clears the
+          // 2-photo floor. "willow" (the lead single/video) premiered alongside
+          // the album at the midnight the announcement promised — official video,
+          // id RsEZmictANA re-verified via YouTube oEmbed this session (author
+          // "Taylor Swift" / @TaylorSwift), i.ytimg.com maxres still downloaded
+          // and vision-confirmed: Taylor and the video's love interest face to
+          // face through glass, the video's central image.
+          {
+            url: 'https://i.ytimg.com/vi/RsEZmictANA/maxresdefault.jpg',
+            focalPoint: '17% 20%',
+            credit: 'YouTube / Taylor Swift',
+            caption:
+              'Still from the official "willow" music video — released alongside evermore at the midnight the Dec. 10 announcement promised.',
+            kind: 'reference',
           },
         ],
       },

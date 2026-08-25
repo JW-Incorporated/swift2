@@ -220,5 +220,47 @@ export default {
         }),
       ],
     }),
+
+    {
+      slug: 'the-best-day-taylors-version-mv',
+      kind: 'music_video',
+      title: "The Best Day (Taylor's Version)",
+      director: null,
+      releasedOn: '2021-04-09',
+      relatedSongs: ['The Best Day (Taylor\'s Version)'],
+      tags: ['Music'],
+      summary:
+        'A new home-movie video built from never-before-seen family footage spanning her childhood to young adulthood, released three weeks after Fearless (Taylor\'s Version) — extending the original tribute for the re-recording era.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=n0cde-Km05o',
+      media: [embed('n0cde-Km05o')],
+      sources: [
+        yt('n0cde-Km05o', "Taylor Swift - The Best Day (Taylor's Version) (Official Music Video)"),
+        wiki('The_Best_Day_(Taylor_Swift_song)', 'The Best Day (Taylor Swift song)', 'documents the Taylor\'s Version re-release'),
+      ],
+    },
+    {
+      slug: 'mr-perfectly-fine-taylors-version-lyric-video',
+      kind: 'lyric_video',
+      title: "Mr. Perfectly Fine (Taylor's Version) (From the Vault)",
+      director: null,
+      releasedOn: '2021-04-09',
+      relatedSongs: ["Mr. Perfectly Fine (Taylor's Version)"],
+      tags: ['Music'],
+      summary:
+        'A vault-track lyric video released alongside Fearless (Taylor\'s Version) — the "casually cruel" comeback song fans had wanted a video for since it leaked in 2010.',
+      symbolism: null,
+      easterEggs: [],
+      // oEmbed-verified 2026-08-24 (author_name "Taylor Swift", title "Taylor
+      // Swift - Mr. Perfectly Fine (Taylor's Version) (From The Vault) (Lyric
+      // Video)").
+      officialUrl: 'https://www.youtube.com/watch?v=rFjJs6ZjPe8',
+      media: [embed('rFjJs6ZjPe8', '2026-08-24')],
+      sources: [
+        yt('rFjJs6ZjPe8', "Taylor Swift - Mr. Perfectly Fine (Taylor's Version) (From The Vault) (Lyric Video)"),
+        wiki('Mr._Perfectly_Fine', 'Mr. Perfectly Fine'),
+      ],
+    },
   ],
 };
