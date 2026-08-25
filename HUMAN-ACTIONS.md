@@ -137,34 +137,6 @@ updated to say "is registered."
 
 ---
 
-### 19. [BLOCKING] 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call
-
-**Filed:** 2026-08-24
-
-**Why it matters:** issue #935 (filed 2026-07-20, never surfaced to you — this
-is separate from the 2026-08-15 decision that retired 12 *social-library*
-JPGs; that decision didn't touch this batch). 17 `media.gettyimages.com`
-comp-image URLs are hotlinked 33 times across 4 era content files
-(`supabase/seed/content/fearless.mjs`, `speak-now.mjs`, `debut.mjs`,
-`reputation.mjs`), confirmed still present today, plus 2 more recently added
-in `supabase/seed/candidates/00-orbit.mjs`. This is the same class of rights
-exposure the 2026-08-15 decision was written to close — it just never
-reached this batch. Tied to the #800 LEGAL launch gate.
-
-**Steps:**
-1. Decide (with counsel, same lawyer who cleared #800's other items):
-   license these 17 for real use, or retire them the same way the 12
-   social-library images were retired 2026-08-15.
-2. Tell a session which — either path is mechanical once decided (swap for
-   licensed/CC images, or strip the hotlinks per the existing retirement
-   pattern).
-
-**Worked if:** `grep -r "gettyimages.com" supabase/seed/` returns nothing, or
-returns only licensed/counsel-approved uses.
-
-**Status:** OPEN
-
----
 
 ### 18. [UPGRADE] Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt
 
@@ -856,6 +828,21 @@ reflects it, and a test PR still merges once `build` is green.
 
 <!-- Finished items move here with a date. Numbers keep their original ID.
      Never delete — the history is how we stop re-asking. -->
+
+### 19. [BLOCKING] 17 Getty photos with unclear rights, still live in seed content — ~15 min to decide, lawyer's call
+
+**Status:** DONE — 2026-08-24, Joey, in chat: retire and replace with real,
+verified, non-Getty images (not license, not strip blank). A fresh grep the
+same session found only 6 distinct URLs (11 references) still live — the
+rest had already been retired in earlier work. All 6 replaced with verified
+live images on allowlisted hosts (People.com, WWD, tayswiftstyle.wordpress.com,
+one already-fixed YouTube still found on `origin/main`); one item
+(`00-orbit.mjs` NYC street style, an unpublished candidate) left with no
+photo and a TODO rather than a forced mismatch. `grep -r "gettyimages.com"
+supabase/seed/` returns nothing. Full writeup in `docs/decisions.md`
+(2026-08-24 entry). PR: see `fix/retire-getty-seed-images` branch.
+
+---
 
 ### 13. [UPGRADE] Add `ANTHROPIC_API_KEY` as a worker repo secret — ~2 min
 
