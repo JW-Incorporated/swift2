@@ -4181,6 +4181,10 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): a second, distinct frame
             // from the same July 13, 2026 sighting.
             url: 'https://imagez.tmz.com/image/8a/4by3/2026/07/13/8a085596e58e4a1993d0ba23a1b39c43_md.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // two-panel frame; the puppy (the caption's subject) is in the
+            // right panel, biasing the crop there.
+            focalPoint: '72% 55%',
             credit: 'TMZ',
             caption: 'Taylor Swift and Travis Kelce\'s white puppy descends the stairs of their private jet, Palm Beach, Florida, July 2026.',
             kind: 'primary',
@@ -4272,6 +4276,12 @@ export default {
         // via the fund's own written thank-you), and neither TMZ, Rolling
         // Stone, ABC7, Officer.com, nor answerthecall.org run a dedicated
         // event photo for it. Reviewed-sparse: no fabricated stand-in added.
+        // Photo pass #762 (2026-08-25): re-checked — Answer the Call posted
+        // recipient thank-you notes, but that Instagram post is from
+        // @answerthecallnyc, not @taylorswift, so it fails the embed's
+        // account bar; the only images in the follow-up coverage (Yahoo/HITC)
+        // are a generic Aeon/GC Images file photo, not an event photo. Still
+        // no honest photo to add — call stands.
         photos: [],
       },
     },
@@ -4441,6 +4451,9 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): a second, distinct Gronkowski photo.
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/2024_Boston_Marathon_Grand_Marshall_Rob_Gronkowski_at_the_starting_line_GLNbbLdWYAAXJW4.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // Gronkowski is left-of-center in the crowd, upper-third of frame.
+            focalPoint: '46% 32%',
             credit: 'Massachusetts State Police (public domain)',
             caption: 'Rob Gronkowski serving as Grand Marshal at the 2024 Boston Marathon starting line.',
             kind: 'reference',
@@ -5668,6 +5681,9 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Crypto.com_Arena_exterior_2023.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // night exterior, "crypto.com ARENA" sign + glass facade top-center.
+            focalPoint: '50% 24%',
             credit: 'Wikimedia Commons / Troutfarm27 (CC BY-SA 4.0)',
             caption: 'Exterior of Crypto.com Arena in Los Angeles, host venue of the 68th Annual Grammy Awards (February 1, 2026), the ceremony Showgirl missed eligibility for.',
             kind: 'reference',
@@ -8232,6 +8248,10 @@ export default {
         photos: [
           {
             url: 'https://media.zenfs.com/en/people_218/9c00317fa1b3074f60e013cdbc8628a6',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // split image, Lubeck's face left panel and the ring right panel,
+            // both integral to the caption; centered on the panel boundary.
+            focalPoint: '50% 46%',
             credit: 'Kindred Lubeck/Instagram; @taylorswift/Instagram (via People/Yahoo)',
             caption:
               'The designer and the design: Kindred Lubeck on the wedding night she was invited to, beside the Old Mine Cut ring that earned the invitation.',
@@ -8239,6 +8259,9 @@ export default {
           },
           {
             url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // clasped hands with the ring right-of-center, upper-middle frame.
+            focalPoint: '57% 40%',
             credit: 'via @taylorswift/Instagram (ABC News)',
             caption:
               'The work that earned the invitation: the Old Mine Cut diamond in yellow gold Lubeck designed with Kelce, from the couple\'s engagement announcement.',
@@ -9229,12 +9252,18 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/92/LOW_RES_HM_Headshot_2024.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // headshot, face just left of center, upper-third of frame.
+            focalPoint: '47% 34%',
             credit: 'Wikimedia Commons',
             caption: 'Harvey Mason Jr., Recording Academy president/CEO, who interviewed Taylor Swift at the invite-only Grammy Museum "Icon Sessions" retrospective, August 18, 2026.',
             kind: 'reference',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // face just left of center, mid-frame.
+            focalPoint: '46% 54%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo.',
             kind: 'reference',
@@ -9303,12 +9332,18 @@ export default {
         photos: [
           {
             url: 'https://deadline.com/wp-content/uploads/2026/08/e8546254-dc2d-4ef3-9430-d8b84bba4df053.jpg.png?resize=948,1024',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // three-person group shot, faces upper third, full bodies below.
+            focalPoint: '50% 32%',
             credit: 'TAS Rights Management',
             caption: 'L-R: Glenn Weiss, Taylor Swift and John Ross at the private Emmy For-Your-Consideration event for "Taylor Swift: The Eras Tour: The Final Show," August 20, 2026.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // wide stadium shot from the crowd, stage lit mid-frame.
+            focalPoint: '50% 45%',
             credit: 'Wikimedia Commons / BrigidLIS (CC BY 4.0)',
             caption: 'Taylor Swift performing at the Eras Tour, Wembley Stadium, London, August 19, 2024 — the tour the FYC film documents.',
             kind: 'reference',
@@ -12059,6 +12094,10 @@ export default {
             // call is superseded — an AP photo for the nominations story
             // itself surfaced this session.
             url: 'https://dims.apnews.com/dims4/default/4e183fd/2147483647/strip/true/crop/3000x1999+0+1/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F4c%2Fc4%2F1606a49ff0ac0b8dca06d22665ec%2Fc778a2318a3c44fe89431794adc5baa4',
+            // Photo pass #762 (2026-08-25): downloaded and vision-confirmed —
+            // a Madonna/Taylor split composite; Taylor's face is in the right
+            // panel, biasing the crop there since this page is about her nods.
+            focalPoint: '74% 35%',
             credit: 'AP Photo',
             caption: 'Coverage of the 2026 MTV VMA nominations, in which Taylor Swift earned 9 nods led by "The Fate of Ophelia."',
             kind: 'reference',
