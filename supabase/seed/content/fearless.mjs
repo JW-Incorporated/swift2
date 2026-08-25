@@ -536,7 +536,7 @@ export default {
       title: 'A silver sequined gown, worn into an interruption no one saw coming',
       snippet: 'A floor-length silver gown, matching the Moonman she was mid-speech with when Kanye West took the mic.',
       sourceUrl: 'https://www.eonline.com/news/1407066/revisiting-taylor-swift-and-kanye-wests-mtv-vmas-feud-15-years-later',
-      thumbnailUrl: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/DQ3KoxNSJgDDtCrzfjpf83.jpg',
       moment: {
         context:
           'A one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip, per The Hollywood Reporter\'s VMA style retrospective — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
@@ -550,16 +550,16 @@ export default {
             url: 'https://www.hollywoodreporter.com/news/general-news/see-taylor-swifts-mtv-video-music-awards-11-year-style-evolution-1234123/',
           },
         ],
-        // Image-fix pass (2026-07-10): the Hollywood Reporter frame was a
-        // two-panel collage (this gown plus a different red dress); replaced
-        // with a single un-collaged Getty red-carpet arrivals frame of the
-        // silver sequined gown. Verified HTTP 200 + image/jpeg and visually
-        // confirmed (one-shoulder silver/nude sequined gown, VMA '09 backdrop)
-        // this session.
+        // Image-fix pass (issue #745, 2026-08-24): the Getty comp URL always
+        // rendered with a visible Getty watermark on the live site. Replaced
+        // with Marie Claire's own CDN copy of the same red-carpet frame
+        // (allowlisted host, unwatermarked). Verified live via probe() —
+        // HTTP 206, image/jpeg, 1992x3000 — and visually confirmed
+        // (one-shoulder silver/nude sequined gown, VMA '09 backdrop).
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
-            credit: 'Michael Loccisano/Getty Images',
+            url: 'https://cdn.mos.cms.futurecdn.net/DQ3KoxNSJgDDtCrzfjpf83.jpg',
+            credit: 'Getty Images, via Marie Claire',
             caption: 'The silver sequined KaufmanFranco gown on the VMA red carpet, Sept. 13, 2009.',
             kind: 'primary',
           },
@@ -655,7 +655,7 @@ export default {
       title: 'A hockey date with Taylor Lautner at the Staples Center',
       snippet: 'Spotted together at a Kings–Blue Jackets game after she picked him up from LAX — the outing that confirmed the "Taylor Squared" romance rumors.',
       sourceUrl: 'https://theboot.com/taylor-swift-taylor-lautner-3/',
-      thumbnailUrl: 'https://media.gettyimages.com/id/92338597/photo/columbus-blue-jackets-v-los-angeles-kings.jpg?s=594x594&w=0&k=20&c=mRN-Vj_Vy27121bqUS3wWF1EjIx5iemjLkCSp5v9gn4=',
+      thumbnailUrl: 'https://people.com/thmb/G87KXPwCFp6mSACQ_efnqOa1wjg=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(551x307:553x309)/taylor-lautner-taylor-swift-3-0130-0fbe69f4661c4e5ea6ae4681b6a287e1.jpg',
       relatedIds: [
         'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
         'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
@@ -667,14 +667,16 @@ export default {
         sources: [{ outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-taylor-lautner-3/' }],
         // Image-fix pass (2026-07-10): the previous townsquare.media hotlink
         // was serving the site's own placeholder/logo graphic, not a real
-        // photo. Replaced with a genuine Getty photo from the actual Oct. 25,
-        // 2009 Kings-Blue Jackets game. Verified HTTP 200 + image/jpeg and
-        // visually confirmed (both Swift and Lautner seated together at the
-        // game) this session.
+        // photo. Image-fix pass (issue #745, 2026-08-24): the Getty comp URL
+        // always rendered with a visible Getty watermark on the live site.
+        // Replaced with People.com's own CDN copy of the same photo
+        // (allowlisted host, unwatermarked). Verified live via probe() —
+        // HTTP 206, image/jpeg, 1200x833 — and visually confirmed (both
+        // Swift and Lautner seated together at the game).
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/92338597/photo/columbus-blue-jackets-v-los-angeles-kings.jpg?s=594x594&w=0&k=20&c=mRN-Vj_Vy27121bqUS3wWF1EjIx5iemjLkCSp5v9gn4=',
-            credit: 'Andrew D. Bernstein/NHLI via Getty Images',
+            url: 'https://people.com/thmb/G87KXPwCFp6mSACQ_efnqOa1wjg=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(551x307:553x309)/taylor-lautner-taylor-swift-3-0130-0fbe69f4661c4e5ea6ae4681b6a287e1.jpg',
+            credit: 'Andrew D. Bernstein/NHLI via Getty Images, via People',
             caption: 'Together in the stands at the Kings-Blue Jackets game, Staples Center, Oct. 25, 2009.',
             kind: 'primary',
           },
@@ -741,7 +743,7 @@ export default {
       title: 'Benihana and Menchie’s frozen yogurt with Taylor Lautner',
       snippet: 'Photographed leaving a Beverly Hills dinner with Taylor Lautner, carrying a giant pink box and a stuffed polar bear.',
       sourceUrl: 'https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/',
-      thumbnailUrl: 'https://media.gettyimages.com/id/2230718733/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=uw4mj6X64bIucRaYDJQvGPQFTGIKZdPj-q1YXerW31Q=',
+      thumbnailUrl: 'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
       relatedIds: [
         'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
         'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
@@ -761,12 +763,19 @@ export default {
         // the same Dec. 3, 2009 outing. benihana-05.jpg was removed outright —
         // it actually showed a young woman at a fence gate (not Swift or
         // Lautner, likely Emma Roberts on set) and didn't depict this outing
-        // at all. Verified the replacement HTTP 200 + image/jpeg and visually
-        // confirmed (both Swift and Lautner together) this session.
+        // at all.
+        // Image-fix pass (issue #745, 2026-08-24): the Getty comp URL always
+        // rendered with a visible Getty watermark on the live site. Replaced
+        // with People.com's own CDN copy of the same Dec. 3, 2009 outing
+        // (allowlisted host, unwatermarked). Verified live via probe() —
+        // HTTP 206, image/jpeg, 1200x1546 — and visually confirmed (both
+        // Swift and Lautner leaving Benihana together, matches the People
+        // caption "spotted leaving dinner at Benihana and heading over to
+        // Menchies Yogurt").
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/2230718733/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=uw4mj6X64bIucRaYDJQvGPQFTGIKZdPj-q1YXerW31Q=',
-            credit: 'Bauer-Griffin/GC Images',
+            url: 'https://people.com/thmb/O6ePoeN7buQvyyFWlSBaP1--m08=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(527x431:529x433)/taylor-lautner-taylor-swift-0130-c1d2ef188ab7473d81c5910a05228eeb.jpg',
+            credit: 'FameFlynet/Backgrid, via People',
             caption: 'Together in Los Angeles on the Dec. 3, 2009 outing.',
             kind: 'primary',
           },
@@ -1685,7 +1694,7 @@ export default {
         'Nov. 11, 2009: the CMAs hand their top prize to a 19-year-old — the youngest Entertainer of the Year in the award\'s history, and the first woman to win it since Shania Twain in 1999.',
       sourceUrl: 'https://theboot.com/taylor-swift-wins-2009-cma-entertainer-of-the-year/',
       thumbnailUrl:
-        'https://media.gettyimages.com/id/92999603/photo/the-43rd-annual-cma-awards-performances-and-awards.jpg?s=594x594&w=0&k=20&c=c0ywESeQ4T5SlLbIozC6BDQv2g71urPuzthsW__5Dn8=',
+        'https://akns-images.eonline.com/eol_images/Entire_Site/2016926/rs_634x1024-161026143557-634.Taylor-Swift-CMA-2009-Nashville.kg.102616.jpg',
       moment: {
         context:
           'She won every category she was nominated in that night, with Fearless taking Album of the Year and "Love Story" winning Music Video of the Year — the country establishment\'s full endorsement, one year to the day after the album dropped.\n\nShe pulled her whole band onstage for the big one and didn\'t bother playing it cool: "I will never forget this moment because in this moment, everything I ever wanted has just happened to me." She also thanked the competition — every artist in the category, she noted, had once let her open for them.',
@@ -1724,28 +1733,23 @@ export default {
         ],
         // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried
         // watermarks in both top corners; replaced with an unwatermarked
-        // Getty photo of the same Entertainer of the Year acceptance moment
-        // (Faith Hill and Tim McGraw are not in this particular frame, so the
-        // caption below was reworded to match what the photo actually shows).
-        // Verified HTTP 200 + image/jpeg and visually confirmed (gold gown,
-        // hand to face at the mic) this session.
+        // Getty photo of the same Entertainer of the Year acceptance moment.
+        // Image-fix pass (issue #745, 2026-08-24): that Getty comp URL always
+        // rendered with a visible Getty watermark on the live site. No
+        // allowed-CDN equivalent of the exact acceptance-speech frame exists
+        // (The Boot carries only a logo placeholder; Wikimedia has nothing
+        // from the 2009 CMAs; Billboard's is the 2011 win) — replaced instead
+        // with E! Online's own CDN copy of a red-carpet arrival shot in the
+        // same gold gown from the same night (allowlisted host,
+        // unwatermarked); caption reworded from "accepting" to "arriving" to
+        // match what this frame actually shows. Verified live via probe() —
+        // HTTP 206, image/jpeg, 634x1024.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/92999603/photo/the-43rd-annual-cma-awards-performances-and-awards.jpg?s=594x594&w=0&k=20&c=c0ywESeQ4T5SlLbIozC6BDQv2g71urPuzthsW__5Dn8=',
-            // Focal-point pass #762 (2026-07-20): downloaded and viewed the
-            // frame — portrait 428x594, gold gown, hand to face at the mic,
-            // her face near the top-center. Wide card crops must hold the
-            // face, so anchor high. NOTE: this remains on media.gettyimages.com
-            // (a comp host the enrichment protocol discourages); no allowed-CDN
-            // equivalent of this exact 2009 acceptance frame could be found
-            // (The Boot article carries only a logo placeholder; Wikimedia has
-            // nothing from the 2009 CMAs; Billboard's is the 2011 win). Flagged
-            // for a human to re-source rather than dropped, since it is a
-            // genuine, unwatermarked image of the exact moment.
-            focalPoint: '48% 16%',
-            credit: 'Frank Micelotta/Getty Images',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016926/rs_634x1024-161026143557-634.Taylor-Swift-CMA-2009-Nashville.kg.102616.jpg',
+            credit: 'Donna Svennevik/ABC via Getty Images, via E! Online',
             caption:
-              'Accepting Entertainer of the Year in the gold gown, Nov. 11, 2009 — the biggest of her wins that night.',
+              'Arriving at the 43rd CMA Awards in the gold gown she wore to accept Entertainer of the Year, Nov. 11, 2009.',
             kind: 'primary',
           },
         ],
