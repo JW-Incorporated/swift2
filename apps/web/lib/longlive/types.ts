@@ -210,6 +210,12 @@ export interface EraTheme {
    *  WCAG AA's 4.5:1 against `surface`/`bg` — set only on themes that need
    *  it; falls back to `accent` (#659). */
   accentText?: string;
+  /** Text/icon color for content painted *on top of* a solid `accent` fill
+   *  (e.g. a filled badge), where white text fails AA across every current
+   *  era's accent (#3318). Falls back to a fixed near-black (`#000000`),
+   *  which clears 4.5:1 against every current `accent` with margin — set
+   *  only if a future theme's accent needs a different on-fill color. */
+  accentFg?: string;
 }
 
 /**
