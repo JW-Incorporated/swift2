@@ -7,6 +7,38 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-25 — Era placement is decided by real-world date, never by subject/catalog era
+
+**Decision:** for every content type and every content-authoring pipeline —
+worker extract stage (`current_item`/`live_theory`/`fan_signal`), rumor-desk,
+video seeds, moment seeds, theory seeds, all of it — the era a piece of
+content is filed under is determined SOLELY by the real-world date of the
+event/content itself. It is never determined by the subject matter, catalog,
+or songs being covered. A piece of content about an older era that happens
+IN a later era's window goes in the later era; the reverse never happens
+either.
+
+**Why:** "The Icon Sessions at the Grammy Museum" video — a real August 2026
+performance during The Life of a Showgirl era, of a medley of "I Knew It, I
+Knew You," "august," and "All Too Well" — was filed in
+`supabase/seed/videos/folklore.mjs` because "august" is a folklore song. That
+reasoning inverted the rule: the event happened 2026-08-24, inside
+`the-life-of-a-showgirl`'s date range, so it belongs in
+`the-life-of-a-showgirl.mjs` regardless of which eras the performed songs
+come from. This rule already existed in one place
+(`docs/agents/content-shift.md`'s YouTube-appearance-intake section, "place
+it by published date, not by vibe") but wasn't stated as a blanket rule
+covering every content type/pipeline, which is how this entry slipped
+through despite it. This decision makes the rule explicit and universal
+rather than scoped to one intake lane.
+
+**Alternatives considered:** none — this is a correction of an authoring
+error against an intended rule, not a new trade-off.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25, ~10:20 PDT).
+
+---
+
 ## 2026-08-25 — Landing page rethink closed: current landing page stays as-is
 
 **Decision:** DoD item 1 ("Landing page rethink — scroll-first + obvious

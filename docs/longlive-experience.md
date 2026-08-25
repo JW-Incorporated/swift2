@@ -492,6 +492,17 @@ loop. Prefill taps never auto-send.
 
 ## 8. Recipes
 
+**Which era is "correct"?** Always the era whose date range contains the
+content's real-world date (`supabase/seed/eras-data.mjs`), never the era of
+whatever songs/subject the content is *about* (`docs/decisions.md`
+2026-08-25). A recent performance of old catalog songs goes in the current
+era, not the songs' original era — that was the exact mistake in "The Icon
+Sessions at the Grammy Museum" video, filed under folklore because the
+medley included "august," when the performance itself happened in 2026,
+inside The Life of a Showgirl's window. Full rule + rationale:
+`docs/agents/content-shift.md` § "Era placement is by real-world date, never
+by subject."
+
 **Add a moment to an era:** add a `RawItem` to the correct `EraId` array in
 `content.ts` (`id`, `date`, `title`, `blurb`, `tags`). Optionally add
 `video: { youtubeId, title }` (verify per §5.5) and/or `hiddenClue`.
