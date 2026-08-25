@@ -27,11 +27,26 @@
 # 2026-07-18 header documents for this repo. 13:40 UTC = 06:40 PT, comfortably
 # ahead of the Content Shift's 10:00 AM PT run so fresh intake is already
 # queued when the writer wakes up.
+#
+# CADENCE (2026-08-25, Joey, direct chat decision): twice daily, not hourly.
+# A Fable/architect strategic review flagged that official-channel polling
+# (allUploads: true channels in channels.mjs — Taylor's own verified
+# uploads) at once a day risks missing same-day/same-hour drops; Joey's call
+# was explicit: "I want to poll official channels twice a day, that's
+# aggressive enough" — hourly was considered and rejected as overkill for a
+# keyless RSS poll with no new cost either way. Second run at 21:40 UTC,
+# same :40 offset as the original run (keeps clear of watchdog.yml's hourly
+# :05 and news-worker.yml's :10), landing ahead of the Content Shift's
+# second 23:00 UTC authoring pass the same way 13:40 already leads its
+# 17:00 UTC pass (see news-worker.yml's header for that 17:00/23:00 UTC
+# authoring cadence). Dedupe stays stateless (re-reads the issue ledger each
+# run per the header above), so a second run per day is safe by
+# construction — nothing to reconcile, no state to double-write.
 name: appearance-discovery
 
 on:
   schedule:
-    - cron: "40 13 * * *" # 06:40 PT / 13:40 UTC — daily, before the Content Shift
+    - cron: "40 13,21 * * *" # 06:40 PT / 13:40 UTC and 14:40 PT / 21:40 UTC — twice daily, before each Content Shift run
   workflow_dispatch:
     inputs:
       dry_run:
