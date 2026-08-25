@@ -5006,3 +5006,33 @@ refactor, fix CI/workflows, document decisions for non-money, non-credential
 calls). The one credential-gated piece — applying the DB migrations — remains
 HUMAN-ACTIONS #14 (Wyatt); the worker/freshness degrade above is what stops the
 alarms in the meantime without masking a real regression.
+
+## 2026-08-25 — Reversed: Reddit fan-source posture now includes comment bodies
+
+**Context:** the 2026-08-23 knowledge-engine kickoff entry (item 4, above)
+set Reddit-via-RSS to aggregate-only, hashed author, no comment bodies
+beyond what a public RSS already exposes — the most conservative posture
+available at build time, deliberately narrow pending a real product call.
+That call has now been made.
+
+**Decision:** Reddit comment bodies (not just post titles/selftext) are now
+in scope for the fan-signal/theory-detection pipeline. Joey's reasoning,
+verbatim: "that's public info, reddit people WANT their info public, that's
+the entire idea behind the site. I am an avid redditor and moderator, this
+is fact." Joey personally moderates Reddit communities and is speaking from
+direct standing in that community, not a guess — the prior posture's caution
+was appropriate given the alternative was pure speculation about Reddit
+users' expectations at build time.
+
+**Scope, still to be engineered:** comment threads (not just post bodies) on
+relevant subreddits become a real extract-stage input, specifically for
+detecting Easter-egg/theory/new-song discussion signal — the exact gap
+flagged in the 2026-08-25 architect (Fable) review dispatched this session.
+Hashed-author convention and every other privacy safeguard from the 2026-08-23
+entry stay in force (this reverses ONLY the no-comment-bodies clause, nothing
+else in item 4). Which subreddits, comment-depth/volume caps, and how this
+interacts with the parked Reddit Data API request (`HUMAN-ACTIONS.md` #12
+item... — see that file for current status) are engineering-scope questions
+for whoever implements this, not re-opened by this entry.
+
+**Approved by:** Joey, in chat, 2026-08-25 06:38 PDT.
