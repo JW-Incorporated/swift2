@@ -25,27 +25,49 @@ function monthItems(scope: Page | Locator): Locator {
   return scope.locator('[data-ll-item]');
 }
 
+// A genuine moment card only — excludes the egg/thread "doorway" cards
+// (DoorwayCard.tsx) that deliberately share `data-ll-item` and the same card
+// silhouette so the timeline scrubber measures them as real rail anchors too.
+// A doorway opens TheoryGuide or switches to Threads mode, not a MomentDetail
+// sheet named after its own heading, so picking `monthItems().first()`
+// indiscriminately breaks whenever content ordering puts a doorway first.
+function realMomentItems(scope: Page | Locator): Locator {
+  return monthItems(scope).filter({
+    hasNotText: /See this in Theories & eggs|Follow this thread/,
+  });
+}
+
 // The reader is a client component that hydrates and then auto-scrolls to the
 // most recent era. Wait until it's interactive before poking at it.
 async function gotoVault(page: Page) {
   await page.goto('/');
-  // The landing page is an era CHOOSER, not the timeline. The nav-mode tablist
-  // is client-rendered, so its presence proves hydration.
-  //
-  // This used to wait on the era-timeline slider, which is why the whole suite
-  // went red: the slider now only exists INSIDE an era view, and it was renamed
-  // ("Era timeline" -> "<era> timeline scrubber"). Every test funnels through
-  // this helper, so one stale locator failed all of them, on every run, for ten
-  // days — the site itself was fine the whole time.
-  await expect(page.getByRole('tab', { name: 'Eras' })).toBeVisible();
+  // This used to wait on the nav-mode tablist's "Eras" tab. That tablist
+  // (TopBar's ModeToggle) is wrapped in `hidden md:block` — mobile gets the
+  // BottomNav rail instead, whose buttons carry no `role="tab"` at all — so
+  // the locator could never match on the mobile-chrome project, by design,
+  // on every run. The "open the eras menu" button is the one hydration
+  // signal both layouts always render unconditionally: its label only
+  // reflects the real current era once the client store has hydrated, so
+  // its presence proves interactivity, on both mobile and desktop.
+  await expect(page.getByRole('button', { name: /open the eras menu/i })).toBeVisible();
 }
 
 /**
- * Step into an era, where the timeline and its scrubber live. Matches the
- * scrubber by SUFFIX so the era name can change without breaking this again.
+ * Step into an era via the "Choose an era" overlay, where the timeline and
+ * its scrubber live. Matches the scrubber by SUFFIX so the era name can
+ * change without breaking this again.
+ *
+ * There is no more separate era-chooser landing page (LongLive.tsx, R1
+ * 2026-08-14: "the front door is now the era stream itself") — you land
+ * straight inside the current era, and EraGrid's tiles only exist inside
+ * this dialog now. Scoped to the dialog so an era name that also shows up
+ * in ordinary vault content (a thread, a moment's text) can't match instead.
  */
 async function enterEra(page: Page, name = 'Showgirl') {
-  await page.getByRole('button', { name: new RegExp(`^${name}`, 'i') }).first().click();
+  await page.getByRole('button', { name: /open the eras menu/i }).click();
+  const selector = page.getByRole('dialog', { name: 'Choose an era' });
+  await expect(selector).toBeVisible();
+  await selector.getByRole('button', { name: new RegExp(`^${name}`, 'i') }).first().click();
   await expect(page.getByRole('slider', { name: /timeline scrubber$/i })).toBeVisible();
 }
 
@@ -62,48 +84,52 @@ test.describe('Vault smoke', () => {
   test('homepage renders multiple eras with known titles', async ({ page }) => {
     await gotoVault(page);
 
-    // The landing page is an era CHOOSER — one button per era — not the stacked
-    // `section[data-era]` list this used to assert on. Count the chooser
-    // entries instead, still without pinning an exact number so a new era
+    // There is no more separate era-chooser landing page (LongLive.tsx, R1
+    // 2026-08-14) — the front door is the current era's stream, and the
+    // one-button-per-era grid now lives inside the "Choose an era" dialog.
+    // Scoped to the dialog: the background stream stays mounted behind it,
+    // and moment cards/threads can carry these same names or 4-digit years
+    // in their own text.
+    await page.getByRole('button', { name: /open the eras menu/i }).click();
+    const selector = page.getByRole('dialog', { name: 'Choose an era' });
+    await expect(selector).toBeVisible();
+
+    // Count the chooser entries without pinning an exact number so a new era
     // cannot break it.
-    const eraButtons = page.getByRole('button', { name: /\d{4}/ });
+    const eraButtons = selector.getByRole('button', { name: /\d{4}/ });
     expect(await eraButtons.count()).toBeGreaterThanOrEqual(8);
 
     // Known, stable era names must be offered.
     for (const title of ['Fearless', 'Midnights', '1989', 'Lover']) {
       await expect(
-        page.getByRole('button', { name: new RegExp(`^${title}`, 'i') }).first(),
+        selector.getByRole('button', { name: new RegExp(`^${title}`, 'i') }).first(),
       ).toBeVisible();
     }
   });
 
   test('per-era category filter hides non-matching items without jumping', async ({ page }) => {
     await gotoVault(page);
-    await enterEra(page);
 
-    // This used to loop over `section[data-era]` hunting for an era with a 2+
-    // category filter. That selector matches ZERO elements — the attribute is
-    // `data-ll-section` (the same rename that already caught `data-ll-item`) —
-    // so the loop body never ran and the assertion below failed on a null
-    // target in about a second. Not a timeout, and not the site: the filter
-    // works, with five chips.
-    //
-    // The search is also obsolete now that `enterEra` steps INTO one era: there
-    // is exactly one section on screen, so scope to it instead of hunting.
-    const era = page.locator('section[data-ll-section]').first();
-    await expect(era).toBeVisible();
+    // R2 (FilterBar.tsx): category filtering is no longer a per-era "Filter"
+    // toggle that expands into a chip group scoped to that era's section.
+    // It's now ONE global sticky bar — role="group", aria-label "Filter the
+    // timeline" — mounted once by EraStream with an always-visible "All"
+    // chip plus one chip per topic tag. No toggle to find or expand; that's
+    // what the 45s timeout on `getByRole('button', { name: /^Filter/ })` was
+    // actually waiting on — a button that no longer exists. The filter still
+    // applies within whichever era section is on screen, so scope the
+    // before/after item counts to it, same as before.
+    const filterBar = page.getByRole('group', { name: 'Filter the timeline' });
+    await expect(filterBar).toBeVisible();
 
-    const filterToggle = era.getByRole('button', { name: /^Filter/ }).first();
-    await filterToggle.scrollIntoViewIfNeeded();
-    await filterToggle.click();
-
-    const chipButtons = era
-      .getByRole('group', { name: /Filter .* by category/ })
-      .getByRole('button');
+    const chipButtons = filterBar.getByRole('button');
     expect(
       await chipButtons.count(),
-      'expected this era to offer 2+ category chips',
-    ).toBeGreaterThanOrEqual(2);
+      'expected the "All" chip plus 2+ category chips',
+    ).toBeGreaterThanOrEqual(3);
+
+    const era = page.locator('section[data-ll-section]').first();
+    await expect(era).toBeVisible();
 
     const before = await monthItems(era).count();
     expect(before).toBeGreaterThan(0);
@@ -111,12 +137,9 @@ test.describe('Vault smoke', () => {
     // Record scroll position right before applying the filter.
     const beforeScroll = await scrollTop(page);
 
-    // Select the first category chip and read its label so we can verify what
-    // survives the filter. The chip is an icon + a bare text node — it has no
-    // span at all. The old locator described an earlier "<emoji> <Label>" chip
-    // whose label lived in a span; against the current lucide-icon chip it
-    // matched nothing and hung until the 45s test timeout.
-    const chip = chipButtons.first();
+    // Chip 0 is "All" (clears the set) — skip it and pick the first real
+    // category chip, then read its label so we can verify what survives.
+    const chip = chipButtons.nth(1);
     const label = (await chip.innerText()).trim();
     await chip.click();
     await expect(chip).toHaveAttribute('aria-pressed', 'true');
@@ -156,7 +179,12 @@ test.describe('Vault smoke', () => {
     await gotoVault(page);
     await enterEra(page);
 
-    const item = monthItems(page).first();
+    // `.first()` on ALL `data-ll-item` cards is content-order-dependent: an
+    // egg/thread doorway card can sort first, and clicking one opens
+    // TheoryGuide (or switches to Threads mode) instead of a MomentDetail
+    // sheet named after itself — that mismatch, not a broken sheet, is what
+    // made this locator time out. realMomentItems excludes those doorways.
+    const item = realMomentItems(page).first();
     await item.scrollIntoViewIfNeeded();
     // The card's TITLE, via its heading. This used to read `span` #1, which is
     // the DATE ("December 25") — MomentMeta renders the date label first. So
