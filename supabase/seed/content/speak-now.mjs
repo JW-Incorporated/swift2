@@ -1037,6 +1037,17 @@ export default {
             kind: 'primary',
             focalPoint: '62% 18%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): a Getty photo from the 54th
+            // Grammys ceremony itself was tried here, but media.gettyimages.com
+            // only serves a watermarked preview ("comp") image, not a clean
+            // licensable asset — swapped for a real Speak Now World Tour photo
+            // from the same era instead.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
+            credit: 'Eva Rinaldi, CC BY-SA 2.0, via Wikimedia Commons',
+            caption: 'Taylor Swift performing on the Speak Now World Tour, the tour supporting the album nominated at the 54th Grammy Awards.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -2130,6 +2141,13 @@ export default {
             credit: 'Eva Rinaldi, CC BY-SA 2.0, via Wikimedia Commons',
             caption:
               'Taylor performing on the Speak Now World Tour (Sydney SuperDome, March 2012) — the tour where "Enchanted" became a fan-favorite live moment.',
+            kind: 'reference',
+          },
+          {
+            // Photo pass (issue #1721, 2026-08-25).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/22/Taylor_Swift_-_Speak_Now_tour_2011_01.jpg',
+            credit: 'Wikimedia Commons / "dephisticate" (CC BY 2.0)',
+            caption: 'Taylor Swift performing live during the Speak Now World Tour, Prudential Center, Newark, July 20, 2011.',
             kind: 'reference',
           },
         ],

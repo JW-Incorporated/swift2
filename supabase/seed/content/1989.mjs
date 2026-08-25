@@ -2062,6 +2062,14 @@ export default {
             // Tall full-body frame; her face is near the very top, slightly left of center.
             focalPoint: '42% 16%',
           },
+          {
+            // Photo pass (issue #1721, 2026-08-25): candid press photo from the
+            // week the trademark filings broke in the press.
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt00a69b3da57cafb8/69877c73e53aba00174d7480/taylorswift1.jpg?branch=production&width=1200&quality=75&auto=webp&crop=16:9',
+            credit: 'Alessio Botticelli—GC Images/Getty Images',
+            kind: 'reference',
+            caption: 'Taylor Swift in New York City, January 2015, around the week the "This Sick Beat" trademark filings became public.',
+          },
         ],
       },
     },
