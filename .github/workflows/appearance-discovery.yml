@@ -5,17 +5,33 @@
 # Taylor-relevance filter documented there, and files one `intake` issue per
 # genuinely new video. The Content Shift (docs/agents/content-shift.md §
 # "YouTube appearance intake") is the judge: it verifies, places by era, and
-# authors. This workflow never writes content and never calls a model.
+# authors — the slow lane. This workflow never calls a model and never
+# claims anything about a video's CONTENT.
+#
+# FAST LANE (added 2026-08-25, docs/decisions.md "Detection-triggered social
+# auto-post: confirmed live, not staged; email on every send"): discover.mjs
+# also stages a templated social/queue/*.json draft next to each filed intake
+# issue (lib/social-draft.mjs) — restating RSS metadata only, never a claim
+# about content. The "Stage social drafts" step below commits any new files
+# it left in the working tree via a PR, same pattern social-poster.yml uses
+# for its own state commits (branch/author registered in
+# scripts/automerge-branch-author-gate.mjs so auto-merge-content.yml can
+# land it — check-drafts.mjs is the real content gate). Per that decision,
+# there is deliberately no approval gate: it posts live on schedule like any
+# other queue draft, same as the Content Shift's own drafts already do.
 #
 # Deliberately zero AI, same family as watchdog.yml and unowned-sweep.yml:
 # detection is a mechanical job, so it runs as dumb code on a cheap schedule
 # rather than burning a session's tokens to read fifteen XML documents. The
 # only spend downstream is the Content Shift budget that already exists.
 #
-# NO NEW SECRETS: YouTube channel RSS is keyless and unauthenticated (the
-# YouTube Data API was rejected precisely because it needs a key and an
-# account — see docs/decisions.md, 2026-08-12). The only credential is the
-# built-in GITHUB_TOKEN, scoped to issues:write.
+# NO NEW SECRETS beyond the built-in GITHUB_TOKEN (issues:write, for filing
+# intake issues) and the repo's EXISTING SOCIAL_POSTER_PAT (reused, not
+# created — the same PAT social-poster.yml already uses to open its own
+# queue-state PRs), needed here only so the fast-lane draft's PR can push to
+# a branch and open a PR. YouTube channel RSS itself stays keyless and
+# unauthenticated (the YouTube Data API was rejected precisely because it
+# needs a key and an account — see docs/decisions.md, 2026-08-12).
 #
 # Dedupe is STATELESS by design — no state file, no state PR, nothing that has
 # to auto-merge to be remembered (#2031 shipped duplicate IG posts exactly that
@@ -89,7 +105,16 @@ jobs:
     # 14 channels x 2 attempts x 30s.
     timeout-minutes: 20
     steps:
+      # SOCIAL_POSTER_PAT (not the default GITHUB_TOKEN) so the "Stage social
+      # drafts" step below can push a branch and open a PR — mirrors
+      # social-poster.yml's own checkout (see that workflow's header for why
+      # a real-user token is needed: main is branch-protected, PR + a
+      # passing `build` check required). The "Discover new appearances" step
+      # below still uses the default GITHUB_TOKEN for issue filing —
+      # least-privilege, unchanged from before this lane existed.
       - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
 
       - uses: actions/setup-node@v7
         with:
@@ -104,6 +129,7 @@ jobs:
       # execute with this job's GH_TOKEN (issues:write). As env vars they are
       # inert data. The script itself re-validates them as numbers anyway.
       - name: Discover new appearances
+        id: discover
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run }}
@@ -118,3 +144,35 @@ jobs:
             set -- --file "$@"
           fi
           node scripts/appearance-discovery/discover.mjs "$@"
+
+      # Fast lane (docs/decisions.md 2026-08-25): commit whatever
+      # discover.mjs left under social/queue/ — it only writes there in FILE
+      # mode, after an intake issue for the same video already filed
+      # successfully, so a dry run or a fully-refused run leaves nothing to
+      # commit here and this step is a silent no-op. Runs `always()` +
+      # outcome check (not a plain `if: success()`) so a video whose intake
+      # issue filed but whose sibling draft the previous step already
+      # reported failed loudly still gets a chance — draft failures never
+      # stop discover.mjs's own exit code from going non-zero, this step
+      # just should not silently swallow whatever DID stage.
+      - name: Stage social drafts (via PR — main is branch-protected)
+        if: always() && (steps.discover.conclusion == 'success' || steps.discover.conclusion == 'failure')
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          set -euo pipefail
+          git add social/queue
+          if git diff --cached --quiet; then
+            echo "No new social drafts staged this run."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="appearance-discovery/${GITHUB_RUN_ID}"
+          git checkout -b "$BRANCH"
+          git commit -m "appearance-discovery: fast-lane social draft(s) — run ${GITHUB_RUN_ID}"
+          git push origin "$BRANCH"
+          gh pr create --title "appearance-discovery: fast-lane social draft(s) — run ${GITHUB_RUN_ID}" \
+            --body "Auto-drafted from a genuinely new, deterministically-matched official-channel upload — see \`scripts/appearance-discovery/lib/social-draft.mjs\` and docs/decisions.md 2026-08-25 (\"Detection-triggered social auto-post\"). Never a claim about the video's content, only RSS metadata (title/channel/URL). Auto-merges once \`scripts/social/check-drafts.mjs\` passes, same as any other queue draft; posts live on its own \`scheduledAt\`, no further approval." \
+            --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --squash --auto --delete-branch
