@@ -11,6 +11,8 @@
 #   OPENAI_API_KEY — optional; unset means the worker runs entirely on the
 #     deterministic rule-based classifier (the designed degraded-but-
 #     functional path, not a broken state).
+#   GNEWS_API_KEY, TUMBLR_CONSUMER_API_KEY — optional per-source; unset means
+#     that source adapter no-ops (see apps/worker/src/sources/{gnews,tumblr}.ts).
 #
 # Offset off :00/:35 (not :00/:30) — this repo already runs two separate
 # */30 workflows (social-poster.yml, marjorie-inbox.yml); see watchdog.yml's
@@ -58,6 +60,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          TUMBLR_CONSUMER_API_KEY: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}
         run: npm run news --workspace @swift2/worker
 
       # Publish a credential-free digest of what was ingested, for the News

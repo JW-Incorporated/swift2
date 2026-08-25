@@ -9059,6 +9059,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-named-to-the-nashville-songwriters-hall-of-fame-its-youngest',
         'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+        'moment:vault-tloas-a-rare-la-appearance-and-five-songs-for-the-eras-tour-films-',
       ],
       moment: {
         context:
@@ -9114,6 +9115,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
         'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
       ],
       moment: {
         context:

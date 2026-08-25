@@ -20,8 +20,16 @@
  * Fullscreen API — unreliable on iOS Safari for non-video elements).
  * `ClownBoard` below prefills the composer on tap, never auto-sends.
  *
- * NEVER render Taylor Swift imagery on this surface and never persist the
- * reader's words anywhere but the one POST below.
+ * NEVER render Taylor Swift imagery on this surface. The reader's words DO
+ * leave this component in more than the one POST below: the client holds no
+ * transcript of its own beyond the store's capped `clownMessages` (never
+ * persisted — see the comment on that field), but the server side of that
+ * POST forwards the question/transcript to Anthropic's Claude API to answer
+ * it, and — once the anonymous-identity system in `clown-memory.ts` is
+ * switched on — stores the conversation in Supabase for up to 180 days
+ * (`legal.ts`'s "Clownbot" privacy-policy section, issue #3251). This
+ * component itself still does nothing beyond the one `fetch` below; the
+ * warning above was simply wrong about what happens after that.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -38,6 +46,7 @@ import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { ClownBoard } from './ClownBoard';
 import { ClownChatComposer } from './ClownChatComposer';
 import { ClownChatTitlebar } from './ClownChatTitlebar';
+import { ClownEmptyState } from './ClownEmptyState';
 import { ClownMessageRow } from './ClownMessageRow';
 
 /**
@@ -200,6 +209,11 @@ export function ClownChat() {
     });
   }, []);
 
+  const handleStarterSelect = useCallback((prompt: string) => {
+    setText(prompt);
+    requestAnimationFrame(() => textareaRef.current?.focus({ preventScroll: true }));
+  }, []);
+
   const panelClassName = expanded
     ? 'fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
     : // Mobile: height comes from `--clown-panel-h` below, a measured fit
@@ -245,9 +259,7 @@ export function ClownChat() {
           aria-busy={busy}
         >
           {messages.length === 0 ? (
-            <p className="self-center text-center text-[13px] text-[color:var(--clown-ink-soft)] opacity-70">
-              {EMPTY_STATE_TEXT}
-            </p>
+            <ClownEmptyState intro={EMPTY_STATE_TEXT} onSelect={handleStarterSelect} />
           ) : (
             messages.map((m) => <ClownMessageRow key={m.id} message={m} />)
           )}

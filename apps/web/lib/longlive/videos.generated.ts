@@ -503,6 +503,20 @@ export const VIDEOS_RAW: Partial<Record<EraId, VideoNote[]>> = {
       sources: [{ name: "Folklore: The Long Pond Studio Sessions", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions", reliability: 2, type: "wiki" }, { name: "Taylor Swift Is Releasing a \"Folklore\" Special on Disney+", url: "https://www.teenvogue.com/story/taylor-swift-folklore-special-disney-plus", reliability: 4, type: "reputable_press" }, { name: "folklore: the long pond studio sessions | Official Trailer", url: "https://www.youtube.com/watch?v=jgdFUoZzCI0", reliability: 5, type: "official" }],
       tags: ["Music"],
     },
+    {
+      slug: "icon-sessions-grammy-museum-medley",
+      kind: "performance",
+      title: "The Icon Sessions at the Grammy Museum",
+      director: null,
+      releasedOn: "2026-08-24",
+      relatedSongs: ["I Knew It, I Knew You", "August", "All Too Well"],
+      summary: "A medley of \"I Knew It, I Knew You,\" \"August\" and \"All Too Well\" for The Recording Academy Songwriters & Composers Wing 20-Year Retrospective, live at the Grammy Museum — pairing her Toy Story 5 single with catalog favorites from folklore and Red.",
+      easterEggs: [],
+      symbolism: null,
+      youtubeId: "_9jaJtmraXA",
+      sources: [{ name: "Taylor Swift Performance - The Icon Sessions at the Grammy Museum", url: "https://www.youtube.com/watch?v=_9jaJtmraXA", reliability: 5, type: "official" }],
+      tags: ["Music"],
+    },
   ],
   "lover": [
     {

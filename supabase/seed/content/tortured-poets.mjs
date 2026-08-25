@@ -1976,7 +1976,7 @@ export default {
           // distinct from the display_05 crop above (display_05 is the only other Songbook file
           // used in this seed, so no cross-page duplicate).
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg/960px-Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg',
             credit: '14GTR / Wikimedia Commons (CC0)',
             caption:
               "The full Fortnight stop on the V&A's Songbook Trail: the Elena Velez gown staged on a plinth of antique books, with the typewriter and neon wiring completing the scene.",
@@ -2010,7 +2010,7 @@ export default {
       snippet:
         'A custom Christian Dior look from the Resort 2025 collection — plaid bustier, open cape-like skirt, thigh-high Stuart Weitzman boots, and lace-up gloves. Fans called it "Reputation"-coded.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg',
       moment: {
         context:
           'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that flowed behind her "like a Highland warrior\'s cape" — Marie Claire\'s phrase for it. Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "Reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
@@ -2026,14 +2026,14 @@ export default {
         ],
         photos: [
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a-1200-80.jpg',
             credit: 'Getty Images',
             // Photo pass #762 (2026-07-19): viewed — landscape close-up against the neon "20"
             // stage sign, face left-of-center in the upper third.
             focalPoint: '46% 30%',
           },
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd-1200-80.jpg',
             credit: 'Getty Images',
             // Photo pass #762 (2026-07-19): viewed — full-length carpet shot, face high in frame.
             focalPoint: '52% 15%',
@@ -2066,7 +2066,7 @@ export default {
         'A one-shoulder sequined red minidress with a Lorraine Schwartz thigh chain spelling "T" — for Travis — plus Casadei heels.',
       sourceUrl: 'https://www.eonline.com/news/1412664/grammys-2025-taylor-swift-red-carpet-fashion-moment',
       thumbnailUrl:
-        'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
+        'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/1240x1860/4ae6b2706602461f95e8f081252d5450/gettyimages-2197310399.jpg',
       moment: {
         context:
           'The custom one-shoulder Vivienne Westwood mini read as a message: Chiefs red, worn Feb. 2 at Crypto.com Arena exactly one week before Kansas City\'s Super Bowl LIX matchup with the Eagles, with the Lorraine Schwartz diamond thigh chain dangling a single "T" fans immediately read as Travis, absent while he prepared for the game.\n\nCasadei heels finished the look as she carried six nominations into the night, including her record seventh Album of the Year nod for The Tortured Poets Department.',
@@ -2082,7 +2082,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
+            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/1240x1860/4ae6b2706602461f95e8f081252d5450/gettyimages-2197310399.jpg',
             credit: 'Getty Images',
             // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
             // full-length red-carpet pose in the red Westwood mini; face high,
@@ -2095,7 +2095,7 @@ export default {
             // earrings, red lip, the draped one-shoulder bodice. Downloaded and
             // vision-confirmed against the same MusiCares Fire Relief backdrop
             // as the existing CBS full-length.
-            url: 'https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV-1200-80.jpg',
             credit: 'Getty Images via Marie Claire',
             caption: 'The details up close: ruby chandelier earrings and the draped, corseted Westwood bodice.',
             // Focal point set by viewing: landscape close-up, face left of
@@ -2293,7 +2293,7 @@ export default {
           // snippet names. curl 200 image/png 2302x1500; Read-viewed: single video frame, no
           // watermark or collage, distinct from the plum-skort frame above.
           {
-            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png?ssl=1',
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The lavender Popflex tulle skirt and matching corset bra, mid-rehearsal in the video.',
             focalPoint: '41% 25%',
@@ -2390,7 +2390,7 @@ export default {
         'Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249',
       thumbnailUrl:
-        'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
+        'https://dims.apnews.com/dims4/default/aaf01e8/2147483647/strip/true/crop/3022x2015%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F1e%2F0f%2Fb7bedc75699b2a5bb6ceb0e5f3af%2Fcc4f0c89c69d41a8965e44bb67f811eb',
       moment: {
         context:
           'Kansas City beat Buffalo 32-29 in the Jan. 26, 2025 AFC Championship at Arrowhead, sending the Chiefs to a second straight Super Bowl — and a Feb. 9 shot at becoming the first NFL team ever to win three in a row. Kelce had two catches for 19 yards in the win, his fifth conference title as a Chief.\n\nWhen the confetti cannons fired, cameras found the night\'s defining image: Taylor and Kelce kissing amid the falling paper with Donna Kelce beside them. By ABC\'s tally, the Chiefs had won every game Taylor attended that season — eight regular-season dates at Arrowhead plus both playoff rounds — a streak that would finally break two weeks later in New Orleans.',
@@ -2402,20 +2402,17 @@ export default {
         ],
         photos: [
           {
-            url: 'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
-            credit: 'AP',
+            url: 'https://dims.apnews.com/dims4/default/aaf01e8/2147483647/strip/true/crop/3022x2015%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F1e%2F0f%2Fb7bedc75699b2a5bb6ceb0e5f3af%2Fcc4f0c89c69d41a8965e44bb67f811eb',
+            credit: 'AP / Ashley Landis',
             // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
             // the confetti kiss itself — the two faces meet right of center,
             // upper third, her gloved hand on his cheek.
             focalPoint: '55% 32%',
           },
           {
-            url: 'https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg',
-            credit: 'Getty Images',
-            // Focal point set 2026-07-18 (run 7) by viewing: near-square two-shot,
-            // Travis's face upper-left, Taylor's face right of center in the LV
-            // beanie; midpoint keeps both under a wide crop.
-            focalPoint: '52% 40%',
+            url: 'https://dims.apnews.com/dims4/default/cf69427/2147483647/strip/true/crop/2831x1888%2B0%2B0/resize/599x399%21/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fda%2Fd8%2F7595fc694f2cc53fd35321aea664%2F9b03c060e1bc4216a66dd56be4b516ea',
+            credit: 'AP / Ashley Landis',
+            focalPoint: '62% 30%',
           },
         ],
       },
@@ -2489,7 +2486,7 @@ export default {
         // unvetted third-party CDN with no allowlist precedent.)
         photos: [
           {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250625/5a891109-de90-4fa4-977d-964e635bcea1_1750852610.jpg?fit=around%7C1200:1200&output-quality=90&crop=1200:1200;center,top',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250625/5a891109-de90-4fa4-977d-964e635bcea1_1750852610.jpg',
             focalPoint: '62% 25%',
             credit: 'E! News (via Kane Brown\'s Instagram)',
             caption:
@@ -2514,7 +2511,7 @@ export default {
       // Image-fix pass (2026-07-10 retry): #362 — swapped in the clean, unbordered frame from
       // the same June 28, 2025 shoot (see photos[] below) to replace the TMZ letterbox crop.
       thumbnailUrl:
-        'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
+        'https://media.zenfs.com/en/page_six_articles_559/89c5d1c1ef03b7418b67a546d78fe729',
       moment: {
         context:
           'The Saturday, June 28, 2025 dinner date put her in a $3,500 Balmain houndstooth tweed A-line minidress — chain-metal straps, oversized gold buttons, frayed trim — with taupe Christian Louboutin "Miss Jane" sandals and an Aspinal of London trunk bag, while Travis kept it simple in a fresh white top, trousers, and black loafers.\n\nE! priced the full look near $30,000 once the jewelry was counted: a $22,500 Panthère de Cartier necklace on a gold-and-diamond chain, a $3,400 Ofira "Tattoo" diamond ring, and a diamond-studded gold Rolex — red-carpet hardware deployed for a restaurant run, photographed on the way in and published the next morning.',
@@ -2523,6 +2520,24 @@ export default {
           {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night',
+          },
+          {
+            outlet: 'ELLE',
+            url: 'https://www.elle.com/culture/celebrities/a65243131/taylor-swift-balmain-white-minidress-nyc-travis-kelce/',
+            source_title: 'Taylor Swift Wears Pink and White Balmain Minidress on NYC Date With Travis Kelce',
+            publisher: 'ELLE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: "Harper's Bazaar",
+            url: 'https://www.harpersbazaar.com/celebrity/latest/a65251820/taylor-swift-pink-balmain-dress-sentimental-jewelry-date-travis-kelce-nyc/',
+            source_title: 'Taylor Swift Is Preppy in a Pink Tweed Balmain Dress for Date Night With Travis Kelce',
+            publisher: "Harper's Bazaar",
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
           },
         ],
         // Image-fix pass (2026-07-10): #361 — removed the bdcd54... photo (vision-confirmed a
@@ -2539,7 +2554,7 @@ export default {
         // collage. Replaced the TMZ bordered photo with it.
         photos: [
           {
-            url: 'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
+            url: 'https://media.zenfs.com/en/page_six_articles_559/89c5d1c1ef03b7418b67a546d78fe729',
             credit: 'The Image Direct',
             // Photo pass #762 (2026-07-19): viewed — full-body walking shot, face high in the
             // portrait frame.
@@ -2597,6 +2612,33 @@ export default {
           {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1422599/taylor-swift-travis-kelce-at-patrick-mahomes-30th-birthday-party',
+          },
+          {
+            outlet: 'ELLE',
+            url: 'https://www.elle.com/culture/celebrities/a66093360/how-taylor-swift-snuck-into-travis-kelce-philadelphia-eagles-game/',
+            source_title: "How Taylor Swift Snuck Into Travis Kelce's Philadelphia Eagles Game",
+            publisher: 'ELLE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Kansas City Star',
+            url: 'https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article312128876.html',
+            source_title: "Taylor Swift's fans loved her classic look at Patrick Mahomes' birthday party",
+            publisher: 'Kansas City Star',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Instagram (@kanebrown, official post)',
+            url: 'https://www.instagram.com/p/DOpLxWRjBAx/',
+            source_title: "Kane Brown's photo from Patrick Mahomes' 30th birthday party",
+            publisher: 'Instagram',
+            source_type: 'social',
+            accessed_at: '2026-08-24',
+            reliability_score: 5,
           },
         ],
         // T16 photo pass (2026-07-09): no photo of Swift exists from this
@@ -3218,12 +3260,18 @@ export default {
             notes: 'Held the top nine of the Global 200 — near-monopoly, not a full top-14',
           },
         ],
-        // The CC0 Fortnight costume display at the V&A provides a stable image
-        // tied to the single that led the chart sweep. Verified 2026-08-24.
+        // T16 photo pass (2026-07-09): the No. 1 single's cover art from
+        // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
         // Photo pass (2026-07-18, #762): + the Swift/Post Malone MV frame
         // Billboard ran with its own top-14 chart story — a different frame
         // from the ytimg maxres still on the "Fortnight opens the album"
         // page. Downloaded + vision-confirmed.
+        // V&A costume-display swap (2026-08-24): the Wikipedia single-art
+        // cover was replaced with the CC0 Fortnight costume display at the
+        // V&A, a more stable image tied to the single that led the sweep.
+        // Image-liveness repair (2026-08-24): the broken Billboard frame was
+        // replaced with the official video's 1280×720 YouTube thumbnail.
+        // Range-fetch verified and vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Taylor_Swift_Songbook_Trail_Fortnight_display_03.jpg/1280px-Taylor_Swift_Songbook_Trail_Fortnight_display_03.jpg',
@@ -3233,9 +3281,9 @@ export default {
             focalPoint: '50% 55%',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/04/taylor-swift-post-malone-fortnight-music-video-still-billboard-1548.jpg?w=1024',
-            credit: 'Taylor Swift / Republic Records (via Billboard)',
-            caption: 'Taylor and Post Malone in the "Fortnight" video — the No. 1 that led a chart-history first.',
+            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Official "Fortnight" video still — the No. 1 that led a chart-history first.',
             kind: 'archival',
             focalPoint: '50% 38%',
           },
@@ -3343,7 +3391,7 @@ export default {
         // and a Taylor Nation email — no creditable still on an approved CDN.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/oaBJlKXBvjk/maxresdefault.jpg',
+            url: 'https://img.youtube.com/vi/oaBJlKXBvjk/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "thanK you aIMee" lyric video, stray capitals intact.',
             kind: 'archival',
@@ -3423,25 +3471,24 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
-        // Photo pass (2026-07-18, #762): render upgraded from 480×360
-        // hqdefault to the same video's 1280×720 maxresdefault (HTTP-checked
-        // + viewed). + the Swift/Welch polaroid that fronted Holler's Miami
-        // "Florida!!!" duet story — Holler's own metadata credits the photo
-        // to Taylor Swift. Downloaded + vision-confirmed.
+        // Image-liveness repair (2026-08-24): the official lyric-video still
+        // now uses YouTube's alternate allowlisted thumbnail host. The broken
+        // Holler image was replaced with Rolling Stone's 1600×900 Miami
+        // performance photo. Both were range-fetched and vision-confirmed.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/uEssK8o3jKg/maxresdefault.jpg',
+            url: 'https://img.youtube.com/vi/uEssK8o3jKg/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Florida!!! (feat. Florence + The Machine)" lyric video.',
             kind: 'archival',
             focalPoint: '50% 60%',
           },
           {
-            url: 'https://cdn.sanity.io/images/o6uq28nb/production/e92e7a8463fee4535c9c538f067276de0a77c9c3-2048x2011.jpg?w=1200',
-            credit: 'Taylor Swift (via Holler)',
-            caption: 'Taylor and Florence Welch — the collaborators behind the album\'s biggest-sounding song.',
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
+            credit: 'John Shearer/TAS24/Getty Images for TAS Rights Management',
+            caption: 'Taylor and Florence Welch perform "Florida!!!" at Hard Rock Stadium in Miami, Oct. 18, 2024.',
             kind: 'archival',
-            focalPoint: '47% 27%',
+            focalPoint: '50% 30%',
           },
         ],
       },
@@ -3520,11 +3567,17 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
-        // Photo pass (2026-08-24): the same official video's 640×480
-        // sddefault frame is live after the maxresdefault transform rotted
-        // (HTTP-checked + viewed). + a Commons CC BY 2.0 portrait of Travis Kelce, the
+        // Photo pass (2026-07-18, #762): render upgraded from 480×360
+        // hqdefault to the same video's 1280×720 maxresdefault (HTTP-checked
+        // + viewed). + a Commons CC BY 2.0 portrait of Travis Kelce, the
         // song's widely read subject, as a reference image (license
         // API-verified; same pattern as the Hendersonville reference photo).
+        // Photo pass (2026-08-24): the same official video's 640×480
+        // sddefault frame is live after the maxresdefault transform rotted
+        // (HTTP-checked + viewed).
+        // Image-liveness repair (2026-08-24): the dead 2021 Commons URL was
+        // replaced with a live public-domain U.S. Air Force portrait crop.
+        // Commons metadata and a range fetch verified the file.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/sddefault.jpg',
@@ -3534,9 +3587,9 @@ export default {
             focalPoint: '43% 45%',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Travis_Kelce_2021.jpg',
-            credit: 'Erik Drost, CC BY 2.0, via Wikimedia Commons',
-            caption: 'Travis Kelce — the song\'s widely read subject, down to the resurfaced marry-kiss-kill clip.',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Travis_kelce_2017_training_camp_%28cropped%29.jpg',
+            credit: 'U.S. Air Force Master Sgt. April Wickes, public domain, via Wikimedia Commons',
+            caption: 'Travis Kelce at Chiefs training camp in 2017 — the song\'s widely read subject.',
             kind: 'reference',
             focalPoint: '50% 38%',
           },
@@ -4364,18 +4417,17 @@ export default {
         // per the audit's §A2 stand-in rule. Public domain, Wikimedia Commons.
         // Photo-enrichment run 11 (2026-07-18, #762): added the aftermath that
         // WAS photographable — fans gathered in Vienna's streets on Aug. 8 to
-        // sing together anyway. From TODAY's coverage on NBC's own CDN;
-        // verified HTTP 200 + image/jpeg, downloaded and vision-confirmed
-        // (crowd, friendship bracelets, raised phones and a gerbera).
+        // sing together anyway. AP's photo shows the friendship bracelets fans
+        // gave an Austrian police officer in the city center that day.
         // Focal points set per image by viewing.
         photos: [
           {
-            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/rockcms/2024-08/taylor-swift-concert-vienna-zz-240808-03-8b9e7e.jpg',
-            credit: 'Getty Images (via TODAY / NBC News)',
-            caption: 'Aug. 8, 2024: on the night the first show should have opened, fans filled Vienna\'s streets — friendship bracelets on, phones up — to sing her songs together anyway.',
+            url: 'https://dims.apnews.com/dims4/default/3075db7/2147483647/strip/true/crop/3368x2318+0+0/resize/1198x824!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F2f%2F1e%2F4ec11b2e19d60c4614a57ef90c4c%2F6a7d4bfcdbad4f18bcb94c1087a17161',
+            credit: 'AP Photo / Heinz-Peter Bader',
+            caption: 'Aug. 8, 2024: an Austrian police officer in Vienna wears friendship bracelets given by Swifties after the three shows were cancelled.',
             kind: 'primary',
-            // The raised flower-and-phone cluster is the subject, mid-frame.
-            focalPoint: '50% 40%',
+            // The bracelets are the subject, just left of center.
+            focalPoint: '44% 42%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg',
@@ -4496,7 +4548,7 @@ export default {
             notes: '2018 baseline: nearly 65,000 registrations via vote.org after her first political post',
           },
         ],
-        // T16 photo pass (2026-07-09): Getty file photo CBS News ran with its
+        // T16 photo pass (2026-07-09): Getty file photo NBC News ran with its
         // endorsement coverage (the endorsement itself was an Instagram post,
         // whose cat portrait is not freely rehostable). Verified HTTP 200 +
         // image/jpeg; visually confirmed (Swift onstage, 2024).
@@ -4508,11 +4560,11 @@ export default {
         // Focal point set by viewing.
         photos: [
           {
-            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2024/09/11/edfca45c-3300-45c7-9daf-30c51d86fe4e/thumbnail/1200x630g2/528b3593333d50ff51e0e52340b1ca69/gettyimages-2166943469.jpg',
-            credit: 'Getty Images (via CBS News)',
-            caption: 'Taylor in 2024 — the file photo CBS News ran with its coverage of the endorsement, which itself was an Instagram post.',
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2024-07/240730-taylor-swift-mb-1200-ee2128.jpg',
+            credit: 'Getty Images (via NBC News)',
+            caption: 'Taylor in 2024 — the file photo NBC News ran with its coverage of the endorsement, which itself was an Instagram post.',
             kind: 'archival',
-            // Over-the-shoulder look to camera; face centered, eyes upper-middle.
+            // Tight performance portrait; face centered, eyes upper-middle.
             focalPoint: '49% 38%',
           },
           // Photo pass 2026-07-19 (defining-events-31-50): re-challenged —
@@ -4522,22 +4574,22 @@ export default {
           // "cat lady" line, and the debate's two moderators) weren't
           // searched for before.
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Kamala_Harris_Vice_Presidential_Portrait.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Kamala_Harris_Vice_Presidential_Portrait_%28cropped%29.jpg/960px-Kamala_Harris_Vice_Presidential_Portrait_%28cropped%29.jpg',
             focalPoint: '50% 30%',
             credit: 'Official White House portrait (public domain)',
             caption: 'Kamala Harris, the candidate the endorsement named directly.',
             kind: 'reference',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg/960px-January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg',
             focalPoint: '54% 30%',
             credit: 'Official White House portrait (public domain)',
             caption: 'JD Vance, whose "childless cat ladies" line Taylor borrowed for her own sign-off.',
             kind: 'reference',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/P20211222AS-1417_%2851898637810%29_%28cropped%29.jpg',
-            focalPoint: '60% 22%',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/P20211222AS-1417_%2851898637810%29.jpg/960px-P20211222AS-1417_%2851898637810%29.jpg',
+            focalPoint: '28% 40%',
             credit: 'Adam Schultz / The White House (public domain)',
             caption: 'David Muir, who co-moderated the Sept. 10, 2024 debate the endorsement followed within minutes.',
             kind: 'reference',

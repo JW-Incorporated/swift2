@@ -11,6 +11,33 @@
  */
 import type { BoardItem } from './clown-board';
 
+export interface ClownStarter {
+  label: string;
+  prompt: string;
+  /** Authoring guard: the prompt explains its own premise and needs no lore. */
+  newcomerFriendly: boolean;
+}
+
+/** Compact empty-state prefills; intentionally not the retired nine-chip wall. */
+export const CLOWN_STARTERS: readonly ClownStarter[] = [
+  { label: 'What is clowning?', prompt: 'What is clowning?', newcomerFriendly: true },
+  {
+    label: 'Explain Easter eggs',
+    prompt: 'What is a Taylor Swift Easter egg?',
+    newcomerFriendly: true,
+  },
+  {
+    label: 'How do you check theories?',
+    prompt: 'How do you check a fan theory?',
+    newcomerFriendly: true,
+  },
+  {
+    label: 'What theories are current?',
+    prompt: 'What fan theories are people discussing right now?',
+    newcomerFriendly: true,
+  },
+];
+
 /** Column item -> composer text. Pure. Chips never reach the model. */
 export function promptForItem(item: BoardItem): string {
   const prompt = item.prompt.trim();

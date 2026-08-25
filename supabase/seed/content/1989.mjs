@@ -149,7 +149,7 @@ export default {
       snippet:
         "Not about an ex — by her own account, about a friend who tried to sabotage an entire arena tour.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/QcIy9NiNbmo/maxresdefault.jpg',
       moment: {
         context:
           "She told Rolling Stone the person had \"tried to hire a bunch of people out from under\" her; a year later she told GQ she'd \"never said anything that would point a finger in the specific direction of one specific person.\"\n\nKaty Perry, the widely speculated subject — the falling-out reportedly traced to a 2013 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia.",
@@ -168,18 +168,10 @@ export default {
             url: 'https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl',
           },
         ],
-        // Photo pass (2026-07-20, #762): 2nd verified photo + focal points on
-        // both. Official "Bad Blood ft. Kendrick Lamar" video id QcIy9NiNbmo
+        // Official "Bad Blood ft. Kendrick Lamar" video id QcIy9NiNbmo
         // confirmed via YouTube oEmbed (author "Taylor Swift"); maxresdefault
         // curl-verified 200 image/jpeg, downloaded and viewed. Focal by eye.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png',
-            focalPoint: '50% 28%',
-            credit: 'Big Machine Records',
-            caption: 'The "Bad Blood" single cover for the Kendrick Lamar version — "band-aids don\'t fix bullet holes."',
-            kind: 'archival',
-          },
           {
             url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/maxresdefault.jpg',
             focalPoint: '54% 42%',
@@ -277,7 +269,7 @@ export default {
       title: 'New Romantics, the deluxe-track Rolling Stone later called one of the decade\'s best',
       snippet: '"Heartbreak is the national anthem" — a synth-pop rallying cry for coming back from it with your friends beside you.',
       sourceUrl: 'https://en.wikipedia.org/wiki/New_Romantics_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/wyK7YuwUWsU/maxresdefault.jpg',
       moment: {
         context:
           "Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music.\n\nNo. 58 among the 100 best songs of the 2010s on Rolling Stone's 2019 decade-end list — \"the type of relieving dance floor soul purge that the best pop can be,\" and by the writer's own argument, the bonus track was the album's real thesis: a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist.",
@@ -285,18 +277,10 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/' },
         ],
-        // Photo pass (2026-07-20, #762): 2nd verified photo + focal points on
-        // both. Official "New Romantics" video (1989 World Tour footage) id
+        // Official "New Romantics" video (1989 World Tour footage) id
         // wyK7YuwUWsU confirmed via YouTube oEmbed (author "Taylor Swift");
         // maxresdefault curl-verified 200 image/jpeg, downloaded and viewed.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png',
-            focalPoint: '50% 38%',
-            credit: 'Big Machine Records',
-            caption: 'The "New Romantics" single cover — "the best people in life are free," in polaroid.',
-            kind: 'archival',
-          },
           {
             url: 'https://i.ytimg.com/vi/wyK7YuwUWsU/maxresdefault.jpg',
             focalPoint: '48% 28%',
@@ -1410,7 +1394,7 @@ export default {
           // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
           // every real, verified photo found from the Feb. 15, 2016 ceremony.
           {
-            url: 'https://i.guim.co.uk/img/media/338849e33c7e6b53df14a7f5a00183b2a31d1203/0_48_2640_1584/master/2640.jpg?crop=none&dpr=1&s=none&width=465',
+            url: 'https://i.guim.co.uk/img/media/338849e33c7e6b53df14a7f5a00183b2a31d1203/0_48_2640_1584/master/2640.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '55% 42%',
             credit: 'Stringer/Reuters, via The Guardian',
             caption: 'Taylor stands on the Grammy stage during the ceremony where 1989 won Album of the Year.',
@@ -1691,7 +1675,7 @@ export default {
       snippet:
         'She called it the song that "best represents" the album — built around a real snowmobile accident and twenty stitches she\'d kept out of the tabloids.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
       moment: {
         context:
           "Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Taylor on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.\n\nThe bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time.",
@@ -1702,11 +1686,6 @@ export default {
         // Karen #877 fix (2026-07-19): same frame upgraded hq2 (480x360, 6KB)
         // -> maxres2 (1280x720); downloaded and vision-confirmed identical.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png',
-            credit: 'Big Machine Records',
-            focalPoint: '47% 42%',
-          },
           {
             url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
             credit: 'Big Machine Records / Taylor Swift via YouTube',
@@ -2703,7 +2682,7 @@ export default {
             kind: 'primary',
           },
           {
-            url: 'https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=465',
+            url: 'https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '50% 22%',
             credit: 'Rex Features, via The Guardian',
             // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —

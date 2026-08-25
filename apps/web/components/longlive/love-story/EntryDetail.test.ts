@@ -4,6 +4,15 @@ import { RELATIONSHIPS } from '@/lib/longlive/lenses';
 
 const source = readFileSync(new URL('./EntryDetail.tsx', import.meta.url), 'utf8');
 
+describe('EntryDetail solo narrative', () => {
+  it('renders the deeper story and its citations', () => {
+    expect(source).toContain('{soloContext}');
+    expect(source).toContain("soloSources.map((source, index)");
+    expect(source).toContain('href={source.url}');
+    expect(source).toContain('rel="noopener noreferrer"');
+  });
+});
+
 describe('EntryDetail song chips (#1856)', () => {
   it('opens resolved songs through the canonical track-guide navigation path', () => {
     const linkedBranch = source.slice(

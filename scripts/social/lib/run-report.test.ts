@@ -6,6 +6,7 @@ import {
   summarizeRun,
   formatReportMarkdown,
   formatAnnotations,
+  formatPostedNotification,
   isStuck,
   STUCK_AFTER_HOURS,
 } from './run-report.mjs';
@@ -163,6 +164,53 @@ describe('formatAnnotations', () => {
     const annotations = formatAnnotations([], { abortReason: 'required credentials are missing' });
     expect(annotations).toHaveLength(1);
     expect(annotations[0]).toMatch(/^::error title=social-poster: run aborted::/);
+  });
+});
+
+describe('formatPostedNotification', () => {
+  it('returns null when nothing posted this run — no empty email', () => {
+    expect(formatPostedNotification([])).toBeNull();
+    expect(formatPostedNotification([failedX, retryingX, skippedIg])).toBeNull();
+  });
+
+  it('links the real platform post, not just "a post was made"', () => {
+    const notification = formatPostedNotification([postedIg]);
+    expect(notification).not.toBeNull();
+    expect(notification!.subject).toContain('1 post went live');
+    expect(notification!.subject).toContain('instagram 1');
+    expect(notification!.body).toContain('https://instagram.com/p/1');
+  });
+
+  it('lists a Facebook cross-post link separately when it also succeeded', () => {
+    const notification = formatPostedNotification([
+      { ...postedIg, facebookUrl: 'https://facebook.com/page/posts/1' },
+    ]);
+    expect(notification!.body).toContain('Also cross-posted to Facebook');
+    expect(notification!.body).toContain('https://facebook.com/page/posts/1');
+  });
+
+  it('notes a failed cross-post without hiding the primary link', () => {
+    const notification = formatPostedNotification([
+      { ...postedIg, facebookError: 'token expired' },
+    ]);
+    expect(notification!.body).toContain('https://instagram.com/p/1');
+    expect(notification!.body).toContain('Facebook Page cross-post failed');
+    expect(notification!.body).toContain('token expired');
+    expect(notification!.body).not.toContain('Also cross-posted');
+  });
+
+  it('covers every posted item, ignoring failures/retries/skips in the same run', () => {
+    const secondPost = { ...postedIg, file: 'e-x.json', platform: 'x', url: 'https://x.com/status/9' };
+    const notification = formatPostedNotification([postedIg, secondPost, failedX, retryingX]);
+    expect(notification!.subject).toContain('2 posts went live');
+    expect(notification!.body).toContain('https://instagram.com/p/1');
+    expect(notification!.body).toContain('https://x.com/status/9');
+    expect(notification!.body).not.toContain(failedX.error);
+  });
+
+  it('includes the run log link when provided', () => {
+    const notification = formatPostedNotification([postedIg], { runUrl: 'https://example.test/run/1' });
+    expect(notification!.body).toContain('https://example.test/run/1');
   });
 });
 

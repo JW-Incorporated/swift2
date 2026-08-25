@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { CONTENT_PREFIX, RULE_PATHS, formatFindings, itemsInScope, selectScope } from './check-voice.mjs';
 // @ts-expect-error — plain .mjs checker, no types
 import { check } from './content-engine/checkers/voice.mjs';
+// @ts-expect-error — plain .mjs corpus loader, no types
+import { loadCorpus } from './content-engine/lib/corpus.mjs';
 
 type Item = { type: string; file: string; era: string; key: string; title: string; texts: Record<string, string> };
 const item = (context: string, key = 'k', file = 'supabase/seed/content/1989.mjs'): Item => ({
@@ -79,6 +81,24 @@ describe('check-voice item scoping', () => {
 
   it('passes the whole corpus through in `all` mode', () => {
     expect(itemsInScope(items, { mode: 'all', files: new Set(), reason: '' })).toHaveLength(2);
+  });
+
+  it('loads song-mood prose into the corpus and changed-file scope', async () => {
+    const scope = selectScope(['supabase/seed/song-moods/evermore.mjs']);
+    const moods = itemsInScope(await loadCorpus(), scope);
+    const willow = moods.find((mood: Item) => mood.key === 'willow');
+
+    expect(moods.length).toBeGreaterThan(0);
+    expect(willow).toMatchObject({
+      type: 'song-mood',
+      file: 'supabase/seed/song-moods/evermore.mjs',
+      era: 'evermore',
+      title: 'willow',
+      texts: {
+        oneLiner: 'Devotion bent like the tree it is named for.',
+        useCase: 'wanting someone like a spell\na pull you follow anyway',
+      },
+    });
   });
 });
 

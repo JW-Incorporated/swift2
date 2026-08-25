@@ -23,6 +23,7 @@ import {
   type Progress,
 } from './progress';
 import { pushBackEntry } from './useBackDismiss';
+import { takeMatchingReturnPoint } from './return-point-stack';
 import type { FilterId } from './filters';
 import type { EraId, LensId, MotifId } from './types';
 import type { ClownAnswer } from './clown-answer';
@@ -438,19 +439,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // Jump the era stream to the restored era — unless a scroll snapshot
     // exists (mode-switch return), which the stream restores more precisely.
     if (prev.mode === 'era' && eraScrollRef.current == null) setEraJumpSeq((n) => n + 1);
-    // Doorway back-to-position (P3 step 16): a thread doorway tap pushes a
-    // ReturnPoint immediately before the same navigation's pushNav call, so
-    // the two pop in the same LIFO order — this restoreNav run is always the
-    // one that corresponds to whatever's on top. Applied only when it
-    // actually matches what we just restored to; a mismatched (or absent —
-    // the common case, most nav isn't doorway-sourced) entry is discarded
-    // rather than risking a wrong scroll jump.
-    const rp = popReturnPoint();
-    if (rp && rp.mode === prev.mode && rp.eraId === prev.eraId && typeof window !== 'undefined') {
+    // Doorway back-to-position (P3 step 16): consume the top ReturnPoint only
+    // when this restore reaches its origin. Unrelated navigation can sit above
+    // a doorway's nav entry, so a mismatch must remain for a later restore.
+    const matched = takeMatchingReturnPoint(returnPointStackRef.current, prev);
+    returnPointStackRef.current = [...matched.stack];
+    const rp = matched.returnPoint;
+    if (rp && typeof window !== 'undefined') {
       requestAnimationFrame(() => window.scrollTo({ top: rp.scrollY, behavior: 'auto' }));
     }
     suppressNavPushRef.current = false;
-  }, [popReturnPoint]);
+  }, []);
 
   const pushNav = useCallback(() => {
     if (suppressNavPushRef.current) return;
