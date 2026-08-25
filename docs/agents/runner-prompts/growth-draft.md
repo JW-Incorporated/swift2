@@ -22,7 +22,21 @@ BACKGROUND (the failure this rewrite fixes): with no calendar, this run invented
 
 ### Voice — written out, because copying yesterday is what broke it
 
-The site's editorial standard (`docs/content-ops/editorial-voice-and-pipeline.md`) applies to captions verbatim:
+The site's editorial standard (`docs/content-ops/editorial-voice-and-pipeline.md`)
+applies for accuracy, naming, and sourcing; register intentionally diverges —
+site prose is measured, social is fan-gush (below).
+
+**Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we
+GUSH. Every caption is first-person fan reaction first, fact second: lead with
+the feeling ("OMG", "i can't stop thinking about", "this makes me so happy"),
+then the one concrete detail that earns it. If a caption could be read aloud
+by a documentary narrator without sounding wrong, it's in the old voice —
+rewrite it. Lowercase stays; detachment goes. Exclamation points and
+caps-for-emphasis are welcome; 1-2 emoji max, never strings. The specificity
+test still binds both ways: joy without a real detail is slop, and a detail
+without joy is a museum placard. Unchanged: sourcing is absolute — gush only
+over what's real, never invent a stat, quote, or event; the blocklist;
+Taylor, not "Swift"; no AI-tell phrases; never speak as Taylor or her team.
 
 - **Taylor, not "Swift".** Bare surname is a news-reporter tic; a fan says Taylor. (Inside a direct quote, leave the quote alone.)
 - **No AI-tell phrases** — no wire-service throat-clearing, no hedging qualifier stacks, no "Taylor Swift, the American singer-songwriter…".
