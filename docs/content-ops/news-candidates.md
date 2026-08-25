@@ -27,6 +27,30 @@ so far".
 
 Stories: 120
 
+## Why Everyone Thinks Taylor Swift’s Dôen Dress Is a DebutTV Easter Egg - Yahoo
+
+- first seen: 2026-08-25 14:00 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Why Everyone Thinks Taylor Swift’s Dôen Dress Is a DebutTV Easter Egg  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQVUVZQ2N1aDc0MVFDUnlVVGx2RWpiOWZwNWlwWU1haGppRzdrV1hWVExucXBkc0lGTGtxR29mWE5JNDkyUG84ZXN5bENSLWZHNlVkUVRLNGY2MXFaZEJuN3NsSUNZYkdpaVFBTERFbklsWEIyMnZCN0FvTG1OSmlBcXBWMTlzYXlKeUdOc3pWYjdlaEVjcWltdDFKMlRybDg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Candid Confession About Fame in First Interview Since Her Wedding - instyle.com
+
+- first seen: 2026-08-25 14:00 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Makes Candid Confession About Fame in First Interview Since Her Wedding  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPdE4xSEdSb00ya0JJclJiSUZvSE5uSnVPYkktNGt3MUJmRndYNjNzMjI3T2pfQ1FWOGo5bFlmc2FuWlZueFN3aFppeW5ZV1lrNWk0eWRGNmRHMERFZ2xnWlJrWWVGRXI1Z1U5b2FES3o0SlphOE5xLUNVbzNQQTdwMVBueVVaSlhDbXpmeWdRcEhFdTFEeFpwZnJzSGRLUlhsQWhWNmN3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift performs mashup at Grammy Museum Icon Sessions gala - upi.com
+
+- first seen: 2026-08-25 14:00 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift performs mashup at Grammy Museum Icon Sessions gala  upi.com
+- sources:
+  - [unverified] upi.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxQdGlrQjh0cFRzWWhCTmJZOWxkMzNVTDZFZ19seE1lNG5GQ0ZyczBWTDBFTUNZem9mTXhQX1M5SG5wdEQ1ejRxb2NYYzduRlZRZ3B0ZGZqSDJuZ2NXLTRJYnp2M3YxT3pKVmxzOXNoYmJtTWNxMmk2ZjZkMlBvZkZQVEs2RnZyaENXX0NSdXhrZFRFcVl4VEFBTTQxZmttVFVwUWVhNFNIQ0Y2aG1qMUVUSVJNOXBBX3I1S1h3bNIBwgFBVV95cUxOVkRNOWJjQkQ1UE1NbjFaSFNmMHk2bWxfNHlYSl9tTm10OUZ2QmZITU5EaFpiSFVvdFo1VE5VX01sRTFkejBMWjZZZjZEbnJBV1J5UHVZQWlOZ1FFSXlGamFwX0R6QmhtV01aWGxnNEZJWUhCQmd5WUdkemNnQVJHRXAyMVM5OEh6T3hIbTdhc0paTnFsQUFHcnAtcWhsUDlZYkYycE1xbHNnT0pxWUhPcXZGSzhPZHJ0N0RkSVBKSmR0dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Sings Eras Tour-Style Mashup at Grammy Museum Icon Sessions Event in First Post-Wedding
 
 - first seen: 2026-08-25 09:48 UTC | category: tour | importance: 5
@@ -986,29 +1010,3 @@ The singer, who has the most top 10 singles in UK chart history of any female ar
 - summary: Taylor Swift was recently spotted in a $798 slip dress that is considered perfect for fall activities. The stylish choice showcases her fashion sense for the season.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMic0FVX3lxTE5wODNJVXEyTzAtZkhmZ0EtS1VwdjJReHBVZUdZQTRhQmFna01uaGFoaU9JS1p3amh3RTdYVi1YQ3VERTEyb3JTeXRxR0d5N0tYcUdOd212dWgtM01jUDloSkh3UFBlVEJVcW4yLXc5cjNkZjA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Performs Mashup at Grammy Museum
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: In a recent video at the Grammy Museum, Taylor Swift performed a mashup of her songs ‘All Too Well,’ ‘I Knew It, I Knew You,’ and ‘August.’
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPV09pcExZR2YxS0tNNmM5a2YxVXM1RWtjWVlwNF96bTRtdmVGVm5fdHVqRDA1ajZiZTZTSDBUaDcxNDMxOUNqUndEdmhUenZjY3l2RnlwSTdEVE5sR0R5TmNlTF9wMVp4VjNqalJEWFU4bS1Gb3V5RXpwRlRRWlZWS0JwUHRwQXVVRnJuMW5naEV6cmhrU01XZjRibWRkbExrbUI5cS1hLVY4QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-sings-mashup-all-too-well-grammy-museum-video-1236842092/
-  - [unverified] Rolling Stone Australia — https://news.google.com/rss/articles/CBMimgFBVV95cUxOM0NRbFEwcTQtbHpGNVFvRV9Ha2FYaEM4bW54YkhUdzY5d1JXZXpPZUMwejZnNXJZaG5VdXlZMUM1SklKN0tDVDFYZTIzalJHLUtBRzdMMGdKZ29ZN2JkTlpkd045UDhMVzk0dVBmMFFsMHA3ZGNESlp1UzFWYWxiRWdQakM2ME1ERmNJNTYtdEcwNFVNeGV5cmt3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Film Contributions Highlighted
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has written songs for various blockbuster films, including contributions to 'Hannah Montana: The Movie' and 'The Hunger Games' trilogy, showcasing her impact on popular cinema beyond her music albums.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/taylor-swift-songs-written-for-movies-toy-story-5-crawdads/
-
-## Taylor Swift’s New Dolby Atmos Release Includes Two Reputation Lyric Changes
-
-- first seen: 2026-08-25 02:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift loves to release different versions of her albums. Her latest album, The Life Of A Showgirl, received multiple deluxe versions: So Punk On The Internet Version, So Glamorous Cabaret Version, etc. Yesterday (Dec. 12), on the pop superstar's birthday eve (happy birthday Taylor!), she quie
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2482875/taylor-swifts-new-dolby-atmos-release-includes-two-reputation-lyric-changes/news/
