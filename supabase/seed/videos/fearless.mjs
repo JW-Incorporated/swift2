@@ -254,6 +254,29 @@ export default {
         ),
       ],
     },
+    {
+      slug: 'love-story-live-letterman',
+      kind: 'performance',
+      title: 'Love Story (Live on Letterman)',
+      director: null,
+      releasedOn: null,
+      relatedSongs: ['Love Story'],
+      tags: ['Music'],
+      summary:
+        'A solo performance of the breakout single on the Late Show with David Letterman, part of the national TV rounds Taylor did during Fearless\'s 2008-2009 promotional run.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=mNLVMDF9mUo',
+      media: [embed('mNLVMDF9mUo', '2026-08-25')],
+      sources: [
+        yt('mNLVMDF9mUo', 'Taylor Swift - Love Story (Live on Letterman)'),
+        wiki(
+          'Love_Story_(Taylor_Swift_song)',
+          'Love Story (Taylor Swift song)',
+          'confirms the Late Show with David Letterman performance during the 2008-2009 Fearless promotional run',
+        ),
+      ],
+    },
     // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
     appearance({
       slug: 'grammys-album-of-the-year-2010',
