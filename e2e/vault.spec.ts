@@ -29,23 +29,33 @@ function monthItems(scope: Page | Locator): Locator {
 // most recent era. Wait until it's interactive before poking at it.
 async function gotoVault(page: Page) {
   await page.goto('/');
-  // The landing page is an era CHOOSER, not the timeline. The nav-mode tablist
-  // is client-rendered, so its presence proves hydration.
-  //
-  // This used to wait on the era-timeline slider, which is why the whole suite
-  // went red: the slider now only exists INSIDE an era view, and it was renamed
-  // ("Era timeline" -> "<era> timeline scrubber"). Every test funnels through
-  // this helper, so one stale locator failed all of them, on every run, for ten
-  // days — the site itself was fine the whole time.
-  await expect(page.getByRole('tab', { name: 'Eras' })).toBeVisible();
+  // This used to wait on the nav-mode tablist's "Eras" tab. That tablist
+  // (TopBar's ModeToggle) is wrapped in `hidden md:block` — mobile gets the
+  // BottomNav rail instead, whose buttons carry no `role="tab"` at all — so
+  // the locator could never match on the mobile-chrome project, by design,
+  // on every run. The "open the eras menu" button is the one hydration
+  // signal both layouts always render unconditionally: its label only
+  // reflects the real current era once the client store has hydrated, so
+  // its presence proves interactivity, on both mobile and desktop.
+  await expect(page.getByRole('button', { name: /open the eras menu/i })).toBeVisible();
 }
 
 /**
- * Step into an era, where the timeline and its scrubber live. Matches the
- * scrubber by SUFFIX so the era name can change without breaking this again.
+ * Step into an era via the "Choose an era" overlay, where the timeline and
+ * its scrubber live. Matches the scrubber by SUFFIX so the era name can
+ * change without breaking this again.
+ *
+ * There is no more separate era-chooser landing page (LongLive.tsx, R1
+ * 2026-08-14: "the front door is now the era stream itself") — you land
+ * straight inside the current era, and EraGrid's tiles only exist inside
+ * this dialog now. Scoped to the dialog so an era name that also shows up
+ * in ordinary vault content (a thread, a moment's text) can't match instead.
  */
 async function enterEra(page: Page, name = 'Showgirl') {
-  await page.getByRole('button', { name: new RegExp(`^${name}`, 'i') }).first().click();
+  await page.getByRole('button', { name: /open the eras menu/i }).click();
+  const selector = page.getByRole('dialog', { name: 'Choose an era' });
+  await expect(selector).toBeVisible();
+  await selector.getByRole('button', { name: new RegExp(`^${name}`, 'i') }).first().click();
   await expect(page.getByRole('slider', { name: /timeline scrubber$/i })).toBeVisible();
 }
 
@@ -62,17 +72,25 @@ test.describe('Vault smoke', () => {
   test('homepage renders multiple eras with known titles', async ({ page }) => {
     await gotoVault(page);
 
-    // The landing page is an era CHOOSER — one button per era — not the stacked
-    // `section[data-era]` list this used to assert on. Count the chooser
-    // entries instead, still without pinning an exact number so a new era
+    // There is no more separate era-chooser landing page (LongLive.tsx, R1
+    // 2026-08-14) — the front door is the current era's stream, and the
+    // one-button-per-era grid now lives inside the "Choose an era" dialog.
+    // Scoped to the dialog: the background stream stays mounted behind it,
+    // and moment cards/threads can carry these same names or 4-digit years
+    // in their own text.
+    await page.getByRole('button', { name: /open the eras menu/i }).click();
+    const selector = page.getByRole('dialog', { name: 'Choose an era' });
+    await expect(selector).toBeVisible();
+
+    // Count the chooser entries without pinning an exact number so a new era
     // cannot break it.
-    const eraButtons = page.getByRole('button', { name: /\d{4}/ });
+    const eraButtons = selector.getByRole('button', { name: /\d{4}/ });
     expect(await eraButtons.count()).toBeGreaterThanOrEqual(8);
 
     // Known, stable era names must be offered.
     for (const title of ['Fearless', 'Midnights', '1989', 'Lover']) {
       await expect(
-        page.getByRole('button', { name: new RegExp(`^${title}`, 'i') }).first(),
+        selector.getByRole('button', { name: new RegExp(`^${title}`, 'i') }).first(),
       ).toBeVisible();
     }
   });
