@@ -58,3 +58,27 @@ export function deepLinkTarget(search: string, validLensIds: readonly string[]):
   if (era) return { kind: 'era', id: era };
   return null;
 }
+
+/**
+ * Resolves a `?item=` id that isn't a moment to the era whose video record
+ * owns it, or null if nothing does (#3312). Videos have no `?video=` param
+ * of their own — both search's own video links and hand-authored social
+ * links put the video's slug in `?item=` — so a deep link whose id doesn't
+ * match a moment lands here before being treated as broken. Prefers the
+ * `?era=` hint when it names the video's real era (the common case, since
+ * every generated/shared video link already carries one); falls back to
+ * scanning every era for the slug so a bare or mismatched hint still
+ * resolves. Lookups are injected (rather than importing content/videos data
+ * directly) to keep this pure and unit-testable, matching `deepLinkTarget`
+ * above — the data-backed call site lives in `store.tsx`.
+ */
+export function resolveVideoDeepLink(
+  slug: string,
+  eraHint: string | null,
+  isValidEraId: (id: string) => boolean,
+  eraHasVideoSlug: (eraId: string, slug: string) => boolean,
+  findEraForVideoSlug: (slug: string) => string | null,
+): string | null {
+  if (eraHint && isValidEraId(eraHint) && eraHasVideoSlug(eraHint, slug)) return eraHint;
+  return findEraForVideoSlug(slug);
+}
