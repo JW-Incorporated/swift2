@@ -143,5 +143,42 @@ export default {
         ),
       ],
     },
+    {
+      slug: 'angels-with-robbie-williams-reputation-tour-2018',
+      kind: 'performance',
+      title: 'Angels (with Robbie Williams) — reputation Stadium Tour, Wembley',
+      director: null,
+      releasedOn: '2018-06-23',
+      relatedSongs: [],
+      tags: ['Tour'],
+      summary:
+        'A surprise Wembley Stadium duet: Robbie Williams joins for his own 1997 hit "Angels" during the London stop of the reputation Stadium Tour.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=RamgJyJsep4',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=RamgJyJsep4',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=RamgJyJsep4',
+          source_title: 'Taylor Swift and Robbie Williams - Angels - reputation Stadium Tour',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel',
+        },
+        wiki('Reputation_Stadium_Tour', 'Reputation Stadium Tour', 'confirms the June 23, 2018 Wembley date and Robbie Williams special-guest duet'),
+      ],
+    },
   ],
 };

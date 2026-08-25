@@ -191,6 +191,84 @@ export default {
         ),
       ],
     },
+    {
+      // Distinct upload from the existing 'amas-artist-of-the-decade-2019'
+      // appearance record below (youtubeId 0pbSQ_0qbqU, the acceptance speech
+      // itself) — this is the separate official upload of the live medley
+      // performance that preceded the award.
+      slug: 'amas-artist-of-the-decade-medley-2019',
+      kind: 'performance',
+      title: 'Artist of the Decade Medley — 2019 American Music Awards',
+      director: null,
+      releasedOn: '2019-11-24',
+      relatedSongs: ['The Man', 'Love Story', 'I Knew You Were Trouble', 'Blank Space', 'Shake It Off'],
+      tags: ['Music'],
+      summary:
+        'A career-spanning medley for the Artist of the Decade honor at the Microsoft Theater — joined by Halsey and Camila Cabello on "Shake It Off" and Misty Copeland for a "First Dance Remix."',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=SVY8I46dkb0',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=SVY8I46dkb0',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=SVY8I46dkb0',
+          source_title: 'Taylor Swift - Live at the 2019 American Music Awards',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel',
+        },
+        wiki('2019_American_Music_Awards', '2019 American Music Awards', 'confirms the date, venue, and Artist of the Decade medley guests'),
+      ],
+    },
+    {
+      slug: 'me-live-billboard-music-awards-2019',
+      kind: 'performance',
+      title: 'ME! (Live From The Billboard Music Awards) ft. Brendon Urie',
+      director: null,
+      releasedOn: '2019-05-01',
+      relatedSongs: ['ME!'],
+      tags: ['Music'],
+      summary:
+        '"ME!"\'s world-premiere live debut, opening the NBC broadcast alongside Brendon Urie of Panic! At The Disco.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=bqOfdv9i4sE',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=bqOfdv9i4sE',
+          oembed_fetched_at: '2026-08-25',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        {
+          source_url: 'https://www.youtube.com/watch?v=bqOfdv9i4sE',
+          source_title: 'ME! (feat. Brendon Urie of Panic! At The Disco) (Live From The Billboard Music Awards / 2019)',
+          publisher: 'Taylor Swift (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-08-25',
+          reliability_score: 5,
+          excerpt: null,
+          notes: 'official upload on the verified Taylor Swift channel',
+        },
+        wiki('2019_Billboard_Music_Awards', '2019 Billboard Music Awards', 'confirms the date and broadcast-opening performance'),
+      ],
+    },
     // ── Appearances (YouTube-appearances pass, 2026-08-12) ──────────────────
     appearance({
       slug: 'vmas-video-of-the-year-2019',
