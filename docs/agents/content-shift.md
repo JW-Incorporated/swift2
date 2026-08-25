@@ -8,6 +8,28 @@ work and ships it through the full pipeline. (It is the interim, chartered
 form of the copy-desk's persona lane — when persona charters land (#462
 Phase 1), shifts author *as* the routed persona; until then, house voice.)
 
+## Era placement is by real-world date, never by subject (all content, all steps)
+
+**Universal rule, not scoped to one queue source:** whatever you are
+authoring — a moment, a video row, a theory, a current-tier promotion, a
+rumor entry — the era it lands in is decided SOLELY by the real-world date
+of the event/content itself. Never by which era's catalog the subject
+matter, songs, or people referenced belong to. This applies at every step
+below and to every seed type (`content`, `videos`, `theories`) and every
+upstream source (Intake, YouTube-appearance intake, current-tier
+promotions, rumor-desk).
+
+The case that surfaced this as a gap: "The Icon Sessions at the Grammy
+Museum," a real August 2026 performance during The Life of a Showgirl era,
+was filed under `folklore.mjs` because the medley performed included
+"august," a folklore song. Wrong — the event happened 2026-08-24, inside
+`the-life-of-a-showgirl`'s date range, so it belongs in
+`the-life-of-a-showgirl.mjs` regardless of which eras the songs performed
+come from (fixed; see `docs/decisions.md` 2026-08-25). Compare the real
+date against the ranges in `supabase/seed/eras-data.mjs` and author into
+that era's file — always, even when every song/subject in the piece is
+from a different era's catalog.
+
 ## Queue priority (deterministic, checked in order)
 
 0. **Current-tier promotions** (`current_item` rows, added 2026-08-23 —
