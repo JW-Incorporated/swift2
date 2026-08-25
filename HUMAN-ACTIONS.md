@@ -178,10 +178,9 @@ it for you.
 LLC / Long Live with a live registration, and `legal.ts`'s DMCA line is
 updated to say "is registered."
 
-**Status:** OPEN
+**Status:** DONE
 
 ---
-
 
 ### 18. [UPGRADE] Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt
 
@@ -198,7 +197,7 @@ test (item #17 below), so bundle them.
 
 **Worked if:** production content matches the current seed files.
 
-**Status:** OPEN
+**Status:** DONE
 
 ---
 
@@ -692,7 +691,7 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
-**Status:** OPEN
+**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
 
 ---
 
