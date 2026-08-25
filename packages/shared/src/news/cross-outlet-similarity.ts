@@ -16,7 +16,12 @@
 //      catches genuinely different phrasing about the same event when the
 //      cosine signal doesn't clear 0.85 (e.g. "designers dreaming up
 //      wedding gowns" headlines that share few words but the same subject
-//      + date).
+//      + date). A single shared *single-token* entity (e.g. "Shaq") is not
+//      sufficient alone — a well-known person's own name recurs across many
+//      unrelated stories about them and can manufacture corroboration
+//      between genuinely distinct statements (issue #3179); a single shared
+//      *multi-word* phrase (e.g. "Vera Wang") is distinctive enough to
+//      stand alone. See `sharedEntitySignal` below.
 //
 // `similarity()` returns a binary 1/0 (not a graded score) — once any signal
 // fires, the match is exactly as certain as an exact URL match; there is no
@@ -87,13 +92,32 @@ export class CrossOutletSimilarityProvider implements SimilarityProvider {
       a.publishedAtMs !== undefined &&
       b.publishedAtMs !== undefined &&
       Math.abs(a.publishedAtMs - b.publishedAtMs) <= ENTITY_DATE_WINDOW_MS &&
-      a.entities.some((e) => b.entities.includes(e))
+      sharedEntitySignal(a.entities, b.entities)
     ) {
       return 1;
     }
 
     return 0;
   }
+}
+
+/**
+ * True when the shared entities between two items are distinctive enough to
+ * trust as corroboration (issue #3179). A shared multi-word phrase ("vera
+ * wang", "matty healy") is distinctive on its own — sentence-initial
+ * capitalization can't produce a whole run of consecutive capitalized
+ * words, so a multi-word match is very unlikely to be incidental. A shared
+ * *single-token* name ("shaq") is weaker: well-known people are mentioned
+ * across many unrelated stories about them on any given day, so one such
+ * match alone isn't reliable — require a second shared single-token entity
+ * to corroborate it. Same design posture as `extractEntities`: degrade to
+ * under-matching (safe) rather than over-matching.
+ */
+function sharedEntitySignal(entitiesA: string[], entitiesB: string[]): boolean {
+  const shared = entitiesA.filter((e) => entitiesB.includes(e));
+  if (shared.length === 0) return false;
+  if (shared.some((e) => e.includes(' '))) return true;
+  return shared.length >= 2;
 }
 
 /** Strips scheme/`www.`/query/fragment/trailing slash so syndicated copies of the same link compare equal. */

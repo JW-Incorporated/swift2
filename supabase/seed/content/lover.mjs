@@ -258,24 +258,16 @@ export default {
       title: 'Death By A Thousand Cuts, borrowed from a Netflix movie that borrowed from her',
       snippet: 'A song written after crying over a rom-com — whose director had made that movie while listening to Taylor\'s own 1989.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
+      thumbnailUrl: 'https://i.ytimg.com/vi/BBd9gcrj2Wk/hqdefault.jpg',
       moment: {
         context:
-          'Director Jennifer Kaytin Robinson said her film "Someone Great" was mainly inspired by 1989, especially "Clean." Taylor, after the song came from watching that film: "I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that\'s ever happened to me."\n\nThe song also settled a question she had raised about herself in print: in a March 2019 essay she wondered whether finding happiness would dull a catalog built on breakup songs, and resolved to write from friends\' experiences, books, and fictional characters instead of only her own life. She later told NPR\'s Tiny Desk audience she had absorbed breakup books and movies while making Lover — this track is the proof of concept. Its live debut came acoustically at the one-night City of Lover show in Paris, the version whose artwork appears here.',
+          'Director Jennifer Kaytin Robinson said her film "Someone Great" was mainly inspired by 1989, especially "Clean." Taylor, after the song came from watching that film: "I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that\'s ever happened to me."\n\nThe song also settled a question she had raised about herself in print: in a March 2019 essay she wondered whether finding happiness would dull a catalog built on breakup songs, and resolved to write from friends\' experiences, books, and fictional characters instead of only her own life. She later told NPR\'s Tiny Desk audience she had absorbed breakup books and movies while making Lover — this track is the proof of concept. Its live debut came acoustically at the one-night City of Lover show in Paris.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)' }],
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
-            credit: 'Republic Records (single cover art, Live from Paris version)',
-            kind: 'primary',
-            focalPoint: '35% 48%',
-          },
           // Photo-enrichment pass (2026-07-18, #762): official Someone Great
           // trailer thumbnail — the Netflix film this page's story is about —
           // video id verified via YouTube oEmbed (author "Netflix") this
-          // session. (The song's own Live From Paris video thumbnail was
-          // rejected as a duplicate of the cover art above.)
+          // session.
           {
             url: 'https://i.ytimg.com/vi/BBd9gcrj2Wk/hqdefault.jpg',
             credit: 'Netflix via YouTube (official trailer)',
@@ -2464,16 +2456,9 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Focal points set 2026-08-07 (#762): both images individually
-        // viewed — the cover has young Taylor and the dog left-of-center,
-        // the video still has toddler Taylor right-of-center, upper frame.
+        // Focal point set 2026-08-07 (#762): the video still has toddler
+        // Taylor right-of-center, upper frame.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png',
-            focalPoint: '38% 45%',
-            credit: 'Republic Records (single cover art)',
-            kind: 'primary',
-          },
           {
             url: 'https://i.ytimg.com/vi/mN3rDTAdM2o/hqdefault.jpg',
             focalPoint: '65% 35%',
@@ -2834,7 +2819,7 @@ export default {
           // op exists for the sale itself, so this is the era's actual
           // documented fallout, same convention as the reference photo above.
           {
-            url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=465',
+            url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '50% 28%',
             credit: 'Richard Shotwell/Invision/AP, via The Guardian',
             caption: 'A contemporaneous reference image shows Taylor arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
@@ -2855,7 +2840,7 @@ export default {
             kind: 'archival',
           },
           {
-            url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=465',
+            url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '58% 33%',
             credit: 'Kevin Mazur/Getty Images for ABA, via The Guardian',
             caption: 'Taylor performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',

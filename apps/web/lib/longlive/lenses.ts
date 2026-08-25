@@ -744,13 +744,20 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     // Source: widely documented in early press/CMT/Opry appearances,
     // 2006-2008 — sundresses, natural curls, and cowboy boots as the
     // consistent early public style, e.g. her 2006 Grand Ole Opry debut.
-    description: 'Sundresses, natural ringlet curls, and cowboy boots — the look of her earliest Opry and CMT-era country-circuit appearances.',
+    // Consolidated here (issue #722, 2026-08-24): the era's single-source
+    // award-show gowns (BCBG at the 2007 CMTs, Sandi Spika at the 2007 ACMs
+    // and 2008 Grammys, Badgley Mischka at her 2008 Met Gala debut, Elvira at
+    // the 2006 CMAs, Catherine Malandrino at the 2007 AMAs) were each a
+    // single red-carpet card diluting the timeline — routed here as the
+    // era's formal-gown counterpoint to the everyday look, rather than
+    // seven near-duplicate moments.
+    description: 'Sundresses, natural ringlet curls, and cowboy boots for everyday appearances — with a rotating cast of red-carpet gowns (Sandi Spika, Badgley Mischka, BCBG, Elvira, Catherine Malandrino) worn once each at her earliest award shows.',
     images: [
       { url: 'https://media.gettyimages.com/id/72424326/photo/nashville-tn-singer-taylor-swift-attends-the-40th-annual-cma-awards-at-the-gaylord.jpg?s=612x612&w=0&k=20&c=FMqoljbEnk8vDoj9GV31oa5bc-XfMFv5IBBru2GpOOU=', credit: 'Peter Kramer/Getty Images', caption: 'The 2006 CMA Awards — her first CMA red carpet, two weeks after her debut album released.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/74685453/photo/taylor-swift-accepts-breathrough-video-of-the-year-award-for-tim-mcgraw-at-the-the-curb-event.jpg?s=612x612&w=0&k=20&c=OXeqcfP0Cw1pyRw7pyQvqnnVwE6Tz-7uB4gLLHhUbDU=', credit: 'Kevin Mazur/WireImage', caption: 'Accepting the Breakthrough Video of the Year award for "Tim McGraw," 2007 CMT Music Awards.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/77768817/photo/nashville-tn-singer-taylor-swift-arrives-at-the-41st-annual-cma-awards-at-the-sommet-center-on.jpg?s=612x612&w=0&k=20&c=DHSYR2P-690lCn_YY6YDBibMaj2eXClOHL02I1xLbQE=', credit: 'Bryan Bedder/Getty Images', caption: 'The 2007 CMA Awards, the night she won the Horizon Award for Best New Artist.', kind: 'primary' },
     ],
-    shopTags: ['Cowboy boots', 'Sundress', 'Acoustic guitar'],
+    shopTags: ['Cowboy boots', 'Sundress', 'Acoustic guitar', 'Sandi Spika gown', 'Badgley Mischka gown'],
   },
   {
     id: 'look-fearless',
@@ -759,13 +766,20 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     // Source: the Fearless-era stage costuming (2008-2010 Fearless Tour)
     // was built around gold sequins and fringe, widely documented in tour
     // photography and the Fearless Tour DVD/CD release.
-    description: 'Gold sequined dresses with fringe hems, built for the 2009-2010 Fearless Tour stage — shimmer as the era\'s visual signature.',
+    // Consolidated here (issue #722, 2026-08-24): 11 single-event red-carpet
+    // gown cards were diluting the timeline — including a 3-card cluster all
+    // dated Jan. 31, 2010 (the Grammys) — routed here rather than re-told as
+    // near-duplicate moments. The gold Reem Acra CMA gown and the Grammy-night
+    // gowns are the same red-carpet run these photos already show; the era's
+    // milestone moments (the CMA sweep, the Grammy AOTY win) keep their own
+    // dedicated timeline cards.
+    description: 'Gold sequined dresses with fringe hems, built for the 2009-2010 Fearless Tour stage — plus a rotating run of red-carpet gowns (Reem Acra, KaufmanFranco, Dolce & Gabbana) across the same award season — shimmer as the era\'s visual signature.',
     images: [
       { url: 'https://media.gettyimages.com/id/90123128/photo/new-york-musician-taylor-swift-performs-during-the-fearless-tour-at-madison-square-garden-on.jpg?s=612x612&w=0&k=20&c=YHmf-SDSDaqBJE0v3LoyXCOEAfp5H7LAFhEFUaU6w2Q=', credit: 'Jason Kempin/Getty Images', caption: 'Onstage at Madison Square Garden on the Fearless Tour, August 2009 — the gold sequin-and-fringe stage costuming.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/92993789/photo/nashville-tn-musician-taylor-swift-attends-the-43rd-annual-cma-awards-at-the-sommet-center-on.jpg?s=612x612&w=0&k=20&c=KIGRyZPxBgSgnbtm12oyKoTLquqmZxGh8av7sZmCKio=', credit: 'Frederick Breedon/Getty Images', caption: '43rd Annual CMA Awards, November 2009, the night she won Entertainer of the Year.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/96320463/photo/los-angeles-ca-taylor-swift-accepts-award-at-the-52nd-annual-grammy-awards-held-at-staples.jpg?s=612x612&w=0&k=20&c=OYR0-P-tyCyeRV1MIuieQDkUbXUiw5f_u9Y_uGnC0PU=', credit: 'Kevin Mazur/WireImage', caption: 'The 52nd Grammys, January 2010 — the ceremony where Fearless won Album of the Year.', kind: 'primary' },
     ],
-    shopTags: ['Gold sequins', 'Fringe dress'],
+    shopTags: ['Gold sequins', 'Fringe dress', 'Reem Acra gown', 'KaufmanFranco gown'],
   },
   {
     id: 'look-speak-now',
@@ -775,13 +789,21 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     // costume change built around sweeping ballgowns, most iconically the
     // purple gown for the title track — widely documented in tour
     // photography and the Speak Now World Tour Live DVD.
-    description: 'Sweeping ballgowns built for a costume change per song on the 2011-2012 Speak Now World Tour — the purple title-track gown is the era\'s signature image.',
+    // Consolidated here (issue #722, 2026-08-24): a 5-card tour-costume
+    // cluster (Roberto Cavalli, Susan Hilferty x2, Alice + Olivia, Theia),
+    // all dated Feb. 9, 2011 and single-sourced to the same Femestella
+    // retrospective, plus a run of single-event red-carpet gowns (Monique
+    // Lhuillier, J. Mendel, Elie Saab, Zuhair Murad) were diluting the
+    // timeline with near-duplicate cards — routed here rather than re-told
+    // one dress at a time. The album-cover Reem Acra gown and its 2nd-CMA/
+    // 2nd-AMA milestone siblings keep their own dedicated timeline cards.
+    description: 'Sweeping ballgowns built for a costume change per song on the 2011-2012 Speak Now World Tour — the purple title-track gown is the era\'s signature image — with a rotating run of red-carpet gowns (Monique Lhuillier, J. Mendel, Elie Saab, Zuhair Murad) across the same award season.',
     images: [
       { url: 'https://media.gettyimages.com/id/133959142/photo/new-york-ny-taylor-swift-performs-onstage-during-the-speak-now-world-tour-at-madison-square.jpg?s=612x612&w=0&k=20&c=y1hMgJsHy019MpfDstyKuu9CzPYiJrhr-iiQITHWayM=', credit: 'Larry Busacca/Getty Images', caption: 'Closing the North American leg of the Speak Now World Tour at Madison Square Garden, November 2011.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/132337181/photo/the-45th-annual-cma-awards-red-carpet-arrivals-the-45th-annual-cma-awards-will-broadcast-live.jpg?s=612x612&w=0&k=20&c=euc9GyAZp1drmxPNmIEsGN2zWDBbxI37d1ciMgNoDKc=', credit: 'Jason Kempin/Disney General Entertainment Content via Getty Images', caption: '45th Annual CMA Awards red carpet, November 2011, Bridgestone Arena.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/119786566/photo/newark-nj-taylor-swift-performs-during-her-speak-now-tour-at-prudential-center-on-july-24-2011.jpg?s=612x612&w=0&k=20&c=k5Su-esMu6vC15bz_cmTkhZ_wHl0ur3FCzvg5TLO4CQ=', credit: 'Kevin Mazur/WireImage', caption: 'Performing at Prudential Center, Newark, on the Speak Now Tour, July 2011.', kind: 'primary' },
     ],
-    shopTags: ['Ballgown', 'Purple velvet'],
+    shopTags: ['Ballgown', 'Purple velvet', 'Roberto Cavalli fringe', 'Elie Saab gown'],
   },
   {
     id: 'look-red',

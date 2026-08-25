@@ -587,12 +587,12 @@ export default {
               "Eight months after the Sphere denial, a Daily Mail source revived the Vegas talk — saying residency discussions were 'ongoing' across several Strip venues, with Taylor 'eyeing seven dates' but 'nothing set in stone,' and her 'main focus' a full tour rather than a residency.",
             reportedBy: "Daily Mail",
             reportedOn: "2026-04-07",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.realitytea.com/2026/04/07/taylor-swift-las-vegas-performance-residency/",
             sourceTier: "tabloid",
             lastCheckedOn: "2026-08-24",
             note:
-              "Daily Mail insider quotes, as carried by Reality Tea. As of this check no Life of a Showgirl tour or Las Vegas residency has been officially announced. Resolves confirmed on an official announcement; fades if it goes quiet.",
+              "Faded 2026-08-24 (issue #3137): re-checked — no Vegas residency or Sphere show has been announced, and no further reporting on this tip has surfaced since April 2026. Reported, never confirmed or denied, gone quiet. The July 2026 TicketNews entry below carries the same open question with fresher sourcing.",
           },
           {
             claim:
@@ -3856,13 +3856,13 @@ export default {
             reportedOn: '2026-07-30',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
-            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee that went up on the day — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction — the speculative part is the arena\'s decision, so no location payload is carried.',
+            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction, so no location payload is carried. Re-checked 2026-08-24 (issue #3137): still nothing decided or announced.',
             // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
             // correction as the photo-release entry above — the note called it
             // a gossip-newsletter tip from unnamed insiders while the field
             // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-02',
+            lastCheckedOn: '2026-08-24',
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
@@ -9041,6 +9041,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-named-to-the-nashville-songwriters-hall-of-fame-its-youngest',
         'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+        'moment:vault-tloas-a-rare-la-appearance-and-five-songs-for-the-eras-tour-films-',
       ],
       moment: {
         context:
@@ -9096,6 +9097,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
         'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
       ],
       moment: {
         context:
@@ -10554,7 +10556,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nIt wasn’t the only one. A second Team Trump clip — posted back in November 2025, set to her 2025 single “Father Figure” — had already gone silent the same way (Billboard, Variety). Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Taylor and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Taylor’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nThe pattern did not stay on the campaign account. On Wednesday, Aug. 12, the official White House TikTok — the government account, not the Team Trump campaign one — posted a montage of Trump’s day set to “I Bet You Think About Me,” her 2021 vault track from Red (Taylor’s Version), captioned “We know you think about us.” Within a few hours, early on Thursday the 13th, that audio went silent too, replaced by the same copyright notice while the song stayed playable elsewhere on TikTok (Rolling Stone, Billboard). It was the third of her songs to be blocked this way in a week, and the escalation was in whose feed it happened: the same used-then-unavailable pattern had spread from the campaign’s posts to the White House’s own. As before, no one confirmed who pushed the button — Taylor made no statement about any of the removals — so whether they came from her, her label’s rights administration, or an automated system stayed unsaid.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president in an Instagram post signed “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
+          'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nIt wasn’t the only one. A second Team Trump clip — posted back in November 2025, set to her 2025 single “Father Figure” — had already gone silent the same way (Billboard, Variety). Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Taylor and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Taylor’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nThe pattern did not stay on the campaign account. On Wednesday, Aug. 12, the official White House TikTok — the government account, not the Team Trump campaign one — posted a montage of Trump’s day set to “I Bet You Think About Me,” her 2021 vault track from Red (Taylor’s Version), captioned “We know you think about us.” Within a few hours, early on Thursday the 13th, that audio went silent too, replaced by the same copyright notice while the song stayed playable elsewhere on TikTok (Rolling Stone, Billboard). It was the third of her songs to be blocked this way in a week, and the escalation was in whose feed it happened: the same used-then-unavailable pattern had spread from the campaign’s posts to the White House’s own. As before, no one confirmed who pushed the button — Taylor made no statement about any of the removals — so whether they came from her, her label’s rights administration, or an automated system stayed unsaid.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president on Instagram, closing with “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
         sources: [
           {
             outlet: 'Variety',

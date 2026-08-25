@@ -1,9 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { TRACKS_RAW } from './tracks.generated';
-import { keepExploring, nextTrackOnAlbum, releasedFactValue, resolveConnections, songTargetOf, tracksForEra } from './tracks';
+import {
+  adjacentTrackOnAlbum,
+  keepExploring,
+  nextTrackOnAlbum,
+  releasedFactValue,
+  resolveConnections,
+  songTargetOf,
+  tracksForEra,
+} from './tracks';
 import { CONTENT, getContentItem } from './content';
 import { ERAS } from './eras';
-import type { TrackNote } from './types';
+import type { EraId, TrackNote } from './types';
 
 // Guards the generated track-guide data against generator drift: everything
 // the TrackGuide overlay assumes about tracks.generated.ts is asserted here.
@@ -181,6 +189,50 @@ describe('nextTrackOnAlbum / keepExploring (Joey 2026-07-15: next song leads the
     const out = keepExploring(eraId, last);
     expect(out.every((c) => !(c.kind === 'song' && c.connection.why.includes('up next on')))).toBe(true);
   });
+});
+
+describe('adjacentTrackOnAlbum (#774: Previous/Next traverses every sourced track in album order)', () => {
+  const entry = (Object.entries(TRACKS_RAW) as [Parameters<typeof tracksForEra>[0], TrackNote[]][])
+    .find(([, t]) => t.length >= 2)!;
+  const [eraId, tracks] = entry;
+  const first = tracks[0];
+  const second = tracks[1];
+  const last = tracks[tracks.length - 1];
+
+  it('walks forward/backward by album position, and is null at either end (no wrap)', () => {
+    expect(adjacentTrackOnAlbum(eraId, first, 'next')).toEqual(second);
+    expect(adjacentTrackOnAlbum(eraId, second, 'previous')).toEqual(first);
+    expect(adjacentTrackOnAlbum(eraId, first, 'previous')).toBeNull();
+    expect(adjacentTrackOnAlbum(eraId, last, 'next')).toBeNull();
+  });
+
+  it('returns null for a track key that does not resolve in this era', () => {
+    const foreign: TrackNote = { trackNumber: 999, title: 'Not A Real Track', note: 'n' };
+    expect(adjacentTrackOnAlbum(eraId, foreign, 'next')).toBeNull();
+  });
+
+  // #774 explicit scope decision: unlike nextTrackOnAlbum (numbered tracks
+  // only, used by "Keep exploring"), Previous/Next must not skip a sourced
+  // note just because it has no track number — so the last numbered track
+  // should still step forward onto the first unnumbered one, where
+  // nextTrackOnAlbum stops dead.
+  const unnumberedEntry = Object.entries(TRACKS_RAW).find(([, t]) => {
+    const numbered = t.filter((x) => x.trackNumber != null);
+    return numbered.length > 0 && numbered.length < t.length;
+  });
+
+  it.runIf(unnumberedEntry)(
+    'crosses into unnumbered tracks where nextTrackOnAlbum stops (era with mixed numbering)',
+    () => {
+      const [mixedEraId, mixedTracks] = unnumberedEntry!;
+      const numbered = mixedTracks.filter((t) => t.trackNumber != null);
+      const lastNumbered = numbered[numbered.length - 1];
+      expect(nextTrackOnAlbum(mixedEraId as EraId, lastNumbered)).toBeNull();
+      const next = adjacentTrackOnAlbum(mixedEraId as EraId, lastNumbered, 'next');
+      expect(next).not.toBeNull();
+      expect(next!.trackNumber).toBeNull();
+    },
+  );
 });
 
 describe('releasedFactValue', () => {

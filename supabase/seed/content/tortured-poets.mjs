@@ -1481,6 +1481,8 @@ export default {
             kind: 'primary',
             focalPoint: '35% 55%',
           },
+          // Re-verified HTTP 200 + image/jpeg on 2026-08-24 (#3043 — the CIE
+          // flag was a transient probe failure, not hotlink-rot).
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-ttpd-ae-241208-28a3c3.jpg',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
@@ -1488,6 +1490,8 @@ export default {
             kind: 'primary',
             focalPoint: '55% 40%',
           },
+          // Re-verified HTTP 200 + image/jpeg on 2026-08-24 (#3044 — the CIE
+          // flag was a transient probe failure, not hotlink-rot).
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-1989-2-ae-241208-a3754a.jpg',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
@@ -1508,9 +1512,9 @@ export default {
               'As the Eras Tour wound down, an Us Weekly cover story reported that Taylor was weighing another tour — "albeit on a smaller scale than the Eras Tour" — as soon as 2026, a source saying "She had such a great experience on Eras. She really wants to do it again," while cautioning nothing was locked: "A lot of it hinges on what happens over the next year with Travis."',
             reportedBy: 'Us Weekly',
             reportedOn: '2024-12-03',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-next-album-engagement-burning-questions-answered-excl/',
-            note: 'Forward-looking tour speculation; no location. Re-checked 2026-08-05: no tour announced and the source\'s 2026 window has largely passed — Taylor released The Life of a Showgirl, married Kelce, and told BBC Radio 1 in October 2025 she was "so tired," with no plans to tour soon. Unlikely now but not formally denied; resolves on an announcement, fades otherwise.',
+            note: 'Faded 2026-08-24 (issue #3137): the 2026 window this report named has fully lapsed with no tour announced — Taylor spent that stretch releasing The Life of a Showgirl and marrying Kelce instead. Re-checked again this pass: still no follow-up tour announced or denied, gone quiet nearly two years on. The Deuxmoi entry below carries the live version of the same question with a still-open 2027 window.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-08-24',
           },
@@ -1545,7 +1549,7 @@ export default {
       snippet: 'A final tally of $2,077,618,725 across 10.17 million tickets — roughly double the previous all-time tour record.',
       sourceUrl: 'https://www.forbes.com/sites/maryroeloffs/2024/12/09/taylor-swifts-eras-tour-grossed-2-billion-double-any-other-tour-in-history-report-says/',
       thumbnailUrl:
-        'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
+        'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg',
       moment: {
         context:
           'Her production company confirmed the totals to The New York Times: 10,168,008 tickets across 149 shows on five continents, at an average of $204 a seat — roughly double the previous all-time record, Coldplay\'s $1 billion Music of the Spheres run, which needed more dates to get there.\n\nThe figure counts tickets only; merchandise, the record-grossing concert film, and the Eras Tour Book all sit outside the tally. Pollstar had already estimated the tour crossed the billion-dollar line in November 2023 — the second billion took barely a year more.',
@@ -1572,14 +1576,16 @@ export default {
         // Photo pass #762 (2026-08-16): a second photo WAS on an outlet CDN
         // all along — Variety's own hero image for the cited $2B article,
         // just not one the earlier Commons-only searches would have found.
+        // Rotted transform query strings dropped (2026-08-24, #3045/#3046):
+        // publisher originals resolve fine without them.
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg',
             focalPoint: '45% 27%',
             credit: 'Emma McIntyre/TAS24/Getty Images',
           },
           {
-            url: 'https://variety.com/wp-content/uploads/2024/12/swift-fringe-GettyImages-2188653759.jpg?w=1000&h=667&crop=1',
+            url: 'https://variety.com/wp-content/uploads/2024/12/swift-fringe-GettyImages-2188653759.jpg',
             focalPoint: '34% 24%',
             credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management, via Variety',
             caption:
@@ -1612,6 +1618,8 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the nominated album's cover from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        // Re-verified HTTP 200 + image/png on 2026-08-24 (#3047 — the CIE
+        // flag was a transient probe failure, not hotlink-rot).
         // Photo pass (2026-07-18, #762): + Getty Toronto show photo from the
         // cited Billboard nominations-reaction story (she reacted to the six
         // nods from the Toronto stage that night). Downloaded + vision-confirmed.
@@ -2099,7 +2107,7 @@ export default {
             // futurecdn render of the sharp Getty full-length — the Lorraine
             // Schwartz "T" thigh chain and red Casadei heels the snippet calls
             // out are clearly visible. Downloaded and vision-confirmed.
-            url: 'https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf.jpg',
+            url: 'https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf-1200-80.jpg',
             credit: 'Getty Images via Marie Claire',
             caption: 'The full look on the carpet: the one-shoulder mini with the diamond thigh chain dangling its single "T".',
             // Focal point set by viewing: full-length portrait pose, face high
@@ -2139,7 +2147,7 @@ export default {
         'A custom off-white Schiaparelli Haute Couture gown by Daniel Roseberry — draped silk crepe with corset-style lacing at the back and a thigh-high slit — worn on the 2024 Grammys red carpet hours before revealing the new album.',
       sourceUrl: 'https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/',
       thumbnailUrl:
-        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
+        'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
       moment: {
         context:
           'Adapted from a look in Schiaparelli\'s Fall 2023 ready-to-wear collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony.\n\nTaylor paired it with opera-length gloves, black Giuseppe Zanotti sandals, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
@@ -2155,12 +2163,11 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
-            credit: 'Matt Winkelmeyer/Getty Images for The Recording Academy',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // full-length carpet shot, the white train sweeping right; face high
-            // in the upper-left quadrant.
-            focalPoint: '34% 15%',
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
+            credit: 'Robyn Beck/AFP via Getty Images',
+            // Image-fix pass 2026-08-24: viewed the replacement from the cited
+            // Hollywood Reporter story; Swift is centered with her face high.
+            focalPoint: '44% 18%',
           },
         ],
         // Shop pass (2026-07-22): the custom Schiaparelli Haute Couture
@@ -2192,7 +2199,7 @@ export default {
       snippet:
         'The video\'s opening scene puts her in Australian designer Toni Matičevski\'s "Candescence" gown from his Spring/Summer 2024 collection — crisp pearl-white cotton gathered at the hip into a high-low, sculptural silhouette.',
       sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-toni-maticevski-gown-fortnight-music-video-1236321522/',
-      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
+      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg',
       moment: {
         context:
           'The "Candescence" gown, from Matičevski\'s Spring 2024 collection, is engineered like sculpture: a strapless bodice with internal boning and a rounded, collar-skimming neckline, in crisp pearl-white crinkled cotton gathered asymmetrically at the hip into a high-low skirt. It surfaces in the video\'s most-teased beat — Taylor hurling an object at a glass pane — and WWD framed the bridal-coded silhouette as the romantic counterweight to the video\'s asylum gothic.\n\nThe gown is one of several distinct costume changes across the "Fortnight" video\'s different vignettes — a separate look from the black Elena Velez/Unttld gothic ensemble already covered elsewhere in this era, and from the Celine-designed piece in the video\'s rain-soaked finale.',
@@ -2204,7 +2211,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
+            url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg',
             credit: 'Republic Records',
             // Image-fix pass (2026-07-10): #345 — vision-confirmed this is a studio/lookbook shot
             // of the correct gown on a runway/lookbook model (not Swift); searched WWD, YouTube's
@@ -2256,7 +2263,7 @@ export default {
       // cited source below); curl-verified HTTP 200 image/png and vision-confirmed single-frame,
       // no watermark/collage, matching the "plum Popflex Active skort" described in the context.
       thumbnailUrl:
-        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
+        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
       moment: {
         context:
           'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.\n\nFor Popflex founder Cassey Ho — the Blogilates creator who designs the line — the placement was surreal: she wrote that her heart pounded and her team\'s Slack "blew up" as she stood frozen in front of the TV counting her own designs onscreen, with Popflex pieces (including the viral lavender Pirouette skort and the Twirl skort) appearing four separate times in the video.',
@@ -2274,7 +2281,7 @@ export default {
           {
             // Image-fix pass (2026-07-10): #346 — replaced the Eras Tour stage-costume photo (see
             // thumbnailUrl note above) with the same verified Blogilates video screenshot.
-            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?ssl=1',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The plum Popflex Active skort from the video\'s backstage rehearsal footage.',
             // Photo pass #762 (2026-07-19): viewed — mid-dance on the marked rehearsal floor,
@@ -2326,7 +2333,7 @@ export default {
         'Sat between her parents Scott and Andrea for the Jan. 18 divisional-round game at Arrowhead, with Caitlin Clark — personally invited by Travis — a row back and Ed Kelce also in the suite.',
       sourceUrl: 'https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift',
       thumbnailUrl:
-        'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+        'https://images2.minutemediacdn.com/image/upload/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
       relatedIds: [
         'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
         'moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t',
@@ -2348,7 +2355,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+            url: 'https://images2.minutemediacdn.com/image/upload/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
             credit: 'Jamie Squire/Getty Images',
             // Photo pass #762 (2026-07-19): viewed — suite window above the crowd; Swift's face
             // sits right-of-center behind the glass, Scott Swift mid-frame.
@@ -2517,6 +2524,24 @@ export default {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night',
           },
+          {
+            outlet: 'ELLE',
+            url: 'https://www.elle.com/culture/celebrities/a65243131/taylor-swift-balmain-white-minidress-nyc-travis-kelce/',
+            source_title: 'Taylor Swift Wears Pink and White Balmain Minidress on NYC Date With Travis Kelce',
+            publisher: 'ELLE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: "Harper's Bazaar",
+            url: 'https://www.harpersbazaar.com/celebrity/latest/a65251820/taylor-swift-pink-balmain-dress-sentimental-jewelry-date-travis-kelce-nyc/',
+            source_title: 'Taylor Swift Is Preppy in a Pink Tweed Balmain Dress for Date Night With Travis Kelce',
+            publisher: "Harper's Bazaar",
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
         ],
         // Image-fix pass (2026-07-10): #361 — removed the bdcd54... photo (vision-confirmed a
         // two-panel collage behind TMZ's black grunge divider, the junk-collage pattern the
@@ -2537,18 +2562,6 @@ export default {
             // Photo pass #762 (2026-07-19): viewed — full-body walking shot, face high in the
             // portrait frame.
             focalPoint: '53% 12%',
-          },
-          // Photo pass #762 (2026-07-19): second frame of the same June 28, 2025 outing from the
-          // cited E! News article's own CDN (akns-images.eonline.com, the article's lead image,
-          // captioned "Taylor Swift and Travis Kelce in NYC"). curl 200 image/jpeg 1200x1200;
-          // Read-viewed: the couple hand in hand — same pink Balmain mini with gold buttons, same
-          // construction-fence backdrop — single frame, no watermark. E! exposes no photographer
-          // byline on this image, so the credit stays at the outlet level.
-          {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250630/a3a86034-2ab6-49c1-bc30-2f5ade7cf52b_1751297982.jpg',
-            credit: 'Via E! News',
-            caption: 'Hand in hand with Travis on the way into dinner, June 28, 2025.',
-            focalPoint: '70% 28%',
           },
         ],
         // Stylist source pass (2026-07-21): the headline pieces of this look, linked
@@ -2603,6 +2616,33 @@ export default {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1422599/taylor-swift-travis-kelce-at-patrick-mahomes-30th-birthday-party',
           },
+          {
+            outlet: 'ELLE',
+            url: 'https://www.elle.com/culture/celebrities/a66093360/how-taylor-swift-snuck-into-travis-kelce-philadelphia-eagles-game/',
+            source_title: "How Taylor Swift Snuck Into Travis Kelce's Philadelphia Eagles Game",
+            publisher: 'ELLE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Kansas City Star',
+            url: 'https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article312128876.html',
+            source_title: "Taylor Swift's fans loved her classic look at Patrick Mahomes' birthday party",
+            publisher: 'Kansas City Star',
+            source_type: 'reputable_press',
+            accessed_at: '2026-08-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Instagram (@kanebrown, official post)',
+            url: 'https://www.instagram.com/p/DOpLxWRjBAx/',
+            source_title: "Kane Brown's photo from Patrick Mahomes' 30th birthday party",
+            publisher: 'Instagram',
+            source_type: 'social',
+            accessed_at: '2026-08-24',
+            reliability_score: 5,
+          },
         ],
         // T16 photo pass (2026-07-09): no photo of Swift exists from this
         // game (the point of the item) and the party photos are third-party
@@ -2614,7 +2654,7 @@ export default {
         // the outlet-own-CDN rule. Deliberately left at one photo.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg/960px-Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
             credit: 'Kj1595 via Wikimedia Commons, CC BY-SA 4.0',
             caption: 'Reference image: Arrowhead Stadium (2019 file photo). No photos of Taylor surfaced from this game — she attended unseen, confirmed by a source to E!.',
             kind: 'reference',
@@ -2656,16 +2696,16 @@ export default {
         // HTTP 200 + image/jpeg; visually confirmed (saucer + beam onstage).
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg/960px-Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/29/Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg',
             credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
             caption: 'The "Down Bad" staging in the Eras Tour\'s TTPD set (Paris, May 2024): a flying saucer beams its light down on the abandoned narrator.',
             kind: 'archival',
             focalPoint: '29% 50%',
           },
           // Photo pass #762 run 10 (2026-07-18): official lyric-video still, video id
-          // oEmbed-verified against @TaylorSwift this run; 1280x720 maxres render.
+          // oEmbed-verified against @TaylorSwift this run; 1280x720 maxres WebP render.
           {
-            url: 'https://i.ytimg.com/vi/EVbtjaWXQVg/maxresdefault.jpg',
+            url: 'https://i.ytimg.com/vi_webp/EVbtjaWXQVg/maxresdefault.webp',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Down Bad" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
@@ -2701,11 +2741,11 @@ export default {
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
         // Photo pass #762 run 10 (2026-07-18): upgraded 480x360 hqdefault -> 1280x720
-        // maxres (same video). Deliberately one photo: studio track never performed
+        // maxres WebP (same video). Deliberately one photo: studio track never performed
         // solo live; no distinct on-topic image exists on an approved CDN.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/CCUr2pNJft4/maxresdefault.jpg',
+            url: 'https://i.ytimg.com/vi_webp/CCUr2pNJft4/maxresdefault.webp',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "So Long, London" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
