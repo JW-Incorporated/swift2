@@ -26,6 +26,51 @@ only matters while something is still pending.
 
 ## OPEN
 
+### 22. [BLOCKING] Photo-Enrichment worker's scheduled environment has total network egress block — 3 consecutive no-op runs — ~5 min
+
+**Filed:** 2026-08-25
+
+**Why it matters:** the Photo-Enrichment worker (issue #762) needs to fetch
+press pages and Instagram embed HTML, and download/vision-confirm candidate
+images, before it can add anything — that's the whole verify-first design of
+the protocol. The scheduled environment this trigger runs in has **all
+outbound HTTPS blocked**, not just image-host CDNs: `curl`/`WebFetch` to a
+neutral control domain (`example.com`) and to `instagram.com` both fail
+(`WebFetch` → `EGRESS_BLOCKED`; the proxy status endpoint logs `gateway
+answered 403 to CONNECT`). Only `WebSearch` (server-side, bypasses this
+session's egress proxy) and `api.github.com` are reachable. This has now
+happened on **three separate firings** — 2026-08-24 ~06:40 UTC, 2026-08-24
+~20:55 UTC, and 2026-08-25 — each one a complete no-op (0 photos, 0 posts)
+because nothing could be verified. Every future firing will keep hitting the
+same wall until the environment's network policy changes.
+
+**Steps:**
+1. Find the scheduled trigger that fires the Photo-Enrichment worker prompt
+   (the one whose stored prompt starts "You are the Photo Enrichment worker
+   for the Long Live app..." and references issue #762) — likely in
+   `claude.ai/code` under this repo's triggers/schedules, or wherever
+   scheduled sessions for `JW-Incorporated/swift2` are managed.
+2. Open that trigger's environment configuration and change its **network
+   policy** from whatever fully-blocking setting it currently has to one
+   that permits general outbound web access (the level other manually-run
+   or differently-configured sessions in this repo already have — e.g. the
+   photo-sparsity work landing today via PR #3266 clearly had working
+   outbound fetch).
+3. Save, and let the next scheduled firing confirm the fix (a run that
+   posts an actual PR with photos/posts added, or at minimum a comment that
+   no longer reports `EGRESS_BLOCKED`, means it worked).
+
+Background/docs on how environments and their network policy are
+configured: `https://code.claude.com/docs/en/claude-code-on-the-web`.
+
+**Worked if:** the next Photo-Enrichment run's comment on issue #762 no
+longer reports an egress block, and actually adds/rejects real candidates
+instead of a 0/0/0 no-op.
+
+**Status:** OPEN
+
+---
+
 ### 21. [BLOCKING] Grant the Paul Blart runner read access to Dependabot alerts — ~5 min
 
 **Filed:** 2026-08-17
@@ -133,10 +178,9 @@ it for you.
 LLC / Long Live with a live registration, and `legal.ts`'s DMCA line is
 updated to say "is registered."
 
-**Status:** OPEN
+**Status:** DONE
 
 ---
-
 
 ### 18. [UPGRADE] Refresh the production database — content seed has drifted, not urgent — ~15 min, needs Wyatt
 
@@ -153,7 +197,7 @@ test (item #17 below), so bundle them.
 
 **Worked if:** production content matches the current seed files.
 
-**Status:** OPEN
+**Status:** DONE
 
 ---
 
@@ -647,7 +691,7 @@ credentials, this was just registering accounts/keys ahead of that build.
 
 **Worked if:** the `.env` holds a Reddit client id/secret and an Etsy keystring.
 
-**Status:** OPEN
+**Status:** OPEN - Etsy is done, Awin application submitted, Reddit open (cannot figure it out, sent support ticket)
 
 ---
 

@@ -21,6 +21,7 @@
 
 import { MOOD_AXES, type EraId, type MoodAxes, type MoodAxis, type SongMood } from './types';
 import { SONG_MOODS } from './song-moods.generated';
+import { moodIntentPolicy, type MoodIntent } from './mood-intents';
 
 /**
  * What the reader wants, as the classifier (Stage 4) derives it — never raw
@@ -37,6 +38,12 @@ export interface MoodQuery {
   /** Desired emotional valence, 0 (sad) .. 1 (happy). Optional. */
   valence?: number;
   /**
+   * Optional narrow keyword intent for cases where distinct conversational
+   * needs cannot be distinguished by the eight broad axes alone. Model and
+   * chip queries leave this unset and keep the normal catalogue ranking.
+   */
+  intent?: MoodIntent;
+  /**
    * Set ONLY when the reader's words carry an explicit bereavement/death signal
    * (a death, grief, a funeral, "lost my dad" — see `hasBereavementSignal` in
    * mood-keywords.ts). It gates the grief-canon songs ({@link BEREAVEMENT_SLUGS}):
@@ -47,7 +54,6 @@ export interface MoodQuery {
    */
   bereavement?: boolean;
 }
-
 /**
  * The grief canon (#1984): songs written from inside a real bereavement — a
  * death, a terminal illness, a loss to grieve. They are scored max-`heartbreak`
@@ -252,9 +258,11 @@ export function matchMoods(query: MoodQuery, options: MatchOptions = {}): MoodMa
   // scoring so a grief song can't win a slot for ordinary sadness no matter how
   // high its heartbreak score — the safety property is exclusion, not a nudge.
   const allowBereavement = query.bereavement === true;
+  const intentPolicy = moodIntentPolicy(query.intent);
 
   const ranked = scoredSongs(catalogue)
     .filter((song) => allowBereavement || !BEREAVEMENT_SLUGS.has(song.slug))
+    .filter((song) => !intentPolicy?.excluded.has(song.slug))
     .map((song) => ({
       song,
       score: scoreSong(query, song),
@@ -268,7 +276,27 @@ export function matchMoods(query: MoodQuery, options: MatchOptions = {}): MoodMa
 
   const picks: MoodMatch[] = [];
   const perEra = new Map<EraId, number>();
-  const remaining = [...ranked];
+  const preferred = new Set(intentPolicy?.preferred ?? []);
+  const remaining = ranked.filter(({ song }) => !preferred.has(song.slug));
+
+  // The broad mood axes cannot encode "keep me company" versus romantic
+  // yearning. For the few explicit keyword intents above, begin with the
+  // hand-checked songs in editorial order, then resume the normal ranking.
+  for (const slug of intentPolicy?.preferred ?? []) {
+    if (picks.length >= limit) break;
+    const entry = ranked.find(({ song }) => song.slug === slug);
+    if (!entry) continue;
+    perEra.set(entry.song.eraId, (perEra.get(entry.song.eraId) ?? 0) + 1);
+    picks.push({
+      slug: entry.song.slug,
+      title: entry.song.title,
+      eraId: entry.song.eraId,
+      youtubeId: entry.song.youtubeId,
+      oneLiner: entry.song.oneLiner,
+      useCase: entry.song.useCase,
+      score: entry.score,
+    });
+  }
 
   while (picks.length < limit && remaining.length > 0) {
     let bestIndex = 0;

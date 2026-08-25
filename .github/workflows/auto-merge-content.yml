@@ -443,7 +443,7 @@ jobs:
           # already documents for itself.
           branch_ok=0
           case "${HEAD_REF:-}" in
-            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|fix/karen-tickets|kevin/user-fixes)
+            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|fix/karen-tickets|kevin/user-fixes)
               branch_ok=1 ;;
           esac
           author_ok=0

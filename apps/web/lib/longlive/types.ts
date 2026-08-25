@@ -944,6 +944,11 @@ export interface SinglePeriod {
   end: string | null;
   eraIds: EraId[];
   note: string;
+  /** Deeper sourced narrative for consequential solo chapters. Short gaps
+   * intentionally keep only the caption-like note. */
+  context?: string;
+  /** Citations backing every factual claim in `context`. */
+  sources?: EggSource[];
   /** Songs associated with what she was writing/releasing during this stretch. */
   songs?: LoveStorySong[];
 }

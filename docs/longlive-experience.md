@@ -473,6 +473,23 @@ heavy-heartbreak intro.
 
 ---
 
+### Casual-language guardrails
+
+Mood's keyword fallback recognizes the issue-named casual register (including
+breakup rumination, 1am/2am/4am, `meh`/`bored`/`idk`/`eh`, promotions, work
+stress, fatigue, and loneliness). Three narrow matcher intents keep loneliness
+on a hand-checked companionship set, work stress on calm mid-valence relief,
+and bare fatigue away from breakup devastation; the general eight-axis matcher
+is unchanged for every other query.
+
+Clownbot's empty chat state defines *clowning*, *delulu*, and *Easter egg* in
+plain language and offers four concise composer prefills, all readable without
+prior lore. Explicit meta-questions such as `what is clowning?` are answered by
+`clown-explain.ts` before retrieval, memory, usage reservation, or the agent
+loop. Prefill taps never auto-send.
+
+---
+
 ## 8. Recipes
 
 **Add a moment to an era:** add a `RawItem` to the correct `EraId` array in

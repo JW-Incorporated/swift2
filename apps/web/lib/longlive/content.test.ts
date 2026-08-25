@@ -160,6 +160,7 @@ describe('CONTENT dataset invariants', () => {
       'white-horse-single-release',
       'fearless-platinum-edition',
       'today-was-a-fairytale-release',
+      'fearless-billboard-no-1-debut',
     ]);
     expect(fearless.length).toBeGreaterThan(0);
 

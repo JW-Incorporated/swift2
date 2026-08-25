@@ -38,7 +38,17 @@ type Location = {
 };
 
 // Best-effort per-instance rate limit (serverless instances are ephemeral, so
-// this only blunts bursts on a warm instance — not a security control).
+// this is bounded per WARM INSTANCE, not globally — an attacker spread across
+// enough cold-started instances still gets more than MAX_PER_WINDOW total.
+// There's no shared KV/Redis/Postgres rate-limit store anywhere in this repo
+// to back it with today (checked), and standing one up is out of scope for
+// this fix — this limitation is real and still open, tracked on #1973.
+//
+// What #1973 actually exploited IS closed here: the IP key comes from
+// trustedClientIp() below (Vercel-set `x-real-ip`, or the edge-appended
+// rightmost `x-forwarded-for` hop), not the client-spoofable leftmost XFF
+// value, so a script can no longer manufacture a fresh bucket per request
+// just by rotating a header.
 const HITS = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 5;
@@ -49,6 +59,27 @@ function rateLimited(ip: string): boolean {
   recent.push(now);
   HITS.set(ip, recent);
   return recent.length > MAX_PER_WINDOW;
+}
+
+// Trust ONLY the header layer Vercel's own edge controls, not whatever a
+// client hands us (#1973). `x-forwarded-for` is a client-EXTENDABLE chain —
+// each proxy APPENDS its own hop, it never overwrites earlier entries — so
+// the FIRST (leftmost) value is attacker-supplied; sending a random XFF per
+// request used to buy a fresh, never-limited bucket every time. `x-real-ip`
+// is set by Vercel's edge network from the actual peer of the request that
+// reached it, not forwarded through from a client-sent header of the same
+// name, so it's the trustworthy value; the rightmost `x-forwarded-for` entry
+// (the hop Vercel's own edge appended) is the fallback if `x-real-ip` is ever
+// absent.
+export function trustedClientIp(req: Request): string {
+  const real = req.headers.get('x-real-ip')?.trim();
+  if (real) return real;
+  const xff = req.headers.get('x-forwarded-for');
+  if (xff) {
+    const hops = xff.split(',').map((h) => h.trim()).filter(Boolean);
+    if (hops.length) return hops[hops.length - 1];
+  }
+  return 'unknown';
 }
 
 const clip = (s: unknown, n: number): string =>
@@ -82,6 +113,18 @@ export function bodyFrom(message: string, loc: Location): string {
   // as a code span (GitHub renders code literally — no autolink, no markdown).
   const code = (s: string): string => (s ? `\`${s.replace(/`/g, "'")}\`` : '');
 
+  // Wrap multi-line free-text in a fenced code block whose fence is longer
+  // than any backtick run already inside it, so the fence can't be broken out
+  // of. GitHub renders NOTHING inside a code fence as markdown — no
+  // autolinks, no `[text](url)` links, no `![alt](url)` images (#1974) — the
+  // same no-markdown guarantee the code-spanned single-line fields above
+  // already rely on, just for text that needs to stay multi-line.
+  const fence = (s: string): string => {
+    const longestRun = Math.max(0, ...(s.match(/`+/g) ?? []).map((run) => run.length));
+    const bar = '`'.repeat(Math.max(3, longestRun + 1));
+    return `${bar}\n${s}\n${bar}`;
+  };
+
   const locLines = [
     loc.eraName || loc.eraId
       ? `- **Era:** ${defangGitHub(clip(loc.eraName, 80)) || ''}${loc.eraId ? ` (\`${clip(loc.eraId, 40)}\`)` : ''}`
@@ -100,12 +143,12 @@ export function bodyFrom(message: string, loc: Location): string {
     '',
     '**What they reported:**',
     '',
-    // Blockquote each line so multi-line feedback renders cleanly. Defang first
-    // so mentions/refs in the feedback text can't ping people or backlink issues.
-    defangGitHub(message)
-      .split('\n')
-      .map((l) => `> ${l}`)
-      .join('\n'),
+    // Fenced code block, not a blockquote: `> ` does NOT stop markdown link
+    // or image syntax from linkifying/rendering inline (#1974) — a submitter
+    // could otherwise plant a phishing link or a tracking pixel in what looks
+    // like a trusted internal ticket. Defang first (belt), fence second
+    // (suspenders) — mentions/refs/links/images all render as inert text.
+    fence(defangGitHub(message)),
     '',
     '**Where (in-app location where feedback was given):**',
     locLines.length ? locLines.join('\n') : '- _(no location captured)_',
@@ -138,10 +181,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: 'Please enter some feedback.' }, { status: 400 });
   }
 
-  const ip =
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown';
+  const ip = trustedClientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json(
       { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },

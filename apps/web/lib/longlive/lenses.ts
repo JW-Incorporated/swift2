@@ -651,6 +651,13 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
       { title: 'Our Song', relatedId: 'song:our-song' },
       { title: 'Teardrops on My Guitar', relatedId: 'song:teardrops-on-my-guitar' },
     ],
+    context:
+      'By the start of this chapter, Taylor had already bet on Nashville: Scott Borchetta saw her at the Bluebird Cafe and made the 15-year-old Big Machine\'s first signing. Her self-titled debut arrived in October 2006 with her name on every writing credit, turning the crushes and near-misses of high school into country songs before her dating life became a public storyline. "Tim McGraw" began as a math-class goodbye, "Teardrops on My Guitar" came from an unreturned crush, and the ninth-grade talent-show song "Our Song" became her first country No. 1. That long solo runway matters because the voice arrived before the celebrity mythology: she made looking in from the outside feel universal, then built the career that would put every future love story under a microscope.',
+    sources: [
+      { name: 'The Bluebird Cafe', url: 'https://bluebirdcafe.com/cool_timeline/taylor-swift/', reliability: 5, type: 'official' },
+      { name: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-debut-album-anniversary-7550054/', reliability: 4, type: 'reputable_press' },
+      { name: 'CBS News', url: 'https://www.cbsnews.com/news/second-cup-cafe-taylor-swift/', reliability: 4, type: 'reputable_press' },
+    ],
     note: 'Rising as a teenage songwriter — writing about love mostly from the outside looking in, before any of it was public.',
   },
   {
@@ -661,6 +668,13 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
     songs: [
       { title: 'You Belong with Me', relatedId: 'song:you-belong-with-me' },
       { title: 'The Best Day', relatedId: 'song:the-best-day' },
+    ],
+    context:
+      'She entered this stretch just after the publicly discussed Joe Jonas breakup, and the Fearless rollout immediately moved the focus back to the work. Released on November 11, 2008, Fearless carried teenage longing beyond country radio through "Love Story" and "You Belong with Me" while still centering the family memory of "The Best Day." By April 2009 she was opening her first headlining tour with a sold-out arena in Evansville, then carrying the show through North America, England, and Australia. This was no holding pattern between relationships: she went from breakout country act to arena headliner inside the ten-month window, with the album that would later make her the youngest Album of the Year winner at the time.',
+    sources: [
+      { name: 'TIME', url: 'https://time.com/4928223/taylor-swift-beefs-guide/', reliability: 4, type: 'reputable_press' },
+      { name: 'The Recording Academy', url: 'https://www.grammy.com/news/deep-10-taylor-swifts-fearless/', reliability: 5, type: 'official' },
+      { name: 'The Boot', url: 'https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/', reliability: 3, type: 'reputable_press' },
     ],
     note: 'Channeled the Jonas breakup into Fearless, which became the most-awarded country album in history.',
   },
@@ -685,6 +699,14 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
       { title: 'Long Live', relatedId: 'song:long-live' },
       { title: 'Enchanted', relatedId: 'song:enchanted' },
     ],
+    context:
+      'All 14 standard-edition songs on Speak Now carried Taylor\'s sole writing credit, a deliberate answer to critics who doubted her authorship. When the world tour opened in Singapore in February 2011, she turned those songs into full-scale theatre: costume changes, aerialists, fireworks, and a balcony suspended over the crowd. The run reached 110 shows across 19 territories, sold more than 1.6 million tickets, and closed in Auckland in March 2012 after grossing $123.7 million. In the middle of it, "Mean" won two Grammys, giving the album\'s answer-to-the-critics story a literal awards-show payoff. The solo stretch made independence visible: the writer of every song was also the headliner carrying them around the world.',
+    sources: [
+      { name: 'The Recording Academy', url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/', reliability: 5, type: 'official' },
+      { name: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-announces-speak-now-world-tour-950374/', reliability: 4, type: 'reputable_press' },
+      { name: 'Pollstar', url: 'https://news.pollstar.com/2012/03/27/taylor-swift-ends-world-tour-in-auckland/', reliability: 4, type: 'trade_press' },
+      { name: 'Touring Data', url: 'https://touringdata.wordpress.com/2020/12/11/taylor-swift-recap/', reliability: 3, type: 'trade_database' },
+    ],
     note: 'The Speak Now World Tour, fully solo.',
   },
   {
@@ -708,6 +730,15 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
       { title: 'Blank Space', relatedId: 'song:blank-space' },
       { title: 'Bad Blood', relatedId: 'song:bad-blood' },
     ],
+    context:
+      'Taylor spent the first half of this chapter carrying Red around the world, then used the long solo runway for a full identity reset: she moved from Nashville to Manhattan and presented 1989 as her first official pop album. "Shake It Off" opened the era at No. 1, then "Blank Space" replaced it at the top, making her the first woman to succeed herself on the Hot 100 while turning the serial-dater caricature into satire. By the end of this chapter, the famous-friend circle the press would call the "squad" was taking shape; its tour cameos and the star-packed "Bad Blood" video arrived just after this solo window closed, but their iconography grew out of the same friend-first reset. The visibility had a cost: later retrospectives describe the 1989 peak as oversaturation, with her omnipresence and celebrity circle becoming targets in the backlash that hardened in 2016. reputation\'s retreat did not come from nowhere - it was the shadow cast by a pop reinvention that had briefly made her look untouchable.',
+    sources: [
+      { name: 'Billboard', url: 'https://billboard.com/articles/news/6150193/taylor-swift-red-all-time-country-tour', reliability: 4, type: 'reputable_press' },
+      { name: 'TIME', url: 'https://time.com/3578249/taylor-swift-interview/', reliability: 4, type: 'reputable_press' },
+      { name: 'Slate', url: 'https://slate.com/culture/2014/12/taylor-swift-blank-space-is-back-to-back-number-1-hit-with-shake-it-off-is-this-her-imperial-moment.html', reliability: 4, type: 'reputable_press' },
+      { name: 'Slate Lexicon Valley', url: 'https://slate.com/human-interest/2015/07/taylor-swift-waka-flocka-and-squadgoals-how-squad-went-from-underdogs-to-queen-bees.html', reliability: 4, type: 'reputable_press' },
+      { name: 'Associated Press', url: 'https://apnews.com/article/a4002b50f70b5899a846baf3e20de5ab', reliability: 4, type: 'reputable_press' },
+    ],
     note: 'The "squad" era — peak pop, moving to New York, becoming untouchable.',
   },
   {
@@ -727,6 +758,15 @@ export const SINGLE_PERIODS: SinglePeriod[] = [
       { title: 'The Smallest Man Who Ever Lived', relatedId: 'song:the-smallest-man-who-ever-lived' },
       { title: 'loml', relatedId: 'song:loml' },
       { title: 'So Long, London', relatedId: 'song:so-long-london' },
+    ],
+    context:
+      'News of the Joe Alwyn breakup arrived on April 8, 2023, three weeks into the Eras Tour, though reporting said the six-year relationship had ended quietly before the public learned. The tour kept moving while a new record took shape around it, but this was not a clean five-month no-romance bubble: multiple outlets linked Taylor to Matty Healy in May and reported it over by early June, while neither artist confirmed a relationship on the record. Taylor later said The Tortured Poets Department contained writing from the previous two years, making these months one intense section of its gestation rather than the album\'s whole origin story. When the record arrived, "So Long, London" became its clearest goodbye to the Alwyn years, while "loml" supplied a broader loss-of-my-life elegy without Taylor naming its subject. What looks like a gap on the relationship timeline was a compressed transition: touring through one ending, writing through another reported attachment, and building the album that would preserve both kinds of fallout.',
+    sources: [
+      { name: 'CNN', url: 'https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html', reliability: 4, type: 'reputable_press' },
+      { name: 'Los Angeles Times', url: 'https://www.latimes.com/entertainment-arts/music/story/2023-06-05/taylor-swift-matty-healy-break-up-report', reliability: 4, type: 'reputable_press' },
+      { name: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-2am-surprise-secret-double-album-the-tortured-poets-department-1235660643/', reliability: 4, type: 'reputable_press' },
+      { name: 'E! News', url: 'https://www.eonline.com/news/1399781/untangling-taylor-swifts-heartbreaking-goodbye-to-joe-alwyn-in-so-long-london', reliability: 4, type: 'reputable_press' },
+      { name: 'NBC News', url: 'https://www.nbcnews.com/pop-culture/celebrity/joe-alwyn-taylor-swift-interview-rcna157354', reliability: 4, type: 'reputable_press' },
     ],
     note: 'Five months — the Eras Tour already mid-run, The Tortured Poets Department already being written.',
   },
@@ -750,14 +790,39 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     // the 2006 CMAs, Catherine Malandrino at the 2007 AMAs) were each a
     // single red-carpet card diluting the timeline — routed here as the
     // era's formal-gown counterpoint to the everyday look, rather than
-    // seven near-duplicate moments.
-    description: 'Sundresses, natural ringlet curls, and cowboy boots for everyday appearances — with a rotating cast of red-carpet gowns (Sandi Spika, Badgley Mischka, BCBG, Elvira, Catherine Malandrino) worn once each at her earliest award shows.',
+    // seven near-duplicate moments. The gowns themselves now have their own
+    // dedicated gallery card below (issue #722 walk-15's "destination half":
+    // a real second look per era, not just a description-line mention).
+    description: 'Sundresses, natural ringlet curls, and cowboy boots — the everyday uniform across her earliest public appearances, 2006-2008.',
     images: [
       { url: 'https://media.gettyimages.com/id/72424326/photo/nashville-tn-singer-taylor-swift-attends-the-40th-annual-cma-awards-at-the-gaylord.jpg?s=612x612&w=0&k=20&c=FMqoljbEnk8vDoj9GV31oa5bc-XfMFv5IBBru2GpOOU=', credit: 'Peter Kramer/Getty Images', caption: 'The 2006 CMA Awards — her first CMA red carpet, two weeks after her debut album released.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/74685453/photo/taylor-swift-accepts-breathrough-video-of-the-year-award-for-tim-mcgraw-at-the-the-curb-event.jpg?s=612x612&w=0&k=20&c=OXeqcfP0Cw1pyRw7pyQvqnnVwE6Tz-7uB4gLLHhUbDU=', credit: 'Kevin Mazur/WireImage', caption: 'Accepting the Breakthrough Video of the Year award for "Tim McGraw," 2007 CMT Music Awards.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/77768817/photo/nashville-tn-singer-taylor-swift-arrives-at-the-41st-annual-cma-awards-at-the-sommet-center-on.jpg?s=612x612&w=0&k=20&c=DHSYR2P-690lCn_YY6YDBibMaj2eXClOHL02I1xLbQE=', credit: 'Bryan Bedder/Getty Images', caption: 'The 2007 CMA Awards, the night she won the Horizon Award for Best New Artist.', kind: 'primary' },
     ],
-    shopTags: ['Cowboy boots', 'Sundress', 'Acoustic guitar', 'Sandi Spika gown', 'Badgley Mischka gown'],
+    shopTags: ['Cowboy boots', 'Sundress', 'Acoustic guitar'],
+  },
+  {
+    // Second look per era (issue #722 walk-15, 2026-08-25): the gowns PR
+    // #3226 routed off the debut timeline, now built out as their own
+    // gallery instead of a bullet-point list in the look above. Photos and
+    // captions are the same real, already-fact-checked ones that ran on the
+    // removed timeline cards (git show f4f89e9c:supabase/seed/content/
+    // debut.mjs) — reused because they were sourced and curl-verified once
+    // already; re-verified live here via image-liveness.mjs's probe() on
+    // 2026-08-25 (all three returned HTTP 200/206 image/jpeg).
+    id: 'look-debut-red-carpet',
+    eraId: 'debut',
+    name: 'Award Season Gowns',
+    // Source: each gown/date/event below is the same fact set the removed
+    // debut.mjs timeline cards carried (Nylon, E! Online, Who What Wear,
+    // Hello! — see the pre-#3226 file for full citations).
+    description: 'Three formal counterpoints to the everyday sundress-and-boots look: a black satin Elvira mermaid gown at her first CMA Awards in 2006, a purple corseted Sandi Spika gown at her 2008 Grammys debut, and a gold sequined Badgley Mischka gown for her first Met Gala the same year — each a single red-carpet turn from the era\'s earliest and biggest nights.',
+    images: [
+      { url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces', credit: 'Stephen Lovekin/WireImage/Getty Images', caption: 'The 40th CMA Awards, Nov. 6, 2006 — a black satin Elvira mermaid gown with matching long gloves, weeks after her debut album released.', kind: 'primary', focalPoint: '47% 13%' },
+      { url: 'https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg', credit: 'Getty Images', caption: 'The 50th Grammy Awards, Feb. 10, 2008 — her red carpet debut at music\'s biggest night, in a strapless corseted purple Sandi Spika gown.', kind: 'primary', focalPoint: '53% 11%' },
+      { url: 'https://static.gofugyourself.com/uploads/2016/04/80995253-taylor-swift-met-ball-2008-510x736.jpg', credit: 'Getty Images', caption: 'Her first Met Gala, May 5, 2008 — a gold sequined Badgley Mischka gown for that year\'s "Superheroes: Fashion and Fantasy" theme.', kind: 'primary' },
+    ],
+    shopTags: ['Elvira gown', 'Sandi Spika gown', 'Badgley Mischka gown'],
   },
   {
     id: 'look-fearless',
@@ -772,14 +837,33 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     // near-duplicate moments. The gold Reem Acra CMA gown and the Grammy-night
     // gowns are the same red-carpet run these photos already show; the era's
     // milestone moments (the CMA sweep, the Grammy AOTY win) keep their own
-    // dedicated timeline cards.
-    description: 'Gold sequined dresses with fringe hems, built for the 2009-2010 Fearless Tour stage — plus a rotating run of red-carpet gowns (Reem Acra, KaufmanFranco, Dolce & Gabbana) across the same award season — shimmer as the era\'s visual signature.',
+    // dedicated timeline cards. Those gowns now have their own dedicated
+    // gallery card below (issue #722 walk-15's "destination half").
+    description: 'Gold sequined dresses with fringe hems, built for the 2009-2010 Fearless Tour stage — shimmer as the era\'s visual signature.',
     images: [
       { url: 'https://media.gettyimages.com/id/90123128/photo/new-york-musician-taylor-swift-performs-during-the-fearless-tour-at-madison-square-garden-on.jpg?s=612x612&w=0&k=20&c=YHmf-SDSDaqBJE0v3LoyXCOEAfp5H7LAFhEFUaU6w2Q=', credit: 'Jason Kempin/Getty Images', caption: 'Onstage at Madison Square Garden on the Fearless Tour, August 2009 — the gold sequin-and-fringe stage costuming.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/92993789/photo/nashville-tn-musician-taylor-swift-attends-the-43rd-annual-cma-awards-at-the-sommet-center-on.jpg?s=612x612&w=0&k=20&c=KIGRyZPxBgSgnbtm12oyKoTLquqmZxGh8av7sZmCKio=', credit: 'Frederick Breedon/Getty Images', caption: '43rd Annual CMA Awards, November 2009, the night she won Entertainer of the Year.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/96320463/photo/los-angeles-ca-taylor-swift-accepts-award-at-the-52nd-annual-grammy-awards-held-at-staples.jpg?s=612x612&w=0&k=20&c=OYR0-P-tyCyeRV1MIuieQDkUbXUiw5f_u9Y_uGnC0PU=', credit: 'Kevin Mazur/WireImage', caption: 'The 52nd Grammys, January 2010 — the ceremony where Fearless won Album of the Year.', kind: 'primary' },
     ],
-    shopTags: ['Gold sequins', 'Fringe dress', 'Reem Acra gown', 'KaufmanFranco gown'],
+    shopTags: ['Gold sequins', 'Fringe dress'],
+  },
+  {
+    // Second look per era (issue #722 walk-15, 2026-08-25): same rationale
+    // as look-debut-red-carpet above — real photos reused from the removed
+    // fearless.mjs timeline cards (git show f4f89e9c:supabase/seed/content/
+    // fearless.mjs), re-verified live via probe() on 2026-08-25.
+    id: 'look-fearless-red-carpet',
+    eraId: 'fearless',
+    name: 'The Sweep-Season Gowns',
+    // Source: E! Online's CMA style retrospective, Femestella's Grammy
+    // retrospective — same facts the removed fearless.mjs cards carried.
+    description: 'Three gowns from Fearless\'s awards sweep: the gold Reem Acra she wore the night she took all four of her 2009 CMA nominations, the mauve Dolce & Gabbana cocktail dress from the 2010 Grammy pre-telecast ceremony where "White Horse" picked up her first two Grammy wins, and the navy KaufmanFranco off-the-shoulder sequin gown from that evening\'s main telecast, where Fearless won Album of the Year.',
+    images: [
+      { url: 'https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=', credit: 'Taylor Hill/WireImage, via Getty Images', caption: 'The gold Reem Acra gown on the Nov. 11, 2009 CMA Awards red carpet, the night she swept all four of her nominations.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=', credit: 'Kevin Winter/Getty Images', caption: 'A mauve Dolce & Gabbana cocktail dress at the Jan. 31, 2010 Grammy pre-telecast ceremony, accepting Best Country Song for "White Horse."', kind: 'primary', focalPoint: '49% 14%' },
+      { url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1', credit: 'Depositphotos, via Femestella', caption: 'A navy off-the-shoulder KaufmanFranco sequin gown at the same day\'s Grammy telecast, the night Fearless won Album of the Year.', kind: 'primary', focalPoint: '51% 12%' },
+    ],
+    shopTags: ['Reem Acra gown', 'Dolce & Gabbana dress', 'KaufmanFranco gown'],
   },
   {
     id: 'look-speak-now',
@@ -797,13 +881,34 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     // timeline with near-duplicate cards — routed here rather than re-told
     // one dress at a time. The album-cover Reem Acra gown and its 2nd-CMA/
     // 2nd-AMA milestone siblings keep their own dedicated timeline cards.
-    description: 'Sweeping ballgowns built for a costume change per song on the 2011-2012 Speak Now World Tour — the purple title-track gown is the era\'s signature image — with a rotating run of red-carpet gowns (Monique Lhuillier, J. Mendel, Elie Saab, Zuhair Murad) across the same award season.',
+    // Those red-carpet gowns now have their own dedicated gallery card below
+    // (issue #722 walk-15's "destination half").
+    description: 'Sweeping ballgowns built for a costume change per song on the 2011-2012 Speak Now World Tour — the purple title-track gown is the era\'s signature image.',
     images: [
       { url: 'https://media.gettyimages.com/id/133959142/photo/new-york-ny-taylor-swift-performs-onstage-during-the-speak-now-world-tour-at-madison-square.jpg?s=612x612&w=0&k=20&c=y1hMgJsHy019MpfDstyKuu9CzPYiJrhr-iiQITHWayM=', credit: 'Larry Busacca/Getty Images', caption: 'Closing the North American leg of the Speak Now World Tour at Madison Square Garden, November 2011.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/132337181/photo/the-45th-annual-cma-awards-red-carpet-arrivals-the-45th-annual-cma-awards-will-broadcast-live.jpg?s=612x612&w=0&k=20&c=euc9GyAZp1drmxPNmIEsGN2zWDBbxI37d1ciMgNoDKc=', credit: 'Jason Kempin/Disney General Entertainment Content via Getty Images', caption: '45th Annual CMA Awards red carpet, November 2011, Bridgestone Arena.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/119786566/photo/newark-nj-taylor-swift-performs-during-her-speak-now-tour-at-prudential-center-on-july-24-2011.jpg?s=612x612&w=0&k=20&c=k5Su-esMu6vC15bz_cmTkhZ_wHl0ur3FCzvg5TLO4CQ=', credit: 'Kevin Mazur/WireImage', caption: 'Performing at Prudential Center, Newark, on the Speak Now Tour, July 2011.', kind: 'primary' },
     ],
-    shopTags: ['Ballgown', 'Purple velvet', 'Roberto Cavalli fringe', 'Elie Saab gown'],
+    shopTags: ['Ballgown', 'Purple velvet', 'Roberto Cavalli fringe'],
+  },
+  {
+    // Second look per era (issue #722 walk-15, 2026-08-25): same rationale
+    // as look-debut-red-carpet above — real photos reused from the removed
+    // speak-now.mjs timeline cards (git show f4f89e9c:supabase/seed/content/
+    // speak-now.mjs), re-verified live via probe() on 2026-08-25.
+    id: 'look-speak-now-red-carpet',
+    eraId: 'speak-now',
+    name: 'Album-Era Red Carpet',
+    // Source: Yahoo/Insider's CMA style retrospective, Femestella's
+    // Speak-Now-era retrospective, Taste of Country — same facts the removed
+    // speak-now.mjs cards carried.
+    description: 'A run of red-carpet gowns from the Speak Now rollout: a strapless red Monique Lhuillier gown at the 2010 CMA Awards the same month the album topped the charts, a beaded gold Zuhair Murad minidress at the 2011 Vanity Fair Oscar Party — a designer relationship she\'d return to a year later in Zuhair Murad Couture at the Grammys — and a strapless pink Elie Saab sequin gown at the 2011 Billboard Music Awards, the night she won Country Artist of the Year.',
+    images: [
+      { url: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859', credit: 'Larry Busacca/Getty Images', caption: 'A strapless red Monique Lhuillier gown at the Nov. 10, 2010 CMA Awards, the same month Speak Now topped the charts.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=', credit: 'Jon Kopaloff/Getty Images', caption: 'A beaded gold Zuhair Murad minidress at the Feb. 27, 2011 Vanity Fair Oscar Party, Sunset Tower.', kind: 'primary' },
+      { url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg', credit: 'Depositphotos, via Femestella', caption: 'A strapless pink Elie Saab sequin gown at the May 22, 2011 Billboard Music Awards, the night she won Country Artist of the Year.', kind: 'primary' },
+    ],
+    shopTags: ['Monique Lhuillier gown', 'Zuhair Murad minidress', 'Elie Saab gown'],
   },
   {
     id: 'look-red',

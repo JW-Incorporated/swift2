@@ -1093,8 +1093,6 @@ export default {
             url: 'https://www.rollingstone.com/music/music-lists/best-albums-2020-1096814/taylor-swift-folklore-1096815/',
           },
         ],
-        // Real-photo pass (2026-07-09): official album cover from Wikipedia's
-        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
         // Photo-enrichment run 17 (2026-07-18, #762): added the lead collage
         // art of the Rolling Stone list itself (the article body's folklore
         // image is just the album cover — rejected as a duplicate). Hosted on
@@ -1236,18 +1234,11 @@ export default {
         // overuse checker's 4-use cap in its own era file. Genuinely thin
         // past 6 for this specific announcement-mechanics story.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
-            credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
-            caption: 'The cover art revealed in the July 23, 2020 announcement post.',
-            kind: 'primary',
-            focalPoint: '48% 70%',
-          },
           // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
           // real, verified photos from the actual announcement post and the
           // Beth Garrabrant forest shoot that introduced the album.
           {
-            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=465',
+            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=1000',
             focalPoint: '48% 22%',
             credit: 'Taylor Swift/Instagram, via The Guardian',
             caption: 'The black-and-white forest montage Taylor posted with the July 23 surprise announcement for folklore.',

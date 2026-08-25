@@ -7,6 +7,34 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-08-25 — Social caption register: from lowercase-warm-detached to "a fan in love, out loud"
+
+**Decision:** the social voice's *register* changes — captions must read as
+first-person fan reaction first, fact second (lead with the feeling, then
+the one concrete detail that earns it), with exclamation points,
+caps-for-emphasis, and up to 1-2 emoji welcome. The test: if a caption could
+be read aloud by a documentary narrator without sounding wrong, it's in the
+old voice and needs a rewrite. Everything else about the voice is
+unchanged and stays binding: sourcing is absolute (never invent a stat,
+quote, or event), the `#36`/Clownbot blocklist, Taylor never bare "Swift",
+no AI-tell phrases, never speak as Taylor or her team. Landed in
+`docs/marketing/social-strategy.md` §Voice, `docs/agents/runner-prompts/growth-draft.md`
+§Voice, and `docs/agents/runner-prompts/tree-plan.md` step 3's caption-judgment
+check (added: "does every caption sound like a fan in love with Taylor, not
+a historian? Detached-clever is drift.").
+
+**Why:** the prior register ("lowercase-warm... a fan telling a fan, not a
+brand announcing") had drifted toward flat, detached-clever copy that reads
+closer to a museum placard than a fan account. Joey's direct call: fans gush,
+and the account should sound like it.
+
+**Alternatives considered:** none — this is a voice/tone correction, not a
+new mechanism; no sourcing, blocklist, or attribution rule changes.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-08-25).
+
+---
+
 ## 2026-08-24 — Retired the last 6 live `media.gettyimages.com` comp URLs from seed content; replaced with real, verified, non-Getty images
 
 **Decision:** the 6 remaining `media.gettyimages.com` comp-image URLs still
@@ -5006,3 +5034,59 @@ refactor, fix CI/workflows, document decisions for non-money, non-credential
 calls). The one credential-gated piece — applying the DB migrations — remains
 HUMAN-ACTIONS #14 (Wyatt); the worker/freshness degrade above is what stops the
 alarms in the meantime without masking a real regression.
+
+## 2026-08-25 — Reversed: Reddit fan-source posture now includes comment bodies
+
+**Context:** the 2026-08-23 knowledge-engine kickoff entry (item 4, above)
+set Reddit-via-RSS to aggregate-only, hashed author, no comment bodies
+beyond what a public RSS already exposes — the most conservative posture
+available at build time, deliberately narrow pending a real product call.
+That call has now been made.
+
+**Decision:** Reddit comment bodies (not just post titles/selftext) are now
+in scope for the fan-signal/theory-detection pipeline. Joey's reasoning,
+verbatim: "that's public info, reddit people WANT their info public, that's
+the entire idea behind the site. I am an avid redditor and moderator, this
+is fact." Joey personally moderates Reddit communities and is speaking from
+direct standing in that community, not a guess — the prior posture's caution
+was appropriate given the alternative was pure speculation about Reddit
+users' expectations at build time.
+
+**Scope, still to be engineered:** comment threads (not just post bodies) on
+relevant subreddits become a real extract-stage input, specifically for
+detecting Easter-egg/theory/new-song discussion signal — the exact gap
+flagged in the 2026-08-25 architect (Fable) review dispatched this session.
+Hashed-author convention and every other privacy safeguard from the 2026-08-23
+entry stay in force (this reverses ONLY the no-comment-bodies clause, nothing
+else in item 4). Which subreddits, comment-depth/volume caps, and how this
+interacts with the parked Reddit Data API request (`HUMAN-ACTIONS.md` #12
+item... — see that file for current status) are engineering-scope questions
+for whoever implements this, not re-opened by this entry.
+
+**Approved by:** Joey, in chat, 2026-08-25 06:38 PDT.
+
+## 2026-08-25 — Detection-triggered social auto-post: confirmed live, not staged; email on every send
+
+**Context:** the "auto-stage social posts on official-upload detection"
+recommendation (2026-08-25 architect review + Joey's earlier "I want both,
+auto-stage and notify") ran into a real finding during implementation: this
+repo's social queue has had NO per-item founder-approval gate since
+2026-07-25 (`social/README.md`, `scripts/social/lib/queue.mjs`) — a file
+dropped in `social/queue/` with a near-term `scheduledAt` posts live on the
+next `social-poster.yml` cycle, no human review. "Auto-stage" as a
+safe-sounding middle ground doesn't exist in the current pipeline.
+
+**Decision:** Joey confirmed directly — no review gate wanted. Detection-
+triggered posts (official YouTube uploads, etc.) go straight into the
+existing queue mechanism exactly like every other social draft and post
+automatically on their scheduled time, same as today's Content Shift
+drafts. No new approval step, no new safety gate.
+
+**Also decided:** an email notification fires on every social post that
+actually goes out (not just failures — see the separate `social-poster.yml`
+failure-alert fix landing the same night), with a link to each platform the
+post reached. Joey's words: "I dont mind more emails for social" — this is
+an explicit, deliberate exception to the 2026-08-23 1-2/day founder-email
+cap, scoped only to social-post notifications.
+
+**Approved by:** Joey, in chat, 2026-08-25 06:49 PDT.

@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { evaluate, findConfirmingPr, REPAIR_SINCE, WINDOW_END } from './karen-post-repair-check.mjs';
+import { mkdtemp, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import {
+  evaluate,
+  findConfirmingPr,
+  readNewestReport,
+  REPAIR_SINCE,
+  WINDOW_END,
+} from './karen-post-repair-check.mjs';
 
 const pr = (n: number, title: string, mergedAt: string) => ({ number: n, title, mergedAt });
 
@@ -99,6 +108,34 @@ describe('evaluate — Karen DID run (confirmed)', () => {
       now: new Date('2026-08-16T14:35:00Z'),
     });
     expect(result.status).toBe('unconfirmed');
+  });
+});
+
+describe('readNewestReport', () => {
+  it('selects a same-day timestamped rerun over the unsuffixed first run', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'watchdog-cie-reports-'));
+    await writeFile(join(dir, '2026-08-24-cie-run.md'), 'first run', 'utf8');
+    await writeFile(join(dir, '2026-08-24-143022-cie-run.md'), 'rerun', 'utf8');
+
+    expect(readNewestReport(dir)).toMatchObject({
+      name: '2026-08-24-143022-cie-run.md',
+      date: '2026-08-24',
+      text: 'rerun',
+    });
+  });
+
+  it('still ranks a later unsuffixed date after an earlier timestamped date', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'watchdog-cie-reports-'));
+    await writeFile(join(dir, '2026-08-24-235959-cie-run.md'), 'older', 'utf8');
+    await writeFile(join(dir, '2026-08-25-cie-run.md'), 'newer', 'utf8');
+
+    expect(readNewestReport(dir)?.name).toBe('2026-08-25-cie-run.md');
+  });
+
+  it('returns null when the reports directory is empty or missing', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'watchdog-cie-reports-'));
+    expect(readNewestReport(dir)).toBeNull();
+    expect(readNewestReport(join(dir, 'missing'))).toBeNull();
   });
 });
 

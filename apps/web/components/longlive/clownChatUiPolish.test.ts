@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest';
  * (vitest runs `environment: 'node'`), same approach as `moodChatLayout.test.ts`.
  */
 const CHAT_SOURCE = readFileSync(join(__dirname, 'ClownChat.tsx'), 'utf8');
+const EMPTY_SOURCE = readFileSync(join(__dirname, 'ClownEmptyState.tsx'), 'utf8');
 const COMPOSER_SOURCE = readFileSync(join(__dirname, 'ClownChatComposer.tsx'), 'utf8');
 const HOOKS_SOURCE = readFileSync(join(__dirname, '..', '..', 'lib', 'longlive', 'clown-chat-ui.ts'), 'utf8');
 
@@ -24,8 +25,15 @@ describe('ClownChat empty state', () => {
     expect(CHAT_SOURCE).toContain('EMPTY_STATE_TEXT');
     expect(CHAT_SOURCE).toContain('messages.length === 0');
   });
-});
 
+  it('shows plain-language jargon definitions and prefill starters', () => {
+    expect(CHAT_SOURCE).toContain('ClownEmptyState');
+    expect(CHAT_SOURCE).toContain('focus({ preventScroll: true })');
+    expect(EMPTY_SOURCE).toContain('CLOWN_JARGON_GUIDE');
+    expect(EMPTY_SOURCE).toContain('CLOWN_STARTERS');
+    expect(EMPTY_SOURCE).toContain('onSelect(starter.prompt)');
+  });
+});
 describe('ClownChat composer auto-resize', () => {
   it('grows the textarea with typed content, capped at a fixed max height', () => {
     expect(COMPOSER_SOURCE).toContain('useAutoResizeTextarea');

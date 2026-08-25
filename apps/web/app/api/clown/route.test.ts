@@ -92,7 +92,6 @@ const fixtures = vi.hoisted(() => {
     DOCS: [CONFIRMED_DOC, DEBUNKED_DOC, ORANGE_DOORS_DOC, QUOTE_FIXTURE_DOC],
   };
 });
-
 vi.mock('../../../lib/longlive/clown-agent', () => ({
   runClownAgent: vi.fn(),
   AGENT_MAX_WALL_MS: 20_000,
@@ -114,6 +113,10 @@ vi.mock('../../../lib/longlive/clown-memory', () => ({
   incrementUserUsage: vi.fn(async () => true),
   loadClownHistory: vi.fn(async () => null),
   recordClownMemory: vi.fn(async () => {}),
+}));
+
+vi.mock('../../../lib/longlive/clown-predictions', () => ({
+  persistPrediction: vi.fn(async () => {}),
 }));
 
 // `resolveClownSession` is mocked (no Supabase env is set in this test file,
@@ -139,9 +142,11 @@ vi.mock('../../../lib/longlive/clown-index', async () => {
 import { POST } from './route';
 import { runClownAgent } from '../../../lib/longlive/clown-agent';
 import { incrementUserUsage, loadClownHistory, recordClownMemory } from '../../../lib/longlive/clown-memory';
+import { persistPrediction } from '../../../lib/longlive/clown-predictions';
 import { encodeSessionToken, resolveClownSession, type ClownSession } from '../../../lib/longlive/clown-session';
 import { CRISIS_MESSAGE, OUT_OF_SCOPE_MESSAGE, REFUSALS } from '../../../lib/longlive/clown-safety';
 import { FALLBACK_INTRO_CHIP, FALLBACK_INTRO_DEGRADED } from '../../../lib/longlive/clown-fallback';
+import { CLOWNING_DEFINITION } from '../../../lib/longlive/clown-explain';
 
 const CONFIRMED_DOC = fixtures.CONFIRMED_DOC as unknown as ClownDoc;
 const DEBUNKED_DOC = fixtures.DEBUNKED_DOC as unknown as ClownDoc;
@@ -219,6 +224,8 @@ beforeEach(() => {
   vi.mocked(loadClownHistory).mockResolvedValue(null);
   vi.mocked(recordClownMemory).mockReset();
   vi.mocked(recordClownMemory).mockResolvedValue(undefined);
+  vi.mocked(persistPrediction).mockReset();
+  vi.mocked(persistPrediction).mockResolvedValue(undefined);
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
 
@@ -227,6 +234,18 @@ afterEach(() => {
 });
 
 describe('POST /api/clown', () => {
+  it('answers "what is clowning?" deterministically before the agent loop (#1987)', async () => {
+    const res = await post({ text: 'what is clowning?' }, '10.1.0.1987');
+    expect(res.status).toBe(200);
+    const json = await res.json();
+    expect(json.kind).toBe('fallback');
+    expect(json.segments).toEqual([{ role: 'plain', text: CLOWNING_DEFINITION }]);
+    expect(json.sources).toEqual([]);
+    expect(json.investigation).toEqual([]);
+    expect(runClownAgent).not.toHaveBeenCalled();
+    expect(resolveClownSession).not.toHaveBeenCalled();
+  });
+
   it('valid query: a clean model take renders with its cited sources', async () => {
     vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
     const res = await post({ text: MASTERS_QUERY }, '10.1.0.1');
@@ -640,6 +659,51 @@ describe('POST /api/clown', () => {
       const call = vi.mocked(recordClownMemory).mock.calls[0][0];
       expect(call.session).toEqual(FIXTURE_SESSION);
       expect(call.question).toBe(MASTERS_QUERY);
+    });
+
+    it('keeps the response stream open until prediction and memory writes settle', async () => {
+      let resolveMemory!: () => void;
+      const memoryPending = new Promise<void>((resolve) => {
+        resolveMemory = resolve;
+      });
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      vi.mocked(recordClownMemory).mockReturnValueOnce(memoryPending);
+
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.16');
+      let streamClosed = false;
+      const answerPromise = finalAnswer(res).then((answer) => {
+        streamClosed = true;
+        return answer;
+      });
+      await vi.waitFor(() => expect(recordClownMemory).toHaveBeenCalledTimes(1));
+      expect(persistPrediction).toHaveBeenCalledTimes(1);
+      expect(streamClosed).toBe(false);
+
+      resolveMemory();
+      const answer = await answerPromise;
+      expect(answer.kind).toBe('take');
+      expect(streamClosed).toBe(true);
+    });
+
+    it('logs each rejected persistence write without replacing the answer', async () => {
+      vi.mocked(resolveClownSession).mockResolvedValueOnce(FIXTURE_SESSION);
+      vi.mocked(runClownAgent).mockResolvedValueOnce(agentRun());
+      vi.mocked(persistPrediction).mockRejectedValueOnce(new Error('prediction unavailable'));
+      vi.mocked(recordClownMemory).mockRejectedValueOnce(new Error('memory unavailable'));
+
+      const res = await post({ text: MASTERS_QUERY }, '10.4.0.17');
+      const answer = await finalAnswer(res);
+
+      expect(answer.kind).toBe('take');
+      expect(console.log).toHaveBeenCalledWith(
+        'clown:persistence-failed',
+        JSON.stringify({ target: 'prediction', message: 'prediction unavailable' }),
+      );
+      expect(console.log).toHaveBeenCalledWith(
+        'clown:persistence-failed',
+        JSON.stringify({ target: 'memory', message: 'memory unavailable' }),
+      );
     });
 
     it('an incoming clown_session cookie is decoded and passed through to resolveClownSession', async () => {

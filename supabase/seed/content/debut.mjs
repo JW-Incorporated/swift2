@@ -153,13 +153,6 @@ export default {
             focalPoint: '50% 60%',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG',
-            credit: 'Wikimedia Commons (public domain)',
-            caption: 'A real 2006 appearance — curly hair and printed dress, months into her first year as a signed artist.',
-            kind: 'archival',
-            focalPoint: '68% 35%',
-          },
-          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Taylor_Swift_at_Yahoo_2007.jpg',
             credit: 'Brian Cantoni / Wikimedia Commons, CC BY 2.0',
             caption: 'Holding a certified-sales plaque for the debut album at a Yahoo event, May 16, 2007.',
@@ -327,8 +320,7 @@ export default {
       title: 'A Place in This World, written at 13',
       snippet: 'Written years before the album came out, after watching a TV special about Faith Hill\'s move to Nashville.',
       sourceUrl: 'https://en.wikipedia.org/wiki/A_Place_in_This_World',
-      thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
       moment: {
         context:
           'She wrote it at 13 while still living in Pennsylvania and making regular trips to Nashville, working out whether a music career was even reachable:\n\n"It was tough trying to find out how I was going to get where I wanted to go... I\'m really happy this is on the album, because I feel like I finally figured it out."',
@@ -340,11 +332,6 @@ export default {
         // API-verified CC BY-SA 2.0, minds-eye; downloaded and visually confirmed debut-era
         // Taylor onstage). Focal points set per image by viewing.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
-            credit: 'Wikimedia Commons',
-            focalPoint: '70% 16%',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
             credit: 'minds-eye / Wikimedia Commons, CC BY-SA 2.0',
@@ -1078,15 +1065,9 @@ export default {
         ],
         photos: [
           {
-            // Image-fix pass (2026-07-10): CIE #156 — old songfacts.com cover was a 145x145
-            // low-res file. Swapped for Wikipedia's 500x500 non-free cover file (curl 200,
-            // image/png; opened and viewed — correct debut cover). For 'debut-deluxe-edition'
-            // kept the standard cover (no verified deluxe-specific cover art found this session).
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
             credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
             kind: 'primary',
-            // Focal point set 2026-07-18 by viewing (500x500): her face sits
-            // center-right of the square cover, hair filling the frame.
             focalPoint: '60% 35%',
           },
           // Photo pass #762 (2026-07-18): still from the official Teardrops on
@@ -1692,17 +1673,6 @@ export default {
           },
         ],
         photos: [
-          {
-            // Image-fix pass (2026-07-10): CIE #156 — old songfacts.com cover was a 145x145
-            // low-res file. Swapped for Wikipedia's 500x500 non-free cover file (curl 200,
-            // image/png; opened and viewed — correct debut cover).
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
-            credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
-            kind: 'primary',
-            // Focal point set 2026-07-18 by viewing (500x500): her face sits
-            // center-right of the square cover, hair filling the frame.
-            focalPoint: '60% 35%',
-          },
           // Photo pass #762 (2026-07-18): the song's story (written at 12,
           // about being the outsider) predates any public photography, so the
           // era-context add is the payoff shot instead — the girl from the

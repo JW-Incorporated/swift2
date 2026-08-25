@@ -2084,7 +2084,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          '"So I just got to my dressing room and found this actual olive branch. This means so much," Taylor said on her Instagram Story before taking the stage in Glendale, captioning the clip "Thank you Katy" with a heart. Only the note\'s opening — "Hello old friend" — was fully legible in the video; fans spent the night squinting at the rest of Perry\'s handwriting.\n\nThe gesture closed the loop on the falling-out widely understood to be behind "Bad Blood," a feud that had shadowed both discographies for four years — and it set up their on-camera reunion in the "You Need to Calm Down" video a year later.',
+          '"So I just got to my dressing room and found this actual olive branch. This means so much," Taylor said from her dressing room before taking the stage in Glendale, adding "Thank you Katy" with a heart. Contemporary coverage could clearly make out only the note\'s opening — "Hello old friend" — while the rest of Perry\'s handwriting remained difficult to read.\n\nThe gesture closed the loop on the falling-out widely understood to be behind "Bad Blood," a feud that had shadowed both discographies for four years — and it set up their on-camera reunion in the "You Need to Calm Down" video a year later.',
         sources: [
           {
             outlet: 'Billboard',
